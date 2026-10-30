@@ -25,7 +25,7 @@ public:
 	HullUpgradePacketClass(int ship_id, int hull_upgrade_level);	// 0x894A00
 	HullUpgradePacketClass(RawPacketClass *raw);	// 0x894AA0
 	virtual RawPacketClass *Build();	// +0x04 0x894B40
-	virtual bool Process_Packet(void *client);	// +0x08 0x7396C0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7396C0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x894C10
 	virtual int Print(char *buffer, int len);	// +0x10 0x894C30
 

@@ -78,8 +78,11 @@ Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` ove
 base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
 Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
 read-only flag). Hardware is copied from `Win10` (generation 2, Secure Boot `MicrosoftWindows`,
-4 GB dynamic memory, 8 vCPU, `Default Switch`); automatic checkpoints are off and the stop
-action is shut down.
+dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 2 GB (`STARTUP_GB`,
+2026-10-27: a 4 GB startup failed clone starts on a loaded host while the VMs run at ~1.1 GB; clones
+01-05 keep 4 GB until they are off, then `Set-VMMemory -StartupBytes 2GB`); automatic checkpoints are
+off and the stop action is shut down. The cap (`--max`, default 7) is set by host memory: check
+`Get-CimInstance Win32_OperatingSystem` free memory before raising it.
 
     python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=Daniel@ip,...
     ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
@@ -88,7 +91,7 @@ action is shut down.
     python tools/vc6/pool.py reclaim [--max-age 8] [--prune [--keep 2]]
     python tools/vc6/pool.py list | create [N] | destroy VM... | destroy --all-free
 
-`lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 5),
+`lease` reuses free VMs (running ones first), creates clones when short (cap `--max`, default 7),
 starts them, waits for the address (Hyper-V's KVP), SSH with the key and `cl`, and clears
 vc6.py's sync cache for that IP, so the first compile sends the tree (each leasee syncs its own;
 no warm cache, user decision). The host key of a pool IP is accepted on first sight
@@ -147,6 +150,7 @@ Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones).
 | DirectX 8 | github.com/edgeforce/directx8 (e6fa10f) | **8.0**: `D3D_SDK_VERSION` 120 | `DX8Wrapper::Init` calls `Direct3DCreate8(120)` (`push 0x78` at 0x921390): built against the 8.0 SDK, not 8.1 (220). The client contains `D3DX8 Shader Assembler Version 0.91`, the same string as this SDK's `d3dx8.lib` (D3DX was linked statically) | **Match** |
 | Bink | github.com/edgeforce/radtools (f42d146): `include/bink.h`, `lib/binkw32.lib` | `bink.h` 1.0p | The client imports 9 Bink functions; all 9 are in `binkw32.lib` with the same decorated names. The game's `binkw32.dll` is dated 2001-08-29 | **Match** |
 | Miles Sound System | same repository: `include/mss.h`, `lib/mss32.lib` | `mss.h` 6.1a (06-Mar-01); `lib/mss32.lib` older (its `tools/mss32.dll` says 6.0i) | The client imports 81 Miles functions. The game's `Mss32.dll` (6.1a, dated 2003-09-22) exports all 81. `mss32.lib` lacks 30 of them; `mss.h` declares all but one, `AIL_open_stream_by_sample`, which Renegade's WWAudio calls | **Usable, with two fixes** (below) |
+| SGI STL | SGI STL 3.3 (2000, the last SGI release), the 91 files of github.com/steveLauwh/SGI-STL `SGI-STL V3.3/` (a mirror of the sgi.com distribution), fetched 2026-10-26 to `SDK\stl-3.3`; read as data, nothing in it is run. Licence: the SGI (1996-1998) and Hewlett-Packard (1994) notices, "Permission to use, copy, modify, distribute and sell this software and its documentation for any purpose is hereby granted without fee, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation ... provided "as is" without express or implied warranty" (compatible with D1; kept in every copied file) | 3.3 | The client's hash_map (D87): the string hash `__stl_hash_string` (h*5+c), `__stl_prime_list` once per translation unit (0xAE701C, 0xAEB764, ...), the hashtable layout (functors, the bucket vector, the count). `stl_hashtable.h`, `stl_hash_map.h`, `stl_hash_set.h`, `stl_hash_fun.h` are adapted for VC6 in `libs\sgistl` (on the include path after the SDKs) by `tools/vc6/sgistl_adapt.py`'s edits, each marked `VC6 (E&B, D87)` | **Match** (kv_list.cpp, dbgconn.cpp) |
 
 ### Miles fixes
 
@@ -184,6 +188,17 @@ The 30 functions the old import library lacks are: `AIL_3D_sample_length`, `AIL_
 
 A Miles SDK whose `mss.h` declares `AIL_open_stream_by_sample` (6.1 or later, contemporary with
 Renegade, 2001–2002) would remove both fixes, but isn't required.
+
+### EA.Com's login component (authlogin.dll)
+
+`release\authlogin.dll` (114,688 bytes, linked 2002-07-17, 3.3.0.6) has no SDK or published source:
+it exports `AuthLoginLib_GetAuthorize` and `AuthLoginLib_GetComponentFactory`, undecorated, and the
+client imports only the factory (`LoginTaskClass::Fetch_EA_Ticket` 0x76A7B0). `tools/vc6/authlogin.def`
+lists the two names; `tools/vc6/mkauthlogin.py` turns it into `build/authlogin/authlogin.lib` with
+VC6's `lib /def` (undecorated names import correctly that way, unlike Miles' stdcall ones), and
+`build.py link` adds that library when it exists. The interfaces are declared in
+`app/client/unknown_authlogin.h` (D90 9a). No program here loads the real DLL: a test supplies a
+stand-in exporting the factory.
 
 ### Consequence for WW3D2
 

@@ -269,7 +269,7 @@ transforms are restored. Ten additive passes leave the screen at about (0.4,0.4,
 
 ```
 a = fmod(GetTickCount() * 5e-5, 2π); if (a > π) a = 2π - a;  // one cycle every 125.7 s
-sun = normalize(cos a, 0, sin a);  e = asin(sun.z); if (e < 0) { sun = -sun; e = -e; }
+sun = normalize(cos a, 0, sin a);  e = acos(sun.z); if (e < 0) { sun = -sun; e = -e; }  // 0x5286A0 is acos (never < 0)
 t = (π/2 - e) / π + 0.5;                                       // time of day, global 0x5EF190
 ```
 If the spline database exists, for each of `LightColor.Earth`, `LightIntensity.Sun`,
@@ -283,7 +283,7 @@ The outputs:
 * the sun light's direction field ([0x37..0x39]) = -sun;
 * its diffuse = clamp01(light colour);
 * the land scene's ambient = the sky term (`Set_Ambient_Light`);
-* a lighting record (sun direction, colours, 0.005 bias) goes to the Land's lightmap: `full`
+* a lighting record (sun direction, its elevation π/2 - e as SunAngle, colours, 0.005 bias) goes to the Land's lightmap: `full`
   rebuilds all of it (0x40A9F0), otherwise `Land::Update_Lightmap_ManualThreaded` (0x40AB10) does a
   time-sliced update;
 * `*out` = clamp01(sky colour), which becomes the fog and clear colour.

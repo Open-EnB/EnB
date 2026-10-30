@@ -110,10 +110,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new MovePacketClass(raw);
 			break;
 		case 21:
-			packet = new Packet_0015Class(raw);
+			packet = new FirePacketClass(raw);
 			break;
 		case 22:
-			packet = new Packet_0016Class(raw);
+			packet = new FireEquippedPacketClass(raw);
 			break;
 		case 23:
 			packet = new RequestTargetPacketClass(raw);
@@ -281,7 +281,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GlobalErrorPacketClass(raw);
 			break;
 		case 118:
-			packet = new Packet_0076Class(raw);
+			packet = new GlobalLoginPacketClass(raw);
 			break;
 		case 30000:
 			packet = new Packet_7530Class(raw);
@@ -332,7 +332,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new Packet_7545Class(raw);
 			break;
 		case 72:
-			packet = new Packet_0048Class(raw);
+			packet = new CreateCharacterPacketClass(raw);
 			break;
 		case 73:
 			packet = new Packet_0049Class(raw);
@@ -452,7 +452,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ClickIndicatorPacketClass(raw);
 			break;
 		case 106:
-			packet = new SoundPacketClass(raw);
+			packet = new ClientSoundPacketClass(raw);
 			break;
 		case 107:
 			packet = new SoundCommandPacketClass(raw);
@@ -512,7 +512,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new IncapacitanceRequestPacketClass(raw);
 			break;
 		case 142:
-			packet = new Packet_008EClass(raw);
+			packet = new IncapacitanceDistressBeaconPacketClass(raw);
 			break;
 		case 143:
 			packet = new Packet_008FClass(raw);
@@ -584,10 +584,10 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new SubPartsPacket(raw);
 			break;
 		case 181:
-			packet = new Packet_00B5Class(raw);
+			packet = new FindPlayerRequestPacketClass(raw);
 			break;
 		case 182:
-			packet = new Packet_00B6Class(raw);
+			packet = new FindPlayerResponsePacketClass(raw);
 			break;
 		case 183:
 			packet = new NoteListPacketClass(raw);
@@ -620,16 +620,16 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ClientChatListPacketClass(raw);
 			break;
 		case 234:
-			packet = new Packet_00EAClass(raw);
+			packet = new GMEditPlayerInventoryPacketClass(raw);
 			break;
 		case 235:
-			packet = new Packet_00EBClass(raw);
+			packet = new GMViewMissionLogPacketClass(raw);
 			break;
 		case 236:
-			packet = new Packet_00ECClass(raw);
+			packet = new GMDestroyItemPacketClass(raw);
 			break;
 		case 237:
-			packet = new Packet_00EDClass(raw);
+			packet = new GMResetMissionPacketClass(raw);
 			break;
 		case 165:
 			packet = new ClientChatEventPacketClass(raw);
@@ -662,7 +662,7 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new ConfirmedActionOfferPacketClass(raw);
 			break;
 		case 191:
-			packet = new Packet_00BFClass(raw);
+			packet = new ConfirmedActionTimeoutPacketClass(raw);
 			break;
 		case 192:
 			packet = new ConfirmedActionResponsePacketClass(raw);
@@ -755,28 +755,28 @@ PacketClass *Unknown_869790(RawPacketClass *raw)
 			packet = new GpsRequestPacketClass(raw);
 			break;
 		case 222:
-			packet = new Packet_00DEClass(raw);
+			packet = new GpsResponsePacketClass(raw);
 			break;
 		case 223:
-			packet = new Packet_00DFClass(raw);
+			packet = new DirLockRequestPacketClass(raw);
 			break;
 		case 224:
-			packet = new Packet_00E0Class(raw);
+			packet = new DirLockResponseGlobalPacketClass(raw);
 			break;
 		case 225:
-			packet = new Packet_00E1Class(raw);
+			packet = new DirLockResponseSectorPacketClass(raw);
 			break;
 		case 226:
-			packet = new Packet_00E2Class(raw);
+			packet = new DirLockReleasePacketClass(raw);
 			break;
 		case 227:
-			packet = new Packet_00E3Class(raw);
+			packet = new GlobalLockRequestPacketClass(raw);
 			break;
 		case 228:
-			packet = new Packet_00E4Class(raw);
+			packet = new GlobalLockResponsePacketClass(raw);
 			break;
 		case 229:
-			packet = new Packet_00E5Class(raw);
+			packet = new GlobalLockReleasePacketClass(raw);
 			break;
 		case 230:
 			packet = new Packet_00E6Class(raw);

@@ -1,0 +1,29 @@
+TCPListenerClass::Listen 0x82A470, S1 2026-10-27: best form (27 of 41 differing rows left): the code after the
+listen check nested in an else, line numbers kept:
+
+	FAIL_IF(ret == SOCKET_ERROR) {
+		closesocket(Socket);
+		Socket = INVALID_SOCKET;
+		return(false);
+	} else {
+
+	unsigned long on = 1;
+	ret = ioctlsocket(Socket, FIONBIO, &on);
+
+
+	FAIL_IF(ret == SOCKET_ERROR) {
+		closesocket(Socket);
+		Socket = INVALID_SOCKET;
+		return(false);
+	}
+	PortNumber = port;
+	return(true);
+	}
+}
+(the blank line after Listen's closing brace removed to keep Stop's line numbers)
+
+With it the listen failure keeps its own tail and the ioctlsocket failure jumps into it (the merge direction
+flipped). The client merges neither: its second tail reads Socket into eax (mov eax,[esi+4]; push eax), the first
+into ecx, so the two tails differ and are not cross-jumped. Ours reads both into ecx. Tried on top (no change):
+a SOCKET local for the second closesocket, a new int for the ioctlsocket result, `} else` before PortNumber,
+this->Socket.

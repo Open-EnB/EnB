@@ -1,0 +1,7 @@
+// @0x87F320
+ColorizationPacketClass::ColorizationPacketClass(int game_id, const std::vector<ColorizationRegionStruct> &regions) :
+	GameID(game_id),
+	Regions(regions)
+{
+	Channel = Unknown_14(GameID, -1);
+}

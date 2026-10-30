@@ -25,7 +25,7 @@ public:
 	DamagePacketClass(float damage, float modifer, int type, int inflicted, int source, int victim);	// 0x87FF60
 	DamagePacketClass(RawPacketClass *raw);	// 0x880030
 	virtual RawPacketClass *Build();	// +0x04 0x880110
-	virtual bool Process_Packet(void *client);	// +0x08 0x738970 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x738970 (cpacket.cpp, NOT EXACT)
 	virtual int Get_Data_Size();	// +0x0C 0x880220
 	virtual int Print(char *buffer, int len);	// +0x10 0x880240
 

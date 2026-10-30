@@ -43,5 +43,18 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x85F5C0
 
 };
+// 0x7543 (30019, not in the packet switch: sent only): vtable 0xB08FD8, constructor 0x85F660, 0x10 bytes
+class Packet_7543Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7543 (Print 'GameEditorProtocolVersion')
+{
+public:
+	Packet_7543Class(unsigned int server_protocol_version);	// 0x85F5F0
+	Packet_7543Class(RawPacketClass *raw);	// 0x85F660
+	virtual RawPacketClass *Build();	// +0x04 0x85F710
+	virtual bool Process_Packet(void *client);	// +0x08 0x85F820
+	virtual int Get_Data_Size();	// +0x0C 0x85F7D0
+	virtual int Print(char *buffer, int len);	// +0x10 0x85F7F0
+
+	unsigned int ServerProtocolVersion;	// +0x0C (4 bytes as they are)  // NAME 3: the client's Print text 'ServerProtocolVersion='
+};
 
 #endif

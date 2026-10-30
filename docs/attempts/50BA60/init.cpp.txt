@@ -1,0 +1,45 @@
+// NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60
+void MainViewClass::Unknown_04()
+{
+	ViewClass::Unknown_04();
+	Unknown1C->Set_Fog_Enable(false);
+	Unknown110 = new SimpleSceneClass;
+	Unknown114 = new SimpleSceneClass;
+	Scene = new MainViewSceneClass;
+	Unknown118 = new SimpleSceneClass;
+	Unknown11C = new SimpleSceneClass;
+	Unknown120 = new SimpleSceneClass;
+	DazzleLayer = new DazzleLayerClass;
+	Unknown128 = new MainViewDazzleHandlerClass(Client);
+	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
+	Radar = new RadarSystemClass((SClient *)Client->Unknown_18());
+	Unknown84 = new MainViewUnknown84Class((SClient *)Client->Unknown_18(), Create_Peek((RefCountClass *)Unknown_50()));
+	Unknown110->Set_Fog_Enable(false);
+	Unknown114->Set_Fog_Enable(false);
+	Scene->Set_Fog_Enable(false);
+	Unknown118->Set_Fog_Enable(false);
+	Orbitals = new OrbitalManager(Client, new MainViewOrbitalCallbackClass(this));
+	for (int i = 0; i < 4; i++) {
+		Unknown144[i] = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
+		Unknown144[i]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown144[i]->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown144[i]->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown154[i] = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
+		Unknown154[i]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown154[i]->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown154[i]->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown120->Add_Render_Object(Unknown154[i].Peek());
+	}
+	Unknown164 = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
+	Unknown164->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+	Unknown164->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
+	Unknown164->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+	WWProfileManager::Reset();
+	ProfileIterator = WWProfileManager::Get_Iterator();
+	StarField = Create_NEW(new StarFieldClass(Client->StarBudget));
+	Unknown114->Add_Render_Object(StarField.Peek());
+	Unknown_514480();
+	GraphicsChanged = true;
+	DefaultChanged = true;
+	Unknown_5146D0();
+}

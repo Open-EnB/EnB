@@ -1,0 +1,75 @@
+// app/shared/auxdata/rtti.h (new; G_ASSERT 'b' on line 32)
+/*
+**	Earth & Beyond client reconstruction.
+**
+**	Original location: e:\build\beta\G\app\shared\auxdata\rtti.h (the client's assert string
+**	'..\shared/auxdata/rtti.h', G_ASSERT 'b' on line 32: D25, D41).
+**
+**	The aux data's type test: a field's per-class global at +0x04 against the class's own. Inlined
+**	in most callers, out of line where the caller's budget runs out (0x5469C0 for DeltaStringClass,
+**	0x709B30 for the class with global 0xC4158C). The client doesn't name it (D24).
+*/
+
+#if defined(_MSC_VER)
+#pragma once
+#endif
+
+#ifndef __RTTI_H
+#define __RTTI_H
+
+#include "delta.h"
+#include "..\unknown_debug.h"
+
+
+
+
+
+
+
+// b as a T when its per-class global is T's, else NULL (the T * only picks the instance: VC6)
+template<class T> T *Unknown_Cast(T *, DeltaClass *b)  // NAME 1: neutral (D10)
+{
+	if (!b) {
+		G_ASSERT(b);
+		return(NULL);
+	}
+	return((b->m_Unknown04 == T::UnknownGlobal) ? (T *)b : NULL);
+}
+
+#endif //__RTTI_H
+
+// auxdata.h addition (after Unknown_Find_Field; includes rtti.h and delta_string.h)
+// T15 draft: the same lookup for any delta class C through rtti.h's type test (the C * only picks
+// the instance); the client's assert line through #line until one helper serves both forms.
+template<class C> C *Unknown_Find_Delta(C *type, DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)
+{
+	if (root) {
+		LookupClass *lookup = root->Get_Lookup();
+		DeltaClass *d = lookup->Find(name);
+		if (d) {
+			C *t = Unknown_Cast(type, d);
+#line 155 "..\shared/auxdata/auxdata.h"
+			G_ASSERT(t);
+			return(t);
+		}
+	}
+	return(NULL);
+}
+
+// co.cpp form 2 (form 1: the same five lookups as plain blocks, no Unknown_Field_Changed wrapper: every cast inlined, 20 calls vs 23)
+// 0x700400
+template<class C> inline bool Unknown_Field_Changed(C *type, char *aux_data, const char *field)  // NAME 1: neutral (D10)
+{
+	NameClass name(field);
+	C *t = Unknown_Find_Delta(type, (DeltaCompoundClass *)aux_data, name);
+	return(t && t->m_Unknown70 > 1);
+}
+bool ClientObjectClass::Unknown_700400()
+{
+	if (Unknown_Field_Changed((DeltaStringClass *)NULL, AuxData, "GuildName")) return(true);
+	if (Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A58Enum> *)NULL, AuxData, "GuildRank")) return(true);
+	if (Unknown_Field_Changed((DeltaStringClass *)NULL, AuxData, "GuildRankName")) return(true);
+	if (Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, AuxData, "SameGuildTagColor")) return(true);
+	if (Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, AuxData, "OtherGuildTagColor")) return(true);
+	return(false);
+}

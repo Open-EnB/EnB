@@ -1,0 +1,46 @@
+// 0x6F4290
+float ClientObjectClass::Unknown_6F4290()
+{
+	if (Unknown_6F5A40()) {
+		return(0.0f);
+	}
+	int id = Client->Unknown10BC;
+	Vector3 facing = Unknown98->Unknown_18(id);
+	float heading = facing.Z;
+	if (facing.Z < 0.0f) heading = facing.Z + 6.28318548f;
+	Vector3 rotation = Unknown98->Unknown_14(id);
+	float turn = rotation.Z;
+	if (rotation.Z == 0.0f) {
+		return(0.0f);
+	}
+	Matrix3D m = Unknown98->Unknown_08(id);
+	Vector2 dir(m[0][0], m[1][0]);
+	dir.Normalize();
+	if (dir.X * dir.X + dir.Y * dir.Y < 0.0001f) {
+		dir.X = 1.0f;
+		dir.Y = 0.0f;
+	} else if (dir.X < -1.0f) {
+		dir.X = -1.0f;
+	} else if (dir.X > 1.0f) {
+		dir.X = 1.0f;
+	}
+	float angle = (float)acos(dir.X);
+	if (dir.Y < 0.0f) {
+		angle = 6.28318548f - angle;
+	}
+	float diff = angle - heading;
+	if (fabs(diff) <= 0.001) {
+		return(0.0f);
+	}
+	if (turn > 0.0f) {
+		if (heading < angle) {
+			return(heading + 6.28318548f - angle);
+		}
+		return(heading - angle);
+	}
+	if (heading <= angle) {
+		return(diff);
+	}
+	return(angle + 6.28318548f - heading);
+}
+// co.h: Unknown98Class gains 'virtual Vector3 Unknown_18(int unknown);' at +0x18; co.cpp includes vector2.h and math.h. Form 1: the slot results as temporaries (.Z read directly): frame 0x48 vs 0x6C

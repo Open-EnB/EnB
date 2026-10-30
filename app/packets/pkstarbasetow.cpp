@@ -29,6 +29,39 @@ int StarbaseRequestPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {PlayerID=%d StarbaseID=%d Action=%d}", "Starbase_Request", PlayerID, StarbaseID, Action));
 }
 
+StarbaseSetPacketClass::StarbaseSetPacketClass(unsigned char action, unsigned char exit_mode, int starbase_id) :
+	StarbaseID(starbase_id),
+	Action(action),
+	ExitMode(exit_mode)
+{
+}
+
+StarbaseSetPacketClass::StarbaseSetPacketClass(RawPacketClass *raw)
+{
+	raw->Get(&StarbaseID, sizeof(StarbaseID));
+	raw->Get(&Action, sizeof(Action));
+	raw->Get(&ExitMode, sizeof(ExitMode));
+}
+
+RawPacketClass *StarbaseSetPacketClass::Build()
+{
+	RawPacketClass *raw = new RawPacketClass(79, Get_Data_Size());
+	raw->Add(&StarbaseID, sizeof(StarbaseID));
+	raw->Add(&Action, sizeof(Action));
+	raw->Add(&ExitMode, sizeof(ExitMode));
+	return(raw);
+}
+
+int StarbaseSetPacketClass::Get_Data_Size()
+{
+	return(sizeof(StarbaseID) + sizeof(Action) + sizeof(ExitMode));
+}
+
+int StarbaseSetPacketClass::Print(char *buffer, int)
+{
+	return(sprintf(buffer, "%s {StarbaseID=%d Action=%d ExitMode=%s}", "Starbase_Set", StarbaseID, Action, Sector_Type_Name(ExitMode)));
+}
+
 StarbaseTowPacketClass::StarbaseTowPacketClass(int starbase_id1, int tow_cost1, int starbase_id2, int tow_cost2, int starbase_id3, int tow_cost3) : StarbaseID1(starbase_id1), StarbaseID2(starbase_id2), StarbaseID3(starbase_id3), TowCost1(tow_cost1), TowCost2(tow_cost2), TowCost3(tow_cost3)
 {
 }

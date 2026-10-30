@@ -1,0 +1,44 @@
+// 0x6FF7A0 best form (T17): the string lookup through a one-line helper (depth +1) puts 4 of the 6 Unknown_Find_Field<DeltaStringClass> calls out of line
+// (the Name/Owner fallbacks of the first branch and Title; the client: all six, and fewer std::string helpers called).
+// Dead type tests (1, 2, 4 in front or behind) change nothing; the plain form (in co.cpp) inlines all six.
+static inline DeltaStringClass *Unknown_String_Field(char *aux_data, const NameClass &name) { return(Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)aux_data, name)); }  // NAME 1: neutral (D10)
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0  // NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse)
+void ClientObjectClass::Unknown_6FF7A0(std::string &text)
+{
+	DeltaStringClass *t;
+	if (!Unknown_6F5A40()) {
+		NameClass field("Name");
+		t = Unknown_String_Field(AuxData, field);
+		if (!t || !t->m_Unknown70) {
+			NameClass owner("Owner");
+			t = Unknown_String_Field(AuxData, owner);
+		}
+	} else {
+		NameClass owner("Owner");
+		t = Unknown_String_Field(AuxData, owner);
+		if (!t || !t->m_Unknown70) {
+			NameClass field("Name");
+			t = Unknown_String_Field(AuxData, field);
+		}
+	}
+	const char *name = (t && t->m_Unknown70) ? t->String : "Unknown";
+	if (Type == 0) {
+		text = std::string(name);
+	} else {
+		NameClass title_field("Title");
+		t = Unknown_String_Field(AuxData, title_field);
+		const char *title = (t && t->m_Unknown70) ? t->String : "";
+		if (*title) {
+			text = std::string(title) + " " + name;
+		} else {
+			NameClass rank_field("Rank");
+			t = Unknown_String_Field(AuxData, rank_field);
+			const char *rank = (t && t->m_Unknown70) ? t->String : "";
+			if (*rank) {
+				text = std::string(rank) + " " + name;
+			} else {
+				text = name;
+			}
+		}
+	}
+}

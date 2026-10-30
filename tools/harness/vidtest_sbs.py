@@ -9,7 +9,8 @@ run: starts build/programs/vidtest/vidtest.exe with the reference's arguments (6
      so both programs save the same presented frames (numbered from 1, one per Present). vidtest runs
      its tests to the end and exits with 1. Frames go to build/programs/vidtest/shots/. Unless the
      extra arguments give -sunangle, it passes the original's sun angle at its frame 700 (from the
-     GetTickCount stamps in ref/d3d8shot.log), since VIDTEST turns its sun with the clock.
+     GetTickCount stamps in ref/d3d8shot.log), since VIDTEST turns its sun with the clock. Unless they
+     give -art, it passes `-art build/art` when that folder exists, else warns (D120, artdir.py).
 sbs: for every frame both have (or the frames given), writes ours (left) and the original's (right)
      side by side to build/programs/vidtest/sbs/sbs_NNNNN.png, and prints the share of pixels that
      differ by more than 60 (sum of |dR|+|dG|+|dB|), sampled every other pixel.
@@ -24,6 +25,7 @@ import subprocess
 import sys
 import time
 
+import artdir
 import bmp2png
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -73,6 +75,7 @@ def run(extra):
         if angle is not None:
             extra = ['-sunangle', str(angle)] + extra
             print(f'-sunangle {angle} (the original\'s sun at its frame 700, from d3d8shot.log)')
+    extra = artdir.art_args(extra) + extra   # build/art unless -art is given (D120, D69)
     if os.path.isdir(SHOTS):
         shutil.rmtree(SHOTS)
     # vidtest takes the first occurrence of an argument, so the extra arguments come first

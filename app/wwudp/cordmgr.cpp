@@ -71,7 +71,7 @@ CordMgr::~CordMgr()
 // 0x858EC0, reduced: the client binds a data socket (ports 3755-3759) if none has room; here the
 // first data socket. The session id is the manager's counter (+0x1337 each time), the key two
 // random words (SecureRandomClass) when the connection is encrypted.
-CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
+int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
 {
 	CordDataSocketClass *record = 0; DataSockets_.getPointer(&record, 0);
 	CordConnectingClass *c = new CordConnectingClass;
@@ -91,7 +91,7 @@ CordConnectingClass *CordMgr::Connect(unsigned int ip, unsigned short port, bool
 		c->Key ^= random.Randval();
 	}
 	Pending_.addTail(c);
-	return c;
+	return(c->Session);
 }
 
 // 0x858A60, functional (NOT EXACT): SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2,
@@ -1469,6 +1469,19 @@ bool CordMgr::Cancel_Connect(int session)
 		}
 	}
 	return false;
+}
+
+// 0x8598F0 (via the game's 0x82E1D0; after Release 0x8596F0 in the client, here last so the log
+// calls keep their lines)
+int CordMgr::Pending_Messages()
+{
+	CordCon *con = 0;
+	int total = 0;
+	for (int i = 0; i < Connections_.length(); i++) {
+		Connections_.get(con, i);
+		total += con->Pending_Messages();
+	}
+	return total;
 }
 
 

@@ -15,11 +15,15 @@
 | [app-inventory.md](app-inventory.md) | E&B's own code: functions by source file, names, RTTI (generated) |
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [kernel-map.md](kernel-map.md) | The client's task kernel (KernelClass, the tasks, WinMain's start-up) and the packet layer (connections, the opcode factory, the handlers): a map and a reconstruction order |
+| [kernel-map-step9.md](kernel-map-step9.md) | Step 9's dependencies (2026-10-27): client.cpp's client base and SClient, the login and character-select screens with their UI base classes and CharacterViewClass, kcom auth (authlogin.dll), the login's data objects; an order with sizes and a recommendation |
+| [eval-d93.md](eval-d93.md) | The D93 model evaluation: tasks, candidates, protocol, scoring, the shared brief; the next coordinator session runs it first |
 | [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): spec per work item, link procedure |
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
+| [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
+| [commit-map.txt](commit-map.txt) | Old -> new commit hash per line (2026-10-29 history rewrite, D126): the tracked files cite new hashes; commit messages before 97a1df5 still cite the old ones (`grep ^<old> docs/commit-map.txt`) |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 
@@ -41,8 +45,13 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |
+| [data/attempts.csv](data/attempts.csv), [attempts/](attempts/) | the attempt log: every near miss tried and abandoned (status, score, forms, blocker class, evidence) and the stashed forms per address; read before a retry (builders.md §2) | `attempts.py record` (appends; `show`, `list`, `check` read it) |
 | [data/progress-history.csv](data/progress-history.csv) | one row per day: bytes of `.text` by state, exact functions, pairs, functions per library (measured on each day's last commit) | `tools/progress.py --history` |
 | [progress.svg](progress.svg), [progress_chart.svg](progress_chart.svg), [progress_map.svg](progress_map.svg) | the progress card, the history chart and the address map of `.text`, embedded in the README | `tools/progress.py` |
+
+Near misses: `tools/re/explain.py` classifies one (the classes and their levers: [workflow.md](workflow.md) §3.1's
+table, with the triage order and the two-attempt stop rule), `tools/vc6/flagsweep.py` rules compiler switches
+out, `tools/vc6/tryv2.py` / `tryvariants.py` try source forms.
 
 Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
 

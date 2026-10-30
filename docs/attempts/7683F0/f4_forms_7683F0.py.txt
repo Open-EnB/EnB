@@ -1,0 +1,147 @@
+# ==== .work/f4/v50_a.py
+C = 'app/client/tasks/tsk_login.cpp'
+H = 'app/client/tasks/tsk_login.h'
+
+OLD44 = ('// A 0x44-byte object (constructor 0x6191F0), four in each LoginUnknown88CClass\n'
+         'class LoginUnknown44Class\t// NAME 1: neutral (D10)\n'
+         '{\n'
+         'public:\n'
+         '\tLoginUnknown44Class();\t\t\t\t\t\t\t\t// 0x6191F0\n'
+         '\tchar Unknown00[0x44];\n'
+         '};\n')
+NEW44 = ('// A 0x20-byte object (constructor 0x618500 out of line; vtable 0xAEC91C over 0xAEADC8), two in each\n'
+         '// LoginUnknown44Class\n'
+         'class LoginUnknown20Class : public LoginInterfaceAEADC8Class\t// NAME 1: neutral (D10)\n'
+         '{\n'
+         'public:\n'
+         '\tLoginUnknown20Class();\t\t\t\t\t\t\t\t// 0x618500\n'
+         '\tvirtual void Unknown_00(void *visitor);\t\t\t\t// (vtable 0xAEC91C)\n'
+         '\tchar Unknown04[0x20 - 4];\n'
+         '};\n'
+         '\n'
+         '// A 0x44-byte object (vtable 0xAF78BC over 0xAEADC8), four in each LoginUnknown88CClass. Its constructor\n'
+         '// is inline (in 0x7688F0: the two 0x20-byte objects through ??_H with 0x618500) and out of line at\n'
+         '// 0x6191F0 (another file, where 0x618500 is inlined); the LoginTaskClass constructors call 0x6191F0.\n'
+         'class LoginUnknown44Class : public LoginInterfaceAEADC8Class\t// NAME 1: neutral (D10)\n'
+         '{\n'
+         'public:\n'
+         '\tLoginUnknown44Class() {}\n'
+         '\tvirtual void Unknown_00(void *visitor);\t\t\t\t// 0x4F6890 (vtable 0xAF78BC)\n'
+         '\tLoginUnknown20Class Unknown04[2];\t\t\t\t\t// +0x04\n'
+         '};\n')
+
+VEC = ['30', '3C', '48', '54', '60', '6C', '78', '84', '90']
+POD_DECL = ('// An entry of LoginTaskClass +0x350 (0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC; ')
+pod = [(H, POD_DECL, 'struct LoginFloat3 { float X, Y, Z; };\t// NAME 1: a plain 12-byte triple (no Vector3 operator=)\n\n' + POD_DECL)]
+for v in VEC:
+    pod.append((H, '\tVector3 Unknown%s;\t\t\t\t\t\t\t\t\t// +0x%s (Write: 12 bytes)\n' % (v, v),
+                '\tLoginFloat3 Unknown%s;\t\t\t\t\t\t\t\t// +0x%s (Write: 12 bytes)\n' % (v, v)))
+
+u44 = [(H, OLD44, NEW44)]
+E = '\tUnknown088C[Selected] = LoginUnknown88CClass();\n'
+dead1 = [(C, E, E.rstrip('\n') + ' Galaxies.size();\n')]
+
+V = {
+    'pod': pod,
+    'u44': u44,
+    'u44_pod': u44 + pod,
+    'u44_pod_dead1': u44 + pod + dead1,
+}
+COMPILE = [C]
+WATCH = ['0x7683F0', '0x7688F0', '0x7689C0', '0x767240', '0x7675D0', '0x76A370', '0x768CB0']
+
+# ==== .work/f4/v50_b.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\v50_a.py')
+C, H, u44, dead1 = A['C'], A['H'], A['u44'], A['dead1']
+
+# 27 plain floats in place of the nine Vector3 members: the same dword copies, no nested Vector3::operator=
+# expansions inside the implicit LoginUnknown350Class::operator= (the hypothesis: those nine nested inlines
+# are what makes ours call the assignment out of line while the client inlines it)
+VEC = ['30', '3C', '48', '54', '60', '6C', '78', '84', '90']
+floats = []
+for v in VEC:
+    o = int(v, 16)
+    floats.append((H, '\tVector3 Unknown%s;\t\t\t\t\t\t\t\t\t// +0x%s (Write: 12 bytes)\n' % (v, v),
+                   '\tfloat Unknown%02X, Unknown%02X, Unknown%02X;\t\t\t\t\t// +0x%s (Write: 12 bytes)\n' % (o, o + 4, o + 8, v)))
+
+V = {
+    'floats': floats,
+    'u44_floats': u44 + floats,
+}
+COMPILE = [C]
+WATCH = ['0x7683F0', '0x7688F0', '0x7689C0', '0x767240', '0x7675D0', '0x76A370', '0x768CB0', '0x85CB00']
+
+# ==== .work/f4/v50_c.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\v50_a.py')
+C, H, u44, dead1 = A['C'], A['H'], A['u44'], A['dead1']
+
+# Hypothesis: the inliner prices the implicit LoginUnknown350Class::operator= by its own member-copy nodes
+# (27 floats > 9 Vector3 calls > threshold > 9 POD block copies, from batches a/b). Nine Vector3s in one
+# sub-object are one node of the outer operator= (the nine Vector3::operator= expansions move a level down).
+VEC = ['30', '3C', '48', '54', '60', '6C', '78', '84', '90']
+OLDV = ''.join('\tVector3 Unknown%s;\t\t\t\t\t\t\t\t\t// +0x%s (Write: 12 bytes)\n' % (v, v) for v in VEC)
+NEWV = ('\tstruct LoginUnknown350VectorsStruct {\t\t\t\t// NAME 1: the nine Vector3s as one sub-object (one node of the implicit operator=)\n'
+        '\t\tVector3 Unknown30;\t\t\t\t\t\t\t\t// +0x30 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown3C;\t\t\t\t\t\t\t\t// +0x3C (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown48;\t\t\t\t\t\t\t\t// +0x48 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown54;\t\t\t\t\t\t\t\t// +0x54 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown60;\t\t\t\t\t\t\t\t// +0x60 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown6C;\t\t\t\t\t\t\t\t// +0x6C (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown78;\t\t\t\t\t\t\t\t// +0x78 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown84;\t\t\t\t\t\t\t\t// +0x84 (Write: 12 bytes)\n'
+        '\t\tVector3 Unknown90;\t\t\t\t\t\t\t\t// +0x90 (Write: 12 bytes)\n'
+        '\t} Vectors;\t\t\t\t\t\t\t\t\t\t\t// +0x30\n')
+grp = [(H, OLDV, NEWV)]
+
+# The client re-reads and re-tests the ID inside Is_Registered_Character after the ID == 0 early return (ours
+# threads the second test away): a const member function reads through a differently typed this
+IRC = '\tbool Is_Registered_Character() { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }'
+IRC_CONST = '\tbool Is_Registered_Character() const { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }'
+const = [(H, IRC, IRC_CONST)]
+
+V = {
+    'u44_grp': u44 + grp,
+    'u44_grp_const': u44 + grp + const,
+}
+COMPILE = [C]
+WATCH = ['0x7683F0', '0x7688F0', '0x7689C0', '0x767240', '0x7675D0', '0x76A370', '0x768CB0', '0x85CB00']
+
+# ==== .work/f4/v50_d.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\v50_a.py')
+C, H = A['C'], A['H']
+# the tree now carries the 44-class model: does reverting it bring 0x76B520 back (is the loss mine)?
+V = {
+    'revert44': [(H, A['NEW44'], A['OLD44'])],
+}
+COMPILE = [C]
+WATCH = ['0x7683F0', '0x7688F0', '0x76B520', '0x7675D0', '0x767240']
+
+# ==== .work/f4/v50_e.py
+C = 'app/client/tasks/tsk_login.cpp'
+H = 'app/client/tasks/tsk_login.h'
+OPDECL = '\tLoginUnknown88CClass &operator=(const LoginUnknown88CClass &that);\t// 0x55D8A0\n'
+U14 = '\tbool Unknown14;\t\t\t\t\t\t\t\t\t\t// +0x14\n\tchar Unknown15[0x30 - 0x15];\t\t\t\t\t\t// +0x15\n'
+U14N = '\tchar Unknown14[0x1A];\t\t\t\t\t\t\t\t// +0x14 (the implicit operator= 0x55D8A0 copies 0x1A bytes from +0x14 in one loop; 2 bytes of padding)\n'
+IRC = '\tbool Is_Registered_Character() { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }'
+IRC_DECL = '\tbool Is_Registered_Character();'
+IRC_DEF = ('\n// Defined out of class (inlined by the /Ob2 pass): the client re-reads and re-tests the ID after the ID == 0 return\n'
+           'bool LoginTaskClass::Is_Registered_Character()\n{\n\treturn Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0;\n}\n')
+
+# u1: the 0x160 object's assignment is the implicit one (0x55D8A0 is a memberwise copy with a 0x1A-byte loop
+# from +0x14): the client evaluates Unknown088C[Selected]'s address before constructing the temporary
+u1 = [(H, OPDECL, ''), (H, U14, U14N), (H, '\t\tUnknown14 = false;\n', '\t\tUnknown14[0] = 0;\n')]
+# lateirc: a member defined out of class, inlined by the optimizer's /Ob2 pass after the threading of
+# repeated tests (hypothesis for the client's un-threaded second ID test)
+TAIL = '**\tthem without fields (they belong there once app/packets decodes them).\n*/\n'
+lateirc = [(H, IRC, IRC_DECL), (C, TAIL, TAIL + IRC_DEF)]
+V = {
+    'u1': u1,
+    'lateirc': lateirc,
+    'u1_lateirc': u1 + lateirc,
+}
+COMPILE = [C]
+WATCH = ['0x7683F0', '0x7688F0', '0x7689C0', '0x55D8A0', '0x76B520', '0x768CB0', '0x767240', '0x7675D0', '0x76A370']
+

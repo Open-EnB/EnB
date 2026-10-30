@@ -57,12 +57,17 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'udpreplay')
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
+sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+import rootguard  # noqa: E402
 CAPS = roots.N7_CAPTURES
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
         r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp',
-        r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp']
+        r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp',
+        r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list
+        r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path (opcodes 11-14)
+        r'app\shared\avatar_desc.cpp']       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
 for _sub in ('', 'gameedit'):
@@ -72,6 +77,21 @@ for _sub in ('', 'gameedit'):
                        if f.startswith('pk') and f.endswith('.cpp') and f != 'pk.cpp')
 sys.path.insert(0, HERE)
 import convert as C  # noqa: E402
+
+# The messages whose rebuilt Build stamps a field with the aux-data clock (Unknown_Get_Ticks 0x4A3B40,
+# 0 in the harness: conn_replay.cpp), so it can't give the received bytes back: opcode -> the field's
+# offset in the message (header included). CLIENT_SET_TIME 52: ServerSent; REQUEST_TIME 68: TimeSent;
+# LOGIN 2: TimeSent after the login ticket (TicketClass::Get_Size, 0x40 bytes).
+TICKS = {2: 0x44, 52: 12, 68: 4}
+
+
+def masked(m):
+    """The message with its clock field zeroed (TICKS), else unchanged."""
+    if len(m) >= 4:
+        off = TICKS.get(struct.unpack_from('<h', m, 2)[0])
+        if off is not None and len(m) >= off + 4:
+            return m[:off] + bytes(4) + m[off + 4:]
+    return m
 
 
 def build(out):
@@ -85,8 +105,14 @@ def build(out):
         shutil.copy(os.path.join(src, fn), stage)
     with open(os.path.join(stage, 'app_sources.cpp'), 'w', newline='\r\n') as f:
         f.write('// app\\wwudp, compiled into the program (udpreplay.py build)\n')
+        # avatar_desc.cpp's typed adds (kv_encoder_base.h's, D104) are declared only under this macro, and
+        # an earlier file of this one translation unit includes kv_encoder_base.h first
+        f.write('#define UNKNOWN_PACKETDATA_BODIES\n')
         for p in WWUDP + CONN:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
+            if p.endswith('udpconn.cpp'):
+                # D95(a): conn_replay.cpp sends RECORDED's messages as received, from Receive's buffer
+                f.write('char *Conn_Receive_Buffer() { return(Buffer); }\n')
     B.PROGRAMS['udpreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
                                'subsystem': 'console', 'runtime': []}
     B.link_program('udpreplay', out)
@@ -672,10 +698,12 @@ def conn(name, exe, drops, step):
                 errors = int(q[3])
                 shorts = int(q[5])
                 BUILT[0] = int(q[7]) if len(q) > 7 else 0
+                RECORDED[0] = int(q[9]) if len(q) > 9 else 0
         return msgs, errors, sizes_bad, shorts, dropped
 
     ok = True
     BUILT = [0]     # the messages the rebuilt packet classes' Build wrote (conn_replay.cpp)
+    RECORDED = [0]  # D95(a): rebuilt classes whose client Build oversizes, sent as received (Recorded_Opcodes)
     for label, extra in [('capture replay', [])] + [('loop, drop every %d' % n, ['--loop', str(n)]) for n in drops]:
         tag = 'replay' if not extra else 'loop' + extra[1]
         plain, _, _, plain_short, _ = run_one(extra, os.path.join(WORK, '%s.%s.plain.txt' % (name, tag)))
@@ -689,11 +717,17 @@ def conn(name, exe, drops, step):
         # short) comes out as long as its header says (the factory takes the header's size): compared
         # over the bytes CordCon delivered
         resized = 0
+        timed = 0
 
         def same(a, b):
             if a == b:
                 return True
-            if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[:len(a)] == a[:len(b)]:
+            if masked(a) == masked(b):
+                return True
+            # D91: a recorded message whose own size field disagrees with its length (a message the dump
+            # cut short: alex7 session 625d #89 says 0x1E0A) is compared over the common length, skipping
+            # the 2-byte size field, which a rebuilt Build writes true
+            if len(a) >= 4 and struct.unpack_from('<h', a)[0] != len(a) and b[2:len(a)] == a[2:len(b)]:
                 return True
             return False
 
@@ -704,13 +738,14 @@ def conn(name, exe, drops, step):
             b = mine.get(k, [])
             if len(a) == len(b) and all(same(x, y) for x, y in zip(a, b)):
                 equal += 1
-                resized += sum(1 for x, y in zip(a, b) if x != y)
+                resized += sum(1 for x, y in zip(a, b) if x != y and masked(x) != masked(y))
+                timed += sum(1 for x, y in zip(a, b) if x != y and masked(x) == masked(y))
         line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
                'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
                '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d; ' \
-               'written by a rebuilt class\'s Build %d' % (
+               'written by a rebuilt class\'s Build %d (time field masked: %d); sent as received (D95) %d' % (
                    label, n_plain, n_mine, n_dropped, ', '.join('%s %s' % k for k in sorted(dropped)) or '-', equal,
-                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0])
+                   len(keys_all), sizes_bad, errors, shorts, plain_short, resized, BUILT[0], timed, RECORDED[0])
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:
@@ -746,7 +781,9 @@ def main():
     ap.add_argument('--aux', action='store_true')
     ap.add_argument('--drop', default='0,10,4', help='loop: drop every Nth datagram, for each N')
     ap.add_argument('--step', type=int, default=20, help='loop: ms per datagram of the dump')
+    ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
+    rootguard.check(__file__, a.root)   # D112(4): build writes build/, the others .work/harness/ (and test that tree)
     if a.cmd == 'build':
         build(a.out)
         return 0

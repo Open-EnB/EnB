@@ -47,11 +47,7 @@ OVERRIDES = {
         'virtual int Get_Type();\t// +0x28 0x8872E0  // NAME 2: what the derived classes\' return (their opcode)',
         'virtual bool Unknown_2C();\t// +0x2C 0x887300',
         'virtual const char *Get_Name();\t// +0x30 0x887320  // NAME 2: what the derived classes\' return (a name)',
-    ], [
-        'int {C}::Get_Type() { return(0x15); }',
-        'bool {C}::Unknown_2C() { return(false); }',
-        'const char *{C}::Get_Name() { return("{C}"); }',
-    ]),
+    ], []),	# rebuilt in pkfire.h (builder P10, 2026-10-27): its Get_Type / Unknown_2C / Get_Name are inline there
     22: ([
         'virtual int Get_Type() { return(0x16); }\t// +0x28 0x86E5D0',
         'virtual bool Unknown_2C() { return(false); }\t// +0x2C 0x86E5F0',
@@ -87,6 +83,55 @@ OVERRIDES = {
     ], [
         'bool {C}::Process_Packet(void *) { return(true); }',
     ]),
+    54: ([	# the handler is tsk_game.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    111: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B730 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    112: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B520 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    117: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B4A0 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    118: ([	# the handler is tsk_login.cpp's (builder T3's step 9, 2026-10-26)
+        'virtual bool Process_Packet(void *client);	// +0x08 0x76B9C0 (tsk_login.cpp)',
+    ], [
+        'bool {C}::Process_Packet(void *) { return(true); }',
+    ]),
+    119: ([	# its scalar deleting destructor 0x76B470 is emitted in tsk_login.cpp (builder T3's step 9)
+        'virtual ~{C}() {}	// +0x00 0x76B470 (inline: emitted in tsk_login.cpp)',
+    ], []),
+}
+
+# Names the client gives a class outside its packet code (builder T4's step 9: the log string of the
+# handler): opcode -> (name, tag or None for the client's own name)
+NAMES = {
+    118: ('GlobalLoginPacketClass', None),	# tsk_login.cpp's handler 0x76B9C0 logs 'GlobalLoginPacketClass recv'
+}
+
+# Fields instead of the unknown bytes, for classes whose fields another file's code reads (builder
+# T4's step 9 views in tsk_game.cpp / tsk_login.cpp): opcode -> member lines (they must fill the class)
+FIELDS = {
+    54: [	# tsk_game.cpp's handler 0x766FC0 hands Address and Port to Redirect
+        'int Unknown0C;\t// +0x0C',
+        'unsigned long Address;\t// +0x10  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)',
+        'unsigned short Port;\t// +0x14  // NAME 1: handed to Redirect (tsk_game.cpp 0x766FC0)',
+    ],
+    117: [	# tsk_login.cpp's handler 0x76B4A0: the log 'GlobalErrorPacketClass recv: %d : %d : %s'
+        'int Unknown0C;\t// +0x0C',
+        'int Error;\t// +0x10  // NAME 1: the log \'GlobalErrorPacketClass recv: %d : %d : %s\' (tsk_login.cpp)',
+        'std::string Message;\t// +0x14  // NAME 1: the same log',
+    ],
 }
 
 BEGIN = '// BEGIN pkclasses.py (generated: the switch 0x869790; do not edit by hand)'
@@ -113,6 +158,26 @@ def rebuilt_classes():
                 c = re.match(r'^class (\w+)', lines[i + 1])
                 if m and c:
                     out[int(m.group(1))] = (c.group(1), (sub + '\\' if sub else '') + fn)
+    return out
+
+
+def rebuilt_names():
+    """The names of every class a rebuilt header (app/packets/*.h but pk.h / pk_classes.h) declares:
+    a base the factory never makes is rebuilt when its name is among them (pk_classes.h then neither
+    declares it nor gives the harness its constructor or OVERRIDES' stubs)."""
+    out = set()
+    base = os.path.join(ROOT, 'app', 'packets')
+    for sub in ('', 'gameedit'):
+        d = os.path.join(base, sub)
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith('.h') or (not sub and fn in ('pk.h', 'pk_classes.h')):
+                continue
+            for l in open(os.path.join(d, fn)).read().splitlines():
+                m = re.match(r'^class (\w+)', l)
+                if m:
+                    out.add(m.group(1))
     return out
 
 
@@ -193,6 +258,8 @@ def main():
         else:
             r['name'] = 'Packet_%04XClass' % r['op']
             r['tag'] = 'NAME 1: neutral (D10): opcode 0x%04X' % r['op']
+        if r['op'] in NAMES:
+            r['name'], r['tag'] = NAMES[r['op']]
     seen = {}
     for r in sorted(rows, key=lambda r: r['state']):
         if r['name'] in seen:
@@ -265,6 +332,9 @@ def main():
         else:
             e['name'] = 'Unknown_%XPacketClass' % e['ctor']
             e['tag'] = 'NAME 1: neutral (D10)'
+    base_rebuilt = rebuilt_names()
+    for e in extra.values():
+        e['rebuilt'] = e['name'] in base_rebuilt
 
     # the stubs each class declares (not those it inherits from its base)
     for r in list(extra.values()) + rows:
@@ -329,14 +399,19 @@ def main():
                            '// NAME 1: neutral (D10)' % (off, off, f, line))
         for m in members:
             out.append('\t' + m.replace('{C}', r['name']))
-        if r['size'] > base_size:
+        if key(r) in FIELDS:
+            out.append('')
+            for f in FIELDS[key(r)]:
+                out.append('\t' + f)
+        elif r['size'] > base_size:
             out.append('\tchar Unknown%02X[0x%X];\t// +0x%02X' % (base_size, r['size'] - base_size, base_size))
         out.append('};')
         out.append('')
         return out
 
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
-        h += decl(e)
+        if not e['rebuilt']:
+            h += decl(e)
     done = set()
     for r in sorted(rows, key=lambda r: r['state']):
         if r['inline'] and r['base'].get('op') is not None and r['base']['op'] not in done:
@@ -386,7 +461,8 @@ def main():
           '#include "..\\..\\..\\app\\packets\\pk_classes.h"', '',
           'void Conn_Record(PacketClass *packet, RawPacketClass *raw);', '']
     for e in sorted(extra.values(), key=lambda e: e['ctor']):
-        st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
+        if not e['rebuilt']:
+            st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (e['name'], e['name']))
     for r in sorted(rows, key=lambda r: r['state']):
         if not r['inline'] and not r.get('rebuilt'):
             st.append('%s::%s(RawPacketClass *raw) { Conn_Record(this, raw); }' % (r['name'], r['name']))
@@ -400,8 +476,13 @@ def main():
     st.append('// What OVERRIDES declares out of line (the classes\' own files, not rebuilt)')
     allr = list(extra.values()) + rows
     for r in sorted(allr, key=lambda r: str(key(r))):
+        if r.get('rebuilt') and 'op' not in r:
+            continue
         for d in OVERRIDES.get(key(r), ([], []))[1]:
-            st.append(d.replace('{C}', r['name']))
+            d = d.replace('{C}', r['name'])
+            if any(s.startswith(d) for s in st):	# a rebuilt class's handler stub is above already (P9)
+                continue
+            st.append(d)
     stubs = '\n'.join(st) + '\n'
 
     # ---- clientstub.cpp: each stub on its client line (D25), the notes after the last one

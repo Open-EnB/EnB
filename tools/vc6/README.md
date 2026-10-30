@@ -23,17 +23,22 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 | `pool.py stop-idle [--minutes M]` | Stop free VMs idle for M minutes |
 | `pool.py create [N] [--max M]` | Make N differencing clones of the base disk |
 | `pool.py destroy VM...` or `--all-free` | Delete pool clones (never other VMs) |
-| `commit_mine.py MSGFILE SPEC.json [--base HEAD]` | Commit only your own work when the index is shared with other builders (D62): the `whole` paths as they are, plus only the hunks of shared files (`importer.py`, headers, `docs/data/*`) whose +/- lines contain your keywords; built in a private index, then the shared index is pointed at the new HEAD for those paths |
+| `commit_mine.py MSGFILE [SPEC.json] [--base REV] [--file NAME ...] [--addr A ...] [--path F ...] [--refresh-totals] [--dry]` | Commit only your own work when the index is shared with other builders (D62, D112(2)): the `whole` paths as they are, plus only the hunks of shared files (`importer.py`, headers) whose +/- lines contain your keywords; built in a private index (one per run) and landed by compare-and-swap (`commit-tree`, then `update-ref <branch> NEW OLD`; one rebuild on a moved HEAD, then a loud failure). `docs/data/imports.json` by entry: `--file NAME` (or a block-name key) takes that `files` block and its stem's `headers` rows (a header key as NAME takes that row), other builders' adjacent entries stay out; `in_tree_total` hunks dropped unless `--refresh-totals` (all libraries' count lines from the working copy). `attempts.csv`, `not-exact.md`, `names-review.md` by row, always: HEAD's file plus/minus the rows whose address (`--addr`, SPEC `addrs`, 0x keys, the --file blocks' in_tree) or file (`--path`, SPEC `files`/`whole`, the blocks' sources and headers) is yours; their count lines follow. `--dry` lists the choices |
+| `commit_rows.py` | commit_mine's row and entry merges (no git): csv records with multi-line fields, .md table rows by path, imports.json `files`/`headers` entries and count lines |
+| `wt.py new NAME [--base REV]` / `list` / `bring-over NAME [--target B] [--lib X] [--dry]` / `remove NAME [--delete-branch]` | Builder worktrees (D113). `new`: `.work/wt/NAME` on branch `wt/NAME` at REV (HEAD), junctions `.work/locks`, `pool`, `pseudo`, copies of `vc6_hosts.json`, the `.dgram` captures and the non-app libraries, the base in `.work/wt/NAME.base`; importer.py there runs as agent NAME. `bring-over`: the branch's commits not yet on B (master) are fast-forwarded or cherry-picked in a scratch worktree `NAME.bo` (attempts.csv conflicts by row union, names-review.md / not-exact.md regenerated, any other conflict refused), the libraries they touch verified there (`importer.py verify --pool 1`, then `replay`), and B moves only when nothing is lost against B's imports.json and the commits record what the verify gives: under the importer lock, by compare-and-swap, the checked-out worktree's uncommitted copies 3-way merged. `remove`: junctions first (rmdir), then `git worktree remove`; refuses a dirty worktree without `--force`. `list`: every worktree, its base, commits ahead, dirty or clean |
 
 ## Building and linking
 
 | Script | Does |
 |---|---|
-| `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles |
+| `auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP]` / `set N` | `sweep`: compile aux_roots.cpp alone (~5 s a variant, one pool VM leased and released, or `--host`) with each SYMBOL_PAD value and print pad -> which of the six end-of-file constructors are exact, and the all-six windows; the importer lock is taken per variant, not for the sweep (workflow.md 3.3). `set N`: write `SYMBOL_PAD` in `tools/re/auxroots.py` and regenerate aux_roots.h/.cpp |
+| `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty] [--root DIR]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles. Every build.py command refuses a cwd outside the script's own tree (rootguard.py) |
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step |
+| `rootguard.py` (module) | D112(4): `check(__file__, a.root)` refuses (naming both) when the cwd's git tree (nearest `.git`: a worktree under .work/ is its own) is not the tree holding the script; `--root DIR` replaces the cwd test and must name that tree. Used by build.py, appfile.py draft/match, udpreplay.py, clienttest.py |
 | `mkmss32.py def` / `lib [--out DIR]` | Make `mss32.def` from the game's Mss32.dll exports, then the import library `mss32.lib` (D51) |
-| `mss32.def`, `checked/enb_checked.h` | Generated export list; the forced header of the checked build (`ENB_CHECKED=1`) |
+| `mkauthlogin.py [--out DIR]` | Make `DIR/authlogin/authlogin.lib`, the import library of EA.Com's login component, from `authlogin.def` with VC6's `lib /def` (D90 9a; `build.py link` adds it when present) |
+| `mss32.def`, `authlogin.def`, `checked/enb_checked.h` | Export lists (Mss32.dll's generated, authlogin.dll's two names by hand); the forced header of the checked build (`ENB_CHECKED=1`) |
 | `layout.py CLASS HEADER [-I dir]...` | A class's member offsets as VC6 lays them out |
 | `sdk_patch.py` | Derive `radtools\include_enb` (the Miles headers as E&B's build had them) beside the SDK |
 | `runtime_match.sh` | Byte-match the VC6 runtime libraries and D3DX (`docs/data/bytematch-*`) |
@@ -54,17 +59,21 @@ python tools/vc6/importer.py add                                                
 python tools/vc6/importer.py assemble --evidence DIR                             DANGER, see below
 ```
 
+**Per-agent scratch (D112).** `importer.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
+
 **`assemble` restarts every library from its base copy.** Never run it on a tree with
 uncommitted work: the git tree is authoritative.
 
 | Script | Does |
 |---|---|
-| `pairs_cmp.py A.json B.json` | Compare the sets of `(lib, file, address)` pairs of two saved `imports.json` copies and print `gained` and `lost`: the fix loop keeps a change only if nothing is lost |
+| `pairs_cmp.py A.json B.json` | Compare the sets of `(lib, file, address)` pairs of two saved `imports.json` copies and print `gained`, `lost`, `lost outright` (addresses no file holds afterwards; D66(v) needs it empty) and `moves` (lost pairs whose address another file holds): the fix loop keeps a change only if nothing is lost |
 | `refresh_expected.py EVDIR LIB...` | Refresh a library's plan-time totals and expected counts from new evidence, keeping the tree decisions |
 | `annotations.py` | C-equivalent comments for inline assembly, inserted by the importer (module) |
 | `trial.py COPY LIB/FILE... [--keep-if-better] [--max-loss N] [--errors FILE]` | Swap files to another EA copy, verify, keep only if better |
 | `trial_all.py LIB COPY... [--log FILE]` | `trial.py` over every differing header/source pair |
-| `tryvariants.py LIB FILE VARIANTS.py` | Compile text-edit variants of one file; report the client functions each gains or loses |
+| `tryvariants.py LIB FILE VARIANTS.py` | Compile text-edit variants of one file; report the client functions each gains or loses. One library file at its top level only (no app subdirectories): otherwise use `tryv2.py` |
+| `tryv2.py VARIANTS.py` | Variants whose edits span several files (a header and its .cpp, two app files, app subdirectories): `V = {name: [(relpath, old, new)]}`, `COMPILE`, optional `WATCH` addresses, optional `EXTRA_INC` (extra include/sync directories, default `libs/sgistl`); gains/losses per variant, tree files restored. Prefer it for app code |
+| `flagsweep.py FILE SYMBOL ADDR [--source COPY] [--jobs N]` | Compiles FILE (or an untracked COPY of a library file) with every `/O1 /O2` x `/Ob0 /Ob1 /Ob2` x `/G3 /G4 /G5 /G6 /GB` in place of the library's switches (30 compiles, ~1 min on one VM) and ranks exact / `explain.py` class / masked residue: rules switches out in one run. So far no switch has ever fixed a near miss (workflow.md §3.1) |
 | `trydiff.py LIB FILE VARIANTS.py NAME` | Compile one variant and keep its object for `tools/re/objdiff.py` |
 | `zhall.py LIB DONOR [FILE...]` | For each function whose donor copy (Z, G, R) differs, splice it in, compile the file, print gains and losses; restores the file after each try |
 | `addpatch.py --block NAME [--title T] SPEC.py` | Apply patches to the tree and record them in one of importer.py's patch blocks |

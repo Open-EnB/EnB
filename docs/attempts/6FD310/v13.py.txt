@@ -1,0 +1,54 @@
+"""IB3 (D140): the last round on 0x6FD310. Base: IB2's v12 f1 (F8_Pool for DamageSpot / DamageLine,
+Blotch's find written out). Lever: a 'find if changed' inline with early returns around
+Unknown_Find_Field (if (!t) return NULL; if (t->m_Unknown70 <= 1) return NULL; return t;), a further
+non-tail multi-return expansion that should merge the find's NULL exits, the assert fall-through and the
+mark failure into one exit as the client does.
+g1: the helper for all three finds (inside F8_Pool for Spot / Line, and Blotch's explicit block).
+g2: the helper inside F8_Pool only (Spot / Line); Blotch's find and mark test left explicit.
+Line-neutral regions."""
+import os
+WT = r'C:\EnBDevelopment\EnB\.work\wt\ib3'
+C = 'app/client/co.cpp'
+src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
+
+BLANK = '}\n\n\n// 0x6FD2C0\n'
+assert src.count(BLANK) == 1
+AT = 'DeltaArrayClass<UnknownB01A40Type>'
+FINDC = ('static inline ' + AT + ' *F8_Find_Changed(DeltaCompoundClass *root, const NameClass &name) '
+         '{ ' + AT + ' *t = Unknown_Find_Field<' + AT + ' >(root, name); if (!t) return(NULL); '
+         'if (t->m_Unknown70 <= 1) return(NULL); return(t); }')
+POOL = ('static inline void F8_Pool(ClientObjectClass *o, const char *field, ' + AT + ' *&array, bool *changed, int count) '
+        '{ NameClass name(field); ' + AT + ' *t = F8_Find_Changed((DeltaCompoundClass *)o->AuxData, name); '
+        'array = t; if (t) { for (int i = 0; i < count; i++) changed[i] = t->Children[i]->m_Unknown70 > 1; } else { memset(changed, 0, count); } }')
+
+HELPERS = (C, BLANK, '}\n' + FINDC + ' ' + POOL + '\n\n// 0x6FD2C0\n')
+
+S0 = '\t{\n\t\tNameClass name("DamageSpot");\n'
+S2 = '\t{\n\t\tNameClass name("DamageBlotch");\n'
+END = '\tif (arrays[0] || arrays[1] || arrays[2]) {\n'
+a, m, b = src.index(S0), src.index(S2), src.index(END)
+
+
+def region(text, lo, hi):
+    old = src[lo:hi]
+    n = old.count('\n')
+    assert text.count('\n') <= n, (text.count('\n'), n)
+    return (C, old, text + '\n' * (n - text.count('\n')))
+
+
+POOLS = ('\tF8_Pool(this, "DamageSpot", arrays[0], spot_changed, 15);\n'
+         '\tF8_Pool(this, "DamageLine", arrays[1], line_changed, 10);\n')
+blotch = src[m:b]
+OLDF = ('\t\t' + AT + ' *t = Unknown_Find_Field<' + AT + ' >((DeltaCompoundClass *)AuxData, name);\n'
+        '\t\tif (t && t->m_Unknown70 <= 1) t = NULL;\n')
+assert blotch.count(OLDF) == 1
+blotch_c = blotch.replace(OLDF, '\t\t' + AT + ' *t = F8_Find_Changed((DeltaCompoundClass *)AuxData, name);\n')
+
+G1 = region(POOLS + blotch_c, a, b)   # Blotch via the helper (one line shorter, padded at the end)
+G2 = region(POOLS, a, m)              # Blotch unchanged
+
+V = {
+    'g1': [HELPERS, G1],
+    'g2': [HELPERS, G2],
+}
+ONLY = {0x6FD310}

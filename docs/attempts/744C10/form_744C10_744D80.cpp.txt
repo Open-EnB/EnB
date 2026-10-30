@@ -1,0 +1,54 @@
+// NOT EXACT: shape (explain.py; 11 masked rows, 3 with registers masked): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs; three forms (attempts.py show 0x744C10)
+// 0x744C10
+void SClient::Unknown_744C10()
+{
+	if (!BridgeInterface) return;
+
+	FAIL_IF(!CameraManager) return;
+	FAIL_IF(!CameraManager->Get_Player_Chase_Camera_Module()) return;
+	int arg = 0;
+	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && CameraManager->Get_Player_Chase_Camera_Module()->Unknown34) {
+		arg = MainView->Unknown_78();
+	}
+	BridgeInterface->Unknown_53BBC0(Unknown_514960(arg));
+}
+
+
+
+
+
+// NOT EXACT: shape (explain.py; 7 masked rows): the client stores Unknown12B0 before Unknown12B4 and pushes Heading before taking the mode's address; four forms (attempts.py show 0x744D80)
+// 0x744D80
+void SClient::Unknown_744D80()
+{
+	Unknown12B0 = Unknown10BC;
+	Unknown12B4 = 0;
+	CameraModeStruct &mode = CameraModes[CameraMode];
+	CameraManager->Set_Heading(mode.Heading);
+	CameraManager->Set_Distance(mode.Distance);
+	CameraManager->Set_Tilt(mode.Tilt);
+	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
+	CameraManager->Unknown_79B4B0(CameraMode == 0);
+	CameraManager->FOV = mode.FOV;
+	Unknown_744C10();
+}
+
+// sclient.h (T18): the declarations these forms need
+// The camera manager's +0x04, as far as SClient 0x744C10 reads it
+class ChaseCameraModuleClass	// NAME 2: the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10)
+{
+public:
+	char Unknown00[0x34];
+	bool Unknown34;										// +0x34 (0x744C10 asks the main view's slot +0x78 only when set)
+};
+
+// What the cdecl 0x514960 returns by value (mainview.cpp's neighbourhood): reference counted (Delete_This in
+// slot 0, the count at +0x04); 0x744C10 hands it to the bridge interface's 0x53BBC0
+class Unknown514960Class : public RefCountClass	// NAME 1: neutral (D10)
+{
+};
+RefCountPtr<Unknown514960Class> Unknown_514960(int arg);	// 0x514960 (0x744C10 passes the main view's +0x78 or 0)  // NAME 1 [arg]: neutral
+// sclient.cpp's BridgeInterfaceClass and CameraManagerClass:
+	void Unknown_53BBC0(const RefCountPtr<Unknown514960Class> &object);	// 0x53BBC0 (0x744C10)  // NAME 1 [object]: neutral
+	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	// (inline: 0x744C10's FAIL_IF)
+	BridgeInterface->Unknown_53BBC0(Unknown_514960(arg));

@@ -21,6 +21,21 @@
 #include "connect.h"
 #include "average.h"
 #include <stdio.h>
+#include <string>
+#include <hash_map.h>
+
+// The statistics wrapper's counts per packet name (the node's value at +0x18 / +0x20 / +0x28 / +0x2C)
+struct PacketStatsStruct	// NAME 2: what it holds
+{
+	PacketStatsStruct() : ReceivedBytes(0), SentBytes(0), ReceivedCount(0), SentCount(0) {}
+
+	__int64 ReceivedBytes;	// NAME 2: what it holds
+	__int64 SentBytes;		// NAME 2: what it holds
+	int ReceivedCount;		// NAME 2: what it holds
+	int SentCount;			// NAME 2: what it holds
+};
+typedef std::hash_map<std::string, PacketStatsStruct>
+	PacketStatsMap;	// NAME 2: what it holds
 
 // The log directory: network.ini's [Network] LogPath with the first free 3-digit suffix (0x824450)
 const char *Get_Log_Directory();	// NAME 2: what it does
@@ -62,7 +77,7 @@ class RateConnectionClass : public ForwardingConnectionClass	// NAME 2: what it 
 {
 public:
 	RateConnectionClass(ConnectionClass *connection);					// 0x824A90
-	virtual ~RateConnectionClass();										// +0x00 0x824C00 / 0x824C50
+	// +0x00 0x824C00 / 0x824C50: the implicit destructor (no vtable store of its own)
 	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x824CF0
 	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x824D90
 	virtual PacketClass *Receive();										// +0x0C 0x824E20

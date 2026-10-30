@@ -1,0 +1,95 @@
+"""F8 round, batch 1 for 0x6FBEF0: what spends the client's inline budget per find?"""
+import os
+import re
+
+WT = r'C:\EnBDevelopment\EnB\.work\wt\f8'
+C = 'app/client/co.cpp'
+CH = 'app/client/co.h'
+AUX = 'app/shared/auxdata/auxdata.h'
+PERM = 'app/shared/auxdata/permstr.h'
+DBG = 'app/shared/unknown_debug.h'
+
+src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
+start = src.index('void ClientObjectClass::Unknown_6FBEF0()')
+end = src.index('// 0x6FC880')
+FN = src[start:end]
+
+
+def sub(text, old, new, n=None):
+    c = text.count(old)
+    assert c >= 1 and (n is None or c == n), (old, c)
+    return text.replace(old, new)
+
+
+# --- acc1: inline accessors for the field's mark and value (the client's style: Get_Game_ID exists) ---
+VALUE_OF = 'static inline int Value_Of(DeltaTemplateClass<int> *t) { return(t->Value); }\nstatic inline unsigned Mark_Of(DeltaClass *d) { return(d->m_Unknown70); }\n'
+acc1 = FN
+acc1 = sub(acc1, 't && t->m_Unknown70 > 1', 't && Mark_Of(t) > 1', 1)
+acc1 = sub(acc1, '!t || t->m_Unknown70 <= 1', '!t || Mark_Of(t) <= 1', 1)
+acc1 = sub(acc1, 'stats && !stats->m_Unknown70', 'stats && !Mark_Of(stats)', 1)
+acc1 = sub(acc1, 'trail && !trail->m_Unknown70', 'trail && !Mark_Of(trail)', 1)
+acc1 = sub(acc1, 'UnknownF8 = t->Value;', 'UnknownF8 = Value_Of(t);', 2)
+acc1 = sub(acc1, 'trail ? trail->Value + 22 : 22', 'trail ? Value_Of(trail) + 22 : 22', 1)
+acc1 = sub(acc1, 'level = stats->WarpPowerLevel.Value;', 'level = Value_Of(&stats->WarpPowerLevel);', 1)
+ACC1 = [(C, FN, VALUE_OF + acc1)]
+
+# --- acc2: acc1 plus accessors for the object's own members (Client, AuxData, Model, GameID) ---
+CO_H_OLD = '\tunsigned Get_Game_ID() { return(GameID); }'
+CO_H_NEW = CO_H_OLD + '\n\tClientClass *Get_Client_() { return(Client); }\n\tchar *Get_Aux_() { return(AuxData); }\n\tRenderObjClass *Get_Model_() { return(Model); }'
+acc2 = acc1
+acc2 = sub(acc2, '(DeltaCompoundClass *)AuxData', '(DeltaCompoundClass *)Get_Aux_()', 4)
+acc2 = sub(acc2, '((SClient *)Client)', '((SClient *)Get_Client_())')
+acc2 = sub(acc2, 'Client->', 'Get_Client_()->')
+acc2 = sub(acc2, '(Model, ', '(Get_Model_(), ')
+acc2 = sub(acc2, 'Unknown_28(GameID)', 'Unknown_28(Get_Game_ID())', 2)
+acc2 = sub(acc2, 'GameID == Get_Client_()->AvatarID', 'Get_Game_ID() == Get_Client_()->AvatarID', 1)
+ACC2 = [(C, FN, VALUE_OF + acc2), (CH, CO_H_OLD, CO_H_NEW)]
+
+# --- tmp: the names as temporaries in the call (the client's first three share one slot, [esp+0x2c]) ---
+tmp = FN
+tmp = sub(tmp, '\t\tNameClass name("PrivateWarpState");\n\t\tDeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);',
+          '\t\tDeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("PrivateWarpState"));', 1)
+tmp = sub(tmp, '\tNameClass name("GlobalWarpState");\n\tDeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);',
+          '\tDeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("GlobalWarpState"));', 1)
+tmp = sub(tmp, '\tNameClass stats_name("CurrentStats");\n\tDeltaStatsClass *stats = Unknown_Find_Field<DeltaStatsClass>((DeltaCompoundClass *)AuxData, stats_name);',
+          '\tDeltaStatsClass *stats = Unknown_Find_Field<DeltaStatsClass>((DeltaCompoundClass *)AuxData, NameClass("CurrentStats"));', 1)
+tmp = sub(tmp, '\t\t\tNameClass trail_name("EngineTrailType");\n\t\t\tDeltaTemplateClass<int> *trail = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, trail_name);',
+          '\t\t\tDeltaTemplateClass<int> *trail = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("EngineTrailType"));', 1)
+TMP = [(C, FN, tmp)]
+
+# --- assertfn: G_ASSERT through an inline function (an expansion per assert: two per find) ---
+DBG_OLD = '#define G_ASSERT(expr)\t((expr) ? (void)0 : Unknown_Assert_Failed(#expr, __FILE__, __LINE__))'
+DBG_NEW = ('inline void Unknown_Assert_Check(bool ok, const char *expr, const char *file, int line) { if (!ok) Unknown_Assert_Failed(expr, file, line); }\n'
+           '#define G_ASSERT(expr)\tUnknown_Assert_Check((expr) ? true : false, #expr, __FILE__, __LINE__)')
+ASSERTFN = [(DBG, DBG_OLD, DBG_NEW)]
+
+# --- pstr_dtor: an empty PermString destructor (NameClass's implicit destructor then loops over Parts[10]) ---
+PERM_OLD = '\tPermString() : String(0) {}'
+PERM_NEW = PERM_OLD + '\n\t~PermString() {}'
+PSTR = [(PERM, PERM_OLD, PERM_NEW)]
+
+# --- lookup_wrap: the find's lookup and search through inline helpers (two more expansions per find) ---
+AUX_OLD = ('\tif (!root) return(NULL);\n'
+           '\tLookupClass *lookup = root->Get_Lookup();\n'
+           '\tDeltaClass *d = lookup->Find(name);\n'
+           '\tif (!d) return(NULL);\n')
+AUX_NEW = ('\tif (!root) return(NULL);\n'
+           '\tDeltaClass *d = Unknown_Lookup_Field(root, name);\n'
+           '\tif (!d) return(NULL);\n')
+AUX_HELPER_ANCHOR = 'template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)\n'
+AUX_HELPER = ('inline LookupClass *Unknown_Lookup_Of(DeltaCompoundClass *root) { return(root->Get_Lookup()); }\n'
+              'inline DeltaClass *Unknown_Lookup_Field(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Lookup_Of(root)->Find(name)); }\n')
+LOOKUP = [(AUX, AUX_HELPER_ANCHOR + '{\n' + AUX_OLD, AUX_HELPER + AUX_HELPER_ANCHOR + '{\n' + AUX_NEW)]
+
+acc3 = sub(acc2, 'Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, player ? 2.5f : 1.0f);',
+            'if (player) {\n\t\t\t\tUnknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 2.5f);\n\t\t\t} else {\n\t\t\t\tUnknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f);\n\t\t\t}', 1)
+ACC3 = [(C, FN, VALUE_OF + acc3), (CH, CO_H_OLD, CO_H_NEW)]
+V = {
+    'acc3': ACC3,
+    'acc1': ACC1,
+    'acc2': ACC2,
+    'tmp': TMP,
+    'assertfn': ASSERTFN,
+    'pstr_dtor': PSTR,
+    'lookup_wrap': LOOKUP,
+}

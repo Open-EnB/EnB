@@ -1,0 +1,66 @@
+# HL3: P-HL2-1 (Load_String 0x6C0430) and P-HL2-2 (Read_Completed_File 0x6AD4B0): two forms each, on HL2's stashes.
+import os
+REPO = r'C:\EnBDevelopment\EnB'
+C = 'app/client/fontdatabase.cpp'
+H = 'app/client/fontdatabase.h'
+T = 'app/client/tutorial_manager.cpp'
+
+# ---- HL2's best for Load_String (form 3: parsers out of line, points stored as struct copies)
+A_OLD = "}\n\n\nint FontDatabaseClass::Get_Blend_Type(StringClass &name)"
+A_NEW = "}\n\n#pragma auto_inline(off)\nint FontDatabaseClass::Get_Blend_Type(StringClass &name)"
+B_OLD = "\t\tvalues[i] = parts[i];\n\t}\n}\n\n\nFontStruct *FontDatabaseClass::Find_Font"
+B_NEW = "\t\tvalues[i] = parts[i];\n\t}\n}\n#pragma auto_inline(on)\n\nFontStruct *FontDatabaseClass::Find_Font"
+
+
+def point(key, mem, var, typed):
+    old = (f"\t\tconst TPoint2D<float> &{var} = ini.Get_Point(section, \"{key}\", origin);\n"
+           f"\t\tstr->{mem}[0] = {var}.X;\n\t\tstr->{mem}[1] = {var}.Y;\n")
+    lhs = f"str->{mem}" if typed else f"*(TPoint2D<float> *)str->{mem}"
+    new = f"\t\t{lhs} = ini.Get_Point(section, \"{key}\", origin);\n\n\n"
+    return (C, old, new)
+
+
+PTS = ('Offset', 'Offset', 'offset'), ('Target', 'Target', 'target'), ('BoxOffset', 'BoxOffset', 'box')
+BEST = [(C, A_OLD, A_NEW), (C, B_OLD, B_NEW)] + [point(*p, typed=False) for p in PTS]
+
+# (a) misses declared before text (same line count)
+MISS_OLD = "\tStringClass text;\n\tTPoint2D<float> origin(0, 0);\n\tchar entry[64];\n\n\tint index = 0;\n\tint misses = 10;\n"
+MISS_NEW = "\tint misses = 10;\n\tStringClass text;\n\tTPoint2D<float> origin(0, 0);\n\tchar entry[64];\n\n\tint index = 0;\n"
+
+# (b) Offset / Target as TPoint2D<float> (BoxOffset stays float[2]: LS1's uncommitted fontmanager.cpp reads BoxOffset[0])
+HB = [
+    (H, "\tfloat Offset[2];", "\tTPoint2D<float> Offset;"),
+    (H, "\tfloat Target[2];", "\tTPoint2D<float> Target;"),
+    (H, "Offset[0] = that.Offset[0]; Offset[1] = that.Offset[1]; Target[0] = that.Target[0]; Target[1] = that.Target[1];",
+        "Offset.X = that.Offset.X; Offset.Y = that.Offset.Y; Target.X = that.Target.X; Target.Y = that.Target.Y;"),
+    (C, "\tOffset[0] = 0;\n\tOffset[1] = 0;\n\tTarget[0] = 0;\n\tTarget[1] = 0;\n",
+        "\tOffset.X = 0;\n\tOffset.Y = 0;\n\tTarget.X = 0;\n\tTarget.Y = 0;\n"),
+]
+TYPED = [(C, A_OLD, A_NEW), (C, B_OLD, B_NEW), point(*PTS[0], typed=True), point(*PTS[1], typed=True),
+         point(*PTS[2], typed=False)] + HB
+
+# ---- HL2's stash for Read_Completed_File (static Add_Name helper)
+SRC = open(os.path.join(REPO, T), encoding='latin1', newline='').read().replace('\r\n', '\n')
+a = SRC.index('\t\tif (!ignore) {\n\t\t\tCompleted.push_back(nstrdup("Welcome"));')
+b = SRC.index('\t\t}\n\t\treturn true;', a)
+OLD = SRC[a:b]
+assert SRC.count(OLD) == 1
+G_OLD = '\treturn 0;\n}\n\n\n\n\n\n\n\n\n'
+assert SRC.count(G_OLD) == 1
+# (a) parameter order swapped
+G_SWAP = '\treturn 0;\n}\n\nstatic void Add_Name(const char *name, std::list<char *> &names)\n{\n\tnames.push_back(nstrdup(name));\n}\n\n\n\n'
+CALL_SWAP = OLD.replace('Completed.push_back(nstrdup(', 'Add_Name(').replace('"));', '", Completed);')
+# (b) nstrdup into a local first
+G_LOCAL = '\treturn 0;\n}\n\nstatic void Add_Name(std::list<char *> &names, const char *name)\n{\n\tchar *copy = nstrdup(name);\n\tnames.push_back(copy);\n}\n\n\n'
+CALL_LOCAL = OLD.replace('Completed.push_back(nstrdup(', 'Add_Name(Completed, (')
+for g in (G_SWAP, G_LOCAL):
+    assert g.count('\n') == G_OLD.count('\n'), g
+
+V = {
+    'ls_misses_first': BEST + [(C, MISS_OLD, MISS_NEW)],
+    'ls_typed_points': TYPED,
+    'rcf_swap': [(T, G_OLD, G_SWAP), (T, OLD, CALL_SWAP)],
+    'rcf_local': [(T, G_OLD, G_LOCAL), (T, OLD, CALL_LOCAL)],
+}
+COMPILE = [C, T]
+WATCH = ['0x6C0430', '0x6BFD00', '0x6BDA40', '0x6D0A70', '0x6AD4B0', '0x6AC600', '0x6AD7B0']

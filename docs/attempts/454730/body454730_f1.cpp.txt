@@ -1,0 +1,66 @@
+// 0x454730
+bool PxCollision::Unknown_454730(MeshGeometryClass *aobj_coll_rep, MeshGeometryClass *bobj_coll_rep)
+{
+	FAIL_IF(!(aobj_coll_rep || bobj_coll_rep)) return(false);
+	if (aobj_coll_rep && bobj_coll_rep) {
+		Matrix3D atm = A->Unknown_Dyn3C();
+		AABoxClass abox = A->Unknown_Dyn7C();
+		OBBoxClass aobox(abox.Center, abox.Extent);
+		OBBoxClass awbox;
+		OBBoxClass::Transform(atm, aobox, &awbox);
+		OBBoxIntersectionTestClass atest(awbox, COLLISION_TYPE_ALL);
+		Matrix3D btm = B->Unknown_Dyn3C();
+		AABoxClass bbox = B->Unknown_Dyn7C();
+		OBBoxClass bobox(bbox.Center, bbox.Extent);
+		OBBoxClass bwbox;
+		OBBoxClass::Transform(btm, bobox, &bwbox);
+		OBBoxIntersectionTestClass btest(bwbox, COLLISION_TYPE_ALL);
+		Unknown08.Set(1.0f, 0.0f, 0.0f);
+		Matrix3D ainv;
+		atm.Get_Orthogonal_Inverse(ainv);
+		OBBoxIntersectionTestClass blocal(btest, ainv);
+		if (!aobj_coll_rep->Intersect_OBBox(blocal)) {
+			return(false);
+		}
+		Matrix3D binv;
+		btm.Get_Orthogonal_Inverse(binv);
+		OBBoxIntersectionTestClass alocal(atest, binv);
+		return(bobj_coll_rep->Intersect_OBBox(alocal));
+	} else if (aobj_coll_rep) {
+		CastResultStruct result;
+		Matrix3D btm = B->Unknown_Dyn3C();
+		AABoxClass bbox = B->Unknown_Dyn7C();
+		OBBoxClass bobox(bbox.Center, bbox.Extent);
+		OBBoxClass bwbox;
+		OBBoxClass::Transform(btm, bobox, &bwbox);
+		OBBoxCollisionTestClass btest(bwbox, B->Unknown_2C(), &result, COLLISION_TYPE_ALL);
+		Matrix3D atm = A->Unknown_Dyn3C();
+		Matrix3D ainv;
+		atm.Get_Orthogonal_Inverse(ainv);
+		OBBoxCollisionTestClass blocal(btest, ainv);
+		if (aobj_coll_rep->Cast_OBBox(blocal)) {
+			Matrix3D::Rotate_Vector(atm, result.Normal, &Unknown08);
+			Unknown20 = false;
+			return(true);
+		}
+	} else {
+		CastResultStruct result;
+		Matrix3D atm = A->Unknown_Dyn3C();
+		AABoxClass abox = A->Unknown_Dyn7C();
+		OBBoxClass aobox(abox.Center, abox.Extent);
+		OBBoxClass awbox;
+		OBBoxClass::Transform(atm, aobox, &awbox);
+		OBBoxCollisionTestClass atest(awbox, A->Unknown_2C(), &result, COLLISION_TYPE_ALL);
+		Matrix3D btm = B->Unknown_Dyn3C();
+		Matrix3D binv;
+		btm.Get_Orthogonal_Inverse(binv);
+		OBBoxCollisionTestClass alocal(atest, binv);
+		if (bobj_coll_rep->Cast_OBBox(alocal)) {
+			Matrix3D::Rotate_Vector(btm, result.Normal, &Unknown08);
+			Unknown08 = -Unknown08;
+			Unknown20 = false;
+			return(true);
+		}
+	}
+	return(false);
+}

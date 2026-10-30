@@ -1,0 +1,80 @@
+# ==== .work/f4/vseg_a.py (hoist: EXACT at 0x9BEB20; nochunk: 3549 raw rows, wrong)
+S = 'ww3d2/seglinerenderer.cpp'
+NL = '\r\n' if b'\r\n' in open(r'C:\EnBDevelopment\EnB\ww3d2\seglinerenderer.cpp', 'rb').read() else '\n'
+
+
+def e(old, new):
+    return (S, old.replace('\n', NL), new.replace('\n', NL))
+
+
+# The client has no chunk loop: nothing jumps back to the code between the chunk-size clamp (0x9befb2) and
+# the point loop (0x9bf418); the clamp goes straight to the 3 x 16-byte ??_H and the view2*transform multiply
+# (which writes its tmp1 into the dead transform parameter slot [ebp+0xc]: transform is never read again),
+# and there is neither the loop head's point_cnt = min(num_points - chidx, chunk_size) nor our twelve hoisted
+# &transform[i][j] slots. One pass over min(num_points, chunk_size) points.
+LOOP_HEAD = ("\tfor (unsigned int chidx = 0; chidx < num_points - 1; chidx += (chunk_size - 1)) {\n"
+             "\t\tunsigned int point_cnt = num_points - chidx;\n"
+             "\t\tpoint_cnt = MIN(point_cnt, chunk_size);\n")
+NOCHUNK = e(LOOP_HEAD, "\t{\n\t\tunsigned int chidx = 0;\n\t\tunsigned int point_cnt = chunk_size;\n")
+# the same with the loop-invariant view2/modelview before the block (the client's multiply follows the ??_H,
+# so this one is the control: expected worse)
+VIEW2 = ("\t\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n"
+         "\t\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n"
+         "\t\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n"
+         "\t\tMatrix3D modelview=view2*transform;\n\n")
+HOIST = [e(VIEW2, ""), e(LOOP_HEAD, VIEW2 + LOOP_HEAD)]
+V = {
+    'nochunk': [NOCHUNK],
+    'hoist': HOIST,
+}
+COMPILE = [S]
+WATCH = ['0x9BEB20']
+
+# ==== .work/f4/apply_seg_hoist.py (the patch as committed)
+"""F4: SegLineRendererClass::Render 0x9BEB20 exact with view2/modelview before the chunk loop (tryv2 .work/f4/vseg_a.py
+'hoist'): add the patch to importer.py's PATCHES and apply it to the tree file (CRLF)."""
+import io
+import re
+
+REPO = r'C:\EnBDevelopment\EnB'
+IMP = REPO + r'\tools\vc6\importer.py'
+SRC = REPO + r'\ww3d2\seglinerenderer.cpp'
+
+VIEW2 = ("\t\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n"
+         "\t\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n"
+         "\t\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n"
+         "\t\tMatrix3D modelview=view2*transform;\n\n")
+LOOP_HEAD = "\tfor (unsigned int chidx = 0; chidx < num_points - 1; chidx += (chunk_size - 1)) {\n"
+HOISTED = ("\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n"
+           "\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n"
+           "\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n"
+           "\tMatrix3D modelview=view2*transform;\n"
+           "\t// (the modelview before the chunk loop, not inside it as in Zero Hour: this makes 0x9BEB20 byte-exact)\n")
+REASON = ("SegLineRendererClass::Render 0x9BEB20: the client builds view2 and modelview once before the chunk loop "
+          "(Zero Hour builds them in every chunk); inside the loop VC6 hoists twelve &transform[i][j] addresses into "
+          "stack slots and keeps the transform reference alive, outside it copies B's column into the dead parameter "
+          "slot: byte-exact with them outside")
+ENTRY = ("        (%r,\n         '',\n         %r),\n"
+         "        (%r,\n         %r,\n         %r),\n") % (VIEW2, REASON, LOOP_HEAD, HOISTED + LOOP_HEAD, REASON)
+
+with io.open(IMP, 'r', encoding='utf-8', newline='') as f:
+    imp = f.read()
+inl = '\r\n' if '\r\n' in imp else '\n'
+anchor = "    ],\n    ('ww3d2', 'mesh.h'): [\n".replace('\n', inl)
+ENTRY = ENTRY.replace('\n', inl)
+assert imp.count(anchor) == 1, (imp.count(anchor), repr(inl))
+assert 'the modelview before the chunk loop' not in imp
+imp = imp.replace(anchor, ENTRY + anchor)
+with io.open(IMP, 'w', encoding='utf-8', newline='') as f:
+    f.write(imp)
+
+with io.open(SRC, 'r', encoding='latin-1', newline='') as f:
+    src = f.read()
+nl = '\r\n' if '\r\n' in src else '\n'
+for old, new in ((VIEW2, ''), (LOOP_HEAD, HOISTED + LOOP_HEAD)):
+    o, n = old.replace('\n', nl), new.replace('\n', nl)
+    assert src.count(o) == 1, (old[:40], src.count(o))
+    src = src.replace(o, n)
+with io.open(SRC, 'w', encoding='latin-1', newline='') as f:
+    f.write(src)
+print('applied; importer.py entry added before mesh.h')

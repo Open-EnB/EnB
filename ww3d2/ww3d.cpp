@@ -1268,7 +1268,7 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
  *   5/19/99    GTH : Created.                                                                 *
  *   2/26/2001  hy : Updated to DX8                                                            *
  *=============================================================================================*/
-void WW3D::Make_Screen_Shot( const char * filename_base )
+void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int format )
 {
 
 	WWASSERT(!IsRendering);
@@ -1906,4 +1906,9 @@ void WW3D::Override_Current_Static_Sort_Lists(StaticSortListClass * sort_list)
 void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)
 {
 	CurrentStaticSortLists = DefaultStaticSortLists;
+}
+
+void WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)
+{
+	DX8Wrapper::Set_Gamma(gamma,bright,contrast,calibrate);
 }

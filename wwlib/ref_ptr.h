@@ -192,26 +192,11 @@
 						my_parameter->Do_Something();
 					}
 
-					class MyClass
-					{
-						public:
-							void Set(const RefCountPtr<T> & newthing)
-							{
-								MyThing = newthing;
-							}
-
-							// Get using an OUT parameter
-							void Get(RefCountPtr<T> & thing)
-							{
-								thing = MyThing;								
-							}
-
-							// Get using a return value.  Preferable to above
-							const RefCountPtr<T> & Get(void) const {return MyThing;}
-
-						private:
-							RefCountPtr<T> MyThing;
-					};
+		E&B: the client's ref_ptr.h is 15 lines shorter than Renegade's revision 3 before
+		operator*: its only assert, G_ASSERT(0 != Referent) there, carries line 356 where
+		Renegade's has 371 (the call near 0x532726). E&B's own layout is unknown; this copy
+		drops Renegade's last usage example (a class MyClass with Set and two Gets) to put
+		the assert on the client's line.
 */
 
 class DummyPtrType;
@@ -254,7 +239,7 @@ class RefCountPtr
 		RefCountPtr(DummyPtrType * dummy)
 			: Referent(0)
 		{
-			G_ASSERT(dummy == 0);
+			// E&B: no G_ASSERT(dummy == 0) here (see the patch note)
 		}
 #endif
 

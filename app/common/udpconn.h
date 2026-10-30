@@ -9,7 +9,7 @@
 **	0xD0 bytes) sends packets on a CordCon's channels and receives whole messages from it, each
 **	{s16 size, s16 opcode, payload} as CordCon::read delivers it; the one CordMgr of the process
 **	is pumped by a kernel task every 100 ms ('CordMgr::Run'). PARTIAL: UDPConnectionManager
-**	(0xB08934) and the UDP listener (0xB08958), the server's side, are not rebuilt.
+**	(0xB08934) and the UDP listener (0xB08958) are the server's side; 0x82E1D0 sits at udpconn.cpp's end.
 */
 
 #if defined(_MSC_VER)
@@ -51,7 +51,7 @@ struct UDPChannelClass		// NAME 1: describes what it is
 class UDPConnection : public ConnectionClass	// NAME 1: after the file udpconn.cpp (no RTTI or string)
 {
 public:
-	UDPConnection(const char *host, unsigned short port, bool encrypt);	// 0x82C680 (declared: not rebuilt)
+	UDPConnection(const char *host, unsigned short port, bool encrypt);	// 0x82C680
 	UDPConnection(unsigned int ip, unsigned short port, bool encrypt);	// 0x82C980 (host order)
 	UDPConnection(CordCon *con, CordMgr *mgr);							// 0x82CBF0
 	virtual ~UDPConnection();											// +0x00 0x82C950 / 0x82CDC0
@@ -96,6 +96,8 @@ public:
 	UDPConnectionManagerClass();									// 0x82E040
 	virtual ~UDPConnectionManagerClass();							// +0x00 0x82E180 / 0x82E1B0
 };
+
+int Unknown_82E1D0();	// NAME 1 [Unknown_82E1D0]: the CordMgr's pending messages (ClientTask::Run; tsk_game.h)
 
 // The UDP listener (vtable 0xB08958, constructor 0x82E200, 0x0C bytes): handshakes on a port
 class UDPListenerClass : public ConnectionListenerClass	// NAME 1: after the file udpconn.cpp

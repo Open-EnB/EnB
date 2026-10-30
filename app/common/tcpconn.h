@@ -9,7 +9,6 @@
 **	PARTIAL (docs/kernel-map.md 4, step 8): the TCP connection (vtable 0xB08838, 0x248 bytes), a
 **	stream connection over WWOnline wnet's TCPCon with an RC4 stream each way, keyed by an RSA
 **	exchange at connect time. The members are at the client's offsets (constructor 0x828DE0).
-**	Not rebuilt yet: the key exchange 0x829180, the listener and its key file (0x829E50-0x82AA10).
 */
 
 #if defined(_MSC_VER)
@@ -21,6 +20,13 @@
 
 #include "connect.h"
 #include "rc4.h"
+#include "int.h"
+#include "srandom.h"
+#include "unknown_rsakey.h"
+#include "wwfile.h"
+#include "ffactory.h"
+#include <string.h>
+#include <set>
 #include "..\..\libs\wwonline\wnet\tcpmgr.h"
 #include "..\..\libs\wwonline\wnet\tcpcon.h"
 
@@ -39,7 +45,7 @@ public:
 	virtual int Transport_Read(void *buffer, int len);				// +0x38 0x829BC0: TCPCon::read, then RC4
 
 	bool Try_Connect();												// 0x8290A0: Connect without waiting  // NAME 2: what it does
-	bool Key_Exchange(bool wait, int unknown);						// 0x829180 (not rebuilt): the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
+	bool Key_Exchange(bool wait, int *error);						// 0x829180: the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
 	void Close();													// 0x829A10: Disconnect through the vtable  // NAME 1: describes what it does
 
 	TCPCon *Con;					// +0x24 NAME 4: as Renegade's TCPMgr calls a TCPCon (getOutgoingConnection's conn)
@@ -58,21 +64,22 @@ public:
 class TCPListenerClass : public ConnectionListenerClass	// NAME 1: after the file tcpconn.cpp
 {
 public:
-	TCPListenerClass();												// 0x829E50 (not rebuilt: loads 'server_rsa_keyset.dat')
-	virtual ~TCPListenerClass();									// +0x00 0x82A2C0 / 0x82A2F0 (not rebuilt)
+	TCPListenerClass();												// 0x829E50: loads 'server_rsa_keyset.dat'
+	virtual ~TCPListenerClass();									// +0x00 0x82A2C0 / 0x82A2F0 (assert line 645)
 	virtual bool Is_Listening();									// +0x04 0x82A280
 	virtual unsigned short Get_Port();								// +0x08 0x82A2A0
 	virtual bool Listen(unsigned short port);						// +0x0C 0x82A470
 	virtual bool Stop();											// +0x10 0x82A650
 	virtual ConnectionClass *Accept();								// +0x14 0x82A6A0: Accept(true)
 	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
-	ConnectionClass *Pump_Pending();								// 0x82AA10 (not rebuilt): a connection whose exchange finished  // NAME 2: what it does
-	void Send_Key(TCPConnection *connection);						// 0x82A830 (not rebuilt): the server's public key  // NAME 2: what it does
+	ConnectionClass *Pump_Pending();								// 0x82AA10: a connection whose exchange finished  // NAME 2: what it does
+	void Send_Key(TCPConnection *connection);						// 0x82A830: the server's public key  // NAME 2: what it does
+	static void Pump_All();										// 0x82A990 (no caller; inlined in 0x829180): Accept(false) on every listener  // NAME 2: what it does
 
 	SOCKET Socket;							// +0x04 (S: the asserts)
 	unsigned short PortNumber;				// +0x08 (S: the asserts)
 	std::list<TCPConnection *> Pending;		// +0x0C  // NAME 2: what it holds
-	char Unknown18[0x918 - 0x18];			// +0x18 the key pair (0x100-byte numbers at +0x18, +0x118 ...)
+	RSAKeyClass KeyPair;					// +0x18 the server's key pair (constructor 0x829E50)  // NAME 2: what it holds
 };
 
 #endif

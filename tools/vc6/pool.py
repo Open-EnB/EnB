@@ -55,7 +55,8 @@ STATE_DIR = os.path.join(REPO, '.work', 'pool')
 STATE = os.path.join(STATE_DIR, 'leases.json')
 LOCK = os.path.join(STATE_DIR, 'leases.lock')
 LOCK_STALE = 900                # seconds; a live holder may stop or create several VMs
-DEFAULT_MAX = 5                 # 32 GB host, 4 GB startup per VM, three non-pool VMs
+DEFAULT_MAX = 7                 # 32 GB host; dynamic memory, ~1.1 GB steady per VM (user, 2026-10-27)
+STARTUP_GB = 2                  # startup memory of a clone; Win10's 4 GB failed clone starts on a loaded host
 MAX_AGE = 8                     # hours after which any lease counts as orphaned
 KEEP = 2                        # free stopped VMs `--prune` keeps
 IDLE_MIN = 10                   # minutes a free running VM may idle before reclaim stops it
@@ -147,7 +148,7 @@ def get_vm(name):
 # ---------------------------------------------------------------- state and lock
 
 def _pid_alive(pid):
-    """importer.py's test (8c0516a): os.kill(pid, 0) would terminate the process on Windows."""
+    """importer.py's test (d3d2036): os.kill(pid, 0) would terminate the process on Windows."""
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))   # PROCESS_QUERY_LIMITED_INFORMATION
     if not h:
@@ -295,14 +296,14 @@ $mem = Get-VMMemory -VM $t
 $fw = Get-VMFirmware -VM $t
 New-VHD -Path %(disk)s -ParentPath %(base)s -Differencing | Out-Null
 try {
-  $vm = New-VM -Name %(name)s -Generation $t.Generation -Path %(dir)s -VHDPath %(disk)s -MemoryStartupBytes $mem.Startup -SwitchName %(switch)s
+  $vm = New-VM -Name %(name)s -Generation $t.Generation -Path %(dir)s -VHDPath %(disk)s -MemoryStartupBytes %(startup)dGB -SwitchName %(switch)s
   Set-VM -VM $vm -ProcessorCount $t.ProcessorCount -DynamicMemory -MemoryMinimumBytes $mem.Minimum -MemoryMaximumBytes $mem.Maximum -AutomaticCheckpointsEnabled $false -AutomaticStartAction Nothing -AutomaticStopAction ShutDown -CheckpointType Disabled
   Set-VMMemory -VM $vm -Buffer $mem.Buffer -Priority $mem.Priority
   if ($fw.SecureBoot -eq 'On') { Set-VMFirmware -VM $vm -EnableSecureBoot On -SecureBootTemplate $fw.SecureBootTemplate } else { Set-VMFirmware -VM $vm -EnableSecureBoot Off }
   Set-VMFirmware -VM $vm -FirstBootDevice (Get-VMHardDiskDrive -VM $vm)
   Enable-VMIntegrationService -VM $vm -Name 'Guest Service Interface'
 } catch { Get-VM -Name %(name)s -ErrorAction SilentlyContinue | Remove-VM -Force; Remove-Item -LiteralPath %(disk)s -ErrorAction SilentlyContinue; throw }
-""" % dict(tpl=q(TEMPLATE_VM), disk=q(disk), base=q(BASE), name=q(name), dir=q(POOL_DIR), switch=q(SWITCH)))
+""" % dict(tpl=q(TEMPLATE_VM), disk=q(disk), base=q(BASE), name=q(name), dir=q(POOL_DIR), switch=q(SWITCH), startup=STARTUP_GB))
         checked(get_vm(name))
         made.append(name)
         print(f'created {name} ({disk})')

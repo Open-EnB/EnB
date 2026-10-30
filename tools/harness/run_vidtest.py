@@ -20,6 +20,10 @@ the screenshot must pass --check:
   clear (L2): vidtest runs with -noscene and the pixels must be the clear colour (--expect, default
          L2's dark blue (0, 0, 0.5) = 0,0,127).
 The stub log (stubs.log, D44) is printed. Exit 0 when all pass.
+Unless the extra arguments give -art, vidtest gets `-art build/art` when that folder exists, else a
+warning (D120, D69: LandClass rewrites a .pld it can't load; artdir.py says how to make the copy).
+This is the run-and-look check; M2's standard regression check is `python tools/harness/drawcheck.py run`
+(draw-call groups against drawcheck_baseline.json, D78): run it too after a library or vidtest change.
 """
 import argparse
 import collections
@@ -30,6 +34,8 @@ import struct
 import subprocess
 import sys
 import time
+
+import artdir
 
 import bmp2png
 
@@ -70,6 +76,7 @@ def main():
     shot = os.path.join(cwd, 'shot.bmp')
     if a.check == 'clear':
         a.extra = ['-noscene'] + a.extra
+    a.extra = artdir.art_args(a.extra) + a.extra   # build/art unless -art is given (D120, D69)
     if a.mode == 'frames':
         args = [a.exe, '-nomsgbox', '-frames', str(a.frames), '-shot', 'shot.bmp'] + a.extra
         if a.check == 'model':

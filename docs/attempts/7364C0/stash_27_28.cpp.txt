@@ -1,0 +1,28 @@
+// NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x7364C0)
+// 0x7364C0
+bool AuxDataPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AuxDataPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	if (GameID == 0) {
+		DurationClass base(sclient->Unknown10C0);
+		sclient->AuxData->Decode(LinearBufferClass(Data, Size, 0x400, false), base);
+		return(true);
+	}
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		((DeltaCompoundClass *)object->AuxData)->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+	}
+	return(true);
+}
+
+// NOT EXACT: register-only (the client loads Size and the duration before pushing 0x400; 16 forms; attempts.py show 0x736650)
+// 0x736650
+bool AuxDataPlayerVarPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("AuxDataPlayerVarPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	sclient->Unknown12C4[GameID]->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+	return(true);
+}
+

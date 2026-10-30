@@ -25,7 +25,7 @@ public:
 	SetZBandPacketClass(float min, float max);	// 0x8A4250
 	SetZBandPacketClass(RawPacketClass *raw);	// 0x8A42F0
 	virtual RawPacketClass *Build();	// +0x04 0x8A4390
-	virtual bool Process_Packet(void *client);	// +0x08 0x737520 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737520 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4460
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4480
 
@@ -39,7 +39,7 @@ class SetBBoxPacketClass : public PacketClass
 public:
 	SetBBoxPacketClass(RawPacketClass *raw);	// 0x8A4580
 	virtual RawPacketClass *Build();	// +0x04 0x8A4620
-	virtual bool Process_Packet(void *client);	// +0x08 0x737590 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x737590 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A46F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4710
 

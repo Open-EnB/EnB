@@ -1,0 +1,117 @@
+diff --git a/app/client/mainview.cpp b/app/client/mainview.cpp
+index 92658de..e0f5935 100644
+--- a/app/client/mainview.cpp
++++ b/app/client/mainview.cpp
+@@ -5,6 +5,7 @@
+ #include "sclient.h"
+ #include "..\shared\unknown_debug.h"
+ #include "..\shared\land.h"
++#include "..\shared\stars.h"
+ #include "..\..\wwlib\ini.h"
+ #include "..\..\ww3d2\scene.h"
+ 
+@@ -1951,20 +1952,19 @@
+ 
+ 
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
++// 0x513700: the sector's stars and orbital%04d.ini (cpacket.cpp: SERVER_PARAMETERS 66)
++void MainViewClass::Unknown_513700(unsigned sector)
++{
++	Sector = sector;
++	StarField->Init(sector);
++	OrbitalManager->Unknown_4F3310();
++	char filename[100];
++	sprintf(filename, "orbital%04d.ini", sector);
++	INIClass ini(filename);
++	if (ini.Is_Loaded()) {
++		OrbitalManager->Unknown_4F34C0(ini);
++	}
++}
+ 
+ // 0x5137F0: the land of sector `sector` (cpacket.cpp: SERVER_PARAMETERS 66 in view mode 1): land%04d.ini through
+ // LandClass::Create into the scene, the sea fog and colour from its [GENERAL], and the decorations from land%04d.dcb, or
+@@ -1999,12 +1999,25 @@ void MainViewClass::Unknown_5137F0(unsigned sector)
+ 	}
+ }
+ 
++// 0x513B90: the sector's wind from gas%04d.ini (cpacket.cpp: SERVER_PARAMETERS 66, view mode 5), per hour
++void MainViewClass::Unknown_513B90(unsigned sector)
++{
++	char filename[100];
++	sprintf(filename, "gas%04d.ini", sector);
++	INIClass ini(filename);
++	Wind.X = ini.Get_Float("GENERAL", "WINDX", 0.0f);
++	Wind.Y = ini.Get_Float("GENERAL", "WINDY", 0.0f);
++	Wind.Z = ini.Get_Float("GENERAL", "WINDZ", 0.0f);
++	Wind *= 3600.0f;
++}
++
+ /*
+ **	Notes (LD3, 2026-10-28)
+ **
+ **	mainview.cpp is the main view (MainViewClass, sclient.h; constructor 0x50B360, client 0x50B2C0-0x5146xx,
+-**	97 functions, appfile.py show app\client\mainview.cpp). Only the zone loader 0x5137F0 is rebuilt; it sits on the
+-**	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt).
++**	97 functions, appfile.py show app\client\mainview.cpp). The zone loader 0x5137F0 sits on the
++**	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
++**	neighbours 0x513700 (stars, orbital%04d.ini) and 0x513B90 (gas%04d.ini's wind).
+ **	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
+ **	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
+ */
+diff --git a/app/client/sclient.h b/app/client/sclient.h
+index 12317db..a5c2a31 100644
+--- a/app/client/sclient.h
++++ b/app/client/sclient.h
+@@ -39,6 +39,16 @@ class RefCountClass;
+ class CameraClass;
+ class SceneClass;
+ class LandClass;
++class StarFieldClass;
++class INIClass;
++
++// orbitalmanager.cpp's object at the main view's +0x140, as far as mainview.cpp's 0x513700 calls it
++class OrbitalManagerClass	// NAME 3: class-from-file (D24) for orbitalmanager.cpp
++{
++public:
++	void Unknown_4F3310();								// 0x4F3310 (0x513700, before the system's orbital%04d.ini is read)
++	void Unknown_4F34C0(INIClass &ini);					// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
++};
+ class Render2DTextClass;
+ class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
+ class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
+@@ -210,13 +220,18 @@ public:
+ 	SceneClass *Scene;									// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object)  // NAME 2: what it is
+ 	char Unknown110[0x130 - 0x110];						// +0x110
+ 	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it)
+-	char Unknown131[0x13C - 0x131];						// +0x131
++	char Unknown131[0x134 - 0x131];						// +0x131
++	StarFieldClass *StarField;							// +0x134 0x513700 loads the sector's stars into it (StarFieldClass::Init 0x4829E0)  // NAME 2: its class
++	char Unknown138[0x13C - 0x138];						// +0x138
+ 	LandClass *Land;									// +0x13C 0x5137F0's FAIL_IF 'Land!=NULL' / 'NULL==Land' (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)  // NAME 3: the FAIL_IF's name
+-	char Unknown140[0x1A8 - 0x140];						// +0x140
++	OrbitalManagerClass *OrbitalManager;				// +0x140 (0x513700)  // NAME 3: its class's file
++	char Unknown144[0x1A8 - 0x144];						// +0x144
+ 	float SeaFogNear;									// +0x1A8 0x5137F0: land%04d.ini [GENERAL] SEAFOGNEAR (100)  // NAME 2: its ini key
+ 	float SeaFogFar;									// +0x1AC SEAFOGFAR (3000)  // NAME 2: its ini key
+ 	Vector3 SeaColor;									// +0x1B0 SEACOLORR / G / B (1, 1, 1)  // NAME 2: its ini keys
+-	char Unknown1BC[0x1D0 - 0x1BC];						// +0x1BC
++	Vector3 Wind;										// +0x1BC 0x513B90: gas%04d.ini [GENERAL] WINDX / Y / Z (0) times 3600  // NAME 2: its ini keys
++	unsigned Sector;									// +0x1C8 0x513700 keeps its sector  // NAME 2: what it holds
++	char Unknown1CC[0x1D0 - 0x1CC];						// +0x1CC
+ 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
+ 	char Unknown1D4[0x1D8 - 0x1D4];						// +0x1D4
+ 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)

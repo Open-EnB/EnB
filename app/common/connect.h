@@ -53,7 +53,7 @@ public:
 class ForwardingConnectionClass : public ConnectionClass	// NAME 1: describes what it is
 {
 public:
-	virtual ~ForwardingConnectionClass();							// +0x00 0x821E40 / 0x821E70
+	virtual ~ForwardingConnectionClass() { delete Connection; Connection = 0; }	// +0x00 0x821E40 / 0x821E70 (inline: dbgconn.cpp's destructors inline it, 0x825170 / 0x8251A0)
 	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x821CD0
 	virtual bool Send_Packet(PacketClass *packet);					// +0x08 0x821CF0
 	virtual PacketClass *Receive();									// +0x0C 0x821BB0: the packet's connection is the wrapper
@@ -112,6 +112,16 @@ public:
 	virtual PacketClass *Peek();									// +0x34 0x821FB0  // NAME 2: what it does
 
 	PacketClass *Last_Packet;	// +0x0C (the assert l.470 names it)
+};
+
+// The do-nothing connection (vtable 0xB02D3C, emitted in client.cpp, 0x08 bytes): what the client
+// base's constructor (client.cpp 0x726100) talks to until the redirect; sends succeed, nothing arrives
+class NullConnectionClass : public ConnectionClass	// NAME 2: what it does
+{
+public:
+	virtual bool Send_Message(RawPacketClass *packet);				// +0x04 0x8232E0: true
+	virtual bool Send_Packet(PacketClass *packet);					// +0x08 0x8232C0: true
+	virtual PacketClass *Receive();									// +0x0C 0x823300: NULL
 };
 
 // The manager's listener (+0x24; the destructor 0x8220E0 stops it, 0x822200 asks its port)

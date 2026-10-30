@@ -1,0 +1,5 @@
+UDPConnection::UDPConnection(CordCon *, CordMgr *) 0x82CBF0, S3 2026-10-26: the tree's form (members in the
+initialiser list, Encrypt not set, a dead ntohs(Port) first in the body) leaves 8 masked rows, all registers:
+the client reads con->Ip_ into eax and con->Port_ into di (edi = con, dead after), ours ecx / dx; after openc the
+client takes Default into ecx and Con into edx, ours eax / ecx. Tried (no change or worse): Con-> for con-> in the
+initialisers, con-> in the tail, a CordStatsClass * local, (u_long) / (int) casts, (*con).Ip_.

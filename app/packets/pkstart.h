@@ -24,7 +24,7 @@ class StartPacketClass : public PacketClass
 public:
 	StartPacketClass(RawPacketClass *raw);	// 0x8A66A0
 	virtual RawPacketClass *Build();	// +0x04 0x8A6730
-	virtual bool Process_Packet(void *client);	// +0x08 0x733440 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x733440 (cpacket.cpp, register-only residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8A67F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A6810
 

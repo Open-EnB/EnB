@@ -1,0 +1,8 @@
+symbol,address,file,evidence,note
+??1LogConnectionClass@@UAE@XZ,0x8241B0,dbgconn,caller,"called by LogConnectionClass's vector deleting dtor 0x824180 (client.py callers); the twin 0x8247A0 only by TimedLogConnectionClass's 0x824770"
+??1TimedLogConnectionClass@@UAE@XZ,0x8247A0,dbgconn,caller,"called by TimedLogConnectionClass's vector deleting dtor 0x824770 (client.py callers)"
+?Stop@BINKMovie@@SAXXZ,0xA16220,BINKMovie,caller+order,"called by MovieTaskClass::Run / Pre_Run / Handle_Input (0x76C469, 0x76C545, 0x76C5C4); Stop is defined before Shutdown (BINKMovie.cpp:76 / 107) and 0xA16220 < 0xA162A0"
+?Shutdown@BINKMovie@@SAXXZ,0xA162A0,BINKMovie,caller+order,"called only by MovieTaskClass::~MovieTaskClass 0x76C05E; defined after Stop"
+??_G?$VectorClass@VProxyClass@@@@UAEPAXI@Z,0x992C20,collect,vtable,"slot of VectorClass<ProxyClass>'s vtable 0xB136F8 (symbols.json names it ??_E; our compile emits ??_G with the same bytes)"
+??_G?$DynamicVectorClass@VProxyClass@@@@UAEPAXI@Z,0x992CA0,collect,vtable,"slot of DynamicVectorClass<ProxyClass>'s vtable 0xB136E0"
+?Reset@AABTreeBuilderClass@@AAEXXZ,0x9B4B30,aabtreebuilder,negative-test,"deliberately wrong: 0x9B4B30 is not a candidate (bytes do not match there), the check must refuse it"

@@ -1,0 +1,76 @@
+// 0x453F10
+bool PxCollision::Unknown_453F10(const Vector3 &apos, const Vector3 &bpos)
+{
+	int self = 0;
+	int other = 1;
+	Matrix3D atm = A->Unknown_Dyn3C();
+	Matrix3D btm = B->Unknown_Dyn3C();
+	AABoxClass abox = A->Unknown_Dyn7C();
+	AABoxClass bbox = B->Unknown_Dyn7C();
+	Vector3 pos[2];
+	Vector3 extent[2];
+	Vector3 axis[2][3];
+	Vector3 edge[2][3];
+	extent[0] = abox.Extent;
+	extent[1] = bbox.Extent;
+	pos[0] = apos;
+	pos[1] = bpos;
+	axis[0][0] = atm.Get_X_Vector();
+	axis[0][1] = atm.Get_Y_Vector();
+	axis[0][2] = atm.Get_Z_Vector();
+	axis[1][0] = btm.Get_X_Vector();
+	axis[1][1] = btm.Get_Y_Vector();
+	axis[1][2] = btm.Get_Z_Vector();
+	edge[0][0] = axis[0][0] * abox.Extent.X;
+	edge[0][1] = axis[0][1] * abox.Extent.Y;
+	edge[0][2] = axis[0][2] * abox.Extent.Z;
+	edge[1][0] = axis[1][0] * bbox.Extent.X;
+	edge[1][1] = axis[1][1] * bbox.Extent.Y;
+	edge[1][2] = axis[1][2] * bbox.Extent.Z;
+	float best = 100000.0f;
+	for (int i = 0; i < 2; i++) {
+		if (i == 1) {
+			self = 1;
+			other = 0;
+		}
+		for (int j = 0; j < 3; j++) {
+			Vector3 delta = pos[other] - pos[self];
+			Vector3 n = axis[self][j];
+			Vector3 p = pos[other];
+			float d = delta * n;
+			if (d >= 0.0f) {
+				d = -d;
+			} else {
+				n = -n;
+			}
+			float depth = d + extent[self][j];
+			for (int k = 0; k < 3; k++) {
+				Vector3 e = edge[other][k];
+				float t = e * n;
+				if (t < 0.0f) {
+					depth -= t;
+					p += e;
+				} else {
+					depth += t;
+					p -= e;
+				}
+			}
+			if (depth < 0.0f) {
+				return(false);
+			}
+			if (depth < best) {
+				best = depth;
+				Unknown14 = p;
+				Unknown20 = false;
+				if (i) {
+					Unknown08 = -n;
+					Unknown24 = depth;
+				} else {
+					Unknown08 = n;
+					Unknown24 = depth;
+				}
+			}
+		}
+	}
+	return(true);
+}

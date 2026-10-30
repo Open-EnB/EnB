@@ -1,159 +1,656 @@
 // Earth & Beyond client (reconstruction): app\shared\ height field (file name unknown). Notes at the end.
-// NOT EXACT, the whole file: functional, from VIDTEST's 2002 copy (heightfield.h).
 #include "heightfield.h"
 #include "ini.h"
 #include "ffactory.h"
 #include "wwfile.h"
 #include "wwmath.h"
+#include "vector2.h"
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+#include <math.h>
+#include "pot.h"
+#include "coltest.h"
+#include "colmath.h"
+#include "tri.h"
+#include "obbox.h"
 
 HeightFieldClass::HeightFieldClass(void) :
-	Heights(0),
+	Heights(NULL),
+	Buffer(NULL),
 	MaxValue(0),
-	Spacing(1.0f),
-	HeightScale(1.0f),
+	XSpacing(1.0f),
+	YSpacing(1.0f),
+	VScale(1.0f),
 	Wrapping(false),
-	Width(0),
-	Height(0)
+	Log2(0),
+	Size(0),
+	Count(0),
+	Mask(0),
+	CountMask(0),
+	HalfSize(0)
 {
-	Name[0] = 0;
 }
 
-HeightFieldClass::~HeightFieldClass(void)
-{
-	delete [] Heights;
-	Heights = 0;
-}
-
-HeightFieldClass *HeightFieldClass::Load(const char *ini_name)
+// NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked
+HeightFieldClass *HeightFieldClass::Load(const char *ini_name, unsigned int max_size)
 {
 	INIClass ini;
 	if (!ini.Load(ini_name)) {
-		return 0;
+		return NULL;
 	}
 	HeightFieldClass *field = new HeightFieldClass;
-	ini.Get_String("HEIGHTMAP", "HEIGHT_MAP", "", field->Name, sizeof(field->Name));
+	ini.Get_String("HEIGHTMAP", "HEIGHT_MAP", "", field->Name, 100);
 	float hscale = ini.Get_Float("HEIGHTMAP", "HSCALE", 1.0f);
 	float vscale = ini.Get_Float("HEIGHTMAP", "VSCALE", 1.0f);
 	field->Wrapping = ini.Get_Bool("HEIGHTMAP", "WRAPPING", false);
 	bool flip = ini.Get_Bool("HEIGHTMAP", "FLIP_PGM", true);
-	if (!field->Load_PGM(field->Name, flip)) {
+	if (!field->Load_PGM(field->Name, flip, max_size)) {
 		delete field;
-		return 0;
+		return NULL;
 	}
-	field->Spacing = hscale / (float)field->Width;
-	field->HeightScale = field->MaxValue != 0 ? vscale / (float)field->MaxValue : 0.0f;
-	for (int i = 0; i < field->Width * field->Height; i++) {
-		field->Heights[i] *= field->HeightScale;
-	}
+	field->Mask = field->Size - 1;
+	field->CountMask = field->Count - 1;
+	field->Log2 = Find_POT_Log2(field->Size);
+	float spacing = hscale / (float)field->Size;
+	field->HalfSize = field->Size >> 1;
+	vscale = vscale / (float)field->MaxValue;
+	field->XSpacing = spacing;
+	field->YSpacing = spacing;
+	field->VScale = vscale;
 	return field;
 }
 
-/*
-** The PGM reader (VIDTEST 0x4026B0, client 0x4637C0): ASCII "P2", width, height, maxval, then the
-** values; '#' starts a comment. FLIP_PGM turns the rows over.
-*/
-static bool Next_Token(const char *&p, const char *end, char *token, int size)	// NAME 2: ours, the PGM tokenizer
+HeightFieldClass::~HeightFieldClass(void)
 {
-	for (;;) {
-		while (p < end && (*p == ' ' || *p == '\r' || *p == '\n' || *p == '\t')) p++;
-		if (p < end && *p == '#') {
-			while (p < end && *p != '\n') p++;
-			continue;
+	if (Buffer != NULL) {
+		delete [] Buffer;
+		Buffer = NULL;
+	}
+}
+
+// NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0)
+bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int max_size)
+{
+	char delimiters[] = " \r\n\t";
+	FileClass *file = _TheFileFactory->Get_File(filename);
+	if (!file->Is_Available(0)) {
+		return false;
+	}
+	file->Open(FileClass::READ);
+	char *text = new char[file->Size() + 1];
+	file->Read(text, file->Size());
+	text[file->Size()] = 0;
+	if (strstr(strtok(text, delimiters), "P2") == NULL) {
+		delete [] text;
+		return false;
+	}
+	unsigned int width;
+	do {
+		width = atoi(strtok(NULL, delimiters));
+	} while (width == 0);
+	unsigned int height = atoi(strtok(NULL, delimiters));
+	atoi(strtok(NULL, delimiters));
+	if (width != height) {
+		delete [] text;
+		return false;
+	}
+	Size = width;
+	Count = width * width;
+	Buffer = new char[width * width * 2 + 0x3E];
+	unsigned short *p = (unsigned short *)(((unsigned int)Buffer + 0x3E) & ~0x3F);
+	Heights = p;
+	MaxValue = 0;
+	for (unsigned int n = Count; n != 0; n--) {
+		unsigned short value = (unsigned short)atoi(strtok(NULL, delimiters));
+		if (value > MaxValue) {
+			MaxValue = value;
 		}
-		break;
+		*p++ = value;
 	}
-	if (p >= end) return false;
-	int n = 0;
-	while (p < end && !(*p == ' ' || *p == '\r' || *p == '\n' || *p == '\t')) {
-		if (n < size - 1) token[n++] = *p;
-		p++;
+	_TheFileFactory->Return_File(file);
+	delete [] text;
+
+	if (flip) {
+		unsigned short *row = new unsigned short[Size];
+		for (unsigned int j = 0; j < Size / 2; j++) {
+			memcpy(row, &Heights[Size * j], Size * 2);
+			memcpy(&Heights[Size * j], &Heights[Size * (Size - j - 1)], Size * 2);
+			memcpy(&Heights[Size * (Size - j - 1)], row, Size * 2);
+		}
+		delete [] row;
 	}
-	token[n] = 0;
+
+	if (max_size < Size) {
+		unsigned int count = max_size * max_size;
+		void *buffer = new char[count * 2 + 0x3E];
+		unsigned short *heights = (unsigned short *)(((unsigned int)buffer + 0x3E) & ~0x3F);
+		unsigned int step = Size / max_size;
+		for (unsigned int j = 0; j < max_size; j++) {
+			for (unsigned int i = 0; i < max_size; i++) {
+				unsigned int sum = 0;
+				for (unsigned int y = 0; y < step; y++) {
+					unsigned short *src = &Heights[(j * step + y) * Size + i * step];
+					for (unsigned int x = step; x != 0; x--) {
+						sum += *src++;
+					}
+				}
+				heights[j * max_size + i] = (unsigned short)(sum / (step * step));
+			}
+		}
+		delete [] Buffer;
+		Buffer = buffer;
+		Heights = heights;
+		Size = max_size;
+		Count = count;
+	}
 	return true;
 }
 
-bool HeightFieldClass::Load_PGM(const char *filename, bool flip)
+Vector3 HeightFieldClass::Sample(const Vector2 &uv)
 {
-	FileClass *file = _TheFileFactory->Get_File(filename);
-	if (file == 0) {
-		return false;
-	}
-	if (!file->Open(FileClass::READ)) {
-		_TheFileFactory->Return_File(file);
-		return false;
-	}
-	int size = file->Size();
-	char *text = new char[size + 1];
-	int got = file->Read(text, size);
-	file->Close();
-	_TheFileFactory->Return_File(file);
-	text[got] = 0;
-
-	const char *p = text;
-	const char *end = text + got;
-	char token[32];
-	bool ok = Next_Token(p, end, token, sizeof(token)) && strcmp(token, "P2") == 0;
-	int w = 0, h = 0, maxval = 0;
-	if (ok) ok = Next_Token(p, end, token, sizeof(token)) && (w = atoi(token)) > 0;
-	if (ok) ok = Next_Token(p, end, token, sizeof(token)) && (h = atoi(token)) > 0;
-	if (ok) ok = Next_Token(p, end, token, sizeof(token)) && (maxval = atoi(token)) > 0;
-	if (ok) {
-		Width = w;
-		Height = h;
-		MaxValue = 0;			// VIDTEST scales by the largest value read, not the header's maxval
-		delete [] Heights;
-		Heights = new float[w * h];
-		for (int j = 0; j < h && ok; j++) {
-			int row = flip ? h - 1 - j : j;
-			for (int i = 0; i < w; i++) {
-				if (!Next_Token(p, end, token, sizeof(token))) {
-					ok = false;
-					break;
-				}
-				Heights[row * w + i] = (float)atoi(token);
-				if (Heights[row * w + i] > MaxValue) MaxValue = (unsigned short)Heights[row * w + i];
-			}
-		}
-	}
-	delete [] text;
-	return ok;
+	Vector3 pos;
+	pos.X = (float)((uv.X - 0.5) * XSpacing * Size);
+	pos.Y = (float)((uv.Y - 0.5) * YSpacing * Size);
+	pos.Z = Get_Height(pos);
+	return pos;
 }
 
+float HeightFieldClass::Get_Height(unsigned int i, unsigned int j)
+{
+	return (float)Heights[((j & Mask) << Log2) + (i & Mask)] * VScale;
+}
+
+float HeightFieldClass::Get_Height_2(unsigned int i, unsigned int j)
+{
+	return (float)Heights[((j & Mask) << Log2) + (i & Mask)] * VScale;
+}
+
+void HeightFieldClass::Set_Height(float height, unsigned int i, unsigned int j)
+{
+	float value = height / VScale;
+	if (value > 65535.0f) {
+		value = 65535.0f;
+	}
+	Heights[((j & Mask) << Log2) + (i & Mask)] = (unsigned short)value;
+}
+
+void HeightFieldClass::Set_Height_2(float height, unsigned int i, unsigned int j)
+{
+	float value = height / VScale;
+	if (value > 65535.0f) {
+		value = 65535.0f;
+	}
+	Heights[((j & Mask) << Log2) + (i & Mask)] = (unsigned short)value;
+}
+
+// NOT EXACT: order-only (the client loads HalfSize before the position)
+void HeightFieldClass::World_To_Grid(const Vector2 &pos, float *i, float *j)
+{
+	*i = HalfSize + pos.X / XSpacing;
+	*j = HalfSize + pos.Y / YSpacing;
+}
+
+void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
+{
+	out->X = (float)(int)(i - HalfSize) * XSpacing;
+	out->Y = (float)(int)(j - HalfSize) * YSpacing;
+	out->Z = Get_Height(i, j);
+}
+
+// NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling)
+void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
+{
+	float fx = pos.X / XSpacing + HalfSize;
+	float fy = pos.Y / YSpacing + HalfSize;
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
+	unsigned int row1 = ((j + 1) & Mask) << Log2;
+	float tx = fx - i;
+	float ty = fy - j;
+	unsigned int row0 = (j & Mask) << Log2;
+	unsigned int i1 = (i + 1) & Mask;
+	float h01 = Heights[row1 + (i & Mask)] * VScale;
+	float h10 = Heights[i1 + row0] * VScale;
+	float h00 = Heights[row0 + (i & Mask)] * VScale;
+	float h11 = Heights[i1 + row1] * VScale;
+	float h;
+	if (ty <= tx) {
+		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
+	} else {
+		h = (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
+	}
+	int corner = -1;
+	if (h00 < h) {
+		corner = 0;
+		h = h00;
+	}
+	if (h10 < h) {
+		corner = 1;
+		h = h10;
+	}
+	if (h11 < h) {
+		corner = 2;
+		h = h11;
+	}
+	if (h01 < h) {
+		corner = 3;
+	}
+	Vector2 d(0.0f, 0.0f);
+	switch (corner) {
+		case 0:
+			d.Set(-tx, -ty);
+			break;
+		case 1:
+			d.Set(1.0f - tx, -ty);
+			break;
+		case 2:
+			d.Set(1.0f - tx, 1.0f - ty);
+			break;
+		case 3:
+			d.Set(-tx, 1.0f - ty);
+			break;
+	}
+	if (corner >= 0) {
+		d.Normalize();
+	}
+	direction->Set(d.X, d.Y, 0.0f);
+}
+
+// NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's)
+void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
+{
+	float fx = pos.X / XSpacing + HalfSize;
+	float fy = pos.Y / YSpacing + HalfSize;
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
+	unsigned int i1 = (i + 1) & Mask;
+	unsigned int row0 = (j & Mask) << Log2;
+	unsigned int row1 = ((j + 1) & Mask) << Log2;
+	float h00 = Heights[row0 + (i & Mask)] * VScale;
+	float h11 = Heights[i1 + row1] * VScale;
+	Vector3 n;
+	if (fy - j <= fx - i) {
+		float h10 = Heights[i1 + row0] * VScale;
+		n = Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00));
+	} else {
+		float h01 = Heights[row1 + (i & Mask)] * VScale;
+		n = Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00));
+	}
+	n.Normalize();
+	*normal = n;
+}
+
+// NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles)
+float HeightFieldClass::Get_Height(const Vector3 &pos)
+{
+	float fx = pos.X / XSpacing + HalfSize;
+	float fy = pos.Y / YSpacing + HalfSize;
+	int i = (int)floor(fx);
+	int j = (int)floor(fy);
+	float tx = fx - i;
+	float ty = fy - j;
+	unsigned int row0 = (j & Mask) << Log2;
+	unsigned int row1 = ((j + 1) & Mask) << Log2;
+	unsigned int i1 = (i + 1) & Mask;
+	float h00 = Heights[(i & Mask) + row0] * VScale;
+	float h11 = Heights[i1 + row1] * VScale;
+	if (tx < ty) {
+		float h01 = Heights[row1 + (i & Mask)] * VScale;
+		return (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
+	}
+	float h10 = Heights[i1 + row0] * VScale;
+	return (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
+}
+
+/*
+** Ours (VIDTEST's land, functional): the grid clamped at the edges (the client's accessors wrap with
+** Mask), the vertex at world coordinates centred on the origin, the normal from central differences.
+*/
 float HeightFieldClass::Get_Vertex_Height(int i, int j) const
 {
 	if (Wrapping) {
-		i &= Width - 1;
-		j &= Height - 1;
+		i &= Size - 1;
+		j &= Size - 1;
 	} else {
 		if (i < 0) i = 0;
-		if (i >= Width) i = Width - 1;
+		if (i >= (int)Size) i = Size - 1;
 		if (j < 0) j = 0;
-		if (j >= Height) j = Height - 1;
+		if (j >= (int)Size) j = Size - 1;
 	}
-	return Heights[j * Width + i];
+	return (float)Heights[j * Size + i] * VScale;
 }
 
 Vector3 HeightFieldClass::Get_Vertex(int i, int j) const
 {
-	return Vector3((i - Width / 2) * Spacing, (j - Height / 2) * Spacing, Get_Vertex_Height(i, j));
+	return Vector3((i - (int)Size / 2) * XSpacing, (j - (int)Size / 2) * XSpacing, Get_Vertex_Height(i, j));
 }
 
 Vector3 HeightFieldClass::Get_Normal(int i, int j) const
 {
 	float dx = Get_Vertex_Height(i + 1, j) - Get_Vertex_Height(i - 1, j);
 	float dy = Get_Vertex_Height(i, j + 1) - Get_Vertex_Height(i, j - 1);
-	Vector3 n(-dx, -dy, 2.0f * Spacing);
+	Vector3 n(-dx, -dy, 2.0f * XSpacing);
 	n.Normalize();
 	return n;
 }
 
+bool HeightFieldClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
+{
+	const Vector3 &min = boxtest.SweepMin;
+	const Vector3 &max = boxtest.SweepMax;
+	bool hit = false;
+	float half = (float)HalfSize;
+	float x0 = min.X / XSpacing + half;
+	float y0 = min.Y / YSpacing + half;
+	float x1 = max.X / XSpacing + half;
+	float y1 = max.Y / YSpacing + half;
+	int i0 = WWMath::Float_To_Long(floor(x0));
+	int j0 = WWMath::Float_To_Long(floor(y0));
+	int i1 = WWMath::Float_To_Long(ceil(x1));
+	int j1 = WWMath::Float_To_Long(ceil(y1));
+	for (int j = j0; j <= j1; j++) {
+		for (int i = i0; i <= i1; i++) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts[0].Z = Get_Height(i, j);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, boxtest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, boxtest.Result);
+		}
+	}
+	return hit;
+}
+
+// NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0)
+bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
+{
+	bool hit = false;
+	Vector3 start = raytest.Ray.Get_P0();
+	Vector3 end = raytest.Ray.Get_P1();
+	if (start.Z < Get_Height(start)) {
+		raytest.Result->StartBad = true;
+		return hit;
+	}
+	float half = (float)HalfSize;
+	float x0 = start.X / XSpacing + half;
+	float y0 = start.Y / YSpacing + half;
+	float x1 = end.X / XSpacing + half;
+	float y1 = end.Y / YSpacing + half;
+	if (!Wrapping) {
+		float tmin_x = 0.0f;
+		float tmax_x = 1.0f;
+		float tmin_y = 0.0f;
+		float tmax_y = 1.0f;
+		float limit = (float)(Size - 1);
+		float dx = x1 - x0;
+		float dy = y1 - y0;
+		if (dx == 0.0f) {
+			if (x0 < 0.0f || x0 > limit) {
+				return false;
+			}
+		} else {
+			tmin_x = -x0 / dx;
+			tmax_x = (limit - x0) / dx;
+			if (tmin_x > tmax_x) {
+				float swap = tmin_x;
+				tmin_x = tmax_x;
+				tmax_x = swap;
+			}
+		}
+		if (dy == 0.0f) {
+			if (y0 < 0.0f || y0 > limit) {
+				return false;
+			}
+		} else {
+			tmin_y = -y0 / dy;
+			tmax_y = (limit - y0) / dy;
+			if (tmin_y > tmax_y) {
+				float swap = tmin_y;
+				tmin_y = tmax_y;
+				tmax_y = swap;
+			}
+		}
+		float tmin = WWMath::Max(tmin_x, tmin_y);
+		float tmax = WWMath::Min(tmax_x, tmax_y);
+		if (tmin > 1.0f) {
+			return false;
+		}
+		if (tmax < 0.0f) {
+			return false;
+		}
+		if (tmin < 0.0f) {
+			tmin = 0.0f;
+		}
+		if (tmax > 1.0f) {
+			tmax = 1.0f;
+		}
+		x1 = tmax * dx + x0;
+		y1 = tmax * dy + y0;
+		x0 = tmin * dx + x0;
+		y0 = tmin * dy + y0;
+	}
+	float dist_x;
+	float dist_y;
+	int step_x;
+	int step_y;
+	if (x0 < x1) {
+		dist_x = x1 - x0;
+		step_x = 1;
+	} else {
+		dist_x = x0 - x1;
+		step_x = -1;
+	}
+	if (y0 < y1) {
+		dist_y = y1 - y0;
+		step_y = 1;
+	} else {
+		dist_y = y0 - y1;
+		step_y = -1;
+	}
+	float err_x;
+	if (x0 < x1) {
+		err_x = (float)(ceil(x0) - x0);
+	} else {
+		err_x = (float)(x0 - floor(x0));
+	}
+	err_x *= dist_y;
+	float err_y;
+	if (y0 < y1) {
+		err_y = (float)(ceil(y0) - y0);
+	} else {
+		err_y = (float)(y0 - floor(y0));
+	}
+	err_y *= dist_x;
+	int i = WWMath::Float_To_Long(floor(x0));
+	int j = WWMath::Float_To_Long(floor(y0));
+	int count = WWMath::Float_To_Long(ceil(dist_y) + ceil(dist_x));
+	if (count == 0) {
+		count = 1;
+	}
+	for (; count > 0; count--) {
+		Vector3 verts[4];
+		Vector3 normal;
+		TriClass tri;
+		tri.N = &normal;
+		verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+		verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+		verts[0].Z = Get_Height(i, j);
+		verts[1].X = verts[0].X + XSpacing;
+		verts[1].Y = verts[0].Y;
+		verts[1].Z = Get_Height(i + 1, j);
+		verts[2].X = verts[0].X + XSpacing;
+		verts[2].Y = verts[0].Y + YSpacing;
+		verts[2].Z = Get_Height(i + 1, j + 1);
+		verts[3].X = verts[0].X;
+		verts[3].Y = verts[0].Y + YSpacing;
+		verts[3].Z = Get_Height(i, j + 1);
+		tri.V[0] = &verts[0];
+		tri.V[1] = &verts[2];
+		tri.V[2] = &verts[3];
+		tri.Compute_Normal();
+		hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
+		tri.V[0] = &verts[0];
+		tri.V[1] = &verts[1];
+		tri.V[2] = &verts[2];
+		tri.Compute_Normal();
+		hit |= CollisionMath::Collide(raytest.Ray, tri, raytest.Result);
+		if (hit) {
+			break;
+		}
+		if (err_x < err_y) {
+			err_x += dist_y;
+			i += step_x;
+		} else {
+			err_y += dist_x;
+			j += step_y;
+		}
+	}
+	return hit;
+}
+
+// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0)
+bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
+{
+	bool hit = false;
+	Vector3 corners[16];
+	int n = 0;
+	int i, j, k;
+	for (i = -1; i <= 1; i += 2) {
+		for (j = -1; j <= 1; j += 2) {
+			for (k = -1; k <= 1; k += 2) {
+				float params[3];
+				params[0] = (float)i;
+				params[1] = (float)j;
+				params[2] = (float)k;
+				boxtest.Box.Compute_Point(params, &corners[n]);
+				n++;
+			}
+		}
+	}
+	for (i = 0; i < 8; i++) {
+		corners[i + 8] = corners[i] + boxtest.Move;
+	}
+	Vector3 min = corners[0];
+	Vector3 max = corners[0];
+	for (i = 1; i < 16; i++) {
+		min.X = WWMath::Min(min.X, corners[i].X);
+		max.X = WWMath::Max(max.X, corners[i].X);
+		min.Y = WWMath::Min(min.Y, corners[i].Y);
+		max.Y = WWMath::Max(max.Y, corners[i].Y);
+	}
+	float half = (float)HalfSize;
+	int i0 = (int)(min.X / XSpacing + half - 1.0f);
+	int i1 = (int)(max.X / XSpacing + half + 1.0f);
+	int j1 = (int)(max.Y / YSpacing + half + 1.0f);
+	int j0 = (int)(min.Y / YSpacing + half - 1.0f);
+	for (j = j0; j <= j1; j++) {
+		for (i = i0; i <= i1; i++) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts[0].Z = Get_Height(i, j);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+		}
+	}
+	return hit;
+}
+
+// NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30)
+void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
+{
+	Vector3 extent;
+	box.Compute_Axis_Aligned_Extent(&extent);
+	Vector3 min = box.Center - extent;
+	float half = (float)HalfSize;
+	float x0 = min.X / XSpacing + half;
+	float y0 = min.Y / YSpacing + half;
+	Vector3 max = box.Center + extent;
+	float x1 = max.X / XSpacing + half;
+	float y1 = max.Y / YSpacing + half;
+	if (x0 > x1) {
+		float swap = x0;
+		x0 = x1;
+		x1 = swap;
+	}
+	if (y0 > y1) {
+		float swap = y0;
+		y0 = y1;
+		y1 = swap;
+	}
+	int i0 = (int)(x0 - 1.0f);
+	int i1 = (int)(x1 + 1.0f);
+	int j1 = (int)(y1 + 1.0f);
+	int j0 = (int)(y0 - 1.0f);
+	for (int j = j0; j <= j1; j++) {
+		for (int i = i0; i <= i1; i++) {
+			Vector3 verts4[4];
+			verts4[0].X = (float)(int)(i - HalfSize) * XSpacing;
+			verts4[0].Y = (float)(int)(j - HalfSize) * YSpacing;
+			verts4[0].Z = Get_Height(i, j);
+			verts4[1].X = verts4[0].X + XSpacing;
+			verts4[1].Y = verts4[0].Y;
+			verts4[1].Z = Get_Height(i + 1, j);
+			verts4[2].X = verts4[1].X;
+			verts4[2].Y = verts4[0].Y + YSpacing;
+			verts4[2].Z = Get_Height(i + 1, j + 1);
+			verts4[3].X = verts4[0].X;
+			verts4[3].Y = verts4[2].Y;
+			verts4[3].Z = Get_Height(i, j + 1);
+			verts.push_back(verts4[0]);
+			verts.push_back(verts4[2]);
+			verts.push_back(verts4[3]);
+			verts.push_back(verts4[0]);
+			verts.push_back(verts4[1]);
+			verts.push_back(verts4[2]);
+		}
+	}
+}
+
 float HeightFieldClass::Get_Height(float x, float y) const
 {
-	float fx = x / Spacing + Width / 2;
-	float fy = y / Spacing + Height / 2;
+	float fx = x / XSpacing + (int)Size / 2;
+	float fy = y / XSpacing + (int)Size / 2;
 	int i = (int)floor(fx);
 	int j = (int)floor(fy);
 	float tx = fx - i;
@@ -167,8 +664,8 @@ float HeightFieldClass::Get_Height(float x, float y) const
 
 void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 {
-	out->X = (u - 0.5f) * Spacing * Width;
-	out->Y = (v - 0.5f) * Spacing * Height;
+	out->X = (u - 0.5f) * XSpacing * Size;
+	out->Y = (v - 0.5f) * XSpacing * Size;
 	out->Z = Get_Height(out->X, out->Y);
 }
 
@@ -176,8 +673,16 @@ void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 **	Reconstruction notes
 **
 **	The client's height field, 0x4634A0-0x465D30 (no asserts, no __FILE__: the file name is unknown;
-**	heightfield.cpp is a proposal), and VIDTEST's 2002 copy 0x4023D0-0x404B30. NOT EXACT: written
-**	functionally (D42) for VIDTEST's land (milestones.md M2.4). Not rebuilt: the collision code
-**	(CollisionMath::Collide over the field's triangles) and the client's 16-bit height storage.
-**	The PGM is read through the file factory (VIDTEST reads it with the same factory as its art).
+**	heightfield.cpp is a proposal), and VIDTEST's 2002 copy 0x4023D0-0x404B30, in the client's order:
+**	the constructor 0x4634A0, Load 0x4634F0, the destructor 0x463790, the PGM reader 0x4637C0, Sample
+**	0x463BF0, Get_Height 0x463C80 / 0x463CD0, Set_Height 0x463D20 / 0x463D90, World_To_Grid 0x463E00,
+**	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600,
+**	Cast_AABox 0x465030 (exact), Cast_OBBox 0x4654E0 and Cast_Ray 0x4647C0 (NOT EXACT: frame): two triangles
+**	per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT
+**	EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then
+**	walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes'
+**	"Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v)
+**	for now: the client's Sample 0x463BF0 (two triangles per cell) moves a tree 1.8 units on average
+**	over the river map (52 at most), and vidtest_sbs's run-to-run spread (about 1.5% of the pixels)
+**	hides whether VIDTEST.EXE's trees follow it; the draw dumps' tree positions can settle it.
 */

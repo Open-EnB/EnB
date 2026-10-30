@@ -30,6 +30,7 @@
 
 #include "cordcon.h"
 #include "udp.h"
+#include "..\common\unknown_rsakey.h"
 #include <time.h>
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
@@ -91,8 +92,9 @@ public:
 	bool Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85AB30
 	bool Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85A430
 	bool Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85ABB0
-	// Starts a connection to ip:port on the first data socket (0x858EC0, reduced: no socket binding).
-	CordConnectingClass *Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
+	// Starts a connection to ip:port on the first data socket and returns its session id (0x858EC0,
+	// reduced: no socket binding).
+	int Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
 	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
 	// resend timer or time-out).
 	bool Pump_Connections();
@@ -103,6 +105,8 @@ public:
 	void Process_Zero_Read(sockaddr_in *from);	// NAME 2: what it does
 	// Closes a connection and frees it 30 s later (Pump_Releases). 0x8596F0
 	bool Release(CordCon *con);	// NAME 1: after Pump_Releases
+	// CordCon::Pending_Messages summed over Connections_ (ClientTask::Run waits for 0). 0x8598F0
+	int Pending_Messages();	// NAME 2: what it counts
 	// Waits up to sec / usec for a datagram on any of the sockets (wnet's UDP::Wait on their set). 0x857DE0
 	int Wait(int sec, int usec);	// NAME 2: what it does
 	// The CordCon a handshake made, taken out of AllConnections_: a client's by its session id, or
@@ -129,7 +133,8 @@ public:
 	ArrayList<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
 	ArrayList<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on
 
-	int Unexpected_;									// (the harness's count of datagrams Pump didn't take)
+	int Unexpected_;									// +0x58 (the harness's count of datagrams Pump didn't take, in the client's unknown +0x58)
+	RSAKeyClass KeyPair;								// +0x5C the server's key pair (0x856D80 loads it: 0x85AFB0); 0x95C bytes in all  // NAME 2: what it holds
 };
 
 #endif

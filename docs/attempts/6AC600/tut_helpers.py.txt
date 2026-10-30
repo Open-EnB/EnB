@@ -1,0 +1,125 @@
+# HL2: tutorial_manager.cpp, workflow.md 3.1 shared static helpers: the constructor 0x6AC600 and Reload
+# 0x6AD7B0 hold the same step loader (their reports on distinct lines 94/114 and 382/402, so the report
+# parts are written twice); the line loop and the table store could be shared helpers VC6 inlines.
+import os, re
+C = 'app/client/tutorial_manager.cpp'
+REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+SRC = open(os.path.join(REPO, C), encoding='latin1', newline='').read().replace('\r\n', '\n')
+
+# the blank region before the constructor
+m = re.search(r'\treturn 0;\n}\n(\n+)// NOT EXACT: inline budget \(explain.py: inline-budget\), the client calls', SRC)
+NBLANK = len(m.group(1)) - 1   # blank lines between Get_Line's } and the comment
+GAP_OLD = m.group(0)
+TAIL = '// NOT EXACT: inline budget (explain.py: inline-budget), the client calls'
+
+def gap_with(helpers):
+    lines = helpers.count('\n')
+    assert lines <= NBLANK, (lines, NBLANK)
+    return '\treturn 0;\n}\n\n' + helpers + '\n' * (NBLANK - lines) + TAIL
+
+LOOP = """					int line = 0;
+					while (true) {
+						{
+							char entry[64];
+							sprintf(entry, "Speech%d", line);
+							if (ini.Find_Entry(section, entry) == 0) {
+								break;
+							}
+							StringClass speech;
+							ini.Get_String(speech, section, entry, "");
+							sprintf(entry, "Text%d", line);
+							StringClass text;
+							ini.Get_String(text, section, entry, "");
+							bool skip_blend = ini.Get_Bool(section, "SkipBlend", false);
+							step->Add_Line(speech, text, skip_blend);
+						}
+						line++;
+					}
+"""
+STORE = "					Steps[std::string(step->Name)] = step;\n"
+assert SRC.count(LOOP) == 2 and SRC.count(STORE) == 2
+LOOP_N = LOOP.count('\n')
+
+H_LINES = """static void Load_Lines(INIClass &ini, const char *section, TutorialStepStruct *step)
+{
+	int line = 0;
+	while (true) {
+		{
+			char entry[64];
+			sprintf(entry, "Speech%d", line);
+			if (ini.Find_Entry(section, entry) == 0) {
+				break;
+			}
+			StringClass speech;
+			ini.Get_String(speech, section, entry, "");
+			sprintf(entry, "Text%d", line);
+			StringClass text;
+			ini.Get_String(text, section, entry, "");
+			bool skip_blend = ini.Get_Bool(section, "SkipBlend", false);
+			step->Add_Line(speech, text, skip_blend);
+		}
+		line++;
+	}
+}
+
+"""
+H_STORE = """static void Add_Step(std::hash_map<std::string, TutorialStepStruct *> &steps, TutorialStepStruct *step)
+{
+	steps[std::string(step->Name)] = step;
+}
+
+"""
+H_STEP = """static void Load_Step(INIClass &ini, const char *section, TutorialStepStruct *step, std::hash_map<std::string, TutorialStepStruct *> &steps)
+{
+	int line = 0;
+	while (true) {
+		{
+			char entry[64];
+			sprintf(entry, "Speech%d", line);
+			if (ini.Find_Entry(section, entry) == 0) {
+				break;
+			}
+			StringClass speech;
+			ini.Get_String(speech, section, entry, "");
+			sprintf(entry, "Text%d", line);
+			StringClass text;
+			ini.Get_String(text, section, entry, "");
+			bool skip_blend = ini.Get_Bool(section, "SkipBlend", false);
+			step->Add_Line(speech, text, skip_blend);
+		}
+		line++;
+	}
+	steps[std::string(step->Name)] = step;
+}
+
+"""
+start = SRC.index('TutorialManagerClass::TutorialManagerClass() : Steps(100)')
+end = SRC.index('\n/*\n**\tReconstruction notes')
+BODY = SRC[start:end]
+mid = BODY.index('void TutorialManagerClass::Reload()')
+
+
+def body_with(loop_new, store_new, pad_ctor=True):
+    ctor, rest = BODY[:mid], BODY[mid:]
+    out = []
+    for part in (ctor, rest):
+        p = part.replace(LOOP + STORE, loop_new + store_new)
+        removed = (LOOP + STORE).count('\n') - (loop_new + store_new).count('\n')
+        if part is ctor and removed:
+            # keep Start_Step's __LINE__ (190): the lines go back after Read_Completed_File(false)'s block
+            p = p.replace('\n}\n// The hash_map iterator declared', '\n}\n' + '\n' * removed + '// The hash_map iterator declared', 1)
+        out.append(p)
+    return ''.join(out)
+
+
+CALL_LINES = "					Load_Lines(ini, section, step);\n"
+CALL_STORE = "					Add_Step(Steps, step);\n"
+CALL_STEP = "					Load_Step(ini, section, step, Steps);\n"
+V = {
+    'lines': [(C, GAP_OLD, gap_with(H_LINES)), (C, BODY, body_with(CALL_LINES, STORE))],
+    'store': [(C, GAP_OLD, gap_with(H_STORE)), (C, BODY, body_with(LOOP, CALL_STORE))],
+    'lines_store': [(C, GAP_OLD, gap_with(H_LINES + H_STORE)), (C, BODY, body_with(CALL_LINES, CALL_STORE))],
+    'step': [(C, GAP_OLD, gap_with(H_STEP)), (C, BODY, body_with(CALL_STEP, ''))],
+}
+COMPILE = [C]
+WATCH = ['0x6AC600', '0x6AD7B0', '0x6AD4B0', '0x6ACD10', '0x6ACF50']

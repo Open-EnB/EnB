@@ -153,13 +153,64 @@ void Unknown_Free_Assets() { fprintf(Out, "free assets\n"); }
 
 static LoginTaskClass *Login;
 bool LoginTaskClass::Accept_Focus() { fprintf(Out, "login accepts focus\n"); return true; }
-LoginTaskClass::LoginTaskClass(int mode)
+TicketClass::TicketClass(int) {}
+LoginCharacterClass::LoginCharacterClass() {}
+LoginCharacterClass::~LoginCharacterClass() {}
+AvatarDescClass::AvatarDescClass() {}
+ShipCustSettingsClass::ShipCustSettingsClass() {}
+void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *) {}
+void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *) {}
+bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
+bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
+int LoginCharacterClass::Get_Size() { return 0; }
+void LoginCharacterClass::Unknown_00(DeltaChildVisitorClass *) {}
+bool AvatarDescClass::Write(LinearBufferClass *) { return true; }
+bool AvatarDescClass::Write_Short(LinearBufferClass *) { return true; }
+bool AvatarDescClass::Read_Short(LinearBufferClass *) { return true; }
+int AvatarDescClass::Get_Short_Size() { return 0; }
+bool AvatarDescClass::Read(LinearBufferClass *) { return true; }
+int AvatarDescClass::Get_Size() { return 0; }
+void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *) {}
+bool ShipCustDescClass::Write(LinearBufferClass *) { return true; }
+bool ShipCustDescClass::Read(LinearBufferClass *) { return true; }
+int ShipCustDescClass::Get_Size() { return 0; }
+bool ShipCustDescClass::Write_Short(LinearBufferClass *) { return true; }
+bool ShipCustDescClass::Read_Short(LinearBufferClass *) { return true; }
+int ShipCustDescClass::Get_Short_Size() { return 0; }
+void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *) {}
+void ShipCustDescClass::Set_Race(int) {}
+void ShipCustDescClass::Reset_Parts() {}
+void ShipCustDescClass::Set_Profession(int) {}
+bool LoginGalaxyClass::Write(LinearBufferClass *) { return true; }
+bool LoginGalaxyClass::Read(LinearBufferClass *) { return true; }
+int LoginGalaxyClass::Get_Size() { return 0; }
+TicketClass::~TicketClass() {}
+bool TicketClass::Write(LinearBufferClass *) { return true; }
+bool TicketClass::Read(LinearBufferClass *) { return true; }
+int TicketClass::Get_Size() { return 0; }
+LoginTaskClass::LoginTaskClass(int mode) : Ticket(0)
 {
 	Login = this;
 	fprintf(Out, "login task mode %d\n", mode);
 }
 int LoginTaskClass::Get_Interval() { return 0; }
-bool LoginTaskClass::Delete_On_Remove() { return true; }
+// the rest of tsk_login.h's virtuals (not reached here)
+LoginTaskClass::~LoginTaskClass() {}
+bool LoginTaskClass::Yield_Focus() { return true; }
+void LoginTaskClass::Run() {}
+void LoginTaskClass::Pre_Run() {}
+void LoginTaskClass::Render() {}
+void LoginTaskClass::Unknown_48(AvatarDescClass *, ShipCustDescClass *, int, int) {}
+bool LoginTaskClass::Unknown_4C() { return false; }
+void LoginTaskClass::Unknown_50() {}
+void LoginTaskClass::Go_Next_Step() {}
+void LoginTaskClass::Go_Back_Step() {}
+void LoginTaskClass::Unknown_5C() {}
+void LoginTaskClass::Set_Step(int, bool) {}
+bool LoginTaskClass::Unknown_64() { return false; }
+void LoginTaskClass::Process_Packets() {}
+void LoginTaskClass::Unknown_6C() {}
+void LoginTaskClass::Create_Character_View() {}
 
 // mclient.cpp's client: each script plays for 2 runs.
 static int Clients_Made;

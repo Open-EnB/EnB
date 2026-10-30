@@ -1,0 +1,42 @@
+"""F8: the damage decals' three finds as one inlined helper (name, array, changed flags, count), with 0 / 3 / 6 dead finds
+at the top. Line-neutral (the FAIL_IF and G_ASSERT after the region keep their lines)."""
+import os
+WT = r'C:\EnBDevelopment\EnB\.work\wt\f8'
+C = 'app/client/co.cpp'
+src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
+FF = 'Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); '
+
+BLANK = '}\n\n\n// 0x6FD2C0\n'
+assert src.count(BLANK) == 1
+HELPER = ('static inline void F8_Pool(ClientObjectClass *o, const char *field, DeltaArrayClass<UnknownB01A40Type> *&array, bool *changed, int count) '
+          '{ NameClass name(field); DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)o->AuxData, name); '
+          'if (t && t->m_Unknown70 <= 1) t = NULL; array = t; if (t) { for (int i = 0; i < count; i++) changed[i] = t->Children[i]->m_Unknown70 > 1; } else { memset(changed, 0, count); } }')
+HELPER_EDIT = (C, BLANK, '}\n' + HELPER + '\n\n// 0x6FD2C0\n')
+
+START = '\t{\n\t\tNameClass name("DamageSpot");\n'
+END = '\tif (arrays[0] || arrays[1] || arrays[2]) {\n'
+a = src.index(START)
+b = src.index(END)
+REGION = src[a:b]
+n = REGION.count('\n')
+CALLS = ('\tF8_Pool(this, "DamageSpot", arrays[0], spot_changed, 15);\n'
+         '\tF8_Pool(this, "DamageLine", arrays[1], line_changed, 10);\n'
+         '\tF8_Pool(this, "DamageBlotch", arrays[2], blotch_changed, 5);\n')
+NEW_REGION = CALLS + '\n' * (n - CALLS.count('\n'))
+assert NEW_REGION.count('\n') == n
+REGION_EDIT = (C, REGION, NEW_REGION)
+
+DEC_FN = 'void ClientObjectClass::Unknown_6FD310()\n{\n\tif (!Unknown_6F5850()) {\n'
+assert src.count(DEC_FN) == 1
+
+
+def dead(k):
+    return (C, DEC_FN, 'void ClientObjectClass::Unknown_6FD310()\n{\t' + (FF * k).rstrip() + '\n\tif (!Unknown_6F5850()) {\n')
+
+
+V = {
+    'pool0': [HELPER_EDIT, REGION_EDIT],
+    'pool3': [HELPER_EDIT, REGION_EDIT, dead(3)],
+    'pool6': [HELPER_EDIT, REGION_EDIT, dead(6)],
+}
+ONLY = {0x6FD310}

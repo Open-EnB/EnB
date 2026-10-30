@@ -24,7 +24,8 @@ import pkdecode as gen  # noqa: E402
 import pkclasses  # noqa: E402
 
 # files the client names (asserts), by an address inside them
-NAMED = {0x8622A0: 'gameedit\\pkgespwn', 0x874790: 'pk_player_object_relationship', 0x875910: 'pk_sub_parts',
+NAMED = {0x862350: 'gameedit\\pkgespwn', 0x861DB0: 'gameedit\\pkgesave', 0x85E640: 'gameedit\\pkgekv', 0x85F870: 'gameedit\\pkgeobj', 0x860D30: 'gameedit\\pkgeplan',
+         0x874790: 'pk_player_object_relationship', 0x875910: 'pk_sub_parts',
          0x880340: 'pkdebug', 0x886640: 'pkfindmember', 0x895F50: 'pkjoblist', 0x8A9BB0: 'pktask',
          0x8ABED0: 'pkupdate', 0x89AB30: 'pklogoff'}
 WIDTH = {'int': 4, 'float': 4, 'short': 2, 'unsigned short': 2, 'char': 1, 'unsigned char': 1, 'bool': 1,
@@ -78,6 +79,12 @@ def decl(cls, ctors):
         if isinstance(body, tuple):
             body = byoff[body[1]]['cname']
         out.append('\tvirtual %s %s() { return(%s); }\t// +0x%02X 0x%X' % (typ, nm, body, off, f))
+    if cls.get('gettype'):
+        tag = "  // NAME 2: what it returns (the opcode Build sends), as MessageLinePacketClass's"
+        if cls['gettype'] < cls['sdd']:
+            out.append('\tvirtual int Get_Type() { return(%d); }\t// +0x28 0x%X%s' % (cls['op'], cls['gettype'], tag))
+        else:
+            out.append('\tvirtual int Get_Type();\t// +0x28 0x%X%s' % (cls['gettype'], tag))
     for off, f in cls['extra']:
         out.append('\tvirtual bool Unknown_%02X(void *a);\t// +0x%02X 0x%X (clientstub.cpp l.%d)  '
                    '// NAME 1: neutral (D10)' % (off, off, f, stub_line(f)))
@@ -180,7 +187,8 @@ def defs(cls):
     out.append((cls['ctor'], ['%s::%s(RawPacketClass *%s)%s' % (cls['name'], cls['name'], 'raw' if uses else '', il),
                               '{'] + get + ['}']))
     b = ['RawPacketClass *%s::Build()' % cls['name'], '{',
-         '\tRawPacketClass *raw = new RawPacketClass(%d, Get_Data_Size());' % cls['op']]
+         '\tRawPacketClass *raw = new RawPacketClass(%s, Get_Data_Size());' % (
+             'Get_Type()' if cls.get('gettype') else cls['op'])]
     for off, kind, n in cls['adds']:
         mv = byoff[off]
         if kind == 'raw':
@@ -191,6 +199,8 @@ def defs(cls):
             b.append('\traw->Add(%s);' % mv['cname'])
     b += ['\treturn(raw);', '}']
     out.append((cls['build'], b))
+    if cls.get('gettype') and cls['gettype'] > cls['sdd']:
+        out.append((cls['gettype'], ['int %s::Get_Type()' % cls['name'], '{', '\treturn(%d);' % cls['op'], '}']))
     terms = []
     for off, kind, n in cls['adds']:
         nm = byoff[off]['cname']
@@ -230,6 +240,9 @@ if os.path.exists(_p):
         if _l.strip():
             _a, _r = _l.rstrip('\n').split(' ', 1)
             NOTEXACT[int(_a, 16)] = _r
+
+# drafted files that hold classes written by hand too: never rewritten (their decoded classes are kept as drafted)
+HAND = {'pkglobalerror', 'pkcreatecharacter', 'pkrecustomize', 'pkserverhandoff', 'pkmasterjoin', 'pkloungenpc', 'pktalktreeaction', 'pkunknown_877640', 'pkunknown_85d1a0', 'pkunknown_85f250', 'gameedit\\pkgekv', 'pkunknown_85d4b0', 'gameedit\\pkgeobj', 'gameedit\\pkgeplan', 'gameedit\\pkgesave', 'pkfindmember', 'pkserverredirect', 'pkunknown_87dec0', 'pkitemba', 'pkunknown_863720', 'pkmessagechatstream', 'pkserverready', 'pkjoblist', 'pktask', 'pkgadget', 'pkglobalconnect', 'pkspline', 'pknote', 'pkpetitionstuck', 'pkmessagetime', 'pkmodechange', 'pkmoderequest', 'pkguildplayeronline', 'pkgmeditplayerinventory', 'pkgmviewmissionlog', 'pkgmdestroyitem', 'pkgmresetmission', 'pkgpsrequest', 'pkincapacitancerequest', 'pkguildranknamesrequestclient', 'pkconfirmedaction', 'pktriggeremote', 'pkcta_request', 'pkserverparameters', 'pksetclienttype', 'pknotelist', 'pkmanufactureitemcatagorypacket', 'pkstarbasetow', 'pkdebug', 'pkinventorymove', 'pknamedecal', 'pkverbrequest', 'pkrequesttime', 'pkwarpindex', 'pksoundcommand', 'pkupdate', 'pkpointeffect', 'pk_player_object_relationship', 'pkclientchat', 'pkmessagestring', 'pkgroup', 'pkdialog', 'pkunknown_877c80', 'pkmove', 'pknavdelete', 'pkunknown_888b60', 'pkmessageline', 'pkcolorization'}   # opcode 106 by hand (builder P, 2026-10-26); 62, 9, 137, 165, 29, 30, 98, 99, 20, 153, 139, 174, 35, 36, 17 (builder P3, 2026-10-26)
 
 # the names the files have in the tree (a file keeps its name when more of its classes are drafted)
 KEEP = dict((op, inc[:-2]) for op, (name, inc) in pkclasses.rebuilt_classes().items())
@@ -282,7 +295,7 @@ def main():
                 tag = "NAME 1 [%s]: provisional, neutral (D10): the object's first address" % name
         if name in [e[0] for e in emitted]:
             name = '%s_%x' % (name, fl['lo'])
-        if name == 'pklogoff' or (a.files and name not in a.files):
+        if name == 'pklogoff' or name in HAND or (a.files and name not in a.files):
             continue
         if os.path.exists(os.path.join(PKDIR, name + '.cpp')) and not a.write:
             print('  exists: %s' % name)

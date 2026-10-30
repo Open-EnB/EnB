@@ -173,7 +173,7 @@ public:
 	** Screen/Movie capturing
 	** These functions allow you to create screenshots and movies.
 	*/
-	static void					Make_Screen_Shot( const char * filename = "ScreenShot");
+	static void					Make_Screen_Shot( const char * filename = "ScreenShot", float unknown = 1.3f, int format = 0);	// NAME 2: unknown (1.3f at every call) and format (0 tga, 1 bmp, 2 jpg: the switch at 0x9182C0)
 	static void					Start_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
 	static void					Stop_Movie_Capture( void);
 	static void					Toggle_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
@@ -287,6 +287,9 @@ public:
 	static void					Render_And_Clear_Static_Sort_Lists(RenderInfoClass & rinfo);
 	static void					Override_Current_Static_Sort_Lists(StaticSortListClass * sort_list);
 	static void					Reset_Current_Static_Sort_Lists_To_Default(void);
+
+	// Gamma control
+	static void					Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true);
 
 	static bool					Is_Snapshot_Activated()						{ return SnapshotActivated; }
 	static void					Activate_Snapshot(bool b)					{ SnapshotActivated=b; }

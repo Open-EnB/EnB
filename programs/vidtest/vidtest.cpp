@@ -81,7 +81,10 @@
 #include "ini.h"
 #include "stars.h"							// app\shared (M2.4)
 #include "spln_db.h"						// app\shared (M2.4)
+#include "curve.h"
 #include "land.h"							// app\shared (M2.4)
+//#include "viddeco.h"						// the land's decorations, VIDTEST's own (D101)
+#include "registry.h"
 
 static FILE *		LogFile = NULL;
 static bool			Quit = false;
@@ -364,7 +367,23 @@ static void Land_Update_Lightmap(LandClass *l, const LandLightingStruct &lightin
 }
 static SplineDatabaseClass *	Splines = NULL;			// 0x5EF19C: splines.wsd
 static char					ArtDir[MAX_PATH] = "";	// ours: the -art folder (VIDTEST opens splines.wsd in its working directory)
-static bool Splines_Loaded(void)					{ return Splines != NULL && Splines->Is_Loaded(); }
+static bool Splines_Loaded(void)					{ return Splines != NULL && Splines->Has_Splines(); }
+
+/*
+** ours: a colour spline's value at t (VIDTEST 0x4250B0 evaluates the curves of name_R, _G, _B as
+** the client's lighting does through 0x485440)
+*/
+static bool Evaluate_Color(const char *base_name, float t, float *r, float *g, float *b)
+{
+	Curve1DClass *cr, *cg, *cb;
+	if (!Splines->Get_Color_Curves(base_name, &cr, &cg, &cb)) {
+		return false;
+	}
+	cr->Evaluate(t, r);
+	cg->Evaluate(t, g);
+	cb->Evaluate(t, b);
+	return true;
+}
 
 /*
 ** ------------------------------------------------------------------------------------------------
@@ -617,7 +636,7 @@ static void Update_Lighting(Vector3 *out, bool full)
 	if (a > WWMATH_PI) a = 2 * WWMATH_PI - a;
 	Vector3 sun((float)cos(a), 0.0f, (float)sin(a));
 	sun.Normalize();
-	float e = (float)asin(sun.Z);
+	float e = (float)acos(sun.Z);						// the sun's angle from the zenith (0x5286A0 is the CRT's acos: atan(sqrt(1 - z*z) / z))
 	if (e < 0) {
 		sun = -sun;
 		e = -e;
@@ -628,13 +647,13 @@ static void Update_Lighting(Vector3 *out, bool full)
 	Vector3 emissive(0.1f, 0.1f, 0.1f);
 	if (Splines_Loaded()) {
 		Vector3 c, i;
-		Splines->Evaluate_Color("LightColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
-		Splines->Evaluate_Color("LightIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		Evaluate_Color("LightColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Evaluate_Color("LightIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
 		light.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
-		Splines->Evaluate_Color("SkyColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
-		Splines->Evaluate_Color("SkyIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
+		Evaluate_Color("SkyColor.Earth", TimeOfDay, &c.X, &c.Y, &c.Z);
+		Evaluate_Color("SkyIntensity.Sun", TimeOfDay, &i.X, &i.Y, &i.Z);
 		sky.Set(c.X * i.X, c.Y * i.Y, c.Z * i.Z);
-		Splines->Evaluate_Color("SkyEmissive.Default", TimeOfDay, &emissive.X, &emissive.Y, &emissive.Z);
+		Evaluate_Color("SkyEmissive.Default", TimeOfDay, &emissive.X, &emissive.Y, &emissive.Z);
 	}
 	Sun->Set_Spot_Direction(-sun);
 	Vector3 diffuse(WWMath::Clamp(light.X), WWMath::Clamp(light.Y), WWMath::Clamp(light.Z));
@@ -1060,11 +1079,11 @@ static bool Build_Scenes(void)
 	LandScene = new SimpleSceneClass;
 	LandScene->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
 	LandScene->Add_Render_Object(Sun);
+	RegistryClass::Set_Read_Only(true);						// D69: the land's companion reads the DMap key (0x468120)
 	Land = LandClass::Create("land.ini", true);				// 0x4068F0
 	Log("LandClass::Create(\"land.ini\") = %p\n", Land);
 	if (Land) {
-		bool decos = Land->Create_Decorations(0);				// 0x415C40
-		Log("Create_Decorations(0) = %d\n", (int)decos);
+		Land->Create_Decorations(0);							// 0x415C40: the trees into the land's patch records, drawn by its Render
 		LandScene->Add_Render_Object(Land);
 	}
 	LandScene->Add_Render_Object(Mu02);

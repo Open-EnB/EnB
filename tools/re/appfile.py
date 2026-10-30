@@ -4,7 +4,7 @@
                                                 strings and asserts (with their __LINE__)
     python appfile.py draft FILE [--out DIR]    also write DIR/<name>.cpp: one stub per function with
                                                 all of the above and Ghidra's saved pseudocode
-    python appfile.py match DRAFT.cpp [-I DIR]... [--flags F] [--diff NAME]
+    python appfile.py match DRAFT.cpp [-I DIR|auto]... [--pool] [--flags F] [--diff NAME]
                                                 compile the draft with VC6 (tools/vc6/vc6.py) and
                                                 match every function against its `// @0xADDR` marker
 
@@ -24,7 +24,19 @@ with NDEBUG (D61: E&B's own asserts, G_ASSERT/FAIL_IF, don't test it). In the dr
 before a function's definition; each compiled function whose demangled name is that definition's
 is reported EXACT when its bytes (relocations masked, as objmatch.py) are the client's at ADDR,
 otherwise with its objmatch status and objdiff similarity to ADDR. `--diff
-NAME` prints the full objdiff of one function. Objects land in DRAFT's directory under obj/.
+NAME` prints the full objdiff of one function.
+
+Include directories (D112(5)): with no -I (or `-I auto`, which may be mixed with explicit ones) the
+draft's #includes are resolved recursively as VC6 resolves them, quoted ones from the including
+file's folder first, against every app/ folder with a tracked header, importer.py's tree_includes
+(libraries, SDK_INCLUDES), the libs/ folders and the wwlib-style top-level folders; the folders actually used
+go to cl as -I in that order and every folder a resolved header sits in is sent to the VM (a stale
+VM copy is what the long hand-written lists were for). `--pool` leases one VM from pool.py under
+$ENB_AGENT and releases it after; otherwise ENB_VC6_HOSTS / vc6_hosts.json choose the VM. Objects
+land in .work/<$ENB_AGENT or appfile>/appfile/obj, never in the draft's folder. A stale result is
+refused: the draft changed during the compile, the object is older than the draft, or it lacks a
+non-inline function the draft marks (after one retry with the VM's sync cache reset;
+--allow-missing reports anyway). `draft` and `match` run only from inside their own tree (rootguard).
 """
 import argparse
 import bisect
@@ -32,6 +44,7 @@ import difflib
 import json
 import os
 import re
+import shutil
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -39,6 +52,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'vc6'))
 from clientimage import ClientImage  # noqa: E402
 from client import DATA, Names, section_of  # noqa: E402
+import rootguard  # noqa: E402
 
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 PSEUDO = os.path.join(ROOT, '.work', 'pseudo')
@@ -216,43 +230,193 @@ MARKER = re.compile(r'^\s*//\s*@(0x[0-9A-Fa-f]+)\s*$')
 DEFN = re.compile(r'([A-Za-z_][\w]*(?:::~?[A-Za-z_]\w*|::operator\s*\S+?)*)\s*\(')
 
 
-def markers(path):
+def markers(path, inline=None):
     """{qualified name: [address]} from `// @0xADDR` lines followed by a definition; also the
-    number of markers (filled or not)."""
+    number of markers (filled or not). `inline` (a set, optional) receives the names whose
+    definition is inline or a template (the compiler may leave them out of the object)."""
     out = {}
     lines = open(path, encoding='latin1').read().splitlines()
     for k, l in enumerate(lines):
         m = MARKER.match(l)
         if not m:
             continue
-        for nxt in lines[k + 1:k + 6]:
+        for j, nxt in enumerate(lines[k + 1:k + 6]):
             if not nxt.strip() or nxt.lstrip().startswith('//'):
                 continue
             d = DEFN.search(nxt)
             if d:
-                out.setdefault(d.group(1).replace(' ', ''), []).append(int(m.group(1), 16))
+                name = d.group(1).replace(' ', '')
+                out.setdefault(name, []).append(int(m.group(1), 16))
+                if inline is not None and re.search(r'\b(inline|__inline|__forceinline|template)\b',
+                                                    nxt + ' ' + lines[k + j]):
+                    inline.add(name)
             break
     return out, sum(1 for l in lines if MARKER.match(l))
 
 
+# ------------------------------------------------------------------ match: -I auto (D112(5))
+
+INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*([<"])([^">\r\n]+)[">]', re.M)
+NOT_LIBRARY = {'.git', '.work', 'build', 'docs', 'tools', 'tests', 'programs', 'stubs'}
+
+
+def candidate_dirs():
+    """-I auto's search list, in order: every app/ folder holding a tracked header (a draft away from
+    its home folder finds app/packets/pk.h before wwlib/pk.h, as the home folder would), the app
+    build's own list (importer.tree_includes: the libraries, importer.SDK_INCLUDES, libs/wwonline,
+    libs/sgistl), the libs/ folders holding tracked headers, other top-level folders holding headers
+    (wwlib style), the repository root last."""
+    import subprocess
+    import importer
+    base = [os.path.normpath(d) for d in importer.tree_includes()]
+    repo = os.path.normpath(importer.REPO)
+    tracked = subprocess.run(['git', '-C', repo, 'ls-files', '--', 'app', 'libs'], capture_output=True,
+                             text=True).stdout.split('\n')
+    extra = sorted({os.path.normpath(os.path.join(repo, os.path.dirname(f))) for f in tracked
+                    if f.lower().endswith(('.h', '.hpp', '.inl'))})
+    tops = sorted(os.path.join(repo, d) for d in os.listdir(repo)
+                  if d not in NOT_LIBRARY and os.path.isdir(os.path.join(repo, d))
+                  and any(f.lower().endswith('.h') for f in os.listdir(os.path.join(repo, d))))
+    out = []
+    app = [d for d in extra if os.path.relpath(d, repo).lower().startswith('app')]
+    for d in app + [b for b in base if b != repo] + extra + tops + [repo]:
+        if os.path.normcase(d) not in {os.path.normcase(x) for x in out}:
+            out.append(d)
+    return out
+
+
+def auto_includes(draft, cands=None):
+    """Resolve the draft's #includes recursively as VC6 does (quoted: the including file's folder,
+    then the folders of the files including it, innermost first, then the -I list; angle: the -I
+    list) against candidate_dirs(). Returns (the candidates used, in their order; the other
+    folders the resolved headers sit in, to send to the VM; the headers resolved by name).
+    Conditional compilation is ignored: every #include counts (a superset)."""
+    cands = cands or candidate_dirs()
+    key = os.path.normcase
+    used, found_dirs, seen, names = set(), set(), set(), 0
+    stack = [(os.path.abspath(draft), ())]
+    while stack:
+        path, chain = stack.pop()
+        if key(path) in seen:
+            continue
+        seen.add(key(path))
+        try:
+            text = open(path, encoding='latin1').read()
+        except OSError:
+            continue
+        here = os.path.dirname(path)
+        for kind, name in INCLUDE.findall(text):
+            name = name.strip().replace('/', os.sep)
+            local = [here] + list(reversed(chain)) if kind == '"' else []
+            hit = None
+            for d in local + cands:
+                p = os.path.normpath(os.path.join(d, name))
+                if os.path.isfile(p):
+                    hit = p
+                    if d not in local:
+                        used.add(key(d))
+                    break
+            if hit:
+                names += 1
+                found_dirs.add(os.path.dirname(hit))
+                stack.append((hit, chain + (here,)))
+    inc = [d for d in cands if key(d) in used]
+    sync = sorted(d for d in found_dirs if key(d) not in used)
+    return inc, sync, names
+
+
+def agent_name():
+    return os.environ.get('ENB_AGENT') or 'appfile'
+
+
+def lease_vm():
+    """--pool: lease one VM from pool.py under $ENB_AGENT (else appfile-<pid>) and point vc6 at
+    it; returns the VM names to release (only the one leased here, never the agent's others)."""
+    import subprocess
+    pool = [sys.executable, os.path.join(ROOT, 'tools', 'vc6', 'pool.py')]
+    agent = os.environ.get('ENB_AGENT') or f'appfile-{os.getpid()}'
+    p = subprocess.run(pool + ['lease', '--agent', agent, '--count', '1'], capture_output=True, text=True)
+    sys.stderr.write(p.stderr)
+    names = re.findall(r'^(\S+): \S+ ready', p.stderr, re.M)
+    line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
+    if p.returncode or not line:
+        release_vm(names)
+        raise SystemExit(f'pool.py lease failed (exit {p.returncode}): {p.stdout.strip()}')
+    os.environ['ENB_VC6_HOSTS'] = line[-1].split('=', 1)[1]
+    print(f'pool: {", ".join(names)} {os.environ["ENB_VC6_HOSTS"]} for {agent}', flush=True)
+    return names
+
+
+def release_vm(names):
+    import subprocess
+    if names:
+        p = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'vc6', 'pool.py'), 'release'] + names,
+                           capture_output=True, text=True)
+        print(f'pool: {p.stdout.strip()}', flush=True)
+
+
 def match(a):
+    names = lease_vm() if a.pool else []
+    try:
+        return _match(a)
+    finally:
+        release_vm(names)
+
+
+def compile_draft(a, includes, sync, out):
     import vc6
-    from objmatch import CoffObject, match_objects, demangle
-    import objdiff
-    out = os.path.join(os.path.dirname(os.path.abspath(a.draft)), 'obj')
-    for f in os.listdir(out) if os.path.isdir(out) else ():
-        if f.lower().endswith('.obj'):
-            os.remove(os.path.join(out, f))
+    shutil.rmtree(out, ignore_errors=True)
+    os.makedirs(out)
     defines = list(vc6.DEFAULT_DEFINES) + ['ENABLE_WWPROFILE'] + a.D  # with NDEBUG (D61) and ENABLE_WWPROFILE (D74), as APP_LIBS
-    rc, log = vc6.compile_sources([a.draft], a.I, defines, a.flags, out)
-    errors = [l for l in log.splitlines() if ' error ' in l or ' warning ' in l]
-    print('\n'.join(errors[:30]))
-    objs = [os.path.join(out, f) for f in os.listdir(out) if f.lower().endswith('.obj')] if os.path.isdir(out) else []
-    if rc or not objs:
-        raise SystemExit(f'compile failed (rc {rc})')
+    before = os.path.getmtime(a.draft)
+    rc, log = vc6.compile_sources([a.draft], includes, defines, a.flags, out, extra_sync=sync)
+    objs = [os.path.join(out, f) for f in os.listdir(out) if f.lower().endswith('.obj')]
+    return rc, log, objs, before
+
+
+def _match(a):
+    import vc6
+    from objmatch import CoffObject, match_objects
+    import objdiff
+    a.draft = os.path.abspath(a.draft)
+    if not a.I or a.I == ['auto']:
+        includes, sync, n = auto_includes(a.draft)
+        print(f'-I auto: {n} headers from {len(includes)} directories: '
+              + ' '.join(os.path.relpath(d, ROOT) if not os.path.relpath(d, ROOT).startswith('..') else d
+                         for d in includes))
+    else:
+        includes, sync = [d for d in a.I if d != 'auto'], []
+        if 'auto' in a.I:
+            more, sync, _ = auto_includes(a.draft)
+            includes += [d for d in more if os.path.normcase(os.path.abspath(d))
+                         not in {os.path.normcase(os.path.abspath(x)) for x in includes}]
+    # never into the draft's folder (a shared app folder's obj/ was cleared under other builders)
+    out = os.path.join(ROOT, '.work', agent_name(), 'appfile', 'obj')
+    inline = set()
+    want, total = markers(a.draft, inline)
     app = App()
     img = app.img
-    want, total = markers(a.draft)
+    for attempt in (0, 1):
+        rc, log, objs, before = compile_draft(a, includes, sync, out)
+        errors = [l for l in log.splitlines() if ' error ' in l or ' warning ' in l]
+        print('\n'.join(errors[:30]))
+        if rc or not objs:
+            raise SystemExit(f'compile failed (rc {rc})')
+        # a stale result: the draft changed meanwhile, the object predates it, or it lacks a
+        # function the draft defines (the VM compiled an old copy: forget the sync cache, once)
+        now = os.path.getmtime(a.draft)
+        if now != before or os.path.getmtime(objs[0]) < now - 2:
+            raise SystemExit(f'stale result: {objs[0]} is older than {a.draft} (or the draft changed during the compile)')
+        compiled = {r['name'] for r in match_objects(img, objs)}
+        lacking = sorted(n for n in want if n not in inline and n not in compiled)
+        if not lacking or a.allow_missing:
+            break
+        if attempt == 0:
+            print(f'the object lacks {", ".join(lacking)}: resending the sources and compiling again', flush=True)
+            vc6.reset_sync_cache()
+            continue
+        raise SystemExit(f'stale result: the object lacks {", ".join(lacking)}, defined in the draft '
+                         f'(--allow-missing to report anyway)')
     obj = CoffObject(objs[0])
     funcs = {name: (sec, s, e) for name, sec, s, e in obj.functions()}
     exact = 0
@@ -306,13 +470,21 @@ def main():
     d.add_argument('--out', default=os.path.join(ROOT, '.work', 'app'))
     m = sub.add_parser('match')
     m.add_argument('draft')
-    m.add_argument('-I', action='append', default=[], help='include directory')
+    m.add_argument('-I', action='append', default=[],
+                   help="include directory; 'auto' (the default when no -I is given) resolves the draft's #includes")
+    m.add_argument('--pool', action='store_true', help='lease one VM from pool.py for this run ($ENB_AGENT), release after')
+    m.add_argument('--allow-missing', action='store_true',
+                   help='report even when the object lacks a function the draft defines (else refused as stale)')
     m.add_argument('-D', action='append', default=[], help='extra define')
     m.add_argument('--flags', default=APP_FLAGS)
     m.add_argument('--diff', help='print the objdiff of this function (demangled or mangled name)')
+    for p in (d, m):
+        p.add_argument('--root', help=rootguard.HELP)
     for p in (s, d):
         p.add_argument('--neighbours', type=int, default=3, help='unattributed functions shown on each side (default 3)')
     a = ap.parse_args()
+    if a.cmd in ('draft', 'match'):
+        rootguard.check(__file__, a.root)   # D112(4): they write .work/ (show only reads)
     if a.cmd == 'match':
         return match(a)
     fname = norm_file(a.file)

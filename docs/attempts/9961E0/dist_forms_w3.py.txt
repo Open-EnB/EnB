@@ -1,0 +1,124 @@
+# ==== .work/w3/d1.py
+LIB = 'ww3d2'
+DRAW = "\t\tDX8Wrapper::Draw_Triangles(0, index_count / 3, 0, vertex_count);\n"
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+PROJ = "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n"
+TAIL = "\tREF_PTR_RELEASE(surface);\n\ttexture->Release_Ref();\n\tback_buffer->Release_Ref();\n}"
+DEAD = "\t\tint dead = indices.Count();\n"
+FORMS = {
+    'base': [],
+    # dead inline accessor at several points, to learn the order in which nested inlines spend the budget
+    'D1': [(DRAW, DRAW + DEAD)],
+    'D2': [(PROJ, PROJ + DEAD)],
+    'D3': [(DRAW, DEAD + DRAW)],
+    'D4': [("\tint i, j;\n", "\tint i, j;\n\tint dead = indices.Count();\n")],
+    'D5': [("\tif (!m_Unknown8C) return;\n", "\tif (!m_Unknown8C) return;\n\tint dead = DistortionList.Count();\n")],
+}
+
+# ==== .work/w3/d2.py
+LIB = 'ww3d2'
+TAIL = "\tREF_PTR_RELEASE(surface);\n\ttexture->Release_Ref();\n\tback_buffer->Release_Ref();\n}"
+ER = ("\tif (nx < 2) {\n\t\tREF_PTR_RELEASE(surface);\n\t\ttexture->Release_Ref();\n\t\tback_buffer->Release_Ref();\n\t\treturn;\n\t}\n"
+      "\tif (ny < 2) {\n\t\tREF_PTR_RELEASE(surface);\n\t\ttexture->Release_Ref();\n\t\tback_buffer->Release_Ref();\n\t\treturn;\n\t}\n")
+def tail(a, b, c):
+    return [(TAIL, "\t%s;\n\t%s;\n\t%s;\n}" % (a, b, c))]
+FORMS = {
+    'T1': tail('REF_PTR_RELEASE(surface)', 'REF_PTR_RELEASE(texture)', 'back_buffer->Release_Ref()'),
+    'T2': tail('REF_PTR_RELEASE(surface)', 'texture->Release_Ref()', 'REF_PTR_RELEASE(back_buffer)'),
+    'T3': tail('REF_PTR_RELEASE(surface)', 'REF_PTR_RELEASE(texture)', 'REF_PTR_RELEASE(back_buffer)'),
+    'T4': [(ER, ER.replace('texture->Release_Ref()', 'REF_PTR_RELEASE(texture)').replace('back_buffer->Release_Ref()', 'REF_PTR_RELEASE(back_buffer)'))]
+          + tail('REF_PTR_RELEASE(surface)', 'REF_PTR_RELEASE(texture)', 'REF_PTR_RELEASE(back_buffer)'),
+    'T5': tail('if (surface) surface->Release_Ref()', 'texture->Release_Ref()', 'back_buffer->Release_Ref()'),
+}
+
+# ==== .work/w3/d3.py
+LIB = 'ww3d2'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+TAIL = "\tback_buffer->Release_Ref();\n}"
+DEAD = "\t\tint dead = indices.Count();\n"
+FORMS = {
+    'M1': [(VIEW, VIEW + DEAD)],
+    'M2': [(TAIL, "\tback_buffer->Release_Ref();\n\tint dead = indices.Count();\n}")],
+    'M3': [(TAIL, "\tint dead = indices.Count();\n\tback_buffer->Release_Ref();\n}")],
+}
+
+# ==== .work/w3/d4.py
+LIB = 'ww3d2'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+PROJ = "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n"
+TAIL = "\tback_buffer->Release_Ref();\n}"
+FORMS = {
+    'P1': [(PROJ, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, Matrix4(projection));\n")],
+    'P2': [(VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")],
+    'P3': [(PROJ, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, Matrix4(projection));\n"),
+           (VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")],
+    # an inline call with no code after the restore: the vertex count read back
+    'P4': [(TAIL, "\tback_buffer->Release_Ref();\n\tWWASSERT(verts.Count() == vertex_count);\n}")],
+    'P5': [(PROJ, PROJ + "\t\tDX8Wrapper::Set_Texture(0, NULL);\n")],
+}
+
+# ==== .work/w3/d5.py
+LIB = 'ww3d2'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+P2 = (VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")
+LOOPS = ("\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+         "\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n\t\t\tindices.Add(i0);\n\t\t\tindices.Add(i1);\n"
+         "\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i1);\n\t\t\tindices.Add(i1 + 1);\n")
+def body(pre, a):
+    return [P2, (LOOPS, "\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n" + pre +
+                 ''.join("\t\t\tindices.Add(%s);\n" % x for x in a))]
+FORMS = {
+    'base2': [P2],
+    # client: i0 = i + j*nx (imul each pass), i1 = i + (j+1)*nx, the third/fourth reduced as i + (j*nx + 1)
+    'Q1': body('', ['i + j * nx', 'i + (j + 1) * nx', 'i + j * nx + 1', 'i + j * nx + 1', 'i + (j + 1) * nx', 'i + (j + 1) * nx + 1']),
+    'Q2': body('', ['j * nx + i', '(j + 1) * nx + i', 'j * nx + i + 1', 'j * nx + i + 1', '(j + 1) * nx + i', '(j + 1) * nx + i + 1']),
+    'Q3': body('\t\t\tint i0 = i + j * nx;\n\t\t\tint i1 = i + (j + 1) * nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1']),
+    'Q4': body('\t\t\tunsigned short i0 = j * nx + i;\n\t\t\tunsigned short i1 = (j + 1) * nx + i;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1']),
+    'Q5': body('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1']),
+    'Q6': body('', ['(j * nx) + i', '((j + 1) * nx) + i', '(j * nx) + (i + 1)', '(j * nx) + (i + 1)', '((j + 1) * nx) + i', '((j + 1) * nx) + (i + 1)']),
+}
+
+# ==== .work/w3/d6.py
+LIB = 'ww3d2'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+PROJ = "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n"
+P2 = (VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")
+P1 = (PROJ, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, Matrix4(projection));\n")
+LOOPS = ("\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+         "\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n\t\t\tindices.Add(i0);\n\t\t\tindices.Add(i1);\n"
+         "\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i1);\n\t\t\tindices.Add(i1 + 1);\n")
+def body(pre, a, extra=(P2,)):
+    return list(extra) + [(LOOPS, "\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n" + pre +
+                 ''.join("\t\t\tindices.Add(%s);\n" % x for x in a))]
+Q5 = ('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1'])
+FORMS = {
+    'S1': body(*Q5, extra=(P1,)),
+    'S2': body(*Q5, extra=(P1, P2)),
+    'S3': body('\t\t\tint k = j * nx + i;\n', ['k', 'k + nx', 'k + 1', 'k + 1', 'k + nx', 'k + nx + 1']),
+    'S4': body('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = nx + i0;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1']),
+    'S5': body('\t\t\tint i0 = i + j * nx;\n\t\t\tint i1 = i0 + nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1']),
+    'S6': body('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n\t\t\tint i2 = i0 + 1;\n\t\t\tint i3 = i1 + 1;\n', ['i0', 'i1', 'i2', 'i2', 'i1', 'i3']),
+    'S7': body('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i0 + nx + 1']),
+}
+
+# runner: .work/w3/tv.py (copy of .work/c/tv.py with explain.py)
+# ==== .work/w3/d7.py
+LIB = 'ww3d2'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+P2 = (VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")
+LOOPS = ("\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+         "\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n")
+Q5 = (LOOPS, "\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+             "\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n")
+CNT = "\tint vertex_count = nx * ny;\n\tint index_count = (nx - 1) * 6 * (ny - 1);\n"
+def cells(loop_i0, cnt):
+    return [P2, (CNT, cnt), (LOOPS, "\tfor (j = 0; j < cy; j++) {\n\t\tfor (i = 0; i < cx; i++) {\n" + loop_i0)]
+FORMS = {
+    'R1': cells("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n",
+                "\tint vertex_count = nx * ny;\n\tint cx = nx - 1;\n\tint cy = ny - 1;\n\tint index_count = cx * 6 * cy;\n"),
+    'R2': cells("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n",
+                "\tint vertex_count = nx * ny;\n\tint cx = nx - 1;\n\tint cy = ny - 1;\n\tint index_count = cx * 6 * cy;\n"),
+    'R3': cells("\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n",
+                "\tint cx = nx - 1;\n\tint cy = ny - 1;\n\tint vertex_count = nx * ny;\n\tint index_count = cx * cy * 6;\n"),
+    'R4': [P2, Q5, ("\tint i, j;\n", "\tint i;\n\tint j;\n")],
+}

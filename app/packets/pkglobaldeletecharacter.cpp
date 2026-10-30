@@ -3,6 +3,12 @@
 #include <stdio.h>
 
 
+GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(int slot) :
+	Unknown0C(slot),
+	Unknown10(0)
+{
+}
+
 GlobalDeleteCharacterPacketClass::GlobalDeleteCharacterPacketClass(RawPacketClass *raw)
 {
 	raw->Get(Unknown0C);
@@ -33,5 +39,6 @@ int GlobalDeleteCharacterPacketClass::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
+**	* The sending constructor 0x8647B0 written by hand (builder P9, 2026-10-27; tsk_login.cpp's delete step).
 **	* The file name is provisional (provisional, pk + its first named class's name).
 */

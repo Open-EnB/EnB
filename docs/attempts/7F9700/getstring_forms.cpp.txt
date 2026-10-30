@@ -1,0 +1,22 @@
+// option.cpp Get_String 0x7F9700 (Get_Default_String 0x7F9970 the same with Default): forms tried by B-opus, 2026-10-27
+// In the tree (shape, 57 masked rows: the client's inlining, blocks in the other order):
+//	StringOptionStruct *option = Find_String(name);
+//	if (option == NULL) {
+//		return("");
+//	}
+//	return(option->Value);
+// Copy first (the client's block order; inline-budget, 58 rows: the "" path inlines _Grow, so _Xlen/_Tidy/_Copy/_Eos are called):
+//	if (option != NULL) {
+//		return(option->Value);
+//	}
+//	return("");
+// Closest (inline-budget, 7 calls vs 6: only _Eos called where the client inlines it): copy first plus one unreachable
+// dead read after the last return; two dead reads overshoot (_Grow inlined away, assign called):
+//	if (option != NULL) {
+//		return(option->Value);
+//	}
+//	return("");
+//	option->Value.size();
+// No effect or worse: else branches, !option, a ternary with std::string(""), a goto, a named std::string local,
+// Strings.find directly, Find_Option directly, std::string("") / a named empty string, dead reads before or between
+// the returns, an unreachable second return(option->Value) (= one dead read), an unreachable std::string copy (= two).

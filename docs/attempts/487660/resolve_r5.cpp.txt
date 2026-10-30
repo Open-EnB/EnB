@@ -1,0 +1,44 @@
+// HL1 2026-10-29: Resolve 0x487660 near miss (24 masked rows; the alpha lookup's Find inlined, the client calls it)
+bool SplineDatabaseClass::Resolve(void)
+{
+	HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid();
+	bool ok = true; while (node != NULL) {
+		SplineEntryClass *entry = node->Get();
+		if (entry->Type == TYPE_COLOR) {
+			char name[128];
+			strcpy(name, entry->Name);
+			strcat(name, "_R");
+			char *suffix = &name[strlen(name) - 1];
+			SplineEntryClass *component = Find(name);
+			if (component == NULL) {
+				ok = false;
+			} else {
+				component->Hidden = true;
+			}
+			*suffix = 'G';
+			component = Find(name);
+			if (component == NULL) {
+				ok = false;
+			} else {
+				component->Hidden = true;
+			}
+			*suffix = 'B';
+			component = Find(name);
+			if (component != NULL) {
+				component->Hidden = true;
+			} else {
+				ok = false;
+			}
+		} else if (entry->Type == TYPE_BLEND) {
+			HashNodeClass<SplineEntryClass *> *found = Splines.Find(entry->AlphaKey);
+			if (found == NULL || found->Get() == NULL) {
+				ok = false;
+			}
+			found = Splines.Find(entry->BetaKey);
+			if (found == NULL || found->Get() == NULL) {
+				ok = false;
+			}
+		} node = node->Next_Valid();
+	}
+	return ok;
+}

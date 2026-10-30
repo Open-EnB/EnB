@@ -1,0 +1,22 @@
+// NOT EXACT: register-only (the client keeps the packet in esi and the client in edi; ours the reverse; 12 forms; attempts.py show 0x734DF0)
+// 0x734DF0
+bool ObjectEffectPacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("ObjectEffectPacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	int time = (DurationClass(TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	int duration = Duration >= 0 ? Duration : -1;
+	Unknown6E9490EffectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
+	FAIL_IF(!effect) return(true);
+	Unknown6E9490TargetClass *target = effect->Unknown_10();
+	if (target) {
+		target->Unknown_28(GameID);
+	} else {
+
+		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
+		G_ASSERT(0);
+	}
+	MainViewClass *view = sclient->MainView;
+	sclient->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
+	return(true);
+}

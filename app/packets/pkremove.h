@@ -24,7 +24,7 @@ class RemovePacketClass : public PacketClass
 public:
 	RemovePacketClass(RawPacketClass *raw);	// 0x8A1780
 	virtual RawPacketClass *Build();	// +0x04 0x8A1810
-	virtual bool Process_Packet(void *client);	// +0x08 0x7362F0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x7362F0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A18D0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A18F0
 	virtual int Get_Channel() { return(Unknown10); }	// +0x18 0x8A16F0

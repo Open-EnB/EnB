@@ -10,6 +10,8 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
    everyone, then the subsections for your kind of work).
 3. Builder subagents start from `docs/builders.md`: the startup set per builder kind, the rules,
    the report format and which model runs what (D72).
+   Coordinators pace launches and the drain with the `coordinator-pacing` skill (usage, host memory,
+   HEAD's health, the launch allowance, one command per heartbeat).
 4. Index of everything else: `docs/README.md`. Tools: `tools/re/README.md`, `tools/vc6/README.md`,
    `tools/harness/README.md`.
 Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section you need.
@@ -31,8 +33,9 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
   you lease, never use the base image. After a VM restart run `python tools/vc6/vc6.py discover`.
 - Inline assembly stays wherever the client has it, with a C-equivalent comment (D70).
 - Safety (D69): never a modal dialog (`-nomsgbox`); full screen is fine; no screen grabs, images
-  only from a program's own back buffer; never the game's install folder as working directory; no
-  registry changes; never push; `git add` by name (`.claude/settings.json` stays out).
+  only from a program's own back buffer; never the game's install folder as working directory, and
+  never write into it (reading it in place and copying from it are fine, D143); no registry
+  changes; never push; `git add` by name (`.claude/settings.json` stays out).
 - Decisions are the user's (D1, D2...). Propose with a recommendation; don't decide silently.
 
 ## Reverse-engineering tools: pick in this order

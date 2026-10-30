@@ -210,13 +210,16 @@ def _alias_setup(srcs, local_dir, alias):
     a source named e:\\build\\beta\\G\\app\\x.cpp gets that string. The VM has only C:, so the
     drive is a subst of WORK\\alias_<drive>, under which a directory junction (mklink /J, no admin
     rights needed) stands for the rest of the alias. Idempotent: every compile repeats it (a subst
-    may not outlive the SSH session)."""
+    may not outlive the SSH session), the junction made again each time: a run from a git worktree
+    points it at the worktree and the VM keeps it for the next lease (2026-10-27, H7: a main-tree
+    verify on enb-vc6-02 compiled H6's worktree)."""
     local_dir = os.path.abspath(local_dir)
     drive, rest = alias[:2], alias[2:].strip(BS)
     base = f'{WORK}\\alias_{drive[0].lower()}'
     link = base + BS + rest
     setup = [f'if not exist "{os.path.dirname(link)}" mkdir "{os.path.dirname(link)}"',
-             f'if not exist "{link}" mklink /J "{link}" "{local_dir}" >nul',
+             f'if exist "{link}" rmdir "{link}"',   # a worktree's run leaves the junction pointing at it
+             f'mklink /J "{link}" "{local_dir}" >nul',
              f'if not exist {drive}\\{rest}\\ subst {drive.upper()} "{base}"']
     renamed = []
     for full, rel in srcs:
@@ -245,7 +248,9 @@ def _missing_local_file(text):
 
 
 def _compile(srcs, incs, defines, flags, out, setup=()):
-    stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{int(time.time() * 1000) % 1000}'
+    # the thread is in the stamp: two threads compiling on one VM in the same millisecond shared
+    # one object directory and tar (flagsweep.py's parallel jobs got each other's objects)
+    stamp = time.strftime('%Y%m%d%H%M%S') + f'_{os.getpid()}_{threading.get_ident()}_{int(time.time() * 1000) % 1000}'
     objdir = f'{WORK}\\obj_{stamp}'
     cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
     cmd += [f'/Fo"{objdir}\\\\"'] + [f'"{f}"' for f, _ in srcs]

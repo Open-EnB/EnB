@@ -154,6 +154,42 @@ static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
 	return true;
 }
 
+// D95(a): the rebuilt classes whose client Build writes a size field larger than the payload it adds
+// (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes; 183: an entry sized 0x4C for 0x49 bytes),
+// so their Build can't give the received message back: the harness sends the message as received
+// instead (UDPConnection::Receive's buffer; the stream side: the bytes its transport read). Counted as
+// "sent as received".
+static const unsigned short Recorded_Opcodes[] = { 97, 183 };
+int Conn_Recorded = 0;
+char *Conn_Receive_Buffer();	// udpconn.cpp's message buffer (udpreplay.py build defines it after udpconn.cpp)
+
+static bool Is_Recorded(const unsigned char *message)
+{
+	unsigned short opcode = *(const unsigned short *)(message + 2);
+	for (int i = 0; i < (int)(sizeof(Recorded_Opcodes) / sizeof(Recorded_Opcodes[0])); i++) {
+		if (Recorded_Opcodes[i] == opcode) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// A rebuilt packet of a Recorded_Opcodes class keeps the message it was made from (a class not rebuilt
+// already has it through Conn_Record).
+static bool Keep_Received(PacketClass *p, const unsigned char *message, int length)
+{
+	if (p == 0 || length < 4 || !Is_Recorded(message) || Packets.find(p) != Packets.end()) {
+		return false;
+	}
+	short size = *(const short *)message;
+	if (size != length) {
+		Conn_Errors++;
+	}
+	Packets[p].assign(message, message + length);
+	Conn_Recorded++;
+	return true;
+}
+
 static void Delete_Packet(PacketClass *p)
 {
 	Packets.erase(p);
@@ -187,11 +223,13 @@ public:
 		}
 		for (int i = 0; i < n; i++) {
 			((unsigned char *)buffer)[i] = Pipe.front();
+			Taken.push_back(Pipe.front());
 			Pipe.pop_front();
 		}
 		return n;
 	}
 	std::deque<unsigned char> Pipe;
+	std::vector<unsigned char> Taken;	// what the transport read since the last send (Keep_Received)
 	int Turn;
 };
 
@@ -249,6 +287,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 		if (p->Connection != udp) {
 			Conn_Errors++;
 		}
+		Keep_Received(p, (const unsigned char *)Conn_Receive_Buffer(), con->BytesRead_ - read_before);
 		std::vector<unsigned char> sent;
 		if (!Packet_Bytes(p, sent)) {
 			Conn_Errors++;
@@ -256,6 +295,7 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 			continue;
 		}
 		RawPacketClass *raw = Build_Raw(sent);
+		Stream.Taken.clear();
 		if (!Stream.Send_Message(raw)) {
 			Conn_Errors++;
 		}
@@ -271,6 +311,9 @@ int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *c
 			}
 			if (q->Connection != &Stream) {
 				Conn_Errors++;
+			}
+			if (!Stream.Taken.empty()) {
+				Keep_Received(q, &Stream.Taken[0], (int)Stream.Taken.size());
 			}
 			std::vector<unsigned char> bytes;
 			if (!Packet_Bytes(q, bytes)) {

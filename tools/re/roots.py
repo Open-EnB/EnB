@@ -13,6 +13,8 @@ DEV_ROOT = r'C:\EnBDevelopment'
 EA_ROOT = os.path.join(DEV_ROOT, 'EA')
 # DirectX 8 and RAD Tools SDKs (radtools\include_enb is derived by tools/vc6/sdk_patch.py)
 SDK_ROOT = os.path.join(DEV_ROOT, 'SDK')
+# SGI STL 3.3 (D87; the source of libs\sgistl's VC6-adapted hash_map headers)
+SGI_STL = os.path.join(SDK_ROOT, 'stl-3.3')
 
 # Net-7 server emulator, C++ (AuxClasses = the aux-data classes the server writes)
 NET7_ROOT = os.path.join(DEV_ROOT, 'Net7')

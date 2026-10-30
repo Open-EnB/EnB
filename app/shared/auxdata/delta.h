@@ -27,6 +27,8 @@ class LinearBufferClass;
 class DurationClass;
 
 class DeltaClass;
+class DeltaInterfaceClass;
+class Vector3;
 class DeltaCompoundClass;
 class LookupClass;
 
@@ -48,10 +50,17 @@ public:
 // it). DeltaCompoundClass::Unknown_00 (0x4A55D0) calls its slot 1 once per child: a slot the
 // encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
 // are given derive from it.
+// The login objects hand it their own children and colours too (D104: slots +0x04-+0x10).
 class DeltaChildVisitorClass : public KVEncoderBaseClass  // NAME 2: describes what it does
 {
 public:
-	virtual void Unknown_04(int mask, const char *name, DeltaClass *child) = 0;
+	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child) = 0;	// +0x04 a key/value object under the name  // NAME 2: what it does
+	// the login objects' slots (a virtual more here moves aux_roots.cpp's VC6 symbol count: its pad
+	// absorbs these, workflow.md 3.3)
+	virtual void Unknown_08() = 0;
+	virtual void Unknown_0C() = 0;
+	virtual void Add_Color(int mask, const char *name, Vector3 *value) = 0;	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
+
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).
@@ -62,9 +71,8 @@ public:
 };
 
 // Per-class globals stored at +0x04 (E&B's own type information, rtti.h?): DeltaClass 0xBE3A78,
-// DeltaCompoundClass 0xBE3A74.
+// DeltaCompoundClass 0xBE3A74 (its static UnknownGlobal: rtti.h's cast 0x598D80 compares it).
 extern int DeltaUnknownGlobal;  // NAME 1: neutral (D10)
-extern int DeltaCompoundUnknownGlobal;  // NAME 1: neutral (D10)
 
 // vtable 0xAEAD70, size 0x84
 class DeltaClass : public DeltaInterfaceClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase)
@@ -107,8 +115,9 @@ class DeltaCompoundClass : public DeltaClass  // NAME 3: by convention (D24) fro
 public:
 	DeltaCompoundClass(const char *name) : DeltaClass(name), Lookup(0), m_Unknown98(0)
 	{
-		m_Unknown04 = DeltaCompoundUnknownGlobal;
+		m_Unknown04 = UnknownGlobal;
 	}
+	static int UnknownGlobal;	// the per-class global at +0x04 (0xBE3A74)
 	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A55D0
 	virtual ~DeltaCompoundClass();													// +0x04 0x4A5070
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A5650

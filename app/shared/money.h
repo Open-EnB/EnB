@@ -17,6 +17,8 @@
 #ifndef __MONEY_H  // NAME 3 [money.h]: header name assumed from the client's money.cpp
 #define __MONEY_H
 
+#include <string>
+
 class MoneyClass  // NAME 3: by convention (D24) from the client's file money.cpp (D37)
 {
 public:
@@ -30,6 +32,8 @@ public:
 
 	// DeltaTemplateClass<MoneyClass>::Set_Value compares (VC6 instantiates it with the class's virtuals)
 	bool operator!=(const MoneyClass &that) const { return m_Unknown00 != that.m_Unknown00; }
+	// money.cpp 0x4F00C0 (not rebuilt): the amount in decimal; the flag's meaning unknown (opcode 220's Print passes false)
+	std::string Unknown_4F00C0(bool unknown) const;  // NAME 1: neutral placeholder (D10)
 
 	__int64 m_Unknown00;		// +0x00 read and written as 8 bytes
 };

@@ -60,6 +60,7 @@ static int Window_Limit = 65535;
 extern bool Conn_Mode;
 extern int Conn_Errors;
 extern int Conn_Built;
+extern int Conn_Recorded;
 extern int Conn_Short;
 int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *con, CordMgr *mgr);
 static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the capture replay)
@@ -359,7 +360,9 @@ static void Handshake(FILE *out, const char *line)
 	Replay[sock].FromPort = (unsigned short)port;
 	CordDataSocketClass ds = { sock, 0, 0, 0 };
 	mgr.DataSockets_.addTail(ds);
-	CordConnectingClass *c = mgr.Connect(ip, (unsigned short)port, true);
+	mgr.Connect(ip, (unsigned short)port, true);	// the session id; its record is Pending_'s last
+	CordConnectingClass *c = 0;
+	mgr.Pending_.getTail(c);
 	c->Session = (int)session;
 	std::vector<unsigned char> k = From_Hex(key);
 	memcpy(&c->Key, &k[0], 8);
@@ -637,7 +640,8 @@ int main(int argc, char **argv)
 		}
 		fprintf(out, "# ticks %d\n", total);
 		if (Conn_Mode) {
-			fprintf(out, "S conn errors %d short %d built %d\n", Conn_Errors, Conn_Short, Conn_Built);
+			fprintf(out, "S conn errors %d short %d built %d recorded %d\n", Conn_Errors, Conn_Short, Conn_Built,
+				Conn_Recorded);
 		}
 		fclose(out);
 		fclose(in);
@@ -659,7 +663,8 @@ int main(int argc, char **argv)
 		}
 	}
 	if (Conn_Mode) {
-		fprintf(out, "S conn errors %d short %d built %d\n", Conn_Errors, Conn_Short, Conn_Built);
+		fprintf(out, "S conn errors %d short %d built %d recorded %d\n", Conn_Errors, Conn_Short, Conn_Built,
+				Conn_Recorded);
 	}
 	fclose(out);
 	fclose(in);

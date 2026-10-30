@@ -1,6 +1,8 @@
 """Builds a symbol map of client.exe from everything proven so far, and a coverage report.
 
     python symbols.py [--objs DIR...] [--out ../../docs/data]
+    python symbols.py --apply-named     only apply symbols_named.json to the existing symbols.json
+                                        (no regeneration: a regeneration is not neutral, workflow.md §3.4)
 
 Sources, best first (a name from a better source wins):
   exact     functions proven byte-identical: docs/data/bytematch-*.json (EA copies and the
@@ -8,11 +10,14 @@ Sources, best first (a name from a better source wins):
   vtable    client vtables located from the objects' vtables; slots aligned with ours name
             functions that have no bytes of their own to match (e.g. inline virtuals compiled
             into E&B's code), and each vtable itself is named
+  named     a name given by hand with its evidence (tools/re/symbols_named.json: a constructor's
+            `new` size and vtable store, a caller's assert...); it overrides a wrong strings match
   strings   string-anchored matches (docs/data/funcmatch.json, high/medium confidence)
   thunk     incremental-link thunks named after their target (j_<name>)
 
 Writes:
-  symbols.json        [{address, name, symbol, kind, source}]
+  symbols.json        [{address, name, symbol, kind, source[, proof][, length]}]; `proof` (D114(c)) is the
+                      non-exact evidence (vtable, strings) an exact name also has
   ghidra_symbols.py   a Ghidra script that labels the program with these names
   coverage.md         how much of .text is identified, by region and source
 """
@@ -31,7 +36,8 @@ from vtables import confident, find_in_client, vptr_stored, vtables_in  # noqa: 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.normpath(os.path.join(HERE, '..', '..', 'docs', 'data'))
-RANK = {'exact': 0, 'vtable': 1, 'strings': 2, 'thunk': 3}
+RANK = {'exact': 0, 'vtable': 1, 'named': 2, 'strings': 3, 'thunk': 4}
+NAMED = os.path.join(HERE, 'symbols_named.json')
 LIB_START = 0x8C1B50
 
 
@@ -39,20 +45,57 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--objs', action='append', default=[], help='object directories (vtables, exact names)')
     ap.add_argument('--out', default=DATA)
+    ap.add_argument('--apply-named', action='store_true',
+                    help='apply symbols_named.json to the existing symbols.json only (no regeneration)')
     a = ap.parse_args()
     img = ClientImage()
     starts, thunks = img.function_starts()
     t0, t1, _ = img.section('.text')
     syms = {}   # address -> entry
+    if a.apply_named:
+        for r in json.load(open(os.path.join(a.out, 'symbols.json'))):
+            syms[int(r['address'], 16)] = r
 
     def put(addr, symbol, kind, source, length=None):
+        if symbol.startswith(('_$E', 'j__$E')):
+            return      # D94(b): compiler-generated, numbered per translation unit (P-H7-2)
         e = syms.get(addr)
         if e and RANK[e['source']] <= RANK[source]:
+            # D114(c): an exact name keeps the best non-exact proof of the same symbol (a vtable slot, a
+            # string) in `proof`, so objmatch's self-name round (D88) still sees that evidence
+            if e['source'] == 'exact' and source in ('vtable', 'named', 'strings') and e['symbol'] == symbol \
+                    and RANK[source] < RANK[e.get('proof', 'thunk')]:
+                e['proof'] = source
             return
-        syms[addr] = {'address': f'0x{addr:06X}', 'symbol': symbol, 'name': demangle(symbol) if symbol.startswith(('?', '_')) else symbol,
-                      'kind': kind, 'source': source}
+        new = {'address': f'0x{addr:06X}', 'symbol': symbol, 'name': demangle(symbol) if symbol.startswith(('?', '_')) else symbol,
+               'kind': kind, 'source': source}
+        if e and source == 'exact' and e['symbol'] == symbol and e['source'] in ('vtable', 'named', 'strings'):
+            new['proof'] = e['source']
+        syms[addr] = new
         if length:
             syms[addr]['length'] = length
+
+    def put_named():
+        for m in json.load(open(NAMED)):
+            addr = int(m['address'], 16)
+            e = syms.get(addr)
+            if a.apply_named and e and e['source'] in ('strings', 'thunk', 'named'):
+                del syms[addr]      # a hand-given name replaces a weaker one in place
+            put(addr, m['symbol'], 'function', 'named')
+
+    def put_thunks():
+        for th, target in thunks.items():
+            if target in syms and syms[target]['kind'] == 'function':
+                e = syms.get(th)
+                if a.apply_named and e and e['source'] == 'thunk' and e['symbol'] != 'j_' + syms[target]['symbol']:
+                    del syms[th]    # the target was renamed
+                put(th, 'j_' + syms[target]['symbol'], 'thunk', 'thunk')
+
+    if a.apply_named:
+        put_named()
+        put_thunks()
+        finish(a, img, starts, thunks, syms, 0)
+        return
 
     # 1. exact: report JSONs
     for f in sorted(glob.glob(os.path.join(DATA, 'bytematch-*.json'))):
@@ -108,7 +151,10 @@ def main():
                     vt_named += 1
                 put(target, s, 'function', 'vtable')
 
-    # 3. string-anchored
+    # 3. named by hand, with evidence
+    put_named()
+
+    # 4. string-anchored
     try:
         for m in json.load(open(os.path.join(DATA, 'funcmatch.json'))):
             if m['confidence'] in ('high', 'medium'):
@@ -116,16 +162,18 @@ def main():
     except OSError:
         pass
 
-    # 4. thunks
-    for th, target in thunks.items():
-        if target in syms and syms[target]['kind'] == 'function':
-            put(th, 'j_' + syms[target]['symbol'], 'thunk', 'thunk')
+    # 5. thunks
+    put_thunks()
+    finish(a, img, starts, thunks, syms, vt_named)
 
+
+def finish(a, img, starts, thunks, syms, vt_named):
     rows = [syms[k] for k in sorted(syms)]
     os.makedirs(a.out, exist_ok=True)
     json.dump(rows, open(os.path.join(a.out, 'symbols.json'), 'w'), indent=0)
     write_ghidra(rows, os.path.join(a.out, 'ghidra_symbols.py'))
-    write_coverage(img, starts, thunks, rows, os.path.join(a.out, '..', 'coverage.md'), vt_named)
+    if not a.apply_named:   # its vtable count belongs to the last regeneration
+        write_coverage(img, starts, thunks, rows, os.path.join(a.out, '..', 'coverage.md'), vt_named)
     by = {}
     for r in rows:
         by[(r['kind'], r['source'])] = by.get((r['kind'], r['source']), 0) + 1
@@ -167,14 +215,16 @@ def write_coverage(img, starts, thunks, rows, path, vt_named):
     lines = ['# client.exe coverage (generated by tools/re/symbols.py)', '',
              'Functions named so far, by region and by the kind of evidence. "Exact" means proven byte '
              'for byte; "vtable" named through an aligned vtable; "strings" matched by shared strings '
-             '(lower confidence). Thunks (the incremental-link table) are not counted as functions.', '',
+             '(lower confidence; the column includes the few names given by hand with evidence, '
+             'tools/re/symbols_named.json). Thunks (the incremental-link table) are not counted as functions.', '',
              '| Region | Functions found | Named | Exact | vtable | strings | Named bytes (approx.) |',
              '|---|---|---|---|---|---|---|']
     thunk_set = set(thunks)
     for label, (lo, hi) in regions.items():
         fs = [s for s in starts if lo <= s < hi and s not in thunk_set]
         nm = [named[s] for s in fs if s in named]
-        cnt = {k: sum(1 for r in nm if r['source'] == k) for k in ('exact', 'vtable', 'strings')}
+        cnt = {k: sum(1 for r in nm if r['source'] == k) for k in ('exact', 'vtable', 'strings', 'named')}
+        cnt['strings'] += cnt['named']
         nbytes = sum(r.get('length') or flen(int(r['address'], 16)) for r in nm)
         lines.append(f"| {label} | {len(fs)} | {len(nm)} | {cnt['exact']} | {cnt['vtable']} | {cnt['strings']} | {nbytes // 1024} KB |")
     lines += ['', f'Functions first named through vtables in this run: {vt_named}.', '',

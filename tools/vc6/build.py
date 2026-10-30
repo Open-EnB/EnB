@@ -50,6 +50,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import importer as I  # noqa: E402
 import vc6  # noqa: E402
+import rootguard  # noqa: E402
 
 ORDER = I.LIBS + list(I.APP_LIBS)
 BS = chr(92)
@@ -68,6 +69,9 @@ SYS_LIBS_EXTRA = ['IMM32.LIB', 'VERSION.LIB', 'SHELL32.LIB', 'COMCTL32.LIB', 'CO
 # Miles (D51): mss32.lib generated from the game's Mss32.dll by tools/vc6/mkmss32.py into
 # DIR/mss32/ (its linkermember.txt lists the publics for `unresolved`).
 MSS32 = os.path.join('mss32', 'mss32.lib')
+# EA.Com's login component (D90 9a): authlogin.lib from tools/vc6/authlogin.def by
+# tools/vc6/mkauthlogin.py into DIR/authlogin/; linked when present (only LoginTaskClass needs it).
+AUTHLOGIN = os.path.join('authlogin', 'authlogin.lib')
 
 
 def git(*args):
@@ -497,7 +501,10 @@ LINK_SYS = ['LIBCMT.LIB', 'LIBCPMT.LIB', 'OLDNAMES.LIB', 'KERNEL32.LIB', 'USER32
             'ADVAPI32.LIB', 'OLE32.LIB', 'OLEAUT32.LIB', 'UUID.LIB', 'WINMM.LIB', 'WS2_32.LIB',
             'VFW32.LIB', 'COMSUPP.LIB',                                   # D50
             'sdk:d3d8.lib', 'sdk:d3dx8.lib', 'sdk:dxguid.lib', 'sdk:ddraw.lib']
-UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (\S+)(?: referenced in function (\S+))?')
+# VC6 quotes C++ symbols as `"demangled text" (?mangled@@...)` and C ones as a bare `_name`; the mangled
+# name is the key (group 1 or 3), the demangled text (group 2) is only for the printed summary.
+UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*)" \((\S+?)\)|(\S+))'
+                   r'(?: referenced in function (?:"[^"]*" \((\S+?)\)|(\S+)))?')
 
 
 def link_program(name, out):
@@ -513,6 +520,8 @@ def link_program(name, out):
     libs = [os.path.join(out, l, l + '.lib') for l in LINK_LIBS]
     libs.append(os.path.join(out, MSS32))
     missing = [l for l in libs if not os.path.exists(l)]
+    if os.path.exists(os.path.join(out, AUTHLOGIN)):
+        libs.append(os.path.join(out, AUTHLOGIN))
     if missing:
         raise SystemExit('build the libraries first (build.py; mkmss32.py lib): missing ' + ', '.join(missing))
     app_dirs = [d for d, _, _ in os.walk(I.dest('app'))]
@@ -582,10 +591,14 @@ def link_summary(name, dst, stubs):
     log = open(os.path.join(dst, 'link.log'), encoding='latin1').read()
     cl = open(os.path.join(dst, 'cl.log'), encoding='latin1').read() if os.path.exists(os.path.join(dst, 'cl.log')) else ''
     unres = collections.OrderedDict()
+    demangled = {}
     for m in UNRES.finditer(log):
-        unres.setdefault(m.group(1), set())
-        if m.group(2):
-            unres[m.group(1)].add(m.group(2))
+        sym = m.group(2) or m.group(3)
+        if m.group(1):
+            demangled[sym] = m.group(1)
+        unres.setdefault(sym, set())
+        if m.group(4) or m.group(5):
+            unres[sym].add(m.group(4) or m.group(5))
     # stub objects the linker pulled: the map's per-section contributions name `stubs.lib:x.obj`
     mapf = os.path.join(dst, name + '.map')
     pulled = set()
@@ -608,7 +621,8 @@ def link_summary(name, dst, stubs):
     for e in summary['cl_errors'][:10]:
         print('  cl:', e[:200])
     for s in list(unres)[:60]:
-        print('  unresolved:', s, ' <- ', ', '.join(sorted(unres[s])[:2]))
+        print('  unresolved:', s, ('(' + demangled[s][:80] + ')') if s in demangled else '',
+              ' <- ', ', '.join(sorted(unres[s])[:2]))
     for e in summary['link_errors'][:10]:
         print('  link:', e[:200])
     return summary
@@ -625,7 +639,9 @@ def main():
     ap.add_argument('--holder-pid', type=int)
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
+    ap.add_argument('--root', help=rootguard.HELP)
     a = ap.parse_args()
+    rootguard.check(__file__, a.root)   # D112(4): every command writes build/ or .work/
     if a.command == 'unresolved':
         unresolved(a.out, a.report)
         return

@@ -1,0 +1,7 @@
+; authlogin.dll's exports (EA.Com's login component, 2002-07-17, 3.3.0.6), exactly as exported (D90 9a).
+; Both undecorated: VC6's `lib /def` imports them by name. The client imports only
+; AuthLoginLib_GetComponentFactory. Build: python tools/vc6/mkauthlogin.py (docs/toolchain.md 2).
+LIBRARY authlogin.dll
+EXPORTS
+  AuthLoginLib_GetAuthorize
+  AuthLoginLib_GetComponentFactory

@@ -210,6 +210,20 @@ CordChannelClass *CordCon::Get_Channel(int channel)
 	return Channels_[channel];
 }
 
+// 0x84FED0: the messages the active channels hold, written and not sent or sent and not acked
+// (CordMgr::Pending_Messages 0x8598F0 sums it over the connections)
+int CordCon::Pending_Messages()
+{
+	int total = 0;
+	int count = Active_.size();
+	for (int i = 0; i < count; i++) {
+		CordChannelClass *channel = Active_[i];
+		total += channel->Queue.size();
+		total += channel->Sent.size();
+	}
+	return total;
+}
+
 // 0x84FF70: the client opens odd channels, the server even ones; the unused one written least
 // recently, two more made when none is free.
 bool CordCon::openc(unsigned int *channel, int mode, int priority)

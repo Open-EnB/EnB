@@ -31,6 +31,7 @@ import argparse
 import collections
 import json
 import os
+import re
 import shutil
 import sys
 import threading
@@ -49,7 +50,41 @@ from objmatch import match_objects  # noqa: E402
 EA = r'C:\EnBDevelopment\EA'
 SDK_INCLUDES = [r'C:\EnBDevelopment\SDK\directx8\include', r'C:\EnBDevelopment\SDK\radtools\include_enb']
 STATE = os.path.join(REPO, 'docs', 'data', 'imports.json')
-WORK = os.path.join(os.environ.get('TEMP', '.'), 'enb_import')
+def _worktree_agent():
+    """The git worktree's directory name when cwd is inside a worktree other than the main tree."""
+    import subprocess
+    try:
+        top, common = [subprocess.run(['git', 'rev-parse', a], capture_output=True, text=True, timeout=20).stdout.strip()
+                       for a in ('--show-toplevel', '--git-common-dir')]
+        if top and common:
+            main_top = os.path.dirname(os.path.abspath(common))
+            if os.path.normcase(os.path.abspath(top)) != os.path.normcase(main_top):
+                return os.path.basename(os.path.abspath(top))
+    except Exception:
+        pass
+    return None
+
+
+def _scratch(agent):
+    """Per-agent scratch <repo>/.work/<agent>/tmp/enb_import; without an agent, %TEMP%/enb_import."""
+    if not agent:
+        return os.path.join(os.environ.get('TEMP', '.'), 'enb_import')
+    return os.path.join(REPO, '.work', re.sub(r'[^A-Za-z0-9._-]', '_', agent), 'tmp', 'enb_import')
+
+
+def set_agent(name):
+    """--agent NAME: the lock owner and scratch folder; children inherit ENB_AGENT."""
+    global WORK
+    os.environ['ENB_AGENT'] = name
+    WORK = _scratch(name)
+    os.makedirs(WORK, exist_ok=True)
+
+
+_AGENT = os.environ.get('ENB_AGENT') or _worktree_agent()
+if _AGENT:
+    os.environ['ENB_AGENT'] = _AGENT
+WORK = _scratch(_AGENT)
+os.makedirs(WORK, exist_ok=True)
 
 # One importer at a time: every run that writes WORK or imports.json (main's commands, and the
 # trial/tryvariants/trydiff scripts through compile_and_match and save_state) holds
@@ -204,7 +239,7 @@ APP_LIBS = {
 # wwshade was also built with ENABLE_WWPROFILE: ShdMeshClass::Render 0xA09430 opens a
 # WWProfileSampleClass ("ShdMeshClass::Render", Start_Profile 0x9EA930, dtor 0x444160).
 # USE_WWSHADE in wwshade: neutral in the bytes (verify 138 before and after, none lost); set for
-# consistency with the project-wide define WW3D2 needs (4ae710d).
+# consistency with the project-wide define WW3D2 needs (4a50696).
 LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE /D USE_WWSHADE',
              # ENABLE_WWPROFILE also in WWAudio (+32 pairs: WWAudioClass, SoundSceneClass, sound buffers) and WWMath (+1)
              'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE',
@@ -645,6 +680,14 @@ class RenderObjClass : public RefCountClass , public PersistClass, public MultiL
         ('	User_Data(NULL),', """	User_Data(NULL),
 	RenderHook(NULL),""", 'both constructors clear the render hook'),
     ],
+    ('wwlib', 'ref_ptr.h'): [
+        ('\t\tRefCountPtr(DummyPtrType * dummy)\n\t\t\t: Referent(0)\n\t\t{\n\t\t\tG_ASSERT(dummy == 0);\n\t\t}\n',
+         '\t\tRefCountPtr(DummyPtrType * dummy)\n\t\t\t: Referent(0)\n\t\t{\n\t\t\t// E&B: no G_ASSERT(dummy == 0) here (see the patch note)\n\t\t}\n',
+         "E&B's ref_ptr.h differs from Renegade's revision 3: the client has no 'dummy == 0' string at all, and its only ref_ptr.h assert ('0 != Referent', operator*, 0x532726) is on line 356 where Renegade's is 371. With the assert, every RefCountPtr(NULL) spends the caller's inline budget on an expansion that folds away: client_lego_impl's Find 0x72ABB0 exact only without it (the client inlines the split's string destructor at its last two returns, F6 2026-10-27)"),
+        ('\t\t\t\t\t\tmy_parameter->Do_Something();\n\t\t\t\t\t}\n\n\t\t\t\t\tclass MyClass\n\t\t\t\t\t{\n\t\t\t\t\t\tpublic:\n\t\t\t\t\t\t\tvoid Set(const RefCountPtr<T> & newthing)\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tMyThing = newthing;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t// Get using an OUT parameter\n\t\t\t\t\t\t\tvoid Get(RefCountPtr<T> & thing)\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tthing = MyThing;\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t// Get using a return value.  Preferable to above\n\t\t\t\t\t\t\tconst RefCountPtr<T> & Get(void) const {return MyThing;}\n\n\t\t\t\t\t\tprivate:\n\t\t\t\t\t\t\tRefCountPtr<T> MyThing;\n\t\t\t\t\t};\n*/',
+         "\t\t\t\t\t\tmy_parameter->Do_Something();\n\t\t\t\t\t}\n\n\t\tE&B: the client's ref_ptr.h is 15 lines shorter than Renegade's revision 3 before\n\t\toperator*: its only assert, G_ASSERT(0 != Referent) there, carries line 356 where\n\t\tRenegade's has 371 (the call near 0x532726). E&B's own layout is unknown; this copy\n\t\tdrops Renegade's last usage example (a class MyClass with Set and two Gets) to put\n\t\tthe assert on the client's line.\n*/",
+         "E&B's ref_ptr.h is 15 lines shorter than Renegade's before operator*: the client's only ref_ptr.h assert ('0 != Referent', the call near 0x532726) carries line 356 where Renegade's and Generals' carry 371 (Zero Hour 374); none of the EA copies has E&B's layout. Comment-only: drops the last usage example from the prose header so the assert lands on 356 (F7 2026-10-27, D111)"),
+    ],
 }
 # D9 (docs/progress.md): E&B's texture classes and DX8Wrapper are Zero Hour's. Files that stay
 # Renegade's are written against its texture API; these edits give them Zero Hour's, as
@@ -664,7 +707,7 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'bmp2d.cpp'): [
         ('\t\t\tTextureClass *piece_texture =NEW_REF(TextureClass,(piece_surface,TextureClass::MIP_LEVELS_1));\t\t\t\n\t\t\tpiece_texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);\n\t\t\tpiece_texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);',
          '\t\t\tTextureClass *piece_texture =NEW_REF(TextureClass,(piece_surface,MIP_LEVELS_1));\t\t\t\n\t\t\tpiece_texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);\n\t\t\tpiece_texture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);',
-         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (8f10486, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
     ],
     ('ww3d2', 'dx8wrapper.cpp'): [
         ('\tTextureClass::MipCountType mip_level_count,',
@@ -714,7 +757,7 @@ TEXTURE_API_PATCHES = {
          "Zero Hour's Reset_Statistics, which counts draw calls too (byte-exact; Renegade's isn't)"),
         ('\tTextureClass::_Init_Filters((TextureClass::TextureFilterMode)WW3D::Get_Texture_Filter());',
          '\tTextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)WW3D::Get_Texture_Filter());',
-         "the default filters were initialised through TextureFilterClass::_Init_Filters, as in Zero Hour's texture API (and Zero Hour's copy); TEXTURE_FILTER_PATCHES (8f10486, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the default filters were initialised through TextureFilterClass::_Init_Filters, as in Zero Hour's texture API (and Zero Hour's copy); TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('static unsigned\t\t\t\tlast_frame_number_of_DX8_calls\t\t\t\t\t\t= 0;',
          'static unsigned\t\t\t\tlast_frame_number_of_DX8_calls\t\t\t\t\t\t= 0;\nstatic unsigned\t\t\t\tlast_frame_draw_calls\t\t\t\t\t\t\t\t\t= 0;',
          '(and its last-frame copy)'),
@@ -787,7 +830,7 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'metalmap.cpp'): [
         ('\t\tTextures[i]=NEW_REF(TextureClass,(METALMAP_SIZE,METALMAP_SIZE,format,TextureClass::MIP_LEVELS_1));\n\t\tTextures[i]->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);\n\t\tTextures[i]->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);',
          '\t\tTextures[i]=NEW_REF(TextureClass,(METALMAP_SIZE,METALMAP_SIZE,format,MIP_LEVELS_1));\n\t\tTextures[i]->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);\n\t\tTextures[i]->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);',
-         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (8f10486, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
     ],
     ('ww3d2', 'missingtexture.cpp'): [
         ('\t\tTextureClass::MIP_LEVELS_ALL);',
@@ -812,10 +855,10 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'ww3d.cpp'): [
         ('\tif (texture_filter>TextureClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureClass::TEXTURE_FILTER_ANISOTROPIC;',
          '\tif (texture_filter>TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC;',
-         "the filter enums were taken from TextureFilterClass, as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (8f10486, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the filter enums were taken from TextureFilterClass, as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('\tTextureClass::_Init_Filters((TextureClass::TextureFilterMode)TextureFilter);',
          '\tTextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)TextureFilter);',
-         "the filter enums and the default filters were taken from TextureFilterClass (_Init_Filters), as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (8f10486, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the filter enums and the default filters were taken from TextureFilterClass (_Init_Filters), as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('#endif\n\n\nconst char* DAZZLE_INI_FILENAME="DAZZLE.INI";\n',
          '#endif\n\n\n// E&B (name and module not known): called when a render device is set (0x995DC0); resets a\n// per-frame list of distortion objects and enables it if the device supports cube maps and the\n// resolution is at most 1024 wide\nvoid Unknown_Reset_Distortion_List(void);\n\nconst char* DAZZLE_INI_FILENAME="DAZZLE.INI";\n',
          "WW3D::Set_Render_Device (both overloads, 0x917790 and 0x9177E0) calls an E&B function (0x995DC0) on success; the two overloads are now byte-identical apart from their relocated callees, so objmatch finds each at both addresses ('multiple') and verify cannot credit them. The E&B module (ww3d2/unknown_distortion.cpp, D19: a screen-distortion effect; its list is enabled when DX8Caps::SupportCubemaps and the width is at most 1024); neutral name (D10)"),
@@ -834,6 +877,9 @@ TEXTURE_API_PATCHES = {
         ('\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
          '\n// E&B (name not known, D10): 0x9179D0 calls DX8Wrapper::Unknown_Restore_Device (0x921C50) and maps\n// its result to an error code (neg/sbb/and 0xFB/add 5: true -> 0, false -> 5).\nWW3DErrorType WW3D::Unknown_Restore_Device(void)\n{\n\treturn DX8Wrapper::Unknown_Restore_Device() ? WW3D_ERROR_OK : WW3D_ERROR_INITIALIZATION_FAILED;\n}\n\nvoid WW3D::_Invalidate_Mesh_Cache()\n',
          'E&B: 0x9179D0 returns WW3D_ERROR_OK when DX8Wrapper::Unknown_Restore_Device (0x921C50) succeeds, else 5 (WW3D_ERROR_INITIALIZATION_FAILED)'),
+        ('void WW3D::Make_Screen_Shot( const char * filename_base )\n',
+         'void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int format )\n',
+         "E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show 0x9182C0)"),
     ],
     ('ww3d2', 'assetmgr.h'): [
         ('\t\tTextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,',
@@ -946,8 +992,8 @@ TEXTURE_API_PATCHES = {
          "\tstatic void Invalidate_Old_Unused_Textures(unsigned inactive_time_override);\n\t// E&B (name not known): last frame's count of textures applied (0x94B910)\n\tstatic unsigned Unknown_Get_Textures_Applied_Last_Frame();\n\n",
          'TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame (E&B, name not known, D10; called by the app at 0x53EC23 and 0x6A1317)'),
         ('private:\n\n\t// Direct3D texture object\n\tIDirect3DBaseTexture8 *D3DTexture;\n',
-         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (c35cc34); TextureClass::Apply (0x94BC80) also reads it (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
-         'required because TextureClass(IDirect3DBaseTexture8*) writes D3DTexture (+0x34) directly, as the client\'s constructor does (0x94B660, c35cc34); TextureClass::Apply 0x94BC80 also passes it itself; access only, layout unchanged'),
+         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (ff7514c); TextureClass::Apply (0x94BC80) also reads it (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
+         'required because TextureClass(IDirect3DBaseTexture8*) writes D3DTexture (+0x34) directly, as the client\'s constructor does (0x94B660, ff7514c); TextureClass::Apply 0x94BC80 also passes it itself; access only, layout unchanged'),
         ('\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n',
          '\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n\t// E&B: not virtual, one for every texture class (0x94C1D0)\n\tunsigned Get_Texture_Memory_Usage() const;\n',
          "E&B's texture memory usage is one non-virtual TextureBaseClass function (0x94C1D0, after Set_HSV_Shift 0x94C150, called by Log_Textures/Log_All_Textures): Renegade's and Generals' form, the same body on both sides of an Initialized test (Calculate_Texture_Memory_Usage inlined twice; the vtables at 0xB119A0 have no slot for it)"),
@@ -1347,6 +1393,9 @@ TEXTURE_API_PATCHES = {
         ('\tvoid\t\t\t\t\tReset_Line(void);\n\n',
          '\tvoid\t\t\t\t\tReset_Line(void);\n\tvoid\t\t\t\t\tScale(float scale);\n\n',
          'SegLineRendererClass::Scale, as in Zero Hour (0x9C2B50, called by ParticleBufferClass::Scale at 0x95E936)'),
+        ('\t\t\t\t\t\t\t\t\t\t\tVector3 *xformed_subdiv_pts, float *subdiv_tex_v);\n',
+         '\t\t\t\t\t\t\t\t\t\t\tVector3 *xformed_subdiv_pts, float *subdiv_tex_v,\n\t\t\t\t\t\t\t\t\t\t\tVector4 *base_diffuse, Vector4 *subdiv_diffuse);\n',
+         "Zero Hour's per-point diffuse: subdivision_util 0x9C2390 takes base_diffuse and subdiv_diffuse"),
     ],
     ('ww3d2', 'seglinerenderer.cpp'): [
         ('\tVector3 * points,\n\tconst SphereClass & obj_sphere\n',
@@ -1355,6 +1404,111 @@ TEXTURE_API_PATCHES = {
         ('\t*p_sub_point_cnt = sub_pidx;\n}\n\n\n\n#endif //0',
          '\t*p_sub_point_cnt = sub_pidx;\n}\n\nvoid SegLineRendererClass::Scale(float scale)\n{\n\tWidth *= scale;\n\tNoiseAmplitude *= scale;\n}\n\n\n\n#endif //0',
          'SegLineRendererClass::Scale, as in Zero Hour (0x9C2B50, after subdivision_util)'),
+        ('\t\tfloat subdiv_tex_v[MAX_SEGLINE_POINT_BUFFER_SIZE];\n\t\tunsigned int sub_point_cnt;\n',
+         '\t\tfloat subdiv_tex_v[MAX_SEGLINE_POINT_BUFFER_SIZE];\n\t\tVector4 subdiv_rgbas[MAX_SEGLINE_POINT_BUFFER_SIZE];\n\t\tunsigned int sub_point_cnt;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tsubdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v);\n',
+         '\t\tVector4 *rgbasPointer = rgbas ? &rgbas[ chidx ] : NULL;\n\n\t\tsubdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v, rgbasPointer, subdiv_rgbas);\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tfloat *tex_v = subdiv_tex_v;\n\t\tpoint_cnt = sub_point_cnt;\n',
+         '\t\tfloat *tex_v = subdiv_tex_v;\n\t\tVector4 *diffuse = subdiv_rgbas;\n\t\tpoint_cnt = sub_point_cnt;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\tfloat\t\t\t\tTexV;\t\t\t\t\t// Averaged texture V coordinate of points\n\t\t\tbool\t\t\t\tFold;\t\t\t\t\t// Does the line fold over at this intersection?\n',
+         '\t\t\tfloat\t\t\t\tTexV;\t\t\t\t\t// Averaged texture V coordinate of points\n\t\t\tVector4\t\t\tRGBA;\t\t\t\t\t// Averaged RGBA of the points\n\t\t\tbool\t\t\t\tFold;\t\t\t\t\t// Does the line fold over at this intersection?\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[0][TOP_EDGE].TexV = 0.0f;\t\t\t\t\t// Should never be used\n\t\tintersection[0][TOP_EDGE].Fold = true;\t\t\t\t\t// Should never be used\n',
+         '\t\tintersection[0][TOP_EDGE].TexV = 0.0f;\t\t\t\t\t// Should never be used\n\t\tintersection[0][TOP_EDGE].RGBA.Set(0, 0, 0, 0);\t\t// Should never be used\n\t\tintersection[0][TOP_EDGE].Fold = true;\t\t\t\t\t// Should never be used\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[0][BOTTOM_EDGE].TexV = 0.0f;\t\t\t\t// Should never be used\n\t\tintersection[0][BOTTOM_EDGE].Direction.Set(1,0,0);\t// Should never be used\n',
+         '\t\tintersection[0][BOTTOM_EDGE].TexV = 0.0f;\t\t\t\t// Should never be used\n\t\tintersection[0][BOTTOM_EDGE].RGBA.Set(0, 0, 0, 0); // Should never be used\n\t\tintersection[0][BOTTOM_EDGE].Direction.Set(1,0,0);\t// Should never be used\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[1][TOP_EDGE].TexV = tex_v[0];\n\t\tintersection[1][TOP_EDGE].Fold = true;\n',
+         '\t\tintersection[1][TOP_EDGE].TexV = tex_v[0];\n\t\tintersection[1][TOP_EDGE].RGBA = diffuse[0];\n\t\tintersection[1][TOP_EDGE].Fold = true;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[1][BOTTOM_EDGE].TexV = tex_v[0];\n\t\tintersection[1][BOTTOM_EDGE].Fold = true;\n',
+         '\t\tintersection[1][BOTTOM_EDGE].TexV = tex_v[0];\n\t\tintersection[1][BOTTOM_EDGE].RGBA = diffuse[0];\n\t\tintersection[1][BOTTOM_EDGE].Fold = true;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[last_isec][TOP_EDGE].TexV = tex_v[point_cnt - 1];\n\t\tintersection[last_isec][TOP_EDGE].Fold = true;\n',
+         '\t\tintersection[last_isec][TOP_EDGE].TexV = tex_v[point_cnt - 1];\n\t\tintersection[last_isec][TOP_EDGE].RGBA = diffuse[point_cnt - 1];\n\t\tintersection[last_isec][TOP_EDGE].Fold = true;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tintersection[last_isec][BOTTOM_EDGE].TexV = tex_v[point_cnt - 1];\n\t\tintersection[last_isec][BOTTOM_EDGE].Fold = true;\n',
+         '\t\tintersection[last_isec][BOTTOM_EDGE].TexV = tex_v[point_cnt - 1];\n\t\tintersection[last_isec][BOTTOM_EDGE].RGBA = diffuse[point_cnt - 1];\n\t\tintersection[last_isec][BOTTOM_EDGE].Fold = true;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\tfloat mid_tex_v = tex_v[iidx - 1];\n\n',
+         '\t\t\tfloat mid_tex_v = tex_v[iidx - 1];\n\t\t\tVector4 mid_diffuse = diffuse[iidx - 1];\n\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\tintersection[iidx][TOP_EDGE].TexV = mid_tex_v;\n\t\t\tintersection[iidx][BOTTOM_EDGE].PointCount = 1;\n',
+         '\t\t\tintersection[iidx][TOP_EDGE].TexV = mid_tex_v;\n\t\t\tintersection[iidx][TOP_EDGE].RGBA = mid_diffuse;\n\t\t\tintersection[iidx][BOTTOM_EDGE].PointCount = 1;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\tintersection[iidx][BOTTOM_EDGE].TexV = mid_tex_v;\n\n',
+         '\t\t\tintersection[iidx][BOTTOM_EDGE].TexV = mid_tex_v;\n\t\t\tintersection[iidx][BOTTOM_EDGE].RGBA = mid_diffuse;\n\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\t\t\tfloat new_tex_v = curr_int->TexV * curr_factor + next_int->TexV * next_factor;\n\n',
+         '\t\t\t\t\t\t\tfloat new_tex_v = curr_int->TexV * curr_factor + next_int->TexV * next_factor;\n\t\t\t\t\t\t\tVector4 new_diffuse = curr_int->RGBA * curr_factor + next_int->RGBA * next_factor;\n\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\t\t\tcurr_int->TexV = new_tex_v;\n\t\t\t\t\t\t\tcurr_int->PointCount = new_count;\n',
+         '\t\t\t\t\t\t\tcurr_int->TexV = new_tex_v;\n\t\t\t\t\t\t\tcurr_int->RGBA = new_diffuse;\n\t\t\t\t\t\t\tcurr_int->PointCount = new_count;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\t\twrite_int->NextSegmentID\t= curr_int->NextSegmentID;\n\t\t\t\t\t\twrite_int->Point\t\t\t\t= curr_int->Point;\n\t\t\t\t\t\twrite_int->TexV\t\t\t\t= curr_int->TexV;\n\t\t\t\t\t\twrite_int->Direction\t\t\t= curr_int->Direction;\n\t\t\t\t\t\twrite_int->Fold\t\t\t\t= curr_int->Fold;\n\n',
+         '\t\t\t\t\t\twrite_int->NextSegmentID\t= curr_int->NextSegmentID;\n\t\t\t\t\t\twrite_int->Point\t\t\t\t= curr_int->Point;\n\t\t\t\t\t\twrite_int->TexV\t\t\t\t= curr_int->TexV;\n\t\t\t\t\t\twrite_int->RGBA\t\t\t\t= curr_int->RGBA;\n\t\t\t\t\t\twrite_int->Direction\t\t\t= curr_int->Direction;\n\t\t\t\t\t\twrite_int->Fold\t\t\t\t= curr_int->Fold;\n\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\t\twrite_int->TexV\t\t\t\t= curr_int->TexV;\n\t\t\t\t\t\twrite_int->Direction\t\t\t= curr_int->Direction;\n',
+         '\t\t\t\t\t\twrite_int->TexV\t\t\t\t= curr_int->TexV;\n\t\t\t\t\t\twrite_int->RGBA\t\t\t\t= curr_int->RGBA;\n\t\t\t\t\t\twrite_int->Direction\t\t\t= curr_int->Direction;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tvArray[vidx].z = top.Z;\n\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         '\t\tvArray[vidx].z = top.Z;\n\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[1][TOP_EDGE].RGBA);\n\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tvArray[vidx].z = bottom.Z;\n\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         '\t\tvArray[vidx].z = bottom.Z;\n\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[1][BOTTOM_EDGE].RGBA);\n\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\tvArray[vidx].z = top.Z;\n\t\t\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         '\t\t\t\tvArray[vidx].z = top.Z;\n\t\t\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[top_int_idx][TOP_EDGE].RGBA);\n\t\t\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\tvArray[vidx].z = bottom.Z;\n\t\t\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         '\t\t\t\tvArray[vidx].z = bottom.Z;\n\t\t\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[bottom_int_idx][BOTTOM_EDGE].RGBA);\n\t\t\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\tvArray[vidx].z = bottom.Z;\n\t\t\t\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         '\t\t\t\t\tvArray[vidx].z = bottom.Z;\n\t\t\t\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[bottom_int_idx][BOTTOM_EDGE].RGBA);\n\t\t\t\t\tvArray[vidx].u1 = u_values[1] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\t\tvArray[vidx].z = top.Z;\n\t\t\t\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         '\t\t\t\t\tvArray[vidx].z = top.Z;\n\t\t\t\t\tvArray[vidx].diffuse = DX8Wrapper::Convert_Color(intersection[top_int_idx][TOP_EDGE].RGBA);\n\t\t\t\t\tvArray[vidx].u1 = u_values[0] + uv_offset.X;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\tfloat *subdiv_tex_v)\n',
+         '\tfloat *subdiv_tex_v, Vector4 *base_diffuse, Vector4 *subdiv_diffuse)\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tfloat\t\t\t\tEndTexV;\t\t// V texture coordinate of end point\n\t\tfloat\t\t\t\tRand;\n',
+         '\t\tfloat\t\t\t\tEndTexV;\t\t// V texture coordinate of end point\n\t\tVector4\t\t\tStartDiffuse;\n\t\tVector4\t\t\tEndDiffuse;\n\t\tfloat\t\t\t\tRand;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tstack[0].EndTexV = base_tex_v[pidx + 1];\n\t\tstack[0].Rand = NoiseAmplitude;\n',
+         '\t\tstack[0].EndTexV = base_tex_v[pidx + 1];\n\t\t\n\t\tif (base_diffuse) {\n\t\t\tstack[0].StartDiffuse = base_diffuse[pidx];\n\t\t\tstack[0].EndDiffuse = base_diffuse[pidx+1];\n\t\t} else {\n\t\t\tstack[0].StartDiffuse.Set(Color.X, Color.Y, Color.Z, Opacity);\n\t\t\tstack[0].EndDiffuse = stack[0].StartDiffuse;\n\t\t}\n\n\t\tstack[0].Rand = NoiseAmplitude;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\tsubdiv_tex_v[sub_pidx++] = stack[tos].StartTexV;\n',
+         '\t\t\t\tsubdiv_tex_v[sub_pidx] = stack[tos].StartTexV;\n\t\t\t\tsubdiv_diffuse[sub_pidx] = stack[tos].StartDiffuse;\n\n\t\t\t\tsub_pidx = sub_pidx + 1;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\t\t\tstack[tos + 1].EndTexV = (stack[tos].StartTexV + stack[tos].EndTexV) * 0.5f;\n\t\t\t\tstack[tos + 1].Rand = stack[tos].Rand * 0.5f;\n',
+         '\t\t\t\tstack[tos + 1].EndTexV = (stack[tos].StartTexV + stack[tos].EndTexV) * 0.5f;\n\t\t\t\tstack[tos + 1].StartDiffuse = stack[tos].StartDiffuse;\n\t\t\t\tstack[tos + 1].EndDiffuse = (stack[tos].StartDiffuse + stack[tos].EndDiffuse) * 0.5f;\n\t\t\t\tstack[tos + 1].Rand = stack[tos].Rand * 0.5f;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\tsubdiv_tex_v[sub_pidx++] = base_tex_v[point_cnt - 1];\n',
+         '\tsubdiv_tex_v[sub_pidx] = base_tex_v[point_cnt - 1];\n\tif (base_diffuse) {\n\t\tsubdiv_diffuse[sub_pidx] = base_diffuse[point_cnt - 1];\n\t} else {\n\t\tsubdiv_diffuse[sub_pidx].Set(Color.X, Color.Y, Color.Z, Opacity);\n\t}\n\n\tsub_pidx = sub_pidx + 1;\n',
+         "Zero Hour's per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)"),
+        ('\t\tVector4 *rgbasPointer = rgbas ? &rgbas[ chidx ] : NULL;\n\n\t\tsubdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v, rgbasPointer, subdiv_rgbas);\n',
+         '\t\tsubdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v, &rgbas[chidx], subdiv_rgbas);\n',
+         "SegLineRendererClass::Render 0x9BEB20 as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add, no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both arms at 0x9C1F6D) without the per-vertex rgba fill loop"),
+        ('\t\tif (!rgba_all) {\n',
+         "\t\t// if there's a default color or an rgba array modulate\n\t\tif (!rgba_all || (rgba != 0) ) {\n",
+         "SegLineRendererClass::Render 0x9BEB20 as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add, no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both arms at 0x9C1F6D) without the per-vertex rgba fill loop"),
+        ('\t\t\tfor (vidx = 0; vidx < vnum; vidx++)\tvArray[vidx].diffuse=rgba;\n',
+         '',
+         "SegLineRendererClass::Render 0x9BEB20 as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add, no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both arms at 0x9C1F6D) without the per-vertex rgba fill loop"),
+        ('\t\t} else {\n\t\t\tshader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);\n',
+         "\t\t} else {\n\t\t\t// othewise it's texture only\n\t\t\tshader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);\n",
+         "SegLineRendererClass::Render 0x9BEB20 as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add, no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both arms at 0x9C1F6D) without the per-vertex rgba fill loop"),
+        ('\t\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n\t\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n\t\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n\t\tMatrix3D modelview=view2*transform;\n\n',
+         '',
+         "SegLineRendererClass::Render 0x9BEB20: the client builds view2 and modelview once before the chunk loop (Zero Hour builds them in every chunk); inside the loop VC6 hoists twelve &transform[i][j] addresses into stack slots and keeps the transform reference alive, outside it copies B's column into the dead parameter slot: byte-exact with them outside"),
+        ('\t// Chunk through the points (we increment by chunk_size - 1 because the last point of this\n',
+         '\tMatrix3D view2(\tview[0].X,view[0].Y,view[0].Z,view[0].W,\n\t\t\t\t\t\t\tview[1].X,view[1].Y,view[1].Z,view[1].W,\n\t\t\t\t\t\t\tview[2].X,view[2].Y,view[2].Z,view[2].W);\n\n\tMatrix3D modelview=view2*transform;\n\t// (the modelview before the chunk loop, not inside it as in Zero Hour: this makes 0x9BEB20 byte-exact)\n\t// Chunk through the points (we increment by chunk_size - 1 because the last point of this\n',
+         "SegLineRendererClass::Render 0x9BEB20: the client builds view2 and modelview once before the chunk loop (Zero Hour builds them in every chunk); inside the loop VC6 hoists twelve &transform[i][j] addresses into stack slots and keeps the transform reference alive, outside it copies B's column into the dead parameter slot: byte-exact with them outside"),
     ],
     ('ww3d2', 'mesh.h'): [
         ('\tvoid\t\t\t\t\t\t\t\tMake_Unique();\n',
@@ -1510,6 +1664,9 @@ TEXTURE_API_PATCHES = {
         ('\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
          '\t// E&B (name not known, D10): 0x9179D0, DX8Wrapper::Unknown_Restore_Device as an error code\n\tstatic WW3DErrorType\t\tUnknown_Restore_Device(void);\n\tstatic void\t\t\t\t\t_Invalidate_Mesh_Cache();\n',
          'E&B: a WW3D function at 0x9179D0 (between Registry_Load_Render_Device 0x9179A0 and _Invalidate_Mesh_Cache 0x9179E0), called from the app at 0x4439B6'),
+        ('\tstatic void\t\t\t\t\tMake_Screen_Shot( const char * filename = "ScreenShot");\n',
+         '\tstatic void\t\t\t\t\tMake_Screen_Shot( const char * filename = "ScreenShot", float unknown = 1.3f, int format = 0);\t// NAME 2: unknown (1.3f at every call) and format (0 tga, 1 bmp, 2 jpg: the switch at 0x9182C0)\n',
+         "E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show 0x9182C0)"),
     ],
     ('wwdebug', 'wwprofile.cpp'): [
         ('\t\telse {\n\t\t\tpos++;\n\t\t}\n\t}\n\n\treturn Read_Line(memory,pos,maxpos);\n}\n',
@@ -3108,6 +3265,22 @@ BINKMOVIE_PATCHES = {
 for _key, _edits in BINKMOVIE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of BINKMOVIE_PATCHES
+# E&B's WW3D API beyond Renegade's ww3d.cpp / ww3d.h, in Zero Hour's form (P-MV1-2: Set_Gamma 0x919090)
+WW3D_API_PATCHES = {
+    ('ww3d2', 'ww3d.h'): [
+        ('\tstatic void\t\t\t\t\tReset_Current_Static_Sort_Lists_To_Default(void);\n',
+         '\tstatic void\t\t\t\t\tReset_Current_Static_Sort_Lists_To_Default(void);\n\n\t// Gamma control\n\tstatic void\t\t\t\t\tSet_Gamma(float gamma,float bright,float contrast,bool calibrate=true);\n',
+         "E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists 0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no Set_Gamma (callers 0x5146D0, 0x442AC0)"),
+    ],
+    ('ww3d2', 'ww3d.cpp'): [
+        ('void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)\n{\n\tCurrentStaticSortLists = DefaultStaticSortLists;\n}',
+         'void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)\n{\n\tCurrentStaticSortLists = DefaultStaticSortLists;\n}\n\nvoid WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)\n{\n\tDX8Wrapper::Set_Gamma(gamma,bright,contrast,calibrate);\n}',
+         "E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists 0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no Set_Gamma (callers 0x5146D0, 0x442AC0)"),
+    ],
+}
+for _key, _edits in WW3D_API_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WW3D_API_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -3187,6 +3360,8 @@ RECONSTRUCTED = {
                                            "the client's lines 63-213 (D25)",
     ('app', 'shared/auxdata/lookup.h'): "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 "
                                         "and a map at +0x10 (size 0x20), element types placeholders",
+    ('app', 'shared/auxdata/rtti.h'): "the aux data's type test (D24 class name; __FILE__ ..\\shared/auxdata/rtti.h, G_ASSERT 'b' on the client's line 32): UnknownRTTIClass<T>::Cast, out of line at 0x5469C0 (DeltaStringClass) and 0x709B30 (the GuildRank class, global 0xC4158C), inlined elsewhere; Unknown_Find_Field<C> calls it",
+    ('app', 'shared/auxdata/auxdata.h'): "the aux-data field lookup the client inlines in its callers (D24 helper name; __FILE__ ..\\shared/auxdata/auxdata.h, G_ASSERT 't' on the client's line 155): Unknown_Find_Field<T>, co.cpp's 0x6F58B0, 0x6F5E40, 0x6F5ED0, 0x7008B0",
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
                                                "(DeltaTemplateClass<MoneyClass> specialisations), asserts on "
                                                "the client's lines 69 and 86 (D25)",
@@ -3243,10 +3418,17 @@ RECONSTRUCTED = {
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
                                      "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
                                      "only float and unsigned int declared, defined in stubs/",
-    ('app', 'shared/kv_list.h'): "KVListClass (D24), functional: the pairs in order and a key index (a std::map "
-                                 "for the client's SGI-style hash_map, 0x4B62B0)",
-    ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90, functional (NOT EXACT): Add "
-                                   "0x4B6760 and the lookups, asserts on the client's lines 23-113 (D25)",
+    ('app', 'shared/kv_list.h'): "KVListClass (D24): the pairs in order and a key index, SGI STL's hash_map "
+                                 "(libs/sgistl, D87) at +0x10",
+    ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90 with the index's instances to 0x4B7E30: "
+                                   "Add 0x4B6760, the lookups and Keep_Only 0x4B6DC0, asserts on the client's lines 23-113 (D25); "
+                                   "NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60",
+    ('app', 'shared/kv_tripl.h'): "KVTripleClass (three fixed strings, 0x340 bytes) and KVTripleListClass (D24): "
+                                  "the triples in order (V) and a key index, SGI STL's hash_map<std::string> "
+                                  "(libs/sgistl, D87) at +0x10; Get's assert on the client's line 92",
+    ('app', 'shared/kv_tripl.cpp'): "KVTripleClass / KVTripleListClass, client 0x4B84C0-0x4B9BB0 with the index's "
+                                    "instances to 0x4BAEB0: asserts on the client's lines 34-164 (D25); NOT EXACT: "
+                                    "the copy constructor 0x4B8A20, the prefix constructor 0x4B8DC0, the destructor 0x4B9180",
     ('app', 'shared/auxdata/encode.cpp'): "RecordTableClass (D24; Records from the asserts), client "
                                           "0x4A9A70-0x4A9C1A: ctor (line 512, D25), dtor, Unknown_Sum, "
                                           "Unknown_All; the decoders (M1.2): RecordCodecClass::Decode "
@@ -3319,11 +3501,24 @@ RECONSTRUCTED = {
     ('app', 'shared/stars.h'): 'StarLayerClass (0x20 bytes) and StarFieldClass (RenderObjClass, 0xA4 bytes, vtable 0xAEA258; descriptive names, D24): the star field from stars.ini (M2.4)',
     ('app', 'shared/stars.cpp'): 'the star field, client 0x481A20-0x482FC0 (asserts lines 96/97, D25): layer ctor/dtor/Render/Load 0x481A20/0x481A50/0x481B70/0x481DB0, field ctor/dtor/Free_Layers/Init/Render/Get_Num_Polys/Get_Cost 0x4826E0/0x482790/0x482920/0x4829E0/0x482D80/0x482E00/0x482E20; Load and Init NOT EXACT (M2.4)',
     ('app', 'shared/spln_db.h'): "SplineDatabaseClass (descriptive name after the mailslot \\\\.\\mailslot\\G\\SplineDatabaseUpdate, D24): named 1D curves from splines.wsd (M2.4); not the client's layout",
+    ('app', 'shared/spline.h'): "E&B's spline.h (its name from the client's assert __FILE__): only the float and colour arrays spln_db.cpp's Evaluate_Curve 0x485620 / Evaluate_Color 0x485790 use, asserts on lines 48 and 177; Resize 0x483820 (spline.cpp) declared",
+    ('app', 'shared/spline.cpp'): "E&B's spline.cpp (the client's assert __FILE__), client 0x483000-0x4845F0: only SplineFloatArrayClass::Resize 0x483820 (assert line 29), which spln_db.cpp's evaluation helpers call",
     ('app', 'shared/spln_db.cpp'): "the spline database, client 0x485000-0x48A000 (39 asserts), functional from VIDTEST's loader 0x41CB20/0x41F620-0x420100 (NOT EXACT, D42; M2.4)",
+    ('app', 'shared/unknown_packetdata.h'): "the login data objects' two interfaces, wire 0xAEB9EC and key/value 0xAEADC8 (PROVISIONAL file name, D10; from tsk_login.h, D90 9b), and the KV encoder's typed adds, declared",
+    ('app', 'shared/unknown_login_data.h'): "TicketClass (0x48 bytes, vtable 0xB0C608) and LoginCharacterClass, the 0x90-byte character slot (vtables 0xB0C560 / 0xB0C55C; members named by its visitor's keys) (PROVISIONAL file name, D10; from tsk_game.h and tsk_login.h, D90 9b)",
+    ('app', 'shared/unknown_login_data.cpp'): "the ticket and the character slot, client 0x8C06E0-0x8C1B40, the module linked after WWOnline's wnet (PROVISIONAL file name, D10; kernel-map-step9.md 5.1): 13 functions exact; its KV templates 0x8C0C40-0x8C1570 not rebuilt",
+    ('app', 'shared/avatar_desc.h'): "AvatarDescClass (D24, by convention from avatar_desc.cpp): the avatar's description, 0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC, members named by its visitor's keys (from tsk_login.h's LoginUnknown350Class, D90 9b)",
+    ('app', 'shared/avatar_desc.cpp'): "the avatar's description, client 0x4BEB50-0x4C05D0 of the window 0x4BEB50-0x4C45B0 (D90 9b): constructors, the wire and key/value slots, Clear; NOT EXACT: Read 0x4BF550 (inline budget), Clear 0x4C0310 (shape); the asserted loader 0x4C05D0 and the rest not yet",
+    ('app', 'shared/shipcust_desc.h'): "ShipCustDescClass (D24, by convention from shipcust_desc.cpp; 0x160 bytes, vtables 0xAF78A0 / 0xAF789C), its four parts ShipCustPartClass (0x44) of two ShipCustSettingsClass (0x20): members named by the visitors' keys (from tsk_login.h's LoginUnknown88C/44/20Class, D90 9b)",
+    ('app', 'shared/shipcust_desc.cpp'): "the ship customisation, client 0x4F6210-0x4F6970 of the window 0x4F6160-0x4F9740 (D90 9b): the race / profession setters, the wire and key/value slots of the description, its parts and settings; exact; the KV templates and the rest of the window not yet",
+    ('app', 'shared/kv_acc_array.h'): "KVArrayAccessorClass<T> (D24 from the asserts' __FILE__ ..\shared/kv_acc_array.h): a StringValueClass over an array, the values joined by a separator; avatar_desc.cpp's float instance 0x4C3110-0x4C3BE0; the asserts on the client's lines 66, 72, 93",
     ('app', 'shared/heightfield.h'): "HeightFieldClass (descriptive, D24; PROVISIONAL file name: no assert or __FILE__): the land's [HEIGHTMAP] (M2.4); not the client's layout",
     ('app', 'shared/heightfield.cpp'): 'the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)',
-    ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); not the client\'s layout',
-    ('app', 'shared/land.cpp'): 'the terrain, client 0x4668F0-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70), functional after VIDTEST 0x405410-0x416170 (NOT EXACT, D42; M2.4)',
+    ('app', 'shared/land_lighting.h'): 'LandLightingStruct (VIDTEST\'s name; 0x30 bytes), out of land.h so that sclient.h holds it as the main view\'s +0x178..+0x1A4 (the constructor 0x50B360\'s defaults, Update 0x50F1B0; P-MV2-1, LD4); PROVISIONAL file name',
+    ('app', 'shared/land.h'): 'LandClass (the client\'s "(LandClass*)obj"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); the client\'s 0x1228-byte layout from its ctor 0x468E90 and dtor 0x46A480',
+    ('app', 'shared/land.cpp'): 'the terrain, client 0x468E90-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70): rebuilt, partly NOT EXACT (marked); VIDTEST draws its land with it since 2026-10-28, its trees with programs/vidtest/viddeco.cpp (D101, M2.4)',
+    ('app', 'shared/landdmap.h'): 'LandUnknown466BE0Class (PROVISIONAL file and class names): the land\'s displacement-mapped companion, vtable 0xAE8974, 0x90 bytes, the global 0xBDC0D8',
+    ('app', 'shared/landdmap.cpp'): 'the land\'s displacement-mapped companion, client 0x466BE0-0x468E70 (PROVISIONAL file name; the land\'s dtor calls 0x466F10 out of line): ctor, dtor, create / delete 0x466E70 / 0x466F10, the DMap registry reader 0x468120, 0x467910; the Matrox-only draw 0x466F60 and the rest functional (NOT EXACT)',
     ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
                             "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
                             "defined by the program (the capture harness's replay socket, M1.4)",
@@ -3332,8 +3527,158 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
-    ('app', 'client/tasks/tsk_login.h'): "LoginTaskClass (the client's name), declared only as far as MenuTask uses it: "
-                                         "the constructor 0x7675D0, the size 0x1148; tsk_login.cpp not rebuilt",
+    ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
+                              "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
+                              "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",
+    ('app', 'input/inpdsp.cpp'): "inpdsp.cpp, client 0x429630-0x429F60 with the table's instances (builder H18; G_ASSERT "
+                                "lines 32, 50, 51, 71, 104, 120, D25): 10 of 11 exact (the key 0x42A170, the ini reader 0x42A1A0 and writer 0x42A410 too), the DisableExceptions registry read "
+                                "0x429D00 among them (read only); 0x429F60 NOT EXACT (register-only)",
+    ('app', 'input/inpkeys.h'): "the key names (PROVISIONAL file name, D10: the object has no __FILE__; linked between "
+                               "inpdsp.cpp and input.cpp): name <-> code lookups on two SGI hash_maps (D87)",
+    ('app', 'input/inpkeys.cpp'): "the key names, client 0x42B3D0-0x42E350 (the object after inpdsp.cpp; builder H19): "
+                                 "the name -> code and code -> name lookups 0x42B610 / 0x42B6A0, the event text 0x42B7E0, "
+                                 "the table fill 0x42BAE0 / 0x42BC90 and the tables' instances",
+    ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
+                                "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
+                                "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",
+    ('app', 'audio/soundlib.cpp'): "SoundDefClass / SoundLibraryClass, client 0x43D3E0-0x43FE30 with the bridge's "
+                                  "slots and the table's instances to 0x441A50: the asserts on the client's lines "
+                                  "198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, "
+                                  "Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
+    ('app', 'client/buff_database.h'): "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an "
+                                      "SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)",
+    ('app', 'client/buff_database.cpp'): "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's "
+                                        "instances to 0x678420: the reports on the client's lines 47 / 78 (D25); NOT EXACT: "
+                                        "the destructor 0x677410",
+    ('app', 'client/cfaction_database.h'): "CFactionDatabaseClass (D24): the factions' Name and Description from "
+                                          "cfaction_t.ini in a static SGI hash_map<std::string> _Factions (libs/sgistl, D87)",
+    ('app', 'client/cfaction_database.cpp'): "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to "
+                                            "0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), "
+                                            "Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
+    ('app', 'shared/data_binder.h'): "DataBinderClass<KEY> (D24): a registry of data objects of any type bound to a key, one SGI hash_map<KEY, T *> per type in a hash_map<std::string, void *> keyed by typeid(T *).name() (libs/sgistl, D87); asserts on the client's lines 99 / 101 (D25)",
+    ('app', 'client/co.h'): "ClientObjectClass (the RTTI's name), co.cpp's client object (0x188 bytes, vtables 0xB0070C / 0xB006F4) on its bases client.cpp's UnknownB02C90Class and ww3d2's MultiFixedPoolDecalSystemClass, its members typed from the constructor 0x6F2820; the positional state Unknown98Class (vtable 0xB00768) and the default state UnknownB006B8Class; CREATE 4's subclasses for types 24 (0x70E2E0 over 0x70DBC0, 0x224 bytes) and 28 (0x70E5A0, 0x1D4 bytes), declared as far as CREATE calls them",
+    ('app', 'client/influence.h'): "InfluenceClass (D24 from influence.cpp), CREATE 4's type 10 record for ClientClass's +0x86C list (0x7E87C0, 0xB8 bytes), declared as far as CREATE calls it",
+    ('app', 'client/co_data.h'): "ClientObjectDataClass (vtable 0xB056CC, 8 bytes) and the per-type access to the client objects' radar, gutter, starmap, navigation and emote data through data_binder.h, keyed by the object",
+    ('app', 'client/co.cpp'): "co.cpp's ClientObjectClass members, client 0x6F2820-0x700A50 (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Client\\co.cpp; G_ASSERT l.361, FAIL_IF l.2431-2590; D25): the model accessors, the type tests 0x6F5850-0x6F5E20, the size factors, the player aux-data accessors, eight of the vtable 0xB0070C's slots and the members they reach, the constructor 0x6F2820 and destructor 0x6F2FE0, Set_Model 0x6F33F0 (with the render hook of vtable 0xB007A4) and the model loader 0x6F5140 / 0x6F51D0 (cbasset.ini's BASE-n: NULL, RSLID, FILE / NAME, Width; the report l.935, FAIL_IF l.947)",
+    ('app', 'client/co_data.cpp'): "ClientObjectDataClass and the data binder's instances, client 0x79D0F0-0x7A4770 (the constructor's assert l.42, the FAIL_IF l.54; D25)",
+    ('app', 'client/radar_data.h'): "RadarDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x7C bytes)",
+    ('app', 'client/radar_icon_data.h'): "RadarIconDataClass (D24), the gutter and starmap data's base (0x7BC040), declared only",
+    ('app', 'client/gutter_data.h'): "GutterDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x2C bytes)",
+    ('app', 'client/starmap_data.h'): "StarmapDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x3C bytes)",
+    ('app', 'client/navigation_data.h'): "NavigationDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x18 bytes)",
+    ('app', 'client/emote_data.h'): "EmoteDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x48 bytes)",
+    ('app', 'client/tutorial_manager.h'): "TutorialLineStruct, TutorialStepStruct and TutorialManagerClass (D24): tutorialdef.ini's "
+                                         "TUTORIAL-n steps in an SGI hash_map<std::string, TutorialStepStruct *> (libs/sgistl, "
+                                         "D87), the completed tutorials in a std::list<char *>",
+    ('app', 'client/tutorial_manager.cpp'): "TutorialStepStruct / TutorialManagerClass, client 0x6AC280-0x6AD7B0 with the "
+                                           "table's and list's instances after it: the reports on the client's lines 94 / 114 / "
+                                           "190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, "
+                                           "Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
+    ('app', 'client/control_keys_manager.h'): "ControlKeysManager's key definitions (D10, D24): the definition holder ControlKeyDefClass (the client's DefPtr) and what it points at, declared as far as the rebuilt functions need",
+    ('app', 'client/control_keys_manager.cpp'): "control_keys_manager.cpp, client 0x7197A0-0x720F80: the static empty string 0xBE7B80 and the definition accessors 0x71CC20-0x71CD20 (FAIL_IF lines 651-676, D25); the manager, its tables (_Instances, _KeyDefinitions on libs/sgistl, D87) and the ini loaders not yet",
+    ('app', 'client/fontmanager.h'): "FontManagerClass (D24, 0x1C bytes, 0xBE67C4): the fonts by id (an SGI hash_map, D87) and the debug font (RefCountPtr); the font (0x24 bytes) and the debug font's class (a DynamicMeshClass, 0x4E8 bytes) declared only",
+    ('app', 'client/fontmanager.cpp'): "FontManagerClass 0x6D16E0-0x6D2A70 and the font's 0x6D1010-0x6D1600, with the tables' instances (builder H14; G_ASSERT lines 524 / 533, D25); 0x6D1220 (line 360) exact (H16); 0x6D2700 (line 550) written, NOT EXACT; ManagedFontClass's constructors 0x6CE990 (with FontStringStruct's copy constructor 0x6CECC0) / 0x6CF520 and destructor 0x6CF730, 0x6D01C0-0x6D0550 and style loops 0x6D0710-0x6D0950, 0x6D0A20, and 0x6D0A70 NOT EXACT with the sounds' operator= 0x6D0F70 it emits (FU1); 0x6CF930 through FontSplitStringClass (LS1)",
+    ('app', 'client/client_lego_impl.h'): "ClientLegoImplClass (D24, 0xA0 bytes, vtables 0xB02F1C / 0xB02F10), its abstract bases, the bone map, knob, orphan and child records (D10 names); the tables are SGI hash_maps (D87)",
+    ('app', 'client/client_lego_impl.cpp'): "ClientLegoImplClass 0x729BF0-0x72DC10, the whole window written (builder H17; asserts on lines 69-809, D25) with the tables' instances; NOT EXACT: Find, Get_Lego_Transform, Add, Remove, Child_Moved, Attach and Detach (attempts.csv)",
+    ('app', 'client/ui_line_display.h'): "UILineDisplayClass (D24), the line display screen on intrface.cpp's base "
+                                        "(declared as far as the file needs it, D10): ephemeral.ini's entries and "
+                                        "fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)",
+    ('app', 'client/ui_line_display.cpp'): "UILineDisplayClass, client 0x5A4B50-0x5A8C70 with the tables' instances to "
+                                          "0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, "
+                                          "the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, "
+                                          "0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
+    ('app', 'client/fontdatabase.h'): "FontDatabaseClass (D24, 0xBE67B8): fontsys.ini's INIT sections by resolution, "
+                                     "the font files (AllFonts), the fonts in use (Font[MAXFONTS], Font32Class through "
+                                     "RefCountPtr), the Colors / Effects / Strings SGI hash_maps (D87) and their "
+                                     "templates; FontStringFilesClass (0xBE67BC), the counted string files",
+    ('app', 'client/fontdatabase.cpp'): "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the "
+                                       "asserts on the client's lines 881-1308 (D25); NOT EXACT: Reset 0x6BE0E0, "
+                                       "Load_String 0x6C0430, 0x6C1500, Parse_Directions 0x6C2890, Split_Four 0x6C2A10, "
+                                       "Remove_String 0x6C3030, Set_Font 0x6C38F0, Load_Font 0x6C5C60; declared only: "
+                                       "FontStringFilesClass's destructor 0x6C4F50 and Load 0x6C52B0",
+    ('app', 'shared/combo_ffactory.h'): "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, "
+                                       "MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)",
+    ('app', 'shared/combo_ffactory.cpp'): "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances "
+                                         "after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the "
+                                         "destructor 0x4E5230, Get_File 0x4E57A0",
+    ('app', 'shared/boolpars.h'): "BoolParserClass (D24), its expression, node and value classes; the evaluators an SGI "
+                                 "hash_map<std::string, BoolEvaluatorClass *> (libs/sgistl, D87)",
+    ('app', 'shared/boolpars.cpp'): "The boolean expression parser, client 0x499750-0x49B5E0 with the node classes' virtuals and "
+                                   "the table's instances after it: the asserts on the client's lines 222 / 303 / 492 / 578 / 630 "
+                                   "(D25); NOT EXACT: Parse 0x49A430, Parse_Params 0x49AE30",
+    ('app', 'shared/split_string.h'): "SplitStringClass (D24, 0x28 bytes, vtable 0xAECB9C): a text split into lines no wider than a width",
+    ('app', 'shared/split_string.cpp'): "split_string.cpp, client 0x4F9BF0-0x4FA8DF (its __FILE__ in 0x4FA790's FAIL_IF l.279, D25): "
+                                       "constructor, destructor, Count, Get, the two width virtuals and find_last_not_of 0x4FA830 exact; "
+                                       "NOT EXACT: Split 0x4F9D90 (LS1)",
+    ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
+    ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
+    ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "
+                                                "hash_map<std::string, int> (libs/sgistl, D87)",
+    ('app', 'shared/unique_design_id_lookup.cpp'): "UniqueDesignIDLookupClass, client 0x4FFC70-0x500760 with the iostream, string and "
+                                                  "table instances to about 0x509C40 (VC6's <sstream>): the reports on the client's "
+                                                  "lines 32 / 35 / 73, the asserts on 46 / 101 (D25); NOT EXACT: Add_Identifier 0x500760",
+    ('app', 'shared/symbol_substitution.h'): "SymbolSubstitutionClass (D24), named symbols in an SGI hash_map<std::string, "
+                                            "std::string> (libs/sgistl, D87), and the $name$ substitution",
+    ('app', 'shared/symbol_substitution.cpp'): "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the "
+                                              "table's instances to 0x4FE770: the report on the client's line 112 (D25); NOT "
+                                              "EXACT: Substitute_Symbols 0x4FD3B0",
+    ('app', 'shared/lookup_table.h'): "LookupTableClass and its continuous / floor / ceiling / closest / interpolated tables, "
+                                     "LookupTableSetClass (the tables of an ini by section name in an SGI hash_map, libs/sgistl, "
+                                     "D87) and LookupTableManagerClass (D24): reference counted (ref_ptr.h)",
+    ('app', 'shared/lookup_table.cpp'): "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the "
+                                       "client's lines 38-433 (D25); NOT EXACT: the continuous "
+                                       "table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
+    ('app', 'shared/definition_manager.h'): "DefinitionManagerClass<T> and DefinitionRefCount<T> (D24): a reference-counting "
+                                           "cache of named definitions in an SGI hash_map (libs/sgistl, D87); asserts on the "
+                                           "client's lines 105 / 119 / 133 / 146 / 212 (D25)",
+    ('app', 'shared/definition_auto_ptr.h'): "DefinitionAutoPtr<T>: a definition acquired from a DefinitionManagerClass; "
+                                            "the FAIL_IFs on the client's lines 119 / 120 (D25)",
+    ('app', 'shared/ini_manager.h'): "INIManagerClass (D24), the ini files as shared definitions",
+    ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
+                                      "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
+                                      "0x4E9E00, the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
+    ('app', 'shared/attrib_dir.h'): "AttribDir, AttributeInfo (the client's names), their mods, callbacks, shadow and iterator "
+                                   "lists (D24): named attributes in an SGI hash_map (libs/sgistl, D87)",
+    ('app', 'shared/attrib_dir.cpp'): "AttribDir / AttributeInfo, client 0x4D42C0-0x4D8690 with the list, vector and table "
+                                     "instances and the mod iterators: the asserts on the client's lines 200-1066 (D25); NOT EXACT: "
+                                     "0x4D4490, 0x4D4810, 0x4D4BD0, 0x4D5000, 0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0, "
+                                     "0x4D8240, 0x4D8690",
+    ('app', 'shared/attrib_dir_collective.h'): "AttribDirCollective (D24) with its value functions (average, smallest, largest) "
+                                              "and the function mod; members and destinations in SGI hash_maps (D87)",
+    ('app', 'shared/attrib_dir_collective.cpp'): "the collective, client 0x4DA7F0-0x4DCFF0 with the tables' instances: the "
+                                                "asserts on the client's lines 54-401 (D25); NOT EXACT: the destructor "
+                                                "0x4DBFD0, Add_Destination 0x4DC310, Add_Member 0x4DC720",
+    ('app', 'client/sclient.h'): "SClient (the client's 'SClient::Process_Packets'): 0x14F8 bytes packed to 4, ClientClass at "
+                                "+0x00 and SOptionsClass at +0x1150, vtable 0xB03240 (26 slots); the layout from the "
+                                "constructor, destructor and Init (kernel-map-step9.md 2.2, D90 9d)",
+    ('app', 'client/cpacket.cpp'): "the packets' client-side handlers (its asserts' __FILE__ e:\\build\\beta\\G\\app\\client\\cpacket.cpp), client 0x7333B0-0x73F680: PacketClass slot +0x08 Process_Packet(SClient *) per class, the bodies here, the classes in app/packets (D90 9d)",
+    ('app', 'client/sclient.cpp'): "SClient's skeleton, client 0x7405E0-0x7429B0 (the window before the first assert, l.749) "
+                                  "and the base slots' overrides 0x743330 / 0x744B90 / 0x744BD0 / 0x745730; NOT EXACT: the "
+                                  "destructor 0x740BB0, Init 0x741180, Shutdown 0x741BB0 (D90 9d)",
+    ('app', 'client/soptions.cpp'): "SOptionsClass (soptions.h), client 0x75A280-0x75AAB0 (__FILE__ e:\\build\\beta\\G\\app\\Client\\soptions.cpp, asserts l.53 / l.93): the registry's render budgets, the camera modes, VectorClass<CameraModeStruct>'s members (D90 9d)",
+    ('app', 'client/soptions.h'): "SOptionsClass (D24 after soptions.cpp), SClient's second base: 0x48 bytes, vtable 0xB03C00 "
+                                 "(one slot), the camera modes; declared only (D90 9d)",
+    ('app', 'client/unknown_authlogin.h'): "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)",
+    ('app', 'client/unknown_authlogin.cpp'): "AuthLoginResponseClass, client 0x792040-0x7922F0 (PROVISIONAL file name, D10: the unattributed run after nlp.cpp, no __FILE__): the constructor 0x792040 and Get_Error_Text 0x7922B0 with its table 0xB9DC90; exact",
+    ('app', 'client/client.h'): "ClientClass (D24 after client.cpp), the client base SClient and the movie client derive from: "
+                               "vtable 0xB02D7C (23 slots), 0x1150 bytes packed to 4, four wwlib HashListClass object lists "
+                               "(kernel-map-step9.md 2.1, D90 9c)",
+    ('app', 'client/client.cpp'): "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the "
+                                 "client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, "
+                                 "Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
+    ('app', 'client/unknown_creator.h'): "CharacterCreatorClass (the Character and Starship Creator's folder) and LoginNameDataClass (0x84 bytes, vtable 0xB04160) (PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
+    ('app', 'client/unknown_creator.cpp'): "client 0x78CEE0-0x78E190, the run between avatar.cpp and nlp.cpp (PROVISIONAL file name, D10: no __FILE__): the creator's constructor (registry, folders; D69: never run), the byte sum, Make_Folder, the name's Set_Name / Write / Read / Get_Size; exact; the avatar files' functions 0x78D480-0x78DE40 not yet",
+    ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
+                                        "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
+    ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
+                                          "the client's lines 58-389 (D25); NOT EXACT: Init (inline budget); the redirect packet's "
+                                          "handler 0x766FC0 not rebuilt",
+    ('app', 'client/tasks/tsk_login.h'): "LoginTaskClass (the client's name: the asserts), vtable 0xB040D4 (29 slots), 0x1148 "
+                                         "bytes, members traced as far as the rebuilt functions use them; CharacterViewClass "
+                                         "(charview.cpp) declared only",
+    ('app', 'client/tasks/tsk_login.cpp'): "the login task, client 0x767240-0x76BC40 (kernel-map.md 6, step 9), partly: the "
+                                           "slots, helpers and two packets' handlers; the asserts on the client's lines 263-1405 (D25); "
+                                           "NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only), the global connection 0x7698E0 (shape)",
     ('app', 'client/tasks/tsk_menu.h'): "MenuTaskClass (D24 after its log 'MenuTask'), vtable 0xB04228, 0x10 bytes",
     ('app', 'client/tasks/tsk_menu.cpp'): "MenuTask, client 0x76BC50-0x76BF2F (kernel-map.md 6, step 7): the object has no "
                                           "__FILE__, the name sorts between tsk_login.cpp and tsk_movie.cpp (the link order; "
@@ -3347,6 +3692,8 @@ RECONSTRUCTED = {
                                             "mclient.cpp's movie client and client_lego_impl.cpp's asset calls declared only; "
                                             "the asserts on the client's lines 61-374 (D25); NOT EXACT: Init (the client's loop "
                                             "isn't rotated)",
+    ('app', 'common/unknown_galaxy.h'): "LoginGalaxyClass, a galaxy of the login's list (0x60 bytes, vtable 0xAEFBD0; PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
+    ('app', 'common/unknown_galaxy.cpp'): "the login galaxy's Write / Read / Get_Size, client 0x83C730-0x83C870 in app\\common's run after galaxy_map.h (PROVISIONAL file name, D10: no __FILE__); exact",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
@@ -3359,8 +3706,9 @@ RECONSTRUCTED = {
                                    "the forwarding and peek wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 "
                                    "and its factory 0x822F10, the stream connection 0x823320-0x8238C0, the asserts on the "
                                    "client's lines (D25); Remove_Dead 0x822B50 NOT EXACT",
-    ('app', 'common/dbgconn.h'): "dbgconn.cpp's packet logs and (declared) the statistics wrapper (constructors "
-                                 "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0",
+    ('app', 'common/dbgconn.h'): "dbgconn.cpp's packet logs and the statistics wrapper (constructors "
+                                 "0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0; the "
+                                 "wrapper's counts per packet name (PacketStatsStruct, 0x18 bytes)",
     ('app', 'common/memconn.h'): "the in-process transport (descriptive names, D24): the memory connection "
                                  "(vtable 0xB087D4), its pipes, the memory listener (0xB08818 / 0xB08814) and the "
                                  "registry by port",
@@ -3371,21 +3719,41 @@ RECONSTRUCTED = {
                                              "by port, client 0x827560-0x828A00 (after memconn.cpp's template "
                                              "instances; memconn.cpp calls it out of line)",
     ('app', 'common/dbgconn.cpp'): "PARTIAL: dbgconn.cpp's packet logs, rate and statistics wrappers, client 0x823F70-0x825300; the counters "
-                                   "0x825390-0x826470 not rebuilt",
+                                   "Record_Received 0x825390 / Record_Sent 0x8255B0 on an SGI hash_map (D87) with its "
+                                   "instances to 0x826470",
     ('app', 'common/average.h'): "AverageClass (D24, after the client's average.h, assert l.98): a running "
                                  "average over one-second samples, inline (the destructor 0x824C30)",
     ('app', 'common/unknown_listener.cpp'): "PROVISIONAL file name (D10): the composite listener "
                                           "(vtable 0xB0844C), client 0x820B30-0x820EE5",
     ('app', 'common/unknown_rate.cpp'): "PROVISIONAL file name (D10): the bytes-per-second average "
                                       "(Unknown_RateClass), client 0x820830-0x820AF7",
+    ('app', 'common/prof.cpp'): "prof.cpp (the client's __FILE__, assert l.96): the profession's and its bit "
+                              "field's Type_Name / String_To_Value / Value_To_String, client 0x848CA0-0x848FA0",
+    ('app', 'common/prof.h'): "ProfessionType / ProfessionBitFieldType (the client's Type_Name strings) and the "
+                            "converters of prof.cpp (header name assumed)",
+    ('app', 'common/race.cpp'): "race.cpp (the client's __FILE__, assert l.124) PARTIAL: the race's and its bit "
+                              "field's converters, client 0x848FF0-0x8492A6 (the race costs after them not rebuilt)",
+    ('app', 'common/race.h'): "RaceType / RaceBitFieldType (the client's Type_Name strings) and the converters "
+                            "of race.cpp (header name assumed)",
     ('app', 'common/unknown_rate.h'): "PROVISIONAL file name: the bytes-per-second average 0x820830-0x820A20 "
                                       "(Unknown_RateClass, D10); rebuilt in unknown_rate.cpp",
+    ('app', 'common/lego_identifier.cpp'): "lego_identifier.cpp (the client's __FILE__): the lego types' lookups and "
+                                         "LegoIdentifierClass (vtable 0xB08C5C, a bone path), client 0x8436D0-0x8451A0 but 0x844ED0 "
+                                         "(builder P4: 10 of 17 exact, 8 NOT EXACT)",
+    ('app', 'common/lego_identifier.h'): "LegoIdentifierClass (0x14 bytes: the vtable, BoneNameChain); D24 header name",
+    ('app', 'common/unknown_navlist.cpp'): "PROVISIONAL file name (D10): the music types' names and the navigation "
+                                         "list (NavigationListClass, vtable 0xB08C60; WARP 155's), client 0x8462A0-0x846A3F "
+                                         "(builder P4, 15 of 15 exact in appfile.py match)",
+    ('app', 'common/unknown_navlist.h'): "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, "
+                                       "a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "
                                    "Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host "
-                                   "and over a socket; the listener's Stop / Accept (Listen functional); the RSA key exchange not "
-                                   "rebuilt",
+                                   "and over a socket; the RSA key exchange Key_Exchange (functional, NOT EXACT); the listener's "
+                                   "destructor, Stop / Accept (Listen functional), Pump_All and the set of listeners "
+                                   "(0xBE91A8) with its std::set instances, the listener's constructor with RSAKeyClass's SSH1 key "
+                                   "file loader, Send_Key, Pump_Pending (RSAKeyClass::Decrypt inlined; BigInt's helpers 0x82C0B0-0x82C220 out of line); Key_Exchange 0x829180 and Listen 0x82A470 NOT EXACT",
     ('app', 'common/tcpconn.h'): "TCPConnection (vtable 0xB08838, 0x248 bytes, the client's offsets)",
     ('app', 'common/udpconn.h'): "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, "
                                  "the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener "
@@ -3396,8 +3764,11 @@ RECONSTRUCTED = {
                                    "Get_Interval, Delete_On_Remove, Get_Mgr, Shutdown_Task; functional (NOT EXACT, D42): "
                                    "the rest (CordCon / CordMgr members not in the tree); wlib's Dictionary members "
                                    "0x82E6A0-0x82EBB0 exact (libs\\wwonline\\wlib, D73); "
-                                   "the listener 0x82E360-0x82E5B0 exact (lines 707-778), UDPConnectionManager and the listener's "
-                                   "constructor functional; the constructor by name 0x82C680 not rebuilt",
+                                   "the listener 0x82E360-0x82E5B0 exact (lines 707-778); since CordMgr has its key pair (S3, "
+                                   "2026-10-26): the constructors by name 0x82C680 (line 91) and by address, Init_Mgr 0x82C660, "
+                                   "UDPConnectionManager's and the listener's constructors, the task's constructor and Init, the "
+                                   "destructor, Get_Stats, Try_Connect exact",
+    ('app', 'common/unknown_rsakey.h'): "PROVISIONAL file name (D10, D86): RSAKeyClass, the 0x900-byte RSA key of tcpconn.cpp's listener (+0x18) and CordMgr (+0x5C), inline in both",
     ('app', 'packets/pk.h'): "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the "
                              "client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's "
                              "helpers, the factory 0x8696C0 declared (defined by the program until it is rebuilt)",
@@ -3428,23 +3799,33 @@ RECONSTRUCTED = {
     ('app', 'packets/pktrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85d1a0.cpp'): "packet classes (opcode 73) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_85d1a0.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkunknown_85e640.cpp'): "packet classes (opcode 30006) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
-    ('app', 'packets/pkunknown_85e640.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_85d4b0.cpp'): "opcode 77's object, 0x85D4B0-0x85D780 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_85d4b0.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_85d7b0.cpp'): "the send-only opcode 30003's object, 0x85D7B0-0x85DA70 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_85d7b0.h'): "its class",
+    ('app', 'packets/gameedit/pkgeaset.cpp'): "the send-only opcode 30020, client 0x85DAA0-0x85DE00, the client's file (its asserts' __FILE__): written by hand (builder P5)",
+    ('app', 'packets/gameedit/pkgeaset.h'): "its class",
+    ('app', 'packets/gameedit/pkgeclon.cpp'): "opcodes 30021 and 30022 (send-only), client 0x85DE30-0x85E610, the client's file (its asserts' __FILE__): written by hand (builder P5)",
+    ('app', 'packets/gameedit/pkgeclon.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/gameedit/pkgekv.cpp'): "packet classes (opcode 30006) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
+    ('app', 'packets/gameedit/pkgekv.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_85f250.cpp'): "packet classes (opcode 30000, 30001) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_85f250.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkunknown_85f870.cpp'): "packet classes (opcode 30015, 30009, 30010) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
-    ('app', 'packets/pkunknown_85f870.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkunknown_860d30.cpp'): "packet classes (opcode 30025) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
-    ('app', 'packets/pkunknown_860d30.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/gameedit/pkgeobj.cpp'): "packet classes (opcode 30015, 30009, 30010) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
+    ('app', 'packets/gameedit/pkgeobj.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/gameedit/pkgeplan.cpp'): "packet classes (opcode 30025) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
+    ('app', 'packets/gameedit/pkgeplan.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalerror.cpp'): "opcode 117's object, 0x864A10-0x864FF0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkglobalerror.h'): "its class (pk_classes.h and tsk_login.cpp include it)",
     ('app', 'packets/pkglobaldeletecharacter.cpp'): "packet classes (opcode 113) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkglobaldeletecharacter.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_866ac0.cpp'): "packet classes (opcode 120) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_866ac0.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkglobalticketrequest.cpp'): "packet classes (opcode 110) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkglobalticketrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkcta_request.cpp'): "packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkcta_request.cpp'): "opcode 189 (CTA_RESPONSE) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkcta_request.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkincapacitancerequest.cpp'): "packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkincapacitancerequest.cpp'): "opcode 142 written by hand (builder P4, 4 of 4 exact); packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkincapacitancerequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkloothulkpermission.cpp'): "packet classes (opcode 140) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkloothulkpermission.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3464,25 +3845,27 @@ RECONSTRUCTED = {
     ('app', 'packets/pkcreate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkdamage.cpp'): "packet classes (opcode 100) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkdamage.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pknamedecal.cpp'): "packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pknamedecal.cpp'): "opcode 16 (DECAL) written by hand (builder P4: Build, Get_Data_Size, Print exact, both constructors NOT EXACT); packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pknamedecal.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkpointeffect.cpp'): "packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkpointeffect.cpp'): "opcode 11 (OBJECT_TO_OBJECT_EFFECT) written by hand over lego_identifier.cpp (builder P4, 8 of 8 exact in appfile.py match); opcode 9 written by hand over FlagPacketClass and PointEffect's value constructor (builder P3, 10 of 10 exact in appfile.py match); packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkpointeffect.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkunknown_888b60.cpp'): "packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkunknown_888b60.cpp'): "opcode 174 written by hand (builder P3, 5 of 5 exact in appfile.py match); packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_888b60.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkguildranknamesrequestclient.cpp'): "packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkguildranknamesrequestclient.cpp'): "opcodes 197, 201, 210 and 211 written by hand (builder P4, 19 of 19 exact); packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkguildranknamesrequestclient.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkhullupgrade.cpp'): "packet classes (opcode 89) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkhullupgrade.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkitemba.cpp'): "opcode 37 (ITEM_BASE), client 0x895300-0x895BD0, the client's file (its FAIL_IF '!Info' on line 42): written by hand (builder P5)",
+    ('app', 'packets/pkitemba.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkitemstate.cpp'): "packet classes (opcode 41) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkitemstate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkjoblist.cpp'): "packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkjoblist.cpp'): "opcode 147 written by hand (builder P5, 8 of 8 exact); opcode 148 written by hand (builder P4, 6 of 6 exact); packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkjoblist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkmanufactureitemcatagorypacket.cpp'): "packet classes (opcode 122, 123, 124, 125, 126, 127) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkmanufactureitemcatagorypacket.cpp'): "opcodes 121 and 128 written by hand (builder P4, 9 of 9 exact); packet classes (opcode 122, 123, 124, 125, 126, 127) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkmanufactureitemcatagorypacket.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkmissionforfeit.cpp'): "packet classes (opcode 134, 135) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkmissionforfeit.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pknavdelete.cpp'): "packet classes (opcode 154) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pknavdelete.cpp'): "opcode 153 NAVIGATION and NavDelete's value constructor written by hand (builder P3, 7 of 7 exact in appfile.py match); packet classes (opcode 154) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pknavdelete.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkopeninterface.cpp'): "packet classes (opcode 102) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkopeninterface.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3496,7 +3879,7 @@ RECONSTRUCTED = {
     ('app', 'packets/pkrequesttransformchange.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_8a2b70.cpp'): "packet classes (opcode 69) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_8a2b70.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pkstarbasetow.cpp'): "packet classes (opcode 78, 80) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkstarbasetow.cpp'): "opcode 79 (STARBASE_SET) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 78, 80) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkstarbasetow.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkstarbase_avatar_change.cpp'): "packet classes (opcode 157, 158, 159, 160) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkstarbase_avatar_change.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
@@ -3506,16 +3889,39 @@ RECONSTRUCTED = {
     ('app', 'packets/pkclientship.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkskill.cpp'): "packet classes (opcode 87, 88) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkskill.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
-    ('app', 'packets/pksoundcommand.cpp'): "packet classes (opcode 107) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pksoundcommand.cpp'): "packet classes (opcode 106 written by hand, builder P; opcode 107) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pksoundcommand.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkunknown_8a6430.cpp'): "packet classes (opcode 61) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkunknown_8a6430.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkstart.cpp'): "packet classes (opcode 5, 6) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkstart.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkserverhandoff.cpp'): "SERVER_HANDOFF 58's object, 0x8943C0-0x8949D0 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
+    ('app', 'packets/pkserverhandoff.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkcreatecharacter.cpp'): "opcode 72's object, 0x85C5F0-0x85D170 (no assert: the file name provisional, NAME 1): written by hand (builder P7)",
+    ('app', 'packets/pkcreatecharacter.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkrecustomize.cpp'): "RECUSTOMIZE 129-133's object, 0x89FB50-0x8A14D0 (no assert: the file name provisional, NAME 1): written by hand (builder P7)",
+    ('app', 'packets/pkrecustomize.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmasterjoin.cpp'): "MASTER_JOIN 53's object, 0x8974C0-0x8977D0 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
+    ('app', 'packets/pkmasterjoin.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalavatarlist.cpp'): "GLOBAL_AVATAR_LIST 112's object, 0x8629A0-0x8633D0 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pkglobalavatarlist.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalcreatecharacter.cpp'): "GLOBAL_CREATE_CHARACTER 114's object, 0x864090-0x864780 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pkglobalcreatecharacter.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgloballogin.cpp'): "opcode 118's object (GlobalLoginPacketClass), 0x865D60-0x866770 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pkgloballogin.h'): "its class and LoginTicketInfoClass (pk_classes.h and tsk_login.h include it)",
+    ('app', 'packets/pklogin.cpp'): "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pklogin.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalticket.cpp'): "GLOBAL_TICKET 111's object, 0x867520-0x867830 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
+    ('app', 'packets/pkglobalticket.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkloungenpc.cpp'): "LOUNGE_NPC 82's object, 0x897800-0x89A710 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
+    ('app', 'packets/pkloungenpc.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pktalktreeaction.cpp'): "packet classes (opcode 86, 85) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pktalktreeaction.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkrequesttarget.cpp'): "packet classes (opcode 23, 24, 25) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkrequesttarget.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkrequesttime.cpp'): "opcodes 68 (REQUEST_TIME) and 52 (CLIENT_SET_TIME) written by hand (builder P4, "
+                                        "10 of 10 exact in appfile.py match), client 0x8AAD50-0x8AB27F; the file name provisional (NAME 1)",
+    ('app', 'packets/pkrequesttime.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pktilt.cpp'): "packet classes (opcode 19) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pktilt.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkturn.cpp'): "packet classes (opcode 18) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
@@ -3526,6 +3932,136 @@ RECONSTRUCTED = {
     ('app', 'packets/pkequipuse.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'packets/pkversionrequest.cpp'): "packet classes (opcode 0, 1) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
     ('app', 'packets/pkversionrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkdebug.cpp'): "pkdebug.cpp (the client's __FILE__, assert line 84): DEBUG 26 written by hand "
+                                  "(builder P4, 4 of 4 exact in appfile.py match), client 0x8802C0-0x880590",
+    ('app', 'packets/pkdebug.h'): "DebugPacketClass (D24 header name; pk_classes.h includes it)",
+    ('app', 'packets/pkinventorymove.cpp'): "opcodes 39 (INVENTORY_MOVE) and 40 (INVENTORY_SORT) written by hand (builder P4, 4 of 4 exact in "
+                                          "appfile.py match), client 0x894CA0-0x8952D0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkinventorymove.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pknotelist.cpp'): "opcode 184 (NoteContent) written by hand (builder P4, 6 of 6 exact in appfile.py "
+                                     "match), client 0x87EA50-0x87F2F0 (183 not yet); the file name provisional (NAME 1)",
+    ('app', 'packets/pknotelist.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkserverparameters.cpp'): "opcode 66 (SERVER_PARAMETERS) written by hand (builder P4, 4 of 4 exact "
+                                             "in appfile.py match), client 0x8A5AB0-0x8A60F0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkserverparameters.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pksetclienttype.cpp'): "opcode 60 (CLIENT_TYPE) written by hand (builder P4, 4 of 4 exact in "
+                                          "appfile.py match), client 0x87FCF0-0x87FF30; the file name provisional (NAME 1)",
+    ('app', 'packets/pksetclienttype.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pktriggeremote.cpp'): "opcodes 161 (TRIGGER_EMOTE) and 162 (NOTIFY_EMOTE) written by hand (builder P4, "
+                                         "8 of 8 exact in appfile.py match), client 0x886000-0x886550; the file name provisional (NAME 1)",
+    ('app', 'packets/pktriggeremote.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkconfirmedaction.cpp'): "opcodes 190 (CONFIRMED_ACTION_OFFER), 191 and 192 (CONFIRMED_ACTION_RESPONSE) written by hand (builder P4, 13 of 13 exact; "
+                                            "8 of 8 exact in appfile.py match), client 0x8703C0-0x870E60; the file name provisional (NAME 1)",
+    ('app', 'packets/pkconfirmedaction.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgpsrequest.cpp'): "opcodes 221 (GPS_REQUEST) and 222 (GPSResponse) written by hand (builder P4, "
+                                       "12 of 12 exact in appfile.py match), client 0x887F20-0x888670; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgpsrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmdestroyitem.cpp'): "opcode 236 (GM Destroy Item) written by hand (builder P4, 6 of 6 exact in "
+                                          "appfile.py match), client 0x8714F0-0x871A00; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmdestroyitem.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmresetmission.cpp'): "opcode 237 (GM Reset Mission) written by hand (builder P4, 6 of 6 exact in "
+                                           "appfile.py match), client 0x871A30-0x871F40; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmresetmission.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmeditplayerinventory.cpp'): "opcode 234 (GM Edit Player Inventory) written by hand (builder P4, 6 of 6 "
+                                                  "exact in appfile.py match), client 0x86F630-0x86FCD0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmeditplayerinventory.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgmviewmissionlog.cpp'): "opcode 235 (GM View Mission Log) written by hand (builder P4, 6 of 6 exact "
+                                             "in appfile.py match), client 0x86FD00-0x8703A0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgmviewmissionlog.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkguildplayeronline.cpp'): "guild opcodes 193-196, 198, 199, 202, 203, 206, 207, 209, 213-215, 217, 218 and 219 written by hand (builder P4, "
+                                              "all exact but 219's two constructors), client 0x88EC70-0x894390; the file name provisional (NAME 1)",
+    ('app', 'packets/pkguildplayeronline.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmodechange.cpp'): "opcode 76 written by hand (builder P4), client 0x89CAF0-0x89CD80; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmodechange.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmoderequest.cpp'): "opcode 75 written by hand (builder P4), client 0x89CDB0-0x89D040; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmoderequest.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessagetime.cpp'): "opcode 96 written by hand (builder P4), client 0x89E5E0-0x89E890; the file name provisional (NAME 1)",
+    ('app', 'packets/pkmessagetime.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pknote.cpp'): "opcode 108 written by hand (builder P4), client 0x89EF20-0x89F1C0; the file name provisional (NAME 1)",
+    ('app', 'packets/pknote.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkpetitionstuck.cpp'): "opcode 136 written by hand (builder P4), client 0x89F740-0x89FB20; the file name provisional (NAME 1)",
+    ('app', 'packets/pkpetitionstuck.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkserverready.cpp'): "opcode 59 written by hand (builder P4, parked behind P-P4-1 until D91; committed by P5), client 0x8A6140-0x8A6400; the file name provisional (NAME 1)",
+    ('app', 'packets/pkserverready.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkspline.cpp'): "opcode 56 written by hand (builder P4), client 0x8A57A0-0x8A5A80; the file name provisional (NAME 1)",
+    ('app', 'packets/pkspline.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkglobalconnect.cpp'): "opcode 109 written by hand (builder P4), client 0x863400-0x8636F0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkglobalconnect.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgadget.cpp'): "opcodes 103 and 104 written by hand (builder P4), client 0x887900-0x887EF0; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgadget.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pk_sub_parts.cpp'): "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by "
+                                       "hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
+    ('app', 'packets/pk_sub_parts.h'): "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)",
+    ('app', 'packets/pkwarpindex.cpp'): "opcode 155 (WARP) written by hand (builder P4, 6 of 6 exact in appfile.py match); packet classes (opcode 156) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkwarpindex.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkflag.cpp'): "the client's file, 0x887570-0x8878D0: the flagged packets' field helpers and FlagPacketClass's mask (Write_Flags / Read_Flags / Get_Flag_Size, 1, 2 or 4 bytes by Get_Flag_Count), asserts on the client's lines 51-90 (D25): written by hand (builder P), 8 of 8 exact in appfile.py match",
+    ('app', 'packets/pkflag.h'): "FlagPacketClass (vtable 0xB0A3D4, +0x28 pure) and the helpers' declarations",
+    ('app', 'packets/pkgalaxymap.cpp'): "the galaxy map packets (opcodes 151 and 152 derived from it), client 0x870E90-0x8714C0: written by hand (builder P), 10 functions exact in appfile.py match; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgalaxymap.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkverbrequest.cpp'): "client 0x8AEAE0-0x8B15C0, one object (P-PK2-2: pkverblist.cpp merged in, builder PK3): opcode 90 (VERB_REQUEST) drafted by tools/re/pkdecode.py / pkemit.py; 92 (VERB_UPDATE, builder P4) and 91 (VERB_LIST, builder PK1) written by hand with std::set<VerbEnum>'s members, their serialisation in three static helpers (Read_Verbs / Write_Verbs / Append_Verbs) VC6 inlines (F9: the five inline-budget functions exact only so); the file name provisional (NAME 1)",
+    ('app', 'packets/pkverbrequest.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessagechatstream.cpp'): "opcode 95's object, 0x89D310-0x89D740 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkmessagechatstream.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessagestring.cpp'): "opcode 29's object, 0x89E110-0x89E5B0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
+    ('app', 'packets/pkmessagestring.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgroup.cpp'): "opcode 30's object, 0x888690-0x888B30 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
+    ('app', 'packets/pkgroup.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkdialog.cpp'): "opcode 98's object, 0x8812D0-0x8816A0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
+    ('app', 'packets/pkdialog.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/gameedit/pkgespwn.cpp'): "opcodes 30017 and 30018 (send-only), client 0x862350-0x862970, the client's file (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Packets\\gameedit\\pkgespwn.cpp): written by hand (builder P5)",
+    ('app', 'packets/gameedit/pkgespwn.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_861760.cpp'): "the send-only opcode 30002's object, 0x861760-0x861B00 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_861760.h'): "its class",
+    ('app', 'packets/pkunknown_861b30.cpp'): "the send-only opcode 30004's object, 0x861B30-0x861D80 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_861b30.h'): "its class",
+    ('app', 'packets/gameedit/pkgesave.cpp'): "opcodes 30027 and 30028 (send-only), client 0x861DB0-0x862320, the client's file (its asserts' __FILE__; renamed from pkunknown_861db0 under D95(c)): written by hand (builders P5, A-opus)",
+    ('app', 'packets/gameedit/pkgesave.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkfindmember.cpp'): "FIND_MEMBER 83's object, 0x886580-0x886C40, the client's file (its assert's __FILE__): written by hand (builder A-opus)",
+    ('app', 'packets/pkfindmember.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkfindplayerrequest.cpp'): "FindPlayerRequest 181 and FindPlayerResponse 182, the object 0x886C70-0x887280 after pkfindmember.cpp (no assert: the name provisional, pk + the first class's Print label): written by hand (builder P10)",
+    ('app', 'packets/pkfindplayerrequest.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkfire.cpp'): "Fire 21 (FireEquipped 22 derives from it), the object 0x887290-0x887560 after pkfindplayerrequest.cpp (no assert: the name provisional, pk + the class's Get_Name): written by hand (builder P10)",
+    ('app', 'packets/pkfire.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkserverredirect.cpp'): "SERVER_REDIRECT 54's object, 0x8A1500-0x8A1630 (no assert: the file name provisional, NAME 1): written by hand (builder A-opus)",
+    ('app', 'packets/pkserverredirect.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_863720.cpp'): "opcodes 230 and 231's object, 0x863720-0x864090 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_863720.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_873a00.cpp'): "the MoneyClass packet-data wrapper's object, 0x873A00-0x873AE0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_873a00.h'): "its class (pkguildplayeronline.h includes it)",
+    ('app', 'packets/pkunknown_87dec0.cpp'): "opcode 94's object, 0x87DEC0-0x87E3F0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_87dec0.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_877640.cpp'): "opcode 97's object, 0x877640-0x877C50 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+    ('app', 'packets/pkunknown_877640.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_877c80.cpp'): "opcode 99's object, 0x877C50-0x878000 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
+    ('app', 'packets/pkunknown_877c80.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmove.cpp'): "opcode 20's object, 0x89D040-0x89D2E0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 5 of 5 exact in appfile.py match",
+    ('app', 'packets/pkmove.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkmessageline.cpp'): "the message-line object, 0x89D730-0x89E0F0 (no assert: the file name provisional, NAME 1): opcodes 36 and 35 written by hand (builder P3), 11 of 11 exact in appfile.py match; the base of 32-34 still in pk_classes.h",
+    ('app', 'packets/pkmessageline.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkcolorization.cpp'): "opcode 17's object, 0x87F2F0-0x87F8F0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 4 of 5 exact in appfile.py match (the value constructor 0x87F320 NOT EXACT, parked)",
+    ('app', 'packets/pkcolorization.h'): "its class (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkclientchat.cpp'): "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
+    ('app', 'packets/pkclientchat.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pk_player_object_relationship.cpp'): "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcodes 137 RELATIONSHIP and 139 ATTACKER_UPDATES written by hand (builder P3), 11 of 11 exact in appfile.py match",
+    ('app', 'packets/pk_player_object_relationship.h'): "its classes (pk_classes.h includes it: tools/re/pkclasses.py) and RelationshipClass (0x848C80, not rebuilt)",
+    ('app', 'packets/pkupdate.cpp'): "opcode 62 written by hand over FlagPacketClass (builder P3, 19 of 19 exact in appfile.py match; asserts on the client's lines 179-187 and 277-285); packet classes (opcode 64, 63) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkupdate.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_8a5510.cpp'): "packet classes (opcode 232) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkunknown_8a5510.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_8667a0.cpp'): "packet classes (opcode 116) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkunknown_8667a0.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkunknown_865020.cpp'): "packet classes (opcode 115) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkunknown_865020.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pktask.cpp'): "opcodes 5000, 5001 and 5010 and their two structs written by hand (builder P5); opcodes 5004, 5005, 5006 and 5009 written by hand (builder P4, 23 of 23 exact); packet classes (opcode 5002, 5003, 5011) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pktask.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkcameracontrol.cpp'): "packet classes (opcode 146) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+    ('app', 'packets/pkcameracontrol.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkauxdata.cpp'): "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
+    ('app', 'packets/pkauxdata.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkgloballock.cpp'): "the GlobalLock packets (opcodes 227, 228, 229) over their base (vtable 0xB094F4), client 0x8653F0-0x865D30: written by hand (builder P), 19 functions exact in appfile.py match; the file name provisional (NAME 1)",
+    ('app', 'packets/pkgloballock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
+    ('app', 'packets/pkdirlock.cpp'): "the DirLock packets (opcodes 223, 225, 224, 226) over their base (vtable 0xB0A290), client 0x8816D0-0x882680: written by hand (builder P), 25 functions exact in appfile.py match; the file name provisional (NAME 1)",
+    ('app', 'packets/pkdirlock.h'): "their classes (pk_classes.h includes it: tools/re/pkclasses.py)",
     ('app', 'wwudp/bandwidthaccounting.cpp'): "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address "
                                               "counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte "
                                               "entries; the debug window prints on the client's lines 281-361 (D25); exact",
@@ -3556,6 +4092,85 @@ RECONSTRUCTED = {
                                   "and Pump_Releases 0x859940 functional; Get_Data_Socket, Compute_Ticks not rebuilt; Cord_CRC "
                                   "(WWOnline's 0x8B3EC0) here "
                                   "until that library is in the tree",
+    ('app', 'shared/graphics_settings.h'): "the two percentage helpers option.cpp uses (0x7F8410 / 0x7F8480), "
+                                         "their FAIL_IFs on the client's lines 86 and 93 (D25)",
+    ('app', 'client/option.h'): "OptionClass (D24, WinMain's options manager 0xBE8B38) and its five option "
+                                 "structs: five SGI hash_maps by value type (libs/sgistl, D87)",
+    ('app', 'client/option.cpp'): "OptionClass, the object 0x7F0F60-0x7FEBE0 with the hash_map instances: the "
+                                   "defaults 0x7F1AD0, Load 0x7F84F0 (reports on the client's lines 571-669, D25), the "
+                                   "Save 0x7F8EF0, the accessors; NOT EXACT: Get_String 0x7F9700, Get_Default_String 0x7F9970",
+    ('app', 'client/co_player_relationship.cpp'): "the player-object relationship file, the object "
+                                               "0x709EA0-0x70DC00: the gutter colours (gutter_color.ini's sets in "
+                                               "an SGI hash_map, lines 63-117, D25), the relationship checks "
+                                               "Attacking / Group (0x70BAC0's GroupInfo test, lines 207 / 210) / "
+                                               "PVPAttackable / Player, the dispatcher 0x70B0A0, the "
+                                               "reaction colours 0x70C5D0 (line 301), the packet handlers 0x70CC40 (line 310), "
+                                               "0x70CC90, 0x70CD50, the type test 0x70B3D0; NOT EXACT: Neutral 0x70B450",
+    ('app', 'client/postate.h'): "postate.cpp's positional states (ClientObjectClass +0x98, co.h's Unknown98Class): "
+                                "the forwarding state 0xB026EC, type 1 0xB02728, the extrapolator base 0xB027A0 with "
+                                "types 3 0xB027DC, 5 0xB02818, 11 0xB028F0, 8 0xB02854, 4 0xB028A4, 12 0xB0292C, 14 0xB02A00, 15 0xB02A40, 9 0xB02764 and 13 0xB029C0 (layouts from the constructors 0x714870-0x715CF0)",
+    ('app', 'client/postate.cpp'): "the positional states, client 0x714870-0x719700 (start): the forwarding state "
+                                  "0x714870-0x714B00 ('PositionState' on the client's lines 53-90, D25), type 1 "
+                                  "0x714B50 / 0x714D50, the record 0x714E10-0x7151D0, type 9 0x715270-0x715580, the extrapolator base 0x715620-0x7159C0, type 3 0x715AB0 / "
+                                  "0x715C20, type 5 0x715CF0 / 0x715E60, type 11 0x717EF0 / 0x718080, types 8 0x715EF0-0x716F70 and 4 0x717010-0x717ED0 (NOT EXACT: 0x717430, line 977, and 0x7179A0), type 12 0x718160-0x7184E0, type 13 0x718510-0x718D40 (NOT EXACT: 0x718830), type 14 0x718D70-0x7191C0, type 15 0x7192A0-0x719610 (lines 1422-1457); extrap.cpp's classes in extrap.h (StateNode)",
+    ('app', 'client/co_subtypes.h'): "CREATE 4's object subclasses (D122, provisional name): type 24's base 0x70DBC0 "
+                                    "(ClientObjectClass plus dynamic_obj.h's DynObj), type 24 0x70E2E0 (0x224 bytes) and type 28 0x70E5A0 (0x1D4 bytes); moved out of co.h",
+    ('app', 'client/co_subtype_base.cpp'): "type 24's base 0x70DBC0-0x70E2D0 (D132, provisional name after D122's "
+                                          "co_subtypes.cpp; no assert or __FILE__, after co_player_relationship.cpp): "
+                                          "constructor, DynObj / ClientObjectClass slots, destructor, update 0x70E150, thunks",
+    ('app', 'client/co_subtypes.cpp'): "the object subclasses' run 0x70E2E0-0x70F030 (D122: no assert or __FILE__, "
+                                      "between co_subtype_base.cpp and extrap.cpp): types 24 and 28's constructors, destructors "
+                                      "and every vtable slot of the run; NOT EXACT: type 28's aim 0x70E850",
+    ('app', 'shared/dynamic_obj.h'): "DynObj (the client's name, its profile strings; vtable 0xAE796C, 42 slots, the inline "
+                                    "ones 0x44B1F0-0x44B740); provisional header name; moved out of co_subtypes.h",
+    ('app', 'shared/dynamic_obj.cpp'): "DynObj, client 0x44AC70-0x44B740 (FAIL_IF line 70, G_ASSERTs 84 / 93): the "
+                                      "constructors 0x44AC70 / 0x44ADA0 (NOT EXACT), the destructor 0x44AE70, the "
+                                      "PxWrapper forwarders 0x44AF50-0x44B070, Update_Proximity 0x44B090, "
+                                      "Update_Avoidance 0x44B150",
+    ('app', 'shared/px_wrapper.h'): "PxWrapper (the client's name, 0x456B60's profile strings) and the other px_*.cpp "
+                                   "classes it uses (PxObject; not "
+                                   "rebuilt, declared as far as px_wrapper.cpp uses them); provisional header name",
+    ('app', 'shared/px_wrapper.cpp'): "PxWrapper, client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273): the "
+                                     "constructors, Create_Boxes 0x456350, the list and flag members, Update 0x456B60 "
+                                     "(NOT EXACT), the callback members, _Collision_Callback 0x457670",
+    ('app', 'shared/px.h'): "PxEnd / PxBox / PxList, the proximity system's sweep and prune (PxBox and PxList the client's names, their profile and debug strings); provisional header name",
+    ('app', 'shared/px.cpp'): "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
+    ('app', 'shared/px_box_list.h'): "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names",
+    ('app', 'shared/px_box_list.cpp'): "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
+    ('app', 'shared/px_callback_accurate.h'): "PxAccurateCallback, px_callback_accurate.cpp's base (Overlaps / Active, the FAIL_IFs' names); provisional class and header names",
+    ('app', 'shared/px_callback_accurate.cpp'): "px_callback_accurate.cpp, client 0x44E020-0x451BF0 (its __FILE__; FAIL_IFs lines 133 / 170): the base's constructors (NOT EXACT), destructor, overlap handling 0x44E470-0x44F200 (PX3; Overlap NOT EXACT), Process, Enter / Exit; the box class PxAccurateBoxCallback 0x44F3D0-0x44FF40 and the sphere class PxAccurateSphereCallback 0x450030-0x450AC0 (constructors NOT EXACT), the boxes' On_Enter / On_Exit (NOT EXACT) and the template instances 0x450B40-0x451B60",
+    ('app', 'shared/unknown_px_callbacks.h'): "PxBoxCallback, the enter / exit box callback of the object 0x451C00-0x452130 (no __FILE__); neutral header name (D10)",
+    ('app', 'shared/unknown_px_callbacks.cpp'): "the object 0x451C00-0x452130 after px_callback_accurate.cpp (its guarded <string> static 0x451BD0; no __FILE__, neutral name D10): PxBoxCallback 0x451C30-0x452130",
+    ('app', 'shared/unknown_px_factories.cpp'): "the callback factories 0x452140 / 0x452460 (to the guard 0x452750, before px_callback_poll.cpp; no __FILE__, neutral name D10, placement provisional D137): an object of their own, since in unknown_px_callbacks.cpp VC6 inlines PxBoxCallback's constructor 0x451C30, which the client calls (PX3)",
+    ('app', 'shared/px_collision.h'): "PxCollision (the client's name, 'PxCollision::Process'): two overlapping DynObjs; provisional header name",
+    ('app', 'shared/px_collision.cpp'): "px_collision.cpp, client 0x453A40-0x4557F0 (its __FILE__ in 0x454730's FAIL_IF l.234): Process 0x453A40, its distance test 0x453B10 (NOT EXACT) and the response 0x453C20 (PX3), the OBBox tests not rebuilt; PxObject 0x4557F0-0x455860 placed here provisionally (no string)",
+    ('app', 'shared/px_callback.h'): "PxCallback, the proximity callbacks' interface (vtable 0xAE7B28) and their function type; provisional header name (no string)",
+    ('app', 'shared/px_callback_poll.h'): "PxPollCallback / PxPollAccurateCallback (SPHERE / VOLUME, the FAIL_IFs' names), px_callback_poll.cpp's polling callbacks; provisional class and header names",
+    ('app', 'shared/px_callback_poll.cpp'): "px_callback_poll.cpp, client 0x452780-0x453740 (its __FILE__; FAIL_IFs lines 216 / 223): PxPollCallback (PxWrapper's loose box) and PxPollAccurateCallback: constructors, Process, On_Enter / On_Exit, Clone, Attach / Detach, Update, Add_Filter, Set_Radius / Set_Extent",
+    ('app', 'shared/px_callback_type.h'): "PxCallbackType / PxCallbackEvent (the client's name strings) and their string conversions; provisional header and function names",
+    ('app', 'shared/px_callback_type.cpp'): "px_callback_type.cpp, client 0x453740-0x453A40 (its __FILE__; asserts lines 47-112): the two enums' names and From_String / To_String (_EventStrings, the FAIL_IF's name); no caller in the client",
+    ('app', 'shared/px_process.h'): "PxProcessNode / PxProcessClass (client.h's name, D24), px_process.cpp's list of nodes and its static stack of the current list; provisional header name",
+    ('app', 'shared/px_process.cpp'): "px_process.cpp, client 0x455880-0x4560B0 (its __FILE__; FAIL_IFs lines 16-62): PxProcessNode (vtable 0xAE7CE8), PxProcessClass's Add / Remove / Remove_All / Process, Get_Current / Push / Pop (Push 0x455D10, Pop 0x455F60 NOT EXACT)",
+    ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
+                               "'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 "
+                               "and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors "
+                               "0x70F250-0x714340); moved out of postate.h",
+    ('app', 'client/extrap.cpp'): "the state nodes, client 0x70F040-0x714810 (<string>'s guarded static last; "
+                                 "postate.cpp follows at 0x714820): StateNode's slots 0x70F040-0x70F210 (lines 238, "
+                                 "246, D25), every node, blend and motion object of the window (NOT EXACT ones marked); the "
+                                 "asserts on the client's lines 349-433, 757, 1198-1214, 1279-1416, 1432-1590, 1799",
+    ('app', 'client/eff_o.h'): "eff_o.cpp's effect object: the base EffectObjectClass (vtable 0xB0002C, 0x80 bytes, layout from the constructor 0x6E6710), its base UnknownAF0DD0Class (0xAF0DD0); client.h's partial declaration steps aside when EFF_O_H is defined",
+    ('app', 'client/eff_o.cpp'): "the effect object, client 0x6E6710-0x6ECBA0 (eff_line.cpp's guarded static at 0x6E66E0 before it): so far the base's constructor, slots, destructor 0x6E6930, Unknown_6E6A90 and 0x6E6E30 / 0x6E6ED0 / 0x6E6F10 / 0x6E74B0",
+    ('app', 'client/loadingview.cpp'): "LoadingViewClass (loadingview.cpp's __FILE__; client 0x6912A0-0x6927C0): the constructor 0x691570 on the client's line 52, the destructor, Init 0x691770 and Shutdown 0x6917A0 (LD4); START 0x692330 and the loading screen 0x692420 (UI1); SERVER_HANDOFF 0x691830 not yet",
+    ('app', 'client/intrface.h'): "InterfaceClass (D24 from intrface.cpp's __FILE__; the client holds no string of the header): the UI kit's interface base, gclass.cpp's class over the inline two-table base, intrface.cpp's members +0x40..+0x80 (View, Active, PartialDeactivatedGadget by their asserts); one class for sclient.h's UIUnknownBaseClass / UIInterfaceBaseClass and ui_line_display.h's GClassUnknownClass / InterfaceClass (UI1, P-LD4-1)",
+    ('app', 'client/view.cpp'): "ViewClass (view.cpp's __FILE__; client 0x6B4480-0x6B4AD0 and its SList<> instances): UIViewClass's base, the input dispatcher +0x04 and the interface objects' SList +0x08; the asserts on the client's lines 40 / 78 / 106 / 113 (LD4)",
+    ('app', 'client/uiview.h'): "what uiview.cpp's UIViewClass (sclient.h) makes and calls: the 2-D scene ViewUnknown1CClass (0x6DA4D0), GadgetListManagerClass (0x6611B0), the +0x30 object (0x6AB320); PROVISIONAL file name after uiview.cpp (LD4)",
+    ('app', 'client/uiview.cpp'): "UIViewClass (the client's 'UIViewClass::Render', __FILE__ e:\\build\\beta\\G\\app\\Client\\uiview.cpp; client 0x65A6C0-0x65B8E0): the views' base over view.cpp's ViewClass, and the second view Unknown65B810ViewClass (0x65B810), the FAIL_IFs on the client's lines 234 / 257 / 268 / 271 / 274 (LD4)",
+    ('app', 'client/mainview.cpp'): "the main view (MainViewClass, sclient.h; client 0x50B2C0-0x5146xx, 97 functions): so far the zone loader 0x5137F0 on the client's FAIL_IF lines 1974 / 1981 / 1983 (LD3)",
+    ('app', 'client/sbaseview.h'): "SBaseViewClass, sbaseview.cpp's starbase view (SClient +0x135C), with the interfaces it holds (UIJobsClass, UIStarbaseClass, the +0x19C / +0x1A0 classes), declared as far as cpacket.cpp calls them; moved out of cpacket.cpp (CP1, P-SC1-1), the header's name provisional",
+    ('app', 'client/sbaseview.cpp'): "SBaseViewClass (sbaseview.cpp's __FILE__; client 0x69CDE0-0x6A2530): the short and middle-sized members 0x69D930-0x6A2480, the asserts on the client's lines 738 / 1667 (D25; 1261 / 1262 left for 0x6A0590), UI1; NOT EXACT 0x69F710; the large ones not yet",
+    ('app', 'client/scriptedmovie.cpp'): "ScriptedMovieViewClass (scriptedmovie.cpp's __FILE__; client 0x7FFD30-0x80A730, 254 asserts): short members and script commands, the asserts on the client's lines 832 / 855 / 877 / 1178 (D25), UI1; the constructor 0x8000C0, the destructor 0x8008B0 and the rest not yet",
+    ('app', 'client/ui_group.h'): "UIGroupClass, ui_group.cpp's group window (the main view's +0x1D8; the client's file per its asserts, this header's name provisional), declared as far as cpacket.cpp and the main view call it; moved out of cpacket.cpp (HN2)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
@@ -3957,8 +4572,10 @@ def image():
 
 def tree_includes():
     wwonline = [os.path.join(REPO, 'libs', 'wwonline')] if os.path.isdir(os.path.join(REPO, 'libs', 'wwonline')) else []
+    # D87: SGI STL 3.3's hash_map adapted for VC6 (libs\sgistl\hash_map.h), after the SDKs and VC6's own STL
+    sgistl = [os.path.join(REPO, 'libs', 'sgistl')] if os.path.isdir(os.path.join(REPO, 'libs', 'sgistl')) else []
     return [dest(l) for l in LIBS if l not in LATE_INCLUDE_LIBS and os.path.isdir(dest(l))] + SDK_INCLUDES + \
-        wwonline + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
+        wwonline + sgistl + [REPO]  # the repository root last: BinkMovie's subtitle headers include <wwlib\vector.h>
 
 
 def late_sync():
@@ -4300,7 +4917,12 @@ def main():
                     help='verify/refine: lease K VMs from pool.py for this run (sets ENB_VC6_HOSTS), release after (also on failure)')
     ap.add_argument('--holder-pid', type=int,
                     help="--pool: the lease's long-lived holder pid (default pool.py's: $ENB_HOLDER_PID, $CLAUDE_PID)")
+    ap.add_argument('--agent', metavar='NAME',
+                    help='agent name: lock owner, ENB_AGENT for children, scratch under .work/NAME/tmp '
+                         '(default: the git worktree name, else USERNAME@host)')
     a = ap.parse_args()
+    if a.agent:
+        set_agent(a.agent)
     if a.command in ('plan', 'assemble', 'refine', 'all') and not a.evidence:
         raise SystemExit('--evidence is required')
     hold_lock(a.lock_wait)

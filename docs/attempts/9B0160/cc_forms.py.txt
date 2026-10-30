@@ -1,0 +1,27 @@
+LIB = 'ww3d2'
+O = ("\tint Product = HIWORD(adapter_id.DriverVersion.HighPart);\n\tint Version = LOWORD(adapter_id.DriverVersion.HighPart);\n"
+     "\tint SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);\n\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n")
+FORMS = {
+    'base': [],
+    'C1': [(O, "\tint SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);\n\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n"
+               "\tint Product = HIWORD(adapter_id.DriverVersion.HighPart);\n\tint Version = LOWORD(adapter_id.DriverVersion.HighPart);\n")],
+    'C2': [(O, "\tint SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);\n\tint Product = HIWORD(adapter_id.DriverVersion.HighPart);\n"
+               "\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n\tint Version = LOWORD(adapter_id.DriverVersion.HighPart);\n")],
+    'C3': [(O, "\tconst D3DADAPTER_IDENTIFIER8 & id = adapter_id;\n" + O.replace('adapter_id.', 'id.'))],
+}
+LIB = 'ww3d2'
+O = ("\tint Product = HIWORD(adapter_id.DriverVersion.HighPart);\n\tint Version = LOWORD(adapter_id.DriverVersion.HighPart);\n"
+     "\tint SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);\n\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n"
+     "\n\tDXLOG((\"Product=%d, Version=%d, SubVersion=%d, Build=%d\\r\\n\",Product, Version, SubVersion, DriverBuildVersion));\n")
+ARGS = ("HIWORD(adapter_id.DriverVersion.HighPart), LOWORD(adapter_id.DriverVersion.HighPart), "
+        "HIWORD(adapter_id.DriverVersion.LowPart), ")
+FORMS = {
+    # the log line reads the version fields itself (arguments evaluated right to left: the low part first)
+    'C8': [(O, "\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n\n\tDXLOG((\"Product=%d, Version=%d, SubVersion=%d, Build=%d\\r\\n\","
+               + ARGS + "DriverBuildVersion));\n")],
+    'C9': [(O, "\tDXLOG((\"Product=%d, Version=%d, SubVersion=%d, Build=%d\\r\\n\"," + ARGS
+               + "LOWORD(adapter_id.DriverVersion.LowPart)));\n\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n")],
+    'C10': [(O, "\tDriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);\n\tint Product = HIWORD(adapter_id.DriverVersion.HighPart);\n"
+                "\tint Version = LOWORD(adapter_id.DriverVersion.HighPart);\n\tint SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);\n"
+                "\n\tDXLOG((\"Product=%d, Version=%d, SubVersion=%d, Build=%d\\r\\n\",Product, Version, SubVersion, DriverBuildVersion));\n")],
+}

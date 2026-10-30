@@ -441,11 +441,11 @@ bool ForwardingConnectionClass::Disconnect() { if (Connection != 0) return(Conne
 bool ForwardingConnectionClass::Is_Dead() { if (Connection != 0) return(Connection->Is_Dead()); return(true); }
 bool ForwardingConnectionClass::Unknown_30(int option, int *data) { if (Connection != 0) return(Connection->Unknown_30(option, data)); return(false); }
 
-ForwardingConnectionClass::~ForwardingConnectionClass()
-{
-	delete Connection;
-	Connection = 0;
-}
+// ~ForwardingConnectionClass 0x821E40 is inline in connect.h (P1)
+
+
+
+
 
 PeekConnectionClass::~PeekConnectionClass()
 {
@@ -797,7 +797,7 @@ bool ConnectionManagerClass::Is_Managed(ConnectionClass *connection)
 	return(false);
 }
 
-// NOT EXACT: the client calls the list's element construct 0x823DB0 out of line (on a copy of the pointer); ours inlines it.
+// The round robin's index through std::distance: its budget keeps the list's _Construct 0x823DB0 out of line
 bool ConnectionManagerClass::Remove_Dead(std::list<ConnectionClass *> *removed)
 {
 	for (std::vector<ConnectionEntryClass>::iterator it = Connections.begin(); it != Connections.end();) {
@@ -805,7 +805,7 @@ bool ConnectionManagerClass::Remove_Dead(std::list<ConnectionClass *> *removed)
 			if (removed != 0) {
 				removed->push_back(it->Connection);
 			}
-			if (it - Connections.begin() < RoundRobin) {
+			if (std::distance(Connections.begin(), it) < RoundRobin) {
 				RoundRobin--;
 			}
 			delete it->Connection;
@@ -914,14 +914,14 @@ ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 	return(manager);
 }
 
+// 0x8232C0 (too short to count)
+bool NullConnectionClass::Send_Packet(PacketClass *packet) { return(true); }
 
+// 0x8232E0 (too short to count)
+bool NullConnectionClass::Send_Message(RawPacketClass *packet) { return(true); }
 
-
-
-
-
-
-
+// 0x823300 (too short to count)
+PacketClass *NullConnectionClass::Receive() { return(NULL); }
 
 
 
@@ -1174,7 +1174,7 @@ bool StreamConnectionClass::Is_Dead()
 **	  returns early when the name doesn't resolve. The factory by name takes the log name's type
 **	  into a local; the manager factory probes with `while (tries--)` and names the manager in
 **	  two Set_Name calls (both inlined).
-**	* Remove_Dead 0x822B50 is functional (marked there). Too short to count: 0x8232C0, 0x8232E0,
+**	* Remove_Dead 0x822B50 exact since std::distance (step 8's tail). Too short to count: 0x8232C0, 0x8232E0,
 **	  0x823300 (not identified). memconn.cpp, dbgconn.cpp and the composite listener are
 **	  declared only (memconn.h, dbgconn.h, connect.h): docs/kernel-map.md 4.
 */

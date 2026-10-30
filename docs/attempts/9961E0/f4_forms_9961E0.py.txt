@@ -1,0 +1,89 @@
+# ==== .work/f4/vdist_a.py
+U = 'ww3d2/unknown_distortion.cpp'
+VIEW = "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, view);\n"
+P2 = (U, VIEW, "\t\tDX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));\n")
+LOOPS = ("\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+         "\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = (j + 1) * nx + i;\n\t\t\tindices.Add(i0);\n\t\t\tindices.Add(i1);\n"
+         "\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i0 + 1);\n\t\t\tindices.Add(i1);\n\t\t\tindices.Add(i1 + 1);\n")
+HEAD2 = "\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+
+
+def body(pre, adds, head=HEAD2):
+    return (U, LOOPS, head + pre + ''.join("\t\t\tindices.Add(%s);\n" % x for x in adds))
+
+
+# W3's best (Q5 + P2, 121 rows) as the reference point of this round
+Q5 = body('\t\t\tint i0 = j * nx + i;\n\t\t\tint i1 = i0 + nx;\n', ['i0', 'i1', 'i0 + 1', 'i0 + 1', 'i1', 'i1 + 1'])
+# The client keeps i live (ebx + per-row bases), computes j*nx and (j+1)*nx by imul per row and i + j*nx + 1
+# through ebp, a running row base starting at 1 (+= nx per row): no per-cell locals, the second row's base as a
+# separate product, the +1 folded into the row base
+F_A = body('', ['i + j * nx', 'i + (j + 1) * nx', 'i + (j * nx + 1)', 'i + (j * nx + 1)', 'i + (j + 1) * nx', 'i + (j + 1) * nx + 1'])
+# the same with the row bases as per-row locals outside the inner loop (one store+reload of j*nx in the client)
+F_B = (U, LOOPS, "\tfor (j = 0; j < ny - 1; j++) {\n\t\tint row0 = j * nx;\n\t\tint row1 = (j + 1) * nx;\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+       + ''.join("\t\t\tindices.Add(%s);\n" % x for x in ['row0 + i', 'row1 + i', 'row0 + i + 1', 'row0 + i + 1', 'row1 + i', 'row1 + i + 1']))
+V = {
+    'q5p2': [P2, Q5],
+    'fa_p2': [P2, F_A],
+    'fb_p2': [P2, F_B],
+}
+COMPILE = [U, 'ww3d2/seglinerenderer.cpp']
+WATCH = ['0x9961E0', '0x9BEB20']
+
+# ==== .work/f4/vdist_b.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_a.py')
+U, P2, LOOPS, F_A, F_B = A['U'], A['P2'], A['LOOPS'], A['F_A'], A['F_B']
+TAIL = "\tback_buffer->Release_Ref();\n}"
+DEAD_END = (U, TAIL, "\tback_buffer->Release_Ref();\n\tint dead = indices.Count();\n}")
+# The client's loop: i live in ebx, j*nx (spilled) and (j+1)*nx (edi) by imul per row, and i + j*nx + 1 through
+# ebp, a value that starts at 1 and grows by nx per row (add ebp, ecx) -- a running row variable in the source
+# or VC6's strength reduction of the hoisted j*nx + 1; the fa/fb forms have the structure (i live, imuls) but
+# no such induction variable, and they drop the 6th ??_H temporary (budget)
+ADDS6 = ['j * nx + i', '(j + 1) * nx + i', 'row1 + i', 'row1 + i', '(j + 1) * nx + i', '(j + 1) * nx + i + 1']
+RUN = (U, LOOPS, "\tint row1 = 1;\n\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+       + ''.join("\t\t\tindices.Add(%s);\n" % x for x in ADDS6))
+RUN_INC = (U, "\t\t\tindices.Add((j + 1) * nx + i + 1);\n\t\t}\n\t}\n", "\t\t\tindices.Add((j + 1) * nx + i + 1);\n\t\t}\n\t\trow1 += nx;\n\t}\n")
+F_B1 = (U, LOOPS, "\tfor (j = 0; j < ny - 1; j++) {\n\t\tint row0 = j * nx;\n\t\tint row1 = (j + 1) * nx;\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+        + ''.join("\t\t\tindices.Add(%s);\n" % x for x in ['row0 + i', 'row1 + i', 'row0 + 1 + i', 'row0 + 1 + i', 'row1 + i', 'row1 + 1 + i']))
+V = {
+    # the budget: fa plus a dead inline read at the end (W3's M2 lever) to bring the 6th temporary back
+    'fa_p2_dead': [P2, F_A, DEAD_END],
+    # an explicit running row variable (the client's ebp), the rest as fa
+    'run_p2': [P2, RUN, RUN_INC],
+    # per-row locals with the +1 grouped with the row base
+    'fb1_p2': [P2, F_B1],
+}
+COMPILE = [U]
+WATCH = ['0x9961E0']
+
+# ==== .work/f4/vdist_c.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_a.py')
+B = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_b.py')
+P2, RUN, RUN_INC, DEAD_END = A['P2'], B['RUN'], B['RUN_INC'], B['DEAD_END']
+# run_p2 has the client's loop structure and guard code (i live, imul per row, running row base) but spills the
+# running base and drops the 6th ??_H temporary; the dead inline read restored that temporary on fa_p2
+V = {'run_dead': [P2, RUN, RUN_INC, DEAD_END]}
+COMPILE = ['ww3d2/unknown_distortion.cpp']
+WATCH = ['0x9961E0']
+
+# ==== .work/f4/vdist_d.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_a.py')
+B = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_b.py')
+U, P2, RUN, RUN_INC, DEAD_END = A['U'], A['P2'], B['RUN'], B['RUN_INC'], B['DEAD_END']
+# The client fills corner1's slot (the lower one, [esp+0x13c]) from Transform's translation before corner0's
+# ([esp+0x148]); ours the reverse: the client's source takes corner1's translation first
+GT = "\tTransform.Get_Translation(&corner0);\n\tTransform.Get_Translation(&corner1);\n"
+C1 = (U, GT, "\tTransform.Get_Translation(&corner1);\n\tTransform.Get_Translation(&corner0);\n")
+# the running row base declared with i and j (before the vertex loop) so its 1 is the same live value as the
+# clamp-mode stores' (the client keeps it in ebp through both loops; ours spills it at the index loop)
+RUN_TOP = (U, RUN[1], RUN[2].replace("\tint row1 = 1;\n", ""))
+DECL = (U, "\tint i, j;\n\tfor (j = 0; j < ny; j++) {\n", "\tint i, j;\n\tint row1 = 1;\n\tfor (j = 0; j < ny; j++) {\n")
+V = {
+    'rd_c1': [P2, C1, RUN, RUN_INC, DEAD_END],
+    'rd_c1_top': [P2, C1, DECL, RUN_TOP, RUN_INC, DEAD_END],
+}
+COMPILE = [U]
+WATCH = ['0x9961E0']
+

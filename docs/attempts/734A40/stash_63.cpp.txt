@@ -1,0 +1,21 @@
+// NOT EXACT: register-only (the client loads the +0x10C0 duration's halves into ebp / edx, ours the reverse; 6 forms; attempts.py show 0x734A40)
+// 0x734A40
+bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("PlanetPositionalUpdatePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	TimeStamp = (DurationClass((unsigned)TimeStamp) - DurationClass(sclient->Unknown10C0)).As_Int();
+	ClientObjectClass *object = sclient->Find_Object(GameID);
+	if (object) {
+		if (!object->Unknown98) {
+			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		} else if (object->Unknown98->Unknown_04() != 5) {
+			delete object->Unknown98;
+			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		} else {
+			Unknown715CF0Class *state = (Unknown715CF0Class *)object->Unknown98;
+			state->Unknown_715E60(this);
+		}
+	}
+	return(true);
+}

@@ -1,0 +1,11 @@
+Key_Exchange 0x829180, builder S3's best form (2026-10-26): residue 57 masked rows (60 before), 49 calls vs 48.
+Two edits to the tree's tcpconn.cpp:
+1. `for (;;) {` -> `while (true) {` : VC6 rotates the for(;;) loop (pumpReads/peekRead/isConnected duplicated
+   after the listener loop); while (true) compiles as the client's, one copy and a jmp back.
+2. nbytes = *(int *)data;                  nbytes = ntohl(nbytes);
+   ebytes = *(int *)(data + nbytes + 4);   ebytes = ntohl(ebytes);
+   (two blank lines fewer in the block below, to keep the assert on line 358)
+Left: the listener loop's ++it calls _Tree::const_iterator::_Inc (the client inlines it). Not fixed by:
+goto-top loop, the closed return inline, the m bits / encryption in an inline RSAKeyClass method
+(Encrypt_Key(BigInt &c, __int64), BigInt Encrypt_Key(__int64)) or a static Make_Key helper (frames grow 4-8 bytes).
+Variant files: .work/s3/k1.py-k4.py with .work/s3/vloop.py (untracked).

@@ -1,0 +1,24 @@
+(970, r'''// NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70)
+// 0x769E70
+void LoginTaskClass::Start_Game()
+{
+	if (Ticket.Character_ID != 0) {
+		LoginTicketInfoClass info = Ticket_Info;
+		Unknown_8190D0(info.Unknown98)->Unknown_8191B0();
+		Unknown_Debug_Print("LoginTask: removing self.");
+		KernelClass *kernel = Kernel;
+		Done = true;
+		Unknown_BB9654 = true;
+		std::string name(Username ? Username : "LoginName");
+		std::string password(Password ? Password : "Password");
+		ClientTaskClass *task = new ClientTaskClass(name, password);
+		task->Init(kernel, &Ticket, info.Login_Key, Galaxy_Address);
+		kernel->Add_Task(task);
+		kernel->Set_Focus(task);
+		Kernel->Remove_Task(this);
+		Unknown_6A9B60Class *unknown = new Unknown_6A9B60Class(1);
+		unknown->Unknown_6A9E40();
+		delete unknown;
+	}
+}
+'''),

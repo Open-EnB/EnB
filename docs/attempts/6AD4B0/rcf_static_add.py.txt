@@ -1,0 +1,23 @@
+# HL2: Read_Completed_File 0x6AD4B0, 3 forms (budget levers around the twelve push_backs).
+import os
+C = 'app/client/tutorial_manager.cpp'
+REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+SRC = open(os.path.join(REPO, C), encoding='latin1', newline='').read().replace('\r\n', '\n')
+a = SRC.index('\t\tif (!ignore) {\n\t\t\tCompleted.push_back(nstrdup("Welcome"));')
+b = SRC.index('\t\t}\n\t\treturn true;', a)
+OLD = SRC[a:b]
+assert SRC.count(OLD) == 1
+INS = OLD.replace('Completed.push_back(nstrdup(', 'Completed.insert(Completed.end(), nstrdup(')
+DEAD = OLD.replace('\t\t\tCompleted.push_back(nstrdup("ChooseShard"));\n',
+                   '\t\t\tCompleted.push_back(nstrdup("ChooseShard"));\n\t\t\tint count = Completed.size();\n')
+# the static helper sits in the blank lines before the constructor (no line moves)
+G_OLD = '\treturn 0;\n}\n\n\n\n\n\n\n\n\n'
+G_NEW = '\treturn 0;\n}\n\nstatic void Add_Name(std::list<char *> &names, const char *name)\n{\n\tnames.push_back(nstrdup(name));\n}\n\n\n\n'
+assert G_NEW.count('\n') == G_OLD.count('\n')
+assert SRC.count(G_OLD) == 1
+HELP = OLD.replace('Completed.push_back(nstrdup(', 'Add_Name(Completed, (').replace('"));', '"));')
+V = {
+    'static_add': [(C, G_OLD, G_NEW), (C, OLD, HELP)],
+}
+COMPILE = [C]
+WATCH = ['0x6AD4B0', '0x6AC600', '0x6AD7B0']

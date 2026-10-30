@@ -265,3 +265,19 @@ The repository is GPL v3 (decision D1, [progress.md](progress.md)), hence the li
 Files imported from EA's repositories keep their original banners and licence header unchanged;
 we add a line saying which EA copy (Renegade, Generals, Zero Hour) and commit it came from, and
 note any change made to match the client.
+
+* **SoundLibraryBridge (2026-10-27, H9):** the client's bridge vtable 0xAE74EC has two slots; the tree's `ww3d2/soundlibrarybridge.h` declares three pure virtuals (`Stop_Playing_Audio` is Zero Hour's). app/audio/soundlib.cpp implements the third as an empty slot; ww3d2 stays as it is (no pair depends on it).
+
+* **ControlKeysManager (2026-10-27, H11):** the RTTI names it `ControlKeysManager` (no `Class` suffix); ui_line_display.cpp's `ControlKeysManagerClass` (NAME 3) and its Unknown_71A960 / 71AB40 (Add_Keys / Remove_Keys), sclient.cpp's Unknown_719D50 / 719E10 (Create / Destroy) switch to control_keys_manager.h's names at their next edit, once SClient replaces the file's ControlKeysSClientClass stand-in (P-H11-1).
+
+* **ClientObjectClass (2026-10-27, H13):** declared in app/client/co.h (vtable 0xB0070C, constructor 0x6F2820, destructor 0x6F2FE0). aux_roots.h's `UnknownCOClass` (the factory 0x6F6000) is the same class: merge it into co.h at aux_roots.h's next edit (P-H13-2). co_data's Remove_All 0x79D390 keeps a dead `Get_Game_ID()` call (the D40 budget lever, P-H13-1).
+
+* **FontDatabaseClass (2026-10-27, H12):** app/client/fontdatabase.h; the globals 0xBE67B8 / 0xBE67BC are declared under stand-in names in tsk_game.h, sclient.cpp and ui_line_display.cpp: point them at fontdatabase.h at those files' next edit (P-H12-3).
+
+* **ClientObjectClass's render object (2026-10-27, T11):** co.h names the member `Model`; co.cpp's assert texts say `RenderObject`, the client's name. Rename at cpacket.cpp's next edit (it and clienttest use it; P-T11-1). The aux_roots.h UnknownCOClass merge waits for the CREATE factory to move into co.cpp (aux_roots.cpp is generated; P-T11-2).
+
+* **The input dispatcher (2026-10-27, H18):** the client's path is `app\input\inpdsp.cpp` (client wins: app/input/, not app/client/). `LoginUnknown0CClass` is defined in app/input/inpdsp.h; tsk_login.h still carries its opaque `char[0x18]` twin with the same layout and mangled names: replace it with the include at tsk_login.h's next edit and verify tsk_login, sclient and kerneltest (P-H18-1).
+
+* **DynObj and PxWrapper (2026-10-28, DO1):** the client's profile strings name them (`DynObj::Update_Proximity`, `PxWrapper::Update(LooseBox)`), without a `Class` suffix: app/shared/dynamic_obj.h and px_wrapper.h keep them. CS1's `Unknown44AC70Class` (co_subtypes.h) and its forward-declared `ProximityObjectClass` (the FAIL_IF's member name, not a type) are gone.
+
+* **PxBox, PxList, PxCollision and _Collision_Callback (2026-10-28, PX1):** the client's strings name them (`PxBox::On_Enter`, `PxList::Insert`, `PxCollision::Process`, the profile name `_Collision_Callback`), without a `Class` suffix; px.h / px_wrapper.h keep them, and the provisional PxEnd, PxObject, PxCallback, PxBoxList and PxCollisionBox follow that style. client.h's `PxClass` (a D24 name for px.cpp's object) is PxList. The profile string `PxWrapper::Update(LooseBox` lacks its closing parenthesis in the client; px_wrapper.cpp keeps it.

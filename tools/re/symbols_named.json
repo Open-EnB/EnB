@@ -1,0 +1,7 @@
+[
+ {
+  "address": "0x57D830",
+  "symbol": "??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
+  "evidence": "the main view's 0x50C690 news 0x178 bytes and calls it with (this, LayerClass); it stores UICpitClass's vtable (ui_cpit.cpp); funcmatch's 'Init_2D_Scene' (skeleton.cpp, one string TSI01A) was wrong (P-HN2-2, HN2 / MV2 2026-10-28)"
+ }
+]

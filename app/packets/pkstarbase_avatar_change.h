@@ -43,7 +43,7 @@ class StarbaseAvatarUpdatePacketClass : public PacketClass
 public:
 	StarbaseAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A3A40
 	virtual RawPacketClass *Build();	// +0x04 0x8A3B30
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A9F0 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A9F0 (cpacket.cpp, register-only residue)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3C50
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A3C70
 	virtual int Get_Channel() { return(AvatarID); }	// +0x18 0x8A39D0
@@ -80,7 +80,7 @@ public:
 	StarbaseAvatarRoomUpdatePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3F60
 	StarbaseAvatarRoomUpdatePacketClass(RawPacketClass *raw);	// 0x8A4020
 	virtual RawPacketClass *Build();	// +0x04 0x8A40E0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73AB50 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73AB50 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A41C0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A41E0
 	virtual int Get_Channel() { return(AvatarID); }	// +0x18 0x8A3FB0

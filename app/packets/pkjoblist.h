@@ -5,8 +5,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkjoblist.h (the .cpp named by an assert)
 **
-**	The packet classes of client 0x895F00-0x897490 rebuilt so far (opcode 149, 150); the file's other classes
-**	are still declared in pk_classes.h.
+**	The packet classes of client 0x895F00-0x897490 rebuilt (opcode 147, 148, 149, 150).
 */
 
 #if defined(_MSC_VER)
@@ -17,6 +16,56 @@
 #define PKJOBLIST_H
 
 #include "pk.h"
+#include <string>
+#include <vector>
+
+// opcode 147 (0x0093, JOB_LIST): one job of the list (0x40 bytes, new'd; ints sent as their bytes, strings with Add_String)
+struct JobStruct  // NAME 1: neutral (D10): what it holds
+{
+	int Unknown00;	// +0x00
+	int Unknown04;	// +0x04
+	int Unknown08;	// +0x08
+	int Unknown0C;	// +0x0C
+	std::string Unknown10;	// +0x10
+	std::string Unknown20;	// +0x20
+	std::string Unknown30;	// +0x30
+};
+
+// opcode 147 (0x0093, JOB_LIST): vtable 0xB0AEF4, constructor 0x895F80, 0x20 bytes
+class JobListPacketClass : public PacketClass  // NAME 3: the client's Print text 'JobList'
+{
+public:
+	JobListPacketClass();	// 0x895F00
+	JobListPacketClass(RawPacketClass *raw);	// 0x895F80
+	virtual ~JobListPacketClass();	// +0x00 0x8962F0 / 0x895F50
+	virtual RawPacketClass *Build();	// +0x04 0x896430
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A210 (cpacket.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x896600
+	virtual int Print(char *buffer, int len);	// +0x10 0x896680
+
+	void Add(int unknown00, int unknown04, const char *unknown10, int unknown0c, const char *unknown20, int unknown08, const char *unknown30);	// 0x8966B0  // NAME 2: what it does
+
+	int Count;	// +0x0C (4 bytes as they are)  // NAME 2: the number of jobs
+	std::vector<JobStruct *> JobList;	// +0x10  // NAME 2: what it holds
+};
+
+// opcode 148 (0x0094, JOB_DESCRIPTION): vtable 0xB0AF24, constructor 0x8969C0, 0x1C bytes
+class JobDescriptionPacketClass : public PacketClass  // NAME 3: the client's Print text 'JobDescription' and FAIL_IF '!Title || !Description'
+{
+public:
+	JobDescriptionPacketClass(unsigned int job_id, bool still_avail, const char *title, const char *description);	// 0x8968D0
+	JobDescriptionPacketClass(RawPacketClass *raw);	// 0x8969C0
+	virtual ~JobDescriptionPacketClass();	// +0x00 0x896990 / 0x896A90
+	virtual RawPacketClass *Build();	// +0x04 0x896AE0
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A330 (cpacket.cpp)
+	virtual int Get_Data_Size();	// +0x0C 0x896BC0
+	virtual int Print(char *buffer, int len);	// +0x10 0x896C30
+
+	unsigned int JobID;	// +0x0C (4 bytes as they are)  // NAME 3: the client's Print text 'JobID:'
+	bool StillAvail;	// +0x10 (1 byte as it is)  // NAME 3: the client's Print text 'StillAvail:'
+	char *Title;	// +0x14 (nstrdup'd; sent as a string)  // NAME 3: the client's FAIL_IF and Print text 'Title:'
+	char *Description;	// +0x18 (nstrdup'd; sent as a string)  // NAME 3: the client's FAIL_IF and Print text 'Description:'
+};
 
 // opcode 149 (0x0095, JOB_DELETE): vtable 0xB0AF54, constructor 0x896D10, 0x10 bytes
 class JobDeletePacketClass : public PacketClass
@@ -25,7 +74,7 @@ public:
 	JobDeletePacketClass(int job_id);	// 0x896C80
 	JobDeletePacketClass(RawPacketClass *raw);	// 0x896D10
 	virtual RawPacketClass *Build();	// +0x04 0x896DA0
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A420 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A420 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x896E60
 	virtual int Print(char *buffer, int len);	// +0x10 0x896E80
 
@@ -39,7 +88,7 @@ public:
 	JobAcceptReplyPacketClass(int job_id, int accept_status, int seconds_remaining);	// 0x896EC0
 	JobAcceptReplyPacketClass(RawPacketClass *raw);	// 0x896F60
 	virtual RawPacketClass *Build();	// +0x04 0x897020
-	virtual bool Process_Packet(void *client);	// +0x08 0x73A510 (not rebuilt)
+	virtual bool Process_Packet(void *client);	// +0x08 0x73A510 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x897100
 	virtual int Print(char *buffer, int len);	// +0x10 0x897120
 

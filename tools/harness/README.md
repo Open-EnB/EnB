@@ -175,6 +175,10 @@ python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
 python tools/harness/udpreplay.py conn alex3 [--drop 0,10,4]          # through UDPConnection and the stream framing
 ```
 
+udpreplay.py and clienttest.py (every command) refuse to run when the current directory is not inside the tree
+holding the script (D112(4), tools/vc6/rootguard.py; `--root DIR` names the tree instead): a failed `cd` into a
+worktree can no longer build or test the main tree's build/ in its place.
+
 * **The wire datagram** (app/wwudp/cordcon.h): the dumps start at byte 5 of it. Bytes 0-4 are
   the type (5 from the client, 4 from the server), the session id and the sender's datagram
   counter (CordCon +0x8C), which is the dump's `seq`. Bytes 5 to the end are RC4-encrypted with a
@@ -295,9 +299,24 @@ runs (drop none / 10 / 4) equal the plain loop runs in every session and directi
 cases are counted, not framed: the replay's 1-byte fillers (no header: the client's factory would
 read the previous message's from the shared buffer; alex3 1, alex7 10 in the loop runs), and one
 alex7 message whose size field (7,690) isn't the 264 bytes CordCon delivers (the dump's cut
-message: the factory takes the header's size), compared over the delivered bytes. The UDPConnection
+message: the factory takes the header's size), compared over the delivered bytes and, since its own
+size field disagrees with its length, without the 2-byte size field (D91: a rebuilt Build, Server_Ready
+59's, writes the true size; the rule applies only where the recorded size field is wrong). The UDPConnection
 is made over each side's CordCon with the constructor for an accepted one (0x82CBF0); the default
 channel it opens is taken back, since the replay opens the capture's channels.
+A packet class rebuilt in the tree sends what its own Build writes (conn_replay.cpp; counted as
+"written by a rebuilt class's Build"). Three Builds stamp a field with the aux-data clock
+(Unknown_Get_Ticks, 0 in the harness): CLIENT_SET_TIME 52 (ServerSent, message byte 12), REQUEST_TIME 68
+(TimeSent, byte 4) and LOGIN 2 (TimeSent, byte 0x44, after the 0x40-byte ticket). Those opcodes are compared with that field zeroed (`TICKS` in udpreplay.py; counted as
+"time field masked"); every other byte must still be equal. D95(a): a rebuilt class whose client Build writes a
+size field larger than the payload it adds can't give the received message back, so for the opcodes in
+conn_replay.cpp's explicit list `Recorded_Opcodes` (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes;
+183: an entry sized 0x4C for 0x49 bytes) the harness sends the message as received instead: on the UDP side
+from UDPConnection::Receive's buffer (`Conn_Receive_Buffer`, which `udpreplay.py build` defines after
+udpconn.cpp), on the stream side the bytes its transport read (a size field that isn't the length is a harness
+error). The rebuilt raw constructor still parses the message; its Build is not compared. Counted as "sent as
+received (D95)", once per side (alex3 38, alex7 22 for 97). avatar_desc.cpp is compiled in for 97's member,
+its unbuilt callees in `avatar_desc_stubs.cpp`.
 
 ## Net-7 recordings (M1.5, gate (d))
 
@@ -399,6 +418,19 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
   draws 1,502 tree-pass draws of the 256x256 format-26 map where the original draws 340, and the
   lightmap is X8R8G8B8 in ours (format 22) where the original's is A8R8G8B8 (21). PASS twice in a row; our own two runs
   differ in 17 draws' matrices / positions by the clock, so the check is on the tables.
+  2026-10-28 (LD1, D101: VIDTEST on LandClass, trees from programs/vidtest/viddeco.cpp): ours 2,191 draws / 83,028 prims /
+  173,408 verts, the prims and verts the original's; one group differs, the trees drawn per patch (1,344 draws of the
+  original's 23,695 prims where it draws 340). `--art DIR` runs ours on a copy of the art (`build/art`, EBCONFIG copied
+  with its dates, `cp -rp`): LandClass rewrites a .pld it can't load, so never the install folder (D69).
+  Since D120 (2026-10-28) drawcheck, vidtest_sbs and run_vidtest pass `-art build/art` by themselves whenever that folder
+  exists and no art folder was given (`--art DIR` for drawcheck, `-- -art DIR` for the other two); without it they keep
+  vidtest's own default (its working directory when it holds `mu01a.w3d`, else the install's EBCONFIG) and print a
+  warning. Make the copy once per clone or worktree, with the dates (`artdir.py`):
+  `cp -rp "/c/Program Files (x86)/EA GAMES/Earth & Beyond/EBCONFIG" build/art`.
+  2026-10-28 (LD2): the trees from LandClass's own Create_Decorations / Build_Decorations (0x479D00 / 0x47A2F0) into its
+  patch records: ours 1,187 / 83,028 / 173,408 in 50 groups, every group the original's (0 known differences; the
+  strict compare: 17 of 1,187 draws differ, the clock-driven matrices). The lightmap equals the original's since
+  VIDTEST's sun angle is computed with acos (dea5245).
 * **symbolize.py** names the addresses of vidtest's crash report (`CRASH:` lines in its log: the
   exception address and the stack words that point into its code) with the linker map.
 
@@ -418,6 +450,64 @@ another removed from inside a Run is deleted at once, Shutdown asks the focused 
 then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
 a second kernel). 2026-10-24: 35 of 35 expected lines in order.
 
+## The client base, SClient and the packet handlers (D94(c), kernel-map step 9d)
+
+```
+ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/clienttest.py build [--out DIR]
+python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--count 1000] [--update]
+```
+
+tests/capharness/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
+circbuff.cpp, pk.cpp and every rebuilt packet file (one object per app file, so two files' statics never meet)
+with logging stand-ins: `client_stubs.cpp` by hand (SClient's members the handlers call, co.cpp's object,
+eff_o.cpp's effect, rs_track, sound_manager, shiputils, verbmanager, every SOptionsClass member SClient reaches:
+its constructor 0x75A280 reads the registry and never runs, D69), `transport_stubs.cpp` (TCP, UDP, the composite
+listener: exit 3 if reached) and two files `gen_stubs.py` writes into the stage: `pk_stubs.cpp` (udpreplay's
+pk_ctor_stubs.cpp without the Process_Packet lines cpacket.cpp defines, P-T8-1; pkclasses.py is not touched) and
+`clienttest_tables.cpp` (the factory's opcodes, names and classes; a handler is driven when cpacket.cpp defines it
+and the class's raw constructor is rebuilt). `build` links twice when the first link leaves symbols unresolved:
+`gen_stubs.py --link` writes `link_stubs.cpp`, a stand-in per unresolved symbol from its demangled name (Init's,
+Shutdown's and Load_INIs' callees: about 80; a call to one shows as `gen NAME` in the trace; what it can't write,
+a class by value, goes in client_stubs.cpp by hand). The SClient is made with its own constructor (the base's
+included); its views are fakes with the client's slot layout (main view +0x80 / +0x84, loading view +0x0C, +0x68).
+
+`run` writes the first COUNT server-to-client messages of SESSION from the reference decoder's NAME.trace.jsonl (udpreplay's
+reference) to `.work/harness/clienttest/`, runs the program there and compares its trace with
+`tests/capharness/clienttest/expected.txt` line for line (the first run, or `--update`, writes it; only a run
+whose checks all pass). The tests: (1) the object, effect and record lists keyed by game id (ids 257 apart share
+wwlib's bucket; Add / Find / Remove through SClient's overrides and the main view's notifications, the name
+lookup, the ship); (2) the DEBUG setters before and after the redirect (Open_Connection 0x727F00 through
+connect.cpp's factory, MEMORY protocol, to the harness's memory connection), each DEBUG message parsed back by
+the factory and printed with the class's Print; (3) SClient::Process_Packets over that connection: an opcode
+cpacket.cpp handles goes through the factory and the real handler, the rest become one recording test packet
+(counted per opcode); before that (3a) a packet whose handler refuses twice stays on the peek connection and is
+handed over again, and (4) a server's packets build an object and move it: CREATE 4, SIMPLE_POSITIONAL_UPDATE 8
+through Do_Frame / Process_AI to the model's Set_Transform, CHANGE_BASE_ASSET 38, REMOVE 7. 2026-10-27, alex3
+ffff9b25's first 1,000 messages: 38 of 38 checks, 21 messages through 9 handlers, 979 recorded, 373 trace lines.
+A handler added to cpacket.cpp changes the trace: check the difference, then `run --update`.
+
+**Objects through the real CREATE (2026-10-28, HN1):** CREATE 4, CHANGE_BASE_ASSET 38 and SUBPARTS 180 are driven
+(gen_stubs.py's `NOT_DRIVEN` is empty). clienttest.cpp puts a fake asset manager (a `WW3DAssetManager` subclass:
+`WW3DAssetManager::Get_Instance()` and co.cpp's `*0xBDADC0`) behind co.cpp's loader 0x6F5140 / 0x6F51D0: its slot
++0x78 gives a model for a loaded file's NAME (FILE is NAME.w3d), `Create_Render_Obj` the "missing" model. The models
+are `FakeModelClass`, a real RenderObjClass that logs Set_Transform, Set_LOD_Bias, Set_Hidden, Add_Sub_Object_To_Bone
+and its deletion (`model N ...`); NAME ship... has the bones ~FL ~FR ~BL ~BR, NAME rs_... is an rs_track model
+(Class_ID 0x10001). The INIs are clienttest's own, `tests/capharness/clienttest/data/basset.ini` (the loader) and
+`cbasset.ini` (Set_Model's radius, the mount points): `run` copies them into `.work/harness/clienttest/`, never the
+game's folder (D69). The aux root factory 0x6F6000's stand-in gives the types that have a root the harness's
+(its slot +0x04, the deleting destructor, logs). 57 checks (12 new: (4)'s object in the table with the packet's
+game id / type / base asset / scale, its model loaded, the radius, the six part models, the swap, the deletes;
+(3)'s 202 CREATEs and 4 REMOVEs), 2,960 trace lines.
+**CREATE 4's subclasses (2026-10-28, CS1):** (4b) sends synthetic CREATEs of types 24 and 28 (no alex3 message has
+them): co_subtypes.cpp's constructors, type 24's proximity-object slots (+0x188), SET_TARGET 25 on type 28 (0x70E750) and
+REMOVE through both destructors. 66 checks, 2,993 trace lines.
+**dynamic_obj.cpp (2026-10-28, DO1):** type 24's DynObj is rebuilt (its slots no longer stand-ins); its PxWrapper
+(px_wrapper.cpp, not rebuilt) has stand-ins in client_stubs.cpp: the constructors record the owner and clear the list,
+so the destructor's FAIL_IF (line 70) stays quiet. 67 checks (the PxWrapper's owner), 2,994 trace lines.
+**px.cpp and px_wrapper.cpp (2026-10-28, PX1):** ClientClass's PxList and type 24's PxWrapper are real code now; the
+PxClass and PxWrapper stand-ins are gone, client_stubs.cpp has stand-ins for the other px_*.cpp classes the wrapper
+builds (PxObject, PxBoxList, PxCollisionBox: the box classes construct their PxBox base). 67 checks, 2,999 trace lines.
+
 ## Other harness programs (index)
 
 Each script has its usage in its docstring; `python tools/harness/X.py --help` where it has argparse.
@@ -433,8 +523,10 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `n7aux.py` | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
 | `udpreplay.py` | EA-UDP transport, handshake, loop, connection layer (M1.4, above) | `.dgram` files, pool VM |
 | `kerneltest.py` | `tests/capharness/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
+| `clienttest.py` | `tests/capharness/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/capharness/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
+| `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
 

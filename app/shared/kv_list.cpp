@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_list.cpp. Notes at the end of the file.
-// NOT EXACT, the whole file: functional, on a std::map instead of the client's hash_map (kv_list.h).
+#include <hash_set.h>
 #include "kv_list.h"
 #include "kv_pair.h"
 #include "unknown_debug.h"
@@ -7,15 +7,15 @@
 KVListClass::KVListClass()
 {
 }
-
+// NOT EXACT: inline budget, the hashtable destructor's clear() inlines _M_delete_node (the client calls 0x4B7B60)
 KVListClass::~KVListClass()
 {
 	for (unsigned int i = 0; i < Pairs.size(); i++) {
 		delete Pairs[i];
 	}
+	Pairs.clear();
+	Index.clear();
 }
-
-
 
 
 void KVListClass::Add(KVPairClass *item)
@@ -24,22 +24,22 @@ void KVListClass::Add(KVPairClass *item)
 	if (item == 0) {
 		return;
 	}
-	const char *key = item->Key.Get_String();
-	std::map<const char *, KVPairClass *, KeyLess>::iterator i = Index.find(key);
-	if (i != Index.end()) {
-		KVPairClass *old = (*i).second;
+	KVPairClass *old = Index[item->Key.Get_String()];
+
+	if (old != 0) {
+
 		for (unsigned int n = 0; n < Pairs.size(); n++) {
 			if (Pairs[n] == old) {
 				Pairs[n] = item;
 				break;
 			}
 		}
-		Index.erase(i);
-		Index[key] = item;
+
+		Index[item->Key.Get_String()] = item;
 		delete old;
 		return;
 	}
-	Index[key] = item;
+	Index[item->Key.Get_String()] = item;
 	Pairs.push_back(item);
 }
 
@@ -51,7 +51,7 @@ KVPairClass *KVListClass::Find(const char *key)
 		G_ASSERT(key);
 		return 0;
 	}
-	std::map<const char *, KVPairClass *, KeyLess>::iterator i = Index.find(key);
+	std::hash_map<const char *, KVPairClass *, std::hash<const char *>, KeyEqual>::iterator i = Index.find(key);
 	if (i == Index.end()) {
 		return 0;
 	}
@@ -69,12 +69,12 @@ const char *KVListClass::Get_Type_Name(const char *key)
 		return 0;
 	}
 	KVPairClass *pair = Find(key);
-	return pair != 0 ? pair->Get_Type_Name() : 0;
+	if (pair != 0) return pair->Get_Type_Name();
+	return 0;
 }
 
 
-
-
+// NOT EXACT: inline budget, the client calls the hashtable's find 0x4B7030 out of line here
 const char *KVListClass::Get_Value_String(const char *key)
 {
 	static char buf[0x1000];
@@ -99,9 +99,9 @@ char *KVListClass::Get_Value_String(const char *key, char *buf, int size)
 		return 0;
 	}
 	KVPairClass *pair = Find(key);
-	return pair != 0 ? pair->Get_Value_String(buf, size) : 0;
+	if (pair != 0) return pair->Get_Value_String(buf, size);
+	return 0;
 }
-
 
 
 
@@ -115,16 +115,38 @@ bool KVListClass::Set_Value_String(const char *key, const char *value)
 		return false;
 	}
 	KVPairClass *pair = Find(key);
-	return pair != 0 ? pair->Set_Value_String(value) : false;
+	if (pair != 0) return pair->Set_Value_String(value);
+	return false;
+}
+
+void KVListClass::Keep_Only(std::hash_set<std::string> &keys)
+{
+	std::vector<KVPairClass *>::iterator i = Pairs.begin();
+	while (i != Pairs.end()) {
+		KVPairClass *pair = *i;
+		const char *key = pair->Key.Get_String();
+		if (keys.find(key) == keys.end()) {
+			Index.erase(key);
+			Pairs.erase(i);
+			delete pair;
+		} else {
+			i++;
+		}
+	}
 }
 
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4B62B0-0x4B6D90: KVListClass (D24), functional (milestones.md 2.2, M1.2). The asserts
-**	sit on the client's lines (23 'item', 51 / 68 / 82 'key', 97 'key && buf', 113 'key && value',
-**	D25). Add 0x4B6760 replaces a pair with the same key in place and deletes the old one, otherwise
-**	appends (the vector insert 0x4B7130); the lookups go through the index (0x4B7870 / 0x4B7030 in
-**	the client's hash_map); the one-argument Get_Value_String writes into a static 0x1000-byte
-**	buffer (0xBE3B60). Not byte-exact: the client's index is an SGI-style hash_map (kv_list.h).
+**	client.exe 0x4B62B0-0x4B6D90: KVListClass (D24; milestones.md 2.2, M1.2). The asserts sit on the
+**	client's lines (23 'item', 51 / 68 / 82 'key', 97 'key && buf', 113 'key && value', D25). Add
+**	0x4B6760 replaces a pair with the same key in place and deletes the old one, otherwise appends
+**	(the vector insert 0x4B7130); the index is SGI STL's hash_map (libs/sgistl, D87): find_or_insert
+**	0x4B7870, resize 0x4B7B80, find 0x4B7030, __stl_hash_string 0x4B6970; the one-argument
+**	Get_Value_String writes into a static 0x1000-byte buffer (0xBE3B60). Forms: the lookups return
+**	through `if (pair != 0) return ...; return 0;` (one shared failure tail, no shrink-wrapped prologue).
+**	Keep_Only 0x4B6DC0 (no caller in the client) takes a hash_set<std::string> of keys (or a
+**	hash_map<std::string, ...>: the client only looks keys up in it) and erases the others (the
+**	index's erase 0x4B79A0, then the vector's, then deletes the pair).
+**	Two functions stay inexact, marked at their definitions (inline budget, attempts.csv).
 */
