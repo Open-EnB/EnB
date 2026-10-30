@@ -414,7 +414,11 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
 #### 4.5.6 Build order (before the repository goes public)
 
 1. `tools/claims.py`, the claim issue template, `claims.yml` (claim, renew, release, expiry).
-2. `tools/vc6/verify_pr.py`, run by hand on the maintainer's PRs first.
+2. `tools/vc6/verify_pr.py`, run by hand on the maintainer's PRs first. **Done 2026-10-30:** PR #1 verified
+   (app and ww3d2, 1 min 41 s on two VMs, +0 / 0 lost, replay clean), `vc6-verify` posted. Open for step 4: a
+   contributor without VC6 cannot commit the verified imports.json, so their PR's record differs and the verdict
+   is `failure`; the merge bot (or `verify_pr.py`, onto the PR branch when the contributor allows maintainer
+   edits) must carry the verified record.
 3. The self-hosted runner, `verify.yml`, the `verify-approved` label, the ruleset's `vc6-verify` check.
 4. The merge bot (step 3's workflow, merging under 4.5.5's rule).
 5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff.
