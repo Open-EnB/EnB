@@ -27,7 +27,7 @@ in a way that cannot compromise the project's integrity.
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
 | P-GH-8 | Pre-push checklist | §3.7 | **D152: Open-EnB/EnB, master, private first; in progress** |
 | P-GH-9 | Community and continuity | §3.8, §3.9 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
-| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **open (proposal)** |
+| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **decided 2026-10-30: 4.2A, plan in §4.5; the claim unit (4.5.2) awaits confirmation** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
@@ -234,137 +234,164 @@ A second owner, saved recovery codes, an archive policy.
   recovery (two second factors, saved recovery codes) is the whole of it. **Recovery codes saved (2026-10-30).**
 * **Archive policy: none for now (2026-10-30).**
 
-## 4. Coordinating outside contributors' agents (P-GH-10, proposal 2026-10-30)
+## 4. Coordinating outside contributors' agents (P-GH-10)
 
 Making the repository public is mainly an invitation to other people's AI agents. Three things have to work
-before that: agents must not work on the same code at once (claims), abandoned work must free itself (expiry), and
-the pull requests must stay few and reviewable (size). AGENTS.md and the README promise "claims" (D149) and say "one
-verified function per commit", which would fragment the history and flood the review queue.
+before that: agents must not rebuild the same code at once (claims), abandoned work must free itself (expiry),
+and pull requests must stay few, reviewable and proven (size, verification). AGENTS.md and the README promised
+"claims" (D149) and asked for "one verified function per commit", which would fragment the history and flood the
+review queue.
 
-### 4.1 Why not Open-BFME's design
+### 4.1 Starting point: Open-BFME's claims
 
 Open-BFME claims a body by pushing a branch `claims/0xRVA` to its own repository (`tools/claims.py`: an atomic
-ref create, a 4-hour TTL, compare-and-swap takeover and release). It works because their agents may push to the
-repository. Ours work from forks and cannot, and D148 keeps it that way. Anything a contributor can do without
-write access is an issue, a comment, or a pull request.
+ref create, a 4-hour TTL in the commit message, compare-and-swap takeover and release; branches rather than other
+refs because Claude Code's cloud sessions may push only branches). It works because their agents may push to the
+repository. Ours work from forks under D148. Without write access a contributor can open an issue, comment, or
+open a pull request, nothing else.
 
-### 4.2 Proposal: claims are issues, kept by a GitHub Action
+### 4.2 Proposals
 
-* **A claim is an issue** labelled `claim`, opened from a template or by `python tools/claims.py claim UNIT`
-  (through `gh`). Its title names the unit, its body the agent, the model and the person accountable.
-* **The unit is a client source file, not an address**: the client's `__FILE__` path, or a provisional file
-  (D137), whose address window `tools/re/appfile.py show` already knows; or an explicit range `0xA-0xB` for code
-  without a file. A file is what a PR changes and what imports.json verifies, so one claim gives one PR.
-* **An Action keeps the claims** (`.github/workflows/claims.yml`, on `issues` and `issue_comment`, with one
-  concurrency group so two claims cannot race). It resolves the unit to its window, refuses an overlap with a
-  live claim or with the maintainer's current run (next point), refuses a fourth live claim by the same account,
-  and answers with the window it granted (or why not) and the expiry. It only reads text: it never checks out or
-  runs a contributor's code, and its token can only write issues.
-* **The maintainer's runs claim too.** The coordinator lists live claims at run start and skips them, and
-  claims what it assigns to builders (one issue per file, closed by the run's PR). This keeps the inside and
-  outside work in one register.
-* **Expiry.** A claim lives **72 hours** without a pull request. A PR that says `Claims #N` keeps it alive while
-  the PR is open and has activity in the last **7 days**. `/renew` in a comment adds 72 hours, at most twice
-  without a PR. A daily scheduled run of the same Action closes expired claims with a comment (label
-  `claim-expired`). A merged PR closes its claim; a PR closed unmerged frees it after 24 hours. The maintainer can
-  `/release` any claim.
-* **What claims do not do:** they are courtesy, not a lock. A PR for unclaimed code is still welcome; on a
-  conflict the claimant's PR is reviewed first.
+#### 4.2A Claims are issues, kept by a GitHub Action (D148 as is)
 
-### 4.3 Proposal: PR size
+* A claim is an issue labelled `claim`, opened from a template or by `python tools/claims.py claim UNIT`
+  (through `gh`). Its body names the agent, the model and the person accountable.
+* An Action (`.github/workflows/claims.yml`, on `issues` and `issue_comment`, one concurrency group so claims
+  cannot race) resolves the unit to addresses, refuses an overlap with a live claim, answers with what it
+  granted and when it expires, and closes expired claims daily. It only reads text: it never checks out or runs
+  a contributor's code, and its token can only write issues.
+* Contributors work in forks and open pull requests; the maintainer's tooling verifies them (4.4).
 
-* **One PR per claim**, any number of commits inside it. The rule "one verified function per commit" goes; the
-  rule becomes: every commit builds, and the PR description carries the `pairs_cmp.py` result for its files
-  (gained, lost, NOT EXACT added).
-* **Squash-merged**, with one evidence subject ("Rebuild app/client/co.cpp: +23 pairs, 0 lost, 4 NOT EXACT") and
-  the PR's commit list in the body, so master gets one commit per PR. The maintainer's own run PRs keep a normal
-  merge (their commits are already one per evidence step).
-* **Limits:** a PR touches one claim's files plus what it must (headers, `docs/data/` regenerated by the tools);
-  shared headers and docs are allowed, other source files are not.
+#### 4.2B Trusted contributors push branches (D148 revised)
 
-### 4.4 Verifying a contributor's PR
+* Pushing needs the *Write* role, granted per person; there is no push-only role. Write also lets a person
+  create and delete unprotected branches and tags, publish releases, re-run and dispatch workflows, and push a
+  workflow file that runs on their branch with the token permissions it declares. Rulesets would fence master,
+  tags, `.github/**`, and leave only `claims/**` and `contrib/<login>/**` to contributors; they cannot limit a
+  writer to their own branches, so one writer could delete another's claim.
+* In return claims could be Open-BFME's, atomic by `git push` with no Action and no issue noise, and no forks.
+* Write cannot be given to strangers, so every newcomer would still start on 4.2A's path: B is a second path,
+  not a replacement.
 
-Contributors without VC6 cannot prove a PR. The maintainer's side needs `tools/vc6/verify_pr.py PR`: fetch the
-PR into a worktree under `.work/`, verify the touched libraries on the pool, `pairs_cmp.py` against master, and
-post the result as a PR comment (gains, losses, NOT EXACT). That is the only per-PR cost to the maintainer
-besides reading the diff. It runs the contributor's code only inside a build VM's compiler, never on the host.
-(Python tool changes in a PR are read before they are run.)
+#### 4.2C Comparison
 
-### 4.5 Open questions for the user
-
-1. Claims as issues kept by an Action (4.2)? Alternatives: draft PRs as claims (no Action, but an empty PR per
-   claim), or a pinned issue the maintainer edits by hand (no automation, does not scale).
-2. The unit: a source file (recommended) or single addresses?
-3. The numbers: 72 h without a PR, 7 days of PR inactivity, 3 live claims per account.
-4. Squash-merge outside PRs, with "one verified function per commit" replaced as in 4.3?
-5. Do the maintainer's runs claim through the same issues (one register), or only read them?
-6. A, B, or both (4.6, 4.8)? And the challenges of 4.7: split D148's merge rule by what a PR touches;
-   an automated verify on the pool later.
-
-### 4.6 Alternative B: trusted contributors push branches (D148 revised)
-
-The user asked (2026-10-30) what changes if D148 lets contributors push branches, never master.
-
-**What it takes on GitHub.** Pushing needs the *Write* role, granted per person (an outside collaborator or a
-`contributors` team); there is no push-only role. Write also lets a person create and delete any unprotected
-branch and tag, edit labels and issues, re-run and dispatch workflows, publish releases, and push workflow files
-that then run on their branch with the repository's token. The rulesets have to fence all of that: master (no
-push, PR required, a code-owner approval), tags and releases, `.github/**` changes only through a PR,
-`claims/**` and `contrib/<login>/**` as the only branch patterns non-maintainers may create.
-
-**What it buys.**
-* Claims can be Open-BFME's: a branch `claims/<unit>` created atomically by `git push` (refused if it exists),
-  a TTL in its commit message, takeover by compare-and-swap. No Action, no issue noise, instant, and an agent
-  needs only git. Open-BFME has run it since 2026-09 (and found that Claude Code's cloud sessions can push
-  branches but not other refs or deletions, so claims must be branches and a release overwrites instead of
-  deleting).
-* No forks: the agent pushes `contrib/<login>/<unit>`, opens the PR from it, and `verify_pr.py` fetches it like
-  any branch. Slightly simpler for agents, the same for the maintainer (a fork's PR is fetchable as
-  `pull/N/head` anyway).
-
-**What it costs.**
-* **Vetting.** Write cannot be given to strangers, so B only serves people already known. Every newcomer still
-  starts on A's path (fork, PR), so A is needed anyway and B is a second path, not a replacement.
-* **Trust surface.** A writer can delete or rewrite other people's claim and contrib branches (rulesets cannot
-  scope "only your own" by login), and a workflow file pushed to a branch runs with whatever token permissions it
-  declares. Both are manageable with rulesets and `.github/**` locked, but each needs care and checking.
-* **Clutter.** Every claim and every piece of work is a branch in the main repository, pruned by a job.
-
-**Comparison.**
-
-| | A: issues + forks (D148 as is) | B: trusted writers push branches |
+| | A: issues + forks | B: trusted writers push branches |
 |---|---|---|
 | Who can take part | anyone with a GitHub account | people the maintainer invites |
 | Claim mechanism | issue, kept by an Action | `claims/<unit>` branch, atomic by git |
 | To build | the Action, claims.py, an issue template | claims.py (Open-BFME's design), the rulesets, a prune job |
-| Risk to the repository | none beyond issue spam | writers can damage branches and claims; workflow tokens |
-| Maintainer's cost per PR | verify_pr.py + review + merge | the same |
+| Risk to the repository | issue spam | writers can damage branches and claims; workflow tokens |
+| Maintainer's cost per PR | verify + review + merge | the same |
 
-**Neither changes the real bottleneck,** which is the last row: every C++ PR needs the maintainer's VMs to
-verify and the maintainer to merge. That is where existing decisions deserve the challenge (4.7).
+Neither changes the last row, the real bottleneck; 4.3 is where that is addressed.
 
-### 4.7 Challenging the existing decisions
+### 4.3 Challenges to the existing decisions
 
-* **D148, "the user merges every PR".** Sound as a checkpoint for our own runs (one PR a day). With outside
-  agents it caps the project at what one person reviews. For C++ the proof is mechanical: a PR that only
-  touches source files under a claim, verifies gain-only (0 lost, D66 aside) and passes CI could be merged by a
-  bot after verify_pr.py. The human review would remain for tools, docs, `.github/`, headers shared across
-  many files, and anything that loses a pair. Proposal: split D148 by what a PR touches.
-* **D146, "bring your own VC6".** It keeps the toolchain out of the repository, but it also means every proof
-  happens on the maintainer's host. A self-hosted runner on the pool could run verify_pr.py on each PR
-  automatically. It is dangerous on a public repository (a fork's PR can run code on the runner), so it would
-  have to run only base-branch code (`pull_request_target`, never the PR's Python or workflow), pass the PR's C++
-  only into a VM's compiler, and require a maintainer's approval for first-time contributors. Worth designing,
-  not worth rushing.
-* **D149(1), "one verified function per commit".** Replaced by 4.3 either way: it came from Open-BFME, whose
-  agents push master directly and whose CI re-verifies each commit; with PRs the PR is the unit.
-* **D148, "builders never push".** Unchanged by either alternative; only the coordinator pushes the run branch.
-* **D151, contribution lanes.** The no-VC6 lane has nothing to claim yet: claims cover source files. Naming and
-  notes could claim a file too (same register), or need none.
+* **D148, "the user merges every PR".** It caps the project at what one person reviews. For C++ the proof is
+  mechanical, so a PR whose verification is gain-only and that touches no tools, workflows or docs can be merged
+  by a bot; the rest stays with the maintainer.
+* **D146, "bring your own VC6".** Every proof runs on the maintainer's host. A self-hosted runner on the pool
+  could verify each PR automatically, if it runs only master's scripts and passes the PR's C++ only into a
+  build VM's compiler.
+* **D149(1), "one verified function per commit".** From Open-BFME, whose agents push master and whose CI
+  re-verifies each commit. With PRs, the PR is the unit.
+* **D148, "builders never push"** and **D151, the lanes:** no change needed.
 
-### 4.8 Recommendation
+### 4.4 Decisions (the user, 2026-10-30)
 
-Build A now; it is required for strangers whatever else is chosen. Keep D148's "never master" and add no Write
-role for contributors yet. Revisit B when a regular contributor exists who would benefit, and do so together with
-4.7's split merge rule, because B without automated merging only moves where branches live. Put the effort saved
-into verify_pr.py, then into the automated verify (4.7, D146).
+| # | Question | Decision |
+|---|---|---|
+| 1 | Claim mechanism | **4.2A**: claims are issues kept by an Action; 4.2B not adopted (D148's "never master", no Write role for contributors) |
+| 2 | Claim unit | asked for more exposition (4.5.2); the refined unit there awaits confirmation |
+| 3 | Numbers | 72 h without a PR, 7 days of PR inactivity, 3 live claims per account: accepted |
+| 4 | PR size | squash-merge accepted; the file limit questioned (4.5.4: dropped) |
+| 5 | Maintainer's runs | claim through the same issues, one register |
+| 6 | A or B | A |
+| 4.3 | D148 merge rule | split by what a PR touches: accepted |
+| 4.3 | D146 | automated verification accepted: **all work is verified before it reaches master**, the maintainer's run PRs included |
+| 4.3 | D149(1) | to be updated (4.5.4) |
+| 4.3 | D148 builders, D151 | no change |
+
+The D-numbers (D148 amended, D149 updated, D146 extended) are recorded in progress.md when the build starts.
+
+### 4.5 The final plan
+
+#### 4.5.1 Claims
+
+* An issue labelled `claim` (template, or `tools/claims.py claim UNIT`), kept by `claims.yml` as in 4.2A.
+* `tools/claims.py list` shows the live claims with their addresses; `claims.py check ADDR|FILE` says who holds
+  them. The coordinator and every picker consult it.
+* Abuse handling is the maintainer's `/release` and GitHub's usual blocking; nothing else.
+
+#### 4.5.2 The unit, and how much a claim can block
+
+A file-level claim is too coarse. In the three days 2026-10-27..30 the maintainer's runs changed 94 of the 241 app
+files (452 file changes in 367 commits), and three files took 40 or more each (`sclient.cpp` 47, `cpacket.cpp` 46, `co.cpp` 43):
+one contributor holding `cpacket.cpp` for 72 hours, or for weeks behind an active PR, would stop the work where
+it is busiest. So:
+
+* **A claim is an address range of not-yet-exact functions, at most 30 of them**, inside one source file (by
+  `__FILE__` path or provisional file, D137). A small file is claimed whole (`claims.py claim app/x/y.cpp`); a
+  big one by range (`claims.py claim app/client/cpacket.cpp:0x5A1000-0x5A3F00`, or by class name, which
+  `claims.py` resolves to its functions' range). The Action counts the functions with `appfile.py`'s data and
+  refuses a claim over the cap.
+* **A claim covers which functions you rebuild, not which files you may edit.** Anyone may change a claimed
+  file for cross-cutting work: a rename, a header retype, a D66 move. The claim holder rebases.
+* **Lifetime.** 72 h without a PR (`/renew` adds 72 h, twice at most); while its PR is open, until 7 days pass
+  with no activity; **never more than 14 days in all**, after which the Action closes it and the PR is reviewed
+  as it stands. A merged PR closes its claim; a PR closed unmerged frees it after 24 hours.
+* **Per account:** 3 live claims. The maintainer's coordinator account has no count limit but the same 30-function
+  cap and lifetime per claim.
+* **Not a lock:** a PR for unclaimed or expired code is welcome; on a conflict the claimant's PR is verified
+  first.
+
+#### 4.5.3 The maintainer's runs
+
+* At run start the coordinator lists live claims and assigns builders only unclaimed ranges.
+* It claims each builder's range before launching it (one issue per range, opened through `claims.py` from the
+  run), and the run's PR closes those claims (`Claims #N` lines in its description).
+* A builder that strays into a claimed range stops and reports, as it does today for another builder's file.
+
+#### 4.5.4 Pull requests and commits
+
+* **One PR per claim** for contributors. Inside it, commit as you like: the maintainer's builders commit once per
+  verified step (`commit_mine.py`), usually the .cpp and its header together (181 of 367 commits in the three
+  days touched two app files, 76 one, 110 three or more, renames and moves the widest), and that is fine.
+* **No file limit.** The 4.2 draft allowed only the claim's files; that would forbid what the maintainer's own
+  builders do daily. A PR may touch any file it needs; what is checked is the whole tree's pairs (gain-only, D66
+  aside), and the description lists files outside the claim with the reason.
+* **Squash-merged**, one commit on master per contributor PR, subject with the evidence ("Rebuild
+  cpacket.cpp's ACK handlers 0x5A1000-0x5A3F00: +12 pairs, 0 lost, 2 NOT EXACT"), the PR's commit list in the
+  body. The maintainer's run PRs keep a normal merge.
+* **D149(1) becomes:** AI-generated PRs are welcome, one PR per claim, squash-merged, proven by the automated
+  verification; "one verified function per commit" goes.
+
+#### 4.5.5 Verification and merge
+
+Every PR is verified before it reaches master, the maintainer's run PRs included (D146 extended):
+
+* **`tools/vc6/verify_pr.py PR`**: fetch the PR's head as data into a worktree under `.work/`, verify the
+  libraries it touches on the pool, `pairs_cmp.py` against master, and post the result (gained, lost, NOT EXACT)
+  as a PR comment and a commit status `vc6-verify`. It runs master's tools, never the PR's.
+* **A self-hosted runner** on the maintainer's host (labels `enb-pool`) runs `verify.yml` on
+  `pull_request_target`, which uses master's workflow and scripts; it calls `verify_pr.py` and nothing from the
+  PR runs on the host. The PR's C++ reaches only a build VM's compiler. While the host is off, PRs wait.
+* **Guards:** a first-time contributor's PR runs only after the maintainer approves it (GitHub's setting); a PR
+  that changes Python, workflows or `importer.py`'s tables gets `vc6-verify` only after the maintainer has read
+  it and adds the label `verify-approved` (a contributor's patch in `importer.py` is Python run on the host).
+* **Merge rule (D148 amended):**
+  * **Bot-merged:** a PR whose `vc6-verify` is gain-only, whose CI `checks` pass, and that touches only C++
+    sources, headers and the files the tools regenerate. Before merging, the bot re-verifies if master moved.
+  * **Maintainer-merged:** everything else (tools, docs, `.github/`, any loss, any D66 case).
+  * The master ruleset requires `checks` and `vc6-verify`.
+
+#### 4.5.6 Build order (before the repository goes public)
+
+1. `tools/claims.py`, the claim issue template, `claims.yml` (claim, renew, release, expiry).
+2. `tools/vc6/verify_pr.py`, run by hand on the maintainer's PRs first.
+3. The self-hosted runner, `verify.yml`, the `verify-approved` label, the ruleset's `vc6-verify` check.
+4. The merge bot (step 3's workflow, merging under 4.5.5's rule).
+5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff.
+6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers.
+7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
+   left alone expires.
