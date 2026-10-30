@@ -5,7 +5,7 @@ and one builder subagent at a time (no parallel builds, since `verify` shares
 `%TEMP%\enb_import` and the VMs' scratch), a heartbeat every 30 minutes, each verified gain that
 loses nothing committed at once, never pushed, never `assemble`. The queue, the log and every
 ruling you gave during the night are in `.work/night/plan.md`; each builder wrote
-`.work/night/item*/report.md`. 65 commits (`git log --oneline 7bd67a8..HEAD`).
+`.work/night/item*/report.md`. 65 commits (`git log --oneline b9b0c61..HEAD`).
 
 ## 1. Result
 
@@ -42,16 +42,16 @@ moved to texture), (wwmemlog and wwprofile, 0x9CEFF0).
 | 6c. `Post_Load_Process` | Zero Hour's body exact; committed in 6e after D20 |
 | 6d. 6b's leads | +10 (`Alter_Avatar_HTree`, `ShaderClass::Apply`, `post_process`...); new tool `zhall.py` |
 | 6i. Dated-comment sweep | +1; D9's cutoff measured (§4); proposal PS |
-| 6j. Importer lock | `.work/locks/importer.lock` for every importer command (d3d2036) |
+| 6j. Importer lock | `.work/locks/importer.lock` for every importer command (fa14686) |
 | 6e. Specs allowed by D20 | +11: WW3D sort lists and `SHD_FLUSH`, animated sound parsing, `Post_Load_Process`, `MeshModelClass::operator=`, `WW3D::Init` |
 | 6k. `dx8webbrowser.cpp` (D21) | +19, type library headers generated from E&B's own DLL |
 | 6f. `TextureFilterClass` -> Renegade's filter members (D9) | +4, all four `TextureClass` constructors; texturefilter.cpp/.h dropped |
-| 6g. `USE_WWSHADE` in wwshade | neutral; committed later as a soft setting (a2b888a, D26) |
-| 6h. Verified function starts by default | eef091c; symbols 6,736 -> 6,858, gaps rows 652 -> 593 |
-| 7. Per-file tool for E&B's own code | `tools/re/appfile.py` (a992f76); `bitset.cpp` 12/12 exact as a draft, not in the tree |
+| 6g. `USE_WWSHADE` in wwshade | neutral; committed later as a soft setting (d2955f0, D26) |
+| 6h. Verified function starts by default | 5d7079f; symbols 6,736 -> 6,858, gaps rows 652 -> 593 |
+| 7. Per-file tool for E&B's own code | `tools/re/appfile.py` (c4d34c9); `bitset.cpp` 12/12 exact as a draft, not in the tree |
 | 7b. Near-misses, round 2 | WW3D2 +3, WWDebug +14, WWLib +8: `Create_Device`, DDS ctor, `Release_Textures`; the memory log's 23 categories; E&B's 0xE30-byte `FastAllocatorGeneral` with out-of-line `Alloc`/`Free`/`Unknown_Reset_Statistics` |
-| 8a. Tool and wording | `verify --pool K` (6393ae2), `USE_WWSHADE` in wwshade (a2b888a), patch reasons reworded (88dd5cd) |
-| Pool (separate agent) | `tools/vc6/pool.py` (ffee5b2), orphan reclaim and handoff-skill release step (7adbadc) |
+| 8a. Tool and wording | `verify --pool K` (4b1f45b), `USE_WWSHADE` in wwshade (d2955f0), patch reasons reworded (a1cbc31) |
+| Pool (separate agent) | `tools/vc6/pool.py` (b156da0), orphan reclaim and handoff-skill release step (92ca150) |
 | Assessment | E&BConfig.exe / VIDTEST.EXE rebuildability, `.work/ebconfig/assessment.md` (§5) |
 
 Each fix's evidence is in its commit message; the log entry in progress.md lists the addresses.
@@ -64,7 +64,7 @@ Each fix's evidence is in its commit message; the log entry in progress.md lists
   with a dated note); only 0x947310 is lost (D18).
 * **Gains that dropped an unused helper lost duplicate pairs.** Builders reverted them and asked;
   your 03:40 ruling (D20) let 6e apply them, each duplicate named in its commit message.
-* **WW3D's sort lists (2307611) cost real meshmatdesc pairs** through the same symbol-count
+* **WW3D's sort lists (694a02b) cost real meshmatdesc pairs** through the same symbol-count
   noise. Kept the unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations in
   ww3d.h to compensate (D28, your 06:25 ruling): noise compensation, not evidence.
 * **gaps.py located functions at mid-instruction addresses** (E8 bytes inside other
@@ -97,7 +97,7 @@ All yours, recorded in progress.md §2:
   clones; `verify --pool K`; sessions release their VMs and the pool reclaims orphans (D31);
   cap 5.
 * 06:38: app asserts on their real `__LINE__` lines through the file layout, `#line` only in
-  drafts (D25); keep 3c99296 and reword its reason (D29); reword the four outdated
+  drafts (D25); keep 8f5cbfe and reword its reason (D29); reword the four outdated
   `TextureFilterClass` patch reasons.
 * Builders stay serial for now (D32).
 
@@ -110,7 +110,7 @@ Also in progress.md §3.
 2. **Dazzle destructor** (0x96EF00): the client's form, but too short to count (+0, reverted;
    `.work/night/item7b/spec_dazzle.py`). Keep it as evidence? Recommended: yes.
 3. **texture.h's comment** still cites `Apply` 0x94BC80 as the reason `D3DTexture` is protected,
-   while the real need is ff7514c / 0x94B660 (D29). Leave it, or reword it with the next texture
+   while the real need is 5534f64 / 0x94B660 (D29). Leave it, or reword it with the next texture
    change?
 4. **VIDTEST.EXE / E&BConfig.exe.** Neither is a quick win. Both are September 2002 builds, so
    they need a second variant of the libraries (~650-950 functions differ or are unlinked: a
@@ -123,7 +123,7 @@ Also in progress.md §3.
 
 ## 6. Where things are
 
-* Commits: `git log --oneline 7bd67a8..HEAD` (65). Nothing was pushed.
+* Commits: `git log --oneline b9b0c61..HEAD` (65). Nothing was pushed.
 * Next steps: progress.md §4 (first: PS, +19 wwshade; then the `app` library with `bitset.cpp`).
 * Night state: `.work/night/plan.md`, `.work/night/item*/report.md` and their scripts and specs;
   `.work/ebconfig/` for the assessment.

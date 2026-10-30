@@ -6,8 +6,8 @@ D-numbers and this file records the outcome beside each item. Nothing here has b
 
 Background: the branch `github-prep` (worktree `.work/gh-prep`) holds the publishing work: LICENSE (GPL-3 with
 EA's additional terms), public README, CONTRIBUTING, `.gitattributes`, `tools/prepush_check.py`,
-`tools/docs_check.py`, `tools/progress.py`, CI workflows. On 2026-10-29 master was merged into it (55d8c06) and it
-was refreshed (fa6dd9c): prepush_check PASS over 7,649 blobs, unit tests OK, docs_check FAIL (item P-GH-1).
+`tools/docs_check.py`, `tools/progress.py`, CI workflows. On 2026-10-29 master was merged into it (8fad711) and it
+was refreshed (b51c0eb): prepush_check PASS over 7,649 blobs, unit tests OK, docs_check FAIL (item P-GH-1).
 
 The user's goals: the project builds and ships several executables (vidtest.exe, client.exe, later the Character
 and Starship Creator, perhaps a server); third-party dependencies (Miles, Bink, DirectX 8) complicate it; GitHub is
@@ -54,7 +54,7 @@ EA's CRLF sources), edit scripts' `
   CRLF" warnings across 212 transcripts; about a dozen CRLF traps in workflow.md §3 / §3.8 and builders.md.
 * Not a cause: the Edit tool (it keeps a file's endings; no "string not found" was line-ending related).
 
-**VC6 does not care (tested):** all 1,547 text files converted to LF in a worktree at b01e8ef, full
+**VC6 does not care (tested):** all 1,547 text files converted to LF in a worktree at b84a780, full
 `importer.py verify`: imports.json byte-identical to HEAD's (12,541 pairs; `pairs_cmp` gained [], lost []).
 
 **Recommendation: one convention, LF, enforced by Git instead of by agents.**

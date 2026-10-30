@@ -126,6 +126,6 @@ the tool and docs READMEs, and project memory. Wrote this report.
 
 ## 6. Where things are
 
-* Commits: `git log --oneline f02a93d^..HEAD`. Nothing was pushed.
+* Commits: `git log --oneline ff82f1d^..HEAD`. Nothing was pushed.
 * Results: docs/imports.md (per file), docs/coverage.md, docs/data/symbols.json.
 * Working files: `.work/` (git-ignored), which holds logs, evidence and the variant experiments.
