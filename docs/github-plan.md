@@ -18,7 +18,7 @@ in a way that cannot compromise the project's integrity.
 
 | Item | Subject | Recommendation | Status |
 |---|---|---|---|
-| P-GH-1 | Line endings: `.gitattributes`, the working tree and the tools | LF everywhere: `* text=auto eol=lf`, tools write LF, `tools/eol.py` guard (VC6 tested equal) | open |
+| P-GH-1 | Line endings: `.gitattributes`, the working tree and the tools | LF everywhere: `* text=auto eol=lf`, tools write LF, `tools/eol.py` guard (VC6 tested equal) | **D147: accepted, no hook** |
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
 | P-GH-4 | Working model once public (amends D69's "never push") | Decide PR flow vs maintainer bot with ruleset bypass (§3.1) | open |
@@ -41,13 +41,15 @@ EA's CRLF sources), edit scripts' `
 **What it costs (audit of 245 transcripts, 2026-10-23..30; `.work/crlf-audit/`):**
 
 * ~25-35 visible incidents in 7 days, 2-4 extra tool calls each, one tangled case ~25 calls: patch / edit scripts
-  whose anchors miss `
+  whose anchors miss `
+
 ` (the most frequent: importer.py PATCHES insertions, progress.md rewrites), `sed -i`
   turning files LF (tcpconn.cpp, a draft with 0 CRLF / 407 LF lines), Python writes giving mixed files (D22's shader
   headers "modified with an empty diff"), a Write that turned progress.md LF (a 2,834-line staged diff, reset and
   rewritten).
 * The larger cost is prevention paid every session: 184 transcripts carry CRLF-defensive code (~1,900 commands with
-  `newline=''` / `
+  `newline=''` / `
+
 ` handling) and ~1,075 line-ending probes (`file`, byte counts); 958 "LF will be replaced by
   CRLF" warnings across 212 transcripts; about a dozen CRLF traps in workflow.md §3 / §3.8 and builders.md.
 * Not a cause: the Edit tool (it keeps a file's endings; no "string not found" was line-ending related).
@@ -66,7 +68,8 @@ EA's CRLF sources), edit scripts' `
    and of each live worktree as LF (the tested `lf_convert.py` step; blobs do not change, so `git status` stays
    clean), confirm `git add --renormalize .` stages nothing.
 4. **Tools write and compare LF:** importer.py converts EA's CRLF base copies to LF as it writes tree files, and
-   replay compares the same way; the ~30 tools with `'
+   replay compares the same way; the ~30 tools with `'
+
 '` literals write `'
 '`, and writes use
    `newline='

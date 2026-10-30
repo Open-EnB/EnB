@@ -1,0 +1,13 @@
+# Line endings: LF everywhere (D147). Every blob is LF and every checkout writes LF, whatever the
+# machine's core.autocrlf (the eol attribute overrides it): the Write tool, Git Bash sed, Python and
+# heredocs then all agree with the files on disk. VC6 compiles LF sources to the same bytes (tested
+# 2026-10-29: a full verify, 12,541 pairs unchanged). tools/eol.py finds and fixes a working file a
+# Windows tool wrote with CRLF.
+* text=auto eol=lf
+
+# cmd.exe needs CRLF (none tracked yet)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# generated from the client's strings, which hold lone CRs: stored byte for byte
+docs/data/asserts.txt -text

@@ -69,7 +69,7 @@ directories).
    `#line N` before each assert in the draft, and run `appfile.py match DRAFT.cpp [-I DIR]` until
    every marker is EXACT.
 2. **Tree file.** Write it at its client path (`app/shared/auxdata/x.cpp`, its header beside it)
-   with the Write tool, CRLF. The asserts sit on the client's `__LINE__` through the layout (blank
+   with the Write tool. The asserts sit on the client's `__LINE__` through the layout (blank
    lines, comments; no `#line`, D25), so little fits above the first assert: put the
    reconstruction notes at the end of the file (as bitset.cpp does) and check with
    `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\unknown_debug.h"` (relative).
@@ -130,8 +130,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   Commit only your own hunks, soon; in doubt the coordinator sets a turn order.
 * **Scripts and specs through the Write tool, never a heredoc:** Bash mangles `\n`, `\t`, `\r\n`,
   `\x`; in non-raw Python strings `"\a"`/`"\b"` are control characters.
-* **CRLF.** Git Bash `sed -i` and the Write tool turn CRLF into LF (replay: "content differs"): use
-  the Edit tool or Python `newline=''`, and restore CRLF after a Write (§3.8).
+* **Line endings: LF everywhere** (D147, `.gitattributes`). Every checkout and worktree is LF; the Write
+  tool, the Edit tool, Git Bash `sed` and Python need no line-ending handling (no `newline=''`, no `\r\n`
+  anchors). If a Windows tool wrote CRLF (Python text mode without `newline='\n'`): `python tools/eol.py fix`.
 * **Docs stay UTF-8.** A `§` written as cp1252 made progress.md invalid and the Edit tool refused
   it: repair (`.work/day/fix_utf8.py`, untracked, historical), don't work around it.
 * **Unattended runs: no modal dialogs, no screen grabs; full screen is fine** (user, 2026-10-24).
@@ -667,7 +668,7 @@ unless `--lever` cites a new row of this table.
   targets have names in symbols.json.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
   matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
-  code so the asserts keep the client's lines. Python `replace` with `\n` in a CRLF header gives mixed endings.
+  code so the asserts keep the client's lines.
 * **Packet stand-ins belong in tests/capharness/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
   calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (60bbca0, fixed f8092ce). A new header line
   above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
@@ -710,7 +711,7 @@ unless `--lever` cites a new row of this table.
 * **`attempts.py record` has no `--lever` (2026-10-27, F7):** put the lever in the evidence text; `attempts.py check --lever` takes it.
 * **tryv2.py** writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
-  check the log's variant lines. importer.py is CRLF: a patch-insertion script must convert its anchor newlines.
+  check the log's variant lines.
 * Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
   commit_mine still needs.
   `build.py build --lib app` refuses a dirty library; `--allow-dirty` tests uncommitted files.
@@ -789,8 +790,7 @@ unless `--lever` cites a new row of this table.
 * **`tryvariants.py` edits one file** (wrap header changes in backup/restore). `client.py
   callers` on hot functions: `PYTHONIOENCODING=utf-8`, redirect.
 
-* **`tryvariants.py`** rejects app files in subdirectories; its variant strings must use `\n` (it converts
-  them; `\r\n` writes double CRs). `tools/vc6/tryv2.py` handles several files and subdirectories: use it
+* **`tryvariants.py`** rejects app files in subdirectories; its variant strings use `\n`. `tools/vc6/tryv2.py` handles several files and subdirectories: use it
   for app code.
 * **Parallel compiles on one VM** (`flagsweep.py --jobs`): `vc6._compile`'s object directory was named by
   pid and millisecond only, so two threads could swap objects (fixed: the thread is in the name); the
@@ -921,10 +921,6 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
-* **Git Bash `sed` writes LF even when the pattern keeps `\r`** (2026-10-29, PX3): make drafts of CRLF files
-  with Python (`newline=''`).
-* **The Edit tool turns a stray `\r\r\n` into `\r\n`** (2026-10-29, LD4: sclient.h), so git shows a whole-file diff:
-  restore the byte before committing.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
   the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 7fd99e8).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
@@ -934,7 +930,7 @@ unless `--lever` cites a new row of this table.
 * **A Python edit that appends a declaration to a line ending in a `//` comment swallows it** (C2039): prepend
   instead (2026-10-28, CP2).
 * **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
-  `MSYS_NO_PATHCONV=1`. `sed -i` on a CRLF file silently misses a pattern ending at the line end (the `\r`).
+  `MSYS_NO_PATHCONV=1`.
 * **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
   tree's `.work/`. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
   whichever VM vc6_hosts.json names (possibly another builder's lease).
@@ -967,8 +963,6 @@ unless `--lever` cites a new row of this table.
 * **tryvariants.py only sees a library folder's top level** (`app/packets/x.cpp` can't be tried; `.work/pk1/tv.py`
   and `hv.py` can); **build.py compiles tracked files only** (a new app file is harness-tested after its commit, or
   with `--allow-dirty` and a private `--out`) (2026-10-28, PK1).
-* **A wt.py worktree checks out CRLF (autocrlf) where the main tree's programs/ files are LF** (2026-10-28,
-  LD1): scripts that edit them handle both.
 * **`wt.py bring-over` refuses while the main tree has another builder's uncommitted generated file**
   (docs/imports.md): never commit imports.md from a worktree; the next `report` run regenerates it (2026-10-28, UP1).
 * **The Bash tool starts a fresh shell per call** (2026-10-28, EX1): export `ENB_AGENT` and `ENB_VC6_HOSTS` in
@@ -978,11 +972,6 @@ unless `--lever` cites a new row of this table.
   SBaseViewClass): end the block at an explicit marker.
 * **commit_mine keys on a RECONSTRUCTED continuation line must be in the changed line itself** (2026-10-28,
   PS1): a key on the entry's first line misses an edit to its continuation; the hunk lands in the next commit.
-* **The Write tool writes LF:** after writing a tracked doc or source, restore CRLF if the file had
-  it (python: read bytes, replace b'\n' with b'\r\n' where not already). Check line ends before
-  `\r\n` anchors; Python's Windows text mode writes CRLF: match `\r?\n` later.
-* **Generated tree files: CRLF throughout** (`newline=''`, `\r\n`); a mixed one (D22's shader
-  headers) shows modified with an empty diff. Git's CRLF warning for importer.py is harmless.
 * **The Write tool drops tabs on whitespace-only spec lines:** anchor with `"\t"` or tree slices.
 * **A slice between two `str.index()` markers** is empty when the second comes first, and
   `replace('', x)` destroys the file: assert it. A short anchor can be part of a longer line.
@@ -992,9 +981,6 @@ unless `--lever` cites a new row of this table.
   hunks into your commit, and `git commit -- <path>` takes a shared file's whole working copy.
   Own files by path; anything touching importer.py, headers, stubs or docs/data through
   `tools/vc6/commit_mine.py` (builders.md). `git stash` is shared across worktrees too.
-
-* **Git Bash `sed -i` rewrites a CRLF file as LF even when its pattern matches nothing** (it did to
-  tcpconn.cpp). Edit tree files only with Python opened with `newline=''`.
 
 * **Never write a hand-built `docs/data/imports.json` into the shared working copy** (2026-10-26, two
   sweeps): the other builder's `commit_mine` takes the whole file as it is, and any verify rewrites it.
@@ -1009,11 +995,8 @@ unless `--lever` cites a new row of this table.
   is there, so another builder's half-done file can break or taint your run: build before `conn`, or build in a
   clean worktree of HEAD plus your files. Two `static` tables with the same name break udpreplay's single-TU
   build.
-* **git worktrees check files out as CRLF while the shared tree's land.cpp / land.h are LF** (L6): convert the
-  anchors of an edit script to the file's own newline (`newline=''`, detect `\r\n`).
-* **Python text-mode `open(p, 'w')` writes CRLF into LF tree files; `grep -c $'\r$'` miscounts in Git Bash** (H13):
-  `newline=''` both ways, count bytes with Python. `build.py link --allow-dirty` compiles other builders' uncommitted
-  files into the shared build/ and overwrites `.work/milestones/l1/unresolved.txt`.
+* **`build.py link --allow-dirty` compiles other builders' uncommitted
+  files** into the shared build/ and overwrites `.work/milestones/l1/unresolved.txt`.
 * **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
   `names.py --tree DIR` regenerates both from another worktree (04c0145). In a shared tree names.py now also sees other builders' untracked drafts: commit through commit_mine (row selection) and restore the working copies after (F7).
