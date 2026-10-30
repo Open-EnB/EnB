@@ -38,6 +38,7 @@ import wt  # noqa: E402
 ROOT = wt.ROOT
 OUT = os.path.join(ROOT, '.work', 'verify')
 CONTEXT = 'vc6-verify'
+GATED = 3                       # exit status: the gate stopped it (verify_watch.py asks for approval)
 MARK = '<!-- enb-verify -->'
 # what a verify only reads, or sends to a VM's compiler
 READ_ONLY = [re.compile(p, re.I) for p in (
@@ -171,7 +172,8 @@ def main():
     gated = needs_approval(paths)
     if gated and not a.approved:
         print('these files would run on this host or change how the verify runs:\n  ' + '\n  '.join(gated))
-        sys.exit('verify_pr: read the PR, then rerun with --approved (nothing was verified or posted)')
+        print('verify_pr: read the PR, then rerun with --approved (nothing was verified or posted)')
+        sys.exit(GATED)
 
     vf = wt.wt_path(f'pr{a.pr}') + '.vf'
     if os.path.isdir(vf):
