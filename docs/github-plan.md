@@ -160,7 +160,7 @@ is in §4.5.7, and what nobody has decided yet is in §3.6.
   game's files come from other sources (like the art, D143). No release ships yet; the open licensing question
   is §3.6.
 * **Trademark:** the README states the non-affiliation (its Licence section) and the repository holds none of the
-  game's art. The org profile (the `Open-EnB/.github` repository, D144) does not exist yet (§4.5.7 item 2).
+  game's art. The org profile says it too: `Open-EnB/.github` (D144), created private 2026-10-30, public with EnB (§4.5.7 item 2).
 
 ### 3.3 Contributor barrier (P-GH-6)
 
@@ -443,8 +443,9 @@ draft PR at the first push. Automerge is **off**.
    Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
 2. **The public switch** (the user decides when). Before it: ~~a final read of what becomes public~~ (done
-   2026-10-30, §3.4), and the org profile repository `Open-EnB/.github` with the non-affiliation notice (§3.2).
-   Then make the repository public and apply `.work/ruleset.json`
+   2026-10-30, §3.4), and ~~the org profile repository~~ (done 2026-10-30: `Open-EnB/.github`, private, with the
+   profile README, the non-affiliation notice and default SECURITY / code of conduct; §3.2). Then make both
+   repositories public (`.github` first, so the org page shows the profile) and apply `.work/ruleset.json`
    (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
    vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,
    automerge stays off and every landing is a maintainer's `/land`.
