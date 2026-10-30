@@ -50,7 +50,7 @@ def main():
     if len(sys.argv) < 2 or sys.argv[1] not in ('check', 'fix'):
         print(__doc__.split('\n\n')[1])
         return 2
-    bad = scan(sys.argv[2:])
+    bad = scan([p for p in sys.argv[2:] if p != '--'])
     if sys.argv[1] == 'check':
         for p, crlf, lone in bad:
             print(f'{p}: {crlf} CRLF' + (f', {lone} lone CR' if lone else ''))

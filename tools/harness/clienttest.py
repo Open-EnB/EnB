@@ -98,7 +98,7 @@ def messages(name, session, count, path):
     """The first COUNT server-to-client messages of SESSION (opcode, payload hex per line)."""
     trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
     n = 0
-    with open(path, 'w') as f:
+    with open(path, 'w', newline='\n') as f:
         for line in open(trace, encoding='utf-8'):
             e = json.loads(line)
             if e['channel'].split(':', 1)[1] != session or e['dir'] != 'ServerToClient':
@@ -145,7 +145,7 @@ def run(exe, name, session, count, update):
         print('  no expectation written: the run failed')
         return False
     if update or not os.path.exists(EXPECTED):
-        with open(EXPECTED, 'w', newline='\r\n') as f:
+        with open(EXPECTED, 'w', newline='\n') as f:
             f.write('\n'.join(got) + '\n')
         print('  expectation written: %s (%d lines)' % (EXPECTED, len(got)))
         return ok

@@ -85,13 +85,13 @@ def load():
 
 
 def file_eol():
-    """The csv's own line ending, read from its header line (CRLF when the file is new or has none)."""
+    """The csv's own line ending, read from its header line (LF, D147, when the file is new or has none)."""
     try:
         with open(CSV, 'rb') as f:
             first = f.readline()
     except OSError:
-        return '\r\n'
-    return '\n' if first.endswith(b'\n') and not first.endswith(b'\r\n') else '\r\n'
+        return '\n'
+    return '\r\n' if first.endswith(b'\r\n') else '\n'
 
 
 def append(row):

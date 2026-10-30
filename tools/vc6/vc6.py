@@ -342,7 +342,7 @@ def discover(network=None):
         if 'vc6' in p.stdout:
             good.append(f'{USER}@{ip}')
     os.makedirs(os.path.dirname(HOSTS_FILE), exist_ok=True)
-    json.dump(good, open(HOSTS_FILE, 'w'), indent=1)
+    json.dump(good, open(HOSTS_FILE, 'w', newline='\n'), indent=1)
     print(f'{len(good)} build VMs: {", ".join(good)} -> {HOSTS_FILE}')
 
 

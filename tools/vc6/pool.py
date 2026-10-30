@@ -267,7 +267,7 @@ def load():
 
 def save(state):
     tmp = STATE + '.tmp'
-    json.dump(state, open(tmp, 'w'), indent=1, sort_keys=True)
+    json.dump(state, open(tmp, 'w', newline='\n'), indent=1, sort_keys=True)
     os.replace(tmp, STATE)
 
 

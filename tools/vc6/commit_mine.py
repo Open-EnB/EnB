@@ -319,6 +319,8 @@ def main():
             time.sleep(2)
         else:
             print(f'warning: shared index not refreshed for {paths}: {r.stderr.decode(errors="replace")}')
+        # D147: git stored them LF; a Windows tool may have left the working copies CRLF
+        subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'eol.py'), 'fix', '--', *paths], cwd=ROOT)
     finally:
         if os.path.exists(index):
             os.remove(index)

@@ -665,7 +665,7 @@ def main():
     img = ClientImage(a.client)
     results = match_objects(img, a.objects)
     if a.json:
-        json.dump(results, open(a.json, 'w'), indent=1)
+        json.dump(results, open(a.json, 'w', newline='\n'), indent=1)
     counts = {}
     for r in results:
         counts[r['status']] = counts.get(r['status'], 0) + 1
