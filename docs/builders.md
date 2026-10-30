@@ -56,7 +56,7 @@ LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inli
 `importer.py verify --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).
 
-**Git.** Never `importer.py assemble`; never push; never `git reset --hard`, `git checkout -- .`
+**Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
 `.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
 `git commit` takes whatever they have staged, and a path commit (`git commit -- <files>`) takes the
@@ -71,8 +71,8 @@ gain (see `git log`), counts before -> after; end the message with the `Co-Autho
 harness gives you (D71).
 
 **Scripts and docs.** Python with backslashes goes through the Write tool, never a shell heredoc
-(escapes get mangled). Keep each file's existing line endings: the Write tool and Git Bash
-`sed -i` write LF into CRLF files; check with a byte read before committing. Docs stay UTF-8. Don't
+(escapes get mangled). Line endings need no care: the tree is LF everywhere (D147; workflow.md
+§3.0). Docs stay UTF-8. Don't
 edit `docs/progress.md` (the coordinator writes the log); in `docs/milestones.md` touch only your
 own item's section. New traps go in your report, not in workflow.md. Where things go: `tests/`
 for test programs, `programs/` for VIDTEST, `tools/harness/` for the Python side (D45, D67).

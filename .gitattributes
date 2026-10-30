@@ -1,110 +1,13 @@
-# Line endings. A clone must look like the tree it was made from, byte for byte, and this
-# repository mixes two conventions: most C++ sources, headers, JSON data and many documents are
-# CRLF (Westwood's and the client's habit); the files listed below are LF. Nothing is converted
-# on checkout or commit (`-text`), so core.autocrlf on a contributor's machine cannot change a
-# blob. Keep each file's existing ending when you edit it (docs/builders.md, "Scripts and docs");
-# tools/docs_check.py fails on a file that mixes the two.
-#
-# To add a new LF file, list it in the block below; anything not listed is stored as written
-# (new C++ and docs files follow their neighbours: CRLF).
-* -text
+# Line endings: LF everywhere (D147). Every blob is LF and every checkout writes LF, whatever the
+# machine's core.autocrlf (the eol attribute overrides it): the Write tool, Git Bash sed, Python and
+# heredocs then all agree with the files on disk. VC6 compiles LF sources to the same bytes (tested
+# 2026-10-29: a full verify, 12,541 pairs unchanged). tools/eol.py finds and fixes a working file a
+# Windows tool wrote with CRLF.
+* text=auto eol=lf
 
-# LF files (explicit list)
-.claude/skills/handoff/SKILL.md text eol=lf
-/.gitattributes text eol=lf
-.github/workflows/checks.yml text eol=lf
-.github/workflows/readme-progress.yml text eol=lf
-/.gitignore text eol=lf
-/CLAUDE.md text eol=lf
-/CONTRIBUTING.md text eol=lf
-/LICENSE text eol=lf
-/README.md text eol=lf
-app/shared/land.cpp text eol=lf
-docs/archive/overnight-report-2.md text eol=lf
-docs/archive/overnight-report.md text eol=lf
-docs/builders.md text eol=lf
-docs/conventions.md text eol=lf
-docs/data/names-review.md text eol=lf
-docs/data/not-exact.md text eol=lf
-docs/data/packet-factory.txt text eol=lf
-docs/data/progress-history.csv text eol=lf
-docs/kernel-map.md text eol=lf
-docs/library-matching.md text eol=lf
-docs/prior-work.md text eol=lf
-docs/progress.svg text eol=lf
-docs/progress_chart.svg text eol=lf
-docs/progress_map.svg text eol=lf
-docs/source-tree.md text eol=lf
-docs/toolchain.md text eol=lf
-programs/vidtest/vidtest.cpp text eol=lf
-stubs/app_stubs.cpp text eol=lf
-stubs/stub_log.cpp text eol=lf
-stubs/stub_log.h text eol=lf
-stubs/wwaudio_stubs.cpp text eol=lf
-tests/capharness/capharness.cpp text eol=lf
-tests/capharness/udpreplay/pk_ctor_stubs.cpp text eol=lf
-tools/docs_check.py text eol=lf
-tools/harness/README.md text eol=lf
-tools/harness/auxdata_smoke.py text eol=lf
-tools/harness/bmp2png.py text eol=lf
-tools/harness/build.py text eol=lf
-tools/harness/convert.py text eol=lf
-tools/harness/d3d8shot.c text eol=lf
-tools/harness/drawcheck.py text eol=lf
-tools/harness/drawdump.py text eol=lf
-tools/harness/kerneltest.py text eol=lf
-tools/harness/n7aux.py text eol=lf
-tools/harness/refs.sh text eol=lf
-tools/harness/run_reference.py text eol=lf
-tools/harness/run_vidtest.py text eol=lf
-tools/harness/symbolize.py text eol=lf
-tools/harness/vidtest_e2e.py text eol=lf
-tools/harness/vidtest_exitcodes.py text eol=lf
-tools/harness/vidtest_sbs.py text eol=lf
-tools/prepush_check.py text eol=lf
-tools/progress.py text eol=lf
-tools/re/auxnames.py text eol=lf
-tools/re/auxroots_names.json text eol=lf
-tools/re/auxroots_pads.json text eol=lf
-tools/re/classify_gaps.py text eol=lf
-tools/re/clientimage.py text eol=lf
-tools/re/dated.py text eol=lf
-tools/re/declcensus.py text eol=lf
-tools/re/funcmatch.py text eol=lf
-tools/re/gaps.py text eol=lf
-tools/re/ghidra/DecompileTargets.java text eol=lf
-tools/re/libdiff.py text eol=lf
-tools/re/libextract.py text eol=lf
-tools/re/libversions.py text eol=lf
-tools/re/mark.py text eol=lf
-tools/re/matchreport.py text eol=lf
-tools/re/names.py text eol=lf
-tools/re/notexact.py text eol=lf
-tools/re/objdiff.py text eol=lf
-tools/re/objrel.py text eol=lf
-tools/re/pseudocode.py text eol=lf
-tools/re/roots.py text eol=lf
-tools/re/srctree.py text eol=lf
-tools/re/strscan.py text eol=lf
-tools/stl/stl_corpus.cpp text eol=lf
-tools/test_progress.py text eol=lf
-tools/vc6/README.md text eol=lf
-tools/vc6/addpatch.py text eol=lf
-tools/vc6/annotations.py text eol=lf
-tools/vc6/checked/enb_checked.h text eol=lf
-tools/vc6/commit_mine.py text eol=lf
-tools/vc6/importer.py text eol=lf
-tools/vc6/layout.py text eol=lf
-tools/vc6/mkspec.py text eol=lf
-tools/vc6/pairs_cmp.py text eol=lf
-tools/vc6/pool.py text eol=lf
-tools/vc6/refresh_expected.py text eol=lf
-tools/vc6/runtime_match.sh text eol=lf
-tools/vc6/sdk_patch.py text eol=lf
-tools/vc6/trial_all.py text eol=lf
-tools/vc6/trydiff.py text eol=lf
-tools/vc6/tryvariants.py text eol=lf
-tools/vc6/zhall.py text eol=lf
+# cmd.exe needs CRLF (none tracked yet)
+*.bat text eol=crlf
+*.cmd text eol=crlf
 
-# Generated pictures: stored as written, not diffed as text.
-*.svg -diff
+# generated from the client's strings, which hold lone CRs: stored byte for byte
+docs/data/asserts.txt -text

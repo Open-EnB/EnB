@@ -324,7 +324,7 @@ def main():
         if a.markers:
             os.makedirs(a.markers, exist_ok=True)
             open(os.path.join(a.markers, os.path.basename(name) + '.cpp'), 'wb').write(
-                '\r\n'.join(mk + ['']).encode('utf-8'))
+                '\n'.join(mk + ['']).encode('utf-8'))
         c += ['', '', '/*', '**\tReconstruction notes (%s.cpp)' % os.path.basename(name), '**',
               '**\t* Client 0x%X-0x%X (the object ends with the guarded static every <string> includer has,' % (
                   fl['lo'], fl['hi']),
@@ -343,7 +343,7 @@ def main():
             for ext, lines in (('.h', h), ('.cpp', c)):
                 p = os.path.join(PKDIR, name + ext)
                 os.makedirs(os.path.dirname(p), exist_ok=True)
-                open(p, 'wb').write('\r\n'.join(lines).encode('utf-8'))
+                open(p, 'wb').write('\n'.join(lines).encode('utf-8'))
     if a.write:
         open(os.path.join(WORK, 'emitted.txt'), 'w').write(
             '\n'.join('%s %s %d' % (n, ','.join(map(str, o)), k) for n, o, k in emitted) + '\n')

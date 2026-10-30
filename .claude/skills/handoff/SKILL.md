@@ -15,7 +15,7 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 1. **Find the target.** Read the `## Handoff target` section of this repo's `CLAUDE.md`.
    It names the file(s) to update and whether to overwrite or append. If it is missing, ask.
 2. **Collect facts, don't recall them.** Run `git status --short`, `git log --oneline -15`,
-   and `git diff --stat`. List uncommitted work explicitly. Never claim something was
+   `git diff --stat` and `python tools/eol.py fix` (D147: working copies a Windows tool left CRLF). List uncommitted work explicitly. Never claim something was
    committed, built or tested unless a command in this session showed it.
 3. **Release VMs this session leased.** Run `python tools/vc6/pool.py release --agent <name>`
    for each agent name this session leased under, then `python tools/vc6/pool.py stop-idle
@@ -36,4 +36,5 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 6. **Report to the user** in five lines or fewer: what you wrote and where, what is
    uncommitted, and the single prompt to paste into the new session, e.g.
    `Read CLAUDE.md and the handoff, then continue with <next step>.`
-7. Ask before committing the handoff file(s). Never push.
+7. Ask before committing the handoff file(s). Never push `main`; once the GitHub remote exists, the coordinator
+   pushes its run branch and opens the run's PR (D148).

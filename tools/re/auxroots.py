@@ -647,7 +647,7 @@ def generate(doc, out_dir):
     c = c.replace('%(pad)s', pad)
     os.makedirs(out_dir, exist_ok=True)
     for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c)):
-        with open(os.path.join(out_dir, name), 'w', newline='\r\n') as f:
+        with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
             f.write(text)
     print(f'{len(g.classes)} classes ({len(roots)} roots), {len(g.types)} value types -> {out_dir}')
     return g
@@ -700,7 +700,7 @@ def layout(doc, out_dir):
     lines = ['#include <stddef.h>', '#include "' + os.path.join(out_dir, 'aux_roots.h') + '"',
              'extern "C" const unsigned int ENB_LAYOUT[] = {']
     lines += [f'\toffsetof({c}, {m}),' for c, m, _ in rows] + ['};', '']
-    with open(src, 'w', newline='\r\n') as f:
+    with open(src, 'w', newline='\n') as f:
         f.write('\n'.join(lines))
     incs = [os.path.join(REPO, d) for d in ('app\\client', 'app\\shared\\auxdata', 'app\\shared', 'wwlib', 'wwdebug', 'wwmath')]
     out = os.path.join(work, 'obj')

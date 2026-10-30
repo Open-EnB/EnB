@@ -18,6 +18,11 @@ builds 8797 and 8799, linker 6.0: **Service Pack 4**, confirmed (§1.2).
 
 ### 1.1 The build VM (2026-10-22)
 
+A new machine sets its VM up with [setup-vc6.md](setup-vc6.md) (2026-10-29: one script,
+`tools/vc6/setup/New-BuildVM.ps1`, VC6 by file copy, proven equal to the setup-installed VM below).
+Machine-specific settings (account, key, pool folder, template VM) are in `.work/vc6_config.json`
+(`tools/vc6/vc6config.py`); this machine's keeps `"user": "Daniel"` and `"template_vm": "Win10"`.
+
 VC6 runs in a Hyper-V VM: Windows 10 21H2, host name `DESKTOP-1J2STKG.mshome.net` (Default
 Switch), account `Daniel`, reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
 `C:\Program Files (x86)\Microsoft Visual Studio\VC98` (environment variables not registered;
@@ -36,7 +41,9 @@ Compiling WW3D2 (115 files) takes about 30 seconds.
 (`DESKTOP-1J2STKG`), so the name resolves to whichever registered last: the tools address VMs by
 IP only. `python tools/vc6/vc6.py discover` finds them (SSH on the Default Switch network,
 192.168.192.0/20, that accepts the key and has VC6) and writes `.work/vc6_hosts.json`; rerun it
-after the VMs restart (their addresses come from DHCP). Each VM has its own sync cache; a missing
+after the VMs restart (their addresses come from DHCP). Since 2026-10-29 it probes the addresses
+Hyper-V reports for the running VMs instead: the Default Switch takes a new subnet when the host
+restarts (172.17.0.0/16 that day), which left the fixed range stale; `--network CIDR` keeps the scan. Each VM has its own sync cache; a missing
 file reported by the compiler makes the wrapper resync that VM once. `importer.py verify` spreads
 the libraries over the VMs (all seven in about 50 seconds). All three were checked to stamp build
 8799 (SP4).
@@ -77,7 +84,8 @@ The installed VM is now SP4. The VM has a checkpoint with base VC6 (RTM), taken 
 Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` over the read-only
 base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
 Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
-read-only flag). Hardware is copied from `Win10` (generation 2, Secure Boot `MicrosoftWindows`,
+read-only flag). Hardware is copied from the template VM (`template_vm` in `.work/vc6_config.json`:
+`Win10` here, `enb-vc6-template` for a VM made by setup-vc6.md; generation 2, Secure Boot `MicrosoftWindows`,
 dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 2 GB (`STARTUP_GB`,
 2026-10-27: a 4 GB startup failed clone starts on a loaded host while the VMs run at ~1.1 GB; clones
 01-05 keep 4 GB until they are off, then `Set-VMMemory -StartupBytes 2GB`); automatic checkpoints are

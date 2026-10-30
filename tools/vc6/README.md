@@ -5,8 +5,12 @@ import machinery. Configuration, the VM pool and its rules: [docs/toolchain.md](
 §1. Workflow, the fix loop and its traps: [docs/workflow.md](../../docs/workflow.md). The
 reverse-engineering side (byte matching, gaps, vtables) is in [../re/README.md](../re/README.md).
 
+Setting up a build VM and the pool's base from nothing: [docs/setup-vc6.md](../../docs/setup-vc6.md)
+(`setup/New-BuildVM.ps1`). Local settings (VM account, key, pool folder, template VM, cap) live in
+`.work/vc6_config.json`, read by `vc6config.py` (its docstring lists them and their variables).
+
 Build VMs are addressed by IP only. After a VM restart run `python tools/vc6/vc6.py discover`.
-A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py lease`).
+A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py lease`).
 
 ## The VM and the pool
 
@@ -15,9 +19,14 @@ A job takes its VMs from `ENB_VC6_HOSTS=Daniel@<ip>[,...]` (printed by `pool.py 
 | `vc6.py compile [--flags F] [-I dir]... [-D name]... [--sync dir]... --out DIR files...` | Compile sources in a VM (same paths as on the host), bring the objects back |
 | `vc6.py run "command"` | Run a command in the VM after VCVARS32 |
 | `vc6.py check` | Print compiler and linker versions of every VM |
-| `vc6.py discover` | Find the build VMs (SSH on the Default Switch), save their IPs in `.work/vc6_hosts.json` |
+| `vc6.py discover [--network CIDR]` | Find the build VMs (SSH with our key and VC6, at the addresses Hyper-V reports for running VMs, or every address of CIDR), save them in `.work/vc6_hosts.json` |
+| `vc6config.py` | The local settings, `.work/vc6_config.json` with `ENB_VC6_*` overrides (user, key, pool_dir, template_vm, prefix, max_vms, reserve_gb, switch) |
+| `setup/New-BuildVM.ps1` | Build the VM and the pool's base end to end, unattended ([docs/setup-vc6.md](../../docs/setup-vc6.md)) |
+| `setup/media.py --media DIR [--download]` | The VC6 and SP4 discs from the Internet Archive: SHA-1 check, MDF -> ISO |
+| `setup/guest/Setup-Guest.ps1`, `setup/guest/Install-VC6.ps1` | In the VM: OpenSSH with the key, VC6 SP4 by file copy from `setup/vc6-files.tsv` (SHA-1 per file), the base's settings |
+| `setup/check_vm.py` | A VM compiles as VC6 SP4: cl 12.00.8804, link 6.00.8447, `@comp.id` build 8799 |
 | `pool.py list` | Pool VMs, their state and leases |
-| `pool.py lease --agent NAME [--count N] [--holder-pid P] [--timeout S]` | Start VMs and print `ENB_VC6_HOSTS=...`; the lease dies with the holder pid (`$ENB_HOLDER_PID`, `$CLAUDE_PID`) or after `--max-age` hours |
+| `pool.py lease --agent NAME [--count N] [--holder-pid P] [--timeout S]` | Start VMs and print `ENB_VC6_HOSTS=...`; the lease dies with the holder pid (`$ENB_HOLDER_PID`, `$CLAUDE_PID`) or after `--max-age` hours. A VM starts only while the host keeps `reserve_gb` free after its 2 GB start |
 | `pool.py release --agent NAME` (or `release VM...`) | Give the VMs back |
 | `pool.py reclaim [--max-age H] [--idle-minutes M] [--prune [--keep K]]` | Release orphaned leases, stop idle VMs, optionally destroy free ones beyond K |
 | `pool.py stop-idle [--minutes M]` | Stop free VMs idle for M minutes |

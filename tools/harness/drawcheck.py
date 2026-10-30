@@ -120,7 +120,7 @@ def judge(orig_path, ours_path, frame, update=False):
     import json
     now = {'frame': frame, 'orig': table(drawdump.read(orig_path)), 'ours': table(drawdump.read(ours_path))}
     if update or not os.path.exists(BASELINE):
-        json.dump(now, open(BASELINE, 'w'), indent=1, sort_keys=True)
+        json.dump(now, open(BASELINE, 'w', newline='\n'), indent=1, sort_keys=True)
         print(f'baseline written: {BASELINE}')
         return True
     base = json.load(open(BASELINE))

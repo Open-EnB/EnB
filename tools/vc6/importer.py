@@ -4309,7 +4309,7 @@ def app_state(state):
 def save_state(state):
     hold_lock()
     os.makedirs(os.path.dirname(STATE), exist_ok=True)
-    json.dump(state, open(STATE, 'w'), indent=1, sort_keys=True)
+    json.dump(state, open(STATE, 'w', newline='\n'), indent=1, sort_keys=True)
 
 
 # ------------------------------------------------------------------------------------------ plan
@@ -4408,16 +4408,17 @@ def assemble(state):
                             os.remove(os.path.join(d, old))
                         shutil.copy2(path, os.path.join(d, name))
                         origin[name] = f['copy']
+        to_lf(d)
         for name in os.listdir(d):
             apply_patches(lib, os.path.join(d, name), name)
             annotations.apply(lib, os.path.join(d, name), name)
             for (alib, aname), (text, _) in APPENDS.items():
                 if alib == lib and aname == name.lower():
-                    with open(os.path.join(d, name), 'a', newline='\r\n') as fp:
+                    with open(os.path.join(d, name), 'a', newline='\n') as fp:
                         fp.write(text)
         for (nlib, nname), text in NEW_FILES.items():
             if nlib == lib:
-                open(os.path.join(d, nname), 'w', newline='\r\n').write(text)
+                open(os.path.join(d, nname), 'w', newline='\n').write(text)
                 origin[nname] = 'new'
         for rname, data in kept.items():
             for old in [n for n in os.listdir(d) if n.lower() == rname.lower()]:
@@ -4429,6 +4430,7 @@ def assemble(state):
                 s['files'][k]['copy'] = 'reconstructed'
                 s['files'][k]['name'] = rname
         s['headers'] = origin
+        to_lf(d)
         print(f'{lib:11s} {len(s["files"])} sources, {len(origin)} headers')
     return state
 
@@ -4453,11 +4455,12 @@ def add_extra(state, libs=None):
             raise SystemExit(f'{lib}/{real} is already in the tree but not in the state')
         p = os.path.join(d, real)
         shutil.copy2(src, p)
+        file_to_lf(p)
         apply_patches(lib, p, real)
         annotations.apply(lib, p, real)
         for (alib, aname), (text, _) in APPENDS.items():
             if alib == lib and aname == real.lower():
-                with open(p, 'a', newline='\r\n') as fp:
+                with open(p, 'a', newline='\n') as fp:
                     fp.write(text)
         s['files'][k] = {'copy': c, 'name': real, 'expected': {x: 0 for x in LIB_DIR[lib]}, 'merged': [],
                          'headers_from': None}
@@ -4467,8 +4470,27 @@ def add_extra(state, libs=None):
 
 # ------------------------------------------------------------------------------------------ replay
 
+def lf(text):
+    """The tree is LF (D147); EA's copies are CRLF."""
+    return text.replace('\r\n', '\n')
+
+
 def read(path):
-    return open(path, encoding='latin1', newline='').read()
+    """An EA source or tree file as LF text."""
+    return lf(open(path, encoding='latin1', newline='').read())
+
+
+def file_to_lf(path):
+    b = open(path, 'rb').read()
+    if b'\r\n' in b:
+        open(path, 'wb').write(b.replace(b'\r\n', b'\n'))
+
+
+def to_lf(root):
+    """Rewrite every CRLF file under root as LF: EA headers and sources arrive by plain copies."""
+    for d, _, fs in os.walk(root):
+        for n in fs:
+            file_to_lf(os.path.join(d, n))
 
 
 def replay(state, out):
@@ -4507,6 +4529,7 @@ def replay(state, out):
                 if not done:
                     problems.append(f'{lib}/{f["name"]}: splice of {m["function"]} from {m["copy"]} failed')
             open(os.path.join(d, f['name']), 'w', encoding='latin1', newline='').write(text)
+        to_lf(d)
         for name in os.listdir(d):
             p = os.path.join(d, name)
             try:
@@ -4516,11 +4539,11 @@ def replay(state, out):
                 problems.append(str(e))
             for (alib, aname), (text, _) in APPENDS.items():
                 if alib == lib and aname == name.lower():
-                    with open(p, 'a', newline='\r\n') as fp:
+                    with open(p, 'a', newline='\n') as fp:
                         fp.write(text)
         for (nlib, nname), text in NEW_FILES.items():
             if nlib == lib:
-                open(os.path.join(d, nname), 'w', newline='\r\n').write(text)
+                open(os.path.join(d, nname), 'w', newline='\n').write(text)
         for (rlib, rname), data in kept.items():
             if rlib == lib:
                 for old in [n for n in os.listdir(d) if n.lower() == rname.lower()]:
@@ -4715,6 +4738,7 @@ def try_with_headers(state, lib, f, c, k, donor):
             saved[old] = open(os.path.join(d, old), 'rb').read()
             os.remove(os.path.join(d, old))
         shutil.copy2(p, os.path.join(d, n))
+        file_to_lf(os.path.join(d, n))
     path = os.path.join(d, f['name'])
     original = open(path, 'rb').read()
     open(path, 'w', encoding='latin1', newline='').write(donor)
@@ -4764,7 +4788,7 @@ def refine(state, ev, libs=None, only=None):
                     if not wanted or k not in source_files(lib, c):
                         continue
                     donor_path = source_files(lib, c)[k][1]
-                    donor = open(donor_path, encoding='latin1', newline='').read()
+                    donor = read(donor_path)
                     # 1. the whole file from the other copy, if the current one is clearly worse
                     if c != f['copy'] and len(ev[lib][c][k]) > len(cur):
                         got = try_file(lib, f, donor)

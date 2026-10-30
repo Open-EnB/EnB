@@ -67,7 +67,7 @@ def merge_index(new_path):
             for line in open(path, encoding='utf-8'):
                 if line.strip():
                     rows[line.split('\t', 1)[0]] = line.rstrip('\n')
-    with open(index, 'w', encoding='utf-8') as f:
+    with open(index, 'w', newline='\n', encoding='utf-8') as f:
         f.writelines(rows[k] + '\n' for k in sorted(rows))
     os.remove(new_path)
     return rows
@@ -98,7 +98,7 @@ def remove_outputs(addrs):
             os.remove(path)
     index = os.path.join(OUT, 'index.tsv')
     rows = list(open(index, encoding='utf-8'))
-    with open(index, 'w', encoding='utf-8') as f:
+    with open(index, 'w', newline='\n', encoding='utf-8') as f:
         f.writelines(line for line in rows if line.split('\t', 1)[0] not in gone)
 
 
@@ -159,7 +159,7 @@ def main():
             os.path.join(WORK, 'drop.tsv')]
     log = os.path.join(WORK, 'headless.log')
     print(f'decompiling {len(targets)} functions; Ghidra log: {log}', flush=True)
-    with open(log, 'w', encoding='utf-8', errors='replace') as f:
+    with open(log, 'w', newline='\n', encoding='utf-8', errors='replace') as f:
         rc = subprocess.call(cmd, stdout=f, stderr=subprocess.STDOUT)
     new = os.path.join(OUT, 'index-new.tsv')
     if not os.path.exists(new):

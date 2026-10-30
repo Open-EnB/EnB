@@ -337,7 +337,7 @@ def libs_touched(old, new, extra):
 
 
 def run_logged(args, cwd, log, env=None):
-    with open(log, 'w', encoding='utf-8', errors='replace') as f:
+    with open(log, 'w', newline='\n', encoding='utf-8', errors='replace') as f:
         r = subprocess.run(args, cwd=cwd, stdout=f, stderr=subprocess.STDOUT, env=env)
     tail = open(log, encoding='utf-8', errors='replace').read().splitlines()[-3:]
     return r.returncode, tail
@@ -573,7 +573,7 @@ def cmd_bring_over(a):
     furnish(bo, libs=False, pseudo=False)
     why = None
     try:
-        with open(logp, 'w', encoding='utf-8') as log:
+        with open(logp, 'w', newline='\n', encoding='utf-8') as log:
             if ff:
                 log.write(f'fast-forward: {a.target} {old[:9]} is an ancestor of {tip[:9]}\n')
                 print(f'fast-forward: {a.target} is at or behind the branch')

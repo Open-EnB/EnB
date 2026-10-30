@@ -222,7 +222,7 @@ def write_draft(rows, fname, out):
         lines.append('*/')
         lines.append(f'// @0x{r["address"]:06X}')
         lines.append('')
-    open(path, 'w', encoding='utf-8', newline='\r\n').write('\n'.join(lines) + '\n')
+    open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
     return path
 
 
@@ -494,7 +494,7 @@ def main():
         raise SystemExit(f'{fname}: no function attributed to it in app-functions.json')
     print_rows(rows, fname)
     if a.cmd == 'show' and a.json:
-        json.dump(rows, open(a.json, 'w'), indent=1)
+        json.dump(rows, open(a.json, 'w', newline='\n'), indent=1)
     if a.cmd == 'draft':
         print('\n' + write_draft(rows, fname, a.out))
 

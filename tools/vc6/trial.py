@@ -75,7 +75,7 @@ def main():
     importer.verify(trial, libs)
     errors = sorted({os.path.basename(e.replace(chr(92), '/'))[:160] for l in libs for e in trial[l].get('compile_errors', [])})
     if a.errors:
-        with open(a.errors, 'w', encoding='utf-8') as f:
+        with open(a.errors, 'w', newline='\n', encoding='utf-8') as f:
             for l in libs:
                 for e in trial[l].get('compile_errors', []):
                     f.write(f'{l}\t{e}\n')

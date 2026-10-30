@@ -20,4 +20,4 @@ for name, addr in pairs:
         j -= 1
     lines[j] = '// @' + addr
 os.makedirs(os.path.dirname(out) or '.', exist_ok=True)
-open(out, 'w', encoding='utf-8', newline='').write('\r\n'.join(lines))
+open(out, 'w', encoding='utf-8', newline='').write('\n'.join(lines))

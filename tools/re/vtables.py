@@ -371,7 +371,7 @@ def main():
                 print(f"{cls}: not placed (no slot known in the client, or only slots most tables share). "
                       f"Seed it: --seed {cls}=ADDR (its vtable, or a method's client address)")
     if a.json:
-        json.dump(report, open(a.json, 'w'), indent=1)
+        json.dump(report, open(a.json, 'w', newline='\n'), indent=1)
 
 
 if __name__ == '__main__':

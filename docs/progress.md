@@ -1428,10 +1428,22 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D141 | 2026-10-29 | P-F9-2: every compile of a variant counts as a form toward a round's cap, scratch-copy probes included, for Fable (D89) and Opus rounds alike; today's overruns (F9's verb round, HL1's Resolve 0x487660, HL2's two 4-form functions) are accepted after the fact | user (F9's proposal) |
 | D142 | 2026-10-29 | P-UI1-1 accepted: clienttest depends on build/art/MSS32.DLL (the Miles imports of the rebuilt loading view), a copy of the game's DLL in the project's art folder (D120); never run from the install folder (D69) | user (UI1's proposal) |
 | D143 | 2026-10-29 | The game's install folder (`C:\Program Files (x86)\EA GAMES\Earth & Beyond`) may be read in place by any session, and any of its files copied out as needed (for programs, into build/art or another folder under build/). Not granted: writing into it, or using it as a working directory (D69 stands). The final product uses the original game art once it is playable | user |
+| D144 | 2026-10-29 | P-GH-2: one repository for the reconstruction (`Open-EnB/EnB`: the libraries, app/, every executable of the original tree under programs/, tools, docs) plus satellite repositories split by codebase or trust (`.github`, the reference decoder if made public, a future server); no repositories for third-party material, which stays bring-your-own ([github-plan.md](github-plan.md) §1) | user |
+| D145 | 2026-10-29 | P-GH-3: the commit email stays as it is; no history rewrite for it | user |
+| D146 | 2026-10-29 | P-GH-6, the first part: contributors build their own VC6 SP4 environment from public sources (Hyper-V; the VC6 and SP4 media from the Internet Archive, X04-14444 and X05-86594) with detailed user documents and scripts from the project; the project links to the media and checks their hashes but never redistributes them. Which contributions need no VC6 stays open | user |
+| D147 | 2026-10-29 | P-GH-1 accepted as revised: LF everywhere, enforced by `.gitattributes` (`* text=auto eol=lf`, which overrides any `core.autocrlf`; `*.bat`/`*.cmd` CRLF; `docs/data/asserts.txt -text`); every working tree converted once; `tools/eol.py check|fix` the guard (run by commit_mine.py and the handoff once step 3 wires it); tools write and compare LF (step 3, a verified round); the line-ending traps in workflow.md / builders.md collapse into one rule (workflow.md §3.0). No Claude Code hook. Evidence: VC6 compiles LF sources to the same bytes (full verify, 12,541 pairs unchanged); ~25-35 incidents and ~3,000 defensive commands in 245 transcripts ([github-plan.md](github-plan.md) P-GH-1) | user |
+| D148 | 2026-10-29 | P-GH-4: option C. Once the GitHub remote exists, `main` changes only through a pull request: each run works on its own branch (`run/<date>`), the coordinator pushes that branch and opens one PR at handoff, and the user reviews and merges (no auto-merge: a checkpoint before work becomes public). Contributors use PRs from forks. D69 amended: "never push" becomes "push only your run branch, never `main`" (builders still never push; the coordinator pushes); every push passes `tools/prepush_check.py` in a pre-push hook; the agents' credential is a token for this one repository allowed to push branches and open PRs, nothing more. Before the remote exists nothing changes ([github-plan.md](github-plan.md) §3.1) | user |
+| D149 | 2026-10-29 | Three of Open-BFME's practices adopted: (1) the public README welcomes AI-generated PRs, one verified function per commit; (2) an `AGENTS.md` (the public form of CLAUDE.md / builders.md) that agents reread when 24 hours have passed or a commit reports it changed; (3) address claims, so contributors' agents do not work on the same function (built when outside contributors arrive; ours coordinate through the coordinator meanwhile) | user |
+| D150 | 2026-10-29 | P-GH-5: the project ships only binaries built from its own sources, never a third party's (MSS32.DLL, Bink, DirectX, the game's files): users get those from other sources, like the game art (D143). EA's art and trademarks are not used publicly or in anything distributed; the README states the non-affiliation | user |
 
 ## 3. Open decisions
 
-None.
+* **P-VM-1** (2026-10-29, coordinator; recommend yes): this machine's build VMs expire on **2027-01-20**: `Win10` is
+  Windows 10 Enterprise *Evaluation* (90 days from 2026-10-22, `slmgr /xpr`), and the pool's base was made from it, so
+  every clone inherits the date; after it Windows shuts down hourly. Rebuild the pool with
+  `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5 minutes,
+  same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then names
+  `enb-vc6-template` and the account `user`)? Alternative: a licensed Windows (`-WindowsVhdx`), which does not expire.
 
 ## 4. Next steps
 
@@ -1440,7 +1452,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
 1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
-   `eval/*` stay a week, then `git branch -D` and `git worktree remove` under `.work/eval/`). Left from it: P-Bopus-1 if
+   and worktrees were removed 2026-10-29 at the user's request; `.work/eval-branches-2026-10-29.bundle` keeps the
+   nine branches, `.work/eval/` the scoring record). Left from it: P-Bopus-1 if
    accepted (0x603D70 is not option.cpp's, O1). The quiet tree carries the matching-rule
    changes D94(b) (skip `_$E` names), D95(b) (no implicit-destructor credit to a twin when the own address is
    free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
