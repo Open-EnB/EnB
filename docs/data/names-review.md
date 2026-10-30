@@ -23,11 +23,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDADC8` | `app/audio/soundlib.cpp:21` | 0xBDADC8, a global generator outside this file |
 | 1 | `Unknown_BE8B38Class` | `app/audio/soundlib.cpp:23` | option.cpp's object at 0xBE8B38 (tsk_game.h) |
 | 1 | `Unknown_BE8B38` | `app/audio/soundlib.cpp:28` | neutral (D10) |
-| 1 | `Unknown7C` | `app/audio/soundlib.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/audio/soundlib.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown164` | `app/audio/soundlib.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/audio/soundlib.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/audio/soundlib.cpp:45` | untagged neutral name (D10) |
+| 1 | `m_Unknown7C` | `app/audio/soundlib.cpp:35` | untagged neutral name (D10) |
+| 1 | `m_Unknown80` | `app/audio/soundlib.cpp:36` | untagged neutral name (D10) |
+| 1 | `m_Unknown164` | `app/audio/soundlib.cpp:43` | untagged neutral name (D10) |
+| 1 | `m_Unknown168` | `app/audio/soundlib.cpp:44` | untagged neutral name (D10) |
+| 1 | `m_Unknown16C` | `app/audio/soundlib.cpp:45` | untagged neutral name (D10) |
 | 1 | `SoundINIClass` | `app/audio/soundlib.cpp:800` | an INIClass with its own vtable 0xAE7500 (destructor only) |
 | 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
 | 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
