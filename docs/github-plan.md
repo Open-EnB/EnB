@@ -21,12 +21,12 @@ in a way that cannot compromise the project's integrity.
 | P-GH-1 | Line endings: `.gitattributes`, the working tree and the tools | LF everywhere: `* text=auto eol=lf`, tools write LF, `tools/eol.py` guard (VC6 tested equal) | **D147: accepted, no hook** |
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
-| P-GH-4 | Working model once public (amends D69's "never push") | One PR per run (§3.1) | **D148: option C, user merges; D149: three Open-BFME practices** |
-| P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2) | **D150: only our own binaries; third-party DLLs from other sources** |
-| P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.4) | **D146 (VC6 setup), D151 (lanes)** |
+| P-GH-4 | Working model once public (amends D69's "never push") | One PR per run (§3.1) | **D148: option C; D149: three Open-BFME practices; both amended by D156, D157** |
+| P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2, §3.6) | **D150: only our own binaries; third-party DLLs from other sources** |
+| P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.3) | **D146 (VC6 setup), D151 (lanes)** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
-| P-GH-8 | Pre-push checklist | §3.7 | **D152: Open-EnB/EnB, master, private first; in progress** |
-| P-GH-9 | Community and continuity | §3.8, §3.9 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
+| P-GH-8 | Pre-push checklist | §3.4 | **D152: Open-EnB/EnB, master, private first; pushed 2026-10-30; the final read before the public switch (§4.5.7)** |
+| P-GH-9 | Community and continuity | §3.5 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
 | P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **steps 1-6 live on master 2026-10-30 (PR #1); to do: the rehearsal, which waits for a first outside contributor, and the public switch (§4.5.7)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
@@ -150,90 +150,70 @@ needs client.exe and VC6. So three layers:
 **Provenance:** a DCO sign-off (`Signed-off-by`) on every commit: contributors certify the work is their own,
 in particular that it is not leaked Westwood / EA source, the main legal risk to the project's integrity.
 
-## 3. Things not yet considered
+## 3. Working model, releases, contributors and community (P-GH-4 to P-GH-9)
+
+All decided (reviewed 2026-10-30). Each item records its outcome and where it lives now; what is still to be done
+is in §4.5.7, and what nobody has decided yet is in §3.6.
 
 ### 3.1 Working model after going public (P-GH-4)
 
-**D148 (2026-10-29): option C.** Each run works on `run/<date>`; the coordinator pushes that branch and opens one
-PR at handoff; the user reviews and merges (no auto-merge). Contributors open PRs from forks. Builders never push.
-Every push passes `tools/prepush_check.py` (pre-push hook). The agents' credential: a token for this repository
-only, allowed to push branches and open PRs. Open-BFME, for comparison (checked 2026-10-29): trusted agents push to
-`master` directly (ruleset: no force-push, no deletion), contributors open PRs, and hosted CI re-runs the byte
-matching because their toolchain and executables are committed; ours stay bring-your-own (D146), so a PR is our
-checkpoint before `main` changes.
+* **D148 (2026-10-29), option C:** `master` changes only through pull requests; each run works on `run/<date>`,
+  the coordinator pushes it, builders never push; every push passes `tools/prepush_check.py` (the pre-push hook,
+  `tools/hooks/pre-push`). **Amended by D157:** every PR is verified before master (`vc6-verify`), contributors'
+  PRs land through the verify service, and the run's PR opens as a draft (§4.5.3-4.5.5).
+* **D149, from Open-BFME:** the README welcomes agents' pull requests; `AGENTS.md`, reread after 24 hours or when a
+  commit says it changed; claims. **Amended by D156 and D157:** one PR per claim, squashed; claims are issues (§4).
+* Built: the pre-push hook, `tools/run_branch.py` (the coordinator-pacing and handoff skills call it), AGENTS.md
+  and the README section, the claims (§4.5). **Not built:** D148's token scoped to this one repository; the
+  coordinator pushes with the maintainer's `gh` login (§4.5.7 item 3).
 
-**D149: from Open-BFME:** a README welcome for AI-generated PRs (one verified function per commit); `AGENTS.md`,
-reread after 24 hours or when a commit reports it changed; address claims for contributors' agents (built when they
-arrive).
+### 3.2 Releases and trademark (P-GH-5)
 
-**Work items before the first push:** the pre-push hook; `run/<date>` at run start (fetch and merge `origin/main`,
-verify) and push plus `gh pr create` at handoff (coordinator-pacing and handoff skills); the scoped token;
-`AGENTS.md` and the README section; the claims design.
+* **D150 (2026-10-29):** the project ships only binaries built from its own sources; Miles / Bink, DirectX and the
+  game's files come from other sources (like the art, D143). No release ships yet; the open licensing question
+  is §3.6.
+* **Trademark:** the README states the non-affiliation (its Licence section) and the repository holds none of the
+  game's art. The org profile (the `Open-EnB/.github` repository, D144) does not exist yet (§4.5.7 item 2).
 
-The original question:
+### 3.3 Contributor barrier (P-GH-6)
 
+* **D146:** contributors build their own VC6 SP4 environment from public media: [setup-vc6.md](setup-vc6.md),
+  `tools/vc6/setup/New-BuildVM.ps1`, the media's hashes checked, never redistributed.
+* **D151:** the contribution lanes with and without VC6, described in CONTRIBUTING; the `needs-vc6` / `no-vc6`
+  labels exist. C++ written without VC6 is proven by the verify service (D157).
 
-Once GitHub is authoritative, the overnight coordinator's few hundred commits a day either go through PRs (heavy)
-or a maintainer bot gets a ruleset bypass with the local verify as the gate. Either way it amends D69's "never
-push".
+### 3.4 Before the first push (P-GH-8)
 
-### 3.2 Licensing of releases (P-GH-5)
+D152: `Open-EnB/EnB`, branch `master`, private first; pushed 2026-10-30.
 
-The client is GPL-3 with EA's additional terms but loads proprietary Miles / Bink (`MSS32.DLL`) and DirectX 8.
-Whether a GPL binary may do that needs checking against EA's additional terms, and an outside view, before any
-binary ships. Source-only releases sidestep it for now.
+* Line endings: D147, LF everywhere.
+* Commit email: D145, unchanged.
+* `roots.py` paths configurable: done (`ENB_DEV_ROOT`, `ENB_RETAIL_INSTALL` and the other `ENB_*` variables).
+* `OWNER/REPO` in `readme-progress.yml`: moot, the workflow was dropped (cff55ff; the progress card is regenerated
+  in each run's PR).
+* Branches: only `master` and run branches go up (D148); `wt/*` and `eval/*` stay local.
+* **Still to do before the public switch:** a final read of what becomes public in progress.md and the docs
+  (internal decisions, paths, names; the private proxy is already gone from tree and history, D153). §4.5.7
+  item 2.
 
-### 3.3 Trademark
+### 3.5 Community and continuity (P-GH-9, closed 2026-10-30)
 
-"Earth & Beyond" is EA's. A clear non-affiliation notice in the org profile and README; no EA logos or box art.
+* Discussions on, wiki off (set on the repository).
+* Labels as preparation (`needs-vc6`, `no-vc6`, `good first issue`, plus `claim` / `claim-expired` for §4); no
+  issues for now; a Projects board later.
+* Net-7 / emulator community contacted (the user). No Discord or domain reserved.
+* No second owner: continuity rests on the one owner account's recovery (two second factors, recovery codes
+  saved). No archive policy for now.
 
-### 3.4 Contributor barrier (P-GH-6)
+### 3.6 Not yet decided
 
-Without VC6 SP4 a contributor cannot byte-check their own work. Either document how to obtain it, or define
-contribution kinds that do not need it: naming (D56), docs, reverse-engineering analysis, the playable modern-MSVC
-build, tools.
-
-**D146 (2026-10-29):** contributors build their own environment: Hyper-V, the Internet Archive's VC6
-Professional disc 1 (X04-14444) and SP4 (X05-86594), with the project's user documents and scripts; the project
-links to the media and checks hashes, never redistributes them. Which contributions need no VC6 is still open.
-The route is [setup-vc6.md](setup-vc6.md): one unattended script, `tools/vc6/setup/New-BuildVM.ps1`
-(Windows from Microsoft's Quick Create image download, VC6 by file copy checked against `vc6-files.tsv`).
-
-### 3.5 Two build targets
-
-The byte-exact VC6 build (the measure, D7) and a playable modern build. CI, docs and releases must say which is
-which.
-
-### 3.6 Reproducible releases
-
-A byte-exact build lets anyone confirm a release binary came from the published source: a strong integrity story.
-Plan for code signing and antivirus false positives.
-
-### 3.7 Before the first push (P-GH-8)
-
-* ~~Commit email and history rewrite (P-GH-3)~~: D145, the email stays.
-* The line-ending fix (P-GH-1).
-* A final read of what becomes public in progress.md and the docs (internal decisions, paths, names).
-* `roots.py` paths configurable (§1).
-* Replace `OWNER/REPO` in `.github/workflows/readme-progress.yml`.
-* Only `master` (or `main`) goes up: the local `wt/*` and `eval/*` branches stay local.
-* At the public switch: the ruleset, private vulnerability reporting and secret scanning (§4.5.7 item 2).
-
-### 3.8 Community (P-GH-9)
-
-* Discussions on, wiki off.
-* ~~progress.md §4's work items as labelled issues; a Projects board for the milestones.~~ **2026-10-30:** the labels
-  stay (`needs-vc6`, `no-vc6`, `good first issue`) as preparation; no issues for now; a Projects board later.
-* Early contact with the Net-7 / E&B emulator community. **Done 2026-10-30 (the user).**
-* ~~Reserve related names (Discord, a domain) once the org name is settled.~~ **2026-10-30: none reserved.**
-
-### 3.9 Continuity (P-GH-9)
-
-A second owner, saved recovery codes, an archive policy.
-
-* **Second owner: none for now (2026-10-30).** The org's continuity rests on the one owner account, so its
-  recovery (two second factors, saved recovery codes) is the whole of it. **Recovery codes saved (2026-10-30).**
-* **Archive policy: none for now (2026-10-30).**
+* **Licensing of a binary release:** whether a GPL-3 client (with EA's additional terms) may load proprietary
+  Miles / Bink (`MSS32.DLL`) and DirectX 8 at run time needs checking against EA's terms, with an outside view,
+  before any binary ships. Source only until then.
+* **Two build targets:** the byte-exact VC6 build (the measure, D7) and a playable modern build (D151's later
+  lane). CI, docs and releases must say which is which once the modern build exists.
+* **Reproducible releases:** a byte-exact build lets anyone confirm a release binary came from the published
+  source; plan for code signing and antivirus false positives when releases start.
 
 ## 4. Coordinating outside contributors' agents (P-GH-10)
 
@@ -477,9 +457,12 @@ draft PR at the first push. Automerge is **off**.
    7. then `python tools/vc6/verify_watch.py automerge on`, if the user agrees.
    Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
-2. **The public switch** (the user decides when): make the repository public, then apply `.work/ruleset.json`
+2. **The public switch** (the user decides when). Before it: a final read of what becomes public in progress.md
+   and the docs (§3.4), and the org profile repository `Open-EnB/.github` with the non-affiliation notice (§3.2).
+   Then make the repository public and apply `.work/ruleset.json`
    (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
    vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,
    automerge stays off and every landing is a maintainer's `/land`.
-3. **Small follow-ups:** `actions/checkout@v4` and `setup-python@v5` to their current majors (GitHub's Node 20
+3. **Small follow-ups:** D148's token scoped to this one repository for the coordinator's pushes (today the
+   maintainer's `gh` login, §3.1); `actions/checkout@v4` and `setup-python@v5` to their current majors (GitHub's Node 20
    deprecation warning); the hourly Claims schedule costs Actions minutes while the repository is private.
