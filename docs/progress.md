@@ -1455,6 +1455,10 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
+0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
+   outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
+   `python tools/run_branch.py start` (coordinator-pacing skill).
+
 1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
    and worktrees were removed 2026-10-29 at the user's request; `.work/eval-branches-2026-10-29.bundle` keeps the
    nine branches, `.work/eval/` the scoring record). Left from it: P-Bopus-1 if
