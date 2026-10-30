@@ -312,7 +312,8 @@ Neither changes the last row, the real bottleneck; 4.3 is where that is addresse
 | 4.3 | D149(1) | to be updated (4.5.4) |
 | 4.3 | D148 builders, D151 | no change |
 
-The D-numbers (D148 amended, D149 updated, D146 extended) are recorded in progress.md when the build starts.
+The D-numbers: D156 (claims) and D157 (verification and merging: D148 amended, D149(1) retired, D146 extended),
+recorded in progress.md 2026-10-30.
 
 ### 4.5 The final plan
 
@@ -449,6 +450,7 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
    2026-10-30:** `tools/run_branch.py` (start, claim with `--split`, release, push, ready, status) and both skills
    call it; builders.md's claims rule. Tried on PR #1: co.cpp's 77 functions claimed as three (30 + 30 + 17), listed
    on the PR, released and the lines removed.
-6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers.
+6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers. **Done 2026-10-30:**
+   D156 (claims), D157 (verification and landing; D148, D149 and D151 point to them).
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
    left alone expires.

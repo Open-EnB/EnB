@@ -89,7 +89,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In short: read the rules, keep a change 
 verified pairs and loses none, and never commit binaries. You can help without Visual C++ 6.0
 too: reverse-engineering notes, tools, documentation, and code that a maintainer verifies.
 
-**Pull requests written by AI agents are welcome.** Point your agent at [AGENTS.md](AGENTS.md).
+**Pull requests written by AI agents are welcome.** Point your agent at [AGENTS.md](AGENTS.md): it
+claims the functions it will rebuild (`tools/claims.py`), opens one pull request per claim, and the
+maintainer's verify service proves it byte for byte before it lands.
 Keep each pull request small, one verified function per commit, and say which model wrote it;
 a person stays accountable for it.
 
