@@ -6,9 +6,7 @@
 
 * every relative link in the Markdown files (README, CONTRIBUTING, CLAUDE.md, docs/, the tools'
   READMEs, .claude/skills) resolves to a file or directory in the checkout;
-* no tracked text file mixes CRLF and bare LF line endings (the tree has two conventions,
-  see .gitattributes, but never both in one file);
-* .gitattributes agrees with the bytes: `eol=lf` on exactly the LF files.
+* every stored text file is LF (D147, .gitattributes `* text=auto eol=lf`), unless marked -text.
 
 Moved out of the working notes (.work/audit/check.py) so CI can run it. Standard library only.
 """
@@ -38,18 +36,18 @@ def is_text(data):
 
 
 def check_endings(files):
+    """D147: every stored text file is LF. `git ls-files --eol` reports the index (what a clone gets),
+    so a CRLF or mixed blob is a problem unless .gitattributes marks the file -text."""
+    out = subprocess.run(['git', 'ls-files', '--eol', '-z'], cwd=ROOT, capture_output=True, check=True).stdout
     bad = []
-    for f in files:
-        try:
-            b = read(f)
-        except OSError:
+    for rec in out.decode('utf-8', 'replace').split('\0'):
+        if '\t' not in rec:
             continue
-        if not is_text(b):
-            continue
-        crlf = b.count(b'\r\n')
-        lf = len(re.findall(rb'(?<!\r)\n', b))
-        if crlf and lf:
-            bad.append('%s: mixed line endings (%d CRLF, %d bare LF)' % (f, crlf, lf))
+        meta, path = rec.split('\t', 1)
+        fields = meta.split()
+        index, attr = fields[0], (fields[2] if len(fields) > 2 else '')
+        if index in ('i/crlf', 'i/mixed') and '-text' not in attr:
+            bad.append('%s: stored with CR line endings (%s); the tree is LF (D147)' % (path, index[2:]))
     return bad
 
 
@@ -74,30 +72,6 @@ def check_links(files):
                 p = os.path.normpath(os.path.join(ROOT, os.path.dirname(f), target.replace('%20', ' ')))
                 if not os.path.exists(p):
                     bad.append('%s:%d: broken link %s' % (f, n, target))
-    return bad
-
-
-def check_gitattributes(files):
-    """What `git check-attr` says about each file must agree with its bytes: `eol=lf` exactly for the
-    LF files (CRLF files carry no eol attribute, so nothing is converted on checkout or commit).
-    Asking git, not parsing the patterns, catches a pattern that is too broad (`README.md` without a
-    leading slash would also claim docs/README.md)."""
-    if not os.path.exists(os.path.join(ROOT, '.gitattributes')):
-        return ['.gitattributes is missing']
-    r = subprocess.run(['git', 'check-attr', '-z', '--stdin', 'eol'], cwd=ROOT, capture_output=True, check=True,
-                       input=('\0'.join(files) + '\0').encode('utf-8'))
-    parts = r.stdout.decode('utf-8').split('\0')
-    eol = {parts[k]: parts[k + 2] for k in range(0, len(parts) - 2, 3)}
-    bad = []
-    for f in files:
-        b = read(f)
-        if not is_text(b) or not b.count(b'\n'):
-            continue
-        lf_file = b'\r\n' not in b
-        if lf_file and eol.get(f) != 'lf':
-            bad.append('%s: LF file not listed in .gitattributes' % f)
-        elif not lf_file and eol.get(f) == 'lf':
-            bad.append('%s: has CRLF but .gitattributes says eol=lf' % f)
     return bad
 
 
@@ -126,7 +100,7 @@ def main():
     ap.add_argument('--sizes', action='store_true', help='print the builders\' startup-set sizes')
     a = ap.parse_args()
     files = tracked()
-    problems = check_endings(files) + check_links(files) + check_gitattributes(files)
+    problems = check_endings(files) + check_links(files)
     for p in problems:
         print(p)
     print('docs_check: %d files, %d problem(s)' % (len(files), len(problems)))
