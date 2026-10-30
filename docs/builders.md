@@ -37,7 +37,7 @@ and retry. The importer lock serialises `verify`.
 **Safety (D69).** Never a modal dialog: vidtest's `-nomsgbox` (implied by `-frames`/`-shot`), and
 every new program needs the same. Full screen is allowed. Images only from the program's own back
 buffer, never a screen grab. Never run a program with the game's install folder as working
-directory. No registry changes (the original E&BConfig runs only supervised, with a backup).
+directory or write into it; reading its files in place and copying them out (into build/) are fine (D143). No registry changes (the original E&BConfig runs only supervised, with a backup).
 Running the tree's own programs unattended is allowed (D48).
 
 **Names (D56, conventions.md §1).** Tag every name chosen without the client's own evidence

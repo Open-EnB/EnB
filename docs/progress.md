@@ -26,7 +26,8 @@ Fable); weekly usage 38 % -> 47 % (the Fable rounds about 2.5 points of it). Pla
   (D133), the two Fable rounds (D134 / D135), D136, interim placements delegated to the coordinator (D137; §4 item 8
   lists them), D138 / D139 under it, D140 (0x6FD310's last round: parked for good), D141 (every variant compile
   counts as a form; F9's, HL1's and HL2's overruns accepted). Open for the user (§3): P-UI1-1 (clienttest needs
-  build/art/MSS32.DLL).
+  build/art/MSS32.DLL), accepted afterwards as D142; D143 (read the install folder in place, copy from it) the same
+  day.
 * **Coordinator lesson:** S8's five items were already done; check a §4 item's addresses against imports.json and
   attempts.py before briefing it (workflow.md §3.6).
 * **Next:** §4 items 2, 5, 10 carry the builders' leads (sclient 0x74CA90 / 0x740050, P-LD4-1's follow-ups, the
@@ -1425,12 +1426,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D139 | 2026-10-29 | P-PX3-1 (under D137): the factories 0x452140-0x452770 are an object of their own, `app/shared/unknown_px_factories.cpp` (provisional, neutral name, D10), split from D124's unknown_px_callbacks.cpp: compiled together the factories inline PxBoxCallback's constructor 0x451C30, which the client calls; apart both are exact | coordinator (D137) |
 | D140 | 2026-10-29 | P-IB2-1 accepted: one more short round on 0x6FD310 past LIMIT REACHED, at most 2 forms (IB2's form (1) plus a find-if-changed helper with the mark test inside, for all three finds and for Spot / Line only); neither exact: parked for good | user (IB2's proposal) |
 | D141 | 2026-10-29 | P-F9-2: every compile of a variant counts as a form toward a round's cap, scratch-copy probes included, for Fable (D89) and Opus rounds alike; today's overruns (F9's verb round, HL1's Resolve 0x487660, HL2's two 4-form functions) are accepted after the fact | user (F9's proposal) |
+| D142 | 2026-10-29 | P-UI1-1 accepted: clienttest depends on build/art/MSS32.DLL (the Miles imports of the rebuilt loading view), a copy of the game's DLL in the project's art folder (D120); never run from the install folder (D69) | user (UI1's proposal) |
+| D143 | 2026-10-29 | The game's install folder (`C:\Program Files (x86)\EA GAMES\Earth & Beyond`) may be read in place by any session, and any of its files copied out as needed (for programs, into build/art or another folder under build/). Not granted: writing into it, or using it as a working directory (D69 stands). The final product uses the original game art once it is playable | user |
 
 ## 3. Open decisions
 
-* **P-UI1-1** (2026-10-29, UI1; recommend yes): clienttest now needs build/art/MSS32.DLL (the Miles imports of the
-  rebuilt loading view): a copy of the game's DLL in the project's art folder (D120), never run from the install
-  folder (D69). Accept that dependency for the harness?
+None.
 
 ## 4. Next steps
 

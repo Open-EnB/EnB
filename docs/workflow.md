@@ -142,6 +142,7 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Never the game's install folder as working directory.** ThumbnailManager writes
   `..\data\client\mixfiles\*.th6` relative to it (from `EBCONFIG`: the real data). Stay in
   `build/` (`vidtest -art DIR`); run originals in a copy (`build/programs/vidtest/ref_ebconfig/`).
+  Reading its files in place and copying them out are allowed (D143), e.g. build/art/MSS32.DLL for clienttest (D142).
 * **`git add` by name,** never `-A` or `.`: the tree holds other builders' files.
 
 ### 3.1 VC6 code generation
