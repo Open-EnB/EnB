@@ -26,7 +26,10 @@ import tarfile
 import threading
 import time
 
-USER = 'Daniel'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from vc6config import CFG  # noqa: E402
+
+USER = CFG['user']             # the VM account (vc6config.py)
 HOSTS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                           '.work', 'vc6_hosts.json')
 _local = threading.local()
@@ -57,7 +60,7 @@ def current_host():
 def _tag():
     """A file-name-safe tag for this VM and thread (local temporary files)."""
     return current_host().split('@')[-1].replace('.', '_') + f'_{threading.get_ident()}'
-KEY = os.path.expanduser(os.environ.get('ENB_VC6_KEY', '~/.ssh/enb_vc6'))
+KEY = CFG['key']
 VCVARS = r'C:\Program Files (x86)\Microsoft Visual Studio\VC98\Bin\VCVARS32.BAT'
 ROOT = r'C:\EnBDevelopment'
 WORK = ROOT + r'\_vc6'          # scratch area in the VM (and the tar drop)
@@ -302,8 +305,19 @@ def main():
         discover()
 
 
-def discover(network='192.168.192.0/20'):
-    """Find the build VMs: SSH on the Default Switch network that accepts our key and has VC6."""
+def vm_addresses():
+    """IPv4 addresses Hyper-V reports for the running VMs (the Key-Value Pair integration service).
+    The Default Switch takes a new subnet when the host restarts, so a fixed range goes stale."""
+    ps = ("Get-VM | Where-Object State -eq 'Running' | Get-VMNetworkAdapter | "
+          "ForEach-Object { $_.IPAddresses } | Where-Object { $_ -match '^[0-9.]+$' }")
+    p = subprocess.run(['powershell', '-NoProfile', '-NonInteractive', '-Command', ps],
+                       capture_output=True, text=True)
+    return [l.strip() for l in p.stdout.splitlines() if l.strip()]
+
+
+def discover(network=None):
+    """Find the build VMs: SSH that accepts our key and has VC6, at the addresses Hyper-V reports
+    for the running VMs (or every address of `network`, e.g. 192.168.192.0/20, when given)."""
     import concurrent.futures as cf
     import ipaddress
     import socket
@@ -319,7 +333,8 @@ def discover(network='192.168.192.0/20'):
         finally:
             s.close()
     with cf.ThreadPoolExecutor(512) as ex:
-        found = [r for r in ex.map(probe, ipaddress.ip_network(network).hosts()) if r]
+        cands = ipaddress.ip_network(network).hosts() if network else vm_addresses()
+        found = [r for r in ex.map(probe, cands) if r]
     good = []
     for ip in found:
         p = subprocess.run(['ssh'] + ssh_args() + ['-o', 'StrictHostKeyChecking=accept-new', f'{USER}@{ip}',

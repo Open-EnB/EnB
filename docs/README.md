@@ -22,6 +22,8 @@
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
+| [setup-vc6.md](setup-vc6.md) | Setting up the VC6 SP4 build VM and the pool's base: requirements, the one-script route (`tools/vc6/setup/New-BuildVM.ps1`), the manual route, renewing the Windows evaluation, how the file-copy install was derived (D146) |
+| [github-plan.md](github-plan.md) | Proposal for the Open-EnB GitHub org (2026-10-29): repo layout, integrity and permissions, the publishing items P-GH-1..9, reviewed item by item |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
 | [commit-map.txt](commit-map.txt) | Old -> new commit hash per line (2026-10-29 history rewrite, D126): the tracked files cite new hashes; commit messages before 97a1df5 still cite the old ones (`grep ^<old> docs/commit-map.txt`) |
 

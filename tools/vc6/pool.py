@@ -46,16 +46,20 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import vc6  # noqa: E402
 
-POOL_DIR = os.environ.get('ENB_VC6_POOL_DIR', r'C:\EnBDevelopment\Tools\VMPool')
+from vc6config import CFG  # noqa: E402
+
+POOL_DIR = CFG['pool_dir']
 BASE = os.path.join(POOL_DIR, 'base-vc6.vhdx')
-PREFIX = 'enb-vc6-'
-TEMPLATE_VM = 'Win10'           # hardware settings are copied from it (read only)
-SWITCH = 'Default Switch'
-STATE_DIR = os.path.join(REPO, '.work', 'pool')
+PREFIX = CFG['prefix']
+TEMPLATE_VM = CFG['template_vm']  # hardware settings are copied from it (read only)
+SWITCH = CFG['switch']
+# a second pool (another prefix, e.g. a setup test) keeps its own leases
+STATE_DIR = os.path.join(REPO, '.work', 'pool' if PREFIX == 'enb-vc6-' else 'pool-' + PREFIX.strip('-'))
 STATE = os.path.join(STATE_DIR, 'leases.json')
 LOCK = os.path.join(STATE_DIR, 'leases.lock')
 LOCK_STALE = 900                # seconds; a live holder may stop or create several VMs
-DEFAULT_MAX = 7                 # 32 GB host; dynamic memory, ~1.1 GB steady per VM (user, 2026-10-27)
+DEFAULT_MAX = CFG['max_vms']    # 7 on a 32 GB host; dynamic memory, ~1.1 GB steady per VM (user, 2026-10-27)
+RESERVE_GB = CFG['reserve_gb']  # host memory that must stay free after a clone's startup memory
 STARTUP_GB = 2                  # startup memory of a clone; Win10's 4 GB failed clone starts on a loaded host
 MAX_AGE = 8                     # hours after which any lease counts as orphaned
 KEEP = 2                        # free stopped VMs `--prune` keeps
@@ -99,7 +103,8 @@ $r = @(Get-VM -Name '%s*' -ErrorAction SilentlyContinue | ForEach-Object {
   } })
 ConvertTo-Json -InputObject $r -Depth 5 -Compress
 """ % PREFIX) or []
-    return sorted([v for v in vms if v['Name'].startswith(PREFIX)], key=lambda v: v['Name'])
+    # the template may share the prefix (enb-vc6-template): it is never a pool VM
+    return sorted([v for v in vms if v['Name'].startswith(PREFIX) and v['Name'] != TEMPLATE_VM], key=lambda v: v['Name'])
 
 
 def same(a, b):
@@ -310,9 +315,18 @@ try {
     return made
 
 
+def free_gb():
+    """The host's free physical memory, in GB."""
+    return float(ps('[math]::Round((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory / 1MB, 2)').strip())
+
+
 def start_vm(name):
     vm = checked(get_vm(name))
     if vm['State'] != 'Running':
+        free = free_gb()
+        if free < STARTUP_GB + RESERVE_GB:
+            raise SystemExit(f'host memory: {free:.1f} GB free, a clone needs {STARTUP_GB} GB and '
+                             f'{RESERVE_GB} GB must stay free (ENB_VC6_RESERVE_GB); not starting {name}')
         ps(f'Start-VM -Name {q(name)}')
 
 

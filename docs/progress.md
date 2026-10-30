@@ -1428,10 +1428,18 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D141 | 2026-10-29 | P-F9-2: every compile of a variant counts as a form toward a round's cap, scratch-copy probes included, for Fable (D89) and Opus rounds alike; today's overruns (F9's verb round, HL1's Resolve 0x487660, HL2's two 4-form functions) are accepted after the fact | user (F9's proposal) |
 | D142 | 2026-10-29 | P-UI1-1 accepted: clienttest depends on build/art/MSS32.DLL (the Miles imports of the rebuilt loading view), a copy of the game's DLL in the project's art folder (D120); never run from the install folder (D69) | user (UI1's proposal) |
 | D143 | 2026-10-29 | The game's install folder (`C:\Program Files (x86)\EA GAMES\Earth & Beyond`) may be read in place by any session, and any of its files copied out as needed (for programs, into build/art or another folder under build/). Not granted: writing into it, or using it as a working directory (D69 stands). The final product uses the original game art once it is playable | user |
+| D144 | 2026-10-29 | P-GH-2: one repository for the reconstruction (`Open-EnB/EnB`: the libraries, app/, every executable of the original tree under programs/, tools, docs) plus satellite repositories split by codebase or trust (`.github`, the reference decoder if made public, a future server); no repositories for third-party material, which stays bring-your-own ([github-plan.md](github-plan.md) §1) | user |
+| D145 | 2026-10-29 | P-GH-3: the commit email stays as it is; no history rewrite for it | user |
+| D146 | 2026-10-29 | P-GH-6, the first part: contributors build their own VC6 SP4 environment from public sources (Hyper-V; the VC6 and SP4 media from the Internet Archive, X04-14444 and X05-86594) with detailed user documents and scripts from the project; the project links to the media and checks their hashes but never redistributes them. Which contributions need no VC6 stays open | user |
 
 ## 3. Open decisions
 
-None.
+* **P-VM-1** (2026-10-29, coordinator; recommend yes): this machine's build VMs expire on **2027-01-20**: `Win10` is
+  Windows 10 Enterprise *Evaluation* (90 days from 2026-10-22, `slmgr /xpr`), and the pool's base was made from it, so
+  every clone inherits the date; after it Windows shuts down hourly. Rebuild the pool with
+  `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5 minutes,
+  same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then names
+  `enb-vc6-template` and the account `user`)? Alternative: a licensed Windows (`-WindowsVhdx`), which does not expire.
 
 ## 4. Next steps
 
