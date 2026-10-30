@@ -21,7 +21,7 @@ WORK = os.path.join(REPO, '.work', 'harness', 'kerneltest')
 SOURCES = [r'app\kernel\kernel.cpp', r'app\client\tasks\tsk_movie.cpp', r'app\client\tasks\tsk_smovie.cpp',
            r'app\client\tasks\tsk_menu.cpp']
 # the game's install (read only): binkw32.dll and a movie are copied to the work directory
-GAME = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond'
+GAME = (os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond')
 BINK_DLL = os.path.join(GAME, 'release', 'binkw32.dll')
 BINK_FILE = os.path.join(GAME, 'Data', 'client', 'mixfiles', 'eb_ws_logo.bik.old')
 

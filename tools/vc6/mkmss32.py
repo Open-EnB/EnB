@@ -29,7 +29,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
-DLL = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\Mss32.dll'
+DLL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
+                   'release', 'Mss32.dll')
 DEF = os.path.join(HERE, 'mss32.def')
 
 AUTO_CLEANUP = r'''/* MSS_auto_cleanup: the static member of RAD's mss32.lib (client 0xA03A30). mss.h's
