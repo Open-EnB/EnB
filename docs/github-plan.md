@@ -22,7 +22,7 @@ in a way that cannot compromise the project's integrity.
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
 | P-GH-4 | Working model once public (amends D69's "never push") | One PR per run (§3.1) | **D148: option C, user merges; D149: three Open-BFME practices** |
-| P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2) | open |
+| P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2) | **D150: only our own binaries; third-party DLLs from other sources** |
 | P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.4) | **D146: VC6 setup docs and scripts first (§3.4); the rest open** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | open |
 | P-GH-8 | Pre-push checklist | §3.7 | open |
