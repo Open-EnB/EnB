@@ -412,9 +412,20 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
   has read it and comments `/verify-approved SHA` naming its head commit; a new push needs a new approval. A
   maintainer's own PRs are approved by their authorship.
 * **Merge rule (D148 amended):**
-  * **Bot-merged:** a PR whose `vc6-verify` is gain-only, whose CI `checks` pass, and that touches only C++
-    sources, headers and the files the tools regenerate. Before merging, the bot re-verifies if master moved.
-  * **Maintainer-merged:** everything else (tools, docs, `.github/`, any loss, any D66 case).
+  * **A contributor's PR lands, it is not merged as it is** (the user, 2026-10-30): a contributor without VC6
+    cannot commit the verified record, so `verify_watch.py` builds one commit on master, GitHub's test merge's tree
+    plus the files the verify rewrote (imports.json, ...), authored by the PR's author (other authors as
+    Co-authored-by), pushes it as the branch `verified/prN` and opens a landing PR that copies the original's
+    `Claims #N` lines. When the hosted `checks` pass on it, the next pass rebase-merges it (one commit, author
+    kept), comments on the original and closes it. A landing whose master moved is closed and rebuilt after the
+    original is verified again. The service's pushes are only these `verified/*` branches.
+  * **Lands by itself** (when `verify_watch.py automerge on`): `vc6-verify` success on the current master,
+    nothing lost, replay clean, the hosted `checks` passed, only C/C++ sources and headers (outside tools/ and
+    .github/) and docs/data changed, and no maintainer `/hold`.
+  * **Lands when a maintainer comments `/land SHA`** (or runs `verify_watch.py land PR`): anything else verified
+    on the current master that lost nothing (docs, tools, after reading them).
+  * **Maintainer-merged:** the maintainer's own PRs, as they are (their records are verified, `vc6-verify`
+    fails otherwise), and any loss or D66 case.
   * The master ruleset requires `checks` and `vc6-verify`.
 
 #### 4.5.6 Build order (before the repository goes public)
@@ -429,7 +440,11 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
    task installed (it idles until master has the script, i.e. until PR #1 merges); tried through the verifier
    worktree on PR #1 (re-verified and posted, 1 min 41 s); `vc6-verify` joins `checks` in the ruleset applied
    when the repository goes public.
-4. The merge bot (in `verify_watch.py`, merging under 4.5.5's rule).
+4. The merge bot (in `verify_watch.py`, merging under 4.5.5's rule). **Done 2026-10-30:** landings, `/land`,
+   `/hold`, automerge (off until the user turns it on); verify_pr.py keeps the files the verify rewrote and
+   fails a record mismatch only on a maintainer's PR. Tried: PR #1's landing built without pushing (its tree
+   equals GitHub's test merge; with a changed record carried in, only imports.json differs). Pushing and
+   merging a landing waits for the rehearsal (step 7), since it lands on master.
 5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff.
 6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers.
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim

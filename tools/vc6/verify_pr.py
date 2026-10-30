@@ -16,7 +16,9 @@
 4. Pairs: the verified imports.json against master's record (lost, and of those the D66 moves and the lost
    outright) and against the PR's own record (equal: the PR records what the verify gives). The `// NOT EXACT`
    markers in the sources before and after.
-5. Verdict `success` only when nothing is lost, the record equals the verify and replay is clean; posted as
+5. Verdict `success` only when nothing is lost, replay is clean and, for a maintainer's PR (merged as it is),
+   the record equals the verify; a contributor's PR lands through verify_watch.py, which carries the files the
+   verify rewrote (.work/verify/prPR.files/), so a contributor without VC6 need not commit them. Posted as
    the commit status `vc6-verify` on the PR's head and as one PR comment (updated in place on reruns), and
    saved to .work/verify/prPR.json. --no-post prints only.
 
@@ -28,6 +30,7 @@ import datetime as dt
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -103,6 +106,8 @@ def report(pr, res):
         lines.append('Libraries verified: ' + ', '.join(f'`{x}`' for x in res['libs']) + '.')
     if res.get('reasons'):
         lines += ['', '**Why not success:**'] + [f'* {x}' for x in res['reasons']]
+    if res.get('notes'):
+        lines += [''] + [f'Note: {x}.' for x in res['notes']]
     for key, title in (('gained', 'Gained'), ('lost', 'Lost')):
         rows = res.get(key) or []
         if rows:
@@ -131,6 +136,8 @@ def main():
     info = json.loads(gh('pr', 'view', str(a.pr), '-R', r, '--json',
                          'number,headRefOid,baseRefName,mergeable,state,author,isCrossRepository,labels'))
     pr = {'number': a.pr, 'head': info['headRefOid'], 'author': info['author']['login']}
+    assoc = json.loads(gh('api', f'repos/{r}/pulls/{a.pr}')).get('author_association')
+    maint = assoc in ('OWNER', 'MEMBER', 'COLLABORATOR')
     if info['state'] != 'OPEN':
         sys.exit(f'verify_pr: PR #{a.pr} is {info["state"].lower()}')
     if info['baseRefName'] != 'master':
@@ -197,6 +204,16 @@ def main():
                 finish('failure', 'verify failed (compile errors?); see the log on the maintainer\'s host')
             with open(os.path.join(vf, *wt.IMPORTS.split('/')), encoding='utf-8') as f:
                 verified = wt.pairs_of(f.read())
+            # the files the verify rewrote (imports.json, imports.md, ...): verify_watch.py lands them with the PR
+            keep = os.path.join(OUT, f'pr{a.pr}.files')
+            if os.path.isdir(keep):
+                shutil.rmtree(keep)
+            rewritten = [p for p in wt.git('diff', '--name-only', cwd=vf).splitlines() if p]
+            for p in rewritten:
+                dst = os.path.join(keep, *p.split('/'))
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copyfile(os.path.join(vf, *p.split('/')), dst)
+            res['rewritten'] = rewritten
             if not a.no_replay:
                 print('replay', flush=True)
                 rc, tail = wt.run_logged([sys.executable, 'tools/vc6/importer.py', 'replay'], vf, vf + '.replay.log')
@@ -212,10 +229,14 @@ def main():
         if lost:
             res['reasons'].append(f'{len(lost)} pair(s) lost against master ({len(moves)} D66 moves, '
                                   f'{len(outright)} lost outright): the maintainer decides (D66)')
-        if libs and verified != cand:
-            res['reasons'].append(f'the PR\'s imports.json records other pairs than the verify gives (verify only '
-                                  f'{len(verified - cand)}, record only {len(cand - verified)}): commit the verified '
-                                  'record')
+        res['record_differs'] = bool(libs) and verified != cand
+        if res['record_differs']:
+            why = (f'the PR\'s imports.json records other pairs than the verify gives (verify only '
+                   f'{len(verified - cand)}, record only {len(cand - verified)})')
+            if maint:
+                res['reasons'].append(why + ': commit the verified record')
+            else:
+                res['notes'] = [why + '; the landing commit carries the verified record (no need to commit it)']
         summary = (f'{len(gained):+d} pairs, {len(lost)} lost, NOT EXACT {ne_before} -> {ne_after}'
                    + (f'; libraries {", ".join(libs)}' if libs else '; no library touched'))
         finish('failure' if res['reasons'] else 'success', summary)
