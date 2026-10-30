@@ -5,12 +5,14 @@ of the retail client so every address in the docs refers to the same bytes.
 """
 import collections
 import hashlib
+import os
 import re
 import struct
 import sys
 
 CLIENT_SHA256 = '249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4'
-DEFAULT_CLIENT = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe'
+DEFAULT_CLIENT = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
+                              'release', 'client.exe')
 
 
 class ClientImage:

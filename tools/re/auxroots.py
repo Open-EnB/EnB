@@ -45,7 +45,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
-CLIENT = r'C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe'
+CLIENT = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond', 'release', 'client.exe')
 import roots  # noqa: E402
 SCHEMA = roots.N7_SCHEMA
 OUT_DIR = os.path.join(REPO, 'app', 'client')
