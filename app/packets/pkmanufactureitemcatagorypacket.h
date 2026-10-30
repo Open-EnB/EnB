@@ -21,7 +21,7 @@
 char *Manufacturing_Mode_Name(char *buffer, int len, int mode);	// 0x845910 (manufacturing_defs.cpp, not rebuilt: 'None', 'Manufacture', 'Analyze', 'Dismantle')  // NAME 2: what it does
 
 // opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
-class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
+class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
 {
 public:
 	ManufactureItemCatagoryPacketClass(int player, int mode);	// 0x89B340
@@ -36,7 +36,7 @@ public:
 };
 
 // opcode 122 (0x007A, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B134, constructor 0x89B620, 0x14 bytes
-class ManufactureItemCatagoryPacket_122Class : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name)
+class ManufactureItemCatagoryPacket_122Class : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name)
 {
 public:
 	ManufactureItemCatagoryPacket_122Class(int player, int category);	// 0x89B5A0
@@ -51,7 +51,7 @@ public:
 };
 
 // opcode 123 (0x007B, MANUFACTURE_ITEM_ID): vtable 0xB0B164, constructor 0x89B860, 0x14 bytes
-class ManufactureItemIdPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ITEM_ID (the Net-7 opcode table; no structure check)
+class ManufactureItemIdPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_ITEM_ID (the Net-7 opcode table; no structure check)
 {
 public:
 	ManufactureItemIdPacketClass(int player, int item_id);	// 0x89B7E0
@@ -66,7 +66,7 @@ public:
 };
 
 // opcode 124 (0x007C, REFINERY_ITEM_ID): vtable 0xB0B194, constructor 0x89BAA0, 0x14 bytes
-class RefineryItemIdPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check)
+class RefineryItemIdPacketClass : public PacketClass  // NAME 2: Net-7's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check)
 {
 public:
 	RefineryItemIdPacketClass(int player, int item_id);	// 0x89BA20
@@ -97,7 +97,7 @@ public:
 };
 
 // opcode 126 (0x007E, MANUFACTURE_ACTION): vtable 0xB0B1F4, constructor 0x89BF70, 0x14 bytes
-class ManufactureActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check)
+class ManufactureActionPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check)
 {
 public:
 	ManufactureActionPacketClass(int player, int action_id);	// 0x89BEF0
@@ -126,7 +126,7 @@ public:
 };
 
 // opcode 128 (0x0080, MANUFACTURE_TECH_LEVEL_FILTER): vtable 0xB0B254, constructor 0x89C3E0, 0x18 bytes
-class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check)
+class ManufactureTechLevelFilterPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check)
 {
 public:
 	ManufactureTechLevelFilterPacketClass(int player, bool mode, unsigned int bit_field);	// 0x89C360

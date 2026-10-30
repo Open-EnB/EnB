@@ -3,7 +3,7 @@
 | Document | What it covers |
 |---|---|
 | [progress.md](progress.md) | Log, decisions made, decisions open, next steps |
-| [prior-work.md](prior-work.md) | What earlier work (the reference decoder) already found, and where |
+| [prior-work.md](prior-work.md) | What earlier protocol research by the maintainer already found |
 | [binary.md](binary.md) | client.exe: hash, toolchain, sections, code regions, imports |
 | [source-tree.md](source-tree.md) | The original source tree, recovered from the client, and how this repository mirrors it |
 | [conventions.md](conventions.md) | Coding conventions for the rebuild |
@@ -25,7 +25,7 @@
 | [setup-vc6.md](setup-vc6.md) | Setting up the VC6 SP4 build VM and the pool's base: requirements, the one-script route (`tools/vc6/setup/New-BuildVM.ps1`), the manual route, renewing the Windows evaluation, how the file-copy install was derived (D146) |
 | [github-plan.md](github-plan.md) | Proposal for the Open-EnB GitHub org (2026-10-29): repo layout, integrity and permissions, the publishing items P-GH-1..9, reviewed item by item |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
-| [commit-map.txt](commit-map.txt) | Old -> new commit hash per line (2026-10-29 history rewrite, D126): the tracked files cite new hashes; commit messages before 97a1df5 still cite the old ones (`grep ^<old> docs/commit-map.txt`) |
+| [commit-map.txt](commit-map.txt) | Old -> current commit hash per line, for both history rewrites (D126, 2026-10-29; D153, 2026-10-30): the tracked files cite current hashes; older commit messages cite earlier ones (`grep ^<old> docs/commit-map.txt`) |
 
 Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 

@@ -1,6 +1,6 @@
-"""M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/capharness/udpreplay.
+"""M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/udpreplay.
 
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/udpreplay.py build [--out DIR]
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
     python tools/harness/udpreplay.py handshake            (capture_1..3's 54 SYN1/ACK1/SYN2/ACK2)
     python tools/harness/udpreplay.py loop alex3|alex7 [--drop N,...] [--step MS]
@@ -32,7 +32,7 @@ that drops every Nth datagram (default 0 = none, then 10 and 4), the clock advan
 which a replay of the capture can't test (the dumps have no times).
 
 conn: the same replay and loop runs with --conn: what each receiving CordCon delivers is read through
-app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/capharness/udpreplay/
+app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/udpreplay/
 conn_replay.cpp supplies a test packet) and then through the stream connection's framing (Send_Packet
 writes {size, opcode} and the payload to a memory transport; Receive reads them back through the
 100,000-byte ring in chunks of 1 to 4,096 bytes). Passes when the {size, opcode, payload} messages
@@ -59,7 +59,7 @@ sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
 sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
 import rootguard  # noqa: E402
-CAPS = roots.N7_CAPTURES
+TRACES = roots.EA_TRACES      # the frozen reference traces (D154, fetch_reference.py)
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
@@ -97,7 +97,7 @@ def masked(m):
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
-    src = os.path.join(REPO, 'tests', 'capharness', 'udpreplay')
+    src = os.path.join(REPO, 'tests', 'udpreplay')
     stage = os.path.join(REPO, '.work', 'harness', 'udpreplay_src')
     shutil.rmtree(stage, ignore_errors=True)
     os.makedirs(stage)
@@ -390,7 +390,7 @@ def run(name, exe, aux):
                     print('      %s ours[%d:%d] ops %s / dump[%d:%d] ops %s' % (
                         tag, i1, i2, [hex(op(x)) for x in a[i1:i2]][:4], j1, j2, [hex(op(x)) for x in b[j1:j2]][:4]))
         ok = ok and not bad
-    trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+    trace = os.path.join(TRACES, name + '.trace.jsonl')
     if os.path.exists(trace):
         tr = []
         for line in open(trace, encoding='utf-8'):
@@ -401,8 +401,8 @@ def run(name, exe, aux):
         mine = [(m[0], m[1], op(m[3]), m[3][4:]) for m in ours]
         same, sm = seq_compare(mine, tr)
         ca, cb = Counter(mine), Counter(tr)
-        print('  all messages vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, '
-              'ours not in the reference decoder %d' % (os.path.basename(trace), len(mine), len(tr), same,
+        print('  all messages vs reference (%s): ours %d, reference %d; in order %d; reference\'s not delivered %d, '
+              'ours not in reference %d' % (os.path.basename(trace), len(mine), len(tr), same,
                                          sum((cb - ca).values()), sum((ca - cb).values())))
 
     # (3) acks, (4) blocks, per session and direction
@@ -472,7 +472,6 @@ def run(name, exe, aux):
 # ------------------------------------------------------------------------- the handshake
 
 LIVE = roots.LIVE_PACKETS
-KEYS = roots.N7_WESTWOOD_KEYS
 PACKET = re.compile(r'^Packet #(\d+): (\d+) bytes, (Client->Server|Server->Client)\s+([\d.]+):(\d+)')
 HEXLINE = re.compile(r'^ ((?:[0-9A-F]{2} )*[0-9A-F]{2})(?:\s{2,}|\s*$)')
 
@@ -521,9 +520,9 @@ def capture_handshakes(path):
 
 
 def rsa_keys():
-    text = open(KEYS, encoding='utf-8').read()
-    nums = re.findall(r'BigInteger\.Parse\(\s*"(\d+)"', text)
-    return int(nums[0]), int(nums[1])
+    """Westwood's RSA modulus and the server's private exponent (westwood_keys.py)."""
+    import westwood_keys
+    return westwood_keys.N, westwood_keys.D
 
 
 def ip_int(ip):
@@ -749,7 +748,7 @@ def conn(name, exe, drops, step):
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:
-            trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+            trace = os.path.join(TRACES, name + '.trace.jsonl')
             tr = []
             for tl in open(trace, encoding='utf-8'):
                 e = json.loads(tl)
@@ -763,8 +762,8 @@ def conn(name, exe, drops, step):
                     seq.append((q[3], q[2], int(q[5]), bytes.fromhex(q[6]) if len(q) > 6 else b''))
             same, _ = seq_compare(seq, tr)
             ca, cb = Counter(seq), Counter(tr)
-            line += '\n    vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, ours not in ' \
-                    'the reference decoder %d' % (os.path.basename(trace), len(seq), len(tr), same, sum((cb - ca).values()),
+            line += '\n    vs reference (%s): ours %d, reference %d; in order %d; reference\'s not delivered %d, ours not in ' \
+                    'reference %d' % (os.path.basename(trace), len(seq), len(tr), same, sum((cb - ca).values()),
                                     sum((ca - cb).values()))
         print(line)
         ok = ok and good

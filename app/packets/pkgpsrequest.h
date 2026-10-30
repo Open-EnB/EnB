@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 221 (0x00DD, GPS_REQUEST): vtable 0xB0A6D4, constructor 0x888020, 0x20 bytes
-class GpsRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check)
+class GpsRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	GpsRequestPacketClass(char *unknown0c, char *unknown10, char *unknown14, char *unknown18, int unknown1c);	// 0x887F20

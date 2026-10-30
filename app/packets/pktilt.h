@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 19 (0x0013, TILT): vtable 0xB0BF88, constructor 0x8AAB50, 0x14 bytes
-class TiltPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TILT (the Net-7 opcode table; no structure check)
+class TiltPacketClass : public PacketClass  // NAME 2: Net-7's opcode name TILT (the Net-7 opcode table; no structure check)
 {
 public:
 	TiltPacketClass(int game_id, float intensity);	// 0x8AAAB0

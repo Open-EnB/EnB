@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 113 (0x0071, GLOBAL_DELETE_CHARACTER): vtable 0xB09460, constructor 0x864820, 0x14 bytes
-class GlobalDeleteCharacterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check)
+class GlobalDeleteCharacterPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check)
 {
 public:
 	GlobalDeleteCharacterPacketClass(int slot);	// 0x8647B0 (LoginTaskClass's delete step)  // NAME 1 [slot]: the login task's selected slot

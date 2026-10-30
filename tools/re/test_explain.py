@@ -2,7 +2,7 @@
 
 The objects are not tracked (never objects in the tree): Make_Screen_Shot's is builder C's U form,
 `.work/c/mss_out/U/ww3d.obj`; the step-8 ones are the tree's app/common tcpconn.cpp, dbgconn.cpp,
-connect.cpp and memconn.cpp as of 292885b, compiled into EXPLAIN_OBJS (default .work/tools4/objs)
+connect.cpp and memconn.cpp as of cf646af, compiled into EXPLAIN_OBJS (default .work/tools4/objs)
 by `importer.compile_and_match` (see `.work/tools4/build_objs.py`). A missing object skips its case.
 When one of these functions becomes exact, drop its case (its class is then `identical`).
 """

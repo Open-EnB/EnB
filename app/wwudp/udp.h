@@ -9,7 +9,7 @@
 **	0x8C04C0 / 0x8C0500 (setsockopt). Its interface is EA's (Generals Tools\matchbot\wnet\udp.h);
 **	this header declares only the part the wwudp code calls, so that a program can link either
 **	the real socket (wnet's udp.cpp, not imported yet) or the capture harness's replay socket
-**	(tests/capharness/udpreplay).
+**	(tests/udpreplay).
 */
 
 #if defined(_MSC_VER)

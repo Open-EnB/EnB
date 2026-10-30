@@ -36,10 +36,10 @@ Superseded by docs/workflow.md §2.1 (the per-file loop, with the tools that now
 
 | # | Area | Why first | Size |
 |---|---|---|---|
-| 1 | `app\shared\auxdata` (Delta classes, codec) | the best-understood part of the client (the reference decoder: address catalogue, field model, wire format, schemas, a C# codec that round-trips 43,978 EA messages); self-contained; everything game-state depends on it | ~114 attributed |
-| 2 | `app\wwudp` (`CordMgr`, `CordCon`) | E&B's reliable UDP transport, small, and the protocol work in the reference decoder describes what it does | ~26 |
+| 1 | `app\shared\auxdata` (Delta classes, codec) | the best-understood part of the client (earlier protocol research: address catalogue, field model, wire format, schemas, a C# codec that round-trips 43,978 EA messages); self-contained; everything game-state depends on it | ~114 attributed |
+| 2 | `app\wwudp` (`CordMgr`, `CordCon`) | E&B's reliable UDP transport, small, and the earlier protocol research describes what it does | ~26 |
 | 3 | `app\kernel`, `app\main`, `app\client\tasks` | the program's skeleton: `KernelClass::Run_One_Cycle`, the task classes (`LoginTaskClass`, the game task); gives a runnable frame to hang everything else on | ~100 |
-| 4 | `app\packets` | the packet classes (`XxxPacketClass::Process_Packet`, ~100 named in strings), mechanical once the base class is known; matches the reference decoder's message models | ~370 + clientstub |
+| 4 | `app\packets` | the packet classes (`XxxPacketClass::Process_Packet`, ~100 named in strings), mechanical once the base class is known; matches the earlier research's message models | ~370 + clientstub |
 | 5 | `app\common`, `app\shared` (rest) | shared definitions (races, items, factions), attributes (`AttribDir`), physics (`px*`) | ~1,150 |
 | 6 | `app\client` | UI, gadgets, camera, rendering: the bulk | ~3,900+ |
 

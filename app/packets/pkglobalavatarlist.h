@@ -22,7 +22,7 @@
 #include <list>
 
 // opcode 112 (0x0070, GLOBAL_AVATAR_LIST): vtable 0xB09368, constructor 0x862D90, 0x20 bytes
-class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table), the client's Print text 'Avatar List'
+class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table), the client's Print text 'Avatar List'
 {
 public:
 	GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescClass *avatars, const std::list<LoginGalaxyClass> *galaxies);	// 0x8629A0  // NAME 1 [characters, avatars, galaxies]: what they hold

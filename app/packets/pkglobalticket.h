@@ -19,7 +19,7 @@
 #include "..\shared\unknown_login_data.h"
 
 // opcode 111 (0x006F, GLOBAL_TICKET): vtable 0xB09688, constructor 0x867650, 0x58 bytes
-class GlobalTicketPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table), the client's Print text 'Global Ticket'
+class GlobalTicketPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_TICKET (the Net-7 opcode table), the client's Print text 'Global Ticket'
 {
 public:
 	GlobalTicketPacketClass(int status, const TicketClass &ticket);	// 0x867520

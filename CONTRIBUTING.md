@@ -30,17 +30,29 @@ repository (see "What is deliberately not here" in the README).
 | Reverse-engineering notes: names (D56), layouts, call maps, evidence | No | review |
 | Python tools and their tests | No | CI |
 | Documentation | No | `tools/docs_check.py`, review |
-| C++ written without VC6 | No | a maintainer's VM verify before merge |
-| C++ verified with VC6 | Yes | your `pairs_cmp.py` result, then the maintainer's verify |
+| C++ written without VC6 | No | the verify service (`vc6-verify`) before it lands |
+| C++ verified with VC6 | Yes | your `pairs_cmp.py` result, then the verify service |
 
 Issues and pull requests carry the labels `no-vc6` or `needs-vc6`.
 
-## Pull requests
+## Claims and pull requests
 
-Work on a branch of your fork and open a pull request against `master`; nobody pushes to
-`master`, maintainers included (D148). Keep it small: one verified function per commit. AI
-agents' pull requests are welcome ([AGENTS.md](AGENTS.md)): say which model wrote it. A
-maintainer runs the byte verification on the build VMs before merging.
+Before rebuilding functions, claim them (`python tools/claims.py claim UNIT`, at most 30 functions
+not yet exact; [AGENTS.md](AGENTS.md) has the steps and the time limits), so two people or agents
+do not rebuild the same code. Then work on a branch of your fork and open a pull request against
+`master` that says `Claims #N`; nobody pushes to `master`, maintainers included (D148).
+
+* One pull request per claim; commit inside it as you like. It reaches `master` as one commit with
+  you as its author (D157).
+* Every pull request is verified before it reaches `master`: the maintainer's verify service
+  builds it with VC6 SP4 on its VMs and posts `vc6-verify`. A pull request that changes Python,
+  scripts or workflows waits until a maintainer has read it, because those would run on the
+  verifying machine.
+* Without VC6 you need not commit `docs/data/imports.json`: the landing commit carries the
+  verified record.
+* What gains pairs, loses none, passes CI and changes only sources, headers and `docs/data` lands
+  by itself; the rest after a maintainer's reading. AI agents' pull requests are welcome
+  ([AGENTS.md](AGENTS.md)): say which model wrote it and who is accountable.
 
 ## How a change is kept
 

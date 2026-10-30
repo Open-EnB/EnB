@@ -501,7 +501,7 @@ PolicyStateClass::~PolicyStateClass()
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4AE400-0x4AF930 (policy.cpp; the reference decoder's notes: a rule set, INCLUDE/EXCLUDE per
+**	client.exe 0x4AE400-0x4AF930 (policy.cpp; earlier research notes: a rule set, INCLUDE/EXCLUDE per
 **	field path), in the client's order: the rule set's destructor 0x4AE400 and Add_Rule 0x4AE490
 **	(lines 32, 45), CompiledPolicyClass (constructor 0x4AE760 line 110, destructor 0x4AE850, Insert
 **	0x4AEC70, Get_Action 0x4AED50 line 334) with the compile's statics 0x4AE8D0 / 0x4AEA00 /

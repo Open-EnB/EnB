@@ -54,7 +54,7 @@ struct LoungeNPCUnknown30Struct  // NAME 1: neutral (D10): what it holds
 };
 
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes
-class LoungeNPCPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC'
+class LoungeNPCPacketClass : public PacketClass  // NAME 2: Net-7's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC'
 {
 public:
 	LoungeNPCPacketClass(int unknown0c);	// 0x897800

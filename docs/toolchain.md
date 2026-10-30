@@ -21,10 +21,10 @@ builds 8797 and 8799, linker 6.0: **Service Pack 4**, confirmed (§1.2).
 A new machine sets its VM up with [setup-vc6.md](setup-vc6.md) (2026-10-29: one script,
 `tools/vc6/setup/New-BuildVM.ps1`, VC6 by file copy, proven equal to the setup-installed VM below).
 Machine-specific settings (account, key, pool folder, template VM) are in `.work/vc6_config.json`
-(`tools/vc6/vc6config.py`); this machine's keeps `"user": "Daniel"` and `"template_vm": "Win10"`.
+(`tools/vc6/vc6config.py`); the maintainer's machine keeps its original VM account and `"template_vm": "Win10"`.
 
 VC6 runs in a Hyper-V VM: Windows 10 21H2, host name `DESKTOP-1J2STKG.mshome.net` (Default
-Switch), account `Daniel`, reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
+Switch), the VM account (`user` in `.work/vc6_config.json`), reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
 `C:\Program Files (x86)\Microsoft Visual Studio\VC98` (environment variables not registered;
 call `VC98\Bin\VCVARS32.BAT`). `\\tsclient\C` (the desktop session's drive redirection) is not
 visible to SSH sessions, so files go over SSH (`scp`, `tar`).
@@ -92,8 +92,8 @@ dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 
 off and the stop action is shut down. The cap (`--max`, default 7) is set by host memory: check
 `Get-CimInstance Win32_OperatingSystem` free memory before raising it.
 
-    python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=Daniel@ip,...
-    ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
+    python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=<user>@ip,...
+    ENB_VC6_HOSTS=<user>@ip python tools/vc6/vc6.py compile ...
     python tools/vc6/pool.py release --agent NAME
     python tools/vc6/pool.py stop-idle [--minutes 10]        # shut down unleased idle VMs
     python tools/vc6/pool.py reclaim [--max-age 8] [--prune [--keep 2]]
@@ -219,7 +219,7 @@ such place is a point where E&B's copy differs from Zero Hour's.
 Everything outside this repository that the tools read lives under `C:\EnBDevelopment` (except the
 retail install). The Python tools take the paths from one module, `tools/re/roots.py`
 (`python tools/re/roots.py` prints each and whether it exists); the shell scripts
-(`tools/vc6/bytematch_all.sh`, `runtime_match.sh`, `tools/harness/refs.sh`) and `tools/vc6/importer.py`,
+(`tools/vc6/bytematch_all.sh`, `runtime_match.sh`) and `tools/vc6/importer.py`,
 `vc6.py`, `layout.py`, `build.py` carry the same few paths in their own constants (the VM mirrors
 `C:\EnBDevelopment` at the same path, so they stay absolute).
 
@@ -228,9 +228,8 @@ retail install). The Python tools take the paths from one module, `tools/re/root
 | `C:\EnBDevelopment\EA` | EA's published Westwood source (Renegade, Generals, Zero Hour, ...) | `easource.py`, `importer.py`, `bytematch_all.sh`, `libdiff.py`, `movietest.py` (BinkMovie) |
 | `C:\EnBDevelopment\SDK` | DirectX 8 SDK (`directx8`) and RAD/Miles (`radtools`; `include_enb` derived by `sdk_patch.py`, §2) | `importer.py`, `build.py`, `layout.py`, `bytematch_all.sh` |
 | `C:\EnBDevelopment\Tools\VMPool` | The VM pool's disks (§1.3; `ENB_VC6_POOL_DIR` overrides) | `pool.py` |
-| `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` |
-| `C:\EnBDevelopment\the reference decoder` (the reference decoder, the reference decoder; was `the reference decoder` until 2026-10-25) | C# proxy: game model (`the reference game model` Objects and `Schema\client-auxdata.json`), `the reference key table\the reference key table`, `the reference decoder.exe` (build it: `src\Harness\the reference decoder`, Release, net10.0) | `auxroots.py`, `auxnames.py`, `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
-| `C:\EnBDevelopment\the reference decoder\captures` (was `the reference traces\captures`; that repository was retired 2026-10-25, its history is in the proxy's) | the reference decoder's recorded traces (`ea\*.trace.jsonl`, `session_*.trace.jsonl`) | `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
+| `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` (removed, D153) |
+| `C:\EnBDevelopment\Tools\Media\ea-reference` (`EA_REFERENCE`; `ENB_EA_REFERENCE` overrides) | The EA captures' frozen reference (D154), unpacked by `tools/harness/fetch_reference.py`: `ea\NAME.trace.jsonl` (the reference traces, one game message per line) and `ref\NAME.*.txt` (the reference decoder's readings); fixed, never regenerated | `auxreplay.py`, `udpreplay.py`, `clienttest.py` |
 | `C:\EnBDevelopment\Live-Era-Data` | EA's live-era packet dumps (`enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-...`) | `convert.py`, `auxreplay.py`, `udpreplay.py` |
 | `C:\Program Files (x86)\EA GAMES\Earth & Beyond` | The retail install: `release\client.exe` (SHA-256 `249f8524...51c4`), `EBCONFIG`, game data and movies. Read only; no tool uses it as a working directory (they copy what they need under `build/` or `.work/`) | `clientimage.py`, `vidtest_e2e.py`, `run_reference.py`, `movietest.py`, `mkmss32.py` |
 

@@ -208,7 +208,7 @@ def summarize(lib, paths, dst, bat_text):
         'lib_log': open(os.path.join(dst, 'lib.log'), encoding='latin1').read().strip()
         if os.path.exists(os.path.join(dst, 'lib.log')) else '',
     }
-    json.dump(summary, open(os.path.join(dst, 'summary.json'), 'w'), indent=1)
+    json.dump(summary, open(os.path.join(dst, 'summary.json'), 'w', newline='\n'), indent=1)
     return summary
 
 
@@ -614,7 +614,7 @@ def link_summary(name, dst, stubs):
                'link_warnings': [l.strip() for l in log.splitlines() if 'warning' in l.lower()][:30],
                'unresolved': {s: sorted(v)[:5] for s, v in unres.items()},
                'stub_objects': [os.path.basename(s) for s in stubs], 'stub_objects_linked': sorted(pulled)}
-    json.dump(summary, open(os.path.join(dst, 'summary.json'), 'w'), indent=1)
+    json.dump(summary, open(os.path.join(dst, 'summary.json'), 'w', newline='\n'), indent=1)
     print(f"{name}: exe {'written, ' + format(summary['exe_size'], ',') + ' bytes' if summary['exe'] else 'NOT written'}; "
           f"{len(unres)} unresolved; {len(summary['cl_errors'])} compile errors; stub objects linked: "
           f"{', '.join(sorted(pulled)) or 'none'}")

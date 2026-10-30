@@ -129,7 +129,7 @@ def main():
             if m['score'] <= group[0]['score']:
                 m['confidence'] = 'shared'
     matches.sort(key=lambda m: (m['lib'], m['file'], m['function']))
-    json.dump(matches, open(os.path.join(args.out, 'funcmatch.json'), 'w'), indent=1)
+    json.dump(matches, open(os.path.join(args.out, 'funcmatch.json'), 'w', newline='\n'), indent=1)
 
     by_lib = collections.Counter((m['lib'], m['confidence']) for m in matches)
     print('\nmatches by library and confidence:')

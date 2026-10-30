@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 81 (0x0051, SKILL_STRING_RQ): vtable 0xB0B7D8, constructor 0x8A25B0, 0x14 bytes
-class SkillStringRqPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check)
+class SkillStringRqPacketClass : public PacketClass  // NAME 2: Net-7's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check)
 {
 public:
 	SkillStringRqPacketClass(int player_id, int request);	// 0x8A2530

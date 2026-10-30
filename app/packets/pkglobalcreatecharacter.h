@@ -20,7 +20,7 @@
 #include "..\shared\shipcust_desc.h"
 
 // opcode 114 (0x0072, GLOBAL_CREATE_CHARACTER): vtable 0xB09430, constructor 0x864380, 0x2C8 bytes
-class GlobalCreateCharacterPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table), the client's Print text 'Global Create Character'
+class GlobalCreateCharacterPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table), the client's Print text 'Global Create Character'
 {
 public:
 	GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown);	// 0x864090 (LoginTaskClass::Unknown_48)  // NAME 1 [galaxy, slot, unknown]: what the login task passes

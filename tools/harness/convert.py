@@ -4,7 +4,7 @@ datagram-level text file for the capture harness (format: tools/harness/README.m
     python tools/harness/convert.py DUMP OUT.dgram [--check TRACE.jsonl]
 
 --check rebuilds the game messages from the blocks (resends dropped, fragments joined, the
-same rules as the reference decoder's the reference importer) and compares them with the reference decoder's import of the same
+same rules as the reference importer) and compares them with the reference decoder's import of the same
 dump, message by message.
 """
 import argparse
@@ -121,7 +121,7 @@ def convert(dump, out):
     keys = {}
     n = 0
     with open(out, 'w', newline='\n') as f:
-        f.write('# capharness datagram file v1 (tools/harness/README.md); source %s\n' % dump)
+        f.write('# datagram file v1 (tools/harness/README.md); source %s\n' % dump)
         for rec in read_dump(dump):
             if rec[0] == 'K':
                 keys[rec[1]] = rec[2]
@@ -184,7 +184,7 @@ def check(datagrams, trace):
         e = json.loads(line)
         ref.append((e['channel'].split(':', 1)[1], 'C' if e['dir'] == 'ClientToServer' else 'S',
                     e.get('seq'), int(e['op'], 16), bytes.fromhex(e['data'])))
-    print('messages: ours %d, the reference decoder %d' % (len(ours), len(ref)))
+    print('messages: ours %d, reference %d' % (len(ours), len(ref)))
     for k, v in sorted(problems.items()):
         if v:
             print('  %s: %d' % (k, v))
@@ -199,12 +199,12 @@ def check(datagrams, trace):
         else:
             extra.extend(ours[i1:i2])
             missing.extend(ref[j1:j2])
-    print('identical and in the same order: %d; only ours: %d; only the reference decoder: %d' % (
+    print('identical and in the same order: %d; only ours: %d; only reference: %d' % (
         same, len(extra), len(missing)))
     for m in extra[:10]:
         print('  only ours: %s %s seq %d op 0x%04X len %d' % (m[0], m[1], m[2], m[3], len(m[4])))
     for m in missing[:10]:
-        print('  only the reference decoder: %s %s seq %s op 0x%04X len %d' % (m[0], m[1], m[2], m[3], len(m[4])))
+        print('  only reference: %s %s seq %s op 0x%04X len %d' % (m[0], m[1], m[2], m[3], len(m[4])))
     return len(extra) == 0 and len(missing) == 0
 
 

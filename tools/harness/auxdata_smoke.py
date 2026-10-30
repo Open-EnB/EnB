@@ -1,7 +1,7 @@
-"""Build and run tests/capharness/auxdata_smoke (M1.2: the aux-data round trip on a hand-built root).
+"""Build and run tests/auxdata_smoke (M1.2: the aux-data round trip on a hand-built root).
 
     python tools/vc6/build.py [--out DIR]          (the libraries; then mkmss32.py lib --out DIR)
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/auxdata_smoke.py [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/auxdata_smoke.py [--out DIR]
 
 Uses build.py's link step (the program is added to its PROGRAMS in memory), links against
 DIR's libraries and stubs/, runs the exe on the host and exits with its code: 0 when both forms
@@ -22,7 +22,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=os.path.join(REPO, 'build'))
     a = ap.parse_args()
-    B.PROGRAMS['auxdata_smoke'] = {'dir': os.path.join('tests', 'capharness', 'auxdata_smoke'),
+    B.PROGRAMS['auxdata_smoke'] = {'dir': os.path.join('tests', 'auxdata_smoke'),
                                    'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX', 'subsystem': 'console', 'runtime': []}
     B.link_program('auxdata_smoke', a.out)
     exe = os.path.join(a.out, 'programs', 'auxdata_smoke', 'auxdata_smoke.exe')

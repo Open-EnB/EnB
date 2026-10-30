@@ -239,7 +239,7 @@ APP_LIBS = {
 # wwshade was also built with ENABLE_WWPROFILE: ShdMeshClass::Render 0xA09430 opens a
 # WWProfileSampleClass ("ShdMeshClass::Render", Start_Profile 0x9EA930, dtor 0x444160).
 # USE_WWSHADE in wwshade: neutral in the bytes (verify 138 before and after, none lost); set for
-# consistency with the project-wide define WW3D2 needs (4a50696).
+# consistency with the project-wide define WW3D2 needs (e278d81).
 LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPROFILE /D USE_WWSHADE',
              # ENABLE_WWPROFILE also in WWAudio (+32 pairs: WWAudioClass, SoundSceneClass, sound buffers) and WWMath (+1)
              'wwaudio': '/nologo /c /MT /W3 /O2 /Ob2 /D _MBCS /D ENABLE_WWPROFILE',
@@ -707,7 +707,7 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'bmp2d.cpp'): [
         ('\t\t\tTextureClass *piece_texture =NEW_REF(TextureClass,(piece_surface,TextureClass::MIP_LEVELS_1));\t\t\t\n\t\t\tpiece_texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);\n\t\t\tpiece_texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);',
          '\t\t\tTextureClass *piece_texture =NEW_REF(TextureClass,(piece_surface,MIP_LEVELS_1));\t\t\t\n\t\t\tpiece_texture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);\n\t\t\tpiece_texture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);',
-         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
     ],
     ('ww3d2', 'dx8wrapper.cpp'): [
         ('\tTextureClass::MipCountType mip_level_count,',
@@ -757,7 +757,7 @@ TEXTURE_API_PATCHES = {
          "Zero Hour's Reset_Statistics, which counts draw calls too (byte-exact; Renegade's isn't)"),
         ('\tTextureClass::_Init_Filters((TextureClass::TextureFilterMode)WW3D::Get_Texture_Filter());',
          '\tTextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)WW3D::Get_Texture_Filter());',
-         "the default filters were initialised through TextureFilterClass::_Init_Filters, as in Zero Hour's texture API (and Zero Hour's copy); TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the default filters were initialised through TextureFilterClass::_Init_Filters, as in Zero Hour's texture API (and Zero Hour's copy); TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('static unsigned\t\t\t\tlast_frame_number_of_DX8_calls\t\t\t\t\t\t= 0;',
          'static unsigned\t\t\t\tlast_frame_number_of_DX8_calls\t\t\t\t\t\t= 0;\nstatic unsigned\t\t\t\tlast_frame_draw_calls\t\t\t\t\t\t\t\t\t= 0;',
          '(and its last-frame copy)'),
@@ -830,7 +830,7 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'metalmap.cpp'): [
         ('\t\tTextures[i]=NEW_REF(TextureClass,(METALMAP_SIZE,METALMAP_SIZE,format,TextureClass::MIP_LEVELS_1));\n\t\tTextures[i]->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);\n\t\tTextures[i]->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);',
          '\t\tTextures[i]=NEW_REF(TextureClass,(METALMAP_SIZE,METALMAP_SIZE,format,MIP_LEVELS_1));\n\t\tTextures[i]->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);\n\t\tTextures[i]->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_CLAMP);',
-         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "MipCountType and MIP_LEVELS_* are global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
     ],
     ('ww3d2', 'missingtexture.cpp'): [
         ('\t\tTextureClass::MIP_LEVELS_ALL);',
@@ -855,10 +855,10 @@ TEXTURE_API_PATCHES = {
     ('ww3d2', 'ww3d.cpp'): [
         ('\tif (texture_filter>TextureClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureClass::TEXTURE_FILTER_ANISOTROPIC;',
          '\tif (texture_filter>TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC) texture_filter=TextureFilterClass::TEXTURE_FILTER_ANISOTROPIC;',
-         "the filter enums were taken from TextureFilterClass, as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the filter enums were taken from TextureFilterClass, as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('\tTextureClass::_Init_Filters((TextureClass::TextureFilterMode)TextureFilter);',
          '\tTextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)TextureFilter);',
-         "the filter enums and the default filters were taken from TextureFilterClass (_Init_Filters), as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0f835aa, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
+         "the filter enums and the default filters were taken from TextureFilterClass (_Init_Filters), as in Zero Hour's texture API; TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members"),
         ('#endif\n\n\nconst char* DAZZLE_INI_FILENAME="DAZZLE.INI";\n',
          '#endif\n\n\n// E&B (name and module not known): called when a render device is set (0x995DC0); resets a\n// per-frame list of distortion objects and enables it if the device supports cube maps and the\n// resolution is at most 1024 wide\nvoid Unknown_Reset_Distortion_List(void);\n\nconst char* DAZZLE_INI_FILENAME="DAZZLE.INI";\n',
          "WW3D::Set_Render_Device (both overloads, 0x917790 and 0x9177E0) calls an E&B function (0x995DC0) on success; the two overloads are now byte-identical apart from their relocated callees, so objmatch finds each at both addresses ('multiple') and verify cannot credit them. The E&B module (ww3d2/unknown_distortion.cpp, D19: a screen-distortion effect; its list is enabled when DX8Caps::SupportCubemaps and the width is at most 1024); neutral name (D10)"),
@@ -992,8 +992,8 @@ TEXTURE_API_PATCHES = {
          "\tstatic void Invalidate_Old_Unused_Textures(unsigned inactive_time_override);\n\t// E&B (name not known): last frame's count of textures applied (0x94B910)\n\tstatic unsigned Unknown_Get_Textures_Applied_Last_Frame();\n\n",
          'TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame (E&B, name not known, D10; called by the app at 0x53EC23 and 0x6A1317)'),
         ('private:\n\n\t// Direct3D texture object\n\tIDirect3DBaseTexture8 *D3DTexture;\n',
-         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (ff7514c); TextureClass::Apply (0x94BC80) also reads it (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
-         'required because TextureClass(IDirect3DBaseTexture8*) writes D3DTexture (+0x34) directly, as the client\'s constructor does (0x94B660, ff7514c); TextureClass::Apply 0x94BC80 also passes it itself; access only, layout unchanged'),
+         '\t// Direct3D texture object\n\t// E&B: protected, not private: TextureClass(IDirect3DBaseTexture8*) writes it directly, as the client constructor 0x94B660 does (5534f64); TextureClass::Apply (0x94BC80) also reads it (same layout)\n\tIDirect3DBaseTexture8 *D3DTexture;\n\nprivate:\n',
+         'required because TextureClass(IDirect3DBaseTexture8*) writes D3DTexture (+0x34) directly, as the client\'s constructor does (0x94B660, 5534f64); TextureClass::Apply 0x94BC80 also passes it itself; access only, layout unchanged'),
         ('\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n',
          '\tvoid Set_HSV_Shift(const Vector3 &hsv_shift);\n\t// E&B: not virtual, one for every texture class (0x94C1D0)\n\tunsigned Get_Texture_Memory_Usage() const;\n',
          "E&B's texture memory usage is one non-virtual TextureBaseClass function (0x94C1D0, after Set_HSV_Shift 0x94C150, called by Log_Textures/Log_All_Textures): Renegade's and Generals' form, the same body on both sides of an Initialized test (Calculate_Texture_Memory_Usage inlined twice; the vtables at 0xB119A0 have no slot for it)"),
@@ -3336,7 +3336,7 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/bitset.cpp'): "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the "
                                           "asserts on the client's lines (D25)",
     ('app', 'shared/auxdata/bitset.h'): "BitSetClass's declaration (Buffer, NumBits from the asserts; NumBytes a guess)",
-    ('app', 'shared/auxdata/delta.cpp'): "DeltaClass and DeltaCompoundClass (D24; the reference decoder's DeltaBase, "
+    ('app', 'shared/auxdata/delta.cpp'): "DeltaClass and DeltaCompoundClass (D24; the earlier research's DeltaBase, "
                                          "DeltaCompound), client 0x4A4D40-0x4A6040: Get_Lookup's assert on the "
                                          "client's line 227 (D25); Add 0x4A5670 not exact",
     ('app', 'shared/auxdata/delta.h'): "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass "
@@ -4889,7 +4889,7 @@ def report(state):
             lines.append(f"| {f.get('name', k)} | {f['copy']}{'+h' if f.get('headers_from') else ''} | {len(f.get('in_tree', []))} | "
                          f"{len(f['ambiguous']) if 'ambiguous' in f else '?'} | "
                          + ' | '.join(str(exp.get(c, '-')) for c in 'RGZ') + f' | {merged} |')
-    open(os.path.join(REPO, 'docs', 'imports.md'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+    open(os.path.join(REPO, 'docs', 'imports.md'), 'w', newline='\n', encoding='utf-8').write('\n'.join(lines) + '\n')
     print('docs/imports.md written')
 
 

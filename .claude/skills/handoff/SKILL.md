@@ -36,5 +36,9 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 6. **Report to the user** in five lines or fewer: what you wrote and where, what is
    uncommitted, and the single prompt to paste into the new session, e.g.
    `Read CLAUDE.md and the handoff, then continue with <next step>.`
-7. Ask before committing the handoff file(s). Never push `main`; once the GitHub remote exists, the coordinator
-   pushes its run branch and opens the run's PR (D148).
+7. Ask before committing the handoff file(s). Never push `main` (D148). After the commit, the coordinator's run
+   PR: release the claims whose builders brought nothing in (`python tools/run_branch.py release N`), write the
+   PR summary to `.work/run-<date>/pr-summary.md` (what landed, pairs before and after, what is parked, the
+   decisions waiting for the user), then `python tools/run_branch.py ready --summary .work/run-<date>/pr-summary.md`:
+   it pushes the run branch and takes the PR out of draft. The verify service posts `vc6-verify` within minutes;
+   the user merges. Report the PR's link.

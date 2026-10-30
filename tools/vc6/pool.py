@@ -6,7 +6,7 @@ demand, leased to agents, stopped when idle.
     python pool.py lease --agent NAME [--count K] [--holder-pid PID]
                                                  lease K VMs (free ones first, create if short),
                                                  start them, wait for SSH and cl, print
-                                                 ENB_VC6_HOSTS=Daniel@ip,...
+                                                 ENB_VC6_HOSTS=<user>@ip,...
     python pool.py release --agent NAME | VM...  end leases (VMs keep running until stop-idle)
     python pool.py stop-idle [--minutes M]       shut down unleased VMs idle for M minutes (10)
     python pool.py reclaim [--max-age H] [--prune [--keep K]]
@@ -22,7 +22,7 @@ that process is gone (or its pid now names a process started later) or the lease
 --max-age hours (8).
 
 Use the printed line as the environment of vc6.py / importer.py:
-    ENB_VC6_HOSTS=Daniel@172.x.x.x python tools/vc6/vc6.py check
+    ENB_VC6_HOSTS=<user>@172.x.x.x python tools/vc6/vc6.py check
 
 Pool VMs are named enb-vc6-NN, their disks are C:\\EnBDevelopment\\Tools\\VMPool\\enb-vc6-NN.vhdx
 (differencing, parent base-vc6.vhdx, which is never attached or written). Hardware copies the
@@ -153,7 +153,7 @@ def get_vm(name):
 # ---------------------------------------------------------------- state and lock
 
 def _pid_alive(pid):
-    """importer.py's test (d3d2036): os.kill(pid, 0) would terminate the process on Windows."""
+    """importer.py's test (fa14686): os.kill(pid, 0) would terminate the process on Windows."""
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))   # PROCESS_QUERY_LIMITED_INFORMATION
     if not h:

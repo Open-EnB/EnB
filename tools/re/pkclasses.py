@@ -11,11 +11,11 @@ From docs/data/packet-factory.txt (tools/re/pkfactory.py) and the client image:
 * app/packets/pk.cpp, between the markers `// BEGIN pkclasses.py` / `// END pkclasses.py`: the
   switch 0x869790, its cases in the client's source order (the order of their unwind states), the
   default's assert on the client's line 1078.
-* tests/capharness/udpreplay/pk_ctor_stubs.cpp (GENERATED): every declared constructor for the
+* tests/udpreplay/pk_ctor_stubs.cpp (GENERATED): every declared constructor for the
   capture harness, each handing its raw message to Conn_Record (conn_replay.cpp).
 
 Names (D56): the client's when a profile label names the class ('XPacketClass::Process_Packet()',
-untagged), else the class's Print text ('X {', NAME 3), else the reference decoder's opcode name
+untagged), else the class's Print text ('X {', NAME 3), else Net-7's opcode name
 (the Net-7 opcode table, NAME 2: no structure check), else Packet_XXXXClass (NAME 1).
 --check: write nothing, exit 1 if a generated file would change.
 """
@@ -32,7 +32,7 @@ ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 FACTORY = os.path.join(ROOT, 'docs', 'data', 'packet-factory.txt')
 HEADER = os.path.join(ROOT, 'app', 'packets', 'pk_classes.h')
 PKCPP = os.path.join(ROOT, 'app', 'packets', 'pk.cpp')
-STUBS = os.path.join(ROOT, 'tests', 'capharness', 'udpreplay', 'pk_ctor_stubs.cpp')
+STUBS = os.path.join(ROOT, 'tests', 'udpreplay', 'pk_ctor_stubs.cpp')
 DEFAULT_LINE = 1078
 CLIENTSTUB = (0x867AA0, 0x8696C0)   # app\packets\clientstub.cpp's stubs
 CLIENTSTUB_FILE = 0xBB2DE4          # its __FILE__ string
@@ -254,7 +254,7 @@ def main():
             r['tag'] = "NAME 3: the client's Print text '%s {' and the PacketClass convention" % base
         elif r['opname'] != '?':
             r['name'] = camel(r['opname']) + 'PacketClass'
-            r['tag'] = "NAME 2: the reference decoder's opcode name %s (the Net-7 opcode table; no structure check)" % r['opname']
+            r['tag'] = "NAME 2: Net-7's opcode name %s (the Net-7 opcode table; no structure check)" % r['opname']
         else:
             r['name'] = 'Packet_%04XClass' % r['op']
             r['tag'] = 'NAME 1: neutral (D10): opcode 0x%04X' % r['op']

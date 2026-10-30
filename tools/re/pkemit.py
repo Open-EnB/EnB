@@ -345,7 +345,7 @@ def main():
                 os.makedirs(os.path.dirname(p), exist_ok=True)
                 open(p, 'wb').write('\n'.join(lines).encode('utf-8'))
     if a.write:
-        open(os.path.join(WORK, 'emitted.txt'), 'w').write(
+        open(os.path.join(WORK, 'emitted.txt'), 'w', newline='\n').write(
             '\n'.join('%s %s %d' % (n, ','.join(map(str, o)), k) for n, o, k in emitted) + '\n')
     print(len(emitted), 'files')
 

@@ -20,7 +20,7 @@
 class NavigationListClass;
 
 // opcode 155 (0x009B, WARP): vtable 0xB0C330, constructor 0x8B1BA0, 0x14 bytes
-class WarpPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check)
+class WarpPacketClass : public PacketClass  // NAME 2: Net-7's opcode name WARP (the Net-7 opcode table; no structure check)
 {
 public:
 	WarpPacketClass(int player_id, const NavigationListClass &list);	// 0x8B1AA0

@@ -222,40 +222,40 @@ unless `--lever` cites a new row of this table.
 |---|---|---|
 | **inline budget** | | |
 | A callee called at one site, inlined at another (or the reverse); a big constructor stops inlining partway | Every inline candidate in a file spends the caller's budget, which grows with the caller's size: fewer `Add`s anywhere, dead IL in a callee, an accessor instead of a same-bytes field read, a `SNAPSHOT_SAY` (§3.9) move where inlining stops. `#pragma inline_depth` doesn't reproduce it; templates use its state at the file's END | 0x700B10, 0x6F85F0 in Ship 0x6F66E0 / Player 0x752510; 0x6F66B0 in the factory 0x6F6000 (Ship still open: `attempts.py show 0x6F66E0`) |
-| The client calls a callee out of line (the insert's last `size()`) that ours inlines | A dead inlined call spends the budget without emitting code: an unused `int index = Children.size();` before the call; a dead call *after* the call site changes earlier inlining too | `DeltaCompoundClass::Add` 0x4A5670, 94f31da (D40) |
-| Inlining differs although the caller's own code is the same | The budget counts loops inside inlined callees, even when the body is an empty release `WWASSERT`; empty `WWASSERT`s and dead loops in the caller itself count for nothing | builder C, 2026-10-25 (2803f76 `Process_Foreground_Load` 0x949C60) |
-| A `Transpose`'s `Vector4()` through `??_H` at only one site, every stack slot moved | Tiny accessors tip the budget: `view[r][c]` (two inline `operator[]`) against `view[r].X` | `PointGroupClass::Render` 0x954960, 3733e3b |
-| Callers that inline a loop function call others out of line | `it++` in the loop spends their budget: `++it` | Release 0x826870 and the listener destructors, 3fe59e5 |
-| An out-of-line copy right after its first caller | It is an inline function not inlined there: make it `inline`. `/Ob2` inlines functions defined later in the file too; an EA `WWINLINE` the client calls out of line moves to the .cpp | 0x6FA150, 0x6FB1E0, 0x707430, 0x6F85F0 (a2ba43d, 22cac1e) |
+| The client calls a callee out of line (the insert's last `size()`) that ours inlines | A dead inlined call spends the budget without emitting code: an unused `int index = Children.size();` before the call; a dead call *after* the call site changes earlier inlining too | `DeltaCompoundClass::Add` 0x4A5670, 33a4c97 (D40) |
+| Inlining differs although the caller's own code is the same | The budget counts loops inside inlined callees, even when the body is an empty release `WWASSERT`; empty `WWASSERT`s and dead loops in the caller itself count for nothing | builder C, 2026-10-25 (f9e4a92 `Process_Foreground_Load` 0x949C60) |
+| A `Transpose`'s `Vector4()` through `??_H` at only one site, every stack slot moved | Tiny accessors tip the budget: `view[r][c]` (two inline `operator[]`) against `view[r].X` | `PointGroupClass::Render` 0x954960, 2cfad68 |
+| Callers that inline a loop function call others out of line | `it++` in the loop spends their budget: `++it` | Release 0x826870 and the listener destructors, f35ce66 |
+| An out-of-line copy right after its first caller | It is an inline function not inlined there: make it `inline`. `/Ob2` inlines functions defined later in the file too; an EA `WWINLINE` the client calls out of line moves to the .cpp | 0x6FA150, 0x6FB1E0, 0x707430, 0x6F85F0 (fe6b08f, b568424) |
 | Stack slots swap in a function you didn't touch | Inlining depends on the whole file: an unrelated edit moves it; re-verify after generator changes. An emptied function (Generals' `#if 0` in `ThumbnailManagerClass::Save`) gets inlined: callers matching the other copy's call point at it | 0x6FB1E0 |
-| Many callers missing, one inline to blame | Look for code compiled out in ours: restoring `Is_Disabled`'s `#ifdef G_CODE_BASE` matched 13 callers. One out-of-line `operator==` can hinge on the condition (`!=` keeps it out of line) | fc588e8 |
+| Many callers missing, one inline to blame | Look for code compiled out in ours: restoring `Is_Disabled`'s `#ifdef G_CODE_BASE` matched 13 callers. One out-of-line `operator==` can hinge on the condition (`!=` keeps it out of line) | 377d4cc |
 | A helper the client keeps out of line with no caller | A global, not a static (statics vanish when inlined) | connect.cpp's host helpers 0x821890 / 0x821900, step 8 |
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28: operand-order noise elsewhere) | |
-| Registers differ around a call or an argument | A temporary, a local copy of an argument or a member read into a local before a virtual call changes registers; one shared variable reusing a dead argument slot can be what matches. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | 0x4A3D50 (cc25c3a), 0x4A91E0 (692043a), Accept 0x82A6C0 (e09388f) |
+| Registers differ around a call or an argument | A temporary, a local copy of an argument or a member read into a local before a virtual call changes registers; one shared variable reusing a dead argument slot can be what matches. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | 0x4A3D50 (6b687cb), 0x4A91E0 (fb52504), Accept 0x82A6C0 (4ba58f7) |
 | A different frame slot for a helper object | A temporary (`X().Unregister(p)`) gets another slot than a named local | step 8 (memconn.cpp) |
 | Registers of an inlined `DynamicVectorClass::Add` on a global | The global's linkage (file-static or not) orders them | |
-| A load-order / allocation residue no local form moves | VC6 collapses local rewrites into a few canonical outputs; the lever is function-wide (other locals, a shared helper) or nowhere: stop after two attempts | Make_Screen_Shot 0x9182C0 / Update_Movie_Capture 0x918B20, parked (56d1aa1; `attempts.py show 0x9182C0`) |
-| Any residue, tried with compiler switches | No switch has fixed one: Make_Screen_Shot's U form under all 30 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` (`flagsweep.py`, 2026-10-26: the library's own `/O2 /Ob2 /GB` best, 5 rows, nothing exact); Open-BFME's 113 near misses x every `/O /Ob /G /Oy` (MSVC 7.1). An allocation residue comes from the source | 8333f23 |
+| A load-order / allocation residue no local form moves | VC6 collapses local rewrites into a few canonical outputs; the lever is function-wide (other locals, a shared helper) or nowhere: stop after two attempts | Make_Screen_Shot 0x9182C0 / Update_Movie_Capture 0x918B20, parked (85d3506; `attempts.py show 0x9182C0`) |
+| Any residue, tried with compiler switches | No switch has fixed one: Make_Screen_Shot's U form under all 30 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` (`flagsweep.py`, 2026-10-26: the library's own `/O2 /Ob2 /GB` best, 5 rows, nothing exact); Open-BFME's 113 near misses x every `/O /Ob /G /Oy` (MSVC 7.1). An allocation residue comes from the source | f4a950d |
 | **shape: returns, tails, loops** | | |
 | test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; separate failure returns share the success tail; an eax-wide 0/1 (Is_Dead) is `return(!a() && !b());` | |
 | A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't give it | step 8 |
-| The client repeats a success tail (`Handle = 0; return true` three times) | A return inside each success block (one common tail, an `ok` flag or `&&` chains merge it) | `Try_Connect` 0x8290A0, f436689 |
+| The client repeats a success tail (`Handle = 0; return true` three times) | A return inside each success block (one common tail, an `ok` flag or `&&` chains merge it) | `Try_Connect` 0x8290A0, 6d2803d |
 | Ours merges two failure tails the client keeps (`explain.py`: "the same callees, N vs M calls") | Open: `Listen` 0x82A470, the memconn option slot 0x826D00 (`attempts.py list --blocker shape`) | |
-| The client leaves a loop by a jump to the single return | A `goto` to the single return | `Get_Log_Directory`, 5ed4d0d |
-| `jb top` against `jae exit; jmp top` | A for loop gives `jb top`; `jae exit; jmp top` is a do-while behind a count test | the array templates' loops, 468c284 |
+| The client leaves a loop by a jump to the single return | A `goto` to the single return | `Get_Log_Directory`, 25ccd76 |
+| `jb top` against `jae exit; jmp top` | A for loop gives `jb top`; `jae exit; jmp top` is a do-while behind a count test | the array templates' loops, 36015e9 |
 | `push_back` keeps 0 in a register and calls insert out of line | `push_back(T(x))`; three field stores into a named local don't | step 8 |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer (`char item_name[256]` at the constructor's top) gives each inlined copy its own frame slot | 0x752E60 (frame 0x218, not 0x118) |
 | The frame size differs (`explain.py`: frame) | The frame counts every local: a difference names a local too many or too few (a second RECT grew Make_Screen_Shot's by 0x10; the distortion draw's client frame is 0x18 bigger: locals not found) | 0x9182C0, 0x9961E0 (`attempts.py show`) |
 | **constructors, destructors, vtables** | | |
 | A destructor that is a lone `jmp` to the base's, or one that stores the vtable first | An implicit destructor stores no vtable; an explicit `{}` one stores it first | 0x4AA210 |
-| Members stored before or after the vtable | An init list stores members before the vtable, body assignments after it (`GrowBy`, `HasWildcard` needed the body); the base's vtable store comes first and is dropped, the class's own is stored after its members | 0x4A8370 (38994d1); the packet classes (builder B, 2026-10-25) |
-| Virtual slots in the wrong order | Overloaded virtuals are laid out in reverse declaration order | dbgconn.cpp's two `Describe` (5ed4d0d) |
-| A base function kept in a slot plus an empty own slot (`ret 4`) | A changed base signature hides the virtual: E&B's `Sound3DClass::Set_Velocity` takes two arguments (`ret 8`), so `SoundPseudo3DClass`'s and `Listener3DClass`'s one-argument overrides became new virtuals | 2d04fb3 |
+| Members stored before or after the vtable | An init list stores members before the vtable, body assignments after it (`GrowBy`, `HasWildcard` needed the body); the base's vtable store comes first and is dropped, the class's own is stored after its members | 0x4A8370 (5ec7760); the packet classes (builder B, 2026-10-25) |
+| Virtual slots in the wrong order | Overloaded virtuals are laid out in reverse declaration order | dbgconn.cpp's two `Describe` (25ccd76) |
+| A base function kept in a slot plus an empty own slot (`ret 4`) | A changed base signature hides the virtual: E&B's `Sound3DClass::Set_Velocity` takes two arguments (`ret 8`), so `SoundPseudo3DClass`'s and `Listener3DClass`'s one-argument overrides became new virtuals | 2f9bb70 |
 | **field offset** | | |
 | `[reg+N]` differs in otherwise equal code | The displacement can belong to another class: `DX8PolygonRendererClass`'s `lea ecx,[eax+0xAC]` (client 0x84) was the mesh's, `MeshModelClass`'s layout. Trace the register before patching; `tools/re/layoutdiff.py` tallies offsets per class | |
-| A `malloc`'d size larger than the class | Extra E&B members | `FastAllocatorGeneral` 0xE30, 1a9c0bd |
+| A `malloc`'d size larger than the class | Extra E&B members | `FastAllocatorGeneral` 0xE30, ac56d39 |
 | **literal, floats** | | |
 | One `exp` call where ours has two (or the reverse) | Two `(float)exp` of one argument merge, `expf` doesn't | |
 | `fild qword` (high dword 0) + `fidiv dword` | Unsigned `(float)u / (float)v`: such output parameters are `unsigned` | |
@@ -265,34 +265,34 @@ unless `--lever` cites a new row of this table.
 | A body equal to two later functions | Both are inlined into it (Process_Messages) | |
 | 0x9CCD10 (`xor eax,eax; ret`) in a vtable | A pure virtual slot: `= 0` | |
 | A static function right after an unrelated one (misplaced start) | A static sits right after its first out-of-line caller | 0x4B43E0 after `Pop_Prefix` |
-| C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | app/shared/unknown_new.cpp, 6ecb4d5 |
+| C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | app/shared/unknown_new.cpp, 66535af |
 | **levers found 2026-10-26/27 (S3, T4, W3, F3, L4, P4, H5)** | | |
 | A register mismatch on a converted argument (`ntohl(*(int *)p)`) | Assign twice: `len = *(int *)data; len = ntohl(len);` | tcpconn.cpp (S3) |
 | A pump loop duplicated / rotated by the compiler | `while (true)` where ours had `for (;;)` | tcpconn.cpp, udpconn.cpp (S3) |
-| A callee the client inlines at one site and calls at another, nested | A nested inline method moves its own callees out of line (`RSAKeyClass::Decrypt` inline took the CRT helpers out) | `Pump_Pending` 0x82AA10, c7ff3d0 |
-| The client keeps a nested `_Construct` out of line | `std::distance(begin, it)` spends the budget that `it - begin` doesn't | `Remove_Dead` 0x822B50, 29ce985 |
+| A callee the client inlines at one site and calls at another, nested | A nested inline method moves its own callees out of line (`RSAKeyClass::Decrypt` inline took the CRT helpers out) | `Pump_Pending` 0x82AA10, 6a2d0dd |
+| The client keeps a nested `_Construct` out of line | `std::distance(begin, it)` spends the budget that `it - begin` doesn't | `Remove_Dead` 0x822B50, a844f2b |
 | Locals share dead parameters' stack slots in the client | Declare the locals at the top of the function, not in a later block | udpconn.cpp (S3) |
 | A virtual call in a destructor | `((Base &)*this).X()` | dbgconn (S3) |
-| A dead `ntohs(Port)` / accessor call the client keeps | Keep it; constructor members in the initialiser list | udpconn ctor 0x82C680, d48e284 |
-| Our inlined call that the client makes out of line (string::erase, size) | One or two dead `size()` calls *after* the call site push the earlier call out of line; only the first dead read inlines, the rest are called | `ClientTaskClass::Init` 0x766350, 4a828dd (T4; D40) |
+| A dead `ntohs(Port)` / accessor call the client keeps | Keep it; constructor members in the initialiser list | udpconn ctor 0x82C680, e5661c2 |
+| Our inlined call that the client makes out of line (string::erase, size) | One or two dead `size()` calls *after* the call site push the earlier call out of line; only the first dead read inlines, the rest are called | `ClientTaskClass::Init` 0x766350, 6bd0611 (T4; D40) |
 | Nested inline temporaries flip (the sixth `??_H` Transpose temp) | VC6 spends nested inlines in reverse source order: an inline cost placed *after* an expression (`Matrix4(view)` in a restore) decides whether that expression is inlined | distortion draw 0x9961E0, 342 -> 121 rows (W3) |
 | The budget model (F3, confirmed by T3/H3/F5) | Function-wide, spent by every expansion anywhere in the function; unused plain locals add nothing; dead accessor reads add; template declarations visible in the translation unit (delta.h's include chain) move which instantiations inline, so a header change can gain and lose pairs in files that never use it. The budget is file-state dependent: a form that failed earlier is worth one re-run after the file's members change (L4's struct ctor broke the land ctor on 2026-10-26 and is exact on 10-27, F5) | Ship 0x6F66E0 probes; aux_roots 0x702240/0x7045F0 vs 0x7014B0/0x701D70/0x758210 (H3) |
-| The client divides at run time where ours folds (`65535.0f / (WWMATH_PI/2)`) | A function-scope `static const float` reproduces the `fdiv` | `Prepare_Lighting` 0x46C730, f3d961e (L4) |
+| The client divides at run time where ours folds (`65535.0f / (WWMATH_PI/2)`) | A function-scope `static const float` reproduces the `fdiv` | `Prepare_Lighting` 0x46C730, dad084d (L4) |
 | A caller's destructor gets extra EH states (7 -> 11) | Defining an out-of-line class's destructor in the same file inlines it into the caller's destructor; leave it declared only when its bytes occur at several client addresses anyway | land.cpp (L4) |
-| A temporary for an `Add()` argument grows the frame | A cast temporary instead of a named local | opcode 128, 9b512d0 (P4) |
-| An order-only residue in a scheduled store pair | Model the 8-byte member as two ints (`Unknown68`) | opcode 108, 4351969 (P4); candidate for 219's ctors 0x893970 / 0x893A70 |
+| A temporary for an `Add()` argument grows the frame | A cast temporary instead of a named local | opcode 128, 2e5cd01 (P4) |
+| An order-only residue in a scheduled store pair | Model the 8-byte member as two ints (`Unknown68`) | opcode 108, 27bcb40 (P4); candidate for 219's ctors 0x893970 / 0x893A70 |
 | `std::string(const char *)` shows three inlining profiles in one file (`_Tidy` inline / `assign` out, the reverse, `_Eos` out) | Budget, not source: don't read the profile as a different form | tutorial_manager.cpp (H5) |
 | A virtual `Set_Step` the client inlines | Call it qualified, `LoginTaskClass::Set_Step(...)`; a plain virtual call misses | tsk_login.cpp (T3) |
-| A hashtable's `_M_delete_node` out of line in the client, inlined by ours; callers inlining more table helpers than the client | In a template VC6 compiles `p->~T()` by where `T` comes from: a function template's parameter (`destroy`, `_Destroy`) gives `push 0; call ??_G` (the scalar deleting dtor), the class template's own `_Val` in a member gives a direct `??1` call, and the callers then inline less. `_M_destroy_val` member in sgistl_adapt.py (H6, 71e3816: +10 whole-app, none lost). Members out of class, `inline`, `#pragma inline_depth`, allocator forms, find's body: 0 or losses | kv_list 0x4B6520, combo_ffactory 0x4E5230, lookup_table 0x4ECE50 |
-| A hashtable's find called out of line in the client, the key's string constructed inline ("find out of line, key inline") | The caller-budget lever (H12, cebba19, 7 of 7): write the find as `const_iterator it = T.find(std::string(name)); return it == T.end() ? NULL : (*it).second;`. An iterator with two returns inlines find instead; callers that inline such a Find need no dead reads. Table-level changes don't help (H6, P-H6-1). Generalises to std::string-keyed finds: the `const_iterator` local is the essential part, the temporary, the ?: form and the `(*it).second` spelling are optional (H15, 4 of 4); it does not reach `const char *`-keyed tables (kv_list 0x4B6B60: no key-string destructor to order) | fontdatabase's finds and adds; ui_line_display 0x5A8B60 / 0x5A8C70, tutorial_manager 0x6ACF50, combo_ffactory 0x4E57A0 (H15, 7f8f5fd-f0b5dbc) |
-| Our loop hoists addresses into stack slots the client doesn't have; the client writes a temporary into a dead parameter slot | Move loop-invariant inline math (a Matrix3D multiply, Vector constructs) out of the loop: VC6 then spills nothing | `SegLineRendererClass::Render` 0x9BEB20, a1c3ca3 (F4: one move after W3's 16 forms) |
+| A hashtable's `_M_delete_node` out of line in the client, inlined by ours; callers inlining more table helpers than the client | In a template VC6 compiles `p->~T()` by where `T` comes from: a function template's parameter (`destroy`, `_Destroy`) gives `push 0; call ??_G` (the scalar deleting dtor), the class template's own `_Val` in a member gives a direct `??1` call, and the callers then inline less. `_M_destroy_val` member in sgistl_adapt.py (H6, 51782f6: +10 whole-app, none lost). Members out of class, `inline`, `#pragma inline_depth`, allocator forms, find's body: 0 or losses | kv_list 0x4B6520, combo_ffactory 0x4E5230, lookup_table 0x4ECE50 |
+| A hashtable's find called out of line in the client, the key's string constructed inline ("find out of line, key inline") | The caller-budget lever (H12, 085a407, 7 of 7): write the find as `const_iterator it = T.find(std::string(name)); return it == T.end() ? NULL : (*it).second;`. An iterator with two returns inlines find instead; callers that inline such a Find need no dead reads. Table-level changes don't help (H6, P-H6-1). Generalises to std::string-keyed finds: the `const_iterator` local is the essential part, the temporary, the ?: form and the `(*it).second` spelling are optional (H15, 4 of 4); it does not reach `const char *`-keyed tables (kv_list 0x4B6B60: no key-string destructor to order) | fontdatabase's finds and adds; ui_line_display 0x5A8B60 / 0x5A8C70, tutorial_manager 0x6ACF50, combo_ffactory 0x4E57A0 (H15, 9d82ed9-d648f87) |
+| Our loop hoists addresses into stack slots the client doesn't have; the client writes a temporary into a dead parameter slot | Move loop-invariant inline math (a Matrix3D multiply, Vector constructs) out of the loop: VC6 then spills nothing | `SegLineRendererClass::Render` 0x9BEB20, 68b9100 (F4: one move after W3's 16 forms) |
 | A repeated null test of a literal / 64-bit memory value: the client re-loads and tests again, ours threads it | Unsolved stop signal: VC6 keeps the second test when the tested value is a rematerialised constant or a 64-bit memory operand, threads it on a register value; 8 header and call forms plus a 30-flag sweep changed nothing. The lead: an E&B wwstring.h whose literal constructor does not call operator= | ShdMesh ctor 0xA08F80, 0xA0EC30; `Unknown_50` 0x7683F0 residue (F4) |
 | Index-building loops: the client keeps a running row base | `int row1 = 1; ... row1 += nx` with the Adds in the client's order; also makes the static guards exact (`mov cl,al; or cl,N`) | distortion draw 0x9961E0, 1306 -> 1045 rows (F4; frame and loop registers remain) |
-| An out-of-line loop function that is also inlined one level into its callers | A self tail-recursive `X_Rest(p, left)`; a plain `while` loop gets fully inlined | boolpars' `_Rest` functions (H8, 9c4d237) |
+| An out-of-line loop function that is also inlined one level into its callers | A self tail-recursive `X_Rest(p, left)`; a plain `while` loop gets fully inlined | boolpars' `_Rest` functions (H8, 51201d4) |
 | A whitespace skip inlined at some sites, out of line at others | A macro, not an inline function | boolpars (H8) |
 | A `static const int` read from memory where ours folds it | A class static defined after its uses | 0xAECC44, boolpars (H8) |
 | `Value(...)` stores into a +4 subobject that keeps its own vtable | A member object, not a second base | boolpars' nodes (H8) |
-| The prologue loads the arguments' members in the wrong order | A temporary or reference local that reads an argument member first decides the order: `const Vector3 &min = boxtest.SweepMin;` | HeightField Cast_AABox 0x465030, 1d720f8 (L5) |
+| The prologue loads the arguments' members in the wrong order | A temporary or reference local that reads an argument member first decides the order: `const Vector3 &min = boxtest.SweepMin;` | HeightField Cast_AABox 0x465030, 4a0fd03 (L5) |
 | `[base + index]` operands swapped in a store | `mask[row + i]` with an unsigned row offset, not `row[i]` through a pointer | land's sea mask (L5) |
 | The client copies a float argument before a bounds assert | An inline setter taking the float by value | spline.h Set (L5) |
 | A second triangle's normal through TriClass | Set all three V pointers again before the second triangle | land Compute_Normal (L5) |
@@ -303,25 +303,25 @@ unless `--lever` cites a new row of this table.
 | `pop_back` vs `erase(end()-1)` | The client uses both forms: try the other | attrib_dir_collective (H7) |
 | A helper the client inlines, whose own callees the client calls | Route through the helper: its callees then go out of line | CharacterCreatorClass::Get_File_Name 0x78DE40 (T5) |
 | A clamp: the client's `movsx` and compare | Write it through an int local: `v = x; x = v < 6 ? v : 6` | avatar_desc (T5) |
-| A float copied through the FPU (`fld`/`fstp`) where ours uses `mov` | The value goes through an inline setter's parameter; a direct assignment gives `mov` | soundlib's dialog volume and Doppler members (H9, 04b5798) |
+| A float copied through the FPU (`fld`/`fstp`) where ours uses `mov` | The value goes through an inline setter's parameter; a direct assignment gives `mov` | soundlib's dialog volume and Doppler members (H9, ed0a28f) |
 | An out-of-line 0x13-byte copy of an SGI hashtable iterator in the client | The `const_iterator(const iterator &)` conversion: the client declared a const_iterator | ui_line_display (H10) |
 | `end()` read through the wrong register in a vector append | `push_back` and `insert(end(), x)` differ (`[ebx+8]` vs `[esi+0xa0]`): try the other | ui_line_display Flush_Lines (H10) |
-| A callee the client calls out of line only inside an inlined function, inlined at the direct sites | Wrap the call in a one-line inline helper (depth +1): the budget drops the deepest nested expansion, not the biggest or the latest in source order (the depth counted is the chain's cost) | land's lightmap threads 0x46DA70 / 0x46DDD0, 23d3da5 (F5) |
+| A callee the client calls out of line only inside an inlined function, inlined at the direct sites | Wrap the call in a one-line inline helper (depth +1): the budget drops the deepest nested expansion, not the biggest or the latest in source order (the depth counted is the chain's cost) | land's lightmap threads 0x46DA70 / 0x46DDD0, 615b995 (F5) |
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch | land (F5) |
 | Both sums of a Vector2i computed before the two stores; `lea` addressing of the target | `Set(a, b)` on a reference local (`Vector2i &min = UpdateMin`); member stores don't give the `lea` | land (F5) |
-| Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 47be84b (T8) |
+| Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 070f7a5 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
-| Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 96350a4-a5ec11a |
-| An SGI lookup result the client converts through `const_iterator(const iterator &)` | A `const_iterator` local; it also fixes the callers' budget | co_data's Has and Remove wrappers (H13, e77e67a) |
+| Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 0452f48-28f0000 |
+| An SGI lookup result the client converts through `const_iterator(const iterator &)` | A `const_iterator` local; it also fixes the callers' budget | co_data's Has and Remove wrappers (H13, 6ab411c) |
 | One-byte temporaries where the client passes an empty tag type by reference | A fresh temporary per call | co_data (H13) |
-| A dead `size()` read's position, not only its count, tunes the budget | One before the loop and one after: exact; two after: 0.81 | fontdatabase Save_Fonts 0x6C57B0, da1c1c2 (H12) |
+| A dead `size()` read's position, not only its count, tunes the budget | One before the loop and one after: exact; two after: 0.81 | fontdatabase Save_Fonts 0x6C57B0, fd367bf (H12) |
 | A class template instantiated in a header struct member moves a function's registers (`TPoint3D<int>`) | Define such structs in the .cpp after the affected functions | fontdatabase Load_Init (H12) |
 | Calls in a `+` chain evaluated right to left where the client calls in source order | Separate `size += ...` statements | Get_Data_Size of 169, 171, 172, 82 (P6) |
 | A base vtable store that survives in the client | A member initialiser reading through a reference that may alias `this` (a Matrix3D copy; an iterator whose constructor takes the container) | 30010, 888b60 (P6) |
 | Several members reached through a pointer to a sub-block | Those members are a struct; helper members that ignore `this` (`ret N`, ecx unused) sit on the base | pkunknown_888b60 (P6) |
-| The client loads packet fields or a member chain into eax and the other registers before the argument pushes | Read them through inline accessors | cpacket handlers 32-35, 66, 30, 98 (T10, 95bc58c / 117a936) |
-| An out-of-line "constructor" called through `??_H` (vector constructor iterator) without `mov eax, ecx` | A default-constructor closure: give the constructor default arguments | ControlKeyStruct 0x71BD70 (H14, 00907ef) |
-| The client shares one report call between two FAIL_IFs over an iterator | A `const_iterator` plus `key_ptr++` on its own line | Load_Keys 0x71BD90 (H14, 861dab1) |
+| The client loads packet fields or a member chain into eax and the other registers before the argument pushes | Read them through inline accessors | cpacket handlers 32-35, 66, 30, 98 (T10, 2f63e8a / bcd8401) |
+| An out-of-line "constructor" called through `??_H` (vector constructor iterator) without `mov eax, ecx` | A default-constructor closure: give the constructor default arguments | ControlKeyStruct 0x71BD70 (H14, e92de96) |
+| The client shares one report call between two FAIL_IFs over an iterator | A `const_iterator` plus `key_ptr++` on its own line | Load_Keys 0x71BD90 (H14, 2ee80ec) |
 | Nested table helpers out of line in the client, inlined in ours (a loop) | Wrap the loop in an inline helper (F5's depth lever, confirmed four more times by H14) | FontManagerClass's destructor, 0x6D1C10, Create, Set_Color (H14) |
 | A packet destructor stores the class's own vtable in ours, not in the client | The implicit destructor (a declared empty one adds the store); where the client does store it, declare it | 129-133 implicit, 72 declared (P7) |
 | A copy compiled to `rep movsd` in the client | A data struct member | pkrecustomize (P7) |
@@ -333,17 +333,17 @@ unless `--lever` cites a new row of this table.
 | A member inlined at every site yet emitted out of line | A non-inline member defined after its callers | inpdsp 0x42A170 (H18) |
 | A word load, `shr`, test-1 sequence on event flags | bool accessors on bit fields (plain shifts or bare bit fields give a byte test) | inpdsp 0x42A410 (H18) |
 | An EH-tracked RefCountPtr local declared at the top of the function | Sends Find and std::string's `_Eos` out of line as the client has them (block-local: both inlined) | fontmanager 0x6D2700's calls (H16); try on 0x6D2580 |
-| A large constructor loses a neighbouring inline after a header layout change | Not the changed statement: objdiff for a call that replaced inlined code first (a budget knock-on) | tsk_login 0x767240 under the char[] ship name (T14, 0d35c11) |
+| A large constructor loses a neighbouring inline after a header layout change | Not the changed statement: objdiff for a call that replaced inlined code first (a budget knock-on) | tsk_login 0x767240 under the char[] ship name (T14, 3d6999c) |
 | A string compare pushed out of line by a C-style reference cast between RefCountPtr types (it builds a temporary) | Cast through a pointer | cpacket ITEM_BASE 37 (T16) |
 | `setne / test al,al` on a RefCountPtr test | `0 != ptr` (ref_ptr.h's template operator!=), not `if (ptr)` | client_lego_impl Init (H17) |
 | `lea reg,[node+0x14]` on a table node's value | A reference local to the value: `T &v = (*it).second` | client_lego_impl Detach_All, Init (H17) |
 | A frame 0x30 too small; int-move copies | A Matrix3D local (its user copy constructor); a float max as `min > r ? min : r` gives `test ah,0x41 / jne` | client_lego_impl Update_Radius (H17) |
 | Two `sete` combined | A bitwise or of the tests: `(a == 0) \| (it == end)` | client_lego_impl Get_Lego_Transform (H17) |
 | The const_iterator find lever on an int-keyed table | Works the same; a miss returned first | client_lego_impl Get_Bone_Map, Get_Knob (H17) |
-| An aux-data type test (rtti.h, G_ASSERT 'b' line 32) inlined for some fields and called out of line for others | A class-static `UnknownRTTIClass<T>::Cast` (a function template with an explicit argument hits VC6's one-instance bug; a ternary gives the wrong shape); a cast nested three deep (wrapper, lookup, cast) exhausts the budget at the first expansions, two deep at the last; the dead-call lever (row 164) for the rest | co.cpp 0x700400, 0x6FFC80 (T17, b69bed2) |
-| A base's sub-block destructed in the wrong store order as plain fields | The block is a struct with its own inline destructor | client.cpp UnknownB02C90Class +0x0C (T17, 2fdbaa7) |
+| An aux-data type test (rtti.h, G_ASSERT 'b' line 32) inlined for some fields and called out of line for others | A class-static `UnknownRTTIClass<T>::Cast` (a function template with an explicit argument hits VC6's one-instance bug; a ternary gives the wrong shape); a cast nested three deep (wrapper, lookup, cast) exhausts the budget at the first expansions, two deep at the last; the dead-call lever (row 164) for the rest | co.cpp 0x700400, 0x6FFC80 (T17, 2c8ac53) |
+| A base's sub-block destructed in the wrong store order as plain fields | The block is a struct with its own inline destructor | client.cpp UnknownB02C90Class +0x0C (T17, 3d26286) |
 | A small callee the client keeps out of line in several callers | `for (int i = 0; i < 0; i++) {}` inside the callee: compiles to nothing, stops auto-inlining | sclient 0x745F30's four callers (T18) |
-| Small residues in SClient's members | `++it` for `it++` (confirms 3fe59e5); `&Packet(args)` passed directly instead of a named local; `while (true)` for `for (;;)`; a callback's vtable stored first: assign in the constructor body, not the initialiser; `snprintf` is VC6's `_snprintf` | sclient 0x74C690, 0x74BB50, 0x745350, 0x74BEC0 (T18) |
+| Small residues in SClient's members | `++it` for `it++` (confirms f35ce66); `&Packet(args)` passed directly instead of a named local; `while (true)` for `for (;;)`; a callback's vtable stored first: assign in the constructor body, not the initialiser; `snprintf` is VC6's `_snprintf` | sclient 0x74C690, 0x74BB50, 0x745350, 0x74BEC0 (T18) |
 
 * **Small constant-fill loops and their written-out form differ (2026-10-28, CO1, 0x6F2820):** VC6 unrolls
   `for (i = 0; i < 5; i++) a[i] = 1;` into five stores with the 1 in a register, interleaved with the neighbours;
@@ -452,21 +452,21 @@ unless `--lever` cites a new row of this table.
   `extern`) shifts the six constructors at the file's end (0x6FB1E0, 0x702240, 0x7045F0, 0x7014B0, 0x701D70,
   0x758210) along a cycle of 64 of VC6 tie-breaks (scheduling, stack-slot order); each is exact only in a window.
   The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
-  marked as not the client's; 16 since 52917f9, window 15..17). After any change to a header aux_roots.cpp
+  marked as not the client's; 16 since 8102bcf, window 15..17). After any change to a header aux_roots.cpp
   includes, re-sweep the pad (`tools/vc6/auxpad.py sweep`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
   all six. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
   bounds accessor, P-DF1-2: keep such helpers local to the file). Explicit `template class` instantiations and
   padding between definitions move all six alike; VC6 rejects explicit instantiation of a constructor (C2909).
 * **co.cpp's lookups and the inline budget (2026-10-28, UP1 / DF1 / IB1):** the budget cuts the bigger callee
   first and same-size callees in source order, so earlier finds go out of line first. auxdata.h's find is the
-  client's early-return form (rtti.h's test inverted: `!= global -> NULL`; 2cc4fc7). The lever for co.cpp's
+  client's early-return form (rtti.h's test inverted: `!= global -> NULL`; c5f115e). The lever for co.cpp's
   finds is a helper `Unknown_Find_Aux((C *)NULL, this, "Name")` that builds the NameClass before reading AuxData
   (one shared stack slot): 0x6F4610 112 -> 4 rows, 0x6FDBD0 34 -> 10; used everywhere it loses 20 exact
   functions, so the small finds keep their explicit NameClass. `#pragma auto_inline(off)` and `/Ob1` do not stop
   Unknown_Find_Field's inlining; for an out-of-line copy to compare, write a dummy with 40+ calls. A helper put on
   a new line moves every later `__LINE__` (~13 pairs): use an existing blank line.
   The client's find-if-set helper (bool copy 0x705450) is auxdata.h's find followed by "NULL unless +0x70 is
-  set": co.cpp's `Unknown_Find_Valid` (DM1, adaad1f: 0x6FE1E0 96 -> 40 rows). VC6 did not inline 0x6FEAC0 into
+  set": co.cpp's `Unknown_Find_Valid` (DM1, d6798b3: 0x6FE1E0 96 -> 40 rows). VC6 did not inline 0x6FEAC0 into
   0x6FCB70 while 0x6FEAC0 was defined later in the file: an inline member defined before both reproduced it. Frame
   bytes the client has and ours lacks can come from a by-value getter's temporary (`Get_X_Vector()`, 0x6F4290).
 * **Do_Frame's lost-connection dialog matches only as an if / else of two complete calls** (2026-10-28, DF1).
@@ -591,8 +591,8 @@ unless `--lever` cites a new row of this table.
 ### 3.4 Importer, verify and pairs
 
 * **commit_mine `--file X` takes the working copy's imports.json entry as it is when the commit runs**
-  (2026-10-29, PX3): another builder's verify can rewrite it between your verify and your commit (a29a884 lost its
-  entry; 2d156e0 restored it). After every commit check `git show HEAD:docs/data/imports.json` for your addresses.
+  (2026-10-29, PX3): another builder's verify can rewrite it between your verify and your commit (c50da63 lost its
+  entry; 928fc7f restored it). After every commit check `git show HEAD:docs/data/imports.json` for your addresses.
   `build.py` skips untracked files: `git add` a new app file before `build.py build --allow-dirty`.
 * **A struct change can move an unrelated struct's identical COMDAT** (2026-10-29, LD5): a 32-byte element's
   _Construct matched ColorizationRegionStruct's identical copy (0x62A560); changing the element moved the pair:
@@ -608,7 +608,7 @@ unless `--lever` cites a new row of this table.
 * **objdiff shows the client's float immediates as REL** (2026-10-29, LD4), so its row counts overstate a
   difference: judge by pairs_cmp.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
-  `--refresh-totals`, or the count needs a follow-up commit (a45ccfb).
+  `--refresh-totals`, or the count needs a follow-up commit (a74439b).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
   file). `trial.py` and refine update both; a hand-made header change must update `headers`.
 * **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
@@ -653,35 +653,35 @@ unless `--lever` cites a new row of this table.
   working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
   2026-10-26, L4, F3). Compare over the whole app: a template header visible to other files moves their pairs.
 * **commit_mine.py hunks (2026-10-26/27):** keys must cover every `-U0` hunk of yours, and a key matches an
-  identical hunk anywhere in the file (89c7fa9 missed two; P4 found another builder's identical line taken):
+  identical hunk anywhere in the file (205afc9 missed two; P4 found another builder's identical line taken):
   after the commit `git diff docs/data/imports.json` must no longer show your addresses.
 * **VC6 hits C1001 on out-of-class specialisations of member templates and mangles member-template functions
   without their template arguments** (P7): a stand-in defines them as plain overloads in its own minimal class
-  declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match --diff` works only on a marked function.
+  declaration (tests/udpreplay/shipcust_stubs.cpp). `appfile.py match --diff` works only on a marked function.
 * **Including a packet header mid-file in tsk_login.cpp turns a handler order-only** (P9: 0x76B520 with 114's header):
   keep the one-line views with the real signatures (P-P9-3). A flag parameter the client stores with `movzx` is
   `bool`; a cast temporary for a count leaves the frame 4 bytes short: name the local (118, 112). P6's commit_json
   method appends new entries at the end of imports.json's sorted maps (a duplicate key after another repair,
-  d47cd0e): `.work/p9/commit_wt.py` re-sorts and refuses until HEAD parses; checks.sh is still to promote (wt.py covers
+  326ca2d): `.work/p9/commit_wt.py` re-sorts and refuses until HEAD parses; checks.sh is still to promote (wt.py covers
   the setup). pkclasses.py can write a handler stand-in twice into pk_ctor_stubs.cpp
-  (the OVERRIDES section; fixed 8d5d639). Same-shape template instances stay `multiple` until their relocation
+  (the OVERRIDES section; fixed e4bec18). Same-shape template instances stay `multiple` until their relocation
   targets have names in symbols.json.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
   matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
   code so the asserts keep the client's lines.
-* **Packet stand-ins belong in tests/capharness/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
-  calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (60bbca0, fixed f8092ce). A new header line
+* **Packet stand-ins belong in tests/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
+  calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (969f244, fixed 9ba36c5). A new header line
   above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
   returns true are not in the switch, so pk_classes.h does not list them: find them by unmatched objects.
-* **Between a worktree merge and commit_mine another builder's verify can rewrite imports.json** (1c36b5c, 00463e0):
+* **Between a worktree merge and commit_mine another builder's verify can rewrite imports.json** (569503f, e4896de):
   check HEAD's in_tree for your files after every commit.
 * **A command chain that commits after `replay` must stop on "N files differ"** (L3 committed through it; the
   difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
-  the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, 64f46ec): name them in the commit.
+  the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, 01ac8b7): name them in the commit.
 
 * **Template bodies in a header that tsk_login.h includes broke kerneltest** (T5).
-* **Worktree verifies:** `wt.py new` / `wt.py bring-over` (d9b6342).
+* **Worktree verifies:** `wt.py new` / `wt.py bring-over` (f584ed0).
 
 * **clienttest builds only committed files** (T11): in a worktree, `git add` a new file before `build.py`. A
   `RefCountPtr<T>` member in a header breaks every file that builds the class without T complete (clienttest):
@@ -690,10 +690,10 @@ unless `--lever` cites a new row of this table.
 * **Never split attempts.csv on line endings** (T12 truncated 157 rows): its rows hold quoted multi-line text; use
   `attempts.py` or the csv module. `build.py --lib` refuses a dirty library: commit a detached WIP inside the
   worktree before `build.py` / `clienttest.py build`. A header `__FILE__` the client keeps relative
-  (`..\shared/auxdata/auxdata.h`) defeated D80's tie-break until 812340e read the client's string to its NUL.
-* **A zero-context imports.json patch applied after master moved lands lines in another block** (H18's d61956c,
-  repaired in 15a7784): a commit script must refuse unless HEAD equals the verify base; `commit_mine.py --file NAME`
-  (08502e2) selects by block span instead. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
+  (`..\shared/auxdata/auxdata.h`) defeated D80's tie-break until b4c8a64 read the client's string to its NUL.
+* **A zero-context imports.json patch applied after master moved lands lines in another block** (H18's e0ad711,
+  repaired in ebad207): a commit script must refuse unless HEAD equals the verify base; `commit_mine.py --file NAME`
+  (9263c0c) selects by block span instead. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
   alone switches `__FILE__` to the full path and `#line N "..\\shared/..."` needs escaped backslashes (T15).
 * **A verify worktree has no built app.lib** (P8): run `build.py build --lib app --allow-dirty` there (the worktree is yours alone) before `udpreplay build`.
 * sgistl's `insert_unique_noresize` fails in VC6 (C2899):
@@ -702,12 +702,12 @@ unless `--lever` cites a new row of this table.
 * A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
   file's ambiguous list.
-* **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's aa5f08d to
+* **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's c9f7c26 to
   not-exact.md; H15): after the others commit, check HEAD's generated files still hold your change. Record the second
   of two `attempts.py record` rows only after the first commit, or name the carrying commit.
 * A multi-line
   `// NOT EXACT:` comment above asserts shifts `__LINE__` (10 tsk_login pairs lost): keep it to one line.
-* Each builder passes `--agent NAME` (or works in a wt.py worktree): scratch is private (b38cda1).
+* Each builder passes `--agent NAME` (or works in a wt.py worktree): scratch is private (f8a697c).
 * **`attempts.py record` has no `--lever` (2026-10-27, F7):** put the lever in the evidence text; `attempts.py check --lever` takes it.
 * **tryv2.py** writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
@@ -725,7 +725,7 @@ unless `--lever` cites a new row of this table.
   record` takes `--score` float, `--forms` int, and a function-only `--stash`. A file-static reached by displacement
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
 * **symbols.json regeneration is not neutral (2026-10-27, M2 / M3):** symbols.py used to promote D88's self-named functions to
-  `source: exact`, deleting the evidence that made them exact (-323 pairs); it now keeps the proof (`proof`, cdc13b6).
+  `source: exact`, deleting the evidence that made them exact (-323 pairs); it now keeps the proof (`proof`, 0253f43).
   Regenerate only with a full verify of every library. An object's client range never comes from imports.json's
   `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
   `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
@@ -734,7 +734,7 @@ unless `--lever` cites a new row of this table.
 ### 3.5 Build VMs and vc6.py
 
 * **tryv2 without `--pool` uses `.work/vc6_hosts.json`, which can name a stopped VM** (2026-10-28, LD2): lease
-  one and set `ENB_VC6_HOSTS=Daniel@IP`.
+  one and set `ENB_VC6_HOSTS=<user>@IP`.
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
   `vc6.py discover`.
 * **vc6.py syncs only `SOURCE_EXT`** (else C1083). `#import`'s `.tlh` holds absolute
@@ -757,7 +757,7 @@ unless `--lever` cites a new row of this table.
 
 * **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
   main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
-  junction again on every compile since 4835aa4; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
+  junction again on every compile since 096a45b; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
 * **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
@@ -800,7 +800,7 @@ unless `--lever` cites a new row of this table.
   well before the call), so a disassembly filter on `push -1` hides it. A class's inline virtuals
   (Get_Channel, Get_Type, Get_Name) come before its scalar deleting destructor in the object; an
   out-of-line one comes after Build. pkdecode's range bound was exclusive and cut off the last object
-  (fixed in 768dba9); check the last class when a scan ends at a round address.
+  (fixed in 0df698f); check the last class when a scan ends at a round address.
 
 * **Ghidra can attribute an argument pushed for a later call to the call before it** (H10, 2026-10-27): a pushed `1`
   belonged to a sort object's constructor (`ret 8`), not to 0x541800 (no arguments). Check each callee's `ret N`.
@@ -880,7 +880,7 @@ unless `--lever` cites a new row of this table.
   file, not the first few: a moved line broke postate's type 15 constructor silently.
 * **A rebuilt handler whose callees are generated NULL-returning stand-ins can crash a test program**
   (2026-10-28, CR1): list it in `gen_stubs.py`'s `NOT_DRIVEN` until its callees exist (empty since HN1's fake
-  asset manager, c5519d7). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
+  asset manager, 1248b9d). co.cpp's loader 0x6F51D0 reads basset.ini, Set_Model's radius 0x6F39F0 and the mount
   points 0x7251C0 read cbasset.ini, both from the working directory (clienttest's copies in its data folder).
   ~ClientObjectClass deletes AuxData through slot +0x04: a fake root's table needs a `__stdcall(unsigned)` there.
 * **A RawPacketClass just written with Add can't be read back by a raw constructor** (its cursor is at the end): push
@@ -917,12 +917,12 @@ unless `--lever` cites a new row of this table.
   one rejected datagram) and reported a pre-existing failure; `conn alex3` / `conn alex7` pass at every eval branch.
   In a worktree, `udpreplay.py build` needs build/app/app.lib (`build.py build --lib app --allow-dirty` first) and a
   baseline worktree needs the libraries and `.work/harness/*.dgram` copied in (`wt.py new` does the copies).
-* **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** tools that write the tree refuse a cwd in another tree (3a66f90); run them by absolute path so the guard can see it.
+* **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** tools that write the tree refuse a cwd in another tree (2836859); run them by absolute path so the guard can see it.
 
 ### 3.8 Git, docs and scripting hygiene
 
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
-  the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 7fd99e8).
+  the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 5f62144).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
   `'..\shared\a...'` lands with a control character; use raw strings or forward slashes (a §3.0 variant).
 * **While other builders land on imports.json, automate the bring-over rebase** (2026-10-28, SC2):
@@ -989,7 +989,7 @@ unless `--lever` cites a new row of this table.
 
 * **Untracked files are not protected by the private index:** another builder's `commit_mine` or path
   commit takes your importer.py / imports.json hunks while the files they name are still untracked
-  (c9661c1 took pkflag's). Commit a new file with its records in the same step.
+  (7ae0040 took pkflag's). Commit a new file with its records in the same step.
 
 * **Shared builds (2026-10-26/27):** `udpreplay.py build` writes the shared `build/` and `conn` runs whatever exe
   is there, so another builder's half-done file can break or taint your run: build before `conn`, or build in a
@@ -999,10 +999,10 @@ unless `--lever` cites a new row of this table.
   files** into the shared build/ and overwrites `.work/milestones/l1/unresolved.txt`.
 * **`open(p, 'w').write(open(p).read()...)` truncates p to empty** (the write handle opens first): read, then
   write. A draft regenerated from a template overwrites an applied fix: check the tree file before verifying.
-  `names.py --tree DIR` regenerates both from another worktree (04c0145). In a shared tree names.py now also sees other builders' untracked drafts: commit through commit_mine (row selection) and restore the working copies after (F7).
+  `names.py --tree DIR` regenerates both from another worktree (43b8144). In a shared tree names.py now also sees other builders' untracked drafts: commit through commit_mine (row selection) and restore the working copies after (F7).
 
 * **Run `python tools/vc6/build.py link` for the programs after adding a function to a library file or touching
-  stubs/ or pk.h** (L5, 2026-10-27: a missing Resize, then 60bbca0's stub change pulled pk.obj and 280 externals
+  stubs/ or pk.h** (L5, 2026-10-27: a missing Resize, then 969f244's stub change pulled pk.obj and 280 externals
   into VIDTEST). A commit subject must not claim a program links unless that command ran at that commit.
 * **`__LINE__` files (2026-10-27, S1 / R1 / R2):** new code goes after the file's last `__LINE__` user, or every later
   assert moves; a tryv2 variant that adds or removes one line shows false losses: pair it with an opposite edit; a

@@ -1,7 +1,8 @@
 """Generate the client's AuxData root classes (M1.3, D43) from the constructors in client.exe.
 
     python tools/re/auxroots.py generate [--client EXE]     writes app/client/aux_roots.h/.cpp
-    python tools/re/auxroots.py check [--schema JSON]       the extracted trees vs the reference decoder's schema
+    python tools/re/auxroots.py schema [--schema JSON]      writes the extracted trees as docs/data/client-auxdata.json
+    python tools/re/auxroots.py check [--schema JSON]       the extracted trees vs that committed schema
     python tools/re/auxroots.py tree ROOT                   prints one extracted tree
 
 The trees come from tools/re/auxextract.py (symbolic execution of the 11 roots' constructors: the
@@ -47,7 +48,7 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 CLIENT = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond', 'release', 'client.exe')
 import roots  # noqa: E402
-SCHEMA = roots.N7_SCHEMA
+SCHEMA = os.path.join(REPO, 'docs', 'data', 'client-auxdata.json')
 OUT_DIR = os.path.join(REPO, 'app', 'client')
 NAMES = os.path.join(HERE, 'auxroots_names.json')     # tools/re/auxnames.py
 # Members the extracted trees don't show (C++ members that are no fields), by class vtable: the
@@ -655,16 +656,24 @@ def generate(doc, out_dir):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['generate', 'check', 'tree', 'layout'])
+    ap.add_argument('cmd', choices=['generate', 'schema', 'check', 'tree', 'layout'])
     ap.add_argument('root', nargs='?')
     ap.add_argument('--client', default=CLIENT)
     ap.add_argument('--schema', default=SCHEMA)
     ap.add_argument('--out', default=OUT_DIR)
     a = ap.parse_args()
     doc = extract(a.client)
+    if a.cmd == 'schema':
+        out = {'source': doc['source'], 'generator': 'tools/re/auxextract.py', 'createTypes': doc['createTypes'],
+               'playerRoot': doc['playerRoot'], 'roots': strip(doc['roots'])}
+        with open(a.schema, 'w', encoding='utf-8', newline='\n') as f:
+            json.dump(out, f, indent=1)
+            f.write('\n')
+        print('wrote', a.schema)
+        return
     if a.cmd == 'check':
-        n7 = json.load(open(a.schema))
-        same = strip(doc['roots']) == n7['roots'] and doc['createTypes'] == n7['createTypes']
+        ref = json.load(open(a.schema))
+        same = strip(doc['roots']) == ref['roots'] and doc['createTypes'] == ref['createTypes']
         print('extracted trees equal', a.schema if same else 'DIFFER from ' + a.schema)
         raise SystemExit(0 if same else 1)
     if a.cmd == 'tree':

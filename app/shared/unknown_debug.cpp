@@ -31,5 +31,5 @@ void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
 **	0x4E9490, destroyed through atexit by 0x4E94D0; nothing else refers to it, so its types are
 **	unknown: not rebuilt) with its instances 0x4E94F0-0x4E9C40, then E&B's global operator new,
 **	new[] and delete (0x4E9CB0, 0x4E9CE0, 0x4E9D10): unknown_new.cpp, kept apart so that a program
-**	that defines its own assert reporters (tests/capharness kerneltest, movietest) still links.
+**	that defines its own assert reporters (tests/kerneltest, movietest) still links.
 */

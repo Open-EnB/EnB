@@ -65,7 +65,7 @@ public:
 };
 
 // opcode 85 (0x0055, SELECT_TALK_TREE): vtable 0xB0BCC0, constructor 0x8A7670, 0x14 bytes
-class SelectTalkTreePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
+class SelectTalkTreePacketClass : public PacketClass  // NAME 2: Net-7's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
 {
 public:
 	SelectTalkTreePacketClass(RawPacketClass *raw);	// 0x8A7670

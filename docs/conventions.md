@@ -44,8 +44,8 @@ D56's scale (D65): replaced as soon as the code that uses it, or a structure-mat
 
 **Name certainty** (decision D56): a name chosen without the client's own evidence gets a tag
 comment where it is declared: `// NAME n: evidence`. 5 = the client names it (RTTI, assert,
-`__FILE__`, a `Class::Method` string); 4 = EA's Westwood source names it, or a Net-7 /
-the reference decoder name confirmed by matching structure; 3 = built by convention from a client-named
+`__FILE__`, a `Class::Method` string); 4 = EA's Westwood source names it, or a Net-7 name or the
+reference game model's, confirmed by matching structure; 3 = built by convention from a client-named
 file or sibling (D24, a `.h` paired with a known `.cpp`); 2 = describes what the code does;
 1 = neutral placeholder. Names scoring 3 or below (and untagged `Unknown*` names, counted as 1)
 are listed in the generated `docs/data/names-review.md` (`python tools/re/names.py`); raise the tag

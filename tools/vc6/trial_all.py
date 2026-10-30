@@ -46,7 +46,7 @@ def main():
     ap.add_argument('copies', nargs='+')
     ap.add_argument('--log')
     a = ap.parse_args()
-    log = open(a.log, 'a') if a.log else sys.stdout
+    log = open(a.log, 'a', newline='\n') if a.log else sys.stdout
     for copy in a.copies:
         for h, cpp in candidates(a.lib, copy):
             p = subprocess.run([sys.executable, os.path.join(HERE, 'trial.py'), copy, f'{a.lib}/{h}', f'{a.lib}/{cpp}',

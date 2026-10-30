@@ -21,7 +21,7 @@
 #include <string>
 
 // opcode 90 (0x005A, VERB_REQUEST): vtable 0xB0C234, constructor 0x8AEB60, 0x18 bytes
-class VerbRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check)
+class VerbRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	VerbRequestPacketClass(int subject_id, int object_id, int action);	// 0x8AEAE0

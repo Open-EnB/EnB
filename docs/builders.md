@@ -34,6 +34,11 @@ only your own hunks; keep the uncommitted window short (edit, verify, commit). N
 other's tree to be clean: that deadlocked two builders for an hour. `index.lock` on commit: wait
 and retry. The importer lock serialises `verify`.
 
+**Claims (docs/github-plan.md 4.5.2).** Your brief names the address ranges claimed for you. Rebuild functions
+only there; if the work leads into a function outside them, check it first (`python tools/claims.py check ADDR`):
+held by someone else, stop and report it instead of rebuilding it. Editing a claimed file for cross-cutting work (a
+rename, a header retype, a D66 move) is fine. You never push (D148).
+
 **Safety (D69).** Never a modal dialog: vidtest's `-nomsgbox` (implied by `-frames`/`-shot`), and
 every new program needs the same. Full screen is allowed. Images only from the program's own back
 buffer, never a screen grab. Never run a program with the game's install folder as working

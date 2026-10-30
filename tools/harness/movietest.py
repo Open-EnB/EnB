@@ -1,6 +1,6 @@
-"""The movie task playing one of the game's Bink movies (docs/kernel-map.md 6, step 7): tests/capharness/movietest.
+"""The movie task playing one of the game's Bink movies (docs/kernel-map.md 6, step 7): tests/movietest.
 
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/movietest.py build [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/movietest.py build [--out DIR]
     python tools/harness/movietest.py run [--exe EXE] [--movie eb_ws_logo] [--frames N] [--shots N,N]
 
 build: links movietest with app\\kernel\\kernel.cpp and app\\client\\tasks\\tsk_movie.cpp (compiled
@@ -33,7 +33,7 @@ MOVIES = os.path.join(GAME, 'Data', 'client', 'mixfiles')
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
-    src = os.path.join(REPO, 'tests', 'capharness', 'movietest')
+    src = os.path.join(REPO, 'tests', 'movietest')
     stage = os.path.join(REPO, '.work', 'harness', 'movietest_src')
     shutil.rmtree(stage, ignore_errors=True)
     os.makedirs(stage)

@@ -24,7 +24,7 @@ enum InventoryEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 39 (0x0027, INVENTORY_MOVE): vtable 0xB0AE34, constructor 0x894D50, 0x24 bytes
-class InventoryMovePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check)
+class InventoryMovePacketClass : public PacketClass  // NAME 2: Net-7's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check)
 {
 public:
 	InventoryMovePacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num);	// 0x894CA0
@@ -43,7 +43,7 @@ public:
 };
 
 // opcode 40 (0x0028, INVENTORY_SORT): vtable 0xB0AE64, constructor 0x895070, 0x24 bytes
-class InventorySortPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check)
+class InventorySortPacketClass : public PacketClass  // NAME 2: Net-7's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check)
 {
 public:
 	InventorySortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse);	// 0x894FC0

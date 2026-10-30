@@ -134,14 +134,14 @@ def main():
         return print('nothing to decompile')
 
     known = sorted(set(starts) | set(thunks) | set(names.proven) | set(names.guessed))
-    with open(os.path.join(WORK, 'names.tsv'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(WORK, 'names.tsv'), 'w', newline='\n', encoding='utf-8') as f:
         for va in known:
             n = names.of(va)
             if n:
                 f.write(f'{va:X}\t{n}\n')
-    with open(os.path.join(WORK, 'targets.tsv'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(WORK, 'targets.tsv'), 'w', newline='\n', encoding='utf-8') as f:
         f.writelines(f'{key(va)}\t{names.of(va) or ""}\n' for va in targets)
-    with open(os.path.join(WORK, 'drop.tsv'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(WORK, 'drop.tsv'), 'w', newline='\n', encoding='utf-8') as f:
         f.writelines(f'{key(va)}\n' for va in drop)
 
     # A copy under .work: the install path's '&' breaks analyzeHeadless.bat's argument passing.

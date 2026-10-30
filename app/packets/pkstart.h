@@ -32,7 +32,7 @@ public:
 };
 
 // opcode 6 (0x0006, START_ACK): vtable 0xB0BC30, constructor 0x8A68B0, 0x10 bytes
-class StartAckPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name START_ACK (the Net-7 opcode table; no structure check)
+class StartAckPacketClass : public PacketClass  // NAME 2: Net-7's opcode name START_ACK (the Net-7 opcode table; no structure check)
 {
 public:
 	StartAckPacketClass(int player_id);	// 0x8A6840

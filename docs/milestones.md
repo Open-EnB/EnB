@@ -6,7 +6,7 @@ matching bytes. Once both are met, work returns to the client kernel and the res
 
 * **M1: a capture harness.** The rebuilt `app\shared\auxdata` and `app\wwudp` classes, linked
   into a small test program, process the stored packet captures ([prior-work.md](prior-work.md)
-  §3) and give the same results as the reference decoder's `the reference decoder`.
+  §3) and give the same results as the reference decoder.
 * **M2: a working VIDTEST.** A program equivalent to `EBCONFIG\VIDTEST.EXE`, built on the tree's
   Westwood libraries (the 2004 client versions, not VIDTEST's 2002 ones), renders E&B's original
   art: models, textures, lighting, the test scenes. It doesn't need to be byte-exact (D36).
@@ -24,7 +24,7 @@ the builders' rules are in [builders.md](builders.md).
 
 ## 1. What exists (2026-10-25)
 
-* M1 is met on gates (a)-(d); the harness is `tests/capharness/` with `tools/harness/`.
+* M1 is met on gates (a)-(d); the harness is the programs under `tests/` (udpreplay, auxreplay, auxdata_smoke; D155) with `tools/harness/`.
 * M2 is complete: the one-time supervised E&BConfig run (D63) passed 2026-10-25 (progress.md log); the repeatable check of gate (c) stays `tools/harness/vidtest_e2e.py`.
 * The app library is at 458 byte-exact pairs, 54 ambiguous. Auxdata, the root schemas, wwudp, the kernel, the connection layer and the packet factory are rebuilt (newest entry of progress.md).
 * The link step works: `tools/vc6/build.py` builds the eight libraries, `build.py link --program vidtest` links vidtest.exe (§3).
@@ -37,8 +37,8 @@ prior-work.md had `C:\EnBDevelopment\enbserver3\...`; corrected with this plan.
 |---|---|---|
 | `capture_1..3.txt` (EA) | annotated datagrams; handshake fields labelled, RC4 session key printed, messages decoded to `Length / Opcode / payload` | about 120,000 datagrams, 165,882 messages |
 | `Alex3-fixed`, `Alex7-fixed` (EA) | per session: RC4 key, then decrypted datagrams with sequence numbers | 26,078 + 2,779 messages; 4,651 AUX_DATA |
-| `the reference traces\captures\ea\*.trace.jsonl` | the reference decoder's imports of the five EA files (`the reference decoder import-ea`, 2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
-| `the reference traces\captures\session_*` (Net-7) | pcapng + trace.jsonl, client to proxy over TCP | 2026-10-19/21 recordings, with three known AuxData encoding quirks |
+| the reference traces, `ea\*.trace.jsonl` (now `roots.EA_TRACES`, D154) | the reference decoder's imports of the five EA files (its `import-ea`, 2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
+| the reference traces, `session_*` (Net-7) | pcapng + trace.jsonl, client to proxy over TCP | 2026-10-19/21 recordings, with three known AuxData encoding quirks |
 
 All AUX_DATA in the EA captures (43,978) decode and re-encode byte for byte in the reference decoder.
 That gives a complete reference to compare our C++ against.
@@ -47,7 +47,7 @@ That gives a complete reference to compare our C++ against.
 
 ### 2.1 The test
 
-A console program `capharness.exe`, built with VC6 and linked against the tree's `app` library and
+(As planned; built as udpreplay and auxreplay, `tests/`, D155.) A console program `capharness.exe`, built with VC6 and linked against the tree's `app` library and
 wwlib. It reads a capture and runs two layers:
 
 1. **Transport (wwudp).** EA-UDP datagrams go into `CordCon`'s receive path through a replay
@@ -63,8 +63,8 @@ wwlib. It reads a capture and runs two layers:
 
 **M1 is met when all of these pass:**
 
-* **(a) Transport.** The message sequence `CordCon` delivers from the Alex sessions equals the reference decoder's
-  `the reference importer` sequence (26,078 and 2,779 messages). The 180 blocks the reference decoder can't read (ack lists)
+* **(a) Transport.** The message sequence `CordCon` delivers from the Alex sessions equals the reference
+  importer's sequence (26,078 and 2,779 messages). The 180 blocks the reference decoder can't read (ack lists)
   are now read as ack lists. For each client-to-server datagram in the capture, the harness
   checks that our `CordCon` would accept its ack list.
 * **(b) AuxData round trip.** All 43,978 EA AUX_DATA messages decode without an assert, and
@@ -81,7 +81,7 @@ Each item has a status line (results in [library-matching.md](library-matching.m
 
 ### M1.0 Inputs
 
-* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (`the reference decoder roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as `EnB.Trace/Ea/the reference importer.cs`, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
+* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (its `roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as the reference importer, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
 * **Done when:** counts equal the reference decoder's
 * **Size:** small
 * **Status:** Done 2026-10-24 (tools/harness/README.md); results in library-matching.md §3.8.
@@ -263,7 +263,7 @@ and layout must be visible.
 * 2026-10-27 (builder L5): exact: spln_db's Evaluate_Curve 0x485620 / Evaluate_Color 0x485790 on a minimal spline.h, spline.cpp's Resize 0x483820, the land's Load_PLD / Save_PLD 0x46EB60 / 0x46ECF0, Init_Horizon_Tables 0x46EF60, the height field's Cast_AABox 0x465030 and vector<Vector3>::insert 0x4663E0, plus template and COMDAT copies (land 47 -> 60, heightfield 4 -> 7, spln_db 61 -> 63, spline 0 -> 1 pairs with LandClass::Cast_AABox 0x46C6B0). Functional, NOT EXACT: Load_Assets 0x4691D0 (inline-budget), Limit_Levels 0x46AA40 over std::deque<Vector2i>, Update_Patches 0x46B3C0, Compute_Lighting 0x46CAE0 (order, 64 rows), Compute_Horizons 0x46E670 (21 rows) and its buffer step 0x473290, Render 0x474B30 (not run), Save_Sea_Mask 0x46BCC0, the height field's Cast_Ray 0x4647C0, Cast_OBBox 0x4654E0 and Get_Triangles 0x465D30.
 * 2026-10-27 (builder L6): exact: the horizon scanner 0x4733C0, the companion object in new app/shared/landdmap.cpp (ctor 0x466BE0, dtor 0x466DE0 / 0x466D40, 0x466E70, 0x466F10, the DMap registry reader 0x468120, 0x467910; it is the Matrox displacement-mapped land, off on other hardware); functional, NOT EXACT: the horizon steps 0x46E120, 0x46F120, 0x470F80 / 0x472F80, the scanners 0x473780 / 0x473BC0 (frame), the companion's Matrox-only draw 0x466F60 and helpers (app +10 pairs). A trial in a worktree (not committed) linked VIDTEST on LandClass: Render 0x474B30 draws the land (the land group now has the original's A8R8G8B8 lightmap key; 170 draws / 97,580 prims against the original's 212 / 32,780), but without the decorations: drawcheck FAILs on the tree group and the land frames 600-900 differ 11-15% (trees missing; frames 1-550 0.9-4.0%).
 * 2026-10-28 (builder LD1, D101): the four undefined land symbols placed (P-L6-2): ~LandPatchClass 0x474560, ~LandPatchRecordClass 0x4749D0 (both kept out of line by `#pragma auto_inline(off)`) and 0x477E20 exact, 0x93D6C0 is WW3D2's TexProjectClass::Peek_Material_Pass (the +0x1218 vector holds TexProjectClass; land +3 pairs). VIDTEST draws its land with LandClass (P-L6-1): vidland.* deleted, the trees in programs/vidtest/viddeco.* (VIDTEST's own code, a render object drawn after the land, by the land's patch records' visibility and level). The LOD table 0xB7188C has eight entries (VIDTEST's Land LOD 7 read past our six: every patch at level 0). drawcheck frame 900: ours 2,191 draws / 83,028 prims / 173,408 verts, the prims and verts the original's (the land group 212 / 32,780 exactly; the trees 1,344 draws of the original's 23,695 prims where it draws 340); sbs mean 2.6-2.8% (vidland 1.9-2.4%), frames 600-900 2.8-3.0% (vidland 1.5-2.4%); results.ini LandPolyBudget 28000, LandLOD 7 as before.
-* 2026-10-28 (builder LD2): the lighting difference was VIDTEST's sun: Update_Lighting 0x4250B0 takes acos(sun.z) (0x5286A0 is the CRT's acos), so the record's SunAngle is the elevation; with asin LandClass shadowed 6,720 texels the original lights. The lightmap at frame 900 now equals the original's (dea5245). The trees come from the client's code: Create_Decorations 0x479D00 and Build_Decorations 0x47A2F0 (functional) fill the patch records Render draws; viddeco.* deleted. drawcheck frame 900: ours 1,187 / 83,028 / 173,408 in 50 groups, every group the original's (baseline updated); sbs mean 2.0-2.1%, frames 600-900 1.4-2.0%. The .dcb reader 0x4795D0, Load_Prototype_Names 0x478970 and Sample 0x463BF0 exact (Get_Height takes a Vector3); the .dcb writer 0x479A50 NOT EXACT (frame).
+* 2026-10-28 (builder LD2): the lighting difference was VIDTEST's sun: Update_Lighting 0x4250B0 takes acos(sun.z) (0x5286A0 is the CRT's acos), so the record's SunAngle is the elevation; with asin LandClass shadowed 6,720 texels the original lights. The lightmap at frame 900 now equals the original's (824ff99). The trees come from the client's code: Create_Decorations 0x479D00 and Build_Decorations 0x47A2F0 (functional) fill the patch records Render draws; viddeco.* deleted. drawcheck frame 900: ours 1,187 / 83,028 / 173,408 in 50 groups, every group the original's (baseline updated); sbs mean 2.0-2.1%, frames 600-900 1.4-2.0%. The .dcb reader 0x4795D0, Load_Prototype_Names 0x478970 and Sample 0x463BF0 exact (Get_Height takes a Vector3); the .dcb writer 0x479A50 NOT EXACT (frame).
 * 2026-10-28 (builder LD3): D120 (drawcheck, vidtest_sbs, run_vidtest default to `-art build/art`, tools/harness/artdir.py); D119's Land_Set_Ref back to the client's Create_Get / Create_NEW (0x474080 ambiguous, D66 (vi)); the ini writer 0x4791D0 (NOT EXACT frame: stack slots only); new app/client/mainview.cpp with the zone loader 0x5137F0 and the wind loader 0x513B90 byte-exact (app +4 pairs with two template copies). drawcheck PASS, sbs mean 1.2 %. The stars / orbital loader 0x513700 is exact but blocked by clienttest's fake main view (attempts.csv). Build_Decorations' RefCountPtr form tried (no gain: the client calls vector<RefCountPtr<MeshClass>>::insert(it, n, x) 0x47D690 out of line).
 * Open: Build_Decorations / Create_Decorations byte-exact, 0x513700 (clienttest), the ini reader 0x478B50 / writer 0x4791D0 exact.
 

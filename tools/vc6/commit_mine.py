@@ -63,7 +63,7 @@ def renumber(hunks):
     `git apply` places a hunk at its new-file line (`+c`) and searches outward for the preimage; a
     -U0 insertion hunk has no preimage, so it lands exactly at `c`. When hunks before it were
     skipped (other builders'), `c` still counts their lines and the insertion lands inside another
-    entry (d48e284 broke imports.json this way, 2026-10-26). So `c` is recomputed from the old-file
+    entry (e5661c2 broke imports.json this way, 2026-10-26). So `c` is recomputed from the old-file
     position and the running delta of the kept hunks alone.
     """
     out, delta = [], 0

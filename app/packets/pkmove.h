@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 20 (0x0014, MOVE): vtable 0xB0B344, constructor 0x89D110, 0x14 bytes
-class MovePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MOVE (the Net-7 opcode table; no structure check)
+class MovePacketClass : public PacketClass  // NAME 2: Net-7's opcode name MOVE (the Net-7 opcode table; no structure check)
 {
 public:
 	MovePacketClass(int game_id, char move_type);	// 0x89D070

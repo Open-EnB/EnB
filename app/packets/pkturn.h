@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 18 (0x0012, TURN): vtable 0xB0C048, constructor 0x8AB600, 0x14 bytes
-class TurnPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TURN (the Net-7 opcode table; no structure check)
+class TurnPacketClass : public PacketClass  // NAME 2: Net-7's opcode name TURN (the Net-7 opcode table; no structure check)
 {
 public:
 	TurnPacketClass(int game_id, float intensity);	// 0x8AB560

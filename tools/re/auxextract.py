@@ -1,15 +1,15 @@
 """Run the client's AuxData root constructors symbolically (M1.3, D43): the schema trees with each
 node's vtable, constructor calls and position in its allocation (`vt`, `ctors`, `at`).
 
-A copy of the reference decoder's research/tools/auxschema/extract_auxschema.py (same author, same
+A copy of the reference decoder's schema extractor (same author, same
 client), extended only to record `ctors`, `vt` and `at` per node; with those stripped its output
-equals the reference decoder's src/Shared/the reference game model/Schema/client-auxdata.json (checked by
+equals the reference game model's schema, now docs/data/client-auxdata.json (checked by
 `tools/re/auxroots.py check`). Used by tools/re/auxroots.py; standalone:
 
     python tools/re/auxextract.py CLIENT.exe OUT.json
 
 The original's docstring follows.
-Extract the client's AuxData schemas from client.exe (design §8.2, docs/research/auxdata.md).
+Extract the client's AuxData schemas from client.exe.
 
 The client builds every AuxData tree in C++ constructors: each field is a named Delta object,
 containers add their children in wire order with Compound::Add, and arrays add N unnamed
@@ -17,7 +17,7 @@ elements in a loop. This script runs those constructors symbolically (x86, just 
 `this` pointers, the stack, heap allocations and loop bounds) and writes the trees as JSON.
 
     pip install capstone
-    python extract_auxschema.py "C:/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe" out.json
+    python tools/re/auxextract.py "C:/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe" out.json
 
 Addresses are for the retail client with SHA-256 249f8524...51c4; the script refuses others.
 """
@@ -29,7 +29,7 @@ CLIENT_SHA256 = '249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c
 BASE_CTOR = 0x4a4d40        # DeltaBase::DeltaBase(const char *name)
 ADD_CHILD = 0x4a5670        # DeltaCompound::Add(DeltaBase *child)
 SHIP_ADD = 0x6f8c70         # the ship's Add(bool narrow, DeltaBase *child): narrow sets the child's mask to 0xCF
-MASK, DEFAULT_MASK = 0x80, 0x3ff    # a Delta's visibility mask (docs/research/auxdata.md §3)
+MASK, DEFAULT_MASK = 0x80, 0x3ff    # a Delta's visibility mask
 ALLOC = 0x4e9cb0            # operator new
 SKIP = {0x4e9410, 0x4e9d10, 0xa266da}   # assert, operator delete, sprintf
 COMPOUND_READ = 0x4a3c70
@@ -303,7 +303,7 @@ def main(client, out):
 
     doc = {
         'source': f'client.exe sha256 {CLIENT_SHA256}',
-        'generator': 'research/tools/auxschema/extract_auxschema.py',
+        'generator': 'tools/re/auxextract.py',
         'createTypes': create_types,
         'playerRoot': 'Player',
         'roots': roots,

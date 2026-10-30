@@ -12,7 +12,7 @@ static initialiser). Open-BFME (github.com/Open-BFME/Open-BFME-1) takes the othe
 claims one address per function and the tool verifies the bytes there ("a wrong pin still matches").
 
 M4 measured four evidence kinds as an extra objmatch round after the initialiser round, on the tree at
-f43bf2f (11,366 pairs, 2,906 tied entries / 2,294 symbols):
+5dd3261 (11,366 pairs, 2,906 tied entries / 2,294 symbols):
 
 | Kind | Pairs | Lost | Audit (20 sampled) | Credits on byte-identical twins |
 |---|---|---|---|---|
@@ -25,16 +25,16 @@ Findings worth keeping: (a) is a link proof (the client's own call instruction),
 is measurably wrong at about 2.4 % and should never be automatic; most credits of every kind land on a
 candidate whose bytes equal another's, so the pair is right by bytes but the identity can be a twin;
 symbols.json names a vtable slot `??_E` where our builds produce the equivalent `??_G` (an alias would credit
-14 functions from vtable proof alone). That alias is now objmatch's rule (32fd4b3 / 32fd4b3, D129, +293
+14 functions from vtable proof alone). That alias is now objmatch's rule (8370176 / 8370176, D129, +293
 pairs): the table above predates it.
 
 ## Files
 
-- `objmatch_pins.py`: objmatch.py at f43bf2f plus the pin rounds (`--kinds caller,callerlib,place1000,place4000,pin`).
+- `objmatch_pins.py`: objmatch.py at 5dd3261 plus the pin rounds (`--kinds caller,callerlib,place1000,place4000,pin`).
 - `pins_run.py`: runs the kinds offline over a verify's objects (M4's `.work/m4/` layout; adjust the paths).
 - `audit.py`: samples credits and checks them with callers and placement.
 - `kinds_pin.json`: the per-kind credit lists of the (c) run.
 - `pins.csv`: the draft ledger format (symbol, address, file, evidence, note), six pins and one negative row.
 
-The scripts are a snapshot: objmatch.py has moved on since f43bf2f, so rerunning them needs the matching
+The scripts are a snapshot: objmatch.py has moved on since 5dd3261, so rerunning them needs the matching
 objmatch.py from that commit and a fresh verify's objects.

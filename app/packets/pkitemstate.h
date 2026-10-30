@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 41 (0x0029, ITEM_STATE): vtable 0xB0AEC4, constructor 0x895CA0, 0x18 bytes
-class ItemStatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
+class ItemStatePacketClass : public PacketClass  // NAME 2: Net-7's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
 {
 public:
 	ItemStatePacketClass(RawPacketClass *raw);	// 0x895CA0

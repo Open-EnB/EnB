@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 68 (0x0044, REQUEST_TIME): vtable 0xB0BFB8, constructor 0x8AADE0, 0x14 bytes
-class RequestTimePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
+class RequestTimePacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTimePacketClass();	// 0x8AAD50

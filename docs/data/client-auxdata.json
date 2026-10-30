@@ -1,0 +1,2147 @@
+{
+ "source": "client.exe sha256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+ "generator": "tools/re/auxextract.py",
+ "createTypes": {
+  "0": "Ship",
+  "1": "Ship",
+  "3": "Planet",
+  "4": "Component",
+  "8": "Light",
+  "11": "Stargate",
+  "12": "Starbase",
+  "25": "Hulk",
+  "34": "Decoration",
+  "37": "Decoration",
+  "38": "Harvestable",
+  "39": "ManufacturingLab",
+  "41": "Decoration"
+ },
+ "playerRoot": "Player",
+ "roots": {
+  "Ship": {
+   "name": "Ship",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "Owner",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "Title",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "Rank",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "EnergyPercent",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "EndTime",
+       "type": "time"
+      },
+      {
+       "name": "ChangePerTick",
+       "type": "float"
+      },
+      {
+       "name": "StartValue",
+       "type": "float"
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "MaxEnergyPower",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "ShieldPercent",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "EndTime",
+       "type": "time"
+      },
+      {
+       "name": "ChangePerTick",
+       "type": "float"
+      },
+      {
+       "name": "StartValue",
+       "type": "float"
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "MaxShieldPower",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "HullPoints",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MaxHullPoints",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MaxTiltRate",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MaxTurnRate",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MaxTiltAngle",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MaxSpeed",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "MinSpeed",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "Acceleration",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "LockSpeed",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "LockOrient",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "AutoLevel",
+     "type": "bool"
+    },
+    {
+     "name": "IsCloaked",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsCountermeasureActive",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsIncapacitated",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsOrganic",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsInPVP",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsAutoFollowing",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "IsRescueBeaconActive",
+     "type": "bool",
+     "mask": 207
+    },
+    {
+     "name": "CombatLevel",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "TargetGameID",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "TargetThreat",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "TargetThreatSound",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "TargetThreatLevel",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "PrivateWarpState",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "GlobalWarpState",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "WarpAvailable",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "WarpTriggerTime",
+     "type": "time",
+     "mask": 207
+    },
+    {
+     "name": "Shake",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "ForceX",
+       "type": "float"
+      },
+      {
+       "name": "ForceY",
+       "type": "float"
+      },
+      {
+       "name": "ForceZ",
+       "type": "float"
+      },
+      {
+       "name": "Damage",
+       "type": "float"
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "Inventory",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "CargoSpace",
+       "type": "int32"
+      },
+      {
+       "name": "EquipMountModel",
+       "type": "string"
+      },
+      {
+       "name": "Mounts",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "bytes12"
+       }
+      },
+      {
+       "name": "MountBoneNames",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "string"
+       }
+      },
+      {
+       "name": "FutureWeapons",
+       "type": "int32"
+      },
+      {
+       "name": "FutureDevices",
+       "type": "int32"
+      },
+      {
+       "name": "Cargo",
+       "type": "array",
+       "count": 40,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "Equipped",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         },
+         {
+          "name": "ReadyTime",
+          "type": "time"
+         },
+         {
+          "name": "TargetRange",
+          "type": "float"
+         },
+         {
+          "name": "ItemState",
+          "type": "enum"
+         },
+         {
+          "name": "Effects",
+          "type": "struct",
+          "fields": [
+           {
+            "name": "Range",
+            "type": "float"
+           },
+           {
+            "name": "Usage",
+            "type": "enum"
+           },
+           {
+            "name": "Targets",
+            "type": "enum"
+           },
+           {
+            "name": "Validity",
+            "type": "enum"
+           }
+          ]
+         }
+        ]
+       }
+      },
+      {
+       "name": "Ammo",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "Hull",
+       "type": "array",
+       "count": 1,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "PlayerTrade",
+       "type": "array",
+       "count": 6,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "VisibleQuadrantDamagePercent",
+     "type": "array",
+     "count": 4,
+     "element": {
+      "name": "item",
+      "type": "float"
+     }
+    },
+    {
+     "name": "DamageSpot",
+     "type": "array",
+     "count": 15,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "DamageLine",
+     "type": "array",
+     "count": 10,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "DamageBlotch",
+     "type": "array",
+     "count": 5,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "Legos",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "Scale",
+       "type": "float"
+      },
+      {
+       "name": "Attachments",
+       "type": "array",
+       "count": 18,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "BoneName",
+          "type": "string"
+         },
+         {
+          "name": "Type",
+          "type": "int32"
+         },
+         {
+          "name": "Assets",
+          "type": "int32"
+         },
+         {
+          "name": "Data",
+          "type": "string"
+         }
+        ]
+       }
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "BuffArray",
+     "type": "array",
+     "count": 15,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "BuffType",
+        "type": "string"
+       },
+       {
+        "name": "ScrubTypeName",
+        "type": "string"
+       },
+       {
+        "name": "IsPermanent",
+        "type": "bool"
+       },
+       {
+        "name": "BuffRemovalTime",
+        "type": "time"
+       },
+       {
+        "name": "Elements",
+        "type": "array",
+        "count": 5,
+        "element": {
+         "name": "item",
+         "type": "struct",
+         "fields": [
+          {
+           "name": "SourceEntity",
+           "type": "string"
+          },
+          {
+           "name": "SourceObject",
+           "type": "string"
+          },
+          {
+           "name": "Magnitude",
+           "type": "int32"
+          },
+          {
+           "name": "IsActive",
+           "type": "bool"
+          },
+          {
+           "name": "ExpirationTime",
+           "type": "time"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "mask": 207
+    },
+    {
+     "name": "TradeMoney",
+     "type": "money",
+     "mask": 207
+    },
+    {
+     "name": "BaseStats",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "Defense",
+       "type": "int32"
+      },
+      {
+       "name": "MissileDefense",
+       "type": "int32"
+      },
+      {
+       "name": "Speed",
+       "type": "int32"
+      },
+      {
+       "name": "WarpSpeed",
+       "type": "int32"
+      },
+      {
+       "name": "WarpPowerLevel",
+       "type": "int32"
+      },
+      {
+       "name": "TurnRate",
+       "type": "int32"
+      },
+      {
+       "name": "ScanRange",
+       "type": "int32"
+      },
+      {
+       "name": "Visibility",
+       "type": "int32"
+      },
+      {
+       "name": "ResistImpact",
+       "type": "int32"
+      },
+      {
+       "name": "ResistExplosive",
+       "type": "int32"
+      },
+      {
+       "name": "ResistPlasma",
+       "type": "int32"
+      },
+      {
+       "name": "ResistEnergy",
+       "type": "int32"
+      },
+      {
+       "name": "ResistEMP",
+       "type": "int32"
+      },
+      {
+       "name": "ResistChemical",
+       "type": "int32"
+      },
+      {
+       "name": "ResistPsionic",
+       "type": "int32"
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "CurrentStats",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "Defense",
+       "type": "int32"
+      },
+      {
+       "name": "MissileDefense",
+       "type": "int32"
+      },
+      {
+       "name": "Speed",
+       "type": "int32"
+      },
+      {
+       "name": "WarpSpeed",
+       "type": "int32"
+      },
+      {
+       "name": "WarpPowerLevel",
+       "type": "int32"
+      },
+      {
+       "name": "TurnRate",
+       "type": "int32"
+      },
+      {
+       "name": "ScanRange",
+       "type": "int32"
+      },
+      {
+       "name": "Visibility",
+       "type": "int32"
+      },
+      {
+       "name": "ResistImpact",
+       "type": "int32"
+      },
+      {
+       "name": "ResistExplosive",
+       "type": "int32"
+      },
+      {
+       "name": "ResistPlasma",
+       "type": "int32"
+      },
+      {
+       "name": "ResistEnergy",
+       "type": "int32"
+      },
+      {
+       "name": "ResistEMP",
+       "type": "int32"
+      },
+      {
+       "name": "ResistChemical",
+       "type": "int32"
+      },
+      {
+       "name": "ResistPsionic",
+       "type": "int32"
+      }
+     ],
+     "mask": 207
+    },
+    {
+     "name": "EngineThrustState",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "EngineTrailType",
+     "type": "int32",
+     "mask": 207
+    },
+    {
+     "name": "GuildName",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "GuildRank",
+     "type": "enum",
+     "mask": 207
+    },
+    {
+     "name": "GuildRankName",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "SameGuildTagColor",
+     "type": "color",
+     "mask": 207
+    },
+    {
+     "name": "OtherGuildTagColor",
+     "type": "color",
+     "mask": 207
+    },
+    {
+     "name": "InterruptibleAbilityName",
+     "type": "string",
+     "mask": 207
+    },
+    {
+     "name": "InterruptState",
+     "type": "enum",
+     "mask": 207
+    },
+    {
+     "name": "InterruptibleActivationTime",
+     "type": "time",
+     "mask": 207
+    },
+    {
+     "name": "InterruptProgress",
+     "type": "float",
+     "mask": 207
+    },
+    {
+     "name": "FactionIdentifier",
+     "type": "string",
+     "mask": 207
+    }
+   ]
+  },
+  "Component": {
+   "name": "Component",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    }
+   ]
+  },
+  "Light": {
+   "name": "Light",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "Intensity",
+     "type": "float"
+    },
+    {
+     "name": "DiffuseRGB",
+     "type": "color"
+    },
+    {
+     "name": "SpecularRGB",
+     "type": "color"
+    },
+    {
+     "name": "AmbientRGB",
+     "type": "color"
+    },
+    {
+     "name": "Attenuation",
+     "type": "enum"
+    },
+    {
+     "name": "AttenuationFactors",
+     "type": "color"
+    }
+   ]
+  },
+  "Decoration": {
+   "name": "Decoration",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "AppearsInRadar",
+     "type": "bool"
+    },
+    {
+     "name": "RadarRange",
+     "type": "float"
+    }
+   ]
+  },
+  "Harvestable": {
+   "name": "Harvestable",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "HarvestableResources",
+     "type": "array",
+     "count": 40,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "PercentFull",
+     "type": "float"
+    },
+    {
+     "name": "TechLevel",
+     "type": "int32"
+    }
+   ]
+  },
+  "ManufacturingLab": {
+   "name": "ManufacturingLab",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "Mode",
+     "type": "enum"
+    },
+    {
+     "name": "Validity",
+     "type": "enum"
+    },
+    {
+     "name": "FailureMessage",
+     "type": "string"
+    },
+    {
+     "name": "Difficulty",
+     "type": "enum"
+    },
+    {
+     "name": "ManufactureTarget",
+     "type": "array",
+     "count": 2,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "ManufactureComponents",
+     "type": "array",
+     "count": 6,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "ManufactureOverride",
+     "type": "array",
+     "count": 1,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "NegotiatedCost",
+     "type": "money"
+    },
+    {
+     "name": "BaseCost",
+     "type": "money"
+    },
+    {
+     "name": "PrimaryCategories",
+     "type": "array",
+     "count": 2,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "Name",
+        "type": "string"
+       },
+       {
+        "name": "Categories",
+        "type": "array",
+        "count": 5,
+        "element": {
+         "name": "item",
+         "type": "struct",
+         "fields": [
+          {
+           "name": "Name",
+           "type": "string"
+          },
+          {
+           "name": "Subcategories",
+           "type": "array",
+           "count": 5,
+           "element": {
+            "name": "item",
+            "type": "struct",
+            "fields": [
+             {
+              "name": "Name",
+              "type": "string"
+             },
+             {
+              "name": "ID",
+              "type": "enum"
+             },
+             {
+              "name": "Visible",
+              "type": "bool"
+             }
+            ]
+           }
+          },
+          {
+           "name": "ID",
+           "type": "int32"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "KnownFormula",
+     "type": "array",
+     "count": 500,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemName",
+        "type": "string"
+       },
+       {
+        "name": "ItemID",
+        "type": "int32"
+       },
+       {
+        "name": "TechLevel",
+        "type": "int32"
+       }
+      ]
+     }
+    },
+    {
+     "name": "PreviousAttempts",
+     "type": "array",
+     "count": 15,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemName",
+        "type": "string"
+       },
+       {
+        "name": "ItemID",
+        "type": "int32"
+       },
+       {
+        "name": "TechLevel",
+        "type": "int32"
+       }
+      ]
+     }
+    },
+    {
+     "name": "CurrentItemCategory",
+     "type": "enum"
+    },
+    {
+     "name": "SuccessProbability",
+     "type": "float"
+    },
+    {
+     "name": "CriticalSuccessProbability",
+     "type": "float"
+    },
+    {
+     "name": "ExpectedQuality",
+     "type": "float"
+    },
+    {
+     "name": "MinimumQuality",
+     "type": "float"
+    },
+    {
+     "name": "MaximumQuality",
+     "type": "float"
+    },
+    {
+     "name": "AdditionalIterations",
+     "type": "enum"
+    },
+    {
+     "name": "TechLevelFilterBitfield",
+     "type": "enum"
+    }
+   ]
+  },
+  "Player": {
+   "name": "Player",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Money",
+     "type": "money"
+    },
+    {
+     "name": "XPDebt",
+     "type": "int32"
+    },
+    {
+     "name": "SecureInventory",
+     "type": "array",
+     "count": 96,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "VendorInventory",
+     "type": "array",
+     "count": 128,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "RewardInventory",
+     "type": "array",
+     "count": 1,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "OverflowInventory",
+     "type": "array",
+     "count": 8,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "RPGInfo",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "Race",
+       "type": "enum"
+      },
+      {
+       "name": "Profession",
+       "type": "enum"
+      },
+      {
+       "name": "Skills",
+       "type": "array",
+       "count": 64,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "Level",
+          "type": "int32"
+         },
+         {
+          "name": "RecycleTime",
+          "type": "int32"
+         },
+         {
+          "name": "LastActivation",
+          "type": "time"
+         },
+         {
+          "name": "Availability",
+          "type": "bytes16"
+         },
+         {
+          "name": "QuestOnlyLevels",
+          "type": "int32"
+         },
+         {
+          "name": "MaxSkillLevels",
+          "type": "int32"
+         },
+         {
+          "name": "Affiliations",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "SkillAbilities",
+       "type": "array",
+       "count": 170,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "HasAbility",
+          "type": "bool"
+         },
+         {
+          "name": "Usage",
+          "type": "enum"
+         },
+         {
+          "name": "Targets",
+          "type": "enum"
+         },
+         {
+          "name": "Range",
+          "type": "int32"
+         },
+         {
+          "name": "Radius",
+          "type": "int32"
+         },
+         {
+          "name": "Validity",
+          "type": "enum"
+         },
+         {
+          "name": "CanBeUsedWhileIncapacitated",
+          "type": "bool"
+         }
+        ]
+       }
+      },
+      {
+       "name": "SkillPoints",
+       "type": "int32"
+      },
+      {
+       "name": "TotalSkillPoints",
+       "type": "int32"
+      },
+      {
+       "name": "CombatExp",
+       "type": "float"
+      },
+      {
+       "name": "CombatLevel",
+       "type": "int32"
+      },
+      {
+       "name": "TradeExp",
+       "type": "float"
+      },
+      {
+       "name": "TradeLevel",
+       "type": "int32"
+      },
+      {
+       "name": "ExploreExp",
+       "type": "float"
+      },
+      {
+       "name": "ExploreLevel",
+       "type": "int32"
+      },
+      {
+       "name": "HullUpgradeLevel",
+       "type": "int32"
+      },
+      {
+       "name": "SkillPowerupStart",
+       "type": "time"
+      },
+      {
+       "name": "SkillPowerupEnd",
+       "type": "time"
+      },
+      {
+       "name": "SkillPowerupAbilityNumber",
+       "type": "int32"
+      }
+     ]
+    },
+    {
+     "name": "CommunityEventFlags",
+     "type": "string"
+    },
+    {
+     "name": "MusicID",
+     "type": "int32"
+    },
+    {
+     "name": "Missions",
+     "type": "array",
+     "count": 12,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ID",
+        "type": "int32"
+       },
+       {
+        "name": "Name",
+        "type": "string"
+       },
+       {
+        "name": "Summary",
+        "type": "string"
+       },
+       {
+        "name": "Reward",
+        "type": "string"
+       },
+       {
+        "name": "FailureConsequence",
+        "type": "string"
+       },
+       {
+        "name": "IssuingFaction",
+        "type": "string"
+       },
+       {
+        "name": "IsTimed",
+        "type": "bool"
+       },
+       {
+        "name": "ExpirationTime",
+        "type": "time"
+       },
+       {
+        "name": "StartTime",
+        "type": "int32"
+       },
+       {
+        "name": "IsForfeitable",
+        "type": "bool"
+       },
+       {
+        "name": "IsComplete",
+        "type": "bool"
+       },
+       {
+        "name": "IsFailed",
+        "type": "bool"
+       },
+       {
+        "name": "IsExpired",
+        "type": "bool"
+       },
+       {
+        "name": "IsFullyVisible",
+        "type": "bool"
+       },
+       {
+        "name": "StageCount",
+        "type": "int32"
+       },
+       {
+        "name": "Stage",
+        "type": "int32"
+       },
+       {
+        "name": "Stages",
+        "type": "array",
+        "count": 20,
+        "element": {
+         "name": "item",
+         "type": "struct",
+         "fields": [
+          {
+           "name": "Text",
+           "type": "string"
+          },
+          {
+           "name": "IsTimed",
+           "type": "bool"
+          }
+         ]
+        }
+       },
+       {
+        "name": "StageExpirationTime",
+        "type": "time"
+       },
+       {
+        "name": "HasGivenNewMissionMessage",
+        "type": "bool"
+       }
+      ]
+     }
+    },
+    {
+     "name": "Reputation",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "Faction",
+       "type": "array",
+       "count": 32,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "Name",
+          "type": "string"
+         },
+         {
+          "name": "Reaction",
+          "type": "float"
+         },
+         {
+          "name": "Order",
+          "type": "int32"
+         }
+        ]
+       }
+      },
+      {
+       "name": "Affiliation",
+       "type": "string"
+      }
+     ]
+    },
+    {
+     "name": "PIPAvatarID",
+     "type": "int32"
+    },
+    {
+     "name": "RegistrationStarbase",
+     "type": "string"
+    },
+    {
+     "name": "RegistrationStarbaseSector",
+     "type": "string"
+    },
+    {
+     "name": "SectorName",
+     "type": "string"
+    },
+    {
+     "name": "SectorNum",
+     "type": "int32"
+    },
+    {
+     "name": "ClientSendUITriggers",
+     "type": "int32"
+    },
+    {
+     "name": "GroupInfo",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "IsGroupLeader",
+       "type": "bool"
+      },
+      {
+       "name": "LookingForGroup",
+       "type": "bool"
+      },
+      {
+       "name": "AllowGroupInvite",
+       "type": "bool"
+      },
+      {
+       "name": "ShowNonCombatActivities",
+       "type": "bool"
+      },
+      {
+       "name": "ForceAutoSplit",
+       "type": "bool"
+      },
+      {
+       "name": "RestrictedLootingRights",
+       "type": "bool"
+      },
+      {
+       "name": "AutoReleaseLootingRestrictions",
+       "type": "bool"
+      },
+      {
+       "name": "FormationName",
+       "type": "string"
+      },
+      {
+       "name": "Formation",
+       "type": "enum"
+      },
+      {
+       "name": "Position",
+       "type": "int32"
+      },
+      {
+       "name": "Members",
+       "type": "array",
+       "count": 5,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "Name",
+          "type": "string"
+         },
+         {
+          "name": "GameID",
+          "type": "int32"
+         },
+         {
+          "name": "Formation",
+          "type": "enum"
+         },
+         {
+          "name": "Position",
+          "type": "int32"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "Hulk": {
+   "name": "Hulk",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "Owner",
+     "type": "string"
+    },
+    {
+     "name": "VisibleQuadrantDamagePercent",
+     "type": "array",
+     "count": 4,
+     "element": {
+      "name": "item",
+      "type": "float"
+     }
+    },
+    {
+     "name": "DamageSpot",
+     "type": "array",
+     "count": 15,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "DamageLine",
+     "type": "array",
+     "count": 10,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "DamageBlotch",
+     "type": "array",
+     "count": 5,
+     "element": {
+      "name": "item",
+      "type": "bytes20"
+     }
+    },
+    {
+     "name": "Equipped",
+     "type": "array",
+     "count": 20,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    },
+    {
+     "name": "Cargo",
+     "type": "array",
+     "count": 40,
+     "element": {
+      "name": "item",
+      "type": "struct",
+      "fields": [
+       {
+        "name": "ItemTemplateID",
+        "type": "int32"
+       },
+       {
+        "name": "StackCount",
+        "type": "int32"
+       },
+       {
+        "name": "Price",
+        "type": "money"
+       },
+       {
+        "name": "AveCost",
+        "type": "float"
+       },
+       {
+        "name": "Structure",
+        "type": "float"
+       },
+       {
+        "name": "Quality",
+        "type": "float"
+       },
+       {
+        "name": "InstanceInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceActivatedEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "InstanceEquipEffectInfo",
+        "type": "string"
+       },
+       {
+        "name": "BuilderName",
+        "type": "string"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "Planet": {
+   "name": "Planet",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    }
+   ]
+  },
+  "Starbase": {
+   "name": "Starbase",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    }
+   ]
+  },
+  "Stargate": {
+   "name": "Stargate",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    }
+   ]
+  }
+ }
+}
