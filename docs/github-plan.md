@@ -27,7 +27,7 @@ in a way that cannot compromise the project's integrity.
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
 | P-GH-8 | Pre-push checklist | §3.7 | **D152: Open-EnB/EnB, master, private first; in progress** |
 | P-GH-9 | Community and continuity | §3.8, §3.9 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
-| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **decided 2026-10-30: 4.2A, plan in §4.5; building (4.5.6)** |
+| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **steps 1-6 live on master 2026-10-30 (PR #1); to do: the rehearsal, which waits for a first outside contributor, and the public switch (§4.5.7)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
@@ -217,6 +217,7 @@ Plan for code signing and antivirus false positives.
 * `roots.py` paths configurable (§1).
 * Replace `OWNER/REPO` in `.github/workflows/readme-progress.yml`.
 * Only `master` (or `main`) goes up: the local `wt/*` and `eval/*` branches stay local.
+* At the public switch: the ruleset, private vulnerability reporting and secret scanning (§4.5.7 item 2).
 
 ### 3.8 Community (P-GH-9)
 
@@ -453,4 +454,32 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
 6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers. **Done 2026-10-30:**
    D156 (claims), D157 (verification and landing; D148, D149 and D151 point to them).
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
-   left alone expires.
+   left alone expires. **To do (§4.5.7):** the user has no second account, so it waits for the first outside
+   contributor.
+
+#### 4.5.7 To do (2026-10-30)
+
+Live since PR #1 merged (abad8ec, 2026-10-30): the Claims workflow runs from master (a dispatched run reconciled,
+green); the scheduled task runs master's `verify_watch.py` from `.work/wt/verifier`; `run_branch.py` opens the run's
+draft PR at the first push. Automerge is **off**.
+
+1. **The rehearsal (step 7), with the first outside contributor** (on the private repository: invited with read
+   access, which counts as a contributor; once public: anyone). Watch each step and fix what breaks:
+   1. their claim through the issue form: granted by the Action, listed by `claims.py list`;
+   2. a PR from their fork with `Claims #N` that only edits C++: `vc6-verify` within about 5 minutes; with no
+      VC6 their imports.json differs, which the comment notes without failing;
+   3. a landing: `/land SHA` from the maintainer (automerge stays off until this has worked once): a
+      `verified/prN` landing PR, merged when `checks` pass, one commit on master authored by them, the original
+      closed with a thank-you, the claim closed as landed;
+   4. a PR that touches Python: `vc6-verify` pending until `/verify-approved SHA`, then `/land SHA` only;
+   5. `/hold` stops a landing, `/unhold` releases it;
+   6. a claim left without a PR expires after 8 hours (a real clock: the tests cover the arithmetic only);
+   7. then `python tools/vc6/verify_watch.py automerge on`, if the user agrees.
+   Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
+   claims arriving at once, a fork PR's head fetched through `pull/N/head`.
+2. **The public switch** (the user decides when): make the repository public, then apply `.work/ruleset.json`
+   (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
+   vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,
+   automerge stays off and every landing is a maintainer's `/land`.
+3. **Small follow-ups:** `actions/checkout@v4` and `setup-python@v5` to their current majors (GitHub's Node 20
+   deprecation warning); the hourly Claims schedule costs Actions minutes while the repository is private.

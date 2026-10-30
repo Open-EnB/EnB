@@ -2,7 +2,8 @@
 """The coordinator's run branch, its draft PR and its claims (D148, docs/github-plan.md 4.5.3, P-GH-10 step 5).
 
     python tools/run_branch.py start [--date YYYY-MM-DD]   run/<date> from origin/master (or brought up to it),
-                                                          pushed, with a draft PR to master
+                                                          pushed, with a draft PR to master (opened by `push`
+                                                          once the branch has its first commit)
     python tools/run_branch.py claim UNIT --builder ID [--model M] [--split] [--wait S]
                                                           claim a builder's functions (tools/claims.py) and add
                                                           `Claims #N` to the run's PR; --split claims a big
@@ -31,7 +32,8 @@ sys.path.insert(0, HERE)
 import claims as C  # noqa: E402
 
 ROOT = os.path.normpath(os.path.join(HERE, '..'))
-SUMMARY = re.compile(r'<!-- run-summary -->.*?<!-- /run-summary -->', re.S)
+PENDING = os.path.join(ROOT, '.work', 'run_branch.claims')    # claims made before the run's PR exists
+SUMMARY =re.compile(r'<!-- run-summary -->.*?<!-- /run-summary -->', re.S)
 
 
 def git(*args, check=True):
@@ -76,6 +78,24 @@ def initial_body(b):
             f'maintainer merges it (D148).\n<!-- /run-summary -->\n\n')
 
 
+def ensure_pr(r, b):
+    """The run's PR, opened as a draft once the branch has a commit master lacks (GitHub refuses one before)."""
+    p = run_pr(r, b)
+    if p:
+        print(f'PR #{p["number"]} is open for {b}' + (' (draft)' if p.get('draft') else ''))
+        return p
+    if git('rev-list', '--count', f'origin/master..{b}') == '0':
+        print(f'{b} has no commits beyond master yet: `run_branch.py push` opens the draft PR after the first one')
+        return None
+    pending = open(PENDING).read().split() if os.path.exists(PENDING) else []
+    url = gh('pr', 'create', '-R', r, '--draft', '--base', 'master', '--head', b, '--title', f'Run {b[4:]}',
+             '--body', initial_body(b) + ''.join(f'Claims #{n}\n' for n in pending))
+    print(f'draft PR: {url}' + (f' (claims {", ".join(pending)})' if pending else ''))
+    if os.path.exists(PENDING):
+        os.remove(PENDING)
+    return run_pr(r, b)
+
+
 def cmd_start(a):
     r = C.repo()
     if git('status', '--porcelain', '--untracked-files=no'):
@@ -98,13 +118,7 @@ def cmd_start(a):
     push = subprocess.run(['git', 'push', '-u', 'origin', b], cwd=ROOT)
     if push.returncode:
         sys.exit('run_branch: push failed (see the pre-push check above)')
-    p = run_pr(r, b)
-    if p:
-        print(f'PR #{p["number"]} is open for {b}' + (' (draft)' if p.get('draft') else ''))
-    else:
-        url = gh('pr', 'create', '-R', r, '--draft', '--base', 'master', '--head', b, '--title', f'Run {b[4:]}',
-                 '--body', initial_body(b))
-        print(f'draft PR: {url}')
+    ensure_pr(r, b)
     live = C.live_claims(r)
     print(f'{len(live)} live claims: assign builders only unclaimed functions (python tools/claims.py list)')
 
@@ -132,9 +146,7 @@ def answer(r, n, wait=180):
 
 def cmd_claim(a):
     r, b = C.repo(), branch()
-    p = run_pr(r, b)
-    if not p:
-        sys.exit(f'run_branch: {b} has no open PR (run_branch.py start)')
+    p = run_pr(r, b) or ensure_pr(r, b)
     ix = C.Index()
     text = ' '.join(a.unit)
     if a.split:
@@ -156,10 +168,15 @@ def cmd_claim(a):
             print(f'#{n} granted: {unit} ({len(st["funcs"])} functions)')
         else:
             print(f'#{n} not granted: {unit} (see the issue)')
-    if granted:
+    if granted and p:
         body = body_of(r, p['number']).rstrip('\n') + '\n' + ''.join(f'Claims #{n}\n' for n in granted)
         set_body(r, p['number'], body)
         print(f'PR #{p["number"]}: ' + ', '.join(f'Claims #{n}' for n in granted))
+    elif granted:
+        with open(PENDING, 'a', newline='\n') as f:
+            f.write(''.join(f'{n}\n' for n in granted))
+        print(f'no PR yet: Claims #{", #".join(map(str, granted))} go into it when `push` opens it '
+              f'(within {C.NOPR_H} h, or the claims expire)')
     return 0 if len(granted) == len(units) else 1
 
 
@@ -181,6 +198,7 @@ def cmd_push(a):
     b = branch()
     if subprocess.run(['git', 'push', 'origin', b], cwd=ROOT).returncode:
         sys.exit('run_branch: push failed (see the pre-push check above)')
+    ensure_pr(C.repo(), b)
 
 
 def cmd_ready(a):
