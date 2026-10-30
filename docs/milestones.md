@@ -6,7 +6,7 @@ matching bytes. Once both are met, work returns to the client kernel and the res
 
 * **M1: a capture harness.** The rebuilt `app\shared\auxdata` and `app\wwudp` classes, linked
   into a small test program, process the stored packet captures ([prior-work.md](prior-work.md)
-  §3) and give the same results as the reference decoder's `the reference decoder`.
+  §3) and give the same results as the reference decoder.
 * **M2: a working VIDTEST.** A program equivalent to `EBCONFIG\VIDTEST.EXE`, built on the tree's
   Westwood libraries (the 2004 client versions, not VIDTEST's 2002 ones), renders E&B's original
   art: models, textures, lighting, the test scenes. It doesn't need to be byte-exact (D36).
@@ -37,8 +37,8 @@ prior-work.md had `C:\EnBDevelopment\enbserver3\...`; corrected with this plan.
 |---|---|---|
 | `capture_1..3.txt` (EA) | annotated datagrams; handshake fields labelled, RC4 session key printed, messages decoded to `Length / Opcode / payload` | about 120,000 datagrams, 165,882 messages |
 | `Alex3-fixed`, `Alex7-fixed` (EA) | per session: RC4 key, then decrypted datagrams with sequence numbers | 26,078 + 2,779 messages; 4,651 AUX_DATA |
-| `the reference traces\captures\ea\*.trace.jsonl` | the reference decoder's imports of the five EA files (`the reference decoder import-ea`, 2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
-| `the reference traces\captures\session_*` (Net-7) | pcapng + trace.jsonl, client to proxy over TCP | 2026-10-19/21 recordings, with three known AuxData encoding quirks |
+| the reference traces, `ea\*.trace.jsonl` (now `roots.EA_TRACES`, D154) | the reference decoder's imports of the five EA files (its `import-ea`, 2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
+| the reference traces, `session_*` (Net-7) | pcapng + trace.jsonl, client to proxy over TCP | 2026-10-19/21 recordings, with three known AuxData encoding quirks |
 
 All AUX_DATA in the EA captures (43,978) decode and re-encode byte for byte in the reference decoder.
 That gives a complete reference to compare our C++ against.
@@ -63,8 +63,8 @@ wwlib. It reads a capture and runs two layers:
 
 **M1 is met when all of these pass:**
 
-* **(a) Transport.** The message sequence `CordCon` delivers from the Alex sessions equals the reference decoder's
-  `the reference importer` sequence (26,078 and 2,779 messages). The 180 blocks the reference decoder can't read (ack lists)
+* **(a) Transport.** The message sequence `CordCon` delivers from the Alex sessions equals the reference
+  importer's sequence (26,078 and 2,779 messages). The 180 blocks the reference decoder can't read (ack lists)
   are now read as ack lists. For each client-to-server datagram in the capture, the harness
   checks that our `CordCon` would accept its ack list.
 * **(b) AuxData round trip.** All 43,978 EA AUX_DATA messages decode without an assert, and
@@ -81,7 +81,7 @@ Each item has a status line (results in [library-matching.md](library-matching.m
 
 ### M1.0 Inputs
 
-* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (`the reference decoder roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as `EnB.Trace/Ea/the reference importer.cs`, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
+* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (its `roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as the reference importer, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
 * **Done when:** counts equal the reference decoder's
 * **Size:** small
 * **Status:** Done 2026-10-24 (tools/harness/README.md); results in library-matching.md §3.8.

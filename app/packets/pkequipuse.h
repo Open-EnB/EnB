@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 93 (0x005D, EQUIP_USE): vtable 0xB0C204, constructor 0x8AE8B0, 0x14 bytes
-class EquipUsePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check)
+class EquipUsePacketClass : public PacketClass  // NAME 2: Net-7's opcode name EQUIP_USE (the Net-7 opcode table; no structure check)
 {
 public:
 	EquipUsePacketClass(RawPacketClass *raw);	// 0x8AE8B0

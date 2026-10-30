@@ -4,7 +4,7 @@
 
 For each opcode the switch handles: the bytes it news, the constructor it calls with the raw
 message (incremental-link thunks followed), the vtable that constructor stores last (the packet
-class's own), and the opcode's name from the reference decoder's the Net-7 opcode table. The switch's shape is
+class's own), and the opcode's name (Net-7's opcode table, kept from the existing output: final, D153). The switch's shape is
 the client's: opcodes 0-237 through the table 0x86D1CC, 5000 alone, 5001-5011 through 0x86D584,
 30000 alone, 30001-30027 through the byte index 0x86D5F0 and the table 0x86D5B0; everything else
 reaches the default 0x86D19F (assert line 1078). Generated: don't hand-edit the output.

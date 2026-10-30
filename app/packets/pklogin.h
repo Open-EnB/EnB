@@ -19,7 +19,7 @@
 #include "..\shared\unknown_login_data.h"
 
 // opcode 2 (0x0002, LOGIN): vtable 0xB0B014, constructor 0x89A850, 0xB8 bytes
-class LoginPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name LOGIN (the Net-7 opcode table), the client's Print text 'Login'
+class LoginPacketClass : public PacketClass  // NAME 2: Net-7's opcode name LOGIN (the Net-7 opcode table), the client's Print text 'Login'
 {
 public:
 	LoginPacketClass(const TicketClass &ticket, const char *name, int unknown);	// 0x89A740  // NAME 1 [name, unknown]: neutral (D10)

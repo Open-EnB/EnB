@@ -14,7 +14,7 @@ into DIR/programs/auxreplay/. --app-sources compiles app/client/aux_roots.cpp an
 app/shared/auxdata/unknown_root.cpp into the program (for an app.lib built before they existed).
 run: NAME is a trace in TRACES (or --trace, or --dump); writes .work/harness/auxreplay/NAME.{in,out}.txt,
 prints the census (gate (b)) and compares the field values with the reference decoder's aux-log --first
-(.work/harness/ref/NAME.aux-log-first.txt, gate (c)).
+(roots.EA_REF's NAME.aux-log-first.txt, the frozen reference D154, gate (c)).
 
 Values (gate c): the reference decoder's aux-log prints every leaf whose state or value changed, from its typed
 model. This script replays the harness's U/D/X lines over a per-object state (unknown, default,
@@ -290,11 +290,11 @@ def values(result, auxlog, limit=10):
                 key = NUM.sub('.#', a[i][0]) if a[i][0] == b[i][0] else 'path order'
                 kinds[key] = kinds.get(key, 0) + 1
                 if shown < limit:
-                    print(f'  {chan} #{i}: ours {a[i]} | the reference decoder {b[i]}')
+                    print(f'  {chan} #{i}: ours {a[i]} | reference {b[i]}')
                     shown += 1
         if len(a) != len(b):
-            print(f'  {chan}: {len(a)} changes ours, {len(b)} the reference decoder')
-    print(f'values: {same} of {total} field changes equal ({len(ours)} ours, {len(ref)} the reference decoder)')
+            print(f'  {chan}: {len(a)} changes ours, {len(b)} reference')
+    print(f'values: {same} of {total} field changes equal ({len(ours)} ours, {len(ref)} reference)')
     for k, v in sorted(kinds.items(), key=lambda kv: -kv[1])[:15]:
         print(f'  {v:7d} differ at {k}')
     return same == total

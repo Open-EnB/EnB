@@ -426,36 +426,33 @@ backups in `.work/regbackup/`) and the original client relaunched, screenshots o
 1.11x: their textures are small to begin with). So the original tool's bug cost players most of the
 planet and nebula detail on any card over 2 GB; our vidtest's fix (D53) is the setting to ship.
 
-### 2026-10-25 (later): the C# proxy audited, renamed the reference decoder (the reference decoder), its test-harness repo retired; EnB paths follow
+### 2026-10-25 (later): the reference decoder audited, the reference traces' repository retired; EnB paths follow
 
-The D79 question was settled as an audit of `the reference decoder` plus the first housekeeping there (that
-repository's `docs/progress.md` has the detail). Four read-only audits (architecture and code quality,
-docs vs code vs EnB's findings, harness-merge completeness, rename inventory; Opus 214k + 259k, Sonnet
-126k + 99k) then: its 2026-10-22 work committed as found (d41ff27, 277 tests), `the reference traces`
-retired (its 12 commits were already subtree-merged; 22 recordings hash-checked into the proxy's
-`captures/`, 217 MB of replay runs discarded; c4a48c3), the rename to **the reference decoder** (folder
-`C:\EnBDevelopment\the reference decoder`, `the reference decoder.slnx`, `the reference decoder.exe`, `the reference decoder.Proxy.*`, `antlink`, pipe
-`the reference decoder.Link.v1`; f84a591, d16bf94, ccf8567; `the reference decoder`, `Net7.Protocol` and every citation of the
-original 2.46 unchanged), its design.md split into seven docs with EnB's corrections applied (bbfc74e,
-16c9dc6, a792172), and a private tool's coordinated change (edc103e its own 2026-10-22 work, 1036d23
-the new exe, pipe, log names and the old launcher id read as an alias).
+The D79 question was settled as an audit of the reference decoder's project plus the first
+housekeeping there (that repository's log has the detail). Four read-only audits (architecture and
+code quality, docs vs code vs EnB's findings, harness-merge completeness, rename inventory; Opus
+214k + 259k, Sonnet 126k + 99k) then: its 2026-10-22 work committed as found (277 tests), the
+reference traces' own repository retired (its 12 commits were already subtree-merged; 22 recordings
+hash-checked into the reference decoder's repository, 217 MB of replay runs discarded), a rename of
+that project, its design notes split into seven docs with EnB's corrections applied, and a
+coordinated change in a companion tool.
 
-* **EnB's findings that superseded the proxy's docs** (now cited there): the EA-UDP datagram layout
-  (`app/wwudp/cordcon.h`: CRC-32 at 0x8B3EC0, flags byte, ack count, per-datagram RC4 key, the ack list
-  the proxy's `the reference importer` never decoded), the packet factory's 263 opcodes above 0x0FFF, the client's
-  class names for 0x21/0xB7/0xB8 and the 0x9E/0xA0 split, LoginTaskClass's vtable at 0xB040D4 (its
-  login offsets were 8 too high), 11 AuxData roots not 13, difference 4 in library-matching.md §3.8.
-* **What that project knows and EnB's docs don't** (for later): the login and character-select screens
-  (`docs/research/client-ui.md` there), the action message layouts, authlogin.dll's flags and offsets,
+* **EnB's findings that superseded the reference decoder's docs** (now cited there): the EA-UDP
+  datagram layout (`app/wwudp/cordcon.h`: CRC-32 at 0x8B3EC0, flags byte, ack count, per-datagram
+  RC4 key, the ack list the reference importer never decoded), the packet factory's 263 opcodes
+  above 0x0FFF, the client's class names for 0x21/0xB7/0xB8 and the 0x9E/0xA0 split,
+  LoginTaskClass's vtable at 0xB040D4 (its login offsets were 8 too high), 11 AuxData roots not 13,
+  difference 4 in library-matching.md §3.8.
+* **What that project knows and EnB's docs don't** (for later): the login and character-select
+  screens (its client-UI notes), the action message layouts, authlogin.dll's flags and offsets,
   the MVAS addresses, the 2.46 opcode census, byte-order fixes, AuxData behaviour per ship kind.
-* **EnB fixes from its audit:** prior-work.md no longer claims an EA-UDP transport exists in the proxy
-  (only the `the reference importer` importer does); tools/harness/README.md's EA-UDP table says flags (not type) and
-  names the ack entry's first byte as cordcon.h does (kind 0/1/2), and cites auxdata.md §7 items 1-3
-  (not §7.1-§7.3); toolchain.md §3, `roots.py` (`REF_TRACES_ROOT` is now the proxy's `captures/`),
-  `pkfactory.py` and `refs.sh` point at `the reference decoder`.
-* The proxy's re-architecture (server profiles, client-side TCP and EA-UDP, patch manifests) is a
-  proposal with decisions A1-A12 pending in that repository (`.work/audit/architecture-proposal.md`);
-  its EA-UDP transport will be built from `app/wwudp`. Not EnB work.
+* **EnB fixes from its audit:** prior-work.md no longer claims an EA-UDP transport exists in the
+  reference decoder (only the reference importer does); tools/harness/README.md's EA-UDP table says
+  flags (not type) and names the ack entry's first byte as cordcon.h does (kind 0/1/2), and cites
+  the AuxData notes' §7 items 1-3 (not §7.1-§7.3); toolchain.md §3, `roots.py` (the reference
+  traces now in the reference decoder's repository), `pkfactory.py` and `refs.sh` point at the
+  renamed repository.
+* That project's own re-architecture is a proposal pending in its repository. Not EnB work.
 
 ### 2026-10-25: housekeeping audit; D62-D79; builders.md; traps 100 -> 74; milestones split; tools promoted
 
@@ -470,7 +467,7 @@ about 105 KB (27k tokens) at startup, 82% of it milestones.md and workflow.md §
   D63 the E&BConfig check is one-time, D64 `NOT EXACT` general with a tracker, D66 pair-loss classes
   (0x8C1520 is class iii), D69 safety rules numbered, D71 attribution from the harness, D72 subagent
   models, D73 imports (wlib/wnet, tcpmgr/tcpcon, BinkMovie; CordArrayClass's remove on wlib), D74-D78
-  tool and define items, D79 the the reference decoder note. D10, D16, D23, D32, D36, D39, D43 reworded.
+  tool and define items, D79 the reference decoder note. D10, D16, D23, D32, D36, D39, D43 reworded.
 * **[builders.md](builders.md)** (45d2f8c): the tracked builder brief: startup set per kind, rules, the
   model table, report format. CLAUDE.md names the pool, `pairs_cmp.py`, D27, D69, D71.
 * **workflow.md §3** (18da8fa, f31b2a2): 100 traps / 37 KB -> 74 / 18 KB in §3.0 Everyone plus nine
@@ -484,7 +481,7 @@ about 105 KB (27k tokens) at startup, 82% of it milestones.md and workflow.md §
   -> `docs/data/not-exact.md` (38 functions in 15 files), `tools/vc6/README.md`; `compare.py` retired
   (its staged deletion landed in c9b710a). vidtest_e2e/exitcodes kept separate (little shared code).
 * Startup set per builder now about 43 KB (app), 39 KB (library), 35 KB (harness).
-* the reference decoder `docs/research/auxdata.md` §7 item 9 added in that repository's working tree (D79).
+* The reference decoder's AuxData notes: §7 item 9 added in that repository's working tree (D79).
 * Models and tokens: audits Opus 107k + 127k, Sonnet 96k + 78k; edits Opus 134k, Sonnet 168k + 108k.
 * Open: the Net7 repositories question (D79) before housekeeping closes; the supervised E&BConfig
   acceptance check (D63).
@@ -521,7 +518,7 @@ Both builders were cut off by the API usage limit 19:40-21:10 and resumed.
   stand-in; count the 17 template leaf Reads as pairs; names for unknown_changes.* and UnknownCOClass;
   CordMgr::Connect returning the session id; CordArrayClass's remove with wlib; funcmatch's string
   evidence to check `__FILE__`; the draw dump as M2's regression check; Net-7 difference 4 into
-  the reference decoder's auxdata.md.
+  the reference decoder's AuxData notes.
 
 ### 2026-10-24 (afternoon): milestones M1 and M2 (D42-D61); app 136 -> 251, first linked programs
 
@@ -529,8 +526,8 @@ Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); V
 [vidtest.md](vidtest.md). Coordinator plus builders, two in parallel from M2.1 on.
 
 * M1.0 (dd17551): `tools/harness/convert.py` turns the Alex dumps into datagram files and decodes the
-  EA-UDP ack list (type bit 0); it holds all 26,078 / 2,779 the reference decoder messages plus 28 / 12 the reference decoder lost
-  (D52). the reference decoder references saved in `.work/harness/ref/`. `capharness.exe`, the first VC6 program.
+  EA-UDP ack list (type bit 0); it holds all 26,078 / 2,779 messages of the reference decoder's import plus 28 / 12 that import lost
+  (D52). The reference decoder's readings saved in `.work/harness/ref/`. `capharness.exe`, the first VC6 program.
 * M1.1 (514e8da): the decode path mapped (milestones.md §2.3). M1.2 (94c694f ... 842cf91): codecs,
   lookup build, encoder records, kv_pair_string, the time field: app 136 -> 164. D54's ambiguous
   column (bfa3bfd). M1.3 (33875ed, cffab54): the 11 roots and 42 nested classes generated
@@ -615,7 +612,7 @@ Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); V
 
 ### 2026-10-24: the Delta object model (app\shared\auxdata); app 11 -> 39
 
-* `delta.cpp`/`delta.h` (d15b65a): `DeltaClass` (the reference decoder's DeltaBase; D24 name, D10
+* `delta.cpp`/`delta.h` (d15b65a): `DeltaClass` (the earlier research's DeltaBase; D24 name, D10
   `Unknown_XX` virtuals/`m_UnknownXX` members) and `DeltaCompoundClass`. Layout from the ctor
   0x4A4D40: vtable 0xAEADC8 (a one-slot interface, `_purecall`) then 0xAEAD70 (18 slots); +0x04 a
   per-class global (0xBE3A78; the compound's 0xBE3A74), +0x08 `Name` and +0x3C `FullName` (NameClass,
@@ -1340,10 +1337,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D53 | 2026-10-24 | VIDTEST O7: our vidtest fixes the signed `FreeTextureRam` comparison (GPUs reporting 2 GB or more), rather than copying the original's `TextureReduction=2` | user |
 | D54 | 2026-10-24 | A function whose compiled bytes occur at several places in client.exe, all identical copies (objmatch `multiple`, e.g. template leaf Reads), counts as "exact, ambiguous address" in a separate column beside each library's pair count; the `(file, address)` pair counts and the before/after pair rule are unchanged | user |
 | D55 | 2026-10-24 | `ww3d2/pot.cpp` is NOT_LINKED; wwmath's identical `pot.cpp` supplies `Find_POT` / `Find_POT_Log2` (both copies matched the same two client functions, and a program linking both fails on the duplicate). Its 2 ww3d2 pairs are dropped as D20 duplicates | user |
-| D56 | 2026-10-24 | Name certainty: every name chosen without the client's own evidence carries a tag comment where it is declared, `// NAME n: evidence`, scored 5 = the client names it (RTTI, assert, `__FILE__`, `Class::Method` string), 4 = EA's Westwood source names it, or a Net-7 / the reference decoder name confirmed by matching structure, 3 = built by convention from a client-named file or sibling (D24 class-from-file, a `.h` paired with a known `.cpp`), 2 = describes what the code does, 1 = neutral placeholder (`Unknown_xx`, D10). 4-5 are settled; 3 and below are listed for review by `tools/re/names.py` in the generated `docs/data/names-review.md` (untagged `Unknown*` names count as 1). When better evidence appears the tag is raised and the name leaves the list ([conventions.md](conventions.md) §1). Merged 2026-10-27, with D65 (neutral names are NAME 1): D10 (E&B's unknown additions keep neutral names, `m_UnknownXX`, evidence in a comment, until the code that uses them is rebuilt); D16 (members whose use is now rebuilt, `m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, keep their names with the comments in the headers until the app code shows E&B's names); D17 (the two wwshade `"UnNamed"` constructors stay near-misses; revisit only on new evidence); D33 (kept: `MEM_CLIENTOBJECT`..`MEM_PARTICLES` from the client's name table 0xBCB228, `FastAllocatorGeneral::m_UnknownE00`..`m_UnknownE20`, `Unknown_Reset_Statistics`); D57 (`encode.h` NAME 2 and `strconv_lib.h` NAME 3 stay; `KVPairClass`'s virtuals keep descriptive names `Clone`, `Get_Type_Name`, `Get_Value_String`, NAME 2; the file for the compound/root functions 0x4A3990-0x4A4780 and 0x4B0860 waits for M1.3, using Net-7's `AuxClasses` and the reference decoder's `the reference game model` names as structure-matched hints); D58 (provisional file names stay: `app/shared/auxdata/unknown_root.*`, the compound/root object with no `__FILE__`; `app/client/aux_roots.*`, the generated roots, the client's code being in co.cpp and an unattributed object at 0x751BE0, the generator writing into co.cpp once that is rebuilt; `app/shared/heightfield.*`, `app/shared/land.*`); D86 (step 8's `unknown_memregistry.cpp`, `unknown_listener.cpp`, `unknown_rate.cpp` and `RSAKeyClass`'s `Unknown200..Unknown800` members, NAME 2, stay until a string or `__FILE__` gives the real one, P2) | user |
+| D56 | 2026-10-24 | Name certainty: every name chosen without the client's own evidence carries a tag comment where it is declared, `// NAME n: evidence`, scored 5 = the client names it (RTTI, assert, `__FILE__`, `Class::Method` string), 4 = EA's Westwood source names it, or a Net-7 name or the reference game model's, confirmed by matching structure, 3 = built by convention from a client-named file or sibling (D24 class-from-file, a `.h` paired with a known `.cpp`), 2 = describes what the code does, 1 = neutral placeholder (`Unknown_xx`, D10). 4-5 are settled; 3 and below are listed for review by `tools/re/names.py` in the generated `docs/data/names-review.md` (untagged `Unknown*` names count as 1). When better evidence appears the tag is raised and the name leaves the list ([conventions.md](conventions.md) §1). Merged 2026-10-27, with D65 (neutral names are NAME 1): D10 (E&B's unknown additions keep neutral names, `m_UnknownXX`, evidence in a comment, until the code that uses them is rebuilt); D16 (members whose use is now rebuilt, `m_Unknown148`, `m_Unknown164/168/16C`, `m_Unknown19A5/19A6`, keep their names with the comments in the headers until the app code shows E&B's names); D17 (the two wwshade `"UnNamed"` constructors stay near-misses; revisit only on new evidence); D33 (kept: `MEM_CLIENTOBJECT`..`MEM_PARTICLES` from the client's name table 0xBCB228, `FastAllocatorGeneral::m_UnknownE00`..`m_UnknownE20`, `Unknown_Reset_Statistics`); D57 (`encode.h` NAME 2 and `strconv_lib.h` NAME 3 stay; `KVPairClass`'s virtuals keep descriptive names `Clone`, `Get_Type_Name`, `Get_Value_String`, NAME 2; the file for the compound/root functions 0x4A3990-0x4A4780 and 0x4B0860 waits for M1.3, using Net-7's `AuxClasses` and the reference game model's names as structure-matched hints); D58 (provisional file names stay: `app/shared/auxdata/unknown_root.*`, the compound/root object with no `__FILE__`; `app/client/aux_roots.*`, the generated roots, the client's code being in co.cpp and an unattributed object at 0x751BE0, the generator writing into co.cpp once that is rebuilt; `app/shared/heightfield.*`, `app/shared/land.*`); D86 (step 8's `unknown_memregistry.cpp`, `unknown_listener.cpp`, `unknown_rate.cpp` and `RSAKeyClass`'s `Unknown200..Unknown800` members, NAME 2, stay until a string or `__FILE__` gives the real one, P2) | user |
 | D57 | 2026-10-24 | merged into D56 (2026-10-27) | user |
 | D58 | 2026-10-24 | merged into D56 (2026-10-27) | user |
-| D59 | 2026-10-24 | AuxData class names: nested compounds `Delta<Net-7 name without Aux>Class` (NAME 4, matched child by child against Net-7's `AuxClasses` and `the reference game model`, `tools/re/auxroots_names.json`), roots `Delta<client string>Class` (NAME 3); `DeltaInterpolatorClass` keeps its name (Net-7's AuxPercent / C# Ramp; the client interpolates) | user |
+| D59 | 2026-10-24 | AuxData class names: nested compounds `Delta<Net-7 name without Aux>Class` (NAME 4, matched child by child against Net-7's `AuxClasses` and the reference game model, `tools/re/auxroots_names.json`), roots `Delta<client string>Class` (NAME 3); `DeltaInterpolatorClass` keeps its name (Net-7's AuxPercent / C# Ramp; the client interpolates) | user |
 | D60 | 2026-10-24 | M1 gate (b) is met with one documented exception: capture_1 #24128 (a Hulk, header byte 0x55 under a parent marking that child cleared) decodes but can't be re-encoded by the client's encoder; the harness doesn't keep header bytes as read | user |
 | D61 | 2026-10-24 | The app library compiles with NDEBUG (in APP_LIBS' defines; G_ASSERT / FAIL_IF don't depend on it), confirmed by a verify that changes no pair; files stop defining it themselves | user |
 | D62 | 2026-10-25 | Builders may run in parallel on disjoint items (replaces D32), under the shared-tree rule: never compile the other builder's changes into a verify (check `git diff` of shared files: importer.py, app headers, stubs, docs/data), commit only your own hunks, keep the uncommitted window short, never wait for a clean tree (that deadlocked both builders for an hour on 2026-10-24). Each builder uses a private scratch folder (TEMP/TMP under .work/<agent>/tmp; automatic once the importer does it) or its own worktree. The importer lock serialises `verify` ([builders.md](builders.md)) (amended 2026-10-27, D110) | user (approved for the 2026-10-24 unsupervised run; recorded 2026-10-25) |
@@ -1363,7 +1360,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D76 | 2026-10-25 | `CordMgr::Connect` keeps the client's signature; the harness reads the session id another way, unless the client's bytes return it | user |
 | D77 | 2026-10-25 | funcmatch's string evidence requires the client function's `__FILE__` to match the EA function's file; symbols.json regenerated (0x829C80 is tcpconn.cpp's constructor by accepted socket, not `PacketManagerClass::Clear_Socket_Error`) | user |
 | D78 | 2026-10-25 | The d3d8 draw dump (`tools/harness/run_reference.py`, `drawdump.py`) is M2's standard regression check, beside the frame comparison | user |
-| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the reference decoder's `docs/research/auxdata.md` §7 for that project's coordinator. the reference decoder and a private tool need their own audit and re-architecture later, outside this project's scope; their design docs are now likely less complete than this project's for transport and auxdata. The user revisits this before housekeeping closes | user Settled 2026-10-25: the audit and first housekeeping were done (the proxy is now the reference decoder, `C:\EnBDevelopment\the reference decoder`); the rest is that project's.; settled 2026-10-25; retired 2026-10-27 |
+| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the reference decoder's AuxData notes §7 for that project's coordinator. The reference decoder's project and a companion tool need their own audit and re-architecture later, outside this project's scope; their design docs are now likely less complete than this project's for transport and auxdata. The user revisits this before housekeeping closes | user Settled 2026-10-25: the audit and first housekeeping were done; the rest is that project's.; settled 2026-10-25; retired 2026-10-27 |
 | D80 | 2026-10-25 | `objmatch.py` breaks `multiple` ties by each data relocation's target (the string or known symbol it points at) against the object's own literals, so byte-identical functions that differ only in their strings count (the assert reporters, the twin constructors 0x4A7080/0x4A8150, `Set_Render_Device`, the one-int packet constructors and Prints: builders B and D). Adopted after a snapshot comparison of every library's pair set with no losses, the counts before and after recorded in library-matching.md §3.6.1. The objmatch order (merged 2026-10-27 from D88, D94(b), D95(b), D100): D80 rounds to a fixed point; then the self-name round (D88: the one candidate address that symbols.json names with the function's own mangled symbol from a non-exact proof, a vtable slot, is credited when D80 finds no contradiction there; measured by builder W3 at the objmatch level: +337 pairs, 0 lost, ww3d2 188, wwmath 60, wwaudio 45, wwshade 31, wwlib 10, wwdebug 2, wwsaveload 1; prototype `.work/w3/objmatch_sn.py`; adopted after a full verify snapshot of a quiet tree, with pairs_cmp proving the gain, not while builders are verifying; carried out 2026-10-27 04:50, 6724dff the pre-D88 snapshot, 222f4b8 the rule: +368 pairs, 0 lost, ww3d2 188, wwmath 60, wwaudio 45, app 31, wwshade 31, wwlib 10, wwdebug 2, wwsaveload 1; `tiebreak`/`selfname` do not reach imports.json, left as is until something needs it); then D80 again; then the range round (D100: a tie goes to the object whose client range contains the address, P-P6-1, carried out on a quiet tree with a full verify of every library and pairs_cmp gains-only, like D88, then 45 from `.work/p6/park45` and 117 from `.work/p5/park117`; refinement dc70945: an address another function is exact at is held out, and the range is the object's own non-COMDAT or NODUPLICATES exact functions); compiler-generated `_$E<n>` names are skipped (D94(b), P-H7-2, carried out the same way). D95(b) (the D80 tie-break not crediting an implicit destructor to an identical twin when the function's own address is free, P-P5-2) is not implemented: superseded by D100 and its refinement, close pending as P-M1-1 | user |
 | D81 | 2026-10-25 | D75 corrected: 0xBDA908 is the client's pooled `""` string, not a log object; dbgmgr.cpp calls the reporter 0x4BC130 as `("", "", file, ...)`. The `UnknownLogClass`/`UnknownLog` stand-ins in app/wwudp (cordmgr.cpp, bandwidthaccounting.cpp, udpreplay) become plain calls with `""` (follow-up after builder A leaves app/wwudp) (D75, merged here 2026-10-27: the assert functions' reporter 0x4BC130 (the logger) is a reconstructed stand-in with D10 names and D56 tags; its premise, a log object at 0xBDA908, is what this row corrects) | user |
 | D82 | 2026-10-25 | `app/shared/unknown_debug.cpp` (the assert reporters 0x4E9410/0x4E9450) and `unknown_new.cpp` (E&B's operator new/new[]/delete over FastAllocatorGeneral) stay two files although one object in the client, so kerneltest and movietest can define their own reporters without LNK2005 | user |
@@ -1428,7 +1425,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D141 | 2026-10-29 | P-F9-2: every compile of a variant counts as a form toward a round's cap, scratch-copy probes included, for Fable (D89) and Opus rounds alike; today's overruns (F9's verb round, HL1's Resolve 0x487660, HL2's two 4-form functions) are accepted after the fact | user (F9's proposal) |
 | D142 | 2026-10-29 | P-UI1-1 accepted: clienttest depends on build/art/MSS32.DLL (the Miles imports of the rebuilt loading view), a copy of the game's DLL in the project's art folder (D120); never run from the install folder (D69) | user (UI1's proposal) |
 | D143 | 2026-10-29 | The game's install folder (`C:\Program Files (x86)\EA GAMES\Earth & Beyond`) may be read in place by any session, and any of its files copied out as needed (for programs, into build/art or another folder under build/). Not granted: writing into it, or using it as a working directory (D69 stands). The final product uses the original game art once it is playable | user |
-| D144 | 2026-10-29 | P-GH-2: one repository for the reconstruction (`Open-EnB/EnB`: the libraries, app/, every executable of the original tree under programs/, tools, docs) plus satellite repositories split by codebase or trust (`.github`, the reference decoder if made public, a future server); no repositories for third-party material, which stays bring-your-own ([github-plan.md](github-plan.md) §1) | user |
+| D144 | 2026-10-29 | P-GH-2: one repository for the reconstruction (`Open-EnB/EnB`: the libraries, app/, every executable of the original tree under programs/, tools, docs) plus satellite repositories split by codebase or trust (`.github`, a future server); no repositories for third-party material, which stays bring-your-own ([github-plan.md](github-plan.md) §1) | user |
 | D145 | 2026-10-29 | P-GH-3: the commit email stays as it is; no history rewrite for it | user |
 | D146 | 2026-10-29 | P-GH-6, the first part: contributors build their own VC6 SP4 environment from public sources (Hyper-V; the VC6 and SP4 media from the Internet Archive, X04-14444 and X05-86594) with detailed user documents and scripts from the project; the project links to the media and checks their hashes but never redistributes them. Which contributions need no VC6 stays open | user |
 | D147 | 2026-10-29 | P-GH-1 accepted as revised: LF everywhere, enforced by `.gitattributes` (`* text=auto eol=lf`, which overrides any `core.autocrlf`; `*.bat`/`*.cmd` CRLF; `docs/data/asserts.txt -text`); every working tree converted once; `tools/eol.py check|fix` the guard (run by commit_mine.py and the handoff once step 3 wires it); tools write and compare LF (step 3, a verified round); the line-ending traps in workflow.md / builders.md collapse into one rule (workflow.md §3.0). No Claude Code hook. Evidence: VC6 compiles LF sources to the same bytes (full verify, 12,541 pairs unchanged); ~25-35 incidents and ~3,000 defensive commands in 245 transcripts ([github-plan.md](github-plan.md) P-GH-1) | user |
@@ -1437,6 +1434,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D150 | 2026-10-29 | P-GH-5: the project ships only binaries built from its own sources, never a third party's (MSS32.DLL, Bink, DirectX, the game's files): users get those from other sources, like the game art (D143). EA's art and trademarks are not used publicly or in anything distributed; the README states the non-affiliation | user |
 | D151 | 2026-10-29 | P-GH-6: contribution lanes. Without VC6: reverse-engineering notes (names under D56, layouts, evidence), Python tools and tests (hosted CI), documentation, and C++ written without VC6, which a maintainer's VM verify (label-gated) proves before merge; with VC6: C++ with the contributor's own pairs result, then the same maintainer verify; later the playable modern-MSVC build. Issues and PRs carry `needs-vc6` / `no-vc6`; CONTRIBUTING describes the lanes | user |
 | D152 | 2026-10-29 | P-GH-8: the repository is `Open-EnB/EnB`, default branch `master`; created private, pushed, reviewed on GitHub, then made public; security reports through GitHub's private vulnerability reporting; the Contributor Covenant as code of conduct. P-GH-7 applied the same day: 2FA required for the org, members cannot create repositories, Actions limited to GitHub-owned and verified ones with read-only tokens, outside contributors' workflows need approval, secret scanning with push protection and Dependabot alerts on for new repositories, a `maintainers` team | user |
+| D153 | 2026-10-30 | The private reference decoder's project is not part of this repository: no tool reads it and no file names it (the tree reworded, and history rewritten before the repository goes public). The opcode names and aux-data class names taken from the Net-7 lineage are final (pkfactory.py keeps its own table; auxnames.py and n7aux.py retired); the decoder is not extracted as a tool of its own (too much work for the value) | user |
+| D154 | 2026-10-30 | The EA captures' reference data is frozen: the five traces and their reference readings (regenerated so each pair is consistent) ship as a release asset of this repository, `ea-reference-2026-10-30.tar.xz` (6.7 MB, SHA-256 checked by tools/harness/fetch_reference.py into roots.EA_REFERENCE); the raw captures stay public at trunk/capturedPackets of https://github.com/therealKyp/Earth-and-Beyond-server. Westwood's RSA key, published with that source, is committed (tools/harness/westwood_keys.py) | user |
 
 ## 3. Open decisions
 

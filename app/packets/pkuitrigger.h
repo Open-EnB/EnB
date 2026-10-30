@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 101 (0x0065, UI_TRIGGER): vtable 0xB0C078, constructor 0x8AB880, 0x14 bytes
-class UiTriggerPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check)
+class UiTriggerPacketClass : public PacketClass  // NAME 2: Net-7's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check)
 {
 public:
 	UiTriggerPacketClass(int id, int action);	// 0x8AB800

@@ -102,7 +102,6 @@ and loses the one-commit check. Split on **different codebase or different trust
 |---|---|---|
 | **`Open-EnB/EnB`** (today's repo) | The reconstruction: libraries, `app/`, every executable from the original tree under `programs/` (client, vidtest, later the Character and Starship Creator and E&BConfig), tools, docs | One source tree, one-commit verification |
 | **`Open-EnB/.github`** | Org profile README, default CONTRIBUTING / SECURITY / CODE_OF_CONDUCT, issue and PR templates, shared workflows | Org-wide defaults |
-| **`Open-EnB/the reference decoder`** (if made public) | The C# proxy (the reference decoder) | Different language, build and release cycle |
 | **`Open-EnB/server`** (later) | A future server | Different codebase; talk to Net-7 first, they may overlap |
 | *(optional)* **`Open-EnB/sdk-shims`** | Only our own SDK work: `sdk_patch.py`, `.def` files, `mkauthlogin.py`, hash manifests | Only if the main repo gets crowded; for now `tools/` |
 

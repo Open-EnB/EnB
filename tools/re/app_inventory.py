@@ -129,7 +129,7 @@ def main():
         elif func_names.get(f):
             e['names'] = sorted(func_names[f])
         rows.append(e)
-    json.dump({'functions': rows, 'rtti_vtables': vtables}, open(os.path.join(DOCS, 'data', 'app-functions.json'), 'w'), indent=0)
+    json.dump({'functions': rows, 'rtti_vtables': vtables}, open(os.path.join(DOCS, 'data', 'app-functions.json'), 'w', newline='\n'), indent=0)
 
     by_file = collections.Counter(r['file'] for r in rows if 'file' in r)
     by_dir = collections.Counter(r['file'].rsplit('\\', 1)[0] for r in rows if 'file' in r)
@@ -156,7 +156,7 @@ def main():
     lines += ['', '## Named functions (sample)', '', '| Address | Name | File |', '|---|---|---|']
     for r in named[:80]:
         lines.append(f"| {r['address']} | `{r['name']}` | `{r.get('file', '')}` |")
-    open(os.path.join(DOCS, 'app-inventory.md'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+    open(os.path.join(DOCS, 'app-inventory.md'), 'w', newline='\n', encoding='utf-8').write('\n'.join(lines) + '\n')
     print(f"{len(rows)} app functions; {sum(1 for r in rows if 'file' in r)} attributed to files; "
           f"{len(named)} named; {len(vtables)} RTTI classes with vtables")
 

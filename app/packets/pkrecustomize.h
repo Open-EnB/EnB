@@ -59,7 +59,7 @@ public:
 };
 
 // opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes
-class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'
+class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'
 {
 public:
 	RecustomizeShipStartPacketClass(RawPacketClass *raw);	// 0x89FB50
@@ -80,7 +80,7 @@ public:
 };
 
 // opcode 130 (0x0082, RECUSTOMIZE_SHIP_DONE): vtable 0xB0B5F4, constructor 0x8A01D0, 0x170 bytes
-class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done'
+class RecustomizeShipDonePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done'
 {
 public:
 	RecustomizeShipDonePacketClass(RawPacketClass *raw);	// 0x8A01D0
@@ -96,7 +96,7 @@ public:
 };
 
 // opcode 131 (0x0083, RECUSTOMIZE_AVATAR_START): vtable 0xB0B624, constructor 0x8A0710, 0x4C bytes
-class RecustomizeAvatarStartPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start'
+class RecustomizeAvatarStartPacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start'
 {
 public:
 	RecustomizeAvatarStartPacketClass(RawPacketClass *raw);	// 0x8A0710
@@ -112,7 +112,7 @@ public:
 };
 
 // opcode 132 (0x0084, RECUSTOMIZE_AVATAR_DONE): vtable 0xB0B654, constructor 0x8A09E0, 0x11C bytes
-class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done'
+class RecustomizeAvatarDonePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done'
 {
 public:
 	RecustomizeAvatarDonePacketClass(RawPacketClass *raw);	// 0x8A09E0
@@ -128,7 +128,7 @@ public:
 };
 
 // opcode 133 (0x0085, RECUSTOMIZE_AVATAR_UPDATE): vtable 0xB0B684, constructor 0x8A0F20, 0x11C bytes
-class RecustomizeAvatarUpdatePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update'
+class RecustomizeAvatarUpdatePacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update'
 {
 public:
 	RecustomizeAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A0F20

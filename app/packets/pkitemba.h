@@ -35,7 +35,7 @@ public:
 };
 
 // opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
-class ItemBasePacketClass : public PacketClass  // NAME 3: the client's Print text 'Item_Base' and the reference decoder's ITEM_BASE
+class ItemBasePacketClass : public PacketClass  // NAME 3: the client's Print text 'Item_Base' and Net-7's ITEM_BASE
 {
 public:
 	ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemBaseInfoClass> &info,

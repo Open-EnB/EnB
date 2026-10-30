@@ -24,7 +24,7 @@ enum ConfirmedActionEnum  // NAME 1: neutral placeholder (D10)
 };
 
 // opcode 190 (0x00BE, CONFIRMED_ACTION_OFFER): vtable 0xB0989C, constructor 0x870650, 0x24 bytes
-class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check)
+class ConfirmedActionOfferPacketClass : public PacketClass  // NAME 2: Net-7's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check)
 {
 public:
 	ConfirmedActionOfferPacketClass(int id, const std::string &message, ConfirmedActionEnum type);	// 0x8703D0
@@ -55,7 +55,7 @@ public:
 };
 
 // opcode 192 (0x00C0, CONFIRMED_ACTION_RESPONSE): vtable 0xB098FC, constructor 0x870C50, 0x18 bytes
-class ConfirmedActionResponsePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check)
+class ConfirmedActionResponsePacketClass : public PacketClass  // NAME 2: Net-7's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check)
 {
 public:
 	ConfirmedActionResponsePacketClass(int avatar_id, int id, bool response);	// 0x870BD0

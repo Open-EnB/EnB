@@ -6992,27 +6992,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/packets/pk_sub_parts.h:45` | what it returns |
 | 2 | `Get` | `app/packets/pk_sub_parts.h:46` | what it returns |
 | 2 | `Channel` | `app/packets/pk_sub_parts.h:49` | Get_Channel returns it |
-| 2 | `ActionPacketClass` | `app/packets/pkaction.h:23` | the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check) |
-| 2 | `Action2PacketClass` | `app/packets/pkaction.h:40` | the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
+| 2 | `ActionPacketClass` | `app/packets/pkaction.h:23` | Net-7's opcode name ACTION (the Net-7 opcode table; no structure check) |
+| 2 | `Action2PacketClass` | `app/packets/pkaction.h:40` | Net-7's opcode name ACTION2 (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkauxdata.h:33` | what it returns (the opcode), as MessageLinePacketClass's |
 | 2 | `Get_Name` | `app/packets/pkauxdata.h:34` | what it returns (Print's '%s {') |
 | 2 | `Data` | `app/packets/pkauxdata.h:38` | what it holds |
 | 2 | `Channel` | `app/packets/pkauxdata.h:39` | Get_Channel returns it |
 | 2 | `Get_Type` | `app/packets/pkcameracontrol.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `ChatTypeNames` | `app/packets/pkclientchat.cpp:6` | what it holds |
-| 2 | `ClientChatPacketClass` | `app/packets/pkclientchat.h:23` | the reference decoder's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check) |
+| 2 | `ClientChatPacketClass` | `app/packets/pkclientchat.h:23` | Net-7's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check) |
 | 2 | `TargetSize` | `app/packets/pkclientchat.h:41` | Target's Size |
 | 2 | `Owned` | `app/packets/pkclientchat.h:42` | what it means |
-| 2 | `ClientChatRequestPacketClass` | `app/packets/pkclientchat.h:46` | the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `ClientChatRequestPacketClass` | `app/packets/pkclientchat.h:46` | Net-7's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Channel` | `app/packets/pkcolorization.h:52` | Get_Channel returns it |
-| 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pkconfirmedaction.h:27` | the reference decoder's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
-| 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pkconfirmedaction.h:58` | the reference decoder's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
+| 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pkconfirmedaction.h:27` | Net-7's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
+| 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pkconfirmedaction.h:58` | Net-7's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
 | 2 | `pkcreatecharacter` | `app/packets/pkcreatecharacter.h:15` | provisional, pk + its class's Print text 'Create Character' |
 | 2 | `Desc` | `app/packets/pkcreatecharacter.h:40` | what it holds |
 | 2 | `Ship` | `app/packets/pkcreatecharacter.h:41` | what it holds |
 | 2 | `DebugLabels` | `app/packets/pkdebug.cpp:9` | what it holds |
-| 2 | `DebugPacketClass` | `app/packets/pkdebug.h:22` | the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check) |
-| 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | the reference decoder's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
+| 2 | `DebugPacketClass` | `app/packets/pkdebug.h:22` | Net-7's opcode name DEBUG (the Net-7 opcode table; no structure check) |
+| 2 | `EquipUsePacketClass` | `app/packets/pkequipuse.h:22` | Net-7's opcode name EQUIP_USE (the Net-7 opcode table; no structure check) |
 | 2 | `Add_Player` | `app/packets/pkfindmember.h:42` | what it does |
 | 2 | `Name` | `app/packets/pkfindplayerrequest.h:34` | a player name copied with the bounded strcpy |
 | 2 | `Name` | `app/packets/pkfindplayerrequest.h:50` | a player name copied with the bounded strcpy |
@@ -7033,23 +7033,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/packets/pkgadget.h:51` | as GadgetPacketClass's |
 | 2 | `Get_Name` | `app/packets/pkgadget.h:52` | as GadgetPacketClass's |
 | 2 | `Get_Type` | `app/packets/pkgalaxymap.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `GalaxyMapRequestPacketClass` | `app/packets/pkgalaxymap.h:42` | the reference decoder's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `GlobalAvatarListPacketClass` | `app/packets/pkglobalavatarlist.h:25` | the reference decoder's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table), the client's Print text 'Avatar List' |
-| 2 | `GlobalConnectPacketClass` | `app/packets/pkglobalconnect.h:21` | the reference decoder's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check) |
+| 2 | `GalaxyMapRequestPacketClass` | `app/packets/pkgalaxymap.h:42` | Net-7's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalAvatarListPacketClass` | `app/packets/pkglobalavatarlist.h:25` | Net-7's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table), the client's Print text 'Avatar List' |
+| 2 | `GlobalConnectPacketClass` | `app/packets/pkglobalconnect.h:21` | Net-7's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check) |
 | 2 | `Ticket` | `app/packets/pkglobalconnect.h:32` | what tsk_login.cpp passes (its EATicket) |
 | 2 | `Password` | `app/packets/pkglobalconnect.h:33` | what tsk_login.cpp passes ('123456') |
-| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pkglobalcreatecharacter.h:23` | the reference decoder's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table), the client's Print text 'Global Create Character' |
+| 2 | `GlobalCreateCharacterPacketClass` | `app/packets/pkglobalcreatecharacter.h:23` | Net-7's opcode name GLOBAL_CREATE_CHARACTER (the Net-7 opcode table), the client's Print text 'Global Create Character' |
 | 2 | `Desc` | `app/packets/pkglobalcreatecharacter.h:38` | what it holds |
 | 2 | `Ship` | `app/packets/pkglobalcreatecharacter.h:39` | what it holds |
-| 2 | `GlobalDeleteCharacterPacketClass` | `app/packets/pkglobaldeletecharacter.h:21` | the reference decoder's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalDeleteCharacterPacketClass` | `app/packets/pkglobaldeletecharacter.h:21` | Net-7's opcode name GLOBAL_DELETE_CHARACTER (the Net-7 opcode table; no structure check) |
 | 2 | `GlobalLoginPacketClass` | `app/packets/pkgloballogin.h:41` | tsk_login.cpp's log 'GlobalLoginPacketClass recv' (the client's Print text 'Global Login') |
 | 2 | `Is_Referral_Available` | `app/packets/pkgloballogin.h:52` | what it returns |
 | 2 | `Get_Referral_Points` | `app/packets/pkgloballogin.h:53` | what it returns |
-| 2 | `GlobalTicketPacketClass` | `app/packets/pkglobalticket.h:22` | the reference decoder's opcode name GLOBAL_TICKET (the Net-7 opcode table), the client's Print text 'Global Ticket' |
-| 2 | `GlobalTicketRequestPacketClass` | `app/packets/pkglobalticketrequest.h:22` | the reference decoder's opcode name GLOBAL_TICKET_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `GlobalTicketPacketClass` | `app/packets/pkglobalticket.h:22` | Net-7's opcode name GLOBAL_TICKET (the Net-7 opcode table), the client's Print text 'Global Ticket' |
+| 2 | `GlobalTicketRequestPacketClass` | `app/packets/pkglobalticketrequest.h:22` | Net-7's opcode name GLOBAL_TICKET_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `std:` | `app/packets/pkgmeditplayerinventory.h:34` | what it holds |
 | 2 | `std:` | `app/packets/pkgmviewmissionlog.h:34` | what it holds |
-| 2 | `GpsRequestPacketClass` | `app/packets/pkgpsrequest.h:21` | the reference decoder's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `GpsRequestPacketClass` | `app/packets/pkgpsrequest.h:21` | Net-7's opcode name GPS_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Owned` | `app/packets/pkgroup.h:38` | what it means |
 | 2 | `Add` | `app/packets/pkguildplayeronline.h:237` | what it does (as GuildRankNamesSectorPacket's) |
 | 2 | `std:` | `app/packets/pkguildplayeronline.h:240` | as GuildRankNamesSectorPacket's |
@@ -7059,34 +7059,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add` | `app/packets/pkguildranknamesrequestclient.h:172` | what it does |
 | 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:174` | what it holds |
 | 2 | `x872E30` | `app/packets/pkincapacitancerequest.cpp:119` | what it does |
-| 2 | `IncapacitanceRequestPacketClass` | `app/packets/pkincapacitancerequest.h:23` | the reference decoder's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `IncapacitanceRequestPacketClass` | `app/packets/pkincapacitancerequest.h:23` | Net-7's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Desc` | `app/packets/pkincapacitancerequest.h:78` | what it holds |
-| 2 | `InventoryMovePacketClass` | `app/packets/pkinventorymove.h:27` | the reference decoder's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check) |
-| 2 | `InventorySortPacketClass` | `app/packets/pkinventorymove.h:46` | the reference decoder's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check) |
+| 2 | `InventoryMovePacketClass` | `app/packets/pkinventorymove.h:27` | Net-7's opcode name INVENTORY_MOVE (the Net-7 opcode table; no structure check) |
+| 2 | `InventorySortPacketClass` | `app/packets/pkinventorymove.h:46` | Net-7's opcode name INVENTORY_SORT (the Net-7 opcode table; no structure check) |
 | 2 | `ItemBaseInfoClass` | `app/packets/pkitemba.h:26` | what it is (ITEM_BASE's FAIL_IF '!Info') |
 | 2 | `Read` | `app/packets/pkitemba.h:30` | what it does |
 | 2 | `Write` | `app/packets/pkitemba.h:31` | what it does |
 | 2 | `Get_Size` | `app/packets/pkitemba.h:32` | what it returns |
 | 2 | `Channel` | `app/packets/pkitemba.h:52` | what Get_Channel returns |
-| 2 | `ItemStatePacketClass` | `app/packets/pkitemstate.h:22` | the reference decoder's opcode name ITEM_STATE (the Net-7 opcode table; no structure check) |
+| 2 | `ItemStatePacketClass` | `app/packets/pkitemstate.h:22` | Net-7's opcode name ITEM_STATE (the Net-7 opcode table; no structure check) |
 | 2 | `Add` | `app/packets/pkjoblist.h:46` | what it does |
 | 2 | `Count` | `app/packets/pkjoblist.h:48` | the number of jobs |
 | 2 | `std:` | `app/packets/pkjoblist.h:49` | what it holds |
-| 2 | `LoginPacketClass` | `app/packets/pklogin.h:22` | the reference decoder's opcode name LOGIN (the Net-7 opcode table), the client's Print text 'Login' |
+| 2 | `LoginPacketClass` | `app/packets/pklogin.h:22` | Net-7's opcode name LOGIN (the Net-7 opcode table), the client's Print text 'Login' |
 | 2 | `Ticket` | `app/packets/pklogin.h:34` | what it holds |
 | 2 | `pklogoff.h` | `app/packets/pklogoff.h:15` | the file's name assumed from its classes and its place in the link order |
 | 2 | `std:` | `app/packets/pkloungenpc.h:51` | what it holds |
 | 2 | `Length` | `app/packets/pkloungenpc.h:52` | what it holds |
 | 2 | `Desc` | `app/packets/pkloungenpc.h:53` | what it holds |
-| 2 | `LoungeNPCPacketClass` | `app/packets/pkloungenpc.h:57` | the reference decoder's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC' |
+| 2 | `LoungeNPCPacketClass` | `app/packets/pkloungenpc.h:57` | Net-7's opcode name LOUNGE_NPC (the Net-7 opcode table), the client's Print text 'LoungeNPC' |
 | 2 | `Manufacturing_Mode_Name` | `app/packets/pkmanufactureitemcatagorypacket.h:21` | what it does |
-| 2 | `ManufactureItemCatagoryPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:24` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check) |
-| 2 | `ManufactureItemCatagoryPacket_122Class` | `app/packets/pkmanufactureitemcatagorypacket.h:39` | the reference decoder's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name) |
-| 2 | `ManufactureItemIdPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:54` | the reference decoder's opcode name MANUFACTURE_ITEM_ID (the Net-7 opcode table; no structure check) |
-| 2 | `RefineryItemIdPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:69` | the reference decoder's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check) |
-| 2 | `ManufactureActionPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:100` | the reference decoder's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check) |
-| 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:129` | the reference decoder's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
-| 2 | `MasterJoinPacketClass` | `app/packets/pkmasterjoin.h:22` | the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join' |
+| 2 | `ManufactureItemCatagoryPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:24` | Net-7's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check) |
+| 2 | `ManufactureItemCatagoryPacket_122Class` | `app/packets/pkmanufactureitemcatagorypacket.h:39` | Net-7's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check); opcode added (another opcode's class has the name) |
+| 2 | `ManufactureItemIdPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:54` | Net-7's opcode name MANUFACTURE_ITEM_ID (the Net-7 opcode table; no structure check) |
+| 2 | `RefineryItemIdPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:69` | Net-7's opcode name REFINERY_ITEM_ID (the Net-7 opcode table; no structure check) |
+| 2 | `ManufactureActionPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:100` | Net-7's opcode name MANUFACTURE_ACTION (the Net-7 opcode table; no structure check) |
+| 2 | `ManufactureTechLevelFilterPacketClass` | `app/packets/pkmanufactureitemcatagorypacket.h:129` | Net-7's opcode name MANUFACTURE_TECH_LEVEL_FILTER (the Net-7 opcode table; no structure check) |
+| 2 | `MasterJoinPacketClass` | `app/packets/pkmasterjoin.h:22` | Net-7's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join' |
 | 2 | `Ticket` | `app/packets/pkmasterjoin.h:34` | what it holds |
 | 2 | `Owned` | `app/packets/pkmessagechatstream.h:53` | what it means, as MessageStringPacketClass's |
 | 2 | `Clamp_Int` | `app/packets/pkmessageline.cpp:7` | describes what it does |
@@ -7099,17 +7099,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/packets/pkmessageline.h:108` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `Get_String` | `app/packets/pkmessageline.h:109` | what it returns |
 | 2 | `Owned` | `app/packets/pkmessagestring.h:38` | what it means |
-| 2 | `MissionForfeitPacketClass` | `app/packets/pkmissionforfeit.h:22` | the reference decoder's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check) |
-| 2 | `MissionDismissalPacketClass` | `app/packets/pkmissionforfeit.h:37` | the reference decoder's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check) |
+| 2 | `MissionForfeitPacketClass` | `app/packets/pkmissionforfeit.h:22` | Net-7's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check) |
+| 2 | `MissionDismissalPacketClass` | `app/packets/pkmissionforfeit.h:37` | Net-7's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check) |
 | 2 | `ModeChangeNames` | `app/packets/pkmodechange.cpp:5` | what it holds |
 | 2 | `ModeRequestNames` | `app/packets/pkmoderequest.cpp:5` | what it holds |
 | 2 | `MoveTypeNames` | `app/packets/pkmove.cpp:5` | what it holds |
-| 2 | `MovePacketClass` | `app/packets/pkmove.h:21` | the reference decoder's opcode name MOVE (the Net-7 opcode table; no structure check) |
+| 2 | `MovePacketClass` | `app/packets/pkmove.h:21` | Net-7's opcode name MOVE (the Net-7 opcode table; no structure check) |
 | 2 | `Channel` | `app/packets/pknamedecal.h:47` | Get_Channel returns it |
 | 2 | `Channel` | `app/packets/pknavdelete.h:38` | Get_Channel returns it |
 | 2 | `Add_Note` | `app/packets/pknotelist.h:44` | what it does |
 | 2 | `std:` | `app/packets/pknotelist.h:46` | what it holds |
-| 2 | `OptionPacketClass` | `app/packets/pkoption.h:22` | the reference decoder's opcode name OPTION (the Net-7 opcode table; no structure check) |
+| 2 | `OptionPacketClass` | `app/packets/pkoption.h:22` | Net-7's opcode name OPTION (the Net-7 opcode table; no structure check) |
 | 2 | `GameID2` | `app/packets/pkpetitionstuck.h:33` | Print's second 'GameID=' |
 | 2 | `DefaultScale` | `app/packets/pkpointeffect.cpp:5` | what it holds |
 | 2 | `DefaultHSVShift` | `app/packets/pkpointeffect.cpp:6` | what it holds |
@@ -7130,36 +7130,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkpointeffect.h:181` | Get_Channel returns it |
 | 2 | `Data` | `app/packets/pkrecustomize.h:39` | what it holds |
 | 2 | `Data` | `app/packets/pkrecustomize.h:58` | what it holds |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:62` | the reference decoder's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:62` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:73` | what it holds |
 | 2 | `Cost` | `app/packets/pkrecustomize.h:74` | what it holds (its class's file) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:83` | the reference decoder's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:83` | Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:94` | what it holds |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:99` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:99` | Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
 | 2 | `Cost` | `app/packets/pkrecustomize.h:110` | what it holds (its class's file) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:115` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:115` | Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:126` | what it holds |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:131` | the reference decoder's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:131` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:142` | what it holds |
-| 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | the reference decoder's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
-| 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | the reference decoder's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
-| 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | the reference decoder's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
-| 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:22` | the reference decoder's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:22` | Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check) |
 | 2 | `Ticket` | `app/packets/pkserverhandoff.h:35` | what it holds |
 | 2 | `Get_Type` | `app/packets/pkserverready.h:30` | what it returns (the opcode Build sends), as SuperLinePacketClass's |
-| 2 | `ServerRedirectPacketClass` | `app/packets/pkserverredirect.h:22` | the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect') |
+| 2 | `ServerRedirectPacketClass` | `app/packets/pkserverredirect.h:22` | Net-7's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect') |
 | 2 | `Sector_Type_Name` | `app/packets/pksetclienttype.h:20` | what it returns |
-| 2 | `SkillStringRqPacketClass` | `app/packets/pkskillstringrq.h:22` | the reference decoder's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check) |
+| 2 | `SkillStringRqPacketClass` | `app/packets/pkskillstringrq.h:22` | Net-7's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check) |
 | 2 | `Length` | `app/packets/pksoundcommand.h:34` | what it holds |
 | 2 | `Block` | `app/packets/pkspline.h:35` | what it holds |
 | 2 | `Sector_Type_Name` | `app/packets/pkstarbasetow.h:21` | what it returns |
-| 2 | `StarbaseRequestPacketClass` | `app/packets/pkstarbasetow.h:24` | the reference decoder's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `StartAckPacketClass` | `app/packets/pkstart.h:35` | the reference decoder's opcode name START_ACK (the Net-7 opcode table; no structure check) |
+| 2 | `StarbaseRequestPacketClass` | `app/packets/pkstarbasetow.h:24` | Net-7's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `StartAckPacketClass` | `app/packets/pkstart.h:35` | Net-7's opcode name START_ACK (the Net-7 opcode table; no structure check) |
 | 2 | `TalkTreeResponseStruct` | `app/packets/pktalktreeaction.h:24` | Print's 'NumResponses' counts them |
 | 2 | `std:` | `app/packets/pktalktreeaction.h:29` | what it holds |
 | 2 | `Add_Response` | `app/packets/pktalktreeaction.h:45` | what it does |
 | 2 | `Swap_Responses` | `app/packets/pktalktreeaction.h:46` | what it does |
-| 2 | `SelectTalkTreePacketClass` | `app/packets/pktalktreeaction.h:68` | the reference decoder's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check) |
+| 2 | `SelectTalkTreePacketClass` | `app/packets/pktalktreeaction.h:68` | Net-7's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pktask.h:60` | as Packet_138AClass's |
 | 2 | `Data` | `app/packets/pktask.h:62` | what it holds |
 | 2 | `Get_Type` | `app/packets/pktask.h:75` | as Packet_138AClass's |
@@ -7175,13 +7175,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/packets/pktask.h:189` | as Packet_138AClass's |
 | 2 | `std:` | `app/packets/pktask.h:191` | what it holds |
 | 2 | `Get_Type` | `app/packets/pktask.h:204` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `TiltPacketClass` | `app/packets/pktilt.h:22` | the reference decoder's opcode name TILT (the Net-7 opcode table; no structure check) |
+| 2 | `TiltPacketClass` | `app/packets/pktilt.h:22` | Net-7's opcode name TILT (the Net-7 opcode table; no structure check) |
 | 2 | `EmoteNames` | `app/packets/pktriggeremote.cpp:5` | what it holds |
-| 2 | `TriggerEmotePacketClass` | `app/packets/pktriggeremote.h:21` | the reference decoder's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
-| 2 | `NotifyEmotePacketClass` | `app/packets/pktriggeremote.h:37` | the reference decoder's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `TriggerEmotePacketClass` | `app/packets/pktriggeremote.h:21` | Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `NotifyEmotePacketClass` | `app/packets/pktriggeremote.h:37` | Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `Channel` | `app/packets/pktriggeremote.h:50` | Get_Channel returns it |
-| 2 | `TurnPacketClass` | `app/packets/pkturn.h:22` | the reference decoder's opcode name TURN (the Net-7 opcode table; no structure check) |
-| 2 | `UiTriggerPacketClass` | `app/packets/pkuitrigger.h:22` | the reference decoder's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check) |
+| 2 | `TurnPacketClass` | `app/packets/pkturn.h:22` | Net-7's opcode name TURN (the Net-7 opcode table; no structure check) |
+| 2 | `UiTriggerPacketClass` | `app/packets/pkuitrigger.h:22` | Net-7's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check) |
 | 2 | `Transform` | `app/packets/pkunknown_861760.h:33` | what it holds |
 | 2 | `Get_Type` | `app/packets/pkunknown_863720.h:31` | as Packet_138AClass's |
 | 2 | `Data` | `app/packets/pkunknown_863720.h:33` | what it holds |
@@ -7202,7 +7202,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Data` | `app/packets/pkunknown_87acd0.h:131` | what it holds |
 | 2 | `Size` | `app/packets/pkunknown_87acd0.h:132` | what it holds |
 | 2 | `Owned` | `app/packets/pkunknown_87acd0.h:133` | what it means |
-| 2 | `AvatarEmotePacketClass` | `app/packets/pkunknown_87dec0.h:22` | the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
+| 2 | `AvatarEmotePacketClass` | `app/packets/pkunknown_87dec0.h:22` | Net-7's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `TargetNameSize` | `app/packets/pkunknown_87dec0.h:40` | what it holds |
 | 2 | `Owned` | `app/packets/pkunknown_87dec0.h:41` | what it means, as MessageStringPacketClass's |
 | 2 | `Get_Size` | `app/packets/pkunknown_888b60.h:44` | what it returns |
@@ -7232,9 +7232,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkupdate.h:152` | Get_Channel returns it |
 | 2 | `Priority` | `app/packets/pkupdate.h:153` | Get_Priority returns it |
 | 2 | `Get_Type` | `app/packets/pkupdate.h:166` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | the reference decoder's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | the reference decoder's opcode name WARP (the Net-7 opcode table; no structure check) |
+| 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
 | 2 | `AttribModClass` | `app/shared/attrib_dir.h:34` | what it is |
 | 2 | `Get_Type` | `app/shared/attrib_dir.h:38` | what it returns |
 | 2 | `Get_Value` | `app/shared/attrib_dir.h:39` | what it returns |
@@ -8562,7 +8562,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Inventory` | `app/packets/pkequipuse.h:33` | the client's Print text 'Inventory=' |
 | 3 | `Slot` | `app/packets/pkequipuse.h:34` | the client's Print text 'Slot=' |
 | 3 | `pkfindmember.h` | `app/packets/pkfindmember.h:15` | the header of the client's pkfindmember.cpp |
-| 3 | `FindMemberPacketClass` | `app/packets/pkfindmember.h:31` | the client's file pkfindmember.cpp and the reference decoder's opcode name FIND_MEMBER |
+| 3 | `FindMemberPacketClass` | `app/packets/pkfindmember.h:31` | the client's file pkfindmember.cpp and Net-7's opcode name FIND_MEMBER |
 | 3 | `FindPlayerRequestPacketClass` | `app/packets/pkfindplayerrequest.h:23` | the client's Print label 'FindPlayerRequest' |
 | 3 | `FindPlayerResponsePacketClass` | `app/packets/pkfindplayerrequest.h:39` | the client's Print label 'FindPlayerResponse' |
 | 3 | `FirePacketClass` | `app/packets/pkfire.h:22` | the client's Get_Name 'Fire' |
@@ -8722,7 +8722,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Sort2` | `app/packets/pkinventorymove.h:59` | the client's Print text 'Sort2=' |
 | 3 | `Sort3` | `app/packets/pkinventorymove.h:60` | the client's Print text 'Sort3=' |
 | 3 | `Reverse` | `app/packets/pkinventorymove.h:61` | the client's Print text 'Reverse=' |
-| 3 | `ItemBasePacketClass` | `app/packets/pkitemba.h:38` | the client's Print text 'Item_Base' and the reference decoder's ITEM_BASE |
+| 3 | `ItemBasePacketClass` | `app/packets/pkitemba.h:38` | the client's Print text 'Item_Base' and Net-7's ITEM_BASE |
 | 3 | `ItemTemplateID` | `app/packets/pkitemba.h:53` | the client's Print text 'ItemTemplateID=' |
 | 3 | `Category` | `app/packets/pkitemba.h:54` | the client's Print text 'Category=' |
 | 3 | `Subcategory` | `app/packets/pkitemba.h:55` | the client's Print text 'Subcategory=' |
@@ -9077,8 +9077,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
-| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:78` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase) |
-| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:113` | by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaCompound) |
+| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:78` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
+| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:113` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |

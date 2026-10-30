@@ -129,7 +129,7 @@ def run(a):
         bmp2png.write_png(os.path.join(dst, f[:-4] + '.png'), *bmp2png.read_bmp(os.path.join(dst, f)))
     summary = (f'{os.path.basename(exe)} {" ".join(args)}: exit code {rc}, {how}, {secs:.1f} s; {len(shots)} frames saved; '
                f'results.ini {"changed" if after != before else "unchanged"}')
-    open(os.path.join(dst, 'run.txt'), 'w').write(summary + '\n')
+    open(os.path.join(dst, 'run.txt'), 'w', newline='\n').write(summary + '\n')
     print(summary)
 
 

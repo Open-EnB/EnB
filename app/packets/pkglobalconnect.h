@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 109 (0x006D, GLOBAL_CONNECT): vtable 0xB09398, constructor 0x8634D0, 0x14 bytes
-class GlobalConnectPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check)
+class GlobalConnectPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_CONNECT (the Net-7 opcode table; no structure check)
 {
 public:
 	GlobalConnectPacketClass(const char *ticket, const char *password);	// 0x863400

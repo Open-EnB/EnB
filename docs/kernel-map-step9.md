@@ -11,8 +11,8 @@ declare without defining is listed by subsystem in §1; §2-§5 map the subsyste
 reconstruction order like kernel-map.md §6, §7 a recommendation, §8 the traps found.
 
 Evidence tags as in kernel-map.md: **S** a client string (assert, `__FILE__`, log text),
-**C** what the code does (descriptive, not the client's name), **N** the proxy's research
-(the reference decoder `docs/research/client-ui.md`). Sizes: "attributed" counts and bytes are
+**C** what the code does (descriptive, not the client's name), **N** earlier protocol research
+(its client-UI notes). Sizes: "attributed" counts and bytes are
 `appfile.py show`'s; a **window** is the run of verified function starts from the first
 function to the next file's first attributed function (`.work/map9/rsz.py`, padding included,
 so a window can be up to ~30 % above appfile.py's bytes and can hold a neighbour's
@@ -160,7 +160,7 @@ The movie client (mclient.cpp): constructor 0x7EC3E0 (assert l.83, ArgvClass), v
 
 They are slot **+0x40** of the screens' tables, which start at **0xAF2BF0** (login, 34 slots) and
 **0xAEFB20** (character select, 36 slots). The constructors store 0xAF2BF0 / 0xAEFB20 at +0x00
-(nothing references +0x40). So the proxy's client-ui.md §1 / §3 "slot 0x20 per-frame, slot 0x28
+(nothing references +0x40). So the earlier research's client-UI notes §1 / §3 "slot 0x20 per-frame, slot 0x28
 event handler" are slots **+0x60 and +0x68**, as kernel-map.md's row 9 inherited them.
 
 | Screen | File (S) | Constructor | Bytes | Vtables (+0x00 / +0x04 / +0x38; a 0x10-byte helper) | Own slots | Window |
@@ -168,7 +168,7 @@ event handler" are slots **+0x60 and +0x68**, as kernel-map.md's row 9 inherited
 | login | ui_login.cpp (7 asserts) | **0x5ACB80** (`(view, view +0x74)`: 'Name_fe01a', 'Password_fe01a', 'fa_fe01a.ini', 'FE01A'); destructor 0x5AD350 | 0xDC | 0xAF2BF0 / 0xAF2BE4 / 0xAF2BD8; 0xAF2BBC | +0x00 0x5AD350, +0x60 0x5AD540 (per frame), +0x68 0x5AD610 (events) | 0x5ACB80-0x5AFCD0, 33 functions, 12.6 KB (appfile.py: 12 attributed, 4,000 bytes) |
 | character select | ui_avsel.cpp (15 asserts) | **0x55C650** ('FE12A', 'FE01C', 'FE_ROOM', 'FA_FE12A.ini', 'click_me'); destructor 0x55CC90 | 0x124 | 0xAEFB20 / 0xAEFB14 / 0xAEFB08; 0xAEFAEC | +0x00, +0x60 0x55CEA0, +0x68 0x55D060 (also the referrer: 'Sorry, you cannot refer yourself.'), new +0x88 0x55EBD0, +0x8C 0x55ECB0 | 0x55C650-0x560BC0, 55 functions, 17.8 KB (appfile.py: 14 attributed, 5,782 bytes) |
 
-N's field tables (client-ui.md §1, §3) hold for these objects; the offsets there are from the
+N's field tables (the client-UI notes §1, §3) hold for these objects; the offsets there are from the
 object's start.
 
 ### 3.2 The UI base classes and how far they reach
@@ -263,7 +263,7 @@ tutorial_manager.cpp, gadget.cpp, soundlib.cpp, env_map_manager.cpp (33 app grou
 ## 4. kcom auth (authlogin.dll)
 
 * **The DLL**: `release\authlogin.dll` (Net-7's client folder; 114,688 bytes, linked 2002-07-17,
-  version 3.3.0.6 per the proxy's client-host.md) exports two functions,
+  version 3.3.0.6 per the earlier research's client-host notes) exports two functions,
   `AuthLoginLib_GetAuthorize` and `AuthLoginLib_GetComponentFactory`, and imports KERNEL32,
   ADVAPI32, WININET. client.exe imports only `AuthLoginLib_GetComponentFactory` (binary.md §3).
 * **The interfaces** (tsk_login.h, from Fetch_EA_Ticket 0x76A7B0 and 0x792040): C++ objects
@@ -340,7 +340,7 @@ Sizes are windows (functions, bytes to the next verified start) unless marked at
 | 9e | **sclient.cpp's body** and the Delta template run after it | 111 functions, 62 KB; 200 functions, 35 KB | (9d) and 92 app files (281 callees) | as (9d); then cpacket.cpp (109 functions, 49 KB) and client_lego_impl.cpp (137, 35.7 KB) on SClient's layout |
 | 9f | **the UI base**: gclass.cpp with its inline base, intrface.cpp, the defaults by smouse.cpp, smouse.cpp's mouse, inpdsp.cpp | 35 + 43 + 9 + 9 functions, ~12 KB | gadget.cpp, intrlist.cpp, interface_static_sort_list.cpp, view.cpp, 0x4F9350 (declare) | a dummy screen through Activate / Deactivate |
 | 9g | **CharacterViewClass** (charview.cpp) and uiview.cpp's base | 100 + ~8 functions, ~31 KB | (9b), (9f); the screens' constructors (declare); avatar.cpp, env_map_manager, soundlib | build the view with stub screens: step changes (0x679160) |
-| 9h | **ui_login.cpp and ui_avsel.cpp** | 33 + 55 functions, 30.4 KB | (9f), (9g); fontmanager, fontdatabase, textgadg, the message box, tutorial_manager | the proxy's fast-login events (client-ui.md §1, §3) against the screens |
+| 9h | **ui_login.cpp and ui_avsel.cpp** | 33 + 55 functions, 30.4 KB | (9f), (9g); fontmanager, fontdatabase, textgadg, the message box, tutorial_manager | the earlier research's fast-login events (client-UI notes §1, §3) against the screens |
 | 9i | the rest of the front end: ui_popupmsg, ui_class, ui_avatr, ui_shard, ui_shipcust, ui_registration | 23 + 44 + 42 + 38 + 85 + 88 (234) functions, ~190-245 KB | (9f), (9g); the 3-D avatar (avatar.cpp), the ship customisation | each screen built and driven by events |
 
 Step 9's own leftovers (Run, Go_Next / Back_Step, Pre_Run, Start_Game: register / shape
@@ -364,7 +364,7 @@ the UI front end (9f-9i, ~290-345 KB with a reach into the whole UI kit) for lat
   recordings, as the packet classes were.
 * The front end can be bypassed for the step 9 test (kernel-map.md §6 row 9's "a login against a
   recorded server"): a test program links LoginTaskClass with a stub CharacterViewClass and
-  drives it the way the proxy's fast login does (Set_Username, Set_Password, slot +0x4C, then the
+  drives it the way the earlier research's fast login does (Set_Username, Set_Password, slot +0x4C, then the
   slot choice and Go_Next_Step).
 
 Alternative: if the goal is to see the login screen drawn (a VIDTEST-style milestone), 9f -> 9g
@@ -372,8 +372,8 @@ Alternative: if the goal is to see the login screen drawn (a VIDTEST-style miles
 
 ## 8. Traps and corrections found while mapping
 
-* **0xAF2C30 / 0xAEFB60** (kernel-map.md §6 row 9, from the proxy's client-ui.md) are slot +0x40
-  of the vtables **0xAF2BF0 / 0xAEFB20**; client-ui.md's "slot 0x20 / 0x28" are +0x60 / +0x68.
+* **0xAF2C30 / 0xAEFB60** (kernel-map.md §6 row 9, from the earlier research's client-UI notes) are slot +0x40
+  of the vtables **0xAF2BF0 / 0xAEFB20**; those notes' "slot 0x20 / 0x28" are +0x60 / +0x68.
   Walk back to the dword the constructor stores (`.work/map9/vrefs.py`) before taking any
   quoted vtable address as a start.
 * **symbols.json's `WW3DAssetManager::Load_Procedural_Textures` at 0x741180** (source
@@ -401,6 +401,6 @@ Alternative: if the goal is to see the login screen drawn (a VIDTEST-style miles
   `appfile.py show FILE --neighbours N` and the vtable stores to place them.
 * **0x8C06E0 (the character slot) and 0x8C15F0 (TicketClass)** sit after WWOnline's wnet in the
   link order, among KV templates: app code linked as a library after wnet, not wnet itself.
-* The proxy's client-ui.md §2 calls +0x88C + slot x 0x160 "the avatar's looks"; the code puts it
+* The earlier research's client-UI notes (§2) call +0x88C + slot x 0x160 "the avatar's looks"; the code puts it
   in shipcust_desc.cpp's class (0x4F6210..), and the avatar's looks are the 0x10C avatar_desc
   records at +0x350.

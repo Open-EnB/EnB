@@ -39,7 +39,7 @@ public:
 };
 
 // opcode 152 (0x0098, GALAXY_MAP_REQUEST): vtable 0xB09960, constructor 0x871350, 0x20 bytes
-class GalaxyMapRequestPacketClass : public GalaxyMapPacketClass  // NAME 2: the reference decoder's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check)
+class GalaxyMapRequestPacketClass : public GalaxyMapPacketClass  // NAME 2: Net-7's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	GalaxyMapRequestPacketClass(int type, LinearBufferClass &buffer, int channel, bool b);	// 0x871220

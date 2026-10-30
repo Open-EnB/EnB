@@ -52,7 +52,13 @@ SECRET_IGNORE = re.compile(r'(?i)(changeme|example|placeholder|xxxx|\*\*\*|your[
                            r'|["\'](?:password|passwd|pwd|secret)["\'])')
 INSTALL_NAME_RES = [re.compile(p, re.I) for p in (
     r'(^|/)EA GAMES(/|$)', r'(^|/)Earth (&|and) Beyond(/|$)', r'(^|/)Net-?7(/|$)',
-    r'(^|/)Program Files', r'(^|/)Live-Era-Data(/|$)', r'(^|/)a private tool(/|$)')]
+    r'(^|/)Program Files', r'(^|/)Live-Era-Data(/|$)')]
+# A maintainer's private folder names (one regex per line) live outside the repository's text:
+# .work/prepush_private.txt (git-ignored), so the guard can name them without publishing them.
+_PRIVATE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.work', 'prepush_private.txt')
+if os.path.exists(_PRIVATE):
+    INSTALL_NAME_RES += [re.compile(r'(^|/)(?:%s)(/|$)' % l.strip(), re.I)
+                         for l in open(_PRIVATE, encoding='utf-8') if l.strip() and not l.startswith('#')]
 INSTALL_TEXT_RES = [re.compile(p, re.I) for p in (
     r'[A-Za-z]:\\Program Files(?: \(x86\))?\\EA GAMES', r'[A-Za-z]:\\Net-?7\b', r'[A-Za-z]:\\EnBDevelopment\\Net7',
     r'/c/Program Files(?: \(x86\))?/EA GAMES')]

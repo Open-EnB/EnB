@@ -38,7 +38,7 @@ public:
 struct PacketHeaderClass	// NAME 1: describes what it is
 {
 	short Size;				// NAME 5: 'packet->Header.Size' (udpconn.cpp l.489)
-	short Opcode;			// NAME 4: the reference decoder's (the Net-7 opcode table)
+	short Opcode;			// NAME 4: Net-7's (the Net-7 opcode table)
 };
 
 // A message built from a packet (PacketClass::Build) or handed to the factory: 0x22C bytes (the

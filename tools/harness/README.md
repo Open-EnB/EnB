@@ -4,14 +4,13 @@ Python side of the M1 capture harness ([docs/milestones.md](../../docs/milestone
 of the later harness programs (M1.2 to M2, listed at the end of this file). The C++ programs are
 under `tests/capharness/`. Every external repository and data path is named once, in
 `tools/re/roots.py` (listed in [docs/toolchain.md](../../docs/toolchain.md) §3). Inputs and
-the reference decoder's reference outputs live outside git:
+the reference decoder's readings live outside git:
 
 | Path | What |
 |---|---|
 | `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-…` | EA's raw EA-UDP dumps (decrypted datagrams per session) |
-| `C:\EnBDevelopment\the reference decoder\captures\ea\*.trace.jsonl`, `session_*.trace.jsonl` (was `the reference traces\captures`) | the reference decoder's message-level traces |
+| `roots.EA_REFERENCE` (`C:\EnBDevelopment\Tools\Media\ea-reference`, unpacked by `fetch_reference.py`, D154) | the reference traces `ea\NAME.trace.jsonl` (message level) and the reference decoder's readings `ref\NAME.*.txt`: `dump --summary` (`*.summary.txt`), `aux-census`, `roundtrip`, `aux-log --first`; fixed, never regenerated |
 | `.work/harness/alex3.dgram`, `alex7.dgram` | datagram files written by `convert.py` (regenerate, ~10 s) |
-| `.work/harness/ref/` | the reference decoder outputs per trace: `dump --summary` (`*.summary.txt`), `aux-census`, `roundtrip`, `aux-log --first` (regenerate with `sh tools/harness/refs.sh`, ~2 min) |
 | `.work/harness/bin/capharness.exe` | the harness, built by `build.py` |
 
 ## Tools
@@ -19,7 +18,7 @@ the reference decoder's reference outputs live outside git:
 ```
 python tools/harness/convert.py DUMP OUT.dgram [--check TRACE.jsonl]
 ENB_VC6_HOSTS=<user>@<ip> python tools/harness/build.py        # after pool.py lease
-sh tools/harness/refs.sh                                        # the reference decoder reference outputs -> .work/harness/ref/
+python tools/harness/fetch_reference.py                        # the frozen reference (D154) -> roots.EA_REFERENCE
 ```
 
 * **convert.py** parses a dump into a datagram file. `--check` rebuilds the game messages from
@@ -28,7 +27,9 @@ sh tools/harness/refs.sh                                        # the reference 
 * **build.py** sends `tests/capharness` to a build VM (`vc6.sync`), runs one `cl /MT` that
   compiles and links, and copies the exe back. No `.lib` is linked yet (the M1.0 skeleton; the
   later programs link through `tools/vc6/build.py link`, see [../vc6/README.md](../vc6/README.md)).
-* **refs.sh** saves the reference decoder's reference outputs per trace under `.work/harness/ref/` (~2 min).
+* **fetch_reference.py** downloads the EA captures' frozen reference (a release asset, SHA-256 checked;
+  `--archive F` unpacks a copy) into `roots.EA_REFERENCE`: the reference traces and the reference
+  decoder's readings (D154). The data is fixed; `refs.sh`, which made the readings, was retired.
 * `compare.py`, the M1.0 count check of the skeleton against the reference decoder's summary, was retired
   (2026-10-25): `udpreplay.py` and `auxreplay.py` carry the gates now. `git log -- tools/harness/compare.py`
   has it.
@@ -52,7 +53,7 @@ first + k. Type 0x05 (size 0) closes nearly every datagram; its sequence number 
 sender's datagrams. Type 0x00 (2 seen) and the close datagram's block (`CLOSE`) carry no
 message. Resent blocks repeat channel and sequence number.
 
-the reference decoder's `the reference importer` does not decode the ack list: it takes the first offset from 6 at
+The reference importer does not decode the ack list: it takes the first offset from 6 at
 which blocks fill the datagram. In 8,075 of alex3's 30,758 datagrams that offset lies inside the
 ack list. This is where the reference decoder's 180 unread blocks come from (177 + 1 block numbers it reads
 that are not ours), and it hides 28 + 12 real messages (below). With the ack list decoded, the
@@ -79,7 +80,7 @@ Lines starting with `#` are comments. Records belong to the last `D` line before
 | ack entries, blocks | 20,722, 43,467 | 1,389, 6,537 |
 | datagrams cut short in the dump | 3 | 3 |
 | messages rebuilt from blocks | 26,106 | 2,791 (1 message lost to a gap) |
-| the reference decoder messages | 26,078: all present, in the same order | 2,779: all present, in the same order |
+| the reference decoder's messages | 26,078: all present, in the same order | 2,779: all present, in the same order |
 | messages only in the datagram file | 28 | 12 |
 | gaps in per-channel block sequence numbers | 2 (the reference decoder's reading: 64) | 2 (5) |
 
@@ -117,7 +118,7 @@ python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages 
 * **auxreplay.py** prepares the message file from the trace (or, `--dump`, from convert.py's
   reading of an Alex dump), builds (`--app-sources` compiles the two new app files into the program
   for an older app.lib), runs, and compares the values with the reference decoder's `aux-log --first`
-  (`.work/harness/ref/NAME.aux-log-first.txt`): it replays the U/D/X lines over a per-object state
+  (`ref\NAME.aux-log-first.txt` in `roots.EA_REFERENCE`): it replays the U/D/X lines over a per-object state
   (unknown, default, value; reset by a CREATE), prints each change in tree order as aux-log does
   (ints `N (0xN)`, floats G6, colours `AuxColor { R = .., G = .., B = .. }`, text other than ASCII
   as `?`) and compares the sequences per channel, ignoring time and object description.
@@ -136,7 +137,7 @@ The one message the client's encoder can't give back: capture_1's AUX_DATA #2412
 3837051, `7b8c3a00 0500 01 080c0955`). The root marks Equipped and Cargo cleared, but Cargo's own
 header byte is 0x55: whole + defaulted, with bits 4 and 6 set besides (the client's BitSetClass(4)
 writes them 0). The client decodes it (Cargo defaulted) without an assert; our encoder writes
-`0c 08 04 09 05`. the reference decoder keeps the header byte as read, so its census passes it.
+`0c 08 04 09 05`. The reference decoder keeps the header byte as read, so its census passes it.
 
 **The client's own encoder (M1.3, 2026-10-24).** After each decode the harness also has the root
 write an update through the client's path, `UnknownRootClass::Encode` 0x4A3D50 (the collector
@@ -229,7 +230,7 @@ exchanges in capture_1..3 (the annotated captures print every handshake byte and
 A client-side CordMgr connects with the capture's session id and key (CordMgr::Connect,
 Pump_Connections), and the capture's ACK1 and ACK2 go through CordMgr::Pump. All 54 pass: SYN1 equals
 the capture's, SYN2's header (bytes 0-15) equals it, our SYN2's encrypted key decrypts with the
-server's private key (the reference decoder's the reference key table) to the session key in its low 64 bits, as the
+server's private key (the reference key table, now `tools/harness/westwood_keys.py`) to the session key in its low 64 bits, as the
 capture's does, and ACK2 makes a CordCon with the capture's data port, key and session. This runs
 WWLib's XMP (RSA) and SecureRandomClass for the first time.
 
@@ -324,10 +325,10 @@ its unbuilt callees in `avatar_desc_stubs.cpp`.
 python tools/harness/n7aux.py [SESSION ...]        # default: the three 2026-10 sessions; auxreplay.exe from auxreplay.py build
 ```
 
-* **n7aux.py** runs every AUX_DATA the client received in a Net-7 recording
-  (`the reference decoder\captures\session_*.trace.jsonl`, message level, the proxy's output)
+* **n7aux.py** (retired with D154; git history has it) ran every AUX_DATA the client received in a Net-7 recording
+  (the reference traces' `session_*.trace.jsonl`, message level, the proxy's output)
   through auxreplay.exe, as `auxreplay.py run` does, and counts Net-7's known encoding differences
-  (the reference decoder's `docs/research/auxdata.md` §7, items 1-3) instead of failing on them. Each is checked:
+  (the reference decoder's AuxData notes §7, items 1-3) instead of failing on them. Each is checked:
   `length` (item 1): the length field differs from the bytes that follow and everything else
   re-encodes byte for byte; `members` (item 2): a full Player send that runs out exactly where
   `Player.GroupInfo.Members`' header should be, which must decode and re-encode byte for byte
@@ -350,7 +351,7 @@ Results (2026-10-24), the reference decoder's aux-census in brackets:
 | 2026-10-19 11:53 | 1,358 | 976 | 340 (340) | 8, all also `sets` | 2 | 32 | 0 | 0 (10) | 81,377 of 81,377 |
 | 2026-10-21 11:16 | 691 | 636 | 34 (34) | 5, all also `sets` | 0 | 14 | 2 (2) | 0 (5) | 38,171 of 38,171 |
 
-the reference decoder's failures are exactly the `members` and `short` messages (2 + 0, 8 + 2, 5 + 0). The
+The reference decoder's failures are exactly the `members` and `short` messages (2 + 0, 8 + 2, 5 + 0). The
 length fields: declared minus carried is +6 for 319 Ship deltas (the whole payload's length), -8
 for 76 Ship, -4 for 11 Harvestable and -2 for 4 Hulk updates. No asserts.
 
@@ -516,11 +517,11 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 |---|---|---|
 | `convert.py` | EA-UDP dump to `.dgram` (above) | the dumps |
 | `build.py` | the M1.0 capharness skeleton (above) | a pool VM |
-| `refs.sh` | the reference decoder reference outputs (above) | the reference decoder built |
+| `fetch_reference.py` | the frozen reference (above) | network, or `--archive F` |
 | `drawcheck.py` | M2's draw-dump regression check (above): original vs ours at frame 900, group tables against `drawcheck_baseline.json` | the proxy (`run_reference.py build`), our vidtest.exe (`build.py link`) |
 | `auxdata_smoke.py` | builds and runs `tests/capharness/auxdata_smoke` (M1.2): both aux-data forms decode on a hand-built root and re-encode byte for byte; exit code 0 = pass | libraries built (`tools/vc6/build.py`, `mkmss32.py lib`), a pool VM |
-| `auxreplay.py` | M1.3 gates (b), (c): AUX_DATA round trip and values (above) | libraries, pool VM, `.work/harness/ref/` |
-| `n7aux.py` | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
+| `auxreplay.py` | M1.3 gates (b), (c): AUX_DATA round trip and values (above) | libraries, pool VM, the frozen reference |
+| `n7aux.py` (retired, D154) | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
 | `udpreplay.py` | EA-UDP transport, handshake, loop, connection layer (M1.4, above) | `.dgram` files, pool VM |
 | `kerneltest.py` | `tests/capharness/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
 | `clienttest.py` | `tests/capharness/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
@@ -583,7 +584,7 @@ Results moved out of docs/workflow.md §3 (2026-10-25).
 
 * **EA-UDP ack lists.** An ack list follows when bit 0 of the datagram's flags byte is set (value 3
   exists too, not only 1): byte 5 is the entry count, then one header byte, then 4-byte entries
-  (kind, channel, 16-bit big-endian seq). the reference decoder's `the reference importer` guesses the block start instead
+  (kind, channel, 16-bit big-endian seq). The reference importer guesses the block start instead
   and loses 28 / 12 messages in the Alex dumps; use `tools/harness/convert.py`'s datagram files.
   The Alex dumps also lose bytes in the middle (not the end) of 3 datagrams per file (`X` lines).
 
@@ -593,7 +594,7 @@ Results moved out of docs/workflow.md §3 (2026-10-25).
 
 * **Net-7 recordings.** The 2022-09-25 recording has no client side of the sector (proxy-to-server
   only): run it with `n7aux.py --server-side`. Net-7's encoder differs from EA's in a fourth way
-  beyond the reference decoder's auxdata.md §7: fields named in two sets (Value and Default, a Whole header
+  beyond the reference decoder's AuxData notes §7: fields named in two sets (Value and Default, a Whole header
   `0f` for EA's `07`); the client applies one, so such messages re-encode differently.
 
 * **The client's Delta model has no "default" state.** Updated and defaulted both set

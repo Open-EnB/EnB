@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 161 (0x00A1, TRIGGER_EMOTE): vtable 0xB0A52C, constructor 0x8860A0, 0x14 bytes
-class TriggerEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
+class TriggerEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check)
 {
 public:
 	TriggerEmotePacketClass(int game_id, int emote);	// 0x886000
@@ -34,7 +34,7 @@ public:
 };
 
 // opcode 162 (0x00A2, NOTIFY_EMOTE): vtable 0xB0A55C, constructor 0x886380, 0x18 bytes
-class NotifyEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check)
+class NotifyEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check)
 {
 public:
 	NotifyEmotePacketClass(int game_id, int emote);	// 0x886270

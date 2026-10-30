@@ -19,7 +19,7 @@
 #include "pkmessagechatstream.h"
 
 // opcode 94 (0x005E, AVATAR_EMOTE): vtable 0xB0A020, constructor 0x87E010, 0x24 bytes
-class AvatarEmotePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check)
+class AvatarEmotePacketClass : public PacketClass  // NAME 2: Net-7's opcode name AVATAR_EMOTE (the Net-7 opcode table; no structure check)
 {
 public:
 	AvatarEmotePacketClass(int game_id, Unknown_ChatStreamClass *stream, char type, char *target_name);	// 0x87DEC0 (the stream's bytes and the name are the caller's, not copied)

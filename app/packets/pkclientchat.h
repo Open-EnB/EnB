@@ -20,7 +20,7 @@
 #include <vector>
 
 // opcode 51 (0x0033, CLIENT_CHAT): vtable 0xB09E10, constructor 0x8786E0, 0x20 bytes
-class ClientChatPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check)
+class ClientChatPacketClass : public PacketClass  // NAME 2: Net-7's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check)
 {
 public:
 	ClientChatPacketClass(int game_id, char *string, char type, char *target);	// 0x8785D0 (the strings not copied)
@@ -43,7 +43,7 @@ public:
 };
 
 // opcode 163 (0x00A3, CLIENT_CHAT_REQUEST): vtable 0xB09E40, constructor 0x878B10, 0x50 bytes
-class ClientChatRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check)
+class ClientChatRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name CLIENT_CHAT_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	ClientChatRequestPacketClass(int unknown10, int unknown0c);	// 0x878A50

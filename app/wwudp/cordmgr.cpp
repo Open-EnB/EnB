@@ -1496,7 +1496,7 @@ int CordMgr::Pending_Messages()
 **	  Process_CORD_Packet 0x85A000 (log on line 1272), Compute_Ticks 0x85A220, Process_SYN1_Packet
 **	  0x85A3B0, Process_ACK1_Packet 0x85A430 (XMP_Unsigned_Decode, XMP_Exponent_Mod: the server's
 **	  RSA key), Process_SYN2_Packet 0x85AB30, Process_ACK2_Packet 0x85ABB0 (the CordCon).
-**	* The handshake on the wire (the reference decoder docs/design.md 16.4): SYN1 00 14 <session>, ACK1
+**	* The handshake on the wire (earlier protocol research on the EA captures): SYN1 00 14 <session>, ACK1
 **	  01 14 <session> <8 bytes> <modulus> <exponent>, SYN2 02 14 <session> ... <the session key,
 **	  RSA-encrypted>, ACK2 03 14 <session> <2 bytes> <the data port> <4 bytes>.
 */

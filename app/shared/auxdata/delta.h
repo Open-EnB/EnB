@@ -7,8 +7,8 @@
 **
 **	The aux-data field model: a tree of named fields. DeltaClass is one field (leaf types derive
 **	from it: float 0xAEAEB0, string 0xAEB0E4, time 0xAEB1EC...), DeltaCompoundClass a field with
-**	children. The client names neither class (D24); the roles follow the reference decoder's notes
-**	(docs/research/client-re-notes.md: DeltaBase, DeltaCompound), checked against the code here.
+**	children. The client names neither class (D24); the roles follow earlier research notes
+**	(earlier protocol research: DeltaBase, DeltaCompound), checked against the code here.
 **	Virtuals whose purpose isn't known are named after their vtable offset (D10).
 */
 
@@ -75,7 +75,7 @@ public:
 extern int DeltaUnknownGlobal;  // NAME 1: neutral (D10)
 
 // vtable 0xAEAD70, size 0x84
-class DeltaClass : public DeltaInterfaceClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaBase)
+class DeltaClass : public DeltaInterfaceClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase)
 {
 public:
 	DeltaClass(const char *name);														// 0x4A4D40
@@ -110,7 +110,7 @@ public:
 };
 
 // vtable 0xAEABE4, size 0x9C
-class DeltaCompoundClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; the reference decoder notes: DeltaCompound)
+class DeltaCompoundClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound)
 {
 public:
 	DeltaCompoundClass(const char *name) : DeltaClass(name), Lookup(0), m_Unknown98(0)

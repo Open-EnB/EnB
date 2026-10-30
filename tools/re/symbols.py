@@ -170,7 +170,7 @@ def main():
 def finish(a, img, starts, thunks, syms, vt_named):
     rows = [syms[k] for k in sorted(syms)]
     os.makedirs(a.out, exist_ok=True)
-    json.dump(rows, open(os.path.join(a.out, 'symbols.json'), 'w'), indent=0)
+    json.dump(rows, open(os.path.join(a.out, 'symbols.json'), 'w', newline='\n'), indent=0)
     write_ghidra(rows, os.path.join(a.out, 'ghidra_symbols.py'))
     if not a.apply_named:   # its vtable count belongs to the last regeneration
         write_coverage(img, starts, thunks, rows, os.path.join(a.out, '..', 'coverage.md'), vt_named)

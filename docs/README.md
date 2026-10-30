@@ -3,7 +3,7 @@
 | Document | What it covers |
 |---|---|
 | [progress.md](progress.md) | Log, decisions made, decisions open, next steps |
-| [prior-work.md](prior-work.md) | What earlier work (the reference decoder) already found, and where |
+| [prior-work.md](prior-work.md) | What earlier protocol research by the maintainer already found |
 | [binary.md](binary.md) | client.exe: hash, toolchain, sections, code regions, imports |
 | [source-tree.md](source-tree.md) | The original source tree, recovered from the client, and how this repository mirrors it |
 | [conventions.md](conventions.md) | Coding conventions for the rebuild |

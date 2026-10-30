@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 110 (0x006E, GLOBAL_TICKET_REQUEST): vtable 0xB096B8, constructor 0x8678D0, 0x10 bytes
-class GlobalTicketRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name GLOBAL_TICKET_REQUEST (the Net-7 opcode table; no structure check)
+class GlobalTicketRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_TICKET_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	GlobalTicketRequestPacketClass(int unknown0_c);	// 0x867860

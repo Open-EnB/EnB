@@ -31,15 +31,15 @@ def main():
 
     paths = sorted({s for s in strings.values() if SOURCE.search(s) and ('\\' in s or '/' in s)},
                    key=str.lower)
-    with open(os.path.join(DATA, 'source-paths.txt'), 'w') as f:
+    with open(os.path.join(DATA, 'source-paths.txt'), 'w', newline='\n') as f:
         f.write('\n'.join(paths) + '\n')
 
     methods = sorted({m.group(0) for s in strings.values() for m in CLASS_METHOD.finditer(s)})
-    with open(os.path.join(DATA, 'class-methods.txt'), 'w') as f:
+    with open(os.path.join(DATA, 'class-methods.txt'), 'w', newline='\n') as f:
         f.write('\n'.join(methods) + '\n')
 
     rtti = sorted({s for s in strings.values() if s.startswith(('.?AV', '.?AU'))})
-    with open(os.path.join(DATA, 'rtti.txt'), 'w') as f:
+    with open(os.path.join(DATA, 'rtti.txt'), 'w', newline='\n') as f:
         f.write('\n'.join(rtti) + '\n')
 
     # Assert expressions sit next to the __FILE__ string of their source file. Record the most
@@ -55,7 +55,7 @@ def main():
                 and not s.startswith(('%', 'http')) and re.search(r'[A-Za-z_]\w*', s):
             if re.fullmatch(r'[\w\s()!<>=&|.\->\[\]*+,:/"\'?~^%]+', s):
                 rows.append(f'0x{va:06X}\t{current}\t{s}')
-    with open(os.path.join(DATA, 'asserts.txt'), 'w') as f:
+    with open(os.path.join(DATA, 'asserts.txt'), 'w', newline='\n') as f:
         f.write('\n'.join(rows) + '\n')
 
     print(f'{len(paths)} source paths, {len(methods)} Class::Method names, {len(rtti)} RTTI names, '

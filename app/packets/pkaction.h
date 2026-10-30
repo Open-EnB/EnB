@@ -20,7 +20,7 @@
 #include <string>
 
 // opcode 44 (0x002C, ACTION): vtable 0xB09C14, constructor 0x876400, 0x1C bytes
-class ActionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION (the Net-7 opcode table; no structure check)
+class ActionPacketClass : public PacketClass  // NAME 2: Net-7's opcode name ACTION (the Net-7 opcode table; no structure check)
 {
 public:
 	ActionPacketClass(int game_id, char action, int unknown14, int unknown18);	// 0x876360
@@ -37,7 +37,7 @@ public:
 };
 
 // opcode 45 (0x002D, ACTION2): vtable 0xB09C44, constructor 0x8767B0, 0x28 bytes
-class Action2PacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name ACTION2 (the Net-7 opcode table; no structure check)
+class Action2PacketClass : public PacketClass  // NAME 2: Net-7's opcode name ACTION2 (the Net-7 opcode table; no structure check)
 {
 public:
 	Action2PacketClass(int game_id, char action, const char *target, int optional_var);	// 0x876610

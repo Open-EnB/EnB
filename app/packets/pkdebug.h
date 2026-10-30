@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 26 (0x001A, DEBUG): vtable 0xB0A1D0, constructor 0x880340, 0x18 bytes
-class DebugPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name DEBUG (the Net-7 opcode table; no structure check)
+class DebugPacketClass : public PacketClass  // NAME 2: Net-7's opcode name DEBUG (the Net-7 opcode table; no structure check)
 {
 public:
 	DebugPacketClass(int game_id, int debug_idx, int user_data);	// 0x8802C0

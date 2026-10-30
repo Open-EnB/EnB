@@ -164,7 +164,7 @@ def cmd_new(a):
     os.makedirs(WTDIR, exist_ok=True)
     git('worktree', 'add', path, '-b', 'wt/' + a.name, base)
     furnish(path)
-    with open(base_file(a.name), 'w') as f:
+    with open(base_file(a.name), 'w', newline='\n') as f:
         f.write(base + '\n')
     agent = importer_agent(path)
     print(f'worktree {path}\nbranch   wt/{a.name} at {base[:9]} ({git("log", "-1", "--format=%s", base).strip()[:70]})')
@@ -629,7 +629,7 @@ def cmd_bring_over(a):
         print(f'landed: {a.target} {old[:9]} -> {new[:9]}')
         print(git('log', '--format=  %h %s', f'{old}..{new}').rstrip()[:2000])
         if ff and new == tip:
-            with open(base_file(a.name), 'w') as f:
+            with open(base_file(a.name), 'w', newline='\n') as f:
                 f.write(new + '\n')
         else:
             print(f'note: {branch} keeps its own copies; a later bring-over skips them (patch-equivalent)')

@@ -28,7 +28,7 @@ struct FindMemberStruct  // NAME 1: neutral (D10): what it holds
 };
 
 // opcode 83 (0x0053, FIND_MEMBER): vtable 0xB0A58C, constructor 0x886710, 0x1C bytes
-class FindMemberPacketClass : public PacketClass  // NAME 3: the client's file pkfindmember.cpp and the reference decoder's opcode name FIND_MEMBER
+class FindMemberPacketClass : public PacketClass  // NAME 3: the client's file pkfindmember.cpp and Net-7's opcode name FIND_MEMBER
 {
 public:
 	FindMemberPacketClass();	// 0x886580

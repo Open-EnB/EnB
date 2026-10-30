@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 67 (0x0043, REQUEST_TRANSFORM_CHANGE): vtable 0xB0B808, constructor 0x8A28C0, 0x3C bytes
-class RequestTransformChangePacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
+class RequestTransformChangePacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTransformChangePacketClass(RawPacketClass *raw);	// 0x8A28C0

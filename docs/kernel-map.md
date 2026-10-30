@@ -9,8 +9,8 @@ connect.cpp's base and stream connection, udpconn.cpp), the packet factory with 
 263 generated classes, MenuTask and the movie tasks (`git log --oneline` from 8ed98c6).
 
 Evidence tags: **S** a client string naming it (profile label, log text, assert, `__FILE__`),
-**C** what the code does (a descriptive name, not the client's), **N** the reference decoder's research
-(docs/research/login.md). Sizes are to the next verified function start (`appfile.py show`).
+**C** what the code does (a descriptive name, not the client's), **N** earlier protocol research
+(its login notes). Sizes are to the next verified function start (`appfile.py show`).
 Addresses are the retail client.exe's (SHA-256 `249f8524…51c4`); the tools that give them:
 `appfile.py show FILE`, `client.py dis|callers|refs`, `pseudocode.py --show`; vtable slot dumps
 below came from a small reader over `clientimage.py` (follows the incremental-link thunks).
@@ -148,9 +148,9 @@ The task flow: intro movie (focused) -> scripted movie -> MenuTask -> LoginTask 
 start-up) -> ClientTask (join, redirects, sector) -> back to a new LoginTask when the connection
 drops; the UDP task and the bandwidth accounting run in the background.
 
-Correction to the reference decoder's login.md §2: LoginTaskClass's vtable starts at **0xB040D4**, not
-0xB040CC (0xB040CC holds two zero dwords before it). Its slot offsets are 8 lower than login.md
-gives: the ticket step 0x768B00 is +0x4C (login.md: +0x54), Go_Next_Step 0x769500 +0x54 (login.md:
+Correction to the earlier research's login notes §2: LoginTaskClass's vtable starts at **0xB040D4**, not
+0xB040CC (0xB040CC holds two zero dwords before it). Its slot offsets are 8 lower than those notes
+give: the ticket step 0x768B00 is +0x4C (notes: +0x54), Go_Next_Step 0x769500 +0x54 (notes:
 +0x5C). The login screen's "vfunc 0x4C" (asks the task to log in) is this +0x4C.
 
 ## 4. The connection classes (app\common: connect.h, connect.cpp, udpconn.cpp, tcpconn.cpp)
@@ -257,7 +257,7 @@ slots; layout +0x00 vtable, +0x04 the source connection, +0x08 a serial number (
 *)** (base 0x52B240 asserts), +0x0C Get_Data_Size, +0x10 Print, +0x14 0x86F010 (assert pk.cpp
 l.1344), +0x18..+0x24 the UDP send parameters (channel -1, 0, true, false). **263 opcodes** (262
 cases, 259 constructors): 0-237 (57 absent), 5000-5011 (10), 30000-30027 (16); the names agree
-with the reference decoder's the Net-7 opcode table (0 VERSION_REQUEST: 'VersionRequest { Major=%d Minor=%d }';
+with the Net-7 opcode table (0 VERSION_REQUEST: 'VersionRequest { Major=%d Minor=%d }';
 4 CREATE). The constructors and Build/Print/size slots live at 0x85C5F0-0x8B1EB0 (app\packets
 pk*.cpp, gameedit\pkge*.cpp; mostly unattributed). Process_Packet by file: app\client\cpacket.cpp
 99 (+4 unattributed neighbours; 97 with a profile label 'X::Process_Packet()'),
@@ -297,7 +297,7 @@ the wnet decision.
 
 ## 7. Traps and corrections found while mapping
 
-* the reference decoder's login.md gives LoginTaskClass's vtable as 0xB040CC with slot offsets 8 too
+* The earlier research's login notes give LoginTaskClass's vtable as 0xB040CC with slot offsets 8 too
   high: the table starts at 0xB040D4 (§3).
 * app-functions.json attributes the connection base's inline slots 0x726AF0-0x726BF0 to
   client.cpp: they are connect.h's inline virtuals, emitted there.

@@ -157,7 +157,7 @@ def sync(dirs):
     for i in range(0, len(removed), 40):
         files = ' '.join('"' + ROOT + BS + k.replace('/', BS) + '"' for k in removed[i:i + 40])
         ssh(f'cmd /c del /q {files} 2>nul', check=False)
-    json.dump(cache, open(sync_cache_path(), 'w'))
+    json.dump(cache, open(sync_cache_path(), 'w', newline='\n'))
     return count
 
 

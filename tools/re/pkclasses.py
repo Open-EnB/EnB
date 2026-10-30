@@ -15,7 +15,7 @@ From docs/data/packet-factory.txt (tools/re/pkfactory.py) and the client image:
   capture harness, each handing its raw message to Conn_Record (conn_replay.cpp).
 
 Names (D56): the client's when a profile label names the class ('XPacketClass::Process_Packet()',
-untagged), else the class's Print text ('X {', NAME 3), else the reference decoder's opcode name
+untagged), else the class's Print text ('X {', NAME 3), else Net-7's opcode name
 (the Net-7 opcode table, NAME 2: no structure check), else Packet_XXXXClass (NAME 1).
 --check: write nothing, exit 1 if a generated file would change.
 """
@@ -254,7 +254,7 @@ def main():
             r['tag'] = "NAME 3: the client's Print text '%s {' and the PacketClass convention" % base
         elif r['opname'] != '?':
             r['name'] = camel(r['opname']) + 'PacketClass'
-            r['tag'] = "NAME 2: the reference decoder's opcode name %s (the Net-7 opcode table; no structure check)" % r['opname']
+            r['tag'] = "NAME 2: Net-7's opcode name %s (the Net-7 opcode table; no structure check)" % r['opname']
         else:
             r['name'] = 'Packet_%04XClass' % r['op']
             r['tag'] = 'NAME 1: neutral (D10): opcode 0x%04X' % r['op']

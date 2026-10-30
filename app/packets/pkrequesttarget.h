@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 23 (0x0017, REQUEST_TARGET): vtable 0xB0BCF0, constructor 0x8A7F40, 0x14 bytes
-class RequestTargetPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check)
+class RequestTargetPacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTargetPacketClass(int game_id, int target_id);	// 0x8A7EA0
@@ -35,7 +35,7 @@ public:
 };
 
 // opcode 24 (0x0018, REQUEST_TARGETS_TARGET): vtable 0xB0BD20, constructor 0x8A81B0, 0x14 bytes
-class RequestTargetsTargetPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check)
+class RequestTargetsTargetPacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check)
 {
 public:
 	RequestTargetsTargetPacketClass(int game_id, int target_id);	// 0x8A8110

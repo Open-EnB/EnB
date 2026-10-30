@@ -19,7 +19,7 @@
 #include "..\shared\unknown_login_data.h"
 
 // opcode 53 (0x0035, MASTER_JOIN): vtable 0xB0AFB4, constructor 0x897590, 0x60 bytes
-class MasterJoinPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join'
+class MasterJoinPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MASTER_JOIN (the Net-7 opcode table), the client's Print text 'Master Join'
 {
 public:
 	MasterJoinPacketClass(const TicketClass &ticket);	// 0x8974C0

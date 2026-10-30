@@ -20,7 +20,7 @@
 #include "..\shared\avatar_desc.h"
 
 // opcode 141 (0x008D, INCAPACITANCE_REQUEST): vtable 0xB099F4, constructor 0x871FE0, 0x10 bytes
-class IncapacitanceRequestPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check)
+class IncapacitanceRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
 	IncapacitanceRequestPacketClass(int game_id);	// 0x871F70

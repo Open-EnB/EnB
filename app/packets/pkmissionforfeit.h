@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 134 (0x0086, MISSION_FORFEIT): vtable 0xB0B284, constructor 0x89C6C0, 0x14 bytes
-class MissionForfeitPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check)
+class MissionForfeitPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MISSION_FORFEIT (the Net-7 opcode table; no structure check)
 {
 public:
 	MissionForfeitPacketClass(int playerid, int id);	// 0x89C640
@@ -34,7 +34,7 @@ public:
 };
 
 // opcode 135 (0x0087, MISSION_DISMISSAL): vtable 0xB0B2B4, constructor 0x89C900, 0x14 bytes
-class MissionDismissalPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check)
+class MissionDismissalPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check)
 {
 public:
 	MissionDismissalPacketClass(int playerid, int id);	// 0x89C880

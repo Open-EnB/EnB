@@ -10,7 +10,7 @@ layer, pk.cpp and every rebuilt packet file, each its own object), and links it 
 DIR/programs/clienttest/.
 
 run: writes .work/harness/clienttest/NAME.messages.txt, the first COUNT server-to-client messages of SESSION in
-the reference decoder's NAME.trace.jsonl (udpreplay.py's reference: roots.N7_CAPTURES/ea), runs the program there (never in
+the reference traces' NAME.trace.jsonl (udpreplay.py's reference: roots.EA_TRACES), runs the program there (never in
 the game's folder; no registry, no network, asserts to the trace; the base-asset INIs from
 tests/capharness/clienttest/data copied in) and compares its trace with
 tests/capharness/clienttest/expected.txt: the first run (or --update) writes that file, later runs must equal

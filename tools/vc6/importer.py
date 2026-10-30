@@ -3336,7 +3336,7 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/bitset.cpp'): "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the "
                                           "asserts on the client's lines (D25)",
     ('app', 'shared/auxdata/bitset.h'): "BitSetClass's declaration (Buffer, NumBits from the asserts; NumBytes a guess)",
-    ('app', 'shared/auxdata/delta.cpp'): "DeltaClass and DeltaCompoundClass (D24; the reference decoder's DeltaBase, "
+    ('app', 'shared/auxdata/delta.cpp'): "DeltaClass and DeltaCompoundClass (D24; the earlier research's DeltaBase, "
                                          "DeltaCompound), client 0x4A4D40-0x4A6040: Get_Lookup's assert on the "
                                          "client's line 227 (D25); Add 0x4A5670 not exact",
     ('app', 'shared/auxdata/delta.h'): "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass "
@@ -4889,7 +4889,7 @@ def report(state):
             lines.append(f"| {f.get('name', k)} | {f['copy']}{'+h' if f.get('headers_from') else ''} | {len(f.get('in_tree', []))} | "
                          f"{len(f['ambiguous']) if 'ambiguous' in f else '?'} | "
                          + ' | '.join(str(exp.get(c, '-')) for c in 'RGZ') + f' | {merged} |')
-    open(os.path.join(REPO, 'docs', 'imports.md'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+    open(os.path.join(REPO, 'docs', 'imports.md'), 'w', newline='\n', encoding='utf-8').write('\n'.join(lines) + '\n')
     print('docs/imports.md written')
 
 

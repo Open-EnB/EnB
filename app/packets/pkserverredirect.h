@@ -19,7 +19,7 @@
 
 // Server_Ready 59's members and Build / Get_Data_Size (0x8A62A0, 0x8A63A0), its own type and Print.
 // opcode 54 (0x0036, SERVER_REDIRECT): vtable 0xB0B6B4, constructor 0x8A1590, 0x18 bytes
-class ServerRedirectPacketClass : public Packet_003BClass  // NAME 2: the reference decoder's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect')
+class ServerRedirectPacketClass : public Packet_003BClass  // NAME 2: Net-7's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect')
 {
 public:
 	ServerRedirectPacketClass(int sector, int ip, unsigned short port);	// 0x8A1500

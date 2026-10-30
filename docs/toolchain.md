@@ -219,7 +219,7 @@ such place is a point where E&B's copy differs from Zero Hour's.
 Everything outside this repository that the tools read lives under `C:\EnBDevelopment` (except the
 retail install). The Python tools take the paths from one module, `tools/re/roots.py`
 (`python tools/re/roots.py` prints each and whether it exists); the shell scripts
-(`tools/vc6/bytematch_all.sh`, `runtime_match.sh`, `tools/harness/refs.sh`) and `tools/vc6/importer.py`,
+(`tools/vc6/bytematch_all.sh`, `runtime_match.sh`) and `tools/vc6/importer.py`,
 `vc6.py`, `layout.py`, `build.py` carry the same few paths in their own constants (the VM mirrors
 `C:\EnBDevelopment` at the same path, so they stay absolute).
 
@@ -228,9 +228,8 @@ retail install). The Python tools take the paths from one module, `tools/re/root
 | `C:\EnBDevelopment\EA` | EA's published Westwood source (Renegade, Generals, Zero Hour, ...) | `easource.py`, `importer.py`, `bytematch_all.sh`, `libdiff.py`, `movietest.py` (BinkMovie) |
 | `C:\EnBDevelopment\SDK` | DirectX 8 SDK (`directx8`) and RAD/Miles (`radtools`; `include_enb` derived by `sdk_patch.py`, §2) | `importer.py`, `build.py`, `layout.py`, `bytematch_all.sh` |
 | `C:\EnBDevelopment\Tools\VMPool` | The VM pool's disks (§1.3; `ENB_VC6_POOL_DIR` overrides) | `pool.py` |
-| `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` |
-| `C:\EnBDevelopment\the reference decoder` (the reference decoder, the reference decoder; was `the reference decoder` until 2026-10-25) | C# proxy: game model (`the reference game model` Objects and `Schema\client-auxdata.json`), `the reference key table\the reference key table`, `the reference decoder.exe` (build it: `src\Harness\the reference decoder`, Release, net10.0) | `auxroots.py`, `auxnames.py`, `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
-| `C:\EnBDevelopment\the reference decoder\captures` (was `the reference traces\captures`; that repository was retired 2026-10-25, its history is in the proxy's) | the reference decoder's recorded traces (`ea\*.trace.jsonl`, `session_*.trace.jsonl`) | `auxreplay.py`, `udpreplay.py`, `n7aux.py`, `refs.sh` |
+| `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` (removed, D153) |
+| `C:\EnBDevelopment\Tools\Media\ea-reference` (`EA_REFERENCE`; `ENB_EA_REFERENCE` overrides) | The EA captures' frozen reference (D154), unpacked by `tools/harness/fetch_reference.py`: `ea\NAME.trace.jsonl` (the reference traces, one game message per line) and `ref\NAME.*.txt` (the reference decoder's readings); fixed, never regenerated | `auxreplay.py`, `udpreplay.py`, `clienttest.py` |
 | `C:\EnBDevelopment\Live-Era-Data` | EA's live-era packet dumps (`enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-...`) | `convert.py`, `auxreplay.py`, `udpreplay.py` |
 | `C:\Program Files (x86)\EA GAMES\Earth & Beyond` | The retail install: `release\client.exe` (SHA-256 `249f8524...51c4`), `EBCONFIG`, game data and movies. Read only; no tool uses it as a working directory (they copy what they need under `build/` or `.work/`) | `clientimage.py`, `vidtest_e2e.py`, `run_reference.py`, `movietest.py`, `mkmss32.py` |
 

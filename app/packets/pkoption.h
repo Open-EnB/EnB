@@ -19,7 +19,7 @@
 #include "pk.h"
 
 // opcode 46 (0x002E, OPTION): vtable 0xB0B564, constructor 0x89F510, 0x18 bytes
-class OptionPacketClass : public PacketClass  // NAME 2: the reference decoder's opcode name OPTION (the Net-7 opcode table; no structure check)
+class OptionPacketClass : public PacketClass  // NAME 2: Net-7's opcode name OPTION (the Net-7 opcode table; no structure check)
 {
 public:
 	OptionPacketClass(RawPacketClass *raw);	// 0x89F510

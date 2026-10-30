@@ -401,8 +401,8 @@ def run(name, exe, aux):
         mine = [(m[0], m[1], op(m[3]), m[3][4:]) for m in ours]
         same, sm = seq_compare(mine, tr)
         ca, cb = Counter(mine), Counter(tr)
-        print('  all messages vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, '
-              'ours not in the reference decoder %d' % (os.path.basename(trace), len(mine), len(tr), same,
+        print('  all messages vs reference (%s): ours %d, reference %d; in order %d; reference\'s not delivered %d, '
+              'ours not in reference %d' % (os.path.basename(trace), len(mine), len(tr), same,
                                          sum((cb - ca).values()), sum((ca - cb).values())))
 
     # (3) acks, (4) blocks, per session and direction
@@ -762,8 +762,8 @@ def conn(name, exe, drops, step):
                     seq.append((q[3], q[2], int(q[5]), bytes.fromhex(q[6]) if len(q) > 6 else b''))
             same, _ = seq_compare(seq, tr)
             ca, cb = Counter(seq), Counter(tr)
-            line += '\n    vs the reference decoder (%s): ours %d, the reference decoder %d; in order %d; the reference decoder\'s not delivered %d, ours not in ' \
-                    'the reference decoder %d' % (os.path.basename(trace), len(seq), len(tr), same, sum((cb - ca).values()),
+            line += '\n    vs reference (%s): ours %d, reference %d; in order %d; reference\'s not delivered %d, ours not in ' \
+                    'reference %d' % (os.path.basename(trace), len(seq), len(tr), same, sum((cb - ca).values()),
                                     sum((ca - cb).values()))
         print(line)
         ok = ok and good
