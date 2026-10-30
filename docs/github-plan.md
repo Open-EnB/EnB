@@ -18,7 +18,7 @@ in a way that cannot compromise the project's integrity.
 
 | Item | Subject | Recommendation | Status |
 |---|---|---|---|
-| P-GH-1 | Line endings in `.gitattributes` / docs_check | `* text=auto` (VC6 output tested equal with LF sources), `*.sh eol=lf`, docs_check checks blobs | open |
+| P-GH-1 | Line endings: `.gitattributes`, the working tree and the tools | LF everywhere: `* text=auto eol=lf`, tools write LF, `tools/eol.py` guard (VC6 tested equal) | open |
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
 | P-GH-4 | Working model once public (amends D69's "never push") | Decide PR flow vs maintainer bot with ruleset bypass (§3.1) | open |
@@ -28,30 +28,64 @@ in a way that cannot compromise the project's integrity.
 | P-GH-8 | Pre-push checklist | §3.7 | open |
 | P-GH-9 | Community and continuity | §3.8, §3.9 | open |
 
-## P-GH-1: line endings
+## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
-Every blob in the repository is LF, and was before the branch existed (`git ls-files --eol`: 1,552 `i/lf`, 2
-`-text`, 2 empty). The CRLF seen in the main checkout comes from `core.autocrlf=true` at checkout (1,393 files
-`w/crlf`). The branch's `.gitattributes` assumes most files are stored CRLF and lists the LF ones by hand under
-`* -text`, so docs_check reports 1,457 LF files "not listed". Landing that file on master as written would likely
-show the main checkout's CRLF copies as modified (no conversion under `-text`) and disturb running builders.
+**The problem is two conventions on disk at once.** Every blob is LF (1,552 of 1,556; the other two hold stray
+lone CRs). Git for Windows' system-wide `core.autocrlf=true` writes CRLF at checkout (1,398 working files), but every
+writer the agents use writes LF: the Write tool, Git Bash `sed -i` (even when its pattern matches nothing), heredocs,
+our generators (names.py, notexact.py); Python text mode on Windows writes CRLF. Tools that match or compare raw
+bytes then disagree: importer.py's patch anchors and replay (`compare_tree` compares bytes; its base copies come from
+EA's CRLF sources), edit scripts' `
+` anchors, commit diffs.
 
-**Why the working copies differ (2026-10-29):** Git for Windows sets `core.autocrlf=true` system-wide, so
-commits store LF and checkouts write CRLF. Files that tools or agents create stay LF on disk until Git rewrites them
-(147 today), a few are mixed (2), and two files with stray lone CRs (`app/client/sclient.h`,
-`docs/data/asserts.txt`) are kept as stored, CRLF.
+**What it costs (audit of 245 transcripts, 2026-10-23..30; `.work/crlf-audit/`):**
 
-**Does VC6 care? No (tested 2026-10-29):** a worktree at b01e8ef with all 1,547 text files converted to LF, a full
-`importer.py verify` on a pool clone: all 11 libraries, imports.json byte-identical to HEAD's (12,541 pairs;
-`pairs_cmp`: gained [], lost []).
+* ~25-35 visible incidents in 7 days, 2-4 extra tool calls each, one tangled case ~25 calls: patch / edit scripts
+  whose anchors miss `
+` (the most frequent: importer.py PATCHES insertions, progress.md rewrites), `sed -i`
+  turning files LF (tcpconn.cpp, a draft with 0 CRLF / 407 LF lines), Python writes giving mixed files (D22's shader
+  headers "modified with an empty diff"), a Write that turned progress.md LF (a 2,834-line staged diff, reset and
+  rewritten).
+* The larger cost is prevention paid every session: 184 transcripts carry CRLF-defensive code (~1,900 commands with
+  `newline=''` / `
+` handling) and ~1,075 line-ending probes (`file`, byte counts); 958 "LF will be replaced by
+  CRLF" warnings across 212 transcripts; about a dozen CRLF traps in workflow.md §3 / §3.8 and builders.md.
+* Not a cause: the Edit tool (it keeps a file's endings; no "string not found" was line-ending related).
 
-**Recommendation (revised after the test):** `* text=auto`: blobs stay LF, each checkout follows its machine's
-usual ending (nothing changes for the existing checkout); `*.sh text eol=lf` so bash scripts work everywhere; the two
-lone-CR files keep `-text`; docs_check fails on a CR inside any other blob. The earlier proposal follows.
+**VC6 does not care (tested):** all 1,547 text files converted to LF in a worktree at b01e8ef, full
+`importer.py verify`: imports.json byte-identical to HEAD's (12,541 pairs; `pairs_cmp` gained [], lost []).
 
-**Earlier recommendation:** replace the list with `* text=auto eol=lf` (blobs stay LF; every clone gets LF; the main
-checkout's CRLF copies still compare equal after normalisation); docs_check fails on any CR inside a blob instead
-of checking a list; the two `-text` files (`app/client/sclient.h`, `docs/data/asserts.txt`) keep `-text`.
+**Recommendation: one convention, LF, enforced by Git instead of by agents.**
+
+1. **`.gitattributes`:** `* text=auto eol=lf`. The `eol` attribute overrides `core.autocrlf`, so every checkout is
+   LF: this machine, every wt.py worktree, every contributor's clone whatever their Git settings, GitHub's CI. No
+   per-machine setup. Exceptions: `*.bat` / `*.cmd` `eol=crlf` (none tracked today; cmd.exe needs it);
+   `docs/data/asserts.txt -text` (generated; its lone CRs are the client's own string bytes).
+2. **`app/client/sclient.h`:** remove its one stray lone CR (a content change; pairs checked, expected 0 / 0).
+3. **One-time conversion on a quiet tree:** commit the attributes, rewrite every working file of the main tree
+   and of each live worktree as LF (the tested `lf_convert.py` step; blobs do not change, so `git status` stays
+   clean), confirm `git add --renormalize .` stages nothing.
+4. **Tools write and compare LF:** importer.py converts EA's CRLF base copies to LF as it writes tree files, and
+   replay compares the same way; the ~30 tools with `'
+'` literals write `'
+'`, and writes use
+   `newline='
+'` (Python text mode on Windows would write CRLF). A builder round, proven by replay plus a full
+   verify: 0 gained / 0 lost.
+5. **A guard so it cannot drift:** `tools/eol.py check|fix` (tracked text files with a CR on disk; `fix` rewrites
+   them LF), run by commit_mine.py and the handoff; docs_check / CI fail on a CR in any blob not marked `-text`.
+   Optionally a Claude Code PostToolUse hook on Write / Edit / Bash running `eol.py fix --changed` (a fraction of a
+   second), which catches any stray Windows tool that writes CRLF.
+6. **Docs:** the dozen CRLF traps in workflow.md and builders.md collapse into one line: "the tree is LF
+   everywhere; the Write tool, sed and Python need no line-ending handling; `tools/eol.py fix` if a Windows tool wrote
+   CRLF".
+
+This also answers the GitHub question: the same `.gitattributes` makes every clone identical, and CI checks it.
+Risk: step 3 rewrites ~1,400 working files once, so it runs with no builder active. EA's source copies outside the
+repository stay as they are (importer.py converts on import).
+
+**Superseded:** the branch's hand-made LF list; then `* text=auto` alone (keeps CRLF checkouts on Windows, so the
+tool problems stay).
 
 ## 1. Repos (P-GH-2)
 
