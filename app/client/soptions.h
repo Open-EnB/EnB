@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\soptions.h (name assumed from soptions.cpp)
 **
@@ -10,6 +8,8 @@
 **	Beyond\Render', read only), destructor 0x75A4E0, vtable 0xB03C00 (one slot; SClient's copy
 **	0xB0323C), soptions.cpp (docs/kernel-map-step9.md 2.2, D90 9d).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

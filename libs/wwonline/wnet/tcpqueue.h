@@ -1,12 +1,12 @@
+// Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpqueue.h
 /*
-**	Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpqueue.h
-**
 **	E&B's byte queue under TCPCon's read and write queues (TCPCon +0x14 and +0x38): the bytes in
 **	1024-byte buffers, a list of the buffers in use and one of spare buffers kept for reuse.
 **	Written from the client (tcpqueue.cpp, 0x8BE860-0x8BF5F0; its __FILE__ is
 **	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp). The class and buffer names are not in the
 **	client; the member Queue is (the assert "Queue.length()==0", 0x8BEAC0).
 */
+
 
 #ifndef TCPQUEUE_HEADER
 #define TCPQUEUE_HEADER

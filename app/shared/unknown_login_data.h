@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the login's ticket and character
 **	slot, the module the client links after WWOnline's wnet (0x8C06E0-0x8C1B40, between udp.cpp's
 **	UDP::Wait and WWMath::Init; docs/kernel-map-step9.md 5.1). Both are wire objects (Write /
 **	Read / Get_Size) and the slot is also a key/value object (the visitor names its members).
 **	TicketClass moved here from tsk_game.h, LoginCharacterClass from tsk_login.h (D90 9b).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,11 +1,11 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): AuthLoginResponseClass, the answer
 **	of EA.Com's login component (unknown_authlogin.h), client 0x792040-0x792310 in the
 **	unattributed run after nlp.cpp (docs/kernel-map-step9.md 4).
 */
+
+
 
 #include "unknown_authlogin.h"
 #include <stdio.h>

@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client reconstruction.
-**
 **	Original location: e:\build\beta\G\app\shared\auxdata\rtti.h (the client's assert string
 **	'..\shared/auxdata/rtti.h', G_ASSERT 'b' on line 32: D25, D41).
 **
@@ -9,6 +8,7 @@
 **	0x5469C0 for DeltaStringClass (global 0xBE3A9C), 0x709B30 for the class with global 0xC4158C.
 **	The client doesn't name it (D24).
 */
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta_item_array.h (the client's __FILE__
 **	string '..\shared/auxdata/delta_item_array.h', from 0x701D70, line 60)
@@ -10,6 +8,8 @@
 **	(Cargo, Equipped: vtable 0xB00F54, global 0xC41624, elements 0xB0111C). The client doesn't name
 **	the template (D24). The loop: a do-while behind a count test (`jae exit; jmp top`, 0x6F9ED0).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

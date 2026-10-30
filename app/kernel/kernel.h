@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\kernel\kernel.h (name assumed from kernel.cpp)
 **
@@ -10,6 +8,8 @@
 **	every Get_Interval() ms (kernel.cpp). The members are in the client's layout, the virtuals in
 **	its slot order (the task base's vtable 0xAE7614, 18 slots; the kernel's 0xAE766C, 6).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // M1.2's check (milestones.md 2.2: harness (b) on a hand-built root): a hand-built root goes through the rebuilt
 // encoder side (DeltaListClass, RecordTableClass, the records, DeltaListSetClass::Write) and back
 // through DeltaCompoundClass::Decode (both codecs, the lookup build), and the decoded tree

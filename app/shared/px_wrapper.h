@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\. px_wrapper.cpp is the client's (its asserts, client
 **	0x4560B0-0x457740); this header's name is provisional: no string names it.
 **

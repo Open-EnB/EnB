@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\linearbu.h (name assumed from linearbu.cpp)
 **
@@ -10,6 +8,8 @@
 **	Capacity) and its parameters (size, pos). The client doesn't name the class (D24: "linear
 **	buffer", after the file name).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

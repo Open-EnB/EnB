@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **	Original location: e:\build\beta\G\app\shared\avatar_desc.cpp (client 0x4BEB50-0x4C45B0)
 **	AvatarDescClass (avatar_desc.h), partly rebuilt: the constructors, the wire and key/value slots,
 **	Clear. The asserted loader 0x4C05D0 and the rest of the window are not yet (notes at the end).
 */
+
 #define UNKNOWN_PACKETDATA_BODIES	// kv_encoder_base.h's typed adds (D104)
 #include "avatar_desc.h"
 #include "auxdata\linearbu.h"

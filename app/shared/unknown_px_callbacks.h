@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: the object 0x451C00-0x452770 has no
 **	__FILE__ string; neutral name, D10). E&B's app\shared objects link in alphabetical order, so the original
 **	sorts between px_callback_accurate.cpp and px_callback_poll.cpp.

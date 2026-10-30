@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\emote_data.h (name assumed from emote_data.cpp)
 **
 **	A client object's emote data (vtable 0xB075CC), bound to the object through co_data.cpp;
 **	declared as far as co_data.cpp needs it (its constructor and size).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

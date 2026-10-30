@@ -1,11 +1,11 @@
+// Earth & Beyond client (reconstruction): link-time stubs for app.lib (D44, docs/milestones.md 3.2)
 /*
-**	Earth & Beyond client (reconstruction): link-time stubs for app.lib (D44, docs/milestones.md 3.2)
-**
 **	The functions app.lib's objects call that the tree doesn't have yet (build.py unresolved,
 **	2026-10-24). Each stub logs its first call (stub_log.h) and does as little as it can; the client
 **	address, where known, is the real function to rebuild. The auxdata ones are M1.2's to-do list
 **	(milestones.md 2.3). The three globals are data, so they can't log: they start at 0.
 */
+
 
 #include <windows.h>
 #include <mmsystem.h>

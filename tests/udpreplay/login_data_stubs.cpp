@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: strconv_lib.cpp's long / __int64 conversions, which app\shared\unknown_login_data.cpp's key/value
 // side calls (MASTER_JOIN 53's TicketClass brings it into the harness through app.lib). strconv_lib.cpp is not
 // rebuilt; the packets don't use these (sprintf / sscanf stand-ins).

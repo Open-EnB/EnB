@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\postate.h (name assumed from postate.cpp)
 **
@@ -10,6 +8,8 @@
 **	Matrix3D at the client's clock (docs/packet-flow.md section 2.5). Declared from the constructors
 **	and the vtables (0xB026EC-0xB02A40). Names: D10, D24, D56.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

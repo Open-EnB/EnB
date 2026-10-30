@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta_template.h (the client's __FILE__
 **	string, from the float field's Read 0x4A6DF0, line 110)
@@ -11,6 +9,8 @@
 **	Set_Value, and the generic Write and Read (the float field's 0x4A6E60 and 0x4A6DF0, asserts on
 **	the client's lines 91 and 110, D25). The client doesn't name the template (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

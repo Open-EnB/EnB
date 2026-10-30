@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	E&B's screen-distortion effect (decision D19). The client keeps no name for this module or its
 **	classes; every name here is neutral (D10) until E&B's own turn up. Client range 0x995D20-0x998200,
 **	between dx8texman.cpp and boxrobj.cpp.
@@ -10,6 +9,7 @@
 **	projected screen area through a grid whose texture coordinates a distortion function (a damped
 **	ripple) displaces. The list is enabled when a render device is set, if the hardware can do it.
 */
+
 
 #ifndef UNKNOWN_DISTORTION_H
 #define UNKNOWN_DISTORTION_H

@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: no assert names it; land.h is
 **	a proposal)
@@ -28,6 +26,8 @@
 **
 **	VIDTEST draws its land with this class (D101), its trees too since 2026-10-28 (Create_Decorations, the patch records).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

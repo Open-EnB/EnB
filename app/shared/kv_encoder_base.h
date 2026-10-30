@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\kv_encoder_base.h (name assumed from
 **	kv_encoder_base.cpp; no assert names it)
@@ -10,6 +8,8 @@
 **	a stack of name prefixes and a stack of flag words, and the list the encoded pairs go to. The
 **	client doesn't name the classes (D24: named after the file).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

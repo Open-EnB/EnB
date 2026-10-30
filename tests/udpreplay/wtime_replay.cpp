@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // The harness's clock: wlib's Xtime (libs\wwonline\wlib\xtime.h, D73; the members CordCon and CordMgr
 // call) over a time the harness sets (Replay_Time_Ms), so that a replay runs the same every time; the
 // program doesn't link wlib's xtime.cpp. E&B's fields: the day since year 0 and the millisecond of the

@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: no string names this header).
 **
 **	PxCallback, the interface of the proximity callbacks (vtable 0xAE7B28: the deleting destructor 0x44E170 and five

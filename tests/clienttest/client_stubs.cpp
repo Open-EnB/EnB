@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // clienttest: logging stand-ins for what client.cpp, sclient.cpp and cpacket.cpp call in files that
 // aren't rebuilt (or aren't compiled into the harness). Each appends one line to the trace and does
 // nothing else; where a caller branches on the result, the result is the harness's (clienttest.h).

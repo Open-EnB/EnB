@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // movietest: one of the game's Bink movies played the way the client plays its intro (docs/kernel-map.md
 // 6, step 7): WinMain's start (a window, WW3D), a KernelClass, a MovieTaskClass with the movie
 // (tsk_movie.cpp's Add_Movie, volume 0x8000), Add_Task (it takes the focus), and KernelClass::Run until

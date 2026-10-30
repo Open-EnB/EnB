@@ -299,8 +299,7 @@ def main():
             continue
         if os.path.exists(os.path.join(PKDIR, name + '.cpp')) and not a.write:
             print('  exists: %s' % name)
-        h = ['/*', '**\tEarth & Beyond client (reconstruction)',
-             '**\tPortions Copyright Electronic Arts Inc., released under the GNU General Public License v3.', '**',
+        h = ['// Earth & Beyond client (reconstruction)', '/*',
              '**\tThis file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).',
              '**\tOriginal location: e:\\build\\beta\\G\\app\\packets\\%s.h (%s)' % (
                  name, 'the name provisional: see the .cpp' if tag.startswith('NAME') else 'the .cpp named by an assert'),

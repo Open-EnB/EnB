@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\kernel\kernel.cpp (client 0x443020-0x444150)
 **
 **	The task kernel (docs/kernel-map.md 1-3). The asserts sit on the client's lines (74, 157, 196,
 **	225, 474: D25).
 */
+
+
 
 #define ENABLE_WWPROFILE
 #include "kernel.h"

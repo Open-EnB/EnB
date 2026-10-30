@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 #include "sclient.h"
 #include "tasks\tsk_login.h"
 #include "..\shared\unknown_debug.h"
@@ -30,7 +31,6 @@ ViewClass::ViewClass()
 {
 	Unknown04 = new LoginUnknown0CClass;
 }
-
 
 
 

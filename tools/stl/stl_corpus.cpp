@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // Explicit instantiations of VC6's standard containers for common element types, to measure how
 // much of E&B's app code is compiler-generated template code. Element types of the same size and
 // kind compile to the same code, so a few stand for many.

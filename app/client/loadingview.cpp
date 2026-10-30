@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 #include "sclient.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\rendobj.h"
@@ -19,7 +20,6 @@ class LoadingViewFontManagerClass { public: void Unknown_6D2310(const RefCountPt
 class Unknown7B3E30Class : public RenderObjClass
 {
 };
-
 
 
 

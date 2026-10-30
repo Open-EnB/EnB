@@ -4194,9 +4194,8 @@ class W3DMPO { };
 }
 
 NEW_FILES = {
-    ('wwdebug', 'gamedebug.h'): '''/*
-**	Earth & Beyond client (reconstruction)
-**
+    ('wwdebug', 'gamedebug.h'): '''// Earth & Beyond client (reconstruction)
+/*
 **	Release-build definitions of the Generals debug macros that Zero Hour's wwdebug.h expects
 **	from GameEngine\\Include\\Common\\debug.h. In Generals' release configuration (no
 **	ALLOW_DEBUG_UTILS) every one of them compiles to nothing; these are those definitions.
@@ -4431,6 +4430,7 @@ def assemble(state):
                 s['files'][k]['name'] = rname
         s['headers'] = origin
         to_lf(d)
+        mark_modified(lib, d, s)
         print(f'{lib:11s} {len(s["files"])} sources, {len(origin)} headers')
     return state
 
@@ -4464,6 +4464,7 @@ def add_extra(state, libs=None):
                     fp.write(text)
         s['files'][k] = {'copy': c, 'name': real, 'expected': {x: 0 for x in LIB_DIR[lib]}, 'merged': [],
                          'headers_from': None}
+        mark_modified(lib, d, s)
         print(f'{lib:11s} added {real} from {COPY_NAME[c]}: {why}')
     return state
 
@@ -4491,6 +4492,43 @@ def to_lf(root):
     for d, _, fs in os.walk(root):
         for n in fs:
             file_to_lf(os.path.join(d, n))
+
+
+# An imported file that differs from its EA copy says so (conventions.md, file headers). The note takes the
+# place of the bare '**' line under EA's copyright, so no line moves (asserts compile __LINE__).
+MODIFIED_NOTE = ('**\tModified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each '
+                 'change.')
+
+
+def ea_origins(lib, s):
+    """{file name in the library: the EA copy's file it is imported from} (reconstructed and new files have none)."""
+    src = {}
+    for name, c in s.get('headers', {}).items():
+        if c in COPY_ROOT:
+            hs = headers(lib, c)
+            if name.lower() in hs:
+                src[name] = hs[name.lower()][1]
+    for k, f in s['files'].items():
+        if f['copy'] in COPY_ROOT:
+            src[f['name']] = source_files(lib, f['copy'])[k][1]
+    return src
+
+
+def mark_modified(lib, d, s):
+    """Put MODIFIED_NOTE into each file under d that differs from its EA copy (patches, annotations, appends,
+    spliced functions)."""
+    for name, src in sorted(ea_origins(lib, s).items()):
+        p = os.path.join(d, name)
+        if not os.path.exists(p):
+            continue
+        text = read(p)
+        lines = text.split('\n')
+        if len(lines) < 4 or lines[3] == MODIFIED_NOTE or text == read(src):
+            continue
+        if not (lines[0] == '/*' and 'Electronic Arts' in lines[2] and lines[3] == '**'):
+            raise SystemExit(f'{lib}/{name}: modified, but its banner has no bare "**" line 4 for the note')
+        lines[3] = MODIFIED_NOTE
+        open(p, 'w', encoding='latin1', newline='').write('\n'.join(lines))
 
 
 def replay(state, out):
@@ -4541,6 +4579,10 @@ def replay(state, out):
                 if alib == lib and aname == name.lower():
                     with open(p, 'a', newline='\n') as fp:
                         fp.write(text)
+        try:
+            mark_modified(lib, d, s)
+        except SystemExit as e:
+            problems.append(str(e))
         for (nlib, nname), text in NEW_FILES.items():
             if nlib == lib:
                 open(os.path.join(d, nname), 'w', newline='\n').write(text)

@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\. px_box_list.cpp is the client's (its __FILE__, client
 **	0x44D740-0x44E020); this header's name is provisional: no string names it.
 **

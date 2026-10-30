@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	PROVISIONAL file name (no assert or __FILE__ names it): the object 0x85AEC0-0x85C600 after
 **	cordmgr.cpp, which holds CordMessageClass's out-of-line members (0x85BE00-0x85BEE7) and the
 **	connection's send window and statistics CordCon keeps at +0x68 (CordStatsClass, 0x4C bytes:
 **	0x85BF30-0x85C5E0). Xtime is wlib's (libs\wwonline\wlib, D73).
 */
+
+
 
 // NAME 1 [unknown_cordmsg.cpp]: PROVISIONAL file name (no assert or __FILE__ names the object)
 #include "cordcon.h"

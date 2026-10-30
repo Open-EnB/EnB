@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: unknown (no __FILE__ or assert in its object; D10 neutral name).
 **	PLACEMENT: provisional (D137): a string, assert or link map naming the object 0x4FA8F0-0x4FAC0F;
@@ -11,6 +10,7 @@
 **	font's slots +0x24 / +0x28 at a 640-wide screen, from the base's without a font. Built on the stack
 **	by ManagedFontClass 0x6CF930 and UILineDisplayClass::Add_Line 0x5A7690, among nine others.
 */
+
 
 #if defined(_MSC_VER)
 #pragma once

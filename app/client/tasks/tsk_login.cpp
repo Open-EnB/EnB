@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_login.cpp (client 0x767240-0x76BC40)
 **	LoginTaskClass (tsk_login.h), partly rebuilt. The asserts sit on the client's lines (D25).
 */

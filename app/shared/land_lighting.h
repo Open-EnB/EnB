@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: no assert names it; land_lighting.h is
 **	a proposal)
@@ -10,6 +8,8 @@
 **	+0x178..+0x1A4 (its constructor 0x50B360 stores these defaults; Update 0x50F1B0 fills it and hands it to
 **	LandClass::Update_Lightmap_*).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -12,8 +12,7 @@ these rules come from two places:
   `Commando`). It does **not** match Generals' own game code (`GameEngine`: `m_` members,
   camelCase methods, `AsciiString`), which was written by a different team.
 
-When a rule here and a string from the client disagree, the client wins. Record the case in this
-file.
+When a rule here and a string from the client disagree, the client wins. Record the case in §5.
 
 ## 1. Evidence from the client
 
@@ -44,8 +43,8 @@ D56's scale (D65): replaced as soon as the code that uses it, or a structure-mat
 
 **Name certainty** (decision D56): a name chosen without the client's own evidence gets a tag
 comment where it is declared: `// NAME n: evidence`. 5 = the client names it (RTTI, assert,
-`__FILE__`, a `Class::Method` string); 4 = EA's Westwood source names it, or a Net-7 name or the
-reference game model's, confirmed by matching structure; 3 = built by convention from a client-named
+`__FILE__`, a `Class::Method` string); 4 = EA's Westwood source names it, or a Net-7 name or one
+from the earlier protocol research (prior-work.md), confirmed by matching structure; 3 = built by convention from a client-named
 file or sibling (D24, a `.h` paired with a known `.cpp`); 2 = describes what the code does;
 1 = neutral placeholder. Names scoring 3 or below (and untagged `Unknown*` names, counted as 1)
 are listed in the generated `docs/data/names-review.md` (`python tools/re/names.py`); raise the tag
@@ -80,9 +79,8 @@ from its asserts: `Buffer`, `NumBits`). A name the client later shows replaces i
   (WWLib uses `INI_H`, without underscores; WW3D/WWAudio use `__NAME_H`. Copy the style of the
   library the file belongs to; use `__NAME_H` in E&B's own code.)
 
-* File banner: Westwood's boxed header. Our banner keeps the box and says plainly that the
-  file is a reconstruction (see the template in §4). Don't fill in `$Archive::`, `$Author::`,
-  `$Modtime::` or `$Revision::`: those are source-control fields we don't have.
+* File header: our own files start with `// Earth & Beyond client (reconstruction)`; Westwood's
+  boxed banner and EA's licence header appear only in files imported from EA's releases (§4).
 * Forward-declare classes in headers instead of including headers when you can.
 
 ### Classes
@@ -171,8 +169,8 @@ protected:
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ```
 
-  In reconstructed functions, the HISTORY line records the reconstruction (date, `RE`) and the
-  client address the body came from, e.g. `10/22/2026 RE : Reconstructed from client.exe 0x5AD540.`
+  A reconstructed function has a comment above it giving the client address its body came from
+  and what it does, e.g. `// 0x801860: the Unknown120 scene through the scripted camera ...`.
 * Within a body, comment blocks use the Westwood double-slash box:
 
 ```cpp
@@ -181,10 +179,11 @@ protected:
 	//
 ```
 
-* Asserts: `WWASSERT(expr)` in library code. E&B's app code asserts too (expressions and
-  `__FILE__` are in the binary); its macro name is not known yet (`docs/data/asserts.txt`
-  shows the expressions). Reproduce each assert where the binary has it, with the expression
-  exactly as stringified in the client.
+* Asserts: `WWASSERT(expr)` in library code. E&B's app code uses `G_ASSERT(expr)` and
+  `FAIL_IF(expr)` (`app/shared/unknown_debug.h`, over the client's report functions 0x4E9410 and
+  0x4E9450; the macro names are ours, the client's are not known). Reproduce each assert where the
+  binary has it, with the expression exactly as stringified in the client (`docs/data/asserts.txt`)
+  and on the client's line: the macros compile `__FILE__` and `__LINE__` ([workflow.md](workflow.md) §3).
 * Profiling: `WWPROFILE("Class::Method")` at the top of hot functions. The label strings in the
   client tell you where they were.
 
@@ -232,39 +231,63 @@ The client was built with **Visual C++ 6.0** **Service Pack 4** (compiler build 
 (write code that works either way); STL is VC6's Dinkumware (or STLport, as Generals used; which
 one E&B used isn't known yet).
 
-The project builds with a modern MSVC too, so the code must also be valid standard C++ (the
-`for`-scope rule above is why). Where VC6 and the standard disagree, use a macro in a
+The code is meant to build with a modern MSVC too (the playable build, not set up yet), so it must
+also be valid standard C++ (the `for`-scope rule above is why). Where VC6 and the standard disagree, use a macro in a
 compatibility header, not `#ifdef`s in every file.
 
-## 4. File banner template
+## 4. File headers
 
-The repository is GPL v3 (decision D1, [progress.md](progress.md)), hence the licence lines.
+The header says where the file came from (the user, 2026-10-30).
+
+**Our own files** (app/, programs/, stubs/, tests/, the tools' C/C++, and files written from the
+client inside a library, such as `ww3d2/unknown_distortion.cpp` or `libs/wwonline/wnet/tcpqueue.cpp`)
+start with this line, the original path after the colon when the client gives it
+(`docs/data/source-paths.txt`):
 
 ```cpp
+// Earth & Beyond client (reconstruction): app\client\ui_login.cpp
+```
+
+A longer description follows as a block comment:
+
+```cpp
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_login.cpp
 */
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : Earth & Beyond                                               *
- *                                                                                             *
- *                    File Name : ui_login.cpp                                                 *
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * Functions:                                                                                  *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 ```
 
-Files imported from EA's repositories keep their original banners and licence header unchanged;
-we add a line saying which EA copy (Renegade, Generals, Zero Hour) and commit it came from, and
-note any change made to match the client.
+No Westwood banner box and no EA copyright line: the file is written from the client's bytes,
+under the repository's GPL v3 (D1, [LICENSE](../LICENSE)). The generators (`auxroots.py`,
+`pkclasses.py`, `pkemit.py`, importer.py's `NEW_FILES`) write the same line.
+
+**Files imported from EA's C&C releases** (Renegade, Generals, Zero Hour: the `ww*` libraries,
+`binkmovie`, `libs/wwonline`) keep EA's licence header and Westwood's banner unchanged. Which copy
+and commit each came from is recorded in `docs/data/imports.json` ([imports.md](imports.md)), not in
+the file. A file changed to match the client (PATCHES, annotations, APPENDS, functions spliced from
+another copy, or an EA file reworked in place such as `wwlib/rc4.cpp`) says so on the line under EA's
+copyright:
+
+```cpp
+/*
+**	Command & Conquer Renegade(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+```
+
+importer.py writes that line itself (`MODIFIED_NOTE`) on every assemble and replay, in place of
+the banner's bare `**` line: don't edit imported files by hand.
+
+**Third-party code that is not EA's** keeps its own notice (`libs/sgistl`, SGI STL 3.3, D87).
+
+**A header change never moves a code line.** The asserts compile `__LINE__`, so a line added or
+removed above code changes the bytes. Replace lines one for one, or make up the difference with
+blank lines after the comment block.
+
+## 5. Client-wins cases
+
+Where the client's names disagree with these conventions, the client's are used; each case:
 
 * **SoundLibraryBridge (2026-10-27, H9):** the client's bridge vtable 0xAE74EC has two slots; the tree's `ww3d2/soundlibrarybridge.h` declares three pure virtuals (`Stop_Playing_Audio` is Zero Hour's). app/audio/soundlib.cpp implements the third as an empty slot; ww3d2 stays as it is (no pair depends on it).
 

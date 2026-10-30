@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // The task kernel's test (docs/kernel-map.md 6, step 1): app\kernel\kernel.cpp with scripted tasks
 // on a clock this program sets. Prints one line per event; tools/harness/kerneltest.py checks them.
 //

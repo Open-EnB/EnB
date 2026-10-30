@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Packets\pkflag.h (the name from the client's pkflag.cpp)
 **
@@ -9,6 +7,8 @@
 **	(the effects, opcodes 9 and 11-14, and ADVANCED_POSITIONAL_UPDATE 62 derive from it), and the
 **	helpers that read and write a field by its bit (client 0x887570-0x8878D0, pkflag.cpp).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

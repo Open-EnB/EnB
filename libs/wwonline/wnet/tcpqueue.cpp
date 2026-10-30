@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpqueue.cpp
 /*
-**	Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpqueue.cpp
 **	Written from the client, 0x8BE860-0x8BF5F0 (tcpqueue.h); the FAIL_IFs on the client's lines.
 */
 

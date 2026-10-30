@@ -1,12 +1,12 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): a galaxy (shard) of the login's list,
 **	its wire functions in app\common's unattributed run after galaxy_map.h (0x83C730-0x83C870;
 **	docs/kernel-map-step9.md 5). Moved here from tsk_login.h (D90 9b). Its users: LoginTaskClass's
 **	galaxy list, the avatar list packet (0x862D90), ui_avsel.cpp and ui_shard.cpp.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

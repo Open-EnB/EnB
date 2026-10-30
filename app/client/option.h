@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\option.h (name assumed from option.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\Client\option.cpp')
@@ -14,6 +12,8 @@
 **	(docs/kernel-map-step9.md); tsk_game.h, sclient.cpp, fontdatabase.cpp and soundlib.cpp still
 **	declare their own views of it (Unknown_BE8B38Class).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay --conn: CordCon's delivered messages through the game's connection layer (docs/kernel-map.md
 // 4, 5): app\common\udpconn.cpp's UDPConnection::Receive (CordCon::read into the message buffer, then
 // the packet factory), then each packet through app\common\connect.cpp's stream connection over a

@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\packets\pkguildranknamesrequestclient.h (the name provisional: see the .cpp)
 **
 **	The packet classes of client 0x88BD40-0x88EC40 rebuilt so far (opcode 204, 205, 197, 200, 201, 208, 210, 212, 211, 216); the file's other classes
 **	are still declared in pk_classes.h.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

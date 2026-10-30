@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // M1.3's harness (milestones.md 2.1 gates (b) and (c)): every AUX_DATA of a trace goes through the
 // client's decode path into the root its object's CREATE made (the generated roots,
 // app/client/aux_roots.h), is re-encoded from what the decode touched, and compared byte for byte;

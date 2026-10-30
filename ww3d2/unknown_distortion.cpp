@@ -1,8 +1,8 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	E&B's screen-distortion effect (decision D19); see unknown_distortion.h. Names are neutral (D10).
 */
+
 
 #include "unknown_distortion.h"
 #include "vector.h"

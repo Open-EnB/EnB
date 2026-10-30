@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	Release-build definitions of the Generals debug macros that Zero Hour's wwdebug.h expects
 **	from GameEngine\Include\Common\debug.h. In Generals' release configuration (no
 **	ALLOW_DEBUG_UTILS) every one of them compiles to nothing; these are those definitions.

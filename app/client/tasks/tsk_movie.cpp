@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_movie.cpp (client 0x76BF40-0x76C660)
 **	The movie task (tsk_movie.h). The assert sits on the client's line (87: D25). Notes at the end.
 */

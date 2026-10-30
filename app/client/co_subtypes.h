@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: unknown. The run 0x70DBC0-0x70F030 (after co_player_relationship.cpp, before extrap.cpp)
 **	has no assert and no __FILE__, so the file name is provisional (D122): app\client\co_subtypes.cpp.
 **	CREATE 4's two object subclasses (type 24 0x70E2E0, type 28 0x70E5A0) and type 24's base 0x70DBC0, which adds

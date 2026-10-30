@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction): link-time stubs (D44, docs/milestones.md 3.2)
 /*
-**	Earth & Beyond client (reconstruction): link-time stubs (D44, docs/milestones.md 3.2)
-**
 **	A stub stands for a function the client has and the tree does not yet. Every stub logs its
 **	first call: one line to OutputDebugString, stderr and the stub log (the file named by the
 **	environment variable ENB_STUB_LOG, else stubs.log in the current directory).
 */
+
 
 #ifndef STUB_LOG_H
 #define STUB_LOG_H

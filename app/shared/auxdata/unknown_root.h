@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	// NAME 1 [unknown_root.h]: provisional file name, the object has no __FILE__
 **	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4A3990-0x4A4780 between
@@ -12,6 +10,8 @@
 **	DeltaCompoundClass's and keeps one int argument at +0x9C (the CREATE factory 0x6F6000 passes
 **	its second argument through).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

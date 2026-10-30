@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\unique_design_id_lookup.h (name assumed from
 **	unique_design_id_lookup.cpp, whose __FILE__ is 'e:\build\beta\G\app\shared\unique_design_id_lookup.cpp')
@@ -11,6 +9,8 @@
 **	saved when the table is destroyed. INI and Map are the client's names (its asserts); the class
 **	name is the file's (D24), the rest are guesses (D10). Nothing in the retail client constructs it.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

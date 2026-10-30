@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: what app\shared\shipcust_desc.cpp (brought in from app.lib by RECUSTOMIZE_SHIP_DONE 130's
 // ShipCustDescClass, pkrecustomize.cpp) needs that the harness doesn't compile: the races' default settings
 // (0xBE56D8, filled at run time), the key/value visitor's typed adds (not used by the packets: they do

@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\wwudp\cordmgr.cpp (client 0x857590-0x85AED0)
 **
@@ -10,6 +8,8 @@
 **	(E&B's log 0x4BC130 with __FILE__ / __LINE__, category "UDP") sit on their lines, 592 and 1272
 **	(D25): the blank stretches below hold the place of the functions not rebuilt. Notes at the end.
 */
+
+
 
 // E&B built its own code with WWLib's profiler on (WWProfileManager::Start_Profile 0x9EA930).
 #define ENABLE_WWPROFILE

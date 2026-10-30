@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 #include "sclient.h"
 #include "uiview.h"
 #include "..\shared\unknown_debug.h"
@@ -145,7 +146,6 @@ void UIViewClass::Unknown_10()
 		Unknown28 = NULL;
 	}
 }
-
 
 
 

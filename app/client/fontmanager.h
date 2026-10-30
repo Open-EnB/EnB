@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\fontmanager.h (name assumed from fontmanager.cpp,
 **	whose __FILE__ is 'e:\build\beta\G\app\Client\fontmanager.cpp')
@@ -9,6 +7,8 @@
 **	The font manager (0x1C bytes, created by 0x526DE0 into 0xBE67C4): the fonts by id (an SGI
 **	hash_map of 100 buckets) and the debug font. Declared as far as the rebuilt functions need.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

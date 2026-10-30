@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	// NAME 1 [unknown_changes.h]: provisional file name, the object has no __FILE__
 **	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4AB580-0x4AC250 between
@@ -13,6 +11,8 @@
 **	that were sent and that changed since. The update collector (encode.cpp) decides from it what
 **	an update carries. The client names none of it (D10, D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

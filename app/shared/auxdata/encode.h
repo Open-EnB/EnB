@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\encode.h (name assumed from encode.cpp:
 **	the root's codec select 0x4A3FA0, in another object, uses RecordCodec and Get_Tree_Codec, so
@@ -11,6 +9,8 @@
 **	field lists an update is collected into, and the record table the encoder writes from. The
 **	client names only what its asserts show (Records, record, b); the rest are neutral (D10, D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

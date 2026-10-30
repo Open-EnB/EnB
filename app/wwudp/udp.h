@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	The UDP socket CordMgr and CordCon use (CordCon::Udp_, +0x10). The client's class is Westwood's
 **	wnet UDP (libs\wwonline\wnet, the library at 0x8BF990-0x8C0540 beside tcpqueue.cpp's
 **	__FILE__): ctor 0x8BF990, dtor 0x8BFA10, Bind 0x8BFB70, getLocalAddr 0x8BFCD0, Write 0x8BFD50
@@ -11,6 +9,8 @@
 **	the real socket (wnet's udp.cpp, not imported yet) or the capture harness's replay socket
 **	(tests/udpreplay).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

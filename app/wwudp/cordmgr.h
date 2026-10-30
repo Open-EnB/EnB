@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\wwudp\cordmgr.h (name assumed from cordmgr.cpp)
 **
@@ -20,6 +18,8 @@
 **	Pump: 'We must have dropped an ack2 packet to the client!'), +0x34 Connections_, +0x40
 **	DataSockets_ (16-byte records), +0x4C ListenSockets_ (12-byte records).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

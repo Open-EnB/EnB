@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: ITEM_BASE 37's item description (ItemBaseInfoClass, client 0x83F490-0x840400, not rebuilt).
 // Here, not in stubs/app_stubs.cpp: these call RawPacketClass, and stubs.lib goes into every program
 // (VIDTEST would then pull in pk.obj and the connection layer).

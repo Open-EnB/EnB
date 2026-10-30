@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_smovie.h (name assumed from tsk_smovie.cpp)
 **
@@ -9,6 +7,8 @@
 **	moviescript2.txt ... as long as the files exist) through mclient.cpp's movie clients, one client
 **	per script, the first one only; it removes itself after the last. Vtable 0xB04360, 0x24 bytes.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

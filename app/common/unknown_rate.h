@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): a bytes-per-second average, client
 **	0x820830-0x820A20 (just before connect.cpp's first function, unattributed). Type 0 and 1 keep
 **	their counts in two shared sets (0xBE8E80-0xBE8E94), any other type in the object; Add counts
@@ -10,6 +8,8 @@
 **
 **	Rebuilt in unknown_rate.cpp (same provisional name).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

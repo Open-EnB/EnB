@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\combo_ffactory.h (name assumed from
 **	combo_ffactory.cpp, whose __FILE__ is 'e:\build\beta\G\app\shared\combo_ffactory.cpp')
@@ -11,6 +9,8 @@
 **	an SGI hash_map, libs/sgistl, D87). The class name is the file's (D24); MixMap is the client's own
 **	(its assert 'MixMap.find(temp_string) != MixMap.end()').
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

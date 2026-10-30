@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // The start-up tasks on the rebuilt kernel (docs/kernel-map.md 6, step 7): app\client\tasks'
 // tsk_movie.cpp, tsk_smovie.cpp and tsk_menu.cpp with kernel.cpp, on kerneltest's clock.
 //

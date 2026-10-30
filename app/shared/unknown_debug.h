@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown; neutral name, D10)
 **
@@ -22,6 +20,8 @@
 **	std::map instance (0x4E94F0-0x4E9C40). That object has no __FILE__ string of its own, so its name
 **	(and this header's) is unknown: something sorting between "event" and "ini_manager".
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

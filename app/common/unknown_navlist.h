@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the object 0x8462A0-0x846A3F, between
 **	manufacturing_defs.cpp and nav_type_enum.cpp. It holds the music types' name table (0xBAF63C) and
 **	the navigation list: the nav ids of a warp path with a cursor (vtable 0xB08C60, 0x18 bytes), sent
@@ -10,6 +8,8 @@
 **
 **	Rebuilt in unknown_navlist.cpp (same provisional name).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

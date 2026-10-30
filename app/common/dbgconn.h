@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\common\dbgconn.h (assumed: dbgconn.cpp's asserts name
 **	the .cpp, l.298)
@@ -10,6 +8,8 @@
 **	ConnectionManagerClass::Add_Connection 0x822CC0 and the factory 0x821450 put round a connection
 **	(docs/kernel-map.md 4): the packet logs (rebuilt) and the statistics wrapper (declared).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

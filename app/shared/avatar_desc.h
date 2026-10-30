@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\avatar_desc.h (name assumed from avatar_desc.cpp)
 **
@@ -10,6 +8,8 @@
 **	once by CharacterViewClass. The members are named by its visitor's keys (0x4BFED0). Moved here
 **	from tsk_login.h's LoginUnknown350Class (D90 9b).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

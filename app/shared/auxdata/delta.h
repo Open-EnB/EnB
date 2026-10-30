@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta.h (name assumed from delta.cpp)
 **
@@ -11,6 +9,8 @@
 **	(earlier protocol research: DeltaBase, DeltaCompound), checked against the code here.
 **	Virtuals whose purpose isn't known are named after their vtable offset (D10).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

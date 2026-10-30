@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 /*
 **	A checked build's debug macros (M2 gate (d)): tools/vc6/build.py force-includes this header into
 **	every compile when ENB_CHECKED=1 (with /D DEBUG_CRASHING /D DEBUG_LOGGING), so Zero Hour's

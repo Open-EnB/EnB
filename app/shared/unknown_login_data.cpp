@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the character slot and the login
 **	ticket (unknown_login_data.h), client 0x8C06E0-0x8C1B40, linked after WWOnline's wnet.
 */
+
+
 
 #define UNKNOWN_PACKETDATA_BODIES
 #include "unknown_login_data.h"

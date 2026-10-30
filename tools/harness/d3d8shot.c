@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 /*
 ** d3d8shot: a d3d8.dll proxy that saves a D3D8 program's own frames (M2.1 reference captures).
 **

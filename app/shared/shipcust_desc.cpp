@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **	Original location: e:\build\beta\G\app\shared\shipcust_desc.cpp (client 0x4F6160-0x4F9740)
 **	ShipCustDescClass (shipcust_desc.h), partly rebuilt: the race and profession setters, the wire
 **	and key/value slots of the description, its parts and their settings.
 */
+
 #define UNKNOWN_PACKETDATA_BODIES
 #include "shipcust_desc.h"
 #include "auxdata\linearbu.h"

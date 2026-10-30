@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\strconv_lib.h (name assumed from strconv_lib.cpp)
 **
@@ -12,6 +10,8 @@
 **	Only the ones the tree uses are declared; the names are guesses (D10). Their definitions are in
 **	stubs/app_stubs.cpp until strconv_lib.cpp is rebuilt.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

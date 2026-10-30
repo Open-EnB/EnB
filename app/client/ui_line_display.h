@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_line_display.h (name assumed from
 **	ui_line_display.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\ui_line_display.cpp')
@@ -12,6 +10,8 @@
 **	(libs/sgistl, D87). The client names neither the classes nor the members (D10, D24); the ini keys
 **	and the asserts ('Client', 'Current->DisplayTimeMS > 0') name what they can.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

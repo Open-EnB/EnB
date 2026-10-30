@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: ..\shared/kv_acc_array.h (the asserts' __FILE__, relative as E&B's headers are)
 **
@@ -10,6 +8,8 @@
 **	body and head weights are its float instance (0x4C3110-0x4C3BE0). The asserts sit on the
 **	client's lines 66, 72 and 93 (D25); notes at the end of the file.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
