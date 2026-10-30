@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta_interpolator.h (the client's
 **	__FILE__ string, from Get_Value's assert on line 54, inlined in 0x4A67D0 and 0x4A6B30)
@@ -9,6 +7,8 @@
 **	A value in [0, 1] moving at ChangePerTick per tick from StartValue until EndTime; the three
 **	fields are children (the constructor's names). The client doesn't name the class (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -52,7 +52,7 @@ public:
 
 
 		G_ASSERT(time >= LastTime);
-		if (m_Unknown24C || time == LastTime) {
+		if (Unknown24C || time == LastTime) {
 			return LastValue;
 		}
 		return Update(time);
@@ -63,7 +63,7 @@ public:
 	DeltaTemplateClass<float> StartValue;			// +0x1B8 (the value at LastTime when Set)
 	DurationClass LastTime;								// +0x240
 	float LastValue;										// +0x248  // NAME 2: after the assert's LastTime
-	bool m_Unknown24C;									// +0x24C set when the value can't change (no change, or EndTime reached)
+	bool Unknown24C;									// +0x24C set when the value can't change (no change, or EndTime reached)
 };
 
 #endif //__DELTA_INTERPOLATOR_H

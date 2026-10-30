@@ -41,12 +41,12 @@ public:
 	void							Unknown_468BE0(AABoxClass &box, const Vector3 *points);	// NAME 1: unknown; the box around eight points
 	void							Unknown_468D50(void);	// NAME 1: unknown; marks the vertices of the cells inside the planes
 
-	LandUnknown466BE0CellStruct *	m_Unknown04;			// NAME 1: +0x04, the cells (0x468920), deleted by the dtor and 0x467A50
-	int							m_Unknown08;							// NAME 1: +0x08, the cell count, (size - 1) squared (0x468920)
-	int							m_Unknown0C;							// NAME 1: +0x0C, 1 after the ctor
+	LandUnknown466BE0CellStruct *	Unknown04;			// NAME 1: +0x04, the cells (0x468920), deleted by the dtor and 0x467A50
+	int							Unknown08;							// NAME 1: +0x08, the cell count, (size - 1) squared (0x468920)
+	int							Unknown0C;							// NAME 1: +0x0C, 1 after the ctor
 	bool							Enabled;									// NAME 5: +0x10, DisplacementMappingEnabled (registry), cleared without the hardware
-	bool							m_Unknown11;							// NAME 1: +0x11, the land uses the object (cleared when not Enabled)
-	bool							m_Unknown12;
+	bool							Unknown11;							// NAME 1: +0x11, the land uses the object (cleared when not Enabled)
+	bool							Unknown12;
 	int							BaseTessellationSize;				// NAME 5: +0x14, BaseTessellationSize (registry, 16)
 	int							DisplacementMapSize;					// NAME 5: +0x18, DisplacementMapSize (registry, 256)
 	HeightFieldClass *		Field;									// NAME 2: +0x1C, the ctor's argument
@@ -62,7 +62,7 @@ public:
 	float							FogStart;								// NAME 2: +0x80, D3DRS_FOGSTART read back by 0x466F60
 	float							FogEnd;								// NAME 2: +0x84
 	float							FogRange;								// NAME 2: +0x88, FogEnd - FogStart
-	float							m_Unknown8C;							// NAME 1: +0x8C, never written
+	float							Unknown8C;							// NAME 1: +0x8C, never written
 };
 
 #endif //__LANDDMAP_H

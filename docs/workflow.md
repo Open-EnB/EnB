@@ -29,8 +29,9 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    * `tools/vc6/layout.py CLASS HEADER` prints a class's offsets as VC6 lays it out.
 2. **Find the evidence in the client.** Usually that's a constructor: it initialises members in
    declaration order, so it shows the true layout. Then look for the EA copy that has the member
-   or virtual. Unknown E&B additions get neutral names (`m_UnknownXX`), with the evidence in a
-   comment.
+   or virtual. Unknown E&B additions get neutral names in the library's own style (`UnknownXX`;
+   `m_UnknownXX` in WWAudio, whose members are `m_`-prefixed: conventions.md §1), with the evidence
+   in a comment.
 3. **Write it as a patch** (old text, new text, reason with the client address) in a spec file in
    `.work/`, and apply it with `tools/vc6/addpatch.py --block NAME SPEC.py`: it applies it to the
    tree file and records it in that `importer.py` block (the current block for wwshade's WW3D2:
@@ -41,8 +42,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    * Save `docs/data/imports.json` first.
    * Run `importer.py verify --lib ...` for every library that includes the changed header.
      WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
-     `tools/vc6/pool.py` instead of the default host (Win10 only since the old clones were retired on
-     2026-10-24; released at the end; toolchain.md §1.3).
+     `tools/vc6/pool.py` instead of the default host (the hosts in `.work/vc6_hosts.json`;
+     released at the end; toolchain.md §1.3).
    * Compare the sets of `(file, address)` pairs before and after. Compare sets, not totals:
      a total can stay level while functions are traded.
 5. **Keep or drop.**
@@ -757,7 +758,7 @@ unless `--lever` cites a new row of this table.
 
 * **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
   main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
-  junction again on every compile since 096a45b; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
+  junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
 * **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
@@ -817,7 +818,8 @@ unless `--lever` cites a new row of this table.
   before writing a member. symbols.json names 0xAEDE88 PushMessageLinePacketClass's vtable; it is PacketClass's (pk.h),
   so explain.py's "relocation" class on handlers that destroy a packet temporary is a false lead (T19). For a large
   function with a different instruction count, `.work/t20/align.py` lines up explain.py's `--window` columns with difflib.
-  Python's `subprocess` 'bash' on this host is not Git Bash: use `C:\Program Files\Git\usr\bin\bash.exe` (H20).
+  On Windows, Python's `subprocess` 'bash' may resolve to WSL's bash, not Git Bash: use Git's
+  `C:\Program Files\Git\usr\bin\bash.exe` (H20).
 * **`_$E` initialisers are `short` (2026-10-27, M3):** never exact by themselves; D115's round locates one by its relocated
   fields (atexit, the global) inside the object's range +-0x1000. ref_ptr.h: a script that finds `G_ASSERT(0 != Referent)`
   by text also hits ref_ptr.h's new header note (F7): match the whole statement line.

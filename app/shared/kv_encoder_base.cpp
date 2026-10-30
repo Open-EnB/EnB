@@ -60,8 +60,8 @@ KVEncoderBaseClass::~KVEncoderBaseClass()
 const char *KVEncoderBaseClass::Make_Key(const char *name)
 {
 	G_ASSERT(Data);
-	Data->m_Unknown2C = Data->m_Unknown1C + name;
-	return Data->m_Unknown2C.c_str();
+	Data->Unknown2C = Data->Unknown1C + name;
+	return Data->Unknown2C.c_str();
 }
 
 
@@ -99,7 +99,7 @@ void KVEncoderBaseClass::Push_Prefix(const char *name)
 {
 	G_ASSERT(Data);
 	Data->PrefixList.push_back(std::string(name));
-	Unknown_Join(Data->PrefixList, Data->m_Unknown1C);
+	Unknown_Join(Data->PrefixList, Data->Unknown1C);
 }
 
 
@@ -108,7 +108,7 @@ void KVEncoderBaseClass::Pop_Prefix()
 	G_ASSERT(Data);
 	G_ASSERT(Data->PrefixList.size() > 0);
 	Data->PrefixList.pop_back();
-	Unknown_Join(Data->PrefixList, Data->m_Unknown1C);
+	Unknown_Join(Data->PrefixList, Data->Unknown1C);
 }
 
 
@@ -117,10 +117,10 @@ void KVEncoderBaseClass::Set_Prefix(const char *prefix)
 	G_ASSERT(Data);
 	Data->PrefixList.clear();
 	if (prefix == 0 || *prefix == 0) {
-		Data->m_Unknown1C = "";
+		Data->Unknown1C = "";
 	} else {
 		Data->PrefixList.push_back(prefix);
-		Unknown_Join(Data->PrefixList, Data->m_Unknown1C);
+		Unknown_Join(Data->PrefixList, Data->Unknown1C);
 	}
 }
 

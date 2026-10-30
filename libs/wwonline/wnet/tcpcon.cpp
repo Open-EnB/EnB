@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpcon.cpp
 /*
-**	Earth & Beyond client (reconstruction): libs\wwonline\wnet\tcpcon.cpp
 **	E&B's TCPCon (tcpcon.h), written from the client (0x8BBA70-0x8BCA50) on the plan of Renegade's
 **	Code\Tools\RenegadeGR tcpcon.cpp: the queues are TCPQueues, each call takes the lock when
 **	Locking_ is set, a reset connection (TCPMgr::CONNRESET) ends a read or write quietly.

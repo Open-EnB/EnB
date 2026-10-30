@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	E&B's screen-distortion effect (decision D19). The client keeps no name for this module or its
 **	classes; every name here is neutral (D10) until E&B's own turn up. Client range 0x995D20-0x998200,
 **	between dx8texman.cpp and boxrobj.cpp.
@@ -10,6 +9,7 @@
 **	projected screen area through a grid whose texture coordinates a distortion function (a damped
 **	ripple) displaces. The list is enabled when a render device is set, if the hardware can do it.
 */
+
 
 #ifndef UNKNOWN_DISTORTION_H
 #define UNKNOWN_DISTORTION_H
@@ -35,14 +35,14 @@ public:
 	virtual void			Unknown_Distort(Vector2 & uv, UnknownDistortionClass * owner);
 
 protected:
-	float						m_Unknown08;	// decay with the squared distance from the centre (20)
-	float						m_Unknown0C;	// phase speed per millisecond (0.01)
-	float						m_Unknown10;	// amplitude (0.01)
+	float						Unknown08;	// decay with the squared distance from the centre (20)
+	float						Unknown0C;	// phase speed per millisecond (0.01)
+	float						Unknown10;	// amplitude (0.01)
 };
 
 
 /*
-** The distortion render object: a sphere of radius m_Unknown90 around its position.
+** The distortion render object: a sphere of radius Unknown90 around its position.
 */
 class UnknownDistortionClass : public RenderObjClass
 {
@@ -60,9 +60,9 @@ public:
 	virtual void					Unknown_Render_Distortion(CameraClass & camera);
 
 protected:
-	RefCountPtr<UnknownRippleClass>	m_Unknown8C;	// the distortion function: a smart pointer (the destructor
+	RefCountPtr<UnknownRippleClass>	Unknown8C;	// the distortion function: a smart pointer (the destructor
 															// 0x996040 releases it twice: its own NULL assignment, then ~RefCountPtr)
-	float								m_Unknown90;	// radius (1 by default)
+	float								Unknown90;	// radius (1 by default)
 };
 
 

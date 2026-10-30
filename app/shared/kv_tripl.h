@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\kv_tripl.h (the client's assert at line 92,
 **	'index < V.size()', names it)
@@ -16,6 +14,8 @@
 **	bucket function, the key taken by value) and 0x42DB00, the keys compared with
 **	std::string's operator== (0x441480).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

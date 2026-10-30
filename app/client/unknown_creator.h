@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the characters the Character and
 **	Starship Creator shares with the client, kept as files in a folder under the common
 **	application data ('Westwood Studios\Earth and Beyond\Character and Starship Creator'), and the
@@ -9,6 +7,8 @@
 **	avatar.cpp and nlp.cpp (docs/kernel-map-step9.md 5). Moved here from tsk_login.h (D90 9b).
 **	D69: the constructor reads the registry and creates folders; never run against the real system.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

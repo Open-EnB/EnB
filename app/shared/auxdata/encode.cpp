@@ -65,8 +65,8 @@ DeltaCollectorClass::~DeltaCollectorClass()
 void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
 {
 	unsigned int value = 0;
-	int action = Policy->Get_Action(delta->m_Unknown7C, (int *)&value);
-	int id = delta->m_Unknown7C;
+	int action = Policy->Get_Action(delta->Unknown7C, (int *)&value);
+	int id = delta->Unknown7C;
 	switch (action) {
 		case 1:
 			if (Changes->Entries[id].Sent > 0) {
@@ -129,7 +129,7 @@ void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
 void DeltaCollectorClass::Visit(DeltaClass *delta)
 {
 	unsigned int value = 0;
-	int id = delta->m_Unknown7C;
+	int id = delta->Unknown7C;
 	switch (Policy->Get_Action(id, (int *)&value)) {
 		case 1:
 			if (Changes->Entries[id].Sent > 0) {
@@ -143,7 +143,7 @@ void DeltaCollectorClass::Visit(DeltaClass *delta)
 		case 4:
 		{
 			ChangeTableClass *changes = Changes;
-			unsigned int last = delta->m_Unknown70;
+			unsigned int last = delta->Unknown70;
 			bool sent = changes->Entries[id].Sent > 0;
 			bool changed = last != changes->Entries[id].Stamp;
 			if (sent) {
@@ -156,7 +156,7 @@ void DeltaCollectorClass::Visit(DeltaClass *delta)
 			} else {
 				Defaulted.Add(delta);
 			}
-			Changes->Set_Sent(id, delta->m_Unknown70);
+			Changes->Set_Sent(id, delta->Unknown70);
 			return;
 		}
 
@@ -232,7 +232,7 @@ LinearBufferClass *DeltaListSetClass::Write(LinearBufferClass *buf)
 	int id;
 	for (DeltaListNodeClass *node = Lists[0]->Head; node != 0; node = node->Next) {
 		DeltaClass *delta = node->Delta;
-		id = delta->m_Unknown7C;
+		id = delta->Unknown7C;
 		if (buf->Write(&id, 4) != 4) {
 			return 0;
 		}
@@ -245,7 +245,7 @@ LinearBufferClass *DeltaListSetClass::Write(LinearBufferClass *buf)
 		return 0;
 	}
 	for (node = Lists[1]->Head; node != 0; node = node->Next) {
-		id = node->Delta->m_Unknown7C;
+		id = node->Delta->Unknown7C;
 		if (buf->Write(&id, 4) != 4) {
 			return 0;
 		}
@@ -255,7 +255,7 @@ LinearBufferClass *DeltaListSetClass::Write(LinearBufferClass *buf)
 		return 0;
 	}
 	for (node = Lists[2]->Head; node != 0; node = node->Next) {
-		id = node->Delta->m_Unknown7C;
+		id = node->Delta->Unknown7C;
 		if (buf->Write(&id, 4) != 4) {
 			return 0;
 		}
@@ -564,7 +564,7 @@ void RecordTableClass::Add(DeltaListClass *list, int id)
 {
 	for (DeltaListNodeClass *node = list->Head; node != 0; node = node->Next) {
 		DeltaClass *delta = node->Delta;
-		int index = delta->m_Unknown7C;
+		int index = delta->Unknown7C;
 		G_ASSERT(Records[index] == 0);
 		if (delta->As_Compound() != 0) {
 			CompoundRecordClass *record = new CompoundRecordClass(delta->As_Compound(), true);
@@ -585,9 +585,9 @@ void RecordTableClass::Add(DeltaListClass *list, int id)
 		}
 
 		G_ASSERT(Records[index]);
-		int bit = delta->m_Unknown78;
+		int bit = delta->Unknown78;
 		for (DeltaClass *parent = delta->Parent; parent != 0; parent = parent->Parent) {
-			int parent_index = parent->m_Unknown7C;
+			int parent_index = parent->Unknown7C;
 			CompoundRecordClass *record = (CompoundRecordClass *)Records[parent_index];
 			if (record == 0) {
 				record = new CompoundRecordClass((DeltaCompoundClass *)parent, false);
@@ -601,7 +601,7 @@ void RecordTableClass::Add(DeltaListClass *list, int id)
 				break;
 			}
 			bits->Set(bit);
-			bit = parent->m_Unknown78;
+			bit = parent->Unknown78;
 		}
 	}
 }

@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_game.cpp (client 0x765F80-0x767230)
 **	ClientTaskClass (tsk_game.h). The asserts sit on the client's lines (D25). Notes at the end.
 */

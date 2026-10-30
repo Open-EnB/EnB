@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\input\inpdsp.h (name assumed from inpdsp.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\input\inpdsp.cpp')
@@ -12,6 +10,8 @@
 **	removes records. tsk_login.h keeps an opaque declaration of the same class (char[0x18]) so
 **	that its users compile as before (P-H18-1).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

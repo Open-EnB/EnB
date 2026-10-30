@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_game.h (name assumed from tsk_game.cpp)
 **
@@ -10,6 +8,8 @@
 **	(MODE_WAIT_FOR_REDIRECT), runs the sector through SClient (MODE_SECTOR) and, when that ends,
 **	hands the kernel back to a new LoginTaskClass. Vtable 0xB03FF4, 0xA8 bytes (docs/kernel-map.md 3).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

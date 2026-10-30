@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // clienttest (D94(c), P-T7-1, P-T8-1): the client base (app\client\client.cpp), SClient (sclient.cpp) and
 // the packets' client-side handlers (cpacket.cpp) over a memory connection, with logging stand-ins for
 // what they call outside the rebuilt files (client_stubs.cpp). Writes one line per event to OUT;

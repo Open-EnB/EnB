@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_movie.h (name assumed from tsk_movie.cpp)
 **
@@ -10,6 +8,8 @@
 **	3 s skips; it removes itself after the last. WinMain makes one for the intro (eb_sizzle.bik).
 **	Vtable 0xB04280, 0x38 bytes.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

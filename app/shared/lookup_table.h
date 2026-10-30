@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\lookup_table.h (name assumed from
 **	lookup_table.cpp, whose __FILE__ is 'e:\build\beta\G\app\shared\lookup_table.cpp')
@@ -15,6 +13,8 @@
 **	The client names the members through its asserts (_LookupTables, Tables, the self-test's
 **	floor / ceiling / closest / interpolate); the classes are named by convention (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

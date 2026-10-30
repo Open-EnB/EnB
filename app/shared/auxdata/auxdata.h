@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client reconstruction.
-**
 **	Original location: e:\build\beta\G\app\shared\auxdata\auxdata.h (the client's assert string
 **	'..\shared/auxdata/auxdata.h', G_ASSERT 't' on line 155: D25, D41).
 **
@@ -9,6 +8,7 @@
 **	tests its type (the bool field's 0xC416AC) and the assert catches a mismatch. The client doesn't
 **	name the helper (D24).
 */
+
 
 #if defined(_MSC_VER)
 #pragma once

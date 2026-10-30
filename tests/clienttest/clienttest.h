@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // clienttest: what the harness's files share (clienttest.cpp, client_stubs.cpp, the generated tables).
 #ifndef CLIENTTEST_H
 #define CLIENTTEST_H

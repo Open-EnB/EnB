@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the login galaxy's wire functions
 **	(unknown_galaxy.h), client 0x83C730-0x83C870 in app\common's run after galaxy_map.h.
 */
+
+
 
 #include "unknown_galaxy.h"
 #include "..\shared\auxdata\linearbu.h"

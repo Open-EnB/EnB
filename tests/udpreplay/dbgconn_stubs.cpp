@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: stand-ins for app\common\dbgconn.cpp's wrappers (not compiled into the replay), which
 // connect.cpp's factory and ConnectionManagerClass::Add_Connection name. The replay never adds a
 // connection to a manager. The classes are declared here with only the constructor defined, so no

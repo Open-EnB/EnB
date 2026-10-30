@@ -8,7 +8,7 @@ the reference decoder's readings live outside git:
 
 | Path | What |
 |---|---|
-| `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-…` | EA's raw EA-UDP dumps (decrypted datagrams per session) |
+| `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-…` | EA's raw EA-UDP dumps (decrypted datagrams per session; public at trunk/capturedPackets of github.com/therealKyp/Earth-and-Beyond-server, D154) |
 | `roots.EA_REFERENCE` (`C:\EnBDevelopment\Tools\Media\ea-reference`, unpacked by `fetch_reference.py`, D154) | the reference traces `ea\NAME.trace.jsonl` (message level) and the reference decoder's readings `ref\NAME.*.txt`: `dump --summary` (`*.summary.txt`), `aux-census`, `roundtrip`, `aux-log --first`; fixed, never regenerated |
 | `.work/harness/alex3.dgram`, `alex7.dgram` | datagram files written by `convert.py` (regenerate, ~10 s) |
 
@@ -141,7 +141,7 @@ write an update through the client's path, `UnknownRootClass::Encode` 0x4A3D50 (
 message: if the server's encoder is Westwood's same auxdata code, the message comes back. The
 server's fields count their changes up (`DeltaClass::Unknown_34`) where the client's decode sets 2,
 so the harness keeps a server-side version per field (an updated field and its parents get new
-ones, a defaulted one keeps its own) and puts it in `m_Unknown70` before the encode. Player uses
+ones, a defaulted one keeps its own) and puts it in `Unknown70` before the encode. Player uses
 its own state (`UnknownSendRootClass::Unknown_48`, `Encode_Changes` 0x4A4660); the factory's roots
 get a policy made by the harness through policy.cpp: "*.*" INCLUDE 1 before "*" INCLUDE, so the
 compile gives the root DESCEND (Player's own "*" alone gives a small root INCLUDE and whole-root
@@ -315,49 +315,28 @@ error). The rebuilt raw constructor still parses the message; its Build is not c
 received (D95)", once per side (alex3 38, alex7 22 for 97). avatar_desc.cpp is compiled in for 97's member,
 its unbuilt callees in `avatar_desc_stubs.cpp`.
 
-## Net-7 recordings (M1.5, gate (d))
+## Net-7 recordings (M1.5, gate (d); retired)
 
-```
-python tools/harness/n7aux.py [SESSION ...]        # default: the three 2026-10 sessions; auxreplay.exe from auxreplay.py build
-```
+`n7aux.py` (retired with D154; git history has it) ran every AUX_DATA the client received in four
+Net-7 recordings (2022-09-25 and three of 2026-10) through auxreplay.exe, as `auxreplay.py run`
+does, and counted Net-7's known encoding differences instead of failing on them:
 
-* **n7aux.py** (retired with D154; git history has it) ran every AUX_DATA the client received in a Net-7 recording
-  (the reference traces' `session_*.trace.jsonl`, message level, the proxy's output)
-  through auxreplay.exe, as `auxreplay.py run` does, and counts Net-7's known encoding differences
-  (the reference decoder's AuxData notes §7, items 1-3) instead of failing on them. Each is checked:
-  `length` (item 1): the length field differs from the bytes that follow and everything else
-  re-encodes byte for byte; `members` (item 2): a full Player send that runs out exactly where
-  `Player.GroupInfo.Members`' header should be, which must decode and re-encode byte for byte
-  with EA's `05` (Whole | Default) appended (the Members fields that `05` defaults are dropped
-  again for the values: the client keeps what it read); `short` (item 3): a tree-form update that
-  declares more than it carries and runs out; `sets` (not in §7): a field or a whole container
-  named in more than one of Value / Default / Clear (Ship's Rank and EnergyPercent in Value and
-  Default; Player's Whole header `0f` where EA's has `07`). The client's decoder applies one of
-  them, so its encoder can't give the message back; a second run with our re-encoding in the
-  message's place must touch the same fields with the same values and re-encode byte for byte.
-  The values are compared with the reference decoder's `aux-log --first` with one change to auxreplay.py's
-  comparison: a field changes when its bytes change, not its G6 text (aux-log lists
-  `CombatExp: 0.255702 -> 0.255702`).
+* `length`: the length field differs from the bytes that follow; everything else re-encodes byte
+  for byte (declared minus carried: +6 for Ship deltas, the whole payload's length; -8 Ship, -4
+  Harvestable, -2 Hulk).
+* `members`: a full Player send that runs out exactly where `Player.GroupInfo.Members`' header
+  should be; it decodes and re-encodes byte for byte with EA's `05` (Whole | Default) appended.
+* `short`: a tree-form update that declares more than it carries and runs out.
+* `sets`: a field or a whole container named in more than one of Value / Default / Clear (Ship's
+  Rank and EnergyPercent in Value and Default; Player's Whole header `0f` where EA's has `07`).
+  The client applies one of them, so its encoder can't give the message back; a second run with
+  our re-encoding in the message's place touched the same fields with the same values.
 
-Results (2026-10-24), the reference decoder's aux-census in brackets:
-
-| Session | AUX_DATA | ok | length | members | short | sets | noroot | failed | values equal aux-log |
-|---|---|---|---|---|---|---|---|---|---|
-| 2026-10-19 02:31 | 292 | 250 | 36 (36) | 2, all also `sets` | 0 | 4 | 0 | 0 (2) | 18,579 of 18,579 |
-| 2026-10-19 11:53 | 1,358 | 976 | 340 (340) | 8, all also `sets` | 2 | 32 | 0 | 0 (10) | 81,377 of 81,377 |
-| 2026-10-21 11:16 | 691 | 636 | 34 (34) | 5, all also `sets` | 0 | 14 | 2 (2) | 0 (5) | 38,171 of 38,171 |
-
-The reference decoder's failures are exactly the `members` and `short` messages (2 + 0, 8 + 2, 5 + 0). The
-length fields: declared minus carried is +6 for 319 Ship deltas (the whole payload's length), -8
-for 76 Ship, -4 for 11 Harvestable and -2 for 4 Hulk updates. No asserts.
-
-**2022-09-25 startup-charlogin** (`n7aux.py --server-side 2022-09-25_startup-charlogin`): this
-recording has no client side of the sector. It holds the client's one TCP connection to the
-Net-7 global server (3 messages each way, the login) and the proxy's UDP to the sector server
-(Net-7's own protocol, not the client's). `--server-side` takes what the sector server sent the
-proxy as what the client got, and makes the reference decoder's aux-census and aux-log of that copy in
-`.work/harness/auxreplay/`. Its 5 AUX_DATA: 2 ok, 1 Player `members` (also `sets`), 2 `sets`
-(Ship, ManufacturingLab), none failed (aux-census: 1, the Player); values 8,349 of 8,349.
+Results (2026-10-24): every AUX_DATA of the four recordings (2,346) decoded or fell in one of the
+classes above (2 named no known root), none failed, no asserts, and every value equalled the reference decoder's reading
+(a field changes when its bytes change, not its printed value). The 2022-09-25 recording has no
+client side of the sector (server-to-recorder only), so what the sector server sent stood for
+what the client got.
 
 ## vidtest (L2, M2)
 
@@ -587,13 +566,8 @@ Results moved out of docs/workflow.md §3 (2026-10-25).
   (5 client, 4 server), the session id and the sender's datagram counter (the dump's `seq`). The
   checksum (the client's CRC 0x8B3EC0) covers the whole datagram including those bytes.
 
-* **Net-7 recordings.** The 2022-09-25 recording has no client side of the sector (proxy-to-server
-  only): run it with `n7aux.py --server-side`. Net-7's encoder differs from EA's in a fourth way
-  beyond the reference decoder's AuxData notes §7: fields named in two sets (Value and Default, a Whole header
-  `0f` for EA's `07`); the client applies one, so such messages re-encode differently.
-
 * **The client's Delta model has no "default" state.** Updated and defaulted both set
-  `m_Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
-  Unknown_18` recurses into children only when `m_Unknown70 == 0`, `Unknown_1C` only when it is
+  `Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
+  Unknown_18` recurses into children only when `Unknown70 == 0`, `Unknown_1C` only when it is
   non-zero: expand compounds to their leaves yourself. The Player root derives from the second
   root class (vtable 0xAEAC40, ctor 0x4A3FF0, with the update collector), not from 0xAEAB88.

@@ -184,7 +184,7 @@ CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass
 
 
 	Root = c->Name.Get_String();
-	Size = c->m_Unknown98;
+	Size = c->Unknown98;
 	Table = new PolicyNodeClass *[Size];
 	for (int i = 0; i < Size; i++) {
 		Table[i] = 0;
@@ -214,7 +214,7 @@ CompiledPolicyClass::~CompiledPolicyClass()
 
 PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRuleClass *> &rules, DeltaCompoundClass *c)
 {
-	int count = c->m_Unknown98;
+	int count = c->Unknown98;
 	PolicyRuleClass **result = new PolicyRuleClass *[count];
 	for (int i = 0; i < count; i++) {
 		result[i] = 0;
@@ -224,7 +224,7 @@ PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRul
 		DeltaClass *delta = lookup->Get_Delta(id);
 		result[id] = Merge_Rules(result[id], Find_Rule(rules, delta->FullName));
 		if (delta->Parent != 0) {
-			int parent = delta->Parent->m_Unknown7C;
+			int parent = delta->Parent->Unknown7C;
 			result[parent] = Merge_Rules(result[parent], result[id]);
 		}
 	}

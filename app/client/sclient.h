@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\sclient.h (name assumed from SClient::Process_Packets)
 **
@@ -13,6 +11,8 @@
 **	sclient.cpp uses them. cpacket.cpp's handlers are the packets' Process_Packet(SClient *) (PacketClass
 **	slot +0x08), called by Process_Packets.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

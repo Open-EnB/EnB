@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\attrib_dir_collective.h (name assumed from
 **	attrib_dir_collective.cpp, whose __FILE__ is 'e:\build\beta\G\app\shared\attrib_dir_collective.cpp')
@@ -11,6 +9,8 @@
 **	and ValueFunction through its asserts; the classes are named by what they do (D24). Declared as
 **	far as rebuilt: the collective itself (Members, DestinationAttributes) is not yet.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

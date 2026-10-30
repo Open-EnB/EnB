@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction): e:\build\beta\G\app\Client\soptions.cpp (client 0x75A280-0x75AAB0)
 /*
-**	Earth & Beyond client (reconstruction): e:\build\beta\G\app\Client\soptions.cpp (client 0x75A280-0x75AAB0)
 **	SOptionsClass (soptions.h), SClient's options. Notes at the end.
 */
 #include "soptions.h"

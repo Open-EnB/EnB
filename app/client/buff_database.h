@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\buff_database.h (name assumed from
 **	buff_database.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\buff_database.cpp')
@@ -10,6 +8,8 @@
 **	keyed by the buff type (libs/sgistl, D87). The client names neither the classes nor the members
 **	(D10, D24); the ini keys name the fields.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,10 +1,10 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): CharacterCreatorClass and
 **	LoginNameDataClass (unknown_creator.h), client 0x78CEE0-0x78E190, partly rebuilt.
 */
+
+
 
 #include "unknown_creator.h"
 #include "..\shared\auxdata\linearbu.h"

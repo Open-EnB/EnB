@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // clienttest: stand-ins for the transports connect.cpp's factories name and the tests never open (as
 // udpreplay's connect_stubs.cpp: the classes are declared here with only the constructor, so no vtable
 // is emitted and the names mangle as the real ones). Each stops the program if it is reached.

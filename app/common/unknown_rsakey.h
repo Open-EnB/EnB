@@ -1,12 +1,12 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	PROVISIONAL file name (D10, D86): the RSA key class of tcpconn.cpp and cordmgr.cpp. Both use it
 **	inline (cordmgr.obj keeps Load out of line at 0x85AFB0, tcpconn.obj Read_Number 0x82C260 and
 **	Compute 0x82C330), so it lives in a header both include; no string names it.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

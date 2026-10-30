@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\spline.h (its __FILE__ in the client's asserts)
 **
@@ -11,6 +9,8 @@
 **	Set) and on line 177 (the colour array's Set). The rest of spline.h (the client's
 **	spline.cpp 0x483xxx) is not rebuilt; the classes' names and the unknown first members are ours.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -50,7 +50,7 @@ public:
 	}
 
 // NAME 1: members after their offsets (Resize 0x483820); +0x00 unknown
-	int						m_Unknown00;
+	int						Unknown00;
 	float *					Data;
 	int						Size;
 	int						Last;
@@ -181,7 +181,7 @@ public:
 	}
 
 // NAME 1: members after their offsets (0x485790); +0x00 unknown
-	int						m_Unknown00;
+	int						Unknown00;
 	SplineFloatArrayClass	Red;
 	SplineFloatArrayClass	Green;
 	SplineFloatArrayClass	Blue;

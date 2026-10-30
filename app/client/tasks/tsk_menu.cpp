@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\tasks\ (client 0x76BC50-0x76BF2F). The object has
 **	no __FILE__ string; E&B's objects are linked in alphabetical order and this one lies between
@@ -9,6 +7,8 @@
 **
 **	MenuTask (tsk_menu.h). Notes at the end.
 */
+
+
 
 #include "tsk_menu.h"
 #include "tsk_login.h"

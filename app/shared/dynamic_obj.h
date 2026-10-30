@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\. dynamic_obj.cpp is the client's (its asserts, client
 **	0x44AC70-0x44B740); this header's name is provisional: no string names it.
 **

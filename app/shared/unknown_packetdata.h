@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	PROVISIONAL file name (no assert or __FILE__ names it): the two interfaces the login's data
 **	objects implement (docs/kernel-map-step9.md 5), moved here from tsk_login.h (D90 9b):
 **	the wire interface 0xAEB9EC (now pk.h's Unknown_PacketDataClass itself, included) and
 **	the key/value visitor interface 0xAEADC8 (delta.h's DeltaInterfaceClass has the same table),
 **	the KV encoder's typed adds are kv_encoder_base.h's (D104).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

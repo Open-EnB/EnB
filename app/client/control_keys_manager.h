@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\control_keys_manager.h (name assumed from
 **	control_keys_manager.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\control_keys_manager.cpp')
@@ -10,6 +8,8 @@
 **	'_KeyDefinitions' in the client's asserts) and keymap.ini's user and default mappings, one
 **	ControlKeysManager (RTTI) per SClient ('_Instances'). Declared as far as the rebuilt functions need.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

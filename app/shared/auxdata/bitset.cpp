@@ -135,7 +135,6 @@ bool BitSetClass::Is_Any_Set() const
 **	Notes (here, below the code, because the asserts pin the lines above: D25)
 **
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
 **	Original location: e:\build\beta\G\app\shared\auxdata\bitset.cpp (its __FILE__ string).
 **
 **	Client functions 0x4A47B0-0x4A4C4B, all byte-exact. The asserts are on the client's __LINE__

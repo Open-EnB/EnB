@@ -1,6 +1,6 @@
-/*
-**	Earth & Beyond client (reconstruction): the stub log (D44). See stub_log.h.
-*/
+// Earth & Beyond client (reconstruction): the stub log (D44). See stub_log.h.
+
+
 
 #include <windows.h>
 #include <stdio.h>

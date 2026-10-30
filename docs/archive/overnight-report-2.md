@@ -1,6 +1,6 @@
 # Overnight report, 2026-10-24
 
-Unattended run from 00:02 to about 07:40 PDT, as agreed before you signed off: a coordinator
+Unattended run from 00:02 to about 07:40, as agreed beforehand: a coordinator
 and one builder subagent at a time (no parallel builds, since `verify` shares
 `%TEMP%\enb_import` and the VMs' scratch), a heartbeat every 30 minutes, each verified gain that
 loses nothing committed at once, never pushed, never `assemble`. The queue, the log and every
@@ -63,10 +63,10 @@ Each fix's evidence is in its commit message; the log entry in progress.md lists
   of symbols declared before the classes. Docs corrected (workflow.md §3, the old report's §3
   with a dated note); only 0x947310 is lost (D18).
 * **Gains that dropped an unused helper lost duplicate pairs.** Builders reverted them and asked;
-  your 03:40 ruling (D20) let 6e apply them, each duplicate named in its commit message.
+  your ruling (D20) let 6e apply them, each duplicate named in its commit message.
 * **WW3D's sort lists (694a02b) cost real meshmatdesc pairs** through the same symbol-count
   noise. Kept the unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations in
-  ww3d.h to compensate (D28, your 06:25 ruling): noise compensation, not evidence.
+  ww3d.h to compensate (D28, your ruling): noise compensation, not evidence.
 * **gaps.py located functions at mid-instruction addresses** (E8 bytes inside other
   instructions): 216 of 30,033 starts were false. Fixed for gaps.py, then for every tool (D27).
   Its pairings can still be wrong (neighbours swapped, template dtors): builders confirmed pairs
@@ -85,18 +85,18 @@ All new traps are in workflow.md §3.
 
 All yours, recorded in progress.md §2:
 
-* ~03:40: D20, COMDAT-duplicate pairs still matched elsewhere are not losses.
-* ~03:47: `TextureFilterClass` -> Renegade's filter members (folded into D9 at ~03:55);
+* D20, COMDAT-duplicate pairs still matched elsewhere are not losses.
+* `TextureFilterClass` -> Renegade's filter members (folded into D9);
   `USE_WWSHADE` for WW3D2 (D26, under D12); verified function starts by default (D27); D18 kept.
-* 03:59: 6i first, then 6e-7. 04:16: the importer lock.
-* 04:40: PW option A (D21); the VM pool without a warm sync cache (D30). 04:44: build the pool.
-* ~06:25: D9 reworded ("E&B follows Zero Hour's KM/KJM (shader system) line through 08/01/02,
+* 6i first, then 6e-7; the importer lock.
+* PW option A (D21); the VM pool without a warm sync cache (D30); build the pool.
+* D9 reworded ("E&B follows Zero Hour's KM/KJM (shader system) line through 08/01/02,
   without the 08/05/02+ texture redesign and without the Generals team's MW/GTH changes"); PS
   (D22); app files as a non-EA library `app` (D23); `XxxClass` names for app classes (D24); keep
   the ww3d.h declarations (D28); `USE_WWSHADE` in wwshade, soft like D14 (D26); retire the two old
   clones; `verify --pool K`; sessions release their VMs and the pool reclaims orphans (D31);
   cap 5.
-* 06:38: app asserts on their real `__LINE__` lines through the file layout, `#line` only in
+* App asserts on their real `__LINE__` lines through the file layout, `#line` only in
   drafts (D25); keep 8f5cbfe and reword its reason (D29); reword the four outdated
   `TextureFilterClass` patch reasons.
 * Builders stay serial for now (D32).
@@ -127,6 +127,6 @@ Also in progress.md §3.
 * Next steps: progress.md §4 (first: PS, +19 wwshade; then the `app` library with `bitset.cpp`).
 * Night state: `.work/night/plan.md`, `.work/night/item*/report.md` and their scripts and specs;
   `.work/ebconfig/` for the assessment.
-* Build VMs: Win10 (192.168.193.108) is the only fixed host (`.work/vc6_hosts.json`); pool VMs
+* Build VMs: Win10 is the only fixed host (`.work/vc6_hosts.json`); pool VMs
   `enb-vc6-01`/`02` are stopped and free (`python tools/vc6/pool.py list`). The two old clones
-  and `Tools\VMClones\1,2` are gone.
+  are gone.

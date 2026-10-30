@@ -1,6 +1,6 @@
-/*
-**	Earth & Beyond client (reconstruction): link-time stubs for wwaudio.lib (D44, docs/milestones.md 3.2)
-*/
+// Earth & Beyond client (reconstruction): link-time stubs for wwaudio.lib (D44, docs/milestones.md 3.2)
+
+
 
 #include "stub_log.h"
 #include "listenerhandle.h"

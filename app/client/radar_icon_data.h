@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\radar_icon_data.h (name assumed from radar_icon_data.cpp)
 **
 **	The base of the gutter and starmap data (constructor 0x7BC040, which calls ClientObjectDataClass's);
 **	its own size and members are not rebuilt: declared only as their base.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

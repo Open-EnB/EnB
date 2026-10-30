@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: no assert names it; land.h is
 **	a proposal)
@@ -18,7 +16,7 @@
 **
 **	Names: the client's "Land.Peek() == (LandClass*)obj" names the class LandClass; its profile label
 **	"Land::Update_Lightmap_ManualThreaded" names that method. The rest are descriptive (D10), with
-**	their evidence; members whose use isn't known yet are m_UnknownXX.
+**	their evidence; members whose use isn't known yet are UnknownXX.
 **
 **	The client: Create 0x46A3A0, ctor 0x468E90, Load_Assets 0x4691D0, dtor 0x46A480 (scalar deleting
 **	0x4691A0), the small virtuals 0x46C600-0x46C6E0, Update_Patches 0x46B3C0, the lightmap 0x46D900 /
@@ -28,6 +26,8 @@
 **
 **	VIDTEST draws its land with this class (D101), its trees too since 2026-10-28 (Create_Decorations, the patch records).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -107,14 +107,14 @@ public:
 	~LandPatchRecordClass(void);
 
 // NAME 1: members after their offsets (ctor 0x474990)
-	RefCountPtr<RefCountClass>	m_Unknown00;
-	RefCountPtr<RefCountClass>	m_Unknown04;
-	RefCountPtr<RefCountClass>	m_Unknown08;
-	RefCountPtr<RefCountClass>	m_Unknown0C;
-	int							m_Unknown10;
-	int							m_Unknown14;
-	int							m_Unknown18;
-	int							m_Unknown1C;
+	RefCountPtr<RefCountClass>	Unknown00;
+	RefCountPtr<RefCountClass>	Unknown04;
+	RefCountPtr<RefCountClass>	Unknown08;
+	RefCountPtr<RefCountClass>	Unknown0C;
+	int							Unknown10;
+	int							Unknown14;
+	int							Unknown18;
+	int							Unknown1C;
 	bool							Visible;				// NAME 2: +0x20, the patch's Visible (Update_Patches 0x46B3C0)
 	int							Level;					// NAME 2: +0x24, the patch's Level (Update_Patches)
 };
@@ -226,7 +226,7 @@ protected:
 	}
 
 protected:
-// NAME 2: members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; m_UnknownXX: use not known
+// NAME 2: members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; UnknownXX: use not known
 	int							LightmapSerial;						// +0x8C, counts the lightmap swaps (0x46D8B0)
 	HeightFieldClass *		Field;									// +0x90, HeightFieldClass::Load; never set by the ctor
 	IndexBufferClass *		StripBuffers[MAX_LEVELS];			// NAME 2: a level's triangle strip over a patch (Build_Index_Buffers 0x478240)
@@ -247,7 +247,7 @@ protected:
 	int							CameraCellY;							// +0x110
 	int							CameraCellZ;							// NAME 2: +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0
 	TextureClass *				LightmapTextures[2];					// +0x118
-	TextureClass *				m_Unknown120;							// a third texture of the field's size
+	TextureClass *				Unknown120;							// a third texture of the field's size
 	TextureClass *				DetailTexture;							// +0x124, [LAND] DETAIL_MAP
 	VertexMaterialClass *	Material;								// +0x128
 	ShaderClass					Shader;									// +0x12C
@@ -264,15 +264,15 @@ protected:
 	float							SeaLevel;								// +0x160, [SEA] SEA_LEVEL
 	float							SeaDetailScales[MAX_SEAS][2];		// +0x164, [SEA] DETAIL_SCALE..DETAIL_SCALE4
 	int							SeaCount;								// +0x174
-	RefCountPtr<RefCountClass>	m_Unknown178;
-	ShaderClass					m_Unknown17C;
-	RefCountPtr<RefCountClass>	m_Unknown180;
-	ShaderClass					m_Unknown184;
-	RefCountPtr<RefCountClass>	m_Unknown188;
+	RefCountPtr<RefCountClass>	Unknown178;
+	ShaderClass					Unknown17C;
+	RefCountPtr<RefCountClass>	Unknown180;
+	ShaderClass					Unknown184;
+	RefCountPtr<RefCountClass>	Unknown188;
 	LandPatchRecordClass *	PatchRecords;							// +0x18C, PatchCount
-	bool							m_Unknown190;
-	bool							m_Unknown191;
-	bool							m_Unknown192;
+	bool							Unknown190;
+	bool							Unknown191;
+	bool							Unknown192;
 	void *						Thread;									// +0x194, a HANDLE the dtor waits for
 // NAME 2: the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the
 // inlined Update_Lightmap_Full calls in 0x46DA70 / 0x46DDD0; the defaults are its constructor's, inlined into the land's (0x468E90)
@@ -283,12 +283,12 @@ protected:
 	int							CursorX;									// +0x1D8, steps of LightmapChunk
 	int							CursorY;									// +0x1DC
 	bool							ThreadDone;							// +0x1E0, Update_Lightmap_Threaded's worker has finished
-	unsigned char *			m_Unknown1E4;							// Field Count bytes
-	unsigned short *			m_Unknown1E8;							// Field Count shorts
-	unsigned short *			m_Unknown1EC;							// Field Count shorts
-	unsigned char *			m_Unknown1F0;							// Field Count bytes
-	unsigned char *			m_Unknown1F4;							// Field Count bytes
-	unsigned char *			m_Unknown1F8;							// Field Count bytes
+	unsigned char *			Unknown1E4;							// Field Count bytes
+	unsigned short *			Unknown1E8;							// Field Count shorts
+	unsigned short *			Unknown1EC;							// Field Count shorts
+	unsigned char *			Unknown1F0;							// Field Count bytes
+	unsigned char *			Unknown1F4;							// Field Count bytes
+	unsigned char *			Unknown1F8;							// Field Count bytes
 // NAME 2: what Prepare_Lighting 0x46C730 makes of the lighting record
 	Vector3						Normals[256];						// +0x1FC, a normal table: NormalColors[i] lights Normals[i]
 	unsigned short				HorizonLow;							// +0xDFC, (SunAngle - ShadowBias) in 0..65535 = 0..pi/2
@@ -297,10 +297,10 @@ protected:
 	bool							SunFromWest;						// +0xE04, SunDirection.X < 0
 	float							ShadowStep;							// +0xE08, 1 / (2 ceil(ShadowBias in horizon units))
 	unsigned int				NormalColors[256];				// +0xE0C
-	unsigned int *				m_Unknown120C;							// Field Count dwords
+	unsigned int *				Unknown120C;							// Field Count dwords
 	unsigned char *			Colors;									// +0x1210, [LAND] COLOR_MAP, RGB per vertex
-	unsigned char *			m_Unknown1214;							// one byte per vertex from the colour map
-	std::vector< RefCountPtr<TexProjectClass> >	m_Unknown1218;
+	unsigned char *			Unknown1214;							// one byte per vertex from the colour map
+	std::vector< RefCountPtr<TexProjectClass> >	Unknown1218;
 };
 
 #endif //__LAND_H

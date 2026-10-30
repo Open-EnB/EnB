@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta_array.h (the client's __FILE__
 **	string '..\shared/auxdata/delta_array.h', from the float array's constructor 0x703550, line 71)
@@ -10,6 +8,8 @@
 **	0xB71A6C), each made with the array's value (M1.3). The float array's vtable is 0xB00C20 (its
 **	global 0xC415DC), the 20-byte one's 0xB00BC4. The client doesn't name the template (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -60,7 +60,7 @@ template<class T> int DeltaArrayClass<T>::UnknownGlobal;
 template<class T> DeltaArrayClass<T>::DeltaArrayClass(const char *name, int count, const T &value) :
 	DeltaCompoundClass(name)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 	char item_name[256];
 	int i = 0;
 	if (count > 0) {

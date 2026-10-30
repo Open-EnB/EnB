@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // The movie player under the movie task (movietest): Renegade's BINKMovie (Code\BinkMovie, EA's
 // GPL source, staged as binkmovie_renegade.inl by tools/harness/movietest.py; not in the tree) renamed to
 // RenegadeBINKMovie, with binkw32.dll loaded at run time, and E&B's BINKMovie interface on top

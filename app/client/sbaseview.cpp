@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 #include "sbaseview.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\rendobj.h"
@@ -38,7 +39,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
 
 
 

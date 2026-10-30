@@ -1,13 +1,13 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\bitset.h (name assumed from bitset.cpp)
 **
 **	A fixed-size array of bits. The client names neither the class nor the header: BitSetClass is
 **	a Westwood-style name (D24); Buffer and NumBits come from bitset.cpp's asserts.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

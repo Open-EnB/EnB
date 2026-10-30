@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\client\client.cpp (client 0x726100-0x728450)
 **	ClientClass (client.h). The asserts sit on the client's lines (D25). Notes at the end.
 */

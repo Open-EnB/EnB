@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\common\udpconn.h (name assumed from udpconn.cpp)
 **
@@ -11,6 +9,8 @@
 **	is pumped by a kernel task every 100 ms ('CordMgr::Run'). PARTIAL: UDPConnectionManager
 **	(0xB08934) and the UDP listener (0xB08958) are the server's side; 0x82E1D0 sits at udpconn.cpp's end.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

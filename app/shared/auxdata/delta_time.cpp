@@ -18,7 +18,7 @@ template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *nam
 	DeltaClass(name),
 	Value(value)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 }
 
 
@@ -83,7 +83,7 @@ static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration);  /
 
 template<> void DeltaTemplateClass<DurationClass>::Unknown_00(DeltaChildVisitorClass *visitor)
 {
-	visitor->Add_Value(m_Unknown80, Name.Get_String(), Make_Accessor(&Value));
+	visitor->Add_Value(Unknown80, Name.Get_String(), Make_Accessor(&Value));
 }
 
 static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration)

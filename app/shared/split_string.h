@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\split_string.h (name assumed from
 **	split_string.cpp, whose __FILE__ is 'e:\build\beta\G\app\shared\split_string.cpp')
@@ -10,6 +9,7 @@
 **	virtuals a font-measured subclass overrides (unknown_font_split_string.h). The client's assert
 **	names buff; the rest are D10 / D24 names.
 */
+
 
 #if defined(_MSC_VER)
 #pragma once

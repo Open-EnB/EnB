@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\wwudp\bandwidthaccounting.cpp (client 0x84C720-0x84DFB0)
 **
@@ -13,6 +11,8 @@
 **	linked, but idle. The per-address table is WWLib's DynamicVectorClass of 0x3C-byte entries.
 **	The debug window calls sit on the client's lines (281-282, 310-361: D25).
 */
+
+
 
 #include "..\kernel\kernel.h"
 #include "udp.h"

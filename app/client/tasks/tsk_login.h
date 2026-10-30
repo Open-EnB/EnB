@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\tasks\tsk_login.h (name assumed from tsk_login.cpp)
 **
@@ -9,6 +7,8 @@
 **	select and creation, then a ClientTaskClass. Vtable 0xB040D4 (29 slots), 0x1148 bytes
 **	(docs/kernel-map.md 3). The members are traced only as far as the rebuilt functions use them.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

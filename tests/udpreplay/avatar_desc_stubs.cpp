@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: what app\shared\avatar_desc.cpp calls that the harness doesn't compile (AVATAR_DESCRIPTION 97's
 // member brings avatar_desc.cpp in: udpreplay.py's CONN). Its key/value side and the defaults loader's
 // report are not used by the packets; each stand-in does nothing.

@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\wwudp\cordcon.cpp (client 0x84FED0-0x854E70)
 **
@@ -12,6 +10,8 @@
 **	asserts sit on lines 521, 632 and 977 (D25): this file does not keep them on their lines.
 **	Notes at the end.
 */
+
+
 
 // E&B built its own code with WWLib's profiler on (every CordCon function opens a sample:
 // WWProfileManager::Start_Profile 0x9EA930 under the flag 0xC40488).

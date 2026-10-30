@@ -9,8 +9,8 @@ connect.cpp's base and stream connection, udpconn.cpp), the packet factory with 
 263 generated classes, MenuTask and the movie tasks (`git log --oneline` from b5f5c26).
 
 Evidence tags: **S** a client string naming it (profile label, log text, assert, `__FILE__`),
-**C** what the code does (a descriptive name, not the client's), **N** earlier protocol research
-(its login notes). Sizes are to the next verified function start (`appfile.py show`).
+**C** what the code does (a descriptive name, not the client's), **N** the maintainer's earlier,
+unpublished protocol research ([prior-work.md](prior-work.md)); its findings are restated here where used. Sizes are to the next verified function start (`appfile.py show`).
 Addresses are the retail client.exe's (SHA-256 `249f8524…51c4`); the tools that give them:
 `appfile.py show FILE`, `client.py dis|callers|refs`, `pseudocode.py --show`; vtable slot dumps
 below came from a small reader over `clientimage.py` (follows the incremental-link thunks).
@@ -148,7 +148,7 @@ The task flow: intro movie (focused) -> scripted movie -> MenuTask -> LoginTask 
 start-up) -> ClientTask (join, redirects, sector) -> back to a new LoginTask when the connection
 drops; the UDP task and the bandwidth accounting run in the background.
 
-Correction to the earlier research's login notes §2: LoginTaskClass's vtable starts at **0xB040D4**, not
+Correction to the earlier research (N): LoginTaskClass's vtable starts at **0xB040D4**, not
 0xB040CC (0xB040CC holds two zero dwords before it). Its slot offsets are 8 lower than those notes
 give: the ticket step 0x768B00 is +0x4C (notes: +0x54), Go_Next_Step 0x769500 +0x54 (notes:
 +0x5C). The login screen's "vfunc 0x4C" (asks the task to log in) is this +0x4C.
@@ -297,7 +297,7 @@ the wnet decision.
 
 ## 7. Traps and corrections found while mapping
 
-* The earlier research's login notes give LoginTaskClass's vtable as 0xB040CC with slot offsets 8 too
+* The earlier research (N) gives LoginTaskClass's vtable as 0xB040CC with slot offsets 8 too
   high: the table starts at 0xB040D4 (§3).
 * app-functions.json attributes the connection base's inline slots 0x726AF0-0x726BF0 to
   client.cpp: they are connect.h's inline virtuals, emitted there.

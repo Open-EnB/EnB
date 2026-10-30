@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\client_lego_impl.h (name assumed from
 **	client_lego_impl.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\client_lego_impl.cpp')
@@ -13,6 +11,8 @@
 **	(cbasset.ini's sections, one map per asset id, shared through _Global_Bone_Maps) and its
 **	radius, the furthest child's reach. Declared as far as the rebuilt functions need.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

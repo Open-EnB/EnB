@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta.h (name assumed from delta.cpp)
 **
@@ -11,6 +9,8 @@
 **	(earlier protocol research: DeltaBase, DeltaCompound), checked against the code here.
 **	Virtuals whose purpose isn't known are named after their vtable offset (D10).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -99,23 +99,23 @@ public:
 	virtual void Unknown_40(DeltaClass *delta);									// +0x40 0x4A4F50
 	virtual void Unknown_44(DeltaClass *delta);									// +0x44 0x4A4F80
 
-	int m_Unknown04;					// +0x04 the class's global (see above)
+	int Unknown04;					// +0x04 the class's global (see above)
 	NameClass Name;					// +0x08 the constructor's name  // NAME 2: describes what it does
 	NameClass FullName;				// +0x3C the parent's FullName, then Name (Set_Parent)  // NAME 2: describes what it does
-	unsigned int m_Unknown70;		// +0x70 0, 1 or 2 (Unknown_18 sets 2, Unknown_1C 0, Unknown_20 caps at 1)
+	unsigned int Unknown70;		// +0x70 0, 1 or 2 (Unknown_18 sets 2, Unknown_1C 0, Unknown_20 caps at 1)
 	DeltaClass *Parent;				// +0x74  // NAME 2: describes what it does
-	int m_Unknown78;					// +0x78 the position in the parent's Children
-	int m_Unknown7C;					// +0x7C a running index over the tree (Set_Parent)
-	int m_Unknown80;					// +0x80 0x3FF
+	int Unknown78;					// +0x78 the position in the parent's Children
+	int Unknown7C;					// +0x7C a running index over the tree (Set_Parent)
+	int Unknown80;					// +0x80 0x3FF
 };
 
 // vtable 0xAEABE4, size 0x9C
 class DeltaCompoundClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound)
 {
 public:
-	DeltaCompoundClass(const char *name) : DeltaClass(name), Lookup(0), m_Unknown98(0)
+	DeltaCompoundClass(const char *name) : DeltaClass(name), Lookup(0), Unknown98(0)
 	{
-		m_Unknown04 = UnknownGlobal;
+		Unknown04 = UnknownGlobal;
 	}
 	static int UnknownGlobal;	// the per-class global at +0x04 (0xBE3A74)
 	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A55D0
@@ -139,7 +139,7 @@ public:
 
 	std::vector<DeltaClass *> Children;		// +0x84  // NAME 2 [Children]: describes what it does
 	LookupClass *Lookup;							// +0x94 (assert name), made on first use
-	int m_Unknown98;								// +0x98 the number of indices Set_Parent gave the subtree
+	int Unknown98;								// +0x98 the number of indices Set_Parent gave the subtree
 };
 
 #endif //__DELTA_H

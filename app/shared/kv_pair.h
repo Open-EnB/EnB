@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\kv_pair.h (name assumed from kv_pair.cpp; no
 **	assert names it)
@@ -10,6 +8,8 @@
 **	(the encoder's two bit classes of the field's mask), and the value in the derived classes
 **	(kv_pair_string.cpp: a string accessor). The client doesn't name the classes (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -37,12 +37,12 @@ public:
 	virtual void Update_Saved() = 0;											// +0x18 saves the current value  // NAME 2: descriptive name of the vtable slot (D57)
 
 	PermString Key;					// +0x04  // NAME 3: after the assert's parameter key (kv_pair.cpp)
-	bool m_Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
-	bool m_Unknown09;					// +0x09 the odd bits
+	bool Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
+	bool Unknown09;					// +0x09 the odd bits
 
 	// what Clone's copy reads them through (inline: the client passes each through a temporary, 0x4F71F0)
-	bool Get_Unknown08() const { return m_Unknown08; }	// NAME 1: neutral (D10)
-	bool Get_Unknown09() const { return m_Unknown09; }	// NAME 1: neutral (D10)
+	bool Get_Unknown08() const { return Unknown08; }	// NAME 1: neutral (D10)
+	bool Get_Unknown09() const { return Unknown09; }	// NAME 1: neutral (D10)
 };
 
 // A typed value reached through the pair (the float field's interface: vtable 0xAE78D0, the destructor

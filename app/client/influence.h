@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\influence.h (name assumed from influence.cpp)
 **
@@ -9,6 +7,8 @@
 **	the record CREATE 4 makes for a type 10 object and puts in ClientClass's third list (+0x86C, keyed by
 **	+0x24). Declared as far as CREATE needs it (its constructor, slot +0x10 and size); not rebuilt.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

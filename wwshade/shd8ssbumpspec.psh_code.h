@@ -1,4 +1,4 @@
-// EnB reconstruction: the output of Westwood's shader pre-processor (shdpp.exe, in Zero
+// Earth & Beyond client (reconstruction): the output of Westwood's shader pre-processor (shdpp.exe, in Zero
 // Hour's WWShade) for shd8ssbumpspec.psh, which EA's release does not include. Rebuilt from
 // client.exe .data 0xBCEB7C-0xBCEBB7 (60 bytes): the pre-processed shader source text
 // (53 characters and its NUL, zero padded to a DWORD), packed little-endian into DWORDs

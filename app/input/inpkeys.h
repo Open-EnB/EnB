@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: unknown. The object has no __FILE__ string; it is linked between
 **	app\input\inpdsp.cpp and app\input\input.cpp (alphabetical in that folder), so the name
@@ -11,6 +9,8 @@
 **	(0xBDA940) and a code -> its name (0xBDA928); inpdsp.cpp's ini reader and writer and the
 **	control keys manager turn keys into text and back through them.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

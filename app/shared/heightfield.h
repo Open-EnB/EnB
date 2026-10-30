@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\ (file name unknown: no assert names it; neutral
 **	name, D10)
@@ -19,6 +17,8 @@
 **	HeightFieldClass is descriptive. The object is 0x98 bytes; the heights are 16-bit, in a buffer
 **	aligned to 64 bytes (+0x04 is the allocation), indexed (j & Mask) << Log2 | (i & Mask).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

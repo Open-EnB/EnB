@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\fontdatabase.h (name assumed from
 **	fontdatabase.cpp, whose __FILE__ is 'e:\build\beta\G\app\Client\fontdatabase.cpp')
@@ -11,6 +9,8 @@
 **	fonts in use (Font[MAXFONTS]). The client's asserts name AllFonts, Font, font32Ptr, MAXFONTS,
 **	Find_Font_File_Index and the locals info, chat_index, idx, fdb; the rest are D10 / D24 names.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

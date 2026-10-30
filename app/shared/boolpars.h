@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\boolpars.h (name assumed from boolpars.cpp,
 **	whose __FILE__ is 'e:\build\beta\G\app\shared\boolpars.cpp')
@@ -12,6 +10,8 @@
 **	The client names TreeRoot and EvaluatorCallbacks (its asserts) and the arguments param_list, str
 **	and p; the classes and the other names are guesses (D10, D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

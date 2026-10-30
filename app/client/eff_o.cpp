@@ -1,12 +1,12 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\eff_o.cpp (the client's __FILE__)
 **
 **	The effect object's base (client 0x6E6710-0x6E6F60 so far): see eff_o.h. Notes at the end.
 */
+
+
 
 #include "eff_o.h"
 #include "client.h"

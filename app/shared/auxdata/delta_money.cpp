@@ -16,7 +16,7 @@ template<> DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, 
 	DeltaClass(name),
 	Value(value)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 }
 
 
@@ -69,7 +69,7 @@ template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, con
 		G_ASSERT(0);
 		return false;
 	}
-	Value.m_Unknown00 = value;
+	Value.Unknown00 = value;
 	return true;
 }
 

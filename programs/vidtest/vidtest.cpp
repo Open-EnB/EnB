@@ -1,6 +1,5 @@
+// Earth & Beyond client (reconstruction): VIDTEST : the program's own code
 /*
-**	Earth & Beyond VIDTEST (reconstruction, D45): the program's own code
-**
 **	The shape of VIDTEST.EXE (docs/vidtest.md): WinMain 0x4235C0 (1.1), WndProc 0x4239D0 (1.2),
 **	Setup_Device 0x423BE0 (1.3), Frame 0x424E90 (1.4), Build_Scenes 0x423F20 (2), the cameras and
 **	per-frame rendering of each test (2.2, 2.3), Update_Lighting 0x4250B0 (2.4) and the text overlay
@@ -40,6 +39,7 @@
 **	not supported, -2 scene build failed; ours: 0 after -frames N, 11 window, 12 WW3D::Init,
 **	13 no device, 15 Begin_Render/End_Render, 16 screenshot.
 */
+
 
 #include <windows.h>
 #include <mmsystem.h>

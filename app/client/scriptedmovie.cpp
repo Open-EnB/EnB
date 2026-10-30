@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 #include <windows.h>
 #include "sclient.h"
 #include "..\shared\unknown_debug.h"
@@ -123,7 +124,6 @@ static float Unknown_B07C54 = 50.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C58 = 1.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C5C = 0.95f;	// NAME 1: neutral (D10)
 static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
-
 
 
 

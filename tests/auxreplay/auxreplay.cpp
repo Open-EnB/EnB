@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // M1.3's harness (milestones.md 2.1 gates (b) and (c)): every AUX_DATA of a trace goes through the
 // client's decode path into the root its object's CREATE made (the generated roots,
 // app/client/aux_roots.h), is re-encoded from what the decode touched, and compared byte for byte;
@@ -22,7 +23,7 @@
 // would, if its encoder is the same code. The server's fields count their changes up
 // (DeltaClass::Unknown_34); the client's decode sets 2 instead. So the harness keeps a server-side
 // version per field: an updated field and its parents get new ones, a defaulted field keeps its
-// own; they go into m_Unknown70 before the encode. Player uses its own policy and change table
+// own; they go into Unknown70 before the encode. Player uses its own policy and change table
 // (UnknownSendRootClass::Unknown_48, Encode_Changes 0x4A4660); the factory's roots get the same
 // ones made here (the same policy: "*" INCLUDE, compiled per root by policy.cpp).
 #include <stdio.h>
@@ -99,7 +100,7 @@ static void Bump(DeltaClass *d)
 static void Sync(DeltaClass *d)
 {
 	std::map<DeltaClass *, unsigned int>::iterator i = Version.find(d);
-	d->m_Unknown70 = i == Version.end() ? 0 : i->second;
+	d->Unknown70 = i == Version.end() ? 0 : i->second;
 	DeltaCompoundClass *c = d->As_Compound();
 	if (c != 0) {
 		for (size_t j = 0; j < c->Children.size(); j++) {
@@ -221,11 +222,11 @@ static void Leaves(FILE *f, int k, DeltaClass *d)
 	if (k == 0) {
 		LinearBufferClass buf(0x100, 0x100);
 		d->Write(buf);
-		fprintf(f, "U %d %s ", d->m_Unknown7C, path.c_str());
+		fprintf(f, "U %d %s ", d->Unknown7C, path.c_str());
 		Hex(f, buf.Buffer, buf.Size);
 		fprintf(f, "\n");
 	} else {
-		fprintf(f, "%c %d %s\n", k == 1 ? 'D' : 'X', d->m_Unknown7C, path.c_str());
+		fprintf(f, "%c %d %s\n", k == 1 ? 'D' : 'X', d->Unknown7C, path.c_str());
 	}
 }
 
@@ -289,10 +290,10 @@ static void Encoder_State(Object &o)
 static LinearBufferClass *Encode_Changes(UnknownRootClass *root, PolicyClass *policy, ChangeTableClass *changes, unsigned int time)
 {
 	changes->Time = time;
-	if (changes->Root->Dirty || changes->Delta->m_Unknown70 != changes->Root->Stamp) {
+	if (changes->Root->Dirty || changes->Delta->Unknown70 != changes->Root->Stamp) {
 		changes->Scan();
 	}
-	if (changes->Entries[root->m_Unknown7C].Changed > 0) {
+	if (changes->Entries[root->Unknown7C].Changed > 0) {
 		return root->Encode(policy, changes);
 	}
 	return 0;
@@ -306,7 +307,7 @@ static void Print_Lists(FILE *f, UnknownRootClass *root, PolicyClass *policy, Ch
 	std::vector<ChangeEntryClass> after = changes->Entries;
 	std::copy(before.begin(), before.end(), changes->Entries.begin());
 	changes->Time = time;
-	if (changes->Root->Dirty || changes->Delta->m_Unknown70 != changes->Root->Stamp) {
+	if (changes->Root->Dirty || changes->Delta->Unknown70 != changes->Root->Stamp) {
 		changes->Scan();
 	}
 	DeltaCollectorClass collector(policy, changes);
@@ -432,7 +433,7 @@ int main(int argc, char **argv)
 		w.Write(&f, 1);
 		LinearBufferClass *ok;
 		if (form) {
-			RecordTableClass table(root->m_Unknown98, &lists[0], &lists[1], &lists[2]);
+			RecordTableClass table(root->Unknown98, &lists[0], &lists[1], &lists[2]);
 			ok = table.Unknown_All(&w);
 		} else {
 			DeltaListSetClass set(&lists[0], &lists[1], &lists[2]);

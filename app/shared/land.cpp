@@ -54,7 +54,7 @@ LandClass::LandClass(void) :
 	CameraCellX(-999999),
 	CameraCellY(-999999),
 	CameraCellZ(0),
-	m_Unknown120(NULL),
+	Unknown120(NULL),
 	DetailTexture(NULL),
 	Material(NULL),
 	Patches(NULL),
@@ -64,32 +64,32 @@ LandClass::LandClass(void) :
 	FrontLightmap(0),
 	BackLightmap(1),
 	SeaCount(0),
-	m_Unknown17C(ShaderClass::_PresetOpaqueShader),
-	m_Unknown184(ShaderClass::_PresetOpaqueShader),
+	Unknown17C(ShaderClass::_PresetOpaqueShader),
+	Unknown184(ShaderClass::_PresetOpaqueShader),
 	PatchRecords(NULL),
-	m_Unknown190(false),
-	m_Unknown191(false),
-	m_Unknown192(true),
+	Unknown190(false),
+	Unknown191(false),
+	Unknown192(true),
 	Thread(NULL),
 	UpdateMin(0, 0),
 	UpdateMax(0, 0),
 	CursorX(0),
 	CursorY(0),
 	ThreadDone(false),
-	m_Unknown1E4(NULL),
-	m_Unknown1E8(NULL),
-	m_Unknown1EC(NULL),
-	m_Unknown1F0(NULL),
-	m_Unknown1F4(NULL),
-	m_Unknown1F8(NULL),
+	Unknown1E4(NULL),
+	Unknown1E8(NULL),
+	Unknown1EC(NULL),
+	Unknown1F0(NULL),
+	Unknown1F4(NULL),
+	Unknown1F8(NULL),
 	HorizonLow(0),
 	HorizonHigh(0),
 	SkyColorDX8(0),
 	SunFromWest(true),
 	ShadowStep(0),
-	m_Unknown120C(NULL),
+	Unknown120C(NULL),
 	Colors(NULL),
-	m_Unknown1214(NULL)
+	Unknown1214(NULL)
 {
 	LightmapTextures[0] = LightmapTextures[1] = NULL;
 	int i;
@@ -135,13 +135,13 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	PatchSize = 1 << PatchLog2;
 	PatchVerts = PatchSize + 1;
 	Reciprocals = new float[Field->Get_Size() * 2 - 1];
-	m_Unknown1E4 = new unsigned char[Field->Get_Count()];
-	m_Unknown1E8 = new unsigned short[Field->Get_Count()];
-	m_Unknown1EC = new unsigned short[Field->Get_Count()];
-	m_Unknown1F0 = new unsigned char[Field->Get_Count()];
-	m_Unknown1F4 = new unsigned char[Field->Get_Count()];
-	m_Unknown1F8 = new unsigned char[Field->Get_Count()];
-	m_Unknown120C = new unsigned int[Field->Get_Count()];
+	Unknown1E4 = new unsigned char[Field->Get_Count()];
+	Unknown1E8 = new unsigned short[Field->Get_Count()];
+	Unknown1EC = new unsigned short[Field->Get_Count()];
+	Unknown1F0 = new unsigned char[Field->Get_Count()];
+	Unknown1F4 = new unsigned char[Field->Get_Count()];
+	Unknown1F8 = new unsigned char[Field->Get_Count()];
+	Unknown120C = new unsigned int[Field->Get_Count()];
 	PatchRecords = new LandPatchRecordClass[PatchCount];
 	Patches = new LandPatchClass *[PatchCount];
 	int i;
@@ -154,7 +154,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	WW3D::Get_Device_Resolution(width, height, bits, windowed);
 	Is16Bit = bits <= 16;
 	WW3DFormat format = Is16Bit ? WW3D_FORMAT_A4R4G4B4 : WW3D_FORMAT_A8R8G8B8;
-	m_Unknown120 = new TextureClass(Field->Get_Size(), Field->Get_Size(), format, MIP_LEVELS_1, TextureClass::POOL_SYSTEMMEM);
+	Unknown120 = new TextureClass(Field->Get_Size(), Field->Get_Size(), format, MIP_LEVELS_1, TextureClass::POOL_SYSTEMMEM);
 	for (i = 0; i < 2; i++) {
 		LightmapTextures[i] = new TextureClass(Field->Get_Size(), Field->Get_Size(), format, MIP_LEVELS_1, TextureClass::POOL_DEFAULT);
 		LightmapTextures[i]->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
@@ -180,14 +180,14 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 			memcpy(Colors, image, pixels * 3);
 			break;
 		case 32:
-			m_Unknown1214 = new unsigned char[pixels];
+			Unknown1214 = new unsigned char[pixels];
 			for (int y = 0; y < targa.Header.Height; y++) {
 				for (int x = 0; x < targa.Header.Width; x++) {
 					int n = y * targa.Header.Width + x;
 					Colors[n * 3] = image[n * 4];
 					Colors[n * 3 + 1] = image[n * 4 + 1];
 					Colors[n * 3 + 2] = image[n * 4 + 2];
-					m_Unknown1214[n] = image[n * 4 + 3];
+					Unknown1214[n] = image[n * 4 + 3];
 				}
 			}
 			break;
@@ -197,7 +197,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	if (max_size < (unsigned int)targa.Header.Width) {
 		unsigned char *colors = new unsigned char[max_size * max_size * 3];
 		unsigned char *extra = NULL;
-		if (m_Unknown1214 != NULL) {
+		if (Unknown1214 != NULL) {
 			extra = new unsigned char[max_size * max_size];
 		}
 		unsigned int step = (unsigned int)targa.Header.Width / max_size;
@@ -214,8 +214,8 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 						r += Colors[n * 3];
 						g += Colors[n * 3 + 1];
 						b += Colors[n * 3 + 2];
-						if (m_Unknown1214 != NULL) {
-							a += m_Unknown1214[n];
+						if (Unknown1214 != NULL) {
+							a += Unknown1214[n];
 						}
 					}
 				}
@@ -227,16 +227,16 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 				colors[k * 3] = (unsigned char)r;
 				colors[k * 3 + 1] = (unsigned char)g;
 				colors[k * 3 + 2] = (unsigned char)b;
-				if (m_Unknown1214 != NULL) {
+				if (Unknown1214 != NULL) {
 					extra[k] = (unsigned char)a;
 				}
 			}
 		}
 		delete [] Colors;
 		Colors = colors;
-		if (m_Unknown1214 != NULL) {
-			delete [] m_Unknown1214;
-			m_Unknown1214 = extra;
+		if (Unknown1214 != NULL) {
+			delete [] Unknown1214;
+			Unknown1214 = extra;
 		}
 	}
 
@@ -342,12 +342,12 @@ LandClass::~LandClass(void)
 	}
 	REF_PTR_RELEASE(LightmapTextures[0]);
 	REF_PTR_RELEASE(LightmapTextures[1]);
-	REF_PTR_RELEASE(m_Unknown120);
+	REF_PTR_RELEASE(Unknown120);
 	REF_PTR_RELEASE(DetailTexture);
 	REF_PTR_RELEASE(Material);
-	m_Unknown178 = 0;
-	m_Unknown180 = 0;
-	m_Unknown188 = 0;
+	Unknown178 = 0;
+	Unknown180 = 0;
+	Unknown188 = 0;
 	int i;
 	if (HasSea) {
 		for (i = 0; i < MAX_SEAS; i++) {
@@ -376,15 +376,15 @@ LandClass::~LandClass(void)
 		}
 	}
 	if (Reciprocals != NULL) delete [] Reciprocals;
-	if (m_Unknown1E4 != NULL) delete [] m_Unknown1E4;
-	if (m_Unknown1E8 != NULL) delete [] m_Unknown1E8;
-	if (m_Unknown1EC != NULL) delete [] m_Unknown1EC;
-	if (m_Unknown1F0 != NULL) delete [] m_Unknown1F0;
-	if (m_Unknown1F4 != NULL) delete [] m_Unknown1F4;
-	if (m_Unknown1F8 != NULL) delete [] m_Unknown1F8;
-	if (m_Unknown120C != NULL) delete [] m_Unknown120C;
+	if (Unknown1E4 != NULL) delete [] Unknown1E4;
+	if (Unknown1E8 != NULL) delete [] Unknown1E8;
+	if (Unknown1EC != NULL) delete [] Unknown1EC;
+	if (Unknown1F0 != NULL) delete [] Unknown1F0;
+	if (Unknown1F4 != NULL) delete [] Unknown1F4;
+	if (Unknown1F8 != NULL) delete [] Unknown1F8;
+	if (Unknown120C != NULL) delete [] Unknown120C;
 	if (Colors != NULL) delete [] Colors;
-	if (m_Unknown1214 != NULL) delete [] m_Unknown1214;
+	if (Unknown1214 != NULL) delete [] Unknown1214;
 	if (Patches != NULL) delete [] Patches;
 	if (Field != NULL) delete Field;
 	Unknown_466F10();
@@ -718,7 +718,7 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 			record->Level = patch->Level;
 		}
 	}
-	if (Unknown_BDC0D8->m_Unknown11) {
+	if (Unknown_BDC0D8->Unknown11) {
 		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
 			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
@@ -746,7 +746,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Material(Material);
 	static DynamicVectorClass<Vector3> sea_quads(10);
 	sea_quads.Delete_All();
-	bool companion = Unknown_BDC0D8->m_Unknown11;
+	bool companion = Unknown_BDC0D8->Unknown11;
 	float extent_x = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
 	float extent_y = (float)(unsigned int)PatchSize * Field->Get_YSpacing();
 	Unknown_BDC0D8->Unknown_466F60(rinfo);
@@ -847,7 +847,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	// the projectors on the land (+0x1218): their boxes' triangles drawn with their material passes
 	static std::vector<Vector3> projected;
 	DX8Wrapper::Set_World_Identity();
-	for (std::vector< RefCountPtr<TexProjectClass> >::iterator it = m_Unknown1218.begin(); it != m_Unknown1218.end(); it++) {
+	for (std::vector< RefCountPtr<TexProjectClass> >::iterator it = Unknown1218.begin(); it != Unknown1218.end(); it++) {
 		TexProjectClass *projector = (*it).Peek();
 		projected.erase(projected.begin(), projected.end());
 		Field->Get_Triangles(projector->Get_Bounding_Volume(), projected);
@@ -856,33 +856,33 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	}
 
 	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2
-	if (m_Unknown192) {
-		if (m_Unknown190) {
-			DX8Wrapper::Set_Texture(0, (TextureClass *)m_Unknown178.Peek());
+	if (Unknown192) {
+		if (Unknown190) {
+			DX8Wrapper::Set_Texture(0, (TextureClass *)Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
-			DX8Wrapper::Set_Shader(m_Unknown17C);
-			DX8Wrapper::Set_Material((VertexMaterialClass *)m_Unknown180.Peek());
+			DX8Wrapper::Set_Shader(Unknown17C);
+			DX8Wrapper::Set_Material((VertexMaterialClass *)Unknown180.Peek());
 			for (i = 0; i < PatchCount; i++) {
 				LandPatchRecordClass &record = PatchRecords[i];
-				if (record.Visible && record.m_Unknown10 > 0 && (unsigned int)record.Level < 3) {
-					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.m_Unknown00.Peek());
-					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.m_Unknown04.Peek(), 0);
-					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.m_Unknown14 / 3), 0, (unsigned short)record.m_Unknown10);
+				if (record.Visible && record.Unknown10 > 0 && (unsigned int)record.Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.Unknown00.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.Unknown04.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.Unknown14 / 3), 0, (unsigned short)record.Unknown10);
 				}
 			}
 		}
-		if (m_Unknown191) {
-			DX8Wrapper::Set_Texture(0, (TextureClass *)m_Unknown178.Peek());
+		if (Unknown191) {
+			DX8Wrapper::Set_Texture(0, (TextureClass *)Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
-			DX8Wrapper::Set_Shader(m_Unknown184);
-			DX8Wrapper::Set_Material((VertexMaterialClass *)m_Unknown188.Peek());
+			DX8Wrapper::Set_Shader(Unknown184);
+			DX8Wrapper::Set_Material((VertexMaterialClass *)Unknown188.Peek());
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
 			for (i = 0; i < PatchCount; i++) {
 				LandPatchRecordClass &record = PatchRecords[i];
-				if (record.Visible && record.m_Unknown18 > 0 && (unsigned int)record.Level < 3) {
-					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.m_Unknown08.Peek());
-					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.m_Unknown0C.Peek(), 0);
-					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.m_Unknown1C / 3), 0, (unsigned short)record.m_Unknown18);
+				if (record.Visible && record.Unknown18 > 0 && (unsigned int)record.Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.Unknown08.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.Unknown0C.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.Unknown1C / 3), 0, (unsigned short)record.Unknown18);
 				}
 			}
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 0);
@@ -966,10 +966,10 @@ LandPatchClass::~LandPatchClass(void)
 #pragma auto_inline(on)
 
 LandPatchRecordClass::LandPatchRecordClass(void) :
-	m_Unknown10(0),
-	m_Unknown14(0),
-	m_Unknown18(0),
-	m_Unknown1C(0),
+	Unknown10(0),
+	Unknown14(0),
+	Unknown18(0),
+	Unknown1C(0),
 	Visible(false),
 	Level(0)
 {
@@ -980,10 +980,10 @@ LandPatchRecordClass::LandPatchRecordClass(void) :
 #pragma auto_inline(off)
 LandPatchRecordClass::~LandPatchRecordClass(void)
 {
-	m_Unknown00 = NULL;
-	m_Unknown04 = NULL;
-	m_Unknown08 = NULL;
-	m_Unknown0C = NULL;
+	Unknown00 = NULL;
+	Unknown04 = NULL;
+	Unknown08 = NULL;
+	Unknown0C = NULL;
 }
 #pragma auto_inline(on)
 
@@ -999,12 +999,12 @@ void LandClass::Set_Edge_Buffer(int level)
 
 void LandClass::Add_Unknown1218(const RefCountPtr<TexProjectClass> &object)
 {
-	m_Unknown1218.push_back(object);
+	Unknown1218.push_back(object);
 }
 
 void LandClass::Clear_Unknown1218(void)
 {
-	m_Unknown1218.clear();
+	Unknown1218.clear();
 }
 
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
@@ -1335,8 +1335,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 		return;
 	}
 	int proto_count = names.size();
-	m_Unknown190 = false;
-	m_Unknown191 = false;
+	Unknown190 = false;
+	Unknown191 = false;
 	if (Field->Is_Wrapping()) {
 		return;
 	}
@@ -1362,9 +1362,9 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 		if (trees[i] != NULL) {
 			MaterialInfoClass *info = trees[i]->Get_Material_Info();
 			TextureClass *texture = info->Get_Texture(0);
-			m_Unknown178 = Create_Get(texture);
-			m_Unknown17C = trees[i]->Peek_Model()->Get_Shader(0, 0);
-			m_Unknown180 = Create_Get(info->Get_Vertex_Material(0));
+			Unknown178 = Create_Get(texture);
+			Unknown17C = trees[i]->Peek_Model()->Get_Shader(0, 0);
+			Unknown180 = Create_Get(info->Get_Vertex_Material(0));
 			has_trees = true;
 			info->Release_Ref();
 			break;
@@ -1373,8 +1373,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 	for (i = 0; i < proto_count; i++) {
 		if (shadows[i] != NULL) {
 			MaterialInfoClass *info = shadows[i]->Get_Material_Info();
-			m_Unknown184 = shadows[i]->Peek_Model()->Get_Shader(0, 0);
-			m_Unknown188 = Create_Get(info->Get_Vertex_Material(0));
+			Unknown184 = shadows[i]->Peek_Model()->Get_Shader(0, 0);
+			Unknown188 = Create_Get(info->Get_Vertex_Material(0));
 			has_shadows = true;
 			info->Release_Ref();
 			break;
@@ -1387,8 +1387,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			TextureClass *texture = info->Get_Texture(0);
 			ShaderClass shader = trees[i]->Peek_Model()->Get_Shader(0, 0);
 			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
-			if ((RefCountClass *)texture != m_Unknown178.Peek() || !(shader == m_Unknown17C)
-				|| material->Get_CRC() != ((VertexMaterialClass *)m_Unknown180.Peek())->Get_CRC()) {
+			if ((RefCountClass *)texture != Unknown178.Peek() || !(shader == Unknown17C)
+				|| material->Get_CRC() != ((VertexMaterialClass *)Unknown180.Peek())->Get_CRC()) {
 				same = false;
 			}
 			REF_PTR_RELEASE(texture);
@@ -1399,8 +1399,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			TextureClass *texture = info->Get_Texture(0);
 			ShaderClass shader = shadows[i]->Peek_Model()->Get_Shader(0, 0);
 			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
-			if ((RefCountClass *)texture != m_Unknown178.Peek() || !(shader == m_Unknown184)
-				|| material->Get_CRC() != ((VertexMaterialClass *)m_Unknown188.Peek())->Get_CRC()) {
+			if ((RefCountClass *)texture != Unknown178.Peek() || !(shader == Unknown184)
+				|| material->Get_CRC() != ((VertexMaterialClass *)Unknown188.Peek())->Get_CRC()) {
 				same = false;
 			}
 			REF_PTR_RELEASE(texture);
@@ -1408,8 +1408,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 		}
 	}
 	if (same && (has_trees || has_shadows)) {
-		m_Unknown190 = has_trees;
-		m_Unknown191 = has_shadows;
+		Unknown190 = has_trees;
+		Unknown191 = has_shadows;
 		std::vector<LandDecorationVertexStruct> *tree_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
 		std::vector<unsigned short> *tree_indices = new std::vector<unsigned short>[PatchCount];
 		std::vector<LandDecorationVertexStruct> *shadow_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
@@ -1426,12 +1426,12 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			Field->World_To_Grid(Vector2(pos.X, pos.Y), &gi, &gj);
 			int patch = GridWidth * ((int)floor(gj / (float)(unsigned int)GridWidth) & GridMask)
 				+ ((int)floor(gi / (float)(unsigned int)GridWidth) & GridMask);
-			if (m_Unknown190 && trees[decoration.Proto] != NULL) {
+			if (Unknown190 && trees[decoration.Proto] != NULL) {
 				unsigned short largest = Land_Append_Decoration_Mesh(trees[decoration.Proto], tree_vertices[patch], tree_indices[patch],
 					tree_counts[patch], tm, decoration.Scale);
 				tree_counts[patch] += largest + 1;
 			}
-			if (m_Unknown191 && shadows[decoration.Proto] != NULL) {
+			if (Unknown191 && shadows[decoration.Proto] != NULL) {
 				Matrix3D shadow = tm;
 				Vector3 normal;
 				Field->Get_Normal(&normal, Vector2(pos.X, pos.Y));
@@ -1468,10 +1468,10 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			for (int pass = 0; pass < 2; pass++) {
 				std::vector<LandDecorationVertexStruct> &verts = pass ? shadow_vertices[p] : tree_vertices[p];
 				std::vector<unsigned short> &idx = pass ? shadow_indices[p] : tree_indices[p];
-				RefCountPtr<RefCountClass> &vb = pass ? record.m_Unknown08 : record.m_Unknown00;
-				RefCountPtr<RefCountClass> &ib = pass ? record.m_Unknown0C : record.m_Unknown04;
-				int &vertex_count = pass ? record.m_Unknown18 : record.m_Unknown10;
-				int &index_count = pass ? record.m_Unknown1C : record.m_Unknown14;
+				RefCountPtr<RefCountClass> &vb = pass ? record.Unknown08 : record.Unknown00;
+				RefCountPtr<RefCountClass> &ib = pass ? record.Unknown0C : record.Unknown04;
+				int &vertex_count = pass ? record.Unknown18 : record.Unknown10;
+				int &index_count = pass ? record.Unknown1C : record.Unknown14;
 				int nv = verts.size();
 				int ni = idx.size();
 				if (nv < 1) {
@@ -1553,10 +1553,10 @@ void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<La
 // NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried
 void LandClass::Upload_Lightmap(Vector2i &min, Vector2i &max)
 {
-	SurfaceClass *surface = m_Unknown120->Get_Surface_Level(0);
+	SurfaceClass *surface = Unknown120->Get_Surface_Level(0);
 	if (Is16Bit) {
-		unsigned char *bytes = (unsigned char *)m_Unknown120C;
-		unsigned short *words = (unsigned short *)m_Unknown120C;
+		unsigned char *bytes = (unsigned char *)Unknown120C;
+		unsigned short *words = (unsigned short *)Unknown120C;
 		int size = Field->Get_Size();
 		for (int j = min.J; j < max.J; j++) {
 			for (int i = min.I; i < max.I; i++) {
@@ -1566,8 +1566,8 @@ void LandClass::Upload_Lightmap(Vector2i &min, Vector2i &max)
 			}
 		}
 	}
-	surface->Copy(min, max, (unsigned char *)m_Unknown120C);
-	DX8Wrapper::_Update_Texture(m_Unknown120, LightmapTextures[BackLightmap]);
+	surface->Copy(min, max, (unsigned char *)Unknown120C);
+	DX8Wrapper::_Update_Texture(Unknown120, LightmapTextures[BackLightmap]);
 	REF_PTR_RELEASE(surface);
 }
 
@@ -1672,13 +1672,13 @@ void LandClass::Compute_Lighting(void)
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
 				n = Field->Get_Size() * j + i;
-				horizon = m_Unknown1E8[n];
+				horizon = Unknown1E8[n];
 				if (low > horizon) {
-					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
-					color = (unsigned char *)&m_Unknown120C[n];
-					r = (unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + color[2];
-					g = (unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + color[1];
-					b = (unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + color[0];
+					Unknown120C[n] = NormalColors[Unknown1E4[n]];
+					color = (unsigned char *)&Unknown120C[n];
+					r = (unsigned char)((Unknown1F0[n] * sky[2]) >> 8) + color[2];
+					g = (unsigned char)((Unknown1F4[n] * sky[1]) >> 8) + color[1];
+					b = (unsigned char)((Unknown1F8[n] * sky[0]) >> 8) + color[0];
 					if (r > 255) r = 255;
 					if (g > 255) g = 255;
 					if (b > 255) b = 255;
@@ -1688,11 +1688,11 @@ void LandClass::Compute_Lighting(void)
 					color[3] = 0xFF;
 				} else if (high > horizon) {
 					float t = (float)(int)(high - horizon) * step;
-					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
-					color = (unsigned char *)&m_Unknown120C[n];
-					r = (unsigned int)((float)(unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
-					g = (unsigned int)((float)(unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
-					b = (unsigned int)((float)(unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
+					Unknown120C[n] = NormalColors[Unknown1E4[n]];
+					color = (unsigned char *)&Unknown120C[n];
+					r = (unsigned int)((float)(unsigned char)((Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
+					g = (unsigned int)((float)(unsigned char)((Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
+					b = (unsigned int)((float)(unsigned char)((Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
 					if (r > 255) r = 255;
 					if (g > 255) g = 255;
 					if (b > 255) b = 255;
@@ -1701,11 +1701,11 @@ void LandClass::Compute_Lighting(void)
 					color[2] = (unsigned char)r;
 					color[3] = 0xFF;
 				} else {
-					m_Unknown120C[n] = SkyColorDX8;
-					color = (unsigned char *)&m_Unknown120C[n];
-					unsigned int f1 = m_Unknown1F4[n];
-					unsigned int f2 = m_Unknown1F8[n];
-					color[2] = (unsigned char)((color[2] * m_Unknown1F0[n]) >> 8);
+					Unknown120C[n] = SkyColorDX8;
+					color = (unsigned char *)&Unknown120C[n];
+					unsigned int f1 = Unknown1F4[n];
+					unsigned int f2 = Unknown1F8[n];
+					color[2] = (unsigned char)((color[2] * Unknown1F0[n]) >> 8);
 					color[3] = 0xFF;
 					color[1] = (unsigned char)((color[1] * f1) >> 8);
 					color[0] = (unsigned char)((color[0] * f2) >> 8);
@@ -1716,13 +1716,13 @@ void LandClass::Compute_Lighting(void)
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
 				n = Field->Get_Size() * j + i;
-				horizon = m_Unknown1EC[n];
+				horizon = Unknown1EC[n];
 				if (low > horizon) {
-					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
-					color = (unsigned char *)&m_Unknown120C[n];
-					r = (unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + color[2];
-					g = (unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + color[1];
-					b = (unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + color[0];
+					Unknown120C[n] = NormalColors[Unknown1E4[n]];
+					color = (unsigned char *)&Unknown120C[n];
+					r = (unsigned char)((Unknown1F0[n] * sky[2]) >> 8) + color[2];
+					g = (unsigned char)((Unknown1F4[n] * sky[1]) >> 8) + color[1];
+					b = (unsigned char)((Unknown1F8[n] * sky[0]) >> 8) + color[0];
 					if (r > 255) r = 255;
 					if (g > 255) g = 255;
 					if (b > 255) b = 255;
@@ -1732,11 +1732,11 @@ void LandClass::Compute_Lighting(void)
 					color[3] = 0xFF;
 				} else if (high > horizon) {
 					float t = (float)(int)(high - horizon) * step;
-					m_Unknown120C[n] = NormalColors[m_Unknown1E4[n]];
-					color = (unsigned char *)&m_Unknown120C[n];
-					r = (unsigned int)((float)(unsigned char)((m_Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
-					g = (unsigned int)((float)(unsigned char)((m_Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
-					b = (unsigned int)((float)(unsigned char)((m_Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
+					Unknown120C[n] = NormalColors[Unknown1E4[n]];
+					color = (unsigned char *)&Unknown120C[n];
+					r = (unsigned int)((float)(unsigned char)((Unknown1F0[n] * sky[2]) >> 8) + (float)color[2] * t);
+					g = (unsigned int)((float)(unsigned char)((Unknown1F4[n] * sky[1]) >> 8) + (float)color[1] * t);
+					b = (unsigned int)((float)(unsigned char)((Unknown1F8[n] * sky[0]) >> 8) + (float)color[0] * t);
 					if (r > 255) r = 255;
 					if (g > 255) g = 255;
 					if (b > 255) b = 255;
@@ -1745,11 +1745,11 @@ void LandClass::Compute_Lighting(void)
 					color[2] = (unsigned char)r;
 					color[3] = 0xFF;
 				} else {
-					m_Unknown120C[n] = SkyColorDX8;
-					color = (unsigned char *)&m_Unknown120C[n];
-					unsigned int f1 = m_Unknown1F4[n];
-					unsigned int f2 = m_Unknown1F8[n];
-					color[2] = (unsigned char)((color[2] * m_Unknown1F0[n]) >> 8);
+					Unknown120C[n] = SkyColorDX8;
+					color = (unsigned char *)&Unknown120C[n];
+					unsigned int f1 = Unknown1F4[n];
+					unsigned int f2 = Unknown1F8[n];
+					color[2] = (unsigned char)((color[2] * Unknown1F0[n]) >> 8);
 					color[3] = 0xFF;
 					color[1] = (unsigned char)((color[1] * f1) >> 8);
 					color[0] = (unsigned char)((color[0] * f2) >> 8);
@@ -1761,11 +1761,11 @@ void LandClass::Compute_Lighting(void)
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
 				n = Field->Get_Size() * j + i;
-				m_Unknown120C[n] = SkyColorDX8;
-				color = (unsigned char *)&m_Unknown120C[n];
-				unsigned int f1 = m_Unknown1F4[n];
-				unsigned int f2 = m_Unknown1F8[n];
-				unsigned int f0 = m_Unknown1F0[n];
+				Unknown120C[n] = SkyColorDX8;
+				color = (unsigned char *)&Unknown120C[n];
+				unsigned int f1 = Unknown1F4[n];
+				unsigned int f2 = Unknown1F8[n];
+				unsigned int f0 = Unknown1F0[n];
 				unsigned int c2 = color[2];
 				unsigned int c1 = color[1];
 				unsigned int c0 = color[0];
@@ -1780,9 +1780,9 @@ void LandClass::Compute_Lighting(void)
 // NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried
 void LandClass::Apply_Colors(void)
 {
-	unsigned char *lightmap = (unsigned char *)m_Unknown120C;
+	unsigned char *lightmap = (unsigned char *)Unknown120C;
 	unsigned char *colors = Colors;
-	unsigned char *extra = m_Unknown1214;
+	unsigned char *extra = Unknown1214;
 	int size = Field->Get_Size();
 	unsigned int i, j, value;
 	if (extra == NULL) {
@@ -2091,7 +2091,7 @@ void LandClass::Unknown_46F120(void)
 	}
 
 	// Per height-field vertex: the normal of the triangles around it (vectors to its neighbours, cross products of neighbour pairs
-	// around it, the client's -1 / +1 neighbours wrap through Get_Height_2's mask), matched against Normals into m_Unknown1E4.
+	// around it, the client's -1 / +1 neighbours wrap through Get_Height_2's mask), matched against Normals into Unknown1E4.
 	// Only even grid vertices (0 .. Size) are visited: the four corners get all eight triangles, the edge vertices one normal per
 	// half (left / right, top / bottom) and the interior ones one per quadrant, written to the 1 or 2 x 2 bytes beside them.
 	float spacing = Field->Get_Spacing();
@@ -2127,7 +2127,7 @@ void LandClass::Unknown_46F120(void)
 				+ Vector3::Cross_Product(v21, v22) + Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v12, v02)
 				+ Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v01, v00);
 			n.Normalize();
-			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
 			index += size - 1;
 		}
 		index = (size - 1) * size;
@@ -2152,10 +2152,10 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v02, v01);
 			n.Normalize();
-			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
 			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v21, v22);
 			n.Normalize();
-			m_Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
 			index += 2;
 		}
 		index = (size - 1) * size + 1;
@@ -2181,10 +2181,10 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v10, v20) + Vector3::Cross_Product(v00, v10);
 			n.Normalize();
-			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
 			n = Vector3::Cross_Product(v12, v02) + Vector3::Cross_Product(v22, v12);
 			n.Normalize();
-			m_Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
 			index += size - 1;
 		}
 		index += 3 - size * 2;
@@ -2209,16 +2209,16 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v00, v10);
 			n.Normalize();
-			m_Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
 			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v10, v20);
 			n.Normalize();
-			m_Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
 			n = Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v12, v02);
 			n.Normalize();
-			m_Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
 			n = Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v21, v22);
 			n.Normalize();
-			m_Unknown1E4[index + size + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size + 1] = Land_Nearest_Normal(Normals, n);
 			index += 2;
 		}
 		index += size + 1;
@@ -2256,9 +2256,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
 	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
 	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	h[0] = (unsigned char)(avg[0] >> 8);
 	h[1] = (unsigned char)(avg[1] >> 8);
 	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
@@ -2270,7 +2270,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	rgb = &Colors[(0 << Field->Get_Log2()) * 3];
 	{
 		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 	}
 	n++;
 	for (x = 1; x < last; x++) {
@@ -2279,9 +2279,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
 		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
 		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
 		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
@@ -2293,7 +2293,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		rgb = &Colors[((0 << Field->Get_Log2()) + x) * 3];
 		{
 			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		}
 		n++;
 	}
@@ -2304,9 +2304,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
 	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
 	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	h[0] = (unsigned char)(avg[0] >> 8);
 	h[1] = (unsigned char)(avg[1] >> 8);
 	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
@@ -2318,7 +2318,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	rgb = &Colors[((0 << Field->Get_Log2()) + size) * 3 - 3];
 	{
 		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 	}
 	n++;
 	// the inner rows: the first and last columns average with each other, the rest is the cell's own
@@ -2328,9 +2328,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
 		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
 		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
 		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
@@ -2342,7 +2342,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		rgb = &Colors[(y << Field->Get_Log2()) * 3];
 		{
 			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		}
 		n++;
 		for (x = 1; x < last; x++) {
@@ -2350,9 +2350,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 			avg[0] = hz[k0 * 2 + 0];
 			avg[1] = hz[k0 * 2 + 1];
 			bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-			m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
+			Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
 			bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-			m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
+			Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
 			h[0] = (unsigned char)(avg[0] >> 8);
 			h[1] = (unsigned char)(avg[1] >> 8);
 			h[2] = a[k0 * 3 + 1];
@@ -2364,7 +2364,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 			rgb = &Colors[((y << Field->Get_Log2()) + x) * 3];
 			{
 				Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-				Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+				Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 			}
 			n++;
 		}
@@ -2373,9 +2373,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
 		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
 		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
 		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
@@ -2387,7 +2387,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		rgb = &Colors[((y << Field->Get_Log2()) + size) * 3 - 3];
 		{
 			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		}
 		n++;
 	}
@@ -2399,9 +2399,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
 	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
 	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	h[0] = (unsigned char)(avg[0] >> 8);
 	h[1] = (unsigned char)(avg[1] >> 8);
 	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
@@ -2413,7 +2413,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	rgb = &Colors[(last << Field->Get_Log2()) * 3];
 	{
 		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 	}
 	n++;
 	for (x = 1; x < last; x++) {
@@ -2422,9 +2422,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0]) >> 1);
 		avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1]) >> 1);
 		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
 		h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1]) >> 1);
@@ -2436,7 +2436,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 		rgb = &Colors[((last << Field->Get_Log2()) + x) * 3];
 		{
 			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		}
 		n++;
 	}
@@ -2447,9 +2447,9 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	avg[0] = (unsigned short)((hz[k0 * 2 + 0] + hz[k1 * 2 + 0] + hz[k2 * 2 + 0] + hz[k3 * 2 + 0]) >> 2);
 	avg[1] = (unsigned short)((hz[k0 * 2 + 1] + hz[k1 * 2 + 1] + hz[k2 * 2 + 1] + hz[k3 * 2 + 1]) >> 2);
 	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	m_Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
+	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
 	h[0] = (unsigned char)(avg[0] >> 8);
 	h[1] = (unsigned char)(avg[1] >> 8);
 	h[2] = (unsigned char)((a[k0 * 3 + 1] + a[k1 * 3 + 1] + a[k2 * 3 + 1] + a[k3 * 3 + 1]) >> 2);
@@ -2461,7 +2461,7 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	rgb = &Colors[((last << Field->Get_Log2()) + size) * 3 - 3];
 	{
 		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&m_Unknown1F0[n], &m_Unknown1F4[n], &m_Unknown1F8[n], h, m_Unknown1E4[n], color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 	}
 	n++;
 }
@@ -2580,8 +2580,8 @@ void LandClass::Compute_Horizons(INIClass &ini)
 	Unknown_470F80(a, b, c);
 	for (int i = 0; i < (int)Field->Get_Count(); i++) {
 		if (mask[i] != 0) {
-			m_Unknown1E8[i] = 0xFFFF;
-			m_Unknown1EC[i] = 0xFFFF;
+			Unknown1E8[i] = 0xFFFF;
+			Unknown1EC[i] = 0xFFFF;
 		}
 	}
 	memcpy(Field->Get_Heights(), heights, Field->Get_Count() * 2);
@@ -2785,12 +2785,12 @@ bool LandClass::Load_PLD(const char *filename)
 	if (file != NULL) {
 		unsigned int count = 0;
 		if (fread(&count, 4, 1, file) == 1 && count == Field->Get_Count()
-			&& fread(m_Unknown1E4, 1, count, file) == count
-			&& fread(m_Unknown1E8, 2, count, file) == count
-			&& fread(m_Unknown1EC, 2, count, file) == count
-			&& fread(m_Unknown1F0, 1, count, file) == count
-			&& fread(m_Unknown1F4, 1, count, file) == count
-			&& fread(m_Unknown1F8, 1, count, file) == count
+			&& fread(Unknown1E4, 1, count, file) == count
+			&& fread(Unknown1E8, 2, count, file) == count
+			&& fread(Unknown1EC, 2, count, file) == count
+			&& fread(Unknown1F0, 1, count, file) == count
+			&& fread(Unknown1F4, 1, count, file) == count
+			&& fread(Unknown1F8, 1, count, file) == count
 			&& fread(Normals, sizeof(Vector3), 256, file) == 256) {
 			fclose(file);
 			return true;
@@ -2806,12 +2806,12 @@ void LandClass::Save_PLD(const char *filename)
 	if (file != NULL) {
 		unsigned int count = Field->Get_Count();
 		if (fwrite(&count, 4, 1, file) == 1
-			&& fwrite(m_Unknown1E4, 1, count, file) == count
-			&& fwrite(m_Unknown1E8, 2, count, file) == count
-			&& fwrite(m_Unknown1EC, 2, count, file) == count
-			&& fwrite(m_Unknown1F0, 1, count, file) == count
-			&& fwrite(m_Unknown1F4, 1, count, file) == count
-			&& fwrite(m_Unknown1F8, 1, count, file) == count) {
+			&& fwrite(Unknown1E4, 1, count, file) == count
+			&& fwrite(Unknown1E8, 2, count, file) == count
+			&& fwrite(Unknown1EC, 2, count, file) == count
+			&& fwrite(Unknown1F0, 1, count, file) == count
+			&& fwrite(Unknown1F4, 1, count, file) == count
+			&& fwrite(Unknown1F8, 1, count, file) == count) {
 			fwrite(Normals, sizeof(Vector3), 256, file);
 		}
 	}

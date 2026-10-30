@@ -492,7 +492,7 @@ Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 			bool on = false;
 
 			DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
-			if (t && t->m_Unknown70) {
+			if (t && t->Unknown70) {
 				bool full = (t->Value == 2);
 				on = (t->Value == 1 || Unknown_6FC970());
 				if (full) {
@@ -831,7 +831,7 @@ float ClientObjectClass::Unknown_6F4290()
 }
 
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->m_Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 #include "sclient.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "assetmgr.h"
@@ -1184,7 +1184,7 @@ bool ClientObjectClass::Unknown_6F5ED0()
 {
 	NameClass name("IsInPVP");
 	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
-	if (t && t->m_Unknown70) return(t->Value);
+	if (t && t->Unknown70) return(t->Value);
 	return(false);
 }
 
@@ -1202,7 +1202,7 @@ bool ClientObjectClass::Unknown_6F5F60()
 {
 	NameClass name("IsInPVP");
 	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)AuxData, name);
-	if (t && t->m_Unknown70 <= 1) t = NULL;
+	if (t && t->Unknown70 <= 1) t = NULL;
 	return(t != NULL);
 }
 
@@ -1477,7 +1477,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 	{
 		NameClass name("PrivateWarpState");
 		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->m_Unknown70 > 1) {
+		if (t && t->Unknown70 > 1) {
 			UnknownF8 = t->Value;
 			switch (UnknownF8) {
 				case 5:
@@ -1507,7 +1507,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 	}
 	DeltaTemplateClass<int> *t;
 	{ NameClass name("GlobalWarpState"); t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name); }	// a block: the client's names 1-3 share one slot (F8)
-	if (!t || t->m_Unknown70 <= 1) {
+	if (!t || t->Unknown70 <= 1) {
 		return;
 	}
 	if (Unknown128) {
@@ -1801,10 +1801,10 @@ void ClientObjectClass::Unknown_6FD310()
 	{
 		NameClass name("DamageSpot");
 		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->m_Unknown70 <= 1) t = NULL;
+		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[0] = t;
 		if (t) {
-			for (int i = 0; i < 15; i++) spot_changed[i] = t->Children[i]->m_Unknown70 > 1;
+			for (int i = 0; i < 15; i++) spot_changed[i] = t->Children[i]->Unknown70 > 1;
 		} else {
 			memset(spot_changed, 0, sizeof(spot_changed));
 		}
@@ -1812,10 +1812,10 @@ void ClientObjectClass::Unknown_6FD310()
 	{
 		NameClass name("DamageLine");
 		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->m_Unknown70 <= 1) t = NULL;
+		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[1] = t;
 		if (t) {
-			for (int i = 0; i < 10; i++) line_changed[i] = t->Children[i]->m_Unknown70 > 1;
+			for (int i = 0; i < 10; i++) line_changed[i] = t->Children[i]->Unknown70 > 1;
 		} else {
 			memset(line_changed, 0, sizeof(line_changed));
 		}
@@ -1823,10 +1823,10 @@ void ClientObjectClass::Unknown_6FD310()
 	{
 		NameClass name("DamageBlotch");
 		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->m_Unknown70 <= 1) t = NULL;
+		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[2] = t;
 		if (t) {
-			for (int i = 0; i < 5; i++) blotch_changed[i] = t->Children[i]->m_Unknown70 > 1;
+			for (int i = 0; i < 5; i++) blotch_changed[i] = t->Children[i]->Unknown70 > 1;
 		} else {
 			memset(blotch_changed, 0, sizeof(blotch_changed));
 		}
@@ -1947,7 +1947,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	}
 	{
 		DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineTrailType");
-		if (t && t->m_Unknown70 > 1) {
+		if (t && t->Unknown70 > 1) {
 			if (Type == 1 && ((SClient *)Client->Unknown_18())->ViewMode == 1) {
 				Unknown_6FD7A0(Model);
 			}
@@ -1993,7 +1993,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 	}
 
 	DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineThrustState");
-	if (!t || !t->m_Unknown70) {
+	if (!t || !t->Unknown70) {
 		return;
 	}
 	int state = t->Value;
@@ -2146,10 +2146,10 @@ void ClientObjectClass::Unknown_6FE1E0()
 	} else {
 
 		DeltaTemplateClass<float> *points = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "HullPoints");
-		if (points && !points->m_Unknown70) points = NULL;
+		if (points && !points->Unknown70) points = NULL;
 
 		DeltaTemplateClass<float> *max = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "MaxHullPoints");
-		if (max && !max->m_Unknown70) max = NULL;
+		if (max && !max->Unknown70) max = NULL;
 		if (points && max && max->Value != 0.0f) {
 			hull = 1.0f - WWMath::Clamp(points->Value / max->Value, 0.0f, 1.0f);
 		}
@@ -2322,7 +2322,7 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 
 
 
-inline unsigned Unknown_Changed(DeltaClass *d) { return(d->m_Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
+inline unsigned Unknown_Changed(DeltaClass *d) { return(d->Unknown70); }	// +0x70: 2 when the field changed since the last update, 1 when set, 0 when not  // NAME 1: neutral (D10)
 // 0x6FF4B0  // NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them)
 void ClientObjectClass::Get_Name(std::string &name)
 {
@@ -2330,19 +2330,19 @@ void ClientObjectClass::Get_Name(std::string &name)
 	if (Unknown_6F5A40()) {
 		NameClass owner("Owner");
 		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		if (!t || !t->m_Unknown70) {
+		if (!t || !t->Unknown70) {
 			NameClass field("Name");
 			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
 		}
 	} else {
 		NameClass field("Name");
 		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		if (!t || !t->m_Unknown70) {
+		if (!t || !t->Unknown70) {
 			NameClass owner("Owner");
 			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
 		}
 	}
-	name = (t && t->m_Unknown70) ? t->String : "Unknown";
+	name = (t && t->Unknown70) ? t->String : "Unknown";
 }
 
 // A field of the aux data changed since the last update (+0x70 above 1)
@@ -2397,7 +2397,7 @@ void ClientObjectClass::Unknown_6FF1D0()
 	if (Type == 38 && Model && Model->Class_ID() == RSTRACK_CLASSID && AuxData) {
 		NameClass name("PercentFull");
 		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->m_Unknown70 > 1) {
+		if (t && t->Unknown70 > 1) {
 			float percent = t->Value;
 			int state;
 			if (percent < 0.0001f) state = 3;
@@ -2418,7 +2418,7 @@ void ClientObjectClass::Unknown_6FF330(std::string &text)
 	int level = 0;
 	NameClass name("CombatLevel");
 	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
-	if (t && t->m_Unknown70) level = t->Value;
+	if (t && t->Unknown70) level = t->Value;
 	char buf[64];
 	_snprintf(buf, sizeof(buf), " (%d)", level);
 	text = buf;
@@ -2612,31 +2612,31 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 	if (!Unknown_6F5A40()) {
 		NameClass field("Name");
 		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		if (!t || !t->m_Unknown70) {
+		if (!t || !t->Unknown70) {
 			NameClass owner("Owner");
 			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
 		}
 	} else {
 		NameClass owner("Owner");
 		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		if (!t || !t->m_Unknown70) {
+		if (!t || !t->Unknown70) {
 			NameClass field("Name");
 			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
 		}
 	}
-	const char *name = (t && t->m_Unknown70) ? t->String : "Unknown";
+	const char *name = (t && t->Unknown70) ? t->String : "Unknown";
 	if (Type == 0) {
 		text = std::string(name);
 	} else {
 		NameClass title_field("Title");
 		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
-		const char *title = (t && t->m_Unknown70) ? t->String : "";
+		const char *title = (t && t->Unknown70) ? t->String : "";
 		if (*title) {
 			text = std::string(title) + " " + name;
 		} else {
 			NameClass rank_field("Rank");
 			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
-			const char *rank = (t && t->m_Unknown70) ? t->String : "";
+			const char *rank = (t && t->Unknown70) ? t->String : "";
 			if (*rank) {
 				text = std::string(rank) + " " + name;
 			} else {

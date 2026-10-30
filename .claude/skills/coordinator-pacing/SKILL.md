@@ -6,7 +6,7 @@ description: Pace an unattended coordinator run of parallel builders by API usag
 # Coordinator pacing
 
 The two real limits on parallel builders are the account's usage windows (a five-hour session window and a
-weekly window, both with reset times) and the host's RAM (32 GB; each pool VM takes about 1.1 GB once running,
+weekly window, both with reset times) and the host's memory (each pool VM takes about 1.1 GB once running,
 2 GB at startup). The user wants the quota spent, not left over at a reset, and wants a session to end cleanly,
 with the handoff written, before a cap. This skill makes both measurable in one command and turns the numbers
 into a launch allowance. Everything else about a run (briefs, disjoint files, shared records, the plan log) is in
@@ -59,7 +59,7 @@ The rules behind the allowance (defaults in the script, all overridable):
 - **Health:** no launch while HEAD's imports.json does not parse or an address is lost outright. Fix first
   (usually a builder's commit script: see workflow.md §3.8).
 
-Observed on 2026-10-27: seven builders at a time on a seven-VM pool left 3 to 4 GB free on the 32 GB host;
+Observed on 2026-10-27: seven builders at a time on a seven-VM pool left 3 to 4 GB free on the host;
 usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the item.
 
 ## Launching

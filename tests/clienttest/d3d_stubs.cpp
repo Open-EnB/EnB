@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // clienttest: a stand-in Direct3D device behind DX8Wrapper (ww3d2's dx8wrapper.obj is linked, so its members can't
 // be replaced). sclient.cpp's 0x7511A0 (CLIENT_TYPE 60 through the main view's 0x514010) ends with
 // DX8Wrapper::Flush_DX8_Resource_Manager(0), a DX8CALL through D3DDevice, which is NULL without a device. The

@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // M1.2's check (milestones.md 2.2: harness (b) on a hand-built root): a hand-built root goes through the rebuilt
 // encoder side (DeltaListClass, RecordTableClass, the records, DeltaListSetClass::Write) and back
 // through DeltaCompoundClass::Decode (both codecs, the lookup build), and the decoded tree
@@ -49,7 +50,7 @@ static int Encode(Tree &t, int form, unsigned char *out)
 	unsigned char f = (unsigned char)form;
 	buf.Write(&f, 1);
 	if (form) {
-		RecordTableClass table(t.Root->m_Unknown98, &updated, &defaulted, &cleared);
+		RecordTableClass table(t.Root->Unknown98, &updated, &defaulted, &cleared);
 		if (table.Unknown_All(&buf) == 0) {
 			return -1;
 		}
@@ -90,7 +91,7 @@ static int Check(int form)
 	}
 	float want[5] = {10.0f, 101.0f, 12.0f, 103.0f, 104.0f};	// f0, f2 updated from a; others b's
 	for (int k = 0; k < 5; k++) {
-		printf("  f%d = %g (m_Unknown70 %u)\n", k, b.Leaf[k]->Value, b.Leaf[k]->m_Unknown70);
+		printf("  f%d = %g (Unknown70 %u)\n", k, b.Leaf[k]->Value, b.Leaf[k]->Unknown70);
 		if (b.Leaf[k]->Value != want[k]) {
 			fails++;
 		}

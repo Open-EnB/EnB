@@ -1,5 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
 **	Original location: e:\build\beta\G\app\shared\. px_callback_accurate.cpp is the client's (its __FILE__, client
 **	0x44E020-0x451BF0); this header's name is provisional: no string names it.
 **

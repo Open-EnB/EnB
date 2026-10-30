@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\kv_pair_string.h (name assumed from
 **	kv_pair_string.cpp; no assert names it)
@@ -10,6 +8,8 @@
 **	"key && accessor"). Only what kv_encoder_base.cpp and the Delta fields use so far. The client
 **	doesn't name the classes (D24).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -46,7 +46,7 @@ public:
 	virtual void Update_Saved();													// +0x18 0x4B8450
 
 	StringValueClass *Accessor;		// +0x0C  // NAME 3: after the assert's parameter accessor (kv_pair_string.cpp)
-	char *m_Unknown10;					// +0x10 the saved value (strdup)
+	char *Unknown10;					// +0x10 the saved value (strdup)
 };
 
 #endif //__KV_PAIR_STRING_H

@@ -20,7 +20,7 @@ DeltaStringClass::DeltaStringClass(const char *name, const char *string) :
 	DeltaClass(name),
 	String(0)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 	if (string == 0) {
 		string = "";
 	}
@@ -159,7 +159,7 @@ public:
 
 void DeltaStringClass::Unknown_00(DeltaChildVisitorClass *visitor)
 {
-	visitor->Add_String(m_Unknown80, Name.Get_String(), new DeltaStringValueClass(this));
+	visitor->Add_String(Unknown80, Name.Get_String(), new DeltaStringValueClass(this));
 }
 
 const char *DeltaStringValueClass::Get() const

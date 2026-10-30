@@ -1,6 +1,6 @@
 # Overnight report, 2026-10-23
 
-Unattended session from 01:20 to about 04:40 PDT, following the plan agreed beforehand: five blocks
+Unattended session from 01:20 to about 04:40, following the plan agreed beforehand: five blocks
 (WW3D2 layouts and vtables; the smaller libraries' gaps; a symbol map; a survey of E&B's own code
 with a proposal; docs). Work was committed locally, step by step. Nothing was pushed, and nothing
 outside `.work/` was deleted. Each kept change was checked with `importer.py verify` on the

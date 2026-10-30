@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\client\co.h (name assumed from co.cpp)
 **
@@ -15,6 +13,8 @@
 **	same class. Its bases: client.cpp's UnknownB02C90Class (declared here, moved from client.h, so
 **	that co.h stands alone) and ww3d2's MultiFixedPoolDecalSystemClass at +0x4C. Names: D10, D24, D56.
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once

@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // M1.4's harness (milestones.md 2.1 gate (a)): the EA-UDP datagrams of an Alex dump go through the
 // rebuilt app\wwudp (CordMgr::Pump -> CordMgr::Process_CORD_Packet -> CordCon::handlePacket ->
 // CordCon::read) over a replay socket (this file's UDP class), in both directions: a client-side

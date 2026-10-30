@@ -1,3 +1,4 @@
+// Earth & Beyond client (reconstruction)
 // udpreplay: stand-ins for what connect.cpp's factories call outside the replay's sources (tcpconn.cpp,
 // memconn.cpp, the composite listener, dbgmgr.cpp). The replay
 // never calls the factories, so each stops the program if it is reached. The classes are declared

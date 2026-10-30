@@ -6,7 +6,7 @@ Newest first within each section. Dates are when the entry was written.
 
 ### 2026-10-29 (14:55, day): slow pace, two Fable rounds, D126-D141; app 4,549 -> 4,761 in tree, +289 pairs, 52 D66 moves, 0 lost outright
 
-Coordinator Opus 5.5, 08:40 to 14:55 (the user online all day; launches closed 14:30, IB3 at the user's word at 14:18). Base ad6562e (the history
+Coordinator Opus 5.5, 08:40 to 14:55 (launches closed 14:30; IB3 at the user's word). Base ad6562e (the history
 rewrite's new master: every commit re-authored, old tip aeeb5bc). 19 builders, up to five at a time (17 Opus; F8 / F9
 Fable); weekly usage 38 % -> 47 % (the Fable rounds about 2.5 points of it). Plan log: `.work/run-2026-10-29/plan.md`.
 
@@ -36,7 +36,7 @@ Fable); weekly usage 38 % -> 47 % (the Fable rounds about 2.5 points of it). Pla
 
 ### 2026-10-28 (17:00, day): the 24-hour run; packets -> object model; app 3,797 -> 4,549 pairs, 0 lost; D119-D125
 
-Coordinator Opus 5.5, 2026-10-27 21:55 to 2026-10-28 17:00 (the user closed launches at 15:50; the hold 07:20-08:45).
+Coordinator Opus 5.5, 2026-10-27 21:55 to 2026-10-28 17:00 (launches closed at 15:50; a hold 07:20-08:45).
 Base c756cbf; HEAD +940 pairs against it (app 3,797 -> 4,549; all libraries 8,914 -> 9,773), no address lost outright
 (D119's 0x474080 moved to ambiguous; D66 (i) / (v) moves only). 29 Opus builders, two at a time; weekly usage 15 % ->
 37 %. Plan log: `.work/run-2026-10-28/plan.md` (every launch, report and heartbeat).
@@ -94,12 +94,12 @@ lost outright (one D66(v) move: dbgconn 0x821E40, still matched in connect). Pla
 
 ### 2026-10-27 (17:30, evening): the D93 model evaluation, eight runs scored; A-opus and B-opus merged (+113 pairs, 0 lost); P-E1 proposes the D72 revision
 
-Coordinator Opus 5.5 (the user, 14:50: changes eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
+Coordinator Opus 5.5 (the user changed eval-d93.md's "the coordinator stays on Fable"; noted in D93's row).
 Base c692c69; eight runs in worktrees `.work/eval/<run>` on branches `eval/<run>` (`.work/eval/setup.py`: junctions
 for locks / pool / pseudo, dgrams, libraries). Every branch rescored by the coordinator (`.work/eval/score.sh`: verify
 `--lib app --pool 1` in the worktree, pairs_cmp against the base and against the branch's own imports.json, replay,
 udpreplay `conn alex3/alex7` for task A). Logs: `.work/eval/log.md`, `.work/run-2026-10-27/plan.md`. Memory, not
-usage, limited the run (VS Code's cpptools held ~4 GB indexing the worktrees): wave A started together; wave B
+usage, limited the run (an editor's indexer held several GB indexing the worktrees): wave A started together; wave B
 started in three steps (B-opus + B-sonnet-1 15:55, B-sonnet-2 16:10, B-haiku 16:30) with the same brief and base.
 Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against c692c69, 0 lost).
 
@@ -115,7 +115,7 @@ Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against c692c69, 0 lost)
 | B-haiku | readers and finds only | +21 / 0 (21, all within B-opus) | 1 parked (0x7F9700) | 241,902 | 16 | exact | stopped by choice at 16 min of 150; kept Unknown_BE8B38Class; first write landed in the main tree (removed) |
 
 * **Every claim held:** each branch's committed imports.json equals the coordinator's re-verify (0 gained, 0 lost),
-  replay 0 differences everywhere, udpreplay conn alex3 / alex7 PASS on all four A branches. The dishonesty is in
+  replay 0 differences everywhere, udpreplay conn alex3 / alex7 PASS on all four A branches. The inaccuracies are
   the self-reported token counts (off by -35 % to +110 %, both directions) and one wrong harness claim (A-haiku).
 * **Task A:** Opus and one Sonnet run reached the same 26 addresses; Opus in two thirds of the time with a little
   more tokens; the second Sonnet run missed one destructor; Haiku 19 addresses, two parked and an object split.
@@ -153,7 +153,7 @@ Usage at 17:29: session 27 %, week 8 % (HEAD +185 pairs against c692c69, 0 lost)
 
 ### 2026-10-27 (14:05, day): the session cap and the reset; seven builders at a time; 352 commits, app +2,175 pairs, 0 lost; D90-D95; the eval D93 is next
 
-Coordinator (Fable), 04:30 to 12:30, the user online 04:35-09:30 and then away. The API session cap stopped
+Coordinator (Fable), 04:30 to 12:30. The API session cap stopped
 five builders at 06:05 (the user chose to spend the session window); all five resumed from their transcripts
 at 08:11 with their leases intact and lost nothing. The pool grew to seven slots with 2 GB startup clones
 (the host's memory, user); the day ran up to seven builders at a time. Totals since the 04:40 entry:
@@ -230,7 +230,7 @@ at 08:11 with their leases intact and lost nothing. The pool grew to seven slots
 
 ### 2026-10-27 (04:40, overnight): twelve builders in parallel; app +1,018 pairs, 0 lost; step 9's tasks, the SGI hash_map, land, 190 packet classes; D85-D89
 
-Coordinator (Fable), 2026-10-26 21:30 to 2026-10-27 04:30, the user away from 23:05. Tree aa66709 -> HEAD before
+Coordinator (Fable), 2026-10-26 21:30 to 2026-10-27 04:30. Tree aa66709 -> HEAD before
 the quiet window: **121 commits, +1,019 pairs, 0 lost** (`pairs_cmp`; app 1,018, ww3d2 1; the only "lost"
 entries are three inline COMDAT copies land.cpp no longer emits, still matched in other files: D66(i)).
 App went 1,256 -> 1,997 client functions. Up to five builders at a time on disjoint file sets (D62), ~9.5M
@@ -411,48 +411,23 @@ three tests to the end at the configured 1280x1024x32 windowed and exited 1; E&B
 `results.ini` and displayed Fill Rate FPS 3529, Polygon Budget 30000, Star Budget 2000, Land Polygon
 Budget 28000, Land LOD 7, Texture Reduction 0, Peak Poly Rate 57655 KPolys/s, every value as written
 (`vidtest.log` line 358). "Free Texture + AGP RAM = -10.486 MB" is E&BConfig's own `atoi` wrapping our
-`FreeTextureRam=4284481536` (a 4 GB card) to -10485760 and dividing by 10^6: the 2004 tool's limit, not
-a defect of ours (the original VIDTEST reports the same figure on this card; `vidtest_e2e.py` emulates
-the wrap). The user cancelled at "Press OK to save settings". Registry: the WOW6432Node, VirtualStore
-and 64-bit `Westwood Studios` keys were exported to `.work/regbackup/` before the run and are
-byte-identical after it. No message box appeared. M2 is complete on all four gates.
+`FreeTextureRam` (a card over 2 GB) to a negative value and dividing by 10^6: the 2004 tool's limit, not
+a defect of ours (the original VIDTEST reports the same figure; `vidtest_e2e.py` emulates
+the wrap). The run was cancelled at "Press OK to save settings". E&BConfig's registry settings were
+byte-identical before and after the run. No message box appeared. M2 is complete on all four gates.
 
-**D53 seen in the game.** The user's client had `TextureReduction=2` in both Render keys (the real
-WOW6432Node key and its VirtualStore copy), written by the original VIDTEST's signed comparison on a 4 GB
-card: every texture loaded at a quarter of its size. With the value set to 0 (the user, by `reg add`,
-backups in `.work/regbackup/`) and the original client relaunched, screenshots of the same views
-(`.work/texdetail/`, local) show the planet in Endriago at about twice the fine detail (edge energy
+**D53 seen in the game.** An install configured by the original VIDTEST on a card over 2 GB has
+`TextureReduction=2`, written by its signed comparison: every texture loads at a quarter of its size.
+With the value set to 0 and the original client relaunched, screenshots of the same views
+(local) show the planet in Endriago at about twice the fine detail (edge energy
 2.58 -> 5.01 on the cropped planet), the ship hull and the login-screen avatar modestly crisper (1.09x,
 1.11x: their textures are small to begin with). So the original tool's bug cost players most of the
 planet and nebula detail on any card over 2 GB; our vidtest's fix (D53) is the setting to ship.
 
-### 2026-10-25 (later): the reference decoder audited, the reference traces' repository retired; EnB paths follow
+### 2026-10-25 (later): the earlier research audited (D79)
 
-The D79 question was settled as an audit of the reference decoder's project plus the first
-housekeeping there (that repository's log has the detail). Four read-only audits (architecture and
-code quality, docs vs code vs EnB's findings, harness-merge completeness, rename inventory; Opus
-214k + 259k, Sonnet 126k + 99k) then: its 2026-10-22 work committed as found (277 tests), the
-reference traces' own repository retired (its 12 commits were already subtree-merged; 22 recordings
-hash-checked into the reference decoder's repository, 217 MB of replay runs discarded), a rename of
-that project, its design notes split into seven docs with EnB's corrections applied, and a
-coordinated change in a companion tool.
-
-* **EnB's findings that superseded the reference decoder's docs** (now cited there): the EA-UDP
-  datagram layout (`app/wwudp/cordcon.h`: CRC-32 at 0x8B3EC0, flags byte, ack count, per-datagram
-  RC4 key, the ack list the reference importer never decoded), the packet factory's 263 opcodes
-  above 0x0FFF, the client's class names for 0x21/0xB7/0xB8 and the 0x9E/0xA0 split,
-  LoginTaskClass's vtable at 0xB040D4 (its login offsets were 8 too high), 11 AuxData roots not 13,
-  difference 4 in library-matching.md §3.8.
-* **What that project knows and EnB's docs don't** (for later): the login and character-select
-  screens (its client-UI notes), the action message layouts, authlogin.dll's flags and offsets,
-  the MVAS addresses, the 2.46 opcode census, byte-order fixes, AuxData behaviour per ship kind.
-* **EnB fixes from its audit:** prior-work.md no longer claims an EA-UDP transport exists in the
-  reference decoder (only the reference importer does); tools/harness/README.md's EA-UDP table says
-  flags (not type) and names the ack entry's first byte as cordcon.h does (kind 0/1/2), and cites
-  the AuxData notes' §7 items 1-3 (not §7.1-§7.3); toolchain.md §3, `roots.py` (the reference
-  traces now in the reference decoder's repository), `pkfactory.py` and `refs.sh` point at the
-  renamed repository.
-* That project's own re-architecture is a proposal pending in its repository. Not EnB work.
+An audit of the maintainer's earlier, unpublished protocol research (outside this project, D153) corrected
+prior-work.md, tools/harness/README.md's EA-UDP table and the reference-trace paths here.
 
 ### 2026-10-25: housekeeping audit; D62-D79; builders.md; traps 100 -> 74; milestones split; tools promoted
 
@@ -481,9 +456,8 @@ about 105 KB (27k tokens) at startup, 82% of it milestones.md and workflow.md §
   -> `docs/data/not-exact.md` (38 functions in 15 files), `tools/vc6/README.md`; `compare.py` retired
   (its staged deletion landed in beb98df). vidtest_e2e/exitcodes kept separate (little shared code).
 * Startup set per builder now about 43 KB (app), 39 KB (library), 35 KB (harness).
-* The reference decoder's AuxData notes: §7 item 9 added in that repository's working tree (D79).
 * Models and tokens: audits Opus 107k + 127k, Sonnet 96k + 78k; edits Opus 134k, Sonnet 168k + 108k.
-* Open: the Net7 repositories question (D79) before housekeeping closes; the supervised E&BConfig
+* Open: the earlier research's audit (D79) before housekeeping closes; the supervised E&BConfig
   acceptance check (D63).
 
 ### 2026-10-24 (evening, unsupervised): M1 and M2 met; transport, kernel, connections, packet factory; app 251 -> 458
@@ -496,7 +470,7 @@ Both builders were cut off by the API usage limit 19:40-21:10 and resumed.
   with their keys go through our CordCon: alex3 26,106 messages in order, all 14,812 client ack lists
   accepted, the peer accepts all our datagrams, 54/54 handshakes (WWLib's XMP at run time); the
   `loop` test over a lossy link delivers everything. M1.5 (2c5d257, 96ff38a): every Net-7 AUX_DATA
-  decodes and equals the reference decoder's aux-log, Net-7's known differences counted, a fourth one found.
+  decodes and equals the reference decoder's field-change log, Net-7's known differences counted, a fourth one found.
   The client's TCP transport is app\common\tcpconn.cpp on WWOnline's TCPMgr/TCPCon (D47 finding).
 * **M2 met** apart from the supervised E&BConfig run: land matched from the original's draw calls
   (a d3d8 proxy dump: f844701, 138acbb, 6d5960e), frames 500-900 within 1.7-3.2%; gate (d) clean in
@@ -517,8 +491,8 @@ Both builders were cut off by the API usage limit 19:40-21:10 and resumed.
   RenegadeGR tcpmgr/tcpcon; import Renegade's BinkMovie; ENABLE_WWPROFILE as an app define; the logger
   stand-in; count the 17 template leaf Reads as pairs; names for unknown_changes.* and UnknownCOClass;
   CordMgr::Connect returning the session id; CordArrayClass's remove with wlib; funcmatch's string
-  evidence to check `__FILE__`; the draw dump as M2's regression check; Net-7 difference 4 into
-  the reference decoder's AuxData notes.
+  evidence to check `__FILE__`; the draw dump as M2's regression check; Net-7 difference 4 recorded
+  (library-matching.md §3.8).
 
 ### 2026-10-24 (afternoon): milestones M1 and M2 (D42-D61); app 136 -> 251, first linked programs
 
@@ -533,7 +507,7 @@ Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); V
   column (5e83b12). M1.3 (bf8ac0b, 5afdaeb): the 11 roots and 42 nested classes generated
   (`tools/re/auxroots.py`), names matched to Net-7's AuxClasses by structure (D59): app 164 -> 202;
   `auxreplay`: all 43,978 EA AUX_DATA decode, 43,977 re-encode byte for byte (D60), every field
-  change equals the reference decoder's aux-log (gate (c)), Alex 4,289 / 366 pass.
+  change equals the reference decoder's field-change log (gate (c)), Alex 4,289 / 366 pass.
 * L1 (160f88d): `tools/vc6/build.py` builds all eight libraries. L2 (326acec ... 8c57559): the 12
   never-imported EA files (D49, wwlib 565 -> 586, wwaudio 351 -> 360), mss32.lib from the game's DLL
   (D51, `mkmss32.py`), `stubs/` (D44), the first executable `programs/vidtest`. D55: ww3d2/pot.cpp
@@ -674,7 +648,7 @@ Plan: [milestones.md](milestones.md) (M1 capture harness, M2 working VIDTEST); V
 
 ### 2026-10-24 (overnight): Zero Hour's dated edits, D9 finished, wwlib's E&B allocator; 3,925 -> 4,062
 
-Unattended run 00:02-07:40 PDT: a coordinator and one builder subagent at a time (no parallel
+Unattended run 00:02-07:40: a coordinator and one builder subagent at a time (no parallel
 builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log in
 `.work/night/plan.md`, a heartbeat every 30 min, each builder's report in
 `.work/night/item*/report.md`. 65 commits `b9b0c61..a1cbc31`, none pushed. Morning report:
@@ -719,8 +693,8 @@ builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log
   `tools/vc6/pool.py` (b156da0, orphan reclaim 92ca150) and `importer.py verify --pool K`
   (4b1f45b); `tools/re/appfile.py` for E&B's own files (c4d34c9: `app\shared\auxdata\bitset.cpp`
   12/12 exact as a draft in `.work/night/item7/try/`, not in the tree).
-* Old build VMs retired (07:00): the two `VC6 SP4 (8799)` clones removed, `Tools\VMClones\1,2`
-  deleted; `.work/vc6_hosts.json` lists only Win10 (192.168.193.108); `enb-vc6-01/02` stopped, free.
+* Old build VMs retired (07:00): the two `VC6 SP4 (8799)` clones removed and deleted;
+  `.work/vc6_hosts.json` lists only Win10; `enb-vc6-01/02` stopped, free.
 * E&BConfig.exe / VIDTEST.EXE assessment (`.work/ebconfig/assessment.md`): neither is a quick
   win; open question in §3.
 * Verified: each commit by its builder (verify of the affected libraries, pair sets vs
@@ -912,8 +886,8 @@ builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log
   comparing the constructors against Zero Hour's member list.
 * Outside git: `.work/mmr_*.py`, `rendobj_edit.py`, `*_spec.py`, `*_reasons.py` (edits and specs
   as applied); `.work/mmr_edited/` (edited files, matched the replayed tree); `.work/odbatch.py`
-  (condensed objdiffs of the top gaps), `.work/fn.py` (print one function). VMs at
-  192.168.193.108, .202.231, .207.76 (`vc6.py check` passed). REA not opened this session.
+  (condensed objdiffs of the top gaps), `.work/fn.py` (print one function). Three
+  build VMs (`vc6.py check` passed). REA not opened this session.
 
 ### 2026-10-23: WWAudio complete (0 gaps); wwshade's ShdMeshClass
 
@@ -1021,7 +995,7 @@ builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log
   `.work/bm2_old_noGX` older sets (deletable). Specs as applied: `.work/{lights,cdef,defs,
   gm_inst,caps,bsinit,prof,w3prof}_spec.py`; `.work/pairs_cmp.py` (pair-set diff of two
   `imports.json`), `.work/sub_flags.py` (compile a library with given flags). VMs:
-  `.work/vc6_hosts.json` (192.168.193.108, .202.231, .207.76).
+  `.work/vc6_hosts.json` (three VMs).
 
 ### 2026-10-23: D9 step 3, E&B's earlier wwshade; wwshade's flags
 
@@ -1153,7 +1127,7 @@ builds: `verify` shares `%TEMP%\enb_import` and the VMs' scratch), queue and log
   each checked against the client before adding. Then the texture near-misses.
 * Outside git: `.work/d9_*.py` (patch builders: `d9_lines.py` Editor, `d9_addpatch.py`,
   `d9_rmpatch.py` undo, `d9_verify.sh`, `d9_cmp.py`/`d9_addr.py` compare), baseline
-  `.work/d9_base_imports.json` (pre-D9 state). VMs 192.168.193.108, .202.231, .207.76.
+  `.work/d9_base_imports.json` (pre-D9 state). Three build VMs.
 
 ### 2026-10-23: importer replay; decisions D6-D11
 
@@ -1286,7 +1260,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D2 | 2026-10-22 | Install Visual C++ 6.0 as a tool for proving our work (byte-for-byte comparison) | user. Installed: VC6 SP4 in Hyper-V VMs (three, 2026-10-23; since 2026-10-24 Win10 plus the pool, D30), the client's exact compiler build ([toolchain.md](toolchain.md) §1) |
 | D3 | 2026-10-22 | The code builds with both VC6 and modern MSVC | user |
 | D4 | 2026-10-22 | Import EA code file by file, as each file is verified against the client | user |
-| D5 | 2026-10-22 | SDKs: DirectX 8 from github.com/edgeforce/directx8, Miles and Bink from github.com/edgeforce/radtools | user. Checked: DX8 is 8.0 as the client; Bink matches; Miles usable with two fixes ([toolchain.md](toolchain.md) §2) |
+| D5 | 2026-10-22 | SDKs: DirectX 8 from github.com/edgeforce/directx8, Miles and Bink from github.com/edgeforce/radtools (the copies this project used; it does not distribute them, D150; [toolchain.md](toolchain.md) §2 lists their SHA-256 hashes) | user. Checked: DX8 is 8.0 as the client; Bink matches; Miles usable with two fixes ([toolchain.md](toolchain.md) §2) |
 | D6 | 2026-10-23 | E&B's own code starts with `app\shared\auxdata`, then `app\wwudp`, then the task kernel (`app\kernel`: `KernelClass::Run_One_Cycle`, the loop running the current, background and pending-delete tasks; with `app\main` and `app\client\tasks`), then `app\packets` ([app-plan.md](app-plan.md) §3) | user |
 | D7 | 2026-10-23 | E&B's own code is held to byte-exactness everywhere, like the libraries. Check in with the user periodically if this becomes too costly. Trigger: revisit with the user when docs/data/not-exact.md passes 400 entries (269 on 2026-10-27) (amended 2026-10-27, D110) | user |
 | D8 | 2026-10-23 | No hybrid client (reconstructed functions patched into the retail one) for now: its results would need the user to validate them. Open to it again if it can be shown to verify results better than byte matching, without the user | user |
@@ -1301,18 +1275,18 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D17 | 2026-10-23 | merged into D56 (2026-10-27) | user |
 | D19 | 2026-10-23 | E&B's screen-distortion module in WW3D2 (0x995D20-0x998200, between dx8texman.cpp and boxrobj.cpp; first described as a cube-map list) is rebuilt as `ww3d2/unknown_distortion.cpp`/`.h` (a reconstructed file), neutral names (D10) until E&B's own turn up; the function `WW3D::Set_Render_Device` calls is `Unknown_Reset_Distortion_List` | user (name chosen after the module turned out not to be about cube maps) |
 | D18 | 2026-10-23 | Don't include `matrix4.h` first in `ww3d2/meshmatdesc.cpp` (it would win back `Make_UV_Array_Unique` 0x947310, but no EA copy has that order). Keep it on record until a better fix is found; revisit if it becomes WW3D2's last outstanding item | user; kept 2026-10-24 after item 4 showed the cause is symbol-count noise, not an inlining flip; confirmed 2026-10-25 (evening, builder C): the difference is only which of `pass` and `stage` is loaded first, operand-order tie-breaking, not inlining; closed 2026-10-27 (D110): the noise is understood (operand-order tie-breaking, 2026-10-25); kept as is, no revisit |
-| D20 | 2026-10-24 | Losing a COMDAT-duplicate `(file, address)` pair, where the helper stays matched in another file, is not a loss. Name each such pair in the commit message | user (03:40) |
-| D21 | 2026-10-24 | `dx8webbrowser.cpp`'s type library: `BrowserEngine.tlh`/`.tli` generated by VC6 from E&B's own `BrowserEngine.dll` are committed as reconstructed files, `#include` instead of `#import` (original kept as a comment); no binaries in the repository (option A) | user (04:40); done b8d3dd7 |
-| D22 | 2026-10-24 | Import Zero Hour's shd6/shd7/shd8 bump shaders into wwshade, with the shader headers rebuilt from the client's data (0xBCB8FC-0xBCEBB7) as reconstructed files, in `shdpp.exe`'s format: `DWORD` arrays holding the shader text, NUL, zero padding, 0 terminator (PS; `DWORD` approved by the user 2026-10-24, since `ShdHW*Shader::Create(DWORD*)` takes them and `char[]` would pick `Create(char *file_name)`) | user (06:25); done 2026-10-24 (4c0fbf6, 523467f: headers as shdpp's DWORD arrays, since `Create(DWORD*)` takes them) |
-| D23 | 2026-10-24 | E&B's own files enter the importer as a non-EA library `app` (all reconstructed, `/GX`, `NDEBUG` on since D61 (first written as off), verify limited to the app region) | user (06:25); done 86757d4 (importer `APP_LIBS`; sources compiled as `e:\build\beta\G\...` for the client's `__FILE__`) |
-| D24 | 2026-10-24 | App classes the client doesn't name get Westwood `XxxClass` names (`BitSetClass`) | user (06:25); conventions.md §1 |
-| D25 | 2026-10-24 | App asserts sit on their real `__LINE__` through the file layout (blank lines, comments) in tree files; `#line` only in drafts | user (06:38) |
-| D26 | 2026-10-24 | merged into D14 (2026-10-27) | user (03:47, 06:25); done e278d81, d2955f0 |
-| D27 | 2026-10-24 | Verified function starts (decoded call targets) are the default for every tool | user (03:47); done 5d7079f |
-| D28 | 2026-10-24 | Keep ww3d.h's unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations (noise compensation for meshmatdesc after 694a02b, not evidence); revisit when the noise is understood | user (06:25); kept 2026-10-25 (evening): the noise is operand-order tie-breaking (builder C), D18 likewise; closed 2026-10-27 (D110): the noise is understood (operand-order tie-breaking, 2026-10-25); kept as is, no revisit |
-| D29 | 2026-10-24 | Keep 8f5cbfe's protected `D3DTexture` (needed by 5534f64, which writes it as 0x94B660 does); patch reasons reworded. Its comment (D35, merged 2026-10-27) cites 0x94B660 (5534f64), not `Apply` 0x94BC80 | user (06:38); done a1cbc31 |
-| D30 | 2026-10-24 | Build VMs come from a pool of differencing clones of `Tools\VMPool\base-vc6.vhdx`, no warm sync cache (each leasee syncs its tree), cap set by host memory (`pool.py create --max`, default 7; one VM per 2 GB free above a 3 GB floor); the old fixed clones are retired (amended 2026-10-27, D110) | user (04:40, 06:25); done b156da0, 4b1f45b; clones retired 07:00 ([toolchain.md](toolchain.md) §1.3) |
-| D31 | 2026-10-24 | Sessions release their leased VMs in the handoff skill; `pool.py lease`/`create` reclaim orphaned leases first | user (06:25); done 92ca150 |
+| D20 | 2026-10-24 | Losing a COMDAT-duplicate `(file, address)` pair, where the helper stays matched in another file, is not a loss. Name each such pair in the commit message | user |
+| D21 | 2026-10-24 | `dx8webbrowser.cpp`'s type library: `BrowserEngine.tlh`/`.tli` generated by VC6 from E&B's own `BrowserEngine.dll` are committed as reconstructed files, `#include` instead of `#import` (original kept as a comment); no binaries in the repository (option A) | user; done b8d3dd7 |
+| D22 | 2026-10-24 | Import Zero Hour's shd6/shd7/shd8 bump shaders into wwshade, with the shader headers rebuilt from the client's data (0xBCB8FC-0xBCEBB7) as reconstructed files, in `shdpp.exe`'s format: `DWORD` arrays holding the shader text, NUL, zero padding, 0 terminator (PS; `DWORD` approved by the user 2026-10-24, since `ShdHW*Shader::Create(DWORD*)` takes them and `char[]` would pick `Create(char *file_name)`) | user; done 2026-10-24 (4c0fbf6, 523467f: headers as shdpp's DWORD arrays, since `Create(DWORD*)` takes them) |
+| D23 | 2026-10-24 | E&B's own files enter the importer as a non-EA library `app` (all reconstructed, `/GX`, `NDEBUG` on since D61 (first written as off), verify limited to the app region) | user; done 86757d4 (importer `APP_LIBS`; sources compiled as `e:\build\beta\G\...` for the client's `__FILE__`) |
+| D24 | 2026-10-24 | App classes the client doesn't name get Westwood `XxxClass` names (`BitSetClass`) | user; conventions.md §1 |
+| D25 | 2026-10-24 | App asserts sit on their real `__LINE__` through the file layout (blank lines, comments) in tree files; `#line` only in drafts | user |
+| D26 | 2026-10-24 | merged into D14 (2026-10-27) | user; done e278d81, d2955f0 |
+| D27 | 2026-10-24 | Verified function starts (decoded call targets) are the default for every tool | user; done 5d7079f |
+| D28 | 2026-10-24 | Keep ww3d.h's unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations (noise compensation for meshmatdesc after 694a02b, not evidence); revisit when the noise is understood | user; kept 2026-10-25 (evening): the noise is operand-order tie-breaking (builder C), D18 likewise; closed 2026-10-27 (D110): the noise is understood (operand-order tie-breaking, 2026-10-25); kept as is, no revisit |
+| D29 | 2026-10-24 | Keep 8f5cbfe's protected `D3DTexture` (needed by 5534f64, which writes it as 0x94B660 does); patch reasons reworded. Its comment (D35, merged 2026-10-27) cites 0x94B660 (5534f64), not `Apply` 0x94BC80 | user; done a1cbc31 |
+| D30 | 2026-10-24 | Build VMs come from a pool of differencing clones of a base VHDX (`vc6_config`), no warm sync cache (each leasee syncs its tree), cap set by host memory (`pool.py create --max`, default 7; one VM per 2 GB free above a 3 GB floor); the old fixed clones are retired (amended 2026-10-27, D110) | user; done b156da0, 4b1f45b; clones retired 2026-10-24 ([toolchain.md](toolchain.md) §1.3) |
+| D31 | 2026-10-24 | Sessions release their leased VMs in the handoff skill; `pool.py lease`/`create` reclaim orphaned leases first | user; done 92ca150 |
 | D32 | 2026-10-24 | ~~Builders stay serial (one at a time); parallel worktrees not needed yet~~ Superseded by D62 (2026-10-25) (retired 2026-10-27) | user |
 | D33 | 2026-10-24 | merged into D56 (2026-10-27) | user |
 | D34 | 2026-10-24 | Keep evidence-backed changes that gain nothing countable when the client's form is shown: first `DazzlePrototypeClass`'s Renegade virtual destructor (0x96EF00 has the client's form but is too short to count; vtable 0xB12598 has 4 slots) | user |
@@ -1350,7 +1324,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D66 | 2026-10-25 | Pair losses. Not losses, named in the commit message: (i) a COMDAT duplicate kept matched in another file (D20); (ii) the same source compiled into two files (D55); (iii) a false match exposed by a type fix (first: 0x8C1520, `KVPairTemplateClass<__int64>`'s string setter, matched by the money instance only while `MoneyClass` was a bare `__int64`). A change that gains and loses nothing but models the client's own classes (07af3e1: Ship's BuffArray and Buff elements with the client's vtables and globals) is allowed, stated in the commit (2026-10-25, evening). (v) a net-positive change where every lost pair's address is re-credited under another file in the same verify (pairs_cmp's address-level 'lost outright' list empty), named in the commit; an address lost outright still waits for the user; (vi) a pair that becomes ambiguous because the client's own form adds a byte-identical instance (D119). Anything else is a loss and waits for the user before the commit. D54's ambiguous column stays as is: the 17 identical template leaf Reads are not pairs (amended 2026-10-27, D110; 2026-10-28, D119) | user |
 | D67 | 2026-10-25 | Test programs live under `tests/` (D45 extended: kerneltest and movietest in tests/capharness). The wlib stand-ins (app/common/dictionary.h, critsec.h, app/wwudp/wtime.h, parts of cordcon.h) stay until D73's import replaces them with the imported files at the client's paths (`libs\wwonline\wlib`), then are deleted Done: the wlib stand-ins are deleted (D73's import is done), so the "stay until" clause is complete (2026-10-27) | user |
 | D68 | 2026-10-25 | [kernel-map.md](kernel-map.md)'s 10-step reconstruction order is adopted (extends D6); steps 1-5 and 7 done or partly done on 2026-10-24 | user (backfilled) |
-| D69 | 2026-10-25 | Safety rules for every run of our programs and every session (amends D48): never a modal dialog (`-nomsgbox` or its equivalent in every program); full screen allowed; no screen grabs, images only from the program's own back buffer; never the game's install folder as working directory; no registry changes (the original E&BConfig only in a supervised run with a registry backup); never push; never `importer.py assemble` on a tree with work; `git add` by name, `.claude/settings.json` stays out | user (each given on 2026-10-24; numbered 2026-10-25) |
+| D69 | 2026-10-25 | Safety rules for every run of our programs and every session (amends D48): never a modal dialog (`-nomsgbox` or its equivalent in every program); full screen allowed; no screen grabs, images only from the program's own back buffer; never the game's install folder as working directory; no registry changes (the original E&BConfig only in a supervised run with a registry backup); never push (amended by D148 / D157: push only a run branch, never master); never `importer.py assemble` on a tree with work; `git add` by name, `.claude/settings.json` stays out | user (each given on 2026-10-24; numbered 2026-10-25) |
 | D70 | 2026-10-25 | Inline assembly stays wherever the client has it, with a C-equivalent comment | user (2026-10-23; backfilled) |
 | D71 | 2026-10-25 | A commit's `Co-Authored-By` line names the model that wrote the commit (the line that session's harness gives); the docs carry no literal model name | user |
 | D72 | 2026-10-25 | Subagent models: the coordinator runs Opus (D96; Fable until 2026-10-27); builders (verify loops, byte matching, RE, programs) run Opus by default; Fable for a subagent only when the expected total cost is lower: a small-input reasoning puzzle (inline budget, codegen form) after two failed Opus attempts, or a one-shot analysis whose wrong answer would cost a builder run; Sonnet for read-only audits, cross-referencing, doc moves, log digging and generator reruns (anything a tool checks afterwards; Explore agents too); Haiku for grep-level searches and log triage, never tree code. Plan logs record model and tokens per builder ([builders.md](builders.md) §4) (amended 2026-10-27, D110) | user |
@@ -1360,7 +1334,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D76 | 2026-10-25 | `CordMgr::Connect` keeps the client's signature; the harness reads the session id another way, unless the client's bytes return it | user |
 | D77 | 2026-10-25 | funcmatch's string evidence requires the client function's `__FILE__` to match the EA function's file; symbols.json regenerated (0x829C80 is tcpconn.cpp's constructor by accepted socket, not `PacketManagerClass::Clear_Socket_Error`) | user |
 | D78 | 2026-10-25 | The d3d8 draw dump (`tools/harness/run_reference.py`, `drawdump.py`) is M2's standard regression check, beside the frame comparison | user |
-| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the reference decoder's AuxData notes §7 for that project's coordinator. The reference decoder's project and a companion tool need their own audit and re-architecture later, outside this project's scope; their design docs are now likely less complete than this project's for transport and auxdata. The user revisits this before housekeeping closes | user Settled 2026-10-25: the audit and first housekeeping were done; the rest is that project's.; settled 2026-10-25; retired 2026-10-27 |
+| D79 | 2026-10-25 | Net-7 difference 4 (fields named in two sets) is a one-line note in the earlier research's notes, outside this project. That research's own audit is outside this project's scope; for transport and auxdata this project's docs are now the more complete. The user revisits this before housekeeping closes | user. Settled 2026-10-25: the audit was done; retired 2026-10-27; the earlier research retired from this project (D153) |
 | D80 | 2026-10-25 | `objmatch.py` breaks `multiple` ties by each data relocation's target (the string or known symbol it points at) against the object's own literals, so byte-identical functions that differ only in their strings count (the assert reporters, the twin constructors 0x4A7080/0x4A8150, `Set_Render_Device`, the one-int packet constructors and Prints: builders B and D). Adopted after a snapshot comparison of every library's pair set with no losses, the counts before and after recorded in library-matching.md §3.6.1. The objmatch order (merged 2026-10-27 from D88, D94(b), D95(b), D100): D80 rounds to a fixed point; then the self-name round (D88: the one candidate address that symbols.json names with the function's own mangled symbol from a non-exact proof, a vtable slot, is credited when D80 finds no contradiction there; measured by builder W3 at the objmatch level: +337 pairs, 0 lost, ww3d2 188, wwmath 60, wwaudio 45, wwshade 31, wwlib 10, wwdebug 2, wwsaveload 1; prototype `.work/w3/objmatch_sn.py`; adopted after a full verify snapshot of a quiet tree, with pairs_cmp proving the gain, not while builders are verifying; carried out 2026-10-27 04:50, 0d70c67 the pre-D88 snapshot, efc3cbb the rule: +368 pairs, 0 lost, ww3d2 188, wwmath 60, wwaudio 45, app 31, wwshade 31, wwlib 10, wwdebug 2, wwsaveload 1; `tiebreak`/`selfname` do not reach imports.json, left as is until something needs it); then D80 again; then the range round (D100: a tie goes to the object whose client range contains the address, P-P6-1, carried out on a quiet tree with a full verify of every library and pairs_cmp gains-only, like D88, then 45 from `.work/p6/park45` and 117 from `.work/p5/park117`; refinement d8b8153: an address another function is exact at is held out, and the range is the object's own non-COMDAT or NODUPLICATES exact functions); compiler-generated `_$E<n>` names are skipped (D94(b), P-H7-2, carried out the same way). D95(b) (the D80 tie-break not crediting an implicit destructor to an identical twin when the function's own address is free, P-P5-2) is not implemented: superseded by D100 and its refinement, close pending as P-M1-1 | user |
 | D81 | 2026-10-25 | D75 corrected: 0xBDA908 is the client's pooled `""` string, not a log object; dbgmgr.cpp calls the reporter 0x4BC130 as `("", "", file, ...)`. The `UnknownLogClass`/`UnknownLog` stand-ins in app/wwudp (cordmgr.cpp, bandwidthaccounting.cpp, udpreplay) become plain calls with `""` (follow-up after builder A leaves app/wwudp) (D75, merged here 2026-10-27: the assert functions' reporter 0x4BC130 (the logger) is a reconstructed stand-in with D10 names and D56 tags; its premise, a log object at 0xBDA908, is what this row corrects) | user |
 | D82 | 2026-10-25 | `app/shared/unknown_debug.cpp` (the assert reporters 0x4E9410/0x4E9450) and `unknown_new.cpp` (E&B's operator new/new[]/delete over FastAllocatorGeneral) stay two files although one object in the client, so kerneltest and movietest can define their own reporters without LNK2005 | user |
@@ -1442,12 +1416,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-* **P-VM-1** (2026-10-29, coordinator; recommend yes): this machine's build VMs expire on **2027-01-20**: `Win10` is
-  Windows 10 Enterprise *Evaluation* (90 days from 2026-10-22, `slmgr /xpr`), and the pool's base was made from it, so
-  every clone inherits the date; after it Windows shuts down hourly. Rebuild the pool with
-  `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5 minutes,
-  same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then names
-  `enb-vc6-template` and the account `user`)? Alternative: a licensed Windows (`-WindowsVhdx`), which does not expire.
+* **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
+  template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
+  pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
+  minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
+  names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
 
 ## 4. Next steps
 

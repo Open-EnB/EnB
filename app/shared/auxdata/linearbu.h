@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\linearbu.h (name assumed from linearbu.cpp)
 **
@@ -10,6 +8,8 @@
 **	Capacity) and its parameters (size, pos). The client doesn't name the class (D24: "linear
 **	buffer", after the file name).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -45,7 +45,7 @@ public:
 	int Set_Capacity(int capacity);					// 0x4AB460 (reallocates)  // NAME 2: describes what it does
 
 	char *Buffer;					// +0x00  // NAME 2: describes what it does
-	int m_Unknown04;				// +0x04 not set by the constructors
+	int Unknown04;				// +0x04 not set by the constructors
 	int Size;						// +0x08 the bytes of data  // NAME 3: after the assert's parameter size (linearbu.cpp)
 	int Capacity;					// +0x0C the bytes allocated  // NAME 3: after the assert's parameter capacity (linearbu.cpp)
 	int GrowBy;						// +0x10  // NAME 2: describes what it does

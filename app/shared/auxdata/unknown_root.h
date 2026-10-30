@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	// NAME 1 [unknown_root.h]: provisional file name, the object has no __FILE__
 **	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4A3990-0x4A4780 between
@@ -12,6 +10,8 @@
 **	DeltaCompoundClass's and keeps one int argument at +0x9C (the CREATE factory 0x6F6000 passes
 **	its second argument through).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
@@ -39,7 +39,7 @@ public:
 	// record form or the tree form, whichever is smaller; 0 when there is nothing to send
 	LinearBufferClass *Encode(PolicyClass *policy, ChangeTableClass *changes);  // NAME 2: describes what it does
 
-	int m_Unknown9C;					// +0x9C the constructor's int (the factory's second argument)
+	int Unknown9C;					// +0x9C the constructor's int (the factory's second argument)
 };
 
 // vtable 0xAEAC40, size 0xAC: a root that sends its fields (the Player root 0x752510 derives from
@@ -57,7 +57,7 @@ public:
 	LinearBufferClass *Encode_Changes(unsigned int time);  // NAME 2: describes what it does
 
 	PolicyClass *Policy;					// +0xA0  // NAME 2: describes what it does
-	PolicyStateClass *m_UnknownA4;	// +0xA4 the policy's state (0x4AF190's, 0x14 bytes)
+	PolicyStateClass *UnknownA4;	// +0xA4 the policy's state (0x4AF190's, 0x14 bytes)
 	ChangeTableClass *Changes;			// +0xA8  // NAME 2: describes what it does
 };
 

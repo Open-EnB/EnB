@@ -35,8 +35,9 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
 - Safety (D69): never a modal dialog (`-nomsgbox`); full screen is fine; no screen grabs, images
   only from a program's own back buffer; never the game's install folder as working directory, and
   never write into it (reading it in place and copying from it are fine, D143); no registry
-  changes; never push `main` (once the GitHub remote exists the coordinator pushes only its run branch and
-  opens a PR, D148; builders never push); `git add` by name (`.claude/settings.json` stays out).
+  changes; never push `master` (the coordinator pushes only its run branch and opens a PR, D148,
+  D157; builders never push); `git add` by name (never stage `.claude/settings.json`: tracked, the
+  maintainer changes it).
 - Decisions are the user's (D1, D2...). Propose with a recommendation; don't decide silently.
 
 ## Reverse-engineering tools: pick in this order
@@ -74,4 +75,4 @@ decisions/open lists in place. Do not append a second status doc.
 ## Commits
 Imperative sentence subject stating the evidence/gain (see `git log`). Commit when asked or when
 the agreed plan says so. End the message with the `Co-Authored-By` line your harness gives you
-(D71: it names the model that wrote the commit). Pushing: D148 (run branches and PRs only, never `main`).
+(D71: it names the model that wrote the commit). Pushing: D148 (run branches and PRs only, never `master`).

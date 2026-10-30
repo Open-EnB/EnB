@@ -1,7 +1,5 @@
+// Earth & Beyond client (reconstruction)
 /*
-**	Earth & Beyond client (reconstruction)
-**	Portions Copyright Electronic Arts Inc., released under the GNU General Public License v3.
-**
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\auxdata\permstr.h (name assumed from permstr.cpp)
 **
@@ -10,6 +8,8 @@
 **	The table is made and freed by a counted initialiser that every file including this header
 **	holds (the client's objects each construct one: 0x4A60A0 at 0xBE3A90, 0x4AE3B0 at 0xBE3B40).
 */
+
+
 
 #if defined(_MSC_VER)
 #pragma once
