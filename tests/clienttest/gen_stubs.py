@@ -20,7 +20,7 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
+REPO = os.path.dirname(os.path.dirname(HERE))
 PK_CTOR_STUBS = os.path.join(REPO, 'tests', 'udpreplay', 'pk_ctor_stubs.cpp')
 CPACKET = os.path.join(REPO, 'app', 'client', 'cpacket.cpp')
 PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
