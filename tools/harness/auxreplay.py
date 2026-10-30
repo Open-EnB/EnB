@@ -1,7 +1,7 @@
 """M1.3's AuxData harness (milestones.md 2.1 gates (b) and (c)): tests/capharness/auxreplay.
 
     python tools/harness/auxreplay.py prepare TRACE.jsonl OUT.txt [--dump]
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
     python tools/harness/auxreplay.py run NAME [--trace T] [--dump]     (prepare, run, census, values)
     python tools/harness/auxreplay.py values RESULT.txt AUXLOG.txt        (gate (c) only)
 

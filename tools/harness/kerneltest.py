@@ -1,6 +1,6 @@
 """The task kernel's test (docs/kernel-map.md 6, step 1): tests/capharness/kerneltest.
 
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/kerneltest.py build [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/kerneltest.py build [--out DIR]
     python tools/harness/kerneltest.py run [--exe EXE]
 
 build: links kerneltest with app\\kernel\\kernel.cpp (compiled into the program) against DIR's

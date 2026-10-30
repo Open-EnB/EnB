@@ -18,7 +18,7 @@ the reference decoder's reference outputs live outside git:
 
 ```
 python tools/harness/convert.py DUMP OUT.dgram [--check TRACE.jsonl]
-ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/build.py        # after pool.py lease
+ENB_VC6_HOSTS=<user>@<ip> python tools/harness/build.py        # after pool.py lease
 sh tools/harness/refs.sh                                        # the reference decoder reference outputs -> .work/harness/ref/
 ```
 
@@ -97,7 +97,7 @@ three Net-7 sessions); its datagram counts equaled compare.py's for both datagra
 
 ```
 python tools/vc6/build.py --lib app [--out DIR]                   # app.lib with app/client/aux_roots.cpp
-ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
+ENB_VC6_HOSTS=<user>@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
 python tools/harness/auxreplay.py run capture_1 [--out DIR]      # also capture_2, capture_3, alex3, alex7
 python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages rebuilt from the EA dump (D52)
 ```
@@ -169,7 +169,7 @@ and GroupInfo defaulted later).
 ## EA-UDP transport (M1.4, gate (a))
 
 ```
-ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
+ENB_VC6_HOSTS=<user>@<ip> python tools/harness/udpreplay.py build [--out DIR]
 python tools/harness/udpreplay.py run alex3 [--aux]                 # also alex7
 python tools/harness/udpreplay.py loop alex3 [--drop 0,10,4] [--step 20]
 python tools/harness/udpreplay.py conn alex3 [--drop 0,10,4]          # through UDPConnection and the stream framing
@@ -437,7 +437,7 @@ python tools/harness/vidtest_sbs.py run; python tools/harness/vidtest_sbs.py sbs
 ## The task kernel (docs/kernel-map.md 6, step 1)
 
 ```
-ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/kerneltest.py build [--out DIR]
+ENB_VC6_HOSTS=<user>@<ip> python tools/harness/kerneltest.py build [--out DIR]
 python tools/harness/kerneltest.py run
 ```
 
@@ -453,7 +453,7 @@ a second kernel). 2026-10-24: 35 of 35 expected lines in order.
 ## The client base, SClient and the packet handlers (D94(c), kernel-map step 9d)
 
 ```
-ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/clienttest.py build [--out DIR]
+ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
 python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--count 1000] [--update]
 ```
 

@@ -1,6 +1,6 @@
 """M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/capharness/udpreplay.
 
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/udpreplay.py build [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/udpreplay.py build [--out DIR]
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
     python tools/harness/udpreplay.py handshake            (capture_1..3's 54 SYN1/ACK1/SYN2/ACK2)
     python tools/harness/udpreplay.py loop alex3|alex7 [--drop N,...] [--step MS]

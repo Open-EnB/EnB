@@ -734,7 +734,7 @@ unless `--lever` cites a new row of this table.
 ### 3.5 Build VMs and vc6.py
 
 * **tryv2 without `--pool` uses `.work/vc6_hosts.json`, which can name a stopped VM** (2026-10-28, LD2): lease
-  one and set `ENB_VC6_HOSTS=Daniel@IP`.
+  one and set `ENB_VC6_HOSTS=<user>@IP`.
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
   `vc6.py discover`.
 * **vc6.py syncs only `SOURCE_EXT`** (else C1083). `#import`'s `.tlh` holds absolute

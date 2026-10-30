@@ -1,7 +1,7 @@
 """Build tests/capharness/capharness.exe with VC6 on a build VM and copy it back.
 
-    python tools/vc6/pool.py lease --agent NAME       (prints ENB_VC6_HOSTS=Daniel@ip)
-    ENB_VC6_HOSTS=Daniel@ip python tools/harness/build.py [--out DIR]
+    python tools/vc6/pool.py lease --agent NAME       (prints ENB_VC6_HOSTS=<user>@ip)
+    ENB_VC6_HOSTS=<user>@ip python tools/harness/build.py [--out DIR]
 
 The sources are sent with vc6.sync (the same mechanism as importer.py verify), then compiled
 and linked in one `cl` call in the VM (LIBCMT: /MT, as the client). The exe lands in

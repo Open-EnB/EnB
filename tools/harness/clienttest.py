@@ -1,6 +1,6 @@
 """The client base, SClient and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/capharness/clienttest.
 
-    ENB_VC6_HOSTS=Daniel@<ip> python tools/harness/clienttest.py build [--out DIR]
+    ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
     python tools/harness/clienttest.py run [--exe EXE] [--name alex3] [--session ffff9b25] [--count 1000] [--update]
 
 build: stages tests/capharness/clienttest with its generated sources (gen_stubs.py: pk_stubs.cpp, udpreplay's

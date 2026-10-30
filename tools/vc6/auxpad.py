@@ -21,6 +21,8 @@ import re
 import subprocess
 import sys
 
+import vc6config
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
@@ -78,7 +80,7 @@ def sweep(a):
     if a.agent:
         importer.set_agent(a.agent)
     if a.host:
-        os.environ['ENB_VC6_HOSTS'] = a.host if '@' in a.host else 'Daniel@' + a.host
+        os.environ['ENB_VC6_HOSTS'] = a.host if '@' in a.host else vc6config.CFG['user'] + '@' + a.host
         lease = contextlib.nullcontext()
     else:
         lease = importer.pool_lease(1, a.holder_pid)

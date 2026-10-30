@@ -21,10 +21,10 @@ builds 8797 and 8799, linker 6.0: **Service Pack 4**, confirmed (§1.2).
 A new machine sets its VM up with [setup-vc6.md](setup-vc6.md) (2026-10-29: one script,
 `tools/vc6/setup/New-BuildVM.ps1`, VC6 by file copy, proven equal to the setup-installed VM below).
 Machine-specific settings (account, key, pool folder, template VM) are in `.work/vc6_config.json`
-(`tools/vc6/vc6config.py`); this machine's keeps `"user": "Daniel"` and `"template_vm": "Win10"`.
+(`tools/vc6/vc6config.py`); the maintainer's machine keeps its original VM account and `"template_vm": "Win10"`.
 
 VC6 runs in a Hyper-V VM: Windows 10 21H2, host name `DESKTOP-1J2STKG.mshome.net` (Default
-Switch), account `Daniel`, reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
+Switch), the VM account (`user` in `.work/vc6_config.json`), reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
 `C:\Program Files (x86)\Microsoft Visual Studio\VC98` (environment variables not registered;
 call `VC98\Bin\VCVARS32.BAT`). `\\tsclient\C` (the desktop session's drive redirection) is not
 visible to SSH sessions, so files go over SSH (`scp`, `tar`).
@@ -92,8 +92,8 @@ dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 
 off and the stop action is shut down. The cap (`--max`, default 7) is set by host memory: check
 `Get-CimInstance Win32_OperatingSystem` free memory before raising it.
 
-    python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=Daniel@ip,...
-    ENB_VC6_HOSTS=Daniel@ip python tools/vc6/vc6.py compile ...
+    python tools/vc6/pool.py lease --agent NAME [--count K]   # prints ENB_VC6_HOSTS=<user>@ip,...
+    ENB_VC6_HOSTS=<user>@ip python tools/vc6/vc6.py compile ...
     python tools/vc6/pool.py release --agent NAME
     python tools/vc6/pool.py stop-idle [--minutes 10]        # shut down unleased idle VMs
     python tools/vc6/pool.py reclaim [--max-age 8] [--prune [--keep 2]]
