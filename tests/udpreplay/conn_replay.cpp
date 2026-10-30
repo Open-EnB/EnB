@@ -10,7 +10,7 @@
 // What the app code calls that isn't rebuilt yet is supplied here: the rate average
 // (unknown_rate.h), wwonline's 64-bit byte order pair and the factory 0x8696C0 (a test packet
 // holding the bytes),
-// and kernel.cpp's externals (as tests/capharness/kerneltest).
+// and kernel.cpp's externals (as tests/kerneltest).
 #include <stdio.h>
 #include <string.h>
 #include <time.h>

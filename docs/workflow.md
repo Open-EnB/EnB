@@ -657,7 +657,7 @@ unless `--lever` cites a new row of this table.
   after the commit `git diff docs/data/imports.json` must no longer show your addresses.
 * **VC6 hits C1001 on out-of-class specialisations of member templates and mangles member-template functions
   without their template arguments** (P7): a stand-in defines them as plain overloads in its own minimal class
-  declaration (tests/capharness/udpreplay/shipcust_stubs.cpp). `appfile.py match --diff` works only on a marked function.
+  declaration (tests/udpreplay/shipcust_stubs.cpp). `appfile.py match --diff` works only on a marked function.
 * **Including a packet header mid-file in tsk_login.cpp turns a handler order-only** (P9: 0x76B520 with 114's header):
   keep the one-line views with the real signatures (P-P9-3). A flag parameter the client stores with `movzx` is
   `bool`; a cast temporary for a count leaves the frame 4 bytes short: name the local (118, 112). P6's commit_json
@@ -669,7 +669,7 @@ unless `--lever` cites a new row of this table.
 * **A pack(4) member changes a packet class's sizeof (0x5C for 0x60) and the factory switch 0x869790 in pk.cpp stops
   matching** (P6, 2026-10-27): check it whenever a packet layout changes. Put a needed `#include` after the asserted
   code so the asserts keep the client's lines.
-* **Packet stand-ins belong in tests/capharness/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
+* **Packet stand-ins belong in tests/udpreplay/, never stubs/app_stubs.cpp** (P5, 2026-10-27): a stub that
   calls RawPacketClass drags pk.obj and ~280 externals into VIDTEST's link (969f244, fixed 9ba36c5). A new header line
   above pk.h's PacketClass shifts its assert lines and loses ~400 pairs. Game-editor packets whose Process_Packet
   returns true are not in the switch, so pk_classes.h does not list them: find them by unmatched objects.

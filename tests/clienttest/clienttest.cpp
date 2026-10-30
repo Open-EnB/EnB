@@ -1,7 +1,7 @@
 // clienttest (D94(c), P-T7-1, P-T8-1): the client base (app\client\client.cpp), SClient (sclient.cpp) and
 // the packets' client-side handlers (cpacket.cpp) over a memory connection, with logging stand-ins for
 // what they call outside the rebuilt files (client_stubs.cpp). Writes one line per event to OUT;
-// tools/harness/clienttest.py compares the trace with tests/capharness/clienttest/expected.txt.
+// tools/harness/clienttest.py compares the trace with tests/clienttest/expected.txt.
 //
 //     clienttest OUT.txt [MESSAGES.txt]
 //
@@ -257,7 +257,7 @@ UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int)
 // ------------------------------------------------------------------------- the fake asset manager and its models
 
 // The models CREATE 4, CHANGE_BASE_ASSET 38 and SUBPARTS 180 load: co.cpp's loader 0x6F5140 / 0x6F51D0 reads
-// basset.ini's BASE-n section (clienttest's own, tests/capharness/clienttest/data: clienttest.py copies it into
+// basset.ini's BASE-n section (clienttest's own, tests/clienttest/data: clienttest.py copies it into
 // the run's folder, never the game's, D69) and asks E&B's asset manager (*0xBDADC0) for the NAME at the scale and
 // HSV shift (its slot +0x78), loading FILE (Load_3D_Assets) when it has no such model yet; a section that
 // isn't there gives Create_Render_Obj("missing"). WW3DAssetManager::Get_Instance() (0xBFAEE0) is the same object.

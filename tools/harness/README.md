@@ -2,7 +2,7 @@
 
 Python side of the M1 capture harness ([docs/milestones.md](../../docs/milestones.md) §2) and
 of the later harness programs (M1.2 to M2, listed at the end of this file). The C++ programs are
-under `tests/capharness/`. Every external repository and data path is named once, in
+under `tests/`, one folder each (D155). Every external repository and data path is named once, in
 `tools/re/roots.py` (listed in [docs/toolchain.md](../../docs/toolchain.md) §3). Inputs and
 the reference decoder's readings live outside git:
 
@@ -11,28 +11,24 @@ the reference decoder's readings live outside git:
 | `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-…` | EA's raw EA-UDP dumps (decrypted datagrams per session) |
 | `roots.EA_REFERENCE` (`C:\EnBDevelopment\Tools\Media\ea-reference`, unpacked by `fetch_reference.py`, D154) | the reference traces `ea\NAME.trace.jsonl` (message level) and the reference decoder's readings `ref\NAME.*.txt`: `dump --summary` (`*.summary.txt`), `aux-census`, `roundtrip`, `aux-log --first`; fixed, never regenerated |
 | `.work/harness/alex3.dgram`, `alex7.dgram` | datagram files written by `convert.py` (regenerate, ~10 s) |
-| `.work/harness/bin/capharness.exe` | the harness, built by `build.py` |
 
 ## Tools
 
 ```
 python tools/harness/convert.py DUMP OUT.dgram [--check TRACE.jsonl]
-ENB_VC6_HOSTS=<user>@<ip> python tools/harness/build.py        # after pool.py lease
 python tools/harness/fetch_reference.py                        # the frozen reference (D154) -> roots.EA_REFERENCE
 ```
 
 * **convert.py** parses a dump into a datagram file. `--check` rebuilds the game messages from
   the blocks (resends dropped, fragments joined) and compares them, in order, with the reference decoder's
   import of the same dump.
-* **build.py** sends `tests/capharness` to a build VM (`vc6.sync`), runs one `cl /MT` that
-  compiles and links, and copies the exe back. No `.lib` is linked yet (the M1.0 skeleton; the
-  later programs link through `tools/vc6/build.py link`, see [../vc6/README.md](../vc6/README.md)).
 * **fetch_reference.py** downloads the EA captures' frozen reference (a release asset, SHA-256 checked;
   `--archive F` unpacks a copy) into `roots.EA_REFERENCE`: the reference traces and the reference
   decoder's readings (D154). The data is fixed; `refs.sh`, which made the readings, was retired.
-* `compare.py`, the M1.0 count check of the skeleton against the reference decoder's summary, was retired
-  (2026-10-25): `udpreplay.py` and `auxreplay.py` carry the gates now. `git log -- tools/harness/compare.py`
-  has it.
+* Retired: `compare.py`, the M1.0 count check against the reference decoder's summary (2026-10-25),
+  and the skeleton it checked, `tests/capharness/capharness.cpp` with its `tools/harness/build.py`
+  (D155, 2026-10-30). `udpreplay.py` and `auxreplay.py` carry the gates now; `git log` on those
+  paths has them.
 
 ## The EA-UDP datagram (as the dumps show it)
 
@@ -90,7 +86,7 @@ real messages. Among them are 3 + 1 AUX_DATA (0x1B), including a 7,043-byte one 
 AUX_DATA gates should count 4,289 / 366 for these files from the datagram file, against
 the reference decoder's 4,286 / 365.
 
-capharness (M1.0 skeleton) on every trace, checked by compare.py (retired): message counts and bytes per
+The M1.0 skeleton capharness (retired, D155) on every trace, checked by compare.py (retired): message counts and bytes per
 direction and opcode equal the reference decoder's summary for all 8 traces (alex3, alex7, capture_1..3, the
 three Net-7 sessions); its datagram counts equaled compare.py's for both datagram files.
 
@@ -103,7 +99,7 @@ python tools/harness/auxreplay.py run capture_1 [--out DIR]      # also capture_
 python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages rebuilt from the EA dump (D52)
 ```
 
-* **tests/capharness/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
+* **tests/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
   and the auxdata library. Per channel it makes a root for each CREATE (0x0004: the type byte at
   offset 10, through the factory 0x6F6000's cases; a repeated id replaces the object, as the reference decoder's
   `aux-census`) and one Player root (game id 0). Each AUX_DATA (0x001B) goes through the packet
@@ -188,7 +184,7 @@ worktree can no longer build or test the main tree's build/ in its place.
   0xFFFFFFFF, no final xor) of the whole wire datagram with that field zero. So the harness
   rebuilds the wire bytes and encrypts them, and the rebuilt CordCon checks the captured checksum:
   every datagram in both dumps passes, apart from the 3 per file the dump cut short.
-* **tests/capharness/udpreplay** links app\wwudp (cordcon.cpp, cordmgr.cpp, unknown_cordmsg.cpp, compiled into the
+* **tests/udpreplay** links app\wwudp (cordcon.cpp, cordmgr.cpp, unknown_cordmsg.cpp, compiled into the
   program) and WWLib's RC4Class. Its `UDP` class (app/wwudp/udp.h) is a replay socket. Each
   session gets a client-side and a server-side CordCon, each behind its own CordMgr. A captured
   datagram goes into the receiving side's socket, then CordMgr::Pump, Process_CORD_Packet,
@@ -442,7 +438,7 @@ ENB_VC6_HOSTS=<user>@<ip> python tools/harness/kerneltest.py build [--out DIR]
 python tools/harness/kerneltest.py run
 ```
 
-tests/capharness/kerneltest links app\kernel\kernel.cpp with scripted tasks on a clock the program
+tests/kerneltest links app\kernel\kernel.cpp with scripted tasks on a clock the program
 sets (it stands in for the aux-data clock, the input queue, WW3D's device check and the two globals
 kernel.cpp calls) and checks the trace: a cycle with nothing due sleeps until the earliest task is,
 the focused task alone gets Pre_Run and Render, Set_Focus / Next_Focus respect a task that won't
@@ -458,7 +454,7 @@ ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
 python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--count 1000] [--update]
 ```
 
-tests/capharness/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
+tests/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
 circbuff.cpp, pk.cpp and every rebuilt packet file (one object per app file, so two files' statics never meet)
 with logging stand-ins: `client_stubs.cpp` by hand (SClient's members the handlers call, co.cpp's object,
 eff_o.cpp's effect, rs_track, sound_manager, shiputils, verbmanager, every SOptionsClass member SClient reaches:
@@ -474,7 +470,7 @@ included); its views are fakes with the client's slot layout (main view +0x80 / 
 
 `run` writes the first COUNT server-to-client messages of SESSION from the reference decoder's NAME.trace.jsonl (udpreplay's
 reference) to `.work/harness/clienttest/`, runs the program there and compares its trace with
-`tests/capharness/clienttest/expected.txt` line for line (the first run, or `--update`, writes it; only a run
+`tests/clienttest/expected.txt` line for line (the first run, or `--update`, writes it; only a run
 whose checks all pass). The tests: (1) the object, effect and record lists keyed by game id (ids 257 apart share
 wwlib's bucket; Add / Find / Remove through SClient's overrides and the main view's notifications, the name
 lookup, the ship); (2) the DEBUG setters before and after the redirect (Open_Connection 0x727F00 through
@@ -493,7 +489,7 @@ A handler added to cpacket.cpp changes the trace: check the difference, then `ru
 +0x78 gives a model for a loaded file's NAME (FILE is NAME.w3d), `Create_Render_Obj` the "missing" model. The models
 are `FakeModelClass`, a real RenderObjClass that logs Set_Transform, Set_LOD_Bias, Set_Hidden, Add_Sub_Object_To_Bone
 and its deletion (`model N ...`); NAME ship... has the bones ~FL ~FR ~BL ~BR, NAME rs_... is an rs_track model
-(Class_ID 0x10001). The INIs are clienttest's own, `tests/capharness/clienttest/data/basset.ini` (the loader) and
+(Class_ID 0x10001). The INIs are clienttest's own, `tests/clienttest/data/basset.ini` (the loader) and
 `cbasset.ini` (Set_Model's radius, the mount points): `run` copies them into `.work/harness/clienttest/`, never the
 game's folder (D69). The aux root factory 0x6F6000's stand-in gives the types that have a root the harness's
 (its slot +0x04, the deleting destructor, logs). 57 checks (12 new: (4)'s object in the table with the packet's
@@ -516,16 +512,15 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | Script | What | Needs |
 |---|---|---|
 | `convert.py` | EA-UDP dump to `.dgram` (above) | the dumps |
-| `build.py` | the M1.0 capharness skeleton (above) | a pool VM |
 | `fetch_reference.py` | the frozen reference (above) | network, or `--archive F` |
 | `drawcheck.py` | M2's draw-dump regression check (above): original vs ours at frame 900, group tables against `drawcheck_baseline.json` | the proxy (`run_reference.py build`), our vidtest.exe (`build.py link`) |
-| `auxdata_smoke.py` | builds and runs `tests/capharness/auxdata_smoke` (M1.2): both aux-data forms decode on a hand-built root and re-encode byte for byte; exit code 0 = pass | libraries built (`tools/vc6/build.py`, `mkmss32.py lib`), a pool VM |
+| `auxdata_smoke.py` | builds and runs `tests/auxdata_smoke` (M1.2): both aux-data forms decode on a hand-built root and re-encode byte for byte; exit code 0 = pass | libraries built (`tools/vc6/build.py`, `mkmss32.py lib`), a pool VM |
 | `auxreplay.py` | M1.3 gates (b), (c): AUX_DATA round trip and values (above) | libraries, pool VM, the frozen reference |
 | `n7aux.py` (retired, D154) | AUX_DATA of Net-7 recordings through auxreplay (M1.5, above) | the reference decoder, sessions |
 | `udpreplay.py` | EA-UDP transport, handshake, loop, connection layer (M1.4, above) | `.dgram` files, pool VM |
-| `kerneltest.py` | `tests/capharness/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
-| `clienttest.py` | `tests/capharness/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
-| `movietest.py` | `tests/capharness/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
+| `kerneltest.py` | `tests/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
+| `clienttest.py` | `tests/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
+| `movietest.py` | `tests/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |

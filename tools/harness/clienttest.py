@@ -1,9 +1,9 @@
-"""The client base, SClient and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/capharness/clienttest.
+"""The client base, SClient and cpacket.cpp's handlers (D94(c), P-T7-1, P-T8-1): tests/clienttest.
 
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
     python tools/harness/clienttest.py run [--exe EXE] [--name alex3] [--session ffff9b25] [--count 1000] [--update]
 
-build: stages tests/capharness/clienttest with its generated sources (gen_stubs.py: pk_stubs.cpp, udpreplay's
+build: stages tests/clienttest with its generated sources (gen_stubs.py: pk_stubs.cpp, udpreplay's
 packet constructor stand-ins without the Process_Packet lines cpacket.cpp defines; clienttest_tables.cpp, the
 factory's opcodes) and one wrapper per app source (APP: client.cpp, sclient.cpp, cpacket.cpp, the connection
 layer, pk.cpp and every rebuilt packet file, each its own object), and links it against DIR's libraries into
@@ -12,8 +12,8 @@ DIR/programs/clienttest/.
 run: writes .work/harness/clienttest/NAME.messages.txt, the first COUNT server-to-client messages of SESSION in
 the reference traces' NAME.trace.jsonl (udpreplay.py's reference: roots.EA_TRACES), runs the program there (never in
 the game's folder; no registry, no network, asserts to the trace; the base-asset INIs from
-tests/capharness/clienttest/data copied in) and compares its trace with
-tests/capharness/clienttest/expected.txt: the first run (or --update) writes that file, later runs must equal
+tests/clienttest/data copied in) and compares its trace with
+tests/clienttest/expected.txt: the first run (or --update) writes that file, later runs must equal
 it line for line, and every check in the trace must pass (exit code 0).
 """
 import argparse
@@ -27,7 +27,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
-SRC = os.path.join(REPO, 'tests', 'capharness', 'clienttest')
+SRC = os.path.join(REPO, 'tests', 'clienttest')
 WORK = os.path.join(REPO, '.work', 'harness', 'clienttest')
 EXPECTED = os.path.join(SRC, 'expected.txt')
 DATA = os.path.join(SRC, 'data')
@@ -63,7 +63,7 @@ def build(out):
         if fn.endswith(('.cpp', '.h')):
             shutil.copy(os.path.join(SRC, fn), stage)
     for fn in UDPREPLAY_STUBS:
-        shutil.copy(os.path.join(REPO, 'tests', 'capharness', 'udpreplay', fn), stage)
+        shutil.copy(os.path.join(REPO, 'tests', 'udpreplay', fn), stage)
     r = subprocess.run([sys.executable, os.path.join(SRC, 'gen_stubs.py'), stage], capture_output=True, text=True)
     print(r.stdout.strip())
     if r.returncode:
@@ -115,7 +115,7 @@ def run(exe, name, session, count, update):
     msgs = os.path.join(WORK, '%s.messages.txt' % name)
     n = messages(name, session, count, msgs)
     # clienttest's own basset.ini / cbasset.ini (co.cpp's model loader, Set_Model's radius, the mount points read
-    # them from the working directory): tests/capharness/clienttest/data, never the game's (D69)
+    # them from the working directory): tests/clienttest/data, never the game's (D69)
     for fn in os.listdir(DATA):
         shutil.copy(os.path.join(DATA, fn), WORK)
     # Miles: loadingview.cpp (linked for SClient's calls) imports AIL_set_preference / AIL_serve, so the exe needs

@@ -22,7 +22,7 @@
 // E&B's message reporter 0x4BC130 (cdecl, printf-style; unknown_debug.cpp's 0x4BC260 is its sibling): the
 // sender, the category, the file and line, a format (D81: the client pushes its pooled "" 0xBDA908 as the
 // sender, as dbgmgr.cpp does). Not rebuilt: a program that links CordMgr defines it
-// (tests/capharness/udpreplay does). The asserts and these calls sit on the client's lines (D25), so
+// (tests/udpreplay does). The asserts and these calls sit on the client's lines (D25), so
 // this block keeps the eight lines the stand-in class took.
 //
 void Unknown_4BC130(const char *sender, const char *category, const char *file, int line,

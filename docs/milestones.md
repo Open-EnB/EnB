@@ -24,7 +24,7 @@ the builders' rules are in [builders.md](builders.md).
 
 ## 1. What exists (2026-10-25)
 
-* M1 is met on gates (a)-(d); the harness is `tests/capharness/` with `tools/harness/`.
+* M1 is met on gates (a)-(d); the harness is the programs under `tests/` (udpreplay, auxreplay, auxdata_smoke; D155) with `tools/harness/`.
 * M2 is complete: the one-time supervised E&BConfig run (D63) passed 2026-10-25 (progress.md log); the repeatable check of gate (c) stays `tools/harness/vidtest_e2e.py`.
 * The app library is at 458 byte-exact pairs, 54 ambiguous. Auxdata, the root schemas, wwudp, the kernel, the connection layer and the packet factory are rebuilt (newest entry of progress.md).
 * The link step works: `tools/vc6/build.py` builds the eight libraries, `build.py link --program vidtest` links vidtest.exe (§3).
@@ -47,7 +47,7 @@ That gives a complete reference to compare our C++ against.
 
 ### 2.1 The test
 
-A console program `capharness.exe`, built with VC6 and linked against the tree's `app` library and
+(As planned; built as udpreplay and auxreplay, `tests/`, D155.) A console program `capharness.exe`, built with VC6 and linked against the tree's `app` library and
 wwlib. It reads a capture and runs two layers:
 
 1. **Transport (wwudp).** EA-UDP datagrams go into `CordCon`'s receive path through a replay

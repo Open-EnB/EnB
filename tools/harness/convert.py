@@ -121,7 +121,7 @@ def convert(dump, out):
     keys = {}
     n = 0
     with open(out, 'w', newline='\n') as f:
-        f.write('# capharness datagram file v1 (tools/harness/README.md); source %s\n' % dump)
+        f.write('# datagram file v1 (tools/harness/README.md); source %s\n' % dump)
         for rec in read_dump(dump):
             if rec[0] == 'K':
                 keys[rec[1]] = rec[2]

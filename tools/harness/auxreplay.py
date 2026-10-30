@@ -1,4 +1,4 @@
-"""M1.3's AuxData harness (milestones.md 2.1 gates (b) and (c)): tests/capharness/auxreplay.
+"""M1.3's AuxData harness (milestones.md 2.1 gates (b) and (c)): tests/auxreplay.
 
     python tools/harness/auxreplay.py prepare TRACE.jsonl OUT.txt [--dump]
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
@@ -90,7 +90,7 @@ APP_SOURCES = (r'app\client\aux_roots.cpp', r'app\shared\auxdata\unknown_root.cp
 def build(out, app_sources):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
-    src = os.path.join(REPO, 'tests', 'capharness', 'auxreplay')
+    src = os.path.join(REPO, 'tests', 'auxreplay')
     stage = os.path.join(REPO, '.work', 'harness', 'auxreplay_src')
     shutil.rmtree(stage, ignore_errors=True)
     os.makedirs(stage)

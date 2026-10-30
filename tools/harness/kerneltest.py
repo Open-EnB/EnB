@@ -1,4 +1,4 @@
-"""The task kernel's test (docs/kernel-map.md 6, step 1): tests/capharness/kerneltest.
+"""The task kernel's test (docs/kernel-map.md 6, step 1): tests/kerneltest.
 
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/kerneltest.py build [--out DIR]
     python tools/harness/kerneltest.py run [--exe EXE]
@@ -81,7 +81,7 @@ EXPECT = [
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
-    src = os.path.join(REPO, 'tests', 'capharness', 'kerneltest')
+    src = os.path.join(REPO, 'tests', 'kerneltest')
     stage = os.path.join(REPO, '.work', 'harness', 'kerneltest_src')
     shutil.rmtree(stage, ignore_errors=True)
     os.makedirs(stage)

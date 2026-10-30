@@ -1,4 +1,4 @@
-"""M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/capharness/udpreplay.
+"""M1.4's EA-UDP harness (milestones.md 2.1 gate (a)): tests/udpreplay.
 
     ENB_VC6_HOSTS=<user>@<ip> python tools/harness/udpreplay.py build [--out DIR]
     python tools/harness/udpreplay.py run alex3|alex7 [--exe EXE] [--aux]
@@ -32,7 +32,7 @@ that drops every Nth datagram (default 0 = none, then 10 and 4), the clock advan
 which a replay of the capture can't test (the dumps have no times).
 
 conn: the same replay and loop runs with --conn: what each receiving CordCon delivers is read through
-app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/capharness/udpreplay/
+app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/udpreplay/
 conn_replay.cpp supplies a test packet) and then through the stream connection's framing (Send_Packet
 writes {size, opcode} and the payload to a memory transport; Receive reads them back through the
 100,000-byte ring in chunks of 1 to 4,096 bytes). Passes when the {size, opcode, payload} messages
@@ -97,7 +97,7 @@ def masked(m):
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
-    src = os.path.join(REPO, 'tests', 'capharness', 'udpreplay')
+    src = os.path.join(REPO, 'tests', 'udpreplay')
     stage = os.path.join(REPO, '.work', 'harness', 'udpreplay_src')
     shutil.rmtree(stage, ignore_errors=True)
     os.makedirs(stage)
