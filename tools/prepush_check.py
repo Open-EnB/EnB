@@ -47,7 +47,9 @@ SECRET_RES = [
                                    r'\s*[:=]\s*["\'][^"\'\s$%{<]{6,}["\']')),
 ]
 # placeholders and test values that look like assignments but are not secrets
-SECRET_IGNORE = re.compile(r'(?i)(changeme|example|placeholder|xxxx|\*\*\*|your[_ -]|<.*>|dummy|test)')
+SECRET_IGNORE = re.compile(r'(?i)(changeme|example|placeholder|xxxx|\*\*\*|your[_ -]|<.*>|dummy|test'
+                           # a value that is only the key's own word (C++ `p ? p : "Password"` defaults)
+                           r'|["\'](?:password|passwd|pwd|secret)["\'])')
 INSTALL_NAME_RES = [re.compile(p, re.I) for p in (
     r'(^|/)EA GAMES(/|$)', r'(^|/)Earth (&|and) Beyond(/|$)', r'(^|/)Net-?7(/|$)',
     r'(^|/)Program Files', r'(^|/)Live-Era-Data(/|$)', r'(^|/)a private tool(/|$)')]
