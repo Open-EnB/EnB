@@ -153,7 +153,7 @@ public:
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58();
-	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
+	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
 
 	char Unknown84[0x18C - 0x84];						// +0x84
 	char Type[4];										// +0x18C the dialog's type, a string (0x74F5C0 compares it; its length not known)  // NAME 2: what 0x74F5C0 compares
