@@ -1010,6 +1010,10 @@ unless `--lever` cites a new row of this table.
   assert moves; a tryv2 variant that adds or removes one line shows false losses: pair it with an opposite edit; a
   trailing blank line before an appfile `@N` anchor eats a line. A tryv2 edit anchored on a loop line can match twice
   (H22): anchor on the line before it.
+* **A rename across our files must leave an imported library's own names alone (2026-10-30, D159):** app code
+  reaches into imported classes by their names (soundlib.cpp's `using AudibleSoundClass::m_Unknown7C`, WWAudio's
+  `m_` style); renaming `m_UnknownXX` in app/ broke it (12 compile errors in the verify, soundlib's pairs lost).
+  Check every renamed name against the libraries' headers, and run a full verify, not just replay.
 ### 3.9 Library-specific
 
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
