@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Links resolve, no mixed line endings, .gitattributes is complete
+      - name: Links resolve, stored files are LF (D147)
         run: python tools/docs_check.py
       - name: Generated documents are up to date (names.py, notexact.py)
         run: |

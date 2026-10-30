@@ -50,7 +50,10 @@ maintainer's machine; what CI checks is documented in [.github/workflows/](.gith
   your own copy.
 * **The toolchain.** Visual C++ 6.0, the DirectX 8 SDK, the Miles and Bink SDKs and the build
   VMs are Microsoft's and RAD's. [docs/toolchain.md](docs/toolchain.md) says exactly which
-  versions reproduce the client.
+  versions reproduce the client, and [docs/setup-vc6.md](docs/setup-vc6.md) builds the VC6 VM
+  from public downloads with one script.
+* **Third-party binaries in releases.** The project ships only programs built from its own
+  sources; `MSS32.DLL`, Bink, DirectX and the game's files come from your own copies.
 * **Recordings.** Packet captures, gameplay recordings and VM images used for testing stay on the
   maintainer's disk (`tools/prepush_check.py` refuses to let them in).
 * **Pre-compiled library code** (the C runtime, the C++ standard library, D3DX): proven identical
@@ -83,11 +86,19 @@ the working rules; much of this project is done by AI agents under them.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). In short: read the rules, keep a change only if it gains
-verified pairs and loses none, and never commit binaries.
+verified pairs and loses none, and never commit binaries. You can help without Visual C++ 6.0
+too: reverse-engineering notes, tools, documentation, and code that a maintainer verifies.
+
+**Pull requests written by AI agents are welcome.** Point your agent at [AGENTS.md](AGENTS.md).
+Keep each pull request small, one verified function per commit, and say which model wrote it;
+a person stays accountable for it.
+
+[Code of conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md)
 
 ## Licence
 
 GPL v3 with Electronic Arts' additional terms, because the repository includes EA's published
 Westwood code ([LICENSE](LICENSE)). This is an unofficial fan reconstruction and is not
-affiliated with or endorsed by Electronic Arts. Modified versions must be marked as such and
-must not be presented as the original.
+affiliated with or endorsed by Electronic Arts. Earth & Beyond is EA's trademark; the repository
+contains none of the game's art or data. Modified versions must be marked as such and must not be
+presented as the original.

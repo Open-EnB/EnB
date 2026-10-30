@@ -57,7 +57,7 @@ out, `tools/vc6/tryv2.py` / `tryvariants.py` try source forms.
 
 Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
 
-Publishing: [../README.md](../README.md) (what the project is), [../CONTRIBUTING.md](../CONTRIBUTING.md), [../LICENSE](../LICENSE) (GPL v3 with EA's additional terms). `tools/progress.py` builds the progress card, `tools/docs_check.py` and `tools/prepush_check.py` guard the documentation and what may be pushed; CI is in [../.github/workflows/](../.github/workflows/) ([tools/re/README.md](../tools/re/README.md) lists the tools).
+Publishing: [../README.md](../README.md) (what the project is), [../CONTRIBUTING.md](../CONTRIBUTING.md), [../AGENTS.md](../AGENTS.md) (rules for contributors' agents), [../SECURITY.md](../SECURITY.md), [../CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md), [../LICENSE](../LICENSE) (GPL v3 with EA's additional terms). `tools/progress.py` builds the progress card, `tools/docs_check.py` and `tools/prepush_check.py` guard the documentation and what may be pushed; CI is in [../.github/workflows/](../.github/workflows/) ([tools/re/README.md](../tools/re/README.md) lists the tools).
 
 Addresses are virtual addresses in the retail client.exe, SHA-256 `249f8524…51c4`
 ([binary.md](binary.md)).

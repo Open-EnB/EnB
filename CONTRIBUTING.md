@@ -14,12 +14,33 @@ a byte comparison against a binary this repository does not contain.
    (section 3). Most failed attempts are in the trap list already.
 4. Read [docs/builders.md](docs/builders.md) if you will work in a focused session on one item: the
    rules, the report format, who runs what.
-5. Index of everything else: [docs/README.md](docs/README.md).
+5. Index of everything else: [docs/README.md](docs/README.md). Agents: [AGENTS.md](AGENTS.md).
+6. Install the pre-push hook once per clone: `git config core.hooksPath tools/hooks` (it runs
+   `tools/prepush_check.py` before anything leaves your machine).
 
 You need the retail client (SHA-256 in [docs/binary.md](docs/binary.md)), EA's published
 Westwood source, and Visual C++ 6.0 SP4 to verify byte for byte. None of them is in this
-repository (see "What is not here" in the README). Without them you can still improve the
-documentation, the Python tools and the progress report, and review code against the notes.
+repository (see "What is deliberately not here" in the README).
+[docs/setup-vc6.md](docs/setup-vc6.md) builds the VC6 VM from public downloads with one script.
+
+## Lanes (D151)
+
+| Lane | Needs VC6? | Checked by |
+|---|---|---|
+| Reverse-engineering notes: names (D56), layouts, call maps, evidence | No | review |
+| Python tools and their tests | No | CI |
+| Documentation | No | `tools/docs_check.py`, review |
+| C++ written without VC6 | No | a maintainer's VM verify before merge |
+| C++ verified with VC6 | Yes | your `pairs_cmp.py` result, then the maintainer's verify |
+
+Issues and pull requests carry the labels `no-vc6` or `needs-vc6`.
+
+## Pull requests
+
+Work on a branch of your fork and open a pull request against `master`; nobody pushes to
+`master`, maintainers included (D148). Keep it small: one verified function per commit. AI
+agents' pull requests are welcome ([AGENTS.md](AGENTS.md)): say which model wrote it. A
+maintainer runs the byte verification on the build VMs before merging.
 
 ## How a change is kept
 
@@ -49,8 +70,8 @@ the outcome.
   before and after where there are any ("Rebuild the composite listener byte-exact: app 1121 ->
   1128 client functions, +8 pairs, none lost"). `git log` has many examples.
 * One finished piece per commit; commit by file name, never `git add -A`.
-* Keep each file's line endings. The tree has a CRLF/LF split that `.gitattributes` documents:
-  most C++ and Markdown sources are CRLF; the files listed there as LF are LF.
+* Line endings need no care: the tree is LF everywhere and `.gitattributes` makes every checkout
+  LF (D147). If a Windows tool wrote CRLF, `python tools/eol.py fix`.
 * Docs stay UTF-8.
 
 ## Never commit binaries
