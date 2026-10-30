@@ -60,7 +60,7 @@ template<class T> int DeltaArrayClass<T>::UnknownGlobal;
 template<class T> DeltaArrayClass<T>::DeltaArrayClass(const char *name, int count, const T &value) :
 	DeltaCompoundClass(name)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 	char item_name[256];
 	int i = 0;
 	if (count > 0) {

@@ -35,14 +35,14 @@ public:
 	virtual void			Unknown_Distort(Vector2 & uv, UnknownDistortionClass * owner);
 
 protected:
-	float						m_Unknown08;	// decay with the squared distance from the centre (20)
-	float						m_Unknown0C;	// phase speed per millisecond (0.01)
-	float						m_Unknown10;	// amplitude (0.01)
+	float						Unknown08;	// decay with the squared distance from the centre (20)
+	float						Unknown0C;	// phase speed per millisecond (0.01)
+	float						Unknown10;	// amplitude (0.01)
 };
 
 
 /*
-** The distortion render object: a sphere of radius m_Unknown90 around its position.
+** The distortion render object: a sphere of radius Unknown90 around its position.
 */
 class UnknownDistortionClass : public RenderObjClass
 {
@@ -60,9 +60,9 @@ public:
 	virtual void					Unknown_Render_Distortion(CameraClass & camera);
 
 protected:
-	RefCountPtr<UnknownRippleClass>	m_Unknown8C;	// the distortion function: a smart pointer (the destructor
+	RefCountPtr<UnknownRippleClass>	Unknown8C;	// the distortion function: a smart pointer (the destructor
 															// 0x996040 releases it twice: its own NULL assignment, then ~RefCountPtr)
-	float								m_Unknown90;	// radius (1 by default)
+	float								Unknown90;	// radius (1 by default)
 };
 
 

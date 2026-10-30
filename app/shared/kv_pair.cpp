@@ -14,8 +14,8 @@
 
 KVPairClass::KVPairClass(const char *key, bool even, bool odd) :
 	Key(key),
-	m_Unknown08(even),
-	m_Unknown09(odd)
+	Unknown08(even),
+	Unknown09(odd)
 {
 	G_ASSERT(key);
 }

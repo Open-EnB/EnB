@@ -4444,7 +4444,7 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
 bool SClient::Unknown_74D570()
 {
 	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
-	if (group && group->m_Unknown70) {
+	if (group && group->Unknown70) {
 		for (int i = 0; i < 5; i++) {
 			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
 			if (name && strcmp(name, "") != 0) return(true);
@@ -4457,7 +4457,7 @@ bool SClient::Unknown_74D570()
 bool SClient::Unknown_74D690()
 {
 	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
-	return(group && group->m_Unknown70 && group->IsGroupLeader.Value);
+	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
 
@@ -5261,7 +5261,7 @@ bool SClient::Unknown_750B60()
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->AuxData) {
 		NameClass name("IsIncapacitated"); DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-		if (t && t->m_Unknown70) return(t->Value);
+		if (t && t->Unknown70) return(t->Value);
 	}
 	return(false);
 }
@@ -5607,7 +5607,7 @@ bool SClient::Unknown_34(const char *text)
 	if (stricmp(text, "/deco") == 0) {
 		LandClass *land = MainView->Land;
 		if (land) {
-			bool &decorations = ((bool *)land)[0x192];	// LandClass's m_Unknown192 (protected)
+			bool &decorations = ((bool *)land)[0x192];	// LandClass's Unknown192 (protected)
 			decorations = !decorations;
 			if (decorations) {
 				Unknown_74D990(0x17, "Decoration rendering is on.", 0);

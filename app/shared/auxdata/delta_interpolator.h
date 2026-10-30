@@ -52,7 +52,7 @@ public:
 
 
 		G_ASSERT(time >= LastTime);
-		if (m_Unknown24C || time == LastTime) {
+		if (Unknown24C || time == LastTime) {
 			return LastValue;
 		}
 		return Update(time);
@@ -63,7 +63,7 @@ public:
 	DeltaTemplateClass<float> StartValue;			// +0x1B8 (the value at LastTime when Set)
 	DurationClass LastTime;								// +0x240
 	float LastValue;										// +0x248  // NAME 2: after the assert's LastTime
-	bool m_Unknown24C;									// +0x24C set when the value can't change (no change, or EndTime reached)
+	bool Unknown24C;									// +0x24C set when the value can't change (no change, or EndTime reached)
 };
 
 #endif //__DELTA_INTERPOLATOR_H

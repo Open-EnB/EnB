@@ -29,8 +29,9 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    * `tools/vc6/layout.py CLASS HEADER` prints a class's offsets as VC6 lays it out.
 2. **Find the evidence in the client.** Usually that's a constructor: it initialises members in
    declaration order, so it shows the true layout. Then look for the EA copy that has the member
-   or virtual. Unknown E&B additions get neutral names (`m_UnknownXX`), with the evidence in a
-   comment.
+   or virtual. Unknown E&B additions get neutral names in the library's own style (`UnknownXX`;
+   `m_UnknownXX` in WWAudio, whose members are `m_`-prefixed: conventions.md §1), with the evidence
+   in a comment.
 3. **Write it as a patch** (old text, new text, reason with the client address) in a spec file in
    `.work/`, and apply it with `tools/vc6/addpatch.py --block NAME SPEC.py`: it applies it to the
    tree file and records it in that `importer.py` block (the current block for wwshade's WW3D2:

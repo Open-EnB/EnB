@@ -147,7 +147,7 @@ public:
 	bool Whole;								// +0x2C the compound itself is in a list  // NAME 2: describes what it does
 };
 
-// The records of a tree's fields, indexed by their ids (DeltaClass::m_Unknown7C); size 8
+// The records of a tree's fields, indexed by their ids (DeltaClass::Unknown7C); size 8
 class RecordTableClass  // NAME 2: describes what it does
 {
 public:

@@ -3,7 +3,7 @@
 
 bool MoneyPacketDataClass::Write(LinearBufferClass *buffer)
 {
-	__int64 value = Money->m_Unknown00;
+	__int64 value = Money->Unknown00;
 	buffer->Write(&value, sizeof(value));
 	return(true);
 }

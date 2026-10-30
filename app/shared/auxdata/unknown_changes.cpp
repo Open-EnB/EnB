@@ -75,19 +75,19 @@ void ChangeTableClass::Set_Sent(int id, unsigned int stamp)
 
 void ChangeTableClass::Set_Sent(DeltaClass *delta)
 {
-	Unsent_Parents(&Entries[delta->m_Unknown7C]);
+	Unsent_Parents(&Entries[delta->Unknown7C]);
 	ChangeSentVisitorClass visitor(this);
 	delta->Accept(visitor);
 }
 
 void ChangeSentVisitorClass::Visit(DeltaClass *delta)
 {
-	Table->Set_Entry_Sent(delta->m_Unknown7C, delta->m_Unknown70);
+	Table->Set_Entry_Sent(delta->Unknown7C, delta->Unknown70);
 }
 
 void ChangeSentVisitorClass::Visit(DeltaCompoundClass *delta)
 {
-	Table->Set_Entry_Sent(delta->m_Unknown7C, delta->m_Unknown70)->Dirty = false;
+	Table->Set_Entry_Sent(delta->Unknown7C, delta->Unknown70)->Dirty = false;
 	Visit_Children(delta);
 }
 
@@ -124,7 +124,7 @@ void ChangeTableClass::Set_Unsent(ChangeEntryClass *entry)
 
 ChangeTableClass::ChangeTableClass(DeltaCompoundClass *root) : Root(0), Time(0), Delta(root)
 {
-	Entries.resize(root->m_Unknown98, ChangeEntryClass());
+	Entries.resize(root->Unknown98, ChangeEntryClass());
 	ChangeBuildVisitorClass visitor(this);
 	root->Accept(visitor);
 	Root = visitor.Head;
@@ -132,7 +132,7 @@ ChangeTableClass::ChangeTableClass(DeltaCompoundClass *root) : Root(0), Time(0),
 
 void ChangeBuildVisitorClass::Visit(DeltaClass *delta)
 {
-	ChangeEntryClass *entry = &Table->Entries[delta->m_Unknown7C];
+	ChangeEntryClass *entry = &Table->Entries[delta->Unknown7C];
 	entry->Parent = Parent;
 	*Link = entry;
 	Link = &entry->Next;
@@ -141,7 +141,7 @@ void ChangeBuildVisitorClass::Visit(DeltaClass *delta)
 
 void ChangeBuildVisitorClass::Visit(DeltaCompoundClass *delta)
 {
-	ChangeEntryClass *entry = &Table->Entries[delta->m_Unknown7C];
+	ChangeEntryClass *entry = &Table->Entries[delta->Unknown7C];
 	entry->Parent = Parent;
 	*Link = entry;
 	Link = &entry->Next;
@@ -170,7 +170,7 @@ void ChangeTableClass::Scan()
 void ChangeScanVisitorClass::Visit(DeltaCompoundClass *delta)
 {
 	ChangeEntryClass *entry = Entry;
-	if (entry->Stamp != delta->m_Unknown70) {
+	if (entry->Stamp != delta->Unknown70) {
 		Entry = entry->Child;
 		int count = delta->Children.size();
 		for (int i = 0; i < count; i++) {
@@ -181,7 +181,7 @@ void ChangeScanVisitorClass::Visit(DeltaCompoundClass *delta)
 			Entry = Entry->Next;
 		}
 		Entry = entry;
-		entry->Stamp = delta->m_Unknown70;
+		entry->Stamp = delta->Unknown70;
 	}
 	ChangeEntryClass *current = Entry;
 	if (current->Dirty) {
@@ -208,7 +208,7 @@ void ChangeScanVisitorClass::Visit(DeltaCompoundClass *delta)
 
 void ChangeScanVisitorClass::Visit(DeltaClass *delta)
 {
-	if (Entry->Stamp != delta->m_Unknown70) {
+	if (Entry->Stamp != delta->Unknown70) {
 		Entry->Changed = 1;
 	}
 }
@@ -258,7 +258,7 @@ void ChangeTableClass::Include(ChangeEntryClass *entry)
 **	unknown_root.cpp; the user decides the name). The order of the functions is the client's. The
 **	entries are kept by field id in a vector (its insert 0x4ABE40 is the STL instance, its
 **	destructor's copy 0x4ABE00); the three visitors are local classes with the two Visit slots only.
-**	How a field counts as changed: Scan compares each field's m_Unknown70 with the entry's Stamp
+**	How a field counts as changed: Scan compares each field's Unknown70 with the entry's Stamp
 **	(DeltaClass::Unknown_34 counts it up on every change; a compound's moves with any field below,
 **	so Scan skips a compound whose Stamp is current), and sums Changed, First and Last up the
 **	compounds marked Dirty. Not rebuilt: 0x4AB580 (returns +0x0C less +0x08 of its object; no

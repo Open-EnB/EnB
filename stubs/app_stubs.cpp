@@ -134,7 +134,7 @@ const char *Type_Name(MoneyClass *)
 char *Value_To_String(char *buf, int size, const MoneyClass &value)
 {
 	STUB_CALLED("Value_To_String(MoneyClass) (0x4F0BE0)");
-	sprintf(buf, "%I64d", value.m_Unknown00);
+	sprintf(buf, "%I64d", value.Unknown00);
 	return buf;
 }
 
@@ -153,7 +153,7 @@ bool String_To_Value(const char *text, MoneyClass *value)
 std::string MoneyClass::Unknown_4F00C0(bool) const
 {
 	char buffer[32];
-	return std::string(_i64toa(m_Unknown00, buffer, 10));
+	return std::string(_i64toa(Unknown00, buffer, 10));
 }
 
 // 0x4C4360-0x4C48C0: the chat-stream decoder (opcode 95's Print): the text left empty

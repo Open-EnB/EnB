@@ -6,34 +6,34 @@
 DeltaClass::DeltaClass(const char *name) :
 	Name(name),
 	FullName(name),
-	m_Unknown70(0),
+	Unknown70(0),
 	Parent(0),
-	m_Unknown78(0),
-	m_Unknown7C(0),
-	m_Unknown80(0x3FF)
+	Unknown78(0),
+	Unknown7C(0),
+	Unknown80(0x3FF)
 {
-	m_Unknown04 = DeltaUnknownGlobal;
+	Unknown04 = DeltaUnknownGlobal;
 }
 
 
 void DeltaClass::Unknown_18()
 {
-	m_Unknown70 = 2;
+	Unknown70 = 2;
 	Unknown_40(this);
 }
 
 
 void DeltaClass::Unknown_1C()
 {
-	m_Unknown70 = 0;
+	Unknown70 = 0;
 	Unknown_44(this);
 }
 
 
 void DeltaClass::Unknown_20()
 {
-	if (m_Unknown70 > 1) {
-		m_Unknown70 = 1;
+	if (Unknown70 > 1) {
+		Unknown70 = 1;
 	}
 }
 
@@ -68,7 +68,7 @@ bool DeltaClass::Unknown_0C(LinearBufferClass &buf)
 
 void DeltaClass::Unknown_34(DeltaClass *delta)
 {
-	m_Unknown70++;
+	Unknown70++;
 	if (Parent) {
 		Parent->Unknown_34(delta);
 	}
@@ -77,7 +77,7 @@ void DeltaClass::Unknown_34(DeltaClass *delta)
 
 void DeltaClass::Unknown_3C(DeltaClass *delta)
 {
-	m_Unknown70 = 2;
+	Unknown70 = 2;
 	if (Parent) {
 		Parent->Unknown_3C(delta);
 	}
@@ -86,7 +86,7 @@ void DeltaClass::Unknown_3C(DeltaClass *delta)
 
 void DeltaClass::Unknown_40(DeltaClass *delta)
 {
-	m_Unknown70 = 2;
+	Unknown70 = 2;
 	if (Parent) {
 		Parent->Unknown_40(delta);
 	}
@@ -118,8 +118,8 @@ void DeltaClass::Accept(DeltaVisitorClass &visitor)
 void DeltaClass::Set_Parent(DeltaClass *parent, int slot, int &index)
 {
 	Parent = parent;
-	m_Unknown78 = slot;
-	m_Unknown7C = index++;
+	Unknown78 = slot;
+	Unknown7C = index++;
 	if (parent) {
 		FullName = parent->FullName;
 		FullName.Append(Name);
@@ -150,7 +150,7 @@ void DeltaCompoundClass::Set_Parent(DeltaClass *parent, int slot, int &index)
 	for (int i = 0; i < count; i++) {
 		Children[i]->Set_Parent(this, i, index);
 	}
-	m_Unknown98 = index - start;
+	Unknown98 = index - start;
 }
 
 
@@ -186,7 +186,7 @@ bool DeltaCompoundClass::Unknown_10(LinearBufferClass &buf, const DurationClass 
 
 void DeltaCompoundClass::Unknown_20()
 {
-	if (m_Unknown70 > 1) {
+	if (Unknown70 > 1) {
 		int count = Children.size();
 		for (int i = 0; i < count; i++) {
 			Children[i]->Unknown_20();
@@ -198,7 +198,7 @@ void DeltaCompoundClass::Unknown_20()
 
 void DeltaCompoundClass::Unknown_18()
 {
-	if (m_Unknown70 == 0) {
+	if (Unknown70 == 0) {
 		int count = Children.size();
 		for (int i = 0; i < count; i++) {
 			Children[i]->Unknown_18();
@@ -210,7 +210,7 @@ void DeltaCompoundClass::Unknown_18()
 
 void DeltaCompoundClass::Unknown_1C()
 {
-	if (m_Unknown70 != 0) {
+	if (Unknown70 != 0) {
 		int count = Children.size();
 		for (int i = 0; i < count; i++) {
 			Children[i]->Unknown_1C();
@@ -234,7 +234,7 @@ void DeltaCompoundClass::Unknown_00(DeltaChildVisitorClass *visitor)
 {
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {
-		visitor->Add_Child(m_Unknown80, Name.Get_String(), Children[i]);
+		visitor->Add_Child(Unknown80, Name.Get_String(), Children[i]);
 	}
 }
 

@@ -50,7 +50,7 @@ public:
 	}
 
 // NAME 1: members after their offsets (Resize 0x483820); +0x00 unknown
-	int						m_Unknown00;
+	int						Unknown00;
 	float *					Data;
 	int						Size;
 	int						Last;
@@ -181,7 +181,7 @@ public:
 	}
 
 // NAME 1: members after their offsets (0x485790); +0x00 unknown
-	int						m_Unknown00;
+	int						Unknown00;
 	SplineFloatArrayClass	Red;
 	SplineFloatArrayClass	Green;
 	SplineFloatArrayClass	Blue;

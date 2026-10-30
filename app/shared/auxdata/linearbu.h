@@ -45,7 +45,7 @@ public:
 	int Set_Capacity(int capacity);					// 0x4AB460 (reallocates)  // NAME 2: describes what it does
 
 	char *Buffer;					// +0x00  // NAME 2: describes what it does
-	int m_Unknown04;				// +0x04 not set by the constructors
+	int Unknown04;				// +0x04 not set by the constructors
 	int Size;						// +0x08 the bytes of data  // NAME 3: after the assert's parameter size (linearbu.cpp)
 	int Capacity;					// +0x0C the bytes allocated  // NAME 3: after the assert's parameter capacity (linearbu.cpp)
 	int GrowBy;						// +0x10  // NAME 2: describes what it does

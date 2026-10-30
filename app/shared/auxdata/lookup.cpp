@@ -25,7 +25,7 @@ public:
 
 LookupClass::LookupClass(DeltaCompoundClass *owner)
 {
-	LookupBuilderClass builder(this, m_Unknown10);
+	LookupBuilderClass builder(this, Unknown10);
 	owner->Accept(builder);
 }
 
@@ -79,7 +79,7 @@ bool LookupClass::Unknown_Test_70(int index) const
 	if (!Is_Valid_Index(index)) {
 		return false;
 	}
-	return Entries[index]->m_Unknown70 != 0;
+	return Entries[index]->Unknown70 != 0;
 }
 
 
@@ -91,7 +91,7 @@ bool LookupClass::Unknown_Test_70_Above_1(int index) const
 	if (!Is_Valid_Index(index)) {
 		return false;
 	}
-	return Entries[index]->m_Unknown70 > 1;
+	return Entries[index]->Unknown70 > 1;
 }
 
 
@@ -102,27 +102,27 @@ bool LookupClass::Unknown_Test_70_Above_1(int index) const
 DeltaClass *LookupClass::Find(const NameClass &name)
 {
 	G_ASSERT(!name.Is_Wildcard());
-	std::map<const char *, DeltaClass *>::iterator i = m_Unknown10.find(name.Get_String());
-	if (i == m_Unknown10.end()) return 0;
+	std::map<const char *, DeltaClass *>::iterator i = Unknown10.find(name.Get_String());
+	if (i == Unknown10.end()) return 0;
 	return (*i).second;
 }
 bool LookupClass::Unknown_Test_70(const NameClass &name) const
 {
 	G_ASSERT(!name.Is_Wildcard());
-	std::map<const char *, DeltaClass *>::const_iterator i = m_Unknown10.find(name.Get_String());
-	if (i == m_Unknown10.end() || (*i).second == 0) {
+	std::map<const char *, DeltaClass *>::const_iterator i = Unknown10.find(name.Get_String());
+	if (i == Unknown10.end() || (*i).second == 0) {
 		return false;
 	}
-	return (*i).second->m_Unknown70 != 0;	// NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it
+	return (*i).second->Unknown70 != 0;	// NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it
 }
 bool LookupClass::Unknown_Test_70_Above_1(const NameClass &name) const
 {
 	G_ASSERT(!name.Is_Wildcard());
-	std::map<const char *, DeltaClass *>::const_iterator i = m_Unknown10.find(name.Get_String());
-	if (i == m_Unknown10.end() || (*i).second == 0) {
+	std::map<const char *, DeltaClass *>::const_iterator i = Unknown10.find(name.Get_String());
+	if (i == Unknown10.end() || (*i).second == 0) {
 		return false;
 	}
-	return (*i).second->m_Unknown70 > 1;	// NOT EXACT: as above (find 0x4ACBD0 out of line in the client)
+	return (*i).second->Unknown70 > 1;	// NOT EXACT: as above (find 0x4ACBD0 out of line in the client)
 }
 
 

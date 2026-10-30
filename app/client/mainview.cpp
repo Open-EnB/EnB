@@ -1417,10 +1417,10 @@ void MainViewClass::Unknown_512400()
 	if (!avatar || !avatar->AuxData) return;
 	NameClass target_name("TargetGameID");
 	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, target_name);
-	if (!target || !target->m_Unknown70) return;
+	if (!target || !target->Unknown70) return;
 	NameClass set_name("TargetGameID");
 	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, set_name);
-	if (set && set->m_Unknown70 > 1 && Client) {
+	if (set && set->Unknown70 > 1 && Client) {
 		UIStarmapClass *targeting = Client->Starmap;
 		if (targeting) {
 			targeting->Unknown10 = false;
@@ -1430,11 +1430,11 @@ void MainViewClass::Unknown_512400()
 	}
 	if (current_id == (unsigned)target->Value) return;
 	NameClass threat_name("TargetThreat");
-	DeltaStringClass *threat_data_assessment = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->m_Unknown70) threat_data_assessment = NULL;
+	DeltaStringClass *threat_data_assessment = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->Unknown70) threat_data_assessment = NULL;
 	NameClass sound_name("TargetThreatSound");
-	DeltaStringClass *threat_data_sound = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->m_Unknown70) threat_data_sound = NULL;
+	DeltaStringClass *threat_data_sound = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->Unknown70) threat_data_sound = NULL;
 	NameClass level_name("TargetThreatLevel");
-	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->m_Unknown70) threat_mob_level = NULL;
+	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->Unknown70) threat_mob_level = NULL;
 
 
 

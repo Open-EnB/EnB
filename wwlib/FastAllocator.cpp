@@ -30,7 +30,7 @@ FastAllocatorGeneral* FastAllocatorGeneral::Get_Allocator()
 	return generalAllocator;
 }
 
-FastAllocatorGeneral::FastAllocatorGeneral() : MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0), m_UnknownE18(0), m_UnknownE1C(0)
+FastAllocatorGeneral::FastAllocatorGeneral() : MemoryLeakLogEnabled(false), AllocatedWithMalloc(0), AllocatedWithMallocCount(0), ActualMemoryUsage(0), UnknownE18(0), UnknownE1C(0)
 {
 	int alloc_size=ALLOC_STEP;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
@@ -74,16 +74,16 @@ unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 void FastAllocatorGeneral::Unknown_Reset_Statistics()
 {
 	{
-		FastCriticalSectionClass::LockClass lock(m_UnknownE00);
-		m_UnknownE20[2]=m_UnknownE20[3];
-		m_UnknownE20[3]=0;
+		FastCriticalSectionClass::LockClass lock(UnknownE00);
+		UnknownE20[2]=UnknownE20[3];
+		UnknownE20[3]=0;
 	}
 	{
-		FastCriticalSectionClass::LockClass lock(m_UnknownE04);
-		m_UnknownE18=m_UnknownE1C;
-		m_UnknownE20[0]=m_UnknownE20[1];
-		m_UnknownE1C=0;
-		m_UnknownE20[1]=0;
+		FastCriticalSectionClass::LockClass lock(UnknownE04);
+		UnknownE18=UnknownE1C;
+		UnknownE20[0]=UnknownE20[1];
+		UnknownE1C=0;
+		UnknownE20[1]=0;
 	}
 }
 
@@ -99,19 +99,19 @@ void* FastAllocatorGeneral::Alloc(unsigned int n)
 	n += sizeof(unsigned int);
 
 	{
-		FastCriticalSectionClass::LockClass lock(m_UnknownE04);
+		FastCriticalSectionClass::LockClass lock(UnknownE04);
 		ActualMemoryUsage+=n;
-		m_UnknownE1C+=n;
-		m_UnknownE20[1]++;
+		UnknownE1C+=n;
+		UnknownE20[1]++;
 	}
 	if (n<MAX_ALLOC_SIZE) {
 		unsigned index=n/ALLOC_STEP;
 		FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
-		m_UnknownE1C+=n;
+		UnknownE1C+=n;
 		pMemory = allocators[index].Alloc();
 	}
 	else {
-		FastCriticalSectionClass::LockClass lock(m_UnknownE00);
+		FastCriticalSectionClass::LockClass lock(UnknownE00);
 		AllocatedWithMalloc+=n;
 		AllocatedWithMallocCount++;
 		pMemory = ::malloc(n);
@@ -136,13 +136,13 @@ void FastAllocatorGeneral::Free(void* pAlloc)
 			allocators[index].Free(n);
 		}
 		else {
-			FastCriticalSectionClass::LockClass lock(m_UnknownE00);
+			FastCriticalSectionClass::LockClass lock(UnknownE00);
 			AllocatedWithMallocCount--;
 			AllocatedWithMalloc-=size;
 			::free(n);
 		}
 		{
-			FastCriticalSectionClass::LockClass lock(m_UnknownE04);
+			FastCriticalSectionClass::LockClass lock(UnknownE04);
 			ActualMemoryUsage-=size;
 		}
 	}

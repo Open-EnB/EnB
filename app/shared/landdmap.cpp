@@ -75,10 +75,10 @@ static const char Unknown_B71650[] =
 
 
 LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float detail_u, float detail_v) :
-	m_Unknown04(NULL),
+	Unknown04(NULL),
 	Enabled(false),
-	m_Unknown11(true),
-	m_Unknown12(false),
+	Unknown11(true),
+	Unknown12(false),
 	Field(field),
 	TessellationRate(80000.0f),
 	DisplacementMap(NULL),
@@ -92,7 +92,7 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 	} else {
 		Enabled = false;
 	}
-	m_Unknown0C = 1;
+	Unknown0C = 1;
 	if (Enabled) {
 		DX8CALL(CreateTexture(DisplacementMapSize, DisplacementMapSize, 0, 0, (D3DFORMAT)0x102B0001, D3DPOOL_DEFAULT, &DisplacementMap));
 		DX8_ErrorCode(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(), DisplacementMapSize, DisplacementMapSize, 0, 0, D3DFMT_L8, D3DPOOL_MANAGED, &HeightTexture));
@@ -102,7 +102,7 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 		Unknown_467E40();
 		return;
 	}
-	m_Unknown11 = false;
+	Unknown11 = false;
 }
 
 LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
@@ -120,8 +120,8 @@ LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
 			DX8CALL(DeleteVertexShader(VertexShader));
 			VertexShader = 0;
 		}
-		delete [] m_Unknown04;
-		m_Unknown04 = NULL;
+		delete [] Unknown04;
+		Unknown04 = NULL;
 	}
 }
 
@@ -162,7 +162,7 @@ void LandUnknown466BE0Class::Read_Registry(void)
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60
 void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 {
-	if (!m_Unknown11) {
+	if (!Unknown11) {
 		return;
 	}
 	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
@@ -216,7 +216,7 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	static D3DXVECTOR4 consts(0.0f, 1.0f, 0.5f, 2.0f);
 	device->SetVertexShaderConstant(11, &consts, 1);
 
-	if (m_Unknown0C) {
+	if (Unknown0C) {
 		Unknown_468240(rinfo.Camera, scale);
 	}
 	Unknown_468D50();
@@ -237,14 +237,14 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	device->SetTextureStageState(4, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
 	device->SetTexture(4, DisplacementMap);
 	device->SetVertexShader(VertexShader);
-	if (m_Unknown12) {
+	if (Unknown12) {
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	}
 	device->SetStreamSource(0, VertexBuffer, 0x34);
 	device->SetIndices(IndexBuffer, 0);
 	device->SetTransform(D3DTS_WORLD, &scale);
 	DX8Wrapper::_Get_D3D_Device8()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, VertexCount, 0, IndexCount / 3);
-	if (m_Unknown12) {
+	if (Unknown12) {
 		DX8Wrapper::_Get_D3D_Device8()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	}
 	DX8Wrapper::_Get_D3D_Device8()->SetTransform(D3DTS_VIEW, &view);
@@ -346,8 +346,8 @@ void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 		}
 	}
 	VertexBuffer->Unlock();
-	delete [] m_Unknown04;
-	m_Unknown04 = NULL;
+	delete [] Unknown04;
+	Unknown04 = NULL;
 	Unknown_468920();
 }
 
@@ -429,32 +429,32 @@ int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x468920
 void LandUnknown466BE0Class::Unknown_468920(void)
 {
-	delete [] m_Unknown04;
-	m_Unknown04 = NULL;
-	m_Unknown08 = (BaseTessellationSize - 1) * (BaseTessellationSize - 1);
-	m_Unknown04 = new LandUnknown466BE0CellStruct[m_Unknown08];
+	delete [] Unknown04;
+	Unknown04 = NULL;
+	Unknown08 = (BaseTessellationSize - 1) * (BaseTessellationSize - 1);
+	Unknown04 = new LandUnknown466BE0CellStruct[Unknown08];
 	int cell = 0;
 	for (unsigned int y = 1; y < (unsigned int)BaseTessellationSize; y++) {
 		for (unsigned int x = 1; x < (unsigned int)BaseTessellationSize; x++) {
 			unsigned short n = (unsigned short)BaseTessellationSize;
-			m_Unknown04[cell].Corner[0] = (unsigned short)(n * (y - 1) + x - 1);
-			m_Unknown04[cell].Corner[1] = (unsigned short)(n * y + x - 1);
-			m_Unknown04[cell].Corner[2] = (unsigned short)(n * (y - 1) + x);
-			m_Unknown04[cell].Corner[3] = (unsigned short)(n * y + x);
+			Unknown04[cell].Corner[0] = (unsigned short)(n * (y - 1) + x - 1);
+			Unknown04[cell].Corner[1] = (unsigned short)(n * y + x - 1);
+			Unknown04[cell].Corner[2] = (unsigned short)(n * (y - 1) + x);
+			Unknown04[cell].Corner[3] = (unsigned short)(n * y + x);
 			cell++;
 		}
 	}
 	float *verts;
 	VertexBuffer->Lock(0, VertexCount * 0x34, (BYTE **)&verts, 0);
-	for (int i = 0; i < m_Unknown08; i++) {
+	for (int i = 0; i < Unknown08; i++) {
 		// the four corners, then the four one unit up
 		Vector3 points[8];
 		for (int k = 0; k < 4; k++) {
-			const float *v = verts + m_Unknown04[i].Corner[k] * 13;
+			const float *v = verts + Unknown04[i].Corner[k] * 13;
 			points[k].Set(v[0], v[1], v[2]);
 			points[k + 4].Set(v[0], v[1], v[2] + 1.0f);
 		}
-		Unknown_468BE0(m_Unknown04[i].Box, points);
+		Unknown_468BE0(Unknown04[i].Box, points);
 	}
 	VertexBuffer->Unlock();
 }
@@ -488,12 +488,12 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 	for (int i = 0; i < VertexCount; i++) {
 		verts[i * 13 + 10] = 0.0f;
 	}
-	for (int c = 0; c < m_Unknown08; c++) {
-		if (Unknown_468760(m_Unknown04[c].Box.Center, m_Unknown04[c].Box.Extent) >= 1) {
-			verts[m_Unknown04[c].Corner[0] * 13 + 10] = 1.0f;
-			verts[m_Unknown04[c].Corner[1] * 13 + 10] = 1.0f;
-			verts[m_Unknown04[c].Corner[2] * 13 + 10] = 1.0f;
-			verts[m_Unknown04[c].Corner[3] * 13 + 10] = 1.0f;
+	for (int c = 0; c < Unknown08; c++) {
+		if (Unknown_468760(Unknown04[c].Box.Center, Unknown04[c].Box.Extent) >= 1) {
+			verts[Unknown04[c].Corner[0] * 13 + 10] = 1.0f;
+			verts[Unknown04[c].Corner[1] * 13 + 10] = 1.0f;
+			verts[Unknown04[c].Corner[2] * 13 + 10] = 1.0f;
+			verts[Unknown04[c].Corner[3] * 13 + 10] = 1.0f;
 		}
 	}
 	VertexBuffer->Unlock();

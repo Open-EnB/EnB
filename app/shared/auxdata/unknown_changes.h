@@ -7,7 +7,7 @@
 **
 **	The change table of a root that sends its fields (UnknownSendRootClass +0xA8, made by its
 **	Unknown_48 0x4A40B0): one entry per field id, linked as the tree is, that remembers what was
-**	last sent of each field (its m_Unknown70 then, when) and counts, per compound, the leaves below
+**	last sent of each field (its Unknown70 then, when) and counts, per compound, the leaves below
 **	that were sent and that changed since. The update collector (encode.cpp) decides from it what
 **	an update carries. The client names none of it (D10, D24).
 */
@@ -49,7 +49,7 @@ public:
 	ChangeEntryClass *Parent;			// +0x00  // NAME 2: describes what it does
 	ChangeEntryClass *Next;				// +0x04 the next sibling  // NAME 2: describes what it does
 	ChangeEntryClass *Child;			// +0x08 the first child  // NAME 2: describes what it does
-	unsigned int Stamp;					// +0x0C the field's m_Unknown70 when it was last sent (or scanned)  // NAME 2: describes what it does
+	unsigned int Stamp;					// +0x0C the field's Unknown70 when it was last sent (or scanned)  // NAME 2: describes what it does
 	unsigned int First;					// +0x10 when it was sent (a compound: the earliest of its changed children)  // NAME 2: describes what it does
 	unsigned int Last;					// +0x14 when it was sent (a compound: the latest of its changed children)  // NAME 2: describes what it does
 	unsigned int Size;					// +0x18 the leaves (a leaf: 1)  // NAME 2: describes what it does
@@ -73,12 +73,12 @@ public:
 	ChangeEntryClass *Set_Entry_Sent(int id, unsigned int stamp);		// (inline) the field as sent now  // NAME 2: describes what it does
 	void Set_Unsent(int id);													// 0x4AB840  // NAME 2: describes what it does
 	void Set_Unsent(ChangeEntryClass *entry);							// 0x4AB8C0  // NAME 2: describes what it does
-	void Scan();																	// 0x4ABB40 (fields whose m_Unknown70 moved count as changed)  // NAME 2: describes what it does
+	void Scan();																	// 0x4ABB40 (fields whose Unknown70 moved count as changed)  // NAME 2: describes what it does
 	void Exclude(int id);														// 0x4ABCD0  // NAME 2: describes what it does
 	void Include_All();														// 0x4ABD20 (no caller in the client)  // NAME 2: describes what it does
 	void Include(ChangeEntryClass *entry);								// 0x4ABD90 (the entry and its next siblings)  // NAME 2: describes what it does
 
-	std::vector<ChangeEntryClass> Entries;		// +0x00 by field id (DeltaClass::m_Unknown7C)  // NAME 2: describes what it does
+	std::vector<ChangeEntryClass> Entries;		// +0x00 by field id (DeltaClass::Unknown7C)  // NAME 2: describes what it does
 	ChangeEntryClass *Root;							// +0x10 the root's entry  // NAME 2: describes what it does
 	unsigned int Time;								// +0x14 now (UnknownSendRootClass::Unknown_Encode sets it)  // NAME 2: describes what it does
 	DeltaCompoundClass *Delta;						// +0x18 the root  // NAME 2: describes what it does

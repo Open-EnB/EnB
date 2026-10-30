@@ -198,7 +198,7 @@ bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetSt
 template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 {
 	root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name);
-	return((t && t->m_Unknown70) ? t : NULL);
+	return((t && t->Unknown70) ? t : NULL);
 }
 bool Unknown_70BAC0(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70BAC0]: the object is a player in the client's group (GroupInfo.Members' game ids)
 {

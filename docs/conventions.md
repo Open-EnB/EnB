@@ -9,8 +9,10 @@ these rules come from two places:
   (`docs/data/source-paths.txt`; see [source-tree.md](source-tree.md)).
 * **The Westwood code EA published.** Renegade (`Code/`) and the WWVegas libraries Generals and Zero Hour
   shipped with. E&B's naming matches these libraries and Renegade's game code (`Combat`,
-  `Commando`). It does **not** match Generals' own game code (`GameEngine`: `m_` members,
-  camelCase methods, `AsciiString`), which was written by a different team.
+  `Commando`): the patterns in §1.
+
+Generals' own game code (`GameEngine`), written by a different team, is the counterexample: its
+`m_` members, camelCase methods and `AsciiString` are **not** E&B's style; don't copy them.
 
 When a rule here and a string from the client disagree, the client wins. Record the case in §5.
 
@@ -37,7 +39,10 @@ its inconsistencies (`MainView`, not `MainViewClass`; `CordCon::handlePacket`, n
 `Handle_Packet`). Where it doesn't, follow §2.
 
 **Unknowns** (decision D10): a member, flag or virtual whose purpose isn't known gets a neutral
-name (`m_Unknown7C`, after its offset; `UnknownFlag`) with its evidence in a comment. It is NAME 1 on
+name in the §1 patterns (`Unknown7C`, after its offset, like any member: `CamelCase`, no prefix;
+`UnknownFlag`; `Unknown_7C` for a method) with its evidence in a comment. Inside an imported
+library, follow that library's own style: WWAudio's members are `m_`-prefixed, so its unknowns
+are too (`m_Unknown7C`). It is NAME 1 on
 D56's scale (D65): replaced as soon as the code that uses it, or a structure-matched Net-7 name
 (D59), gives better evidence, the tag recording that evidence.
 

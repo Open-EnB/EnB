@@ -43,7 +43,7 @@ void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
 	DeltaCompoundClass::Add(child);
 	if (narrow == 1) {
-		child->m_Unknown80 = 0xCF;
+		child->Unknown80 = 0xCF;
 	}
 }
 

@@ -17,14 +17,14 @@
 KVPairStringClass::KVPairStringClass(const char *key, StringValueClass *accessor, bool even, bool odd) :
 	KVPairClass(key, even, odd),
 	Accessor(accessor),
-	m_Unknown10(NULL)
+	Unknown10(NULL)
 {
 	G_ASSERT(key && accessor);
 	const char *value = Accessor->Get();
 	if (value == NULL) {
 		value = "";
 	}
-	m_Unknown10 = strdup(value);
+	Unknown10 = strdup(value);
 }
 
 const char *KVPairStringClass::Get_Type_Name() const
@@ -34,15 +34,15 @@ const char *KVPairStringClass::Get_Type_Name() const
 KVPairStringClass::~KVPairStringClass()
 {
 	delete Accessor;
-	free(m_Unknown10);
+	free(Unknown10);
 }
 // NOT EXACT (also Clone, which inlines it): the client passes the two flags through byte
 // temporaries on the stack (stored, then pushed as dwords), as for a by-value argument
-KVPairStringClass::KVPairStringClass(const KVPairStringClass &that) : KVPairClass(that.Key.Get_String(), that.m_Unknown08, that.m_Unknown09), Accessor(NULL), m_Unknown10(NULL)
+KVPairStringClass::KVPairStringClass(const KVPairStringClass &that) : KVPairClass(that.Key.Get_String(), that.Unknown08, that.Unknown09), Accessor(NULL), Unknown10(NULL)
 {
 	Accessor = that.Accessor->Clone();
 	G_ASSERT(Accessor);
-	m_Unknown10 = strdup(that.m_Unknown10);
+	Unknown10 = strdup(that.Unknown10);
 }
 
 KVPairClass *KVPairStringClass::Clone() const
@@ -72,17 +72,17 @@ bool KVPairStringClass::Is_Changed() const
 	if (value == NULL) {
 		value = "";
 	}
-	return strcmp(value, m_Unknown10) != 0;
+	return strcmp(value, Unknown10) != 0;
 }
 
 void KVPairStringClass::Update_Saved()
 {
-	free(m_Unknown10);
+	free(Unknown10);
 	const char *value = Accessor->Get();
 	if (value == NULL) {
 		value = "";
 	}
-	m_Unknown10 = strdup(value);
+	Unknown10 = strdup(value);
 }
 
 /*

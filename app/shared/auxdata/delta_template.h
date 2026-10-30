@@ -55,7 +55,7 @@ template<class T> DeltaTemplateClass<T>::DeltaTemplateClass(const char *name, co
 	DeltaClass(name),
 	Value(value)
 {
-	m_Unknown04 = UnknownGlobal;
+	Unknown04 = UnknownGlobal;
 }
 
 // The interpolator's constructor 0x4A6110 calls the time field's constructor (0x4A8150) where it
@@ -128,7 +128,7 @@ public:
 
 template<class T> void DeltaTemplateClass<T>::Unknown_00(DeltaChildVisitorClass *visitor)
 {
-	visitor->Add_Value(m_Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<T>(this));
+	visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<T>(this));
 }
 
 #endif //__DELTA_TEMPLATE_H

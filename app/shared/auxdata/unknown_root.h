@@ -39,7 +39,7 @@ public:
 	// record form or the tree form, whichever is smaller; 0 when there is nothing to send
 	LinearBufferClass *Encode(PolicyClass *policy, ChangeTableClass *changes);  // NAME 2: describes what it does
 
-	int m_Unknown9C;					// +0x9C the constructor's int (the factory's second argument)
+	int Unknown9C;					// +0x9C the constructor's int (the factory's second argument)
 };
 
 // vtable 0xAEAC40, size 0xAC: a root that sends its fields (the Player root 0x752510 derives from
@@ -57,7 +57,7 @@ public:
 	LinearBufferClass *Encode_Changes(unsigned int time);  // NAME 2: describes what it does
 
 	PolicyClass *Policy;					// +0xA0  // NAME 2: describes what it does
-	PolicyStateClass *m_UnknownA4;	// +0xA4 the policy's state (0x4AF190's, 0x14 bytes)
+	PolicyStateClass *UnknownA4;	// +0xA4 the policy's state (0x4AF190's, 0x14 bytes)
 	ChangeTableClass *Changes;			// +0xA8  // NAME 2: describes what it does
 };
 

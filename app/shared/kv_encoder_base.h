@@ -47,8 +47,8 @@ public:
 	std::list<std::string> PrefixList;	// +0x00
 	std::list<int> FlagList;				// +0x0C the saved Flags (Push_Flags)
 	int Flags;									// +0x18  // NAME 2: after the asserts' FlagList
-	std::string m_Unknown1C;				// +0x1C the prefixes joined (Pop_Prefix rebuilds it)
-	std::string m_Unknown2C;				// +0x2C
+	std::string Unknown1C;				// +0x1C the prefixes joined (Pop_Prefix rebuilds it)
+	std::string Unknown2C;				// +0x2C
 };
 
 // vtable 0xAEB62C (the destructor only), size 0x0C

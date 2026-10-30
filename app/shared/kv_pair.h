@@ -37,12 +37,12 @@ public:
 	virtual void Update_Saved() = 0;											// +0x18 saves the current value  // NAME 2: descriptive name of the vtable slot (D57)
 
 	PermString Key;					// +0x04  // NAME 3: after the assert's parameter key (kv_pair.cpp)
-	bool m_Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
-	bool m_Unknown09;					// +0x09 the odd bits
+	bool Unknown08;					// +0x08 the encoder's even bits (KVEncoderBaseClass::Unknown_Test)
+	bool Unknown09;					// +0x09 the odd bits
 
 	// what Clone's copy reads them through (inline: the client passes each through a temporary, 0x4F71F0)
-	bool Get_Unknown08() const { return m_Unknown08; }	// NAME 1: neutral (D10)
-	bool Get_Unknown09() const { return m_Unknown09; }	// NAME 1: neutral (D10)
+	bool Get_Unknown08() const { return Unknown08; }	// NAME 1: neutral (D10)
+	bool Get_Unknown09() const { return Unknown09; }	// NAME 1: neutral (D10)
 };
 
 // A typed value reached through the pair (the float field's interface: vtable 0xAE78D0, the destructor

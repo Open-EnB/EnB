@@ -74,20 +74,20 @@ void Unknown_Render_Distortion_List(CameraClass & camera)
 ** UnknownDistortionClass
 */
 UnknownDistortionClass::UnknownDistortionClass(void) :
-	m_Unknown90(1.0f)
+	Unknown90(1.0f)
 {
 }
 
 UnknownDistortionClass::UnknownDistortionClass(const UnknownDistortionClass & src) :
 	RenderObjClass(src)
 {
-	m_Unknown90 = src.m_Unknown90;
-	m_Unknown8C = src.m_Unknown8C;
+	Unknown90 = src.Unknown90;
+	Unknown8C = src.Unknown8C;
 }
 
 UnknownDistortionClass::~UnknownDistortionClass(void)
 {
-	m_Unknown8C = NULL;
+	Unknown8C = NULL;
 }
 
 RenderObjClass * UnknownDistortionClass::Clone(void) const
@@ -104,15 +104,15 @@ void UnknownDistortionClass::Render(RenderInfoClass & rinfo)
 // grid of 8-pixel cells whose texture coordinates the distortion function displaces (0x9961E0)
 void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 {
-	if (!m_Unknown8C) return;
+	if (!Unknown8C) return;
 
 	// The square facing the camera, to whole pixels outwards
 	Vector3 corner0;
 	Vector3 corner1;
 	Transform.Get_Translation(&corner0);
 	Transform.Get_Translation(&corner1);
-	Vector3 left = -camera.Get_Transform().Get_X_Vector() * m_Unknown90;
-	Vector3 up = camera.Get_Transform().Get_Y_Vector() * m_Unknown90;
+	Vector3 left = -camera.Get_Transform().Get_X_Vector() * Unknown90;
+	Vector3 up = camera.Get_Transform().Get_Y_Vector() * Unknown90;
 	corner0 += left + up;
 	corner1 += -left - up;
 
@@ -236,7 +236,7 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 	// Distort, then map from the square to the copied part (outside it: off the texture)
 	for (i = 0; i < vertex_count; i++) {
 		Vector2 uv = uvs[i];
-		m_Unknown8C->Unknown_Distort(uv, this);
+		Unknown8C->Unknown_Distort(uv, this);
 		float u = uv.X < uv0.X ? -1.0f : (uv.X > uv1.X ? 2.0f : (uv.X - uv0.X) * su);
 		float v = uv.Y < uv0.Y ? -1.0f : (uv.Y > uv1.Y ? 2.0f : (uv.Y - uv0.Y) * sv);
 		uvs[i].X = u;
@@ -277,13 +277,13 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 void UnknownDistortionClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Center.Set(0, 0, 0);
-	sphere.Radius = m_Unknown90;
+	sphere.Radius = Unknown90;
 }
 
 void UnknownDistortionClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 {
 	box.Center.Set(0, 0, 0);
-	box.Extent.Set(m_Unknown90, m_Unknown90, m_Unknown90);
+	box.Extent.Set(Unknown90, Unknown90, Unknown90);
 }
 
 
@@ -291,9 +291,9 @@ void UnknownDistortionClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 ** UnknownRippleClass
 */
 UnknownRippleClass::UnknownRippleClass(void) :
-	m_Unknown08(20.0f),
-	m_Unknown0C(0.01f),
-	m_Unknown10(0.01f)
+	Unknown08(20.0f),
+	Unknown0C(0.01f),
+	Unknown10(0.01f)
 {
 }
 
@@ -302,9 +302,9 @@ void UnknownRippleClass::Unknown_Distort(Vector2 & uv, UnknownDistortionClass * 
 	float dy = uv.Y - 0.5f;
 	float dx = uv.X - 0.5f;
 	float r2 = dx * dx + dy * dy;
-	float angle = (float)WW3D::Get_Sync_Time() * m_Unknown0C + r2;
+	float angle = (float)WW3D::Get_Sync_Time() * Unknown0C + r2;
 	// Both offsets are computed before either is added (Y's sine and exponential first), and the two
 	// exponentials are not merged: math.h's inline expf in Y does both (0x997DE0)
-	uv += Vector2((float)exp(-r2 * m_Unknown08) * WWMath::Sin(angle) * m_Unknown10,
-		WWMath::Sin(angle) * m_Unknown10 * expf(-r2 * m_Unknown08));
+	uv += Vector2((float)exp(-r2 * Unknown08) * WWMath::Sin(angle) * Unknown10,
+		WWMath::Sin(angle) * Unknown10 * expf(-r2 * Unknown08));
 }

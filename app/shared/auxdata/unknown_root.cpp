@@ -24,7 +24,7 @@ unsigned int Unknown_Get_Ticks()
 	return timeGetTime() - TicksStart;
 }
 
-UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaCompoundClass(name), m_Unknown9C(unknown)
+UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaCompoundClass(name), Unknown9C(unknown)
 {
 }
 
@@ -41,7 +41,7 @@ LinearBufferClass *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClas
 	}
 	LinearBufferClass *buf = new LinearBufferClass(0x400, 0x400);
 	DeltaListSetClass set(&collector.Updated, &collector.Defaulted, &collector.Cleared);
-	int count = m_Unknown98;
+	int count = Unknown98;
 	RecordTableClass records(count, &collector.Updated, &collector.Defaulted, &collector.Cleared);
 	int updated = set.Lists[0]->Count;
 	int defaulted = set.Lists[1]->Count;
@@ -114,25 +114,25 @@ void UnknownSendRootClass::Unknown_48()
 	PolicyIncludeAllClass *rule_set = new PolicyIncludeAllClass;
 	Policy = new PolicyClass;
 	Policy->Add(rule_set);
-	m_UnknownA4 = Policy->Make_State(0, 0);
-	Policy->Bind(m_UnknownA4, this);
+	UnknownA4 = Policy->Make_State(0, 0);
+	Policy->Bind(UnknownA4, this);
 	Changes = new ChangeTableClass(this);
 }
 
 UnknownSendRootClass::~UnknownSendRootClass()
 {
 	delete Policy;
-	delete m_UnknownA4;
+	delete UnknownA4;
 	delete Changes;
 }
 
 LinearBufferClass *UnknownSendRootClass::Encode_Changes(unsigned int time)
 {
 	Changes->Time = time;
-	if (Changes->Root->Dirty || Changes->Delta->m_Unknown70 != Changes->Root->Stamp) {
+	if (Changes->Root->Dirty || Changes->Delta->Unknown70 != Changes->Root->Stamp) {
 		Changes->Scan();
 	}
-	if (Changes->Entries[m_Unknown7C].Changed > 0) {
+	if (Changes->Entries[Unknown7C].Changed > 0) {
 		return Encode(Policy, Changes);
 	}
 	return 0;

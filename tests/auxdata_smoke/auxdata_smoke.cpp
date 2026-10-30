@@ -50,7 +50,7 @@ static int Encode(Tree &t, int form, unsigned char *out)
 	unsigned char f = (unsigned char)form;
 	buf.Write(&f, 1);
 	if (form) {
-		RecordTableClass table(t.Root->m_Unknown98, &updated, &defaulted, &cleared);
+		RecordTableClass table(t.Root->Unknown98, &updated, &defaulted, &cleared);
 		if (table.Unknown_All(&buf) == 0) {
 			return -1;
 		}
@@ -91,7 +91,7 @@ static int Check(int form)
 	}
 	float want[5] = {10.0f, 101.0f, 12.0f, 103.0f, 104.0f};	// f0, f2 updated from a; others b's
 	for (int k = 0; k < 5; k++) {
-		printf("  f%d = %g (m_Unknown70 %u)\n", k, b.Leaf[k]->Value, b.Leaf[k]->m_Unknown70);
+		printf("  f%d = %g (Unknown70 %u)\n", k, b.Leaf[k]->Value, b.Leaf[k]->Unknown70);
 		if (b.Leaf[k]->Value != want[k]) {
 			fails++;
 		}

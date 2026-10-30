@@ -46,7 +46,7 @@ public:
 	virtual void Update_Saved();													// +0x18 0x4B8450
 
 	StringValueClass *Accessor;		// +0x0C  // NAME 3: after the assert's parameter accessor (kv_pair_string.cpp)
-	char *m_Unknown10;					// +0x10 the saved value (strdup)
+	char *Unknown10;					// +0x10 the saved value (strdup)
 };
 
 #endif //__KV_PAIR_STRING_H

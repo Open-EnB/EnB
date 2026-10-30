@@ -141,7 +141,7 @@ write an update through the client's path, `UnknownRootClass::Encode` 0x4A3D50 (
 message: if the server's encoder is Westwood's same auxdata code, the message comes back. The
 server's fields count their changes up (`DeltaClass::Unknown_34`) where the client's decode sets 2,
 so the harness keeps a server-side version per field (an updated field and its parents get new
-ones, a defaulted one keeps its own) and puts it in `m_Unknown70` before the encode. Player uses
+ones, a defaulted one keeps its own) and puts it in `Unknown70` before the encode. Player uses
 its own state (`UnknownSendRootClass::Unknown_48`, `Encode_Changes` 0x4A4660); the factory's roots
 get a policy made by the harness through policy.cpp: "*.*" INCLUDE 1 before "*" INCLUDE, so the
 compile gives the root DESCEND (Player's own "*" alone gives a small root INCLUDE and whole-root
@@ -567,7 +567,7 @@ Results moved out of docs/workflow.md §3 (2026-10-25).
   checksum (the client's CRC 0x8B3EC0) covers the whole datagram including those bytes.
 
 * **The client's Delta model has no "default" state.** Updated and defaulted both set
-  `m_Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
-  Unknown_18` recurses into children only when `m_Unknown70 == 0`, `Unknown_1C` only when it is
+  `Unknown70 = 2`; a harness keeps its own unknown/default/value state. `DeltaCompoundClass::
+  Unknown_18` recurses into children only when `Unknown70 == 0`, `Unknown_1C` only when it is
   non-zero: expand compounds to their leaves yourself. The Player root derives from the second
   root class (vtable 0xAEAC40, ctor 0x4A3FF0, with the update collector), not from 0xAEAB88.

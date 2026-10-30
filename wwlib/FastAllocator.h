@@ -378,16 +378,16 @@ public:
 protected:
    FastFixedAllocator allocators[MAX_ALLOC_SIZE/ALLOC_STEP];
 	FastCriticalSectionClass CriticalSections[MAX_ALLOC_SIZE/ALLOC_STEP];
-	FastCriticalSectionClass m_UnknownE00;	// E&B: locked by 0x9DADA0 around m_UnknownE20[3]
-	FastCriticalSectionClass m_UnknownE04;	// E&B: locks Alloc's usage counters (0x9DAE1D)
+	FastCriticalSectionClass UnknownE00;	// E&B: locked by 0x9DADA0 around UnknownE20[3]
+	FastCriticalSectionClass UnknownE04;	// E&B: locks Alloc's usage counters (0x9DAE1D)
 	bool MemoryLeakLogEnabled;
 
 	unsigned AllocatedWithMalloc;
 	unsigned AllocatedWithMallocCount;
 	unsigned ActualMemoryUsage;
-	unsigned m_UnknownE18;					// E&B: zeroed by the ctor (0x9DACA8)
-	unsigned m_UnknownE1C;					// E&B: zeroed by the ctor (0x9DACAE)
-	unsigned m_UnknownE20[4];				// E&B: not set by the ctor; [3] read and cleared by 0x9DADA0
+	unsigned UnknownE18;					// E&B: zeroed by the ctor (0x9DACA8)
+	unsigned UnknownE1C;					// E&B: zeroed by the ctor (0x9DACAE)
+	unsigned UnknownE20[4];				// E&B: not set by the ctor; [3] read and cleared by 0x9DADA0
 };
 ///////////////////////////////////////////////////////////////////////////////
 

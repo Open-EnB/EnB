@@ -14,7 +14,7 @@ DeltaInterpolatorClass::DeltaInterpolatorClass(const char *name) :
 	StartValue("StartValue"),
 	LastTime(UnknownTime),
 	LastValue(0),
-	m_Unknown24C(false)
+	Unknown24C(false)
 {
 	Add(&EndTime);
 	Add(&ChangePerTick);
@@ -35,7 +35,7 @@ float DeltaInterpolatorClass::Update(const DurationClass &time)
 		return StartValue.Value;
 	}
 	if (time >= end) {
-		m_Unknown24C = true;
+		Unknown24C = true;
 		if (change >= 0.0f) {
 			LastValue = 1.0f;
 		} else {
@@ -121,7 +121,7 @@ void DeltaInterpolatorClass::Set(float value, float change, const DurationClass 
 	ChangePerTick.Set_Value(change);
 	EndTime.Set_Value(end);
 	StartValue.Set_Value(value);
-	m_Unknown24C = (change == 0.0f || end.Time == time.Time);
+	Unknown24C = (change == 0.0f || end.Time == time.Time);
 	LastTime = time;
 	LastValue = value;
 }
@@ -164,7 +164,7 @@ void DeltaInterpolatorClass::Set_Change(float change, const DurationClass &time)
 
 void DeltaInterpolatorClass::Unknown_3C(DeltaClass *delta)
 {
-	m_Unknown24C = false;
+	Unknown24C = false;
 	LastTime = UnknownTime;
 	LastValue = 0;
 	DeltaCompoundClass::Unknown_3C(delta);
@@ -190,7 +190,7 @@ void DeltaInterpolatorClass::Unknown_00(DeltaChildVisitorClass *visitor)
 {
 	visitor->Push_Prefix(Name.Get_String());
 	visitor->Push_Flags();
-	visitor->Set_Flags(visitor->Get_Flags() & m_Unknown80);
+	visitor->Set_Flags(visitor->Get_Flags() & Unknown80);
 	((DeltaClass &)EndTime).Unknown_00(visitor);
 	((DeltaClass &)ChangePerTick).Unknown_00(visitor);
 	visitor->Add_Value(4, "CurrentValue", new DeltaInterpolatorValueClass(this));
