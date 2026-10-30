@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
 sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
 import rootguard  # noqa: E402
-CAPS = roots.N7_CAPTURES
+TRACES = roots.EA_TRACES      # the frozen reference traces (D154)
 
 APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket.cpp',
        r'app\common\connect.cpp', r'app\common\dbgconn.cpp', r'app\common\circbuff.cpp',
@@ -96,7 +96,7 @@ def build(out):
 
 def messages(name, session, count, path):
     """The first COUNT server-to-client messages of SESSION (opcode, payload hex per line)."""
-    trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+    trace = os.path.join(TRACES, name + '.trace.jsonl')
     n = 0
     with open(path, 'w', newline='\n') as f:
         for line in open(trace, encoding='utf-8'):

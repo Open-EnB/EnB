@@ -59,7 +59,7 @@ sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
 sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
 import rootguard  # noqa: E402
-CAPS = roots.N7_CAPTURES
+TRACES = roots.EA_TRACES      # the frozen reference traces (D154, fetch_reference.py)
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp']
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
@@ -390,7 +390,7 @@ def run(name, exe, aux):
                     print('      %s ours[%d:%d] ops %s / dump[%d:%d] ops %s' % (
                         tag, i1, i2, [hex(op(x)) for x in a[i1:i2]][:4], j1, j2, [hex(op(x)) for x in b[j1:j2]][:4]))
         ok = ok and not bad
-    trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+    trace = os.path.join(TRACES, name + '.trace.jsonl')
     if os.path.exists(trace):
         tr = []
         for line in open(trace, encoding='utf-8'):
@@ -472,7 +472,6 @@ def run(name, exe, aux):
 # ------------------------------------------------------------------------- the handshake
 
 LIVE = roots.LIVE_PACKETS
-KEYS = roots.N7_WESTWOOD_KEYS
 PACKET = re.compile(r'^Packet #(\d+): (\d+) bytes, (Client->Server|Server->Client)\s+([\d.]+):(\d+)')
 HEXLINE = re.compile(r'^ ((?:[0-9A-F]{2} )*[0-9A-F]{2})(?:\s{2,}|\s*$)')
 
@@ -521,9 +520,9 @@ def capture_handshakes(path):
 
 
 def rsa_keys():
-    text = open(KEYS, encoding='utf-8').read()
-    nums = re.findall(r'BigInteger\.Parse\(\s*"(\d+)"', text)
-    return int(nums[0]), int(nums[1])
+    """Westwood's RSA modulus and the server's private exponent (westwood_keys.py)."""
+    import westwood_keys
+    return westwood_keys.N, westwood_keys.D
 
 
 def ip_int(ip):
@@ -749,7 +748,7 @@ def conn(name, exe, drops, step):
         good = equal == len(keys_all) and n_plain == n_mine + n_dropped and sizes_bad == 0 and errors == 0 \
             and shorts == plain_short
         if not extra:
-            trace = os.path.join(CAPS, 'ea', name + '.trace.jsonl')
+            trace = os.path.join(TRACES, name + '.trace.jsonl')
             tr = []
             for tl in open(trace, encoding='utf-8'):
                 e = json.loads(tl)

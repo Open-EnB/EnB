@@ -63,8 +63,11 @@ def download(media, name):
     out = os.path.join(media, fname)
     print(f'downloading {url}')
     tmp = out + '.part'
-    with urllib.request.urlopen(url) as r, open(tmp, 'wb') as f:
-        shutil.copyfileobj(r, f, 1 << 20)
+    if shutil.which('curl'):   # Windows' curl uses the system's certificates; Python's may lack the issuer
+        subprocess.run(['curl', '-fsSL', '-o', tmp, url], check=True)
+    else:
+        with urllib.request.urlopen(url) as r, open(tmp, 'wb') as f:
+            shutil.copyfileobj(r, f, 1 << 20)
     os.replace(tmp, out)
     return out
 

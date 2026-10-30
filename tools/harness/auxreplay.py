@@ -33,12 +33,11 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 WORK = os.path.join(REPO, '.work', 'harness', 'auxreplay')
-REF = os.path.join(REPO, '.work', 'harness', 'ref')
 sys.path.insert(0, os.path.join(REPO, 'tools', 're'))
 import roots  # noqa: E402
-CAPS = roots.N7_CAPTURES
-SCHEMA = roots.N7_SCHEMA
-TRACES = {n: os.path.join(CAPS, 'ea', n + '.trace.jsonl') for n in ('capture_1', 'capture_2', 'capture_3', 'alex3', 'alex7')}
+REF = roots.EA_REF            # the frozen reference readings (D154)
+SCHEMA = os.path.join(REPO, 'docs', 'data', 'client-auxdata.json')   # auxroots.py schema, from client.exe
+TRACES = {n: os.path.join(roots.EA_TRACES, n + '.trace.jsonl') for n in ('capture_1', 'capture_2', 'capture_3', 'alex3', 'alex7')}
 LIVE = roots.LIVE_PACKETS
 DUMPS = {'alex3': os.path.join(LIVE, 'Alex3-fixed.txt.txt'), 'alex7': os.path.join(LIVE, 'Alex7-fixed.txt.txt')}
 OP_CREATE, OP_AUX = 0x0004, 0x001B
@@ -50,8 +49,8 @@ def trace_messages(path):
     with open(path, encoding='utf-8') as f:
         for line in f:
             e = json.loads(line)
-            if e.get('dir') not in ('ServerToClient', 'ProxyToClient'):
-                continue
+            if e.get('dir') not in ('ServerToClient', 'ProxyToClient') or 'op' not in e:
+                continue        # (the capture_N traces also record the TCP handshake: 'hs', no opcode)
             yield e['channel'], int(e['op'], 16), bytes.fromhex(e.get('data') or '')
 
 
