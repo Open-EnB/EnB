@@ -1,0 +1,5 @@
+#!/bin/sh
+# D148: nothing leaves this machine without passing tools/prepush_check.py (the tree and all of history:
+# big files, binaries, captures, secrets, install-tree file names). Installed per clone with
+#   git config core.hooksPath tools/hooks
+exec python "$(git rev-parse --show-toplevel)/tools/prepush_check.py"
