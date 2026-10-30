@@ -33,7 +33,24 @@ DEFAULTS = {
 ENV = {'user': 'ENB_VC6_USER', 'key': 'ENB_VC6_KEY', 'pool_dir': 'ENB_VC6_POOL_DIR',
        'template_vm': 'ENB_VC6_TEMPLATE', 'prefix': 'ENB_VC6_PREFIX', 'max_vms': 'ENB_VC6_MAX',
        'reserve_gb': 'ENB_VC6_RESERVE_GB', 'switch': 'ENB_VC6_SWITCH'}
-CONFIG_FILE = os.environ.get('ENB_VC6_CONFIG', os.path.join(REPO, '.work', 'vc6_config.json'))
+def main_checkout(repo):
+    """The main working tree of `repo`: itself, or for a linked worktree (wt.py's .work/wt/NAME,
+    whose .git is a file `gitdir: <main>/.git/worktrees/NAME`) the main one, whose .work holds
+    the machine's settings."""
+    dot_git = os.path.join(repo, '.git')
+    if os.path.isfile(dot_git):
+        with open(dot_git, encoding='utf-8') as f:
+            line = f.read().strip()
+        if line.startswith('gitdir:'):
+            gitdir = os.path.normpath(line[len('gitdir:'):].strip())
+            parts = gitdir.replace('\\', '/').split('/')
+            if 'worktrees' in parts:
+                return os.path.dirname(os.path.normpath('/'.join(parts[:parts.index('worktrees')])))
+    return repo
+
+
+CONFIG_FILE = os.environ.get('ENB_VC6_CONFIG',
+                             os.path.join(main_checkout(REPO), '.work', 'vc6_config.json'))
 
 
 def load():

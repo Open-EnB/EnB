@@ -18,7 +18,7 @@ in a way that cannot compromise the project's integrity.
 
 | Item | Subject | Recommendation | Status |
 |---|---|---|---|
-| P-GH-1 | Line endings in `.gitattributes` / docs_check | `* text=auto eol=lf`, drop the list, docs_check checks blobs | open |
+| P-GH-1 | Line endings in `.gitattributes` / docs_check | `* text=auto` (VC6 output tested equal with LF sources), `*.sh eol=lf`, docs_check checks blobs | open |
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
 | P-GH-4 | Working model once public (amends D69's "never push") | Decide PR flow vs maintainer bot with ruleset bypass (§3.1) | open |
@@ -36,7 +36,20 @@ Every blob in the repository is LF, and was before the branch existed (`git ls-f
 `* -text`, so docs_check reports 1,457 LF files "not listed". Landing that file on master as written would likely
 show the main checkout's CRLF copies as modified (no conversion under `-text`) and disturb running builders.
 
-**Recommendation:** replace the list with `* text=auto eol=lf` (blobs stay LF; every clone gets LF; the main
+**Why the working copies differ (2026-10-29):** Git for Windows sets `core.autocrlf=true` system-wide, so
+commits store LF and checkouts write CRLF. Files that tools or agents create stay LF on disk until Git rewrites them
+(147 today), a few are mixed (2), and two files with stray lone CRs (`app/client/sclient.h`,
+`docs/data/asserts.txt`) are kept as stored, CRLF.
+
+**Does VC6 care? No (tested 2026-10-29):** a worktree at b01e8ef with all 1,547 text files converted to LF, a full
+`importer.py verify` on a pool clone: all 11 libraries, imports.json byte-identical to HEAD's (12,541 pairs;
+`pairs_cmp`: gained [], lost []).
+
+**Recommendation (revised after the test):** `* text=auto`: blobs stay LF, each checkout follows its machine's
+usual ending (nothing changes for the existing checkout); `*.sh text eol=lf` so bash scripts work everywhere; the two
+lone-CR files keep `-text`; docs_check fails on a CR inside any other blob. The earlier proposal follows.
+
+**Earlier recommendation:** replace the list with `* text=auto eol=lf` (blobs stay LF; every clone gets LF; the main
 checkout's CRLF copies still compare equal after normalisation); docs_check fails on any CR inside a blob instead
 of checking a list; the two `-text` files (`app/client/sclient.h`, `docs/data/asserts.txt`) keep `-text`.
 
