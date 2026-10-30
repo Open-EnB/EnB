@@ -56,7 +56,7 @@ LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inli
 `importer.py verify --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).
 
-**Git.** Never `importer.py assemble`; never push; never `git reset --hard`, `git checkout -- .`
+**Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
 `.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
 `git commit` takes whatever they have staged, and a path commit (`git commit -- <files>`) takes the

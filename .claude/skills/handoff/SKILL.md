@@ -36,4 +36,5 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 6. **Report to the user** in five lines or fewer: what you wrote and where, what is
    uncommitted, and the single prompt to paste into the new session, e.g.
    `Read CLAUDE.md and the handoff, then continue with <next step>.`
-7. Ask before committing the handoff file(s). Never push.
+7. Ask before committing the handoff file(s). Never push `main`; once the GitHub remote exists, the coordinator
+   pushes its run branch and opens the run's PR (D148).

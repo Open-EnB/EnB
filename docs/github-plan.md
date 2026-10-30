@@ -21,7 +21,7 @@ in a way that cannot compromise the project's integrity.
 | P-GH-1 | Line endings: `.gitattributes`, the working tree and the tools | LF everywhere: `* text=auto eol=lf`, tools write LF, `tools/eol.py` guard (VC6 tested equal) | **D147: accepted, no hook** |
 | P-GH-2 | Repo layout | Monorepo for the reconstruction plus satellite repos (§1) | **D144: accepted as proposed** |
 | P-GH-3 | Commit email in history | Rewrite to the GitHub noreply address before the first push | **D145: email stays, no rewrite** |
-| P-GH-4 | Working model once public (amends D69's "never push") | Decide PR flow vs maintainer bot with ruleset bypass (§3.1) | open |
+| P-GH-4 | Working model once public (amends D69's "never push") | One PR per run (§3.1) | **D148: option C, user merges; D149: three Open-BFME practices** |
 | P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2) | open |
 | P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.4) | **D146: VC6 setup docs and scripts first (§3.4); the rest open** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | open |
@@ -153,6 +153,25 @@ in particular that it is not leaked Westwood / EA source, the main legal risk to
 ## 3. Things not yet considered
 
 ### 3.1 Working model after going public (P-GH-4)
+
+**D148 (2026-10-29): option C.** Each run works on `run/<date>`; the coordinator pushes that branch and opens one
+PR at handoff; the user reviews and merges (no auto-merge). Contributors open PRs from forks. Builders never push.
+Every push passes `tools/prepush_check.py` (pre-push hook). The agents' credential: a token for this repository
+only, allowed to push branches and open PRs. Open-BFME, for comparison (checked 2026-10-29): trusted agents push to
+`master` directly (ruleset: no force-push, no deletion), contributors open PRs, and hosted CI re-runs the byte
+matching because their toolchain and executables are committed; ours stay bring-your-own (D146), so a PR is our
+checkpoint before `main` changes.
+
+**D149: from Open-BFME:** a README welcome for AI-generated PRs (one verified function per commit); `AGENTS.md`,
+reread after 24 hours or when a commit reports it changed; address claims for contributors' agents (built when they
+arrive).
+
+**Work items before the first push:** the pre-push hook; `run/<date>` at run start (fetch and merge `origin/main`,
+verify) and push plus `gh pr create` at handoff (coordinator-pacing and handoff skills); the scoped token;
+`AGENTS.md` and the README section; the claims design.
+
+The original question:
+
 
 Once GitHub is authoritative, the overnight coordinator's few hundred commits a day either go through PRs (heavy)
 or a maintainer bot gets a ruleset bypass with the local verify as the gate. Either way it amends D69's "never
