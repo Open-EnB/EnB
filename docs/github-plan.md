@@ -26,7 +26,8 @@ in a way that cannot compromise the project's integrity.
 | P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.4) | **D146 (VC6 setup), D151 (lanes)** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
 | P-GH-8 | Pre-push checklist | §3.7 | **D152: Open-EnB/EnB, master, private first; in progress** |
-| P-GH-9 | Community and continuity | §3.8, §3.9 | open |
+| P-GH-9 | Community and continuity | §3.8, §3.9 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
+| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **open (proposal)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
@@ -220,11 +221,80 @@ Plan for code signing and antivirus false positives.
 ### 3.8 Community (P-GH-9)
 
 * Discussions on, wiki off.
-* §4's work items as labelled issues (`good first issue`, `needs-vc6`, `re-analysis`); a Projects board for the
-  milestones.
-* Early contact with the Net-7 / E&B emulator community.
-* Reserve related names (Discord, a domain) once the org name is settled.
+* ~~progress.md §4's work items as labelled issues; a Projects board for the milestones.~~ **2026-10-30:** the labels
+  stay (`needs-vc6`, `no-vc6`, `good first issue`) as preparation; no issues for now; a Projects board later.
+* Early contact with the Net-7 / E&B emulator community. **Done 2026-10-30 (the user).**
+* ~~Reserve related names (Discord, a domain) once the org name is settled.~~ **2026-10-30: none reserved.**
 
 ### 3.9 Continuity (P-GH-9)
 
 A second owner, saved recovery codes, an archive policy.
+
+* **Second owner: none for now (2026-10-30).** The org's continuity rests on the one owner account, so its
+  recovery (two second factors, saved recovery codes) is the whole of it. **Recovery codes saved (2026-10-30).**
+* **Archive policy: none for now (2026-10-30).**
+
+## 4. Coordinating outside contributors' agents (P-GH-10, proposal 2026-10-30)
+
+Making the repository public is mainly an invitation to other people's AI agents. Three things have to work
+before that: agents must not work on the same code at once (claims), abandoned work must free itself (expiry), and
+the pull requests must stay few and reviewable (size). AGENTS.md and the README promise "claims" (D149) and say "one
+verified function per commit", which would fragment the history and flood the review queue.
+
+### 4.1 Why not Open-BFME's design
+
+Open-BFME claims a body by pushing a branch `claims/0xRVA` to its own repository (`tools/claims.py`: an atomic
+ref create, a 4-hour TTL, compare-and-swap takeover and release). It works because their agents may push to the
+repository. Ours work from forks and cannot, and D148 keeps it that way. Anything a contributor can do without
+write access is an issue, a comment, or a pull request.
+
+### 4.2 Proposal: claims are issues, kept by a GitHub Action
+
+* **A claim is an issue** labelled `claim`, opened from a template or by `python tools/claims.py claim UNIT`
+  (through `gh`). Its title names the unit, its body the agent, the model and the person accountable.
+* **The unit is a client source file, not an address**: the client's `__FILE__` path, or a provisional file
+  (D137), whose address window `tools/re/appfile.py show` already knows; or an explicit range `0xA-0xB` for code
+  without a file. A file is what a PR changes and what imports.json verifies, so one claim gives one PR.
+* **An Action keeps the claims** (`.github/workflows/claims.yml`, on `issues` and `issue_comment`, with one
+  concurrency group so two claims cannot race). It resolves the unit to its window, refuses an overlap with a
+  live claim or with the maintainer's current run (next point), refuses a fourth live claim by the same account,
+  and answers with the window it granted (or why not) and the expiry. It only reads text: it never checks out or
+  runs a contributor's code, and its token can only write issues.
+* **The maintainer's runs claim too.** The coordinator lists live claims at run start and skips them, and
+  claims what it assigns to builders (one issue per file, closed by the run's PR). This keeps the inside and
+  outside work in one register.
+* **Expiry.** A claim lives **72 hours** without a pull request. A PR that says `Claims #N` keeps it alive while
+  the PR is open and has activity in the last **7 days**. `/renew` in a comment adds 72 hours, at most twice
+  without a PR. A daily scheduled run of the same Action closes expired claims with a comment (label
+  `claim-expired`). A merged PR closes its claim; a PR closed unmerged frees it after 24 hours. The maintainer can
+  `/release` any claim.
+* **What claims do not do:** they are courtesy, not a lock. A PR for unclaimed code is still welcome; on a
+  conflict the claimant's PR is reviewed first.
+
+### 4.3 Proposal: PR size
+
+* **One PR per claim**, any number of commits inside it. The rule "one verified function per commit" goes; the
+  rule becomes: every commit builds, and the PR description carries the `pairs_cmp.py` result for its files
+  (gained, lost, NOT EXACT added).
+* **Squash-merged**, with one evidence subject ("Rebuild app/client/co.cpp: +23 pairs, 0 lost, 4 NOT EXACT") and
+  the PR's commit list in the body, so master gets one commit per PR. The maintainer's own run PRs keep a normal
+  merge (their commits are already one per evidence step).
+* **Limits:** a PR touches one claim's files plus what it must (headers, `docs/data/` regenerated by the tools);
+  shared headers and docs are allowed, other source files are not.
+
+### 4.4 Verifying a contributor's PR
+
+Contributors without VC6 cannot prove a PR. The maintainer's side needs `tools/vc6/verify_pr.py PR`: fetch the
+PR into a worktree under `.work/`, verify the touched libraries on the pool, `pairs_cmp.py` against master, and
+post the result as a PR comment (gains, losses, NOT EXACT). That is the only per-PR cost to the maintainer
+besides reading the diff. It runs the contributor's code only inside a build VM's compiler, never on the host.
+(Python tool changes in a PR are read before they are run.)
+
+### 4.5 Open questions for the user
+
+1. Claims as issues kept by an Action (4.2)? Alternatives: draft PRs as claims (no Action, but an empty PR per
+   claim), or a pinned issue the maintainer edits by hand (no automation, does not scale).
+2. The unit: a source file (recommended) or single addresses?
+3. The numbers: 72 h without a PR, 7 days of PR inactivity, 3 live claims per account.
+4. Squash-merge outside PRs, with "one verified function per commit" replaced as in 4.3?
+5. Do the maintainer's runs claim through the same issues (one register), or only read them?
