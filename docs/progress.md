@@ -1449,7 +1449,8 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
 1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
-   `eval/*` stay a week, then `git branch -D` and `git worktree remove` under `.work/eval/`). Left from it: P-Bopus-1 if
+   and worktrees were removed 2026-10-29 at the user's request; `.work/eval-branches-2026-10-29.bundle` keeps the
+   nine branches, `.work/eval/` the scoring record). Left from it: P-Bopus-1 if
    accepted (0x603D70 is not option.cpp's, O1). The quiet tree carries the matching-rule
    changes D94(b) (skip `_$E` names), D95(b) (no implicit-destructor credit to a twin when the own address is
    free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
