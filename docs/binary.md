@@ -6,7 +6,7 @@ The target is the retail client as installed (Net-7 era install):
 |---|---|
 | Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` |
 | SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (the same client the earlier protocol research used) |
-| Size | 8,642,625 bytes (file date 2022-05-06: the install's date, not the build's) |
+| Size | 8,642,625 bytes (the file date is the install's, not the build's) |
 | PE timestamp | 0x40575E00 = **2004-03-16 18:46:40 UTC** |
 | PDB | `e:\build\beta\G\app\main\client_release\main.pdb` (not available) |
 | Image base | 0x400000 |

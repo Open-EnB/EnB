@@ -92,8 +92,8 @@ too: reverse-engineering notes, tools, documentation, and code that a maintainer
 **Pull requests written by AI agents are welcome.** Point your agent at [AGENTS.md](AGENTS.md): it
 claims the functions it will rebuild (`tools/claims.py`), opens one pull request per claim, and the
 maintainer's verify service proves it byte for byte before it lands.
-Keep each pull request small, one verified function per commit, and say which model wrote it;
-a person stays accountable for it.
+Commit inside the pull request as you like (it lands as one commit, D157), and say which model
+wrote it; a person stays accountable for it.
 
 [Code of conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md)
 

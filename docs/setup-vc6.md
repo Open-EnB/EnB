@@ -125,7 +125,7 @@ For a Windows you install yourself, or if the image download is no longer offere
    `powershell -ExecutionPolicy Bypass -File C:\EnBSetup\Setup-Guest.ps1`. It ends with
    `build VM setup done` (or writes `C:\EnBSetup\failed.txt`).
    *The original installers instead*: VC6's `SETUP.EXE` (Custom; clear everything except Visual
-   C++ 6.0; no product key was asked for), then SP4's `SETUPSP4.EXE`. That is how the reference VM
+   C++ 6.0), then SP4's `SETUPSP4.EXE`. That is how the reference VM
    was made; §7 shows the file copy gives the same compiler.
 5. **On the host**: `python tools\vc6\vc6.py discover`, then `python tools\vc6\setup\check_vm.py`
    must print PASS. For a pool, shut the VM down and copy its disk to

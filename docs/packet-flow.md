@@ -530,7 +530,7 @@ model):**
 
 One frame of `SClient::Do_Frame` 0x742B60 with three packets queued (CREATE, AUX_DATA, SIMPLE_POSITIONAL):
 
-**State 2026-10-28 (overnight run):** this path now runs as real code in clienttest's section (4)
+**State 2026-10-28:** this path now runs as real code in clienttest's section (4)
 (`build.py build --lib app`; `python tools/harness/clienttest.py build`, then `run`; 45 checks). Do_Frame 0x742B60
 (exact), Process_Packets with the real SIMPLE 8 handler, postate / extrap's state (PS1, EX1), Process_AI 0x744260,
 0x6F3C60 (exact) and 0x6F4610 drive the model's Set_Transform. Since HN1 (1248b9d, 57 checks) the object comes from

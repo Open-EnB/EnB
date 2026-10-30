@@ -1,9 +1,11 @@
 # D93: the model evaluation (2026-10-27)
 
+**Done 2026-10-27:** results, the merges and the D96 revision are in [progress.md](progress.md) (the 2026-10-27
+evening entry). The coordinator ran on Opus 5.5, not Fable (the user's change, noted in D93's row).
+
 The user's decision (D93, progress.md §2): run the same reconstruction brief with Opus 5.5, Sonnet 5.5 and
 Haiku 5.5 on two fixed tasks, score by re-verification, and revise D72 (which model runs what) from the
-scores. **The next coordinator session runs this first**, after the weekly reset of 2026-10-27 12:59, on a
-quiet tree (no other builder until the candidates are launched and the base commit is fixed).
+scores, on a quiet tree (no other builder until the candidates are launched and the base commit is fixed).
 
 ## 1. Tasks
 

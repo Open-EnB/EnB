@@ -1,15 +1,14 @@
 """Run the client's AuxData root constructors symbolically (M1.3, D43): the schema trees with each
 node's vtable, constructor calls and position in its allocation (`vt`, `ctors`, `at`).
 
-A copy of the reference decoder's schema extractor (same author, same
-client), extended only to record `ctors`, `vt` and `at` per node; with those stripped its output
-equals the reference game model's schema, now docs/data/client-auxdata.json (checked by
-`tools/re/auxroots.py check`). Used by tools/re/auxroots.py; standalone:
+Written by the maintainer for earlier protocol research and contributed here under GPL-3; this
+version also records `ctors`, `vt` and `at` per node. With those stripped its output equals
+docs/data/client-auxdata.json (checked by `tools/re/auxroots.py check`). Used by
+tools/re/auxroots.py; standalone:
 
     python tools/re/auxextract.py CLIENT.exe OUT.json
 
-The original's docstring follows.
-Extract the client's AuxData schemas from client.exe.
+How it works: it extracts the client's AuxData schemas from client.exe.
 
 The client builds every AuxData tree in C++ constructors: each field is a named Delta object,
 containers add their children in wire order with Compound::Add, and arrays add N unnamed
@@ -245,7 +244,7 @@ def to_json(img, it, a, name=None):
 def with_mask(it, a, out):
     mask = it.masks.get(a, DEFAULT_MASK)
     if mask != DEFAULT_MASK: out['mask'] = mask
-    elif a in it.rmasks: out['rmask'] = it.rmasks[a]           # (M1.3) not in the reference decoder's extractor
+    elif a in it.rmasks: out['rmask'] = it.rmasks[a]           # (M1.3) added here
     return out
 
 def json_of(img, it, n, name):

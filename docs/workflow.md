@@ -41,8 +41,8 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    * Save `docs/data/imports.json` first.
    * Run `importer.py verify --lib ...` for every library that includes the changed header.
      WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
-     `tools/vc6/pool.py` instead of the default host (Win10 only since the old clones were retired on
-     2026-10-24; released at the end; toolchain.md §1.3).
+     `tools/vc6/pool.py` instead of the default host (the hosts in `.work/vc6_hosts.json`;
+     released at the end; toolchain.md §1.3).
    * Compare the sets of `(file, address)` pairs before and after. Compare sets, not totals:
      a total can stay level while functions are traded.
 5. **Keep or drop.**
@@ -757,7 +757,7 @@ unless `--lever` cites a new row of this table.
 
 * **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
   main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
-  junction again on every compile since 096a45b; results from enb-vc6-02 between 04:36 and 05:25 were suspect.
+  junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
 * **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
@@ -817,7 +817,8 @@ unless `--lever` cites a new row of this table.
   before writing a member. symbols.json names 0xAEDE88 PushMessageLinePacketClass's vtable; it is PacketClass's (pk.h),
   so explain.py's "relocation" class on handlers that destroy a packet temporary is a false lead (T19). For a large
   function with a different instruction count, `.work/t20/align.py` lines up explain.py's `--window` columns with difflib.
-  Python's `subprocess` 'bash' on this host is not Git Bash: use `C:\Program Files\Git\usr\bin\bash.exe` (H20).
+  On Windows, Python's `subprocess` 'bash' may resolve to WSL's bash, not Git Bash: use Git's
+  `C:\Program Files\Git\usr\bin\bash.exe` (H20).
 * **`_$E` initialisers are `short` (2026-10-27, M3):** never exact by themselves; D115's round locates one by its relocated
   fields (atexit, the global) inside the object's range +-0x1000. ref_ptr.h: a script that finds `G_ASSERT(0 != Referent)`
   by text also hits ref_ptr.h's new header note (F7): match the whole statement line.

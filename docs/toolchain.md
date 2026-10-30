@@ -10,7 +10,7 @@ The code builds with **both** Visual C++ 6.0 and a modern MSVC (D3):
 | Compiler | Use |
 |---|---|
 | **Visual C++ 6.0** (the client's) | Proving our work: compile a file and compare its functions with the client's, byte for byte (relocations masked). A tool, not the everyday build |
-| Modern MSVC (VS 2022 / VS 18, both installed) | The everyday build |
+| Modern MSVC (VS 2022 or later) | The everyday build |
 
 Required VC6 version: whatever reproduces the client's Rich header entries (see
 [binary.md](binary.md) §1): C++ compiler id 11 build **8799** (1,054 objects), C compiler id 10
@@ -21,10 +21,10 @@ builds 8797 and 8799, linker 6.0: **Service Pack 4**, confirmed (§1.2).
 A new machine sets its VM up with [setup-vc6.md](setup-vc6.md) (2026-10-29: one script,
 `tools/vc6/setup/New-BuildVM.ps1`, VC6 by file copy, proven equal to the setup-installed VM below).
 Machine-specific settings (account, key, pool folder, template VM) are in `.work/vc6_config.json`
-(`tools/vc6/vc6config.py`); the maintainer's machine keeps its original VM account and `"template_vm": "Win10"`.
+(`tools/vc6/vc6config.py`).
 
-VC6 runs in a Hyper-V VM: Windows 10 21H2, host name `DESKTOP-1J2STKG.mshome.net` (Default
-Switch), the VM account (`user` in `.work/vc6_config.json`), reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
+VC6 runs in a Hyper-V VM: Windows 10 21H2 on the Default Switch, addressed by IP, the VM account
+(`user` in `.work/vc6_config.json`), reached by SSH with the key `~/.ssh/enb_vc6`. VC6 is in
 `C:\Program Files (x86)\Microsoft Visual Studio\VC98` (environment variables not registered;
 call `VC98\Bin\VCVARS32.BAT`). `\\tsclient\C` (the desktop session's drive redirection) is not
 visible to SSH sessions, so files go over SSH (`scp`, `tar`).
@@ -37,22 +37,18 @@ the compiler and linker versions. Default flags `/nologo /c /MT /W3 /O2 /Ob2`, d
 _WINDOWS WIN32_LEAN_AND_MEAN WINVER=0x400 NDEBUG`: the client's (library-matching.md §3.5).
 Compiling WW3D2 (115 files) takes about 30 seconds.
 
-**Several VMs (2026-10-23).** The user added two clones of the VM. Clones keep the computer name
-(`DESKTOP-1J2STKG`), so the name resolves to whichever registered last: the tools address VMs by
-IP only. `python tools/vc6/vc6.py discover` finds them (SSH on the Default Switch network,
-192.168.192.0/20, that accepts the key and has VC6) and writes `.work/vc6_hosts.json`; rerun it
-after the VMs restart (their addresses come from DHCP). Since 2026-10-29 it probes the addresses
-Hyper-V reports for the running VMs instead: the Default Switch takes a new subnet when the host
-restarts (172.17.0.0/16 that day), which left the fixed range stale; `--network CIDR` keeps the scan. Each VM has its own sync cache; a missing
-file reported by the compiler makes the wrapper resync that VM once. `importer.py verify` spreads
-the libraries over the VMs (all seven in about 50 seconds). All three were checked to stamp build
-8799 (SP4).
+**Several VMs.** Clones keep the template's computer name, so the name resolves to whichever
+registered last: the tools address VMs by IP only. `python tools/vc6/vc6.py discover` probes the
+addresses Hyper-V reports for the running VMs (SSH that accepts the key and has VC6) and writes
+`.work/vc6_hosts.json`; rerun it after the VMs restart (their addresses come from DHCP, and the
+Default Switch's private subnet changes when the host restarts; `--network CIDR` scans a range
+instead). Each VM has its own sync cache; a missing file reported by the compiler makes the
+wrapper resync that VM once. `importer.py verify` spreads the libraries over the VMs (all seven in
+about 50 seconds). Every VM was checked to stamp build 8799 (SP4).
 
-**Now (2026-10-24): Win10 plus the pool.** The two clones (`VC6 SP4 (8799)`) were retired at
-07:00 (user decision D30: Hyper-V VMs removed, `Tools\VMClones\1` and `2` deleted, 24.0 + 25.2 GB).
-`.work/vc6_hosts.json` lists only Win10 (192.168.193.108), the default host for every tool; more
-VMs come from the pool (§1.3): `importer.py verify --pool K`. `vc6.py discover` still rewrites
-`.work/vc6_hosts.json` after a restart.
+**Now: one fixed host plus the pool.** `.work/vc6_hosts.json` lists the fixed VM, the default host
+for every tool; more VMs come from the pool (§1.3): `importer.py verify --pool K`. (The early
+fixed clones were retired 2026-10-24, D30.)
 
 ### 1.2 Which VC6 built the client: SP4
 
@@ -71,24 +67,22 @@ does the CRT mix. `LINK.EXE` in SP4 is 6.00.8447. The client's Rich header has 9
 product id 4, build 8447, which our test executable doesn't produce. They are import-library
 members (Linker600 import objects): the client's mss32 imports (81) and binkw32 imports (9) plus
 2x3 descriptors = 96; E&BConfig.exe has 80 mss32 imports + 3 descriptors = 83 id-4 entries (build
-8168), VIDTEST.EXE imports neither and has none (2026-10-24, `.work/ebconfig/assessment.md` §1). So
+8168), VIDTEST.EXE imports neither and has none (2026-10-24). So
 they are the Miles/Bink SDK import libraries, not compiled code. The 8798 C++ objects (3) are
 still unexplained; they occur in all three executables (a prebuilt library common to them).
 
-The installed VM is now SP4. The VM has a checkpoint with base VC6 (RTM), taken before SP5; SP4 was installed on top of that checkpoint.
-
 ### 1.3 The VM pool (2026-10-24)
 
-**`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share fixed VMs (since
-2026-10-24 the only fixed one is Win10, §1.1).
+**`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share fixed VMs (one fixed host
+remains, §1.1).
 Pool VMs are `enb-vc6-NN`: differencing disks `Tools\VMPool\enb-vc6-NN.vhdx` over the read-only
 base `Tools\VMPool\base-vc6.vhdx` (prepared from the `VC6 SP4 (8799)` snapshot: Windows Update,
 Defender, SysMain and WSearch off, fixed pagefile; never attach it to a VM or clear its
 read-only flag). Hardware is copied from the template VM (`template_vm` in `.work/vc6_config.json`:
-`Win10` here, `enb-vc6-template` for a VM made by setup-vc6.md; generation 2, Secure Boot `MicrosoftWindows`,
+`enb-vc6-template` for a VM made by setup-vc6.md; generation 2, Secure Boot `MicrosoftWindows`,
 dynamic memory, 8 vCPU, `Default Switch`) except the startup memory: clones get 2 GB (`STARTUP_GB`,
-2026-10-27: a 4 GB startup failed clone starts on a loaded host while the VMs run at ~1.1 GB; clones
-01-05 keep 4 GB until they are off, then `Set-VMMemory -StartupBytes 2GB`); automatic checkpoints are
+2026-10-27: a 4 GB startup failed clone starts on a loaded host while the VMs run at ~1.1 GB; an
+older clone with 4 GB takes `Set-VMMemory -StartupBytes 2GB` once it is off); automatic checkpoints are
 off and the stop action is shut down. The cap (`--max`, default 7) is set by host memory: check
 `Get-CimInstance Win32_OperatingSystem` free memory before raising it.
 
@@ -151,7 +145,21 @@ enb-vc6-02` the other, VM, disk and config folder each gone, non-pool VMs untouc
 
 ## 2. Third-party SDKs (D5)
 
-Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones).
+Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones). The sources below
+are the copies this project used; the SDKs are Microsoft's and RAD's, and the project does not
+distribute them (D150): bring your own copy and check it against these SHA-256 hashes.
+
+| File (under `SDK\`) | SHA-256 |
+|---|---|
+| `directx8\include\d3d8.h` | `3ca75d0512eb882de054bf8d93c1a25dc356e3681d83eaf4e15e7d46d2eb80b0` |
+| `directx8\include\d3dx8.h` | `4dda934ffc04ca0a7ee7551ee524c1eb9e5ec85cb345202ea0661c71feff122c` |
+| `directx8\lib\d3d8.lib` | `3c9f0dc543c41c4b03d380ae47591133db4718dd4bd6c0b739c97a4aa9a493dd` |
+| `directx8\lib\d3dx8.lib` | `32148094cebbbe9b55f7769787cdde5926ca01014e072844f5152d25072e1f44` |
+| `directx8\lib\dxguid.lib` | `70a74a5e9c195f73db8d6a9bd082611825d07605b67fc7bceb10171d2c194cce` |
+| `radtools\include\bink.h` | `25c9a43ae85386cd0d9e00fe5d1f3670814c7a6be2e7c5d8e9952a5fa8674f99` |
+| `radtools\include\mss.h` | `721bac19260c63445524acc8a027e25307c4ddaa8e47990a72b7109567047377` (before `sdk_patch.py`) |
+| `radtools\include\rad.h` | `528d9fea30775f34af20c8779b44435e1d7e3ad1ad6c24e879aa81ac40719b69` |
+| `radtools\lib\binkw32.lib` | `4ef062e19174050cf251454c92670bca256e5be3dfee0ba6ae4aa2b54ce907d1` |
 
 | SDK | Source | Version | Client needs | Verdict |
 |---|---|---|---|---|
@@ -230,7 +238,7 @@ retail install). The Python tools take the paths from one module, `tools/re/root
 | `C:\EnBDevelopment\Tools\VMPool` | The VM pool's disks (§1.3; `ENB_VC6_POOL_DIR` overrides) | `pool.py` |
 | `C:\EnBDevelopment\Net7` | Net-7 server emulator, C++ (`Net7\AuxClasses`: the aux-data classes) | `auxnames.py` (removed, D153) |
 | `C:\EnBDevelopment\Tools\Media\ea-reference` (`EA_REFERENCE`; `ENB_EA_REFERENCE` overrides) | The EA captures' frozen reference (D154), unpacked by `tools/harness/fetch_reference.py`: `ea\NAME.trace.jsonl` (the reference traces, one game message per line) and `ref\NAME.*.txt` (the reference decoder's readings); fixed, never regenerated | `auxreplay.py`, `udpreplay.py`, `clienttest.py` |
-| `C:\EnBDevelopment\Live-Era-Data` | EA's live-era packet dumps (`enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-...`) | `convert.py`, `auxreplay.py`, `udpreplay.py` |
+| `C:\EnBDevelopment\Live-Era-Data` | EA's live-era packet dumps (`enbserver3\ENB-Packets-Live\Alex3-fixed.txt.txt`, `Alex7-...`; public at trunk/capturedPackets of github.com/therealKyp/Earth-and-Beyond-server, D154) | `convert.py`, `auxreplay.py`, `udpreplay.py` |
 | `C:\Program Files (x86)\EA GAMES\Earth & Beyond` | The retail install: `release\client.exe` (SHA-256 `249f8524...51c4`), `EBCONFIG`, game data and movies. Read only; no tool uses it as a working directory (they copy what they need under `build/` or `.work/`) | `clientimage.py`, `vidtest_e2e.py`, `run_reference.py`, `movietest.py`, `mkmss32.py` |
 
 Inside this repository, git-ignored: `.work/` (scratch, pseudocode, locks, pool state), `build/`.

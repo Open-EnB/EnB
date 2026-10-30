@@ -2,6 +2,8 @@
 
 The client's AUX_DATA receive path, from `AuxDataPacketClass::Process_Packet` 0x7364C0 to the leaves, with
 each function's status as of 2026-10-24. Moved verbatim from milestones.md §2.3; reference data about the client.
+The statuses are not kept up to date: current states are in [packet-flow.md](packet-flow.md) §3 and
+`docs/data/imports.json`.
 
 Mapped 2026-10-24 from `AuxDataPacketClass::Process_Packet` 0x7364C0 to the leaves (scripts and
 the full call graph: `.work/milestones/m1/m11/`, untracked, historical). **Exact** = the address is in

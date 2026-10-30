@@ -1,13 +1,10 @@
-# GitHub org, repos and collaboration: proposal (2026-10-29)
+# GitHub org, repos and collaboration (2026-10-29/30)
 
-Proposal for the empty org [Open-EnB](https://github.com/Open-EnB), written to be reviewed with the user item
-by item. Every item is **open** until the user decides it; decisions then go to [progress.md](progress.md) §2 as
-D-numbers and this file records the outcome beside each item. Nothing here has been acted on: nothing is pushed.
-
-Background: the branch `github-prep` (worktree `.work/gh-prep`) holds the publishing work: LICENSE (GPL-3 with
-EA's additional terms), public README, CONTRIBUTING, `.gitattributes`, `tools/prepush_check.py`,
-`tools/docs_check.py`, `tools/progress.py`, CI workflows. On 2026-10-29 master was merged into it (8fad711) and it
-was refreshed (b51c0eb): prepush_check PASS over 7,649 blobs, unit tests OK, docs_check FAIL (item P-GH-1).
+Record of how the org [Open-EnB](https://github.com/Open-EnB) and its repository were set up: proposed
+2026-10-29 and reviewed with the user item by item; each decision is a D-number in [progress.md](progress.md) §2
+and is recorded here beside its item. The publishing work (LICENSE, the public README, CONTRIBUTING,
+`.gitattributes`, `tools/prepush_check.py`, `tools/docs_check.py`, CI) is on master; the claims and the verify
+service (§4) landed with PR #1 on 2026-10-30.
 
 The user's goals: the project builds and ships several executables (vidtest.exe, client.exe, later the Character
 and Starship Creator, perhaps a server); third-party dependencies (Miles, Bink, DirectX 8) complicate it; GitHub is
@@ -25,8 +22,8 @@ in a way that cannot compromise the project's integrity.
 | P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2, §3.6) | **D150: only our own binaries; third-party DLLs from other sources** |
 | P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.3) | **D146 (VC6 setup), D151 (lanes)** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
-| P-GH-8 | Pre-push checklist | §3.4 | **D152: Open-EnB/EnB, master, private first; pushed 2026-10-30; the final read before the public switch (§4.5.7)** |
-| P-GH-9 | Community and continuity | §3.5 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; recovery codes saved; no second owner, no archive policy for now** |
+| P-GH-8 | Pre-push checklist | §3.4 | **D152: Open-EnB/EnB, master, private first; pushed 2026-10-30; final read done 2026-10-30; the public switch (§4.5.7)** |
+| P-GH-9 | Community and continuity | §3.5 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; no second owner, no archive policy for now** |
 | P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **steps 1-6 live on master 2026-10-30 (PR #1); to do: the rehearsal, which waits for a first outside contributor, and the public switch (§4.5.7)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
@@ -36,22 +33,17 @@ lone CRs). Git for Windows' system-wide `core.autocrlf=true` writes CRLF at chec
 writer the agents use writes LF: the Write tool, Git Bash `sed -i` (even when its pattern matches nothing), heredocs,
 our generators (names.py, notexact.py); Python text mode on Windows writes CRLF. Tools that match or compare raw
 bytes then disagree: importer.py's patch anchors and replay (`compare_tree` compares bytes; its base copies come from
-EA's CRLF sources), edit scripts' `
-` anchors, commit diffs.
+EA's CRLF sources), edit scripts' `\n` anchors, commit diffs.
 
 **What it costs (audit of 245 transcripts, 2026-10-23..30; `.work/crlf-audit/`):**
 
 * ~25-35 visible incidents in 7 days, 2-4 extra tool calls each, one tangled case ~25 calls: patch / edit scripts
-  whose anchors miss `
-
-` (the most frequent: importer.py PATCHES insertions, progress.md rewrites), `sed -i`
+  whose anchors miss `\r\n` (the most frequent: importer.py PATCHES insertions, progress.md rewrites), `sed -i`
   turning files LF (tcpconn.cpp, a draft with 0 CRLF / 407 LF lines), Python writes giving mixed files (D22's shader
   headers "modified with an empty diff"), a Write that turned progress.md LF (a 2,834-line staged diff, reset and
   rewritten).
 * The larger cost is prevention paid every session: 184 transcripts carry CRLF-defensive code (~1,900 commands with
-  `newline=''` / `
-
-` handling) and ~1,075 line-ending probes (`file`, byte counts); 958 "LF will be replaced by
+  `newline=''` / `\r\n` handling) and ~1,075 line-ending probes (`file`, byte counts); 958 "LF will be replaced by
   CRLF" warnings across 212 transcripts; about a dozen CRLF traps in workflow.md §3 / §3.8 and builders.md.
 * Not a cause: the Edit tool (it keeps a file's endings; no "string not found" was line-ending related).
 
@@ -69,12 +61,8 @@ EA's CRLF sources), edit scripts' `
    and of each live worktree as LF (the tested `lf_convert.py` step; blobs do not change, so `git status` stays
    clean), confirm `git add --renormalize .` stages nothing.
 4. **Tools write and compare LF:** importer.py converts EA's CRLF base copies to LF as it writes tree files, and
-   replay compares the same way; the ~30 tools with `'
-
-'` literals write `'
-'`, and writes use
-   `newline='
-'` (Python text mode on Windows would write CRLF). A builder round, proven by replay plus a full
+   replay compares the same way; the ~30 tools with `'\r\n'` literals write `'\n'`, and writes use
+   `newline='\n'` (Python text mode on Windows would write CRLF). A builder round, proven by replay plus a full
    verify: 0 gained / 0 lost.
 5. **A guard so it cannot drift:** `tools/eol.py check|fix` (tracked text files with a CR on disk; `fix` rewrites
    them LF), run by commit_mine.py and the handoff; docs_check / CI fail on a CR in any blob not marked `-text`.
@@ -109,8 +97,8 @@ and loses the one-commit check. Split on **different codebase or different trust
 **No repos for third-party material.** RAD's Miles and Bink, DirectX 8, VC6, client.exe, the game art and the
 packet captures are non-redistributable or sensitive. Keep "bring your own":
 
-* `tools/re/roots.py` reads its paths from a config file or environment variables instead of the hard-coded
-  `C:\EnBDevelopment` (today: `DEV_ROOT`, `RETAIL_INSTALL`).
+* `tools/re/roots.py` reads its paths from `ENB_DEV_ROOT`, `ENB_RETAIL_INSTALL` and the other `ENB_*`
+  environment variables (done, §3.4); `C:\EnBDevelopment` is only the default.
 * A manifest of SHA-256 hashes for each external input, so anyone can check they have the right versions (the
   client's `249f8524…51c4`, the SDK files, MSS32.DLL).
 * D143 fits: playable builds find the user's own install for the original art.
@@ -191,9 +179,9 @@ D152: `Open-EnB/EnB`, branch `master`, private first; pushed 2026-10-30.
 * `OWNER/REPO` in `readme-progress.yml`: moot, the workflow was dropped (cff55ff; the progress card is regenerated
   in each run's PR).
 * Branches: only `master` and run branches go up (D148); `wt/*` and `eval/*` stay local.
-* **Still to do before the public switch:** a final read of what becomes public in progress.md and the docs
-  (internal decisions, paths, names; the private proxy is already gone from tree and history, D153). §4.5.7
-  item 2.
+* A final read of what becomes public in progress.md and the docs (internal decisions, paths, names): **done
+  2026-10-30.** Personal and machine detail scrubbed, the earlier unpublished research described generically
+  (D153), stale statements corrected, conduct reports through GitHub's private reporting.
 
 ### 3.5 Community and continuity (P-GH-9, closed 2026-10-30)
 
@@ -201,8 +189,7 @@ D152: `Open-EnB/EnB`, branch `master`, private first; pushed 2026-10-30.
 * Labels as preparation (`needs-vc6`, `no-vc6`, `good first issue`, plus `claim` / `claim-expired` for §4); no
   issues for now; a Projects board later.
 * Net-7 / emulator community contacted (the user). No Discord or domain reserved.
-* No second owner: continuity rests on the one owner account's recovery (two second factors, recovery codes
-  saved). No archive policy for now.
+* No second owner and no archive policy for now.
 
 ### 3.6 Not yet decided
 
@@ -330,8 +317,8 @@ it is busiest. So:
 
   **Whose turn it is:** the contributor's before a PR exists, while the PR is a draft, and after the maintainer
   answered (a failed `vc6-verify` on the head commit, or a review asking for changes) until the next push. Waiting
-  for verification, approval, review or merge is the maintainer's turn and stops the clock, so a weekend with the
-  maintainer's host off costs no one a claim. The clock advances on the hourly sweep, at most 2 h per sweep.
+  for verification, approval, review or merge is the maintainer's turn and stops the clock, so time the
+  maintainer's verify host is not running costs no one a claim. The clock advances on the hourly sweep, at most 2 h per sweep.
 * **Per account:** 3 live claims. Maintainers (the org's owners and members; an outside collaborator counts as a contributor) have no count limit
   but the same 30-function cap and lifetime per claim.
 * **Commands** (a comment on the claim issue): `/renew` (the claimant, before a PR), `/release` (the claimant or a
@@ -381,7 +368,7 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
   libraries it touches on the pool, `pairs_cmp.py` against master, and post the result (gained, lost, NOT EXACT)
   as a PR comment and a commit status `vc6-verify`. It runs master's tools, never the PR's.
 * **A polling service, not a runner** (the user, 2026-10-30): `tools/vc6/verify_watch.py`, a Windows scheduled
-  task ("EnB verify watch", every 5 minutes while the maintainer is logged on, windowless via
+  task ("EnB verify watch", every 5 minutes while the maintainer's verify host is running, windowless via
   `conhost --headless`). It fetches master, moves the worktree `.work/wt/verifier` there and runs master's own
   `verify_watch.py once`, which verifies each open, non-draft PR whose head has no result yet or whose result was
   made on an older master. GitHub never sends the host a job, so no PR's workflow or script can run there; the
@@ -433,8 +420,7 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
 6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers. **Done 2026-10-30:**
    D156 (claims), D157 (verification and landing; D148, D149 and D151 point to them).
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
-   left alone expires. **To do (§4.5.7):** the user has no second account, so it waits for the first outside
-   contributor.
+   left alone expires. **To do (§4.5.7):** it waits for the first outside contributor.
 
 #### 4.5.7 To do (2026-10-30)
 
@@ -456,8 +442,8 @@ draft PR at the first push. Automerge is **off**.
    7. then `python tools/vc6/verify_watch.py automerge on`, if the user agrees.
    Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
-2. **The public switch** (the user decides when). Before it: a final read of what becomes public in progress.md
-   and the docs (§3.4), and the org profile repository `Open-EnB/.github` with the non-affiliation notice (§3.2).
+2. **The public switch** (the user decides when). Before it: ~~a final read of what becomes public~~ (done
+   2026-10-30, §3.4), and the org profile repository `Open-EnB/.github` with the non-affiliation notice (§3.2).
    Then make the repository public and apply `.work/ruleset.json`
    (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
    vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,

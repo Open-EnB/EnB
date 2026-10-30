@@ -16,14 +16,14 @@
 | [app-plan.md](app-plan.md) | Proposal for reconstructing E&B's own code (decisions D6-D8) |
 | [kernel-map.md](kernel-map.md) | The client's task kernel (KernelClass, the tasks, WinMain's start-up) and the packet layer (connections, the opcode factory, the handlers): a map and a reconstruction order |
 | [kernel-map-step9.md](kernel-map-step9.md) | Step 9's dependencies (2026-10-27): client.cpp's client base and SClient, the login and character-select screens with their UI base classes and CharacterViewClass, kcom auth (authlogin.dll), the login's data objects; an order with sizes and a recommendation |
-| [eval-d93.md](eval-d93.md) | The D93 model evaluation: tasks, candidates, protocol, scoring, the shared brief; the next coordinator session runs it first |
+| [eval-d93.md](eval-d93.md) | The D93 model evaluation: tasks, candidates, protocol, scoring, the shared brief (run 2026-10-27; results in progress.md) |
 | [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): spec per work item, link procedure |
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [setup-vc6.md](setup-vc6.md) | Setting up the VC6 SP4 build VM and the pool's base: requirements, the one-script route (`tools/vc6/setup/New-BuildVM.ps1`), the manual route, renewing the Windows evaluation, how the file-copy install was derived (D146) |
-| [github-plan.md](github-plan.md) | Proposal for the Open-EnB GitHub org (2026-10-29): repo layout, integrity and permissions, the publishing items P-GH-1..9, reviewed item by item |
+| [github-plan.md](github-plan.md) | Record of the Open-EnB GitHub setup (2026-10-29/30): repo layout, integrity and permissions, the publishing items P-GH-1..10 and their decisions, claims and verification |
 | [archive/](archive/) | Dated one-off reports (overnight runs), superseded by progress.md's log |
 | [commit-map.txt](commit-map.txt) | Old -> current commit hash per line, for both history rewrites (D126, 2026-10-29; D153, 2026-10-30): the tracked files cite current hashes; older commit messages cite earlier ones (`grep ^<old> docs/commit-map.txt`) |
 

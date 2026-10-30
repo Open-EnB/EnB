@@ -30,14 +30,15 @@ the builders' rules are in [builders.md](builders.md).
 * The link step works: `tools/vc6/build.py` builds the eight libraries, `build.py link --program vidtest` links vidtest.exe (§3).
 * The decode path's reference table is [decode-path.md](decode-path.md). VIDTEST's spec is [vidtest.md](vidtest.md).
 
-**Captures.** The EA captures are at `C:\EnBDevelopment\Live-Era-Data\enbserver3\ENB-Packets-Live`.
-prior-work.md had `C:\EnBDevelopment\enbserver3\...`; corrected with this plan.
+**Captures.** The EA captures are public, at trunk/capturedPackets of
+github.com/therealKyp/Earth-and-Beyond-server (D154); the tools find a local copy through
+`roots.LIVE_ERA_DATA` (environment `ENB_LIVE_ERA_DATA`).
 
 | Set | Form | Content |
 |---|---|---|
 | `capture_1..3.txt` (EA) | annotated datagrams; handshake fields labelled, RC4 session key printed, messages decoded to `Length / Opcode / payload` | about 120,000 datagrams, 165,882 messages |
 | `Alex3-fixed`, `Alex7-fixed` (EA) | per session: RC4 key, then decrypted datagrams with sequence numbers | 26,078 + 2,779 messages; 4,651 AUX_DATA |
-| the reference traces, `ea\*.trace.jsonl` (now `roots.EA_TRACES`, D154) | the reference decoder's imports of the five EA files (its `import-ea`, 2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
+| the reference traces, `ea\*.trace.jsonl` (now `roots.EA_TRACES`, D154) | the reference decoder's imports of the five EA files (2026-10-21), one game message per line `{t, channel, dir, op, name, len, data}`, plus `note` (packet numbers) for `capture_N` and `seq` for the Alex sessions | 124,208 / 16,418 / 25,256 / 26,078 / 2,779 messages; 43,978 AUX_DATA in `capture_1..3` (34,070 / 4,741 / 5,167), 4,658 in the Alex sessions. Message level only: datagrams, block headers and ack lists are gone |
 | the reference traces, `session_*` (Net-7) | pcapng + trace.jsonl, client to proxy over TCP | 2026-10-19/21 recordings, with three known AuxData encoding quirks |
 
 All AUX_DATA in the EA captures (43,978) decode and re-encode byte for byte in the reference decoder.
@@ -81,7 +82,7 @@ Each item has a status line (results in [library-matching.md](library-matching.m
 
 ### M1.0 Inputs
 
-* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (its `roundtrip`; `aux-census`: all 43,978 decode, re-encode and match the typed model; `aux-log --first`: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as the reference importer, which keeps only the messages; (2) save `aux-census` and `aux-log --first` output per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
+* **What:** **Mostly done already** in the reference decoder: the message-level inputs are the `ea\*.trace.jsonl` imports above, and the checks exist (a round trip; a census: all 43,978 decode, re-encode and match the typed model; a first-change log: every field value and change, the reference for (c)). Left: (1) a datagram-level file for gate (a): `tools/harness/convert.py` reads the Alex dumps (`session: <id> rc4 key: <8 bytes>`, then `C->S`/`S->C seq <n> len <hex>` and the decrypted datagram, checksum first), the same parse as the reference importer, which keeps only the messages; (2) save the census and first-change log per capture under `.work/harness/ref/`; (3) the harness skeleton reads trace.jsonl and the datagram file and counts messages
 * **Done when:** counts equal the reference decoder's
 * **Size:** small
 * **Status:** Done 2026-10-24 (tools/harness/README.md); results in library-matching.md §3.8.
@@ -205,8 +206,8 @@ it must print PASS.
   detail maps), stars from `stars.ini`, decorations from `decoration.ini`, and splines from
   `splines.wsd`.
 
-**The reference is the original program, run on the same machine.** VIDTEST.EXE runs on the host
-today. With the same command line and art, its frames are the reference images for ours. Pixel
+**The reference is the original program, run on the same machine.** VIDTEST.EXE (from an E&B
+install) runs on the test machine. With the same command line and art, its frames are the reference images for ours. Pixel
 equality isn't expected, since timing and filtering differ, but the same models, textures, lighting
 and layout must be visible.
 
@@ -290,6 +291,6 @@ Builders may run in parallel on disjoint items (D62), each verifying and committ
   crash points at a real bug in the reconstruction, which is useful in itself.
 * **wwudp is mostly unattributed.** Its size is unknown until M1.4 starts; the 26 attributed
   functions are a floor, not an estimate.
-* **"A day or so" is ambitious.** M1.0, M1.1, L1 and M2.0 fit in a day. The rest depends on L2 and
-  on how big wwudp turns out to be. Progress against the milestone checks is logged in
-  progress.md as usual.
+* **The schedule** (at planning time): M1.0, M1.1, L1 and M2.0 would fit in a day; the rest
+  depended on L2 and on how big wwudp turned out to be. Progress against the milestone checks is
+  logged in progress.md.
