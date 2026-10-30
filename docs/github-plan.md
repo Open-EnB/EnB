@@ -298,3 +298,73 @@ besides reading the diff. It runs the contributor's code only inside a build VM'
 3. The numbers: 72 h without a PR, 7 days of PR inactivity, 3 live claims per account.
 4. Squash-merge outside PRs, with "one verified function per commit" replaced as in 4.3?
 5. Do the maintainer's runs claim through the same issues (one register), or only read them?
+6. A, B, or both (4.6, 4.8)? And the challenges of 4.7: split D148's merge rule by what a PR touches;
+   an automated verify on the pool later.
+
+### 4.6 Alternative B: trusted contributors push branches (D148 revised)
+
+The user asked (2026-10-30) what changes if D148 lets contributors push branches, never master.
+
+**What it takes on GitHub.** Pushing needs the *Write* role, granted per person (an outside collaborator or a
+`contributors` team); there is no push-only role. Write also lets a person create and delete any unprotected
+branch and tag, edit labels and issues, re-run and dispatch workflows, publish releases, and push workflow files
+that then run on their branch with the repository's token. The rulesets have to fence all of that: master (no
+push, PR required, a code-owner approval), tags and releases, `.github/**` changes only through a PR,
+`claims/**` and `contrib/<login>/**` as the only branch patterns non-maintainers may create.
+
+**What it buys.**
+* Claims can be Open-BFME's: a branch `claims/<unit>` created atomically by `git push` (refused if it exists),
+  a TTL in its commit message, takeover by compare-and-swap. No Action, no issue noise, instant, and an agent
+  needs only git. Open-BFME has run it since 2026-09 (and found that Claude Code's cloud sessions can push
+  branches but not other refs or deletions, so claims must be branches and a release overwrites instead of
+  deleting).
+* No forks: the agent pushes `contrib/<login>/<unit>`, opens the PR from it, and `verify_pr.py` fetches it like
+  any branch. Slightly simpler for agents, the same for the maintainer (a fork's PR is fetchable as
+  `pull/N/head` anyway).
+
+**What it costs.**
+* **Vetting.** Write cannot be given to strangers, so B only serves people already known. Every newcomer still
+  starts on A's path (fork, PR), so A is needed anyway and B is a second path, not a replacement.
+* **Trust surface.** A writer can delete or rewrite other people's claim and contrib branches (rulesets cannot
+  scope "only your own" by login), and a workflow file pushed to a branch runs with whatever token permissions it
+  declares. Both are manageable with rulesets and `.github/**` locked, but each needs care and checking.
+* **Clutter.** Every claim and every piece of work is a branch in the main repository, pruned by a job.
+
+**Comparison.**
+
+| | A: issues + forks (D148 as is) | B: trusted writers push branches |
+|---|---|---|
+| Who can take part | anyone with a GitHub account | people the maintainer invites |
+| Claim mechanism | issue, kept by an Action | `claims/<unit>` branch, atomic by git |
+| To build | the Action, claims.py, an issue template | claims.py (Open-BFME's design), the rulesets, a prune job |
+| Risk to the repository | none beyond issue spam | writers can damage branches and claims; workflow tokens |
+| Maintainer's cost per PR | verify_pr.py + review + merge | the same |
+
+**Neither changes the real bottleneck,** which is the last row: every C++ PR needs the maintainer's VMs to
+verify and the maintainer to merge. That is where existing decisions deserve the challenge (4.7).
+
+### 4.7 Challenging the existing decisions
+
+* **D148, "the user merges every PR".** Sound as a checkpoint for our own runs (one PR a day). With outside
+  agents it caps the project at what one person reviews. For C++ the proof is mechanical: a PR that only
+  touches source files under a claim, verifies gain-only (0 lost, D66 aside) and passes CI could be merged by a
+  bot after verify_pr.py. The human review would remain for tools, docs, `.github/`, headers shared across
+  many files, and anything that loses a pair. Proposal: split D148 by what a PR touches.
+* **D146, "bring your own VC6".** It keeps the toolchain out of the repository, but it also means every proof
+  happens on the maintainer's host. A self-hosted runner on the pool could run verify_pr.py on each PR
+  automatically. It is dangerous on a public repository (a fork's PR can run code on the runner), so it would
+  have to run only base-branch code (`pull_request_target`, never the PR's Python or workflow), pass the PR's C++
+  only into a VM's compiler, and require a maintainer's approval for first-time contributors. Worth designing,
+  not worth rushing.
+* **D149(1), "one verified function per commit".** Replaced by 4.3 either way: it came from Open-BFME, whose
+  agents push master directly and whose CI re-verifies each commit; with PRs the PR is the unit.
+* **D148, "builders never push".** Unchanged by either alternative; only the coordinator pushes the run branch.
+* **D151, contribution lanes.** The no-VC6 lane has nothing to claim yet: claims cover source files. Naming and
+  notes could claim a file too (same register), or need none.
+
+### 4.8 Recommendation
+
+Build A now; it is required for strangers whatever else is chosen. Keep D148's "never master" and add no Write
+role for contributors yet. Revisit B when a regular contributor exists who would benefit, and do so together with
+4.7's split merge rule, because B without automated merging only moves where branches live. Put the effort saved
+into verify_pr.py, then into the automated verify (4.7, D146).
