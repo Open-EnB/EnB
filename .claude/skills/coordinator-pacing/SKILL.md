@@ -18,8 +18,12 @@ from `~/.claude/.credentials.json` for the usage figures; needs the pool, `tools
 
 ## At the start of a run
 
-1. Record the run's baseline: `git show HEAD:docs/data/imports.json > .work/imports.<sha>.json`. Every
-   heartbeat compares HEAD against it, so a loss anywhere in the run shows up.
+0. **The run branch and its draft PR** (D148, docs/github-plan.md 4.5.3): `python tools/run_branch.py start`
+   makes `run/<date>` from origin/master (or brings an existing one up to it), pushes it, opens the run's PR as a
+   draft and writes the baseline below. Then `python tools/claims.py list`: assign builders only functions no
+   live claim holds (contributors' claims included).
+1. Record the run's baseline: `run_branch.py start` writes `.work/imports.<sha>.json` from origin/master (master is
+   verified by construction). Every heartbeat compares HEAD against it, so a loss anywhere in the run shows up.
 2. Open the plan (`.work/run-<date>/plan.md`) with a Log section; every heartbeat, launch, result and user
    instruction gets one dated line there. It is the handoff's source.
 3. Create a heartbeat cron (40 minutes has worked) whose prompt tells you to run the heartbeat command, log any
@@ -60,12 +64,19 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 
 ## Launching
 
+- **Claim the builder's functions first:** `python tools/run_branch.py claim UNIT --builder <id> --model <m>`
+  (`--split` for a file over 30 not-yet-exact functions: one claim per 30). It adds `Claims #N` to the run's PR. A
+  claim that is not granted means someone else holds part of it: give the builder another item. Put the granted
+  ranges in the brief; a builder that finds its work leading into a claimed range stops and reports.
 - Give every brief a hard stop time and a report time, both earlier than the handoff by the time you need to
   log the result and file its traps (about 15 minutes per report).
 - Model by item (D72, until the D93 evaluation revises it): Opus for byte-exact rebuilding, Sonnet for bounded
   tools fixes and audits, Haiku for searches. A short, bounded item (one trial, one batch, three functions) is
   worth 30 to 60 minutes; a file is worth 2 to 2.5 hours.
 - Log the launch: time, builder id, item, stop time, how many builders are now running.
+- When a heartbeat finds builders' work brought into the run branch since the last push, `python
+  tools/run_branch.py push` (the pre-push check takes about 2.5 minutes): the run's claims stay alive while its PR
+  is a draft, and contributors see the work before master does.
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).
@@ -78,6 +89,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `git status` clean except `.claude/settings.json`,
   HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
+- Claims: `python tools/run_branch.py release N` for each claim whose builder brought nothing in (it drops the
+  `Claims #N` line too); the others land with the run's PR. At handoff `run_branch.py ready --summary FILE`
+  (the handoff skill) takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - If the user says to spend the quota before a reset, keep launching bounded items up to the allowance and
   let them run into the next window; the handoff then gets an addendum after the last report. If the user says
   nothing new starts, close the window at once and log it.

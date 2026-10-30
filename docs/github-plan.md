@@ -445,7 +445,10 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
    fails a record mismatch only on a maintainer's PR. Tried: PR #1's landing built without pushing (its tree
    equals GitHub's test merge; with a changed record carried in, only imports.json differs). Pushing and
    merging a landing waits for the rehearsal (step 7), since it lands on master.
-5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff.
+5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff. **Done
+   2026-10-30:** `tools/run_branch.py` (start, claim with `--split`, release, push, ready, status) and both skills
+   call it; builders.md's claims rule. Tried on PR #1: co.cpp's 77 functions claimed as three (30 + 30 + 17), listed
+   on the PR, released and the lines removed.
 6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers.
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
    left alone expires.
