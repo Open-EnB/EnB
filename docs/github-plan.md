@@ -123,9 +123,9 @@ needs client.exe and VC6. So three layers:
 1. **Hosted CI, every PR, free:** `docs_check`, `prepush_check`, unit tests, generated-files freshness (rejects
    hand-edited generated files), license / header checks. Needs no secrets, runs nothing trusted.
 2. **Maintainer verification, the real gate:** the VM pool runs `importer.py verify` and `pairs_cmp`, and posts
-   the result to the PR as a required status check through a GitHub App (not a personal token). It runs only
-   after a maintainer applies a label (e.g. `verify`). **Never** attach a self-hosted runner to `pull_request`
-   events from forks: that runs anyone's code on the VMs and the home network.
+   the result to the PR as the required status `vc6-verify` (4.5.5: `verify_pr.py`, polled by `verify_watch.py`,
+   posting with the maintainer's `gh` login). No self-hosted runner: GitHub never sends the host a job, so no
+   PR's workflow can run there.
 3. **Main-branch ruleset:** PR required, both layers as required checks, CODEOWNERS review, no force push, no
    deletion, protected tags. Contributors work from forks; no write access.
 
@@ -399,12 +399,18 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
 * **`tools/vc6/verify_pr.py PR`**: fetch the PR's head as data into a worktree under `.work/`, verify the
   libraries it touches on the pool, `pairs_cmp.py` against master, and post the result (gained, lost, NOT EXACT)
   as a PR comment and a commit status `vc6-verify`. It runs master's tools, never the PR's.
-* **A self-hosted runner** on the maintainer's host (labels `enb-pool`) runs `verify.yml` on
-  `pull_request_target`, which uses master's workflow and scripts; it calls `verify_pr.py` and nothing from the
-  PR runs on the host. The PR's C++ reaches only a build VM's compiler. While the host is off, PRs wait.
-* **Guards:** a first-time contributor's PR runs only after the maintainer approves it (GitHub's setting); a PR
-  that changes Python, workflows or `importer.py`'s tables gets `vc6-verify` only after the maintainer has read
-  it and adds the label `verify-approved` (a contributor's patch in `importer.py` is Python run on the host).
+* **A polling service, not a runner** (the user, 2026-10-30): `tools/vc6/verify_watch.py`, a Windows scheduled
+  task ("EnB verify watch", every 5 minutes while the maintainer is logged on, windowless via
+  `conhost --headless`). It fetches master, moves the worktree `.work/wt/verifier` there and runs master's own
+  `verify_watch.py once`, which verifies each open, non-draft PR whose head has no result yet or whose result was
+  made on an older master. GitHub never sends the host a job, so no PR's workflow or script can run there; the
+  PR's C++ reaches only a build VM's compiler. A self-hosted runner was rejected: on a public repository a fork's
+  PR can bring its own workflow file to it. A runner in a VM or a container was rejected too: the verify needs the
+  host's Hyper-V pool, the shared lease records, the client and the SDKs. While the host is off, PRs wait.
+* **Guards:** a PR that changes anything a verify would run on the host (Python, scripts, workflows,
+  `importer.py`'s tables, `.def` files: verify_pr.py's gate) is held at `vc6-verify: pending` until a maintainer
+  has read it and comments `/verify-approved SHA` naming its head commit; a new push needs a new approval. A
+  maintainer's own PRs are approved by their authorship.
 * **Merge rule (D148 amended):**
   * **Bot-merged:** a PR whose `vc6-verify` is gain-only, whose CI `checks` pass, and that touches only C++
     sources, headers and the files the tools regenerate. Before merging, the bot re-verifies if master moved.
@@ -419,8 +425,11 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
    contributor without VC6 cannot commit the verified imports.json, so their PR's record differs and the verdict
    is `failure`; the merge bot (or `verify_pr.py`, onto the PR branch when the contributor allows maintainer
    edits) must carry the verified record.
-3. The self-hosted runner, `verify.yml`, the `verify-approved` label, the ruleset's `vc6-verify` check.
-4. The merge bot (step 3's workflow, merging under 4.5.5's rule).
+3. The polling service and the ruleset's `vc6-verify` check. **Done 2026-10-30:** `verify_watch.py` and the
+   task installed (it idles until master has the script, i.e. until PR #1 merges); tried through the verifier
+   worktree on PR #1 (re-verified and posted, 1 min 41 s); `vc6-verify` joins `checks` in the ruleset applied
+   when the repository goes public.
+4. The merge bot (in `verify_watch.py`, merging under 4.5.5's rule).
 5. The coordinator-pacing and handoff skills: claim at launch, list at run start, `Claims #N` at handoff.
 6. AGENTS.md, README and CONTRIBUTING rewritten for 4.5.1-4.5.5; progress.md's D-numbers.
 7. A rehearsal: a second GitHub account claims a range, opens a PR from a fork, is verified and merged; a claim
