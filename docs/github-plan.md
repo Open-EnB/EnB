@@ -147,8 +147,7 @@ needs client.exe and VC6. So three layers:
 * Our own agents treat PR and issue text as untrusted data; a coordinator never runs contributed code except
   through the label-gated VM verification.
 
-**Provenance:** a DCO sign-off (`Signed-off-by`) on every commit: contributors certify the work is their own,
-in particular that it is not leaked Westwood / EA source, the main legal risk to the project's integrity.
+**Provenance:** no DCO sign-off (`Signed-off-by`) for now (the user, 2026-10-30).
 
 ## 3. Working model, releases, contributors and community (P-GH-4 to P-GH-9)
 
