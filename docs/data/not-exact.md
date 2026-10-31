@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-343 entries in 72 files.
+342 entries in 72 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -152,7 +152,6 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:2571` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Objects` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x807600: a special effect from the source slot's object to the target slot's (CREATE_SFX_BETWEEN_OBJECTS) |
 | `app/client/scriptedmovie.cpp:2647` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Bones` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x8078D0: a special effect from a bone of the source slot's object to one of the target slot's (CREATE_SFX_BETWEEN_BONES) |
 | `app/client/scriptedmovie.cpp:2722` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x807BE0: a special effect from the source slot's object to a bone of the target slot's (CREATE_SFX_BETWEEN_OBJECT_AND_BONE) |
-| `app/client/scriptedmovie.cpp:2931` | `ScriptedMovieViewClass::Set_Ambient_Light` | marker | NOT EXACT: frame 0x18 against the client's 0x24 (the client keeps more Vector3 temporaries: the by-value arguments of 0x80A730 built through Vector3's out-of-line copy constructor 0x499720); forms: a named colour, temporaries |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |

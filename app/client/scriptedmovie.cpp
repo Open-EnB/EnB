@@ -2927,9 +2927,9 @@ bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
 
 
 
+
+
 // 0x808330: the scene's ambient light, at once or (with a time) faded from the current one
-// NOT EXACT: frame 0x18 against the client's 0x24 (the client keeps more Vector3 temporaries: the by-value
-// arguments of 0x80A730 built through Vector3's out-of-line copy constructor 0x499720); forms: a named colour, temporaries
 bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
 {
 	FAIL_IF(ScriptedScene == NULL) {return(false);}
@@ -2955,10 +2955,10 @@ bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
 		ScriptedScene->Set_Ambient_Light(Vector3(red, green, blue));
 		return(true);
 	}
-	Unknown88.Unknown_80A730(time, ScriptedScene->Get_Ambient_Light(), Vector3(red, green, blue));
+	Vector3 current = ScriptedScene->Get_Ambient_Light();
+	Unknown88.Unknown_80A730(time, current, Vector3(red, green, blue));
 	return(true);
 }
-
 
 
 

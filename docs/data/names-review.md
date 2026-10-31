@@ -3274,7 +3274,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB00060EffectClass` | `app/client/scriptedmovie.cpp:2812` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/scriptedmovie.cpp:2812` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/scriptedmovie.cpp:2913` | untagged neutral name (D10) |
-| 1 | `Unknown_80A730` | `app/client/scriptedmovie.cpp:2958` | untagged neutral name (D10) |
+| 1 | `Unknown_80A730` | `app/client/scriptedmovie.cpp:2959` | untagged neutral name (D10) |
 | 1 | `Unknown_808840` | `app/client/scriptedmovie.cpp:3043` | untagged neutral name (D10) |
 | 1 | `Unknown_5E26D0` | `app/client/scriptedmovie.cpp:3225` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/scriptedmovie.cpp:3259` | untagged neutral name (D10) |
