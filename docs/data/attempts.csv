@@ -812,3 +812,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-30 22:55,0x4633A0,RsTrackClass::Unknown_1C4,app/shared/rs_track.cpp,app,exact,,1,,"D99: ret 4, objdiff identical up to the padding",,opus
 2026-10-30 22:55,0x462070,RsTrackClass::Unknown_1D4,app/shared/rs_track.cpp,app,exact,,1,,"D99: ret 0xC, objdiff identical up to the padding (appfile EXACT at its marker)",,opus
 2026-10-30 22:55,0x460BA0,RsTrackClass::Unknown_1D8,app/shared/rs_track.cpp,app,exact,,1,,"D99: ret 8, objdiff identical up to the padding",,opus
+2026-10-30 22:57,0x45FDA0,RsTrackClass::RsTrackClass,app/shared/rs_track.cpp,app,partial,0.82,5,order,"RT1: after the auto_inline pragma only order is left: the client stores the three vtables before loading RenderStateList+0x2C (ours hoists the load) and compares the inlined assert's pointer with ebx; tried list pointer, swapped statements, a flags local",,opus
+2026-10-30 22:57,0x45FFB0,RsTrackClass::RsTrackClass,app/shared/rs_track.cpp,app,partial,0.83,5,order,RT1: the client stores +0x8C before RenderStateList.Current (ours after); same forms as 0x45FDA0,,opus
