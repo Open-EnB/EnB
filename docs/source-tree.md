@@ -9,6 +9,12 @@ Files with no assert left no string, so the real tree is bigger than this. Direc
 that aren't here (the WW libraries, for example) are known some other way, given in the
 "Evidence" column.
 
+The promotional Character and Starship Creator (2002-09-13, [CSC.md](CSC.md)) was built from the same
+tree on a developer's machine, `C:\Projects\G\`: 369 paths, 358 of them also the client's. It adds
+`app\Client\chatint.cpp`, `textwin.cpp` and `usermsg.cpp`, `libs\wwonline\wnet\tcpmgr.cpp` and the
+tool's own `Tools\Avatar Creator`. Its asserts also place client 0x836960 in
+`app\common\galaxy_map.cpp`.
+
 ## 1. Layout
 
 | Original path | Files seen | What it is | Evidence |
@@ -27,7 +33,8 @@ that aren't here (the WW libraries, for example) are known some other way, given
 | `G\app\input` | 5 | Input: `input.cpp`, `inpdsp.cpp`, `w32kbd.cpp`, `w32mouse.cpp` (`Win32MouseHandlerClass`) | `__FILE__` |
 | `G\app\display` | 1 | `display.cpp` | `__FILE__` |
 | `G\app\dbgmgr` | 1 | `dbgmgr.cpp` | `__FILE__` |
-| `G\libs\wwonline\wnet` | 1 | `tcpqueue.cpp`: Westwood Online networking | `__FILE__` |
+| `G\libs\wwonline\wnet` | 1 (+1 in CSC) | `tcpqueue.cpp`: Westwood Online networking; `tcpmgr.cpp` seen only in the Character and Starship Creator ([CSC.md](CSC.md) §2.2) | `__FILE__` |
+| `G\Tools\Avatar Creator` | 7, in CSC only | The Character and Starship Creator (2002): `WinMain.cpp`, `AvatarCreator.cpp`, `CreatorTask.cpp`, `AvatarView.cpp`, `UI_Introduction.cpp`, `UI_EditAvatarSelection.cpp`, `UI_Poster.cpp` ([CSC.md](CSC.md)) | CSC's `__FILE__` |
 | `G\wwlib` | (`ref_ptr.h`) | WWLib. `app\Client\ui_item_examination.cpp` includes `..\..\wwlib\ref_ptr.h`, so WWLib was at `G\wwlib` | relative include |
 | `G\ww3d2`, `G\wwmath`, `G\wwaudio`, `G\wwdebug`, `G\wwsaveload`, `G\wwshade` (inferred) | none | The WWVegas libraries, statically linked ([library-matching.md](library-matching.md)). That they sat beside `wwlib` is inferred, not seen | string matches against EA's code |
 

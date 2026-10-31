@@ -19,6 +19,7 @@
 | [eval-d93.md](eval-d93.md) | The D93 model evaluation: tasks, candidates, protocol, scoring, the shared brief (run 2026-10-27; results in progress.md) |
 | [milestones.md](milestones.md) | Milestones M1 (capture harness) and M2 (working VIDTEST): spec per work item, link procedure |
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
+| [CSC.md](CSC.md) | The Character and Starship Creator (2002-09-13): what it tells us about the client, its program flow, and whether the tree could rebuild it |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |

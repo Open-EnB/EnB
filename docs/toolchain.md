@@ -71,6 +71,13 @@ members (Linker600 import objects): the client's mss32 imports (81) and binkw32 
 they are the Miles/Bink SDK import libraries, not compiled code. The 8798 C++ objects (3) are
 still unexplained; they occur in all three executables (a prebuilt library common to them).
 
+The Character and Starship Creator (2002-09-13, [CSC.md](CSC.md) §1) is the exception: every object,
+its CRT included, is **VC6 RTM** (C++ 8168 x920, C 8168 x185), its Miles import library is build 8168
+(as E&BConfig's), cvtres is 1720, and it has **no 8798 objects**. So the 8798 objects are not part
+of every E&B link: they came with something CSC didn't link, or only with the build server's SP4
+environment. CSC was linked non-incrementally with `/OPT:REF,ICF` (CSC.md §1.1); the client
+incrementally.
+
 ### 1.3 The VM pool (2026-10-24)
 
 **`tools/vc6/pool.py`** runs build VMs on demand, so agents don't share fixed VMs (one fixed host
