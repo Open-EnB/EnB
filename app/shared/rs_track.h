@@ -84,6 +84,7 @@ class Unknown45D9E0Class : public RefCountClass	// NAME 1: neutral (D10)
 public:
 	Unknown45D9E0Class(RsTrackClass *owner, int a, int b);			// 0x45D9E0  // NAME 1 [owner, a, b]: neutral
 	void Unknown_493FE0();											// 0x493FE0 (proj_man.cpp)  // NAME 1: neutral (D10)
+	char Unknown08[0x24 - 0x08];									// 0x24 bytes (0x462470's new)  // NAME 1: neutral (D10)
 };
 class Unknown45DC80Class : public RefCountClass	// NAME 1: neutral (D10)
 {
@@ -91,6 +92,7 @@ public:
 	Unknown45DC80Class(RsTrackClass *owner, CullableClass *cull, int a);	// 0x45DC80  // NAME 1 [owner, cull, a]: neutral
 	void Unknown_45DFC0(RenderInfoClass &rinfo);					// 0x45DFC0  // NAME 1 [rinfo]: the Render argument
 	void Unknown_45E030(RenderInfoClass &rinfo);					// 0x45E030  // NAME 1 [rinfo]: the Render argument
+	char Unknown08[0x34 - 0x08];									// 0x34 bytes (0x462530's new)  // NAME 1: neutral (D10)
 };
 
 // rs_track.cpp's render object (0x100 bytes, Class_ID 0x10001): a render object that shows one render state's

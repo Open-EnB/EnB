@@ -96,15 +96,15 @@ void RsTrackClass::Unknown_460260(RenderObjClass *robj)
 }
 
 // 0x460410
-// NOT EXACT: functional from the pseudocode; similarity 0.60
 RenderObjClass *RsTrackClass::Unknown_460410()
 {
 	RenderObjClass *robj = Peek_Render_Object();
 	if (robj != NULL) {
-		return(robj->Get_Sub_Object_By_Name(NULL));
+		return(robj->Clone());
 	}
 	return(NULL);
 }
+
 
 
 
@@ -475,7 +475,6 @@ void RsTrackClass::Validate_Transform(void) const
 }
 
 // 0x460CB0
-// NOT EXACT: functional from the pseudocode; similarity 0.78
 RsTrackClass::~RsTrackClass()
 {
 	for (RenderStateClass *state = RenderStateList.Head; state != NULL; state = state->Next) {
@@ -491,9 +490,18 @@ RsTrackClass::~RsTrackClass()
 		delete UnknownC4;
 		UnknownC4 = NULL;
 	}
-	REF_PTR_RELEASE(UnknownC8);
-	REF_PTR_RELEASE(UnknownCC);
-	REF_PTR_RELEASE(CullingObject);
+	if (UnknownC8 != NULL) {
+		UnknownC8->Release_Ref();
+		UnknownC8 = NULL;
+	}
+	if (UnknownCC != NULL) {
+		UnknownCC->Release_Ref();
+		UnknownCC = NULL;
+	}
+	if (CullingObject != NULL) {
+		CullingObject->Release_Ref();
+		CullingObject = NULL;
+	}
 }
 
 // 0x460E80
@@ -583,7 +591,7 @@ float RsTrackClass::Get_Cost(void) const
 {
 	RenderObjClass *robj = Peek_Render_Object();
 	if (robj != NULL) return(robj->Get_Cost());
-	return(AT_MIN_LOD);
+	return(1.0e-7f);
 }
 
 // 0x4611B0
@@ -745,14 +753,6 @@ void RsTrackClass::Notify_Removed(SceneClass *scene)
 	scene->Unregister(this, SceneClass::ON_FRAME_UPDATE);
 	RenderObjClass::Notify_Removed(scene);
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -1255,10 +1255,12 @@ void RsTrackClass::Control_Bone(int bindex, const Matrix3D &objtm, bool world_sp
 }
 
 // 0x462470
-// NOT EXACT: functional from the pseudocode; similarity 0.84
 void RsTrackClass::Unknown_462470(int a, int b)
 {
-	REF_PTR_RELEASE(UnknownC8);
+	if (UnknownC8 != NULL) {
+		UnknownC8->Release_Ref();
+		UnknownC8 = NULL;
+	}
 	UnknownC8 = new Unknown45D9E0Class(this, a, b);
 }
 
@@ -1274,15 +1276,13 @@ void RsTrackClass::Unknown_462470(int a, int b)
 
 
 
-
-
-
-
 // 0x462530
-// NOT EXACT: functional from the pseudocode; similarity 0.78
 void RsTrackClass::Unknown_462530(int a)
 {
-	REF_PTR_RELEASE(UnknownCC);
+	if (UnknownCC != NULL) {
+		UnknownCC->Release_Ref();
+		UnknownCC = NULL;
+	}
 	G_ASSERT(CullingObject != 0);
 	UnknownCC = new Unknown45DC80Class(this, CullingObject, a);
 }
