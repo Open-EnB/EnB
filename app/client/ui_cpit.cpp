@@ -630,7 +630,7 @@ void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", (void *)11, 0);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", (void *)12, 0);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)20, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), (void *)21, 0x1000);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)21, 0x1000);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)19, 0);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)21, 0x1000);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), (void *)16, 0);
@@ -2122,8 +2122,8 @@ void UICpitHarvestWatchClass::Unknown_0C()
 **	Rebuilt (CP1, 2026-10-31), the asserts on the client's lines (D25), the functions without asserts between their
 **	neighbours' lines in the client's order:
 **	  exact: the constructor 0x57D830, destructor 0x57EB80, slots +0x58 / +0x5C / +0x60 / +0x7C, the control keys
-**	  0x57F240 / 0x57FCC0 (the first nine keys' names converted implicitly, the rest as std::string temporaries: the client's
-**	  inline budget), the window close
+**	  0x57F240 / 0x57FCC0 (the first ten / nine keys' names converted implicitly, the rest as std::string temporaries: the client's
+**	  inline budget; 0x57F240 took nine before D165's cheaper FAIL_IF, FI1), the window close
 **	  0x581CE0, 0x581E60 / 0x581F90 / 0x582070 / 0x5820C0 / 0x582190, the warp and turn buttons 0x583250 / 0x583510,
 **	  0x583DA0, 0x583F70, the font state 0x584110 / 0x5845A0, 0x584A20 / 0x584A60 and both watchers 0x584A80-0x584BE0;
 **	  still differing (the inline budget unless noted): 0x57D6C0, the set-up 0x57DD20, the

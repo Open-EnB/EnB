@@ -34,6 +34,6 @@ void Unknown_Assert_Failed(const char *expr, const char *file, int line);		// 0x
 void Unknown_Fail_If_Report(const char *expr, const char *file, int line);		// 0x4E9450
 
 #define G_ASSERT(expr)	((expr) ? (void)0 : Unknown_Assert_Failed(#expr, __FILE__, __LINE__))
-#define FAIL_IF(expr)	if ((expr) ? (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1) : 0)
+#define FAIL_IF(expr)	if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))	// D165: the && form (the ?: form left scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690 off)
 
 #endif //__UNKNOWN_DEBUG_H

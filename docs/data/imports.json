@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 141,
+  "ambiguous_total": 142,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -985,6 +985,7 @@
      "0x6FD290",
      "0x6FD2C0",
      "0x6FD7A0",
+     "0x6FEC40",
      "0x6FED30",
      "0x6FED80",
      "0x6FEEE0",
@@ -1362,6 +1363,7 @@
      "0x4B7030",
      "0x4C7290",
      "0x60A3E0",
+     "0x6994D0",
      "0x71C9C0",
      "0x71F110",
      "0x71F180"
@@ -2376,6 +2378,7 @@
      "0x4EAC60",
      "0x4EAF00",
      "0x4EAF30",
+     "0x4EB1B0",
      "0x4EB460",
      "0x4EB490",
      "0x4EB500",
@@ -7600,7 +7603,10 @@
      "0x44BF00",
      "0x44BFC0",
      "0x44C2B0",
+     "0x44C2E0",
      "0x44C4E0",
+     "0x44C520",
+     "0x44C690",
      "0x44D210",
      "0x44D320"
     ],
@@ -8150,6 +8156,7 @@
      "0x802D30",
      "0x802D80",
      "0x803180",
+     "0x803310",
      "0x8046E0",
      "0x804800",
      "0x804A70",
@@ -10129,7 +10136,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5127,
+  "in_tree_total": 5133,
   "totals": {}
  },
  "binkmovie": {
