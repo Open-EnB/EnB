@@ -4,6 +4,29 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (10:20): D163 (a), the API-key pilot: LC1 +2 pairs for $1.85; scriptedmovieline.cpp
+
+Coordinator Opus 5.5 on the subscription; one builder headless (`claude -p`, Opus 5.5, `--permission-mode auto`,
+`--max-budget-usd 25`) on the separate key `ENB_ANTHROPIC_API_KEY`. PR #37 had merged, so a new run branch
+`run/2026-10-31-pm` from 84c61e2c (`run_branch.py start --date 2026-10-31-pm`), draft PR #39, claim #38. Plan log:
+`.work/run-2026-10-31-pm/plan.md` (launcher `launch_LC1.sh`, stream `LC1.jsonl`). f3c15d2a (D167, D168), committed
+on the local run/2026-10-31 after PR #37 merged, cherry-picked here.
+
+* **LC1 (ff4ffbbe, P-SM1-3 and P-SM1-1):** the line class 0x7FFC50-0x7FFE9F in its own file
+  app/client/scriptedmovieline.cpp (NAME 1, provisional: no asserts), linked just before scriptedmovie.cpp;
+  ScriptedMovieParamsClass merged into ScriptedMovieLineClass. Against 84c61e2c: +2 (0x7FFC70, 0x7FFCB0), two
+  D95(c) moves (0x7FFD30, 0x7FFDC0), lost outright none; replay 0. 0x7FFC50 exact but its 13 bytes occur at five
+  other addresses (D99). 0x7FFEA0 stays in scriptedmovie.cpp (it shares the 'CREATE_OBJECT' literal with 0x803310).
+  0x803310 still NOT EXACT (inline budget 0.63): the next lead, under scriptedmovie's claim.
+* **The pilot's numbers (D163 (a)):** 63 turns, 9.5 minutes, $1.85 at list price, about $0.93 per pair gained.
+  Tokens: input 118, cache write 96,845, cache read 4,327,669, output 25,169 (thinking 8,857). The builder's own
+  estimate was "~400k tokens", about a tenth of the 4.45M with cache reads: the self-reported token figures in
+  earlier plan logs (LD6 ~400k for +19, LD7 ~250k for +5) are the same kind of estimate, so compare runs by the
+  stream's `total_cost_usd` / `modelUsage`, not by builders' reports. A headless builder needs no Agent tool:
+  the launcher script, the brief file and the stream's result line were enough.
+* **Traps:** LC1's in workflow.md §3.3 (62269192).
+* **Usage:** the subscription's week stayed at 59 %.
+
 ### 2026-10-31 (09:15, morning): D164-D166; FAIL_IF's && form (+6), the caller tie-break (+317 pairs), the progress card fixed
 
 Coordinator Opus 5.5 with two builders, one at a time. Base 56b6c79e (PR #13 merged; `.work/imports.56b6c79e.json`); run
@@ -1560,9 +1583,9 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-* **Next session first: the API credits (D163, D167, D168).** The `anthropic` SDK is installed (2.3.0,
+* **Next session first: the API credits (D163, D167, D168), from (b).** The `anthropic` SDK is installed (2.3.0,
   2026-10-31); the user creates the separate API key with a spend limit in the Console. Then, in order:
-  (a) the pilot builder on that key (tokens and cost per pair against the LD6 / LD7 runs);
+  (a) the pilot builder on that key: done 2026-10-31 (LC1, $1.85 for +2 pairs; the log entry of 10:20);
   (b) rebuild `.work/pseudo/` in full (`python tools/re/pseudocode.py`; it held 518 of ~25,000 on 2026-10-31);
   (c) write `tools/re/triage.py` (D167) and run the calibration batch, ~$1, with the gate's result as a
   proposal to the user; (d) the full Haiku batch (~$3-5), `ingest`, `plan`; its runs and lists become W# items
