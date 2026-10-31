@@ -640,7 +640,10 @@ unless `--lever` cites a new row of this table.
   file is exact at (nothing may hold the address as data; the linker's merged copy with callers everywhere stays
   ambiguous). The pair is in `in_tree` and the file's `tiebreak` list. It exists only in verify/`compile_and_match`
   (`match_objects(callers=True)`), not in `appfile.py match` or `objmatch.py`: a draft check can miss it, and losing
-  its caller's pair loses it too (`pairs_cmp.py` names that D66 (vii)).
+  its caller's pair loses it too (`pairs_cmp.py` names that D66 (vii)). Anything that rewrites a file's `in_tree` without verify (refine's
+  `cur`) can leave `tiebreak` stale: verify afterwards. pairs_cmp's "with its caller" is approximate (another pair of
+  the same file lost too; it sees no call edges). Readers of pairs_cmp's output parse one labelled list per line
+  (`gained tie-break` and the `lost tie-break` lines follow `gained` / `lost`): pacing.py's two-line regex broke.
 * **A member added to a locally declared base shifts every derived class's padded fields** (2026-10-30, MU1): in a
   draft it silently broke 10 exact functions; re-match the whole file after any base change.
 * **Two builders' adjacent RECONSTRUCTED rows in importer.py form one hunk** (2026-10-30, MU1 / CP1): commit_mine took
