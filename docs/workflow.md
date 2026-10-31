@@ -845,6 +845,9 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **On a big function objdiff's similarity hardly moves** (2026-10-31, CT1, ui_group 0x5946D0, ~2.7 KB): read
+  explain.py's instruction count and register-masked residue instead, and compare the call relocations per callee
+  (`objrel.py`) to see which callees inline.
 * **`appfile.py match` reads a `#pragma auto_inline(off)` line as a function** (2026-10-30, SC2: "the object lacks
   auto_inline"): put the pragma above the `// @0x` marker and pass `--allow-missing`.
 * **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
