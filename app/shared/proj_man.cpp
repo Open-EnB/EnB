@@ -173,10 +173,6 @@ void StaticShadowTexMgrClass::Reset(void)
 
 
 
-
-
-
-
 /************************************************************************************
 **
 ** ProjectorManagerClass Implementation
@@ -224,6 +220,8 @@ CameraClass * ProjectorManagerClass::Get_Shadow_Camera(void)
 		ShadowCamera->Set_Clip_Planes(0.2f,500.0f);
 		ShadowCamera->Set_View_Plane(DEG_TO_RAD(90.0f),DEG_TO_RAD(90.0f));
 		ShadowCamera->Set_Viewport(Vector2(0,0),Vector2(1,1));
+		ShadowCamera->Add_Ref();
+		return ShadowCamera;
 	}
 	ShadowCamera->Add_Ref();
 	return ShadowCamera;
@@ -239,6 +237,8 @@ VertexMaterialClass * ProjectorManagerClass::Get_Shadow_Material(void)
 		ShadowMaterial->Set_Emissive(0,0,0);
 		ShadowMaterial->Set_Opacity(1.0f);
 		ShadowMaterial->Set_Shininess(0.0f);
+		ShadowMaterial->Add_Ref();
+		return ShadowMaterial;
 	}
 	ShadowMaterial->Add_Ref();
 	return ShadowMaterial;
@@ -372,16 +372,14 @@ void ProjectorManagerClass::Remove_All_Texture_Projectors(void)
 {
 	RefMultiListIterator<TexProjectClass> dit(&DynamicProjectorList);
 	for (dit.First(); !dit.Is_Done(); dit.Next()) {
-		TexProjectClass * projector = dit.Peek_Obj();
-		DynamicProjectorCullingSystem->Remove_Object(projector);
-		DynamicProjectorList.Remove(projector);
+		DynamicProjectorCullingSystem->Remove_Object(dit.Peek_Obj());
+		DynamicProjectorList.Remove(dit.Peek_Obj());
 	}
 
 	RefMultiListIterator<TexProjectClass> sit(&StaticProjectorList);
 	for (sit.First(); !sit.Is_Done(); sit.Next()) {
-		TexProjectClass * projector = sit.Peek_Obj();
-		StaticProjectorCullingSystem->Remove_Object(projector);
-		StaticProjectorList.Remove(projector);
+		StaticProjectorCullingSystem->Remove_Object(sit.Peek_Obj());
+		StaticProjectorList.Remove(sit.Peek_Obj());
 	}
 }
 
@@ -391,6 +389,8 @@ bool ProjectorManagerClass::Contains(TexProjectClass * projector)
 }
 
 // Apply_Projectors 0x492C70 (Renegade's PhysicsSceneClass::Apply_Projectors) is not rebuilt yet.
+
+
 
 
 
