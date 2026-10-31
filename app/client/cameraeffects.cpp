@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction): app\client\cameraeffects.cpp. Notes at the end of the file.
+// Earth & Beyond client (reconstruction): app\Client\cameraeffects.cpp. Notes at the end of the file.
 #include "co.h"
 #include "sclient.h"
 #include "ww3d.h"

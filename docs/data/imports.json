@@ -9781,6 +9781,20 @@
     "merged": [],
     "name": "common/udpconn.cpp"
    },
+   "ui_avatar_cust": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x550670",
+     "0x550970"
+    ],
+    "merged": [],
+    "name": "client/ui_avatar_cust.cpp"
+   },
    "ui_chat_panel": {
     "ambiguous": [
      "0x42A6C0",
