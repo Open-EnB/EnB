@@ -225,5 +225,115 @@
   "address": "0x83D490",
   "symbol": "?Value_To_String@@YAPADPADHW4GameActionValidityBitFlag@@@Z",
   "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB018F4 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708400",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4InterruptStateType@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01B40 (the value type of leaf vtable 0xB009A8, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708430",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4InterruptStateType@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01B40 (the value type of leaf vtable 0xB009A8, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708290",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4GuildRankType@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01AF4 (the value type of leaf vtable 0xB00A58, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x7082C0",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4GuildRankType@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01AF4 (the value type of leaf vtable 0xB00A58, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708570",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01B78 (the value type of leaf vtable 0xB0100C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x7085A0",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01B78 (the value type of leaf vtable 0xB0100C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x7086E0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01BB0 (the value type of leaf vtable 0xB0122C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708710",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01BB0 (the value type of leaf vtable 0xB0122C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708B30",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01CB4 (the value type of leaf vtable 0xB0133C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708B60",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01CB4 (the value type of leaf vtable 0xB0133C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x7089C0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01C7C (the value type of leaf vtable 0xB01394, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x7089F0",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01C7C (the value type of leaf vtable 0xB01394, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708850",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01C44 (the value type of leaf vtable 0xB013EC, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708880",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01C44 (the value type of leaf vtable 0xB013EC, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708040",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4ItemStateEnum@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB019F4 (the value type of leaf vtable 0xB017EC, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x708070",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4ItemStateEnum@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB019F4 (the value type of leaf vtable 0xB017EC, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707BF0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB0194C (the value type of leaf vtable 0xB01844, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707C20",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB0194C (the value type of leaf vtable 0xB01844, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707D60",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB01984 (the value type of leaf vtable 0xB0189C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707D90",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB01984 (the value type of leaf vtable 0xB0189C, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707ED0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UBE_NXZ",
+  "evidence": "slot +0x14 of the KVPair vtable 0xB019BC (the value type of leaf vtable 0xB018F4, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x707F00",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
+  "evidence": "slot +0x18 of the KVPair vtable 0xB019BC (the value type of leaf vtable 0xB018F4, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
  }
 ]

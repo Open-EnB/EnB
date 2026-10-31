@@ -105,6 +105,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40113B",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4GuildRankType@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4GuildRankType@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x401154",
 "symbol": "j_?Print@VersionRequestPacketClass@@UAEHPADH@Z",
 "name": "j_?Print@VersionRequestPacketClass@@UAEHPADH@Z",
@@ -1508,6 +1515,13 @@
 "address": "0x402063",
 "symbol": "j_?Get_Data_Size@AdvancedPositionalUpdatePacketClass@@UAEHXZ",
 "name": "j_?Get_Data_Size@AdvancedPositionalUpdatePacketClass@@UAEHXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x402068",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -7014,6 +7028,13 @@
 "source": "thunk"
 },
 {
+"address": "0x405B05",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UBE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x405B0A",
 "symbol": "j_?Get_Line@TutorialStepStruct@@QAEPAUTutorialLineStruct@@H@Z",
 "name": "j_?Get_Line@TutorialStepStruct@@QAEPAUTutorialLineStruct@@H@Z",
@@ -11109,6 +11130,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40853A",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4InterruptStateType@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4InterruptStateType@@@@UBE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x408544",
 "symbol": "j_??_G?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@QAEPAXI@Z",
 "name": "j_??_G?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@QAEPAXI@Z",
@@ -11956,6 +11984,13 @@
 "source": "thunk"
 },
 {
+"address": "0x408ED6",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x408EEF",
 "symbol": "j_?Get_Data_Size@Packet_00BBClass@@UAEHXZ",
 "name": "j_?Get_Data_Size@Packet_00BBClass@@UAEHXZ",
@@ -12204,6 +12239,13 @@
 "address": "0x409174",
 "symbol": "j_?Get_Data_Size@Packet_754AClass@@UAEHXZ",
 "name": "j_?Get_Data_Size@Packet_754AClass@@UAEHXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x409179",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4InterruptStateType@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4InterruptStateType@@@@UAEXXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -15421,6 +15463,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40B442",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UBE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40B451",
 "symbol": "j_??0ClientChatErrorPacketClass@@QAE@H@Z",
 "name": "j_??0ClientChatErrorPacketClass@@QAE@H@Z",
@@ -17521,6 +17570,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40C9D7",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4ItemStateEnum@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4ItemStateEnum@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40C9E1",
 "symbol": "j_??0IncapacitanceRequestPacketClass@@QAE@PAVRawPacketClass@@@Z",
 "name": "j_??0IncapacitanceRequestPacketClass@@QAE@PAVRawPacketClass@@@Z",
@@ -18760,6 +18816,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40D75B",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UBE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40D76F",
 "symbol": "j_?Clear@KVTripleListClass@@QAEXXZ",
 "name": "j_?Clear@KVTripleListClass@@QAEXXZ",
@@ -18861,6 +18924,13 @@
 "address": "0x40D869",
 "symbol": "j_?Seek@LinearBufferClass@@QAEHH@Z",
 "name": "j_?Seek@LinearBufferClass@@QAEHH@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40D878",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -19085,6 +19155,13 @@
 "address": "0x40DB52",
 "symbol": "j_??_GLeafRecordClass@@UAEPAXI@Z",
 "name": "j_??_GLeafRecordClass@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40DB66",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -21105,6 +21182,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40F0F1",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UBE_NXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40F0F6",
 "symbol": "j_?Unknown_Set_Size@LinearBufferClass@@QAEHH@Z",
 "name": "j_?Unknown_Set_Size@LinearBufferClass@@QAEHH@Z",
@@ -22186,6 +22270,13 @@
 "address": "0x40FC95",
 "symbol": "j_?Join@ClientTaskClass@@QAEXXZ",
 "name": "j_?Join@ClientTaskClass@@QAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40FC9A",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -25130,6 +25221,13 @@
 "source": "thunk"
 },
 {
+"address": "0x411B80",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x411B85",
 "symbol": "j_?Print@LoginPacketClass@@UAEHPADH@Z",
 "name": "j_?Print@LoginPacketClass@@UAEHPADH@Z",
@@ -25308,6 +25406,13 @@
 "address": "0x411D51",
 "symbol": "j_??_ELogConnectionClass@@UAEPAXI@Z",
 "name": "j_??_ELogConnectionClass@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x411D60",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4GuildRankType@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4GuildRankType@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -26474,6 +26579,13 @@
 "source": "thunk"
 },
 {
+"address": "0x412BD4",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x412C06",
 "symbol": "j_?Print@Packet_7534Class@@UAEHPADH@Z",
 "name": "j_?Print@Packet_7534Class@@UAEHPADH@Z",
@@ -26915,6 +27027,13 @@
 "source": "thunk"
 },
 {
+"address": "0x41303E",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x41306B",
 "symbol": "j_?Print@RequestTargetsTargetPacketClass@@UAEHPADH@Z",
 "name": "j_?Print@RequestTargetsTargetPacketClass@@UAEHPADH@Z",
@@ -26932,6 +27051,13 @@
 "address": "0x41308E",
 "symbol": "j_??_EInventoryMovePacketClass@@UAEPAXI@Z",
 "name": "j_??_EInventoryMovePacketClass@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x4130A7",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -27485,6 +27611,13 @@
 "address": "0x4135BB",
 "symbol": "j_?Set_Recv_Delay@MemoryConnectionClass@@QAEXH@Z",
 "name": "j_?Set_Recv_Delay@MemoryConnectionClass@@QAEXH@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x4135C0",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4ItemStateEnum@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4ItemStateEnum@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -29351,6 +29484,13 @@
 "source": "thunk"
 },
 {
+"address": "0x414943",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x414948",
 "symbol": "j_?Add_Key_Name@SplineDatabaseClass@@QAEHPBD@Z",
 "name": "j_?Add_Key_Name@SplineDatabaseClass@@QAEHPBD@Z",
@@ -29571,6 +29711,13 @@
 "address": "0x414B41",
 "symbol": "j_??1SOptionsClass@@QAE@XZ",
 "name": "j_??1SOptionsClass@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x414B50",
+"symbol": "j_?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
+"name": "j_?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -36529,6 +36676,13 @@
 "address": "0x419254",
 "symbol": "j_?Is_Parent_Or_Same@NameClass@@QBE_NABV1@@Z",
 "name": "j_?Is_Parent_Or_Same@NameClass@@QBE_NABV1@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x419268",
+"symbol": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UBE_NXZ",
+"name": "j_?Is_Changed@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UBE_NXZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -49479,12 +49633,166 @@
 "length": 118
 },
 {
+"address": "0x707BF0",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x707C20",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x707D60",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x707D90",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x707ED0",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x707F00",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708040",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4ItemStateEnum@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4ItemStateEnum@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708070",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4ItemStateEnum@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4ItemStateEnum@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x708140",
 "symbol": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UBEPAV?$KVAccessorClass@UUnknownB00A00Type@@@@XZ",
 "name": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UBEPAV?$KVAccessorClass@UUnknownB00A00Type@@@@XZ",
 "kind": "function",
 "source": "exact",
 "length": 35
+},
+{
+"address": "0x708290",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4GuildRankType@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4GuildRankType@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x7082C0",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4GuildRankType@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4GuildRankType@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708400",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4InterruptStateType@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4InterruptStateType@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708430",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4InterruptStateType@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4InterruptStateType@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708570",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x7085A0",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4WW3DLightAttenuationType@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x7086E0",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708710",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0122CEnum@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708850",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708880",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB013ECEnum@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x7089C0",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x7089F0",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB01394Enum@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708B30",
+"symbol": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UBE_NXZ",
+"name": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UBE_NXZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x708B60",
+"symbol": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UAEXXZ",
+"name": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB0133CEnum@@@@UAEXXZ",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x709580",
