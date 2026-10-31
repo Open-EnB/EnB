@@ -17,8 +17,9 @@ class UIGroupMemberUnknown2CClass	// NAME 1: neutral (D10)
 {
 public:
 	virtual ~UIGroupMemberUnknown2CClass();
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_04(); virtual void Unknown_08(ClientObjectClass *object); virtual void Unknown_0C();	// +0x08 (0x595530: the member's object)  // NAME 1 [object]: what 0x595530 passes
 	virtual void Unknown_10();							// +0x10 (0x5935C0, every frame)
+	void Unknown_5DC390();								// 0x5DC390 (0x595530: no object)
 	void Unknown_5DCAE0();								// 0x5DCAE0 (before the delete)
 };
 
@@ -54,7 +55,7 @@ public:
 	GadgetClass *Unknown44;								// +0x44
 	GadgetClass *Unknown48;								// +0x48 (0x5982A0: flag 0x800, 0x6603A0)
 	GadgetClass *Unknown4C;								// +0x4C
-	char Unknown50[0x54 - 0x50];						// +0x50
+	GadgetClass *Unknown50;								// +0x50 (0x595530: the BOOT button)
 };
 
 void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (1, 0.6, 0; 1, 1, 1 to reset)  // NAME 1 [robj, a, b, c]: neutral

@@ -1628,7 +1628,7 @@ Base copy: reconstructed. Headers: 261 from reconstructed.
 | common/udpconn.cpp | reconstructed | 36 | 1 | - | - | - |  |
 | client/ui_chat_panel.cpp | reconstructed | 53 | 6 | - | - | - |  |
 | client/ui_cpit.cpp | reconstructed | 63 | 6 | - | - | - |  |
-| client/ui_group.cpp | reconstructed | 54 | 10 | - | - | - |  |
+| client/ui_group.cpp | reconstructed | 54 | 11 | - | - | - |  |
 | client/ui_line_display.cpp | reconstructed | 55 | 9 | - | - | - |  |
 | client/ui_manu.cpp | reconstructed | 34 | 6 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 40 | 1 | - | - | - |  |

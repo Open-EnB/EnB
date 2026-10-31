@@ -15,11 +15,11 @@
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
-class FontStyleClass : public RenderObjClass {};	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
+class FontStyleClass : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-
+class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
 // gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -1016,107 +1016,107 @@ void UIGroupClass::Unknown_5954C0()
 		Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object())->Set_Hidden(1);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x595530
+// NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74)
+void UIGroupClass::Unknown_595530()
+{
+	Unknown_80();
+	Unknown_5954C0();
+	int index = 0;
+	for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++) {
+		UIGroupMemberClass *member = *it;
+		member->Unknown_5934A0();
+		member->Unknown34 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_frame"));
+		if (member->Unknown34) {
+			char bone[32];
+			Unknown_496AE0(member->Unknown34.Peek(), 0);
+			_snprintf(bone, sizeof(bone), "group%02d", index);
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(member->Unknown34.Peek(), bone);
+			RefCountPtr<RenderObjClass> frame = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("group"));
+			member->Unknown40 = new UIGroupButtonGadgetClass(frame.Peek(), &Layer, 5, 3);
+			member->Unknown40->Unknown_65FFA0(-1);
+			Unknown64.Unknown_6870E0(member->Unknown40, index + 11, View, 1, 1);
+			Unknown_5BB4F0(member->Unknown40);
+			Unknown_65EFB0(member->Unknown40, "UI_GROUP", "INFO");
+			if (Unknown0F1) {
+				member->Unknown40->Unknown_40(false);
+			}
+			member->Unknown44 = new UIGroupButtonGadgetClass(frame.Peek(), &Layer, 0x50, 3);
+			member->Unknown44->Unknown_65FFA0(-1);
+			Unknown64.Unknown_6870E0(member->Unknown44, index + 17, View, 1, 1);
+			Unknown_5BB4F0(member->Unknown44);
+			if (Unknown0F1) {
+				member->Unknown44->Unknown_40(false);
+			}
+			RefCountPtr<RenderObjClass> target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_intarget01"));
+			Unknown_496AE0(target.Peek(), 1);
+			member->Unknown48 = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown48->Unknown_65FFA0(-1);
+			Unknown_65EFB0(member->Unknown48, "UI_FORMATION", "ASSIST");
+			Unknown64.Unknown_6870E0(member->Unknown48, index + 41, View, 1, 1);
+			Unknown_5BB4F0(member->Unknown48);
+			if (Unknown0F1) {
+				member->Unknown48->Unknown_40(false);
+			}
+			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_outtarget01"));
+			Unknown_496AE0(target.Peek(), 1);
+			member->Unknown4C = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown4C->Unknown_65FFA0(-1);
+			Unknown_65EFB0(member->Unknown4C, "UI_FORMATION", "HELP");
+			Unknown64.Unknown_6870E0(member->Unknown4C, index + 29, View, 1, 1);
+			Unknown_5BB4F0(member->Unknown4C);
+			if (Unknown0F1) {
+				member->Unknown4C->Unknown_40(false);
+			}
+			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_boot01"));
+			Unknown_496AE0(target.Peek(), 1);
+			member->Unknown50 = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown50->Unknown_65FFA0(-1);
+			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, View, 1, 1);
+			Unknown_5BB4F0(member->Unknown50);
+			if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+				Unknown_65EFB0(member->Unknown50, "UI_FORMATION", "BOOT");
+			} else {
+				member->Unknown50->Unknown_8C(true);
+				member->Unknown50->Unknown_40(false);
+			}
+			member->Unknown_593790();
+			member->Unknown_593830(member->Unknown34);
+			member->Unknown2C = (UIGroupMemberUnknown2CClass *)new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
+			ClientObjectClass *object = ((ClientClass *)Client)->Find_Object(member->ID);
+			if (object) {
+				member->Unknown2C->Unknown_08(object);
+				Unknown_597310(member->Unknown34, false);
+				member->Unknown1C = true;
+			} else {
+				member->Unknown2C->Unknown_5DC390();
+				Unknown_597310(member->Unknown34, true);
+				member->Unknown1C = false;
+			}
+			if (member->Unknown28 && member->Unknown24 != 0.0f) {
+				member->Unknown_5938A0(member->Unknown28, member->Unknown24, index);
+				if (member->Unknown3C) {
+					member->Unknown3C->Unknown_28(&Layer);
+					Unknown_5BB4F0(member->Unknown3C);
+				}
+			}
+			char name[32];
+			_snprintf(name, sizeof(name), "NAME%02d_TSI03A", index);
+			FontStyleClass *text = Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object());
+			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C7B0(member->ID));
+			if (avatar) {
+				text->Change_Text(avatar->Name, 0);
+			} else {
+				text->Change_Text(member->Name.c_str(), 0);
+			}
+			text->Set_Hidden(0);
+			text->Set_Sort_Level(Unknown_597200(member->Unknown34) - 1);
+			index++;
+		}
+	}
+	SoundLibraryClass::Play_2D_Sound("SR_ziprollover02.wav", 2);
+	Unknown_84();
+}
 // 0x596040
 int UIGroupClass::Unknown_596040(int id)
 {
@@ -1922,7 +1922,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
-**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0,
+**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
 **	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
@@ -1930,7 +1930,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: slot +0x68 0x5946D0 (735, 751) and 0x595530; 0x5927E0 is auxdata.h's find out of line (a COMDAT
+**	Not yet: slot +0x68 0x5946D0 (735, 751); 0x5927E0 is auxdata.h's find out of line (a COMDAT
 **	this file's 0x592C50, 0x596770 and 0x597E40 call, and the object before it, 0x591C30).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-408 entries in 79 files.
+409 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -192,6 +192,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
 | `app/client/ui_group.cpp:689` | `UIGroupClass::Unknown_60` | marker | NOT EXACT: order (the client stores +0xEC = 0 before it reads +0xC0; '0.0f' and a named gadget local tried) |
+| `app/client/ui_group.cpp:1020` | `UIGroupClass::Unknown_595530` | marker | NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74) |
 | `app/client/ui_group.cpp:1161` | `UIGroupClass::Add_Member` | marker | NOT EXACT: frame (the client keeps the new member in name's argument slot and the event in id's; ours the other way round) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_group.cpp:1383` | `UIGroupClass::Unknown_596E20` | marker | NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried) |
