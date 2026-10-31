@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 985 |
+| 3 | by convention from a client-named file or sibling | 987 |
 | 2 | describes what the code does | 2400 |
-| 1 | neutral placeholder | 5789 |
+| 1 | neutral placeholder | 5798 |
 
 ## For review (score 3 and below)
 
@@ -2969,7 +2969,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown80` | `app/client/sclient.h:810` | untagged neutral name (D10) |
 | 1 | `UnknownF0` | `app/client/sclient.h:817` | untagged neutral name (D10) |
 | 1 | `Unknown100` | `app/client/sclient.h:818` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/sclient.h:821` | untagged neutral name (D10) |
 | 1 | `Unknown140` | `app/client/sclient.h:828` | untagged neutral name (D10) |
 | 1 | `Unknown158` | `app/client/sclient.h:830` | untagged neutral name (D10) |
 | 1 | `Unknown169` | `app/client/sclient.h:833` | untagged neutral name (D10) |
@@ -3211,7 +3210,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B07C5C` | `app/client/scriptedmovie.cpp:125` | neutral (D10) |
 | 1 | `Unknown_B07C60` | `app/client/scriptedmovie.cpp:126` | neutral (D10) |
 | 1 | `Unknown_801860` | `app/client/scriptedmovie.cpp:545` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/scriptedmovie.cpp:547` | untagged neutral name (D10) |
 | 1 | `Unknown_8019A0` | `app/client/scriptedmovie.cpp:586` | untagged neutral name (D10) |
 | 1 | `Unknown_801AE0` | `app/client/scriptedmovie.cpp:622` | untagged neutral name (D10) |
 | 1 | `Unknown_801C40` | `app/client/scriptedmovie.cpp:659` | untagged neutral name (D10) |
@@ -3253,6 +3251,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_803310` | `app/client/scriptedmovie.cpp:1146` | untagged neutral name (D10) |
 | 1 | `Unknown_802D30` | `app/client/scriptedmovie.cpp:1176` | untagged neutral name (D10) |
 | 1 | `Unknown_5B92B0` | `app/client/scriptedmovie.cpp:1502` | untagged neutral name (D10) |
+| 1 | `base_asset, a` | `app/client/scriptedmovie.cpp:1514` | sclient.cpp's |
+| 1 | `Unknown_760770` | `app/client/scriptedmovie.cpp:1514` | untagged neutral name (D10) |
+| 1 | `Unknown53AA30InterfaceClass` | `app/client/scriptedmovie.cpp:1516` | neutral (D10) |
+| 1 | `view, scene` | `app/client/scriptedmovie.cpp:1519` | what Create_Skybox passes |
+| 1 | `model` | `app/client/scriptedmovie.cpp:1520` | neutral |
+| 1 | `Unknown_88` | `app/client/scriptedmovie.cpp:1520` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/scriptedmovie.cpp:1521` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/scriptedmovie.cpp:1550` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/scriptedmovie.cpp:1551` | untagged neutral name (D10) |
+| 1 | `Unknown_6B4940` | `app/client/scriptedmovie.cpp:1552` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5140` | `app/client/scriptedmovie.cpp:1557` | untagged neutral name (D10) |
 | 1 | `Unknown_804A70` | `app/client/scriptedmovie.cpp:1586` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9550` | `app/client/scriptedmovie.cpp:1698` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/scriptedmovie.cpp:1699` | untagged neutral name (D10) |
@@ -6577,7 +6586,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |
@@ -8389,6 +8398,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MAX_LIGHTS_PER_SCENE` | `app/client/sclient.h:814` | the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene') |
 | 3 | `Lights` | `app/client/sclient.h:815` | the FAIL_IFs' 'Lights[lightslot]' |
 | 3 | `std:` | `app/client/sclient.h:819` | the asserts' 'CameraList[CurrentCameraIndex]' |
+| 3 | `BackgroundScene` | `app/client/sclient.h:820` | the asserts' (0x804800) |
+| 3 | `Unknown53AA30InterfaceClass` | `app/client/sclient.h:821` | the asserts' (0x804800) |
 | 3 | `StarsScene` | `app/client/sclient.h:822` | the asserts' 'StarsScene == NULL' (0x804A70) |
 | 3 | `Stars` | `app/client/sclient.h:823` | the asserts' 'Stars == NULL' |
 | 3 | `OrbitalManager` | `app/client/sclient.h:824` | the assert's |

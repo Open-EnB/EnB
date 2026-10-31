@@ -541,10 +541,10 @@ static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
 
 
-// 0x801860: the Unknown120 scene through the scripted camera at its own depth range and clip planes, then the camera's back
+// 0x801860: the background scene through the scripted camera at its own depth range and clip planes, then the camera's back
 void ScriptedMovieViewClass::Unknown_801860()
 {
-	if (Unknown120) {
+	if (BackgroundScene) {
 		G_ASSERT(ScriptedCamera);
 		float znear;
 		float zfar;
@@ -554,7 +554,7 @@ void ScriptedMovieViewClass::Unknown_801860()
 		ScriptedCamera->Get_Depth_Range(&zmin, &zmax);
 		ScriptedCamera->Set_Depth_Range(Unknown_B07C44, Unknown_B07C40);
 		ScriptedCamera->Set_Clip_Planes(Unknown_B07C4C, Unknown_B07C48);
-		WW3D::Render(Unknown120, ScriptedCamera);
+		WW3D::Render(BackgroundScene, ScriptedCamera);
 		ScriptedCamera->Set_Clip_Planes(znear, zfar);
 		ScriptedCamera->Set_Depth_Range(zmin, zmax);
 	}
@@ -1509,6 +1509,17 @@ bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
 }
 
 
+#include "co.h"
+// env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's SClientUnknown1338Class), as far as Create_Skybox calls it
+class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };	// 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
+// the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
+class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown53AA30InterfaceClass(UIViewClass *view, SimpleSceneClass *scene);	// 0x53AA30  // NAME 1 [view, scene]: what Create_Skybox passes
+	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (Create_Skybox: the skybox model)  // NAME 1 [model]: neutral
+	char Unknown84[0x8C - 0x84];						// +0x84
+};
 
 
 
@@ -1518,48 +1529,37 @@ bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
 
 
 
+// 0x804800: the skybox: the background scene, its interface and the base asset's model (CREATE_SKYBOX; 0x135 by default)
+bool ScriptedMovieViewClass::Create_Skybox(ScriptedMovieParamsClass *params)
+{
+	int skybox = 0x135;
+	const char *param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		skybox = atoi(param);
+	}
+	G_ASSERT(BackgroundScene == NULL);
+	G_ASSERT(BackInterface == NULL);
+	BackgroundScene = new SimpleSceneClass;
+
+	G_ASSERT(BackgroundScene);
+	BackgroundScene->Set_Fog_Enable(false);
+	BackInterface = new Unknown53AA30InterfaceClass(this, BackgroundScene);
 
 
+	G_ASSERT(BackInterface);
+	BackInterface->Unknown_54();
+	BackInterface->Unknown_58();
+	Unknown_6B4940(BackInterface);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(ClientInterface);
+	ClientClass *client = Get_Client();
+	float hsv[3] = { 0.0f, 0.0f, 0.0f };
+	RenderObjClass *model = ClientObjectClass::Unknown_6F5140(skybox, client, 1.0f, hsv);
+	BackInterface->Unknown_88(model);
+	model->Release_Ref();
+	Unknown140->Unknown_760770(skybox, true);
+	return(true);
+}
 
 
 
