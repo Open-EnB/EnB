@@ -93,6 +93,12 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   `Claims #N` line too); the others land with the run's PR. At handoff `run_branch.py ready --summary FILE
   --co-author 'NAME <EMAIL>'` (the handoff skill) regenerates and commits the README's progress card
   (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
+- Cleanup, once no builder is running (at handoff, and again at the next run's start, after the previous PR merged):
+  `python tools/run_branch.py cleanup` deletes the local branches and worktrees whose every commit is already in
+  origin/master (merged, or the same patch), keeps and lists the ones with commits of their own (say in the log
+  which, and why they are kept), fast-forwards local master and lists remote branches other than master and the
+  current run's (GitHub deletes a merged PR's branch; a leftover one is deleted with the user's say-so). Never
+  while a builder works: a fresh builder worktree with no commits yet looks merged.
 - If the user says to spend the quota before a reset, keep launching bounded items up to the allowance and
   let them run into the next window; the handoff then gets an addendum after the last report. If the user says
   nothing new starts, close the window at once and log it.
