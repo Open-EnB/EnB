@@ -511,7 +511,11 @@ unless `--lever` cites a new row of this table.
   The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
   marked as not the client's; 16 since 8102bcf, window 15..17). After any change to a header aux_roots.cpp
   includes, re-sweep the pad (`tools/vc6/auxpad.py sweep`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
-  all six (15 since eab5d9a0, AR1). A separate operator== among aux_roots.h's value types (free or member) pulls the
+  all six (10 since 93031785, AR2; it moved 15 -> 13 -> 24 -> 10 in one session, renames included: re-sweep after
+  a rename too, even with the same number of declarations). Renaming a generated type changes mangled names the
+  self names rely on (0x706610 lost): add `replaces` entries to `tools/re/symbols_named.json` and run
+  `symbols.py --apply-named` (it rewrites those entries as source `named`, dropping length and proof: neutral
+  here); out-of-line conversions need their client addresses named there before their callers match (AR2). A separate operator== among aux_roots.h's value types (free or member) pulls the
   six windows apart so no pad has all six exact; a single negated `!=` expression keeps a window (AR1, 2026-10-31).
   A sweep killed mid-run leaves its VM leased under `importer-PID` and a pad variant in aux_roots.cpp:
   `pool.py release VM --agent importer-PID`, then check out aux_roots.*. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
