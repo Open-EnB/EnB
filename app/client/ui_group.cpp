@@ -219,69 +219,69 @@ void UIGroupUnknownE8Class::Unknown_592BB0()
 	Unknown30 = 0;
 }
 
+// auxdata.h's find through one more inline level: the client calls it out of line here (0x5927E0)
+template<class C> inline C *Unknown_Group_Find(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x592C50
+// NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot)
+void UIGroupUnknownE8Class::Unknown_592C50()
+{
+	Unknown_592BB0();
+	DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Unknown00->Client)->Unknown_18())->AuxData;
+	int formation = 0;
+	if (!aux) {
+		Unknown04 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_form0"));
+		Unknown_496AE0(Unknown04.Peek(), 1);
+		Unknown04->Set_Hidden(1);
+		return;
+	}
+	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Find<DeltaCompoundClass>(aux, "GroupInfo");
+	if (group && group->Unknown70) {
+		if (group->Formation.Value) {
+			const char *name = group->FormationName.String;
+			if (!stricmp(name, "Slot Back")) {
+				formation = 1;
+			} else if (!stricmp(name, "Block")) {
+				formation = 2;
+			} else if (!stricmp(name, "Pipe")) {
+				formation = 3;
+			}
+		}
+		char model[64];
+		_snprintf(model, sizeof(model), "tsi03a_form%d", formation);
+		Unknown04 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj(model));
+		Unknown_496AE0(Unknown04.Peek(), 1);
+		if (formation) {
+			char bone[64];
+			int position = group->Position.Value;
+			if (position >= 0) {
+				Unknown08[position] = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_ShipLrg"));
+				Unknown_496AE0(Unknown08[position].Peek(), 0);
+				if (position == 0) {
+					Unknown_496110(Unknown08[0].Peek(), 1.0f, 0.6f, 0.0f);
+				} else {
+					Unknown_496110(Unknown08[position].Peek(), 1.0f, 1.0f, 1.0f);
+				}
+				_snprintf(bone, sizeof(bone), "ship_bone%02d", position);
+				Unknown04->Add_Sub_Object_To_Bone(Unknown08[position].Peek(), bone);
+			}
+			for (int i = 0; i < 5; i++) {
+				position = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
+				if (position >= 0) {
+					Unknown08[position] = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_ShipSml"));
+					Unknown_496AE0(Unknown08[position].Peek(), 0);
+					if (position == 0) {
+						Unknown_496110(Unknown08[0].Peek(), 1.0f, 0.6f, 0.0f);
+					} else {
+						Unknown_496110(Unknown08[position].Peek(), 1.0f, 1.0f, 1.0f);
+					}
+					_snprintf(bone, sizeof(bone), "ship_bone%02d", position);
+					Unknown04->Add_Sub_Object_To_Bone(Unknown08[position].Peek(), bone);
+				}
+			}
+		}
+	}
+}
 
 
 
@@ -1918,7 +1918,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	their neighbours' lines in the client's order:
 **	  the +0xE8 object (0x34 bytes; its strings 'tsi03a_form%d', 'ship_bone%02d' lie just before this file's
 **	  in .rdata, so it is placed here pending evidence, D137): constructor 0x592910 (not exact), destructor
-**	  0x5929E0, 0x592A80, 0x592BB0, 0x593180;
+**	  0x5929E0, 0x592A80, 0x592BB0, 0x592C50 (the formation model and its ships; not exact), 0x593180;
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
@@ -1930,8 +1930,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: the +0xE8 object's 0x592C50 (and 0x5927E0, an out-of-line auxdata.h lookup), slot +0x68 0x5946D0 (735, 751)
-**	and 0x595530.
+**	Not yet: slot +0x68 0x5946D0 (735, 751) and 0x595530; 0x5927E0 is auxdata.h's find out of line (a COMDAT
+**	this file's 0x592C50, 0x596770 and 0x597E40 call, and the object before it, 0x591C30).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-404 entries in 79 files.
+405 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -188,6 +188,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:1917` | `UICpitClass::Unknown_584000` | marker | NOT EXACT: order (the client keeps an epilogue at each early return and the found path inline; ours shares one exit) |
 | `app/client/ui_cpit.cpp:2020` | `UICpitClass::Unknown_584690` | marker | NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it) |
 | `app/client/ui_group.cpp:151` | `UIGroupUnknownE8Class::UIGroupUnknownE8Class` | marker | NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor) |
+| `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
 | `app/client/ui_group.cpp:689` | `UIGroupClass::Unknown_60` | marker | NOT EXACT: order (the client stores +0xEC = 0 before it reads +0xC0; '0.0f' and a named gadget local tried) |

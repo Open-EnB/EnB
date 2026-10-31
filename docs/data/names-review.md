@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2521 |
-| 1 | neutral placeholder | 7548 |
+| 1 | neutral placeholder | 7549 |
 
 ## For review (score 3 and below)
 
@@ -4471,6 +4471,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_592BB0` | `app/client/ui_group.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_592A80` | `app/client/ui_group.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_496110` | `app/client/ui_group.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_Group_Find` | `app/client/ui_group.cpp:223` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_group.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_group.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown_593180` | `app/client/ui_group.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/ui_group.cpp:321` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/ui_group.cpp:322` | untagged neutral name (D10) |
@@ -4513,8 +4516,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_597820` | `app/client/ui_group.cpp:1177` | untagged neutral name (D10) |
 | 1 | `Unknown_597D10` | `app/client/ui_group.cpp:1204` | untagged neutral name (D10) |
 | 1 | `Unknown_595530` | `app/client/ui_group.cpp:1219` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_group.cpp:1269` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_group.cpp:1270` | untagged neutral name (D10) |
 | 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1299` | untagged neutral name (D10) |
 | 1 | `Unknown_598370` | `app/client/ui_group.cpp:1322` | untagged neutral name (D10) |
 | 1 | `Unknown_64B2F0` | `app/client/ui_group.cpp:1366` | untagged neutral name (D10) |
