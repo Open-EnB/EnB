@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2521 |
-| 1 | neutral placeholder | 7564 |
+| 1 | neutral placeholder | 7568 |
 
 ## For review (score 3 and below)
 
@@ -4513,9 +4513,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5966A0` | `app/client/ui_group.cpp:694` | untagged neutral name (D10) |
 | 1 | `Unknown_596DB0` | `app/client/ui_group.cpp:695` | untagged neutral name (D10) |
 | 1 | `Unknown_597650` | `app/client/ui_group.cpp:696` | untagged neutral name (D10) |
+| 1 | `UIGroupTargetingClass` | `app/client/ui_group.cpp:725` | neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting'), as far as 0x5946D0 calls it |
+| 1 | `Unknown_7C43A0` | `app/client/ui_group.cpp:725` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ui_group.cpp:726` | neutral (D10): the key modifiers (as sclient.cpp declares it; 0x5946D0 tests 0x50) |
+| 1 | `Unknown_598370` | `app/client/ui_group.cpp:833` | untagged neutral name (D10) |
+| 1 | `Unknown_597E40` | `app/client/ui_group.cpp:834` | untagged neutral name (D10) |
+| 1 | `Unknown_74D690` | `app/client/ui_group.cpp:845` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_group.cpp:846` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_group.cpp:846` | untagged neutral name (D10) |
+| 1 | `Unknown_74D570` | `app/client/ui_group.cpp:895` | untagged neutral name (D10) |
+| 1 | `Unknown_597A60` | `app/client/ui_group.cpp:896` | untagged neutral name (D10) |
+| 1 | `Unknown_5979A0` | `app/client/ui_group.cpp:896` | untagged neutral name (D10) |
 | 1 | `Unknown_595530` | `app/client/ui_group.cpp:1021` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/ui_group.cpp:1073` | untagged neutral name (D10) |
-| 1 | `Unknown_74D690` | `app/client/ui_group.cpp:1077` | untagged neutral name (D10) |
 | 1 | `UIGroupMemberUnknown2CClass` | `app/client/ui_group.cpp:1085` | untagged neutral name (D10) |
 | 1 | `UICpitUnknownD0Class` | `app/client/ui_group.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_597310` | `app/client/ui_group.cpp:1089` | untagged neutral name (D10) |
@@ -4527,22 +4537,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_597820` | `app/client/ui_group.cpp:1177` | untagged neutral name (D10) |
 | 1 | `Unknown_597D10` | `app/client/ui_group.cpp:1204` | untagged neutral name (D10) |
 | 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1299` | untagged neutral name (D10) |
-| 1 | `Unknown_598370` | `app/client/ui_group.cpp:1322` | untagged neutral name (D10) |
 | 1 | `Unknown_64B2F0` | `app/client/ui_group.cpp:1366` | untagged neutral name (D10) |
 | 1 | `Unknown_596E20` | `app/client/ui_group.cpp:1367` | untagged neutral name (D10) |
 | 1 | `Unknown_597000` | `app/client/ui_group.cpp:1421` | untagged neutral name (D10) |
 | 1 | `Unknown_597080` | `app/client/ui_group.cpp:1433` | untagged neutral name (D10) |
 | 1 | `Unknown_5975D0` | `app/client/ui_group.cpp:1516` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/ui_group.cpp:1519` | untagged neutral name (D10) |
-| 1 | `Get_Unknown34` | `app/client/ui_group.cpp:1532` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_group.cpp:1533` | untagged neutral name (D10) |
 | 1 | `Unknown_597920` | `app/client/ui_group.cpp:1573` | untagged neutral name (D10) |
 | 1 | `Unknown_5978A0` | `app/client/ui_group.cpp:1577` | untagged neutral name (D10) |
-| 1 | `Unknown_5979A0` | `app/client/ui_group.cpp:1607` | untagged neutral name (D10) |
-| 1 | `Unknown_597A60` | `app/client/ui_group.cpp:1625` | untagged neutral name (D10) |
 | 1 | `Unknown_597B00` | `app/client/ui_group.cpp:1649` | untagged neutral name (D10) |
 | 1 | `Unknown13C0` | `app/client/ui_group.cpp:1669` | untagged neutral name (D10) |
-| 1 | `Unknown_597E40` | `app/client/ui_group.cpp:1699` | untagged neutral name (D10) |
 | 1 | `Unknown_Group_FieldA` | `app/client/ui_group.cpp:1740` | neutral (D10) |
 | 1 | `Unknown_Group_FieldB` | `app/client/ui_group.cpp:1741` | neutral (D10) |
 | 1 | `Unknown_Group_FieldC` | `app/client/ui_group.cpp:1742` | neutral (D10) |

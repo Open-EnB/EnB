@@ -12,9 +12,9 @@
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\nstrdup.h"
-
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
-// file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
+#include "..\packets\pkcta_request.h"
+#include "..\packets\pkrequesttarget.h"
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStyleClass : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
@@ -722,197 +722,197 @@ void UIGroupClass::Unknown_60()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class UIGroupTargetingClass { public: void Unknown_7C43A0(int index); };	// NAME 1: neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting'), as far as 0x5946D0 calls it
+extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x5946D0 tests 0x50)
+
+
+
+// 0x5946D0
+// NOT EXACT: first form (the client destroys CTA_Request_PacketClass out of line, 0x86F1C0)
+bool UIGroupClass::Unknown_68(int key)
+{
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	G_ASSERT(sclient);
+	bool modifier = (Unknown_BE5F34 & 0x50) != 0;
+	ClientClass *client;
+	UIGroupMemberClass *member;
+	switch (key) {
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		case 15:
+			key -= 11;
+			if (Members[key]) {
+				UIGroupTargetingClass *targeting = (UIGroupTargetingClass *)sclient->Starmap;
+
+
+
+				FAIL_IF(!targeting) return(false);
+				targeting->Unknown_7C43A0(key);
+				Unknown0E8->Unknown_593180(Members[key]->Unknown18);
+			}
+			break;
+		default:
+			return(false);
+		case 17:
+		case 18:
+		case 19:
+		case 20:
+		case 21:
+			SymbolChatUI->Unknown_58();
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 23:
+		case 24:
+		case 25:
+		case 26:
+		case 27:
+			member = Members[key - 23];
+			if (member && strcmp(member->Unknown28, "G_TARGET") == 0) {
+				client = (ClientClass *)Client;
+				client->Send_Packet(&RequestTargetsTargetPacketClass(client->AvatarID, Members[key - 23]->ID));
+			}
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			if (SymbolChatUI) {
+				SymbolChatUI->Unknown_5C();
+				return(true);
+			}
+			return(true);
+		case 41:
+		case 42:
+		case 43:
+		case 44:
+		case 45:
+			if (modifier) goto symbol;
+			if (Members[key - 41]) {
+				client = (ClientClass *)Client;
+				client->Send_Packet(&RequestTargetsTargetPacketClass(client->AvatarID, Members[key - 41]->ID));
+				member = Members[key - 41];
+				if (member && member->Unknown48) {
+					member->Unknown48->Unknown2C800 = false;
+					member->Unknown48->Unknown_6607D0();
+					Members[key - 41]->Unknown20 = 0;
+				}
+			}
+			break;
+		case 29:
+		case 30:
+		case 31:
+		case 32:
+		case 33:
+			if (modifier) goto symbol;
+			if (Members[key - 29]) {
+				client = (ClientClass *)Client;
+				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, Members[key - 29]->ID, 12));
+			}
+			break;
+		case 35:
+		case 36:
+		case 37:
+		case 38:
+		case 39:
+			if (modifier) goto symbol;
+			member = Members[key - 35];
+			if (member) {
+				client = (ClientClass *)Client;
+				if (!member->Unknown1C) {
+					client->Send_Packet(&Action2PacketClass(client->AvatarID, 15, Members[key - 35]->Name.c_str(), 0));
+				} else {
+					client->Send_Packet(&ActionPacketClass(client->AvatarID, 15, Members[key - 35]->ID, 0));
+				}
+			}
+			break;
+		case 1:
+			if (modifier) return(true);
+			if (!Unknown0F1 && Unknown0C0[0]) {
+				Unknown0C0[0]->Unknown2C800 = false;
+				Unknown0C0[0]->Unknown_6607D0();
+				Unknown0EC = 0;
+			}
+			Unknown_598370();
+			Unknown_597E40(!Unknown0F0);
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 2:
+			if (modifier) return(true);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, -1, 12));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 3:
+			if (!modifier) {
+				if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+					View->Get_Unknown34()->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to disband this group?", 0x140, 0, 0);
+					return(true);
+				}
+				View->Get_Unknown34()->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to leave this group?", 0x140, 0, 0);
+			}
+			return(true);
+		case 6:
+			if (modifier || !sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 9));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 4:
+			if (modifier || sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 7));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 5:
+			if (modifier || sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 8));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 7:
+			if (modifier || !sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 4));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 9:
+			if (modifier || !sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 5));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 8:
+			if (modifier || !sclient->Unknown_74D690()) return(true);
+			Unknown_597E40(false);
+			client = (ClientClass *)Client;
+			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 6));
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+		case 47:
+			if (modifier || !sclient->Unknown_74D570() || sclient->Unknown_74D690()) return(true);
+			if (!Unknown_597A60() && Unknown_5979A0()) {
+				Unknown_597E40(false);
+				client = (ClientClass *)Client;
+				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 7));
+			} else {
+				if (!Unknown_597A60()) return(true);
+				Unknown_597E40(false);
+				client = (ClientClass *)Client;
+				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 8));
+			}
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			return(true);
+	}
+	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+symbol:
+	if (SymbolChatUI) {
+		SymbolChatUI->Unknown_5C();
+	}
+	return(true);
+}
 
 
 
@@ -1922,7 +1922,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
-**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
+**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch; not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
 **	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
@@ -1930,7 +1930,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: slot +0x68 0x5946D0 (735, 751); 0x5927E0 is auxdata.h's find out of line (a COMDAT
+**	All of the window's functions are written; 0x5927E0 is auxdata.h's find out of line (a COMDAT
 **	this file's 0x592C50, 0x596770 and 0x597E40 call, and the object before it, 0x591C30).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
