@@ -6,8 +6,8 @@
 #include "attrib_dir.h"
 #include "wwprofile.h"
 
-// libs/sgistl's out-of-class insert_unique_noresize returns pair<typename hashtable<...>::iterator, bool>,
-// which VC6 refuses when it instantiates it (C2899): the attribute table's copy, SGI's body unchanged
+// libs/sgistl's insert_unique_noresize as an explicit specialization (the attribute table's copy, SGI's body unchanged): the template's own instance compiles since P-H7-1
+// but loses 11 pairs (0x4D7650, 0x4D94E0-0x4DA7A0) here, an explicit instantiation the same (QT1, 2026-10-30)
 typedef std::hashtable<std::pair<const std::string, AttributeInfo *>, std::string, std::hash<std::string>,
 	std::_Select1st<std::pair<const std::string, AttributeInfo *> >, std::equal_to<std::string>,
 	std::allocator<AttributeInfo *> > AttributeTable;

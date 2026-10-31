@@ -704,7 +704,7 @@ inline void swap(hashtable<_Val, _Key, _HF, _Extract, _EqKey, _All>& __ht1,
 
 
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
-pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator, bool> 
+pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator, bool>  /* VC6 (E&B, D87): no typename (C2899) */
 hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::insert_unique_noresize(const value_type& __obj)
 {
@@ -767,8 +767,8 @@ hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::find_or_insert(const value_type& __obj)
 }
 
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
-pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator,
-     typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator> 
+pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator,  /* VC6 (E&B, D87): no typename (C2899) */
+     hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator>
 hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::equal_range(const key_type& __key)
 {
   typedef pair<iterator, iterator> _Pii;
@@ -789,8 +789,8 @@ hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::equal_range(const key_type& __key)
 }
 
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
-pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator, 
-     typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator> 
+pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator,  /* VC6 (E&B, D87): no typename (C2899) */
+     hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator>
 hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::equal_range(const key_type& __key) const
 {

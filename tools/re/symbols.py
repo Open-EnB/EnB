@@ -10,7 +10,8 @@ Sources, best first (a name from a better source wins):
   vtable    client vtables located from the objects' vtables; slots aligned with ours name
             functions that have no bytes of their own to match (e.g. inline virtuals compiled
             into E&B's code), and each vtable itself is named
-  named     a name given by hand with its evidence (tools/re/symbols_named.json: a constructor's
+  named     a name given by hand with its evidence (tools/re/symbols_named.json; `kind` defaults to
+            function; `replaces` names the symbol a correction overrides, even an exact or vtable one: a constructor's
             `new` size and vtable store, a caller's assert...); it overrides a wrong strings match
   strings   string-anchored matches (docs/data/funcmatch.json, high/medium confidence)
   thunk     incremental-link thunks named after their target (j_<name>)
@@ -81,7 +82,9 @@ def main():
             e = syms.get(addr)
             if a.apply_named and e and e['source'] in ('strings', 'thunk', 'named'):
                 del syms[addr]      # a hand-given name replaces a weaker one in place
-            put(addr, m['symbol'], 'function', 'named')
+            elif e and e['symbol'] == m.get('replaces'):
+                del syms[addr]      # a correction of a stronger proof's name, stated with the name it replaces
+            put(addr, m['symbol'], m.get('kind', 'function'), 'named')
 
     def put_thunks():
         for th, target in thunks.items():

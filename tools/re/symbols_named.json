@@ -3,5 +3,12 @@
   "address": "0x57D830",
   "symbol": "??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
   "evidence": "the main view's 0x50C690 news 0x178 bytes and calls it with (this, LayerClass); it stores UICpitClass's vtable (ui_cpit.cpp); funcmatch's 'Init_2D_Scene' (skeleton.cpp, one string TSI01A) was wrong (P-HN2-2, HN2 / MV2 2026-10-28)"
+ },
+ {
+  "address": "0xB006F4",
+  "symbol": "??_7ClientObjectClass@@6BMultiFixedPoolDecalSystemClass@@@",
+  "evidence": "ClientObjectClass's second vtable (the MultiFixedPoolDecalSystemClass base): slot 0 is the thunk 0x709E90 to ClientObjectClass's destructor; co.cpp's notes (CO1, 2026-10-28)",
+  "kind": "vtable",
+  "replaces": "??_7MultiFixedPoolDecalSystemClass@@6B@"
  }
 ]

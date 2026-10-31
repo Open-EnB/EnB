@@ -1,0 +1,22 @@
+"""LD7: Land_Append_Decoration_Mesh 0x47C6A0: the third index push_back through a one-line inline helper (f4e90caf's depth
+lever), so its inlined reallocation calls the first _Ucopy out of line as in the client."""
+L = 'app/shared/land.cpp'
+HOLD = 'static unsigned short Land_Append_Decoration_Mesh('
+THIRD = '\t\t\tindices.push_back((unsigned short)(base + polys[i].K));\n'
+SECOND = '\t\t\tindices.push_back((unsigned short)(base + polys[i].J));\n'
+FIRST = '\t\t\tindices.push_back((unsigned short)(base + polys[i].I));\n'
+
+
+def helper(body, arg='unsigned short index'):
+    return ('// NAME 2: one inline level around the third index push_back (Land_Append_Decoration_Mesh 0x47C6A0)\n'
+            'static inline void Land_Add_Index(std::vector<unsigned short> &indices, %s)\n{\n\t%s\n}\n\n' % (arg, body)) + HOLD
+
+
+CALL3 = (L, THIRD, '\t\t\tLand_Add_Index(indices, (unsigned short)(base + polys[i].K));\n')
+V = {
+    'h3_pb': [(L, HOLD, helper('indices.push_back(index);')), CALL3],
+    'h3_pb_ref': [(L, HOLD, helper('indices.push_back(index);', 'const unsigned short &index')), CALL3],
+    'h3_ins': [(L, HOLD, helper('indices.insert(indices.end(), index);')), CALL3],
+}
+COMPILE = [L]
+WATCH = ['0x47C6A0', '0x47E150', '0x47E5A0', '0x47E5E0', '0x47D230', '0x47DE10']

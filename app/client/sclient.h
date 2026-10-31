@@ -66,16 +66,16 @@ class SceneClass;
 class LandClass;
 class SimpleSceneClass;
 class DazzleLayerClass;
-// one line of the script (0x0C bytes; std::sort orders them by its operator <, 0x7FFEA0)
+// one line of the script (0x0C bytes; std::sort orders them by 0x7FFEA0)
 class ScriptedMovieLineClass	// NAME 1: neutral (D10) (a class: clienttest's gen_stubs declares pointer parameters' types as classes)
 {
 public:
-	~ScriptedMovieLineClass();							// 0x7FFC70: the text freed
+	ScriptedMovieLineClass(); ~ScriptedMovieLineClass(); void Unknown_7FFCB0(const char *text);	// 0x7FFC50: all zero; 0x7FFC70: the text freed; 0x7FFCB0: the text copied, upper case  // NAME 1 [text]: what the loader 0x8099B0 passes
 	unsigned int Frame;									// +0x00 (the movie's time it runs at)  // NAME 2: what the order compares
 	char *Text;											// +0x04: the command line  // NAME 2: what it holds
 	int Unknown08;										// +0x08 (the destructor clears it)
 };
-class ScriptedMovieEffectClass { public: void Unknown_6E6E30(); };	// NAME 1: neutral (D10): eff_o.cpp's effect, as far as 0x807520 ends it (0x6E6E30)
+// (the scripted movie's effects are eff_o.cpp's EffectObjectClass: scriptedmovie.cpp includes eff_o.h first)
 // a timed effect of the scripted movie (8 bytes, in a vector at +0x148)
 struct ScriptedMovieEffectStruct	// NAME 1: neutral (D10)
 {
@@ -176,7 +176,7 @@ public:
 	virtual void Unknown_18(int arg) {}					// +0x18 0x514CF0  // NAME 1 [arg]: neutral
 	virtual UIViewClass *Unknown_1C() { return(NULL); }	// +0x1C 0x6B4560 (UIViewClass's 0x50B720 returns the view)
 	virtual UIViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
-	virtual UIViewClass *Unknown_24() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)
+	virtual UIViewClass *As_Main_View() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)  // NAME 3: ui_cpit.cpp's G_ASSERT 'View->As_Main_View()'
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
 	virtual UIViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
@@ -287,7 +287,7 @@ public:
 	~RadarSystemClass();								// 0x7BC930 (the main view's Shutdown 0x50C2F0)
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
-	void Unknown_7BCA40(int arg);						// 0x7BCA40 (the main view's slot +0x18)  // NAME 1 [arg]: neutral
+	void Unknown_7BCA40(int arg); bool Unknown_7BD980(); const class NavigationListClass &Unknown_7BD960();	// 0x7BCA40 (the main view's slot +0x18); 0x7BD980: the warp path is built, 0x7BD960 the path (ui_cpit.cpp's warp button 0x583250)  // NAME 1 [arg]: neutral
 	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
@@ -312,42 +312,42 @@ public:
 };
 
 // ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
-class UIScanClass		// NAME 3: class-from-file (D24) for ui_scan.cpp
+class UIScanClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scan.cpp
 {
-public:
+public:	UIScanClass(UIViewClass *view, LayerClass *layer);	// 0x60D800 (0x1B0 bytes; the cockpit's set-up passes the main view and its layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
 	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
 
-	char Unknown00[0x88];								// +0x00
-	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
+	char Unknown84[0x88 - 0x84];						// +0x84
+	ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C];	// +0x88 (the main view's slot +0x5C returns it); 0x1B0 bytes (the cockpit's set-up)
 };
 
 class IncapacitanceDetailsPacket;
-// ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
-class UICpitClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+class UIMeshClass;
+// The interface base of the group window and the cockpit (0xAC bytes; constructors 0x5BB320 / 0x5BB250, destructor 0x5BB3B0,
+// table 0xAF3390; its file is unknown, its functions follow ui_mesh.cpp's): intrface.cpp's class over a UIMeshClass and a
+// layer (interim placement in sclient.h, moved from ui_group.h for its second user, ui_cpit.h: D137)
+class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	UICpitClass(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
-	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
-	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
-	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
-	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
-	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
+	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
+	Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer);	// 0x5BB250 (the view and the layer's scene to 0x540A90, the layer copied)  // NAME 1 [mesh, view, layer]: what 0x57D830 passes
+	~Unknown5BB320Class();								// 0x5BB3B0 (deletes the mesh)
+	virtual void Unknown_58();							// 0x5BB550
+	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
+	virtual void Unknown_60();							// 0x5BB660
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5BB470
+	virtual void Unknown_88();							// +0x88 0x543750
+	virtual void Unknown_8C();							// +0x8C 0x543770
+	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
 
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54();
-	virtual void Unknown_58();							// +0x58 (the main view's 0x5141A0)
-	virtual void Unknown_5C();							// +0x5C (the main view's 0x5141E0 / 0x514220)
-
-	char Unknown84[0xD4 - 0x84];						// +0x84
-	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
-	char UnknownD8[0xDC - 0xD8];						// +0xD8
-	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
-	char UnknownE0[0x178 - 0xE0];						// +0xE0
+	UIMeshClass *Mesh;									// +0x84 (the destructor deletes it)  // NAME 2: what it holds
+	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
 };
+#include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
+class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
+
+
+
 
 // what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
@@ -520,7 +520,7 @@ public:
 	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
 	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
 	virtual void Unknown_18(int arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
-	virtual UIViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
+	virtual UIViewClass *As_Main_View() { return(this); }	// +0x24 0x50B800  // NAME 3: ui_cpit.cpp's G_ASSERT
 	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
 	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
 	virtual ClientObjectClass *Unknown_60(float x, float y, bool skip_avatar, int arg4);	// +0x60 0x512BB0 (the object under a screen point; arg4 unused) (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [x, y, skip_avatar, arg4]: what the body does with them
@@ -682,12 +682,12 @@ public:
 class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
-// what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
-class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual ScriptedMovieEffectClass *Unknown_50(int id);	// +0x50: the effect by id (0x807520)  // NAME 1 [id]: neutral
-};	// NAME 1: neutral (D10): what the scripted movie's Get_Client() returns
+// what the scripted movie view's +0x4C points to: ClientInterface (its +0x00 returns the client, ClientClass of client.h:
+// Get_Client()'s Add_Effect +0x48 (the effect commands), Get_Effect +0x50 (0x807520), +0x1C (Skip_Frames))
+
+
+
+
 // the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
 class ScriptedMovieParamsClass	// NAME 1: neutral (D10)
 {
@@ -700,7 +700,7 @@ public:
 class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	virtual ScriptedMovieInterfaceUnknown00Class *Unknown_00();	// +0x00 (Skip_Frames 0x8097D0 asks the result's +0x1C)
+	virtual ClientClass *Unknown_00();					// +0x00: the client (Skip_Frames 0x8097D0 asks its +0x1C)
 	virtual void Unknown_04(CameraClass *camera);		// +0x04 (0x8023A0: the view's camera or NULL)  // NAME 1 [camera]: what 0x8023A0 passes
 };
 // a Vector3 that fades to a target (0x24 bytes; the scripted movie view's +0x88 and +0xAC): 0x80A5A0 steps it
@@ -718,13 +718,13 @@ public:
 class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
 {
 public:
-	~UIMeshClass();										// 0x5B8640 (Destroy_Object deletes it)
+	UIMeshClass(const char *name, int arg); UIMeshClass(const char *name, ClientClass *client); ~UIMeshClass();	// 0x5B8120 / 0x5B8330 (a ship's: Create_Object), 0x5B8640 (Destroy_Object deletes it); arg an int (ui_scut.cpp's 0x610570 passes 2)  // NAME 1 [name, arg, client]: what Create_Object passes
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
+	RenderObjClass *Unknown_5B8B40(const char *name); void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
-	RenderObjClass *Peek_Object();						// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
+	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20();	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's
 	char Unknown00[0x1C];								// +0x00
 	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
 	char Unknown20[0x70 - 0x20];						// +0x20
@@ -732,24 +732,24 @@ public:
 };
 // one of the scripted movie's objects (0x0C bytes, in a vector at +0x58)
 struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
-{
+{	ScriptedMovieObjectStruct() : Mesh(NULL), Slot(-1), Unknown08(0) {}	// (Create_Object 0x804290 stores all three first)
 	UIMeshClass *Mesh;									// +0x00  // NAME 3: the asserts' '(*itor).Mesh'
 	int Slot;											// +0x04: the script's slot number  // NAME 2: the user errors' 'Need slot number'
 	int Unknown08;										// +0x08
 };
-// one of the scripted movie's cameras (0x10 bytes, in a vector at +0x110)
+struct ScriptedMovieBoneObjectStruct { RenderObjClass *RenderObject; int Bone; int ClientID; };	// 0x0C bytes at +0x100 (0x802D80; the destructor releases RenderObject); then one of the cameras (0x10 bytes, in a vector at +0x110)  // NAME 1: neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds
 struct ScriptedMovieCameraStruct	// NAME 1: neutral (D10)
-{
+{	ScriptedMovieCameraStruct() : RenderObject(NULL), Bone(-1), HFov(0.0f), VFov(0.0f) {} ScriptedMovieCameraStruct &operator = (const ScriptedMovieCameraStruct &that) { RenderObject = that.RenderObject; Bone = that.Bone; HFov = that.HFov; VFov = that.VFov; return(*this); }	// (Add_Camera 0x805420 stores all four before setting two); the assignment 0x80B100 (the destructor calls it out of line)
 	RenderObjClass *RenderObject;						// +0x00: the model whose bone carries the camera  // NAME 3: the assert's 'CameraList[CurrentCameraIndex].RenderObject'
 	int Bone;											// +0x04  // NAME 2: Add_Sub_Object_To_Bone's argument
 	float HFov;											// +0x08 (0: the camera's own)  // NAME 2: Set_View_Plane's argument
 	float VFov;											// +0x0C  // NAME 2: Set_View_Plane's argument
 };
-class ScriptedMovieSoundClass { public: void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); };	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
+class ScriptedMovieSoundClass { public: ScriptedMovieSoundClass(const char *name, const char *bone_name); ~ScriptedMovieSoundClass(); void Unknown_7ED410(RenderObjClass *model); void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); char Unknown00[0x18]; bool Unknown18; char Unknown19[0x28 - 0x19]; float Unknown28; char Unknown2C[0x50 - 0x2C]; };	// 0x50 bytes, constructor 0x7ED1D0 (Play_Audio: the name and the bone), 0x7ED410 onto a model; +0x18 loops, +0x28 the volume  // NAME 1 [name, bone_name, model]: what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
-	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
+	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback); virtual ~ScriptedMovieViewClass();	// 0x8000C0, 0x8008B0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
 	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList
@@ -759,7 +759,7 @@ public:
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
-	ScriptedMovieInterfaceUnknown00Class *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
+	ClientClass *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
 	void Unknown_807520(unsigned int time);				// 0x807520 (G_ASSERT 'Get_Client()', l.2546): the effects whose time is up ended  // NAME 1 [time]: neutral
 	bool Unknown_803310(ScriptedMovieLineClass *line);	// 0x803310: one line's command run (false: not a command)  // NAME 1 [line]: neutral
 	void Unknown_802B20();								// 0x802B20 (G_ASSERTs '*itor' l.1142, '!"Invalid command.  Ending Movie"' 1149): the script run up to the movie's time
@@ -768,7 +768,7 @@ public:
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
 	void Unknown_802900();								// 0x802900: +0x6D set once +0x6C is
 	void Unknown_802AD0(int arg);						// 0x802AD0: every sound of +0xF0 gets arg twice (0x7ED6C0)  // NAME 1 [arg]: neutral
-	static void Unknown_802D30();						// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated
+	static void Unknown_802D30(); void Unknown_8099B0(const char *filename);	// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated; 0x8099B0 (G_ASSERTs 'filename' l.3632, 'scriptfile' 3634; the constructor passes arg): the script loaded  // NAME 2 [filename]: the assert's
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
@@ -795,16 +795,16 @@ public:
 	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-
+	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieParamsClass *params); EffectObjectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieParamsClass *params); int Unknown_803180(RenderObjClass *robj, const char *bone_name); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieParamsClass *params); bool Set_Fog(ScriptedMovieParamsClass *params); bool Add_Camera(ScriptedMovieParamsClass *params); bool Create_Skybox(ScriptedMovieParamsClass *params); bool Create_Orbital(ScriptedMovieParamsClass *params); virtual int Unknown_0C(bool on); virtual void Unknown_10(); virtual void Unknown_14(); void Unknown_802420(); bool Play_Audio(ScriptedMovieParamsClass *params); bool Create_Object(ScriptedMovieParamsClass *params, bool ship); bool Create_Light(ScriptedMovieParamsClass *params, int type, bool from_bone); virtual int Unknown_54() { return((int)ScriptedCamera); } virtual CameraClass *Unknown_58() { return(ScriptedCamera); } virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieParamsClass *params); bool Add_Name_Decal(ScriptedMovieParamsClass *params); bool Add_Decal_To_Ship(ScriptedMovieParamsClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
 	std::vector<ScriptedMovieObjectStruct> Objects;		// +0x58: the script's objects by slot  // NAME 2: what it holds
-	char Unknown68[0x6C - 0x68];						// +0x68
+	struct ScriptedMovieViewerSettingsStruct *ViewerSettings;	// +0x68 (scriptedmovie.cpp declares it; the shutdown 0x8010A0 calls its first member's slot +0x38)  // NAME 3: the asserts' (0x8008B0, 0x8012C0)
 	bool Unknown6C;										// +0x6C
 	bool Unknown6D;										// +0x6D
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
-	char Unknown6F[0x7C - 0x6F];						// +0x6F
+	bool Unknown6F; float Unknown70; float Unknown74; float Unknown78;	// +0x6F, +0x78: an angle in radians (0x809750 sets both); +0x70 / +0x74: the pointer's last position (0x802420 turns the camera by it while +0x6F)
 	bool Unknown7C;										// +0x7C
 	char Unknown7D[0x80 - 0x7D];						// +0x7D
 	unsigned int Unknown80;								// +0x80: the movie's time (0x802B20 adds the frame time)
@@ -815,24 +815,24 @@ public:
 	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
 	std::vector<ScriptedMovieLineClass *> Lines;		// +0xE0: the script's lines still to run, by frame  // NAME 2: what it holds
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
-	char Unknown100[0x110 - 0x100];						// +0x100
+	std::vector<ScriptedMovieBoneObjectStruct> BoneClientObjectList;	// +0x100: the bones' client objects (0x802D80)  // NAME 3: the asserts' 'BoneClientObjectList[i]'
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
-	SimpleSceneClass *Unknown120;						// +0x120: a scene rendered at depth 1 between clip planes 20 and 100000 (0x801860)
-	char Unknown124[0x128 - 0x124];						// +0x124
+	SimpleSceneClass *BackgroundScene;					// +0x120: the skybox's scene, rendered at depth 1 between clip planes 20 and 100000 (0x801860)  // NAME 3: the asserts' (0x804800)
+	class Unknown53AA30InterfaceClass *BackInterface;	// +0x124: the skybox's interface (scriptedmovie.cpp declares its class)  // NAME 3: the asserts' (0x804800)
 	SimpleSceneClass *StarsScene;						// +0x128: the stars' scene, rendered between 50 and 150 (0x8019A0)  // NAME 3: the asserts' 'StarsScene == NULL' (0x804A70)
 	RefCountPtr<StarFieldClass> Stars;					// +0x12C (stars.h)  // NAME 3: the asserts' 'Stars == NULL'
 	class OrbitalManager *OrbitalManager;				// +0x130: its near / far planes (0x801D70)  // NAME 3: the assert's
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
-	char Unknown138[0x13C - 0x138];						// +0x138
+	unsigned Unknown138;								// +0x138: the orbital%04d.ini number (Create_Orbital; the orbital callback 0x804FE0 returns it)
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
-	char Unknown140[0x148 - 0x140];						// +0x140
+	SClientUnknown1338Class *Unknown140; SClientUnknown1334Class *DecalMaterialManager;	// +0x140 (0x8020B0 hands it to shiputils.cpp's 0x80EFF0), +0x144 (Add_Decal_To_Ship hands it to 0x80E8C0)  // NAME 3 [DecalMaterialManager]: the assert's (0x8093D0)
 	std::vector<ScriptedMovieEffectStruct> Effects;		// +0x148: the timed effects  // NAME 2: what it holds
-	char Unknown158[0x164 - 0x158];						// +0x158
+	bool Unknown158; char Unknown159[3]; Render2DTextClass *Unknown15C; RefCountPtr<Font3DInstanceClass> Unknown160;	// +0x158: the stats shown (with +0x171), +0x15C: their text (the render 0x8012C0), +0x160: its font (the constructor: font12x16.tga)
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
-	char Unknown169[0x171 - 0x169];						// +0x169
+	char Unknown169[0x16C - 0x169]; unsigned int Unknown16C; bool Unknown170;	// +0x169, +0x16C: the end time (0x801E60 fades out once Unknown80 reaches it), +0x170: faded
 	bool Unknown171;									// +0x171 (Skip_Frames only while it is set)
-	char Unknown172[0x178 - 0x172];						// +0x172
+	bool Unknown172; char Unknown173; char *Unknown174;	// +0x172 (0x8070C0: the effects are kept only while it is set; 0x801E60 sets it), +0x174: a sound's name (0x801E60 plays it once, then frees it)
 };
 
 // The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0
@@ -1007,7 +1007,7 @@ public:
 	void Unknown_750800();								// 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer
 	void Unknown_7517E0(int a, int b, int c, int d);		// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210 passes its four fields)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_751850(std::vector<GuildRankNameStruct> &ranks);	// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211)  // NAME 1 [ranks]: the packet's field
-	void Unknown_745160();								// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198
+	void Unknown_745160(); void Unknown_744560(int arg);	// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198; 0x744560 (ui_cpit.cpp passes 11 when the hulk is let in, 12 when it goes)  // NAME 1 [arg]: neutral
 	void Unknown_745050();								// 0x745050: 0x745000 again with the kept base asset (scriptedmovie.cpp's neighbourhood 0x8010A0)
 	void Unknown_7456B0();								// 0x7456B0: the main view's debris mode and four resets
 	void Process_AI();									// 0x744260 (Do_Frame, after Process_Packets): every object's slot +0x20, the camera, the finished effects, the third list's records (S: 'SClient::Process_AI')

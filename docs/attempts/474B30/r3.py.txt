@@ -1,0 +1,18 @@
+"""LD7: Render 0x474B30 on top of macro + clear(): the client's world transforms are Set_Transform(D3DTS_WORLD, Matrix4(1))
+before the sea passes (two ??_H: the identity and the transpose; the flags and ~0x40000 | 1) and Set_Transform(D3DTS_WORLD,
+Matrix3D(1)) before the projectors (three ??_H), not Set_World_Identity."""
+import runpy
+r1 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\ld7\r1.py')
+L = r1['L']
+BASE = r1['V']['macro'] + [(L, '\t\tprojected.erase(projected.begin(), projected.end());\n', '\t\tprojected.clear();\n')]
+SEA = '\t\tDX8Wrapper::Set_Index_Buffer(ib, 0);\n\t\tDX8Wrapper::Set_World_Identity();\n'
+SEA_NEW = '\t\tDX8Wrapper::Set_Index_Buffer(ib, 0);\n\t\tDX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(true));\n'
+PROJ = '\tstatic std::vector<Vector3> projected;\n\tDX8Wrapper::Set_World_Identity();\n'
+PROJ_NEW = '\tstatic std::vector<Vector3> projected;\n\tDX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix3D(true));\n'
+V = {
+    'w_both': BASE + [(L, SEA, SEA_NEW), (L, PROJ, PROJ_NEW)],
+    'w_sea': BASE + [(L, SEA, SEA_NEW)],
+    'w_proj': BASE + [(L, PROJ, PROJ_NEW)],
+}
+COMPILE = [L]
+WATCH = r1['WATCH']

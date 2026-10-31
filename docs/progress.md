@@ -4,6 +4,55 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (03:45, overnight): the quiet tree closed, land item 5's next round, seven new files; app 4,761 -> 5,127 in tree, +475 pairs, 0 lost
+
+Coordinator Opus 5.5, one to three Opus builders at a time (pacing to the user's ~60 % of the week by 07:00: 50 % at
+18:40). Base c0913c2b (`.work/imports.c0913c2b.json`); run branch `run/2026-10-30`, draft PR #13. Plan log:
+`.work/run-2026-10-30/plan.md`. Every library verified gains-only throughout; no address lost outright against master.
+
+* **Quiet tree (§4 item 1) closed.** Most of it was already done on 10-27 (D94(b), D95(b), D100, park45 / park117, the
+  packets' comments, names-review). New: symbols.json's 0xB006F4 is ClientObjectClass's MultiFixedPoolDecalSystemClass
+  vtable (379c29da; symbols_named.json entries take `kind` and `replaces`); D107 done (QT1 bb502e83: the
+  `Unknown_BE8B38Class` views are OptionClass, 0 / 0); P-H7-1 (f918e190): sgistl_adapt.py drops `typename` from the
+  pair<> return types, so `hash_map::insert` compiles, but the two explicit specializations stay (removing them loses 13
+  app pairs); a full verify of all 11 libraries left imports.json unchanged.
+* **Land (§4 item 5).** LD6 (dd60da4c..a1a48eb6, +19 pairs): the unreferenced out-of-line copies of inlined helpers
+  0x46EE60..0x46F0A0 / 0x470EF0 / 0x474590, 0x46E120, Build_Index_Buffers 0x478240, Save_Decorations 0x479A50, the
+  decoration ini reader's string helpers (+7). LD7 (55f1d2c5, +5): Render's sea Adds as a macro and its world
+  transforms as `Set_Transform(D3DTS_WORLD, Matrix4(true))`: 0x47D3D0, 0x47F300 (one of the two land copies accepted
+  as lost on 10-27, back), 0x47F3F0, 0x47F470, 0x47F4E0; Render NOT EXACT (2,622 -> 2,222 rows; the client's is ~5,600
+  instructions to our 2,400: structural, LD8). P-LD6-1's inline-helper lever gained nothing on 0x47A2F0 (its insert
+  0x47D690 is byte-identical but `multiple` in the client) or 0x47C6A0 (7 forms). LD8 (eb8fdfe9..fce1f069, +7):
+  heightfield's Get_Height 0x464600, Load_PGM 0x4637C0, insert 0x466180 and the vector helpers 0x4667D0-0x4668A0;
+  Get_Downhill / Get_Normal / Get_Triangles / Cast_OBBox residues down; Load 0x4634F0 a LIMIT candidate. VIDTEST
+  drawcheck PASS at frame 900 each time, sbs 1.74-1.97 %.
+* **New files from the client's __FILE__ asserts:** rs_track.cpp (RT1, 0 -> 102, 83 of 86; RsTrackClass moved into
+  rs_track.h from co.cpp / cpacket.cpp); proj_man.cpp (PM1, 0 -> 61: Renegade's pscene_projectors.cpp code in a
+  ProjectorManagerClass, StaticShadowTexMgrClass; only 0x493620 parked); ui_group.cpp (UG1, 0 -> 52); ui_cpit.cpp (CP1,
+  0 -> 62, UICpitClass into ui_cpit.h, Unknown5BB320Class moved to sclient.h); ui_manu.cpp (MU1, 0 -> 34); ui_scut.cpp (SC2, 0 -> 40, UIScutClass out of ui_cpit.h); ui_chat_panel.cpp (CH1, 39 exact, UIChatPanelBaseClass in its header for now).
+  scriptedmovie.cpp continued: SM1 +28 (19 functions, two of UI1's parked rows), SM2 +12 (ctor 0x8000C0, Create_Light
+  0x805B60, Play_Audio, the three effect commands).
+* **GitHub:** the user made EnB and `.github` public; the coordinator applied, at the user's request, the master
+  ruleset (`Protect master (D148)`, `checks` + `vc6-verify` required), private vulnerability reporting and secret
+  scanning with push protection (github-plan.md §4.5.7). The Claims Action refused a fourth maintainer claim while
+  the user's org membership was private (the token saw no MEMBER); the user made it public and later claims passed.
+* **Decisions:** D163 (P-API-1, the API credits: pilot builder, then a Batch API triage; first item of the next
+  session). Open for the user (§3): P-SM2-1 (FAIL_IF's form), P-MU1-1 (explicit instantiations for out-of-line
+  template copies).
+* **For the user to confirm:** 0x584C80 (CP1's 7f6f84e5 credited it to ui_cpit, 9d9b074c unattributed it: our
+  Create_Get<FontStyleClass> is byte-identical to the client's Create_NEW there). Not in master's baseline, so nothing
+  is lost against master; CP1 called it D66(vi), but it is not in any ambiguous list.
+* **Placements (D137, coordinator):** Unknown5BB320Class in sclient.h (CP1); ui_group's +0xE8 object 0x5927E0-0x593180
+  in ui_group.cpp (UG1); UnknownAEEA88Class in ui_scut.h (SC2); rs_track.h's interim rs_list / rs_proj_sup classes (RT1). P-SM1-3 / SM2: the line class
+  0x7FFC50-0x7FFDC0 (with 0x7FFD30 / 0x7FFDC0) gets its own file between option.cpp and scriptedmovie.cpp at
+  scriptedmovie's next edit (removes the auto_inline pair around 0x7FFD30).
+* **Traps:** about 45 rows and bullets filed in workflow.md §3.3, 3.4, 3.5, 3.6, 3.9 (b58b4cd1, d07ef55b, 76d90b1d,
+  ff6451d2, b013383b, 95699838, 373934e4, 080b1a6b, c38ea9e3, ef6397da, f341b852, c5724b6f). Incident: more than four parallel
+  `appfile.py match --pool` jobs half-created the clone enb-vc6-07 (destroyed).
+* **Usage:** the week 50 % -> 58 % (the user's target ~60 % by 07:00; the coordinator's own work and the session window
+  on top); 13 builder runs, all Opus, ~0.1-1M tokens each (the plan log has each). Final verify of all 11 libraries at
+  15c75b71: 0 / 0 against the committed imports.json, replay 0 files differ.
+
 ### 2026-10-30 (evening): the Character and Starship Creator analysed (CSC.md); D160-D162
 
 Interactive session with the user, no builders, no tree code changed. EA's promotional Character and Starship
@@ -1462,8 +1511,19 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D160 | 2026-10-30 | P-CSC-1: the Character and Starship Creator (2002-09-13) is a reference, not a rebuild target. It is the 2002 witness for NOT EXACT functions (98 tree functions are exact in CSC and absent from the client: source matching 2002, client changed later, so code-form retries won't help) and a second reference for code the client lacks or drops. Names still come from the client (CSC folds identical functions). [CSC.md](CSC.md) §1.1, §6.3 | user |
 | D161 | 2026-10-30 | P-CSC-2: CSC's source and toolchain facts are recorded in [source-tree.md](source-tree.md) (`C:\Projects\G`, `Tools\Avatar Creator`, `chatint` / `textwin` / `usermsg`, `wnet\tcpmgr.cpp`, 0x836960 in galaxy_map.cpp) and [toolchain.md](toolchain.md) §1.2 (VC6 RTM throughout, no 8798 objects, `/OPT:REF,ICF`) | user |
 | D162 | 2026-10-30 | P-CSC-3: a functional CSC becomes a milestone once the client's character-creation screens run on the tree; not before ([CSC.md](CSC.md) §6.2) | user |
+| D163 | 2026-10-30 | P-API-1: the user's $200 of Anthropic API credits go to (1) a pilot builder run in Claude Code on a separate API key (spend limit set in the Console; the coordinator stays on the subscription; model and tokens logged in the plan beside subscription runs, for the cost per pair gained), then (2) a one-off Batch API triage of the not-yet-exact functions' saved pseudocode (`.work/pseudo/`) with a cheap model: STL / template instance, Westwood library or E&B code, and the class or file its callers suggest; hints for planning only, never names (D56), objmatch / verify decide; (3) the rest as overflow builder capacity (work the weekly window turns away, the D89 Fable queue). Next session (2026-10-31 morning) | user |
 
 ## 3. Open decisions
+
+* **P-SM2-1** (2026-10-31, SM2; recommend yes, after the three fixes): FAIL_IF in app/shared/unknown_debug.h written as
+  `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))`. Tried app-wide and reverted: +6
+  (scriptedmovie's dispatcher 0x803310 exact, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690),
+  -3 (LegoBoneMapClass ctor 0x72D5F0, which flips with its file's state; co 0x6FFFF0, which then inlines more than the
+  client; sclient 0x750260). Six gains in unrelated files are the evidence the client's macro has this form. Adopt
+  once a builder fixes the three in their own files (losses wait for the user, D66)?
+* **P-MU1-1** (2026-10-31, MU1; recommend yes): explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) to
+  emit the client's out-of-line template copies (0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), marked in
+  the source as not the client's form (like aux_roots' SYMBOL_PAD); callers unchanged. Allow it as a matching form?
 
 * **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
   template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
@@ -1477,20 +1537,17 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
+* **Next session first (2026-10-31 morning): the API credits (D163).** The pilot builder on the API key
+  (measure tokens and cost per pair against tonight's LD6 / LD7 runs), then the Batch API triage of `.work/pseudo/`
+  (prompt, schema, a small sample checked against known answers such as LD6's std::sort 0x4708F0 / 0x472910 and
+  its out-of-line helper copies, then the full batch); its output becomes a planning table under `.work/`.
+
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
-1. **The quiet tree's items** (the D93 evaluation is done, 2026-10-27 evening: P-E1 for the user; the eval branches
-   and worktrees were removed 2026-10-29 at the user's request; `.work/eval-branches-2026-10-29.bundle` keeps the
-   nine branches, `.work/eval/` the scoring record). Left from it: P-Bopus-1 if
-   accepted (0x603D70 is not option.cpp's, O1). The quiet tree carries the matching-rule
-   changes D94(b) (skip `_$E` names), D95(b) (no implicit-destructor credit to a twin when the own address is
-   free) and P-P6-1 if accepted (a tie goes to the object whose client range holds the address), each with a
-   full verify of every library and pairs_cmp gains-only, like D88; then 117 from `.work/p5/park117` and 45 from
-   `.work/p6/park45`. Also on that quiet tree: P-H7-1 (sgistl_adapt.py drops `typename` from out-of-class return
-   types; remove ini_manager's and attrib_dir's explicit specializations), P-F5-1 / the regenerated names-review.md,
-   and a full verify to refresh imports.json's `in_tree_total` lines (commit_mine never commits them).
+1. **The quiet tree's items: done 2026-10-30** (QT1 and the coordinator: D107, P-H7-1 with the specializations
+   kept, 0xB006F4, a full verify of all 11 libraries; the log entry of 2026-10-31).
    Small follow-ups from the 2026-10-27 evening (work items, no decision): symbols.json's 0xB006F4 is `??_7ClientObjectClass@@6BMultiFixedPoolDecalSystemClass@@@` (slot 0 is the thunk
    0x709E90 to ClientObjectClass's destructor; CO1, 2026-10-28), and 0xAEDE88 is PacketClass's
    vtable (`??_7PacketClass@@6B@`, through symbols.py; then rebuild `.work/pseudo/`); app/packets' "(not rebuilt)" comments
@@ -1673,6 +1730,10 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    first _Ucopy; 13 forms: Fable-eligible); Build_Decorations 0x47A2F0 and Create_Decorations 0x479D00 unmoved
    (0x479D00 never uses the struct); 0x4667D0 / 0x466820 are vector<Vector3>::_Ucopy / _Ufill, blocked behind the
    inline budget of their only callers insert 0x466180 (Get_Triangles 0x465D30) and Render 0x474B30.
+   2026-10-30 night (LD6 / LD7 / LD8, +31): see the log entry. Left: the big functions 0x46F120 / 0x470F80 (a session
+   each); Render 0x474B30 is a structural gap (the client's second dynamic VB / IB pass, inlined render-state debug
+   names); Get_Downhill's case 2 / 3 tail merge, Get_Triangles' second push_back end() load; 0x47A2F0 can only gain
+   itself (its helpers are `multiple`); landdmap 0x466780-0x469000 (Matrox only, never runs) untouched.
 6. Step 8's tail (checked by S8, 2026-10-29, 6049b84): Open_Fixed_Channel 0x82D8C0 and the memconn option slot
    0x826D00 were exact since S1 (e165988), 0x82E1D0 is exact (D99, 18 bytes, with CordMgr 0x8598F0, fdd210e). Left:
    `Send_Data` 0x82D420 (wlib's Dictionary layout); everything else is at LIMIT (Key_Exchange, Rate Count, the UDP
@@ -1731,3 +1792,19 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
    for a new §3.1 lever; F3's two untested leads are in its attempts.csv row, P-S3-2); D7's reminder (revisit
    byte-exactness of E&B's code with the user if it becomes too costly; `docs/data/not-exact.md` shows how much
    functional code waits); which bool-return form gives a bare `setcc al` without the `xor`.
+12. Tonight's files (2026-10-30 night), what is left in each: rs_track.cpp's ctors 0x45FDA0 / 0x45FFB0 (order),
+   0x460440 (register; `auto_inline(off)` around it is a lever, P-RT1-1), 0x460E80; 0x462610 / 0x462650 / 0x462690 are
+   rs_track's (unclaimed); rs_track.h's Unknown45D9E0Class / Unknown45DC80Class become ProjectorCasterClass /
+   ProjectorReceiverClass subclasses from proj_man.h, and the receiver's inline ctor goes on proj_man.h line 207 when
+   rs_proj_sup.cpp is built (PM1); proj_man's 0x493620 (one register row). scriptedmovie.cpp: 18 not exact (the dtor
+   0x8008B0, loader 0x8099B0, 0x803310 under P-SM2-1, ...); SClient::Unknown1338 -> EnvironmentMapManager (the client's
+   assert); P-SM1-1 (ScriptedMovieParamsClass and ScriptedMovieLineClass are one 12-byte class), P-SM1-2 (OrbitalManager's
+   ctor takes a shared callback base and ClientClass). ui_group.cpp: 0x5946D0, 0x595530, 0x596770, 0x597E40 (best:
+   from 0x5979A0 / 0x597A60's forms), 0x592C50, 10 NOT EXACT; intrface.h's ControlKeysManagerClass is the client's
+   ControlKeysManager (rename). ui_cpit.cpp: 8 parked, mostly inline budget (out-of-line Cast / Find_Field / _Tidy).
+   ui_manu.cpp: 0x5B4B10, 0x5B5320 unbuilt, 11 inline-budget parked; P-MU1-2 (declare SClient 0x744560, PDAInterfaceClass
+   0x695A00 / 0x695780, UIMeshClass 0x5B9930 in their headers instead of ui_manu.cpp's local cast classes). ui_scut.cpp:
+   6 parked (the bar's ctor 0x610F80 register, the control keys 0x611300 / 0x611710, 0x6120E0's float loads (best lead),
+   0x612820, _Sort_0 0x6129C0); the listener base UnknownAEEA88Class (also bridge_int.cpp's 0x53B040, the 3-D movie view
+   0x7EEF90) sits in ui_scut.h (D137) until bridge_int.cpp is rebuilt. The inline
+   budget blocks most of tonight's parked UI rows: a study of VC6's /Ob2 budget (F8 / IB3's levers) is the shared lead.

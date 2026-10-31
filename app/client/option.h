@@ -9,8 +9,8 @@
 **	value a new'd option holding its name, its value and its default. Saved per character as
 **	player<id>_options.ini, sections BOOL-000, INT-000, FLOAT-000, VECTOR3-000, STRING-000 with
 **	OptionName / OptionValue. The object is WinMain's 'options manager' at 0xBE8B38
-**	(docs/kernel-map-step9.md); tsk_game.h, sclient.cpp, fontdatabase.cpp and soundlib.cpp still
-**	declare their own views of it (Unknown_BE8B38Class).
+**	(docs/kernel-map-step9.md); tsk_game.h (for sclient.cpp, mainview.cpp, tsk_game.cpp),
+**	fontdatabase.cpp and soundlib.cpp include this header for it (D107).
 */
 
 

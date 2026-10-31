@@ -20,12 +20,12 @@ void Unknown_442650();							// NAME 1 [Unknown_442650]: 0x442650, surfacetypes.
 void Unknown_442870();							// NAME 1 [Unknown_442870]: 0x442870, surfacetypes.cpp's release
 extern Random2Class Unknown_BDADC8;			// NAME 1 [Unknown_BDADC8]: 0xBDADC8, a global generator outside this file
 
-class Unknown_BE8B38Class						// NAME 1 [Unknown_BE8B38Class]: option.cpp's object at 0xBE8B38 (tsk_game.h)
-{
-public:
-	float Get_Float(const char *name);		// 0x7F9670: the volume options  // NAME 2: what it does
-};
-extern Unknown_BE8B38Class *Unknown_BE8B38;	// NAME 1 [Unknown_BE8B38]: neutral (D10)
+#include "..\client\option.h"				// OptionClass, option.cpp's object at 0xBE8B38 (D107)
+
+
+
+
+
 
 // The client stores members that the tree's wwaudio headers keep protected (E&B's m_Unknown7C,
 // m_Unknown80, Sound3DClass's m_Unknown164-16C): these classes make them reachable, no code of their own.
@@ -747,7 +747,7 @@ void SoundLibraryClass::Flush_Playlist()
 void SoundLibraryClass::Update()
 {
 	float volume = WWAudioClass::Get_Instance()->Get_Sound_Effects_Volume();
-	float target = Unknown_BE8B38->Get_Float("Sound_SFX") * 0.01F;
+	float target = OptionClass::Instance->Get_Float("Sound_SFX") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -759,7 +759,7 @@ void SoundLibraryClass::Update()
 	}
 
 	volume = WWAudioClass::Get_Instance()->Get_Music_Volume();
-	target = Unknown_BE8B38->Get_Float("Sound_Music") * 0.01F;
+	target = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -771,7 +771,7 @@ void SoundLibraryClass::Update()
 	}
 
 	volume = WWAudioClass::Get_Instance()->Get_Dialog_Volume();
-	target = Unknown_BE8B38->Get_Float("Sound_Dialog") * 0.01F;
+	target = OptionClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -789,11 +789,11 @@ void SoundLibraryClass::Update()
 
 void SoundLibraryClass::Apply_Volumes()
 {
-	float volume = Unknown_BE8B38->Get_Float("Sound_SFX") * 0.01F;
+	float volume = OptionClass::Instance->Get_Float("Sound_SFX") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Sound_Effects_Volume(volume);
-	volume = Unknown_BE8B38->Get_Float("Sound_Music") * 0.01F;
+	volume = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Music_Volume(volume);
-	volume = Unknown_BE8B38->Get_Float("Sound_Dialog") * 0.01F;
+	volume = OptionClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Dialog_Volume(volume);
 }
 

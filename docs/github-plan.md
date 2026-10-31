@@ -4,7 +4,8 @@ Record of how the org [Open-EnB](https://github.com/Open-EnB) and its repository
 2026-10-29 and reviewed with the user item by item; each decision is a D-number in [progress.md](progress.md) §2
 and is recorded here beside its item. The publishing work (LICENSE, the public README, CONTRIBUTING,
 `.gitattributes`, `tools/prepush_check.py`, `tools/docs_check.py`, CI) is on master; the claims and the verify
-service (§4) landed with PR #1 on 2026-10-30.
+service (§4) landed with PR #1 on 2026-10-30. **The repository and the org profile `Open-EnB/.github` are public
+since 2026-10-30 (evening).**
 
 The user's goals: the project builds and ships several executables (vidtest.exe, client.exe, later the Character
 and Starship Creator, perhaps a server); third-party dependencies (Miles, Bink, DirectX 8) complicate it; GitHub is
@@ -22,9 +23,9 @@ in a way that cannot compromise the project's integrity.
 | P-GH-5 | Release policy | Source only until the Miles / DirectX licensing question is answered (§3.2, §3.6) | **D150: only our own binaries; third-party DLLs from other sources** |
 | P-GH-6 | Contributor path without VC6 | Define contribution kinds that do not need VC6 (§3.3) | **D146 (VC6 setup), D151 (lanes)** |
 | P-GH-7 | Integrity model and permissions | The three layers and settings of §2 | **org settings applied 2026-10-29 (D152); repository rules when it exists** |
-| P-GH-8 | Pre-push checklist | §3.4 | **D152: Open-EnB/EnB, master, private first; pushed 2026-10-30; final read done 2026-10-30; the public switch (§4.5.7)** |
+| P-GH-8 | Pre-push checklist | §3.4 | **D152: Open-EnB/EnB, master, private first; pushed 2026-10-30; final read done 2026-10-30; public 2026-10-30 (§4.5.7)** |
 | P-GH-9 | Community and continuity | §3.5 | **closed 2026-10-30: Net-7 contacted; no new names; labels only, no issues yet; no second owner, no archive policy for now** |
-| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **steps 1-6 live on master 2026-10-30 (PR #1); to do: the rehearsal, which waits for a first outside contributor, and the public switch (§4.5.7)** |
+| P-GH-10 | Coordinating outside contributors' agents: claims, expiry, PR size | §4 | **steps 1-6 live on master 2026-10-30 (PR #1); public 2026-10-30; to do: the rehearsal, which waits for a first outside contributor (§4.5.7)** |
 
 ## P-GH-1: line endings (revised 2026-10-29 after the LF test and the transcript audit)
 
@@ -160,7 +161,7 @@ is in §4.5.7, and what nobody has decided yet is in §3.6.
   game's files come from other sources (like the art, D143). No release ships yet; the open licensing question
   is §3.6.
 * **Trademark:** the README states the non-affiliation (its Licence section) and the repository holds none of the
-  game's art. The org profile says it too: `Open-EnB/.github` (D144), created private 2026-10-30, public with EnB (§4.5.7 item 2).
+  game's art. The org profile says it too: `Open-EnB/.github` (D144), created private 2026-10-30, public with EnB on 2026-10-30 (§4.5.7 item 2).
 
 ### 3.3 Contributor barrier (P-GH-6)
 
@@ -171,7 +172,7 @@ is in §4.5.7, and what nobody has decided yet is in §3.6.
 
 ### 3.4 Before the first push (P-GH-8)
 
-D152: `Open-EnB/EnB`, branch `master`, private first; pushed 2026-10-30.
+D152: `Open-EnB/EnB`, branch `master`, private first; pushed 2026-10-30; public 2026-10-30 (§4.5.7 item 2).
 
 * Line endings: D147, LF everywhere.
 * Commit email: D145, unchanged.
@@ -428,8 +429,8 @@ Live since PR #1 merged (abad8ec, 2026-10-30): the Claims workflow runs from mas
 green); the scheduled task runs master's `verify_watch.py` from `.work/wt/verifier`; `run_branch.py` opens the run's
 draft PR at the first push. Automerge is **off**.
 
-1. **The rehearsal (step 7), with the first outside contributor** (on the private repository: invited with read
-   access, which counts as a contributor; once public: anyone). Watch each step and fix what breaks:
+1. **The rehearsal (step 7), with the first outside contributor** (the repository is public: anyone can claim
+   and open a PR). Watch each step and fix what breaks:
    1. their claim through the issue form: granted by the Action, listed by `claims.py list`;
    2. a PR from their fork with `Claims #N` that only edits C++: `vc6-verify` within about 5 minutes; with no
       VC6 their imports.json differs, which the comment notes without failing;
@@ -442,13 +443,14 @@ draft PR at the first push. Automerge is **off**.
    7. then `python tools/vc6/verify_watch.py automerge on`, if the user agrees.
    Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
-2. **The public switch** (the user decides when). Before it: ~~a final read of what becomes public~~ (done
+2. ~~**The public switch**~~ (done 2026-10-30). Before it: ~~a final read of what becomes public~~ (done
    2026-10-30, §3.4), and ~~the org profile repository~~ (done 2026-10-30: `Open-EnB/.github`, private, with the
-   profile README, the non-affiliation notice and default SECURITY / code of conduct; §3.2). Then make both
-   repositories public (`.github` first, so the org page shows the profile) and apply `.work/ruleset.json`
-   (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
-   vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,
+   profile README, the non-affiliation notice and default SECURITY / code of conduct; §3.2). **Done 2026-10-30
+   (evening):** both repositories public (the user); on EnB the ruleset `Protect master (D148)` (id 26253673, from
+   `.work/ruleset.json`: master no deletion, no force-push, PR required, required checks `checks` and
+   `vc6-verify`), private vulnerability reporting, secret scanning with push protection (the coordinator, through
+   `gh`, at the user's request). The rehearsal may come before or after; until it has passed,
    automerge stays off and every landing is a maintainer's `/land`.
 3. **Small follow-ups:** D148's token scoped to this one repository for the coordinator's pushes (today the
    maintainer's `gh` login, §3.1); `actions/checkout@v4` and `setup-python@v5` to their current majors (GitHub's Node 20
-   deprecation warning); the hourly Claims schedule costs Actions minutes while the repository is private.
+   deprecation warning); the hourly Claims schedule cost Actions minutes while the repository was private (public since 2026-10-30).

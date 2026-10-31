@@ -70,17 +70,17 @@
 #include <time.h>
 #include <string>
 #include <vector>
-// rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch, declared as far as
-// the handlers call it
+// rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch
+#include "..\shared\rs_track.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
-class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
-{
-public:
-	void Unknown_4604D0(int render_state_id);	// 0x4604D0 (ACTIVATE_RENDER_STATE 48)
-	void Unknown_460780(int render_state_id);	// 0x460780 (DEACTIVATE_RENDER_STATE 50)
-	void Unknown_460850(int render_state_id);	// 0x460850 (ACTIVATE_NEXT_RENDER_STATE 49)
-	void Unknown_460880(int render_state_id, int link_id);	// 0x460880 (INIT_RENDER_STATE 47)
-};
+
+
+
+
+
+
+
+
 
 // sound_manager.cpp's sound manager (the global 0xBE82A4), declared as far as the sound packets call it
 class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp

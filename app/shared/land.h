@@ -81,6 +81,8 @@ public:
 // NAME 2: after what they do (0x4746C0, called by Load_Assets per patch; 0x474790)
 	void							Init(int size, int x, int y, float detail_u, float detail_v);
 	void							Build_Vertices(int x, int y, float detail_u, float detail_v);
+// NAME 2: the patch's strip at its level: what Render 0x474B30 inlines (0x474590, its out-of-line copy is unreferenced)
+	void							Draw_Strip(void);
 	void							Draw(void);			// NAME 2: the patch's four quarters of its level's indices (0x4745D0, called by Render 0x474B30)
 
 
@@ -213,6 +215,10 @@ protected:
 	void							Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c);
 // NAME 1: unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80)
 	void							Unknown_472F80(unsigned char *red, unsigned char *green, unsigned char *blue, unsigned char *horizons, unsigned char normal, const Vector3 &color);
+// NAME 2: the index of the table normal nearest n (0x46F0A0) and the colour map's colour of a grid vertex (0x470EF0): both inlined
+// by their callers (0x46F120, 0x470F80); the out-of-line copies are unreferenced
+	unsigned char					Nearest_Normal(const Vector3 &n);
+	void							Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color);
 // NAME 1: unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3)
 	void							Unknown_4733C0(int row, float ratio, unsigned short *out);
 	void							Unknown_473780(int row, float ratio, unsigned char *out);

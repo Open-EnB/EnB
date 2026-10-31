@@ -2,7 +2,7 @@
 
     python tools/vc6/sgistl_adapt.py
 
-Every change is an exact (old, new) pair that must occur once; the result is CRLF.
+Every change is an exact (old, new) pair that must occur once; the result is LF (D147).
 """
 import os
 import sys
@@ -52,6 +52,20 @@ EDITS = {
          '            const _EqualKey&   __eql)  ' + TAG + "no allocator argument: the client's out-of-line copies take "
          'three (ret 0xC: buff_database.cpp 0x6778A0, tutorial_manager.cpp 0x6AE250) */\n'
          '    : _M_hash(__hf),'),
+        # VC6 refuses `typename` inside the pair<> of an out-of-class member's return type once the member is
+        # instantiated (C2899); without it VC6 takes the dependent name as a type (P-H7-1)
+        ('pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator, bool> \n'
+         'hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>\n  ::insert_unique_noresize(',
+         'pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator, bool>  ' + TAG + 'no typename (C2899) */\n'
+         'hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>\n  ::insert_unique_noresize('),
+        ('pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator,\n'
+         '     typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator> \n',
+         'pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator,  ' + TAG + 'no typename (C2899) */\n'
+         '     hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator>\n'),
+        ('pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator, \n'
+         '     typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator> \n',
+         'pair<hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator,  ' + TAG + 'no typename (C2899) */\n'
+         '     hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::const_iterator>\n'),
     ],
     'stl_hash_map.h': [
         ('#include <concept_checks.h>\n', ''),
@@ -102,7 +116,7 @@ def main():
             text = text.replace(old, new)
         text = HEAD + text
         with open(os.path.join(DST, name), 'wb') as f:
-            f.write(text.replace('\n', '\r\n').encode('ascii'))
+            f.write(text.encode('ascii'))
         print(name, 'written')
 
 

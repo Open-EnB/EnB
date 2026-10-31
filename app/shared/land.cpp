@@ -728,16 +728,20 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 // NAME 1: unknown; draws triangles of the land under a projector (0x477E20, its vector by value)
 void Unknown_477E20(std::vector<Vector3> verts);
 
-// NAME 2: a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds)
-static inline void Add_Sea_Quad(DynamicVectorClass<Vector3> &quads, float x, float y, float dx, float dy, float z)
-{
-	quads.Add(Vector3(x, y, z));
-	quads.Add(Vector3(x + dx, y, z));
-	quads.Add(Vector3(x + dx, y + dy, z));
-	quads.Add(Vector3(x, y + dy, z));
-}
+// NAME 2: a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and
+// calls the DX8 setters at its end out of line; through an inline function the extra level leaves the Adds out of line
+#define Add_Sea_Quad(quads, x, y, dx, dy, z) do { \
+	float qx_ = (x); float qy_ = (y); float qdx_ = (dx); float qdy_ = (dy); float qz_ = (z); \
+	(quads).Add(Vector3(qx_, qy_, qz_)); \
+	(quads).Add(Vector3(qx_ + qdx_, qy_, qz_)); \
+	(quads).Add(Vector3(qx_ + qdx_, qy_ + qdy_, qz_)); \
+	(quads).Add(Vector3(qx_, qy_ + qdy_, qz_)); \
+} while (0)
 
-// NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101)
+// NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101). The world transforms are the
+// client's Set_Transform(D3DTS_WORLD, identity) (its ??_H arrays and the flags' and ~WORLD_IDENTITY | WORLD_CHANGED), not
+// Set_World_Identity. Left (inline budget): the patch transform's Matrix3D rows inline (the client constructs them
+// through ??_H), the second buffer pass's textures out of line and its shader inline (the client the reverse)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
@@ -762,8 +766,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3((*patch)->X, (*patch)->Y, (*patch)->Z));
 				DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
 				Set_Strip_Buffer(level);
-				DX8Wrapper::Set_Vertex_Buffer((*patch)->VertexBuffer);
-				DX8Wrapper::Draw_Strip(0, (unsigned short)StripCounts[level], 0, (unsigned short)(*patch)->VertexCount);
+				(*patch)->Draw_Strip();
 				if (level != 0 && (*patch)->Quarters != 0) {
 					Set_Edge_Buffer(level);
 					(*patch)->Draw();
@@ -810,7 +813,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			}
 		}
 		DX8Wrapper::Set_Index_Buffer(ib, 0);
-		DX8Wrapper::Set_World_Identity();
+		DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(true));
 		for (int sea = 0; sea < SeaCount; sea++) {
 			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, (unsigned short)count);
 			{
@@ -846,10 +849,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 
 	// the projectors on the land (+0x1218): their boxes' triangles drawn with their material passes
 	static std::vector<Vector3> projected;
-	DX8Wrapper::Set_World_Identity();
+	DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix3D(true));
 	for (std::vector< RefCountPtr<TexProjectClass> >::iterator it = Unknown1218.begin(); it != Unknown1218.end(); it++) {
 		TexProjectClass *projector = (*it).Peek();
-		projected.erase(projected.begin(), projected.end());
+		projected.clear();
 		Field->Get_Triangles(projector->Get_Bounding_Volume(), projected);
 		projector->Peek_Material_Pass()->Install_Materials();
 		Unknown_477E20(projected);
@@ -1034,11 +1037,20 @@ void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &
 	}
 }
 
-// NOT EXACT: inline-budget (the client calls the string's assign and the names' insert out of line and inlines the decorations'
-// insert; 5 forms, attempts.csv 0x478B50)
+// NAME 2: one inline level around the name's string and push_back: the client calls the string's assign and the names'
+// insert out of line, as this depth gives (Load_Decorations_Ini 0x478B50)
+static inline void Land_Add_Name(std::vector<std::string> &names, const char *name)
+{
+	std::string string(name);
+	names.push_back(string);
+}
+
+// NOT EXACT: inline-budget (32 masked rows: inside the inlined decorations' insert the client calls size() 0x47D170 and
+// _Ufill 0x47E560 out of line, ours inlines them; the ini sits 4 bytes lower; attempts.csv 0x478B50)
 void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	INIClass ini;
+	char section[256];
 	ini.Load(filename);
 	if (ini.Is_Loaded()) {
 		int count = ini.Get_Int("Prototypes", "NUM_PROTOS", 0);
@@ -1047,13 +1059,11 @@ void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vecto
 			char name[1024];
 			sprintf(entry, "PROTO%d", i);
 			ini.Get_String("Prototypes", entry, "TDTREE01A", name, sizeof(name));
-			std::string string(name);
-			names.push_back(string);
+			Land_Add_Name(names, name);
 		}
 		unsigned int proto_count;
 		if (names.begin() != NULL && (proto_count = names.size()) != 0) {
 			int n = 0;
-			char section[256];
 			sprintf(section, "DECO%d", n);
 			while (ini.Find_Section(section) != NULL) {
 				LandDecorationStruct decoration;
@@ -1516,7 +1526,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 	}
 }
 
-// NOT EXACT: frame (0x3C, the client 0x48: a 12-byte local holding the y, the x and y through the FPU; 7 forms, attempts.csv 0x479A50)
+// The decorations as the .dec file: the prototype names (32 bytes each), then per decoration its record (the translation through
+// Get_Translation's out-parameter form, as the client's frame shows)
 void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	unsigned int count = names.size();
@@ -1540,7 +1551,8 @@ void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<La
 		LandDecorationRecordStruct record;
 		record.Proto = (unsigned char)decorations[id].Proto;
 		Quaternion rotation = Build_Quaternion(decorations[id].Transform);
-		Vector3 pos = decorations[id].Transform.Get_Translation();
+		Vector3 pos;
+		decorations[id].Transform.Get_Translation(&pos);
 		record.Rotation = rotation;
 		record.X = pos.X;
 		record.Y = pos.Y;
@@ -1591,34 +1603,44 @@ void LandPatchClass::Init(int size, int x, int y, float detail_u, float detail_v
 	Build_Vertices(x, y, detail_u, detail_v);
 }
 
-// NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790)
+// NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790)
 void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v)
 {
 	float lowest = 2.0f;
 	float highest = -1.0f;
 	float inv_size = 1.0f / (float)(unsigned int)Land->Field->Get_Size();
 	float vscale = Land->Field->Get_VScale();
-	VertexBufferClass::WriteLockClass lock(VertexBuffer);
-	LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
-	for (int j = 0; j < Size; j++) {
-		int xi = x;
-		for (int i = 0; i < Size; i++) {
-			vertex->Y = (float)j;
-			vertex->X = (float)i;
-			float height = Land->Field->Get_Height_2(xi, j + y) * (1.0f / vscale);
-			if (height <= lowest) lowest = height;
-			if (highest <= height) highest = height;
-			vertex->Z = height;
-			vertex->V1 = (float)(j + y) * inv_size;
-			vertex->V2 = vertex->V1 * detail_v;
-			float u = (float)xi * inv_size;
-			vertex->U1 = u;
-			vertex->U2 = u * detail_u;
-			vertex++;
-			xi++;
+	float height_scale = 1.0f / vscale;
+	{
+		VertexBufferClass::WriteLockClass lock(VertexBuffer);
+		LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
+		for (int j = 0; j < Size; j++) {
+			int xi = x;
+			for (int i = 0; i < Size; i++) {
+				vertex->X = (float)i;
+				vertex->Y = (float)j;
+				float height = Land->Field->Get_Height_2(xi, j + y) * height_scale;
+				if (lowest >= height) lowest = height;
+				if (highest <= height) highest = height;
+				vertex->Z = height;
+				float v = (float)(j + y) * inv_size;
+				vertex->V1 = v;
+				vertex->V2 = v * detail_v;
+				float u = (float)xi * inv_size;
+				vertex->U1 = u;
+				vertex->U2 = u * detail_u;
+				vertex++;
+				xi++;
+			}
 		}
 	}
 	MidHeight = (highest + lowest) * 0.5f;
+}
+
+void LandPatchClass::Draw_Strip(void)
+{
+	DX8Wrapper::Set_Vertex_Buffer(VertexBuffer);
+	DX8Wrapper::Draw_Strip(0, (unsigned short)Land->StripCounts[Level], 0, (unsigned short)VertexCount);
 }
 
 void LandPatchClass::Draw(void)
@@ -1821,7 +1843,7 @@ void LandClass::Apply_Colors(void)
 	}
 }
 
-// NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240)
+// The strips run forward and back on alternate rows (an int flag); the edge buffers' fans per side
 void LandClass::Build_Index_Buffers(int size)
 {
 	int level = MAX_LEVELS - 1;
@@ -1833,18 +1855,17 @@ void LandClass::Build_Index_Buffers(int size)
 		{
 			IndexBufferClass::WriteLockClass lock(StripBuffers[level]);
 			unsigned short *index = lock.Get_Index_Array();
-			bool forward = true;
+			int forward = 1;
 			for (int row = step; row < size; row += step) {
 				if (forward) {
 					for (int col = 0; col < size - step; col += step) {
 						*index++ = row * size + col;
 						*index++ = col + (row - step) * size;
 					}
-					unsigned short last = (row + 1) * size - 1;
-					*index++ = last;
+					*index++ = (row + 1) * size - 1;
 					*index++ = (row - step + 1) * size - 1;
-					*index++ = last;
-					*index++ = last;
+					*index++ = (row + 1) * size - 1;
+					*index++ = (row + 1) * size - 1;
 				} else {
 					*index++ = (row - step + 1) * size - 1;
 					*index++ = (row + 1) * size - 1;
@@ -1865,28 +1886,26 @@ void LandClass::Build_Index_Buffers(int size)
 			EdgeBuffers[level] = new DX8IndexBufferClass(EdgeCounts[level]);
 			IndexBufferClass::WriteLockClass lock(EdgeBuffers[level]);
 			unsigned short *index = lock.Get_Index_Array();
-			int half = step >> 1;
 			int i;
 			for (i = step; i <= size; i += step) {
 				*index++ = (i - step) * size;
 				*index++ = i * size;
-				*index++ = (i - half) * size;
+				*index++ = (i - (step >> 1)) * size;
 			}
 			for (i = step; i < size; i += step) {
 				*index++ = (i - step + 1) * size - 1;
-				*index++ = (i - half + 1) * size - 1;
+				*index++ = (i - (step >> 1) + 1) * size - 1;
 				*index++ = (i + 1) * size - 1;
 			}
 			for (i = step; i < size; i += step) {
 				*index++ = i - step;
-				*index++ = i - half;
+				*index++ = i - (step >> 1);
 				*index++ = i;
 			}
-			int last = (size - 1) * size;
 			for (i = step; i < size; i += step) {
-				*index++ = last - step + i;
-				*index++ = i + last;
-				*index++ = i + (last - half);
+				*index++ = (size - 1) * size - step + i;
+				*index++ = i + (size - 1) * size;
+				*index++ = i + ((size - 1) * size - (step >> 1));
 			}
 		}
 	} while (level-- != 0);
@@ -1895,6 +1914,45 @@ void LandClass::Build_Index_Buffers(int size)
 // NAME 2: the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC)
 static const float LandDirectionX[8] = { 0.70710677f, 0.29289323f, -0.29289323f, -0.70710677f, -0.70710677f, -0.29289323f, 0.29289323f, 0.70710677f };
 static const float LandDirectionY[8] = { 0.29289323f, 0.70710677f, 0.70710677f, 0.29289323f, -0.29289323f, -0.70710677f, -0.70710677f, -0.29289323f };
+
+// NAME 2: a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30:
+// 16 bits). Inlined everywhere; the client keeps their unreferenced out-of-line copies
+unsigned char Pack_Slope8(float slope)
+{
+	unsigned char code;
+	if (slope >= 248.0f) {
+		code = 0x7F;
+	} else if (slope <= 0.00390625f) {
+		code = 0;
+	} else {
+		code = (unsigned char)((*(unsigned int *)&slope >> 19) - 0x770);
+	}
+	return code;
+}
+
+float Unpack_Slope8(unsigned char code)
+{
+	unsigned int bits = (code + 0x770) << 19 | 0x7FFFF;
+	return *(float *)&bits;
+}
+
+unsigned short Pack_Slope16(float slope)
+{
+	if (slope >= 255.96875f) {
+		return 0x7FFF;
+	}
+	if (slope <= 0.00390625f) {
+		return 0;
+	}
+	return (unsigned short)((*(unsigned int *)&slope >> 11) - 0x7000);
+}
+
+float Unpack_Slope16(unsigned short code)
+{
+	unsigned int bits = (code + 0x77000) << 11 | 0x7FF;
+	return *(float *)&bits;
+}
+
 // NAME 2: per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8)
 Vector3 LandHorizonTable[8][256];
 
@@ -1917,7 +1975,8 @@ void LandClass::Init_Horizon_Tables(void)
 	}
 }
 
-// NOT EXACT: functional, from the disassembly of 0x46E120
+// The casters into the height field: each vertex under a caster's box is raised to where a ray straight down from the box's top hits it.
+// The client passes the corner Vector3 itself as World_To_Grid's Vector2 (its X, Y)
 void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &casters, unsigned char *mask)
 {
 	if (Field->Is_Wrapping()) {
@@ -1929,17 +1988,17 @@ void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &caste
 		const AABoxClass &box = caster->Get_Bounding_Box();
 		float top = 0.0f;
 		Vector3 corner = box.Center - box.Extent;
-		if (corner.Z >= top) {
+		if (top <= corner.Z) {
 			top = corner.Z;
 		}
 		float x0, y0;
-		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x0, &y0);
+		Field->World_To_Grid((const Vector2 &)corner, &x0, &y0);
 		corner = box.Center + box.Extent;
 		if (top <= corner.Z) {
 			top = corner.Z;
 		}
 		float x1, y1;
-		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x1, &y1);
+		Field->World_To_Grid((const Vector2 &)corner, &x1, &y1);
 		if (x1 < x0 || y1 < y0) {
 			continue;
 		}
@@ -1966,10 +2025,12 @@ void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &caste
 				Field->Get_Vertex(x, y, &vertex);
 				if (vertex.Z < top) {
 					// a ray straight down from the casters' top onto the vertex: a hit raises the vertex to it
-					LineSegClass ray(Vector3(vertex.X, vertex.Y, top), vertex);
 					CastResultStruct result;
 					result.ComputeContactPoint = true;
-					RayCollisionTestClass raytest(ray, &result);
+					Vector3 p0 = vertex;
+					p0.Z = top;
+					LineSegClass ray(p0, vertex);
+					RayCollisionTestClass raytest(ray, &result, COLLISION_TYPE_ALL);
 					caster->Cast_Ray(raytest);
 					if (result.Fraction < 1.0f) {
 						Field->Set_Height_2(result.ContactPoint.Z > vertex.Z ? result.ContactPoint.Z : vertex.Z, x, y);
@@ -2066,14 +2127,14 @@ static const float LandNormalTable[256][3] = {
 	{ 0.611089f, -0.253121f, 0.75f }, { 0.538586f, -0.22309f, 0.8125f }, { 0.447271f, -0.185266f, 0.875f }, { 0.321496f, -0.133168f, 0.9375f }
 };
 
-// NAME 1: unknown; the index of the table normal nearest a vertex normal (largest dot product, first wins ties).
-// The client inlines it eight times; it adds the dot product's terms Z first: n.Z * N.Z + n.X * N.X + n.Y * N.Y
-static inline unsigned char Land_Nearest_Normal(const Vector3 *normals, const Vector3 &n)
+// The index of the table normal nearest a vertex normal (largest dot product, first wins ties); 0x46F120 inlines it eight times
+unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 {
 	unsigned char best_index = 0;
 	float best = -1.0f;
 	for (int k = 0; k < 256; k++) {
-		float dot = n.Z * normals[k].Z + n.X * normals[k].X + n.Y * normals[k].Y;
+		const Vector3 &N = Normals[k];
+		float dot = N.X * n.X + N.Z * n.Z + N.Y * n.Y;
 		if (dot > best) {
 			best = dot;
 			best_index = (unsigned char)k;
@@ -2127,7 +2188,7 @@ void LandClass::Unknown_46F120(void)
 				+ Vector3::Cross_Product(v21, v22) + Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v12, v02)
 				+ Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v01, v00);
 			n.Normalize();
-			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Nearest_Normal(n);
 			index += size - 1;
 		}
 		index = (size - 1) * size;
@@ -2152,10 +2213,10 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v02, v01);
 			n.Normalize();
-			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Nearest_Normal(n);
 			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v21, v22);
 			n.Normalize();
-			Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + 1] = Nearest_Normal(n);
 			index += 2;
 		}
 		index = (size - 1) * size + 1;
@@ -2181,10 +2242,10 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v10, v20) + Vector3::Cross_Product(v00, v10);
 			n.Normalize();
-			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Nearest_Normal(n);
 			n = Vector3::Cross_Product(v12, v02) + Vector3::Cross_Product(v22, v12);
 			n.Normalize();
-			Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size] = Nearest_Normal(n);
 			index += size - 1;
 		}
 		index += 3 - size * 2;
@@ -2209,20 +2270,26 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v22(spacing, spacing, h22 - h);
 			n = Vector3::Cross_Product(v01, v00) + Vector3::Cross_Product(v00, v10);
 			n.Normalize();
-			Unknown1E4[index] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index] = Nearest_Normal(n);
 			n = Vector3::Cross_Product(v20, v21) + Vector3::Cross_Product(v10, v20);
 			n.Normalize();
-			Unknown1E4[index + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + 1] = Nearest_Normal(n);
 			n = Vector3::Cross_Product(v02, v01) + Vector3::Cross_Product(v12, v02);
 			n.Normalize();
-			Unknown1E4[index + size] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size] = Nearest_Normal(n);
 			n = Vector3::Cross_Product(v22, v12) + Vector3::Cross_Product(v21, v22);
 			n.Normalize();
-			Unknown1E4[index + size + 1] = Land_Nearest_Normal(Normals, n);
+			Unknown1E4[index + size + 1] = Nearest_Normal(n);
 			index += 2;
 		}
 		index += size + 1;
 	}
+}
+
+void LandClass::Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color)
+{
+	unsigned char *rgb = &Colors[((y << Field->Get_Log2()) + x) * 3];
+	color.Set((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
 }
 
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80
@@ -2466,15 +2533,16 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	n++;
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x472F80
+// NOT EXACT: literal (14 masked rows: the direction loop's x87 stack, the client copies nz where ours copies w.Y and keeps w.Y one step longer; attempts.csv 0x472F80)
 void LandClass::Unknown_472F80(unsigned char *red, unsigned char *green, unsigned char *blue,
 	unsigned char *horizons, unsigned char normal, const Vector3 &color)
 {
 	// 1 / sin(67.5), 1 / sin(22.5) degrees: per direction 2..5, the step's length over the cell
 	float scales[4] = { 1.0823922f, 2.613126f, 2.613126f, 1.0823922f };
-	float nx = Normals[normal].X;
-	float ny = Normals[normal].Y;
-	float nz = Normals[normal].Z;
+	const Vector3 &n = Normals[normal];
+	float nx = n.X;
+	float ny = n.Y;
+	float nz = n.Z;
 	// the caller's codes into LandDirection order: 0 is +x (the horizon at +0x1EC), 4 is -x (+0x1E8)
 	unsigned char dirs[8];
 	dirs[0] = horizons[1];
@@ -2488,36 +2556,28 @@ void LandClass::Unknown_472F80(unsigned char *red, unsigned char *green, unsigne
 	// the vertex's own slope raises the horizon on the side it faces away from
 	int i;
 	for (i = 0; i < 4; i++) {
-		float z = nz * LandDirectionY[i + 2];
-		float d = LandDirectionX[i + 2] * ny - LandDirectionY[i + 2] * nx;
+		Vector3 w(LandDirectionX[i + 2], LandDirectionY[i + 2], 0.0f);
+		Vector3 c;
+		c.X = nz * w.Y;
+		c.Z = w.X * ny - w.Y * nx;
+		float d = c.Z;
 		int dir = i;
 		if (d <= 0.0f) {
 			dir = i + 4;
 		}
-		float t = (float)fabs(d) / ((float)fabs(z) * scales[i]);
-		unsigned char code;
-		if (t < 248.0f) {
-			if (t > 0.00390625f) {
-				code = (unsigned char)((*(unsigned int *)&t >> 19) - 0x770);	// the client: sub al, 0x70
-			} else {
-				code = 0;
-			}
-		} else {
-			code = 0x7F;
-		}
-		if (dirs[dir] > code) {
-			code = dirs[dir];
-		}
-		dirs[dir] = code;
+		float t = (float)fabs(d) / ((float)fabs(c.X) * scales[i]);
+		unsigned char code = Pack_Slope8(t);
+		dirs[dir] = (dirs[dir] > code) ? dirs[dir] : code;
 	}
 	// the sky seen over the eight horizons, cosine-weighted by the normal
 	float sx = 0.0f;
 	float sy = 0.0f;
 	float sz = 0.0f;
 	for (i = 0; i < 8; i++) {
-		sx += LandHorizonTable[i][dirs[i]].X;
-		sy += LandHorizonTable[i][dirs[i]].Y;
-		sz += LandHorizonTable[i][dirs[i]].Z;
+		const Vector3 &h = LandHorizonTable[i][dirs[i]];
+		sx += h.X;
+		sy += h.Y;
+		sz += h.Z;
 	}
 	float sky = sx * nx + (sy * ny + sz * nz);	// the client adds y and z first
 	// bounced light: the share grows with the ground's colour where the sky is hidden
@@ -2525,11 +2585,14 @@ void LandClass::Unknown_472F80(unsigned char *red, unsigned char *green, unsigne
 	float g = sky / (1.0f - (1.0f - sky) * color.Y);
 	float b = sky / (1.0f - (1.0f - sky) * color.Z);
 	// at least 1 / 512 (a double), then 0..1 to a byte as 256 x - 1: the low byte of x + 32768 as a float
-	float fr = (float)((r > 0.00195314 ? r : 0.00195314) + 32768.0f);
-	float fg = (float)((g > 0.00195314 ? g : 0.00195314) + 32768.0f);
-	float fb = (float)((b > 0.00195314 ? b : 0.00195314) + 32768.0f);
+	float mr = r > 0.00195314 ? r : 0.00195314;
+	float mg = g > 0.00195314 ? g : 0.00195314;
+	float mb = b > 0.00195314 ? b : 0.00195314;
+	float fr = mr + 32768.0f;
 	*red = (unsigned char)(*(unsigned char *)&fr - 1);
+	float fg = mg + 32768.0f;
 	*green = (unsigned char)(*(unsigned char *)&fg - 1);
+	float fb = mb + 32768.0f;
 	*blue = (unsigned char)(*(unsigned char *)&fb - 1);
 }
 
@@ -2616,29 +2679,6 @@ void LandClass::Unknown_473290(unsigned char **a, unsigned char **b, unsigned ch
 	}
 }
 
-// NAME 2: a horizon slope as the high bits of its float, saturating (0x4733C0: 16 bits; 0x473780 / 0x473BC0: 8 bits)
-static inline unsigned short Pack_Slope16(float slope)
-{
-	if (slope >= 255.96875f) {
-		return 0x7FFF;
-	}
-	if (slope <= 0.00390625f) {
-		return 0;
-	}
-	return (unsigned short)((*(unsigned int *)&slope >> 11) - 0x7000);
-}
-
-static inline unsigned char Pack_Slope8(float slope)
-{
-	if (slope >= 248.0f) {
-		return 0x7F;
-	}
-	if (slope <= 0.00390625f) {
-		return 0;
-	}
-	return (unsigned char)((*(unsigned int *)&slope >> 19) - 0x70);
-}
-
 void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
@@ -2678,42 +2718,44 @@ void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 	}
 }
 
-// NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780)
+// NOT EXACT: shape (28 masked rows: the outer loop's set-up order and the left / right updates' scheduling, as 0x473BC0; attempts.csv 0x473780)
 void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	unsigned short *heights = Field->Get_Heights();
-	unsigned int next = row + 1;
 	float diagonal = scale * 0.70710677f;
-	unsigned int row1 = (next & Field->Get_Mask()) << Field->Get_Log2();
+	unsigned short *heights = Field->Get_Heights();
+	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
-		float best_left = 0.05f;
-		float best_mid = 0.05f;
-		float best_right = 0.05f;
+		Vector3 best(0.05f, 0.05f, 0.05f);
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
-		unsigned int y = next;
+		unsigned int y = row + 1;
 		unsigned int offset = row1;
-		unsigned int left = i;
 		unsigned int right = i1;
+		unsigned int left = i;
 		for (int k = 0; k < 12; k++) {
-			float h_left = heights[(left & Field->Get_Mask()) + offset];
-			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
-			float h_right = heights[(right & Field->Get_Mask()) + offset];
-			float s_left = (h_left - center) * diagonal * *recip;
-			float s_mid = (mid - center) * scale * *recip;
-			float s_right = (h_right - center) * diagonal * *recip;
-			if (s_left > best_left) {
-				best_left = s_left;
+			Vector3 h;
+			h.X = heights[(left & Field->Get_Mask()) + offset];
+			h.Y = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			h.Z = heights[(right & Field->Get_Mask()) + offset];
+			Vector3 s;
+			s.X = (h.X - center) * diagonal;
+			s.X *= *recip;
+			s.Y = (h.Y - center) * scale;
+			s.Y *= *recip;
+			s.Z = (h.Z - center) * diagonal;
+			s.Z *= *recip;
+			if (s.X > best.X) {
+				best.X = s.X;
 			}
-			if (s_mid > best_mid) {
-				best_mid = s_mid;
+			if (s.Y > best.Y) {
+				best.Y = s.Y;
 			}
-			if (s_right > best_right) {
-				best_right = s_right;
+			if (s.Z > best.Z) {
+				best.Z = s.Z;
 			}
 			y = (y + 1) & Field->Get_Mask();
 			recip += 2;
@@ -2722,48 +2764,51 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 			offset = (offset + Field->Get_Size()) & Field->Get_Count_Mask();
 			dist += 2.0f;
 		}
-		out[0] = Pack_Slope8(best_left);
-		out[1] = Pack_Slope8(best_mid);
-		out[2] = Pack_Slope8(best_right);
+		out[0] = Pack_Slope8(best.X);
+		out[1] = Pack_Slope8(best.Y);
+		out[2] = Pack_Slope8(best.Z);
 		out += 3;
 	}
 }
 
-// NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0)
+// NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0)
 void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	unsigned short *heights = Field->Get_Heights();
 	float diagonal = scale * 0.70710677f;
+	unsigned short *heights = Field->Get_Heights();
 	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[i1 + row0] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
-		float best_left = 0.05f;
-		float best_mid = 0.05f;
-		float best_right = 0.05f;
+		Vector3 best(0.05f, 0.05f, 0.05f);
+		unsigned int right = i1;
+		unsigned int y = row;
+		unsigned int left = i;
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
-		unsigned int y = row;
 		unsigned int offset = row0;
-		unsigned int left = i;
-		unsigned int right = i1;
 		for (int k = 0; k < 12; k++) {
-			float h_left = heights[(left & Field->Get_Mask()) + offset];
-			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
-			float h_right = heights[(right & Field->Get_Mask()) + offset];
-			float s_left = (h_left - center) * diagonal * *recip;
-			float s_mid = (mid - center) * scale * *recip;
-			float s_right = (h_right - center) * diagonal * *recip;
-			if (s_left > best_left) {
-				best_left = s_left;
+			Vector3 h;
+			h.X = heights[(left & Field->Get_Mask()) + offset];
+			h.Y = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			h.Z = heights[(right & Field->Get_Mask()) + offset];
+			Vector3 s;
+			s.X = (h.X - center) * diagonal;
+			s.X *= *recip;
+			s.Y = (h.Y - center) * scale;
+			s.Y *= *recip;
+			s.Z = (h.Z - center) * diagonal;
+			s.Z *= *recip;
+			if (s.X > best.X) {
+				best.X = s.X;
 			}
-			if (s_mid > best_mid) {
-				best_mid = s_mid;
+			if (s.Y > best.Y) {
+				best.Y = s.Y;
 			}
-			if (s_right > best_right) {
-				best_right = s_right;
+			if (s.Z > best.Z) {
+				best.Z = s.Z;
 			}
 			y = (y - 1) & Field->Get_Mask();
 			recip += 2;
@@ -2772,9 +2817,9 @@ void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 			offset = (offset - Field->Get_Size()) & Field->Get_Count_Mask();
 			dist += 2.0f;
 		}
-		out[0] = Pack_Slope8(best_left);
-		out[1] = Pack_Slope8(best_mid);
-		out[2] = Pack_Slope8(best_right);
+		out[0] = Pack_Slope8(best.X);
+		out[1] = Pack_Slope8(best.Y);
+		out[2] = Pack_Slope8(best.Z);
 		out += 3;
 	}
 }

@@ -308,8 +308,50 @@ unless `--lever` cites a new row of this table.
 | An out-of-line 0x13-byte copy of an SGI hashtable iterator in the client | The `const_iterator(const iterator &)` conversion: the client declared a const_iterator | ui_line_display (H10) |
 | `end()` read through the wrong register in a vector append | `push_back` and `insert(end(), x)` differ (`[ebx+8]` vs `[esi+0xa0]`): try the other | ui_line_display Flush_Lines (H10) |
 | A callee the client calls out of line only inside an inlined function, inlined at the direct sites | Wrap the call in a one-line inline helper (depth +1): the budget drops the deepest nested expansion, not the biggest or the latest in source order (the depth counted is the chain's cost) | land's lightmap threads 0x46DA70 / 0x46DDD0, 615b995 (F5) |
+| Many repeated inlinable calls all out of line in ours, the budget spent on later expansions (the reverse of F5's depth lever) | The repeated calls sit in an inline helper: write it as a macro, and they inline again | Render's sea Adds 0x474B30 (LD7, 55f1d2c5) |
+| `and ~0x40000` / `or 1` on the render-state flags beside a `??_H` Matrix4 / Matrix3D array | `Set_Transform(D3DTS_WORLD, Matrix4(true))` or `(Matrix3D(true))`, not `Set_World_Identity` | Render 0x474B30 (LD7) |
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch | land (F5) |
 | Both sums of a Vector2i computed before the two stores; `lea` addressing of the target | `Set(a, b)` on a reference local (`Vector2i &min = UpdateMin`); member stores don't give the `lea` | land (F5) |
+| An unreferenced client function next to a NOT EXACT caller | Often the out-of-line copy of a non-static helper the caller inlines: define it non-static, non-inline in the .cpp; the copy matches and the callers keep inlining it | land 0x46EE60..0x46F0A0, 0x470EF0, 0x474590 (LD6, dd60da4c) |
+| A 12-byte local holding a translation | `Matrix3D::Get_Translation(Vector3 *)`, the out-parameter overload; `Get_Translation()` gives another frame | Save_Decorations 0x479A50 (LD6) |
+| `test ecx,ecx; sete` where ours has `test cl,cl` on a flag tested then flipped | The flag is an `int`, not a `bool` | Build_Index_Buffers 0x478240 (LD6) |
+| Index scheduling off in a function whose same-file accessors ours expands by hand | Call the client's accessors (`Get_Height(i, j)`, `Get_Vertex`): they fix the scheduling and spend the inline budget the client spends | heightfield 0x464600, 0x465D30 / 0x466180, 0x4654E0 (LD8, 8d47d1ed) |
+| A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
+| An early `if (x == NULL) return(false);` keeps its own epilogue where the client shares the FAIL_IF exit | Wrap the rest in `if (x != NULL) { ... } return(false);` | scriptedmovie 0x807600 / 0x8078D0 / 0x807BE0 (SM2, 2cf99b80) |
+| ebx / ebp saved up front in the client, after the early exit in ours | Declare locals at first use and return per branch; top-initialised locals plus one final return delay the pushes | Play_Audio 0x806BD0 (SM2, 5bf43599) |
+| An out-of-line 16-byte copy (`mov eax,ecx; ... ret 4`, 0x80B100, 0x780AC0) | An inline user `operator=` the budget cut: declare one | scriptedmovie's destructor (SM2) |
+| One inline source that fixes the inlined copy and breaks the out-of-line one, or the reverse | Expected: the same inline compiles differently in each place; judge by pairs over both | 0x801D70 / 0x807520 (SM2) |
+| The client still indexes `array[index]` in a branch that tested `index == 0` (ours folds to `array[0]`) | It tested the member the local was copied from, not the local | ui_group 0x592A80 (UG1) |
+| One shared indexed load before an if / else of two calls | A named pointer: `if ((p = a[i].Peek()) != NULL)` | ui_group 0x593180 (UG1) |
+| A caller that expands a find loop matches only with `x.end()` re-read each pass | Don't cache `end()` in the loop | Get_Member inside Add_Member (UG1) |
+| The destructors that expand a member struct's destructor gain an EH state | An empty user destructor on the struct: drop it | ui_group (UG1) |
+| Two NameClass locals sharing one stack slot in the client | Put each inside an inline helper (a find-by-name helper); two block-scoped locals in one function get two slots | ui_manu 0x5B3640 / 0x5B3850 (MU1) |
+| `setne` / `test` on a compare result | `bool changed = a != b; if (changed)`; a plain `if` or an inline compare helper doesn't give it | ui_manu 0x5B67C0 (MU1) |
+| A pointer kept in a register across two member stores where ours reloads it after a float store through `RefCountPtr->` | An inline setter on the class | ui_manu 0x5B4850 (MU1) |
+| A static `__int64` initialised at load time | `static __int64 x = 5;` gets a dynamic initialiser in VC6 | ui_manu 0x5AF9D0 (MU1) |
+| A packet constructor's player id loaded before its other arguments | Read the ids through inline accessors (`Unknown_Avatar_ID(Client)`, `Unknown_Player_ID(Client)`) | ui_cpit 0x581CE0 / 0x583510 / 0x583250 (CP1, e83e04a1) |
+| The client expands std::string assign in some of many temporaries, not all | Mix explicit and implicit constructions: the split tunes the budget (18 temporaries: half and half was exact) | ui_cpit (CP1) |
+| A per-branch pointer reload | `(font = style.Peek())->X` | ui_cpit 0x5845A0 (CP1) |
+| Switch cases with frame slots of their own | Temporaries, not named locals (named locals share one slot) | ui_cpit (CP1) |
+| The client's zero register (`xor ebx,ebx; cmp reg,ebx; push ebx`) | Write the `= NULL` store in both branches | ui_scut 0x612430 (SC2, f5074a74) |
+| A 4-argument `_Sort_0` call (push 0; push a garbage byte) | std::sort with a comparison functor; a functor `operator()` giving `mov eax,1` returns int | ui_scut 0x6129C0 (SC2) |
+| `mov eax,key; dec eax; je` | A one-case `switch` with the default written first | ui_scut 0x610A40 (SC2) |
+| An inlined same-file base slot scheduled differently, its out-of-line copy exact | Call it qualified: `Base::Unknown_04(list)` | ui_scut 0x610800 / 0x611220 (SC2) |
+| A frame off in a loop over a computed index | A hoisted invariant in a named local: `int slot = Bar*3+1;` | ui_scut 0x611300 / 0x611710 (SC2) |
+| A same-file member defined later in the file inlined in ours, called out of line by the client | VC6 /Ob2 also inlines members defined after the caller: `#pragma auto_inline(off)` around the callee | ui_chat_panel 0x56C0C0 into 0x5630B0, 0x5685C0 into 0x56C0C0 (CH1) |
+| A register-only residue around a cdecl `Create_Get(f(x->member))` | An inline accessor for the member | ui_chat_panel 0x563DC0, 0x56BAA0, 0x562F50 (CH1) |
+| EH state numbers or the bigger inline expansion on the wrong branch | Lay out `if (a) X else Y` with the client's then-branch | ui_chat_panel 0x563910, 0x565F80 case 5 (CH1) |
+| `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
+| A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
+| A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
+| `fld`/`fstp` (or a stack spill) where ours passes a field straight through | The source called an inline accessor (ProjectionDefClass's Get_Intensity / Get_NearZ / Get_FarZ) | proj_man (PM1) |
+| A derived class's destructor that is a bare `jmp` to the base's | The compiler-generated destructor; an empty user-written one resets the vtables first | proj_man 0x494180 (PM1) |
+| Overloaded virtuals in the wrong slots | MSVC lays them out in reverse declaration order (CullSystemClass::Collect_Objects(Frustum) slot 1, (OBBox) slot 2) | proj_man (PM1) |
+| A strtok path walk with one strtok call at the loop top | `while (name) { next = strtok(NULL, sep); if (!next) { last step; break; } ...; name = next; }` | rs_track (RT1) |
+| A RefCountPtr released twice in a row | `REF_PTR_RELEASE(ptr)` | scriptedmovie (SM1) |
+| A direct call to a client virtual where ours goes through the vtable | Qualify it: `client->ClientClass::Add_Object(...)` | scriptedmovie (SM1) |
+| A call order or frame off around by-value arguments | `Get_Client()` inside the argument list; a named copy before a by-value argument; block-scoped temporaries | scriptedmovie 0x808330 and others (SM1) |
+| Which helpers an out-of-line insert calls | A non-inline same-file helper holding the push_back emits exactly those: a probe to identify them, not a shippable form | Get_Triangles (LD8) |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 070f7a5 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
 | Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 0452f48-28f0000 |
@@ -591,6 +633,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **A member added to a locally declared base shifts every derived class's padded fields** (2026-10-30, MU1): in a
+  draft it silently broke 10 exact functions; re-match the whole file after any base change.
+* **Two builders' adjacent RECONSTRUCTED rows in importer.py form one hunk** (2026-10-30, MU1 / CP1): commit_mine took
+  the other's rows before its files existed. Any `-U0` hunk that holds another builder's adjacent insertion goes with yours. Add your rows and commit them at once, or keep them apart.
 * **commit_mine `--file X` takes the working copy's imports.json entry as it is when the commit runs**
   (2026-10-29, PX3): another builder's verify can rewrite it between your verify and your commit (c50da63 lost its
   entry; 928fc7f restored it). After every commit check `git show HEAD:docs/data/imports.json` for your addresses.
@@ -610,6 +656,9 @@ unless `--lever` cites a new row of this table.
   difference: judge by pairs_cmp.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
   `--refresh-totals`, or the count needs a follow-up commit (a74439b).
+  Without `--file NAME` at all it leaves the file's whole imports.json entry out, silently (LD7's 55f1d2c5,
+  repaired in 361a0ec0). `--refresh-totals` copies `in_tree_total` from the working imports.json, another builder's
+  uncommitted gains included (LD8's 8d47d1ed recorded 4,791; SM1's 3271dea7 accounted for it).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
   file). `trial.py` and refine update both; a hand-made header change must update `headers`.
 * **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
@@ -697,8 +746,11 @@ unless `--lever` cites a new row of this table.
   (9263c0c) selects by block span instead. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
   alone switches `__FILE__` to the full path and `#line N "..\\shared/..."` needs escaped backslashes (T15).
 * **A verify worktree has no built app.lib** (P8): run `build.py build --lib app --allow-dirty` there (the worktree is yours alone) before `udpreplay build`.
-* sgistl's `insert_unique_noresize` fails in VC6 (C2899):
-  `hash_map::insert` is unusable, the client's inserts go through `operator[]` (P-H17-1). A file's canary function
+* sgistl's `insert_unique_noresize` compiles in VC6 since f918e190 (sgistl_adapt.py drops `typename` from the
+  `pair<typename hashtable<...>::...>` out-of-class return types; it failed with C2899 before, P-H17-1, P-H7-1):
+  `hash_map::insert` is usable now. Keep the existing explicit specializations of it at the top of attrib_dir.cpp /
+  ini_manager.cpp: removing them, or an explicit instantiation in their place, changes VC6's code for the table's
+  other members and loses 13 pairs (QT1, 2026-10-30). A file's canary function
   (client_lego_impl: the bone map constructor 0x72D5F0) flips with the file's contents: check it each verify.
 * A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
@@ -734,6 +786,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.5 Build VMs and vc6.py
 
+* **At most 4 parallel `appfile.py match --pool` jobs** (2026-10-30, RT1): more made pool.py half-create a clone
+  (enb-vc6-07, Off with a 0 GB disk; destroyed with `pool.py destroy`), and parallel matches collide in
+  `.work/appfile/appfile/obj`. In Git Bash, `--flags '/nologo ...'` is rewritten into a path (MSYS): prefix
+  `MSYS_NO_PATHCONV=1`.
 * **tryv2 without `--pool` uses `.work/vc6_hosts.json`, which can name a stopped VM** (2026-10-28, LD2): lease
   one and set `ENB_VC6_HOSTS=<user>@IP`.
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
@@ -761,6 +817,20 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`appfile.py match` reads a `#pragma auto_inline(off)` line as a function** (2026-10-30, SC2: "the object lacks
+  auto_inline"): put the pragma above the `// @0x` marker and pass `--allow-missing`.
+* **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
+  variants at the draft's end, objdiff each against the client address (`.work/sm2/gen_*.py`). Every variant counts
+  as a form (D141).
+* **docs/data/asserts.txt's file column is shifted** (2026-10-30, PM1, CH1): around 0xB71324, and 0xB7CB6C-0xB7CD30
+  (filed under ui_buff.cpp, ui_chat_panel.cpp's). Earlier note: shifted by one around 0xB71324: `CullObject != 0` is
+  proj_man.h line 207 and `texProject != NULL` (0xB71368) is rs_proj_sup.cpp line 58. Check a file attribution
+  against the neighbouring rows' line numbers there.
+* **names.py run while a tryv2 variant is in the tree** (2026-10-30, LD8) writes the variant's line numbers into
+  not-exact.md: rerun names.py on the restored file before committing.
+* **Check objmatch's status of the STL helpers a caller should call out of line** (2026-10-30, LD7) in your variant's
+  obj before working toward them: `multiple` (identical client copies, e.g. vector<RefCountPtr<T>>::insert 0x47D690)
+  never becomes a pair, however byte-identical; only the caller itself can gain.
 * **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
   `..\shared\` relative includes resolve, and use `-I auto` (it finds wwdebug / sgistl; a hand-written list misses them).
 * **`appfile.py match`: leave `-I` out** (2026-10-29, S8): `-I app/common` fails on wwudp's mempool.h; the default

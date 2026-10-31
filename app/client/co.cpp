@@ -845,15 +845,15 @@ public:
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
 };
 extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
-// rs_track.cpp's render object (0x100 bytes; ACTIVATE_RENDER_STATE 48 and INIT_RENDER_STATE 47 call the same two)
-class RsTrackClass	// NAME 3: class-from-file (D24) for app\shared\rs_track.cpp
-{
-public:
-	RsTrackClass(void *list, float scale, float *hsv);	// 0x45FFB0 (list: ClientClass +0x18's 0x764030)  // NAME 1 [list, scale, hsv]: what 0x6F51D0 passes
-	void Unknown_4604D0(int render_state_id);			// 0x4604D0
-	void Unknown_460880(int render_state_id, int link_id);	// 0x460880
-	char Unknown00[0x100];
-};
+// rs_track.cpp's render object (ACTIVATE_RENDER_STATE 48 and INIT_RENDER_STATE 47 call the same two)
+#include "..\shared\rs_track.h"
+
+
+
+
+
+
+
 // a holder of a segmented line (0x4981E0 makes one when asked; 0x4983A0 reads it from an INI section)
 class Unknown4981E0Class	// NAME 1: neutral (D10)
 {
@@ -907,7 +907,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		if (rslid == -1 || client == NULL) {
 			return(Unknown_BDADC0->Create_Render_Obj("missing"));
 		}
-		void *list = client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
+		RenderStateListClass *list = (RenderStateListClass *)client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
 		int link_id = ini.Get_Int(section, "LINKID", -1);
 		int rs_id = ini.Get_Int(section, "RSID", -1);
 		if (link_id == -1) {

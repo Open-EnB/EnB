@@ -68,7 +68,7 @@ HeightFieldClass::~HeightFieldClass(void)
 	}
 }
 
-// NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0)
+// The PGM reader 0x4637C0 (the same as VIDTEST's 0x4026B0): every token through one variable
 bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int max_size)
 {
 	char delimiters[] = " \r\n\t";
@@ -80,16 +80,20 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	char *text = new char[file->Size() + 1];
 	file->Read(text, file->Size());
 	text[file->Size()] = 0;
-	if (strstr(strtok(text, delimiters), "P2") == NULL) {
+	char *token = strtok(text, delimiters);
+	if (strstr(token, "P2") == NULL) {
 		delete [] text;
 		return false;
 	}
 	unsigned int width;
 	do {
-		width = atoi(strtok(NULL, delimiters));
+		token = strtok(NULL, delimiters);
+		width = atoi(token);
 	} while (width == 0);
-	unsigned int height = atoi(strtok(NULL, delimiters));
-	atoi(strtok(NULL, delimiters));
+	token = strtok(NULL, delimiters);
+	unsigned int height = atoi(token);
+	token = strtok(NULL, delimiters);
+	atoi(token);
 	if (width != height) {
 		delete [] text;
 		return false;
@@ -97,14 +101,13 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	Size = width;
 	Count = width * width;
 	Buffer = new char[width * width * 2 + 0x3E];
-	unsigned short *p = (unsigned short *)(((unsigned int)Buffer + 0x3E) & ~0x3F);
-	Heights = p;
+	Heights = (unsigned short *)(((unsigned int)Buffer + 0x3E) & ~0x3F);
+	unsigned short *p = Heights;
+	unsigned int n = Count;
 	MaxValue = 0;
-	for (unsigned int n = Count; n != 0; n--) {
+	while (n--) {
 		unsigned short value = (unsigned short)atoi(strtok(NULL, delimiters));
-		if (value > MaxValue) {
-			MaxValue = value;
-		}
+		MaxValue = (value > MaxValue) ? value : MaxValue;
 		*p++ = value;
 	}
 	_TheFileFactory->Return_File(file);
@@ -120,21 +123,21 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 		delete [] row;
 	}
 
-	if (max_size < Size) {
+	if (Size > max_size) {
 		unsigned int count = max_size * max_size;
 		void *buffer = new char[count * 2 + 0x3E];
 		unsigned short *heights = (unsigned short *)(((unsigned int)buffer + 0x3E) & ~0x3F);
 		unsigned int step = Size / max_size;
+		unsigned int area = step * step;
 		for (unsigned int j = 0; j < max_size; j++) {
 			for (unsigned int i = 0; i < max_size; i++) {
 				unsigned int sum = 0;
 				for (unsigned int y = 0; y < step; y++) {
-					unsigned short *src = &Heights[(j * step + y) * Size + i * step];
-					for (unsigned int x = step; x != 0; x--) {
-						sum += *src++;
+					for (unsigned int x = 0; x < step; x++) {
+						sum += Heights[(j * step + y) * Size + i * step + x];
 					}
 				}
-				heights[j * max_size + i] = (unsigned short)(sum / (step * step));
+				heights[j * max_size + i] = (unsigned short)(sum / area);
 			}
 		}
 		delete [] Buffer;
@@ -197,90 +200,94 @@ void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
 	out->Z = Get_Height(i, j);
 }
 
-// NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling)
+// NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv)
 void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
 	int i = (int)floor(fx);
 	int j = (int)floor(fy);
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
 	float tx = fx - i;
 	float ty = fy - j;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int i1 = (i + 1) & Mask;
-	float h01 = Heights[row1 + (i & Mask)] * VScale;
-	float h10 = Heights[i1 + row0] * VScale;
-	float h00 = Heights[row0 + (i & Mask)] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h01 = Get_Height(i, j + 1);
+	float h10 = Get_Height(i + 1, j);
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	float h;
-	if (ty <= tx) {
-		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
-	} else {
+	if (tx < ty) {
 		h = (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
+	} else {
+		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
 	}
 	int corner = -1;
-	if (h00 < h) {
+	float lowest = h;
+	if (lowest > h00) {
 		corner = 0;
-		h = h00;
+		lowest = h00;
 	}
-	if (h10 < h) {
+	if (lowest > h10) {
 		corner = 1;
-		h = h10;
+		lowest = h10;
 	}
-	if (h11 < h) {
+	if (lowest > h11) {
 		corner = 2;
-		h = h11;
+		lowest = h11;
 	}
-	if (h01 < h) {
+	if (lowest > h01) {
 		corner = 3;
 	}
-	Vector2 d(0.0f, 0.0f);
+	Vector3 d(0.0f, 0.0f, 0.0f);
 	switch (corner) {
 		case 0:
-			d.Set(-tx, -ty);
+			d.X = -tx;
+			d.Y = -ty;
 			break;
 		case 1:
-			d.Set(1.0f - tx, -ty);
+			d.X = 1.0f - tx;
+			d.Y = -ty;
 			break;
 		case 2:
-			d.Set(1.0f - tx, 1.0f - ty);
+			d.X = 1.0f - tx;
+			d.Y = 1.0f - ty;
 			break;
 		case 3:
-			d.Set(-tx, 1.0f - ty);
+			d.X = -tx;
+			d.Y = 1.0f - ty;
 			break;
 	}
 	if (corner >= 0) {
 		d.Normalize();
 	}
-	direction->Set(d.X, d.Y, 0.0f);
+	*direction = d;
 }
 
-// NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's)
+// NOT EXACT: frame (0x464290: 0x34, the client 0x40; it keeps h10 on the FPU, spills h01 and copies one edge component; attempts.csv)
 void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
 	int i = (int)floor(fx);
 	int j = (int)floor(fy);
-	unsigned int i1 = (i + 1) & Mask;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
-	float h00 = Heights[row0 + (i & Mask)] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h10 = Get_Height(i + 1, j);
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	Vector3 n;
-	if (fy - j <= fx - i) {
-		float h10 = Heights[i1 + row0] * VScale;
-		n = Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00));
+	if (fx - i < fy - j) {
+		float h01 = Get_Height(i, j + 1);
+		Vector3 a(XSpacing, YSpacing, h11 - h00);
+		Vector3 b(0.0f, YSpacing, h01 - h00);
+		Vector3::Cross_Product(a, b, &n);
+		n.Normalize();
 	} else {
-		float h01 = Heights[row1 + (i & Mask)] * VScale;
-		n = Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00));
+		Vector3 a(XSpacing, 0.0f, h10 - h00);
+		Vector3 b(XSpacing, YSpacing, h11 - h00);
+		Vector3::Cross_Product(a, b, &n);
+		n.Normalize();
 	}
-	n.Normalize();
 	*normal = n;
 }
 
-// NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles)
+// 0x464600: the cell's two triangles, the heights through the inlined Get_Height(i, j)
 float HeightFieldClass::Get_Height(const Vector3 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
@@ -289,16 +296,13 @@ float HeightFieldClass::Get_Height(const Vector3 &pos)
 	int j = (int)floor(fy);
 	float tx = fx - i;
 	float ty = fy - j;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
-	unsigned int i1 = (i + 1) & Mask;
-	float h00 = Heights[(i & Mask) + row0] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	if (tx < ty) {
-		float h01 = Heights[row1 + (i & Mask)] * VScale;
+		float h01 = Get_Height(i, j + 1);
 		return (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
 	}
-	float h10 = Heights[i1 + row0] * VScale;
+	float h10 = Get_Height(i + 1, j);
 	return (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
 }
 
@@ -528,7 +532,7 @@ bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
 	return hit;
 }
 
-// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0)
+// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 12 masked rows; attempts.csv 0x4654E0)
 bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
 	bool hit = false;
@@ -569,9 +573,7 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 			Vector3 normal;
 			TriClass tri;
 			tri.N = &normal;
-			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
-			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
-			verts[0].Z = Get_Height(i, j);
+			Get_Vertex(i, j, &verts[0]);
 			verts[1].X = verts[0].X + XSpacing;
 			verts[1].Y = verts[0].Y;
 			verts[1].Z = Get_Height(i + 1, j);
@@ -596,7 +598,7 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return hit;
 }
 
-// NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30)
+// NOT EXACT: shape (0x465D30: the second push_back reads end() after pushing 1, and v3.Y is stored after v3.X; the first corner through Get_Vertex puts the first push_back's insert out of line as the client, 0x466180; attempts.csv)
 void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
 {
 	Vector3 extent;
@@ -625,17 +627,14 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 	for (int j = j0; j <= j1; j++) {
 		for (int i = i0; i <= i1; i++) {
 			Vector3 verts4[4];
-			verts4[0].X = (float)(int)(i - HalfSize) * XSpacing;
-			verts4[0].Y = (float)(int)(j - HalfSize) * YSpacing;
-			verts4[0].Z = Get_Height(i, j);
+			Get_Vertex(i, j, &verts4[0]);
 			verts4[1].X = verts4[0].X + XSpacing;
 			verts4[1].Y = verts4[0].Y;
 			verts4[1].Z = Get_Height(i + 1, j);
 			verts4[2].X = verts4[1].X;
-			verts4[2].Y = verts4[0].Y + YSpacing;
+			verts4[3].Y = verts4[2].Y = verts4[0].Y + YSpacing;
 			verts4[2].Z = Get_Height(i + 1, j + 1);
 			verts4[3].X = verts4[0].X;
-			verts4[3].Y = verts4[2].Y;
 			verts4[3].Z = Get_Height(i, j + 1);
 			verts.push_back(verts4[0]);
 			verts.push_back(verts4[2]);

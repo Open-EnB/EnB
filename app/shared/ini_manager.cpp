@@ -2,8 +2,8 @@
 #include "unknown_debug.h"
 #include "ini_manager.h"
 
-// libs/sgistl's out-of-class insert_unique_noresize returns pair<typename hashtable<...>::iterator, bool>,
-// which VC6 refuses when it instantiates it (C2899): the definitions table's copy, SGI's body unchanged
+// libs/sgistl's insert_unique_noresize as an explicit specialization (the definitions table's copy, SGI's body unchanged): the template's own instance compiles since P-H7-1
+// but loses 2 pairs (0x4EB8E0, 0x4EBB30) here, an explicit instantiation the same (QT1, 2026-10-30)
 typedef std::hashtable<std::pair<const std::string, DefinitionRefCount<INIClass> *>, std::string, std::hash<std::string>,
 	std::_Select1st<std::pair<const std::string, DefinitionRefCount<INIClass> *> >, std::equal_to<std::string>,
 	std::allocator<DefinitionRefCount<INIClass> *> > INIDefinitionTable;
