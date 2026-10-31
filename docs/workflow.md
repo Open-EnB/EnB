@@ -333,6 +333,11 @@ unless `--lever` cites a new row of this table.
 | The client expands std::string assign in some of many temporaries, not all | Mix explicit and implicit constructions: the split tunes the budget (18 temporaries: half and half was exact) | ui_cpit (CP1) |
 | A per-branch pointer reload | `(font = style.Peek())->X` | ui_cpit 0x5845A0 (CP1) |
 | Switch cases with frame slots of their own | Temporaries, not named locals (named locals share one slot) | ui_cpit (CP1) |
+| The client's zero register (`xor ebx,ebx; cmp reg,ebx; push ebx`) | Write the `= NULL` store in both branches | ui_scut 0x612430 (SC2, f5074a74) |
+| A 4-argument `_Sort_0` call (push 0; push a garbage byte) | std::sort with a comparison functor; a functor `operator()` giving `mov eax,1` returns int | ui_scut 0x6129C0 (SC2) |
+| `mov eax,key; dec eax; je` | A one-case `switch` with the default written first | ui_scut 0x610A40 (SC2) |
+| An inlined same-file base slot scheduled differently, its out-of-line copy exact | Call it qualified: `Base::Unknown_04(list)` | ui_scut 0x610800 / 0x611220 (SC2) |
+| A frame off in a loop over a computed index | A hoisted invariant in a named local: `int slot = Bar*3+1;` | ui_scut 0x611300 / 0x611710 (SC2) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
 | A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
@@ -809,6 +814,8 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`appfile.py match` reads a `#pragma auto_inline(off)` line as a function** (2026-10-30, SC2: "the object lacks
+  auto_inline"): put the pragma above the `// @0x` marker and pass `--allow-missing`.
 * **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
   variants at the draft's end, objdiff each against the client address (`.work/sm2/gen_*.py`). Every variant counts
   as a form (D141).
