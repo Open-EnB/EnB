@@ -124,6 +124,17 @@ public:
 };
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
+extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
+
+// The window slot +0x68's key 16 opens ('Online Manual'; 0xCC bytes, constructor 0x5DAE90)
+class Unknown5DAE90Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown5DAE90Class(SClient *client, int a, const char *title, int b);	// 0x5DAE90  // NAME 1 [client, a, title, b]: what 0x563280 passes
+
+	char Unknown84[0xCC - 0x84];						// +0x84
+};
+
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -149,73 +160,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -609,6 +553,62 @@ void UIChatPanelClass::Unknown_60()
 		changed = true;
 	}
 	if (changed) Unknown_5689D0(0);
+}
+
+// NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240)
+// 0x563280
+bool UIChatPanelClass::Unknown_68(int key)
+{
+	SClient *sclient = Client->As_Space_Client();
+	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
+	switch (key) {
+		case 1:
+			Unknown_564030(true);
+			return(true);
+		case 2:
+			Unknown_564030(false);
+			return(true);
+		case 3:
+			if (modifier) {
+				if (ChatInt) {
+					ChatInt->Unknown_A8();
+					return(true);
+				}
+			} else {
+				Unknown_56C0C0();
+			}
+			return(true);
+		case 4:
+			sclient->Unknown_750800();
+			if (UnknownA4[4]) UnknownA4[4]->Unknown_40(false);
+			return(true);
+		case 5:
+		case 6:
+			Unknown_56BEF0();
+			return(true);
+		case 16:
+			if (!Unknown_7CA2D0()->Unknown34) {
+				Unknown_5685C0();
+				UnknownF8 = Create_Get(new Unknown5DAE90Class(Client->As_Space_Client(), 6, "Online Manual", 0));
+				UnknownF8->Unknown_54();
+				UnknownF8->Unknown_7C(View, 1);
+				UnknownEC = UnknownF8.Peek();
+			}
+			return(true);
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+			Unknown_5698F0(key);
+			return(true);
+		case 15:
+			SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
+			Unknown_569A00();
+			if (UnknownD4) UnknownD4 = NULL;
+			return(true);
+	}
+	return(false);
 }
 
 // 0x563620

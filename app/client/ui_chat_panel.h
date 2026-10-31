@@ -116,6 +116,7 @@ public:
 	void Unknown_568950();								// 0x568950: the five combos rebuilt, the combo released
 	void Unknown_5689D0(int index);						// 0x5689D0  // NAME 1 [index]: neutral
 	void Unknown_5698F0(int id);						// 0x5698F0 (FAIL_IF '(index < 0) || (index >= NUM_COMBO)' l.1980)  // NAME 1 [id]: neutral
+	void Unknown_569A00();								// 0x569A00 (slot +0x68's key 15: the options combo)
 	void Unknown_56B700();								// 0x56B700: the chat requests sent ('RestrictedStatus'), once
 	void Unknown_56BA40(bool on);						// 0x56BA40 (SClient's Do_Frame, when the lag changes)  // NAME 1 [on]: what Do_Frame passes
 	bool Unknown_56BA80();								// 0x56BA80

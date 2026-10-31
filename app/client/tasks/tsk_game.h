@@ -88,6 +88,8 @@ public:
 
 	char Unknown00[0x2C];
 	int Unknown2C;										// +0x2C: LoginTaskClass::Unknown_6C tests it
+	char Unknown30[0x34 - 0x30];						// +0x30
+	bool Unknown34;										// +0x34 (the chat panel's slot +0x68 0x563280: set, no Online Manual)
 };
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
 #include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)
