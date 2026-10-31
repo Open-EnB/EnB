@@ -2336,8 +2336,34 @@ bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *par
 
 
 
+#include "..\..\wwaudio\AudibleSound.h"
+// NOT EXACT: shape (0.76): the client saves all four registers first and its FAIL_IF exit joins the common one; ours returns early before ebx / ebp are saved
+// 0x806BD0: a sound: 2D at once, or (with a slot and a bone) mv3dsnd.cpp's sound on the slot's model, kept on +0xF0
+bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieParamsClass *params)
+{
+	int slot = -1;
+	const char *bone_name;
+	int loop = 0;
+	float volume = 1.0f;
+	const char *audio_name = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((audio_name == NULL) && "User error: Play_Audio: Need audio name") {return(false);}
+	const char *param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		slot = atoi(param);
+	}
+	bone_name = params->Unknown_7FFDC0();
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		loop = atoi(param);
+	}
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		volume = atof(param);
+	}
+	if (slot == -1 || bone_name == NULL) {
+		AudibleSoundClass *sound2d = SoundLibraryClass::Play_2D_Sound(audio_name, 1);
 
 
 
@@ -2347,67 +2373,41 @@ bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *par
 
 
 
+		G_ASSERT(sound2d);
+		sound2d->Set_Volume(volume);
+		if (loop) {
+			sound2d->Set_Loop_Count(0);
+		}
+		sound2d->Release_Ref();
+	} else {
+		ScriptedMovieSoundClass *sound = new ScriptedMovieSoundClass(audio_name, bone_name);
 
 
 
 
+		G_ASSERT(sound);
+		if (loop) {
+			sound->Unknown18 = true;
+		} else {
+			sound->Unknown18 = false;
+		}
+		sound->Unknown28 = volume;
+		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+			if ((*itor).Slot == slot) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				G_ASSERT((*itor).Mesh);
+				if ((*itor).Mesh) {
+					sound->Unknown_7ED410((*itor).Mesh->Peek_Object());
+				}
+				break;
+			}
+		}
+		UnknownF0.push_back(sound);
+	}
+	return(true);
+}
 
 
 

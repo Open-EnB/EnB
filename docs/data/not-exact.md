@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-354 entries in 73 files.
+355 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -150,6 +150,7 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1135` | `ScriptedMovieViewClass::Unknown_802B20` | marker | NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form |
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own, the camera 4 bytes higher) and the push_back's fill 0x80AFA0 inline (0.60) 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
+| `app/client/scriptedmovie.cpp:2340` | `ScriptedMovieViewClass::Play_Audio` | marker | NOT EXACT: shape (0.76): the client saves all four registers first and its FAIL_IF exit joins the common one; ours returns early before ebx / ebp are saved 0x806BD0: a sound: 2D at once, or (with a slot and a bone) mv3dsnd.cpp's sound on the slot's model, kept on +0xF0 |
 | `app/client/scriptedmovie.cpp:2571` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Objects` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x807600: a special effect from the source slot's object to the target slot's (CREATE_SFX_BETWEEN_OBJECTS) |
 | `app/client/scriptedmovie.cpp:2647` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Bones` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x8078D0: a special effect from a bone of the source slot's object to one of the target slot's (CREATE_SFX_BETWEEN_BONES) |
 | `app/client/scriptedmovie.cpp:2722` | `ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone` | marker | NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al) 0x807BE0: a special effect from the source slot's object to a bone of the target slot's (CREATE_SFX_BETWEEN_OBJECT_AND_BONE) |

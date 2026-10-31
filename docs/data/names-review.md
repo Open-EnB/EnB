@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 987 |
 | 2 | describes what the code does | 2413 |
-| 1 | neutral placeholder | 6002 |
+| 1 | neutral placeholder | 6007 |
 
 ## For review (score 3 and below)
 
@@ -2917,10 +2917,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:734` | neutral (D10) |
 | 1 | `ScriptedMovieBoneObjectStruct` | `app/client/sclient.h:740` | neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds |
 | 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:741` | neutral (D10) |
-| 1 | `ScriptedMovieSoundClass` | `app/client/sclient.h:748` | neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes |
+| 1 | `name, bone_name, model` | `app/client/sclient.h:748` | what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes |
+| 1 | `Unknown_7ED410` | `app/client/sclient.h:748` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED6C0` | `app/client/sclient.h:748` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDA60` | `app/client/sclient.h:748` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED630` | `app/client/sclient.h:748` | untagged neutral name (D10) |
+| 1 | `Unknown19` | `app/client/sclient.h:748` | untagged neutral name (D10) |
 | 1 | `task, arg, callback` | `app/client/sclient.h:752` | what 0x74BD90 passes |
 | 1 | `Unknown_802930` | `app/client/sclient.h:753` | untagged neutral name (D10) |
 | 1 | `event` | `app/client/sclient.h:754` | what it gets |
@@ -3319,6 +3321,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8B20` | `app/client/scriptedmovie.cpp:1836` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9130` | `app/client/scriptedmovie.cpp:1914` | untagged neutral name (D10) |
 | 1 | `Unknown_806AD0` | `app/client/scriptedmovie.cpp:2291` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/scriptedmovie.cpp:2390` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/scriptedmovie.cpp:2394` | untagged neutral name (D10) |
+| 1 | `Unknown_7ED410` | `app/client/scriptedmovie.cpp:2402` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDA60` | `app/client/scriptedmovie.cpp:2437` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED630` | `app/client/scriptedmovie.cpp:2438` | untagged neutral name (D10) |
 | 1 | `Unknown_8070C0` | `app/client/scriptedmovie.cpp:2464` | untagged neutral name (D10) |
@@ -6790,7 +6795,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |
