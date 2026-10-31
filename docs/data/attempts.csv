@@ -903,3 +903,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 03:17,0x5679A0,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,string::compare out of line in the client's inlined 0x5680B0,,opus
 2026-10-31 03:17,0x567DF0,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,the two empty-string temporaries built differently per case in the client,,opus
 2026-10-31 03:20,0x567540,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,string::compare and list::_Buynode out of line in the client,,opus
+2026-10-31 03:30,0x565390,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,396 instructions vs 328: string::compare / assign out of line in the client,,opus

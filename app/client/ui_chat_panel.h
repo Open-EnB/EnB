@@ -98,7 +98,7 @@ public:
 	void Unknown_564F50();								// 0x564F50 (0x65DE90): +0x1F4 copied to +0x204, 0x5646A0 on the default channel
 	void Unknown_565100();								// 0x565100: 0x5646A0 on +0x14C
 	void Unknown_565120();								// 0x565120
-	void Unknown_565390(int arg);						// 0x565390  // NAME 1 [arg]: neutral
+	void Unknown_565390(bool back);						// 0x565390: the next (or with back the previous) channel of +0x228 at +0x238  // NAME 1 [back]: neutral
 	const char *Unknown_565BA0();						// 0x565BA0: +0x248's text
 	const char *Unknown_565BC0();						// 0x565BC0: the +0x158 name for +0x148 (6..9), else NULL
 	const char *Unknown_565C00();						// 0x565C00: the +0x188 name for +0x150 (0..4), else NULL

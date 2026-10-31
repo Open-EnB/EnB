@@ -114,6 +114,9 @@ public:
 };
 UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
 
+// The chat window's prompts by destination (0xB7C2B8)
+static const char *Unknown_B7C2B8[] = { "Broadcast:", "Local:", "To Guild:", "To Group", "To Radio:", "To ", "Secure:", "Secure:", "Secure:", "Reply:" };	// NAME 1: neutral (D10)
+
 // The chat window's icons by kind (0xB7C2E0)
 static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "if_chat03.tga" };	// NAME 1: neutral (D10)
 
@@ -177,9 +180,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
 
 
 
@@ -835,6 +835,71 @@ void UIChatPanelClass::Unknown_565120()
 	if (Unknown214.length()) Unknown228.push_back(Unknown214);
 }
 
+// NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328)
+// 0x565390
+void UIChatPanelClass::Unknown_565390(bool back)
+{
+	int count = Unknown228.size();
+	if (count == 0) return;
+	int index = 0;
+	for (int i = 0; i < count; i++) {
+		if (Unknown228[i] == Unknown238) {
+			index = i;
+			break;
+		}
+	}
+	if (back) {
+		if (index > 0) {
+			index--;
+		} else {
+			index = count - 1;
+		}
+	} else {
+		index++;
+		if (index >= count) index = 0;
+	}
+	Unknown238 = Unknown228[index];
+	int channel = 0;
+	for (ChatChannelStruct *entry = Unknown_B7C530; entry->Name; entry++, channel++) {
+		if (std::string(entry->Name) == Unknown238) {
+			Unknown148 = atoi(Unknown_B7C530[channel].Number);
+			goto found;
+		}
+	}
+	if (Unknown214 == Unknown238) Unknown148 = 4;
+found:
+	if (ChatInt) {
+		char buffer[64];
+		if (Unknown148 < 6) {
+			if (Unknown148 == 5) {
+				Unknown204 = Unknown238;
+				_snprintf(buffer, sizeof(buffer), "%s:", Unknown238.c_str());
+				ChatInt->Unknown_B4(buffer);
+			} else if (Unknown148 == 4) {
+				_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown238.c_str());
+				ChatInt->Unknown_B4(buffer);
+			} else {
+				ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);
+			}
+		}
+		int kind = Unknown148;
+		if (kind < 6) {
+			Unknown144 = kind;
+			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+			if (option) option->Value = kind;
+			if (Unknown148 == 4) {
+				Unknown1F4 = buffer;
+			} else {
+				Unknown1F4 = Unknown238;
+			}
+			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+			if (label) label->Value = Unknown1F4.c_str();
+			Unknown_5689D0(0);
+		}
+	}
+	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+}
+
 // 0x5658B0
 void UIChatPanelClass::Unknown_5658B0(const char *name)
 {
@@ -1239,71 +1304,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
