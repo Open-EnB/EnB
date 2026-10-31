@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-398 entries in 79 files.
+397 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -292,8 +292,7 @@ edit the comments in the code, not this file.
 | `app/shared/heightfield.cpp:264` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: frame (0x464290: 0x34, the client 0x40; it keeps h10 on the FPU, spills h01 and copies one edge component; attempts.csv) |
 | `app/shared/heightfield.cpp:388` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
 | `app/shared/heightfield.cpp:535` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 12 masked rows; attempts.csv 0x4654E0) |
-| `app/shared/heightfield.cpp:601` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: shape (0x465D30: 5 rows; the second push_back reads end() after pushing 1, and the client stores v3.X before v3.Y from the FPU (an fxch); the first corner through Get_Vertex puts the first push_back's insert out of line as the client, 0x466180; attempts.csv) |
-| `app/shared/heightfield.cpp:686` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
+| `app/shared/heightfield.cpp:685` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's land's (func... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_acc_array.h:54` | `Set` | marker | NOT EXACT: literal (the client compares the result of find with std::string::npos loaded from memory, ours folds it to -1; float: 0x4C34D0) |
