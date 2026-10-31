@@ -135,7 +135,7 @@ struct UnknownB01A40Type { float F00; float F04; float F08; int I0C; float F10; 
 inline bool operator!=(const UnknownB01A40Type &a, const UnknownB01A40Type &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }
 inline const char *Type_Name(UnknownB01A40Type *) { return "ProjectedDecalClass"; }
 inline char *Value_To_String(char *buf, int, const UnknownB01A40Type &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.I0C, value.F10); return buf; }
-inline bool String_To_Value(const char *, UnknownB01A40Type *) { return false; }
+inline bool String_To_Value(const char *text, UnknownB01A40Type *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->I0C, &value->F10) == 5; }
 // NAME 1: the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#)
 enum UnknownB03588Enum { UNKNOWN_B03588_0 };	// vtable 0xB03588, 4 bytes
 inline const char *Type_Name(UnknownB03588Enum *) { return "UnknownB03588Enum"; }

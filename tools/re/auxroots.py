@@ -118,7 +118,9 @@ BLOB_CONV = {
                'inline bool operator!=(const NAME &a, const NAME &b) '
                '{ return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }',
                '{ sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.I0C, value.F10); return buf; }',
-               None),
+               # Set_Value_String 0x709A90: sscanf into a default-constructed local, true on five fields
+               '{ return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->I0C, '
+               '&value->F10) == 5; }'),
 }
 
 
