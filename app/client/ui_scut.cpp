@@ -810,8 +810,8 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 				sclient->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
 				return(true);
 			}
-			mouse->Unknown28++;
 			KernelEventClass event;
+			mouse->Unknown28++;
 			ProxyButtons[index]->Unknown_66B420(0);
 			GadgetClass *pos = ((UIScutProxyGadgetClass *)shortcut)->Unknown_66C6C0();
 			shortcut->Unknown_2C(&event, *(float *)((char *)pos + 0xC), *(float *)((char *)pos + 0x1C), (unsigned short)((shortcut->Unknown10 & 1) | 0x1000));
@@ -894,7 +894,7 @@ GadgetClass *Unknown_6123F0(UIViewClass *view)
 
 
 
-// NOT EXACT: the client keeps 0 in ebx (cmp reg, ebx; push ebx), ours uses test and immediates
+
 void UIScutBarClass::Unknown_612430()
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
@@ -905,11 +905,12 @@ void UIScutBarClass::Unknown_612430()
 		UIScutMouseClass *mouse = (UIScutMouseClass *)Get_Owner()->View->Unknown_44();
 
 		G_ASSERT(mouse);
-		if (mouse->Unknown2C) {
-			if (mouse->Unknown2C->Unknown10 != 2) return;
+		if (mouse->Unknown2C == NULL) {
+			ActiveShortcut = NULL;
+		} else if (mouse->Unknown2C->Unknown10 == 2) {
 			Unknown_611BD0(NULL, ActiveShortcut->Unknown7C, CURRENT_GROUP, true);
+			ActiveShortcut = NULL;
 		}
-		ActiveShortcut = NULL;
 	}
 }
 
@@ -930,7 +931,6 @@ void UIScutBarClass::Unknown_00(void *source, int *event)
 		}
 	}
 }
-
 
 
 
@@ -1035,10 +1035,11 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	neighbours' lines in the client's order. Names are neutral where the client has none (Unknown_<address>).
 **	  exact: the constructor 0x610570 and destructor 0x610800, slots +0x54 / +0x60 / +0x68 / +0x70 / +0x74, the bar
 **	  pickers 0x610B00-0x610F30, the bar's destructor, help section, free-button search, set, clear, find, group switch
-**	  and listener slot (0x611220-0x611F60, 0x612510), 0x6123F0, the bank's constructor, destructor, slot +0x40, and the
+**	  and listener slot (0x611220-0x611F60, 0x612510), 0x6123F0, the active shortcut's drop 0x612430 (two NULL stores, one
+**	  a branch: the client's zero register), the bank's constructor, destructor, slot +0x40, and the
 **	  sort's comparison struct and instances 0x612940-0x6134F0;
 **	  still differing (attempts.csv): the bar's constructor 0x610F80, its control keys 0x611300 / 0x611710 and key
-**	  handler 0x6120E0 (registers), 0x612430 (the client's zero register), the bank's 0x612820 (stack pops) and
+**	  handler 0x6120E0 (registers), the bank's 0x612820 (stack pops) and
 **	  std::_Sort_0 0x6129C0 (the STL instance's inline budget).
 **	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and
 **	0x611BD0. The bar's destructor removes it from the mesh's list through the base's inline slot +0x04 (0x53B310),

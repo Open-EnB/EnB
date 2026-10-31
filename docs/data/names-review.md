@@ -5228,7 +5228,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74D990` | `app/client/ui_scut.cpp:810` | untagged neutral name (D10) |
 | 1 | `Unknown_743380` | `app/client/ui_scut.cpp:818` | untagged neutral name (D10) |
 | 1 | `Unknown1278` | `app/client/ui_scut.cpp:850` | untagged neutral name (D10) |
-| 1 | `Unknown_6124F0` | `app/client/ui_scut.cpp:917` | untagged neutral name (D10) |
+| 1 | `Unknown_6124F0` | `app/client/ui_scut.cpp:918` | untagged neutral name (D10) |
 | 1 | `Unknown_` | `app/client/ui_scut.cpp:1035` | untagged neutral name (D10) |
 | 1 | `ui_scut.h` | `app/client/ui_scut.h:4` | provisional header name for ui_scut.cpp |
 | 1 | `NUM_SHORTCUT_BUTTONS` | `app/client/ui_scut.h:20` | after NUM_SHORTCUT_BARS |
