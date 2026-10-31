@@ -308,6 +308,8 @@ unless `--lever` cites a new row of this table.
 | An out-of-line 0x13-byte copy of an SGI hashtable iterator in the client | The `const_iterator(const iterator &)` conversion: the client declared a const_iterator | ui_line_display (H10) |
 | `end()` read through the wrong register in a vector append | `push_back` and `insert(end(), x)` differ (`[ebx+8]` vs `[esi+0xa0]`): try the other | ui_line_display Flush_Lines (H10) |
 | A callee the client calls out of line only inside an inlined function, inlined at the direct sites | Wrap the call in a one-line inline helper (depth +1): the budget drops the deepest nested expansion, not the biggest or the latest in source order (the depth counted is the chain's cost) | land's lightmap threads 0x46DA70 / 0x46DDD0, 615b995 (F5) |
+| Many repeated inlinable calls all out of line in ours, the budget spent on later expansions (the reverse of F5's depth lever) | The repeated calls sit in an inline helper: write it as a macro, and they inline again | Render's sea Adds 0x474B30 (LD7, 55f1d2c5) |
+| `and ~0x40000` / `or 1` on the render-state flags beside a `??_H` Matrix4 / Matrix3D array | `Set_Transform(D3DTS_WORLD, Matrix4(true))` or `(Matrix3D(true))`, not `Set_World_Identity` | Render 0x474B30 (LD7) |
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch | land (F5) |
 | Both sums of a Vector2i computed before the two stores; `lea` addressing of the target | `Set(a, b)` on a reference local (`Vector2i &min = UpdateMin`); member stores don't give the `lea` | land (F5) |
 | An unreferenced client function next to a NOT EXACT caller | Often the out-of-line copy of a non-static helper the caller inlines: define it non-static, non-inline in the .cpp; the copy matches and the callers keep inlining it | land 0x46EE60..0x46F0A0, 0x470EF0, 0x474590 (LD6, dd60da4c) |
@@ -613,6 +615,8 @@ unless `--lever` cites a new row of this table.
   difference: judge by pairs_cmp.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
   `--refresh-totals`, or the count needs a follow-up commit (a74439b).
+  Without `--file NAME` at all it leaves the file's whole imports.json entry out, silently (LD7's 55f1d2c5,
+  repaired in 361a0ec0).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
   file). `trial.py` and refine update both; a hand-made header change must update `headers`.
 * **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
@@ -767,6 +771,9 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **Check objmatch's status of the STL helpers a caller should call out of line** (2026-10-30, LD7) in your variant's
+  obj before working toward them: `multiple` (identical client copies, e.g. vector<RefCountPtr<T>>::insert 0x47D690)
+  never becomes a pair, however byte-identical; only the caller itself can gain.
 * **`appfile.py match` on a client/ file** (2026-10-29, LS1): put the draft in `.work/<id>/client/` so the
   `..\shared\` relative includes resolve, and use `-I auto` (it finds wwdebug / sgistl; a hand-written list misses them).
 * **`appfile.py match`: leave `-I` out** (2026-10-29, S8): `-I app/common` fails on wwudp's mempool.h; the default
