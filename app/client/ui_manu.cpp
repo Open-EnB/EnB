@@ -32,6 +32,7 @@ public:
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
+extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (as ui_group.cpp)
 
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -85,6 +86,7 @@ class UIManuPDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_6
 
 // The names of the window's texts (0xB81868)
 static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Range_tsm01a", "Expected_Quality_tsm01a", "Result_tsm01a", "" };	// NAME 1: neutral (D10)
+static __int64 Unknown_BE5C20 = 5;						// NAME 1: neutral (D10): the seconds before a filter request is given back (initialised at run time, 0x5AF9D0)
 static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter requests allowed
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 
@@ -120,8 +122,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown11C, 0, sizeof(Unknown11C));
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSM01A.INI");
 }
-
-
 
 
 
@@ -382,6 +382,14 @@ public:
 	int Value;											// +0x84  // NAME 2: what it holds
 };
 int UIManuCurrentCategoryClass::UnknownGlobal;
+class UIManuComponentsClass : public DeltaCompoundClass	// NAME 1: neutral (D10): 'ManufactureComponents' (its global is the item arrays', 0xC41624)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04
+};
+int UIManuComponentsClass::UnknownGlobal;
+bool Unknown_846210(int validity);						// 0x846210: the attempt succeeded (the 'Validity' value)  // NAME 1 [validity]: neutral
+static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 // NOT EXACT: frame (the client keeps the key event in the name buffer's slot: 0x10 bytes less; it pops 0x495FD0's arguments before the bit clear) (0x5AFFC0)
@@ -467,6 +475,73 @@ void UIManuClass::Unknown_54()
 	Unknown_10();
 }
 
+// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230)
+void UIManuClass::Unknown_60()
+{
+	Unknown_5B5320();
+	if (Unknown0BA8 != 0.0f) {
+		Unknown0BA8 -= (float)(__int64)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		if (Unknown0BA8 >= 0.0f) {
+			goto slider;
+		}
+		Unknown0BA8 = 0;
+		Unknown_5B1AF0(4, true, Unknown_B81868[5]);
+	} else if (Unknown0BA4 != 0) {
+		bool done = false;
+		if (Unknown0BA4 == 1) {
+			NameClass name("ManufactureComponents");
+			UIManuComponentsClass *components = Unknown_Find_Field<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			if (components && components->Unknown70 > 1) {
+				Unknown0BA4 = 0;
+				done = true;
+				if (Unknown0BAD) {
+					Unknown_5B4680();
+				}
+				if (!Unknown0BAE) {
+					Mesh->Unknown_5B8DF0(0, "tsm01a.tsm01a-1", false, 0, 0, 0, -1);
+					Unknown0BAE = true;
+				}
+				if (Unknown0BC) {
+					Unknown0BC->Unknown_62F5B0(true);
+				}
+			}
+		}
+		if (Unknown0BA4 == 2) {
+			NameClass name("Validity");
+			UIManuValidityClass *validity = Unknown_Find_Valid<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			if (Unknown_846210(validity->Value)) {
+				Unknown0BA4 = 0;
+				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
+				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				if (Unknown0BAD) {
+					Unknown_5B3640(false);
+				}
+				Unknown_5B39B0(Unknown0BB0);
+				Unknown_5B2230();
+				goto refresh;
+			}
+		}
+		if (!done) {
+			goto slider;
+		}
+	}
+refresh:
+	Unknown_5B2480();
+slider:
+	Unknown_5B2950();
+	Unknown5BB320Class::Unknown_60();
+	for (int i = 0; i < 3; i++) {
+		Unknown0C0[i]->Unknown_5B7880();
+	}
+	unsigned int now = ((ClientClass *)Client)->Unknown10BC;
+	if ((__int64)now > Unknown0BB8 && Unknown0BC0 > 0) {
+		Unknown0BB8 = Unknown_BE5C20 * 1000 + now;
+		if (--Unknown0BC0 < Unknown_B8183C) {
+			Unknown_5B6CA0();
+		}
+	}
+}
+
 // NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0)
 bool UIManuClass::Unknown_68(int key)
 {
@@ -536,81 +611,6 @@ bool UIManuClass::Unknown_68(int key)
 	}
 	return(false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -886,6 +886,44 @@ void UIManuClass::Unknown_5B2B40()
 	Unknown_5B2950();
 }
 
+// NOT EXACT: inline budget (the client calls the 'PrimaryCategories' find out of line, 0x5467F0, and vector<DeltaClass *>::size in the inlined tree checks) (0x5B2BD0)
+void UIManuClass::Unknown_5B2BD0(bool force)
+{
+	if (!Unknown0BAD && Unknown0B98 != 3) {
+		NameClass name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		unsigned int i = 0;
+		if (categories && categories->Unknown70 && (force || categories->Unknown70 > 1)) {
+			Unknown_5B2B40();
+			UIManuNodeClass *tree = (UIManuNodeClass *)categories;
+			unsigned int count;
+			if (Unknown0B98 == 0) {
+				count = tree->Unknown084.size();
+				for (; i < count; i++) {
+					Unknown98C[i] = Unknown_5B3B90(tree, i);
+				}
+			} else if (Unknown0B98 == 1) {
+				int a = Unknown0B80[0];
+				count = tree->Unknown084[a]->Unknown1A8.size();
+				for (i = 0; i < count; i++) {
+					Unknown98C[i] = Unknown_5B3CA0(tree, a, i);
+				}
+			} else if (Unknown0B98 == 2) {
+				int a = Unknown0B80[0];
+				int b = Unknown0B80[1];
+				count = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
+				for (i = 0; i < count; i++) {
+					Unknown98C[i] = !tree->Unknown084[a]->Unknown1A8[b]->Unknown230[i]->Unknown230;
+				}
+			}
+			if (count < 500) {
+				memset(&Unknown98C[count], 1, 500 - count);
+			}
+			Unknown_5B2230();
+		}
+	}
+}
+
 // 0x5B2F20
 void UIManuClass::Unknown_5B2F20()
 {
@@ -1074,6 +1112,89 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 	return(true);
 }
 
+// NOT EXACT: inline budget (the client calls the find, 0x5B3CA0 and 0x5B3D70 out of line) (0x5B3E00)
+void UIManuClass::Unknown_5B3E00()
+{
+	NameClass name("PrimaryCategories");
+	UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+	if (!categories || !categories->Unknown70) {
+		return;
+	}
+	UIManuNodeClass *tree = (UIManuNodeClass *)categories;
+	int found = 0;
+	int pick = -1;
+	int count = tree->Unknown084.size();
+	for (int a = 0; a < count; a++) {
+		int count2 = tree->Unknown084[a]->Unknown1A8.size();
+		for (int b = 0; b < count2; b++) {
+			if (!Unknown_5B3CA0(tree, a, b)) {
+				found++;
+				pick = a;
+				break;
+			}
+		}
+	}
+	if (found == 0) {
+		Unknown0B80[0] = -2;
+		return;
+	}
+	if (found != 1) {
+		return;
+	}
+	Unknown0B98 = 0;
+	Unknown_5B2BD0(true);
+	Unknown0B80[0] = pick;
+	Unknown_5B42F0(0);
+	Unknown0B98 = 1;
+	Unknown_5B6CA0();
+	pick = -1;
+	found = 0;
+	count = tree->Unknown084[Unknown0B80[0]]->Unknown1A8.size();
+	if (count < 1) {
+		return;
+	}
+	for (int b = 0; b < count; b++) {
+		int a = Unknown0B80[0];
+		int count3 = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
+		for (int c = 0; c < count3; c++) {
+			if (!Unknown_5B3D70(tree, a, b, c)) {
+				found++;
+				pick = b;
+				break;
+			}
+		}
+	}
+	if (found != 1) {
+		return;
+	}
+	Unknown_5B2BD0(true);
+	Unknown0B80[1] = pick;
+	Unknown_5B42F0(1);
+	Unknown0B98 = 2;
+	Unknown_5B6CA0();
+	pick = -1;
+	found = 0;
+	count = tree->Unknown084[Unknown0B80[0]]->Unknown1A8[Unknown0B80[1]]->Unknown230.size();
+	if (count < 1) {
+		return;
+	}
+	for (int c = 0; c < count; c++) {
+		if (!Unknown_5B3D70(tree, Unknown0B80[0], Unknown0B80[1], c)) {
+			pick = c;
+			found++;
+		}
+	}
+	if (found != 1) {
+		return;
+	}
+	Unknown_5B2BD0(true);
+	Unknown0B80[2] = pick;
+	Unknown_5B42F0(2);
+	Unknown0B98 = 3;
+	Unknown_5B6CA0();
+	Unknown_5B2FE0();
+}
+
 // NOT EXACT: register (the gadget and the texture for 0x495FD0 in edx / ecx, ours eax / edx) (0x5B42F0)
 void UIManuClass::Unknown_5B42F0(int level)
 {
@@ -1181,127 +1302,6 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 	}
 	return(i == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1862,8 +1862,9 @@ void UIManuClass::Unknown_5B6D30()
 **	client's out-of-line copy of that template is 0x5B6DB0). The player id the packets carry is the space client's
 **	+0x1138 (ClientClass::Unknown1138).
 **
-**	Not rebuilt yet: slot +0x60 (0x5B1230), the list fillers 0x5B2BD0 / 0x5B3E00 and the quality texts 0x5B4B10 /
-**	0x5B5320 (lines 1473-1646). The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x68, 0x5B1ED0,
-**	0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B3850, 0x5B42F0, 0x5B4680, 0x5B4850 and
-**	0x5B67C0 compile but are not exact (see their NOT EXACT notes).
+**	Not rebuilt yet: the target's texts 0x5B4B10 / 0x5B5320 (lines 1473-1646; out-of-line finds and MoneyClass text).
+**	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
+**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850 and 0x5B67C0 compile but are not exact (see their NOT
+**	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
+**	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */

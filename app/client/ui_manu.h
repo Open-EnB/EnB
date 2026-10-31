@@ -23,7 +23,8 @@ class UIManuUnknownC0Class	// NAME 1: neutral (D10)
 public:
 	UIManuUnknownC0Class(int column);					// 0x5B73C0 (slot +0x54 passes 0..2)  // NAME 1 [column]: neutral
 	~UIManuUnknownC0Class();							// 0x5B7430
-	void Unknown_5B74F0(bool on);						// 0x5B74F0: hidden at once (true), else faded  // NAME 1 [on]: neutral
+	void Unknown_5B74F0(bool on);
+	void Unknown_5B7880();								// 0x5B7880: one step of the fade (slot +0x60)						// 0x5B74F0: hidden at once (true), else faded  // NAME 1 [on]: neutral
 	void Unknown_5B7570(bool *disabled, int primary, int secondary);	// 0x5B7570 (0x5B2230: the window's +0x98C and the first two picks)  // NAME 1 [disabled, primary, secondary]: neutral
 
 	GadgetClass *Gadgets[5];							// +0x00 (slot +0x60: picked)  // NAME 2: what it holds
@@ -126,6 +127,7 @@ public:
 	void Unknown_5B3580(bool force);					// 0x5B3580: the previous attempts listed  // NAME 1 [force]: neutral
 	void Unknown_5B3640(bool all);						// 0x5B3640: to the previous attempts  // NAME 1 [all]: neutral
 	void Unknown_5B3850();								// 0x5B3850: the level 3 pick's item id asked for
+	void Unknown_5B5320();								// 0x5B5320: the target's texts (lines 1517-1646)
 	void Unknown_5B4680();								// 0x5B4680: the picks set to the item's 'CurrentItemCategory'
 	void Unknown_5B4850();								// 0x5B4850: MANUFACTURE_ACTION 126 of 0 sent, the go button dimmed (0x5B1AF0 inlined twice)
 	UIManuListClass *Unknown_Find_List(const char *field);	// (inline) the formula list named field  // NAME 1: neutral (D10)
