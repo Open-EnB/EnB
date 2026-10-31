@@ -154,7 +154,7 @@ public:
 	bool Unknown225;									// +0x225
 	bool Unknown226;									// +0x226
 	bool Unknown227;									// +0x227
-	std::vector<void *> Unknown228;						// +0x228
+	std::vector<std::string> Unknown228;				// +0x228 (0x565120: the channels offered, +0x214 last)
 	std::string Unknown238;								// +0x238
 	std::string Unknown248;								// +0x248
 	RenderObjClass *Unknown258;							// +0x258 (slot +0x184)

@@ -66,6 +66,21 @@ public:
 
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes
 
+// The chat channels the panel offers (0xB7C530: name, option, the destination's number as text), NULL-ended
+struct ChatChannelStruct	// NAME 1: neutral (D10)
+{
+	const char *Name;									// NAME 2: what it holds
+	const char *Option;									// NAME 2: the option tested (OptionClass::Get_Bool)
+	const char *Number;									// NAME 2: what 0x565390 passes to atoi
+};
+static ChatChannelStruct Unknown_B7C530[] = {	// NAME 1: neutral (D10)
+	{ "Broadcast", "Channel_Broadcast", "0" },
+	{ "Local", "Channel_Local", "1" },
+	{ "Guild", "Channel_Guild", "2" },
+	{ "Group", "Channel_Group", "3" },
+	{ NULL, NULL, NULL },
+};
+
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -85,21 +100,6 @@ public:
 	void Unknown_65F2D0(int arg);						// 0x65F2D0 (0x564400 passes 0)  // NAME 1 [arg]: neutral
 };
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -811,6 +811,41 @@ void UIChatPanelClass::Unknown_565100()
 	Unknown_5646A0(Unknown14C);
 }
 
+// 0x565120
+void UIChatPanelClass::Unknown_565120()
+{
+	SClient *sclient = Client->As_Space_Client();
+	Unknown228.clear();
+	for (int i = 0; Unknown_B7C530[i].Name; i++) {
+		if (OptionClass::Instance->Get_Bool(Unknown_B7C530[i].Option)) {
+			if (strcmp(Unknown_B7C530[i].Name, "Guild") || sclient->Unknown_728300()) {
+				if (strcmp(Unknown_B7C530[i].Name, "Group") || sclient->Unknown_74D570()) {
+					Unknown228.push_back(std::string(Unknown_B7C530[i].Name));
+				}
+			}
+		}
+	}
+	if (Unknown214.length()) Unknown228.push_back(Unknown214);
+}
+
+// 0x5658B0
+void UIChatPanelClass::Unknown_5658B0(const char *name)
+{
+	for (int i = 0; i < 3; i++) {
+		if (strcmp(Unknown158[i].c_str(), name) == 0) {
+			Unknown14C = i + 6;
+			Unknown_5646A0(i + 6);
+			return;
+		}
+	}
+	for (i = 2; i > 0; i--) {
+		Unknown158[i] = Unknown158[i - 1];
+	}
+	Unknown158[0] = name;
+	Unknown14C = 6;
+	Unknown_5646A0(6);
+}
+
 // 0x565BA0
 const char *UIChatPanelClass::Unknown_565BA0()
 {
@@ -978,41 +1013,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
