@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 985 |
 | 2 | describes what the code does | 2400 |
-| 1 | neutral placeholder | 5783 |
+| 1 | neutral placeholder | 5787 |
 
 ## For review (score 3 and below)
 
@@ -3217,6 +3217,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_801D70` | `app/client/scriptedmovie.cpp:700` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/scriptedmovie.cpp:706` | untagged neutral name (D10) |
 | 1 | `Get_Unknown54` | `app/client/scriptedmovie.cpp:707` | untagged neutral name (D10) |
+| 1 | `Unknown_80EFF0` | `app/client/scriptedmovie.cpp:797` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/scriptedmovie.cpp:797` | untagged neutral name (D10) |
+| 1 | `Unknown_8020B0` | `app/client/scriptedmovie.cpp:800` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:804` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/scriptedmovie.cpp:805` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/scriptedmovie.cpp:807` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/scriptedmovie.cpp:815` | untagged neutral name (D10) |
 | 1 | `Unknown_8022C0` | `app/client/scriptedmovie.cpp:830` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/scriptedmovie.cpp:833` | untagged neutral name (D10) |
 | 1 | `Unknown_80A5A0` | `app/client/scriptedmovie.cpp:833` | untagged neutral name (D10) |
@@ -3269,15 +3276,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E32E0` | `app/client/scriptedmovie.cpp:2913` | untagged neutral name (D10) |
 | 1 | `Unknown_80A730` | `app/client/scriptedmovie.cpp:2958` | untagged neutral name (D10) |
 | 1 | `Unknown_808840` | `app/client/scriptedmovie.cpp:3043` | untagged neutral name (D10) |
-| 1 | `Unknown_8020B0` | `app/client/scriptedmovie.cpp:3225` | untagged neutral name (D10) |
 | 1 | `Unknown_5E26D0` | `app/client/scriptedmovie.cpp:3225` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/scriptedmovie.cpp:3259` | untagged neutral name (D10) |
 | 1 | `Unknown_810CF0` | `app/client/scriptedmovie.cpp:3277` | untagged neutral name (D10) |
 | 1 | `Unknown_80FF20` | `app/client/scriptedmovie.cpp:3344` | untagged neutral name (D10) |
 | 1 | `Unknown_80E8C0` | `app/client/scriptedmovie.cpp:3386` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1334Class` | `app/client/scriptedmovie.cpp:3386` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:3418` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/scriptedmovie.cpp:3418` | untagged neutral name (D10) |
 | 1 | `Unknown_809600` | `app/client/scriptedmovie.cpp:3447` | untagged neutral name (D10) |
 | 1 | `Unknown_809710` | `app/client/scriptedmovie.cpp:3501` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:3503` | untagged neutral name (D10) |
@@ -6571,7 +6575,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |

@@ -793,27 +793,27 @@ void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pkcolorization.h"
+void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0 (shiputils.cpp; cpacket.cpp declares it so)
+// NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30
+// 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0)
+void ScriptedMovieViewClass::Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal)
+{
+	std::vector<ColorizationRegionStruct> regions;
+	ColorizationHalfStruct second;
+	second.Unknown00 = metal;
+	second.Unknown04 = b;
+	ColorizationRegionStruct region;
+	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	regions.push_back(region);
+	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	regions.push_back(region);
+	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	regions.push_back(region);
+	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	regions.push_back(region);
+	Unknown_80EFF0(model, regions, Unknown140);
+}
 
 
 
@@ -2981,42 +2981,42 @@ bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
 
 
 
+// 0x808590: the scene's fog on, its colour (faded over a time, else at once) and range
+bool ScriptedMovieViewClass::Set_Fog(ScriptedMovieParamsClass *params)
+{
 
+	FAIL_IF(ScriptedScene == NULL) {return(false);}
+	Vector3 color;
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Set_Fog: Need red") {return(false);}
+	color.X = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Fog: Need green") {return(false);}
+	color.Y = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Fog: Need blue") {return(false);}
+	color.Z = atof(param);
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Set_Fog: Need start") {return(false);}
+	float start = atof(param);
+	param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	FAIL_IF((param == NULL) && "User error: Set_Fog: Need end") {return(false);}
+	float end = atof(param);
+	ScriptedScene->Set_Fog_Enable(true);
+	ScriptedScene->Set_Fog_Range(start, end);
+	param = params->Unknown_7FFDC0();
+	float time = 0.0f;
+	if (param != NULL) {
+		time = atof(param);
+	}
+	Vector3 current = ScriptedScene->Get_Fog_Color();
+	UnknownAC.Unknown_80A730(time, current, color);
+	return(true);
+}
 
 
 
