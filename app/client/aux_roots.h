@@ -65,7 +65,7 @@ bool String_To_Value(const char *text, InterruptStateType *value);	// 0x83DA80
 char *Value_To_String(char *buf, int size, InterruptStateType value);	// 0x83D9E0
 // NAME 1: the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#)
 struct UnknownB00A00Type { float R; float G; float B; UnknownB00A00Type() {} UnknownB00A00Type(const UnknownB00A00Type &v) { R = v.R; G = v.G; B = v.B; } };	// vtable 0xB00A00, three floats (a colour), constructor empty
-inline bool operator!=(const UnknownB00A00Type &a, const UnknownB00A00Type &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
+inline bool operator!=(const UnknownB00A00Type &a, const UnknownB00A00Type &b) { return *(const int *)&a.R != *(const int *)&b.R || *(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }
 inline const char *Type_Name(UnknownB00A00Type *) { return "UnknownB00A00Type"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB00A00Type &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
 inline bool String_To_Value(const char *, UnknownB00A00Type *) { return false; }

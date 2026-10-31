@@ -148,6 +148,12 @@ ENUM_EXTERN = {
     0xB01394: (None, 0x846040, 0x846090),
     0xB0133C: (None, 0x846110, 0x846160),
 }
+# A blob's operator!= where the client's Set_Value shows it (the rest memcmp): the colour 0xB00A00's
+# accessor Set 0x7080C0 compares the three fields as dwords (cmp/jne, no FPU), the delta's first.
+BLOB_NE = {
+    0xB00A00: 'inline bool operator!=(const NAME &a, const NAME &b) { return *(const int *)&a.R != *(const int *)&b.R || '
+              '*(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }',
+}
 BLOB_CONV = {
     0xB01A40: ('ProjectedDecalClass',
                'inline bool operator!=(const NAME &a, const NAME &b) '
@@ -528,6 +534,8 @@ class Gen:
                 conv = BLOB_CONV.get(vt)
                 if conv:
                     out.append(conv[1].replace('NAME', name))
+                elif vt in BLOB_NE:
+                    out.append(BLOB_NE[vt].replace('NAME', name))
                 else:
                     out.append(f'inline bool operator!=(const {name} &a, const {name} &b) '
                                '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
@@ -683,7 +691,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 24
+SYMBOL_PAD = 10
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
