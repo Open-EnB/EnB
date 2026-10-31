@@ -21,6 +21,8 @@ class UIManuUnknownC0Class	// NAME 1: neutral (D10)
 {
 public:
 	~UIManuUnknownC0Class();							// 0x5B7430
+	void Unknown_5B74F0(bool on);						// 0x5B74F0: hidden at once (true), else faded  // NAME 1 [on]: neutral
+	void Unknown_5B7570(bool *disabled, int primary, int secondary);	// 0x5B7570 (0x5B2230: the window's +0x98C and the first two picks)  // NAME 1 [disabled, primary, secondary]: neutral
 
 	GadgetClass *Gadgets[5];							// +0x00 (slot +0x60: picked)  // NAME 2: what it holds
 	RenderObjClass *Unknown14[5];						// +0x14 (released by the destructor; slot +0x184)
@@ -44,7 +46,9 @@ class UIManuItemClass	// NAME 1: neutral (D10): the bottom level
 public:
 	char Unknown000[0x84];								// +0x000
 	std::vector<void *> Unknown084;						// +0x084 (its size bounds the flag test)
-	char Unknown094[0x230 - 0x094];						// +0x094
+	char Unknown094[0x1A8 - 0x094];						// +0x094
+	int Unknown1A8;										// +0x1A8: the item id (0x5B2FE0 sends it)
+	char Unknown1AC[0x230 - 0x1AC];						// +0x1AC
 	bool Unknown230;									// +0x230
 };
 class UIManuLevel2Class	// NAME 1: neutral (D10)
@@ -97,7 +101,7 @@ public:
 	void Unknown_5B1ED0(int row);						// 0x5B1ED0: row picked on level 3, its item id asked for  // NAME 1 [row]: neutral
 	void Unknown_5B2060(int index);						// 0x5B2060: entry index of the current level picked, the next level shown  // NAME 1 [index]: neutral
 	void Unknown_5B21A0(int row);						// 0x5B21A0: the row's two texts highlighted when it is the current level's pick  // NAME 1 [row]: neutral
-	void Unknown_5B2230();								// 0x5B2230: the rows refilled
+	void Unknown_5B2230();								// 0x5B2230: the rows refilled (level 3: names; else the category buttons)
 	void Unknown_5B2820();								// 0x5B2820: no level, no picks, the slider to the top
 	void Unknown_5B28E0(int top);						// 0x5B28E0: the slider to row top  // NAME 1 [top]: neutral
 	void Unknown_5B2950();								// 0x5B2950: the first row from the slider (the rows refilled when it moved)

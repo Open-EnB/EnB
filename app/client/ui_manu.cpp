@@ -21,6 +21,8 @@ public:
 	float Unknown2FC;									// +0x2FC (0x5B3A70: 0.33f)
 	char Unknown300[0x4C5 - 0x300];						// +0x300
 	bool Unknown4C5;									// +0x4C5 (0x5B3A70: false)
+	char Unknown4C6[0x4E4 - 0x4C6];						// +0x4C6
+	bool Unknown4E4;									// +0x4E4 (0x5B2230: set on the level 3 rows)
 };
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
@@ -121,8 +123,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown11C, 0, sizeof(Unknown11C));
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSM01A.INI");
 }
-
-
 
 
 
@@ -259,12 +259,12 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41628)
 };
 int UIManuListClass::UnknownGlobal;
-
-
-
-
-
-
+class UIManuCategoriesClass : public DeltaCompoundClass	// NAME 1: neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
+};
+int UIManuCategoriesClass::UnknownGlobal;
 
 
 
@@ -712,6 +712,39 @@ void UIManuClass::Unknown_5B21A0(int row)
 	}
 }
 
+// 0x5B2230
+void UIManuClass::Unknown_5B2230()
+{
+	if (Unknown0BA0) {
+		if (Unknown0B98 == 3) {
+			for (int row = 0; row < 10; row++) {
+				char name[64];
+				char text[64];
+				Unknown_5B2A80(name, text, Unknown0B90 + row);
+				Unknown16C[row]->Unknown_6CDBC0(name, 0);
+				Unknown16C[row]->Unknown4E4 = true;
+				Unknown194[row]->Unknown_6CDBC0(text, 0);
+				Unknown_5B21A0(row);
+			}
+			for (int i = 0; i < 3; i++) {
+				Unknown0C0[i]->Unknown_5B74F0(false);
+			}
+			return;
+		}
+		for (int row = 0; row < 10; row++) {
+			Unknown16C[row]->Unknown4E4 = false;
+			Unknown16C[row]->Unknown_6CDBC0("", 0);
+		}
+		for (int i = 0; i < 3; i++) {
+			if (i == Unknown0B98) {
+				Unknown0C0[i]->Unknown_5B7570(Unknown98C, Unknown0B80[0], Unknown0B80[1]);
+			} else {
+				Unknown0C0[i]->Unknown_5B74F0(false);
+			}
+		}
+	}
+}
+
 // 0x5B2820
 void UIManuClass::Unknown_5B2820()
 {
@@ -795,6 +828,25 @@ void UIManuClass::Unknown_5B2F20()
 		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
 		if (list && list->Unknown70 > 1) {
 			Unknown_5B3260(list);
+		}
+	}
+}
+
+// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B72B0; the item id read before the client) (0x5B2FE0)
+void UIManuClass::Unknown_5B2FE0()
+{
+	if (Unknown0B98 == 3) {
+		int a = Unknown0B80[0];
+		int b = Unknown0B80[1];
+		int c = Unknown0B80[2];
+		NameClass name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (categories && categories->Unknown70) {
+			int id = ((UIManuNodeClass *)categories)->Unknown084[a]->Unknown1A8[b]->Unknown230[c]->Unknown1A8;
+			((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacket_122Class(Client->As_Space_Client()->Unknown1138, id));
+			Unknown_5B2B40();
+			Unknown0BAD = false;
+			Unknown_5B6CA0();
 		}
 	}
 }
@@ -1664,58 +1716,6 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x5B6410
 UIManuCheckButtonClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain)
 {
@@ -1860,7 +1860,7 @@ void UIManuClass::Unknown_5B6D30()
 **	names, as co.cpp's Unknown_Find_Aux). The player id the packets carry is the space client's +0x1138 (ClientClass::Unknown1138).
 **
 **	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes), +0x58, +0x60, +0x68, the list fillers 0x5B2230 / 0x5B2480 /
-**	0x5B2BD0 / 0x5B3E00, 0x5B1C20 (line 685), 0x5B2FE0, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
-**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B3640, 0x5B3850 and 0x5B67C0 compile but
+**	0x5B2BD0 / 0x5B3E00, 0x5B1C20 (line 685), 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
+**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B2FE0, 0x5B3640, 0x5B3850 and 0x5B67C0 compile but
 **	are not exact (see their NOT EXACT notes).
 */
