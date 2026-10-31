@@ -10,7 +10,9 @@
                                                           file as several claims of at most 30 functions
     python tools/run_branch.py release N [--keep-line]      give claim #N back (and drop its line from the PR)
     python tools/run_branch.py push                         push the run branch (the pre-push check runs)
-    python tools/run_branch.py ready --summary FILE         the PR's summary from FILE, out of draft
+    python tools/run_branch.py ready --summary FILE [--co-author 'NAME <EMAIL>']
+                                                          the progress card regenerated and committed
+                                                          (tools/progress.py), the PR's summary from FILE, out of draft
     python tools/run_branch.py status                       branch, PR, claims
 
 Run start: master is verified by construction (every PR passes vc6-verify), so the run's baseline is
@@ -201,6 +203,24 @@ def cmd_push(a):
     ensure_pr(C.repo(), b)
 
 
+CARD = ['README.md', 'docs/progress.svg', 'docs/progress_chart.svg', 'docs/progress_map.svg',
+        'docs/data/progress-history.csv']
+
+
+def progress_card(co_author=None):
+    """The README's progress card and history from the run's committed data, committed on the run branch (the card
+    reaches master with each run's PR; master takes no bot commits, D148)."""
+    if git('status', '--porcelain', '--', *CARD):
+        sys.exit('run_branch: the progress card files have uncommitted changes; commit or revert them first')
+    if subprocess.run([sys.executable, os.path.join(HERE, 'progress.py'), '--history', '--today', '--readme'],
+                      cwd=ROOT).returncode:
+        sys.exit('run_branch: tools/progress.py failed')
+    if git('status', '--porcelain', '--', *CARD):
+        git('add', '--', *CARD)
+        msg = 'Regenerate the progress card and history for the run (tools/progress.py)'
+        git('commit', '-q', '-m', msg + (f'\n\nCo-Authored-By: {co_author}' if co_author else ''), '--', *CARD)
+
+
 def cmd_ready(a):
     r, b = C.repo(), branch()
     p = run_pr(r, b)
@@ -211,6 +231,7 @@ def cmd_ready(a):
     block = f'<!-- run-summary -->\n{summary}\n<!-- /run-summary -->'
     body = SUMMARY.sub(lambda _: block, body) if SUMMARY.search(body) else block + '\n\n' + body
     set_body(r, p['number'], body)
+    progress_card(a.co_author)
     cmd_push(a)
     if p.get('draft'):
         gh('pr', 'ready', str(p['number']), '-R', r)
@@ -244,7 +265,9 @@ def main():
     p.add_argument('number', type=int)
     p.add_argument('--keep-line', action='store_true')
     sub.add_parser('push')
-    sub.add_parser('ready').add_argument('--summary', required=True)
+    rd = sub.add_parser('ready')
+    rd.add_argument('--summary', required=True)
+    rd.add_argument('--co-author', help="the card commit's Co-Authored-By value (D71), e.g. 'Claude Opus 5.5 <noreply@anthropic.com>'")
     sub.add_parser('status')
     a = ap.parse_args()
     return {'start': cmd_start, 'claim': cmd_claim, 'release': cmd_release, 'push': cmd_push,

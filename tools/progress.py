@@ -37,7 +37,9 @@ its measured length rounded up to the 16-byte alignment when that is shorter. A 
 length whose next start is unknown is charged at most 2 KB. The sizes always come from today's tables,
 so the history differs from day to day only by what each day's commit had proven.
 
-"Written in C++" is exact plus NOT EXACT.
+"Bytes rebuilt" (the card's first bar and the README line) is exact plus third-party plus linker: what is
+proven from our source plus what comes back unchanged by linking the same libraries with the same toolchain.
+The bars show the states in DISPLAY order (those three in greens first). "Written in C++" is exact plus NOT EXACT.
 
 READABLE NAMES. tools/re/declcensus.py counts every declaration (types, functions, members, globals,
 parameters, locals) in app/, stubs/, programs/ and tests/ and scores it on D56's scale by its
@@ -99,7 +101,9 @@ REGIONS = [
     ('EH stubs', EH[0], EH[1]),
     ('other', EH[1], None),
 ]
-STATES = ('exact', 'notexact', 'stub', 'third', 'linker', 'unattr')
+STATES = ('exact', 'notexact', 'stub', 'third', 'linker', 'unattr')      # the history CSV's column order
+DISPLAY = ('exact', 'third', 'linker', 'notexact', 'stub', 'unattr')     # the bars' and legends' order
+REBUILT = ('exact', 'third', 'linker')                                   # 'Bytes rebuilt'
 SHORT = {'exact': 'byte-exact', 'notexact': 'NOT EXACT', 'stub': 'stubbed', 'third': 'CRT / third-party',
          'linker': 'linker output', 'unattr': 'unattributed'}
 STATE_NAMES = {'exact': 'byte-exact', 'notexact': 'written, NOT EXACT', 'stub': 'stubbed',
@@ -521,22 +525,22 @@ def names_summary():
 # ------------------------------------------------------------------------------------ SVG
 
 FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif"
-COLORS = {'exact': '#2ea043', 'notexact': '#d29922', 'stub': '#a371f7', 'third': '#388bfd',
-          'linker': '#6e7681', 'unattr': '#30363d'}
-COLORS_LIGHT = {'unattr': '#d0d7de', 'linker': '#8c959f'}
+COLORS = {'exact': '#3fb950', 'notexact': '#d29922', 'stub': '#a371f7', 'third': '#238636',
+          'linker': '#1b4d2b', 'unattr': '#30363d'}
+COLORS_LIGHT = {'exact': '#1a7f37', 'third': '#4ac26b', 'linker': '#aceebb', 'unattr': '#d0d7de'}
 NAME_COLORS = {5: '#2ea043', 4: '#56d364', 3: '#d29922', 2: '#f0883e', 1: '#f85149'}
 NAME_LABELS = {5: '5 the client names it', 4: '4 EA / structure-confirmed', 3: '3 by convention',
                2: '2 descriptive', 1: '1 placeholder'}
 STYLE = '''  <style>
     .card { fill: #0d1117; stroke: #30363d; } .strong { fill: #f0f6fc; } .muted { fill: #8b949e; }
     .grid { stroke: #30363d; } .up { fill: #3fb950; } .down { fill: #f85149; }
-    .s-exact { fill: #2ea043; } .s-notexact { fill: #d29922; } .s-stub { fill: #a371f7; }
-    .s-third { fill: #388bfd; } .s-linker { fill: #6e7681; } .s-unattr { fill: #30363d; }
+    .s-exact { fill: #3fb950; } .s-notexact { fill: #d29922; } .s-stub { fill: #a371f7; }
+    .s-third { fill: #238636; } .s-linker { fill: #1b4d2b; } .s-unattr { fill: #30363d; }
     .l-exact { stroke: #3fb950; } .l-written { stroke: #58a6ff; }
     @media (prefers-color-scheme: light) {
       .card { fill: #ffffff; stroke: #d0d7de; } .strong { fill: #1f2328; } .muted { fill: #59636e; }
       .grid { stroke: #d0d7de; } .up { fill: #1a7f37; } .down { fill: #cf222e; }
-      .s-unattr { fill: #d0d7de; } .s-linker { fill: #8c959f; }
+      .s-exact { fill: #1a7f37; } .s-third { fill: #4ac26b; } .s-linker { fill: #aceebb; } .s-unattr { fill: #d0d7de; }
       .l-exact { stroke: #1a7f37; } .l-written { stroke: #0969da; }
     }
   </style>
@@ -584,36 +588,39 @@ def stacked(x, y, w, h, parts, cls_prefix='s-', colors=None):
 def render_card(r, names, hist, today_label):
     c, tot = r.counts, r.total
     exact_p = pct(c['exact'], tot)
+    rebuilt = sum(c[s] for s in REBUILT)
+    rebuilt_p = pct(rebuilt, tot)
     written = c['exact'] + c['notexact']
     delta = ''
     prev = [h for h in hist if h['date'] < today_label]
     if prev:
         p = prev[-1]
-        d = exact_p - pct(int(p['bytes_exact']), int(p['text_bytes']) or tot)
+        d = rebuilt_p - pct(sum(int(p['bytes_' + s]) for s in REBUILT), int(p['text_bytes']) or tot)
         if abs(d) >= 0.005:
             delta = '<tspan class="%s" dx="10" font-size="13" font-weight="600">%s %.2f</tspan>' % (
                 'up' if d >= 0 else 'down', '▲' if d >= 0 else '▼', abs(d))
     eb = names['eb']
     ntot = sum(eb.values()) or 1
     W, H = 880, 520
-    o = [svg_open(W, H, 'Earth & Beyond client rebuild: %.2f%% byte-exact, %.2f%% written in C++' % (exact_p, pct(written, tot)),
-                  '%s of %s bytes of client.exe .text rebuild byte for byte; %s are written in C++.' %
-                  (fmt(c['exact']), fmt(tot), fmt(written)))]
+    o = [svg_open(W, H, 'Earth & Beyond client rebuild: %.2f%% rebuilt (%.2f%% byte-exact), %.2f%% written in C++'
+                  % (rebuilt_p, exact_p, pct(written, tot)),
+                  '%s of %s bytes of client.exe .text are rebuilt: %s byte for byte from source, the rest runtime libraries '
+                  'and linker output; %s are written in C++.' % (fmt(rebuilt), fmt(tot), fmt(c['exact']), fmt(written)))]
     o.append('    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">'
              'EARTH &amp; BEYOND CLIENT · REBUILD PROGRESS</text>\n')
     # bar 1
-    o.append('    <text x="28" y="64" class="strong" font-size="15" font-weight="600">Bytes rebuilt (byte-exact)%s</text>\n' % delta)
-    o.append('    <text x="852" y="64" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % exact_p)
-    o.append('    ' + stacked(28, 74, 824, 16, [(s, c[s]) for s in STATES]) + '\n')
+    o.append('    <text x="28" y="64" class="strong" font-size="15" font-weight="600">Bytes rebuilt%s</text>\n' % delta)
+    o.append('    <text x="852" y="64" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % rebuilt_p)
+    o.append('    ' + stacked(28, 74, 824, 16, [(s, c[s]) for s in DISPLAY]) + '\n')
     lx = 28
-    for s in STATES:
+    for s in DISPLAY:
         label = '%s %.1f%%' % (SHORT[s], pct(c[s], tot))
         o.append('    <rect x="%d" y="100" width="9" height="9" rx="2" class="s-%s"/>' % (lx, s))
         o.append('<text x="%d" y="108.5" class="muted" font-size="11.5">%s</text>\n' % (lx + 14, esc(label)))
         lx += 14 + int(len(label) * 6.1) + 18
-    o.append('    <text x="28" y="128" class="muted" font-size="12.5">%s of %s bytes of client.exe\'s .text; %s KB of it is '
-             'the linker\'s thunks, padding and exception-handling stubs, %s KB is runtime and D3DX.</text>\n'
-             % (fmt(c['exact']), fmt(tot), fmt(c['linker'] // 1024), fmt(c['third'] // 1024)))
+    o.append('    <text x="28" y="128" class="muted" font-size="12.5">%s of %s bytes of client.exe\'s .text: %s KB byte-exact '
+             'from source, %s KB runtime and D3DX, %s KB the linker\'s thunks, padding and EH stubs.</text>\n'
+             % (fmt(rebuilt), fmt(tot), fmt(c['exact'] // 1024), fmt(c['third'] // 1024), fmt(c['linker'] // 1024)))
     # bar 2
     o.append('    <text x="28" y="164" class="strong" font-size="15" font-weight="600">Written in C++</text>\n')
     o.append('    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % pct(written, tot))
@@ -737,7 +744,7 @@ def render_map(r):
     body.append('    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">'
                 'EARTH &amp; BEYOND CLIENT · MAP OF .TEXT</text>\n')
     lx = 28
-    for s in STATES:
+    for s in DISPLAY:
         body.append('    <rect x="%d" y="44" width="9" height="9" rx="2" class="s-%s"/><text x="%d" y="52.5" class="muted" '
                     'font-size="11.5">%s</text>\n' % (lx, s, lx + 13, esc(SHORT[s])))
         lx += 13 + int(len(SHORT[s]) * 6.2) + 16
@@ -755,7 +762,7 @@ def render_map(r):
             tot = sum(cnt) or 1
             yy = y + 8
             hh = 44
-            for s, v in zip(STATES, cnt):
+            for s, v in sorted(zip(STATES, cnt), key=lambda sv: DISPLAY.index(sv[0])):
                 if v <= 0:
                     continue
                 h = hh * v / tot
@@ -776,7 +783,7 @@ def render_map(r):
     y += 20
     # columns: (x, anchor, header)
     cols = [(28, 'start', 'Region'), (150, 'start', 'Address range'), (330, 'end', 'KB'), (400, 'end', 'exact'),
-            (470, 'end', 'NOT EX.'), (530, 'end', 'stub'), (610, 'end', 'CRT/3rd'), (690, 'end', 'linker'),
+            (480, 'end', 'CRT/3rd'), (550, 'end', 'linker'), (630, 'end', 'NOT EX.'), (690, 'end', 'stub'),
             (770, 'end', 'unattr.')]
     for x, an, hd in cols:
         body.append('    <text x="%d" y="%d" text-anchor="%s" class="muted" font-size="11" font-weight="600">%s</text>\n'
@@ -787,7 +794,7 @@ def render_map(r):
         y += 17
         size = row['size'] or 1
         vals = [row['name'], '0x%X-0x%X' % (row['lo'], row['hi']), fmt(round(row['size'] / 1024))] + \
-            ['%.1f%%' % pct(row[k], size) for k in ('exact', 'notexact', 'stub', 'third', 'linker', 'unattr')]
+            ['%.1f%%' % pct(row[k], size) for k in DISPLAY]
         for (x, an, _), v in zip(cols, vals):
             body.append('    <text x="%d" y="%d" text-anchor="%s" class="strong" font-size="11">%s</text>\n' % (x, y, an, esc(v)))
     y += 22
@@ -816,10 +823,12 @@ def update_readme(r, names):
     c, tot = r.counts, r.total
     eb = names['eb']
     ntot = sum(eb.values()) or 1
-    line = ("As of %s, **%.2f%%** of client.exe's `.text` is rebuilt byte for byte (%s functions) and **%.2f%%** is written in C++. "
+    line = ("As of %s, **%.2f%%** of client.exe's `.text` is rebuilt: **%.2f%%** byte for byte from source (%s functions), "
+            "%.2f%% runtime libraries and linker output. **%.2f%%** is written in C++. "
             "Of %s declarations in E&B's code, **%.1f%%** score 4-5 on D56's name scale "
             "(untagged names count as 5, %.1f%% of all)."
-            % (datetime.date.today().isoformat(), pct(c['exact'], tot), fmt(r.exact_functions),
+            % (datetime.date.today().isoformat(), pct(sum(c[s] for s in REBUILT), tot), pct(c['exact'], tot),
+               fmt(r.exact_functions), pct(c['third'] + c['linker'], tot),
                pct(c['exact'] + c['notexact'], tot), fmt(ntot), pct(eb[5] + eb[4], ntot), pct(names['untagged5'], ntot)))
     a, b = '<!-- progress:start -->', '<!-- progress:end -->'
     i, j = t.find(a), t.find(b)
@@ -860,8 +869,9 @@ def main():
     names = names_summary() if not a.no_names else {'eb': {5: 1, 4: 0, 3: 0, 2: 0, 1: 0}, 'untagged5': 0, 'ea': 0}
     c = r.counts
     print('.text %s bytes' % fmt(r.total))
-    for s in STATES:
+    for s in DISPLAY:
         print('  %-30s %10s  %6.2f%%' % (STATE_NAMES[s], fmt(c[s]), pct(c[s], r.total)))
+    print('  rebuilt (exact + third-party + linker): %.2f%%' % pct(sum(c[s] for s in REBUILT), r.total))
     print('  written in C++ (exact + NOT EXACT): %.2f%%' % pct(c['exact'] + c['notexact'], r.total))
     print('  exact functions %s, pairs %s; NOT EXACT located %d, unplaced %d (avg %d bytes); sizes estimated for %d functions'
           % (fmt(r.exact_functions), fmt(r.sets.pairs), r.located, r.unresolved, r.avg_ne, r.tab.estimated_sizes))

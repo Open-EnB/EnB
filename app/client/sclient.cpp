@@ -5124,7 +5124,7 @@ void SClient::Unknown_750260(bool reset)
 		}
 	}
 	if (Unknown14EC == 2 && Text && WWAudioClass::Get_Instance()) {
-
+		WWAudioClass::Get_Instance();
 
 
 		FAIL_IF(WWAudioClass::Get_Instance()->Get_2D_Sample_Count() != WWAudioClass::Get_Instance()->Get_3D_Sample_Count()) return;
@@ -5738,4 +5738,8 @@ void SClient::Unknown_750F70(const char *name, int channel)
 **	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SClient *)): Process_Packets
 **	peeks the connection (PeekConnectionClass +0x34), hands the packet to its handler and, when that
 **	returns true, takes it off the connection (+0x0C) and deletes it; false leaves it for the next frame.
+**	0x750260 under D165's FAIL_IF (the && form, cheaper for the inline budget): a dead
+**	'WWAudioClass::Get_Instance();' before the two FAIL_IFs keeps StringClass::Store_Length out of line and
+**	the zero in ebp, as the client (FI1, 2026-10-31; two or three such calls, or one dead
+**	Get_2D_Sample_Count(), work too).
 */

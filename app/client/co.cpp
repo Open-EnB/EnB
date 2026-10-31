@@ -2473,7 +2473,7 @@ void ClientObjectClass::Unknown_6FFFF0(std::string &text)
 			text += guild;
 			text += " ";
 			text += (const char *)Unknown_6FFFA0();
-			text += "]";
+			text += "]"; text.size();
 		} else {
 			text = "[";
 			text += guild;
@@ -2679,4 +2679,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **	type 1 go through the inline one-case switch 0x6F5A40 (movsx, dec, jne) where the client has that
 **	form, and a plain 'Type == 1' where it compares the byte. Float copies the client makes through the
 **	FPU need an inline getter or setter (Get_Float / Set_Floats, SphereClass::Init).
+**	0x6FFFF0 under D165's FAIL_IF (the && form, cheaper for the inline budget than the ?: form): a dead
+**	'text.size();' after the guild-tag branch's last append keeps the result's append out of line, as the
+**	client calls it (FI1, 2026-10-31; one at the else branch's start works too).
 */

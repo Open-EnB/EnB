@@ -799,7 +799,7 @@ LegoBoneMapClass::LegoBoneMapClass(int asset_id) :
 
 
 
-			FAIL_IF(!bone_name_string.Peek_Buffer()) return;
+			FAIL_IF(!bone_name_string.Peek_Buffer()) break;
 			std::string bone_name = bone_name_string.Peek_Buffer();
 			int bone_index = ini->Get_Int(section, "BoneIndex", -1);
 
@@ -846,7 +846,9 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 **	follow the window, exact. Not here: lego_identifier.cpp's split 0x844ED0 / 0x8451A0.
 **	* The bone map's constructor 0x72D5F0 is exact or 2 rows off (order) with the same source,
 **	  depending on what else the file holds (the inline budget's file state): re-check it after
-**	  any change here.
+**	  any change here. Under D165's FAIL_IF (the && form) the bone-name FAIL_IF ends the loop with
+**	  'break' (same effect: nothing follows the loop): with 'return' the loop's exit jumps to the later of
+**	  the two merged 'mov eax, edi; jmp' tails, the client to the first (FI1, 2026-10-31).
 **	* _Global_Bone_Maps and _CBASSET_INI are file statics: the bone map's constructor names
 **	  _CBASSET_INI unqualified in its assert.
 **	* New children go through the children table's operator[] (0x72C040 / 0x72EBA0 / 0x730C10):

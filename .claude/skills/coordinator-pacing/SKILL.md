@@ -90,8 +90,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `git status` clean except `.claude/settings.json`,
   HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
 - Claims: `python tools/run_branch.py release N` for each claim whose builder brought nothing in (it drops the
-  `Claims #N` line too); the others land with the run's PR. At handoff `run_branch.py ready --summary FILE`
-  (the handoff skill) takes the PR out of draft; the verify service verifies it and the maintainer merges it.
+  `Claims #N` line too); the others land with the run's PR. At handoff `run_branch.py ready --summary FILE
+  --co-author 'NAME <EMAIL>'` (the handoff skill) regenerates and commits the README's progress card
+  (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - If the user says to spend the quota before a reset, keep launching bounded items up to the allowance and
   let them run into the next window; the handoff then gets an addendum after the last report. If the user says
   nothing new starts, close the window at once and log it.

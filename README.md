@@ -15,7 +15,7 @@ engineered** from the executable and rebuilt until its functions match.
 ## Status
 
 <!-- progress:start -->
-As of 2026-10-29, **28.71%** of client.exe's `.text` is rebuilt byte for byte (9,984 functions) and **31.90%** is written in C++. Of 33,066 declarations in E&B's code, **72.1%** score 4-5 on D56's name scale (untagged names count as 5, 71.9% of all).
+As of 2026-10-31, **46.50%** of client.exe's `.text` is rebuilt: **30.62%** byte for byte from source (10,635 functions), 15.89% runtime libraries and linker output. **34.34%** is written in C++. Of 36,595 declarations in E&B's code, **70.1%** score 4-5 on D56's name scale (untagged names count as 5, 69.9% of all).
 
 [![Rebuild progress](docs/progress.svg)](tools/progress.py)
 
@@ -24,9 +24,10 @@ As of 2026-10-29, **28.71%** of client.exe's `.text` is rebuilt byte for byte (9
 ![Map of client.exe](docs/progress_map.svg)
 <!-- progress:end -->
 
-The card is regenerated daily by [tools/progress.py](tools/progress.py) from the data committed in
-`docs/data/`; the definitions of each bar are in the footnote of the card and in
-[docs/README.md](docs/README.md). The counting rule changed on 2026-10-25 (decision D80: identical
+The card is regenerated with each run's pull request by [tools/progress.py](tools/progress.py) from the data
+committed in `docs/data/`. "Rebuilt" counts the bytes proven byte for byte from our source plus the
+runtime libraries and linker output that come back unchanged with the same toolchain; the definitions of
+each bar are in the footnote of the card and in [docs/README.md](docs/README.md). The counting rule changed on 2026-10-25 (decision D80: identical
 functions that differ only in a relocation target are now told apart), so the early part of the
 chart is a slight undercount.
 

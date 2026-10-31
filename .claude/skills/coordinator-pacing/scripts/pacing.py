@@ -93,10 +93,11 @@ def health(baseline):
         io.open(tmp, 'w', encoding='utf-8', newline='').write(head)
         out = subprocess.run([sys.executable, PAIRS_CMP, baseline, tmp], cwd=REPO,
                              capture_output=True, text=True).stdout
-        g = re.search(r'gained \[(.*?)\]\nlost \[(.*?)\]', out, re.S)
-        if g:
-            gained = ast.literal_eval('[' + g.group(1) + ']')
-            lost = ast.literal_eval('[' + g.group(2) + ']')
+        # one labelled list per line; D166 added `gained tie-break` and the `lost tie-break ...` lines
+        rows = dict(re.findall(r'^([a-z][^\[\n]*?) (\[.*\])$', out, re.M))
+        if 'gained' in rows and 'lost' in rows:
+            gained = ast.literal_eval(rows['gained']) + ast.literal_eval(rows.get('gained tie-break', '[]'))
+            lost = ast.literal_eval(rows['lost'])
             # an address still matched under any file at HEAD is a move (D66(i)/(v)), not a loss
             ga = {x[2] for x in gained}
             data = json.loads(head)

@@ -40,12 +40,14 @@ resolves nothing more; its credits feed D80's next round.
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
+import bisect
 import collections
 import json
 import os
 import re
 import struct
 import sys
+import threading
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from clientimage import ClientImage, DEFAULT_CLIENT  # noqa: E402
@@ -392,9 +394,11 @@ def demangle(name):
     return f'{cls}::{method}' if cls else method
 
 
-def match_objects(img, paths, region=None):
+def match_objects(img, paths, region=None, callers=False):
     """region=(lo, hi): search only [lo, hi) of .text (E&B's app region for app files: a pattern
-    that also occurs in the libraries is still exact there)."""
+    that also occurs in the libraries is still exact there). callers=True: D166's caller tie-break
+    (caller_tiebreak) for identical copies the other rules leave tied; such a result is 'exact'
+    with `caller_tiebreak` set."""
     start, end, raw = img.section('.text')
     text = img.data[raw:raw + (end - start)]
     if region:
@@ -552,7 +556,118 @@ def match_objects(img, paths, region=None):
             phase, changed = 'range', True          # neither D80 nor the self name: one range round
         elif phase == 'range':
             phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
+    if callers:
+        caller_tiebreak(img, results, pending, claimed, text, start, thunk)
     return [x[0] for x in results]
+
+
+_call_sites = {}
+_call_lock = threading.Lock()
+
+
+def call_sites(img):
+    """({target VA: [site VA]} of every E8 / E9 rel32 in .text, the incremental thunk table). A byte
+    that only looks like E8 adds a site, which can only make D166 more careful."""
+    with _call_lock:
+        if id(img) not in _call_sites:
+            start, end, raw = img.section('.text')
+            body = img.data[raw:raw + (end - start)]
+            sites = collections.defaultdict(list)
+            for m in re.finditer(rb'[\xE8\xE9]', body):
+                o = m.start()
+                if o + 5 > len(body):
+                    break
+                dst = (start + o + 5 + struct.unpack_from('<i', body, o + 1)[0]) & 0xFFFFFFFF
+                sites[dst].append(start + o)
+            _call_sites[id(img)] = (sites, thunks_of(img))
+        return _call_sites[id(img)]
+
+
+def caller_tiebreak(img, results, pending, claimed, text, base, thunk):
+    """D166: a function found at several byte-identical client addresses is the one our own callers
+    reach. Our caller C (a function of the same object, exact at A) has a relocated call to X's
+    symbol; the call at A reaches one of X's addresses. X takes that address only when every client
+    call or jump to it comes from a function the same object is exact at (or from X itself) and
+    nothing holds the address as data (a vtable slot, a pushed pointer): the linker's merged copy has
+    callers in every file and stays tied. No other symbol may be exact there or propose the same
+    address. Rounds repeat until nothing changes (an address credited makes its own callees
+    resolvable); a round's proposals are applied together, so the result does not depend on the order
+    of the objects."""
+    todo = [it for it in pending if it[0]['status'] == 'multiple' and it[0].get('identical')]
+    if not todo:
+        return
+    todo.sort(key=lambda it: (it[0]['object'], it[0]['symbol']))
+    sites, thunks = call_sites(img)
+    alias = collections.defaultdict(set)
+    for th, dst in thunks.items():
+        alias[dst].add(th)
+    data = img.data
+
+    def refs_ok(addr, xlen, funcs):
+        """funcs: {start: length} of the functions the object is exact at."""
+        names = {addr} | alias.get(addr, set())
+        if any(data.find(struct.pack('<I', a)) >= 0 for a in names):
+            return False
+        order = sorted(funcs)
+        n = 0
+        for a in names:
+            for site in sites.get(a, ()):
+                if site in thunks:
+                    continue                      # the thunk's own jump
+                n += 1
+                if addr <= site < addr + xlen:
+                    continue                      # X calling itself
+                i = bisect.bisect_right(order, site) - 1
+                if i < 0 or site >= order[i] + funcs[order[i]]:
+                    return False
+        return n > 0
+
+    changed = True
+    while changed:
+        changed = False
+        proposals = []
+        for item in todo:
+            r, obj, sec, s, length, hits = item
+            if r['status'] != 'multiple':
+                continue
+            funcs, callers = {}, []
+            for r2, obj2, sec2, s2, len2 in results:
+                if obj2 is obj and r2['status'] == 'exact':
+                    a2 = int(r2['addresses'][0], 16)
+                    funcs[a2] = max(funcs.get(a2, 0), len2)
+                    if r2['symbol'] != r['symbol']:
+                        callers.append((sec2, s2, len2, a2))
+            cands, bad = set(), False
+            for sec2, s2, len2, a2 in callers:
+                for k, n, typ, sym, addend in obj.reloc_targets(sec2, s2, len2):
+                    if sym is None or sym['name'] != r['symbol']:
+                        continue
+                    if n != 4 or typ != 0x14:
+                        bad = True
+                        continue
+                    o = a2 - base
+                    v = (a2 + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                    cands.add(thunk.get(v, v))
+            if bad or len(cands) != 1:
+                continue
+            a = next(iter(cands))
+            if a not in hits or claimed[a] - {r['symbol']} or not refs_ok(a, length, funcs):
+                continue
+            proposals.append((item, a))
+        by_addr = collections.defaultdict(set)
+        for (r, *_), a in proposals:
+            by_addr[a].add(r['symbol'])
+        for item, a in proposals:
+            r = item[0]
+            if len(by_addr[a]) > 1:
+                continue
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['caller_tiebreak'] = True
+            r.pop('count', None)
+            r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            changed = True
 
 
 def initialiser_targets(results, pending, ranges, text, base, known, thunk):

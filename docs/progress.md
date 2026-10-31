@@ -4,6 +4,34 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (09:15, morning): D164-D166; FAIL_IF's && form (+6), the caller tie-break (+317 pairs), the progress card fixed
+
+Coordinator Opus 5.5 with two builders, one at a time. Base 56b6c79e (PR #13 merged; `.work/imports.56b6c79e.json`); run
+branch `run/2026-10-31`, PR #37. Plan log: `.work/run-2026-10-31/plan.md`. HEAD against the baseline: +323 pairs, nothing
+lost outright.
+
+* **Decisions:** D164 (P-MU1-1, explicit instantiations for out-of-line template copies), D165 (P-SM2-1, FAIL_IF's
+  `&&` form), D166 (the caller tie-break; D66 (vii)). D163 (the API credits) was not started: still first in §4.
+* **FI1 (Opus, 2943f972, D165):** the `&&` FAIL_IF in unknown_debug.h, app 5,127 -> 5,133 (+6: scriptedmovie 0x803310,
+  co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690), 0 lost. Four knock-ons fixed in their own files
+  (no per-file macro): client_lego_impl 0x72D5F0 (`break` for `return`), co 0x6FFFF0 and sclient 0x750260 (one dead
+  inline call each to restore the inline budget the cheaper macro freed), ui_cpit 0x57F240 (one more implicit key name).
+* **TB1 (Sonnet, cf19989a + 89b35501, D166):** objmatch's `caller_tiebreak` (verify / compile_and_match only, not
+  `appfile.py match`), a `tiebreak` list per file in imports.json (also in `in_tree`), pairs_cmp's tie-break lines. Full
+  verify of all 11 libraries twice, identical output: +317 pairs (app 259, ww3d2 40, wwaudio 7, wwlib 5, wnet 3, wwmath 2,
+  wwsaveload 1), ambiguous 340 -> 315, replay 0 files differ. Bytes unchanged (identical copies already counted as exact
+  bytes). 0x584C80 / 0x47CF50 stay ambiguous until their callers 0x57DD20 (ui_cpit) / 0x47A2F0 (land) are exact.
+  0x62A5D0 is held by pkcolorization and scriptedmovie (D20; kept, TB1's stricter variant not taken). pacing.py's
+  pairs_cmp parser fixed for the new lines (d7a7b262).
+* **Progress card (the user's request):** the daily job was dropped in cff55ff and nothing replaced it, so the card stood
+  at 2026-10-29. `run_branch.py ready` now regenerates and commits it (`--co-author` for D71). 'Bytes rebuilt' = byte-exact
+  + CRT / third-party + linker output, those three in greens first (db82df8d): 46.50% rebuilt (30.62% byte-exact),
+  34.34% written in C++ (52c8e4d4). The user's question answered in the session: the outstanding work is unattributed +
+  NOT EXACT + stubbed (~53.5% of .text); runtime and linker output come back with the toolchain (EH stubs with their
+  functions).
+* **Traps:** FI1's in workflow.md §3.1 / §3.3 (88460e4a), TB1's in §3.4 (cf19989a, d7a7b262).
+* **Usage:** weekly 58 % -> 59 %.
+
 ### 2026-10-31 (03:45, overnight): the quiet tree closed, land item 5's next round, seven new files; app 4,761 -> 5,127 in tree, +475 pairs, 0 lost
 
 Coordinator Opus 5.5, one to three Opus builders at a time (pacing to the user's ~60 % of the week by 07:00: 50 % at
@@ -37,8 +65,8 @@ Coordinator Opus 5.5, one to three Opus builders at a time (pacing to the user's
   scanning with push protection (github-plan.md §4.5.7). The Claims Action refused a fourth maintainer claim while
   the user's org membership was private (the token saw no MEMBER); the user made it public and later claims passed.
 * **Decisions:** D163 (P-API-1, the API credits: pilot builder, then a Batch API triage; first item of the next
-  session). Open for the user (§3): P-SM2-1 (FAIL_IF's form), P-MU1-1 (explicit instantiations for out-of-line
-  template copies).
+  session). P-SM2-1 accepted 2026-10-31 as D165 (FAIL_IF's form). P-MU1-1 accepted 2026-10-31 as D164
+  (explicit instantiations for out-of-line template copies).
 * **For the user to confirm:** 0x584C80 (CP1's 7f6f84e5 credited it to ui_cpit, 9d9b074c unattributed it: our
   Create_Get<FontStyleClass> is byte-identical to the client's Create_NEW there). Not in master's baseline, so nothing
   is lost against master; CP1 called it D66(vi), but it is not in any ambiguous list.
@@ -1414,7 +1442,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D63 | 2026-10-25 | M2 gate (c)'s repeatable check is `tools/harness/vidtest_e2e.py` (E&BConfig's command line, results.ini). A supervised run of the original E&BConfig with the user, registry backed up first, is a one-time acceptance check, not a gate. D36 reworded: E&BConfig.exe isn't rebuilt. **Passed 2026-10-25** (log entry of that evening): every displayed value as our results.ini, registry unchanged | user |
 | D64 | 2026-10-25 | `// NOT EXACT:` is a general interim marker for app code written functionally from pseudocode, not only on the M1/M2 path (D42); D7 stays the target. `tools/re/names.py` lists every marked function in the generated `docs/data/not-exact.md` | user |
 | D65 | 2026-10-25 | D10/D16's neutral names are NAME 1 on D56's scale, replaced whenever better evidence appears (conventions.md §1 reworded) | user |
-| D66 | 2026-10-25 | Pair losses. Not losses, named in the commit message: (i) a COMDAT duplicate kept matched in another file (D20); (ii) the same source compiled into two files (D55); (iii) a false match exposed by a type fix (first: 0x8C1520, `KVPairTemplateClass<__int64>`'s string setter, matched by the money instance only while `MoneyClass` was a bare `__int64`). A change that gains and loses nothing but models the client's own classes (07af3e1: Ship's BuffArray and Buff elements with the client's vtables and globals) is allowed, stated in the commit (2026-10-25, evening). (v) a net-positive change where every lost pair's address is re-credited under another file in the same verify (pairs_cmp's address-level 'lost outright' list empty), named in the commit; an address lost outright still waits for the user; (vi) a pair that becomes ambiguous because the client's own form adds a byte-identical instance (D119). Anything else is a loss and waits for the user before the commit. D54's ambiguous column stays as is: the 17 identical template leaf Reads are not pairs (amended 2026-10-27, D110; 2026-10-28, D119) | user |
+| D66 | 2026-10-25 | Pair losses. Not losses, named in the commit message: (i) a COMDAT duplicate kept matched in another file (D20); (ii) the same source compiled into two files (D55); (iii) a false match exposed by a type fix (first: 0x8C1520, `KVPairTemplateClass<__int64>`'s string setter, matched by the money instance only while `MoneyClass` was a bare `__int64`). A change that gains and loses nothing but models the client's own classes (07af3e1: Ship's BuffArray and Buff elements with the client's vtables and globals) is allowed, stated in the commit (2026-10-25, evening). (v) a net-positive change where every lost pair's address is re-credited under another file in the same verify (pairs_cmp's address-level 'lost outright' list empty), named in the commit; an address lost outright still waits for the user; (vi) a pair that becomes ambiguous because the client's own form adds a byte-identical instance (D119). (vii) a caller tie-break pair (D166) lost with its caller's pair. Anything else is a loss and waits for the user before the commit. D54's ambiguous column stays as is: the 17 identical template leaf Reads are not pairs (amended 2026-10-27, D110; 2026-10-28, D119) | user |
 | D67 | 2026-10-25 | Test programs live under `tests/` (D45 extended: kerneltest and movietest in tests/capharness). The wlib stand-ins (app/common/dictionary.h, critsec.h, app/wwudp/wtime.h, parts of cordcon.h) stay until D73's import replaces them with the imported files at the client's paths (`libs\wwonline\wlib`), then are deleted Done: the wlib stand-ins are deleted (D73's import is done), so the "stay until" clause is complete (2026-10-27) | user |
 | D68 | 2026-10-25 | [kernel-map.md](kernel-map.md)'s 10-step reconstruction order is adopted (extends D6); steps 1-5 and 7 done or partly done on 2026-10-24 | user (backfilled) |
 | D69 | 2026-10-25 | Safety rules for every run of our programs and every session (amends D48): never a modal dialog (`-nomsgbox` or its equivalent in every program); full screen allowed; no screen grabs, images only from the program's own back buffer; never the game's install folder as working directory; no registry changes (the original E&BConfig only in a supervised run with a registry backup); never push (amended by D148 / D157: push only a run branch, never master); never `importer.py assemble` on a tree with work; `git add` by name, `.claude/settings.json` stays out | user (each given on 2026-10-24; numbered 2026-10-25) |
@@ -1512,18 +1540,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D161 | 2026-10-30 | P-CSC-2: CSC's source and toolchain facts are recorded in [source-tree.md](source-tree.md) (`C:\Projects\G`, `Tools\Avatar Creator`, `chatint` / `textwin` / `usermsg`, `wnet\tcpmgr.cpp`, 0x836960 in galaxy_map.cpp) and [toolchain.md](toolchain.md) §1.2 (VC6 RTM throughout, no 8798 objects, `/OPT:REF,ICF`) | user |
 | D162 | 2026-10-30 | P-CSC-3: a functional CSC becomes a milestone once the client's character-creation screens run on the tree; not before ([CSC.md](CSC.md) §6.2) | user |
 | D163 | 2026-10-30 | P-API-1: the user's $200 of Anthropic API credits go to (1) a pilot builder run in Claude Code on a separate API key (spend limit set in the Console; the coordinator stays on the subscription; model and tokens logged in the plan beside subscription runs, for the cost per pair gained), then (2) a one-off Batch API triage of the not-yet-exact functions' saved pseudocode (`.work/pseudo/`) with a cheap model: STL / template instance, Westwood library or E&B code, and the class or file its callers suggest; hints for planning only, never names (D56), objmatch / verify decide; (3) the rest as overflow builder capacity (work the weekly window turns away, the D89 Fable queue). Next session (2026-10-31 morning) | user |
+| D164 | 2026-10-31 | P-MU1-1: explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) are an accepted matching form for emitting the client's out-of-line template copies (first: ui_manu's 0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), each marked in the source as not the client's form (like aux_roots' SYMBOL_PAD); callers stay unchanged | user |
+| D165 | 2026-10-31 | P-SM2-1: FAIL_IF in app/shared/unknown_debug.h becomes `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))` (the app-wide trial: +6, scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690; -3, client_lego_impl 0x72D5F0, co 0x6FFFF0, sclient 0x750260). A builder fixes the three losses in their own files first; the macro changes in the commit that loses nothing | user |
+| D166 | 2026-10-31 | Caller tie-break: when objmatch finds one of our functions at several byte-identical client addresses (`multiple` + `identical`, D54's ambiguous column), verify pairs it with the address whose callers are all already paired exactly, in the same file, with the functions that call it in our object (first: ui_cpit's 0x584C80, called only from 0x57DD20; land's 0x47CF50 from 0x47A2F0). An address with callers in several files (the linker's merged copy, 0x474080 with 247 callers) or with an unpaired caller stays ambiguous. Deterministic (passes until nothing changes); `pairs_cmp.py` lists tie-break pairs separately. D66 (vii): a tie-break pair lost because its caller lost its pair is not a loss of its own, named in the commit. The switch lands as one commit with a full verify of all 11 libraries (the one-time gain), apart from any builder's work | user |
 
 ## 3. Open decisions
-
-* **P-SM2-1** (2026-10-31, SM2; recommend yes, after the three fixes): FAIL_IF in app/shared/unknown_debug.h written as
-  `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))`. Tried app-wide and reverted: +6
-  (scriptedmovie's dispatcher 0x803310 exact, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690),
-  -3 (LegoBoneMapClass ctor 0x72D5F0, which flips with its file's state; co 0x6FFFF0, which then inlines more than the
-  client; sclient 0x750260). Six gains in unrelated files are the evidence the client's macro has this form. Adopt
-  once a builder fixes the three in their own files (losses wait for the user, D66)?
-* **P-MU1-1** (2026-10-31, MU1; recommend yes): explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) to
-  emit the client's out-of-line template copies (0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), marked in
-  the source as not the client's form (like aux_roots' SYMBOL_PAD); callers unchanged. Allow it as a matching form?
 
 * **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
   template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
