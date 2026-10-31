@@ -280,7 +280,7 @@ void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 	*normal = n;
 }
 
-// NOT EXACT: written from the pseudocode (0x464600: the cell's two triangles)
+// 0x464600: the cell's two triangles, the heights through the inlined Get_Height(i, j)
 float HeightFieldClass::Get_Height(const Vector3 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
@@ -289,16 +289,13 @@ float HeightFieldClass::Get_Height(const Vector3 &pos)
 	int j = (int)floor(fy);
 	float tx = fx - i;
 	float ty = fy - j;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
-	unsigned int i1 = (i + 1) & Mask;
-	float h00 = Heights[(i & Mask) + row0] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	if (tx < ty) {
-		float h01 = Heights[row1 + (i & Mask)] * VScale;
+		float h01 = Get_Height(i, j + 1);
 		return (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
 	}
-	float h10 = Heights[i1 + row0] * VScale;
+	float h10 = Get_Height(i + 1, j);
 	return (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
 }
 
