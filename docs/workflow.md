@@ -818,7 +818,11 @@ unless `--lever` cites a new row of this table.
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
 * **symbols.json regeneration is not neutral (2026-10-27, M2 / M3):** symbols.py used to promote D88's self-named functions to
   `source: exact`, deleting the evidence that made them exact (-323 pairs); it now keeps the proof (`proof`, 0253f43).
-  Regenerate only with a full verify of every library. An object's client range never comes from imports.json's
+  Regenerate only with a full verify of every library. A tool fed by symbols.json must not lose its evidence when
+  symbols.json records that tool's own result (2026-10-31, AR1: a regeneration lost 268 outright): the proof was kept
+  only for the very same symbol, so a vtable slot's `??_E` dropped when the byte-identical `??_G` became exact (244;
+  `same()` now treats them as one), and D115 stopped registering an initialiser target it already knew (7; known
+  targets now register too). Before regenerating, check every tie-break that reads symbols.json for this. An object's client range never comes from imports.json's
   `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
   `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
   stale when part of the work lands separately: diff the park folder against HEAD before using it (M1).
