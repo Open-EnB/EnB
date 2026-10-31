@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1024 |
+| 3 | by convention from a client-named file or sibling | 1025 |
 | 2 | describes what the code does | 2506 |
 | 1 | neutral placeholder | 6891 |
 
@@ -4637,7 +4637,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIManuUnknownBCClass` | `app/client/ui_manu.h:84` | neutral (D10) |
 | 1 | `on` | `app/client/ui_manu.h:87` | neutral |
 | 1 | `Unknown_62F5B0` | `app/client/ui_manu.h:87` | untagged neutral name (D10) |
-| 1 | `UI_OPEN` | `app/client/ui_manu.h:94` | neutral (D10)										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's |
+| 1 | `UI_OPEN` | `app/client/ui_manu.h:94` | neutral (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_manu.h:99` | untagged neutral name (D10) |
 | 1 | `view, layer` | `app/client/ui_manu.h:102` | what 0x69F8F0 passes |
 | 1 | `Unknown_54` | `app/client/ui_manu.h:104` | untagged neutral name (D10) |
@@ -9675,6 +9675,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_manu.cpp:159` | the FAIL_IF's |
 | 3 | `TechLevel` | `app/client/ui_manu.cpp:300` | the FAIL_IF's |
 | 3 | `USER_INPUT` | `app/client/ui_manu.h:92` | the asserts' |
+| 3 | `UI_CLOSED` | `app/client/ui_manu.h:93` | the assert's |
 | 3 | `UIManuClass` | `app/client/ui_manu.h:99` | class-from-file (D24) for app\client\ui_manu.cpp |
 | 3 | `bttn_name` | `app/client/ui_manu.h:143` | the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral |
 | 3 | `tech_level, source` | `app/client/ui_manu.h:145` | the asserts'; NAME 1 [on]: neutral |

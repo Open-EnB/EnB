@@ -90,8 +90,8 @@ public:
 enum
 {
 	USER_INPUT = 0,										// (the G_ASSERTs 'source != USER_INPUT'; the buttons pass 0)  // NAME 3: the asserts'
-	UI_CLOSED = 0,
-	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
+	UI_CLOSED = 0,										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
+	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
 };
 
 // ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
@@ -153,7 +153,7 @@ public:
 	RefCountPtr<InterfaceClass> Unknown0B8;				// +0x0B8
 	RefCountPtr<UIManuUnknownBCClass> Unknown0BC;		// +0x0BC
 	UIManuUnknownC0Class *Unknown0C0[3];				// +0x0C0 (the destructor deletes them)
-	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xE4: the go button)
+	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xD0..+0xE4: slot +0x54's buttons 'exit', the category columns 'item00' / 'cat00' / 'sub00', 'recent00', 'go')
 	UIManuRowButtonClass *Unknown0E8[10];				// +0x0E8 the rows' buttons
 	RefCountPtr<RenderObjClass> Unknown110[3];			// +0x110
 	UIManuRowStruct Unknown11C[10];						// +0x11C the list's rows
