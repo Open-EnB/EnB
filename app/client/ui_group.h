@@ -132,7 +132,7 @@ public:
 	bool Unknown_597B00();								// 0x597B00: GroupInfo's +0x120 (FAIL_IFs '!client', '!sclient')
 	void Unknown_597B70(bool value);					// 0x597B70: SClient +0x13C0  // NAME 1 [value]: neutral
 	void Unknown_597D10();								// 0x597D10 (FAIL_IF '!SymbolChatUI' on +0xAC)
-	void Unknown_597E40(int arg);						// 0x597E40  // NAME 1 [arg]: what the callers pass (0)
+	void Unknown_597E40(bool value);						// 0x597E40  // NAME 1 [value]: stored in +0xF0 (false while +0xF1)
 	void Unknown_598370();								// 0x598370
 	void Unknown_5981B0();								// 0x5981B0 (cpacket.cpp: CTA_RESPONSE 189's request type 14, when the player doesn't lead the group)
 	void Unknown_598200(bool on);						// 0x598200 (CTA_RESPONSE 189's type 15 passes true)  // NAME 1 [on]: what the handler passes

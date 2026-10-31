@@ -1735,70 +1735,70 @@ void UIGroupClass::Unknown_597D10()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x597E40's GroupInfo lookups: auxdata.h's find, NULL unless set (+0x70); the dead size() reads spend the inline budget so the client's
+// out-of-line find 0x5927E0 (A: sites one and two) and rtti.h's out-of-line cast 0x598D80 (B, C) come out as its (A 6, B 4, C 3; not the client's code)
+template<class C> inline C *Unknown_Group_FieldA(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Group_FieldB(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Group_FieldC(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
+
+
+
+
+
+
+// 0x597E40
+void UIGroupClass::Unknown_597E40(bool value)
+{
+	ClientClass *client = (ClientClass *)Client;
+	FAIL_IF(!client) return;
+	SClient *sclient = (SClient *)client->Unknown_18();
+
+	FAIL_IF(!sclient) return;
+	if (Unknown0F1) {
+		value = false;
+	}
+	Unknown0F0 = value;
+	for (int i = 3; i < 9; i++) {
+		Unknown0C0[i]->Unknown_40(Unknown0F0);
+		Unknown0C0[i]->Unknown_8C(!Unknown0F0);
+	}
+	if (!value) return;
+	if (sclient->Unknown_74D690()) {
+		Unknown0C0[3]->Unknown_40(false);
+		Unknown0C0[4]->Unknown_40(false);
+		DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Client)->Unknown_18())->AuxData;
+		if (aux) {
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_FieldA<DeltaCompoundClass>(aux, "GroupInfo");
+			if (group && group->Formation.Value) return;
+		}
+		Unknown0C0[5]->Unknown_40(false);
+		return;
+	}
+	Unknown0C0[5]->Unknown_40(false);
+	Unknown0C0[6]->Unknown_40(false);
+	Unknown0C0[8]->Unknown_40(false);
+	Unknown0C0[7]->Unknown_40(false);
+	DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Client)->Unknown_18())->AuxData;
+	DeltaGroupInfoClass *group;
+	if (!aux || !(group = (DeltaGroupInfoClass *)Unknown_Group_FieldA<DeltaCompoundClass>(aux, "GroupInfo")) || !group->Formation.Value) {
+		Unknown0C0[4]->Unknown_40(false);
+	}
+	aux = ((SClient *)((ClientClass *)Client)->Unknown_18())->AuxData;
+	if (aux) {
+		DeltaGroupInfoClass *info = (DeltaGroupInfoClass *)Unknown_Group_FieldB<DeltaCompoundClass>(aux, "GroupInfo");
+		if (info && info->Formation.Value) goto set;
+	}
+	aux = ((SClient *)((ClientClass *)Client)->Unknown_18())->AuxData;
+	if (aux) {
+		DeltaGroupInfoClass *named = (DeltaGroupInfoClass *)Unknown_Group_FieldC<DeltaCompoundClass>(aux, "GroupInfo");
+		if (named) {
+			const char *formation = named->FormationName.String;
+			if (stricmp(formation, "")) return;
+		}
+	}
+set:
+	Unknown0C0[3]->Unknown_40(false);
+}
 
 
 
@@ -1928,10 +1928,10 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
 **	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
-**	  0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
+**	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
 **	Not yet: the +0xE8 object's 0x592C50 (and 0x5927E0, an out-of-line auxdata.h lookup), slot +0x68 0x5946D0 (735, 751),
-**	0x595530, 0x596770 (1260-1266) and 0x597E40 (1753).
+**	0x595530 and 0x596770 (1260-1266).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
@@ -1942,4 +1942,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	i == 3 branch on Unknown0C0[2]; 0x5938A0 tests 'Unknown28 == NULL || strcmp' so the inner null test stays.
 **	intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass, control_keys_manager.h's class is the
 **	client's ControlKeysManager: the casts are ours.
+**	0x597E40: its four GroupInfo lookups go through the wrappers before it (Unknown_Group_FieldA/B/C), whose dead
+**	size() reads (6, 4, 3, as co_player_relationship.cpp's) spend the inline budget: the first two call the find
+**	out of line (0x5927E0), the last two the cast (0x598D80); the stricmp's string through a named local (else
+**	the registers after it swap); its argument is a bool (stored in +0xF0 by byte).
 */
