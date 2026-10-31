@@ -4,6 +4,29 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (10:20): D163 (a), the API-key pilot: LC1 +2 pairs for $1.85; scriptedmovieline.cpp
+
+Coordinator Opus 5.5 on the subscription; one builder headless (`claude -p`, Opus 5.5, `--permission-mode auto`,
+`--max-budget-usd 25`) on the separate key `ENB_ANTHROPIC_API_KEY`. PR #37 had merged, so a new run branch
+`run/2026-10-31-pm` from 84c61e2c (`run_branch.py start --date 2026-10-31-pm`), draft PR #39, claim #38. Plan log:
+`.work/run-2026-10-31-pm/plan.md` (launcher `launch_LC1.sh`, stream `LC1.jsonl`). f3c15d2a (D167, D168), committed
+on the local run/2026-10-31 after PR #37 merged, cherry-picked here.
+
+* **LC1 (ff4ffbbe, P-SM1-3 and P-SM1-1):** the line class 0x7FFC50-0x7FFE9F in its own file
+  app/client/scriptedmovieline.cpp (NAME 1, provisional: no asserts), linked just before scriptedmovie.cpp;
+  ScriptedMovieParamsClass merged into ScriptedMovieLineClass. Against 84c61e2c: +2 (0x7FFC70, 0x7FFCB0), two
+  D95(c) moves (0x7FFD30, 0x7FFDC0), lost outright none; replay 0. 0x7FFC50 exact but its 13 bytes occur at five
+  other addresses (D99). 0x7FFEA0 stays in scriptedmovie.cpp (it shares the 'CREATE_OBJECT' literal with 0x803310).
+  0x803310 still NOT EXACT (inline budget 0.63): the next lead, under scriptedmovie's claim.
+* **The pilot's numbers (D163 (a)):** 63 turns, 9.5 minutes, $1.85 at list price, about $0.93 per pair gained.
+  Tokens: input 118, cache write 96,845, cache read 4,327,669, output 25,169 (thinking 8,857). The builder's own
+  estimate was "~400k tokens", about a tenth of the 4.45M with cache reads: the self-reported token figures in
+  earlier plan logs (LD6 ~400k for +19, LD7 ~250k for +5) are the same kind of estimate, so compare runs by the
+  stream's `total_cost_usd` / `modelUsage`, not by builders' reports. A headless builder needs no Agent tool:
+  the launcher script, the brief file and the stream's result line were enough.
+* **Traps:** LC1's in workflow.md §3.3 (62269192).
+* **Usage:** the subscription's week stayed at 59 %.
+
 ### 2026-10-31 (09:15, morning): D164-D166; FAIL_IF's && form (+6), the caller tie-break (+317 pairs), the progress card fixed
 
 Coordinator Opus 5.5 with two builders, one at a time. Base 56b6c79e (PR #13 merged; `.work/imports.56b6c79e.json`); run
@@ -1543,6 +1566,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D164 | 2026-10-31 | P-MU1-1: explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) are an accepted matching form for emitting the client's out-of-line template copies (first: ui_manu's 0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), each marked in the source as not the client's form (like aux_roots' SYMBOL_PAD); callers stay unchanged | user |
 | D165 | 2026-10-31 | P-SM2-1: FAIL_IF in app/shared/unknown_debug.h becomes `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))` (the app-wide trial: +6, scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690; -3, client_lego_impl 0x72D5F0, co 0x6FFFF0, sclient 0x750260). A builder fixes the three losses in their own files first; the macro changes in the commit that loses nothing | user |
 | D166 | 2026-10-31 | Caller tie-break: when objmatch finds one of our functions at several byte-identical client addresses (`multiple` + `identical`, D54's ambiguous column), verify pairs it with the address whose callers are all already paired exactly, in the same file, with the functions that call it in our object (first: ui_cpit's 0x584C80, called only from 0x57DD20; land's 0x47CF50 from 0x47A2F0). An address with callers in several files (the linker's merged copy, 0x474080 with 247 callers) or with an unpaired caller stays ambiguous. Deterministic (passes until nothing changes); `pairs_cmp.py` lists tie-break pairs separately. D66 (vii): a tie-break pair lost because its caller lost its pair is not a loss of its own, named in the commit. The switch lands as one commit with a full verify of all 11 libraries (the one-time gain), apart from any builder's work | user |
+| D167 | 2026-10-31 | P-API-2, D163's Batch API triage: one tool, `tools/re/triage.py` (`build`, `submit`, `fetch`, `ingest`, `plan`, `show`, `score`), run by the coordinator only, one batch at a time. Each request holds one function: its pseudocode from `.work/pseudo/` (rebuilt in full first), the strings it uses, its callers' and callees' names and files, the nearest functions with a file above and below it, and its region. `custom_id` is `fn-<ADDR>`, every request stores a hash of its input, and a rerun resends only changed inputs. The batch id is recorded in `.work/triage/batches.json` at submit (results expire after 29 days); raw results are kept unchanged in `.work/triage/raw/`; tokens and cost go to the run's plan log. The answers follow a JSON schema: kind (STL / template instance, Westwood library, E&B, CRT, unknown), suggested library / file / class, confidence, the evidence cited. Rows that contradict a deterministic fact (`__FILE__`, gaps windows) are flagged. A calibration batch comes first: about 300 functions already byte-exact (pairs from imports.json, D164's template copies, LD6's std::sort 0x4708F0 / 0x472910 and its helpers), decompiled with their own name and `__FILE__` strings removed, run on Haiku 5.5 and Sonnet 5.5. The full batch runs on Haiku 5.5 at effort `low` if it gets the kind right ≥ 85% of the time and the file ≥ 50% at confidence ≥ medium; Sonnet 5.5 only as a second opinion on the disputed or low-confidence rows. Hints only (D56): never in symbols.json, the sources, NAME tags or `docs/data/`; objmatch / verify decide | user |
+| D168 | 2026-10-31 | P-API-3: the triage table stays under `.work/triage/` (git-ignored, read by builders on this tree), not in `docs/data/`. Revisited once `triage.py score` shows whether the hints hold up (§4's D163 item) | user |
+| D169 | 2026-10-31 | D66 moves past `vc6-verify` (amends D157's "any D66 case is merged by hand": the master ruleset requires `vc6-verify` and has no bypass actors, so that path did not exist; first hit PR #39, the pilot's scriptedmovieline.cpp with 0x7FFD30 / 0x7FFDC0 moved from scriptedmovie). A PR whose every lost pair is a move (the address held by another file in the same verify, none lost outright) fails until a maintainer comments `/accept-d66 SHA` naming its head (or runs `verify_pr.py PR --accept-d66`). The service then verifies it again and posts success, the moves and who accepted them named in the status and the comment, and the PR merges or lands like one that lost nothing. A pair lost outright still fails and waits for the user; no command passes it. The command is the user's: agents list the moves for the user and never post it (comments from this host carry the user's login). No bypass actor on the ruleset. `tools/vc6/verify_pr.py`, `verify_watch.py`, [github-plan.md](github-plan.md) §4.5.5 | user |
 
 ## 3. Open decisions
 
@@ -1558,10 +1584,15 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-* **Next session first (2026-10-31 morning): the API credits (D163).** The pilot builder on the API key
-  (measure tokens and cost per pair against tonight's LD6 / LD7 runs), then the Batch API triage of `.work/pseudo/`
-  (prompt, schema, a small sample checked against known answers such as LD6's std::sort 0x4708F0 / 0x472910 and
-  its out-of-line helper copies, then the full batch); its output becomes a planning table under `.work/`.
+* **Next session first: the API credits (D163, D167, D168), from (b).** The `anthropic` SDK is installed (2.3.0,
+  2026-10-31); the user creates the separate API key with a spend limit in the Console. Then, in order:
+  (a) the pilot builder on that key: done 2026-10-31 (LC1, $1.85 for +2 pairs; the log entry of 10:20);
+  (b) rebuild `.work/pseudo/` in full (`python tools/re/pseudocode.py`; it held 518 of ~25,000 on 2026-10-31);
+  (c) write `tools/re/triage.py` (D167) and run the calibration batch, ~$1, with the gate's result as a
+  proposal to the user; (d) the full Haiku batch (~$3-5), `ingest`, `plan`; its runs and lists become W# items
+  in the next run's plan, and `builders.md` gets one line on `triage.py show` (a hint, not evidence);
+  (e) **revisit D168:** after one or two runs of `triage.py score` against what turned exact, propose moving the
+  table from `.work/triage/` to a tool-generated `docs/data/` file if the hints hold up.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with

@@ -471,6 +471,11 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Moving a class out of a file with asserts** (2026-10-31, LC1): replace the removed lines with as many blank
+  lines, so every later `__LINE__` stays on the client's line (`wc -l` before and after must agree), before verifying.
+  A string literal shared with a function in another range (the client does not merge literals across objects)
+  keeps both functions in one object: 0x7FFEA0 stays in scriptedmovie.cpp with 0x803310 ('CREATE_OBJECT'). A
+  regex that strips `((T *)x)` casts also eats the call parentheses of `f((T *)x)` (C2065 on verify).
 * **fontmanager.h / fontdatabase.h cannot be included next to sclient.h** (2026-10-29, UI1): tsk_game.h declares
   Unknown_BE67B8 with another type; SClientFontDatabaseClass is declared in sclient.h for now. VC6 inlines a
   same-file function defined later in the file too (0x802B20 inlines 0x807520).

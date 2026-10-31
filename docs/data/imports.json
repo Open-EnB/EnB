@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 121,
+  "ambiguous_total": 122,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -8548,8 +8548,6 @@
      "0x62A560",
      "0x62A5D0",
      "0x69F3B0",
-     "0x7FFD30",
-     "0x7FFDC0",
      "0x7FFEA0",
      "0x8000C0",
      "0x800880",
@@ -8647,6 +8645,21 @@
      "0x80B060",
      "0x80B0D0"
     ]
+   },
+   "scriptedmovieline": {
+    "ambiguous": [
+     "0x4F5E90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x7FFC70",
+     "0x7FFCB0",
+     "0x7FFD30",
+     "0x7FFDC0"
+    ],
+    "merged": [],
+    "name": "client/scriptedmovieline.cpp"
    },
    "shipcust_desc": {
     "ambiguous": [
@@ -10386,6 +10399,7 @@
    "client/radar_icon_data.h": "reconstructed",
    "client/sbaseview.h": "reconstructed",
    "client/sclient.h": "reconstructed",
+   "client/scriptedmovieline.h": "reconstructed",
    "client/soptions.h": "reconstructed",
    "client/starmap_data.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
@@ -10622,7 +10636,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5391,
+  "in_tree_total": 5393,
   "totals": {}
  },
  "binkmovie": {
