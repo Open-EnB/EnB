@@ -44,6 +44,7 @@ public:
 class UIGroupMemberClass	// NAME 2: what UIGroupClass's Members holds
 {
 public:
+	UIGroupMemberClass(UIGroupClass *owner);			// 0x593200 (Add_Member 0x596130)  // NAME 1 [owner]: what it holds
 	~UIGroupMemberClass();								// 0x5932E0
 	UIGroupClass *Get_Interface() { return(Owner); }	// (the asserts' 'Get_Interface()')  // NAME 3: the asserts'
 	void Unknown_5934A0();								// 0x5934A0: the four buttons and +0x34 released (G_ASSERT line 403)
@@ -55,7 +56,7 @@ public:
 	UIGroupClass *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
 	std::string Name;									// +0x04 (0x596090 compares it; the assert's 'Get_Member(name)')  // NAME 2 [Name]: the assert's name
 	int ID;												// +0x14 (0x596040 / 0x5982A0 look members up by it; ClientClass::Find_Object)  // NAME 2: what it holds
-	char Unknown18[0x1C - 0x18];						// +0x18
+	int Unknown18;										// +0x18 (the constructor's -1; Add_Member's third argument)
 	bool Unknown1C;										// +0x1C (0x593750)
 	bool Unknown1D;										// +0x1D (0x5935C0 clears it with +0x24)
 	float Unknown20;									// +0x20 (0x5982A0: 15.0f; 0x5935C0 runs it down, then clears +0x48's flag 0x800)
@@ -87,6 +88,8 @@ public:
 	char Unknown20[0x34 - 0x20];						// +0x20
 };
 
+#define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)
+
 // ui_group.cpp's group window (the main view's +0x1D8; 0xF4 bytes, table 0xAF1C34)
 class UIGroupClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
 {
@@ -103,6 +106,9 @@ public:
 	std::vector<UIGroupMemberClass *>::iterator Get_Member(const std::string &name);	// 0x596090 (the asserts' 'Get_Member(name) != Members.end()')  // NAME 3: the asserts'
 	void Unknown_596E20(const char *text, bool leader);	// 0x596E20: a group chat line '<S>n owner`text' (FAIL_IFs '!avatar' 1388, '!d_name' 1391)  // NAME 1 [text, leader]: what the format takes
 	void Unknown_597BF0();								// 0x597BF0: the formation buttons shown, GRP_DISBAND / GRP_LEAVE
+	void Add_Member(const std::string &name, int id, int unknown);	// 0x596130 (FAIL_IFs 'Get_Member(name) != Members.end()' 1165, 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' 1168)  // NAME 2: what it does; NAME 1 [unknown]: neutral
+	void Remove_Member(const std::string &name);			// 0x596390 (Get_Member, then 0x596560)  // NAME 2: what it does
+	std::vector<UIGroupMemberClass *>::iterator Remove_Member(const std::vector<UIGroupMemberClass *>::iterator &it);	// 0x596560 (FAIL_IF 'it == Members.end()' 1198)  // NAME 2: what it does; NAME 3 [it]: the FAIL_IF's
 	int Unknown_596040(int id);					// 0x596040: the index of the member with that ID, else -1  // NAME 1 [id]: what it compares
 	void Unknown_597000(bool on);						// 0x597000: each member's four gadgets' slot +0x40  // NAME 1 [on]: neutral
 	void Unknown_5975D0();								// 0x5975D0: the leave / disband question ('GROUP_LEAVE')
