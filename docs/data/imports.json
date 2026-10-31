@@ -2311,6 +2311,7 @@
     "ambiguous": [
      "0x463C80",
      "0x463D20",
+     "0x466780",
      "0x4668F0"
     ],
     "copy": "reconstructed",
@@ -2325,7 +2326,12 @@
      "0x463E70",
      "0x464600",
      "0x465030",
-     "0x4663E0"
+     "0x466180",
+     "0x4663E0",
+     "0x4667D0",
+     "0x466820",
+     "0x466860",
+     "0x4668A0"
     ],
     "merged": [],
     "name": "shared/heightfield.cpp"
@@ -9564,7 +9570,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4783,
+  "in_tree_total": 4791,
   "totals": {}
  },
  "binkmovie": {
