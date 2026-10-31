@@ -6894,11 +6894,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:151` | untagged neutral name (D10) |
 | 1 | `Unknown_468240` | `app/shared/landdmap.cpp:208` | untagged neutral name (D10) |
 | 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:365` | untagged neutral name (D10) |
-| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:420` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/landdmap.cpp:448` | untagged neutral name (D10) |
-| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:449` | untagged neutral name (D10) |
-| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:471` | untagged neutral name (D10) |
+| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:418` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/landdmap.cpp:446` | untagged neutral name (D10) |
+| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:447` | untagged neutral name (D10) |
+| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:469` | untagged neutral name (D10) |
 | 1 | `Unknown_466E70` | `app/shared/landdmap.h:14` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
 | 1 | `Unknown_466F10` | `app/shared/landdmap.h:15` | untagged neutral name (D10) |
 | 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.h:16` | unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920) |

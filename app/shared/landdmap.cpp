@@ -265,21 +265,19 @@ void LandUnknown466BE0Class::Release_Height_Texture(void)
 	}
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x4677B0
 void LandUnknown466BE0Class::Unknown_4677B0(HeightFieldClass *field)
 {
-	float step = (float)field->Get_Size();
+	int size = field->Get_Size();
 	D3DSURFACE_DESC desc;
 	DX8_ErrorCode(HeightTexture->GetLevelDesc(0, &desc));
-	step /= (float)desc.Width;
+	float step = (float)size;
+	step /= desc.Width;
 	D3DLOCKED_RECT rect;
 	HeightTexture->LockRect(0, &rect, NULL, 0);
 	unsigned char *bits = (unsigned char *)rect.pBits;
 	for (unsigned int y = 0; y < desc.Height; y++) {
 		for (unsigned int x = 0; x < desc.Width; x++) {
-			int fy = (int)((float)y * step);
-			int fx = (int)((float)x * step);
-			bits[rect.Pitch * y + x] = field->Get_Height_Byte(fx, fy);
+			bits[rect.Pitch * y + x] = field->Get_Height_Byte((int)(x * step), (int)(y * step));
 		}
 	}
 	DX8_ErrorCode(HeightTexture->UnlockRect(0));
