@@ -8928,7 +8928,8 @@
      "0x42A6C0",
      "0x42B2F0",
      "0x46BE90",
-     "0x474080"
+     "0x474080",
+     "0x541A10"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -8966,6 +8967,7 @@
      "0x5680B0",
      "0x5682C0",
      "0x568440",
+     "0x5685C0",
      "0x568690",
      "0x5688E0",
      "0x568910",
@@ -8977,7 +8979,9 @@
      "0x56BD80",
      "0x56BEF0",
      "0x56C0C0",
-     "0x56C730"
+     "0x56C6A0",
+     "0x56C730",
+     "0x56C7B0"
     ],
     "merged": [],
     "name": "client/ui_chat_panel.cpp"
@@ -10119,7 +10123,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5121,
+  "in_tree_total": 5125,
   "totals": {}
  },
  "binkmovie": {

@@ -22,7 +22,9 @@ public:
 };
 
 // What the chat window's events carry, as far as 0x56C730 reads it
-class UIChatIntEventClass { public: int Unknown00; };	// NAME 1: neutral (D10): +0x00 1 is a click
+class UIChatIntEventClass { public: UIChatIntEventClass() : Unknown00(0) {} int Unknown00; };	// NAME 1: neutral (D10): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler)
+
+class UIChatF8EventClass;
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
@@ -57,6 +59,10 @@ public:
 	virtual void Unknown_B4(const char *text);			// +0xB4 (0x565C40: 'To %s:')  // NAME 1 [text]: neutral
 	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
 
+	UIChatIntClass(SClient *client, int a, int b, int kind);	// 0x571F00 (0x120 bytes; 0x56C180: +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, a, b, kind]: what 0x56C180 passes
+	void Unknown_5417D0(InterfaceClass *owner);			// 0x5417D0 (intrface.cpp's; 0x56C180 passes the panel)  // NAME 1 [owner]: neutral
+	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
+
 	char Unknown84[0x98 - 0x84];						// +0x84
 	int Unknown98;										// +0x98 (slot +0x60 0x5630B0: non-zero switches the window, 0x56C0C0)
 };
@@ -76,6 +82,7 @@ public:
 	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
 
 	bool Unknown_5638E0(int key);						// 0x5638E0: the chat window's slot +0xB8, false without one  // NAME 1 [key]: neutral
+	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0; the main view: the target, true)  // NAME 1 [id, flag]: what cpacket.cpp passes
 	void Unknown_563C50();								// 0x563C50: the pip's target checked
 	void Unknown_563DC0(bool on);						// 0x563DC0 (G_ASSERT '!font' l.710)  // NAME 1 [on]: neutral
 	void Unknown_564030(bool on);						// 0x564030  // NAME 1 [on]: neutral
@@ -116,7 +123,9 @@ public:
 	void Unknown_56BEF0();								// 0x56BEF0 (FAIL_IF '!sclient' l.2326): talk to the main view's target
 	void Unknown_56C0C0();								// 0x56C0C0 (G_ASSERT 'false' l.2377: 'DefaultChatWindow')
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
+	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
 	void Unknown_56C730(const UIChatIntEventClass &event, UIChatIntClass *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
+	void Unknown_56C7B0(const UIChatF8EventClass &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
 	int UnknownA0;										// +0xA0
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)

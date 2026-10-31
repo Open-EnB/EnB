@@ -6,6 +6,7 @@
 #include "..\audio\soundlib.h"
 #include "rendobj.h"
 #include "option.h"
+#include "texture.h"
 #include "..\shared\unknown_debug.h"
 #include "control_keys_manager.h"
 
@@ -23,7 +24,12 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class AvatarPipUnknown2CClass : public RenderObjClass	// NAME 1: neutral (D10)
 {
 public:
-	char Unknown_Pad[0x204 - sizeof(RenderObjClass)];
+	void Unknown_77E3D0(int arg);						// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2)  // NAME 1 [arg]: neutral
+	struct UnknownF8Struct { char Unknown00[0xD4]; char Name[0x10C - 0xD4]; };	// NAME 1: neutral (D10): +0xD4 the name 0x563910 copies
+	UnknownF8Struct *Get_UnknownF8() { return(&UnknownF8); }	// NAME 1: neutral (D10): the client tests the address
+
+	char Unknown_Pad[0xF8 - sizeof(RenderObjClass)];
+	UnknownF8Struct UnknownF8;							// +0xF8
 	int Unknown204;										// +0x204 (0x563C50: 0 hides the pip)
 };
 
@@ -82,6 +88,42 @@ static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 ent
 	{ "Group", "Channel_Group", "3" },
 };
 
+// What the +0xF8 window's events carry (an empty type: 0x5685C0 passes one to name the handler)
+class UIChatF8EventClass {};	// NAME 1: neutral (D10)
+
+// The chat window's event handler object (0x10 bytes, constructor 0x56D0F0): the receiver and its member
+class UIChatIntHandlerClass	// NAME 1: neutral (D10)
+{
+public:
+	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *));	// 0x56D0F0  // NAME 1 [receiver, handler]: what 0x56C180 passes
+	char Unknown00[0x10];
+};
+
+// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0), as far as this file calls
+// it: its member templates take the sender, the receiver, the handler and a sample of the event type
+class UnknownEventDispatcherClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type);	// 0x56CE40 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x5685C0 passes
+	void Unknown_4F9740(InterfaceClass *sender, UIChatIntHandlerClass *handler);	// 0x4F9740 (the handler added)  // NAME 1 [sender, handler]: what 0x56C180 passes
+	void Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type);	// 0x56CEC0 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x56C6A0 passes
+};
+UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
+
+// The chat window's icons by kind (0xB7C2E0)
+static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "if_chat03.tga" };	// NAME 1: neutral (D10)
+
+// The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
+class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (0x56C180: the icon, 1, 0, 1)  // NAME 2: what it does (the asset manager's slot)
+};
+extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -97,6 +139,7 @@ public:
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
+	virtual void Unknown_90(TextureClass *texture);		// +0x90 (0x56C180: the chat window's icon)  // NAME 1 [texture]: neutral
 
 	void Unknown_65F2D0(int arg);						// 0x65F2D0 (0x564400 passes 0)  // NAME 1 [arg]: neutral
 
@@ -106,90 +149,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -615,7 +574,7 @@ void UIChatPanelClass::Unknown_5C()
 	InterfaceClass::Unknown_5C();
 }
 
-// NOT EXACT: inline-budget (ours expands 0x56C0C0 at its call; the client calls it)
+// NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client
 // 0x5630B0
 void UIChatPanelClass::Unknown_60()
 {
@@ -639,8 +598,8 @@ void UIChatPanelClass::Unknown_60()
 			if (light) light->Set_Hidden(!light->Is_Hidden());
 		}
 	}
-	SClient *sclient = Client->As_Space_Client();
 	bool changed = false;
+	SClient *sclient = Client->As_Space_Client();
 	if (Unknown265 != sclient->Unknown_74D570()) {
 		Unknown265 = sclient->Unknown_74D570();
 		changed = true;
@@ -676,6 +635,47 @@ bool UIChatPanelClass::Unknown_5638E0(int key)
 {
 	if (!ChatInt) return(false);
 	return(ChatInt->Unknown_B8(key));
+}
+
+// NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8)
+// 0x563910
+void UIChatPanelClass::Unknown_563910(unsigned id, bool flag)
+{
+	SClient *sclient = Client->As_Space_Client();
+	if (sclient->Unknown_744B60()) return;
+	LineDisplaySortClass sort(this);
+	ClientObjectClass *target = sclient->MainView->Unknown_5C();
+	ClientObjectClass *co = sclient->Find_Object(id);
+	if (!co) {
+		Unknown118 = 0;
+		Unknown11C = 0;
+	} else if (target == co || flag) {
+		if (Unknown118 != id) {
+			Unknown118 = id;
+			Unknown110->Unknown_7E4350();
+			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
+		}
+		Unknown11C = id;
+		RefCountPtr<AvatarPipUnknown2CClass> avatar = Unknown110->Unknown2C;
+		if (avatar) {
+			avatar->Unknown_77E3D0(1);
+			if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
+		}
+		Unknown_564030(Unknown120);
+		Unknown267 = false;
+	} else {
+		if (Unknown118 != id) {
+			Unknown118 = id;
+			if (Unknown11C) Unknown110->Unknown_7E4350();
+			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
+			RefCountPtr<AvatarPipUnknown2CClass> avatar = Unknown110->Unknown2C;
+			if (avatar) {
+				avatar->Unknown_77E3D0(2);
+				if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
+			}
+			Unknown_564030(Unknown120);
+		}
+	}
 }
 
 // 0x563C50
@@ -986,6 +986,27 @@ std::string UIChatPanelClass::Unknown_568440()
 	return(Unknown204);
 }
 
+#pragma auto_inline(off)	// the client calls 0x5685C0 out of line (0x56C0C0, slot +0x68)
+// 0x5685C0
+void UIChatPanelClass::Unknown_5685C0()
+{
+	if (UnknownF8) {
+		if (Unknown10D) {
+			Unknown_540A20()->Unknown_56CE40(UnknownF8.Peek(), this, &UIChatPanelClass::Unknown_56C7B0, UIChatF8EventClass());
+			Unknown10D = false;
+		}
+		UnknownF8->Unknown_7C(NULL, 0);
+		UnknownF8 = NULL;
+		UnknownD8 = NULL;
+		UnknownDC = NULL;
+		UnknownE0 = NULL;
+		UnknownE4 = NULL;
+		UnknownE8 = NULL;
+		UnknownEC = NULL;
+	}
+}
+#pragma auto_inline(on)
+
 // 0x568690
 void UIChatPanelClass::Unknown_568690()
 {
@@ -1020,27 +1041,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2355,7 +2355,7 @@ void UIChatPanelClass::Unknown_56BEF0()
 
 
 
-
+#pragma auto_inline(off)	// the client calls 0x56C0C0 out of line (slot +0x60, slot +0x68)
 // 0x56C0C0
 void UIChatPanelClass::Unknown_56C0C0()
 {
@@ -2376,63 +2376,63 @@ void UIChatPanelClass::Unknown_56C0C0()
 	}
 	G_ASSERT(false);
 }
+#pragma auto_inline(on)
+
+
+// NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346)
+// 0x56C180
+void UIChatPanelClass::Unknown_56C180(int window)
+{
+	bool active = Active;
+	if (ChatInt) {
+		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, UIChatIntEventClass());
+		ChatInt->Unknown_7C(NULL, 0);
+		ChatInt = NULL;
+	}
+	Unknown134 = window;
+	switch (window) {
+		case 1:
+			ChatInt = Create_Get(new UIChatIntClass(Client->As_Space_Client(), Unknown13C, Unknown140, 0));
+			break;
+		case 2:
+			ChatInt = Create_Get(new UIChatIntClass(Client->As_Space_Client(), Unknown13C, Unknown140, 1));
+			break;
+		case 3:
+			ChatInt = Create_Get(new UIChatIntClass(Client->As_Space_Client(), Unknown13C, Unknown140, 2));
+			break;
+		default:
+			G_ASSERT(false);
+			Unknown134 = 0;
+			break;
+	}
+	if (ChatInt) {
+		UnknownEventDispatcherClass *dispatcher = Unknown_540A20();
+		dispatcher->Unknown_4F9740(ChatInt.Peek(), new UIChatIntHandlerClass(this, &UIChatPanelClass::Unknown_56C730));
+		ChatInt->Unknown_5417D0(this);
+		ChatInt->Unknown_54();
+		ChatInt->Unknown_7C(View, active);
+		Unknown_5646A0(Unknown148);
+	}
 
 
 
+	const char *icon_name = Unknown_B7C2E0[window];
+	FAIL_IF(!icon_name) return;
 
+	RefCountPtr<TextureClass> texture = Create_Get(Unknown_BFAEE0->Get_Texture(icon_name, 1, 0, 1));
+	FAIL_IF(!texture) return;
+	UnknownA4[3]->Unknown_90(texture.Peek());
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x56C6A0
+void UIChatPanelClass::Unknown_56C6A0()
+{
+	if (ChatInt) {
+		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, UIChatIntEventClass());
+		ChatInt->Unknown_7C(NULL, 0);
+		ChatInt = NULL;
+	}
+}
 
 
 // 0x56C730
@@ -2444,6 +2444,12 @@ void UIChatPanelClass::Unknown_56C730(const UIChatIntEventClass &event, UIChatIn
 		Unknown_565120();
 		Unknown_565390(0);
 	}
+}
+
+// 0x56C7B0
+void UIChatPanelClass::Unknown_56C7B0(const UIChatF8EventClass &event, InterfaceClass *sender)
+{
+	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
 
 
