@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2520 |
-| 1 | neutral placeholder | 7536 |
+| 1 | neutral placeholder | 7542 |
 
 ## For review (score 3 and below)
 
@@ -6998,7 +6998,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD4` | `app/shared/rs_track.cpp:20` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/shared/rs_track.cpp:21` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/shared/rs_track.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/shared/rs_track.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_Flag16` | `app/shared/rs_track.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_4604D0` | `app/shared/rs_track.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/rs_track.cpp:47` | untagged neutral name (D10) |
@@ -7044,7 +7043,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown45D9E0Class` | `app/shared/rs_track.cpp:1261` | untagged neutral name (D10) |
 | 1 | `Unknown_462530` | `app/shared/rs_track.cpp:1280` | untagged neutral name (D10) |
 | 1 | `Unknown45DC80Class` | `app/shared/rs_track.cpp:1287` | untagged neutral name (D10) |
-| 1 | `Unknown_1C4` | `app/shared/rs_track.cpp:1298` | untagged neutral name (D10) |
+| 1 | `Unknown_462610` | `app/shared/rs_track.cpp:1292` | untagged neutral name (D10) |
+| 1 | `Unknown_462650` | `app/shared/rs_track.cpp:1302` | untagged neutral name (D10) |
+| 1 | `Unknown462690Class` | `app/shared/rs_track.cpp:1312` | neutral (D10) |
+| 1 | `owner` | `app/shared/rs_track.cpp:1315` | neutral |
+| 1 | `Owner` | `app/shared/rs_track.cpp:1317` | neutral (D10) |
+| 1 | `Unknown2C` | `app/shared/rs_track.cpp:1318` | neutral (D10) |
+| 1 | `Unknown_462690` | `app/shared/rs_track.cpp:1323` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/shared/rs_track.cpp:1338` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/rs_track.h:24` | neutral (D10) |
 | 1 | `owner, link_id` | `app/shared/rs_track.h:25` | neutral; what 0x460880 passes |
 | 1 | `Unknown_08` | `app/shared/rs_track.h:25` | untagged neutral name (D10) |
