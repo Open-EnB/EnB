@@ -1530,7 +1530,7 @@ static std::string Unknown_5B5CD0(DeltaCompoundClass *auxdata, LineDisplayClient
 	return(item_template->Name);
 }
 
-// NOT EXACT: inline budget (the client calls _Eos out of line in the six inlined assigns, and assign itself for the last two; ours inlines the first _Eos and calls assign out of line from the fifth case) (0x5B6060)
+// 0x5B6060
 static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAME 1 [validity]: the 'Validity' value
 {
 	switch (validity) {
@@ -1556,6 +1556,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 		default:
 			return("Unexpected error.");
 	}
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
 // NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320)
@@ -1591,7 +1592,6 @@ void UIManuClass::Unknown_5B5320()
 		float min_quality = min->Value;
 		float max_quality = max->Value;
 		if (min_quality != -1.0f && max_quality != -1.0f) {
-
 
 
 
@@ -1867,7 +1867,7 @@ void UIManuClass::Unknown_5B6D30()
 **	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
 **	are defined before it, and the client emits them after it.
 **	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0, 0x5B6060 and 0x5B67C0 compile but are not exact (see their NOT
+**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
