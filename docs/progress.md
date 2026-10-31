@@ -4,6 +4,53 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (15:40, day): D163's triage done (D167-D170), D169's /accept-d66, D171 landed; +1,102 pairs, 0 lost
+
+Coordinator Opus 5.5, up to three Opus builders at a time. Base d290dff0 (PRs #39 and #40 merged;
+`.work/imports.d290dff0.json`); run branch `run/2026-10-31-api`, PR #41. Plan log: `.work/run-2026-10-31-api/plan.md`.
+The user's goal: work §4's open items until the weekly usage reached 70 %; at 14:20 the user accepted P-AR1-1 (D171)
+and stopped new work, asking for the symbols.json regeneration and then D171. HEAD against the baseline: **+1,102
+pairs** (app 423, ww3d2 403, wwaudio 142, wwlib 53, wwsaveload 29, binkmovie 24, wwmath 12, wwshade 9, wwdebug 6), 0
+lost, 0 moves. Weekly usage 59 % -> 62 %.
+
+* **Decisions:** D169 (`/accept-d66 SHA` passes a PR's D66 moves through vc6-verify; PR #40, the first use on #39),
+  D170 (the triage's full run on Sonnet 5.5 over the application range), D171 (P-AR1-1, objmatch's self-name round
+  with the vtables it learns). P-API-4 (D168's revisit) is open in §3.
+* **D163's triage (D167, D170):** `.work/pseudo/` rebuilt (20,588 functions); `tools/re/triage.py` (build, submit,
+  status, fetch, ingest, calib, plan, score, show). Calibration on 300 redacted known answers: Haiku 5.5 kind 79.7 %,
+  file 40.0 % (failed D167's gate), Sonnet 5.5 89.3 % / 63.2 % (passed). The full run: 14,753 answers, 0 errors, about
+  $40.70 (with the calibration $41.57, with the pilot about $43.40 of the $200). `.work/triage/plan.md`: 161 runs of
+  3+ neighbouring functions with no pair and one suggested file (72 agreeing with both neighbours), 2,735 template
+  instances, 379 library kinds in the app range. TG1 and TG2 built six of the runs: the hinted file right 23 of 23;
+  `score` after the run: 1,824 hinted functions exact, file right high 494/494, medium 1,206/1,251, low 58/79.
+  builders.md points at `triage.py show` (a hint, not evidence).
+* **Builders** (all Opus; traps filed in workflow.md §3.1-§3.6):
+  * UG2 (ui_group.cpp, claims #42 / #43): +3: 0x598370 exact, 0x596770 / 0x592C50 / 0x595530 / 0x5946D0 written NOT
+    EXACT; 0x597E40 was exact through 13 dead reads, reverted under D130 (afaac70a, the limit is 6 per function).
+  * MU2 (ui_manu.cpp, rs_track.cpp, #44 / #45): +17: rs_track 0x462610 / 0x462650 / 0x462690 exact (Unknown462690Class,
+    a CullableClass), ui_manu 0x5B4B10 / 0x5B5320 / 0x5B5CD0 NOT EXACT (inline budget), 0x5B6060 exact.
+  * TG1 (triage runs avatar_desc 0x4C1B80-0x4C2BB0, sclient 0x741BB0-0x7427C0, #46 / #47): +9: avatar_desc's seven
+    Get_*_Offset (Vector2 by value) and Save_Defaults 0x4C2360 exact, SClient 0x742530 exact; Shutdown 0x741BB0 NOT EXACT.
+  * AR1 (aux_roots' unpaired small functions, #48-#50): the 68 split as 0 not emitted, 4 different, 64 identical but
+    uncounted (46 relocation-only ties of unnamed template vtables, 18 short `??1`); +4 (0xB01A40 = ProjectedDecalClass's
+    conversions, pad 15) and P-AR1-1. Round 2 (the user's order): symbols.json regenerated gain-only, +116
+    (3021179b: symbols.py's `same()` treats `??_E` / `??_G` of one class as one symbol, D115 registers known
+    initialiser targets; my first regeneration had lost 268 outright and was not kept), then D171, +841 (69f21f4b; a
+    learned slot never names an address symbols.json gives another function). `.work/pseudo/` rebuilt (18,981).
+  * AR2 (aux_roots' leads, #55-#57): +103: 0x709A90, the client's names for eight generated value types (NAME 5 from
+    their KVPairs' Get_Type_Name), out-of-line enum conversions (ENUM_EXTERN, new generated stubs/aux_roots_stubs.cpp),
+    22 identical functions named by vtable slot; pad 10.
+  * CT1 (UG2's proposal (b), #51): ~CTA_Request_PacketClass 0x86F1C0 out of line, byte-identical (D99 row);
+    0x5946D0 still NOT EXACT 0.55 (inline budget).
+  * TG2 (triage runs land / heightfield / landdmap, #52-#54): +9: landdmap's helpers 0x4676D0-0x467780 and 0x4677B0,
+    Apply_Colors 0x46D410, Get_Triangles 0x465D30 (was Fable-eligible), 0x466140 moved to heightfield.cpp
+    (Get_Height_Byte) exact; 0x466F60 / 0x46D6B0 / 0x4654E0 NOT EXACT.
+* **Coordinator:** progress.md §4 rewritten to outstanding work only (9f9ac26d); vidtest.cpp's stale viddeco.h include
+  dropped; the D163 key setup (`ENB_ANTHROPIC_API_KEY`, never `ANTHROPIC_API_KEY`).
+* **Placement (D137, coordinator):** UIGroupMemberUnknown2CClass (ui_group.h) and ui_cpit.h's UICpitUnknownD0Class are
+  one class (ctor 0x5DBFC0, 0x28 bytes): merge into ui_cpit.h at either file's next edit (§4 item 1).
+* **Usage:** weekly 59 % -> 62 % (about 2.2 M builder tokens across nine builder rounds).
+
 ### 2026-10-31 (10:20): D163 (a), the API-key pilot: LC1 +2 pairs for $1.85; scriptedmovieline.cpp
 
 Coordinator Opus 5.5 on the subscription; one builder headless (`claude -p`, Opus 5.5, `--permission-mode auto`,
@@ -1579,6 +1626,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
+* **P-API-4** (2026-10-31, coordinator; D168's revisit; recommend yes): move the triage table from `.work/triage/` to a
+  tool-generated, tracked `docs/data/triage.json` (+ a short `docs/data/triage.md` summary), written by `triage.py
+  ingest` and still marked hints, not evidence (D56, D167): no tool's matching reads it. Evidence: `triage.py score`
+  on the 1,824 hinted functions exact after this run, file right at high 494/494, medium 1,206/1,251 (96 %), low
+  58/79; TG1 / TG2 found the hinted file right 23 of 23. Tracking it lets every clone (contributors included) see the
+  hints and the plan; the cost is a ~5 MB generated file. Alternative: keep it in `.work/` and publish only the plan.
 
 ## 4. Next steps
 
@@ -1590,16 +1643,15 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-* **Next session first: the API credits (D163, D167, D168, D170).** Done 2026-10-31: the pilot builder, the full
-  `.work/pseudo/` rebuild, `tools/re/triage.py` and the calibration (the log entry of 2026-10-31). Left:
-  (d) **the full run is in the Batch API** (D170: Sonnet 5.5, the 14,753 application-range functions, two
-  batches, estimate $41; ids in `.work/triage/batches.json`, results kept 29 days): `triage.py fetch` when
-  `status` says ended, then `ingest full --model sonnet`, then write `plan` (runs of neighbouring functions with
-  one suggested file, the template list, the library-kind cross-check against gaps) and `score`; its runs and
-  lists become W# items in the next run's plan, and `builders.md` gets one line on `triage.py show` (a hint,
-  not evidence). The 5,835 library-range functions are not triaged (D170);
-  (e) **revisit D168:** after one or two runs of `triage.py score` against what turned exact, propose moving the
-  table from `.work/triage/` to a tool-generated `docs/data/` file if the hints hold up.
+* **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
+  plan` after each run): 161 runs of 3+ neighbouring functions with no pair and one suggested file, 72 agreeing with
+  both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six), 76 naming a file not in the tree (new
+  files: ui_registration 0x5FFFC0, htmlview 0x7761E0, ui_starbase 0x646F70, ui_ship_cust 0x61E8B0, ...); 2,735 template
+  instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
+  bare range (`run_branch.py claim 0xLO-0xHI`). P-API-4 (moving the table to docs/data) is open in §3. The $200's
+  remaining ~$156 is D163 part (3)'s overflow capacity.
+* **symbols.json again** (quiet tree, full verify of every library, workflow.md §3.4) to record D171's +841, then
+  `.work/pseudo/` rebuilt.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
@@ -1632,6 +1684,15 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 day run: UIGroupMemberUnknown2CClass (ui_group.h) merges into ui_cpit.h's
+     UICpitUnknownD0Class (one class, ctor 0x5DBFC0; D137); aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
+     KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 /
+     0x709650 (vtable 0xB01FD0) and 0x7099F0 / 0x709A40 (rtti.h casts); D99 candidates 0x463410 / 0x463440
+     (Unknown462690Class's deleting dtor / dtor). Leads: ui_manu's money find out of line first in 0x5B4B10 /
+     0x5B5320 (DeltaTemplateClass<MoneyClass>'s instantiation state in the client's TU); ui_group 0x5946D0's
+     Action2PacketClass string `_Tidy` (case 35-39 or pkaction.h), then 0x593180 out of line; SClient::Shutdown
+     0x741BB0 (implicit, inline-shaped dtors of SClientUnknown1334 / 1338 / ProjDecalManager); landdmap 0x466F60's
+     spacing temporaries.
    * Blocked: 0x42C330 waits for 0x7D3CC0's file (the account / subscription XML reader 0x7C9000-0x7E3000, between
      ui_starmap.cpp and avatar_pip.cpp, no __FILE__: a provisional file, D137, when someone builds it); `Send_Data`
      0x82D420 (the client tests channel >= 0 first; wlib's dictionary.h needs a wlib + app verify).
