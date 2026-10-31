@@ -1,0 +1,1931 @@
+// Earth & Beyond client (reconstruction): app\Client\ui_group.cpp. Notes at the end of the file.
+#include <stdio.h>
+#include <string.h>
+#include "ui_group.h"
+#include "client.h"
+#include "rendobj.h"
+#include "control_keys_manager.h"
+#include "..\shared\unknown_debug.h"
+
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
+// file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
+class FontStyleClass : public RenderObjClass {};	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
+class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
+
+// gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)
+class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
+	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
+	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();
+	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
+	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
+	virtual void Unknown_84(); virtual void Unknown_88();
+	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
+	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6607D0();								// 0x6607D0
+
+	char Unknown04[0x2C - 0x04];						// +0x04
+	unsigned int Unknown2CLow : 11;						// +0x2C
+	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x598200 sets it with 0x6603A0, clears it with 0x6607D0)
+};
+void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+
+// The SignalMap the group events go to: a function-static instance (co.cpp's 0x4F7EF0), not rebuilt
+SignalMap &Unknown_4F7EF0();
+class ClientGroupEvent	// NAME 5: the client's RTTI .?AVClientGroupEvent@@
+{
+public:
+	ClientGroupEvent(bool value) : Value(value) {}
+	bool Value;											// +0x00  // NAME 1: neutral
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x593BD0
+UIGroupClass::UIGroupClass(SClient *client) :
+	Unknown5BB320Class(new UIMeshClass("TSI03A", true), client),
+	Members(0),
+	Unknown0E8(NULL),
+	Unknown0EC(0),
+	Unknown0F0(false),
+	Unknown0F1(false)
+{
+	for (int i = 0; i < 9; i++) {
+		Unknown0C0[i] = NULL;
+	}
+	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSI03A.INI");
+	Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
+}
+
+// 0x593D70
+UIGroupClass::~UIGroupClass()
+{
+	Unknown_5C();
+	for (int i = 0; i < 9; i++) {
+		if (Unknown0C0[i]) {
+			Unknown_65EED0(Unknown0C0[i]);
+			Unknown0C0[i] = NULL;
+		}
+	}
+	SymbolChatUI = NULL;
+	for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++) {
+		delete *it;
+	}
+	Members.clear();
+	Unknown_5954C0();
+	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Mesh_Object());
+	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSI03A.INI");
+	delete Unknown0E8;
+	Unknown0E8 = NULL;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x595480
+void UIGroupClass::Unknown_7C(UIViewClass *view, int arg)
+{
+	if (View != view) {
+		Unknown5BB320Class::Unknown_7C(view, arg);
+		SymbolChatUI->Unknown_7C(view, 0);
+	}
+}
+
+
+// 0x5954C0
+void UIGroupClass::Unknown_5954C0()
+{
+	char name[32];
+	for (int i = 0; i < 5; i++) {
+		_snprintf(name, sizeof(name), "NAME%02d_TSI03A", i);
+		Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object())->Set_Hidden(1);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x596040
+int UIGroupClass::Unknown_596040(int id)
+{
+	for (unsigned int i = 0; i < Members.size(); i++) {
+		if (Members[i]->ID == id) {
+			return(i);
+		}
+	}
+	return(-1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x597000
+void UIGroupClass::Unknown_597000(bool on)
+{
+	for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++) {
+		UIGroupMemberClass *member = *it;
+		member->Unknown40->Unknown_40(on);
+		member->Unknown44->Unknown_40(on);
+		member->Unknown48->Unknown_40(on);
+		member->Unknown4C->Unknown_40(on);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x597820
+void UIGroupClass::Unknown_597820(unsigned int id)
+{
+	Unknown_597920(id, true);
+}
+
+// 0x5978A0
+void UIGroupClass::Unknown_5978A0(unsigned int id)
+{
+	Unknown_597920(id, true);
+}
+
+
+
+
+
+
+
+
+// 0x597920
+// NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's)
+void UIGroupClass::Unknown_597920(unsigned int id, bool value)
+{
+	ClientClass *client = (ClientClass *)Client;
+	FAIL_IF(!client) return;
+	ClientObjectClass *object = client->Find_Object(id);
+	if (object) {
+		Unknown_4F7EF0().emit(object, ClientGroupEvent(value));
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x597B00
+bool UIGroupClass::Unknown_597B00()
+{
+	ClientClass *client = (ClientClass *)Client;
+	FAIL_IF(!client) return(false);
+	SClient *sclient = (SClient *)client->Unknown_18();
+
+	FAIL_IF(!sclient) return(false);
+	return(sclient->Unknown_74D690());
+}
+
+
+
+// 0x597B70
+void UIGroupClass::Unknown_597B70(bool value)
+{
+	ClientClass *client = (ClientClass *)Client;
+	FAIL_IF(!client) return;
+	SClient *sclient = (SClient *)client->Unknown_18();
+
+	FAIL_IF(!sclient) return;
+	sclient->Unknown13C0 = value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x597D10
+void UIGroupClass::Unknown_597D10()
+{
+	FAIL_IF(!SymbolChatUI) return;
+	if (SymbolChatUI->Active) {
+		SymbolChatUI->Unknown_5C();
+	}
+	Unknown_598370();
+	for (int i = 0; i < 3; i++) {
+		Unknown0C0[i]->Unknown_40(false);
+		Unknown0C0[i]->Unknown_8C(true);
+	}
+	if (Unknown0C0[0]) {
+		Unknown0C0[0]->Unknown2C800 = false;
+		Unknown0C0[0]->Unknown_6607D0();
+	}
+	Unknown0EC = 0;
+	Unknown0E4->Set_Hidden(1);
+	Unknown_597E40(0);
+	Unknown_597B70(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5981B0
+void UIGroupClass::Unknown_5981B0()
+{
+	if (!Unknown0F1) {
+		if (Unknown0C0[0]) {
+			Unknown0C0[0]->Unknown2C800 = false;
+			Unknown0C0[0]->Unknown_6607D0();
+		}
+		Unknown0EC = 0;
+		Unknown_597E40(0);
+	}
+}
+
+// 0x598200
+void UIGroupClass::Unknown_598200(bool on)
+{
+	if (!Unknown0F1) {
+		if (Unknown0C0[0]) {
+			Unknown0C0[0]->Unknown2C800 = on;
+			if (on) {
+				Unknown0C0[0]->Unknown_6603A0(0, NULL);
+				Unknown0EC = 15.0f;
+			} else {
+				Unknown0C0[0]->Unknown_6607D0();
+				Unknown0EC = 0;
+				return;
+			}
+		}
+		if (on) {
+			Unknown_597E40(0);
+		}
+	}
+}
+
+
+// 0x5982A0
+void UIGroupClass::Unknown_5982A0(int avatar_id)
+{
+	if (!Unknown0F1) {
+		int index = Unknown_596040(avatar_id);
+		if (index != -1) {
+			if (index < (int)Members.size()) {
+				UIGroupMemberClass *member = Members[index];
+				if (member && member->Unknown48) {
+					member->Unknown48->Unknown2C800 = true;
+					member->Unknown48->Unknown_6603A0(0, NULL);
+					member->Unknown20 = 15.0f;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5985A0
+void UIGroupClass::Unknown_70(ControlKeysManagerClass *manager)
+{
+	FAIL_IF(!manager) return;
+	if (!Unknown0F1) {
+		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), (void *)47, 0);
+	}
+}
+
+
+
+// 0x598720
+void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
+{
+	FAIL_IF(!manager) return;
+	if (!Unknown0F1) {
+		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), 0);
+	}
+}
+
+/*
+**	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
+**	Original location: e:\build\beta\G\app\Client\ui_group.cpp (its __FILE__)
+**
+**	The group window (ui_group.h's UIGroupClass, the main view's +0x1D8): the group's members (UIGroupMemberClass, one
+**	0x54-byte object each, in Members), nine formation buttons, the symbol chat interface (+0xAC, FAIL_IF
+**	'!SymbolChatUI') and the NAMEnn_TSI03A texts of FA_TSI03A.INI over the TSI03A mesh. The client's window runs
+**	0x593180-0x598A60 (claims #27 / #28); the base under it (constructor 0x5BB320) has no file name yet.
+**
+**	Rebuilt (UG1, 2026-10-30): the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
+**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, 0x597000, the ClientGroupEvent emitters 0x597820 / 0x5978A0
+**	/ 0x597920 (line 1594), 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597D10 (1714), 0x5981B0, 0x598200,
+**	0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25);
+**	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: the
+**	member class's functions (0x5932E0-0x593830, lines 403 / 456), 0x5938A0 (563), Unknown_54 0x594040, slot +0x60
+**	0x5944D0, slot +0x68 0x5946D0 (735, 751), 0x595530, the member list 0x596130-0x596770 (1165-1266), 0x596E20
+**	(1388), 0x597080, 0x597200-0x5975D0, 0x597650, 0x5979A0 / 0x597A60, 0x597BF0, 0x597E40 (1753) and 0x598370.
+**
+**	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
+**	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
+**	ends in a jump to SClient::Unknown_74D690 (Ghidra shows the callee's body inline); 0x598200 tests on before off
+**	and reads +0xC0 again for the 0x6603A0 call. intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass,
+**	control_keys_manager.h's class is the client's ControlKeysManager: the casts are ours.
+*/
