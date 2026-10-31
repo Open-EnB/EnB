@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2526 |
-| 1 | neutral placeholder | 7584 |
+| 1 | neutral placeholder | 7574 |
 
 ## For review (score 3 and below)
 
@@ -40,21 +40,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:332` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:49` | untagged neutral name (D10) |
-| 1 | `UnknownB009A8Enum` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB009A8 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB00A00Type` | `app/client/aux_roots.h:66` | the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB00A58Enum` | `app/client/aux_roots.h:72` | the value type of the leaf vtable 0xB00A58 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0100CEnum` | `app/client/aux_roots.h:77` | the value type of the leaf vtable 0xB0100C (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB011D4Enum` | `app/client/aux_roots.h:82` | the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:87` | the value type of the leaf vtable 0xB0122C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:92` | the value type of the leaf vtable 0xB0133C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:97` | the value type of the leaf vtable 0xB01394 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:102` | the value type of the leaf vtable 0xB013EC (no name in the client, Net-7 or C#) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:87` | the value type of the leaf vtable 0xB0122C (its KVPair's Get_Type_Name 0x708690 says 'int'; no name in Net-7 or C#) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:92` | the value type of the leaf vtable 0xB0133C (its KVPair's Get_Type_Name 0x708AE0 says 'int'; no name in Net-7 or C#) |
+| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:97` | the value type of the leaf vtable 0xB01394 (its KVPair's Get_Type_Name 0x708970 says 'int'; no name in Net-7 or C#) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:102` | the value type of the leaf vtable 0xB013EC (its KVPair's Get_Type_Name 0x708800 says 'int'; no name in Net-7 or C#) |
 | 1 | `UnknownB016DCType` | `app/client/aux_roots.h:107` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB017ECEnum` | `app/client/aux_roots.h:113` | the value type of the leaf vtable 0xB017EC (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01844Enum` | `app/client/aux_roots.h:118` | the value type of the leaf vtable 0xB01844 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0189CEnum` | `app/client/aux_roots.h:123` | the value type of the leaf vtable 0xB0189C (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB018F4Enum` | `app/client/aux_roots.h:128` | the value type of the leaf vtable 0xB018F4 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB01A40Type` | `app/client/aux_roots.h:133` | the value type of the leaf vtable 0xB01A40 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:139` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:144` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03694Type` | `app/client/aux_roots.h:149` | the value type of the leaf vtable 0xB03694 (no name in the client, Net-7 or C#) |
@@ -403,7 +395,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Assert_Failed` | `app/client/co.cpp:1730` | untagged neutral name (D10) |
 | 1 | `generator, decal, model` | `app/client/co.cpp:1736` | what 0x6FD310 passes |
 | 1 | `Unknown_7633E0` | `app/client/co.cpp:1736` | untagged neutral name (D10) |
-| 1 | `UnknownB01A40Type` | `app/client/co.cpp:1736` | untagged neutral name (D10) |
 | 1 | `model, regions` | `app/client/co.cpp:1738` | what 0x6FCB70 passes |
 | 1 | `Unknown_80F220` | `app/client/co.cpp:1738` | untagged neutral name (D10) |
 | 1 | `Unknown_810CF0` | `app/client/co.cpp:1741` | untagged neutral name (D10) |
@@ -435,7 +426,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FFC80` | `app/client/co.cpp:2357` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF7A0` | `app/client/co.cpp:2363` | untagged neutral name (D10) |
 | 1 | `Unknown_700400` | `app/client/co.cpp:2370` | untagged neutral name (D10) |
-| 1 | `UnknownB00A58Enum` | `app/client/co.cpp:2373` | untagged neutral name (D10) |
 | 1 | `UnknownB00A00Type` | `app/client/co.cpp:2375` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF330` | `app/client/co.cpp:2416` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFE90` | `app/client/co.cpp:2428` | untagged neutral name (D10) |

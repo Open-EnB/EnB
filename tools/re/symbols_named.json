@@ -10,5 +10,90 @@
   "evidence": "ClientObjectClass's second vtable (the MultiFixedPoolDecalSystemClass base): slot 0 is the thunk 0x709E90 to ClientObjectClass's destructor; co.cpp's notes (CO1, 2026-10-28)",
   "kind": "vtable",
   "replaces": "??_7MultiFixedPoolDecalSystemClass@@6B@"
+ },
+ {
+  "address": "0x6F66B0",
+  "symbol": "??0ProjectedDecalClass@@QAE@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0UnknownB01A40Type@@QAE@XZ"
+ },
+ {
+  "address": "0x702890",
+  "symbol": "??0?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@QAE@PBDABW4EffectGeneratorUsageBF@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0?$DeltaTemplateClass@W4UnknownB01844Enum@@@@QAE@PBDABW4UnknownB01844Enum@@@Z"
+ },
+ {
+  "address": "0x7028D0",
+  "symbol": "??0?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@QAE@PBDABW4TargetGeneratorSummaryBF@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0?$DeltaTemplateClass@W4UnknownB0189CEnum@@@@QAE@PBDABW4UnknownB0189CEnum@@@Z"
+ },
+ {
+  "address": "0x702910",
+  "symbol": "??0?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@QAE@PBDABW4GameActionValidityBitFlag@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0?$DeltaTemplateClass@W4UnknownB018F4Enum@@@@QAE@PBDABW4UnknownB018F4Enum@@@Z"
+ },
+ {
+  "address": "0x703780",
+  "symbol": "??0?$DeltaArrayClass@UProjectedDecalClass@@@@QAE@PBDHABUProjectedDecalClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0?$DeltaArrayClass@UUnknownB01A40Type@@@@QAE@PBDHABUUnknownB01A40Type@@@Z"
+ },
+ {
+  "address": "0x7054C0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x705640",
+  "symbol": "?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x705710",
+  "symbol": "?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x705AD0",
+  "symbol": "??0?$DeltaTemplateClass@UProjectedDecalClass@@@@QAE@PBDABUProjectedDecalClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??0?$DeltaTemplateClass@UUnknownB01A40Type@@@@QAE@PBDABUUnknownB01A40Type@@@Z"
+ },
+ {
+  "address": "0x7065D0",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@UProjectedDecalClass@@@@UBEPAV?$KVAccessorClass@UProjectedDecalClass@@@@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB01A40Type@@@@UBEPAV?$KVAccessorClass@UUnknownB01A40Type@@@@XZ"
+ },
+ {
+  "address": "0x706610",
+  "symbol": "??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x709580",
+  "symbol": "??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x7095B0",
+  "symbol": "??1?$KVPairTemplateClass@UProjectedDecalClass@@@@UAE@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??1?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0xB01A40",
+  "symbol": "??_7?$DeltaTemplateClass@UProjectedDecalClass@@@@6B@",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
+  "replaces": "??_7?$DeltaTemplateClass@UUnknownB01A40Type@@@@6B@",
+  "kind": "vtable"
  }
 ]

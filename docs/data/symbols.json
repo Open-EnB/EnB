@@ -127,8 +127,8 @@
 },
 {
 "address": "0x401186",
-"symbol": "j_??0?$DeltaTemplateClass@W4UnknownB0189CEnum@@@@QAE@PBDABW4UnknownB0189CEnum@@@Z",
-"name": "j_??0?$DeltaTemplateClass@W4UnknownB0189CEnum@@@@QAE@PBDABW4UnknownB0189CEnum@@@Z",
+"symbol": "j_??0?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@QAE@PBDABW4TargetGeneratorSummaryBF@@@Z",
+"name": "j_??0?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@QAE@PBDABW4TargetGeneratorSummaryBF@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -3557,8 +3557,8 @@
 },
 {
 "address": "0x403657",
-"symbol": "j_??0?$DeltaTemplateClass@W4UnknownB01844Enum@@@@QAE@PBDABW4UnknownB01844Enum@@@Z",
-"name": "j_??0?$DeltaTemplateClass@W4UnknownB01844Enum@@@@QAE@PBDABW4UnknownB01844Enum@@@Z",
+"symbol": "j_??0?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@QAE@PBDABW4EffectGeneratorUsageBF@@@Z",
+"name": "j_??0?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@QAE@PBDABW4EffectGeneratorUsageBF@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -3662,8 +3662,8 @@
 },
 {
 "address": "0x403756",
-"symbol": "j_??0?$DeltaTemplateClass@UUnknownB01A40Type@@@@QAE@PBDABUUnknownB01A40Type@@@Z",
-"name": "j_??0?$DeltaTemplateClass@UUnknownB01A40Type@@@@QAE@PBDABUUnknownB01A40Type@@@Z",
+"symbol": "j_??0?$DeltaTemplateClass@UProjectedDecalClass@@@@QAE@PBDABUProjectedDecalClass@@@Z",
+"name": "j_??0?$DeltaTemplateClass@UProjectedDecalClass@@@@QAE@PBDABUProjectedDecalClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -3844,8 +3844,8 @@
 },
 {
 "address": "0x403922",
-"symbol": "j_??1?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAE@XZ",
-"name": "j_??1?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAE@XZ",
+"symbol": "j_??1?$KVPairTemplateClass@UProjectedDecalClass@@@@UAE@XZ",
+"name": "j_??1?$KVPairTemplateClass@UProjectedDecalClass@@@@UAE@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -6623,8 +6623,8 @@
 },
 {
 "address": "0x4056DC",
-"symbol": "j_??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "j_??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "j_??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "j_??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -6917,8 +6917,8 @@
 },
 {
 "address": "0x405A74",
-"symbol": "j_?Clone@?$DeltaTemplateAccessorClass@UUnknownB01A40Type@@@@UBEPAV?$KVAccessorClass@UUnknownB01A40Type@@@@XZ",
-"name": "j_?Clone@?$DeltaTemplateAccessorClass@UUnknownB01A40Type@@@@UBEPAV?$KVAccessorClass@UUnknownB01A40Type@@@@XZ",
+"symbol": "j_?Clone@?$DeltaTemplateAccessorClass@UProjectedDecalClass@@@@UBEPAV?$KVAccessorClass@UProjectedDecalClass@@@@XZ",
+"name": "j_?Clone@?$DeltaTemplateAccessorClass@UProjectedDecalClass@@@@UBEPAV?$KVAccessorClass@UProjectedDecalClass@@@@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -8898,8 +8898,8 @@
 },
 {
 "address": "0x40713A",
-"symbol": "j_??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "j_??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "j_??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "j_??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -16724,8 +16724,8 @@
 },
 {
 "address": "0x40C30B",
-"symbol": "j_??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "j_??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "j_??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "j_??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -18089,8 +18089,8 @@
 },
 {
 "address": "0x40D193",
-"symbol": "j_??0UnknownB01A40Type@@QAE@XZ",
-"name": "j_??0UnknownB01A40Type@@QAE@XZ",
+"symbol": "j_??0ProjectedDecalClass@@QAE@XZ",
+"name": "j_??0ProjectedDecalClass@@QAE@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -19916,8 +19916,8 @@
 },
 {
 "address": "0x40E62E",
-"symbol": "j_?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
-"name": "j_?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+"symbol": "j_?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+"name": "j_?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -26692,8 +26692,8 @@
 },
 {
 "address": "0x412FA3",
-"symbol": "j_??0?$DeltaArrayClass@UUnknownB01A40Type@@@@QAE@PBDHABUUnknownB01A40Type@@@Z",
-"name": "j_??0?$DeltaArrayClass@UUnknownB01A40Type@@@@QAE@PBDHABUUnknownB01A40Type@@@Z",
+"symbol": "j_??0?$DeltaArrayClass@UProjectedDecalClass@@@@QAE@PBDHABUProjectedDecalClass@@@Z",
+"name": "j_??0?$DeltaArrayClass@UProjectedDecalClass@@@@QAE@PBDHABUProjectedDecalClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -26965,8 +26965,8 @@
 },
 {
 "address": "0x413232",
-"symbol": "j_?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
-"name": "j_?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+"symbol": "j_?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+"name": "j_?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -35183,8 +35183,8 @@
 },
 {
 "address": "0x4187AA",
-"symbol": "j_??0?$DeltaTemplateClass@W4UnknownB018F4Enum@@@@QAE@PBDABW4UnknownB018F4Enum@@@Z",
-"name": "j_??0?$DeltaTemplateClass@W4UnknownB018F4Enum@@@@QAE@PBDABW4UnknownB018F4Enum@@@Z",
+"symbol": "j_??0?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@QAE@PBDABW4GameActionValidityBitFlag@@@Z",
+"name": "j_??0?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@QAE@PBDABW4GameActionValidityBitFlag@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -36044,8 +36044,8 @@
 },
 {
 "address": "0x418FC5",
-"symbol": "j_??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "j_??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "j_??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "j_??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -36527,8 +36527,8 @@
 },
 {
 "address": "0x419434",
-"symbol": "j_?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z",
-"name": "j_?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z",
+"symbol": "j_?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
+"name": "j_?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -48722,11 +48722,10 @@
 },
 {
 "address": "0x6F66B0",
-"symbol": "??0UnknownB01A40Type@@QAE@XZ",
-"name": "UnknownB01A40Type::UnknownB01A40Type",
+"symbol": "??0ProjectedDecalClass@@QAE@XZ",
+"name": "ProjectedDecalClass::ProjectedDecalClass",
 "kind": "function",
-"source": "exact",
-"length": 27
+"source": "named"
 },
 {
 "address": "0x6F85F0",
@@ -49089,27 +49088,24 @@
 },
 {
 "address": "0x702890",
-"symbol": "??0?$DeltaTemplateClass@W4UnknownB01844Enum@@@@QAE@PBDABW4UnknownB01844Enum@@@Z",
-"name": "??0?$DeltaTemplateClass@W4UnknownB01844Enum@@@@QAE@PBDABW4UnknownB01844Enum@@@Z",
+"symbol": "??0?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@QAE@PBDABW4EffectGeneratorUsageBF@@@Z",
+"name": "??0?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@QAE@PBDABW4EffectGeneratorUsageBF@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 45
+"source": "named"
 },
 {
 "address": "0x7028D0",
-"symbol": "??0?$DeltaTemplateClass@W4UnknownB0189CEnum@@@@QAE@PBDABW4UnknownB0189CEnum@@@Z",
-"name": "??0?$DeltaTemplateClass@W4UnknownB0189CEnum@@@@QAE@PBDABW4UnknownB0189CEnum@@@Z",
+"symbol": "??0?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@QAE@PBDABW4TargetGeneratorSummaryBF@@@Z",
+"name": "??0?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@QAE@PBDABW4TargetGeneratorSummaryBF@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 45
+"source": "named"
 },
 {
 "address": "0x702910",
-"symbol": "??0?$DeltaTemplateClass@W4UnknownB018F4Enum@@@@QAE@PBDABW4UnknownB018F4Enum@@@Z",
-"name": "??0?$DeltaTemplateClass@W4UnknownB018F4Enum@@@@QAE@PBDABW4UnknownB018F4Enum@@@Z",
+"symbol": "??0?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@QAE@PBDABW4GameActionValidityBitFlag@@@Z",
+"name": "??0?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@QAE@PBDABW4GameActionValidityBitFlag@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 45
+"source": "named"
 },
 {
 "address": "0x703330",
@@ -49148,11 +49144,10 @@
 },
 {
 "address": "0x703780",
-"symbol": "??0?$DeltaArrayClass@UUnknownB01A40Type@@@@QAE@PBDHABUUnknownB01A40Type@@@Z",
-"name": "??0?$DeltaArrayClass@UUnknownB01A40Type@@@@QAE@PBDHABUUnknownB01A40Type@@@Z",
+"symbol": "??0?$DeltaArrayClass@UProjectedDecalClass@@@@QAE@PBDHABUProjectedDecalClass@@@Z",
+"name": "??0?$DeltaArrayClass@UProjectedDecalClass@@@@QAE@PBDHABUProjectedDecalClass@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 359
+"source": "named"
 },
 {
 "address": "0x703F40",
@@ -49172,36 +49167,31 @@
 },
 {
 "address": "0x7054C0",
-"symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
-"name": "?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+"symbol": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+"name": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 289,
-"proof": "vtable"
+"source": "named"
 },
 {
 "address": "0x705640",
-"symbol": "?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
-"name": "?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+"symbol": "?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+"name": "?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
 "kind": "function",
-"source": "vtable"
+"source": "named"
 },
 {
 "address": "0x705710",
-"symbol": "?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z",
-"name": "?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z",
+"symbol": "?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
+"name": "?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 53,
-"proof": "vtable"
+"source": "named"
 },
 {
 "address": "0x705AD0",
-"symbol": "??0?$DeltaTemplateClass@UUnknownB01A40Type@@@@QAE@PBDABUUnknownB01A40Type@@@Z",
-"name": "??0?$DeltaTemplateClass@UUnknownB01A40Type@@@@QAE@PBDABUUnknownB01A40Type@@@Z",
+"symbol": "??0?$DeltaTemplateClass@UProjectedDecalClass@@@@QAE@PBDABUProjectedDecalClass@@@Z",
+"name": "??0?$DeltaTemplateClass@UProjectedDecalClass@@@@QAE@PBDABUProjectedDecalClass@@@Z",
 "kind": "function",
-"source": "exact",
-"length": 82
+"source": "named"
 },
 {
 "address": "0x705E70",
@@ -49230,18 +49220,17 @@
 },
 {
 "address": "0x7065D0",
-"symbol": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB01A40Type@@@@UBEPAV?$KVAccessorClass@UUnknownB01A40Type@@@@XZ",
-"name": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB01A40Type@@@@UBEPAV?$KVAccessorClass@UUnknownB01A40Type@@@@XZ",
+"symbol": "?Clone@?$DeltaTemplateAccessorClass@UProjectedDecalClass@@@@UBEPAV?$KVAccessorClass@UProjectedDecalClass@@@@XZ",
+"name": "?Clone@?$DeltaTemplateAccessorClass@UProjectedDecalClass@@@@UBEPAV?$KVAccessorClass@UProjectedDecalClass@@@@XZ",
 "kind": "function",
-"source": "exact",
-"length": 35
+"source": "named"
 },
 {
 "address": "0x706610",
-"symbol": "??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "??_E?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "??_E?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "function",
-"source": "vtable"
+"source": "named"
 },
 {
 "address": "0x706730",
@@ -49317,19 +49306,17 @@
 },
 {
 "address": "0x709580",
-"symbol": "??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
-"name": "??_G?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAEPAXI@Z",
+"symbol": "??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
+"name": "??_G?$KVPairTemplateClass@UProjectedDecalClass@@@@UAEPAXI@Z",
 "kind": "function",
-"source": "exact",
-"length": 30
+"source": "named"
 },
 {
 "address": "0x7095B0",
-"symbol": "??1?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAE@XZ",
-"name": "??1?$KVPairTemplateClass@UUnknownB01A40Type@@@@UAE@XZ",
+"symbol": "??1?$KVPairTemplateClass@UProjectedDecalClass@@@@UAE@XZ",
+"name": "??1?$KVPairTemplateClass@UProjectedDecalClass@@@@UAE@XZ",
 "kind": "function",
-"source": "exact",
-"length": 87
+"source": "named"
 },
 {
 "address": "0x709D30",
@@ -129883,10 +129870,10 @@
 },
 {
 "address": "0xB01A40",
-"symbol": "??_7?$DeltaTemplateClass@UUnknownB01A40Type@@@@6B@",
-"name": "??_7?$DeltaTemplateClass@UUnknownB01A40Type@@@@6B@",
+"symbol": "??_7?$DeltaTemplateClass@UProjectedDecalClass@@@@6B@",
+"name": "??_7?$DeltaTemplateClass@UProjectedDecalClass@@@@6B@",
 "kind": "vtable",
-"source": "vtable"
+"source": "named"
 },
 {
 "address": "0xB02968",

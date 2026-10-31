@@ -22,7 +22,8 @@ format 0xB71A6C, its assert 'item' in ..\\shared/auxdata/delta_array.h line 71).
 Leaf types by vtable: string DeltaStringClass, float/int/bool/time/money DeltaTemplateClass<T>
 (T = float, int, bool, DurationClass, MoneyClass), 0xAEAE54 DeltaInterpolatorClass; every other
 leaf vtable gets a value type of its own (enum: `Unknown<VT>Enum`; 12-byte colour, 12/16/20-byte
-blobs: `Unknown<VT>Type`) with the conversions KVPairTemplateClass needs.
+blobs: `Unknown<VT>Type`; the client's name where its KVPair's Get_Type_Name gives one, CLIENT_TYPES)
+with the conversions KVPairTemplateClass needs.
 
 The output is functional, NOT EXACT (D42): default values (the client's 'Default' strings,
 the 20-byte blobs' {1.0f, 0, 0, -1, 0}) are not extracted (ARRAY_VALUES has the 1.0f arrays'),
@@ -113,6 +114,22 @@ BLOB_FORMS = {
 # Is_Changed 0x708CF0 the fields' == negated, Update_Saved 0x708D80 a field-by-field copy (operator=).
 # Is_Changed is exact with a separate operator== and `!(a == b)`, but that form leaves no SYMBOL_PAD
 # window for the six constructors (AR1 2026-10-31: 5/6 at best); the one-expression != keeps pad 15.
+# The value types' client names (NAME 5), by leaf vtable: the string their KVPair's Get_Type_Name
+# (slot +0x08) returns, inline (`mov eax, str`) or through an out-of-line Type_Name(value) of another
+# file. Leaf vtable -> (name, KVPair vtable, Get_Type_Name, the string's source). The KVPairs of
+# 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C return 'int' inline (0x708690, 0x708800, 0x708970,
+# 0x708AE0): their types keep neutral names, Type_Name 'int' (INT_NAMED).
+CLIENT_TYPES = {
+    0xB01844: ('EffectGeneratorUsageBF', 0xB0194C, 0x707BA0, 'Type_Name 0x835370'),
+    0xB0189C: ('TargetGeneratorSummaryBF', 0xB01984, 0x707D10, 'Type_Name 0x84BE40'),
+    0xB018F4: ('GameActionValidityBitFlag', 0xB019BC, 0x707E80, 'Type_Name 0x83D270'),
+    0xB017EC: ('ItemStateEnum', 0xB019F4, 0x707FF0, 'inline'),
+    0xB00A58: ('GuildRankType', 0xB01AF4, 0x708240, 'Type_Name 0x83D8B0'),
+    0xB009A8: ('InterruptStateType', 0xB01B40, 0x7083B0, 'inline'),
+    0xB0100C: ('WW3DLightAttenuationType', 0xB01B78, 0x708520, 'inline'),
+    0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
+}
+INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133C: 0x708AE0}
 BLOB_CONV = {
     0xB01A40: ('ProjectedDecalClass',
                'inline bool operator!=(const NAME &a, const NAME &b) '
@@ -224,11 +241,11 @@ class Gen:
             return LEAF[vt][0]
         t = n['type']
         if t == 'enum':
-            name = f'Unknown{hexu(vt)}Enum'
+            name = CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else f'Unknown{hexu(vt)}Enum'
             self.types[vt] = ('enum', 4, name)
         else:
             size = 12 if t == 'color' else int(t[5:])
-            name = f'Unknown{hexu(vt)}Type'
+            name = CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else f'Unknown{hexu(vt)}Type'
             self.types[vt] = ('blob', size, name)
         return f'DeltaTemplateClass<{name}>'
 
@@ -472,7 +489,15 @@ class Gen:
     def type_decls(self):
         out = []
         for vt, (kind, size, name) in sorted(self.types.items()):
-            out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (no name in the client, Net-7 or C#)')
+            if vt in CLIENT_TYPES:
+                cn, kv, gtn, src = CLIENT_TYPES[vt]
+                out.append(f'// NAME 5: the client\'s Get_Type_Name string \'{cn}\' (KVPair vtable 0x{hexu(kv)}, '
+                           f'0x{gtn:X}' + (' inline' if src == 'inline' else f', {src}') + f'), leaf vtable 0x{hexu(vt)}')
+            elif vt in INT_NAMED:
+                out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (its KVPair\'s Get_Type_Name '
+                           f'0x{INT_NAMED[vt]:X} says \'int\'; no name in Net-7 or C#)')
+            else:
+                out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (no name in the client, Net-7 or C#)')
             if kind == 'enum':
                 out.append(f'enum {name} {{ UNKNOWN_{hexu(vt)}_0 }};\t// vtable 0x{hexu(vt)}, 4 bytes')
             else:
@@ -490,7 +515,8 @@ class Gen:
                                '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
             conv = BLOB_CONV.get(vt) if kind != 'enum' else None
             ref = name if kind == 'enum' else f'const {name} &'
-            out.append(f'inline const char *Type_Name({name} *) {{ return "{conv[0] if conv else name}"; }}')
+            tname = 'int' if vt in INT_NAMED else CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else conv[0] if conv else name
+            out.append(f'inline const char *Type_Name({name} *) {{ return "{tname}"; }}')
             if conv:
                 out.append(f'inline char *Value_To_String(char *buf, int, {ref}value) {conv[2]}')
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
@@ -596,7 +622,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 15
+SYMBOL_PAD = 13
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
