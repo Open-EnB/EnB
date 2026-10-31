@@ -4,6 +4,21 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-30 (evening): the Character and Starship Creator analysed (CSC.md); D160-D162
+
+Interactive session with the user, no builders, no tree code changed. EA's promotional Character and Starship
+Creator (2002-09-13) analysed: [CSC.md](CSC.md). It holds about 2.4 MB of the client's own front end as it stood
+at launch, built from `C:\Projects\G` with VC6 RTM and linked non-incrementally with `/OPT:REF,ICF` (§1.1).
+Byte-exact rebuild: no (RTM toolchain, 2002 libraries, 267 of its 343 app files not in the tree); functional:
+later, once the client's character-creation screens exist. Findings: four new source file names and the
+`Tools\Avatar Creator` folder; 98 tree functions exact in CSC but absent from the client (e.g. `DynObj::DynObj()`
+0x44AC70, NOT EXACT); the creator file writer that the client's `unknown_creator.cpp` reads; 2,143 masked 1:1
+function pairs (701 file attributions agree, 4 disagree, 22 new). No provisional `unknown_*` file settled. The
+user accepted P-CSC-1..3 (D160-D162); D161 applied to source-tree.md and toolchain.md §1.2. Scratch in
+`.work/csc/` (Ghidra project `%LOCALAPPDATA%\EnB\ghidra_csc`).
+* **Left:** D160(a), listing the 98 against not-exact.md / the attempts log so builders see the 2002 evidence
+  before a retry.
+
 ### 2026-10-30 (day): the repository on GitHub (Open-EnB/EnB, private); claims and the verify service; the final public read; D153-D159
 
 Interactive session with the user, no builders. The repository went up to GitHub private (D152), after the
@@ -1444,6 +1459,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D157 | 2026-10-30 | P-GH-10, verification and merging (amends D148, D149(1), extends D146): every PR is verified before it reaches master, the maintainer's run PRs included, by a polling service on the maintainer's host (`tools/vc6/verify_watch.py`, a scheduled task running master's code; no self-hosted runner), which posts the required check `vc6-verify`; a PR that changes anything that would run on the host waits for a maintainer's `/verify-approved SHA`. Contributors' PRs land as one commit (the test merge plus the verified record, the PR's author kept) through a `verified/prN` landing PR the service pushes and merges: by itself (automerge on) when gain-only, CI green and only sources, headers and docs/data changed, otherwise on a maintainer's `/land SHA`; the maintainer's own PRs and any D66 case are merged by hand. One PR per claim, any number of commits; "one verified function per commit" retired. The run's PR opens as a draft at run start (`tools/run_branch.py`). [github-plan.md](github-plan.md) §4.5.4-4.5.5 | user |
 | D158 | 2026-10-30 | File headers say where the file came from: our own files (app/, programs/, stubs/, tests/, the tools' C/C++, files written from the client inside a library) start with `// Earth & Beyond client (reconstruction)`, without Westwood's banner box or an EA copyright line; Westwood's banner and EA's licence header stay only on files imported from EA's C&C releases, and an imported file changed for E&B says so on the line under EA's copyright, written by importer.py itself (`MODIFIED_NOTE`, on assemble, add and replay); third-party code that is not EA's keeps its own notice (libs/sgistl). Header changes never move a code line (`__LINE__`). [conventions.md](conventions.md) §4 | user |
 | D159 | 2026-10-30 | Unknown members follow §1's patterns like any member: `Unknown7C` (CamelCase, no prefix), `UnknownFlag`, `Unknown_7C` for a method; Generals' `GameEngine` code (`m_` members, camelCase methods, `AsciiString`) is the counterexample, not E&B's style. Inside an imported library its own style holds: WWAudio's members are `m_`-prefixed, so its unknowns stay `m_Unknown7C`. [conventions.md](conventions.md) §1 | user |
+| D160 | 2026-10-30 | P-CSC-1: the Character and Starship Creator (2002-09-13) is a reference, not a rebuild target. It is the 2002 witness for NOT EXACT functions (98 tree functions are exact in CSC and absent from the client: source matching 2002, client changed later, so code-form retries won't help) and a second reference for code the client lacks or drops. Names still come from the client (CSC folds identical functions). [CSC.md](CSC.md) §1.1, §6.3 | user |
+| D161 | 2026-10-30 | P-CSC-2: CSC's source and toolchain facts are recorded in [source-tree.md](source-tree.md) (`C:\Projects\G`, `Tools\Avatar Creator`, `chatint` / `textwin` / `usermsg`, `wnet\tcpmgr.cpp`, 0x836960 in galaxy_map.cpp) and [toolchain.md](toolchain.md) §1.2 (VC6 RTM throughout, no 8798 objects, `/OPT:REF,ICF`) | user |
+| D162 | 2026-10-30 | P-CSC-3: a functional CSC becomes a milestone once the client's character-creation screens run on the tree; not before ([CSC.md](CSC.md) §6.2) | user |
 
 ## 3. Open decisions
 
