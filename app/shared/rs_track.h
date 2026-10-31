@@ -78,7 +78,7 @@ public:
 	unsigned char Unknown2C;										// +0x2C  // NAME 1: neutral (D10)
 };
 
-// proj_man's helpers RsTrackClass makes (0x462470, 0x462530), declared as far as it calls them
+// rs_proj_sup.cpp's projector caster (0x45D9E0) and receiver (0x45DC80) RsTrackClass makes (0x462470, 0x462530), declared as far as it calls them (interim, D137; proj_man.h's ProjectorCasterClass notes)
 class Unknown45D9E0Class : public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
