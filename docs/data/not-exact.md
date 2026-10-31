@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-355 entries in 75 files.
+358 entries in 75 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -172,7 +172,10 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
+| `app/client/ui_group.cpp:1383` | `UIGroupClass::Unknown_596E20` | marker | NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried) |
 | `app/client/ui_group.cpp:1590` | `UIGroupClass::Unknown_597920` | marker | NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's) |
+| `app/client/ui_group.cpp:1918` | `UIGroupClass::Unknown_74` | mention | NOT EXACT), the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor |
+| `app/client/ui_group.cpp:1919` | `UIGroupClass::Unknown_74` | mention | NOT EXACT), 0x597000, the +0xE8 object's 0x5944A0, the leave question 0x5975D0, the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25); th... |
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |
 | `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |

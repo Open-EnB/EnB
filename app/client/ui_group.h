@@ -100,6 +100,9 @@ public:
 	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x598720 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x595480 (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_5954C0();								// 0x5954C0 (the destructor expands it: the NAMEnn_TSI03A styles hidden)
+	std::vector<UIGroupMemberClass *>::iterator Get_Member(const std::string &name);	// 0x596090 (the asserts' 'Get_Member(name) != Members.end()')  // NAME 3: the asserts'
+	void Unknown_596E20(const char *text, bool leader);	// 0x596E20: a group chat line '<S>n owner`text' (FAIL_IFs '!avatar' 1388, '!d_name' 1391)  // NAME 1 [text, leader]: what the format takes
+	void Unknown_597BF0();								// 0x597BF0: the formation buttons shown, GRP_DISBAND / GRP_LEAVE
 	int Unknown_596040(int id);					// 0x596040: the index of the member with that ID, else -1  // NAME 1 [id]: what it compares
 	void Unknown_597000(bool on);						// 0x597000: each member's four gadgets' slot +0x40  // NAME 1 [on]: neutral
 	void Unknown_5975D0();								// 0x5975D0: the leave / disband question ('GROUP_LEAVE')

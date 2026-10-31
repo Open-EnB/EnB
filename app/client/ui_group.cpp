@@ -3,6 +3,7 @@
 #include <string.h>
 #include "ui_group.h"
 #include "client.h"
+#include "..\packets\pkclientchat.h"
 #include "rendobj.h"
 #include "control_keys_manager.h"
 #include "..\shared\auxdata\auxdata.h"
@@ -39,6 +40,7 @@ public:
 	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x598200 sets it with 0x6603A0, clears it with 0x6607D0)
 };
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section ('UI_FORMATION', 'GRP_LEAVE')  // NAME 1 [section, name]: what this file passes
 
 extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp)
 
@@ -50,8 +52,6 @@ public:
 	ClientGroupEvent(bool value) : Value(value) {}
 	bool Value;											// +0x00  // NAME 1: neutral
 };
-
-
 
 
 
@@ -1117,26 +1117,6 @@ void UIGroupClass::Unknown_5954C0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x596040
 int UIGroupClass::Unknown_596040(int id)
 {
@@ -1146,6 +1126,22 @@ int UIGroupClass::Unknown_596040(int id)
 		}
 	}
 	return(-1);
+}
+
+
+
+
+// 0x596090
+std::vector<UIGroupMemberClass *>::iterator UIGroupClass::Get_Member(const std::string &name)
+{
+	std::vector<UIGroupMemberClass *>::iterator it = Members.begin();
+	std::vector<UIGroupMemberClass *>::iterator end = Members.end();
+	for (; it != end; it++) {
+		if ((*it)->Name == name) {
+			break;
+		}
+	}
+	return(it);
 }
 
 
@@ -1383,22 +1379,26 @@ int UIGroupClass::Unknown_596040(int id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x596E20
+// NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried)
+void UIGroupClass::Unknown_596E20(const char *text, bool leader)
+{
+	if (!Unknown0F1) {
+		ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
+		FAIL_IF(!avatar) return;
+		NameClass owner("Owner"); DeltaStringClass *d_name = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, owner);
+		if (d_name && !d_name->Unknown70) d_name = NULL;
+		FAIL_IF(!d_name) return;
+		const char *name = d_name->String;
+		const char *space = strchr(name, ' ');
+		if (space) {
+			name = space + 1;
+		}
+		char message[128];
+		_snprintf(message, sizeof(message), "<S>%d%s`%s", leader ? 1 : 0, name, text);
+		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->AvatarID, message, 1, NULL));
+	}
+}
 
 
 
@@ -1677,31 +1677,31 @@ void UIGroupClass::Unknown_597B70(bool value)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x597BF0
+void UIGroupClass::Unknown_597BF0()
+{
+	Unknown0E4->Set_Hidden(0);
+	Unknown_598370();
+	for (int i = 1; i <= 3; i++) {
+		if (Unknown0F1) {
+			if (i == 3) {
+				Unknown0C0[2]->Unknown_40(true);
+			} else {
+				Unknown0C0[i - 1]->Unknown_40(false);
+			}
+		} else {
+			Unknown0C0[i - 1]->Unknown_40(true);
+		}
+		Unknown0C0[i - 1]->Unknown_8C(false);
+	}
+	if (Unknown0C0[2] && ((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+		Unknown_65EFB0(Unknown0C0[2], "UI_FORMATION", "GRP_DISBAND");
+		Unknown_597E40(0);
+		return;
+	}
+	Unknown_65EFB0(Unknown0C0[2], "UI_FORMATION", "GRP_LEAVE");
+	Unknown_597E40(0);
+}
 
 
 
@@ -1914,14 +1914,15 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	'!SymbolChatUI') and the NAMEnn_TSI03A texts of FA_TSI03A.INI over the TSI03A mesh. The client's window runs
 **	0x593180-0x598A60 (claims #27 / #28); the base under it (constructor 0x5BB320) has no file name yet.
 **
-**	Rebuilt (UG1, 2026-10-30): the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
-**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, 0x597000, the +0xE8 object's 0x5944A0, the leave question 0x5975D0, the ClientGroupEvent emitters 0x597820 / 0x5978A0
-**	/ 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597D10 (1714), 0x5981B0, 0x598200,
+**	Rebuilt (UG1, 2026-10-30): the member class's 0x5934A0 (line 403), 0x5935C0 (456), 0x593750, 0x593790, 0x593830 and its
+**	destructor 0x5932E0 (NOT EXACT), the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
+**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090, the group chat line 0x596E20 (1388, 1391; NOT EXACT), 0x597000, the +0xE8 object's 0x5944A0, the leave question 0x5975D0, the ClientGroupEvent emitters 0x597820 / 0x5978A0
+**	/ 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200,
 **	0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25);
-**	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: the
-**	member class's functions (0x5932E0-0x593830, lines 403 / 456), 0x5938A0 (563), Unknown_54 0x594040, slot +0x60
-**	0x5944D0, slot +0x68 0x5946D0 (735, 751), 0x595530, the member list 0x596130-0x596770 (1165-1266), 0x596E20
-**	(1388), 0x597080, 0x597200 / 0x597310, 0x597650, 0x597BF0, 0x597E40 (1753) and 0x598370.
+**	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: 0x593180,
+**	0x593200, 0x5938A0 (563), Unknown_54 0x594040, slot +0x60
+**	0x5944D0, slot +0x68 0x5946D0 (735, 751), 0x595530, the member list 0x596130-0x596770 (1165-1266), 0x596DB0,
+**	0x597080, 0x597200 / 0x597310, 0x597650, 0x597E40 (1753) and 0x598370.
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
