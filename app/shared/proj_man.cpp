@@ -6,6 +6,9 @@
 #include "texture.h"
 #include "assetmgr.h"
 #include "rinfo.h"
+#include "dx8wrapper.h"
+#include "matrix3d.h"
+#include "rendobj.h"
 #include "wwmath.h"
 #include <math.h>
 #include "..\shared\unknown_debug.h"
@@ -39,9 +42,6 @@ TextureClass * StaticShadowTexMgrClass::Peek_Shadow_Texture
 	}
 	return NULL;
 }
-
-
-
 
 
 
@@ -566,128 +566,128 @@ StaticShadowTexMgrClass * ProjectorManagerClass::Get_Static_Shadow_Tex_Mgr(void)
 	return StaticShadowTexMgr;
 }
 
-// 0x493340 (texmgr != NULL at line 592, set_vector at 703) and 0x493620 (Renegade's
-// Setup_Static_Directional_Shadow: texmgr != NULL at 654, shadow_cam != NULL at 676) are not rebuilt yet.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ProjectorManagerClass::Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectorCasterClass> & list)
+{
+	/*
+	** Collect the casters that want a static shadow; each drops its projector
+	*/
+	RefMultiListClass<ProjectorCasterClass> shadow_gen_list;
+	RefMultiListIterator<ProjectorCasterClass> it(&list);
+	for (it.First(); !it.Is_Done(); it.Next()) {
+		ProjectorCasterClass * obj = it.Peek_Obj();
+		if (obj != NULL) {
+			ProjectionDefClass * def = obj->ProjectionDef;
+			if (def && def->Unknown08) {
+				obj->Set_Projection(NULL);
+				shadow_gen_list.Add(obj);
+			}
+		}
+	}
+
+	/*
+	** Release all of the textures we were using for static shadows
+	*/
+	StaticShadowTexMgrClass * texmgr = Get_Static_Shadow_Tex_Mgr();
+	G_ASSERT(texmgr != NULL);
+	texmgr->Reset();
+	REF_PTR_RELEASE(texmgr);
+
+	/*
+	** Generate a new shadow for each one
+	*/
+	RefMultiListIterator<ProjectorCasterClass> shadow_gen_iterator(&shadow_gen_list);
+	for (shadow_gen_iterator.First(); !shadow_gen_iterator.Is_Done(); shadow_gen_iterator.Next()) {
+		ProjectorCasterClass * obj = shadow_gen_iterator.Peek_Obj();
+		Vector3 sunvector;
+		Get_Shadow_Light_Direction(&sunvector);
+		Setup_Static_Directional_Shadow(obj,sunvector);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax)
+void ProjectorManagerClass::Setup_Static_Directional_Shadow(ProjectorCasterClass * caster,const Vector3 & light_dir)
+{
+	ProjectionDefClass * def = caster->ProjectionDef;
+	if (def == NULL) {
+		return;
+	}
+
+	uint32 type_id = caster->Get_Type_ID();
+	Quaternion obj_orientation(1);
+	if (def->Unknown09 == false) {
+		obj_orientation = Build_Quaternion(caster->Get_Transform());
+	}
+
+	TexProjectClass * shadow_projector = new TexProjectClass;
+	shadow_projector->Set_Texture_Size(128);
+	if (def->Is_Additive()) {
+		shadow_projector->Init_Additive();
+	} else {
+		shadow_projector->Init_Multiplicative();
+	}
+	shadow_projector->Set_Intensity(def->Get_Intensity(),true);
+	shadow_projector->Compute_Ortho_Projection(caster->Peek_Render_Obj(),light_dir,def->Get_NearZ(),def->Get_FarZ());
+	shadow_projector->Enable_Attenuation(true);
+	shadow_projector->Enable_Depth_Gradient(true);
+
+	StaticShadowTexMgrClass * texmgr = Get_Static_Shadow_Tex_Mgr();
+	G_ASSERT(texmgr != NULL);
+	TextureClass * existing_texture = texmgr->Peek_Shadow_Texture(type_id,obj_orientation);
+	if (existing_texture != NULL) {
+		shadow_projector->Set_Texture(existing_texture);
+	} else {
+
+		/*
+		** No texture was available: render one into a render target (the blob texture when
+		** the device has none), then add it to the cache so others can use it
+		** (Renegade copies the render target into a new texture first)
+		*/
+		TextureClass * render_target = Create_Projector_Render_Target(128,128);
+		if (render_target == NULL) {
+			TextureClass * blob = Get_Shadow_Blob_Texture();
+			shadow_projector->Set_Texture(blob);
+			REF_PTR_RELEASE(blob);
+		} else {
+			render_target->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
+			shadow_projector->Set_Render_Target(render_target);
+		}
+
+		CameraClass * shadow_cam = Get_Shadow_Camera();
+		G_ASSERT(shadow_cam != NULL);
+		SpecialRenderInfoClass * context = new SpecialRenderInfoClass(*shadow_cam,SpecialRenderInfoClass::RENDER_SHADOW);
+		DX8Wrapper::Set_Shader(Get_Shadow_Shader());
+		VertexMaterialClass * vmat = Get_Shadow_Material();
+		DX8Wrapper::Set_Material(vmat);
+		shadow_projector->Compute_Texture(caster->Peek_Render_Obj(),ShadowRenderContext);
+		texmgr->Add_Shadow_Texture(type_id,obj_orientation,shadow_projector->Peek_Texture());
+		REF_PTR_RELEASE(vmat);
+		REF_PTR_RELEASE(shadow_cam);
+	}
+
+	caster->Set_Projection(shadow_projector);
+	REF_PTR_RELEASE(shadow_projector);
+	REF_PTR_RELEASE(texmgr);
+}
 
 
 
@@ -707,6 +707,118 @@ void ProjectorManagerClass::Get_Shadow_Light_Direction(Vector3 * set_vector)
 void ProjectorManagerClass::Set_Shadow_Light_Direction(const Vector3 & dir)
 {
 	ShadowLightDirection = dir;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void ProjectorCasterClass::Set_Projection(TexProjectClass * projection)
+{
+	if (Projection != NULL) {
+		Projection->Release_Ref();
+	}
+	if (projection != NULL) {
+		projection->Add_Ref();
+	}
+	Projection = projection;
+}
+
+void ProjectorCasterClass::Create_Projection(void)
+{
+	if (ProjectionDef != NULL) {
+		CasterTexProjectClass * projection = new CasterTexProjectClass(this);
+		int size = ProjectionDef->TextureSize;
+		projection->Set_Intensity(ProjectionDef->Get_Intensity(),true);
+		projection->Enable_Attenuation(true);
+		projection->Enable_Depth_Gradient(false);
+		projection->Set_Texture_Size(size);
+		if (ProjectionDef->Is_Additive()) {
+			projection->Init_Additive();
+		} else {
+			projection->Init_Multiplicative();
+		}
+		TextureClass * render_target = Create_Projector_Render_Target(size,size);
+		if (render_target == NULL) {
+			render_target = Manager->Get_Shadow_Blob_Texture();
+			projection->Set_Texture(render_target);
+			REF_PTR_RELEASE(render_target);
+		} else {
+			render_target->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
+			projection->Set_Render_Target(render_target);
+		}
+		projection->Enable_Depth_Gradient(true);
+		Set_Projection(projection);
+		REF_PTR_RELEASE(projection);
+		REF_PTR_RELEASE(render_target);
+	}
+}
+
+void ProjectorCasterClass::Update_Projection(void)
+{
+	Vector3 light_dir;
+	Manager->Get_Shadow_Light_Direction(&light_dir);
+	G_ASSERT(ProjectionDef);
+	G_ASSERT(Projection);
+	Projection->Compute_Ortho_Projection(Peek_Render_Obj(),light_dir);
+	if (Projection->Get_Culling_System() != NULL) {
+		Projection->Get_Culling_System()->Update_Culling(Projection);
+	}
+}
+CasterTexProjectClass::CasterTexProjectClass(ProjectorCasterClass * owner) :
+	Owner(owner),
+	Unknown140(false)
+{
+}
+
+// CasterTexProjectClass's destructor 0x494180 is the compiler's (a jump to
+// TexProjectClass's: an empty user destructor would reset the vtables first)
+
+void CasterTexProjectClass::Pre_Render_Update(const Matrix3D & camera)
+{
+	if (!Unknown140) {
+		if (Owner->UseBlob) {
+			Set_Texture(Owner->Manager->Get_Shadow_Blob_Texture());
+		} else {
+			CameraClass * shadow_cam = Owner->Manager->Get_Shadow_Camera();
+			G_ASSERT(shadow_cam != NULL);
+			SpecialRenderInfoClass * context = new SpecialRenderInfoClass(*shadow_cam,SpecialRenderInfoClass::RENDER_SHADOW);
+			DX8Wrapper::Set_Shader(Owner->Manager->Get_Shadow_Shader());
+			VertexMaterialClass * vmat = Owner->Manager->Get_Shadow_Material();
+			DX8Wrapper::Set_Material(vmat);
+			Compute_Texture(Owner->Peek_Render_Obj(),context);
+			delete context;
+			REF_PTR_RELEASE(vmat);
+			REF_PTR_RELEASE(shadow_cam);
+		}
+	}
+	TexProjectClass::Pre_Render_Update(camera);
+}
+
+void * CasterTexProjectClass::Get_Projection_Object_ID(void) const
+{
+	return (void *)Owner->Get_Type_ID();
 }
 
 

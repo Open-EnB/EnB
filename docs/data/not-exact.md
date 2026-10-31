@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-351 entries in 73 files.
+352 entries in 74 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -291,6 +291,7 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:509` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, 0x467E40, the draw 0x466F60 and its helpers 0x468240-0x468D50. |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
+| `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/px.cpp:212` | `PxBox::Set_Test` | marker | NOT EXACT: scheduling (the client reads Mask before testing List; attempts.py show 0x44BBD0) |
 | `app/shared/px.cpp:220` | `PxBox::Set_Mask` | marker | NOT EXACT: scheduling (the client reads Test before testing List; attempts.py show 0x44BC10) |
 | `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |

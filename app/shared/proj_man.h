@@ -31,6 +31,73 @@ class CameraClass;
 class VertexMaterialClass;
 class SpecialRenderInfoClass;
 class ShaderClass;
+class RenderObjClass;
+class Matrix3D;
+class ProjectorManagerClass;
+
+// The shadow render target maker the manager calls (0x498120, another file: DX8Wrapper::Create_Render_Target
+// in the first format the device supports)
+TextureClass * Create_Projector_Render_Target(int width,int height);	// NAME 2: Renegade's pscene_projectors.cpp helper
+
+/*
+** ProjectionDefClass: how a caster's projector is set up (the asserts' "ProjectionDef"); only the members the
+** manager reads
+*/
+class ProjectionDefClass : public RefCountClass	// NAME 2: the asserts' ProjectionDef
+{
+public:
+	bool							Is_Additive(void) const			{ return Additive; }		// NAME 2: Renegade's Shadow_Is_Additive
+	float							Get_Intensity(void) const		{ return Intensity; }	// NAME 2: Renegade's Shadow_Intensity
+	float							Get_NearZ(void) const			{ return NearZ; }		// NAME 2: Renegade's Shadow_NearZ
+	float							Get_FarZ(void) const				{ return FarZ; }			// NAME 2: Renegade's Shadow_FarZ
+
+	bool							Unknown08;			// +0x08 static: Generate_Static_Shadow_Projectors takes these  // NAME 1: neutral (D10)
+	bool							Unknown09;			// +0x09 the shadow ignores the caster's rotation  // NAME 1: neutral (D10)
+	bool							Additive;			// +0x0A Init_Additive, else Init_Multiplicative  // NAME 2: Renegade's Shadow_Is_Additive
+	float							Intensity;			// +0x0C  // NAME 2: Renegade's Shadow_Intensity
+	float							NearZ;				// +0x10  // NAME 2: Renegade's Shadow_NearZ
+	float							FarZ;					// +0x14  // NAME 2: Renegade's Shadow_FarZ
+	int							TextureSize;		// +0x18 the dynamic projector's  // NAME 2: Set_Texture_Size's argument
+};
+
+/*
+** ProjectorCasterClass: an object that casts a projector (the asserts' "Projection") built from its ProjectionDef.
+** rs_proj_sup.cpp derives its casters from it (0x45D9E0 makes one, 0x20 bytes here); the receivers (0x45DC80)
+** share its RefCountClass + MultiListObjectClass start
+*/
+class ProjectorCasterClass : public RefCountClass, public MultiListObjectClass	// NAME 2: what it holds
+{
+public:
+	virtual RenderObjClass *	Peek_Render_Obj(void) = 0;		// slot 2: the model projected / rendered  // NAME 2: its use
+	virtual Matrix3D				Get_Transform(void) = 0;		// slot 3  // NAME 2: Build_Quaternion's argument
+	virtual uint32					Get_Type_ID(void) = 0;			// slot 4: the shadow texture key  // NAME 2: Renegade's def->Get_ID()
+
+	void							Set_Projection(TexProjectClass * projection);	// 0x493D30  // NAME 2: Projection's setter
+	void							Create_Projection(void);								// 0x493D80  // NAME 2: what it does
+	void							Update_Projection(void);								// 0x493FE0  // NAME 2: recomputes the ortho projection
+
+	bool							Unknown10;					// +0x10  // NAME 1: neutral (D10)
+	bool							UseBlob;						// +0x11 the blob texture instead of a rendered shadow  // NAME 2: its use
+	TexProjectClass *			Projection;					// +0x14
+	ProjectionDefClass *		ProjectionDef;				// +0x18
+	ProjectorManagerClass *	Manager;						// +0x1C  // NAME 2: what it points at
+};
+
+/*
+** CasterTexProjectClass: the dynamic projector Create_Projection makes (0x144 bytes, vtables 0xAEA764 / 0xAEA758
+** / 0xAEA754): it renders its caster's model before each use
+*/
+class CasterTexProjectClass : public TexProjectClass	// NAME 2: what it is
+{
+public:
+	CasterTexProjectClass(ProjectorCasterClass * owner);	// 0x494100
+	// the destructor (0x494180, a jump to TexProjectClass's) is the compiler's
+	virtual void			Pre_Render_Update(const Matrix3D & camera);	// 0x4941A0
+	virtual void *			Get_Projection_Object_ID(void) const;			// 0x494410
+
+	ProjectorCasterClass *	Owner;							// +0x13C  // NAME 2: what it points at
+	bool							Unknown140;						// +0x140  // NAME 1: neutral (D10)
+};
 
 /*
 ** StaticShadowTexMgrClass: the unique shadow textures of the static shadow projectors (Renegade's,
@@ -110,6 +177,8 @@ public:
 	void							Apply_Projectors(const CameraClass & camera);	// 0x492C70 (profile label pscene::Apply_Projectors)
 
 	StaticShadowTexMgrClass *	Get_Static_Shadow_Tex_Mgr(void);				// 0x493260  // NAME 2: StaticShadowTexMgr's getter
+	void							Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectorCasterClass> & list);	// 0x493340  // NAME 2: Renegade's
+	void							Setup_Static_Directional_Shadow(ProjectorCasterClass * caster,const Vector3 & light_dir);	// 0x493620  // NAME 2: Renegade's
 	void							Get_Shadow_Light_Direction(Vector3 * set_vector);	// 0x493CB0  // NAME 2: set_vector; the sun (mainview passes minus its direction)
 	void							Set_Shadow_Light_Direction(const Vector3 & dir);	// 0x493D00  // NAME 2: as the getter
 

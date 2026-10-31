@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 989 |
-| 2 | describes what the code does | 2440 |
-| 1 | neutral placeholder | 6021 |
+| 2 | describes what the code does | 2464 |
+| 1 | neutral placeholder | 6028 |
 
 ## For review (score 3 and below)
 
@@ -5378,10 +5378,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/proj_man.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/proj_man.h:118` | neutral (D10) |
-| 1 | `Unknown0C` | `app/shared/proj_man.h:119` | neutral (D10) |
-| 1 | `Unknown10` | `app/shared/proj_man.h:120` | neutral (D10) |
-| 1 | `Unknown2C` | `app/shared/proj_man.h:127` | neutral (D10) |
+| 1 | `Unknown08` | `app/shared/proj_man.cpp:581` | untagged neutral name (D10) |
+| 1 | `Unknown09` | `app/shared/proj_man.cpp:637` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/shared/proj_man.cpp:791` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/proj_man.h:54` | neutral (D10) |
+| 1 | `Unknown09` | `app/shared/proj_man.h:55` | neutral (D10) |
+| 1 | `Unknown10` | `app/shared/proj_man.h:79` | neutral (D10) |
+| 1 | `Unknown140` | `app/shared/proj_man.h:99` | neutral (D10) |
+| 1 | `Unknown08` | `app/shared/proj_man.h:187` | neutral (D10) |
+| 1 | `Unknown0C` | `app/shared/proj_man.h:188` | neutral (D10) |
+| 1 | `Unknown10` | `app/shared/proj_man.h:189` | neutral (D10) |
+| 1 | `Unknown2C` | `app/shared/proj_man.h:196` | neutral (D10) |
 | 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
 | 1 | `px_box_list.h` | `app/shared/px_box_list.h:12` | provisional header name (px_box_list.cpp's) |
@@ -8082,33 +8089,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
-| 2 | `Release_Projector_Resources` | `app/shared/proj_man.h:88` | Renegade's PhysicsSceneClass method |
-| 2 | `Get_Shadow_Camera` | `app/shared/proj_man.h:89` | Renegade's (shadow_cam) |
-| 2 | `Get_Shadow_Material` | `app/shared/proj_man.h:90` | Renegade's Get_Shadow_Material_Pass, without the pass |
-| 2 | `Get_Shadow_Shader` | `app/shared/proj_man.h:91` | Renegade's Get_Shadow_Material_Pass's shader |
-| 2 | `Enable_Static_Projectors` | `app/shared/proj_man.h:93` | Renegade's |
-| 2 | `Are_Static_Projectors_Enabled` | `app/shared/proj_man.h:94` | Renegade's |
-| 2 | `Enable_Dynamic_Projectors` | `app/shared/proj_man.h:95` | Renegade's |
-| 2 | `Are_Dynamic_Projectors_Enabled` | `app/shared/proj_man.h:96` | Renegade's |
-| 2 | `Set_Shadow_Normal_Intensity` | `app/shared/proj_man.h:97` | Renegade's |
-| 2 | `Get_Shadow_Normal_Intensity` | `app/shared/proj_man.h:98` | Renegade's |
-| 2 | `Set_Shadow_Blob_Texture` | `app/shared/proj_man.h:99` | what it sets |
-| 2 | `Get_Shadow_Blob_Texture` | `app/shared/proj_man.h:100` | ShadowBlobTexture's getter |
-| 2 | `Add_Static_Texture_Projector` | `app/shared/proj_man.h:102` | Renegade's |
-| 2 | `Remove_Static_Texture_Projector` | `app/shared/proj_man.h:103` | Renegade's |
-| 2 | `Add_Dynamic_Texture_Projector` | `app/shared/proj_man.h:104` | Renegade's |
-| 2 | `Remove_Dynamic_Texture_Projector` | `app/shared/proj_man.h:105` | Renegade's |
-| 2 | `Remove_Texture_Projector` | `app/shared/proj_man.h:106` | Renegade's |
-| 2 | `Remove_All_Texture_Projectors` | `app/shared/proj_man.h:107` | what it does |
-| 2 | `Contains` | `app/shared/proj_man.h:108` | Renegade's |
-| 2 | `Get_Static_Shadow_Tex_Mgr` | `app/shared/proj_man.h:112` | StaticShadowTexMgr's getter |
-| 2 | `Get_Shadow_Light_Direction` | `app/shared/proj_man.h:113` | set_vector; the sun (mainview passes minus its direction) |
-| 2 | `Set_Shadow_Light_Direction` | `app/shared/proj_man.h:114` | as the getter |
-| 2 | `ShadowNormalIntensity` | `app/shared/proj_man.h:121` | Renegade's (0x492520 clamps it) |
-| 2 | `ShadowCamera` | `app/shared/proj_man.h:124` | Renegade's |
-| 2 | `ShadowMaterial` | `app/shared/proj_man.h:125` | Renegade's ShadowMaterialPass |
-| 2 | `ShadowRenderContext` | `app/shared/proj_man.h:126` | Renegade's |
-| 2 | `ShadowLightDirection` | `app/shared/proj_man.h:130` | as its getter |
+| 2 | `Create_Projector_Render_Target` | `app/shared/proj_man.h:40` | Renegade's pscene_projectors.cpp helper |
+| 2 | `ProjectionDefClass` | `app/shared/proj_man.h:46` | the asserts' ProjectionDef |
+| 2 | `Is_Additive` | `app/shared/proj_man.h:49` | Renegade's Shadow_Is_Additive |
+| 2 | `Get_Intensity` | `app/shared/proj_man.h:50` | Renegade's Shadow_Intensity |
+| 2 | `Get_NearZ` | `app/shared/proj_man.h:51` | Renegade's Shadow_NearZ |
+| 2 | `Get_FarZ` | `app/shared/proj_man.h:52` | Renegade's Shadow_FarZ |
+| 2 | `Additive` | `app/shared/proj_man.h:56` | Renegade's Shadow_Is_Additive |
+| 2 | `Intensity` | `app/shared/proj_man.h:57` | Renegade's Shadow_Intensity |
+| 2 | `NearZ` | `app/shared/proj_man.h:58` | Renegade's Shadow_NearZ |
+| 2 | `FarZ` | `app/shared/proj_man.h:59` | Renegade's Shadow_FarZ |
+| 2 | `TextureSize` | `app/shared/proj_man.h:60` | Set_Texture_Size's argument |
+| 2 | `ProjectorCasterClass` | `app/shared/proj_man.h:68` | what it holds |
+| 2 | `Peek_Render_Obj` | `app/shared/proj_man.h:71` | its use |
+| 2 | `Get_Transform` | `app/shared/proj_man.h:72` | Build_Quaternion's argument |
+| 2 | `Get_Type_ID` | `app/shared/proj_man.h:73` | Renegade's def->Get_ID() |
+| 2 | `Set_Projection` | `app/shared/proj_man.h:75` | Projection's setter |
+| 2 | `Create_Projection` | `app/shared/proj_man.h:76` | what it does |
+| 2 | `Update_Projection` | `app/shared/proj_man.h:77` | recomputes the ortho projection |
+| 2 | `UseBlob` | `app/shared/proj_man.h:80` | its use |
+| 2 | `Manager` | `app/shared/proj_man.h:83` | what it points at |
+| 2 | `CasterTexProjectClass` | `app/shared/proj_man.h:90` | what it is |
+| 2 | `Owner` | `app/shared/proj_man.h:98` | what it points at |
+| 2 | `Release_Projector_Resources` | `app/shared/proj_man.h:155` | Renegade's PhysicsSceneClass method |
+| 2 | `Get_Shadow_Camera` | `app/shared/proj_man.h:156` | Renegade's (shadow_cam) |
+| 2 | `Get_Shadow_Material` | `app/shared/proj_man.h:157` | Renegade's Get_Shadow_Material_Pass, without the pass |
+| 2 | `Get_Shadow_Shader` | `app/shared/proj_man.h:158` | Renegade's Get_Shadow_Material_Pass's shader |
+| 2 | `Enable_Static_Projectors` | `app/shared/proj_man.h:160` | Renegade's |
+| 2 | `Are_Static_Projectors_Enabled` | `app/shared/proj_man.h:161` | Renegade's |
+| 2 | `Enable_Dynamic_Projectors` | `app/shared/proj_man.h:162` | Renegade's |
+| 2 | `Are_Dynamic_Projectors_Enabled` | `app/shared/proj_man.h:163` | Renegade's |
+| 2 | `Set_Shadow_Normal_Intensity` | `app/shared/proj_man.h:164` | Renegade's |
+| 2 | `Get_Shadow_Normal_Intensity` | `app/shared/proj_man.h:165` | Renegade's |
+| 2 | `Set_Shadow_Blob_Texture` | `app/shared/proj_man.h:166` | what it sets |
+| 2 | `Get_Shadow_Blob_Texture` | `app/shared/proj_man.h:167` | ShadowBlobTexture's getter |
+| 2 | `Add_Static_Texture_Projector` | `app/shared/proj_man.h:169` | Renegade's |
+| 2 | `Remove_Static_Texture_Projector` | `app/shared/proj_man.h:170` | Renegade's |
+| 2 | `Add_Dynamic_Texture_Projector` | `app/shared/proj_man.h:171` | Renegade's |
+| 2 | `Remove_Dynamic_Texture_Projector` | `app/shared/proj_man.h:172` | Renegade's |
+| 2 | `Remove_Texture_Projector` | `app/shared/proj_man.h:173` | Renegade's |
+| 2 | `Remove_All_Texture_Projectors` | `app/shared/proj_man.h:174` | what it does |
+| 2 | `Contains` | `app/shared/proj_man.h:175` | Renegade's |
+| 2 | `Get_Static_Shadow_Tex_Mgr` | `app/shared/proj_man.h:179` | StaticShadowTexMgr's getter |
+| 2 | `Generate_Static_Shadow_Projectors` | `app/shared/proj_man.h:180` | Renegade's |
+| 2 | `Setup_Static_Directional_Shadow` | `app/shared/proj_man.h:181` | Renegade's |
+| 2 | `Get_Shadow_Light_Direction` | `app/shared/proj_man.h:182` | set_vector; the sun (mainview passes minus its direction) |
+| 2 | `Set_Shadow_Light_Direction` | `app/shared/proj_man.h:183` | as the getter |
+| 2 | `ShadowNormalIntensity` | `app/shared/proj_man.h:190` | Renegade's (0x492520 clamps it) |
+| 2 | `ShadowCamera` | `app/shared/proj_man.h:193` | Renegade's |
+| 2 | `ShadowMaterial` | `app/shared/proj_man.h:194` | Renegade's ShadowMaterialPass |
+| 2 | `ShadowRenderContext` | `app/shared/proj_man.h:195` | Renegade's |
+| 2 | `ShadowLightDirection` | `app/shared/proj_man.h:199` | as its getter |
 | 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
 | 2 | `std:` | `app/shared/px.cpp:597` | the boxes a corner change has already reported |
 | 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
@@ -9419,7 +9450,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LookupTableClass` | `app/shared/lookup_table.h:35` | by convention (D24) from the client's file lookup_table.cpp |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
-| 3 | `ProjectorManagerClass` | `app/shared/proj_man.h:82` | class-from-file (D24) for app\shared\proj_man.cpp |
+| 3 | `ProjectorManagerClass` | `app/shared/proj_man.h:149` | class-from-file (D24) for app\shared\proj_man.cpp |
 | 3 | `EndType` | `app/shared/px.h:28` | PxList's dump prints "LOW" / "HIGH" for it |
 | 3 | `LOW` | `app/shared/px.h:29` | as above |
 | 3 | `HIGH` | `app/shared/px.h:30` | as above |
