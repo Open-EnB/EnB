@@ -8923,6 +8923,42 @@
     "merged": [],
     "name": "common/udpconn.cpp"
    },
+   "ui_chat_panel": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x563060",
+     "0x5638E0",
+     "0x564150",
+     "0x564400",
+     "0x565BA0",
+     "0x565BC0",
+     "0x565C00",
+     "0x565F30",
+     "0x567930",
+     "0x567970",
+     "0x5688E0",
+     "0x568910",
+     "0x568950",
+     "0x5698F0",
+     "0x56BA40",
+     "0x56BC10",
+     "0x56BD80",
+     "0x56C0C0",
+     "0x56C730"
+    ],
+    "merged": [],
+    "name": "client/ui_chat_panel.cpp"
+   },
    "ui_cpit": {
     "ambiguous": [
      "0x42A6C0",
@@ -9781,6 +9817,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
+   "client/ui_chat_panel.h": "reconstructed",
    "client/ui_cpit.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
@@ -10007,7 +10044,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5053,
+  "in_tree_total": 5074,
   "totals": {}
  },
  "binkmovie": {
