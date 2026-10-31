@@ -470,7 +470,6 @@ void UICpitClass::Unknown_5C()
 }
 
 // 0x57F240
-// NOT EXACT: inline budget (the client expands std::string's assign in the last nine keys, ours in the last eight)
 void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
 {
 
@@ -620,16 +619,17 @@ void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
 
 
 
+
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Stop"), (void *)13, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward"), (void *)9, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward"), (void *)13, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward"), (void *)8, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward"), (void *)13, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward Toggle"), (void *)10, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward Lock"), (void *)11, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward Lock"), (void *)12, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), (void *)20, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Stop", (void *)13, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)9, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)13, 0x1000);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)8, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)13, 0x1000);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", (void *)10, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", (void *)11, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", (void *)12, 0);
+	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)20, 0);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), (void *)21, 0x1000);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)19, 0);
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)21, 0x1000);
@@ -641,19 +641,19 @@ void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
 	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)3, 0x1000);
 }
 // 0x57FCC0
-// NOT EXACT: inline budget (the client expands std::string's assign in other keys than ours)
 void UICpitClass::Unknown_74(ControlKeysManagerClass *manager)
 {
+
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Stop"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward Toggle"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Forward Lock"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Move Backward Lock"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Stop", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0x1000);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0x1000);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", 0);
+	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", 0);
 	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), 0x1000);
 	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0);
 	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0x1000);
@@ -2121,10 +2121,12 @@ void UICpitHarvestWatchClass::Unknown_0C()
 **
 **	Rebuilt (CP1, 2026-10-31), the asserts on the client's lines (D25), the functions without asserts between their
 **	neighbours' lines in the client's order:
-**	  exact: the constructor 0x57D830, destructor 0x57EB80, slots +0x58 / +0x5C / +0x60 / +0x7C, the window close
+**	  exact: the constructor 0x57D830, destructor 0x57EB80, slots +0x58 / +0x5C / +0x60 / +0x7C, the control keys
+**	  0x57F240 / 0x57FCC0 (the first nine keys' names converted implicitly, the rest as std::string temporaries: the client's
+**	  inline budget), the window close
 **	  0x581CE0, 0x581E60 / 0x581F90 / 0x582070 / 0x5820C0 / 0x582190, the warp and turn buttons 0x583250 / 0x583510,
 **	  0x583DA0, 0x583F70, the font state 0x584110 / 0x5845A0, 0x584A20 / 0x584A60 and both watchers 0x584A80-0x584BE0;
-**	  still differing (the inline budget unless noted): 0x57D6C0, the set-up 0x57DD20, the control keys 0x57F240 / 0x57FCC0, the
+**	  still differing (the inline budget unless noted): 0x57D6C0, the set-up 0x57DD20, the
 **	  steering keys 0x5806E0, the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
 **	  0x584000 (order) and the incapacitance details 0x584690.
 **	The packets' player ids go through two inline accessors (Unknown_Avatar_ID / Unknown_Player_ID): the client
