@@ -449,61 +449,61 @@ void ScriptedMovieViewClass::Unknown_10()
 
 
 
+#include "..\..\ww3d2\predlod.h"
+#include "..\..\ww3d2\render2d.h"
+#include "..\..\ww3d2\statistics.h"
+extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// (declared again with the frame 0x801E60)
+void Unknown_7FF810();					// 0x7FF810 (the file before this one: the screen fade and the letterbox), their render
+
+// 0x8012C0: the view's render (slot +0x0C): the background, the stars, the orbitals and the dazzles, the scene, the fade;
+// with +0x171 and +0x158 the frame, the frame rate and the polygon / vertex counts as text
+// NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear
+int ScriptedMovieViewClass::Unknown_0C(bool on)
+{
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(ViewerSettings);
+	G_ASSERT(ScriptedScene);
+	int result = WW3D::Begin_Render(on, true, Vector3(ViewerSettings->BackgroundColor));
+	Unknown_801860();
+	Unknown_8019A0();
+	if (OrbitalScene) {
+		DazzleRenderObjClass::Set_Current_Dazzle_Layer(BackgroundDazzleLayer);
+		float znear, zfar;
+		Unknown_801D70(&znear, &zfar);
+		Unknown_801AE0(znear, zfar);
+		Unknown_801C40(znear, zfar);
+	}
+	PredictiveLODOptimizerClass::Clear();
+	ScriptedScene->Visibility_Check(ScriptedCamera);
+	PredictiveLODOptimizerClass::Optimize_LODs(50000.0f);
+	WW3D::Render(ScriptedScene, ScriptedCamera);
+	Unknown_7FF810();
+	if (Unknown171 && Unknown158) {
+		unsigned int frame = (Unknown80 * 30 - Unknown16C * 30) / 1000;
+		StringClass line(255, true);
+		StringClass text(1024, true);
+		unsigned int ms = Unknown_BFAE3C - Unknown_BFAE40;
+		if (ms <= 1) {
+			ms = 1;
+		}
+		float rate = 1.0f / (ms * 0.001f);
+		line.Format("Frame: %d  Frame Rate: %f\n", frame, rate);
+		text += line;
+		line.Format("%d Polys/frame (%dk pps)\n", Debug_Statistics::Get_DX8_Polygons(), (unsigned int)(Debug_Statistics::Get_DX8_Polygons() * rate) / 1000);
+		text += line;
+		line.Format("%d Verts/frame (%dk vps)\n", Debug_Statistics::Get_DX8_Vertices(), (unsigned int)(Debug_Statistics::Get_DX8_Vertices() * rate) / 1000);
+		text += line;
+		Unknown15C->Draw_Text(text, 0xFFFF0000);
+		Unknown15C->Render();
+		Unknown15C->Reset();
+	}
+	WW3D::End_Render();
+	return(result);
+}
 
 
 

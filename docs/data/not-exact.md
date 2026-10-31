@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-354 entries in 73 files.
+355 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -145,6 +145,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:5327` | `SClient::Unknown_7511A0` | marker | NOT EXACT: shape (explain.py: 1 masked row; 177 instructions, the client 176): the client calls ids' insert(end, x) 0x755E60 out of line (insert(P, 1, X) inlined into it), ours inlines it and calls insert(P, 1, X); two forms (push_back, insert) 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8) through 0x74... |
 | `app/client/sclient.cpp:5522` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/sclient.cpp:5693` | `SClient::Unknown_750F70` | marker | NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows) 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by... |
+| `app/client/scriptedmovie.cpp:460` | `ScriptedMovieViewClass::Unknown_0C` | marker | NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear |
 | `app/client/scriptedmovie.cpp:798` | `ScriptedMovieViewClass::Unknown_8020B0` | marker | NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0) |
 | `app/client/scriptedmovie.cpp:1004` | `ScriptedMovieViewClass::Unknown_802930` | marker | NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps to one mov eax, 1 (forms: the && chain, an if with != false, this \|\| chain) |
 | `app/client/scriptedmovie.cpp:1135` | `ScriptedMovieViewClass::Unknown_802B20` | marker | NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form |
