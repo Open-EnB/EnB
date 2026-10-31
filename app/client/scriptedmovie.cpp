@@ -1238,31 +1238,31 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+#include "postate.h"
+// 0x803180: a client object (type 0x29, the client's next negative id) for robj, or for one of its bones; its id
+int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bone_name)
+{
+	ClientClass *client = Get_Client();
 
 
 
 
+	G_ASSERT(client);
+	unsigned id = --client->Unknown113C;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(robj);
+	ClientObjectClass *object = new ClientObjectClass(client, 0x29, id);
+	object->Unknown98 = new Unknown7192A0Class(robj, object->Unknown98, bone_name);
+	object->Unknown_6F33F0(robj, -1, 1.0f);
+	if (bone_name) {
+		object->Unknown_34(100.0f);
+	} else {
+		SphereClass sphere = robj->Get_Bounding_Sphere();
+		object->Unknown_34(sphere.Radius);
+	}
+	client->ClientClass::Add_Object(object);
+	return(id);
+}
 
 
 
