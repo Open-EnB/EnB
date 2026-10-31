@@ -338,6 +338,9 @@ unless `--lever` cites a new row of this table.
 | `mov eax,key; dec eax; je` | A one-case `switch` with the default written first | ui_scut 0x610A40 (SC2) |
 | An inlined same-file base slot scheduled differently, its out-of-line copy exact | Call it qualified: `Base::Unknown_04(list)` | ui_scut 0x610800 / 0x611220 (SC2) |
 | A frame off in a loop over a computed index | A hoisted invariant in a named local: `int slot = Bar*3+1;` | ui_scut 0x611300 / 0x611710 (SC2) |
+| A same-file member defined later in the file inlined in ours, called out of line by the client | VC6 /Ob2 also inlines members defined after the caller: `#pragma auto_inline(off)` around the callee | ui_chat_panel 0x56C0C0 into 0x5630B0, 0x5685C0 into 0x56C0C0 (CH1) |
+| A register-only residue around a cdecl `Create_Get(f(x->member))` | An inline accessor for the member | ui_chat_panel 0x563DC0, 0x56BAA0, 0x562F50 (CH1) |
+| EH state numbers or the bigger inline expansion on the wrong branch | Lay out `if (a) X else Y` with the client's then-branch | ui_chat_panel 0x563910, 0x565F80 case 5 (CH1) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
 | A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
@@ -819,7 +822,8 @@ unless `--lever` cites a new row of this table.
 * **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
   variants at the draft's end, objdiff each against the client address (`.work/sm2/gen_*.py`). Every variant counts
   as a form (D141).
-* **docs/data/asserts.txt's file column is shifted by one around 0xB71324** (2026-10-30, PM1): `CullObject != 0` is
+* **docs/data/asserts.txt's file column is shifted** (2026-10-30, PM1, CH1): around 0xB71324, and 0xB7CB6C-0xB7CD30
+  (filed under ui_buff.cpp, ui_chat_panel.cpp's). Earlier note: shifted by one around 0xB71324: `CullObject != 0` is
   proj_man.h line 207 and `texProject != NULL` (0xB71368) is rs_proj_sup.cpp line 58. Check a file attribution
   against the neighbouring rows' line numbers there.
 * **names.py run while a tryv2 variant is in the tree** (2026-10-30, LD8) writes the variant's line numbers into
