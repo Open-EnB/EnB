@@ -737,7 +737,7 @@ struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
 	int Slot;											// +0x04: the script's slot number  // NAME 2: the user errors' 'Need slot number'
 	int Unknown08;										// +0x08
 };
-// one of the scripted movie's cameras (0x10 bytes, in a vector at +0x110)
+struct ScriptedMovieBoneObjectStruct { RenderObjClass *RenderObject; int Bone; int ClientID; };	// 0x0C bytes at +0x100 (0x802D80; the destructor releases RenderObject); then one of the cameras (0x10 bytes, in a vector at +0x110)  // NAME 1: neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds
 struct ScriptedMovieCameraStruct	// NAME 1: neutral (D10)
 {	ScriptedMovieCameraStruct() : RenderObject(NULL), Bone(-1), HFov(0.0f), VFov(0.0f) {}	// (Add_Camera 0x805420 stores all four before setting two)
 	RenderObjClass *RenderObject;						// +0x00: the model whose bone carries the camera  // NAME 3: the assert's 'CameraList[CurrentCameraIndex].RenderObject'
@@ -815,7 +815,7 @@ public:
 	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
 	std::vector<ScriptedMovieLineClass *> Lines;		// +0xE0: the script's lines still to run, by frame  // NAME 2: what it holds
 	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
-	char Unknown100[0x110 - 0x100];						// +0x100
+	std::vector<ScriptedMovieBoneObjectStruct> BoneClientObjectList;	// +0x100: the bones' client objects (0x802D80)  // NAME 3: the asserts' 'BoneClientObjectList[i]'
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
 	SimpleSceneClass *BackgroundScene;					// +0x120: the skybox's scene, rendered at depth 1 between clip planes 20 and 100000 (0x801860)  // NAME 3: the asserts' (0x804800)
 	class Unknown53AA30InterfaceClass *BackInterface;	// +0x124: the skybox's interface (scriptedmovie.cpp declares its class)  // NAME 3: the asserts' (0x804800)

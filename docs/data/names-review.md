@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 986 |
+| 3 | by convention from a client-named file or sibling | 987 |
 | 2 | describes what the code does | 2413 |
 | 1 | neutral placeholder | 5980 |
 
@@ -2914,6 +2914,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8B20` | `app/client/sclient.h:727` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sclient.h:731` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:734` | neutral (D10) |
+| 1 | `ScriptedMovieBoneObjectStruct` | `app/client/sclient.h:740` | neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds |
 | 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:741` | neutral (D10) |
 | 1 | `ScriptedMovieSoundClass` | `app/client/sclient.h:748` | neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes |
 | 1 | `Unknown_7ED6C0` | `app/client/sclient.h:748` | untagged neutral name (D10) |
@@ -2968,7 +2969,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown7D` | `app/client/sclient.h:809` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/sclient.h:810` | untagged neutral name (D10) |
 | 1 | `UnknownF0` | `app/client/sclient.h:817` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `app/client/sclient.h:818` | untagged neutral name (D10) |
 | 1 | `Unknown140` | `app/client/sclient.h:828` | untagged neutral name (D10) |
 | 1 | `Unknown158` | `app/client/sclient.h:830` | untagged neutral name (D10) |
 | 1 | `Unknown169` | `app/client/sclient.h:833` | untagged neutral name (D10) |
@@ -3273,7 +3273,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_807520` | `app/client/scriptedmovie.cpp:1139` | untagged neutral name (D10) |
 | 1 | `Unknown_803310` | `app/client/scriptedmovie.cpp:1146` | untagged neutral name (D10) |
 | 1 | `Unknown_802D30` | `app/client/scriptedmovie.cpp:1176` | untagged neutral name (D10) |
-| 1 | `Unknown_803180` | `app/client/scriptedmovie.cpp:1243` | untagged neutral name (D10) |
+| 1 | `Unknown_802D80` | `app/client/scriptedmovie.cpp:1197` | untagged neutral name (D10) |
+| 1 | `Unknown_803180` | `app/client/scriptedmovie.cpp:1216` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/scriptedmovie.cpp:1251` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/scriptedmovie.cpp:1255` | untagged neutral name (D10) |
 | 1 | `Unknown7192A0Class` | `app/client/scriptedmovie.cpp:1255` | untagged neutral name (D10) |
@@ -3303,7 +3304,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8070C0` | `app/client/scriptedmovie.cpp:2589` | untagged neutral name (D10) |
 | 1 | `UnknownB0009CEffectClass` | `app/client/scriptedmovie.cpp:2593` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/scriptedmovie.cpp:2621` | untagged neutral name (D10) |
-| 1 | `Unknown_802D80` | `app/client/scriptedmovie.cpp:2683` | untagged neutral name (D10) |
 | 1 | `UnknownB00060EffectClass` | `app/client/scriptedmovie.cpp:2812` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/scriptedmovie.cpp:2913` | untagged neutral name (D10) |
 | 1 | `Unknown_80A730` | `app/client/scriptedmovie.cpp:2959` | untagged neutral name (D10) |
@@ -8590,6 +8590,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CurrentCameraIndex` | `app/client/sclient.h:811` | the asserts' |
 | 3 | `MAX_LIGHTS_PER_SCENE` | `app/client/sclient.h:814` | the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene') |
 | 3 | `Lights` | `app/client/sclient.h:815` | the FAIL_IFs' 'Lights[lightslot]' |
+| 3 | `std:` | `app/client/sclient.h:818` | the asserts' 'BoneClientObjectList[i]' |
 | 3 | `std:` | `app/client/sclient.h:819` | the asserts' 'CameraList[CurrentCameraIndex]' |
 | 3 | `BackgroundScene` | `app/client/sclient.h:820` | the asserts' (0x804800) |
 | 3 | `Unknown53AA30InterfaceClass` | `app/client/sclient.h:821` | the asserts' (0x804800) |

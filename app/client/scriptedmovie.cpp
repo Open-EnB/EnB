@@ -1193,35 +1193,35 @@ void ScriptedMovieViewClass::Unknown_802D30()
 
 
 
+// 0x802D80: the client object id of robj's bone: the one BoneClientObjectList holds, else a new one (0x803180) added to it
+int ScriptedMovieViewClass::Unknown_802D80(RenderObjClass *robj, const char *bonename)
+{
 
 
 
+	G_ASSERT(robj);
+	G_ASSERT(bonename);
+	int boneindex = robj->Get_Bone_Index(bonename);
 
 
+	G_ASSERT(boneindex >= 0);
+	for (unsigned i = 0; i < BoneClientObjectList.size(); i++) {
+		if (BoneClientObjectList[i].RenderObject == robj && BoneClientObjectList[i].Bone == boneindex) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(BoneClientObjectList[i].ClientID < 0);
+			return(BoneClientObjectList[i].ClientID);
+		}
+	}
+	int id = Unknown_803180(robj, bonename);
+	robj->Add_Ref();
+	ScriptedMovieBoneObjectStruct entry;
+	entry.RenderObject = robj;
+	entry.Bone = boneindex;
+	entry.ClientID = id;
+	BoneClientObjectList.push_back(entry);
+	return(id);
+}
 
 
 
