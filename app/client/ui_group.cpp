@@ -728,14 +728,14 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 
 
 // 0x5946D0
-// NOT EXACT: first form (the client destroys CTA_Request_PacketClass out of line, 0x86F1C0)
+// NOT EXACT: inline budget: ours inlines 0x593180 and Action2PacketClass's string _Tidy, which the client calls out of line
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
 	G_ASSERT(sclient);
 	bool modifier = (Unknown_BE5F34 & 0x50) != 0;
-	ClientClass *client;
-	UIGroupMemberClass *member;
+
+
 	switch (key) {
 		case 11:
 		case 12:
@@ -768,10 +768,10 @@ bool UIGroupClass::Unknown_68(int key)
 		case 25:
 		case 26:
 		case 27:
-			member = Members[key - 23];
-			if (member && strcmp(member->Unknown28, "G_TARGET") == 0) {
-				client = (ClientClass *)Client;
-				client->Send_Packet(&RequestTargetsTargetPacketClass(client->AvatarID, Members[key - 23]->ID));
+
+			if (Members[key - 23] && strcmp(Members[key - 23]->Unknown28, "G_TARGET") == 0) {
+
+				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->AvatarID, Members[key - 23]->ID));
 			}
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			if (SymbolChatUI) {
@@ -786,12 +786,12 @@ bool UIGroupClass::Unknown_68(int key)
 		case 45:
 			if (modifier) goto symbol;
 			if (Members[key - 41]) {
-				client = (ClientClass *)Client;
-				client->Send_Packet(&RequestTargetsTargetPacketClass(client->AvatarID, Members[key - 41]->ID));
-				member = Members[key - 41];
-				if (member && member->Unknown48) {
-					member->Unknown48->Unknown2C800 = false;
-					member->Unknown48->Unknown_6607D0();
+
+				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->AvatarID, Members[key - 41]->ID));
+
+				if (Members[key - 41] && Members[key - 41]->Unknown48) {
+					Members[key - 41]->Unknown48->Unknown2C800 = false;
+					Members[key - 41]->Unknown48->Unknown_6607D0();
 					Members[key - 41]->Unknown20 = 0;
 				}
 			}
@@ -803,8 +803,8 @@ bool UIGroupClass::Unknown_68(int key)
 		case 33:
 			if (modifier) goto symbol;
 			if (Members[key - 29]) {
-				client = (ClientClass *)Client;
-				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, Members[key - 29]->ID, 12));
+
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, Members[key - 29]->ID, 12));
 			}
 			break;
 		case 35:
@@ -813,13 +813,13 @@ bool UIGroupClass::Unknown_68(int key)
 		case 38:
 		case 39:
 			if (modifier) goto symbol;
-			member = Members[key - 35];
-			if (member) {
-				client = (ClientClass *)Client;
-				if (!member->Unknown1C) {
-					client->Send_Packet(&Action2PacketClass(client->AvatarID, 15, Members[key - 35]->Name.c_str(), 0));
+
+			if (Members[key - 35]) {
+
+				if (Members[key - 35]->Unknown1C) {
+					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 15, Members[key - 35]->ID, 0));
 				} else {
-					client->Send_Packet(&ActionPacketClass(client->AvatarID, 15, Members[key - 35]->ID, 0));
+					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->AvatarID, 15, Members[key - 35]->Name.c_str(), 0));
 				}
 			}
 			break;
@@ -836,8 +836,8 @@ bool UIGroupClass::Unknown_68(int key)
 			return(true);
 		case 2:
 			if (modifier) return(true);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, -1, 12));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, -1, 12));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 3:
@@ -852,56 +852,56 @@ bool UIGroupClass::Unknown_68(int key)
 		case 6:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 9));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 9));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 4:
 			if (modifier || sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 7));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 7));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 5:
 			if (modifier || sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 8));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 8));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 7:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 4));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 4));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 9:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 5));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 5));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 8:
 			if (modifier || !sclient->Unknown_74D690()) return(true);
 			Unknown_597E40(false);
-			client = (ClientClass *)Client;
-			client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 6));
+
+			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 6));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 47:
 			if (modifier || !sclient->Unknown_74D570() || sclient->Unknown_74D690()) return(true);
 			if (!Unknown_597A60() && Unknown_5979A0()) {
 				Unknown_597E40(false);
-				client = (ClientClass *)Client;
-				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 7));
+
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 7));
 			} else {
 				if (!Unknown_597A60()) return(true);
 				Unknown_597E40(false);
-				client = (ClientClass *)Client;
-				client->Send_Packet(&CTA_Request_PacketClass(client->AvatarID, 0, 8));
+
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->AvatarID, 0, 8));
 			}
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
