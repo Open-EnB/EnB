@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1059 |
 | 2 | describes what the code does | 2519 |
-| 1 | neutral placeholder | 7423 |
+| 1 | neutral placeholder | 7424 |
 
 ## For review (score 3 and below)
 
@@ -5179,15 +5179,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_611710` | `app/client/ui_scut.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_611F60` | `app/client/ui_scut.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown_612430` | `app/client/ui_scut.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_610F30` | `app/client/ui_scut.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown_611BD0` | `app/client/ui_scut.cpp:265` | untagged neutral name (D10) |
-| 1 | `Unknown_6120E0` | `app/client/ui_scut.cpp:270` | untagged neutral name (D10) |
-| 1 | `ShortcutSlotStruct` | `app/client/ui_scut.cpp:278` | neutral (D10) |
-| 1 | `Found` | `app/client/ui_scut.cpp:280` | neutral |
-| 1 | `Group` | `app/client/ui_scut.cpp:281` | neutral |
-| 1 | `Bttn` | `app/client/ui_scut.cpp:282` | neutral |
-| 1 | `Unknown_610B00` | `app/client/ui_scut.cpp:303` | untagged neutral name (D10) |
-| 1 | `Unknown_611B10` | `app/client/ui_scut.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_6120E0` | `app/client/ui_scut.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_610F30` | `app/client/ui_scut.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown_611BD0` | `app/client/ui_scut.cpp:268` | untagged neutral name (D10) |
+| 1 | `ShortcutSlotStruct` | `app/client/ui_scut.cpp:276` | neutral (D10) |
+| 1 | `Found` | `app/client/ui_scut.cpp:279` | neutral |
+| 1 | `Group` | `app/client/ui_scut.cpp:280` | neutral |
+| 1 | `Bttn` | `app/client/ui_scut.cpp:281` | neutral |
+| 1 | `ShortcutSlotCompareStruct` | `app/client/ui_scut.cpp:286` | neutral (D10) |
+| 1 | `Unknown_610B00` | `app/client/ui_scut.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_611B10` | `app/client/ui_scut.cpp:304` | untagged neutral name (D10) |
 | 1 | `Unknown_610C70` | `app/client/ui_scut.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_610D00` | `app/client/ui_scut.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown_610D70` | `app/client/ui_scut.cpp:341` | untagged neutral name (D10) |
@@ -5195,10 +5196,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_610E10` | `app/client/ui_scut.cpp:351` | untagged neutral name (D10) |
 | 1 | `Unknown_611E70` | `app/client/ui_scut.cpp:358` | untagged neutral name (D10) |
 | 1 | `Unknown_6123F0` | `app/client/ui_scut.cpp:366` | untagged neutral name (D10) |
-| 1 | `UnknownAEEA88Class` | `app/client/ui_scut.cpp:382` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_scut.cpp:387` | untagged neutral name (D10) |
-| 1 | `Unknown_5B8B40` | `app/client/ui_scut.cpp:403` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_scut.cpp:406` | untagged neutral name (D10) |
+| 1 | `UnknownAEEA88Class` | `app/client/ui_scut.cpp:381` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_scut.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B40` | `app/client/ui_scut.cpp:402` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_scut.cpp:405` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_scut.cpp:491` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/ui_scut.cpp:799` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/ui_scut.cpp:809` | untagged neutral name (D10) |
@@ -10245,7 +10246,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Owner` | `app/client/ui_scut.cpp:89` | the assert's |
 | 3 | `num` | `app/client/ui_scut.cpp:104` | the FAIL_IFs' |
 | 3 | `GroupRObj` | `app/client/ui_scut.cpp:106` | the FAIL_IF's |
-| 3 | `Bar` | `app/client/ui_scut.cpp:283` | the assert's 'a.Bar' |
+| 3 | `Bar` | `app/client/ui_scut.cpp:282` | the assert's 'a.Bar' |
 | 3 | `NUM_SHORTCUT_BARS` | `app/client/ui_scut.h:18` | the FAIL_IF's |
 | 3 | `NUM_GROUPS` | `app/client/ui_scut.h:19` | the FAIL_IF's |
 | 3 | `FIRST_AVAIL` | `app/client/ui_scut.h:21` | the assert's |

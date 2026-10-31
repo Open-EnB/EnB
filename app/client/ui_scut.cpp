@@ -251,55 +251,52 @@ void UIScutClass::Unknown_60()
 
 
 
-
-
-
-
-
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 bool UIScutClass::Unknown_68(int key)
 {
-	if (key == 1) {
-		UIScutProxyGadgetClass *proxy = Unknown_610F30();
-		if (proxy) {
-			proxy->Owner->Unknown_611BD0(NULL, proxy->Unknown7C, CURRENT_GROUP, true);
+	switch (key) {
+		default: {
+			for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
+				if (Bars[lp]->Unknown_6120E0(key)) {
+					return(true);
+				}
+			}
+			return(false);
 		}
-		return(false);
-	}
-	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
-		if (Bars[lp]->Unknown_6120E0(key)) {
-			return(true);
+		case 1: {
+			UIScutProxyGadgetClass *proxy = Unknown_610F30();
+			if (proxy) {
+				proxy->Owner->Unknown_611BD0(NULL, proxy->Unknown7C, CURRENT_GROUP, true);
+			}
+			return(false);
 		}
 	}
-	return(false);
 }
 
 // A free button of a bar, for the sort (0x10 bytes: 0x610B00 sorts one a bar)
 struct ShortcutSlotStruct	// NAME 1: neutral (D10)
 {
+	ShortcutSlotStruct() : Found(false), Group(0), Bttn(0), Bar(0) {}
 	bool Found;											// +0x00  // NAME 1: neutral
 	int Group;											// +0x04  // NAME 1: neutral
 	int Bttn;											// +0x08  // NAME 1: neutral
 	int Bar;											// +0x0C  // NAME 3: the assert's 'a.Bar'
 };
 
-// 0x613090 (out of line in the sort)
-// NOT EXACT: not yet matched (first draft from the pseudocode)
-bool operator < (const ShortcutSlotStruct &a, const ShortcutSlotStruct &b)
+// The sort's order (0x613090, out of line in the sort): found first, then the lower group, then the lower bar
+struct ShortcutSlotCompareStruct	// NAME 1: neutral (D10)
 {
-	G_ASSERT(a.Bar != b.Bar);
-	if (a.Found) {
-		if (!b.Found) return(true);
-	} else {
-		if (b.Found) return(false);
+	int operator () (const ShortcutSlotStruct &a, const ShortcutSlotStruct &b) const
+	{
+		G_ASSERT(a.Bar != b.Bar);
+		if (!a.Found && b.Found) return(false);
+		if (a.Found && !b.Found) return(true);
+		if (a.Group < b.Group) return(true);
+		if (a.Group > b.Group) return(false);
+		return(a.Bar < b.Bar);
 	}
-	if (a.Group < b.Group) return(true);
-	if (b.Group < a.Group) return(false);
-	return(a.Bar < b.Bar);
-}
+};
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 bool UIScutClass::Unknown_610B00(GadgetClass *gadget)
 {
 	std::vector<ShortcutSlotStruct> slots(NUM_SHORTCUT_BARS, ShortcutSlotStruct());
@@ -307,11 +304,11 @@ bool UIScutClass::Unknown_610B00(GadgetClass *gadget)
 		slots[lp].Found = Bars[lp]->Unknown_611B10(&slots[lp].Group, &slots[lp].Bttn);
 		slots[lp].Bar = lp;
 	}
-	std::sort(slots.begin(), slots.end());
-	if (!slots[0].Found) {
-		return(false);
+	std::sort(slots.begin(), slots.end(), ShortcutSlotCompareStruct());
+	if (slots[0].Found) {
+		return(Bars[slots[0].Bar]->Unknown_611BD0(gadget, slots[0].Bttn, slots[0].Group, true));
 	}
-	return(Bars[slots[0].Bar]->Unknown_611BD0(gadget, slots[0].Bttn, slots[0].Group, true));
+	return(false);
 }
 
 
@@ -319,7 +316,10 @@ bool UIScutClass::Unknown_610B00(GadgetClass *gadget)
 
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+
+
+
+
 bool UIScutClass::Unknown_610C70(GadgetClass *gadget, unsigned int bar)
 {
 	FAIL_IF(bar >= NUM_SHORTCUT_BARS) return(false);
@@ -366,7 +366,6 @@ bool UIScutClass::Unknown_610E10(GadgetClass *gadget, int *bar, int *group, int 
 extern GadgetClass *Unknown_6123F0(UIViewClass *view);	// 0x6123F0 (below)
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 {
 	GadgetClass *gadget = Unknown_6123F0(View);
@@ -473,6 +472,7 @@ UIScutBarClass::~UIScutBarClass()
 
 
 
+
 void UIScutBarClass::Unknown_6112B0()
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
@@ -510,7 +510,7 @@ void UIScutBarClass::Unknown_611710(ControlKeysManagerClass *manager)
 	}
 }
 
-
+#pragma auto_inline(off)
 
 
 
@@ -566,6 +566,7 @@ bool UIScutBarClass::Unknown_611B10(int *group, int *bttn_idx)
 	}
 	return(false);
 }
+#pragma auto_inline(on)
 
 
 
@@ -582,7 +583,6 @@ bool UIScutBarClass::Unknown_611B10(int *group, int *bttn_idx)
 
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 bool UIScutBarClass::Unknown_611BD0(GadgetClass *gadget, int bttn_idx, int group, bool show)
 {
 	LineDisplaySortClass sort(Get_Owner());
@@ -695,7 +695,6 @@ bool UIScutBarClass::Unknown_611E70(GadgetClass *gadget, int *group_ptr, int *bt
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 void UIScutBarClass::Unknown_611F60(int group)
 {
 	LineDisplaySortClass sort(Get_Owner());
@@ -704,7 +703,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 		if (Counts[lp] != 0) {
 			groups = lp + 2;
 		}
-		if (groups > NUM_GROUPS) {
+		if (groups >= NUM_GROUPS) {
 			groups = NUM_GROUPS;
 		}
 	}
@@ -718,7 +717,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 	if (Group != group) {
 		Group = group;
 		Bank->Unknown_612820(group);
-		SoundLibraryClass::Play_2D_Sound(Group == 0 ? "bank_toggle_b_sn_1.wav" : "bank_toggle_a_sn_1.wav", 2);
+		SoundLibraryClass::Play_2D_Sound(Group != 0 ? "bank_toggle_a_sn_1.wav" : "bank_toggle_b_sn_1.wav", 2);
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 			ProxyButtons[lp]->Unknown_A4(Shortcuts[Group][lp]);
@@ -727,6 +726,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 	}
 	Bank->Unknown_40(groups > 1);
 }
+
 
 
 
@@ -844,10 +844,10 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 GadgetClass *Unknown_6123F0(UIViewClass *view)
 {
-	GadgetClass *gadget = Unknown_65F5F0(((Unknown65B810ViewClass *)view->Unknown_20())->Client->Unknown1278, 1, 1);
+	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
+	GadgetClass *gadget = Unknown_65F5F0(client->Unknown1278, 1, 1);
 	if (gadget) {
 		return(gadget->Unknown_08());
 	}

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-405 entries in 79 files.
+397 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -212,18 +212,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
 | `app/client/ui_scut.cpp:146` | `UIScutClass::~UIScutClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:259` | `UIScutClass::Unknown_68` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:287` | `bool operator <` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:302` | `UIScutClass::Unknown_610B00` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:322` | `UIScutClass::Unknown_610C70` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:369` | `UIScutClass::Unknown_610F30` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:380` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
+| `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:499` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:585` | `UIScutBarClass::Unknown_611BD0` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:698` | `UIScutBarClass::Unknown_611F60` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:847` | `Unknown_6123F0` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:897` | `UIScutBarClass::Unknown_612430` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
