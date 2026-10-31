@@ -31,6 +31,13 @@ also covers the object's exact COMDATs that no other object is exact at, within 
 either end of that own range (D114(b), P-M1-2). It runs only when D80 and the self name resolve
 nothing more; its credits feed D80's next round.
 
+The self name also comes from the run itself (D171, P-AR1-1): a vtable whose address the run has
+learned (an exact function's relocation to `??_7X@@6B@`, e.g. a constructor's vptr store) names its
+slots' functions, slot k of our table being the function at the client's table + 4k (through its
+thunk); and a short function (too few fixed bytes to search) at an address the run knows (a call's
+target) whose pattern holds there teaches its relocations' targets the same way (`??1` of a template
+accessor: `mov [ecx], ??_7KVAccessorClass<T>; ret`, whose table then names `??_G`).
+
 What the range leaves gets the static initialiser (D115, P-R2-1 narrowed): a tied constructor or
 destructor (`??0` / `??1`) is credited to the one survivor that the object's rebuilt `_$E` static
 initialiser calls, or registers through its atexit function (`initialiser_targets`), `exact` with
@@ -394,6 +401,93 @@ def demangle(name):
     return f'{cls}::{method}' if cls else method
 
 
+def vtable_slots(obj):
+    """D171: [(vtable symbol, [(offset, slot symbol)])] of the vtables an object defines."""
+    if not hasattr(obj, '_vtable_slots'):
+        bysec = collections.defaultdict(list)
+        for s in obj.symbols:
+            if s['section'] > 0:
+                bysec[s['section']].append(s['value'])
+        out = []
+        for sym in obj.symbols:
+            if sym['section'] <= 0 or not sym['name'].startswith('??_7'):
+                continue
+            nxt = min([v for v in bysec[sym['section']] if v > sym['value']] or [1 << 30])
+            sl = []
+            for va, symidx, typ in obj.sections[sym['section'] - 1]['relocs']:
+                if typ == 0x06 and sym['value'] <= va < nxt:
+                    slot = obj.symbol_at(symidx)
+                    if slot is not None:
+                        sl.append((va - sym['value'], slot['name']))
+            out.append((sym['name'], sl))
+        obj._vtable_slots = out
+    return obj._vtable_slots
+
+
+def learn_short(img, objs, known, thunk):
+    """D171: the relocation targets of short functions at addresses the run knows, where their
+    pattern holds."""
+    for obj in objs:
+        if not hasattr(obj, '_shorts'):
+            obj._shorts = []
+            for name, sec, s, e in obj.functions():
+                pat, fixed, length = obj.pattern(sec, s, e)
+                if fixed < MIN_FIXED and length >= 5:
+                    obj._shorts.append((name, sec, s, length, re.compile(pat, re.S)))
+        for name, sec, s, length, pat in obj._shorts:
+            addrs = known.get(name)
+            if not addrs or len(addrs) != 1:
+                continue
+            a = next(iter(addrs))
+            o = img.offset(a)
+            if o is None or not pat.fullmatch(img.data[o:o + length]):
+                continue
+            for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+                if n != 4 or sym is None or sym['class'] != 2 or obj.literal(sym) is not None or generated(sym['name']):
+                    continue
+                if typ == 0x06:
+                    v = struct.unpack_from('<I', img.data, o + k)[0] - struct.unpack('<I', addend)[0]
+                elif typ == 0x14:
+                    v = a + k + 4 + struct.unpack_from('<i', img.data, o + k)[0]
+                else:
+                    continue
+                known.setdefault(sym['name'], set()).add(thunk.get(v, v))
+
+
+def run_self_names(img, objs, known, thunk):
+    """D171: self_names() plus the slots of the vtables the run has learned (one address each)."""
+    learn_short(img, objs, known, thunk)
+    out = {k: set(v) for k, v in self_names().items()}
+
+    def norm(x):
+        return '??_G' + x[4:] if x.startswith('??_E') else x
+    # an address symbols.json already names (a vtable slot, a string) keeps that name: a learned slot
+    # naming another function there adds nothing (WSClassicEnvironmentMapperClass's table points at
+    # WSEnvMapperClass's 0x9306E0)
+    owners = collections.defaultdict(set)
+    for k, v in out.items():
+        for a in v:
+            owners[a].add(norm(k))
+    for obj in objs:
+        for name, sl in vtable_slots(obj):
+            addrs = known.get(name)
+            if not addrs or len(addrs) != 1:
+                continue
+            vt = next(iter(addrs))
+            for off, slot in sl:
+                o = img.offset(vt + off)
+                if o is None or generated(slot):
+                    continue
+                v = struct.unpack_from('<I', img.data, o)[0]
+                v = thunk.get(v, v)
+                if owners.get(v) and norm(slot) not in owners[v]:
+                    continue
+                out.setdefault(slot, set()).add(v)
+                if slot.startswith(('??_E', '??_G')):
+                    out.setdefault(('??_G' if slot[3] == 'E' else '??_E') + slot[4:], set()).add(v)
+    return out
+
+
 def match_objects(img, paths, region=None, callers=False):
     """region=(lo, hi): search only [lo, hi) of .text (E&B's app region for app files: a pattern
     that also occurs in the libraries is still exact there). callers=True: D166's caller tie-break
@@ -477,6 +571,8 @@ def match_objects(img, paths, region=None, callers=False):
         changed = False
         proposals = []
         selfname = phase == 'selfname'
+        if selfname:
+            names = run_self_names(img, list({id(x[1]): x[1] for x in results}.values()), known, thunk)
         ranges = {}
         if phase in ('range', 'init'):
             for r, obj, sec, s, length in results:
@@ -509,7 +605,7 @@ def match_objects(img, paths, region=None, callers=False):
                 if len(survivors) == 1 and confirmed:
                     proposals.append((item, survivors[0]))
             elif phase == 'selfname':
-                own = [h for h in survivors if h in self_names().get(r['symbol'], ())]
+                own = [h for h in survivors if h in names.get(r['symbol'], ())]
                 if len(own) == 1:
                     proposals.append((item, own[0]))
             elif phase == 'init':
