@@ -509,14 +509,14 @@ void SClient::Unload_INIs()
 	}
 }
 
-// NOT EXACT: shape (explain.py: field offset first; 470 masked rows): the talk tree's reset goes through a null RefCountPtr temporary with its own EH state and the out-of-line assignment 0x758970, and the effect list's removal is inlined differently; one form (attempts.py show 0x741BB0)
+// NOT EXACT: shape (similarity 0.32): the talk tree's reset is 0x74C9D0 inlined (its null RefCountPtr argument, EH state 0); the client also inlines the +0x1334 / +0x1338 / +0x133C destructors (0x618A50's arrays, the vectors' loops) and the effect list's removal; two forms (attempts.py show 0x741BB0)
 // 0x741BB0
 void SClient::Shutdown()
 {
 	Unknown129C = NULL;
-	if (Unknown1298.Peek() != NULL) {
-		Unknown1298 = Unknown129C;
-	}
+	Unknown_74C9D0(NULL);
+	// (0x74C9D0 inlined: the talk tree back to the space one)
+
 	Unknown_742530(0);
 	PxProcessClass::Push(PxProcess);
 
