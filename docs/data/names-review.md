@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1064 |
-| 2 | describes what the code does | 2528 |
-| 1 | neutral placeholder | 7727 |
+| 2 | describes what the code does | 2539 |
+| 1 | neutral placeholder | 7742 |
 
 ## For review (score 3 and below)
 
@@ -5640,6 +5640,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.h:54` | neutral (D10) |
+| 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
+| 1 | `UnknownBE8BA0` | `app/client/unknown_screenfade.cpp:47` | untagged neutral name (D10) |
+| 1 | `UnknownBE8B40` | `app/client/unknown_screenfade.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAE3C` | `app/client/unknown_screenfade.cpp:51` | neutral (D10): the time now in ms (mainview.cpp declares it too) |
+| 1 | `Unknown_BFAE40` | `app/client/unknown_screenfade.cpp:52` | neutral (D10): the last frame's (scriptedmovie.cpp declares it too) |
+| 1 | `Unknown_7FF230` | `app/client/unknown_screenfade.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF3A0` | `app/client/unknown_screenfade.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF3D0` | `app/client/unknown_screenfade.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF810` | `app/client/unknown_screenfade.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF830` | `app/client/unknown_screenfade.cpp:108` | untagged neutral name (D10) |
+| 1 | `color, time` | `app/client/unknown_screenfade.cpp:113` | as 0x7FFA30's |
+| 1 | `Unknown_7FF8A0` | `app/client/unknown_screenfade.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFA30` | `app/client/unknown_screenfade.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFBE0` | `app/client/unknown_screenfade.cpp:127` | untagged neutral name (D10) |
 | 1 | `LineDisplaySortClass` | `app/client/view.cpp:9` | neutral (D10) |
 | 1 | `inter` | `app/client/view.cpp:12` | what 0x6B4860 passes |
 | 1 | `Unknown00` | `app/client/view.cpp:16` | untagged neutral name (D10) |
@@ -8675,6 +8690,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
 | 2 | `Make_Folder` | `app/client/unknown_creator.h:55` | what it does |
+| 2 | `Set` | `app/client/unknown_screenfade.cpp:11` | what it does |
+| 2 | `Update` | `app/client/unknown_screenfade.cpp:12` | what it does |
+| 2 | `Value` | `app/client/unknown_screenfade.cpp:14` | what it holds |
+| 2 | `Target` | `app/client/unknown_screenfade.cpp:15` | what it holds |
+| 2 | `Rate` | `app/client/unknown_screenfade.cpp:16` | what it holds |
+| 2 | `Letterbox` | `app/client/unknown_screenfade.cpp:42` | Enable_Letterbox's (0x7FF830) |
+| 2 | `Opacity` | `app/client/unknown_screenfade.cpp:43` | Set_Screen_Fade_Opacity's (0x7FFBE0) |
+| 2 | `Red` | `app/client/unknown_screenfade.cpp:44` | Set_Screen_Fade_Color's first (0x7FFA30) |
+| 2 | `Green` | `app/client/unknown_screenfade.cpp:45` | Set_Screen_Fade_Color's second |
+| 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
+| 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Current` | `app/common/average.h:115` | what it holds |
 | 2 | `Time` | `app/common/average.h:116` | what it holds |

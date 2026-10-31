@@ -10772,6 +10772,25 @@
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
    },
+   "unknown_screenfade": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7FF010",
+     "0x7FF060",
+     "0x7FF230",
+     "0x7FF3A0",
+     "0x7FF3D0",
+     "0x7FF830",
+     "0x7FF8A0",
+     "0x7FFA30",
+     "0x7FFBE0"
+    ],
+    "merged": [],
+    "name": "client/unknown_screenfade.cpp"
+   },
    "view": {
     "ambiguous": [
      "0x42B2F0",
