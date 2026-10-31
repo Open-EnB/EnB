@@ -9,6 +9,9 @@
 #include "..\shared\unknown_debug.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\audio\soundlib.h"
+#include "assetmgr.h"
+#include "texture.h"
+#include "textureloader.h"
 
 // fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
 // this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
@@ -56,8 +59,11 @@ public:
 	void Unknown_6607D0();								// 0x6607D0
 
 	char Unknown04[0x2C - 0x04];						// +0x04
-	unsigned int Unknown2CLow : 11;						// +0x2C
+	unsigned int Unknown2CLow : 6;						// +0x2C
+	unsigned int Unknown2C40 : 1;						// +0x2C bit 0x40 (0x5B42F0 clears it)
+	unsigned int Unknown2C80 : 4;						// +0x2C
 	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x5B2480: set on the current level's column)
+	RenderObjClass *Unknown30;							// +0x30: the gadget's model (0x5B42F0 puts the icon on it)
 };
 
 // gd_slider.cpp's slider, as far as this file calls it
@@ -67,25 +73,8 @@ public:
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, int a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
-	char Unknown30[0xD4 - 0x30];						// +0x30
+	char Unknown34[0xD4 - 0x34];						// +0x34
 	float Unknown0D4;									// +0xD4: the position (the first row shown)
-};
-
-// The client at InterfaceClass +0x40, as this file calls it (the FAIL_IF '!Client->As_Space_Client()')
-class LineDisplayClientClass  // NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
-};
-
-// SClient's functions this file calls that sclient.h does not declare yet
-class UIManuSClientClass	// NAME 1: neutral (D10): SClient, as far as this file calls it
-{
-public:
-	void Unknown_744560(int arg);						// 0x744560 (slot +0x5C passes 0x18)  // NAME 1 [arg]: neutral
-	void Unknown_74D990(int color, const char *text, int a);	// 0x74D990 (as sclient.h's)  // NAME 1 [color, text, a]: as sclient.h's
 };
 
 // ui_mesh.cpp's and pdaint.cpp's functions this file calls that sclient.h does not declare yet
@@ -97,7 +86,7 @@ static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Ran
 static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter requests allowed
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 
-// NOT EXACT: order (the store of +0xB80's address before the vtables, ours before +0xB90's initialisers) (0x5AFA00)
+// NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00)
 UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM01A", true), (UIViewClass *)view, layer),
 	Unknown0AC(view),
@@ -115,7 +104,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	Unknown0BB0(-1),
 	Unknown0BB4(false),
 	Unknown0BB8(0),
-	Unknown0BBC(0),
 	Unknown0BC0(0)
 {
 	memset(Unknown0B80, -1, sizeof(Unknown0B80));
@@ -130,6 +118,18 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown11C, 0, sizeof(Unknown11C));
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSM01A.INI");
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0)
@@ -149,6 +149,23 @@ UIManuClass::~UIManuClass()
 	Unknown0BC = NULL;
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSM01A.INI");
 }
+
+// The client at InterfaceClass +0x40, as this file calls it (the FAIL_IF '!Client->As_Space_Client()')
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
+};
+
+// SClient's functions this file calls that sclient.h does not declare yet
+class UIManuSClientClass	// NAME 1: neutral (D10): SClient, as far as this file calls it
+{
+public:
+	void Unknown_744560(int arg);						// 0x744560 (slot +0x5C passes 0x18)  // NAME 1 [arg]: neutral
+	void Unknown_74D990(int color, const char *text, int a);	// 0x74D990 (as sclient.h's)  // NAME 1 [color, text, a]: as sclient.h's
+};
 
 // 0x5B0B40
 void UIManuClass::Unknown_7C(UIViewClass *view, int arg)
@@ -260,7 +277,7 @@ public:
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C 0x7E7FC0
 	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
 
-	char Unknown30[0x64 - 0x30];						// +0x30
+	char Unknown34[0x64 - 0x34];						// +0x34
 	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
 };
 
@@ -299,6 +316,8 @@ public:
 };
 
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
+void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: what 0x5B42F0 passes
+void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the gadget's text from a string section  // NAME 1 [gadget, section, name]: as ui_group.cpp's
 
 // The formula lists under the target item's aux data ('KnownFormula', 'PreviousAttempts'; their class's global at +0x04 is
 // 0xC41628) and their entries, as far as this file reads them
@@ -329,6 +348,13 @@ public:
 	int Value;											// +0x84  // NAME 2: what it holds
 };
 int UIManuValidityClass::UnknownGlobal;
+class UIManuCurrentCategoryClass : public DeltaClass	// NAME 1: neutral (D10): 'CurrentItemCategory' (an item id)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41630)
+	int Value;											// +0x84  // NAME 2: what it holds
+};
+int UIManuCurrentCategoryClass::UnknownGlobal;
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 // NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0)
@@ -400,32 +426,6 @@ bool UIManuClass::Unknown_68(int key)
 	}
 	return(false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1074,6 +1074,91 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 	return(true);
 }
 
+// NOT EXACT: register (the gadget and the texture for 0x495FD0 in edx / ecx, ours eax / edx) (0x5B42F0)
+void UIManuClass::Unknown_5B42F0(int level)
+{
+	char name[64];
+	char file[64];
+	switch (level) {
+		case 2:
+			if (Unknown0B80[0] >= 0 && Unknown0B80[1] >= 0 && Unknown0B80[2] < 0) {
+				sprintf(name, "ICON_DEFAULT");
+				sprintf(file, "IM_default.tga");
+			} else {
+				sprintf(name, "ICON_%d%d%d", Unknown0B80[0], Unknown0B80[1], Unknown0B80[2]);
+				sprintf(file, "IM_%d%d%d.tga", Unknown0B80[0], Unknown0B80[1], Unknown0B80[2]);
+			}
+			break;
+		case 1:
+			if (Unknown0B80[0] >= 0 && Unknown0B80[1] < 0) {
+				sprintf(name, "ICON_DEFAULT");
+				sprintf(file, "IM_default.tga");
+			} else {
+				sprintf(name, "ICON_%d%d", Unknown0B80[0], Unknown0B80[1]);
+				sprintf(file, "IM_%d%d.tga", Unknown0B80[0], Unknown0B80[1]);
+			}
+			break;
+		case 0:
+			if (Unknown0B80[0] < 0 && Unknown0B80[0] != -2) {
+				sprintf(name, "ICON_DEFAULT");
+				sprintf(file, "IM_default.tga");
+			} else {
+				sprintf(name, "ICON_%d", Unknown0B80[0]);
+				sprintf(file, "IM_%d.tga", Unknown0B80[0]);
+			}
+			break;
+	}
+	Unknown0CC[level + 2]->Unknown2C40 = 0;
+	Unknown_65EFB0(Unknown0CC[level + 2], "UI_MANUFACTURE", name);
+	RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(file, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
+	if (texture) {
+		if (!texture->Is_Initialized()) {
+			TextureLoader::Request_Foreground_Loading(texture.Peek());
+		}
+	}
+	if (texture && !texture->Is_Missing_Texture()) {
+		Unknown_495FD0(Unknown0CC[level + 2]->Unknown30, texture.Peek(), 0);
+		Unknown0CC[level + 2]->Unknown_40(true);
+		Unknown0CC[level + 2]->Unknown_8C(false);
+		Unknown110[level]->Set_Hidden(false);
+	} else {
+		Unknown0CC[level + 2]->Unknown_40(false);
+		Unknown0CC[level + 2]->Unknown_8C(true);
+		Unknown110[level]->Set_Hidden(true);
+	}
+}
+
+// NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0) (0x5B4680)
+void UIManuClass::Unknown_5B4680()
+{
+	NameClass name("CurrentItemCategory");
+	UIManuCurrentCategoryClass *current = Unknown_Find_Field<UIManuCurrentCategoryClass>((DeltaCompoundClass *)Unknown0BA0, name);
+	if (current && current->Unknown70) {
+		NameClass categories_name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, categories_name);
+		if (categories && categories->Unknown70) {
+			UIManuNodeClass *tree = (UIManuNodeClass *)categories;
+			for (unsigned int a = 0; a < tree->Unknown084.size(); a++) {
+				UIManuLevel1Class *level1 = tree->Unknown084[a];
+				for (unsigned int b = 0; b < level1->Unknown1A8.size(); b++) {
+					UIManuLevel2Class *level2 = level1->Unknown1A8[b];
+					for (unsigned int c = 0; c < level2->Unknown230.size(); c++) {
+						if (current->Value == level2->Unknown230[c]->Unknown1A8) {
+							Unknown0B80[0] = a;
+							Unknown0B80[1] = b;
+							Unknown0B80[2] = c;
+							Unknown_5B42F0(0);
+							Unknown_5B42F0(1);
+							Unknown_5B42F0(2);
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 // NOT EXACT: register (as 0x5B2480) (0x5B4850)
 void UIManuClass::Unknown_5B4850()
 {
@@ -1086,101 +1171,16 @@ void UIManuClass::Unknown_5B4850()
 	Unknown_5B1AF0(3, true, "");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+inline bool UIManuClass::Unknown_All_Levels_Checked()
+{
+	int i;
+	for (i = 1; i < NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS; i++) {
+		if (!Unknown11C[i - 1].Gadget->Checked) {
+			break;
+		}
+	}
+	return(i == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS);
+}
 
 
 
@@ -1740,12 +1740,12 @@ UIManuCheckButtonClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_nam
 
 
 
-// NOT EXACT: shape (the client tests the button's state through a materialised bool, setne / test; registers) (0x5B67C0)
+// NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0)
 void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 {
 	FAIL_IF(tech_level < 1 || tech_level >= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) return;
-	if (Unknown11C[tech_level - 1].Gadget->Checked != on) {
-
+	bool changed = Unknown11C[tech_level - 1].Gadget->Checked != on;
+	if (changed) {
 
 
 
@@ -1765,20 +1765,20 @@ void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 			Unknown_5B6CA0();
 		}
 	}
-	bool all;
-	if (!on) {
-		all = false;
-	} else {
-		int i;
-		for (i = 1; i < NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS; i++) {
-			if (!Unknown11C[i - 1].Gadget->Checked) {
-				break;
-			}
-		}
-		all = (i == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS);
-	}
-	Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(all);
+	Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(on ? Unknown_All_Levels_Checked() : false);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1863,7 +1863,7 @@ void UIManuClass::Unknown_5B6D30()
 **	+0x1138 (ClientClass::Unknown1138).
 **
 **	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes) and +0x60 (0x5B1230), the list fillers 0x5B2BD0 /
-**	0x5B3E00, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
-**	(lines 1473-1646). The constructor, destructor, slots +0x58 / +0x5C / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B4850 and 0x5B67C0 compile but are not exact (see their NOT EXACT notes).
+**	0x5B3E00 and the quality texts 0x5B4B10 / 0x5B5320 (lines 1473-1646). The constructor, destructor, slots
+**	+0x58 / +0x5C / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B3850, 0x5B42F0, 0x5B4680, 0x5B4850 and
+**	0x5B67C0 compile but are not exact (see their NOT EXACT notes).
 */

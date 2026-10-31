@@ -95,6 +95,7 @@ enum
 };
 
 // ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
+#pragma pack(push, 4)		// 0xBC4 bytes with the __int64 at +0xBB8 (as tsk_game.h's ClientClass)
 class UIManuClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_manu.cpp
 {
 public:
@@ -127,6 +128,7 @@ public:
 	void Unknown_5B3580(bool force);					// 0x5B3580: the previous attempts listed  // NAME 1 [force]: neutral
 	void Unknown_5B3640(bool all);						// 0x5B3640: to the previous attempts  // NAME 1 [all]: neutral
 	void Unknown_5B3850();								// 0x5B3850: the level 3 pick's item id asked for
+	void Unknown_5B4680();								// 0x5B4680: the picks set to the item's 'CurrentItemCategory'
 	void Unknown_5B4850();								// 0x5B4850: MANUFACTURE_ACTION 126 of 0 sent, the go button dimmed (0x5B1AF0 inlined twice)
 	UIManuListClass *Unknown_Find_List(const char *field);	// (inline) the formula list named field  // NAME 1: neutral (D10)
 	UIManuListClass *Unknown_Find_Valid_List(const char *field);	// (inline) the formula list named field, when its +0x70 is set  // NAME 1: neutral (D10)
@@ -139,6 +141,7 @@ public:
 	bool Unknown_5B3CA0(UIManuNodeClass *tree, int a, int b);	// 0x5B3CA0: the same under a / b  // NAME 1 [tree, a, b]: neutral
 	bool Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c);	// 0x5B3D70: the same for a / b / c  // NAME 1 [tree, a, b, c]: neutral
 	UIManuCheckButtonClass *Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain);	// 0x5B6410: a check button over the mesh's sub-object (FAIL_IFs '!bttn_name || !*bttn_name' l.1722, '!robj' l.1725)  // NAME 3 [bttn_name]: the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral
+	bool Unknown_All_Levels_Checked();					// (inline in 0x5B67C0) every tech level filter checked  // NAME 1: neutral (D10)
 	void Unknown_5B67C0(int tech_level, bool on, int source);	// 0x5B67C0: a tech level filter set (FAIL_IF l.1746, G_ASSERT 'source != USER_INPUT' l.1755)  // NAME 3 [tech_level, source]: the asserts'; NAME 1 [on]: neutral
 	void Unknown_5B6A80(bool on, int source);			// 0x5B6A80: every tech level filter set (G_ASSERT l.1808)  // NAME 3 [source]: the assert's; NAME 1 [on]: neutral
 	void Unknown_5B6CA0();								// 0x5B6CA0: the rows enabled at level 3 when nothing is pending
@@ -171,9 +174,9 @@ public:
 	bool Unknown0BAE;									// +0xBAE
 	int Unknown0BB0;									// +0xBB0 the item id asked for (-1 for none)
 	bool Unknown0BB4;									// +0xBB4
-	int Unknown0BB8;									// +0xBB8
-	int Unknown0BBC;									// +0xBBC
+	__int64 Unknown0BB8;							// +0xBB8 (slot +0x60: the next time a filter request is given back)
 	unsigned int Unknown0BC0;							// +0xBC0 (compared with Unknown_B8183C)
 };
+#pragma pack(pop)
 
 #endif // UI_MANU_H
