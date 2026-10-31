@@ -2568,7 +2568,7 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
-// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
+
 // 0x807600: a special effect from the source slot's object to the target slot's (CREATE_SFX_BETWEEN_OBJECTS)
 bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params)
 {
@@ -2587,45 +2587,47 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 	int target = atoi(param);
 	bool targetset = false;
 	EffectObjectClass *effect = Unknown_8070C0(client, params);
-	if (effect == NULL) {
-		return(false);
-	}
-	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
-
-	FAIL_IF(binary_effect == NULL) {return(false);}
-	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
-		if ((*itor).Slot == source && !sourceset) {
+	if (effect != NULL) {
 
 
-			G_ASSERT((*itor).Mesh);
-			if ((*itor).Unknown08 == 0) {
-				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+
+		FAIL_IF(binary_effect == NULL) {return(false);}
+		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+			if ((*itor).Slot == source && !sourceset) {
+
+
+				G_ASSERT((*itor).Mesh);
+				if ((*itor).Unknown08 == 0) {
+					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+				}
+				binary_effect->Unknown_28((*itor).Unknown08);
+				sourceset = true;
 			}
-			binary_effect->Unknown_28((*itor).Unknown08);
-			sourceset = true;
-		}
-		if ((*itor).Slot == target && !targetset) {
+			if ((*itor).Slot == target && !targetset) {
 
 
-			G_ASSERT((*itor).Mesh);
-			if ((*itor).Unknown08 == 0) {
-				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+				G_ASSERT((*itor).Mesh);
+				if ((*itor).Unknown08 == 0) {
+					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+				}
+				binary_effect->Unknown_34((*itor).Unknown08);
+				targetset = true;
 			}
-			binary_effect->Unknown_34((*itor).Unknown08);
-			targetset = true;
+			if (sourceset && targetset) {
+				break;
+			}
 		}
-		if (sourceset && targetset) {
-			break;
-		}
+		client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+
+
+
+
+
+		FAIL_IF(!sourceset || !targetset) {return(false);}
+		return(true);
 	}
-	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
-
-
-
-
-
-	FAIL_IF(!sourceset || !targetset) {return(false);}
-	return(true);
+	return(false);
 }
 
 
@@ -2643,8 +2645,6 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 
 
 
-
-// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
 // 0x8078D0: a special effect from a bone of the source slot's object to one of the target slot's (CREATE_SFX_BETWEEN_BONES)
 bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params)
 {
@@ -2671,36 +2671,38 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMoviePa
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need target bone name") {return(false);}
 	EffectObjectClass *effect = Unknown_8070C0(client, params);
-	if (effect == NULL) {
-		return(false);
+	if (effect != NULL) {
+
+
+		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+
+
+		FAIL_IF(binary_effect == NULL) {return(false);}
+		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+			if ((*itor).Slot == source && !sourceset) {
+				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), source_bone);
+				binary_effect->Unknown_28(id);
+				sourceset = true;
+			}
+			if ((*itor).Slot == target && !targetset) {
+				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
+				binary_effect->Unknown_34(id);
+				targetset = true;
+			}
+			if (sourceset && targetset) {
+				break;
+			}
+		}
+
+
+
+
+
+		FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Bones: Can't find source and/or target") {return(false);}
+		client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+		return(true);
 	}
-	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
-
-
-	FAIL_IF(binary_effect == NULL) {return(false);}
-	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
-		if ((*itor).Slot == source && !sourceset) {
-			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), source_bone);
-			binary_effect->Unknown_28(id);
-			sourceset = true;
-		}
-		if ((*itor).Slot == target && !targetset) {
-			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
-			binary_effect->Unknown_34(id);
-			targetset = true;
-		}
-		if (sourceset && targetset) {
-			break;
-		}
-	}
-
-
-
-
-
-	FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Bones: Can't find source and/or target") {return(false);}
-	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
-	return(true);
+	return(false);
 }
 
 
@@ -2718,8 +2720,6 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMoviePa
 
 
 
-
-// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
 // 0x807BE0: a special effect from the source slot's object to a bone of the target slot's (CREATE_SFX_BETWEEN_OBJECT_AND_BONE)
 bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params)
 {
@@ -2741,41 +2741,41 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(Scrip
 
 	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Object_And_Bone: Need target bone name") {return(false);}
 	EffectObjectClass *effect = Unknown_8070C0(client, params);
-	if (effect == NULL) {
-		return(false);
-	}
-	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+	if (effect != NULL) {
 
 
-	FAIL_IF(binary_effect == NULL) {return(false);}
-	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
-		if ((*itor).Slot == source && !sourceset) {
-			if ((*itor).Unknown08 == 0) {
-				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+
+
+		FAIL_IF(binary_effect == NULL) {return(false);}
+		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+			if ((*itor).Slot == source && !sourceset) {
+				if ((*itor).Unknown08 == 0) {
+					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+				}
+				binary_effect->Unknown_28((*itor).Unknown08);
+				sourceset = true;
 			}
-			binary_effect->Unknown_28((*itor).Unknown08);
-			sourceset = true;
+			if ((*itor).Slot == target && !targetset) {
+				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
+				binary_effect->Unknown_34(id);
+				targetset = true;
+			}
+			if (sourceset && targetset) {
+				break;
+			}
 		}
-		if ((*itor).Slot == target && !targetset) {
-			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
-			binary_effect->Unknown_34(id);
-			targetset = true;
-		}
-		if (sourceset && targetset) {
-			break;
-		}
+
+
+
+
+
+		FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Object_And_Bone: Can't find source and/or target") {return(false);}
+		client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+		return(true);
 	}
-
-
-
-
-
-	FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Object_And_Bone: Can't find source and/or target") {return(false);}
-	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
-	return(true);
+	return(false);
 }
-
-
 
 
 
