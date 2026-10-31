@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 987 |
 | 2 | describes what the code does | 2413 |
-| 1 | neutral placeholder | 5998 |
+| 1 | neutral placeholder | 6002 |
 
 ## For review (score 3 and below)
 
@@ -2966,6 +2966,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6D` | `app/client/sclient.h:805` | untagged neutral name (D10) |
 | 1 | `Unknown6E` | `app/client/sclient.h:806` | untagged neutral name (D10) |
 | 1 | `Unknown6F` | `app/client/sclient.h:807` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/sclient.h:807` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/sclient.h:807` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/sclient.h:808` | untagged neutral name (D10) |
 | 1 | `Unknown7D` | `app/client/sclient.h:809` | untagged neutral name (D10) |
@@ -3274,6 +3275,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8023A0` | `app/client/scriptedmovie.cpp:875` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/scriptedmovie.cpp:880` | untagged neutral name (D10) |
 | 1 | `Unknown6D` | `app/client/scriptedmovie.cpp:880` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/scriptedmovie.cpp:903` | neutral |
+| 1 | `Unknown_42ECF0` | `app/client/scriptedmovie.cpp:903` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:910` | untagged neutral name (D10) |
+| 1 | `Unknown6F` | `app/client/scriptedmovie.cpp:914` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/scriptedmovie.cpp:917` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/scriptedmovie.cpp:917` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/scriptedmovie.cpp:923` | untagged neutral name (D10) |
 | 1 | `Unknown_8027C0` | `app/client/scriptedmovie.cpp:968` | untagged neutral name (D10) |
 | 1 | `Unknown_802900` | `app/client/scriptedmovie.cpp:996` | untagged neutral name (D10) |
 | 1 | `Unknown_802930` | `app/client/scriptedmovie.cpp:1006` | untagged neutral name (D10) |
@@ -3305,7 +3313,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4F3310` | `app/client/scriptedmovie.cpp:1636` | untagged neutral name (D10) |
 | 1 | `Unknown_4F34C0` | `app/client/scriptedmovie.cpp:1647` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9550` | `app/client/scriptedmovie.cpp:1698` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/scriptedmovie.cpp:1699` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8DF0` | `app/client/scriptedmovie.cpp:1700` | untagged neutral name (D10) |
 | 1 | `Unknown_8051B0` | `app/client/scriptedmovie.cpp:1728` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9100` | `app/client/scriptedmovie.cpp:1795` | untagged neutral name (D10) |
@@ -3331,11 +3338,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_80E8C0` | `app/client/scriptedmovie.cpp:3386` | untagged neutral name (D10) |
 | 1 | `Unknown_809600` | `app/client/scriptedmovie.cpp:3447` | untagged neutral name (D10) |
 | 1 | `Unknown_809710` | `app/client/scriptedmovie.cpp:3501` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:3503` | untagged neutral name (D10) |
 | 1 | `Unknown_809730` | `app/client/scriptedmovie.cpp:3508` | untagged neutral name (D10) |
 | 1 | `Unknown_809750` | `app/client/scriptedmovie.cpp:3527` | untagged neutral name (D10) |
-| 1 | `Unknown6F` | `app/client/scriptedmovie.cpp:3529` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/scriptedmovie.cpp:3536` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown06` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |

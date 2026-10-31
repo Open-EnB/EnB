@@ -804,7 +804,7 @@ public:
 	bool Unknown6C;										// +0x6C
 	bool Unknown6D;										// +0x6D
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
-	bool Unknown6F; char Unknown70[0x78 - 0x70]; float Unknown78;	// +0x6F, +0x78: an angle in radians (0x809750 sets both)
+	bool Unknown6F; float Unknown70; float Unknown74; float Unknown78;	// +0x6F, +0x78: an angle in radians (0x809750 sets both); +0x70 / +0x74: the pointer's last position (0x802420 turns the camera by it while +0x6F)
 	bool Unknown7C;										// +0x7C
 	char Unknown7D[0x80 - 0x7D];						// +0x7D
 	unsigned int Unknown80;								// +0x80: the movie's time (0x802B20 adds the frame time)

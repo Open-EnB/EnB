@@ -900,37 +900,37 @@ void ScriptedMovieViewClass::Unknown_8023A0(bool on)
 
 
 
+void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (cdecl: slot +0x10 of the object at 0xBDAA74): the pointer's position, 0..1  // NAME 1 [x, y]: neutral
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x802420: the camera's transform: turned to look down its bone's axis unless +0x7C, then (with +0x6F) by the pointer
+void ScriptedMovieViewClass::Unknown_802420()
+{
+	FAIL_IF(ScriptedCamera == NULL) {return;}
+	Matrix3D tm = ScriptedCamera->Get_Transform();
+	if (!Unknown7C) {
+		tm.Rotate_Y(-WWMATH_PI / 2.0f);
+		tm.Rotate_Z(-WWMATH_PI / 2.0f);
+	}
+	if (Unknown6F) {
+		float x, y;
+		Unknown_42ECF0(&x, &y);
+		if (fabs(Unknown70 - x) > 0.0001 || fabs(Unknown74 - y) > 0.0001) {
+			Unknown70 = x;
+			Unknown74 = y;
+		}
+		float yaw, pitch;
+		if (Unknown7C) {
+			yaw = -((Unknown70 - 0.5f) * Unknown78);
+			pitch = -((Unknown74 - 0.5f) * Unknown78);
+		} else {
+			yaw = (Unknown70 - 0.5f) * -1.0f;
+			pitch = (Unknown74 - 0.5f) * -1.0f;
+		}
+		tm.Rotate_Y(yaw);
+		tm.Rotate_X(pitch);
+	}
+	ScriptedCamera->Set_Transform(tm);
+}
 
 
 
