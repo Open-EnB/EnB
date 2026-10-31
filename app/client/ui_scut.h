@@ -53,7 +53,7 @@ public:
 	void Unknown_611F60(int group);						// 0x611F60: the group shown ('bank_toggle_a/b_sn_1.wav')  // NAME 1 [group]: neutral
 	bool Unknown_6120E0(int key);						// 0x6120E0 (G_ASSERT 'mouse' l.804): a control key  // NAME 1 [key]: the interface's slot +0x68's
 	void Unknown_612430();								// 0x612430 (G_ASSERTs l.904 / 907): the active shortcut dropped
-	void Unknown_6124F0(UIScutProxyGadgetClass *gadget) { ActiveShortcut = gadget; }	// 0x6124F0  // NAME 1 [gadget]: neutral
+	void Unknown_6124F0(UIScutProxyGadgetClass *gadget);	// 0x6124F0: the active shortcut set  // NAME 1 [gadget]: neutral
 
 	UIMeshClass *Mesh;									// +0x08 (its listener list at +0x04)  // NAME 2: what it holds
 	int Index;											// +0x0C  // NAME 1: neutral

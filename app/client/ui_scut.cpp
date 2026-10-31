@@ -914,6 +914,12 @@ void UIScutBarClass::Unknown_612430()
 }
 
 
+void UIScutBarClass::Unknown_6124F0(UIScutProxyGadgetClass *gadget)
+{
+	ActiveShortcut = gadget;
+}
+
+
 void UIScutBarClass::Unknown_00(void *source, int *event)
 {
 	if (source == (Mesh ? (char *)Mesh + 4 : NULL) && ((GadgetClass *)event[0])->Unknown1C == (int)this && event[1] == 3) {
@@ -924,12 +930,6 @@ void UIScutBarClass::Unknown_00(void *source, int *event)
 		}
 	}
 }
-
-
-
-
-
-
 
 
 
@@ -1043,5 +1043,5 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and
 **	0x611BD0. The bar's destructor removes it from the mesh's list through the base's inline slot +0x04 (0x53B310),
 **	which gives the client's schedule inside 0x610800. The sort's operator() returns int (mov eax, 1 in the client).
-**	0x6124F0 (the active shortcut's setter, inline in the header) is too short to count.
+**	The active shortcut's setter 0x6124F0 is too short to count (objdiff 0 rows: D99).
 */
