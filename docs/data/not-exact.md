@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-358 entries in 75 files.
+357 entries in 75 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -154,7 +154,6 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1430` | `ScriptedMovieViewClass::Create_Object` | marker | NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer) 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD |
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
-| `app/client/scriptedmovie.cpp:2340` | `ScriptedMovieViewClass::Play_Audio` | marker | NOT EXACT: shape (0.76): the client saves all four registers first and its FAIL_IF exit joins the common one; ours returns early before ebx / ebp are saved 0x806BD0: a sound: 2D at once, or (with a slot and a bone) mv3dsnd.cpp's sound on the slot's model, kept on +0xF0 |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
 | `app/client/tasks/tsk_login.cpp:219` | `LoginTaskClass::Pre_Run` | marker | NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0) 0x767DA0 |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
