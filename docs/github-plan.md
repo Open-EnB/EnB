@@ -444,11 +444,12 @@ draft PR at the first push. Automerge is **off**.
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
 2. **The public switch** (the user decides when). Before it: ~~a final read of what becomes public~~ (done
    2026-10-30, §3.4), and ~~the org profile repository~~ (done 2026-10-30: `Open-EnB/.github`, private, with the
-   profile README, the non-affiliation notice and default SECURITY / code of conduct; §3.2). Then make both
-   repositories public (`.github` first, so the org page shows the profile) and apply `.work/ruleset.json`
-   (master: no deletion, no force-push, PR required, required checks `checks` and `vc6-verify`), private
-   vulnerability reporting and secret scanning. The rehearsal may come before or after; until it has passed,
+   profile README, the non-affiliation notice and default SECURITY / code of conduct; §3.2). **Done 2026-10-30
+   (evening):** both repositories public (the user); on EnB the ruleset `Protect master (D148)` (id 26253673, from
+   `.work/ruleset.json`: master no deletion, no force-push, PR required, required checks `checks` and
+   `vc6-verify`), private vulnerability reporting, secret scanning with push protection (the coordinator, through
+   `gh`, at the user's request). The rehearsal may come before or after; until it has passed,
    automerge stays off and every landing is a maintainer's `/land`.
 3. **Small follow-ups:** D148's token scoped to this one repository for the coordinator's pushes (today the
    maintainer's `gh` login, §3.1); `actions/checkout@v4` and `setup-python@v5` to their current majors (GitHub's Node 20
-   deprecation warning); the hourly Claims schedule costs Actions minutes while the repository is private.
+   deprecation warning); the hourly Claims schedule cost Actions minutes while the repository was private (public since 2026-10-30).
