@@ -697,8 +697,11 @@ unless `--lever` cites a new row of this table.
   (9263c0c) selects by block span instead. In Git Bash prefix a command taking `// 0x...` arguments with `MSYS_NO_PATHCONV=1`; in VC6 `#line N`
   alone switches `__FILE__` to the full path and `#line N "..\\shared/..."` needs escaped backslashes (T15).
 * **A verify worktree has no built app.lib** (P8): run `build.py build --lib app --allow-dirty` there (the worktree is yours alone) before `udpreplay build`.
-* sgistl's `insert_unique_noresize` fails in VC6 (C2899):
-  `hash_map::insert` is unusable, the client's inserts go through `operator[]` (P-H17-1). A file's canary function
+* sgistl's `insert_unique_noresize` compiles in VC6 since f918e190 (sgistl_adapt.py drops `typename` from the
+  `pair<typename hashtable<...>::...>` out-of-class return types; it failed with C2899 before, P-H17-1, P-H7-1):
+  `hash_map::insert` is usable now. Keep the existing explicit specializations of it at the top of attrib_dir.cpp /
+  ini_manager.cpp: removing them, or an explicit instantiation in their place, changes VC6's code for the table's
+  other members and loses 13 pairs (QT1, 2026-10-30). A file's canary function
   (client_lego_impl: the bone map constructor 0x72D5F0) flips with the file's contents: check it each verify.
 * A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
