@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2526 |
-| 1 | neutral placeholder | 7582 |
+| 1 | neutral placeholder | 7584 |
 
 ## For review (score 3 and below)
 
@@ -6877,28 +6877,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1214` | `app/shared/land.h:308` | untagged neutral name (D10) |
 | 1 | `Unknown1218` | `app/shared/land.h:309` | untagged neutral name (D10) |
 | 1 | `land_lighting.h` | `app/shared/land_lighting.h:18` | no assert or __FILE__ names the file |
-| 1 | `Unknown_BDC0D8` | `app/shared/landdmap.cpp:11` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_B71650` | `app/shared/landdmap.cpp:13` | unknown; the displacement vertex shader (0xB71650) |
-| 1 | `Unknown04` | `app/shared/landdmap.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/shared/landdmap.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown12` | `app/shared/landdmap.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/landdmap.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown_4677B0` | `app/shared/landdmap.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_467910` | `app/shared/landdmap.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_467A50` | `app/shared/landdmap.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_467E40` | `app/shared/landdmap.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_466E70` | `app/shared/landdmap.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_466F10` | `app/shared/landdmap.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_466F40` | `app/shared/landdmap.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_468240` | `app/shared/landdmap.cpp:208` | untagged neutral name (D10) |
-| 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:363` | untagged neutral name (D10) |
-| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:418` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/landdmap.cpp:446` | untagged neutral name (D10) |
-| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:447` | untagged neutral name (D10) |
-| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:469` | untagged neutral name (D10) |
+| 1 | `Unknown_BDC0D8` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
+| 1 | `LandDMapConstantStruct` | `app/shared/landdmap.cpp:13` | unknown; a vertex shader constant with an empty destructor (the client's function-local static registers 0x4676B0 |
+| 1 | `?` | `app/shared/landdmap.cpp:20` | unknown |
+| 1 | `Unknown_B71650` | `app/shared/landdmap.cpp:22` | unknown; the displacement vertex shader (0xB71650) |
+| 1 | `Unknown04` | `app/shared/landdmap.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/shared/landdmap.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown12` | `app/shared/landdmap.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/landdmap.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_4677B0` | `app/shared/landdmap.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_467910` | `app/shared/landdmap.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_467A50` | `app/shared/landdmap.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_467E40` | `app/shared/landdmap.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_466E70` | `app/shared/landdmap.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/landdmap.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_466F40` | `app/shared/landdmap.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_468240` | `app/shared/landdmap.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:378` | untagged neutral name (D10) |
+| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:433` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/landdmap.cpp:461` | untagged neutral name (D10) |
+| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown_466E70` | `app/shared/landdmap.h:14` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
 | 1 | `Unknown_466F10` | `app/shared/landdmap.h:15` | untagged neutral name (D10) |
 | 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.h:16` | unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920) |

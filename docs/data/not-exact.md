@@ -327,15 +327,15 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:2774` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0) |
 | `app/shared/land.cpp:2877` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
 | `app/shared/land.cpp:2884` | `LandClass::Save_PLD` | mention | NOT EXACT, marked; nothing calls either). |
-| `app/shared/landdmap.cpp:150` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60 |
-| `app/shared/landdmap.cpp:309` | `LandUnknown466BE0Class::Unknown_467A50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50 |
-| `app/shared/landdmap.cpp:366` | `LandUnknown466BE0Class::Unknown_467E40` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467E40 |
-| `app/shared/landdmap.cpp:394` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
-| `app/shared/landdmap.cpp:417` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
-| `app/shared/landdmap.cpp:441` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468920 |
-| `app/shared/landdmap.cpp:474` | `LandUnknown466BE0Class::Unknown_468BE0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468BE0 |
-| `app/shared/landdmap.cpp:495` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
-| `app/shared/landdmap.cpp:521` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, 0x467E40, the draw 0x466F60 and its helpers 0x468240-0x468D50. |
+| `app/shared/landdmap.cpp:159` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: register / order (0x466F60: 18 rows with registers masked, 68 without; the client copies X / Y spacing through stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv) |
+| `app/shared/landdmap.cpp:324` | `LandUnknown466BE0Class::Unknown_467A50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50 |
+| `app/shared/landdmap.cpp:381` | `LandUnknown466BE0Class::Unknown_467E40` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467E40 |
+| `app/shared/landdmap.cpp:409` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
+| `app/shared/landdmap.cpp:432` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
+| `app/shared/landdmap.cpp:456` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468920 |
+| `app/shared/landdmap.cpp:489` | `LandUnknown466BE0Class::Unknown_468BE0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468BE0 |
+| `app/shared/landdmap.cpp:510` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
+| `app/shared/landdmap.cpp:536` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, 0x467E40, the draw 0x466F60 and its helpers 0x468240-0x468D50. |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |

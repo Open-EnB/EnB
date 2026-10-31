@@ -8,7 +8,16 @@
 #include "matrix3d.h"
 #include <d3dx8.h>
 
-LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
+LandUnknown466BE0Class *Unknown_BDC0D8;
+
+// NAME 1: unknown; a vertex shader constant with an empty destructor (the client's function-local static registers 0x4676B0
+// through atexit)
+struct LandDMapConstantStruct
+{
+	LandDMapConstantStruct(float x, float y, float z, float w)	{ V[0] = x; V[1] = y; V[2] = z; V[3] = w; }
+	~LandDMapConstantStruct(void)	{ }
+	float V[4];
+};	// NAME 1: unknown
 
 // NAME 1: unknown; the displacement vertex shader (0xB71650)
 static const char Unknown_B71650[] =
@@ -147,16 +156,20 @@ void LandUnknown466BE0Class::Read_Registry(void)
 }
 
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x466F60
+// NOT EXACT: register / order (0x466F60: 18 rows with registers masked, 68 without; the client copies X / Y spacing through
+// stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and
+// swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv)
 void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 {
 	if (!Unknown11) {
 		return;
 	}
-	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
-	float size = (float)Field->Get_Size();
+	float size = (float)(unsigned int)Field->Get_Size();
+	float xs = Field->Get_Spacing() * size;
+	float ys = Field->Get_YSpacing() * size;
+	float zs = Field->Get_VScale() * size;
 	D3DXMATRIX scale;
-	D3DXMatrixScaling(&scale, Field->Get_Spacing() * size, Field->Get_YSpacing() * size, Field->Get_VScale() * size);
+	D3DXMatrixScaling(&scale, xs, ys, zs);
 
 	D3DXMATRIX proj;
 	D3DXMATRIX view;
@@ -166,18 +179,23 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	DX8Wrapper::_Get_D3D_Device8()->GetTransform(D3DTS_WORLD, &world);
 	DX8Wrapper::Apply_Render_State_Changes();
 
-	// the camera's view as a D3D matrix (row vectors); the client builds it in the same local it read D3DTS_VIEW into,
-	// so the "restore" at the end sets this matrix, not the one read back
 	Matrix3D camview = rinfo.Camera.Get_View_Matrix();
-	for (int r = 0; r < 4; r++) {
-		for (int c = 0; c < 3; c++) {
-			view.m[r][c] = camview[c][r];
-		}
-	}
-	view.m[0][3] = 0.0f;
-	view.m[1][3] = 0.0f;
-	view.m[2][3] = 0.0f;
-	view.m[3][3] = 1.0f;
+	view._11 = camview[0][0];
+	view._12 = camview[1][0];
+	view._13 = camview[2][0];
+	view._14 = 0.0f;
+	view._21 = camview[0][1];
+	view._22 = camview[1][1];
+	view._23 = camview[2][1];
+	view._24 = 0.0f;
+	view._31 = camview[0][2];
+	view._32 = camview[1][2];
+	view._33 = camview[2][2];
+	view._34 = 0.0f;
+	view._41 = camview[0][3];
+	view._42 = camview[1][3];
+	view._43 = camview[2][3];
+	view._44 = 1.0f;
 
 	D3DXMATRIX flip(1.0f, 0.0f, 0.0f, 0.0f,
 						0.0f, 1.0f, 0.0f, 0.0f,
@@ -189,20 +207,17 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	D3DXMatrixTranspose(&wvp, &wvp);
 	D3DXMATRIX d3dview;
 	D3DXMatrixMultiply(&d3dview, &view, &flip);
-	device->SetTransform(D3DTS_VIEW, &d3dview);
-	device->SetVertexShaderConstant(6, &wvp, 4);
+	DX8Wrapper::_Get_D3D_Device8()->SetTransform(D3DTS_VIEW, &d3dview);
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(6, &wvp, 4);
 
 	DWORD fog;
-	device->GetRenderState(D3DRS_FOGENABLE, &fog);
-	device->GetRenderState(D3DRS_FOGSTART, (DWORD *)&FogStart);
-	device->GetRenderState(D3DRS_FOGEND, (DWORD *)&FogEnd);
+	DX8Wrapper::_Get_D3D_Device8()->GetRenderState(D3DRS_FOGENABLE, &fog);
+	DX8Wrapper::_Get_D3D_Device8()->GetRenderState(D3DRS_FOGSTART, (DWORD *)&FogStart);
+	DX8Wrapper::_Get_D3D_Device8()->GetRenderState(D3DRS_FOGEND, (DWORD *)&FogEnd);
 	FogRange = FogEnd - FogStart;
-	device->SetVertexShaderConstant(10, &FogStart, 1);
-
-	// the client's is a function-local static with a destructor registered through atexit (0x4676B0; guard 0xBDC0C0,
-	// data 0xBDC0C8); D3DXVECTOR4 has none, so this registers nothing
-	static D3DXVECTOR4 consts(0.0f, 1.0f, 0.5f, 2.0f);
-	device->SetVertexShaderConstant(11, &consts, 1);
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(10, &FogStart, 1);
+	static LandDMapConstantStruct consts(0.0f, 1.0f, 0.5f, 2.0f);
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(11, &consts, 1);
 
 	if (Unknown0C) {
 		Unknown_468240(rinfo.Camera, scale);
@@ -213,24 +228,24 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	tess[0] = TessellationRate;
 	tess[1] = 0.0f;
 	tess[2] = 32.0f;
-	*(DWORD *)&tess[3] = 1;	// the client stores the integer 1, not 1.0f
-	device->SetVertexShaderConstant(4, tess, 1);
+	*(DWORD *)&tess[3] = 1;
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(4, tess, 1);
 	D3DXVECTOR4 c5(1.0f, 0.0f, 0.0f, 0.0f);
-	device->SetVertexShaderConstant(5, &c5, 1);
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShaderConstant(5, &c5, 1);
 
-	device->SetTextureStageState(4, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
-	device->SetTextureStageState(4, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
-	device->SetTextureStageState(4, D3DTSS_MIPFILTER, D3DTEXF_LINEAR);
-	device->SetTextureStageState(4, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
-	device->SetTextureStageState(4, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
-	device->SetTexture(4, DisplacementMap);
-	device->SetVertexShader(VertexShader);
+	DX8Wrapper::_Get_D3D_Device8()->SetTextureStageState(4, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
+	DX8Wrapper::_Get_D3D_Device8()->SetTextureStageState(4, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
+	DX8Wrapper::_Get_D3D_Device8()->SetTextureStageState(4, D3DTSS_MIPFILTER, D3DTEXF_LINEAR);
+	DX8Wrapper::_Get_D3D_Device8()->SetTextureStageState(4, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
+	DX8Wrapper::_Get_D3D_Device8()->SetTextureStageState(4, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
+	DX8Wrapper::_Get_D3D_Device8()->SetTexture(4, DisplacementMap);
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShader(VertexShader);
 	if (Unknown12) {
-		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		DX8Wrapper::_Get_D3D_Device8()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	}
-	device->SetStreamSource(0, VertexBuffer, 0x34);
-	device->SetIndices(IndexBuffer, 0);
-	device->SetTransform(D3DTS_WORLD, &scale);
+	DX8Wrapper::_Get_D3D_Device8()->SetStreamSource(0, VertexBuffer, 0x34);
+	DX8Wrapper::_Get_D3D_Device8()->SetIndices(IndexBuffer, 0);
+	DX8Wrapper::_Get_D3D_Device8()->SetTransform(D3DTS_WORLD, &scale);
 	DX8Wrapper::_Get_D3D_Device8()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, VertexCount, 0, IndexCount / 3);
 	if (Unknown12) {
 		DX8Wrapper::_Get_D3D_Device8()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
