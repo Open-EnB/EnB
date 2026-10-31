@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <list>
 #include "ui_chat_panel.h"
 #include "client.h"
 #include "..\audio\soundlib.h"
@@ -71,6 +72,7 @@ class UIChatReplyListClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	int Unknown_56EFB0();								// 0x56EFB0: the line picked (1-based), 0 for none, negative to close
+	void Unknown_56EED0(std::list<std::string> &names, int arg);	// 0x56EED0 (0x567540: the reply names, +0x1EC)  // NAME 1 [names, arg]: what 0x567540 passes
 };
 
 extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them)
@@ -128,14 +130,22 @@ extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAE
 
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
 
-// The window slot +0x68's key 16 opens ('Online Manual'; 0xCC bytes, constructor 0x5DAE90)
-class Unknown5DAE90Class : public InterfaceClass	// NAME 1: neutral (D10)
+// The windows the panel opens (slot +0x68's key 16 'Online Manual', 0x565F80's requests), each over the window base
+class Unknown5DAE90Class : public UIChatPanelWindowClass	// NAME 1: neutral (D10): 0xCC bytes
 {
 public:
 	Unknown5DAE90Class(SClient *client, int a, const char *title, int b);	// 0x5DAE90  // NAME 1 [client, a, title, b]: what 0x563280 passes
-
-	char Unknown84[0xCC - 0x84];						// +0x84
+	char Unknown9C[0xCC - 0x9C];
 };
+class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE240, 0xC0 bytes (request 1)
+class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral
+class Unknown5C9910Class : public UIChatPanelWindowClass { public: Unknown5C9910Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5C9910, 0xE4 bytes (requests 3, 4)  // NAME 1 [a, b]: neutral
+class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral
+class Unknown5CA010Class : public UIChatPanelWindowClass { public: Unknown5CA010Class(SClient *client, int a); char Unknown9C[0x1B0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
+class Unknown5C8870Class : public UIChatPanelWindowClass { public: Unknown5C8870Class(SClient *client, int a); char Unknown9C[0xAC - 0x9C]; };	// NAME 1: neutral (D10): 0x5C8870, 0xAC bytes (requests 9, 10)  // NAME 1 [a]: neutral
+
+// pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
+class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral (D10): 0x695F40
 
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -162,16 +172,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -915,6 +915,96 @@ void UIChatPanelClass::Unknown_565F30(int arg)
 	if (arg == 1) Unknown10C = true;
 }
 
+// 0x565F80
+void UIChatPanelClass::Unknown_565F80()
+{
+	if (Unknown104 && Unknown104->Unknown98) {
+		Unknown104->Unknown_7C(NULL, 0);
+		Unknown104 = NULL;
+	}
+	if (Unknown104) return;
+	if (!Unknown108) return;
+	switch (Unknown108) {
+		case 1:
+			Unknown104 = Create_Get(new Unknown5CE240Class(Client->As_Space_Client()));
+			break;
+		case 2:
+			Unknown104 = Create_Get(new Unknown5CE700Class(Client->As_Space_Client(), 1));
+			break;
+		case 3:
+			Unknown104 = Create_Get(new Unknown5C9910Class(Client->As_Space_Client(), 0, 0));
+			break;
+		case 4:
+			Unknown104 = Create_Get(new Unknown5C9910Class(Client->As_Space_Client(), 1, 0));
+			break;
+		case 5:
+			if (Unknown10C) {
+				Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 0, 0));
+			} else {
+				Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 0, 1));
+			}
+			break;
+		case 6:
+			Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 1, 0));
+			break;
+		case 7:
+			Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 2, 0));
+			break;
+		case 8:
+			Unknown104 = Create_Get(new Unknown5CA010Class(Client->As_Space_Client(), 0));
+			break;
+		case 9:
+			Unknown104 = Create_Get(new Unknown5C8870Class(Client->As_Space_Client(), 0));
+			break;
+		case 10:
+			Unknown104 = Create_Get(new Unknown5C8870Class(Client->As_Space_Client(), 1));
+			break;
+		case 11:
+			if (!Unknown_7CA2D0()->Unknown34) {
+				Unknown104 = Create_Get(new Unknown5DAE90Class(Client->As_Space_Client(), 5, "Credits", 0));
+				UnknownEC = Unknown104.Peek();
+			}
+			break;
+		case 12:
+			Unknown_56C7E0();
+			Unknown108 = 0;
+			return;
+	}
+	if (Unknown104) {
+		Unknown104->Unknown_54();
+		Unknown104->Unknown_7C(View, 1);
+		SClient *sclient = Client->As_Space_Client();
+		if (sclient->PDAInterface) ((UIChatPanelPDAClass *)sclient->PDAInterface)->Unknown_695F40();
+	}
+	Unknown108 = 0;
+}
+
+// NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141)
+// 0x567540
+bool UIChatPanelClass::Unknown_567540(int arg)
+{
+	if (!Unknown1E8->Is_Active()) {
+		Unknown1EC = arg;
+		if (arg) {
+			int count = 0;
+			Unknown1F0 = false;
+			std::list<std::string> names;
+			for (int i = 0; i < 5; i++) {
+				if (Unknown188[i] == "") break;
+				names.push_back(Unknown188[i]);
+				count++;
+			}
+			if (count) {
+				((UIChatReplyListClass *)Unknown1E8)->Unknown_56EED0(names, Unknown1EC);
+				Unknown1E8->Unknown_58();
+				return(true);
+			}
+			Client->As_Space_Client()->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+		}
+	}
+	return(false);
+}
+
 // NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it)
 // 0x567760
 void UIChatPanelClass::Unknown_567760()
@@ -1103,96 +1193,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

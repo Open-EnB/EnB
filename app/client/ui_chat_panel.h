@@ -49,8 +49,16 @@ public:
 	int Unknown9C;										// +0x9C
 };
 
+// The base of the windows the panel holds (ChatInt, +0xF8, +0x104): an int at +0x98 (0x565F80: set, the window closed)
+class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	char Unknown84[0x98 - 0x84];						// +0x84
+	int Unknown98;										// +0x98 (0x5630B0 / 0x565F80 test it)
+};
+
 // What the chat panel's ChatInt (+0x138) points to (the chat window), as far as this file calls it
-class UIChatIntClass : public InterfaceClass	// NAME 1: neutral (D10): the assert's 'ChatInt'
+class UIChatIntClass : public UIChatPanelWindowClass	// NAME 1: neutral (D10): the assert's 'ChatInt'
 {
 public:
 	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
@@ -63,8 +71,6 @@ public:
 	void Unknown_5417D0(InterfaceClass *owner);			// 0x5417D0 (intrface.cpp's; 0x56C180 passes the panel)  // NAME 1 [owner]: neutral
 	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
 
-	char Unknown84[0x98 - 0x84];						// +0x84
-	int Unknown98;										// +0x98 (slot +0x60 0x5630B0: non-zero switches the window, 0x56C0C0)
 };
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
@@ -100,11 +106,11 @@ public:
 	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender, first in the +0x188 names)  // NAME 1 [name]: cpacket.cpp's
 	void Unknown_5658B0(const char *name);				// 0x5658B0  // NAME 1 [name]: neutral
 	void Unknown_565F30(int arg);
-	void Unknown_565F80();								// 0x565F80 (every frame)
+	void Unknown_565F80();								// 0x565F80 (every frame): the window +0x108 asks for opened at +0x104
 	void Unknown_566AF0();								// 0x566AF0 (every frame)						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	void Unknown_567760();								// 0x567760: the reply list's pick
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
-	void Unknown_567540(bool arg);						// 0x567540  // NAME 1 [arg]: neutral
+	bool Unknown_567540(int arg);						// 0x567540: the reply list over the +0x188 names ("Unable to reply")  // NAME 1 [arg]: neutral
 	bool Unknown_567970();								// 0x567970: +0x1E8 is active
 	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: cpacket.cpp's
 	void Unknown_567DF0(int code);						// 0x567DF0 (CLIENT_CHAT_ERROR 166 on entering a channel: the error code, or 2)  // NAME 1 [code]: cpacket.cpp's
@@ -127,6 +133,7 @@ public:
 	void Unknown_56C0C0();								// 0x56C0C0 (G_ASSERT 'false' l.2377: 'DefaultChatWindow')
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
 	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
+	void Unknown_56C7E0();								// 0x56C7E0 (request 12: the chat font settings)
 	void Unknown_56C730(const UIChatIntEventClass &event, UIChatIntClass *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
 	void Unknown_56C7B0(const UIChatF8EventClass &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
@@ -142,10 +149,10 @@ public:
 	void *UnknownEC;									// +0xEC
 	InterfaceClass *UnknownF0;							// +0xF0
 	bool UnknownF4;										// +0xF4
-	RefCountPtr<InterfaceClass> UnknownF8;				// +0xF8
+	RefCountPtr<UIChatPanelWindowClass> UnknownF8;		// +0xF8
 	int UnknownFC;										// +0xFC
 	int Unknown100;										// +0x100
-	RefCountPtr<InterfaceClass> Unknown104;				// +0x104
+	RefCountPtr<UIChatPanelWindowClass> Unknown104;		// +0x104 (0x565F80: the window requested through +0x108)
 	int Unknown108;										// +0x108
 	bool Unknown10C;									// +0x10C
 	bool Unknown10D;									// +0x10D (an event handler registered on +0xF8)

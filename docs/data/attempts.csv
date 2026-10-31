@@ -902,3 +902,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 03:15,0x56B700,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,the channel-name temporary: the client inlines its constructor (_Grow call) and calls _Tidy; options and this spilled to the stack,,opus
 2026-10-31 03:17,0x5679A0,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,string::compare out of line in the client's inlined 0x5680B0,,opus
 2026-10-31 03:17,0x567DF0,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,the two empty-string temporaries built differently per case in the client,,opus
+2026-10-31 03:20,0x567540,,app/client/ui_chat_panel.cpp,app,partial,,1,inline-budget,string::compare and list::_Buynode out of line in the client,,opus
