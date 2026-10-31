@@ -768,7 +768,7 @@ public:
 	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
 	void Unknown_802900();								// 0x802900: +0x6D set once +0x6C is
 	void Unknown_802AD0(int arg);						// 0x802AD0: every sound of +0xF0 gets arg twice (0x7ED6C0)  // NAME 1 [arg]: neutral
-	static void Unknown_802D30();						// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated
+	static void Unknown_802D30(); void Unknown_8099B0(const char *filename);	// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated; 0x8099B0 (G_ASSERTs 'filename' l.3632, 'scriptfile' 3634; the constructor passes arg): the script loaded  // NAME 2 [filename]: the assert's
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
@@ -827,7 +827,7 @@ public:
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
 	SClientUnknown1338Class *Unknown140; SClientUnknown1334Class *DecalMaterialManager;	// +0x140 (0x8020B0 hands it to shiputils.cpp's 0x80EFF0), +0x144 (Add_Decal_To_Ship hands it to 0x80E8C0)  // NAME 3 [DecalMaterialManager]: the assert's (0x8093D0)
 	std::vector<ScriptedMovieEffectStruct> Effects;		// +0x148: the timed effects  // NAME 2: what it holds
-	bool Unknown158; char Unknown159[3]; Render2DTextClass *Unknown15C; char Unknown160[4];	// +0x158: the stats shown (with +0x171), +0x15C: their text (the render 0x8012C0)
+	bool Unknown158; char Unknown159[3]; Render2DTextClass *Unknown15C; RefCountPtr<Font3DInstanceClass> Unknown160;	// +0x158: the stats shown (with +0x171), +0x15C: their text (the render 0x8012C0), +0x160: its font (the constructor: font12x16.tga)
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
 	char Unknown169[0x16C - 0x169]; unsigned int Unknown16C; bool Unknown170;	// +0x169, +0x16C: the end time (0x801E60 fades out once Unknown80 reaches it), +0x170: faded

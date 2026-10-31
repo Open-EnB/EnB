@@ -8128,6 +8128,8 @@
      "0x7FFD30",
      "0x7FFDC0",
      "0x7FFEA0",
+     "0x8000C0",
+     "0x800880",
      "0x8010A0",
      "0x801860",
      "0x8019A0",
@@ -9792,7 +9794,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4940,
+  "in_tree_total": 4942,
   "totals": {}
  },
  "binkmovie": {

@@ -125,258 +125,16 @@ static float Unknown_B07C58 = 1.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C5C = 0.95f;	// NAME 1: neutral (D10)
 static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include "co.h"
+#include "..\..\ww3d2\render2d.h"
+#include "font3d.h"
+#include "..\audio\soundlib.h"
+#include "ini.h"
+// the members' classes as far as the constructor builds them (sclient.cpp defines them so)
+class Unknown67D360Class { public: ~Unknown67D360Class(); char Unknown00[0x14]; };	// 0x67D360  // NAME 1: neutral (D10)
+class Unknown619280Class { public: Unknown619280Class(); ~Unknown619280Class(); char Unknown00[0x44]; };	// 0x619280  // NAME 1: neutral (D10)
 // env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's SClientUnknown1338Class), as far as Create_Skybox calls it
-class SClientUnknown1338Class { public: ~SClientUnknown1338Class(); void Unknown_760770(int base_asset, bool a); };	// destructor 0x679820, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
+class SClientUnknown1338Class { public: SClientUnknown1338Class() : Unknown10(2) {} ~SClientUnknown1338Class(); void Load(const char *ini); void Unknown_760770(int base_asset, bool a); std::vector<Unknown67D360Class> Unknown00; int Unknown10; INIClass INI; };	// destructor 0x679820, Load 0x760360, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
 // the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
 class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
@@ -386,10 +144,252 @@ public:
 	char Unknown84[0x8C - 0x84];						// +0x84
 };
 // decal.cpp's decal INIs at the view's +0x144 (sclient.h's SClientUnknown1334Class), as far as the shutdown deletes it
-class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); };	// 0x618A50
+class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); void Load(const char *textures, const char *swatches, const char *secret_textures); std::vector<int> Unknown00; std::vector<int> Unknown10; std::vector<int> Unknown20; Unknown619280Class Unknown30; Unknown619280Class Unknown74; };	// 0x618A50, Load 0x75BE00 (decal.cpp)  // NAME 3 [textures, swatches, secret_textures]: the INI names (sclient.cpp's)
 // ViewerSettings' first member (its slot +0x38: the shutdown)
 class ScriptedMovieUnknown68Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); };	// NAME 1: neutral (D10)
-struct ScriptedMovieViewerSettingsStruct { ScriptedMovieUnknown68Class *Unknown00; Vector3 BackgroundColor; };	// what +0x68 points to (the render 0x8012C0 clears to +0x04)  // NAME 1: neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets
+struct ScriptedMovieViewerSettingsStruct { ScriptedMovieViewerSettingsStruct(); ~ScriptedMovieViewerSettingsStruct(); ScriptedMovieUnknown68Class *Unknown00; Vector3 BackgroundColor; char Unknown10[0x1C - 0x10]; };	// what +0x68 points to (0x1C bytes, constructor 0x490900, destructor 0x4909A0; the render 0x8012C0 clears to +0x04)  // NAME 1: neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets
+void Unknown_7FF230();	// 0x7FF230 (the file before this one: the screen fade and the letterbox), the constructor calls it
+extern bool Unknown_BB9654;	// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
+extern int Unknown_C01290;	// NAME 1: neutral (D10): 300000 while the scripted movie view is up (the constructor), else 0 (the destructor)
+extern RectClass Unknown_C07550;	// NAME 1: neutral (D10) (sclient.cpp's): the text's coordinate range
+#define EnvironmentMapManager Unknown1338	// NAME 3 [EnvironmentMapManager]: the assert's 'sclient->EnvironmentMapManager' (the constructor, l.231)
+
+// 0x8000C0: the view: its scene, camera, environment maps and decals (SClient's, or its own without one), the script
+ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback) :
+	UIViewClass(task, 6),
+	ClientInterface((ScriptedMovieInterfaceClass *)callback),
+	ScriptedCamera(NULL),
+	ScriptedScene(NULL),
+	ViewerSettings(new ScriptedMovieViewerSettingsStruct),
+	Unknown6C(false),
+	Unknown6D(false),
+	Unknown6E(false),
+	Unknown6F(false),
+	Unknown70(-1.0f),
+	Unknown74(-1.0f),
+	Unknown78(1.0f),
+	Unknown7C(true),
+	Unknown80(0),
+	CurrentCameraIndex(0),
+	BackgroundScene(NULL),
+	BackInterface(NULL),
+	StarsScene(NULL),
+	OrbitalManager(NULL),
+	OrbitalScene(NULL),
+	Unknown138(-1),
+	BackgroundDazzleLayer(NULL),
+	Unknown140(NULL),
+	DecalMaterialManager(NULL),
+	Unknown158(false),
+	Unknown15C(NULL),
+	Unknown164(0),
+	Unknown168(false),
+	Unknown16C(0),
+	Unknown170(false),
+	Unknown171(false),
+	Unknown172(false),
+	Unknown174(NULL)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(ClientInterface);
+	CameraEffects = new CameraEffectsClass((MainViewClass *)this, (SClient *)Get_Client());
+	ScriptedScene = new SimpleSceneClass;
+	ScriptedScene->Set_Ambient_Light(Vector3(0.0f, 0.0f, 0.0f));
+	ScriptedCamera = new CameraClass;
+	ScriptedCamera->Set_Clip_Planes(20.0f, 100000.0f);
+	ScriptedCamera->Set_View_Plane(DEG_TO_RADF(56.0f), DEG_TO_RADF(41.0f));
+	ScriptedCamera->Set_Viewport(Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
+	for (int i = 0; i < MAX_LIGHTS_PER_SCENE; i++) Lights[i] = NULL;
+	UIViewClass::Unknown_04();
+	Unknown_7FF230();
+	SClient *sclient = (SClient *)ClientInterface->Unknown_00()->Unknown_18();
+	if (sclient != NULL) {
+
+
+
+
+
+
+
+
+
+
+
+
+		G_ASSERT(sclient->EnvironmentMapManager);
+		Unknown140 = sclient->EnvironmentMapManager;
+		DecalMaterialManager = sclient->Unknown1334;
+	} else {
+		Unknown140 = new SClientUnknown1338Class;
+		Unknown140->Load("envmaps.ini");
+		DecalMaterialManager = new SClientUnknown1334Class;
+		DecalMaterialManager->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
+	}
+	Unknown_BB9654 = false;
+	Unknown_C01290 = 300000;
+	Unknown_8099B0((const char *)arg);
+	if (Unknown16C != 0) {
+		Unknown_7FFA30(0.0f, 0.0f, 0.0f, 0.0f);
+		Unknown_7FFBE0(1.0f, 0.0f);
+	}
+	Unknown160 = Create_NEW(new Font3DInstanceClass("font12x16.tga"));
+	Unknown15C = new Render2DTextClass(Unknown160.Peek());
+	Unknown15C->Set_Coordinate_Range(Unknown_C07550);
+	Unknown15C->Enable_Alpha(true);
+	Unknown15C->Reset();
+	SoundLibraryClass::_PlayUndefined = true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

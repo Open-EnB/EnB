@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 989 |
-| 2 | describes what the code does | 2464 |
-| 1 | neutral placeholder | 6028 |
+| 3 | by convention from a client-named file or sibling | 991 |
+| 2 | describes what the code does | 2465 |
+| 1 | neutral placeholder | 6041 |
 
 ## For review (score 3 and below)
 
@@ -2952,6 +2952,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `arg` | `app/client/sclient.h:770` | neutral |
 | 1 | `Unknown_802AD0` | `app/client/sclient.h:770` | untagged neutral name (D10) |
 | 1 | `Unknown_802D30` | `app/client/sclient.h:771` | untagged neutral name (D10) |
+| 1 | `Unknown_8099B0` | `app/client/sclient.h:771` | untagged neutral name (D10) |
 | 1 | `Unknown_806AD0` | `app/client/sclient.h:772` | untagged neutral name (D10) |
 | 1 | `Unknown_809710` | `app/client/sclient.h:773` | untagged neutral name (D10) |
 | 1 | `Unknown_809730` | `app/client/sclient.h:774` | untagged neutral name (D10) |
@@ -3221,55 +3222,79 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B07C58` | `app/client/scriptedmovie.cpp:124` | neutral (D10) |
 | 1 | `Unknown_B07C5C` | `app/client/scriptedmovie.cpp:125` | neutral (D10) |
 | 1 | `Unknown_B07C60` | `app/client/scriptedmovie.cpp:126` | neutral (D10) |
-| 1 | `base_asset, a` | `app/client/scriptedmovie.cpp:379` | sclient.cpp's |
-| 1 | `SClientUnknown1338Class` | `app/client/scriptedmovie.cpp:379` | untagged neutral name (D10) |
-| 1 | `Unknown_760770` | `app/client/scriptedmovie.cpp:379` | untagged neutral name (D10) |
-| 1 | `Unknown53AA30InterfaceClass` | `app/client/scriptedmovie.cpp:381` | neutral (D10) |
-| 1 | `view, scene` | `app/client/scriptedmovie.cpp:384` | what Create_Skybox passes |
-| 1 | `model` | `app/client/scriptedmovie.cpp:385` | neutral |
-| 1 | `Unknown_88` | `app/client/scriptedmovie.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/scriptedmovie.cpp:386` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/scriptedmovie.cpp:389` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieUnknown68Class` | `app/client/scriptedmovie.cpp:391` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieViewerSettingsStruct` | `app/client/scriptedmovie.cpp:392` | neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets |
-| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:392` | untagged neutral name (D10) |
+| 1 | `Unknown67D360Class` | `app/client/scriptedmovie.cpp:134` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown619280Class` | `app/client/scriptedmovie.cpp:135` | neutral (D10) |
+| 1 | `base_asset, a` | `app/client/scriptedmovie.cpp:137` | sclient.cpp's |
+| 1 | `SClientUnknown1338Class` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_760770` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown53AA30InterfaceClass` | `app/client/scriptedmovie.cpp:139` | neutral (D10) |
+| 1 | `view, scene` | `app/client/scriptedmovie.cpp:142` | what Create_Skybox passes |
+| 1 | `model` | `app/client/scriptedmovie.cpp:143` | neutral |
+| 1 | `Unknown_88` | `app/client/scriptedmovie.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/scriptedmovie.cpp:144` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/scriptedmovie.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/scriptedmovie.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/scriptedmovie.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/scriptedmovie.cpp:147` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieUnknown68Class` | `app/client/scriptedmovie.cpp:149` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/scriptedmovie.cpp:149` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieViewerSettingsStruct` | `app/client/scriptedmovie.cpp:150` | neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets |
+| 1 | `Unknown_7FF230` | `app/client/scriptedmovie.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_BB9654` | `app/client/scriptedmovie.cpp:152` | neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it |
+| 1 | `Unknown_C01290` | `app/client/scriptedmovie.cpp:153` | neutral (D10): 300000 while the scripted movie view is up (the constructor), else 0 (the destructor) |
+| 1 | `Unknown_C07550` | `app/client/scriptedmovie.cpp:154` | neutral (D10) (sclient.cpp's): the text's coordinate range |
+| 1 | `Unknown1338` | `app/client/scriptedmovie.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/scriptedmovie.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown6D` | `app/client/scriptedmovie.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown6E` | `app/client/scriptedmovie.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown6F` | `app/client/scriptedmovie.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/scriptedmovie.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/scriptedmovie.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/scriptedmovie.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/scriptedmovie.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/scriptedmovie.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/scriptedmovie.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown15C` | `app/client/scriptedmovie.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown164` | `app/client/scriptedmovie.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `app/client/scriptedmovie.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/scriptedmovie.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/scriptedmovie.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown171` | `app/client/scriptedmovie.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown172` | `app/client/scriptedmovie.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/scriptedmovie.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown1334` | `app/client/scriptedmovie.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_8099B0` | `app/client/scriptedmovie.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/scriptedmovie.cpp:247` | untagged neutral name (D10) |
 | 1 | `Unknown_745050` | `app/client/scriptedmovie.cpp:433` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/scriptedmovie.cpp:435` | untagged neutral name (D10) |
 | 1 | `Unknown_7FF810` | `app/client/scriptedmovie.cpp:456` | untagged neutral name (D10) |
 | 1 | `Unknown_801860` | `app/client/scriptedmovie.cpp:471` | untagged neutral name (D10) |
 | 1 | `Unknown_8019A0` | `app/client/scriptedmovie.cpp:472` | untagged neutral name (D10) |
 | 1 | `Unknown_801D70` | `app/client/scriptedmovie.cpp:476` | untagged neutral name (D10) |
 | 1 | `Unknown_801AE0` | `app/client/scriptedmovie.cpp:477` | untagged neutral name (D10) |
 | 1 | `Unknown_801C40` | `app/client/scriptedmovie.cpp:478` | untagged neutral name (D10) |
-| 1 | `Unknown171` | `app/client/scriptedmovie.cpp:485` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/scriptedmovie.cpp:485` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/scriptedmovie.cpp:486` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/scriptedmovie.cpp:486` | untagged neutral name (D10) |
-| 1 | `Unknown15C` | `app/client/scriptedmovie.cpp:500` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/scriptedmovie.cpp:706` | untagged neutral name (D10) |
 | 1 | `Get_Unknown54` | `app/client/scriptedmovie.cpp:707` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAE3C` | `app/client/scriptedmovie.cpp:713` | neutral (D10): the time now in ms (mainview.cpp, ui_line_display.cpp declare it so) |
 | 1 | `Unknown_BFAE40` | `app/client/scriptedmovie.cpp:714` | neutral (D10): the time of the last frame (ui_line_display.cpp declares it so) |
 | 1 | `Unknown_7FF3D0` | `app/client/scriptedmovie.cpp:715` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/scriptedmovie.cpp:740` | untagged neutral name (D10) |
 | 1 | `Unknown_802B20` | `app/client/scriptedmovie.cpp:744` | untagged neutral name (D10) |
-| 1 | `Unknown172` | `app/client/scriptedmovie.cpp:745` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/scriptedmovie.cpp:746` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9410` | `app/client/scriptedmovie.cpp:756` | untagged neutral name (D10) |
 | 1 | `Unknown_802420` | `app/client/scriptedmovie.cpp:759` | untagged neutral name (D10) |
 | 1 | `Unknown_802AD0` | `app/client/scriptedmovie.cpp:761` | untagged neutral name (D10) |
@@ -3278,27 +3303,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_80EFF0` | `app/client/scriptedmovie.cpp:797` | untagged neutral name (D10) |
 | 1 | `Unknown_8020B0` | `app/client/scriptedmovie.cpp:800` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/scriptedmovie.cpp:805` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/scriptedmovie.cpp:807` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/scriptedmovie.cpp:833` | untagged neutral name (D10) |
 | 1 | `Unknown_80A5A0` | `app/client/scriptedmovie.cpp:833` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/scriptedmovie.cpp:856` | untagged neutral name (D10) |
 | 1 | `Unknown_8023A0` | `app/client/scriptedmovie.cpp:875` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/scriptedmovie.cpp:880` | untagged neutral name (D10) |
-| 1 | `Unknown6D` | `app/client/scriptedmovie.cpp:880` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/scriptedmovie.cpp:903` | neutral |
 | 1 | `Unknown_42ECF0` | `app/client/scriptedmovie.cpp:903` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:910` | untagged neutral name (D10) |
-| 1 | `Unknown6F` | `app/client/scriptedmovie.cpp:914` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/scriptedmovie.cpp:917` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/scriptedmovie.cpp:917` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/scriptedmovie.cpp:923` | untagged neutral name (D10) |
 | 1 | `Unknown_8027C0` | `app/client/scriptedmovie.cpp:968` | untagged neutral name (D10) |
 | 1 | `Unknown_802900` | `app/client/scriptedmovie.cpp:996` | untagged neutral name (D10) |
 | 1 | `Unknown_802930` | `app/client/scriptedmovie.cpp:1006` | untagged neutral name (D10) |
-| 1 | `Unknown6E` | `app/client/scriptedmovie.cpp:1008` | untagged neutral name (D10) |
 | 1 | `Unknown_802960` | `app/client/scriptedmovie.cpp:1013` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/scriptedmovie.cpp:1025` | untagged neutral name (D10) |
-| 1 | `Unknown164` | `app/client/scriptedmovie.cpp:1031` | untagged neutral name (D10) |
 | 1 | `UnknownF0` | `app/client/scriptedmovie.cpp:1113` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED6C0` | `app/client/scriptedmovie.cpp:1114` | untagged neutral name (D10) |
 | 1 | `Unknown_807520` | `app/client/scriptedmovie.cpp:1139` | untagged neutral name (D10) |
@@ -3327,7 +3341,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5140` | `app/client/scriptedmovie.cpp:1557` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieOrbitalCallbackClass` | `app/client/scriptedmovie.cpp:1615` | neutral (D10) |
 | 1 | `view` | `app/client/scriptedmovie.cpp:1618` | neutral |
-| 1 | `Unknown138` | `app/client/scriptedmovie.cpp:1620` | untagged neutral name (D10) |
 | 1 | `Unknown_4F3310` | `app/client/scriptedmovie.cpp:1636` | untagged neutral name (D10) |
 | 1 | `Unknown_4F34C0` | `app/client/scriptedmovie.cpp:1647` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9550` | `app/client/scriptedmovie.cpp:1698` | untagged neutral name (D10) |
@@ -6795,6 +6808,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `znear, zfar` | `app/client/sclient.h:759` | Set_Clip_Planes' |
 | 2 | `znear, zfar` | `app/client/sclient.h:760` | Set_Clip_Planes' |
 | 2 | `znear, zfar` | `app/client/sclient.h:761` | the main view's |
+| 2 | `filename` | `app/client/sclient.h:771` | the assert's |
 | 2 | `Attach_Camera` | `app/client/sclient.h:775` | the user error's 'Attach_Camera'; NAME 1 [params]: neutral |
 | 2 | `Attach_To_Bone` | `app/client/sclient.h:776` | the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral |
 | 2 | `Attach_Light_To_Bone` | `app/client/sclient.h:777` | the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral |
@@ -8716,6 +8730,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LoadingView` | `app/client/sclient.h:1070` | its file's |
 | 3 | `Get_Mode` | `app/client/sclient.h:1071` | the assert's |
 | 3 | `AssetManager` | `app/client/scriptedmovie.cpp:23` | the asserts' text 'AssetManager' (0x802D30, the destructor) |
+| 3 | `textures, swatches, secret_textures` | `app/client/scriptedmovie.cpp:147` | the INI names (sclient.cpp's) |
+| 3 | `EnvironmentMapManager` | `app/client/scriptedmovie.cpp:155` | the assert's 'sclient->EnvironmentMapManager' (the constructor, l.231) |
 | 3 | `DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3` | `app/client/scriptedmovie.cpp:3279` | the FAIL_IF's text (0x808FD0); values from its tests |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
