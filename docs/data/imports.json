@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 142,
+  "ambiguous_total": 121,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -12,8 +12,6 @@
      "0x42AFF0",
      "0x42B250",
      "0x42B340",
-     "0x4333D0",
-     "0x436730",
      "0x440560",
      "0x443F30",
      "0x49CB70",
@@ -84,12 +82,17 @@
      "0x4D8120",
      "0x4D8370",
      "0x4D8430",
+     "0x4D8BE0",
+     "0x4D8C20",
+     "0x4D8CB0",
      "0x4D8F80",
      "0x4D8FF0",
      "0x4D9050",
      "0x4D9150",
      "0x4D94E0",
      "0x4D9660",
+     "0x4D9900",
+     "0x4D9940",
      "0x4D9980",
      "0x4D9A70",
      "0x4D9C50",
@@ -97,15 +100,32 @@
      "0x4D9CD0",
      "0x4D9D70",
      "0x4D9DE0",
+     "0x4D9FE0",
+     "0x4DA010",
      "0x4DA040",
      "0x4DA0A0",
+     "0x4DA340",
+     "0x4DA380",
      "0x4DA3C0",
      "0x4DA590",
+     "0x4DA740",
      "0x4DA770",
      "0x4DA7A0"
     ],
     "merged": [],
-    "name": "shared/attrib_dir.cpp"
+    "name": "shared/attrib_dir.cpp",
+    "tiebreak": [
+     "0x4D8BE0",
+     "0x4D8C20",
+     "0x4D8CB0",
+     "0x4D9900",
+     "0x4D9940",
+     "0x4D9FE0",
+     "0x4DA010",
+     "0x4DA340",
+     "0x4DA380",
+     "0x4DA740"
+    ]
    },
    "attrib_dir_collective": {
     "ambiguous": [
@@ -121,10 +141,7 @@
      "0x4333D0",
      "0x436730",
      "0x440560",
-     "0x451890",
-     "0x4B9D80",
-     "0x4DF8B0",
-     "0x4DF930"
+     "0x4B9D80"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -184,16 +201,38 @@
      "0x4DD420",
      "0x4DD930",
      "0x4DDA50",
+     "0x4DE0D0",
+     "0x4DE4F0",
+     "0x4DE790",
+     "0x4DE7C0",
+     "0x4DE7F0",
+     "0x4DE860",
      "0x4DE8A0",
+     "0x4DEA90",
      "0x4DEB30",
      "0x4DECC0",
+     "0x4DED50",
      "0x4DF880",
+     "0x4DF8B0",
+     "0x4DF930",
      "0x4DF970",
      "0x4DFAE0",
      "0x4DFB70"
     ],
     "merged": [],
-    "name": "shared/attrib_dir_collective.cpp"
+    "name": "shared/attrib_dir_collective.cpp",
+    "tiebreak": [
+     "0x4DE0D0",
+     "0x4DE4F0",
+     "0x4DE790",
+     "0x4DE7C0",
+     "0x4DE7F0",
+     "0x4DE860",
+     "0x4DEA90",
+     "0x4DED50",
+     "0x4DF8B0",
+     "0x4DF930"
+    ]
    },
    "aux_roots": {
     "ambiguous": [
@@ -420,9 +459,7 @@
    "boolpars": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42AAE0",
-     "0x42B2F0",
-     "0x42D180"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -464,10 +501,16 @@
      "0x49B470",
      "0x49B4A0",
      "0x49B590",
-     "0x49B5E0"
+     "0x49B5E0",
+     "0x49B740",
+     "0x49B8C0"
     ],
     "merged": [],
-    "name": "shared/boolpars.cpp"
+    "name": "shared/boolpars.cpp",
+    "tiebreak": [
+     "0x49B740",
+     "0x49B8C0"
+    ]
    },
    "buff_database": {
     "ambiguous": [
@@ -568,9 +611,7 @@
      "0x42A6C0",
      "0x457CA0",
      "0x45C0E0",
-     "0x46BE90",
-     "0x728450",
-     "0x7290F0"
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -624,15 +665,22 @@
      "0x7283B0",
      "0x7283F0",
      "0x728430",
+     "0x728450",
+     "0x728480",
+     "0x7290F0",
      "0x729320"
     ],
     "merged": [],
-    "name": "client/client.cpp"
+    "name": "client/client.cpp",
+    "tiebreak": [
+     "0x728450",
+     "0x728480",
+     "0x7290F0"
+    ]
    },
    "client_lego_impl": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42A890",
      "0x42A900",
      "0x42AAE0",
      "0x42AC90",
@@ -640,20 +688,10 @@
      "0x42B250",
      "0x42B2F0",
      "0x42D180",
-     "0x4333D0",
-     "0x436730",
-     "0x440560",
      "0x46BE90",
      "0x474080",
-     "0x474450",
      "0x474480",
      "0x47D890",
-     "0x47F020",
-     "0x47F070",
-     "0x4982F0",
-     "0x4DCFF0",
-     "0x51C710",
-     "0x51C780",
      "0x731EA0"
     ],
     "copy": "reconstructed",
@@ -706,25 +744,51 @@
      "0x72DDA0",
      "0x72DE40",
      "0x72DFF0",
+     "0x72E090",
+     "0x72E100",
+     "0x72E130",
      "0x72E1D0",
      "0x72E200",
      "0x72E280",
+     "0x72E4D0",
+     "0x72E500",
      "0x72E740",
      "0x72E960",
+     "0x72E990",
      "0x72EBA0",
+     "0x72ED10",
      "0x72ED40",
+     "0x72EF90",
+     "0x72F1A0",
      "0x72F300",
+     "0x72F510",
      "0x72F5C0",
+     "0x72F900",
      "0x72F950",
      "0x72FCC0",
      "0x730210",
      "0x730260",
+     "0x730420",
+     "0x7305A0",
+     "0x7305D0",
+     "0x730B10",
+     "0x730B50",
+     "0x730B90",
+     "0x730BD0",
      "0x730C10",
      "0x730D40",
      "0x730E00",
      "0x730E80",
      "0x730FB0",
      "0x731070",
+     "0x731270",
+     "0x7312E0",
+     "0x731330",
+     "0x7313A0",
+     "0x7313D0",
+     "0x731400",
+     "0x731430",
+     "0x7314C0",
      "0x731510",
      "0x731540",
      "0x731570",
@@ -734,7 +798,35 @@
      "0x731F20"
     ],
     "merged": [],
-    "name": "client/client_lego_impl.cpp"
+    "name": "client/client_lego_impl.cpp",
+    "tiebreak": [
+     "0x72E090",
+     "0x72E100",
+     "0x72E130",
+     "0x72E4D0",
+     "0x72E500",
+     "0x72E990",
+     "0x72ED10",
+     "0x72EF90",
+     "0x72F1A0",
+     "0x72F510",
+     "0x72F900",
+     "0x730420",
+     "0x7305A0",
+     "0x7305D0",
+     "0x730B10",
+     "0x730B50",
+     "0x730B90",
+     "0x730BD0",
+     "0x731270",
+     "0x7312E0",
+     "0x731330",
+     "0x7313A0",
+     "0x7313D0",
+     "0x731400",
+     "0x731430",
+     "0x7314C0"
+    ]
    },
    "clientstub": {
     "ambiguous": [
@@ -1072,10 +1164,22 @@
      "0x7A0250",
      "0x7A02D0",
      "0x7A05A0",
-     "0x7A0620"
+     "0x7A0620",
+     "0x7A0DD0",
+     "0x7A0E00",
+     "0x7A0E30",
+     "0x7A0E60",
+     "0x7A0E90"
     ],
     "merged": [],
-    "name": "client/co_data.cpp"
+    "name": "client/co_data.cpp",
+    "tiebreak": [
+     "0x7A0DD0",
+     "0x7A0E00",
+     "0x7A0E30",
+     "0x7A0E60",
+     "0x7A0E90"
+    ]
    },
    "co_player_relationship": {
     "ambiguous": [
@@ -1261,13 +1365,7 @@
    "connect": {
     "ambiguous": [
      "0x42A900",
-     "0x42AFF0",
-     "0x42B2C0",
-     "0x42B2F0",
-     "0x451030",
-     "0x451060",
-     "0x451370",
-     "0x4513D0"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1331,10 +1429,24 @@
      "0x8235E0",
      "0x8236D0",
      "0x823840",
-     "0x8238C0"
+     "0x8238C0",
+     "0x8239E0",
+     "0x823A30",
+     "0x823D20",
+     "0x823D70",
+     "0x823DB0",
+     "0x823DE0"
     ],
     "merged": [],
-    "name": "common/connect.cpp"
+    "name": "common/connect.cpp",
+    "tiebreak": [
+     "0x8239E0",
+     "0x823A30",
+     "0x823D20",
+     "0x823D70",
+     "0x823DB0",
+     "0x823DE0"
+    ]
    },
    "control_keys_manager": {
     "ambiguous": [
@@ -1344,29 +1456,21 @@
      "0x42AAE0",
      "0x42AC90",
      "0x42AFF0",
-     "0x42B020",
      "0x42B250",
-     "0x42B2C0",
      "0x42B2F0",
      "0x42B340",
      "0x42CA60",
      "0x42D180",
      "0x4333A0",
      "0x4333D0",
-     "0x436730",
-     "0x436980",
      "0x43CEA0",
-     "0x43D2A0",
      "0x440560",
-     "0x451420",
      "0x4A0B20",
      "0x4B7030",
      "0x4C7290",
      "0x60A3E0",
      "0x6994D0",
-     "0x71C9C0",
-     "0x71F110",
-     "0x71F180"
+     "0x71C9C0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1437,15 +1541,45 @@
      "0x71EA20",
      "0x71EBC0",
      "0x71F050",
+     "0x71F110",
+     "0x71F180",
+     "0x71F2A0",
+     "0x71FD30",
+     "0x71FEB0",
+     "0x720180",
+     "0x7201B0",
+     "0x7201F0",
      "0x720580",
+     "0x720850",
+     "0x7208A0",
      "0x720A00",
      "0x721360",
      "0x7213F0",
      "0x721600",
-     "0x721A40"
+     "0x721990",
+     "0x7219D0",
+     "0x721A10",
+     "0x721A40",
+     "0x721C00"
     ],
     "merged": [],
-    "name": "client/control_keys_manager.cpp"
+    "name": "client/control_keys_manager.cpp",
+    "tiebreak": [
+     "0x71F110",
+     "0x71F180",
+     "0x71F2A0",
+     "0x71FD30",
+     "0x71FEB0",
+     "0x720180",
+     "0x7201B0",
+     "0x7201F0",
+     "0x720850",
+     "0x7208A0",
+     "0x721990",
+     "0x7219D0",
+     "0x721A10",
+     "0x721C00"
+    ]
    },
    "cordcon": {
     "ambiguous": [
@@ -1712,9 +1846,7 @@
    "delta": {
     "ambiguous": [
      "0x42AFF0",
-     "0x42B2F0",
-     "0x4333D0",
-     "0x436730"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -1751,10 +1883,16 @@
      "0x4A58F0",
      "0x4A5A30",
      "0x4A5F00",
+     "0x4A5F50",
+     "0x4A5F90",
      "0x4A5FD0"
     ],
     "merged": [],
-    "name": "shared/auxdata/delta.cpp"
+    "name": "shared/auxdata/delta.cpp",
+    "tiebreak": [
+     "0x4A5F50",
+     "0x4A5F90"
+    ]
    },
    "delta_interpolator": {
     "ambiguous": [
@@ -1980,15 +2118,18 @@
      "0x6EB9B0",
      "0x6EC570",
      "0x6EC7D0",
-     "0x6EC950"
+     "0x6EC950",
+     "0x6ECB70"
     ],
     "merged": [],
-    "name": "client/eff_o.cpp"
+    "name": "client/eff_o.cpp",
+    "tiebreak": [
+     "0x6ECB70"
+    ]
    },
    "encode": {
     "ambiguous": [
-     "0x42B2F0",
-     "0x430450"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -2020,10 +2161,18 @@
      "0x4AA710",
      "0x4AA8B0",
      "0x4AA8E0",
-     "0x4AAA00"
+     "0x4AA9C0",
+     "0x4AAA00",
+     "0x4AAAE0",
+     "0x4AAB20"
     ],
     "merged": [],
-    "name": "shared/auxdata/encode.cpp"
+    "name": "shared/auxdata/encode.cpp",
+    "tiebreak": [
+     "0x4AA9C0",
+     "0x4AAAE0",
+     "0x4AAB20"
+    ]
    },
    "extrap": {
     "ambiguous": [
@@ -2108,15 +2257,10 @@
      "0x42A6C0",
      "0x42A900",
      "0x42AAE0",
-     "0x42AC90",
-     "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
      "0x42D180",
      "0x432C00",
-     "0x4333D0",
-     "0x436420",
-     "0x436730",
      "0x440560",
      "0x4B9D80"
     ],
@@ -2193,11 +2337,27 @@
      "0x6C60E0",
      "0x6C6150",
      "0x6C64E0",
+     "0x6C6530",
      "0x6C65A0",
+     "0x6C6670",
+     "0x6C6840",
      "0x6C68B0",
+     "0x6C6980",
+     "0x6C6FE0",
      "0x6C7280",
+     "0x6C75C0",
      "0x6C7610",
+     "0x6C7950",
      "0x6C79A0",
+     "0x6C7D80",
+     "0x6C7F00",
+     "0x6C8380",
+     "0x6C8620",
+     "0x6C8660",
+     "0x6C86A0",
+     "0x6C86E0",
+     "0x6C8720",
+     "0x6C8760",
      "0x6C87A0",
      "0x6C8950",
      "0x6C8A80",
@@ -2207,6 +2367,10 @@
      "0x6C8D70",
      "0x6C8DF0",
      "0x6C8F20",
+     "0x6C90B0",
+     "0x6C90E0",
+     "0x6C9110",
+     "0x6C9140",
      "0x6C91A0",
      "0x6C9380",
      "0x6C9560",
@@ -2214,27 +2378,42 @@
      "0x6CA010"
     ],
     "merged": [],
-    "name": "client/fontdatabase.cpp"
+    "name": "client/fontdatabase.cpp",
+    "tiebreak": [
+     "0x6C6530",
+     "0x6C6670",
+     "0x6C6840",
+     "0x6C6980",
+     "0x6C6FE0",
+     "0x6C75C0",
+     "0x6C7950",
+     "0x6C7D80",
+     "0x6C7F00",
+     "0x6C8380",
+     "0x6C8620",
+     "0x6C8660",
+     "0x6C86A0",
+     "0x6C86E0",
+     "0x6C8720",
+     "0x6C8760",
+     "0x6C90B0",
+     "0x6C90E0",
+     "0x6C9110",
+     "0x6C9140"
+    ]
    },
    "fontmanager": {
     "ambiguous": [
      "0x42A6C0",
      "0x42A900",
      "0x42AAE0",
-     "0x42AC90",
-     "0x42AFF0",
      "0x42B250",
-     "0x42B2C0",
      "0x42B2F0",
      "0x42D180",
-     "0x4333A0",
-     "0x4333D0",
-     "0x436730",
      "0x440560",
      "0x46BE90",
      "0x474080",
      "0x497300",
-     "0x4C7290",
      "0x4DF8B0",
      "0x4DF930",
      "0x6D46D0"
@@ -2296,26 +2475,49 @@
      "0x6D2A70",
      "0x6D2BA0",
      "0x6D2DE0",
+     "0x6D2EF0",
      "0x6D2F60",
      "0x6D3010",
      "0x6D33A0",
+     "0x6D38B0",
+     "0x6D3B50",
+     "0x6D3B80",
+     "0x6D3BC0",
+     "0x6D3C00",
+     "0x6D3C40",
      "0x6D3C80",
      "0x6D3DB0",
      "0x6D3F40",
+     "0x6D3FC0",
+     "0x6D4030",
+     "0x6D4060",
      "0x6D4090",
      "0x6D40E0",
      "0x6D42C0",
+     "0x6D4640",
      "0x6D46A0"
     ],
     "merged": [],
-    "name": "client/fontmanager.cpp"
+    "name": "client/fontmanager.cpp",
+    "tiebreak": [
+     "0x6D2EF0",
+     "0x6D38B0",
+     "0x6D3B50",
+     "0x6D3B80",
+     "0x6D3BC0",
+     "0x6D3C00",
+     "0x6D3C40",
+     "0x6D3FC0",
+     "0x6D4030",
+     "0x6D4060",
+     "0x6D4640"
+    ]
    },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
      "0x463D20",
-     "0x466780",
-     "0x4668F0"
+     "0x466780"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -2334,10 +2536,14 @@
      "0x4667D0",
      "0x466820",
      "0x466860",
-     "0x4668A0"
+     "0x4668A0",
+     "0x4668F0"
     ],
     "merged": [],
-    "name": "shared/heightfield.cpp"
+    "name": "shared/heightfield.cpp",
+    "tiebreak": [
+     "0x4668F0"
+    ]
    },
    "ini_manager": {
     "ambiguous": [
@@ -2398,7 +2604,6 @@
    "inpdsp": {
     "ambiguous": [
      "0x42B250",
-     "0x42B2C0",
      "0x42B2F0",
      "0x42B340"
     ],
@@ -2428,15 +2633,18 @@
      "0x42AF30",
      "0x42AFF0",
      "0x42B020",
-     "0x42B080"
+     "0x42B080",
+     "0x42B2C0"
     ],
     "merged": [],
-    "name": "input/inpdsp.cpp"
+    "name": "input/inpdsp.cpp",
+    "tiebreak": [
+     "0x42B2C0"
+    ]
    },
    "inpkeys": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42A890",
      "0x42A900",
      "0x42AAE0",
      "0x42AC90",
@@ -2464,15 +2672,21 @@
      "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
+     "0x42CE80",
      "0x42CF30",
      "0x42D050",
+     "0x42D5D0",
      "0x42D8A0",
      "0x42D9D0",
      "0x42DB00",
      "0x42DB80"
     ],
     "merged": [],
-    "name": "input/inpkeys.cpp"
+    "name": "input/inpkeys.cpp",
+    "tiebreak": [
+     "0x42CE80",
+     "0x42D5D0"
+    ]
    },
    "kernel": {
     "ambiguous": [
@@ -2555,9 +2769,7 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42A900",
-     "0x42AAE0",
      "0x42B250",
-     "0x42B2C0",
      "0x42B2F0",
      "0x4B7E00",
      "0x4B7E30"
@@ -2583,15 +2795,23 @@
      "0x4B6CE0",
      "0x4B6DC0",
      "0x4B7130",
+     "0x4B73F0",
      "0x4B7420",
      "0x4B76C0",
+     "0x4B7840",
      "0x4B7870",
      "0x4B79A0",
      "0x4B7B30",
-     "0x4B7B80"
+     "0x4B7B80",
+     "0x4B7D80"
     ],
     "merged": [],
-    "name": "shared/kv_list.cpp"
+    "name": "shared/kv_list.cpp",
+    "tiebreak": [
+     "0x4B73F0",
+     "0x4B7840",
+     "0x4B7D80"
+    ]
    },
    "kv_pair": {
     "ambiguous": [],
@@ -2625,7 +2845,6 @@
      "0x42A6C0",
      "0x42A900",
      "0x42AAE0",
-     "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
      "0x4B7E00",
@@ -2668,11 +2887,15 @@
      "0x4BAA40",
      "0x4BAA80",
      "0x4BABB0",
+     "0x4BAC70",
      "0x4BACA0",
      "0x4BACD0"
     ],
     "merged": [],
-    "name": "shared/kv_tripl.cpp"
+    "name": "shared/kv_tripl.cpp",
+    "tiebreak": [
+     "0x4BAC70"
+    ]
    },
    "land": {
     "ambiguous": [
@@ -2940,7 +3163,6 @@
    "lookup": {
     "ambiguous": [
      "0x42A900",
-     "0x42B2C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
@@ -2962,10 +3184,14 @@
      "0x4ACF00",
      "0x4ACF30",
      "0x4AD240",
-     "0x4AD280"
+     "0x4AD280",
+     "0x4AD300"
     ],
     "merged": [],
-    "name": "shared/auxdata/lookup.cpp"
+    "name": "shared/auxdata/lookup.cpp",
+    "tiebreak": [
+     "0x4AD300"
+    ]
    },
    "lookup_table": {
     "ambiguous": [
@@ -2976,15 +3202,13 @@
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
-     "0x42D180",
      "0x436420",
      "0x451060",
      "0x455FB0",
      "0x46BE90",
      "0x474080",
      "0x4A0B20",
-     "0x4DA8F0",
-     "0x4DCFF0"
+     "0x4DA8F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3024,17 +3248,25 @@
      "0x4EDE30",
      "0x4EDED0",
      "0x4EDFB0",
+     "0x4EDFE0",
      "0x4EE020",
      "0x4EE100",
      "0x4EE230",
+     "0x4EE260",
      "0x4EE2A0",
      "0x4EE380",
      "0x4EE4E0",
+     "0x4EE510",
      "0x4EE550",
      "0x4EE630",
      "0x4EE7A0",
+     "0x4EE7D0",
+     "0x4EEA50",
      "0x4EEB80",
      "0x4EEC20",
+     "0x4EECF0",
+     "0x4EF450",
+     "0x4EF5D0",
      "0x4EF8A0",
      "0x4EFA00",
      "0x4EFCA0",
@@ -3042,7 +3274,17 @@
      "0x4EFF50"
     ],
     "merged": [],
-    "name": "shared/lookup_table.cpp"
+    "name": "shared/lookup_table.cpp",
+    "tiebreak": [
+     "0x4EDFE0",
+     "0x4EE260",
+     "0x4EE510",
+     "0x4EE7D0",
+     "0x4EEA50",
+     "0x4EECF0",
+     "0x4EF450",
+     "0x4EF5D0"
+    ]
    },
    "mainview": {
     "ambiguous": [
@@ -3121,10 +3363,7 @@
    "memconn": {
     "ambiguous": [
      "0x42B2F0",
-     "0x443F30",
-     "0x444190",
-     "0x49CB70",
-     "0x4D8F80"
+     "0x443F30"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3140,6 +3379,7 @@
      "0x826790",
      "0x8267E0",
      "0x826870",
+     "0x8269E0",
      "0x826A50",
      "0x826C60",
      "0x826CB0",
@@ -3151,10 +3391,21 @@
      "0x8271B0",
      "0x827250",
      "0x8272A0",
-     "0x827340"
+     "0x827340",
+     "0x827400",
+     "0x827450",
+     "0x8274C0",
+     "0x827510"
     ],
     "merged": [],
-    "name": "common/memconn.cpp"
+    "name": "common/memconn.cpp",
+    "tiebreak": [
+     "0x8269E0",
+     "0x827400",
+     "0x827450",
+     "0x8274C0",
+     "0x827510"
+    ]
    },
    "name": {
     "ambiguous": [],
@@ -3182,19 +3433,8 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42A900",
-     "0x42AAE0",
-     "0x42AFF0",
      "0x42B250",
-     "0x42B2F0",
-     "0x42D180",
-     "0x4333D0",
-     "0x436730",
-     "0x440560",
-     "0x455FB0",
-     "0x4B9D80",
-     "0x4DF8B0",
-     "0x4DF930",
-     "0x60A3E0"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3244,11 +3484,33 @@
      "0x7F9F10",
      "0x7FA120",
      "0x7FA330",
+     "0x7FA6D0",
+     "0x7FA740",
+     "0x7FA910",
+     "0x7FA9C0",
+     "0x7FAA70",
+     "0x7FAB20",
      "0x7FABD0",
+     "0x7FAF10",
      "0x7FAF60",
+     "0x7FB2A0",
      "0x7FB2F0",
+     "0x7FB630",
      "0x7FB680",
+     "0x7FB9C0",
      "0x7FBA10",
+     "0x7FBD50",
+     "0x7FBD80",
+     "0x7FBDD0",
+     "0x7FBE10",
+     "0x7FBE50",
+     "0x7FBE90",
+     "0x7FBED0",
+     "0x7FBF10",
+     "0x7FBF50",
+     "0x7FBF90",
+     "0x7FBFD0",
+     "0x7FC010",
      "0x7FC050",
      "0x7FC0D0",
      "0x7FC200",
@@ -3269,9 +3531,19 @@
      "0x7FCE30",
      "0x7FCF50",
      "0x7FD070",
+     "0x7FD190",
+     "0x7FD1C0",
+     "0x7FD1F0",
+     "0x7FD220",
+     "0x7FD250",
      "0x7FD280",
      "0x7FD2B0",
      "0x7FD2E0",
+     "0x7FD310",
+     "0x7FD360",
+     "0x7FD3B0",
+     "0x7FD400",
+     "0x7FD450",
      "0x7FD520",
      "0x7FD560",
      "0x7FD5D0",
@@ -3279,15 +3551,79 @@
      "0x7FD710",
      "0x7FD740",
      "0x7FD890",
+     "0x7FD960",
+     "0x7FDAE0",
+     "0x7FDC60",
+     "0x7FDDE0",
+     "0x7FDF60",
      "0x7FE0E0",
      "0x7FEB60",
+     "0x7FEB90",
+     "0x7FEC10",
      "0x7FEC50",
+     "0x7FEC80",
+     "0x7FED00",
      "0x7FED40",
+     "0x7FED70",
+     "0x7FEDF0",
      "0x7FEE30",
-     "0x7FEF20"
+     "0x7FEE60",
+     "0x7FEEE0",
+     "0x7FEF20",
+     "0x7FEF50",
+     "0x7FEFD0"
     ],
     "merged": [],
-    "name": "client/option.cpp"
+    "name": "client/option.cpp",
+    "tiebreak": [
+     "0x7FA6D0",
+     "0x7FA740",
+     "0x7FA910",
+     "0x7FA9C0",
+     "0x7FAA70",
+     "0x7FAB20",
+     "0x7FAF10",
+     "0x7FB2A0",
+     "0x7FB630",
+     "0x7FB9C0",
+     "0x7FBD50",
+     "0x7FBD80",
+     "0x7FBDD0",
+     "0x7FBE10",
+     "0x7FBE50",
+     "0x7FBE90",
+     "0x7FBED0",
+     "0x7FBF10",
+     "0x7FBF50",
+     "0x7FBF90",
+     "0x7FBFD0",
+     "0x7FC010",
+     "0x7FD190",
+     "0x7FD1C0",
+     "0x7FD1F0",
+     "0x7FD220",
+     "0x7FD250",
+     "0x7FD310",
+     "0x7FD360",
+     "0x7FD3B0",
+     "0x7FD400",
+     "0x7FD450",
+     "0x7FD960",
+     "0x7FDAE0",
+     "0x7FDC60",
+     "0x7FDDE0",
+     "0x7FDF60",
+     "0x7FEB90",
+     "0x7FEC10",
+     "0x7FEC80",
+     "0x7FED00",
+     "0x7FED70",
+     "0x7FEDF0",
+     "0x7FEE60",
+     "0x7FEEE0",
+     "0x7FEF50",
+     "0x7FEFD0"
+    ]
    },
    "permstr": {
     "ambiguous": [
@@ -3361,13 +3697,9 @@
      "0x42A900",
      "0x42AAE0",
      "0x42AFF0",
-     "0x42B2C0",
      "0x42B2F0",
      "0x4333D0",
      "0x436730",
-     "0x451030",
-     "0x451370",
-     "0x4513D0",
      "0x4D7BF0"
     ],
     "copy": "reconstructed",
@@ -3407,10 +3739,20 @@
      "0x875020",
      "0x875060",
      "0x875280",
-     "0x8752F0"
+     "0x8752F0",
+     "0x875390",
+     "0x8753E0",
+     "0x875430",
+     "0x875470"
     ],
     "merged": [],
-    "name": "packets/pk_player_object_relationship.cpp"
+    "name": "packets/pk_player_object_relationship.cpp",
+    "tiebreak": [
+     "0x875390",
+     "0x8753E0",
+     "0x875430",
+     "0x875470"
+    ]
    },
    "pk_sub_parts": {
     "ambiguous": [
@@ -3479,8 +3821,7 @@
    },
    "pkauxdata": {
     "ambiguous": [
-     "0x42B2F0",
-     "0x876F60"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3493,14 +3834,20 @@
      "0x876D30",
      "0x876E60",
      "0x876E90",
+     "0x876F60",
      "0x876FA0",
      "0x8770A0",
      "0x8770E0",
      "0x877200",
-     "0x877230"
+     "0x877230",
+     "0x877300"
     ],
     "merged": [],
-    "name": "packets/pkauxdata.cpp"
+    "name": "packets/pkauxdata.cpp",
+    "tiebreak": [
+     "0x876F60",
+     "0x877300"
+    ]
    },
    "pkcameracontrol": {
     "ambiguous": [
@@ -3670,8 +4017,7 @@
    "pkcolorization": {
     "ambiguous": [
      "0x42A900",
-     "0x42B2F0",
-     "0x62A5D0"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3683,6 +4029,7 @@
      "0x52B350",
      "0x62A0A0",
      "0x62A560",
+     "0x62A5D0",
      "0x87F320",
      "0x87F4A0",
      "0x87F4D0",
@@ -3692,7 +4039,10 @@
      "0x87F8A0"
     ],
     "merged": [],
-    "name": "packets/pkcolorization.cpp"
+    "name": "packets/pkcolorization.cpp",
+    "tiebreak": [
+     "0x62A5D0"
+    ]
    },
    "pkconfirmedaction": {
     "ambiguous": [
@@ -3961,9 +4311,7 @@
    "pkfindmember": {
     "ambiguous": [
      "0x42B2F0",
-     "0x443F30",
-     "0x444190",
-     "0x49CB70"
+     "0x443F30"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3980,10 +4328,16 @@
      "0x886890",
      "0x8869F0",
      "0x886B00",
-     "0x886B30"
+     "0x886B30",
+     "0x886BD0",
+     "0x886C20"
     ],
     "merged": [],
-    "name": "packets/pkfindmember.cpp"
+    "name": "packets/pkfindmember.cpp",
+    "tiebreak": [
+     "0x886BD0",
+     "0x886C20"
+    ]
    },
    "pkfindplayerrequest": {
     "ambiguous": [
@@ -4762,8 +5116,6 @@
      "0x42A900",
      "0x42B2F0",
      "0x42CA60",
-     "0x451030",
-     "0x451370",
      "0x4513D0"
     ],
     "copy": "reconstructed",
@@ -4897,10 +5249,16 @@
      "0x893FE0",
      "0x894050",
      "0x894130",
-     "0x894180"
+     "0x894180",
+     "0x8942B0",
+     "0x894350"
     ],
     "merged": [],
-    "name": "packets/pkguildplayeronline.cpp"
+    "name": "packets/pkguildplayeronline.cpp",
+    "tiebreak": [
+     "0x8942B0",
+     "0x894350"
+    ]
    },
    "pkguildranknamesrequestclient": {
     "ambiguous": [
@@ -5173,9 +5531,7 @@
      "0x42A6C0",
      "0x42A900",
      "0x42B2F0",
-     "0x436420",
-     "0x455FB0",
-     "0x4A0B20"
+     "0x455FB0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -5212,10 +5568,16 @@
      "0x896F10",
      "0x896F60",
      "0x897020",
-     "0x897120"
+     "0x897120",
+     "0x8971A0",
+     "0x897440"
     ],
     "merged": [],
-    "name": "packets/pkjoblist.cpp"
+    "name": "packets/pkjoblist.cpp",
+    "tiebreak": [
+     "0x8971A0",
+     "0x897440"
+    ]
    },
    "pklogin": {
     "ambiguous": [
@@ -5301,8 +5663,7 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42A900",
-     "0x42B2F0",
-     "0x60A9D0"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -5350,11 +5711,15 @@
      "0x899F80",
      "0x89A110",
      "0x89A2D0",
+     "0x89A320",
      "0x89A360",
      "0x89A560"
     ],
     "merged": [],
-    "name": "packets/pkloungenpc.cpp"
+    "name": "packets/pkloungenpc.cpp",
+    "tiebreak": [
+     "0x89A320"
+    ]
    },
    "pkmanufactureitemcatagorypacket": {
     "ambiguous": [
@@ -5707,8 +6072,7 @@
    "pknotelist": {
     "ambiguous": [
      "0x42B2F0",
-     "0x443F30",
-     "0x49CB70"
+     "0x443F30"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -5732,10 +6096,14 @@
      "0x87F0E0",
      "0x87F110",
      "0x87F1E0",
-     "0x87F200"
+     "0x87F200",
+     "0x87F2A0"
     ],
     "merged": [],
-    "name": "packets/pknotelist.cpp"
+    "name": "packets/pknotelist.cpp",
+    "tiebreak": [
+     "0x87F2A0"
+    ]
    },
    "pkopeninterface": {
     "ambiguous": [
@@ -5910,13 +6278,17 @@
      "0x8A0EF0",
      "0x8A0F20",
      "0x8A0FF0",
+     "0x8A1020",
      "0x8A1090",
      "0x8A13B0",
      "0x8A1480",
      "0x8A14A0"
     ],
     "merged": [],
-    "name": "packets/pkrecustomize.cpp"
+    "name": "packets/pkrecustomize.cpp",
+    "tiebreak": [
+     "0x8A1020"
+    ]
    },
    "pkreferralpointsavailable": {
     "ambiguous": [
@@ -6407,9 +6779,7 @@
     "ambiguous": [
      "0x42B2F0",
      "0x443F30",
-     "0x49CB70",
-     "0x8A86D0",
-     "0x8A98D0"
+     "0x8A86D0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -6452,10 +6822,12 @@
      "0x8A9710",
      "0x8A97D0",
      "0x8A9800",
+     "0x8A98D0",
      "0x8A9910",
      "0x8A9A40",
      "0x8A9A80",
      "0x8A9B40",
+     "0x8A9B70",
      "0x8A9BB0",
      "0x8A9CB0",
      "0x8A9CF0",
@@ -6476,10 +6848,16 @@
      "0x8AA820",
      "0x8AA870",
      "0x8AA8B0",
-     "0x8AA990"
+     "0x8AA990",
+     "0x8AAA30"
     ],
     "merged": [],
-    "name": "packets/pktask.cpp"
+    "name": "packets/pktask.cpp",
+    "tiebreak": [
+     "0x8A98D0",
+     "0x8A9B70",
+     "0x8AAA30"
+    ]
    },
    "pktilt": {
     "ambiguous": [
@@ -7273,6 +7651,7 @@
      "0x8AFF40",
      "0x8B0130",
      "0x8B0150",
+     "0x8B0420",
      "0x8B0460",
      "0x8B0730",
      "0x8B0940",
@@ -7287,7 +7666,10 @@
      "0x8B1510"
     ],
     "merged": [],
-    "name": "packets/pkverbrequest.cpp"
+    "name": "packets/pkverbrequest.cpp",
+    "tiebreak": [
+     "0x8B0420"
+    ]
    },
    "pkversionrequest": {
     "ambiguous": [
@@ -7344,12 +7726,8 @@
    },
    "policy": {
     "ambiguous": [
-     "0x42AFF0",
      "0x42B2F0",
-     "0x4333D0",
-     "0x436730",
-     "0x46BE90",
-     "0x474480"
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -7376,10 +7754,26 @@
      "0x4AFC40",
      "0x4AFF80",
      "0x4B0330",
-     "0x4B0550"
+     "0x4B0360",
+     "0x4B03A0",
+     "0x4B03E0",
+     "0x4B0420",
+     "0x4B0550",
+     "0x4B0590",
+     "0x4B05C0",
+     "0x4B05F0"
     ],
     "merged": [],
-    "name": "shared/auxdata/policy.cpp"
+    "name": "shared/auxdata/policy.cpp",
+    "tiebreak": [
+     "0x4B0360",
+     "0x4B03A0",
+     "0x4B03E0",
+     "0x4B0420",
+     "0x4B0590",
+     "0x4B05C0",
+     "0x4B05F0"
+    ]
    },
    "postate": {
     "ambiguous": [
@@ -7633,10 +8027,18 @@
      "0x44DBC0",
      "0x44DC10",
      "0x44DC50",
-     "0x44DEB0"
+     "0x44DEB0",
+     "0x44DF70",
+     "0x44DFA0",
+     "0x44DFE0"
     ],
     "merged": [],
-    "name": "shared/px_box_list.cpp"
+    "name": "shared/px_box_list.cpp",
+    "tiebreak": [
+     "0x44DF70",
+     "0x44DFA0",
+     "0x44DFE0"
+    ]
    },
    "px_callback_accurate": {
     "ambiguous": [
@@ -7783,11 +8185,7 @@
    "px_wrapper": {
     "ambiguous": [
      "0x42A900",
-     "0x42AAE0",
-     "0x42AFF0",
-     "0x4333D0",
-     "0x436420",
-     "0x436730"
+     "0x4333D0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -7808,10 +8206,20 @@
      "0x457190",
      "0x4573C0",
      "0x4575E0",
-     "0x457670"
+     "0x457670",
+     "0x4577E0",
+     "0x457A80",
+     "0x457AF0",
+     "0x457B30"
     ],
     "merged": [],
-    "name": "shared/px_wrapper.cpp"
+    "name": "shared/px_wrapper.cpp",
+    "tiebreak": [
+     "0x4577E0",
+     "0x457A80",
+     "0x457AF0",
+     "0x457B30"
+    ]
    },
    "race": {
     "ambiguous": [],
@@ -7975,15 +8383,9 @@
      "0x42AAE0",
      "0x42AFF0",
      "0x42B2F0",
-     "0x4333D0",
      "0x436420",
-     "0x436730",
-     "0x438BA0",
      "0x438D60",
-     "0x439020",
-     "0x439050",
      "0x439480",
-     "0x439540",
      "0x440560",
      "0x45CB40",
      "0x45CCE0",
@@ -8090,22 +8492,34 @@
      "0x751660",
      "0x755CE0",
      "0x756140",
+     "0x756550",
+     "0x756910",
+     "0x756940",
      "0x7569D0",
+     "0x7570C0",
      "0x757100",
+     "0x757260",
+     "0x7572A0",
      "0x757410",
      "0x758D60",
      "0x758F90",
      "0x758FE0"
     ],
     "merged": [],
-    "name": "client/sclient.cpp"
+    "name": "client/sclient.cpp",
+    "tiebreak": [
+     "0x756550",
+     "0x756910",
+     "0x756940",
+     "0x7570C0",
+     "0x757260",
+     "0x7572A0"
+    ]
    },
    "scriptedmovie": {
     "ambiguous": [
      "0x42A900",
      "0x42AAE0",
-     "0x42AFF0",
-     "0x42B2C0",
      "0x42B2F0",
      "0x4333D0",
      "0x436730",
@@ -8132,6 +8546,7 @@
      "0x62A0A0",
      "0x62A520",
      "0x62A560",
+     "0x62A5D0",
      "0x69F3B0",
      "0x7FFD30",
      "0x7FFDC0",
@@ -8201,16 +8616,37 @@
      "0x80A570",
      "0x80A5A0",
      "0x80A730",
+     "0x80A8B0",
      "0x80A920",
+     "0x80ABF0",
+     "0x80AC20",
+     "0x80AC60",
+     "0x80ACA0",
+     "0x80AD10",
      "0x80ADF0",
      "0x80AE40",
      "0x80AFA0",
      "0x80AFE0",
+     "0x80B030",
+     "0x80B060",
+     "0x80B0D0",
      "0x899D40",
      "0x899DB0"
     ],
     "merged": [],
-    "name": "client/scriptedmovie.cpp"
+    "name": "client/scriptedmovie.cpp",
+    "tiebreak": [
+     "0x62A5D0",
+     "0x80A8B0",
+     "0x80ABF0",
+     "0x80AC20",
+     "0x80AC60",
+     "0x80ACA0",
+     "0x80AD10",
+     "0x80B030",
+     "0x80B060",
+     "0x80B0D0"
+    ]
    },
    "shipcust_desc": {
     "ambiguous": [
@@ -8293,7 +8729,6 @@
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
-     "0x42D180",
      "0x43E9A0"
     ],
     "copy": "reconstructed",
@@ -8343,12 +8778,16 @@
      "0x4407B0",
      "0x4408A0",
      "0x4408F0",
+     "0x440CD0",
      "0x4410F0",
      "0x441450",
      "0x441480"
     ],
     "merged": [],
-    "name": "audio/soundlib.cpp"
+    "name": "audio/soundlib.cpp",
+    "tiebreak": [
+     "0x440CD0"
+    ]
    },
    "spline": {
     "ambiguous": [],
@@ -8482,8 +8921,7 @@
    "stars": {
     "ambiguous": [
      "0x46BE90",
-     "0x474080",
-     "0x483600"
+     "0x474080"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -8527,11 +8965,19 @@
      "0x483560",
      "0x4835A0",
      "0x4835D0",
+     "0x483600",
      "0x483640",
-     "0x4836B0"
+     "0x483670",
+     "0x4836B0",
+     "0x4836E0"
     ],
     "merged": [],
-    "name": "shared/stars.cpp"
+    "name": "shared/stars.cpp",
+    "tiebreak": [
+     "0x483600",
+     "0x483670",
+     "0x4836E0"
+    ]
    },
    "symbol_substitution": {
     "ambiguous": [
@@ -8582,10 +9028,7 @@
     "name": "shared/symbol_substitution.cpp"
    },
    "tcpconn": {
-    "ambiguous": [
-     "0x42AFF0",
-     "0x632690"
-    ],
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -8626,7 +9069,9 @@
      "0x82BE80",
      "0x82BED0",
      "0x82BF50",
+     "0x82BFD0",
      "0x82C000",
+     "0x82C080",
      "0x82C0B0",
      "0x82C0F0",
      "0x82C170",
@@ -8637,7 +9082,11 @@
      "0x82C530"
     ],
     "merged": [],
-    "name": "common/tcpconn.cpp"
+    "name": "common/tcpconn.cpp",
+    "tiebreak": [
+     "0x82BFD0",
+     "0x82C080"
+    ]
    },
    "tsk_game": {
     "ambiguous": [
@@ -8837,15 +9286,11 @@
      "0x42A6C0",
      "0x42A900",
      "0x42AAE0",
-     "0x42AC90",
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
      "0x42D180",
-     "0x4333D0",
-     "0x436730",
      "0x440560",
-     "0x49CB70",
      "0x4D8F00",
      "0x4D8F80",
      "0x4F8BD0"
@@ -8874,14 +9319,30 @@
      "0x6AD230",
      "0x6AD350",
      "0x6AD3E0",
+     "0x6ADE60",
      "0x6ADF60",
      "0x6AE020",
      "0x6AE250",
+     "0x6AE700",
+     "0x6AE750",
+     "0x6AE790",
+     "0x6AE950",
      "0x6AEBF0",
+     "0x6AEDD0",
+     "0x6AEE00",
      "0x6AEE60"
     ],
     "merged": [],
-    "name": "client/tutorial_manager.cpp"
+    "name": "client/tutorial_manager.cpp",
+    "tiebreak": [
+     "0x6ADE60",
+     "0x6AE700",
+     "0x6AE750",
+     "0x6AE790",
+     "0x6AE950",
+     "0x6AEDD0",
+     "0x6AEE00"
+    ]
    },
    "udpconn": {
     "ambiguous": [
@@ -9006,7 +9467,6 @@
      "0x46BE90",
      "0x474080",
      "0x47D640",
-     "0x4D8F80",
      "0x57DC80"
     ],
     "copy": "reconstructed",
@@ -9072,11 +9532,15 @@
      "0x584E20",
      "0x584E50",
      "0x584EA0",
+     "0x584F20",
      "0x6B2070",
      "0x73F950"
     ],
     "merged": [],
-    "name": "client/ui_cpit.cpp"
+    "name": "client/ui_cpit.cpp",
+    "tiebreak": [
+     "0x584F20"
+    ]
    },
    "ui_group": {
     "ambiguous": [
@@ -9152,19 +9616,13 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42A900",
-     "0x42AAE0",
-     "0x42AC90",
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
-     "0x42D180",
      "0x434070",
-     "0x440560",
-     "0x451420",
      "0x46BE90",
      "0x474080",
-     "0x474480",
-     "0x5A6200"
+     "0x474480"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -9191,6 +9649,8 @@
      "0x5A5C30",
      "0x5A5CC0",
      "0x5A5DA0",
+     "0x5A6200",
+     "0x5A6380",
      "0x5A6550",
      "0x5A6780",
      "0x5A70B0",
@@ -9208,13 +9668,37 @@
      "0x5A8C70",
      "0x5A90E0",
      "0x5A9380",
+     "0x5A93F0",
      "0x5A9460",
+     "0x5A9570",
      "0x5A95E0",
+     "0x5A9770",
+     "0x5A97A0",
+     "0x5A97D0",
+     "0x5A9950",
+     "0x5A9A20",
+     "0x5A9CC0",
+     "0x5A9E40",
+     "0x5A9F10",
      "0x5AA1B0",
      "0x5AA360"
     ],
     "merged": [],
-    "name": "client/ui_line_display.cpp"
+    "name": "client/ui_line_display.cpp",
+    "tiebreak": [
+     "0x5A6200",
+     "0x5A6380",
+     "0x5A93F0",
+     "0x5A9570",
+     "0x5A9770",
+     "0x5A97A0",
+     "0x5A97D0",
+     "0x5A9950",
+     "0x5A9A20",
+     "0x5A9CC0",
+     "0x5A9E40",
+     "0x5A9F10"
+    ]
    },
    "ui_manu": {
     "ambiguous": [
@@ -9687,9 +10171,7 @@
     "name": "shared/unknown_login_data.cpp"
    },
    "unknown_memregistry": {
-    "ambiguous": [
-     "0x42B2C0"
-    ],
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -9712,10 +10194,14 @@
      "0x8288B0",
      "0x8288E0",
      "0x828920",
-     "0x8289A0"
+     "0x8289A0",
+     "0x828A10"
     ],
     "merged": [],
-    "name": "common/unknown_memregistry.cpp"
+    "name": "common/unknown_memregistry.cpp",
+    "tiebreak": [
+     "0x828A10"
+    ]
    },
    "unknown_navlist": {
     "ambiguous": [
@@ -10136,7 +10622,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5133,
+  "in_tree_total": 5391,
   "totals": {}
  },
  "binkmovie": {
@@ -10462,7 +10948,7 @@
   }
  },
  "wnet": {
-  "ambiguous_total": 4,
+  "ambiguous_total": 1,
   "base": "Z",
   "compile_errors": [],
   "files": {
@@ -10525,10 +11011,7 @@
    },
    "tcpqueue": {
     "ambiguous": [
-     "0x76FE80",
-     "0x76FEE0",
-     "0x778CF0",
-     "0x856320"
+     "0x76FE80"
     ],
     "copy": "reconstructed",
     "expected": {
@@ -10543,10 +11026,18 @@
      "0x8BEA30",
      "0x8BEAC0",
      "0x8BED40",
-     "0x8BF1C0"
+     "0x8BF1C0",
+     "0x8BF620",
+     "0x8BF7E0",
+     "0x8BF8D0"
     ],
     "merged": [],
-    "name": "tcpqueue.cpp"
+    "name": "tcpqueue.cpp",
+    "tiebreak": [
+     "0x8BF620",
+     "0x8BF7E0",
+     "0x8BF8D0"
+    ]
    },
    "udp": {
     "ambiguous": [],
@@ -10571,14 +11062,14 @@
    "tcpqueue.h": "reconstructed",
    "udp.h": "Z"
   },
-  "in_tree_total": 41,
+  "in_tree_total": 44,
   "totals": {
    "R": 7,
    "Z": 3
   }
  },
  "ww3d2": {
-  "ambiguous_total": 87,
+  "ambiguous_total": 80,
   "base": "R",
   "compile_errors": [],
   "files": {
@@ -10722,9 +11213,7 @@
     "name": "agg_def.cpp"
    },
    "animatedsoundmgr": {
-    "ambiguous": [
-     "0x90A8A0"
-    ],
+    "ambiguous": [],
     "best": "Z",
     "copy": "Z",
     "expected": {
@@ -10775,10 +11264,14 @@
      "0x90A790",
      "0x90A800",
      "0x90A850",
+     "0x90A8A0",
      "0x9DA8C0"
     ],
     "merged": [],
-    "name": "animatedsoundmgr.cpp"
+    "name": "animatedsoundmgr.cpp",
+    "tiebreak": [
+     "0x90A8A0"
+    ]
    },
    "animobj": {
     "ambiguous": [],
@@ -10955,9 +11448,7 @@
    },
    "assetstatus": {
     "ambiguous": [
-     "0x90A790",
-     "0x90A8A0",
-     "0x91BFB0"
+     "0x90A790"
     ],
     "best": "R",
     "copy": "R",
@@ -10983,10 +11474,16 @@
      "0x9A7310",
      "0x9A7510",
      "0x9A7700",
-     "0x9A78F0"
+     "0x9A78F0",
+     "0x9A7B60",
+     "0x9A7DF0"
     ],
     "merged": [],
-    "name": "assetstatus.cpp"
+    "name": "assetstatus.cpp",
+    "tiebreak": [
+     "0x9A7B60",
+     "0x9A7DF0"
+    ]
    },
    "bitmaphandler": {
     "ambiguous": [],
@@ -11587,7 +12084,6 @@
    "decalmsh": {
     "ambiguous": [
      "0x8DD750",
-     "0x8DD780",
      "0x8DF850",
      "0x8DF8E0",
      "0x90A250",
@@ -11662,13 +12158,33 @@
      "0x9BA120",
      "0x9BA180",
      "0x9BA1C0",
+     "0x9BA220",
+     "0x9BA250",
+     "0x9BA270",
+     "0x9BA290",
+     "0x9BA2C0",
      "0x9BA2F0",
+     "0x9BA370",
      "0x9BA3A0",
+     "0x9BA440",
      "0x9BA460",
+     "0x9BA4F0",
+     "0x9BA520",
      "0x9BA540"
     ],
     "merged": [],
-    "name": "decalmsh.cpp"
+    "name": "decalmsh.cpp",
+    "tiebreak": [
+     "0x9BA220",
+     "0x9BA250",
+     "0x9BA270",
+     "0x9BA290",
+     "0x9BA2C0",
+     "0x9BA370",
+     "0x9BA440",
+     "0x9BA4F0",
+     "0x9BA520"
+    ]
    },
    "decalsys": {
     "ambiguous": [],
@@ -12046,9 +12562,7 @@
     "name": "dx8renderer.cpp"
    },
    "dx8rendererdebugger": {
-    "ambiguous": [
-     "0x9190B0"
-    ],
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -12066,10 +12580,14 @@
      "0x9C4DF0",
      "0x9C4E70",
      "0x9C4EF0",
-     "0x9C4F90"
+     "0x9C4F90",
+     "0x9C5030"
     ],
     "merged": [],
-    "name": "dx8rendererdebugger.cpp"
+    "name": "dx8rendererdebugger.cpp",
+    "tiebreak": [
+     "0x9C5030"
+    ]
    },
    "dx8texman": {
     "ambiguous": [],
@@ -12144,7 +12662,6 @@
    },
    "dx8webbrowser": {
     "ambiguous": [
-     "0x604150",
      "0x7C9E90"
     ],
     "best": "Z",
@@ -12172,10 +12689,14 @@
      "0x920B90",
      "0x920C20",
      "0x920CE0",
-     "0x920D00"
+     "0x920D00",
+     "0x920D30"
     ],
     "merged": [],
-    "name": "dx8webbrowser.cpp"
+    "name": "dx8webbrowser.cpp",
+    "tiebreak": [
+     "0x920D30"
+    ]
    },
    "dx8wrapper": {
     "ambiguous": [
@@ -12693,6 +13214,7 @@
      "0x98B970",
      "0x98B990",
      "0x98B9F0",
+     "0x98BA70",
      "0x98BAD0",
      "0x98BBE0",
      "0x98BD00",
@@ -12787,7 +13309,10 @@
      "0x990180"
     ],
     "merged": [],
-    "name": "hlod.cpp"
+    "name": "hlod.cpp",
+    "tiebreak": [
+     "0x98BA70"
+    ]
    },
    "hmdldef": {
     "ambiguous": [
@@ -12819,9 +13344,7 @@
     "name": "hmdldef.cpp"
    },
    "hmorphanim": {
-    "ambiguous": [
-     "0x8DD750"
-    ],
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -12872,7 +13395,8 @@
      "0x9888E0",
      "0x9889B0",
      "0x9889E0",
-     "0x988A20"
+     "0x988A20",
+     "0x988A80"
     ],
     "merged": [
      {
@@ -12880,7 +13404,10 @@
       "function": "HMorphAnimClass::Create_New_Morph"
      }
     ],
-    "name": "hmorphanim.cpp"
+    "name": "hmorphanim.cpp",
+    "tiebreak": [
+     "0x988A80"
+    ]
    },
    "hrawanim": {
     "ambiguous": [
@@ -12978,7 +13505,6 @@
    "htreemgr": {
     "ambiguous": [
      "0x90A790",
-     "0x91BFB0",
      "0x963FF0"
     ],
     "best": "R",
@@ -13001,10 +13527,14 @@
      "0x964310",
      "0x964360",
      "0x964380",
-     "0x9644A0"
+     "0x9644A0",
+     "0x964530"
     ],
     "merged": [],
-    "name": "htreemgr.cpp"
+    "name": "htreemgr.cpp",
+    "tiebreak": [
+     "0x964530"
+    ]
    },
    "intersec": {
     "ambiguous": [],
@@ -13741,7 +14271,6 @@
      "0x48A960",
      "0x48AB30",
      "0x656410",
-     "0x70AC60",
      "0x8D4F90",
      "0x8D5090",
      "0x92D7D0"
@@ -13804,11 +14333,15 @@
      "0x95B110",
      "0x95B510",
      "0x95B570",
+     "0x95B6C0",
      "0x95B6F0",
      "0x95B8A0"
     ],
     "merged": [],
-    "name": "meshmdl.cpp"
+    "name": "meshmdl.cpp",
+    "tiebreak": [
+     "0x95B6C0"
+    ]
    },
    "meshmdlio": {
     "ambiguous": [
@@ -14146,10 +14679,16 @@
      "0x963BF0",
      "0x963C50",
      "0x963D20",
-     "0x963DF0"
+     "0x963DC0",
+     "0x963DF0",
+     "0x963E70"
     ],
     "merged": [],
-    "name": "part_buf.cpp"
+    "name": "part_buf.cpp",
+    "tiebreak": [
+     "0x963DC0",
+     "0x963E70"
+    ]
    },
    "part_emt": {
     "ambiguous": [
@@ -14827,12 +15366,10 @@
    },
    "ringobj": {
     "ambiguous": [
-     "0x499720",
      "0x62A5D0",
      "0x8DD750",
      "0x8DD780",
      "0x910360",
-     "0x9141A0",
      "0x941390"
     ],
     "best": "R",
@@ -14961,10 +15498,22 @@
      "0x914000",
      "0x914040",
      "0x9140A0",
-     "0x914100"
+     "0x914100",
+     "0x9141A0",
+     "0x914210",
+     "0x914240",
+     "0x914260",
+     "0x914290"
     ],
     "merged": [],
-    "name": "ringobj.cpp"
+    "name": "ringobj.cpp",
+    "tiebreak": [
+     "0x9141A0",
+     "0x914210",
+     "0x914240",
+     "0x914260",
+     "0x914290"
+    ]
    },
    "scene": {
     "ambiguous": [],
@@ -15174,7 +15723,6 @@
     "ambiguous": [
      "0x48AAC0",
      "0x497350",
-     "0x8DD750",
      "0x8DF850",
      "0x8DF8E0",
      "0x90A250",
@@ -15245,10 +15793,14 @@
      "0x9AEF80",
      "0x9AEFC0",
      "0x9AF020",
-     "0x9AF060"
+     "0x9AF060",
+     "0x9AF0C0"
     ],
     "merged": [],
-    "name": "shattersystem.cpp"
+    "name": "shattersystem.cpp",
+    "tiebreak": [
+     "0x9AF0C0"
+    ]
    },
    "snappts": {
     "ambiguous": [],
@@ -15352,10 +15904,8 @@
    "sphereobj": {
     "ambiguous": [
      "0x62A5D0",
-     "0x70AC60",
      "0x8DD750",
      "0x8DD780",
-     "0x90AF00",
      "0x910360",
      "0x941390"
     ],
@@ -15393,6 +15943,7 @@
      "0x90ABA0",
      "0x90ABC0",
      "0x90ADF0",
+     "0x90AF00",
      "0x90AF30",
      "0x90AF60",
      "0x90AFE0",
@@ -15441,6 +15992,7 @@
      "0x90D900",
      "0x90D9F0",
      "0x90DB20",
+     "0x90DE90",
      "0x90DEC0",
      "0x90DFE0",
      "0x90E120",
@@ -15488,10 +16040,22 @@
      "0x910200",
      "0x910240",
      "0x9102A0",
-     "0x910390"
+     "0x910360",
+     "0x910390",
+     "0x910460",
+     "0x9104B0",
+     "0x9104E0"
     ],
     "merged": [],
-    "name": "sphereobj.cpp"
+    "name": "sphereobj.cpp",
+    "tiebreak": [
+     "0x90AF00",
+     "0x90DE90",
+     "0x910360",
+     "0x910460",
+     "0x9104B0",
+     "0x9104E0"
+    ]
    },
    "static_sort_list": {
     "ambiguous": [],
@@ -15519,7 +16083,6 @@
    },
    "statistics": {
     "ambiguous": [
-     "0x8DD750",
      "0x993820",
      "0x9938C0",
      "0x993900"
@@ -15543,10 +16106,14 @@
      "0x993230",
      "0x993260",
      "0x9933A0",
-     "0x993450"
+     "0x993450",
+     "0x993A40"
     ],
     "merged": [],
-    "name": "statistics.cpp"
+    "name": "statistics.cpp",
+    "tiebreak": [
+     "0x993A40"
+    ]
    },
    "streak": {
     "ambiguous": [
@@ -15853,6 +16420,7 @@
      "0x94A1E0",
      "0x94A250",
      "0x94A2D0",
+     "0x94A3A0",
      "0x94A3F0",
      "0x94A480",
      "0x94A4B0",
@@ -15869,18 +16437,15 @@
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "textureloader.cpp"
+    "name": "textureloader.cpp",
+    "tiebreak": [
+     "0x94A3A0"
+    ]
    },
    "texturethumbnail": {
     "ambiguous": [
-     "0x48F720",
-     "0x48F8D0",
      "0x90A790",
-     "0x90A8A0",
-     "0x9190B0",
-     "0x91AC10",
-     "0x91B9D0",
-     "0x91BFB0"
+     "0x91AC10"
     ],
     "best": "R",
     "copy": "Z",
@@ -15925,10 +16490,24 @@
      "0x91B310",
      "0x91B5D0",
      "0x91B840",
-     "0x91B920"
+     "0x91B920",
+     "0x91B970",
+     "0x91B9D0",
+     "0x91BA50",
+     "0x91BBA0",
+     "0x91BD20",
+     "0x91BFB0"
     ],
     "merged": [],
-    "name": "texturethumbnail.cpp"
+    "name": "texturethumbnail.cpp",
+    "tiebreak": [
+     "0x91B970",
+     "0x91B9D0",
+     "0x91BA50",
+     "0x91BBA0",
+     "0x91BD20",
+     "0x91BFB0"
+    ]
    },
    "txt": {
     "ambiguous": [],
@@ -16472,7 +17051,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 2983,
+  "in_tree_total": 3023,
   "totals": {
    "G": 548,
    "R": 1323,
@@ -16480,7 +17059,7 @@
   }
  },
  "wwaudio": {
-  "ambiguous_total": 21,
+  "ambiguous_total": 18,
   "base": "R",
   "compile_errors": [],
   "files": {
@@ -16907,7 +17486,6 @@
    },
    "soundbuffer": {
     "ambiguous": [
-     "0x990650",
      "0x9FBD90",
      "0x9FC7D0"
     ],
@@ -16947,10 +17525,14 @@
      "0x9FC630",
      "0x9FC660",
      "0x9FC7D0",
-     "0x9FC850"
+     "0x9FC850",
+     "0x9FC8C0"
     ],
     "merged": [],
-    "name": "SoundBuffer.cpp"
+    "name": "SoundBuffer.cpp",
+    "tiebreak": [
+     "0x9FC8C0"
+    ]
    },
    "soundhandle": {
     "ambiguous": [],
@@ -17112,7 +17694,6 @@
      "0x45CF20",
      "0x48A7F0",
      "0x48A960",
-     "0x48AAC0",
      "0x48AB30"
     ],
     "best": "R",
@@ -17153,10 +17734,14 @@
      "0xA01160",
      "0xA011E0",
      "0xA01280",
-     "0xA01300"
+     "0xA01300",
+     "0xA018A0"
     ],
     "merged": [],
-    "name": "SoundSceneObj.cpp"
+    "name": "SoundSceneObj.cpp",
+    "tiebreak": [
+     "0xA018A0"
+    ]
    },
    "soundstreamhandle": {
     "ambiguous": [],
@@ -17239,15 +17824,13 @@
      "0x45CF20",
      "0x48A7F0",
      "0x48A960",
-     "0x48AAC0",
      "0x48AB30",
      "0x494680",
      "0x988710",
      "0x9887D0",
      "0x9888E0",
      "0x9D9480",
-     "0x9DA2B0",
-     "0x9F5F00"
+     "0x9DA2B0"
     ],
     "best": "R",
     "copy": "R",
@@ -17375,6 +17958,11 @@
      "0x9F4C00",
      "0x9F4C50",
      "0x9F4DA0",
+     "0x9F5EB0",
+     "0x9F5F00",
+     "0x9F6180",
+     "0x9F61D0",
+     "0x9F6450",
      "0x9F64C0",
      "0x9F6670",
      "0x9F67F0",
@@ -17388,7 +17976,14 @@
      "0x9F7560"
     ],
     "merged": [],
-    "name": "WWAudio.cpp"
+    "name": "WWAudio.cpp",
+    "tiebreak": [
+     "0x9F5EB0",
+     "0x9F5F00",
+     "0x9F6180",
+     "0x9F61D0",
+     "0x9F6450"
+    ]
    }
   },
   "headers": {
@@ -17418,7 +18013,7 @@
    "soundhandle.h": "R",
    "soundstreamhandle.h": "R"
   },
-  "in_tree_total": 439,
+  "in_tree_total": 446,
   "totals": {
    "G": 72,
    "R": 205,
@@ -17604,7 +18199,7 @@
   }
  },
  "wwlib": {
-  "ambiguous_total": 40,
+  "ambiguous_total": 37,
   "base": "R",
   "compile_errors": [],
   "files": {
@@ -18233,8 +18828,6 @@
     "ambiguous": [
      "0x457FA0",
      "0x9CC470",
-     "0x9CC970",
-     "0x9CCA00",
      "0x9CCBD0"
     ],
     "best": "Z",
@@ -18329,12 +18922,22 @@
      "0x9CC780",
      "0x9CC820",
      "0x9CC8C0",
+     "0x9CC970",
+     "0x9CCA00",
      "0x9CCA20",
+     "0x9CCAA0",
+     "0x9CCB30",
      "0x9CCB50",
      "0x9CCC00"
     ],
     "merged": [],
-    "name": "ini.cpp"
+    "name": "ini.cpp",
+    "tiebreak": [
+     "0x9CC970",
+     "0x9CCA00",
+     "0x9CCAA0",
+     "0x9CCB30"
+    ]
    },
    "int": {
     "ambiguous": [],
@@ -18385,7 +18988,6 @@
    "mixfile": {
     "ambiguous": [
      "0x45CBE0",
-     "0x990650",
      "0x9DA2B0"
     ],
     "best": "Z",
@@ -18460,6 +19062,7 @@
      "0x9DA090",
      "0x9DA0B0",
      "0x9DA330",
+     "0x9DA480",
      "0x9DA4C0",
      "0x9DA510",
      "0x9DA560",
@@ -18474,7 +19077,10 @@
      "0x9DAB30"
     ],
     "merged": [],
-    "name": "mixfile.cpp"
+    "name": "mixfile.cpp",
+    "tiebreak": [
+     "0x9DA480"
+    ]
    },
    "mono": {
     "ambiguous": [],
@@ -19652,7 +20258,7 @@
    "xstraw.h": "R",
    "xsurface.h": "R"
   },
-  "in_tree_total": 668,
+  "in_tree_total": 673,
   "totals": {
    "G": 394,
    "R": 535,
@@ -19660,7 +20266,7 @@
   }
  },
  "wwmath": {
-  "ambiguous_total": 15,
+  "ambiguous_total": 13,
   "base": "R",
   "compile_errors": [],
   "files": {
@@ -19684,10 +20290,7 @@
     "name": "aabox.cpp"
    },
    "aabtreecull": {
-    "ambiguous": [
-     "0x8DD750",
-     "0x8DD780"
-    ],
+    "ambiguous": [],
     "best": "R",
     "copy": "R",
     "expected": {
@@ -19781,10 +20384,16 @@
      "0x8DD600",
      "0x8DD630",
      "0x8DD6B0",
+     "0x8DD750",
+     "0x8DD780",
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "aabtreecull.cpp"
+    "name": "aabtreecull.cpp",
+    "tiebreak": [
+     "0x8DD750",
+     "0x8DD780"
+    ]
    },
    "cardinalspline": {
     "ambiguous": [
@@ -20856,7 +21465,7 @@
    "wwmath.h": "R",
    "wwmathids.h": "R"
   },
-  "in_tree_total": 488,
+  "in_tree_total": 490,
   "totals": {
    "G": 323,
    "R": 366,
@@ -20864,7 +21473,7 @@
   }
  },
  "wwsaveload": {
-  "ambiguous_total": 29,
+  "ambiguous_total": 28,
   "base": "Z",
   "compile_errors": [],
   "files": {
@@ -20937,8 +21546,7 @@
      "0x48A7F0",
      "0x48A960",
      "0x48AB30",
-     "0x90A790",
-     "0x91BFB0"
+     "0x90A790"
     ],
     "best": "Z",
     "copy": "Z",
@@ -20974,10 +21582,14 @@
      "0xA056E0",
      "0xA05840",
      "0xA05870",
-     "0xA05910"
+     "0xA05910",
+     "0xA05D20"
     ],
     "merged": [],
-    "name": "definitionmgr.cpp"
+    "name": "definitionmgr.cpp",
+    "tiebreak": [
+     "0xA05D20"
+    ]
    },
    "parameter": {
     "ambiguous": [
@@ -21241,7 +21853,7 @@
    "twiddler.h": "Z",
    "wwsaveload.h": "Z"
   },
-  "in_tree_total": 119,
+  "in_tree_total": 120,
   "totals": {
    "G": 41,
    "R": 49,
