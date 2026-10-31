@@ -317,6 +317,10 @@ unless `--lever` cites a new row of this table.
 | `test ecx,ecx; sete` where ours has `test cl,cl` on a flag tested then flipped | The flag is an `int`, not a `bool` | Build_Index_Buffers 0x478240 (LD6) |
 | Index scheduling off in a function whose same-file accessors ours expands by hand | Call the client's accessors (`Get_Height(i, j)`, `Get_Vertex`): they fix the scheduling and spend the inline budget the client spends | heightfield 0x464600, 0x465D30 / 0x466180, 0x4654E0 (LD8, 8d47d1ed) |
 | A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
+| An early `if (x == NULL) return(false);` keeps its own epilogue where the client shares the FAIL_IF exit | Wrap the rest in `if (x != NULL) { ... } return(false);` | scriptedmovie 0x807600 / 0x8078D0 / 0x807BE0 (SM2, 2cf99b80) |
+| ebx / ebp saved up front in the client, after the early exit in ours | Declare locals at first use and return per branch; top-initialised locals plus one final return delay the pushes | Play_Audio 0x806BD0 (SM2, 5bf43599) |
+| An out-of-line 16-byte copy (`mov eax,ecx; ... ret 4`, 0x80B100, 0x780AC0) | An inline user `operator=` the budget cut: declare one | scriptedmovie's destructor (SM2) |
+| One inline source that fixes the inlined copy and breaks the out-of-line one, or the reverse | Expected: the same inline compiles differently in each place; judge by pairs over both | 0x801D70 / 0x807520 (SM2) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
 | A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
@@ -789,6 +793,9 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
+  variants at the draft's end, objdiff each against the client address (`.work/sm2/gen_*.py`). Every variant counts
+  as a form (D141).
 * **docs/data/asserts.txt's file column is shifted by one around 0xB71324** (2026-10-30, PM1): `CullObject != 0` is
   proj_man.h line 207 and `texProject != NULL` (0xB71368) is rs_proj_sup.cpp line 58. Check a file attribution
   against the neighbouring rows' line numbers there.
