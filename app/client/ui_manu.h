@@ -98,6 +98,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x5B16C0  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5B0B40 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_5B1AF0(int index, bool show, const char *text);	// 0x5B1AF0 (FAIL_IF '!font', l.651): a text of Unknown_B81868 set and shown  // NAME 1 [index, show, text]: neutral
+	void Unknown_5B1C20(int level);						// 0x5B1C20: level picked again: the known formulas (G_ASSERT 'list', l.685)  // NAME 1 [level]: neutral; NAME 3 [list]: the assert's
 	void Unknown_5B1ED0(int row);						// 0x5B1ED0: row picked on level 3, its item id asked for  // NAME 1 [row]: neutral
 	void Unknown_5B2060(int index);						// 0x5B2060: entry index of the current level picked, the next level shown  // NAME 1 [index]: neutral
 	void Unknown_5B21A0(int row);						// 0x5B21A0: the row's two texts highlighted when it is the current level's pick  // NAME 1 [row]: neutral
@@ -110,13 +111,14 @@ public:
 	void Unknown_5B2B40();								// 0x5B2B40: the list emptied
 	void Unknown_5B2BD0(bool arg);						// 0x5B2BD0 ('PrimaryCategories')  // NAME 1 [arg]: what 0x5B2060 passes
 	void Unknown_5B2FE0();								// 0x5B2FE0 ('PrimaryCategories')
-	void Unknown_5B2480();								// 0x5B2480 (FAIL_IF '!font' inlined twice)
+	void Unknown_5B2480();								// 0x5B2480: the category columns and the go button by the item's 'Validity' (0x5B1AF0 inlined twice)
+	void Unknown_5B42F0(int level);						// 0x5B42F0: the icon of a category column  // NAME 1 [level]: neutral
 	void Unknown_5B2F20();								// 0x5B2F20: the known formulas listed (level 3)
 	void Unknown_5B3260(UIManuListClass *list);			// 0x5B3260: the list filled from a formula list  // NAME 1 [list]: neutral
 	void Unknown_5B3580(bool force);					// 0x5B3580: the previous attempts listed  // NAME 1 [force]: neutral
 	void Unknown_5B3640(bool all);						// 0x5B3640: to the previous attempts  // NAME 1 [all]: neutral
 	void Unknown_5B3850();								// 0x5B3850: the level 3 pick's item id asked for
-	void Unknown_5B4850();								// 0x5B4850 (FAIL_IF '!font' inlined twice)
+	void Unknown_5B4850();								// 0x5B4850: MANUFACTURE_ACTION 126 of 0 sent, the go button dimmed (0x5B1AF0 inlined twice)
 	UIManuListClass *Unknown_Find_List(const char *field);	// (inline) the formula list named field  // NAME 1: neutral (D10)
 	UIManuListClass *Unknown_Get_List();				// (inline in 0x5B1ED0 / 0x5B3850) the previous attempts, else the known formulas  // NAME 1: neutral (D10)
 	void Unknown_5B39B0(int item_id);					// 0x5B39B0: MANUFACTURE_ITEM_ID 123 sent  // NAME 2 [item_id]: the packet's ItemID

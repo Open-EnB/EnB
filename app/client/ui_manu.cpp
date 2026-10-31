@@ -23,6 +23,7 @@ public:
 	bool Unknown4C5;									// +0x4C5 (0x5B3A70: false)
 	char Unknown4C6[0x4E4 - 0x4C6];						// +0x4C6
 	bool Unknown4E4;									// +0x4E4 (0x5B2230: set on the level 3 rows)
+	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// (inline: the go button's brightness in 0x5B2480 / 0x5B4850)  // NAME 1: neutral (D10)
 };
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
@@ -50,7 +51,12 @@ public:
 	virtual void Unknown_A4(float value, int unknown);	// +0xA4 (the slider's: its position)  // NAME 1 [value, unknown]: neutral
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5B6410 passes -1)  // NAME 1 [arg]: neutral
 
+	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6607D0();								// 0x6607D0
+
 	char Unknown04[0x2C - 0x04];						// +0x04
+	unsigned int Unknown2CLow : 11;						// +0x2C
+	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x5B2480: set on the current level's column)
 };
 
 // gd_slider.cpp's slider, as far as this file calls it
@@ -60,7 +66,7 @@ public:
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, int a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
-	char Unknown2C[0xD4 - 0x2C];						// +0x2C
+	char Unknown30[0xD4 - 0x30];						// +0x30
 	float Unknown0D4;									// +0xD4: the position (the first row shown)
 };
 
@@ -123,12 +129,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown11C, 0, sizeof(Unknown11C));
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSM01A.INI");
 }
-
-
-
-
-
-
 
 
 
@@ -203,7 +203,7 @@ public:
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C 0x7E7FC0
 	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
 
-	char Unknown2C[0x64 - 0x2C];						// +0x2C
+	char Unknown30[0x64 - 0x30];						// +0x30
 	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
 };
 
@@ -265,14 +265,14 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
 };
 int UIManuCategoriesClass::UnknownGlobal;
-
-
-
-
-
-
-
-
+class UIManuValidityClass : public DeltaClass	// NAME 1: neutral (D10): 'Validity' (13 when the item can be made)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41640)
+	int Value;											// +0x84  // NAME 2: what it holds
+};
+int UIManuValidityClass::UnknownGlobal;
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -653,6 +653,42 @@ void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 	font->Set_Hidden(!show);
 }
 
+// 0x5B1C20
+void UIManuClass::Unknown_5B1C20(int level)
+{
+	Unknown0BAD = false;
+	Unknown_5B2B40();
+	if (!Unknown0BA0) {
+		return;
+	}
+	if (Unknown0B98 != level) {
+		Unknown0B98 = level;
+		Unknown_5B6CA0();
+		Unknown_5B2BD0(true);
+		Unknown_5B2230();
+	} else {
+		Unknown0B98 = 3;
+		Unknown_5B6CA0();
+		Unknown0C0[level]->Unknown_5B74F0(false);
+		for (int i = 0; i < 10; i++) {
+			Unknown16C[i]->Unknown4E4 = true;
+		}
+		NameClass name("KnownFormula");
+		UIManuListClass *list = Unknown_Find_Valid<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+
+
+
+
+
+
+
+		G_ASSERT(list);
+		Unknown_5B3260(list);
+	}
+	Unknown_5B2480();
+	Unknown_5B4850();
+}
+
 inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
 inline UIManuListClass *UIManuClass::Unknown_Get_List()
 {
@@ -742,6 +778,35 @@ void UIManuClass::Unknown_5B2230()
 				Unknown0C0[i]->Unknown_5B74F0(false);
 			}
 		}
+	}
+}
+
+// NOT EXACT: inline budget (the client calls the 'Validity' find out of line, 0x5465C0; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480)
+void UIManuClass::Unknown_5B2480()
+{
+	RefCountPtr<FontStyleClass> go;
+	for (int i = 0; i < 3; i++) {
+		Unknown_5B42F0(i);
+		if (Unknown0B98 == i) {
+			Unknown0CC[i + 2]->Unknown_6603A0(0, 0);
+			Unknown0CC[i + 2]->Unknown2C800 = 1;
+		} else {
+			Unknown0CC[i + 2]->Unknown_6607D0();
+			Unknown0CC[i + 2]->Unknown2C800 = 0;
+		}
+	}
+	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
+	NameClass name("Validity");
+	UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
+	if (Unknown0BA4 == 0 && valid) {
+		Unknown0CC[6]->Unknown_40(true);
+		go->Unknown_Set_2FC(1.0f);
+	} else {
+		Unknown0CC[6]->Unknown_40(false);
+		go->Unknown_Set_2FC(0.33f);
+		Unknown_5B1AF0(2, true, "");
+		Unknown_5B1AF0(3, true, "");
 	}
 }
 
@@ -1005,82 +1070,17 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 	return(true);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: register (as 0x5B2480) (0x5B4850)
+void UIManuClass::Unknown_5B4850()
+{
+	int player = Client->As_Space_Client()->Unknown1138;
+	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(player, 0));
+	Unknown0CC[6]->Unknown_40(false);
+	RefCountPtr<FontStyleClass> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
+	go->Unknown_Set_2FC(0.33f);
+	Unknown_5B1AF0(2, true, "");
+	Unknown_5B1AF0(3, true, "");
+}
 
 
 
@@ -1850,7 +1850,7 @@ void UIManuClass::Unknown_5B6D30()
 **	(0x5B6A80), '!Client' 1834 and '!Client->As_Space_Client()' 1835 (0x5B6D30, inlined in 0x5B67C0 / 0x5B6A80).
 **	The filter buttons' slot +0x2C overrides (0x5B6680, 0x5B6720) are inline in their classes: VC6 emits them, with
 **	the implicit destructors (bare jumps to 0x7E7FA0), after 0x5B6410, which makes the buttons.
-**	The functions without asserts between them are placed in the client's address order; their lines are free.
+**	0x5B1C20's G_ASSERT 'list' is line 685. The functions without asserts between them are placed in the client's address order; their lines are free.
 **
 **	Forms: the four picks at +0xB80 are reset by a loop (VC6 unrolls it into four stores of one register; separate
 **	statements or a chained assignment keep -1 in a register across the rows' loop, memset goes through a pointer),
@@ -1860,7 +1860,7 @@ void UIManuClass::Unknown_5B6D30()
 **	names, as co.cpp's Unknown_Find_Aux). The player id the packets carry is the space client's +0x1138 (ClientClass::Unknown1138).
 **
 **	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes), +0x58, +0x60, +0x68, the list fillers 0x5B2230 / 0x5B2480 /
-**	0x5B2BD0 / 0x5B3E00, 0x5B1C20 (line 685), 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
-**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B2FE0, 0x5B3640, 0x5B3850 and 0x5B67C0 compile but
+**	0x5B2BD0 / 0x5B3E00, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
+**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B4850, 0x5B3850 and 0x5B67C0 compile but
 **	are not exact (see their NOT EXACT notes).
 */
