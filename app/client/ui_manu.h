@@ -12,6 +12,8 @@ class FontStyleClass;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class UIManuSliderClass;	// gd_slider.cpp's slider (+0xB0)
 class UIManuClass;
+class UIManuListClass;		// a formula list of the target item's aux data
+class NameClass;
 
 // What +0xC0..+0xC8 point to (0x4C bytes; constructor 0x5B73C0 over the window, destructor 0x5B7430; its functions follow
 // ui_manu.cpp's): five gadgets and five text objects that fade in and out
@@ -92,6 +94,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x5B16C0  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5B0B40 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_5B1AF0(int index, bool show, const char *text);	// 0x5B1AF0 (FAIL_IF '!font', l.651): a text of Unknown_B81868 set and shown  // NAME 1 [index, show, text]: neutral
+	void Unknown_5B1ED0(int row);						// 0x5B1ED0: row picked on level 3, its item id asked for  // NAME 1 [row]: neutral
 	void Unknown_5B2060(int index);						// 0x5B2060: entry index of the current level picked, the next level shown  // NAME 1 [index]: neutral
 	void Unknown_5B21A0(int row);						// 0x5B21A0: the row's two texts highlighted when it is the current level's pick  // NAME 1 [row]: neutral
 	void Unknown_5B2230();								// 0x5B2230: the rows refilled
@@ -104,6 +107,14 @@ public:
 	void Unknown_5B2BD0(bool arg);						// 0x5B2BD0 ('PrimaryCategories')  // NAME 1 [arg]: what 0x5B2060 passes
 	void Unknown_5B2FE0();								// 0x5B2FE0 ('PrimaryCategories')
 	void Unknown_5B2480();								// 0x5B2480 (FAIL_IF '!font' inlined twice)
+	void Unknown_5B2F20();								// 0x5B2F20: the known formulas listed (level 3)
+	void Unknown_5B3260(UIManuListClass *list);			// 0x5B3260: the list filled from a formula list  // NAME 1 [list]: neutral
+	void Unknown_5B3580(bool force);					// 0x5B3580: the previous attempts listed  // NAME 1 [force]: neutral
+	void Unknown_5B3640(bool all);						// 0x5B3640: to the previous attempts  // NAME 1 [all]: neutral
+	void Unknown_5B3850();								// 0x5B3850: the level 3 pick's item id asked for
+	void Unknown_5B4850();								// 0x5B4850 (FAIL_IF '!font' inlined twice)
+	UIManuListClass *Unknown_Find_List(const char *field);	// (inline) the formula list named field  // NAME 1: neutral (D10)
+	UIManuListClass *Unknown_Get_List();				// (inline in 0x5B1ED0 / 0x5B3850) the previous attempts, else the known formulas  // NAME 1: neutral (D10)
 	void Unknown_5B39B0(int item_id);					// 0x5B39B0: MANUFACTURE_ITEM_ID 123 sent  // NAME 2 [item_id]: the packet's ItemID
 	void Unknown_5B3A70();								// 0x5B3A70: MANUFACTURE_ACTION 126 of 2 sent for the level 3 pick
 	bool Unknown_5B3B90(UIManuNodeClass *tree, int a);	// 0x5B3B90: no item under the primary category a is flagged  // NAME 1 [tree, a]: neutral
@@ -134,7 +145,7 @@ public:
 	int Unknown0B94;									// +0xB94 the entries in the list
 	int Unknown0B98;									// +0xB98 the current level (-1 for none; 3 the items)
 	int State;											// +0xB9C (UI_CLOSED when shut)  // NAME 3: the assert's
-	int Unknown0BA0;									// +0xBA0
+	void *Unknown0BA0;									// +0xBA0: the target item's aux data (a DeltaCompoundClass)
 	int Unknown0BA4;									// +0xBA4 (1 while an item id is pending)
 	float Unknown0BA8;									// +0xBA8 (0x5B3A70: 1.0f)
 	bool Unknown0BAC;									// +0xBAC

@@ -7,6 +7,7 @@
 #include "rendobj.h"
 #include "sbaseview.h"
 #include "..\shared\unknown_debug.h"
+#include "..\shared\auxdata\auxdata.h"
 
 // fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
 // this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
@@ -131,7 +132,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 
 
 
-
 // NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0)
 UIManuClass::~UIManuClass()
 {
@@ -243,22 +243,22 @@ public:
 
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// The formula lists under the target item's aux data ('KnownFormula', 'PreviousAttempts'; their class's global at +0x04 is
+// 0xC41628) and their entries, as far as this file reads them
+class UIManuEntryClass : public DeltaCompoundClass	// NAME 1: neutral (D10)
+{
+public:
+	char Unknown09C[0x120 - 0x9C];						// +0x09C
+	const char *Unknown120;								// +0x120: the name ("" ends the list)
+	char Unknown124[0x1A8 - 0x124];						// +0x124
+	int Unknown1A8;										// +0x1A8: the item id (0x5B39B0's)
+};
+class UIManuListClass : public DeltaCompoundClass	// NAME 1: neutral (D10)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41628)
+};
+int UIManuListClass::UnknownGlobal;
 
 
 
@@ -653,6 +653,32 @@ void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 	font->Set_Hidden(!show);
 }
 
+inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
+inline UIManuListClass *UIManuClass::Unknown_Get_List()
+{
+	if (Unknown0BAD) {
+		return(Unknown_Find_List("PreviousAttempts"));
+	}
+	return(Unknown_Find_List("KnownFormula"));
+}
+
+// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in its 'PreviousAttempts' find and returns from each failed find) (0x5B1ED0)
+void UIManuClass::Unknown_5B1ED0(int row)
+{
+	if (Unknown0B94 != 0 && row < Unknown0B94 && Unknown0B98 == 3) {
+		int pick = Unknown0B90 + row;
+		Unknown0B80[3] = pick;
+		if (pick >= 0) {
+			UIManuListClass *list = Unknown_Get_List();
+			if (list && list->Unknown70) {
+				Unknown_5B39B0(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
+			}
+		}
+		Unknown_5B2230();
+		Unknown_5B2480();
+	}
+}
+
 // 0x5B2060
 void UIManuClass::Unknown_5B2060(int index)
 {
@@ -761,6 +787,98 @@ void UIManuClass::Unknown_5B2B40()
 	Unknown_5B2950();
 }
 
+// 0x5B2F20
+void UIManuClass::Unknown_5B2F20()
+{
+	if (!Unknown0BAD && Unknown0B98 == 3) {
+		NameClass name("KnownFormula");
+		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (list && list->Unknown70 > 1) {
+			Unknown_5B3260(list);
+		}
+	}
+}
+
+// 0x5B3260
+void UIManuClass::Unknown_5B3260(UIManuListClass *list)
+{
+	int i = 0;
+	int pick = -1;
+	if (list) {
+		Unknown0B94 = list->Children.size();
+		for (i = 0; i < Unknown0B94; i++) {
+			UIManuEntryClass *entry = (UIManuEntryClass *)list->Children[i];
+			const char *name = entry->Unknown120;
+			if (strcmp(name, "") == 0) {
+				Unknown0B94 = i;
+				break;
+			}
+			Unknown1BC[i] = name;
+			Unknown98C[i] = false;
+			if (Unknown0BB0 != -1 && Unknown0BB0 == entry->Unknown1A8) {
+				pick = i;
+			}
+		}
+	} else {
+		Unknown0B94 = i;
+	}
+	for (i = Unknown0B94; i < 500; i++) {
+		Unknown1BC[i] = NULL;
+		Unknown98C[i] = true;
+	}
+	Unknown0B80[3] = pick;
+	Unknown_5B28E0(Unknown0B94);
+	Unknown_5B2990();
+	Unknown0B98 = 3;
+	Unknown_5B2230();
+	Unknown_5B6CA0();
+}
+
+// 0x5B3580
+void UIManuClass::Unknown_5B3580(bool force)
+{
+	if (Unknown0BAD) {
+		NameClass name("PreviousAttempts");
+		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (list && list->Unknown70 && (force || list->Unknown70 > 1)) {
+			Unknown_5B3260(list);
+		}
+	}
+}
+
+// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both copies of 0x5B3580; registers) (0x5B3640)
+void UIManuClass::Unknown_5B3640(bool all)
+{
+	if (!Unknown0BAD) {
+		Unknown0BB0 = -1;
+	}
+	Unknown0BAD = true;
+	Unknown_5B3580(true);
+	Unknown_5B6CA0();
+	if (all) {
+		for (int i = 0; i < 4; i++) {
+			Unknown0B80[i] = -1;
+		}
+	} else {
+		Unknown0B80[3] = -1;
+	}
+	Unknown_5B3580(true);
+	Unknown_5B2480();
+	Unknown_5B4850();
+}
+
+// NOT EXACT: inline budget (as 0x5B1ED0) (0x5B3850)
+void UIManuClass::Unknown_5B3850()
+{
+	int pick = Unknown0B80[3];
+	if (pick >= 0) {
+		UIManuListClass *list = Unknown_Get_List();
+		if (list && list->Unknown70) {
+			Unknown_5B39B0(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
+		}
+	}
+}
+
 // 0x5B39B0
 void UIManuClass::Unknown_5B39B0(int item_id)
 {
@@ -834,124 +952,6 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1856,10 +1856,11 @@ void UIManuClass::Unknown_5B6D30()
 **	statements or a chained assignment keep -1 in a register across the rows' loop, memset goes through a pointer),
 **	while the constructor's are a memset. The tree checks 0x5B3B90 / 0x5B3CA0 call the next level's check (inlined: the
 **	level pointer hoisted, the vector indexed again on every pass). 0x5B1AF0 reads the name into a local before the
-**	mesh. The player id the packets carry is the space client's +0x1138 (ClientClass::Unknown1138).
+**	mesh. The formula lists are found through one inline helper holding the NameClass (one stack slot for both
+**	names, as co.cpp's Unknown_Find_Aux). The player id the packets carry is the space client's +0x1138 (ClientClass::Unknown1138).
 **
 **	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes), +0x58, +0x60, +0x68, the list fillers 0x5B2230 / 0x5B2480 /
-**	0x5B2BD0 / 0x5B3E00, the aux data readers ('PreviousAttempts', 'KnownFormula': 0x5B1C20, 0x5B1ED0, 0x5B2F20,
-**	0x5B2FE0, 0x5B3260-0x5B3850, 0x5B4680), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
-**	(lines 1473-1646). The constructor, destructor, slot +0x5C and 0x5B67C0 compile but are not exact (registers).
+**	0x5B2BD0 / 0x5B3E00, 0x5B1C20 (line 685), 0x5B2FE0, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
+**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B3640, 0x5B3850 and 0x5B67C0 compile but
+**	are not exact (see their NOT EXACT notes).
 */
