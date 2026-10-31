@@ -831,4 +831,11 @@ void * CasterTexProjectClass::Get_Projection_Object_ID(void) const
 **	0x4919B0, Add_Shadow_Texture 0x491A80 (line 138), Remove_Shadow_Texture 0x491CB0, Reset 0x491DA0.
 **	ProjectorManagerClass: ctor 0x491DD0, scalar deleting dtor 0x491F50 (the typed culling systems'
 **	0x491F80 / 0x491FB0 and dtors 0x491FE0 / 0x492000), dtor 0x492020, then the methods in proj_man.h.
+**	The casters' base (ProjectorCasterClass, 0x493D30-0x493FE0) and CasterTexProjectClass (0x494100-
+**	0x494410) follow the light direction accessors. Apply_Projectors is E&B's own: it hands each
+**	visible projector to the receivers (ProjectorReceiverClass) the objects' culling systems collect;
+**	the dynamic half compares the IDs in two other orders than the static half (the client's forms).
+**	Two getters (0x492290, 0x492380) return inside their creating branch: the client's near jne /
+**	mov-cmp come from the duplicated Add_Ref tail. ProjectionDefClass's accessors come from the
+**	client's spills (a field read gives other registers).
 */
