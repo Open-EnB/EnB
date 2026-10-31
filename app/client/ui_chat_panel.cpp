@@ -31,6 +31,7 @@ public:
 class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
 {
 public:
+	void Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, int arg);	// 0x7E36B0 (slot +0x58)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
 	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
 	void Unknown_7E4350();								// 0x7E4350
 
@@ -64,6 +65,7 @@ public:
 	int Unknown_56EFB0();								// 0x56EFB0: the line picked (1-based), 0 for none, negative to close
 };
 
+extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them)
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes
 
 // The chat channels the panel offers (0xB7C530: name, option, the destination's number as text), NULL-ended
@@ -73,12 +75,11 @@ struct ChatChannelStruct	// NAME 1: neutral (D10)
 	const char *Option;									// NAME 2: the option tested (OptionClass::Get_Bool)
 	const char *Number;									// NAME 2: what 0x565390 passes to atoi
 };
-static ChatChannelStruct Unknown_B7C530[] = {	// NAME 1: neutral (D10)
+static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 entries (0x56B700 walks to 0xB7C5FC), four filled
 	{ "Broadcast", "Channel_Broadcast", "0" },
 	{ "Local", "Channel_Local", "1" },
 	{ "Guild", "Channel_Guild", "2" },
 	{ "Group", "Channel_Group", "3" },
-	{ NULL, NULL, NULL },
 };
 
 // gadget.cpp's gadget, as far as the chat panel calls it
@@ -98,7 +99,12 @@ public:
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
 
 	void Unknown_65F2D0(int arg);						// 0x65F2D0 (0x564400 passes 0)  // NAME 1 [arg]: neutral
+
+	char Unknown04[0x30 - 0x04];						// +0x04
+	RenderObjClass *Unknown30;							// +0x30 (slot +0x58 0x562F50 hands it to 0x497300)
+	RenderObjClass *Peek_Unknown30() { return(Unknown30); }	// NAME 1: neutral (D10)
 };
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
 
 
@@ -590,58 +596,16 @@ void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x562F50
+void UIChatPanelClass::Unknown_58()
+{
+	LineDisplaySortClass sort(this);
+	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Unknown30()), 0);
+	ChatInt->Unknown_58();
+	UIChatPanelBaseClass::Unknown_58();
+	UIViewClass *view = View;
+	Unknown1E8->Unknown_7C(view, 0);
+}
 
 // 0x563060
 void UIChatPanelClass::Unknown_5C()
@@ -649,6 +613,43 @@ void UIChatPanelClass::Unknown_5C()
 	if (UnknownD4) UnknownD4 = NULL;
 	ChatInt->Unknown_5C();
 	InterfaceClass::Unknown_5C();
+}
+
+// NOT EXACT: inline-budget (ours expands 0x56C0C0 at its call; the client calls it)
+// 0x5630B0
+void UIChatPanelClass::Unknown_60()
+{
+	Unknown_566AF0();
+	Unknown_565F80();
+	Unknown_567760();
+	Unknown_563C50();
+	if (ChatInt->Unknown98) Unknown_56C0C0();
+	for (int i = 0; i < NUM_COMBO; i++) {
+		Combo[i]->Unknown_60();
+	}
+	if (!Unknown227) {
+		Unknown_56B700();
+		Unknown227 = true;
+	}
+	if (Unknown25C) {
+		Unknown260 += (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		if (Unknown260 > 0.5f) {
+			Unknown260 -= 0.5f;
+			RenderObjClass *light = Unknown258;
+			if (light) light->Set_Hidden(!light->Is_Hidden());
+		}
+	}
+	SClient *sclient = Client->As_Space_Client();
+	bool changed = false;
+	if (Unknown265 != sclient->Unknown_74D570()) {
+		Unknown265 = sclient->Unknown_74D570();
+		changed = true;
+	}
+	if (Unknown266 != sclient->Unknown_728300()) {
+		Unknown266 = sclient->Unknown_728300();
+		changed = true;
+	}
+	if (changed) Unknown_5689D0(0);
 }
 
 // 0x563620
@@ -702,11 +703,10 @@ void UIChatPanelClass::Unknown_563C50()
 	}
 }
 
-// NOT EXACT: register (the address of the font local for 0x546510 computed into eax after the push, ecx in ours; otherwise identical)
 // 0x563DC0
 void UIChatPanelClass::Unknown_563DC0(bool on)
 {
-	RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", (unsigned int)Unknown84));
+	RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", (unsigned int)Peek_Unknown84()));
 	FAIL_IF(!font) return;
 	if (on) {
 		if (strcmp(Unknown124.c_str(), font->Unknown_6D87D0()) != 0) font->Change_Text(Unknown124.c_str(), 0);
@@ -803,6 +803,13 @@ void UIChatPanelClass::Unknown_564400(bool on)
 	UnknownA4[1]->Unknown_40(on);
 	UnknownA4[5]->Unknown_40(!on);
 	if (on) UnknownA4[5]->Unknown_65F2D0(0);
+}
+
+// 0x564F50
+void UIChatPanelClass::Unknown_564F50()
+{
+	Unknown204 = Unknown1F4;
+	Unknown_5646A0(Unknown144);
 }
 
 // 0x565100
@@ -1013,13 +1020,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
 
 
 
@@ -2285,7 +2285,7 @@ bool UIChatPanelClass::Unknown_56BA80()
 
 
 
-// NOT EXACT: order (the client loads +0x84 before the font manager for Get_Style; otherwise as 0x563DC0)
+
 // 0x56BAA0
 void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 {
@@ -2293,7 +2293,7 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 	UnknownA4[4]->Unknown_40(show);
 	UnknownA4[4]->Unknown_8C(!show);
 	if (text) {
-		RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", (unsigned int)Unknown84));
+		RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", (unsigned int)Peek_Unknown84()));
 		FAIL_IF(!font) return;
 		font->Change_Text(text, 0);
 	}

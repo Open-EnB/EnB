@@ -32,6 +32,7 @@ class UIChatPanelBaseClass : public InterfaceClass	// NAME 3: class-from-file (D
 {
 public:
 	UIChatPanelBaseClass(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
+	virtual void Unknown_58();							// +0x58 0x56D4F0
 	virtual void Unknown_88();							// +0x88 0x56DD80
 	virtual void Unknown_8C();							// +0x8C 0x56DE60
 	virtual int Unknown_90() { return(0); }				// +0x90 0x5623B0 (emitted with the chat panel's table)
@@ -40,6 +41,7 @@ public:
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
 
 	RenderObjClass *Unknown84;							// +0x84 (its slot +0x70 finds the panel's parts by name; the font styles' owner)
+	RenderObjClass *Peek_Unknown84() { return(Unknown84); }	// NAME 1: neutral (D10)
 	std::vector<void *> Unknown88;						// +0x88 (the constructor: the allocator byte, three pointers)
 	int Unknown98;										// +0x98
 	int Unknown9C;										// +0x9C
@@ -54,6 +56,9 @@ public:
 	virtual void Unknown_A8(); virtual void Unknown_AC(bool on); virtual void Unknown_B0();
 	virtual void Unknown_B4(const char *text);			// +0xB4 (0x565C40: 'To %s:')  // NAME 1 [text]: neutral
 	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
+
+	char Unknown84[0x98 - 0x84];						// +0x84
+	int Unknown98;										// +0x98 (slot +0x60 0x5630B0: non-zero switches the window, 0x56C0C0)
 };
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
@@ -62,7 +67,9 @@ class UIChatPanelClass : public UIChatPanelBaseClass	// NAME 3: class-from-file 
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
 	virtual ~UIChatPanelClass();						// 0x562410
+	virtual void Unknown_58();							// 0x562F50 (the pip set, the chat window and the reply list activated)
 	virtual void Unknown_5C();							// 0x563060 (the combo released, the chat window deactivated)
+	virtual void Unknown_60();							// 0x5630B0 (every frame)
 	virtual bool Unknown_68(int key);					// 0x563280
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x563620 (onto the view with its windows and combos)  // NAME 1 [view, arg]: intrface.h's
 	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
@@ -75,6 +82,7 @@ public:
 	void Unknown_564150(bool on);						// 0x564150 (FAIL_IFs '!big_robj', '!bigbutframe' ll.782 / 783)  // NAME 1 [on]: neutral
 	void Unknown_564400(bool on);						// 0x564400 (FAIL_IFs '!small_robj', '!smallbutframe' ll.798 / 799)  // NAME 1 [on]: neutral
 	void Unknown_5646A0(int channel);					// 0x5646A0  // NAME 1 [channel]: neutral
+	void Unknown_564F50();								// 0x564F50 (0x65DE90): +0x1F4 copied to +0x204, 0x5646A0 on the default channel
 	void Unknown_565100();								// 0x565100: 0x5646A0 on +0x14C
 	void Unknown_565120();								// 0x565120
 	void Unknown_565390(int arg);						// 0x565390  // NAME 1 [arg]: neutral
@@ -84,7 +92,9 @@ public:
 	void Unknown_565C40(int index);						// 0x565C40: talk to the +0x188 name 'index' ('To %s:')  // NAME 1 [index]: neutral
 	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender, first in the +0x188 names)  // NAME 1 [name]: cpacket.cpp's
 	void Unknown_5658B0(const char *name);				// 0x5658B0  // NAME 1 [name]: neutral
-	void Unknown_565F30(int arg);						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
+	void Unknown_565F30(int arg);
+	void Unknown_565F80();								// 0x565F80 (every frame)
+	void Unknown_566AF0();								// 0x566AF0 (every frame)						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	void Unknown_567760();								// 0x567760: the reply list's pick
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
 	void Unknown_567540(bool arg);						// 0x567540  // NAME 1 [arg]: neutral
@@ -99,6 +109,7 @@ public:
 	void Unknown_568950();								// 0x568950: the five combos rebuilt, the combo released
 	void Unknown_5689D0(int index);						// 0x5689D0  // NAME 1 [index]: neutral
 	void Unknown_5698F0(int id);						// 0x5698F0 (FAIL_IF '(index < 0) || (index >= NUM_COMBO)' l.1980)  // NAME 1 [id]: neutral
+	void Unknown_56B700();								// 0x56B700: the chat requests sent ('RestrictedStatus'), once
 	void Unknown_56BA40(bool on);						// 0x56BA40 (SClient's Do_Frame, when the lag changes)  // NAME 1 [on]: what Do_Frame passes
 	bool Unknown_56BA80();								// 0x56BA80
 	void Unknown_56BAA0(bool show, const char *text);	// 0x56BAA0 (FAIL_IF '!font' l.2297; 0x74E710: 1 and the message)  // NAME 1 [show, text]: what 0x74E710 passes
@@ -159,7 +170,7 @@ public:
 	std::string Unknown248;								// +0x248
 	RenderObjClass *Unknown258;							// +0x258 (slot +0x184)
 	bool Unknown25C;									// +0x25C (the lag flag: 0x56BA40 / 0x56BA80)
-	int Unknown260;										// +0x260
+	float Unknown260;									// +0x260 (the lag light's blink time, 0x5630B0)
 	bool MessageButtonShowing;							// +0x264 (sclient.cpp's getter)  // NAME 2: its getter's
 	bool Unknown265;									// +0x265
 	bool Unknown266;									// +0x266
