@@ -34,6 +34,7 @@ class GadgetClass;  // gadget.cpp's
 class InterfaceUnknown64Class  // NAME 1: neutral (D10)
 {
 public:
+	void Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, int unknown1, int unknown2);	// 0x6870E0: the gadget put in (ui_group.cpp: an id, the view, 1, 1)  // NAME 1 [gadget, id, view, unknown1, unknown2]: what ui_group.cpp passes
 	void Unknown_687150(GadgetClass *gadget);												// 0x687150: the gadget taken out (before its delete)  // NAME 1 [gadget]: what ui_group.cpp passes
 	char Unknown00[0x0C];																	// +0x00
 };

@@ -11,6 +11,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\unknown_debug.h"
+#include "..\..\wwlib\nstrdup.h"
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
@@ -36,8 +37,11 @@ public:
 	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
 	virtual void Unknown_84(); virtual void Unknown_88();
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
+	virtual void Unknown_90();
+	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
+	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5938A0 passes -1)  // NAME 1 [arg]: neutral
 
 	char Unknown04[0x2C - 0x04];						// +0x04
 	unsigned int Unknown2CLow : 11;						// +0x2C
@@ -47,6 +51,24 @@ void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): th
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section ('UI_FORMATION', 'GRP_LEAVE')  // NAME 1 [section, name]: what this file passes
 
 extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp)
+
+// gadget.cpp's icon gadget (100 bytes, constructor 0x675310 over a render object), as far as 0x5938A0 makes it
+class UIGroupIconGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	UIGroupIconGadgetClass(RenderObjClass *object, int unknown1, int unknown2);	// 0x675310 (0x5938A0 passes the symbol, 5, 3)  // NAME 1 [object, unknown1, unknown2]: neutral
+	char Unknown30[0x64 - 0x30];						// +0x30
+};
+// The object at *0xBFAEE0 (kernel.cpp's), as far as 0x5938A0 calls it: its slot +0x14 makes a render object by name
+class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
+	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
+};
+extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 
 // The member rows' bars (0xB7F4B8 / 0xB7F4C4): 0x597310 sorts them above or below the row's 'main'
 static const char *Unknown_B7F4B8[] = { "hull_bar0", "shield_bar0", NULL };	// NAME 1: neutral (D10)
@@ -60,28 +82,6 @@ public:
 	ClientGroupEvent(bool value) : Value(value) {}
 	bool Value;											// +0x00  // NAME 1: neutral
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -489,54 +489,24 @@ void UIGroupMemberClass::Unknown_5935C0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x593750
 bool UIGroupMemberClass::Unknown_593750()
 {
 	ClientClass *client = (ClientClass *)Get_Interface()->Client;
 	ClientObjectClass *object = client->Find_Object(ID);
-	if ((Unknown1C && object == NULL) || (!Unknown1C && object != NULL)) {
-		return(true);
-	}
+	if ((Unknown1C && object == NULL) || (!Unknown1C && object != NULL)) { return(true); }
 	return(false);
 }
-
 
 
 // 0x593790
 void UIGroupMemberClass::Unknown_593790()
 {
-	if (Unknown3C) {
-		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
-		Unknown_65EED0(Unknown3C);
-		Unknown3C = NULL;
-	}
-	if (Unknown38) {
-		Unknown38->Remove();
-		Unknown38 = NULL;
-	}
-	if (Unknown2C) {
-		Unknown2C->Unknown_5DCAE0();
-		delete Unknown2C;
-		Unknown2C = NULL;
-	}
+	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); Unknown_65EED0(Unknown3C); Unknown3C = NULL; }
+	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
+	if (Unknown2C) { Unknown2C->Unknown_5DCAE0(); delete Unknown2C; Unknown2C = NULL; }
 	Unknown30 = NULL;
 }
-
-
-
 
 
 // 0x593830
@@ -565,6 +535,36 @@ void UIGroupMemberClass::Unknown_593830(const RefCountPtr<RenderObjClass> &objec
 
 
 
+
+
+
+
+// 0x5938A0
+void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
+{
+	if (Unknown28 == NULL || strcmp(Unknown28, text) != 0) {
+		if (Unknown28) { delete Unknown28; Unknown28 = NULL; }
+		Unknown28 = nstrdup(text);
+	}
+	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); Unknown_65EED0(Unknown3C); Unknown3C = NULL; }
+	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
+	Unknown38 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj(Unknown28));
+	if (Unknown38 != NULL && Unknown30 != NULL) {
+		Unknown_496AE0(Unknown38.Peek(), 0);
+		Unknown30->Add_Sub_Object_To_Bone(Unknown38.Peek(), "icon");
+		if (Unknown1D) {
+			Unknown3C = new UIGroupIconGadgetClass(Unknown38.Peek(), 5, 3);
+			Get_Interface()->Unknown64.Unknown_6870E0(Unknown3C, index + 0x17, Get_Interface()->View, 1, 1);
+			Unknown3C->Unknown_65FFA0(-1);
+			Unknown_65EFB0(Unknown3C, "UI_GROUP", "CONTEXT");
+		}
+		Unknown24 = time;
+	} else {
+		Unknown_4BC260("Group Inteface", "", __FILE__, __LINE__, "Invalid Symbol name or missing renderobj");
+		Unknown24 = 0;
+		Unknown1D = false;
+	}
+}
 
 
 
@@ -1857,30 +1857,30 @@ void UIGroupClass::Unknown_5982A0(int avatar_id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x598370
+// NOT EXACT: inline budget (the client calls rtti.h's cast 0x598D80 out of line; one to four dead size() reads before the lookup tried, 0.64-0.70)
+void UIGroupClass::Unknown_598370()
+{
+	if (!Unknown0F1) {
+		if (Unknown0C0[0]) {
+			Unknown0C0[0]->Unknown_94(NULL);
+			Mesh->Peek_Object()->Remove_Sub_Objects_From_Bone("formation_bone");
+			Unknown0E8->Unknown_592C50();
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown0E8->Unknown_5944A0().Peek(), "formation_bone");
+			Unknown0C0[0]->Unknown_94(Unknown0E8->Unknown_5944A0().Peek());
+		}
+		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+		DeltaCompoundClass *aux = sclient->AuxData;
+		if (aux) {
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+			if (group && group->Unknown70) {
+				for (unsigned int i = 0; i < Members.size(); i++) {
+					Members[i]->Unknown18 = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
+				}
+			}
+		}
+	}
+}
 
 
 
@@ -1909,24 +1909,33 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_group.cpp (its __FILE__)
 **
-**	The group window (ui_group.h's UIGroupClass, the main view's +0x1D8): the group's members (UIGroupMemberClass, one
-**	0x54-byte object each, in Members), nine formation buttons, the symbol chat interface (+0xAC, FAIL_IF
+**	The group window (ui_group.h's UIGroupClass, the main view's +0x1D8): the group's members (UIGroupMemberClass,
+**	one 0x54-byte object each, in Members), nine formation buttons, the symbol chat interface (+0xAC, FAIL_IF
 **	'!SymbolChatUI') and the NAMEnn_TSI03A texts of FA_TSI03A.INI over the TSI03A mesh. The client's window runs
 **	0x593180-0x598A60 (claims #27 / #28); the base under it (constructor 0x5BB320) has no file name yet.
 **
-**	Rebuilt (UG1, 2026-10-30): the member class's constructor 0x593200, 0x5934A0 (line 403), 0x5935C0 (456), 0x593750, 0x593790, 0x593830 and its
-**	destructor 0x5932E0 (not exact), the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
-**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090, Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0, 0x596DB0, slot +0x60 0x5944D0 (not exact), the group chat line 0x596E20 (1388, 1391; not exact), 0x597000, the +0xE8 object's 0x5944A0, the symbol chat line 0x597080, 0x597200, 0x597310 (not exact), the leave question 0x5975D0, the dialog answers 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0
-**	/ 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200,
-**	0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25);
-**	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: 0x593180,
-**	0x5938A0 (563), Unknown_54 0x594040, slot +0x68 0x5946D0 (735, 751), 0x595530, 0x596770 (1260-1266),
-**	0x597E40 (1753) and 0x598370.
+**	Rebuilt (UG1, 2026-10-30), the asserts on the client's lines (D25), the functions without asserts between
+**	their neighbours' lines in the client's order:
+**	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
+**	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
+**	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), the +0xE8 object's
+**	  0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090,
+**	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
+**	  0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
+**	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
+**	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
+**	  0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
+**	  0x5985A0 (1891) / 0x598720 (1902).
+**	Not yet: 0x593180 (perhaps the +0xE8 object's file), Unknown_54 0x594040, slot +0x68 0x5946D0 (735, 751),
+**	0x595530, 0x596770 (1260-1266) and 0x597E40 (1753).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
 **	ends in a jump to SClient::Unknown_74D690 (Ghidra shows the callee's body inline); 0x5979A0 / 0x597A60 test
-**	the aux root through a named local before the NameClass and return '? true : false' (setne); 0x598200 tests on before off
-**	and reads +0xC0 again for the 0x6603A0 call. intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass,
-**	control_keys_manager.h's class is the client's ControlKeysManager: the casts are ours.
+**	the aux root through a named local before the NameClass and return '? true : false' (setne); 0x598200 tests
+**	on before off and reads +0xC0 again for the 0x6603A0 call; Get_Member reads Members.end() in the loop (the
+**	cached form leaves Add_Member's expansion further off); 0x597BF0 writes the disabled case first with its
+**	i == 3 branch on Unknown0C0[2]; 0x5938A0 tests 'Unknown28 == NULL || strcmp' so the inner null test stays.
+**	intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass, control_keys_manager.h's class is the
+**	client's ControlKeysManager: the casts are ours.
 */
