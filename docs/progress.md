@@ -1569,6 +1569,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D167 | 2026-10-31 | P-API-2, D163's Batch API triage: one tool, `tools/re/triage.py` (`build`, `submit`, `fetch`, `ingest`, `plan`, `show`, `score`), run by the coordinator only, one batch at a time. Each request holds one function: its pseudocode from `.work/pseudo/` (rebuilt in full first), the strings it uses, its callers' and callees' names and files, the nearest functions with a file above and below it, and its region. `custom_id` is `fn-<ADDR>`, every request stores a hash of its input, and a rerun resends only changed inputs. The batch id is recorded in `.work/triage/batches.json` at submit (results expire after 29 days); raw results are kept unchanged in `.work/triage/raw/`; tokens and cost go to the run's plan log. The answers follow a JSON schema: kind (STL / template instance, Westwood library, E&B, CRT, unknown), suggested library / file / class, confidence, the evidence cited. Rows that contradict a deterministic fact (`__FILE__`, gaps windows) are flagged. A calibration batch comes first: about 300 functions already byte-exact (pairs from imports.json, D164's template copies, LD6's std::sort 0x4708F0 / 0x472910 and its helpers), decompiled with their own name and `__FILE__` strings removed, run on Haiku 5.5 and Sonnet 5.5. The full batch runs on Haiku 5.5 at effort `low` if it gets the kind right ≥ 85% of the time and the file ≥ 50% at confidence ≥ medium; Sonnet 5.5 only as a second opinion on the disputed or low-confidence rows. Hints only (D56): never in symbols.json, the sources, NAME tags or `docs/data/`; objmatch / verify decide | user |
 | D168 | 2026-10-31 | P-API-3: the triage table stays under `.work/triage/` (git-ignored, read by builders on this tree), not in `docs/data/`. Revisited once `triage.py score` shows whether the hints hold up (§4's D163 item) | user |
 | D169 | 2026-10-31 | D66 moves past `vc6-verify` (amends D157's "any D66 case is merged by hand": the master ruleset requires `vc6-verify` and has no bypass actors, so that path did not exist; first hit PR #39, the pilot's scriptedmovieline.cpp with 0x7FFD30 / 0x7FFDC0 moved from scriptedmovie). A PR whose every lost pair is a move (the address held by another file in the same verify, none lost outright) fails until a maintainer comments `/accept-d66 SHA` naming its head (or runs `verify_pr.py PR --accept-d66`). The service then verifies it again and posts success, the moves and who accepted them named in the status and the comment, and the PR merges or lands like one that lost nothing. A pair lost outright still fails and waits for the user; no command passes it. The command is the user's: agents list the moves for the user and never post it (comments from this host carry the user's login). No bypass actor on the ruleset. `tools/vc6/verify_pr.py`, `verify_watch.py`, [github-plan.md](github-plan.md) §4.5.5 | user |
+| D170 | 2026-10-31 | D163's full triage runs on Sonnet 5.5, over the 14,753 functions in the application range only (amends D167's "the full batch on Haiku 5.5"). The calibration (`triage.py calib`, 300 byte-exact functions with their own name, class and paths removed, no neighbours or files): Haiku 5.5 kind 79.7 %, file 40.0 % at medium / high (6 of 15 right even at high), failing D167's gate; Sonnet 5.5 kind 89.3 %, file 63.2 % (19 of 24 at high), passing it. Sonnet costs about $0.0027 a function, so all 20,588 would be about $53; the 5,835 library-range functions (Westwood libraries, which gaps.py already locates from EA's source, and the runtime) are left out, estimate $41, inside the `enb-d163` workspace's $60 limit | user |
 
 ## 3. Open decisions
 
@@ -1584,13 +1585,18 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-* **Next session first: the API credits (D163, D167, D168), from (b).** The `anthropic` SDK is installed (2.3.0,
-  2026-10-31); the user creates the separate API key with a spend limit in the Console. Then, in order:
-  (a) the pilot builder on that key: done 2026-10-31 (LC1, $1.85 for +2 pairs; the log entry of 10:20);
-  (b) rebuild `.work/pseudo/` in full (`python tools/re/pseudocode.py`; it held 518 of ~25,000 on 2026-10-31);
-  (c) write `tools/re/triage.py` (D167) and run the calibration batch, ~$1, with the gate's result as a
-  proposal to the user; (d) the full Haiku batch (~$3-5), `ingest`, `plan`; its runs and lists become W# items
-  in the next run's plan, and `builders.md` gets one line on `triage.py show` (a hint, not evidence);
+* **Next session first: the API credits (D163, D167, D168, D170), from (d).** The `anthropic` SDK is installed
+  (2.3.0); the key is `ENB_ANTHROPIC_API_KEY` (workspace `enb-d163`, limit $60). Done 2026-10-31:
+  (a) the pilot builder (LC1, $1.85 for +2 pairs; the log entry of 10:20);
+  (b) `.work/pseudo/` rebuilt in full: 20,588 of 20,601 targets (13 without a function, all at 0x8CBBC0 and up), 85 s;
+  (c) `tools/re/triage.py` written; the calibration (300 known answers, redacted): Haiku 5.5 kind 79.7 %, file
+  40.0 % at medium / high (gate failed), Sonnet 5.5 kind 89.3 %, file 63.2 % (passed); $0.06 + $0.80.
+  (d) **The full run is in the Batch API** (D170: Sonnet 5.5, the 14,753 application-range functions, two
+  batches, estimate $41; ids in `.work/triage/batches.json`, results kept 29 days): `triage.py fetch` when
+  `status` says ended, then `ingest full --model sonnet`, then write `plan` (runs of neighbouring functions with
+  one suggested file, the template list, the library-kind cross-check against gaps) and `score`; its runs and
+  lists become W# items in the next run's plan, and `builders.md` gets one line on `triage.py show` (a hint,
+  not evidence). The 5,835 library-range functions are not triaged (D170);
   (e) **revisit D168:** after one or two runs of `triage.py score` against what turned exact, propose moving the
   table from `.work/triage/` to a tool-generated `docs/data/` file if the hints hold up.
 
