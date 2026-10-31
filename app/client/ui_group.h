@@ -81,11 +81,21 @@ public:
 	~UIGroupUnknownE8Class() { Unknown_592BB0(); }		// inline (the group window's destructor expands it)
 	void Unknown_592BB0();								// 0x592BB0
 	RefCountPtr<RenderObjClass> Unknown_5944A0();		// 0x5944A0 (0x594040, 0x598370): Unknown04
+	void Unknown_592A80();								// 0x592A80 (the window's slot +0x60, every frame)
+	void Unknown_592C50();								// 0x592C50 (0x598370)
 
 	UIGroupClass *Unknown00;							// +0x00 (the constructor's argument)
 	RefCountPtr<RenderObjClass> Unknown04;				// +0x04 (0x5944A0 returns it)
 	RefCountPtr<RenderObjClass> Unknown08[6];			// +0x08 (the eh vector destructor iterator with 0x4740B0)
 	char Unknown20[0x34 - 0x20];						// +0x20
+};
+
+// The symbol chat interface the group window holds at +0xAC (0xAC bytes, constructor 0x64A480 over the sclient; its file
+// is unknown), as far as ui_group.cpp calls it
+class UISymbolChatClass : public InterfaceClass	// NAME 2: the FAIL_IF's '!SymbolChatUI'
+{
+public:
+	int Unknown_64B2F0(char *text, bool *leader);		// 0x64B2F0: the symbol picked, as text, and whether the leader sent it (0x596DB0)  // NAME 1 [text, leader]: what 0x596DB0 hands on
 };
 
 #define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)
@@ -104,6 +114,11 @@ public:
 	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x595480 (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_5954C0();								// 0x5954C0 (the destructor expands it: the NAMEnn_TSI03A styles hidden)
 	std::vector<UIGroupMemberClass *>::iterator Get_Member(const std::string &name);	// 0x596090 (the asserts' 'Get_Member(name) != Members.end()')  // NAME 3: the asserts'
+	void Unknown_5966A0();								// 0x5966A0: 0x595530 when a member's presence changed, then every member's timers
+	void Unknown_596DB0();								// 0x596DB0: a picked symbol sent as a group chat line
+	void Unknown_595530();								// 0x595530
+	void Unknown_596770(bool arg);						// 0x596770 (slot +0x60 passes false)  // NAME 1 [arg]: neutral
+	void Unknown_597650();								// 0x597650 (slot +0x60, every frame)
 	void Unknown_596E20(const char *text, bool leader);	// 0x596E20: a group chat line '<S>n owner`text' (FAIL_IFs '!avatar' 1388, '!d_name' 1391)  // NAME 1 [text, leader]: what the format takes
 	void Unknown_597BF0();								// 0x597BF0: the formation buttons shown, GRP_DISBAND / GRP_LEAVE
 	void Add_Member(const std::string &name, int id, int unknown);	// 0x596130 (FAIL_IFs 'Get_Member(name) != Members.end()' 1165, 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' 1168)  // NAME 2: what it does; NAME 1 [unknown]: neutral
@@ -127,7 +142,7 @@ public:
 	void Unknown_598200(bool on);						// 0x598200 (CTA_RESPONSE 189's type 15 passes true)  // NAME 1 [on]: what the handler passes
 	void Unknown_5982A0(int avatar_id);					// 0x5982A0 (CTA_RESPONSE 189's type 17)  // NAME 1 [avatar_id]: the packet's AvatarID
 
-	RefCountPtr<InterfaceClass> SymbolChatUI;			// +0xAC (FAIL_IF '!SymbolChatUI'; 0x594040 makes it, 0xAC bytes, 0x64A480)  // NAME 3: the FAIL_IF's
+	RefCountPtr<UISymbolChatClass> SymbolChatUI;			// +0xAC (FAIL_IF '!SymbolChatUI'; 0x594040 makes it, 0xAC bytes, 0x64A480)  // NAME 3: the FAIL_IF's
 	std::vector<UIGroupMemberClass *> Members;			// +0xB0 (constructed with a count of 0)  // NAME 3 [Members]: the asserts'
 	GadgetClass *Unknown0C0[9];							// +0xC0 the formation buttons (0x594040)
 	RefCountPtr<RenderObjClass> Unknown0E4;				// +0xE4 (0x597D10 hides it: slot +0x184)
