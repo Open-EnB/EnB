@@ -11,6 +11,14 @@ class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0
 class FontStyleClass;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class UIManuSliderClass;	// gd_slider.cpp's slider (+0xB0)
+
+// The rows' buttons at +0xE8 (gadget.cpp's), as far as slot +0x58 reads them
+class UIManuRowButtonClass	// NAME 1: neutral (D10)
+{
+public:
+	char Unknown00[0x30];								// +0x00 (a GadgetClass)
+	RenderObjClass *Unknown30;							// +0x30: the button's model (its sort level)
+};
 class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
 class NameClass;
@@ -82,7 +90,8 @@ public:
 enum
 {
 	USER_INPUT = 0,										// (the G_ASSERTs 'source != USER_INPUT'; the buttons pass 0)  // NAME 3: the asserts'
-	UI_CLOSED = 0										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
+	UI_CLOSED = 0,
+	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
 };
 
 // ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
@@ -120,8 +129,11 @@ public:
 	void Unknown_5B3850();								// 0x5B3850: the level 3 pick's item id asked for
 	void Unknown_5B4850();								// 0x5B4850: MANUFACTURE_ACTION 126 of 0 sent, the go button dimmed (0x5B1AF0 inlined twice)
 	UIManuListClass *Unknown_Find_List(const char *field);	// (inline) the formula list named field  // NAME 1: neutral (D10)
+	UIManuListClass *Unknown_Find_Valid_List(const char *field);	// (inline) the formula list named field, when its +0x70 is set  // NAME 1: neutral (D10)
 	UIManuListClass *Unknown_Get_List();				// (inline in 0x5B1ED0 / 0x5B3850) the previous attempts, else the known formulas  // NAME 1: neutral (D10)
-	void Unknown_5B39B0(int item_id);					// 0x5B39B0: MANUFACTURE_ITEM_ID 123 sent  // NAME 2 [item_id]: the packet's ItemID
+	void Unknown_5B39B0(int item_id);
+	void Unknown_5B3E00();								// 0x5B3E00 ('PrimaryCategories')
+	void Unknown_5B4B10();								// 0x5B4B10: the cost and quality texts (lines 1473-1495)					// 0x5B39B0: MANUFACTURE_ITEM_ID 123 sent  // NAME 2 [item_id]: the packet's ItemID
 	void Unknown_5B3A70();								// 0x5B3A70: MANUFACTURE_ACTION 126 of 2 sent for the level 3 pick
 	bool Unknown_5B3B90(UIManuNodeClass *tree, int a);	// 0x5B3B90: no item under the primary category a is flagged  // NAME 1 [tree, a]: neutral
 	bool Unknown_5B3CA0(UIManuNodeClass *tree, int a, int b);	// 0x5B3CA0: the same under a / b  // NAME 1 [tree, a, b]: neutral
@@ -139,7 +151,7 @@ public:
 	RefCountPtr<UIManuUnknownBCClass> Unknown0BC;		// +0x0BC
 	UIManuUnknownC0Class *Unknown0C0[3];				// +0x0C0 (the destructor deletes them)
 	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xE4: the go button)
-	int Unknown0E8[10];									// +0x0E8
+	UIManuRowButtonClass *Unknown0E8[10];				// +0x0E8 the rows' buttons
 	RefCountPtr<RenderObjClass> Unknown110[3];			// +0x110
 	UIManuRowStruct Unknown11C[10];						// +0x11C the list's rows
 	RefCountPtr<FontStyleClass> Unknown16C[10];			// +0x16C the rows' first texts

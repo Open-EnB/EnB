@@ -9168,7 +9168,8 @@
      "0x5B6720",
      "0x5B6A80",
      "0x5B6CA0",
-     "0x5B6D30"
+     "0x5B6D30",
+     "0x5B7260"
     ],
     "merged": [],
     "name": "client/ui_manu.cpp"

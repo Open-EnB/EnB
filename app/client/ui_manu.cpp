@@ -8,6 +8,7 @@
 #include "sbaseview.h"
 #include "..\shared\unknown_debug.h"
 #include "..\shared\auxdata\auxdata.h"
+#include "..\audio\soundlib.h"
 
 // fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
 // this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
@@ -89,7 +90,7 @@ public:
 
 // ui_mesh.cpp's and pdaint.cpp's functions this file calls that sclient.h does not declare yet
 class UIManuMeshClass { public: void Unknown_5B9930(int arg); };	// NAME 1: neutral (D10): UIMeshClass's 0x5B9930 (the destructor passes -1)  // NAME 1 [arg]: neutral
-class UIManuPDAClass { public: void Unknown_695A00(int a, int b); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral
+class UIManuPDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral
 
 // The names of the window's texts (0xB81868)
 static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Range_tsm01a", "Expected_Quality_tsm01a", "Result_tsm01a", "" };	// NAME 1: neutral (D10)
@@ -131,7 +132,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 }
 
 
-
 // NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0)
 UIManuClass::~UIManuClass()
 {
@@ -162,6 +162,63 @@ void UIManuClass::Unknown_7C(UIViewClass *view, int arg)
 	}
 	if (Unknown0BC) {
 		Unknown0BC->Unknown_7C(view, arg);
+	}
+}
+
+// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0), as slot +0x58 holds it
+class UIManuScopeClass	// NAME 1: neutral (D10)
+{
+public:
+	UIManuScopeClass(InterfaceClass *iface);			// 0x541980  // NAME 1 [iface]: neutral
+	~UIManuScopeClass();								// 0x6E18B0
+	char Unknown00[0x10];
+};
+
+// NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0)
+void UIManuClass::Unknown_58()
+{
+	SClient *sclient = Client->As_Space_Client();
+	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));
+	if (State == UI_CLOSED) {
+		UIManuScopeClass scope(this);
+		State = UI_OPEN;
+		Unknown0BAC = ((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695780(false);
+		Unknown0B98 = -1;
+		Unknown_5B6CA0();
+		for (int j = 0; j < 4; j++) {
+			Unknown0B80[j] = -1;
+		}
+		Unknown0B0->Unknown_66FA90(0, 10.0f, true);
+		Unknown_5B2950();
+		Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
+		RefCountPtr<FontStyleClass> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", (unsigned int)Mesh->Peek_Mesh_Object()));
+		RefCountPtr<RenderObjClass> name_obj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
+		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
+		char buffer[264];
+		for (int i = 0; i < 10; i++) {
+			sprintf(buffer, "desc%02d_tsm01a", i);
+			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, (unsigned int)Mesh->Peek_Mesh_Object()));
+			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
+			Unknown16C[i]->Unknown_6CDBC0("", 0);
+			sprintf(buffer, "var%02d_tsm01a", i);
+			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, (unsigned int)Mesh->Peek_Mesh_Object()));
+			Unknown194[i]->Unknown_6CDBC0("", 0);
+		}
+		Unknown0AC->Unknown_69DC40();
+		Unknown0B4->Unknown_58();
+		Unknown0B8->Unknown_58();
+		Unknown0BC->Unknown_58();
+		Unknown5BB320Class::Unknown_58();
+		ClientObjectClass *target = Client->As_Space_Client()->Unknown_74BF80();
+		if (target) {
+			Unknown0BA0 = target->AuxData;
+		}
+		Unknown_5B4B10();
+		Unknown_5B3E00();
+		Unknown_5B2480();
+		Unknown_5B2BD0(true);
+		Unknown_5B2230();
+		((UIManuSClientClass *)sclient)->Unknown_744560(0x17);
 	}
 }
 
@@ -274,132 +331,75 @@ public:
 int UIManuValidityClass::UnknownGlobal;
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0)
+bool UIManuClass::Unknown_68(int key)
+{
+	if (Unknown0BA8 != 0.0f) {
+		return(true);
+	}
+	Unknown0BB4 = false;
+	switch (key) {
+		case 1:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0AC->Unknown_69F440();
+			return(true);
+		case 2:
+		case 3:
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_5B1C20(key - 2);
+			return(true);
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_5B1ED0(key - 8);
+			return(true);
+		case 18:
+		case 19:
+		case 20:
+		case 21:
+		case 22:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_5B2060(key - 18);
+			return(true);
+		case 23:
+		case 24:
+		case 25:
+		case 26:
+		case 27:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_5B2060(key - 23);
+			return(true);
+		case 28:
+		case 29:
+		case 30:
+		case 31:
+		case 32:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_5B2060(key - 28);
+			return(true);
+		case 5:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			if (!Unknown0BAD) {
+				Unknown_5B3640(true);
+			}
+			return(true);
+		case 6:
+			SoundLibraryClass::Play_2D_Sound("manufacture_1.wav", 2);
+			Unknown0BB4 = true;
+			Unknown_5B3A70();
+			return(true);
+	}
+	return(false);
+}
 
 
 
@@ -690,6 +690,7 @@ void UIManuClass::Unknown_5B1C20(int level)
 }
 
 inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
+inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); return(Unknown_Find_Valid<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
 inline UIManuListClass *UIManuClass::Unknown_Get_List()
 {
 	if (Unknown0BAD) {
@@ -963,14 +964,17 @@ void UIManuClass::Unknown_5B3580(bool force)
 	}
 }
 
-// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both copies of 0x5B3580; registers) (0x5B3640)
+// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds; registers) (0x5B3640)
 void UIManuClass::Unknown_5B3640(bool all)
 {
 	if (!Unknown0BAD) {
 		Unknown0BB0 = -1;
 	}
 	Unknown0BAD = true;
-	Unknown_5B3580(true);
+	UIManuListClass *list = Unknown_Find_Valid_List("PreviousAttempts");
+	if (list) {
+		Unknown_5B3260(list);
+	}
 	Unknown_5B6CA0();
 	if (all) {
 		for (int i = 0; i < 4; i++) {
@@ -1081,10 +1085,6 @@ void UIManuClass::Unknown_5B4850()
 	Unknown_5B1AF0(2, true, "");
 	Unknown_5B1AF0(3, true, "");
 }
-
-
-
-
 
 
 
@@ -1850,17 +1850,20 @@ void UIManuClass::Unknown_5B6D30()
 **	(0x5B6A80), '!Client' 1834 and '!Client->As_Space_Client()' 1835 (0x5B6D30, inlined in 0x5B67C0 / 0x5B6A80).
 **	The filter buttons' slot +0x2C overrides (0x5B6680, 0x5B6720) are inline in their classes: VC6 emits them, with
 **	the implicit destructors (bare jumps to 0x7E7FA0), after 0x5B6410, which makes the buttons.
-**	0x5B1C20's G_ASSERT 'list' is line 685. The functions without asserts between them are placed in the client's address order; their lines are free.
+**	0x5B1C20's G_ASSERT 'list' is line 685. The functions without asserts between them are placed in the client's
+**	address order; their lines are free.
 **
 **	Forms: the four picks at +0xB80 are reset by a loop (VC6 unrolls it into four stores of one register; separate
 **	statements or a chained assignment keep -1 in a register across the rows' loop, memset goes through a pointer),
 **	while the constructor's are a memset. The tree checks 0x5B3B90 / 0x5B3CA0 call the next level's check (inlined: the
 **	level pointer hoisted, the vector indexed again on every pass). 0x5B1AF0 reads the name into a local before the
 **	mesh. The formula lists are found through one inline helper holding the NameClass (one stack slot for both
-**	names, as co.cpp's Unknown_Find_Aux). The player id the packets carry is the space client's +0x1138 (ClientClass::Unknown1138).
+**	names, as co.cpp's Unknown_Find_Aux); 0x5B3640's first find is such a helper over a local Unknown_Find_Valid (the
+**	client's out-of-line copy of that template is 0x5B6DB0). The player id the packets carry is the space client's
+**	+0x1138 (ClientClass::Unknown1138).
 **
-**	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes), +0x58, +0x60, +0x68, the list fillers 0x5B2230 / 0x5B2480 /
-**	0x5B2BD0 / 0x5B3E00, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
-**	(lines 1473-1646). The constructor, destructor, slot +0x5C, 0x5B1ED0, 0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B4850, 0x5B3850 and 0x5B67C0 compile but
-**	are not exact (see their NOT EXACT notes).
+**	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes) and +0x60 (0x5B1230), the list fillers 0x5B2BD0 /
+**	0x5B3E00, 0x5B4680 ('CurrentItemCategory'), the icon loader 0x5B42F0 and the quality texts 0x5B4B10 / 0x5B5320
+**	(lines 1473-1646). The constructor, destructor, slots +0x58 / +0x5C / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2FE0,
+**	0x5B3640, 0x5B3850, 0x5B4850 and 0x5B67C0 compile but are not exact (see their NOT EXACT notes).
 */

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1023 |
+| 3 | by convention from a client-named file or sibling | 1022 |
 | 2 | describes what the code does | 2505 |
-| 1 | neutral placeholder | 6825 |
+| 1 | neutral placeholder | 6842 |
 
 ## For review (score 3 and below)
 
@@ -4366,304 +4366,321 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB4` | `app/client/ui_line_display.h:228` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.h:229` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/ui_line_display.h:233` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_manu.cpp:14` | fontmanager.h's |
-| 1 | `text, unknown` | `app/client/ui_manu.cpp:17` | what this file passes |
-| 1 | `Unknown_6CDBC0` | `app/client/ui_manu.cpp:17` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_manu.cpp:18` | neutral |
-| 1 | `Unknown_6CE910` | `app/client/ui_manu.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/ui_manu.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown2FC` | `app/client/ui_manu.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_manu.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/ui_manu.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown4C6` | `app/client/ui_manu.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown4E4` | `app/client/ui_manu.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_manu.cpp:26` | neutral (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_manu.cpp:30` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/ui_manu.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_manu.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_manu.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/client/ui_manu.cpp:39` | neutral |
-| 1 | `Unknown_2C` | `app/client/ui_manu.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_manu.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/ui_manu.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/ui_manu.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/ui_manu.cpp:40` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_manu.cpp:41` | neutral |
-| 1 | `Unknown_40` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/ui_manu.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/ui_manu.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/ui_manu.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/ui_manu.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_manu.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_manu.cpp:48` | neutral |
-| 1 | `Unknown_8C` | `app/client/ui_manu.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_manu.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_manu.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_manu.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/ui_manu.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/ui_manu.cpp:50` | untagged neutral name (D10) |
-| 1 | `value, unknown` | `app/client/ui_manu.cpp:51` | neutral |
-| 1 | `Unknown_A4` | `app/client/ui_manu.cpp:51` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_manu.cpp:52` | neutral |
-| 1 | `Unknown_65FFA0` | `app/client/ui_manu.cpp:52` | untagged neutral name (D10) |
-| 1 | `arg, view` | `app/client/ui_manu.cpp:54` | neutral |
-| 1 | `Unknown_6603A0` | `app/client/ui_manu.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_manu.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_manu.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown2CLow` | `app/client/ui_manu.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown2C800` | `app/client/ui_manu.cpp:59` | untagged neutral name (D10) |
-| 1 | `UIManuSliderClass` | `app/client/ui_manu.cpp:63` | neutral (D10) |
-| 1 | `model, a, b` | `app/client/ui_manu.cpp:66` | neutral |
-| 1 | `Unknown_66E460` | `app/client/ui_manu.cpp:66` | untagged neutral name (D10) |
-| 1 | `value, rows, update` | `app/client/ui_manu.cpp:67` | neutral |
-| 1 | `Unknown_66FA90` | `app/client/ui_manu.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_manu.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_manu.cpp:70` | untagged neutral name (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/ui_manu.cpp:74` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_manu.cpp:77` | untagged neutral name (D10) |
-| 1 | `UIManuSClientClass` | `app/client/ui_manu.cpp:83` | neutral (D10): SClient, as far as this file calls it |
-| 1 | `arg` | `app/client/ui_manu.cpp:86` | neutral |
-| 1 | `Unknown_744560` | `app/client/ui_manu.cpp:86` | untagged neutral name (D10) |
-| 1 | `color, text, a` | `app/client/ui_manu.cpp:87` | as sclient.h's |
-| 1 | `Unknown_74D990` | `app/client/ui_manu.cpp:87` | untagged neutral name (D10) |
-| 1 | `UIManuMeshClass` | `app/client/ui_manu.cpp:91` | neutral (D10): UIMeshClass's 0x5B9930 (the destructor passes -1)  // NAME 1 [arg]: neutral |
-| 1 | `Unknown_5B9930` | `app/client/ui_manu.cpp:91` | untagged neutral name (D10) |
-| 1 | `UIManuPDAClass` | `app/client/ui_manu.cpp:92` | neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral |
-| 1 | `Unknown_695A00` | `app/client/ui_manu.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown_B81868` | `app/client/ui_manu.cpp:95` | neutral (D10) |
-| 1 | `Unknown_B8183C` | `app/client/ui_manu.cpp:96` | neutral (D10): the filter requests allowed |
-| 1 | `Unknown_AF2D18` | `app/client/ui_manu.cpp:97` | neutral (D10): what 0x5B3A70 stores (read from .rdata) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_manu.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_manu.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_manu.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown0B90` | `app/client/ui_manu.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown0B94` | `app/client/ui_manu.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown0B98` | `app/client/ui_manu.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown0BA0` | `app/client/ui_manu.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown0BA4` | `app/client/ui_manu.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown0BA8` | `app/client/ui_manu.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown0BAC` | `app/client/ui_manu.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown0BAD` | `app/client/ui_manu.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown0BAE` | `app/client/ui_manu.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown0BB0` | `app/client/ui_manu.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown0BB4` | `app/client/ui_manu.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown0BB8` | `app/client/ui_manu.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown0BBC` | `app/client/ui_manu.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown0BC0` | `app/client/ui_manu.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown0B80` | `app/client/ui_manu.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_manu.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_manu.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown0E8` | `app/client/ui_manu.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_manu.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_manu.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown194` | `app/client/ui_manu.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/ui_manu.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown98C` | `app/client/ui_manu.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_manu.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_manu.cpp:130` | untagged neutral name (D10) |
+| 1 | `FontStyleClass` | `app/client/ui_manu.cpp:15` | fontmanager.h's |
+| 1 | `text, unknown` | `app/client/ui_manu.cpp:18` | what this file passes |
+| 1 | `Unknown_6CDBC0` | `app/client/ui_manu.cpp:18` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_manu.cpp:19` | neutral |
+| 1 | `Unknown_6CE910` | `app/client/ui_manu.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/ui_manu.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_manu.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_manu.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/ui_manu.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown4C6` | `app/client/ui_manu.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/ui_manu.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_manu.cpp:27` | neutral (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_manu.cpp:31` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_manu.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_manu.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_manu.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_manu.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_manu.cpp:39` | untagged neutral name (D10) |
+| 1 | `a, b, c, d` | `app/client/ui_manu.cpp:40` | neutral |
+| 1 | `Unknown_2C` | `app/client/ui_manu.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_manu.cpp:42` | neutral |
+| 1 | `Unknown_40` | `app/client/ui_manu.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_manu.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_manu.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_manu.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_manu.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/ui_manu.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ui_manu.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_manu.cpp:48` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_manu.cpp:49` | neutral |
+| 1 | `Unknown_8C` | `app/client/ui_manu.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_manu.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_manu.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_manu.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_manu.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/ui_manu.cpp:51` | untagged neutral name (D10) |
+| 1 | `value, unknown` | `app/client/ui_manu.cpp:52` | neutral |
+| 1 | `Unknown_A4` | `app/client/ui_manu.cpp:52` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_manu.cpp:53` | neutral |
+| 1 | `Unknown_65FFA0` | `app/client/ui_manu.cpp:53` | untagged neutral name (D10) |
+| 1 | `arg, view` | `app/client/ui_manu.cpp:55` | neutral |
+| 1 | `Unknown_6603A0` | `app/client/ui_manu.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_manu.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_manu.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown2CLow` | `app/client/ui_manu.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown2C800` | `app/client/ui_manu.cpp:60` | untagged neutral name (D10) |
+| 1 | `UIManuSliderClass` | `app/client/ui_manu.cpp:64` | neutral (D10) |
+| 1 | `model, a, b` | `app/client/ui_manu.cpp:67` | neutral |
+| 1 | `Unknown_66E460` | `app/client/ui_manu.cpp:67` | untagged neutral name (D10) |
+| 1 | `value, rows, update` | `app/client/ui_manu.cpp:68` | neutral |
+| 1 | `Unknown_66FA90` | `app/client/ui_manu.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_manu.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_manu.cpp:71` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_manu.cpp:75` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_manu.cpp:78` | untagged neutral name (D10) |
+| 1 | `UIManuSClientClass` | `app/client/ui_manu.cpp:84` | neutral (D10): SClient, as far as this file calls it |
+| 1 | `arg` | `app/client/ui_manu.cpp:87` | neutral |
+| 1 | `Unknown_744560` | `app/client/ui_manu.cpp:87` | untagged neutral name (D10) |
+| 1 | `color, text, a` | `app/client/ui_manu.cpp:88` | as sclient.h's |
+| 1 | `Unknown_74D990` | `app/client/ui_manu.cpp:88` | untagged neutral name (D10) |
+| 1 | `UIManuMeshClass` | `app/client/ui_manu.cpp:92` | neutral (D10): UIMeshClass's 0x5B9930 (the destructor passes -1)  // NAME 1 [arg]: neutral |
+| 1 | `Unknown_5B9930` | `app/client/ui_manu.cpp:92` | untagged neutral name (D10) |
+| 1 | `UIManuPDAClass` | `app/client/ui_manu.cpp:93` | neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral |
+| 1 | `Unknown_695A00` | `app/client/ui_manu.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_695780` | `app/client/ui_manu.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_B81868` | `app/client/ui_manu.cpp:96` | neutral (D10) |
+| 1 | `Unknown_B8183C` | `app/client/ui_manu.cpp:97` | neutral (D10): the filter requests allowed |
+| 1 | `Unknown_AF2D18` | `app/client/ui_manu.cpp:98` | neutral (D10): what 0x5B3A70 stores (read from .rdata) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_manu.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_manu.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_manu.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown0B90` | `app/client/ui_manu.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown0B94` | `app/client/ui_manu.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown0B98` | `app/client/ui_manu.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown0BA0` | `app/client/ui_manu.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown0BA4` | `app/client/ui_manu.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown0BA8` | `app/client/ui_manu.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown0BAC` | `app/client/ui_manu.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown0BAD` | `app/client/ui_manu.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown0BAE` | `app/client/ui_manu.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown0BB0` | `app/client/ui_manu.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown0BB4` | `app/client/ui_manu.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown0BB8` | `app/client/ui_manu.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown0BBC` | `app/client/ui_manu.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown0BC0` | `app/client/ui_manu.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown0B80` | `app/client/ui_manu.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_manu.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_manu.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown0E8` | `app/client/ui_manu.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_manu.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/ui_manu.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown194` | `app/client/ui_manu.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_manu.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown98C` | `app/client/ui_manu.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_manu.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_manu.cpp:131` | untagged neutral name (D10) |
 | 1 | `Unknown0B4` | `app/client/ui_manu.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_manu.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown0BC` | `app/client/ui_manu.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown_69DC60` | `app/client/ui_manu.cpp:172` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_manu.cpp:175` | untagged neutral name (D10) |
-| 1 | `UIManuCheckButtonClass` | `app/client/ui_manu.cpp:198` | neutral (D10) |
-| 1 | `robj, layer, arg` | `app/client/ui_manu.cpp:201` | neutral |
-| 1 | `on` | `app/client/ui_manu.cpp:204` | neutral |
-| 1 | `Unknown_7E8030` | `app/client/ui_manu.cpp:204` | untagged neutral name (D10) |
-| 1 | `UIManuTechLevelButtonClass` | `app/client/ui_manu.cpp:212` | neutral (D10) |
-| 1 | `robj, layer, owner` | `app/client/ui_manu.cpp:215` | neutral; NAME 3 [tech_level]: the FAIL_IF's |
-| 1 | `Unknown_5B67C0` | `app/client/ui_manu.cpp:220` | untagged neutral name (D10) |
-| 1 | `UIManuAllLevelsButtonClass` | `app/client/ui_manu.cpp:228` | neutral (D10) |
-| 1 | `robj, layer, owner` | `app/client/ui_manu.cpp:231` | neutral |
-| 1 | `Unknown_5B6A80` | `app/client/ui_manu.cpp:236` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_manu.cpp:244` | what the callers pass |
-| 1 | `Unknown_496AE0` | `app/client/ui_manu.cpp:244` | untagged neutral name (D10) |
-| 1 | `UIManuEntryClass` | `app/client/ui_manu.cpp:248` | neutral (D10) |
-| 1 | `Unknown09C` | `app/client/ui_manu.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/ui_manu.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/ui_manu.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown1A8` | `app/client/ui_manu.cpp:254` | untagged neutral name (D10) |
-| 1 | `UIManuListClass` | `app/client/ui_manu.cpp:256` | neutral (D10) |
-| 1 | `UnknownGlobal` | `app/client/ui_manu.cpp:259` | untagged neutral name (D10) |
-| 1 | `UIManuCategoriesClass` | `app/client/ui_manu.cpp:262` | neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads) |
-| 1 | `UIManuValidityClass` | `app/client/ui_manu.cpp:268` | neutral (D10): 'Validity' (13 when the item can be made) |
-| 1 | `Unknown_Find_Valid` | `app/client/ui_manu.cpp:275` | neutral (D10): as co.cpp's |
-| 1 | `Unknown_Find_Field` | `app/client/ui_manu.cpp:275` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_manu.cpp:275` | untagged neutral name (D10) |
+| 1 | `UIManuScopeClass` | `app/client/ui_manu.cpp:169` | neutral (D10) |
+| 1 | `iface` | `app/client/ui_manu.cpp:172` | neutral |
+| 1 | `Unknown00` | `app/client/ui_manu.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_manu.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2950` | `app/client/ui_manu.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC40` | `app/client/ui_manu.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_74BF80` | `app/client/ui_manu.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_5B4B10` | `app/client/ui_manu.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3E00` | `app/client/ui_manu.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2480` | `app/client/ui_manu.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2BD0` | `app/client/ui_manu.cpp:219` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2230` | `app/client/ui_manu.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/ui_manu.cpp:229` | untagged neutral name (D10) |
+| 1 | `UIManuCheckButtonClass` | `app/client/ui_manu.cpp:255` | neutral (D10) |
+| 1 | `robj, layer, arg` | `app/client/ui_manu.cpp:258` | neutral |
+| 1 | `on` | `app/client/ui_manu.cpp:261` | neutral |
+| 1 | `Unknown_7E8030` | `app/client/ui_manu.cpp:261` | untagged neutral name (D10) |
+| 1 | `UIManuTechLevelButtonClass` | `app/client/ui_manu.cpp:269` | neutral (D10) |
+| 1 | `robj, layer, owner` | `app/client/ui_manu.cpp:272` | neutral; NAME 3 [tech_level]: the FAIL_IF's |
+| 1 | `Unknown_5B67C0` | `app/client/ui_manu.cpp:277` | untagged neutral name (D10) |
+| 1 | `UIManuAllLevelsButtonClass` | `app/client/ui_manu.cpp:285` | neutral (D10) |
+| 1 | `robj, layer, owner` | `app/client/ui_manu.cpp:288` | neutral |
+| 1 | `Unknown_5B6A80` | `app/client/ui_manu.cpp:293` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_manu.cpp:301` | what the callers pass |
+| 1 | `Unknown_496AE0` | `app/client/ui_manu.cpp:301` | untagged neutral name (D10) |
+| 1 | `UIManuEntryClass` | `app/client/ui_manu.cpp:305` | neutral (D10) |
+| 1 | `Unknown09C` | `app/client/ui_manu.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_manu.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_manu.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/ui_manu.cpp:311` | untagged neutral name (D10) |
+| 1 | `UIManuListClass` | `app/client/ui_manu.cpp:313` | neutral (D10) |
+| 1 | `UnknownGlobal` | `app/client/ui_manu.cpp:316` | untagged neutral name (D10) |
+| 1 | `UIManuCategoriesClass` | `app/client/ui_manu.cpp:319` | neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads) |
+| 1 | `UIManuValidityClass` | `app/client/ui_manu.cpp:325` | neutral (D10): 'Validity' (13 when the item can be made) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_manu.cpp:332` | neutral (D10): as co.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/ui_manu.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_manu.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/ui_manu.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_5B1C20` | `app/client/ui_manu.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_5B1ED0` | `app/client/ui_manu.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2060` | `app/client/ui_manu.cpp:371` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3640` | `app/client/ui_manu.cpp:392` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3A70` | `app/client/ui_manu.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_5B1AF0` | `app/client/ui_manu.cpp:648` | untagged neutral name (D10) |
-| 1 | `Unknown_5B1C20` | `app/client/ui_manu.cpp:657` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2B40` | `app/client/ui_manu.cpp:660` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.cpp:666` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2BD0` | `app/client/ui_manu.cpp:667` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2230` | `app/client/ui_manu.cpp:668` | untagged neutral name (D10) |
 | 1 | `Unknown_5B74F0` | `app/client/ui_manu.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3260` | `app/client/ui_manu.cpp:686` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2480` | `app/client/ui_manu.cpp:688` | untagged neutral name (D10) |
 | 1 | `Unknown_5B4850` | `app/client/ui_manu.cpp:689` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_List` | `app/client/ui_manu.cpp:692` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_List` | `app/client/ui_manu.cpp:693` | untagged neutral name (D10) |
-| 1 | `Unknown_5B1ED0` | `app/client/ui_manu.cpp:702` | untagged neutral name (D10) |
-| 1 | `Unknown_5B39B0` | `app/client/ui_manu.cpp:710` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2060` | `app/client/ui_manu.cpp:719` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2FE0` | `app/client/ui_manu.cpp:730` | untagged neutral name (D10) |
-| 1 | `Unknown_5B21A0` | `app/client/ui_manu.cpp:740` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2A80` | `app/client/ui_manu.cpp:759` | untagged neutral name (D10) |
-| 1 | `Unknown_5B7570` | `app/client/ui_manu.cpp:776` | untagged neutral name (D10) |
-| 1 | `Unknown_5B42F0` | `app/client/ui_manu.cpp:789` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:814` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2950` | `app/client/ui_manu.cpp:825` | untagged neutral name (D10) |
-| 1 | `Unknown_5B28E0` | `app/client/ui_manu.cpp:829` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2990` | `app/client/ui_manu.cpp:846` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2F20` | `app/client/ui_manu.cpp:889` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_manu.cpp:910` | untagged neutral name (D10) |
-| 1 | `Unknown230` | `app/client/ui_manu.cpp:910` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3580` | `app/client/ui_manu.cpp:955` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3640` | `app/client/ui_manu.cpp:967` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3850` | `app/client/ui_manu.cpp:988` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3A70` | `app/client/ui_manu.cpp:1011` | untagged neutral name (D10) |
-| 1 | `Unknown_62F5B0` | `app/client/ui_manu.cpp:1019` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3B90` | `app/client/ui_manu.cpp:1029` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3CA0` | `app/client/ui_manu.cpp:1035` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3D70` | `app/client/ui_manu.cpp:1050` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid_List` | `app/client/ui_manu.cpp:693` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_List` | `app/client/ui_manu.cpp:694` | untagged neutral name (D10) |
+| 1 | `Unknown_5B39B0` | `app/client/ui_manu.cpp:711` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2FE0` | `app/client/ui_manu.cpp:731` | untagged neutral name (D10) |
+| 1 | `Unknown_5B21A0` | `app/client/ui_manu.cpp:741` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2A80` | `app/client/ui_manu.cpp:760` | untagged neutral name (D10) |
+| 1 | `Unknown_5B7570` | `app/client/ui_manu.cpp:777` | untagged neutral name (D10) |
+| 1 | `Unknown_5B42F0` | `app/client/ui_manu.cpp:790` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:815` | untagged neutral name (D10) |
+| 1 | `Unknown_5B28E0` | `app/client/ui_manu.cpp:830` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2990` | `app/client/ui_manu.cpp:847` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2F20` | `app/client/ui_manu.cpp:890` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_manu.cpp:911` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/ui_manu.cpp:911` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3580` | `app/client/ui_manu.cpp:956` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3850` | `app/client/ui_manu.cpp:992` | untagged neutral name (D10) |
+| 1 | `Unknown_62F5B0` | `app/client/ui_manu.cpp:1023` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3B90` | `app/client/ui_manu.cpp:1033` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3CA0` | `app/client/ui_manu.cpp:1039` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3D70` | `app/client/ui_manu.cpp:1054` | untagged neutral name (D10) |
 | 1 | `Unknown_5B6410` | `app/client/ui_manu.cpp:1720` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_manu.cpp:1735` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_manu.cpp:1735` | untagged neutral name (D10) |
 | 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1764` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1860` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1861` | untagged neutral name (D10) |
 | 1 | `ui_manu.h` | `app/client/ui_manu.h:4` | provisional header name for ui_manu.cpp |
-| 1 | `UIManuUnknownC0Class` | `app/client/ui_manu.h:20` | neutral (D10) |
-| 1 | `on` | `app/client/ui_manu.h:24` | neutral |
-| 1 | `Unknown_5B74F0` | `app/client/ui_manu.h:24` | untagged neutral name (D10) |
-| 1 | `disabled, primary, secondary` | `app/client/ui_manu.h:25` | neutral |
-| 1 | `Unknown_5B7570` | `app/client/ui_manu.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_manu.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_manu.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/ui_manu.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_manu.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/ui_manu.h:33` | untagged neutral name (D10) |
-| 1 | `UIManuRowStruct` | `app/client/ui_manu.h:37` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/ui_manu.h:40` | untagged neutral name (D10) |
-| 1 | `UIManuItemClass` | `app/client/ui_manu.h:44` | neutral (D10): the bottom level |
-| 1 | `Unknown000` | `app/client/ui_manu.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_manu.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown094` | `app/client/ui_manu.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown1A8` | `app/client/ui_manu.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown1AC` | `app/client/ui_manu.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown230` | `app/client/ui_manu.h:52` | untagged neutral name (D10) |
-| 1 | `UIManuLevel2Class` | `app/client/ui_manu.h:54` | neutral (D10) |
-| 1 | `UIManuLevel1Class` | `app/client/ui_manu.h:60` | neutral (D10) |
-| 1 | `UIManuNodeClass` | `app/client/ui_manu.h:66` | neutral (D10): the tree's root |
-| 1 | `UIManuUnknownBCClass` | `app/client/ui_manu.h:76` | neutral (D10) |
-| 1 | `on` | `app/client/ui_manu.h:79` | neutral |
-| 1 | `Unknown_62F5B0` | `app/client/ui_manu.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_manu.h:89` | untagged neutral name (D10) |
-| 1 | `view, layer` | `app/client/ui_manu.h:92` | what 0x69F8F0 passes |
-| 1 | `Unknown_54` | `app/client/ui_manu.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_manu.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_manu.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_manu.h:97` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_manu.h:98` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_manu.h:98` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_manu.h:99` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/ui_manu.h:99` | untagged neutral name (D10) |
-| 1 | `index, show, text` | `app/client/ui_manu.h:100` | neutral |
-| 1 | `Unknown_5B1AF0` | `app/client/ui_manu.h:100` | untagged neutral name (D10) |
-| 1 | `level` | `app/client/ui_manu.h:101` | neutral; NAME 3 [list]: the assert's |
-| 1 | `Unknown_5B1C20` | `app/client/ui_manu.h:101` | untagged neutral name (D10) |
-| 1 | `row` | `app/client/ui_manu.h:102` | neutral |
-| 1 | `Unknown_5B1ED0` | `app/client/ui_manu.h:102` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_manu.h:103` | neutral |
-| 1 | `Unknown_5B2060` | `app/client/ui_manu.h:103` | untagged neutral name (D10) |
-| 1 | `row` | `app/client/ui_manu.h:104` | neutral |
-| 1 | `Unknown_5B21A0` | `app/client/ui_manu.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2230` | `app/client/ui_manu.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2820` | `app/client/ui_manu.h:106` | untagged neutral name (D10) |
-| 1 | `top` | `app/client/ui_manu.h:107` | neutral |
-| 1 | `Unknown_5B28E0` | `app/client/ui_manu.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2950` | `app/client/ui_manu.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2990` | `app/client/ui_manu.h:109` | untagged neutral name (D10) |
-| 1 | `name, text, index` | `app/client/ui_manu.h:110` | neutral |
-| 1 | `Unknown_5B2A80` | `app/client/ui_manu.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2B40` | `app/client/ui_manu.h:111` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_manu.h:112` | what 0x5B2060 passes |
-| 1 | `Unknown_5B2BD0` | `app/client/ui_manu.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2FE0` | `app/client/ui_manu.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2480` | `app/client/ui_manu.h:114` | untagged neutral name (D10) |
-| 1 | `level` | `app/client/ui_manu.h:115` | neutral |
-| 1 | `Unknown_5B42F0` | `app/client/ui_manu.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2F20` | `app/client/ui_manu.h:116` | untagged neutral name (D10) |
-| 1 | `list` | `app/client/ui_manu.h:117` | neutral |
-| 1 | `Unknown_5B3260` | `app/client/ui_manu.h:117` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/ui_manu.h:118` | neutral |
-| 1 | `Unknown_5B3580` | `app/client/ui_manu.h:118` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/ui_manu.h:119` | neutral |
-| 1 | `Unknown_5B3640` | `app/client/ui_manu.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3850` | `app/client/ui_manu.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_5B4850` | `app/client/ui_manu.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_List` | `app/client/ui_manu.h:122` | neutral (D10) |
-| 1 | `Unknown_Get_List` | `app/client/ui_manu.h:123` | neutral (D10) |
-| 1 | `Unknown_5B39B0` | `app/client/ui_manu.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3A70` | `app/client/ui_manu.h:125` | untagged neutral name (D10) |
-| 1 | `tree, a` | `app/client/ui_manu.h:126` | neutral |
-| 1 | `Unknown_5B3B90` | `app/client/ui_manu.h:126` | untagged neutral name (D10) |
-| 1 | `tree, a, b` | `app/client/ui_manu.h:127` | neutral |
-| 1 | `Unknown_5B3CA0` | `app/client/ui_manu.h:127` | untagged neutral name (D10) |
-| 1 | `tree, a, b, c` | `app/client/ui_manu.h:128` | neutral |
-| 1 | `Unknown_5B3D70` | `app/client/ui_manu.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6410` | `app/client/ui_manu.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_5B67C0` | `app/client/ui_manu.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6A80` | `app/client/ui_manu.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6D30` | `app/client/ui_manu.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_manu.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_manu.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_manu.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_manu.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_manu.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_manu.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_manu.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown0E8` | `app/client/ui_manu.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_manu.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_manu.h:144` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_manu.h:145` | untagged neutral name (D10) |
-| 1 | `Unknown194` | `app/client/ui_manu.h:146` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/ui_manu.h:147` | untagged neutral name (D10) |
-| 1 | `Unknown98C` | `app/client/ui_manu.h:148` | untagged neutral name (D10) |
-| 1 | `Unknown0B80` | `app/client/ui_manu.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown0B90` | `app/client/ui_manu.h:150` | untagged neutral name (D10) |
-| 1 | `Unknown0B94` | `app/client/ui_manu.h:151` | untagged neutral name (D10) |
-| 1 | `Unknown0B98` | `app/client/ui_manu.h:152` | untagged neutral name (D10) |
-| 1 | `Unknown0BA0` | `app/client/ui_manu.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown0BA4` | `app/client/ui_manu.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown0BA8` | `app/client/ui_manu.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown0BAC` | `app/client/ui_manu.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown0BAD` | `app/client/ui_manu.h:158` | untagged neutral name (D10) |
-| 1 | `Unknown0BAE` | `app/client/ui_manu.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown0BB0` | `app/client/ui_manu.h:160` | untagged neutral name (D10) |
-| 1 | `Unknown0BB4` | `app/client/ui_manu.h:161` | untagged neutral name (D10) |
-| 1 | `Unknown0BB8` | `app/client/ui_manu.h:162` | untagged neutral name (D10) |
-| 1 | `Unknown0BBC` | `app/client/ui_manu.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown0BC0` | `app/client/ui_manu.h:164` | untagged neutral name (D10) |
+| 1 | `UIManuRowButtonClass` | `app/client/ui_manu.h:16` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_manu.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_manu.h:20` | untagged neutral name (D10) |
+| 1 | `UIManuUnknownC0Class` | `app/client/ui_manu.h:28` | neutral (D10) |
+| 1 | `on` | `app/client/ui_manu.h:32` | neutral |
+| 1 | `Unknown_5B74F0` | `app/client/ui_manu.h:32` | untagged neutral name (D10) |
+| 1 | `disabled, primary, secondary` | `app/client/ui_manu.h:33` | neutral |
+| 1 | `Unknown_5B7570` | `app/client/ui_manu.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_manu.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_manu.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/ui_manu.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_manu.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ui_manu.h:41` | untagged neutral name (D10) |
+| 1 | `UIManuRowStruct` | `app/client/ui_manu.h:45` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/ui_manu.h:48` | untagged neutral name (D10) |
+| 1 | `UIManuItemClass` | `app/client/ui_manu.h:52` | neutral (D10): the bottom level |
+| 1 | `Unknown000` | `app/client/ui_manu.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_manu.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown094` | `app/client/ui_manu.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/ui_manu.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `app/client/ui_manu.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/ui_manu.h:60` | untagged neutral name (D10) |
+| 1 | `UIManuLevel2Class` | `app/client/ui_manu.h:62` | neutral (D10) |
+| 1 | `UIManuLevel1Class` | `app/client/ui_manu.h:68` | neutral (D10) |
+| 1 | `UIManuNodeClass` | `app/client/ui_manu.h:74` | neutral (D10): the tree's root |
+| 1 | `UIManuUnknownBCClass` | `app/client/ui_manu.h:84` | neutral (D10) |
+| 1 | `on` | `app/client/ui_manu.h:87` | neutral |
+| 1 | `Unknown_62F5B0` | `app/client/ui_manu.h:87` | untagged neutral name (D10) |
+| 1 | `UI_OPEN` | `app/client/ui_manu.h:94` | neutral (D10)										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's |
+| 1 | `Unknown5BB320Class` | `app/client/ui_manu.h:98` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/ui_manu.h:101` | what 0x69F8F0 passes |
+| 1 | `Unknown_54` | `app/client/ui_manu.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_manu.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_manu.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_manu.h:106` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_manu.h:107` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_manu.h:107` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_manu.h:108` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_manu.h:108` | untagged neutral name (D10) |
+| 1 | `index, show, text` | `app/client/ui_manu.h:109` | neutral |
+| 1 | `Unknown_5B1AF0` | `app/client/ui_manu.h:109` | untagged neutral name (D10) |
+| 1 | `level` | `app/client/ui_manu.h:110` | neutral; NAME 3 [list]: the assert's |
+| 1 | `Unknown_5B1C20` | `app/client/ui_manu.h:110` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_manu.h:111` | neutral |
+| 1 | `Unknown_5B1ED0` | `app/client/ui_manu.h:111` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_manu.h:112` | neutral |
+| 1 | `Unknown_5B2060` | `app/client/ui_manu.h:112` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_manu.h:113` | neutral |
+| 1 | `Unknown_5B21A0` | `app/client/ui_manu.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2230` | `app/client/ui_manu.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2820` | `app/client/ui_manu.h:115` | untagged neutral name (D10) |
+| 1 | `top` | `app/client/ui_manu.h:116` | neutral |
+| 1 | `Unknown_5B28E0` | `app/client/ui_manu.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2950` | `app/client/ui_manu.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2990` | `app/client/ui_manu.h:118` | untagged neutral name (D10) |
+| 1 | `name, text, index` | `app/client/ui_manu.h:119` | neutral |
+| 1 | `Unknown_5B2A80` | `app/client/ui_manu.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2B40` | `app/client/ui_manu.h:120` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_manu.h:121` | what 0x5B2060 passes |
+| 1 | `Unknown_5B2BD0` | `app/client/ui_manu.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2FE0` | `app/client/ui_manu.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2480` | `app/client/ui_manu.h:123` | untagged neutral name (D10) |
+| 1 | `level` | `app/client/ui_manu.h:124` | neutral |
+| 1 | `Unknown_5B42F0` | `app/client/ui_manu.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2F20` | `app/client/ui_manu.h:125` | untagged neutral name (D10) |
+| 1 | `list` | `app/client/ui_manu.h:126` | neutral |
+| 1 | `Unknown_5B3260` | `app/client/ui_manu.h:126` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/ui_manu.h:127` | neutral |
+| 1 | `Unknown_5B3580` | `app/client/ui_manu.h:127` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/ui_manu.h:128` | neutral |
+| 1 | `Unknown_5B3640` | `app/client/ui_manu.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3850` | `app/client/ui_manu.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown_5B4850` | `app/client/ui_manu.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_List` | `app/client/ui_manu.h:131` | neutral (D10) |
+| 1 | `Unknown_Find_Valid_List` | `app/client/ui_manu.h:132` | neutral (D10) |
+| 1 | `Unknown_Get_List` | `app/client/ui_manu.h:133` | neutral (D10) |
+| 1 | `Unknown_5B39B0` | `app/client/ui_manu.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3E00` | `app/client/ui_manu.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown_5B4B10` | `app/client/ui_manu.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3A70` | `app/client/ui_manu.h:137` | untagged neutral name (D10) |
+| 1 | `tree, a` | `app/client/ui_manu.h:138` | neutral |
+| 1 | `Unknown_5B3B90` | `app/client/ui_manu.h:138` | untagged neutral name (D10) |
+| 1 | `tree, a, b` | `app/client/ui_manu.h:139` | neutral |
+| 1 | `Unknown_5B3CA0` | `app/client/ui_manu.h:139` | untagged neutral name (D10) |
+| 1 | `tree, a, b, c` | `app/client/ui_manu.h:140` | neutral |
+| 1 | `Unknown_5B3D70` | `app/client/ui_manu.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6410` | `app/client/ui_manu.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown_5B67C0` | `app/client/ui_manu.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6A80` | `app/client/ui_manu.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6D30` | `app/client/ui_manu.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_manu.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_manu.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_manu.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_manu.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_manu.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_manu.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_manu.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown0E8` | `app/client/ui_manu.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_manu.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_manu.h:156` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/ui_manu.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown194` | `app/client/ui_manu.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_manu.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown98C` | `app/client/ui_manu.h:160` | untagged neutral name (D10) |
+| 1 | `Unknown0B80` | `app/client/ui_manu.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown0B90` | `app/client/ui_manu.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown0B94` | `app/client/ui_manu.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown0B98` | `app/client/ui_manu.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown0BA0` | `app/client/ui_manu.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown0BA4` | `app/client/ui_manu.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown0BA8` | `app/client/ui_manu.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown0BAC` | `app/client/ui_manu.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown0BAD` | `app/client/ui_manu.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown0BAE` | `app/client/ui_manu.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown0BB0` | `app/client/ui_manu.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown0BB4` | `app/client/ui_manu.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown0BB8` | `app/client/ui_manu.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown0BBC` | `app/client/ui_manu.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown0BC0` | `app/client/ui_manu.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/uiview.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/uiview.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/uiview.cpp:14` | untagged neutral name (D10) |
@@ -7740,15 +7757,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_line_display.h:230` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:231` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:232` | describes what it holds |
-| 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:28` | fontdatabase.h's |
-| 2 | `Checked` | `app/client/ui_manu.cpp:207` | what 0x7E8030 sets |
-| 2 | `Owner` | `app/client/ui_manu.cpp:225` | what it holds |
-| 2 | `Owner` | `app/client/ui_manu.cpp:241` | what it holds |
-| 2 | `Value` | `app/client/ui_manu.cpp:272` | what it holds |
-| 2 | `Gadgets` | `app/client/ui_manu.h:27` | what it holds |
-| 2 | `IDs` | `app/client/ui_manu.h:29` | what it holds |
-| 2 | `Gadget` | `app/client/ui_manu.h:39` | what it holds |
-| 2 | `item_id` | `app/client/ui_manu.h:124` | the packet's ItemID |
+| 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:29` | fontdatabase.h's |
+| 2 | `Checked` | `app/client/ui_manu.cpp:264` | what 0x7E8030 sets |
+| 2 | `Owner` | `app/client/ui_manu.cpp:282` | what it holds |
+| 2 | `Owner` | `app/client/ui_manu.cpp:298` | what it holds |
+| 2 | `Value` | `app/client/ui_manu.cpp:329` | what it holds |
+| 2 | `Gadgets` | `app/client/ui_manu.h:35` | what it holds |
+| 2 | `IDs` | `app/client/ui_manu.h:37` | what it holds |
+| 2 | `Gadget` | `app/client/ui_manu.h:47` | what it holds |
+| 2 | `item_id` | `app/client/ui_manu.h:136` | the packet's ItemID |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
@@ -9601,17 +9618,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ControlKeysManagerClass` | `app/client/ui_line_display.cpp:21` | by convention (D24) from the client's control_keys_manager.cpp |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:20` | header name assumed from the client's ui_line_display.cpp |
 | 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:194` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
-| 3 | `FontManagerClass` | `app/client/ui_manu.cpp:29` | fontmanager.h's |
-| 3 | `GadgetClass` | `app/client/ui_manu.cpp:33` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `As_Space_Client` | `app/client/ui_manu.cpp:79` | the FAIL_IF's |
-| 3 | `TechLevel` | `app/client/ui_manu.cpp:226` | the FAIL_IF's |
-| 3 | `USER_INPUT` | `app/client/ui_manu.h:84` | the asserts' |
-| 3 | `UI_CLOSED` | `app/client/ui_manu.h:85` | the assert's |
-| 3 | `UIManuClass` | `app/client/ui_manu.h:89` | class-from-file (D24) for app\client\ui_manu.cpp |
-| 3 | `bttn_name` | `app/client/ui_manu.h:129` | the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral |
-| 3 | `tech_level, source` | `app/client/ui_manu.h:130` | the asserts'; NAME 1 [on]: neutral |
-| 3 | `source` | `app/client/ui_manu.h:131` | the assert's; NAME 1 [on]: neutral |
-| 3 | `State` | `app/client/ui_manu.h:153` | the assert's |
+| 3 | `FontManagerClass` | `app/client/ui_manu.cpp:30` | fontmanager.h's |
+| 3 | `GadgetClass` | `app/client/ui_manu.cpp:34` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_manu.cpp:80` | the FAIL_IF's |
+| 3 | `TechLevel` | `app/client/ui_manu.cpp:283` | the FAIL_IF's |
+| 3 | `USER_INPUT` | `app/client/ui_manu.h:92` | the asserts' |
+| 3 | `UIManuClass` | `app/client/ui_manu.h:98` | class-from-file (D24) for app\client\ui_manu.cpp |
+| 3 | `bttn_name` | `app/client/ui_manu.h:141` | the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral |
+| 3 | `tech_level, source` | `app/client/ui_manu.h:142` | the asserts'; NAME 1 [on]: neutral |
+| 3 | `source` | `app/client/ui_manu.h:143` | the assert's; NAME 1 [on]: neutral |
+| 3 | `State` | `app/client/ui_manu.h:165` | the assert's |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `GadgetListManagerClass` | `app/client/uiview.h:38` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
