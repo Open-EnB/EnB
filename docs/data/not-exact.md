@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-397 entries in 79 files.
+400 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -173,6 +173,9 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
 | `app/client/ui_chat_panel.cpp:890` | `UIChatPanelClass::Unknown_565D80` | marker | NOT EXACT: inline-budget (the client calls _Grow out of line in the last assign, ours inlines it; ebx / esi swapped in the shift loop) 0x565D80 |
 | `app/client/ui_chat_panel.cpp:918` | `UIChatPanelClass::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
+| `app/client/ui_chat_panel.cpp:968` | `UIChatPanelClass::Unknown_5679A0` | marker | NOT EXACT: inline-budget (the client calls string::compare out of line in the inlined 0x5680B0 and keeps more of the string helpers out of line; 296 instructions vs 287) 0x5679A0 |
+| `app/client/ui_chat_panel.cpp:1003` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
+| `app/client/ui_chat_panel.cpp:1987` | `UIChatPanelClass::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |

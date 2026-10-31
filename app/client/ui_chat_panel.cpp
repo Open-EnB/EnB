@@ -1,11 +1,13 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_chat_panel.cpp. Notes at the end of the file.
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "ui_chat_panel.h"
 #include "client.h"
 #include "..\audio\soundlib.h"
 #include "rendobj.h"
 #include "option.h"
+#include "..\packets\pkclientchat.h"
 #include "texture.h"
 #include "..\shared\unknown_debug.h"
 #include "control_keys_manager.h"
@@ -160,8 +162,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
 
 
 
@@ -963,6 +963,68 @@ bool UIChatPanelClass::Unknown_567970()
 {
 	if (Unknown1E8 && Unknown1E8->Is_Active()) return(true);
 	return(false);
+}
+
+// NOT EXACT: inline-budget (the client calls string::compare out of line in the inlined 0x5680B0 and keeps more of the string helpers out of line; 296 instructions vs 287)
+// 0x5679A0
+void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag)
+{
+	switch (event) {
+		case 7:
+			if (strcmp(Unknown214.c_str(), channel.c_str()) != 0) Unknown224 = false;
+			if (flag) {
+				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				Unknown225 = false;
+			}
+			break;
+		case 8:
+			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) {
+				Unknown_5680B0(std::string(""));
+				Unknown224 = false;
+				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+			}
+			break;
+		case 9:
+			Unknown_5680B0(channel);
+			UnknownFC = 8;
+			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+			Unknown224 = true;
+			Unknown225 = false;
+			break;
+		case 23:
+			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) Unknown224 = true;
+			break;
+		case 24:
+			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) Unknown224 = false;
+			break;
+	}
+}
+
+// NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169)
+// 0x567DF0
+void UIChatPanelClass::Unknown_567DF0(int code)
+{
+	switch (code) {
+		case 12:
+			UnknownFC = 6;
+			Unknown225 = false;
+			return;
+		case 13:
+			UnknownFC = 7;
+			break;
+		case 2:
+			UnknownFC = 4;
+			Unknown_5680B0(std::string(""));
+			break;
+		case 10:
+			UnknownFC = 3;
+			Unknown_5680B0(std::string(""));
+			break;
+		default:
+			return;
+	}
+	SoundLibraryClass::Play_2D_Sound("cost.wav", 2);
+	Unknown225 = false;
 }
 
 // 0x5680B0
@@ -1911,68 +1973,6 @@ void UIChatPanelClass::Unknown_568950()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x5698F0
 void UIChatPanelClass::Unknown_5698F0(int id)
 {
@@ -1982,6 +1982,28 @@ void UIChatPanelClass::Unknown_5698F0(int id)
 	if (UnknownD4) UnknownD4 = NULL;
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Unknown_57AD50(Unknown1F4.c_str());
+}
+
+// NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178)
+// 0x56B700
+void UIChatPanelClass::Unknown_56B700()
+{
+	OptionClass *options = OptionClass::Instance;
+	if (options) {
+		for (ChatChannelStruct *channel = Unknown_B7C530; channel < &Unknown_B7C530[17]; channel++) {
+			if (channel->Name && atoi(channel->Number) == 5 && options->Get_Bool(channel->Option)) {
+				ClientChatRequestPacketClass packet(6, ((ClientClass *)Client)->Unknown1138);
+				packet.Unknown14 = std::string(channel->Name);
+				packet.Unknown24 = std::string(" ");
+				((ClientClass *)Client)->Send_Packet(&packet);
+			}
+		}
+		if (options->Get_Bool("RestrictedStatus")) {
+			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, ((ClientClass *)Client)->Unknown1138));
+		} else {
+			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, ((ClientClass *)Client)->Unknown1138));
+		}
+	}
 }
 
 // 0x56BA40
@@ -1997,28 +2019,6 @@ bool UIChatPanelClass::Unknown_56BA80()
 {
 	return(Unknown25C);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

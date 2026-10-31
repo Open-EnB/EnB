@@ -106,6 +106,8 @@ public:
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
 	void Unknown_567540(bool arg);						// 0x567540  // NAME 1 [arg]: neutral
 	bool Unknown_567970();								// 0x567970: +0x1E8 is active
+	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: cpacket.cpp's
+	void Unknown_567DF0(int code);						// 0x567DF0 (CLIENT_CHAT_ERROR 166 on entering a channel: the error code, or 2)  // NAME 1 [code]: cpacket.cpp's
 	void Unknown_5680B0(const std::string &name);		// 0x5680B0: +0x214 set, +0x224 cleared, combo 0 rebuilt  // NAME 1 [name]: neutral
 	std::string Unknown_5682C0();						// 0x5682C0: +0x214
 	std::string Unknown_568440();						// 0x568440: +0x204
