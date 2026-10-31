@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 987 |
 | 2 | describes what the code does | 2413 |
-| 1 | neutral placeholder | 5982 |
+| 1 | neutral placeholder | 5986 |
 
 ## For review (score 3 and below)
 
@@ -2974,6 +2974,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown169` | `app/client/sclient.h:833` | untagged neutral name (D10) |
 | 1 | `Unknown171` | `app/client/sclient.h:834` | untagged neutral name (D10) |
 | 1 | `Unknown172` | `app/client/sclient.h:835` | untagged neutral name (D10) |
+| 1 | `Unknown173` | `app/client/sclient.h:835` | untagged neutral name (D10) |
 | 1 | `Unknown764FD0Class` | `app/client/sclient.h:840` | neutral (D10) |
 | 1 | `Unknown_765010` | `app/client/sclient.h:844` | untagged neutral name (D10) |
 | 1 | `index` | `app/client/sclient.h:845` | neutral |
@@ -3300,8 +3301,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_806AD0` | `app/client/scriptedmovie.cpp:2291` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDA60` | `app/client/scriptedmovie.cpp:2437` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED630` | `app/client/scriptedmovie.cpp:2438` | untagged neutral name (D10) |
-| 1 | `Unknown_6E6E30` | `app/client/scriptedmovie.cpp:2549` | untagged neutral name (D10) |
-| 1 | `Unknown_8070C0` | `app/client/scriptedmovie.cpp:2589` | untagged neutral name (D10) |
+| 1 | `Unknown_8070C0` | `app/client/scriptedmovie.cpp:2464` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `app/client/scriptedmovie.cpp:2502` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/scriptedmovie.cpp:2502` | untagged neutral name (D10) |
+| 1 | `Unknown172` | `app/client/scriptedmovie.cpp:2507` | untagged neutral name (D10) |
+| 1 | `Unknown_6E6E30` | `app/client/scriptedmovie.cpp:2508` | untagged neutral name (D10) |
 | 1 | `UnknownB0009CEffectClass` | `app/client/scriptedmovie.cpp:2593` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/scriptedmovie.cpp:2621` | untagged neutral name (D10) |
 | 1 | `UnknownB00060EffectClass` | `app/client/scriptedmovie.cpp:2812` | untagged neutral name (D10) |

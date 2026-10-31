@@ -832,7 +832,7 @@ public:
 	bool Unknown168;									// +0x168 (0x802960: the space key toggles it)
 	char Unknown169[0x171 - 0x169];						// +0x169
 	bool Unknown171;									// +0x171 (Skip_Frames only while it is set)
-	char Unknown172[0x178 - 0x172];						// +0x172
+	bool Unknown172; char Unknown173[0x178 - 0x173];	// +0x172 (0x8070C0: the effects are kept only while it is set)
 };
 
 // The 0x120 bytes at SClient +0x13CC: 24 colours set to (1, 1, 1) by the out-of-line constructor 0x764FD0

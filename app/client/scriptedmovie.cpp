@@ -2460,62 +2460,62 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 
+// 0x8070C0: the effect of a line's id, duration (seconds), scale and hsv shift (eff_o.cpp's factory 0x6E9490), timed through
+EffectObjectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+
+	FAIL_IF((param == NULL) && "User error: Need special effect id") {return(NULL);}
+	int desc_id = atoi(param);
+	float duration = 0.0f;
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		duration = (float)atof(param) * 1000.0f;
+	}
+	float scale = 1.0f;
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		scale = atof(param);
+	}
+	float hue = 0.0f;
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		hue = atof(param);
+	}
+	float saturation = 0.0f;
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		saturation = atof(param);
+	}
+	float value = 0.0f;
+	param = params->Unknown_7FFDC0();
+	if (param != NULL) {
+		value = atof(param);
+	}
+	EffectObjectClass *effect;
+	unsigned id;
+	int time;
+	{
+		id = --client->Unknown113C;
+		Vector3 hsv(hue, saturation, value);
+		time = duration;
+		effect = Unknown_6E9490(desc_id, id, time, client->Unknown10BC, client, scale, hsv, 1.0f, -1, true);
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(effect);
+	if (!Unknown172) {
+		effect->Unknown_6E6E30();
+		return(NULL);
+	}
+	if (duration > 0.0f) {
+		ScriptedMovieEffectStruct timed;
+		timed.ID = id;
+		timed.EndTime = Unknown80 + time;
+		Effects.push_back(timed);
+	}
+	return(effect);
+}
 
 
 
