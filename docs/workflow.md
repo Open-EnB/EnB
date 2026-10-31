@@ -474,6 +474,13 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Land-family register and FPU forms** (2026-10-31, TG2): a local declared in the branch that uses it, not at the
+  top, changes register allocation (Apply_Colors 0x46D410 exact with `extra` in its else branch); a float local for a
+  shared value keeps it on the FPU and reorders the stores with an fxch (Get_Triangles 0x465D30 exact with `float y`
+  for v2.Y and v3.Y); one texel index n with the pointers built from it gives the client's stepped pointers instead
+  of i-indexed addressing (0x46D410); when the client's strength reduction keeps runtime base differences
+  (`ebp - (ebp + 2)`), the source had a separate pointer per channel, since one pointer with constant offsets folds
+  to displacements (0x46D6B0).
 * **A getter whose caller copies the result through eax** (2026-10-31, TG1): it returns the struct by value. Read the
   caller before trying more body forms: a `Vector2 result`, member stores and one `return(result)` made avatar_desc's
   seven Get_*_Offset 0x4C1B80-0x4C2240 exact at once. An int copy of a float with Z = 0 stored first, into a
@@ -852,6 +859,9 @@ unless `--lever` cites a new row of this table.
 * **On a big function objdiff's similarity hardly moves** (2026-10-31, CT1, ui_group 0x5946D0, ~2.7 KB): read
   explain.py's instruction count and register-masked residue instead, and compare the call relocations per callee
   (`objrel.py`) to see which callees inline.
+* **explain.py's client window can run through int3 padding into the next stub** (2026-10-31, TG2, 0x466F60: 773
+  client instructions against 388 real, up to an atexit stub), inflating the residue: trim the window to the
+  function's end (`.work/tg2/dd.py OBJ SYM ADDR END [r]`).
 * **`appfile.py match` reads a `#pragma auto_inline(off)` line as a function** (2026-10-30, SC2: "the object lacks
   auto_inline"): put the pragma above the `// @0x` marker and pass `--allow-missing`.
 * **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the
