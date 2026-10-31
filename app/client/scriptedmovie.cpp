@@ -1816,47 +1816,47 @@ bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
 
 
 
+// NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own, the camera 4 bytes higher) and the push_back's fill 0x80AFA0 inline (0.60)
+// 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees)
+bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
+
+
+	FAIL_IF((param == NULL) && "User error: Add_Camera: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
+
+
+
+			G_ASSERT((*itor).Mesh);
+			param = params->Unknown_7FFDC0();
+			FAIL_IF((param == NULL) && "User error: Add_Camera: Need bone name") {return(false);}
+			RenderObjClass *robj = (*itor).Mesh->Unknown_5B8B20();
+
+			G_ASSERT(robj);
+			ScriptedMovieCameraStruct camera;
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			camera.Bone = robj->Get_Bone_Index(param);
+			camera.RenderObject = robj;
+			param = params->Unknown_7FFDC0();
+			if (param != NULL) {
+				float hfov = DEG_TO_RADF(atof(param));
+				param = params->Unknown_7FFDC0();
+				FAIL_IF((param == NULL) && "User error: Add_Camera: Need Y view plane") {return(false);}
+				camera.VFov = DEG_TO_RADF(atof(param));
+				camera.HFov = hfov;
+			}
+			CameraList.push_back(camera);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 

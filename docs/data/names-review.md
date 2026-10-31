@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 985 |
 | 2 | describes what the code does | 2400 |
-| 1 | neutral placeholder | 5787 |
+| 1 | neutral placeholder | 5789 |
 
 ## For review (score 3 and below)
 
@@ -2912,6 +2912,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `a, loop, b, c, d, e` | `app/client/sclient.h:726` | neutral; NAME 2 [anim_name]: the FAIL_IF's |
 | 1 | `Unknown_5B8DF0` | `app/client/sclient.h:726` | untagged neutral name (D10) |
 | 1 | `Unknown_5E26D0` | `app/client/sclient.h:727` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B20` | `app/client/sclient.h:727` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sclient.h:731` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:734` | neutral (D10) |
 | 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:741` | neutral (D10) |
@@ -3258,6 +3259,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8DF0` | `app/client/scriptedmovie.cpp:1700` | untagged neutral name (D10) |
 | 1 | `Unknown_8051B0` | `app/client/scriptedmovie.cpp:1728` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9100` | `app/client/scriptedmovie.cpp:1795` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B20` | `app/client/scriptedmovie.cpp:1836` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9130` | `app/client/scriptedmovie.cpp:1914` | untagged neutral name (D10) |
 | 1 | `Unknown_806AD0` | `app/client/scriptedmovie.cpp:2291` | untagged neutral name (D10) |
 | 1 | `Unknown_7EDA60` | `app/client/scriptedmovie.cpp:2437` | untagged neutral name (D10) |
@@ -6575,7 +6577,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |
