@@ -857,9 +857,8 @@ void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
 	}
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C1B80
-void AvatarDescClass::Get_Hair_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Hair_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -871,16 +870,13 @@ void AvatarDescClass::Get_Hair_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "HairOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C1CA0
-void AvatarDescClass::Get_Skin_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Skin_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -892,16 +888,13 @@ void AvatarDescClass::Get_Skin_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "SkinOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C1DC0
-void AvatarDescClass::Get_Eye_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Eye_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -913,16 +906,13 @@ void AvatarDescClass::Get_Eye_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "EyeOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C1EE0
-void AvatarDescClass::Get_Shirt_Primary_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Shirt_Primary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -934,16 +924,13 @@ void AvatarDescClass::Get_Shirt_Primary_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "ShirtPrimaryOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C2000
-void AvatarDescClass::Get_Shirt_Secondary_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Shirt_Secondary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -955,16 +942,13 @@ void AvatarDescClass::Get_Shirt_Secondary_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "ShirtSecondaryOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C2120
-void AvatarDescClass::Get_Pants_Primary_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Pants_Primary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -976,16 +960,13 @@ void AvatarDescClass::Get_Pants_Primary_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "PantsPrimaryOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
-// NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80)
 // 0x4C2240
-void AvatarDescClass::Get_Pants_Secondary_Offset(Vector2 &offset)
+Vector2 AvatarDescClass::Get_Pants_Secondary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -997,11 +978,9 @@ void AvatarDescClass::Get_Pants_Secondary_Offset(Vector2 &offset)
 			TPoint2D<float> point = AvatarDefinitions.Get_Point(section, "PantsSecondaryOffset", half);
 			result.X = point.X;
 			result.Y = point.Y;
-			offset = result;
-			return;
 		}
 	}
-	offset = result;
+	return(result);
 }
 
 // NOT EXACT: order (the client's offsets and weights interleave differently; nine forms tried: attempts.py show 0x4C2360)

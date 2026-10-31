@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-408 entries in 79 files.
+401 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -275,14 +275,7 @@ edit the comments in the code, not this file.
 | `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
 | `app/shared/avatar_desc.cpp:139` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
 | `app/shared/avatar_desc.cpp:344` | `AvatarDescClass::Clear` | marker | NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310) 0x4C0310 |
-| `app/shared/avatar_desc.cpp:860` | `AvatarDescClass::Get_Hair_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1B80 |
-| `app/shared/avatar_desc.cpp:881` | `AvatarDescClass::Get_Skin_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1CA0 |
-| `app/shared/avatar_desc.cpp:902` | `AvatarDescClass::Get_Eye_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1DC0 |
-| `app/shared/avatar_desc.cpp:923` | `AvatarDescClass::Get_Shirt_Primary_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C1EE0 |
-| `app/shared/avatar_desc.cpp:944` | `AvatarDescClass::Get_Shirt_Secondary_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C2000 |
-| `app/shared/avatar_desc.cpp:965` | `AvatarDescClass::Get_Pants_Primary_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C2120 |
-| `app/shared/avatar_desc.cpp:986` | `AvatarDescClass::Get_Pants_Secondary_Offset` | marker | NOT EXACT: frame (the client keeps the 0.5, 0.5 result in an 8-byte local, ours folds it; attempts.py show 0x4C1B80) 0x4C2240 |
-| `app/shared/avatar_desc.cpp:1007` | `AvatarDescClass::Save_Defaults` | marker | NOT EXACT: order (the client's offsets and weights interleave differently; nine forms tried: attempts.py show 0x4C2360) 0x4C2360 |
+| `app/shared/avatar_desc.cpp:986` | `AvatarDescClass::Save_Defaults` | marker | NOT EXACT: order (the client's offsets and weights interleave differently; nine forms tried: attempts.py show 0x4C2360) 0x4C2360 |
 | `app/shared/boolpars.cpp:311` | `BoolParserClass::Parse` | marker | NOT EXACT: inline budget, the client calls the second Parse_And 0x49A900 out of line (ours inlines it) |
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |
