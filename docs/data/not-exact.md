@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-389 entries in 78 files.
+390 entries in 78 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -170,6 +170,7 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
 | `app/client/ui_chat_panel.cpp:705` | `UIChatPanelClass::Unknown_563DC0` | marker | NOT EXACT: register (the address of the font local for 0x546510 computed into eax after the push, ecx in ours; otherwise identical) 0x563DC0 |
 | `app/client/ui_chat_panel.cpp:848` | `UIChatPanelClass::Unknown_565D80` | marker | NOT EXACT: inline-budget (the client calls _Grow out of line in the last assign, ours inlines it; ebx / esi swapped in the shift loop) 0x565D80 |
+| `app/client/ui_chat_panel.cpp:876` | `UIChatPanelClass::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
 | `app/client/ui_chat_panel.cpp:2288` | `UIChatPanelClass::Unknown_56BAA0` | marker | NOT EXACT: order (the client loads +0x84 before the font manager for Get_Style; otherwise as 0x563DC0) 0x56BAA0 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |

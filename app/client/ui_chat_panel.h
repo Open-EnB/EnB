@@ -83,11 +83,17 @@ public:
 	const char *Unknown_565C00();						// 0x565C00: the +0x188 name for +0x150 (0..4), else NULL
 	void Unknown_565C40(int index);						// 0x565C40: talk to the +0x188 name 'index' ('To %s:')  // NAME 1 [index]: neutral
 	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender, first in the +0x188 names)  // NAME 1 [name]: cpacket.cpp's
+	void Unknown_5658B0(const char *name);				// 0x5658B0  // NAME 1 [name]: neutral
 	void Unknown_565F30(int arg);						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
+	void Unknown_567760();								// 0x567760: the reply list's pick
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
 	void Unknown_567540(bool arg);						// 0x567540  // NAME 1 [arg]: neutral
 	bool Unknown_567970();								// 0x567970: +0x1E8 is active
+	void Unknown_5680B0(const std::string &name);		// 0x5680B0: +0x214 set, +0x224 cleared, combo 0 rebuilt  // NAME 1 [name]: neutral
+	std::string Unknown_5682C0();						// 0x5682C0: +0x214
+	std::string Unknown_568440();						// 0x568440: +0x204
 	void Unknown_5685C0();								// 0x5685C0: the +0xF8 window released
+	void Unknown_568690();								// 0x568690: the +0x104 window released
 	int Unknown_5688E0(void **list);				// 0x5688E0: the count of a NULL-terminated list  // NAME 1 [list]: neutral
 	void Unknown_568910();								// 0x568910: the combo released
 	void Unknown_568950();								// 0x568950: the five combos rebuilt, the combo released
@@ -96,6 +102,7 @@ public:
 	void Unknown_56BA40(bool on);						// 0x56BA40 (SClient's Do_Frame, when the lag changes)  // NAME 1 [on]: what Do_Frame passes
 	bool Unknown_56BA80();								// 0x56BA80
 	void Unknown_56BAA0(bool show, const char *text);	// 0x56BAA0 (FAIL_IF '!font' l.2297; 0x74E710: 1 and the message)  // NAME 1 [show, text]: what 0x74E710 passes
+	void Unknown_56BEF0();								// 0x56BEF0 (FAIL_IF '!sclient' l.2326): talk to the main view's target
 	void Unknown_56C0C0();								// 0x56C0C0 (G_ASSERT 'false' l.2377: 'DefaultChatWindow')
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
 	void Unknown_56C730(const UIChatIntEventClass &event, UIChatIntClass *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
@@ -115,7 +122,7 @@ public:
 	RefCountPtr<InterfaceClass> UnknownF8;				// +0xF8
 	int UnknownFC;										// +0xFC
 	int Unknown100;										// +0x100
-	InterfaceClass *Unknown104;							// +0x104
+	RefCountPtr<InterfaceClass> Unknown104;				// +0x104
 	int Unknown108;										// +0x108
 	bool Unknown10C;									// +0x10C
 	bool Unknown10D;									// +0x10D (an event handler registered on +0xF8)
