@@ -1855,7 +1855,7 @@ void UIGroupClass::Unknown_5982A0(int avatar_id)
 	}
 }
 
-template<class C> inline C *Unknown_Group_Find_Set(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10): auxdata.h's find, NULL unless set (+0x70); the dead read spends the inline budget (0x598370)
+template<class C> inline C *Unknown_Group_Find_Set(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10): auxdata.h's find, NULL unless set (+0x70); the dead read spends the inline budget (0x598370; D130, not the client's code)
 
 // 0x598370
 // (its lookup through Unknown_Group_Find_Set: one dead size() read there keeps rtti.h's cast 0x598D80 out of line; 0 or 3+ reads 0.64-0.82)
