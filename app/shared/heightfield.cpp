@@ -532,7 +532,7 @@ bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
 	return hit;
 }
 
-// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0)
+// NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 12 masked rows; attempts.csv 0x4654E0)
 bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
 	bool hit = false;
@@ -573,9 +573,7 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 			Vector3 normal;
 			TriClass tri;
 			tri.N = &normal;
-			verts[0].X = (float)(int)(i - HalfSize) * XSpacing;
-			verts[0].Y = (float)(int)(j - HalfSize) * YSpacing;
-			verts[0].Z = Get_Height(i, j);
+			Get_Vertex(i, j, &verts[0]);
 			verts[1].X = verts[0].X + XSpacing;
 			verts[1].Y = verts[0].Y;
 			verts[1].Z = Get_Height(i + 1, j);
