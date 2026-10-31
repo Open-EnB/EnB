@@ -18,6 +18,54 @@ public:
 
 SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
 
+// ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
+class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
+{
+public:
+	char Unknown84[0x184 - 0x84];
+};
+
+// 0x69CCD0: any of the view's interfaces active
+bool SBaseViewClass::Unknown_69CCD0()
+{
+	if (PTrade != NULL && PTrade->Is_Active()) return(true);
+	if (Unknown184 && Unknown184->Is_Active()) return(true);
+	if (Unknown188 && Unknown188->Is_Active()) return(true);
+	if (Unknown18C && Unknown18C->Is_Active()) return(true);
+	if (Unknown190 && (Unknown190->Is_Active() || Unknown190->Unknown160 != 0)) return(true);
+	if (Jobs && Jobs->Is_Active()) return(true);
+	if (Unknown198 && Unknown198->Is_Active()) return(true);
+	if (AvatarUI != NULL && AvatarUI->Is_Active()) return(true);
+	if (ShipUI != NULL && ShipUI->Is_Active()) return(true);
+	return(false);
+}
+
+// 0x69CDE0: the interfaces released. AvatarUI and ShipUI are RefCountPtrs in the client (released and cleared as
+// the others are, the store before the next load); cpacket.cpp reads them as plain pointers, so they are cast here
+void SBaseViewClass::Unknown_69CDE0()
+{
+	Unknown1B0 = false;
+	if (Unknown64) {
+		Unknown64->Unknown_7C(NULL, 0);
+		Unknown64 = NULL;
+		Unknown5C = -1;
+		Unknown184 = NULL;
+		Unknown188 = NULL;
+		Unknown18C = NULL;
+		Unknown190 = NULL;
+		Jobs = NULL;
+		Unknown198 = NULL;
+		(RefCountPtr<SBaseViewUnknown19CClass> &)AvatarUI = NULL;
+		(RefCountPtr<SBaseViewUnknown1A0Class> &)ShipUI = NULL;
+		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C9D0(RefCountPtr<UITalkTreeSpaceClass>());
+		if (Starbase) {
+			Starbase->Unknown_8C();
+			SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+			client->PDAInterface->Unknown_695FE0(true);
+		}
+	}
+}
+
 // 0x69D930: ViewRObjs[type] out of its scene (0 the view's +0x1C, 1 +0x70, 2 +0x78), then released (the client
 // calls it from 0x69D9D0 and 0x69DC60, never inlined: auto-inlining off for it)
 #pragma auto_inline(off)
@@ -39,54 +87,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1676,5 +1676,11 @@ void SBaseViewClass::Unknown_6A2480()
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
 **	loader 0x6A0590, not written) are left free. The constructor and destructor are not in the window; not rebuilt
-**	either: 0x69CDE0, 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90, 0x6A2120.
+**	either: 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90, 0x6A2120.
+**
+**	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
+**	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
+**	0x69C5A0, ...), and 0x69C8F0 calls 0x69CDE0 / 0x69D030: the view's code runs from 0x69AD30 at the latest
+**	(sbase_info.cpp's last assert function is 0x6987A0). 0x69CCD0 and 0x69CDE0 are written above 0x69D930, in the
+**	client's order (their lines taken from the blank stretch).
 */

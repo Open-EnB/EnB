@@ -30,6 +30,8 @@ class UIStarbaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) f
 public:
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
+	virtual void Unknown_88();	// +0x88
+	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
 	char Unknown84[0xAC - 0x84];	// +0x84 (+0x7C Active: both handlers test it)
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
@@ -48,8 +50,8 @@ public:
 };
 
 class SBaseViewUnknown174Class { public: char Unknown00[0x18C]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (SClient 0x74D950 sets its +0x18C)
-class SBaseViewUnknown1A0Class { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };	// NAME 1: neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
-class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };	// NAME 1: neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field
+class SBaseViewUnknown1A0Class : public InterfaceClass { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };	// NAME 1: neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
+class SBaseViewUnknown19CClass : public InterfaceClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };	// NAME 1: neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field
 
 // ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
 // (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
@@ -63,6 +65,7 @@ public:
 };
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 class SBaseViewUnknown68Class { public: RenderObjClass *Unknown00; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x6A0540)
+class SBaseViewUnknown190Class : public InterfaceClass { public: char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active)
 class SBaseViewUnknown1B4Class;	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4)
 class HAnimClass;
 class AudibleSoundClass;
@@ -85,6 +88,8 @@ public:
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
 	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
+	bool Unknown_69CCD0();	// 0x69CCD0: any of the view's interfaces +0x184..+0x1A4 active (+0x190: or its +0x160 set)
+	void Unknown_69CDE0();	// 0x69CDE0: +0x1B0 cleared; with an interface at +0x64, it and +0x184..+0x1A0 released
 	void Unknown_69D930(int type);	// 0x69D930: ViewRObjs[type] out of its scene and released  // NAME 1 [type]: the assert's index
 	void Unknown_69D9D0(int type, const char *name);	// 0x69D9D0 (G_ASSERT 'ViewRObjs[type]', l.738): the asset manager's name into ViewRObjs[type]  // NAME 1 [name]: what 0x69DC40 passes
 	void Unknown_69DB50(int type);	// 0x69DB50: ViewRObjs[type] released
@@ -110,7 +115,7 @@ public:
 	int Unknown58;	// +0x58
 	int Unknown5C;	// +0x5C
 	RefCountPtr<UIStarbaseClass> Starbase;	// +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
-	int Unknown64;	// +0x64
+	RefCountPtr<InterfaceClass> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released)
 	SBaseViewUnknown68Class *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object)
 	int Unknown6C;	// +0x6C
 	SimpleSceneClass *Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
@@ -121,8 +126,10 @@ public:
 	SBaseViewChannelStruct Channels[6];	// +0xF8  // NAME 2: what it holds
 	char Unknown170[0x174 - 0x170];	// +0x170
 	SBaseViewUnknown174Class *Unknown174;	// +0x174
-	char Unknown178[0x194 - 0x178];	// +0x178
-	RefCountPtr<UIJobsClass> Jobs; int Unknown198; SBaseViewUnknown19CClass *AvatarUI; SBaseViewUnknown1A0Class *ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
+	char Unknown178[0x184 - 0x178];	// +0x178
+	RefCountPtr<InterfaceClass> Unknown184, Unknown188, Unknown18C;	// +0x184 (0x69CDE0 releases them)
+	RefCountPtr<SBaseViewUnknown190Class> Unknown190;	// +0x190
+	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<InterfaceClass> Unknown198; SBaseViewUnknown19CClass *AvatarUI; SBaseViewUnknown1A0Class *ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 	UIPTradeClass *PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
 	char Unknown1A8[0x1B0 - 0x1A8];	// +0x1A8
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
