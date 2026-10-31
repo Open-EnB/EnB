@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction)
 #include <windows.h>
+#include "eff_o.h"
 #include "sclient.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\scene.h"
@@ -14,7 +15,6 @@
 #include "wwmath.h"
 #include <stdlib.h>
 #include <string.h>
-
 // E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
 class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
 {
@@ -2544,7 +2544,7 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 	for (std::vector<ScriptedMovieEffectStruct>::iterator itor = Effects.begin(); itor != Effects.end(); ) {
 		if ((*itor).EndTime <= time) {
 			G_ASSERT(Get_Client());
-			ScriptedMovieEffectClass *effect = Get_Client()->Unknown_50((*itor).ID);
+			EffectObjectClass *effect = Get_Client()->Get_Effect((*itor).ID);
 			if (effect) {
 				effect->Unknown_6E6E30();
 			}
@@ -2568,20 +2568,65 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
+// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
+// 0x807600: a special effect from the source slot's object to the target slot's (CREATE_SFX_BETWEEN_OBJECTS)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params)
+{
+	ClientClass *client = Get_Client();
 
 
+	G_ASSERT(client);
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Objects: Need source slot") {return(false);}
+	int source = atoi(param);
+	bool sourceset = false;
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Objects: Need target slot") {return(false);}
+	int target = atoi(param);
+	bool targetset = false;
+	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	if (effect == NULL) {
+		return(false);
+	}
+	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
 
+	FAIL_IF(binary_effect == NULL) {return(false);}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == source && !sourceset) {
 
 
+			G_ASSERT((*itor).Mesh);
+			if ((*itor).Unknown08 == 0) {
+				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+			}
+			binary_effect->Unknown_28((*itor).Unknown08);
+			sourceset = true;
+		}
+		if ((*itor).Slot == target && !targetset) {
 
 
+			G_ASSERT((*itor).Mesh);
+			if ((*itor).Unknown08 == 0) {
+				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+			}
+			binary_effect->Unknown_34((*itor).Unknown08);
+			targetset = true;
+		}
+		if (sourceset && targetset) {
+			break;
+		}
+	}
+	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
 
 
 
 
 
+	FAIL_IF(!sourceset || !targetset) {return(false);}
+	return(true);
+}
 
 
 
@@ -2599,21 +2644,64 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
+// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
+// 0x8078D0: a special effect from a bone of the source slot's object to one of the target slot's (CREATE_SFX_BETWEEN_BONES)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params)
+{
+	ClientClass *client = Get_Client();
 
 
+	G_ASSERT(client);
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need source slot") {return(false);}
+	int source = atoi(param);
+	bool sourceset = false;
+	const char *source_bone = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need source bone name") {return(false);}
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need target slot") {return(false);}
+	int target = atoi(param);
+	bool targetset = false;
+	const char *target_bone = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Bones: Need target bone name") {return(false);}
+	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	if (effect == NULL) {
+		return(false);
+	}
+	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
 
 
+	FAIL_IF(binary_effect == NULL) {return(false);}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == source && !sourceset) {
+			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), source_bone);
+			binary_effect->Unknown_28(id);
+			sourceset = true;
+		}
+		if ((*itor).Slot == target && !targetset) {
+			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
+			binary_effect->Unknown_34(id);
+			targetset = true;
+		}
+		if (sourceset && targetset) {
+			break;
+		}
+	}
 
 
 
 
 
+	FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Bones: Can't find source and/or target") {return(false);}
+	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+	return(true);
+}
 
 
 
@@ -2631,18 +2719,61 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
+// NOT EXACT: the effect == NULL return gets its own epilogue; the client's shares the first FAIL_IF's (pop, pop, pop, xor al, al)
+// 0x807BE0: a special effect from the source slot's object to a bone of the target slot's (CREATE_SFX_BETWEEN_OBJECT_AND_BONE)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params)
+{
+	ClientClass *client = Get_Client();
 
 
+	G_ASSERT(client);
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Object_And_Bone: Need source slot") {return(false);}
+	int source = atoi(param);
+	bool sourceset = false;
+	param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Object_And_Bone: Need target slot") {return(false);}
+	int target = atoi(param);
+	bool targetset = false;
+	const char *target_bone = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_Between_Object_And_Bone: Need target bone name") {return(false);}
+	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	if (effect == NULL) {
+		return(false);
+	}
+	UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
 
 
+	FAIL_IF(binary_effect == NULL) {return(false);}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == source && !sourceset) {
+			if ((*itor).Unknown08 == 0) {
+				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+			}
+			binary_effect->Unknown_28((*itor).Unknown08);
+			sourceset = true;
+		}
+		if ((*itor).Slot == target && !targetset) {
+			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
+			binary_effect->Unknown_34(id);
+			targetset = true;
+		}
+		if (sourceset && targetset) {
+			break;
+		}
+	}
 
 
 
 
 
+	FAIL_IF((!sourceset || !targetset) && "User error: Create_Special_Effect_Between_Object_And_Bone: Can't find source and/or target") {return(false);}
+	client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+	return(true);
+}
 
 
 
@@ -2660,14 +2791,41 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
+// 0x807EB0: a special effect on a bone of the source slot's object (CREATE_SFX_ON_BONE)
+bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieParamsClass *params)
+{
+	ClientClass *client = Get_Client();
 
 
+	G_ASSERT(client);
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_On_Bone: Need source slot") {return(false);}
+	int source = atoi(param);
+	const char *bone_name = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_On_Bone: Need bone name for source") {return(false);}
+	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	if (effect == NULL) {
+		return(false);
+	}
+	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
 
 
+	FAIL_IF(unary_effect == NULL) {return(false);}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == source) {
 
 
+			G_ASSERT((*itor).Mesh);
+			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), bone_name);
+			unary_effect->Unknown_28(id);
+			client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -2685,199 +2843,41 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 
+// 0x808090: a special effect on the source slot's object (CREATE_SFX_ON_OBJECT)
+bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieParamsClass *params)
+{
+	ClientClass *client = Get_Client();
 
 
 
+	G_ASSERT(client);
+	const char *param = params->Unknown_7FFDC0();
 
+	FAIL_IF((param == NULL) && "User error: Create_Special_Effect_On_Object: Need source slot") {return(false);}
+	int source = atoi(param);
+	EffectObjectClass *effect = Unknown_8070C0(client, params);
+	if (effect == NULL) {
+		return(false);
+	}
+	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
 
 
+	FAIL_IF(unary_effect == NULL) {return(false);}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == source) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT((*itor).Mesh);
+			if ((*itor).Unknown08 == 0) {
+				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
+			}
+			unary_effect->Unknown_28((*itor).Unknown08);
+			client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 

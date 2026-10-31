@@ -75,7 +75,7 @@ public:
 	char *Text;											// +0x04: the command line  // NAME 2: what it holds
 	int Unknown08;										// +0x08 (the destructor clears it)
 };
-class ScriptedMovieEffectClass { public: void Unknown_6E6E30(); };	// NAME 1: neutral (D10): eff_o.cpp's effect, as far as 0x807520 ends it (0x6E6E30)
+// (the scripted movie's effects are eff_o.cpp's EffectObjectClass: scriptedmovie.cpp includes eff_o.h first)
 // a timed effect of the scripted movie (8 bytes, in a vector at +0x148)
 struct ScriptedMovieEffectStruct	// NAME 1: neutral (D10)
 {
@@ -682,12 +682,12 @@ public:
 class SClientMovieCallbackClass;
 
 // The scripted movie view (constructor 0x8000C0, 0x178 bytes; SClient 0x74BD90 makes it, 0x74BF00 deletes it)
-// what the scripted movie view's +0x4C points to, as far as scriptedmovie.cpp calls it
-class ScriptedMovieInterfaceUnknown00Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual int Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual ScriptedMovieEffectClass *Unknown_50(int id);	// +0x50: the effect by id (0x807520)  // NAME 1 [id]: neutral
-};	// NAME 1: neutral (D10): what the scripted movie's Get_Client() returns
+// what the scripted movie view's +0x4C points to: ClientInterface (its +0x00 returns the client, ClientClass of client.h:
+// Get_Client()'s Add_Effect +0x48 (the effect commands), Get_Effect +0x50 (0x807520), +0x1C (Skip_Frames))
+
+
+
+
 // the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
 class ScriptedMovieParamsClass	// NAME 1: neutral (D10)
 {
@@ -700,7 +700,7 @@ public:
 class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	virtual ScriptedMovieInterfaceUnknown00Class *Unknown_00();	// +0x00 (Skip_Frames 0x8097D0 asks the result's +0x1C)
+	virtual ClientClass *Unknown_00();					// +0x00: the client (Skip_Frames 0x8097D0 asks its +0x1C)
 	virtual void Unknown_04(CameraClass *camera);		// +0x04 (0x8023A0: the view's camera or NULL)  // NAME 1 [camera]: what 0x8023A0 passes
 };
 // a Vector3 that fades to a target (0x24 bytes; the scripted movie view's +0x88 and +0xAC): 0x80A5A0 steps it
@@ -759,7 +759,7 @@ public:
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
-	ScriptedMovieInterfaceUnknown00Class *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
+	ClientClass *Get_Client() { return(ClientInterface->Unknown_00()); }	// (inline: 0x807520's G_ASSERT 'Get_Client()')  // NAME 3: the assert's
 	void Unknown_807520(unsigned int time);				// 0x807520 (G_ASSERT 'Get_Client()', l.2546): the effects whose time is up ended  // NAME 1 [time]: neutral
 	bool Unknown_803310(ScriptedMovieLineClass *line);	// 0x803310: one line's command run (false: not a command)  // NAME 1 [line]: neutral
 	void Unknown_802B20();								// 0x802B20 (G_ASSERTs '*itor' l.1142, '!"Invalid command.  Ending Movie"' 1149): the script run up to the movie's time
@@ -795,7 +795,7 @@ public:
 	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieParamsClass *params); bool Add_Name_Decal(ScriptedMovieParamsClass *params); bool Add_Decal_To_Ship(ScriptedMovieParamsClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
+	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieParamsClass *params); EffectObjectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieParamsClass *params); int Unknown_803180(RenderObjClass *model, int arg); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieParamsClass *params); virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieParamsClass *params); bool Add_Name_Decal(ScriptedMovieParamsClass *params); bool Add_Decal_To_Ship(ScriptedMovieParamsClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
