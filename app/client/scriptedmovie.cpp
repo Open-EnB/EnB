@@ -709,6 +709,10 @@ void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
 
 
 
+#include "..\audio\soundlib.h"
+extern unsigned int Unknown_BFAE3C;	// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, ui_line_display.cpp declare it so)
+extern unsigned int Unknown_BFAE40;	// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (ui_line_display.cpp declares it so)
+void Unknown_7FF3D0();					// 0x7FF3D0 (the file before this one: the screen fade and the letterbox), their frame
 
 
 
@@ -729,44 +733,40 @@ void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x801E60: the view's frame (slot +0x14): the fade-out at the end time, the script, the objects, the sounds, the fades, the orbitals
+void ScriptedMovieViewClass::Unknown_14()
+{
+	unsigned int frame_time = Unknown_BFAE3C - Unknown_BFAE40;
+	if (Unknown16C && !Unknown170 && Unknown80 >= Unknown16C) {
+		Unknown_7FFBE0(0.0f, 1.0f);
+		Unknown170 = true;
+	}
+	Unknown_802B20();
+	if (!Unknown172) {
+		if (Unknown174) {
+			SoundLibraryClass::Play_2D_Sound(Unknown174, 2);
+			delete Unknown174;
+			Unknown174 = NULL;
+		}
+		Unknown172 = true;
+		return;
+	}
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		FAIL_IF((*itor).Mesh == NULL) {return;}
+		(*itor).Mesh->Unknown_5B9410();
+	}
+	UIViewClass::Unknown_14();
+	Unknown_802420();
+	CameraEffects->Unknown_34();
+	Unknown_802AD0(frame_time);
+	Unknown_7FF3D0();
+	float time = frame_time * 0.001f;
+	Unknown_8022C0(time);
+	Unknown_802330(time);
+	if (OrbitalManager) {
+		OrbitalManager->Update(ScriptedCamera, time * (1.0f / 3600.0f), true);
+	}
+}
 
 
 
