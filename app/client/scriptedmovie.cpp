@@ -62,7 +62,7 @@ bool operator < (const ScriptedMovieLineClass &a, const ScriptedMovieLineClass &
 	}
 	return(false);
 }
-
+#pragma auto_inline(off)
 // 0x7FFD30: the line starts with name (any case): the cursor past it and its comma
 bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
 {
@@ -79,7 +79,7 @@ bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
 	}
 	return(false);
 }
-
+#pragma auto_inline(on)
 // 0x7FFDC0: the next parameter (up to a comma; leading blanks skipped, a quoted one unquoted, trailing blanks cut)
 char *ScriptedMovieParamsClass::Unknown_7FFDC0()
 {
@@ -1337,85 +1337,85 @@ int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bon
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 kept out of line by the pragmas)
+// 0x803310: one script line run: its command (the line's first field, any case) to the member that takes the rest
+bool ScriptedMovieViewClass::Unknown_803310(ScriptedMovieLineClass *line)
+{
+	ScriptedMovieParamsClass *params = (ScriptedMovieParamsClass *)line;	// (the same 12 bytes: the frame, the text, the cursor)
+	if (params->Unknown_7FFD30("CREATE_OBJECT")) return(Create_Object(params, false));
+	if (params->Unknown_7FFD30("CREATE_SHIP_OBJECT")) return(Create_Object(params, true));
+	if (params->Unknown_7FFD30("CREATE_SFX_ON_OBJECT")) return(Create_Special_Effect_On_Object(params));
+	if (params->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECTS")) return(Create_Special_Effect_Between_Objects(params));
+	if (params->Unknown_7FFD30("CREATE_SFX_BETWEEN_BONES")) return(Create_Special_Effect_Between_Bones(params));
+	if (params->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECT_AND_BONE")) return(Create_Special_Effect_Between_Object_And_Bone(params));
+	if (params->Unknown_7FFD30("CREATE_SFX_ON_BONE")) return(Create_Special_Effect_On_Bone(params));
+	if (params->Unknown_7FFD30("CREATE_STARS")) return(Unknown_804A70(params));
+	if (params->Unknown_7FFD30("CREATE_SKYBOX")) return(Create_Skybox(params));
+	if (params->Unknown_7FFD30("CREATE_ORBITAL")) return(Create_Orbital(params));
+	if (params->Unknown_7FFD30("DESTROY_OBJECT")) return(Destroy_Object(params));
+	if (params->Unknown_7FFD30("PLAY_ANIMATION")) return(Play_Animation(params));
+	if (params->Unknown_7FFD30("LOAD_ANIMATION")) return(Unknown_8051B0(params));
+	if (params->Unknown_7FFD30("ATTACH_CAMERA")) return(Attach_Camera(params));
+	if (params->Unknown_7FFD30("ADD_CAMERA")) return(Add_Camera(params));
+	if (params->Unknown_7FFD30("ATTACH_TO_BONE")) return(Attach_To_Bone(params));
+	if (params->Unknown_7FFD30("ATTACH_LIGHT_TO_BONE")) return(Attach_Light_To_Bone(params));
+	if (params->Unknown_7FFD30("SET_AMBIENT_LIGHT")) return(Set_Ambient_Light(params));
+	if (params->Unknown_7FFD30("CREATE_POINT_LIGHT")) return(Create_Light(params, 0, false));
+	if (params->Unknown_7FFD30("CREATE_DIRECTIONAL_LIGHT_FROM_BONE")) return(Create_Light(params, 1, true));
+	if (params->Unknown_7FFD30("CREATE_DIRECTIONAL_LIGHT")) return(Create_Light(params, 1, false));
+	if (params->Unknown_7FFD30("SET_LIGHT_INTENSITY")) return(Set_Light_Intensity(params));
+	if (params->Unknown_7FFD30("SET_LIGHT_FAR_ATTENUATION") || params->Unknown_7FFD30("SET_LIGHT_ATTENUATION")) return(Set_Light_Far_Attenuation(params));
+	if (params->Unknown_7FFD30("SET_LIGHT_AMBIENT_COLOR")) return(Set_Light_Ambient_Color(params));
+	if (params->Unknown_7FFD30("SET_LIGHT_SPECULAR_COLOR")) return(Set_Light_Specular_Color(params));
+	if (params->Unknown_7FFD30("SET_LIGHT_DIFFUSE_COLOR")) return(Set_Light_Diffuse_Color(params));
+	if (params->Unknown_7FFD30("SET_CAMERA_VIEW_PLANE")) return(Set_Camera_View_Plane(params));
+	if (params->Unknown_7FFD30("SHAKE_CAMERA")) return(Shake_Camera(params));
+	if (params->Unknown_7FFD30("SET_SCREEN_FADE_COLOR")) return(Set_Screen_Fade_Color(params));
+	if (params->Unknown_7FFD30("SET_SCREEN_FADE_OPACITY")) return(Set_Screen_Fade_Opacity(params));
+	if (params->Unknown_7FFD30("PLAY_AUDIO")) return(Play_Audio(params));
+	if (params->Unknown_7FFD30("TURN_ON_MAX_CAMERA")) return(Unknown_809730());
+	if (params->Unknown_7FFD30("TURN_OFF_MAX_CAMERA")) return(Unknown_809710());
+	if (params->Unknown_7FFD30("ENABLE_LETTERBOX")) return(Enable_Letterbox(params, true));
+	if (params->Unknown_7FFD30("DISABLE_LETTERBOX")) return(Enable_Letterbox(params, false));
+	if (params->Unknown_7FFD30("SET_CLIP_PLANE")) return(Set_Clip_Plane(params));
+	if (params->Unknown_7FFD30("TURN_ON_FOG")) return(Set_Fog(params));
+	if (params->Unknown_7FFD30("TURN_OFF_FOG")) return(Unknown_808840());
+	if (params->Unknown_7FFD30("STOP_AUDIO")) return(Stop_Audio(params));
+	if (params->Unknown_7FFD30("TURN_ON_MOUSE_MOVEMENT_OF_CAMERA")) return(Unknown_809750(true, params));
+	if (params->Unknown_7FFD30("TURN_OFF_MOUSE_MOVEMENT_OF_CAMERA")) return(Unknown_809750(false, NULL));
+	if (params->Unknown_7FFD30("TURN_ON_ENGINE_TRAILS")) return(Toggle_Engine_Trails(params, true));
+	if (params->Unknown_7FFD30("TURN_OFF_ENGINE_TRAILS")) return(Toggle_Engine_Trails(params, false));
+	if (params->Unknown_7FFD30("TURN_ON_DAMAGE_PARTICLES")) return(Turn_On_Damage_Particles(params));
+	if (params->Unknown_7FFD30("CHANGE_SHIP_COLOR")) return(Change_Ship_Color(params));
+	if (params->Unknown_7FFD30("MAKE_SHIP_BRONZE")) return(Unknown_809600(params, 1));
+	if (params->Unknown_7FFD30("MAKE_SHIP_COPPER")) return(Unknown_809600(params, 2));
+	if (params->Unknown_7FFD30("MAKE_SHIP_CHROME")) return(Unknown_809600(params, 0));
+	if (params->Unknown_7FFD30("ADD_NAME_DECAL")) return(Add_Name_Decal(params));
+	if (params->Unknown_7FFD30("ADD_DECAL")) return(Add_Decal_To_Ship(params));
+	if (params->Unknown_7FFD30("END_MOVIE")) return(Unknown_806AD0());
+	if (params->Unknown_7FFD30("SHOW_CURRENT_FRAME")) {Unknown158 = true; return(true);}
+	if (params->Unknown_7FFD30("DONT_SHOW_CURRENT_FRAME")) {Unknown158 = false; return(true);}
+	if (params->Unknown_7FFD30("SKIP_FRAMES")) return(Skip_Frames(params));
+	if (params->Unknown_7FFD30("HIDE_OBJECT")) return(Hide_Object(params, true));
+	if (params->Unknown_7FFD30("UNHIDE_OBJECT")) return(Hide_Object(params, false));
+	if (params->Unknown_7FFD30("DEBUG_MODE")) {Unknown171 = true; return(true);}
+	MessageBox(NULL, line->Text, "Script Error", MB_OK);
+
+
+
+
+
+
+
+
+
+
+
+
+
+	G_ASSERT(!"User error: Unrecognized command");
+	return(false);
+}
 
 
 
