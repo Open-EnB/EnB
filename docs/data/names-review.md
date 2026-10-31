@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 988 |
-| 2 | describes what the code does | 2413 |
-| 1 | neutral placeholder | 6016 |
+| 3 | by convention from a client-named file or sibling | 989 |
+| 2 | describes what the code does | 2440 |
+| 1 | neutral placeholder | 6021 |
 
 ## For review (score 3 and below)
 
@@ -5377,6 +5377,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/shared/proj_man.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/proj_man.h:118` | neutral (D10) |
+| 1 | `Unknown0C` | `app/shared/proj_man.h:119` | neutral (D10) |
+| 1 | `Unknown10` | `app/shared/proj_man.h:120` | neutral (D10) |
+| 1 | `Unknown2C` | `app/shared/proj_man.h:127` | neutral (D10) |
 | 1 | `Unknown2C` | `app/shared/px.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/px.h:94` | only the constructor sets it |
 | 1 | `px_box_list.h` | `app/shared/px_box_list.h:12` | provisional header name (px_box_list.cpp's) |
@@ -8077,6 +8082,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
+| 2 | `Release_Projector_Resources` | `app/shared/proj_man.h:88` | Renegade's PhysicsSceneClass method |
+| 2 | `Get_Shadow_Camera` | `app/shared/proj_man.h:89` | Renegade's (shadow_cam) |
+| 2 | `Get_Shadow_Material` | `app/shared/proj_man.h:90` | Renegade's Get_Shadow_Material_Pass, without the pass |
+| 2 | `Get_Shadow_Shader` | `app/shared/proj_man.h:91` | Renegade's Get_Shadow_Material_Pass's shader |
+| 2 | `Enable_Static_Projectors` | `app/shared/proj_man.h:93` | Renegade's |
+| 2 | `Are_Static_Projectors_Enabled` | `app/shared/proj_man.h:94` | Renegade's |
+| 2 | `Enable_Dynamic_Projectors` | `app/shared/proj_man.h:95` | Renegade's |
+| 2 | `Are_Dynamic_Projectors_Enabled` | `app/shared/proj_man.h:96` | Renegade's |
+| 2 | `Set_Shadow_Normal_Intensity` | `app/shared/proj_man.h:97` | Renegade's |
+| 2 | `Get_Shadow_Normal_Intensity` | `app/shared/proj_man.h:98` | Renegade's |
+| 2 | `Set_Shadow_Blob_Texture` | `app/shared/proj_man.h:99` | what it sets |
+| 2 | `Get_Shadow_Blob_Texture` | `app/shared/proj_man.h:100` | ShadowBlobTexture's getter |
+| 2 | `Add_Static_Texture_Projector` | `app/shared/proj_man.h:102` | Renegade's |
+| 2 | `Remove_Static_Texture_Projector` | `app/shared/proj_man.h:103` | Renegade's |
+| 2 | `Add_Dynamic_Texture_Projector` | `app/shared/proj_man.h:104` | Renegade's |
+| 2 | `Remove_Dynamic_Texture_Projector` | `app/shared/proj_man.h:105` | Renegade's |
+| 2 | `Remove_Texture_Projector` | `app/shared/proj_man.h:106` | Renegade's |
+| 2 | `Remove_All_Texture_Projectors` | `app/shared/proj_man.h:107` | what it does |
+| 2 | `Contains` | `app/shared/proj_man.h:108` | Renegade's |
+| 2 | `Get_Static_Shadow_Tex_Mgr` | `app/shared/proj_man.h:112` | StaticShadowTexMgr's getter |
+| 2 | `Get_Shadow_Light_Direction` | `app/shared/proj_man.h:113` | set_vector; the sun (mainview passes minus its direction) |
+| 2 | `Set_Shadow_Light_Direction` | `app/shared/proj_man.h:114` | as the getter |
+| 2 | `ShadowNormalIntensity` | `app/shared/proj_man.h:121` | Renegade's (0x492520 clamps it) |
+| 2 | `ShadowCamera` | `app/shared/proj_man.h:124` | Renegade's |
+| 2 | `ShadowMaterial` | `app/shared/proj_man.h:125` | Renegade's ShadowMaterialPass |
+| 2 | `ShadowRenderContext` | `app/shared/proj_man.h:126` | Renegade's |
+| 2 | `ShadowLightDirection` | `app/shared/proj_man.h:130` | as its getter |
 | 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
 | 2 | `std:` | `app/shared/px.cpp:597` | the boxes a corner change has already reported |
 | 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
@@ -9387,6 +9419,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LookupTableClass` | `app/shared/lookup_table.h:35` | by convention (D24) from the client's file lookup_table.cpp |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
+| 3 | `ProjectorManagerClass` | `app/shared/proj_man.h:82` | class-from-file (D24) for app\shared\proj_man.cpp |
 | 3 | `EndType` | `app/shared/px.h:28` | PxList's dump prints "LOW" / "HIGH" for it |
 | 3 | `LOW` | `app/shared/px.h:29` | as above |
 | 3 | `HIGH` | `app/shared/px.h:30` | as above |

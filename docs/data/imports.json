@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 137,
+  "ambiguous_total": 138,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -7500,6 +7500,60 @@
     "merged": [],
     "name": "common/prof.cpp"
    },
+   "proj_man": {
+    "ambiguous": [
+     "0x4944A0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45DDC0",
+     "0x45E0D0",
+     "0x491680",
+     "0x491830",
+     "0x4918E0",
+     "0x491910",
+     "0x4919B0",
+     "0x491A80",
+     "0x491CB0",
+     "0x491DA0",
+     "0x491DD0",
+     "0x491F50",
+     "0x492020",
+     "0x492200",
+     "0x492470",
+     "0x492520",
+     "0x492590",
+     "0x492630",
+     "0x4926C0",
+     "0x492780",
+     "0x492840",
+     "0x492900",
+     "0x4929C0",
+     "0x492C00",
+     "0x493260",
+     "0x493CB0",
+     "0x493D00",
+     "0x494430",
+     "0x4944E0",
+     "0x494520",
+     "0x494560",
+     "0x4945A0",
+     "0x494680",
+     "0x4946B0",
+     "0x494900",
+     "0x494AF0",
+     "0x494C30",
+     "0x494CC0",
+     "0x494D50",
+     "0x494D80"
+    ],
+    "merged": [],
+    "name": "shared/proj_man.cpp"
+   },
    "px": {
     "ambiguous": [
      "0x42AFF0",
@@ -9689,6 +9743,7 @@
    "shared/landdmap.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
    "shared/money.h": "reconstructed",
+   "shared/proj_man.h": "reconstructed",
    "shared/px.h": "reconstructed",
    "shared/px_box_list.h": "reconstructed",
    "shared/px_callback.h": "reconstructed",
@@ -9716,7 +9771,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4879,
+  "in_tree_total": 4919,
   "totals": {}
  },
  "binkmovie": {
