@@ -15,6 +15,10 @@
     python triage.py calib --model haiku|sonnet        the calibration's scores against the known answers
                                                        and D167's gate (kind >= 85 %; file >= 50 % at
                                                        confidence medium or high)
+    python triage.py plan [--model sonnet]             .work/triage/plan.md: runs of neighbouring functions with no
+                                                       known file and one suggested file, the template instances,
+                                                       the library kinds in the application range
+    python triage.py score [--model sonnet]            the hints against what is exact now (D168's revisit)
     python triage.py show ADDR...                      the hint rows for these functions
 
 Hints, never evidence (D56): nothing from here goes into symbols.json, the sources, NAME tags or docs/data/;
@@ -640,6 +644,92 @@ def cmd_calib(a):
         print('   ', m)
 
 
+def cmd_plan(a):
+    """Planning lists from a run's hints: runs of neighbouring functions with no known file and one suggested file
+    (medium / high), the template instances, and the library kinds inside the application range."""
+    facts = Facts()
+    rows = {int(r['address'], 16): r for r in json.load(open(os.path.join(OUT, f'full-{a.model}.json'), encoding='utf-8'))
+            if not r['error']}
+    starts = [s for s in facts.starts if APP[0] <= s < APP[1]]
+    tree = {stem(p) for p in subprocess.run(['git', 'ls-files', 'app'], cwd=ROOT, capture_output=True,
+                                            text=True).stdout.split()}
+
+    def known(va):
+        if va in facts.pairs:
+            return facts.pairs[va][1].lower()
+        if va in facts.app:
+            return stem(facts.app[va][0])
+        return None
+
+    runs, cur = [], None
+    for i, va in enumerate(starts):
+        r = rows.get(va)
+        hint = stem(r['file']) if r and r['file'] and r['confidence'] != 'low' and not known(va) else None
+        if hint and cur and cur['file'] == hint and cur['last'] == i - 1:
+            cur['funcs'].append(va)
+            cur['last'] = i
+            continue
+        if cur:
+            runs.append(cur)
+        cur = {'file': hint, 'funcs': [va], 'first': i, 'last': i} if hint else None
+    if cur:
+        runs.append(cur)
+    out = ['# Triage plan (D163, D167): hints, not evidence', '',
+           f'From `.work/triage/full-{a.model}.json` ({len(rows)} answers). A run is consecutive application-range '
+           'functions with no known file (no pair, no app_inventory attribution) whose hint names the same file at '
+           'confidence medium or high. "agrees" means the nearest functions with a known file on both sides are that '
+           'file, which makes the run a likely gap in that file; "new" means no file of that name is in the tree.', '',
+           '## Runs of three or more', '', '| Range | Functions | Bytes | Suggested file | Before | After | |',
+           '|---|---|---|---|---|---|---|']
+    big = []
+    for run in runs:
+        if len(run['funcs']) < 3:
+            continue
+        lo, hi = run['funcs'][0], run['funcs'][-1]
+        size = facts.end_of(hi) - lo
+        before = next((known(s) for s in reversed(starts[:run['first']]) if known(s)), None)
+        after = next((known(s) for s in starts[run['last'] + 1:] if known(s)), None)
+        tag = 'agrees' if before == after == run['file'] else ('new' if run['file'] not in tree else '')
+        big.append((size, f'| 0x{lo:X}-0x{facts.end_of(hi):X} | {len(run["funcs"])} | {size} | {run["file"]} | '
+                          f'{before or "?"} | {after or "?"} | {tag} |'))
+    out += [line for _, line in sorted(big, reverse=True)]
+    templ = collections.Counter()
+    for r in rows.values():
+        if r['kind'] == 'stl_template' and r['template_of']:
+            templ[re.sub(r'<.*', '<...>', r['template_of']).strip()] += 1
+    out += ['', f'## Template instances: {sum(1 for r in rows.values() if r["kind"] == "stl_template")}, the most common', '',
+            '| Template | Instances |', '|---|---|'] + [f'| `{k}` | {n} |' for k, n in templ.most_common(40)]
+    lib = sorted(va for va, r in rows.items() if r['kind'] in ('westwood_lib', 'msvc_runtime', 'third_party'))
+    out += ['', f'## Library kinds in the application range: {len(lib)} (inlined or out-of-line copies of library '
+            'code in an app object, or a wrong hint; check against gaps-*.json)', '']
+    out += [f'* 0x{va:X} {rows[va]["kind"]} {rows[va]["library"]} {rows[va]["file"] or "-"} '
+            f'({rows[va]["confidence"]}): {rows[va]["class"] or ""} {rows[va]["template_of"] or ""}'.rstrip()
+            for va in lib[:a.limit]]
+    path = os.path.join(OUT, 'plan.md')
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(out) + '\n')
+    print(f'{len(big)} runs of 3+ ({sum(1 for s, l in big if "| agrees |" in l)} agreeing with both neighbours, '
+          f'{sum(1 for s, l in big if "| new |" in l)} naming a file not in the tree); {sum(templ.values())} template '
+          f'instances named; {len(lib)} library kinds in the app range; {path}')
+
+
+def cmd_score(a):
+    """The run's hints against what is exact now: for every hinted function that has a pair, was the file right?"""
+    facts = Facts()
+    rows = [r for r in json.load(open(os.path.join(OUT, f'full-{a.model}.json'), encoding='utf-8')) if not r['error']]
+    by = collections.defaultdict(lambda: [0, 0])
+    for r in rows:
+        va = int(r['address'], 16)
+        if va not in facts.pairs or not r['file']:
+            continue
+        ok = stem(r['file']) == facts.pairs[va][1].lower()
+        by[r['confidence']][0] += 1
+        by[r['confidence']][1] += ok
+    n = sum(v[0] for v in by.values())
+    print(f'{n} hinted functions are exact now; file right: ' + ', '.join(
+        f'{c} {v[1]}/{v[0]}' for c, v in sorted(by.items())) + (' (none yet)' if not n else ''))
+
+
 def cmd_show(a):
     rows = {}
     for path in sorted(glob.glob(os.path.join(OUT, 'full-*.json'))):
@@ -676,11 +766,16 @@ def main():
     p = sub.add_parser('calib')
     p.add_argument('--model', choices=sorted(MODELS), required=True)
     p.add_argument('--misses', type=int, default=25)
+    p = sub.add_parser('plan')
+    p.add_argument('--model', choices=sorted(MODELS), default='sonnet')
+    p.add_argument('--limit', type=int, default=400, help='library-kind rows listed')
+    p = sub.add_parser('score')
+    p.add_argument('--model', choices=sorted(MODELS), default='sonnet')
     p = sub.add_parser('show')
     p.add_argument('addr', nargs='+')
     a = ap.parse_args()
     {'build': cmd_build, 'submit': cmd_submit, 'status': cmd_status, 'fetch': cmd_fetch, 'ingest': cmd_ingest,
-     'calib': cmd_calib, 'show': cmd_show}[a.cmd](a)
+     'calib': cmd_calib, 'plan': cmd_plan, 'score': cmd_score, 'show': cmd_show}[a.cmd](a)
 
 
 if __name__ == '__main__':
