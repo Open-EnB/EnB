@@ -1033,11 +1033,20 @@ void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &
 	}
 }
 
-// NOT EXACT: inline-budget (the client calls the string's assign and the names' insert out of line and inlines the decorations'
-// insert; 5 forms, attempts.csv 0x478B50)
+// NAME 2: one inline level around the name's string and push_back: the client calls the string's assign and the names'
+// insert out of line, as this depth gives (Load_Decorations_Ini 0x478B50)
+static inline void Land_Add_Name(std::vector<std::string> &names, const char *name)
+{
+	std::string string(name);
+	names.push_back(string);
+}
+
+// NOT EXACT: inline-budget (32 masked rows: inside the inlined decorations' insert the client calls size() 0x47D170 and
+// _Ufill 0x47E560 out of line, ours inlines them; the ini sits 4 bytes lower; attempts.csv 0x478B50)
 void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	INIClass ini;
+	char section[256];
 	ini.Load(filename);
 	if (ini.Is_Loaded()) {
 		int count = ini.Get_Int("Prototypes", "NUM_PROTOS", 0);
@@ -1046,13 +1055,11 @@ void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vecto
 			char name[1024];
 			sprintf(entry, "PROTO%d", i);
 			ini.Get_String("Prototypes", entry, "TDTREE01A", name, sizeof(name));
-			std::string string(name);
-			names.push_back(string);
+			Land_Add_Name(names, name);
 		}
 		unsigned int proto_count;
 		if (names.begin() != NULL && (proto_count = names.size()) != 0) {
 			int n = 0;
-			char section[256];
 			sprintf(section, "DECO%d", n);
 			while (ini.Find_Section(section) != NULL) {
 				LandDecorationStruct decoration;
@@ -1590,31 +1597,35 @@ void LandPatchClass::Init(int size, int x, int y, float detail_u, float detail_v
 	Build_Vertices(x, y, detail_u, detail_v);
 }
 
-// NOT EXACT: frame (0x3C, the client 0x38); 3 forms tried (attempts.csv 0x474790)
+// NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790)
 void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v)
 {
 	float lowest = 2.0f;
 	float highest = -1.0f;
 	float inv_size = 1.0f / (float)(unsigned int)Land->Field->Get_Size();
 	float vscale = Land->Field->Get_VScale();
-	VertexBufferClass::WriteLockClass lock(VertexBuffer);
-	LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
-	for (int j = 0; j < Size; j++) {
-		int xi = x;
-		for (int i = 0; i < Size; i++) {
-			vertex->Y = (float)j;
-			vertex->X = (float)i;
-			float height = Land->Field->Get_Height_2(xi, j + y) * (1.0f / vscale);
-			if (height <= lowest) lowest = height;
-			if (highest <= height) highest = height;
-			vertex->Z = height;
-			vertex->V1 = (float)(j + y) * inv_size;
-			vertex->V2 = vertex->V1 * detail_v;
-			float u = (float)xi * inv_size;
-			vertex->U1 = u;
-			vertex->U2 = u * detail_u;
-			vertex++;
-			xi++;
+	float height_scale = 1.0f / vscale;
+	{
+		VertexBufferClass::WriteLockClass lock(VertexBuffer);
+		LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
+		for (int j = 0; j < Size; j++) {
+			int xi = x;
+			for (int i = 0; i < Size; i++) {
+				vertex->X = (float)i;
+				vertex->Y = (float)j;
+				float height = Land->Field->Get_Height_2(xi, j + y) * height_scale;
+				if (lowest >= height) lowest = height;
+				if (highest <= height) highest = height;
+				vertex->Z = height;
+				float v = (float)(j + y) * inv_size;
+				vertex->V1 = v;
+				vertex->V2 = v * detail_v;
+				float u = (float)xi * inv_size;
+				vertex->U1 = u;
+				vertex->U2 = u * detail_u;
+				vertex++;
+				xi++;
+			}
 		}
 	}
 	MidHeight = (highest + lowest) * 0.5f;
