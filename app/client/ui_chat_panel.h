@@ -11,18 +11,13 @@
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
 
-// avatar_pip.cpp's class at the panel's +0x110 (by its functions' file), as far as this file calls it
-class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
-{
-public:
-	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
-	void Unknown_7E4350();								// 0x7E4350
-};
+class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_chat_panel.cpp)
 
 // A combo of the panel (Combo[]), as far as this file calls it
 class UIChatComboClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+	void Unknown_57B440();								// 0x57B440 (slot +0x7C, before each combo's slot +0x7C)
 	void Unknown_57AD50(const char *text);				// 0x57AD50 (0x5698F0: +0x1F4's text for the first)  // NAME 1 [text]: neutral
 };
 
@@ -56,7 +51,8 @@ class UIChatIntClass : public InterfaceClass	// NAME 1: neutral (D10): the asser
 public:
 	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
 	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); virtual void Unknown_A4();
-	virtual void Unknown_A8(); virtual void Unknown_AC(bool on); virtual void Unknown_B0(); virtual void Unknown_B4();
+	virtual void Unknown_A8(); virtual void Unknown_AC(bool on); virtual void Unknown_B0();
+	virtual void Unknown_B4(const char *text);			// +0xB4 (0x565C40: 'To %s:')  // NAME 1 [text]: neutral
 	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
 };
 
@@ -68,10 +64,12 @@ public:
 	virtual ~UIChatPanelClass();						// 0x562410
 	virtual void Unknown_5C();							// 0x563060 (the combo released, the chat window deactivated)
 	virtual bool Unknown_68(int key);					// 0x563280
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x563620 (onto the view with its windows and combos)  // NAME 1 [view, arg]: intrface.h's
 	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
 
 	bool Unknown_5638E0(int key);						// 0x5638E0: the chat window's slot +0xB8, false without one  // NAME 1 [key]: neutral
+	void Unknown_563C50();								// 0x563C50: the pip's target checked
 	void Unknown_563DC0(bool on);						// 0x563DC0 (G_ASSERT '!font' l.710)  // NAME 1 [on]: neutral
 	void Unknown_564030(bool on);						// 0x564030  // NAME 1 [on]: neutral
 	void Unknown_564150(bool on);						// 0x564150 (FAIL_IFs '!big_robj', '!bigbutframe' ll.782 / 783)  // NAME 1 [on]: neutral
@@ -83,8 +81,11 @@ public:
 	const char *Unknown_565BA0();						// 0x565BA0: +0x248's text
 	const char *Unknown_565BC0();						// 0x565BC0: the +0x158 name for +0x148 (6..9), else NULL
 	const char *Unknown_565C00();						// 0x565C00: the +0x188 name for +0x150 (0..4), else NULL
+	void Unknown_565C40(int index);						// 0x565C40: talk to the +0x188 name 'index' ('To %s:')  // NAME 1 [index]: neutral
+	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender, first in the +0x188 names)  // NAME 1 [name]: cpacket.cpp's
 	void Unknown_565F30(int arg);						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
+	void Unknown_567540(bool arg);						// 0x567540  // NAME 1 [arg]: neutral
 	bool Unknown_567970();								// 0x567970: +0x1E8 is active
 	void Unknown_5685C0();								// 0x5685C0: the +0xF8 window released
 	int Unknown_5688E0(void **list);				// 0x5688E0: the count of a NULL-terminated list  // NAME 1 [list]: neutral
@@ -109,12 +110,12 @@ public:
 	void *UnknownE4;									// +0xE4
 	void *UnknownE8;									// +0xE8
 	void *UnknownEC;									// +0xEC
-	int UnknownF0;										// +0xF0
+	InterfaceClass *UnknownF0;							// +0xF0
 	bool UnknownF4;										// +0xF4
 	RefCountPtr<InterfaceClass> UnknownF8;				// +0xF8
 	int UnknownFC;										// +0xFC
 	int Unknown100;										// +0x100
-	int Unknown104;										// +0x104
+	InterfaceClass *Unknown104;							// +0x104
 	int Unknown108;										// +0x108
 	bool Unknown10C;									// +0x10C
 	bool Unknown10D;									// +0x10D (an event handler registered on +0xF8)
