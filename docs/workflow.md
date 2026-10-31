@@ -511,7 +511,10 @@ unless `--lever` cites a new row of this table.
   The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
   marked as not the client's; 16 since 8102bcf, window 15..17). After any change to a header aux_roots.cpp
   includes, re-sweep the pad (`tools/vc6/auxpad.py sweep`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
-  all six. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
+  all six (15 since eab5d9a0, AR1). A separate operator== among aux_roots.h's value types (free or member) pulls the
+  six windows apart so no pad has all six exact; a single negated `!=` expression keeps a window (AR1, 2026-10-31).
+  A sweep killed mid-run leaves its VM leased under `importer-PID` and a pad variant in aux_roots.cpp:
+  `pool.py release VM --agent importer-PID`, then check out aux_roots.*. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
   bounds accessor, P-DF1-2: keep such helpers local to the file). Explicit `template class` instantiations and
   padding between definitions move all six alike; VC6 rejects explicit instantiation of a constructor (C2909).
 * **co.cpp's lookups and the inline budget (2026-10-28, UP1 / DF1 / IB1):** the budget cuts the bigger callee

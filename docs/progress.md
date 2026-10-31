@@ -1578,6 +1578,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
+* **P-AR1-1** (2026-10-31, AR1; recommend yes, as D166 was landed): objmatch's D88 self-name round also uses the
+  slots of vtables learned in the same run (from the exact constructors that store them, e.g. 0x702890 stores
+  0xB01844) and learns the relocations of short functions at addresses the run already knows. That breaks the
+  relocation-only ties of template instances whose vtables symbols.json never names (aux_roots' accessor / KVPair
+  deleting destructors and destructors). Measured with objmatch only (prototype `.work/ar1/proto_om.py`, objmatch.py
+  unchanged): aux_roots.obj 102 -> 335 exact, all 241 app objects +318 (aux_roots 204, postate 18, extrap 15,
+  spln_db 12, sclient 10, ...), 0 lost; shipcust_desc's three range credits move to vtable addresses (0x4F7000 ->
+  0x4484C0, 0x4F7520 -> 0x42F010, 0x4F7550 -> 0x4488E0; 0x42F010 to be checked). Land it as one commit with a full
+  verify of all 11 libraries on a quiet tree, the moves listed for the user?
 
 ## 4. Next steps
 
