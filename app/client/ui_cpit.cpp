@@ -155,7 +155,7 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24();
 	virtual void Unknown_28(LayerClass *layer);			// +0x28 (the set-up: the cockpit's layer)  // NAME 1 [layer]: ui_group.cpp's
-	virtual void Unknown_2C();
+	virtual void Unknown_2C(KernelEventClass *event, int a, int b, int c);	// +0x2C (slot +0x68: a zero event, 0, 0, 1 or 4 for the warp keys)  // NAME 1 [event, a, b, c]: neutral
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(int on);					// +0x40 (slot +0x60: 1 shows the warp button as RESCUE)  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
@@ -184,6 +184,7 @@ public:
 	void Unknown_671630();								// 0x671630 (after slot +0xAC)
 	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
 	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
+	void Unknown_66C360();								// 0x66C360 (slot +0x68: after slot +0xA4 on the throttle buttons)
 	bool Unknown_6740E0(float value);					// 0x6740E0 (0x583790 passes 1.0f: the auto thrust engaged)  // NAME 1 [value]: neutral
 
 	char Unknown50[0x64 - 0x50];						// +0x50
@@ -244,7 +245,6 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_cpit.ini");
 	Unknown_BE67C4->Add(Mesh->Peek_Object());
 }
-
 
 
 
@@ -697,195 +697,195 @@ void UICpitClass::Unknown_74(ControlKeysManagerClass *manager)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
+// NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast)
+bool UICpitClass::Unknown_68(int key)
+{
+	SClient *sclient = (SClient *)Client;
+	bool lock_speed;
+	bool lock_orient;
+	Unknown_57D6C0(sclient, &lock_speed, &lock_orient);
+	switch (key) {
+		case 2:
+			if (Unknown0B4->Unknown_60()) {
+				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 1);
+				return(true);
+			}
+			return(true);
+		case 3:
+			if (Unknown0B4->Unknown_60()) {
+				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 4);
+				return(true);
+			}
+			return(true);
+		case 8:
+			if (lock_speed) return(true);
+			if (!Unknown_584000(true)) return(true);
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));
+			sclient->Unknown_745E40(1, false);
+			Unknown144 = 1;
+			Unknown0B8->Unknown_674160(0);
+			Unknown0BC->Unknown_674160(0);
+			Unknown0B8->Unknown_671740(true, 1.0f);
+			Unknown0BC->Unknown_671740(false, 0);
+			return(true);
+		case 9:
+			if (lock_speed) return(true);
+			if (!Unknown_584000(true)) return(true);
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));
+			sclient->Unknown_745E40(-1, false);
+			Unknown144 = 2;
+			Unknown0B8->Unknown_674160(0);
+			Unknown0BC->Unknown_674160(0);
+			Unknown0B8->Unknown_671740(false, 0);
+			Unknown0BC->Unknown_671740(true, 1.0f);
+			return(true);
+		case 13:
+			if (lock_speed) return(true);
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+			sclient->Unknown_745E40(0, false);
+			Unknown144 = 0;
+			Unknown0B8->Unknown_674160(0);
+			Unknown0BC->Unknown_674160(0);
+			Unknown0B8->Unknown_671740(false, 0);
+			Unknown0BC->Unknown_671740(false, 0);
+			return(true);
+		case 10:
+		case 11:
+			if (lock_speed) return(true);
+			if (!Unknown_584000(true)) return(true);
+			switch (Unknown144) {
+				default:
+					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 2));
+					sclient->Unknown_745E40(1, false);
+					Unknown0B8->Unknown_674160(1);
+					Unknown0B8->Unknown_A4(2.0f);
+					Unknown0B8->Unknown_66C360();
+					Unknown0BC->Unknown_674160(0);
+					Unknown0BC->Unknown_671740(false, 0);
+					Unknown144 = 3;
+					return(true);
+				case 3:
+					if (key == 11) return(true);
+				case 4:
+					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+					sclient->Unknown_745E40(0, false);
+					Unknown0B8->Unknown_674160(0);
+					Unknown0B8->Unknown_671740(false, 0);
+					Unknown0BC->Unknown_674160(0);
+					Unknown0BC->Unknown_671740(false, 0);
+					Unknown144 = 0;
+					return(true);
+				case 1:
+					Unknown0B8->Unknown_674160(1);
+					Unknown0B8->Unknown_A4(2.0f);
+					Unknown0B8->Unknown_66C360();
+					Unknown144 = 3;
+					return(true);
+			}
+		case 12:
+			if (lock_speed) return(true);
+			if (!Unknown_584000(true)) return(true);
+			switch (Unknown144) {
+				default:
+					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 3));
+					sclient->Unknown_745E40(-1, false);
+					Unknown0BC->Unknown_674160(1);
+					Unknown0BC->Unknown_A4(2.0f);
+					Unknown0BC->Unknown_66C360();
+					Unknown0B8->Unknown_674160(0);
+					Unknown0B8->Unknown_671740(false, 0);
+					Unknown144 = 4;
+					return(true);
+				case 3:
+					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+					sclient->Unknown_745E40(0, false);
+					Unknown0B8->Unknown_674160(0);
+					Unknown0B8->Unknown_671740(false, 0);
+					Unknown0BC->Unknown_674160(0);
+					Unknown0BC->Unknown_671740(false, 0);
+					Unknown144 = 0;
+					return(true);
+				case 2:
+					Unknown0BC->Unknown_674160(1);
+					Unknown0BC->Unknown_A4(2.0f);
+					Unknown0BC->Unknown_66C360();
+					Unknown144 = 4;
+					return(true);
+				case 4:
+					return(true);
+			}
+		case 14:
+			if (!((ClientClass *)Client)->DebugMode) return(true);
+			if (lock_speed) return(true);
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 5));
+			sclient->Unknown_745E40(1, true);
+			Unknown144 = 5;
+			return(true);
+		case 15:
+			if (!((ClientClass *)Client)->DebugMode) return(true);
+			if (lock_speed) return(true);
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 6));
+			sclient->Unknown_745E40(-1, true);
+			Unknown144 = 6;
+			return(true);
+		case 16:
+			if (lock_orient) return(true);
+			if (Unknown134 == -1) return(true);
+			Unknown134 = -1;
+			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), -1.0f));
+			sclient->Unknown_745B90(-1.0f);
+			Unknown0C0->Unknown_671740(true, 1.0f);
+			Unknown0C4->Unknown_671740(false, 0);
+			return(true);
+		case 17:
+			if (lock_orient) return(true);
+			if (Unknown134 == 1) return(true);
+			Unknown134 = 1;
+			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 1.0f));
+			sclient->Unknown_745B90(1.0f);
+			Unknown0C4->Unknown_671740(true, 1.0f);
+			Unknown0C0->Unknown_671740(false, 0);
+			return(true);
+		case 18:
+			if (lock_orient) return(true);
+			if (Unknown134 == 0) return(true);
+			Unknown134 = 0;
+			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0));
+			sclient->Unknown_745B90(0);
+			Unknown0C0->Unknown_671740(false, 0);
+			Unknown0C4->Unknown_671740(false, 0);
+			return(true);
+		case 19:
+			if (lock_orient) return(true);
+			if (Unknown138 == 1) return(true);
+			Unknown138 = 1;
+			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 1.0f));
+			sclient->Unknown_745C70(1.0f);
+			return(true);
+		case 20:
+			if (lock_orient) return(true);
+			if (Unknown138 == -1) return(true);
+			Unknown138 = -1;
+			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), -1.0f));
+			sclient->Unknown_745C70(-1.0f);
+			return(true);
+		case 21:
+			if (lock_orient) return(true);
+			if (Unknown138 == 0) return(true);
+			Unknown138 = 0;
+			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 0));
+			sclient->Unknown_745C70(0);
+			return(true);
+		case 0x48:
+		case 0x4B:
+		case 0x4C:
+		case 0x4D:
+		case 0x4E:
+			return(true);
+	}
+	return(false);
+}
 
 
 

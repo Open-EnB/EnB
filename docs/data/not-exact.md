@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-382 entries in 77 files.
+383 entries in 77 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -172,6 +172,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:473` | `UICpitClass::Unknown_70` | marker | NOT EXACT: inline budget (the client expands std::string's assign in the last nine keys, ours in the last eight) |
 | `app/client/ui_cpit.cpp:644` | `UICpitClass::Unknown_74` | marker | NOT EXACT: inline budget (the client expands std::string's assign in other keys than ours) |
+| `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
 | `app/client/ui_cpit.cpp:1733` | `UICpitClass::Unknown_583790` | marker | NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers) |
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_cpit.cpp:1917` | `UICpitClass::Unknown_584000` | marker | NOT EXACT: order (the client keeps an epilogue at each early return and the found path inline; ours shares one exit) |
