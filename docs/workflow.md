@@ -317,6 +317,10 @@ unless `--lever` cites a new row of this table.
 | `test ecx,ecx; sete` where ours has `test cl,cl` on a flag tested then flipped | The flag is an `int`, not a `bool` | Build_Index_Buffers 0x478240 (LD6) |
 | Index scheduling off in a function whose same-file accessors ours expands by hand | Call the client's accessors (`Get_Height(i, j)`, `Get_Vertex`): they fix the scheduling and spend the inline budget the client spends | heightfield 0x464600, 0x465D30 / 0x466180, 0x4654E0 (LD8, 8d47d1ed) |
 | A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
+| `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
+| A RefCountPtr released twice in a row | `REF_PTR_RELEASE(ptr)` | scriptedmovie (SM1) |
+| A direct call to a client virtual where ours goes through the vtable | Qualify it: `client->ClientClass::Add_Object(...)` | scriptedmovie (SM1) |
+| A call order or frame off around by-value arguments | `Get_Client()` inside the argument list; a named copy before a by-value argument; block-scoped temporaries | scriptedmovie 0x808330 and others (SM1) |
 | Which helpers an out-of-line insert calls | A non-inline same-file helper holding the push_back emits exactly those: a probe to identify them, not a shippable form | Get_Triangles (LD8) |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 070f7a5 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
