@@ -739,17 +739,17 @@ struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
 };
 struct ScriptedMovieBoneObjectStruct { RenderObjClass *RenderObject; int Bone; int ClientID; };	// 0x0C bytes at +0x100 (0x802D80; the destructor releases RenderObject); then one of the cameras (0x10 bytes, in a vector at +0x110)  // NAME 1: neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds
 struct ScriptedMovieCameraStruct	// NAME 1: neutral (D10)
-{	ScriptedMovieCameraStruct() : RenderObject(NULL), Bone(-1), HFov(0.0f), VFov(0.0f) {}	// (Add_Camera 0x805420 stores all four before setting two)
+{	ScriptedMovieCameraStruct() : RenderObject(NULL), Bone(-1), HFov(0.0f), VFov(0.0f) {} ScriptedMovieCameraStruct &operator = (const ScriptedMovieCameraStruct &that) { RenderObject = that.RenderObject; Bone = that.Bone; HFov = that.HFov; VFov = that.VFov; return(*this); }	// (Add_Camera 0x805420 stores all four before setting two); the assignment 0x80B100 (the destructor calls it out of line)
 	RenderObjClass *RenderObject;						// +0x00: the model whose bone carries the camera  // NAME 3: the assert's 'CameraList[CurrentCameraIndex].RenderObject'
 	int Bone;											// +0x04  // NAME 2: Add_Sub_Object_To_Bone's argument
 	float HFov;											// +0x08 (0: the camera's own)  // NAME 2: Set_View_Plane's argument
 	float VFov;											// +0x0C  // NAME 2: Set_View_Plane's argument
 };
-class ScriptedMovieSoundClass { public: ScriptedMovieSoundClass(const char *name, const char *bone_name); void Unknown_7ED410(RenderObjClass *model); void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); char Unknown00[0x18]; bool Unknown18; char Unknown19[0x28 - 0x19]; float Unknown28; char Unknown2C[0x50 - 0x2C]; };	// 0x50 bytes, constructor 0x7ED1D0 (Play_Audio: the name and the bone), 0x7ED410 onto a model; +0x18 loops, +0x28 the volume  // NAME 1 [name, bone_name, model]: what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
+class ScriptedMovieSoundClass { public: ScriptedMovieSoundClass(const char *name, const char *bone_name); ~ScriptedMovieSoundClass(); void Unknown_7ED410(RenderObjClass *model); void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); char Unknown00[0x18]; bool Unknown18; char Unknown19[0x28 - 0x19]; float Unknown28; char Unknown2C[0x50 - 0x2C]; };	// 0x50 bytes, constructor 0x7ED1D0 (Play_Audio: the name and the bone), 0x7ED410 onto a model; +0x18 loops, +0x28 the volume  // NAME 1 [name, bone_name, model]: what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
-	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback);	// 0x8000C0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
+	ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback); virtual ~ScriptedMovieViewClass();	// 0x8000C0, 0x8008B0  // NAME 1 [task, arg, callback]: what 0x74BD90 passes
 	bool Unknown_802930();								// 0x802930 (SClient::Do_Frame in view mode 6: true ends the movie, 0x74BF00)
 	void Unknown_802960(KernelEventClass event);		// 0x802960 (SClient::Do_Frame: the input events while the scripted movie view is up)  // NAME 1 [event]: what it gets
 	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList

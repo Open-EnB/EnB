@@ -252,6 +252,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	SoundLibraryClass::_PlayUndefined = true;
 }
 
+void Unknown_7FF3A0();	// 0x7FF3A0 (the file before this one: the screen fade and the letterbox), the destructor calls it
 
 
 
@@ -277,113 +278,112 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 
 
 
+// NOT EXACT: inline budget (0.73): the client calls the erase copy of BoneClientObjectList, copy 0x80AF50 out of line, ours inlines it (then registers differ)
+// 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SClient's managers kept
+ScriptedMovieViewClass::~ScriptedMovieViewClass()
+{
+	ClientClass *client = Get_Client();
+	G_ASSERT(client);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		UIMeshClass *mesh = (*itor).Mesh;
 
 
 
+		G_ASSERT(mesh);
+		mesh->Unknown_5B92B0();
+		if ((*itor).Unknown08 < 0) {
+			ClientObjectClass *obj = client->Find_Object((*itor).Unknown08);
+			G_ASSERT(obj);
+			client->Remove_Object((*itor).Unknown08);
+			if (obj) {
+				obj->Unknown_08();
+				delete obj;
+			}
+		}
+		delete mesh;
+	}
+	Objects.clear();
+	for (int i = 0; i < MAX_LIGHTS_PER_SCENE; i++) {
+		if (Lights[i] != NULL) {
+			Lights[i]->Remove();
+			Lights[i]->Release_Ref();
+			Lights[i] = NULL;
+		}
+	}
 
 
+	G_ASSERT(ViewerSettings);
+	delete ViewerSettings;
+	ViewerSettings = NULL;
+	for (std::vector<ScriptedMovieLineClass *>::iterator itor2 = Lines.begin(); itor2 != Lines.end(); itor2++) {
 
 
 
+		G_ASSERT(*itor2);
+		delete *itor2;
+	}
+	Lines.clear();
+	for (std::vector<ScriptedMovieSoundClass *>::iterator itor3 = UnknownF0.begin(); itor3 != UnknownF0.end(); itor3++) {
+		(*itor3)->Unknown_7ED630(1);
+		delete *itor3;
+	}
+	UnknownF0.clear();
+	SoundLibraryClass::Flush_Playlist();
+	if (Unknown174) {
+		delete Unknown174;
+		Unknown174 = NULL;
+	}
+	for (unsigned int j = 0; j < BoneClientObjectList.size(); j++) {
+		ClientObjectClass *obj = client->Find_Object(BoneClientObjectList[j].ClientID);
 
 
 
 
 
+		G_ASSERT(obj);
+		client->Remove_Object(BoneClientObjectList[j].ClientID);
+		if (obj) {
+			obj->Unknown_08();
+			delete obj;
+		}
+		G_ASSERT(BoneClientObjectList[j].RenderObject);
+		BoneClientObjectList[j].RenderObject->Release_Ref();
+	}
+	BoneClientObjectList.clear();
+	for (std::vector<ScriptedMovieCameraStruct>::iterator itor4 = CameraList.begin(); itor4 != CameraList.end(); itor4++) {
 
 
 
+		G_ASSERT((*itor4).RenderObject);
+		(*itor4).RenderObject->Release_Ref();
+	}
+	CameraList.clear();
+	Effects.clear();
 
 
 
 
+	G_ASSERT(CameraEffects);
+	delete CameraEffects;
+	CameraEffects = NULL;
+	Unknown_7FF3A0();
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(ClientInterface);
+	delete ClientInterface;
+	ClientInterface = NULL;
+	Unknown160 = NULL;
+	if (Unknown15C) {
+		delete Unknown15C;
+		Unknown15C = NULL;
+	}
+	Unknown_802D30();
+	Unknown_BB9654 = true;
+	Unknown_C01290 = 0;
+	SoundLibraryClass::_PlayUndefined = false;
+}
 
 
 
