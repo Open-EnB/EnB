@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 139,
+  "ambiguous_total": 140,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -9112,6 +9112,49 @@
     "merged": [],
     "name": "client/ui_line_display.cpp"
    },
+   "ui_manu": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300",
+     "0x541A10"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x5B0B40",
+     "0x5B1AF0",
+     "0x5B2060",
+     "0x5B21A0",
+     "0x5B2820",
+     "0x5B28E0",
+     "0x5B2950",
+     "0x5B2990",
+     "0x5B2A80",
+     "0x5B2B40",
+     "0x5B39B0",
+     "0x5B3A70",
+     "0x5B3B90",
+     "0x5B3CA0",
+     "0x5B3D70",
+     "0x5B6410",
+     "0x5B6680",
+     "0x5B6720",
+     "0x5B6A80",
+     "0x5B6CA0",
+     "0x5B6D30"
+    ],
+    "merged": [],
+    "name": "client/ui_manu.cpp"
+   },
    "uiview": {
     "ambiguous": [
      "0x42B2F0",
@@ -9706,6 +9749,7 @@
    "client/ui_cpit.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
+   "client/ui_manu.h": "reconstructed",
    "client/uiview.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
@@ -9928,7 +9972,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4991,
+  "in_tree_total": 5039,
   "totals": {}
  },
  "binkmovie": {
