@@ -107,7 +107,7 @@ public:
 	void Unknown_5658B0(const char *name);				// 0x5658B0  // NAME 1 [name]: neutral
 	void Unknown_565F30(int arg);
 	void Unknown_565F80();								// 0x565F80 (every frame): the window +0x108 asks for opened at +0x104
-	void Unknown_566AF0();								// 0x566AF0 (every frame)						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
+	void Unknown_566AF0();								// 0x566AF0 (every frame): the window +0xFC asks for opened at +0xF8						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	void Unknown_567760();								// 0x567760: the reply list's pick
 	void Unknown_567930(int channel);					// 0x567930: the default channel, saved in 'Chat_Default_Channel'  // NAME 1 [channel]: neutral
 	bool Unknown_567540(int arg);						// 0x567540: the reply list over the +0x188 names ("Unable to reply")  // NAME 1 [arg]: neutral

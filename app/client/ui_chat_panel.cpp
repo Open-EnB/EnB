@@ -144,6 +144,11 @@ class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0
 class Unknown5CA010Class : public UIChatPanelWindowClass { public: Unknown5CA010Class(SClient *client, int a); char Unknown9C[0x1B0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
 class Unknown5C8870Class : public UIChatPanelWindowClass { public: Unknown5C8870Class(SClient *client, int a); char Unknown9C[0xAC - 0x9C]; };	// NAME 1: neutral (D10): 0x5C8870, 0xAC bytes (requests 9, 10)  // NAME 1 [a]: neutral
 
+class Unknown5E9410Class : public UIChatPanelWindowClass { public: Unknown5E9410Class(SClient *client, int mode, std::string channel); char Unknown9C[0xC4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5E9410, 0xC4 bytes (0x566AF0's requests 1, 2, 5, 8: a mode and a channel)  // NAME 1 [mode, channel]: what 0x566AF0 passes
+class Unknown5EAB40Class : public UIChatPanelWindowClass { public: Unknown5EAB40Class(SClient *client, int a); char Unknown9C[0xBC - 0x9C]; };	// NAME 1: neutral (D10): 0x5EAB40, 0xBC bytes (requests 3, 4)  // NAME 1 [a]: neutral
+class Unknown5E6290Class : public UIChatPanelWindowClass { public: Unknown5E6290Class(SClient *client, int a); char Unknown9C[0xC4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5E6290, 0xC4 bytes (requests 6, 7, 9)  // NAME 1 [a]: neutral
+class Unknown5E4160Class : public UIChatPanelWindowClass { public: Unknown5E4160Class(SClient *client); char Unknown9C[0x11C - 0x9C]; };	// NAME 1: neutral (D10): 0x5E4160, 0x11C bytes (request 10, kept at +0xE8 too)
+
 // pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
 class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral (D10): 0x695F40
 
@@ -172,11 +177,6 @@ public:
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-
-
-
-
-
 
 
 
@@ -979,6 +979,52 @@ void UIChatPanelClass::Unknown_565F80()
 	Unknown108 = 0;
 }
 
+// 0x566AF0
+void UIChatPanelClass::Unknown_566AF0()
+{
+	if (UnknownF8 && UnknownF8->Unknown98) Unknown_5685C0();
+	if (UnknownF8) return;
+	if (!UnknownFC) return;
+	switch (UnknownFC) {
+		case 1:
+			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 0, Unknown214));
+			break;
+		case 2:
+			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 1, ""));
+			break;
+		case 3:
+			UnknownF8 = Create_Get(new Unknown5EAB40Class(Client->As_Space_Client(), 0));
+			break;
+		case 4:
+			UnknownF8 = Create_Get(new Unknown5EAB40Class(Client->As_Space_Client(), 1));
+			break;
+		case 5:
+			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 2, ""));
+			break;
+		case 6:
+			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 0));
+			break;
+		case 7:
+			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 1));
+			break;
+		case 8:
+			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 3, Unknown_5682C0()));
+			break;
+		case 9:
+			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 2));
+			break;
+		case 10:
+			UnknownF8 = Create_Get(new Unknown5E4160Class(Client->As_Space_Client()));
+			UnknownE8 = UnknownF8.Peek();
+			break;
+	}
+	if (UnknownF8) {
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+	}
+	UnknownFC = 0;
+}
+
 // NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141)
 // 0x567540
 bool UIChatPanelClass::Unknown_567540(int arg)
@@ -1193,52 +1239,6 @@ void UIChatPanelClass::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
