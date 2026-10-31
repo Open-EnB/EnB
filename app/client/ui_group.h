@@ -55,6 +55,7 @@ class UIGroupUnknownE8Class	// NAME 1: neutral (D10)
 public:
 	~UIGroupUnknownE8Class() { Unknown_592BB0(); }		// inline (the group window's destructor expands it)
 	void Unknown_592BB0();								// 0x592BB0
+	RefCountPtr<RenderObjClass> Unknown_5944A0();		// 0x5944A0 (0x594040, 0x598370): Unknown04
 
 	UIGroupClass *Unknown00;							// +0x00 (the constructor's argument)
 	RefCountPtr<RenderObjClass> Unknown04;				// +0x04 (0x5944A0 returns it)
@@ -77,6 +78,9 @@ public:
 	void Unknown_5954C0();								// 0x5954C0 (the destructor expands it: the NAMEnn_TSI03A styles hidden)
 	int Unknown_596040(int id);					// 0x596040: the index of the member with that ID, else -1  // NAME 1 [id]: what it compares
 	void Unknown_597000(bool on);						// 0x597000: each member's four gadgets' slot +0x40  // NAME 1 [on]: neutral
+	void Unknown_5975D0();								// 0x5975D0: the leave / disband question ('GROUP_LEAVE')
+	bool Unknown_5979A0();								// 0x5979A0: GroupInfo.FormationName is set
+	bool Unknown_597A60();								// 0x597A60: GroupInfo.Formation is not 0
 	void Unknown_597080(const char *text, const char *name, int index);	// 0x597080 (CLIENT_CHAT_EVENT 165: a 'group' message '<S>n name`text')  // NAME 1 [text, name, index]: the message's parts
 	void Unknown_597820(unsigned id);					// 0x597820 (a ClientGroupEvent of true)  // NAME 1 [id]: what Find_Object gets
 	void Unknown_5978A0(unsigned id);					// 0x5978A0 (the same)  // NAME 1 [id]: what Find_Object gets

@@ -5,6 +5,8 @@
 #include "client.h"
 #include "rendobj.h"
 #include "control_keys_manager.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\unknown_debug.h"
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
@@ -46,8 +48,6 @@ public:
 	ClientGroupEvent(bool value) : Value(value) {}
 	bool Value;											// +0x00  // NAME 1: neutral
 };
-
-
 
 
 
@@ -687,11 +687,11 @@ UIGroupClass::~UIGroupClass()
 
 
 
-
-
-
-
-
+// 0x5944A0
+RefCountPtr<RenderObjClass> UIGroupUnknownE8Class::Unknown_5944A0()
+{
+	return(Unknown04);
+}
 
 
 
@@ -1497,15 +1497,15 @@ void UIGroupClass::Unknown_597000(bool on)
 
 
 
-
-
-
-
-
-
-
-
-
+// 0x5975D0
+void UIGroupClass::Unknown_5975D0()
+{
+	if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+		View->Unknown34->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to disband this group?", 320, 0, 0);
+	} else {
+		View->Unknown34->Unknown_588A70("GROUP_LEAVE", 0, "Are you sure you want to leave this group?", 320, 0, 0);
+	}
+}
 
 
 
@@ -1603,37 +1603,37 @@ void UIGroupClass::Unknown_597920(unsigned int id, bool value)
 
 
 
+// 0x5979A0
+bool UIGroupClass::Unknown_5979A0()
+{
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	DeltaCompoundClass *aux = sclient->AuxData;
+	if (aux) {
+		DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		if (group && group->Unknown70) {
+			return(stricmp(group->FormationName.String, "") ? true : false);
+		}
+	}
+	return(false);
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x597A60
+bool UIGroupClass::Unknown_597A60()
+{
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	DeltaCompoundClass *aux = sclient->AuxData;
+	if (aux) {
+		DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		if (group && group->Unknown70) {
+			return(group->Formation.Value ? true : false);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -1915,17 +1915,18 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	0x593180-0x598A60 (claims #27 / #28); the base under it (constructor 0x5BB320) has no file name yet.
 **
 **	Rebuilt (UG1, 2026-10-30): the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
-**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, 0x597000, the ClientGroupEvent emitters 0x597820 / 0x5978A0
-**	/ 0x597920 (line 1594), 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597D10 (1714), 0x5981B0, 0x598200,
+**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, 0x597000, the +0xE8 object's 0x5944A0, the leave question 0x5975D0, the ClientGroupEvent emitters 0x597820 / 0x5978A0
+**	/ 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597D10 (1714), 0x5981B0, 0x598200,
 **	0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25);
 **	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: the
 **	member class's functions (0x5932E0-0x593830, lines 403 / 456), 0x5938A0 (563), Unknown_54 0x594040, slot +0x60
 **	0x5944D0, slot +0x68 0x5946D0 (735, 751), 0x595530, the member list 0x596130-0x596770 (1165-1266), 0x596E20
-**	(1388), 0x597080, 0x597200-0x5975D0, 0x597650, 0x5979A0 / 0x597A60, 0x597BF0, 0x597E40 (1753) and 0x598370.
+**	(1388), 0x597080, 0x597200 / 0x597310, 0x597650, 0x597BF0, 0x597E40 (1753) and 0x598370.
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
-**	ends in a jump to SClient::Unknown_74D690 (Ghidra shows the callee's body inline); 0x598200 tests on before off
+**	ends in a jump to SClient::Unknown_74D690 (Ghidra shows the callee's body inline); 0x5979A0 / 0x597A60 test
+**	the aux root through a named local before the NameClass and return '? true : false' (setne); 0x598200 tests on before off
 **	and reads +0xC0 again for the 0x6603A0 call. intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass,
 **	control_keys_manager.h's class is the client's ControlKeysManager: the casts are ours.
 */
