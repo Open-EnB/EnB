@@ -12,6 +12,7 @@
 #include "..\packets\pkincapacitancerequest.h"
 #include "..\audio\soundlib.h"
 #include "rendobj.h"
+#include "matinfo.h"
 #include "option.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
@@ -44,59 +45,6 @@ void Unknown_496730(RenderObjClass *robj, int a, int b);	// 0x496730 (ro_funcs.c
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
 
-// gadget.cpp's gadget, as far as the cockpit calls it (the warp, throttle and turn buttons)
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(int on);					// +0x40 (slot +0x60: 1 shows the warp button as RESCUE)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual bool Unknown_60();							// +0x60 (0x5845A0: the warp button is on)
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
-	virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
-	virtual void Unknown_A4(float value);				// +0xA4 (slot +0x60: 2.0f when incapacitated, else 0)  // NAME 1 [value]: neutral
-	virtual void Unknown_A8();
-	virtual void Unknown_AC();							// +0xAC (0x583250, last)
-
-	char Unknown04[0x64 - 0x04];						// +0x04
-	bool Unknown64;										// +0x64: pressed (0x583250, 0x583510)
-	bool Unknown65;										// +0x65
-	bool Unknown66;										// +0x66 (0x583510: either turn button's set stops the turn)
-	char Unknown67[0x80 - 0x67];						// +0x67
-	int Unknown80;										// +0x80 (0x583790: 2 stops the throttle)
-	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
-	void Unknown_671630();								// 0x671630 (after slot +0xAC)
-	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
-	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
-	bool Unknown_6740E0(float value);					// 0x6740E0 (0x583790 passes 1.0f: the auto thrust engaged)  // NAME 1 [value]: neutral
-};
-
-// camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
-class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
-{
-public:
-	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
-};
-
-// (inline: the client reads these before the other arguments of the packets' constructors)
-inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)
-inline int Unknown_Player_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->Unknown1138); }	// NAME 1: neutral (D10)
-
-// sound_manager.cpp's sound manager (the global 0xBE82A4), as far as the damage texts call it (cpacket.cpp declares it too)
-class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
-{
-public:
-	void Unknown_75B0D0(const char *name, int channel);	// 0x75B0D0  // NAME 1 [name, channel]: cpacket.cpp's
-};
-extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
-extern std::string Unknown_BE5BD0;		// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3)  // NAME 1: neutral (D10)
-
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
 class LineDisplaySortClass  // NAME 1: neutral (D10)
 {
@@ -108,6 +56,58 @@ public:
 private:
 	char Unknown00[8];
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -146,6 +146,62 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 		}
 	}
 }
+
+// gadget.cpp's gadget, as far as the cockpit calls it (the warp, throttle and turn buttons)
+class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24();
+	virtual void Unknown_28(LayerClass *layer);			// +0x28 (the set-up: the cockpit's layer)  // NAME 1 [layer]: ui_group.cpp's
+	virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(int on);					// +0x40 (slot +0x60: 1 shows the warp button as RESCUE)  // NAME 1 [on]: neutral
+	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
+	virtual bool Unknown_60();							// +0x60 (0x5845A0: the warp button is on)
+	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
+	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
+	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
+	virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
+	virtual void Unknown_A4(float value);				// +0xA4 (slot +0x60: 2.0f when incapacitated, else 0)  // NAME 1 [value]: neutral
+	virtual void Unknown_A8();
+	virtual void Unknown_AC();							// +0xAC (0x583250, last)
+
+	void Unknown_660070(int arg);						// 0x660070 (the set-up passes 1)  // NAME 1 [arg]: neutral
+	void Unknown_65FFA0(int arg);						// 0x65FFA0 (the set-up passes 1000)  // NAME 1 [arg]: neutral
+	void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (the set-up passes -1 and +0xAC)  // NAME 1 [arg, gadget]: neutral
+
+	char Unknown04[0x50 - 0x04];						// +0x04 (0x50 bytes: 0x50A850's gadget)
+};
+
+// gadget.cpp's button under the cockpit's five (0x80 bytes and more), as far as the cockpit calls it
+class UICpitButtonClass : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
+	void Unknown_671630();								// 0x671630 (after slot +0xAC)
+	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
+	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
+	bool Unknown_6740E0(float value);					// 0x6740E0 (0x583790 passes 1.0f: the auto thrust engaged)  // NAME 1 [value]: neutral
+
+	char Unknown50[0x64 - 0x50];						// +0x50
+	bool Unknown64;										// +0x64: pressed (0x583250, 0x583510)
+	bool Unknown65;										// +0x65
+	bool Unknown66;										// +0x66 (0x583510: either turn button's set stops the turn)
+	char Unknown67[0x80 - 0x67];						// +0x67
+};
+// The five (gadget.cpp's constructors, made by the set-up 0x57DD20)
+class UICpitTurnGadgetClass : public UICpitButtonClass { public: UICpitTurnGadgetClass(RenderObjClass *object, RenderObjClass *uv, LayerClass *layer, int a, int b, int c); };	// 0x671300 (0x80 bytes; 'LEFT', 'RIGHT')  // NAME 1: neutral (D10); NAME 1 [object, uv, layer, a, b, c]: what the set-up passes (-1, 0, 3)
+class UICpitThrottleGadgetClass : public UICpitButtonClass { public: UICpitThrottleGadgetClass(RenderObjClass *object, RenderObjClass *uv, LayerClass *layer, int a, int b); int Unknown80; char Unknown84[0x88 - 0x84]; };	// 0x673EE0 (0x88 bytes; 'THROTTLE', 'REVERSE'; +0x80: 2 stops the throttle, 0x583790)  // NAME 1: neutral (D10); NAME 1 [object, uv, layer, a, b]: what the set-up passes (-1, 0)
+class UICpitWarpGadgetClass : public UICpitButtonClass { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, LayerClass *layer); char Unknown80[0x94 - 0x80]; };	// 0x676000 (0x94 bytes; 'WARP', 'WARP_BAR')  // NAME 1: neutral (D10); NAME 1 [object, bar, layer]: what the set-up passes
+
+// gadget.cpp's and view.cpp's gadgets the set-up makes, as far as it makes them
+class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); char Unknown50[0x5C - 0x50]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
+class UICpitGadget50A850Class : public GadgetClass { public: UICpitGadget50A850Class(int x, int y, int width, int height, LineDisplayClientClass *client); };	// 0x50A850 (0x50 bytes)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, client]: what the set-up passes
+class UICpitGadget674260Class : public GadgetClass { public: UICpitGadget674260Class(const RefCountPtr<RenderObjClass> &model); char Unknown50[0x60 - 0x50]; };	// 0x674260 (0x60 bytes)  // NAME 1: neutral (D10); NAME 1 [model]: what the set-up passes
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 
 // 0x57D830
 UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
@@ -206,192 +262,136 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x57DD20: the cockpit's gutter opacity, gadgets, windows and lights
+// NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it)
+void UICpitClass::Unknown_54()
+{
+	Unknown13C = OptionClass::Instance->Get_Bool("Cpit_ThrottleClickLocks");
+	float opacity = OptionClass::Instance->Get_Float("Radar_Gutter_Opacity");
+	char sides[4] = { 'l', 'r', 't', 'b' };
+	for (int i = 0; i < 4; i++) {
+		std::string name("tsi01_gutter.gutter_");
+		name += sides[i];
+		RefCountPtr<RenderObjClass> gutter = Create_Get(Unknown0B0->Get_Sub_Object_By_Name(name.c_str()));
+		if (gutter) {
+			RefCountPtr<MaterialInfoClass> info = Create_Get(gutter->Get_Material_Info());
+			if (info) {
+				RefCountPtr<VertexMaterialClass> material = Create_Peek(info->Peek_Vertex_Material(0));
+				if (material) material->Set_Opacity(opacity);
+			}
+		}
+	}
+	UIViewClass *view = View->As_Main_View();
+
+
+
+
+	G_ASSERT(View->As_Main_View());
+	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", (unsigned int)Mesh->Peek_Object());
+	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
+	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
+	Unknown0AC->Unknown_660070(1);
+	Unknown0AC->Unknown_65FFA0(1000);
+	Unknown_5BB4F0(Unknown0AC);
+	GadgetClass *gadget = new UICpitGadget50A850Class(0, 0, 640, 480, Client);
+	gadget->Unknown_660070(1);
+	gadget->Unknown_65FFC0(-1, Unknown0AC);
+	Unknown64.Unknown_6870E0(gadget, 0x4D, View, 1, 0);
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	HulkUI = new UICpitUnknownC8Class(this, sclient, 2);
+	HulkUI->Unknown_54();
+	HulkUI->Unknown_7C(View, 0);
+	Unknown0CC = new UICpitUnknownC8Class(this, sclient, 4);
+	Unknown0CC->Unknown_54();
+	Unknown0CC->Unknown_7C(View, 0);
+	Scan = new UIScanClass(View->As_Main_View(), &Layer);
+	Scan->Unknown_54();
+	View->Unknown_6B4940(Scan);
+	Unknown0D0 = new UICpitUnknownD0Class(Mesh->Peek_Object(), &Layer, this, -1);
+	UnknownDC = new UIScutClass(view, &Layer);
+	UnknownDC->Unknown_5417D0(this);
+	UnknownDC->Unknown_54();
+	View->Unknown_6B4940(UnknownDC);
+	Unknown0E0 = Create_NEW(new UICpitUnknownE0Class(sclient));
+	Unknown0E0->Unknown_54();
+	Unknown0E0->Unknown_7C(View, 0);
+
+	RenderObjClass *object = Mesh->Unknown_5B8B40("WARP");
+	RenderObjClass *uv = Mesh->Unknown_5B8B40("WARP_BAR");
+	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, &Layer);
+	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
+	Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP");
+	Unknown_5BB4F0(Unknown0B4);
+	uv->Release_Ref();
+	object->Release_Ref();
+
+	object = Mesh->Unknown_5B8B40("LEFT");
+	uv = Mesh->Unknown_5B8B40("LEFT_UV");
+	Unknown0C0 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
+	Unknown64.Unknown_6870E0(Unknown0C0, 6, View, 1, 0);
+	Unknown_65EFB0(Unknown0C0, "UI_CPIT", "LEFT");
+	Unknown_5BB4F0(Unknown0C0);
+	uv->Release_Ref();
+	object->Release_Ref();
+
+	object = Mesh->Unknown_5B8B40("RIGHT");
+	uv = Mesh->Unknown_5B8B40("RIGHT_UV");
+	Unknown0C4 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
+	Unknown64.Unknown_6870E0(Unknown0C4, 7, View, 1, 0);
+	Unknown_65EFB0(Unknown0C4, "UI_CPIT", "RIGHT");
+	Unknown_5BB4F0(Unknown0C4);
+	uv->Release_Ref();
+	object->Release_Ref();
+
+	object = Mesh->Unknown_5B8B40("THROTTLE");
+	uv = Mesh->Unknown_5B8B40("THROTTLE_UV");
+	Unknown0B8 = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
+	Unknown64.Unknown_6870E0(Unknown0B8, 4, View, 1, 0);
+	Unknown_65EFB0(Unknown0B8, "UI_CPIT", "THROTTLE");
+	Unknown_5BB4F0(Unknown0B8);
+	uv->Release_Ref();
+	object->Release_Ref();
+
+	object = Mesh->Unknown_5B8B40("REVERSE");
+	uv = Mesh->Unknown_5B8B40("REVERSE_UV");
+	Unknown0BC = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
+	Unknown64.Unknown_6870E0(Unknown0BC, 4, View, 1, 0);
+	Unknown_65EFB0(Unknown0BC, "UI_CPIT", "REVERSE");
+	Unknown_5BB4F0(Unknown0BC);
+	uv->Release_Ref();
+	object->Release_Ref();
+
+	Unknown16C = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("throttle_on"));
+	Unknown170 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("reverse_on"));
+	Unknown174 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("warp_on"));
+	Unknown16C->Set_Hidden(true);
+	Unknown170->Set_Hidden(true);
+	Unknown174->Set_Hidden(true);
+	gadget = new UICpitGadget674260Class(Unknown_497300(Mesh->Peek_Object()));
+	gadget->Unknown_28(&Layer);
+	Unknown64.Unknown_6870E0(gadget, 0x4F, View, 1, 0);
+	Unknown_10();
+}
+
+// camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
+class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
+{
+public:
+	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
+};
+
+// (inline: the client reads these before the other arguments of the packets' constructors)
+inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)
+inline int Unknown_Player_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->Unknown1138); }	// NAME 1: neutral (D10)
+
+// sound_manager.cpp's sound manager (the global 0xBE82A4), as far as the damage texts call it (cpacket.cpp declares it too)
+class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
+{
+public:
+	void Unknown_75B0D0(const char *name, int channel);	// 0x75B0D0  // NAME 1 [name, channel]: cpacket.cpp's
+};
+extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
+extern std::string Unknown_BE5BD0;		// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3)  // NAME 1: neutral (D10)
 
 
 

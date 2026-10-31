@@ -176,7 +176,7 @@ public:
 	virtual void Unknown_18(int arg) {}					// +0x18 0x514CF0  // NAME 1 [arg]: neutral
 	virtual UIViewClass *Unknown_1C() { return(NULL); }	// +0x1C 0x6B4560 (UIViewClass's 0x50B720 returns the view)
 	virtual UIViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
-	virtual UIViewClass *Unknown_24() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)
+	virtual UIViewClass *As_Main_View() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)  // NAME 3: ui_cpit.cpp's G_ASSERT 'View->As_Main_View()'
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
 	virtual UIViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
@@ -314,11 +314,11 @@ public:
 // ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
 class UIScanClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scan.cpp
 {
-public:
+public:	UIScanClass(UIViewClass *view, LayerClass *layer);	// 0x60D800 (0x1B0 bytes; the cockpit's set-up passes the main view and its layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
 	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
 
 	char Unknown84[0x88 - 0x84];						// +0x84
-	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
+	ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C];	// +0x88 (the main view's slot +0x5C returns it); 0x1B0 bytes (the cockpit's set-up)
 };
 
 class IncapacitanceDetailsPacket;
@@ -520,7 +520,7 @@ public:
 	virtual void Unknown_10();							// +0x10 0x50C2F0 (Shutdown: the counterpart of +0x04)
 	virtual void Unknown_14();							// +0x14 0x5129D0 (0x512400, then the base's 0x65B470)
 	virtual void Unknown_18(int arg);					// +0x18 0x514930 (hands it to the radar)  // NAME 1 [arg]: neutral
-	virtual UIViewClass *Unknown_24() { return(this); }	// +0x24 0x50B800
+	virtual UIViewClass *As_Main_View() { return(this); }	// +0x24 0x50B800  // NAME 3: ui_cpit.cpp's G_ASSERT
 	virtual CameraClass *Unknown_58() { return(Camera); }	// +0x58 0x50B8C0
 	virtual ClientObjectClass *Unknown_5C();			// +0x5C 0x5136D0 (the scanner's +0x88; SClient 0x744E70's FAIL_IF '!target' on its result)
 	virtual ClientObjectClass *Unknown_60(float x, float y, bool skip_avatar, int arg4);	// +0x60 0x512BB0 (the object under a screen point; arg4 unused) (asserts 'cam_dist_idx < InfoCount', 'cos_occluder_size > 0.0f')  // NAME 1 [x, y, skip_avatar, arg4]: what the body does with them
@@ -722,7 +722,7 @@ public:
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
+	RenderObjClass *Unknown_5B8B40(const char *name); void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
 	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20();	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's
 	char Unknown00[0x1C];								// +0x00

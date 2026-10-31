@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-379 entries in 77 files.
+380 entries in 77 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -169,6 +169,7 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
+| `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:473` | `UICpitClass::Unknown_70` | marker | NOT EXACT: inline budget (the client expands std::string's assign in the last nine keys, ours in the last eight) |
 | `app/client/ui_cpit.cpp:644` | `UICpitClass::Unknown_74` | marker | NOT EXACT: inline budget (the client expands std::string's assign in other keys than ours) |
 | `app/client/ui_cpit.cpp:1733` | `UICpitClass::Unknown_583790` | marker | NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers) |

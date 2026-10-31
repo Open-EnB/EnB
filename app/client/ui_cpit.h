@@ -11,6 +11,9 @@ class SClient;
 class ClientObjectClass;
 class RenderObjClass;
 class GadgetClass;
+class UICpitWarpGadgetClass;
+class UICpitThrottleGadgetClass;
+class UICpitTurnGadgetClass;
 class IncapacitanceDetailsPacket;
 class Unknown6D47C0Class;
 class UICpitClass;
@@ -69,14 +72,27 @@ public:
 class UICpitUnknownD0Class : public UnknownObjectWatchClass	// NAME 1: neutral (D10)
 {
 public:
+	UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg);	// 0x5DBFC0 (the set-up passes the mesh's model, the layer, the cockpit, -1)  // NAME 1 [model, layer, cpit, arg]: what the set-up passes
+	virtual void Unknown_0C();							// +0x0C (its own)
 	virtual void Unknown_10();							// +0x10 (slot +0x60, every frame)
+	char Unknown18[0x28 - 0x18];						// +0x18
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
+};
+
+// The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4; their file is unknown)
+class UICpitUnknownC8Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type);	// 0x5850E0  // NAME 1 [cpit, sclient, type]: what the set-up passes
+	char Unknown84[0xE4 - 0x84];						// +0x84
 };
 
 // What +0xE0 holds (0x1B4 bytes, constructor 0x551FB0; its file is unknown): the incapacitance question
 class UICpitUnknownE0Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+	UICpitUnknownE0Class(SClient *sclient);			// 0x551FB0  // NAME 1 [sclient]: what the set-up passes
+	char Unknown84[0x1B4 - 0x84];						// +0x84
 	int Unknown_553A40();								// 0x553A40: the answer once it closes (-1 none, 0 / 1: slot +0x60's Packet_008FClass / distress beacon)
 };
 
@@ -85,6 +101,8 @@ class UIScutClass : public InterfaceClass	// NAME 3: class-from-file (D24) for u
 {
 public:
 	UIScutClass(UIViewClass *view, LayerClass *layer);	// 0x610570 (0x57DD20 passes the view and the cockpit's layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
+	void Unknown_5417D0(InterfaceClass *owner);		// 0x5417D0 (intrface.cpp's; the set-up passes the cockpit)  // NAME 1 [owner]: neutral
+	char Unknown84[0xB8 - 0x84];						// +0x84
 };
 
 void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
@@ -125,11 +143,11 @@ public:
 
 	GadgetClass *Unknown0AC;							// +0xAC (0x57DD20 news it, 0x5C bytes, 0x6B56A0; the destructor deletes it through 0x65EED0)
 	RefCountPtr<RenderObjClass> Unknown0B0;				// +0xB0 'tsi01_gutter' (the constructor)
-	GadgetClass *Unknown0B4;							// +0xB4 'WARP' (0x57DD20)
-	GadgetClass *Unknown0B8;							// +0xB8 'THROTTLE'
-	GadgetClass *Unknown0BC;							// +0xBC 'REVERSE'
-	GadgetClass *Unknown0C0;							// +0xC0 'LEFT'
-	GadgetClass *Unknown0C4;							// +0xC4 'RIGHT'
+	UICpitWarpGadgetClass *Unknown0B4;							// +0xB4 'WARP' (0x57DD20)
+	UICpitThrottleGadgetClass *Unknown0B8;							// +0xB8 'THROTTLE'
+	UICpitThrottleGadgetClass *Unknown0BC;							// +0xBC 'REVERSE'
+	UICpitTurnGadgetClass *Unknown0C0;							// +0xC0 'LEFT'
+	UICpitTurnGadgetClass *Unknown0C4;							// +0xC4 'RIGHT'
 	InterfaceClass *HulkUI;								// +0xC8 (0xE4 bytes, 0x5850E0; G_ASSERT 'HulkUI' l.1208)  // NAME 3: the assert's
 	InterfaceClass *Unknown0CC;							// +0xCC (0xE4 bytes, 0x5850E0: the harvesting window)
 	UICpitUnknownD0Class *Unknown0D0;				// +0xD0 (0x28 bytes, 0x5DBFC0)
