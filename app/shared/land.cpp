@@ -1522,7 +1522,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 	}
 }
 
-// NOT EXACT: frame (0x3C, the client 0x48: a 12-byte local holding the y, the x and y through the FPU; 7 forms, attempts.csv 0x479A50)
+// The decorations as the .dec file: the prototype names (32 bytes each), then per decoration its record (the translation through
+// Get_Translation's out-parameter form, as the client's frame shows)
 void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	unsigned int count = names.size();
@@ -1546,7 +1547,8 @@ void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<La
 		LandDecorationRecordStruct record;
 		record.Proto = (unsigned char)decorations[id].Proto;
 		Quaternion rotation = Build_Quaternion(decorations[id].Transform);
-		Vector3 pos = decorations[id].Transform.Get_Translation();
+		Vector3 pos;
+		decorations[id].Transform.Get_Translation(&pos);
 		record.Rotation = rotation;
 		record.X = pos.X;
 		record.Y = pos.Y;
