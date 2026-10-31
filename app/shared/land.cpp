@@ -1804,19 +1804,21 @@ void LandClass::Compute_Lighting(void)
 	}
 }
 
-// NOT EXACT: shape (the client steps a colour pointer by 3 and tests extra before its loads; the loop bodies match); 3 forms tried
+// NOT EXACT: shape, registers only (0x46D410: 1 row with registers masked, 15 without: in the second loop the client keeps the add pointer
+// in esi and the colour pointer in edi, ours the other way; attempts.csv, docs/attempts/46D410/)
 void LandClass::Apply_Colors(void)
 {
 	unsigned char *lightmap = (unsigned char *)Unknown120C;
 	unsigned char *colors = Colors;
-	unsigned char *extra = Unknown1214;
 	int size = Field->Get_Size();
+	unsigned char *extra = Unknown1214;
 	unsigned int i, j, value;
-	if (extra == NULL) {
+	if (Unknown1214 == NULL) {
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
-				unsigned char *light = &lightmap[(j * size + i) * 4];
-				unsigned char *color = &colors[(j * size + i) * 3];
+				unsigned int n = j * size + i;
+				unsigned char *color = &colors[n * 3];
+				unsigned char *light = &lightmap[n * 4];
 				value = (color[0] * light[0]) >> 8;
 				if (value > 255) value = 255;
 				light[0] = (unsigned char)value;
@@ -1831,9 +1833,10 @@ void LandClass::Apply_Colors(void)
 	} else {
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
-				unsigned char *add = &extra[j * size + i];
-				unsigned char *light = &lightmap[(j * size + i) * 4];
-				unsigned char *color = &colors[(j * size + i) * 3];
+				unsigned int n = j * size + i;
+				unsigned char *color = &colors[n * 3];
+				unsigned char *light = &lightmap[n * 4];
+				unsigned char *add = &extra[n];
 				value = ((light[0] + add[0]) * color[0]) >> 8;
 				if (value > 255) value = 255;
 				light[0] = (unsigned char)value;
