@@ -1969,30 +1969,91 @@ bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieParamsClass *para
 
 
 
+// 0x805B60: a light into slot lightslot: a directional one (its direction given, or a bone's Z axis) or a point one
+// (onto a bone of an object); one already there is removed first
+bool ScriptedMovieViewClass::Create_Light(ScriptedMovieParamsClass *params, int type, bool from_bone)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
 
+	FAIL_IF((param == NULL) && "User error: Create_Light: Need light slot") {return(false);}
+	int lightslot = atoi(param);
 
+	FAIL_IF((lightslot < 0) && "User error: Create_Light: Invalid light slot") {return(false);}
+	FAIL_IF((lightslot >= MAX_LIGHTS_PER_SCENE) && "User error: Create_Light: Exceeding 4 lights per scene") {return(false);}
+	if (Lights[lightslot] != NULL) {
 
 
+		G_ASSERT(Lights[lightslot]->Get_Container());
+		Lights[lightslot]->Remove();
+		Lights[lightslot]->Release_Ref();
+		Lights[lightslot] = NULL;
+	}
+	if ((LightClass::LightType)type == LightClass::DIRECTIONAL) {
 
 
+		G_ASSERT(Lights[lightslot] == NULL);
+		Lights[lightslot] = new LightClass(LightClass::DIRECTIONAL);
+		Lights[lightslot]->Add(ScriptedScene);
+		Lights[lightslot]->Set_Force_Visible(true);
+		Vector3 dir(0.0f, 0.0f, 1.0f);
+		param = params->Unknown_7FFDC0();
+		if (param != NULL) {
+			if (from_bone) {
+				int slot = atoi(param);
+				for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+					if ((*itor).Slot == slot) {
 
 
 
 
+						G_ASSERT((*itor).Mesh);
+						param = params->Unknown_7FFDC0();
+						FAIL_IF((param == NULL) && "User error: Create_Directional_Light_From_Bone: Need bone name") {return(false);}
+						G_ASSERT((*itor).Mesh->Peek_Object());
+						Matrix3D tm = (*itor).Mesh->Peek_Object()->Get_Bone_Transform(param);
+						Lights[lightslot]->Set_Spot_Direction(tm.Get_Z_Vector());
+						return(true);
+					}
+				}
+				return(false);
+			}
+			dir.X = atof(param);
+			param = params->Unknown_7FFDC0();
 
 
 
 
+			FAIL_IF((param == NULL) && "User error: Create_Directional_Light: Need Y direction") {return(false);}
+			dir.Y = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Create_Directional_Light: Need Z direction") {return(false);}
+			dir.Z = atof(param);
+		}
+		Lights[lightslot]->Set_Spot_Direction(dir);
+		return(true);
+	}
 
 
 
+	G_ASSERT((LightClass::LightType)type == LightClass::POINT);
+	param = params->Unknown_7FFDC0();
 
 
 
+	FAIL_IF(Lights[lightslot] && "User error: Create_Point_Light: That light id already used.") {return(false);}
 
+	G_ASSERT(Lights[lightslot] == NULL);
+	Lights[lightslot] = new LightClass((LightClass::LightType)type);
+	Lights[lightslot]->Set_Force_Visible(true);
+	if (param == NULL) {
+		return(true);
+	}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
 
@@ -2001,76 +2062,15 @@ bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieParamsClass *para
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT((*itor).Mesh);
+			param = params->Unknown_7FFDC0();
+			FAIL_IF((param == NULL) && "User error: Create_Point_Light: Need bone name") {return(false);}
+			(*itor).Mesh->Unknown_5B9100(param, Lights[lightslot]);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
