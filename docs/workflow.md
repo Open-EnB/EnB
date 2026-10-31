@@ -329,6 +329,10 @@ unless `--lever` cites a new row of this table.
 | `setne` / `test` on a compare result | `bool changed = a != b; if (changed)`; a plain `if` or an inline compare helper doesn't give it | ui_manu 0x5B67C0 (MU1) |
 | A pointer kept in a register across two member stores where ours reloads it after a float store through `RefCountPtr->` | An inline setter on the class | ui_manu 0x5B4850 (MU1) |
 | A static `__int64` initialised at load time | `static __int64 x = 5;` gets a dynamic initialiser in VC6 | ui_manu 0x5AF9D0 (MU1) |
+| A packet constructor's player id loaded before its other arguments | Read the ids through inline accessors (`Unknown_Avatar_ID(Client)`, `Unknown_Player_ID(Client)`) | ui_cpit 0x581CE0 / 0x583510 / 0x583250 (CP1, e83e04a1) |
+| The client expands std::string assign in some of many temporaries, not all | Mix explicit and implicit constructions: the split tunes the budget (18 temporaries: half and half was exact) | ui_cpit (CP1) |
+| A per-branch pointer reload | `(font = style.Peek())->X` | ui_cpit 0x5845A0 (CP1) |
+| Switch cases with frame slots of their own | Temporaries, not named locals (named locals share one slot) | ui_cpit (CP1) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
 | A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
@@ -624,7 +628,7 @@ unless `--lever` cites a new row of this table.
 * **A member added to a locally declared base shifts every derived class's padded fields** (2026-10-30, MU1): in a
   draft it silently broke 10 exact functions; re-match the whole file after any base change.
 * **Two builders' adjacent RECONSTRUCTED rows in importer.py form one hunk** (2026-10-30, MU1 / CP1): commit_mine took
-  the other's rows before its files existed. Add your rows and commit them at once, or keep them apart.
+  the other's rows before its files existed. Any `-U0` hunk that holds another builder's adjacent insertion goes with yours. Add your rows and commit them at once, or keep them apart.
 * **commit_mine `--file X` takes the working copy's imports.json entry as it is when the commit runs**
   (2026-10-29, PX3): another builder's verify can rewrite it between your verify and your commit (c50da63 lost its
   entry; 928fc7f restored it). After every commit check `git show HEAD:docs/data/imports.json` for your addresses.
