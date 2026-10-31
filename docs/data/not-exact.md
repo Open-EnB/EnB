@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-396 entries in 79 files.
+395 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -210,10 +210,9 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1252` | `UIManuClass::Unknown_5B4680` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0) (0x5B4680) |
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
-| `app/client/ui_scut.cpp:146` | `UIScutClass::~UIScutClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:499` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
+| `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:897` | `UIScutBarClass::Unknown_612430` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |

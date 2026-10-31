@@ -5202,8 +5202,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6112B0` | `app/client/ui_scut.cpp:125` | untagged neutral name (D10) |
 | 1 | `Unknown_611300` | `app/client/ui_scut.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_611710` | `app/client/ui_scut.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_611F60` | `app/client/ui_scut.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_612430` | `app/client/ui_scut.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_611F60` | `app/client/ui_scut.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_612430` | `app/client/ui_scut.cpp:167` | untagged neutral name (D10) |
 | 1 | `Unknown_6120E0` | `app/client/ui_scut.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown_610F30` | `app/client/ui_scut.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown_611BD0` | `app/client/ui_scut.cpp:268` | untagged neutral name (D10) |
@@ -5225,7 +5225,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/ui_scut.cpp:386` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_scut.cpp:402` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_scut.cpp:405` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_scut.cpp:491` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_scut.cpp:492` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/ui_scut.cpp:799` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/ui_scut.cpp:809` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_scut.cpp:810` | untagged neutral name (D10) |

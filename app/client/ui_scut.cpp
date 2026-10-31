@@ -143,7 +143,6 @@ void UIScutClass::Unknown_74(ControlKeysManagerClass *manager)
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
 UIScutClass::~UIScutClass()
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
@@ -182,6 +181,7 @@ void UIScutClass::Unknown_60()
 	}
 	Unknown5BB320Class::Unknown_60();
 }
+
 
 
 
@@ -416,7 +416,7 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 
 UIScutBarClass::~UIScutBarClass()
 {
-	((DynamicVectorClass<UnknownAEEA88Class *> *)((char *)Mesh + 4))->Delete(this);
+	UnknownAEEA88Class::Unknown_04((DynamicVectorClass<UnknownAEEA88Class *> *)((char *)Mesh + 4));
 	REF_PTR_RELEASE(Unknown44);
 }
 
@@ -486,8 +486,9 @@ void UIScutBarClass::Unknown_6112B0()
 void UIScutBarClass::Unknown_611300(ControlKeysManagerClass *manager)
 {
 	char name[32];
+	int slot = Bar * NUM_SHORTCUT_BUTTONS + 1;
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
-		sprintf(name, "Use Slot %d", Bar * NUM_SHORTCUT_BUTTONS + lp + 1);
+		sprintf(name, "Use Slot %d", lp + slot);
 		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(FirstId + lp), 0);
 		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(SecondId + lp), 0x1000);
 		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), (void *)(FirstId + lp), 0x400);
@@ -500,8 +501,9 @@ void UIScutBarClass::Unknown_611300(ControlKeysManagerClass *manager)
 void UIScutBarClass::Unknown_611710(ControlKeysManagerClass *manager)
 {
 	char name[32];
+	int slot = Bar * NUM_SHORTCUT_BUTTONS + 1;
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
-		sprintf(name, "Use Slot %d", Bar * NUM_SHORTCUT_BUTTONS + lp + 1);
+		sprintf(name, "Use Slot %d", lp + slot);
 		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 1);
 		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 0);
 		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x1000);
@@ -511,8 +513,6 @@ void UIScutBarClass::Unknown_611710(ControlKeysManagerClass *manager)
 }
 
 #pragma auto_inline(off)
-
-
 
 
 
@@ -796,9 +796,9 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 	}
 	if (Get_Owner()->View == NULL) return(true);
 	if (Get_Owner()->View->Unknown_20() == NULL) return(true);
-	ClientClass *client = (ClientClass *)((Unknown65B810ViewClass *)Get_Owner()->View->Unknown_20())->Client;
-	if (client == NULL) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	Unknown65B810ViewClass *view = (Unknown65B810ViewClass *)Get_Owner()->View->Unknown_20();
+	if (view->Client == NULL) return(true);
+	SClient *sclient = (SClient *)((ClientClass *)view->Client)->Unknown_18();
 	if (sclient == NULL) return(true);
 	UIScutMouseClass *mouse = (UIScutMouseClass *)Get_Owner()->View->Unknown_44();
 	G_ASSERT(mouse);
