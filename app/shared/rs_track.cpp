@@ -346,14 +346,14 @@ void RsTrackClass::Unknown_460880(int render_state_id, int link_id)
 }
 
 // 0x460940
-// NOT EXACT: order-only (0.79): the client stores Current before loading Head
 void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 {
 	Unknown_460260(robj);
 	if (RenderStateList.Current != NULL) {
 		RenderStateList.Current->Unknown_18(this);
 	}
-	RenderStateList.Current = state;
+	RenderStateListClass *list = &RenderStateList;
+	list->Current = state;
 	for (RenderStateClass *s = RenderStateList.Head; s != NULL; s = s->Next) {
 		if (s->Unknown_Flag4()) {
 			s->Unknown_1C(this);

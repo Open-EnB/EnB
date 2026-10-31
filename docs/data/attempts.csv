@@ -799,3 +799,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-30 22:32,0x4609C0,RsTrackClass::Unknown_1D0,app/shared/rs_track.cpp,app,partial,0.45,2,shape,RT1: merged/split tail; while and for(;;) give the same bytes,,opus
 2026-10-30 22:32,0x461D60,RsTrackClass::Unknown_461D60,app/shared/rs_track.cpp,app,partial,0.71,2,shape,"RT1: robj's register, the client hoists robj's vtable load in the strtok loop",,opus
 2026-10-30 22:32,0x460E80,RsTrackClass::Unknown_1C8,app/shared/rs_track.cpp,app,partial,0.75,3,shape,RT1: nested / flat (kept) / combo local; the client saves edi after the early returns,,opus
+2026-10-30 22:36,0x460940,RsTrackClass::Unknown_1CC,app/shared/rs_track.cpp,app,exact,,4,,RT1: the store through a pointer to RenderStateList (RenderStateListClass *list = &RenderStateList; list->Current = state) gives the client's order,,opus
