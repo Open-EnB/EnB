@@ -396,51 +396,48 @@ void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 
 
 
-
-
-
-
 // 0x4609C0
-// NOT EXACT: shape (0.45): merged or split tail around the strtok loop
 bool RsTrackClass::Unknown_1D0(int arg, const char *bone_path, RenderObjClass *obj, int arg2)
 {
 	bool result = false;
 	if (obj != NULL && obj->Get_Container() == NULL) {
-		RenderObjClass *robj = Peek_Render_Object();
-		if (robj == NULL) {
+		RenderObjClass *model = Peek_Render_Object();
+		if (model == NULL) {
 			return(false);
 		}
 		if (bone_path == NULL || *bone_path == '\0') {
-			robj->Add_Sub_Object(obj);
+			model->Add_Sub_Object(obj);
 			result = true;
 		} else {
+			RenderObjClass *robj = model;
 			char path[256];
 			strcpy(path, bone_path);
 			char *name = strtok(path, "\\");
-			if (name == NULL) {
-				return(result);
-			}
-			char *next;
-			while ((next = strtok(NULL, "\\")) != NULL) {
+			while (name != NULL) {
+				char *next = strtok(NULL, "\\");
+				if (next == NULL) {
+					if (robj->Get_Bone_Index(name) != 0) {
+						robj->Add_Sub_Object_To_Bone(obj, name);
+						result = true;
+					}
+					break;
+				}
 				int idx = robj->Get_Bone_Index(name);
 				if (idx == 0) {
-					return(result);
+					break;
 				}
 				G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
 				robj = robj->Get_Sub_Object_On_Bone(0, idx);
 				if (robj == NULL) {
-					return(result);
+					break;
 				}
 				robj->Release_Ref();
 				name = next;
 			}
-			if (robj->Get_Bone_Index(name) == 0) {
-				return(result);
-			}
-			robj->Add_Sub_Object_To_Bone(obj, name);
-			result = true;
 		}
-		obj->Set_User_Data(Get_User_Data(), true);
+		if (result) {
+			obj->Set_User_Data(Get_User_Data(), true);
+		}
 	}
 	return(result);
 }
@@ -869,6 +866,9 @@ void RsTrackClass::Notify_Removed(SceneClass *scene)
 
 
 
+
+
+
 // 0x4616A0
 const SphereClass &RsTrackClass::Get_Bounding_Sphere(void) const
 {
@@ -1051,39 +1051,36 @@ bool RsTrackClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, Inter
 
 
 
-
-
-
 // 0x461D60
-// NOT EXACT: shape (0.71): robj's register; the client hoists robj's vtable load in the strtok loop
 int RsTrackClass::Unknown_461D60(RenderObjClass *obj, const char *bone_path)
 {
 	if (obj != NULL && obj->Get_Container() != NULL) {
-		RenderObjClass *robj = Peek_Render_Object();
-		if (robj != NULL) {
+		RenderObjClass *model = Peek_Render_Object();
+		if (model != NULL) {
 			if (bone_path == NULL || *bone_path == '\0') {
 				Remove_Sub_Object(obj);
 			} else {
+				RenderObjClass *robj = model;
 				char path[256];
 				strcpy(path, bone_path);
 				char *name = strtok(path, "\\");
-				if (name != NULL) {
-					char *next;
-					while ((next = strtok(NULL, "\\")) != NULL) {
-						int idx = robj->Get_Bone_Index(name);
-						if (idx == -1) {
-							return(0);
-						}
-						G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
-						robj = robj->Get_Sub_Object_On_Bone(0, idx);
-						if (robj == NULL) {
-							return(0);
-						}
-						robj->Release_Ref();
-						name = next;
+				while (name != NULL) {
+					char *next = strtok(NULL, "\\");
+					if (next == NULL) {
+						robj->Remove_Sub_Object(obj);
+						return(1);
 					}
-					robj->Remove_Sub_Object(obj);
-					return(1);
+					int idx = robj->Get_Bone_Index(name);
+					if (idx == -1) {
+						return(0);
+					}
+					G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
+					robj = robj->Get_Sub_Object_On_Bone(0, idx);
+					if (robj == NULL) {
+						return(0);
+					}
+					robj->Release_Ref();
+					name = next;
 				}
 			}
 		}
@@ -1263,6 +1260,9 @@ void RsTrackClass::Unknown_462470(int a, int b)
 	}
 	UnknownC8 = new Unknown45D9E0Class(this, a, b);
 }
+
+
+
 
 
 

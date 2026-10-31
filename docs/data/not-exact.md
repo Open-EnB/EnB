@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-355 entries in 73 files.
+353 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -324,9 +324,7 @@ edit the comments in the code, not this file.
 | `app/shared/rs_track.cpp:229` | `RsTrackClass::Unknown_4604D0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
 | `app/shared/rs_track.cpp:259` | `RsTrackClass::Unknown_4605E0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
 | `app/shared/rs_track.cpp:331` | `RsTrackClass::Unknown_460880` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (0x460710 inlines one level in both) |
-| `app/shared/rs_track.cpp:404` | `RsTrackClass::Unknown_1D0` | marker | NOT EXACT: shape (0.45): merged or split tail around the strtok loop |
-| `app/shared/rs_track.cpp:510` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
-| `app/shared/rs_track.cpp:1058` | `RsTrackClass::Unknown_461D60` | marker | NOT EXACT: shape (0.71): robj's register; the client hoists robj's vtable load in the strtok loop |
+| `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
