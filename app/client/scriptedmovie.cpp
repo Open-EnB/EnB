@@ -1425,6 +1425,33 @@ int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bon
 
 
 
+extern bool Unknown_BFAE52;	// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
+
+// NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer)
+// 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD
+bool ScriptedMovieViewClass::Create_Object(ScriptedMovieParamsClass *params, bool ship)
+{
+	const char *param = params->Unknown_7FFDC0();
+
+
+
+
+	FAIL_IF((param == NULL) && "User error: Create_Object: Need slot number") {return(false);}
+	int slot = atoi(param);
+	ScriptedMovieObjectStruct object;
+	param = params->Unknown_7FFDC0();
+
+	FAIL_IF((param == NULL) && "User error: Create_Object: Need mesh name") {return(false);}
+	Unknown_BFAE52 = true;
+	UIMeshClass *mesh;
+	if (ship) {
+		mesh = new UIMeshClass(param, Get_Client());
+	} else {
+		mesh = new UIMeshClass(param, true);
+	}
+	Unknown_BFAE52 = false;
+	mesh->Unknown_5B9290(ScriptedScene);
+	mesh->Unknown70 |= 3;
 
 
 
@@ -1433,42 +1460,15 @@ int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bon
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(mesh->Peek_Mesh_Object());
+	mesh->Peek_Mesh_Object()->Set_Force_Visible(true);
+	RenderObjClass *model = mesh->Peek_Mesh_Object();
+	model->Set_LOD_Level(model->Get_LOD_Count() - 1);
+	object.Mesh = mesh;
+	object.Slot = slot;
+	Objects.push_back(object);
+	return(true);
+}
 
 
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-355 entries in 73 files.
+356 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -148,6 +148,7 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:798` | `ScriptedMovieViewClass::Unknown_8020B0` | marker | NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0) |
 | `app/client/scriptedmovie.cpp:1004` | `ScriptedMovieViewClass::Unknown_802930` | marker | NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps to one mov eax, 1 (forms: the && chain, an if with != false, this \|\| chain) |
 | `app/client/scriptedmovie.cpp:1135` | `ScriptedMovieViewClass::Unknown_802B20` | marker | NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form |
+| `app/client/scriptedmovie.cpp:1430` | `ScriptedMovieViewClass::Create_Object` | marker | NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer) 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD |
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own, the camera 4 bytes higher) and the push_back's fill 0x80AFA0 inline (0.60) 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:2340` | `ScriptedMovieViewClass::Play_Audio` | marker | NOT EXACT: shape (0.76): the client saves all four registers first and its FAIL_IF exit joins the common one; ours returns early before ebx / ebp are saved 0x806BD0: a sound: 2D at once, or (with a slot and a bone) mv3dsnd.cpp's sound on the slot's model, kept on +0xF0 |
