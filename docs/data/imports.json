@@ -8958,6 +8958,7 @@
      "0x57F010",
      "0x57F080",
      "0x57F1B0",
+     "0x581670",
      "0x581CE0",
      "0x581E60",
      "0x581F90",
@@ -8978,6 +8979,7 @@
      "0x584CB0",
      "0x584D10",
      "0x584D80",
+     "0x584DA0",
      "0x584E20",
      "0x584E50",
      "0x584EA0"
@@ -9988,7 +9990,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5048,
+  "in_tree_total": 5050,
   "totals": {}
  },
  "binkmovie": {

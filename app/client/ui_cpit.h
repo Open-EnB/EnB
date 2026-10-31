@@ -65,6 +65,21 @@ public:
 	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
 };
 
+// What +0xD0 points to (0x28 bytes, constructor 0x5DBFC0; its file is unknown): a watcher of the avatar with a slot +0x10
+class UICpitUnknownD0Class : public UnknownObjectWatchClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_10();							// +0x10 (slot +0x60, every frame)
+	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
+};
+
+// What +0xE0 holds (0x1B4 bytes, constructor 0x551FB0; its file is unknown): the incapacitance question
+class UICpitUnknownE0Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	int Unknown_553A40();								// 0x553A40: the answer once it closes (-1 none, 0 / 1: slot +0x60's Packet_008FClass / distress beacon)
+};
+
 // ui_scut.cpp's interface (0xB8 bytes, constructor 0x610570), as far as the cockpit holds it
 class UIScutClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scut.cpp
 {
@@ -93,9 +108,11 @@ public:
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140; FAIL_IFs l.1194 / 1197, G_ASSERT 'HulkUI' l.1208)  // NAME 3 [hulk]: the FAIL_IF's
 	void Unknown_582070();								// 0x582070: the hulk let go
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0; G_ASSERTs l.1227 / 1229)  // NAME 1 [on]: what the handler passes
+	void Unknown_5821C0(ClientObjectClass *avatar);		// 0x5821C0 (slot +0x60 passes the avatar)  // NAME 1 [avatar]: what it gets
 	void Unknown_582190(ClientObjectClass *object, int arg);	// 0x582190: +0xD0's object (no caller; slot +0x58 expands it)  // NAME 1 [object, arg]: neutral
 	void Unknown_583250();								// 0x583250: the warp button (+0xB4): a WarpPacketClass from the radar's path (FAIL_IF '!radar' l.1615), the distress request, or the 3-D movie view's camera
 	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SClient 0x745B90
+	void Unknown_583790();								// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons: MovePacketClass and SClient 0x745E40 (nothing while IsAutoFollowing)
 	void Unknown_583DA0(int arg);						// 0x583DA0 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_583F70();								// 0x583F70: the finished effects of Unknown158 removed
 	bool Unknown_584000(bool report);					// 0x584000: the avatar's MaxSpeed is set, else (report) 'Engine unavailable. Please wait.'  // NAME 1 [report]: neutral
@@ -115,11 +132,11 @@ public:
 	GadgetClass *Unknown0C4;							// +0xC4 'RIGHT'
 	InterfaceClass *HulkUI;								// +0xC8 (0xE4 bytes, 0x5850E0; G_ASSERT 'HulkUI' l.1208)  // NAME 3: the assert's
 	InterfaceClass *Unknown0CC;							// +0xCC (0xE4 bytes, 0x5850E0: the harvesting window)
-	UnknownObjectWatchClass *Unknown0D0;				// +0xD0 (0x28 bytes, 0x5DBFC0)
+	UICpitUnknownD0Class *Unknown0D0;				// +0xD0 (0x28 bytes, 0x5DBFC0)
 	UIScanClass *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	int Unknown0D8;										// +0xD8
 	UIScutClass *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)
-	RefCountPtr<InterfaceClass> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
+	RefCountPtr<UICpitUnknownE0Class> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
 	bool Unknown0E4;									// +0xE4 (0x584A20 clears it)
 	int Unknown0E8;										// +0xE8
 	char Unknown0EC[0xF4 - 0xEC];						// +0xEC

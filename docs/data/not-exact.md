@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-375 entries in 77 files.
+377 entries in 77 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -171,6 +171,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:473` | `UICpitClass::Unknown_70` | marker | NOT EXACT: inline budget (the client expands std::string's assign in the last nine keys, ours in the last eight) |
 | `app/client/ui_cpit.cpp:644` | `UICpitClass::Unknown_74` | marker | NOT EXACT: inline budget (the client expands std::string's assign in other keys than ours) |
+| `app/client/ui_cpit.cpp:1733` | `UICpitClass::Unknown_583790` | marker | NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers) |
+| `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_cpit.cpp:1917` | `UICpitClass::Unknown_584000` | marker | NOT EXACT: order (the client keeps an epilogue at each early return and the found path inline; ours shares one exit) |
 | `app/client/ui_group.cpp:151` | `UIGroupUnknownE8Class::UIGroupUnknownE8Class` | marker | NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor) |
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |

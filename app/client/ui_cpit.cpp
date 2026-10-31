@@ -6,6 +6,8 @@
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
 #include "..\packets\pkturn.h"
+#include "..\packets\pktilt.h"
+#include "..\packets\pkmove.h"
 #include "..\packets\pkwarpindex.h"
 #include "..\packets\pkincapacitancerequest.h"
 #include "..\audio\soundlib.h"
@@ -40,6 +42,7 @@ public:
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 void Unknown_496730(RenderObjClass *robj, int a, int b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
 
 // gadget.cpp's gadget, as far as the cockpit calls it (the warp, throttle and turn buttons)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -49,23 +52,29 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_40(int on);					// +0x40 (slot +0x60: 1 shows the warp button as RESCUE)  // NAME 1 [on]: neutral
+	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual bool Unknown_60();							// +0x60 (0x5845A0: the warp button is on)
 	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
 	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
 	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
 	virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
-	virtual void Unknown_A4(); virtual void Unknown_A8();
+	virtual void Unknown_A4(float value);				// +0xA4 (slot +0x60: 2.0f when incapacitated, else 0)  // NAME 1 [value]: neutral
+	virtual void Unknown_A8();
 	virtual void Unknown_AC();							// +0xAC (0x583250, last)
 
 	char Unknown04[0x64 - 0x04];						// +0x04
 	bool Unknown64;										// +0x64: pressed (0x583250, 0x583510)
 	bool Unknown65;										// +0x65
 	bool Unknown66;										// +0x66 (0x583510: either turn button's set stops the turn)
+	char Unknown67[0x80 - 0x67];						// +0x67
+	int Unknown80;										// +0x80 (0x583790: 2 stops the throttle)
 	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
 	void Unknown_671630();								// 0x671630 (after slot +0xAC)
 	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
+	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
+	bool Unknown_6740E0(float value);					// 0x6740E0 (0x583790 passes 1.0f: the auto thrust engaged)  // NAME 1 [value]: neutral
 };
 
 // camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
@@ -79,6 +88,15 @@ public:
 inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)
 inline int Unknown_Player_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->Unknown1138); }	// NAME 1: neutral (D10)
 
+// sound_manager.cpp's sound manager (the global 0xBE82A4), as far as the damage texts call it (cpacket.cpp declares it too)
+class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
+{
+public:
+	void Unknown_75B0D0(const char *name, int channel);	// 0x75B0D0  // NAME 1 [name, channel]: cpacket.cpp's
+};
+extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
+extern std::string Unknown_BE5BD0;		// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3)  // NAME 1: neutral (D10)
+
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
 class LineDisplaySortClass  // NAME 1: neutral (D10)
 {
@@ -90,24 +108,6 @@ public:
 private:
 	char Unknown00[8];
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1047,79 +1047,82 @@ void UICpitClass::Unknown_74(ControlKeysManagerClass *manager)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x581670: every frame (the base's slot +0x60 last)
+void UICpitClass::Unknown_60()
+{
+	if (HulkWatch && HulkWatch != Scan->Unknown88) Unknown_582070();
+	ClientObjectClass *current_harvestable = CurrentHarvestable;
+	if (current_harvestable && current_harvestable != Scan->Unknown88) {
+		((ClientClass *)Client)->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 17, current_harvestable->Get_Game_ID(), 0));
+		CurrentHarvestable = NULL;
+	}
+	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
+	if (avatar) {
+		Unknown_582190(avatar, 0);
+		Unknown_5821C0(avatar);
+	}
+	Unknown_583250();
+	Unknown_583790();
+	Unknown_583510();
+	Unknown_583F70();
+	Unknown0D0->Unknown_10();
+	if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_750B60()) {
+		if (!Unknown13D) {
+			LoadingViewClass *loading = ((SClient *)((ClientClass *)Client)->Unknown_18())->LoadingView;
+			if (loading && loading->Unknown68) loading->Unknown_692330();
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745E40(0, false);
+			Unknown144 = 0;
+			Unknown0B8->Unknown_671740(false, 0);
+			Unknown0BC->Unknown_671740(false, 0);
+			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0));
+			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745B90(0);
+			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 0));
+			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745C70(0);
+			avatar->Unknown_6FC880();
+			Unknown0B4->Unknown_676190(5, 0);
+			Unknown0B4->Unknown_A4(2.0f);
+			Unknown13D = true;
+			Unknown140 = false;
+			Unknown13F = false;
+		}
+		if (!Unknown13F) {
+			Unknown0B4->Unknown_40(1);
+			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "RESCUE");
+			Unknown_5845A0();
+		}
+	} else if (Unknown13D) {
+		Unknown0B4->Unknown_676190(0, 0);
+		Unknown0B4->Unknown_A4(0);
+		Unknown13D = false;
+		Unknown140 = false;
+		Unknown13F = false;
+	}
+	if (Unknown0E4 && !Unknown0E0->Is_Active()) {
+		int choice = Unknown0E0->Unknown_553A40();
+		Unknown0E4 = false;
+		if (choice != -1) {
+			switch (choice) {
+				case 0:
+					Unknown13F = true;
+					((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown13C1 = true;
+					((ClientClass *)Client)->Send_Packet(&Packet_008FClass(Unknown_Avatar_ID(Client)));
+					break;
+				case 1:
+					Unknown140 = !Unknown140;
+					((ClientClass *)Client)->Send_Packet(&IncapacitanceDistressBeaconPacketClass(Unknown_Avatar_ID(Client), Unknown140));
+					if (Unknown140) {
+						((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0, "Distress beacon activated.", 0);
+					} else {
+						((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0, "Distress beacon deactivated.", 0);
+					}
+					break;
+			}
+		}
+	}
+	Unknown_584110();
+	Unknown5BB320Class::Unknown_60();
+}
 
 
 
@@ -1160,9 +1163,6 @@ void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 	} else if (ui == Unknown0CC) {
 		ClientObjectClass *current_harvestable = CurrentHarvestable;
 		// (the harvest stopped: the server is told)
-
-
-
 
 
 
@@ -1729,74 +1729,84 @@ void UICpitClass::Unknown_583510()
 	Unknown0C4->Unknown_671630();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons
+// NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers)
+void UICpitClass::Unknown_583790()
+{
+	if (!Unknown0B8->Unknown_60() && !Unknown0BC->Unknown_60()) return;
+	SClient *sclient = (SClient *)Client;
+	if (!sclient) return;
+	ClientObjectClass *avatar = sclient->Get_Avatar();
+	if (!avatar) return;
+	if (!avatar->AuxData) return;
+	NameClass name("IsAutoFollowing");
+	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+	if (t && t->Unknown70 > 1) {
+		Unknown0B8->Unknown_671740(false, 0);
+		Unknown0BC->Unknown_671740(false, 0);
+		Unknown144 = 0;
+		Unknown0B8->Unknown_674160(0);
+		Unknown0BC->Unknown_674160(0);
+		return;
+	}
+	if (Unknown0B8->Unknown66 || Unknown0BC->Unknown66
+		|| (Unknown0B8->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))
+		|| (Unknown0BC->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+		sclient->Unknown_745E40(0, false);
+		Unknown144 = 0;
+		Unknown0B8->Unknown_671740(false, 0);
+		Unknown0BC->Unknown_671740(false, 0);
+		Unknown0B8->Unknown_674160(0);
+		Unknown0BC->Unknown_674160(0);
+	} else if (Unknown0B8->Unknown64) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		if (Unknown13C) {
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 2));
+			sclient->Unknown_745E40(1, false);
+			Unknown144 = 3;
+			Unknown0B8->Unknown_671740(true, 2.0f);
+			Unknown0B8->Unknown_674160(1);
+			Unknown0BC->Unknown_674160(0);
+		} else {
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));
+			sclient->Unknown_745E40(1, false);
+			Unknown144 = 1;
+			Unknown0B8->Unknown_671740(true, 1.0f);
+		}
+	} else if (Unknown0BC->Unknown64) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		if (Unknown13C) {
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 3));
+			sclient->Unknown_745E40(-1, false);
+			Unknown144 = 4;
+			Unknown0BC->Unknown_671740(true, 2.0f);
+			Unknown0BC->Unknown_674160(1);
+			Unknown0B8->Unknown_674160(0);
+		} else {
+			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));
+			sclient->Unknown_745E40(-1, false);
+			Unknown144 = 2;
+			Unknown0BC->Unknown_671740(true, 1.0f);
+		}
+	} else if (Unknown0B8->Unknown_6740E0(1.0f)) {
+		if (!Unknown13C) SoundLibraryClass::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
+		Unknown0B8->Unknown_674160(1);
+		Unknown0BC->Unknown_674160(0);
+		Unknown0B8->Unknown_671740(true, 2.0f);
+		Unknown144 = 3;
+	} else if (Unknown0BC->Unknown_6740E0(1.0f)) {
+		if (Unknown13C) SoundLibraryClass::Play_2D_Sound("talk_auto_thrust_engaged.wav", 2);
+		Unknown0B8->Unknown_674160(0);
+		Unknown0BC->Unknown_674160(1);
+		Unknown0BC->Unknown_671740(true, 2.0f);
+	}
+	Unknown0B8->Unknown_AC();
+	Unknown0BC->Unknown_AC();
+	Unknown0B8->Unknown_671630();
+	Unknown0BC->Unknown_671630();
+}
 
 
 
@@ -1852,40 +1862,30 @@ void UICpitClass::Unknown_583DA0(int arg)
 {
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x583DC0: the player's damage texts onto the cockpit (CLIENT_DAMAGE 100), kept in Unknown158 until they finish
+// NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it)
+void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp)
+{
+	if (text) {
+		if (emp) {
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "reactor_bar0");
+		} else {
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "shield_bar0");
+		}
+		Unknown158.push_back(*(RenderObjClass **)&text);	// (the text is fontmanager.h's FontStyleClass, a render object: pushed from its argument slot)
+	}
+	if (header) {
+		if (emp) {
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "reactor_bar0");
+		} else {
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "shield_bar0");
+		}
+		Unknown158.push_back(*(RenderObjClass **)&header);
+		if (inflicted == 3) {
+			SoundManager->Unknown_75B0D0(Unknown_BE5BD0.c_str(), 1);
+		}
+	}
+}
 
 
 
