@@ -4513,10 +4513,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_597820` | `app/client/ui_group.cpp:1177` | untagged neutral name (D10) |
 | 1 | `Unknown_597D10` | `app/client/ui_group.cpp:1204` | untagged neutral name (D10) |
 | 1 | `Unknown_595530` | `app/client/ui_group.cpp:1219` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_group.cpp:1269` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_group.cpp:1270` | untagged neutral name (D10) |
+| 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1299` | untagged neutral name (D10) |
+| 1 | `Unknown_598370` | `app/client/ui_group.cpp:1322` | untagged neutral name (D10) |
 | 1 | `Unknown_64B2F0` | `app/client/ui_group.cpp:1366` | untagged neutral name (D10) |
 | 1 | `Unknown_596E20` | `app/client/ui_group.cpp:1367` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_group.cpp:1389` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_group.cpp:1390` | untagged neutral name (D10) |
 | 1 | `Unknown_597000` | `app/client/ui_group.cpp:1421` | untagged neutral name (D10) |
 | 1 | `Unknown_597080` | `app/client/ui_group.cpp:1433` | untagged neutral name (D10) |
 | 1 | `Unknown_597200` | `app/client/ui_group.cpp:1458` | untagged neutral name (D10) |
@@ -4531,9 +4533,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5979A0` | `app/client/ui_group.cpp:1607` | untagged neutral name (D10) |
 | 1 | `Unknown_597A60` | `app/client/ui_group.cpp:1625` | untagged neutral name (D10) |
 | 1 | `Unknown_597B00` | `app/client/ui_group.cpp:1649` | untagged neutral name (D10) |
-| 1 | `Unknown_597B70` | `app/client/ui_group.cpp:1662` | untagged neutral name (D10) |
 | 1 | `Unknown13C0` | `app/client/ui_group.cpp:1669` | untagged neutral name (D10) |
-| 1 | `Unknown_598370` | `app/client/ui_group.cpp:1684` | untagged neutral name (D10) |
 | 1 | `Unknown_597E40` | `app/client/ui_group.cpp:1699` | untagged neutral name (D10) |
 | 1 | `Unknown_Group_FieldA` | `app/client/ui_group.cpp:1740` | neutral (D10) |
 | 1 | `Unknown_Group_FieldB` | `app/client/ui_group.cpp:1741` | neutral (D10) |

@@ -1252,77 +1252,77 @@ void UIGroupClass::Unknown_5966A0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x596770
+// NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60)
+void UIGroupClass::Unknown_596770(bool arg)
+{
+	ClientClass *client = (ClientClass *)Client;
+	FAIL_IF(!client) return;
+	SClient *sclient = (SClient *)client->Unknown_18();
+
+	FAIL_IF(!sclient) return;
+	DeltaCompoundClass *aux = sclient->AuxData;
+
+	FAIL_IF(!aux) return;
+	DeltaGroupInfoClass *group;
+	if (arg) {
+		DeltaGroupInfoClass *t = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		group = (t && t->Unknown70) ? t : NULL;
+	} else {
+		DeltaGroupInfoClass *t = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		group = (t && t->Unknown70 > 1) ? t : NULL;
+	}
+	if (group) {
+		int old_count = Members.size();
+		std::vector<UIGroupMemberClass *>::iterator it = Members.begin();
+		while (it != Members.end()) {
+			bool found = false;
+			for (int i = 0; i < 5; i++) {
+				if ((*it)->Name == ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String) {
+					found = true;
+					break;
+				}
+			}
+			if (found) {
+				it++;
+			} else {
+				it = Remove_Member(it);
+			}
+		}
+		for (int i = 0; i < 5; i++) {
+			int id = ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value;
+			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
+			int position = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
+			int formation = ((DeltaGroupMemberClass *)group->Members.Children[i])->Formation.Value;
+			if (!name || !*name) break;
+			if (!position && formation) {
+				Unknown_597B70(true);
+			}
+			it = Get_Member(name);
+			if (it == Members.end()) {
+				Add_Member(name, id, position);
+			} else {
+				(*it)->ID = id;
+			}
+		}
+		int count = Members.size();
+		if (old_count != count) {
+			if (count == MAX_VISIBLE_GROUP_MEMBERS) {
+				SoundLibraryClass::Play_2D_Sound("Group_Max", 2);
+			} else if (count == 0) {
+				SoundLibraryClass::Play_2D_Sound("Group_Empty", 2);
+			} else if (old_count > count) {
+				SoundLibraryClass::Play_2D_Sound("Group_Decrease", 2);
+			} else {
+				SoundLibraryClass::Play_2D_Sound("Group_Increase", 2);
+			}
+		}
+		Unknown_595530();
+		if (count > 0) {
+			Unknown_598370();
+		}
+	}
+}
 
 
 
@@ -1925,13 +1925,13 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0,
 **	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
-**	  0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
+**	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
 **	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: the +0xE8 object's 0x592C50 (and 0x5927E0, an out-of-line auxdata.h lookup), slot +0x68 0x5946D0 (735, 751),
-**	0x595530 and 0x596770 (1260-1266).
+**	Not yet: the +0xE8 object's 0x592C50 (and 0x5927E0, an out-of-line auxdata.h lookup), slot +0x68 0x5946D0 (735, 751)
+**	and 0x595530.
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00
