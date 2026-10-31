@@ -726,6 +726,9 @@ def initialiser_targets(results, pending, ranges, text, base, known, thunk):
                     if t not in known[name]:
                         return None
                     conf += 1
+                    # still the initialiser's target: symbols.json may name it from an earlier run's
+                    # match that this very rule made (a regeneration must not take the evidence away)
+                    opens.append((name, t))
                 elif owners.get(t) or (at[key].get(t) and name not in at[key][t]):
                     return None
                 else:

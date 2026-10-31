@@ -57,6 +57,12 @@ def main():
         for r in json.load(open(os.path.join(a.out, 'symbols.json'))):
             syms[int(r['address'], 16)] = r
 
+    def same(x, y):
+        # a vtable's slot 0 is named `??_E` (vector deleting destructor) where VC6 emits `??_G` (scalar)
+        # for a class never new[]'d: the same function, so the slot's proof stays with the exact `??_G`
+        # (objmatch's self names read either name, D88)
+        return x == y or (x[:4] in ('??_E', '??_G') and y[:4] in ('??_E', '??_G') and x[4:] == y[4:])
+
     def put(addr, symbol, kind, source, length=None):
         if symbol.startswith(('_$E', 'j__$E')):
             return      # D94(b): compiler-generated, numbered per translation unit (P-H7-2)
@@ -64,13 +70,13 @@ def main():
         if e and RANK[e['source']] <= RANK[source]:
             # D114(c): an exact name keeps the best non-exact proof of the same symbol (a vtable slot, a
             # string) in `proof`, so objmatch's self-name round (D88) still sees that evidence
-            if e['source'] == 'exact' and source in ('vtable', 'named', 'strings') and e['symbol'] == symbol \
+            if e['source'] == 'exact' and source in ('vtable', 'named', 'strings') and same(e['symbol'], symbol) \
                     and RANK[source] < RANK[e.get('proof', 'thunk')]:
                 e['proof'] = source
             return
         new = {'address': f'0x{addr:06X}', 'symbol': symbol, 'name': demangle(symbol) if symbol.startswith(('?', '_')) else symbol,
                'kind': kind, 'source': source}
-        if e and source == 'exact' and e['symbol'] == symbol and e['source'] in ('vtable', 'named', 'strings'):
+        if e and source == 'exact' and same(e['symbol'], symbol) and e['source'] in ('vtable', 'named', 'strings'):
             new['proof'] = e['source']
         syms[addr] = new
         if length:
