@@ -1816,7 +1816,7 @@ bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
 
 
 
-// NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own, the camera 4 bytes higher) and the push_back's fill 0x80AFA0 inline (0.60)
+// NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows
 // 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees)
 bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieParamsClass *params)
 {
