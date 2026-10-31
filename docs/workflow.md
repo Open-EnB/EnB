@@ -315,6 +315,9 @@ unless `--lever` cites a new row of this table.
 | An unreferenced client function next to a NOT EXACT caller | Often the out-of-line copy of a non-static helper the caller inlines: define it non-static, non-inline in the .cpp; the copy matches and the callers keep inlining it | land 0x46EE60..0x46F0A0, 0x470EF0, 0x474590 (LD6, dd60da4c) |
 | A 12-byte local holding a translation | `Matrix3D::Get_Translation(Vector3 *)`, the out-parameter overload; `Get_Translation()` gives another frame | Save_Decorations 0x479A50 (LD6) |
 | `test ecx,ecx; sete` where ours has `test cl,cl` on a flag tested then flipped | The flag is an `int`, not a `bool` | Build_Index_Buffers 0x478240 (LD6) |
+| Index scheduling off in a function whose same-file accessors ours expands by hand | Call the client's accessors (`Get_Height(i, j)`, `Get_Vertex`): they fix the scheduling and spend the inline budget the client spends | heightfield 0x464600, 0x465D30 / 0x466180, 0x4654E0 (LD8, 8d47d1ed) |
+| A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
+| Which helpers an out-of-line insert calls | A non-inline same-file helper holding the push_back emits exactly those: a probe to identify them, not a shippable form | Get_Triangles (LD8) |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610, 0x737C10, 070f7a5 (T8) |
 | `G_ASSERT(!"text")` tests the string pointer in the client | VC6 doesn't fold it: keep the form | cpacket (T8) |
 | Levers from control_keys_manager (H11, 2026-10-27) | `push_back(&*it)` where `push_back(it)` misses (a `vector<T*>` fed from `vector<T>::iterator`); a reference local for `operator[]`'s result (`M &m = map[k]; m.Init()`); `end()` tested first in a find-returning getter; a copy walk over two iterators where indexing misses; the cleared-key case returning first; a struct with its own constructor where an aggregate initialiser misses | control_keys_manager.cpp, 0452f48-28f0000 |
@@ -616,7 +619,8 @@ unless `--lever` cites a new row of this table.
 * **`commit_mine.py --file` leaves out imports.json's `in_tree_total` line** (2026-10-29, SC3): add
   `--refresh-totals`, or the count needs a follow-up commit (a74439b).
   Without `--file NAME` at all it leaves the file's whole imports.json entry out, silently (LD7's 55f1d2c5,
-  repaired in 361a0ec0).
+  repaired in 361a0ec0). `--refresh-totals` copies `in_tree_total` from the working imports.json, another builder's
+  uncommitted gains included (LD8's 8d47d1ed recorded 4,791; SM1's 3271dea7 accounted for it).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
   file). `trial.py` and refine update both; a hand-made header change must update `headers`.
 * **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
@@ -771,6 +775,8 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **names.py run while a tryv2 variant is in the tree** (2026-10-30, LD8) writes the variant's line numbers into
+  not-exact.md: rerun names.py on the restored file before committing.
 * **Check objmatch's status of the STL helpers a caller should call out of line** (2026-10-30, LD7) in your variant's
   obj before working toward them: `multiple` (identical client copies, e.g. vector<RefCountPtr<T>>::insert 0x47D690)
   never becomes a pair, however byte-identical; only the caller itself can gain.
