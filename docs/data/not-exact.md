@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-409 entries in 79 files.
+408 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -200,7 +200,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:1473` | `UIGroupClass::Unknown_597310` | marker | NOT EXACT: register (model and the sub-object temporary in each other's registers; the level offsets as two adds in the client) |
 | `app/client/ui_group.cpp:1529` | `UIGroupClass::Unknown_597650` | marker | NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried) |
 | `app/client/ui_group.cpp:1590` | `UIGroupClass::Unknown_597920` | marker | NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's) |
-| `app/client/ui_group.cpp:1861` | `UIGroupClass::Unknown_598370` | marker | NOT EXACT: inline budget (the client calls rtti.h's cast 0x598D80 out of line; one to four dead size() reads before the lookup tried, 0.64-0.70) |
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |
 | `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |

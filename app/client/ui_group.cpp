@@ -1855,10 +1855,10 @@ void UIGroupClass::Unknown_5982A0(int avatar_id)
 	}
 }
 
-
+template<class C> inline C *Unknown_Group_Find_Set(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10): auxdata.h's find, NULL unless set (+0x70); the dead read spends the inline budget (0x598370)
 
 // 0x598370
-// NOT EXACT: inline budget (the client calls rtti.h's cast 0x598D80 out of line; one to four dead size() reads before the lookup tried, 0.64-0.70)
+// (its lookup through Unknown_Group_Find_Set: one dead size() read there keeps rtti.h's cast 0x598D80 out of line; 0 or 3+ reads 0.64-0.82)
 void UIGroupClass::Unknown_598370()
 {
 	if (!Unknown0F1) {
@@ -1872,8 +1872,8 @@ void UIGroupClass::Unknown_598370()
 		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
 		DeltaCompoundClass *aux = sclient->AuxData;
 		if (aux) {
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
-			if (group && group->Unknown70) {
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Find_Set<DeltaCompoundClass>(aux, "GroupInfo");
+			if (group) {
 				for (unsigned int i = 0; i < Members.size(); i++) {
 					Members[i]->Unknown18 = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
 				}
@@ -1928,7 +1928,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
 **	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
-**	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
+**	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (its find through a wrapper with one dead read), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
 **	All of the window's functions are written; 0x5927E0 is auxdata.h's find out of line (a COMDAT
 **	this file's 0x592C50, 0x596770 and 0x597E40 call, and the object before it, 0x591C30).
