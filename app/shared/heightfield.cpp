@@ -261,7 +261,7 @@ void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
 	*direction = d;
 }
 
-// NOT EXACT: frame (0x464290: 0x38, the client 0x40; it keeps h10 on the FPU, spills h01 and copies an edge component; attempts.csv)
+// NOT EXACT: frame (0x464290: 0x34, the client 0x40; it keeps h10 on the FPU, spills h01 and copies one edge component; attempts.csv)
 void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
@@ -274,10 +274,14 @@ void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 	Vector3 n;
 	if (fx - i < fy - j) {
 		float h01 = Get_Height(i, j + 1);
-		Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00), &n);
+		Vector3 a(XSpacing, YSpacing, h11 - h00);
+		Vector3 b(0.0f, YSpacing, h01 - h00);
+		Vector3::Cross_Product(a, b, &n);
 		n.Normalize();
 	} else {
-		Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00), &n);
+		Vector3 a(XSpacing, 0.0f, h10 - h00);
+		Vector3 b(XSpacing, YSpacing, h11 - h00);
+		Vector3::Cross_Product(a, b, &n);
 		n.Normalize();
 	}
 	*normal = n;
