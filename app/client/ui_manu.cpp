@@ -70,11 +70,13 @@ public:
 class UIManuSliderClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
+	UIManuSliderClass(int arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, int a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
 	char Unknown34[0xD4 - 0x34];						// +0x34
 	float Unknown0D4;									// +0xD4: the position (the first row shown)
+	char Unknown0D8[0x128 - 0xD8];						// +0xD8
 };
 
 // ui_mesh.cpp's and pdaint.cpp's functions this file calls that sclient.h does not declare yet
@@ -130,8 +132,6 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 
 
 
-
-
 // NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0)
 UIManuClass::~UIManuClass()
 {
@@ -149,6 +149,33 @@ UIManuClass::~UIManuClass()
 	Unknown0BC = NULL;
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSM01A.INI");
 }
+
+// The control keys event slot +0x54 registers (0x10 bytes) and what InterfaceClass +0x4C is, as far as this file calls it
+struct UIManuKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
+{
+	UIManuKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
+	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
+	short Unknown02;									// +0x02
+	int Unknown04;										// +0x04
+	int Unknown08;										// +0x08
+	int Unknown0C;										// +0x0C
+};
+class UIManuKeysClass { public: void Unknown_721E60(const UIManuKeyEventStruct *event, bool on); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, on]: what slot +0x54 passes
+
+// gadget.cpp's button gadgets (100 bytes), as slot +0x54 makes them: over a render object (0x675240) or over a mesh's
+// named sub-object (0x675170)
+class UIManuButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	UIManuButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: what slot +0x54 passes
+	UIManuButtonGadgetClass(UIMeshClass *mesh, const char *name, LayerClass *layer, int a, int b);	// 0x675170 (0x55, 3)  // NAME 1 [mesh, name, layer, a, b]: what slot +0x54 passes
+	char Unknown34[0x64 - 0x34];						// +0x34
+};
+
+// The window's buttons, the category columns' names and their ids (0xB81850, 0xB81840, 0xB818A8)
+static const char *Unknown_B81850[] = { "exit", "item00", "cat00", "sub00", "recent00", "go" };	// NAME 1: neutral (D10)
+static const char *Unknown_B81840[] = { "item", "cat", "sub", "not used" };	// NAME 1: neutral (D10)
+static int Unknown_B818A8[] = { 18, 23, 28 };			// NAME 1: neutral (D10): the columns' first ids (slot +0x68's cases)
 
 // The client at InterfaceClass +0x40, as this file calls it (the FAIL_IF '!Client->As_Space_Client()')
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -357,6 +384,89 @@ public:
 int UIManuCurrentCategoryClass::UnknownGlobal;
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
+// NOT EXACT: frame (the client keeps the key event in the name buffer's slot: 0x10 bytes less; it pops 0x495FD0's arguments before the bit clear) (0x5AFFC0)
+void UIManuClass::Unknown_54()
+{
+	for (int id = 1; id <= 6; id++) {
+		RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
+		if (robj) {
+			Unknown_496AE0(robj.Peek(), 0);
+			Unknown0CC[id] = new UIManuButtonGadgetClass(robj.Peek(), &Layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(Unknown0CC[id], id, View, 1, 0);
+			Unknown_5BB4F0(Unknown0CC[id]);
+		}
+	}
+	RefCountPtr<TextureClass> recent = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("IM_recent.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
+	if (recent) {
+		Unknown_495FD0(Unknown0CC[5]->Unknown30, recent.Peek(), 0);
+		Unknown0CC[5]->Unknown2C40 = 0;
+		Unknown_65EFB0(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
+	}
+	Unknown_65EFB0(Unknown0CC[6], "UI_MANUFACTURE", "ICON_GO");
+	{
+	char name[64];
+	for (int row = 0; row < 10; row++) {
+		sprintf(name, "desc%02d", row);
+		Unknown0E8[row] = new UIManuButtonGadgetClass(Mesh, name, &Layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown0E8[row], row + 8, View, 1, 0);
+		Unknown_5BB4F0(Unknown0E8[row]);
+	}
+	for (int level = 1; level <= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS; level++) {
+		_snprintf(name, 32, "T_LEV_ON_%02d", level);
+		Unknown11C[level - 1].Gadget = Unknown_5B6410(level + 0x20, name, level, false);
+		Unknown11C[level - 1].Gadget->Unknown_40(true);
+		Unknown11C[level - 1].Gadget->Unknown_8C(false);
+		Unknown11C[level - 1].Gadget->Unknown_7E8030(false);
+		_snprintf(name, 32, "T_LEV_OFF_%02d", level);
+		Unknown11C[level - 1].Unknown04 = Unknown_5B6410(level + 0x2A, name, level, true);
+		Unknown11C[level - 1].Unknown04->Unknown_40(false);
+		Unknown11C[level - 1].Unknown04->Unknown_8C(true);
+		Unknown11C[level - 1].Unknown04->Unknown_7E8030(false);
+	}
+	}
+	((UIManuKeysClass *)Unknown4C)->Unknown_721E60(&UIManuKeyEventStruct(0x1B), true);
+	Unknown0B0 = new UIManuSliderClass(0, &Layer);
+	Unknown0B0->Unknown_66E460(Create_Peek(Mesh->Peek_Object()), 0, 1);
+	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
+	SClient *sclient = Client->As_Space_Client();
+	Unknown0B4 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
+	Unknown0B4->Unknown_54();
+	Unknown0B4->Unknown_7C(View, 0);
+	Unknown0B8 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
+	char buffer[64];
+	for (int k = 0; k < 3; k++) {
+		Unknown0C0[k] = new UIManuUnknownC0Class(k);
+		for (int i = 0; i < 5; i++) {
+			sprintf(buffer, "%s%02d", Unknown_B81840[k], i + 1);
+			RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
+			if (robj) {
+				Unknown_496AE0(robj.Peek(), 0);
+				Unknown0C0[k]->Gadgets[i] = new UIManuButtonGadgetClass(robj.Peek(), &Layer, 0x55, 3);
+				Unknown0C0[k]->Gadgets[i]->Unknown_65FFA0(-1);
+				Unknown64.Unknown_6870E0(Unknown0C0[k]->Gadgets[i], Unknown_B818A8[k] + i, View, 1, 1);
+				Unknown_5BB4F0(Unknown0C0[k]->Gadgets[i]);
+			}
+			sprintf(buffer, "%s%02df", Unknown_B81840[k], i + 1);
+			Unknown0C0[k]->Unknown14[i] = Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer);
+			Unknown_496AE0(Unknown0C0[k]->Unknown14[i], 0);
+		}
+		Unknown0C0[k]->Unknown_5B74F0(true);
+		sprintf(buffer, "%sf", Unknown_B81850[k + 1]);
+		Unknown110[k] = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
+		Unknown110[k]->Set_Hidden(true);
+	}
+	Unknown0B8->Unknown_54();
+	Unknown0B8->Unknown_7C(View, 0);
+	Unknown0BC = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
+	Unknown0BC->Unknown_54();
+	Unknown0BC->Unknown_7C(View, 0);
+	RefCountPtr<RenderObjClass> tutorial = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
+	if (tutorial) {
+		tutorial->Set_Hidden(true);
+	}
+	Unknown_10();
+}
+
 // NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0)
 bool UIManuClass::Unknown_68(int key)
 {
@@ -426,116 +536,6 @@ bool UIManuClass::Unknown_68(int key)
 	}
 	return(false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1862,8 +1862,8 @@ void UIManuClass::Unknown_5B6D30()
 **	client's out-of-line copy of that template is 0x5B6DB0). The player id the packets carry is the space client's
 **	+0x1138 (ClientClass::Unknown1138).
 **
-**	Not rebuilt yet: slots +0x54 (0x5AFFC0, 0x92E bytes) and +0x60 (0x5B1230), the list fillers 0x5B2BD0 /
-**	0x5B3E00 and the quality texts 0x5B4B10 / 0x5B5320 (lines 1473-1646). The constructor, destructor, slots
-**	+0x58 / +0x5C / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B3850, 0x5B42F0, 0x5B4680, 0x5B4850 and
+**	Not rebuilt yet: slot +0x60 (0x5B1230), the list fillers 0x5B2BD0 / 0x5B3E00 and the quality texts 0x5B4B10 /
+**	0x5B5320 (lines 1473-1646). The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x68, 0x5B1ED0,
+**	0x5B2480, 0x5B2FE0, 0x5B3640, 0x5B3850, 0x5B42F0, 0x5B4680, 0x5B4850 and
 **	0x5B67C0 compile but are not exact (see their NOT EXACT notes).
 */

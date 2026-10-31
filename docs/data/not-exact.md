@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-385 entries in 77 files.
+386 entries in 77 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -191,11 +191,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |
 | `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
-| `app/client/ui_manu.cpp:89` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
+| `app/client/ui_manu.cpp:91` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
-| `app/client/ui_manu.cpp:194` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0) |
-| `app/client/ui_manu.cpp:242` | `UIManuClass::Unknown_5C` | marker | NOT EXACT: register (the packets' player id in eax, the three sub-windows' slot +0x5C calls one register off) (0x5B10A0) |
-| `app/client/ui_manu.cpp:360` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
+| `app/client/ui_manu.cpp:221` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0) |
+| `app/client/ui_manu.cpp:269` | `UIManuClass::Unknown_5C` | marker | NOT EXACT: register (the packets' player id in eax, the three sub-windows' slot +0x5C calls one register off) (0x5B10A0) |
+| `app/client/ui_manu.cpp:387` | `UIManuClass::Unknown_54` | marker | NOT EXACT: frame (the client keeps the key event in the name buffer's slot: 0x10 bytes less; it pops 0x495FD0's arguments before the bit clear) (0x5AFFC0) |
+| `app/client/ui_manu.cpp:470` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
 | `app/client/ui_manu.cpp:702` | `UIManuClass::Unknown_5B1ED0` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in its 'PreviousAttempts' find and returns from each failed find) (0x5B1ED0) |
 | `app/client/ui_manu.cpp:785` | `UIManuClass::Unknown_5B2480` | marker | NOT EXACT: inline budget (the client calls the 'Validity' find out of line, 0x5465C0; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480) |
 | `app/client/ui_manu.cpp:901` | `UIManuClass::Unknown_5B2FE0` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B72B0; the item id read before the client) (0x5B2FE0) |

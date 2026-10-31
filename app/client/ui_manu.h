@@ -12,13 +12,6 @@ class FontStyleClass;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class UIManuSliderClass;	// gd_slider.cpp's slider (+0xB0)
 
-// The rows' buttons at +0xE8 (gadget.cpp's), as far as slot +0x58 reads them
-class UIManuRowButtonClass	// NAME 1: neutral (D10)
-{
-public:
-	char Unknown00[0x30];								// +0x00 (a GadgetClass)
-	RenderObjClass *Unknown30;							// +0x30: the button's model (its sort level)
-};
 class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
 class NameClass;
@@ -28,6 +21,7 @@ class NameClass;
 class UIManuUnknownC0Class	// NAME 1: neutral (D10)
 {
 public:
+	UIManuUnknownC0Class(int column);					// 0x5B73C0 (slot +0x54 passes 0..2)  // NAME 1 [column]: neutral
 	~UIManuUnknownC0Class();							// 0x5B7430
 	void Unknown_5B74F0(bool on);						// 0x5B74F0: hidden at once (true), else faded  // NAME 1 [on]: neutral
 	void Unknown_5B7570(bool *disabled, int primary, int secondary);	// 0x5B7570 (0x5B2230: the window's +0x98C and the first two picks)  // NAME 1 [disabled, primary, secondary]: neutral
@@ -38,14 +32,14 @@ public:
 	int Unknown3C;										// +0x3C: fading in (1) or out (-1)
 	int Unknown40;										// +0x40
 	float Unknown44;									// +0x44
-	UIManuClass *Unknown48;								// +0x48 (the constructor's window)
+	int Unknown48;										// +0x48 (the constructor's argument: the column, 0..2)
 };
 
 // One tech level filter (8 bytes, ten at +0x11C: levels 1..9, then all)
 struct UIManuRowStruct	// NAME 1: neutral (D10)
 {
-	UIManuCheckButtonClass *Gadget;						// +0x00 (slots +0x40 / +0x8C)  // NAME 2: what it holds
-	int Unknown04;										// +0x04
+	UIManuCheckButtonClass *Gadget;						// +0x00 'T_LEV_ON_%02d' (slots +0x40 / +0x8C)  // NAME 2: what it holds
+	UIManuCheckButtonClass *Unknown04;					// +0x04 'T_LEV_OFF_%02d'
 };
 
 // The levels of the category tree that 0x5B3B90 / 0x5B3CA0 / 0x5B3D70 walk, as far as they read them
@@ -80,11 +74,15 @@ public:
 
 #define NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS	10	// the FAIL_IF's (0x5B67C0 compares with 9 and 1)
 
-// What +0xBC holds, as far as this file calls it
-class UIManuUnknownBCClass : public InterfaceClass	// NAME 1: neutral (D10)
+// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds three of (+0xB4 'TSM01A.E%02d', +0xB8
+// 'TSM01A.RESULT', +0xBC 'TSM01A.OVER'), as far as this file calls it
+class UIManuInvClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+	UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 6 'TSM01A.E%02d' 12, 1 'TSM01A.RESULT' 13, 1 'TSM01A.OVER' 14)  // NAME 1 [client, model, count, format, unknown]: what slot +0x54 passes
 	void Unknown_62F5B0(bool on);						// 0x62F5B0 (0x5B3A70 passes false)  // NAME 1 [on]: neutral
+
+	char Unknown84[0xE0 - 0x84];						// +0x84
 };
 
 enum
@@ -149,12 +147,12 @@ public:
 
 	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
 	UIManuSliderClass *Unknown0B0;						// +0x0B0 (the list's slider: its +0xD4 the first row)
-	RefCountPtr<InterfaceClass> Unknown0B4;				// +0x0B4 (slots +0x5C / +0x7C passed on)
-	RefCountPtr<InterfaceClass> Unknown0B8;				// +0x0B8
-	RefCountPtr<UIManuUnknownBCClass> Unknown0BC;		// +0x0BC
+	RefCountPtr<UIManuInvClass> Unknown0B4;				// +0x0B4 'TSM01A.E%02d' (slots +0x58 / +0x5C / +0x7C passed on)
+	RefCountPtr<UIManuInvClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
+	RefCountPtr<UIManuInvClass> Unknown0BC;				// +0x0BC 'TSM01A.OVER'
 	UIManuUnknownC0Class *Unknown0C0[3];				// +0x0C0 (the destructor deletes them)
 	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xD0..+0xE4: slot +0x54's buttons 'exit', the category columns 'item00' / 'cat00' / 'sub00', 'recent00', 'go')
-	UIManuRowButtonClass *Unknown0E8[10];				// +0x0E8 the rows' buttons
+	GadgetClass *Unknown0E8[10];						// +0x0E8 the rows' buttons ('desc%02d')
 	RefCountPtr<RenderObjClass> Unknown110[3];			// +0x110
 	UIManuRowStruct Unknown11C[10];						// +0x11C the list's rows
 	RefCountPtr<FontStyleClass> Unknown16C[10];			// +0x16C the rows' first texts
