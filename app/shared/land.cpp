@@ -1562,19 +1562,24 @@ void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<La
 	file->Close();
 }
 
-// NOT EXACT: frame (0x14, the client 0x20: it keeps this, the size and the buffer in frame slots); 2 forms tried
+// NOT EXACT: shape (0x46D6B0: 29 rows with registers masked; the frame is the client's 0x20 once the four
+// channels are separate pointers, the client's pointer-difference induction variables; the setup's load order and
+// which difference stays in a register are left; attempts.csv)
 void LandClass::Upload_Lightmap(Vector2i &min, Vector2i &max)
 {
 	SurfaceClass *surface = Unknown120->Get_Surface_Level(0);
 	if (Is16Bit) {
-		unsigned char *bytes = (unsigned char *)Unknown120C;
 		unsigned short *words = (unsigned short *)Unknown120C;
+		unsigned char *p0 = (unsigned char *)Unknown120C;
+		unsigned char *p1 = p0 + 1;
+		unsigned char *p2 = p0 + 2;
+		unsigned char *p3 = p0 + 3;
 		int size = Field->Get_Size();
 		for (int j = min.J; j < max.J; j++) {
 			for (int i = min.I; i < max.I; i++) {
 				int n = j * size + i;
-				words[n] = (unsigned short)((((unsigned short)(bytes[n * 4 + 3] & 0xF0) << 4) | (unsigned short)(bytes[n * 4 + 2] & 0xF0)) << 4)
-					| (unsigned short)(unsigned char)((bytes[n * 4 + 1] & 0xF0) | (bytes[n * 4] >> 4));
+				words[n] = (unsigned short)((((unsigned short)(p3[n * 4] & 0xF0) << 4) | (unsigned short)(p2[n * 4] & 0xF0)) << 4)
+					| (unsigned short)(unsigned char)((p1[n * 4] & 0xF0) | (p0[n * 4] >> 4));
 			}
 		}
 	}

@@ -156,7 +156,7 @@ void LandUnknown466BE0Class::Read_Registry(void)
 }
 
 
-// NOT EXACT: register / order (0x466F60: 18 rows with registers masked, 68 without; the client copies X / Y spacing through
+// NOT EXACT: frame (0x466F60: 0x218, the client 0x220; 18 rows with registers masked, 68 without; the client copies X / Y spacing through
 // stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and
 // swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv)
 void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
