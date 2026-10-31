@@ -646,6 +646,11 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 	}
 }
 
+unsigned char HeightFieldClass::Get_Height_Byte(int x, int y)
+{
+	return (unsigned char)Heights[((y & Mask) << Log2) + (x & Mask)];
+}
+
 float HeightFieldClass::Get_Height(float x, float y) const
 {
 	float fx = x / XSpacing + (int)Size / 2;

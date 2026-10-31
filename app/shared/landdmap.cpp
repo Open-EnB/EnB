@@ -10,12 +10,6 @@
 
 LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
 
-// NOT EXACT: functional, from the disassembly of 0x466140 (a height-field function in the client)
-static unsigned char Height_Low_Byte(HeightFieldClass *field, int x, int y)
-{
-	return (unsigned char)field->Get_Heights()[((y & field->Get_Mask()) << field->Get_Log2()) + (x & field->Get_Mask())];
-}
-
 // NAME 1: unknown; the displacement vertex shader (0xB71650)
 static const char Unknown_B71650[] =
 	"\n"
@@ -94,8 +88,8 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 	}
 	Unknown0C = 1;
 	if (Enabled) {
-		DX8CALL(CreateTexture(DisplacementMapSize, DisplacementMapSize, 0, 0, (D3DFORMAT)0x102B0001, D3DPOOL_DEFAULT, &DisplacementMap));
-		DX8_ErrorCode(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(), DisplacementMapSize, DisplacementMapSize, 0, 0, D3DFMT_L8, D3DPOOL_MANAGED, &HeightTexture));
+		Create_Displacement_Map();
+		Create_Height_Texture();
 		Unknown_4677B0(Field);
 		Unknown_467910();
 		Unknown_467A50(detail_u, detail_v);
@@ -108,14 +102,8 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
 {
 	if (Enabled) {
-		if (DisplacementMap != NULL) {
-			DisplacementMap->Release();
-			DisplacementMap = NULL;
-		}
-		if (HeightTexture != NULL) {
-			HeightTexture->Release();
-			HeightTexture = NULL;
-		}
+		Release_Displacement_Map();
+		Release_Height_Texture();
 		if (VertexShader != 0) {
 			DX8CALL(DeleteVertexShader(VertexShader));
 			VertexShader = 0;
@@ -251,6 +239,32 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	DX8Wrapper::_Get_D3D_Device8()->SetTransform(D3DTS_WORLD, &world);
 }
 
+void LandUnknown466BE0Class::Create_Displacement_Map(void)
+{
+	DX8CALL(CreateTexture(DisplacementMapSize, DisplacementMapSize, 0, 0, (D3DFORMAT)0x102B0001, D3DPOOL_DEFAULT, &DisplacementMap));
+}
+
+void LandUnknown466BE0Class::Create_Height_Texture(void)
+{
+	DX8_ErrorCode(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(), DisplacementMapSize, DisplacementMapSize, 0, 0, D3DFMT_L8, D3DPOOL_MANAGED, &HeightTexture));
+}
+
+void LandUnknown466BE0Class::Release_Displacement_Map(void)
+{
+	if (DisplacementMap != NULL) {
+		DisplacementMap->Release();
+		DisplacementMap = NULL;
+	}
+}
+
+void LandUnknown466BE0Class::Release_Height_Texture(void)
+{
+	if (HeightTexture != NULL) {
+		HeightTexture->Release();
+		HeightTexture = NULL;
+	}
+}
+
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x4677B0
 void LandUnknown466BE0Class::Unknown_4677B0(HeightFieldClass *field)
 {
@@ -265,7 +279,7 @@ void LandUnknown466BE0Class::Unknown_4677B0(HeightFieldClass *field)
 		for (unsigned int x = 0; x < desc.Width; x++) {
 			int fy = (int)((float)y * step);
 			int fx = (int)((float)x * step);
-			bits[rect.Pitch * y + x] = Height_Low_Byte(field, fx, fy);
+			bits[rect.Pitch * y + x] = field->Get_Height_Byte(fx, fy);
 		}
 	}
 	DX8_ErrorCode(HeightTexture->UnlockRect(0));

@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 35 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
-| 2 | describes what the code does | 2521 |
+| 2 | describes what the code does | 2526 |
 | 1 | neutral placeholder | 7582 |
 
 ## For review (score 3 and below)
@@ -6879,47 +6879,47 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `land_lighting.h` | `app/shared/land_lighting.h:18` | no assert or __FILE__ names the file |
 | 1 | `Unknown_BDC0D8` | `app/shared/landdmap.cpp:11` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_B71650` | `app/shared/landdmap.cpp:19` | unknown; the displacement vertex shader (0xB71650) |
-| 1 | `Unknown04` | `app/shared/landdmap.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/shared/landdmap.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown12` | `app/shared/landdmap.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/landdmap.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_4677B0` | `app/shared/landdmap.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown_467910` | `app/shared/landdmap.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_467A50` | `app/shared/landdmap.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown_467E40` | `app/shared/landdmap.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_466E70` | `app/shared/landdmap.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_466F10` | `app/shared/landdmap.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_466F40` | `app/shared/landdmap.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_468240` | `app/shared/landdmap.cpp:220` | untagged neutral name (D10) |
-| 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:351` | untagged neutral name (D10) |
-| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:406` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/landdmap.cpp:434` | untagged neutral name (D10) |
-| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:435` | untagged neutral name (D10) |
-| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:457` | untagged neutral name (D10) |
+| 1 | `Unknown_B71650` | `app/shared/landdmap.cpp:13` | unknown; the displacement vertex shader (0xB71650) |
+| 1 | `Unknown04` | `app/shared/landdmap.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/shared/landdmap.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown12` | `app/shared/landdmap.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/landdmap.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_4677B0` | `app/shared/landdmap.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_467910` | `app/shared/landdmap.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_467A50` | `app/shared/landdmap.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_467E40` | `app/shared/landdmap.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_466E70` | `app/shared/landdmap.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/landdmap.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_466F40` | `app/shared/landdmap.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_468240` | `app/shared/landdmap.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_468920` | `app/shared/landdmap.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown_468760` | `app/shared/landdmap.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/landdmap.cpp:448` | untagged neutral name (D10) |
+| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:449` | untagged neutral name (D10) |
+| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:471` | untagged neutral name (D10) |
 | 1 | `Unknown_466E70` | `app/shared/landdmap.h:14` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
 | 1 | `Unknown_466F10` | `app/shared/landdmap.h:15` | untagged neutral name (D10) |
 | 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.h:16` | unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920) |
 | 1 | `LandUnknown466BE0Class` | `app/shared/landdmap.h:23` | unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): the land's displacement-mapped |
 | 1 | `Unknown_466F40` | `app/shared/landdmap.h:31` | unknown; empty |
 | 1 | `Unknown_466F60` | `app/shared/landdmap.h:32` | unknown; called first by Render 0x474B30 |
-| 1 | `Unknown_4677B0` | `app/shared/landdmap.h:34` | unknown; the height field into the L8 texture (+0x34) |
-| 1 | `Unknown_467910` | `app/shared/landdmap.h:35` | unknown; the L8 texture's levels into the displacement map (+0x30) |
-| 1 | `Unknown_467A50` | `app/shared/landdmap.h:36` | unknown; the base mesh's index and vertex buffers |
-| 1 | `Unknown_467E40` | `app/shared/landdmap.h:37` | unknown; the vertex shader (+0x2C) |
-| 1 | `Unknown_468240` | `app/shared/landdmap.h:38` | unknown; the planes (+0x40) from scale * view * proj |
-| 1 | `Unknown_468760` | `app/shared/landdmap.h:39` | unknown; 0 outside a plane, 1 crossing, 2 inside |
-| 1 | `Unknown_468920` | `app/shared/landdmap.h:40` | unknown; the cells (+0x04) and their bounds |
-| 1 | `Unknown_468BE0` | `app/shared/landdmap.h:41` | unknown; the box around eight points |
-| 1 | `Unknown_468D50` | `app/shared/landdmap.h:42` | unknown; marks the vertices of the cells inside the planes |
-| 1 | `Unknown04` | `app/shared/landdmap.h:44` | +0x04, the cells (0x468920), deleted by the dtor and 0x467A50 |
-| 1 | `Unknown08` | `app/shared/landdmap.h:45` | +0x08, the cell count, (size - 1) squared (0x468920) |
-| 1 | `Unknown0C` | `app/shared/landdmap.h:46` | +0x0C, 1 after the ctor |
-| 1 | `Unknown11` | `app/shared/landdmap.h:48` | +0x11, the land uses the object (cleared when not Enabled) |
-| 1 | `Unknown12` | `app/shared/landdmap.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/shared/landdmap.h:65` | +0x8C, never written |
+| 1 | `Unknown_4677B0` | `app/shared/landdmap.h:38` | unknown; the height field into the L8 texture (+0x34) |
+| 1 | `Unknown_467910` | `app/shared/landdmap.h:39` | unknown; the L8 texture's levels into the displacement map (+0x30) |
+| 1 | `Unknown_467A50` | `app/shared/landdmap.h:40` | unknown; the base mesh's index and vertex buffers |
+| 1 | `Unknown_467E40` | `app/shared/landdmap.h:41` | unknown; the vertex shader (+0x2C) |
+| 1 | `Unknown_468240` | `app/shared/landdmap.h:42` | unknown; the planes (+0x40) from scale * view * proj |
+| 1 | `Unknown_468760` | `app/shared/landdmap.h:43` | unknown; 0 outside a plane, 1 crossing, 2 inside |
+| 1 | `Unknown_468920` | `app/shared/landdmap.h:44` | unknown; the cells (+0x04) and their bounds |
+| 1 | `Unknown_468BE0` | `app/shared/landdmap.h:45` | unknown; the box around eight points |
+| 1 | `Unknown_468D50` | `app/shared/landdmap.h:46` | unknown; marks the vertices of the cells inside the planes |
+| 1 | `Unknown04` | `app/shared/landdmap.h:48` | +0x04, the cells (0x468920), deleted by the dtor and 0x467A50 |
+| 1 | `Unknown08` | `app/shared/landdmap.h:49` | +0x08, the cell count, (size - 1) squared (0x468920) |
+| 1 | `Unknown0C` | `app/shared/landdmap.h:50` | +0x0C, 1 after the ctor |
+| 1 | `Unknown11` | `app/shared/landdmap.h:52` | +0x11, the land uses the object (cleared when not Enabled) |
+| 1 | `Unknown12` | `app/shared/landdmap.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/shared/landdmap.h:69` | +0x8C, never written |
 | 1 | `Unknown_4FC2F0` | `app/shared/lookup_table.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
@@ -9526,13 +9526,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Height` | `app/shared/heightfield.h:59` | x and y of a position (0x464600; its callers pass a Vector3, 0x70E3B0 reads its z after) |
 | 2 | `Cast_Ray` | `app/shared/heightfield.h:60` | after LandClass's Cast_Ray / Cast_AABox / Cast_OBBox (0x46C680-0x46C6E0), which forward to them (0x4647C0, 0x465030, 0x4654E0; not rebuilt) |
 | 2 | `Get_Triangles` | `app/shared/heightfield.h:64` | the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30) |
-| 2 | `Get_Size` | `app/shared/heightfield.h:67` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
-| 2 | `Get_Log2` | `app/shared/heightfield.h:77` | the land's Load_Assets reads them (0x4691D0) |
-| 2 | `Get_YSpacing` | `app/shared/heightfield.h:79` | the land's Update_Patches reads them (0x46B3C0) |
-| 2 | `Get_Mask` | `app/shared/heightfield.h:81` | the land's horizon scanners read them (0x4733C0-0x473BC0) |
-| 2 | `Get_Heights` | `app/shared/heightfield.h:84` | the land's Compute_Horizons saves and restores them (0x46E670) |
-| 2 | `Get_VScale` | `app/shared/heightfield.h:85` | the land's patches read it (0x474790) |
-| 2 | `Heights` | `app/shared/heightfield.h:88` | members after what Load and the PGM reader store |
+| 2 | `Get_Height_Byte` | `app/shared/heightfield.h:66` | a height's low byte, the grid wrapped (0x466140; the displacement map's L8 texels, 0x4677B0) |
+| 2 | `Get_Size` | `app/shared/heightfield.h:68` | ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates |
+| 2 | `Get_Log2` | `app/shared/heightfield.h:78` | the land's Load_Assets reads them (0x4691D0) |
+| 2 | `Get_YSpacing` | `app/shared/heightfield.h:80` | the land's Update_Patches reads them (0x46B3C0) |
+| 2 | `Get_Mask` | `app/shared/heightfield.h:82` | the land's horizon scanners read them (0x4733C0-0x473BC0) |
+| 2 | `Get_Heights` | `app/shared/heightfield.h:85` | the land's Compute_Horizons saves and restores them (0x46E670) |
+| 2 | `Get_VScale` | `app/shared/heightfield.h:86` | the land's patches read it (0x474790) |
+| 2 | `Heights` | `app/shared/heightfield.h:89` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
 | 2 | `Array` | `app/shared/kv_acc_array.h:39` | what it holds |
@@ -9648,19 +9649,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UpdateMin` | `app/shared/land.h:286` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
 | 2 | `Normals` | `app/shared/land.h:298` | what Prepare_Lighting 0x46C730 makes of the lighting record |
 | 2 | `LandLightingStruct` | `app/shared/land_lighting.h:24` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
-| 2 | `Read_Registry` | `app/shared/landdmap.h:33` | reads the DMap key's four values (0x468120) |
-| 2 | `Field` | `app/shared/landdmap.h:52` | +0x1C, the ctor's argument |
-| 2 | `VertexBuffer` | `app/shared/landdmap.h:54` | +0x24, CreateVertexBuffer (0x467A50) |
-| 2 | `IndexBuffer` | `app/shared/landdmap.h:55` | +0x28, CreateIndexBuffer (0x467A50) |
-| 2 | `VertexShader` | `app/shared/landdmap.h:56` | +0x2C, DeleteVertexShader in the dtor |
-| 2 | `DisplacementMap` | `app/shared/landdmap.h:57` | +0x30, format 0x102B0001 (CreateTexture in the ctor) |
-| 2 | `HeightTexture` | `app/shared/landdmap.h:58` | +0x34, D3DFMT_L8, managed (D3DXCreateTexture in the ctor) |
-| 2 | `IndexCount` | `app/shared/landdmap.h:59` | +0x38, (6 size - 6)(size - 1) (0x467A50) |
-| 2 | `VertexCount` | `app/shared/landdmap.h:60` | +0x3C, size squared (0x467A50) |
-| 2 | `Planes` | `app/shared/landdmap.h:61` | +0x40, the side planes of scale * view * proj (0x468240) |
-| 2 | `FogStart` | `app/shared/landdmap.h:62` | +0x80, D3DRS_FOGSTART read back by 0x466F60 |
-| 2 | `FogEnd` | `app/shared/landdmap.h:63` | +0x84 |
-| 2 | `FogRange` | `app/shared/landdmap.h:64` | +0x88, FogEnd - FogStart |
+| 2 | `Create_Displacement_Map` | `app/shared/landdmap.h:33` | CreateTexture into +0x30 (0x4676D0; inlined in the ctor) |
+| 2 | `Create_Height_Texture` | `app/shared/landdmap.h:34` | D3DXCreateTexture into +0x34 (0x467710; inlined in the ctor) |
+| 2 | `Release_Displacement_Map` | `app/shared/landdmap.h:35` | (0x467750; inlined in the dtor) |
+| 2 | `Release_Height_Texture` | `app/shared/landdmap.h:36` | (0x467780; inlined in the dtor) |
+| 2 | `Read_Registry` | `app/shared/landdmap.h:37` | reads the DMap key's four values (0x468120) |
+| 2 | `Field` | `app/shared/landdmap.h:56` | +0x1C, the ctor's argument |
+| 2 | `VertexBuffer` | `app/shared/landdmap.h:58` | +0x24, CreateVertexBuffer (0x467A50) |
+| 2 | `IndexBuffer` | `app/shared/landdmap.h:59` | +0x28, CreateIndexBuffer (0x467A50) |
+| 2 | `VertexShader` | `app/shared/landdmap.h:60` | +0x2C, DeleteVertexShader in the dtor |
+| 2 | `DisplacementMap` | `app/shared/landdmap.h:61` | +0x30, format 0x102B0001 (CreateTexture in the ctor) |
+| 2 | `HeightTexture` | `app/shared/landdmap.h:62` | +0x34, D3DFMT_L8, managed (D3DXCreateTexture in the ctor) |
+| 2 | `IndexCount` | `app/shared/landdmap.h:63` | +0x38, (6 size - 6)(size - 1) (0x467A50) |
+| 2 | `VertexCount` | `app/shared/landdmap.h:64` | +0x3C, size squared (0x467A50) |
+| 2 | `Planes` | `app/shared/landdmap.h:65` | +0x40, the side planes of scale * view * proj (0x468240) |
+| 2 | `FogStart` | `app/shared/landdmap.h:66` | +0x80, D3DRS_FOGSTART read back by 0x466F60 |
+| 2 | `FogEnd` | `app/shared/landdmap.h:67` | +0x84 |
+| 2 | `FogRange` | `app/shared/landdmap.h:68` | +0x88, FogEnd - FogStart |
 | 2 | `sample_indices` | `app/shared/lookup_table.cpp:15` | what it holds |
 | 2 | `Compare_Samples` | `app/shared/lookup_table.cpp:199` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:38` | what it does (the self-test's floor->Lookup(index)) |
