@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "eff_o.h"
 #include "sclient.h"
+#include "scriptedmovieline.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\rendobj.h"
@@ -62,57 +63,56 @@ bool Unknown_7FFEA0(ScriptedMovieLineClass *a, ScriptedMovieLineClass *b)	// NAM
 	}
 	return(false);
 }
-#pragma auto_inline(off)
-// 0x7FFD30: the line starts with name (any case): the cursor past it and its comma
-bool ScriptedMovieParamsClass::Unknown_7FFD30(const char *name)
-{
-	int len = strlen(name);
-	if (strnicmp(Unknown08, name, len) == 0) {
-		Unknown08 += len;
-		while (*Unknown08 != 0 && *Unknown08 != ',') {
-			Unknown08++;
-		}
-		if (*Unknown08 == ',') {
-			Unknown08++;
-		}
-		return(true);
-	}
-	return(false);
-}
-#pragma auto_inline(on)
-// 0x7FFDC0: the next parameter (up to a comma; leading blanks skipped, a quoted one unquoted, trailing blanks cut)
-char *ScriptedMovieParamsClass::Unknown_7FFDC0()
-{
-	if (Unknown08 == NULL || *Unknown08 == 0) {
-		return(NULL);
-	}
-	char *param = Unknown08;
-	while (*param != 0 && *param <= ' ') {
-		param++;
-	}
-	if (*param == '"') {
-		param++;
-		Unknown08 = param;
-		while (*Unknown08 != 0 && *Unknown08 != '"') {
-			Unknown08++;
-		}
-	}
-	while (*Unknown08 != 0 && *Unknown08 != ',') {
-		Unknown08++;
-	}
-	if (*Unknown08 != 0) {
-		*Unknown08 = 0;
-		Unknown08++;
-	}
-	unsigned int len = strlen(param);
-	while (len != 0 && param[len - 1] <= ' ') {
-		param[--len] = 0;
-	}
-	if (len != 0 && param[len - 1] == '"') {
-		param[len - 1] = 0;
-	}
-	return(param);
-}
+// (0x7FFC50-0x7FFDC0, the script line ScriptedMovieLineClass, are the object before this one: scriptedmovieline.cpp;
+//  the blank lines below keep the asserts on the client's lines, D25)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // the render passes' depth ranges and clip planes (0xB07C3C-0xB07C54)
 static float Unknown_B07C3C = 1.0f;	// NAME 1: neutral (D10)
 static float Unknown_B07C40 = 1.0f;	// NAME 1: neutral (D10)
@@ -1337,11 +1337,11 @@ int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bon
 
 
 
-// NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 kept out of line by the pragmas)
+// NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 is scriptedmovieline.cpp's, out of line as in the client)
 // 0x803310: one script line run: its command (the line's first field, any case) to the member that takes the rest
 bool ScriptedMovieViewClass::Unknown_803310(ScriptedMovieLineClass *line)
 {
-	ScriptedMovieParamsClass *params = (ScriptedMovieParamsClass *)line;	// (the same 12 bytes: the frame, the text, the cursor)
+	ScriptedMovieLineClass *params = line;
 	if (params->Unknown_7FFD30("CREATE_OBJECT")) return(Create_Object(params, false));
 	if (params->Unknown_7FFD30("CREATE_SHIP_OBJECT")) return(Create_Object(params, true));
 	if (params->Unknown_7FFD30("CREATE_SFX_ON_OBJECT")) return(Create_Special_Effect_On_Object(params));
@@ -1429,7 +1429,7 @@ extern bool Unknown_BFAE52;	// 0xBFAE52: set while Create_Object makes a mesh  /
 
 // NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer)
 // 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD
-bool ScriptedMovieViewClass::Create_Object(ScriptedMovieParamsClass *params, bool ship)
+bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool ship)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -1488,7 +1488,7 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieParamsClass *params, boo
 
 
 // 0x8046E0: the slot's object deleted and taken off the list
-bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Destroy_Object: Need slot number") {return(false);}
@@ -1530,7 +1530,7 @@ bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
 
 
 // 0x804800: the skybox: the background scene, its interface and the base asset's model (CREATE_SKYBOX; 0x135 by default)
-bool ScriptedMovieViewClass::Create_Skybox(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Skybox(ScriptedMovieLineClass *params)
 {
 	int skybox = 0x135;
 	const char *param = params->Unknown_7FFDC0();
@@ -1583,7 +1583,7 @@ bool ScriptedMovieViewClass::Create_Skybox(ScriptedMovieParamsClass *params)
 
 
 // 0x804A70: the star field in a scene of its own (the system's stars.ini, its polygon budget)
-bool ScriptedMovieViewClass::Unknown_804A70(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Unknown_804A70(ScriptedMovieLineClass *params)
 {
 	int system = 800;
 	const char *param = params->Unknown_7FFDC0();
@@ -1623,7 +1623,7 @@ public:
 
 #include "ini.h"
 // 0x804CA0: the orbitals: their manager and scene, the asset's orbital%04d.ini, the background dazzle layer (CREATE_ORBITAL)
-bool ScriptedMovieViewClass::Create_Orbital(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Orbital(ScriptedMovieLineClass *params)
 {
 
 	G_ASSERT(OrbitalManager == NULL);
@@ -1667,7 +1667,7 @@ bool ScriptedMovieViewClass::Create_Orbital(ScriptedMovieParamsClass *params)
 
 
 // 0x805000: the slot's animation: its name, then loop (non-zero), and two numbers (0 and -1 by default)
-bool ScriptedMovieViewClass::Play_Animation(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Play_Animation(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Play_Animation: Need slot number") {return(false);}
@@ -1725,7 +1725,7 @@ bool ScriptedMovieViewClass::Play_Animation(ScriptedMovieParamsClass *params)
 
 
 // 0x8051B0: the slot's animation, held (its flag bit 1 set)
-bool ScriptedMovieViewClass::Unknown_8051B0(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Unknown_8051B0(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Play_Animation: Need slot number") {return(false);}
@@ -1774,7 +1774,7 @@ bool ScriptedMovieViewClass::Unknown_8051B0(ScriptedMovieParamsClass *params)
 
 
 // 0x8052E0: the camera onto a bone of the slot's mesh (out of its container first)
-bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Attach_Camera: Need slot number") {return(false);}
@@ -1818,7 +1818,7 @@ bool ScriptedMovieViewClass::Attach_Camera(ScriptedMovieParamsClass *params)
 
 // NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows
 // 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees)
-bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -1875,7 +1875,7 @@ bool ScriptedMovieViewClass::Add_Camera(ScriptedMovieParamsClass *params)
 
 
 // 0x805810: the object slot's mesh onto a bone of the host slot's
-bool ScriptedMovieViewClass::Attach_To_Bone(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Attach_To_Bone(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Attach_To_Bone: Need object slot") {return(false);}
@@ -1917,7 +1917,7 @@ bool ScriptedMovieViewClass::Attach_To_Bone(ScriptedMovieParamsClass *params)
 // 0x8059A0: the light slot's light onto a bone of the host slot's mesh
 // NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the
 // slot and the mesh tested together, the mesh tested after the assignment (this one)
-bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Attach_Light_To_Bone: Need light slot") {return(false);}
@@ -1971,7 +1971,7 @@ bool ScriptedMovieViewClass::Attach_Light_To_Bone(ScriptedMovieParamsClass *para
 
 // 0x805B60: a light into slot lightslot: a directional one (its direction given, or a bone's Z axis) or a point one
 // (onto a bone of an object); one already there is removed first
-bool ScriptedMovieViewClass::Create_Light(ScriptedMovieParamsClass *params, int type, bool from_bone)
+bool ScriptedMovieViewClass::Create_Light(ScriptedMovieLineClass *params, int type, bool from_bone)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -2090,7 +2090,7 @@ bool ScriptedMovieViewClass::Create_Light(ScriptedMovieParamsClass *params, int 
 
 
 // 0x806100: Lights[slot]'s intensity
-bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Need light slot") {return(false);}
@@ -2124,7 +2124,7 @@ bool ScriptedMovieViewClass::Set_Light_Intensity(ScriptedMovieParamsClass *param
 
 
 // 0x806280: Lights[slot]'s far attenuation (the end defaults to the start)
-bool ScriptedMovieViewClass::Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Light_Far_Attenuation(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Light_Far_Attenuation: Need light slot") {return(false);}
@@ -2164,7 +2164,7 @@ bool ScriptedMovieViewClass::Set_Light_Far_Attenuation(ScriptedMovieParamsClass 
 
 
 // 0x806440: Lights[slot]'s ambient color
-bool ScriptedMovieViewClass::Set_Light_Ambient_Color(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Light_Ambient_Color(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Light_Ambient_Color: Need light slot") {return(false);}
@@ -2206,7 +2206,7 @@ bool ScriptedMovieViewClass::Set_Light_Ambient_Color(ScriptedMovieParamsClass *p
 
 
 // 0x806670: Lights[slot]'s specular color
-bool ScriptedMovieViewClass::Set_Light_Specular_Color(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Light_Specular_Color(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Light_Specular_Color: Need light slot") {return(false);}
@@ -2248,7 +2248,7 @@ bool ScriptedMovieViewClass::Set_Light_Specular_Color(ScriptedMovieParamsClass *
 
 
 // 0x8068A0: Lights[slot]'s diffuse color
-bool ScriptedMovieViewClass::Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Light_Diffuse_Color(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Light_Diffuse_Color: Need light slot") {return(false);}
@@ -2312,7 +2312,7 @@ bool ScriptedMovieViewClass::Unknown_806AD0()
 
 
 // 0x806AF0
-bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need x view plane value") {return(false);}
@@ -2339,7 +2339,7 @@ bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *par
 #include "..\..\wwaudio\AudibleSound.h"
 
 // 0x806BD0: a sound: 2D at once, or (with a slot and a bone) mv3dsnd.cpp's sound on the slot's model, kept on +0xF0
-bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieLineClass *params)
 {
 
 
@@ -2429,7 +2429,7 @@ bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieParamsClass *params)
 
 
 // 0x807020: the sound of that name stopped
-bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieLineClass *params)
 {
 	const char *audio_name = params->Unknown_7FFDC0();
 	FAIL_IF((audio_name == NULL) && "User error: Stop_Audio: Need audio name") {return(false);}
@@ -2461,7 +2461,7 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieParamsClass *params)
 
 
 // 0x8070C0: the effect of a line's id, duration (seconds), scale and hsv shift (eff_o.cpp's factory 0x6E9490), timed through
-EffectObjectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, ScriptedMovieParamsClass *params)
+EffectObjectClass *ScriptedMovieViewClass::Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -2570,7 +2570,7 @@ void ScriptedMovieViewClass::Unknown_807520(unsigned int time)
 
 
 // 0x807600: a special effect from the source slot's object to the target slot's (CREATE_SFX_BETWEEN_OBJECTS)
-bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovieLineClass *params)
 {
 	ClientClass *client = Get_Client();
 
@@ -2646,7 +2646,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 
 
 // 0x8078D0: a special effect from a bone of the source slot's object to one of the target slot's (CREATE_SFX_BETWEEN_BONES)
-bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieLineClass *params)
 {
 	ClientClass *client = Get_Client();
 
@@ -2721,7 +2721,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMoviePa
 
 
 // 0x807BE0: a special effect from the source slot's object to a bone of the target slot's (CREATE_SFX_BETWEEN_OBJECT_AND_BONE)
-bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieLineClass *params)
 {
 	ClientClass *client = Get_Client();
 
@@ -2792,7 +2792,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(Scrip
 
 
 // 0x807EB0: a special effect on a bone of the source slot's object (CREATE_SFX_ON_BONE)
-bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieLineClass *params)
 {
 	ClientClass *client = Get_Client();
 
@@ -2844,7 +2844,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieParamsCl
 
 
 // 0x808090: a special effect on the source slot's object (CREATE_SFX_ON_OBJECT)
-bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieLineClass *params)
 {
 	ClientClass *client = Get_Client();
 
@@ -2899,7 +2899,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieParams
 
 
 // 0x808220: the camera shaken by an amount over a time
-bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Shake_Camera: Need amount") {return(false);}
@@ -2930,7 +2930,7 @@ bool ScriptedMovieViewClass::Shake_Camera(ScriptedMovieParamsClass *params)
 
 
 // 0x808330: the scene's ambient light, at once or (with a time) faded from the current one
-bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieLineClass *params)
 {
 	FAIL_IF(ScriptedScene == NULL) {return(false);}
 	const char *param = params->Unknown_7FFDC0();
@@ -2982,7 +2982,7 @@ bool ScriptedMovieViewClass::Set_Ambient_Light(ScriptedMovieParamsClass *params)
 
 
 // 0x808590: the scene's fog on, its colour (faded over a time, else at once) and range
-bool ScriptedMovieViewClass::Set_Fog(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Fog(ScriptedMovieLineClass *params)
 {
 
 	FAIL_IF(ScriptedScene == NULL) {return(false);}
@@ -3063,7 +3063,7 @@ bool ScriptedMovieViewClass::Unknown_808840()
 
 
 // 0x808880: the screen fade's colour over a time
-bool ScriptedMovieViewClass::Set_Screen_Fade_Color(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Screen_Fade_Color(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Color: Need red") {return(false);}
@@ -3101,7 +3101,7 @@ bool ScriptedMovieViewClass::Set_Screen_Fade_Color(ScriptedMovieParamsClass *par
 
 
 // 0x808A00: the screen fade's opacity over a time
-bool ScriptedMovieViewClass::Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Screen_Fade_Opacity(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Screen_Fade_Opacity: Need opacity") {return(false);}
@@ -3131,7 +3131,7 @@ bool ScriptedMovieViewClass::Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *p
 
 
 // 0x808AD0
-bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Clip_Plane: Need near plane") {return(false);}
@@ -3161,7 +3161,7 @@ bool ScriptedMovieViewClass::Set_Clip_Plane(ScriptedMovieParamsClass *params)
 
 
 // 0x808BB0: the letterbox in or out over a time
-bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieParamsClass *params, bool on)
+bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieLineClass *params, bool on)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Enable_Letterbox: Need time") {return(false);}
@@ -3184,7 +3184,7 @@ bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieParamsClass *params, 
 
 
 // 0x808C30: the slot's ship in two colours (0x8020B0, no metal)
-bool ScriptedMovieViewClass::Change_Ship_Color(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Change_Ship_Color(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -3246,7 +3246,7 @@ bool ScriptedMovieViewClass::Change_Ship_Color(ScriptedMovieParamsClass *params)
 
 
 // 0x808F00: the slot's engine trails on or off
-bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on)
+bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieLineClass *params, bool on)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Toggle_Engine_Trails: Need slot number") {return(false);}
@@ -3278,7 +3278,7 @@ int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientCla
 // the damage levels Turn_On_Damage_Particles takes (its FAIL_IF names the ends; shiputils.cpp's 0x810CF0 gets them)
 enum { DAMAGE_PARTICLES_NO_CHANGE = 0, DAMAGE_PARTICLES_3 = 4 };	// NAME 3 [DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3]: the FAIL_IF's text (0x808FD0); values from its tests
 // 0x808FD0: the slot's damage particles, every hull section or one
-bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -3344,7 +3344,7 @@ bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieParamsClass *
 void Unknown_80FF20(RenderObjClass *model, const char *name, float *rgb);	// 0x80FF20 (shiputils.cpp; cpacket.cpp declares it so)
 
 // 0x8091B0: a name decal on the slot's ship, in a colour
-bool ScriptedMovieViewClass::Add_Name_Decal(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Add_Name_Decal(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -3396,7 +3396,7 @@ void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SCl
 
 
 // 0x8093D0: decal number on the slot's ship, in both of its places (1 and 2), white
-bool ScriptedMovieViewClass::Add_Decal_To_Ship(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Add_Decal_To_Ship(ScriptedMovieLineClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -3444,7 +3444,7 @@ bool ScriptedMovieViewClass::Add_Decal_To_Ship(ScriptedMovieParamsClass *params)
 
 
 // 0x809600: the slot's ship in a metal (MAKE_SHIP_CHROME 0, MAKE_SHIP_BRONZE 1, MAKE_SHIP_COPPER 2)
-bool ScriptedMovieViewClass::Unknown_809600(ScriptedMovieParamsClass *params, int metal)
+bool ScriptedMovieViewClass::Unknown_809600(ScriptedMovieLineClass *params, int metal)
 {
 	const char *param = params->Unknown_7FFDC0();
 
@@ -3524,7 +3524,7 @@ bool ScriptedMovieViewClass::Unknown_809730()
 
 
 // 0x809750: +0x6F, and while it is set an angle in degrees into +0x78
-bool ScriptedMovieViewClass::Unknown_809750(bool value, ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Unknown_809750(bool value, ScriptedMovieLineClass *params)
 {
 	Unknown6F = value;
 	if (params != NULL) {
@@ -3560,7 +3560,7 @@ bool ScriptedMovieViewClass::Unknown_809750(bool value, ScriptedMovieParamsClass
 
 
 // 0x8097D0
-bool ScriptedMovieViewClass::Skip_Frames(ScriptedMovieParamsClass *params)
+bool ScriptedMovieViewClass::Skip_Frames(ScriptedMovieLineClass *params)
 {
 	if (Unknown171 && ClientInterface->Unknown_00()->Unknown_1C()) {
 		const char *param = params->Unknown_7FFDC0();
@@ -3589,7 +3589,7 @@ bool ScriptedMovieViewClass::Skip_Frames(ScriptedMovieParamsClass *params)
 
 
 // 0x809890: the slot's model hidden or shown, its engine trails the other way
-bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieParamsClass *params, bool hide)
+bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieLineClass *params, bool hide)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Hide_Object: Need slot number") {return(false);}
@@ -3684,8 +3684,8 @@ void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)
 		if (strnicmp(p, "SOUNDTRACK", 10) == 0) {
 			ScriptedMovieLineClass *soundtrack = new ScriptedMovieLineClass;
 			soundtrack->Unknown_7FFCB0(p);
-			((ScriptedMovieParamsClass *)soundtrack)->Unknown_7FFDC0();
-			Unknown174 = nstrdup(((ScriptedMovieParamsClass *)soundtrack)->Unknown_7FFDC0());
+			soundtrack->Unknown_7FFDC0();
+			Unknown174 = nstrdup(soundtrack->Unknown_7FFDC0());
 			delete soundtrack;
 			continue;
 		}
@@ -3697,16 +3697,16 @@ void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)
 			temp = new ScriptedMovieLineClass;
 			temp->Frame = 0;
 			temp->Unknown_7FFCB0(p);
-			if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_ON_OBJECT")) {
-				Create_Special_Effect_On_Object((ScriptedMovieParamsClass *)temp);
-			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECTS")) {
-				Create_Special_Effect_Between_Objects((ScriptedMovieParamsClass *)temp);
-			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_BONES")) {
-				Create_Special_Effect_Between_Bones((ScriptedMovieParamsClass *)temp);
-			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECT_AND_BONE")) {
-				Create_Special_Effect_Between_Object_And_Bone((ScriptedMovieParamsClass *)temp);
-			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_ON_BONE")) {
-				Create_Special_Effect_On_Bone((ScriptedMovieParamsClass *)temp);
+			if (temp->Unknown_7FFD30("CREATE_SFX_ON_OBJECT")) {
+				Create_Special_Effect_On_Object(temp);
+			} else if (temp->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECTS")) {
+				Create_Special_Effect_Between_Objects(temp);
+			} else if (temp->Unknown_7FFD30("CREATE_SFX_BETWEEN_BONES")) {
+				Create_Special_Effect_Between_Bones(temp);
+			} else if (temp->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECT_AND_BONE")) {
+				Create_Special_Effect_Between_Object_And_Bone(temp);
+			} else if (temp->Unknown_7FFD30("CREATE_SFX_ON_BONE")) {
+				Create_Special_Effect_On_Bone(temp);
 			} else {
 
 

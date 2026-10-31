@@ -66,15 +66,7 @@ class SceneClass;
 class LandClass;
 class SimpleSceneClass;
 class DazzleLayerClass;
-// one line of the script (0x0C bytes; std::sort orders them by 0x7FFEA0)
-class ScriptedMovieLineClass	// NAME 1: neutral (D10) (a class: clienttest's gen_stubs declares pointer parameters' types as classes)
-{
-public:
-	ScriptedMovieLineClass(); ~ScriptedMovieLineClass(); void Unknown_7FFCB0(const char *text);	// 0x7FFC50: all zero; 0x7FFC70: the text freed; 0x7FFCB0: the text copied, upper case  // NAME 1 [text]: what the loader 0x8099B0 passes
-	unsigned int Frame;									// +0x00 (the movie's time it runs at)  // NAME 2: what the order compares
-	char *Text;											// +0x04: the command line  // NAME 2: what it holds
-	int Unknown08;										// +0x08 (the destructor clears it)
-};
+class ScriptedMovieLineClass;			// one line of the script (scriptedmovieline.h)
 // (the scripted movie's effects are eff_o.cpp's EffectObjectClass: scriptedmovie.cpp includes eff_o.h first)
 // a timed effect of the scripted movie (8 bytes, in a vector at +0x148)
 struct ScriptedMovieEffectStruct	// NAME 1: neutral (D10)
@@ -688,15 +680,6 @@ class SClientMovieCallbackClass;
 
 
 
-// the script line's parameters (0x7FFDC0 returns the next one, NULL at the end; its cursor at +0x08)
-class ScriptedMovieParamsClass	// NAME 1: neutral (D10)
-{
-public:
-	bool Unknown_7FFD30(const char *name);				// 0x7FFD30: the line starts with the command name (any case): past it and its comma  // NAME 1 [name]: what the dispatcher 0x803310 passes
-	char *Unknown_7FFDC0();								// 0x7FFDC0: the next comma-separated parameter, trimmed and unquoted; NULL at the end
-	char Unknown00[8];									// +0x00
-	char *Unknown08;									// +0x08: the cursor
-};
 class ScriptedMovieInterfaceClass	// NAME 1: neutral (D10)
 {
 public:
@@ -755,7 +738,7 @@ public:
 	void Unknown_8027C0();								// 0x8027C0 (G_ASSERTs 'CurrentCameraIndex < size' l.972, 973; 0x802960's key 0x22): the camera onto the next one of CameraList
 	void Unknown_801860();								// 0x801860 (G_ASSERT 'ScriptedCamera', l.548): the +0x120 scene's pass
 	void Unknown_8019A0();								// 0x8019A0 (G_ASSERT 'ScriptedCamera', l.589): the stars' pass
-	bool Unknown_804A70(ScriptedMovieParamsClass *params);	// 0x804A70 (G_ASSERTs 'StarsScene == NULL' / 'Stars == NULL', l.1598 / 1599): the star field (its system, 800, and polygon budget, 1000)  // NAME 1 [params]: neutral
+	bool Unknown_804A70(ScriptedMovieLineClass *params);	// 0x804A70 (G_ASSERTs 'StarsScene == NULL' / 'Stars == NULL', l.1598 / 1599): the star field (its system, 800, and polygon budget, 1000)  // NAME 1 [params]: neutral
 	void Unknown_801AE0(float znear, float zfar);		// 0x801AE0 (G_ASSERTs 'OrbitalScene' / 'ScriptedCamera', l.624 / 625; the render 0x8012C0): the orbital scene's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801C40(float znear, float zfar);		// 0x801C40 (G_ASSERTs 'ScriptedCamera' / 'BackgroundDazzleLayer', l.661 / 662): the background dazzle's pass  // NAME 2 [znear, zfar]: Set_Clip_Planes'
 	void Unknown_801D70(float *znear, float *zfar);		// 0x801D70 (G_ASSERTs 'ScriptedCamera' / 'OrbitalManager', l.702 / 703): the orbitals' clip planes for the camera's FOV (as the main view's 0x50CCF0)  // NAME 2 [znear, zfar]: the main view's
@@ -772,30 +755,30 @@ public:
 	bool Unknown_806AD0();								// 0x806AD0: +0x6E set
 	bool Unknown_809710();								// 0x809710: +0x7C cleared
 	bool Unknown_809730();								// 0x809730: +0x7C set
-	bool Attach_Camera(ScriptedMovieParamsClass *params);		// 0x8052E0 (FAIL_IF lines 1780 / 1789, G_ASSERTs 1787 / 1791): the camera onto a bone of the slot's mesh  // NAME 2: the user error's 'Attach_Camera'; NAME 1 [params]: neutral
-	bool Attach_To_Bone(ScriptedMovieParamsClass *params);		// 0x805810 (FAIL_IF lines 1881 / 1885 / 1913, G_ASSERTs 1905 / 1906): an object onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral
-	bool Attach_Light_To_Bone(ScriptedMovieParamsClass *params);	// 0x8059A0 (FAIL_IF lines 1923 / 1930 / 1954, G_ASSERTs 1926 / 1927 / 1947): a light onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral
-	bool Set_Light_Intensity(ScriptedMovieParamsClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
-	bool Set_Light_Far_Attenuation(ScriptedMovieParamsClass *params);	// 0x806280 (FAIL_IF lines 2130-2138)  // NAME 2: the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral
-	bool Set_Light_Ambient_Color(ScriptedMovieParamsClass *params);	// 0x806440 (FAIL_IF lines 2170-2186)  // NAME 2: the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral
-	bool Set_Light_Specular_Color(ScriptedMovieParamsClass *params);	// 0x806670 (FAIL_IF lines 2212-2228)  // NAME 2: the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral
-	bool Set_Light_Diffuse_Color(ScriptedMovieParamsClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
-	bool Set_Camera_View_Plane(ScriptedMovieParamsClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
-	bool Shake_Camera(ScriptedMovieParamsClass *params);		// 0x808220 (FAIL_IF lines 2905 / 2909, G_ASSERT 'CameraEffects' 2912)  // NAME 2: the user error's 'Shake_Camera'; NAME 1 [params]: neutral
-	bool Set_Ambient_Light(ScriptedMovieParamsClass *params);	// 0x808330 (FAIL_IF lines 2935-2946): the scene's ambient light, at once or faded over a time  // NAME 2: the user error's 'Set_Ambient_Light'; NAME 1 [params]: neutral
+	bool Attach_Camera(ScriptedMovieLineClass *params);		// 0x8052E0 (FAIL_IF lines 1780 / 1789, G_ASSERTs 1787 / 1791): the camera onto a bone of the slot's mesh  // NAME 2: the user error's 'Attach_Camera'; NAME 1 [params]: neutral
+	bool Attach_To_Bone(ScriptedMovieLineClass *params);		// 0x805810 (FAIL_IF lines 1881 / 1885 / 1913, G_ASSERTs 1905 / 1906): an object onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral
+	bool Attach_Light_To_Bone(ScriptedMovieLineClass *params);	// 0x8059A0 (FAIL_IF lines 1923 / 1930 / 1954, G_ASSERTs 1926 / 1927 / 1947): a light onto a bone of the host's mesh  // NAME 2: the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral
+	bool Set_Light_Intensity(ScriptedMovieLineClass *params);	// 0x806100 (FAIL_IF lines 2096-2104): Lights[slot]'s intensity  // NAME 2: the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral
+	bool Set_Light_Far_Attenuation(ScriptedMovieLineClass *params);	// 0x806280 (FAIL_IF lines 2130-2138)  // NAME 2: the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral
+	bool Set_Light_Ambient_Color(ScriptedMovieLineClass *params);	// 0x806440 (FAIL_IF lines 2170-2186)  // NAME 2: the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral
+	bool Set_Light_Specular_Color(ScriptedMovieLineClass *params);	// 0x806670 (FAIL_IF lines 2212-2228)  // NAME 2: the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral
+	bool Set_Light_Diffuse_Color(ScriptedMovieLineClass *params);	// 0x8068A0 (FAIL_IF lines 2254-2270)  // NAME 2: the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral
+	bool Set_Camera_View_Plane(ScriptedMovieLineClass *params);	// 0x806AF0 (FAIL_IF lines 2318 / 2323): the camera's view plane, in degrees  // NAME 2: the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral
+	bool Shake_Camera(ScriptedMovieLineClass *params);		// 0x808220 (FAIL_IF lines 2905 / 2909, G_ASSERT 'CameraEffects' 2912)  // NAME 2: the user error's 'Shake_Camera'; NAME 1 [params]: neutral
+	bool Set_Ambient_Light(ScriptedMovieLineClass *params);	// 0x808330 (FAIL_IF lines 2935-2946): the scene's ambient light, at once or faded over a time  // NAME 2: the user error's 'Set_Ambient_Light'; NAME 1 [params]: neutral
 	bool Unknown_808840();								// 0x808840 (FAIL_IF 'ScriptedScene == NULL', l.3045): the scene's fog off
-	bool Set_Screen_Fade_Color(ScriptedMovieParamsClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
-	bool Set_Screen_Fade_Opacity(ScriptedMovieParamsClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
-	bool Enable_Letterbox(ScriptedMovieParamsClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral
-	bool Set_Clip_Plane(ScriptedMovieParamsClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
-	bool Stop_Audio(ScriptedMovieParamsClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
-	bool Play_Animation(ScriptedMovieParamsClass *params);		// 0x805000 (FAIL_IF lines 1673 / 1682, G_ASSERT 1679): the slot's animation (loop, two numbers)  // NAME 2: the user error's 'Play_Animation'; NAME 1 [params]: neutral
-	bool Unknown_8051B0(ScriptedMovieParamsClass *params);		// 0x8051B0 (FAIL_IF lines 1731 / 1740, G_ASSERT 1737; its user errors say Play_Animation): the slot's animation, held  // NAME 1 [params]: neutral
-	bool Destroy_Object(ScriptedMovieParamsClass *params);		// 0x8046E0 (FAIL_IF line 1494, G_ASSERT 'mesh' 1501): the slot's object deleted  // NAME 2: the user error's 'Destroy_Object'; NAME 1 [params]: neutral
-	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
-	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
-	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieParamsClass *params); EffectObjectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieParamsClass *params); int Unknown_803180(RenderObjClass *robj, const char *bone_name); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieParamsClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieParamsClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieParamsClass *params); bool Set_Fog(ScriptedMovieParamsClass *params); bool Add_Camera(ScriptedMovieParamsClass *params); bool Create_Skybox(ScriptedMovieParamsClass *params); bool Create_Orbital(ScriptedMovieParamsClass *params); virtual int Unknown_0C(bool on); virtual void Unknown_10(); virtual void Unknown_14(); void Unknown_802420(); bool Play_Audio(ScriptedMovieParamsClass *params); bool Create_Object(ScriptedMovieParamsClass *params, bool ship); bool Create_Light(ScriptedMovieParamsClass *params, int type, bool from_bone); virtual int Unknown_54() { return((int)ScriptedCamera); } virtual CameraClass *Unknown_58() { return(ScriptedCamera); } virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieParamsClass *params); bool Add_Name_Decal(ScriptedMovieParamsClass *params); bool Add_Decal_To_Ship(ScriptedMovieParamsClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
+	bool Set_Screen_Fade_Color(ScriptedMovieLineClass *params);	// 0x808880 (FAIL_IF lines 3069-3081): the screen fade's colour over a time (0x7FFA30)  // NAME 2: the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral
+	bool Set_Screen_Fade_Opacity(ScriptedMovieLineClass *params);	// 0x808A00 (FAIL_IF lines 3107 / 3111): its opacity over a time (0x7FFBE0)  // NAME 2: the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral
+	bool Enable_Letterbox(ScriptedMovieLineClass *params, bool on);	// 0x808BB0 (FAIL_IF line 3167): the letterbox in or out over a time (0x7FF830)  // NAME 2: the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral
+	bool Set_Clip_Plane(ScriptedMovieLineClass *params);		// 0x808AD0 (FAIL_IF lines 3137 / 3141): the camera's clip planes  // NAME 2: the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral
+	bool Stop_Audio(ScriptedMovieLineClass *params);			// 0x807020 (FAIL_IF line 2435): the sound of that name stopped  // NAME 2: the user error's 'Stop_Audio'; NAME 1 [params]: neutral
+	bool Play_Animation(ScriptedMovieLineClass *params);		// 0x805000 (FAIL_IF lines 1673 / 1682, G_ASSERT 1679): the slot's animation (loop, two numbers)  // NAME 2: the user error's 'Play_Animation'; NAME 1 [params]: neutral
+	bool Unknown_8051B0(ScriptedMovieLineClass *params);		// 0x8051B0 (FAIL_IF lines 1731 / 1740, G_ASSERT 1737; its user errors say Play_Animation): the slot's animation, held  // NAME 1 [params]: neutral
+	bool Destroy_Object(ScriptedMovieLineClass *params);		// 0x8046E0 (FAIL_IF line 1494, G_ASSERT 'mesh' 1501): the slot's object deleted  // NAME 2: the user error's 'Destroy_Object'; NAME 1 [params]: neutral
+	bool Toggle_Engine_Trails(ScriptedMovieLineClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
+	bool Hide_Object(ScriptedMovieLineClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
+	bool Skip_Frames(ScriptedMovieLineClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
+	bool Turn_On_Damage_Particles(ScriptedMovieLineClass *params); bool Unknown_809600(ScriptedMovieLineClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Object(ScriptedMovieLineClass *params); EffectObjectClass *Unknown_8070C0(ClientClass *client, ScriptedMovieLineClass *params); int Unknown_803180(RenderObjClass *robj, const char *bone_name); int Unknown_802D80(RenderObjClass *model, const char *bone_name); bool Create_Special_Effect_Between_Objects(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Bones(ScriptedMovieLineClass *params); bool Create_Special_Effect_Between_Object_And_Bone(ScriptedMovieLineClass *params); bool Create_Special_Effect_On_Bone(ScriptedMovieLineClass *params); bool Set_Fog(ScriptedMovieLineClass *params); bool Add_Camera(ScriptedMovieLineClass *params); bool Create_Skybox(ScriptedMovieLineClass *params); bool Create_Orbital(ScriptedMovieLineClass *params); virtual int Unknown_0C(bool on); virtual void Unknown_10(); virtual void Unknown_14(); void Unknown_802420(); bool Play_Audio(ScriptedMovieLineClass *params); bool Create_Object(ScriptedMovieLineClass *params, bool ship); bool Create_Light(ScriptedMovieLineClass *params, int type, bool from_bone); virtual int Unknown_54() { return((int)ScriptedCamera); } virtual CameraClass *Unknown_58() { return(ScriptedCamera); } virtual SimpleSceneClass *Unknown_5C() { return(ScriptedScene); } void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieLineClass *params); bool Add_Name_Decal(ScriptedMovieLineClass *params); bool Add_Decal_To_Ship(ScriptedMovieLineClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
