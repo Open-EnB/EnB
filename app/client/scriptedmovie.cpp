@@ -387,9 +387,9 @@ public:
 };
 // decal.cpp's decal INIs at the view's +0x144 (sclient.h's SClientUnknown1334Class), as far as the shutdown deletes it
 class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); };	// 0x618A50
-// what the view's +0x68 points to (its first member's slot +0x38: the shutdown)
+// ViewerSettings' first member (its slot +0x38: the shutdown)
 class ScriptedMovieUnknown68Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); };	// NAME 1: neutral (D10)
-
+struct ScriptedMovieViewerSettingsStruct { ScriptedMovieUnknown68Class *Unknown00; Vector3 BackgroundColor; };	// what +0x68 points to (the render 0x8012C0 clears to +0x04)  // NAME 1: neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets
 
 
 
@@ -412,7 +412,7 @@ void ScriptedMovieViewClass::Unknown_10()
 {
 	ClientClass *client = Get_Client();
 	G_ASSERT(client);
-	(*Unknown68)->Unknown_38();
+	ViewerSettings->Unknown00->Unknown_38();
 	REF_PTR_RELEASE(ScriptedScene);
 	REF_PTR_RELEASE(ScriptedCamera);
 	REF_PTR_RELEASE(Stars);

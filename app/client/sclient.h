@@ -800,7 +800,7 @@ public:
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
 	std::vector<ScriptedMovieObjectStruct> Objects;		// +0x58: the script's objects by slot  // NAME 2: what it holds
-	class ScriptedMovieUnknown68Class **Unknown68;		// +0x68 (the shutdown 0x8010A0 calls its first member's slot +0x38)
+	struct ScriptedMovieViewerSettingsStruct *ViewerSettings;	// +0x68 (scriptedmovie.cpp declares it; the shutdown 0x8010A0 calls its first member's slot +0x38)  // NAME 3: the asserts' (0x8008B0, 0x8012C0)
 	bool Unknown6C;										// +0x6C
 	bool Unknown6D;										// +0x6D
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)

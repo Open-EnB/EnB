@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 987 |
+| 3 | by convention from a client-named file or sibling | 988 |
 | 2 | describes what the code does | 2413 |
-| 1 | neutral placeholder | 6011 |
+| 1 | neutral placeholder | 6010 |
 
 ## For review (score 3 and below)
 
@@ -2965,7 +2965,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_802D80` | `app/client/sclient.h:798` | untagged neutral name (D10) |
 | 1 | `Unknown_802420` | `app/client/sclient.h:798` | untagged neutral name (D10) |
 | 1 | `Unknown_8020B0` | `app/client/sclient.h:798` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieUnknown68Class` | `app/client/sclient.h:803` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/sclient.h:804` | untagged neutral name (D10) |
 | 1 | `Unknown6D` | `app/client/sclient.h:805` | untagged neutral name (D10) |
 | 1 | `Unknown6E` | `app/client/sclient.h:806` | untagged neutral name (D10) |
@@ -3244,7 +3243,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/scriptedmovie.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/scriptedmovie.cpp:415` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieViewerSettingsStruct` | `app/client/scriptedmovie.cpp:392` | neutral (D10); NAME 2 [BackgroundColor]: what Begin_Render gets |
+| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:392` | untagged neutral name (D10) |
 | 1 | `Unknown_745050` | `app/client/scriptedmovie.cpp:433` | untagged neutral name (D10) |
 | 1 | `Unknown140` | `app/client/scriptedmovie.cpp:435` | untagged neutral name (D10) |
 | 1 | `Unknown_801860` | `app/client/scriptedmovie.cpp:545` | untagged neutral name (D10) |
@@ -3270,7 +3270,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_802330` | `app/client/scriptedmovie.cpp:765` | untagged neutral name (D10) |
 | 1 | `Unknown_80EFF0` | `app/client/scriptedmovie.cpp:797` | untagged neutral name (D10) |
 | 1 | `Unknown_8020B0` | `app/client/scriptedmovie.cpp:800` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/scriptedmovie.cpp:804` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/scriptedmovie.cpp:805` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/scriptedmovie.cpp:807` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/scriptedmovie.cpp:833` | untagged neutral name (D10) |
@@ -8618,6 +8617,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ClientInterface` | `app/client/sclient.h:799` | the assert's |
 | 3 | `ScriptedCamera` | `app/client/sclient.h:800` | the asserts' 'ScriptedCamera' (0x802420, Attach_Camera) |
 | 3 | `ScriptedScene` | `app/client/sclient.h:801` | the FAIL_IF's |
+| 3 | `ScriptedMovieViewerSettingsStruct` | `app/client/sclient.h:803` | the asserts' (0x8008B0, 0x8012C0) |
 | 3 | `CurrentCameraIndex` | `app/client/sclient.h:811` | the asserts' |
 | 3 | `MAX_LIGHTS_PER_SCENE` | `app/client/sclient.h:814` | the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene') |
 | 3 | `Lights` | `app/client/sclient.h:815` | the FAIL_IFs' 'Lights[lightslot]' |
