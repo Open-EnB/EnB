@@ -8,7 +8,7 @@
 #include "..\shared\unknown_debug.h"
 
 // 0x45FDA0
-// NOT EXACT: functional from the pseudocode; similarity 0.49
+// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440); the rest of the body follows the client
 RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -31,7 +31,7 @@ RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 }
 
 // 0x45FFB0
-// NOT EXACT: functional from the pseudocode; similarity 0.53
+// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440)
 RsTrackClass::RsTrackClass(RenderStateListClass *list, float scale, float *hsv) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -182,7 +182,7 @@ RenderObjClass *RsTrackClass::Unknown_460410()
 
 
 // 0x460440
-// NOT EXACT: functional from the pseudocode; similarity 0.52
+// NOT EXACT: shape and inline budget: the client never inlines it into its five callers, ours always does (16 forms, attempts.csv)
 void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 {
 	if (depth < 0) {
@@ -226,7 +226,7 @@ void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 
 
 // 0x4604D0
-// NOT EXACT: functional from the pseudocode; similarity 0.34
+// NOT EXACT: inline budget: inlines 0x460440 where the client calls it
 void RsTrackClass::Unknown_4604D0(int render_state_id)
 {
 	if (render_state_id == -1) {
@@ -256,7 +256,7 @@ void RsTrackClass::Unknown_4605A0(int render_state_id, int arg)
 }
 
 // 0x4605E0
-// NOT EXACT: functional from the pseudocode; similarity 0.39
+// NOT EXACT: inline budget: inlines 0x460440 where the client calls it
 void RsTrackClass::Unknown_4605E0(int render_state_id, int arg)
 {
 	if (render_state_id != -1) {
@@ -328,7 +328,7 @@ void RsTrackClass::Unknown_460850(int render_state_id)
 }
 
 // 0x460880
-// NOT EXACT: functional from the pseudocode; similarity 0.46
+// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (0x460710 inlines one level in both)
 void RsTrackClass::Unknown_460880(int render_state_id, int link_id)
 {
 	RenderStateClass *state = RenderStateList.Unknown_45A750(render_state_id);
@@ -346,7 +346,7 @@ void RsTrackClass::Unknown_460880(int render_state_id, int link_id)
 }
 
 // 0x460940
-// NOT EXACT: functional from the pseudocode; similarity 0.79
+// NOT EXACT: order-only (0.79): the client stores Current before loading Head
 void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 {
 	Unknown_460260(robj);
@@ -401,7 +401,7 @@ void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 
 
 // 0x4609C0
-// NOT EXACT: functional from the pseudocode; similarity 0.50
+// NOT EXACT: shape (0.45): merged or split tail around the strtok loop
 bool RsTrackClass::Unknown_1D0(int arg, const char *bone_path, RenderObjClass *obj, int arg2)
 {
 	bool result = false;
@@ -507,7 +507,7 @@ RsTrackClass::~RsTrackClass()
 }
 
 // 0x460E80
-// NOT EXACT: functional from the pseudocode; similarity 0.67
+// NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx
 bool RsTrackClass::Unknown_1C8()
 {
 	RenderObjClass *robj = Peek_Render_Object();
@@ -1055,7 +1055,7 @@ bool RsTrackClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, Inter
 
 
 // 0x461D60
-// NOT EXACT: functional from the pseudocode; similarity 0.60
+// NOT EXACT: shape (0.71): robj's register; the client hoists robj's vtable load in the strtok loop
 int RsTrackClass::Unknown_461D60(RenderObjClass *obj, const char *bone_path)
 {
 	if (obj != NULL && obj->Get_Container() != NULL) {

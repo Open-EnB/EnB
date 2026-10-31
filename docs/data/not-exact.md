@@ -317,16 +317,16 @@ edit the comments in the code, not this file.
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/px_wrapper.cpp:269` | `PxWrapper::Update` | marker | NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60) |
-| `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: functional from the pseudocode; similarity 0.49 |
-| `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: functional from the pseudocode; similarity 0.53 |
-| `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: functional from the pseudocode; similarity 0.52 |
-| `app/shared/rs_track.cpp:229` | `RsTrackClass::Unknown_4604D0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.34 |
-| `app/shared/rs_track.cpp:259` | `RsTrackClass::Unknown_4605E0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.39 |
-| `app/shared/rs_track.cpp:331` | `RsTrackClass::Unknown_460880` | marker | NOT EXACT: functional from the pseudocode; similarity 0.46 |
-| `app/shared/rs_track.cpp:349` | `RsTrackClass::Unknown_1CC` | marker | NOT EXACT: functional from the pseudocode; similarity 0.79 |
-| `app/shared/rs_track.cpp:404` | `RsTrackClass::Unknown_1D0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.50 |
-| `app/shared/rs_track.cpp:510` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: functional from the pseudocode; similarity 0.67 |
-| `app/shared/rs_track.cpp:1058` | `RsTrackClass::Unknown_461D60` | marker | NOT EXACT: functional from the pseudocode; similarity 0.60 |
+| `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440); the rest of the body follows the client |
+| `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440) |
+| `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: shape and inline budget: the client never inlines it into its five callers, ours always does (16 forms, attempts.csv) |
+| `app/shared/rs_track.cpp:229` | `RsTrackClass::Unknown_4604D0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
+| `app/shared/rs_track.cpp:259` | `RsTrackClass::Unknown_4605E0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
+| `app/shared/rs_track.cpp:331` | `RsTrackClass::Unknown_460880` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (0x460710 inlines one level in both) |
+| `app/shared/rs_track.cpp:349` | `RsTrackClass::Unknown_1CC` | marker | NOT EXACT: order-only (0.79): the client stores Current before loading Head |
+| `app/shared/rs_track.cpp:404` | `RsTrackClass::Unknown_1D0` | marker | NOT EXACT: shape (0.45): merged or split tail around the strtok loop |
+| `app/shared/rs_track.cpp:510` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
+| `app/shared/rs_track.cpp:1058` | `RsTrackClass::Unknown_461D60` | marker | NOT EXACT: shape (0.71): robj's register; the client hoists robj's vtable load in the strtok loop |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
