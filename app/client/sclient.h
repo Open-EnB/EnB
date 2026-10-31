@@ -398,13 +398,16 @@ public:
 	CameraEffectsClass(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
 	virtual ~CameraEffectsClass();					// +0x00 (deleting; the main view's Shutdown 0x50C2F0)
 	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_10(class UnknownAFFE6CClass *effect);	// +0x10 (each effect registers itself: cameraeffects.cpp's 0x6E37F0)  // NAME 1 [effect]: neutral
+	virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30();
 	virtual void Unknown_34();							// +0x34 (the main view's slot +0x14)
 	void Unknown_6E32E0(int type, float amount, float time);	// 0x6E32E0 (the scripted movie's Shake_Camera passes 3)  // NAME 1 [type, amount, time]: what Shake_Camera passes
 
-	char Unknown04[0x18 - 0x04];
+	char Unknown04[0x10 - 0x04];
+	SClient *Client;									// +0x10 (the constructor's client; 0x6E37F0 reads its ship's shield)  // NAME 2: what it holds
+	char Unknown14[0x18 - 0x14];
 	Vector3 Unknown18;									// +0x18 (cameraeffects.cpp's effects add to it: 0x6E3710, 0x6E3B60)
 	bool Unknown24;										// +0x24 (the same set it when they add; the constructor 0x6E2BD0 clears it)
 };
