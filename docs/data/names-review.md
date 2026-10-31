@@ -10532,12 +10532,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Child_ID` | `app/packets/pkcreateattachment.h:34` | the client's Print text 'Child_ID=' |
 | 3 | `CreateCharacterPacketClass` | `app/packets/pkcreatecharacter.h:23` | the client's Print text 'Create Character' (opcode 0x0048) |
 | 3 | `CTA_Request_PacketClass` | `app/packets/pkcta_request.h:21` | the client's Print text 'CTA_Request_Packet {' and the PacketClass convention |
-| 3 | `AvatarID` | `app/packets/pkcta_request.h:31` | the client's Print text 'AvatarID=' |
-| 3 | `TargetID` | `app/packets/pkcta_request.h:32` | the client's Print text 'TargetID=' |
-| 3 | `RequestType` | `app/packets/pkcta_request.h:33` | the client's Print text 'RequestType=' |
-| 3 | `AvatarID` | `app/packets/pkcta_request.h:48` | the client's Print text 'AvatarID=' |
-| 3 | `RequestType` | `app/packets/pkcta_request.h:49` | the client's Print text 'RequestType=' |
-| 3 | `Success` | `app/packets/pkcta_request.h:50` | the client's Print text 'Success=' |
+| 3 | `AvatarID` | `app/packets/pkcta_request.h:32` | the client's Print text 'AvatarID=' |
+| 3 | `TargetID` | `app/packets/pkcta_request.h:33` | the client's Print text 'TargetID=' |
+| 3 | `RequestType` | `app/packets/pkcta_request.h:34` | the client's Print text 'RequestType=' |
+| 3 | `AvatarID` | `app/packets/pkcta_request.h:49` | the client's Print text 'AvatarID=' |
+| 3 | `RequestType` | `app/packets/pkcta_request.h:50` | the client's Print text 'RequestType=' |
+| 3 | `Success` | `app/packets/pkcta_request.h:51` | the client's Print text 'Success=' |
 | 3 | `Damage` | `app/packets/pkdamage.h:32` | the client's Print text 'Damage=' |
 | 3 | `Modifer` | `app/packets/pkdamage.h:33` | the client's Print text 'Modifer=' |
 | 3 | `Type` | `app/packets/pkdamage.h:34` | the client's Print text 'Type=' |
