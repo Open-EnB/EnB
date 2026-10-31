@@ -983,14 +983,12 @@ Vector2 AvatarDescClass::Get_Pants_Secondary_Offset()
 	return(result);
 }
 
-// NOT EXACT: order (the client's offsets and weights interleave differently; nine forms tried: attempts.py show 0x4C2360)
 // 0x4C2360
 void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
 {
 	char section[64];
 	TPoint3D<float> color;
-	TPoint3D<float> offset;
-	Vector2 uv;
+	TPoint2D<float> uv;
 
 	_snprintf(section, sizeof(section), "%s%s%s", AvatarGenderNames[Gender], AvatarRaceNames[Race], AvatarProfessionNames[Profession]);
 	if (AvatarDefinitions.Find_Section(section) != NULL) {
@@ -1041,41 +1039,27 @@ void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
 		AvatarDefinitions.Put_Int(section, "ShirtSecondaryMetal", Shirt_Secondary_Metal);
 		AvatarDefinitions.Put_Int(section, "PantsPrimaryMetal", Pants_Primary_Metal);
 		AvatarDefinitions.Put_Int(section, "PantsSecondaryMetal", Pants_Secondary_Metal);
-		uv.Set(offsets[0].X, 1.0 - offsets[0].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "HairOffset", offset);
-		uv.Set(offsets[1].X, 1.0 - offsets[1].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "EyeOffset", offset);
-		uv.Set(offsets[2].X, 1.0 - offsets[2].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "SkinOffset", offset);
-		uv.Set(offsets[3].X, 1.0 - offsets[3].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "ShirtPrimaryOffset", offset);
-		uv.Set(offsets[4].X, 1.0 - offsets[4].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "ShirtSecondaryOffset", offset);
-		uv.Set(offsets[5].X, 1.0 - offsets[5].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "PantsPrimaryOffset", offset);
-		uv.Set(offsets[6].X, 1.0 - offsets[6].Y);
-		offset.X = uv.X;
-		offset.Y = uv.Y;
-		offset.Z = 0.0F;
-		AvatarDefinitions.Put_Point(section, "PantsSecondaryOffset", offset);
+		uv.X = offsets[0].X;
+		uv.Y = 1.0 - offsets[0].Y;
+		AvatarDefinitions.Put_Point(section, "HairOffset", TPoint3D<float>(uv));
+		uv.X = offsets[1].X;
+		uv.Y = 1.0 - offsets[1].Y;
+		AvatarDefinitions.Put_Point(section, "EyeOffset", TPoint3D<float>(uv));
+		uv.X = offsets[2].X;
+		uv.Y = 1.0 - offsets[2].Y;
+		AvatarDefinitions.Put_Point(section, "SkinOffset", TPoint3D<float>(uv));
+		uv.X = offsets[3].X;
+		uv.Y = 1.0 - offsets[3].Y;
+		AvatarDefinitions.Put_Point(section, "ShirtPrimaryOffset", TPoint3D<float>(uv));
+		uv.X = offsets[4].X;
+		uv.Y = 1.0 - offsets[4].Y;
+		AvatarDefinitions.Put_Point(section, "ShirtSecondaryOffset", TPoint3D<float>(uv));
+		uv.X = offsets[5].X;
+		uv.Y = 1.0 - offsets[5].Y;
+		AvatarDefinitions.Put_Point(section, "PantsPrimaryOffset", TPoint3D<float>(uv));
+		uv.X = offsets[6].X;
+		uv.Y = 1.0 - offsets[6].Y;
+		AvatarDefinitions.Put_Point(section, "PantsSecondaryOffset", TPoint3D<float>(uv));
 		AvatarDefinitions.Put_String(section, "Skeleton", Skeleton.c_str());
 		AvatarDefinitions.Put_Float(section, "BodyWeight0", Body_Weight[0]);
 		AvatarDefinitions.Put_Float(section, "BodyWeight1", Body_Weight[1]);
