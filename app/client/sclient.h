@@ -795,7 +795,7 @@ public:
 	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user error's 'Turn_On_Damage_Particles'; NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
+	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal); bool Change_Ship_Color(ScriptedMovieParamsClass *params); bool Add_Name_Decal(ScriptedMovieParamsClass *params); bool Add_Decal_To_Ship(ScriptedMovieParamsClass *params);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
@@ -825,7 +825,7 @@ public:
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
 	char Unknown138[0x13C - 0x138];						// +0x138
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
-	char Unknown140[0x148 - 0x140];						// +0x140
+	SClientUnknown1338Class *Unknown140; SClientUnknown1334Class *DecalMaterialManager;	// +0x140 (0x8020B0 hands it to shiputils.cpp's 0x80EFF0), +0x144 (Add_Decal_To_Ship hands it to 0x80E8C0)  // NAME 3 [DecalMaterialManager]: the assert's (0x8093D0)
 	std::vector<ScriptedMovieEffectStruct> Effects;		// +0x148: the timed effects  // NAME 2: what it holds
 	char Unknown158[0x164 - 0x158];						// +0x158
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)

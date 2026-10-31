@@ -3183,51 +3183,51 @@ bool ScriptedMovieViewClass::Enable_Letterbox(ScriptedMovieParamsClass *params, 
 
 
 
+// 0x808C30: the slot's ship in two colours (0x8020B0, no metal)
+bool ScriptedMovieViewClass::Change_Ship_Color(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			Vector3 primary;
+			Vector3 secondary;
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need red") {return(false);}
+			primary.X = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need green") {return(false);}
+			primary.Y = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need blue") {return(false);}
+			primary.Z = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need red") {return(false);}
+			secondary.X = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need green") {return(false);}
+			secondary.Y = atof(param);
+			param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			FAIL_IF((param == NULL) && "User error: Change_Ship_Color: Need blue") {return(false);}
+			secondary.Z = atof(param);
+			Unknown_8020B0((*itor).Mesh->Unknown_5E26D0(), primary, secondary, -1);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -3341,19 +3341,49 @@ bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieParamsClass *
 
 
 
+void Unknown_80FF20(RenderObjClass *model, const char *name, float *rgb);	// 0x80FF20 (shiputils.cpp; cpacket.cpp declares it so)
 
+// 0x8091B0: a name decal on the slot's ship, in a colour
+bool ScriptedMovieViewClass::Add_Name_Decal(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Add_Name_Decal: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			const char *name = params->Unknown_7FFDC0();
 
+			FAIL_IF((name == NULL) && "User error: Add_Name_Decal: Need a name") {return(false);}
+			float rgb[3];
+			param = params->Unknown_7FFDC0();
 
 
+			FAIL_IF((param == NULL) && "User error: Add_Name_Decal: Need red") {return(false);}
+			rgb[0] = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Add_Name_Decal: Need green") {return(false);}
+			rgb[1] = atof(param);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Add_Name_Decal: Need blue") {return(false);}
+			rgb[2] = atof(param);
+			Unknown_80FF20((*itor).Mesh->Unknown1C, name, rgb);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
+#include "..\packets\pknamedecal.h"
+void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0 (shiputils.cpp; cpacket.cpp declares it so)
 
 
 
@@ -3365,66 +3395,36 @@ bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieParamsClass *
 
 
 
+// 0x8093D0: decal number on the slot's ship, in both of its places (1 and 2), white
+bool ScriptedMovieViewClass::Add_Decal_To_Ship(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Add_Decal_To_Ship: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			param = params->Unknown_7FFDC0();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			FAIL_IF((param == NULL) && "User error: Add_Decal_To_Ship: Need decal number") {return(false);}
+			int number = atoi(param);
+			G_ASSERT(DecalMaterialManager);
+			std::vector<DecalStruct> decals;
+			DecalStruct decal;
+			decal.Unknown00 = 1; decal.Unknown04 = number; decal.Unknown08.Set(1.0f, 1.0f, 1.0f, 1.0f);
+			decals.push_back(decal);
+			decal.Unknown00 = 2; decal.Unknown04 = number; decal.Unknown08.Set(1.0f, 1.0f, 1.0f, 1.0f);
+			decals.push_back(decal);
+			Unknown_80E8C0((*itor).Mesh->Unknown1C, decals, DecalMaterialManager);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
