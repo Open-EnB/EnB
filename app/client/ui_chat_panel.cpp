@@ -2463,8 +2463,19 @@ void UIChatPanelClass::Unknown_56C7B0(const UIChatF8EventClass &event, Interface
 ** control keys, +0x7C 0x563620; +0x88 / +0x8C / +0x98 the base's, +0x90 / +0x94 / +0x9C the base's inline defaults
 ** (0x5623B0 / 0x5623D0 / 0x5623F0, emitted with this file's table).
 **
-** The asserts sit on the client's lines (D25); the functions not written yet leave their lines blank. docs/data/
-** asserts.txt files the strings 0xB7CB6C-0xB7CD30 (if_chat*.tga, fa_tsi05b.ini, TextClick03.wav,
-** SR_scifielectronic42.wav, the NUM_COMBO assert) under ui_buff.cpp: they are this file's (0x5629FC reads
-** fa_tsi05b.ini; the NUM_COMBO assert passes this file's __FILE__).
+** The asserts sit on the client's lines (D25); the functions not written yet (the constructor, destructor, slot
+** +0x54, 0x5646A0, 0x5689D0, 0x569A00, 0x56C7E0) leave their lines blank. docs/data/asserts.txt files the strings
+** 0xB7CB6C-0xB7CD30 (if_chat*.tga, fa_tsi05b.ini, TextClick03.wav, SR_scifielectronic42.wav, the NUM_COMBO assert)
+** under ui_buff.cpp: they are this file's (0x5629FC reads fa_tsi05b.ini; the NUM_COMBO assert passes this file's
+** __FILE__).
+**
+** Handlers: the chat window's and the +0xF8 window's events are routed through intrface.cpp's dispatcher (0x540A20
+** returns a function-local static); its member templates (0x56CE40 / 0x56CEC0 remove, 0x4F9740 adds a 0x10-byte
+** handler object, 0x56D0F0) are declared here as plain members, which compile to the same calls. The handler's last
+** argument is a sample of the event type: a zeroed UIChatIntEventClass, an empty UIChatF8EventClass.
+**
+** Levers that made functions exact: inline accessors for the font owner (+0x84) and the gadget's +0x30 (0x563DC0,
+** 0x56BAA0, 0x562F50), a local for View (0x562F50), the branch order that gives the client's EH states (0x563910,
+** 0x566AF0's tail test), the table walked by index (0x565120), #pragma auto_inline(off) on 0x5685C0 and 0x56C0C0
+** (the client calls them out of line everywhere), and case 5's test written on +0x10C itself (0x565F80).
 */
