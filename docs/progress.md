@@ -37,7 +37,7 @@ Coordinator Opus 5.5, one to three Opus builders at a time (pacing to the user's
   scanning with push protection (github-plan.md §4.5.7). The Claims Action refused a fourth maintainer claim while
   the user's org membership was private (the token saw no MEMBER); the user made it public and later claims passed.
 * **Decisions:** D163 (P-API-1, the API credits: pilot builder, then a Batch API triage; first item of the next
-  session). Open for the user (§3): P-SM2-1 (FAIL_IF's form). P-MU1-1 accepted 2026-10-31 as D164
+  session). P-SM2-1 accepted 2026-10-31 as D165 (FAIL_IF's form). P-MU1-1 accepted 2026-10-31 as D164
   (explicit instantiations for out-of-line template copies).
 * **For the user to confirm:** 0x584C80 (CP1's 7f6f84e5 credited it to ui_cpit, 9d9b074c unattributed it: our
   Create_Get<FontStyleClass> is byte-identical to the client's Create_NEW there). Not in master's baseline, so nothing
@@ -1513,15 +1513,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D162 | 2026-10-30 | P-CSC-3: a functional CSC becomes a milestone once the client's character-creation screens run on the tree; not before ([CSC.md](CSC.md) §6.2) | user |
 | D163 | 2026-10-30 | P-API-1: the user's $200 of Anthropic API credits go to (1) a pilot builder run in Claude Code on a separate API key (spend limit set in the Console; the coordinator stays on the subscription; model and tokens logged in the plan beside subscription runs, for the cost per pair gained), then (2) a one-off Batch API triage of the not-yet-exact functions' saved pseudocode (`.work/pseudo/`) with a cheap model: STL / template instance, Westwood library or E&B code, and the class or file its callers suggest; hints for planning only, never names (D56), objmatch / verify decide; (3) the rest as overflow builder capacity (work the weekly window turns away, the D89 Fable queue). Next session (2026-10-31 morning) | user |
 | D164 | 2026-10-31 | P-MU1-1: explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) are an accepted matching form for emitting the client's out-of-line template copies (first: ui_manu's 0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), each marked in the source as not the client's form (like aux_roots' SYMBOL_PAD); callers stay unchanged | user |
+| D165 | 2026-10-31 | P-SM2-1: FAIL_IF in app/shared/unknown_debug.h becomes `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))` (the app-wide trial: +6, scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690; -3, client_lego_impl 0x72D5F0, co 0x6FFFF0, sclient 0x750260). A builder fixes the three losses in their own files first; the macro changes in the commit that loses nothing | user |
 
 ## 3. Open decisions
-
-* **P-SM2-1** (2026-10-31, SM2; recommend yes, after the three fixes): FAIL_IF in app/shared/unknown_debug.h written as
-  `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))`. Tried app-wide and reverted: +6
-  (scriptedmovie's dispatcher 0x803310 exact, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690),
-  -3 (LegoBoneMapClass ctor 0x72D5F0, which flips with its file's state; co 0x6FFFF0, which then inlines more than the
-  client; sclient 0x750260). Six gains in unrelated files are the evidence the client's macro has this form. Adopt
-  once a builder fixes the three in their own files (losses wait for the user, D66)?
 
 * **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
   template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
