@@ -129848,10 +129848,10 @@
 },
 {
 "address": "0xB006F4",
-"symbol": "??_7MultiFixedPoolDecalSystemClass@@6B@",
-"name": "??_7MultiFixedPoolDecalSystemClass@@6B@",
+"symbol": "??_7ClientObjectClass@@6BMultiFixedPoolDecalSystemClass@@@",
+"name": "??_7ClientObjectClass@@6BMultiFixedPoolDecalSystemClass@@@",
 "kind": "vtable",
-"source": "vtable"
+"source": "named"
 },
 {
 "address": "0xB00A00",

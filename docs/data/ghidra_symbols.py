@@ -16774,7 +16774,7 @@ SYMBOLS = [
     (0x00B00528, '___7__DynamicVectorClass_VTangentsClass_HermiteSpline3DClass____6B_', 'vtable'),
     (0x00B00544, '___7__VectorClass_VTangentsClass_HermiteSpline3DClass____6B_', 'vtable'),
     (0x00B005AC, '___7LinearCurve3DClass__6B_', 'vtable'),
-    (0x00B006F4, '___7MultiFixedPoolDecalSystemClass__6B_', 'vtable'),
+    (0x00B006F4, '___7ClientObjectClass__6BMultiFixedPoolDecalSystemClass___', 'vtable'),
     (0x00B00A00, '___7__DeltaTemplateClass_UUnknownB016DCType____6B_', 'vtable'),
     (0x00B00D8C, '___7__DeltaTemplateClass__N__6B_', 'vtable'),
     (0x00B016DC, '___7__DeltaTemplateClass_UUnknownB00A00Type____6B_', 'vtable'),
