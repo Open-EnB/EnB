@@ -2714,22 +2714,21 @@ void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 	}
 }
 
-// NOT EXACT: shape (119 masked rows, 54 with registers masked; the client's frame since the Vector3 best / h / s; attempts.csv 0x473780)
+// NOT EXACT: shape (28 masked rows: the outer loop's set-up order and the left / right updates' scheduling, as 0x473BC0; attempts.csv 0x473780)
 void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	unsigned short *heights = Field->Get_Heights();
-	unsigned int next = row + 1;
 	float diagonal = scale * 0.70710677f;
-	unsigned int row1 = (next & Field->Get_Mask()) << Field->Get_Log2();
+	unsigned short *heights = Field->Get_Heights();
+	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
 		Vector3 best(0.05f, 0.05f, 0.05f);
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
-		unsigned int y = next;
+		unsigned int y = row + 1;
 		unsigned int offset = row1;
 		unsigned int right = i1;
 		unsigned int left = i;
@@ -2768,7 +2767,7 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 	}
 }
 
-// NOT EXACT: shape (26 masked rows: the outer loop's set-up order and the left index's register; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0)
+// NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0)
 void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
@@ -2780,12 +2779,12 @@ void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[i1 + row0] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
 		Vector3 best(0.05f, 0.05f, 0.05f);
+		unsigned int right = i1;
+		unsigned int y = row;
+		unsigned int left = i;
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
-		unsigned int y = row;
 		unsigned int offset = row0;
-		unsigned int right = i1;
-		unsigned int left = i;
 		for (int k = 0; k < 12; k++) {
 			Vector3 h;
 			h.X = heights[(left & Field->Get_Mask()) + offset];
