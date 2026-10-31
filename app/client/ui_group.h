@@ -127,6 +127,8 @@ public:
 	std::vector<UIGroupMemberClass *>::iterator Remove_Member(const std::vector<UIGroupMemberClass *>::iterator &it);	// 0x596560 (FAIL_IF 'it == Members.end()' 1198)  // NAME 2: what it does; NAME 3 [it]: the FAIL_IF's
 	int Unknown_596040(int id);					// 0x596040: the index of the member with that ID, else -1  // NAME 1 [id]: what it compares
 	void Unknown_597000(bool on);						// 0x597000: each member's four gadgets' slot +0x40  // NAME 1 [on]: neutral
+	int Unknown_597200(RefCountPtr<RenderObjClass> model);	// 0x597200: the sort level of the model's 'main' sub-object, else 0  // NAME 1 [model]: neutral
+	void Unknown_597310(RefCountPtr<RenderObjClass> model, bool raise);	// 0x597310: the hull / shield bars sorted 2 / 1 above or below the model's 'main'  // NAME 1 [model, raise]: neutral
 	void Unknown_5975D0();								// 0x5975D0: the leave / disband question ('GROUP_LEAVE')
 	bool Unknown_5979A0();								// 0x5979A0: GroupInfo.FormationName is set
 	bool Unknown_597A60();								// 0x597A60: GroupInfo.Formation is not 0
