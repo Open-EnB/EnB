@@ -30,6 +30,10 @@ public:
 	virtual ~LandUnknown466BE0Class(void);
 	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown; empty
 	void							Unknown_466F60(RenderInfoClass &rinfo);	// NAME 1: unknown; called first by Render 0x474B30
+	void							Create_Displacement_Map(void);	// NAME 2: CreateTexture into +0x30 (0x4676D0; inlined in the ctor)
+	void							Create_Height_Texture(void);	// NAME 2: D3DXCreateTexture into +0x34 (0x467710; inlined in the ctor)
+	void							Release_Displacement_Map(void);	// NAME 2: (0x467750; inlined in the dtor)
+	void							Release_Height_Texture(void);	// NAME 2: (0x467780; inlined in the dtor)
 	void							Read_Registry(void);	// NAME 2: reads the DMap key's four values (0x468120)
 	void							Unknown_4677B0(HeightFieldClass *field);	// NAME 1: unknown; the height field into the L8 texture (+0x34)
 	void							Unknown_467910(void);	// NAME 1: unknown; the L8 texture's levels into the displacement map (+0x30)

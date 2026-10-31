@@ -22,7 +22,8 @@ format 0xB71A6C, its assert 'item' in ..\\shared/auxdata/delta_array.h line 71).
 Leaf types by vtable: string DeltaStringClass, float/int/bool/time/money DeltaTemplateClass<T>
 (T = float, int, bool, DurationClass, MoneyClass), 0xAEAE54 DeltaInterpolatorClass; every other
 leaf vtable gets a value type of its own (enum: `Unknown<VT>Enum`; 12-byte colour, 12/16/20-byte
-blobs: `Unknown<VT>Type`) with the conversions KVPairTemplateClass needs.
+blobs: `Unknown<VT>Type`; the client's name where its KVPair's Get_Type_Name gives one, CLIENT_TYPES)
+with the conversions KVPairTemplateClass needs.
 
 The output is functional, NOT EXACT (D42): default values (the client's 'Default' strings,
 the 20-byte blobs' {1.0f, 0, 0, -1, 0}) are not extracted (ARRAY_VALUES has the 1.0f arrays'),
@@ -99,11 +100,68 @@ BLOB_FORMS = {
                'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
     0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)',
                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
-               'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; }'),
+               'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } '
+               'NAME &operator=(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; }'),
     0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
                'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
+}
+# The client's KVPair conversions of a blob type, where known (the rest compare with memcmp and print
+# hex, functional only): vtable -> (type name, comparison, Value_To_String body, String_To_Value body).
+# 0xB01A40: the KVPair's vtable 0xB01D00 (its destructor 0x7095B0): Get_Type_Name 0x708C60 returns
+# 'ProjectedDecalClass', Get_Value_String 0x708C80 sprintf's '%f,%f,%f,%d,%f' (the size unused),
+# Is_Changed 0x708CF0 the fields' == negated, Update_Saved 0x708D80 a field-by-field copy (operator=).
+# Is_Changed is exact with a separate operator== and `!(a == b)`, but that form leaves no SYMBOL_PAD
+# window for the six constructors (AR1 2026-10-31: 5/6 at best); the one-expression != keeps pad 15.
+# The value types' client names (NAME 5), by leaf vtable: the string their KVPair's Get_Type_Name
+# (slot +0x08) returns, inline (`mov eax, str`) or through an out-of-line Type_Name(value) of another
+# file. Leaf vtable -> (name, KVPair vtable, Get_Type_Name, the string's source). The KVPairs of
+# 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C return 'int' inline (0x708690, 0x708800, 0x708970,
+# 0x708AE0): their types keep neutral names, Type_Name 'int' (INT_NAMED).
+CLIENT_TYPES = {
+    0xB01844: ('EffectGeneratorUsageBF', 0xB0194C, 0x707BA0, 'Type_Name 0x835370'),
+    0xB0189C: ('TargetGeneratorSummaryBF', 0xB01984, 0x707D10, 'Type_Name 0x84BE40'),
+    0xB018F4: ('GameActionValidityBitFlag', 0xB019BC, 0x707E80, 'Type_Name 0x83D270'),
+    0xB017EC: ('ItemStateEnum', 0xB019F4, 0x707FF0, 'inline'),
+    0xB00A58: ('GuildRankType', 0xB01AF4, 0x708240, 'Type_Name 0x83D8B0'),
+    0xB009A8: ('InterruptStateType', 0xB01B40, 0x7083B0, 'inline'),
+    0xB0100C: ('WW3DLightAttenuationType', 0xB01B78, 0x708520, 'inline'),
+    0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
+}
+INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133C: 0x708AE0}
+# The enums' conversions the client calls out of line (other files' functions, not rebuilt; stand-ins in
+# stubs/app_stubs.cpp): leaf vtable -> (Type_Name(value) or None when inline, String_To_Value,
+# Value_To_String), from the KVPair's slots +0x08 (Get_Type_Name), +0x10 (Set_Value_String 0x709680..)
+# and +0x0C (Get_Value_String). An out-of-line Type_Name takes the saved value (`push [ecx+0x10]`):
+# the KVPair's Get_Type_Name is specialised to pass it, as shipcust_desc.h does for ProfessionType.
+ENUM_EXTERN = {
+    0xB01844: (0x835370, 0x835390, 0x835590),
+    0xB0189C: (0x84BE40, 0x84BE60, 0x84C060),
+    0xB018F4: (0x83D270, 0x83D290, 0x83D490),
+    0xB017EC: (None, 0x842930, 0x842970),
+    0xB00A58: (0x83D8B0, 0x83D7D0, 0x83D860),
+    0xB009A8: (None, 0x83DA80, 0x83D9E0),
+    0xB0100C: (None, 0x82F180, 0x82F1D0),
+    0xB0122C: (None, 0x8456C0, 0x845780),
+    0xB013EC: (None, 0x8458C0, 0x845910),
+    0xB01394: (None, 0x846040, 0x846090),
+    0xB0133C: (None, 0x846110, 0x846160),
+}
+# A blob's operator!= where the client's Set_Value shows it (the rest memcmp): the colour 0xB00A00's
+# accessor Set 0x7080C0 compares the three fields as dwords (cmp/jne, no FPU), the delta's first.
+BLOB_NE = {
+    0xB00A00: 'inline bool operator!=(const NAME &a, const NAME &b) { return *(const int *)&a.R != *(const int *)&b.R || '
+              '*(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }',
+}
+BLOB_CONV = {
+    0xB01A40: ('ProjectedDecalClass',
+               'inline bool operator!=(const NAME &a, const NAME &b) '
+               '{ return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }',
+               '{ sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.I0C, value.F10); return buf; }',
+               # Set_Value_String 0x709A90: sscanf into a default-constructed local, true on five fields
+               '{ return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->I0C, '
+               '&value->F10) == 5; }'),
 }
 
 
@@ -207,11 +265,11 @@ class Gen:
             return LEAF[vt][0]
         t = n['type']
         if t == 'enum':
-            name = f'Unknown{hexu(vt)}Enum'
+            name = CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else f'Unknown{hexu(vt)}Enum'
             self.types[vt] = ('enum', 4, name)
         else:
             size = 12 if t == 'color' else int(t[5:])
-            name = f'Unknown{hexu(vt)}Type'
+            name = CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else f'Unknown{hexu(vt)}Type'
             self.types[vt] = ('blob', size, name)
         return f'DeltaTemplateClass<{name}>'
 
@@ -455,7 +513,15 @@ class Gen:
     def type_decls(self):
         out = []
         for vt, (kind, size, name) in sorted(self.types.items()):
-            out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (no name in the client, Net-7 or C#)')
+            if vt in CLIENT_TYPES:
+                cn, kv, gtn, src = CLIENT_TYPES[vt]
+                out.append(f'// NAME 5: the client\'s Get_Type_Name string \'{cn}\' (KVPair vtable 0x{hexu(kv)}, '
+                           f'0x{gtn:X}' + (' inline' if src == 'inline' else f', {src}') + f'), leaf vtable 0x{hexu(vt)}')
+            elif vt in INT_NAMED:
+                out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (its KVPair\'s Get_Type_Name '
+                           f'0x{INT_NAMED[vt]:X} says \'int\'; no name in Net-7 or C#)')
+            else:
+                out.append(f'// NAME 1: the value type of the leaf vtable 0x{hexu(vt)} (no name in the client, Net-7 or C#)')
             if kind == 'enum':
                 out.append(f'enum {name} {{ UNKNOWN_{hexu(vt)}_0 }};\t// vtable 0x{hexu(vt)}, 4 bytes')
             else:
@@ -465,10 +531,35 @@ class Gen:
                 else:
                     out.append(f'struct {name} {{ unsigned char Data[{size}]; {name}() {{ memset(Data, 0, sizeof(Data)); }} }};'
                                f'\t// vtable 0x{hexu(vt)}, {size} bytes (zeroed: a guess)')
-                out.append(f'inline bool operator!=(const {name} &a, const {name} &b) '
-                           '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
+                conv = BLOB_CONV.get(vt)
+                if conv:
+                    out.append(conv[1].replace('NAME', name))
+                elif vt in BLOB_NE:
+                    out.append(BLOB_NE[vt].replace('NAME', name))
+                else:
+                    out.append(f'inline bool operator!=(const {name} &a, const {name} &b) '
+                               '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
+            conv = BLOB_CONV.get(vt) if kind != 'enum' else None
             ref = name if kind == 'enum' else f'const {name} &'
-            out.append(f'inline const char *Type_Name({name} *) {{ return "{name}"; }}')
+            tname = 'int' if vt in INT_NAMED else CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else conv[0] if conv else name
+            ext = ENUM_EXTERN.get(vt) if kind == 'enum' else None
+            if ext:
+                tn, s2v, v2s = ext
+                if tn:
+                    out.append(f'const char *Type_Name({name} value);\t// 0x{tn:X} (\'{tname}\')')
+                    out.append(f'template<> inline const char *KVPairTemplateClass<{name}>::Get_Type_Name() const '
+                               f'{{ return Type_Name(Value); }}\t// 0x{CLIENT_TYPES[vt][2]:X}')
+                else:
+                    out.append(f'inline const char *Type_Name({name} *) {{ return "{tname}"; }}')
+                out.append(f'bool String_To_Value(const char *text, {name} *value);\t// 0x{s2v:X}')
+                out.append(f'char *Value_To_String(char *buf, int size, {name} value);\t// 0x{v2s:X}')
+                continue
+            out.append(f'inline const char *Type_Name({name} *) {{ return "{tname}"; }}')
+            if conv:
+                out.append(f'inline char *Value_To_String(char *buf, int, {ref}value) {conv[2]}')
+                out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
+                           f'inline bool String_To_Value(const char *, {name} *) {{ return false; }}')
+                continue
             if kind == 'enum':
                 out.append(f'inline char *Value_To_String(char *buf, int size, {name} value) '
                            '{ _snprintf(buf, size, "%d", (int)value); return buf; }')
@@ -480,6 +571,37 @@ class Gen:
                            '{ return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }')
                 out.append(f'inline bool String_To_Value(const char *, {name} *) {{ return false; }}')
         return '\n'.join(out)
+
+    def stub_source(self):
+        """stubs/aux_roots_stubs.cpp (D44): stand-ins for the ENUM_EXTERN conversions, the value as a number."""
+        out = [STUBS_HEAD]
+        for vt, (kind, size, name) in sorted(self.types.items()):
+            ext = ENUM_EXTERN.get(vt) if kind == 'enum' else None
+            if not ext:
+                continue
+            tn, s2v, v2s = ext
+            tname = 'int' if vt in INT_NAMED else CLIENT_TYPES[vt][0]
+            if tn:
+                out.append(f'const char *Type_Name({name})\n{{\n\treturn "{tname}";\t// the client\'s 0x{tn:X}\n}}\n')
+            out.append(f'bool String_To_Value(const char *text, {name} *value)\n{{\n'
+                       f'\tSTUB_CALLED("String_To_Value({name}) (0x{s2v:X})");\n'
+                       f'\tint v;\n\tif (sscanf(text, "%d", &v) != 1) {{\n\t\treturn false;\n\t}}\n'
+                       f'\t*value = ({name})v;\n\treturn true;\n}}\n')
+            out.append(f'char *Value_To_String(char *buf, int size, {name} value)\n{{\n'
+                       f'\tSTUB_CALLED("Value_To_String({name}) (0x{v2s:X})");\n'
+                       f'\t_snprintf(buf, size, "%d", (int)value);\n\treturn buf;\n}}\n')
+        return '\n'.join(out)
+
+
+STUBS = os.path.join(REPO, 'stubs', 'aux_roots_stubs.cpp')
+STUBS_HEAD = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/re/auxroots.py, do not edit.
+// Link-time stand-ins (D44) for the aux-data value types' conversions the client calls out of line
+// (other files' functions, not rebuilt: ENUM_EXTERN). Each logs its first call (stub_log.h); Type_Name
+// returns the client's string, the others treat the value as a number.
+#include <stdio.h>
+#include "stub_log.h"
+#include "..\app\client\aux_roots.h"
+'''
 
 
 HEADER = r'''// Earth & Beyond client (reconstruction)
@@ -569,7 +691,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 16
+SYMBOL_PAD = 10
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
@@ -650,6 +772,9 @@ def generate(doc, out_dir):
     for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c)):
         with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
             f.write(text)
+    if os.path.normcase(os.path.abspath(out_dir)) == os.path.normcase(OUT_DIR):
+        with open(STUBS, 'w', newline='\n') as f:
+            f.write(g.stub_source())
     print(f'{len(g.classes)} classes ({len(roots)} roots), {len(g.types)} value types -> {out_dir}')
     return g
 

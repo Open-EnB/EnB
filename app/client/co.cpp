@@ -1733,7 +1733,7 @@ template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArr
 class ProjDecalManagerClass	// NAME 3: the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members)
 {
 public:
-	void Unknown_7633E0(DecalGeneratorClass *generator, const UnknownB01A40Type &decal, RenderObjClass *model);	// 0x7633E0 (the damage decals 0x6FD310: an aux item's value onto the model)  // NAME 1 [generator, decal, model]: what 0x6FD310 passes
+	void Unknown_7633E0(DecalGeneratorClass *generator, const ProjectedDecalClass &decal, RenderObjClass *model);	// 0x7633E0 (the damage decals 0x6FD310: an aux item's value onto the model)  // NAME 1 [generator, decal, model]: what 0x6FD310 passes
 };
 void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp's run; not rebuilt): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
 // a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
@@ -1797,10 +1797,10 @@ void ClientObjectClass::Unknown_6FD310()
 	bool spot_changed[15];
 	bool line_changed[10];
 	bool blotch_changed[5];
-	DeltaArrayClass<UnknownB01A40Type> *arrays[NUM_DAMAGE_POOLS];
+	DeltaArrayClass<ProjectedDecalClass> *arrays[NUM_DAMAGE_POOLS];
 	{
 		NameClass name("DamageSpot");
-		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[0] = t;
 		if (t) {
@@ -1811,7 +1811,7 @@ void ClientObjectClass::Unknown_6FD310()
 	}
 	{
 		NameClass name("DamageLine");
-		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[1] = t;
 		if (t) {
@@ -1822,7 +1822,7 @@ void ClientObjectClass::Unknown_6FD310()
 	}
 	{
 		NameClass name("DamageBlotch");
-		DeltaArrayClass<UnknownB01A40Type> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB01A40Type> >((DeltaCompoundClass *)AuxData, name);
+		DeltaArrayClass<ProjectedDecalClass> *t = Unknown_Find_Field<DeltaArrayClass<ProjectedDecalClass> >((DeltaCompoundClass *)AuxData, name);
 		if (t && t->Unknown70 <= 1) t = NULL;
 		arrays[2] = t;
 		if (t) {
@@ -1845,13 +1845,13 @@ void ClientObjectClass::Unknown_6FD310()
 			if (num_pools >= NUM_DAMAGE_POOLS) num_pools = NUM_DAMAGE_POOLS;
 		}
 		for (int pool = 0; pool < num_pools; pool++) {
-			DeltaArrayClass<UnknownB01A40Type> *array = arrays[pool];
+			DeltaArrayClass<ProjectedDecalClass> *array = arrays[pool];
 			bool *pool_changed = changed[pool];
 			if (array) {
 				int size = Pools[pool].Size;
 				for (int slot = 0; slot < size; slot++) {
 					if (pool_changed[slot]) {
-						const UnknownB01A40Type &decal = Unknown_Get_Item(array, slot)->Value;
+						const ProjectedDecalClass &decal = Unknown_Get_Item(array, slot)->Value;
 						if (decal.I0C < 0) {
 							Clear_Decal_Slot(pool, slot);
 						} else {
@@ -2370,7 +2370,7 @@ bool ClientObjectClass::Unknown_6FFC80(std::string &text)
 bool ClientObjectClass::Unknown_700400()
 {
 	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildName")
-		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A58Enum> *)NULL, this, "GuildRank")
+		|| Unknown_Field_Changed((DeltaTemplateClass<GuildRankType> *)NULL, this, "GuildRank")
 		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildRankName")
 		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "SameGuildTagColor")
 		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "OtherGuildTagColor")) return(true);

@@ -1288,14 +1288,55 @@ void RsTrackClass::Unknown_462530(int a)
 }
 
 
+// 0x462610
+void RsTrackClass::Unknown_462610()
+{
+	if (UnknownC8 != NULL) {
+		UnknownC8->Release_Ref();
+		UnknownC8 = NULL;
+	}
+}
+
+
+// 0x462650
+void RsTrackClass::Unknown_462650()
+{
+	if (UnknownCC != NULL) {
+		UnknownCC->Release_Ref();
+		UnknownCC = NULL;
+	}
+}
+
+
+// 0x462690's CullingObject (vtable 0xAE871C: RefCountClass's Delete_This, the deleting destructor 0x463410)
+class Unknown462690Class : public CullableClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown462690Class(RsTrackClass *owner) : Owner(owner), Unknown2C(0) {}	// NAME 1 [owner]: neutral
+
+	RsTrackClass *Owner;			// +0x28  // NAME 1: neutral (D10)
+	int Unknown2C;					// +0x2C  // NAME 1: neutral (D10)
+};
+
+
+// 0x462690
+void RsTrackClass::Unknown_462690()
+{
+	if (CullingObject == NULL) {
+		CullingObject = new Unknown462690Class(this);
+		CullingObject->Set_Cull_Box(Get_Bounding_Box());
+	}
+}
+
+
 /*
 **	Reconstruction notes
 **
-**	The client's window 0x45FDA0-0x463490: the functions above in address order, then (not rebuilt:
-**	outside the claims) 0x462610 / 0x462650 (release +0xC8 / +0xCC; no callers), 0x462690 (makes
-**	CullingObject, a CullableClass of vtable 0xAE871C holding this at +0x28), WW3D2's inline
+**	The client's window 0x45FDA0-0x463490: the functions above in address order (0x462610 / 0x462650
+**	have no callers; 0x462690's callers are projscen.cpp's 0x495070-0x495870), then WW3D2's inline
 **	RenderObjClass copies 0x462760-0x463340, and the header's inline copies 0x4633A0-0x463490
-**	(Unknown_1C4, Class_ID, the deleting destructors and adjustor thunks).
+**	(Unknown_1C4, Class_ID, the deleting destructors, Unknown462690Class's 0x463410 / 0x463440, and
+**	adjustor thunks).
 **	The asserts sit on the client's lines 191, 236, 290, 429, 876 (FAIL_IF), 1077, 1286 through the
 **	blank lines; 0x4604D0's body (line 236) is inlined in both constructors and in 0x4605E0.
 */

@@ -23,6 +23,7 @@ class CTA_Request_PacketClass : public PacketClass  // NAME 3: the client's Prin
 public:
 	CTA_Request_PacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
 	CTA_Request_PacketClass(RawPacketClass *raw);	// 0x86F0F0
+	virtual ~CTA_Request_PacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
 	virtual RawPacketClass *Build();	// +0x04 0x86F1E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
 	virtual int Get_Data_Size();	// +0x0C 0x86F2C0

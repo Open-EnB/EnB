@@ -598,7 +598,6 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return hit;
 }
 
-// NOT EXACT: shape (0x465D30: the second push_back reads end() after pushing 1, and v3.Y is stored after v3.X; the first corner through Get_Vertex puts the first push_back's insert out of line as the client, 0x466180; attempts.csv)
 void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
 {
 	Vector3 extent;
@@ -632,9 +631,11 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 			verts4[1].Y = verts4[0].Y;
 			verts4[1].Z = Get_Height(i + 1, j);
 			verts4[2].X = verts4[1].X;
-			verts4[3].Y = verts4[2].Y = verts4[0].Y + YSpacing;
+			float y = verts4[0].Y + YSpacing;
+			verts4[2].Y = y;
 			verts4[2].Z = Get_Height(i + 1, j + 1);
 			verts4[3].X = verts4[0].X;
+			verts4[3].Y = y;
 			verts4[3].Z = Get_Height(i, j + 1);
 			verts.push_back(verts4[0]);
 			verts.push_back(verts4[2]);
@@ -644,6 +645,11 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 			verts.push_back(verts4[2]);
 		}
 	}
+}
+
+unsigned char HeightFieldClass::Get_Height_Byte(int x, int y)
+{
+	return (unsigned char)Heights[((y & Mask) << Log2) + (x & Mask)];
 }
 
 float HeightFieldClass::Get_Height(float x, float y) const
@@ -677,8 +683,8 @@ void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
 **	0x463BF0, Get_Height 0x463C80 / 0x463CD0, Set_Height 0x463D20 / 0x463D90, World_To_Grid 0x463E00,
 **	Get_Vertex 0x463E70, Get_Downhill 0x463F00, Get_Normal 0x464290, Get_Height(position) 0x464600,
 **	Cast_AABox 0x465030 (exact), Cast_OBBox 0x4654E0 and Cast_Ray 0x4647C0 (NOT EXACT: frame): two triangles
-**	per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT
-**	EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then
+**	per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (for
+**	the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then
 **	walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes'
 **	"Ours" are VIDTEST's land's (functional, D42). The decorations keep the bilinear Sample(u, v)
 **	for now: the client's Sample 0x463BF0 (two triangles per cell) moves a tree 1.8 units on average

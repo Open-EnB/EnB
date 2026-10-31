@@ -63,6 +63,7 @@ public:
 	bool						Cast_OBBox(OBBoxCollisionTestClass &boxtest);
 // NAME 2: the triangles (three corners each) of the cells under a box, for the land's render 0x474B30 (0x465D30)
 	void						Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts);
+	unsigned char			Get_Height_Byte(int x, int y);	// NAME 2: a height's low byte, the grid wrapped (0x466140; the displacement map's L8 texels, 0x4677B0)
 
 // NAME 2: ours (VIDTEST's land, functional): the grid clamped at the edges, world coordinates
 	int						Get_Size(void) const					{ return Size; }

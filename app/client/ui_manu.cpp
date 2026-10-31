@@ -1436,14 +1436,162 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 
 
 
+// The money and float fields 0x5B4B10 / 0x5B5320 read (here, not at the top: the asserts sit on the client's lines)
+#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp)
+
+// 'TechLevelFilterBitfield' (bit n - 1 set: tech level n shown)
+class UIManuTechLevelFilterClass : public DeltaClass	// NAME 1: neutral (D10)
+{
+public:
+	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4163C)
+	int Value;											// +0x84  // NAME 2: what it holds
+};
+int UIManuTechLevelFilterClass::UnknownGlobal;
+
+// NOT EXACT: inline budget (the client calls the NegotiatedCost and ExpectedQuality finds out of line, 0x5466A0 / 0x546710, and the TechLevelFilterBitfield Cast, 0x5B7300; ours inlines them) (0x5B4B10)
+void UIManuClass::Unknown_5B4B10()
+{
+	MoneyClass cost;
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Unknown0BA0, NameClass("NegotiatedCost"));
+	if (negotiated && negotiated->Unknown70) {
+		cost = negotiated->Value;
+	}
+	Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
+
+	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
+	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
+	DeltaTemplateClass<float> *expected = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("ExpectedQuality"));
+
+
+
+
+
+	char text[64];
+	if (min && max && min->Value != -1.0f && max->Value != -1.0f) {
+		float min_quality = min->Value;
+		float max_quality = max->Value;
+		FAIL_IF(min_quality < 0.0f) min_quality = 0.0f;
+		FAIL_IF(max_quality > 3.0f) max_quality = 3.0f;
+		FAIL_IF(min_quality > max_quality) min_quality = max_quality;
+		if (min_quality == max_quality) {
+			sprintf(text, "%2.0f", min_quality * 100.0f);
+		} else {
+			sprintf(text, "%2.0f%%-%2.0f%%", min_quality * 100.0f, max_quality * 100.0f);
+		}
+	} else {
+		strcpy(text, Unknown_B81880[2]);
+	}
+	Unknown_5B1AF0(2, true, text);
+
+	if (expected) {
+		float expected_quality = expected->Value;
+		if (expected_quality == -1.0f) {
+			sprintf(text, Unknown_B81880[2]);
+		} else {
+
+
+
+			FAIL_IF(expected_quality < 0.0f) expected_quality = 0.0f;
+			FAIL_IF(expected_quality > 3.0f) expected_quality = 3.0f;
+			sprintf(text, "%2.0f", expected_quality * 100.0f);
+		}
+	} else {
+		strcpy(text, Unknown_B81880[2]);
+	}
+	Unknown_5B1AF0(3, true, text);
+
+	UIManuTechLevelFilterClass *filter = Unknown_Find_Valid<UIManuTechLevelFilterClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("TechLevelFilterBitfield"));
+	if (filter) {
+		for (int i = 1; i < 10; i++) {
+			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
+		}
+	}
+}
+
+class UIManuItemTemplateClass { public: char Unknown00[0x14]; std::string Name; }; struct UIManuTargetItemClass { char Unknown00[0x120]; int Unknown120; };	// NAME 1: neutral (D10): the item template 0x8318B0 gives (+0x14 its name) and 'ManufactureTarget''s first item (+0x120 its template id)
+UIManuItemTemplateClass *Unknown_8318B0(int item_template_id, LineDisplayClientClass *client);	// NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
+// NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0)
+static std::string Unknown_5B5CD0(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
+{
+	static std::string unknown_item("Unknown Item");
+	FAIL_IF(!auxdata) return(unknown_item);
+	FAIL_IF(!client) return(unknown_item);
+	NameClass name("ManufactureTarget");
+	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
+	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
 
 
 
+	int item_template_id = (*(UIManuTargetItemClass ***)((char *)target_item_auxdata_set + 0x88))[0]->Unknown120;
+	FAIL_IF(item_template_id == -1) return(unknown_item);
 
+	UIManuItemTemplateClass *item_template = Unknown_8318B0(item_template_id, client);
+	FAIL_IF(!item_template) return(unknown_item);
+	return(item_template->Name);
+}
 
+// 0x5B6060
+static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAME 1 [validity]: the 'Validity' value
+{
+	switch (validity) {
+		case 4:
+			return("Missing sufficient credits");
+		case 6:
+			return("Missing sufficient cargo room");
+		case 12:
+			return("Unique item already owned");
+		case 5:
+			return("Missing required component(s)");
+		case 8:
+			return("Too difficult");
+		case 7:
+			return("Missing required skill level");
+		case 0:
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+			return("");
+		default:
+			return("Unexpected error.");
+	}
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
+}
 
+// NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320)
+void UIManuClass::Unknown_5B5320()
+{		UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
+	if (validity && validity->Unknown70 > 1) {
+		std::string reason = Unknown_5B6060(validity->Value);
+		if (reason.length() && !Unknown0BB4) {
+			std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, Client);
+			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
+			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
+		}
+	}
 
+	MoneyClass cost;		DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Unknown0BA0, NameClass("NegotiatedCost"));
+	if (negotiated && negotiated->Unknown70 > 1) {
+		cost = negotiated->Value;
+		Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
+	}
+		DeltaTemplateClass<float> *min = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
+	if (min && min->Unknown70 <= 1) {
+		min = NULL;
+	}		DeltaTemplateClass<float> *max = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
+	if (max && max->Unknown70 <= 1) {
+		max = NULL;
+	}		DeltaTemplateClass<float> *expected = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("ExpectedQuality"));
+	if (expected && expected->Unknown70 <= 1) {
+		expected = NULL;
+	}
 
+	char text[64];
+	if (min && max) {
+		float min_quality = min->Value;
+		float max_quality = max->Value;
+		if (min_quality != -1.0f && max_quality != -1.0f) {
 
 
 
@@ -1474,197 +1622,49 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 
 
 
+			FAIL_IF(min_quality < 0.0f) min_quality = 0.0f;
+			FAIL_IF(max_quality > 3.0f) max_quality = 3.0f;
+			FAIL_IF(min_quality > max_quality) min_quality = max_quality;
+			if (min_quality == max_quality) {
+				sprintf(text, "%2.0f%%", min_quality * 100.0f);
+			} else {
+				sprintf(text, "%2.0f%% to %2.0f%%", min_quality * 100.0f, max_quality * 100.0f);
+			}
+		} else {
+			strcpy(text, Unknown_B81880[2]);
+		}
+		Unknown_5B1AF0(2, true, text);
+	}
 
+	if (expected) {
+		float expected_quality = expected->Value;
+		if (expected_quality == -1.0f) {
+			strcpy(text, Unknown_B81880[2]);
+		} else {
 
+			FAIL_IF(expected_quality < 0.0f) expected_quality = 0.0f;
+			FAIL_IF(expected_quality > 3.0f) expected_quality = 3.0f;
+			sprintf(text, "%2.0f%%", expected_quality * 100.0f);
+		}
+		Unknown_5B1AF0(3, true, text);
+	}
+		UIManuTechLevelFilterClass *filter = Unknown_Find_Field<UIManuTechLevelFilterClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("TechLevelFilterBitfield"));
+	if (filter && filter->Unknown70 > 1) {
+		for (int i = 1; i < 10; i++) {
+			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
+		}
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	if (Unknown0BAD) {				UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("PreviousAttempts"));
+		if (list && list->Unknown70 > 1) {
+			Unknown_5B3260(list);
+		}
+	} else if (Unknown0B98 == 3) {
+		Unknown_5B2F20();
+	} else {
+		Unknown_5B2BD0(false);
+	}
+}
 
 
 
@@ -1862,9 +1862,12 @@ void UIManuClass::Unknown_5B6D30()
 **	client's out-of-line copy of that template is 0x5B6DB0). The player id the packets carry is the space client's
 **	+0x1138 (ClientClass::Unknown1138).
 **
-**	Not rebuilt yet: the target's texts 0x5B4B10 / 0x5B5320 (lines 1473-1646; out-of-line finds and MoneyClass text).
+**	The target's texts 0x5B4B10 (lines 1473-1495) and 0x5B5320 (1625-1646) read the money and float fields through
+**	aux_roots.h, included on a blank line before them; 0x5B5320's static helpers 0x5B5CD0 (the target's item name,
+**	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
+**	are defined before it, and the client emits them after it.
 **	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850 and 0x5B67C0 compile but are not exact (see their NOT
+**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */

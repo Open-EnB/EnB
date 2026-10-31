@@ -297,6 +297,7 @@ class PDAInterfaceClass : public InterfaceClass
 {
 public:
 	PDAInterfaceClass(SClient *client);					// 0x693140
+	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view)
 
 	char Unknown84[0xA8 - 0x84];
 	PDAInterfaceUnknownA8Class *UnknownA8;				// +0xA8 (0x512A00 calls its 0x7C8DB0)
@@ -924,7 +925,7 @@ public:
 	virtual void Unknown_64();							// +0x64 0x744690: ClientTaskClass::Render, Wait_For_Redirect
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
-	void Unknown_742530(UIViewClass *view);				// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode)  // NAME 1 [view]: what it gets
+	UIViewClass *Unknown_742530(UIViewClass *view);		// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode): CurrentView becomes it, the old one is returned  // NAME 1 [view]: what it gets
 	void Unknown_7429B0();								// 0x7429B0 (Do_Frame, after the lost-dialog check; FAIL_IF '!CurrentView', l.749)
 	void Unknown_743380(KernelEventClass *event);		// 0x743380 (Do_Frame: the input queue's event without the +0x1278 source)  // NAME 1 [event]: what it gets
 	bool Unknown_7436A0(KernelEventClass event);		// 0x7436A0 (Do_Frame: an event no dispatcher took; false: 0x744240)  // NAME 1 [event]: what it gets

@@ -277,6 +277,9 @@ unless `--lever` cites a new row of this table.
 | A virtual call in a destructor | `((Base &)*this).X()` | dbgconn (S3) |
 | A dead `ntohs(Port)` / accessor call the client keeps | Keep it; constructor members in the initialiser list | udpconn ctor 0x82C680, e5661c2 |
 | Our inlined call that the client makes out of line (string::erase, size) | One or two dead `size()` calls *after* the call site push the earlier call out of line; only the first dead read inlines, the rest are called | `ClientTaskClass::Init` 0x766350, 6bd0611 (T4; D40) |
+| Dead `size()` reads at the function's own top level change nothing | They spend budget only inside an inlined callee: a find-if-set wrapper holding 1-2 reads makes 0x598370 exact, 0 or 3+ don't (D130's limit counts the reads written, 6 per function) | ui_group 0x598370, 400bb63d (UG2, 2026-10-31) |
+| An empty inline wrapper around auxdata.h's find | Enough to send the find out of line, but the budget it frees lets later callees inline instead | ui_group 0x596770 / 0x592C50 (UG2, 2026-10-31) |
+| A small function whose client calls the *first* case's helper out of line (one `_Eos`) | A D130 dead spender placed *after* the last `return` (unreachable, marked not the client's) can be the lever where one at the top fails: the top forms sent later cases out of line, the end one exactly the first case's | ui_manu 0x5B6060, a0da65f7 (MU2, 2026-10-31) |
 | Nested inline temporaries flip (the sixth `??_H` Transpose temp) | VC6 spends nested inlines in reverse source order: an inline cost placed *after* an expression (`Matrix4(view)` in a restore) decides whether that expression is inlined | distortion draw 0x9961E0, 342 -> 121 rows (W3) |
 | The budget model (F3, confirmed by T3/H3/F5) | Function-wide, spent by every expansion anywhere in the function; unused plain locals add nothing; dead accessor reads add; template declarations visible in the translation unit (delta.h's include chain) move which instantiations inline, so a header change can gain and lose pairs in files that never use it. The budget is file-state dependent: a form that failed earlier is worth one re-run after the file's members change (L4's struct ctor broke the land ctor on 2026-10-26 and is exact on 10-27, F5) | Ship 0x6F66E0 probes; aux_roots 0x702240/0x7045F0 vs 0x7014B0/0x701D70/0x758210 (H3) |
 | The client divides at run time where ours folds (`65535.0f / (WWMATH_PI/2)`) | A function-scope `static const float` reproduces the `fdiv` | `Prepare_Lighting` 0x46C730, dad084d (L4) |
@@ -471,6 +474,18 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Land-family register and FPU forms** (2026-10-31, TG2): a local declared in the branch that uses it, not at the
+  top, changes register allocation (Apply_Colors 0x46D410 exact with `extra` in its else branch); a float local for a
+  shared value keeps it on the FPU and reorders the stores with an fxch (Get_Triangles 0x465D30 exact with `float y`
+  for v2.Y and v3.Y); one texel index n with the pointers built from it gives the client's stepped pointers instead
+  of i-indexed addressing (0x46D410); when the client's strength reduction keeps runtime base differences
+  (`ebp - (ebp + 2)`), the source had a separate pointer per channel, since one pointer with constant offsets folds
+  to displacements (0x46D6B0).
+* **A getter whose caller copies the result through eax** (2026-10-31, TG1): it returns the struct by value. Read the
+  caller before trying more body forms: a `Vector2 result`, member stores and one `return(result)` made avatar_desc's
+  seven Get_*_Offset 0x4C1B80-0x4C2240 exact at once. An int copy of a float with Z = 0 stored first, into a
+  TPoint3D argument, is TPoint3D's base-copy constructor over a TPoint2D passed as a temporary (`TPoint3D<float>(uv)`,
+  Save_Defaults 0x4C2360).
 * **Moving a class out of a file with asserts** (2026-10-31, LC1): replace the removed lines with as many blank
   lines, so every later `__LINE__` stays on the client's line (`wc -l` before and after must agree), before verifying.
   A string literal shared with a function in another range (the client does not merge literals across objects)
@@ -503,7 +518,14 @@ unless `--lever` cites a new row of this table.
   The lever is `tools/re/auxroots.py`'s `SYMBOL_PAD` (an enum of N enumerators at the end of aux_roots.cpp,
   marked as not the client's; 16 since 8102bcf, window 15..17). After any change to a header aux_roots.cpp
   includes, re-sweep the pad (`tools/vc6/auxpad.py sweep`, aux_roots.cpp alone, ~5 s a variant) and keep a value exact for
-  all six. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
+  all six (10 since 93031785, AR2; it moved 15 -> 13 -> 24 -> 10 in one session, renames included: re-sweep after
+  a rename too, even with the same number of declarations). Renaming a generated type changes mangled names the
+  self names rely on (0x706610 lost): add `replaces` entries to `tools/re/symbols_named.json` and run
+  `symbols.py --apply-named` (it rewrites those entries as source `named`, dropping length and proof: neutral
+  here); out-of-line conversions need their client addresses named there before their callers match (AR2). A separate operator== among aux_roots.h's value types (free or member) pulls the
+  six windows apart so no pad has all six exact; a single negated `!=` expression keeps a window (AR1, 2026-10-31).
+  A sweep killed mid-run leaves its VM leased under `importer-PID` and a pad variant in aux_roots.cpp:
+  `pool.py release VM --agent importer-PID`, then check out aux_roots.*. Windows are not pure shifts: a template declaration can move them apart so no pad exists (DeltaArrayClass's
   bounds accessor, P-DF1-2: keep such helpers local to the file). Explicit `template class` instantiations and
   padding between definitions move all six alike; VC6 rejects explicit instantiation of a constructor (C2909).
 * **co.cpp's lookups and the inline budget (2026-10-28, UP1 / DF1 / IB1):** the budget cuts the bigger callee
@@ -780,7 +802,8 @@ unless `--lever` cites a new row of this table.
 * **`attempts.py record` has no `--lever` (2026-10-27, F7):** put the lever in the evidence text; `attempts.py check --lever` takes it.
 * **tryv2.py** writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
-  check the log's variant lines.
+  check the log's variant lines. It uses vc6_hosts.json's default host, which can time out over ssh (172.17.2.20,
+  2026-10-31, TG1): lease a clone (`pool.py lease --agent X --count 1`) and export the ENB_VC6_HOSTS line it prints.
 * Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
   commit_mine still needs.
   `build.py build --lib app` refuses a dirty library; `--allow-dirty` tests uncommitted files.
@@ -795,7 +818,11 @@ unless `--lever` cites a new row of this table.
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global (R1).
 * **symbols.json regeneration is not neutral (2026-10-27, M2 / M3):** symbols.py used to promote D88's self-named functions to
   `source: exact`, deleting the evidence that made them exact (-323 pairs); it now keeps the proof (`proof`, 0253f43).
-  Regenerate only with a full verify of every library. An object's client range never comes from imports.json's
+  Regenerate only with a full verify of every library. A tool fed by symbols.json must not lose its evidence when
+  symbols.json records that tool's own result (2026-10-31, AR1: a regeneration lost 268 outright): the proof was kept
+  only for the very same symbol, so a vtable slot's `??_E` dropped when the byte-identical `??_G` became exact (244;
+  `same()` now treats them as one), and D115 stopped registering an initialiser target it already knew (7; known
+  targets now register too). Before regenerating, check every tie-break that reads symbols.json for this. An object's client range never comes from imports.json's
   `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
   `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
   stale when part of the work lands separately: diff the park folder against HEAD before using it (M1).
@@ -833,6 +860,12 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **On a big function objdiff's similarity hardly moves** (2026-10-31, CT1, ui_group 0x5946D0, ~2.7 KB): read
+  explain.py's instruction count and register-masked residue instead, and compare the call relocations per callee
+  (`objrel.py`) to see which callees inline.
+* **explain.py's client window can run through int3 padding into the next stub** (2026-10-31, TG2, 0x466F60: 773
+  client instructions against 388 real, up to an atexit stub), inflating the residue: trim the window to the
+  function's end (`.work/tg2/dd.py OBJ SYM ADDR END [r]`).
 * **`appfile.py match` reads a `#pragma auto_inline(off)` line as a function** (2026-10-30, SC2: "the object lacks
   auto_inline"): put the pragma above the `// @0x` marker and pass `--allow-missing`.
 * **Probe several forms in one compile** (2026-10-30, SM2): add members V1..V6 to the draft's header copy, define the

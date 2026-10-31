@@ -14,6 +14,10 @@ CTA_Request_PacketClass::CTA_Request_PacketClass(RawPacketClass *raw) : AvatarID
 	raw->Get(&RequestType, sizeof(RequestType));
 }
 
+CTA_Request_PacketClass::~CTA_Request_PacketClass()
+{
+}
+
 RawPacketClass *CTA_Request_PacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(188, Get_Data_Size());
