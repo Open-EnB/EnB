@@ -474,6 +474,11 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **A getter whose caller copies the result through eax** (2026-10-31, TG1): it returns the struct by value. Read the
+  caller before trying more body forms: a `Vector2 result`, member stores and one `return(result)` made avatar_desc's
+  seven Get_*_Offset 0x4C1B80-0x4C2240 exact at once. An int copy of a float with Z = 0 stored first, into a
+  TPoint3D argument, is TPoint3D's base-copy constructor over a TPoint2D passed as a temporary (`TPoint3D<float>(uv)`,
+  Save_Defaults 0x4C2360).
 * **Moving a class out of a file with asserts** (2026-10-31, LC1): replace the removed lines with as many blank
   lines, so every later `__LINE__` stays on the client's line (`wc -l` before and after must agree), before verifying.
   A string literal shared with a function in another range (the client does not merge literals across objects)
@@ -783,7 +788,8 @@ unless `--lever` cites a new row of this table.
 * **`attempts.py record` has no `--lever` (2026-10-27, F7):** put the lever in the evidence text; `attempts.py check --lever` takes it.
 * **tryv2.py** writes the tree file back with `open(..., 'w')` and can fail with
   OSError 22 when another process holds the file: the tree stays intact but later variants are skipped silently, so
-  check the log's variant lines.
+  check the log's variant lines. It uses vc6_hosts.json's default host, which can time out over ssh (172.17.2.20,
+  2026-10-31, TG1): lease a clone (`pool.py lease --agent X --count 1`) and export the ENB_VC6_HOSTS line it prints.
 * Commit before restoring imports.json: `git checkout docs/data/imports.json` after a verify discards the gains
   commit_mine still needs.
   `build.py build --lib app` refuses a dirty library; `--allow-dirty` tests uncommitted files.
