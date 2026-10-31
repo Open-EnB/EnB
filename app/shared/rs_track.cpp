@@ -524,15 +524,13 @@ bool RsTrackClass::Unknown_1C8()
 		}
 		RenderStateList.Unknown_45A9F0(this);
 		Unknown8C |= 2;
-		if (UnknownC4 != NULL) {
-			if (UnknownC4->Get_Num_Anims() == 0 && (Unknown8C & 4) == 0) {
-				delete UnknownC4;
-				UnknownC4 = NULL;
-			} else if (UnknownC4->Get_Num_Anims() > 0) {
-				UnknownC4->Normalize_Weights();
-				robj->Set_Animation(UnknownC4);
-				return(true);
-			}
+		if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() == 0 && (Unknown8C & 4) == 0) {
+			delete UnknownC4;
+			UnknownC4 = NULL;
+		} else if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() > 0) {
+			UnknownC4->Normalize_Weights();
+			robj->Set_Animation(UnknownC4);
+			return(true);
 		}
 		robj->Set_Animation();
 	}
@@ -869,6 +867,8 @@ void RsTrackClass::Notify_Removed(SceneClass *scene)
 
 
 
+
+
 // 0x4616A0
 const SphereClass &RsTrackClass::Get_Bounding_Sphere(void) const
 {
@@ -924,15 +924,12 @@ void RsTrackClass::Update_Obj_Space_Bounding_Volumes(void)
 }
 
 // 0x461910
-// NOT EXACT: functional from the pseudocode; similarity 0.67
 void RsTrackClass::Update_Cached_Bounding_Volumes(void) const
 {
 	CachedBoundingSphere.Center = Get_Transform() * UnknownD8.Center;
 	CachedBoundingSphere.Radius = UnknownD8.Radius;
 	CachedBoundingBox = UnknownE8;
-	Vector3 center = CachedBoundingBox.Center;
-	Vector3 extent = CachedBoundingBox.Extent;
-	Get_Transform().Transform_Center_Extent_AABox(center, extent, &CachedBoundingBox.Center, &CachedBoundingBox.Extent);
+	CachedBoundingBox.Transform(Get_Transform());
 	Validate_Cached_Bounding_Volumes();
 }
 
@@ -1011,6 +1008,9 @@ bool RsTrackClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, Inter
 	if (robj != NULL) return(robj->Intersect_Sphere_Quick(Intersection, Final_Result));
 	return(false);
 }
+
+
+
 
 
 
