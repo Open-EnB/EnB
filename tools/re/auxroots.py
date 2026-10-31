@@ -99,11 +99,26 @@ BLOB_FORMS = {
                'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
     0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)',
                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
-               'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; }'),
+               'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } '
+               'NAME &operator=(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; }'),
     0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
                'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
+}
+# The client's KVPair conversions of a blob type, where known (the rest compare with memcmp and print
+# hex, functional only): vtable -> (type name, comparison, Value_To_String body, String_To_Value body).
+# 0xB01A40: the KVPair's vtable 0xB01D00 (its destructor 0x7095B0): Get_Type_Name 0x708C60 returns
+# 'ProjectedDecalClass', Get_Value_String 0x708C80 sprintf's '%f,%f,%f,%d,%f' (the size unused),
+# Is_Changed 0x708CF0 the fields' == negated, Update_Saved 0x708D80 a field-by-field copy (operator=).
+# Is_Changed is exact with a separate operator== and `!(a == b)`, but that form leaves no SYMBOL_PAD
+# window for the six constructors (AR1 2026-10-31: 5/6 at best); the one-expression != keeps pad 15.
+BLOB_CONV = {
+    0xB01A40: ('ProjectedDecalClass',
+               'inline bool operator!=(const NAME &a, const NAME &b) '
+               '{ return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }',
+               '{ sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.I0C, value.F10); return buf; }',
+               None),
 }
 
 
@@ -465,10 +480,20 @@ class Gen:
                 else:
                     out.append(f'struct {name} {{ unsigned char Data[{size}]; {name}() {{ memset(Data, 0, sizeof(Data)); }} }};'
                                f'\t// vtable 0x{hexu(vt)}, {size} bytes (zeroed: a guess)')
-                out.append(f'inline bool operator!=(const {name} &a, const {name} &b) '
-                           '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
+                conv = BLOB_CONV.get(vt)
+                if conv:
+                    out.append(conv[1].replace('NAME', name))
+                else:
+                    out.append(f'inline bool operator!=(const {name} &a, const {name} &b) '
+                               '{ return memcmp(&a, &b, sizeof(a)) != 0; }')
+            conv = BLOB_CONV.get(vt) if kind != 'enum' else None
             ref = name if kind == 'enum' else f'const {name} &'
-            out.append(f'inline const char *Type_Name({name} *) {{ return "{name}"; }}')
+            out.append(f'inline const char *Type_Name({name} *) {{ return "{conv[0] if conv else name}"; }}')
+            if conv:
+                out.append(f'inline char *Value_To_String(char *buf, int, {ref}value) {conv[2]}')
+                out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
+                           f'inline bool String_To_Value(const char *, {name} *) {{ return false; }}')
+                continue
             if kind == 'enum':
                 out.append(f'inline char *Value_To_String(char *buf, int size, {name} value) '
                            '{ _snprintf(buf, size, "%d", (int)value); return buf; }')
@@ -569,7 +594,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 16
+SYMBOL_PAD = 15
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
