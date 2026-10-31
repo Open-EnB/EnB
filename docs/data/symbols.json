@@ -28,6 +28,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40104B",
+"symbol": "j_?Value_To_String@@YAPADPADHW4UnknownB013ECEnum@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4UnknownB013ECEnum@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x401055",
 "symbol": "j_?Process_Packet@IncapacitanceRescueConfirmationPacket@@UAE_NPAX@Z",
 "name": "j_?Process_Packet@IncapacitanceRescueConfirmationPacket@@UAE_NPAX@Z",
@@ -1295,6 +1302,13 @@
 "source": "thunk"
 },
 {
+"address": "0x401D70",
+"symbol": "j_?Value_To_String@@YAPADPADHW4UnknownB0122CEnum@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4UnknownB0122CEnum@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x401D7A",
 "symbol": "j_??_GBandwidthAccountingClass@@UAEPAXI@Z",
 "name": "j_??_GBandwidthAccountingClass@@UAEPAXI@Z",
@@ -1333,6 +1347,13 @@
 "address": "0x401DE8",
 "symbol": "j_?Process_Packet@ObjectToPointEffectPacketClass@@UAE_NPAX@Z",
 "name": "j_?Process_Packet@ObjectToPointEffectPacketClass@@UAE_NPAX@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x401DF2",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4UnknownB0122CEnum@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4UnknownB0122CEnum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -2121,6 +2142,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40265D",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4InterruptStateType@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4InterruptStateType@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x4026B7",
 "symbol": "j_?Get_Lego_Transform@ClientLegoImplClass@@UBE?AVMatrix3D@@ABVLegoIdentifierClass@@@Z",
 "name": "j_?Get_Lego_Transform@ClientLegoImplClass@@UBE?AVMatrix3D@@ABVLegoIdentifierClass@@@Z",
@@ -2779,6 +2807,13 @@
 "source": "thunk"
 },
 {
+"address": "0x402C98",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4UnknownB0133CEnum@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4UnknownB0133CEnum@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x402CED",
 "symbol": "j_?Free_Option_Map@@YAXAAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUVector3OptionStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUVector3OptionStruct@@@2@@std@@@Z",
 "name": "j_?Free_Option_Map@@YAXAAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUVector3OptionStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUVector3OptionStruct@@@2@@std@@@Z",
@@ -3062,6 +3097,13 @@
 "address": "0x403021",
 "symbol": "j_?Set_Value_String@?$KVPairTemplateClass@W4ShipCustomizationMetal@@@@UAE_NPBD@Z",
 "name": "j_?Set_Value_String@?$KVPairTemplateClass@W4ShipCustomizationMetal@@@@UAE_NPBD@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x403035",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4UnknownB013ECEnum@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4UnknownB013ECEnum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -7098,6 +7140,13 @@
 "source": "thunk"
 },
 {
+"address": "0x405C31",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4GameActionValidityBitFlag@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4GameActionValidityBitFlag@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x405C4A",
 "symbol": "j_?Play_3D_Audio@SoundLibBridgeClass@@UAEXPBDABVMatrix3D@@@Z",
 "name": "j_?Play_3D_Audio@SoundLibBridgeClass@@UAEXPBDABVMatrix3D@@@Z",
@@ -8662,6 +8711,13 @@
 "address": "0x406E2E",
 "symbol": "j_?find@?$hashtable@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLookupTableClass@@@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLookupTableClass@@@@@2@@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@Z",
 "name": "j_?find@?$hashtable@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLookupTableClass@@@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$RefCountPtr@VLookupTableClass@@@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$RefCountPtr@VLookupTableClass@@@@@2@@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x406E3D",
+"symbol": "j_?Value_To_String@@YAPADPADHW4TargetGeneratorSummaryBF@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4TargetGeneratorSummaryBF@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -14728,6 +14784,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40AC95",
+"symbol": "j_?Value_To_String@@YAPADPADHW4WW3DLightAttenuationType@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4WW3DLightAttenuationType@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40ACB3",
 "symbol": "j_?Get_Data_Size@Packet_7534Class@@UAEHXZ",
 "name": "j_?Get_Data_Size@Packet_7534Class@@UAEHXZ",
@@ -14885,6 +14948,13 @@
 "address": "0x40AE70",
 "symbol": "j_?Get_Priority@TradePacketClass@@UAEHXZ",
 "name": "j_?Get_Priority@TradePacketClass@@UAEHXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40AE84",
+"symbol": "j_?Value_To_String@@YAPADPADHW4GuildRankType@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4GuildRankType@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -15487,6 +15557,13 @@
 "address": "0x40B62C",
 "symbol": "j_?Find@SplineDatabaseClass@@QAEPAVSplineEntryClass@@PBDH@Z",
 "name": "j_?Find@SplineDatabaseClass@@QAEPAVSplineEntryClass@@PBDH@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40B631",
+"symbol": "j_?Value_To_String@@YAPADPADHW4ItemStateEnum@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4ItemStateEnum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -18305,6 +18382,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40D3DC",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4GuildRankType@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4GuildRankType@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40D413",
 "symbol": "j_?reserve@?$vector@U?$pair@V?$RefCountPtr@VPolicyConditionClass@@@@_N@std@@V?$allocator@U?$pair@V?$RefCountPtr@VPolicyConditionClass@@@@_N@std@@@2@@std@@QAEXI@Z",
 "name": "j_?reserve@?$vector@U?$pair@V?$RefCountPtr@VPolicyConditionClass@@@@_N@std@@V?$allocator@U?$pair@V?$RefCountPtr@VPolicyConditionClass@@@@_N@std@@@2@@std@@QAEXI@Z",
@@ -19022,6 +19106,13 @@
 "address": "0x40DB7F",
 "symbol": "j_?Get_Num_Polys@RenderObjClass@@UBEHXZ",
 "name": "j_?Get_Num_Polys@RenderObjClass@@UBEHXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40DB89",
+"symbol": "j_?Value_To_String@@YAPADPADHW4InterruptStateType@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4InterruptStateType@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -23352,6 +23443,13 @@
 "source": "thunk"
 },
 {
+"address": "0x410A2D",
+"symbol": "j_?Value_To_String@@YAPADPADHW4GameActionValidityBitFlag@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4GameActionValidityBitFlag@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x410A41",
 "symbol": "j_?insert@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@std@@@2@@std@@QAEXPAPAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@2@IABQAU32@@Z",
 "name": "j_?insert@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@std@@@2@@std@@QAEXPAPAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVAttributeInfo@@@std@@@2@IABQAU32@@Z",
@@ -24346,6 +24444,13 @@
 "source": "thunk"
 },
 {
+"address": "0x411509",
+"symbol": "j_?Type_Name@@YAPBDW4EffectGeneratorUsageBF@@@Z",
+"name": "j_?Type_Name@@YAPBDW4EffectGeneratorUsageBF@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x41151D",
 "symbol": "j_?getRemoteAddr@TCPCon@@QAEDPAKPAG@Z",
 "name": "j_?getRemoteAddr@TCPCon@@QAEDPAKPAG@Z",
@@ -24486,6 +24591,13 @@
 "source": "thunk"
 },
 {
+"address": "0x4116A3",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4WW3DLightAttenuationType@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4WW3DLightAttenuationType@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x4116B7",
 "symbol": "j_??1StarLayerClass@@QAE@XZ",
 "name": "j_??1StarLayerClass@@QAE@XZ",
@@ -24601,6 +24713,13 @@
 "address": "0x4117B6",
 "symbol": "j_?Build@GuildSimpleClientSectorPacketClass@@UAEPAVRawPacketClass@@XZ",
 "name": "j_?Build@GuildSimpleClientSectorPacketClass@@UAEPAVRawPacketClass@@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x4117C5",
+"symbol": "j_?Type_Name@@YAPBDW4TargetGeneratorSummaryBF@@@Z",
+"name": "j_?Type_Name@@YAPBDW4TargetGeneratorSummaryBF@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -25112,6 +25231,13 @@
 "address": "0x411C52",
 "symbol": "j_??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAUInputRecordStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAUInputRecordStruct@@@std@@@std@@@2@@std@@QAE@XZ",
 "name": "j_??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAUInputRecordStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAUInputRecordStruct@@@std@@@std@@@2@@std@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x411CA7",
+"symbol": "j_?Type_Name@@YAPBDW4GameActionValidityBitFlag@@@Z",
+"name": "j_?Type_Name@@YAPBDW4GameActionValidityBitFlag@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -26068,6 +26194,13 @@
 "source": "thunk"
 },
 {
+"address": "0x41285F",
+"symbol": "j_?Value_To_String@@YAPADPADHW4EffectGeneratorUsageBF@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4EffectGeneratorUsageBF@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x412887",
 "symbol": "j_?Process_Packet@MessageChatstreamPacketClass@@UAE_NPAX@Z",
 "name": "j_?Process_Packet@MessageChatstreamPacketClass@@UAE_NPAX@Z",
@@ -26313,6 +26446,13 @@
 "source": "thunk"
 },
 {
+"address": "0x412B66",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4EffectGeneratorUsageBF@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4EffectGeneratorUsageBF@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x412B7A",
 "symbol": "j_??3@YAXPAX@Z",
 "name": "j_??3@YAXPAX@Z",
@@ -26428,6 +26568,13 @@
 "address": "0x412CF6",
 "symbol": "j_?Reset@TextureMapperClass@@UAEXXZ",
 "name": "j_?Reset@TextureMapperClass@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x412D05",
+"symbol": "j_?Type_Name@@YAPBDW4GuildRankType@@@Z",
+"name": "j_?Type_Name@@YAPBDW4GuildRankType@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -27125,6 +27272,13 @@
 "source": "thunk"
 },
 {
+"address": "0x413395",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4TargetGeneratorSummaryBF@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4TargetGeneratorSummaryBF@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x4133A9",
 "symbol": "j_?Load@SplineDatabaseClass@@QAE_NPBD@Z",
 "name": "j_?Load@SplineDatabaseClass@@QAE_NPBD@Z",
@@ -27667,6 +27821,13 @@
 "address": "0x413949",
 "symbol": "j_??0IntOptionStruct@@QAE@PBDH@Z",
 "name": "j_??0IntOptionStruct@@QAE@PBDH@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x413967",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4ItemStateEnum@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4ItemStateEnum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -30926,6 +31087,13 @@
 "source": "thunk"
 },
 {
+"address": "0x415BC2",
+"symbol": "j_?String_To_Value@@YA_NPBDPAW4UnknownB01394Enum@@@Z",
+"name": "j_?String_To_Value@@YA_NPBDPAW4UnknownB01394Enum@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x415BEF",
 "symbol": "j_?Build@SimplePositionalUpdatePacketClass@@UAEPAVRawPacketClass@@XZ",
 "name": "j_?Build@SimplePositionalUpdatePacketClass@@UAEPAVRawPacketClass@@XZ",
@@ -31895,6 +32063,13 @@
 "address": "0x4165BD",
 "symbol": "j_??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringOptionStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUStringOptionStruct@@@2@@std@@QAEAAPAUStringOptionStruct@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
 "name": "j_??A?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringOptionStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUStringOptionStruct@@@2@@std@@QAEAAPAUStringOptionStruct@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x4165D6",
+"symbol": "j_?Value_To_String@@YAPADPADHW4UnknownB01394Enum@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4UnknownB01394Enum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -34093,6 +34268,13 @@
 "address": "0x417C88",
 "symbol": "j_?Clear@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEXXZ",
 "name": "j_?Clear@?$VectorClass@VTangentsClass@HermiteSpline1DClass@@@@UAEXXZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x417C97",
+"symbol": "j_?Value_To_String@@YAPADPADHW4UnknownB0133CEnum@@@Z",
+"name": "j_?Value_To_String@@YAPADPADHW4UnknownB0133CEnum@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -56242,6 +56424,20 @@
 "length": 158
 },
 {
+"address": "0x82F180",
+"symbol": "?String_To_Value@@YA_NPBDPAW4WW3DLightAttenuationType@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x82F1D0",
+"symbol": "?Value_To_String@@YAPADPADHW4WW3DLightAttenuationType@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x830BF0",
 "symbol": "??0CircBuffClass@@QAE@HPAX@Z",
 "name": "CircBuffClass::CircBuffClass",
@@ -56282,6 +56478,27 @@
 "length": 66
 },
 {
+"address": "0x835370",
+"symbol": "?Type_Name@@YAPBDW4EffectGeneratorUsageBF@@@Z",
+"name": "Type_Name",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x835390",
+"symbol": "?String_To_Value@@YA_NPBDPAW4EffectGeneratorUsageBF@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x835590",
+"symbol": "?Value_To_String@@YAPADPADHW4EffectGeneratorUsageBF@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x835D9A",
 "symbol": "?Compute_Caps@DX8Wrapper@@KAXW4_D3DFORMAT@@0@Z",
 "name": "DX8Wrapper::Compute_Caps",
@@ -56313,6 +56530,76 @@
 "name": "LoginGalaxyClass::Get_Size",
 "kind": "function",
 "source": "vtable"
+},
+{
+"address": "0x83D270",
+"symbol": "?Type_Name@@YAPBDW4GameActionValidityBitFlag@@@Z",
+"name": "Type_Name",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D290",
+"symbol": "?String_To_Value@@YA_NPBDPAW4GameActionValidityBitFlag@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D490",
+"symbol": "?Value_To_String@@YAPADPADHW4GameActionValidityBitFlag@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D7D0",
+"symbol": "?String_To_Value@@YA_NPBDPAW4GuildRankType@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D860",
+"symbol": "?Value_To_String@@YAPADPADHW4GuildRankType@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D8B0",
+"symbol": "?Type_Name@@YAPBDW4GuildRankType@@@Z",
+"name": "Type_Name",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83D9E0",
+"symbol": "?Value_To_String@@YAPADPADHW4InterruptStateType@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x83DA80",
+"symbol": "?String_To_Value@@YA_NPBDPAW4InterruptStateType@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x842930",
+"symbol": "?String_To_Value@@YA_NPBDPAW4ItemStateEnum@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x842970",
+"symbol": "?Value_To_String@@YAPADPADHW4ItemStateEnum@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x843810",
@@ -56393,6 +56680,62 @@
 "kind": "function",
 "source": "exact",
 "length": 492
+},
+{
+"address": "0x8456C0",
+"symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB0122CEnum@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x845780",
+"symbol": "?Value_To_String@@YAPADPADHW4UnknownB0122CEnum@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x8458C0",
+"symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB013ECEnum@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x845910",
+"symbol": "?Value_To_String@@YAPADPADHW4UnknownB013ECEnum@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x846040",
+"symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB01394Enum@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x846090",
+"symbol": "?Value_To_String@@YAPADPADHW4UnknownB01394Enum@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x846110",
+"symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB0133CEnum@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x846160",
+"symbol": "?Value_To_String@@YAPADPADHW4UnknownB0133CEnum@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x8462A0",
@@ -56521,6 +56864,27 @@
 "kind": "function",
 "source": "exact",
 "length": 74
+},
+{
+"address": "0x84BE40",
+"symbol": "?Type_Name@@YAPBDW4TargetGeneratorSummaryBF@@@Z",
+"name": "Type_Name",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x84BE60",
+"symbol": "?String_To_Value@@YA_NPBDPAW4TargetGeneratorSummaryBF@@@Z",
+"name": "String_To_Value",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x84C060",
+"symbol": "?Value_To_String@@YAPADPADHW4TargetGeneratorSummaryBF@@@Z",
+"name": "Value_To_String",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x84C720",

@@ -95,5 +95,135 @@
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
   "replaces": "??_7?$DeltaTemplateClass@UUnknownB01A40Type@@@@6B@",
   "kind": "vtable"
+ },
+ {
+  "address": "0x83DA80",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4InterruptStateType@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB009A8 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D9E0",
+  "symbol": "?Value_To_String@@YAPADPADHW4InterruptStateType@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB009A8 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D8B0",
+  "symbol": "?Type_Name@@YAPBDW4GuildRankType@@@Z",
+  "evidence": "called by the KVPair slot +0x08 Get_Type_Name of the value type of leaf vtable 0xB00A58 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D7D0",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4GuildRankType@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB00A58 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D860",
+  "symbol": "?Value_To_String@@YAPADPADHW4GuildRankType@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB00A58 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x82F180",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4WW3DLightAttenuationType@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB0100C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x82F1D0",
+  "symbol": "?Value_To_String@@YAPADPADHW4WW3DLightAttenuationType@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB0100C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x8456C0",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB0122CEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB0122C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x845780",
+  "symbol": "?Value_To_String@@YAPADPADHW4UnknownB0122CEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB0122C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x846110",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB0133CEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB0133C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x846160",
+  "symbol": "?Value_To_String@@YAPADPADHW4UnknownB0133CEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB0133C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x846040",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB01394Enum@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB01394 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x846090",
+  "symbol": "?Value_To_String@@YAPADPADHW4UnknownB01394Enum@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB01394 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x8458C0",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4UnknownB013ECEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB013EC (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x845910",
+  "symbol": "?Value_To_String@@YAPADPADHW4UnknownB013ECEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB013EC (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x842930",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4ItemStateEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB017EC (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x842970",
+  "symbol": "?Value_To_String@@YAPADPADHW4ItemStateEnum@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB017EC (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x835370",
+  "symbol": "?Type_Name@@YAPBDW4EffectGeneratorUsageBF@@@Z",
+  "evidence": "called by the KVPair slot +0x08 Get_Type_Name of the value type of leaf vtable 0xB01844 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x835390",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4EffectGeneratorUsageBF@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB01844 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x835590",
+  "symbol": "?Value_To_String@@YAPADPADHW4EffectGeneratorUsageBF@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB01844 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x84BE40",
+  "symbol": "?Type_Name@@YAPBDW4TargetGeneratorSummaryBF@@@Z",
+  "evidence": "called by the KVPair slot +0x08 Get_Type_Name of the value type of leaf vtable 0xB0189C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x84BE60",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4TargetGeneratorSummaryBF@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB0189C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x84C060",
+  "symbol": "?Value_To_String@@YAPADPADHW4TargetGeneratorSummaryBF@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB0189C (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D270",
+  "symbol": "?Type_Name@@YAPBDW4GameActionValidityBitFlag@@@Z",
+  "evidence": "called by the KVPair slot +0x08 Get_Type_Name of the value type of leaf vtable 0xB018F4 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D290",
+  "symbol": "?String_To_Value@@YA_NPBDPAW4GameActionValidityBitFlag@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String of the value type of leaf vtable 0xB018F4 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
+ },
+ {
+  "address": "0x83D490",
+  "symbol": "?Value_To_String@@YAPADPADHW4GameActionValidityBitFlag@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String of the value type of leaf vtable 0xB018F4 (tools/re/auxroots.py ENUM_EXTERN; AR2 2026-10-31)"
  }
 ]

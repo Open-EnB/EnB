@@ -61,8 +61,8 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 // NAME 5: the client's Get_Type_Name string 'InterruptStateType' (KVPair vtable 0xB01B40, 0x7083B0 inline), leaf vtable 0xB009A8
 enum InterruptStateType { UNKNOWN_B009A8_0 };	// vtable 0xB009A8, 4 bytes
 inline const char *Type_Name(InterruptStateType *) { return "InterruptStateType"; }
-inline char *Value_To_String(char *buf, int size, InterruptStateType value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, InterruptStateType *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (InterruptStateType)v; return true; }
+bool String_To_Value(const char *text, InterruptStateType *value);	// 0x83DA80
+char *Value_To_String(char *buf, int size, InterruptStateType value);	// 0x83D9E0
 // NAME 1: the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#)
 struct UnknownB00A00Type { float R; float G; float B; UnknownB00A00Type() {} UnknownB00A00Type(const UnknownB00A00Type &v) { R = v.R; G = v.G; B = v.B; } };	// vtable 0xB00A00, three floats (a colour), constructor empty
 inline bool operator!=(const UnknownB00A00Type &a, const UnknownB00A00Type &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
@@ -71,14 +71,15 @@ inline char *Value_To_String(char *buf, int size, const UnknownB00A00Type &value
 inline bool String_To_Value(const char *, UnknownB00A00Type *) { return false; }
 // NAME 5: the client's Get_Type_Name string 'GuildRankType' (KVPair vtable 0xB01AF4, 0x708240, Type_Name 0x83D8B0), leaf vtable 0xB00A58
 enum GuildRankType { UNKNOWN_B00A58_0 };	// vtable 0xB00A58, 4 bytes
-inline const char *Type_Name(GuildRankType *) { return "GuildRankType"; }
-inline char *Value_To_String(char *buf, int size, GuildRankType value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, GuildRankType *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (GuildRankType)v; return true; }
+const char *Type_Name(GuildRankType value);	// 0x83D8B0 ('GuildRankType')
+template<> inline const char *KVPairTemplateClass<GuildRankType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x708240
+bool String_To_Value(const char *text, GuildRankType *value);	// 0x83D7D0
+char *Value_To_String(char *buf, int size, GuildRankType value);	// 0x83D860
 // NAME 5: the client's Get_Type_Name string 'WW3DLightAttenuationType' (KVPair vtable 0xB01B78, 0x708520 inline), leaf vtable 0xB0100C
 enum WW3DLightAttenuationType { UNKNOWN_B0100C_0 };	// vtable 0xB0100C, 4 bytes
 inline const char *Type_Name(WW3DLightAttenuationType *) { return "WW3DLightAttenuationType"; }
-inline char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, WW3DLightAttenuationType *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (WW3DLightAttenuationType)v; return true; }
+bool String_To_Value(const char *text, WW3DLightAttenuationType *value);	// 0x82F180
+char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value);	// 0x82F1D0
 // NAME 1: the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#)
 enum UnknownB011D4Enum { UNKNOWN_B011D4_0 };	// vtable 0xB011D4, 4 bytes
 inline const char *Type_Name(UnknownB011D4Enum *) { return "UnknownB011D4Enum"; }
@@ -87,23 +88,23 @@ inline bool String_To_Value(const char *text, UnknownB011D4Enum *value) { int v;
 // NAME 1: the value type of the leaf vtable 0xB0122C (its KVPair's Get_Type_Name 0x708690 says 'int'; no name in Net-7 or C#)
 enum UnknownB0122CEnum { UNKNOWN_B0122C_0 };	// vtable 0xB0122C, 4 bytes
 inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, UnknownB0122CEnum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB0122CEnum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB0122CEnum)v; return true; }
+bool String_To_Value(const char *text, UnknownB0122CEnum *value);	// 0x8456C0
+char *Value_To_String(char *buf, int size, UnknownB0122CEnum value);	// 0x845780
 // NAME 1: the value type of the leaf vtable 0xB0133C (its KVPair's Get_Type_Name 0x708AE0 says 'int'; no name in Net-7 or C#)
 enum UnknownB0133CEnum { UNKNOWN_B0133C_0 };	// vtable 0xB0133C, 4 bytes
 inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, UnknownB0133CEnum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB0133CEnum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB0133CEnum)v; return true; }
+bool String_To_Value(const char *text, UnknownB0133CEnum *value);	// 0x846110
+char *Value_To_String(char *buf, int size, UnknownB0133CEnum value);	// 0x846160
 // NAME 1: the value type of the leaf vtable 0xB01394 (its KVPair's Get_Type_Name 0x708970 says 'int'; no name in Net-7 or C#)
 enum UnknownB01394Enum { UNKNOWN_B01394_0 };	// vtable 0xB01394, 4 bytes
 inline const char *Type_Name(UnknownB01394Enum *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, UnknownB01394Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB01394Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB01394Enum)v; return true; }
+bool String_To_Value(const char *text, UnknownB01394Enum *value);	// 0x846040
+char *Value_To_String(char *buf, int size, UnknownB01394Enum value);	// 0x846090
 // NAME 1: the value type of the leaf vtable 0xB013EC (its KVPair's Get_Type_Name 0x708800 says 'int'; no name in Net-7 or C#)
 enum UnknownB013ECEnum { UNKNOWN_B013EC_0 };	// vtable 0xB013EC, 4 bytes
 inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, UnknownB013ECEnum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB013ECEnum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB013ECEnum)v; return true; }
+bool String_To_Value(const char *text, UnknownB013ECEnum *value);	// 0x8458C0
+char *Value_To_String(char *buf, int size, UnknownB013ECEnum value);	// 0x845910
 // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
 struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29)
 inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
@@ -113,23 +114,26 @@ inline bool String_To_Value(const char *, UnknownB016DCType *) { return false; }
 // NAME 5: the client's Get_Type_Name string 'ItemStateEnum' (KVPair vtable 0xB019F4, 0x707FF0 inline), leaf vtable 0xB017EC
 enum ItemStateEnum { UNKNOWN_B017EC_0 };	// vtable 0xB017EC, 4 bytes
 inline const char *Type_Name(ItemStateEnum *) { return "ItemStateEnum"; }
-inline char *Value_To_String(char *buf, int size, ItemStateEnum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, ItemStateEnum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (ItemStateEnum)v; return true; }
+bool String_To_Value(const char *text, ItemStateEnum *value);	// 0x842930
+char *Value_To_String(char *buf, int size, ItemStateEnum value);	// 0x842970
 // NAME 5: the client's Get_Type_Name string 'EffectGeneratorUsageBF' (KVPair vtable 0xB0194C, 0x707BA0, Type_Name 0x835370), leaf vtable 0xB01844
 enum EffectGeneratorUsageBF { UNKNOWN_B01844_0 };	// vtable 0xB01844, 4 bytes
-inline const char *Type_Name(EffectGeneratorUsageBF *) { return "EffectGeneratorUsageBF"; }
-inline char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, EffectGeneratorUsageBF *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (EffectGeneratorUsageBF)v; return true; }
+const char *Type_Name(EffectGeneratorUsageBF value);	// 0x835370 ('EffectGeneratorUsageBF')
+template<> inline const char *KVPairTemplateClass<EffectGeneratorUsageBF>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707BA0
+bool String_To_Value(const char *text, EffectGeneratorUsageBF *value);	// 0x835390
+char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value);	// 0x835590
 // NAME 5: the client's Get_Type_Name string 'TargetGeneratorSummaryBF' (KVPair vtable 0xB01984, 0x707D10, Type_Name 0x84BE40), leaf vtable 0xB0189C
 enum TargetGeneratorSummaryBF { UNKNOWN_B0189C_0 };	// vtable 0xB0189C, 4 bytes
-inline const char *Type_Name(TargetGeneratorSummaryBF *) { return "TargetGeneratorSummaryBF"; }
-inline char *Value_To_String(char *buf, int size, TargetGeneratorSummaryBF value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (TargetGeneratorSummaryBF)v; return true; }
+const char *Type_Name(TargetGeneratorSummaryBF value);	// 0x84BE40 ('TargetGeneratorSummaryBF')
+template<> inline const char *KVPairTemplateClass<TargetGeneratorSummaryBF>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707D10
+bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value);	// 0x84BE60
+char *Value_To_String(char *buf, int size, TargetGeneratorSummaryBF value);	// 0x84C060
 // NAME 5: the client's Get_Type_Name string 'GameActionValidityBitFlag' (KVPair vtable 0xB019BC, 0x707E80, Type_Name 0x83D270), leaf vtable 0xB018F4
 enum GameActionValidityBitFlag { UNKNOWN_B018F4_0 };	// vtable 0xB018F4, 4 bytes
-inline const char *Type_Name(GameActionValidityBitFlag *) { return "GameActionValidityBitFlag"; }
-inline char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, GameActionValidityBitFlag *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (GameActionValidityBitFlag)v; return true; }
+const char *Type_Name(GameActionValidityBitFlag value);	// 0x83D270 ('GameActionValidityBitFlag')
+template<> inline const char *KVPairTemplateClass<GameActionValidityBitFlag>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707E80
+bool String_To_Value(const char *text, GameActionValidityBitFlag *value);	// 0x83D290
+char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value);	// 0x83D490
 // NAME 5: the client's Get_Type_Name string 'ProjectedDecalClass' (KVPair vtable 0xB01D00, 0x708C60 inline), leaf vtable 0xB01A40
 struct ProjectedDecalClass { float F00; float F04; float F08; int I0C; float F10; ProjectedDecalClass() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} ProjectedDecalClass(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } ProjectedDecalClass &operator=(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)
 inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }
