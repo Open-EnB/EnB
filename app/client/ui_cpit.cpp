@@ -2109,8 +2109,25 @@ void UICpitHarvestWatchClass::Unknown_0C()
 
 
 /*
-** Reconstruction notes (CP1, 2026-10-31)
+**	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
+**	Original location: e:\build\beta\G\app\Client\ui_cpit.cpp (its __FILE__)
 **
-** The client's e:\build\beta\G\app\Client\ui_cpit.cpp: the cockpit interface UICpitClass (0x57D830-0x584BE1) and
-** its two object watchers. Each function is placed by address; the asserts sit on the client's lines.
+**	The cockpit interface (ui_cpit.h's UICpitClass, the main view's +0x1D0; 0x178 bytes over Unknown5BB320Class,
+**	the TSI01A mesh and fc_cpit.ini's texts): the warp, throttle, reverse and turn buttons, the hulk and harvest
+**	windows (+0xC8 / +0xCC), the scanner (+0xD4), ui_scut.cpp's window (+0xDC), the incapacitance question
+**	(+0xE0), two watchers of the looted hulk and the harvested object (+0xF4 / +0x110), the damage texts
+**	(Unknown158) and the speed display. The client's window runs 0x57D6C0-0x584BE1 (claims #29 / #30), followed by
+**	its template instances to 0x585100.
+**
+**	Rebuilt (CP1, 2026-10-31), the asserts on the client's lines (D25), the functions without asserts between their
+**	neighbours' lines in the client's order:
+**	  exact: the constructor 0x57D830, destructor 0x57EB80, slots +0x58 / +0x5C / +0x60 / +0x7C, the window close
+**	  0x581CE0, 0x581E60 / 0x581F90 / 0x582070 / 0x5820C0 / 0x582190, the warp and turn buttons 0x583250 / 0x583510,
+**	  0x583DA0, 0x583F70, the font state 0x584110 / 0x5845A0, 0x584A20 / 0x584A60 and both watchers 0x584A80-0x584BE0;
+**	  still differing (the inline budget unless noted): 0x57D6C0, the set-up 0x57DD20, the control keys 0x57F240 / 0x57FCC0, the
+**	  steering keys 0x5806E0, the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
+**	  0x584000 (order) and the incapacitance details 0x584690.
+**	The packets' player ids go through two inline accessors (Unknown_Avatar_ID / Unknown_Player_ID): the client
+**	reads them before the constructors' other arguments, which a member read does not reproduce. The PacketClass
+**	destructor copies 0x581610-0x581CC0, 0x581F70 and 0x5834F0 are too short to count.
 */
