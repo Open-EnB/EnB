@@ -197,86 +197,86 @@ void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
 	out->Z = Get_Height(i, j);
 }
 
-// NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling)
+// NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv)
 void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
 	int i = (int)floor(fx);
 	int j = (int)floor(fy);
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
 	float tx = fx - i;
 	float ty = fy - j;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int i1 = (i + 1) & Mask;
-	float h01 = Heights[row1 + (i & Mask)] * VScale;
-	float h10 = Heights[i1 + row0] * VScale;
-	float h00 = Heights[row0 + (i & Mask)] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h01 = Get_Height(i, j + 1);
+	float h10 = Get_Height(i + 1, j);
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	float h;
-	if (ty <= tx) {
-		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
-	} else {
+	if (tx < ty) {
 		h = (h11 - h01) * tx + (1.0f - ty) * (h00 - h01) + h01;
+	} else {
+		h = (h11 - h10) * ty + (1.0f - tx) * (h00 - h10) + h10;
 	}
 	int corner = -1;
-	if (h00 < h) {
+	float lowest = h;
+	if (lowest > h00) {
 		corner = 0;
-		h = h00;
+		lowest = h00;
 	}
-	if (h10 < h) {
+	if (lowest > h10) {
 		corner = 1;
-		h = h10;
+		lowest = h10;
 	}
-	if (h11 < h) {
+	if (lowest > h11) {
 		corner = 2;
-		h = h11;
+		lowest = h11;
 	}
-	if (h01 < h) {
+	if (lowest > h01) {
 		corner = 3;
 	}
-	Vector2 d(0.0f, 0.0f);
+	Vector3 d(0.0f, 0.0f, 0.0f);
 	switch (corner) {
 		case 0:
-			d.Set(-tx, -ty);
+			d.X = -tx;
+			d.Y = -ty;
 			break;
 		case 1:
-			d.Set(1.0f - tx, -ty);
+			d.X = 1.0f - tx;
+			d.Y = -ty;
 			break;
 		case 2:
-			d.Set(1.0f - tx, 1.0f - ty);
+			d.X = 1.0f - tx;
+			d.Y = 1.0f - ty;
 			break;
 		case 3:
-			d.Set(-tx, 1.0f - ty);
+			d.X = -tx;
+			d.Y = 1.0f - ty;
 			break;
 	}
 	if (corner >= 0) {
 		d.Normalize();
 	}
-	direction->Set(d.X, d.Y, 0.0f);
+	*direction = d;
 }
 
-// NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's)
+// NOT EXACT: frame (0x464290: 0x38, the client 0x40; it keeps h10 on the FPU, spills h01 and copies an edge component; attempts.csv)
 void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
 	int i = (int)floor(fx);
 	int j = (int)floor(fy);
-	unsigned int i1 = (i + 1) & Mask;
-	unsigned int row0 = (j & Mask) << Log2;
-	unsigned int row1 = ((j + 1) & Mask) << Log2;
-	float h00 = Heights[row0 + (i & Mask)] * VScale;
-	float h11 = Heights[i1 + row1] * VScale;
+	float h10 = Get_Height(i + 1, j);
+	float h00 = Get_Height(i, j);
+	float h11 = Get_Height(i + 1, j + 1);
 	Vector3 n;
-	if (fy - j <= fx - i) {
-		float h10 = Heights[i1 + row0] * VScale;
-		n = Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00));
+	if (fx - i < fy - j) {
+		float h01 = Get_Height(i, j + 1);
+		Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00), &n);
+		n.Normalize();
 	} else {
-		float h01 = Heights[row1 + (i & Mask)] * VScale;
-		n = Vector3::Cross_Product(Vector3(XSpacing, YSpacing, h11 - h00), Vector3(0.0f, YSpacing, h01 - h00));
+		Vector3::Cross_Product(Vector3(XSpacing, 0.0f, h10 - h00), Vector3(XSpacing, YSpacing, h11 - h00), &n);
+		n.Normalize();
 	}
-	n.Normalize();
 	*normal = n;
 }
 

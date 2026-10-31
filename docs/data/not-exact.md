@@ -233,8 +233,8 @@ edit the comments in the code, not this file.
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:71` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
 | `app/shared/heightfield.cpp:186` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
-| `app/shared/heightfield.cpp:200` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: written from the pseudocode (0x463F00: frame 0x1C in the client, the corner tests' scheduling) |
-| `app/shared/heightfield.cpp:259` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: written from the pseudocode (0x464290: the cross products and Normalize as Vector3's) |
+| `app/shared/heightfield.cpp:200` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |
+| `app/shared/heightfield.cpp:261` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: frame (0x464290: 0x38, the client 0x40; it keeps h10 on the FPU, spills h01 and copies an edge component; attempts.csv) |
 | `app/shared/heightfield.cpp:381` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
 | `app/shared/heightfield.cpp:528` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
 | `app/shared/heightfield.cpp:596` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
