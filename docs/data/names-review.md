@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1020 |
+| 3 | by convention from a client-named file or sibling | 1021 |
 | 2 | describes what the code does | 2503 |
-| 1 | neutral placeholder | 6668 |
+| 1 | neutral placeholder | 6717 |
 
 ## For review (score 3 and below)
 
@@ -3656,23 +3656,69 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
-| 1 | `Unknown_BE67C4` | `app/client/ui_cpit.cpp:18` | neutral (D10) |
-| 1 | `UnknownBFAEE0Class` | `app/client/ui_cpit.cpp:21` | kernel.cpp's |
-| 1 | `Unknown_00` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAEE0` | `app/client/ui_cpit.cpp:27` | 0xBFAEE0 |
-| 1 | `robj, a, b` | `app/client/ui_cpit.cpp:28` | what the constructor passes |
-| 1 | `Unknown_496730` | `app/client/ui_cpit.cpp:28` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/ui_cpit.cpp:29` | neutral |
-| 1 | `Unknown_65EED0` | `app/client/ui_cpit.cpp:29` | untagged neutral name (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/ui_cpit.cpp:32` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_cpit.cpp:35` | view.cpp's |
-| 1 | `view, arg` | `app/client/ui_cpit.cpp:36` | mainview.cpp's |
-| 1 | `Unknown00` | `app/client/ui_cpit.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_57D6C0` | `app/client/ui_cpit.cpp:121` | untagged neutral name (D10) |
+| 1 | `FontStyleClass` | `app/client/ui_cpit.cpp:18` | fontmanager.h's (a DynamicMeshClass there, 0x4E8 bytes) |
+| 1 | `Unknown_Pad` | `app/client/ui_cpit.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_cpit.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_cpit.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/ui_cpit.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_cpit.cpp:27` | neutral (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_cpit.cpp:30` | kernel.cpp's |
+| 1 | `Unknown_00` | `app/client/ui_cpit.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_cpit.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_cpit.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_cpit.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_cpit.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_cpit.cpp:36` | 0xBFAEE0 |
+| 1 | `robj, a, b` | `app/client/ui_cpit.cpp:37` | what the constructor passes |
+| 1 | `Unknown_496730` | `app/client/ui_cpit.cpp:37` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/ui_cpit.cpp:38` | neutral |
+| 1 | `Unknown_65EED0` | `app/client/ui_cpit.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_cpit.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_cpit.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_cpit.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_cpit.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_cpit.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_cpit.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_cpit.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_cpit.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_cpit.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_cpit.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_cpit.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_cpit.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_cpit.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_cpit.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_cpit.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_cpit.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_cpit.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_cpit.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_cpit.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_cpit.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_cpit.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ui_cpit.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_cpit.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/ui_cpit.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ui_cpit.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_cpit.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_cpit.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_cpit.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_cpit.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_cpit.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_cpit.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/ui_cpit.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_cpit.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_cpit.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_cpit.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_cpit.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_cpit.cpp:59` | untagged neutral name (D10) |
+| 1 | `LineDisplaySortClass` | `app/client/ui_cpit.cpp:63` | neutral (D10) |
+| 1 | `inter` | `app/client/ui_cpit.cpp:66` | view.cpp's |
+| 1 | `view, arg` | `app/client/ui_cpit.cpp:67` | mainview.cpp's |
+| 1 | `Unknown00` | `app/client/ui_cpit.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_57D6C0` | `app/client/ui_cpit.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_cpit.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_cpit.cpp:140` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_cpit.cpp:152` | untagged neutral name (D10) |
@@ -3707,27 +3753,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5BA460` | `app/client/ui_cpit.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_cpit.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown0E0` | `app/client/ui_cpit.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_cpit.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown16C` | `app/client/ui_cpit.cpp:424` | untagged neutral name (D10) |
 | 1 | `Unknown170` | `app/client/ui_cpit.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.cpp:426` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_cpit.cpp:430` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_cpit.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_582190` | `app/client/ui_cpit.cpp:446` | untagged neutral name (D10) |
 | 1 | `Unknown_584110` | `app/client/ui_cpit.cpp:449` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9830` | `app/client/ui_cpit.cpp:461` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9930` | `app/client/ui_cpit.cpp:462` | untagged neutral name (D10) |
-| 1 | `Unknown_581CE0` | `app/client/ui_cpit.cpp:1156` | untagged neutral name (D10) |
-| 1 | `Unknown_582070` | `app/client/ui_cpit.cpp:1159` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_cpit.cpp:624` | untagged neutral name (D10) |
+| 1 | `Unknown_581CE0` | `app/client/ui_cpit.cpp:1157` | untagged neutral name (D10) |
+| 1 | `Unknown_582070` | `app/client/ui_cpit.cpp:1160` | untagged neutral name (D10) |
 | 1 | `Unknown_581E60` | `app/client/ui_cpit.cpp:1182` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/ui_cpit.cpp:1185` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/ui_cpit.cpp:1189` | untagged neutral name (D10) |
 | 1 | `Unknown_581F90` | `app/client/ui_cpit.cpp:1192` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_cpit.cpp:1209` | untagged neutral name (D10) |
 | 1 | `Unknown_744560` | `app/client/ui_cpit.cpp:1209` | untagged neutral name (D10) |
 | 1 | `Unknown_5820C0` | `app/client/ui_cpit.cpp:1224` | untagged neutral name (D10) |
 | 1 | `Unknown_583DA0` | `app/client/ui_cpit.cpp:1851` | untagged neutral name (D10) |
 | 1 | `Unknown_583F70` | `app/client/ui_cpit.cpp:1901` | untagged neutral name (D10) |
+| 1 | `Unknown_584000` | `app/client/ui_cpit.cpp:1918` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_cpit.cpp:1927` | untagged neutral name (D10) |
+| 1 | `Unknown_5845A0` | `app/client/ui_cpit.cpp:2005` | untagged neutral name (D10) |
 | 1 | `Unknown_584A20` | `app/client/ui_cpit.cpp:2051` | untagged neutral name (D10) |
 | 1 | `Unknown_584A60` | `app/client/ui_cpit.cpp:2060` | untagged neutral name (D10) |
 | 1 | `ui_cpit.h` | `app/client/ui_cpit.h:4` | provisional header name for ui_cpit.cpp |
@@ -3770,47 +3816,50 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `arg` | `app/client/ui_cpit.h:97` | neutral |
 | 1 | `Unknown_583DA0` | `app/client/ui_cpit.h:97` | untagged neutral name (D10) |
 | 1 | `Unknown_583F70` | `app/client/ui_cpit.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_584110` | `app/client/ui_cpit.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_584A20` | `app/client/ui_cpit.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_584A60` | `app/client/ui_cpit.h:101` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/ui_cpit.h:102` | the handler's packet |
-| 1 | `Unknown_584690` | `app/client/ui_cpit.h:102` | untagged neutral name (D10) |
-| 1 | `text, header, inflicted, emp` | `app/client/ui_cpit.h:103` | what the handler passes |
-| 1 | `Unknown_583DC0` | `app/client/ui_cpit.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_cpit.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_cpit.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_cpit.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_cpit.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_cpit.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_cpit.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_cpit.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_cpit.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_cpit.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown0D8` | `app/client/ui_cpit.h:116` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_cpit.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown0E0` | `app/client/ui_cpit.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown0E4` | `app/client/ui_cpit.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown0E8` | `app/client/ui_cpit.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown0EC` | `app/client/ui_cpit.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown12C` | `app/client/ui_cpit.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown130` | `app/client/ui_cpit.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/client/ui_cpit.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/ui_cpit.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/ui_cpit.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown13D` | `app/client/ui_cpit.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown13E` | `app/client/ui_cpit.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown13F` | `app/client/ui_cpit.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/ui_cpit.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/ui_cpit.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown148` | `app/client/ui_cpit.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown14C` | `app/client/ui_cpit.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown150` | `app/client/ui_cpit.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown154` | `app/client/ui_cpit.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/ui_cpit.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown164` | `app/client/ui_cpit.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_cpit.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_cpit.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_cpit.h:142` | untagged neutral name (D10) |
+| 1 | `report` | `app/client/ui_cpit.h:99` | neutral |
+| 1 | `Unknown_584000` | `app/client/ui_cpit.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_584110` | `app/client/ui_cpit.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_5845A0` | `app/client/ui_cpit.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_584A20` | `app/client/ui_cpit.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_584A60` | `app/client/ui_cpit.h:103` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/ui_cpit.h:104` | the handler's packet |
+| 1 | `Unknown_584690` | `app/client/ui_cpit.h:104` | untagged neutral name (D10) |
+| 1 | `text, header, inflicted, emp` | `app/client/ui_cpit.h:105` | what the handler passes |
+| 1 | `Unknown_583DC0` | `app/client/ui_cpit.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_cpit.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_cpit.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_cpit.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_cpit.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_cpit.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_cpit.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_cpit.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_cpit.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_cpit.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_cpit.h:118` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_cpit.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown0E0` | `app/client/ui_cpit.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown0E4` | `app/client/ui_cpit.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown0E8` | `app/client/ui_cpit.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown0EC` | `app/client/ui_cpit.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown12C` | `app/client/ui_cpit.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/ui_cpit.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/ui_cpit.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/ui_cpit.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/ui_cpit.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown13D` | `app/client/ui_cpit.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown13E` | `app/client/ui_cpit.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown13F` | `app/client/ui_cpit.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/ui_cpit.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown144` | `app/client/ui_cpit.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/ui_cpit.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown14C` | `app/client/ui_cpit.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown150` | `app/client/ui_cpit.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown154` | `app/client/ui_cpit.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/ui_cpit.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown164` | `app/client/ui_cpit.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/ui_cpit.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_cpit.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/ui_cpit.h:144` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_group.cpp:18` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_group.cpp:21` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_group.cpp:27` | untagged neutral name (D10) |
@@ -7529,15 +7578,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
-| 2 | `FontStringFilesClass` | `app/client/ui_cpit.cpp:16` | fontdatabase.h's |
-| 2 | `Create_Render_Obj` | `app/client/ui_cpit.cpp:25` | what it does (the asset manager's slot) |
+| 2 | `FontStringFilesClass` | `app/client/ui_cpit.cpp:17` | fontdatabase.h's |
+| 2 | `Create_Render_Obj` | `app/client/ui_cpit.cpp:34` | what it does (the asset manager's slot) |
 | 2 | `Object` | `app/client/ui_cpit.h:42` | what it holds |
 | 2 | `Node` | `app/client/ui_cpit.h:43` | eff_o.h's watch nodes' |
 | 2 | `owner` | `app/client/ui_cpit.h:50` | what it holds |
 | 2 | `Owner` | `app/client/ui_cpit.h:54` | what it holds |
 | 2 | `owner` | `app/client/ui_cpit.h:61` | what it holds |
 | 2 | `Owner` | `app/client/ui_cpit.h:65` | what it holds |
-| 2 | `HulkWatch` | `app/client/ui_cpit.h:122` | what it holds |
+| 2 | `HulkWatch` | `app/client/ui_cpit.h:124` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_group.cpp:19` | fontdatabase.h's |
 | 2 | `Create_Render_Obj` | `app/client/ui_group.cpp:68` | what it does (the asset manager's slot) |
 | 2 | `UIGroupMemberClass` | `app/client/ui_group.h:26` | what UIGroupClass's Members holds |
@@ -9418,15 +9467,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
-| 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:17` | fontmanager.h's |
+| 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:26` | fontmanager.h's |
+| 3 | `GadgetClass` | `app/client/ui_cpit.cpp:41` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `UIScutClass` | `app/client/ui_cpit.h:69` | class-from-file (D24) for ui_scut.cpp |
 | 3 | `UICpitClass` | `app/client/ui_cpit.h:78` | class-from-file (D24) for ui_cpit.cpp |
 | 3 | `manager` | `app/client/ui_cpit.h:88` | the FAIL_IF's |
 | 3 | `manager` | `app/client/ui_cpit.h:89` | the FAIL_IF's |
 | 3 | `hulk` | `app/client/ui_cpit.h:93` | the FAIL_IF's |
-| 3 | `HulkUI` | `app/client/ui_cpit.h:112` | the assert's |
-| 3 | `Scan` | `app/client/ui_cpit.h:115` | its file's (ui_scan.cpp) |
-| 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:123` | the asserts' |
+| 3 | `HulkUI` | `app/client/ui_cpit.h:114` | the assert's |
+| 3 | `Scan` | `app/client/ui_cpit.h:117` | its file's (ui_scan.cpp) |
+| 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:125` | the asserts' |
 | 3 | `FontManagerClass` | `app/client/ui_group.cpp:20` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_group.cpp:24` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Get_Interface` | `app/client/ui_group.h:31` | the asserts' |

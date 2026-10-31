@@ -96,7 +96,9 @@ public:
 	void Unknown_582190(ClientObjectClass *object, int arg);	// 0x582190: +0xD0's object (no caller; slot +0x58 expands it)  // NAME 1 [object, arg]: neutral
 	void Unknown_583DA0(int arg);						// 0x583DA0 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_583F70();								// 0x583F70: the finished effects of Unknown158 removed
+	bool Unknown_584000(bool report);					// 0x584000: the avatar's MaxSpeed is set, else (report) 'Engine unavailable. Please wait.'  // NAME 1 [report]: neutral
 	void Unknown_584110();								// 0x584110 (FAIL_IFs '!warpfont' / '!distressfont' / '!spacefont' l.1986-1988)
+	void Unknown_5845A0();								// 0x5845A0: the WARP_CPIT text dimmed while the warp button (+0xB4) is off
 	void Unknown_584A20();								// 0x584A20
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
 	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
