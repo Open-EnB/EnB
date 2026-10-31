@@ -94,6 +94,8 @@ public:
 	void Unknown_582070();								// 0x582070: the hulk let go
 	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0; G_ASSERTs l.1227 / 1229)  // NAME 1 [on]: what the handler passes
 	void Unknown_582190(ClientObjectClass *object, int arg);	// 0x582190: +0xD0's object (no caller; slot +0x58 expands it)  // NAME 1 [object, arg]: neutral
+	void Unknown_583250();								// 0x583250: the warp button (+0xB4): a WarpPacketClass from the radar's path (FAIL_IF '!radar' l.1615), the distress request, or the 3-D movie view's camera
+	void Unknown_583510();								// 0x583510: the turn buttons (+0xC0 / +0xC4): a TurnPacketClass and SClient 0x745B90
 	void Unknown_583DA0(int arg);						// 0x583DA0 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_583F70();								// 0x583F70: the finished effects of Unknown158 removed
 	bool Unknown_584000(bool report);					// 0x584000: the avatar's MaxSpeed is set, else (report) 'Engine unavailable. Please wait.'  // NAME 1 [report]: neutral

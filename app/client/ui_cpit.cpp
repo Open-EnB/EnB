@@ -5,6 +5,10 @@
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
+#include "..\packets\pkturn.h"
+#include "..\packets\pkwarpindex.h"
+#include "..\packets\pkincapacitancerequest.h"
+#include "..\audio\soundlib.h"
 #include "rendobj.h"
 #include "option.h"
 #include "..\shared\auxdata\auxdata.h"
@@ -56,8 +60,24 @@ public:
 	virtual void Unknown_AC();							// +0xAC (0x583250, last)
 
 	char Unknown04[0x64 - 0x04];						// +0x04
-	bool Unknown64;										// +0x64 (0x583250)
+	bool Unknown64;										// +0x64: pressed (0x583250, 0x583510)
+	bool Unknown65;										// +0x65
+	bool Unknown66;										// +0x66 (0x583510: either turn button's set stops the turn)
+	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
+	void Unknown_671630();								// 0x671630 (after slot +0xAC)
+	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
 };
+
+// camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
+class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
+{
+public:
+	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
+};
+
+// (inline: the client reads these before the other arguments of the packets' constructors)
+inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)
+inline int Unknown_Player_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->Unknown1138); }	// NAME 1: neutral (D10)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
 class LineDisplaySortClass  // NAME 1: neutral (D10)
@@ -70,26 +90,6 @@ public:
 private:
 	char Unknown00[8];
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1153,7 +1153,6 @@ void UICpitClass::Unknown_74(ControlKeysManagerClass *manager)
 
 
 // 0x581CE0: a window of the cockpit's closed
-// NOT EXACT: register (the client loads AvatarID into ecx, ours into edx; a named client and a named packet tried)
 void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 {
 	if (ui == HulkUI) {
@@ -1166,8 +1165,9 @@ void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 
 
 
+
 		FAIL_IF(!current_harvestable) return;
-		((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 17, current_harvestable->Get_Game_ID(), 0));
+		((ClientClass *)Client)->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 17, current_harvestable->Get_Game_ID(), 0));
 		CurrentHarvestable = NULL;
 	} else {
 		//
@@ -1597,7 +1597,43 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 
 
 
+// 0x583250: the warp button (+0xB4)
+void UICpitClass::Unknown_583250()
+{
+	if (Unknown0B4->Unknown_60()) {
+		if (!Client) return;
+		if (Unknown0B4->Unknown64) {
+			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+			SClient *sclient = (SClient *)Client;
+			if (Unknown13D) {
+				if (!Unknown13F && !Unknown0E4) {
+					((ClientClass *)Client)->Send_Packet(&IncapacitanceRequestPacketClass(Unknown_Avatar_ID(Client)));
+				}
+			} else if (sclient->ViewMode == 0) {
+				RadarSystemClass *radar = sclient->MainView->Radar;
 
+				FAIL_IF(!radar) return;
+				if (radar->Unknown_7BD980()) {
+					((ClientClass *)Client)->Send_Packet(&WarpPacketClass(Unknown_Player_ID(Client), radar->Unknown_7BD960()));
+					sclient->Unknown_745C70(0);
+					sclient->Unknown_745B90(0);
+					sclient->Unknown_745E40(0, false);
+					Unknown144 = 0;
+					Unknown0B8->Unknown_674160(0);
+					Unknown0B8->Unknown_671740(false, 0);
+					Unknown0BC->Unknown_674160(0);
+				} else {
+					sclient->Unknown_74D990(17, "Warp path has not finished building!  Press warp again.", 0);
+				}
+				Unknown0BC->Unknown_671740(false, 0);
+			} else if (sclient->ViewMode == 1) {
+				((SClient *)sclient->Unknown_18())->CameraManager->Unknown_79B2B0(17);
+			}
+		}
+	}
+	Unknown0B4->Unknown_AC();
+	Unknown0B4->Unknown_671630();
+}
 
 
 
@@ -1661,73 +1697,37 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x583510: the turn buttons (LEFT +0xC0, RIGHT +0xC4)
+void UICpitClass::Unknown_583510()
+{
+	if (!Unknown0C0->Unknown_60() && !Unknown0C4->Unknown_60()) return;
+	SClient *sclient = (SClient *)Client;
+	if (!sclient) return;
+	if (Unknown0C0->Unknown66 || Unknown0C4->Unknown66) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		Unknown134 = 0;
+		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0.0f));
+		sclient->Unknown_745B90(0.0f);
+		Unknown0C0->Unknown_671740(false, 0.0f);
+		Unknown0C4->Unknown_671740(false, 0.0f);
+	} else if (Unknown0C0->Unknown64) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		Unknown134 = -1;
+		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), -1.0f));
+		sclient->Unknown_745B90(-1.0f);
+		Unknown0C0->Unknown_671740(true, 1.0f);
+	} else if (Unknown0C4->Unknown64) {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
+		Unknown134 = 1;
+		((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 1.0f));
+		sclient->Unknown_745B90(1.0f);
+		Unknown0C4->Unknown_671740(true, 1.0f);
+	}
+	Unknown0C0->Unknown_AC();
+	Unknown0C4->Unknown_AC();
+	Unknown0C0->Unknown_671630();
+	Unknown0C4->Unknown_671630();
+}
 
 
 
