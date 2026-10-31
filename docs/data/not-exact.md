@@ -210,12 +210,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1252` | `UIManuClass::Unknown_5B4680` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0) (0x5B4680) |
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
-| `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:897` | `UIScutBarClass::Unknown_612430` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
-| `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: not yet matched (first draft from the pseudocode) |
+| `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
+| `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
+| `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
+| `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
+| `app/client/ui_scut.cpp:897` | `UIScutBarClass::Unknown_612430` | marker | NOT EXACT: the client keeps 0 in ebx (cmp reg, ebx; push ebx), ours uses test and immediates |
+| `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

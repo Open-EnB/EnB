@@ -376,7 +376,7 @@ UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments)
 UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index) :
 	UnknownAEEA88Class(owner),
 	Mesh(mesh),
@@ -482,7 +482,7 @@ void UIScutBarClass::Unknown_6112B0()
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's)
 void UIScutBarClass::Unknown_611300(ControlKeysManagerClass *manager)
 {
 	char name[32];
@@ -497,7 +497,7 @@ void UIScutBarClass::Unknown_611300(ControlKeysManagerClass *manager)
 }
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's)
 void UIScutBarClass::Unknown_611710(ControlKeysManagerClass *manager)
 {
 	char name[32];
@@ -786,7 +786,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: register (and the client loads both floats before slot +0x2C's flags)
 bool UIScutBarClass::Unknown_6120E0(int key)
 {
 	if (Bank->Unknown1C == key) {
@@ -894,7 +894,7 @@ GadgetClass *Unknown_6123F0(UIViewClass *view)
 
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: the client keeps 0 in ebx (cmp reg, ebx; push ebx), ours uses test and immediates
 void UIScutBarClass::Unknown_612430()
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
@@ -998,7 +998,7 @@ void UIScutBankGadgetClass::Unknown_40(bool on)
 
 
 
-// NOT EXACT: not yet matched (first draft from the pseudocode)
+// NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops
 void UIScutBankGadgetClass::Unknown_612820(int num)
 {
 	FAIL_IF(num < 0) return;
@@ -1033,4 +1033,15 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **
 **	Rebuilt (SC2, 2026-10-31), the asserts on the client's lines (D25), the functions without asserts between their
 **	neighbours' lines in the client's order. Names are neutral where the client has none (Unknown_<address>).
+**	  exact: the constructor 0x610570 and destructor 0x610800, slots +0x54 / +0x60 / +0x68 / +0x70 / +0x74, the bar
+**	  pickers 0x610B00-0x610F30, the bar's destructor, help section, free-button search, set, clear, find, group switch
+**	  and listener slot (0x611220-0x611F60, 0x612510), 0x6123F0, the bank's constructor, destructor, slot +0x40, and the
+**	  sort's comparison struct and instances 0x612940-0x6134F0;
+**	  still differing (attempts.csv): the bar's constructor 0x610F80, its control keys 0x611300 / 0x611710 and key
+**	  handler 0x6120E0 (registers), 0x612430 (the client's zero register), the bank's 0x612820 (stack pops) and
+**	  std::_Sort_0 0x6129C0 (the STL instance's inline budget).
+**	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and
+**	0x611BD0. The bar's destructor removes it from the mesh's list through the base's inline slot +0x04 (0x53B310),
+**	which gives the client's schedule inside 0x610800. The sort's operator() returns int (mov eax, 1 in the client).
+**	0x6124F0 (the active shortcut's setter, inline in the header) is too short to count.
 */
