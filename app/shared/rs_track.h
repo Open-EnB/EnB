@@ -171,7 +171,7 @@ public:
 	virtual void Unknown_1C4(int arg) {}							// +0x1C4 0x4633A0  // NAME 1 [arg]: neutral
 	virtual bool Unknown_1C8();										// +0x1C8 0x460E80 (On_Frame_Update: the animation step)  // NAME 1: neutral (D10)
 	virtual void Unknown_1CC(RenderStateClass *state, RenderObjClass *robj);	// +0x1CC 0x460940 (the state switch)  // NAME 1 [state, robj]: neutral
-	virtual bool Unknown_1D0(int arg, const char *bone_path, RenderObjClass *robj);	// +0x1D0 0x4609C0 (adds robj on a bone path)  // NAME 1 [arg .. robj]: neutral
+	virtual bool Unknown_1D0(int arg, const char *bone_path, RenderObjClass *robj, int arg2);	// +0x1D0 0x4609C0 (adds robj on a bone path; ret 0x10)  // NAME 1 [arg .. arg2]: neutral
 	virtual void Unknown_1D4(int a, int b, int c);					// +0x1D4 0x462070  // NAME 1 [a, b, c]: neutral
 	virtual void Unknown_1D8(int a, int b);							// +0x1D8 0x460BA0  // NAME 1 [a, b]: neutral
 
@@ -187,7 +187,7 @@ public:
 	void Unknown_460850(int render_state_id);						// 0x460850 (ACTIVATE_NEXT_RENDER_STATE 49)
 	void Unknown_460880(int render_state_id, int link_id);			// 0x460880 (INIT_RENDER_STATE 47)
 	void Unknown_460BC0();											// 0x460BC0  // NAME 1: neutral (D10)
-	bool Unknown_461D60(RenderObjClass *robj, const char *bone_path);	// 0x461D60 (removes robj from a bone path)  // NAME 1 [robj, bone_path]: neutral
+	int Unknown_461D60(RenderObjClass *robj, const char *bone_path);	// 0x461D60 (removes robj from a bone path)  // NAME 1 [robj, bone_path]: neutral
 	void Unknown_462180(HAnimComboDataClass *data);					// 0x462180  // NAME 1 [data]: neutral
 	void Unknown_462470(int a, int b);								// 0x462470  // NAME 1 [a, b]: neutral
 	void Unknown_462530(int a);										// 0x462530  // NAME 1 [a]: neutral

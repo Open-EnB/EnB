@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-360 entries in 73 files.
+354 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -317,21 +317,15 @@ edit the comments in the code, not this file.
 | `app/shared/px_wrapper.cpp:269` | `PxWrapper::Update` | marker | NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60) |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: functional from the pseudocode; similarity 0.49 |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: functional from the pseudocode; similarity 0.53 |
-| `app/shared/rs_track.cpp:64` | `RsTrackClass::Unknown_460260` | marker | NOT EXACT: functional from the pseudocode; similarity 0.91 |
 | `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: functional from the pseudocode; similarity 0.52 |
 | `app/shared/rs_track.cpp:229` | `RsTrackClass::Unknown_4604D0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.34 |
 | `app/shared/rs_track.cpp:259` | `RsTrackClass::Unknown_4605E0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.39 |
 | `app/shared/rs_track.cpp:331` | `RsTrackClass::Unknown_460880` | marker | NOT EXACT: functional from the pseudocode; similarity 0.46 |
 | `app/shared/rs_track.cpp:349` | `RsTrackClass::Unknown_1CC` | marker | NOT EXACT: functional from the pseudocode; similarity 0.79 |
-| `app/shared/rs_track.cpp:400` | `RsTrackClass::Unknown_1D0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.50 |
-| `app/shared/rs_track.cpp:508` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: functional from the pseudocode; similarity 0.67 |
-| `app/shared/rs_track.cpp:589` | `RsTrackClass::Get_Cost` | marker | NOT EXACT: functional from the pseudocode; similarity 0.59 |
-| `app/shared/rs_track.cpp:598` | `RsTrackClass::Get_Value` | marker | NOT EXACT: functional from the pseudocode; similarity 0.59 |
-| `app/shared/rs_track.cpp:607` | `RsTrackClass::Get_Post_Increment_Value` | marker | NOT EXACT: functional from the pseudocode; similarity 0.59 |
-| `app/shared/rs_track.cpp:869` | `RsTrackClass::Get_Bounding_Sphere` | marker | NOT EXACT: functional from the pseudocode; similarity 0.29 |
-| `app/shared/rs_track.cpp:902` | `RsTrackClass::Update_Obj_Space_Bounding_Volumes` | marker | NOT EXACT: functional from the pseudocode; similarity 0.89 |
-| `app/shared/rs_track.cpp:925` | `RsTrackClass::Update_Cached_Bounding_Volumes` | marker | NOT EXACT: functional from the pseudocode; similarity 0.67 |
-| `app/shared/rs_track.cpp:1054` | `RsTrackClass::Unknown_461D60` | marker | NOT EXACT: functional from the pseudocode; similarity 0.60 |
+| `app/shared/rs_track.cpp:404` | `RsTrackClass::Unknown_1D0` | marker | NOT EXACT: functional from the pseudocode; similarity 0.50 |
+| `app/shared/rs_track.cpp:510` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: functional from the pseudocode; similarity 0.67 |
+| `app/shared/rs_track.cpp:927` | `RsTrackClass::Update_Cached_Bounding_Volumes` | marker | NOT EXACT: functional from the pseudocode; similarity 0.67 |
+| `app/shared/rs_track.cpp:1058` | `RsTrackClass::Unknown_461D60` | marker | NOT EXACT: functional from the pseudocode; similarity 0.60 |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
 | `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |

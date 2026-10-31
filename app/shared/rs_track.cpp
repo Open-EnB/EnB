@@ -61,7 +61,6 @@ RenderObjClass *RsTrackClass::Clone(void) const
 }
 
 // 0x460260
-// NOT EXACT: functional from the pseudocode; similarity 0.91
 void RsTrackClass::Unknown_460260(RenderObjClass *robj)
 {
 	if (robj != NULL) {
@@ -84,7 +83,8 @@ void RsTrackClass::Unknown_460260(RenderObjClass *robj)
 		robj->Set_User_Data(Get_User_Data(), true);
 		SphereClass sphere;
 		robj->Get_Obj_Space_Bounding_Sphere(sphere);
-		UnknownD8 = sphere;
+		UnknownD8.Center = sphere.Center;
+		UnknownD8.Radius = sphere.Radius;
 		robj->Get_Obj_Space_Bounding_Box(UnknownE8);
 	} else {
 		UnknownD8.Center.Set(0.0f, 0.0f, 0.0f);
@@ -396,50 +396,52 @@ void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 
 
 
+
+
+
+
 // 0x4609C0
 // NOT EXACT: functional from the pseudocode; similarity 0.50
-bool RsTrackClass::Unknown_1D0(int arg, const char *bone_path, RenderObjClass *obj)
+bool RsTrackClass::Unknown_1D0(int arg, const char *bone_path, RenderObjClass *obj, int arg2)
 {
 	bool result = false;
-	if (obj == NULL) {
-		return(false);
-	}
-	if (obj->Get_Container() != NULL) {
-		return(false);
-	}
-	RenderObjClass *robj = Peek_Render_Object();
-	if (robj == NULL) {
-		return(false);
-	}
-	if (bone_path == NULL || *bone_path == '\0') {
-		robj->Add_Sub_Object(obj);
-	} else {
-		char path[256];
-		strcpy(path, bone_path);
-		char *name = strtok(path, "\\");
-		if (name == NULL) {
+	if (obj != NULL && obj->Get_Container() == NULL) {
+		RenderObjClass *robj = Peek_Render_Object();
+		if (robj == NULL) {
 			return(false);
 		}
-		char *next;
-		while ((next = strtok(NULL, "\\")) != NULL) {
-			int idx = robj->Get_Bone_Index(name);
-			if (idx == 0) {
-				return(false);
+		if (bone_path == NULL || *bone_path == '\0') {
+			robj->Add_Sub_Object(obj);
+			result = true;
+		} else {
+			char path[256];
+			strcpy(path, bone_path);
+			char *name = strtok(path, "\\");
+			if (name == NULL) {
+				return(result);
 			}
-			G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
-			robj = robj->Get_Sub_Object_On_Bone(0, idx);
-			if (robj == NULL) {
-				return(false);
+			char *next;
+			while ((next = strtok(NULL, "\\")) != NULL) {
+				int idx = robj->Get_Bone_Index(name);
+				if (idx == 0) {
+					return(result);
+				}
+				G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
+				robj = robj->Get_Sub_Object_On_Bone(0, idx);
+				if (robj == NULL) {
+					return(result);
+				}
+				robj->Release_Ref();
+				name = next;
 			}
-			robj->Release_Ref();
-			name = next;
+			if (robj->Get_Bone_Index(name) == 0) {
+				return(result);
+			}
+			robj->Add_Sub_Object_To_Bone(obj, name);
+			result = true;
 		}
-		if (robj->Get_Bone_Index(name) == 0) {
-			return(false);
-		}
-		robj->Add_Sub_Object_To_Bone(obj, name);
+		obj->Set_User_Data(Get_User_Data(), true);
 	}
-	obj->Set_User_Data(Get_User_Data(), true);
 	return(result);
 }
 
@@ -586,30 +588,24 @@ void RsTrackClass::Decrement_LOD(void)
 }
 
 // 0x461170
-// NOT EXACT: functional from the pseudocode; similarity 0.59
 float RsTrackClass::Get_Cost(void) const
 {
 	RenderObjClass *robj = Peek_Render_Object();
-	if (robj != NULL) return(robj->Get_Cost());
-	return(1.0e-7f);
+	return(robj != NULL ? robj->Get_Cost() : 1.0e-7f);
 }
 
 // 0x4611B0
-// NOT EXACT: functional from the pseudocode; similarity 0.59
 float RsTrackClass::Get_Value(void) const
 {
 	RenderObjClass *robj = Peek_Render_Object();
-	if (robj != NULL) return(robj->Get_Value());
-	return(0.0f);
+	return(robj != NULL ? robj->Get_Value() : 0.0f);
 }
 
 // 0x4611F0
-// NOT EXACT: functional from the pseudocode; similarity 0.59
 float RsTrackClass::Get_Post_Increment_Value(void) const
 {
 	RenderObjClass *robj = Peek_Render_Object();
-	if (robj != NULL) return(robj->Get_Post_Increment_Value());
-	return(0.0f);
+	return(robj != NULL ? robj->Get_Post_Increment_Value() : 0.0f);
 }
 
 // 0x461230
@@ -865,17 +861,23 @@ void RsTrackClass::Notify_Removed(SceneClass *scene)
 
 
 
+
+
+
+
+
+
+
+
 // 0x4616A0
-// NOT EXACT: functional from the pseudocode; similarity 0.29
 const SphereClass &RsTrackClass::Get_Bounding_Sphere(void) const
 {
 	RenderObjClass *primary = Peek_Render_Object();
-	if (primary != NULL) {
-		return(primary->Get_Bounding_Sphere());
+	FAIL_IF(!primary) {
+		static SphereClass sphere;
+		return(sphere);
 	}
-	FAIL_IF(!primary) {}
-	static SphereClass sphere;
-	return(sphere);
+	return(primary->Get_Bounding_Sphere());
 }
 
 // 0x461740
@@ -899,14 +901,14 @@ int RsTrackClass::Get_Num_Polys(void) const
 }
 
 // 0x461800
-// NOT EXACT: functional from the pseudocode; similarity 0.89
 void RsTrackClass::Update_Obj_Space_Bounding_Volumes(void)
 {
 	RenderObjClass *robj = Peek_Render_Object();
 	if (robj != NULL) {
 		SphereClass sphere;
 		robj->Get_Obj_Space_Bounding_Sphere(sphere);
-		UnknownD8 = sphere;
+		UnknownD8.Center = sphere.Center;
+		UnknownD8.Radius = sphere.Radius;
 		robj->Get_Obj_Space_Bounding_Box(UnknownE8);
 	} else {
 		UnknownD8.Center.Set(0.0f, 0.0f, 0.0f);
@@ -1050,45 +1052,43 @@ bool RsTrackClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, Inter
 
 
 
+
+
 // 0x461D60
 // NOT EXACT: functional from the pseudocode; similarity 0.60
-bool RsTrackClass::Unknown_461D60(RenderObjClass *obj, const char *bone_path)
+int RsTrackClass::Unknown_461D60(RenderObjClass *obj, const char *bone_path)
 {
-	if (obj == NULL || obj->Get_Container() == NULL) {
-		return(false);
-	}
-	RenderObjClass *robj = Peek_Render_Object();
-	if (robj == NULL) {
-		return(false);
-	}
-	if (bone_path == NULL || *bone_path == '\0') {
-		Remove_Sub_Object(obj);
-	} else {
-		char path[256];
-		strcpy(path, bone_path);
-		char *name = strtok(path, "\\");
-		if (name != NULL) {
-			char *next;
-			while ((next = strtok(NULL, "\\")) != NULL) {
-				int idx = robj->Get_Bone_Index(name);
-				if (idx == -1) {
-					break;
+	if (obj != NULL && obj->Get_Container() != NULL) {
+		RenderObjClass *robj = Peek_Render_Object();
+		if (robj != NULL) {
+			if (bone_path == NULL || *bone_path == '\0') {
+				Remove_Sub_Object(obj);
+			} else {
+				char path[256];
+				strcpy(path, bone_path);
+				char *name = strtok(path, "\\");
+				if (name != NULL) {
+					char *next;
+					while ((next = strtok(NULL, "\\")) != NULL) {
+						int idx = robj->Get_Bone_Index(name);
+						if (idx == -1) {
+							return(0);
+						}
+						G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
+						robj = robj->Get_Sub_Object_On_Bone(0, idx);
+						if (robj == NULL) {
+							return(0);
+						}
+						robj->Release_Ref();
+						name = next;
+					}
+					robj->Remove_Sub_Object(obj);
+					return(1);
 				}
-				G_ASSERT(robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1);
-				robj = robj->Get_Sub_Object_On_Bone(0, idx);
-				if (robj == NULL) {
-					return(false);
-				}
-				robj->Release_Ref();
-				name = next;
-			}
-			if (next == NULL) {
-				robj->Remove_Sub_Object(obj);
-				return(true);
 			}
 		}
 	}
-	return(false);
+	return(0);
 }
 
 // 0x461EF0
