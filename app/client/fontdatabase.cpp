@@ -15,19 +15,19 @@ public:
 	static void Get_Device_Resolution(int &set_w, int &set_h, int &get_bits, bool &get_windowed);	// 0x9178F0
 };
 
-struct FontOptionStruct  // NAME 1 [FontOptionStruct]: neutral (D10): what option.cpp's 0x7F95E0 returns
-{
-	char Unknown00[0x10];											// +0x00  // NAME 1 [Unknown00]: neutral (D10)
-	std::string Value;												// +0x10: a file name  // NAME 2: what it holds
-};
+#include "option.h"														// OptionClass, option.cpp's object at 0xBE8B38 (D107)
 
-class Unknown_BE8B38Class  // NAME 1 [Unknown_BE8B38Class]: neutral (D10): option.cpp's object (tsk_game.h declares the same class)
-{
-public:
-	FontOptionStruct *Unknown_7F95E0(const char *name);				// 0x7F95E0  // NAME 1 [Unknown_7F95E0]: neutral (D10)
-	void Unknown_7F8EF0();											// 0x7F8EF0: after the fonts are saved  // NAME 1 [Unknown_7F8EF0]: neutral (D10)
-};
-extern Unknown_BE8B38Class *Unknown_BE8B38;							// 0xBE8B38  // NAME 1 [Unknown_BE8B38]: neutral (D10)
+
+
+
+
+
+
+
+
+
+
+
 
 class FontTextFileClass  // NAME 1 [FontTextFileClass]: neutral (D10): a text file read into lines (0x28 bytes)
 {
@@ -1234,7 +1234,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 {
 	FAIL_IF(!fdb) return false;
 	for (int i = 0; i < MAXFONTS; i++) {
-		FontOptionStruct *option = Unknown_BE8B38->Unknown_7F95E0(FontID[i]);
+		StringOptionStruct *option = OptionClass::Instance->Find_String(FontID[i]);
 		if (option != NULL) {
 			std::string text(option->Value);
 			int length = Name.length();
@@ -1268,7 +1268,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 			text.size();
 		}
 	}
-	Unknown_BE8B38->Unknown_7F8EF0();
+	OptionClass::Instance->Save();
 	return true;
 }
 
@@ -1277,7 +1277,7 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 {
 	FAIL_IF(idx >= MAXFONTS) return false;
 	FAIL_IF(!fdb) return false;
-	FontOptionStruct *option = Unknown_BE8B38->Unknown_7F95E0(FontID[idx]);
+	StringOptionStruct *option = OptionClass::Instance->Find_String(FontID[idx]);
 	if (option == NULL) return false;
 	std::string file_name(option->Value);
 	int length = Name.length();

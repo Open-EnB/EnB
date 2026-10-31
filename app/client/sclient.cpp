@@ -318,7 +318,7 @@ public:
 SClientNotifierClass *Unknown_79B9E0();					// NAME 1 [Unknown_79B9E0]: neutral (D10)
 
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
-// at 0xBE8B38 are tsk_game.h's)
+// at 0xBE8B38 are option.h's OptionClass::Instance)
 
 
 
@@ -498,7 +498,7 @@ void SClient::Init()
 	int id = CameraManager->Unknown04;
 	SClientNotifierClass *notifier = Unknown_79B9E0();
 	notifier->Add(id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
-	if (Unknown_BE8B38->Get_Bool("Bridge_Mode")) {
+	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
 		Unknown_75A5D0();
@@ -1114,7 +1114,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				return(true);
 			case 3:
 				if (!CurrentView || CurrentView != Unknown135C) {
-					BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Bridge_Mode");
+					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
 						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
 						if (option) option->Value = false;
@@ -5618,7 +5618,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/self tag on") == 0) {
-		BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Show_Self_Name");
+		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
 		if (option) {
 			option->Value = true;
 			Unknown_74D990(0x17, "Your own avatar name tag will now be displayed.", 0);
@@ -5626,7 +5626,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/self tag off") == 0) {
-		BoolOptionStruct *option = Unknown_BE8B38->Find_Bool("Show_Self_Name");
+		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
 		if (option) {
 			option->Value = false;
 			Unknown_74D990(0x17, "Your own avatar name tag will now be hidden.", 0);

@@ -38,7 +38,7 @@ ClientTaskClass::~ClientTaskClass()
 		Master_Connection = NULL;
 	}
 	if (Client) {
-		Unknown_BE8B38->Unknown_7F8EF0();
+		OptionClass::Instance->Save();
 		delete Client;
 		Client = NULL;
 	}
@@ -62,7 +62,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Login_Key = login_key;
 	Client = new SClient(this);
 	Ticket = Client->Ticket = *ticket;
-	Unknown_BE8B38->Unknown_7F84F0(ticket->Character_ID, Client);
+	OptionClass::Instance->Load(ticket->Character_ID, Client);
 	Unknown_BE67B8->Unknown_6C47B0();
 	Unknown_43FD70();
 	Client->Kernel = kernel;

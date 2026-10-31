@@ -90,16 +90,7 @@ public:
 	int Unknown2C;										// +0x2C: LoginTaskClass::Unknown_6C tests it
 };
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
-class Unknown_BE8B38Class								// NAME 1 [Unknown_BE8B38Class]: option.cpp's object at 0xBE8B38
-{
-public:
-	void Unknown_7F84F0(__int64 character_id, SClient *client);	// 0x7F84F0 (option.cpp)
-	void Unknown_7F8EF0();								// 0x7F8EF0
-	bool Get_Bool(const char *name);					// 0x7F9610: SClient::Init asks 'Bridge_Mode'  // NAME 2: what it does
-	struct BoolOptionStruct *Find_Bool(const char *name);	// 0x7F9520 (option.h's): SClient 0x7436A0's 'Bridge_Mode'  // NAME 2: option.h's
-	float Get_Float(const char *name);					// 0x7F9670: mainview.cpp's 0x514480 asks the Graphics_* values  // NAME 2: option.h's
-};
-extern Unknown_BE8B38Class *Unknown_BE8B38;				// NAME 1 [Unknown_BE8B38]: neutral (D10)
+#include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)
 class Unknown_BE67B8Class								// NAME 1 [Unknown_BE67B8Class]: fontdatabase.cpp's object at 0xBE67B8
 {
 public:

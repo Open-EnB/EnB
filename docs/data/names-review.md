@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 983 |
-| 2 | describes what the code does | 2401 |
-| 1 | neutral placeholder | 5778 |
+| 2 | describes what the code does | 2396 |
+| 1 | neutral placeholder | 5760 |
 
 ## For review (score 3 and below)
 
@@ -21,8 +21,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_442650` | `app/audio/soundlib.cpp:19` | 0x442650, surfacetypes.cpp's loader |
 | 1 | `Unknown_442870` | `app/audio/soundlib.cpp:20` | 0x442870, surfacetypes.cpp's release |
 | 1 | `Unknown_BDADC8` | `app/audio/soundlib.cpp:21` | 0xBDADC8, a global generator outside this file |
-| 1 | `Unknown_BE8B38Class` | `app/audio/soundlib.cpp:23` | option.cpp's object at 0xBE8B38 (tsk_game.h) |
-| 1 | `Unknown_BE8B38` | `app/audio/soundlib.cpp:28` | neutral (D10) |
 | 1 | `m_Unknown7C` | `app/audio/soundlib.cpp:35` | untagged neutral name (D10) |
 | 1 | `m_Unknown80` | `app/audio/soundlib.cpp:36` | untagged neutral name (D10) |
 | 1 | `m_Unknown164` | `app/audio/soundlib.cpp:43` | untagged neutral name (D10) |
@@ -1516,12 +1514,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown714340Class` | `app/client/extrap.h:285` | neutral (D10) |
 | 1 | `client, packet` | `app/client/extrap.h:288` | what postate's state passes |
 | 1 | `Unknown18` | `app/client/extrap.h:296` | untagged neutral name (D10) |
-| 1 | `FontOptionStruct` | `app/client/fontdatabase.cpp:18` | neutral (D10): what option.cpp's 0x7F95E0 returns |
-| 1 | `Unknown00` | `app/client/fontdatabase.cpp:20` | neutral (D10) |
-| 1 | `Unknown_BE8B38Class` | `app/client/fontdatabase.cpp:24` | neutral (D10): option.cpp's object (tsk_game.h declares the same class) |
-| 1 | `Unknown_7F95E0` | `app/client/fontdatabase.cpp:27` | neutral (D10) |
-| 1 | `Unknown_7F8EF0` | `app/client/fontdatabase.cpp:28` | neutral (D10) |
-| 1 | `Unknown_BE8B38` | `app/client/fontdatabase.cpp:30` | neutral (D10) |
 | 1 | `FontTextFileClass` | `app/client/fontdatabase.cpp:32` | neutral (D10): a text file read into lines (0x28 bytes) |
 | 1 | `unknown` | `app/client/fontdatabase.cpp:35` | neutral (D10) |
 | 1 | `Unknown00` | `app/client/fontdatabase.cpp:41` | neutral (D10) |
@@ -1948,14 +1940,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_514400` | `app/client/mainview.cpp:2267` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/mainview.cpp:2269` | untagged neutral name (D10) |
 | 1 | `Unknown_514450` | `app/client/mainview.cpp:2277` | untagged neutral name (D10) |
-| 1 | `Unknown_BE8B38` | `app/client/mainview.cpp:2284` | untagged neutral name (D10) |
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2356` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2360` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2374` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown_BE8B38Class` | `app/client/option.h:13` | untagged neutral name (D10) |
 | 1 | `Unknown_B9489C` | `app/client/postate.cpp:13` | neutral (D10) |
 | 1 | `Unknown_B9489D` | `app/client/postate.cpp:14` | neutral (D10) |
 | 1 | `Unknown_B9489E` | `app/client/postate.cpp:15` | neutral (D10) |
@@ -2414,7 +2404,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/sclient.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown1298` | `app/client/sclient.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_744E50` | `app/client/sclient.cpp:500` | untagged neutral name (D10) |
-| 1 | `Unknown_BE8B38` | `app/client/sclient.cpp:501` | untagged neutral name (D10) |
 | 1 | `Unknown_75A5D0` | `app/client/sclient.cpp:504` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/sclient.cpp:506` | untagged neutral name (D10) |
 | 1 | `Unknown_744C10` | `app/client/sclient.cpp:515` | untagged neutral name (D10) |
@@ -3294,9 +3283,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:18` | untagged neutral name (D10) |
 | 1 | `gm_name` | `app/client/tasks/tsk_game.cpp:19` | '-GM_NAME' |
 | 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
-| 1 | `Unknown_BE8B38` | `app/client/tasks/tsk_game.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_7F8EF0` | `app/client/tasks/tsk_game.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_7F84F0` | `app/client/tasks/tsk_game.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_43FD70` | `app/client/tasks/tsk_game.cpp:67` | untagged neutral name (D10) |
@@ -3333,13 +3319,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/tasks/tsk_game.h:89` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/tasks/tsk_game.h:90` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:92` | a function-static instance |
-| 1 | `Unknown_BE8B38Class` | `app/client/tasks/tsk_game.h:93` | option.cpp's object at 0xBE8B38 |
-| 1 | `Unknown_7F84F0` | `app/client/tasks/tsk_game.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_7F8EF0` | `app/client/tasks/tsk_game.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_BE8B38` | `app/client/tasks/tsk_game.h:102` | neutral (D10) |
-| 1 | `Unknown_BE67B8Class` | `app/client/tasks/tsk_game.h:103` | fontdatabase.cpp's object at 0xBE67B8 |
-| 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:108` | neutral (D10) |
+| 1 | `Unknown_BE67B8Class` | `app/client/tasks/tsk_game.h:94` | fontdatabase.cpp's object at 0xBE67B8 |
+| 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:99` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
 | 1 | `password` | `app/client/tasks/tsk_login.cpp:28` | '123456' |
@@ -5795,7 +5777,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/udpreplay/udpreplay.cpp:72` | untagged neutral name (D10) |
-| 2 | `Get_Float` | `app/audio/soundlib.cpp:26` | what it does |
 | 2 | `SoundAccessClass` | `app/audio/soundlib.cpp:32` | what it does |
 | 2 | `Sound3DAccessClass` | `app/audio/soundlib.cpp:38` | what it does |
 | 2 | `SoundLibBridgeClass` | `app/audio/soundlib.cpp:398` | what it does (vtable 0xAE74EC) |
@@ -6150,7 +6131,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/extrap.h:293` | what the state passes |
 | 2 | `LeaderID` | `app/client/extrap.h:294` | the packet's LeaderID |
 | 2 | `Offset` | `app/client/extrap.h:295` | the packet's Offset |
-| 2 | `std:` | `app/client/fontdatabase.cpp:21` | what it holds |
 | 2 | `Count` | `app/client/fontdatabase.cpp:37` | what it returns |
 | 2 | `Get` | `app/client/fontdatabase.cpp:38` | what it returns |
 | 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:244` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
@@ -6594,9 +6574,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load_Camera_Mode` | `app/client/soptions.h:49` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
 | 2 | `LastCameraMode` | `app/client/soptions.h:65` | what it holds |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:38` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
-| 2 | `Get_Bool` | `app/client/tasks/tsk_game.h:98` | what it does |
-| 2 | `BoolOptionStruct` | `app/client/tasks/tsk_game.h:99` | option.h's |
-| 2 | `Get_Float` | `app/client/tasks/tsk_game.h:100` | option.h's |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
 | 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |

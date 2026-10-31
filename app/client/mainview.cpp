@@ -2281,12 +2281,12 @@ void MainViewClass::Unknown_514450()
 
 void MainViewClass::Unknown_514480()
 {
-	bool graphics_default = Unknown_BE8B38->Get_Bool("Graphics_Default");
-	float gamma = Unknown_BE8B38->Get_Float("Graphics_Gamma");
-	float land_poly = Unknown_BE8B38->Get_Float("Graphics_Land_Poly");
-	float land_detail = Unknown_BE8B38->Get_Float("Graphics_Land_Detail");
-	float space_poly = Unknown_BE8B38->Get_Float("Graphics_Space_Poly");
-	float texture_size = Unknown_BE8B38->Get_Float("Graphics_Texture_Size");
+	bool graphics_default = OptionClass::Instance->Get_Bool("Graphics_Default");
+	float gamma = OptionClass::Instance->Get_Float("Graphics_Gamma");
+	float land_poly = OptionClass::Instance->Get_Float("Graphics_Land_Poly");
+	float land_detail = OptionClass::Instance->Get_Float("Graphics_Land_Detail");
+	float space_poly = OptionClass::Instance->Get_Float("Graphics_Space_Poly");
+	float texture_size = OptionClass::Instance->Get_Float("Graphics_Texture_Size");
 	DefaultChanged = false;
 	GraphicsChanged = false;
 	if (graphics_default != GraphicsDefault) {
@@ -2313,7 +2313,7 @@ void MainViewClass::Unknown_514480()
 		GraphicsTextureSize = texture_size;
 		GraphicsChanged = true;
 	}
-	Unknown_C404F8 = Unknown_BE8B38->Get_Bool("Doppler_Enabled");
+	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
 }
 
 // NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0
