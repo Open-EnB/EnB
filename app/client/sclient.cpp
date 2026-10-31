@@ -124,32 +124,8 @@ public:
 
 typedef char Unknown_RefCountPtr_Size[sizeof(RefCountPtr<RefCountClass>)];	// NAME 1: not the client's: instantiates RefCountPtr<RefCountClass>, so 0x744C10's Create_Peek(RefCountClass *) 0x514960 is visible (VC6 injects a template's friends only once it is instantiated)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// the view at +0x135C, as far as 0x742530 reads it (its class unknown)
+class SClientUnknown135CViewClass : public UIViewClass { public: char Unknown4C[0x1A4 - 0x4C]; InterfaceClass *Unknown1A4; };	// NAME 1: neutral (D10)
 
 // What the chat panel's +0xE0 points to, as far as SClient calls it
 class UIChatPanelUnknownE0Class	// NAME 1: neutral (D10)
@@ -164,7 +140,7 @@ public:
 class UIChatPanelClass : public InterfaceClass
 {
 public:
-	UIChatPanelClass(SClient *client);					// 0x561DD0
+	UIChatPanelClass(SClient *client); void Unknown_5685C0();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
@@ -176,18 +152,6 @@ public:
 };
 
 #include "ui_line_display.h"						// UILineDisplayClass (0x5A5410, 0x100 bytes; Init passes the SClient as its client)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -203,7 +167,7 @@ class UITalkTreeSpaceClass : public InterfaceClass
 {
 public:
 	UITalkTreeSpaceClass(SClient *client);				// 0x64F310
-
+	void Unknown_64EED0();								// 0x64EED0 (0x742530, for the main and +0x135C views)
 	char Unknown84[0x184 - 0x84];
 };
 
@@ -658,6 +622,42 @@ void SClient::Shutdown()
 	delete Text;
 	Text = NULL;
 	PxProcessClass::Pop();
+}
+
+// 0x742530
+UIViewClass *SClient::Unknown_742530(UIViewClass *view)
+{
+	UIViewClass *old = CurrentView;
+	if (old) old->Unknown_18(false);
+	CurrentView = view;
+	PDAInterface->Unknown_695F40();
+	ChatPanel->Unknown_5685C0();
+	UIViewClass *inner = NULL;
+	if (view) {
+		inner = view->Unknown_1C();
+		if (inner) Unknown1278 = (int)inner->Unknown2C; else Unknown1278 = 0;
+		Unknown1274->Unknown_515340((void *)view->Unknown_3C());
+		CurrentView->Unknown_18(true);
+		if (CurrentView == MainView || CurrentView == Unknown135C) {
+			PDAInterface->Unknown_7C(inner, 1);
+			ChatPanel->Unknown_7C(inner, 1);
+			if (MainView) MainView->Unknown34->Unknown_5C();
+			if (Unknown135C) Unknown135C->Unknown34->Unknown_5C();
+			Unknown1388 = false; Unknown1298->Unknown_64EED0();
+			if (MainView && MainView->Unknown1E4 && MainView->Unknown1E4->Active) MainView->Unknown1E4->Unknown_5C();
+			if (Unknown135C && ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4 && ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4->Active) ((SClientUnknown135CViewClass *)Unknown135C)->Unknown1A4->Unknown_5C();
+			if (MainView && MainView->Cpit) MainView->Cpit->Unknown_584A20();
+		} else {
+			PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0);
+		}
+		HotKeys->Unknown_7C(CurrentView->Unknown_1C(), 1);
+	} else {
+		Unknown1274->Unknown_515340(NULL);
+		PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0); HotKeys->Unknown_7C(NULL, 0);
+	}
+	LineDisplay->Unknown_7C(inner, 1);
+	Unknown14F0 = true;
+	return(old);
 }
 
 // 0x7427A0
