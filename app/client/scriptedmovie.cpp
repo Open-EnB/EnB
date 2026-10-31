@@ -2309,19 +2309,19 @@ bool ScriptedMovieViewClass::Unknown_806AD0()
 
 
 
+
+
 // 0x806AF0
-// NOT EXACT: the client multiplies by a float in memory (fmul dword, 0xAFDF14: pi / 180); every constant form here
-// folds to a double (fmul qword): a const float variable, probably
 bool ScriptedMovieViewClass::Set_Camera_View_Plane(ScriptedMovieParamsClass *params)
 {
 	const char *param = params->Unknown_7FFDC0();
 	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need x view plane value") {return(false);}
-	float x = atof(param) * (float)(WWMATH_PI / 180.0f);
+	float x = DEG_TO_RADF(atof(param));
 
 	param = params->Unknown_7FFDC0();
 
 	FAIL_IF((param == NULL) && "User error: Set_Camera_View_Plane: Need y view plane value") {return(false);}
-	float y = atof(param) * (float)(WWMATH_PI / 180.0f);
+	float y = DEG_TO_RADF(atof(param));
 	ScriptedCamera->Set_View_Plane(x, y);
 	return(true);
 }
@@ -3274,12 +3274,44 @@ bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieParamsClass *para
 
 
 
+int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0 (shiputils.cpp; co.cpp declares it so)
+// the damage levels Turn_On_Damage_Particles takes (its FAIL_IF names the ends; shiputils.cpp's 0x810CF0 gets them)
+enum { DAMAGE_PARTICLES_NO_CHANGE = 0, DAMAGE_PARTICLES_3 = 4 };	// NAME 3 [DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3]: the FAIL_IF's text (0x808FD0); values from its tests
+// 0x808FD0: the slot's damage particles, every hull section or one
+bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieParamsClass *params)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Turn_On_Damage_Particles: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
+			G_ASSERT((*itor).Mesh);
+			param = params->Unknown_7FFDC0();
 
+			FAIL_IF((param == NULL) && "User error: Turn_On_Damage_Particles: Need damage") {return(false);}
+			int damage_amount = atoi(param);
 
+			FAIL_IF(((damage_amount < DAMAGE_PARTICLES_NO_CHANGE) || (damage_amount > DAMAGE_PARTICLES_3)) && "User error: Turn_On_Damage_Particles: Damage_Amount is incorrect") {return(false);}
+			int levels[4];
+			param = params->Unknown_7FFDC0();
+			int section;
+			if (param != NULL && (section = atoi(param)) >= 0 && section < 4) {
+				for (int i = 0; i < 4; i++) {
+					levels[i] = (i == section) ? damage_amount : 0;
+				}
+			} else {
+				levels[0] = damage_amount; levels[1] = damage_amount; levels[2] = damage_amount; levels[3] = damage_amount;
+			}
+			Unknown_810CF0((*itor).Mesh->Unknown1C, levels, levels[0], NULL, (unsigned)-1, 0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -3411,57 +3443,25 @@ bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieParamsClass *para
 
 
 
+// 0x809600: the slot's ship in a metal (MAKE_SHIP_CHROME 0, MAKE_SHIP_BRONZE 1, MAKE_SHIP_COPPER 2)
+bool ScriptedMovieViewClass::Unknown_809600(ScriptedMovieParamsClass *params, int metal)
+{
+	const char *param = params->Unknown_7FFDC0();
 
 
+	FAIL_IF((param == NULL) && "User error: Toggle_Engine_Trails: Need slot number") {return(false);}
+	int slot = atoi(param);
+	for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
+		if ((*itor).Slot == slot) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT((*itor).Mesh);
+			Unknown_8020B0((*itor).Mesh->Unknown_5E26D0(), Vector3(0.9f, 0.9f, 0.9f), Vector3(0.9f, 0.9f, 0.9f), metal);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -3523,21 +3523,21 @@ bool ScriptedMovieViewClass::Unknown_809730()
 
 
 
+// 0x809750: +0x6F, and while it is set an angle in degrees into +0x78
+bool ScriptedMovieViewClass::Unknown_809750(bool value, ScriptedMovieParamsClass *params)
+{
+	Unknown6F = value;
+	if (params != NULL) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+		G_ASSERT(value == true);
+		const char *param = params->Unknown_7FFDC0();
+		if (param != NULL) {
+			Unknown78 = DEG_TO_RADF(atof(param));
+		}
+	}
+	return(true);
+}
 
 
 

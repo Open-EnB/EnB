@@ -724,7 +724,7 @@ public:
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
 	void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
-	RenderObjClass *Peek_Object();						// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
+	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0();	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's
 	char Unknown00[0x1C];								// +0x00
 	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
 	char Unknown20[0x70 - 0x20];						// +0x20
@@ -795,7 +795,7 @@ public:
 	bool Toggle_Engine_Trails(ScriptedMovieParamsClass *params, bool on);	// 0x808F00 (FAIL_IF line 3252, G_ASSERT 3258): the slot's engine trails (shiputils.cpp's 0x810750)  // NAME 2: the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral
 	bool Hide_Object(ScriptedMovieParamsClass *params, bool hide);	// 0x809890 (FAIL_IF line 3595, G_ASSERTs 3601 / 3602): the slot's model hidden or shown, its trails the other way  // NAME 2: the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral
 	bool Skip_Frames(ScriptedMovieParamsClass *params);			// 0x8097D0 (FAIL_IF line 3567): +0x164 on by the frames at 30 a second  // NAME 2: the user error's 'Skip_Frames'; NAME 1 [params]: neutral
-
+	bool Turn_On_Damage_Particles(ScriptedMovieParamsClass *params); bool Unknown_809600(ScriptedMovieParamsClass *params, int metal); bool Unknown_809750(bool value, ScriptedMovieParamsClass *params); void Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal);	// 0x808FD0 (FAIL_IF lines 3286-3298), 0x809600 (FAIL_IF 3452: MAKE_SHIP_CHROME / BRONZE / COPPER), 0x809750 (G_ASSERT 3533), 0x8020B0 (the ship's metal colours, shiputils.cpp's 0x80EFF0)  // NAME 2: the user error's 'Turn_On_Damage_Particles'; NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's
 	ScriptedMovieInterfaceClass *ClientInterface;		// +0x4C (0x8023A0's G_ASSERT)  // NAME 3: the assert's
 	CameraClass *ScriptedCamera;						// +0x50: the camera (Set_Camera_View_Plane, Set_Clip_Plane; 0x8023A0 hands it to ClientInterface's +0x04)  // NAME 3: the asserts' 'ScriptedCamera' (0x802420, Attach_Camera)
 	SimpleSceneClass *ScriptedScene;					// +0x54 (its ambient light +0x1C, its fog colour +0x2C)  // NAME 3: the FAIL_IF's
@@ -804,7 +804,7 @@ public:
 	bool Unknown6C;										// +0x6C
 	bool Unknown6D;										// +0x6D
 	bool Unknown6E;										// +0x6E (0x802930: the movie ends once +0x6C..+0x6E are set)
-	char Unknown6F[0x7C - 0x6F];						// +0x6F
+	bool Unknown6F; char Unknown70[0x78 - 0x70]; float Unknown78;	// +0x6F, +0x78: an angle in radians (0x809750 sets both)
 	bool Unknown7C;										// +0x7C
 	char Unknown7D[0x80 - 0x7D];						// +0x7D
 	unsigned int Unknown80;								// +0x80: the movie's time (0x802B20 adds the frame time)

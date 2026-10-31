@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 983 |
-| 2 | describes what the code does | 2399 |
-| 1 | neutral placeholder | 5759 |
+| 3 | by convention from a client-named file or sibling | 984 |
+| 2 | describes what the code does | 2400 |
+| 1 | neutral placeholder | 5771 |
 
 ## For review (score 3 and below)
 
@@ -2916,6 +2916,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B9550` | `app/client/sclient.h:725` | untagged neutral name (D10) |
 | 1 | `a, loop, b, c, d, e` | `app/client/sclient.h:726` | neutral; NAME 2 [anim_name]: the FAIL_IF's |
 | 1 | `Unknown_5B8DF0` | `app/client/sclient.h:726` | untagged neutral name (D10) |
+| 1 | `Unknown_5E26D0` | `app/client/sclient.h:727` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sclient.h:731` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:734` | neutral (D10) |
 | 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:741` | neutral (D10) |
@@ -2956,10 +2957,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_808840` | `app/client/sclient.h:786` | untagged neutral name (D10) |
 | 1 | `params` | `app/client/sclient.h:793` | neutral |
 | 1 | `Unknown_8051B0` | `app/client/sclient.h:793` | untagged neutral name (D10) |
+| 1 | `Unknown_809600` | `app/client/sclient.h:798` | untagged neutral name (D10) |
+| 1 | `Unknown_809750` | `app/client/sclient.h:798` | untagged neutral name (D10) |
+| 1 | `Unknown_8020B0` | `app/client/sclient.h:798` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/sclient.h:804` | untagged neutral name (D10) |
 | 1 | `Unknown6D` | `app/client/sclient.h:805` | untagged neutral name (D10) |
 | 1 | `Unknown6E` | `app/client/sclient.h:806` | untagged neutral name (D10) |
 | 1 | `Unknown6F` | `app/client/sclient.h:807` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sclient.h:807` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/sclient.h:808` | untagged neutral name (D10) |
 | 1 | `Unknown7D` | `app/client/sclient.h:809` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/sclient.h:810` | untagged neutral name (D10) |
@@ -3258,9 +3263,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_80A730` | `app/client/scriptedmovie.cpp:2958` | untagged neutral name (D10) |
 | 1 | `Unknown_808840` | `app/client/scriptedmovie.cpp:3043` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/scriptedmovie.cpp:3259` | untagged neutral name (D10) |
+| 1 | `Unknown_810CF0` | `app/client/scriptedmovie.cpp:3277` | untagged neutral name (D10) |
+| 1 | `Unknown_809600` | `app/client/scriptedmovie.cpp:3447` | untagged neutral name (D10) |
+| 1 | `Unknown_8020B0` | `app/client/scriptedmovie.cpp:3459` | untagged neutral name (D10) |
+| 1 | `Unknown_5E26D0` | `app/client/scriptedmovie.cpp:3459` | untagged neutral name (D10) |
 | 1 | `Unknown_809710` | `app/client/scriptedmovie.cpp:3501` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/scriptedmovie.cpp:3503` | untagged neutral name (D10) |
 | 1 | `Unknown_809730` | `app/client/scriptedmovie.cpp:3508` | untagged neutral name (D10) |
+| 1 | `Unknown_809750` | `app/client/scriptedmovie.cpp:3527` | untagged neutral name (D10) |
+| 1 | `Unknown6F` | `app/client/scriptedmovie.cpp:3529` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/scriptedmovie.cpp:3536` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown06` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
@@ -6547,6 +6559,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user error's 'Turn_On_Damage_Particles'; NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |
@@ -8379,6 +8392,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LoadingView` | `app/client/sclient.h:1070` | its file's |
 | 3 | `Get_Mode` | `app/client/sclient.h:1071` | the assert's |
 | 3 | `AssetManager` | `app/client/scriptedmovie.cpp:23` | the asserts' text 'AssetManager' (0x802D30, the destructor) |
+| 3 | `DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3` | `app/client/scriptedmovie.cpp:3279` | the FAIL_IF's text (0x808FD0); values from its tests |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |
