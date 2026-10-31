@@ -4,6 +4,8 @@
 #include "ui_group.h"
 #include "client.h"
 #include "..\packets\pkclientchat.h"
+#include "..\packets\pkaction.h"
+#include "..\audio\soundlib.h"
 #include "rendobj.h"
 #include "control_keys_manager.h"
 #include "..\shared\auxdata\auxdata.h"
@@ -23,7 +25,9 @@ class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_20(); virtual void Unknown_24();
+	virtual void Unknown_28(LayerClass *layer);			// +0x28 (0x597080: the window's layer)  // NAME 1 [layer]: what 0x597080 passes
+	virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
@@ -52,10 +56,6 @@ public:
 	ClientGroupEvent(bool value) : Value(value) {}
 	bool Value;											// +0x00  // NAME 1: neutral
 };
-
-
-
-
 
 
 
@@ -1429,13 +1429,28 @@ void UIGroupClass::Unknown_597000(bool on)
 	}
 }
 
-
-
-
-
-
-
-
+// 0x597080
+void UIGroupClass::Unknown_597080(const char *text, const char *name, int index)
+{
+	if (text && name && index >= 0) {
+		int i = 0;
+		for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++, i++) {
+			UIGroupMemberClass *member = *it;
+			if (member->Name == name) {
+				InterfaceClass::Unknown_5C();
+				member->Unknown1D = (index != 0);
+				member->Unknown_5938A0(text, 5.0f, i);
+				if (member->Unknown3C) {
+					member->Unknown3C->Unknown_28(&Layer);
+					Unknown_5BB4F0(member->Unknown3C);
+				}
+				InterfaceClass::Unknown_58();
+				SoundLibraryClass::Play_2D_Sound("symbol_chat_1.wav", 2);
+				return;
+			}
+		}
+	}
+}
 
 
 
@@ -1510,48 +1525,33 @@ void UIGroupClass::Unknown_5975D0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x597650
+// NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried)
+void UIGroupClass::Unknown_597650()
+{
+	if (!View->Get_Unknown34()->Is_Active()) return;
+	int button = View->Get_Unknown34()->Unknown_5890B0("GROUP_INVITE");
+	if (button) {
+		if (button == 1) {
+			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 11, ((ClientClass *)Client)->AvatarID, 0));
+		} else if (button == 2) {
+			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 12, ((ClientClass *)Client)->AvatarID, 0));
+		}
+		View->Unknown34->Unknown_5C();
+	}
+	button = View->Get_Unknown34()->Unknown_5890B0("GROUP_LEAVE");
+	if (button) {
+		if (button == 1) {
+			if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
+			} else {
+				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
+			}
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		}
+		View->Unknown34->Unknown_5C();
+	}
+}
 
 
 
@@ -1916,12 +1916,12 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **
 **	Rebuilt (UG1, 2026-10-30): the member class's constructor 0x593200, 0x5934A0 (line 403), 0x5935C0 (456), 0x593750, 0x593790, 0x593830 and its
 **	destructor 0x5932E0 (NOT EXACT), the constructor 0x593BD0 and destructor 0x593D70 (with the scalar deleting destructor
-**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090, Add_Member 0x596130 (1165, 1168; NOT EXACT), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0, 0x596DB0, slot +0x60 0x5944D0 (NOT EXACT), the group chat line 0x596E20 (1388, 1391; NOT EXACT), 0x597000, the +0xE8 object's 0x5944A0, the leave question 0x5975D0, the ClientGroupEvent emitters 0x597820 / 0x5978A0
+**	0x593D40), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090, Add_Member 0x596130 (1165, 1168; NOT EXACT), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0, 0x596DB0, slot +0x60 0x5944D0 (NOT EXACT), the group chat line 0x596E20 (1388, 1391; NOT EXACT), 0x597000, the +0xE8 object's 0x5944A0, the symbol chat line 0x597080, the leave question 0x5975D0, the dialog answers 0x597650 (NOT EXACT), the ClientGroupEvent emitters 0x597820 / 0x5978A0
 **	/ 0x597920 (line 1594), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668), 0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200,
 **	0x5982A0 and the control keys 0x5985A0 (1891) / 0x598720 (1902). The asserts sit on the client's lines (D25);
 **	the functions without asserts sit between their neighbours' lines as the client orders them. Not yet: 0x593180,
 **	0x5938A0 (563), Unknown_54 0x594040, slot +0x68 0x5946D0 (735, 751), 0x595530, 0x596770 (1260-1266),
-**	0x597080, 0x597200 / 0x597310, 0x597650, 0x597E40 (1753) and 0x598370.
+**	0x597200 / 0x597310, 0x597E40 (1753) and 0x598370.
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
 **	after the count); the members are initialised in the list, Members with a count of 0 (the new(0)); 0x597B00

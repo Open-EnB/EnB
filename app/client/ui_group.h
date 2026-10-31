@@ -51,6 +51,7 @@ public:
 	void Unknown_5935C0();								// 0x5935C0: the timers +0x24 / +0x20 run down (G_ASSERT line 456)
 	bool Unknown_593750();								// 0x593750: the object's presence differs from +0x1C
 	void Unknown_593790();								// 0x593790: +0x3C, +0x38, +0x2C and +0x30 released
+	void Unknown_5938A0(const char *text, float time, int index);	// 0x5938A0 (G_ASSERT line 563; 0x597080 passes the symbol text, 5.0f and the member's index)  // NAME 1 [text, time, index]: what 0x597080 passes
 	void Unknown_593830(const RefCountPtr<RenderObjClass> &object);	// 0x593830: +0x30 set  // NAME 1 [object]: neutral
 
 	UIGroupClass *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
