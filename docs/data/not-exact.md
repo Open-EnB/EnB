@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-354 entries in 73 files.
+351 entries in 73 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -319,12 +319,9 @@ edit the comments in the code, not this file.
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/px_wrapper.cpp:269` | `PxWrapper::Update` | marker | NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60) |
-| `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440); the rest of the body follows the client |
-| `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440) |
-| `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: shape and inline budget: the client never inlines it into its five callers, ours always does (16 forms, attempts.csv) |
-| `app/shared/rs_track.cpp:229` | `RsTrackClass::Unknown_4604D0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
-| `app/shared/rs_track.cpp:259` | `RsTrackClass::Unknown_4605E0` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it |
-| `app/shared/rs_track.cpp:331` | `RsTrackClass::Unknown_460880` | marker | NOT EXACT: inline budget: inlines 0x460440 where the client calls it (0x460710 inlines one level in both) |
+| `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
+| `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
+| `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: shape (0.52): ebx / edi swapped and the loop's two decrement paths; never auto-inlined (#pragma auto_inline(off)) |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |

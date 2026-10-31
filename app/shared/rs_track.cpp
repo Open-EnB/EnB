@@ -8,7 +8,7 @@
 #include "..\shared\unknown_debug.h"
 
 // 0x45FDA0
-// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440); the rest of the body follows the client
+// NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx
 RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -31,7 +31,7 @@ RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 }
 
 // 0x45FFB0
-// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (attempts row 0x460440)
+// NOT EXACT: shape (0.83): as 0x45FDA0
 RsTrackClass::RsTrackClass(RenderStateListClass *list, float scale, float *hsv) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -105,7 +105,7 @@ RenderObjClass *RsTrackClass::Unknown_460410()
 	return(NULL);
 }
 
-
+#pragma auto_inline(off)
 
 
 
@@ -182,7 +182,7 @@ RenderObjClass *RsTrackClass::Unknown_460410()
 
 
 // 0x460440
-// NOT EXACT: shape and inline budget: the client never inlines it into its five callers, ours always does (16 forms, attempts.csv)
+// NOT EXACT: shape (0.52): ebx / edi swapped and the loop's two decrement paths; never auto-inlined (#pragma auto_inline(off))
 void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 {
 	if (depth < 0) {
@@ -200,6 +200,7 @@ void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 		Unknown_460440(state->Link, depth - 1);
 	}
 }
+#pragma auto_inline(on)
 
 
 
@@ -226,7 +227,6 @@ void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 
 
 // 0x4604D0
-// NOT EXACT: inline budget: inlines 0x460440 where the client calls it
 void RsTrackClass::Unknown_4604D0(int render_state_id)
 {
 	if (render_state_id == -1) {
@@ -256,7 +256,6 @@ void RsTrackClass::Unknown_4605A0(int render_state_id, int arg)
 }
 
 // 0x4605E0
-// NOT EXACT: inline budget: inlines 0x460440 where the client calls it
 void RsTrackClass::Unknown_4605E0(int render_state_id, int arg)
 {
 	if (render_state_id != -1) {
@@ -267,6 +266,7 @@ void RsTrackClass::Unknown_4605E0(int render_state_id, int arg)
 		}
 	}
 }
+
 
 
 
@@ -328,7 +328,6 @@ void RsTrackClass::Unknown_460850(int render_state_id)
 }
 
 // 0x460880
-// NOT EXACT: inline budget: inlines 0x460440 where the client calls it (0x460710 inlines one level in both)
 void RsTrackClass::Unknown_460880(int render_state_id, int link_id)
 {
 	RenderStateClass *state = RenderStateList.Unknown_45A750(render_state_id);
@@ -360,6 +359,7 @@ void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 		}
 	}
 }
+
 
 
 

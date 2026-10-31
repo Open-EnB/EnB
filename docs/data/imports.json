@@ -7813,11 +7813,14 @@
      "0x4601D0",
      "0x460260",
      "0x460410",
+     "0x4604D0",
      "0x4605A0",
+     "0x4605E0",
      "0x460710",
      "0x460780",
      "0x460810",
      "0x460850",
+     "0x460880",
      "0x460940",
      "0x4609C0",
      "0x460BC0",
@@ -9776,7 +9779,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4924,
+  "in_tree_total": 4936,
   "totals": {}
  },
  "binkmovie": {
