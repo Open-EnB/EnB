@@ -37,6 +37,15 @@ class Pairs(unittest.TestCase):
         self.assertEqual(moves, [('app', 'a', [('app', 'b')], '0x10')])
         self.assertEqual(outright, ['0x20'])
 
+    def test_accept_d66_names_the_head_and_needs_a_maintainer(self):
+        m = lambda body, assoc='OWNER': {'body': body, 'author_association': assoc, 'user': {'login': 'x'}}  # noqa: E731
+        self.assertIsNotNone(verify_pr.accepted_by([m('looked at it\n/accept-d66 abc1234')], 'abc1234ff'))
+        self.assertIsNone(verify_pr.accepted_by([m('/accept-d66 0000000')], 'abc1234ff'))
+        self.assertIsNone(verify_pr.accepted_by([m('/accept-d66 abc12')], 'abc1234ff'))
+        self.assertIsNone(verify_pr.accepted_by([m('/accept-d66 abc1234', 'CONTRIBUTOR')], 'abc1234ff'))
+        self.assertIsNone(verify_pr.accepted_by([m('see `/accept-d66 abc1234`')], 'abc1234ff'))
+        self.assertIsNone(verify_pr.accepted_by([m(verify_pr.MARK + '\n/accept-d66 abc1234')], 'abc1234ff'))
+
 
 class Landing(unittest.TestCase):
     REC = {'head': 'abc1234ff', 'base': 'm1', 'verdict': 'success', 'lost': []}
@@ -46,6 +55,8 @@ class Landing(unittest.TestCase):
         self.assertIn('older master', verify_watch.landable(self.REC, 'abc1234ff', 'm2'))
         self.assertIn('head', verify_watch.landable(self.REC, 'def', 'm1'))
         self.assertIn('loses', verify_watch.landable(dict(self.REC, lost=[('app', 'a', '0x1')]), 'abc1234ff', 'm1'))
+        self.assertIsNone(verify_watch.landable(dict(self.REC, lost=[('app', 'a', '0x1')], accepted={'by': 'x'}),
+                                                'abc1234ff', 'm1'))
 
     def test_commands_name_the_head(self):
         c = [{'body': '/land abc1234\nthanks'}, {'body': '/verify-approved 0000000'}]

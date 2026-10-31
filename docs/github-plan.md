@@ -394,8 +394,15 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
   * **Lands when a maintainer comments `/land SHA`** (or runs `verify_watch.py land PR`): anything else verified
     on the current master that lost nothing (docs, tools, after reading them).
   * **Maintainer-merged:** the maintainer's own PRs, as they are (their records are verified, `vc6-verify`
-    fails otherwise), and any loss or D66 case.
-  * The master ruleset requires `checks` and `vc6-verify`.
+    fails otherwise).
+  * **D66 moves (D169):** a PR whose every lost pair is a move (the address held by another file in the same
+    verify, none lost outright) fails `vc6-verify` until a maintainer comments `/accept-d66 SHA` naming its head
+    (or runs `verify_pr.py PR --accept-d66`); the next pass verifies it again and posts success, the moves and
+    who accepted them named in the status and the comment. It then merges or lands as above. A pair lost
+    outright still fails and waits for the user (D66); no command passes it. The ruleset has no bypass, so this
+    is the only way past a failing `vc6-verify`. The command is the user's decision: agents post the moves'
+    list for the user, never `/accept-d66` (all comments from this host carry the user's login).
+  * The master ruleset requires `checks` and `vc6-verify` (no bypass actors).
 
 #### 4.5.6 Build order (before the repository goes public)
 

@@ -33,7 +33,11 @@ original is verified again.
   nothing lost, replay clean, the hosted `checks` passed on its head, it changes only C/C++ sources and headers
   (outside tools/ and .github/) and docs/data, and no maintainer has commented `/hold` (later than any
   `/unhold`). Anything else lands when a maintainer comments `/land SHA` naming its head (or runs `land PR`),
-  provided it is verified on the current master and lost nothing (a D66 case is merged by hand).
+  provided it is verified on the current master and lost nothing.
+D66 moves (every lost address held by another file, none lost outright) fail the verify until a maintainer
+comments `/accept-d66 SHA` naming the head; the next pass verifies it again, and verify_pr.py then counts the
+moves as accepted (success, named in the status and the comment), so the PR merges or lands like one that lost
+nothing. A pair lost outright still fails: the user decides (D66) and no command passes it.
 One pass at a time (.work/verify/watch.lock); log .work/verify/watch.log.
 """
 import argparse
@@ -152,8 +156,8 @@ def landable(rec, head, master):
         return 'verified on an older master'
     if rec.get('verdict') != 'success':
         return 'vc6-verify is not success'
-    if rec.get('lost'):
-        return 'it loses pairs (merged by hand, D66)'
+    if rec.get('lost') and not rec.get('accepted'):
+        return 'it loses pairs (a maintainer decides, D66: /accept-d66 SHA for moves)'
     return None
 
 
@@ -310,9 +314,18 @@ def once(dry=False):
             done = mine and mine[0]['state'] in ('success', 'failure') and rec.get('head') == head
             maint = p.get('author_association') in MAINTAINER
             comments = None
-            if not (done and rec.get('base') == master):
-                why = (f'master moved ({str(rec.get("base"))[:9]} -> {master[:9]})' if done else 'new head ' + head[:9])
+            why = None
+            if not done:
+                why = 'new head ' + head[:9]
+            elif rec.get('base') != master:
+                why = f'master moved ({str(rec.get("base"))[:9]} -> {master[:9]})'
+            elif rec.get('verdict') == 'failure' and rec.get('moves') and not rec.get('outright') \
+                    and not rec.get('accepted'):
                 comments = maintainer_comments(r, n)
+                if verify_pr.accepted_by(comments, head):
+                    why = 'D66 moves accepted (/accept-d66)'
+            if why:
+                comments = comments if comments is not None else maintainer_comments(r, n)
                 approved = maint or names_head(comments, APPROVE, head)
                 if mine and mine[0]['state'] == 'pending' and mine[0]['description'].startswith(WAITING) \
                         and not approved:

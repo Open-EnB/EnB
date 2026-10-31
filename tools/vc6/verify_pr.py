@@ -16,7 +16,8 @@
 4. Pairs: the verified imports.json against master's record (lost, and of those the D66 moves and the lost
    outright) and against the PR's own record (equal: the PR records what the verify gives). The `// NOT EXACT`
    markers in the sources before and after.
-5. Verdict `success` only when nothing is lost, replay is clean and, for a maintainer's PR (merged as it is),
+5. Verdict `success` only when nothing is lost (or every loss is a D66 move, its address held by another file,
+   and a maintainer accepted them: a comment `/accept-d66 SHA` naming the head, or --accept-d66), replay is clean and, for a maintainer's PR (merged as it is),
    the record equals the verify; a contributor's PR lands through verify_watch.py, which carries the files the
    verify rewrote (.work/verify/prPR.files/), so a contributor without VC6 need not commit them. Posted as
    the commit status `vc6-verify` on the PR's head and as one PR comment (updated in place on reruns), and
@@ -43,6 +44,9 @@ OUT = os.path.join(ROOT, '.work', 'verify')
 CONTEXT = 'vc6-verify'
 GATED = 3                       # exit status: the gate stopped it (verify_watch.py asks for approval)
 MARK = '<!-- enb-verify -->'
+MAINTAINER = {'OWNER', 'MEMBER'}
+# a maintainer accepts a PR's D66 moves (every lost address held by another file) for one head
+ACCEPT = re.compile(r'^/accept-d66\s+([0-9a-f]{7,40})\b', re.I | re.M)
 # what a verify only reads, or sends to a VM's compiler
 READ_ONLY = [re.compile(p, re.I) for p in (
     r'^(?!tools/|\.github/).*\.(cpp|c|cc|h|hpp|inl)$',
@@ -83,6 +87,17 @@ def moves_and_outright(lost, verified):
     return moves, outright
 
 
+def accepted_by(comments, head):
+    """The first maintainer comment whose `/accept-d66 SHA` names HEAD (at least 7 hex digits), or None."""
+    for c in comments:
+        if (c.get('body') or '').startswith(MARK):
+            continue                            # this service's own report quotes the command
+        if c.get('author_association') in MAINTAINER and any(
+                head.lower().startswith(sha.lower()) for sha in ACCEPT.findall(c.get('body') or '')):
+            return c
+    return None
+
+
 def post(r, pr, res):
     state = 'success' if res['verdict'] == 'success' else 'failure'
     desc = res['summary'][:139]
@@ -117,6 +132,10 @@ def report(pr, res):
     if res.get('moves'):
         lines += ['', f'D66 moves (a lost pair whose address another file holds): {len(res["moves"])}; '
                       f'lost outright: {len(res["outright"])}.']
+    if res.get('accepted'):
+        acc = res['accepted']
+        lines += ['', f'D66 moves accepted by {acc["by"]} for `{acc["sha"]}`'
+                      + (f' ({acc["url"]})' if acc.get('url') else '') + '.']
     lines += ['', '_`python tools/vc6/verify_pr.py` on the maintainer\'s host (docs/github-plan.md 4.5.5)._']
     return '\n'.join(lines)
 
@@ -130,6 +149,8 @@ def main():
     ap.add_argument('--keep', action='store_true', help='keep the worktree')
     ap.add_argument('--lib', action='append', default=[])
     ap.add_argument('--no-replay', action='store_true')
+    ap.add_argument('--accept-d66', action='store_true',
+                    help='the maintainer accepts the PR\'s D66 moves (as a comment `/accept-d66 SHA` does)')
     a = ap.parse_args()
 
     r = repo()
@@ -226,9 +247,18 @@ def main():
         moves, outright = moves_and_outright(lost, verified)
         res.update(gained=gained, lost=lost, moves=moves, outright=outright)
         ne_before, ne_after = not_exact_count(old), not_exact_count(merge)
-        if lost:
+        if lost and not outright:
+            if a.accept_d66:
+                res['accepted'] = {'by': gh('api', 'user', '-q', '.login').strip(), 'sha': head[:9]}
+            else:
+                c = accepted_by(json.loads(gh('api', f'repos/{r}/issues/{a.pr}/comments?per_page=100')), head)
+                if c:
+                    res['accepted'] = {'by': c['user']['login'], 'sha': head[:9], 'url': c.get('html_url')}
+        if lost and not res.get('accepted'):
             res['reasons'].append(f'{len(lost)} pair(s) lost against master ({len(moves)} D66 moves, '
-                                  f'{len(outright)} lost outright): the maintainer decides (D66)')
+                                  f'{len(outright)} lost outright): the maintainer decides (D66)'
+                                  + ('' if outright else f'; a maintainer accepts the moves with '
+                                                         f'`/accept-d66 {head[:7]}`'))
         res['record_differs'] = bool(libs) and verified != cand
         if res['record_differs']:
             why = (f'the PR\'s imports.json records other pairs than the verify gives (verify only '
@@ -237,7 +267,9 @@ def main():
                 res['reasons'].append(why + ': commit the verified record')
             else:
                 res['notes'] = [why + '; the landing commit carries the verified record (no need to commit it)']
-        summary = (f'{len(gained):+d} pairs, {len(lost)} lost, NOT EXACT {ne_before} -> {ne_after}'
+        summary = (f'{len(gained):+d} pairs, {len(lost)} lost'
+                   + (f' (D66 moves, accepted by {res["accepted"]["by"]})' if res.get('accepted') else '')
+                   + f', NOT EXACT {ne_before} -> {ne_after}'
                    + (f'; libraries {", ".join(libs)}' if libs else '; no library touched'))
         finish('failure' if res['reasons'] else 'success', summary)
     finally:
