@@ -4311,7 +4311,7 @@ def app_state(state):
             if k in s['files']:
                 raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
             s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
-            for kept in ('in_tree', 'ambiguous'):
+            for kept in ('in_tree', 'ambiguous', 'tiebreak'):
                 if kept in old.get(k, {}):
                     s['files'][k][kept] = old[k][kept]
         s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
@@ -4661,11 +4661,13 @@ def late_sync():
     return [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
 
 
-def compile_and_match(paths, tag, ambiguous=None):
+def compile_and_match(paths, tag, ambiguous=None, tiebreak=None):
     """Compile files from the repository; {file key: set(addresses)} plus compiler output.
     `ambiguous` (a dict, optional) receives {file key: set(first address)} of the functions found
     at several places in client.exe whose copies are all identical (objmatch `multiple` with
-    `identical`; D54's "exact, ambiguous address"). They are never pairs."""
+    `identical`; D54's "exact, ambiguous address"). They are never pairs, except those D166's caller
+    tie-break resolves (objmatch caller_tiebreak): found like any exact function, and also put in
+    `tiebreak` (a dict, optional) as {file key: set(address)}."""
     hold_lock()
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
@@ -4680,9 +4682,11 @@ def compile_and_match(paths, tag, ambiguous=None):
         rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths), extra_sync=late_sync())
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
-    for r in match_objects(image(), objs, app and app['region']) if objs else []:
+    for r in match_objects(image(), objs, app and app['region'], callers=True) if objs else []:
         if r['status'] == 'exact':
             found[key_of(r['object'])].add(r['addresses'][0])
+            if r.get('caller_tiebreak') and tiebreak is not None:
+                tiebreak.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
         elif r['status'] == 'multiple' and r.get('identical') and ambiguous is not None:
             ambiguous.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
     for p in paths:
@@ -4706,9 +4710,9 @@ def verify(state, libs=None):
             vc6.use_host(host)
             s = state[lib]
             paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
-            amb = {}
-            found, text = compile_and_match(paths, f'verify-{lib}', amb)
-            return lib, found, text, amb
+            amb, tie = {}, {}
+            found, text = compile_and_match(paths, f'verify-{lib}', amb, tie)
+            return lib, found, text, (amb, tie)
         finally:
             free.put(host)
 
@@ -4718,10 +4722,11 @@ def verify(state, libs=None):
         results = {lib: (found, text, amb) for lib, found, text, amb in ex.map(one, order)}
     for lib in libs:
         s = state[lib]
-        found, text, amb = results[lib]
+        found, text, (amb, tie) = results[lib]
         errors = [l for l in text.splitlines() if ' error ' in l]
         total = set()
         ambiguous = set()
+        tied = 0
         short = 0
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
@@ -4729,13 +4734,18 @@ def verify(state, libs=None):
             # D54: exact, ambiguous address (identical copies); not pairs
             f['ambiguous'] = sorted(amb.get(k, set()))
             ambiguous |= amb.get(k, set())
+            # D166: pairs found by their callers (also in in_tree); the key exists only when there are some
+            f.pop('tiebreak', None)
+            if tie.get(k):
+                f['tiebreak'] = sorted(tie[k])
+                tied += len(tie[k])
             if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
         s['ambiguous_total'] = len(ambiguous)
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
-              f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address; '
+              f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address, {tied} tie-break by callers; '
               f'{short} files below their copy; {len(errors)} errors')
     return state
 
@@ -4809,6 +4819,9 @@ def try_with_headers(state, lib, f, c, k, donor):
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
                 ff['ambiguous'] = trial[l]['files'][kk].get('ambiguous', [])
+                ff.pop('tiebreak', None)
+                if trial[l]['files'][kk].get('tiebreak'):
+                    ff['tiebreak'] = trial[l]['files'][kk]['tiebreak']
         hs = state[lib].setdefault('headers', {})
         for n, _ in pairs:
             for old in [x for x in hs if x.lower() == n.lower()]:

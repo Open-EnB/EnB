@@ -9,7 +9,11 @@ library file reproduces byte for byte (the file's `in_tree` list in imports.json
     python tools/vc6/pairs_cmp.py .work/imports.before.json docs/data/imports.json
 
 Prints `gained [...]` (in B, not in A) and `lost [...]` (in A, not in B). Each entry is
-(lib, file, address). Then, for D66(v) / D117:
+(lib, file, address). A pair found by D166's caller tie-break (the file's `tiebreak` list, also in
+`in_tree`) is listed apart: `gained tie-break [...]`, `lost tie-break [...]`, and a lost tie-break
+pair whose caller also lost its pair is named `lost tie-break with its caller (D66 vii)`; the
+other lost tie-break pairs are in `lost` too (so an empty `lost` is the D66 test; `gained` leaves
+tie-break pairs out). Then, for D66(v) / D117:
 `lost outright [...]` : addresses of lost pairs that no file holds in B (sorted hex strings);
                         D66(v) needs this list empty.
 `moves [...]`         : lost pairs whose address another file holds in B, as
@@ -20,13 +24,16 @@ import json
 import sys
 
 
-def pairs(path):
-    """All (lib, file, address) triples in an imports.json."""
-    data = json.load(open(path))
+def load(path):
+    return json.load(open(path))
+
+
+def pairs(data, key='in_tree'):
+    """All (lib, file, address) triples of an imports.json (`in_tree`, or the `tiebreak` list)."""
     out = set()
     for lib, entry in data.items():
         for f, v in entry.get('files', {}).items():
-            for a in v.get('in_tree', []):
+            for a in v.get(key, []):
                 out.add((lib, f, a if isinstance(a, str) else str(a)))
     return out
 
@@ -34,12 +41,25 @@ def pairs(path):
 def main(argv):
     if len(argv) != 3:
         sys.exit(__doc__)
-    a, b = pairs(argv[1]), pairs(argv[2])
-    print('gained', sorted(b - a))
-    lost = a - b
+    da, db = load(argv[1]), load(argv[2])
+    ta, tb = pairs(da, 'tiebreak'), pairs(db, 'tiebreak')
+    a, b = pairs(da) - ta, pairs(db) - tb          # plain pairs
+    # a pair that was plain in A and is a tie-break in B (or the reverse) is neither gained nor lost
+    gained_t, lost_t = tb - pairs(da), ta - pairs(db)
+    print('gained', sorted(b - a - (pairs(da))))
+    print('gained tie-break', sorted(gained_t))
+    lost = a - pairs(db)
+    # D66 (vii): the tie-break pair went with its caller. A caller is a pair of the same file in A that
+    # B no longer has (any lost pair of the file: the check cannot see which function calls which)
+    lost_files = {(lib, f) for lib, f, _ in lost}
+    with_caller = {x for x in lost_t if (x[0], x[1]) in lost_files}
+    lost |= lost_t - with_caller
     print('lost', sorted(lost))
+    print('lost tie-break (counted in lost)', sorted(lost_t - with_caller))
+    print('lost tie-break with its caller (D66 vii, not a loss)', sorted(with_caller))
+    allb = pairs(db)
     holders = {}
-    for lib, f, addr in b:
+    for lib, f, addr in allb:
         holders.setdefault(addr, set()).add((lib, f))
     print('lost outright', sorted({x[2] for x in lost if x[2] not in holders}))
     print('moves', sorted((lib, f, sorted(holders[addr]), addr)
