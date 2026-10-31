@@ -374,6 +374,21 @@ static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
 
 
+#include "co.h"
+// env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's SClientUnknown1338Class), as far as Create_Skybox calls it
+class SClientUnknown1338Class { public: ~SClientUnknown1338Class(); void Unknown_760770(int base_asset, bool a); };	// destructor 0x679820, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
+// the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
+class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown53AA30InterfaceClass(UIViewClass *view, SimpleSceneClass *scene);	// 0x53AA30  // NAME 1 [view, scene]: what Create_Skybox passes
+	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (Create_Skybox: the skybox model)  // NAME 1 [model]: neutral
+	char Unknown84[0x8C - 0x84];						// +0x84
+};
+// decal.cpp's decal INIs at the view's +0x144 (sclient.h's SClientUnknown1334Class), as far as the shutdown deletes it
+class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); };	// 0x618A50
+// what the view's +0x68 points to (its first member's slot +0x38: the shutdown)
+class ScriptedMovieUnknown68Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); };	// NAME 1: neutral (D10)
 
 
 
@@ -392,53 +407,38 @@ static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x8010A0: the view's shutdown (slot +0x10): its scenes, camera, stars, orbitals and skybox released; the client keeps
+void ScriptedMovieViewClass::Unknown_10()
+{
+	ClientClass *client = Get_Client();
+	G_ASSERT(client);
+	(*Unknown68)->Unknown_38();
+	REF_PTR_RELEASE(ScriptedScene);
+	REF_PTR_RELEASE(ScriptedCamera);
+	REF_PTR_RELEASE(Stars);
+	REF_PTR_RELEASE(StarsScene);
+	REF_PTR_RELEASE(BackgroundScene);
+	REF_PTR_RELEASE(BackInterface);
+	REF_PTR_RELEASE(OrbitalScene);
+	if (OrbitalManager) {
+		delete OrbitalManager;
+		OrbitalManager = NULL;
+	}
+	if (BackgroundDazzleLayer) {
+		delete BackgroundDazzleLayer;
+		BackgroundDazzleLayer = NULL;
+	}
+	SClient *sclient = (SClient *)client->Unknown_18();
+	if (sclient) {
+		sclient->Unknown_745050();
+	} else {
+		delete Unknown140;
+		delete DecalMaterialManager;
+	}
+	Unknown140 = NULL;
+	DecalMaterialManager = NULL;
+	UIViewClass::Unknown_10();
+}
 
 
 
@@ -1509,17 +1509,17 @@ bool ScriptedMovieViewClass::Destroy_Object(ScriptedMovieParamsClass *params)
 }
 
 
-#include "co.h"
-// env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's SClientUnknown1338Class), as far as Create_Skybox calls it
-class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };	// 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
-// the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
-class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown53AA30InterfaceClass(UIViewClass *view, SimpleSceneClass *scene);	// 0x53AA30  // NAME 1 [view, scene]: what Create_Skybox passes
-	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (Create_Skybox: the skybox model)  // NAME 1 [model]: neutral
-	char Unknown84[0x8C - 0x84];						// +0x84
-};
+
+
+
+
+
+
+
+
+
+
+
 
 
 
