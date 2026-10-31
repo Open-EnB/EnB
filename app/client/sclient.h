@@ -718,7 +718,7 @@ public:
 class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
 {
 public:
-	UIMeshClass(const char *name, bool arg); UIMeshClass(const char *name, ClientClass *client); ~UIMeshClass();	// 0x5B8120 / 0x5B8330 (a ship's: Create_Object), 0x5B8640 (Destroy_Object deletes it)  // NAME 1 [name, arg, client]: what Create_Object passes
+	UIMeshClass(const char *name, int arg); UIMeshClass(const char *name, ClientClass *client); ~UIMeshClass();	// 0x5B8120 / 0x5B8330 (a ship's: Create_Object), 0x5B8640 (Destroy_Object deletes it); arg an int (ui_scut.cpp's 0x610570 passes 2)  // NAME 1 [name, arg, client]: what Create_Object passes
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's

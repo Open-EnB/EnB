@@ -9239,6 +9239,45 @@
     "merged": [],
     "name": "client/ui_manu.cpp"
    },
+   "ui_scut": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42B2F0",
+     "0x60A9D0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10",
+     "0x53B310",
+     "0x610570",
+     "0x610750",
+     "0x610940",
+     "0x610980",
+     "0x610D00",
+     "0x610D70",
+     "0x610E10",
+     "0x611220",
+     "0x6112B0",
+     "0x611B10",
+     "0x611E20",
+     "0x611E70",
+     "0x612510",
+     "0x6125B0",
+     "0x612710",
+     "0x612740",
+     "0x6127E0"
+    ],
+    "merged": [],
+    "name": "client/ui_scut.cpp"
+   },
    "uiview": {
     "ambiguous": [
      "0x42B2F0",
@@ -9835,6 +9874,7 @@
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/ui_manu.h": "reconstructed",
+   "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",

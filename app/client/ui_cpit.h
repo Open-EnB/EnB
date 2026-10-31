@@ -101,14 +101,8 @@ public:
 	int Unknown_553A40();								// 0x553A40: the answer once it closes (-1 none, 0 / 1: slot +0x60's Packet_008FClass / distress beacon)
 };
 
-// ui_scut.cpp's interface (0xB8 bytes, constructor 0x610570), as far as the cockpit holds it
-class UIScutClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scut.cpp
-{
-public:
-	UIScutClass(UIViewClass *view, LayerClass *layer);	// 0x610570 (0x57DD20 passes the view and the cockpit's layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
-	void Unknown_5417D0(InterfaceClass *owner);		// 0x5417D0 (intrface.cpp's; the set-up passes the cockpit)  // NAME 1 [owner]: neutral
-	char Unknown84[0xB8 - 0x84];						// +0x84
-};
+class UIScutClass;
+#include "ui_scut.h"		// ui_scut.cpp's shortcut bars (the cockpit's +0xDC; moved to ui_scut.h, SC2)
 
 void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient);	// 0x57D6C0 (cdecl; the cockpit's 0x5806E0, the view's 0x6B58A0): the avatar's LockSpeed / LockOrient (G_ASSERT 'sclient' l.132)  // NAME 1 [sclient, lock_speed, lock_orient]: what they hold
 
