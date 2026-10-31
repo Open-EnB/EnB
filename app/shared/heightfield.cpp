@@ -598,7 +598,8 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return hit;
 }
 
-// NOT EXACT: shape (0x465D30: the second push_back reads end() after pushing 1, and v3.Y is stored after v3.X; the first corner through Get_Vertex puts the first push_back's insert out of line as the client, 0x466180; attempts.csv)
+// NOT EXACT: shape (0x465D30: 5 rows; the second push_back reads end() after pushing 1, and the client stores v3.X before v3.Y
+// from the FPU (an fxch); the first corner through Get_Vertex puts the first push_back's insert out of line as the client, 0x466180; attempts.csv)
 void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
 {
 	Vector3 extent;
@@ -632,8 +633,9 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 			verts4[1].Y = verts4[0].Y;
 			verts4[1].Z = Get_Height(i + 1, j);
 			verts4[2].X = verts4[1].X;
-			verts4[3].Y = verts4[2].Y = verts4[0].Y + YSpacing;
+			verts4[2].Y = verts4[0].Y + YSpacing;
 			verts4[2].Z = Get_Height(i + 1, j + 1);
+			verts4[3].Y = verts4[2].Y;
 			verts4[3].X = verts4[0].X;
 			verts4[3].Z = Get_Height(i, j + 1);
 			verts.push_back(verts4[0]);
