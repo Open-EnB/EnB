@@ -318,6 +318,8 @@ unless `--lever` cites a new row of this table.
 | Index scheduling off in a function whose same-file accessors ours expands by hand | Call the client's accessors (`Get_Height(i, j)`, `Get_Vertex`): they fix the scheduling and spend the inline budget the client spends | heightfield 0x464600, 0x465D30 / 0x466180, 0x4654E0 (LD8, 8d47d1ed) |
 | A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
+| A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
+| A strtok path walk with one strtok call at the loop top | `while (name) { next = strtok(NULL, sep); if (!next) { last step; break; } ...; name = next; }` | rs_track (RT1) |
 | A RefCountPtr released twice in a row | `REF_PTR_RELEASE(ptr)` | scriptedmovie (SM1) |
 | A direct call to a client virtual where ours goes through the vtable | Qualify it: `client->ClientClass::Add_Object(...)` | scriptedmovie (SM1) |
 | A call order or frame off around by-value arguments | `Get_Client()` inside the argument list; a named copy before a by-value argument; block-scoped temporaries | scriptedmovie 0x808330 and others (SM1) |
@@ -752,6 +754,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.5 Build VMs and vc6.py
 
+* **At most 4 parallel `appfile.py match --pool` jobs** (2026-10-30, RT1): more made pool.py half-create a clone
+  (enb-vc6-07, Off with a 0 GB disk; destroyed with `pool.py destroy`), and parallel matches collide in
+  `.work/appfile/appfile/obj`. In Git Bash, `--flags '/nologo ...'` is rewritten into a path (MSYS): prefix
+  `MSYS_NO_PATHCONV=1`.
 * **tryv2 without `--pool` uses `.work/vc6_hosts.json`, which can name a stopped VM** (2026-10-28, LD2): lease
   one and set `ENB_VC6_HOSTS=<user>@IP`.
 * **Address VMs by IP** (`ENB_VC6_HOST`/`ENB_VC6_HOSTS`, from `pool.py`); after a restart
