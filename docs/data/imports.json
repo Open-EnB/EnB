@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 138,
+  "ambiguous_total": 139,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -8934,6 +8934,11 @@
      "0x42AB30",
      "0x42F250",
      "0x45CC10",
+     "0x5934A0",
+     "0x5935C0",
+     "0x593750",
+     "0x593790",
+     "0x593830",
      "0x593BD0",
      "0x593D40",
      "0x593D70",
@@ -9840,7 +9845,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 4949,
+  "in_tree_total": 4973,
   "totals": {}
  },
  "binkmovie": {

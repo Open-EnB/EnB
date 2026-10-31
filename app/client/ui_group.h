@@ -30,18 +30,42 @@ public:
 	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
 };
 
+// What a member's +0x2C points to (a virtual destructor; 0x5DCAE0 before the delete)
+class UIGroupMemberUnknown2CClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual ~UIGroupMemberUnknown2CClass();
+	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10();							// +0x10 (0x5935C0, every frame)
+	void Unknown_5DCAE0();								// 0x5DCAE0 (before the delete)
+};
+
 // One member of the group (0x54 bytes, in Members; destructor 0x5932E0): the asserts' Get_Interface() is its +0x00
 class UIGroupMemberClass	// NAME 2: what UIGroupClass's Members holds
 {
 public:
 	~UIGroupMemberClass();								// 0x5932E0
+	UIGroupClass *Get_Interface() { return(Owner); }	// (the asserts' 'Get_Interface()')  // NAME 3: the asserts'
+	void Unknown_5934A0();								// 0x5934A0: the four buttons and +0x34 released (G_ASSERT line 403)
+	void Unknown_5935C0();								// 0x5935C0: the timers +0x24 / +0x20 run down (G_ASSERT line 456)
+	bool Unknown_593750();								// 0x593750: the object's presence differs from +0x1C
+	void Unknown_593790();								// 0x593790: +0x3C, +0x38, +0x2C and +0x30 released
+	void Unknown_593830(const RefCountPtr<RenderObjClass> &object);	// 0x593830: +0x30 set  // NAME 1 [object]: neutral
 
 	UIGroupClass *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
 	std::string Name;									// +0x04 (0x596090 compares it; the assert's 'Get_Member(name)')  // NAME 2 [Name]: the assert's name
 	int ID;												// +0x14 (0x596040 / 0x5982A0 look members up by it; ClientClass::Find_Object)  // NAME 2: what it holds
-	char Unknown18[0x20 - 0x18];						// +0x18
-	float Unknown20;									// +0x20 (0x5982A0: 15.0f)
-	char Unknown24[0x40 - 0x24];						// +0x24
+	char Unknown18[0x1C - 0x18];						// +0x18
+	bool Unknown1C;										// +0x1C (0x593750)
+	bool Unknown1D;										// +0x1D (0x5935C0 clears it with +0x24)
+	float Unknown20;									// +0x20 (0x5982A0: 15.0f; 0x5935C0 runs it down, then clears +0x48's flag 0x800)
+	float Unknown24;									// +0x24 (0x5935C0 runs it down, then releases +0x3C / +0x38 / +0x28)
+	char *Unknown28;									// +0x28 (deleted, no destructor)
+	UIGroupMemberUnknown2CClass *Unknown2C;				// +0x2C
+	RefCountPtr<RenderObjClass> Unknown30;				// +0x30 (0x593830 sets it)
+	RefCountPtr<RenderObjClass> Unknown34;				// +0x34 (0x5934A0: slot +0x38, released)
+	RefCountPtr<RenderObjClass> Unknown38;				// +0x38 (slot +0x38, released)
+	GadgetClass *Unknown3C;								// +0x3C
 	GadgetClass *Unknown40;								// +0x40 (0x597000: the four buttons' slot +0x40)
 	GadgetClass *Unknown44;								// +0x44
 	GadgetClass *Unknown48;								// +0x48 (0x5982A0: flag 0x800, 0x6603A0)

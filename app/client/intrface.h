@@ -28,6 +28,15 @@ class UIViewClass;
 class INIClass;
 class ControlKeysManagerClass;  // control_keys_manager.cpp's (0x71A960 / 0x71AB40)
 class LineDisplayClientClass;  // what +0x40 points to (slot +0x18 gives the sclient)
+class GadgetClass;  // gadget.cpp's
+
+// What InterfaceClass holds at +0x64 (0x0C bytes, constructor 0x686FA0; intrlist.cpp's functions), as far as ui_group.cpp calls it
+class InterfaceUnknown64Class  // NAME 1: neutral (D10)
+{
+public:
+	void Unknown_687150(GadgetClass *gadget);												// 0x687150: the gadget taken out (before its delete)  // NAME 1 [gadget]: what ui_group.cpp passes
+	char Unknown00[0x0C];																	// +0x00
+};
 
 // The inline base under gclass.cpp's class (tables 0xAEAB48 at +0x00, 0xAEAB3C at +0x04)
 class UnknownGadgetBase00Class  // NAME 1: neutral (D10): the inline base's first table (0xAEAB48)
@@ -94,11 +103,15 @@ public:
 	virtual void Unknown_80();																// 0x541550 (FAIL_IF 'PartialDeactivatedGadget', '!Active')
 	virtual void Unknown_84();																// 0x541690 (FAIL_IF '!PartialDeactivatedGadget', '!Active')
 	void *Unknown_541800();																	// 0x541800
+	bool Is_Active() { return(Active); }													// (ui_group.cpp's asserts 'Get_Interface()->Is_Active()')  // NAME 3: the asserts'
+	bool Is_Partially_Deactivated() { return(PartialDeactivatedGadget != NULL); }			// (ui_group.cpp's G_ASSERT line 403)  // NAME 3: the assert's
 
 	LineDisplayClientClass *Client;															// +0x40 (ui_line_display.cpp's assert's name; the constructor: the view's slot +0x20's +0x4C)
 	int Unknown44;																			// +0x44: nothing is shown while it is 0
 	UIViewClass *View;																		// +0x48 (the destructor's G_ASSERT '!View')  // NAME 3: the assert's
-	char Unknown4C[0x7C - 0x4C];															// +0x4C: what the control keys are registered with
+	char Unknown4C[0x64 - 0x4C];															// +0x4C: what the control keys are registered with
+	InterfaceUnknown64Class Unknown64;														// +0x64 (constructor 0x686FA0; ui_group.cpp takes its gadgets out of it, 0x687150)
+	char Unknown70[0x7C - 0x70];															// +0x70
 	bool Active;																			// +0x7C (FAIL_IF '!Active'; the views' slot +0x14 tests it)  // NAME 3: the FAIL_IF's
 	void *PartialDeactivatedGadget;															// +0x80 (0x541550 news it, 0x40 bytes, 0x660D30)  // NAME 3: the assert's
 };

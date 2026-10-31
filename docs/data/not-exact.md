@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-354 entries in 75 files.
+355 entries in 75 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -171,6 +171,7 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:89` | `TutorialManagerClass::TutorialManagerClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the list's _Buynode 0x6AE690 out of line and inlines the key string's destructor after Steps[]; ours the reverse |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
+| `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:1590` | `UIGroupClass::Unknown_597920` | marker | NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's) |
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |

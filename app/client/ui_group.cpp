@@ -40,6 +40,8 @@ public:
 };
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 
+extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp)
+
 // The SignalMap the group events go to: a function-static instance (co.cpp's 0x4F7EF0), not rebuilt
 SignalMap &Unknown_4F7EF0();
 class ClientGroupEvent	// NAME 5: the client's RTTI .?AVClientGroupEvent@@
@@ -335,6 +337,38 @@ public:
 
 
 
+// 0x5932E0
+// NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it)
+UIGroupMemberClass::~UIGroupMemberClass()
+{
+	bool active = Get_Interface()->Is_Active();
+	if (active) {
+		Get_Interface()->Unknown_5C();
+	}
+	if (Unknown3C) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
+		Unknown_65EED0(Unknown3C);
+		Unknown3C = NULL;
+	}
+	if (Unknown38) {
+		Unknown38->Remove();
+		Unknown38 = NULL;
+	}
+	if (Unknown2C) {
+		Unknown2C->Unknown_5DCAE0();
+		delete Unknown2C;
+		Unknown2C = NULL;
+	}
+	Unknown30 = NULL;
+	if (Unknown28) {
+		delete Unknown28;
+		Unknown28 = NULL;
+	}
+	Unknown_5934A0();
+	if (active) {
+		Get_Interface()->Unknown_58();
+	}
+}
 
 
 
@@ -363,6 +397,35 @@ public:
 
 
 
+// 0x5934A0
+void UIGroupMemberClass::Unknown_5934A0()
+{
+	G_ASSERT(Get_Interface()->Is_Partially_Deactivated() || !Get_Interface()->Is_Active());
+	if (Unknown40) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown40);
+		Unknown_65EED0(Unknown40);
+		Unknown40 = NULL;
+	}
+	if (Unknown44) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown44);
+		Unknown_65EED0(Unknown44);
+		Unknown44 = NULL;
+	}
+	if (Unknown48) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown48);
+		Unknown_65EED0(Unknown48);
+		Unknown48 = NULL;
+	}
+	if (Unknown4C) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown4C);
+		Unknown_65EED0(Unknown4C);
+		Unknown4C = NULL;
+	}
+	if (Unknown34) {
+		Unknown34->Remove();
+		Unknown34 = NULL;
+	}
+}
 
 
 
@@ -380,6 +443,45 @@ public:
 
 
 
+// 0x5935C0
+void UIGroupMemberClass::Unknown_5935C0()
+{
+	if (Unknown2C) {
+		Unknown2C->Unknown_10();
+	}
+	float elapsed = (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+	if (Unknown24 > 0.0f) {
+		Unknown24 -= elapsed;
+		if (Unknown24 < 0.0f) {
+			G_ASSERT(Get_Interface()->Is_Active());
+			Get_Interface()->Unknown_5C();
+			if (Unknown3C) {
+				Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
+				Unknown_65EED0(Unknown3C);
+				Unknown3C = NULL;
+			}
+			if (Unknown38) {
+				Unknown38->Remove();
+				Unknown38 = NULL;
+			}
+			Get_Interface()->Unknown_58();
+			if (Unknown28) {
+				delete Unknown28;
+				Unknown28 = NULL;
+			}
+			Unknown24 = 0.0f;
+			Unknown1D = false;
+		}
+	}
+	if (Unknown20 > 0.0f) {
+		Unknown20 -= elapsed;
+		if (Unknown20 < 0.0f) {
+			Unknown20 = 0.0f;
+			Unknown48->Unknown2C800 = false;
+			Unknown48->Unknown_6607D0();
+		}
+	}
+}
 
 
 
@@ -400,150 +502,48 @@ public:
 
 
 
+// 0x593750
+bool UIGroupMemberClass::Unknown_593750()
+{
+	ClientClass *client = (ClientClass *)Get_Interface()->Client;
+	ClientObjectClass *object = client->Find_Object(ID);
+	if ((Unknown1C && object == NULL) || (!Unknown1C && object != NULL)) {
+		return(true);
+	}
+	return(false);
+}
 
 
 
+// 0x593790
+void UIGroupMemberClass::Unknown_593790()
+{
+	if (Unknown3C) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
+		Unknown_65EED0(Unknown3C);
+		Unknown3C = NULL;
+	}
+	if (Unknown38) {
+		Unknown38->Remove();
+		Unknown38 = NULL;
+	}
+	if (Unknown2C) {
+		Unknown2C->Unknown_5DCAE0();
+		delete Unknown2C;
+		Unknown2C = NULL;
+	}
+	Unknown30 = NULL;
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x593830
+void UIGroupMemberClass::Unknown_593830(const RefCountPtr<RenderObjClass> &object)
+{
+	Unknown30 = object;
+}
 
 
 
