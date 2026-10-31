@@ -26,6 +26,7 @@
 #include "texture.h"
 #include "aabtreecull.h"
 #include "gridcull.h"
+#include "obbox.h"
 
 class CameraClass;
 class VertexMaterialClass;
@@ -82,6 +83,30 @@ public:
 	ProjectionDefClass *		ProjectionDef;				// +0x18
 	ProjectorManagerClass *	Manager;						// +0x1C  // NAME 2: what it points at
 };
+
+/*
+** ProjectorReceiverClass: an object projectors land on (rs_proj_sup.cpp's 0x45DC80 derives from it: its CullObject
+** at +0x10 points back at it through +0x2C); Apply_Projectors calls these three slots
+*/
+class ProjectorReceiverClass : public RefCountClass, public MultiListObjectClass	// NAME 2: what Apply_Projectors does with it
+{
+public:
+	virtual void					Add_Projector(TexProjectClass * projector) = 0;		// slot 2  // NAME 2: its use
+	virtual bool					Intersects(const OBBoxClass & box) = 0;				// slot 3: the projector's bounding volume  // NAME 2: its use
+	virtual void *					Get_Projection_Object_ID(void) = 0;					// slot 4: compared with the projector's  // NAME 2: TexProjectClass's
+};
+
+// The cullable the receivers' culling systems collect (CullableClass + 4 bytes + the receiver at +0x2C)
+class ProjectorReceiverCullClass : public CullableClass	// NAME 2: what it holds
+{
+public:
+	int								Unknown28;					// +0x28  // NAME 1: neutral (D10)
+	ProjectorReceiverClass *	Receiver;					// +0x2C  // NAME 2: 0x45DC80 stores the receiver here
+};
+
+typedef RefMultiListClass<ProjectorReceiverClass>						ProjectorReceiverListClass;		// NAME 2: as TexProjListClass
+typedef TypedAABTreeCullSystemClass<ProjectorReceiverCullClass>	ReceiverAABTreeCullSystemClass;	// NAME 2: interim, the static objects' system
+typedef TypedGridCullSystemClass<ProjectorReceiverCullClass>		ReceiverGridCullSystemClass;		// NAME 2: interim, the dynamic objects' system
 
 /*
 ** CasterTexProjectClass: the dynamic projector Create_Projection makes (0x144 bytes, vtables 0xAEA764 / 0xAEA758
@@ -174,7 +199,8 @@ public:
 	void							Remove_All_Texture_Projectors(void);			// 0x492AD0  // NAME 2: what it does
 	bool							Contains(TexProjectClass * projector);			// 0x492C00  // NAME 2: Renegade's
 
-	void							Apply_Projectors(const CameraClass & camera);	// 0x492C70 (profile label pscene::Apply_Projectors)
+	void							Apply_Projectors(CameraClass & camera,ProjectorReceiverListClass & dynamic_receivers,ProjectorReceiverListClass & static_receivers,
+									ReceiverAABTreeCullSystemClass * static_objs,ReceiverGridCullSystemClass * dynamic_objs);	// 0x492C70 (profile label pscene::Apply_Projectors)
 
 	StaticShadowTexMgrClass *	Get_Static_Shadow_Tex_Mgr(void);				// 0x493260  // NAME 2: StaticShadowTexMgr's getter
 	void							Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectorCasterClass> & list);	// 0x493340  // NAME 2: Renegade's

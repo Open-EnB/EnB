@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): notes at the end of the file
+#define ENABLE_WWPROFILE
 #include "proj_man.h"
 #include "camera.h"
 #include "vertmaterial.h"
@@ -9,6 +10,7 @@
 #include "dx8wrapper.h"
 #include "matrix3d.h"
 #include "rendobj.h"
+#include "wwprofile.h"
 #include "wwmath.h"
 #include <math.h>
 #include "..\shared\unknown_debug.h"
@@ -42,8 +44,6 @@ TextureClass * StaticShadowTexMgrClass::Peek_Shadow_Texture
 	}
 	return NULL;
 }
-
-
 
 
 
@@ -388,147 +388,147 @@ bool ProjectorManagerClass::Contains(TexProjectClass * projector)
 	return (DynamicProjectorList.Is_In_List(projector) || StaticProjectorList.Is_In_List(projector));
 }
 
-// Apply_Projectors 0x492C70 (Renegade's PhysicsSceneClass::Apply_Projectors) is not rebuilt yet.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void ProjectorManagerClass::Apply_Projectors
+(
+	CameraClass &						camera,
+	ProjectorReceiverListClass &	dynamic_receivers,
+	ProjectorReceiverListClass &	static_receivers,
+	ReceiverAABTreeCullSystemClass *	static_objs,
+	ReceiverGridCullSystemClass *		dynamic_objs
+)
+{
+	WWPROFILE("pscene::Apply_Projectors");
+
+	if ((static_objs == NULL) && (dynamic_objs == NULL)) {
+		return;
+	}
+
+	Vector3 view_pos;
+	Vector3 view_dir;
+	camera.Get_Transform().Get_Translation(&view_pos);
+	camera.Get_Transform().Get_Z_Vector(&view_dir);
+	view_dir = -view_dir;
+
+	if (StaticProjectorsEnabled) {
+
+		/*
+		** collect the visible static projectors
+		*/
+		StaticProjectorCullingSystem->Reset_Collection();
+		StaticProjectorCullingSystem->Collect_Objects(camera.Get_Frustum());
+
+		for (	TexProjectClass * static_projector = StaticProjectorCullingSystem->Get_First_Collected_Object();
+				static_projector != NULL;
+				static_projector = StaticProjectorCullingSystem->Get_Next_Collected_Object(static_projector))
+		{
+			if (!static_projector->Is_Intensity_Zero()) {
+				bool first = true;
+
+				if ((static_objs != NULL) && static_projector->Is_Affect_Static_Objects_Enabled()) {
+					static_objs->Reset_Collection();
+					static_objs->Collect_Objects(static_projector->Get_Bounding_Volume());
+					for (	ProjectorReceiverCullClass * obj = static_objs->Get_First_Collected_Object();
+							obj != NULL;
+							obj = static_objs->Get_Next_Collected_Object(obj))
+					{
+						ProjectorReceiverClass * receiver = obj->Receiver;
+						if (	(receiver != NULL) && static_receivers.Is_In_List(receiver) &&
+								receiver->Intersects(static_projector->Get_Bounding_Volume()))
+						{
+							if (static_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID()) {
+								receiver->Add_Projector(static_projector);
+								if (first) {
+									static_projector->Pre_Render_Update(camera.Get_Transform());
+									first = false;
+								}
+							}
+						}
+					}
+				}
+
+				if ((dynamic_objs != NULL) && static_projector->Is_Affect_Dynamic_Objects_Enabled()) {
+					dynamic_objs->Reset_Collection();
+					dynamic_objs->Collect_Objects(static_projector->Get_Bounding_Volume());
+					for (	ProjectorReceiverCullClass * obj = dynamic_objs->Get_First_Collected_Object();
+							obj != NULL;
+							obj = dynamic_objs->Get_Next_Collected_Object(obj))
+					{
+						ProjectorReceiverClass * receiver = obj->Receiver;
+						if ((receiver != NULL) && dynamic_receivers.Is_In_List(receiver)) {
+							if (static_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID()) {
+								receiver->Add_Projector(static_projector);
+								if (first) {
+									static_projector->Pre_Render_Update(camera.Get_Transform());
+									first = false;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if (DynamicProjectorsEnabled) {
+
+		/*
+		** Collect the visible dynamic projectors
+		*/
+		DynamicProjectorCullingSystem->Reset_Collection();
+		DynamicProjectorCullingSystem->Collect_Objects(camera.Get_Frustum());
+
+		for (	TexProjectClass * dynamic_projector = DynamicProjectorCullingSystem->Get_First_Collected_Object();
+				dynamic_projector != NULL;
+				dynamic_projector = DynamicProjectorCullingSystem->Get_Next_Collected_Object(dynamic_projector))
+		{
+			if (!dynamic_projector->Is_Intensity_Zero()) {
+				bool first = true;
+
+				if ((static_objs != NULL) && dynamic_projector->Is_Affect_Static_Objects_Enabled()) {
+					static_objs->Reset_Collection();
+					static_objs->Collect_Objects(dynamic_projector->Get_Bounding_Volume());
+					for (	ProjectorReceiverCullClass * obj = static_objs->Get_First_Collected_Object();
+							obj != NULL;
+							obj = static_objs->Get_Next_Collected_Object(obj))
+					{
+						ProjectorReceiverClass * receiver = obj->Receiver;
+						if (	(receiver != NULL) && static_receivers.Is_In_List(receiver) &&
+								receiver->Intersects(dynamic_projector->Get_Bounding_Volume()))
+						{
+							if (dynamic_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID()) {
+								receiver->Add_Projector(dynamic_projector);
+								if (first) {
+									dynamic_projector->Pre_Render_Update(camera.Get_Transform());
+									first = false;
+								}
+							}
+						}
+					}
+				}
+
+				if ((dynamic_objs != NULL) && dynamic_projector->Is_Affect_Dynamic_Objects_Enabled()) {
+					dynamic_objs->Reset_Collection();
+					dynamic_objs->Collect_Objects(dynamic_projector->Get_Bounding_Volume());
+					for (	ProjectorReceiverCullClass * obj = dynamic_objs->Get_First_Collected_Object();
+							obj != NULL;
+							obj = dynamic_objs->Get_Next_Collected_Object(obj))
+					{
+						ProjectorReceiverClass * receiver = obj->Receiver;
+						if ((receiver != NULL) && dynamic_receivers.Is_In_List(receiver)) {
+							if ((receiver->Get_Projection_Object_ID() != dynamic_projector->Get_Projection_Object_ID()) && (dynamic_projector->Get_Projection_Object_ID() != receiver->Get_Projection_Object_ID())) {
+								receiver->Add_Projector(dynamic_projector);
+								if (first) {
+									dynamic_projector->Pre_Render_Update(camera.Get_Transform());
+									first = false;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 
