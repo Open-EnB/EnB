@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-399 entries in 79 files.
+398 entries in 79 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -317,16 +317,15 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:1565` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: shape (0x46D6B0: 29 rows with registers masked; the frame is the client's 0x20 once the four channels are separate pointers, the client's pointer-difference induction variables; the setup's load order and which difference stays in a register are left; attempts.csv) |
 | `app/shared/land.cpp:1611` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790) |
 | `app/shared/land.cpp:1687` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
-| `app/shared/land.cpp:1807` | `LandClass::Apply_Colors` | marker | NOT EXACT: shape, registers only (0x46D410: 1 row with registers masked, 15 without: in the second loop the client keeps the add pointer in esi and the colour pointer in edi, ours the other way; attempts.csv, docs/attempts/46D410/) |
-| `app/shared/land.cpp:2154` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
-| `app/shared/land.cpp:2303` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
-| `app/shared/land.cpp:2544` | `LandClass::Compute_Horizons` | marker | NOT EXACT: literal (14 masked rows: the direction loop's x87 stack, the client copies nz where ours copies w.Y and keeps w.Y one step longer; attempts.csv 0x472F80) |
-| `app/shared/land.cpp:2607` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
-| `app/shared/land.cpp:2666` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
-| `app/shared/land.cpp:2729` | `LandClass::Unknown_473780` | marker | NOT EXACT: shape (28 masked rows: the outer loop's set-up order and the left / right updates' scheduling, as 0x473BC0; attempts.csv 0x473780) |
-| `app/shared/land.cpp:2782` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0) |
-| `app/shared/land.cpp:2885` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
-| `app/shared/land.cpp:2892` | `LandClass::Save_PLD` | mention | NOT EXACT, marked; nothing calls either). |
+| `app/shared/land.cpp:2152` | `LandClass::Unknown_46F120` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x46F120 |
+| `app/shared/land.cpp:2301` | `LandClass::Unknown_470F80` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x470F80 |
+| `app/shared/land.cpp:2542` | `LandClass::Compute_Horizons` | marker | NOT EXACT: literal (14 masked rows: the direction loop's x87 stack, the client copies nz where ours copies w.Y and keeps w.Y one step longer; attempts.csv 0x472F80) |
+| `app/shared/land.cpp:2605` | `LandClass::Compute_Horizons` | marker | NOT EXACT: shape (21 masked rows: the mask test's operand order and the heights' restore; 5 forms, attempts.csv 0x46E670) |
+| `app/shared/land.cpp:2664` | `LandClass::Unknown_473290` | marker | NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290) |
+| `app/shared/land.cpp:2727` | `LandClass::Unknown_473780` | marker | NOT EXACT: shape (28 masked rows: the outer loop's set-up order and the left / right updates' scheduling, as 0x473BC0; attempts.csv 0x473780) |
+| `app/shared/land.cpp:2780` | `LandClass::Unknown_473BC0` | marker | NOT EXACT: shape (24 masked rows: the left index's register and the loop end's scheduling; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0) |
+| `app/shared/land.cpp:2883` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
+| `app/shared/land.cpp:2890` | `LandClass::Save_PLD` | mention | NOT EXACT, marked; nothing calls either). |
 | `app/shared/landdmap.cpp:159` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: frame (0x466F60: 0x218, the client 0x220; 18 rows with registers masked, 68 without; the client copies X / Y spacing through stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv) |
 | `app/shared/landdmap.cpp:324` | `LandUnknown466BE0Class::Unknown_467A50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50 |
 | `app/shared/landdmap.cpp:381` | `LandUnknown466BE0Class::Unknown_467E40` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467E40 |

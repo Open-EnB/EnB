@@ -1804,14 +1804,11 @@ void LandClass::Compute_Lighting(void)
 	}
 }
 
-// NOT EXACT: shape, registers only (0x46D410: 1 row with registers masked, 15 without: in the second loop the client keeps the add pointer
-// in esi and the colour pointer in edi, ours the other way; attempts.csv, docs/attempts/46D410/)
 void LandClass::Apply_Colors(void)
 {
 	unsigned char *lightmap = (unsigned char *)Unknown120C;
 	unsigned char *colors = Colors;
 	int size = Field->Get_Size();
-	unsigned char *extra = Unknown1214;
 	unsigned int i, j, value;
 	if (Unknown1214 == NULL) {
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
@@ -1831,6 +1828,7 @@ void LandClass::Apply_Colors(void)
 			}
 		}
 	} else {
+		unsigned char *extra = Unknown1214;
 		for (j = UpdateMin.J; j < (unsigned int)UpdateMax.J; j++) {
 			for (i = UpdateMin.I; i < (unsigned int)UpdateMax.I; i++) {
 				unsigned int n = j * size + i;
