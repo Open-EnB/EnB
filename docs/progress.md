@@ -1543,6 +1543,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D164 | 2026-10-31 | P-MU1-1: explicit instantiations (`template C *Unknown_Find_Field<C>(...);`) are an accepted matching form for emitting the client's out-of-line template copies (first: ui_manu's 0x5B6DB0, 0x5B70C0, 0x5B7210, 0x5B72B0, probably 0x5B7050), each marked in the source as not the client's form (like aux_roots' SYMBOL_PAD); callers stay unchanged | user |
 | D165 | 2026-10-31 | P-SM2-1: FAIL_IF in app/shared/unknown_debug.h becomes `if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))` (the app-wide trial: +6, scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690; -3, client_lego_impl 0x72D5F0, co 0x6FFFF0, sclient 0x750260). A builder fixes the three losses in their own files first; the macro changes in the commit that loses nothing | user |
 | D166 | 2026-10-31 | Caller tie-break: when objmatch finds one of our functions at several byte-identical client addresses (`multiple` + `identical`, D54's ambiguous column), verify pairs it with the address whose callers are all already paired exactly, in the same file, with the functions that call it in our object (first: ui_cpit's 0x584C80, called only from 0x57DD20; land's 0x47CF50 from 0x47A2F0). An address with callers in several files (the linker's merged copy, 0x474080 with 247 callers) or with an unpaired caller stays ambiguous. Deterministic (passes until nothing changes); `pairs_cmp.py` lists tie-break pairs separately. D66 (vii): a tie-break pair lost because its caller lost its pair is not a loss of its own, named in the commit. The switch lands as one commit with a full verify of all 11 libraries (the one-time gain), apart from any builder's work | user |
+| D167 | 2026-10-31 | P-API-2, D163's Batch API triage: one tool, `tools/re/triage.py` (`build`, `submit`, `fetch`, `ingest`, `plan`, `show`, `score`), run by the coordinator only, one batch at a time. Each request holds one function: its pseudocode from `.work/pseudo/` (rebuilt in full first), the strings it uses, its callers' and callees' names and files, the nearest functions with a file above and below it, and its region. `custom_id` is `fn-<ADDR>`, every request stores a hash of its input, and a rerun resends only changed inputs. The batch id is recorded in `.work/triage/batches.json` at submit (results expire after 29 days); raw results are kept unchanged in `.work/triage/raw/`; tokens and cost go to the run's plan log. The answers follow a JSON schema: kind (STL / template instance, Westwood library, E&B, CRT, unknown), suggested library / file / class, confidence, the evidence cited. Rows that contradict a deterministic fact (`__FILE__`, gaps windows) are flagged. A calibration batch comes first: about 300 functions already byte-exact (pairs from imports.json, D164's template copies, LD6's std::sort 0x4708F0 / 0x472910 and its helpers), decompiled with their own name and `__FILE__` strings removed, run on Haiku 5.5 and Sonnet 5.5. The full batch runs on Haiku 5.5 at effort `low` if it gets the kind right ≥ 85% of the time and the file ≥ 50% at confidence ≥ medium; Sonnet 5.5 only as a second opinion on the disputed or low-confidence rows. Hints only (D56): never in symbols.json, the sources, NAME tags or `docs/data/`; objmatch / verify decide | user |
+| D168 | 2026-10-31 | P-API-3: the triage table stays under `.work/triage/` (git-ignored, read by builders on this tree), not in `docs/data/`. Revisited once `triage.py score` shows whether the hints hold up (§4's D163 item) | user |
 
 ## 3. Open decisions
 
@@ -1558,10 +1560,15 @@ Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order a
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
 
-* **Next session first (2026-10-31 morning): the API credits (D163).** The pilot builder on the API key
-  (measure tokens and cost per pair against tonight's LD6 / LD7 runs), then the Batch API triage of `.work/pseudo/`
-  (prompt, schema, a small sample checked against known answers such as LD6's std::sort 0x4708F0 / 0x472910 and
-  its out-of-line helper copies, then the full batch); its output becomes a planning table under `.work/`.
+* **Next session first: the API credits (D163, D167, D168).** The `anthropic` SDK is installed (2.3.0,
+  2026-10-31); the user creates the separate API key with a spend limit in the Console. Then, in order:
+  (a) the pilot builder on that key (tokens and cost per pair against the LD6 / LD7 runs);
+  (b) rebuild `.work/pseudo/` in full (`python tools/re/pseudocode.py`; it held 518 of ~25,000 on 2026-10-31);
+  (c) write `tools/re/triage.py` (D167) and run the calibration batch, ~$1, with the gate's result as a
+  proposal to the user; (d) the full Haiku batch (~$3-5), `ingest`, `plan`; its runs and lists become W# items
+  in the next run's plan, and `builders.md` gets one line on `triage.py show` (a hint, not evidence);
+  (e) **revisit D168:** after one or two runs of `triage.py score` against what turned exact, propose moving the
+  table from `.work/triage/` to a tool-generated `docs/data/` file if the hints hold up.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
