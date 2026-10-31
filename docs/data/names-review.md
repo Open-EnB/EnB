@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
 | 2 | describes what the code does | 2521 |
-| 1 | neutral placeholder | 7549 |
+| 1 | neutral placeholder | 7555 |
 
 ## For review (score 3 and below)
 
@@ -5074,9 +5074,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_All_Levels_Checked` | `app/client/ui_manu.cpp:1295` | untagged neutral name (D10) |
 | 1 | `UIManuTechLevelFilterClass` | `app/client/ui_manu.cpp:1443` | neutral (D10) |
 | 1 | `Unknown_4F00C0` | `app/client/ui_manu.cpp:1459` | untagged neutral name (D10) |
+| 1 | `UIManuItemTemplateClass` | `app/client/ui_manu.cpp:1511` | neutral (D10): the item template 0x8318B0 gives (+0x14 its name) and 'ManufactureTarget''s first item (+0x120 its template id) |
+| 1 | `Unknown_8318B0` | `app/client/ui_manu.cpp:1512` | neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's |
+| 1 | `std:` | `app/client/ui_manu.cpp:1514` | neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs' |
+| 1 | `Unknown_5B5CD0` | `app/client/ui_manu.cpp:1514` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/ui_manu.cpp:1516` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_manu.cpp:1534` | neutral (D10)  // NAME 1 [validity]: the 'Validity' value |
+| 1 | `Unknown_5B6060` | `app/client/ui_manu.cpp:1534` | untagged neutral name (D10) |
 | 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1764` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1861` | untagged neutral name (D10) |
-| 1 | `Unknown` | `app/client/ui_manu.cpp:1866` | untagged neutral name (D10) |
 | 1 | `ui_manu.h` | `app/client/ui_manu.h:4` | provisional header name for ui_manu.cpp |
 | 1 | `UIManuUnknownC0Class` | `app/client/ui_manu.h:21` | neutral (D10) |
 | 1 | `column` | `app/client/ui_manu.h:24` | neutral |
