@@ -85,6 +85,8 @@ public:
 	void Unknown_592A80();								// 0x592A80 (the window's slot +0x60, every frame)
 	void Unknown_592C50();								// 0x592C50 (0x598370)
 
+	UIGroupUnknownE8Class(UIGroupClass *owner);			// 0x592910 (0x594040)  // NAME 1 [owner]: what 0x594040 passes
+
 	UIGroupClass *Unknown00;							// +0x00 (the constructor's argument)
 	RefCountPtr<RenderObjClass> Unknown04;				// +0x04 (0x5944A0 returns it)
 	RefCountPtr<RenderObjClass> Unknown08[6];			// +0x08 (the eh vector destructor iterator with 0x4740B0)
@@ -96,6 +98,8 @@ public:
 class UISymbolChatClass : public InterfaceClass	// NAME 2: the FAIL_IF's '!SymbolChatUI'
 {
 public:
+	UISymbolChatClass(SClient *sclient);				// 0x64A480 (0x594040)  // NAME 1 [sclient]: what 0x594040 passes
+	void Unknown_64B2C0();								// 0x64B2C0 (0x594040, after its slot +0x54)
 	int Unknown_64B2F0(char *text, bool *leader);		// 0x64B2F0: the symbol picked, as text, and whether the leader sent it (0x596DB0)  // NAME 1 [text, leader]: what 0x596DB0 hands on
 };
 

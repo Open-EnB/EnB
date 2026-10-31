@@ -39,6 +39,7 @@ public:
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
 	virtual void Unknown_90();
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
+	virtual void Unknown_98(FontStyleClass *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5938A0 passes -1)  // NAME 1 [arg]: neutral
@@ -74,6 +75,18 @@ void Unknown_4BC260(const char *sender, const char *category, const char *file, 
 static const char *Unknown_B7F4B8[] = { "hull_bar0", "shield_bar0", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7F4C4[] = { "hull_bar1", "shield_bar1", NULL };	// NAME 1: neutral (D10)
 
+// gadget.cpp's button gadget (100 bytes, constructor 0x675240 over a render object and a layer), as far as 0x594040 makes it
+class UIGroupButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	UIGroupButtonGadgetClass(RenderObjClass *object, LayerClass *layer, int unknown1, int unknown2);	// 0x675240 (0x594040 passes the button model, the window's layer, 0x55, 3)  // NAME 1 [object, layer, unknown1, unknown2]: neutral
+	char Unknown30[0x64 - 0x30];						// +0x30
+};
+// The formation buttons' bones, string ids and font styles (0xB7F4D0, 0xB7F4F4, 0xB7F518; 0x594040)
+static const char *Unknown_B7F4D0[] = { "FORMATION_BTN", "target", "disband_icon", "form_up", "leave", "disband", "formation01", "formation02", "formation03" };	// NAME 1: neutral (D10)
+static const char *Unknown_B7F4F4[] = { "FORMATION", "GROUP_HELP", "GRP_LEAVE", "FORM", "LEAVE", "BREAK", "SLOT", "PIPE", "BLOCK" };	// NAME 1: neutral (D10)
+static const char *Unknown_B7F518[] = { NULL, NULL, NULL, "FORM_UP_TSI03A", "LEAVE_TSI03A", "DISBAND_TSI03A", NULL, NULL, NULL };	// NAME 1: neutral (D10)
+
 // The SignalMap the group events go to: a function-static instance (co.cpp's 0x4F7EF0), not rebuilt
 SignalMap &Unknown_4F7EF0();
 class ClientGroupEvent	// NAME 5: the client's RTTI .?AVClientGroupEvent@@
@@ -82,19 +95,6 @@ public:
 	ClientGroupEvent(bool value) : Value(value) {}
 	bool Value;											// +0x00  // NAME 1: neutral
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -639,42 +639,50 @@ UIGroupClass::~UIGroupClass()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x594040
+// NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers)
+void UIGroupClass::Unknown_54()
+{
+	SymbolChatUI = Create_NEW(new UISymbolChatClass((SClient *)((ClientClass *)Client)->Unknown_18()));
+	SymbolChatUI->Unknown_54();
+	SymbolChatUI->Unknown_64B2C0();
+	Unknown0E8 = new UIGroupUnknownE8Class(this);
+	for (int i = 0; i < 9; i++) {
+		RefCountPtr<RenderObjClass> model;
+		if (i == 0) {
+			model = Unknown0E8->Unknown_5944A0();
+			Unknown_496AE0(model.Peek(), 0);
+			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(model.Peek(), "formation_bone");
+		} else {
+			model = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B7F4D0[i]));
+		}
+		if (model != NULL) {
+			Unknown_496AE0(model.Peek(), 0);
+			Unknown0C0[i] = new UIGroupButtonGadgetClass(model.Peek(), &Layer, 0x55, 3);
+			if (Unknown_B7F4F4[i]) {
+				Unknown_65EFB0(Unknown0C0[i], "UI_FORMATION", Unknown_B7F4F4[i]);
+			}
+			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, View, 1, 1);
+			Unknown_5BB4F0(Unknown0C0[i]);
+			if (Unknown_B7F518[i]) {
+				FontStyleClass *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], (unsigned int)Mesh->Peek_Mesh_Object());
+				if (style) {
+					Unknown0C0[i]->Unknown_98(style);
+				}
+			}
+		}
+		Unknown0C0[i]->Unknown_40(false);
+		Unknown0C0[i]->Unknown_8C(true);
+	}
+	Unknown0E4 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("formation_butto"));
+	Unknown0E4->Set_Hidden(1);
+}
 
 // 0x5944A0
 RefCountPtr<RenderObjClass> UIGroupUnknownE8Class::Unknown_5944A0()
 {
 	return(Unknown04);
 }
-
 
 
 // 0x5944D0
@@ -699,14 +707,6 @@ void UIGroupClass::Unknown_60()
 	}
 	Unknown5BB320Class::Unknown_60();
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -1918,15 +1918,16 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	their neighbours' lines in the client's order:
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
-**	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), the +0xE8 object's
-**	  0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0, 0x596040, Get_Member 0x596090,
+**	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
+**	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x7C 0x595480, 0x5954C0,
+**	  0x596040, Get_Member 0x596090,
 **	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
 **	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: 0x593180 (perhaps the +0xE8 object's file), Unknown_54 0x594040, slot +0x68 0x5946D0 (735, 751),
+**	Not yet: 0x593180 (perhaps the +0xE8 object's file), slot +0x68 0x5946D0 (735, 751),
 **	0x595530, 0x596770 (1260-1266) and 0x597E40 (1753).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
