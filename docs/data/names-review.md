@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 35 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1058 |
-| 2 | describes what the code does | 2520 |
-| 1 | neutral placeholder | 7545 |
+| 2 | describes what the code does | 2521 |
+| 1 | neutral placeholder | 7548 |
 
 ## For review (score 3 and below)
 
@@ -5071,8 +5071,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B3850` | `app/client/ui_manu.cpp:1030` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3D70` | `app/client/ui_manu.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown_All_Levels_Checked` | `app/client/ui_manu.cpp:1295` | untagged neutral name (D10) |
+| 1 | `UIManuTechLevelFilterClass` | `app/client/ui_manu.cpp:1443` | neutral (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_manu.cpp:1459` | untagged neutral name (D10) |
 | 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1764` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1861` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/ui_manu.cpp:1866` | untagged neutral name (D10) |
 | 1 | `ui_manu.h` | `app/client/ui_manu.h:4` | provisional header name for ui_manu.cpp |
 | 1 | `UIManuUnknownC0Class` | `app/client/ui_manu.h:21` | neutral (D10) |
 | 1 | `column` | `app/client/ui_manu.h:24` | neutral |
@@ -8472,6 +8475,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owner` | `app/client/ui_manu.cpp:342` | what it holds |
 | 2 | `Value` | `app/client/ui_manu.cpp:375` | what it holds |
 | 2 | `Value` | `app/client/ui_manu.cpp:382` | what it holds |
+| 2 | `Value` | `app/client/ui_manu.cpp:1447` | what it holds |
 | 2 | `Gadgets` | `app/client/ui_manu.h:30` | what it holds |
 | 2 | `IDs` | `app/client/ui_manu.h:32` | what it holds |
 | 2 | `Gadget` | `app/client/ui_manu.h:42` | what it holds |
