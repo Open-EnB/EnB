@@ -321,6 +321,10 @@ unless `--lever` cites a new row of this table.
 | ebx / ebp saved up front in the client, after the early exit in ours | Declare locals at first use and return per branch; top-initialised locals plus one final return delay the pushes | Play_Audio 0x806BD0 (SM2, 5bf43599) |
 | An out-of-line 16-byte copy (`mov eax,ecx; ... ret 4`, 0x80B100, 0x780AC0) | An inline user `operator=` the budget cut: declare one | scriptedmovie's destructor (SM2) |
 | One inline source that fixes the inlined copy and breaks the out-of-line one, or the reverse | Expected: the same inline compiles differently in each place; judge by pairs over both | 0x801D70 / 0x807520 (SM2) |
+| The client still indexes `array[index]` in a branch that tested `index == 0` (ours folds to `array[0]`) | It tested the member the local was copied from, not the local | ui_group 0x592A80 (UG1) |
+| One shared indexed load before an if / else of two calls | A named pointer: `if ((p = a[i].Peek()) != NULL)` | ui_group 0x593180 (UG1) |
+| A caller that expands a find loop matches only with `x.end()` re-read each pass | Don't cache `end()` in the loop | Get_Member inside Add_Member (UG1) |
+| The destructors that expand a member struct's destructor gain an EH state | An empty user destructor on the struct: drop it | ui_group (UG1) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
 | A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
