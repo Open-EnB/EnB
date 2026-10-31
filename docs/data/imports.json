@@ -825,6 +825,20 @@
     "merged": [],
     "name": "client/buff_database.cpp"
    },
+   "cameraeffects": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6E3710",
+     "0x6E3B60"
+    ],
+    "merged": [],
+    "name": "client/cameraeffects.cpp"
+   },
    "cfaction_database": {
     "ambiguous": [
      "0x42A6C0",

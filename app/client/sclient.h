@@ -403,7 +403,9 @@ public:
 	virtual void Unknown_34();							// +0x34 (the main view's slot +0x14)
 	void Unknown_6E32E0(int type, float amount, float time);	// 0x6E32E0 (the scripted movie's Shake_Camera passes 3)  // NAME 1 [type, amount, time]: what Shake_Camera passes
 
-	char Unknown04[0x28 - 0x04];
+	char Unknown04[0x18 - 0x04];
+	Vector3 Unknown18;									// +0x18 (cameraeffects.cpp's effects add to it: 0x6E3710, 0x6E3B60)
+	bool Unknown24;										// +0x24 (the same set it when they add; the constructor 0x6E2BD0 clears it)
 };
 
 // what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera)
