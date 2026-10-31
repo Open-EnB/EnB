@@ -1462,6 +1462,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D160 | 2026-10-30 | P-CSC-1: the Character and Starship Creator (2002-09-13) is a reference, not a rebuild target. It is the 2002 witness for NOT EXACT functions (98 tree functions are exact in CSC and absent from the client: source matching 2002, client changed later, so code-form retries won't help) and a second reference for code the client lacks or drops. Names still come from the client (CSC folds identical functions). [CSC.md](CSC.md) §1.1, §6.3 | user |
 | D161 | 2026-10-30 | P-CSC-2: CSC's source and toolchain facts are recorded in [source-tree.md](source-tree.md) (`C:\Projects\G`, `Tools\Avatar Creator`, `chatint` / `textwin` / `usermsg`, `wnet\tcpmgr.cpp`, 0x836960 in galaxy_map.cpp) and [toolchain.md](toolchain.md) §1.2 (VC6 RTM throughout, no 8798 objects, `/OPT:REF,ICF`) | user |
 | D162 | 2026-10-30 | P-CSC-3: a functional CSC becomes a milestone once the client's character-creation screens run on the tree; not before ([CSC.md](CSC.md) §6.2) | user |
+| D163 | 2026-10-30 | P-API-1: the user's $200 of Anthropic API credits go to (1) a pilot builder run in Claude Code on a separate API key (spend limit set in the Console; the coordinator stays on the subscription; model and tokens logged in the plan beside subscription runs, for the cost per pair gained), then (2) a one-off Batch API triage of the not-yet-exact functions' saved pseudocode (`.work/pseudo/`) with a cheap model: STL / template instance, Westwood library or E&B code, and the class or file its callers suggest; hints for planning only, never names (D56), objmatch / verify decide; (3) the rest as overflow builder capacity (work the weekly window turns away, the D89 Fable queue). Next session (2026-10-31 morning) | user |
 
 ## 3. Open decisions
 
@@ -1476,6 +1477,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 Milestones M1 and M2 are met (D42, D63; [milestones.md](milestones.md)). Order and detail of the
 client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependencies,
 [kernel-map-step9.md](kernel-map-step9.md). Adding a file: [workflow.md](workflow.md) §2.1.
+
+* **Next session first (2026-10-31 morning): the API credits (D163).** The pilot builder on the API key
+  (measure tokens and cost per pair against tonight's LD6 / LD7 runs), then the Batch API triage of `.work/pseudo/`
+  (prompt, schema, a small sample checked against known answers such as LD6's std::sort 0x4708F0 / 0x472910 and
+  its out-of-line helper copies, then the full batch); its output becomes a planning table under `.work/`.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
