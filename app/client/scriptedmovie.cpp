@@ -29,34 +29,34 @@ void Unknown_810750(RenderObjClass *model, bool on);					// 0x810750 (shiputils.
 void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
 
 // 0x7FFEA0: by frame; within a frame the objects and lights are made first
-bool operator < (const ScriptedMovieLineClass &a, const ScriptedMovieLineClass &b)
+bool Unknown_7FFEA0(ScriptedMovieLineClass *a, ScriptedMovieLineClass *b)	// NAME 1: neutral (D10): std::sort's order (0x8099B0)
 {
-	if (a.Frame < b.Frame) {
+	if (a->Frame < b->Frame) {
 		return(true);
 	}
-	if (a.Frame == b.Frame) {
-		if (strncmp(a.Text, "CREATE_OBJECT", 13) == 0 && strncmp(b.Text, "CREATE_OBJECT", 13) != 0) {
+	if (a->Frame == b->Frame) {
+		if (strncmp(a->Text, "CREATE_OBJECT", 13) == 0 && strncmp(b->Text, "CREATE_OBJECT", 13) != 0) {
 			return(true);
 		}
-		if (strncmp(a.Text, "CREATE_OBJECT", 13) != 0 && strncmp(b.Text, "CREATE_OBJECT", 13) == 0) {
+		if (strncmp(a->Text, "CREATE_OBJECT", 13) != 0 && strncmp(b->Text, "CREATE_OBJECT", 13) == 0) {
 			return(false);
 		}
-		if (strncmp(a.Text, "CREATE_SHIP_OBJECT", 18) == 0 && strncmp(b.Text, "CREATE_SHIP_OBJECT", 18) != 0) {
+		if (strncmp(a->Text, "CREATE_SHIP_OBJECT", 18) == 0 && strncmp(b->Text, "CREATE_SHIP_OBJECT", 18) != 0) {
 			return(true);
 		}
-		if (strncmp(a.Text, "CREATE_SHIP_OBJECT", 18) != 0 && strncmp(b.Text, "CREATE_SHIP_OBJECT", 18) == 0) {
+		if (strncmp(a->Text, "CREATE_SHIP_OBJECT", 18) != 0 && strncmp(b->Text, "CREATE_SHIP_OBJECT", 18) == 0) {
 			return(false);
 		}
-		if (strncmp(a.Text, "CREATE_POINT_LIGHT", 18) == 0 && strncmp(b.Text, "CREATE_POINT_LIGHT", 18) != 0) {
+		if (strncmp(a->Text, "CREATE_POINT_LIGHT", 18) == 0 && strncmp(b->Text, "CREATE_POINT_LIGHT", 18) != 0) {
 			return(true);
 		}
-		if (strncmp(a.Text, "CREATE_POINT_LIGHT", 18) != 0 && strncmp(b.Text, "CREATE_POINT_LIGHT", 18) == 0) {
+		if (strncmp(a->Text, "CREATE_POINT_LIGHT", 18) != 0 && strncmp(b->Text, "CREATE_POINT_LIGHT", 18) == 0) {
 			return(false);
 		}
-		if (strncmp(a.Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0 && strncmp(b.Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0) {
+		if (strncmp(a->Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0 && strncmp(b->Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0) {
 			return(true);
 		}
-		if (strncmp(a.Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0 && strncmp(b.Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0) {
+		if (strncmp(a->Text, "CREATE_DIRECTIONAL_LIGHT", 24) != 0 && strncmp(b->Text, "CREATE_DIRECTIONAL_LIGHT", 24) == 0) {
 			return(false);
 		}
 	}
@@ -3618,6 +3618,96 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieParamsClass *params, bool 
 
 
 
+#include "ffactory.h"
+#include "wwfile.h"
+#include "nstrdup.h"
+#include <algorithm>
+#define DEFAULT_STRING_SIZE 512	// NAME 3 [DEFAULT_STRING_SIZE]: the assert's 'count < DEFAULT_STRING_SIZE' (0x200)
+// NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it
+// 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD
+// and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0)
+void ScriptedMovieViewClass::Unknown_8099B0(const char *filename)
+{
+
+	G_ASSERT(filename);
+	file_auto_ptr scriptfile(_TheFileFactory, filename);
+	G_ASSERT(scriptfile);
+	scriptfile->Open(FileClass::READ);
+	int size = scriptfile->Size();
+	G_ASSERT(size);
+	char *buffer = new char[size];
+	scriptfile->Read(buffer, size);
+	scriptfile->Close();
+	int count = 0;
+	int total_count = 0;
+	int frame_pad = 0;
+	while (total_count < size) {
+		char line[DEFAULT_STRING_SIZE];
+		char *text = buffer + total_count;
+		while (text[count] != '\n') {
+
+
+
+
+
+			G_ASSERT(((total_count + count) < size) && "Missing carriage return?????");
+			count++;
+		}
+
+		G_ASSERT(count < DEFAULT_STRING_SIZE);
+		strncpy(line, text, count);
+		line[count - 1] = 0;
+		total_count += count + 1;
+		count = 0;
+		char *p;
+		for (p = line; *p != 0; p++) if (*p == '\t') *p = ' '; p = line;
+		while (*p != 0 && *p <= ' ') p++;
+		unsigned int len = strlen(p);
+		while (len != 0 && p[len - 1] <= ' ') p[--len] = 0;
+		if (*p == 0 || *p == ';') {
+			continue;
+		}
+		int frame = atoi(p);
+		if (frame < 0) frame = -frame;
+		while (*p != 0 && *p > ' ') p++;
+		while (*p != 0 && *p <= ' ') p++;
+		if (*p == 0) {
+			continue;
+		}
+		if (strnicmp(p, "FRAME_PAD", 9) == 0) {
+			frame_pad = atoi(p + 10);
+			continue;
+		}
+		if (*p == 0) {
+			continue;
+		}
+		if (strnicmp(p, "SOUNDTRACK", 10) == 0) {
+			ScriptedMovieLineClass *soundtrack = new ScriptedMovieLineClass;
+			soundtrack->Unknown_7FFCB0(p);
+			((ScriptedMovieParamsClass *)soundtrack)->Unknown_7FFDC0();
+			Unknown174 = nstrdup(((ScriptedMovieParamsClass *)soundtrack)->Unknown_7FFDC0());
+			delete soundtrack;
+			continue;
+		}
+		if (*p == 0) {
+			continue;
+		}
+		ScriptedMovieLineClass *temp = NULL;
+		if (strnicmp(p, "CREATE_SFX", 10) == 0) {
+			temp = new ScriptedMovieLineClass;
+			temp->Frame = 0;
+			temp->Unknown_7FFCB0(p);
+			if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_ON_OBJECT")) {
+				Create_Special_Effect_On_Object((ScriptedMovieParamsClass *)temp);
+			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECTS")) {
+				Create_Special_Effect_Between_Objects((ScriptedMovieParamsClass *)temp);
+			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_BONES")) {
+				Create_Special_Effect_Between_Bones((ScriptedMovieParamsClass *)temp);
+			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_BETWEEN_OBJECT_AND_BONE")) {
+				Create_Special_Effect_Between_Object_And_Bone((ScriptedMovieParamsClass *)temp);
+			} else if (((ScriptedMovieParamsClass *)temp)->Unknown_7FFD30("CREATE_SFX_ON_BONE")) {
+				Create_Special_Effect_On_Bone((ScriptedMovieParamsClass *)temp);
+			} else {
 
 
 
@@ -3627,10 +3717,34 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieParamsClass *params, bool 
 
 
 
+				G_ASSERT(!"Unrecognized SFX command");
+			}
+			delete temp;
+			temp = NULL;
+		}
+		temp = new ScriptedMovieLineClass;
 
 
 
-
+		G_ASSERT(temp);
+		bool create = (strnicmp(p, "CREATE", 6) == 0);
+		if (!create || frame != 0) {
+			frame += frame_pad;
+			if (frame != 0) {
+				frame = (frame * 1000) / 30;
+			}
+		}
+		temp->Frame = frame;
+		temp->Unknown_7FFCB0(p);
+		Lines.push_back(temp);
+	}
+	delete [] buffer;
+	std::sort(Lines.begin(), Lines.end(), Unknown_7FFEA0);
+	Unknown6C = true;
+	if (frame_pad != 0) {
+		Unknown16C = (frame_pad * 1000) / 30;
+	}
+}
 
 
 

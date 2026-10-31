@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1001 |
+| 3 | by convention from a client-named file or sibling | 1002 |
 | 2 | describes what the code does | 2481 |
-| 1 | neutral placeholder | 6205 |
+| 1 | neutral placeholder | 6209 |
 
 ## For review (score 3 and below)
 
@@ -2598,6 +2598,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_49F300` | `app/client/sclient.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown_49F200` | `app/client/sclient.h:61` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieLineClass` | `app/client/sclient.h:70` | neutral (D10) (a class: clienttest's gen_stubs declares pointer parameters' types as classes) |
+| 1 | `text` | `app/client/sclient.h:73` | what the loader 0x8099B0 passes |
+| 1 | `Unknown_7FFCB0` | `app/client/sclient.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/sclient.h:76` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieEffectStruct` | `app/client/sclient.h:80` | neutral (D10) |
 | 1 | `MainViewUnknown84Class` | `app/client/sclient.h:90` | untagged neutral name (D10) |
@@ -3215,6 +3217,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_810750` | `app/client/scriptedmovie.cpp:28` | untagged neutral name (D10) |
 | 1 | `opacity, time` | `app/client/scriptedmovie.cpp:29` | what Set_Screen_Fade_Opacity passes |
 | 1 | `Unknown_7FFBE0` | `app/client/scriptedmovie.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFEA0` | `app/client/scriptedmovie.cpp:32` | neutral (D10): std::sort's order (0x8099B0) |
 | 1 | `Unknown_7FFD30` | `app/client/scriptedmovie.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/scriptedmovie.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFDC0` | `app/client/scriptedmovie.cpp:84` | untagged neutral name (D10) |
@@ -3374,6 +3377,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_810CF0` | `app/client/scriptedmovie.cpp:3277` | untagged neutral name (D10) |
 | 1 | `Unknown_80FF20` | `app/client/scriptedmovie.cpp:3344` | untagged neutral name (D10) |
 | 1 | `Unknown_80E8C0` | `app/client/scriptedmovie.cpp:3386` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFCB0` | `app/client/scriptedmovie.cpp:3686` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown06` | `app/client/soptions.cpp:14` | untagged neutral name (D10) |
@@ -8915,6 +8919,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `textures, swatches, secret_textures` | `app/client/scriptedmovie.cpp:147` | the INI names (sclient.cpp's) |
 | 3 | `EnvironmentMapManager` | `app/client/scriptedmovie.cpp:155` | the assert's 'sclient->EnvironmentMapManager' (the constructor, l.231) |
 | 3 | `DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3` | `app/client/scriptedmovie.cpp:3279` | the FAIL_IF's text (0x808FD0); values from its tests |
+| 3 | `DEFAULT_STRING_SIZE` | `app/client/scriptedmovie.cpp:3625` | the assert's 'count < DEFAULT_STRING_SIZE' (0x200) |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |

@@ -66,11 +66,11 @@ class SceneClass;
 class LandClass;
 class SimpleSceneClass;
 class DazzleLayerClass;
-// one line of the script (0x0C bytes; std::sort orders them by its operator <, 0x7FFEA0)
+// one line of the script (0x0C bytes; std::sort orders them by 0x7FFEA0)
 class ScriptedMovieLineClass	// NAME 1: neutral (D10) (a class: clienttest's gen_stubs declares pointer parameters' types as classes)
 {
 public:
-	~ScriptedMovieLineClass();							// 0x7FFC70: the text freed
+	ScriptedMovieLineClass(); ~ScriptedMovieLineClass(); void Unknown_7FFCB0(const char *text);	// 0x7FFC50: all zero; 0x7FFC70: the text freed; 0x7FFCB0: the text copied, upper case  // NAME 1 [text]: what the loader 0x8099B0 passes
 	unsigned int Frame;									// +0x00 (the movie's time it runs at)  // NAME 2: what the order compares
 	char *Text;											// +0x04: the command line  // NAME 2: what it holds
 	int Unknown08;										// +0x08 (the destructor clears it)
