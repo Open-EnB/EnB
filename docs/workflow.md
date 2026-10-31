@@ -319,6 +319,10 @@ unless `--lever` cites a new row of this table.
 | A whole function's register allocation off in a strtok loop | One `char *token` for every strtok result | Load_PGM 0x4637C0 (LD8) |
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: write `DEG_TO_RADF(x)` or `(float)atof(p) * k` | scriptedmovie 0x806AF0 (SM1, ac324bf5) |
 | A direct member store or load scheduled elsewhere than the client's | Store through a local pointer to the member: `RenderStateListClass *list = &RenderStateList; list->Current = x;` | rs_track 0x460940 (RT1, 9c7ac3b2) |
+| A near jcc where a short one fits, or `mov eax,[m]; cmp eax,ebx` for our `cmp [m],ebx`, in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too: VC6 sizes the jump before it merges the duplicated tail | proj_man 0x492290, 0x492380 (PM1, f72041ed) |
+| `fld`/`fstp` (or a stack spill) where ours passes a field straight through | The source called an inline accessor (ProjectionDefClass's Get_Intensity / Get_NearZ / Get_FarZ) | proj_man (PM1) |
+| A derived class's destructor that is a bare `jmp` to the base's | The compiler-generated destructor; an empty user-written one resets the vtables first | proj_man 0x494180 (PM1) |
+| Overloaded virtuals in the wrong slots | MSVC lays them out in reverse declaration order (CullSystemClass::Collect_Objects(Frustum) slot 1, (OBBox) slot 2) | proj_man (PM1) |
 | A strtok path walk with one strtok call at the loop top | `while (name) { next = strtok(NULL, sep); if (!next) { last step; break; } ...; name = next; }` | rs_track (RT1) |
 | A RefCountPtr released twice in a row | `REF_PTR_RELEASE(ptr)` | scriptedmovie (SM1) |
 | A direct call to a client virtual where ours goes through the vtable | Qualify it: `client->ClientClass::Add_Object(...)` | scriptedmovie (SM1) |
@@ -785,6 +789,9 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **docs/data/asserts.txt's file column is shifted by one around 0xB71324** (2026-10-30, PM1): `CullObject != 0` is
+  proj_man.h line 207 and `texProject != NULL` (0xB71368) is rs_proj_sup.cpp line 58. Check a file attribution
+  against the neighbouring rows' line numbers there.
 * **names.py run while a tryv2 variant is in the tree** (2026-10-30, LD8) writes the variant's line numbers into
   not-exact.md: rerun names.py on the restored file before committing.
 * **Check objmatch's status of the STL helpers a caller should call out of line** (2026-10-30, LD7) in your variant's
