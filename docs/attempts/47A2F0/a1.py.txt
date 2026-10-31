@@ -1,0 +1,98 @@
+"""LD7: Build_Decorations 0x47A2F0 in LD3's RefCountPtr form, the push_backs routed through a one-line inline helper
+(f4e90caf's depth lever) so insert(it, x) 0x47D690 stays out of line with insert(it, 1, x) inlined in it."""
+import os
+L = 'app/shared/land.cpp'
+
+OLD_PROTO = '''	std::vector<MeshClass *> trees;
+	std::vector<MeshClass *> shadows;
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RenderObjClass *robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str());
+		if (robj == NULL) {
+			for (int k = 0; k < (int)trees.size(); k++) {
+				if (trees[k] != NULL) trees[k]->Release_Ref();
+				if (shadows[k] != NULL) shadows[k]->Release_Ref();
+			}
+			return;
+		}
+		trees.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, true));
+		shadows.push_back((MeshClass *)Land_Find_Decoration_Mesh(robj, false));
+		robj->Release_Ref();
+	}
+'''
+NEW_PROTO = '''	std::vector< RefCountPtr<MeshClass> > trees;
+	std::vector< RefCountPtr<MeshClass> > shadows;
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RefCountPtr<RenderObjClass> robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str()));
+		if (robj == NULL) {
+			return;
+		}
+		RefCountPtr<MeshClass> tree;
+		RefCountPtr<MeshClass> shadow;
+		MeshClass *mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), true);
+		if (mesh != NULL) {
+			tree = Create_NEW(mesh);
+		}
+		PUSH(trees, tree);
+		mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), false);
+		if (mesh != NULL) {
+			shadow = Create_NEW(mesh);
+		}
+		PUSH(shadows, shadow);
+	}
+'''
+INFO_T = '\t\t\tMaterialInfoClass *info = trees[i]->Get_Material_Info();\n'
+INFO_S = '\t\t\tMaterialInfoClass *info = shadows[i]->Get_Material_Info();\n'
+REL = '\t\t\tinfo->Release_Ref();\n'
+TEX = '\t\t\tTextureClass *texture = info->Get_Texture(0);\n\t\t\tShaderClass shader'
+TEX_NEW = '\t\t\tRefCountPtr<TextureClass> texture = Create_Get(info->Get_Texture(0));\n\t\t\tShaderClass shader'
+CMP = '(RefCountClass *)texture != Unknown178.Peek()'
+CMP_NEW = '(RefCountClass *)texture.Peek() != Unknown178.Peek()'
+TREL = '\t\t\tREF_PTR_RELEASE(texture);\n'
+END = '''	for (i = 0; i < (int)trees.size(); i++) {
+		if (trees[i] != NULL) trees[i]->Release_Ref();
+		if (shadows[i] != NULL) shadows[i]->Release_Ref();
+	}
+}
+'''
+APP_T = 'Land_Append_Decoration_Mesh(trees[decoration.Proto], '
+APP_S = 'Land_Append_Decoration_Mesh(shadows[decoration.Proto], '
+
+
+def body(path, push):
+    s = open(path, encoding='utf-8').read()
+    a = s.index(OLD_PROTO)
+    b = s.index(END, a) + len(END)
+    old = s[a:b]
+    new = old.replace(OLD_PROTO, NEW_PROTO.replace('PUSH(trees, tree)', push % ('trees', 'tree'))
+                      .replace('PUSH(shadows, shadow)', push % ('shadows', 'shadow')))
+    new = new.replace(INFO_T, '\t\t\tRefCountPtr<MaterialInfoClass> info = Create_Get(trees[i]->Get_Material_Info());\n')
+    new = new.replace(INFO_S, '\t\t\tRefCountPtr<MaterialInfoClass> info = Create_Get(shadows[i]->Get_Material_Info());\n')
+    new = new.replace(REL, '').replace(TEX, TEX_NEW).replace(CMP, CMP_NEW).replace(TREL, '')
+    new = new.replace(APP_T, 'Land_Append_Decoration_Mesh(trees[decoration.Proto].Peek(), ')
+    new = new.replace(APP_S, 'Land_Append_Decoration_Mesh(shadows[decoration.Proto].Peek(), ')
+    new = new.replace(END, '}\n')
+    return old, new
+
+
+P = os.path.join(r'C:\EnBDevelopment\EnB', L)
+HOLD = 'void LandClass::Build_Decorations('
+HELPER = '''// NAME 2: one inline level around the prototype's push_back: the client calls the vector's insert(it, x) out of line, as
+// this depth gives (Build_Decorations 0x47A2F0)
+static inline void Land_Add_Mesh(std::vector< RefCountPtr<MeshClass> > &meshes, const RefCountPtr<MeshClass> &mesh)
+{
+	%s
+}
+
+void LandClass::Build_Decorations('''
+o1, n1 = body(P, '%s.push_back(%s)')
+o2, n2 = body(P, 'Land_Add_Mesh(%s, %s)')
+COMPILE = [L]
+WATCH = ['0x47A2F0', '0x47D690', '0x47E620', '0x47E650', '0x47E6A0', '0x47F190', '0x47F070', '0x474000', '0x474450',
+         '0x47D2E0', '0x47D310']
+V = {
+    'rp_pb': [(L, o1, n1)],
+    'rp_helper': [(L, HOLD, HELPER % 'meshes.push_back(mesh);'), (L, o2, n2)],
+    'rp_helper_ins': [(L, HOLD, HELPER % 'meshes.insert(meshes.end(), mesh);'), (L, o2, n2)],
+}

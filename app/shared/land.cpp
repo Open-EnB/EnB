@@ -728,16 +728,20 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 // NAME 1: unknown; draws triangles of the land under a projector (0x477E20, its vector by value)
 void Unknown_477E20(std::vector<Vector3> verts);
 
-// NAME 2: a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds)
-static inline void Add_Sea_Quad(DynamicVectorClass<Vector3> &quads, float x, float y, float dx, float dy, float z)
-{
-	quads.Add(Vector3(x, y, z));
-	quads.Add(Vector3(x + dx, y, z));
-	quads.Add(Vector3(x + dx, y + dy, z));
-	quads.Add(Vector3(x, y + dy, z));
-}
+// NAME 2: a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and
+// calls the DX8 setters at its end out of line; through an inline function the extra level leaves the Adds out of line
+#define Add_Sea_Quad(quads, x, y, dx, dy, z) do { \
+	float qx_ = (x); float qy_ = (y); float qdx_ = (dx); float qdy_ = (dy); float qz_ = (z); \
+	(quads).Add(Vector3(qx_, qy_, qz_)); \
+	(quads).Add(Vector3(qx_ + qdx_, qy_, qz_)); \
+	(quads).Add(Vector3(qx_ + qdx_, qy_ + qdy_, qz_)); \
+	(quads).Add(Vector3(qx_, qy_ + qdy_, qz_)); \
+} while (0)
 
-// NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101)
+// NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101). The world transforms are the
+// client's Set_Transform(D3DTS_WORLD, identity) (its ??_H arrays and the flags' and ~WORLD_IDENTITY | WORLD_CHANGED), not
+// Set_World_Identity. Left (inline budget): the patch transform's Matrix3D rows inline (the client constructs them
+// through ??_H), the second buffer pass's textures out of line and its shader inline (the client the reverse)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
@@ -809,7 +813,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			}
 		}
 		DX8Wrapper::Set_Index_Buffer(ib, 0);
-		DX8Wrapper::Set_World_Identity();
+		DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(true));
 		for (int sea = 0; sea < SeaCount; sea++) {
 			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, (unsigned short)count);
 			{
@@ -845,10 +849,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 
 	// the projectors on the land (+0x1218): their boxes' triangles drawn with their material passes
 	static std::vector<Vector3> projected;
-	DX8Wrapper::Set_World_Identity();
+	DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix3D(true));
 	for (std::vector< RefCountPtr<TexProjectClass> >::iterator it = Unknown1218.begin(); it != Unknown1218.end(); it++) {
 		TexProjectClass *projector = (*it).Peek();
-		projected.erase(projected.begin(), projected.end());
+		projected.clear();
 		Field->Get_Triangles(projector->Get_Bounding_Volume(), projected);
 		projector->Peek_Material_Pass()->Install_Materials();
 		Unknown_477E20(projected);

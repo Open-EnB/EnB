@@ -5174,28 +5174,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown11` | `app/shared/land.cpp:721` | untagged neutral name (D10) |
 | 1 | `Unknown_466F40` | `app/shared/land.cpp:724` | untagged neutral name (D10) |
 | 1 | `Unknown_477E20` | `app/shared/land.cpp:728` | unknown; draws triangles of the land under a projector (0x477E20, its vector by value) |
-| 1 | `Unknown_466F60` | `app/shared/land.cpp:752` | untagged neutral name (D10) |
-| 1 | `Unknown1218` | `app/shared/land.cpp:849` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/land.cpp:866` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/shared/land.cpp:867` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/land.cpp:868` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/land.cpp:869` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/shared/land.cpp:881` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/land.cpp:882` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/land.cpp:883` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/shared/land.cpp:884` | untagged neutral name (D10) |
-| 1 | `Add_Unknown1218` | `app/shared/land.cpp:999` | untagged neutral name (D10) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1004` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `app/shared/land.cpp:1009` | neutral placeholder (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.cpp:1976` | untagged neutral name (D10) |
-| 1 | `LandNormalTable` | `app/shared/land.cpp:2041` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
-| 1 | `Unknown_46F120` | `app/shared/land.cpp:2143` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.cpp:2292` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.cpp:2336` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.cpp:2638` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2667` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/land.cpp:2669` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2673` | untagged neutral name (D10) |
+| 1 | `Unknown_466F60` | `app/shared/land.cpp:756` | untagged neutral name (D10) |
+| 1 | `Unknown1218` | `app/shared/land.cpp:853` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/land.cpp:870` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/shared/land.cpp:871` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/land.cpp:872` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/land.cpp:873` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/shared/land.cpp:885` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/land.cpp:886` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/land.cpp:887` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/shared/land.cpp:888` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/shared/land.cpp:1003` | untagged neutral name (D10) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1008` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/shared/land.cpp:1013` | neutral placeholder (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.cpp:1980` | untagged neutral name (D10) |
+| 1 | `LandNormalTable` | `app/shared/land.cpp:2045` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
+| 1 | `Unknown_46F120` | `app/shared/land.cpp:2147` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.cpp:2296` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.cpp:2340` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.cpp:2642` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2671` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/land.cpp:2673` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2677` | untagged neutral name (D10) |
 | 1 | `UnknownXX` | `app/shared/land.h:19` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:74` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:89` | members after their offsets (ctor 0x474530) |
@@ -7720,17 +7720,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
 | 2 | `LandLodDistances` | `app/shared/land.cpp:45` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's |
-| 2 | `Add_Sea_Quad` | `app/shared/land.cpp:731` | a quad's four corners at a height into the sea's vertex list (Render 0x474B30 inlines the four Adds) |
-| 2 | `land.cpp` | `app/shared/land.cpp:1011` | the .dcb's first word (0x4795D0, 0x479A50) |
-| 2 | `LandDecorationRecordStruct` | `app/shared/land.cpp:1014` | a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground |
-| 2 | `Land_Add_Name` | `app/shared/land.cpp:1036` | one inline level around the name's string and push_back: the client calls the string's assign and the names' |
-| 2 | `LandDecorationVertexStruct` | `app/shared/land.cpp:1191` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
-| 2 | `Land_Find_Decoration_Mesh` | `app/shared/land.cpp:1248` | after what it does |
-| 2 | `std:` | `app/shared/land.cpp:1285` | after what it does |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:1582` | the patch vertex, FVF 0x202 (0x4746C0) |
-| 2 | `LandDirectionX` | `app/shared/land.cpp:1910` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `Pack_Slope8` | `app/shared/land.cpp:1914` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
-| 2 | `LandHorizonTable` | `app/shared/land.cpp:1952` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `land.cpp` | `app/shared/land.cpp:731` | a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and |
+| 2 | `land.cpp` | `app/shared/land.cpp:1015` | the .dcb's first word (0x4795D0, 0x479A50) |
+| 2 | `LandDecorationRecordStruct` | `app/shared/land.cpp:1018` | a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground |
+| 2 | `Land_Add_Name` | `app/shared/land.cpp:1040` | one inline level around the name's string and push_back: the client calls the string's assign and the names' |
+| 2 | `LandDecorationVertexStruct` | `app/shared/land.cpp:1195` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
+| 2 | `Land_Find_Decoration_Mesh` | `app/shared/land.cpp:1252` | after what it does |
+| 2 | `std:` | `app/shared/land.cpp:1289` | after what it does |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:1586` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDirectionX` | `app/shared/land.cpp:1914` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `Pack_Slope8` | `app/shared/land.cpp:1918` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
+| 2 | `LandHorizonTable` | `app/shared/land.cpp:1956` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandDecorationStruct` | `app/shared/land.h:63` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
 | 2 | `Init` | `app/shared/land.h:81` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
