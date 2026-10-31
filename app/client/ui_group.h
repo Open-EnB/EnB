@@ -75,14 +75,17 @@ public:
 	char Unknown50[0x54 - 0x50];						// +0x50
 };
 
+void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (1, 0.6, 0; 1, 1, 1 to reset)  // NAME 1 [robj, a, b, c]: neutral
+
 // What +0xE8 points to (0x34 bytes; constructor 0x592910 over the window; its inline destructor calls 0x592BB0)
 class UIGroupUnknownE8Class	// NAME 1: neutral (D10)
 {
 public:
-	~UIGroupUnknownE8Class() { Unknown_592BB0(); }		// inline (the group window's destructor expands it)
+	~UIGroupUnknownE8Class();							// 0x5929E0 (the group window's destructor expands it)
+	void Unknown_592A80();								// 0x592A80: the highlight fades (the window's slot +0x60)
+	void Unknown_593180(int index);						// 0x593180: model index highlighted for 2 seconds  // NAME 1 [index]: neutral
 	void Unknown_592BB0();								// 0x592BB0
 	RefCountPtr<RenderObjClass> Unknown_5944A0();		// 0x5944A0 (0x594040, 0x598370): Unknown04
-	void Unknown_592A80();								// 0x592A80 (the window's slot +0x60, every frame)
 	void Unknown_592C50();								// 0x592C50 (0x598370)
 
 	UIGroupUnknownE8Class(UIGroupClass *owner);			// 0x592910 (0x594040)  // NAME 1 [owner]: what 0x594040 passes

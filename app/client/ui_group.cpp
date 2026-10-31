@@ -147,106 +147,6 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x592910
 // NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor)
 UIGroupUnknownE8Class::UIGroupUnknownE8Class(UIGroupClass *owner) :
@@ -261,6 +161,36 @@ UIGroupUnknownE8Class::UIGroupUnknownE8Class(UIGroupClass *owner) :
 		Unknown08[i] = NULL;
 	}
 	Unknown_592C50();
+}
+
+
+
+// 0x5929E0
+UIGroupUnknownE8Class::~UIGroupUnknownE8Class()
+{
+	Unknown_592BB0();
+}
+
+
+// 0x592A80
+void UIGroupUnknownE8Class::Unknown_592A80()
+{
+	int index = Unknown2C;
+	if (index >= 0 && index < 6 && Unknown08[index] != NULL && Unknown30 > 0.0f) {
+		Unknown30 -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		float fraction = Unknown30 - (int)Unknown30;
+		if (Unknown30 < 0.0f) {
+			if (Unknown2C == 0) {
+				Unknown_496110(Unknown08[index].Peek(), 1.0f, 0.6f, 0.0f);
+			} else {
+				Unknown_496110(Unknown08[index].Peek(), 1.0f, 1.0f, 1.0f);
+			}
+			Unknown30 = 0;
+			Unknown2C = -1;
+			return;
+		}
+		Unknown_496110(Unknown08[index].Peek(), fraction, 0.0f, 0.0f);
+	}
 }
 
 
@@ -310,6 +240,76 @@ void UIGroupUnknownE8Class::Unknown_592BB0()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x593180
+void UIGroupUnknownE8Class::Unknown_593180(int index)
+{
+	if (index >= 0 && index < 6 && Unknown08[index] != NULL) {
+		int old = Unknown2C;
+		RenderObjClass *robj;
+		if (old >= 0 && (robj = Unknown08[old].Peek()) != NULL) {
+			if (old == 0) {
+				Unknown_496110(robj, 1.0f, 0.6f, 0.0f);
+			} else {
+				Unknown_496110(robj, 1.0f, 1.0f, 1.0f);
+			}
+		}
+		Unknown2C = index;
+		Unknown30 = 2.0f;
+	}
+}
 
 
 
@@ -1917,7 +1917,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	Rebuilt (UG1, 2026-10-30), the asserts on the client's lines (D25), the functions without asserts between
 **	their neighbours' lines in the client's order:
 **	  the +0xE8 object (0x34 bytes; its strings 'tsi03a_form%d', 'ship_bone%02d' lie just before this file's
-**	  in .rdata, so it is placed here pending evidence, D137): constructor 0x592910 (not exact), 0x592BB0;
+**	  in .rdata, so it is placed here pending evidence, D137): constructor 0x592910 (not exact), destructor
+**	  0x5929E0, 0x592A80, 0x592BB0, 0x593180;
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
@@ -1929,7 +1930,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: the +0xE8 object's 0x5927E0-0x592C50 and 0x593180, slot +0x68 0x5946D0 (735, 751),
+**	Not yet: the +0xE8 object's 0x592C50 (and 0x5927E0, an out-of-line auxdata.h lookup), slot +0x68 0x5946D0 (735, 751),
 **	0x595530, 0x596770 (1260-1266) and 0x597E40 (1753).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea
