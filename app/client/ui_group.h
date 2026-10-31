@@ -10,25 +10,7 @@
 class GadgetClass;			// gadget.cpp's (the formation buttons at +0xC0, deleted through 0x65EED0)
 class UIGroupClass;
 
-// The interface base of the group window (0xAC bytes; constructor 0x5BB320, destructor 0x5BB3B0, table 0xAF3390; its file
-// is unknown, its functions follow ui_mesh.cpp's): intrface.cpp's class over a UIMeshClass and a layer
-// (interim placement in ui_group.h, its only rebuilt user: D137)
-class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
-	~Unknown5BB320Class();								// 0x5BB3B0 (deletes the mesh)
-	virtual void Unknown_58();							// 0x5BB550
-	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
-	virtual void Unknown_60();							// 0x5BB660
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5BB470
-	virtual void Unknown_88();							// +0x88 0x543750
-	virtual void Unknown_8C();							// +0x8C 0x543770
-	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
-
-	UIMeshClass *Mesh;									// +0x84 (the destructor deletes it)  // NAME 2: what it holds
-	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
-};
+// (The interface base, Unknown5BB320Class, is in sclient.h since its second user, ui_cpit.h: D137)
 
 // What a member's +0x2C points to (a virtual destructor; 0x5DCAE0 before the delete)
 class UIGroupMemberUnknown2CClass	// NAME 1: neutral (D10)

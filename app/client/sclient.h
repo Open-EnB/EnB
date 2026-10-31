@@ -312,42 +312,42 @@ public:
 };
 
 // ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
-class UIScanClass		// NAME 3: class-from-file (D24) for ui_scan.cpp
+class UIScanClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scan.cpp
 {
 public:
 	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
 
-	char Unknown00[0x88];								// +0x00
+	char Unknown84[0x88 - 0x84];						// +0x84
 	ClientObjectClass *Unknown88;						// +0x88 (the main view's slot +0x5C returns it)
 };
 
 class IncapacitanceDetailsPacket;
-// ui_cpit.cpp's cockpit interface (the main view's +0x1D0), declared as far as cpacket.cpp calls it
-class UICpitClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_cpit.cpp
+class UIMeshClass;
+// The interface base of the group window and the cockpit (0xAC bytes; constructors 0x5BB320 / 0x5BB250, destructor 0x5BB3B0,
+// table 0xAF3390; its file is unknown, its functions follow ui_mesh.cpp's): intrface.cpp's class over a UIMeshClass and a
+// layer (interim placement in sclient.h, moved from ui_group.h for its second user, ui_cpit.h: D137)
+class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	UICpitClass(MainViewClass *view, const LayerClass &layer);	// 0x57D830 (0x178 bytes; the main view's 0x50C690)  // NAME 1 [view, layer]: what 0x50C690 passes
-	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140)  // NAME 1 [hulk]: the packet's HulkGameID's object
-	void Unknown_5820C0(bool on);						// 0x5820C0 (cpacket.cpp: OPEN_INTERFACE 102 passes UIChange == 0)  // NAME 1 [on]: what the handler passes
-	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
-	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
-	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
+	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
+	Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer);	// 0x5BB250 (the view and the layer's scene to 0x540A90, the layer copied)  // NAME 1 [mesh, view, layer]: what 0x57D830 passes
+	~Unknown5BB320Class();								// 0x5BB3B0 (deletes the mesh)
+	virtual void Unknown_58();							// 0x5BB550
+	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
+	virtual void Unknown_60();							// 0x5BB660
+	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5BB470
+	virtual void Unknown_88();							// +0x88 0x543750
+	virtual void Unknown_8C();							// +0x8C 0x543770
+	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
 
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54();
-	virtual void Unknown_58();							// +0x58 (the main view's 0x5141A0)
-	virtual void Unknown_5C();							// +0x5C (the main view's 0x5141E0 / 0x514220)
-
-	char Unknown84[0xD4 - 0x84];						// +0x84
-	UIScanClass *Scan;									// +0xD4 (the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
-	char UnknownD8[0xDC - 0xD8];						// +0xD8
-	int UnknownDC;										// +0xDC (the main view's 0x514400 returns it)
-	char UnknownE0[0x178 - 0xE0];						// +0xE0
+	UIMeshClass *Mesh;									// +0x84 (the destructor deletes it)  // NAME 2: what it holds
+	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
 };
+#include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
+class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
+
+
+
 
 // what the main view's +0x13C points to, as far as SERVER_PARAMETERS 66 reads it
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
@@ -722,7 +722,7 @@ public:
 	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral
+	void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
 	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
 	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20();	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's
 	char Unknown00[0x1C];								// +0x00
@@ -1007,7 +1007,7 @@ public:
 	void Unknown_750800();								// 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer
 	void Unknown_7517E0(int a, int b, int c, int d);		// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210 passes its four fields)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_751850(std::vector<GuildRankNameStruct> &ranks);	// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211)  // NAME 1 [ranks]: the packet's field
-	void Unknown_745160();								// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198
+	void Unknown_745160(); void Unknown_744560(int arg);	// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198; 0x744560 (ui_cpit.cpp passes 11 when the hulk is let in, 12 when it goes)  // NAME 1 [arg]: neutral
 	void Unknown_745050();								// 0x745050: 0x745000 again with the kept base asset (scriptedmovie.cpp's neighbourhood 0x8010A0)
 	void Unknown_7456B0();								// 0x7456B0: the main view's debris mode and four resets
 	void Process_AI();									// 0x744260 (Do_Frame, after Process_Packets): every object's slot +0x20, the camera, the finished effects, the third list's records (S: 'SClient::Process_AI')

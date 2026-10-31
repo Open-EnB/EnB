@@ -2266,7 +2266,7 @@ void MainViewClass::Remove_Object(ClientObjectClass *object)
 
 int MainViewClass::Unknown_514400()
 {
-	return(Cpit ? Cpit->UnknownDC : 0);
+	return(Cpit ? (int)Cpit->UnknownDC : 0);
 }
 
 SimpleSceneClass *MainViewClass::Unknown_64()
