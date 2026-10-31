@@ -4,6 +4,34 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (09:15, morning): D164-D166; FAIL_IF's && form (+6), the caller tie-break (+317 pairs), the progress card fixed
+
+Coordinator Opus 5.5 with two builders, one at a time. Base 56b6c79e (PR #13 merged; `.work/imports.56b6c79e.json`); run
+branch `run/2026-10-31`, PR #37. Plan log: `.work/run-2026-10-31/plan.md`. HEAD against the baseline: +323 pairs, nothing
+lost outright.
+
+* **Decisions:** D164 (P-MU1-1, explicit instantiations for out-of-line template copies), D165 (P-SM2-1, FAIL_IF's
+  `&&` form), D166 (the caller tie-break; D66 (vii)). D163 (the API credits) was not started: still first in §4.
+* **FI1 (Opus, 2943f972, D165):** the `&&` FAIL_IF in unknown_debug.h, app 5,127 -> 5,133 (+6: scriptedmovie 0x803310,
+  co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690), 0 lost. Four knock-ons fixed in their own files
+  (no per-file macro): client_lego_impl 0x72D5F0 (`break` for `return`), co 0x6FFFF0 and sclient 0x750260 (one dead
+  inline call each to restore the inline budget the cheaper macro freed), ui_cpit 0x57F240 (one more implicit key name).
+* **TB1 (Sonnet, cf19989a + 89b35501, D166):** objmatch's `caller_tiebreak` (verify / compile_and_match only, not
+  `appfile.py match`), a `tiebreak` list per file in imports.json (also in `in_tree`), pairs_cmp's tie-break lines. Full
+  verify of all 11 libraries twice, identical output: +317 pairs (app 259, ww3d2 40, wwaudio 7, wwlib 5, wnet 3, wwmath 2,
+  wwsaveload 1), ambiguous 340 -> 315, replay 0 files differ. Bytes unchanged (identical copies already counted as exact
+  bytes). 0x584C80 / 0x47CF50 stay ambiguous until their callers 0x57DD20 (ui_cpit) / 0x47A2F0 (land) are exact.
+  0x62A5D0 is held by pkcolorization and scriptedmovie (D20; kept, TB1's stricter variant not taken). pacing.py's
+  pairs_cmp parser fixed for the new lines (d7a7b262).
+* **Progress card (the user's request):** the daily job was dropped in cff55ff and nothing replaced it, so the card stood
+  at 2026-10-29. `run_branch.py ready` now regenerates and commits it (`--co-author` for D71). 'Bytes rebuilt' = byte-exact
+  + CRT / third-party + linker output, those three in greens first (db82df8d): 46.50% rebuilt (30.62% byte-exact),
+  34.34% written in C++ (52c8e4d4). The user's question answered in the session: the outstanding work is unattributed +
+  NOT EXACT + stubbed (~53.5% of .text); runtime and linker output come back with the toolchain (EH stubs with their
+  functions).
+* **Traps:** FI1's in workflow.md §3.1 / §3.3 (88460e4a), TB1's in §3.4 (cf19989a, d7a7b262).
+* **Usage:** weekly 58 % -> 59 %.
+
 ### 2026-10-31 (03:45, overnight): the quiet tree closed, land item 5's next round, seven new files; app 4,761 -> 5,127 in tree, +475 pairs, 0 lost
 
 Coordinator Opus 5.5, one to three Opus builders at a time (pacing to the user's ~60 % of the week by 07:00: 50 % at
