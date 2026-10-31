@@ -68,7 +68,7 @@ HeightFieldClass::~HeightFieldClass(void)
 	}
 }
 
-// NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0)
+// The PGM reader 0x4637C0 (the same as VIDTEST's 0x4026B0): every token through one variable
 bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int max_size)
 {
 	char delimiters[] = " \r\n\t";
@@ -80,16 +80,20 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	char *text = new char[file->Size() + 1];
 	file->Read(text, file->Size());
 	text[file->Size()] = 0;
-	if (strstr(strtok(text, delimiters), "P2") == NULL) {
+	char *token = strtok(text, delimiters);
+	if (strstr(token, "P2") == NULL) {
 		delete [] text;
 		return false;
 	}
 	unsigned int width;
 	do {
-		width = atoi(strtok(NULL, delimiters));
+		token = strtok(NULL, delimiters);
+		width = atoi(token);
 	} while (width == 0);
-	unsigned int height = atoi(strtok(NULL, delimiters));
-	atoi(strtok(NULL, delimiters));
+	token = strtok(NULL, delimiters);
+	unsigned int height = atoi(token);
+	token = strtok(NULL, delimiters);
+	atoi(token);
 	if (width != height) {
 		delete [] text;
 		return false;
@@ -97,14 +101,13 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	Size = width;
 	Count = width * width;
 	Buffer = new char[width * width * 2 + 0x3E];
-	unsigned short *p = (unsigned short *)(((unsigned int)Buffer + 0x3E) & ~0x3F);
-	Heights = p;
+	Heights = (unsigned short *)(((unsigned int)Buffer + 0x3E) & ~0x3F);
+	unsigned short *p = Heights;
+	unsigned int n = Count;
 	MaxValue = 0;
-	for (unsigned int n = Count; n != 0; n--) {
+	while (n--) {
 		unsigned short value = (unsigned short)atoi(strtok(NULL, delimiters));
-		if (value > MaxValue) {
-			MaxValue = value;
-		}
+		MaxValue = (value > MaxValue) ? value : MaxValue;
 		*p++ = value;
 	}
 	_TheFileFactory->Return_File(file);
@@ -120,21 +123,21 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 		delete [] row;
 	}
 
-	if (max_size < Size) {
+	if (Size > max_size) {
 		unsigned int count = max_size * max_size;
 		void *buffer = new char[count * 2 + 0x3E];
 		unsigned short *heights = (unsigned short *)(((unsigned int)buffer + 0x3E) & ~0x3F);
 		unsigned int step = Size / max_size;
+		unsigned int area = step * step;
 		for (unsigned int j = 0; j < max_size; j++) {
 			for (unsigned int i = 0; i < max_size; i++) {
 				unsigned int sum = 0;
 				for (unsigned int y = 0; y < step; y++) {
-					unsigned short *src = &Heights[(j * step + y) * Size + i * step];
-					for (unsigned int x = step; x != 0; x--) {
-						sum += *src++;
+					for (unsigned int x = 0; x < step; x++) {
+						sum += Heights[(j * step + y) * Size + i * step + x];
 					}
 				}
-				heights[j * max_size + i] = (unsigned short)(sum / (step * step));
+				heights[j * max_size + i] = (unsigned short)(sum / area);
 			}
 		}
 		delete [] Buffer;

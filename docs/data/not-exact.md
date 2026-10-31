@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-341 entries in 72 files.
+340 entries in 72 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -231,14 +231,13 @@ edit the comments in the code, not this file.
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
-| `app/shared/heightfield.cpp:71` | `HeightFieldClass::Load_PGM` | marker | NOT EXACT: written from the pseudocode (the PGM reader 0x4637C0, the same as VIDTEST's 0x4026B0) |
-| `app/shared/heightfield.cpp:186` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
-| `app/shared/heightfield.cpp:200` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |
-| `app/shared/heightfield.cpp:261` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: frame (0x464290: 0x38, the client 0x40; it keeps h10 on the FPU, spills h01 and copies an edge component; attempts.csv) |
-| `app/shared/heightfield.cpp:381` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
-| `app/shared/heightfield.cpp:528` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
-| `app/shared/heightfield.cpp:596` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
-| `app/shared/heightfield.cpp:677` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
+| `app/shared/heightfield.cpp:189` | `HeightFieldClass::World_To_Grid` | marker | NOT EXACT: order-only (the client loads HalfSize before the position) |
+| `app/shared/heightfield.cpp:203` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |
+| `app/shared/heightfield.cpp:264` | `HeightFieldClass::Get_Normal` | marker | NOT EXACT: frame (0x464290: 0x38, the client 0x40; it keeps h10 on the FPU, spills h01 and copies an edge component; attempts.csv) |
+| `app/shared/heightfield.cpp:384` | `HeightFieldClass::Cast_Ray` | marker | NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0) |
+| `app/shared/heightfield.cpp:531` | `HeightFieldClass::Cast_OBBox` | marker | NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 22 masked rows; 10 forms, attempts.csv 0x4654E0) |
+| `app/shared/heightfield.cpp:599` | `HeightFieldClass::Get_Triangles` | marker | NOT EXACT: inline-budget (the client calls the first push_back's insert out of line, 0x466180; 28 masked rows; attempts.csv 0x465D30) |
+| `app/shared/heightfield.cpp:680` | `HeightFieldClass::Sample` | mention | NOT EXACT: frame): two triangles per cell over the sweep's bounds (LandClass's Cast_* forward to them through 0x46C680-0x46C6E0). Get_Triangles 0x465D30 (NOT EXACT, for the land's render) with vector<Vector3>::insert 0x4663E0. Cast_Ray clips the ray to the grid unless it wraps, then walks the cells it crosses (a 2D DDA) until a triangle is hit. The functions after the notes' "Ours" are VIDTEST's l... |
 | `app/shared/ini_manager.cpp:49` | `INIManagerClass::Get_INI` | marker | NOT EXACT: shape (explain.py: 53 masked rows), the holder's new and the Create_Peek temporary take other registers and frame slots; objmatch would also reject the atexit handler's name $E18 (symbols.json gives it to other objects) |
 | `app/shared/ini_manager.h:29` | `?` | marker | NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0) |
 | `app/shared/kv_acc_array.h:54` | `Set` | marker | NOT EXACT: literal (the client compares the result of find with std::string::npos loaded from memory, ours folds it to -1; float: 0x4C34D0) |
