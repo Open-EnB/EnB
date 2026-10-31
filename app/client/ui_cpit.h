@@ -15,6 +15,7 @@ class UICpitWarpGadgetClass;
 class UICpitThrottleGadgetClass;
 class UICpitTurnGadgetClass;
 class IncapacitanceDetailsPacket;
+class AvatarDescClass;
 class Unknown6D47C0Class;
 class UICpitClass;
 
@@ -93,6 +94,10 @@ class UICpitUnknownE0Class : public InterfaceClass	// NAME 1: neutral (D10)
 public:
 	UICpitUnknownE0Class(SClient *sclient);			// 0x551FB0  // NAME 1 [sclient]: what the set-up passes
 	char Unknown84[0x1B4 - 0x84];						// +0x84
+	void Unknown_552FC0(AvatarDescClass *desc);			// 0x552FC0 (0x584690: the packet's Desc)  // NAME 1 [desc]: what 0x584690 passes
+	void Unknown_553370(std::string text);				// 0x553370 (0x584690: the packet's +0x128, by value)  // NAME 1 [text]: neutral
+	void Unknown_553500(std::vector<std::string> lines);	// 0x553500 (0x584690: the packet's +0x138 .. +0x158, by value)  // NAME 1 [lines]: neutral
+	void Unknown_5537A0(std::vector<std::string> lines);	// 0x5537A0 (0x584690: the packet's +0x168 .. +0x188, by value)  // NAME 1 [lines]: neutral
 	int Unknown_553A40();								// 0x553A40: the answer once it closes (-1 none, 0 / 1: slot +0x60's Packet_008FClass / distress beacon)
 };
 

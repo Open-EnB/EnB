@@ -29,6 +29,8 @@ public:
 	float Unknown2FC;									// +0x2FC (0x5845A0: 1, or 0.5 while the warp button is off)
 	char Unknown300[0x4C5 - 0x300];
 	bool Unknown4C5;									// +0x4C5 (0x5845A0 clears it)
+	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
+	void Unknown_6CE910(int on);						// 0x6CE910 (0x5821C0: 1 past the speed limit)  // NAME 1 [on]: neutral
 };
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
@@ -56,8 +58,6 @@ public:
 private:
 	char Unknown00[8];
 };
-
-
 
 
 
@@ -173,7 +173,9 @@ public:
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (the set-up passes 1000)  // NAME 1 [arg]: neutral
 	void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (the set-up passes -1 and +0xAC)  // NAME 1 [arg, gadget]: neutral
 
-	char Unknown04[0x50 - 0x04];						// +0x04 (0x50 bytes: 0x50A850's gadget)
+	char Unknown04[0x49 - 0x04];						// +0x04 (0x50 bytes: 0x50A850's gadget)
+	bool Unknown49;										// +0x49 (0x5821C0: +0xAC's keeps the throttle light on)
+	char Unknown4A[0x50 - 0x4A];						// +0x4A
 };
 
 // gadget.cpp's button under the cockpit's five (0x80 bytes and more), as far as the cockpit calls it
@@ -182,6 +184,7 @@ class UICpitButtonClass : public GadgetClass	// NAME 1: neutral (D10)
 public:
 	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
 	void Unknown_671630();								// 0x671630 (after slot +0xAC)
+	void Unknown_674120(int arg);						// 0x674120 (0x5821C0 passes 1 past the speed limit)  // NAME 1 [arg]: neutral
 	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
 	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
 	void Unknown_66C360();								// 0x66C360 (slot +0x68: after slot +0xA4 on the throttle buttons)
@@ -245,9 +248,6 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_cpit.ini");
 	Unknown_BE67C4->Add(Mesh->Peek_Object());
 }
-
-
-
 
 
 
@@ -377,6 +377,7 @@ void UICpitClass::Unknown_54()
 class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
 {
 public:
+	bool Unknown_79B600();								// 0x79B600 (0x5821C0: no warp, the speed shown as 100)
 	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
 };
 
@@ -392,7 +393,6 @@ public:
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
 extern std::string Unknown_BE5BD0;		// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3)  // NAME 1: neutral (D10)
-
 
 
 
@@ -1240,237 +1240,237 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 	if (Unknown0D0->Object != object) *Unknown0D0 = object;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// bridge_int.cpp's interface (SClient +0x128C), as far as the incapacitance details call it (mainview.cpp, sclient.cpp declare it too)
+class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
+{
+public:
+	void Unknown_53B770();								// 0x53B770 (0x584690, first)
+	void Unknown_53B710();								// 0x53B710 (0x5821C0: the warp done)
+	void Unknown_53B740();								// 0x53B740 (0x5821C0: waiting for the warp)
+};
+
+// 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
+// NOT EXACT: written from the client (the finds' out-of-line casts and the expanded 0x584000 follow the client's inline budget)
+void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
+{
+	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	{
+		NameClass name("MaxSpeed");
+		DeltaTemplateClass<float> *max_speed = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
+		if (max_speed && max_speed->Unknown70 <= 1) max_speed = NULL;
+		name = NameClass("LockSpeed");
+		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, name);
+		if (lock_speed && lock_speed->Unknown70 <= 1) lock_speed = NULL;
+		if (max_speed || lock_speed) {
+			if (max_speed && !lock_speed) {
+				NameClass lock_name("LockSpeed");
+				lock_speed = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, lock_name);
+				if (lock_speed && !lock_speed->Unknown70) lock_speed = NULL;
+			}
+			bool engine = Unknown_584000(true);
+			bool locked = lock_speed ? lock_speed->Value : false;
+			bool on = engine && !locked;
+			Unknown0B8->Unknown_40(on);
+			Unknown0BC->Unknown_40(on);
+			Unknown0B4->Unknown_40(on);
+			if (engine) Unknown13E = true;
+			Unknown_5845A0();
+		}
+	}
+	{
+		NameClass name("LockOrient");
+		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, name);
+		if (lock_orient && lock_orient->Unknown70 > 1) {
+			if (lock_orient->Value) {
+				Unknown0C0->Unknown_40(0);
+				Unknown0C4->Unknown_40(0);
+			} else {
+				Unknown0C0->Unknown_40(1);
+				Unknown0C4->Unknown_40(1);
+			}
+		}
+	}
+	CameraManagerClass *camera = ((SClient *)((ClientClass *)Client)->Unknown_18())->CameraManager;
+	if (camera && camera->Unknown_79B600()) {
+		if (Unknown0B4->Unknown_60()) {
+			Unknown0B4->Unknown_40(0);
+			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
+			Unknown13E = true;
+			Unknown_5845A0();
+		}
+	} else if (Unknown13D) {
+		if (!Unknown13E) {
+			Unknown0B4->Unknown_40(1);
+			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "RESCUE");
+			Unknown13E = true;
+		} else if (Unknown13F) {
+			Unknown0B4->Unknown_40(0);
+		}
+	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 1) {
+		Unknown_65EFB0(Unknown0B4, "UI_CPIT", "ON_PLANET");
+		Unknown0B4->Unknown_40(0);
+		Unknown_5845A0();
+	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 5) {
+		Unknown_65EFB0(Unknown0B4, "UI_CPIT", "GAS_GIANT");
+		Unknown0B4->Unknown_40(0);
+		Unknown_5845A0();
+	} else {
+		{
+			NameClass name("WarpAvailable");
+			DeltaTemplateClass<int> *warp = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, name);
+			if (Unknown13E) {
+				if (warp && !warp->Unknown70) warp = NULL;
+			} else {
+				if (warp && warp->Unknown70 <= 1) warp = NULL;
+			}
+			if (warp) {
+				const char *text;
+				if (warp->Value == 2) {
+					Unknown150 = true;
+					Unknown0B4->Unknown_40(1);
+					text = "WARP";
+				} else {
+					Unknown150 = false;
+					Unknown0B4->Unknown_40(0);
+					text = (warp->Value == 1) ? "NO_WARP" : "CANNOT_WARP";
+				}
+				Unknown_65EFB0(Unknown0B4, "UI_CPIT", text);
+				Unknown_5845A0();
+			}
+		}
+		{
+			NameClass name("PrivateWarpState");
+			DeltaTemplateClass<int> *state = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, name);
+			if (Unknown13E) {
+				if (state && !state->Unknown70) state = NULL;
+			} else {
+				if (state && state->Unknown70 <= 1) state = NULL;
+			}
+			if (state) {
+				switch (state->Value) {
+					case 0:
+						if (Unknown150) {
+							Unknown0B4->Unknown_40(1);
+							Unknown_5845A0();
+							Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP");
+						} else {
+							Unknown0B4->Unknown_40(0);
+							Unknown_5845A0();
+							NameClass warp_name("WarpAvailable");
+							DeltaTemplateClass<int> *warp = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, warp_name);
+							if (warp && warp->Unknown70 && warp->Value == 1) {
+								Unknown_65EFB0(Unknown0B4, "UI_CPIT", "NO_WARP");
+							} else {
+								Unknown_65EFB0(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
+							}
+						}
+						break;
+					case 10:
+						Unknown0B4->Unknown_40(0);
+						Unknown_5845A0();
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_LOW");
+						break;
+					case 4:
+						Unknown0B4->Unknown_40(0);
+						Unknown_5845A0();
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_LOCKED");
+						break;
+					case 5:
+						Unknown0B4->Unknown_40(0);
+						Unknown_5845A0();
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_ENGINE_NOT_INSTALLED");
+						break;
+					case 3: case 6: case 7: case 8: case 9: case 11:
+					{
+						Unknown0B4->Unknown_40(0);
+						Unknown_5845A0();
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_WAIT");
+						NameClass time_name("WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
+						if (time && time->Unknown70) Unknown0B4->Unknown_676190(4, time->Value.As_Int());
+						Unknown0B4->Unknown_A4(0);
+						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B740();
+						Unknown174->Set_Hidden(true);
+						break;
+					}
+					case 1:
+					{
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_DONE");
+						NameClass time_name("WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
+						if (time && time->Unknown70) Unknown0B4->Unknown_676190(1, time->Value.As_Int());
+						Unknown0B4->Unknown_A4(0);
+						break;
+					}
+					case 2:
+					{
+						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_DONE");
+						Unknown174->Set_Hidden(false);
+						Unknown0B4->Unknown_676190(2, 0);
+						Unknown0B4->Unknown_A4(1.0f);
+						((MainViewClass *)View->As_Main_View())->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
+						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B710();
+						break;
+					}
+				}
+			}
+		}
+		if (Unknown13E) Unknown13E = false;
+	}
+	Vector3 velocity = avatar->Unknown_2C();
+	float speed = velocity.Length() * 1000.0f;
+	if (Vector3::Dot_Product(velocity, avatar->Unknown_28(true).Get_X_Vector()) < 0.0f) speed = -speed;
+	if (Unknown144 == 1 || Unknown144 == 3 || ((UICpitGadget6B56AClass *)Unknown0AC)->Unknown49) {
+		Unknown16C->Set_Hidden(false);
+	} else {
+		Unknown16C->Set_Hidden(true);
+	}
+	if (Unknown144 == 2 || Unknown144 == 4) {
+		Unknown170->Set_Hidden(false);
+	} else {
+		Unknown170->Set_Hidden(true);
+	}
+	if (camera && camera->Unknown_79B600()) {
+		((FontStyleClass *)Unknown154)->Change_Text("100", 0);
+		Unknown130 = 100;
+	} else {
+		int shown = (int)speed;
+		if (Unknown130 != shown) {
+			Unknown130 = shown;
+			char text[8];
+			sprintf(text, "%03d", shown);
+			((FontStyleClass *)Unknown154)->Change_Text(text, 0);
+		}
+	}
+	UICpitThrottleGadgetClass *gadget;
+	if (Unknown144 == 1 || Unknown144 == 3) {
+		NameClass name("MaxSpeed");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
+		if (!t || !t->Unknown70) return;
+		if (!(t->Value * 0.99f < speed)) {
+			((FontStyleClass *)Unknown154)->Unknown_6CE910(0);
+			return;
+		}
+		gadget = Unknown0B8;
+	} else if (Unknown144 == 2 || Unknown144 == 4) {
+		NameClass name("MinSpeed");
+		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
+		if (!t || !t->Unknown70) return;
+		if (!(t->Value * 0.99f > speed)) {
+			((FontStyleClass *)Unknown154)->Unknown_6CE910(0);
+			return;
+		}
+		gadget = Unknown0BC;
+	} else {
+		((FontStyleClass *)Unknown154)->Unknown_6CE910(0);
+		return;
+	}
+	if (gadget->Unknown80 == 0) gadget->Unknown_674120(1);
+	((FontStyleClass *)Unknown154)->Unknown_6CE910(1);
+}
 
 
 
@@ -2016,23 +2016,29 @@ void UICpitClass::Unknown_5845A0()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x584690: the incapacitance details (INCAPACITANCE_DETAILS 144) onto the +0xE0 question, shown
+// NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it)
+void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
+{
+	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	if (sclient && sclient->BridgeInterface) sclient->BridgeInterface->Unknown_53B770();
+	std::vector<std::string> first;
+	std::vector<std::string> second;
+	first.erase(first.begin(), first.end());
+	second.erase(second.begin(), second.end());
+	first.insert(first.end(), packet->Unknown138);
+	first.insert(first.end(), packet->Unknown148);
+	first.insert(first.end(), packet->Unknown158);
+	second.insert(second.end(), packet->Unknown168);
+	second.insert(second.end(), 1, packet->Unknown178);
+	second.insert(second.end(), 1, packet->Unknown188);
+	Unknown0E0->Unknown_552FC0(&packet->Desc);
+	Unknown0E0->Unknown_553370(packet->Unknown128);
+	Unknown0E0->Unknown_553500(first);
+	Unknown0E0->Unknown_5537A0(second);
+	Unknown0E0->Unknown_58();
+	Unknown0E4 = true;
+}
 
 
 
@@ -2071,12 +2077,6 @@ UICpitHulkWatchClass::UICpitHulkWatchClass(UICpitClass *owner) : Owner(owner)
 void UICpitHulkWatchClass::Unknown_0C()
 {
 	ClientObjectClass *co = Object;
-
-
-
-
-
-
 
 
 	FAIL_IF(!co) return;
