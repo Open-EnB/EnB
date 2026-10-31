@@ -1961,7 +1961,8 @@ void LandClass::Init_Horizon_Tables(void)
 	}
 }
 
-// NOT EXACT: functional, from the disassembly of 0x46E120
+// The casters into the height field: each vertex under a caster's box is raised to where a ray straight down from the box's top hits it.
+// The client passes the corner Vector3 itself as World_To_Grid's Vector2 (its X, Y)
 void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &casters, unsigned char *mask)
 {
 	if (Field->Is_Wrapping()) {
@@ -1973,17 +1974,17 @@ void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &caste
 		const AABoxClass &box = caster->Get_Bounding_Box();
 		float top = 0.0f;
 		Vector3 corner = box.Center - box.Extent;
-		if (corner.Z >= top) {
+		if (top <= corner.Z) {
 			top = corner.Z;
 		}
 		float x0, y0;
-		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x0, &y0);
+		Field->World_To_Grid((const Vector2 &)corner, &x0, &y0);
 		corner = box.Center + box.Extent;
 		if (top <= corner.Z) {
 			top = corner.Z;
 		}
 		float x1, y1;
-		Field->World_To_Grid(Vector2(corner.X, corner.Y), &x1, &y1);
+		Field->World_To_Grid((const Vector2 &)corner, &x1, &y1);
 		if (x1 < x0 || y1 < y0) {
 			continue;
 		}
@@ -2010,10 +2011,12 @@ void LandClass::Unknown_46E120(std::vector< RefCountPtr<RenderObjClass> > &caste
 				Field->Get_Vertex(x, y, &vertex);
 				if (vertex.Z < top) {
 					// a ray straight down from the casters' top onto the vertex: a hit raises the vertex to it
-					LineSegClass ray(Vector3(vertex.X, vertex.Y, top), vertex);
 					CastResultStruct result;
 					result.ComputeContactPoint = true;
-					RayCollisionTestClass raytest(ray, &result);
+					Vector3 p0 = vertex;
+					p0.Z = top;
+					LineSegClass ray(p0, vertex);
+					RayCollisionTestClass raytest(ray, &result, COLLISION_TYPE_ALL);
 					caster->Cast_Ray(raytest);
 					if (result.Fraction < 1.0f) {
 						Field->Set_Height_2(result.ContactPoint.Z > vertex.Z ? result.ContactPoint.Z : vertex.Z, x, y);
