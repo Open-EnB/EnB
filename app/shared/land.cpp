@@ -1826,7 +1826,7 @@ void LandClass::Apply_Colors(void)
 	}
 }
 
-// NOT EXACT: field-offset / order (the store order of the strip's index pairs; 2 forms, attempts.csv 0x478240)
+// The strips run forward and back on alternate rows (an int flag); the edge buffers' fans per side
 void LandClass::Build_Index_Buffers(int size)
 {
 	int level = MAX_LEVELS - 1;
@@ -1838,18 +1838,17 @@ void LandClass::Build_Index_Buffers(int size)
 		{
 			IndexBufferClass::WriteLockClass lock(StripBuffers[level]);
 			unsigned short *index = lock.Get_Index_Array();
-			bool forward = true;
+			int forward = 1;
 			for (int row = step; row < size; row += step) {
 				if (forward) {
 					for (int col = 0; col < size - step; col += step) {
 						*index++ = row * size + col;
 						*index++ = col + (row - step) * size;
 					}
-					unsigned short last = (row + 1) * size - 1;
-					*index++ = last;
+					*index++ = (row + 1) * size - 1;
 					*index++ = (row - step + 1) * size - 1;
-					*index++ = last;
-					*index++ = last;
+					*index++ = (row + 1) * size - 1;
+					*index++ = (row + 1) * size - 1;
 				} else {
 					*index++ = (row - step + 1) * size - 1;
 					*index++ = (row + 1) * size - 1;
@@ -1870,28 +1869,26 @@ void LandClass::Build_Index_Buffers(int size)
 			EdgeBuffers[level] = new DX8IndexBufferClass(EdgeCounts[level]);
 			IndexBufferClass::WriteLockClass lock(EdgeBuffers[level]);
 			unsigned short *index = lock.Get_Index_Array();
-			int half = step >> 1;
 			int i;
 			for (i = step; i <= size; i += step) {
 				*index++ = (i - step) * size;
 				*index++ = i * size;
-				*index++ = (i - half) * size;
+				*index++ = (i - (step >> 1)) * size;
 			}
 			for (i = step; i < size; i += step) {
 				*index++ = (i - step + 1) * size - 1;
-				*index++ = (i - half + 1) * size - 1;
+				*index++ = (i - (step >> 1) + 1) * size - 1;
 				*index++ = (i + 1) * size - 1;
 			}
 			for (i = step; i < size; i += step) {
 				*index++ = i - step;
-				*index++ = i - half;
+				*index++ = i - (step >> 1);
 				*index++ = i;
 			}
-			int last = (size - 1) * size;
 			for (i = step; i < size; i += step) {
-				*index++ = last - step + i;
-				*index++ = i + last;
-				*index++ = i + (last - half);
+				*index++ = (size - 1) * size - step + i;
+				*index++ = i + (size - 1) * size;
+				*index++ = i + ((size - 1) * size - (step >> 1));
 			}
 		}
 	} while (level-- != 0);
@@ -2704,7 +2701,7 @@ void LandClass::Unknown_4733C0(int row, float ratio, unsigned short *out)
 	}
 }
 
-// NOT EXACT: frame (the client's frame 0x14 bigger, 147 masked rows; 2 forms, attempts.csv 0x473780)
+// NOT EXACT: shape (119 masked rows, 54 with registers masked; the client's frame since the Vector3 best / h / s; attempts.csv 0x473780)
 void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
@@ -2716,30 +2713,33 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[row0 + i1] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
-		float best_left = 0.05f;
-		float best_mid = 0.05f;
-		float best_right = 0.05f;
+		Vector3 best(0.05f, 0.05f, 0.05f);
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
 		unsigned int y = next;
 		unsigned int offset = row1;
-		unsigned int left = i;
 		unsigned int right = i1;
+		unsigned int left = i;
 		for (int k = 0; k < 12; k++) {
-			float h_left = heights[(left & Field->Get_Mask()) + offset];
-			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
-			float h_right = heights[(right & Field->Get_Mask()) + offset];
-			float s_left = (h_left - center) * diagonal * *recip;
-			float s_mid = (mid - center) * scale * *recip;
-			float s_right = (h_right - center) * diagonal * *recip;
-			if (s_left > best_left) {
-				best_left = s_left;
+			Vector3 h;
+			h.X = heights[(left & Field->Get_Mask()) + offset];
+			h.Y = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			h.Z = heights[(right & Field->Get_Mask()) + offset];
+			Vector3 s;
+			s.X = (h.X - center) * diagonal;
+			s.X *= *recip;
+			s.Y = (h.Y - center) * scale;
+			s.Y *= *recip;
+			s.Z = (h.Z - center) * diagonal;
+			s.Z *= *recip;
+			if (s.X > best.X) {
+				best.X = s.X;
 			}
-			if (s_mid > best_mid) {
-				best_mid = s_mid;
+			if (s.Y > best.Y) {
+				best.Y = s.Y;
 			}
-			if (s_right > best_right) {
-				best_right = s_right;
+			if (s.Z > best.Z) {
+				best.Z = s.Z;
 			}
 			y = (y + 1) & Field->Get_Mask();
 			recip += 2;
@@ -2748,48 +2748,51 @@ void LandClass::Unknown_473780(int row, float ratio, unsigned char *out)
 			offset = (offset + Field->Get_Size()) & Field->Get_Count_Mask();
 			dist += 2.0f;
 		}
-		out[0] = Pack_Slope8(best_left);
-		out[1] = Pack_Slope8(best_mid);
-		out[2] = Pack_Slope8(best_right);
+		out[0] = Pack_Slope8(best.X);
+		out[1] = Pack_Slope8(best.Y);
+		out[2] = Pack_Slope8(best.Z);
 		out += 3;
 	}
 }
 
-// NOT EXACT: frame (the client's frame 0x14 bigger; 2 forms, attempts.csv 0x473BC0)
+// NOT EXACT: shape (26 masked rows: the outer loop's set-up order and the left index's register; the client's frame since the Vector3 best / h / s; attempts.csv 0x473BC0)
 void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 {
 	unsigned int row0 = (Field->Get_Mask() & row) << Field->Get_Log2();
 	float scale = ratio + ratio;
-	unsigned short *heights = Field->Get_Heights();
 	float diagonal = scale * 0.70710677f;
+	unsigned short *heights = Field->Get_Heights();
 	unsigned int row1 = ((row + 1) & Field->Get_Mask()) << Field->Get_Log2();
 	for (unsigned int i = 0; i < Field->Get_Size(); i++) {
 		unsigned int i1 = (i + 1) & Field->Get_Mask();
 		float center = ((float)heights[row1 + i1] + heights[i1 + row0] + heights[row1 + i] + heights[row0 + i]) * 0.25f;
-		float best_left = 0.05f;
-		float best_mid = 0.05f;
-		float best_right = 0.05f;
+		Vector3 best(0.05f, 0.05f, 0.05f);
 		const float *recip = Reciprocals;
 		float dist = 1.0f;
 		unsigned int y = row;
 		unsigned int offset = row0;
-		unsigned int left = i;
 		unsigned int right = i1;
+		unsigned int left = i;
 		for (int k = 0; k < 12; k++) {
-			float h_left = heights[(left & Field->Get_Mask()) + offset];
-			float mid = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
-			float h_right = heights[(right & Field->Get_Mask()) + offset];
-			float s_left = (h_left - center) * diagonal * *recip;
-			float s_mid = (mid - center) * scale * *recip;
-			float s_right = (h_right - center) * diagonal * *recip;
-			if (s_left > best_left) {
-				best_left = s_left;
+			Vector3 h;
+			h.X = heights[(left & Field->Get_Mask()) + offset];
+			h.Y = ((float)heights[offset + i1] + heights[i + offset]) * 0.5f;
+			h.Z = heights[(right & Field->Get_Mask()) + offset];
+			Vector3 s;
+			s.X = (h.X - center) * diagonal;
+			s.X *= *recip;
+			s.Y = (h.Y - center) * scale;
+			s.Y *= *recip;
+			s.Z = (h.Z - center) * diagonal;
+			s.Z *= *recip;
+			if (s.X > best.X) {
+				best.X = s.X;
 			}
-			if (s_mid > best_mid) {
-				best_mid = s_mid;
+			if (s.Y > best.Y) {
+				best.Y = s.Y;
 			}
-			if (s_right > best_right) {
-				best_right = s_right;
+			if (s.Z > best.Z) {
+				best.Z = s.Z;
 			}
 			y = (y - 1) & Field->Get_Mask();
 			recip += 2;
@@ -2798,9 +2801,9 @@ void LandClass::Unknown_473BC0(int row, float ratio, unsigned char *out)
 			offset = (offset - Field->Get_Size()) & Field->Get_Count_Mask();
 			dist += 2.0f;
 		}
-		out[0] = Pack_Slope8(best_left);
-		out[1] = Pack_Slope8(best_mid);
-		out[2] = Pack_Slope8(best_right);
+		out[0] = Pack_Slope8(best.X);
+		out[1] = Pack_Slope8(best.Y);
+		out[2] = Pack_Slope8(best.Z);
 		out += 3;
 	}
 }
