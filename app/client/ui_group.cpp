@@ -247,47 +247,47 @@ public:
 
 
 
+// 0x592910
+// NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor)
+UIGroupUnknownE8Class::UIGroupUnknownE8Class(UIGroupClass *owner) :
+	Unknown00(owner),
+	Unknown20(0),
+	Unknown24(0),
+	Unknown28(0),
+	Unknown2C(-1),
+	Unknown30(0)
+{
+	for (int i = 0; i < 6; i++) {
+		Unknown08[i] = NULL;
+	}
+	Unknown_592C50();
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x592BB0
+void UIGroupUnknownE8Class::Unknown_592BB0()
+{
+	for (int i = 0; i < 6; i++) {
+		if (Unknown08[i]) {
+			if (Unknown04) {
+				Unknown04->Remove_Sub_Object(Unknown08[i].Peek());
+			}
+			Unknown08[i] = NULL;
+		}
+	}
+	if (Unknown04) {
+		Unknown04->Remove();
+		Unknown04 = NULL;
+	}
+	Unknown20 = 0;
+	Unknown24 = 0;
+	Unknown28 = 0;
+	Unknown2C = -1;
+	Unknown30 = 0;
+}
 
 
 
@@ -1916,6 +1916,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **
 **	Rebuilt (UG1, 2026-10-30), the asserts on the client's lines (D25), the functions without asserts between
 **	their neighbours' lines in the client's order:
+**	  the +0xE8 object (0x34 bytes; its strings 'tsi03a_form%d', 'ship_bone%02d' lie just before this file's
+**	  in .rdata, so it is placed here pending evidence, D137): constructor 0x592910 (not exact), 0x592BB0;
 **	  the member class: constructor 0x593200, destructor 0x5932E0 (not exact), 0x5934A0 (line 403), 0x5935C0
 **	  (456), 0x593750, 0x593790, 0x593830, 0x5938A0 (563);
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
@@ -1927,7 +1929,7 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (not exact), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
-**	Not yet: 0x593180 (perhaps the +0xE8 object's file), slot +0x68 0x5946D0 (735, 751),
+**	Not yet: the +0xE8 object's 0x5927E0-0x592C50 and 0x593180, slot +0x68 0x5946D0 (735, 751),
 **	0x595530, 0x596770 (1260-1266) and 0x597E40 (1753).
 **
 **	Forms: the constructor zeroes the nine buttons with a loop (VC6 makes it the rep stosd; memset puts the lea

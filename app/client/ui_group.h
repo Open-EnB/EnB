@@ -90,7 +90,11 @@ public:
 	UIGroupClass *Unknown00;							// +0x00 (the constructor's argument)
 	RefCountPtr<RenderObjClass> Unknown04;				// +0x04 (0x5944A0 returns it)
 	RefCountPtr<RenderObjClass> Unknown08[6];			// +0x08 (the eh vector destructor iterator with 0x4740B0)
-	char Unknown20[0x34 - 0x20];						// +0x20
+	int Unknown20;										// +0x20 (0x592BB0 clears +0x20..+0x28)
+	int Unknown24;										// +0x24
+	int Unknown28;										// +0x28
+	int Unknown2C;										// +0x2C: the highlighted model's index, -1 for none (0x593180)
+	float Unknown30;									// +0x30 (0x593180: 2.0f)
 };
 
 // The symbol chat interface the group window holds at +0xAC (0xAC bytes, constructor 0x64A480 over the sclient; its file
