@@ -83,7 +83,6 @@
 #include "spln_db.h"						// app\shared (M2.4)
 #include "curve.h"
 #include "land.h"							// app\shared (M2.4)
-//#include "viddeco.h"						// the land's decorations, VIDTEST's own (D101)
 #include "registry.h"
 
 static FILE *		LogFile = NULL;
