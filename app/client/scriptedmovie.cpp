@@ -1610,46 +1610,46 @@ bool ScriptedMovieViewClass::Unknown_804A70(ScriptedMovieParamsClass *params)
 
 
 
+// the scripted movie's orbital callback (8 bytes, table 0xB07CFC), laid out as mainview.cpp's MainViewOrbitalCallbackClass
+// (OrbitalManager takes that type: Create_Orbital casts to it)
+class ScriptedMovieOrbitalCallbackClass	// NAME 1: neutral (D10)
+{
+public:
+	ScriptedMovieOrbitalCallbackClass(ScriptedMovieViewClass *view) : View(view) {}	// NAME 1 [view]: neutral
+	virtual SimpleSceneClass *Unknown_00() { return(View->OrbitalScene); }	// 0x804FC0
+	virtual unsigned Unknown_04() { return(View->Unknown138); }			// 0x804FE0 (the orbital%04d.ini number)
+	ScriptedMovieViewClass *View;							// +0x04  // NAME 2: what it holds
+};
+
+#include "ini.h"
+// 0x804CA0: the orbitals: their manager and scene, the asset's orbital%04d.ini, the background dazzle layer (CREATE_ORBITAL)
+bool ScriptedMovieViewClass::Create_Orbital(ScriptedMovieParamsClass *params)
+{
+
+	G_ASSERT(OrbitalManager == NULL);
+	OrbitalManager = new ::OrbitalManager((SClient *)Get_Client(), (MainViewOrbitalCallbackClass *)new ScriptedMovieOrbitalCallbackClass(this));
+
+	G_ASSERT(OrbitalManager != NULL);
+	G_ASSERT(OrbitalScene == NULL);
+	OrbitalScene = new SimpleSceneClass;
+	G_ASSERT(OrbitalScene != NULL);
+	OrbitalManager->Unknown_4F3310();
+	const char *param = params->Unknown_7FFDC0();
+	FAIL_IF((param == NULL) && "User error: Create_Orbital: Need asset id") {return(false);}
+	Unknown138 = atoi(param);
+	char filename[100];
+	sprintf(filename, "orbital%04d.ini", Unknown138);
+	INIClass ini(filename);
 
 
 
+	FAIL_IF(!ini.Is_Loaded() && "User error: Create_Orbital: Can't load ini file.") {return(false);}
+	OrbitalManager->Unknown_4F34C0(ini);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(BackgroundDazzleLayer == NULL);
+	BackgroundDazzleLayer = new DazzleLayerClass;
+	return(true);
+}
 
 
 

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 34 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 987 |
-| 2 | describes what the code does | 2400 |
-| 1 | neutral placeholder | 5798 |
+| 2 | describes what the code does | 2401 |
+| 1 | neutral placeholder | 5803 |
 
 ## For review (score 3 and below)
 
@@ -3263,6 +3263,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6B4940` | `app/client/scriptedmovie.cpp:1552` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/scriptedmovie.cpp:1557` | untagged neutral name (D10) |
 | 1 | `Unknown_804A70` | `app/client/scriptedmovie.cpp:1586` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieOrbitalCallbackClass` | `app/client/scriptedmovie.cpp:1615` | neutral (D10) |
+| 1 | `view` | `app/client/scriptedmovie.cpp:1618` | neutral |
+| 1 | `Unknown138` | `app/client/scriptedmovie.cpp:1620` | untagged neutral name (D10) |
+| 1 | `Unknown_4F3310` | `app/client/scriptedmovie.cpp:1636` | untagged neutral name (D10) |
+| 1 | `Unknown_4F34C0` | `app/client/scriptedmovie.cpp:1647` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9550` | `app/client/scriptedmovie.cpp:1698` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/scriptedmovie.cpp:1699` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8DF0` | `app/client/scriptedmovie.cpp:1700` | untagged neutral name (D10) |
@@ -6586,7 +6591,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:795` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
 | 2 | `Hide_Object` | `app/client/sclient.h:796` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
 | 2 | `Skip_Frames` | `app/client/sclient.h:797` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:798` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
 | 2 | `std:` | `app/client/sclient.h:802` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:816` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:829` | what it holds |
@@ -6608,6 +6613,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Font` | `app/client/sclient.h:1091` | what it holds |
 | 2 | `Get_Client` | `app/client/sclient.h:1104` | what it returns |
 | 2 | `Client` | `app/client/sclient.h:1107` | what it holds |
+| 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
 | 2 | `Set_Camera_Mode` | `app/client/soptions.h:44` | what it does |
 | 2 | `Load_Camera_Mode` | `app/client/soptions.h:49` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
