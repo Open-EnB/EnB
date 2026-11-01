@@ -16,6 +16,11 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// E&B: the object ends with <string>'s guarded std::ctype<unsigned short>::id (0x8C0660, guard 0xC416FC)
+//   and PermStringInit's constructor / destructor (0x8C0690 / 0x8C06C0, the object 0xBF52C8 after
+//   the accounting callback 0xBF52C4): E&B's udp.cpp included both; through which header is not known
+#include <string>
+#include "..\..\..\app\shared\auxdata\permstr.h"
 #include "udp.h"
 #include "wlib/wdebug.h"
 
@@ -154,7 +159,6 @@ sint32 UDP::SetBlocking(bit8 block,sint32 sock)
 }
 
 
-// NOT EXACT: 0x8BFD50 0.72, block order: the client puts the accounting call after the retry's `jmp`
 sint32 UDP::Write(uint8 *msg,uint32 len,uint32 IP,uint16 port)
 {
   sint32 retval;
@@ -172,25 +176,20 @@ sint32 UDP::Write(uint8 *msg,uint32 len,uint32 IP,uint16 port)
   while (1)
   {
     retval=sendto(fd,(char *)msg,len,0,(struct sockaddr *)&to,sizeof(to));
-    #ifdef _WINDOWS
-    if (retval==SOCKET_ERROR)
+    if (retval!=SOCKET_ERROR)
     {
-      retval=-1;
-      if (GetStatus()==INTR)  // E&B: try again when interrupted
-        continue;
+      if (accountingCallback)  // E&B: the bandwidth accounting
+        accountingCallback(true,len,IP,port);
+      break;
     }
-    else
-    #endif
-    if (accountingCallback)  // E&B
-      accountingCallback(true,len,IP,port);
-    break;
+    retval=-1;
+    if (GetStatus()!=INTR)  // E&B: send again when interrupted
+      break;
   }
 
   return(retval);
 }
 
-// NOT EXACT: 0x8BFE30, registers and the status test: the client keeps status on the stack and tests
-//   all four codes again after the push_back; ours knows it is CONNRESET there
 sint32 UDP::Read(uint8 *msg,uint32 len,sockaddr_in *from)
 {
   sint32 retval;
@@ -224,17 +223,15 @@ sint32 UDP::Read(uint8 *msg,uint32 len,sockaddr_in *from)
   // E&B: a datagram to a closed port comes back as WSAECONNRESET on the next read; keep its
   //   address and hand it out as an empty read, so that the caller can drop that peer
   sint32 status=GetStatus();
-  if ((retval==-1)&&(from!=NULL))
+  if ((retval==-1)&&(from!=NULL)&&(status==CONNRESET))
+    AddReset(*from);
+  if ((retval==-1)&&(from!=NULL)&&
+      ((status==AGAIN)||(status==WOULDBLOCK)||(status==CONNRESET)||(status==CONNREFUSED))&&
+      (resetList.size()!=0))
   {
-    if (status==CONNRESET)
-      AddReset(*from);
-    if (((status==AGAIN)||(status==WOULDBLOCK)||(status==CONNRESET)||(status==CONNREFUSED))&&
-        (resetList.size()!=0))
-    {
-      *from=resetList.front();
-      resetList.pop_front();
-      return(0);
-    }
+    *from=resetList.front();
+    resetList.pop_front();
+    retval=0;
   }
   return(retval);
 }
