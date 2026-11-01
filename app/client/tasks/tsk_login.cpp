@@ -1218,15 +1218,15 @@ void LoginTaskClass::Load_Login()
 	}
 }
 
-// NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000)
+// The view's handler test as a ternary (+0x1B4 straight into ecx) and the error code read before the +0x20 store
 // 0x76B000
 void LoginTaskClass::Handle_Global_Error(GlobalErrorPacketClass *packet)
 {
-	if (CharacterView && CharacterView->Unknown1B4 && CharacterView->Unknown1B4->Unknown_78(packet)) {
+	if (CharacterView && (CharacterView->Unknown1B4 ? CharacterView->Unknown1B4->Unknown_78(packet) : false)) {
 		return;
 	}
-	Unknown0020 = 2;
-	Error = packet->Error;
+	int error = packet->Error; Unknown0020 = 2;
+	Error = error;
 	Unknown_Debug_Print(packet->Message.c_str());
 	if ((packet->Error < 8 || packet->Error > 13) && packet->Error != 17 && packet->Error != 3 && packet->Error != 5) {
 		Show_Message(packet->Message.c_str());
