@@ -1055,7 +1055,7 @@ void AttribDirModIteratorClass::Lock_Next()
 
 
 
-// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client calls the bucket function out of line in the inlined ++MapCur
+// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client pops with Pop (erase(end() - 1), _Destroy 0x4D9010 called) and tests MapCur == MapEnd twice before the inlined Skip_Empty; Pop with a guarded Skip_Empty gives 0.80 (attempts.csv, TK2)
 void AttribDirModIteratorClass::Unlock()
 {
 	FAIL_IF(MapCur == MapEnd) return;
