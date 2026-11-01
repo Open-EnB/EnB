@@ -137,20 +137,7 @@ void Unknown763E00Class::Unknown_763FF0() { Trace("stub Unknown763E00Class::Unkn
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 
-// rs_track.cpp and sound_manager.cpp: declared as cpacket.cpp declares them (same names, same mangling)
-class RsTrackClass
-{
-public:
-	void Unknown_4604D0(int render_state_id);
-	void Unknown_460780(int render_state_id);
-	void Unknown_460850(int render_state_id);
-	void Unknown_460880(int render_state_id, int link_id);
-};
-void RsTrackClass::Unknown_4604D0(int id) { Trace("stub RsTrackClass::Unknown_4604D0 %d", id); }
-void RsTrackClass::Unknown_460780(int id) { Trace("stub RsTrackClass::Unknown_460780 %d", id); }
-void RsTrackClass::Unknown_460850(int id) { Trace("stub RsTrackClass::Unknown_460850 %d", id); }
-void RsTrackClass::Unknown_460880(int id, int link_id) { Trace("stub RsTrackClass::Unknown_460880 %d %d", id, link_id); }
-
+// sound_manager.cpp: declared as cpacket.cpp declares it (same names, same mangling)
 class SoundManagerClass
 {
 public:
@@ -210,14 +197,6 @@ RectClass Unknown_C07550;	// 0xC07550 (sclient.cpp's Init)
 struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's testeffects.ini record (0x64 bytes): only the name and size matter here
 std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C20, which nothing calls; 0x74CA90 fills it)
 
-// wwaudio's instance (ClientClass's destructor: Free_Completed_Sounds): here, so that wwaudio.obj and Miles
-// (mss32.dll) stay out of the program; the tests never delete the client
-#include "wwaudio.h"
-WWAudioClass *WWAudioClass::_theInstance = 0;
-void WWAudioClass::Free_Completed_Sounds(void) { Trace("stub WWAudioClass::Free_Completed_Sounds"); }
-void WWAudioClass::Flush_Cache(void) { Trace("stub WWAudioClass::Flush_Cache"); }	// sclient.cpp 0x7511A0
-AudibleSoundClass *WWAudioClass::Peek_2D_Sample(int index) { Trace("stub WWAudioClass::Peek_2D_Sample %d", index); return(0); }	// sclient.cpp 0x750260 (the audio debug page)
-AudibleSoundClass *WWAudioClass::Peek_3D_Sample(int index) { Trace("stub WWAudioClass::Peek_3D_Sample %d", index); return(0); }
 
 // The object at 0xC404D8 (soundlib.cpp's neighbourhood): SClient's constructor sets its byte +0x19A5, so the
 // pointer must point somewhere (declared as sclient.cpp declares it)
@@ -231,18 +210,6 @@ Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 
 // ------------------------------------------------------------------------- auxdata.h's lookup (co.cpp)
 
-// co.cpp's aux-data accessors (0x6F58B0, 0x6F5E40, ...) inline auxdata.h's lookup: these three keep
-// name.obj, delta.obj and lookup.obj out of the harness (they pull unknown_root.obj, whose
-// Unknown_Get_Ticks clienttest.cpp defines, and shipcust_desc.obj). No root, no field: no trace.
-#include "..\..\..\app\shared\auxdata\delta.h"
-#include "..\..\..\app\shared\auxdata\lookup.h"
-NameClass::NameClass(const char *) {}
-LookupClass *DeltaCompoundClass::Get_Lookup() { return NULL; }
-DeltaClass *LookupClass::Find(const NameClass &) { return NULL; }
-// the damage state 0x6FE1E0 reads ShieldPercent through the interpolator's Get_Value: Update keeps
-// delta_interpolator.obj (and with it delta.obj) out; no field, never called
-#include "..\..\..\app\shared\auxdata\delta_interpolator.h"
-float DeltaInterpolatorClass::Update(const DurationClass &) { return(0.0f); }
 // the bool field's type global (client 0xC416AC; app.lib has it in aux_roots.obj, which the harness
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
@@ -255,8 +222,6 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 #include "..\..\..\app\client\postate.h"
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
-// pkupdate.cpp's 0x8ADB20 (not rebuilt): types 4 and 8 ask it
-bool AdvancedPositionalUpdatePacketClass::Unknown_8ADB20() { return(false); }
 
 // shiputils.cpp's colorization helper (COLORIZATION 17)
 class SClientUnknown1338Class;
@@ -272,14 +237,6 @@ void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &reg
 
 // ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
 
-// unknown_root.cpp's DeltaCompoundClass::Decode (0x4A3FA0), here so that unknown_root.obj stays out: the
-// harness's roots (clienttest.cpp's Aux_Root_Name names them) only log the update's size
-#include "..\..\..\app\shared\auxdata\linearbu.h"
-bool DeltaCompoundClass::Decode(LinearBufferClass &buf, const DurationClass &)
-{
-	Trace("stub DeltaCompoundClass::Decode %s, %d bytes", Aux_Root_Name(this), buf.Size);
-	return(true);
-}
 // ------------------------------------------------------------------------- eff_o.cpp's effect factory (OBJECT_EFFECT 9)
 
 // declared as cpacket.cpp declares them; the factory's effect has a target end that logs the object's id
@@ -372,11 +329,6 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 	effect->Node.Set(effect);
 	return(effect);
 }
-
-// CAMERA_CONTROL 146 (T19): its docking sound; app.lib's soundlib.obj would bring WWAudio's globals in
-#include "..\..\..\app\audio\soundlib.h"
-AudibleSoundClass *SoundLibraryClass::Play_2D_Sound(const char *name, int mode) { Trace("stub SoundLibraryClass::Play_2D_Sound '%s' %d", name, mode); return(0); }
-Sound3DClass *SoundLibraryClass::Play_3D_Sound(const char *name, const Matrix3D &tm, int mode, float scale) { Trace("stub SoundLibraryClass::Play_3D_Sound '%s' at (%g, %g, %g) %d %g", name, tm[0][3], tm[1][3], tm[2][3], mode, scale); return(0); }	// co.cpp's engine sounds 0x6FDBD0
 
 // ------------------------------------------------------------------------- control_keys_manager.cpp's key reader
 

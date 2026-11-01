@@ -483,6 +483,19 @@ so the destructor's FAIL_IF (line 70) stays quiet. 67 checks (the PxWrapper's ow
 **px.cpp and px_wrapper.cpp (2026-10-28, PX1):** ClientClass's PxList and type 24's PxWrapper are real code now; the
 PxClass and PxWrapper stand-ins are gone, client_stubs.cpp has stand-ins for the other px_*.cpp classes the wrapper
 builds (PxObject, PxBoxList, PxCollisionBox: the box classes construct their PxBox base). 67 checks, 2,999 trace lines.
+**Real objects instead of stand-ins (2026-11-01, CT):** the link had stopped on LNK2005 duplicates (ui_group, rs_track,
+gadget, gadget_list_manager, ui_cpit, unknown_root, name, lookup, delta, soundlib, WWAudio) and then on the objects they pull
+in. The stand-ins for functions the tree now builds are gone (RsTrackClass, UIGroupClass, GadgetClass::Unknown_6607D0,
+GadgetListManagerClass::Unknown_661940, UICpitClass::Unknown_584690, DeltaCompoundClass::Decode, NameClass / LookupClass /
+DeltaInterpolatorClass, SoundLibraryClass::Play_2D / 3D_Sound, WWAudioClass's, pkupdate's 0x8ADB20), so those run for real on the
+harness's fakes: the fake gadget is a zeroed 0x100-byte object with its name at +0x24 in a real manager's list; the cockpit's
++0xE0 object is a fake whose four calls are stand-ins in clienttest.cpp; the chat panel, PDA, hot keys, line display and
+the main view's +0x34 object are zeroed fakes with a table that pops slot +0x7C's two arguments (SClient::Unknown_742530 is
+real); `Unknown_Get_Ticks` (unknown_root.cpp) and `WWAudioClass::Flush_Cache` are real functions that main() jumps to the
+harness's clock and to a trace line (a second definition would be a duplicate). ui_stubs.cpp / font_stubs.cpp hold what
+gen_stubs --link cannot write (as programs/clientpoc/poc_link.cpp). A crash prints its address on stderr (a vectored handler:
+look it up in the exe's .map). 103 checks, 3,178 trace lines; the trace lost the lines of the deleted stand-ins
+(`stub DeltaCompoundClass::Decode` x213, the Play_2D_Sound, RsTrack and gadget 0x6607D0 / group 0x5981B0.. lines, 0x56BA80).
 
 ## Other harness programs (index)
 

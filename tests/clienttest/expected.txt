@@ -124,7 +124,6 @@ check the ship's six part models (base assets 0x618, 0x617, 0x73F), hidden, hung
 check the new object holds the constructor's default state (type 0): ok
 assert 0 (line 1344)
 frame at 1500, focused
-gen UIChatPanelClass::Unknown_56BA80
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
@@ -181,7 +180,6 @@ check Process_AI: the object's model got one Set_Transform: ok
 check at clock 1500 the model is at the packet's position + velocity * 500, turned 90 degrees about Z: ok
 assert 0 (line 1344)
 frame at 2000
-gen UIChatPanelClass::Unknown_56BA80
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
@@ -225,7 +223,6 @@ gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
-gen UIChatPanelClass::Unknown_56BA80
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
@@ -271,7 +268,6 @@ gen ViewUnknown34Class::Unknown_5890B0
   model row 2: 0.0000 0.0000 1.0000 5.0000
 check at clock 4500 (past the 2000-tick blend) the model follows the second packet: ok
 frame at 5000
-gen UIChatPanelClass::Unknown_56BA80
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
@@ -528,7 +524,9 @@ msg 65 ITEM_BASE (37) size 325: cpacket.cpp's handler
 stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 13
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
-gen SClient::Unknown_742530
+gen PDAInterfaceClass::Unknown_695F40
+gen LoginUnknown18Class::Unknown_515340
+gen UITalkTreeSpaceClass::Unknown_64EED0
 d3d ResourceManagerDiscardBytes 0
 stub WWAudioClass::Flush_Cache
 cockpit +0x58 (on)
@@ -590,7 +588,6 @@ stub UILineDisplayClass::Add_Line_7 'Group bonus gained: +5% item sell value.' 3
 msg 94 ? (33) size 106: cpacket.cpp's handler
 stub UILineDisplayClass::Add_Line_7 'Pehuo must obtain level 72 in order to contribute a grouping bonus to this group.' 3000 'MessageLine'
 msg 95 AUX_DATA (27) size 6877: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode player, 6867 bytes
 msg 96 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441': not loaded
 asset manager Load_3D_Assets 'deco_1441.w3d'
@@ -602,7 +599,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 98 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 99 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 100 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 18
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -612,7 +608,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 102 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 103 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 104 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 19
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -622,7 +617,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 106 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 107 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 108 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 20
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -632,7 +626,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 110 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 111 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 112 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_14': not loaded
 asset manager Load_3D_Assets 'ship_14.w3d'
@@ -664,7 +657,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 114 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 115 AUX_DATA (27) size 73: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 63 bytes
 msg 116 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 28
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -674,7 +666,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 118 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 119 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 120 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 29
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -684,7 +675,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 122 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 123 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 124 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 30
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -694,7 +684,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 126 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 127 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 128 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 31
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -704,7 +693,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 130 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 131 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 132 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 32
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -714,7 +702,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 134 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 135 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 136 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 33
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -724,7 +711,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 138 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 139 AUX_DATA (27) size 44: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 34 bytes
 msg 140 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -737,7 +723,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 143 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 144 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 145 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 35
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -747,7 +732,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 147 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 148 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 149 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 36
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -757,7 +741,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 151 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 152 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 153 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 37
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -767,7 +750,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 155 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 156 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 157 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 38
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -777,7 +759,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 159 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 160 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 161 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 39
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -787,7 +768,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 163 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 164 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 165 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 40
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -797,7 +777,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 167 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 168 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 169 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 41
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -807,7 +786,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 171 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 172 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 173 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 42
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -817,7 +795,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 175 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 176 AUX_DATA (27) size 38: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 28 bytes
 msg 177 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -830,7 +807,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 180 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 181 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 182 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 44
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -840,7 +816,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 184 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 185 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 186 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 45
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -850,7 +825,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 188 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 189 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 190 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 46
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -860,7 +834,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 192 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 193 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 194 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 47
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -870,7 +843,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 196 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 197 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 198 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 48
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -880,7 +852,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 200 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 201 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 202 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 49
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -890,7 +861,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 204 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 205 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 206 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 50
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -900,7 +870,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 208 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 209 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 210 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 51
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -910,7 +879,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 212 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 213 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 214 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 52
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -920,7 +888,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 216 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 217 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 218 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 53
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -930,7 +897,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 220 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 221 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 222 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 54
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -940,7 +906,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 224 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 225 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 226 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 55
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -950,7 +915,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 228 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 229 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 230 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 56
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -960,7 +924,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 232 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 233 AUX_DATA (27) size 35: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 25 bytes
 msg 234 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -989,7 +952,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 241 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 msg 242 AUX_DATA (27) size 29: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 19 bytes
 msg 243 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1002,7 +964,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 246 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 247 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 248 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 59
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1012,7 +973,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 250 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 251 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 252 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 60
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1022,7 +982,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 254 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 255 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 256 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 61
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1032,7 +991,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 258 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 259 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 260 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 62
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1042,7 +1000,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 262 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 263 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 264 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 63
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1052,7 +1009,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 266 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 267 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 268 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1605': not loaded
 asset manager Load_3D_Assets 'ship_1605.w3d'
@@ -1125,7 +1081,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 277 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
 msg 278 AUX_DATA (27) size 2261: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 2251 bytes
 msg 279 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 77
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1135,7 +1090,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 281 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 282 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 283 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 78
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1145,7 +1099,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 285 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 286 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 287 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 79
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1155,7 +1108,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 289 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 290 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 291 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 80
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1165,7 +1117,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 293 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 294 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 295 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 81
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1175,7 +1126,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 297 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 298 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 299 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 82
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1185,7 +1135,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 301 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 302 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 303 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 83
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1195,7 +1144,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 305 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 306 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 307 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 84
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1205,7 +1153,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 309 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 310 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 311 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 85
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1215,7 +1162,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 313 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 314 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 315 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 86
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1225,7 +1171,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 317 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 318 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 319 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 87
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1235,7 +1180,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 321 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 322 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 323 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 88
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1245,7 +1189,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 325 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 326 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 327 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 89
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1255,7 +1198,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 329 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 330 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 331 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 90
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1265,7 +1207,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 333 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 334 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 335 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 91
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1275,7 +1216,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 337 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 338 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 339 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 92
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1285,7 +1225,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 341 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 342 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 343 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'rs_stargate': not loaded
 asset manager Load_3D_Assets 'rs_stargate.w3d'
@@ -1293,13 +1232,12 @@ asset manager +0x78 'rs_stargate' scale 1 hsv (0 0 0) -> model 93
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38961
 msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
-stub RsTrackClass::Unknown_4604D0 1
+gen RenderStateListClass::Unknown_45A750
 msg 345 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 346 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 347 AUX_DATA (27) size 36: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 26 bytes
 msg 348 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1312,7 +1250,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 351 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 352 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 353 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 95
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1322,7 +1259,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 355 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 356 AUX_DATA (27) size 38: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 28 bytes
 msg 357 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1335,7 +1271,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 360 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 361 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 362 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 97
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1345,7 +1280,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 364 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 365 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 366 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 98
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1355,7 +1289,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 368 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 369 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 370 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 99
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1365,7 +1298,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 372 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 373 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 374 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1616': not loaded
 asset manager Load_3D_Assets 'ship_1616.w3d'
@@ -1430,7 +1362,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 380 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 381 AUX_DATA (27) size 181: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 171 bytes
 msg 382 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 113
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1440,7 +1371,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 384 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 385 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 386 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 114
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1450,7 +1380,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 388 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 389 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 390 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 115
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1460,7 +1389,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 392 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 393 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 394 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 116
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1470,7 +1398,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 396 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 397 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 398 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 117
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1480,7 +1407,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 400 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 401 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 402 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 118
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1490,7 +1416,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 404 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 405 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 406 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 119
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1500,7 +1425,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 408 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 409 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 410 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 120
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1510,7 +1434,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 412 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 413 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 414 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 121
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1520,7 +1443,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 416 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 417 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 418 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 122
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1530,7 +1452,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 420 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 421 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 422 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 123
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1540,7 +1461,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 424 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 425 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 426 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 124
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1550,7 +1470,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 428 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 429 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 430 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 125
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1560,7 +1479,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 432 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 433 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 434 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 126
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1570,7 +1488,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 436 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 437 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 438 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 127
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1580,7 +1497,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 440 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 441 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 442 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 128
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1590,7 +1506,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 444 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 445 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 446 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 129
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1600,7 +1515,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 448 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 449 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 450 CREATE (4) size 27: cpacket.cpp's handler
 mainview add 38968
 msg 451 RELATIONSHIP (137) size 13: cpacket.cpp's handler
@@ -1608,7 +1522,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 452 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 453 AUX_DATA (27) size 70: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 60 bytes
 msg 454 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 130
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1618,7 +1531,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 456 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 457 AUX_DATA (27) size 34: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 24 bytes
 msg 458 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1631,7 +1543,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 461 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 462 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 463 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 132
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1641,7 +1552,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 465 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 466 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 467 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 133
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1651,7 +1561,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 469 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 470 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 471 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 134
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1661,7 +1570,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 473 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 474 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 475 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 135
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1671,7 +1579,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 477 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 478 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 479 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 136
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1681,7 +1588,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 481 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 482 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 483 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 137
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1691,7 +1597,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 485 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 486 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 487 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 138
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1701,7 +1606,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 489 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 490 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 491 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 139
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1711,7 +1615,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 493 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 494 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 495 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 140
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1721,7 +1624,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 497 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 498 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 499 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'planet_466': not loaded
 asset manager Load_3D_Assets 'planet_466.w3d'
@@ -1740,7 +1642,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 502 PLANET_POSITIONAL_UPDATE (63) size 52: cpacket.cpp's handler
 msg 503 AUX_DATA (27) size 21: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 11 bytes
 msg 504 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1753,7 +1654,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 507 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 508 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 509 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 143
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1763,7 +1663,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 511 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 512 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 513 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 144
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1780,7 +1679,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 516 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 517 AUX_DATA (27) size 22: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 12 bytes
 msg 518 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 145
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1790,7 +1688,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 520 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 521 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 522 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 146
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1800,7 +1697,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 524 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 525 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 526 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 147
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1810,7 +1706,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 528 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 529 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 530 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 148
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1820,7 +1715,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 532 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 533 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 534 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 149
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1830,7 +1724,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 536 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 537 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 538 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 150
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1840,7 +1733,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 540 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 541 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 542 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 151
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1850,7 +1742,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 544 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 545 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 546 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 152
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1860,7 +1751,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 548 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 549 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 550 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 153
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1870,7 +1760,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 552 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 553 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 554 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 154
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1880,7 +1769,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 556 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 557 AUX_DATA (27) size 27: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 17 bytes
 msg 558 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -1893,7 +1781,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 561 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 562 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 563 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 156
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1903,7 +1790,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 565 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 566 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 567 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 157
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1913,7 +1799,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 569 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 570 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 571 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 158
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1923,7 +1808,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 573 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 574 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 575 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 159
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1933,7 +1817,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 577 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 578 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 579 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 160
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1943,7 +1826,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 581 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 582 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 583 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 161
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1953,7 +1835,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 585 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 586 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 587 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 162
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1963,7 +1844,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 589 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 590 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 591 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 163
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1973,7 +1853,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 593 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 594 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 595 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 164
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1983,7 +1862,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 597 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 598 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 599 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 165
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1993,7 +1871,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 601 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 602 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 603 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 166
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2003,7 +1880,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 605 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 606 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 607 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 167
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2013,7 +1889,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 609 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 610 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 611 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 168
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2023,7 +1898,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 613 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 614 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 615 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 169
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2033,7 +1907,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 617 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 618 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 619 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 170
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2043,7 +1916,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 621 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 622 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 623 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 171
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2053,7 +1925,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 625 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 626 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 627 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 172
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2063,7 +1934,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 629 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 630 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 631 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 173
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2073,7 +1943,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 633 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 634 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 635 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 174
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2083,7 +1952,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 637 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 638 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 639 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 175
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2093,7 +1961,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 641 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 642 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 643 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 176
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2103,7 +1970,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 645 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 646 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 647 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 177
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2113,7 +1979,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 649 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 650 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 651 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 178
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2123,7 +1988,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 653 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 654 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 655 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 179
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2133,7 +1997,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 657 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 658 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 659 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 180
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2143,7 +2006,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 661 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 662 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 663 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 181
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2153,7 +2015,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 665 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 666 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 667 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 182
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2163,7 +2024,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 669 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 670 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 671 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 183
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2173,7 +2033,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 673 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 674 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 675 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 184
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2183,7 +2042,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 677 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 678 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 679 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 185
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2193,7 +2051,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 681 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 682 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 683 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 186
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2203,7 +2060,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 685 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 686 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 687 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 187
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2213,7 +2069,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 689 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 690 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 691 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 188
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2223,7 +2078,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 693 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 694 AUX_DATA (27) size 34: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 24 bytes
 msg 695 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::NavigationDataClass
 gen NavigationDataClass::Unknown_7BA940
@@ -2236,7 +2090,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 698 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 699 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 700 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 190
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2246,7 +2099,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 702 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 703 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 704 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 191
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2256,7 +2108,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 706 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 707 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 708 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 192
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2266,7 +2117,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 710 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 711 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 712 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 193
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2276,7 +2126,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 714 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 715 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 716 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 194
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2286,7 +2135,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 718 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 719 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 720 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 195
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2296,7 +2144,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 722 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 723 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 724 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 196
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2306,7 +2153,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 726 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 727 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 728 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 197
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2316,7 +2162,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 730 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 731 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 732 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 198
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2326,7 +2171,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 734 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 735 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 736 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 199
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2336,7 +2180,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 738 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 739 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 740 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 200
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2346,7 +2189,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 742 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 743 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 744 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 201
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2356,7 +2198,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 746 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 747 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 748 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 202
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2366,7 +2207,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 750 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 751 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 752 SERVER_PARAMETERS (66) size 74: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 203
 mainview 1DC's +0x88 a model
@@ -2375,7 +2215,6 @@ gen SClientUnknown1338Class::Unknown_760770
 gen OrbitalManager::Unknown_4F3310
 gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 753 START (5) size 8: cpacket.cpp's handler
-gen UICpitClass::Unknown_584A60
 loadingview render object Remove
 gen LoadingViewFontManagerClass::Unknown_6D2310
 gen SClientFontDatabaseClass::Unknown_6C55B0
@@ -2390,14 +2229,17 @@ msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
 gen CameraManagerClass::Unknown_79B2B0
 msg 756 CLIENT_CHAT_EVENT (165) size 49: cpacket.cpp's handler
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 71 bytes
 msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x17 'rtt = 4291033018  correction = 2140343229' 0
 state CLIENT_SET_TIME correction 2140343229 rtt -3934278
 msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
+stub Unknown764FD0Class::Unknown_765DF0 12
+stub SClient::Unknown_74D990 0xC '[Market] Snaggletoof: *erupts in laughter*' 0
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 stub SoundManagerClass::Unknown_75B0D0 'Device_Installed' 0
 msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
+stub Unknown764FD0Class::Unknown_765DF0 12
+stub SClient::Unknown_74D990 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D' 0
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 1967671 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
@@ -2415,7 +2257,6 @@ mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901063 100
 stub EffectObjectClass::Unknown_6E6ED0 48901063 124
 msg 764 AUX_DATA (27) size 100: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 90 bytes
 msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 stub Unknown_6E9490 desc 530 effect 48901075 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
@@ -2438,7 +2279,6 @@ mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901077 100
 stub EffectObjectClass::Unknown_6E6ED0 48901077 124
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 25 bytes
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
 gen SClientUnknown1394Class::SClientUnknown1394Class
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
@@ -2466,20 +2306,15 @@ msg 778 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x17 'rtt = 4291026440  correction = 2140347096' 0
 state CLIENT_SET_TIME correction 2140347096 rtt -3940856
 msg 779 AUX_DATA (27) size 38: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode player, 28 bytes
 msg 780 AUX_DATA (27) size 43: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 33 bytes
 msg 781 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 782 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 783 SET_TARGET (25) size 12: cpacket.cpp's handler
 msg 784 AUX_DATA (27) size 153: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode player, 143 bytes
 msg 785 AUX_DATA (27) size 36: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 26 bytes
 msg 786 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 787 ADVANCED_POSITIONAL_UPDATE (62) size 46: cpacket.cpp's handler
 msg 788 AUX_DATA (27) size 71: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 61 bytes
 msg 789 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 790 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 791 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
@@ -2492,7 +2327,6 @@ mainview 64
 stub EffectObjectClass::Unknown_6E74B0 48901090 100
 stub EffectObjectClass::Unknown_6E6ED0 48901090 124
 msg 794 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 795 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 796 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 797 CREATE (4) size 27: cpacket.cpp's handler
@@ -2504,7 +2338,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 799 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 800 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 801 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 205
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2514,7 +2347,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 803 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 804 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 805 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 806 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 206
@@ -2525,8 +2357,9 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 808 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
+stub Unknown764FD0Class::Unknown_765DF0 12
+stub SClient::Unknown_74D990 0xC '[Market] Stormp: hard to say >>>' 0
 msg 811 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 207
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2536,7 +2369,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 813 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 814 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 815 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 816 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 208
@@ -2547,7 +2379,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 818 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 819 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 820 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 209
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2557,7 +2388,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 822 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 823 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 824 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1028': not loaded
 asset manager Load_3D_Assets 'ship_1028.w3d'
@@ -2588,7 +2418,6 @@ msg 825 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 826 AUX_DATA (27) size 62: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 52 bytes
 msg 827 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
 msg 828 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 217
@@ -2599,7 +2428,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 830 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 831 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 832 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 218
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2609,7 +2437,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 834 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 835 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 836 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 219
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2619,7 +2446,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 838 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 839 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 840 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 38957
@@ -2636,7 +2462,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 844 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 845 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 846 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 221
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2646,7 +2471,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 848 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 849 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 850 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::Unknown_7BA940
@@ -2678,7 +2502,6 @@ msg 853 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 854 AUX_DATA (27) size 62: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 52 bytes
 msg 855 ADVANCED_POSITIONAL_UPDATE (62) size 62: cpacket.cpp's handler
 msg 856 WARP_INDEX (156) size 8: cpacket.cpp's handler
 fail_if !radar (line 2292)
@@ -2691,7 +2514,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 859 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 860 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 861 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 230
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2701,9 +2523,7 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 863 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 864 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 865 AUX_DATA (27) size 23: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 13 bytes
 msg 866 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 231
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2713,7 +2533,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 868 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 869 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 870 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 232
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2723,7 +2542,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 872 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 873 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 874 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 875 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 233
@@ -2734,7 +2552,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 877 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 878 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 879 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 234
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2744,7 +2561,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 881 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 882 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 883 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 235
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2754,7 +2570,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 885 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 886 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 887 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 236
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2764,7 +2579,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 889 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 890 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 891 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 892 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 237
@@ -2775,7 +2589,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 894 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 895 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 896 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 238
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2785,7 +2598,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 898 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 899 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 900 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 39074
@@ -2808,7 +2620,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 904 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 905 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 906 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 240
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2818,7 +2629,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 908 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 909 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 910 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 241
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2828,7 +2638,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 912 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 913 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 914 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 242
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2838,7 +2647,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 916 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 917 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 918 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 919 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 920 CREATE (4) size 27: cpacket.cpp's handler
@@ -2850,7 +2658,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 922 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 923 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 924 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 244
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2860,7 +2667,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 926 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 927 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 928 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 245
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2870,7 +2676,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 930 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 931 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 932 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 933 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 246
@@ -2881,7 +2686,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 935 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 936 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 937 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 247
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2891,7 +2695,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 939 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 940 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 941 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 248
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2901,7 +2704,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 943 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 944 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 945 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 249
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2911,7 +2713,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 947 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 948 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 949 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 250
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2921,7 +2722,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 951 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 952 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 953 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 954 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
@@ -2944,7 +2744,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 957 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 958 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 959 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 960 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 252
@@ -2955,7 +2754,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 962 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 963 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 964 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 965 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 253
@@ -2966,7 +2764,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 967 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 968 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 969 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 970 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 254
@@ -2977,7 +2774,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 972 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 973 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 974 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 255
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2987,7 +2783,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 976 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 977 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 978 REMOVE (7) size 8: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 43912
@@ -3009,7 +2804,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 981 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 982 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 983 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 984 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 257
@@ -3020,7 +2814,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 986 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 987 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 988 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 258
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -3030,7 +2823,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 990 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 991 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 992 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 259
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -3040,7 +2832,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 994 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 995 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 msg 996 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 997 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 260
@@ -3051,7 +2842,6 @@ gen Unknown_4F7EF0
 gen SignalMap::emit
 msg 999 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 1000 AUX_DATA (27) size 31: cpacket.cpp's handler
-stub DeltaCompoundClass::Decode object, 21 bytes
 check every message taken off the connection: ok
 CREATE x202: 202 objects in the table with the packet's game id, type, base asset and a model; REMOVE x4: 4 gone
 check every CREATE 4 put a new object with its game id, type, base asset and model in the table: ok
@@ -3062,20 +2852,18 @@ check every CLIENT_SET_TIME 52 set the clock offset +0x10C0, cleared +0x10C8 / +
 recorded 0, through cpacket.cpp's handlers 1000
 == (4c) GADGET 103 and INCAPACITANCE_DETAILS 144
 msg 1001 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_test'
-gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 
-check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0: ok
+gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 
+check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view); 0x6607D0 is the real gadget.cpp now and does nothing without a flash: ok
 msg 1002 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_test'
 check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on: ok
 msg 1003 ? (103) size 22: cpacket.cpp's handler
-stub GadgetListManagerClass::Unknown_661940 'gadget_none'
 fail_if !gadget (line 1851)
 check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
 msg 1004 ? (144) size 267: cpacket.cpp's handler
 gen CameraManagerClass::Unknown_79B2B0
-stub UICpitClass::Unknown_584690 'rescuer'
-check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer'): ok
+stub UICpitUnknownE0Class slot +0x58
+incapacitance calls: 552FC0 553370('a') 553500(3) 5537A0(3) slot58 
+check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the real ui_cpit.cpp 0x584690 hands the packet to the cockpit's +0xE0 object (0x552FC0, 0x553370, 0x553500, 0x5537A0, slot +0x58): ok
 == (4d) FORMATION_POSITIONAL_UPDATE 65
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 261
@@ -3231,10 +3019,19 @@ recustomize calls: 61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc)
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
 msg 1 ? (235) size 36: cpacket.cpp's handler
-gen InterfaceClass::InterfaceClass
+gen GClassUnknownClass::GClassUnknownClass
+gen InterfaceKeyListClass::InterfaceKeyListClass
+gen InterfaceUnknown58Class::InterfaceUnknown58Class
+gen InterfaceUnknown64Class::InterfaceUnknown64Class
+gen SignalMap::SignalMap
+stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 0
 msg 2 ? (234) size 36: cpacket.cpp's handler
-gen InterfaceClass::InterfaceClass
+gen GClassUnknownClass::GClassUnknownClass
+gen InterfaceKeyListClass::InterfaceKeyListClass
+gen InterfaceUnknown58Class::InterfaceUnknown58Class
+gen InterfaceUnknown64Class::InterfaceUnknown64Class
+stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
 check GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0: ok
@@ -3245,13 +3042,15 @@ fail_if !group_interface (line 3136)
 check CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called: ok
 msg 2 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
+fail_if !client (line 1753)
 msg 3 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
+fail_if !client (line 1753)
 msg 4 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 msg 5 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
-group calls: 5981B0 598200(1) 5982A0(9) 
+group calls: 
 check CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false): ok
 == (4j) TRADE 31, NOTE_CONTENT 184, MESSAGE_CHATSTREAM 95, FIND_MEMBER 83
 msg 1 TRADE (31) size 9: cpacket.cpp's handler
@@ -3310,7 +3109,6 @@ gen ViewUnknown34Class::Unknown_588A70
 check 216: the rename question to the dialog, +0x119C = "": ok
 msg 3 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
 SClient::Unknown_74DFF0 0x8 'Alex has joined Earthlings.' 3 0
-stub SoundLibraryClass::Play_2D_Sound 'guild_join' 2
 msg 4 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
 SClient::Unknown_74DFF0 0x8 'guild message' 4 0
 check GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0: ok
@@ -3352,9 +3150,8 @@ stub SClient::Unknown_74D990 0x13 'Message sent to all users.' 0
 stub SClient::Unknown_74D990 0x13 'Removed channel Sector 1.' 0
 stub SClient::Unknown_74D990 0x13 'Kicked Alex from channel Sector 1.' 0
 stub SClient::Unknown_74D990 0x13 'Set channel Sector 1 access to Bea.' 0
-stub SoundLibraryClass::Play_2D_Sound 'success_1.wav' 2
 stub SClient::Unknown_74D990 0x13 'A password has been set for channel Sector 1.' 0
-check CLIENT_CHAT_ERROR 166 success: five lines (and the sound for 22), type 4 none: ok
+check CLIENT_CHAT_ERROR 166 success: five lines (the sound for 22 is soundlib.cpp's real Play_2D_Sound now: no stand-in line), type 4 none: ok
 msg 1 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
 gen ViewUnknown34Class::Unknown_588A70
 msg 2 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
