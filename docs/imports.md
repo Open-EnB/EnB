@@ -1648,7 +1648,7 @@ Base copy: reconstructed. Headers: 261 from reconstructed.
 | client/tasks/tsk_smovie.cpp | reconstructed | 14 | 4 | - | - | - |  |
 | client/tutorial_manager.cpp | reconstructed | 38 | 8 | - | - | - |  |
 | common/udpconn.cpp | reconstructed | 36 | 1 | - | - | - |  |
-| client/ui_avatar_cust.cpp | reconstructed | 29 | 4 | - | - | - |  |
+| client/ui_avatar_cust.cpp | reconstructed | 30 | 4 | - | - | - |  |
 | client/ui_avatr.cpp | reconstructed | 15 | 5 | - | - | - |  |
 | client/ui_chat_panel.cpp | reconstructed | 53 | 6 | - | - | - |  |
 | client/ui_combobox.cpp | reconstructed | 5 | 2 | - | - | - |  |

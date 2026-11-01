@@ -36,6 +36,8 @@ public:
 	unsigned int Unknown2CLow : 11;						// +0x2C
 	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x550670 sets it with 0x6603A0, clears it with 0x6607D0)
 	RenderObjClass *Unknown30;							// +0x30 (0x550A10 hands it to 0x497300)
+	char Unknown34[0xB8 - 0x34];						// +0x34
+	float UnknownB8, UnknownBC, UnknownC0, UnknownC4, UnknownC8;	// +0xB8 (the window's +0xB8, its model's turn: 0x54E3C0 sets them while a turn button is down)
 	void Unknown_6608F0();								// 0x6608F0 (0x550A10, after the model's turn)
 };
 
@@ -69,6 +71,8 @@ public:
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (0x5513E0: the name, 0, 0, 1)  // NAME 2: what it does (the asset manager's slot)
 };
+extern GadgetClass *Unknown_BE5F24;					// NAME 1 [Unknown_BE5F24]: 0xBE5F24 (0x54E3C0: a gadget held down, as 0xBE5F28)
+extern GadgetClass *Unknown_BE5F28;					// NAME 1 [Unknown_BE5F28]: 0xBE5F28
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
@@ -96,6 +100,7 @@ static UIAvatarCustPartStruct UIAvatarCustMetals[3] = {	// NAME 1: neutral (D10)
 class UIAvatarCustAvatarClass : public RefCountClass	// NAME 1: neutral (D10); a RefCountClass (0x54E690 releases it through slot 0, its count at +0x04)
 {
 public:
+	void Unknown_77FC20(int value, bool unknown);		// 0x77FC20 (0x54E950: +0x368's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
@@ -135,6 +140,7 @@ public:
 	void Unknown_54EAD0(int dir);						// 0x54EAD0 (+0x36C one on (1) or back, its value onto the avatar)  // NAME 1 [dir]: as 0x550550's
 	void Unknown_54FFC0();								// 0x54FFC0
 	void Unknown_550140(int id);						// 0x550140 (the part buttons 0x1A-0x1C, 0x24-0x27: the part +0x358, a metal's +0x35C)  // NAME 1 [id]: neutral
+	void Unknown_54E950(int dir);						// 0x54E950 (+0x368 one on (1) or back, skipping 0 for Gender 1, its value onto the avatar)  // NAME 1 [dir]: as 0x550550's
 	void Unknown_550670();								// 0x550670 (the mode and part buttons' state)
 	void Unknown_550970(int value);						// 0x550970  // NAME 1 [value]: neutral
 	void Unknown_551BF0();								// 0x551BF0 (the cost of the changes: recustomization_cost.cpp's 0x8493F0)
@@ -184,6 +190,54 @@ public:
 	RecustomizationCostClass Unknown390;				// +0x390 (the costs per slot: 0x551C40)
 	bool Unknown3CC;									// +0x3CC (set once the costs are in)
 };
+
+inline void UIAvatarCust_Set(float &dst, float value) { dst = value; }	// NAME 1: neutral (D10): the non-zero turns go through a float argument (the client stores them with fld / fstp, the zeros from edi); a plain assignment copies them through eax (0.44)
+inline bool UIAvatarCust_Held(GadgetClass *gadget) { return(Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget); }	// NAME 1: neutral (D10)
+
+static const float UIAvatarCustTurn = 2.0f;				// 0xAEF670 (0x54E3C0: the model's turn, +0xB8)  // NAME 1: neutral (D10)
+static const float UIAvatarCustTilt = 0.75f;			// 0xAEF674 (+0xC0 / +0xC4)  // NAME 1: neutral (D10)
+static const float UIAvatarCustRise = 1.0f;				// 0xAEF678 (+0xC8)  // NAME 1: neutral (D10)
+
+// 0x54E3C0
+void StarbaseAvatarCreationInterface::Unknown_54E3C0()
+{
+	if (UIAvatarCust_Held(Unknown1CC[3])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownB8, -UIAvatarCustTurn);
+	} else if (UIAvatarCust_Held(Unknown1CC[4])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownB8, UIAvatarCustTurn);
+	} else {
+		Unknown0B8->UnknownB8 = 0;
+		Unknown0B8->UnknownBC = 0;
+	}
+	if (UIAvatarCust_Held(Unknown1CC[11])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC0, -UIAvatarCustTilt);
+	} else if (UIAvatarCust_Held(Unknown1CC[10])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC0, UIAvatarCustTilt);
+	} else if (UIAvatarCust_Held(Unknown1CC[8])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC4, -UIAvatarCustTilt);
+	} else if (UIAvatarCust_Held(Unknown1CC[9])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC4, UIAvatarCustTilt);
+	} else {
+		Unknown0B8->UnknownC0 = 0;
+		Unknown0B8->UnknownC4 = 0;
+	}
+	if (UIAvatarCust_Held(Unknown1CC[5])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC8, -UIAvatarCustRise);
+	} else if (UIAvatarCust_Held(Unknown1CC[6])) {
+		UIAvatarCust_Set(Unknown0B8->UnknownC8, UIAvatarCustRise);
+	} else {
+		Unknown0B8->UnknownC8 = 0;
+	}
+	if (Unknown0B0 == 1) {
+		if (UIAvatarCust_Held(Unknown204[13])) {
+			Unknown_550550(1);
+			return;
+		}
+		if (UIAvatarCust_Held(Unknown204[14])) {
+			Unknown_550550(2);
+		}
+	}
+}
 
 // 0x54E610
 void StarbaseAvatarCreationInterface::Unknown_54E610()
@@ -236,6 +290,23 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0B8->Unknown_84(Unknown0BC);
+	Unknown_551BF0();
+}
+
+// NOT EXACT: register (0.69: dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
+// 0x54E950
+void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
+{
+	do {
+		if (dir == 1) {
+			Unknown368->Unknown_585CC0();
+		} else {
+			Unknown368->Unknown_585C90();
+		}
+	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
+	Unknown0BC->Unknown_77FC20(Unknown368->Unknown18, true);
 	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
@@ -638,7 +709,8 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
 **	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); NOT EXACT (register) 0x54E690 / 0x54E7F0 (the
-**	body and pants types) and 0x54EAD0 (+0x36C's value). +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
+**	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
+**	turn while a turn button is held: 0x54E610 calls it) exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
 **	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
