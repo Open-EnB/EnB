@@ -33,6 +33,7 @@ class BINKMovie		// the two Play overloads (Renegade's in binkmovie.lib, E&B's h
 public:
 	static void Play(const char *filename, const char *subtitlename, FontCharsClass *font);
 	static void Play(const char *filename, const char *subtitlename, int volume);
+	static bool Is_Complete();
 };
 
 // E&B's Play (client 0xA161B0-0xA162D0's run): here Renegade's, no subtitles, the volume ignored
@@ -40,4 +41,5 @@ void BINKMovie::Play(const char *filename, const char *subtitlename, int volume)
 {
 	Stub_Log_Line("POC BINKMovie::Play('%s', '%s', %d): Renegade's Play, no subtitles", filename, subtitlename, volume);
 	Play(filename, (const char *)NULL, (FontCharsClass *)NULL);
+	Stub_Log_Line("POC BINKMovie::Play: %s", Is_Complete() ? "complete at once (not opened?)" : "playing");
 }
