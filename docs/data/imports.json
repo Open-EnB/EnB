@@ -12310,6 +12310,29 @@
     ],
     "merged": [],
     "name": "common/weapontype.cpp"
+   },
+   "winmsg": {
+    "ambiguous": [
+     "0x42FC60",
+     "0x42FE90",
+     "0x430050",
+     "0x430090",
+     "0x4300C0",
+     "0x430150",
+     "0x4301A0",
+     "0x430260",
+     "0x430340",
+     "0x430450"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F940",
+     "0x42FBA0",
+     "0x430370"
+    ],
+    "merged": [],
+    "name": "input/winmsg.cpp"
    }
   },
   "headers": {
@@ -12393,6 +12416,7 @@
    "input/input.h": "reconstructed",
    "input/w32kbd.h": "reconstructed",
    "input/w32mouse.h": "reconstructed",
+   "input/winmsg.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgeclon.h": "reconstructed",

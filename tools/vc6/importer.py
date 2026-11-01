@@ -3783,8 +3783,12 @@ RECONSTRUCTED = {
                                "(the queue element's constructor inlined), the rest exact: 0x42E390, 0x42E3B0, 0x42E7B0, "
                                "the queue 0x42E8A0 / 0x42EA80 / 0x42EEC0, 0x42EB80 (ToAscii), the mouse 0x42ECF0 / "
                                "0x42ED20 / 0x42ED80 / 0x42EDB0, key repeat 0x42EE00, 0x42EE90",
-    ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3) "
-                              "and the window-message handler list's add / remove (interim placement, D137)",
+    ('app', 'input/winmsg.h'): "the window-message handler list's add / remove / dispatch (PROVISIONAL file name, D10)",
+    ('app', 'input/winmsg.cpp'): "the window-message handler list, client 0x42F880-0x430450 (PROVISIONAL file name, D10, "
+                                "and place, D137: the object between input.cpp and w32kbd.cpp has no __FILE__; builder INP, "
+                                "run PR #140): an SList of handlers, the add 0x42F940 and dispatch 0x42FBA0 exact, the remove "
+                                "0x42FAC0 NOT EXACT (shape), SList's instances",
+    ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3)",
     ('app', 'input/w32kbd.cpp'): "w32kbd.cpp's keyboard handler, client 0x430490-0x430D40 (the reporter's __LINE__ 124 / "
                                 "270, D25; builder INP, run PR #140): the constructor, destructor, Set_Repeat, the "
                                 "registration pair and the key-message handler 0x4307A0 exact, the key test 0x430CA0 "

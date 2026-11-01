@@ -18,6 +18,7 @@
 #define __W32KBD_H
 
 #include "input.h"
+#include "winmsg.h"
 
 class Win32KeyboardHandlerClass : public KeyboardClass	// NAME 1 [Win32KeyboardHandlerClass]: after w32mouse.cpp's Win32MouseHandlerClass
 {
@@ -30,7 +31,5 @@ public:
 	virtual bool Set_Repeat(bool enable);											// 0x4306D0  // NAME 1 [enable]: as KeyboardClass's
 };
 
-void Unknown_42F940(int message, int (*handler)(int, int));	// 0x42F940: adds a window-message handler (interim placement, D137)  // NAME 1 [Unknown_42F940, message, handler]: as main_client.cpp
-void Unknown_42FAC0(int message, int (*handler)(int, int));	// 0x42FAC0: removes it  // NAME 1 [Unknown_42FAC0, message, handler]: as main_client.cpp
 
 #endif //__W32KBD_H

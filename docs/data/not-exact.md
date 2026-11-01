@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-443 entries in 97 files.
+445 entries in 98 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -305,6 +305,8 @@ edit the comments in the code, not this file.
 | `app/input/w32kbd.cpp:306` | `Win32KeyboardHandlerClass::Unknown_0C` | mention | NOT EXACT, register). 0x430D70 is KeyboardClass's destructor out of line (input.h). Not rebuilt: the part of the file before 0x430490, if it is this file's: the window-message handler list (0x42F860-0x430450, 0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; programs/clientpoc/poc_window.cpp has stand-ins) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts). The han... |
 | `app/input/w32mouse.cpp:285` | `Win32MouseHandlerClass::Update` | marker | NOT EXACT: register: x and the clamp flag in ecx / al in the client, eax / cl in ours (attempts.csv) |
 | `app/input/w32mouse.cpp:339` | `Win32MouseHandlerClass::Set_Pixel_Position` | mention | NOT EXACT, register). 0x431A80 is MouseClass's destructor out of line (input.h). The next object starts at 0x431CA0 (the main window). Forms that matched: Get_Position clamps through WWMath::Clamp (the client's fld / fcom / fld constant), 0x4314C0 inline; 0x4316A0 with `result = -1` before the switch and the wheel's `wparam >> 16` against WHEEL_DELTA (>= 120, <= -120). |
+| `app/input/winmsg.cpp:21` | `Unknown_42FAC0` | marker | NOT EXACT: shape: the client keeps Remove's HeadNode test after the search, ours drops it (attempts.csv) |
+| `app/input/winmsg.cpp:50` | `Unknown_42FBA0` | mention | NOT EXACT (shape), then wwlib's SList<T> instances 0x42FBF0-0x430340 and the node pool's Allocate_Object_Memory / Free_Object_Memory 0x430370 / 0x430450. Its statics are the list 0xBDAAD8 (vtable, head 0xBDAADC, tail 0xBDAAE0). The handlers are called with (message, wParam, lParam) through the two-argument type the callers declare. Forms that matched: 0x42F940 with the entry's constructor in the A... |
 | `app/packets/pkdamage.h:28` | `?` | mention | NOT EXACT) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |

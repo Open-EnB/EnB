@@ -2,7 +2,7 @@
 /*
 **	Functional stand-ins, written from Ghidra's pseudocode of the client's functions, for what WinMain
 **	(app\main\main_client.cpp) needs before anything can draw: the main window (0x431CA0 and its window
-**	procedure 0x431DE0), the window-message handler list (0x42F940 add, 0x42FAC0 remove, 0x42FBA0 dispatch),
+**	procedure 0x431DE0),
 **	display.cpp's start-up / shut-down (0x442AC0 / 0x442FF0) and E&B's asset manager's constructor
 **	(0x48B070). Delete one here when its real function lands in app/ (the linker reports the duplicate).
 **
@@ -75,54 +75,12 @@ static struct PocCrashLog
 	}
 } Poc_Crash_Log_Installed;
 
-// ---------------------------------------------------------------- the window-message handlers (input.cpp's list)
+// ---------------------------------------------------------------- the window-message handlers
 
-typedef int (*PocMessageHandler)(int, int);
-
-struct PocHandlerNode
-{
-	int Message;
-	PocMessageHandler Handler;
-	PocHandlerNode *Next;
-};
-
-static PocHandlerNode *Poc_Handlers;
-
-// 0x42F940: adds a handler at the head
-void Unknown_42F940(int message, int (*handler)(int, int))
-{
-	PocHandlerNode *node = new PocHandlerNode;
-	node->Message = message;
-	node->Handler = handler;
-	node->Next = Poc_Handlers;
-	Poc_Handlers = node;
-}
-
-// 0x42FAC0: removes the first node with this message and handler
-void Unknown_42FAC0(int message, int (*handler)(int, int))
-{
-	for (PocHandlerNode **link = &Poc_Handlers; *link != NULL; link = &(*link)->Next) {
-		if ((*link)->Message == message && (*link)->Handler == handler) {
-			PocHandlerNode *node = *link;
-			*link = node->Next;
-			delete node;
-			return;
-		}
-	}
-}
-
-// 0x42FBA0: the last matching handler's result, -1 when none handles the message. The client calls each with
-// (message, wParam, lParam) through a two-argument pointer (cdecl: the third is ignored).
-static int Unknown_42FBA0(int message, int wparam, int lparam)
-{
-	int result = -1;
-	for (PocHandlerNode *node = Poc_Handlers; node != NULL; node = node->Next) {
-		if (node->Message == message) {
-			result = ((int (*)(int, int, int))node->Handler)(message, wparam, lparam);
-		}
-	}
-	return result;
-}
+// The list is app\input\winmsg.cpp's (0x42F940 add, 0x42FAC0 remove, 0x42FBA0 dispatch).
+void Unknown_42F940(int message, int (*handler)(int, int));
+void Unknown_42FAC0(int message, int (*handler)(int, int));
+int Unknown_42FBA0(int message, int wparam, int lparam);
 
 // ---------------------------------------------------------------- the main window
 

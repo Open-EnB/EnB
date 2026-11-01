@@ -1397,3 +1397,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-01 13:34,0x4A1AD0,GClass::Get_Target_Node,app/shared/gclass.h,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (GC; inline in gclass.h, emitted in gclass.cpp's object)",,opus
 2026-11-01 13:34,0x4A1AF0,GClass::Get_Targeting_List,app/shared/gclass.h,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (GC; inline in gclass.h, emitted in gclass.cpp's object)",,opus
 2026-11-01 13:34,0x4A2680,GClass::vector deleting dtor (the +0x04 adjustor thunk),app/shared/gclass.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (GC; compiler-generated)",,opus
+2026-11-01 13:41,0x42FAC0,Unknown_42FAC0,app/input/winmsg.cpp,app,partial,0.63,2,shape,"builder INP: SList::Remove inlined after the search; the client keeps its HeadNode test, ours drops it (the head is known non-null from the loop); tried the remove after a break-out search (worse, 0.56)",,Opus

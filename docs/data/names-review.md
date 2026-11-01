@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1121 |
-| 2 | describes what the code does | 2822 |
-| 1 | neutral placeholder | 9850 |
+| 2 | describes what the code does | 2824 |
+| 1 | neutral placeholder | 9868 |
 
 ## For review (score 3 and below)
 
@@ -7645,16 +7645,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/input/w32kbd.cpp:217` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/input/w32kbd.cpp:218` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/input/w32kbd.cpp:276` | untagged neutral name (D10) |
-| 1 | `Win32KeyboardHandlerClass` | `app/input/w32kbd.h:22` | after w32mouse.cpp's Win32MouseHandlerClass |
-| 1 | `Unknown_04` | `app/input/w32kbd.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/input/w32kbd.h:28` | untagged neutral name (D10) |
-| 1 | `unknown1, unknown2` | `app/input/w32kbd.h:29` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/input/w32kbd.h:29` | untagged neutral name (D10) |
-| 1 | `enable` | `app/input/w32kbd.h:30` | as KeyboardClass's |
-| 1 | `Unknown_42F940, message, handler` | `app/input/w32kbd.h:33` | as main_client.cpp |
-| 1 | `Unknown_42F940` | `app/input/w32kbd.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_42FAC0, message, handler` | `app/input/w32kbd.h:34` | as main_client.cpp |
-| 1 | `Unknown_42FAC0` | `app/input/w32kbd.h:34` | untagged neutral name (D10) |
+| 1 | `Win32KeyboardHandlerClass` | `app/input/w32kbd.h:23` | after w32mouse.cpp's Win32MouseHandlerClass |
+| 1 | `Unknown_04` | `app/input/w32kbd.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/input/w32kbd.h:29` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/w32kbd.h:30` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/input/w32kbd.h:30` | untagged neutral name (D10) |
+| 1 | `enable` | `app/input/w32kbd.h:31` | as KeyboardClass's |
 | 1 | `Unknown_Debug_Print` | `app/input/w32mouse.cpp:15` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_BDAC2C` | `app/input/w32mouse.cpp:18` | neutral (D10) |
 | 1 | `Unknown_BDAC30` | `app/input/w32mouse.cpp:19` | neutral (D10) |
@@ -7683,6 +7679,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/input/w32mouse.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/input/w32mouse.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/input/w32mouse.h:29` | untagged neutral name (D10) |
+| 1 | `MessageHandlerStruct` | `app/input/winmsg.cpp:6` | neutral (D10) |
+| 1 | `Unknown_BDAAD8` | `app/input/winmsg.cpp:14` | neutral (D10) |
+| 1 | `Unknown_42F940` | `app/input/winmsg.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `app/input/winmsg.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `app/input/winmsg.cpp:34` | untagged neutral name (D10) |
+| 1 | `winmsg.h` | `app/input/winmsg.h:17` | provisional file name (D10) |
+| 1 | `Unknown_42F940, message, handler` | `app/input/winmsg.h:20` | as main_client.cpp |
+| 1 | `Unknown_42F940` | `app/input/winmsg.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0, message, handler` | `app/input/winmsg.h:21` | as main_client.cpp |
+| 1 | `Unknown_42FAC0` | `app/input/winmsg.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0, message, wparam, lparam` | `app/input/winmsg.h:22` | neutral (D10) |
+| 1 | `Unknown_42FBA0` | `app/input/winmsg.h:22` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
@@ -9563,6 +9571,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_431DE0` | `programs/clientpoc/poc_window.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_431CA0` | `programs/clientpoc/poc_window.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADB8` | `programs/clientpoc/poc_window.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_442FA0` | `programs/clientpoc/poc_window.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_442AC0` | `programs/clientpoc/poc_window.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_442FF0` | `programs/clientpoc/poc_window.cpp:209` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:218` | untagged neutral name (D10) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
@@ -11274,6 +11292,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `KeyStates` | `app/input/input.h:74` | what it holds |
 | 2 | `Queue` | `app/input/input.h:88` | what it holds |
 | 2 | `Queue` | `app/input/input.h:116` | what it holds |
+| 2 | `Message` | `app/input/winmsg.cpp:10` | what it holds |
+| 2 | `lParam` | `app/input/winmsg.cpp:11` | what it holds |
 | 2 | `Key` | `app/kernel/kernel.h:30` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Shift` | `app/kernel/kernel.h:35` | what Process_Key does with it |
 | 2 | `Ctrl` | `app/kernel/kernel.h:36` | what Process_Key does with it |
