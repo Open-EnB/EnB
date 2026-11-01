@@ -108,8 +108,7 @@ LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
 		Release_Displacement_Map();
 		Release_Height_Texture();
 		Release_Vertex_Shader();
-		delete [] Unknown04;
-		Unknown04 = NULL;
+		Release_Cells();
 	}
 }
 
@@ -364,9 +363,16 @@ void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 		}
 	}
 	VertexBuffer->Unlock();
-	delete [] Unknown04;
-	Unknown04 = NULL;
+	Release_Cells();
 	Unknown_468920();
+}
+
+void LandUnknown466BE0Class::Unknown_467E00(void)
+{
+}
+
+void LandUnknown466BE0Class::Unknown_467E20(void)
+{
 }
 
 void LandUnknown466BE0Class::Unknown_467E40(void)
@@ -476,11 +482,16 @@ int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 
 	return 2;
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468920
-void LandUnknown466BE0Class::Unknown_468920(void)
+void LandUnknown466BE0Class::Release_Cells(void)
 {
 	delete [] Unknown04;
 	Unknown04 = NULL;
+}
+
+// NOT EXACT: functional, from the disassembly and pseudocode of 0x468920
+void LandUnknown466BE0Class::Unknown_468920(void)
+{
+	Release_Cells();
 	Unknown08 = (BaseTessellationSize - 1) * (BaseTessellationSize - 1);
 	Unknown04 = new LandUnknown466BE0CellStruct[Unknown08];
 	int cell = 0;
@@ -558,7 +569,8 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 **	constructor 0x466BE0, the destructor 0x466DE0 / 0x466D40, 0x466E70, 0x466F10, the empty 0x466F40 and the registry
 **	reader 0x468120. Exact: 0x467910 (the L8 levels into the displacement map), the vertex shader 0x467E40 (its declaration
 **	array declared before the two buffers: the client stores the array first), the shader's release 0x467FD0 (inlined in
-**	the dtor), the unused generic shader maker 0x468010 and the hardware check 0x4680D0 (inlined in the ctor). Functional,
+**	the dtor), the unused generic shader maker 0x468010, the hardware check 0x4680D0 (inlined in the ctor), the cells' release
+**	0x4688F0 (inlined in the dtor, 0x467A50 and 0x468920) and two empty members 0x467E00 / 0x467E20 (D99 rows). Functional,
 **	NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, the draw
 **	0x466F60 and its helpers 0x468240-0x468D50.
 */

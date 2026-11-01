@@ -38,12 +38,15 @@ public:
 	void							Unknown_4677B0(HeightFieldClass *field);	// NAME 1: unknown; the height field into the L8 texture (+0x34)
 	void							Unknown_467910(void);	// NAME 1: unknown; the L8 texture's levels into the displacement map (+0x30)
 	void							Unknown_467A50(float detail_u, float detail_v);	// NAME 1: unknown; the base mesh's index and vertex buffers
+	void							Unknown_467E00(void);	// NAME 1: unknown; empty, no caller (0x467E00: a bare ret)
+	void							Unknown_467E20(void);	// NAME 1: unknown; empty, no caller (0x467E20: a bare ret)
 	void							Unknown_467E40(void);	// NAME 1: unknown; the vertex shader (+0x2C)
 	void							Release_Vertex_Shader(void);	// NAME 2: DeleteVertexShader of +0x2C (0x467FD0; inlined in the dtor)
 	DWORD							Create_Vertex_Shader(const char *source, DWORD *declaration);	// NAME 2: assembles a shader into +0x2C (0x468010; never called)
 	void							Check_Hardware(void);	// NAME 2: keeps Enabled only on a Matrox (0x102B) with pixel shader 1.3 (0x4680D0; inlined in the ctor)
 	void							Unknown_468240(CameraClass &camera, const D3DXMATRIX &scale);	// NAME 1: unknown; the planes (+0x40) from scale * view * proj
 	int							Unknown_468760(const Vector3 &center, const Vector3 &extent);	// NAME 1: unknown; 0 outside a plane, 1 crossing, 2 inside
+	void							Release_Cells(void);	// NAME 2: deletes the cells (+0x04) (0x4688F0; inlined in the dtor, 0x467A50 and 0x468920)
 	void							Unknown_468920(void);	// NAME 1: unknown; the cells (+0x04) and their bounds
 	void							Unknown_468BE0(AABoxClass &box, const Vector3 *points);	// NAME 1: unknown; the box around eight points
 	void							Unknown_468D50(void);	// NAME 1: unknown; marks the vertices of the cells inside the planes
