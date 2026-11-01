@@ -3265,6 +3265,28 @@ WWONLINE_PATCHES = {
          'TCPMgr::~TCPMgr() throw()  // E&B (0x8BCA90)\n',
          "wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with states 1, 0, -1). The form is the compiler's evidence, not a source line"),
     ],
+    ('wlib', 'wstring.cpp'): [
+        ('bit8 Wstring::set(IN char *s)\n{\n //uint32 len;\n\n strgrow(strlen(s)+1);\n strcpy(str,s);\n\n return(TRUE);\n}\n',
+         'bit8 Wstring::set(IN char *s)\n{\n uint32 len=strlen(s)+1;  // E&B: the length once, copied with memcpy (0x8B7570)\n\n strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n',
+         "E&B's set(char *) 0x8B7570 takes the length once (strlen(s)+1 in ebp), grows by it and copies that many bytes (`mov ecx, ebp; rep movsd`), no second strlen as strcpy would; with strgrow inlined it is the client's form, and the constructor 0x8B5DB0, operator= 0x8B6100 / 0x8B61D0, insert 0x8B7070, replace 0x8B7230, getToken 0x8B7C60 and getLine 0x8B7EB0 inline it the same way"),
+        ('void Wstring::clear(void)\n{\n if(str)\n   delete[](str);\n',
+         'void Wstring::clear(void)\n{\n delete[](str);  // E&B: no NULL test (0x8B6EB0, ~Wstring 0x8B5EC0)\n',
+         "E&B's clear 0x8B6EB0 and ~Wstring 0x8B5EC0 delete str without testing it (`mov eax, [esi]; push eax; call delete`), and replace 0x8B7230's inlined destructor of its local the same"),
+        ('  return(set(dest.get()));\n}\n',
+         '  return(set(dest.get()));\n}\n\n// E&B: replace every occurrence of one character with another (0x8B7520)\nbit8 Wstring::replace(IN char replaceThis,IN char withThis)\n{\n  char *src=get();\n  while(src && src[0])\n  {\n    src=strchr(src, replaceThis);\n    if(src)\n      src[0]=withThis;\n  }\n  return(TRUE);\n}\n',
+         'E&B\'s 0x8B7520 (after replace 0x8B7230): get(), then strchr(src, c) until NULL or the end, storing the second character at each hit; returns 1 (`mov al, 1; ret 8`). htmlview.cpp\'s 0x7759E0 calls it with (\'\\n\', \' \'), (\'\\r\', \' \'), (\'\\t\', \' \') before replace("&nbsp;", ...)'),
+        (' strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n',
+         ' strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n\n// E&B: set from another Wstring (0x8B7640)\nbit8 Wstring::set(IN Wstring &other)\n{\n  return(set(other.get()));\n}\n\n// E&B: set(char *) without its result (0x8B7730); no caller in the client\nvoid Wstring::Unknown_Set(IN char *s)\n{\n  set(s);\n}\n\n// E&B: set(Wstring &) without its result (0x8B7800); no caller in the client\nvoid Wstring::Unknown_Set(IN Wstring &other)\n{\n  set(other.get());\n}\n',
+         'E&B\'s three after set(char *) 0x8B7570: 0x8B7640 is set(char *) inlined on other.get() (str, or "" when NULL), returning 1; 0x8B7730 and 0x8B7800 are the same two bodies with no result (no `mov al, 1`), `ret 4`; none has a caller'),
+    ],
+    ('wlib', 'wstring.h'): [
+        ('   bit8    replace(IN char *replaceThis,IN char *withThis);\n',
+         "   bit8    replace(IN char *replaceThis,IN char *withThis);\n   bit8    replace(IN char replaceThis,IN char withThis);  // E&B: 0x8B7520  // NAME 3: replace's overload for one character\n",
+         "E&B's replace(char, char) 0x8B7520"),
+        ('   char    set(IN char *str);\n',
+         "   char    set(IN char *str);\n   bit8    set(IN Wstring &other);  // E&B: 0x8B7640  // NAME 3: set's overload for a Wstring\n   void    Unknown_Set(IN char *str);  // E&B: 0x8B7730, set without a result  // NAME 1: no caller\n   void    Unknown_Set(IN Wstring &other);  // E&B: 0x8B7800, set without a result  // NAME 1: no caller\n",
+         "E&B's three after set(char *) 0x8B7570: set(Wstring &) 0x8B7640 and two with no result, 0x8B7730 / 0x8B7800"),
+    ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)

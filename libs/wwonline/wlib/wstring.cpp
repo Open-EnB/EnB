@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -265,8 +265,7 @@ void Wstring::removeSpaces(void)
 
 void Wstring::clear(void)
 {
- if(str)
-   delete[](str);
+ delete[](str);  // E&B: no NULL test (0x8B6EB0, ~Wstring 0x8B5EC0)
  strsize=0;
  str=NULL;
 }
@@ -404,15 +403,46 @@ bit8 Wstring::replace(IN char *replaceThis,IN char *withThis)
   return(set(dest.get()));
 }
 
+// E&B: replace every occurrence of one character with another (0x8B7520)
+bit8 Wstring::replace(IN char replaceThis,IN char withThis)
+{
+  char *src=get();
+  while(src && src[0])
+  {
+    src=strchr(src, replaceThis);
+    if(src)
+      src[0]=withThis;
+  }
+  return(TRUE);
+}
+
 
 bit8 Wstring::set(IN char *s)
 {
- //uint32 len;
+ uint32 len=strlen(s)+1;  // E&B: the length once, copied with memcpy (0x8B7570)
 
- strgrow(strlen(s)+1);
- strcpy(str,s);
+ strgrow(len);
+ memcpy(str,s,len);
 
  return(TRUE);
+}
+
+// E&B: set from another Wstring (0x8B7640)
+bit8 Wstring::set(IN Wstring &other)
+{
+  return(set(other.get()));
+}
+
+// E&B: set(char *) without its result (0x8B7730); no caller in the client
+void Wstring::Unknown_Set(IN char *s)
+{
+  set(s);
+}
+
+// E&B: set(Wstring &) without its result (0x8B7800); no caller in the client
+void Wstring::Unknown_Set(IN Wstring &other)
+{
+  set(other.get());
 }
 
 
