@@ -891,6 +891,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.5 Build VMs and vc6.py
 
+* **`appfile.py match --pool` can return another builder's object** (2026-10-31, TK14: ui_avatar_cust.obj's functions,
+  then KeyError on '??1AvatarCreationInterface@@UAE@XZ' while a builder ran the twin file on a shared pool VM): rerun at
+  once. `run_branch.py claim` can hang minutes after a GitHub API rate limit ends; `claims.py check` shows the grant
+  before the command returns.
 * **At most 4 parallel `appfile.py match --pool` jobs** (2026-10-30, RT1): more made pool.py half-create a clone
   (enb-vc6-07, Off with a 0 GB disk; destroyed with `pool.py destroy`), and parallel matches collide in
   `.work/appfile/appfile/obj`. In Git Bash, `--flags '/nologo ...'` is rewritten into a path (MSYS): prefix

@@ -1755,6 +1755,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
+     and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
+     50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030
+     bytes), 0x556F80-0x55BAC0's 21 functions (leads 0x55A060, reusing 0x558060's weights pattern, and 0x55B9A0),
+     0x55BFB0.
    * From the 2026-10-31 t4 run (TK17): cordcon's write 0x850C70 / buildHeader onto Cord_Put_Small / Cord_Put_Seq;
      pump 0x853560 starts with a test of the byte 0xC40488 before WWPROFILE's string call (the profile macro's form
      differs); examinePacket 0x8514D0 0.73 (ntohs / ntohl arguments through eax, the channel kept in ebp); handlePacket
