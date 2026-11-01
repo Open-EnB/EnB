@@ -15,7 +15,7 @@ class Font32Class : public FontClass, public RefCountClass							// NAME 2: what
 	public:
 		Font32Class(void);															// 0x6BBD50, no caller
 		Font32Class(const char * font_name, int spacing, float scale);				// 0x6BBAC0
-		virtual ~Font32Class(void);													// 0x6BBCC0 (deleting 0x6BBC90)
+		// the implicit destructor: 0x6BBCC0 (deleting 0x6BBC90)
 
 		virtual int Char_Pixel_Width(char c) const;									// 0x6BCC40
 		virtual int String_Pixel_Width(char const * string) const;					// 0x6BCBB0

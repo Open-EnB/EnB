@@ -11,7 +11,7 @@ public:
 	static void Get_Device_Resolution(int &set_w, int &set_h, int &get_bits, bool &get_windowed);	// 0x9178F0
 };
 
-// NOT EXACT: (D64) the closing XSpacing = MinSpacing loads through ecx (the client eax) before the EH epilogue
+
 Font32Class::Font32Class(const char * font_name, int spacing, float scale) :
 	XSpacing(spacing),
 	MinSpacing(spacing),
@@ -27,13 +27,13 @@ Font32Class::Font32Class(const char * font_name, int spacing, float scale) :
 	memset(UWidthTable, 0, sizeof(UWidthTable));
 	memset(CharWidthTable, 1, sizeof(CharWidthTable));
 	Load_Font_Image(font_name);
-	XSpacing = MinSpacing;
+	Set_XSpacing(MinSpacing);
 }
 
-// NOT EXACT: (D64) the client's RefCountPtr / base destructor sequence and EH states differ (0.48)
-Font32Class::~Font32Class(void)
-{
-}
+
+
+
+
 
 
 Font32Class::Font32Class(void) :
@@ -110,13 +110,13 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 	float width = sd.Width;
 	float height = sd.Height;
 	int fixed = 0;
-	int top = (int)(VHeight * height + 0.5f);
+	int top = height;
 	int bottom = 0;
 	for (int char_index = 0; char_index < 256; char_index++) {
-		int x0 = (int)(UOffsetTable[char_index] * width + 0.5f);
-		int y0 = (int)(VOffsetTable[char_index] * height + 0.5f);
+		int x0 = (int)(UOffsetTable[char_index] * width + 0.5);
+		int y0 = (int)(VOffsetTable[char_index] * height + 0.5);
 		Vector2i minb(x0, y0);
-		Vector2i maxb(x0 + (int)(UWidthTable[char_index] * width + 0.5f), y0 + (int)(VHeight * height + 0.5f));
+		Vector2i maxb(x0 + (int)(UWidthTable[char_index] * width + 0.5), y0 + (int)(VHeight * height + 0.5));
 		surface->FindBB(&minb, &maxb);
 		int left = minb.I;
 		int right = maxb.I + 1;
@@ -510,28 +510,28 @@ Point2D Font32Class::Print(char const *, ::Surface &, Rect const &, Point2D cons
 	return(_point);
 }
 
-// NOT EXACT: (D64) operand order of the scale product (0.84)
+
 float Font32Class::Get_Text_Width(const char * text, float screen_width)
 {
-	return((screen_width / ScreenWidth) * String_Pixel_Width(text) * Scale);
+	return((screen_width / ScreenWidth) * (String_Pixel_Width(text) * Scale));
 }
 
-// NOT EXACT: (D64) operand order of the scale product (0.84)
+
 float Font32Class::Get_Char_Width(char c, float screen_width)
 {
-	return((screen_width / ScreenWidth) * Char_Pixel_Width(c) * Scale);
+	return((screen_width / ScreenWidth) * (Char_Pixel_Width(c) * Scale));
 }
 
-// NOT EXACT: (D64) operand order of the scale product (0.83)
+
 float Font32Class::Get_Char_Height(float screen_height)
 {
-	return((screen_height / ScreenHeight) * Get_Height() * Scale);
+	return((screen_height / ScreenHeight) * (Get_Height() * Scale));
 }
 
-// NOT EXACT: (D64) operand order of the scale product (0.83)
+
 float Font32Class::Get_Line_Height(float screen_height)
 {
-	return((screen_height / ScreenHeight) * Get_Line_Spacing() * Scale);
+	return((screen_height / ScreenHeight) * (Get_Line_Spacing() * Scale));
 }
 
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-432 entries in 90 files.
+426 entries in 90 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -75,17 +75,11 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
 | `app/client/extrap.cpp:1917` | `Unknown714340Class::Unknown_1C` | marker | NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x) |
 | `app/client/extrap.cpp:1973` | `Unknown714340Class::Unknown_1C` | mention | NOT EXACT ones say why above them (docs/data/not-exact.md). Forms that mattered: WW's Equal_Within_Epsilon before Slerp, In_Place_Pre_Rotate_Z for the turn, `float turn = Unknown80; turn += Unknown50;`, WWMath::Min / Max for the speed, assignment (not initialisation) of returned Vector3s where the client copies them, end_time (the parameter) in 0x7119B0. |
-| `app/client/font32bit.cpp:14` | `Font32Class::Font32Class` | marker | NOT EXACT: (D64) the closing XSpacing = MinSpacing loads through ecx (the client eax) before the EH epilogue |
-| `app/client/font32bit.cpp:33` | `Font32Class::~Font32Class` | marker | NOT EXACT: (D64) the client's RefCountPtr / base destructor sequence and EH states differ (0.48) |
 | `app/client/font32bit.cpp:58` | `Font32Class::Minimize_Font_Image` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Minimize_Font_Image), no caller (0.87) |
 | `app/client/font32bit.cpp:105` | `Font32Class::Make_Proportional` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Make_Proportional with a fixed width for empty cells, 0.21) |
 | `app/client/font32bit.cpp:329` | `Font32Class::Load_Font_Image` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Load_Font_Image, 0.80) |
 | `app/client/font32bit.cpp:435` | `Font32Class::Print_To_Surface` | marker | NOT EXACT: (D64) written from the pseudocode (0.68) |
 | `app/client/font32bit.cpp:506` | `Font32Class::Print` | marker | NOT EXACT: (D64) a prefix of the client's 81 bytes: the static's guard and atexit differ |
-| `app/client/font32bit.cpp:513` | `Font32Class::Get_Text_Width` | marker | NOT EXACT: (D64) operand order of the scale product (0.84) |
-| `app/client/font32bit.cpp:519` | `Font32Class::Get_Char_Width` | marker | NOT EXACT: (D64) operand order of the scale product (0.84) |
-| `app/client/font32bit.cpp:525` | `Font32Class::Get_Char_Height` | marker | NOT EXACT: (D64) operand order of the scale product (0.83) |
-| `app/client/font32bit.cpp:531` | `Font32Class::Get_Line_Height` | marker | NOT EXACT: (D64) operand order of the scale product (0.83) |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: register, 2 rows: the inlined Text += ' ' addresses [buffer + length] where the client has [length + buffer] |
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |
 | `app/client/fontdatabase.cpp:670` | `FontDatabaseClass::Parse_Directions` | marker | NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue |
