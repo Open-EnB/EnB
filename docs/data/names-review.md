@@ -7944,7 +7944,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/wwudp/cordcon.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:234` | untagged neutral name (D10) |
 | 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:1024` | untagged neutral name (D10) |
-| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:1503` | untagged neutral name (D10) |
+| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:1507` | untagged neutral name (D10) |
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:60` | stand-in for wlib's LinkedList<T> |
 | 1 | `Unknown28` | `app/wwudp/cordcon.h:309` | untagged neutral name (D10) |
 | 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:354` | untagged neutral name (D10) |
@@ -10772,10 +10772,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
 | 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:106` | Reset's body |
-| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1304` | what it does (the client has no name) |
-| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1314` | what it does (the client has no name) |
-| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1324` | what it does (the client has no name) |
-| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1337` | what it does (the client has no name) |
+| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1308` | what it does (the client has no name) |
+| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1318` | what it does (the client has no name) |
+| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1328` | what it does (the client has no name) |
+| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1341` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:229` | describes what it holds |

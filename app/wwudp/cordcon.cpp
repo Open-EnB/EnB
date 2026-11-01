@@ -1154,11 +1154,12 @@ void CordCon::Queue_Empty_Message()
 	Queued_++;
 }
 
-// 0x853560, functional (NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal,
+// 0x853560: pumpInternal,
 // and while acks or resend requests are due with nothing queued, an empty message on channel 0
 // to carry them; the keep-alive (an empty message after 5 s without a send, every second until
 // something arrives), the idle close (90 s without a datagram), and the channels this side
-// opened that are closed and empty leave the active list.
+// opened that are closed and empty leave the active list. The client's Ready_ search steps from r to
+// i, not r + 1 (kept: it loops for good when Ready_[0] and Ready_[i] are other channels).
 bool CordCon::pump(Xtime &now)
 {
 	WWPROFILE("CordCon::pump");
@@ -1170,7 +1171,7 @@ bool CordCon::pump(Xtime &now)
 		LastReceive_ = t;
 	}
 	LastPump_ = t;
-	for (;;) {
+	while (true) {
 		if (GoneAway_) {
 			pumpClose();
 			break;
@@ -1193,16 +1194,19 @@ bool CordCon::pump(Xtime &now)
 		if (!c->IsClosed || c->Queue.size() != 0 || c->Sent.size() != 0) {
 			continue;
 		}
-		if (((c->Index & 1) != 0) == IsServer_) {
+		if (IsServer_ && (c->Index & 1)) {
 			continue;		// the peer's channel
 		}
+		if (!IsServer_ && !(c->Index & 1)) {
+			continue;
+		}
 		c->Mode = 0;
-		while (c->ToAck.length() != 0) {
-			c->ToAck.remove(0);
+		unsigned int seq;
+		while (c->ToAck.removeHead(seq)) {
 			AcksPending_--;
 		}
 		if (c->Incoming.Length() != 0) {
-			for (size_t r = 0; r < Ready_.size(); r++) {
+			for (size_t r = 0; r < Ready_.size(); r = i) {		// sic (the client's)
 				if (Ready_[r] == c) {
 					Ready_.erase(Ready_.begin() + r);
 					break;
