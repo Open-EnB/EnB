@@ -922,6 +922,10 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`explain.py OBJ 'Class::name' ADDR` matches by name prefix** (2026-10-31, TK17: 'CordCon::pump' compared
+  pumpClose): pass the mangled name when one name prefixes another. commit_mine.py takes imports.json's block key
+  (`cordcon`, not `wwudp/cordcon.cpp`) and needs `{"whole": [...]}` in the spec to include the .cpp itself (`--path`
+  takes only the rows).
 * **`tools/re/symbols.py` with no arguments regenerates symbols.json, ghidra_symbols.py and coverage.md from the
   default objects** (2026-10-31, TK13: a stray call gutted symbols.json by 159k lines; restored from HEAD at once). Never
   call it without `--objs` / `--out` from a builder; the regeneration is the coordinator's, on a quiet tree (3.4).
@@ -1220,6 +1224,9 @@ unless `--lever` cites a new row of this table.
   differs": copy it from `.work/replay`. gaps.py pairs wlib's configfile wrongly (the client's object is 0x8B23C0-
   0x8B3E70: ctor, dtor, clear, readFile, enumerate, getString x2, getInt x4): confirm with `client.py callers`. A static
   helper whose last caller is one function gets inlined (Get_Date_From_Day into getTime once getYDay is gone).
+* **cordcon's header-field reads go through Cord_Get_Small / Cord_Get_Seq** (2026-10-31, TK17), out of line but
+  inlined once declared before the caller: that gives the client's `mov eax, n` / `add edi, eax` and register choice
+  (examinePacket 0x8514D0 0.62 -> 0.73). buildHeader, write and read still use the byte-wise Read_* / Write_* statics.
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
   and `isConnected` treats it as closed; `pumpReads` needs a dead `retval = -1;` (the client's stray
   `or edi, edi`).
