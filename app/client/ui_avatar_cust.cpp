@@ -141,6 +141,9 @@ public:
 	void Unknown_54FFC0();								// 0x54FFC0
 	void Unknown_550140(int id);						// 0x550140 (the part buttons 0x1A-0x1C, 0x24-0x27: the part +0x358, a metal's +0x35C)  // NAME 1 [id]: neutral
 	void Unknown_54E950(int dir);						// 0x54E950 (+0x368 one on (1) or back, skipping 0 for Gender 1, its value onto the avatar)  // NAME 1 [dir]: as 0x550550's
+	void Unknown_54DC20(int mode, bool on);				// 0x54DC20 (0x54EE40 / 0x54EE80: the mode +0xB0, shown or not)  // NAME 1 [mode, on]: neutral
+	void Unknown_54EE40();								// 0x54EE40 (no direct caller: a table's; 0x54DC20 with the mode, on, and +0xB8 shown)
+	void Unknown_54EE80();								// 0x54EE80 (as 0x54EE40, off)
 	void Unknown_550670();								// 0x550670 (the mode and part buttons' state)
 	void Unknown_550970(int value);						// 0x550970  // NAME 1 [value]: neutral
 	void Unknown_551BF0();								// 0x551BF0 (the cost of the changes: recustomization_cost.cpp's 0x8493F0)
@@ -339,6 +342,24 @@ void StarbaseAvatarCreationInterface::Unknown_54EC30()
 		starbase->Unknown_6435E0();
 	}
 	client->Send_Packet(&RecustomizeAvatarDonePacketClass(client->Unknown1138, *Unknown0BC->Get_Desc()));
+}
+
+// 0x54EE40
+void StarbaseAvatarCreationInterface::Unknown_54EE40()
+{
+	Unknown_54DC20(Unknown0B0, true);
+	if (Unknown0B8) {
+		Unknown0B8->Unknown_40(true);
+	}
+}
+
+// 0x54EE80
+void StarbaseAvatarCreationInterface::Unknown_54EE80()
+{
+	Unknown_54DC20(Unknown0B0, false);
+	if (Unknown0B8) {
+		Unknown0B8->Unknown_40(false);
+	}
 }
 
 // 0x54F2B0
@@ -710,7 +731,8 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
 **	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); NOT EXACT (register) 0x54E690 / 0x54E7F0 (the
 **	body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's
-**	turn while a turn button is held: 0x54E610 calls it) exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
+**	turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table)
+**	exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
 **	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
