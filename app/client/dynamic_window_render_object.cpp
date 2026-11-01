@@ -33,8 +33,9 @@ void DynamicWindowRenderObjectClass::Set_Min_Size(const Vector2 &min_size)
 void DynamicWindowRenderObjectClass::Set_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	Flags = old_flags | flags;
-	if (Flags != old_flags) {
+	unsigned int new_flags = old_flags | flags;
+	Flags = new_flags;
+	if (new_flags != old_flags) {
 		Invalidate();
 	}
 }
@@ -51,9 +52,10 @@ void DynamicWindowRenderObjectClass::Clear_Flags(unsigned int flags)
 void DynamicWindowRenderObjectClass::Set_Alignment(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	Flags &= ~0xF0;
-	Flags |= flags & 0xF0;
-	if (Flags != old_flags) {
+	Flags = old_flags & ~0xF0;
+	unsigned int new_flags = Flags | (flags & 0xF0);
+	Flags = new_flags;
+	if (new_flags != old_flags) {
 		Invalidate();
 	}
 }
@@ -71,22 +73,24 @@ bool DynamicWindowRenderObjectClass::Is_Dirty()
 {
 	return Dirty;
 }
-// NOT EXACT: the max form (the client keeps MinSize in a stack temporary while comparing)
+
 Vector2 DynamicWindowRenderObjectClass::Get_Min_Size()
 {
-	return Vector2(WWMath::Max(NaturalSize.X, MinSize.X), WWMath::Max(NaturalSize.Y, MinSize.Y));
+	float x = max(MinSize.X, NaturalSize.X);
+	float y = max(MinSize.Y, NaturalSize.Y);
+	return Vector2(x, y);
 }
 
 bool DynamicWindowRenderObjectClass::Has_Flags(unsigned int flags)
 {
 	return (Flags & flags) == flags;
 }
-// NOT EXACT: register and store order
+// NOT EXACT: the client reads the Fit_Size result through eax, this form through the stack slot
 void DynamicWindowRenderObjectClass::Layout(const Vector2 &position, const Vector2 &size)
 {
 	Size = size;
 	Vector2 offset = Fit_Size(position, size);
-	LayoutOffset.Set(offset.X, offset.Y, 0.0f);
+	LayoutOffset = Vector3(offset.X, offset.Y, 0.0f);
 	Dirty = false;
 }
 
@@ -120,21 +124,17 @@ Vector2 DynamicWindowRenderObjectClass::Get_Size()
 
 
 
-
-
-// NOT EXACT: the box form
-AABoxClass DynamicWindowRenderObjectClass::Get_Bounds()
+void DynamicWindowRenderObjectClass::Get_Bounds(AABoxClass &box)
 {
-	AABoxClass box;
-	FAIL_IF(!RenderObject) return box;
-	Vector3 position = RenderObject->Get_Position() - Offset;
-	box.Extent.Set(Size.X * 0.5f, Size.Y * 0.5f, 0.0f);
+	FAIL_IF(!RenderObject) return;
+	Vector3 position = RenderObject->Get_Position();
+	position -= Offset;
+	box.Extent.X = Size.X * 0.5f;
+	box.Extent.Y = Size.Y * 0.5f;
+	box.Extent.Z = 0.0f;
 	box.Center.X = position.X + box.Extent.X;
 	box.Center.Y = position.Y - box.Extent.Y;
-	return box;
 }
-
-
 
 
 
@@ -209,12 +209,12 @@ int DynamicWindowRenderObjectClass::Get_Level()
 
 
 
-// NOT EXACT: the sum order
+
 void DynamicWindowRenderObjectClass::Set_Position(const Vector2 &position)
 {
 	FAIL_IF(!RenderObject) return;
-	Vector3 pos(position.X + LayoutOffset.X + Offset.X, position.Y + LayoutOffset.Y + Offset.Y, LayoutOffset.Z + Offset.Z);
-	RenderObject->Set_Position(pos);
+	Vector3 pos(position.X, position.Y, 0.0f);
+	RenderObject->Set_Position(pos + LayoutOffset + Offset);
 }
 // NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it
 void DynamicWindowRenderObjectClass::Set_Render_Object(const RefCountPtr<RenderObjClass> &robj)

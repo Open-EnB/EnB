@@ -1507,7 +1507,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Alignment, flags` | `app/client/dynamic_window_render_object.h:53` | replaces bits 0xF0 of +0x3C (0x516E00 reads 0x10-0x80 as alignment) |
 | 1 | `Invalidate` | `app/client/dynamic_window_render_object.h:54` | sets the dirty flag and tells the parent |
 | 1 | `Get_Min_Size` | `app/client/dynamic_window_render_object.h:56` | what 0x517C50 lays out with |
-| 1 | `Get_Bounds` | `app/client/dynamic_window_render_object.h:60` | the render object's position less the offsets, half the size as the extent |
+| 1 | `Get_Bounds, box` | `app/client/dynamic_window_render_object.h:60` | the render object's position less the offsets, half the size as the extent |
 | 1 | `Set_Parent, parent` | `app/client/dynamic_window_render_object.h:61` | the asserts' |
 | 1 | `Add_To_Scene, scene` | `app/client/dynamic_window_render_object.h:64` | compares with the render object's Peek_Scene |
 | 1 | `Peek_Scene` | `app/client/dynamic_window_render_object.h:66` | RenderObjClass's |

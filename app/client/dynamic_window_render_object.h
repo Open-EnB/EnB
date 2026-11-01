@@ -57,7 +57,7 @@ public:
 	virtual bool Has_Flags(unsigned int flags) = 0;												// +0x24  // NAME 1 [Has_Flags, flags]
 	virtual void Layout(const Vector2 &position, const Vector2 &size) = 0;						// +0x28  // NAME 1 [Layout, position, size]
 	virtual Vector2 Get_Size() = 0;																// +0x2C  // NAME 1 [Get_Size]
-	virtual AABoxClass Get_Bounds() = 0;														// +0x30 (0x51CCB0)  // NAME 1 [Get_Bounds]: the render object's position less the offsets, half the size as the extent
+	virtual void Get_Bounds(AABoxClass &box) = 0;												// +0x30 (0x51CCB0)  // NAME 1 [Get_Bounds, box]: the render object's position less the offsets, half the size as the extent
 	virtual void Set_Parent(DynamicWindowContainerClass *parent) = 0;							// +0x34 (0x51CD50: G_ASSERT '!Parent', FAIL_IF '!parent')  // NAME 1 [Set_Parent, parent]: the asserts'
 	virtual void Clear_Parent() = 0;															// +0x38 (0x51CDD0)  // NAME 1 [Clear_Parent]
 	virtual DynamicWindowContainerClass *Get_Container() = 0;									// +0x3C  // NAME 1 [Get_Container]
@@ -88,7 +88,7 @@ public:
 	virtual bool Has_Flags(unsigned int flags);													// +0x24 0x51CBE0
 	virtual void Layout(const Vector2 &position, const Vector2 &size);							// +0x28 0x51CC10
 	virtual Vector2 Get_Size();																	// +0x2C 0x51CC80
-	virtual AABoxClass Get_Bounds();															// +0x30 0x51CCB0 (FAIL_IF '!RenderObject')
+	virtual void Get_Bounds(AABoxClass &box);													// +0x30 0x51CCB0 (FAIL_IF '!RenderObject')
 	virtual void Set_Parent(DynamicWindowContainerClass *parent);								// +0x34 0x51CD50
 	virtual void Clear_Parent();																// +0x38 0x51CDD0
 	virtual DynamicWindowContainerClass *Get_Container();										// +0x3C 0x51CE20
