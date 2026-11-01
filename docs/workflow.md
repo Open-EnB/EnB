@@ -911,6 +911,9 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`tools/re/symbols.py` with no arguments regenerates symbols.json, ghidra_symbols.py and coverage.md from the
+  default objects** (2026-10-31, TK13: a stray call gutted symbols.json by 159k lines; restored from HEAD at once). Never
+  call it without `--objs` / `--out` from a builder; the regeneration is the coordinator's, on a quiet tree (3.4).
 * **On a big function objdiff's similarity hardly moves** (2026-10-31, CT1, ui_group 0x5946D0, ~2.7 KB): read
   explain.py's instruction count and register-masked residue instead, and compare the call relocations per callee
   (`objrel.py`) to see which callees inline.
