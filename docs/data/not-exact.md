@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-398 entries in 84 files.
+403 entries in 85 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -245,6 +245,11 @@ edit the comments in the code, not this file.
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
+| `app/common/galaxy_map.cpp:438` | `GalaxyMapSystemIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839220) |
+| `app/common/galaxy_map.cpp:472` | `GalaxyMapSectorIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8394B0) |
+| `app/common/galaxy_map.cpp:506` | `GalaxyMapGateIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740) |
+| `app/common/galaxy_map.cpp:540` | `GalaxyMapStarbaseIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0) |
+| `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
 | `app/common/lego_identifier.cpp:102` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x843E80, registers in the inlined vector assignment (shape; attempts.py show 0x843E80) |
 | `app/common/lego_identifier.cpp:108` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x844120, npos read from memory in the client's clear (shape; attempts.py show 0x844120) |

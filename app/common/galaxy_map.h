@@ -298,6 +298,62 @@ public:
 	int MaxDataObjects;																// +0x74  // NAME 3: Add_Data's FAIL_IF '(int)id >= MaxDataObjects'
 };
 
+// The map's Systems in turn (galaxy_map.cpp 0x839140-0x839310; 0x10 bytes)
+class GalaxyMapSystemIteratorClass	// NAME 1: an iterator over GalaxyMapClass's Systems
+{
+public:
+	GalaxyMapSystemIteratorClass(GalaxyMapClass *map);											// 0x839140  // NAME 1 [map]: what it walks
+	bool Next();																		// 0x839220 (false at the end)  // NAME 2: what it does
+	void First();																		// 0x839310 (no caller)  // NAME 2: what it does
+	void Reset() { It = Map->Systems.begin(); if (It == Map->Systems.end()) { Current = NULL; } else { Current = (*It).second; } }	// (the constructor's: inline, it calls begin out of line)  // NAME 2: what it does
+
+	GalaxyMapClass *Map;																// +0x00  // NAME 2: what it walks
+	std::hash_map<int, RefCountPtr<GalaxyMapSystemClass> >::const_iterator It;				// +0x04  // NAME 1: the position
+	RefCountPtr<GalaxyMapSystemClass> Current;										// +0x0C  // NAME 1: the entry at It, NULL at the end
+};
+
+// The map's Sectors in turn (galaxy_map.cpp 0x8393D0-0x8395A0; 0x10 bytes)
+class GalaxyMapSectorIteratorClass	// NAME 1: an iterator over GalaxyMapClass's Sectors
+{
+public:
+	GalaxyMapSectorIteratorClass(GalaxyMapClass *map);											// 0x8393D0  // NAME 1 [map]: what it walks
+	bool Next();																		// 0x8394B0 (false at the end)  // NAME 2: what it does
+	void First();																		// 0x8395A0 (no caller)  // NAME 2: what it does
+	void Reset() { It = Map->Sectors.begin(); if (It == Map->Sectors.end()) { Current = NULL; } else { Current = (*It).second; } }	// (the constructor's: inline, it calls begin out of line)  // NAME 2: what it does
+
+	GalaxyMapClass *Map;																// +0x00  // NAME 2: what it walks
+	std::hash_map<int, RefCountPtr<GalaxyMapSectorClass> >::const_iterator It;				// +0x04  // NAME 1: the position
+	RefCountPtr<GalaxyMapSectorClass> Current;										// +0x0C  // NAME 1: the entry at It, NULL at the end
+};
+
+// The map's Gates in turn (galaxy_map.cpp 0x839660-0x839830; 0x10 bytes)
+class GalaxyMapGateIteratorClass	// NAME 1: an iterator over GalaxyMapClass's Gates
+{
+public:
+	GalaxyMapGateIteratorClass(GalaxyMapClass *map);											// 0x839660  // NAME 1 [map]: what it walks
+	bool Next();																		// 0x839740 (false at the end)  // NAME 2: what it does
+	void First();																		// 0x839830 (no caller)  // NAME 2: what it does
+	void Reset() { It = Map->Gates.begin(); if (It == Map->Gates.end()) { Current = NULL; } else { Current = (*It).second; } }	// (the constructor's: inline, it calls begin out of line)  // NAME 2: what it does
+
+	GalaxyMapClass *Map;																// +0x00  // NAME 2: what it walks
+	std::hash_map<int, RefCountPtr<GalaxyMapGateClass> >::const_iterator It;				// +0x04  // NAME 1: the position
+	RefCountPtr<GalaxyMapGateClass> Current;										// +0x0C  // NAME 1: the entry at It, NULL at the end
+};
+
+// The map's Starbases in turn (galaxy_map.cpp 0x8398F0-0x839AC0; 0x10 bytes)
+class GalaxyMapStarbaseIteratorClass	// NAME 1: an iterator over GalaxyMapClass's Starbases
+{
+public:
+	GalaxyMapStarbaseIteratorClass(GalaxyMapClass *map);											// 0x8398F0  // NAME 1 [map]: what it walks
+	bool Next();																		// 0x8399D0 (false at the end)  // NAME 2: what it does
+	void First();																		// 0x839AC0 (no caller)  // NAME 2: what it does
+	void Reset() { It = Map->Starbases.begin(); if (It == Map->Starbases.end()) { Current = NULL; } else { Current = (*It).second; } }	// (the constructor's: inline, it calls begin out of line)  // NAME 2: what it does
+
+	GalaxyMapClass *Map;																// +0x00  // NAME 2: what it walks
+	std::hash_map<int, RefCountPtr<GalaxyMapStarbaseClass> >::const_iterator It;				// +0x04  // NAME 1: the position
+	RefCountPtr<GalaxyMapStarbaseClass> Current;										// +0x0C  // NAME 1: the entry at It, NULL at the end
+};
+
 #endif
 
 /*

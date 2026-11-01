@@ -428,6 +428,142 @@ void GalaxyMapStarbaseClass::Write(LinearBufferClass *buffer)
 	buffer->Write(&Unknown24, 4);
 }
 
+// 0x839140
+GalaxyMapSystemIteratorClass::GalaxyMapSystemIteratorClass(GalaxyMapClass *map) :
+	Map(map)
+{
+	Reset();
+}
+
+// 0x839220  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839220)
+bool GalaxyMapSystemIteratorClass::Next()
+{
+	const std::hash_map<int, RefCountPtr<GalaxyMapSystemClass> > &table = Map->Systems;
+	if (It == table.end()) {
+		return(false);
+	}
+	++It;
+	if (It == table.end()) {
+		Current = NULL;
+		return(false);
+	}
+	Current = (*It).second;
+	return(true);
+}
+
+// 0x839310
+void GalaxyMapSystemIteratorClass::First()
+{
+	It = Map->Systems.begin();
+	if (It == Map->Systems.end()) {
+		Current = NULL;
+	} else {
+		Current = (*It).second;
+	}
+}
+
+// 0x8393D0
+GalaxyMapSectorIteratorClass::GalaxyMapSectorIteratorClass(GalaxyMapClass *map) :
+	Map(map)
+{
+	Reset();
+}
+
+// 0x8394B0  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8394B0)
+bool GalaxyMapSectorIteratorClass::Next()
+{
+	const std::hash_map<int, RefCountPtr<GalaxyMapSectorClass> > &table = Map->Sectors;
+	if (It == table.end()) {
+		return(false);
+	}
+	++It;
+	if (It == table.end()) {
+		Current = NULL;
+		return(false);
+	}
+	Current = (*It).second;
+	return(true);
+}
+
+// 0x8395A0
+void GalaxyMapSectorIteratorClass::First()
+{
+	It = Map->Sectors.begin();
+	if (It == Map->Sectors.end()) {
+		Current = NULL;
+	} else {
+		Current = (*It).second;
+	}
+}
+
+// 0x839660
+GalaxyMapGateIteratorClass::GalaxyMapGateIteratorClass(GalaxyMapClass *map) :
+	Map(map)
+{
+	Reset();
+}
+
+// 0x839740  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740)
+bool GalaxyMapGateIteratorClass::Next()
+{
+	const std::hash_map<int, RefCountPtr<GalaxyMapGateClass> > &table = Map->Gates;
+	if (It == table.end()) {
+		return(false);
+	}
+	++It;
+	if (It == table.end()) {
+		Current = NULL;
+		return(false);
+	}
+	Current = (*It).second;
+	return(true);
+}
+
+// 0x839830
+void GalaxyMapGateIteratorClass::First()
+{
+	It = Map->Gates.begin();
+	if (It == Map->Gates.end()) {
+		Current = NULL;
+	} else {
+		Current = (*It).second;
+	}
+}
+
+// 0x8398F0
+GalaxyMapStarbaseIteratorClass::GalaxyMapStarbaseIteratorClass(GalaxyMapClass *map) :
+	Map(map)
+{
+	Reset();
+}
+
+// 0x8399D0  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0)
+bool GalaxyMapStarbaseIteratorClass::Next()
+{
+	const std::hash_map<int, RefCountPtr<GalaxyMapStarbaseClass> > &table = Map->Starbases;
+	if (It == table.end()) {
+		return(false);
+	}
+	++It;
+	if (It == table.end()) {
+		Current = NULL;
+		return(false);
+	}
+	Current = (*It).second;
+	return(true);
+}
+
+// 0x839AC0
+void GalaxyMapStarbaseIteratorClass::First()
+{
+	It = Map->Starbases.begin();
+	if (It == Map->Starbases.end()) {
+		Current = NULL;
+	} else {
+		Current = (*It).second;
+	}
+}
+
 /*
 **	Reconstruction notes
 **
@@ -463,4 +599,13 @@ void GalaxyMapStarbaseClass::Write(LinearBufferClass *buffer)
 **	gate 0x838970-0x838BD0 and the starbase 0x838C20-0x8390C0; galaxy_map.cpp's own functions run
 **	to 0x8390C0. The gate's Unknown14 starts as UniqueDesignIDLookupClass::INVALID_ID (0xAECC44, read
 **	from memory: hence that header); the sector's Set takes a sixth argument it never reads.
+**
+**	After the starbase, the four iterators (GM2): for Systems / Sectors / Gates / Starbases a
+**	constructor, Next and First (no caller), 0x839140-0x839AC0; 0x7A8B70 (galaxy map rendering)
+**	walks the maps with them. It is a const_iterator: with an iterator both the constructor and
+**	First inline the whole begin(); the conversion makes the client's inlining: the constructor
+**	(through the inline Reset) calls hashtable::begin out of line (0x83A290 ...), First inlines
+**	begin but calls the bucket vector's size(). Next's end tests go through a const reference to
+**	the table (end() const, no conversion); it stays NOT EXACT (the client recomputes the value's
+**	address after the end test).
 */

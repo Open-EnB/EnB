@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1097 |
-| 2 | describes what the code does | 2628 |
-| 1 | neutral placeholder | 8737 |
+| 2 | describes what the code does | 2644 |
+| 1 | neutral placeholder | 8753 |
 
 ## For review (score 3 and below)
 
@@ -6663,6 +6663,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set, hash_id, name` | `app/common/galaxy_map.h:261` | as the system's |
 | 1 | `Name` | `app/common/galaxy_map.h:266` | a string on the wire, as the system's |
 | 1 | `Clear` | `app/common/galaxy_map.h:276` | empties AllData and the four maps |
+| 1 | `GalaxyMapSystemIteratorClass` | `app/common/galaxy_map.h:302` | an iterator over GalaxyMapClass's Systems |
+| 1 | `map` | `app/common/galaxy_map.h:305` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:311` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:312` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapSectorIteratorClass` | `app/common/galaxy_map.h:316` | an iterator over GalaxyMapClass's Sectors |
+| 1 | `map` | `app/common/galaxy_map.h:319` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:325` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:326` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapGateIteratorClass` | `app/common/galaxy_map.h:330` | an iterator over GalaxyMapClass's Gates |
+| 1 | `map` | `app/common/galaxy_map.h:333` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:339` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:340` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapStarbaseIteratorClass` | `app/common/galaxy_map.h:344` | an iterator over GalaxyMapClass's Starbases |
+| 1 | `map` | `app/common/galaxy_map.h:347` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:353` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:354` | the entry at It, NULL at the end |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -9870,6 +9886,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_System` | `app/common/galaxy_map.h:289` | Systems.find |
 | 2 | `Get_Sector` | `app/common/galaxy_map.h:290` | Sectors.find |
 | 2 | `Get_Starbase` | `app/common/galaxy_map.h:291` | Starbases.find |
+| 2 | `Next` | `app/common/galaxy_map.h:306` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:307` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:308` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:310` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:320` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:321` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:322` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:324` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:334` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:335` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:336` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:338` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:348` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:349` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:350` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:352` | what it walks |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
