@@ -4,6 +4,7 @@
 #include "texture.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
+#include "random.h"
 
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -53,10 +54,22 @@ public:
 	char Unknown08[0x10 - 0x08];						// +0x08
 };
 
+// What 0x5860B0 returns (avatar.cpp's neighbourhood: five blend weights from a point in 0 .. 1)
+struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
+{
+	UIAvatrWeightsStruct() {}
+	float Weight[5];									// NAME 1: neutral
+};
+UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
+extern RandomClass Unknown_BDBB84;						// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+
 // The +0x8C object's +0x194 (refcounted; +0x110 is 1 when the beard is off, 0x556630)
 class UIAvatrUnknown194Class : public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
+	void Unknown_77E830(const UIAvatrWeightsStruct &weights);	// 0x77E830 (avatar.cpp's neighbourhood; 0x558060)  // NAME 1 [weights]: neutral
+	void Unknown_7859F0(int type);						// 0x7859F0 (0x558170: a random one of the +0x2EC object's +0x20)  // NAME 1 [type]: neutral
+	void Unknown_77E900(const UIAvatrWeightsStruct &weights);	// 0x77E900 (0x558060)  // NAME 1 [weights]: neutral
 	char Unknown08[0x110 - 0x08];						// +0x08
 	int Unknown110;										// +0x110
 };
@@ -232,6 +245,13 @@ static UIAvatrPartStruct UIAvatrParts[50] = {	// NAME 1: neutral (D10)
 	{ "metal02", NULL },
 };
 
+// The window's +0x2EC, as far as 0x558170 reads it
+struct UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10)
+{
+	char Unknown00[0x20];								// +0x00
+	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
+};
+
 // The avatar creation window (ui_avatr.cpp's __FILE__), as far as this file's functions so far use it
 class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>)
 {
@@ -247,6 +267,8 @@ public:
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
 	void Unknown_556F80();								// 0x556F80
+	void Unknown_558170();								// 0x558170 (a random head type and scale)
+	void Unknown_558060();								// 0x558060 (a random point for the blend weights, kept at +0x164)
 	void Unknown_5571D0();								// 0x5571D0 (0x554D60's first half: the +0x1C5 flag)
 	void Unknown_5598A0();								// 0x5598A0 (the shared gadgets shown)
 	void Unknown_5598D0();								// 0x5598D0 (the shared gadgets hidden)
@@ -268,9 +290,10 @@ public:
 	UIAvatrUnknown094Class *Unknown094;					// +0x94
 	GadgetClass *Unknown098[50];						// +0x98 (UIAvatrParts' gadgets)
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
-	char Unknown164[0x16C - 0x164];						// +0x164
+	Vector2 Unknown164;									// +0x164 (0x558060's point)
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
-	char Unknown170[0x178 - 0x170];						// +0x170
+	float Unknown170;									// +0x170 (0x558170)
+	float Unknown174;									// +0x174 (0x558170)
 	float Unknown178;									// +0x178 (the head's scale, 0.5 .. +0x17C: 0x55B540)
 	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
@@ -278,6 +301,8 @@ public:
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
 	char Unknown1C6[0x2C8 - 0x1C6];						// +0x1C6
 	std::string Unknown2C8;								// +0x2C8 (the destructor's)
+	char Unknown2D8[0x2EC - 0x2D8];						// +0x2D8
+	UIAvatrUnknown2ECStruct *Unknown2EC;				// +0x2EC (0x558170)
 };
 
 // The window's FlashingGadgetEvent callback (vtable 0xAEF988 over 0xAEDB58)
@@ -555,6 +580,39 @@ void AvatarCreationInterface::Unknown_5571D0()
 	}
 }
 
+// 0x558060
+void AvatarCreationInterface::Unknown_558060()
+{
+	Vector2 uv;
+	uv.X = Unknown_BDBB84(0, 100) * 0.01f;
+	uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
+	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
+	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
+	Unknown08C->Peek_Unknown194()->Unknown_77E900(body);
+	Unknown08C->Peek_Unknown194()->Unknown_77E830(face);
+	Unknown164 = uv;
+}
+
+// 0x558170
+void AvatarCreationInterface::Unknown_558170()
+{
+	int count = Unknown2EC->Unknown20;
+	int type = Unknown_BDBB84(0, count);
+	Unknown08C->Peek_Unknown194()->Unknown_7859F0(type);
+	Unknown_55B2D0();
+	if (type == 3) {
+		Unknown170 = 0.5f;
+		Unknown174 = 0.5f;
+		Unknown178 = 1.0f;
+		Unknown_55B540(0);
+		return;
+	}
+	Unknown170 = Unknown_BDBB84(0, 100) * 0.01f;
+	Unknown174 = Unknown_BDBB84(0, 100) * 0.01f;
+	Unknown178 = Unknown_BDBB84(5, (int)(Unknown17C * 10.0f)) * 0.1f;
+	Unknown_55B540(0);
+}
+
 // 0x5598A0
 void AvatarCreationInterface::Unknown_5598A0()
 {
@@ -646,4 +704,7 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	Unknown_68 overridden; declared plain members here so far).
 **	0x55AFD0 (the gender text: an if / else of two Change_Text calls, the ?: form loses 0.78) and
 **	0x55B540 (the head's scale, WWMath::Max / Min) exact.
+**	0x558060 (a random point for avatar.cpp's blend weights, 0x5860B0: the point built in a Vector2
+**	member by member, the weights struct needs a constructor so the returns land in the locals) and
+**	0x558170 (a random head type and scale; the type count read into a local first) exact.
 */
