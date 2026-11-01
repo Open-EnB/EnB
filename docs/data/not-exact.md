@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-461 entries in 105 files.
+460 entries in 105 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -70,8 +70,7 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2777` | `MessageChatstreamPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the two AvatarID / ShipID tests load the ids into other registers: the client has ecx / eax, then edi / eax; attempts.py show 0x736F10) 0x736F10 (placed here, out of address order: it has no assert) |
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
 | `app/client/dynamic_window_background.cpp:14` | `DynamicWindowAnimationDataClass::Get` | marker | NOT EXACT: the 'Use' string's register (esi) and the returned temporary's release (the client does not clear it) |
-| `app/client/dynamic_window_background.cpp:219` | `DynamicWindowBackgroundClass::Get_Min_Size` | marker | NOT EXACT: the last sum: the client adds 2.0f to both halves before storing either |
-| `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 and Get_Min_Size 0x516A00 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
+| `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/eff_o.cpp:723` | `UnknownB0009CEffectClass::Unknown_1C` | marker | NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms) 0x6E8890 |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |

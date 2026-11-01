@@ -216,7 +216,7 @@ void DynamicWindowBackgroundClass::Set_Min_Size(const Vector2 &min_size)
 		Contents->Set_Min_Size(contents_min_size);
 	}
 }
-// NOT EXACT: the last sum: the client adds 2.0f to both halves before storing either
+
 Vector2 DynamicWindowBackgroundClass::Get_Min_Size()
 {
 	if (!Contents && !AnimationData) {
@@ -228,8 +228,10 @@ Vector2 DynamicWindowBackgroundClass::Get_Min_Size()
 	if (!AnimationData) {
 		return Contents->Get_Min_Size();
 	}
-	Vector2 min_size = AnimationData->Border * 2.0f + Contents->Get_Min_Size();
-	return Vector2(min_size.X + 2.0f, min_size.Y + 2.0f);
+	Vector2 border = AnimationData->Border * 2.0f;
+	Vector2 min_size = border + Contents->Get_Min_Size();
+	Vector2 result(min_size.X + 2.0f, min_size.Y + 2.0f);
+	return result;
 }
 
 void DynamicWindowBackgroundClass::Layout(const Vector2 &position, const Vector2 &size)
@@ -287,8 +289,6 @@ void DynamicWindowBackgroundClass::Set_Position(const Vector2 &position)
 		Contents->Set_Position(position);
 	}
 }
-
-
 
 
 
@@ -404,7 +404,7 @@ Vector2 DynamicWindowBackgroundClass::Fit_Size(const Vector2 &position, const Ve
 **	(FAIL_IF 'contents_min_size.X <= 0.0f' on 214, G_ASSERT 'Contents.Peek() == &child' on 312, FAIL_IF
 **	'!child' on 339); then the template instances RefCountPtr<RenderObjClass>::Clear-like 0x517030,
 **	Create_NEW<DynamicWindowAnimationDataClass> 0x517060 and AutoPoolClass<HAnimComboDataClass,256>'s
-**	allocator 0x5170F0. NOT EXACT (D64): Get 0x515AB0 and Get_Min_Size 0x516A00 (marked); the data's
+**	allocator 0x5170F0. NOT EXACT (D64): Get 0x515AB0 (marked); the data's
 **	inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors).
 **	The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...).
 */
