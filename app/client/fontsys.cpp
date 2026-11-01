@@ -10,6 +10,7 @@
 #include "..\..\wwmath\aabox.h"
 #include "..\..\wwmath\sphere.h"
 #include <math.h>
+#include <string.h>
 
 // NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched
 FontStyleClass::FontStyleClass(const char *name, int object, const char *text) :
@@ -48,6 +49,96 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 	Unknown_6D6390();
 	Unknown_6D5D40();
 	Unknown26C = (int)(Info.Wait * 1000.0f);
+}
+
+// NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; Info's colours (+0x494 / +0x4A4
+// from Colors, 10 / 255 when none) and the underline's 0x6D8DC0 (fonttexture.cpp) are left out
+void FontStyleClass::Unknown_6D5170(int object)
+{
+	int i;
+	Unknown4DC = 1.0f;
+	Unknown4E0 = 1.0f;
+	Object = object;
+	Unknown300 = true;
+	Unknown301 = false;
+	Unknown402 = false;
+	Unknown302 = false;
+	Unknown404 = false;
+	Unknown405 = false;
+	Unknown406 = false;
+	Unknown408 = false;
+	Unknown4E5 = true;
+	Unknown440 = 0;
+	FontIndex = 0;
+	Unknown450 = 0;
+	Unknown250 = 2;
+	Unknown410 = 0;
+	Unknown444 = 0;
+	Unknown2F4[0] = 1.0f;
+	Unknown2F4[1] = -1.0f;
+	Unknown2F4[2] = 1.0f;
+	Unknown448 = 0;
+	Unknown454 = 0.0f;
+	Unknown458 = 0;
+	LineCount = 0;
+	LineNumber = 0;
+	Unknown418 = 0;
+	Unknown41C = 0;
+	Unknown420[0] = 0;
+	Unknown420[2] = 0;
+	Unknown420[1] = 1000;
+	Unknown420[3] = 1000;
+	Unknown488[2] = 0;
+	Unknown488[1] = 0;
+	Unknown488[0] = 0;
+	Unknown4C5 = false;
+	Unknown4C8[0] = -1;
+	Unknown4C8[1] = -1;
+	Unknown4D0.X = 0.0f;
+	Unknown4D0.Y = 0.0f;
+	Unknown4D0.Z = 0.0f;
+	Unknown47C.Z = 0.0f;
+	Unknown47C.X = Info.Offset[0] * 640.0f;
+	Unknown47C.Y = Info.Offset[1] * 480.0f;
+	Unknown470 = Unknown47C;
+	Unknown430[0] = -320;
+	Unknown430[2] = 240;
+	Unknown430[1] = 320;
+	Unknown430[3] = -240;
+	Unknown4C5 = false;
+	WW3D::Get_Device_Resolution(Width, Height, Bits, Windowed);
+	Unknown2C4 = 0;
+	Unknown2C8 = 0;
+	Scale = 1.0f;
+	Unknown26C = 0;
+	Unknown270 = 0;
+	for (i = 0; i < 16; i++) Unknown274[i] = 0;
+	for (i = 0; i < 6; i++) Unknown254[i] = 0;
+	for (i = 0; i < 4; i++) {
+		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i]);
+		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i]);
+		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i]);
+		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i]);
+		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i]);
+		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i]);
+	}
+	if (Effects[0][0] == NULL && Effects[0][1] == NULL && Effects[0][2] == NULL) {
+		Unknown440 = 1;
+	}
+	Unknown44C = 0;
+	Colors[0] = Unknown_BE67B8->Find_Color(Info.Color[0]);
+	Colors[1] = Unknown_BE67B8->Find_Color(Info.Color[1]);
+	if (Colors[1] == NULL) {
+		Colors[1] = Colors[0];
+	}
+	memset(Unknown303, 0, sizeof(Unknown303));
+	Unknown414 = 0;
+	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+	REF_PTR_SET(Font, font->font32Ptr.Peek());
+	Underline = Info.Underline;
+	Unknown4C5 = false;
+	Unknown4E4 = true;
+	Unknown4E6 = false;
 }
 
 // NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched
@@ -93,8 +184,8 @@ void FontStyleClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 // NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched
 void FontStyleClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 {
-	float x = (float)(Unknown420[1] - Unknown420[0]) * (640.0f / (float)Unknown2B4) * 0.5f;
-	float y = (float)(Unknown420[3] - Unknown420[2]) * (480.0f / (float)Unknown2B8) * 0.5f;
+	float x = (float)(Unknown420[1] - Unknown420[0]) * (640.0f / (float)Width) * 0.5f;
+	float y = (float)(Unknown420[3] - Unknown420[2]) * (480.0f / (float)Height) * 0.5f;
 	if (Info.Justify[1] == 3) {
 		box.Center.X = x;
 	} else if (Info.Justify[1] == 4) {
@@ -815,97 +906,6 @@ void FontStyleClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched
 void FontStyleClass::Render(RenderInfoClass &rinfo)
 {
@@ -924,10 +924,10 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 			float y = tm[1][3];
 			if (Unknown4DC > 1.0f) x *= Unknown4DC;
 			if (Unknown4E0 > 1.0f) y *= Unknown4E0;
-			float px = (float)floor(x / (640.0f / (float)Unknown2B4));
-			float py = (float)floor(y / (480.0f / (float)Unknown2B8));
-			x = (px + 0.5f) * (640.0f / (float)Unknown2B4);
-			y = (py + 0.5f) * (480.0f / (float)Unknown2B8);
+			float px = (float)floor(x / (640.0f / (float)Width));
+			float py = (float)floor(y / (480.0f / (float)Height));
+			x = (px + 0.5f) * (640.0f / (float)Width);
+			y = (py + 0.5f) * (480.0f / (float)Height);
 			if (Unknown4DC > 1.0f) x /= Unknown4DC;
 			if (Unknown4E0 > 1.0f) y /= Unknown4E0;
 			tm.Set_Translation(Vector3(x, y, 0.001f));
