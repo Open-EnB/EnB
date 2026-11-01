@@ -64,26 +64,26 @@ public:
 extern LoginFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
-// textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810), as far as this file calls it
-class TextGadgetClass : public GadgetClass	// NAME 3: class-from-file (D24) for app\client\textgadg.cpp
-{
-public:
-	TextGadgetClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: what the constructor passes
-	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: what it does
-	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: what it does
-	void Unknown_6AAD10();								// 0x6AAD10 (every frame)
-	virtual void Unknown_74(bool on);					// +0x74 (the input focus)  // NAME 1 [on]: neutral
-	char Unknown30[0x39 - 0x30];						// +0x30
-	bool Unknown39;										// +0x39 (the slot +0x60 clears it: tab)
-	bool Unknown3A;										// +0x3A
-	char Unknown3B;										// +0x3B
-	bool Unknown3C;										// +0x3C
-	char Unknown3D[0x44 - 0x3D];						// +0x3D
-	FontStyleClass *Unknown44;							// +0x44 (its text)
-	char Unknown48[0x5C - 0x48];						// +0x48
-	bool Unknown5C;										// +0x5C (the password's: hidden)
-	char Unknown5D[0x80 - 0x5D];						// +0x5D
-};
+// textgadg.cpp's text gadgets (the name and password boxes)
+#include "textgadg.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text gadgets get
 
 // gadget.cpp's buttons (100 bytes, 0x675240), as ui_manu.cpp makes them
@@ -426,7 +426,7 @@ void LoginInterface::Unknown_60()
 		Unknown0AC = false;
 	} else if (tab || AccountMenu) {
 		Unknown0AC = false;
-	} else if (Unknown0AC && !PasswordGadget->Unknown3C) {
+	} else if (Unknown0AC && !PasswordGadget->Active) {
 		Unknown_5AE450();
 	}
 }
@@ -668,8 +668,8 @@ void LoginInterface::Unknown_5AE160()
 			}
 		}
 	}
-	NameGadget->Unknown44->Unknown_Set_2FC(1.0f);
-	PasswordGadget->Unknown44->Unknown_Set_2FC(1.0f);
+	NameGadget->Text->Unknown_Set_2FC(1.0f);
+	PasswordGadget->Text->Unknown_Set_2FC(1.0f);
 }
 
 
@@ -689,8 +689,8 @@ void LoginInterface::Unknown_5AE240()
 			}
 		}
 	}
-	NameGadget->Unknown44->Unknown_Set_2FC(0.33f);
-	PasswordGadget->Unknown44->Unknown_Set_2FC(0.33f);
+	NameGadget->Text->Unknown_Set_2FC(0.33f);
+	PasswordGadget->Text->Unknown_Set_2FC(0.33f);
 }
 
 

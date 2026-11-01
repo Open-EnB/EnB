@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1122 |
+| 3 | by convention from a client-named file or sibling | 1121 |
 | 2 | describes what the code does | 2822 |
-| 1 | neutral placeholder | 9860 |
+| 1 | neutral placeholder | 9850 |
 
 ## For review (score 3 and below)
 
@@ -6540,26 +6540,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LoginFontManagerClass` | `app/client/ui_login.cpp:56` | neutral (D10): fontmanager.h's FontManagerClass |
 | 1 | `Unknown_6D2700` | `app/client/ui_login.cpp:62` | as fontmanager.h's; NAME 1 [model]: what the constructor passes |
 | 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:64` | 0xBE67C4 |
-| 1 | `iface, length, name, model, a, b` | `app/client/ui_login.cpp:71` | what the constructor passes |
-| 1 | `Unknown_30` | `app/client/ui_login.cpp:71` | untagged neutral name (D10) |
-| 1 | `Set_Text` | `app/client/ui_login.cpp:72` | what it does |
-| 1 | `Get_Text` | `app/client/ui_login.cpp:73` | what it does |
-| 1 | `Unknown_6AAD10` | `app/client/ui_login.cpp:74` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_login.cpp:75` | neutral |
-| 1 | `Unknown_74` | `app/client/ui_login.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_login.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown39` | `app/client/ui_login.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown3A` | `app/client/ui_login.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown3B` | `app/client/ui_login.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_login.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown3D` | `app/client/ui_login.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_login.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/ui_login.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_login.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown5D` | `app/client/ui_login.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/ui_login.cpp:87` | neutral (D10): what the text gadgets get |
 | 1 | `LoginButtonGadgetClass` | `app/client/ui_login.cpp:90` | neutral (D10) |
 | 1 | `robj, layer, a, b` | `app/client/ui_login.cpp:93` | as ui_manu.cpp's |
+| 1 | `Unknown_30` | `app/client/ui_login.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_login.cpp:94` | untagged neutral name (D10) |
 | 1 | `robj, unknown` | `app/client/ui_login.cpp:97` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_login.cpp:97` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_login.cpp:98` | as ui_avatr.cpp's |
@@ -6650,6 +6635,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67BC` | `app/client/ui_login.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_login.cpp:346` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_login.cpp:350` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:355` | untagged neutral name (D10) |
 | 1 | `Unknown_67AD30` | `app/client/ui_login.cpp:362` | untagged neutral name (D10) |
@@ -6659,6 +6645,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_784E00` | `app/client/ui_login.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_login.cpp:383` | untagged neutral name (D10) |
 | 1 | `Unknown_67A9B0` | `app/client/ui_login.cpp:396` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_login.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/client/ui_login.cpp:411` | untagged neutral name (D10) |
+| 1 | `Unknown3A` | `app/client/ui_login.cpp:424` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_login.cpp:448` | untagged neutral name (D10) |
 | 1 | `Unknown_67B270` | `app/client/ui_login.cpp:465` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
@@ -13006,7 +12996,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ControlKeysManagerClass` | `app/client/ui_line_display.cpp:21` | by convention (D24) from the client's control_keys_manager.cpp |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:20` | header name assumed from the client's ui_line_display.cpp |
 | 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:194` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
-| 3 | `TextGadgetClass` | `app/client/ui_login.cpp:68` | class-from-file (D24) for app\client\textgadg.cpp |
 | 3 | `event` | `app/client/ui_login.cpp:243` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
 | 3 | `AccountMenu` | `app/client/ui_login.cpp:246` | the G_ASSERT's |
 | 3 | `FontManagerClass` | `app/client/ui_manu.cpp:33` | fontmanager.h's |
