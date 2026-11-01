@@ -44,6 +44,7 @@ wtime                      Neal Kettler
 #include "wstypes.h"
 
 void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)
+void usleep(sint32 usec);  // E&B: 0x8B82E0 (wtime.cpp)  // NAME 2: msleep's sibling in microseconds
 
 class Wtime
 {
@@ -72,6 +73,8 @@ class Wtime
     uint32    GetUsec(void) const;   // Get member variable 'usec'
     void      SetSec(uint32 newsec);
     void      SetUsec(uint32 newusec);
+    void      AddSec(uint32 addsec);  // E&B: 0x8B94C0  // NAME 2: sec += addsec
+    void      AddUsec(uint32 addusec);  // E&B: 0x8B94E0  // NAME 2: usec += addusec, carried into sec
     void      Set(uint32 newsec,uint32 newusec);
     bit8      ParseDate(char *in);
     bit8      FormatTime(char *out, char *format);

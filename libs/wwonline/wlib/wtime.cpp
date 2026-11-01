@@ -86,6 +86,15 @@ void msleep(sint32 msec)
   select(0,NULL,NULL,NULL,&tv);
 }
 
+// E&B: sleep for usec microseconds (0x8B82E0, after msleep); no caller in the client.
+void usleep(sint32 usec)  // NAME 2: msleep's sibling in microseconds (select's timeval)
+{
+  struct timeval tv;
+  tv.tv_sec=usec/1000000;
+  tv.tv_usec=usec%1000000;
+  select(0,NULL,NULL,NULL,&tv);
+}
+
 // Parses a date string that's in modified RFC 1123 format
 // Can have a +minutes after the normal time
 // eg: Thu, 20 Jun 1996 17:33:49 +100
@@ -397,6 +406,19 @@ void Wtime::SetSec(uint32 newsec)
 void Wtime::SetUsec(uint32 newusec)
 {
   usec=newusec;
+}
+
+// E&B: add seconds (0x8B94C0, between SetUsec and Set); no caller in the client
+void Wtime::AddSec(uint32 addsec)
+{
+  sec+=addsec;
+}
+
+// E&B: add microseconds, carrying whole seconds into sec (0x8B94E0); no caller in the client
+void Wtime::AddUsec(uint32 addusec)
+{
+  sec+=(usec+addusec)/1000000;
+  usec=(usec+addusec)%1000000;
 }
 
 void Wtime::Set(uint32 newsec, uint32 newusec)
