@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1067 |
-| 2 | describes what the code does | 2557 |
+| 2 | describes what the code does | 2560 |
 | 1 | neutral placeholder | 7860 |
 
 ## For review (score 3 and below)
@@ -9664,13 +9664,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Next` | `app/shared/auxdata/policy.h:123` | describes what it does |
 | 2 | `Table` | `app/shared/auxdata/policy.h:125` | describes what it does |
 | 2 | `PolicyStateClass` | `app/shared/auxdata/policy.h:130` | describes what it does |
-| 2 | `std:` | `app/shared/auxdata/policy.h:136` | describes what it does |
-| 2 | `Dirty` | `app/shared/auxdata/policy.h:137` | describes what it does |
-| 2 | `Add` | `app/shared/auxdata/policy.h:146` | describes what it does |
-| 2 | `Make_State` | `app/shared/auxdata/policy.h:147` | describes what it does |
-| 2 | `Bind` | `app/shared/auxdata/policy.h:148` | describes what it does |
-| 2 | `Get_Action` | `app/shared/auxdata/policy.h:149` | describes what it does |
-| 2 | `std:` | `app/shared/auxdata/policy.h:151` | describes what it does |
+| 2 | `Evaluate` | `app/shared/auxdata/policy.h:135` | describes what it does |
+| 2 | `Set` | `app/shared/auxdata/policy.h:136` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/policy.h:137` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/policy.h:139` | describes what it does |
+| 2 | `Dirty` | `app/shared/auxdata/policy.h:140` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/policy.h:149` | describes what it does |
+| 2 | `Make_State` | `app/shared/auxdata/policy.h:150` | describes what it does |
+| 2 | `Bind` | `app/shared/auxdata/policy.h:151` | describes what it does |
+| 2 | `Get_Action` | `app/shared/auxdata/policy.h:152` | describes what it does |
+| 2 | `std:` | `app/shared/auxdata/policy.h:154` | describes what it does |
 | 2 | `ChangeSentVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:10` | describes what it does |
 | 2 | `Table` | `app/shared/auxdata/unknown_changes.cpp:17` | describes what it does |
 | 2 | `ChangeBuildVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:21` | describes what it does |
@@ -11419,7 +11422,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `policy.h` | `app/shared/auxdata/policy.h:17` | header name assumed from the client's policy.cpp |
 | 3 | `Action` | `app/shared/auxdata/policy.h:81` | after the assert's parameter action (policy.cpp) |
 | 3 | `PolicyRuleSetClass` | `app/shared/auxdata/policy.h:97` | after the assert's RuleSet (policy.cpp) |
-| 3 | `PolicyClass` | `app/shared/auxdata/policy.h:141` | by convention (D24) from the client's file policy.cpp |
+| 3 | `PolicyClass` | `app/shared/auxdata/policy.h:144` | by convention (D24) from the client's file policy.cpp |
 | 3 | `avatar_desc.h` | `app/shared/avatar_desc.h:18` | header name assumed from the client's avatar_desc.cpp |
 | 3 | `AvatarDescClass` | `app/shared/avatar_desc.h:28` | by convention (D24) from the client's avatar_desc.cpp |
 | 3 | `boolpars.h` | `app/shared/boolpars.h:20` | header name assumed from the client's boolpars.cpp |

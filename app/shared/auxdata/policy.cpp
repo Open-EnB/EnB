@@ -404,19 +404,19 @@ PolicyStateClass *PolicyClass::Make_State(int a, int b)
 	PolicyStateClass *state = new PolicyStateClass(Sets.size());
 	for (PolicyRuleSetClass **rule_set = Sets.begin(); rule_set != Sets.end(); rule_set++) {
 		RefCountPtr<PolicyConditionClass> condition = (*rule_set)->Get_Condition(a, b);
-		int index = state->Entries.size();
-		state->Entries.push_back(std::pair<RefCountPtr<PolicyConditionClass>, bool>(condition, false));
-		condition->Attach(state, index);
+		state->Add(condition);
 	}
-	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = state->Entries.begin(); entry != state->Entries.end(); entry++) {
-		bool value = entry->first->Evaluate(a, b);
-		if (value != entry->second) {
-			entry->second = value;
-			state->Dirty = true;
-		}
-	}
+	state->Evaluate(a, b);
 	return state;
 }
+
+
+
+
+
+
+
+
 
 void PolicyClass::Bind(PolicyStateClass *state, DeltaCompoundClass *root)
 {
@@ -483,11 +483,7 @@ void PolicySwitchClass::Update()
 {
 	PolicyStateClass *state = Parent;
 	if (state != 0) {
-		std::pair<RefCountPtr<PolicyConditionClass>, bool> &entry = state->Entries[Index];
-		if (entry.second != Value) {
-			entry.second = Value;
-			state->Dirty = true;
-		}
+		state->Set(Index, Value);
 	}
 }
 
@@ -496,6 +492,33 @@ PolicyStateClass::~PolicyStateClass()
 	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = Entries.begin(); entry != Entries.end(); entry++) {
 		entry->first->Attach(0, 0);
 	}
+}
+
+void PolicyStateClass::Evaluate(int a, int b)
+{
+	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = Entries.begin(); entry != Entries.end(); entry++) {
+		bool value = entry->first->Evaluate(a, b);
+		if (value != entry->second) {
+			entry->second = value;
+			Dirty = true;
+		}
+	}
+}
+
+void PolicyStateClass::Set(int index, bool value)
+{
+	std::pair<RefCountPtr<PolicyConditionClass>, bool> &entry = Entries[index];
+	if (entry.second != value) {
+		entry.second = value;
+		Dirty = true;
+	}
+}
+
+void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
+{
+	int index = Entries.size();
+	Entries.push_back(std::pair<RefCountPtr<PolicyConditionClass>, bool>(condition, false));
+	condition->Attach(this, index);
 }
 
 /*
