@@ -540,6 +540,8 @@ def link_program(name, out):
     if os.path.exists(gen):
         os.remove(gen)
     summary = link_one(name, out)
+    if summary['cl_errors']:
+        raise SystemExit(f'{name}: the program does not compile (see {dst}\\cl.log); nothing deployed')
     if summary['unresolved'] or not summary['exe']:
         sys.path.insert(0, os.path.join(REPO, 'tests', 'clienttest'))
         import gen_stubs
