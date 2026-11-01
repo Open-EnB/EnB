@@ -432,20 +432,22 @@ bool Font32Class::Load_Font_Image(const char * filename)
 **	Copies str's characters from the font image into dest at y 0, each followed by XSpacing columns of the
 **	space character's cell (0x6BC950, FontSys 0x6D8DC0).
 */
-// NOT EXACT: (D64) written from the pseudocode (0.68)
+
 void Font32Class::Print_To_Surface(char const * str, SurfaceClass * dest)
 {
 	int x = 0;
 	FAIL_IF(!str) return;
 
+	int index = 0;
 	SurfaceClass::SurfaceDescription sd;
 	Surface->Get_Description(sd);
-	float width = (int)sd.Width;
-	float height = (int)sd.Height;
+	int width = sd.Width;
+	int height = sd.Height;
 	int space_x = (int)(width * UOffsetTable[' '] + 0.5f);
 	int space_y = (int)(height * VOffsetTable[' '] + 0.5f);
 	int char_height = CharHeight;
-	for (int index = 0; str[index] != 0; index++) {
+	if (*str == 0) return;
+	do {
 		unsigned char c = str[index];
 		int src_x = (int)(width * UOffsetTable[c] + 0.5f);
 		int src_y = (int)(height * VOffsetTable[c] + 0.5f);
@@ -460,17 +462,15 @@ void Font32Class::Print_To_Surface(char const * str, SurfaceClass * dest)
 		if (left > 0) {
 			int done = 0;
 			do {
-				int count = 4;
-				if (left <= 4) {
-					count = left;
-				}
+				int count = (left > 4) ? 4 : left;
 				dest->Copy(x + done, 0, space_x, space_y, count, char_height, Surface.Peek());
-				left -= count;
 				done += count;
+				left -= count;
 			} while (left > 0);
 		}
 		x += XSpacing;
-	}
+		index++;
+	} while (str[index] != 0);
 }
 
 
