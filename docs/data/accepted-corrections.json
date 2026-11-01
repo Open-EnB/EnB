@@ -15,7 +15,7 @@
    "file": "configfile",
    "moved_to": null,
    "decision": "D175",
-   "note": "ArrayList<Wstring>::~ArrayList: an app template / iostream instance, called from 0x779520 and EH funclets 0xACE2B0..0xACE440, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+   "note": "ArrayList<Wstring>::~ArrayList: an app template / iostream instance, called from 0x779520 and EH funclets 0xACE2B0..0xACE440, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Pairs again (2026-11-01 night run, HV1/HV2): app's unknown_htmlattrib.cpp instantiates it (HtmlAttributeStackClass)."
   },
   {
    "address": "0x77B030",
@@ -23,7 +23,7 @@
    "file": "configfile",
    "moved_to": null,
    "decision": "D175",
-   "note": "Dictionary<Wstring,Wstring>::keyHash: an app template / iostream instance, called from 0x779520, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+   "note": "Dictionary<Wstring,Wstring>::keyHash: an app template / iostream instance, called from 0x779520, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Pairs again (2026-11-01 night run, HV1/HV2): app's unknown_htmlattrib.cpp instantiates it (HtmlAttributeStackClass)."
   },
   {
    "address": "0x77B690",
@@ -31,7 +31,7 @@
    "file": "configfile",
    "moved_to": null,
    "decision": "D175",
-   "note": "ArrayList<Wstring>::growVector: an app template / iostream instance, called from 0x779860, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+   "note": "ArrayList<Wstring>::growVector: an app template / iostream instance, called from 0x779860, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Pairs again (2026-11-01 night run, HV1/HV2): app's unknown_htmlattrib.cpp instantiates it (HtmlAttributeStackClass)."
   },
   {
    "address": "0x850820",
@@ -39,7 +39,7 @@
    "file": "configfile",
    "moved_to": null,
    "decision": "D175",
-   "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+   "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Waits for E&B's INFMSG / MsgManager streams in wlib (P-CC2-1); comes back in cordcon.cpp then."
   }
  ]
 }

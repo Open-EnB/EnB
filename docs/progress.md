@@ -1794,17 +1794,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D176 | 2026-10-31 | P-TG3-1: CordCon takes the client's 0xC0 layout: its three harness counters (AcksMatched_, ResendRequests_, Rejected_) move to a side table in udpreplay, and the constructor takes the key as one `__int64` (unblocks the ctor 0x84F640 and ACK2 0x85ABB0) | user |
 | D177 | 2026-10-31 | P-TG4-2: D130 covers dead spenders in a NOT EXACT function kept for another function's pair: ui_avatar_cust 0x550A10 keeps its five dead finds (Rotate_Y 0x551270's pair), marked, until 0x550A10 is rebuilt | user |
 | D178 | 2026-11-01 | P-NW3-1 / P-NW4-2: CordMgr's +0x58 takes the client's meaning (MaxPerSocket_, the per-socket connection limit); the harness's Unexpected_ count moves to udpreplay's side table, as D176 did for CordCon (unblocks Connect 0x858EC0 and the buffer setter 0x8578C0) | user |
+| D179 | 2026-11-01 | The proof-of-concept client (videos -> login -> character select against antprox's /REPLAY): its data is `C:\EnBDevelopment\ClientPOC` (a copy of the game data in EA's layout, not the install folder); the POC exe is deployed into `ClientPOC\release` (the third-party DLLs are already there), and running it there and writing there is allowed. Modal dialogs are allowed in the POC client only; unattended test programs keep D69's `-nomsgbox`. D69 / D143 still govern the real install folder (never its working directory, never written) | user |
+| D180 | 2026-11-01 | P-LG1-1 kept: LoginTicketInfoClass is 0xA0 bytes (its +0x20 an `__int64`, 8-aligned; 9c0a0162, +1, 0 lost); GlobalLoginPacketClass +0xAC and LoginTaskClass +0x1134 become tail padding | user |
 
 ## 3. Open decisions
 
-* **P-LG1-1** (2026-11-01, LG1; recommend keep): LoginTicketInfoClass is 0xA0 bytes, not 0x9C: its +0x20 is an
-  `__int64` (8-aligned), the only difference in 0x5AEA60's frame; committed in 9c0a0162 (+1). GlobalLoginPacketClass
-  +0xAC and LoginTaskClass +0x1134 (tsk_login.h `Unknown1134`) become tail padding; nothing else moved, pkgloballogin
-  and tsk_login kept every pair. Keep it?
-* **P-LG2-1** (2026-11-01, LG2; recommend: measure first): ui_avsel's slot +0x68 0x55D060 calls ShipCustDescClass's
-  implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1) inlines there instead.
-  Let ShipCustDescClass use the implicit operator= again (or make the written one non-inline), after checking that
-  tsk_login's pair on 0x55D8A0 survives?
 * **P-VM-2** (2026-11-01, NW7 / FB1 / GM2 / LG3; recommend yes): `pool.py lease` (and `verify --pool`, `appfile.py
   --pool`) wait in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does
   not hold `leases.lock` past its own save (one held it 15 minutes on 2026-11-01). A tools change (Python: the
@@ -1842,6 +1836,10 @@ below name only the work items, the blocked work, the leads and the queues.
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
+   * P-LG2-1 (the user, 2026-11-01: a work item, not a decision): ui_avsel's slot +0x68 0x55D060 calls
+     ShipCustDescClass's implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1)
+     inlines there instead. Measure ShipCustDescClass with the implicit operator= again (or the written one
+     non-inline), checking that tsk_login's pair on 0x55D8A0 survives; keep it if it gains and loses nothing.
    * app/packets' "(not rebuilt)" comments for 0x735FC0 / 0x739FF0 / 0x734740 are stale (all three exact); 0x738970
      (CLIENT_DAMAGE) is still not rebuilt.
    * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
