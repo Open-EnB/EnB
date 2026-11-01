@@ -145,17 +145,11 @@ private:
 	{
 	public:
 		ShadowTexClass(void) : ObjectTypeID(0), ObjectOrientation(1), Texture(NULL) {}
-		ShadowTexClass(uint32 obj_type_id,const Quaternion & orientation,TextureClass * tex) :
-			ObjectTypeID(obj_type_id), ObjectOrientation(orientation), Texture(NULL) { REF_PTR_SET(Texture,tex); }
-		ShadowTexClass(const ShadowTexClass & that) : ObjectTypeID(0), ObjectOrientation(1), Texture(NULL) { *this = that; }
+		// the client keeps uncalled copies of these three (0x4916B0, 0x491730, 0x4917C0): defined in proj_man.cpp
+		ShadowTexClass(uint32 obj_type_id,const Quaternion & orientation,TextureClass * tex);
+		ShadowTexClass(const ShadowTexClass & that);
 		~ShadowTexClass(void) { REF_PTR_RELEASE(Texture); }
-		const ShadowTexClass & operator = (const ShadowTexClass & that)
-		{
-			ObjectTypeID = that.ObjectTypeID;
-			ObjectOrientation = that.ObjectOrientation;
-			REF_PTR_SET(Texture,that.Texture);
-			return *this;
-		}
+		const ShadowTexClass & operator = (const ShadowTexClass & that);
 
 		bool					operator == (const ShadowTexClass &)						{ return false; }
 		bool					operator != (const ShadowTexClass & that)					{ return true; }
