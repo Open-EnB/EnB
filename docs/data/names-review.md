@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1082 |
-| 2 | describes what the code does | 2609 |
-| 1 | neutral placeholder | 8270 |
+| 3 | by convention from a client-named file or sibling | 1084 |
+| 2 | describes what the code does | 2610 |
+| 1 | neutral placeholder | 8281 |
 
 ## For review (score 3 and below)
 
@@ -6266,6 +6266,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown700` | `app/common/unknown_rsakey.h:49` | untagged neutral name (D10) |
 | 1 | `Unknown800` | `app/common/unknown_rsakey.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown200` | `app/common/unknown_rsakey.h:93` | untagged neutral name (D10) |
+| 1 | `VerbNameStruct` | `app/common/unknown_verb.cpp:7` | what it holds |
+| 1 | `Code` | `app/common/unknown_verb.cpp:9` | what it holds |
+| 1 | `Name` | `app/common/unknown_verb.cpp:10` | what it holds |
+| 1 | `VerbNames` | `app/common/unknown_verb.cpp:14` | what it holds |
+| 1 | `VerbReasons` | `app/common/unknown_verb.cpp:32` | what it holds |
+| 1 | `unknown_verb.h` | `app/common/unknown_verb.h:12` | provisional (D10) |
+| 1 | `VERB_NONE` | `app/common/unknown_verb.h:19` | neutral placeholder (D10) |
+| 1 | `Unknown_4A1590` | `app/common/vendor_defs.cpp:8` | neutral placeholder (D10) |
+| 1 | `VendorTypeNames` | `app/common/vendor_defs.cpp:10` | what it holds |
+| 1 | `AmbientTypeNames` | `app/common/vendor_defs.cpp:11` | what it holds |
+| 1 | `Unknown_4A1590` | `app/common/weapontype.cpp:7` | neutral placeholder (D10) |
+| 1 | `WeaponTypeNames` | `app/common/weapontype.cpp:9` | what it holds |
 | 1 | `LoginUnknown0CClass` | `app/input/inpdsp.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/input/inpdsp.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_42A170` | `app/input/inpdsp.cpp:44` | untagged neutral name (D10) |
@@ -7178,7 +7190,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/packets/pkupdate.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8ADB20` | `app/packets/pkupdate.h:133` | neutral (D10) |
 | 1 | `pkverbrequest` | `app/packets/pkverbrequest.h:16` | provisional, pk + its first named class's name |
-| 1 | `VERB_NONE` | `app/packets/pkverbrequest.h:44` | neutral placeholder (D10) |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown` | `app/shared/attrib_dir.cpp:1092` | untagged neutral name (D10) |
@@ -9485,6 +9496,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Compute` | `app/common/unknown_rsakey.h:128` | what it does |
 | 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
 | 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
+| 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
 | 2 | `Owner` | `app/input/inpdsp.h:42` | what it holds |
 | 2 | `Data` | `app/input/inpdsp.h:43` | what it holds |
 | 2 | `Next` | `app/input/inpdsp.h:45` | what it holds |
@@ -9836,8 +9848,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle` | `app/packets/pkupdate.h:161` | the members they set |
 | 2 | `Get_Type` | `app/packets/pkupdate.h:168` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `Position` | `app/packets/pkupdate.h:172` | AdvancedPositionalUpdatePacketClass's Position at the same offset |
-| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:25` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pkverbrequest.h:34` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
 | 2 | `Type` | `app/shared/attrib_dir.cpp:1078` | what it holds |
 | 2 | `Name` | `app/shared/attrib_dir.cpp:1079` | what it holds |
@@ -11238,6 +11250,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:18` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `NavigationListClass` | `app/common/unknown_navlist.h:28` | WARP's Print text 'NavigationListSize=' |
+| 3 | `vendor_defs.h` | `app/common/vendor_defs.h:16` | header name assumed from the client's vendor_defs.cpp |
+| 3 | `weapontype.h` | `app/common/weapontype.h:15` | header name assumed from the client's weapontype.cpp |
 | 3 | `inpdsp.h` | `app/input/inpdsp.h:20` | header name assumed from the client's inpdsp.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `pkgeaset.h` | `app/packets/gameedit/pkgeaset.h:15` | the header of the client's gameedit\pkgeaset.cpp |
@@ -11851,15 +11865,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RotateAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'RotateAngle=' |
 | 3 | `RotateRate` | `app/packets/pkupdate.h:178` | the client's Print text 'RotateRate=' |
 | 3 | `TiltAngle` | `app/packets/pkupdate.h:179` | the client's Print text 'TiltAngle=' |
-| 3 | `SubjectID` | `app/packets/pkverbrequest.h:35` | the client's Print text 'SubjectID=' |
-| 3 | `ObjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'ObjectID=' |
-| 3 | `Action` | `app/packets/pkverbrequest.h:37` | the client's Print text 'Action=' |
-| 3 | `VerbListPacketClass` | `app/packets/pkverbrequest.h:50` | the client's Print text 'VerbList' |
-| 3 | `GameID` | `app/packets/pkverbrequest.h:61` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverbrequest.h:62` | the client's Print text 'Verbs=' |
-| 3 | `GameID` | `app/packets/pkverbrequest.h:76` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverbrequest.h:77` | the client's Print text 'Drops=' (the first string it prints) |
-| 3 | `std:` | `app/packets/pkverbrequest.h:78` | the client's Print text 'Adds=' |
+| 3 | `SubjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'SubjectID=' |
+| 3 | `ObjectID` | `app/packets/pkverbrequest.h:37` | the client's Print text 'ObjectID=' |
+| 3 | `Action` | `app/packets/pkverbrequest.h:38` | the client's Print text 'Action=' |
+| 3 | `VerbListPacketClass` | `app/packets/pkverbrequest.h:43` | the client's Print text 'VerbList' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:54` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:55` | the client's Print text 'Verbs=' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:69` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:70` | the client's Print text 'Drops=' (the first string it prints) |
+| 3 | `std:` | `app/packets/pkverbrequest.h:71` | the client's Print text 'Adds=' |
 | 3 | `VersionRequestPacketClass` | `app/packets/pkversionrequest.h:22` | the client's Print text 'VersionRequest {' and the PacketClass convention |
 | 3 | `Major` | `app/packets/pkversionrequest.h:32` | the client's Print text 'Major=' |
 | 3 | `Minor` | `app/packets/pkversionrequest.h:33` | the client's Print text 'Minor=' |

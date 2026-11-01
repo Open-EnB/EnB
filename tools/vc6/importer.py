@@ -3868,6 +3868,20 @@ RECONSTRUCTED = {
                                          "(builder P4, 15 of 15 exact in appfile.py match)",
     ('app', 'common/unknown_navlist.h'): "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, "
                                        "a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp",
+    ('app', 'common/vendor_defs.cpp'): "vendor_defs.cpp (the client's __FILE__, FAIL_IF l.47 / 48 / 85 / 86): the "
+                                     "vendor's and the ambient character's type converters, client 0x84C270-0x84C42C "
+                                     "(builder NW4, 6 of 6 exact in appfile.py match)",
+    ('app', 'common/vendor_defs.h'): "VendorTypeEnum / AmbientTypeEnum (the client's Type_Name strings) and the converters "
+                                   "of vendor_defs.cpp (header name assumed)",
+    ('app', 'common/unknown_verb.cpp'): "PROVISIONAL file name (D10): the verbs' names (VerbEnum), client 0x84C450-0x84C5A2, "
+                                      "its own object between vendor_defs.cpp's and weapontype.cpp's data (builder NW4, "
+                                      "2 of 3 exact; Value_To_String 0x84C470 NOT EXACT)",
+    ('app', 'common/unknown_verb.h'): "PROVISIONAL file name: VerbEnum (moved from pkverbrequest.h) and its converters, "
+                                    "rebuilt in unknown_verb.cpp",
+    ('app', 'common/weapontype.cpp'): "weapontype.cpp (the client's __FILE__, G_ASSERT l.41, FAIL_IF l.48 / 49): a weapon "
+                                    "type's converters, client 0x84C5D0-0x84C69D (builder NW4, 2 of 2 exact)",
+    ('app', 'common/weapontype.h'): "WeaponType (WEAPON_TYPE_FIRST / MAX_TYPE_WEAPON) and the converters of weapontype.cpp "
+                                  "(header name assumed)",
     ('app', 'common/tcpconn.cpp'): "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr "
                                    "(D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect "
                                    "(line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, "

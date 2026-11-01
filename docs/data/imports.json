@@ -737,6 +737,8 @@
      "0x84D380",
      "0x84D510",
      "0x84D730",
+     "0x84D960",
+     "0x84D990",
      "0x84D9C0",
      "0x84DA40",
      "0x84DB30",
@@ -11513,6 +11515,25 @@
     "merged": [],
     "name": "client/unknown_screenfade.cpp"
    },
+   "unknown_verb": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [],
+    "merged": [],
+    "name": "common/unknown_verb.cpp"
+   },
+   "vendor_defs": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x84C2E0",
+     "0x84C3D0"
+    ],
+    "merged": [],
+    "name": "common/vendor_defs.cpp"
+   },
    "view": {
     "ambiguous": [
      "0x42B2F0",
@@ -11552,6 +11573,17 @@
     ],
     "merged": [],
     "name": "client/view.cpp"
+   },
+   "weapontype": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x84C5D0",
+     "0x84C640"
+    ],
+    "merged": [],
+    "name": "common/weapontype.cpp"
    }
   },
   "headers": {
@@ -11614,6 +11646,9 @@
    "common/unknown_navlist.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
    "common/unknown_rsakey.h": "reconstructed",
+   "common/unknown_verb.h": "reconstructed",
+   "common/vendor_defs.h": "reconstructed",
+   "common/weapontype.h": "reconstructed",
    "input/inpdsp.h": "reconstructed",
    "input/inpkeys.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
