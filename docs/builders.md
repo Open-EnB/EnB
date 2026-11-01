@@ -88,8 +88,10 @@ uncommitted unverified work you made, and report.
 **Context.** Noisy output to `.work/<item>/*.log`; read only what you need. RE tool order:
 `docs/data/*`, `tools/re/client.py dis|name|refs|callers`, `python tools/re/pseudocode.py --show
 ADDR`, REA last (5 minutes of start-up). `python tools/re/triage.py show ADDR` gives D163's hint for an
-application-range function (kind, file, class, the evidence it cited): a hint, never evidence (D56, D167);
-the client's strings, asserts and objmatch decide.
+application-range function (kind, file, class, the evidence it cited; the table is `docs/data/triage.json`, D172):
+a hint, never evidence (D56, D167); the client's strings, asserts and objmatch decide. A low-confidence hint, or
+one for a function at a file boundary, is a lead: confirm the object's boundaries (statics, literals, padding)
+before placing (`docs/data/triage.md`).
 
 ## 3. Report (final message, under 40 lines)
 

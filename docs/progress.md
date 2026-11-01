@@ -13,8 +13,8 @@ the triage's score (D168, P-API-4) before finalizing it. HEAD against the baseli
 
 * **The test:** six triage runs between two *different* files (the hint had to choose), 23 functions; the builders
   decided each file from the client's own evidence before reading the hint. Result: right 18 of 23 (15 proven by a
-  pair); the 5 misses are one object no evidence names (the screen fade, now unknown_screenfade.cpp). Summary and
-  the proposed reading rule in P-API-4 (§3).
+  pair); the 5 misses are one object no evidence names (the screen fade, now unknown_screenfade.cpp). Accepted with
+  its reading rule as D172 (the table tracked in `docs/data/triage.*`).
 * **TG3** (#58-#60, +16): CordMgr's SYN1 0x85A3B0 / SYN2 0x85AB30 exact (the hint right 5/5 for the run, wrong
   kind on two); new app/client/unknown_screenfade.cpp, 10 exact (0x7FF010-0x7FFBE0, 0x42F250; the hint said
   scriptedmovie: wrong 5/5); sbaseview 0x69CBE0 / 0x69CC10 / 0x69CCD0 / 0x69CDE0 exact (right 3/3). P-TG3-1 open.
@@ -1642,6 +1642,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D169 | 2026-10-31 | D66 moves past `vc6-verify` (amends D157's "any D66 case is merged by hand": the master ruleset requires `vc6-verify` and has no bypass actors, so that path did not exist; first hit PR #39, the pilot's scriptedmovieline.cpp with 0x7FFD30 / 0x7FFDC0 moved from scriptedmovie). A PR whose every lost pair is a move (the address held by another file in the same verify, none lost outright) fails until a maintainer comments `/accept-d66 SHA` naming its head (or runs `verify_pr.py PR --accept-d66`). The service then verifies it again and posts success, the moves and who accepted them named in the status and the comment, and the PR merges or lands like one that lost nothing. A pair lost outright still fails and waits for the user; no command passes it. The command is the user's: agents list the moves for the user and never post it (comments from this host carry the user's login). No bypass actor on the ruleset. `tools/vc6/verify_pr.py`, `verify_watch.py`, [github-plan.md](github-plan.md) §4.5.5 | user |
 | D170 | 2026-10-31 | D163's full triage runs on Sonnet 5.5, over the 14,753 functions in the application range only (amends D167's "the full batch on Haiku 5.5"). The calibration (`triage.py calib`, 300 byte-exact functions with their own name, class and paths removed, no neighbours or files): Haiku 5.5 kind 79.7 %, file 40.0 % at medium / high (6 of 15 right even at high), failing D167's gate; Sonnet 5.5 kind 89.3 %, file 63.2 % (19 of 24 at high), passing it. Sonnet costs about $0.0027 a function, so all 20,588 would be about $53; the 5,835 library-range functions (Westwood libraries, which gaps.py already locates from EA's source, and the runtime) are left out, estimate $41, inside the `enb-d163` workspace's $60 limit | user |
 | D171 | 2026-10-31 | P-AR1-1: objmatch's D88 self-name round also uses the slots of vtables learned in the same run (from the exact constructors that store them, e.g. 0x702890 stores 0xB01844) and learns the relocations of short functions at addresses the run already knows, breaking the relocation-only ties of template instances whose vtables symbols.json never names (aux_roots' accessor / KVPair deleting destructors and destructors). Measured on objmatch alone (AR1's prototype `.work/ar1/proto_om.py`): aux_roots.obj 102 -> 335 exact, all 241 app objects +318, 0 lost; shipcust_desc's three range credits move to vtable addresses (0x4F7000 -> 0x4484C0, 0x4F7520 -> 0x42F010, 0x4F7550 -> 0x4488E0; 0x42F010 to be checked). Order (the user, 2026-10-31): once the tree is quiet, symbols.json is regenerated first (it lagged imports.json: 10,005 exact against 13,341 pairs), with the full verify workflow.md §3.4 requires; then this lands as one commit with a full verify of all 11 libraries, the moves listed for the user | user |
+| D172 | 2026-10-31 | P-API-4 (D168's revisit; replaces D168's ".work only"): the triage table is tracked, written by `triage.py ingest full`: `docs/data/triage.json` (one row per line: address, kind, library, file, class, template_of, confidence, contradicts; 1.2 MB), `docs/data/triage-evidence.tsv` (the evidence each answer cited; 3.6 MB) and `docs/data/triage.md` (counts, the score, the reading rule), each under the pre-push check's 5 MB; `plan`, `score` and `show` read it. Still hints, never evidence (D56, D167): no matching tool reads it. Reading rule: a low-confidence hint, or one for a function at a file boundary (the nearest known functions before and after it in different files), is a lead; confirm the object's boundaries (statics, literals, padding) before placing. Evidence: `score` against what is exact, high 494/494, medium 1,219/1,271, low 60/83; the builders' tests against pairs, both neighbours the hinted file 23 of 23, a file boundary 18 of 23, every miss one object no evidence names (unknown_screenfade.cpp: the hint said a neighbour's file) | user |
 
 ## 3. Open decisions
 
@@ -1650,21 +1651,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
-* **P-API-4** (2026-10-31, coordinator; D168's revisit; recommend yes): move the triage table from `.work/triage/` to a
-  tool-generated, tracked `docs/data/triage.json` (+ a short `docs/data/triage.md` summary), written by `triage.py
-  ingest` and still marked hints, not evidence (D56, D167): no tool's matching reads it. Evidence: `triage.py score`
-  on the 1,824 hinted functions exact after this run, file right at high 494/494, medium 1,206/1,251 (96 %), low
-  58/79; TG1 / TG2 found the hinted file right 23 of 23. Tracking it lets every clone (contributors included) see the
-  hints and the plan; the cost is a ~5 MB generated file. Alternative: keep it in `.work/` and publish only the plan.
-  **Second test (2026-10-31 evening, the user's "firm it up"):** boundary runs, between two different files. TG3 /
-  TG4 decided each function's file from the client's evidence before reading the hint: right 18 of 23 (15 proven
-  by a pair); all 5 misses are one object no evidence names (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F: the hint
-  said scriptedmovie, a neighbour's file). `score` on the run's newly exact: 15 of 24, the 9 misses that object's 8
-  plus a template copy hinted by its header (0x551270 Rotate_Y: matrix3d, credited to ui_avatar_cust's object).
-  Reading: a hint is reliable when the file has a name in the evidence (asserts, profile strings, catalogue);
-  it cannot name an object nobody named, and then picks the nearest named file instead of none. Proposed rule with
-  the move: builders treat a low-confidence hint, or a hint at a file boundary, as a lead and confirm the object's
-  boundaries (statics, literals, padding) before placing.
 * **P-TG3-1** (2026-10-31, TG3; recommend yes): CordCon's three harness counters (AcksMatched_, ResendRequests_,
   Rejected_) move out of the class (a side table in udpreplay), and its constructor takes the key as one `__int64`:
   the client allocates 0xC0, ours 0xC8; this unblocks ACK2 0x85ABB0 (0.61 with both fixed in a draft).
@@ -1688,7 +1674,7 @@ below name only the work items, the blocked work, the leads and the queues.
   both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six), 76 naming a file not in the tree (new
   files: ui_registration 0x5FFFC0, htmlview 0x7761E0, ui_starbase 0x646F70, ui_ship_cust 0x61E8B0, ...); 2,735 template
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
-  bare range (`run_branch.py claim 0xLO-0xHI`). P-API-4 (moving the table to docs/data) is open in §3. The $200's
+  bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
 * **symbols.json again** (quiet tree, full verify of every library, workflow.md §3.4) to record D171's +841, then
   `.work/pseudo/` rebuilt.
