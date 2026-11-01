@@ -60,7 +60,7 @@ bit8 TCPMgr::removeListener(uint32 ip, uint16 port)
   ListenSocket *lptr;
   for (int i=0; i<ListenArray_.length(); i++)
   {
-    if (!ListenArray_.getPointer(&lptr,i)) lptr=NULL;  // E&B (0x8BCD10): NULL on a miss
+    ListenArray_.getPointer(&lptr,i);
     if ((lptr->ip == ip) && (lptr->port == port))
     {
       closesocket(lptr->fd);
@@ -79,7 +79,7 @@ bit8 TCPMgr::getListener(uint32 ip, uint16 port, OUT SOCKET &outsock)
   ListenSocket *lptr;
   for (int i=0; i<ListenArray_.length(); i++)
   {
-    if (!ListenArray_.getPointer(&lptr,i)) lptr=NULL;  // E&B (0x8BCE70): NULL on a miss
+    ListenArray_.getPointer(&lptr,i);
     if (((lptr->ip == ip) || (ip == 0)) && (lptr->port == port))  // E&B (0x8BCE70): ip 0 matches any
     {
       outsock=lptr->fd;
@@ -412,7 +412,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
  
   for (int i=0; i<ConnectArray_.length(); i++)
   {
-    if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;  // E&B (0x8BDF80): NULL on a miss
+    ConnectArray_.getPointer(&connPtr,i);
     fdArray[i]=connPtr->fd;
   }
  
@@ -422,8 +422,8 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
 
     for (int i=0; i<ConnectArray_.length(); i++)
     {
-      if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;
-      if ((connPtr->state != CONNECTED) && (connPtr->state != (CONN_STATE)-1))  // E&B (0x8BDF80): a failed connect is returned too
+      ConnectArray_.getPointer(&connPtr,i);
+      if ((connPtr->state != CONNECTED) && (connPtr->state != FAILED))  // E&B (0x8BDF80): a failed connect is returned too
         continue;
       if (( ! ((int)dir & (int)INCOMING)) && (connPtr->incoming == TRUE))
         continue;
@@ -433,7 +433,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
         continue;
       if ((port != 0) && (port != connPtr->port))
         continue;
-      if (connPtr->state != (CONN_STATE)-1)  // E&B (0x8BDF80): a failed connect gives NULL
+      if (connPtr->state != FAILED)  // E&B (0x8BDF80): a failed connect gives NULL
         *conn=new TCPCon(connPtr->fd);
       else
         *conn=NULL;
@@ -469,7 +469,7 @@ void TCPMgr::pumpConnections(void)
   // createSocket; ours jumps past the test (VC6 knows it is SOCKET_ERROR there)
   for (i=0; i<ConnectArray_.length(); i++)
   {
-    if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;
+    ConnectArray_.getPointer(&connPtr,i);
 
     if ((connPtr->state == CLOSED) || (connPtr->state == CONNECTING))
     {
@@ -493,7 +493,7 @@ void TCPMgr::pumpConnections(void)
         if (FD_ISSET(connPtr->fd,&exceptSet))
         {
           closesocket(connPtr->fd);
-          connPtr->state=(CONN_STATE)-1;
+          connPtr->state=FAILED;
         }
         else if (FD_ISSET(connPtr->fd,&writeSet))
           connPtr->state=CONNECTED;
@@ -512,7 +512,7 @@ void TCPMgr::pumpConnections(void)
         else if ((status==CONNREFUSED)||(status==TIMEDOUT)||(status==CONNRESET))
         {
           closesocket(connPtr->fd);
-          connPtr->state=(CONN_STATE)-1;
+          connPtr->state=FAILED;
           continue;
         }
         else // doh, real problem
@@ -535,7 +535,7 @@ void TCPMgr::pumpConnections(void)
   int                 addrlen;
   for (i=0; i<ListenArray_.length(); i++)
   {
-    if (!ListenArray_.getPointer(&listenPtr,i)) listenPtr=NULL;
+    ListenArray_.getPointer(&listenPtr,i);
 
     while(1)  // accept all incoming on each socket
     {

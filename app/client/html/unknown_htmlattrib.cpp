@@ -57,8 +57,7 @@ char *HtmlAttributeStackClass::Get(char *key)
 	ArrayList<Wstring> *list;
 	if (Values.getPointer(k, &list)) {
 		Wstring *s;
-		if (!list->getPointer(&s, list->length() - 1))
-			s = NULL;
+		list->getPointer(&s, list->length() - 1);
 		return(s->get());
 	}
 	return(NULL);
@@ -110,8 +109,7 @@ bit8 HtmlAttributeStackClass::Pop(char *key, char *value, int length)
 
 	for (int i = list->length() - 1; i >= 0; i--) {
 		Wstring *s;
-		if (!list->getPointer(&s, i))
-			s = NULL;
+		list->getPointer(&s, i);
 		if (*s == v) {
 			bool result = list->remove(i);
 			if (list->length() == 0)
@@ -158,7 +156,7 @@ static uint32 Wstring_Hash(const Wstring &string)
 **	* Its literals ('image/gif', 'text/html', '.gif') follow htmlview.cpp's in .rdata, before avatar.cpp's.
 **	* Every function exact, the 16 template copies with them (0x77AA10, 0x77B030, 0x77B690: D175's
 **	  decided losses, paired again here).
-**	* Forms: Get / Pop read an entry as `if (!list->getPointer(&s, i)) s = NULL;` (a select, not a NULL
-**	  initialiser); Pop's two removals are written out in each branch with the index local to the loop
+**	* Forms: Get / Pop read an entry with a bare getPointer (wlib's E&B arraylist.h NULLs it on a miss: a
+**	  select, not a NULL initialiser); Pop's two removals are written out in each branch with the index local to the loop
 **	  (one shared `i` moves `value` from edi to ebx); Remove returns bool (setne after Dictionary::remove).
 */

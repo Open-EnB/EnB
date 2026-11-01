@@ -582,7 +582,10 @@ template <class T>
 bit8 ArrayList<T>::getPointer(OUT T **node,sint32 pos) RO 
 {
   if ((pos < 0)||(pos >= Entries_))
+  {
+    *node=NULL;  // E&B: NULL on a miss (every inlined call: tcpmgr.cpp 0x8BCD10, 0x8BDF80, cordmgr.cpp, unknown_htmlattrib.cpp)
     return(FALSE);
+  }
   *node=&(Vector_[pos]);
   return(TRUE);  
 }

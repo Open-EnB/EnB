@@ -61,10 +61,10 @@ CordMgr::CordMgr() :
 	Init();
 }
 
-// 0x857590, NOT EXACT (0.84, inline budget): the listening sockets closed, then the connections, the
-// handshakes and the data sockets deleted from the front of their lists. The client calls the
-// destructor of Connections_ (+0x34) out of line as well; ours inlines it (perhaps the full
-// constructor 0x856970 before it, not rebuilt, spends the file's budget).
+// 0x857590: the listening sockets closed, then the connections, the handshakes and the data sockets
+// deleted from the front of their lists. The client calls the destructor of Connections_ (+0x34)
+// out of line; exact since wlib's getPointer NULLs its pointer on a miss itself (NW6: the inliner's
+// budget), the call-site NULL below kept (same code).
 CordMgr::~CordMgr()
 {
 	Unlisten(0, 0);
@@ -644,7 +644,7 @@ CordDataSocketClass *CordMgr::Find_Data_Socket(UDP *socket)
 	CordDataSocketClass *s = NULL;
 	int count = DataSockets_.length();
 	for (int i = 0; i < count; i++) {
-		if (!DataSockets_.getPointer(&s, i)) s = NULL;
+		DataSockets_.getPointer(&s, i);
 		if (s->Socket == socket) {
 			break;
 		}
