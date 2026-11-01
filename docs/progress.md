@@ -4,6 +4,52 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (09:30 PST, night): the network stack round, login and character select started; +314 pairs, 0 lost
+
+Coordinator Opus 5.5. Base a230790d (#138 merged; `.work/imports.a230790d.json`); run branch `run/2026-11-01`, PR #139.
+Plan log: `.work/run-2026-11-01/plan.md`. The user's goals: weekly usage to 80 % by 07:00 (69 % at 00:53, 79 % at
+08:55); a soft goal of the client's network stack exact, then start-up, login and character selection. HEAD against
+the base: **+314 pairs (app +294, wnet +20), 0 lost outright, no moves.** Daylight saving ended at 02:00 PDT: times
+below are PST from then on.
+
+* **Network stack (CC1, CC2, NW1-NW7, FB1; about 55 functions not exact at the start):** D176 landed (CordCon's 0xC0
+  layout, an `__int64` key, the harness counters in `tests/udpreplay/cord_counters.h`); CordCon::write takes the
+  client's `(channel, len, data, priority)`; cordcon.cpp in the client's function order with FAIL_IF / INFMSG lines
+  in place; the CordMgr constructors, Init, Listen, Wait, Unlisten, ~CordMgr, Find_Connection, Cancel_Connect and
+  the go-away sender exact; app\wwudp on wnet's E&B udp.h (P-NW4-1); wnet's E&B udp.cpp complete and tcpmgr.cpp's
+  revision (+20); E&B's ArrayList::getPointer sets NULL on a miss (P-NW2-2) and tcpmgr.h's `FAILED = -1` (P-NW2-1).
+  Two functional fixes from the client: CordCon clears `GoneAway_` on receive, and pumpClose gives up after 90
+  seconds. udpreplay output unchanged throughout (run / loop / conn alex3, handshake 54/54). **Not met:** about 25
+  functions remain (D99 rows aside), all partial or parked: cordcon's write / read / handlePacket / examinePacket /
+  buildHeader / pumpClose / close / openc / pumpInternal / Cord_Get_Seq / Copy, CordMgr's Pump / Pump_Connections /
+  Go_Away / ACK1 / ACK2 / Compute_Ticks, udpconn's Send_Data and 0x82CBF0, tcpconn's Key_Exchange and Listen, wnet's
+  pumpConnections. FB1's Fable round (D89) parked Send_Data and pumpConnections (LIMIT REACHED).
+* **Start-up, login, character select (LG1-LG3):** new `ui_login.cpp` (LoginInterface, 15 of 16 exact, +31), new
+  `ui_avsel.cpp` / `ui_avsel.h` (AvatarSelectionInterface, base InterfaceClass, 20 written, 17 exact, +23);
+  kernel.cpp / tsk_login.cpp +6 and 6 D99 rows; the rest of tsk_login is register / shape residue.
+* **Other files:** galaxy_map.cpp complete (35 -> 136 with its iterators; GM1, GM2) and the new galaxy_map_client.cpp
+  (+15); html: new `unknown_htmlattrib.cpp` (HtmlAttributeStackClass, all exact: **D175's three Wstring losses
+  0x77AA10 / 0x77B030 / 0x77B690 pair again**), `htmlview.cpp` / `htmlview.h` (HtmlViewClass) and
+  `unknown_htmlblock.cpp` (HtmlBlockClass) (+76; HV1, HV2); vendor_defs.cpp, weapontype.cpp, unknown_verb.cpp (NW4).
+  D175's fourth loss 0x850820 comes back with E&B's INFMSG (P-CC2-1, drafted outside the tree).
+* **Decisions:** D178 (P-NW3-1, the user at ~08:50). New open: P-LG1-1, P-LG2-1, P-VM-2 (§3). Interim placements
+  (D137, the coordinator's): unknown_htmlattrib.cpp, unknown_htmlblock.cpp, galaxy_map_client.h, ui_avsel.h,
+  wnet udp.cpp's direct includes of <string> and permstr.h.
+* **Process:** the coordinator's question to the user (P-NW3-1) held the session from ~02:40 to ~08:50: heartbeats and
+  launches stopped while every builder finished, and the 07:00 handoff slipped to ~09:30. Ask through the run's log
+  and the report instead of a blocking dialog during an unattended run. Seven VMs for nine or ten builders saturated
+  the pool and the importer lock from ~01:30 (20-30 minute waits; workflow.md §3.5). The coordinator fixed HEAD's
+  udpreplay link (79859ca7: the Value_To_String(VerbEnum) stub). commit_mine swept neighbouring rows between
+  builders several times (documents only; not repaired).
+* **D178 landed (NW8):** NW3's wt/nw3-p1 brought onto HEAD (da2d4d2d): CordMgr +0x58 is MaxPerSocket_, the harness count in udpreplay; Connect 0x858EC0 and the new Set_Buffers 0x8578C0 (NAME 2) exact, growVector 0x85BC80: app +3, 0 lost, replay 0, udpreplay byte-identical. P-CC2-2: udpreplay.py links unknown_verb.cpp (1e7082c3, a Python change: the PR needs `/verify-approved`). Worktree `.work/wt/nw3` and branch `wt/nw3-p1` are fully landed and left for the user to remove (`python tools/vc6/wt.py remove nw3 --delete-branch`; the builder's removal was refused by the permission check).
+* **Traps:** about 60 from the reports, filed in workflow.md §3.0-§3.9 (2026-11-01 bullets).
+* **Next session first:** P-CC2-1 (E&B's INFMSG and MsgManager streams in wlib, with stubs for udpreplay / clienttest:
+  brings 0x850820 back and unblocks cordcon's four log-bearing functions); update D175's notes in
+  `docs/data/accepted-corrections.json` (three of the four pair again); the user's calls on P-LG1-1 / P-LG2-1 /
+  P-VM-2; then §4's network and login bullets.
+* **Outside git:** `.work/run-2026-11-01/` (plan log, briefs, traps), `.work/<builder>/` scratch (cc1, cc2, nw1-nw8,
+  hv1, hv2, gm1, gm2, lg1-lg3, fb1).
+
 ### 2026-11-01 (D175): the decided-loss tools PR (#137) and wlib's configfile / xtime revision: +11, 4 decided losses
 
 Opus 5.5, with the user. Base edbe036d (#137 merged); branch `run/2026-11-01-wlib`.
@@ -1747,9 +1793,22 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D175 | 2026-10-31 | P-TK7-1: wlib takes E&B's own configfile.cpp + xtime.cpp revision (configfile without sectionList and MDC's writers, readFile keeping empty values and joining backslash lines, clear 0x8B2690; xtime without FormatTime / ParseDate / Print* / getYDay): wlib +11; the 4 pairs lost outright (0x77AA10, 0x77B030, 0x77B690, 0x850820: app template / iostream instances only matchbot's sectionList / writeFile credited to configfile) are accepted (into accepted-corrections as decided losses) and come back as their app files are built | user |
 | D176 | 2026-10-31 | P-TG3-1: CordCon takes the client's 0xC0 layout: its three harness counters (AcksMatched_, ResendRequests_, Rejected_) move to a side table in udpreplay, and the constructor takes the key as one `__int64` (unblocks the ctor 0x84F640 and ACK2 0x85ABB0) | user |
 | D177 | 2026-10-31 | P-TG4-2: D130 covers dead spenders in a NOT EXACT function kept for another function's pair: ui_avatar_cust 0x550A10 keeps its five dead finds (Rotate_Y 0x551270's pair), marked, until 0x550A10 is rebuilt | user |
+| D178 | 2026-11-01 | P-NW3-1 / P-NW4-2: CordMgr's +0x58 takes the client's meaning (MaxPerSocket_, the per-socket connection limit); the harness's Unexpected_ count moves to udpreplay's side table, as D176 did for CordCon (unblocks Connect 0x858EC0 and the buffer setter 0x8578C0) | user |
 
 ## 3. Open decisions
 
+* **P-LG1-1** (2026-11-01, LG1; recommend keep): LoginTicketInfoClass is 0xA0 bytes, not 0x9C: its +0x20 is an
+  `__int64` (8-aligned), the only difference in 0x5AEA60's frame; committed in 9c0a0162 (+1). GlobalLoginPacketClass
+  +0xAC and LoginTaskClass +0x1134 (tsk_login.h `Unknown1134`) become tail padding; nothing else moved, pkgloballogin
+  and tsk_login kept every pair. Keep it?
+* **P-LG2-1** (2026-11-01, LG2; recommend: measure first): ui_avsel's slot +0x68 0x55D060 calls ShipCustDescClass's
+  implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1) inlines there instead.
+  Let ShipCustDescClass use the implicit operator= again (or make the written one non-inline), after checking that
+  tsk_login's pair on 0x55D8A0 survives?
+* **P-VM-2** (2026-11-01, NW7 / FB1 / GM2 / LG3; recommend yes): `pool.py lease` (and `verify --pool`, `appfile.py
+  --pool`) wait in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does
+  not hold `leases.lock` past its own save (one held it 15 minutes on 2026-11-01). A tools change (Python: the
+  maintainer's `/verify-approved`).
 * **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
   template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
@@ -1813,32 +1872,45 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-10-31 t4 run (TK19): sclient's testeffects.ini loader 0x74CA90 (636 instructions; emits
      vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
      0x745750, 0x7511A0, 0x749590, 0x749A70 or 0x74BFB0 is exact.
-   * From the 2026-10-31 t4 run (TK16): galaxy_map.cpp: Add_Data 0x836960 next (inlines galaxy_map.h's line 180
-     assert 'GalaxyMapID == NOT_IN_GALAXY_MAP', FAIL_IF '(int)id >= MaxDataObjects' on cpp line 98, MaxDataObjects at
-     +0x74), then 0x8360A0-0x836740, the header's inlines and the map's dtor 0x836240 (line 185); Remove_Data 0x836B70
-     0.74 (shape: the client's six failure exits share one epilogue); importer.py's RECONSTRUCTED text for the file
-     does not mention Remove_Data yet.
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
      50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030
      bytes), 0x556F80-0x55BAC0's 21 functions (leads 0x55A060, reusing 0x558060's weights pattern, and 0x55B9A0),
      0x55BFB0.
-   * From the 2026-10-31 t4 run (TK17): cordcon's write 0x850C70 / buildHeader onto Cord_Put_Small / Cord_Put_Seq;
-     pump 0x853560 starts with a test of the byte 0xC40488 before WWPROFILE's string call (the profile macro's form
-     differs); examinePacket 0x8514D0 0.73 (ntohs / ntohl arguments through eax, the channel kept in ebp); handlePacket
-     0x851AE0 0.21 (the resend path's `CordMessageClass m = *it` copy in another stack slot).
    * From the 2026-10-31 t4 run (TK15): ui_avatar_cust.cpp starts at 0x54B760 (PermStringInitClass static 0xBE5B34;
      0x54B370 is ui_attrb_skills.cpp's, line 577; 0x54B740 / 0x54B750 are thunks into its 0x549800); ctor 0x54B7B0,
      dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
      not InterfaceClass: rebasing it unlocks the per-frame 0x54CAE0, the ctor and dtors. One register residue (the
      view's Client in edx, not eax) holds 0x54E690 / 0x54E7F0 / 0x54EAD0 / 0x54E950 (0.69-0.85); 0x54EC30 0.77.
-   * From the 2026-10-31 t4 run (TK8, TK12): cordcon's pump 0x853560 (0.46), examinePacket 0x8514D0 (0.62 register),
-     write 0x850C70 (0.39), close 0x850870 (0.43); the CordCon ctor 0x84F640 (0.15) needs P-TG3-1's 0xC0 layout (it
-     inlines Add_Channels(0x40) and builds Stats_ after the channels). galaxy_map.cpp (new, app/common): Add_System
-     0x836F30 (lines 159 / 160), Add_Starbase 0x837650 (189 / 190), lookups 0x8378B0-0x837B30, the header from
-     0x838050. claims.py resolve / check should count attempts.csv `exact` (D99) rows as done (mainview's #111 was
-     handed out though LD4 finished it); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names (As_Main_View,
-     UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
+   * From the 2026-11-01 night run (network stack; CC2, NW3, NW7, FB1): first P-CC2-1, E&B's INFMSG (`time` /
+     `gmtime` / `strftime("%m/%d/%y %H:%M:%S")` into char[80], DebugLibSemaphore's CritSec 0x8B4330 on 0xBF5258,
+     `MsgManager::infoStream()` 0x8B5B90 twice, `"INF " << timebuf << " [" << __FILE__ << " " << __LINE__ << "] "`;
+     our wdebug.h has Zero Hour's Xtime version; draft `.work/cc2/cordcon_h5.h`, `inf_all.cpp`): 0x850820 exact,
+     pumpClose 0.66. Then cordcon handlePacket 0x851AE0 (one `CordMessageClass m` before the block loop),
+     pumpInternal 0x853A30 (send block), write 0x850C70 (register, 22 forms), read 0x850FD0 0.72, buildHeader
+     0x8551F0 0.67 (stash), examinePacket 0x8514D0 0.73, openc 0x84FF70 0.48, close 0x850870 0.54, Copy 0x84E260
+     (Fable-eligible); cordmgr Pump 0x857F20 (frame: two more dwords under the 0x80-byte texts, `this` in ebp, the
+     profile flag in bl), Pump_Connections 0x858A60 (a shared Add_Connection helper with ACK2), Go_Away 0x8586D0
+     (inline Get_Ip / Get_Port / Get_Session on CordCon: 0.73), ACK2 0x85ABB0 (frame), ACK1 0x85A430, Compute_Ticks
+     0x85A220; P-FB1-1 / P-FB1-2 (Send_Data 0x82D420 and pumpConnections 0x8BE270, LIMIT REACHED: check E&B-era
+     wdebug.h variants and the other Dictionary users' inlined members before a third round). P-NW6-1: the
+     remaining call-site NULL forms (Unlisten, ~CordMgr, Connect) are redundant; leave them until a neutral pass.
+   * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order),
+     its callback members 0x5AF7F0-0x5AF930 need SignalBaseClass::MemberCallback; ui_avsel 0x55E070 (register),
+     0x55D060 (P-LG2-1), 0x55F140, and the window's rest 0x560090-0x560BC0; 0x55D860 / 0x55D880 (LoginTaskClass
+     accessors) unattributed; tsk_login's Fetch_EA_Ticket 0x76A7B0 (the demo box's 0 pushed from eax), 0x7698E0
+     (tail-merged sends), 0x76A370 (inline budget); Cycle_Focus 0x443270 is probably
+     `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
+     edit (their partial GalaxyMapClientClass declarations).
+   * From the 2026-11-01 night run (html, galaxy map; HV2, GM2): htmlview's parser 0x7710D0 (18 KB, assert line
+     926, gap left for it; its template copies 0x778CF0-0x779120), Render 0x7761E0 0.86 / Hit_Test 0x7772C0 0.77
+     (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
+     0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
+     0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * Tools (from the 2026-10-31 t4 run, TK12, still open): claims.py resolve / check should count attempts.csv
+     `exact` (D99) rows as done (mainview's #111 was handed out though LD4 finished it; on 2026-11-01 its per-file
+     counts still include the night's D99 rows); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names
+     (As_Main_View, UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
    * From the 2026-10-31 t4 run (TK9, TK18): landdmap 0x468920 (the cell builder, NOT EXACT, frame 0x8C vs 0x90 after
      TK18's 22 forms: the client keeps X on the FPU and Y in a spare slot for the upper point, perhaps one inline
      building both points from floats by value); 0x467A50 exact (TK18); 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
