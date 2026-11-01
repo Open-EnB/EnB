@@ -693,5 +693,5 @@ int ControlKeyDefClass::Get_Index() const
 **	Load_Definitions loads into _DefaultUser (0xBE7BF8). control_keys.ini (Load_Definitions
 **	0x71B1F0): one section per key definition (Text, Context, KEY, PSW_1/2, SIM_1/2; a name starting
 **	with '-' is skipped). Save 0x71AD20 emits KeysSavedEvent on the SignalMap 0x71B0F0 returns.
-**	Left unbuilt: the _Instances destructor 0x7198B0 and 0x71BCE0 (P-H11-2).
+**	P-H11-2: the private destructor (control_keys_manager.h) makes 0x71D4D0 / 0x71EE00 exact, 0x7198B0 identical (ambiguous); 0x71BCE0 unbuilt.
 */
