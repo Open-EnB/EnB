@@ -1073,3 +1073,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 19:52,0x84E930,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
 2026-10-31 19:52,0x84EC30,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
 2026-10-31 19:52,0x84EEB0,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
+2026-10-31 19:55,0x468D50,LandUnknown466BE0Class::Unknown_468D50,app/shared/landdmap.cpp,app,partial,0.88,5,register,"TK9: register-only (explain.py): the four corner loads address [Unknown04 + c*0x28 + 0x18..0x24] as [edx + edi] in the client, [edi + edx] in ours; tried Unknown04[c].Corner[k], (Unknown04 + c)->Corner[k], c[Unknown04].Corner[k], (&Unknown04[c])->Corner[k], *(Unknown04[c].Corner + k): no change. Untried lever (workflow 3.1 table, land's sea mask): an explicit unsigned byte/row offset instead of the pointer index",,opus
+2026-10-31 19:56,0x468D50,LandUnknown466BE0Class::Unknown_468D50,app/shared/landdmap.cpp,app,partial,0.88,7,register,"TK9 round 1b: the land sea-mask lever tried too: a char * byte offset c * sizeof(cell) and an unsigned index: still [edi + edx] (forms in .work/tk9/v468d50.py, untracked)",,opus
