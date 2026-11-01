@@ -2341,6 +2341,31 @@
      "0x8247A0"
     ]
    },
+   "deffont": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6831E0",
+     "0x683210",
+     "0x6832C0",
+     "0x683680",
+     "0x683710",
+     "0x683760",
+     "0x6837E0",
+     "0x683810",
+     "0x683880",
+     "0x6838A0",
+     "0x6838D0",
+     "0x683940",
+     "0x6839E0",
+     "0x683AC0",
+     "0x684E00"
+    ],
+    "merged": [],
+    "name": "client/deffont.cpp"
+   },
    "delta": {
     "ambiguous": [
      "0x42AFF0",
@@ -11948,6 +11973,7 @@
    "client/co_data.h": "reconstructed",
    "client/co_subtypes.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
+   "client/deffont.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
    "client/extrap.h": "reconstructed",

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1106 |
-| 2 | describes what the code does | 2739 |
-| 1 | neutral placeholder | 9371 |
+| 2 | describes what the code does | 2743 |
+| 1 | neutral placeholder | 9388 |
 
 ## For review (score 3 and below)
 
@@ -1167,6 +1167,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_551C40` | `app/client/cpacket.cpp:3439` | untagged neutral name (D10) |
 | 1 | `Unknown_6437A0` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
+| 1 | `Converter` | `app/client/deffont.cpp:399` | 0xBE64A4, ConvertClass(Palette, Unknown_B8F870, ...) |
+| 1 | `RemapSizes` | `app/client/deffont.cpp:400` | 0xBE6438, each Remaps row's byte count |
+| 1 | `Remaps` | `app/client/deffont.cpp:401` | 0xBE63CC, fontpal.pcx's rows (byte 0 = 0) |
+| 1 | `Palette` | `app/client/deffont.cpp:403` | 0xBE60B8, fontpal.pcx's palette |
+| 1 | `Unknown_6832C0` | `app/client/deffont.cpp:460` | untagged neutral name (D10) |
+| 1 | `Unknown_684E00` | `app/client/deffont.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_683940` | `app/client/deffont.cpp:509` | untagged neutral name (D10) |
+| 1 | `Unknown_683AC0` | `app/client/deffont.cpp:605` | untagged neutral name (D10) |
+| 1 | `Unknown_B8F870` | `app/client/deffont.cpp:638` | neutral (D10), as app/main declares it |
+| 1 | `loaded` | `app/client/deffont.cpp:695` | 0xBE6578 |
+| 1 | `STYLE_COUNT` | `app/client/deffont.h:11` | FontData's 5 entries (0x683940's loop) |
+| 1 | `REMAP_COUNT` | `app/client/deffont.h:12` | Remaps' 27 entries (0x683940's loop) |
+| 1 | `Unknown_B8F870` | `app/client/deffont.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_6832C0` | `app/client/deffont.h:25` | deffont.cpp's start-up ('!FontData[style]') |
+| 1 | `Unknown_683940` | `app/client/deffont.h:26` | deffont.cpp's shut-down |
+| 1 | `Unknown_683AC0` | `app/client/deffont.h:28` | neutral (D10) |
+| 1 | `Unknown_684E00` | `app/client/deffont.h:29` | loads fontpal.pcx into Unknown_B8F870 |
 | 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
 | 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
@@ -9653,6 +9670,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
+| 2 | `DefaultFontData` | `app/client/deffont.cpp:17` | the file's name (deffont) and FontData[0] |
+| 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
+| 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
+| 2 | `Load_Alloc_Data` | `app/client/deffont.h:27` | Westwood's name for the whole-file load (wwlib's Load_Alloc_Data(FileClass &)) |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
 | 2 | `Set_Flag` | `app/client/eff_o.h:83` | what it does |

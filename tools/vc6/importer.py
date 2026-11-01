@@ -3824,6 +3824,8 @@ RECONSTRUCTED = {
                                           "0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, "
                                           "the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, "
                                           "0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
+    ('app', 'client/deffont.h'): "deffont.cpp's data and functions (PROVISIONAL header name: the client names only deffont.cpp): the built-in font, FontData / FontNames, fontpal.pcx's Palette, Remaps / RemapSizes, the converter, the default palette 0xB8F870 (FNT1)",
+    ('app', 'client/deffont.cpp'): "deffont.cpp (__FILE__ e:\\build\\beta\\G\\app\\client\\deffont.cpp), client 0x6831E0-0x683B98 and 0x684E00: the statics (DefaultFontData 0xB8DBF8, DefaultFont 0xBE6098, Palette 0xBE60B8), the start-up 0x6832C0 (G_ASSERT l.466 / 481), the shut-down 0x683940, Load_Alloc_Data 0x6839E0 (l.586), 0x683AC0 (l.607-627) and fontpal.pcx's palette loader 0x684E00 (after wwlib's RawFileClass 0x683BE0-0x684DD0; placed here, interim, FNT1)",
     ('app', 'client/fontdatabase.h'): "FontDatabaseClass (D24, 0xBE67B8): fontsys.ini's INIT sections by resolution, "
                                      "the font files (AllFonts), the fonts in use (Font[MAXFONTS], Font32Class through "
                                      "RefCountPtr), the Colors / Effects / Strings SGI hash_maps (D87) and their "
