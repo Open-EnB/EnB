@@ -88,13 +88,7 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 	HeightTexture(NULL)
 {
 	Read_Registry();
-	if (Enabled && DX8Wrapper::Get_Current_Adapter_Identifier().VendorId == 0x102B
-		&& DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version() == 1
-		&& DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Minor_Version() == 3) {
-		Enabled = true;
-	} else {
-		Enabled = false;
-	}
+	Check_Hardware();
 	Unknown0C = 1;
 	if (Enabled) {
 		Create_Displacement_Map();
@@ -113,10 +107,7 @@ LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
 	if (Enabled) {
 		Release_Displacement_Map();
 		Release_Height_Texture();
-		if (VertexShader != 0) {
-			DX8CALL(DeleteVertexShader(VertexShader));
-			VertexShader = 0;
-		}
+		Release_Vertex_Shader();
 		delete [] Unknown04;
 		Unknown04 = NULL;
 	}
@@ -378,12 +369,9 @@ void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 	Unknown_468920();
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x467E40
 void LandUnknown466BE0Class::Unknown_467E40(void)
 {
 	// .rdata 0xB71650: the vertex shader's source (read with strlen; the text itself is in the client, not copied here)
-	LPD3DXBUFFER shader = NULL;
-	LPD3DXBUFFER errors = NULL;
 	DWORD decl[] = {
 		0x88000000,	// D3DVSD_CONST(0, 4), then four constants as raw bits
 		0x7FF4614D, 0x7FF86F72, 0x7FF47845, 0x7FD02E31,
@@ -397,12 +385,47 @@ void LandUnknown466BE0Class::Unknown_467E40(void)
 		D3DVSD_REG(8, D3DVSDT_FLOAT2),
 		D3DVSD_END()
 	};
+	LPD3DXBUFFER shader = NULL;
+	LPD3DXBUFFER errors = NULL;
 	if (D3DXAssembleShader(Unknown_B71650, strlen(Unknown_B71650), 0, NULL, &shader, &errors) != D3D_OK) {
 		OutputDebugString((const char *)errors->GetBufferPointer());	// import 0xC43E54 (unnamed in client.py; assumed OutputDebugStringA)
 	}
 	DX8Wrapper::_Get_D3D_Device8()->CreateVertexShader(decl, (DWORD *)shader->GetBufferPointer(), &VertexShader, 0);
 	if (shader != NULL) {
 		shader->Release();
+	}
+}
+
+void LandUnknown466BE0Class::Release_Vertex_Shader(void)
+{
+	if (VertexShader != 0) {
+		DX8CALL(DeleteVertexShader(VertexShader));
+		VertexShader = 0;
+	}
+}
+
+DWORD LandUnknown466BE0Class::Create_Vertex_Shader(const char *source, DWORD *declaration)
+{
+	LPD3DXBUFFER shader = NULL;
+	LPD3DXBUFFER errors = NULL;
+	if (D3DXAssembleShader(source, strlen(source), 0, NULL, &shader, &errors) != D3D_OK) {
+		OutputDebugString((const char *)errors->GetBufferPointer());
+	}
+	DX8Wrapper::_Get_D3D_Device8()->CreateVertexShader(declaration, (DWORD *)shader->GetBufferPointer(), &VertexShader, 0);
+	if (shader != NULL) {
+		shader->Release();
+	}
+	return VertexShader;
+}
+
+void LandUnknown466BE0Class::Check_Hardware(void)
+{
+	if (Enabled && DX8Wrapper::Get_Current_Adapter_Identifier().VendorId == 0x102B
+		&& DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version() == 1
+		&& DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Minor_Version() == 3) {
+		Enabled = true;
+	} else {
+		Enabled = false;
 	}
 }
 
@@ -533,7 +556,9 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 **	land drawn with displacement maps where the hardware has them (a Matrox adapter, pixel shader 1.3; the DMap
 **	registry key, read only). Separate from land.cpp: the land's destructor calls 0x466F10 out of line. Rebuilt: the
 **	constructor 0x466BE0, the destructor 0x466DE0 / 0x466D40, 0x466E70, 0x466F10, the empty 0x466F40 and the registry
-**	reader 0x468120. Exact: 0x467910 (the L8 levels into the displacement map). Functional, NOT EXACT (Matrox only, never
-**	run): 0x4677B0, 0x467A50, 0x467E40, the draw
+**	reader 0x468120. Exact: 0x467910 (the L8 levels into the displacement map), the vertex shader 0x467E40 (its declaration
+**	array declared before the two buffers: the client stores the array first), the shader's release 0x467FD0 (inlined in
+**	the dtor), the unused generic shader maker 0x468010 and the hardware check 0x4680D0 (inlined in the ctor). Functional,
+**	NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, the draw
 **	0x466F60 and its helpers 0x468240-0x468D50.
 */
