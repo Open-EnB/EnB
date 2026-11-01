@@ -108,20 +108,12 @@ public:
 		CurIndex = pos;
 		return &n->Node;
 	}
-	void Add_Tail(const T &v)
+	// wlib's addTail: add at the end (inline, as wlib's; the client calls add 0x84F220).
+	bool Add_Tail(const T &v, T **newnodeptr = 0)
 	{
-		NodeType *n = new NodeType;
-		n->Node = v;
-		n->Next = 0;
-		n->Prev = Tail;
-		if (Tail) {
-			Tail->Next = n;
-		} else {
-			Head = n;
-		}
-		Tail = n;
-		Entries++;
+		return Add(v, Entries, newnodeptr);
 	}
+	bool Add(const T &node, int pos, T **newnodeptr = 0);
 	void Remove(int pos)
 	{
 		if (pos < 0 || pos >= Entries) {
@@ -145,6 +137,81 @@ private:
 	NodeType *Current;		// +0x0C NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 	int CurIndex;			// +0x10 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 };
+
+// 0x84F220: wlib's LinkedList<T>::add (EA's Generals Tools\matchbot\wlib\linkedlist.h), out of line
+// in the client: the new node goes at the zero-based slot pos, the others move down one.
+template <class T>
+bool CordListClass<T>::Add(const T &node, int pos, T **newnodeptr)
+{
+	NodeType *temp;
+	NodeType *item;
+
+	if (pos < 0)
+		pos = 0;
+	if (pos > Entries)
+		pos = Entries;
+
+	item = (NodeType *)new NodeType;
+	item->Node = node;
+	item->Prev = 0;
+	item->Next = 0;
+
+	if (newnodeptr)
+		*newnodeptr = &(item->Node);
+
+	if ((pos == 0) || (pos == Entries)) {
+		if (pos == 0) {
+			item->Next = Head;
+			if (Head)
+				Head->Prev = item;
+			Head = item;
+		}
+		if (pos == Entries) {
+			item->Prev = Tail;
+			if (Tail)
+				Tail->Next = item;
+			Tail = item;
+		}
+		Entries++;
+		Current = item;
+		CurIndex = pos;
+		return true;
+	}
+
+	if (pos == CurIndex) {
+		item->Next = Current;
+		item->Prev = Current->Prev;
+		Current->Prev = item;
+		item->Prev->Next = item;
+		Current = item;
+		Entries++;
+		return true;
+	}
+	if (pos == CurIndex + 1) {
+		item->Next = Current->Next;
+		item->Prev = Current;
+		Current->Next = item;
+		item->Next->Prev = item;
+		Current = item;
+		CurIndex++;
+		Entries++;
+		return true;
+	}
+
+	temp = Head->Next;
+	for (int i = 1; i < pos; i++) {
+		temp = temp->Next;
+	}
+	item->Next = temp;
+	item->Prev = temp->Prev;
+	temp->Prev = item;
+	item->Prev->Next = item;
+	Current = item;
+	CurIndex = pos;
+	Entries++;
+
+	return true;
+}
 
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).

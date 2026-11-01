@@ -1019,3 +1019,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 19:31,0x854BD0,,app/wwudp/cordcon.cpp,app,exact,1.00,1,,,,claude-opus-5-5
 2026-10-31 19:31,0x854C20,,app/wwudp/cordcon.cpp,app,exact,1.00,1,,,,claude-opus-5-5
 2026-10-31 19:31,0x854C90,Cord_Get_Seq,app/wwudp/cordcon.cpp,app,partial,0.84,12,order,forms: direct store; unsigned short local; unsigned long*/int*/reference out; & 0xFFFF; (unsigned short) cast; local n return; else-branch; inverted test (0.53); pointer copy; store-then-ntohs (0.53): the client loads value's pointer between ntohs's call and the and 0xFFFF,,claude-opus-5-5
+2026-10-31 19:33,0x84F200,CordListClass<CordMessageClass>::NodeType::~NodeType,app/wwudp/cordcon.cpp,app,exact,1.00,0,,"D99: 5-byte jmp ~CordMessageClass (0x85BEA0), objdiff 0 rows, too short for the matcher",,claude-opus-5-5
+2026-10-31 19:36,0x84F220,CordListClass<CordMessageClass>::Add,app/wwudp/cordcon.h,app,exact,1.00,1,,wlib's LinkedList<T>::add as written,,claude-opus-5-5
