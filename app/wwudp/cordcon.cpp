@@ -517,13 +517,15 @@ bool CordCon::close(bool now)
 // 0x850C70: the message in 200-byte records, one sequence number each.
 bool CordCon::write(int channel, unsigned int len, const void *data, int priority)
 {
-	if (Udp_ == NULL) {
-		return false;		// the client asserts 'Udp_ == NULL' (line 521)
-	}
-	if (CloseState_ != 0 || len > 0xC800) {
+	WWPROFILE("CordCon::write");
+	FAIL_IF(Udp_ == NULL) return false;
+	if (CloseState_ != 0) {
 		return false;
 	}
-	CordChannelClass *c = Get_Channel(channel);
+	if (len > 0xC800) {
+		return false;
+	}
+	CordChannelClass *c = Channels_[channel];
 	if (c->IsClosed) {
 		return false;
 	}
@@ -540,22 +542,31 @@ bool CordCon::write(int channel, unsigned int len, const void *data, int priorit
 			}
 		}
 	}
-	unsigned int n = (len + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
-	const unsigned char *p = (const unsigned char *)data;
-	for (unsigned int i = 0; i < n; i++) {
-		CordMessageClass m = Empty_Message();
+	CordMessageClass m;
+	int n = (len + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
+	const char *p = (const char *)data;
+	for (int i = 0; i < n; i++) {
 		m.Seq = c->NextSeq++;
 		unsigned int part = len;
 		if (n != 1 && (i != n - 1 || (part = len % CORD_FRAGMENT_SIZE) == 0)) {
 			part = CORD_FRAGMENT_SIZE;
 		}
 		m.Data = new unsigned char[part];
-		memcpy(m.Data, p, part);
 		m.Length = part;
 		m.TotalLength = len;
 		m.Priority = priority;
-		m.Flags = (n != 1 ? 1 : 0) | (c->Written == 0 ? 2 : 0);
 		m.FragIndex = i;
+		m.Flags = 0;
+		if (n != 1) {
+			m.Flags = 1;
+		}
+		if (c->Written == 0) {
+			m.Flags |= 2;
+		}
+		m.SentTime.setDay(0);
+		m.SentTime.setMsec(0);
+		m.SendCount = 0;
+		memcpy(m.Data, p, part);
 		c->Queue.push_back(m);
 		c->Written++;
 		c->LastWrite = (unsigned int)time(0);
@@ -614,23 +625,11 @@ bool CordCon::write(int channel, unsigned int len, const void *data, int priorit
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // 0x850FD0
 bool CordCon::read(int *channel, int *len, void *buf, bool peek)
 {
-	if (Udp_ == NULL) {
-		return false;		// the client asserts 'Udp_ == NULL' (line 632)
-	}
+	WWPROFILE("CordCon::read");
+	FAIL_IF(Udp_ == NULL) return false;
 	int count = (int)Ready_.size();
 	for (int r = 0; r < count; r++) {
 		CordChannelClass *c = Ready_[r];
@@ -969,13 +968,13 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 
 
 
-
 // 0x851AE0
 bool CordCon::handlePacket(unsigned char *data, int datalen)
 {
-	if (datalen < PACKET_ENCRYPTION_OFFSET) {
-		return false;		// the client asserts 'datalen < PACKET_ENCRYPTION_OFFSET' (line 977)
-	}
+	WWPROFILE("CordCon::handlePacket");
+	Xtime current;
+	int acks = 0;
+	FAIL_IF(datalen < PACKET_ENCRYPTION_OFFSET) return false;
 	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
 	if (!examinePacket(data, datalen)) {
@@ -983,25 +982,25 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		CORD_HARNESS_COUNT(this, Rejected);
 		return false;
 	}
-	Xtime current;
-	unsigned int now = current.getTime_t();
 	PacketsIn_++;
-	LastReceive_ = now;
+	LastReceive_ = current.getTime_t();
+	GoneAway_ = false;
 	int pos = 10;
-	unsigned char flags = data[9];
-	if (flags & 2) {
-		CloseState_ = (CloseState_ == 1 || CloseState_ == 2) ? 4 : 3;
+	if (data[9] & 2) {
+		if (CloseState_ == 1 || CloseState_ == 2) {
+			CloseState_ = 4;
+		} else {
+			CloseState_ = 3;
+		}
 	}
-	unsigned int acks = 0;
-	if (flags & 1) {
-		pos = 11;
+	if (data[9] & 1) {
 		acks = data[10];
+		pos = 11;
 	}
-	HeaderIn_ = data[pos];
-	pos++;
+	HeaderIn_ = data[pos++];
 
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
-	for (unsigned int a = 0; a < acks; a++) {
+	for (int a = 0; a < acks; a++) {
 		unsigned int kind = data[pos];
 		unsigned short channel;
 		unsigned int seq;
@@ -1185,7 +1184,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			memcpy(m.Data, data + pos, len);
 			m.Length = m.TotalLength = len;
 			m.Seq = seq;
-			m.Time = now;
+			m.Time = current.getTime_t();
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -1224,13 +1223,13 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 		if (seq == first) {
 			if (t.Time == 0) {
-				t.Time = now;
+				t.Time = current.getTime_t();
 			}
 		} else {
 			// a place holder for the fragment's own sequence number (read() skips it)
 			CordMessageClass m = Empty_Message();
 			m.Seq = seq;
-			m.Time = now;
+			m.Time = current.getTime_t();
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
