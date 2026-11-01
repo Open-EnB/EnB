@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-472 entries in 107 files.
+478 entries in 109 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -71,11 +71,17 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
 | `app/client/dynamic_window_background.cpp:14` | `DynamicWindowAnimationDataClass::Get` | marker | NOT EXACT: the 'Use' string's register (esi) and the returned temporary's release (the client does not clear it) |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
+| `app/client/dynamic_window_horizontal.cpp:82` | `DynamicWindowHorizontalClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
+| `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
+| `app/client/dynamic_window_horizontal.cpp:352` | `DynamicWindowHorizontalClass::Update_Content_Size` | marker | NOT EXACT: the client keeps the null element's self-assignment of the summed size (a load and a store); VC6 drops this one |
 | `app/client/dynamic_window_render_object.cpp:32` | `DynamicWindowRenderObjectClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_render_object.cpp:62` | `DynamicWindowRenderObjectClass::Invalidate` | marker | NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it |
 | `app/client/dynamic_window_render_object.cpp:88` | `DynamicWindowRenderObjectClass::Layout` | marker | NOT EXACT: the client reads the Fit_Size result through eax, this form through the stack slot |
 | `app/client/dynamic_window_render_object.cpp:219` | `DynamicWindowRenderObjectClass::Set_Render_Object` | marker | NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it |
+| `app/client/dynamic_window_vertical.cpp:82` | `DynamicWindowVerticalClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
+| `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
+| `app/client/dynamic_window_vertical.cpp:352` | `DynamicWindowVerticalClass::Update_Content_Size` | marker | NOT EXACT: the client keeps the null element's self-assignment of the summed size (a load and a store); VC6 drops this one |
 | `app/client/eff_o.cpp:723` | `UnknownB0009CEffectClass::Unknown_1C` | marker | NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms) 0x6E8890 |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |

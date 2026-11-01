@@ -9,8 +9,8 @@
 **	container interface may sit in a header of their own; dynamic_window_render_object.cpp is the base's
 **	file (0x51C930-0x51D240).
 **
-**	  DynamicWindowElementClass       a ref-counted piece of a window (24 slots; the tables 0xAED8D0,
-**	                                  0xAED374, 0xAED40C, 0xAEDB84 share its layout)
+**	  DynamicWindowElementClass       a ref-counted piece of a window (22 slots; the tables 0xAED490,
+**	                                  0xAEDB84 have those, 0xAED8D0 / 0xAED374 / 0xAED40C two more)
 **	  DynamicWindowContainerClass     the interface a parent gives its children (3 slots, pure: 0xAED3E8)
 **	  DynamicWindowRenderObjectClass  an element shown by a render object (constructor 0x51C930, table
 **	                                  0xAED8D0, 0x4C bytes; FAIL_IF '!RenderObject' on its lines 129 / 215)
@@ -42,7 +42,7 @@ public:
 	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child) = 0;		// +0x08 (0x516D70: FAIL_IF '!child')  // NAME 1 [Remove_Child]: the FAIL_IF's 'child'
 };
 
-// A piece of a window (abstract: 24 slots)
+// A piece of a window (abstract: 22 slots; the render-object elements add +0x58 / +0x5C)
 class DynamicWindowElementClass : public RefCountClass  // NAME 1: from the asserts' 'element' (0x517770, 0x5180E0)
 {
 public:
@@ -67,8 +67,6 @@ public:
 	virtual void Set_Level(int level) = 0;														// +0x4C  // NAME 1 [Set_Level, level]: the background passes one less to its contents
 	virtual int Get_Level() = 0;																// +0x50  // NAME 1 [Get_Level]
 	virtual void Set_Position(const Vector2 &position) = 0;										// +0x54  // NAME 1 [Set_Position, position]
-	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj) = 0;				// +0x58 (0x51CFD0)  // NAME 1 [Set_Render_Object, robj]
-	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size) = 0;					// +0x5C  // NAME 1 [Fit_Size, position, size]: 0x51CC10 asks it where the content goes
 };
 
 // An element shown by a render object (0x4C bytes)
@@ -98,8 +96,8 @@ public:
 	virtual void Set_Level(int level);															// +0x4C 0x51CEE0
 	virtual int Get_Level();																	// +0x50 0x51CF10
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x51CF30
-	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj);					// +0x58 0x51CFD0
-	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size);						// +0x5C 0x51D160
+	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj);					// +0x58 0x51CFD0  // NAME 1 [Set_Render_Object, robj]
+	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size);						// +0x5C 0x51D160  // NAME 1 [Fit_Size, position, size]: Layout asks it where the content goes
 
 	void Replace_Render_Object(const RefCountPtr<RenderObjClass> &robj);						// 0x51D060 (keeps the old one's position)  // NAME 1 [Replace_Render_Object]
 	void Update_Bounds(const RefCountPtr<RenderObjClass> &robj);								// 0x51D0D0 (from the model's object-space box)  // NAME 1 [Update_Bounds]

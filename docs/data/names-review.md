@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1141 |
+| 3 | by convention from a client-named file or sibling | 1143 |
 | 2 | describes what the code does | 2862 |
-| 1 | neutral placeholder | 10226 |
+| 1 | neutral placeholder | 10236 |
 
 ## For review (score 3 and below)
 
@@ -1485,15 +1485,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Contents, contents` | `app/client/dynamic_window_background.h:60` | 'Contents' |
 | 1 | `AnimX` | `app/client/dynamic_window_background.h:79` | dynawin.ini's key |
 | 1 | `AnimY` | `app/client/dynamic_window_background.h:80` | dynawin.ini's key |
-| 1 | `flags` | `app/client/dynamic_window_class.h:30` | neutral |
-| 1 | `Unknown0C` | `app/client/dynamic_window_class.h:61` | neutral, not rebuilt |
-| 1 | `flags` | `app/client/dynamic_window_class.h:68` | neutral |
-| 1 | `Unknown0C` | `app/client/dynamic_window_class.h:99` | neutral, not rebuilt |
-| 1 | `DynamicWindowClass` | `app/client/dynamic_window_class.h:102` | from the file name dynamic_window_class.cpp |
-| 1 | `name, unknown` | `app/client/dynamic_window_class.h:105` | the dynawin.ini section; neutral |
-| 1 | `the overload's type` | `app/client/dynamic_window_class.h:110` | neutral (the same code) |
-| 1 | `the overload's type` | `app/client/dynamic_window_class.h:113` | neutral |
-| 1 | `Position` | `app/client/dynamic_window_class.h:128` | Set_Position's |
+| 1 | `DynamicWindowClass` | `app/client/dynamic_window_class.h:26` | from the file name dynamic_window_class.cpp |
+| 1 | `name, unknown` | `app/client/dynamic_window_class.h:29` | the dynawin.ini section; neutral |
+| 1 | `the overload's type` | `app/client/dynamic_window_class.h:34` | neutral (the same code) |
+| 1 | `the overload's type` | `app/client/dynamic_window_class.h:37` | neutral |
+| 1 | `Position` | `app/client/dynamic_window_class.h:52` | Set_Position's |
+| 1 | `flags` | `app/client/dynamic_window_horizontal.h:24` | +0x50 |
+| 1 | `MinSize` | `app/client/dynamic_window_horizontal.h:59` | Set_Min_Size's |
+| 1 | `ContentSize` | `app/client/dynamic_window_horizontal.h:60` | the widths summed, the tallest child |
+| 1 | `Size` | `app/client/dynamic_window_horizontal.h:64` | Layout's |
+| 1 | `Position` | `app/client/dynamic_window_horizontal.h:65` | Set_Position's |
+| 1 | `LayoutPosition` | `app/client/dynamic_window_horizontal.h:66` | Layout's |
+| 1 | `Scene` | `app/client/dynamic_window_horizontal.h:69` | Peek_Scene's |
 | 1 | `robj, a, b` | `app/client/dynamic_window_render_object.cpp:7` | ui_cpit.cpp's |
 | 1 | `Unknown_496730` | `app/client/dynamic_window_render_object.cpp:7` | untagged neutral name (D10) |
 | 1 | `DynamicWindowContainerClass` | `app/client/dynamic_window_render_object.h:37` | from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50) |
@@ -1512,13 +1515,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_To_Scene, scene` | `app/client/dynamic_window_render_object.h:64` | compares with the render object's Peek_Scene |
 | 1 | `Peek_Scene` | `app/client/dynamic_window_render_object.h:66` | RenderObjClass's |
 | 1 | `Set_Level, level` | `app/client/dynamic_window_render_object.h:67` | the background passes one less to its contents |
-| 1 | `Fit_Size, position, size` | `app/client/dynamic_window_render_object.h:71` | 0x51CC10 asks it where the content goes |
-| 1 | `flags` | `app/client/dynamic_window_render_object.h:78` | +0x3C |
-| 1 | `MinSize` | `app/client/dynamic_window_render_object.h:109` | Set_Min_Size's |
-| 1 | `NaturalSize` | `app/client/dynamic_window_render_object.h:110` | twice the model's box extent (0x51D0D0) |
-| 1 | `Size` | `app/client/dynamic_window_render_object.h:111` | Get_Size's |
-| 1 | `Offset` | `app/client/dynamic_window_render_object.h:112` | Set_Position adds it (the model's top-left corner, 0x51D0D0) |
-| 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:113` | Layout's Fit_Size result |
+| 1 | `flags` | `app/client/dynamic_window_render_object.h:76` | +0x3C |
+| 1 | `Fit_Size, position, size` | `app/client/dynamic_window_render_object.h:100` | Layout asks it where the content goes |
+| 1 | `MinSize` | `app/client/dynamic_window_render_object.h:107` | Set_Min_Size's |
+| 1 | `NaturalSize` | `app/client/dynamic_window_render_object.h:108` | twice the model's box extent (0x51D0D0) |
+| 1 | `Size` | `app/client/dynamic_window_render_object.h:109` | Get_Size's |
+| 1 | `Offset` | `app/client/dynamic_window_render_object.h:110` | Set_Position adds it (the model's top-left corner, 0x51D0D0) |
+| 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:111` | Layout's Fit_Size result |
+| 1 | `flags` | `app/client/dynamic_window_vertical.h:24` | +0x50 |
+| 1 | `MinSize` | `app/client/dynamic_window_vertical.h:59` | Set_Min_Size's |
+| 1 | `ContentSize` | `app/client/dynamic_window_vertical.h:60` | the widest child, the heights summed |
+| 1 | `Size` | `app/client/dynamic_window_vertical.h:64` | Layout's |
+| 1 | `Position` | `app/client/dynamic_window_vertical.h:65` | Set_Position's |
+| 1 | `LayoutPosition` | `app/client/dynamic_window_vertical.h:66` | Layout's |
+| 1 | `Scene` | `app/client/dynamic_window_vertical.h:69` | Peek_Scene's |
 | 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
 | 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
@@ -10527,9 +10537,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
 | 2 | `Load_Alloc_Data` | `app/client/deffont.h:27` | Westwood's name for the whole-file load (wwlib's Load_Alloc_Data(FileClass &)) |
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
-| 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_class.h:27` | class from file (D24), dynamic_window_horizontal.cpp |
-| 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_class.h:65` | class from file (D24), dynamic_window_vertical.cpp |
-| 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:75` | class from file (D24), dynamic_window_render_object.cpp |
+| 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
+| 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
+| 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_vertical.h:21` | class from file (D24), dynamic_window_vertical.cpp |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
 | 2 | `Set_Flag` | `app/client/eff_o.h:83` | what it does |
@@ -13173,8 +13183,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
-| 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:20` | header name assumed from the client's dynamic_window_class.cpp |
+| 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
+| 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
+| 3 | `dynamic_window_vertical.h` | `app/client/dynamic_window_vertical.h:15` | header name assumed from the client's dynamic_window_vertical.cpp |
 | 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
 | 3 | `EffectObjectClass` | `app/client/eff_o.h:50` | class-from-file (D24) for eff_o.cpp |
 | 3 | `Duration` | `app/client/eff_o.h:94` | effect.ini's 'Duration' |

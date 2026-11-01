@@ -8,9 +8,7 @@
 **	side 0xAED3FC at +0x4C; 0x80 bytes; constructor 0x517240, destructor 0x517490). The message box
 **	(0x587570-0x589D20) and the tooltips (0x6AB320-) build their windows on it.
 **
-**	The rows and the column that holds them are dynamic_window_horizontal.cpp's and
-**	dynamic_window_vertical.cpp's (not rebuilt): declared here as far as this file uses them. Interim
-**	placement (D137): they belong in headers of their own.
+**	The rows and the column that holds them: dynamic_window_horizontal.h / dynamic_window_vertical.h.
 */
 
 #if defined(_MSC_VER)
@@ -21,83 +19,9 @@
 #define DYNAMIC_WINDOW_CLASS_H
 
 #include "dynamic_window_background.h"
+#include "dynamic_window_horizontal.h"
+#include "dynamic_window_vertical.h"
 #include <vector>
-
-// A row: elements side by side (table 0xAEDxxx, constructor 0x5186F0, 100 bytes; its container side at +0x08)
-class DynamicWindowHorizontalClass : public DynamicWindowElementClass, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowHorizontalClass]: class from file (D24), dynamic_window_horizontal.cpp
-{
-public:
-	DynamicWindowHorizontalClass(unsigned char flags);											// 0x5186F0  // NAME 1 [flags]: neutral
-	void Add_Element(const RefCountPtr<DynamicWindowElementClass> &element);					// 0x518B10  // NAME 1 [Add_Element, element]
-	// the slots (not rebuilt; tables as the background's)
-	virtual ~DynamicWindowHorizontalClass();
-	virtual void Set_Min_Size(const Vector2 &min_size);
-	virtual void Set_Flags(unsigned int flags);
-	virtual void Clear_Flags(unsigned int flags);
-	virtual void Set_Alignment(unsigned int flags);
-	virtual void Invalidate();
-	virtual bool Is_Dirty();
-	virtual Vector2 Get_Min_Size();
-	virtual bool Has_Flags(unsigned int flags);
-	virtual void Layout(const Vector2 &position, const Vector2 &size);
-	virtual Vector2 Get_Size();
-	virtual void Get_Bounds(AABoxClass &box);
-	virtual void Set_Parent(DynamicWindowContainerClass *parent);
-	virtual void Clear_Parent();
-	virtual DynamicWindowContainerClass *Get_Container();
-	virtual void Add_To_Scene(SceneClass *scene);
-	virtual void Remove_From_Scene();
-	virtual SceneClass *Peek_Scene();
-	virtual void Set_Level(int level);
-	virtual int Get_Level();
-	virtual void Set_Position(const Vector2 &position);
-	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj);
-	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size);
-	virtual void Child_Changed(DynamicWindowElementClass &child);
-	virtual void Remove_All_Children(bool recursive);
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);
-
-protected:
-	unsigned char Unknown0C[0x58];													// +0x0C (the container side's table at +0x08; 100 bytes in all)  // NAME 1: neutral, not rebuilt
-};
-
-// A column: elements one above the other (table 0xAEDB84, constructor 0x51EAE0, 100 bytes; its container side at +0x08)
-class DynamicWindowVerticalClass : public DynamicWindowElementClass, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowVerticalClass]: class from file (D24), dynamic_window_vertical.cpp
-{
-public:
-	DynamicWindowVerticalClass(unsigned char flags);											// 0x51EAE0  // NAME 1 [flags]: neutral
-	void Insert_Element(const RefCountPtr<DynamicWindowElementClass> &element, int index);		// 0x51ECD0  // NAME 1 [Insert_Element, element, index]
-	// the slots (not rebuilt; tables as the background's)
-	virtual ~DynamicWindowVerticalClass();
-	virtual void Set_Min_Size(const Vector2 &min_size);
-	virtual void Set_Flags(unsigned int flags);
-	virtual void Clear_Flags(unsigned int flags);
-	virtual void Set_Alignment(unsigned int flags);
-	virtual void Invalidate();
-	virtual bool Is_Dirty();
-	virtual Vector2 Get_Min_Size();
-	virtual bool Has_Flags(unsigned int flags);
-	virtual void Layout(const Vector2 &position, const Vector2 &size);
-	virtual Vector2 Get_Size();
-	virtual void Get_Bounds(AABoxClass &box);
-	virtual void Set_Parent(DynamicWindowContainerClass *parent);
-	virtual void Clear_Parent();
-	virtual DynamicWindowContainerClass *Get_Container();
-	virtual void Add_To_Scene(SceneClass *scene);
-	virtual void Remove_From_Scene();
-	virtual SceneClass *Peek_Scene();
-	virtual void Set_Level(int level);
-	virtual int Get_Level();
-	virtual void Set_Position(const Vector2 &position);
-	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj);
-	virtual Vector2 Fit_Size(const Vector2 &position, const Vector2 &size);
-	virtual void Child_Changed(DynamicWindowElementClass &child);
-	virtual void Remove_All_Children(bool recursive);
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);
-
-protected:
-	unsigned char Unknown0C[0x58];													// +0x0C (the container side's table at +0x08; 100 bytes in all)  // NAME 1: neutral, not rebuilt
-};
 
 class DynamicWindowClass : public DynamicWindowBackgroundClass  // NAME 1 [DynamicWindowClass]: from the file name dynamic_window_class.cpp
 {
