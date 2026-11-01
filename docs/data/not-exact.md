@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-482 entries in 110 files.
+497 entries in 111 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -74,6 +74,21 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_horizontal.cpp:82` | `DynamicWindowHorizontalClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_horizontal.cpp:352` | `DynamicWindowHorizontalClass::Update_Content_Size` | marker | NOT EXACT: the client keeps the null element's self-assignment of the summed size (a load and a store); VC6 drops this one |
+| `app/client/dynamic_window_multi_line_text.cpp:66` | `DynamicWindowMultiLineTextClass::~DynamicWindowMultiLineTextClass` | marker | NOT EXACT: the line erase (the client calls the vector helpers 0x51C710 / 0x51C6C0 out of line) |
+| `app/client/dynamic_window_multi_line_text.cpp:77` | `DynamicWindowMultiLineTextClass::Set_Text` | marker | NOT EXACT: the string assignment and the inlined Refresh |
+| `app/client/dynamic_window_multi_line_text.cpp:84` | `DynamicWindowMultiLineTextClass::Set_Min_Size` | marker | NOT EXACT: the inlined Refresh |
+| `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
+| `app/client/dynamic_window_multi_line_text.cpp:110` | `DynamicWindowMultiLineTextClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
+| `app/client/dynamic_window_multi_line_text.cpp:143` | `DynamicWindowMultiLineTextClass::Layout` | marker | NOT EXACT: the line loop and the inlined Position_Lines |
+| `app/client/dynamic_window_multi_line_text.cpp:170` | `DynamicWindowMultiLineTextClass::Get_Bounds` | marker | NOT EXACT: the sum order of the centre |
+| `app/client/dynamic_window_multi_line_text.cpp:208` | `DynamicWindowMultiLineTextClass::Add_To_Scene` | marker | NOT EXACT: the shown-line loop form |
+| `app/client/dynamic_window_multi_line_text.cpp:245` | `DynamicWindowMultiLineTextClass::Set_Position` | marker | NOT EXACT: the inlined Position_Lines |
+| `app/client/dynamic_window_multi_line_text.cpp:286` | `DynamicWindowMultiLineTextClass::Refresh` | marker | NOT EXACT: register and block order |
+| `app/client/dynamic_window_multi_line_text.cpp:308` | `DynamicWindowMultiLineTextClass::Split_Lines` | marker | NOT EXACT: functional: the split, the push_back and the per-line temporaries differ |
+| `app/client/dynamic_window_multi_line_text.cpp:376` | `DynamicWindowMultiLineTextClass::Scroll_Up` | marker | NOT EXACT: the inlined Position_Lines and the index loads |
+| `app/client/dynamic_window_multi_line_text.cpp:395` | `DynamicWindowMultiLineTextClass::Scroll_Down` | marker | NOT EXACT: the inlined Position_Lines and the index loads |
+| `app/client/dynamic_window_multi_line_text.cpp:404` | `DynamicWindowMultiLineTextClass::Position_Lines` | marker | NOT EXACT: the unsigned line loop and its float conversion |
+| `app/client/dynamic_window_multi_line_text.cpp:426` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/dynamic_window_render_object.cpp:32` | `DynamicWindowRenderObjectClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_render_object.cpp:62` | `DynamicWindowRenderObjectClass::Invalidate` | marker | NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it |

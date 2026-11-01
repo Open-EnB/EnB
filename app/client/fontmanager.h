@@ -80,6 +80,7 @@ public:
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
 	void Unknown_6CE7D0(int unknown);										// 0x6CE7D0  // NAME 1 [Unknown_6CE7D0]: neutral (D10)
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
+	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
