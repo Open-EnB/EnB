@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-396 entries in 80 files.
+394 entries in 80 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -48,8 +48,6 @@ edit the comments in the code, not this file.
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
 | `app/client/co_subtypes.cpp:112` | `Unknown70E5A0Class::Unknown_20` | marker | NOT EXACT: shape (stack layout: the client's frame is 0x128 bytes, ours 0xFC; the inverse transform's terms in another order; attempts.py show 0x70E850) 0x70E850 |
 | `app/client/co_subtypes.cpp:169` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory, but its frame holds more temporaries (0x128 bytes against our 0xFC) and the inverse rotation's terms come in another order (attempts.py show 0x70E850 lists the forms tried). |
-| `app/client/control_keys_manager.cpp:115` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls) |
-| `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
 | `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:263` | `ControlKeysManager::Remove_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv) |

@@ -112,13 +112,13 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 }
 
 
-// NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls)
+// 0x71A100: exact once 0x71A190 calls find out of line (it is then called, not inlined)
 int ControlKeysManager::Get_Key_Id(ControlKeysSClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	ControlKeysManager *keys_manager = Get(client); FAIL_IF(!keys_manager) return -1;
 	return Get_Key_Id(keys_manager, module_name, key);
 }
-// NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows)
+// 0x71A190: exact with a const_iterator for find (called out of line, H12's lever) and the module test returning -1
 int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	FAIL_IF(!manager) return -1;
@@ -126,11 +126,11 @@ int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::strin
 	const std::string &name = manager->Get_Key_Name(k);
 	if (name.empty()) return -1;
 
-	std::hash_map<std::string, KeyIdStruct>::iterator it = _KeyIds.find(name);
+	std::hash_map<std::string, KeyIdStruct>::const_iterator it = _KeyIds.find(name);
 	if (it == _KeyIds.end()) return -1;
 
-	if (it->second.ModuleName == module_name) return it->second.Id;
-	return -1;
+	if (it->second.ModuleName != module_name) return -1;
+	return it->second.Id;
 }
 
 
