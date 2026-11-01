@@ -279,7 +279,7 @@ void InterfaceStaticSortListClass::Render(const RefCountPtr<SceneClass> &scene, 
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (erase(it) 0x6DD3D0 out of line in the client)
 void InterfaceStaticSortListClass::Add_Interface(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
@@ -314,7 +314,7 @@ void InterfaceStaticSortListClass::Add_Interface(InterfaceClass *ui)
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (one call more: the pop_back)
 void InterfaceStaticSortListClass::Remove_Interface(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
@@ -373,7 +373,7 @@ void InterfaceStaticSortListClass::Remove_Interface(InterfaceClass *ui)
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (erase(it) 0x6DD3D0 out of line in the client)
 void InterfaceStaticSortListClass::Interface_To_Front(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
@@ -428,7 +428,7 @@ void InterfaceStaticSortListClass::Interface_To_Front(InterfaceClass *ui)
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: register (the previous interface in esi in the client)
 InterfaceClass *InterfaceStaticSortListClass::Set_Current_Interface(InterfaceClass *ui)
 {
 	InterfaceClass *old = CurrentInterface ? CurrentInterface->Interface : NULL;
@@ -542,7 +542,7 @@ void InterfaceStaticSortListClass::Remove_Render_Object(RenderObjClass *robj)
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: inline-budget (the client calls insert(P, n, x) 0x6DDCA0 and the table resize 0x6DF5E0)
 bool InterfaceStaticSortListClass::Add_PIP_Scene(const RefCountPtr<SimpleSceneClass> &scene, const RefCountPtr<CameraClass> &camera, float poly_budget, unsigned int sort_level)
 {
 	FAIL_IF(!CurrentInterface) return false;
@@ -572,7 +572,7 @@ bool InterfaceStaticSortListClass::Add_PIP_Scene(const RefCountPtr<SimpleSceneCl
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (3 masked rows)
 bool InterfaceStaticSortListClass::Remove_PIP_Scene(const RefCountPtr<SimpleSceneClass> &scene)
 {
 	PIPSceneMapType::iterator pip_it = PIPScenes.find(scene.Peek());
@@ -617,7 +617,7 @@ bool InterfaceStaticSortListClass::Remove_PIP_Scene(const RefCountPtr<SimpleScen
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (the client stores robj back before the loop)
 InterfaceClass *InterfaceStaticSortListClass::Find_Interface(RenderObjClass *robj)
 {
 	if (Unknown_BE67E0) {
@@ -680,7 +680,7 @@ void InterfaceRenderClass::Add_To_List(RenderObjClass *robj, unsigned int sort_l
 	DefaultStaticSortListClass::Add_To_List(robj, sort_level);
 }
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: shape (the loop layout)
 void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera)
 {
 	if (PIPScenes.size() != 0) {
@@ -784,7 +784,7 @@ void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const Re
 
 
 
-// NOT EXACT: written from the pseudocode (D64)
+// NOT EXACT: inline-budget (the client keeps _Ucopy / _Ufill out of line)
 void InterfaceRenderClass::Add_PIP(PIPSceneStruct *ps)
 {
 	FAIL_IF(!ps) return;
@@ -798,7 +798,7 @@ void InterfaceRenderClass::Add_PIP(PIPSceneStruct *ps)
 }
 
 
-// NOT EXACT: written from the pseudocode (D64)
+
 void InterfaceRenderClass::Remove_PIP(PIPSceneStruct *ps)
 {
 	FAIL_IF(!ps) return;
