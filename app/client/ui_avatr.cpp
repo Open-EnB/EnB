@@ -39,6 +39,7 @@ class UIAvatrPullClass	// NAME 1: neutral (D10)
 {
 public:
 	UIAvatrPullClass();									// 0x585920
+	~UIAvatrPullClass();								// 0x585950 (the window's destructor)
 	void Unknown_5859A0();								// 0x5859A0 (0x556290, once the gadget is in)
 	void Show(bool on)		// NAME 1: neutral (D10): inline (0x556630)
 	{
@@ -71,6 +72,7 @@ struct UIAvatrUnknown08CUnknown034Struct	// NAME 1: neutral (D10)
 class UIAvatrUnknown08CClass	// NAME 1: neutral (D10)
 {
 public:
+	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the window's destructor: 0)  // NAME 1 [arg]: neutral
 	bool Unknown_67B2B0();								// 0x67B2B0 (0x554D60: true clears the window's +0x1C5)
 	char Unknown00[0x34];								// +0x00
 	UIAvatrUnknown08CUnknown034Struct *Unknown034;		// +0x34
@@ -141,6 +143,7 @@ public:
 	virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
+	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
 	virtual void Unknown_8C();							// +0x8C
 
 	char Unknown04[0x54 - 0x04];						// +0x04
@@ -151,8 +154,24 @@ public:
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
-class UIAvatrFontManagerClass { public: FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+class UIAvatrFontManagerClass { public: void Remove(RenderObjClass *object); FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
 extern UIAvatrFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_cpit.cpp does
+class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
+
+// The gadget events' callbacks (sclient.cpp's SClientCallbackBaseClass, vtable 0xAEDB58) and what 0x65ECE0 returns
+class UIAvatrCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
+{
+public:
+	~UIAvatrCallbackBaseClass() {}
+	virtual void Call();
+};
+class UIAvatrNotifierClass		// NAME 1: neutral (D10)
+{
+public:
+	void Remove(int id, UIAvatrCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
+};
+UIAvatrNotifierClass *Unknown_65ECE0();					// 0x65ECE0  // NAME 1 [Unknown_65ECE0]: neutral (D10)
 
 // The window's buttons and their texts (0xB7AF84: 50 entries, the gadgets' order at +0x98)
 struct UIAvatrPartStruct	// NAME 1: neutral (D10)
@@ -217,6 +236,7 @@ static UIAvatrPartStruct UIAvatrParts[50] = {	// NAME 1: neutral (D10)
 class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>)
 {
 public:
+	virtual ~AvatarCreationInterface();					// 0x554B50 (0x554B20 the deleting one)
 	void Unknown_554D60();								// 0x554D60
 	void Unknown_555F60(int text);						// 0x555F60 (the palette's texture: 'text1' .. 'text7')  // NAME 1 [text]: neutral
 	void Unknown_5560E0();								// 0x5560E0 (the colour pull made)
@@ -231,7 +251,9 @@ public:
 	void Unknown_55A960();								// 0x55A960
 	void Unknown_55AE50();								// 0x55AE50 (0x5560E0, last)
 	void Unknown_55BAC0();								// 0x55BAC0
+	void Unknown_559F30();								// 0x559F30 (the destructor)
 	void Unknown_55BFB0();								// 0x55BFB0 (the height and weight texts)
+	void Unknown_55C280();								// 0x55C280 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler; its arguments not declared yet)
 	void Unknown_Set_Palette(const char *name);		// 0x55C350 (the texture of that name onto the model's COLOR_PALETTE: ui_avatar_cust.cpp's 0x5513E0)  // NAME 1: neutral (D10); NAME 1 [name]: neutral
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
@@ -247,7 +269,49 @@ public:
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
 	char Unknown184[0x1C5 - 0x184];						// +0x184
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
+	char Unknown1C6[0x2C8 - 0x1C6];						// +0x1C6
+	std::string Unknown2C8;								// +0x2C8 (the destructor's)
 };
+
+// The window's FlashingGadgetEvent callback (vtable 0xAEF988 over 0xAEDB58)
+class UIAvatrCallbackClass : public UIAvatrCallbackBaseClass	// NAME 1: neutral (D10)
+{
+public:
+	UIAvatrCallbackClass(AvatarCreationInterface *object, void (AvatarCreationInterface::*function)()) : Object(object), Function(function) {}
+	virtual void Call();
+
+	AvatarCreationInterface *Object;					// +0x04
+	void (AvatarCreationInterface::*Function)();		// +0x08 (8 bytes: two bases)
+};
+
+// 0x554B50
+AvatarCreationInterface::~AvatarCreationInterface()
+{
+	Unknown_5C();
+	if (Unknown180) {
+		delete Unknown180;
+		Unknown180 = NULL;
+	}
+	if (Unknown16C) {
+		delete Unknown16C;
+		Unknown16C = NULL;
+	}
+	if (Unknown160) {
+		delete Unknown160;
+		Unknown160 = NULL;
+	}
+	Unknown094->Unknown_80();
+	Unknown094->Unknown_80C180();
+	Unknown64.Unknown_687150((GadgetClass *)Unknown094);
+	Unknown_559F30();
+	Unknown_BE67C4->Remove(Unknown08C->Peek_Model());
+	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_avatar00.ini");
+	Unknown08C->Unknown_67A9B0(0);
+	void (AvatarCreationInterface::*function)() = &AvatarCreationInterface::Unknown_55C280;
+	UIAvatrNotifierClass *notifier = Unknown_65ECE0();
+	UIAvatrCallbackClass callback(this, function);
+	notifier->Remove(0, &callback);
+}
 
 // 0x554D60
 void AvatarCreationInterface::Unknown_554D60()
@@ -500,5 +564,8 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	TK14 (claim #118): 0x554D60 (the per-frame update: the +0x1C5 flag follows +0x8C's +0x34's +0x7C;
 **	the client re-reads +0x1C5 in the second test, so the condition is written twice), 0x555F60 (the
 **	palette's texture 'text1' .. 'text7': a local array of names) and 0x5560E0 (the colour pull over
-**	COLOR_PALETTE, list id 0x39) exact.
+**	COLOR_PALETTE, list id 0x39) exact. The destructor 0x554B50 exact (0x554B20 its deleting one, an
+**	identical copy): the FlashingGadgetEvent callback 0x55C280 taken off 0x65ECE0's notifier, its member
+**	function pointer held in a local first (the client loads it before the call); the callback's base
+**	needs its own empty destructor (the client resets the base vtable 0xAEDB58 after Remove).
 */
