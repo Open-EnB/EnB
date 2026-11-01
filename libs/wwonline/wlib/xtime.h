@@ -89,8 +89,6 @@ class Xtime
     void      setMsec(sint32 msec);
 
     void      set(sint32 newday, sint32 newmsec);
-    bit8      ParseDate(char *in);
-    bit8      FormatTime(char *out, char *format);
 
     bit8      getTimeval(struct timeval &tv);
 
@@ -100,7 +98,6 @@ class Xtime
     int    getHour(void) const;   // Hour (0-23)
     int    getMDay(void) const;   // Day of Month (1-31)
     int    getWDay(void) const;   // Day of Week  (1-7)
-    int    getYDay(void) const;   // Day of Year  (1-366)  (366 = leap yr)
     int    getMonth(void) const;  // Month (1-12)
     int    getYWeek(void) const;  // Week of Year (1-53)
     int    getYear(void) const;   // Year (e.g. 1997)
