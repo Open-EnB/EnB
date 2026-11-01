@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-445 entries in 98 files.
+444 entries in 98 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -188,7 +188,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
 | `app/client/textgadg.cpp:187` | `TextBaseGadgetClass::Unknown_6AA340` | marker | NOT EXACT: registers (0.77): the inlined stars (0x6AA5F0) and the cursor offset take other registers |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.56; 0x128 bytes of locals in the client, 0x130 here): the client keeps the text in ebx and converts the screen width for every width call (here once, kept on the stack) |
-| `app/client/textgadg.cpp:461` | `TextGadgetClass::Unknown_64` | marker | NOT EXACT: the box copy (0.29): the client copies the six floats one by one, as an AABoxClass return would (0x660E40 builds one: centre and half extents); gadget.h's GadgetUnknown64Struct is six ints (copied by rep movsd) |
 | `app/client/textgadg.cpp:538` | `TextGadgetClass::Unknown_6AB190` | marker | NOT EXACT: registers (0.73): the string and the cursor take other registers in the first loop |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/ui_avatar_cust.cpp:263` | `StarbaseAvatarCreationInterface::Unknown_54E690` | marker | NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690) 0x54E690 |

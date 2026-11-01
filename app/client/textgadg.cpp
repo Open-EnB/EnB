@@ -411,7 +411,7 @@ void TextGadgetClass::Unknown_6AAD10()
 		Unknown_6AA340(print, max + 1, &cursorpos, &insert, NULL, Unknown5C);
 		char *string = print;
 		if (Model) {
-			string = Unknown_6AB190(print, Model->Get_Bounding_Box().Extent.X * Unknown58 * 2.0f, font, &cursorpos);
+			string = Unknown_6AB190(print, Model->Get_Bounding_Box().Extent.X * Unknown58 * 2.0f, font, cursorpos);
 		}
 		if (Flags & Unknown_B08CB8) {
 			if (Active) {
@@ -458,14 +458,13 @@ void TextGadgetClass::Unknown_6AAD10()
 	}
 }
 
-// NOT EXACT: the box copy (0.29): the client copies the six floats one by one, as an AABoxClass return would
-// (0x660E40 builds one: centre and half extents); gadget.h's GadgetUnknown64Struct is six ints (copied by rep movsd)
-GadgetUnknown64Struct TextGadgetClass::Unknown_64()
+void TextGadgetClass::Unknown_64(AABoxClass &box)
 {
 	if (Text) {
-		return(*(const GadgetUnknown64Struct *)&Text->Get_Bounding_Box());
+		box = Text->Get_Bounding_Box();
+		return;
 	}
-	return(GadgetClass::Unknown_64());
+	GadgetClass::Unknown_64(box);
 }
 
 void TextGadgetClass::Unknown_28(LayerClass *layer)
@@ -535,8 +534,9 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
+
 // NOT EXACT: registers (0.73): the string and the cursor take other registers in the first loop
-char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int *cp)
+char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
 		pwidth = 1.0f;
@@ -544,7 +544,7 @@ char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&
 	float width = font->Get_Text_Width(string, 640.0f);
 	if (width > pwidth) {
 		int i = strlen(string) - 1;
-		while (*cp < i) {
+		while (cp < i) {
 			width -= font->Get_Char_Width(string[i--], 640.0f);
 			if (width <= pwidth) {
 				break;
@@ -553,7 +553,7 @@ char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&
 		string[i + 1] = '\0';
 		while (width > pwidth) {
 			width -= font->Get_Char_Width(*string++, 640.0f);
-			(*cp)--;
+			cp--;
 		}
 
 
@@ -561,7 +561,7 @@ char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&
 
 
 
-		G_ASSERT(*cp >= 0);
+		G_ASSERT(cp >= 0);
 	}
 	return(string);
 }

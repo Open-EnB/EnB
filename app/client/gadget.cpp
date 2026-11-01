@@ -11,11 +11,11 @@
 #include "control_keys_manager.h"
 #include "rendobj.h"
 #include "ww3d.h"
+#include "aabox.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\nstrdup.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\unknown_debug.h"
-
 GadgetClass *Unknown_BE5F24 = NULL;
 GadgetClass *Unknown_BE5F28 = NULL;
 GadgetClass *Unknown_BE5F2C = NULL;		// 0xBE5F2C (slot +0x2C: the last gadget an event went to)  // NAME 1: neutral (D10)
@@ -817,9 +817,9 @@ void GadgetClass::Unknown_70()
 	}
 }
 
-GadgetUnknown64Struct GadgetClass::Unknown_64()
+void GadgetClass::Unknown_64(AABoxClass &box)
 {
-	return(GadgetUnknown64Struct());
+	box.Center.X = 0; box.Center.Y = 0; box.Center.Z = 0; box.Extent.X = 0; box.Extent.Y = 0; box.Extent.Z = 0;
 }
 
 GadgetFlashStruct::~GadgetFlashStruct()

@@ -72,11 +72,11 @@ public:
 	TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars);	// 0x6AA810  // NAME 5 [string_name]: the assert's; NAME 1 [iface, length, model, flags, chars]: what ui_login.cpp passes (chars: StrEditClass's)
 	virtual ~TextGadgetClass();											// +0x00 0x6AAB60 (deleting 0x6AAB30)
 	virtual void Unknown_28(LayerClass *layer);							// +0x28 0x6AB0F0 (the cursor into the layer's scene)  // NAME 1 [layer]: what the windows pass
-	virtual GadgetUnknown64Struct Unknown_64();							// +0x64 0x6AB080 (the text's bounding box)
+	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x6AB080 (the text's bounding box)
 	virtual void Unknown_74(bool on);									// +0x74 0x6AACD0 (off: the cursor hidden)  // NAME 1 [on]: neutral
 
 	void Unknown_6AAD10();												// 0x6AAD10 (every frame: G_ASSERT 'font', FAIL_IF 'max >= 255': the text redrawn, the cursor blinked)
-	static char *Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int *cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
+	static char *Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
 
 	RefCountPtr<FontStyleClass> Text;									// +0x44 (0x4E8 bytes, 0x6D47C0: string_name's style on the model)  // NAME 2: what it draws
 	RefCountPtr<RenderObjClass> Model;									// +0x48  // NAME 2: the constructor's model

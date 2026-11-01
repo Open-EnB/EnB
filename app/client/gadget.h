@@ -28,6 +28,7 @@ class RenderObjClass;
 class UserClickIndicatorClass;
 class Vector3;
 class UIViewClass;
+class AABoxClass;
 
 struct KernelEventClass;  // kernel.h's input event (0x10 bytes): what slots +0x2C / +0x34 get
 
@@ -38,12 +39,12 @@ struct GadgetUnknown08Struct  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown30;											// +0x30 (ui_avsel.cpp 0x55E070 highlights it)
 };
 
-// What slot +0x64 returns (0x18 bytes, zero in the base)
-struct GadgetUnknown64Struct  // NAME 1: neutral (D10)
-{
-	GadgetUnknown64Struct() { Unknown00[0] = 0; Unknown00[1] = 0; Unknown00[2] = 0; Unknown00[3] = 0; Unknown00[4] = 0; Unknown00[5] = 0; }
-	int Unknown00[6];
-};
+// Slot +0x64 fills an AABoxClass (0x18 bytes; ret 4 and nothing in eax: an out-parameter): zero in the base,
+// 0x660E40 a centre and half extents, textgadg.cpp's 0x6AB080 its text's bounding box member by member
+
+
+
+
 
 // A gadget's flash (+0x20, 0x10 bytes): the model, its clone in the scene and the click indicator
 struct GadgetFlashStruct  // NAME 1: neutral (D10)
@@ -86,7 +87,7 @@ public:
 	virtual void Unknown_58(GadgetListManagerClass *manager);			// +0x58 0x660140 (FAIL_IF '!manager': off the manager, 0x6617E0)  // NAME 2 [manager]: the FAIL_IF's
 	virtual int Get_Id() { return(Id); }								// +0x5C 0x50AAA0  // NAME 1: neutral (D10): the member it returns
 	virtual bool Unknown_60() { return(Unknown2C_05); }					// +0x60 0x50AAC0 (bit 5 of +0x2C: slot +0x40's)
-	virtual GadgetUnknown64Struct Unknown_64();							// +0x64 0x6602F0 (zero)
+	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x6602F0 (zero)  // NAME 1 [box]: what it fills
 	virtual bool Unknown_68();											// +0x68 0x6601E0 (G_ASSERT '*sticky == NULL': held by the last event's buttons)
 	virtual void Unknown_6C();											// +0x6C 0x660250 (G_ASSERT '*sticky == this': released)
 	virtual void Unknown_70();											// +0x70 0x6602C0 (both held gadgets' slot +0x6C)
@@ -148,7 +149,7 @@ class InterfaceDeactivationGadgetClass : public GadgetClass  // NAME 1: neutral 
 public:
 	InterfaceDeactivationGadgetClass(int a, int b, int c, int d, int e);	// 0x660D30 (intrface.cpp passes 0, 0, 0, 0, 0)  // NAME 1 [a, b, c, d, e]: neutral
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x660DD0
-	virtual GadgetUnknown64Struct Unknown_64();							// +0x64 0x660E40
+	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x660E40  // NAME 1 [box]: what it fills
 
 	char Unknown30[0x40 - 0x30];										// +0x30
 };
