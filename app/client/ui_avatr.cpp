@@ -245,9 +245,11 @@ static UIAvatrPartStruct UIAvatrParts[50] = {	// NAME 1: neutral (D10)
 	{ "metal02", NULL },
 };
 
-// The window's +0x2EC, as far as 0x558170 reads it
-struct UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10)
+// The window's +0x2DC .. +0x2F4 (seven of them, destructor 0x585BF0: 0x559F30), as far as 0x558170 reads +0x2EC
+class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10)
 {
+public:
+	~UIAvatrUnknown2ECStruct();							// 0x585BF0
 	char Unknown00[0x20];								// +0x00
 	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
 };
@@ -301,8 +303,14 @@ public:
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
 	char Unknown1C6[0x2C8 - 0x1C6];						// +0x1C6
 	std::string Unknown2C8;								// +0x2C8 (the destructor's)
-	char Unknown2D8[0x2EC - 0x2D8];						// +0x2D8
+	char Unknown2D8[0x2DC - 0x2D8];						// +0x2D8
+	UIAvatrUnknown2ECStruct *Unknown2DC;				// +0x2DC (0x559F30 deletes the seven)
+	UIAvatrUnknown2ECStruct *Unknown2E0;				// +0x2E0
+	UIAvatrUnknown2ECStruct *Unknown2E4;				// +0x2E4
+	UIAvatrUnknown2ECStruct *Unknown2E8;				// +0x2E8
 	UIAvatrUnknown2ECStruct *Unknown2EC;				// +0x2EC (0x558170)
+	UIAvatrUnknown2ECStruct *Unknown2F0;				// +0x2F0
+	UIAvatrUnknown2ECStruct *Unknown2F4;				// +0x2F4
 };
 
 // The window's FlashingGadgetEvent callback (vtable 0xAEF988 over 0xAEDB58)
@@ -627,6 +635,39 @@ void AvatarCreationInterface::Unknown_5598D0()
 	if (Unknown094) Unknown094->Unknown_40(false);
 }
 
+// 0x559F30
+void AvatarCreationInterface::Unknown_559F30()
+{
+	if (Unknown2DC) {
+		delete Unknown2DC;
+		Unknown2DC = NULL;
+	}
+	if (Unknown2E0) {
+		delete Unknown2E0;
+		Unknown2E0 = NULL;
+	}
+	if (Unknown2E4) {
+		delete Unknown2E4;
+		Unknown2E4 = NULL;
+	}
+	if (Unknown2E8) {
+		delete Unknown2E8;
+		Unknown2E8 = NULL;
+	}
+	if (Unknown2EC) {
+		delete Unknown2EC;
+		Unknown2EC = NULL;
+	}
+	if (Unknown2F0) {
+		delete Unknown2F0;
+		Unknown2F0 = NULL;
+	}
+	if (Unknown2F4) {
+		delete Unknown2F4;
+		Unknown2F4 = NULL;
+	}
+}
+
 // 0x55AFD0
 void AvatarCreationInterface::Unknown_55AFD0()
 {
@@ -707,4 +748,5 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	0x558060 (a random point for avatar.cpp's blend weights, 0x5860B0: the point built in a Vector2
 **	member by member, the weights struct needs a constructor so the returns land in the locals) and
 **	0x558170 (a random head type and scale; the type count read into a local first) exact.
+**	0x559F30 (the seven +0x2DC .. +0x2F4 objects deleted, destructor 0x585BF0) exact.
 */
