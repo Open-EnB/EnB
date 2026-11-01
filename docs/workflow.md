@@ -474,6 +474,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **A hand-written `if (p) p->Release_Ref(); p = NULL;` schedules the store after the next load** (2026-10-31, TG3,
+  sbaseview 0x69CDE0): the client's `RefCountPtr = NULL` stores first. Where the client does this on a raw-pointer
+  member, cast the member to `RefCountPtr<T> &` (or make the member a RefCountPtr).
 * **Land-family register and FPU forms** (2026-10-31, TG2): a local declared in the branch that uses it, not at the
   top, changes register allocation (Apply_Colors 0x46D410 exact with `extra` in its else branch); a float local for a
   shared value keeps it on the FPU and reorders the stores with an fxch (Get_Triangles 0x465D30 exact with `float y`
