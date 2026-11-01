@@ -85,6 +85,7 @@ public:
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
 	void Unknown_7CB610(const char *url);				// 0x7CB610 (LoginTaskClass::Fetch_EA_Ticket: auth.ini's LKeyUrl)
 	void Unknown_7CB6F0(int unknown);					// 0x7CB6F0
+	void Unknown_7CB3D0();								// 0x7CB3D0 (WinMain's shut-down: ShellExecuteEx, 'Earth & Beyond will now exit to allow you to check your E-Mail')  // NAME 1 [Unknown_7CB3D0]: neutral (D10)
 
 	char Unknown00[0x2C];
 	int Unknown2C;										// +0x2C: LoginTaskClass::Unknown_6C tests it

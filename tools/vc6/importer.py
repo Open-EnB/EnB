@@ -3757,6 +3757,8 @@ RECONSTRUCTED = {
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "
                                   "the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task "
                                   "(the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
+    ('app', 'main/main_client.cpp'): "WinMain 0x526DE0 (S: __FILE__ e:\\build\\beta\\G\\app\\main\\main_client.cpp in its report, "
+                                     "line 596, D25): the start-up steps, the kernel loop, the shut-down (kernel-map.md 1); exact",
     ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
                               "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
                               "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",

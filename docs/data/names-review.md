@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1099 |
-| 2 | describes what the code does | 2726 |
-| 1 | neutral placeholder | 9000 |
+| 3 | by convention from a client-named file or sibling | 1100 |
+| 2 | describes what the code does | 2727 |
+| 1 | neutral placeholder | 9093 |
 
 ## For review (score 3 and below)
 
@@ -3582,14 +3582,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Int64` | `app/client/tasks/tsk_game.h:85` | what it does |
 | 1 | `Unknown_7CB610` | `app/client/tasks/tsk_game.h:86` | untagged neutral name (D10) |
 | 1 | `Unknown_7CB6F0` | `app/client/tasks/tsk_game.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_game.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/tasks/tsk_game.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/tasks/tsk_game.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/tasks/tsk_game.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:94` | a function-static instance |
-| 1 | `Unknown_BE67B8Class` | `app/client/tasks/tsk_game.h:96` | fontdatabase.cpp's object at 0xBE67B8 |
-| 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:101` | neutral (D10) |
+| 1 | `Unknown_7CB3D0` | `app/client/tasks/tsk_game.h:88` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_game.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/tasks/tsk_game.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/tasks/tsk_game.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/tasks/tsk_game.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:95` | a function-static instance |
+| 1 | `Unknown_BE67B8Class` | `app/client/tasks/tsk_game.h:97` | fontdatabase.cpp's object at 0xBE67B8 |
+| 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:102` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
 | 1 | `password` | `app/client/tasks/tsk_login.cpp:28` | '123456' |
@@ -7082,6 +7083,84 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:57` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:75` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:87` | what it does |
+| 1 | `Unknown_Debug_Printf` | `app/main/main_client.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `app/main/main_client.cpp:41` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
+| 1 | `Unknown_Debug_End_Step` | `app/main/main_client.cpp:42` | 0x50A1E0 (dbgmgr.cpp) |
+| 1 | `Unknown_509E70` | `app/main/main_client.cpp:43` | dbgmgr.cpp, opens the log ('Earth and Beyond') |
+| 1 | `Unknown_509EB0` | `app/main/main_client.cpp:44` | dbgmgr.cpp, closes it (the allocation count assert, WWMemoryLog's Release_Log) |
+| 1 | `Unknown_4BC000` | `app/main/main_client.cpp:45` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
+| 1 | `Unknown_5FADE0` | `app/main/main_client.cpp:48` | ui_registration.cpp |
+| 1 | `Unknown_5FAD50` | `app/main/main_client.cpp:49` | ui_registration.cpp |
+| 1 | `Unknown_847D20` | `app/main/main_client.cpp:50` | the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes |
+| 1 | `Unknown_846C90` | `app/main/main_client.cpp:51` | the -MENU dialog; false ends the program |
+| 1 | `Unknown_445330` | `app/main/main_client.cpp:55` | Exception_Handler(code, info) (cdecl)  // NAME 1 [info]: its type |
+| 1 | `Unknown_445350` | `app/main/main_client.cpp:56` | the application's exception callback |
+| 1 | `Unknown_445560` | `app/main/main_client.cpp:57` | string resource 1 |
+| 1 | `Unknown_445590` | `app/main/main_client.cpp:58` | string resource 2 |
+| 1 | `Unknown_445610` | `app/main/main_client.cpp:59` | 'Release' |
+| 1 | `Unknown_445420` | `app/main/main_client.cpp:60` | WM_ACTIVATEAPP: the kernel's rendering on / off  // NAME 1 [unknown, active]: its reads |
+| 1 | `Unknown_4454A0` | `app/main/main_client.cpp:61` | WM_DESTROY  // NAME 1 [unknown, unknown2]: neutral |
+| 1 | `Unknown_4454C0` | `app/main/main_client.cpp:62` | WM_CLOSE  // NAME 1 [unknown, unknown2]: neutral |
+| 1 | `Unknown_BDBE4C` | `app/main/main_client.cpp:63` | GetTickCount at start-up |
+| 1 | `Unknown_431CA0` | `app/main/main_client.cpp:66` | registers the class, makes the 'Earth & Beyond' window  // NAME 1 [instance, width, height, unknown]: what WinMain passes |
+| 1 | `Unknown_42E4A0` | `app/main/main_client.cpp:67` | input.cpp's start-up (input.ini, the DirectInput devices)  // NAME 1 [window]: what WinMain passes |
+| 1 | `Unknown_42EE00` | `app/main/main_client.cpp:68` | input.cpp (the 'KeyRepeatCount' assert) |
+| 1 | `Unknown_42E7B0` | `app/main/main_client.cpp:69` | input.cpp's shut-down |
+| 1 | `Unknown_42F940` | `app/main/main_client.cpp:70` | adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes |
+| 1 | `Unknown_42FAC0` | `app/main/main_client.cpp:71` | removes it |
+| 1 | `Unknown_4581E0` | `app/main/main_client.cpp:72` | the render state class's start-up (a critical section, an event) |
+| 1 | `Unknown_458250` | `app/main/main_client.cpp:73` | its shut-down |
+| 1 | `Unknown_442AC0` | `app/main/main_client.cpp:74` | display.cpp's start-up  // NAME 1 [window]: what WinMain passes |
+| 1 | `Unknown_442FF0` | `app/main/main_client.cpp:75` | display.cpp's shut-down (WW3D::Shutdown) |
+| 1 | `Unknown_BDADB8` | `app/main/main_client.cpp:76` | display.cpp's (0: no display; WinMain skips to the assets) |
+| 1 | `Unknown_684E00` | `app/main/main_client.cpp:77` | loads fontpal.pcx into 0xB8F870 (deffont.cpp) |
+| 1 | `Unknown_B8F870` | `app/main/main_client.cpp:78` | the 768-byte palette, WW3D::Init's default palette |
+| 1 | `Unknown_6832C0` | `app/main/main_client.cpp:79` | deffont.cpp's start-up ('!FontData[style]') |
+| 1 | `Unknown_683940` | `app/main/main_client.cpp:80` | deffont.cpp's shut-down |
+| 1 | `Unknown_C006A0Struct` | `app/main/main_client.cpp:81` | neutral (D10), as far as WinMain reads it |
+| 1 | `Unknown00` | `app/main/main_client.cpp:81` | untagged neutral name (D10) |
+| 1 | `UnknownDD` | `app/main/main_client.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_C006A0` | `app/main/main_client.cpp:82` | neutral (D10) |
+| 1 | `Unknown_BFAE4F` | `app/main/main_client.cpp:85` | neutral (D10) |
+| 1 | `Unknown_BFAE50` | `app/main/main_client.cpp:86` | neutral (D10) |
+| 1 | `Unknown_BFAE51` | `app/main/main_client.cpp:87` | neutral (D10) |
+| 1 | `Unknown_BFAE52` | `app/main/main_client.cpp:88` | neutral (D10) |
+| 1 | `UnknownBDADC0Class` | `app/main/main_client.cpp:91` | neutral (D10) |
+| 1 | `Unknown_BDADC0` | `app/main/main_client.cpp:96` | 0xBDADC0 |
+| 1 | `Unknown_8B20D0Class` | `app/main/main_client.cpp:99` | neutral (D10) |
+| 1 | `Unknown_8B2230` | `app/main/main_client.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/main/main_client.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_6BCFB0Class` | `app/main/main_client.cpp:123` | 0x6BCFB0, 0x6BD060 |
+| 1 | `Unknown_BE67C4` | `app/main/main_client.cpp:124` | neutral (D10) |
+| 1 | `Unknown_BE67B4` | `app/main/main_client.cpp:125` | neutral (D10) |
+| 1 | `Unknown_790560Class` | `app/main/main_client.cpp:128` | the personality manager (personalities\%sPersonality%02d.ini); 0x790560, 0x790870 |
+| 1 | `Unknown_790940` | `app/main/main_client.cpp:129` | sets 0xBE856C  // NAME 1 [manager]: neutral |
+| 1 | `Unknown_BE856C` | `app/main/main_client.cpp:130` | neutral (D10) |
+| 1 | `Unknown_764480Class` | `app/main/main_client.cpp:131` | the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0 |
+| 1 | `Unknown_764510` | `app/main/main_client.cpp:132` | sets 0xBE82D0  // NAME 1 [manager]: neutral |
+| 1 | `Unknown_BE82D0` | `app/main/main_client.cpp:133` | neutral (D10) |
+| 1 | `Unknown_6A9B60Class` | `app/main/main_client.cpp:134` | 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0 |
+| 1 | `Unknown_6A9E40` | `app/main/main_client.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/main/main_client.cpp:136` | neutral (D10) |
+| 1 | `Unknown_7CA2D0Class` | `app/main/main_client.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8Class` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
+| 1 | `hInstance, hPrevInstance, lpCmdLine, nCmdShow` | `app/main/main_client.cpp:382` | Win32's |
+| 1 | `purchase` | `app/main/main_client.cpp:386` | its text |
+| 1 | `enable_exceptions` | `app/main/main_client.cpp:405` | the value's name, inverted |
+| 1 | `file_factory` | `app/main/main_client.cpp:426` | what it is |
+| 1 | `test_path` | `app/main/main_client.cpp:464` | its text |
+| 1 | `message_server` | `app/main/main_client.cpp:471` | its step text |
+| 1 | `wsa_data` | `app/main/main_client.cpp:486` | its type |
+| 1 | `reduction` | `app/main/main_client.cpp:501` | what it gives |
+| 1 | `splash` | `app/main/main_client.cpp:508` | 0x6A9E40's 'Splash::Render' |
+| 1 | `kernel` | `app/main/main_client.cpp:531` | its class |
+| 1 | `movie` | `app/main/main_client.cpp:539` | its class |
+| 1 | `script` | `app/main/main_client.cpp:557` | its text |
+| 1 | `scripted` | `app/main/main_client.cpp:559` | its class |
+| 1 | `Unknown_7CA2D0` | `app/main/main_client.cpp:582` | untagged neutral name (D10) |
+| 1 | `login` | `app/main/main_client.cpp:590` | its class |
+| 1 | `Unknown_7CB3D0` | `app/main/main_client.cpp:652` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/packets/clientstub.cpp:106` | untagged neutral name (D10) |
 | 1 | `Packet_7544Class` | `app/packets/gameedit/pkgeaset.h:21` | neutral (D10): opcode 0x7544 (Print 'GameEditorAssetMapping') |
 | 1 | `Packet_7545Class` | `app/packets/gameedit/pkgeclon.h:22` | neutral (D10): opcode 0x7545 (Print 'GameEditorClone') |
@@ -8713,6 +8792,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:76` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:118` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
+| 1 | `Unknown_5FADE0` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAD50` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_8B20D0Class` | `programs/clientpoc/poc_standins.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_8B2230` | `programs/clientpoc/poc_standins.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `programs/clientpoc/poc_standins.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_790560Class` | `programs/clientpoc/poc_standins.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_standins.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_BE856C` | `programs/clientpoc/poc_standins.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_790940` | `programs/clientpoc/poc_standins.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:117` | untagged neutral name (D10) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
@@ -10361,6 +10454,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Focus` | `app/kernel/kernel.h:92` | what it does |
 | 2 | `Process_Input` | `app/kernel/kernel.h:93` | what it does |
 | 2 | `Pump_Messages` | `app/kernel/kernel.h:94` | what it does |
+| 2 | `SoundManager` | `app/main/main_client.cpp:117` | what it holds |
 | 2 | `Size` | `app/packets/gameedit/pkgeaset.h:33` | what it holds |
 | 2 | `Transform` | `app/packets/gameedit/pkgeclon.h:33` | what it holds (twelve floats, copied whole) |
 | 2 | `NewNameSize` | `app/packets/gameedit/pkgeclon.h:34` | what it holds |
@@ -12104,6 +12198,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `weapontype.h` | `app/common/weapontype.h:15` | header name assumed from the client's weapontype.cpp |
 | 3 | `inpdsp.h` | `app/input/inpdsp.h:20` | header name assumed from the client's inpdsp.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
+| 3 | `SoundManagerClass` | `app/main/main_client.cpp:110` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `pkgeaset.h` | `app/packets/gameedit/pkgeaset.h:15` | the header of the client's gameedit\pkgeaset.cpp |
 | 3 | `Data` | `app/packets/gameedit/pkgeaset.h:32` | the client's assert 'Data' |
 | 3 | `pkgeclon.h` | `app/packets/gameedit/pkgeclon.h:15` | the header of the client's gameedit\pkgeclon.cpp |
