@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1098 |
+| 3 | by convention from a client-named file or sibling | 1099 |
 | 2 | describes what the code does | 2724 |
-| 1 | neutral placeholder | 8984 |
+| 1 | neutral placeholder | 8994 |
 
 ## For review (score 3 and below)
 
@@ -4544,7 +4544,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown244` | `app/client/ui_avsel.cpp:215` | untagged neutral name (D10) |
 | 1 | `Get_Unknown3A4` | `app/client/ui_avsel.cpp:216` | neutral (D10) |
 | 1 | `Unknown3A4` | `app/client/ui_avsel.cpp:216` | untagged neutral name (D10) |
-| 1 | `UIAvselCallbackBaseClass` | `app/client/ui_avsel.cpp:221` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
+| 1 | `UIAvselCallbackClass` | `app/client/ui_avsel.cpp:224` | neutral (D10) |
+| 1 | `UIAvselCallbackBaseClass` | `app/client/ui_avsel.cpp:225` | neutral (D10) |
 | 1 | `UIAvselNotifierClass` | `app/client/ui_avsel.cpp:227` | neutral (D10) |
 | 1 | `Unknown_65ECE0` | `app/client/ui_avsel.cpp:233` | neutral (D10) |
 | 1 | `UnknownBFAEE0Class` | `app/client/ui_avsel.cpp:236` | kernel.cpp's |
@@ -4577,7 +4578,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CAC` | `app/client/ui_avsel.cpp:280` | neutral (D10): what 0x55F760's edit box gets (or'ed) |
 | 1 | `Unknown_B08CBC` | `app/client/ui_avsel.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC0` | `app/client/ui_avsel.cpp:280` | untagged neutral name (D10) |
-| 1 | `UIAvselCallbackClass` | `app/client/ui_avsel.cpp:283` | neutral (D10) |
 | 1 | `Unknown084` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown088` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown08C` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
@@ -6109,7 +6109,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1D0` | `app/client/ui_login.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown1D1` | `app/client/ui_login.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown3A4` | `app/client/ui_login.cpp:187` | untagged neutral name (D10) |
-| 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:191` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
+| 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:193` | neutral (D10) |
 | 1 | `LoginNotifierClass` | `app/client/ui_login.cpp:197` | neutral (D10) |
 | 1 | `Unknown_65ECE0` | `app/client/ui_login.cpp:203` | neutral (D10) |
 | 1 | `SClientUnknown1338Class` | `app/client/ui_login.cpp:211` | neutral (D10): sclient.cpp's (env_map_manager.cpp) |
@@ -6156,7 +6156,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0D8` | `app/client/ui_login.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown0D9` | `app/client/ui_login.cpp:267` | untagged neutral name (D10) |
 | 1 | `Unknown0DA` | `app/client/ui_login.cpp:268` | untagged neutral name (D10) |
-| 1 | `LoginCallbackClass` | `app/client/ui_login.cpp:272` | neutral (D10) |
+| 1 | `LoginCallbackClass` | `app/client/ui_login.cpp:274` | neutral (D10) |
 | 1 | `Unknown_B810DC` | `app/client/ui_login.cpp:282` | neutral (D10) |
 | 1 | `Unknown_B810F4` | `app/client/ui_login.cpp:283` | neutral (D10) |
 | 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
@@ -6822,6 +6822,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7FF8A0` | `app/client/unknown_screenfade.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFA30` | `app/client/unknown_screenfade.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFBE0` | `app/client/unknown_screenfade.cpp:127` | untagged neutral name (D10) |
+| 1 | `unknown_signalbase.h` | `app/client/unknown_signalbase.h:3` | neutral header name (D10) |
+| 1 | `CallbackClass` | `app/client/unknown_signalbase.h:14` | neutral (D10) |
+| 1 | `Sender_Type` | `app/client/unknown_signalbase.h:18` | what it returns |
+| 1 | `Event_Type` | `app/client/unknown_signalbase.h:19` | what it returns |
+| 1 | `Type` | `app/client/unknown_signalbase.h:20` | what it returns |
+| 1 | `Is_Equal` | `app/client/unknown_signalbase.h:21` | what it does |
+| 1 | `Call` | `app/client/unknown_signalbase.h:22` | what it does |
+| 1 | `Is_Same` | `app/client/unknown_signalbase.h:42` | what it does |
+| 1 | `Object` | `app/client/unknown_signalbase.h:45` | what it holds |
+| 1 | `Function` | `app/client/unknown_signalbase.h:46` | what it holds |
 | 1 | `LineDisplaySortClass` | `app/client/view.cpp:9` | neutral (D10) |
 | 1 | `inter` | `app/client/view.cpp:12` | what 0x6B4860 passes |
 | 1 | `Unknown00` | `app/client/view.cpp:16` | untagged neutral name (D10) |
@@ -12053,6 +12063,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gadget, bar, group, bttn_idx` | `app/client/ui_scut.h:88` | the FAIL_IFs' |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `GadgetListManagerClass` | `app/client/uiview.h:38` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
+| 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:10` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |

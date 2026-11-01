@@ -217,13 +217,13 @@ public:
 	UIAvselEnvMapClass *Unknown3A4;						// +0x3A4
 };
 
-// The window's FlashingGadgetEvent callback (vtable 0xAEFAEC over sclient.cpp's 0xAEDB58)
-class UIAvselCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	~UIAvselCallbackBaseClass() {}
-	virtual void Call();
-};
+// The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAEFAEC over 0xAEDB58; its
+// members out of line after the galaxy list's: the destructor 0x560250, 0x560270, 0x560290, 0x5602B0, 0x560330 and
+// the deleting destructor 0x560390)
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarSelectionInterface, void (AvatarSelectionInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIAvselCallbackClass;	// NAME 1 [UIAvselCallbackClass]: neutral (D10)
+typedef SignalBaseClass::CallbackClass UIAvselCallbackBaseClass;	// NAME 1 [UIAvselCallbackBaseClass]: neutral (D10)
+
 class UIAvselNotifierClass		// NAME 1: neutral (D10)
 {
 public:
@@ -279,16 +279,16 @@ public:
 };
 extern const int Unknown_B08CAC; extern const int Unknown_B08CBC; extern const int Unknown_B08CC0;	// NAME 1: neutral (D10): what 0x55F760's edit box gets (or'ed)
 
-// The callback (vtable 0xAEFAEC)
-class UIAvselCallbackClass : public UIAvselCallbackBaseClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselCallbackClass(AvatarSelectionInterface *object, void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *)) : Object(object), Function(function) {}
-	virtual void Call();
 
-	AvatarSelectionInterface *Object;					// +0x04
-	void (AvatarSelectionInterface::*Function)(FlashingGadgetEvent *, GadgetClass *);	// +0x08 (8 bytes: two bases)
-};
+
+
+
+
+
+
+
+
+
 
 // 0x55C650
 AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass *layer) :

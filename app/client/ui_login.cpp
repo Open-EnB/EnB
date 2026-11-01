@@ -188,12 +188,12 @@ public:
 };
 
 // The gadget events' callbacks (vtable 0xAEDB58) and what 0x65ECE0 returns, as ui_avatr.cpp declares them
-class LoginCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	~LoginCallbackBaseClass() {}
-	virtual void Call();
-};
+// (SignalBaseClass::MemberCallback: unknown_signalbase.h)
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginCallbackBaseClass]: neutral (D10)
+
+
+
 class LoginNotifierClass		// NAME 1: neutral (D10)
 {
 public:
@@ -268,16 +268,16 @@ public:
 	bool Unknown0DA;									// +0xDA
 };
 
-// The window's FlashingGadgetEvent callback (vtable 0xAF2BBC over 0xAEDB58)
-class LoginCallbackClass : public LoginCallbackBaseClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginCallbackClass(LoginInterface *object, void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *)) : Object(object), Function(function) {}
-	virtual void Call();
+// The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAF2BBC over 0xAEDB58; its
+// members out of line after the settings map's: the destructor 0x5AF7F0, 0x5AF810, 0x5AF830, 0x5AF850, 0x5AF8D0 and
+// the deleting destructor 0x5AF930)
+typedef SignalBaseClass::MemberCallback<GadgetClass, LoginInterface, void (LoginInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> LoginCallbackClass;	// NAME 1 [LoginCallbackClass]: neutral (D10)
 
-	LoginInterface *Object;								// +0x04
-	void (LoginInterface::*Function)(FlashingGadgetEvent *, GadgetClass *);	// +0x08 (8 bytes: two bases)
-};
+
+
+
+
+
 
 static const char *Unknown_B810DC[] = { "BUTTON_NAME", "BUTTON_PASSWORD", "BUTTON_NEW", "BUTTON_REGISTRA", "EXIT" };	// NAME 1: neutral (D10)
 static const char *Unknown_B810F4[] = { "Name_fe01a", "Password_fe01a", "New_fe01a", "Register_fe01a", "Quit_fe01a" };	// NAME 1: neutral (D10)
