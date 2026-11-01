@@ -3237,6 +3237,17 @@
      "0x4668F0"
     ]
    },
+   "htmlview": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x777630",
+     "0x7777C0"
+    ],
+    "merged": [],
+    "name": "client/html/htmlview.cpp"
+   },
    "ini_manager": {
     "ambiguous": [
      "0x42A6C0",

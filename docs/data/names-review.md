@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1082 |
 | 2 | describes what the code does | 2604 |
-| 1 | neutral placeholder | 8254 |
+| 1 | neutral placeholder | 8255 |
 
 ## For review (score 3 and below)
 
@@ -1657,6 +1657,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Peek_Font` | `app/client/fontmanager.h:121` | neutral (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:123` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:4` | the object 0x7767A0 draws its frames through; +0 its surface |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
 | 1 | `Unknown_04` | `app/client/influence.h:29` | untagged neutral name (D10) |
