@@ -53,6 +53,8 @@
 #include <set>
 #include <list>
 #include "clienttest.h"
+#include "..\..\..\app\kernel\kernel.h"
+#include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pk.h"
@@ -88,6 +90,28 @@ static int Lines = 0;
 static int Failures = 0;
 bool Stub_744B60 = false;
 bool Stub_Focused = false;
+// TaskClass::Is_Focused is the real one (kernel.cpp): a fake task on a real KernelClass whose Current_Task is the fake
+// while Stub_Focused is set
+class FakeTaskClass : public TaskClass
+{
+public:
+	virtual int Get_Interval() { return 0; }
+	virtual bool Delete_On_Remove() { return false; }
+};
+extern HWND Unknown_BDAA7C;
+extern InputQueueClass *Unknown_BDA968;
+static FakeTaskClass Fake_Task;
+static KernelClass *Fake_Kernel = 0;
+void Set_Stub_Focused(bool on)
+{
+	Stub_Focused = on;
+	if (Fake_Kernel == 0) {
+		Fake_Kernel = new KernelClass();
+		Fake_Task.Kernel = Fake_Kernel;
+	}
+	Fake_Kernel->Current_Task = on ? &Fake_Task : 0;
+	if (on) Trace("stub TaskClass::Is_Focused -> 1");
+}
 
 void Trace(const char *format, ...)
 {
@@ -756,7 +780,7 @@ static void Test_Packets(SClient *client, const char *path)
 	loading.Unknown68 = true;
 	client->LoadingView = (LoadingViewClass *)&loading;
 	// the first message with the task focused and the loading view up (Process_Packets tells it), then not
-	Stub_Focused = true;
+	Set_Stub_Focused(true);
 	if (!Memory->Incoming.empty()) {
 		std::vector<unsigned char> first = Memory->Incoming.front();
 		Memory->Incoming.pop_front();
@@ -766,7 +790,7 @@ static void Test_Packets(SClient *client, const char *path)
 		client->Process_Packets();
 		Memory->Incoming.swap(rest);
 	}
-	Stub_Focused = false;
+	Set_Stub_Focused(false);
 	unsigned ship = client->ShipID;
 	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
 	int creates = 0, created = 0, removes = 0, removed = 0;
@@ -1923,6 +1947,11 @@ int main(int argc, char **argv)
 	}
 	Hook_Get_Ticks();
 	Hook_Audio_Functions();
+	// Unknown_42EDB0 (input.cpp, real now) polls the mouse only when GetForegroundWindow() is the game window
+	// Unknown_BDAA7C; a window that is never the foreground one keeps it from the mouse object (not created here)
+	Unknown_BDAA7C = (HWND)1;
+	// Unknown_42EA80 (input.cpp, real now) peeks the key queue: an empty real one (no events, no mouse tracking)
+	Unknown_BDA968 = new KeyQueueClass;
 	SetUnhandledExceptionFilter(Crash_Filter);
 	{
 		// a vectored handler runs first, even over a corrupt frame chain (XP and later)
@@ -1975,7 +2004,7 @@ int main(int argc, char **argv)
 	*(void ***)Fake_Camera = Zero_Table;	// its Validate_Transform (virtual) does nothing; the Transform stays zero
 
 	Trace("== SClient (its constructor, the base's)");
-	SClient *client = new SClient(0);
+	SClient *client = new SClient((ClientTaskClass *)&Fake_Task);
 	The_Client = client;
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;

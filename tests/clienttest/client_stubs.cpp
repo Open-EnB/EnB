@@ -71,16 +71,6 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("s
 // SClient's slots declared only (sclient.h): never called by the tests
 void SClient::Unknown_64() { Trace("stub SClient::Unknown_64"); }
 
-// ------------------------------------------------------------------------- the kernel (kernel.cpp not compiled in)
-
-bool TaskClass::Is_Focused()
-{
-	if (Stub_Focused) {
-		Trace("stub TaskClass::Is_Focused -> 1");	// (once per message: traced only when true)
-	}
-	return(Stub_Focused);
-}
-
 // ------------------------------------------------------------------------- co.cpp's client object
 // (co.cpp's rebuilt members link from app.lib: the type tests, the model accessor 0x6F3BC0, the aux-data
 // accessors 0x6FFE90-0x6FFFA0; what remains here is not rebuilt yet)

@@ -130,8 +130,6 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 gen Unknown_918200
-gen Unknown_42EDB0
-gen Unknown_42EA80
 gen SClient::Unknown_743380
 msg 2 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 gen SoundManagerClass::Unknown_75B320
@@ -390,8 +388,8 @@ model 16 'ship_test2' deleted
 check REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models: ok
 == (3) Process_Packets
 messages 1000
-msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub TaskClass::Is_Focused -> 1
+msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 loadingview 0C 1
 stub SClient::Unknown_74D990 0x17 'rtt = 4291038945  correction = 2140340121' 0
 msg 2 ITEM_BASE (37) size 126: cpacket.cpp's handler
@@ -3019,7 +3017,7 @@ recustomize calls: 61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc)
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
 msg 1 ? (235) size 36: cpacket.cpp's handler
-gen GClassUnknownClass::GClassUnknownClass
+gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
 gen InterfaceUnknown64Class::InterfaceUnknown64Class
@@ -3027,7 +3025,7 @@ gen SignalMap::SignalMap
 stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 0
 msg 2 ? (234) size 36: cpacket.cpp's handler
-gen GClassUnknownClass::GClassUnknownClass
+gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
 gen InterfaceUnknown64Class::InterfaceUnknown64Class
