@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1081 |
-| 2 | describes what the code does | 2592 |
-| 1 | neutral placeholder | 8245 |
+| 3 | by convention from a client-named file or sibling | 1082 |
+| 2 | describes what the code does | 2595 |
+| 1 | neutral placeholder | 8246 |
 
 ## For review (score 3 and below)
 
@@ -6184,6 +6184,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/common/galaxy_map.h:201` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/common/galaxy_map.h:202` | untagged neutral name (D10) |
 | 1 | `Name` | `app/common/galaxy_map.h:222` | a string on the wire (Read_String) |
+| 1 | `Clear` | `app/common/galaxy_map.h:240` | empties AllData and the four maps |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -9325,6 +9326,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `As_Sector` | `app/common/galaxy_map.h:167` | Remove_Data 0x836B70 calls the sector's Get_Hash_ID through it (Sectors) |
 | 2 | `As_Gate` | `app/common/galaxy_map.h:168` | Remove_Data's Gates branch |
 | 2 | `As_Starbase` | `app/common/galaxy_map.h:169` | Remove_Data's Starbases branch |
+| 2 | `Set_Galaxy_Map_ID` | `app/common/galaxy_map.h:180` | the assert's (line 180; Add_Data 0x836960) |
 | 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:189` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
 | 2 | `Create` | `app/common/galaxy_map.h:219` | what it does |
 | 2 | `HashID` | `app/common/galaxy_map.h:221` | Get_Hash_ID's |
@@ -9332,16 +9334,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GalaxyMapGateClass` | `app/common/galaxy_map.h:231` | galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())' |
 | 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:232` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
 | 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:235` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
-| 2 | `Add_System` | `app/common/galaxy_map.h:240` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
-| 2 | `Add_Sector` | `app/common/galaxy_map.h:241` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
-| 2 | `Add_Gate` | `app/common/galaxy_map.h:242` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
-| 2 | `Add_Starbase` | `app/common/galaxy_map.h:243` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
-| 2 | `Remove_Data` | `app/common/galaxy_map.h:244` | FAIL_IF 'id >= AllData.size()', then the four maps' erase |
-| 2 | `Add_Data` | `app/common/galaxy_map.h:245` | Add_System's first call, before Systems[] |
-| 2 | `Get_Data` | `app/common/galaxy_map.h:247` | returns AllData[id] |
-| 2 | `Get_System` | `app/common/galaxy_map.h:248` | Systems.find |
-| 2 | `Get_Sector` | `app/common/galaxy_map.h:249` | Sectors.find |
-| 2 | `Get_Starbase` | `app/common/galaxy_map.h:250` | Starbases.find |
+| 2 | `Write` | `app/common/galaxy_map.h:242` | LinearBufferClass::Write of MaxDataObjects, as the data's Write |
+| 2 | `Read` | `app/common/galaxy_map.h:243` | as the data's Read; grows AllData to MaxDataObjects |
+| 2 | `Add_System` | `app/common/galaxy_map.h:245` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
+| 2 | `Add_Sector` | `app/common/galaxy_map.h:246` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
+| 2 | `Add_Gate` | `app/common/galaxy_map.h:247` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
+| 2 | `Add_Starbase` | `app/common/galaxy_map.h:248` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
+| 2 | `Remove_Data` | `app/common/galaxy_map.h:249` | FAIL_IF 'id >= AllData.size()', then the four maps' erase |
+| 2 | `Add_Data` | `app/common/galaxy_map.h:250` | Add_System's first call, before Systems[] |
+| 2 | `Get_Data` | `app/common/galaxy_map.h:252` | returns AllData[id] |
+| 2 | `Get_System` | `app/common/galaxy_map.h:253` | Systems.find |
+| 2 | `Get_Sector` | `app/common/galaxy_map.h:254` | Sectors.find |
+| 2 | `Get_Starbase` | `app/common/galaxy_map.h:255` | Starbases.find |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
@@ -11178,11 +11182,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
 | 3 | `GalaxyMapID` | `app/common/galaxy_map.h:174` | the asserts' |
 | 3 | `Remove_From_Galaxy_Map` | `app/common/galaxy_map.h:185` | the assert's (line 185; Remove_Data, the map's destructor) |
-| 3 | `std:` | `app/common/galaxy_map.h:252` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:253` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:254` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:255` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:256` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:257` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:258` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:259` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:260` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:261` | the asserts' |
+| 3 | `MaxDataObjects` | `app/common/galaxy_map.h:262` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |

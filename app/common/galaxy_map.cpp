@@ -3,14 +3,52 @@
 #include "..\shared\auxdata\linearbu.h"
 
 
+// 0x835DD0
+GalaxyMapClass::GalaxyMapClass() :
+	MaxDataObjects(0)
+{
+}
 
 
 
 
 
+// 0x836240
+GalaxyMapClass::~GalaxyMapClass()
+{
+	Clear();
+}
 
+// 0x836590
+void GalaxyMapClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(&MaxDataObjects, 4);
+}
 
+// 0x8365C0
+void GalaxyMapClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(&MaxDataObjects, 4);
+	if ((int)AllData.size() < MaxDataObjects) {
+		AllData.resize(MaxDataObjects);
+	}
+}
 
+// 0x836740
+void GalaxyMapClass::Clear()
+{
+	for (std::vector<RefCountPtr<GalaxyMapDataClass> >::iterator it = AllData.begin(); it != AllData.end(); ++it) {
+		if (*it) {
+			(*it)->Remove_From_Galaxy_Map();
+			*it = NULL;
+		}
+	}
+	AllData.clear();
+	Systems.clear();
+	Sectors.clear();
+	Gates.clear();
+	Starbases.clear();
+}
 
 
 
@@ -49,63 +87,25 @@
 
 
 
+// 0x836960
+void GalaxyMapClass::Add_Data(const RefCountPtr<GalaxyMapDataClass> &data)
+{
+	unsigned int id = data->GalaxyMapID;
+	if (id == GalaxyMapDataClass::NOT_IN_GALAXY_MAP) {
+		id = MaxDataObjects++;
+		data->Set_Galaxy_Map_ID(id);
+	}
+	FAIL_IF((int)id >= MaxDataObjects) {
+		MaxDataObjects = id + 1;
+	}
 
+	if (AllData.size() <= id) {
+		AllData.resize(id * 2 + 2);
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: 0.74, the client sends the six failure exits to one shared epilogue (jmp), this form repeats it after each; nesting the first two FAIL_IFs as {} else {} doesn't share it either
+	G_ASSERT(AllData[id] == 0);
+	AllData[id] = data;
+}
 // 0x836B70
 void GalaxyMapClass::Remove_Data(unsigned int id)
 {
@@ -256,18 +256,29 @@ RefCountPtr<GalaxyMapSystemClass> GalaxyMapSystemClass::Create()
 /*
 **	Reconstruction notes
 **
-**	client.exe: galaxy_map.cpp's object (__FILE__ 0xBA97D4) runs to 0x837C70; its header's inline
-**	functions follow from 0x837D50. Built: the lookups 0x8378B0-0x837B30 (AllData[id], Systems /
-**	Sectors / Starbases find; each returns a function-local static null RefCountPtr when absent, the
-**	static declared inside the AllData branch, at the top in the hash lookups: the client's block
-**	order), the base's Read / Write (out of line: they precede the factory, the header's inline
-**	virtuals follow it) and the system's factory 0x837C70 (galaxy_map_client.cpp's 0x7A4FC0 reads
-**	the new system and adds it through Add_System 0x836F30, whose FAIL_IFs sit on the client's lines
-**	159 / 160; the blank lines above it hold that layout); Add_Sector / Add_Gate / Add_Starbase
-**	0x837190 / 0x8373F0 / 0x837650 the same, FAIL_IFs on 169 / 170, 179 / 180, 189 / 190. Remove_Data
-**	0x836B70 is NOT EXACT (its FAIL_IFs on the client's lines 112 / 115 / 120 / 128 / 136 / 144; the
-**	client shares one epilogue for every exit). Not built yet: 0x8360A0-0x836740 (the header's inline
-**	functions, the map's destructor 0x836240 among them) and Add_Data 0x836960 (galaxy_map.h's line
-**	180 'GalaxyMapID == NOT_IN_GALAXY_MAP', the FAIL_IF '(int)id >= MaxDataObjects' on line 98,
-**	MaxDataObjects at +0x74).
+**	client.exe: galaxy_map.cpp's object starts with the map's constructor 0x835DD0 (galaxy_map_client.cpp's
+**	0x7A4830 calls it; the compiler's deleting destructor 0x835FA0 and the hash maps' destructors for its
+**	unwinding, 0x835FD0 / 0x8360A0 / 0x836170, follow it; the Starbases one, 0x8364C0, follows the
+**	destructor) and runs to 0x837C70 (__FILE__ 0xBA97D4); its header's inline functions follow from
+**	0x837D50. The constructor leaves the hash maps to their default constructors (SGI's 100 buckets):
+**	writing Systems(100) ... inlines _M_initialize_buckets into Starbases instead of the client's Gates.
+**	The destructor calls Clear (vtable 0xB08B38's second slot), which the client inlines there with
+**	AllData.clear() and the maps' clear() out of line (inlined in Clear 0x836740 itself). Write / Read
+**	0x836590 / 0x8365C0 carry MaxDataObjects only; Read grows AllData to it.
+**
+**	Add_Data 0x836960: an object not in the map yet gets the next id (galaxy_map.h's line-180 assert in
+**	Set_Galaxy_Map_ID), FAIL_IF on line 98, AllData grown to id * 2 + 2, the assert on line 106. Its
+**	shared epilogue (and Remove_Data's 0x836B70, FAIL_IFs on 112 / 115 / 120 / 128 / 136 / 144) came
+**	with the constructor, destructor, Read / Write and Clear above it: with them missing both
+**	functions repeated the epilogue after each exit (0.67 / 0.74; TK16, GM1). The size test is
+**	written 'AllData.size() <= id' (cmp size, id; ja).
+**
+**	The lookups 0x8378B0-0x837B30 (AllData[id], Systems / Sectors / Starbases find; each returns a
+**	function-local static null RefCountPtr when absent, the static declared inside the AllData branch,
+**	at the top in the hash lookups: the client's block order), the base's Read / Write (out of line:
+**	they precede the factory, the header's inline virtuals follow it) and the system's factory
+**	0x837C70 (galaxy_map_client.cpp's 0x7A4FC0 reads the new system and adds it through Add_System
+**	0x836F30, whose FAIL_IFs sit on the client's lines 159 / 160; the blank lines above it hold that
+**	layout); Add_Sector / Add_Gate / Add_Starbase 0x837190 / 0x8373F0 / 0x837650 the same, FAIL_IFs on
+**	169 / 170, 179 / 180, 189 / 190.
 */
