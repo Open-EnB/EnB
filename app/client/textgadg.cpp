@@ -535,7 +535,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
-// NOT EXACT: registers (0.73): the string and the cursor take other registers in the first loop
+// NOT EXACT: loop rotation (0.76): VC6 rotates the first loop here (its test repeated at the bottom), the client tests cp at the top only
 char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
@@ -545,18 +545,18 @@ char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&
 	if (width > pwidth) {
 		int i = strlen(string) - 1;
 		while (cp < i) {
-			width -= font->Get_Char_Width(string[i--], 640.0f);
-			if (width <= pwidth) {
+			width -= font->Get_Char_Width(string[i], 640.0f);
+			i--;
+			if (!(width > pwidth)) {
 				break;
 			}
 		}
 		string[i + 1] = '\0';
 		while (width > pwidth) {
-			width -= font->Get_Char_Width(*string++, 640.0f);
+			width -= font->Get_Char_Width(*string, 640.0f);
+			string++;
 			cp--;
 		}
-
-
 
 
 

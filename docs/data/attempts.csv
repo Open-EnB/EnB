@@ -1404,3 +1404,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-01 13:45,0x6AA340,TextBaseGadgetClass::Unknown_6AA340,app/client/textgadg.cpp,app,partial,0.77,2,register,prompt test either order; the stars through the inline 0x6AA5F0 (TG),,opus
 2026-11-01 13:45,0x6AB190,TextGadgetClass::Unknown_6AB190,app/client/textgadg.cpp,app,partial,0.73,3,register,for with both tests 0.43; while (cp < i) with a break 0.73; cp an int & (the assert reads cp >= 0) (TG),,opus
 2026-11-01 13:51,0x6AB080,TextGadgetClass::Unknown_64,app/client/textgadg.cpp,app,exact,,3,,slot +0x64 is void (AABoxClass &box): the client leaves nothing in eax (TG),,opus
+2026-11-01 14:02,0x6AB190,TextGadgetClass::Unknown_6AB190,app/client/textgadg.cpp,app,partial,0.76,3,order,"while (cp < i) with i-- and string++ as statements 0.76 (do / if-break the same): VC6 rotates the loop, the client tests cp only at the top (TG)",,opus
