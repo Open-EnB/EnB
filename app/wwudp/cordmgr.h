@@ -138,6 +138,9 @@ public:
 	bool Cancel_Connect(int session);	// NAME 2: what it does
 	// Frees the released connections whose time has come. 0x859940
 	bool Pump_Releases();
+	// A timed-out handshake's CordCon into both lists, its record freed and taken out (inlined in Pump_Connections, as
+	// one block: ACK2 0x85ABB0 has the same code inline but matches better without it)
+	void Add_Connection(CordCon *con, CordConnectingClass *c, int i) { AllConnections_.addTail(con); Connections_.addTail(con); delete c; Pending_.remove(i); }	// NAME 2: what it does
 	// A hash of the six values and Unknown04 (WWOnline's SHA-1, the digest's words xored). 0x85A220 (no caller)
 	unsigned int Compute_Ticks(unsigned short port1, unsigned int ip1, unsigned int ip2, unsigned short port2,
 		unsigned int ip3, unsigned short port3);	// NAME 2: the parameters (the name is the client's profile string)

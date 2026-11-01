@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1109 |
-| 2 | describes what the code does | 2758 |
+| 2 | describes what the code does | 2759 |
 | 1 | neutral placeholder | 9443 |
 
 ## For review (score 3 and below)
@@ -12210,9 +12210,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Unlisten` | `app/wwudp/cordmgr.h:132` | what it does |
 | 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:135` | what it does |
 | 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:138` | what it does |
-| 2 | `port3` | `app/wwudp/cordmgr.h:143` | the parameters (the name is the client's profile string) |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:150` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:157` | what it holds |
+| 2 | `Add_Connection` | `app/wwudp/cordmgr.h:143` | what it does |
+| 2 | `port3` | `app/wwudp/cordmgr.h:146` | the parameters (the name is the client's profile string) |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:153` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:160` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

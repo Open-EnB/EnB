@@ -192,43 +192,42 @@ int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
 	return(c->Session);
 }
 
-// 0x858A60, functional (NOT EXACT): SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2,
-// protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting
-// for ACK2, each again a second after the last; a connection 60 s old gives up: it becomes a
-// CordCon without a socket (so the caller finds it, closed) and leaves the list. (The client
-// then reads the freed record once more; not rebuilt.)
+
+
+// NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two
+// words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a
+// connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list.
 bool CordMgr::Pump_Connections()
 {
 	WWPROFILE("CordMgr::Pump_Connections");
-	unsigned char buf[0x400];
+	unsigned char buf[0x200];
+	unsigned char key[0x200];
 	Xtime now;
 	Xtime resend;
 	Xtime timeout;
 	resend.addSeconds(-1);
 	timeout.addSeconds(-60);
-	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *c; Pending_.get(c, i);
+	int count = Pending_.length();
+	int i = 0;
+	CordConnectingClass *c;
+	for (int k = 0; k < count; k++) {
+		Pending_.get(c, i);
 		if (c->Created < timeout) {
-			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0,
-				c->Key);
-			AllConnections_.addTail(con);
-			Connections_.addTail(con);
-			delete c;
-			Pending_.remove(i);
+			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key);
+			Add_Connection(con, c, i);
+
+
 			i--;
-			continue;
 		}
-		if (c->Socket == NULL) {
-			continue;
-		}
-		if (c->State == 1 && resend > c->LastSend) {
-			buf[0] = 0;
-			buf[1] = Protocol_;
-			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
-			c->Socket->Write(buf, 4, c->Ip, c->Port);
-			c->LastSend = now;
+		if (c->State == 1) {
+			if (resend > c->LastSend) {
+				buf[0] = 0;
+				buf[1] = Protocol_;
+				*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+				c->Socket->Write(buf, 4, c->Ip, c->Port);
+				c->LastSend = now;
+			}
 		} else if (c->State == 3 && resend > c->LastSend) {
-			unsigned char key[0x200];
 			buf[0] = 2;
 			buf[1] = Protocol_;
 			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
@@ -241,6 +240,7 @@ bool CordMgr::Pump_Connections()
 			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
 			c->LastSend = now;
 		}
+		i++;
 	}
 	return true;
 }
