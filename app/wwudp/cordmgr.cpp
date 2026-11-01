@@ -674,7 +674,7 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 		{
 			for (int i = 0; i < Connections_.length(); i++) {
 				Connections_.get(con, i);
-				unsigned int lip = 0;
+				uint32 lip = 0;
 				unsigned short lport = 0;
 				con->Udp_->getLocalAddr(lip, lport);
 				if (lport == port) {
@@ -695,7 +695,7 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 		{
 			for (int p = 0; p < Pending_.length(); p++) {
 				Pending_.get(c, p);
-				unsigned int lip = 0;
+				uint32 lip = 0;
 				unsigned short lport = 0;
 				c->Socket->getLocalAddr(lip, lport);
 				if (lport == port && ntohl(from->sin_addr.s_addr) == c->Ip && ntohs(from->sin_port) == c->Port) {

@@ -3697,9 +3697,9 @@ RECONSTRUCTED = {
     ('app', 'shared/land.cpp'): 'the terrain, client 0x468E90-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70): rebuilt, partly NOT EXACT (marked); VIDTEST draws its land with it since 2026-10-28, its trees with programs/vidtest/viddeco.cpp (D101, M2.4)',
     ('app', 'shared/landdmap.h'): 'LandUnknown466BE0Class (PROVISIONAL file and class names): the land\'s displacement-mapped companion, vtable 0xAE8974, 0x90 bytes, the global 0xBDC0D8',
     ('app', 'shared/landdmap.cpp'): 'the land\'s displacement-mapped companion, client 0x466BE0-0x468E70 (PROVISIONAL file name; the land\'s dtor calls 0x466F10 out of line): ctor, dtor, create / delete 0x466E70 / 0x466F10, the DMap registry reader 0x468120, 0x467910; the Matrox-only draw 0x466F60 and the rest functional (NOT EXACT)',
-    ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): WWOnline's wnet UDP (libs\\wwonline\\wnet, "
-                            "client 0x8BF990-0x8C0540), the part the wwudp code calls (EA's Generals Tools\\matchbot\\wnet\\udp.h interface); "
-                            "defined by the program (the capture harness's replay socket, M1.4)",
+    ('app', 'wwudp/udp.h'): "the UDP socket CordMgr and CordCon use (CordCon::Udp_): forwards to WWOnline's wnet udp.h "
+                            "(libs\\wwonline\\wnet, E&B's 0x2C-byte UDP, client 0x8BF990-0x8C0620) and undefines its close / read / "
+                            "write macros (CordCon's members); the capture harness defines the members as its replay socket (M1.4)",
     ('app', 'kernel/kernel.h'): "the task kernel (KernelClass, the task base TaskClass, KernelEventClass: descriptive names, the "
                                 "client's layout and slot order, docs/kernel-map.md)",
     ('app', 'kernel/kernel.cpp'): "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; "

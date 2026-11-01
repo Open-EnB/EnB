@@ -99,7 +99,9 @@ struct ReplayState
 
 static std::map<const UDP *, ReplayState> Replay;
 
-UDP::UDP() : fd(-1), myIP(0), myPort(0)
+// wnet's UDP (libs\wwonline\wnet\udp.h through app\wwudp\udp.h): the members the wwudp code calls,
+// defined here instead of wnet's udp.cpp (not linked into this program).
+UDP::UDP() : fd(-1), unknownFD(0), myIP(0), myPort(0)
 {
 	memset(&addr, 0, sizeof(addr));
 	Replay[this];
@@ -110,20 +112,20 @@ UDP::~UDP()
 	Replay.erase(this);
 }
 
-int UDP::Bind(unsigned int ip, unsigned short port)
+sint32 UDP::Bind(uint32 ip, uint16 port)
 {
 	myIP = ip;
 	myPort = port;
 	return 0;
 }
 
-int UDP::Write(unsigned char *msg, unsigned int len, unsigned int ip, unsigned short port)
+sint32 UDP::Write(uint8 *msg, uint32 len, uint32 ip, uint16 port)
 {
 	Replay[this].Out.push_back(std::vector<unsigned char>(msg, msg + len));
 	return (int)len;
 }
 
-int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
+sint32 UDP::Read(uint8 *msg, uint32 len, sockaddr_in *from)
 {
 	ReplayState &s = Replay[this];
 	if (s.In.empty()) {
@@ -141,12 +143,12 @@ int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
 }
 
 // CordMgr::Wait's select: the replay never waits (nothing calls UDPConnection::Connect(true) here).
-int UDP::Wait(long, long, fd_set &, fd_set &)
+int UDP::Wait(sint32, sint32, fd_set &, fd_set &)
 {
 	return 0;
 }
 
-bool UDP::getLocalAddr(unsigned int &ip, unsigned short &port)
+bit8 UDP::getLocalAddr(uint32 &ip, uint16 &port)
 {
 	ip = myIP;
 	port = myPort;

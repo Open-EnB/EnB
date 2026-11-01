@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1097 |
 | 2 | describes what the code does | 2628 |
-| 1 | neutral placeholder | 8739 |
+| 1 | neutral placeholder | 8737 |
 
 ## For review (score 3 and below)
 
@@ -8450,8 +8450,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/wwudp/cordmgr.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:75` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:111` | after Pump_Releases |
-| 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
-| 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
