@@ -4,6 +4,31 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (00:15): P-GH-11 landed (claims in the run PR body), symbols.json regenerated, D174's tie-break: +211, 0 lost
+
+Coordinator Opus 5.5, the 2026-10-31 night session continued after the user's three asks: resolve PR #78, cut the
+GitHub API volume and the claim emails, and settle the open proposals. Base d2df79bb (#78 and #135 merged;
+`.work/imports.d2df79bb.json`); run branch `run/2026-11-01`, PR #136.
+
+* **PR #78** (the night run, +212) merged after `/accept-d66` (TK5's move); the symbols.json regeneration was taken
+  out of it (vc6-verify counted D173's corrected pair as lost outright).
+* **P-GH-11 (#135, GH1):** maintainer runs claim in the run PR's body (`<!-- enb-run-claims -->`, `run_branch.py claim`
+  / `release`; no issues, no emails); the Claims Action writes the live state to `claims-state` and `list` / `check` read
+  it in one call (5-minute cache); claim waits back off; a 500-call budget floor; Checks run on master pushes and ready
+  PRs only, a newer push cancelling the older run; `docs/data/accepted-corrections.json` (decisions only) read by
+  pairs_cmp / verify_pr from master. Live-tested: a claim and its release in #136's body, no issue. The 2026-10-31 run
+  burned the 5,000/hour budget (claims.py's per-issue scans) and opened 46 claim issues.
+* **symbols.json** regenerated (79c13952): +6, 0x723AB0 -> 0x4B2AA0 `corrected (accepted: D173)`, 0 lost.
+* **D174 (TB1, e94b3b1e):** objmatch's caller tie-break takes non-identical copies, D80's survivors, repeats the
+  rounds until nothing more is credited, credits one of an object's folded symbols, and counts an EH funclet's call as
+  its parents' (13,088 funclets mapped from the FuncInfo stubs): **+205 (app +191, ww3d2 +13, wnet +1), 0 lost**.
+  Funclet-called copies whose parent is not exact yet wait for it (fontdatabase 0x6C6E20 on 0x6BEA90).
+* **Decisions:** D173-D177 (the user). Open: P-VM-1 (later; deadline 2027-01-20).
+* **Next session first:** D175 (P-TK7-1) in two PRs: a tools PR letting an accepted-corrections entry with
+  `moved_to: null` pass as a decided loss (with D175's four addresses), then wlib's configfile / xtime revision from
+  `docs/attempts/8B2810/` (+11). Then D176 (CordCon's 0xC0 layout, udpreplay's counters outside), then the leads in
+  §4's t4 bullets. Builders: claims are in the run PR body now (builders.md, coordinator-pacing).
+
 ### 2026-10-31 (22:05, night): the triage plan's runs, 17 Opus builders; +212 pairs, 0 lost; symbols.json regeneration ready (D173)
 
 Coordinator Opus 5.5. Base 20f0bf21 (PR #65 merged; `.work/imports.20f0bf21.json`); run branch `run/2026-10-31-t4`,

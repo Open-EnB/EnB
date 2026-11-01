@@ -951,6 +951,10 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **objmatch finds symbols.json at `__file__/../../docs/data`** (2026-11-01, TB1): a copy of objmatch.py outside
+  tools/re silently runs without symbols (D80 and the self name do nothing; 21 false "losses" in a baseline). Measure
+  variants from inside tools/re, or patch the path. `.work/tb1/measure.py objmatch OUT` scores a module over the last
+  verify's objects in ~80 s.
 * **`explain.py OBJ 'Class::name' ADDR` matches by name prefix** (2026-10-31, TK17: 'CordCon::pump' compared
   pumpClose): pass the mangled name when one name prefixes another. commit_mine.py takes imports.json's block key
   (`cordcon`, not `wwudp/cordcon.cpp`) and needs `{"whole": [...]}` in the spec to include the .cpp itself (`--path`
