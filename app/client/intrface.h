@@ -137,16 +137,16 @@ class InterfaceClass : public GClassUnknownClass, public RefCountClass  // NAME 
 public:
 	InterfaceClass(UIViewClass *view, int unknown);										// 0x540A90 (+0x48 the view, +0x44 the second, referenced)  // NAME 2 [view]: the member's assert '!View'; NAME 1 [unknown]: neutral
 	virtual ~InterfaceClass();																// 0x540E90 (slot 0x540D00; G_ASSERT '!View')
-	virtual void Unknown_54();																// 0x515690 (the slot +0x10); Init calls it after construction
+	virtual void Unknown_54() { Unknown_10(); }												// 0x515690 (the slot +0x10; inline: emitted next to smouse.cpp); Init calls it after construction
 	virtual void Unknown_58();																// 0x541010 (activates: G_ASSERT '!PartialDeactivatedGadget')
 	virtual void Unknown_5C();																// 0x541210 (deactivates when Active)
 	virtual void Unknown_60();																// 0x540C70 (the views' slot +0x14 under a sort object when Active)
-	virtual void Unknown_64();																// 0x5156B0 (the views' slot +0x14 otherwise)
-	virtual bool Unknown_68(int key);														// 0x5156D0 (false)
-	virtual void Unknown_6C(INIClass &ini);													// 0x5156F0 (the views' 0x6B4900: SClient 0x745080 saves settings.ini through it)  // NAME 1 [ini]: what 0x745080 passes
-	virtual void Unknown_70(ControlKeysManagerClass *manager);								// 0x515710
-	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x515730
-	virtual bool Unknown_78(void *arg);														// 0x515750 (false; tsk_login.h's screens: the global error packet)  // NAME 1 [arg]: neutral
+	virtual void Unknown_64() {}															// 0x5156B0 (the views' slot +0x14 otherwise)
+	virtual bool Unknown_68(int key) { return(false); }										// 0x5156D0
+	virtual void Unknown_6C(INIClass &ini) {}												// 0x5156F0 (the views' 0x6B4900: SClient 0x745080 saves settings.ini through it)  // NAME 1 [ini]: what 0x745080 passes
+	virtual void Unknown_70(ControlKeysManagerClass *manager) {}							// 0x515710
+	virtual void Unknown_74(ControlKeysManagerClass *manager) {}							// 0x515730
+	virtual bool Unknown_78(void *arg) { return(false); }									// 0x515750 ( tsk_login.h's screens: the global error packet)  // NAME 1 [arg]: neutral
 	virtual void Unknown_7C(UIViewClass *view, int arg);									// 0x5412F0 (onto the view, off the old one; the views' slot +0x10 passes NULL, 0)  // NAME 1 [view, arg]: what the callers pass
 	virtual void Unknown_80();																// 0x541550 (FAIL_IF 'PartialDeactivatedGadget', '!Active')
 	virtual void Unknown_84();																// 0x541690 (FAIL_IF '!PartialDeactivatedGadget', '!Active')
