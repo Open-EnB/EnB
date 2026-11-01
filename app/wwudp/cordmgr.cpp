@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\wwudp\cordmgr.cpp (client 0x857590-0x85AED0)
+**	Original location: e:\build\beta\G\app\wwudp\cordmgr.cpp (client 0x856970-0x85AED0)
 **
 **	Process_CORD_Packet, Process_SYN1_Packet, Process_SYN2_Packet and Find_Data_Socket follow the
 **	client's code; Pump is functional (NOT EXACT, D42: the data path). The client's log calls
@@ -51,14 +51,14 @@ unsigned int Cord_CRC(const unsigned char *data, int len, unsigned int crc)	// N
 	return crc;
 }
 
+// 0x856970: the members zeroed (+0x04 left to Init), then Init inlined.
 CordMgr::CordMgr() :
 	Protocol_(0x14),
-	Unknown04(0),
 	NextSession_(0),
 	Unknown0C(0),
 	Unexpected_(0)
 {
-	// Releases_ (+0x1C) starts empty
+	Init();
 }
 
 // 0x857590, NOT EXACT (0.84, inline budget): the listening sockets closed, then the connections, the
@@ -1528,12 +1528,50 @@ int CordMgr::Pending_Messages()
 	return total;
 }
 
+// 0x856D80 (no caller): the constructor's, then a listening socket on ip:port. In the client after the
+// first constructor; here last, so that the log calls keep their lines (D25).
+CordMgr::CordMgr(unsigned int ip, unsigned short port) :
+	Protocol_(0x14),
+	NextSession_(0),
+	Unknown0C(0),
+	Unexpected_(0)
+{
+	Init();
+	Listen(ip, port);
+}
+
+// 0x8570C0 (no caller; in the client after the constructors)
+void CordMgr::Init()
+{
+	SecureRandomClass random;
+	Unknown04 = random.Randval();
+	NextSession_ = (unsigned short)random.Randval() ^ (unsigned short)time(NULL) ^ 0x2121;
+	KeyPair.Load(file_auto_ptr(_TheFileFactory, "server_rsa_keyset.dat"));
+}
+
+// 0x857940 (in the client after the destructor): a socket with 32 KB buffers bound to ip:port, kept
+// in ListenSockets_; deleted when Bind fails. The record is made before Bind (the client widens the
+// port then).
+bool CordMgr::Listen(unsigned int ip, unsigned short port)
+{
+	UDP *udp = new UDP;
+	udp->SetInputBuffer(0x8000);
+	udp->SetOutputBuffer(0x8000);
+	CordListenSocketClass record = { udp, ip, port };
+	if (udp->Bind(ip, port) != 0) {
+		delete udp;
+		return(false);
+	}
+	ListenSockets_.addTail(record);
+	return(true);
+}
+
 
 /*
 **	Reconstruction notes
 **
-**	* The client's functions in this file, in order: 0x857590-0x857DE0 (CordMgr's constructor and
-**	  destructor, socket setup: not rebuilt), Pump 0x857F20 (logs on lines 592 and 618), 0x858640,
+**	* The client's functions in this file, in order: the constructors 0x856970 / 0x856D80, Init
+**	  0x8570C0, the destructor 0x857590, 0x8578C0, Listen 0x857940, Unlisten, Wait, Pump 0x857F20 (logs on lines 592 and 618), 0x858640,
 **	  Process_Go_Away_Packet 0x8586D0, 0x858980, Pump_Connections 0x858A60 (XMP_Encode: the SYN2
 **	  key), 0x858EC0 (XMP_Init, SecureRandomClass: the session key), 0x859440-0x8598F0,
 **	  Pump_Releases 0x859940, Get_Data_Socket 0x859D50, Find_Data_Socket 0x859F80,

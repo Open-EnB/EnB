@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1097 |
-| 2 | describes what the code does | 2644 |
-| 1 | neutral placeholder | 8949 |
+| 2 | describes what the code does | 2645 |
+| 1 | neutral placeholder | 8952 |
 
 ## For review (score 3 and below)
 
@@ -8653,15 +8653,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown98` | `app/wwudp/cordcon.h:400` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:29` | 0x4BC130 |
 | 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/wwudp/cordmgr.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/wwudp/cordmgr.h:75` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:111` | after Pump_Releases |
+| 1 | `Unknown_4BC000` | `app/wwudp/cordmgr.cpp:200` | 0x4BC000, E&B's message reporter |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.cpp:1292` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:76` | untagged neutral name (D10) |
+| 1 | `Release` | `app/wwudp/cordmgr.h:118` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
@@ -8959,13 +8961,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/udpreplay/conn_replay.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/udpreplay/conn_replay.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/udpreplay/pkitemba_stubs.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `tests/udpreplay/udpreplay.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `tests/udpreplay/udpreplay.cpp:85` | untagged neutral name (D10) |
 | 2 | `SoundAccessClass` | `app/audio/soundlib.cpp:32` | what it does |
 | 2 | `Sound3DAccessClass` | `app/audio/soundlib.cpp:38` | what it does |
 | 2 | `SoundLibBridgeClass` | `app/audio/soundlib.cpp:398` | what it does (vtable 0xAE74EC) |
@@ -11512,6 +11515,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1350` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
+| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:37` | a data socket's record (the +0x40 list, 16 bytes) |
+| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:45` | a listening socket's record (the +0x4C list, 12 bytes) |
+| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:53` | describes what it holds (the +0x1C list, 8 bytes) |
+| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:61` | describes what it is |
+| 2 | `Init` | `app/wwudp/cordmgr.h:90` | what it does |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:104` | what it does |
+| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:113` | what it sends |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:116` | what it does |
+| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:120` | what it counts |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:122` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:125` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:128` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:129` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:132` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:141` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:148` | what it holds |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:229` | describes what it holds |
 | 2 | `SentTime` | `app/wwudp/cordcon.h:236` | +0x00 the last send (day 0 = never, or a resend asked for) |
 | 2 | `SendCount` | `app/wwudp/cordcon.h:237` | +0x08 0 = never sent |
@@ -11590,21 +11609,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CloseState_` | `app/wwudp/cordcon.h:406` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
 | 2 | `CloseSeq_` | `app/wwudp/cordcon.h:407` | +0xB4 |
 | 2 | `IsServer_` | `app/wwudp/cordcon.h:408` | +0xB8 |
-| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:36` | a data socket's record (the +0x40 list, 16 bytes) |
-| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:44` | a listening socket's record (the +0x4C list, 12 bytes) |
-| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:52` | describes what it holds (the +0x1C list, 8 bytes) |
-| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:60` | describes what it is |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:97` | what it does |
-| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:106` | what it sends |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:109` | what it does |
-| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:113` | what it counts |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:115` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:118` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:121` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:122` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:125` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:134` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:141` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |

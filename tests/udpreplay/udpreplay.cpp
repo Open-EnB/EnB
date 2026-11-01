@@ -148,6 +148,17 @@ int UDP::Wait(sint32, sint32, fd_set &, fd_set &)
 	return 0;
 }
 
+// CordMgr::Listen's socket buffers (setsockopt in wnet's udp.cpp): nothing to set here.
+bit8 UDP::SetInputBuffer(uint32)
+{
+	return TRUE;
+}
+
+bit8 UDP::SetOutputBuffer(uint32)
+{
+	return TRUE;
+}
+
 bit8 UDP::getLocalAddr(uint32 &ip, uint16 &port)
 {
 	ip = myIP;

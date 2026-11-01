@@ -31,6 +31,7 @@
 #include "cordcon.h"
 #include "udp.h"
 #include "..\common\unknown_rsakey.h"
+#include "ffactory.h"		// file_auto_ptr (Init's key file)
 #include <time.h>
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
@@ -79,8 +80,14 @@ public:
 class CordMgr
 {
 public:
+	// Zeroes the members, then Init (inlined). 0x856970
 	CordMgr();
+	// The same, then Listen(ip, port) (both inlined). 0x856D80 (no caller)
+	CordMgr(unsigned int ip, unsigned short port);
 	~CordMgr();
+	// A new random word (+0x04) and session counter (random ^ time ^ 0x2121), and the server's key
+	// pair loaded again from 'server_rsa_keyset.dat'. 0x8570C0 (no caller; inlined in the constructors)
+	void Init();	// NAME 2: what it does
 
 	// Reads and dispatches every datagram waiting on the sockets. 0x857F20 (data path only)
 	bool Pump();
@@ -116,8 +123,8 @@ public:
 	// The CordCon a handshake made, taken out of AllConnections_: a client's by its session id, or
 	// (session 0) a server's by its port. 0x859440
 	bool Find_Connection(CordCon **con, unsigned int port, int session);	// NAME 2: what it does
-	// A listening socket on ip:port (0: any) for handshakes, and its removal (0x857940 / 0x857C00;
-	// declared: not rebuilt)
+	// A listening socket on ip:port (0: any) for handshakes (32 KB buffers), and its removal
+	// (0x857940 / 0x857C00)
 	bool Listen(unsigned int ip, unsigned short port);		// NAME 2: what it does
 	bool Unlisten(unsigned int ip, unsigned short port);	// NAME 2: what it does
 	// Drops the connection with that session id: its CordCon (deleted), else its handshake record
@@ -127,7 +134,7 @@ public:
 	bool Pump_Releases();
 
 	unsigned char Protocol_;							// +0x00 NAME 2: the handshake's second byte (0x14 in the captures)
-	int Unknown04;										// +0x04
+	int Unknown04;										// +0x04 (Init: a random word)
 	unsigned short NextSession_;						// +0x08 NAME 2: the next session id (+0x1337 each time)
 	int Unknown0C;										// +0x0C
 	ArrayList<CordConnectingClass *> Pending_;		// +0x10 NAME 2: connections in the handshake

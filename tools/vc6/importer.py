@@ -4278,7 +4278,7 @@ RECONSTRUCTED = {
                                           "CordStatsClass (the send window and round-trip estimate CordCon keeps at +0x68, "
                                           "0x85BF30-0x85C5E0)",
     ('app', 'wwudp/cordmgr.h'): "CordMgr (client name: the profile labels 'CordMgr::Pump' ...): the EA-UDP connection manager (M1.4)",
-    ('app', 'wwudp/cordmgr.cpp'): "CordMgr, client 0x857590-0x85AED0 (M1.4): Find_Data_Socket 0x859F80 exact; functional "
+    ('app', 'wwudp/cordmgr.cpp'): "CordMgr, client 0x856970-0x85AED0 (M1.4): the constructors 0x856970 / 0x856D80, Init 0x8570C0 and Listen 0x857940 exact; Find_Data_Socket 0x859F80 exact; functional "
                                   "(NOT EXACT, D42): Process_CORD_Packet 0x85A000, Process_SYN1/SYN2_Packet 0x85A3B0 / "
                                   "0x85AB30 (the client's have an EH frame ours lack), Pump 0x857F20's data path, the client's "
                                   "handshake (Connect 0x858EC0 and Pump_Connections 0x858A60 reduced, Process_ACK1_Packet "
