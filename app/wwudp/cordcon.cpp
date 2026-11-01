@@ -327,7 +327,14 @@ void CordCon::Encrypt_Data(unsigned char *data, int len, unsigned short counter)
 	}
 }
 
-// 0x8514D0: the checks a decrypted datagram must pass before handlePacket reads it.
+int __stdcall Cord_Get_Small(const unsigned char *in, unsigned short *value);
+int __stdcall Cord_Get_Seq(const unsigned char *in, unsigned int *value);
+
+// 0x8514D0: the checks a decrypted datagram must pass before handlePacket reads it, the fields
+// read through the Cord_Get helpers (inlined, as the client's `mov eax, n` / `add edi, eax`).
+// NOT EXACT (0.73, explain.py: shape, 20 masked rows): the client's ntohs / ntohl arguments go through
+// eax (the counter at +3, the CRC at +5, the first loop's seq), ours ecx / edx, and it keeps the channel in
+// ebp over the channel-adding loop where we reload it; attempts.py show 0x8514D0.
 bool CordCon::examinePacket(unsigned char *data, int datalen)
 {
 	WWPROFILE("CordCon::examinePacket");
@@ -340,7 +347,7 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	if (ntohs(*(unsigned short *)(data + 1)) != (unsigned int)Session_) {
 		return false;
 	}
-	ntohs(*(unsigned short *)(data + 3));
+	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	unsigned long crc = ntohl(*(unsigned long *)(data + 5));
 	*(unsigned long *)(data + 5) = htonl(0);
 	unsigned long calc = Cord_CRC(data, datalen, 0xFFFFFFFF);
@@ -360,7 +367,8 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 			return false;
 		}
 	}
-	if (data[pos++] > 100) {
+	unsigned char resends = data[pos++];
+	if (resends > 100) {
 		return false;
 	}
 	int n;
@@ -370,23 +378,9 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 		}
 		unsigned char kind = data[pos++];
 		unsigned short channel;
-		if (data[pos] < 0x80) {
-			channel = data[pos];
-			n = 1;
-		} else {
-			channel = ntohs(*(unsigned short *)(data + pos)) & 0x7FFF;
-			n = 2;
-		}
-		pos += n;
+		pos += Cord_Get_Small(data + pos, &channel);
 		unsigned int seq;
-		if (data[pos] < 0x80) {
-			seq = ntohs(*(unsigned short *)(data + pos));
-			n = 2;
-		} else {
-			seq = ntohl(*(unsigned long *)(data + pos)) & 0x7FFFFFFF;
-			n = 4;
-		}
-		pos += n;
+		pos += Cord_Get_Seq(data + pos, &seq);
 		if (kind > 2) {
 			return false;
 		}
@@ -401,35 +395,15 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	unsigned char frag;
 	while (pos < datalen) {
 		unsigned short size;
-		if (data[pos] < 0x80) {
-			size = data[pos];
-			n = 1;
-		} else {
-			size = ntohs(*(unsigned short *)(data + pos)) & 0x7FFF;
-			n = 2;
-		}
-		pos += n;
+		pos += Cord_Get_Small(data + pos, &size);
 		unsigned short channel;
-		if (data[pos] < 0x80) {
-			channel = data[pos];
-			n = 1;
-		} else {
-			channel = ntohs(*(unsigned short *)(data + pos)) & 0x7FFF;
-			n = 2;
-		}
-		pos += n;
+		pos += Cord_Get_Small(data + pos, &channel);
 		unsigned int seq;
-		if (data[pos] < 0x80) {
-			seq = ntohs(*(unsigned short *)(data + pos));
-			n = 2;
-		} else {
-			seq = ntohl(*(unsigned long *)(data + pos)) & 0x7FFFFFFF;
-			n = 4;
-		}
-		pos += n;
-		unsigned char type = data[pos++];
-		unsigned char flags = type >> 4;
-		if ((type & 0x0F) > 5) {
+		pos += Cord_Get_Seq(data + pos, &seq);
+		unsigned char flags = data[pos++];
+		unsigned char type = flags & 0x0F;
+		flags >>= 4;
+		if (type > 5) {
 			return false;
 		}
 		while (channel >= Channels_.size()) {
@@ -449,7 +423,7 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 		int len = size;
 		if (len > CORD_FRAGMENT_SIZE) {
 			if (size <= (frag + 1) * CORD_FRAGMENT_SIZE) {
-				len = size - frag * CORD_FRAGMENT_SIZE;
+				len -= frag * CORD_FRAGMENT_SIZE;
 			} else {
 				len = CORD_FRAGMENT_SIZE;
 			}
@@ -467,7 +441,10 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 		}
 		pos += len;
 	}
-	return pos == datalen;
+	if (pos != datalen) {
+		return false;
+	}
+	return true;
 }
 
 // 0x851AE0
