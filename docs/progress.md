@@ -1685,6 +1685,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 * **P-TK3-2** (2026-10-31, TK3 and TK1 independently; recommend yes, lower value): D166 counts an EH unwind funclet
   as part of the function whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three
   funclets, and control_keys_manager's 0x71EC90 now / 0x71EDC0 once Load_Definitions 0x71B1F0 is exact).
+* **P-TK2-1** (2026-10-31, TK2; recommend yes, with P-TK3-1): objmatch's caller tie-break (a) also runs on D80's
+  survivors when they are identical, and (b) the D80 / self-name / range rounds repeat after it, its credits fed back
+  into D80. Dry run over every app object: **+45 pairs, 0 lost** ((a) alone +12; attrib_dir's string-hashtable finds
+  0x4D8950 / 0x4D8D20 / 0x4D8DF0 among them). Patch `.work/tk2/objmatch_d166x.diff`, gains
+  `.work/tk2/objmatch_d166x_gains.log`. Changes D166 / D100; land after a full verify of every library (measured
+  separately from P-TK3-1's +82: the overlap is not yet known).
 
 ## 4. Next steps
 

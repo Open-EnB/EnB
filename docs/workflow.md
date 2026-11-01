@@ -149,6 +149,10 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **One extra no-code inline layer moves VC6's inline budget** (2026-10-31, TK2, attrib_dir Detach_Mod 0x4D4BD0): one
+  inline handle method left exactly the client's first operator= call out of line, two left two. Try it before
+  declaring an inline-budget residue final. **`int i < sizeof(a)/sizeof(a[0])` compiles to `jb`:** cast the count to
+  int for the client's `jl`.
 * **Sibling blocks share stack slots** (2026-10-29, PX4): a client frame equal to the sum of its cases' locals
   means one case's locals sit at function scope (0x454730: frame 0x368 -> the client's 0x588). `if (g()) return(true);
   return(false);` gives the client's test / setne.
