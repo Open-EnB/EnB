@@ -105,7 +105,7 @@ void ComboFileFactoryClass::Add_Mix(MixFileFactoryClass *mix)
 
 FileClass *ComboFileFactoryClass::Get_File(char const *filename)
 {
-	FileClass *file = _TheFileFactory->Get_File(filename);
+	FileClass *file = _TheSimpleFileFactory->Get_File(filename);
 	if (file->Is_Available()) {
 		return file;
 	}
@@ -116,7 +116,7 @@ FileClass *ComboFileFactoryClass::Get_File(char const *filename)
 		FileFactoryClass *mix = (*i).second;
 		FileClass *mix_file = mix->Get_File(filename);
 		if (mix_file->Is_Available()) {
-			_TheFileFactory->Return_File(file);
+			_TheSimpleFileFactory->Return_File(file);
 			return mix_file;
 		}
 		mix->Return_File(mix_file);
@@ -139,5 +139,5 @@ void ComboFileFactoryClass::Return_File(FileClass *file)
 **	deleting destructor 0x4E5130 (generated), the table's destructor 0x4E5160, the destructor 0x4E5230,
 **	Add_Mix 0x4E5440 (the FAIL_IFs on lines 85 / 101), DynamicVectorClass<StringClass>'s destructor
 **	0x4E5730, Get_File 0x4E57A0 and Return_File 0x4E5A00 (vtable 0xAEC5D0). Get_File asks the global
-**	factory (_TheFileFactory, 0xBC77E0) first, then the mix file named for the lower-case file name.
+**	factory (_TheSimpleFileFactory, 0xBC77E0, as WinMain sets it up) first, then the mix file named for the lower-case file name.
 */
