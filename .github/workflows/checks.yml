@@ -6,16 +6,30 @@
 # published.
 name: Checks
 
+#
+# When (API volume and emails, 2026-10-31): on pushes to master, and on pull requests when they open, get a new
+# push, reopen or leave draft. Draft PRs are skipped (a run's draft PR gets a push at every heartbeat): their
+# checks run when `ready_for_review` fires, on the head commit, so the required status `checks` is on the head
+# of every PR that can merge; a push to a ready PR runs them again (synchronize). (A draft's skipped job reports
+# `checks` as skipped, which GitHub counts as passing; a draft cannot merge, and leaving draft runs the real one on
+# the same head, whose result is the one that counts.) A newer push cancels the run still going for the same ref.
 on:
   push:
+    branches: [master]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:      # a maintainer can rerun the checks by hand (Actions tab, or gh workflow run)
 
 permissions:
   contents: read
 
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   checks:
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
