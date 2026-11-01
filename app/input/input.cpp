@@ -11,7 +11,7 @@ KeyboardClass *Unknown_BDAA70;
 MouseClass *Unknown_BDAA74;
 InputUnknownBDAA78Class *Unknown_BDAA78;
 HWND Unknown_BDAA7C;
-int Unknown_BDAA80;
+int TrackMouseCounter;
 int KeyRepeatCount;
 KeyQueueClass *KeyboardClass::Queue;
 KeyQueueClass *MouseClass::Queue;
@@ -91,7 +91,7 @@ void Unknown_42E7B0()
 
 void Unknown_42E8A0(KernelEventClass *event)
 {
-	if (Unknown_BDAA80 > 0) {
+	if (TrackMouseCounter > 0) {
 		if (Unknown_BDA968->Peek(*event)) {
 			Unknown_BDA968->Get(*event);
 			return;
@@ -113,7 +113,7 @@ bool Unknown_42EA80(KernelEventClass *event)
 		return true;
 	}
 	*event = KernelEventClass();
-	return Unknown_BDAA80 > 0;
+	return TrackMouseCounter > 0;
 }
 
 char Unknown_42EB80(KernelEventClass *event)

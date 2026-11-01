@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-429 entries in 93 files.
+433 entries in 95 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -291,6 +291,10 @@ edit the comments in the code, not this file.
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
 | `app/input/inpdsp.cpp:226` | `Unknown_42A410` | mention | NOT EXACT (register-only, parked after three forms of the search loop). After 0x429F60: the event key 0x42A170 (a member defined after its users: /Ob2 inlines it everywhere and still emits it), the ini reader 0x42A1A0 and writer 0x42A410 (the key names themselves are the next file's, 0x42B610 / 0x42B7E0). The writer tests the flags through bool accessors on bit fields (the client's word load, shr ... |
 | `app/input/input.cpp:45` | `Unknown_42E4A0` | marker | NOT EXACT: inline-budget: the client calls the queue element's constructor 0x42ED50 in new[]'s loop (EH state 2), ours inlines it (attempts.csv) |
+| `app/input/w32kbd.cpp:275` | `Win32KeyboardHandlerClass::Unknown_0C` | marker | NOT EXACT: register: the client keeps control in the second argument's slot and alt in ebp, ours the reverse (attempts.csv) |
+| `app/input/w32kbd.cpp:306` | `Win32KeyboardHandlerClass::Unknown_0C` | mention | NOT EXACT, register). 0x430D70 is KeyboardClass's destructor out of line (input.h). Not rebuilt: the part of the file before 0x430490, if it is this file's: the window-message handler list (0x42F860-0x430450, 0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; programs/clientpoc/poc_window.cpp has stand-ins) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts). The han... |
+| `app/input/w32mouse.cpp:285` | `Win32MouseHandlerClass::Update` | marker | NOT EXACT: register: x and the clamp flag in ecx / al in the client, eax / cl in ours (attempts.csv) |
+| `app/input/w32mouse.cpp:339` | `Win32MouseHandlerClass::Set_Pixel_Position` | mention | NOT EXACT, register). 0x431A80 is MouseClass's destructor out of line (input.h). The next object starts at 0x431CA0 (the main window). Forms that matched: Get_Position clamps through WWMath::Clamp (the client's fld / fcom / fld constant), 0x4314C0 inline; 0x4316A0 with `result = -1` before the switch and the wheel's `wparam >> 16` against WHEEL_DELTA (>= 120, <= -120). |
 | `app/packets/pkdamage.h:28` | `?` | mention | NOT EXACT) |
 | `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |

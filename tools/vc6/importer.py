@@ -3783,10 +3783,16 @@ RECONSTRUCTED = {
                                "(the queue element's constructor inlined), the rest exact: 0x42E390, 0x42E3B0, 0x42E7B0, "
                                "the queue 0x42E8A0 / 0x42EA80 / 0x42EEC0, 0x42EB80 (ToAscii), the mouse 0x42ECF0 / "
                                "0x42ED20 / 0x42ED80 / 0x42EDB0, key repeat 0x42EE00, 0x42EE90",
-    ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3): "
-                              "only what input.cpp uses; w32kbd.cpp not rebuilt yet",
-    ('app', 'input/w32mouse.h'): "Win32MouseHandlerClass's declaration (header name assumed from w32mouse.cpp, NAME 3): "
-                                "only what input.cpp uses; w32mouse.cpp not rebuilt yet",
+    ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3) "
+                              "and the window-message handler list's add / remove (interim placement, D137)",
+    ('app', 'input/w32kbd.cpp'): "w32kbd.cpp's keyboard handler, client 0x430490-0x430D40 (the reporter's __LINE__ 124 / "
+                                "270, D25; builder INP, run PR #140): the constructor, destructor, Set_Repeat, the "
+                                "registration pair and the key-message handler 0x4307A0 exact, the key test 0x430CA0 "
+                                "NOT EXACT (register); the handler list before 0x430490 not rebuilt",
+    ('app', 'input/w32mouse.h'): "Win32MouseHandlerClass's declaration (header name assumed from w32mouse.cpp, NAME 3)",
+    ('app', 'input/w32mouse.cpp'): "w32mouse.cpp's Win32MouseHandlerClass, client 0x430D90-0x431C80 (G_ASSERT 'Mouse == "
+                                  "NULL' line 37, D25; builder INP, run PR #140): all exact but Update 0x431AA0 (NOT "
+                                  "EXACT, register)",
     ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
                                 "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
                                 "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",

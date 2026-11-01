@@ -27,9 +27,9 @@ public:
 	virtual ~Win32MouseHandlerClass();												// 0x430EB0 (scalar deleting)
 	virtual void Unknown_04();														// 0x430F50
 	virtual void Unknown_08();														// 0x4310E0
-	virtual void Unknown_0C(int unknown1, int unknown2);							// 0x431900  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual void Get_Pixel_Position(int *x, int *y);								// 0x431900
 	virtual void Get_Position(float *x, float *y);									// 0x431950
-	virtual void Unknown_14(int unknown1, int unknown2);							// 0x431C30  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual void Set_Pixel_Position(int x, int y);									// 0x431C30
 	virtual void Set_Position(float x, float y);									// 0x431B70
 	virtual void Update();															// 0x431AA0
 };

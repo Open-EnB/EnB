@@ -107,9 +107,9 @@ public:
 	virtual ~MouseClass() {}														// 0x42F220 (scalar deleting)
 	virtual void Unknown_04() = 0;	// NAME 1 [Unknown_04]: neutral (D10)
 	virtual void Unknown_08() = 0;	// NAME 1 [Unknown_08]: neutral (D10)
-	virtual void Unknown_0C(int unknown1, int unknown2) = 0;	// NAME 1 [Unknown_0C, unknown1, unknown2]: neutral (D10)
+	virtual void Get_Pixel_Position(int *x, int *y) = 0;	// +0x0C: in the client area  // NAME 1 [Get_Pixel_Position, x, y]: what 0x431900 does
 	virtual void Get_Position(float *x, float *y) = 0;		// +0x10: 0..1 of the window  // NAME 1 [Get_Position, x, y]: what 0x42ECF0's callers do with it
-	virtual void Unknown_14(int unknown1, int unknown2) = 0;	// NAME 1 [Unknown_14, unknown1, unknown2]: neutral (D10)
+	virtual void Set_Pixel_Position(int x, int y) = 0;		// +0x14  // NAME 1 [Set_Pixel_Position, x, y]: what 0x431C30 does
 	virtual void Set_Position(float x, float y) = 0;		// +0x18: 0x42ED80 centres it (0.5, 0.5)  // NAME 1 [Set_Position, x, y]: what 0x42ED80 does with it
 	virtual void Update() = 0;								// +0x1C: 0x42EDB0, once a frame  // NAME 1 [Update]: what its callers do with it
 
@@ -123,9 +123,9 @@ public:
 	InputUnknownAE7134Class(KeyQueueClass *queue) : MouseClass(queue) {}
 	virtual void Unknown_04() {}													// 0x42F090
 	virtual void Unknown_08() {}													// 0x42F0B0
-	virtual void Unknown_0C(int unknown1, int unknown2) {}							// 0x42F0D0  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual void Get_Pixel_Position(int *x, int *y) {}							// 0x42F0D0
 	virtual void Get_Position(float *x, float *y) {}								// 0x42F0F0
-	virtual void Unknown_14(int unknown1, int unknown2) {}							// 0x42F110  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual void Set_Pixel_Position(int x, int y) {}								// 0x42F110
 	virtual void Set_Position(float x, float y) {}									// 0x42F130
 	virtual void Unknown_20() {}													// 0x42F150 (slot +0x20, its own)  // NAME 1 [Unknown_20]: neutral (D10)
 	virtual void Update() {}														// 0x42F170
@@ -142,7 +142,7 @@ extern KeyboardClass *Unknown_BDAA70;					// NAME 1 [Unknown_BDAA70]: neutral (D
 extern MouseClass *Unknown_BDAA74;						// NAME 1 [Unknown_BDAA74]: neutral (D10)
 extern InputUnknownBDAA78Class *Unknown_BDAA78;		// NAME 1 [Unknown_BDAA78]: neutral (D10)
 extern HWND Unknown_BDAA7C;							// the window Init was given  // NAME 1 [Unknown_BDAA7C]: neutral (D10)
-extern int Unknown_BDAA80;								// > 0: 0x42E8A0 makes a pointer event when the queue is empty  // NAME 1 [Unknown_BDAA80]: neutral (D10)
+extern int TrackMouseCounter;							// 0xBDAA80 (the client's assert in input.h, 0x42F3A0): > 0, 0x42E8A0 makes a pointer event when the queue is empty
 extern int KeyRepeatCount;								// 0xBDAA84 (the client's assert 'KeyRepeatCount')
 
 int Unknown_42E390(int unknown1, int unknown2);			// 0x42E390: WM_DESTROY's handler: PostQuitMessage(0)  // NAME 1 [Unknown_42E390, unknown1, unknown2]: neutral (D10)

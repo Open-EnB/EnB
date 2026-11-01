@@ -3800,7 +3800,9 @@
      "0x42EE00",
      "0x42EE90",
      "0x42EEC0",
+     "0x42F060",
      "0x42F1C0",
+     "0x42F220",
      "0x42F250",
      "0x42F2F0"
     ],
@@ -12205,6 +12207,48 @@
     "merged": [],
     "name": "client/view.cpp"
    },
+   "w32kbd": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F060",
+     "0x42F250",
+     "0x430490",
+     "0x430600",
+     "0x430630",
+     "0x430700",
+     "0x430750",
+     "0x4307A0"
+    ],
+    "merged": [],
+    "name": "input/w32kbd.cpp"
+   },
+   "w32mouse": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F220",
+     "0x42F250",
+     "0x430D90",
+     "0x430EB0",
+     "0x430EE0",
+     "0x430F50",
+     "0x4310E0",
+     "0x431270",
+     "0x4312C0",
+     "0x431490",
+     "0x4314C0",
+     "0x4316A0",
+     "0x431900",
+     "0x431950",
+     "0x431B70",
+     "0x431C30"
+    ],
+    "merged": [],
+    "name": "input/w32mouse.cpp"
+   },
    "weapontype": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -12294,6 +12338,8 @@
    "input/inpdsp.h": "reconstructed",
    "input/inpkeys.h": "reconstructed",
    "input/input.h": "reconstructed",
+   "input/w32kbd.h": "reconstructed",
+   "input/w32mouse.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgeclon.h": "reconstructed",

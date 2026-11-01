@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1118 |
 | 2 | describes what the code does | 2798 |
-| 1 | neutral placeholder | 9624 |
+| 1 | neutral placeholder | 9658 |
 
 ## For review (score 3 and below)
 
@@ -7378,7 +7378,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `InputUnknownBDAA78Class` | `app/input/input.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA78` | `app/input/input.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `app/input/input.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_BDAA80` | `app/input/input.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_42E390` | `app/input/input.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_42E3B0` | `app/input/input.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_42E4A0` | `app/input/input.cpp:46` | untagged neutral name (D10) |
@@ -7399,6 +7398,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EDB0` | `app/input/input.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/input/input.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE90` | `app/input/input.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA80` | `app/input/input.cpp:343` | untagged neutral name (D10) |
 | 1 | `INPUT_KEY_COUNT` | `app/input/input.h:25` | neutral (D10): the key tables' size (input.cpp, w32kbd.cpp) |
 | 1 | `InputQueueClass` | `app/input/input.h:28` | neutral (D10) |
 | 1 | `Add` | `app/input/input.h:33` | what it does |
@@ -7417,15 +7417,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MouseClass` | `app/input/input.h:103` | neutral (D10) |
 | 1 | `Unknown_04` | `app/input/input.h:108` | neutral (D10) |
 | 1 | `Unknown_08` | `app/input/input.h:109` | neutral (D10) |
-| 1 | `Unknown_0C, unknown1, unknown2` | `app/input/input.h:110` | neutral (D10) |
+| 1 | `Get_Pixel_Position, x, y` | `app/input/input.h:110` | what 0x431900 does |
 | 1 | `Get_Position, x, y` | `app/input/input.h:111` | what 0x42ECF0's callers do with it |
-| 1 | `Unknown_14, unknown1, unknown2` | `app/input/input.h:112` | neutral (D10) |
-| 1 | `Unknown_14` | `app/input/input.h:112` | untagged neutral name (D10) |
+| 1 | `Set_Pixel_Position, x, y` | `app/input/input.h:112` | what 0x431C30 does |
 | 1 | `Set_Position, x, y` | `app/input/input.h:113` | what 0x42ED80 does with it |
 | 1 | `Update` | `app/input/input.h:114` | what its callers do with it |
 | 1 | `InputUnknownAE7134Class` | `app/input/input.h:120` | neutral (D10) |
-| 1 | `unknown1, unknown2` | `app/input/input.h:126` | neutral (D10) |
-| 1 | `unknown1, unknown2` | `app/input/input.h:128` | neutral (D10) |
 | 1 | `Unknown_20` | `app/input/input.h:130` | neutral (D10) |
 | 1 | `InputUnknownBDAA78Class` | `app/input/input.h:135` | neutral (D10) |
 | 1 | `Unknown_BDA968` | `app/input/input.h:139` | neutral (D10) |
@@ -7434,7 +7431,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDAA74` | `app/input/input.h:142` | neutral (D10) |
 | 1 | `Unknown_BDAA78` | `app/input/input.h:143` | neutral (D10) |
 | 1 | `Unknown_BDAA7C` | `app/input/input.h:144` | neutral (D10) |
-| 1 | `Unknown_BDAA80` | `app/input/input.h:145` | neutral (D10) |
 | 1 | `Unknown_42E390, unknown1, unknown2` | `app/input/input.h:148` | neutral (D10) |
 | 1 | `Unknown_42E390` | `app/input/input.h:148` | untagged neutral name (D10) |
 | 1 | `Unknown_42E3B0, unknown1, unknown2` | `app/input/input.h:149` | neutral (D10) |
@@ -7457,6 +7453,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EE00, enable` | `app/input/input.h:159` | neutral (D10) |
 | 1 | `Unknown_42EE00` | `app/input/input.h:159` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE90` | `app/input/input.h:160` | neutral (D10) |
+| 1 | `Unknown_4BC000` | `app/input/w32kbd.cpp:6` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
+| 1 | `Unknown_B6EA58` | `app/input/w32kbd.cpp:8` | neutral (D10) |
+| 1 | `Unknown_BDAAE8` | `app/input/w32kbd.cpp:9` | neutral (D10) |
+| 1 | `Unknown_BDABF0` | `app/input/w32kbd.cpp:10` | neutral (D10) |
+| 1 | `Unknown_4307A0, message, wparam, lparam` | `app/input/w32kbd.cpp:12` | neutral (D10) |
+| 1 | `Unknown_4307A0` | `app/input/w32kbd.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `app/input/w32kbd.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `app/input/w32kbd.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/input/w32kbd.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/input/w32kbd.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/input/w32kbd.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA7C` | `app/input/w32kbd.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/input/w32kbd.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/input/w32kbd.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/input/w32kbd.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/input/w32kbd.cpp:276` | untagged neutral name (D10) |
 | 1 | `Win32KeyboardHandlerClass` | `app/input/w32kbd.h:22` | after w32mouse.cpp's Win32MouseHandlerClass |
 | 1 | `Unknown_04` | `app/input/w32kbd.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/input/w32kbd.h:28` | untagged neutral name (D10) |
@@ -7467,12 +7479,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `app/input/w32kbd.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0, message, handler` | `app/input/w32kbd.h:34` | as main_client.cpp |
 | 1 | `Unknown_42FAC0` | `app/input/w32kbd.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `app/input/w32mouse.cpp:15` | 0x509E30 (dbgmgr.cpp), the log line |
+| 1 | `Unknown_BDAC2C` | `app/input/w32mouse.cpp:18` | neutral (D10) |
+| 1 | `Unknown_BDAC30` | `app/input/w32mouse.cpp:19` | neutral (D10) |
+| 1 | `Unknown_4312C0, message, wparam` | `app/input/w32mouse.cpp:21` | neutral (D10) |
+| 1 | `Unknown_4312C0` | `app/input/w32mouse.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_431470, message, wparam` | `app/input/w32mouse.cpp:22` | neutral (D10) |
+| 1 | `Unknown_431470` | `app/input/w32mouse.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_4314C0, button, up` | `app/input/w32mouse.cpp:23` | neutral (D10) |
+| 1 | `Unknown_4314C0` | `app/input/w32mouse.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_4316A0, message, wparam` | `app/input/w32mouse.cpp:24` | neutral (D10) |
+| 1 | `Unknown_4316A0` | `app/input/w32mouse.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/input/w32mouse.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/input/w32mouse.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `app/input/w32mouse.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `app/input/w32mouse.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_431270, message, wparam` | `app/input/w32mouse.cpp:103` | neutral (D10) |
+| 1 | `Unknown_431270` | `app/input/w32mouse.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA7C` | `app/input/w32mouse.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_4312A0, message, wparam` | `app/input/w32mouse.cpp:110` | neutral (D10) |
+| 1 | `Unknown_4312A0` | `app/input/w32mouse.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_431490, message, wparam` | `app/input/w32mouse.cpp:147` | neutral (D10) |
+| 1 | `Unknown_431490` | `app/input/w32mouse.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/input/w32mouse.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/input/w32mouse.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/input/w32mouse.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/input/w32mouse.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/input/w32mouse.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/input/w32mouse.h:29` | untagged neutral name (D10) |
-| 1 | `unknown1, unknown2` | `app/input/w32mouse.h:30` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/input/w32mouse.h:30` | untagged neutral name (D10) |
-| 1 | `unknown1, unknown2` | `app/input/w32mouse.h:32` | neutral (D10) |
-| 1 | `Unknown_14` | `app/input/w32mouse.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
