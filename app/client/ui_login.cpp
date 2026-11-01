@@ -244,6 +244,7 @@ public:
 
 	GadgetClass *AccountButtons[4];						// +0x84 (the account menu's 'BUTTON01' ..)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> AccountMenu;			// +0x94 ('FE13A')  // NAME 3: the G_ASSERT's
+	LoginViewClass *Get_Character_View() { return(CharacterView); }	// NAME 1: neutral (D10)
 	LoginViewClass *CharacterView;						// +0x98 (the view's slot +0x28)  // NAME 1: tsk_login.h's
 	LoginTaskClass *Get_Task() { return(Task); }		// NAME 1: neutral (D10)
 	LoginTaskClass *Task;								// +0x9C (the character view's +0x14's slot +0x08)  // NAME 1: neutral (D10)
@@ -284,8 +285,8 @@ static const char *Unknown_B8110C[] = { "BUTTON01", "BUTTON02", "BUTTON03", "BUT
 static const char *Unknown_B8111C[] = { "BUTTON01_FE13A", "BUTTON02_FE13A", "BUTTON03_FE13A", "BUTTON04_FE13A" };	// NAME 1: neutral (D10)
 
 
-// NOT EXACT: register allocation (the client keeps the layer in edi up to its member store and calls the
-// settings map's begin() 0x5AF130 out of line; ours inlines it) (0x5ACB80)
+// NOT EXACT: scheduling (the client clears the buttons in the member stores' run, ours before it, and loads
+// the model's address before the font manager for Add) (0x5ACB80)
 LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	CharacterView(NULL),
@@ -316,15 +317,15 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	}
 	((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_Clear();
 	CharacterView = ((LoginViewClass *)View)->Unknown_28();
-	Task = (LoginTaskClass *)CharacterView->Unknown014->Unknown_08();
+	Task = (LoginTaskClass *)Get_Character_View()->Unknown014->Unknown_08();
 	Get_Task()->Close_Global_Connection();
 	Get_Task()->Unknown_64();
 	LoginScopeClass scope(this);
-	CharacterView->Unknown_67A250();
-	CharacterView->Unknown_67AB20(0, "FE01A");
+	Get_Character_View()->Unknown_67A250();
+	Get_Character_View()->Unknown_67AB20(0, "FE01A");
 	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->Peek_Model());
-	CharacterView->Peek_Camera()->Set_Clip_Planes(1.0f, 1000.0f);
-	CharacterView->Unknown_67AB20(3, "comp00a");
+	Get_Character_View()->Unknown068->Set_Clip_Planes(1.0f, 1000.0f);
+	Get_Character_View()->Unknown_67AB20(3, "comp00a");
 	CharacterView->Unknown_67C440(0, 1);
 	CharacterView->Unknown_67AB20(4, "FE_NAR_AGG");
 	CharacterView->Unknown_67A6C0();
@@ -691,7 +692,6 @@ void LoginInterface::Unknown_5AE240()
 	NameGadget->Unknown44->Unknown_Set_2FC(0.33f);
 	PasswordGadget->Unknown44->Unknown_Set_2FC(0.33f);
 }
-
 
 
 

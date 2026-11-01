@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1098 |
 | 2 | describes what the code does | 2712 |
-| 1 | neutral placeholder | 8985 |
+| 1 | neutral placeholder | 8986 |
 
 ## For review (score 3 and below)
 
@@ -6137,42 +6137,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5AE8E0` | `app/client/ui_login.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_5AE9D0` | `app/client/ui_login.cpp:243` | untagged neutral name (D10) |
 | 1 | `AccountButtons` | `app/client/ui_login.cpp:245` | neutral (D10) |
-| 1 | `CharacterView` | `app/client/ui_login.cpp:247` | tsk_login.h's |
-| 1 | `Get_Task` | `app/client/ui_login.cpp:248` | neutral (D10) |
-| 1 | `Task` | `app/client/ui_login.cpp:249` | neutral (D10) |
-| 1 | `Unknown0A0` | `app/client/ui_login.cpp:250` | untagged neutral name (D10) |
-| 1 | `NameGadget` | `app/client/ui_login.cpp:251` | its model's name |
-| 1 | `PasswordGadget` | `app/client/ui_login.cpp:252` | its model's name |
-| 1 | `Unknown0AC` | `app/client/ui_login.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_login.cpp:254` | untagged neutral name (D10) |
-| 1 | `Buttons` | `app/client/ui_login.cpp:255` | neutral (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_login.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown0C9` | `app/client/ui_login.cpp:257` | untagged neutral name (D10) |
-| 1 | `Unknown0CA` | `app/client/ui_login.cpp:258` | untagged neutral name (D10) |
-| 1 | `Unknown0CB` | `app/client/ui_login.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_login.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown0CD` | `app/client/ui_login.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown0CE` | `app/client/ui_login.cpp:262` | untagged neutral name (D10) |
-| 1 | `Focus` | `app/client/ui_login.cpp:263` | what it holds |
-| 1 | `Unknown0D8` | `app/client/ui_login.cpp:265` | untagged neutral name (D10) |
-| 1 | `Unknown0D9` | `app/client/ui_login.cpp:266` | untagged neutral name (D10) |
-| 1 | `Unknown0DA` | `app/client/ui_login.cpp:267` | untagged neutral name (D10) |
-| 1 | `LoginCallbackClass` | `app/client/ui_login.cpp:271` | neutral (D10) |
-| 1 | `Unknown_B810DC` | `app/client/ui_login.cpp:281` | neutral (D10) |
-| 1 | `Unknown_B810F4` | `app/client/ui_login.cpp:282` | neutral (D10) |
-| 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:283` | neutral (D10) |
-| 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:284` | neutral (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:317` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_login.cpp:332` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_login.cpp:338` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:338` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_login.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown_Resume_All` | `app/client/ui_login.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/ui_login.cpp:490` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/ui_login.cpp:586` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/ui_login.cpp:591` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:624` | untagged neutral name (D10) |
+| 1 | `Get_Character_View` | `app/client/ui_login.cpp:247` | neutral (D10) |
+| 1 | `CharacterView` | `app/client/ui_login.cpp:248` | tsk_login.h's |
+| 1 | `Get_Task` | `app/client/ui_login.cpp:249` | neutral (D10) |
+| 1 | `Task` | `app/client/ui_login.cpp:250` | neutral (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_login.cpp:251` | untagged neutral name (D10) |
+| 1 | `NameGadget` | `app/client/ui_login.cpp:252` | its model's name |
+| 1 | `PasswordGadget` | `app/client/ui_login.cpp:253` | its model's name |
+| 1 | `Unknown0AC` | `app/client/ui_login.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_login.cpp:255` | untagged neutral name (D10) |
+| 1 | `Buttons` | `app/client/ui_login.cpp:256` | neutral (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_login.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown0C9` | `app/client/ui_login.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown0CA` | `app/client/ui_login.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown0CB` | `app/client/ui_login.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_login.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown0CD` | `app/client/ui_login.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown0CE` | `app/client/ui_login.cpp:263` | untagged neutral name (D10) |
+| 1 | `Focus` | `app/client/ui_login.cpp:264` | what it holds |
+| 1 | `Unknown0D8` | `app/client/ui_login.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown0D9` | `app/client/ui_login.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown0DA` | `app/client/ui_login.cpp:268` | untagged neutral name (D10) |
+| 1 | `LoginCallbackClass` | `app/client/ui_login.cpp:272` | neutral (D10) |
+| 1 | `Unknown_B810DC` | `app/client/ui_login.cpp:282` | neutral (D10) |
+| 1 | `Unknown_B810F4` | `app/client/ui_login.cpp:283` | neutral (D10) |
+| 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
+| 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:285` | neutral (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_login.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_login.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_Resume_All` | `app/client/ui_login.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_login.cpp:587` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/ui_login.cpp:592` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_manu.cpp:18` | fontmanager.h's |
 | 1 | `text, unknown` | `app/client/ui_manu.cpp:21` | what this file passes |
@@ -10008,7 +10009,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Render_Obj` | `app/client/ui_login.cpp:104` | what it does (the asset manager's slot) |
 | 2 | `Add` | `app/client/ui_login.cpp:200` | as sclient.cpp's |
 | 2 | `Remove` | `app/client/ui_login.cpp:201` | as sclient.cpp's |
-| 2 | `Layer` | `app/client/ui_login.cpp:264` | what it holds |
+| 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:32` | fontdatabase.h's |
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |
 | 2 | `Owner` | `app/client/ui_manu.cpp:326` | what it holds |
