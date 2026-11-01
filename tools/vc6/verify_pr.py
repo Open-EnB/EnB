@@ -23,6 +23,10 @@
    the commit status `vc6-verify` on the PR's head and as one PR comment (updated in place on reruns), and
    saved to .work/verify/prPR.json. --no-post prints only.
 
+A lost pair that docs/data/accepted-corrections.json lists (a false pair the user ruled on, D173), whose
+`moved_to` the same file gains in this verify, is not a loss: it is named in the status and the comment as
+corrected. The list is read from this checkout (master's), never from the PR.
+
 The tools run are this checkout's own (and, through the gate, the PR's equal them). The PR's C++ reaches only
 a build VM's compiler.
 """
@@ -38,6 +42,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import wt  # noqa: E402
+import pairs_cmp  # noqa: E402
 
 ROOT = wt.ROOT
 OUT = os.path.join(ROOT, '.work', 'verify')
@@ -129,6 +134,9 @@ def report(pr, res):
             lines += ['', f'<details><summary>{title}: {len(rows)}</summary>', '', '```']
             lines += [f'{lib} {f} {a}' for lib, f, a in rows[:400]]
             lines += ['```', '</details>']
+    if res.get('corrected'):
+        lines += ['', 'Accepted corrections (docs/data/accepted-corrections.json; not losses):']
+        lines += [f'* {lib} {f} {a} -> {to} (accepted: {dec})' for lib, f, a, to, dec in res['corrected']]
     if res.get('moves'):
         lines += ['', f'D66 moves (a lost pair whose address another file holds): {len(res["moves"])}; '
                       f'lost outright: {len(res["outright"])}.']
@@ -244,8 +252,10 @@ def main():
         else:
             print('no library touched: nothing to compile')
         gained, lost = sorted(verified - before), sorted(before - verified)
+        corrected, lost = pairs_cmp.split_corrections(lost, gained, pairs_cmp.load_corrections())
         moves, outright = moves_and_outright(lost, verified)
-        res.update(gained=gained, lost=lost, moves=moves, outright=outright)
+        res.update(gained=gained, lost=lost, moves=moves, outright=outright,
+                   corrected=[(lib, f, a, e['moved_to'], e['decision']) for e, (lib, f, a) in corrected])
         ne_before, ne_after = not_exact_count(old), not_exact_count(merge)
         if lost and not outright:
             if a.accept_d66:
@@ -269,6 +279,8 @@ def main():
                 res['notes'] = [why + '; the landing commit carries the verified record (no need to commit it)']
         summary = (f'{len(gained):+d} pairs, {len(lost)} lost'
                    + (f' (D66 moves, accepted by {res["accepted"]["by"]})' if res.get('accepted') else '')
+                   + (f', {len(corrected)} corrected (accepted: '
+                      f'{", ".join(sorted({e["decision"] for e, _ in corrected}))})' if corrected else '')
                    + f', NOT EXACT {ne_before} -> {ne_after}'
                    + (f'; libraries {", ".join(libs)}' if libs else '; no library touched'))
         finish('failure' if res['reasons'] else 'success', summary)

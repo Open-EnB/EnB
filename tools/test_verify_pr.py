@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.join(HERE, 'vc6'))
 
 import verify_pr  # noqa: E402
 import verify_watch  # noqa: E402
+import pairs_cmp  # noqa: E402
 
 
 class Gate(unittest.TestCase):
@@ -45,6 +46,56 @@ class Pairs(unittest.TestCase):
         self.assertIsNone(verify_pr.accepted_by([m('/accept-d66 abc1234', 'CONTRIBUTOR')], 'abc1234ff'))
         self.assertIsNone(verify_pr.accepted_by([m('see `/accept-d66 abc1234`')], 'abc1234ff'))
         self.assertIsNone(verify_pr.accepted_by([m(verify_pr.MARK + '\n/accept-d66 abc1234')], 'abc1234ff'))
+
+
+class Corrections(unittest.TestCase):
+    """Accepted corrections (D173, docs/data/accepted-corrections.json) in pairs_cmp.py and verify_pr.py."""
+    E = {'address': '0x723AB0', 'lib': 'app', 'file': 'aux_roots', 'moved_to': '0x4B2AA0', 'decision': 'D173',
+         'note': ''}
+
+    def test_corrected_only_when_moved_to_is_gained_in_the_same_file(self):
+        lost = [('app', 'aux_roots', '0x723AB0'), ('app', 'co', '0x10')]
+        got, rest = pairs_cmp.split_corrections(lost, [('app', 'aux_roots', '0x4b2aa0')], [self.E])
+        self.assertEqual([x for _, x in got], [('app', 'aux_roots', '0x723AB0')])
+        self.assertEqual(rest, [('app', 'co', '0x10')])
+        for gained in ([], [('app', 'other', '0x4B2AA0')], [('wwlib', 'aux_roots', '0x4B2AA0')]):
+            got, rest = pairs_cmp.split_corrections(lost, gained, [self.E])
+            self.assertEqual((got, rest), ([], sorted(lost)), gained)
+
+    def test_the_shipped_list_names_d173(self):
+        entries = pairs_cmp.load_corrections()
+        self.assertTrue(all(set(e) >= {'address', 'lib', 'file', 'moved_to', 'decision', 'note'} for e in entries))
+        self.assertIn(('app', 'aux_roots', '0x723AB0', '0x4B2AA0', 'D173'),
+                      [(e['lib'], e['file'], e['address'], e['moved_to'], e['decision']) for e in entries])
+        self.assertEqual(pairs_cmp.load_corrections(os.path.join(HERE, 'no-such-file.json')), [])
+
+    def test_pairs_cmp_prints_it_apart(self):
+        import contextlib
+        import io
+        import json
+        import tempfile
+        d = tempfile.mkdtemp()
+        a = {'app': {'files': {'aux_roots': {'in_tree': ['0x723AB0', '0x1']}}}}
+        b = {'app': {'files': {'aux_roots': {'in_tree': ['0x4B2AA0', '0x1']}}}}
+        for name, data in (('a.json', a), ('b.json', b)):
+            with open(os.path.join(d, name), 'w', encoding='utf-8') as f:
+                json.dump(data, f)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            pairs_cmp.main(['pairs_cmp.py', os.path.join(d, 'a.json'), os.path.join(d, 'b.json')])
+        lines = dict(l.split(' [', 1) for l in out.getvalue().splitlines() if ' [' in l)
+        self.assertEqual(lines['corrected (accepted: D173)'], "('app', 'aux_roots', '0x723AB0', '0x4B2AA0')]")
+        self.assertEqual(lines['lost'], ']')
+        self.assertEqual(lines['lost outright'], ']')
+
+    def test_landable_once_the_correction_leaves_lost(self):
+        rec = {'head': 'h', 'base': 'm', 'verdict': 'success', 'lost': [],
+               'corrected': [('app', 'aux_roots', '0x723AB0', '0x4B2AA0', 'D173')]}
+        self.assertIsNone(verify_watch.landable(rec, 'h', 'm'))
+        res = {'verdict': 'success', 'summary': '+1 pairs, 0 lost, 1 corrected (accepted: D173)', 'merge': 'm' * 9,
+               'base': 'b' * 9, 'when': 'now', 'corrected': rec['corrected']}
+        text = verify_pr.report({'head': 'h' * 9}, res)
+        self.assertIn('app aux_roots 0x723AB0 -> 0x4B2AA0 (accepted: D173)', text)
 
 
 class Landing(unittest.TestCase):

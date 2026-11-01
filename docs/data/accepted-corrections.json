@@ -1,0 +1,13 @@
+{
+ "about": "Hand-maintained (not generated): false pairs the user ruled on. tools/vc6/pairs_cmp.py and verify_pr.py do not count such a pair as lost when the same comparison gains moved_to for the same lib and file. One entry per decision; docs/github-plan.md 4.5.5.",
+ "corrections": [
+  {
+   "address": "0x723AB0",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": "0x4B2AA0",
+   "decision": "D173",
+   "note": "??_G KVAccessorClass<UnknownB016DCType>: a false pair. Our ??_7 has 4 slots like the client's 0xAEB4BC, whose slot 0 is 0x4B2AA0; 0x723AB0 is slot 0 of the 2-slot vtable 0xB02C84."
+  }
+ ]
+}

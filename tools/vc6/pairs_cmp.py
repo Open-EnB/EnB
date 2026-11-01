@@ -18,14 +18,23 @@ tie-break pairs out). Then, for D66(v) / D117:
                         D66(v) needs this list empty.
 `moves [...]`         : lost pairs whose address another file holds in B, as
                         (lib, from_file, [(lib, to_file), ...], addr).
+Accepted corrections (D173): docs/data/accepted-corrections.json lists pairs the user ruled false (hand-maintained,
+one entry per decision: {address, lib, file, moved_to, decision, note}). When such a pair is lost AND the same
+file gains `moved_to` in the same comparison, it is printed as `corrected (accepted: D173) [...]` and left out of
+`lost`, `lost outright` and `moves`; otherwise it is a loss as before.
 Exit status is 0 either way; read the `lost` and `lost outright` lists.
 """
 import json
+import os
 import sys
+
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+CORRECTIONS = os.path.join(ROOT, 'docs', 'data', 'accepted-corrections.json')
 
 
 def load(path):
-    return json.load(open(path))
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def pairs(data, key='in_tree'):
@@ -36,6 +45,30 @@ def pairs(data, key='in_tree'):
             for a in v.get(key, []):
                 out.add((lib, f, a if isinstance(a, str) else str(a)))
     return out
+
+
+def load_corrections(path=CORRECTIONS):
+    """The accepted corrections (a list of entries), [] when the file is missing."""
+    try:
+        with open(path, encoding='utf-8') as f:
+            return json.load(f)['corrections']
+    except FileNotFoundError:
+        return []
+
+
+def split_corrections(lost, gained, corrections):
+    """([(entry, pair)], rest): the LOST pairs an accepted correction explains (its lib, file and address lost,
+    its moved_to gained by the same lib and file in GAINED), and the other lost pairs."""
+    gained_at = {(lib, f, int(a, 16)) for lib, f, a in gained}
+    by_pair = {(e['lib'], e['file'], int(e['address'], 16)): e for e in corrections}
+    corrected, rest = [], []
+    for x in sorted(lost):
+        e = by_pair.get((x[0], x[1], int(x[2], 16)))
+        if e and (x[0], x[1], int(e['moved_to'], 16)) in gained_at:
+            corrected.append((e, x))
+        else:
+            rest.append(x)
+    return corrected, rest
 
 
 def main(argv):
@@ -54,8 +87,13 @@ def main(argv):
     lost_files = {(lib, f) for lib, f, _ in lost}
     with_caller = {x for x in lost_t if (x[0], x[1]) in lost_files}
     lost |= lost_t - with_caller
+    corrected, rest = split_corrections(lost, pairs(db) - pairs(da), load_corrections())
+    lost = set(rest)
+    for dec in sorted({e['decision'] for e, _ in corrected}):
+        print(f'corrected (accepted: {dec})',
+              sorted((lib, f, a, e['moved_to']) for e, (lib, f, a) in corrected if e['decision'] == dec))
     print('lost', sorted(lost))
-    print('lost tie-break (counted in lost)', sorted(lost_t - with_caller))
+    print('lost tie-break (counted in lost)', sorted((lost_t - with_caller) & lost))
     print('lost tie-break with its caller (D66 vii, not a loss)', sorted(with_caller))
     allb = pairs(db)
     holders = {}
