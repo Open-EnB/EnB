@@ -53,9 +53,14 @@ public:
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
-	char Unknown_Pad[0x220 - sizeof(RenderObjClass)];
+	char Unknown_Pad[0x214 - sizeof(RenderObjClass)];
+	bool Unknown214;									// +0x214 (0x67A440 sets it)
+	char Unknown215[0x220 - 0x215];
 	bool Is_Unknown220() { return(Unknown220); }		// (ui_login.cpp)  // NAME 1: neutral (D10)
 	bool Unknown220;									// +0x220 (ui_login.cpp's 0x5ADA50: the narrator's welcome waits for it)
+	char Unknown221[0x231 - 0x221];
+	bool Unknown231;									// +0x231 (0x67A440 clears it)
+	bool Unknown232;									// +0x232 (0x67A440 sets it)
 };
 
 // The view's modes (+0x1AC): the FAIL_IF 'mode < CHARACTER_POPUP_MESSAGE || mode >= CHARACTER_LASTVIEWMODE' (0x67A370)
@@ -111,6 +116,7 @@ public:
 	void Unknown_67A3F0();								// 0x67A3F0 (+0x194 released)
 	void Unknown_67AB20(int type, const char *name);	// 0x67AB20 (the G_ASSERT 'ViewRObjs[type]'): the model of the type by name  // NAME 2 [type]: the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A')
 	void Unknown_67BBE0();								// 0x67BBE0 (0x67AB20, type 4: the two lights into +0x84)
+	void Unknown_67A440(AvatarDescClass *desc, bool copy);	// 0x67A440 (the G_ASSERT 'AvatarRObj': ui_avatr.cpp's player avatar, from desc or from a fresh description of its race, profession and gender)  // NAME 1 [desc, copy]: what it does with them
 	void Unknown_67A670();								// 0x67A670 (+0x198 released)
 	void Unknown_67A8D0(bool off);						// 0x67A8D0 (the narrator walks off, or on)  // NAME 1 [off]: what it selects
 	void Unknown_67A960();								// 0x67A960 (the narrator's Idle0)
@@ -121,6 +127,10 @@ public:
 	void Unknown_67AE60(int type);						// 0x67AE60  // NAME 2 [type]: as 0x67AB20's
 	bool Unknown_67AEA0(int type);						// 0x67AEA0 (+0x0C tested and cleared)  // NAME 2 [type]: as 0x67AB20's
 	void Unknown_67AED0(int type, bool first);			// 0x67AED0 (the animation set at its first frame, or its last)  // NAME 2 [type]: as 0x67AB20's; NAME 1 [first]: what it selects
+	void Unknown_67B090();								// 0x67B090 (the narrator's walk; inlined in the frame)
+	void Unknown_67B120();								// 0x67B120 (the narrator's idle; inlined in the frame)
+	void Unknown_67B1A0(const char *name);				// 0x67B1A0 (the music: the old one stopped, name looped)  // NAME 1 [name]: what Play_2D_Sound gets
+	void Unknown_67B220();								// 0x67B220 (the music stopped)
 	void Unknown_67B270();								// 0x67B270 ('Are you sure you want to quit?')
 	bool Unknown_67B2B0();								// 0x67B2B0 (the quit box answered: yes kills the kernel, no returns true)
 	void Unknown_67A6C0();								// 0x67A6C0 (the G_ASSERT 'NarratorRObj': the narrator made, walking on)

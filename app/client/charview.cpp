@@ -20,6 +20,7 @@
 #include "..\..\ww3d2\dazzle.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\predlod.h"
+#include "..\..\ww3d2\dx8renderer.h"
 #include "matrix3d.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "wwmath.h"
@@ -385,32 +386,32 @@ int CharacterViewClass::Unknown_0C(bool on)
 	}
 	if (NarratorRObj) {
 		NarratorRObj->Unknown_1C4();
-		if (Unknown19C != Unknown19D) {
-			if (Unknown19D == true && NarratorRObj->Unknown220) {
-				NarratorRObj->Unknown_786370(true);
-				Unknown19C = Unknown19D;
-			}
-			if (Unknown19D == false) {
-				if (Unknown22C) {
-					Unknown22C--;
-				} else {
-					NarratorRObj->Unknown_786370(false);
-					Unknown19C = Unknown19D;
-				}
-			}
-		}
-		if (Unknown19E) {
-			if (NarratorRObj->Unknown_7863E0()) {
-				if (Unknown22C) {
-					Unknown22C--;
-				} else {
-					NarratorRObj->Unknown_786370(false);
-				}
-			} else if (NarratorRObj->Unknown220) {
-				NarratorRObj->Unknown_786370(true);
-				Unknown19E = false;
-			}
-		}
+		Unknown_67B090();
+		Unknown_67B120();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 	for (int i = 0; i < 2; i++) {
 		if (Unknown1A4[i]) {
@@ -498,7 +499,6 @@ void CharacterViewClass::Unknown_67A300()
 
 
 
-
 // 0x67A370
 void CharacterViewClass::Unknown_67A370(int mode)
 {
@@ -533,28 +533,28 @@ void CharacterViewClass::Unknown_67A3F0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67A440
+void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
+{
+	if (AvatarRObj == NULL) {
+		if (copy) {
+			AvatarDescClass *fresh = new AvatarDescClass(desc->Race, desc->Profession, desc->Gender);
+			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown3A4);
+			delete fresh;
+		} else {
+			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown3A4);
+		}
+		G_ASSERT(AvatarRObj);
+		if (AvatarRObj) {
+			AvatarRObj->Unknown_77E3D0(1);
+			AvatarRObj->Unknown231 = false;
+			AvatarRObj->Unknown214 = true;
+			AvatarRObj->Unknown232 = true;
+		}
+		TheDX8MeshRenderer.Invalidate();
+	}
+}
 
 
 
@@ -796,6 +796,67 @@ void CharacterViewClass::Unknown_67AED0(int type, bool first)
 			}
 			ViewRObjs[type]->Set_Animation(Unknown1D4[type].Anim, (float)(Unknown1D4[type].Anim->Get_Num_Frames() - 1), 0);
 		}
+	}
+}
+
+
+// 0x67B090
+void CharacterViewClass::Unknown_67B090()
+{
+	if (Unknown19C != Unknown19D) {
+		if (Unknown19D == true && NarratorRObj->Unknown220) {
+			NarratorRObj->Unknown_786370(true);
+			Unknown19C = Unknown19D;
+		}
+		if (Unknown19D == false) {
+			if (Unknown22C) {
+				Unknown22C--;
+				return;
+			}
+			NarratorRObj->Unknown_786370(false);
+			Unknown19C = Unknown19D;
+		}
+	}
+}
+
+// 0x67B120
+void CharacterViewClass::Unknown_67B120()
+{
+	if (Unknown19E) {
+		if (NarratorRObj->Unknown_7863E0()) {
+			if (Unknown22C) {
+				Unknown22C--;
+				return;
+			}
+			NarratorRObj->Unknown_786370(false);
+			return;
+		}
+		if (NarratorRObj->Unknown220) {
+			NarratorRObj->Unknown_786370(true);
+			Unknown19E = false;
+		}
+	}
+}
+
+// 0x67B1A0
+void CharacterViewClass::Unknown_67B1A0(const char *name)
+{
+	if (Unknown224) {
+		Unknown224->Stop(true);
+		Unknown224->Release_Ref(); Unknown224 = NULL;
+	}
+	Unknown224 = SoundLibraryClass::Play_2D_Sound(name, 1);
+	if (Unknown224) {
+		Unknown224->Set_Loop_Count(0);
+	}
+}
+
+// 0x67B220
+void CharacterViewClass::Unknown_67B220()
+{
+	if (Unknown224) {
+		Unknown224->Stop(true);
+		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
 }
 
