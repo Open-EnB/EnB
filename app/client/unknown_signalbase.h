@@ -47,4 +47,16 @@ public:
 	};
 };
 
+// The signal map the events are emitted on (moved here from control_keys_manager.h for gclass.h)
+class SignalMap  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9AD0); declared as far as ControlKeysManager::Save and GClass need it
+{
+public:
+	SignalMap();														// 0x4F9350
+	~SignalMap();														// 0x4F9530
+	void emit(unsigned int sender, const void *event, const type_info &sender_type, const type_info &event_type);	// 0x4F9AD0: the client's 'SignalMap::emit'
+	template <class S, class E> void emit(S *sender, const E &event) { emit((unsigned int)sender, &event, typeid(S), typeid(E)); }	// NAME 2: the typed form Save's call expands to
+
+	char Unknown00[0x28];												// 0x28 bytes: GClass's +0x10..+0x38 (0x4F9350 fills +0x00..+0x24)  // NAME 1: neutral (D10)
+};
+
 #endif

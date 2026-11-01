@@ -3644,6 +3644,8 @@ RECONSTRUCTED = {
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
                                      "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
                                      "only float and unsigned int declared, defined in stubs/",
+    ('app', 'shared/gclass.h'): "GClass (the client's RTTI; table 0xAEAAD8, 0x38 bytes) over two one-slot-table bases (0xAEAB48, 0xAEAB3C), TargetChangeEvent (RTTI); Get_Target_Node / Get_Targeting_List from gclass.cpp's asserts; header name assumed from gclass.cpp (D57)",
+    ('app', 'shared/gclass.cpp'): "GClass, client 0x4A15E0-0x4A3000 (__FILE__ e:\\build\\beta\\G\\app\\shared\\gclass.cpp, asserts on the client's lines 325 / 344, D25): the constructors 0x4A1880 / 0x4A1B40, the destructor 0x4A1BD0, the slots 0x4A1800-0x4A2010, the statics 0x4A17B0 / 0x4A20A0, the template instances to 0x4A2650 and the relation table 0x4A26E0-0x4A2FD0 (unreferenced in the client); NOT EXACT: 0x4A17B0",
     ('app', 'shared/kv_list.h'): "KVListClass (D24): the pairs in order and a key index, SGI STL's hash_map "
                                  "(libs/sgistl, D87) at +0x10",
     ('app', 'shared/kv_list.cpp'): "KVListClass, client 0x4B62B0-0x4B6D90 with the index's instances to 0x4B7E30: "

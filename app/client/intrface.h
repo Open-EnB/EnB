@@ -4,13 +4,13 @@
 **	Original location: e:\build\beta\G\app\Client\intrface.h (name assumed from intrface.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\client\intrface.cpp'; the client holds no string of this header)
 **
-**	The UI kit's interface base (kernel-map-step9.md section 3.2): an inline base with tables at +0x00 and
-**	+0x04, gclass.cpp's class over it (e:\build\beta\G\app\shared\gclass.cpp, constructor 0x4A1880), and
+**	The UI kit's interface base (kernel-map-step9.md section 3.2): gclass.h's GClass (two bases with tables at
+**	+0x00 and +0x04; e:\build\beta\G\app\shared\gclass.cpp, constructor 0x4A1880), and
 **	intrface.cpp's InterfaceClass (constructors 0x540A90 / 0x540D30, tables 0xAEEF98 / 0xAEEF8C, a
 **	RefCountClass at +0x38 with table 0xAEEF80). Every screen and window of the client derives from it:
 **	the views (view.cpp) keep them in a list, reference counted. Declared as far as the rebuilt files use
 **	it (D10); one class for what sclient.h (UIUnknownBaseClass, UIInterfaceBaseClass) and
-**	ui_line_display.h (GClassUnknownClass, InterfaceClass) declared apart until UI1 (P-LD4-1).
+**	ui_line_display.h (GClassUnknownClass, InterfaceClass: now GClass) declared apart until UI1 (P-LD4-1).
 */
 
 
@@ -23,6 +23,7 @@
 #define __INTRFACE_H
 
 #include "..\..\wwlib\refcount.h"
+#include "..\shared\gclass.h"
 
 class UIViewClass;
 class INIClass;
@@ -47,52 +48,6 @@ public:
 	void Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, int unknown1, int unknown2);	// 0x6870E0: the gadget put in (ui_group.cpp: an id, the view, 1, 1)  // NAME 1 [gadget, id, view, unknown1, unknown2]: what ui_group.cpp passes
 	void Unknown_687150(GadgetClass *gadget);												// 0x687150: the gadget taken out (before its delete)  // NAME 1 [gadget]: what ui_group.cpp passes
 	char Unknown00[0x0C];																	// +0x00
-};
-
-// The inline base under gclass.cpp's class (tables 0xAEAB48 at +0x00, 0xAEAB3C at +0x04)
-class UnknownGadgetBase00Class  // NAME 1: neutral (D10): the inline base's first table (0xAEAB48)
-{
-public:
-	virtual ~UnknownGadgetBase00Class();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-};
-
-// The second table (two slots; its +0x04 is 0x4A1930 in every derived table, intrface.cpp's 0xAEEF8C included,
-// so it is named for its address: a derived class's Unknown_04 overrides only the first table's)
-class UnknownGadgetBase04Class  // NAME 1: neutral (D10): the inline base's second table (0xAEAB3C)
-{
-public:
-	virtual ~UnknownGadgetBase04Class();
-	virtual void Unknown_4A1930();															// +0x04 0x4A1930  // NAME 1: neutral (D10): its address
-};
-
-class GClassUnknownClass : public UnknownGadgetBase00Class, public UnknownGadgetBase04Class  // NAME 1: neutral (D10): gclass.cpp's class (constructor 0x4A1880)
-{
-public:
-#ifdef __INTRFACE_MEMBERS
-	GClassUnknownClass();																	// 0x4A1880
-	~GClassUnknownClass();																	// 0x4A1BD0
-#endif
-	char Unknown08[0x38 - 0x08];															// +0x08
 };
 
 #ifdef __INTRFACE_MEMBERS
@@ -132,7 +87,7 @@ class InterfaceKeyHandlerClass;
 // (+0x44 / +0x48 gclass.cpp's two asserted functions), +0x64..+0x78 the one-line defaults 0x515690-0x515750
 // emitted next to smouse.cpp, +0x58 / +0x5C / +0x60 / +0x7C / +0x80 / +0x84 intrface.cpp's (activate /
 // deactivate). The views release them through the RefCountClass at +0x38 (dec [p+0x3C], then [[p+0x38]]'s slot 0)
-class InterfaceClass : public GClassUnknownClass, public RefCountClass  // NAME 3: by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98)
+class InterfaceClass : public GClass, public RefCountClass  // NAME 3: by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98)
 {
 public:
 	InterfaceClass(UIViewClass *view, int unknown);										// 0x540A90 (+0x48 the view, +0x44 the second, referenced)  // NAME 2 [view]: the member's assert '!View'; NAME 1 [unknown]: neutral
