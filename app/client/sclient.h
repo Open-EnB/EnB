@@ -329,7 +329,7 @@ public:
 	virtual void Unknown_58();							// 0x5BB550
 	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
 	virtual void Unknown_60();							// 0x5BB660
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5BB470
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5BB470
 	virtual void Unknown_88();							// +0x88 0x543750
 	virtual void Unknown_8C();							// +0x8C 0x543770
 	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
@@ -427,7 +427,7 @@ public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
 	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	char Unknown84[0xE8 - 0x84];						// +0x84
 };
 

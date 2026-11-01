@@ -195,7 +195,7 @@ public:
 };
 
 // 0x5B0B40
-void UIManuClass::Unknown_7C(UIViewClass *view, int arg)
+void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	InterfaceClass::Unknown_7C(view, arg);
 	if (Unknown0B4) {

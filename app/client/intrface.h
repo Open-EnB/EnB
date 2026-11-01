@@ -147,7 +147,7 @@ public:
 	virtual void Unknown_70(ControlKeysManagerClass *manager) {}							// 0x515710
 	virtual void Unknown_74(ControlKeysManagerClass *manager) {}							// 0x515730
 	virtual bool Unknown_78(void *arg) { return(false); }									// 0x515750 ( tsk_login.h's screens: the global error packet)  // NAME 1 [arg]: neutral
-	virtual void Unknown_7C(UIViewClass *view, int arg);									// 0x5412F0 (onto the view, off the old one; the views' slot +0x10 passes NULL, 0)  // NAME 1 [view, arg]: what the callers pass
+	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x5412F0 (onto the view, off the old one; the views' slot +0x10 passes NULL, 0)  // NAME 1 [view, arg]: what the callers pass
 	virtual void Unknown_80();																// 0x541550 (FAIL_IF 'PartialDeactivatedGadget', '!Active')
 	virtual void Unknown_84();																// 0x541690 (FAIL_IF '!PartialDeactivatedGadget', '!Active')
 	InterfaceStaticSortListClass *Unknown_541800();											// 0x541800 (the view's scene's +0x9C, the asserts' 'ssl'; local_interface_sort.cpp's 0x6E0E80 calls it)

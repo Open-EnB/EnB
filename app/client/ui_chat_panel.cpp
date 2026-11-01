@@ -612,7 +612,7 @@ bool UIChatPanelClass::Unknown_68(int key)
 }
 
 // 0x563620
-void UIChatPanelClass::Unknown_7C(UIViewClass *view, int arg)
+void UIChatPanelClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		LineDisplaySortClass sort(this);

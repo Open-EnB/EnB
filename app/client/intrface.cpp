@@ -263,8 +263,8 @@ void InterfaceClass::Unknown_5C()
 
 
 
-// NOT EXACT: shape (0.79; the client tests arg as a byte: the slot takes a bool, but intrface.h and its eight overriders declare int)
-void InterfaceClass::Unknown_7C(UIViewClass *view, int arg)
+// (arg is a bool: the client tests it as a byte; intrface.h and its eight overriders say so, P-UI-3)
+void InterfaceClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (view == View) {
 		if (View && arg) {

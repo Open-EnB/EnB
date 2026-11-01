@@ -203,7 +203,7 @@ public:
 	virtual bool Unknown_68(int key);														// 0x5A70B0: 1 = previous, 2 = next history line
 	virtual void Unknown_70(ControlKeysManagerClass *manager);								// 0x5A6550: registers the history keys
 	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x5A6780: removes them
-	virtual void Unknown_7C(UIViewClass *view, int arg);									// 0x5A7E80
+	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x5A7E80
 
 	std::string Format_Line(const char *text, int count, int index);				// 0x5A72B0: one of count lines, '...' where it was split  // NAME 2: describes what it does
 	void Add_Line(const char *text, int display_time, const char *font, int priority);	// 0x5A7690  // NAME 2: describes what it does

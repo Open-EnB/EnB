@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-424 entries in 90 files.
+423 entries in 90 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -117,7 +117,6 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). |
 | `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
 | `app/client/intrface.cpp:66` | `InterfaceClass::InterfaceClass` | marker | NOT EXACT: register (shape: 0.62; VC6 keeps the constant 1 of the two reference counts in edi and the view in ebp, the client the view in edi) |
-| `app/client/intrface.cpp:266` | `InterfaceClass::Unknown_7C` | marker | NOT EXACT: shape (0.79; the client tests arg as a byte: the slot takes a bool, but intrface.h and its eight overriders declare int) |
 | `app/client/intrface.cpp:329` | `InterfaceClass::Unknown_84` | marker | NOT EXACT: register (0.77; the view's +0x2C in eax and the table in edx in the client, the other way round here) |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |

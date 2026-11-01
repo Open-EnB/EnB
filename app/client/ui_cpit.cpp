@@ -427,7 +427,7 @@ UICpitClass::~UICpitClass()
 }
 
 // 0x57F010
-void UICpitClass::Unknown_7C(UIViewClass *view, int arg)
+void UICpitClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	Unknown5BB320Class::Unknown_7C(view, arg);
 	HulkUI->Unknown_7C(view, 0);

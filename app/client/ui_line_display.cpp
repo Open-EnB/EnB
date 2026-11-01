@@ -588,7 +588,7 @@ void UILineDisplayClass::Flush_Lines()
 
 
 // The iterator declared before the loop (registers as the client); the called string in a named local (the client loads it before the argument)
-void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, int unknown2)
+void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, bool unknown2)
 {
 	Clear();
 	LineDisplaySClientClass *sclient = Client ? Client->Unknown_18() : 0;

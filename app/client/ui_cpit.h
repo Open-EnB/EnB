@@ -119,7 +119,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x5806E0  // NAME 1 [key]: the base's
 	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x57F240 (FAIL_IF '!manager' l.623)  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x57FCC0 (FAIL_IF '!manager' l.647)  // NAME 3 [manager]: the FAIL_IF's
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x57F010  // NAME 1 [view, arg]: the base's
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x57F010  // NAME 1 [view, arg]: the base's
 	void Unknown_581CE0(InterfaceClass *ui);			// 0x581CE0 (FAIL_IF '!current_harvestable' l.1169, G_ASSERT 'false' l.1177)  // NAME 1 [ui]: what it compares
 	void Unknown_581E60();								// 0x581E60 (FAIL_IF '!current_target' l.1188)
 	void Unknown_581F90(ClientObjectClass *hulk);		// 0x581F90 (cpacket.cpp: LOOT_HULK_PERMISSION 140; FAIL_IFs l.1194 / 1197, G_ASSERT 'HulkUI' l.1208)  // NAME 3 [hulk]: the FAIL_IF's

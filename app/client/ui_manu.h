@@ -105,7 +105,7 @@ public:
 	virtual void Unknown_5C();							// 0x5B10A0
 	virtual void Unknown_60();							// 0x5B1230
 	virtual bool Unknown_68(int key);					// 0x5B16C0  // NAME 1 [key]: InterfaceClass's
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5B0B40 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5B0B40 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_5B1AF0(int index, bool show, const char *text);	// 0x5B1AF0 (FAIL_IF '!font', l.651): a text of Unknown_B81868 set and shown  // NAME 1 [index, show, text]: neutral
 	void Unknown_5B1C20(int level);						// 0x5B1C20: level picked again: the known formulas (G_ASSERT 'list', l.685)  // NAME 1 [level]: neutral; NAME 3 [list]: the assert's
 	void Unknown_5B1ED0(int row);						// 0x5B1ED0: row picked on level 3, its item id asked for  // NAME 1 [row]: neutral
