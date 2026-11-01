@@ -21,11 +21,20 @@
 
 class InterfaceClass;
 class InterfaceStaticSortListClass;
+class InterfaceSceneClass;
+class SceneClass;
+class UIViewClass;
+class RenderObjClass;
 
 class InterfaceSortClass  // NAME 1: neutral (D10; intrface.cpp's and fontsys_cursor.cpp's name)
 {
 public:
 	InterfaceSortClass(InterfaceClass *ui);					// 0x6E0E80 (FAIL_IF '!ui')  // NAME 2 [ui]: the FAIL_IF's
+	InterfaceSortClass(InterfaceStaticSortListClass *sort_list, bool front);	// 0x6E1090 (the front or the back list)  // NAME 1 [sort_list, front]: neutral
+	InterfaceSortClass(InterfaceSceneClass *ui_scene, bool front);		// 0x6E1200 (FAIL_IF '!ui_scene')  // NAME 2 [ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
+	InterfaceSortClass(SceneClass *castable_ui_scene, bool front);		// 0x6E1390 (FAIL_IF '!castable_ui_scene')  // NAME 2 [castable_ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
+	InterfaceSortClass(UIViewClass *uiview, bool front);				// 0x6E1560 (FAIL_IF '!uiview')  // NAME 2 [uiview]: the FAIL_IF's  // NAME 1 [front]: neutral
+	InterfaceSortClass(const RefCountPtr<RenderObjClass> &robj);		// 0x6E1730 (the interface the object was sorted into)  // NAME 1 [robj]: neutral
 	~InterfaceSortClass();									// 0x6E18B0
 
 	InterfaceStaticSortListClass *SortList;					// +0x00 (the interface's view's scene's static sort list)  // NAME 2: the asserts' '!SortList'
