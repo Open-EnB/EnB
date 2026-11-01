@@ -258,7 +258,11 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX',
              # WWOnline's wnet: /GX. E&B's TCPCon constructor 0x8BBA70 and destructor 0x8BBC90 and tcpqueue.cpp's
              # TCPQueue::~TCPQueue 0x8BE890, add 0x8BF1C0, addHead 0x8BED40 have EH frames (handlers 0xAE03E9..0xAE050B)
-             'wnet': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
+             'wnet': '/nologo /c /MT /W3 /O2 /Ob2 /GX',
+             # WWOnline's wlib: /GX too. Wtime's SignedAdd 0x8B9970 / SignedSubtract 0x8B9C80 have EH frames
+             # (handlers 0xAE0388...) around their Wtime temporaries, and the by-value operators - / + 0x8BA060,
+             # 0x8BA0F0, 0x8BA1D0, 0x8BA210 keep /GX's return-value flag (`push ecx; mov [esp+8], 0`)
+             'wlib': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
