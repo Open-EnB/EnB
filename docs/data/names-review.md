@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1138 |
 | 2 | describes what the code does | 2847 |
-| 1 | neutral placeholder | 10174 |
+| 1 | neutral placeholder | 10176 |
 
 ## For review (score 3 and below)
 
@@ -1496,29 +1496,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `the overload's type` | `app/client/dynamic_window_class.h:110` | neutral (the same code) |
 | 1 | `the overload's type` | `app/client/dynamic_window_class.h:113` | neutral |
 | 1 | `Position` | `app/client/dynamic_window_class.h:128` | Set_Position's |
-| 1 | `DynamicWindowContainerClass` | `app/client/dynamic_window_render_object.h:36` | from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50) |
-| 1 | `Child_Changed, child` | `app/client/dynamic_window_render_object.h:39` | the assert's 'child' |
-| 1 | `Remove_All_Children, recursive` | `app/client/dynamic_window_render_object.h:40` | what 0x516CF0 does |
-| 1 | `Remove_Child` | `app/client/dynamic_window_render_object.h:41` | the FAIL_IF's 'child' |
-| 1 | `DynamicWindowElementClass` | `app/client/dynamic_window_render_object.h:45` | from the asserts' 'element' (0x517770, 0x5180E0) |
-| 1 | `Set_Min_Size, min_size` | `app/client/dynamic_window_render_object.h:49` | 0x5168F0's 'contents_min_size' |
-| 1 | `Set_Flags, flags` | `app/client/dynamic_window_render_object.h:50` | ORs into +0x3C |
-| 1 | `Clear_Flags, flags` | `app/client/dynamic_window_render_object.h:51` | clears bits of +0x3C |
-| 1 | `Set_Alignment, flags` | `app/client/dynamic_window_render_object.h:52` | replaces bits 0xF0 of +0x3C (0x516E00 reads 0x10-0x80 as alignment) |
-| 1 | `Invalidate` | `app/client/dynamic_window_render_object.h:53` | sets the dirty flag and tells the parent |
-| 1 | `Get_Min_Size` | `app/client/dynamic_window_render_object.h:55` | what 0x517C50 lays out with |
-| 1 | `Get_Position` | `app/client/dynamic_window_render_object.h:59` | the render object's position less the offsets |
-| 1 | `Set_Parent, parent` | `app/client/dynamic_window_render_object.h:60` | the asserts' |
-| 1 | `Add_To_Scene, scene` | `app/client/dynamic_window_render_object.h:63` | compares with the render object's Peek_Scene |
-| 1 | `Peek_Scene` | `app/client/dynamic_window_render_object.h:65` | RenderObjClass's |
-| 1 | `Set_Level, level` | `app/client/dynamic_window_render_object.h:66` | the background passes one less to its contents |
-| 1 | `Fit_Size, position, size` | `app/client/dynamic_window_render_object.h:70` | 0x51CC10 asks it where the content goes |
-| 1 | `flags` | `app/client/dynamic_window_render_object.h:77` | +0x3C |
-| 1 | `MinSize` | `app/client/dynamic_window_render_object.h:105` | Set_Min_Size's |
-| 1 | `Unknown14` | `app/client/dynamic_window_render_object.h:106` | neutral |
-| 1 | `Size` | `app/client/dynamic_window_render_object.h:107` | Get_Size's |
-| 1 | `Offset` | `app/client/dynamic_window_render_object.h:108` | Set_Position adds it |
-| 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:109` | Layout's Fit_Size result |
+| 1 | `robj, a, b` | `app/client/dynamic_window_render_object.cpp:7` | ui_cpit.cpp's |
+| 1 | `Unknown_496730` | `app/client/dynamic_window_render_object.cpp:7` | untagged neutral name (D10) |
+| 1 | `DynamicWindowContainerClass` | `app/client/dynamic_window_render_object.h:37` | from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50) |
+| 1 | `Child_Changed, child` | `app/client/dynamic_window_render_object.h:40` | the assert's 'child' |
+| 1 | `Remove_All_Children, recursive` | `app/client/dynamic_window_render_object.h:41` | what 0x516CF0 does |
+| 1 | `Remove_Child` | `app/client/dynamic_window_render_object.h:42` | the FAIL_IF's 'child' |
+| 1 | `DynamicWindowElementClass` | `app/client/dynamic_window_render_object.h:46` | from the asserts' 'element' (0x517770, 0x5180E0) |
+| 1 | `Set_Min_Size, min_size` | `app/client/dynamic_window_render_object.h:50` | 0x5168F0's 'contents_min_size' |
+| 1 | `Set_Flags, flags` | `app/client/dynamic_window_render_object.h:51` | ORs into +0x3C |
+| 1 | `Clear_Flags, flags` | `app/client/dynamic_window_render_object.h:52` | clears bits of +0x3C |
+| 1 | `Set_Alignment, flags` | `app/client/dynamic_window_render_object.h:53` | replaces bits 0xF0 of +0x3C (0x516E00 reads 0x10-0x80 as alignment) |
+| 1 | `Invalidate` | `app/client/dynamic_window_render_object.h:54` | sets the dirty flag and tells the parent |
+| 1 | `Get_Min_Size` | `app/client/dynamic_window_render_object.h:56` | what 0x517C50 lays out with |
+| 1 | `Get_Bounds` | `app/client/dynamic_window_render_object.h:60` | the render object's position less the offsets, half the size as the extent |
+| 1 | `Set_Parent, parent` | `app/client/dynamic_window_render_object.h:61` | the asserts' |
+| 1 | `Add_To_Scene, scene` | `app/client/dynamic_window_render_object.h:64` | compares with the render object's Peek_Scene |
+| 1 | `Peek_Scene` | `app/client/dynamic_window_render_object.h:66` | RenderObjClass's |
+| 1 | `Set_Level, level` | `app/client/dynamic_window_render_object.h:67` | the background passes one less to its contents |
+| 1 | `Fit_Size, position, size` | `app/client/dynamic_window_render_object.h:71` | 0x51CC10 asks it where the content goes |
+| 1 | `flags` | `app/client/dynamic_window_render_object.h:78` | +0x3C |
+| 1 | `MinSize` | `app/client/dynamic_window_render_object.h:109` | Set_Min_Size's |
+| 1 | `NaturalSize` | `app/client/dynamic_window_render_object.h:110` | twice the model's box extent (0x51D0D0) |
+| 1 | `Size` | `app/client/dynamic_window_render_object.h:111` | Get_Size's |
+| 1 | `Offset` | `app/client/dynamic_window_render_object.h:112` | Set_Position adds it (the model's top-left corner, 0x51D0D0) |
+| 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:113` | Layout's Fit_Size result |
 | 1 | `Unknown_4BC260` | `app/client/eff_o.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
 | 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
@@ -10477,7 +10479,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_class.h:27` | class from file (D24), dynamic_window_horizontal.cpp |
 | 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_class.h:65` | class from file (D24), dynamic_window_vertical.cpp |
-| 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:74` | class from file (D24), dynamic_window_render_object.cpp |
+| 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:75` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
 | 2 | `Set_Flag` | `app/client/eff_o.h:83` | what it does |

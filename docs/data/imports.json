@@ -2703,6 +2703,7 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42F250",
      "0x45CC10",
      "0x517240",
      "0x517460",
@@ -2735,6 +2736,34 @@
      "0x518650",
      "0x518680"
     ]
+   },
+   "dynamic_window_render_object": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x51C930",
+     "0x51C9A0",
+     "0x51C9D0",
+     "0x51CA50",
+     "0x51CAB0",
+     "0x51CBE0",
+     "0x51CC80",
+     "0x51CD50",
+     "0x51CDD0",
+     "0x51CE40",
+     "0x51CE90",
+     "0x51CEC0",
+     "0x51CEE0",
+     "0x51D060",
+     "0x51D0D0",
+     "0x51D160"
+    ],
+    "merged": [],
+    "name": "client/dynamic_window_render_object.cpp"
    },
    "eff_o": {
     "ambiguous": [
@@ -12760,6 +12789,7 @@
    "client/deffont.h": "reconstructed",
    "client/dynamic_window_background.h": "reconstructed",
    "client/dynamic_window_class.h": "reconstructed",
+   "client/dynamic_window_render_object.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
    "client/extrap.h": "reconstructed",

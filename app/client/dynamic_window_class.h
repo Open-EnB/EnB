@@ -41,7 +41,7 @@ public:
 	virtual bool Has_Flags(unsigned int flags);
 	virtual void Layout(const Vector2 &position, const Vector2 &size);
 	virtual Vector2 Get_Size();
-	virtual Vector3 Get_Position();
+	virtual AABoxClass Get_Bounds();
 	virtual void Set_Parent(DynamicWindowContainerClass *parent);
 	virtual void Clear_Parent();
 	virtual DynamicWindowContainerClass *Get_Container();
@@ -79,7 +79,7 @@ public:
 	virtual bool Has_Flags(unsigned int flags);
 	virtual void Layout(const Vector2 &position, const Vector2 &size);
 	virtual Vector2 Get_Size();
-	virtual Vector3 Get_Position();
+	virtual AABoxClass Get_Bounds();
 	virtual void Set_Parent(DynamicWindowContainerClass *parent);
 	virtual void Clear_Parent();
 	virtual DynamicWindowContainerClass *Get_Container();
