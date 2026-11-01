@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1098 |
-| 2 | describes what the code does | 2719 |
-| 1 | neutral placeholder | 8985 |
+| 2 | describes what the code does | 2721 |
+| 1 | neutral placeholder | 8984 |
 
 ## For review (score 3 and below)
 
@@ -1699,22 +1699,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/html/htmlview.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/html/htmlview.cpp:215` | untagged neutral name (D10) |
-| 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:295` | untagged neutral name (D10) |
-| 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:300` | untagged neutral name (D10) |
-| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:376` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/html/htmlview.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/html/htmlview.cpp:297` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:377` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:382` | untagged neutral name (D10) |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:458` | untagged neutral name (D10) |
 | 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:9` | the object at the view's +4 (slots +4 / +8 called) |
 | 1 | `Unknown_00` | `app/client/html/htmlview.h:12` | untagged neutral name (D10) |
 | 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:19` | element of the view's +0x14 list |
-| 1 | `Unknown00` | `app/client/html/htmlview.h:21` | untagged neutral name (D10) |
 | 1 | `Url` | `app/client/html/htmlview.h:23` | 0x770860's second argument copied in |
 | 1 | `HtmlImageClass` | `app/client/html/htmlview.h:27` | element of the view's +0x20 list (image.cpp's class, not placed yet) |
 | 1 | `Unknown_04` | `app/client/html/htmlview.h:31` | untagged neutral name (D10) |
-| 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:59` | untagged neutral name (D10) |
-| 1 | `Get_Unknown138` | `app/client/html/htmlview.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/html/htmlview.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/html/htmlview.h:79` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:60` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/html/htmlview.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/html/htmlview.h:80` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.cpp:24` | untagged neutral name (D10) |
@@ -9493,6 +9492,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
 | 2 | `Open` | `app/client/html/htmlview.h:13` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:14` | polled by the view's Update |
+| 2 | `Data` | `app/client/html/htmlview.h:21` | Add_Data appends to it and keeps it NUL-terminated |
 | 2 | `Name` | `app/client/html/htmlview.h:22` | 0x770860 compares it with its first argument |
 | 2 | `Get_Surface` | `app/client/html/htmlview.h:32` | Draw_Block tiles it (Get_Width / Get_Height) |
 | 2 | `Get_Name` | `app/client/html/htmlview.h:33` | Find_Image's key |
@@ -9501,22 +9501,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Open` | `app/client/html/htmlview.h:44` | Clear, url kept, handed to the loader |
 | 2 | `Update` | `app/client/html/htmlview.h:46` | polls the loader; returns and clears Dirty |
 | 2 | `Set_Surface` | `app/client/html/htmlview.h:47` | Surf = surface, then Layout |
-| 2 | `Layout` | `app/client/html/htmlview.h:50` | one block the surface's size for Url's link, then Parse |
-| 2 | `Parse` | `app/client/html/htmlview.h:51` | the 15 KB tag parser (not written yet) |
-| 2 | `Render` | `app/client/html/htmlview.h:52` | draws every block clipped to the rectangle |
-| 2 | `Draw_Block` | `app/client/html/htmlview.h:53` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
-| 2 | `Draw_Item` | `app/client/html/htmlview.h:54` | frames, text, images (not written yet) |
-| 2 | `Click` | `app/client/html/htmlview.h:55` | opens the 'Anchor.HREF' of the item under x, y |
-| 2 | `Hit_Test` | `app/client/html/htmlview.h:56` | the item under x, y: its index, its href (type 2) or none (1) |
-| 2 | `Get_Title` | `app/client/html/htmlview.h:61` | the first block's 'Title' attribute, else "" |
-| 2 | `Surf` | `app/client/html/htmlview.h:69` | Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass) |
-| 2 | `Loader` | `app/client/html/htmlview.h:70` | Set_Loader |
-| 2 | `Blocks` | `app/client/html/htmlview.h:71` | owned (Clear deletes them) |
-| 2 | `Images` | `app/client/html/htmlview.h:73` | Find_Image |
-| 2 | `Dirty` | `app/client/html/htmlview.h:74` | Update returns and clears it (a byte tested, not a bool) |
-| 2 | `Url` | `app/client/html/htmlview.h:75` | Open's strcpy; 259 bytes up to +0x130 |
-| 2 | `ScrollX` | `app/client/html/htmlview.h:76` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
-| 2 | `ScrollY` | `app/client/html/htmlview.h:77` | Render's second argument; zeroed by Clear |
+| 2 | `Add_Data` | `app/client/html/htmlview.h:50` | appends to the link named name (made with url if missing); render: Layout and Render |
+| 2 | `Layout` | `app/client/html/htmlview.h:51` | one block the surface's size for Url's link, then Parse |
+| 2 | `Parse` | `app/client/html/htmlview.h:52` | the 15 KB tag parser (not written yet) |
+| 2 | `Render` | `app/client/html/htmlview.h:53` | draws every block clipped to the rectangle |
+| 2 | `Draw_Block` | `app/client/html/htmlview.h:54` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
+| 2 | `Draw_Item` | `app/client/html/htmlview.h:55` | frames, text, images (not written yet) |
+| 2 | `Click` | `app/client/html/htmlview.h:56` | opens the 'Anchor.HREF' of the item under x, y |
+| 2 | `Hit_Test` | `app/client/html/htmlview.h:57` | the item under x, y: its index, its href (type 2) or none (1) |
+| 2 | `Get_Title` | `app/client/html/htmlview.h:62` | the first block's 'Title' attribute, else "" |
+| 2 | `Surf` | `app/client/html/htmlview.h:70` | Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass) |
+| 2 | `Loader` | `app/client/html/htmlview.h:71` | Set_Loader |
+| 2 | `Blocks` | `app/client/html/htmlview.h:72` | owned (Clear deletes them) |
+| 2 | `Images` | `app/client/html/htmlview.h:74` | Find_Image |
+| 2 | `Dirty` | `app/client/html/htmlview.h:75` | Update returns and clears it (a byte tested, not a bool) |
+| 2 | `Url` | `app/client/html/htmlview.h:76` | Open's strcpy; 259 bytes up to +0x130 |
+| 2 | `ScrollX` | `app/client/html/htmlview.h:77` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
+| 2 | `ScrollY` | `app/client/html/htmlview.h:78` | Render's second argument; zeroed by Clear |
 | 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
 | 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
 | 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |

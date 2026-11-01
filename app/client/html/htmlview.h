@@ -18,7 +18,7 @@ public:
 // 0x770430 is called out of line by Clear.
 struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 {
-	ArrayList<int> Unknown00;  // +0x000  // element type unknown (only its destructor is seen)
+	ArrayList<char> Data;  // +0x000  // NAME 2: Add_Data appends to it and keeps it NUL-terminated
 	char Name[257];  // +0x00C  // NAME 2: 0x770860 compares it with its first argument
 	char Url[259];  // +0x10D  // NAME 1: 0x770860's second argument copied in
 };
@@ -47,6 +47,7 @@ public:
 	bool Set_Surface(DSurface *surface);  // 0x770690  // NAME 2: Surf = surface, then Layout
 	bool Clear_Links(void);  // 0x7706B0
 	bool Clear_Blocks(void);  // 0x770720
+	bool Add_Data(char *name, char *url, char *data, int length, bool render);  // 0x770860  // NAME 2: appends to the link named name (made with url if missing); render: Layout and Render
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
 	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
 	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle

@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\html\htmlview.cpp (PARTIAL). Notes at the end of the file.
 #include <windows.h>
 #include "htmlview.h"
+#include "..\..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -83,6 +84,87 @@ bool HtmlViewClass::Clear_Blocks(void)
 	while (Blocks.getTail(block)) {
 		delete block;
 		Blocks.remove(Blocks.length() - 1);
+	}
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool HtmlViewClass::Add_Data(char *name, char *url, char *data, int length, bool render)
+{
+	if (name != NULL && url != NULL && data != NULL && length != 0) {
+		HtmlLinkStruct *link;
+		if (!Find_Link(name, &link)) {
+			HtmlLinkStruct entry;
+			strcpy(entry.Url, url);
+			strcpy(entry.Name, name);
+			Links.addTail(entry);
+			if (!Find_Link(name, &link))
+				G_ASSERT(0);
+		}
+		if (link->Data.length() != 0)
+			link->Data.remove(link->Data.length() - 1);
+		link->Data.addMany(data, link->Data.length(), length);
+		link->Data.addMany("", link->Data.length(), 1);
+	}
+	if (render) {
+		Layout();
+		Render(0, 0, 0, 0, Surf->Get_Width(), Surf->Get_Height());
 	}
 	return true;
 }
