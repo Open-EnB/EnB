@@ -247,6 +247,9 @@ public:
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
 	void Unknown_556F80();								// 0x556F80
+	void Unknown_5571D0();								// 0x5571D0 (0x554D60's first half: the +0x1C5 flag)
+	void Unknown_5598A0();								// 0x5598A0 (the shared gadgets shown)
+	void Unknown_5598D0();								// 0x5598D0 (the shared gadgets hidden)
 	void Unknown_55A1F0(int arg);						// 0x55A1F0 (0x554D60: 0 on the body tab, 1 on the head tab)  // NAME 1 [arg]: neutral
 	void Unknown_55A960();								// 0x55A960
 	void Unknown_55AE50();								// 0x55AE50 (0x5560E0, last)
@@ -530,6 +533,38 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 	}
 }
 
+// 0x5571D0
+void AvatarCreationInterface::Unknown_5571D0()
+{
+	Unknown_556F80();
+	if (Unknown08C->Unknown_67B2B0()) {
+		Unknown1C5 = false;
+	}
+	if (Unknown08C->Unknown034->Unknown7C && !Unknown1C5) {
+		Unknown1C5 = true;
+		Unknown_556630(0, false);
+		if (Unknown094) Unknown094->Unknown_40(false);
+	} else if (!Unknown08C->Unknown034->Unknown7C && Unknown1C5) {
+		Unknown1C5 = false;
+		Unknown_556630(0, true);
+		if (Unknown094) Unknown094->Unknown_40(true);
+	}
+}
+
+// 0x5598A0
+void AvatarCreationInterface::Unknown_5598A0()
+{
+	Unknown_556630(0, true);
+	if (Unknown094) Unknown094->Unknown_40(true);
+}
+
+// 0x5598D0
+void AvatarCreationInterface::Unknown_5598D0()
+{
+	Unknown_556630(0, false);
+	if (Unknown094) Unknown094->Unknown_40(false);
+}
+
 // 0x55C350 (after the FAIL_IFs of 0x55C280, lines 2207 / 2211, in the client; no caller: 0x556B20 inlines it)
 void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 {
@@ -568,4 +603,8 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	identical copy): the FlashingGadgetEvent callback 0x55C280 taken off 0x65ECE0's notifier, its member
 **	function pointer held in a local first (the client loads it before the call); the callback's base
 **	needs its own empty destructor (the client resets the base vtable 0xAEDB58 after Remove).
+**	TK14 (claim #122): 0x5571D0 (0x554D60's first half, written out again in 0x554D60: a call from
+**	0x554D60 is not inlined, 0.29), 0x5598A0 and 0x5598D0 (the shared gadgets shown / hidden) exact.
+**	The window's vtable 0xAEF9BC: +0x60 is 0x554D60 and +0x68 0x554E80 (InterfaceClass's Unknown_60 /
+**	Unknown_68 overridden; declared plain members here so far).
 */
