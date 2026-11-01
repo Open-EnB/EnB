@@ -5,6 +5,8 @@
 #include "..\..\..\wwlib\dsurface.h"
 #include "unknown_htmlblock.h"
 
+HFONT Get_Font(HDC hdc, char *face, int unknown, int height, int flags);  // 0x76EB70  // NAME 2: a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp)
+
 // What the view hands a url to: slot +4 opens it, slot +8 is polled by Update (no implementation found yet).
 class HtmlLoaderClass  // NAME 1: the object at the view's +4 (slots +4 / +8 called)
 {
@@ -50,6 +52,7 @@ public:
 	bool Add_Data(char *name, char *url, char *data, int length, bool render);  // 0x770860  // NAME 2: appends to the link named name (made with url if missing); render: Layout and Render
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
 	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
+	bool Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int unknown);  // 0x7759E0  // NAME 2: lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in')
 	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle
 	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items
 	void Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int x, int y, int clipx, int clipy, int clipw, int cliph);  // 0x7767A0  // NAME 2: frames, text, images (not written yet)

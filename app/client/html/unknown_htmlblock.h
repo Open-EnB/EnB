@@ -7,6 +7,8 @@
 // One laid-out piece of a block's text: 0x50 bytes, deleted by the block's destructor.
 struct HtmlItemStruct  // NAME 2: what htmlview's parser lays out in a block (position, size, its attribute stacks)
 {
+	HtmlItemStruct(void) : X(0), Y(0), Unknown08(0), Width(0), Height(0) {}  // inline in 0x7759E0 (Unknown14 not set)
+
 	int X;  // +0x00  // NAME 2: moved right by the line's alignment (0x76F3D0)
 	int Y;  // +0x04  // NAME 2: compared with the block's CursorY: the item's line
 	int Unknown08;  // +0x08

@@ -4,6 +4,7 @@
 #include "..\..\shared\unknown_debug.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 HtmlViewClass::HtmlViewClass(void) :
 	Surf(NULL),
@@ -144,7 +145,6 @@ bool HtmlViewClass::Clear_Blocks(void)
 
 
 
-
 bool HtmlViewClass::Add_Data(char *name, char *url, char *data, int length, bool render)
 {
 	if (name != NULL && url != NULL && data != NULL && length != 0) {
@@ -196,6 +196,1036 @@ void HtmlViewClass::Layout(void)
 			return;
 		}
 	}
+}
+
+static inline bool Has_Graph(char *str)
+{
+	int len = strlen(str);
+	for (int i = 0; i < len; i++) {
+		if (isgraph(str[i]))
+			return true;
+	}
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: 0x7759E0, register allocation (widest spilled, one more frame slot than the client's 0x34)
+bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int)
+{
+	int startx = block->CursorX;
+	int x = startx;
+	int y = block->CursorY;
+	G_ASSERT(maxlength > 0);
+	G_ASSERT(cptr_in);
+
+	if (startx == block->RightPadding) {
+		while (*cptr_in == ' ' || *cptr_in == '\n' || *cptr_in == '\t' || *cptr_in == '\r') {
+			cptr_in++;
+			maxlength--;
+		}
+	}
+	if (maxlength == 0)
+		return false;
+
+	Wstring text;
+	text.set(maxlength, cptr_in);
+	text.replace('\n', ' ');
+	text.replace('\r', ' ');
+	text.replace('\t', ' ');
+	char *p = text.get();
+	for (p = strstr(p, "  "); p != NULL; p = strstr(p, "  ")) {
+		int pos = p - text.get();
+		int count = 0;
+		while (p[count + 1] == ' ')
+			count++;
+		text.remove(pos, count);
+	}
+
+	if (!Has_Graph(text.get()))
+		return false;
+
+	text.replace("&nbsp;", " ");
+	cptr_in = text.get();
+	maxlength = text.length();
+	if (block->Get_Attribute("TitleFlag") != NULL) {
+		block->Set_Attribute("Title", cptr_in);
+		return false;
+	}
+	if (maxlength == 0)
+		return false;
+
+	HDC hdc = Surf->GetDC();
+	if (hdc == NULL)
+		return false;
+
+	int height = block->Get_Font_Height(NULL);
+	int flags = 0;
+	if (block->Get_Style("Font.Bold") != NULL)
+		flags = 1;
+	if (block->Get_Style("Font.Italic") != NULL)
+		flags |= 2;
+	char *face = block->Get_Style("Font.Face");
+	if (face == NULL)
+		face = "Times New Roman";
+	HFONT font = Get_Font(hdc, face, 0, height - 2, flags);
+	int widest = 0;
+	if (font != NULL)
+		SelectObject(hdc, font);
+
+	int lines = 0;
+	char *line = cptr_in;
+	SIZE size;
+	while (true) {
+		int n = 1;
+		while (true) {
+			GetTextExtentPoint32(hdc, cptr_in, n, &size);
+			if (widest < size.cx && size.cx + x < maxwidth)
+				widest = size.cx;
+			if (size.cx + x >= maxwidth || n >= maxlength)
+				break;
+			n++;
+		}
+		if (size.cx + x >= maxwidth || n != maxlength)
+			n--;
+		if (n < 1)
+			n = 1;
+		int found = -1;
+		for (int k = n; k > 1 && n != maxlength; k--) {
+			if (!isgraph(cptr_in[k - 1])) {
+				found = k;
+				break;
+			}
+		}
+		if (found != -1)
+			n = found;
+		GetTextExtentPoint32(hdc, cptr_in, n, &size);
+		widest = size.cx;
+		lines++;
+		if (lines == 1 || n == maxlength || startx != block->RightPadding) {
+			HtmlItemStruct *item = new HtmlItemStruct;
+			item->X = x;
+			item->Width = widest;
+			item->Height = lines * height;
+			item->Y = y;
+			item->Attributes.Add_All(block->Styles);
+			item->Attributes.Set("Type", "Text");
+			item->Attributes.Set("Text", line, cptr_in + n - line);
+			block->Items.addTail(item);
+			if (n == maxlength) {
+				x = block->Advance_X(size.cx, false);
+				if (lines > 1)
+					y = block->Advance_Y(0, false);
+			} else {
+				x = block->RightPadding;
+				block->CursorX = x;
+				y = block->Advance_Y(0, false);
+			}
+			lines = 0;
+			line = cptr_in + n;
+		}
+		cptr_in += n;
+		maxlength -= n;
+		if (maxlength == 0)
+			break;
+	}
+	Surf->ReleaseDC(hdc);
+	return true;
 }
 
 // NOT EXACT: 0x7761E0, the parent bounds' stores scheduled later than the client's (the clip RECT, bottom first, matches)
