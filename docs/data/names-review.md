@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1081 |
 | 2 | describes what the code does | 2592 |
-| 1 | neutral placeholder | 8238 |
+| 1 | neutral placeholder | 8242 |
 
 ## For review (score 3 and below)
 
@@ -7537,6 +7537,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_466F60` | `app/shared/landdmap.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown_468240` | `app/shared/landdmap.cpp:213` | untagged neutral name (D10) |
 | 1 | `Unknown_468D50` | `app/shared/landdmap.cpp:215` | untagged neutral name (D10) |
+| 1 | `LandDMapVertexStruct` | `app/shared/landdmap.cpp:314` | unknown; the 0x34-byte vertex 0x467A50 fills (D3DX types: 0x468920 copies the position with integer moves) |
+| 1 | `Normal` | `app/shared/landdmap.cpp:318` | +0x0C, (0, 0, 1, 0) |
+| 1 | `UV` | `app/shared/landdmap.cpp:319` | +0x1C, (u, v, 1, 1) |
+| 1 | `Detail` | `app/shared/landdmap.cpp:320` | +0x2C, (u, v) times the detail scales |
 | 1 | `Unknown_468920` | `app/shared/landdmap.cpp:367` | untagged neutral name (D10) |
 | 1 | `Unknown_467E00` | `app/shared/landdmap.cpp:370` | untagged neutral name (D10) |
 | 1 | `Unknown_467E20` | `app/shared/landdmap.cpp:374` | untagged neutral name (D10) |

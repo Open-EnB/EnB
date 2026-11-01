@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-399 entries in 82 files.
+398 entries in 82 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -328,12 +328,11 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:2883` | `LandClass::Save_PLD` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
 | `app/shared/land.cpp:2890` | `LandClass::Save_PLD` | mention | NOT EXACT, marked; nothing calls either). |
 | `app/shared/landdmap.cpp:149` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: frame (0x466F60: 0x218, the client 0x220; 18 rows with registers masked, 68 without; the client copies X / Y spacing through stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv) |
-| `app/shared/landdmap.cpp:314` | `LandUnknown466BE0Class::Unknown_467A50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50 |
 | `app/shared/landdmap.cpp:438` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
 | `app/shared/landdmap.cpp:461` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
 | `app/shared/landdmap.cpp:497` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: frame (0x8C, the client 0x90: the client keeps X on the FPU and Y in a spare slot for the upper point instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves) and the corner picked through an if-chain on k (an inlined acc... |
 | `app/shared/landdmap.cpp:561` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
-| `app/shared/landdmap.cpp:592` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x467A50, the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
+| `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |

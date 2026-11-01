@@ -311,7 +311,15 @@ void LandUnknown466BE0Class::Unknown_467910(void)
 	}
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x467A50
+// NAME 1: unknown; the 0x34-byte vertex 0x467A50 fills (D3DX types: 0x468920 copies the position with integer moves)
+struct LandDMapVertexStruct
+{
+	D3DXVECTOR3	Position;	// +0x00
+	D3DXVECTOR4	Normal;		// NAME 1: +0x0C, (0, 0, 1, 0)
+	D3DXVECTOR4	UV;			// NAME 1: +0x1C, (u, v, 1, 1)
+	D3DXVECTOR2	Detail;		// NAME 1: +0x2C, (u, v) times the detail scales
+};
+
 void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 {
 	int size = BaseTessellationSize;
@@ -319,50 +327,42 @@ void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 	VertexCount = size * size;
 	DX8Wrapper::_Get_D3D_Device8()->CreateIndexBuffer(IndexCount * 2, D3DUSAGE_WRITEONLY | D3DUSAGE_NPATCHES | D3DUSAGE_DYNAMIC,
 		D3DFMT_INDEX16, D3DPOOL_DEFAULT, &IndexBuffer);
+	{
 	unsigned short *indices;
 	IndexBuffer->Lock(0, IndexCount * 2, (BYTE **)&indices, 0);
-	unsigned int y;
-	for (y = 1; y < (unsigned int)BaseTessellationSize; y++) {
+	for (unsigned int y = 1; y < (unsigned int)BaseTessellationSize; y++) {
 		for (unsigned int x = 1; x < (unsigned int)BaseTessellationSize; x++) {
-			unsigned short n = (unsigned short)BaseTessellationSize;
-			indices[0] = (unsigned short)((y - 1) * n + x);
-			indices[1] = (unsigned short)(y * n + x - 1);
-			indices[2] = (unsigned short)((y - 1) * n + x - 1);
-			indices[3] = (unsigned short)(y * n + x);
-			indices[4] = (unsigned short)(y * n + x - 1);
-			indices[5] = (unsigned short)((y - 1) * n + x);
-			indices += 6;
+			*indices++ = (unsigned short)((unsigned short)(y - 1) * (unsigned short)BaseTessellationSize + x);
+			*indices++ = (unsigned short)((unsigned short)y * (unsigned short)BaseTessellationSize + x - 1);
+			*indices++ = (unsigned short)((unsigned short)(y - 1) * (unsigned short)BaseTessellationSize + x - 1);
+			*indices++ = (unsigned short)((unsigned short)y * (unsigned short)BaseTessellationSize + x);
+			*indices++ = (unsigned short)((unsigned short)y * (unsigned short)BaseTessellationSize + x - 1);
+			*indices++ = (unsigned short)((unsigned short)(y - 1) * (unsigned short)BaseTessellationSize + x);
 		}
 	}
 	IndexBuffer->Unlock();
+	}
 
 	// 0x34-byte vertices, no FVF (the vertex shader's declaration: position, float4 at v3, float4 at v7, float2 at v8)
 	DX8Wrapper::_Get_D3D_Device8()->CreateVertexBuffer(VertexCount * 0x34, D3DUSAGE_WRITEONLY | D3DUSAGE_NPATCHES | D3DUSAGE_DYNAMIC,
 		0, D3DPOOL_DEFAULT, &VertexBuffer);
-	float *v;
+	{
+	LandDMapVertexStruct *v;
 	VertexBuffer->Lock(0, VertexCount * 0x34, (BYTE **)&v, 0);
 	float last = (float)(unsigned int)BaseTessellationSize - 1.0f;
-	for (y = 0; y < (unsigned int)BaseTessellationSize; y++) {
-		float fv = (float)y / last;
+	for (unsigned int y = 0; y < (unsigned int)BaseTessellationSize; y++) {
 		for (unsigned int x = 0; x < (unsigned int)BaseTessellationSize; x++) {
 			float fu = (float)x / last;
-			v[0] = fu - 0.5f;
-			v[1] = fv - 0.5f;
-			v[2] = 0.0f;
-			v[3] = 0.0f;
-			v[4] = 0.0f;
-			v[5] = 1.0f;
-			v[6] = 0.0f;
-			v[7] = fu;
-			v[8] = fv;
-			v[9] = 1.0f;
-			v[10] = 1.0f;
-			v[11] = fu * detail_u;
-			v[12] = fv * detail_v;
-			v += 13;
+			float fv = (float)y / last;
+			v->Position = D3DXVECTOR3(fu - 0.5f, fv - 0.5f, 0.0f);
+			v->Normal = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 0.0f);
+			v->UV = D3DXVECTOR4(fu, fv, 1.0f, 1.0f);
+			v->Detail = D3DXVECTOR2(fu * detail_u, fv * detail_v);
+			v++;
 		}
 	}
 	VertexBuffer->Unlock();
+	}
 	Release_Cells();
 	Unknown_468920();
 }
@@ -588,7 +588,8 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 **	array declared before the two buffers: the client stores the array first), the shader's release 0x467FD0 (inlined in
 **	the dtor), the unused generic shader maker 0x468010, the hardware check 0x4680D0 (inlined in the ctor), the cells' release
 **	0x4688F0 (inlined in the dtor, 0x467A50 and 0x468920), two empty members 0x467E00 / 0x467E20 (D99 rows) and the box
-**	around eight points 0x468BE0 (six float extremes, the centre through float locals, fabs). Functional,
-**	NOT EXACT (Matrox only, never run): 0x467A50, the draw
+**	around eight points 0x468BE0 (six float extremes, the centre through float locals, fabs), the buffers' builder
+**	0x467A50 (16-bit index products, a D3DX vertex struct, each lock pointer in its own block). Functional,
+**	NOT EXACT (Matrox only, never run): the draw
 **	0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50.
 */
