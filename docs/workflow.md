@@ -149,6 +149,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Stack slots and FPU copies (2026-10-31, TK18, landdmap 0x467A50 / 0x468920):** two address-taken Lock pointers
+  the client keeps in one slot need each lock in its own `{}` block. A Vector3 local copied from a vertex stays on the
+  FPU across a loop; copying through a POD (D3DVECTOR / D3DXVECTOR3) gives the client's integer moves. A 16-bit `imul`
+  in an index is `(unsigned short)a * (unsigned short)b + x`. tryv2.py does not keep its objects: `.work/tk18/keep.py`
+  (same spec, each variant's .obj in `.work/tk18/obj-N`) does, for objdiff (worth promoting into tools/).
 * **Float stores (2026-10-31, TK15, ui_avatar_cust 0x54E3C0):** where the client's zero stores come from an integer
   register but its other values go fld / fstp, route the non-zero values through an inline `(float &dst, float value)`
   setter (a plain assignment copies them through eax; 0.44 -> exact). A float constant loaded from rdata and negated

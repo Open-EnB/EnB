@@ -1784,8 +1784,9 @@ below name only the work items, the blocked work, the leads and the queues.
      0x838050. claims.py resolve / check should count attempts.csv `exact` (D99) rows as done (mainview's #111 was
      handed out though LD4 finished it); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names (As_Main_View,
      UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
-   * From the 2026-10-31 t4 run (TK9): landdmap 0x468920 (builds the cells; its corner if-chain on k looks like an
-     inline Get_Corner(k)), then 0x467A50; 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
+   * From the 2026-10-31 t4 run (TK9, TK18): landdmap 0x468920 (the cell builder, NOT EXACT, frame 0x8C vs 0x90 after
+     TK18's 22 forms: the client keeps X on the FPU and Y in a spare slot for the upper point, perhaps one inline
+     building both points from floats by value); 0x467A50 exact (TK18); 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
      0x466920-0x466BC0 is its own object between heightfield and landdmap (an unnamed Line3DClass subclass, member at
      +0x108, vtable 0xAE8754, no RTTI; ctor called from 0x7B99C0 / 0x7C3AC0): a new unknown_*.cpp when built.
      heightfield's Get_Height_2 / Set_Height_2 0x463CD0 / 0x463D90 are twins of 0x463C80 / 0x463D20 called from the land
