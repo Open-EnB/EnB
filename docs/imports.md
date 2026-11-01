@@ -1654,7 +1654,7 @@ Base copy: reconstructed. Headers: 261 from reconstructed.
 | client/ui_combobox.cpp | reconstructed | 5 | 2 | - | - | - |  |
 | client/ui_cpit.cpp | reconstructed | 65 | 6 | - | - | - |  |
 | client/ui_group.cpp | reconstructed | 55 | 11 | - | - | - |  |
-| client/ui_line_display.cpp | reconstructed | 55 | 9 | - | - | - |  |
+| client/ui_line_display.cpp | reconstructed | 63 | 9 | - | - | - |  |
 | client/ui_manu.cpp | reconstructed | 50 | 7 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 42 | 1 | - | - | - |  |
 | client/uiview.cpp | reconstructed | 18 | 3 | - | - | - |  |

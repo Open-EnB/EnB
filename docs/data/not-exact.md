@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-393 entries in 81 files.
+391 entries in 81 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -202,8 +202,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:1590` | `UIGroupClass::Unknown_597920` | marker | NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's) |
 | `app/client/ui_group.cpp:1749` | `UIGroupClass::Unknown_597E40` | marker | NOT EXACT: inline budget (D130: needs 13 dead reads, over the limit of 6; the client calls rtti.h's cast 0x598D80 out of line at the last two lookups) |
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
-| `app/client/ui_line_display.cpp:316` | `UILineDisplayClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it |
-| `app/client/ui_line_display.cpp:520` | `UILineDisplayClass::Show_Ephemeral` | marker | NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline |
 | `app/client/ui_manu.cpp:93` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
 | `app/client/ui_manu.cpp:221` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0) |
