@@ -179,19 +179,19 @@ PacketClass *RateConnectionClass::Receive()
 	return(packet);
 }
 
-// bytes into this second's total, after rolling each finished second into the samples
-// NOT EXACT: the client stores Index before it loads Time (ours loads Time before the idiv); the slots
-// that inline it (0x824CF0, 0x824D90, 0x824E20, 0x824F50) differ only there.
-void RateConnectionClass::Count(int bytes, AverageClass &average)
+// bytes into this second's total, after rolling each finished second into the samples (the sample
+// goes in through AverageClass's own Add: its `this` keeps VC6 from moving Current's store and the
+// Time load above the Index store, as the client; Current = 0 stays after it, Time += 1000 last:
+// either moved costs the order)
+void RateConnectionClass::Count(int bytes, RateCounterStruct &counter)
 {
 	unsigned int now = Unknown_Get_Ticks();
-	while (average.Time < now - 1000) {
-		average.Sample[average.Index] = average.Current;
-		average.Index = (average.Index + 1) % average.Count;
-		average.Current = 0;
-		average.Time += 1000;
+	while (counter.Time < now - 1000) {
+		counter.Average.Add(counter.Current);
+		counter.Current = 0;
+		counter.Time += 1000;
 	}
-	average.Current += bytes;
+	counter.Current += bytes;
 }
 
 bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, float *d, float *e, float *f, int *g)
@@ -201,8 +201,8 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 	}
 	Count(0, Out);
 	Count(0, In);
-	*out_rate = (float)Out.Get_Average();
-	*in_rate = (float)In.Get_Average();
+	*out_rate = (float)Out.Average.Get_Average();
+	*in_rate = (float)In.Average.Get_Average();
 	return(true);
 }
 
@@ -377,7 +377,7 @@ void Record_Sent(const char *name, int bytes)
 **	* The client's functions, in order: the packet log 0x823F70-0x824450 (constructor, destructors,
 **	  slots +0x04 / +0x08 / +0x0C, the two Describe overloads at +0x38 / +0x34, Get_Log_Directory),
 **	  the timed packet log 0x824540-0x824A20 (Format_Time last, a member: `ret 8`), the rate wrapper
-**	  0x824A90-0x825050 (average.h's two AverageClass: the constructor exact, the rest functional);
+**	  0x824A90-0x825050 (two RateCounterStruct, each with average.h's AverageClass of samples);
 **	  the statistics wrapper's constructor (line 298), Send_Message (line 308), Send_Packet and
 **	  Receive 0x8250B0-0x825300; its counters Record_Received 0x825390 / Record_Sent 0x8255B0 (by the
 **	  packet's printed name up to '{', in one SGI hash_map keyed by std::string, 0xBE9008, D87: its

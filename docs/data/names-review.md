@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1070 |
-| 2 | describes what the code does | 2562 |
+| 2 | describes what the code does | 2565 |
 | 1 | neutral placeholder | 7957 |
 
 ## For review (score 3 and below)
@@ -8920,10 +8920,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
 | 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
-| 2 | `Current` | `app/common/average.h:115` | what it holds |
-| 2 | `Time` | `app/common/average.h:116` | what it holds |
-| 2 | `Count` | `app/common/average.h:118` | what it holds |
-| 2 | `Index` | `app/common/average.h:119` | what it holds |
+| 2 | `Add` | `app/common/average.h:116` | what it does |
+| 2 | `Count` | `app/common/average.h:123` | what it holds |
+| 2 | `Index` | `app/common/average.h:124` | what it holds |
 | 2 | `Read` | `app/common/circbuff.h:26` | what it does |
 | 2 | `Write` | `app/common/circbuff.h:27` | what it does |
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
@@ -9019,11 +9018,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TimedLogConnectionClass` | `app/common/dbgconn.h:62` | what it does |
 | 2 | `Format_Time` | `app/common/dbgconn.h:69` | what it does |
 | 2 | `Start` | `app/common/dbgconn.h:71` | what it holds |
-| 2 | `RateConnectionClass` | `app/common/dbgconn.h:76` | what it does |
-| 2 | `Count` | `app/common/dbgconn.h:86` | what it does |
-| 2 | `In` | `app/common/dbgconn.h:88` | what it holds |
-| 2 | `Out` | `app/common/dbgconn.h:89` | what it holds |
-| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:93` | what it does (-PACKET_STATS) |
+| 2 | `RateCounterStruct` | `app/common/dbgconn.h:76` | what it holds |
+| 2 | `Current` | `app/common/dbgconn.h:80` | what it holds |
+| 2 | `Time` | `app/common/dbgconn.h:81` | what it holds |
+| 2 | `Average` | `app/common/dbgconn.h:82` | what it holds |
+| 2 | `RateConnectionClass` | `app/common/dbgconn.h:85` | what it does |
+| 2 | `Count` | `app/common/dbgconn.h:95` | what it does |
+| 2 | `In` | `app/common/dbgconn.h:97` | what it holds |
+| 2 | `Out` | `app/common/dbgconn.h:98` | what it holds |
+| 2 | `StatsConnectionClass` | `app/common/dbgconn.h:102` | what it does (-PACKET_STATS) |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |

@@ -73,6 +73,15 @@ public:
 
 // The rate wrapper (vtable 0xB08754, constructor 0x824A90, 0x34 bytes): the bytes in and out per second,
 // averaged over 4 s, for Get_Stats (client.cpp's server connections 0x727E10 / 0x727F00)
+struct RateCounterStruct	// NAME 2: what it holds
+{
+	RateCounterStruct(int count) : Average(count) {}
+
+	int Current;			// +0x00 this second's total  // NAME 2: what it holds
+	unsigned int Time;		// +0x04 the start of this second (Unknown_Get_Ticks)  // NAME 2: what it holds
+	AverageClass Average;	// +0x08  // NAME 2: what it holds
+};
+
 class RateConnectionClass : public ForwardingConnectionClass	// NAME 2: what it does
 {
 public:
@@ -83,10 +92,10 @@ public:
 	virtual PacketClass *Receive();										// +0x0C 0x824E20
 	virtual bool Get_Stats(float *out_rate, float *in_rate, float *c, float *d, float *e, float *f, int *g);	// +0x2C 0x824F50: the averages when the connection has none
 
-	void Count(int bytes, AverageClass &average);						// 0x824EC0 (inlined in the slots)  // NAME 2: what it does
+	void Count(int bytes, RateCounterStruct &counter);					// 0x824EC0 (inlined in the slots)  // NAME 2: what it does
 
-	AverageClass In;	// +0x0C  // NAME 2: what it holds
-	AverageClass Out;	// +0x20  // NAME 2: what it holds
+	RateCounterStruct In;	// +0x0C  // NAME 2: what it holds
+	RateCounterStruct Out;	// +0x20  // NAME 2: what it holds
 };
 
 // The statistics wrapper (vtable 0xB08794, constructor 0x8250B0, 0x0C bytes): with -PACKET_STATS
