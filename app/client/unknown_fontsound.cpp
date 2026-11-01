@@ -35,7 +35,7 @@ void Unknown_6BCFB0Class::Clear(void)
 void Unknown_6BCFB0Class::Play(StringClass name, float volume, float seconds)
 {
 	if (strlen(name) != 0) {
-		FontSoundStruct * sound = new FontSoundStruct;
+		PlayingSoundStruct * sound = new PlayingSoundStruct;
 		if (sound != NULL) {
 			sound->Sound = WWAudioClass::Get_Instance()->Create_Sound_Effect(name);
 			if (sound->Sound != NULL) {
@@ -61,7 +61,7 @@ void Unknown_6BCFB0Class::Play(StringClass name, float volume, float seconds)
 void Unknown_6BCFB0Class::Update(void)
 {
 	for (int index = Sounds.Count() - 1; index >= 0; index--) {
-		FontSoundStruct * sound = Sounds[index];
+		PlayingSoundStruct * sound = Sounds[index];
 		if (sound != NULL) {
 			unsigned long now = timeGetTime();
 			int elapsed = now - sound->Time;
@@ -76,7 +76,7 @@ void Unknown_6BCFB0Class::Update(void)
 	}
 }
 
-void Unknown_6BCFB0Class::Remove(FontSoundStruct * sound)
+void Unknown_6BCFB0Class::Remove(PlayingSoundStruct * sound)
 {
 	if (sound != NULL) {
 		if (sound->Sound != NULL) {
@@ -94,6 +94,6 @@ void Unknown_6BCFB0Class::Remove(FontSoundStruct * sound)
 **
 **	The client's object 0x6BCFB0-0x6BDA3F between font32bit.cpp (asserts up to 0x6BCDE0, its inline members to
 **	0x6BCFA0) and fontdatabase.cpp (0x6BDA40); no __FILE__, so the file name is provisional (FNT1). The
-**	members, then DynamicVectorClass<FontSoundStruct *> / VectorClass<FontSoundStruct *>'s instances
+**	members, then DynamicVectorClass<PlayingSoundStruct *> / VectorClass<PlayingSoundStruct *>'s instances
 **	0x6BD5F0-0x6BD9E0 (vtables 0xAFEA18 / 0xAFEA34) and the <string> guard 0x6BDA10.
 */

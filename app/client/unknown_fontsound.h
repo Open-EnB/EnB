@@ -11,7 +11,7 @@ class AudibleSoundClass;
 /*
 **	One playing sound (new'd, 0x10 bytes).
 */
-struct FontSoundStruct																// NAME 2 [FontSoundStruct]: a FontSys sound and its time left
+struct PlayingSoundStruct															// NAME 2 [PlayingSoundStruct]: a FontSys sound and its time left (fontdatabase.h's FontSoundStruct is the ini entry: ID / Vol / Dur, Play's arguments)
 {
 	int Unknown00;																	// never written
 	AudibleSoundClass * Sound;														// NAME 2: WWAudioClass::Create_Sound_Effect's result
@@ -31,10 +31,10 @@ class Unknown_6BCFB0Class															// NAME 1 [Unknown_6BCFB0Class]: neutral
 		void Clear(void);															// NAME 2 [Clear]: 0x6BD190, no caller
 		void Play(StringClass name, float volume, float seconds);					// NAME 2 [Play]: 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0)
 		void Update(void);															// NAME 2 [Update]: 0x6BD420 (FontSys 0x6D64C0)
-		void Remove(FontSoundStruct * sound);										// NAME 2 [Remove]: 0x6BD530, no caller
+		void Remove(PlayingSoundStruct * sound);										// NAME 2 [Remove]: 0x6BD530, no caller
 
 	protected:
-		DynamicVectorClass<FontSoundStruct *> Sounds;								// NAME 2 [Sounds]
+		DynamicVectorClass<PlayingSoundStruct *> Sounds;								// NAME 2 [Sounds]
 };
 
 #endif

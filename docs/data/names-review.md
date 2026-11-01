@@ -10512,7 +10512,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
 | 2 | `Make_Folder` | `app/client/unknown_creator.h:55` | what it does |
-| 2 | `FontSoundStruct` | `app/client/unknown_fontsound.h:14` | a FontSys sound and its time left |
+| 2 | `PlayingSoundStruct` | `app/client/unknown_fontsound.h:14` | a FontSys sound and its time left (fontdatabase.h's FontSoundStruct is the ini entry: ID / Vol / Dur, Play's arguments) |
 | 2 | `Sound` | `app/client/unknown_fontsound.h:17` | WWAudioClass::Create_Sound_Effect's result |
 | 2 | `Duration` | `app/client/unknown_fontsound.h:18` | milliseconds left (60000 or more: no limit) |
 | 2 | `Time` | `app/client/unknown_fontsound.h:19` | timeGetTime of the last update |
