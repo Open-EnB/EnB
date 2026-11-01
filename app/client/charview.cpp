@@ -183,7 +183,7 @@ CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 		}
 	}
 	for (i = 0; i < 10; i++) {
-		Unknown400[i].Set(0.5f, 0.5f, 0.5f, 0.5f);
+		Unknown400[i][0].Set(0.5f, 0.5f); Unknown400[i][1].Set(0.5f, 0.5f);
 	}
 	for (i = 0; i < 2; i++) {
 		Unknown4A0[i].Set(0.5f, 0.5f);
@@ -886,6 +886,30 @@ bool CharacterViewClass::Unknown_67B2B0()
 
 
 
+// 0x67B750
+void CharacterViewClass::Unknown_67B750()
+{
+	for (int i = 0; i < 2; i++) {
+		if (Unknown3A8[i]) {
+			Unknown3A8[i]->Remove();
+			Unknown3A8[i]->Release_Ref();
+			Unknown3A8[i] = NULL;
+		}
+	}
+}
+
+// 0x67BB90
+void CharacterViewClass::Unknown_67BB90()
+{
+	for (int i = 0; i < 2; i++) {
+		if (Unknown3B0[i]) {
+			Unknown3B0[i]->Remove();
+			Unknown3B0[i]->Release_Ref();
+			Unknown3B0[i] = NULL;
+		}
+	}
+}
+
 // 0x67BBE0
 void CharacterViewClass::Unknown_67BBE0()
 {
@@ -949,6 +973,54 @@ void CharacterViewClass::Unknown_67AF70(float time)
 }
 
 
+// 0x67B320
+void CharacterViewClass::Unknown_67B320()
+{
+	for (int i = 0; i < 2; i++) {
+		if (Unknown1A4[i]) {
+			if (ViewRObjs[4]) {
+				ViewRObjs[4]->Remove_Sub_Object(Unknown1A4[i]);
+			}
+			Unknown1A4[i]->Unknown_788EF0();
+			Unknown1A4[i]->Release_Ref();
+			Unknown1A4[i] = NULL;
+		}
+	}
+}
+
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67B390
+void CharacterViewClass::Unknown_67B390(int race, int profession)
+{
+	const char *bones[2] = { "male", "female" };
+	if (ViewRObjs[4]) {
+		int i;
+		for (i = 0; i < 2; i++) {
+			if (Unknown1A4[i]) {
+				if (ViewRObjs[4]) {
+					ViewRObjs[4]->Remove_Sub_Object(Unknown1A4[i]);
+				}
+				Unknown1A4[i]->Unknown_788EF0();
+				Unknown1A4[i]->Release_Ref();
+				Unknown1A4[i] = NULL;
+			}
+		}
+		for (i = 0; i < 2; i++) {
+			Unknown1A4[i] = Unknown3B8[race][profession][i];
+			Unknown1A4[i]->Add_Ref();
+			if (Unknown1A4[i]) {
+				ViewRObjs[4]->Add_Sub_Object_To_Bone(Unknown1A4[i], bones[i]);
+				Unknown1A4[i]->Unknown_77E3D0(1);
+				Unknown1A4[i]->Unknown_7896B0(4);
+				Unknown1A4[i]->Unknown231 = false;
+				Unknown1A4[i]->Unknown214 = true;
+				Unknown1A4[i]->Unknown232 = true;
+			}
+		}
+	}
+}
+
+
 // 0x67B4F0
 void CharacterViewClass::Unknown_67B4F0(bool on)
 {
@@ -967,6 +1039,277 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 	if (now) {
 		Unknown4C8 = Unknown_BE6018[index];
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#define MAX_OFFSET 10	// the offset pairs at +0x400 (0x67C200 / 0x67C270)  // NAME 3 [MAX_OFFSET]: the FAIL_IFs'
+
+// 0x67C200
+void CharacterViewClass::Unknown_67C200(Vector2 *offsets, int size, int which)
+{
+	FAIL_IF(size > MAX_OFFSET) return;
+	for (int i = 0; i < size; i++) {
+		offsets[i] = Unknown400[i][which];
+	}
+}
+
+
+
+// 0x67C270
+void CharacterViewClass::Unknown_67C270(const Vector2 *offsets, int size, int which)
+{
+	FAIL_IF(size > MAX_OFFSET) return;
+	for (int i = 0; i < size; i++) {
+		Unknown400[i][which] = offsets[i];
+	}
+}
+
+// 0x67C2E0
+void CharacterViewClass::Unknown_67C2E0(Vector2 *out, int index)
+{
+	*out = Unknown4A0[index];
+}
+
+// 0x67C310
+void CharacterViewClass::Unknown_67C310(const Vector2 *in, int index)
+{
+	Unknown4A0[index] = *in;
+}
+
+// 0x67C340
+void CharacterViewClass::Unknown_67C340(Vector3 *out, int index)
+{
+	*out = Unknown4B0[index];
+}
+
+// 0x67C380
+void CharacterViewClass::Unknown_67C380(const Vector3 *in, int index)
+{
+	Unknown4B0[index] = *in;
 }
 
 // 0x67BEB0

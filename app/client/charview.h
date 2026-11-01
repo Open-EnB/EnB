@@ -53,6 +53,7 @@ public:
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
+	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
 	char Unknown_Pad[0x214 - sizeof(RenderObjClass)];
 	bool Unknown214;									// +0x214 (0x67A440 sets it)
 	char Unknown215[0x220 - 0x215];
@@ -131,6 +132,16 @@ public:
 	void Unknown_67B120();								// 0x67B120 (the narrator's idle; inlined in the frame)
 	void Unknown_67B1A0(const char *name);				// 0x67B1A0 (the music: the old one stopped, name looped)  // NAME 1 [name]: what Play_2D_Sound gets
 	void Unknown_67B220();								// 0x67B220 (the music stopped)
+	void Unknown_67B320();								// 0x67B320 (the two avatars of +0x1A4 off the platform and released)
+	void Unknown_67B390(int race, int profession);		// 0x67B390 (the cached male and female avatars of +0x3B8 onto the platform)  // NAME 1 [race, profession]: the cache's indices
+	void Unknown_67B750();								// 0x67B750 (the lights of +0x3A8 released)
+	void Unknown_67BB90();								// 0x67BB90 (the lights of +0x3B0 released)
+	void Unknown_67C200(Vector2 *offsets, int size, int which);	// 0x67C200 (FAIL_IF 'size > MAX_OFFSET': +0x400's offsets out)  // NAME 3 [size]: the FAIL_IF's; NAME 1 [offsets, which]: neutral
+	void Unknown_67C270(const Vector2 *offsets, int size, int which);	// 0x67C270 (FAIL_IF 'size > MAX_OFFSET': +0x400's offsets in)  // NAME 3 [size]: the FAIL_IF's; NAME 1 [offsets, which]: neutral
+	void Unknown_67C2E0(Vector2 *out, int index);		// 0x67C2E0 (+0x4A0)  // NAME 1 [out, index]: neutral
+	void Unknown_67C310(const Vector2 *in, int index);	// 0x67C310 (+0x4A0)  // NAME 1 [in, index]: neutral
+	void Unknown_67C340(Vector3 *out, int index);		// 0x67C340 (+0x4B0)  // NAME 1 [out, index]: neutral
+	void Unknown_67C380(const Vector3 *in, int index);	// 0x67C380 (+0x4B0)  // NAME 1 [in, index]: neutral
 	void Unknown_67B270();								// 0x67B270 ('Are you sure you want to quit?')
 	bool Unknown_67B2B0();								// 0x67B2B0 (the quit box answered: yes kills the kernel, no returns true)
 	void Unknown_67A6C0();								// 0x67A6C0 (the G_ASSERT 'NarratorRObj': the narrator made, walking on)
@@ -183,7 +194,7 @@ public:
 	RenderObjClass *Unknown3A8[2];						// +0x3A8 (removed with the model of type 1 or 2)
 	LightClass *Unknown3B0[2];							// +0x3B0 the two lights of the model of type 4 (0x67BBE0)
 	CharacterViewAvatarClass *Unknown3B8[3][3][2];		// +0x3B8 an avatar for each race, profession and gender (0x67BF20, avatar.cpp's 0x77B870)
-	Vector4 Unknown400[10];								// +0x400 (0.5 each)
+	Vector2 Unknown400[10][2];							// +0x400 ten pairs of texture offsets (0.5 each; 0x67C200 / 0x67C270 by the pair's index)
 	Vector2 Unknown4A0[2];								// +0x4A0 (0.5, 0.5)
 	Vector3 Unknown4B0[2];								// +0x4B0 (0.5, 0.5, 1)
 	Vector3 Unknown4C8;									// +0x4C8 (Unknown_04: the colour at 0xBE6018)

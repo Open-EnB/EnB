@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-446 entries in 100 files.
+447 entries in 100 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -23,7 +23,8 @@ edit the comments in the code, not this file.
 | `app/client/charview.cpp:360` | `CharacterViewClass::Unknown_0C` | marker | NOT EXACT: inline budget (the client calls Vector4's constructor 0x468E70 through ??_H and Matrix3D::Rotate_Y / Rotate_Z out of line; its Rotate_X keeps the old row values on the FPU stack), 0.40 0x679930 |
 | `app/client/charview.cpp:536` | `CharacterViewClass::Unknown_67A440` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x67A440 |
 | `app/client/charview.cpp:580` | `CharacterViewClass::Unknown_67A6C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x67A6C0 |
-| `app/client/charview.cpp:998` | `CharacterViewClass::Unknown_67CBD0` | marker | NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38 0x67CBD0 |
+| `app/client/charview.cpp:991` | `CharacterViewClass::Unknown_67B390` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x67B390 |
+| `app/client/charview.cpp:1341` | `CharacterViewClass::Unknown_67CBD0` | marker | NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38 0x67CBD0 |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:105` | `ClientClass::Find_Object` | marker | NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070) 0x727070 |
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |

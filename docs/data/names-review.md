@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1126 |
+| 3 | by convention from a client-named file or sibling | 1129 |
 | 2 | describes what the code does | 2823 |
-| 1 | neutral placeholder | 9973 |
+| 1 | neutral placeholder | 10001 |
 
 ## For review (score 3 and below)
 
@@ -218,10 +218,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67B2B0` | `app/client/charview.cpp:871` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/charview.cpp:874` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/charview.cpp:877` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:927` | untagged neutral name (D10) |
-| 1 | `Unknown_67B4F0` | `app/client/charview.cpp:953` | untagged neutral name (D10) |
-| 1 | `Unknown_67C440` | `app/client/charview.cpp:964` | untagged neutral name (D10) |
-| 1 | `Unknown_67C7B0` | `app/client/charview.cpp:990` | untagged neutral name (D10) |
+| 1 | `Unknown_67B750` | `app/client/charview.cpp:890` | untagged neutral name (D10) |
+| 1 | `Unknown_67BB90` | `app/client/charview.cpp:902` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:951` | untagged neutral name (D10) |
+| 1 | `Unknown_67B320` | `app/client/charview.cpp:977` | untagged neutral name (D10) |
+| 1 | `Unknown_67B390` | `app/client/charview.cpp:993` | untagged neutral name (D10) |
+| 1 | `Unknown_7896B0` | `app/client/charview.cpp:1014` | untagged neutral name (D10) |
+| 1 | `Unknown_67B4F0` | `app/client/charview.cpp:1025` | untagged neutral name (D10) |
+| 1 | `Unknown_67C440` | `app/client/charview.cpp:1036` | untagged neutral name (D10) |
+| 1 | `Unknown_67C200` | `app/client/charview.cpp:1272` | untagged neutral name (D10) |
+| 1 | `Unknown_67C270` | `app/client/charview.cpp:1283` | untagged neutral name (D10) |
+| 1 | `Unknown_67C2E0` | `app/client/charview.cpp:1292` | untagged neutral name (D10) |
+| 1 | `Unknown_67C310` | `app/client/charview.cpp:1298` | untagged neutral name (D10) |
+| 1 | `Unknown_67C340` | `app/client/charview.cpp:1304` | untagged neutral name (D10) |
+| 1 | `Unknown_67C380` | `app/client/charview.cpp:1310` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/charview.cpp:1333` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1338Class` | `app/client/charview.h:38` | untagged neutral name (D10) |
 | 1 | `CharacterViewAvatarClass` | `app/client/charview.h:42` | neutral (D10) |
 | 1 | `desc, a, b, env_maps` | `app/client/charview.h:45` | what the callers pass |
@@ -237,120 +248,137 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_786370` | `app/client/charview.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown_7863E0` | `app/client/charview.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown_788EF0` | `app/client/charview.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/charview.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown214` | `app/client/charview.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown215` | `app/client/charview.h:58` | untagged neutral name (D10) |
-| 1 | `Is_Unknown220` | `app/client/charview.h:59` | neutral (D10) |
-| 1 | `Unknown220` | `app/client/charview.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown221` | `app/client/charview.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown231` | `app/client/charview.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown232` | `app/client/charview.h:63` | untagged neutral name (D10) |
-| 1 | `CharacterViewModeType` | `app/client/charview.h:68` | neutral (D10); NAME 3 [CHARACTER_POPUP_MESSAGE, CHARACTER_LASTVIEWMODE]: the FAIL_IF's |
-| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.h:75` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/charview.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown0D` | `app/client/charview.h:77` | untagged neutral name (D10) |
-| 1 | `Frame` | `app/client/charview.h:79` | what it holds |
-| 1 | `Mode` | `app/client/charview.h:80` | Set_Animation's mode |
-| 1 | `x510` | `app/client/charview.h:85` | neutral (D10) |
-| 1 | `CharacterViewSoundClass` | `app/client/charview.h:86` | neutral (D10) |
-| 1 | `Sound` | `app/client/charview.h:91` | neutral |
-| 1 | `CharacterViewClass` | `app/client/charview.h:94` | the task's member CharacterView (tsk_login.cpp's FAIL_IFs '!CharacterView') |
-| 1 | `Unknown_04` | `app/client/charview.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/charview.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/charview.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/charview.h:102` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/charview.h:103` | what it selects |
-| 1 | `Unknown_18` | `app/client/charview.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/charview.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/charview.h:105` | untagged neutral name (D10) |
-| 1 | `Get_Unknown034` | `app/client/charview.h:108` | neutral (D10) |
-| 1 | `ViewUnknown34Class` | `app/client/charview.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/charview.h:108` | untagged neutral name (D10) |
-| 1 | `Get_Unknown198` | `app/client/charview.h:109` | neutral (D10) |
-| 1 | `Get_Unknown1B0` | `app/client/charview.h:110` | neutral (D10) |
-| 1 | `Unknown1B0` | `app/client/charview.h:110` | untagged neutral name (D10) |
-| 1 | `Peek_Model` | `app/client/charview.h:111` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `Unknown_67A250` | `app/client/charview.h:112` | untagged neutral name (D10) |
-| 1 | `position, rotation, fov` | `app/client/charview.h:113` | what it stores |
-| 1 | `Unknown_67A290` | `app/client/charview.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_67A300` | `app/client/charview.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown_67A370` | `app/client/charview.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_67A3F0` | `app/client/charview.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown_67AB20` | `app/client/charview.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown_67BBE0` | `app/client/charview.h:118` | untagged neutral name (D10) |
-| 1 | `desc, copy` | `app/client/charview.h:119` | what it does with them |
-| 1 | `Unknown_67A440` | `app/client/charview.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_67A670` | `app/client/charview.h:120` | untagged neutral name (D10) |
-| 1 | `off` | `app/client/charview.h:121` | what it selects |
-| 1 | `Unknown_67A8D0` | `app/client/charview.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown_67A960` | `app/client/charview.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown_67ACE0` | `app/client/charview.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown_67AD30` | `app/client/charview.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_67ADD0` | `app/client/charview.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown_67AE20` | `app/client/charview.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown_67AE60` | `app/client/charview.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown_67AEA0` | `app/client/charview.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown_67AED0` | `app/client/charview.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_67B090` | `app/client/charview.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_67B120` | `app/client/charview.h:131` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/charview.h:132` | what Play_2D_Sound gets |
-| 1 | `Unknown_67B1A0` | `app/client/charview.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown_67B220` | `app/client/charview.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/charview.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/charview.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_67A6C0` | `app/client/charview.h:136` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/charview.h:137` | what it selects |
-| 1 | `Unknown_67B4F0` | `app/client/charview.h:137` | untagged neutral name (D10) |
-| 1 | `index, now` | `app/client/charview.h:138` | what they select |
-| 1 | `Unknown_67C440` | `app/client/charview.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown_67C7B0` | `app/client/charview.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown_67A9B0` | `app/client/charview.h:140` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/charview.h:141` | what the frame passes |
-| 1 | `Unknown_67AF70` | `app/client/charview.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_67BEB0` | `app/client/charview.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_67BF20` | `app/client/charview.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown_67C530` | `app/client/charview.h:144` | untagged neutral name (D10) |
-| 1 | `Unknown_67CBD0` | `app/client/charview.h:145` | untagged neutral name (D10) |
-| 1 | `Unknown04C` | `app/client/charview.h:148` | untagged neutral name (D10) |
-| 1 | `Unknown058` | `app/client/charview.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown064` | `app/client/charview.h:150` | untagged neutral name (D10) |
-| 1 | `Unknown068` | `app/client/charview.h:151` | untagged neutral name (D10) |
-| 1 | `Unknown06C` | `app/client/charview.h:152` | untagged neutral name (D10) |
-| 1 | `Unknown070` | `app/client/charview.h:153` | untagged neutral name (D10) |
-| 1 | `Unknown074` | `app/client/charview.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown078` | `app/client/charview.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/charview.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown080` | `app/client/charview.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/charview.h:158` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/charview.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown19C` | `app/client/charview.h:162` | untagged neutral name (D10) |
-| 1 | `Unknown19D` | `app/client/charview.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown19E` | `app/client/charview.h:164` | untagged neutral name (D10) |
-| 1 | `Unknown1A0` | `app/client/charview.h:165` | untagged neutral name (D10) |
-| 1 | `Unknown1A4` | `app/client/charview.h:166` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/charview.h:169` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/charview.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/charview.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown224` | `app/client/charview.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown228` | `app/client/charview.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown22C` | `app/client/charview.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown230` | `app/client/charview.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown234` | `app/client/charview.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown238` | `app/client/charview.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown23C` | `app/client/charview.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown240` | `app/client/charview.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown244` | `app/client/charview.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown3A4` | `app/client/charview.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown3A8` | `app/client/charview.h:183` | untagged neutral name (D10) |
-| 1 | `Unknown3B0` | `app/client/charview.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown3B8` | `app/client/charview.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown400` | `app/client/charview.h:186` | untagged neutral name (D10) |
-| 1 | `Unknown4A0` | `app/client/charview.h:187` | untagged neutral name (D10) |
-| 1 | `Unknown4B0` | `app/client/charview.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown4C8` | `app/client/charview.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown4D4` | `app/client/charview.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown4E0` | `app/client/charview.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown510` | `app/client/charview.h:192` | untagged neutral name (D10) |
+| 1 | `a` | `app/client/charview.h:56` | neutral |
+| 1 | `Unknown_7896B0` | `app/client/charview.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/charview.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown214` | `app/client/charview.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown215` | `app/client/charview.h:59` | untagged neutral name (D10) |
+| 1 | `Is_Unknown220` | `app/client/charview.h:60` | neutral (D10) |
+| 1 | `Unknown220` | `app/client/charview.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown221` | `app/client/charview.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown231` | `app/client/charview.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown232` | `app/client/charview.h:64` | untagged neutral name (D10) |
+| 1 | `CharacterViewModeType` | `app/client/charview.h:69` | neutral (D10); NAME 3 [CHARACTER_POPUP_MESSAGE, CHARACTER_LASTVIEWMODE]: the FAIL_IF's |
+| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.h:76` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/charview.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/charview.h:78` | untagged neutral name (D10) |
+| 1 | `Frame` | `app/client/charview.h:80` | what it holds |
+| 1 | `Mode` | `app/client/charview.h:81` | Set_Animation's mode |
+| 1 | `x510` | `app/client/charview.h:86` | neutral (D10) |
+| 1 | `CharacterViewSoundClass` | `app/client/charview.h:87` | neutral (D10) |
+| 1 | `Sound` | `app/client/charview.h:92` | neutral |
+| 1 | `CharacterViewClass` | `app/client/charview.h:95` | the task's member CharacterView (tsk_login.cpp's FAIL_IFs '!CharacterView') |
+| 1 | `Unknown_04` | `app/client/charview.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/charview.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/charview.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/charview.h:103` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/charview.h:104` | what it selects |
+| 1 | `Unknown_18` | `app/client/charview.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/charview.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/charview.h:106` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/charview.h:109` | neutral (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/charview.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/charview.h:109` | untagged neutral name (D10) |
+| 1 | `Get_Unknown198` | `app/client/charview.h:110` | neutral (D10) |
+| 1 | `Get_Unknown1B0` | `app/client/charview.h:111` | neutral (D10) |
+| 1 | `Unknown1B0` | `app/client/charview.h:111` | untagged neutral name (D10) |
+| 1 | `Peek_Model` | `app/client/charview.h:112` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Unknown_67A250` | `app/client/charview.h:113` | untagged neutral name (D10) |
+| 1 | `position, rotation, fov` | `app/client/charview.h:114` | what it stores |
+| 1 | `Unknown_67A290` | `app/client/charview.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_67A300` | `app/client/charview.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_67A370` | `app/client/charview.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_67A3F0` | `app/client/charview.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/charview.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown_67BBE0` | `app/client/charview.h:119` | untagged neutral name (D10) |
+| 1 | `desc, copy` | `app/client/charview.h:120` | what it does with them |
+| 1 | `Unknown_67A440` | `app/client/charview.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/charview.h:121` | untagged neutral name (D10) |
+| 1 | `off` | `app/client/charview.h:122` | what it selects |
+| 1 | `Unknown_67A8D0` | `app/client/charview.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_67A960` | `app/client/charview.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_67ACE0` | `app/client/charview.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `app/client/charview.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_67ADD0` | `app/client/charview.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `app/client/charview.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/charview.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/charview.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown_67AED0` | `app/client/charview.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_67B090` | `app/client/charview.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown_67B120` | `app/client/charview.h:132` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/charview.h:133` | what Play_2D_Sound gets |
+| 1 | `Unknown_67B1A0` | `app/client/charview.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown_67B220` | `app/client/charview.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown_67B320` | `app/client/charview.h:135` | untagged neutral name (D10) |
+| 1 | `race, profession` | `app/client/charview.h:136` | the cache's indices |
+| 1 | `Unknown_67B390` | `app/client/charview.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown_67B750` | `app/client/charview.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown_67BB90` | `app/client/charview.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown_67C200` | `app/client/charview.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown_67C270` | `app/client/charview.h:140` | untagged neutral name (D10) |
+| 1 | `out, index` | `app/client/charview.h:141` | neutral |
+| 1 | `Unknown_67C2E0` | `app/client/charview.h:141` | untagged neutral name (D10) |
+| 1 | `in, index` | `app/client/charview.h:142` | neutral |
+| 1 | `Unknown_67C310` | `app/client/charview.h:142` | untagged neutral name (D10) |
+| 1 | `out, index` | `app/client/charview.h:143` | neutral |
+| 1 | `Unknown_67C340` | `app/client/charview.h:143` | untagged neutral name (D10) |
+| 1 | `in, index` | `app/client/charview.h:144` | neutral |
+| 1 | `Unknown_67C380` | `app/client/charview.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/charview.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/charview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/charview.h:147` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/charview.h:148` | what it selects |
+| 1 | `Unknown_67B4F0` | `app/client/charview.h:148` | untagged neutral name (D10) |
+| 1 | `index, now` | `app/client/charview.h:149` | what they select |
+| 1 | `Unknown_67C440` | `app/client/charview.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/charview.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/charview.h:151` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/charview.h:152` | what the frame passes |
+| 1 | `Unknown_67AF70` | `app/client/charview.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_67BEB0` | `app/client/charview.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown_67BF20` | `app/client/charview.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown_67C530` | `app/client/charview.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown_67CBD0` | `app/client/charview.h:156` | untagged neutral name (D10) |
+| 1 | `Unknown04C` | `app/client/charview.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown058` | `app/client/charview.h:160` | untagged neutral name (D10) |
+| 1 | `Unknown064` | `app/client/charview.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown068` | `app/client/charview.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown06C` | `app/client/charview.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown070` | `app/client/charview.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown074` | `app/client/charview.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown078` | `app/client/charview.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/charview.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown080` | `app/client/charview.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/charview.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/charview.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown19C` | `app/client/charview.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown19D` | `app/client/charview.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown19E` | `app/client/charview.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown1A0` | `app/client/charview.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown1A4` | `app/client/charview.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/charview.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/charview.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/charview.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/charview.h:184` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/charview.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown22C` | `app/client/charview.h:186` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/charview.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown234` | `app/client/charview.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/charview.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown23C` | `app/client/charview.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/charview.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/charview.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/charview.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown3A8` | `app/client/charview.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown3B0` | `app/client/charview.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown3B8` | `app/client/charview.h:196` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/client/charview.h:197` | untagged neutral name (D10) |
+| 1 | `Unknown4A0` | `app/client/charview.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown4B0` | `app/client/charview.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown4C8` | `app/client/charview.h:200` | untagged neutral name (D10) |
+| 1 | `Unknown4D4` | `app/client/charview.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/charview.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown510` | `app/client/charview.h:203` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/client/client.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/client.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/client.cpp:27` | untagged neutral name (D10) |
@@ -10067,19 +10095,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UseCount` | `app/client/cfaction_database.h:40` | describes what it does |
 | 2 | `Load` | `app/client/charview.cpp:67` | what it does |
 | 2 | `INI` | `app/client/charview.cpp:71` | what it is |
-| 2 | `Anim` | `app/client/charview.h:78` | what it holds |
-| 2 | `mode` | `app/client/charview.h:97` | the FAIL_IF's 'mode' |
-| 2 | `mode` | `app/client/charview.h:115` | the FAIL_IF's |
-| 2 | `type` | `app/client/charview.h:117` | the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A') |
-| 2 | `type` | `app/client/charview.h:123` | as 0x67AB20's |
-| 2 | `type` | `app/client/charview.h:124` | as 0x67AB20's; NAME 1 [name]: what ui_login.cpp passes |
-| 2 | `type` | `app/client/charview.h:125` | as 0x67AB20's |
+| 2 | `Anim` | `app/client/charview.h:79` | what it holds |
+| 2 | `mode` | `app/client/charview.h:98` | the FAIL_IF's 'mode' |
+| 2 | `mode` | `app/client/charview.h:116` | the FAIL_IF's |
+| 2 | `type` | `app/client/charview.h:118` | the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A') |
+| 2 | `type` | `app/client/charview.h:124` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:125` | as 0x67AB20's; NAME 1 [name]: what ui_login.cpp passes |
 | 2 | `type` | `app/client/charview.h:126` | as 0x67AB20's |
 | 2 | `type` | `app/client/charview.h:127` | as 0x67AB20's |
 | 2 | `type` | `app/client/charview.h:128` | as 0x67AB20's |
-| 2 | `type` | `app/client/charview.h:129` | as 0x67AB20's; NAME 1 [first]: what it selects |
-| 2 | `type` | `app/client/charview.h:140` | 0x67AB20's G_ASSERT 'ViewRObjs[type]' |
-| 2 | `Mode` | `app/client/charview.h:167` | the FAIL_IF's |
+| 2 | `type` | `app/client/charview.h:129` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:130` | as 0x67AB20's; NAME 1 [first]: what it selects |
+| 2 | `type` | `app/client/charview.h:151` | 0x67AB20's G_ASSERT 'ViewRObjs[type]' |
+| 2 | `Mode` | `app/client/charview.h:178` | the FAIL_IF's |
 | 2 | `Node` | `app/client/client.h:51` | what it is |
 | 2 | `ID` | `app/client/client.h:53` | what it is |
 | 2 | `Node` | `app/client/client.h:64` | what it is |
@@ -12833,10 +12861,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
+| 3 | `MAX_OFFSET` | `app/client/charview.cpp:1269` | the FAIL_IFs' |
 | 3 | `charview.h` | `app/client/charview.h:17` | the header of charview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\charview.cpp') |
-| 3 | `AvatarRObj` | `app/client/charview.h:160` | the assert's |
-| 3 | `NarratorRObj` | `app/client/charview.h:161` | the assert's |
-| 3 | `ViewRObjs` | `app/client/charview.h:170` | the assert's |
+| 3 | `size` | `app/client/charview.h:139` | the FAIL_IF's; NAME 1 [offsets, which]: neutral |
+| 3 | `size` | `app/client/charview.h:140` | the FAIL_IF's; NAME 1 [offsets, which]: neutral |
+| 3 | `AvatarRObj` | `app/client/charview.h:171` | the assert's |
+| 3 | `NarratorRObj` | `app/client/charview.h:172` | the assert's |
+| 3 | `ViewRObjs` | `app/client/charview.h:181` | the assert's |
 | 3 | `client.h` | `app/client/client.h:20` | header name assumed from the client's client.cpp |
 | 3 | `EffectObjectClass` | `app/client/client.h:42` | class-from-file (D24) for eff_o.cpp |
 | 3 | `Get_Item_Type` | `app/client/client.h:78` | the assert's |
