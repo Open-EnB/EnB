@@ -1,26 +1,74 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_avatar_cust.cpp. Notes at the end of the file.
 #include "sclient.h"
+#include "sbaseview.h"
 #include "..\shared\auxdata\auxdata.h"
+#include "..\shared\auxdata\delta_template.h"
+#include "..\shared\money.h"
+#include "..\packets\pkrecustomize.h"
+#include "..\packets\pkstarbasetow.h"
 #include "ww3d.h"
 #include "rendobj.h"
 #include "matrix3d.h"
+#include "texture.h"
 #include "..\..\wwlib\ref_ptr.h"
 
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(bool on);					// +0x40 (shown; 0x551B20 passes its argument to every gadget)  // NAME 1 [on]: neutral
+
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
 
-	char Unknown00[0x2C];								// +0x00
+	char Unknown04[0x2C - 0x04];						// +0x04
 	unsigned int Unknown2CLow : 11;						// +0x2C
 	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x550670 sets it with 0x6603A0, clears it with 0x6607D0)
 	RenderObjClass *Unknown30;							// +0x30 (0x550A10 hands it to 0x497300)
 	void Unknown_6608F0();								// 0x6608F0 (0x550A10, after the model's turn)
 };
 
+// The client at InterfaceClass +0x40, as this file calls it
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+};
+
+// An object whose first member is a gadget (the window's +0x308 / +0x31C, as far as 0x551B20 reads them)
+struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
+{
+	GadgetClass *Unknown00;								// +0x00
+};
+
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
+void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
+
+// The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
+class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (0x5513E0: the name, 0, 0, 1)  // NAME 2: what it does (the asset manager's slot)
+};
+extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+
+// fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
+class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
+class UIAvatarCustFontManagerClass { public: FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+extern UIAvatarCustFontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+
+// money.cpp's comparisons (cdecl, not rebuilt)
+bool operator==(const MoneyClass &a, const MoneyClass &b);	// 0x4F0600  // NAME 1 [a, b]: neutral
+bool operator>=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0740  // NAME 1 [a, b]: neutral
 
 // The window's parts: the mesh's bone and its buy button (0xB7A3xx-0xB7A460, as far as 0x550A10 reads it)
 struct UIAvatarCustPartStruct	// NAME 1: neutral (D10)
@@ -40,118 +88,131 @@ class UIAvatarCustAvatarClass	// NAME 1: neutral (D10)
 public:
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
 	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (0x550970 passes the client's Unknown1338)  // NAME 1 [unknown]: neutral
+
+	char Unknown00[0xF8];								// +0x00
+	AvatarDescClass *Get_Desc() { return(&Unknown0F8); }	// NAME 1: neutral (D10)
+	AvatarDescClass Unknown0F8;							// +0xF8 (the new look: 0x551BF0 prices it against the window's +0xC0)
 };
 
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
+
 // The avatar customisation window (ui_avatar_cust.cpp's __FILE__), as far as this file's functions so far use it
-class UIAvatarCustClass : public InterfaceClass	// NAME 3: class-from-file (D24)
+class StarbaseAvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's)
 {
 public:
 	void Unknown_550670();								// 0x550670 (the mode and part buttons' state)
 	void Unknown_550970(int value);						// 0x550970  // NAME 1 [value]: neutral
-	void Unknown_551BF0();								// 0x551BF0 (recustomization_cost.cpp's 0x8493F0)
+	void Unknown_551BF0();								// 0x551BF0 (the cost of the changes: recustomization_cost.cpp's 0x8493F0)
 	void Unknown_550A10();								// 0x550A10 (the three metal models turn, the mesh's bones follow)
+	void Unknown_54EC30();								// 0x54EC30 (0x551A80, on the confirmation's first button)
+	void Unknown_5513E0(const char *name);				// 0x5513E0 (the texture of that name onto the mesh's COLOR_PALETTE)  // NAME 1 [name]: neutral
+	void Unknown_551520(bool any);						// 0x551520 (the credits and cost texts)  // NAME 1 [any]: neutral
+	void Unknown_551900();								// 0x551900 (the confirmation box)
+	void Unknown_551A80();								// 0x551A80 (the boxes' answers)
+	void Unknown_551B20(bool on);						// 0x551B20 (every gadget shown or hidden)  // NAME 1 [on]: neutral
+	void Unknown_551C40(const RecustomizationCostClass &cost);	// 0x551C40 (the costs kept, +0x3CC set)  // NAME 1 [cost]: neutral
+	void Unknown_551C80();								// 0x551C80 (STARBASE_REQUEST, action 10)
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
 	char Unknown88[0xB0 - 0x88];						// +0x88
 	int Unknown0B0;										// +0xB0 (the mode: 1, 2)
-	Unknown65B810ViewClass *Unknown0B4;					// +0xB4 (its Client's Unknown1338)
-	char Unknown0B8[0xBC - 0xB8];						// +0xB8
+	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's Unknown1338; 0x551A80 calls 0x69F440)
+	GadgetClass *Unknown0B8;							// +0xB8
 	UIAvatarCustAvatarClass *Unknown0BC;				// +0xBC
-	char Unknown0C0[0x1CC - 0xC0];						// +0xC0
-	GadgetClass *Unknown1CC;							// +0x1CC (on in mode 1)
-	GadgetClass *Unknown1D0;							// +0x1D0 (on in mode 2)
-	char Unknown1D4[0x22C - 0x1D4];						// +0x1D4
-	GadgetClass *Unknown22C;							// +0x22C (part 0)
-	GadgetClass *Unknown230;							// +0x230 (part 1)
-	GadgetClass *Unknown234;							// +0x234 (part 2)
-	char Unknown238[0x250 - 0x238];						// +0x238
-	GadgetClass *Unknown250;							// +0x250 (part 3)
-	GadgetClass *Unknown254;							// +0x254 (part 4)
-	GadgetClass *Unknown258;							// +0x258 (part 5)
-	GadgetClass *Unknown25C;							// +0x25C (part 6)
-	GadgetClass *Unknown260;							// +0x260 (the metal models' gadgets)
-	GadgetClass *Unknown264;							// +0x264
-	GadgetClass *Unknown268;							// +0x268
+	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
+	GadgetClass *Unknown1CC[14];						// +0x1CC ([0] on in mode 1, [1] in mode 2)
+	GadgetClass *Unknown204[15];						// +0x204 ([10]-[12]: parts 0-2)
+	GadgetClass *Unknown240[11];						// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
 	Matrix3D Unknown26C;								// +0x26C (the models' turning frames)
 	Matrix3D Unknown29C;								// +0x29C
 	Matrix3D Unknown2CC;								// +0x2CC
-	char Unknown2FC[0x358 - 0x2FC];						// +0x2FC
+	char Unknown2FC[0x308 - 0x2FC];						// +0x2FC
+	UIAvatarCustGadgetHolderStruct *Unknown308;			// +0x308
+	char Unknown30C[0x31C - 0x30C];						// +0x30C
+	UIAvatarCustGadgetHolderStruct *Unknown31C;			// +0x31C
+	char Unknown320[0x358 - 0x320];						// +0x320
 	int Unknown358;										// +0x358 (the part, 0-6)
 	int Unknown35C;										// +0x35C
+	char Unknown360[0x380 - 0x360];						// +0x360
+	MoneyClass Unknown380;								// +0x380 (the credits: the AuxData's Money)
+	MoneyClass Unknown388;								// +0x388 (the changes' cost)
+	RecustomizationCostClass Unknown390;				// +0x390 (the costs per slot: 0x551C40)
+	bool Unknown3CC;									// +0x3CC (set once the costs are in)
 };
 
 // 0x550670
-void UIAvatarCustClass::Unknown_550670()
+void StarbaseAvatarCreationInterface::Unknown_550670()
 {
 	if (Unknown0B0 == 1) {
-		Unknown1CC->Unknown2C800 = true;
-		Unknown1CC->Unknown_6603A0(0, NULL);
+		Unknown1CC[0]->Unknown2C800 = true;
+		Unknown1CC[0]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown1CC->Unknown2C800 = false;
-		Unknown1CC->Unknown_6607D0();
+		Unknown1CC[0]->Unknown2C800 = false;
+		Unknown1CC[0]->Unknown_6607D0();
 	}
 	if (Unknown0B0 == 2) {
-		Unknown1D0->Unknown2C800 = true;
-		Unknown1D0->Unknown_6603A0(0, NULL);
+		Unknown1CC[1]->Unknown2C800 = true;
+		Unknown1CC[1]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown1D0->Unknown2C800 = false;
-		Unknown1D0->Unknown_6607D0();
+		Unknown1CC[1]->Unknown2C800 = false;
+		Unknown1CC[1]->Unknown_6607D0();
 	}
 	if (Unknown358 == 0) {
-		Unknown22C->Unknown_6607D0();
-		Unknown22C->Unknown2C800 = true;
-		Unknown22C->Unknown_6603A0(0, NULL);
+		Unknown204[10]->Unknown_6607D0();
+		Unknown204[10]->Unknown2C800 = true;
+		Unknown204[10]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown22C->Unknown2C800 = false;
-		Unknown22C->Unknown_6607D0();
+		Unknown204[10]->Unknown2C800 = false;
+		Unknown204[10]->Unknown_6607D0();
 	}
 	if (Unknown358 == 1) {
-		Unknown230->Unknown2C800 = true;
-		Unknown230->Unknown_6603A0(0, NULL);
+		Unknown204[11]->Unknown2C800 = true;
+		Unknown204[11]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown230->Unknown2C800 = false;
-		Unknown230->Unknown_6607D0();
+		Unknown204[11]->Unknown2C800 = false;
+		Unknown204[11]->Unknown_6607D0();
 	}
 	if (Unknown358 == 2) {
-		Unknown234->Unknown2C800 = true;
-		Unknown234->Unknown_6603A0(0, NULL);
+		Unknown204[12]->Unknown2C800 = true;
+		Unknown204[12]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown234->Unknown2C800 = false;
-		Unknown234->Unknown_6607D0();
+		Unknown204[12]->Unknown2C800 = false;
+		Unknown204[12]->Unknown_6607D0();
 	}
 	if (Unknown358 == 3) {
-		Unknown250->Unknown_6607D0();
-		Unknown250->Unknown2C800 = true;
-		Unknown250->Unknown_6603A0(0, NULL);
+		Unknown240[4]->Unknown_6607D0();
+		Unknown240[4]->Unknown2C800 = true;
+		Unknown240[4]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown250->Unknown2C800 = false;
-		Unknown250->Unknown_6607D0();
+		Unknown240[4]->Unknown2C800 = false;
+		Unknown240[4]->Unknown_6607D0();
 	}
 	if (Unknown358 == 4) {
-		Unknown254->Unknown2C800 = true;
-		Unknown254->Unknown_6603A0(0, NULL);
+		Unknown240[5]->Unknown2C800 = true;
+		Unknown240[5]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown254->Unknown2C800 = false;
-		Unknown254->Unknown_6607D0();
+		Unknown240[5]->Unknown2C800 = false;
+		Unknown240[5]->Unknown_6607D0();
 	}
 	if (Unknown358 == 5) {
-		Unknown258->Unknown2C800 = true;
-		Unknown258->Unknown_6603A0(0, NULL);
+		Unknown240[6]->Unknown2C800 = true;
+		Unknown240[6]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown258->Unknown2C800 = false;
-		Unknown258->Unknown_6607D0();
+		Unknown240[6]->Unknown2C800 = false;
+		Unknown240[6]->Unknown_6607D0();
 	}
 	if (Unknown358 == 6) {
-		Unknown25C->Unknown2C800 = true;
-		Unknown25C->Unknown_6603A0(0, NULL);
+		Unknown240[7]->Unknown2C800 = true;
+		Unknown240[7]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown25C->Unknown2C800 = false;
-		Unknown25C->Unknown_6607D0();
+		Unknown240[7]->Unknown2C800 = false;
+		Unknown240[7]->Unknown_6607D0();
 	}
 }
 
 // 0x550970
-void UIAvatarCustClass::Unknown_550970(int value)
+void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 {
 	if (Unknown0B0 != 2) {
 		return;
@@ -169,16 +230,16 @@ void UIAvatarCustClass::Unknown_550970(int value)
 
 // NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10)
 // 0x550A10
-void UIAvatarCustClass::Unknown_550A10()
+void StarbaseAvatarCreationInterface::Unknown_550A10()
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; with three it is inlined)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; four were enough before 0x5513E0-0x551C80 joined the file, with four now it is inlined)
 	if (Unknown0B0 != 2) {
 		return;
 	}
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown260->Unknown30);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->Unknown30);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 0) {
@@ -194,9 +255,9 @@ void UIAvatarCustClass::Unknown_550A10()
 		newtm[1][3] = tm[1][3];
 		newtm[2][3] = tm[2][3];
 		model->Set_Transform(newtm);
-		Unknown260->Unknown_6608F0();
+		Unknown240[8]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown264->Unknown30);
+	model = Unknown_497300(Unknown240[9]->Unknown30);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 1) {
@@ -212,9 +273,9 @@ void UIAvatarCustClass::Unknown_550A10()
 		newtm[1][3] = tm[1][3];
 		newtm[2][3] = tm[2][3];
 		model->Set_Transform(newtm);
-		Unknown264->Unknown_6608F0();
+		Unknown240[9]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown268->Unknown30);
+	model = Unknown_497300(Unknown240[10]->Unknown30);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
@@ -230,19 +291,141 @@ void UIAvatarCustClass::Unknown_550A10()
 		newtm[1][3] = tm[1][3];
 		newtm[2][3] = tm[2][3];
 		model->Set_Transform(newtm);
-		Unknown268->Unknown_6608F0();
+		Unknown240[10]->Unknown_6608F0();
 	}
+}
+
+// 0x5513E0
+void StarbaseAvatarCreationInterface::Unknown_5513E0(const char *name)
+{
+	RefCountPtr<RenderObjClass> mesh = Unknown_497300(Unknown084->Peek_Object());
+	RefCountPtr<RenderObjClass> palette = Create_Get(mesh->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+	TextureClass *texture = Unknown_BFAEE0->Get_Texture(name, 0, 0, 1);
+	if (texture) {
+		Unknown_495FD0(palette.Peek(), texture, 0);
+		texture->Release_Ref();
+	}
+}
+
+// 0x551520
+void StarbaseAvatarCreationInterface::Unknown_551520(bool any)
+{
+	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaTemplateClass<MoneyClass> *money;
+	if (any) {
+		money = Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, "Money");
+	} else {
+		money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, "Money");
+	}
+	if (money) {
+		Unknown380 = money->Value;
+		FontSys *text = Unknown_BE67C4->Unknown_6D25D0("credits_buy_avatar00", Unknown084->Peek_Object());
+		if (text) {
+			std::string line("Credits: ");
+			line += Unknown380.Unknown_4F00C0(true);
+			text->Change_Text(line.c_str(), 0);
+		}
+	}
+	FontSys *text = Unknown_BE67C4->Unknown_6D25D0("cost_buy_avatar00", Unknown084->Peek_Object());
+	if (text) {
+		std::string line("Cost: ");
+		line += Unknown388.Unknown_4F00C0(true);
+		text->Change_Text(line.c_str(), 0);
+	}
+}
+
+// 0x551900
+void StarbaseAvatarCreationInterface::Unknown_551900()
+{
+	if (Unknown388 == MoneyClass()) {
+		View->Get_Unknown34()->Unknown_588A70("NO_CHANGES", 0, NULL, 0x140, 0, 0);
+	} else if (Unknown380 >= Unknown388) {
+		char text[128];
+		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown388.Unknown_4F00C0(false).c_str());
+		View->Get_Unknown34()->Unknown_588A70("AVATAR_CONFIRMATION", 0, text, 0x140, 0, 0);
+	} else {
+		View->Get_Unknown34()->Unknown_588A70("NEED_FUNDS", 0, NULL, 0x140, 0, 0);
+	}
+}
+
+// 0x551A80
+void StarbaseAvatarCreationInterface::Unknown_551A80()
+{
+	if (View->Get_Unknown34()->Is_Active()) {
+		int button = View->Get_Unknown34()->Unknown_5890B0("AVATAR_CONFIRMATION");
+		if (button) {
+			if (button == 1) {
+				Unknown_54EC30();
+				Unknown0B4->Unknown_69F440();
+			}
+			View->Get_Unknown34()->Unknown_5C();
+		}
+		if (View->Get_Unknown34()->Unknown_5890B0("NEED_FUNDS")) {
+			View->Get_Unknown34()->Unknown_5C();
+		}
+		if (View->Get_Unknown34()->Unknown_5890B0("NO_CHANGES")) {
+			View->Get_Unknown34()->Unknown_5C();
+		}
+	}
+}
+
+// 0x551B20
+void StarbaseAvatarCreationInterface::Unknown_551B20(bool on)
+{
+	int i;
+	for (i = 0; i < 14; i++) {
+		if (Unknown1CC[i]) Unknown1CC[i]->Unknown_40(on);
+	}
+	for (i = 0; i < 15; i++) {
+		if (Unknown204[i]) Unknown204[i]->Unknown_40(on);
+	}
+	for (i = 0; i < 11; i++) {
+		if (Unknown240[i]) Unknown240[i]->Unknown_40(on);
+	}
+	if (Unknown0B8) Unknown0B8->Unknown_40(on);
+	if (Unknown31C) Unknown31C->Unknown00->Unknown_40(on);
+	if (Unknown308) Unknown308->Unknown00->Unknown_40(on);
+}
+
+// 0x551BF0
+void StarbaseAvatarCreationInterface::Unknown_551BF0()
+{
+	if (Unknown3CC) {
+		AvatarDescClass *newavatar = &Unknown0BC->Unknown0F8;
+		Unknown388 = Unknown390.Unknown_8493F0(&Unknown0C0, newavatar);
+	}
+}
+
+// 0x551C40
+void StarbaseAvatarCreationInterface::Unknown_551C40(const RecustomizationCostClass &cost)
+{
+	Unknown390.Data = cost.Data;
+	Unknown3CC = true;
+}
+
+// 0x551C80
+void StarbaseAvatarCreationInterface::Unknown_551C80()
+{
+	SClient *client = Client->As_Space_Client();
+	int id = client->Unknown1138;
+	client->Send_Packet(&StarbaseRequestPacketClass(id, 10, 0));
 }
 
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_avatar_cust.cpp (its __FILE__, 0x551320's FAIL_IFs on lines 2210 / 2214)
 **
-**	The avatar customisation window: so far 0x550670, 0x550970 and 0x550A10 (NOT EXACT; matrix3d.h's
-**	out-of-line Rotate_Y 0x551270 comes with it) (TG4, claim #63). The file's
-**	evidence: both sit between ui_attrb_skills.cpp's last functions (0x54B370) and the FAIL_IFs of
-**	0x551320; their callers (0x54CAE0, 0x54CBC0, 0x54E610, 0x54FAA0, 0x550140) all lie in the same
-**	stretch, and they call 0x551BF0 (after 0x551320) like 0x54CBC0, 0x54FAA0 and 0x550550 do. The
-**	class is declared only as far as these two use it; the rest of the file (about 2,200 lines before
-**	the FAIL_IFs) is not rebuilt.
+**	The avatar customisation window, StarbaseAvatarCreationInterface (the client's RTTI: the type
+**	descriptor of its FlashingGadgetEvent callback, 0xB7AC88, sits in this file's literals): so far
+**	0x550670, 0x550970 and 0x550A10 (NOT EXACT; matrix3d.h's out-of-line Rotate_Y 0x551270 comes with
+**	it) (TG4, claim #63), and 0x5513E0-0x551C80 after the FAIL_IFs of 0x551320 (TK6, claim #87): the
+**	palette texture, the credits and cost texts, the confirmation box and its answers, the gadgets
+**	shown, the cost of the changes, the costs kept, the STARBASE_REQUEST. The file's evidence: they sit
+**	between ui_attrb_skills.cpp's last functions (0x54B370) and ui_avatar_dialog.cpp's first (0x551FB0,
+**	its asserts from line 85); the literals of 0x5513E0-0x551C80 ('COLOR_PALETTE' 0xB7AA2C, 'Cost: '
+**	0xB7ABC0 to 'NO_CHANGES' 0xB7AC70) lie in this file's block of literals, around its __FILE__
+**	(0xB7AB88), before the callback's type name and ui_avatar_dialog.cpp's first literal (0xB7AD0C).
+**	The class is declared only as far as these use it; the rest of the file (about 2,200 lines before
+**	the FAIL_IFs, 0x54B370-0x550670) is not rebuilt. +0xC0 is the old look (an AvatarDescClass, 0x10C
+**	bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one.
 */

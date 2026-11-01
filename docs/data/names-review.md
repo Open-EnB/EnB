@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1064 |
-| 2 | describes what the code does | 2548 |
-| 1 | neutral placeholder | 7802 |
+| 3 | by convention from a client-named file or sibling | 1067 |
+| 2 | describes what the code does | 2549 |
+| 1 | neutral placeholder | 7856 |
 
 ## For review (score 3 and below)
 
@@ -3732,60 +3732,112 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
-| 1 | `arg, view` | `app/client/ui_avatar_cust.cpp:13` | neutral |
-| 1 | `Unknown_6603A0` | `app/client/ui_avatar_cust.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_avatar_cust.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_avatar_cust.cpp:16` | untagged neutral name (D10) |
-| 1 | `Unknown2CLow` | `app/client/ui_avatar_cust.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown2C800` | `app/client/ui_avatar_cust.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_6608F0` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
-| 1 | `robj` | `app/client/ui_avatar_cust.cpp:23` | neutral |
-| 1 | `Unknown_497300` | `app/client/ui_avatar_cust.cpp:23` | untagged neutral name (D10) |
-| 1 | `UIAvatarCustPartStruct` | `app/client/ui_avatar_cust.cpp:26` | neutral (D10) |
-| 1 | `Button` | `app/client/ui_avatar_cust.cpp:29` | neutral ('metals_buy_avatar00') |
-| 1 | `UIAvatarCustMetals` | `app/client/ui_avatar_cust.cpp:31` | neutral (D10) |
-| 1 | `UIAvatarCustAvatarClass` | `app/client/ui_avatar_cust.cpp:38` | neutral (D10) |
-| 1 | `part, value` | `app/client/ui_avatar_cust.cpp:41` | neutral |
-| 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:41` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/ui_avatar_cust.cpp:42` | neutral |
-| 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:42` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_550670` | `app/client/ui_avatar_cust.cpp:49` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/ui_avatar_cust.cpp:50` | neutral |
-| 1 | `Unknown_550970` | `app/client/ui_avatar_cust.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_551BF0` | `app/client/ui_avatar_cust.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown_550A10` | `app/client/ui_avatar_cust.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_avatar_cust.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/ui_avatar_cust.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_avatar_cust.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown65B810ViewClass` | `app/client/ui_avatar_cust.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_avatar_cust.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_avatar_cust.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_avatar_cust.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_avatar_cust.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/ui_avatar_cust.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/ui_avatar_cust.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/ui_avatar_cust.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown22C` | `app/client/ui_avatar_cust.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown230` | `app/client/ui_avatar_cust.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown234` | `app/client/ui_avatar_cust.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown238` | `app/client/ui_avatar_cust.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown250` | `app/client/ui_avatar_cust.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown254` | `app/client/ui_avatar_cust.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown258` | `app/client/ui_avatar_cust.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown25C` | `app/client/ui_avatar_cust.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown260` | `app/client/ui_avatar_cust.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown264` | `app/client/ui_avatar_cust.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown268` | `app/client/ui_avatar_cust.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/ui_avatar_cust.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown29C` | `app/client/ui_avatar_cust.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown2CC` | `app/client/ui_avatar_cust.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown2FC` | `app/client/ui_avatar_cust.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown358` | `app/client/ui_avatar_cust.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown35C` | `app/client/ui_avatar_cust.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown1338` | `app/client/ui_avatar_cust.cpp:166` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_avatar_cust.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_avatar_cust.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_avatar_cust.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_avatar_cust.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_avatar_cust.cpp:22` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avatar_cust.cpp:23` | neutral |
+| 1 | `Unknown_40` | `app/client/ui_avatar_cust.cpp:23` | untagged neutral name (D10) |
+| 1 | `arg, view` | `app/client/ui_avatar_cust.cpp:25` | neutral |
+| 1 | `Unknown_6603A0` | `app/client/ui_avatar_cust.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_avatar_cust.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_avatar_cust.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown2CLow` | `app/client/ui_avatar_cust.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown2C800` | `app/client/ui_avatar_cust.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_avatar_cust.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6608F0` | `app/client/ui_avatar_cust.cpp:32` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_avatar_cust.cpp:36` | neutral (D10) |
+| 1 | `UIAvatarCustGadgetHolderStruct` | `app/client/ui_avatar_cust.cpp:45` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_avatar_cust.cpp:47` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_avatar_cust.cpp:50` | neutral |
+| 1 | `Unknown_497300` | `app/client/ui_avatar_cust.cpp:50` | untagged neutral name (D10) |
+| 1 | `robj, texture, unknown` | `app/client/ui_avatar_cust.cpp:51` | as ui_manu.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/ui_avatar_cust.cpp:51` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_avatar_cust.cpp:54` | kernel.cpp's |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_avatar_cust.cpp:62` | 0xBFAEE0 |
+| 1 | `UIAvatarCustFontManagerClass` | `app/client/ui_avatar_cust.cpp:66` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |
+| 1 | `Unknown_6D25D0` | `app/client/ui_avatar_cust.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_avatar_cust.cpp:67` | 0xBE67C4 |
+| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:70` | neutral |
+| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:71` | neutral |
+| 1 | `UIAvatarCustPartStruct` | `app/client/ui_avatar_cust.cpp:74` | neutral (D10) |
+| 1 | `Button` | `app/client/ui_avatar_cust.cpp:77` | neutral ('metals_buy_avatar00') |
+| 1 | `UIAvatarCustMetals` | `app/client/ui_avatar_cust.cpp:79` | neutral (D10) |
+| 1 | `UIAvatarCustAvatarClass` | `app/client/ui_avatar_cust.cpp:86` | neutral (D10) |
+| 1 | `part, value` | `app/client/ui_avatar_cust.cpp:89` | neutral |
+| 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:89` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/ui_avatar_cust.cpp:90` | neutral |
+| 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:90` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:90` | untagged neutral name (D10) |
+| 1 | `Get_Desc` | `app/client/ui_avatar_cust.cpp:93` | neutral (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_avatar_cust.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_avatar_cust.cpp:97` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_avatar_cust.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_avatar_cust.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_avatar_cust.cpp:98` | neutral (D10) |
+| 1 | `Unknown_550670` | `app/client/ui_avatar_cust.cpp:104` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/ui_avatar_cust.cpp:105` | neutral |
+| 1 | `Unknown_550970` | `app/client/ui_avatar_cust.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_551BF0` | `app/client/ui_avatar_cust.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_550A10` | `app/client/ui_avatar_cust.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_54EC30` | `app/client/ui_avatar_cust.cpp:108` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_avatar_cust.cpp:109` | neutral |
+| 1 | `Unknown_5513E0` | `app/client/ui_avatar_cust.cpp:109` | untagged neutral name (D10) |
+| 1 | `any` | `app/client/ui_avatar_cust.cpp:110` | neutral |
+| 1 | `Unknown_551520` | `app/client/ui_avatar_cust.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_551900` | `app/client/ui_avatar_cust.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_551A80` | `app/client/ui_avatar_cust.cpp:112` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avatar_cust.cpp:113` | neutral |
+| 1 | `Unknown_551B20` | `app/client/ui_avatar_cust.cpp:113` | untagged neutral name (D10) |
+| 1 | `cost` | `app/client/ui_avatar_cust.cpp:114` | neutral |
+| 1 | `Unknown_551C40` | `app/client/ui_avatar_cust.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_551C80` | `app/client/ui_avatar_cust.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_avatar_cust.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_avatar_cust.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_avatar_cust.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_avatar_cust.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_avatar_cust.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avatar_cust.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_avatar_cust.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_avatar_cust.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/ui_avatar_cust.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/ui_avatar_cust.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/ui_avatar_cust.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown29C` | `app/client/ui_avatar_cust.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown2CC` | `app/client/ui_avatar_cust.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_avatar_cust.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown308` | `app/client/ui_avatar_cust.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown30C` | `app/client/ui_avatar_cust.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown31C` | `app/client/ui_avatar_cust.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown320` | `app/client/ui_avatar_cust.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown358` | `app/client/ui_avatar_cust.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown35C` | `app/client/ui_avatar_cust.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown360` | `app/client/ui_avatar_cust.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown380` | `app/client/ui_avatar_cust.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/ui_avatar_cust.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown390` | `app/client/ui_avatar_cust.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown3CC` | `app/client/ui_avatar_cust.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown1338` | `app/client/ui_avatar_cust.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_avatar_cust.cpp:325` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_avatar_cust.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_avatar_cust.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_avatar_cust.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/ui_avatar_cust.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_avatar_cust.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown_8493F0` | `app/client/ui_avatar_cust.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_avatar_cust.cpp:410` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_chat_panel.cpp:17` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
@@ -6412,18 +6464,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/packets/pkrecustomize.h:25` | neutral (D10) |
 | 1 | `RecustomizationCostClass` | `app/packets/pkrecustomize.h:30` | neutral, after the client's file recustomization_cost.cpp (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkrecustomize.h:30` | untagged neutral name (D10) |
-| 1 | `ShipRecustomizationCostDataStruct` | `app/packets/pkrecustomize.h:43` | neutral (D10) |
-| 1 | `Unknown00` | `app/packets/pkrecustomize.h:45` | neutral (D10) |
-| 1 | `ShipRecustomizationCostClass` | `app/packets/pkrecustomize.h:50` | neutral, the ship recustomization's (D10) |
-| 1 | `Unknown1A0` | `app/packets/pkrecustomize.h:75` | neutral (D10) |
-| 1 | `Unknown1A4` | `app/packets/pkrecustomize.h:76` | neutral (D10) |
-| 1 | `Unknown1A8` | `app/packets/pkrecustomize.h:77` | neutral (D10) |
-| 1 | `Unknown1AC` | `app/packets/pkrecustomize.h:78` | neutral (D10) |
-| 1 | `Unknown1B0` | `app/packets/pkrecustomize.h:79` | neutral (D10) |
-| 1 | `Unknown16C` | `app/packets/pkrecustomize.h:95` | neutral (D10) |
-| 1 | `Unknown48` | `app/packets/pkrecustomize.h:111` | neutral (D10) |
-| 1 | `Unknown118` | `app/packets/pkrecustomize.h:127` | neutral (D10) |
-| 1 | `Unknown118` | `app/packets/pkrecustomize.h:143` | neutral (D10) |
+| 1 | `Unknown_8493F0` | `app/packets/pkrecustomize.h:35` | untagged neutral name (D10) |
+| 1 | `ShipRecustomizationCostDataStruct` | `app/packets/pkrecustomize.h:44` | neutral (D10) |
+| 1 | `Unknown00` | `app/packets/pkrecustomize.h:46` | neutral (D10) |
+| 1 | `ShipRecustomizationCostClass` | `app/packets/pkrecustomize.h:51` | neutral, the ship recustomization's (D10) |
+| 1 | `Unknown1A0` | `app/packets/pkrecustomize.h:76` | neutral (D10) |
+| 1 | `Unknown1A4` | `app/packets/pkrecustomize.h:77` | neutral (D10) |
+| 1 | `Unknown1A8` | `app/packets/pkrecustomize.h:78` | neutral (D10) |
+| 1 | `Unknown1AC` | `app/packets/pkrecustomize.h:79` | neutral (D10) |
+| 1 | `Unknown1B0` | `app/packets/pkrecustomize.h:80` | neutral (D10) |
+| 1 | `Unknown16C` | `app/packets/pkrecustomize.h:96` | neutral (D10) |
+| 1 | `Unknown48` | `app/packets/pkrecustomize.h:112` | neutral (D10) |
+| 1 | `Unknown118` | `app/packets/pkrecustomize.h:128` | neutral (D10) |
+| 1 | `Unknown118` | `app/packets/pkrecustomize.h:144` | neutral (D10) |
 | 1 | `pkreferralpointsavailable` | `app/packets/pkreferralpointsavailable.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkremove` | `app/packets/pkremove.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown10` | `app/packets/pkremove.h:30` | untagged neutral name (D10) |
@@ -6463,7 +6516,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/packets/pkstarbase_avatar_change.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/packets/pkstarbase_avatar_change.h:53` | untagged neutral name (D10) |
 | 1 | `pkstarbasetow` | `app/packets/pkstarbasetow.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown15` | `app/packets/pkstarbasetow.h:36` | untagged neutral name (D10) |
+| 1 | `player_id, action, starbase_id` | `app/packets/pkstarbasetow.h:27` | after the members they set |
+| 1 | `Unknown15` | `app/packets/pkstarbasetow.h:37` | untagged neutral name (D10) |
 | 1 | `pkstart` | `app/packets/pkstart.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown00` | `app/packets/pktalktreeaction.cpp:28` | untagged neutral name (D10) |
 | 1 | `pktalktreeaction` | `app/packets/pktalktreeaction.h:16` | provisional, pk + its first named class's name |
@@ -8662,7 +8716,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
-| 2 | `Bone` | `app/client/ui_avatar_cust.cpp:28` | what 0x550A10 hands to Get_Bone_Index |
+| 2 | `Get_Texture` | `app/client/ui_avatar_cust.cpp:60` | what it does (the asset manager's slot) |
+| 2 | `Bone` | `app/client/ui_avatar_cust.cpp:76` | what 0x550A10 hands to Get_Bone_Index |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
@@ -9210,19 +9265,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkpointeffect.h:152` | Get_Channel returns it |
 | 2 | `SourceLego` | `app/packets/pkpointeffect.h:170` | what it holds |
 | 2 | `Channel` | `app/packets/pkpointeffect.h:181` | Get_Channel returns it |
-| 2 | `Data` | `app/packets/pkrecustomize.h:39` | what it holds |
-| 2 | `Data` | `app/packets/pkrecustomize.h:58` | what it holds |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:62` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:73` | what it holds |
-| 2 | `Cost` | `app/packets/pkrecustomize.h:74` | what it holds (its class's file) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:83` | Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:94` | what it holds |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:99` | Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
-| 2 | `Cost` | `app/packets/pkrecustomize.h:110` | what it holds (its class's file) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:115` | Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:126` | what it holds |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:131` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:142` | what it holds |
+| 2 | `Data` | `app/packets/pkrecustomize.h:40` | what it holds |
+| 2 | `Data` | `app/packets/pkrecustomize.h:59` | what it holds |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:63` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:74` | what it holds |
+| 2 | `Cost` | `app/packets/pkrecustomize.h:75` | what it holds (its class's file) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:84` | Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:95` | what it holds |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:100` | Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
+| 2 | `Cost` | `app/packets/pkrecustomize.h:111` | what it holds (its class's file) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:116` | Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:127` | what it holds |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:132` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:143` | what it holds |
 | 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
@@ -10600,8 +10655,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
-| 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:10` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `UIAvatarCustClass` | `app/client/ui_avatar_cust.cpp:46` | class-from-file (D24) |
+| 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:16` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_avatar_cust.cpp:41` | the FAIL_IF's in ui_manu.cpp |
+| 3 | `FontSys` | `app/client/ui_avatar_cust.cpp:65` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
+| 3 | `StarbaseAvatarCreationInterface` | `app/client/ui_avatar_cust.cpp:101` | the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's) |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_chat_panel.cpp:23` | fontmanager.h's |
 | 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |
@@ -11125,6 +11182,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HSVShift` | `app/packets/pkpointeffect.h:179` | the client's Print text 'HSVShift=' |
 | 3 | `Speedup` | `app/packets/pkpointeffect.h:180` | the client's Print text 'Speedup=' |
 | 3 | `EffectID` | `app/packets/pkpointeffect.h:195` | the client's Print text 'EffectID=' |
+| 3 | `oldavatar, newavatar` | `app/packets/pkrecustomize.h:35` | the FAIL_IFs' |
 | 3 | `PointsTotal` | `app/packets/pkreferralpointsavailable.h:31` | the client's Print text 'PointsTotal=' |
 | 3 | `PointsSpent` | `app/packets/pkreferralpointsavailable.h:32` | the client's Print text 'PointsSpent=' |
 | 3 | `GameID` | `app/packets/pkremove.h:33` | the client's Print text 'GameID=' |
@@ -11207,18 +11265,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarID` | `app/packets/pkstarbase_avatar_change.h:88` | the client's Print text 'AvatarID=' |
 | 3 | `NewRoom` | `app/packets/pkstarbase_avatar_change.h:89` | the client's Print text 'NewRoom=' |
 | 3 | `OldRoom` | `app/packets/pkstarbase_avatar_change.h:90` | the client's Print text 'OldRoom=' |
-| 3 | `PlayerID` | `app/packets/pkstarbasetow.h:33` | the client's Print text 'PlayerID=' |
-| 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:34` | the client's Print text 'StarbaseID=' |
-| 3 | `Action` | `app/packets/pkstarbasetow.h:35` | the client's Print text 'Action=' |
-| 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:50` | the client's Print text 'StarbaseID=' |
-| 3 | `Action` | `app/packets/pkstarbasetow.h:51` | the client's Print text 'Action=' |
-| 3 | `ExitMode` | `app/packets/pkstarbasetow.h:52` | the client's Print text 'ExitMode=' |
-| 3 | `StarbaseID1` | `app/packets/pkstarbasetow.h:66` | the client's Print text 'StarbaseID1=' |
-| 3 | `StarbaseID2` | `app/packets/pkstarbasetow.h:67` | the client's Print text 'StarbaseID2=' |
-| 3 | `StarbaseID3` | `app/packets/pkstarbasetow.h:68` | the client's Print text 'StarbaseID3=' |
-| 3 | `TowCost1` | `app/packets/pkstarbasetow.h:69` | the client's Print text 'TowCost1=' |
-| 3 | `TowCost2` | `app/packets/pkstarbasetow.h:70` | the client's Print text 'TowCost2=' |
-| 3 | `TowCost3` | `app/packets/pkstarbasetow.h:71` | the client's Print text 'TowCost3=' |
+| 3 | `PlayerID` | `app/packets/pkstarbasetow.h:34` | the client's Print text 'PlayerID=' |
+| 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:35` | the client's Print text 'StarbaseID=' |
+| 3 | `Action` | `app/packets/pkstarbasetow.h:36` | the client's Print text 'Action=' |
+| 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:51` | the client's Print text 'StarbaseID=' |
+| 3 | `Action` | `app/packets/pkstarbasetow.h:52` | the client's Print text 'Action=' |
+| 3 | `ExitMode` | `app/packets/pkstarbasetow.h:53` | the client's Print text 'ExitMode=' |
+| 3 | `StarbaseID1` | `app/packets/pkstarbasetow.h:67` | the client's Print text 'StarbaseID1=' |
+| 3 | `StarbaseID2` | `app/packets/pkstarbasetow.h:68` | the client's Print text 'StarbaseID2=' |
+| 3 | `StarbaseID3` | `app/packets/pkstarbasetow.h:69` | the client's Print text 'StarbaseID3=' |
+| 3 | `TowCost1` | `app/packets/pkstarbasetow.h:70` | the client's Print text 'TowCost1=' |
+| 3 | `TowCost2` | `app/packets/pkstarbasetow.h:71` | the client's Print text 'TowCost2=' |
+| 3 | `TowCost3` | `app/packets/pkstarbasetow.h:72` | the client's Print text 'TowCost3=' |
 | 3 | `PlayerID` | `app/packets/pkstart.h:31` | the client's Print text 'PlayerID=' |
 | 3 | `PlayerID` | `app/packets/pkstart.h:45` | the client's Print text 'PlayerID=' |
 | 3 | `TalkTreePacketClass` | `app/packets/pktalktreeaction.h:33` | the client's Print text 'TalkTreePacket' |
