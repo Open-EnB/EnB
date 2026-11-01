@@ -567,7 +567,7 @@ void ControlKeysManager::Copy_Keys(std::vector<KeyMappingStruct> *to, const std:
 
 
 
-// NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv)
+// 0x71C710: exact with the definitions loop inside the resize branch, clear() (its erase 0x71E850 out of line) and the keys cleared per set from an empty key
 void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
 {
 	FAIL_IF(!_NumKeyDefs) return;
@@ -575,21 +575,21 @@ void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
 
 
 	if (keys->size() != _NumKeyDefs) {
-		FAIL_IF(!keys->empty()) keys->erase(keys->begin(), keys->end());
+		FAIL_IF(!keys->empty()) keys->clear();
 		keys->resize(_NumKeyDefs);
+
+
+
+		for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
+			FAIL_IF(!def_ptr) continue;
+			FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
+			(*keys)[def_ptr->Get_Index()].DefPtr = def_ptr;
+		}
 	} else {
-		for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) { *(unsigned int *)&it->Keys[0] = 0; *(unsigned int *)&it->Keys[1] = 0; }
-	}
-	for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
-		FAIL_IF(!def_ptr) continue;
-		FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
-		(*keys)[def_ptr->Get_Index()].DefPtr = def_ptr;
+		ControlKeyStruct empty;
+		for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) { for (int set = 0; set < NUM_MAPPING_SETS; set++) it->Keys[set] = empty; }
 	}
 }
-
-
-
-
 
 
 
