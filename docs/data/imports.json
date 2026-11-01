@@ -11648,6 +11648,28 @@
     "merged": [],
     "name": "shared/unknown_font_split_string.cpp"
    },
+   "unknown_fontsound": {
+    "ambiguous": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CF20",
+     "0x48A7F0",
+     "0x48A960",
+     "0x48AB30"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6BD190",
+     "0x6BD420",
+     "0x6BD530"
+    ],
+    "merged": [],
+    "name": "client/unknown_fontsound.cpp"
+   },
    "unknown_galaxy": {
     "ambiguous": [
      "0x42B2F0"
@@ -12085,6 +12107,7 @@
    "client/uiview.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
+   "client/unknown_fontsound.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",

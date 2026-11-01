@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1109 |
-| 2 | describes what the code does | 2750 |
-| 1 | neutral placeholder | 9426 |
+| 2 | describes what the code does | 2758 |
+| 1 | neutral placeholder | 9429 |
 
 ## For review (score 3 and below)
 
@@ -7117,6 +7117,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.h:54` | neutral (D10) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/unknown_fontsound.h:16` | untagged neutral name (D10) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.h:25` | neutral (D10), as app/main declares it |
 | 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownBE8BA0` | `app/client/unknown_screenfade.cpp:47` | untagged neutral name (D10) |
@@ -10508,6 +10511,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
 | 2 | `Make_Folder` | `app/client/unknown_creator.h:55` | what it does |
+| 2 | `FontSoundStruct` | `app/client/unknown_fontsound.h:14` | a FontSys sound and its time left |
+| 2 | `Sound` | `app/client/unknown_fontsound.h:17` | WWAudioClass::Create_Sound_Effect's result |
+| 2 | `Duration` | `app/client/unknown_fontsound.h:18` | milliseconds left (60000 or more: no limit) |
+| 2 | `Time` | `app/client/unknown_fontsound.h:19` | timeGetTime of the last update |
+| 2 | `Clear` | `app/client/unknown_fontsound.h:31` | 0x6BD190, no caller |
+| 2 | `Play` | `app/client/unknown_fontsound.h:32` | 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0) |
+| 2 | `Update` | `app/client/unknown_fontsound.h:33` | 0x6BD420 (FontSys 0x6D64C0) |
+| 2 | `Remove` | `app/client/unknown_fontsound.h:34` | 0x6BD530, no caller |
 | 2 | `Set` | `app/client/unknown_screenfade.cpp:11` | what it does |
 | 2 | `Update` | `app/client/unknown_screenfade.cpp:12` | what it does |
 | 2 | `Value` | `app/client/unknown_screenfade.cpp:14` | what it holds |
