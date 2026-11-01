@@ -1661,7 +1661,7 @@ Base copy: reconstructed. Headers: 262 from reconstructed.
 | shared/spln_db.cpp | reconstructed | 80 | 2 | - | - | - |  |
 | shared/stars.cpp | reconstructed | 44 | 2 | - | - | - |  |
 | shared/symbol_substitution.cpp | reconstructed | 34 | 5 | - | - | - |  |
-| common/tcpconn.cpp | reconstructed | 48 | 0 | - | - | - |  |
+| common/tcpconn.cpp | reconstructed | 50 | 0 | - | - | - |  |
 | client/tasks/tsk_game.cpp | reconstructed | 27 | 2 | - | - | - |  |
 | client/tasks/tsk_login.cpp | reconstructed | 62 | 3 | - | - | - |  |
 | client/tasks/tsk_menu.cpp | reconstructed | 6 | 1 | - | - | - |  |

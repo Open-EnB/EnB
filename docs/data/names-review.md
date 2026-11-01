@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1082 |
 | 2 | describes what the code does | 2603 |
-| 1 | neutral placeholder | 8244 |
+| 1 | neutral placeholder | 8249 |
 
 ## For review (score 3 and below)
 
@@ -6201,9 +6201,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
 | 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
+| 1 | `Set_Blocking` | `app/common/tcpconn.cpp:19` | what it does (no caller) |
+| 1 | `TCPConnection::Set_Name_Unknown` | `app/common/tcpconn.cpp:577` | what it does |
+| 1 | `TCPConnection::Get_Manager` | `app/common/tcpconn.cpp:578` | what it returns |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:64` | after the file tcpconn.cpp |
+| 1 | `Set_Name_Unknown` | `app/common/tcpconn.h:50` | what it does |
+| 1 | `Get_Manager` | `app/common/tcpconn.h:51` | what it returns |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:66` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `Unknown_82DCB0` | `app/common/udpconn.cpp:564` | no caller, no string |
@@ -9390,19 +9395,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:47` | what it does |
 | 2 | `Key_Exchange` | `app/common/tcpconn.h:48` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:53` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:54` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:55` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:56` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:57` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:58` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:59` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:74` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:75` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:76` | what it does |
-| 2 | `Pump_All` | `app/common/tcpconn.h:77` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:81` | what it holds |
-| 2 | `KeyPair` | `app/common/tcpconn.h:82` | what it holds |
+| 2 | `Encrypt` | `app/common/tcpconn.h:55` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:56` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:57` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:58` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:59` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:60` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:61` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:76` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:77` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:78` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:79` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:83` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:84` | what it holds |
 | 2 | `TheMgr` | `app/common/udpconn.cpp:31` | what it holds |
 | 2 | `Init_Mgr` | `app/common/udpconn.cpp:34` | what it does |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |

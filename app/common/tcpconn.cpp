@@ -15,8 +15,8 @@ static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line,
 	const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000
 
-
-
+// 0x828C40 (no caller): TCPMgr::setBlocking's ioctlsocket as a free function
+int Set_Blocking(SOCKET socket, bool block) { unsigned long flag = 1; if (block) flag = 0; return(ioctlsocket(socket, FIONBIO, &flag)); }	// NAME 1: what it does (no caller)
 
 
 
@@ -574,8 +574,8 @@ TCPConnection::TCPConnection(SOCKET socket) :
 	Port = addr.sin_port;
 	Name = nstrdup("unknown");
 }
-
-
+void TCPConnection::Set_Name_Unknown() { Name = nstrdup("unknown"); }	// 0x829E00 (no caller)  // NAME 1: what it does
+TCPMgr *TCPConnection::Get_Manager() { return(&TCPManager); }	// 0x829E30 (no caller)  // NAME 1: what it returns
 // TCPListenerClass (vtable 0xB08880): the server's TCP listener; Pump_Pending 0x82AA10 takes the key
 // exchange's second step. The key pair comes from 'server_rsa_keyset.dat'; every listener is in Listeners.
 TCPListenerClass::TCPListenerClass() :
@@ -891,13 +891,13 @@ ConnectionClass *TCPListenerClass::Pump_Pending()
 **	Reconstruction notes (tcpconn.cpp, PARTIAL; docs/kernel-map.md 4, step 8)
 **
 **	* The client's functions, in order: the static initialiser 0x828A10 (TCPManager, 0xBE9180) and
-**	  two std::map helpers 0x828B10 / 0x828C40, the constructor by host name 0x828C80 (assert line 74),
+**	  the set's destructor 0x828B10, Set_Blocking 0x828C40 (no caller), the constructor by host name 0x828C80 (assert line 74),
 **	  the scalar destructor 0x828DB0, the constructor by address 0x828DE0, the destructor
 **	  0x828EC0, Connect 0x828F90 (assert 'Con == 0', line 119), Try_Connect 0x8290A0, the RSA key
 **	  exchange 0x829180 (assert 'TCP', line 358; 'CONNECT RSA EXCH FAILED: %d : %d': not rebuilt),
 **	  Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Close 0x829A10,
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
-**	  accepted socket 0x829C80 (line 564); the listener 0x829E00-0x82AA10 (lines 645-780, the
+**	  accepted socket 0x829C80 (line 564), two members with no caller 0x829E00 / 0x829E30; the listener 0x829E50-0x82AA10 (lines 645-780, the
 **	  server's): the constructor 0x829E50 (the key file), destructor, Listen 0x82A470 (functional), Stop, Accept and
 **	  Send_Key 0x82A830, Pump_All 0x82A990, Pump_Pending 0x82AA10 (the server's exchange: RSAKeyClass::Decrypt inlined, BigInt's
 **	  -=, +, >=, exp_b_mod_c, Unsigned_Divide out of line after it, 0x82C0B0-0x82C220) rebuilt. The exchange 0x829180 carries a marker.
