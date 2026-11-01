@@ -130,7 +130,8 @@ public:
 	bool Has_DesiredZ();	// 0x8AD810 (flag 6: not the default, +-1000 by RotZ's sign)  // NAME 2: what it tests
 	bool Has_Imparted();	// 0x8AD890 (flag 7: ImpartedVelocity, -Spin, -Roll, -Pitch)  // NAME 2: what it tests
 	bool Has_Update_Period();	// 0x8AD980 (flag 8: not 500)  // NAME 2: what it tests
-	bool Unknown_8ADB20();	// 0x8ADB20 (not rebuilt: CurrentSpeed or SetSpeed above a limit, or ImpartedVelocity not zero; postate.cpp's types 4 and 8 ask it)  // NAME 1: neutral (D10)
+	bool Unknown_8ADB20();	// 0x8ADB20 (CurrentSpeed or SetSpeed above WWMATH_EPSILON, or ImpartedVelocity's Length2 above it; postate.cpp's types 4 and 8 ask it)  // NAME 1: neutral (D10)
+	AdvancedPositionalUpdatePacketClass *Clone();	// 0x8ADBA0 (never called: a new copy)  // NAME 2: what it does
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	unsigned int TimeStamp;	// +0x10  // NAME 3: the client's Print text 'TimeStamp='
@@ -157,6 +158,7 @@ public:
 class PlanetPositionalUpdatePacketClass : public PacketClass
 {
 public:
+	PlanetPositionalUpdatePacketClass(int game_id, int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle);	// 0x8ADCC0 (never called)  // NAME 2 [game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle]: the members they set
 	PlanetPositionalUpdatePacketClass(RawPacketClass *raw);	// 0x8ADDF0
 	virtual RawPacketClass *Build();	// +0x04 0x8ADF10
 	virtual bool Process_Packet(void *client);	// +0x08 0x734A40 (cpacket.cpp)
@@ -167,7 +169,7 @@ public:
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	int TimeStamp;	// +0x10  // NAME 3: the client's Print text 'TimeStamp='
-	char Unknown14[12];	// +0x14
+	Vector3 Position;	// +0x14 (the constructor 0x8ADCC0 copies a const Vector3 &; Print leaves it out)  // NAME 2: AdvancedPositionalUpdatePacketClass's Position at the same offset
 	int OrbitID;	// +0x20  // NAME 3: the client's Print text 'OrbitID='
 	float OrbitDist;	// +0x24  // NAME 3: the client's Print text 'OrbitDist='
 	float OrbitAngle;	// +0x28  // NAME 3: the client's Print text 'OrbitAngle='

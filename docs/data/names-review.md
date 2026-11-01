@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1067 |
-| 2 | describes what the code does | 2553 |
-| 1 | neutral placeholder | 7856 |
+| 2 | describes what the code does | 2556 |
+| 1 | neutral placeholder | 7855 |
 
 ## For review (score 3 and below)
 
@@ -6768,13 +6768,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/packets/pkupdate.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/packets/pkupdate.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pkupdate.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkupdate.cpp:438` | untagged neutral name (D10) |
+| 1 | `Unknown_8ADB20` | `app/packets/pkupdate.cpp:434` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/packets/pkupdate.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/packets/pkupdate.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkupdate.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/packets/pkupdate.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8ADB20` | `app/packets/pkupdate.h:133` | neutral (D10) |
-| 1 | `Unknown14` | `app/packets/pkupdate.h:170` | untagged neutral name (D10) |
 | 1 | `pkverbrequest` | `app/packets/pkverbrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `VERB_NONE` | `app/packets/pkverbrequest.h:44` | neutral placeholder (D10) |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
@@ -9366,9 +9365,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Has_DesiredZ` | `app/packets/pkupdate.h:130` | what it tests |
 | 2 | `Has_Imparted` | `app/packets/pkupdate.h:131` | what it tests |
 | 2 | `Has_Update_Period` | `app/packets/pkupdate.h:132` | what it tests |
-| 2 | `Channel` | `app/packets/pkupdate.h:152` | Get_Channel returns it |
-| 2 | `Priority` | `app/packets/pkupdate.h:153` | Get_Priority returns it |
-| 2 | `Get_Type` | `app/packets/pkupdate.h:166` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Clone` | `app/packets/pkupdate.h:134` | what it does |
+| 2 | `Channel` | `app/packets/pkupdate.h:153` | Get_Channel returns it |
+| 2 | `Priority` | `app/packets/pkupdate.h:154` | Get_Priority returns it |
+| 2 | `game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle` | `app/packets/pkupdate.h:161` | the members they set |
+| 2 | `Get_Type` | `app/packets/pkupdate.h:168` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Position` | `app/packets/pkupdate.h:172` | AdvancedPositionalUpdatePacketClass's Position at the same offset |
 | 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
@@ -11349,23 +11351,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkupdate.h:99` | the client's Print text 'GameID=' |
 | 3 | `LeaderID` | `app/packets/pkupdate.h:100` | the client's Print text 'LeaderID=' |
 | 3 | `Offset` | `app/packets/pkupdate.h:101` | the client's Print text 'Offset=' |
-| 3 | `GameID` | `app/packets/pkupdate.h:135` | the client's Print text 'GameID=' |
-| 3 | `TimeStamp` | `app/packets/pkupdate.h:136` | the client's Print text 'TimeStamp=' |
-| 3 | `Position` | `app/packets/pkupdate.h:137` | the client's Print text 'Position=' |
-| 3 | `Orientation` | `app/packets/pkupdate.h:138` | the client's Print text 'Orientation=' |
-| 3 | `DesiredY` | `app/packets/pkupdate.h:143` | the client's Print text 'DesiredY=' |
-| 3 | `DesiredZ` | `app/packets/pkupdate.h:145` | the client's Print text 'DesiredZ=' |
-| 3 | `MovementID` | `app/packets/pkupdate.h:150` | the client's Print text 'MovementID=' |
-| 3 | `UpdatePeriod` | `app/packets/pkupdate.h:151` | the client's Print text 'UpdatePeriod=' |
-| 3 | `GameID` | `app/packets/pkupdate.h:168` | the client's Print text 'GameID=' |
-| 3 | `TimeStamp` | `app/packets/pkupdate.h:169` | the client's Print text 'TimeStamp=' |
-| 3 | `OrbitID` | `app/packets/pkupdate.h:171` | the client's Print text 'OrbitID=' |
-| 3 | `OrbitDist` | `app/packets/pkupdate.h:172` | the client's Print text 'OrbitDist=' |
-| 3 | `OrbitAngle` | `app/packets/pkupdate.h:173` | the client's Print text 'OrbitAngle=' |
-| 3 | `OrbitRate` | `app/packets/pkupdate.h:174` | the client's Print text 'OrbitRate=' |
-| 3 | `RotateAngle` | `app/packets/pkupdate.h:175` | the client's Print text 'RotateAngle=' |
-| 3 | `RotateRate` | `app/packets/pkupdate.h:176` | the client's Print text 'RotateRate=' |
-| 3 | `TiltAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'TiltAngle=' |
+| 3 | `GameID` | `app/packets/pkupdate.h:136` | the client's Print text 'GameID=' |
+| 3 | `TimeStamp` | `app/packets/pkupdate.h:137` | the client's Print text 'TimeStamp=' |
+| 3 | `Position` | `app/packets/pkupdate.h:138` | the client's Print text 'Position=' |
+| 3 | `Orientation` | `app/packets/pkupdate.h:139` | the client's Print text 'Orientation=' |
+| 3 | `DesiredY` | `app/packets/pkupdate.h:144` | the client's Print text 'DesiredY=' |
+| 3 | `DesiredZ` | `app/packets/pkupdate.h:146` | the client's Print text 'DesiredZ=' |
+| 3 | `MovementID` | `app/packets/pkupdate.h:151` | the client's Print text 'MovementID=' |
+| 3 | `UpdatePeriod` | `app/packets/pkupdate.h:152` | the client's Print text 'UpdatePeriod=' |
+| 3 | `GameID` | `app/packets/pkupdate.h:170` | the client's Print text 'GameID=' |
+| 3 | `TimeStamp` | `app/packets/pkupdate.h:171` | the client's Print text 'TimeStamp=' |
+| 3 | `OrbitID` | `app/packets/pkupdate.h:173` | the client's Print text 'OrbitID=' |
+| 3 | `OrbitDist` | `app/packets/pkupdate.h:174` | the client's Print text 'OrbitDist=' |
+| 3 | `OrbitAngle` | `app/packets/pkupdate.h:175` | the client's Print text 'OrbitAngle=' |
+| 3 | `OrbitRate` | `app/packets/pkupdate.h:176` | the client's Print text 'OrbitRate=' |
+| 3 | `RotateAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'RotateAngle=' |
+| 3 | `RotateRate` | `app/packets/pkupdate.h:178` | the client's Print text 'RotateRate=' |
+| 3 | `TiltAngle` | `app/packets/pkupdate.h:179` | the client's Print text 'TiltAngle=' |
 | 3 | `SubjectID` | `app/packets/pkverbrequest.h:35` | the client's Print text 'SubjectID=' |
 | 3 | `ObjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'ObjectID=' |
 | 3 | `Action` | `app/packets/pkverbrequest.h:37` | the client's Print text 'Action=' |

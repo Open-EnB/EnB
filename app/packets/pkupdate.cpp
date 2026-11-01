@@ -431,11 +431,35 @@ int AdvancedPositionalUpdatePacketClass::Print(char *buffer, int)
 		ImpartedVelocity.X, ImpartedVelocity.Y, ImpartedVelocity.Z, ImpartedSpin, ImpartedRoll, ImpartedPitch, MovementID, UpdatePeriod));
 }
 
+bool AdvancedPositionalUpdatePacketClass::Unknown_8ADB20()
+{
+	return(fabs(CurrentSpeed) > WWMATH_EPSILON || fabs(SetSpeed) > WWMATH_EPSILON || ImpartedVelocity.Length2() > WWMATH_EPSILON);
+}
+
+AdvancedPositionalUpdatePacketClass *AdvancedPositionalUpdatePacketClass::Clone()
+{
+	return(new AdvancedPositionalUpdatePacketClass(*this));
+}
+
+PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(int game_id, int time_stamp, const Vector3 &position, int orbit_id, float orbit_dist, float orbit_angle, float orbit_rate, float rotate_angle, float rotate_rate, float tilt_angle) :
+	GameID(game_id),
+	TimeStamp(time_stamp),
+	Position(position),
+	OrbitID(orbit_id),
+	OrbitDist(orbit_dist),
+	OrbitAngle(orbit_angle),
+	OrbitRate(orbit_rate),
+	RotateAngle(rotate_angle),
+	RotateRate(rotate_rate),
+	TiltAngle(tilt_angle)
+{
+}
+
 PlanetPositionalUpdatePacketClass::PlanetPositionalUpdatePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TimeStamp, sizeof(TimeStamp));
-	raw->Get(Unknown14, sizeof(Unknown14));
+	raw->Get(&Position, sizeof(Position));
 	raw->Get(&OrbitID, sizeof(OrbitID));
 	raw->Get(&OrbitDist, sizeof(OrbitDist));
 	raw->Get(&OrbitAngle, sizeof(OrbitAngle));
@@ -450,7 +474,7 @@ RawPacketClass *PlanetPositionalUpdatePacketClass::Build()
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&TimeStamp, sizeof(TimeStamp));
-	raw->Add(Unknown14, sizeof(Unknown14));
+	raw->Add(&Position, sizeof(Position));
 	raw->Add(&OrbitID, sizeof(OrbitID));
 	raw->Add(&OrbitDist, sizeof(OrbitDist));
 	raw->Add(&OrbitAngle, sizeof(OrbitAngle));
@@ -468,7 +492,7 @@ int PlanetPositionalUpdatePacketClass::Get_Type()
 
 int PlanetPositionalUpdatePacketClass::Get_Data_Size()
 {
-	return(sizeof(GameID) + sizeof(TimeStamp) + sizeof(Unknown14) + sizeof(OrbitID) + sizeof(OrbitDist) + sizeof(OrbitAngle) + sizeof(OrbitRate) + sizeof(RotateAngle) + sizeof(RotateRate) + sizeof(TiltAngle));
+	return(sizeof(GameID) + sizeof(TimeStamp) + sizeof(Position) + sizeof(OrbitID) + sizeof(OrbitDist) + sizeof(OrbitAngle) + sizeof(OrbitRate) + sizeof(RotateAngle) + sizeof(RotateRate) + sizeof(TiltAngle));
 }
 
 int PlanetPositionalUpdatePacketClass::Print(char *buffer, int)

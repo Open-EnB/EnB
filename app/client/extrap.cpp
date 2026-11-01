@@ -1653,7 +1653,7 @@ void Unknown712DB0Class::End_Tilt(int time, float rate)
 Unknown713520Class::Unknown713520Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client) :
 	Time(packet->TimeStamp),
 	Client(client),
-	Unknown0C(*(Vector3 *)packet->Unknown14),
+	Unknown0C(packet->Position),
 	OrbitID(packet->OrbitID),
 	OrbitDist(packet->OrbitDist),
 	OrbitAngle(packet->OrbitAngle),
