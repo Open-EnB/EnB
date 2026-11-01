@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1081 |
 | 2 | describes what the code does | 2592 |
-| 1 | neutral placeholder | 8243 |
+| 1 | neutral placeholder | 8245 |
 
 ## For review (score 3 and below)
 
@@ -6205,15 +6205,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `TCPListenerClass` | `app/common/tcpconn.h:64` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
+| 1 | `Unknown_82DCB0` | `app/common/udpconn.cpp:564` | no caller, no string |
 | 1 | `Unknown_82E1D0` | `app/common/udpconn.cpp:786` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
 | 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
-| 1 | `Unknown_RateClass` | `app/common/udpconn.h:75` | untagged neutral name (D10) |
-| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:93` | after the file udpconn.cpp |
-| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:100` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
-| 1 | `UDPListenerClass` | `app/common/udpconn.h:103` | after the file udpconn.cpp |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:119` | after its profile label 'CordMgr::Run' |
+| 1 | `Unknown_82DCB0` | `app/common/udpconn.h:73` | no caller, no string |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:76` | untagged neutral name (D10) |
+| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:94` | after the file udpconn.cpp |
+| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:101` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
+| 1 | `UDPListenerClass` | `app/common/udpconn.h:104` | after the file udpconn.cpp |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:120` | after its profile label 'CordMgr::Run' |
 | 1 | `Unknown50` | `app/common/unknown_galaxy.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/common/unknown_galaxy.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/common/unknown_galaxy.cpp:20` | untagged neutral name (D10) |
@@ -9398,12 +9400,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
 | 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
 | 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
-| 2 | `Mgr` | `app/common/udpconn.h:114` | what it holds |
-| 2 | `Init` | `app/common/udpconn.h:128` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:129` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:130` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:132` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:133` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:115` | what it holds |
+| 2 | `Init` | `app/common/udpconn.h:129` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:130` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:131` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:133` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:134` | what it holds |
 | 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
 | 2 | `MusicTypeNames` | `app/common/unknown_navlist.cpp:7` | what it holds |
 | 2 | `Music_Type_From_Name` | `app/common/unknown_navlist.h:25` | what it does |

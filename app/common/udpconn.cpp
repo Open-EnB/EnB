@@ -561,7 +561,7 @@ PacketClass *UDPConnection::Receive()
 	return(packet);
 }
 
-
+void UDPConnection::Unknown_82DCB0() { Name = nstrdup("unknown"); }	// NAME 1 [Unknown_82DCB0]: no caller, no string
 CordMgrTaskClass::CordMgrTaskClass()
 {
 	Mgr = new CordMgr;
@@ -799,9 +799,10 @@ int Unknown_82E1D0()
 **	  0x82C5E0 (here Channel_Hash; the lock's initialiser sits beside it), 0x82C660 (Init_Mgr: the
 **	  pump task and the CordMgr, kept in 0xBF16BC as TheMgr), the constructor by name 0x82C680
 **	  (gethostbyname or the dotted address; assert line 91), by address 0x82C980, over
-**	  an accepted CordCon 0x82CBF0, the destructor 0x82CDC0, the slots 0x82D060-0x82DB30, the pump
-**	  task 0x82DCB0-0x82E020, UDPConnectionManager 0x82E040-0x82E1B0 (0x82E1D0, a static over
-**	  0xBF16BC, not rebuilt) and the listener 0x82E200-0x82E5B0 (the server's: its destructor's
+**	  an accepted CordCon 0x82CBF0, the destructor 0x82CDC0, the slots 0x82D060-0x82DB30, a member
+**	  with no caller 0x82DCB0 (Name = nstrdup("unknown"); one line, so the asserts below keep their
+**	  lines), the pump task 0x82DCE0-0x82E020, UDPConnectionManager 0x82E040-0x82E1B0 (0x82E1D0, a
+**	  static over 0xBF16BC) and the listener 0x82E200-0x82E5B0 (the server's: its destructor's
 **	  FAIL_IF on line 707, Listen 716 / 719, Stop 742, Accept 778), wlib Dictionary's out-of-line members
 **	  0x82E6A0-0x82EBB0 (shrink, remove, expand: exact, from libs\wwonline\wlib\dictionary.h, D73).
 **	* Exact: Get_Address, Connect, Is_Connected, Is_Dead, Disconnect, the key's operator ==,
