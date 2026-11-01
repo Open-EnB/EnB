@@ -4,6 +4,24 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (D175): the decided-loss tools PR (#137) and wlib's configfile / xtime revision: +11, 4 decided losses
+
+Opus 5.5, with the user. Base edbe036d (#137 merged); branch `run/2026-11-01-wlib`.
+
+* **#137 (tools/decided-losses, merged):** an accepted-corrections entry with `moved_to: null` is a decided loss:
+  pairs_cmp.py lists it under `corrected (accepted: D…)` with no gain required, verify_pr.py names it `(decided loss)`;
+  D175's four wlib `configfile` entries (0x77AA10, 0x77B030, 0x77B690, 0x850820) are in the list.
+* **wlib (D175):** E&B's configfile.cpp + xtime.cpp revision from `docs/attempts/8B2810/` (8 patches in
+  WWONLINE_PATCHES); verify --lib wlib --lib wnet on 2 pool VMs: **+11 (configfile 10, xtime 0x8BAA50), 0 lost,
+  4 corrected (accepted: D175)**; replay 0 differences (configfile's banner copied from `.work/replay`, workflow.md
+  §3.9's trap). Only wlib's own files include configfile.h / xtime.h.
+* **Where the four come back:** 0x850820 (`ostream::operator<<(manip)`) with cordcon.cpp's callers (pumpClose
+  0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30; cordmgr's Pump_Releases 0x859940); 0x77AA10 / 0x77B030 /
+  0x77B690 (`ArrayList<Wstring>` / `Dictionary<Wstring,Wstring>` instances) with an unattributed app file at
+  0x7772C0-0x77B7D0 (callers 0x779520, 0x779860; just before avatar.cpp 0x77B870; no assert or name evidence yet).
+* **Next:** D176 (CordCon's 0xC0 layout, udpreplay's counters outside), then §4's t4 leads; the 0x7772C0 file is a
+  new lead.
+
 ### 2026-11-01 (00:15): P-GH-11 landed (claims in the run PR body), symbols.json regenerated, D174's tie-break: +211, 0 lost
 
 Coordinator Opus 5.5, the 2026-10-31 night session continued after the user's three asks: resolve PR #78, cut the

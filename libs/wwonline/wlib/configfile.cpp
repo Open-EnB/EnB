@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -54,6 +54,14 @@ ConfigFile::ConfigFile() : Dictionary_(Wstring_Hash)
 ConfigFile::~ConfigFile()
 { }
 
+// E&B: clear every entry, under the lock (0x8B2690, between ~ConfigFile and readFile); no caller in the client
+void ConfigFile::clear(void)
+{
+  Critsec_.lock();
+  Dictionary_.clear();
+  Critsec_.unlock();
+}
+
 // Read and parse the config file.  The key value pairs will be stored
 //   for later access by the getString/getInt functions.
 bit8 ConfigFile::readFile(FILE *in)
@@ -66,7 +74,6 @@ bit8 ConfigFile::readFile(FILE *in)
 
   memset(string,0,256);
   memset(sectionname,0,256);
-  sectionList.clear();
 
   while (fgets(string,256,in))
   {
@@ -80,20 +87,8 @@ bit8 ConfigFile::readFile(FILE *in)
       key.truncate(']');    // remove after & including the ]
       key.cat("]");         // put the ] back
       strcpy(sectionname,key.get());    // set the current section name
-      Wstring wssectionname;
-
       if (strlen(sectionname)==2) // clear section with a "[]"
-      {
         sectionname[0]=0;
-        wssectionname.set("");
-      }
-      else
-        wssectionname.set(sectionname+1);
-
-      wssectionname.truncate(']');
-      sectionList.addTail(wssectionname);
-
-
       continue;
     }
 
@@ -102,11 +97,11 @@ bit8 ConfigFile::readFile(FILE *in)
     key=cptr;
     key.truncate('=');
     key.removeSpaces();  // No spaces allowed in the key
-    key.toUpper();       // make key all caps 
+    key.toUpper();       // make key all caps
 
-    // Add the section name to the end of the key 
+    // Add the section name to the end of the key
     if (strlen(sectionname))
-      key.cat(sectionname);  
+      key.cat(sectionname);
 
     cptr=Eat_Spaces(strchr(cptr,'=')+1); // Jump to after the '='
     value=cptr;
@@ -114,14 +109,30 @@ bit8 ConfigFile::readFile(FILE *in)
     value.truncate('\n');
     value.truncate('#');
 
-    // Remove trailing spaces
-    while(isgraph(value.get()[strlen(value.get())-1])==0)
-      value.get()[strlen(value.get())-1]=0;
+    if (value.length())  // E&B: an empty value is stored as it is (0x8B2810)
+    {
+      // Remove trailing spaces
+      while(isgraph(value.get()[strlen(value.get())-1])==0)
+        value.get()[strlen(value.get())-1]=0;
+
+      // E&B: a trailing backslash continues the value on the next line (0x8B2810)
+      while(value.get()[strlen(value.get())-1]=='\\')
+      {
+        value.get()[strlen(value.get())-1]=0;
+        if (fgets(string,256,in)==NULL)
+          break;
+        cptr=Eat_Spaces(string);
+        value+=cptr;
+        value.truncate('\r');
+        value.truncate('\n');
+        value.truncate('#');
+      }
+    }
 
     Critsec_.lock();
     Dictionary_.add(key,value);
     Critsec_.unlock();
-  } 
+  }
   return(TRUE);
 }
 
@@ -268,192 +279,6 @@ bit8 ConfigFile::getInt(IN char *key,sint16 &value, IN char *section) const
 
   return(getInt(sKey,value,section));
 }
-
-
-
-/************* MDC; Added functionality for updating and saving config files ************/
-
-// Remove an entry
-bit8 ConfigFile::removeEntry(IN Wstring &_key, IN char *section)
-{
-	Wstring key(_key);
-	key.toUpper();
-	
-	if (section)  // append section name to key
-	{
-		key+="[";
-		key+=section;
-		key+="]";
-	}
-	
-	Critsec_.lock();
-	bit8 retval=Dictionary_.remove(key);
-	Critsec_.unlock();
-	
-	if (retval==FALSE)
-	{ DBGMSG("Config entry missing: "<<key.get()); }
-	
-	if (retval==FALSE)
-		return(FALSE);
-	return(TRUE);
-}
-
-// Remove an entry
-bit8 ConfigFile::removeEntry(IN char *key, IN char *section)
-{
-	Wstring sKey;
-	sKey.set(key);
-	return removeEntry(sKey, section);
-}
-
-// Set a config entry as a string
-bit8 ConfigFile::setString(IN Wstring &_key, IN Wstring &value, IN char *section)
-{
-	Wstring key(_key);
-	key.toUpper();
-	
-	if (section)  // append section name to key
-	{
-		key+="[";
-		key+=section;
-		key+="]";
-	}
-	else
-	{
-		section = "";  // give it a default
-	}
-	
-	Critsec_.lock();
-	Dictionary_.remove(key);
-	bit8 retval=Dictionary_.add(key,value);
-
-	// Test for a new section
-	Wstring test;
-	int i;
-	for (i=0; i<sectionList.length(); i++)
-	{
-		sectionList.get(test, i);
-		if (!strcmp(test.get(), section))
-			break;
-	}
-	if (i == sectionList.length())
-	{
-		// New section!
-		//DBGMSG("New section " << section << ", " << sectionList.length() << " entries");
-		test.set(section);
-		sectionList.addTail(test);
-	}
-	Critsec_.unlock();
-	
-	if (retval==FALSE)
-	{ 
-		DBGMSG("Config could not set entry: "<<key.get()); 
-	}
-	
-	return(retval);
-} 
-
-// Set a config entry as a string
-bit8 ConfigFile::setString(IN char *key,IN Wstring &value, IN char *section)
-{
-	Wstring sKey;
-	sKey.set(key);
-	return(setString(sKey,value,section));
-}   
-
-// Set a config entry as an integer
-bit8 ConfigFile::setInt(IN Wstring &_key,IN sint32 &value, IN char *section)
-{
-	Wstring key(_key);
-	key.toUpper();
-	
-	if (section)  // append section name to key
-	{
-		key+="[";
-		key+=section;
-		key+="]";
-	}
-	else
-	{
-		section = "";  // give it a default
-	}
-	
-	Wstring svalue;
-	svalue.setFormatted("%d", value);
-	Critsec_.lock();
-	Dictionary_.remove(key);
-	bit8 retval=Dictionary_.add(key,svalue);
-	// Test for a new section
-	Wstring test;
-	//DBGMSG("Testing " << sectionList.length() << " entries for " << section);
-	int i;
-	for (i=0; i<sectionList.length(); i++)
-	{
-		sectionList.get(test, i);
-		//DBGMSG("Looking at " << test.get());
-		if (!strcmp(test.get(), section))
-			break;
-	}
-	if (i == sectionList.length() && section)
-	{
-		// New section!
-		//DBGMSG("New section " << section << ", " << sectionList.length() << " entries");
-		test.set(section);
-		sectionList.addTail(test);
-	}
-	Critsec_.unlock();
-	
-	if (retval==FALSE)
-	{ DBGMSG("Config could not set entry: "<<key.get()); }
-	
-	if (retval==FALSE)
-		return(FALSE);
-	return(TRUE);
-}
-
-// Set a config entry as an integer
-bit8 ConfigFile::setInt(IN char *key,IN sint32 &value, IN char *section)
-{
-	Wstring sKey;
-	sKey.set(key);
-	return(setInt(sKey,value,section));
-}    
-
-
-// Write config file to disk.  Does not preserve comments, etc.
-bit8 ConfigFile::writeFile(FILE *config)
-{
-	if (!config)
-	{
-		ERRMSG("No FP on config file write!");
-		return FALSE;
-	}
-	int index = 0;
-	int offset = 0;
-	Wstring key;
-	Wstring value;
-
-	Wstring section;
-	//DBGMSG(sectionList.length() << " entries");
-	for (int i=0; i<sectionList.length(); i++)
-	{
-		sectionList.get(section, i);
-		//DBGMSG("Writing " << section.get());
-		fprintf(config, "[%s]\n", section.get());
-		index = 0;
-		offset = 0;
-		while (enumerate(index, offset, key, value, section.get())!=FALSE)
-		{
-			fprintf(config, "%s=%s\n", key.get(), value.get());
-		}
-		fprintf(config, "\n");
-	}
-	return TRUE;
-}
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -53,16 +53,7 @@ class ConfigFile
              // Enumerate through the config lines
  bit8        enumerate(int &index, int &offset, Wstring &key, Wstring &value, IN char *section=NULL) const;
 
- // Manual update of config file
- bit8        setString(IN Wstring &key,IN Wstring &value, IN char *section=NULL);
- bit8        setString(IN char *key,IN Wstring &value, IN char *section=NULL);
- bit8        setInt(IN Wstring &key,IN sint32 &value, IN char *section=NULL);
- bit8        setInt(IN char *key,IN sint32 &value, IN char *section=NULL);
- bit8        removeEntry(IN Wstring &key, IN char *section=NULL);
- bit8        removeEntry(IN char *key, IN char *section=NULL);
- bit8        writeFile(FILE *config); // Does not preserve comments, etc
-
- ArrayList<Wstring> sectionList; // stores the names of all sections
+ void        clear(void);  // E&B: 0x8B2690, every entry under the lock  // NAME 2: what it does (Dictionary::clear)
 
  private:
   Dictionary<Wstring,Wstring> Dictionary_; // stores the mappings from keys
