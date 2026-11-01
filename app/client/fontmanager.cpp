@@ -571,6 +571,11 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 	if (it == Fonts.end()) return NULL;
 	return it->second;
 }
+
+ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const unsigned int &id)
+{
+	return Peek_Font(id);
+}
 #pragma auto_inline(on)
 /*
 **	Reconstruction notes
@@ -598,4 +603,6 @@ ManagedFontClass *FontManagerClass::Find(unsigned int id)
 **	0x6D2580 and 0x6D2700 and inlines the same body in the trio, Get_Style and 0x6D28C0, written as
 **	the inline twin Peek_Font (builder H19: 0x6D2580 exact; no budget form inside 0x6D2580 sent
 **	Find out of line: dead reads, a depth wrapper, a constructed color, a RefCountPtr local).
+**	0x6D2AE0 (no caller in the client) is Find's body over a reference key, read once: Peek_Font(id); the
+**	table's find on the reference reads the key twice.
 */

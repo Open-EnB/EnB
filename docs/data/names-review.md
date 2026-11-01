@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1064 |
 | 2 | describes what the code does | 2546 |
-| 1 | neutral placeholder | 7803 |
+| 1 | neutral placeholder | 7805 |
 
 ## For review (score 3 and below)
 
@@ -1607,6 +1607,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2580` | `app/client/fontmanager.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown_6D2700` | `app/client/fontmanager.cpp:539` | untagged neutral name (D10) |
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.cpp:555` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.cpp:575` | untagged neutral name (D10) |
 | 1 | `FontStyleColorStruct` | `app/client/fontmanager.h:34` | neutral (D10): 16 bytes, a color and one more word |
 | 1 | `Unknown0C` | `app/client/fontmanager.h:37` | neutral (D10) |
 | 1 | `FontStyleClass` | `app/client/fontmanager.h:40` | neutral (D10): the debug font's class (0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4) |
@@ -1657,6 +1658,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2700` | `app/client/fontmanager.h:118` | neutral (D10) |
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:119` | neutral (D10) |
 | 1 | `Peek_Font` | `app/client/fontmanager.h:121` | neutral (D10) |
+| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:123` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
@@ -8303,8 +8305,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Style` | `app/client/fontmanager.h:117` | describes what it does |
 | 2 | `Add` | `app/client/fontmanager.h:120` | describes what it does |
 | 2 | `Find` | `app/client/fontmanager.h:122` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:124` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:125` | what it holds |
+| 2 | `std:` | `app/client/fontmanager.h:125` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:126` | what it holds |
 | 2 | `view` | `app/client/intrface.h:91` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |

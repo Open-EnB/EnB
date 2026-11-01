@@ -120,6 +120,7 @@ public:
 	void Add(ManagedFontClass *font);									// 0x6D29A0: under its id  // NAME 2: describes what it does
 	ManagedFontClass *Peek_Font(unsigned int id);						// inline only: Find's body where the client inlines it (the trio 0x6D2400, Get_Style, 0x6D28C0)  // NAME 1 [Peek_Font]: neutral (D10)
 	ManagedFontClass *Find(unsigned int id);							// 0x6D2A70  // NAME 2: describes what it does
+	ManagedFontClass *Unknown_6D2AE0(const unsigned int &id);			// 0x6D2AE0: Find through a reference (no caller in the client)  // NAME 1 [Unknown_6D2AE0]: neutral (D10)
 
 	std::hash_map<unsigned int, ManagedFontClass *> Fonts;				// +0x00: 100 buckets  // NAME 2: what it holds
 	RefCountPtr<FontStyleClass> DebugFont;								// +0x18: "DebugFont"  // NAME 2: what it holds
