@@ -10421,6 +10421,35 @@
      "0x82C080"
     ]
    },
+   "textgadg": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6AA000",
+     "0x6AA110",
+     "0x6AA140",
+     "0x6AA570",
+     "0x6AA5F0",
+     "0x6AA690",
+     "0x6AA6C0",
+     "0x6AA6F0",
+     "0x6AA720",
+     "0x6AA810",
+     "0x6AAB30",
+     "0x6AAB60",
+     "0x6AACD0",
+     "0x6AB0F0"
+    ],
+    "merged": [],
+    "name": "client/textgadg.cpp"
+   },
    "tsk_game": {
     "ambiguous": [
      "0x42A6C0",
@@ -12164,6 +12193,7 @@
    "client/tasks/tsk_menu.h": "reconstructed",
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
+   "client/textgadg.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
    "client/ui_avsel.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",

@@ -30,6 +30,7 @@
 
 struct FontStringStruct;
 class FontDatabaseClass;
+class Font32Class;
 
 struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color and one more word
 {
@@ -49,9 +50,12 @@ public:
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
+	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
-	char Unknown1E0[0x70];	// +0x1E0  // NAME 1: neutral (D10)
+	char Unknown1E0[0x6C];	// +0x1E0  // NAME 1: neutral (D10)
+	Font32Class *Font;													// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640)  // NAME 3: the assert's
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	char Unknown254[0x18];												// +0x254  // NAME 1: neutral (D10)
 	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)
