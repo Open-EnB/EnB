@@ -270,6 +270,17 @@ void Xtime::addSeconds(sint32 seconds)
 }
 
 //
+// E&B: add some number of milliseconds to the time (can be negative), 0x8BA5F0
+//
+void Xtime::addMsec(sint32 msec)
+{
+  day_+=(msec/86400000);
+  msec_+=(msec % 86400000);
+
+  normalize();
+}
+
+//
 // If msec is > 1 days worth, adjust the day count
 //   & decrement the msec counter until OK.
 //

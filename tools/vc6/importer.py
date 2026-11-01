@@ -3196,6 +3196,9 @@ WWONLINE_PATCHES = {
         ('             ~Xtime();\n',
          '             ~Xtime();\n\n    time_t    getTime_t(void) const;  // E&B: the time as a time_t (0x8BA510)  // NAME 1: describes what it returns\n',
          "E&B's addition 0x8BA510 (between ~Xtime 0x8BA4F0 and addSeconds 0x8BA550): day_ * 86400 + msec_ / 1000 - 719528 * 86400 (0x79747C00), the time_t of the time; CordStatsClass::Allow 0x85C430 calls it"),
+        ('    void      addSeconds(sint32 seconds);\n',
+         '    void      addSeconds(sint32 seconds);\n    void      addMsec(sint32 msec);  // E&B: 0x8BA5F0  // NAME 2: addSeconds for milliseconds\n',
+         "E&B's addMsec 0x8BA5F0"),
     ],
     ('wlib', 'xtime.cpp'): [
         ('Xtime::Xtime( Xtime &other )\n',
@@ -3207,6 +3210,9 @@ WWONLINE_PATCHES = {
         ('static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)',
          "static bit8 Get_Date_From_Day(sint32 days, OUT int &year, OUT sint32 &yday)\t// E&B: int year (wstypes.h's sint32 is long)",
          "with wstypes.h on WWLib's bittype.h (sint32 long) getYDay's and getTime's `int year` no longer binds to `sint32 &` (C2664); the year is an int as getTime's own parameter. Same code: none of the three matches the client yet"),
+        ('  msec_+=(seconds % 86400)*1000;\n\n  // Now normalize in case msec is > 1 days worth\n  normalize();\n}\n',
+         '  msec_+=(seconds % 86400)*1000;\n\n  // Now normalize in case msec is > 1 days worth\n  normalize();\n}\n\n//\n// E&B: add some number of milliseconds to the time (can be negative), 0x8BA5F0\n//\nvoid Xtime::addMsec(sint32 msec)\n{\n  day_+=(msec/86400000);\n  msec_+=(msec % 86400000);\n\n  normalize();\n}\n',
+         "E&B's 0x8BA5F0 (between addSeconds 0x8BA550 and normalize 0x8BA680): day_ += x / 86400000, msec_ += x % 86400000 (`idiv 0x5265C00`), then normalize inlined; no caller in the client"),
     ],
     ('wlib', 'wstypes.h'): [
         ('typedef char               sint8;\n',
