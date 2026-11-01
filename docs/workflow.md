@@ -485,6 +485,15 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **VC6's inline budget moves with functions added later in the same file** (2026-10-31, TK6, ui_avatar_cust): adding
+  0x5513E0-0x551C80 made 0x550A10 inline a third Rotate_Y, and 0x551BF0's form flips with 0x551520's body: re-run every
+  marker of the file after adding functions. An out-of-line function with no callers right after a FAIL_IF handler is
+  what an earlier function in the file inlines. A register rotation from the first instruction (`this` in ebp, not esi)
+  was fixed by reading members through inline getters (0x556630).
+* **A member store / load VC6 hoists above an earlier member store** (2026-10-31, TK11, dbgconn 0x824EC0), where the
+  client keeps source order: put the members in a sub-object with an inline method (its own `this` stops the hoist);
+  29 orderings of the flat class did not. tryvariants.py finds only a library's top-level files (`app/common/x.cpp`:
+  "no such file"): for app files use appfile.py match on a marked copy (`.work/tk11/run_count.py`).
 * **aux_roots.cpp's budget-bound functions flip on any declaration added to the headers it includes** (2026-10-31,
   TK5): one more Type_Name overload in strconv_lib.h, a declaration in delta_template.h or money.h, or a member operator
   removed from MoneyClass loses 6 aux_roots pairs (0x7014B0, 0x701D70, 0x7045F0, 0x7048A0, 0x705860, 0x705A10). Test
@@ -515,8 +524,9 @@ unless `--lever` cites a new row of this table.
   Save_Defaults 0x4C2360).
 * **Moving a class out of a file with asserts** (2026-10-31, LC1): replace the removed lines with as many blank
   lines, so every later `__LINE__` stays on the client's line (`wc -l` before and after must agree), before verifying.
-  A string literal shared with a function in another range (the client does not merge literals across objects)
-  keeps both functions in one object: 0x7FFEA0 stays in scriptedmovie.cpp with 0x803310 ('CREATE_OBJECT'). A
+  A string literal shared with a function in another range keeps both functions in one object *only when no other
+  object uses it* (corrected 2026-10-31, TK6: literals ARE merged across objects; the object linked first holds
+  them, so ui_avatr.cpp pushes ui_avatar_cust.cpp's 'COLOR_PALETTE': a shared literal's address is not file evidence): 0x7FFEA0 stays in scriptedmovie.cpp with 0x803310 ('CREATE_OBJECT'). A
   regex that strips `((T *)x)` casts also eats the call parentheses of `f((T *)x)` (C2065 on verify).
 * **fontmanager.h / fontdatabase.h cannot be included next to sclient.h** (2026-10-29, UI1): tsk_game.h declares
   Unknown_BE67B8 with another type; SClientFontDatabaseClass is declared in sclient.h for now. VC6 inlines a

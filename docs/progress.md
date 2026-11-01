@@ -1672,8 +1672,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   Rejected_) move out of the class (a side table in udpreplay), and its constructor takes the key as one `__int64`:
   the client allocates 0xC0, ours 0xC8; this unblocks ACK2 0x85ABB0 (0.61 with both fixed in a draft).
 * **P-TG4-2** (2026-10-31, TG4; recommend keep): D130's dead spenders in a NOT EXACT function: ui_avatar_cust
-  0x550A10 (NOT EXACT 0.71) holds four dead finds that exist only to send matrix3d.h's Rotate_Y 0x551270 out of
-  line, gaining that pair; each is needed (three leave it inline). D130 was written for functions made exact; does
+  0x550A10 (NOT EXACT 0.71) holds five dead finds (four until TK6 added 0x5513E0-0x551C80, 2026-10-31 t4) that exist
+  only to send matrix3d.h's Rotate_Y 0x551270 out of line, gaining that pair; each is needed (one fewer inlines it). D130 was written for functions made exact; does
   it cover spenders kept for another function's pair?
 * **P-TK3-1** (2026-10-31, TK3; recommend yes): extend D166's caller tie-break to `multiple` copies that are not
   identical (same rule: our exact caller reaches one address and every client caller of it is exact in the same
@@ -1755,6 +1755,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK6, TK11): ui_avatr.cpp (new, AvatarCreationInterface) is ui_avatar_cust.cpp's twin:
+     leads 0x553AF0 (ctor), 0x554E80, 0x556F80 onward, and ui_avatar_cust's 0x54B370-0x550670 (a function rebuilt in
+     one is the template for the other); 0x55C350 sits at ui_avatr.cpp's end (interim, D137: in the client after line
+     2207). ui_avatr 0x556B20 NOT EXACT 0.54 (inline budget; more dead spenders than D130's 6: left parked).
+     scriptedmovie's 0x8099B0 (register 0.82) and Create_Object 0x804290 (0.58) block five vector copies.
    * From the 2026-10-31 t4 run (TK5): lookup_table's hash_map() 0x4EE810 and 12 other out-of-line hash_map() copies
      go exact with _M_initialize_buckets written out in sgistl's three-argument hashtable ctor (sgistl_adapt.py;
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
