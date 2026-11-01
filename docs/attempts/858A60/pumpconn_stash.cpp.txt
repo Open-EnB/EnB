@@ -1,0 +1,54 @@
+// CordMgr::Pump_Connections 0x858A60 (NW3, 2026-11-01): the client's shape (one pass over the entries the list held at
+// the start, the timed-out record freed and then read once more, no Socket test), 0.26 -> 0.38 with the inline helper
+// below in cordmgr.h (the first add then out of line, as the client's 0x85B6F0; the second add and shrinkVector
+// 0x85B630 still inlined in ours). Header: BigInt EncryptedKey (the client's +0x34 constructor), and
+//   void Add_Connection(CordCon *con) { AllConnections_.addTail(con); Connections_.addTail(con); }
+
+bool CordMgr::Pump_Connections()
+{
+	WWPROFILE("CordMgr::Pump_Connections");
+	unsigned char buf[0x200];
+	unsigned char key[0x200];
+	Xtime now;
+	Xtime resend;
+	Xtime timeout;
+	resend.addSeconds(-1);
+	timeout.addSeconds(-60);
+	int count = Pending_.length();
+	int i = 0;
+	CordConnectingClass *c;
+	for (int k = 0; k < count; k++) {
+		Pending_.get(c, i);
+		if (c->Created < timeout) {
+			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key);
+			Add_Connection(con);
+			delete c;
+			Pending_.remove(i);
+			i--;
+		}
+		if (c->State == 1) {
+			if (resend > c->LastSend) {
+				buf[0] = 0;
+				buf[1] = Protocol_;
+				*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+				c->Socket->Write(buf, 4, c->Ip, c->Port);
+				c->LastSend = now;
+			}
+		} else if (c->State == 3 && resend > c->LastSend) {
+			buf[0] = 2;
+			buf[1] = Protocol_;
+			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+			*(unsigned long *)(buf + 4) = htonl(c->Ack1Word1);
+			*(unsigned long *)(buf + 8) = htonl(c->Ack1Word2);
+			*(unsigned long *)(buf + 12) = htonl(0x4000);
+			unsigned int n = XMP_Encode(key, c->EncryptedKey, 0x40);
+			*(unsigned long *)(buf + 16) = htonl(n);
+			memcpy(buf + 20, key, n);
+			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
+			c->LastSend = now;
+		}
+		i++;
+	}
+	return true;
+}
+
