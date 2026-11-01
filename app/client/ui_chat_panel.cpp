@@ -58,14 +58,14 @@ public:
 };
 
 // local_interface_sort.cpp's sort object (8 bytes; as ui_cpit.cpp declares it)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);		// 0x541980  // NAME 1 [inter]: view.cpp's
-	~LineDisplaySortClass();							// 0x6E18B0
-private:
-	char Unknown00[8];
-};
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
+
+
+
+
+
+
+
 
 // The reply list at the panel's +0x1E8, as far as this file calls it
 class UIChatReplyListClass : public InterfaceClass	// NAME 1: neutral (D10)
@@ -502,7 +502,7 @@ void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);
 // 0x562F50
 void UIChatPanelClass::Unknown_58()
 {
-	LineDisplaySortClass sort(this);
+	InterfaceSortScopeClass sort(this);
 	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Unknown30()), 0);
 	ChatInt->Unknown_58();
 	UIChatPanelBaseClass::Unknown_58();
@@ -615,7 +615,7 @@ bool UIChatPanelClass::Unknown_68(int key)
 void UIChatPanelClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
-		LineDisplaySortClass sort(this);
+		InterfaceSortScopeClass sort(this);
 		InterfaceClass::Unknown_7C(view, arg);
 		if (UnknownF0) UnknownF0->Unknown_7C(view, 0);
 		if (ChatInt) ChatInt->Unknown_7C(view, 1);
@@ -643,7 +643,7 @@ void UIChatPanelClass::Unknown_563910(unsigned id, bool flag)
 {
 	SClient *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) return;
-	LineDisplaySortClass sort(this);
+	InterfaceSortScopeClass sort(this);
 	ClientObjectClass *target = sclient->MainView->Unknown_5C();
 	ClientObjectClass *co = sclient->Find_Object(id);
 	if (!co) {
@@ -735,7 +735,7 @@ void UIChatPanelClass::Unknown_564030(bool on)
 {
 	Unknown120 = on;
 	if (on) {
-		LineDisplaySortClass sort(this);
+		InterfaceSortScopeClass sort(this);
 		Unknown110->Unknown_7E3A20(0, Unknown118, 0);
 		Unknown114->Set_Hidden(0);
 		Unknown_564150(true);

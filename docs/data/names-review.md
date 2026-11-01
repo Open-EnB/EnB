@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1144 |
 | 2 | describes what the code does | 2876 |
-| 1 | neutral placeholder | 10281 |
+| 1 | neutral placeholder | 10271 |
 
 ## For review (score 3 and below)
 
@@ -5258,9 +5258,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIAvselManagedFontClass` | `app/client/ui_avsel.cpp:88` | neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's |
 | 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:90` | 0xBE67C4 |
-| 1 | `LineDisplaySortClass` | `app/client/ui_avsel.cpp:94` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_avsel.cpp:97` | view.cpp's |
-| 1 | `Unknown00` | `app/client/ui_avsel.cpp:100` | untagged neutral name (D10) |
 | 1 | `UIAvselKeyEventStruct` | `app/client/ui_avsel.cpp:104` | neutral (D10): kernel.h's input event |
 | 1 | `key` | `app/client/ui_avsel.cpp:106` | neutral |
 | 1 | `Unknown02` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
@@ -5654,8 +5651,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_chat_panel.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_chat_panel.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_chat_panel.cpp:56` | untagged neutral name (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/ui_chat_panel.cpp:61` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_chat_panel.cpp:64` | view.cpp's |
 | 1 | `UIChatReplyListClass` | `app/client/ui_chat_panel.cpp:71` | neutral (D10) |
 | 1 | `Unknown_56EFB0` | `app/client/ui_chat_panel.cpp:74` | untagged neutral name (D10) |
 | 1 | `names, arg` | `app/client/ui_chat_panel.cpp:75` | what 0x567540 passes |
@@ -7416,9 +7411,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BB8` | `app/client/ui_manu.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown0BC0` | `app/client/ui_manu.h:178` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/ui_scut.cpp:20` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_scut.cpp:23` | view.cpp's |
-| 1 | `Unknown00` | `app/client/ui_scut.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_scut.cpp:35` | untagged neutral name (D10) |
@@ -7498,6 +7490,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6D` | `app/client/ui_scut.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/ui_scut.cpp:90` | untagged neutral name (D10) |
 | 1 | `UIScutMouseUnknown2CClass` | `app/client/ui_scut.cpp:93` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_scut.cpp:93` | untagged neutral name (D10) |
 | 1 | `UIScutMouseClass` | `app/client/ui_scut.cpp:95` | neutral (D10): +0x28 a nesting count (0x6120E0) |
 | 1 | `Unknown28` | `app/client/ui_scut.cpp:95` | untagged neutral name (D10) |
 | 1 | `bar, mesh, layer` | `app/client/ui_scut.cpp:101` | what 0x610F80 passes |
@@ -7738,9 +7731,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Object` | `app/client/unknown_signalbase.h:45` | what it holds |
 | 1 | `Function` | `app/client/unknown_signalbase.h:46` | what it holds |
 | 1 | `Unknown00` | `app/client/unknown_signalbase.h:59` | neutral (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/view.cpp:9` | neutral (D10) |
-| 1 | `inter` | `app/client/view.cpp:12` | what 0x6B4860 passes |
-| 1 | `Unknown00` | `app/client/view.cpp:16` | untagged neutral name (D10) |
 | 1 | `InterfaceClass` | `app/client/view.cpp:27` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/view.cpp:32` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/view.cpp:32` | untagged neutral name (D10) |

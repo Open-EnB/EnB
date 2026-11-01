@@ -6,15 +6,15 @@
 
 // local_interface_sort.cpp's sort object (8 bytes) over one interface object (0x541980; the main view's 0x512A00
 // makes it from the view)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);	// 0x541980  // NAME 1 [inter]: what 0x6B4860 passes
-	~LineDisplaySortClass();							// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
 
-private:
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
 
 
 
@@ -84,7 +84,7 @@ void ViewClass::Unknown_14()
 	for (SLNode<InterfaceClass> *node = InterfaceObjects.Head(); node != NULL; node = node->Next()) {
 		InterfaceClass *inter = node->Data();
 		if (inter->Active) {
-			LineDisplaySortClass sort(inter);
+			InterfaceSortScopeClass sort(inter);
 			inter->Unknown_60();
 		} else {
 			inter->Unknown_64();

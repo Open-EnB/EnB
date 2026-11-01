@@ -91,14 +91,14 @@ extern UIAvselFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0x
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
 // local_interface_sort.cpp's sort object (8 bytes; as ui_cpit.cpp declares it)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);		// 0x541980  // NAME 1 [inter]: view.cpp's
-	~LineDisplaySortClass();							// 0x6E18B0
-private:
-	char Unknown00[8];
-};
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
+
+
+
+
+
+
+
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_manu.cpp's)
 struct UIAvselKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -299,7 +299,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown0F8(false), Unknown0F9(false), Unknown0FA(false), Unknown0FB(false), Unknown0FC(false), Unknown0FD(false),
 	Unknown100(-1), Layer(layer), Unknown118(NULL), Unknown120(false)
 {
-	LineDisplaySortClass sort(this);
+	InterfaceSortScopeClass sort(this);
 	memset(Unknown09C, 0, sizeof(Unknown09C));
 	int i;
 	for (i = 0; i < 2; i++) {
