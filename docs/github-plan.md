@@ -287,9 +287,14 @@ recorded in progress.md 2026-10-30.
 
 #### 4.5.1 Claims
 
-* An issue labelled `claim` (template, or `tools/claims.py claim UNIT`), kept by `claims.yml` as in 4.2A.
-* `tools/claims.py list` shows the live claims with their addresses; `claims.py check ADDR|FILE` says who holds
-  them. The coordinator and every picker consult it.
+* A contributor's claim is an issue labelled `claim` (template, or `tools/claims.py claim UNIT`), kept by
+  `claims.yml` as in 4.2A.
+* A maintainer's run claims in its own PR's body instead (4.5.3; 2026-10-31, P-GH-11): no issue, no bot comment, no
+  email.
+* `tools/claims.py list` shows the live claims of both kinds with their addresses; `claims.py check ADDR|FILE` says
+  who holds them (`#N` an issue, `PR #N` a run). Both read one state file (4.5.3a) through a 5-minute local cache
+  (`.work/claims-cache.json`; `--fresh` bypasses it). The coordinator consults it before claiming; a builder only
+  when its work leads outside the ranges claimed for it.
 * Abuse handling is the maintainer's `/release` and GitHub's usual blocking; nothing else.
 
 #### 4.5.2 The unit, and how much a claim can block
@@ -330,22 +335,55 @@ it is busiest. So:
 #### 4.5.3 The maintainer's runs
 
 * At run start the coordinator lists live claims (`claims.py list`) and assigns builders only unclaimed ranges.
-* **The run's PR opens as a draft at run start**, and the coordinator pushes the run branch after each builder's
-  work is merged into it (D148 already lets it push its run branch), so the run's claims stay alive and
-  contributors see the work before master does. The PR leaves draft at handoff.
-* It claims each builder's range before launching it (`claims.py claim`, one issue per range) and adds
-  `Claims #N` to the run's PR; the merged PR closes them.
+* **The run's PR opens as a draft at run start** (`run_branch.py start`; an empty commit `Start run <date>` when
+  the branch has none, since GitHub opens no PR without one), so the run's claims have a home from the first
+  minute. The coordinator pushes the run branch at heartbeats that brought builders' work in (D148 lets it push its
+  run branch); contributors see the work before master does. The PR leaves draft at handoff.
+* **Claims are lines in the run PR's body** (2026-10-31, P-GH-11, after a run of about 19 builders spent the
+  maintainer's 5,000 API calls an hour and 46 claim issues sent two or three emails each): `run_branch.py claim UNIT
+  --builder ID --model M [--split]` resolves the functions locally (master's data), refuses a unit overlapping any
+  live claim (contributors' issue claims, other runs' PRs, the run's own lines), and adds one line per claim to the
+  block `<!-- enb-run-claims -->` ... `<!-- /enb-run-claims -->`, e.g. `claim: 0x8360A0-0x837A51 (TK16, opus)`.
+  Granted at once (maintainers are trusted). `run_branch.py release UNIT|BUILDER` removes lines. Such claims live
+  while that PR is open, draft or not, and end when it merges or closes; only open PRs whose author is an owner or
+  member count. A run's claims are kept by the maintainer, so 4.5.2's clock does not apply to them.
+* Old issue claims named `Claims #N` in a run PR still work (they land when it merges); `run_branch.py release N`
+  releases one.
 * A builder that strays into a claimed range stops and reports, as it does today for another builder's file.
 
 #### 4.5.3a How the claims are kept
 
 `tools/claims.py` is both the contributor's command and the Action's code. The Action
-(`.github/workflows/claims.yml`) runs `claims.py reconcile` on every claim issue event, every comment, hourly and
-by hand; each run rebuilds the whole state from the open issues, so a run that GitHub drops while another is
-queued loses nothing. The state of each claim lives in a comment by `github-actions[bot]` (a JSON marker that only
-the bot's own comments are trusted for). Requests are granted first come, first served, by issue number. The
-workflow checks out master, reads only issue and PR text through the API, and has `issues: write` and read
-permissions otherwise; no contributor code runs.
+(`.github/workflows/claims.yml`) runs `claims.py reconcile` on every claim issue event, every comment, every
+`pull_request_target` event (opened, edited, reopened, closed, ready_for_review, converted_to_draft) of a PR that
+carries run claims or names a claim, hourly and by hand; each run rebuilds the whole state from the open issues and
+the open maintainer PRs' run-claims blocks, so a run that GitHub drops while another is queued loses nothing. The
+state of each issue claim lives in a comment by `github-actions[bot]` (a JSON marker that only the bot's own
+comments are trusted for). The run PRs' claims are counted as held before any issue is granted (a refusal names
+`PR #N`); issue requests are then granted first come, first served, by issue number. The workflow checks out master
+explicitly (`pull_request_target` runs with the base repository's token, so it must never check out or run a PR's
+code), reads issue and PR text only through the API, as data, and has `issues: write`, `contents: write` (for the
+state branch below; master's ruleset still stops any push there) and read permissions otherwise; no contributor
+code runs.
+
+**The state file.** Each reconcile ends by writing the whole live state, issue claims and run-PR claims (kind,
+number or PR, holder, unit, functions, builder and model for a run's, updated_at), as `claims.json` on the branch
+`claims-state`: a one-file commit with no parent and a forced ref update, so the branch never grows; the Action
+creates it when missing. `claims.py list`/`check` read it with one call (`gh api
+repos/{r}/contents/claims.json?ref=claims-state`) and say how old it is; only when the file is missing do they
+fall back to the old scan (one call per open claim issue) with a warning.
+
+**Guard rails for the maintainer's API budget** (5,000 calls an hour, shared by every tool on the host):
+
+* `list`/`check` answer from `.work/claims-cache.json` for 5 minutes (`--fresh` bypasses it); `run_branch.py`'s
+  own grants and releases update the cache.
+* `claims.py claim` waits for the Action with a back-off (5, 10, 20, 40, 60 s ...), not a fixed poll.
+* A budget floor: before its first call and every 20 calls, `claims.py` (and `run_branch.py` through it) reads
+  `gh api rate_limit` (free) and stops below 500 remaining core calls, printing the reset time; `verify_watch.py`
+  skips a pass below the same floor. Not in the Action (its token has its own budget).
+* `checks.yml` runs on pushes to master and on PRs when they open, get a push, reopen or leave draft; drafts skip
+  the job (a run's draft PR got two runs per heartbeat push before), and a newer run cancels the older one of the
+  same ref. `ready_for_review` runs it on the head, so the required `checks` status is reported before a merge.
 
 #### 4.5.4 Pull requests and commits
 
@@ -402,6 +440,13 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
     outright still fails and waits for the user (D66); no command passes it. The ruleset has no bypass, so this
     is the only way past a failing `vc6-verify`. The command is the user's decision: agents post the moves'
     list for the user, never `/accept-d66` (all comments from this host carry the user's login).
+  * **Accepted corrections (D173):** `docs/data/accepted-corrections.json`, hand-maintained by the user's decisions
+    only, lists false pairs (`{address, lib, file, moved_to, decision, note}`; the first, D173: app `aux_roots`
+    `??_G KVAccessorClass<UnknownB016DCType>` 0x723AB0 -> 0x4B2AA0). When such a pair is lost and the same lib and
+    file gain `moved_to` in the same comparison, `pairs_cmp.py` prints it as `corrected (accepted: D173) [...]` and
+    leaves it out of `lost`, `lost outright` and `moves`, and `verify_pr.py` does not fail on it and names it in the
+    status and the comment. Otherwise it is a loss as before. The list is read from master's checkout, so a PR
+    cannot add its own.
   * The master ruleset requires `checks` and `vc6-verify` (no bypass actors).
 
 #### 4.5.6 Build order (before the repository goes public)

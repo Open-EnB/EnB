@@ -49,6 +49,7 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |
 | [data/attempts.csv](data/attempts.csv), [attempts/](attempts/) | the attempt log: every near miss tried and abandoned (status, score, forms, blocker class, evidence) and the stashed forms per address; read before a retry (builders.md §2) | `attempts.py record` (appends; `show`, `list`, `check` read it) |
+| [data/accepted-corrections.json](data/accepted-corrections.json) | pairs the user ruled false (one entry per decision: address, lib, file, moved_to, decision, note); `pairs_cmp.py` and `verify_pr.py` do not count such a loss when the same comparison gains `moved_to` ([github-plan.md](github-plan.md) 4.5.5, D173) | hand-maintained, by the user's decision only |
 | [data/progress-history.csv](data/progress-history.csv) | one row per day: bytes of `.text` by state, exact functions, pairs, functions per library (measured on each day's last commit) | `tools/progress.py --history` |
 | [progress.svg](progress.svg), [progress_chart.svg](progress_chart.svg), [progress_map.svg](progress_map.svg) | the progress card, the history chart and the address map of `.text`, embedded in the README | `tools/progress.py` |
 

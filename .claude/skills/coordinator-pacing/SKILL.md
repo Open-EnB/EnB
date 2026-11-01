@@ -19,9 +19,10 @@ from `~/.claude/.credentials.json` for the usage figures; needs the pool, `tools
 ## At the start of a run
 
 0. **The run branch and its draft PR** (D148, docs/github-plan.md 4.5.3): `python tools/run_branch.py start`
-   makes `run/<date>` from origin/master (or brings an existing one up to it), pushes it, opens the run's PR as a
-   draft and writes the baseline below. Then `python tools/claims.py list`: assign builders only functions no
-   live claim holds (contributors' claims included).
+   makes `run/<date>` from origin/master (or brings an existing one up to it; an empty `Start run <date>` commit
+   when it has none, `--co-author` for its trailer), pushes it, opens the run's PR as a draft at once (the claims'
+   home) and writes the baseline below. Then `python tools/claims.py list`: assign builders only functions no live
+   claim holds (contributors' claims included).
 1. Record the run's baseline: `run_branch.py start` writes `.work/imports.<sha>.json` from origin/master (master is
    verified by construction). Every heartbeat compares HEAD against it, so a loss anywhere in the run shows up.
 2. Open the plan (`.work/run-<date>/plan.md`) with a Log section; every heartbeat, launch, result and user
@@ -65,18 +66,23 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 ## Launching
 
 - **Claim the builder's functions first:** `python tools/run_branch.py claim UNIT --builder <id> --model <m>`
-  (`--split` for a file over 30 not-yet-exact functions: one claim per 30). It adds `Claims #N` to the run's PR. A
-  claim that is not granted means someone else holds part of it: give the builder another item. Put the granted
-  ranges in the brief; a builder that finds its work leading into a claimed range stops and reports.
+  (`--split` for a file over 30 not-yet-exact functions: one claim per 30). It adds a line `claim: UNIT (ID, MODEL)`
+  to the run PR's claims block, granted at once: no issue, no email. A claim that is not granted means someone else
+  (a contributor's issue, another run, this run's other builder) holds part of it: give the builder another item.
+  Put the granted ranges in the brief and tell the builder they are claimed (it checks only outside them); a
+  builder that finds its work leading into a claimed range stops and reports.
+- **The GitHub API budget** (the maintainer's 5,000 calls an hour; a 19-builder run hit the limit on 2026-10-31):
+  `claims.py`/`run_branch.py` stop below 500 remaining calls and print the reset time. If they do, launch nothing
+  that needs a claim until then, and do not retry in a loop. `claims.py list`/`check` answer from a 5-minute cache.
 - Give every brief a hard stop time and a report time, both earlier than the handoff by the time you need to
   log the result and file its traps (about 15 minutes per report).
 - Model by item (D72, until the D93 evaluation revises it): Opus for byte-exact rebuilding, Sonnet for bounded
   tools fixes and audits, Haiku for searches. A short, bounded item (one trial, one batch, three functions) is
   worth 30 to 60 minutes; a file is worth 2 to 2.5 hours.
 - Log the launch: time, builder id, item, stop time, how many builders are now running.
-- When a heartbeat finds builders' work brought into the run branch since the last push, `python
-  tools/run_branch.py push` (the pre-push check takes about 2.5 minutes): the run's claims stay alive while its PR
-  is a draft, and contributors see the work before master does.
+- Push only at a heartbeat that found builders' work brought into the run branch since the last push: `python
+  tools/run_branch.py push` (the pre-push check takes about 2.5 minutes). Contributors see the work before master
+  does; the run's claims live while its PR is open, pushed or not, and the hosted checks skip the draft.
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).
@@ -89,8 +95,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `git status` clean except `.claude/settings.json`,
   HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
-- Claims: `python tools/run_branch.py release N` for each claim whose builder brought nothing in (it drops the
-  `Claims #N` line too); the others land with the run's PR. At handoff `run_branch.py ready --summary FILE
+- Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
+  brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
+  `Claims #N` line too). At handoff `run_branch.py ready --summary FILE
   --co-author 'NAME <EMAIL>'` (the handoff skill) regenerates and commits the README's progress card
   (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - Cleanup, once no builder is running (at handoff, and again at the next run's start, after the previous PR merged):
