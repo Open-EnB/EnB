@@ -99,6 +99,13 @@ struct ReplayState
 
 static std::map<const UDP *, ReplayState> Replay;
 
+// The datagrams a receiving manager did not take (outside CordMgr, whose +0x58 is the client's per-socket limit).
+static std::map<const CordMgr *, int> Unexpected;
+static int &Unexpected_Count(const CordMgr *mgr)
+{
+	return Unexpected[mgr];
+}
+
 // wnet's UDP (libs\wwonline\wnet\udp.h through app\wwudp\udp.h): the members the wwudp code calls,
 // defined here instead of wnet's udp.cpp (not linked into this program).
 UDP::UDP() : fd(-1), unknownFD(0), myIP(0), myPort(0)
@@ -148,7 +155,7 @@ int UDP::Wait(sint32, sint32, fd_set &, fd_set &)
 	return 0;
 }
 
-// CordMgr::Listen's socket buffers (setsockopt in wnet's udp.cpp): nothing to set here.
+// CordMgr::Listen's and Connect's socket buffers (setsockopt in wnet's udp.cpp): nothing to set here.
 bit8 UDP::SetInputBuffer(uint32)
 {
 	return TRUE;
@@ -317,7 +324,7 @@ static void Deliver(Side &rx)
 		}
 		char type = (char)buf[0];
 		if (!((type == 4 || type == 5) && rx.Mgr.Process_CORD_Packet(buf, len, &from, rx.Sock, 0, type))) {
-			rx.Mgr.Unexpected_++;
+			Unexpected_Count(&rx.Mgr)++;
 		}
 	}
 }
@@ -387,6 +394,7 @@ static void Handshake(FILE *out, const char *line)
 	Replay[sock].FromPort = (unsigned short)port;
 	CordDataSocketClass ds = { sock, 0, 0, 0 };
 	mgr.DataSockets_.addTail(ds);
+	mgr.MaxPerSocket_ = 8;	// as the client's first Connect leaves it, so Connect takes this socket
 	mgr.Connect(ip, (unsigned short)port, true);	// the session id; its record is Pending_'s last
 	CordConnectingClass *c = 0;
 	mgr.Pending_.getTail(c);
@@ -603,10 +611,10 @@ int main(int argc, char **argv)
 		Replay[rx.Sock].In.push_back(wire);
 
 		int rejected = Cord_Harness_Counters(rx.Con)->Rejected;
-		int unexpected = rx.Mgr.Unexpected_;
+		int unexpected = Unexpected_Count(&rx.Mgr);
 		Deliver(rx);
 		const char *status = "ok";
-		if (rx.Mgr.Unexpected_ != unexpected) {
+		if (Unexpected_Count(&rx.Mgr) != unexpected) {
 			status = "nocon";
 			s->NoCon[d]++;
 		} else if (Cord_Harness_Counters(rx.Con)->Rejected != rejected) {

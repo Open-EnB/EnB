@@ -39,7 +39,7 @@ struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 1
 	UDP *Socket;
 	int Unknown04;		// +0x04 (Pump_Releases takes one off for each connection on the socket it frees)
 	int Unknown08;
-	int Unknown0C;
+	bool Unknown0C;		// +0x0C a byte (Connect takes no socket that has it set; Connect's new record copies the whole dword)
 };
 
 struct CordListenSocketClass	// NAME 2: a listening socket's record (the +0x4C list, 12 bytes)
@@ -72,7 +72,7 @@ public:
 	UDP *Socket;					// +0x28 NAME 2: the data socket it was made on
 	CordDataSocketClass *Record;	// +0x2C NAME 2: that socket's record
 	int State;						// +0x30 NAME 2: 1 SYN1 sent, 3 SYN2 sent, 5 done
-	unsigned long EncryptedKey[0x40];	// +0x34 NAME 2: the session key, RSA-encrypted (XMP digits)
+	BigInt EncryptedKey;			// +0x34 NAME 2: the session key, RSA-encrypted (WWLib's Int: its inline constructor is Connect's XMP_Init(+0x34, 0, 0x40))
 	int Unknown134;					// +0x134
 	__int64 Key;					// +0x138 NAME 2: the session key (RC4)
 };
@@ -99,8 +99,8 @@ public:
 	bool Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85AB30
 	bool Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85A430
 	bool Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);	// 0x85ABB0
-	// Starts a connection to ip:port on the first data socket and returns its session id (0x858EC0,
-	// reduced: no socket binding).
+	// Starts a connection to ip:port on a data socket with room (else a new one bound to 3755-3759, else any port)
+	// and returns its session id. 0x858EC0
 	int Connect(unsigned int ip, unsigned short port, bool encrypt);	// NAME 2: what it does
 	// Sends SYN1 / SYN2 for the connections in the handshake (0x858A60, reduced: every call, no
 	// resend timer or time-out).
@@ -127,6 +127,9 @@ public:
 	// (0x857940 / 0x857C00)
 	bool Listen(unsigned int ip, unsigned short port);		// NAME 2: what it does
 	bool Unlisten(unsigned int ip, unsigned short port);	// NAME 2: what it does
+	// udp's receive / send buffers for MaxPerSocket_ connections (8 when 0) of 16 KB, the limit lowered
+	// until both can be had (Connect's loop; no caller). 0x8578C0
+	void Set_Buffers(UDP *udp);	// NAME 2: what it does
 	// Drops the connection with that session id: its CordCon (deleted), else its handshake record
 	// (deleted, left in Pending_ as the client leaves it). 0x8595B0
 	bool Cancel_Connect(int session);	// NAME 2: what it does
@@ -144,7 +147,7 @@ public:
 	ArrayList<CordDataSocketClass> DataSockets_;	// +0x40 NAME 2: the sockets data arrives on
 	ArrayList<CordListenSocketClass> ListenSockets_;	// +0x4C NAME 2: the sockets handshakes arrive on
 
-	int Unexpected_;									// +0x58 (the harness's count of datagrams Pump didn't take, in the client's unknown +0x58)
+	int MaxPerSocket_;									// +0x58 NAME 2: the connections one data socket takes (Connect: 8 at first, one less while the socket buffers of MaxPerSocket_ << 14 bytes can't be had)
 	RSAKeyClass KeyPair;								// +0x5C the server's key pair (0x856D80 loads it: 0x85AFB0); 0x95C bytes in all  // NAME 2: what it holds
 };
 

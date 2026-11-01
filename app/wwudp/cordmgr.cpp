@@ -56,7 +56,7 @@ CordMgr::CordMgr() :
 	Protocol_(0x14),
 	NextSession_(0),
 	Unknown0C(0),
-	Unexpected_(0)
+	MaxPerSocket_(0)
 {
 	Init();
 }
@@ -116,27 +116,77 @@ bool CordMgr::Unlisten(unsigned int ip, unsigned short port)
 	return(false);
 }
 
-// 0x858EC0, reduced: the client binds a data socket (ports 3755-3759) if none has room; here the
-// first data socket. The session id is the manager's counter (+0x1337 each time), the key two
-// random words (SecureRandomClass) when the connection is encrypted.
+// 0x858EC0: a data socket with fewer than MaxPerSocket_ connections, else a new one (ports 3755-3759, else
+// any) with the largest buffers it can get; the session id is the manager's counter (+0x1337 each time), the
+// key Randval() << 24 ^ Randval() (SecureRandomClass) when the connection is encrypted.
 int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
 {
-	CordDataSocketClass *record = 0; DataSockets_.getPointer(&record, 0);
+	int index = -1;
+	CordDataSocketClass *record;
+	for (int i = 0; i < DataSockets_.length(); i++) {
+		if (!DataSockets_.getPointer(&record, i)) {
+			record = NULL;
+		}
+		if (record->Unknown04 < MaxPerSocket_ && !record->Unknown0C) {
+			index = i;
+			break;
+		}
+	}
+	if (index == -1) {
+		UDP *udp = new UDP;
+		int result;
+		for (int j = 0; j < 5; j++) {
+			result = udp->Bind((unsigned int)0, (unsigned short)(3755 + j));
+			if (result == 0) {
+				break;
+			}
+		}
+		if (result != 0) {
+			udp->Bind((unsigned int)0, 0);
+		}
+		if (MaxPerSocket_ == 0) {
+			MaxPerSocket_ = 8;
+		}
+		while (MaxPerSocket_ > 1) {
+			int bytes = MaxPerSocket_ << 14;
+			int ok = 1 & udp->SetInputBuffer(bytes);
+			ok &= udp->SetOutputBuffer(bytes);
+			if (ok == 1) {
+				break;
+			}
+			MaxPerSocket_--;
+		}
+		CordDataSocketClass rec;
+		rec.Socket = udp;
+		rec.Unknown04 = 0;
+		rec.Unknown08 = 0;
+		rec.Unknown0C = false;
+		DataSockets_.addTail(rec);
+		if (!DataSockets_.getPointer(&record, DataSockets_.length() - 1)) {
+			record = NULL;
+		}
+	}
+	record->Unknown04++;
 	CordConnectingClass *c = new CordConnectingClass;
-	memset(c, 0, sizeof(*c));
 	c->Ip = ip;
 	c->Port = port;
 	c->Session = NextSession_;
 	NextSession_ += 0x1337;
+	c->Socket = record->Socket;
 	c->Record = record;
-	c->Socket = record ? record->Socket : NULL;
 	c->State = 1;
+	c->Ack1Word2 = 0;
+	c->Ack1Word1 = 0;
+	c->Unknown24 = 0;
 	c->LastSend.setDay(0);
 	c->Created.update();
 	if (encrypt) {
 		SecureRandomClass random;
-		c->Key = (__int64)random.Randval() << 32;
+		c->Key = random.Randval();
+		c->Key <<= 24;
 		c->Key ^= random.Randval();
+	} else {
+		c->Key = 0;
 	}
 	Pending_.addTail(c);
 	return(c->Session);
@@ -283,56 +333,6 @@ bool CordMgr::Pump()
 					sprintf(bytes + strlen(bytes), "%d ", buf[k]);
 				}
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1534,7 +1534,7 @@ CordMgr::CordMgr(unsigned int ip, unsigned short port) :
 	Protocol_(0x14),
 	NextSession_(0),
 	Unknown0C(0),
-	Unexpected_(0)
+	MaxPerSocket_(0)
 {
 	Init();
 	Listen(ip, port);
@@ -1547,6 +1547,24 @@ void CordMgr::Init()
 	Unknown04 = random.Randval();
 	NextSession_ = (unsigned short)random.Randval() ^ (unsigned short)time(NULL) ^ 0x2121;
 	KeyPair.Load(file_auto_ptr(_TheFileFactory, "server_rsa_keyset.dat"));
+}
+
+// 0x8578C0 (no caller; in the client after the destructor): Connect's buffer loop on its own: MaxPerSocket_
+// (8 when 0) x 16 KB, one connection less while SetInputBuffer / SetOutputBuffer can't have it.
+void CordMgr::Set_Buffers(UDP *udp)
+{
+	if (MaxPerSocket_ == 0) {
+		MaxPerSocket_ = 8;
+	}
+	while (MaxPerSocket_ > 1) {
+		int bytes = MaxPerSocket_ << 14;
+		int ok = 1 & udp->SetInputBuffer(bytes);
+		ok &= udp->SetOutputBuffer(bytes);
+		if (ok == 1) {
+			break;
+		}
+		MaxPerSocket_--;
+	}
 }
 
 // 0x857940 (in the client after the destructor): a socket with 32 KB buffers bound to ip:port, kept

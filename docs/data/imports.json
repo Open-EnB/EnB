@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 88,
+  "ambiguous_total": 89,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -2100,11 +2100,13 @@
      "0x8570C0",
      "0x857590",
      "0x857850",
+     "0x8578C0",
      "0x857940",
      "0x857C00",
      "0x857DE0",
      "0x858640",
      "0x858980",
+     "0x858EC0",
      "0x859440",
      "0x8595B0",
      "0x8596F0",
@@ -2116,6 +2118,7 @@
      "0x85AEF0",
      "0x85AF20",
      "0x85BB70",
+     "0x85BC80",
      "0x85BD40"
     ],
     "merged": [],
@@ -12092,7 +12095,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 6162,
+  "in_tree_total": 6427,
   "totals": {}
  },
  "binkmovie": {
@@ -12476,7 +12479,7 @@
   }
  },
  "wnet": {
-  "ambiguous_total": 0,
+  "ambiguous_total": 1,
   "base": "Z",
   "compile_errors": [],
   "files": {
@@ -12614,7 +12617,7 @@
    "tcpqueue.h": "reconstructed",
    "udp.h": "Z"
   },
-  "in_tree_total": 45,
+  "in_tree_total": 65,
   "totals": {
    "R": 7,
    "Z": 3
