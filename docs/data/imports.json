@@ -9875,12 +9875,14 @@
    },
    "ui_combobox": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x57A330",
      "0x57AAB0",
      "0x57AC70",
      "0x57AD50"
