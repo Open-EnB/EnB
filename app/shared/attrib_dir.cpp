@@ -319,7 +319,7 @@ bool AttribDir::Detach_Update(const char *src, const char *dst)
 
 
 
-// NOT EXACT: shape (explain.py: 4 rows), the client keeps the inlined Recalculate's result in bl as a bool; ours in eax, converted after (int Recalculate keeps 0x4D7060 exact)
+// The result set in each branch: the client's bl (a returned int converted, or a flag set false first, tests eax or clears bl early; TK2)
 bool AttribDir::Recalculate(const char *name)
 {
 	WWPROFILE("AttribDir::Recalculate");
@@ -328,14 +328,14 @@ bool AttribDir::Recalculate(const char *name)
 	if (info == 0) {
 		return false;
 	}
-	return info->Recalculate();
+	bool result;
+	if (info->Recalculate()) {
+		result = true;
+	} else {
+		result = false;
+	}
+	return result;
 }
-
-
-
-
-
-
 
 float AttribDir::Get_Value(const char *name) const
 {
