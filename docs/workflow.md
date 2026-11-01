@@ -500,6 +500,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **An uncalled run of a class's inline members (ctor, copy ctor, operator=) whose incremental thunks are never called
+  either** comes from non-inline definitions in the .cpp: same-file callers still inline them and the copies are emitted
+  (2026-10-31, TK19, proj_man's ShadowTexClass 0x4916B0 / 0x491730 / 0x4917C0).
 * **A function-local static `RefCountPtr<T>` (a lookup's null return) makes its atexit destructor inline Release_Ref,
   which needs `T` complete** (2026-10-31, TK16, galaxy_map): a forward declaration fails; an empty shell class deriving
   from the base works. The lookups match as `if (it == Map.end()) return null; return (*it).second;` (the `!=` form

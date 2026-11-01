@@ -1755,6 +1755,9 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK19): sclient's testeffects.ini loader 0x74CA90 (636 instructions; emits
+     vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
+     0x745750, 0x7511A0, 0x749590, 0x749A70 or 0x74BFB0 is exact.
    * From the 2026-10-31 t4 run (TK16): galaxy_map.cpp: Add_Data 0x836960 next (inlines galaxy_map.h's line 180
      assert 'GalaxyMapID == NOT_IN_GALAXY_MAP', FAIL_IF '(int)id >= MaxDataObjects' on cpp line 98, MaxDataObjects at
      +0x74), then 0x8360A0-0x836740, the header's inlines and the map's dtor 0x836240 (line 185); Remove_Data 0x836B70
