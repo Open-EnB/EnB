@@ -8662,11 +8662,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ExtraOut` | `app/wwudp/bandwidthaccounting.cpp:44` | +0x14 |
 | 1 | `ExtraBwIn` | `app/wwudp/bandwidthaccounting.cpp:47` | +0x20 |
 | 1 | `ExtraBwOut` | `app/wwudp/bandwidthaccounting.cpp:48` | +0x24 |
-| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:172` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:321` | untagged neutral name (D10) |
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:60` | stand-in for wlib's LinkedList<T> |
 | 1 | `Unknown28` | `app/wwudp/cordcon.h:380` | untagged neutral name (D10) |
 | 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:425` | untagged neutral name (D10) |
@@ -11593,7 +11593,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
-| 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:47` | Reset's body |
+| 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
 | 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1913` | what it does (the client has no name) |
 | 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1923` | what it does (the client has no name) |
 | 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1933` | what it does (the client has no name) |

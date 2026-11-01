@@ -23,19 +23,6 @@
 #include <time.h>
 #include <windows.h>
 
-// The harness's counters (D176): udpreplay.py build defines CORD_HARNESS_COUNT to count into udpreplay's
-// side table (tests/udpreplay/cord_counters.h); the client has none, and here it is nothing.
-#ifndef CORD_HARNESS_COUNT
-#define CORD_HARNESS_COUNT(con, counter)
-#endif
-
-static CordMessageClass Empty_Message()
-{
-	CordMessageClass m;
-	memset(&m, 0, sizeof(m));
-	return m;
-}
-
 // ------------------------------------------------------------------------ CordChannelClass
 
 // The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
@@ -280,25 +267,29 @@ int CordCon::Pending_Messages()
 	return total;
 }
 
-// 0x84FF70, NOT EXACT (0.28): the client opens odd channels, the server even ones; the unused one
-// written least recently (the search goes on from where it stopped after two more are made),
-// reset, counted in OpenChannels_. The client's start (`sete` / `test cl, 1` on the first index)
-// and its `found > -1` tests are not reproduced.
+// 0x84FF70, NOT EXACT (0.48): the client opens odd channels, the server even ones: the unused one
+// written least recently, the search going on from where it stopped after two more are made. Not
+// reproduced: the client's dead test on the first index (`sete` / `test cl, 1`).
 bool CordCon::openc(unsigned int *channel, int mode, int priority)
 {
 	WWPROFILE("CordCon::openc");
-	int i = IsServer_ ? 2 : 1;
+	int start = IsServer_ ? 2 : 1;
 	int found = -1;
 	for (;;) {
-		for (; i < (int)Channels_.size(); i += 2) {
-			if (Channels_[i]->Mode == 0 && (found < 0 || (int)Channels_[i]->LastWrite < (int)Channels_[found]->LastWrite)) {
-				found = i;
+		int i;
+		int size = Channels_.size();
+		for (i = start; i < size; i += 2) {
+			if (Channels_[i]->Mode == 0) {
+				if (found <= -1 || (int)Channels_[i]->LastWrite < (int)Channels_[found]->LastWrite) {
+					found = i;
+				}
 			}
 		}
-		if (found >= 0) {
+		if (found > -1) {
 			break;
 		}
 		Add_Channels(2);
+		start = i;
 	}
 	Channels_[found]->Reset();
 	Channels_[found]->Mode = mode;
@@ -351,6 +342,15 @@ bool CordCon::pumpClose()
 	WWPROFILE("CordCon::pumpClose");
 	if (CloseState_ == 2) {
 		if (Channels_[0]->Queue.size() + Channels_[0]->Sent.size() == 0) {
+
+
+
+
+
+
+
+
+
 
 			// the client logs 'This isn't good... waiting for an ACK on a non-existant msg....' (INFMSG, line 355)
 			CloseState_ = 1;
@@ -812,18 +812,18 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	return true;
 }
 
+// The harness's counters (D176): udpreplay.py build defines CORD_HARNESS_COUNT to count into udpreplay's
+// side table (tests/udpreplay/cord_counters.h); the client has none, and here it is nothing.
+#ifndef CORD_HARNESS_COUNT
+#define CORD_HARNESS_COUNT(con, counter)
+#endif
 
-
-
-
-
-
-
-
-
-
-
-
+static CordMessageClass Empty_Message()
+{
+	CordMessageClass m;
+	memset(&m, 0, sizeof(m));
+	return m;
+}
 
 
 
