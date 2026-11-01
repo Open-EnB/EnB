@@ -12,6 +12,8 @@
 #include "texture.h"
 #include "..\..\wwlib\ref_ptr.h"
 
+class UIAvatarCustAvatarClass;
+
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -21,6 +23,11 @@ public:
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40 (shown; 0x551B20 passes its argument to every gadget)  // NAME 1 [on]: neutral
+	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
+	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();
+	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
+	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
+	virtual void Unknown_84(const RefCountPtr<RefCountClass> &object);	// +0x84 (the window's +0xB8: the avatar after a change, 0x54E690, through a converted temporary; the pointer's class not known)  // NAME 1 [object]: neutral
 
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
@@ -86,13 +93,15 @@ static UIAvatarCustPartStruct UIAvatarCustMetals[3] = {	// NAME 1: neutral (D10)
 };
 
 // avatar.cpp's avatar, as far as this file calls it (the window's +0xBC)
-class UIAvatarCustAvatarClass	// NAME 1: neutral (D10)
+class UIAvatarCustAvatarClass : public RefCountClass	// NAME 1: neutral (D10); a RefCountClass (0x54E690 releases it through slot 0, its count at +0x04)
 {
 public:
+	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
+	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
 	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (0x550970 passes the client's Unknown1338)  // NAME 1 [unknown]: neutral
 
-	char Unknown00[0xF8];								// +0x00
+	char Unknown08[0xF8 - 0x08];						// +0x08
 	AvatarDescClass *Get_Desc() { return(&Unknown0F8); }	// NAME 1: neutral (D10)
 	AvatarDescClass Unknown0F8;							// +0xF8 (the new look: 0x551BF0 prices it against the window's +0xC0)
 };
@@ -105,6 +114,11 @@ class UIAvatarCustUnknown368Class	// NAME 1: neutral (D10)
 {
 public:
 	~UIAvatarCustUnknown368Class();						// 0x585BF0
+	void Unknown_585C90();								// 0x585C90 (0x54EAD0: any direction but 1)
+	void Unknown_585CC0();								// 0x585CC0 (0x54EAD0: direction 1)
+
+	char Unknown00[0x18];								// +0x00
+	int Unknown18;										// +0x18 (the value: 0x54EAD0 hands it to the avatar's 0x77FD30)
 };
 
 // The avatar customisation window (ui_avatar_cust.cpp's __FILE__), as far as this file's functions so far use it
@@ -116,6 +130,11 @@ public:
 	void Unknown_54F2B0();								// 0x54F2B0 (+0x368..+0x378 deleted)
 	void Unknown_54F6F0(int a, int b, int c, int d);	// 0x54F6F0 (0x550550: 1, 0, 0, 0)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_550550(int dir);						// 0x550550 (the zoom +0x314 a thirtieth out (1) or in (2), between 0.5 and +0x318; the zoom buttons +0x238 / +0x23C)  // NAME 1 [dir]: neutral
+	void Unknown_54E690(int dir);						// 0x54E690 (the body type one on (2) or back (1), of three)  // NAME 1 [dir]: as 0x550550's
+	void Unknown_54E7F0(int dir);						// 0x54E7F0 (the pants type one on (2) or back (1), of three)  // NAME 1 [dir]: as 0x550550's
+	void Unknown_54EAD0(int dir);						// 0x54EAD0 (+0x36C one on (1) or back, its value onto the avatar)  // NAME 1 [dir]: as 0x550550's
+	void Unknown_54FFC0();								// 0x54FFC0
+	void Unknown_550140(int id);						// 0x550140 (the part buttons 0x1A-0x1C, 0x24-0x27: the part +0x358, a metal's +0x35C)  // NAME 1 [id]: neutral
 	void Unknown_550670();								// 0x550670 (the mode and part buttons' state)
 	void Unknown_550970(int value);						// 0x550970  // NAME 1 [value]: neutral
 	void Unknown_551BF0();								// 0x551BF0 (the cost of the changes: recustomization_cost.cpp's 0x8493F0)
@@ -134,7 +153,7 @@ public:
 	int Unknown0B0;										// +0xB0 (the mode: 1, 2)
 	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's Unknown1338; 0x551A80 calls 0x69F440)
 	GadgetClass *Unknown0B8;							// +0xB8
-	UIAvatarCustAvatarClass *Unknown0BC;				// +0xBC
+	RefCountPtr<UIAvatarCustAvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
 	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
 	GadgetClass *Unknown1CC[14];						// +0x1CC ([0] on in mode 1, [1] in mode 2)
 	GadgetClass *Unknown204[15];						// +0x204 ([10]-[12]: parts 0-2)
@@ -184,6 +203,59 @@ void StarbaseAvatarCreationInterface::Unknown_54E610()
 	}
 }
 
+// NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690)
+// 0x54E690
+void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
+{
+	int body = Unknown0BC->Get_Desc()->Body_Type;
+	int pants = Unknown0BC->Get_Desc()->Pants_Type;
+	if (dir == 2) {
+		body = (body + 1) % 3;
+	} else if (dir == 1) {
+		if (--body < 0) {
+			body = 2;
+		}
+	}
+	Unknown0BC->Unknown_77E9D0(body, pants, true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0B8->Unknown_84(Unknown0BC);
+	Unknown_551BF0();
+}
+
+// NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type)
+// 0x54E7F0
+void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
+{
+	int body = Unknown0BC->Get_Desc()->Body_Type;
+	int pants = Unknown0BC->Get_Desc()->Pants_Type;
+	if (dir == 2) {
+		pants = (pants + 1) % 3;
+	} else if (dir == 1) {
+		if (--pants < 0) {
+			pants = 2;
+		}
+	}
+	Unknown0BC->Unknown_77E9D0(body, pants, true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0B8->Unknown_84(Unknown0BC);
+	Unknown_551BF0();
+}
+
+// NOT EXACT: register (0.81: as 0x54E690's, the view's Client chain)
+// 0x54EAD0
+void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
+{
+	if (dir == 1) {
+		Unknown36C->Unknown_585CC0();
+	} else {
+		Unknown36C->Unknown_585C90();
+	}
+	Unknown0BC->Unknown_77FD30(Unknown36C->Unknown18, true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0B8->Unknown_84(Unknown0BC);
+	Unknown_551BF0();
+}
+
 // NOT EXACT: register (0.77, 273 bytes against 0x112: the client loads Client's AvatarID through eax / ecx where VC6 here takes edx, and the packet's look into esi; attempts.py show 0x54EC30)
 // 0x54EC30
 void StarbaseAvatarCreationInterface::Unknown_54EC30()
@@ -221,6 +293,40 @@ void StarbaseAvatarCreationInterface::Unknown_54F2B0()
 		delete Unknown378;
 		Unknown378 = NULL;
 	}
+}
+
+// 0x550140
+void StarbaseAvatarCreationInterface::Unknown_550140(int id)
+{
+	switch (id) {
+		case 0x1A:
+			Unknown358 = 0;
+			break;
+		case 0x1B:
+			Unknown358 = 1;
+			break;
+		case 0x1C:
+			Unknown358 = 2;
+			break;
+		case 0x24:
+			Unknown358 = 3;
+			Unknown35C = Unknown0BC->Get_Desc()->Shirt_Primary_Metal;
+			break;
+		case 0x25:
+			Unknown358 = 4;
+			Unknown35C = Unknown0BC->Get_Desc()->Shirt_Secondary_Metal;
+			break;
+		case 0x26:
+			Unknown358 = 5;
+			Unknown35C = Unknown0BC->Get_Desc()->Pants_Primary_Metal;
+			break;
+		case 0x27:
+			Unknown358 = 6;
+			Unknown35C = Unknown0BC->Get_Desc()->Pants_Secondary_Metal;
+			break;
+	}
+	Unknown_54FFC0();
+	Unknown_550670();
 }
 
 // 0x550550
@@ -531,7 +637,9 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	Before 0x550670 (TK15, claims #119 / #120): 0x54E610 (the gadgets hidden while the view's +0x34 is
 **	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
 **	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
-**	deleted) and 0x550550 (the zoom). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
+**	deleted), 0x550140 (the part buttons) and 0x550550 (the zoom); NOT EXACT (register) 0x54E690 / 0x54E7F0 (the
+**	body and pants types) and 0x54EAD0 (+0x36C's value). +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's
+**	slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
 **	the destructor 0x54BAB0 follow.
