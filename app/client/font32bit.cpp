@@ -101,7 +101,7 @@ void Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 **	Brings each character's cell in to its pixels (font3d.cpp's Make_Proportional): U / width tables,
 **	CharWidthTable, then the common top and the height of all characters.
 */
-// NOT EXACT: (D64) register allocation: the client spills this and walks the tables through edi (0.26)
+// NOT EXACT: (D64) register allocation and the tail: the client keeps x0 and this in memory and walks the tables through edi; its top == 0 path repeats the tail (0.31)
 void Font32Class::Make_Proportional(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
@@ -114,8 +114,10 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 	for (int char_index = 0; char_index < 256; char_index++) {
 		int x0 = (int)(UOffsetTable[char_index] * width + 0.5);
 		int y0 = (int)(VOffsetTable[char_index] * height + 0.5);
+		int x1 = x0 + (int)(UWidthTable[char_index] * width + 0.5);
+		int y1 = y0 + (int)(VHeight * height + 0.5);
 		Vector2i minb(x0, y0);
-		Vector2i maxb(x0 + (int)(UWidthTable[char_index] * width + 0.5), y0 + (int)(VHeight * height + 0.5));
+		Vector2i maxb(x1, y1);
 		surface->FindBB(&minb, &maxb);
 		int left = minb.I;
 		int right = maxb.I + 1;
@@ -142,20 +144,18 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 		if (maxb.J - y0 > bottom) {
 			bottom = maxb.J - y0;
 		}
-		UOffsetTable[char_index] = (float)left / (float)sd.Width;
-		UWidthTable[char_index] = (float)(right - left) / (float)sd.Width;
+		UOffsetTable[char_index] = (float)left / width;
+		UWidthTable[char_index] = (float)(right - left) / width;
 		CharWidthTable[char_index] = right - left;
 	}
 	if (top != 0) {
 		for (int index = 0; index < 256; index++) {
-			VOffsetTable[index] += (float)top / (float)sd.Height;
+			VOffsetTable[index] += (float)top / height;
 		}
 	}
 	CharHeight = bottom - top + 1;
-	VHeight = (float)CharHeight / (float)sd.Height;
+	VHeight = (float)CharHeight / height;
 }
-
-
 
 
 
