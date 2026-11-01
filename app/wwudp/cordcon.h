@@ -324,7 +324,7 @@ public:
 	~CordCon();
 
 	// Queues a message on an open channel, in 200-byte records. 0x850C70
-	bool write(int channel, const void *data, unsigned int len, int priority);
+	bool write(int channel, unsigned int len, const void *data, int priority);
 	// Opens a free channel (the client odd ones, the server even ones). 0x84FF70
 	bool openc(unsigned int *channel, int mode, int priority);
 	// The next message received, in the order the client reads them. 0x850FD0

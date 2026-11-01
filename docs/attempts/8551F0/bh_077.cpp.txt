@@ -1,0 +1,104 @@
+// CC1 2026-11-01: buildHeader 0x8551F0 at 0.77 (register-only: the client keeps `any` in al, n in edi)
+// 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests): first one
+// "everything up to" ack per reliable channel for what arrived in order, then single acks and resend
+// requests, one per channel per round, until a round adds nothing.
+int __stdcall Cord_Put_Small(unsigned char *out, unsigned short value);
+int __stdcall Cord_Put_Seq(unsigned char *out, unsigned int value);
+
+// @0x8551F0
+bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
+{
+	WWPROFILE("CordCon::buildHeader");
+	Active_.size();
+	Active_.size();
+	unsigned char list[0x320];
+	int pos = 0;
+	out[0] = IsServer_ ? 4 : 5;
+	int acks = 0;
+	int resends = 0;
+	int entries = 0;
+	int last = 0;
+	unsigned int seq = 0;
+	*(unsigned short *)(out + 1) = htons((unsigned short)Session_);
+	*counter = (unsigned short)PacketsOut_;
+	*(unsigned short *)(out + 3) = htons(*counter);
+	*(unsigned long *)(out + 5) = htonl(0);
+	int count = Active_.size();
+	int i;
+	for (i = 0; i < count; i++) {
+		if (acks >= 8) {
+			break;
+		}
+		CordChannelClass *c = Active_[i];
+		if (c->Mode == 3 && c->ToAck.length() != 0 && c->Expected >= 2) {
+			int any = 0;
+			int k = 0;
+			int n = c->ToAck.length();
+			for (int j = 0; j < n; j++) {
+				c->ToAck.get(seq, k);
+				if (seq <= c->Expected - 2) {
+					c->ToAck.remove(k);
+					AcksPending_--;
+					any = true;
+				} else {
+					k++;
+				}
+			}
+			if (any) {
+				list[pos++] = 2;
+				pos += Cord_Put_Small(list + pos, (unsigned short)c->Index);
+				pos += Cord_Put_Seq(list + pos, c->Expected - 2);
+				acks++;
+				entries++;
+			}
+		}
+	}
+	i = -1;
+	do {
+		i++;
+		if (i == (int)Active_.size()) {
+			if (entries == last) {
+				break;
+			}
+			last = entries;
+			i = 0;
+		}
+		if (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {
+			AcksPending_--;
+			list[pos++] = 0;
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, seq);
+			acks++;
+			entries++;
+		}
+		unsigned int missing;
+		if (resends < 0x20 && Active_[i]->Missing.removeHead(missing)) {
+			ResendsPending_--;
+			list[pos++] = 1;
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, missing);
+			resends++;
+			entries++;
+		}
+	} while (acks != 8 || resends != 0x20);
+	unsigned char flags = 0;
+	if (CloseState_ == 2 || CloseState_ == 4) {
+		flags = 2;
+	}
+	if (entries != 0) {
+		flags |= 1;
+	}
+	out[9] = flags;
+	int at = 10;
+	if (entries != 0) {
+		out[10] = (unsigned char)entries;
+		at = 11;
+	}
+	out[at++] = (unsigned char)Quality_;
+	if (entries != 0) {
+		memcpy(out + at, list, pos);
+		at += pos;
+	}
+	*len = at;
+	return true;
+}

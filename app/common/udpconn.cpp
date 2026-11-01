@@ -398,7 +398,7 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 		chan.Channel = Fixed[-channel - 1];
 	}
 	if (key.Reliable || rand() % 101 >= 0) {
-		Con->write(chan.Channel, Buffer, len, priority);
+		Con->write(chan.Channel, len, Buffer, priority);
 	}
 	if (close && channel >= 0) {
 		key.Reliable = false;

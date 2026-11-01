@@ -346,7 +346,7 @@ static void Write_Side(FILE *out, Session *s, Side &tx, const char *dir, const c
 			tx.Con->Active_.push_back(tc);
 		}
 	}
-	if (!tx.Con->write(channel, data.empty() ? 0 : &data[0], (unsigned int)data.size(), 0)) {
+	if (!tx.Con->write(channel, (unsigned int)data.size(), data.empty() ? 0 : &data[0], 0)) {
 		fprintf(out, "E %s %s write refused on channel %d\n", dir, name, channel);
 	}
 }

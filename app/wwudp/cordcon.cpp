@@ -823,7 +823,7 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
 }
 
 // 0x850C70: the message in 200-byte records, one sequence number each.
-bool CordCon::write(int channel, const void *data, unsigned int len, int priority)
+bool CordCon::write(int channel, unsigned int len, const void *data, int priority)
 {
 	if (Udp_ == NULL) {
 		return false;		// the client asserts 'Udp_ == NULL' (line 521)
