@@ -29,7 +29,7 @@ KernelClass *KernelClass::Instance = NULL;
 bool TaskClass::Is_Focused()
 {
 	if (Kernel != NULL) {
-		return Kernel->Is_Focus(this);
+		return Kernel->Is_Focus(this) ? true : false;
 	}
 	return false;
 }
