@@ -901,6 +901,7 @@ public:
 };
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
+class CameraModuleClass; class CameraModuleSignal;	// the client's RTTI (the camera manager's callback, 0xB9AC18)
 class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
 {
 public:
@@ -943,7 +944,7 @@ public:
 	void Unknown_745350();								// 0x745350 (Init)
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
 	void Unknown_744D80();								// 0x744D80 (Init's camera block as a function; 0x6B58A0 calls it)
-	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
+	void Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera);	// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it; it calls 0x744C10)  // NAME 1 [signal, camera]: the callback's types (the client's RTTI 0xB9AC18)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7511A0(); void Unknown_750C20(int index);	// 0x7511A0 (the main view's 0x514010, on every view-mode change); 0x750C20 (no caller: plays testeffects.ini's record)  // NAME 1 [index]: the record's
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)

@@ -1688,7 +1688,7 @@ Base copy: reconstructed. Headers: 271 from reconstructed.
 | common/race.cpp | reconstructed | 2 | 0 | - | - | - |  |
 | shared/rs_track.cpp | reconstructed | 106 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 23 | 5 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 104 | 22 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 105 | 24 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 98 | 10 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 4 | 1 | - | - | - |  |
 | shared/shipcust_desc.cpp | reconstructed | 51 | 1 | - | - | - |  |
