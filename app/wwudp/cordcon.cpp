@@ -371,7 +371,6 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	if (resends > 100) {
 		return false;
 	}
-	int n;
 	for (int i = 0; i < acks; i++) {
 		if (pos > datalen) {
 			return false;
@@ -453,7 +452,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	if (datalen < PACKET_ENCRYPTION_OFFSET) {
 		return false;		// the client asserts 'datalen < PACKET_ENCRYPTION_OFFSET' (line 977)
 	}
-	unsigned short counter = (unsigned short)Get_Short(data + 3);
+	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
 	if (!examinePacket(data, datalen)) {
 		Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
@@ -480,10 +479,11 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
 	for (unsigned int a = 0; a < acks; a++) {
 		unsigned int kind = data[pos];
-		unsigned int channel, seq;
+		unsigned short channel;
+		unsigned int seq;
 		pos++;
-		pos += Read_Small(data + pos, &channel);
-		pos += Read_Seq(data + pos, &seq);
+		pos += Cord_Get_Small(data + pos, &channel);
+		pos += Cord_Get_Seq(data + pos, &seq);
 		if (CloseState_ == 2) {
 			if ((kind == 0 && CloseSeq_ == seq) || (kind == 2 && CloseSeq_ <= seq)) {
 				CloseState_ = 4;
@@ -544,10 +544,11 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		if (pos > datalen) {
 			return false;
 		}
-		unsigned int size, channel, seq;
-		pos += Read_Small(data + pos, &size);
-		pos += Read_Small(data + pos, &channel);
-		pos += Read_Seq(data + pos, &seq);
+		unsigned short size, channel;
+		unsigned int seq;
+		pos += Cord_Get_Small(data + pos, &size);
+		pos += Cord_Get_Small(data + pos, &channel);
+		pos += Cord_Get_Seq(data + pos, &seq);
 		unsigned char type = data[pos];
 		pos++;
 		if (channel >= Channels_.size()) {
