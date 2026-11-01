@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 102,
+  "ambiguous_total": 100,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -274,6 +274,7 @@
      "0x4A6F00",
      "0x4A6F40",
      "0x4A6F80",
+     "0x4B2AA0",
      "0x4C3C50",
      "0x4C3D60",
      "0x4C3D90",
@@ -556,7 +557,6 @@
      "0x709CE0",
      "0x709D30",
      "0x709D60",
-     "0x723AB0",
      "0x752170",
      "0x752510",
      "0x752E60",
@@ -3342,12 +3342,10 @@
      "0x434070",
      "0x436730",
      "0x438D60",
-     "0x45CB00",
      "0x466780",
      "0x4668F0",
      "0x46BE90",
      "0x474080",
-     "0x47D0F0",
      "0x47D170",
      "0x47D640"
     ],
@@ -3447,6 +3445,8 @@
      "0x478970",
      "0x4795D0",
      "0x479A50",
+     "0x47D0B0",
+     "0x47D0F0",
      "0x47D230",
      "0x47D3D0",
      "0x47D440",
@@ -11323,7 +11323,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5968,
+  "in_tree_total": 5970,
   "totals": {}
  },
  "binkmovie": {
@@ -17119,8 +17119,6 @@
     "ambiguous": [
      "0x8DD750",
      "0x8DD780",
-     "0x8DF850",
-     "0x8DF8E0",
      "0x90A250",
      "0x90A2E0",
      "0x90D240",
@@ -17158,6 +17156,9 @@
      "0x463240",
      "0x463340",
      "0x463370",
+     "0x8DF850",
+     "0x8DF8E0",
+     "0x8DF920",
      "0x92D6D0",
      "0x92D780",
      "0x92D890",
@@ -18069,7 +18070,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 3234,
+  "in_tree_total": 3237,
   "totals": {
    "G": 548,
    "R": 1323,
