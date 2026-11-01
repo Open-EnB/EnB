@@ -61,7 +61,18 @@ template <class T> class CordListClass		// NAME 1 [CordListClass]: stand-in for 
 {
 public:
 	struct NodeType { T Node; NodeType *Next; NodeType *Prev; };
-	CordListClass() : Entries(0), Head(0), Tail(0), Current(0), CurIndex(-1) {}
+	// wlib's order (the client's stores: Entries, Current, Tail, Head, then CurIndex; 0x84E170)
+	CordListClass() { Entries = 0; Head = Tail = Current = 0; CurIndex = -1; }
+	// wlib's operator=, through getPointer (0x84E260: the node's own address goes to add)
+	CordListClass<T> &operator=(const CordListClass<T> &other)
+	{
+		CordListClass<T> &from = (CordListClass<T> &)other;
+		Clear();
+		for (int i = 0; i < from.Entries; i++) {
+			Add_Tail(*from.Get(i));
+		}
+		return *this;
+	}
 	~CordListClass() { Clear(); }
 	void Clear()
 	{
@@ -241,7 +252,10 @@ class CordChannelClass : public AutoPoolClass<CordChannelClass, 1024>	// NAME 2:
 {
 public:
 	CordChannelClass();
+	CordChannelClass(const CordChannelClass &other);			// 0x84E170 (no caller in the client)
 	~CordChannelClass();
+	CordChannelClass &operator=(const CordChannelClass &other);	// 0x84E230 (no caller in the client)
+	void Copy(const CordChannelClass &other);					// 0x84E260 NAME 2: what it does (the client has no name)
 	void Reset();								// 0x84E770 (inlined in the constructor): unused, everything dropped
 
 	int Mode;									// NAME 2: +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0)

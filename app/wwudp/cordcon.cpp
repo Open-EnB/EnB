@@ -102,6 +102,69 @@ CordChannelClass::CordChannelClass()	// 0x84DFC0
 	Reset();
 }
 
+// 0x84E170: the members' constructors, then the copy.
+CordChannelClass::CordChannelClass(const CordChannelClass &other)
+{
+	Copy(other);
+}
+
+// 0x84E230
+CordChannelClass &CordChannelClass::operator=(const CordChannelClass &other)
+{
+	Copy(other);
+	return *this;
+}
+
+// 0x84E260, NOT EXACT (functional, 0.14: inline budget): member by member in the client's order
+// (the lists through wlib's operator=, the vectors emptied and refilled one record at a time). The
+// client inlines ArrayList::clear, CordListClass's clear and getPointer and calls get / add, the
+// vectors' erase / insert and the second size() out of line; ours inlines erase / insert and calls
+// clear, Clear and Get.
+void CordChannelClass::Copy(const CordChannelClass &other)
+{
+	if (this == &other) {
+		return;
+	}
+	CordChannelClass &from = (CordChannelClass &)other;
+	Mode = from.Mode;
+	LastWrite = from.LastWrite;
+	NextSeq = from.NextSeq;
+	Priority = from.Priority;
+	Written = from.Written;
+	Delivered = from.Delivered;
+	Expected = from.Expected;
+	NextSequenced = from.NextSequenced;
+	LastSeq = from.LastSeq;
+	ToAck = from.ToAck;
+	Missing = from.Missing;
+	IsClosed = from.IsClosed;
+	Incoming = from.Incoming;
+	unsigned int i;
+	Queue.erase(Queue.begin(), Queue.end());
+	for (i = 0; i < from.Queue.size(); i++) {
+		Queue.insert(Queue.end(), from.Queue[i]);
+	}
+	Sent.erase(Sent.begin(), Sent.end());
+	for (i = 0; i < from.Sent.size(); i++) {
+		Sent.insert(Sent.end(), from.Sent[i]);
+	}
+	Index = from.Index;
+}
+
+CordChannelClass::~CordChannelClass()
+{
+	size_t i;
+	for (i = 0; i < Queue.size(); i++) {
+		Queue[i].Free();
+	}
+	for (i = 0; i < Sent.size(); i++) {
+		Sent[i].Free();
+	}
+	for (int k = 0; k < Incoming.Length(); k++) {
+		(*Incoming.Get(k)).Free();
+	}
+}
+
 // 0x84E770
 void CordChannelClass::Reset()
 {
@@ -119,20 +182,6 @@ void CordChannelClass::Reset()
 	Sent.erase(Sent.begin(), Sent.end());
 	ToAck.clear();
 	Missing.clear();
-}
-
-CordChannelClass::~CordChannelClass()
-{
-	size_t i;
-	for (i = 0; i < Queue.size(); i++) {
-		Queue[i].Free();
-	}
-	for (i = 0; i < Sent.size(); i++) {
-		Sent[i].Free();
-	}
-	for (int k = 0; k < Incoming.Length(); k++) {
-		(*Incoming.Get(k)).Free();
-	}
 }
 
 // ------------------------------------------------------------------------ CordCon
