@@ -1701,7 +1701,7 @@ Base copy: reconstructed. Headers: 271 from reconstructed.
 | shared/symbol_substitution.cpp | reconstructed | 34 | 5 | - | - | - |  |
 | common/tcpconn.cpp | reconstructed | 50 | 0 | - | - | - |  |
 | client/tasks/tsk_game.cpp | reconstructed | 27 | 2 | - | - | - |  |
-| client/tasks/tsk_login.cpp | reconstructed | 64 | 3 | - | - | - |  |
+| client/tasks/tsk_login.cpp | reconstructed | 65 | 3 | - | - | - |  |
 | client/tasks/tsk_menu.cpp | reconstructed | 6 | 1 | - | - | - |  |
 | client/tasks/tsk_movie.cpp | reconstructed | 20 | 4 | - | - | - |  |
 | client/tasks/tsk_smovie.cpp | reconstructed | 14 | 4 | - | - | - |  |

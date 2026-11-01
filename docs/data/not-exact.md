@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-412 entries in 87 files.
+413 entries in 87 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -168,6 +168,7 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0) 0x7698E0 |
+| `app/client/tasks/tsk_login.cpp:963` | `LoginTaskClass::Start_Game` | marker | NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70) 0x769E70 |
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
