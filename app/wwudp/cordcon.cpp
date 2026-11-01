@@ -2053,108 +2053,84 @@ void CordCon::Queue_Empty_Message()
 	Queued_++;
 }
 
-static int Write_Small(unsigned char *p, unsigned int v)
-{
-	if ((unsigned short)v < 0x80) {
-		p[0] = (unsigned char)v;
-		return 1;
-	}
-	v |= 0x8000;
-	p[0] = (unsigned char)(v >> 8);
-	p[1] = (unsigned char)v;
-	return 2;
-}
-
-static int Write_Seq(unsigned char *p, unsigned int v)
-{
-	if (v < 0x8000) {
-		p[0] = (unsigned char)(v >> 8);
-		p[1] = (unsigned char)v;
-		return 2;
-	}
-	v |= 0x80000000;
-	p[0] = (unsigned char)(v >> 24);
-	p[1] = (unsigned char)(v >> 16);
-	p[2] = (unsigned char)(v >> 8);
-	p[3] = (unsigned char)v;
-	return 4;
-}
-
 // 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests).
 bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 {
+	WWPROFILE("CordCon::buildHeader");
 	unsigned char list[0x320];
 	int pos = 0;
-	int acks = 0, resends = 0, entries = 0, last = 0;
-	size_t i;
 	out[0] = IsServer_ ? 4 : 5;
-	out[1] = (unsigned char)(Session_ >> 8);
-	out[2] = (unsigned char)Session_;
+	int acks = 0;
+	int resends = 0;
+	int entries = 0;
+	int last = 0;
+	unsigned int seq = 0;
+	*(unsigned short *)(out + 1) = htons((unsigned short)Session_);
 	*counter = (unsigned short)PacketsOut_;
-	out[3] = (unsigned char)(PacketsOut_ >> 8);
-	out[4] = (unsigned char)PacketsOut_;
-	memset(out + 5, 0, 4);
-	// One "everything up to" ack per reliable channel for what arrived in order.
-	for (i = 0; i < Active_.size() && acks < 8; i++) {
-		CordChannelClass *c = Active_[i];
-		if (c->Mode != 3 || c->ToAck.length() == 0 || c->Expected <= 1) {
-			continue;
+	*(unsigned short *)(out + 3) = htons(*counter);
+	*(unsigned long *)(out + 5) = htonl(0);
+	int count = Active_.size();
+	int i;
+	for (i = 0; i < count; i++) {
+		if (acks >= 8) {
+			break;
 		}
-		bool any = false;
-		for (size_t k = 0; k < (size_t)c->ToAck.length();) {
-			unsigned int acked; c->ToAck.get(acked, (int)k); if (acked <= c->Expected - 2) {
-				c->ToAck.remove((int)k);
-				AcksPending_--;
-				any = true;
-			} else {
-				k++;
+		CordChannelClass *c = Active_[i];
+		if (c->Mode == 3 && c->ToAck.length() != 0 && c->Expected >= 2) {
+			int any = 0;
+			int k = 0;
+			int n = c->ToAck.length();
+			for (int j = 0; j < n; j++) {
+				c->ToAck.get(seq, k);
+				if (seq <= c->Expected - 2) {
+					c->ToAck.remove(k);
+					AcksPending_--;
+					any = true;
+				} else {
+					k++;
+				}
+			}
+			if (any) {
+				list[pos++] = 2;
+				pos += Cord_Put_Small(list + pos, (unsigned short)c->Index);
+				pos += Cord_Put_Seq(list + pos, c->Expected - 2);
+				acks++;
+				entries++;
 			}
 		}
-		if (any) {
-			list[pos++] = 2;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, c->Expected - 2);
-			acks++;
-			entries++;
-		}
 	}
-	// Then single acks and resend requests, one per channel per round.
-	int k2 = -1;
+	i = -1;
 	do {
-		k2++;
-		if (k2 == (int)Active_.size()) {
+		i++;
+		if (i == (int)Active_.size()) {
 			if (entries == last) {
 				break;
 			}
 			last = entries;
-			k2 = 0;
+			i = 0;
 		}
-		if (Active_.size() == 0) {
-			break;
-		}
-		CordChannelClass *c = Active_[k2];
-		if (acks < 8 && c->ToAck.length() != 0) {
-			unsigned int seq; c->ToAck.get(seq, 0);
-			c->ToAck.remove(0);
+		if (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {
 			AcksPending_--;
 			list[pos++] = 0;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, seq);
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, seq);
 			acks++;
 			entries++;
 		}
-		if (resends < 0x20 && c->Missing.length() != 0) {
-			unsigned int seq; c->Missing.get(seq, 0);
-			c->Missing.remove(0);
+		unsigned int missing;
+		if (resends < 0x20 && Active_[i]->Missing.removeHead(missing)) {
 			ResendsPending_--;
 			list[pos++] = 1;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, seq);
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, missing);
 			resends++;
 			entries++;
 		}
 	} while (acks != 8 || resends != 0x20);
-	unsigned char flags = (CloseState_ == 2 || CloseState_ == 4) ? 2 : 0;
+	unsigned char flags = 0;
+	if (CloseState_ == 2 || CloseState_ == 4) {
+		flags = 2;
+	}
 	if (entries != 0) {
 		flags |= 1;
 	}
