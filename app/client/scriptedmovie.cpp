@@ -23,7 +23,7 @@ class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
 extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
 
-// the screen fade and the letterbox (0x7FF830-0x7FFC70, the file before this one: its globals at 0xBE8B60..)
+// the screen fade and the letterbox (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F, before scriptedmovieline.cpp's object)
 void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // NAME 1 [on, time]: what Enable_Letterbox passes
 void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30: the fade's colour  // NAME 1 [red, green, blue, time]: what Set_Screen_Fade_Color passes
 void Unknown_810750(RenderObjClass *model, bool on);					// 0x810750 (shiputils.cpp; co.h declares it so): a ship model's engine trails  // NAME 1 [model, on]: what co.cpp passes
