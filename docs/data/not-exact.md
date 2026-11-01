@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-399 entries in 80 files.
+398 entries in 80 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -52,7 +52,6 @@ edit the comments in the code, not this file.
 | `app/client/control_keys_manager.cpp:121` | `ControlKeysManager::Get_Key_Id` | marker | NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows) |
 | `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:263` | `ControlKeysManager::Remove_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
-| `app/client/control_keys_manager.cpp:346` | `ControlKeysManager::Build_Keys_Map` | marker | NOT EXACT: registers and the loop bounds (begin/end swapped, ~28 rows); four loop forms tried (attempts.csv) |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv) |
 | `app/client/control_keys_manager.cpp:524` | `ControlKeysManager::Save_Keys` | marker | NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv) |
 | `app/client/control_keys_manager.cpp:570` | `ControlKeysManager::Reset_Keys` | marker | NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv) |

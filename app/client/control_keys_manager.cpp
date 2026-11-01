@@ -343,13 +343,13 @@ const std::string &ControlKeysManager::Get_Key_Name(const ControlKeyValueStruct 
 
 
 
-// NOT EXACT: registers and the loop bounds (begin/end swapped, ~28 rows); four loop forms tried (attempts.csv)
+// 0x71AEF0: exact with the key read as two words (the client's (Modifiers << 16) | Key, not one dword load)
 void ControlKeysManager::Build_Keys_Map()
 {
 	UserKeysMap.clear();
 	for (std::vector<KeyMappingStruct>::iterator it = UserKeys.begin(); it != UserKeys.end(); ++it) {
 		for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-			unsigned int event = *(unsigned int *)&it->Keys[set];
+			unsigned int event = (it->Keys[set].Modifiers << 16) | it->Keys[set].Key;
 			if (event) {
 
 				G_ASSERT(UserKeysMap.find(event) == UserKeysMap.end());
