@@ -1316,6 +1316,18 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 	return false;
 }
 
+FontStringFilesClass::~FontStringFilesClass()
+{
+	Unload("fc_default.ini");
+	std::hash_map<std::string, FontStringFileStruct *>::iterator it;
+	for (it = Files.begin(); it != Files.end(); ++it) {
+		FontStringFileStruct *file = (*it).second;
+		Unknown_BE67B8->Unknown_6C1AA0(file->Name.c_str());
+		delete file;
+	}
+	Files.clear();
+}
+
 /*
 **	Reconstruction notes (fontdatabase.cpp)
 **
@@ -1349,7 +1361,9 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
 **	0x7F95E0 and the text file reader 0x4F9BF0; NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
 **	0x6C4C80, Find 0x6C51A0, Load 0x6C52B0 (HL2: Find inlined, its find 0x6C62A0 and conversion 0x6C6370 called a level
-**	deeper; NOT EXACT: frame) and Unload 0x6C55B0 (the destructor 0x6C4F50 declared only). Every other function of the
+**	deeper; NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the
+**	asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s
+**	return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the
 **	file is not written yet.
 **
 **	Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0),
