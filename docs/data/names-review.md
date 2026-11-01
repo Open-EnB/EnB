@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1081 |
 | 2 | describes what the code does | 2592 |
-| 1 | neutral placeholder | 8237 |
+| 1 | neutral placeholder | 8238 |
 
 ## For review (score 3 and below)
 
@@ -7541,9 +7541,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_467E00` | `app/shared/landdmap.cpp:370` | untagged neutral name (D10) |
 | 1 | `Unknown_467E20` | `app/shared/landdmap.cpp:374` | untagged neutral name (D10) |
 | 1 | `Unknown_468760` | `app/shared/landdmap.cpp:462` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/landdmap.cpp:495` | untagged neutral name (D10) |
-| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:496` | untagged neutral name (D10) |
-| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:518` | untagged neutral name (D10) |
+| 1 | `Set_Pair` | `app/shared/landdmap.cpp:491` | unknown; the client inlines it into 0x468920: a corner and the point one unit above it |
+| 1 | `Unknown08` | `app/shared/landdmap.cpp:504` | untagged neutral name (D10) |
+| 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.cpp:505` | untagged neutral name (D10) |
+| 1 | `Unknown_468BE0` | `app/shared/landdmap.cpp:529` | untagged neutral name (D10) |
 | 1 | `Unknown_466E70` | `app/shared/landdmap.h:14` | unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only |
 | 1 | `Unknown_466F10` | `app/shared/landdmap.h:15` | untagged neutral name (D10) |
 | 1 | `LandUnknown466BE0CellStruct` | `app/shared/landdmap.h:16` | unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920) |

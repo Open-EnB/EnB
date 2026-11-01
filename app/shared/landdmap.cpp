@@ -488,7 +488,16 @@ void LandUnknown466BE0Class::Release_Cells(void)
 	Unknown04 = NULL;
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468920
+// NAME 1: unknown; the client inlines it into 0x468920: a corner and the point one unit above it
+static inline void Set_Pair(Vector3 &lo, Vector3 &hi, const Vector3 &v)
+{
+	lo = Vector3(v.X, v.Y, v.Z);
+	hi = Vector3(v.X, v.Y, v.Z + 1.0f);
+}
+// NOT EXACT: frame (0x8C, the client 0x90: the client keeps X on the FPU and Y in a spare slot for the upper point
+// instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers
+// masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves)
+// and the corner picked through an if-chain on k (an inlined accessor, the client's own shape)
 void LandUnknown466BE0Class::Unknown_468920(void)
 {
 	Release_Cells();
@@ -497,11 +506,10 @@ void LandUnknown466BE0Class::Unknown_468920(void)
 	int cell = 0;
 	for (unsigned int y = 1; y < (unsigned int)BaseTessellationSize; y++) {
 		for (unsigned int x = 1; x < (unsigned int)BaseTessellationSize; x++) {
-			unsigned short n = (unsigned short)BaseTessellationSize;
-			Unknown04[cell].Corner[0] = (unsigned short)(n * (y - 1) + x - 1);
-			Unknown04[cell].Corner[1] = (unsigned short)(n * y + x - 1);
-			Unknown04[cell].Corner[2] = (unsigned short)(n * (y - 1) + x);
-			Unknown04[cell].Corner[3] = (unsigned short)(n * y + x);
+			Unknown04[cell].Corner[0] = (unsigned short)((unsigned short)BaseTessellationSize * (unsigned short)(y - 1) + x - 1);
+			Unknown04[cell].Corner[1] = (unsigned short)((unsigned short)BaseTessellationSize * (unsigned short)y + x - 1);
+			Unknown04[cell].Corner[2] = (unsigned short)((unsigned short)BaseTessellationSize * (unsigned short)(y - 1) + x);
+			Unknown04[cell].Corner[3] = (unsigned short)((unsigned short)BaseTessellationSize * (unsigned short)y + x);
 			cell++;
 		}
 	}
@@ -511,9 +519,12 @@ void LandUnknown466BE0Class::Unknown_468920(void)
 		// the four corners, then the four one unit up
 		Vector3 points[8];
 		for (int k = 0; k < 4; k++) {
-			const float *v = verts + Unknown04[i].Corner[k] * 13;
-			points[k].Set(v[0], v[1], v[2]);
-			points[k + 4].Set(v[0], v[1], v[2] + 1.0f);
+			D3DVECTOR p;
+			if (k == 0) p = *(const D3DVECTOR *)(verts + Unknown04[i].Corner[0] * 13);
+			else if (k == 1) p = *(const D3DVECTOR *)(verts + Unknown04[i].Corner[1] * 13);
+			else if (k == 2) p = *(const D3DVECTOR *)(verts + Unknown04[i].Corner[2] * 13);
+			else if (k == 3) p = *(const D3DVECTOR *)(verts + Unknown04[i].Corner[3] * 13);
+			Set_Pair(points[k], points[k + 4], Vector3(p.x, p.y, p.z));
 		}
 		Unknown_468BE0(Unknown04[i].Box, points);
 	}
