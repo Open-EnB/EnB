@@ -178,11 +178,14 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 }
 
 // 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessageClass's
-// destructor leaves them; Free 0x85BEC0 is called where a record is dropped).
+// destructor leaves them; Free 0x85BEC0 is called where a record is dropped). Out of line, as
+// ~CordCon 0x84F8C0 calls it.
+#pragma auto_inline(off)
 CordChannelClass::~CordChannelClass()
 {
 	Reset_Channel(this);
 }
+#pragma auto_inline(on)
 
 // 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannelClass's
 // constructor and destructor inline Reset_Channel).
@@ -263,12 +266,18 @@ CordCon::CordCon(unsigned int ip, unsigned short port, int session, unsigned sho
 	Active_.push_back(Channels_[0]);
 }
 
+// 0x84F8C0: the channels back to their pool; Active_ and Ready_ emptied with resize(0) (the
+// client's size() / erase(F, L) calls and the default value's slot), the socket dropped, then the
+// statistics.
 CordCon::~CordCon()
 {
-	delete Stats_;
-	for (size_t i = 0; i < Channels_.size(); i++) {
+	for (unsigned int i = 0; i < Channels_.size(); i++) {
 		delete Channels_[i];
 	}
+	Active_.resize(0);
+	Ready_.resize(0);
+	Udp_ = NULL;
+	delete Stats_;
 }
 
 // 0x84FAA0 (out of line with no caller: inlined where it is used). c starts NULL outside the loop
