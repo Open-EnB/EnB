@@ -16,13 +16,13 @@
 
 
 
-// the views' scene (slot +0x50: uiview.h's ViewUnknown1CClass), as far as its +0x9C
-class InterfaceSceneClass  // NAME 1: neutral (D10)
-{
-public:
-	char Unknown00[0x9C];
-	InterfaceStaticSortListClass *SSL;				// +0x9C (the asserts' 'ssl')  // NAME 2: the asserts'
-};
+#include "interface_scene.h"	// the views' scene (slot +0x50), its +0x9C the static sort list
+
+
+
+
+
+
 
 // local_interface_sort.cpp's sort object (8 bytes; constructor 0x6E0E80 over an interface, destructor 0x6E18B0)
 class InterfaceSortClass  // NAME 1: neutral (D10)

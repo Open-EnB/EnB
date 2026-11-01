@@ -19593,6 +19593,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40A27C",
+"symbol": "j_??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
+"name": "j_??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40A290",
 "symbol": "j_?Build@GlobalConnectPacketClass@@UAEPAVRawPacketClass@@XZ",
 "name": "j_?Build@GlobalConnectPacketClass@@UAEPAVRawPacketClass@@XZ",
@@ -20548,6 +20555,13 @@
 "address": "0x40AA29",
 "symbol": "j_?On_Round_Trip@CordStatsClass@@QAE_NH@Z",
 "name": "j_?On_Round_Trip@CordStatsClass@@QAE_NH@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40AA2E",
+"symbol": "j_??1?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"name": "j_??1?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -46319,6 +46333,13 @@
 "source": "thunk"
 },
 {
+"address": "0x416C7F",
+"symbol": "j_??1?$hash_map@PAVInterfaceClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVInterfaceClass@@@std@@U?$equal_to@PAVInterfaceClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"name": "j_??1?$hash_map@PAVInterfaceClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVInterfaceClass@@@std@@U?$equal_to@PAVInterfaceClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x416C84",
 "symbol": "j_?Unknown_50@UnknownGadgetBase00Class@@UAEXXZ",
 "name": "j_?Unknown_50@UnknownGadgetBase00Class@@UAEXXZ",
@@ -71728,6 +71749,27 @@
 "kind": "function",
 "source": "exact",
 "length": 32
+},
+{
+"address": "0x6DADE0",
+"symbol": "??1?$hash_map@PAVInterfaceClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVInterfaceClass@@@std@@U?$equal_to@PAVInterfaceClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"name": "??1?$hash_map@PAVInterfaceClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVInterfaceClass@@@std@@U?$equal_to@PAVInterfaceClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x6DAEB0",
+"symbol": "??1?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"name": "??1?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x6DAF80",
+"symbol": "??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
+"name": "??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x6DF960",

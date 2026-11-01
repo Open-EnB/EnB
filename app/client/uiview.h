@@ -24,16 +24,7 @@ class GadgetClass;
 class UIViewClass;
 
 // the views' 2-D scene (UIViewClass +0x1C; 0xA0 bytes, constructor 0x6DA4D0)
-class ViewUnknown1CClass : public SimpleSceneClass	// NAME 1: neutral (D10)
-{
-public:
-	ViewUnknown1CClass();								// 0x6DA4D0
-	bool Unknown_6DA6F0(int a, int b, int c, int d);	// 0x6DA6F0 (UIViewClass's 0x65B7A0)  // NAME 1 [a, b, c, d]: neutral
-	bool Unknown_6DA730(int a);							// 0x6DA730 (UIViewClass's 0x65B7E0)  // NAME 1 [a]: neutral
-	void Unknown_6DA760(RefCountPtr<CameraClass> &camera);	// 0x6DA760 (UIViewClass::Render and the main view's 0x50D520 pass the +0x20 camera)  // NAME 1 [camera]: what they pass
-
-	char Unknown98[0xA0 - 0x98];						// +0x98
-};
+#include "interface_scene.h"
 
 // gadget_list_manager.cpp's manager (UIViewClass +0x2C; 0x4C bytes, constructor 0x6611B0, destructor 0x661430)
 #include "gadget_list_manager.h"

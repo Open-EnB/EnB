@@ -444,7 +444,7 @@ int CharacterViewClass::Unknown_0C(bool on)
 	WW3D::Render(Unknown06C, Unknown068, false, false, Vector3(0.0f, 0.0f, 0.0f));
 	Unknown230->Render(Unknown068);
 	WW3D::Render(Unknown084, Unknown080, false, false, Vector3(0.0f, 0.0f, 0.0f));
-	((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA760(Unknown20);
+	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
 	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
 	WW3D::End_Render(true);
 	return(0);

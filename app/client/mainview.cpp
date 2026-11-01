@@ -74,7 +74,7 @@ public:
 	char Unknown00[0x14]; int Unknown14; char Unknown18[0x28 - 0x18];	// +0x14 (0x50D520: the bridge is drawn when it is set)
 	Matrix3D Unknown28;								// +0x28 (0x50D520: the camera's transform for the bridge scene)
 };
-// what the base view's +0x1C points to (ViewUnknown1CClass: 0x50D520 calls its 0x6DA760 with the base's +0x20 camera)
+// what the base view's +0x1C points to (interface_scene.h's InterfaceSceneClass: 0x50D520 calls its Render_With_PIP_Scenes 0x6DA760 with the base's +0x20 camera)
 #include "uiview.h"
 static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D10): the bridge scene's clip planes (0xAECF48 / 0xAECF44)
 
@@ -571,7 +571,7 @@ void MainViewClass::Unknown_50D520()
 		camera->Set_Clip_Planes(old_near, old_far);
 		camera->Set_Depth_Range(zmin, zmax);
 	}
-	((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA760(Unknown20);
+	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
 	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
 	if (Client->Unknown05) {
 		sclient->Unknown_750260(0);

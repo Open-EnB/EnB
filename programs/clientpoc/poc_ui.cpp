@@ -1,34 +1,13 @@
-// Earth & Beyond client (reconstruction): the proof-of-concept client's 2-D view scene (D179). NOT THE CLIENT'S CODE.
+// Earth & Beyond client (reconstruction): the proof-of-concept client's view stand-ins (D179). NOT THE CLIENT'S CODE.
 /*
-**	uiview.h's ViewUnknown1CClass (constructor 0x6DA4D0, 0xA0 bytes, table 0xAFF1F4; the views' +0x1C):
-**	the client's is a SimpleSceneClass with a static sort list at +0x9C (0x6DA930, 0x74 bytes) that its
-**	render 0x6DA760 draws after the scene. Here a plain SimpleSceneClass: the interfaces' gadgets are
-**	render objects in it, drawn by WW3D::Render without the sort list (+0x9C stays NULL, so the
-**	interfaces' FAIL_IF '!ssl' paths skip it). Delete this file when the real class lands in app/.
+**	The views' stand-ins on the login path: the message box, the settings store, the avatar model and
+**	Create_Peek 0x497300. (The 2-D scene stand-in went when interface_scene.cpp landed in app.)
 */
 
 
 
 #include <string.h>
 #include "..\..\stubs\stub_log.h"
-#include "..\..\app\client\uiview.h"
-#include "camera.h"
-#include "ww3d.h"
-
-// 0x6DA4D0
-ViewUnknown1CClass::ViewUnknown1CClass()
-{
-	STUB_CALLED("POC ViewUnknown1CClass (0x6DA4D0, the views' 2-D scene): a SimpleSceneClass, no static sort list");
-	memset(Unknown98, 0, sizeof(Unknown98));
-	*(void **)&Unknown98[4] = NULL;	// +0x9C the static sort list: none
-}
-
-// 0x6DA760: the scene with the view's camera (the client then draws the static sort list)
-void ViewUnknown1CClass::Unknown_6DA760(RefCountPtr<CameraClass> &camera)
-{
-	STUB_CALLED("POC ViewUnknown1CClass::Unknown_6DA760 (0x6DA760): WW3D::Render(this, camera)");
-	WW3D::Render(this, camera.Peek(), false, false, Vector3(0.0f, 0.0f, 0.0f));
-}
 
 // sclient.h's ViewUnknown34Class (constructor 0x5875C0, 0x1F8 bytes; every view's +0x34, the message box):
 // here the InterfaceClass alone, no dialog gadgets (its +0x7C Active stays false, so LoginTaskClass::Run

@@ -212,8 +212,8 @@ public:
 	void Unknown_65B610(Vector2 &min, Vector2 &max);	// 0x65B610 (the view plane)  // NAME 1 [min, max]: CameraClass::Get_View_Plane's
 	void Unknown_65B650(const Vector2 &norm, Vector2 *coords);	// 0x65B650 (FAIL_IF '!coords': 0..1 to the view plane)  // NAME 2 [coords]: the FAIL_IF's; NAME 1 [norm]: its counterpart in 0x65B6C0
 	void Unknown_65B6C0(const Vector2 &coords, Vector2 *norm);	// 0x65B6C0 (FAIL_IF '!norm', 'width == 0.0f', 'height == 0.0f': the view plane to 0..1)  // NAME 2 [norm]: the FAIL_IF's; NAME 1 [coords]: its counterpart in 0x65B650
-	bool Unknown_65B7A0(int a, int b, int c, int d);	// 0x65B7A0 (+0x1C's 0x6DA6F0)  // NAME 1 [a, b, c, d]: neutral
-	bool Unknown_65B7E0(int a);							// 0x65B7E0 (+0x1C's 0x6DA730)  // NAME 1 [a]: neutral
+	bool Unknown_65B7A0(const RefCountPtr<SimpleSceneClass> &scene, const RefCountPtr<CameraClass> &camera, float poly_budget, unsigned int sort_level);	// 0x65B7A0 (+0x1C's Add_PIP_Scene 0x6DA6F0)  // NAME 1 [scene, camera, poly_budget, sort_level]: the sort list's
+	bool Unknown_65B7E0(const RefCountPtr<SimpleSceneClass> &scene);	// 0x65B7E0 (+0x1C's Remove_PIP_Scene 0x6DA730)  // NAME 1 [scene]: the sort list's
 	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
 
 	ClientTaskClass *Unknown14;							// +0x14 (the constructor's task)

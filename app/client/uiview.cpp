@@ -34,7 +34,7 @@ void UIViewClass::Unknown_04()
 	Unknown2C = new GadgetListManagerClass;
 	Unknown24 = new SimpleSceneClass;
 	Unknown24->Set_Fog_Enable(false);
-	Unknown1C = new ViewUnknown1CClass;
+	Unknown1C = new InterfaceSceneClass;
 	Unknown1C->Set_Fog_Enable(false);
 	Unknown28 = new CameraClass;
 	Unknown20 = Create_NEW(new CameraClass);
@@ -111,7 +111,7 @@ int UIViewClass::Unknown_0C(bool on)
 	WW3D::Begin_Render(on);
 	Unknown1C->Visibility_Check(Unknown20.Peek());
 	Unknown24->Visibility_Check(Unknown28);
-	((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA760(Unknown20);
+	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
 	WW3D::Render(Unknown24, Unknown28);
 	WW3D::End_Render();
 	return(0);
@@ -277,19 +277,19 @@ void UIViewClass::Unknown_65B6C0(const Vector2 &coords, Vector2 *norm)
 }
 
 // 0x65B7A0
-bool UIViewClass::Unknown_65B7A0(int a, int b, int c, int d)
+bool UIViewClass::Unknown_65B7A0(const RefCountPtr<SimpleSceneClass> &scene, const RefCountPtr<CameraClass> &camera, float poly_budget, unsigned int sort_level)
 {
 	if (Unknown1C) {
-		return(((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA6F0(a, b, c, d));
+		return(((InterfaceSceneClass *)Unknown1C)->Add_PIP_Scene(scene, camera, poly_budget, sort_level));
 	}
 	return(false);
 }
 
 // 0x65B7E0
-bool UIViewClass::Unknown_65B7E0(int a)
+bool UIViewClass::Unknown_65B7E0(const RefCountPtr<SimpleSceneClass> &scene)
 {
 	if (Unknown1C) {
-		return(((ViewUnknown1CClass *)Unknown1C)->Unknown_6DA730(a));
+		return(((InterfaceSceneClass *)Unknown1C)->Remove_PIP_Scene(scene));
 	}
 	return(false);
 }

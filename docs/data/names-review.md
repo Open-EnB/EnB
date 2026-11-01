@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1138 |
-| 2 | describes what the code does | 2847 |
-| 1 | neutral placeholder | 10176 |
+| 3 | by convention from a client-named file or sibling | 1140 |
+| 2 | describes what the code does | 2849 |
+| 1 | neutral placeholder | 10173 |
 
 ## For review (score 3 and below)
 
@@ -175,8 +175,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67B120` | `app/client/charview.cpp:392` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/charview.cpp:441` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/charview.cpp:441` | untagged neutral name (D10) |
-| 1 | `ViewUnknown1CClass` | `app/client/charview.cpp:447` | untagged neutral name (D10) |
-| 1 | `Unknown_6DA760` | `app/client/charview.cpp:447` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/charview.cpp:454` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/charview.cpp:458` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/charview.cpp:460` | untagged neutral name (D10) |
@@ -2431,6 +2429,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `game_id` | `app/client/influence.h:32` | what CREATE passes |
 | 1 | `Unknown_10` | `app/client/influence.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/influence.h:34` | untagged neutral name (D10) |
+| 1 | `Add_PIP_Scene` | `app/client/interface_scene.h:41` | the sort list's |
+| 1 | `Remove_PIP_Scene` | `app/client/interface_scene.h:42` | the sort list's |
+| 1 | `InsideSortListRender` | `app/client/interface_scene.h:49` | neutral |
 | 1 | `Unknown_BE67E0` | `app/client/interface_static_sort_list.cpp:11` | neutral |
 | 1 | `PIPUnknownClass` | `app/client/interface_static_sort_list.cpp:14` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/interface_static_sort_list.cpp:17` | untagged neutral name (D10) |
@@ -2487,10 +2488,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:131` | neutral |
 | 1 | `BackInterface` | `app/client/interface_static_sort_list.h:135` | neutral (FrontInterface's opposite) |
 | 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:139` | neutral |
-| 1 | `InterfaceSceneClass` | `app/client/intrface.cpp:20` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/intrface.cpp:23` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/intrface.cpp:28` | neutral (D10) |
 | 1 | `iface` | `app/client/intrface.cpp:31` | neutral |
+| 1 | `Unknown00` | `app/client/intrface.cpp:34` | untagged neutral name (D10) |
 | 1 | `InterfaceSignalMapClass` | `app/client/intrface.cpp:38` | neutral (D10) |
 | 1 | `sender, callback` | `app/client/intrface.cpp:41` | neutral |
 | 1 | `sender, callback` | `app/client/intrface.cpp:42` | neutral |
@@ -2724,8 +2724,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_50D310` | `app/client/mainview.cpp:522` | untagged neutral name (D10) |
 | 1 | `Unknown_50D430` | `app/client/mainview.cpp:535` | untagged neutral name (D10) |
 | 1 | `Unknown_50D520` | `app/client/mainview.cpp:550` | untagged neutral name (D10) |
-| 1 | `ViewUnknown1CClass` | `app/client/mainview.cpp:574` | untagged neutral name (D10) |
-| 1 | `Unknown_6DA760` | `app/client/mainview.cpp:574` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/mainview.cpp:576` | untagged neutral name (D10) |
 | 1 | `Unknown_750260` | `app/client/mainview.cpp:577` | untagged neutral name (D10) |
 | 1 | `Unknown_510440` | `app/client/mainview.cpp:578` | untagged neutral name (D10) |
@@ -7499,7 +7497,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/client/uiview.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/uiview.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/uiview.cpp:32` | untagged neutral name (D10) |
-| 1 | `ViewUnknown1CClass` | `app/client/uiview.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/uiview.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/uiview.cpp:41` | untagged neutral name (D10) |
 | 1 | `UIViewUnknown30Class` | `app/client/uiview.cpp:42` | untagged neutral name (D10) |
@@ -7508,7 +7505,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6B4940` | `app/client/uiview.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_65B570` | `app/client/uiview.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/uiview.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_6DA760` | `app/client/uiview.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/uiview.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_588870` | `app/client/uiview.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown_6AB5B0` | `app/client/uiview.cpp:124` | untagged neutral name (D10) |
@@ -7520,24 +7516,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65B650` | `app/client/uiview.cpp:255` | untagged neutral name (D10) |
 | 1 | `Unknown_65B6C0` | `app/client/uiview.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7A0` | `app/client/uiview.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_6DA6F0` | `app/client/uiview.cpp:283` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7E0` | `app/client/uiview.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_6DA730` | `app/client/uiview.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/uiview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/uiview.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown1274` | `app/client/uiview.cpp:315` | untagged neutral name (D10) |
-| 1 | `ViewUnknown1CClass` | `app/client/uiview.h:27` | neutral (D10) |
-| 1 | `a, b, c, d` | `app/client/uiview.h:31` | neutral |
-| 1 | `Unknown_6DA6F0` | `app/client/uiview.h:31` | untagged neutral name (D10) |
-| 1 | `a` | `app/client/uiview.h:32` | neutral |
-| 1 | `Unknown_6DA730` | `app/client/uiview.h:32` | untagged neutral name (D10) |
-| 1 | `camera` | `app/client/uiview.h:33` | what they pass |
-| 1 | `Unknown_6DA760` | `app/client/uiview.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/uiview.h:35` | untagged neutral name (D10) |
-| 1 | `UIViewUnknown30Class` | `app/client/uiview.h:42` | neutral (D10) |
-| 1 | `view` | `app/client/uiview.h:45` | what Init passes |
-| 1 | `Unknown_6AB5B0` | `app/client/uiview.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/uiview.h:49` | untagged neutral name (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/uiview.h:33` | neutral (D10) |
+| 1 | `view` | `app/client/uiview.h:36` | what Init passes |
+| 1 | `Unknown_6AB5B0` | `app/client/uiview.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/uiview.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -9881,6 +9867,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:117` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `programs/clientpoc/poc_ui.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `programs/clientpoc/poc_ui.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `programs/clientpoc/poc_ui.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_ui.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `programs/clientpoc/poc_ui.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0Class` | `programs/clientpoc/poc_ui.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `programs/clientpoc/poc_ui.cpp:40` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `programs/clientpoc/poc_ui.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `programs/clientpoc/poc_ui.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
@@ -10823,6 +10820,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:72` | Advance_X; starts at the horizontal padding |
 | 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:73` | Advance_Y; starts at the vertical padding |
 | 2 | `RightPadding` | `app/client/html/unknown_htmlblock.h:74` | the horizontal padding again |
+| 2 | `Render_With_PIP_Scenes` | `app/client/interface_scene.h:43` | after the assert's InsideRenderWithPIPScenes |
+| 2 | `InsideRenderWithPIPScenes` | `app/client/interface_scene.h:50` | the assert's |
+| 2 | `SSL` | `app/client/interface_scene.h:51` | the asserts' |
 | 2 | `InterfaceRenderClass` | `app/client/interface_static_sort_list.h:52` | the asserts' ui_render |
 | 2 | `ui` | `app/client/interface_static_sort_list.h:55` | the asserts'  // NAME 1 [index]: neutral |
 | 2 | `std:` | `app/client/interface_static_sort_list.h:71` | the asserts' 'find == PIPScenes.end()' |
@@ -10835,7 +10835,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInterface` | `app/client/interface_static_sort_list.h:140` | the asserts' |
 | 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:141` | the asserts' |
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:142` | the asserts' |
-| 2 | `SSL` | `app/client/intrface.cpp:24` | the asserts' |
 | 2 | `view` | `app/client/intrface.h:93` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `key_manager` | `app/client/intrface.h:112` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
@@ -13172,6 +13171,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HtmlViewClass` | `app/client/html/htmlview.h:54` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
+| 3 | `interface_scene.h` | `app/client/interface_scene.h:18` | header name assumed from the client's interface_scene.cpp |
+| 3 | `InterfaceSceneClass` | `app/client/interface_scene.h:29` | class-from-file (D24) for app\client\interface_scene.cpp |
 | 3 | `interface_static_sort_list.h` | `app/client/interface_static_sort_list.h:23` | header name assumed from the client's interface_static_sort_list.cpp |
 | 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:99` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
