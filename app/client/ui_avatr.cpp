@@ -72,6 +72,11 @@ public:
 	void Unknown_77E900(const UIAvatrWeightsStruct &weights);	// 0x77E900 (0x558060)  // NAME 1 [weights]: neutral
 	char Unknown08[0x110 - 0x08];						// +0x08
 	int Unknown110;										// +0x110
+	char Unknown114[0x194 - 0x114];						// +0x114
+	int Unknown194;										// +0x194 (0x55B110: the body tab's 0x2A .. 0x2D values)
+	int Unknown198;										// +0x198
+	int Unknown19C;										// +0x19C
+	int Unknown1A0;										// +0x1A0
 };
 
 // The +0x8C object's +0x34, as far as 0x554D60 reads it
@@ -267,6 +272,7 @@ public:
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
 	void Unknown_55A550(int a, int b, int c, int d);	// 0x55A550 (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
+	void Unknown_55B650();								// 0x55B650 (0x55B110, last)
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
 	void Unknown_556F80();								// 0x556F80
 	void Unknown_558170();								// 0x558170 (a random head type and scale)
@@ -299,7 +305,10 @@ public:
 	float Unknown178;									// +0x178 (the head's scale, 0.5 .. +0x17C: 0x55B540)
 	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
-	char Unknown184[0x1C5 - 0x184];						// +0x184
+	char Unknown184[0x1BC - 0x184];						// +0x184
+	int Unknown1BC;										// +0x1BC (0x55B110: 0 .. 6 from the button)
+	int Unknown1C0;										// +0x1C0 (0x55B110: the +0x194 object's value for it)
+	char Unknown1C4;									// +0x1C4
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
 	char Unknown1C6[0x2C8 - 0x1C6];						// +0x1C6
 	std::string Unknown2C8;								// +0x2C8 (the destructor's)
@@ -681,6 +690,41 @@ void AvatarCreationInterface::Unknown_55AFD0()
 	}
 }
 
+// 0x55B110
+void AvatarCreationInterface::Unknown_55B110(int arg)
+{
+	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	switch (arg) {
+		case 0x20:
+			Unknown1BC = 0;
+			break;
+		case 0x21:
+			Unknown1BC = 1;
+			break;
+		case 0x22:
+			Unknown1BC = 2;
+			break;
+		case 0x2A:
+			Unknown1BC = 3;
+			Unknown1C0 = desc->Unknown194;
+			break;
+		case 0x2B:
+			Unknown1BC = 4;
+			Unknown1C0 = desc->Unknown198;
+			break;
+		case 0x2C:
+			Unknown1BC = 5;
+			Unknown1C0 = desc->Unknown19C;
+			break;
+		case 0x2D:
+			Unknown1BC = 6;
+			Unknown1C0 = desc->Unknown1A0;
+			break;
+	}
+	Unknown_55AE50();
+	Unknown_55B650();
+}
+
 // 0x55B540
 void AvatarCreationInterface::Unknown_55B540(int zoom)
 {
@@ -749,4 +793,5 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	member by member, the weights struct needs a constructor so the returns land in the locals) and
 **	0x558170 (a random head type and scale; the type count read into a local first) exact.
 **	0x559F30 (the seven +0x2DC .. +0x2F4 objects deleted, destructor 0x585BF0) exact.
+**	0x55B110 (the button 0x20 .. 0x22 / 0x2A .. 0x2D into +0x1BC, +0x1C0 from the +0x194 object) exact.
 */
