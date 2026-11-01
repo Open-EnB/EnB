@@ -30,6 +30,7 @@ class UIStarbaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) f
 public:
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
+	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
 	virtual void Unknown_88();	// +0x88
 	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
 	char Unknown84[0xAC - 0x84];	// +0x84 (+0x7C Active: both handlers test it)

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1074 |
+| 3 | by convention from a client-named file or sibling | 1075 |
 | 2 | describes what the code does | 2575 |
-| 1 | neutral placeholder | 8124 |
+| 1 | neutral placeholder | 8147 |
 
 ## For review (score 3 and below)
 
@@ -3759,85 +3759,108 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/client/ui_avatar_cust.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/ui_avatar_cust.cpp:32` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_avatar_cust.cpp:36` | neutral (D10) |
-| 1 | `UIAvatarCustGadgetHolderStruct` | `app/client/ui_avatar_cust.cpp:45` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_avatar_cust.cpp:47` | untagged neutral name (D10) |
-| 1 | `robj` | `app/client/ui_avatar_cust.cpp:50` | neutral |
-| 1 | `Unknown_497300` | `app/client/ui_avatar_cust.cpp:50` | untagged neutral name (D10) |
-| 1 | `robj, texture, unknown` | `app/client/ui_avatar_cust.cpp:51` | as ui_manu.cpp's |
-| 1 | `Unknown_495FD0` | `app/client/ui_avatar_cust.cpp:51` | untagged neutral name (D10) |
-| 1 | `UnknownBFAEE0Class` | `app/client/ui_avatar_cust.cpp:54` | kernel.cpp's |
-| 1 | `Unknown_BFAEE0` | `app/client/ui_avatar_cust.cpp:62` | 0xBFAEE0 |
-| 1 | `UIAvatarCustFontManagerClass` | `app/client/ui_avatar_cust.cpp:66` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |
-| 1 | `Unknown_6D25D0` | `app/client/ui_avatar_cust.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_avatar_cust.cpp:67` | 0xBE67C4 |
-| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:70` | neutral |
-| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:71` | neutral |
-| 1 | `UIAvatarCustPartStruct` | `app/client/ui_avatar_cust.cpp:74` | neutral (D10) |
-| 1 | `Button` | `app/client/ui_avatar_cust.cpp:77` | neutral ('metals_buy_avatar00') |
-| 1 | `UIAvatarCustMetals` | `app/client/ui_avatar_cust.cpp:79` | neutral (D10) |
-| 1 | `UIAvatarCustAvatarClass` | `app/client/ui_avatar_cust.cpp:86` | neutral (D10) |
-| 1 | `part, value` | `app/client/ui_avatar_cust.cpp:89` | neutral |
-| 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:89` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/ui_avatar_cust.cpp:90` | neutral |
-| 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:90` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:90` | untagged neutral name (D10) |
-| 1 | `Get_Desc` | `app/client/ui_avatar_cust.cpp:93` | neutral (D10) |
-| 1 | `Unknown0F8` | `app/client/ui_avatar_cust.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Valid` | `app/client/ui_avatar_cust.cpp:97` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_avatar_cust.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_avatar_cust.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Changed` | `app/client/ui_avatar_cust.cpp:98` | neutral (D10) |
-| 1 | `Unknown_550670` | `app/client/ui_avatar_cust.cpp:104` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/ui_avatar_cust.cpp:105` | neutral |
-| 1 | `Unknown_550970` | `app/client/ui_avatar_cust.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_551BF0` | `app/client/ui_avatar_cust.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_550A10` | `app/client/ui_avatar_cust.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown_54EC30` | `app/client/ui_avatar_cust.cpp:108` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_avatar_cust.cpp:109` | neutral |
-| 1 | `Unknown_5513E0` | `app/client/ui_avatar_cust.cpp:109` | untagged neutral name (D10) |
-| 1 | `any` | `app/client/ui_avatar_cust.cpp:110` | neutral |
-| 1 | `Unknown_551520` | `app/client/ui_avatar_cust.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_551900` | `app/client/ui_avatar_cust.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_551A80` | `app/client/ui_avatar_cust.cpp:112` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_avatar_cust.cpp:113` | neutral |
-| 1 | `Unknown_551B20` | `app/client/ui_avatar_cust.cpp:113` | untagged neutral name (D10) |
-| 1 | `cost` | `app/client/ui_avatar_cust.cpp:114` | neutral |
-| 1 | `Unknown_551C40` | `app/client/ui_avatar_cust.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_551C80` | `app/client/ui_avatar_cust.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_avatar_cust.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/ui_avatar_cust.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_avatar_cust.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_avatar_cust.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_avatar_cust.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_avatar_cust.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_avatar_cust.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/ui_avatar_cust.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown204` | `app/client/ui_avatar_cust.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown240` | `app/client/ui_avatar_cust.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/ui_avatar_cust.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown29C` | `app/client/ui_avatar_cust.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown2CC` | `app/client/ui_avatar_cust.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown2FC` | `app/client/ui_avatar_cust.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown308` | `app/client/ui_avatar_cust.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown30C` | `app/client/ui_avatar_cust.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown31C` | `app/client/ui_avatar_cust.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown320` | `app/client/ui_avatar_cust.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown358` | `app/client/ui_avatar_cust.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown35C` | `app/client/ui_avatar_cust.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown360` | `app/client/ui_avatar_cust.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown380` | `app/client/ui_avatar_cust.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown388` | `app/client/ui_avatar_cust.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown390` | `app/client/ui_avatar_cust.cpp:140` | untagged neutral name (D10) |
-| 1 | `Unknown3CC` | `app/client/ui_avatar_cust.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown1338` | `app/client/ui_avatar_cust.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `app/client/ui_avatar_cust.cpp:325` | untagged neutral name (D10) |
-| 1 | `Get_Unknown34` | `app/client/ui_avatar_cust.cpp:341` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/ui_avatar_cust.cpp:341` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/ui_avatar_cust.cpp:355` | untagged neutral name (D10) |
-| 1 | `Unknown_69F440` | `app/client/ui_avatar_cust.cpp:359` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_avatar_cust.cpp:361` | untagged neutral name (D10) |
-| 1 | `Unknown_8493F0` | `app/client/ui_avatar_cust.cpp:395` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_avatar_cust.cpp:410` | untagged neutral name (D10) |
+| 1 | `UIAvatarCustGadgetHolderStruct` | `app/client/ui_avatar_cust.cpp:48` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_avatar_cust.cpp:50` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_avatar_cust.cpp:53` | neutral |
+| 1 | `Unknown_497300` | `app/client/ui_avatar_cust.cpp:53` | untagged neutral name (D10) |
+| 1 | `robj, texture, unknown` | `app/client/ui_avatar_cust.cpp:54` | as ui_manu.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/ui_avatar_cust.cpp:54` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_avatar_cust.cpp:57` | kernel.cpp's |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_avatar_cust.cpp:65` | 0xBFAEE0 |
+| 1 | `UIAvatarCustFontManagerClass` | `app/client/ui_avatar_cust.cpp:69` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |
+| 1 | `Unknown_6D25D0` | `app/client/ui_avatar_cust.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_avatar_cust.cpp:70` | 0xBE67C4 |
+| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:73` | neutral |
+| 1 | `a, b` | `app/client/ui_avatar_cust.cpp:74` | neutral |
+| 1 | `UIAvatarCustPartStruct` | `app/client/ui_avatar_cust.cpp:77` | neutral (D10) |
+| 1 | `Button` | `app/client/ui_avatar_cust.cpp:80` | neutral ('metals_buy_avatar00') |
+| 1 | `UIAvatarCustMetals` | `app/client/ui_avatar_cust.cpp:82` | neutral (D10) |
+| 1 | `UIAvatarCustAvatarClass` | `app/client/ui_avatar_cust.cpp:89` | neutral (D10) |
+| 1 | `part, value` | `app/client/ui_avatar_cust.cpp:92` | neutral |
+| 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:92` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/ui_avatar_cust.cpp:93` | neutral |
+| 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:93` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:93` | untagged neutral name (D10) |
+| 1 | `Get_Desc` | `app/client/ui_avatar_cust.cpp:96` | neutral (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_avatar_cust.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_avatar_cust.cpp:100` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_avatar_cust.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_avatar_cust.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_avatar_cust.cpp:101` | neutral (D10) |
+| 1 | `UIAvatarCustUnknown368Class` | `app/client/ui_avatar_cust.cpp:104` | neutral (D10) |
+| 1 | `Unknown_54E3C0` | `app/client/ui_avatar_cust.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_54E610` | `app/client/ui_avatar_cust.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_54F2B0` | `app/client/ui_avatar_cust.cpp:116` | untagged neutral name (D10) |
+| 1 | `a, b, c, d` | `app/client/ui_avatar_cust.cpp:117` | neutral |
+| 1 | `Unknown_54F6F0` | `app/client/ui_avatar_cust.cpp:117` | untagged neutral name (D10) |
+| 1 | `dir` | `app/client/ui_avatar_cust.cpp:118` | neutral |
+| 1 | `Unknown_550550` | `app/client/ui_avatar_cust.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_550670` | `app/client/ui_avatar_cust.cpp:119` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/ui_avatar_cust.cpp:120` | neutral |
+| 1 | `Unknown_550970` | `app/client/ui_avatar_cust.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_551BF0` | `app/client/ui_avatar_cust.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_550A10` | `app/client/ui_avatar_cust.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_54EC30` | `app/client/ui_avatar_cust.cpp:123` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_avatar_cust.cpp:124` | neutral |
+| 1 | `Unknown_5513E0` | `app/client/ui_avatar_cust.cpp:124` | untagged neutral name (D10) |
+| 1 | `any` | `app/client/ui_avatar_cust.cpp:125` | neutral |
+| 1 | `Unknown_551520` | `app/client/ui_avatar_cust.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_551900` | `app/client/ui_avatar_cust.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_551A80` | `app/client/ui_avatar_cust.cpp:127` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avatar_cust.cpp:128` | neutral |
+| 1 | `Unknown_551B20` | `app/client/ui_avatar_cust.cpp:128` | untagged neutral name (D10) |
+| 1 | `cost` | `app/client/ui_avatar_cust.cpp:129` | neutral |
+| 1 | `Unknown_551C40` | `app/client/ui_avatar_cust.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_551C80` | `app/client/ui_avatar_cust.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_avatar_cust.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_avatar_cust.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_avatar_cust.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_avatar_cust.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_avatar_cust.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avatar_cust.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_avatar_cust.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_avatar_cust.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/ui_avatar_cust.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/ui_avatar_cust.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/ui_avatar_cust.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown29C` | `app/client/ui_avatar_cust.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown2CC` | `app/client/ui_avatar_cust.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_avatar_cust.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown308` | `app/client/ui_avatar_cust.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown30C` | `app/client/ui_avatar_cust.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown314` | `app/client/ui_avatar_cust.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown318` | `app/client/ui_avatar_cust.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown31C` | `app/client/ui_avatar_cust.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown320` | `app/client/ui_avatar_cust.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown358` | `app/client/ui_avatar_cust.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown35C` | `app/client/ui_avatar_cust.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown360` | `app/client/ui_avatar_cust.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown361` | `app/client/ui_avatar_cust.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown362` | `app/client/ui_avatar_cust.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown368` | `app/client/ui_avatar_cust.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown36C` | `app/client/ui_avatar_cust.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown370` | `app/client/ui_avatar_cust.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown374` | `app/client/ui_avatar_cust.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown378` | `app/client/ui_avatar_cust.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown37C` | `app/client/ui_avatar_cust.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown380` | `app/client/ui_avatar_cust.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/ui_avatar_cust.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown390` | `app/client/ui_avatar_cust.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown3CC` | `app/client/ui_avatar_cust.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_avatar_cust.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_74C530` | `app/client/ui_avatar_cust.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_74C3B0` | `app/client/ui_avatar_cust.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_avatar_cust.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_6435E0` | `app/client/ui_avatar_cust.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_avatar_cust.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown1338` | `app/client/ui_avatar_cust.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_avatar_cust.cpp:428` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_avatar_cust.cpp:444` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_avatar_cust.cpp:444` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_avatar_cust.cpp:458` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/ui_avatar_cust.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_avatar_cust.cpp:464` | untagged neutral name (D10) |
+| 1 | `Unknown_8493F0` | `app/client/ui_avatar_cust.cpp:498` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/ui_avatr.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_avatr.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_avatr.cpp:12` | untagged neutral name (D10) |
@@ -8984,12 +9007,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
+| 2 | `Get_Texture` | `app/client/ui_avatar_cust.cpp:63` | what it does (the asset manager's slot) |
+| 2 | `Bone` | `app/client/ui_avatar_cust.cpp:79` | what 0x550A10 hands to Get_Bone_Index |
 | 2 | `Pull` | `app/client/ui_avatr.cpp:52` | what 0x556290 puts there |
 | 2 | `Get_Texture` | `app/client/ui_avatr.cpp:98` | what it does (the asset manager's slot) |
 | 2 | `FontStringFilesClass` | `app/client/ui_avatr.cpp:160` | fontdatabase.h's |
 | 2 | `Remove` | `app/client/ui_avatr.cpp:172` | as sclient.cpp's |
-| 2 | `Get_Texture` | `app/client/ui_avatar_cust.cpp:60` | what it does (the asset manager's slot) |
-| 2 | `Bone` | `app/client/ui_avatar_cust.cpp:76` | what 0x550A10 hands to Get_Bone_Index |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
@@ -10951,8 +10974,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
 | 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:16` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_avatar_cust.cpp:41` | the FAIL_IF's in ui_manu.cpp |
-| 3 | `FontSys` | `app/client/ui_avatar_cust.cpp:65` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
-| 3 | `StarbaseAvatarCreationInterface` | `app/client/ui_avatar_cust.cpp:101` | the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's) |
+| 3 | `AvatarID` | `app/client/ui_avatar_cust.cpp:44` | client.h's ClientClass::AvatarID |
+| 3 | `FontSys` | `app/client/ui_avatar_cust.cpp:68` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
+| 3 | `StarbaseAvatarCreationInterface` | `app/client/ui_avatar_cust.cpp:111` | the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's) |
 | 3 | `GadgetClass` | `app/client/ui_avatr.cpp:9` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `FontSys` | `app/client/ui_avatr.cpp:156` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:236` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |

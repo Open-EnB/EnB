@@ -39,6 +39,9 @@ public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+
+	char Unknown04[0x112C - 0x04];						// +0x04
+	unsigned AvatarID;									// +0x112C (0x54EC30)  // NAME 3: client.h's ClientClass::AvatarID
 };
 
 // An object whose first member is a gadget (the window's +0x308 / +0x31C, as far as 0x551B20 reads them)
@@ -97,10 +100,22 @@ public:
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
+// What the window holds at +0x368..+0x378 (its destructor 0x585BF0 not inlined; 0x54F2B0 deletes them)
+class UIAvatarCustUnknown368Class	// NAME 1: neutral (D10)
+{
+public:
+	~UIAvatarCustUnknown368Class();						// 0x585BF0
+};
+
 // The avatar customisation window (ui_avatar_cust.cpp's __FILE__), as far as this file's functions so far use it
 class StarbaseAvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7AC88: SignalBaseClass::MemberCallback<GadgetClass,StarbaseAvatarCreationInterface,...>, the FlashingGadgetEvent handler 0x551320's)
 {
 public:
+	void Unknown_54E3C0();								// 0x54E3C0
+	void Unknown_54E610();								// 0x54E610 (0x54E3C0, then the gadgets hidden while the view's +0x34 is active)
+	void Unknown_54F2B0();								// 0x54F2B0 (+0x368..+0x378 deleted)
+	void Unknown_54F6F0(int a, int b, int c, int d);	// 0x54F6F0 (0x550550: 1, 0, 0, 0)  // NAME 1 [a, b, c, d]: neutral
+	void Unknown_550550(int dir);						// 0x550550 (the zoom +0x314 a thirtieth out (1) or in (2), between 0.5 and +0x318; the zoom buttons +0x238 / +0x23C)  // NAME 1 [dir]: neutral
 	void Unknown_550670();								// 0x550670 (the mode and part buttons' state)
 	void Unknown_550970(int value);						// 0x550970  // NAME 1 [value]: neutral
 	void Unknown_551BF0();								// 0x551BF0 (the cost of the changes: recustomization_cost.cpp's 0x8493F0)
@@ -129,17 +144,105 @@ public:
 	Matrix3D Unknown2CC;								// +0x2CC
 	char Unknown2FC[0x308 - 0x2FC];						// +0x2FC
 	UIAvatarCustGadgetHolderStruct *Unknown308;			// +0x308
-	char Unknown30C[0x31C - 0x30C];						// +0x30C
+	char Unknown30C[0x314 - 0x30C];						// +0x30C
+	float Unknown314;									// +0x314 (the zoom: 0x550550)
+	float Unknown318;									// +0x318 (the zoom's largest)
 	UIAvatarCustGadgetHolderStruct *Unknown31C;			// +0x31C
 	char Unknown320[0x358 - 0x320];						// +0x320
 	int Unknown358;										// +0x358 (the part, 0-6)
 	int Unknown35C;										// +0x35C
-	char Unknown360[0x380 - 0x360];						// +0x360
+	bool Unknown360;									// +0x360
+	bool Unknown361;									// +0x361 (0x54E610: set while the gadgets are hidden)
+	char Unknown362[0x368 - 0x362];						// +0x362
+	UIAvatarCustUnknown368Class *Unknown368;			// +0x368
+	UIAvatarCustUnknown368Class *Unknown36C;			// +0x36C
+	UIAvatarCustUnknown368Class *Unknown370;			// +0x370
+	UIAvatarCustUnknown368Class *Unknown374;			// +0x374
+	UIAvatarCustUnknown368Class *Unknown378;			// +0x378
+	char Unknown37C[0x380 - 0x37C];						// +0x37C
 	MoneyClass Unknown380;								// +0x380 (the credits: the AuxData's Money)
 	MoneyClass Unknown388;								// +0x388 (the changes' cost)
 	RecustomizationCostClass Unknown390;				// +0x390 (the costs per slot: 0x551C40)
 	bool Unknown3CC;									// +0x3CC (set once the costs are in)
 };
+
+// 0x54E610
+void StarbaseAvatarCreationInterface::Unknown_54E610()
+{
+	Unknown_54E3C0();
+	if (Unknown0B4->Unknown34->Active) {
+		if (!Unknown361) {
+			Unknown361 = true;
+			Unknown_551B20(false);
+			return;
+		}
+	}
+	if (!Unknown0B4->Unknown34->Active && Unknown361) {
+		Unknown361 = false;
+		Unknown_551B20(true);
+		Unknown_550670();
+	}
+}
+
+// NOT EXACT: register (0.77, 273 bytes against 0x112: the client loads Client's AvatarID through eax / ecx where VC6 here takes edx, and the packet's look into esi; attempts.py show 0x54EC30)
+// 0x54EC30
+void StarbaseAvatarCreationInterface::Unknown_54EC30()
+{
+	SClient *client = Client->As_Space_Client();
+	client->Unknown_74C530(Client->AvatarID);
+	client->Unknown_74C3B0(Client->AvatarID, *Unknown0BC->Get_Desc());
+	UIStarbaseClass *starbase = ((SBaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
+	if (starbase) {
+		starbase->Unknown_6435E0();
+	}
+	client->Send_Packet(&RecustomizeAvatarDonePacketClass(client->Unknown1138, *Unknown0BC->Get_Desc()));
+}
+
+// 0x54F2B0
+void StarbaseAvatarCreationInterface::Unknown_54F2B0()
+{
+	if (Unknown368) {
+		delete Unknown368;
+		Unknown368 = NULL;
+	}
+	if (Unknown36C) {
+		delete Unknown36C;
+		Unknown36C = NULL;
+	}
+	if (Unknown370) {
+		delete Unknown370;
+		Unknown370 = NULL;
+	}
+	if (Unknown374) {
+		delete Unknown374;
+		Unknown374 = NULL;
+	}
+	if (Unknown378) {
+		delete Unknown378;
+		Unknown378 = NULL;
+	}
+}
+
+// 0x550550
+void StarbaseAvatarCreationInterface::Unknown_550550(int dir)
+{
+	float step = Unknown314 * 0.033333335f;
+	if (dir == 1) {
+		Unknown314 = WWMath::Max(Unknown314 - step, 0.5f);
+		if (Unknown314 == 0.5f) {
+			Unknown204[13]->Unknown_40(false);
+		}
+		Unknown204[14]->Unknown_40(true);
+	} else if (dir == 2) {
+		Unknown314 = WWMath::Min(step + Unknown314, Unknown318);
+		if (Unknown314 == Unknown318) {
+			Unknown204[14]->Unknown_40(false);
+		}
+		Unknown204[13]->Unknown_40(true);
+	}
+	Unknown_54F6F0(1, 0, 0, 0);
+	Unknown_551BF0();
+}
 
 // 0x550670
 void StarbaseAvatarCreationInterface::Unknown_550670()
@@ -425,7 +528,14 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	its asserts from line 85); the literals of 0x5513E0-0x551C80 ('COLOR_PALETTE' 0xB7AA2C, 'Cost: '
 **	0xB7ABC0 to 'NO_CHANGES' 0xB7AC70) lie in this file's block of literals, around its __FILE__
 **	(0xB7AB88), before the callback's type name and ui_avatar_dialog.cpp's first literal (0xB7AD0C).
+**	Before 0x550670 (TK15, claims #119 / #120): 0x54E610 (the gadgets hidden while the view's +0x34 is
+**	active), 0x54EC30 (NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's
+**	Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378
+**	deleted) and 0x550550 (the zoom). The file starts at 0x54B760, its PermStringInitClass static (0xBE5B34,
+**	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
+**	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
+**	the destructor 0x54BAB0 follow.
 **	The class is declared only as far as these use it; the rest of the file (about 2,200 lines before
-**	the FAIL_IFs, 0x54B370-0x550670) is not rebuilt. +0xC0 is the old look (an AvatarDescClass, 0x10C
+**	the FAIL_IFs, 0x54B7B0-0x550670) is not rebuilt. +0xC0 is the old look (an AvatarDescClass, 0x10C
 **	bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one.
 */
