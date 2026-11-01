@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1106 |
-| 2 | describes what the code does | 2743 |
-| 1 | neutral placeholder | 9388 |
+| 2 | describes what the code does | 2746 |
+| 1 | neutral placeholder | 9389 |
 
 ## For review (score 3 and below)
 
@@ -9080,12 +9080,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/wwudp/cordmgr.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/wwudp/cordmgr.cpp:250` | 0x4BC000, E&B's message reporter |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/wwudp/cordmgr.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/wwudp/cordmgr.h:76` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:118` | after Pump_Releases |
+| 1 | `Cord_SHA` | `app/wwudp/cordmgr.h:38` | placeholder |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:79` | untagged neutral name (D10) |
+| 1 | `Release` | `app/wwudp/cordmgr.h:121` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_5FADE0` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAD50` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
@@ -12126,23 +12127,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CloseState_` | `app/wwudp/cordcon.h:477` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
 | 2 | `CloseSeq_` | `app/wwudp/cordcon.h:478` | +0xB4 |
 | 2 | `IsServer_` | `app/wwudp/cordcon.h:479` | +0xB8 |
-| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:37` | a data socket's record (the +0x40 list, 16 bytes) |
-| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:45` | a listening socket's record (the +0x4C list, 12 bytes) |
-| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:53` | describes what it holds (the +0x1C list, 8 bytes) |
-| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:61` | describes what it is |
-| 2 | `Init` | `app/wwudp/cordmgr.h:90` | what it does |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:104` | what it does |
-| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:113` | what it sends |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:116` | what it does |
-| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:120` | what it counts |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:122` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:125` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:128` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:129` | what it does |
-| 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:132` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:135` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:144` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:151` | what it holds |
+| 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1572` | what it does |
+| 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1573` | what it does |
+| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:40` | a data socket's record (the +0x40 list, 16 bytes) |
+| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:48` | a listening socket's record (the +0x4C list, 12 bytes) |
+| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:56` | describes what it holds (the +0x1C list, 8 bytes) |
+| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:64` | describes what it is |
+| 2 | `Init` | `app/wwudp/cordmgr.h:93` | what it does |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:107` | what it does |
+| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:116` | what it sends |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:119` | what it does |
+| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:123` | what it counts |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:125` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:128` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:131` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:132` | what it does |
+| 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:135` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:138` | what it does |
+| 2 | `port3` | `app/wwudp/cordmgr.h:143` | the parameters (the name is the client's profile string) |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:150` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:157` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
@@ -13253,4 +13257,4 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `unique_design_id_lookup.h` | `app/shared/unique_design_id_lookup.h:19` | header name assumed from the client's unique_design_id_lookup.cpp |
 | 3 | `UniqueDesignIDLookupClass` | `app/shared/unique_design_id_lookup.h:26` | by convention (D24) from the client's file unique_design_id_lookup.cpp (vtable 0xAECCF4) |
 | 3 | `cordcon.h` | `app/wwudp/cordcon.h:41` | header name assumed from the client's cordcon.cpp |
-| 3 | `cordmgr.h` | `app/wwudp/cordmgr.h:28` | header name assumed from the client's cordmgr.cpp |
+| 3 | `cordmgr.h` | `app/wwudp/cordmgr.h:27` | header name assumed from the client's cordmgr.cpp |

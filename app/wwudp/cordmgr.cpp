@@ -1567,6 +1567,37 @@ void CordMgr::Set_Buffers(UDP *udp)
 	}
 }
 
+// Compute_Ticks' field writes (inlined): through a pointer, so VC6 keeps every store in source order (written
+// straight into the array, the digest's zero stores move above the last field's).
+static inline void Cord_Put_Short(unsigned char *p, unsigned short value) { *(unsigned short *)p = htons(value); }	// NAME 2: what it does
+static inline void Cord_Put_Long(unsigned char *p, unsigned long value) { *(unsigned long *)p = htonl(value); }	// NAME 2: what it does
+
+// 0x85A220 (no caller; in the client after Process_CORD_Packet): the six values in network order, then
+// Unknown04 (Init's random word), 22 bytes in a zeroed 512-byte block, hashed by WWOnline's SHA-1 0x8B4A90;
+// the digest's five words xored.
+unsigned int CordMgr::Compute_Ticks(unsigned short port1, unsigned int ip1, unsigned int ip2, unsigned short port2,
+	unsigned int ip3, unsigned short port3)
+{
+	WWPROFILE("CordMgr::Compute_Ticks");
+	unsigned char buf[0x200];
+	memset(buf, 0, sizeof(buf));
+	Cord_Put_Short(buf + 0, port1);
+	Cord_Put_Long(buf + 2, ip1);
+	Cord_Put_Long(buf + 6, ip2);
+	Cord_Put_Short(buf + 10, port2);
+	Cord_Put_Long(buf + 12, ip3);
+	Cord_Put_Short(buf + 16, port3);
+	Cord_Put_Long(buf + 18, Unknown04);
+	unsigned int digest[5];
+	memset(digest, 0, sizeof(digest));
+	Cord_SHA(buf, 0x16, digest);
+	unsigned int ticks = 0;
+	for (int i = 0; i < 5; i++) {
+		ticks ^= digest[i];
+	}
+	return ticks;
+}
+
 // 0x857940 (in the client after the destructor): a socket with 32 KB buffers bound to ip:port, kept
 // in ListenSockets_; deleted when Bind fails. The record is made before Bind (the client widens the
 // port then).
@@ -1593,7 +1624,7 @@ bool CordMgr::Listen(unsigned int ip, unsigned short port)
 **	  Process_Go_Away_Packet 0x8586D0, 0x858980, Pump_Connections 0x858A60 (XMP_Encode: the SYN2
 **	  key), 0x858EC0 (XMP_Init, SecureRandomClass: the session key), 0x859440-0x8598F0,
 **	  Pump_Releases 0x859940, Get_Data_Socket 0x859D50, Find_Data_Socket 0x859F80,
-**	  Process_CORD_Packet 0x85A000 (log on line 1272), Compute_Ticks 0x85A220, Process_SYN1_Packet
+**	  Process_CORD_Packet 0x85A000 (log on line 1272), Compute_Ticks 0x85A220 (here near the end), Process_SYN1_Packet
 **	  0x85A3B0, Process_ACK1_Packet 0x85A430 (XMP_Unsigned_Decode, XMP_Exponent_Mod: the server's
 **	  RSA key), Process_SYN2_Packet 0x85AB30, Process_ACK2_Packet 0x85ABB0 (the CordCon).
 **	* The handshake on the wire (earlier protocol research on the EA captures): SYN1 00 14 <session>, ACK1
