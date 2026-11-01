@@ -60,11 +60,21 @@ public:
 	int Unknown110;										// +0x110
 };
 
+// The +0x8C object's +0x34, as far as 0x554D60 reads it
+struct UIAvatrUnknown08CUnknown034Struct	// NAME 1: neutral (D10)
+{
+	char Unknown00[0x7C];								// +0x00
+	bool Unknown7C;										// +0x7C (0x554D60)
+};
+
 // The window's +0x8C, as far as this file reads it
 class UIAvatrUnknown08CClass	// NAME 1: neutral (D10)
 {
 public:
-	char Unknown00[0x194];								// +0x00
+	bool Unknown_67B2B0();								// 0x67B2B0 (0x554D60: true clears the window's +0x1C5)
+	char Unknown00[0x34];								// +0x00
+	UIAvatrUnknown08CUnknown034Struct *Unknown034;		// +0x34
+	char Unknown38[0x194 - 0x38];						// +0x38
 	UIAvatrUnknown194Class *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
 	UIAvatrUnknown194Class *Unknown194;					// +0x194
 	char Unknown198[0x1B8 - 0x198];						// +0x198
@@ -88,9 +98,27 @@ public:
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
 // The +0x94 object's +0x54, as far as 0x556B20 writes it
-struct UIAvatrUnknown094Unknown054Struct	// NAME 1: neutral (D10)
+class UIAvatrUnknown094Unknown054Struct	// NAME 1: neutral (D10)
 {
-	char Unknown000[0x214];								// +0x000
+public:
+	virtual void Unknown_000(); virtual void Unknown_004(); virtual void Unknown_008(); virtual void Unknown_00C(); virtual void Unknown_010(); virtual void Unknown_014(); virtual void Unknown_018(); virtual void Unknown_01C();
+	virtual void Unknown_020(); virtual void Unknown_024(); virtual void Unknown_028(); virtual void Unknown_02C(); virtual void Unknown_030(); virtual void Unknown_034(); virtual void Unknown_038(); virtual void Unknown_03C();
+	virtual void Unknown_040(); virtual void Unknown_044(); virtual void Unknown_048(); virtual void Unknown_04C(); virtual void Unknown_050(); virtual void Unknown_054(); virtual void Unknown_058(); virtual void Unknown_05C();
+	virtual void Unknown_060(); virtual void Unknown_064(); virtual void Unknown_068(); virtual void Unknown_06C(); virtual void Unknown_070(); virtual void Unknown_074(); virtual void Unknown_078(); virtual void Unknown_07C();
+	virtual void Unknown_080(); virtual void Unknown_084(); virtual void Unknown_088(); virtual void Unknown_08C(); virtual void Unknown_090(); virtual void Unknown_094(); virtual void Unknown_098(); virtual void Unknown_09C();
+	virtual void Unknown_0A0(); virtual void Unknown_0A4(); virtual void Unknown_0A8(); virtual void Unknown_0AC(); virtual void Unknown_0B0(); virtual void Unknown_0B4(); virtual void Unknown_0B8(); virtual void Unknown_0BC();
+	virtual void Unknown_0C0(); virtual void Unknown_0C4(); virtual void Unknown_0C8(); virtual void Unknown_0CC(); virtual void Unknown_0D0(); virtual void Unknown_0D4(); virtual void Unknown_0D8(); virtual void Unknown_0DC();
+	virtual void Unknown_0E0(); virtual void Unknown_0E4(); virtual void Unknown_0E8(); virtual void Unknown_0EC(); virtual void Unknown_0F0(); virtual void Unknown_0F4(); virtual void Unknown_0F8(); virtual void Unknown_0FC();
+	virtual void Unknown_100(); virtual void Unknown_104(); virtual void Unknown_108(); virtual void Unknown_10C(); virtual void Unknown_110(); virtual void Unknown_114(); virtual void Unknown_118(); virtual void Unknown_11C();
+	virtual void Unknown_120(); virtual void Unknown_124(); virtual void Unknown_128(); virtual void Unknown_12C(); virtual void Unknown_130(); virtual void Unknown_134(); virtual void Unknown_138(); virtual void Unknown_13C();
+	virtual void Unknown_140(); virtual void Unknown_144(); virtual void Unknown_148(); virtual void Unknown_14C(); virtual void Unknown_150(); virtual void Unknown_154(); virtual void Unknown_158(); virtual void Unknown_15C();
+	virtual void Unknown_160(); virtual void Unknown_164(); virtual void Unknown_168(); virtual void Unknown_16C(); virtual void Unknown_170(); virtual void Unknown_174(); virtual void Unknown_178(); virtual void Unknown_17C();
+	virtual void Unknown_180(); virtual void Unknown_184(); virtual void Unknown_188(); virtual void Unknown_18C(); virtual void Unknown_190(); virtual void Unknown_194(); virtual void Unknown_198(); virtual void Unknown_19C();
+	virtual void Unknown_1A0(); virtual void Unknown_1A4(); virtual void Unknown_1A8(); virtual void Unknown_1AC(); virtual void Unknown_1B0(); virtual void Unknown_1B4(); virtual void Unknown_1B8(); virtual void Unknown_1BC();
+	virtual void Unknown_1C0();
+	virtual void Unknown_1C4();							// +0x1C4 (0x554D60, last)
+
+	char Unknown004[0x214 - 0x004];						// +0x004
 	bool Unknown214;									// +0x214 (0x556B20 sets it)
 	char Unknown215[0x231 - 0x215];						// +0x215
 	bool Unknown231;									// +0x231 (set on the head tab)
@@ -104,10 +132,13 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_40(bool on);					// +0x40 (0x554D60)  // NAME 1 [on]: neutral
+	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
+	virtual void Unknown_70(); virtual void Unknown_74();
+	virtual void Unknown_78();							// +0x78 (0x554D60)
+	virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
 	virtual void Unknown_8C();							// +0x8C
@@ -186,12 +217,21 @@ static UIAvatrPartStruct UIAvatrParts[50] = {	// NAME 1: neutral (D10)
 class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>)
 {
 public:
+	void Unknown_554D60();								// 0x554D60
+	void Unknown_555F60(int text);						// 0x555F60 (the palette's texture: 'text1' .. 'text7')  // NAME 1 [text]: neutral
+	void Unknown_5560E0();								// 0x5560E0 (the colour pull made)
 	void Unknown_556290();								// 0x556290 (the body and head pulls made)
 	void Unknown_556630(int tab, bool on);				// 0x556630 (a tab's gadgets and texts shown or hidden: 0 none, 1 head, 2 body)  // NAME 1 [tab, on]: neutral
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
 	void Unknown_55A550(int a, int b, int c, int d);	// 0x55A550 (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
+	void Unknown_556F80();								// 0x556F80
+	void Unknown_55A1F0(int arg);						// 0x55A1F0 (0x554D60: 0 on the body tab, 1 on the head tab)  // NAME 1 [arg]: neutral
+	void Unknown_55A960();								// 0x55A960
+	void Unknown_55AE50();								// 0x55AE50 (0x5560E0, last)
+	void Unknown_55BAC0();								// 0x55BAC0
+	void Unknown_55BFB0();								// 0x55BFB0 (the height and weight texts)
 	void Unknown_Set_Palette(const char *name);		// 0x55C350 (the texture of that name onto the model's COLOR_PALETTE: ui_avatar_cust.cpp's 0x5513E0)  // NAME 1: neutral (D10); NAME 1 [name]: neutral
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
@@ -204,8 +244,67 @@ public:
 	char Unknown164[0x16C - 0x164];						// +0x164
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
 	char Unknown170[0x180 - 0x170];						// +0x170
-	UIAvatrPullClass *Unknown180;						// +0x180
+	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
+	char Unknown184[0x1C5 - 0x184];						// +0x184
+	bool Unknown1C5;									// +0x1C5 (0x554D60)
 };
+
+// 0x554D60
+void AvatarCreationInterface::Unknown_554D60()
+{
+	Unknown_556F80();
+	if (Unknown08C->Unknown_67B2B0()) {
+		Unknown1C5 = false;
+	}
+	if (Unknown08C->Unknown034->Unknown7C && !Unknown1C5) {
+		Unknown1C5 = true;
+		Unknown_556630(0, false);
+		if (Unknown094) Unknown094->Unknown_40(false);
+	} else if (!Unknown08C->Unknown034->Unknown7C && Unknown1C5) {
+		Unknown1C5 = false;
+		Unknown_556630(0, true);
+		if (Unknown094) Unknown094->Unknown_40(true);
+	}
+	if (Unknown088 == 2) {
+		Unknown_55A1F0(0);
+	} else if (Unknown088 == 1) {
+		Unknown_55A1F0(1);
+	}
+	Unknown_55BFB0();
+	Unknown_55A960();
+	Unknown_55BAC0();
+	Unknown094->Unknown_78();
+	Unknown094->Unknown054->Unknown_1C4();
+}
+
+// 0x555F60
+void AvatarCreationInterface::Unknown_555F60(int text)
+{
+	const char *names[] = { "text1", "text2", "Text3", "text4", "Text5", "Text6", "text7" };
+	RefCountPtr<RenderObjClass> palette = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+	if (palette) {
+		RefCountPtr<TextureClass> texture = Create_Get(Unknown_BFAEE0->Get_Texture(names[text], 0, 0, 1));
+		if (texture) {
+			Unknown_495FD0(palette.Peek(), texture.Peek(), 0);
+		}
+	}
+}
+
+// 0x5560E0
+void AvatarCreationInterface::Unknown_5560E0()
+{
+	Unknown180 = new UIAvatrPullClass;
+	RenderObjClass *palette = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("COLOR_PALETTE");
+	Unknown_496AE0(palette, 0);
+	Unknown180->Gadget = new UIAvatrGadget671300Class(palette, 0, Unknown084, 0, 0, 0);
+	Unknown180->Gadget->Unknown2C |= 0x400;
+	Unknown180->Unknown_5859A0();
+	palette->Release_Ref();
+	Unknown180->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("PULL_COLOR");
+	Unknown_496AE0(Unknown180->Pull, 1);
+	Unknown64.Unknown_6870E0(Unknown180->Gadget, 0x39, View, 1, 1);
+	Unknown_55AE50();
+}
 
 // 0x556290
 void AvatarCreationInterface::Unknown_556290()
@@ -398,4 +497,8 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts
 **	(0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file
 **	is not rebuilt; the class is declared only as far as these use it.
+**	TK14 (claim #118): 0x554D60 (the per-frame update: the +0x1C5 flag follows +0x8C's +0x34's +0x7C;
+**	the client re-reads +0x1C5 in the second test, so the condition is written twice), 0x555F60 (the
+**	palette's texture 'text1' .. 'text7': a local array of names) and 0x5560E0 (the colour pull over
+**	COLOR_PALETTE, list id 0x39) exact.
 */
