@@ -1755,6 +1755,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK16): galaxy_map.cpp: Add_Data 0x836960 next (inlines galaxy_map.h's line 180
+     assert 'GalaxyMapID == NOT_IN_GALAXY_MAP', FAIL_IF '(int)id >= MaxDataObjects' on cpp line 98, MaxDataObjects at
+     +0x74), then 0x8360A0-0x836740, the header's inlines and the map's dtor 0x836240 (line 185); Remove_Data 0x836B70
+     0.74 (shape: the client's six failure exits share one epilogue); importer.py's RECONSTRUCTED text for the file
+     does not mention Remove_Data yet.
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
      50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030

@@ -500,6 +500,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **A function-local static `RefCountPtr<T>` (a lookup's null return) makes its atexit destructor inline Release_Ref,
+  which needs `T` complete** (2026-10-31, TK16, galaxy_map): a forward declaration fails; an empty shell class deriving
+  from the base works. The lookups match as `if (it == Map.end()) return null; return (*it).second;` (the `!=` form
+  merges the two null returns).
 * **A local set to NULL outside a loop whose address is taken** (push_back) keeps the client's dead store and frees the
   argument slot for the loop counter (2026-10-31, TK8, cordcon Add_Channels 0x84FAA0). appfile.py markers on two
   constructors with the same demangled name land on the wrong one: check with objdiff and the mangled name.
