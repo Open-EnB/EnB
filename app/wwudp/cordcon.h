@@ -347,6 +347,10 @@ public:
 	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now);
 
 	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
+	void Decrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854ED0 NAME 2: Encrypt_Data's other half (RC4: the same call; no caller in the client)
+	void Set_Header_CRC(unsigned char *data, int len);								// 0x854F00 (its profile string; inlined in pumpInternal, no caller)
+	void Queue_Empty_Message();														// 0x855100 NAME 2: what it does (inlined in pump, no caller)
+	int Unknown_84FA80();															// 0x84FA80 (D10: returns 500, CORD_MAX_PACKET; no caller)
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0
 	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,

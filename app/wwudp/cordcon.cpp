@@ -985,6 +985,25 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 	return true;
 }
 
+// 0x854ED0: RC4 both ways.
+void CordCon::Decrypt_Data(unsigned char *data, int len, unsigned short counter)
+{
+	Encrypt_Data(data, len, counter);
+}
+
+// 0x854F00: the datagram's CRC at +5 (over the whole datagram, its own field 0).
+void CordCon::Set_Header_CRC(unsigned char *data, int len)
+{
+	WWPROFILE("CordCon::Set_Header_CRC");
+	*(unsigned long *)(data + 5) = htonl(Cord_CRC(data, len, 0xFFFFFFFF));
+}
+
+// 0x84FA80
+int CordCon::Unknown_84FA80()
+{
+	return CORD_MAX_PACKET;
+}
+
 static void Finish_Datagram(CordCon *con, unsigned char *buf, int len, unsigned short counter)
 {
 	unsigned int crc = Cord_CRC(buf, len, 0xFFFFFFFF);		// 'CordCon::Set_Header_CRC'
@@ -1096,15 +1115,21 @@ bool CordCon::pumpClose()
 	return true;
 }
 
-// An empty message on channel 0 (pump: to carry acks, the keep-alive).
-static void Queue_Empty(CordCon *con)
+// 0x855100: an empty message on channel 0 (pump: to carry acks, the keep-alive).
+void CordCon::Queue_Empty_Message()
 {
-	CordChannelClass *c = con->Channels_[0];
-	CordMessageClass m = Empty_Message();
-	m.Seq = c->NextSeq++;
-	c->Queue.push_back(m);
-	c->Written++;
-	con->Queued_++;
+	CordMessageClass m;
+	m.Length = 0;
+	m.TotalLength = 0;
+	m.Data = NULL;
+	m.Priority = 0;
+	m.SendCount = 0;
+	m.SentTime.setDay(0);
+	m.SentTime.setMsec(0);
+	m.Seq = Channels_[0]->NextSeq++;
+	Channels_[0]->Queue.push_back(m);
+	Channels_[0]->Written++;
+	Queued_++;
 }
 
 // 0x853560, functional (NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal,
@@ -1132,10 +1157,10 @@ bool CordCon::pump(Xtime &now)
 		if (Queued_ != 0 || (AcksPending_ == 0 && ResendsPending_ == 0)) {
 			break;
 		}
-		Queue_Empty(this);
+		Queue_Empty_Message();
 	}
 	if (((int)(t - LastSend_) > 5 || (t != LastSend_ && PacketsIn_ == 0)) && CloseState_ != 3 && CloseState_ != 4) {
-		Queue_Empty(this);
+		Queue_Empty_Message();
 		LastSend_ = t;
 	}
 	if ((int)(t - LastReceive_) > 90 && (CloseState_ == 0 || CloseState_ == 1)) {
