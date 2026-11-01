@@ -77,41 +77,10 @@ public:
 	char Unknown18C[4];									// +0x18C: a name, compared with 'HTML'
 };
 
-class CharacterViewUnknown1B4Class	// NAME 1: neutral (D10): what CharacterViewClass +0x1B4 points to
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-	virtual void Unknown_54();
-	virtual void Unknown_58();
-	virtual void Unknown_5C();
-	virtual void Unknown_60();
-	virtual void Unknown_64();
-	virtual void Unknown_68();
-	virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74();
-	virtual bool Unknown_78(GlobalErrorPacketClass *packet);	// +0x78: true when it handled the global error (0x76B000)
-};
+// What CharacterViewClass +0x1B4 points to: intrface.cpp's InterfaceClass (its slot +0x78: true when it handled the
+// global error, 0x76B000)
+#include "..\intrface.h"
+typedef InterfaceClass CharacterViewUnknown1B4Class;	// NAME 1 [CharacterViewUnknown1B4Class]: neutral (D10)
 
 class CharacterViewClass	// NAME 1: the member's name CharacterView (the FAIL_IFs)
 {

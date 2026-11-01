@@ -17,29 +17,29 @@
 #include "..\shared\auxdata\permstr.h"
 #include "tutorial_manager.h"
 
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(LayerClass *layer);			// +0x28 (the text gadgets: the window's layer)  // NAME 1 [layer]: what the constructor passes
-	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74(bool on);					// +0x74 (the text gadgets: the input focus)  // NAME 1 [on]: neutral
-	char Unknown04[0x20 - 0x04];						// +0x04
-	void *Unknown20;									// +0x20 (0x5AE9D0: the mouse-over sound only when set)
-	char Unknown24[0x2C - 0x24];						// +0x24
-	unsigned int Unknown2C_00 : 2;						// +0x2C bits 0-1
-	unsigned int Unknown2C_02 : 1;						// +0x2C bit 2 (0x5AE9D0: the mouse-over sound)
-	unsigned int Unknown2C_03 : 29;						// +0x2C
-	bool Is_Unknown2C_02() { return(Unknown2C_02); }	// NAME 1: neutral (D10)
-};
+// gadget.cpp's gadget: gadget.h
+#include "gadget.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // fontmanager.h's FontStyleClass, FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC (neither
 // header can be included next to sclient.h: workflow.md 3.3), as far as this file calls them
@@ -68,10 +68,11 @@ class FontStringFilesClass { public: void Load(const char *name); void Unload(co
 class TextGadgetClass : public GadgetClass	// NAME 3: class-from-file (D24) for app\client\textgadg.cpp
 {
 public:
-	TextGadgetClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: what the constructor passes
+	TextGadgetClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: what the constructor passes
 	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: what it does
 	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: what it does
 	void Unknown_6AAD10();								// 0x6AAD10 (every frame)
+	virtual void Unknown_74(bool on);					// +0x74 (the input focus)  // NAME 1 [on]: neutral
 	char Unknown30[0x39 - 0x30];						// +0x30
 	bool Unknown39;										// +0x39 (the slot +0x60 clears it: tab)
 	bool Unknown3A;										// +0x3A
@@ -89,10 +90,10 @@ extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text ga
 class LoginButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	LoginButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
+	LoginButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
-void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: as ui_cpit.cpp's
+
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
 
@@ -200,13 +201,12 @@ public:
 	void Add(int id, LoginCallbackBaseClass *callback);		// 0x4F9740  // NAME 2: as sclient.cpp's
 	void Remove(int id, LoginCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
 };
-LoginNotifierClass *Unknown_65ECE0();					// 0x65ECE0  // NAME 1 [Unknown_65ECE0]: neutral (D10)
+// (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map; FlashingGadgetEvent: gadget.h)
 
-class FlashingGadgetEvent	// NAME 5: the client's RTTI .?AVFlashingGadgetEvent@@
-{
-public:
-	GadgetClass *Gadget;								// +0x00 (the FAIL_IF '!gadget')  // NAME 3: the FAIL_IF's
-};
+
+
+
+
 
 class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: neutral (D10): sclient.cpp's (env_map_manager.cpp)
 bool Unknown_5FAE70();									// NAME 1 [Unknown_5FAE70]: ui_registration.cpp
@@ -366,7 +366,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	Unknown_5AE240();
 	CharacterView->Unknown3A4->Unknown_760770(100000, true);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = Unknown_65ECE0();
+	LoginNotifierClass *notifier = (LoginNotifierClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new LoginCallbackClass(this, function));
 	if (WWAudioClass::Get_Instance()) {
 		WWAudioClass::Get_Instance()->Unknown_Resume_All();
@@ -383,19 +383,19 @@ LoginInterface::~LoginInterface()
 	Unknown_5C();
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
-			Unknown_65EED0(Buttons[i]);
+			GadgetClass::Destroy(Buttons[i]);
 			Buttons[i] = NULL;
 		}
 	}
-	Unknown_65EED0(NameGadget);
-	Unknown_65EED0(PasswordGadget);
+	GadgetClass::Destroy(NameGadget);
+	GadgetClass::Destroy(PasswordGadget);
 	NameGadget = NULL;
 	PasswordGadget = NULL;
 	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe01a.ini");
 	CharacterView->Unknown_67A9B0(0);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = Unknown_65ECE0();
+	LoginNotifierClass *notifier = (LoginNotifierClass *)&GadgetClass::Get_Signal_Map();
 	LoginCallbackClass callback(this, function);
 	notifier->Remove(0, &callback);
 }
@@ -714,7 +714,7 @@ void LoginInterface::Unknown_5AE320()
 	textptr->Unknown_6CE7D0(2);
 }
 
-
+#pragma auto_inline(off)	// (0x5AE390 stays out of line in its callers: gadget.h's inline bodies move the budget)
 // 0x5AE390
 void LoginInterface::Unknown_5AE390()
 {
@@ -733,7 +733,7 @@ void LoginInterface::Unknown_5AE390()
 		Unknown0AC = true;
 	}
 }
-
+#pragma auto_inline(on)
 
 // 0x5AE450
 void LoginInterface::Unknown_5AE450()
@@ -864,7 +864,7 @@ void LoginInterface::Unknown_5AE9D0(FlashingGadgetEvent *event, GadgetClass *sen
 
 
 	FAIL_IF(!gadget) return;
-	if (gadget->Unknown20 && gadget->Is_Unknown2C_02()) {
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }

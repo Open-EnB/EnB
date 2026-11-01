@@ -31,6 +31,13 @@ class UIViewClass;
 
 struct KernelEventClass;  // kernel.h's input event (0x10 bytes): what slots +0x2C / +0x34 get
 
+// What slot +0x08 returns (zero in the base; ui_avsel.cpp's buttons: their model at +0x30)
+struct GadgetUnknown08Struct  // NAME 1: neutral (D10)
+{
+	char Unknown00[0x30];
+	RenderObjClass *Unknown30;											// +0x30 (ui_avsel.cpp 0x55E070 highlights it)
+};
+
 // What slot +0x64 returns (0x18 bytes, zero in the base)
 struct GadgetUnknown64Struct  // NAME 1: neutral (D10)
 {
@@ -56,7 +63,7 @@ public:
 	GadgetClass(unsigned int mask);										// 0x65ED50 (+0x10; the id from the counter 0xB8C9E0)  // NAME 1 [mask]: slot +0x34 masks its argument with it
 	virtual ~GadgetClass();												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)
 	virtual void Unknown_04();											// +0x04 0x65EF90 (empty; Destroy calls it before the delete)
-	virtual int Unknown_08() { return(0); }								// +0x08 0x50A8C0
+	virtual GadgetUnknown08Struct *Unknown_08() { return(NULL); }		// +0x08 0x50A8C0
 	virtual int Unknown_0C() { return(0); }								// +0x0C 0x50A8E0
 	virtual int Unknown_10() { return(0); }								// +0x10 0x50A900
 	virtual int Unknown_14() { return(0); }								// +0x14 0x50A920

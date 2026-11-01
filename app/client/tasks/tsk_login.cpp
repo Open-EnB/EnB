@@ -84,7 +84,7 @@ LoginTaskClass::LoginTaskClass(int mode) :
 void Unknown_42EDB0();								// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood)
 bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
-KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
+#include "..\gadget.h"	// 0x65F780: GadgetClass::Process_Input over the view's gadgets
 class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
 void Unknown_4BC130(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC130]: 0x4BC130, 0x4BC000's sibling (unknown_debug.cpp)
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
@@ -225,7 +225,7 @@ void LoginTaskClass::Pre_Run()
 		Unknown_42EDB0();
 		KernelEventClass event;
 		void *unknown = CharacterView->Unknown02C; if (unknown) {
-			event = Unknown_65F780(unknown);
+			event = GadgetClass::Process_Input((GadgetListManagerClass *)unknown);
 		} else if (Unknown_42EA80(&event)) {
 			Unknown_42E8A0(&event);
 		}
