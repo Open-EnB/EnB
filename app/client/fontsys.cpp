@@ -52,13 +52,13 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 }
 
 // NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; Info's colours (+0x494 / +0x4A4
-// from Colors, 10 / 255 when none) and the underline's 0x6D8DC0 (fonttexture.cpp) are left out
+// from Colors, 10 / 255 when none) are left out
 void FontStyleClass::Unknown_6D5170(int object)
 {
 	int i;
 	Unknown4DC = 1.0f;
 	Unknown4E0 = 1.0f;
-	Object = object;
+	Object = (RenderObjClass *)object;
 	Unknown300 = true;
 	Unknown301 = false;
 	Unknown402 = false;
@@ -136,6 +136,9 @@ void FontStyleClass::Unknown_6D5170(int object)
 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
 	REF_PTR_SET(Font, font->font32Ptr.Peek());
 	Underline = Info.Underline;
+	if (Info.Underline) {
+		Unknown2E0.Unknown_6D8DC0(&Font, "_", 0);
+	}
 	Unknown4C5 = false;
 	Unknown4E4 = true;
 	Unknown4E6 = false;
@@ -206,52 +209,49 @@ void FontStyleClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 	box.Extent.Z = 0.0f;
 }
 
+// NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched
+void FontStyleClass::Unknown_6D5D40()
+{
+	if (Object != NULL) {
+		RenderObjClass *sub = Object->Get_Sub_Object_By_Name(Info.Attach);
+		if (sub != NULL) {
+			Vector3 pos = sub->Get_Position();
+			const AABoxClass &box = sub->Get_Bounding_Box();
+			int value = (int)(box.Center.X - box.Extent.X + Info.BoxOffset[0]);
+			Unknown430[0] = value < -320 ? -320 : (value > 320 ? 320 : value);
+			value = (int)(box.Center.X + box.Extent.X - Info.BoxOffset[0]);
+			Unknown430[1] = value < -320 ? -320 : (value > 320 ? 320 : value);
+			value = (int)(box.Extent.Y + box.Center.Y - Info.BoxOffset[1]);
+			Unknown430[2] = value < -240 ? -240 : (value > 240 ? 240 : value);
+			value = (int)(box.Center.Y - box.Extent.Y + Info.BoxOffset[1]);
+			Unknown430[3] = value < -240 ? -240 : (value > 240 ? 240 : value);
+			sub->Release_Ref();
+			Unknown250 = 1;
+			return;
+		}
+		Unknown250 = 2;
+	}
+}
+
+// NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched
+void FontStyleClass::Unknown_6D6390()
+{
+	const char *text = Info.Text;
+	Unknown408 = (strcmp(text, " ") == 0);
+	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
+	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(text);
+	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Update_Text(false);
+	if (Object != NULL && Info.Attach.Get_Length() > 0) {
+		Object->Add_Sub_Object_To_Bone(this, Info.Attach);
+	}
+}
+
 /*
 **	0x6D5D40-0x6D8270 (not yet rebuilt; Render's assert holds the client's line 914 below):
-**	0x6D5D40 Unknown_6D5D40, 0x6D5F40, 0x6D60C0, 0x6D6390 Unknown_6D6390, 0x6D64C0 FontSys::Update_Text
+**	0x6D5F40, 0x6D60C0, 0x6D64C0 FontSys::Update_Text
 **	(7,104 bytes: ledger FNT7), 0x6D8080, 0x6D80A0.
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -987,5 +987,5 @@ Unknown_6D8B90Class::Unknown_6D8B90Class() :
 **	Set_Transform 0x6D87F0, Set_Position 0x6D88C0, the bounding volumes 0x6D5B90 / 0x6D5C10, Set_Hidden 0x67EF40,
 **	Is_Complete 0x67EEE0.
 **	Functional (D64) for the POC client: TextGadgetClass's constructor needs a real object with a table. Not yet
-**	rebuilt: 0x6D5170 (the set-up), 0x6D5D40, 0x6D6390, Update_Text 0x6D64C0, 0x6D8C50.
+**	rebuilt: Update_Text 0x6D64C0, 0x6D8C50, 0x6D8DC0 (fonttexture.cpp).
 */

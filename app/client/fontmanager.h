@@ -43,6 +43,7 @@ class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 by
 public:
 	Unknown_6D8B90Class();												// 0x6D8B90
 	~Unknown_6D8B90Class();												// 0x6D8C50
+	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
 	int Unknown04;														// +0x04  // NAME 1: neutral (D10)
@@ -89,7 +90,7 @@ public:
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
 	FontEffectStruct *Effects[6][4];									// +0x1E8: Info's six effect lists (EffectOn ... EffectTriggered) found by name (0x6D5170)  // NAME 2: what 0x6D5170 stores
-	int Object;															// +0x248: the constructors' object (textgadg.cpp passes its model)  // NAME 2: what the constructors pass
+	RenderObjClass *Object;												// +0x248: the constructors' object, the model the text attaches to (Info.Attach: 0x6D5D40, 0x6D6390)  // NAME 2: what the constructors pass
 	Font32Class *Font;													// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640)  // NAME 3: the assert's
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	int Unknown254[6];													// +0x254: zeroed by 0x6D5170  // NAME 1: neutral (D10)
