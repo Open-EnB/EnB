@@ -353,7 +353,10 @@ bool UDPConnection::Disconnect()
 
 
 
-// functional (NOT EXACT): wlib's Dictionary inlined; the difference not traced yet.
+
+
+// NOT EXACT (inline budget): the last lookup keeps keyHash out of line (the client inlines it there and
+// keeps operator == out of line; getPointer direct there inlines both); CordCon::write takes (channel, len, data, priority) in the client
 bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
 {
 	if (Con == 0) {
@@ -369,7 +372,8 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 	if (channel == 0) {
 		channel = -1;
 	}
-	unsigned int cord_channel = Default;
+	UDPChannelClass chan;
+	chan.Channel = Default;
 	if (!Get_Unknown04()) {
 		channel = -4;
 	}
@@ -377,48 +381,44 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 	UDPChannelKeyClass key;
 	key.Channel = channel;
 	key.Reliable = reliable;
-	if (channel < 0) {
-		if (channel == -1) {
-			cord_channel = Default;
-		} else if (channel > -16) {
-			Open_Fixed_Channel(channel);
-			cord_channel = Fixed[-channel - 1];
-		}
-	} else {
-		UDPChannelClass *found = 0;
-		if (!Channels.getPointer(key, &found)) {
-			bool open_ok = Con->openc(&cord_channel, reliable ? 3 : 4, 0);
+	if (channel >= 0) {
+		if (!Channels.getValue(key, chan)) {
+			int mode = 3;
+			if (!key.Reliable) {
+				mode = 4;
+			}
+			bool open_ok = Con->openc(&chan.Channel, mode, 0);
 			G_ASSERT(open_ok);
-			UDPChannelClass value;
-			value.Channel = cord_channel;
-			Channels.add(key, value);
-		} else if (found) {
-			cord_channel = found->Channel;
+			Channels.add(key, chan);
 		}
+	} else if (channel == -1) {
+		chan.Channel = Default;
+	} else if (channel > -16) {
+		Open_Fixed_Channel(channel);
+		chan.Channel = Fixed[-channel - 1];
 	}
-	// (the client's drop test: a reliable message, or rand() % 101 at least 0, is always sent)
-	if (reliable || rand() % 101 >= 0) {
-		Con->write(cord_channel, Buffer, len, priority);
+	if (key.Reliable || rand() % 101 >= 0) {
+		Con->write(chan.Channel, Buffer, len, priority);
 	}
 	if (close && channel >= 0) {
-		for (int mode = 0; mode < 2; mode++) {
-			key.Reliable = mode != 0;
-			UDPChannelClass *found = 0;
-			if (Channels.getPointer(key, &found)) {
-				if (found) {
-					cord_channel = found->Channel;
-				}
-				if (!Is_Fixed_Channel(cord_channel)) {
-					Con->closec(cord_channel);
-				}
-				Channels.remove(key);
+		key.Reliable = false;
+		if (Channels.getValue(key, chan)) {
+			if (!Is_Fixed_Channel(chan.Channel)) {
+				Con->closec(chan.Channel);
 			}
+			Channels.remove(key);
+		}
+		key.Reliable = true;
+		if (Channels.getValue(key, chan)) {
+			if (!Is_Fixed_Channel(chan.Channel)) {
+				Con->closec(chan.Channel);
+			}
+			Channels.remove(key);
 		}
 	}
 	Lock.unlock();
 	return(true);
 }
-
 
 bool UDPChannelKeyClass::operator == (const UDPChannelKeyClass &other) const
 {
@@ -813,8 +813,14 @@ int Unknown_82E1D0()
 **	  UDPConnectionManager's and the listener's constructors; the destructor (Disconnect through
 **	  the base class), Get_Stats (its locals declared at the top: declared in the block they take
 **	  the dead parameters' slots) and Try_Connect (CordMgr::Connect returns the session id).
-**	  NOT EXACT (functional, D42): the constructor over a CordCon (registers), Send_Data (wlib's
-**	  Dictionary), Open_Fixed_Channel (the index's form).
+**	  NOT EXACT: the constructor over a CordCon (registers), Send_Data (inline budget: the last
+**	  lookup's keyHash; and CordCon::write's argument order, see below).
+**	* Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies
+**	  it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the
+**	  drop test, the two close lookups written out (no loop): getPointer goes out of line (0x82E800,
+**	  exact) at the first two. The client calls CordCon::write 0x850C70 as (channel, len, data,
+**	  priority): its body compares the second argument with 0xC800; cordcon.h declares (channel,
+**	  data, len, priority). Forms in docs/data/attempts.csv (0x82D420).
 **	* The checks of the CordCon's state compare with true (`cmp bl, 1`): `closed == true`, except in
 **	  Send_Data and Receive.
 **	* Pending (+0x7C) holds the session id CordMgr::Connect started (the client's 0x859440 and
