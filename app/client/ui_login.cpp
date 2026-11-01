@@ -127,66 +127,66 @@ struct LoginKeyEventStruct	// NAME 1: neutral (D10)
 };
 class LoginKeysClass { public: void Unknown_721E60(const LoginKeyEventStruct *event, int id); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what the constructor passes
 
-// What the character view's +0x198 points to (avatar.cpp's functions), as far as this file calls it
-class LoginViewUnknown198Class	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('RejectedOnce', 1)  // NAME 1 [name, a]: neutral
-	void Unknown_784E00();								// 0x784E00
-	bool Unknown_7863E0();								// 0x7863E0
-	char Unknown000[0x220];								// +0x000
-	bool Unknown220;									// +0x220 (0x5ADA50: the welcome speech waits for it)
-	bool Is_Unknown220() { return(Unknown220); }		// NAME 1: neutral (D10)
-};
+// The character view: charview.h's CharacterViewClass (its +0x198 the narrator, avatar.cpp's model)
+#include "charview.h"
+typedef CharacterViewClass LoginViewClass;	// NAME 1 [LoginViewClass]: neutral (D10)
 
-// The character view (charview.cpp's CharacterViewClass, tsk_login.h), as far as this file calls it
-class LoginViewClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual LoginViewClass *Unknown_28();				// +0x28 (the interface's view gives the character view)
-	void Unknown_67A250();								// 0x67A250
-	void Unknown_67A670();								// 0x67A670
-	void Unknown_67A6C0();								// 0x67A6C0
-	void Unknown_67A8D0(int arg);						// 0x67A8D0  // NAME 1 [arg]: neutral
-	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the destructor: 0)  // NAME 1 [arg]: as ui_avatr.cpp's
-	void Unknown_67AB20(int index, const char *name);	// 0x67AB20  // NAME 1 [index, name]: neutral
-	void Unknown_67ACE0(int arg);						// 0x67ACE0  // NAME 1 [arg]: neutral
-	bool Unknown_67AD30(int a, const char *name);		// 0x67AD30  // NAME 1 [a, name]: neutral
-	void Unknown_67AE20(int arg);						// 0x67AE20  // NAME 1 [arg]: neutral
-	void Unknown_67AE60(int arg);						// 0x67AE60  // NAME 1 [arg]: neutral
-	bool Unknown_67AEA0(int arg);						// 0x67AEA0  // NAME 1 [arg]: neutral
-	void Unknown_67B270();								// 0x67B270
-	bool Unknown_67B2B0();								// 0x67B2B0 (as ui_avatr.cpp's)
-	void Unknown_67B4F0(int arg);						// 0x67B4F0  // NAME 1 [arg]: neutral
-	void Unknown_67C440(int a, int b);					// 0x67C440  // NAME 1 [a, b]: neutral
-	void Unknown_67C7B0();								// 0x67C7B0
 
-	char Unknown04[0x14 - 0x04];						// +0x04
-	TaskClass *Unknown014;								// +0x14 (its slot +0x08 gives the login task)
-	char Unknown18[0x34 - 0x18];						// +0x18
-	CharacterViewUnknown34Class *Get_Unknown034() { return(Unknown034); }	// NAME 1: neutral (D10)
-	CharacterViewUnknown34Class *Unknown034;			// +0x34 (the message box)
-	char Unknown38[0x68 - 0x38];						// +0x38
-	CameraClass *Peek_Camera() { return(Unknown068); }	// NAME 1: neutral (D10)
-	CameraClass *Unknown068;							// +0x68
-	char Unknown6C[0x198 - 0x6C];						// +0x6C
-	LoginViewUnknown198Class *Get_Unknown198() { return(Unknown198); }	// NAME 1: neutral (D10)
-	LoginViewUnknown198Class *Unknown198;				// +0x198
-	char Unknown19C[0x1B0 - 0x19C];						// +0x19C
-	int Get_Unknown1B0() { return(Unknown1B0); }		// NAME 1: neutral (D10)
-	int Unknown1B0;										// +0x1B0 (the step before)
-	char Unknown1B4[0x1B8 - 0x1B4];						// +0x1B4
-	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10), as ui_avatr.cpp's
-	RenderObjClass *Unknown1B8;							// +0x1B8 (the model: its texts by name)
-	char Unknown1BC[0x1CF - 0x1BC];						// +0x1BC
-	bool Unknown1CF;									// +0x1CF
-	bool Unknown1D0;									// +0x1D0
-	char Unknown1D1[0x3A4 - 0x1D1];						// +0x1D1
-	SClientUnknown1338Class *Unknown3A4;				// +0x3A4 (env_map_manager.cpp's)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The gadget events' callbacks (vtable 0xAEDB58) and what 0x65ECE0 returns, as ui_avatr.cpp declares them
 // (SignalBaseClass::MemberCallback: unknown_signalbase.h)
@@ -316,8 +316,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 		AccountButtons[j] = NULL;
 	}
 	((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_Clear();
-	CharacterView = ((LoginViewClass *)View)->Unknown_28();
-	Task = (LoginTaskClass *)Get_Character_View()->Unknown014->Unknown_08();
+	CharacterView = (LoginViewClass *)View->Unknown_28();
+	Task = (LoginTaskClass *)Get_Character_View()->Unknown14->Unknown_08();
 	Get_Task()->Close_Global_Connection();
 	Get_Task()->Unknown_64();
 	LoginScopeClass scope(this);
@@ -377,8 +377,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 // 0x5AD380
 LoginInterface::~LoginInterface()
 {
-	if (CharacterView->Unknown198) {
-		CharacterView->Unknown198->Unknown_784E00();
+	if (CharacterView->NarratorRObj) {
+		CharacterView->NarratorRObj->Unknown_784E00();
 	}
 	Unknown_5C();
 	for (int i = 0; i < 5; i++) {
@@ -488,11 +488,11 @@ bool LoginInterface::Unknown_68(int key)
 			return(false);
 		case 1:
 			Unknown0D8 = true;
-			CharacterView->Unknown034->Unknown_588A70("YES_NO", 0, "This will exit Earth & Beyond and take you to the EA.COM Account Management Website.\nDo you wish to proceed?", 320, 0, 0);
+			CharacterView->Unknown34->Unknown_588A70("YES_NO", 0, "This will exit Earth & Beyond and take you to the EA.COM Account Management Website.\nDo you wish to proceed?", 320, 0, 0);
 			return(false);
 		case 2:
 			if (Unknown_5FAE70()) {
-				CharacterView->Unknown198->Unknown_784E00();
+				CharacterView->NarratorRObj->Unknown_784E00();
 				Unknown_5AE7F0();
 				Unknown0A0 = 12;
 				CharacterView->Unknown_67A8D0(1);
@@ -505,12 +505,12 @@ bool LoginInterface::Unknown_68(int key)
 				Unknown_5AE320();
 				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
+				CharacterView->Unknown34->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
 			break;
 		case 3:
 			if (Unknown_5FAE70()) {
-				CharacterView->Unknown198->Unknown_784E00();
+				CharacterView->NarratorRObj->Unknown_784E00();
 				Unknown_5AE7F0();
 				Unknown0A0 = 11;
 				CharacterView->Unknown_67A8D0(1);
@@ -523,7 +523,7 @@ bool LoginInterface::Unknown_68(int key)
 				Unknown_5AE320();
 				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
+				CharacterView->Unknown34->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
 			break;
 	}
@@ -576,8 +576,8 @@ void LoginInterface::Unknown_5ADA50()
 		} else if (Unknown0A0 == 12) {
 			Get_Task()->Set_Step(11, false);
 		} else {
-			CharacterView->Unknown1CF = true;
-			CharacterView->Unknown1D0 = true;
+			CharacterView->Unknown1CC[3] = true;
+			CharacterView->Unknown1CC[4] = true;
 			Get_Task()->Go_Next_Step();
 			CharacterView->Unknown_67C7B0();
 		}
@@ -589,7 +589,7 @@ void LoginInterface::Unknown_5ADA50()
 			Unknown0DA = true;
 			Unknown_5AEA60();
 		}
-		if (!CharacterView->Get_Unknown034()->Unknown07C) {
+		if (!CharacterView->Get_Unknown034()->Active) {
 			Get_Task()->Unknown001D = false;
 			Unknown_7CA2D0()->Set_String("lkey", Get_Task()->Ticket_Info.Login_Key.c_str());
 			if (Unknown_5AE120()) {
@@ -611,7 +611,7 @@ void LoginInterface::Unknown_5ADA50()
 	if (CharacterView->Unknown_67B2B0()) {
 		Unknown_5AE160();
 	}
-	if (CharacterView->Get_Unknown034()->Unknown07C && !Unknown0DA) {
+	if (CharacterView->Get_Unknown034()->Active && !Unknown0DA) {
 		if (!Unknown0C9) {
 			Unknown0C9 = true;
 			Unknown_5AE240();
@@ -750,12 +750,12 @@ void LoginInterface::Unknown_5AE450()
 	Task->Set_Password(password);
 	delete name;
 	delete password;
-	CharacterView->Unknown198->Unknown_784E00();
+	CharacterView->NarratorRObj->Unknown_784E00();
 	if (Task->Unknown_4C()) {
 		if (Unknown0B0 < 1) {
-			CharacterView->Unknown198->Unknown_784C90("RejectedOnce", 1);
+			CharacterView->NarratorRObj->Unknown_784C90("RejectedOnce", 1);
 		} else {
-			CharacterView->Unknown198->Unknown_784C90("RejectedTwice", 1);
+			CharacterView->NarratorRObj->Unknown_784C90("RejectedTwice", 1);
 		}
 		Unknown0B0++;
 		Unknown_5AE160();
@@ -782,7 +782,7 @@ void LoginInterface::Unknown_5AE450()
 void LoginInterface::Unknown_5AE590()
 {
 	Unknown_5C();
-	RenderObjClass *model = CharacterView->Unknown1B8;
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	AccountMenu = Create_Get(Unknown_BFAEE0->Create_Render_Obj("FE13A"));
 	G_ASSERT(AccountMenu);
 	model->Add_Sub_Object(AccountMenu.Peek());
@@ -822,7 +822,7 @@ void LoginInterface::Unknown_5AE7F0()
 	}
 	Unknown_BE67C4->Remove((unsigned int)AccountMenu.Peek());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe13a.ini");
-	RenderObjClass *model = CharacterView->Unknown1B8;
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	G_ASSERT(AccountMenu);
 	model->Remove_Sub_Object(AccountMenu.Peek());
 	AccountMenu = NULL;
@@ -908,7 +908,7 @@ void LoginInterface::Unknown_5AEA60()
 					}
 					_snprintf(text, 1024, "Your Trial of Earth & Beyond will expire %s. If you like Earth & Beyond and wish to continue your adventures, you can buy an Earth & Beyond Upgrade Registration Code at www.eabuddystore.com <http://www.eabuddystore.com>. Enter your new Registration Code by using the \"Account Management\" menu on the login screen and you'll be back in the galaxy in just minutes.\n\nThank you for playing Earth & Beyond!", when);
 				}
-				CharacterViewUnknown34Class *box = CharacterView->Unknown034;
+				ViewUnknown34Class *box = CharacterView->Unknown34;
 				box->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
 			}
 		}

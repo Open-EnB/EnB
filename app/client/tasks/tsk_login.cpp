@@ -152,7 +152,7 @@ bool LoginTaskClass::Accept_Focus()
 {
 	Unknown_Debug_Print("LoginTask: accepting focus.");
 	if (CharacterView) {
-		Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+		Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 	}
 	Unknown_BB9654 = false;
 	Done = false;
@@ -224,7 +224,7 @@ void LoginTaskClass::Pre_Run()
 		FAIL_IF(!CharacterView) return;
 		Unknown_42EDB0();
 		KernelEventClass event;
-		void *unknown = CharacterView->Unknown02C; if (unknown) {
+		void *unknown = CharacterView->Unknown2C; if (unknown) {
 			event = GadgetClass::Process_Input((GadgetListManagerClass *)unknown);
 		} else if (Unknown_42EA80(&event)) {
 			Unknown_42E8A0(&event);
@@ -233,7 +233,7 @@ void LoginTaskClass::Pre_Run()
 			WW3D::Make_Screen_Shot("ScreenShot", 1.3f, 1);
 		}
 		if (!Unknown000C->Unknown_429A20(&event)) {
-			CharacterView->Unknown004->Unknown_429A20(&event);
+			CharacterView->Unknown04->Unknown_429A20(&event);
 		}
 	}
 }
@@ -282,7 +282,7 @@ void LoginTaskClass::Run()
 		CharacterView->Unknown_67A300();
 		if (Step < 16) {
 			CharacterView->Unknown_67A370(Step);
-			Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+			Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 		}
 		Unknown0014 = false;
 	}
@@ -292,25 +292,25 @@ void LoginTaskClass::Run()
 		Show_Message("Lost connection to the global server.");
 	}
 
-	if (CharacterView && CharacterView->Unknown034 && CharacterView->Unknown034->Unknown07C) {
+	if (CharacterView && CharacterView->Unknown34 && CharacterView->Unknown34->Active) {
 		CharacterView->Unknown_14();
-		if (CharacterView->Unknown034->Is_HTML() && !Unknown0018->Unknown24) {
+		if (CharacterView->Unknown34->Is_HTML() && !Unknown0018->Unknown24) {
 			Unknown0018->Unknown_5153B0();
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("OK") || CharacterView->Unknown034->Unknown_5890B0("OK_SMALL")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("OK") || CharacterView->Unknown34->Unknown_5890B0("OK_SMALL")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Step == 15) {
 				Step = 17;
 			}
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("CANCEL")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("CANCEL")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Step == 1) {
 				Step = 17;
 			}
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("HTML")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("HTML")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Unknown0018->Unknown24) {
 				Unknown0018->Unknown_515400();
 			}
@@ -593,10 +593,10 @@ void LoginTaskClass::Unknown_7692A0()
 void LoginTaskClass::Unknown_6C()
 {
 	if (CharacterView && Unknown_7CA2D0()->Unknown2C == 0 && Unknown_5FADE0()) {
-		CharacterView->Unknown1CD = true;
-		CharacterView->Unknown1CE = true;
-		CharacterView->Unknown1CF = true;
-		CharacterView->Unknown1D0 = true;
+		CharacterView->Unknown1CC[1] = true;
+		CharacterView->Unknown1CC[2] = true;
+		CharacterView->Unknown1CC[3] = true;
+		CharacterView->Unknown1CC[4] = true;
 		Step = 0;
 		Unknown0014 = true;
 		return;
@@ -809,8 +809,8 @@ void LoginTaskClass::Set_Password(const char *password)
 void LoginTaskClass::Show_Message(const char *text)
 {
 	if (CharacterView) {
-		CharacterView->Unknown034->Unknown_5C();
-		CharacterView->Unknown034->Unknown_588A70("OK", 0, text, 320, 0, 0);
+		CharacterView->Unknown34->Unknown_5C();
+		CharacterView->Unknown34->Unknown_588A70("OK", 0, text, 320, 0, 0);
 	}
 	Step = 15;
 }
@@ -819,9 +819,9 @@ void LoginTaskClass::Show_Message(const char *text)
 void LoginTaskClass::Show_Message(const char *text, const char *button)
 {
 	if (CharacterView) {
-		CharacterView->Unknown034->Unknown_5C();
+		CharacterView->Unknown34->Unknown_5C();
 		if (text && strlen(text) > 0) {
-			CharacterView->Unknown034->Unknown_588A70(button, 0, text, 320, 0, 0);
+			CharacterView->Unknown34->Unknown_588A70(button, 0, text, 320, 0, 0);
 		}
 	}
 }
@@ -850,7 +850,7 @@ bool LoginTaskClass::Unknown_64()
 					return false;
 				}
 				if (CharacterView) {
-					CharacterView->Unknown034->Unknown_5C();
+					CharacterView->Unknown34->Unknown_5C();
 				}
 				Unknown0030 = true;
 				Unknown_VersionStruct *version = Unknown_4456C0();
@@ -872,7 +872,7 @@ bool LoginTaskClass::Unknown_64()
 
 		G_ASSERT(0);
 		if (CharacterView) {
-			CharacterView->Unknown034->Unknown_5C();
+			CharacterView->Unknown34->Unknown_5C();
 		}
 		Unknown0030 = true;
 		return false;
@@ -946,7 +946,7 @@ void LoginTaskClass::Create_Character_View()
 		CharacterView = new CharacterViewClass(this, Step);
 		FAIL_IF(!CharacterView) return;
 		CharacterView->Unknown_67A370(Step);
-		Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+		Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 	}
 }
 

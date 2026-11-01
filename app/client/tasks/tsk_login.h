@@ -77,48 +77,10 @@ public:
 	char Unknown18C[4];									// +0x18C: a name, compared with 'HTML'
 };
 
-// What CharacterViewClass +0x1B4 points to: intrface.cpp's InterfaceClass (its slot +0x78: true when it handled the
-// global error, 0x76B000)
-#include "..\intrface.h"
+// The character view: charview.cpp's CharacterViewClass (charview.h; its +0x1B4 is the mode's screen, an
+// intrface.cpp InterfaceClass)
+#include "..\charview.h"
 typedef InterfaceClass CharacterViewUnknown1B4Class;	// NAME 1 [CharacterViewUnknown1B4Class]: neutral (D10)
-
-class CharacterViewClass	// NAME 1: the member's name CharacterView (the FAIL_IFs)
-{
-public:
-	CharacterViewClass(LoginTaskClass *task, int step);	// 0x678450
-	virtual ~CharacterViewClass();						// +0x00
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C(bool on);					// +0x0C: LoginTaskClass::Render
-	virtual void Unknown_10();							// +0x10: before it is deleted
-	virtual void Unknown_14();
-	virtual void Unknown_18(int unknown);				// +0x18: before it is deleted (0)
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void *Unknown_3C();							// +0x3C: handed to LoginUnknown18Class::Unknown_515340
-	void Unknown_67A300();								// 0x67A300 (charview.cpp)
-	void Unknown_67A370(int step);						// 0x67A370 (charview.cpp)
-
-	LoginUnknown0CClass *Unknown004;					// +0x04: gets the event Pre_Run's +0x0C didn't take (0x429A20)
-	char Unknown008[0x2C - 0x08];						// +0x08
-	void *Unknown02C;									// +0x2C: when set, Pre_Run's event comes from 0x65F780 (gadget.cpp)
-	char Unknown030[0x34 - 0x30];						// +0x30
-	CharacterViewUnknown34Class *Unknown034;			// +0x34
-	char Unknown038[0x1B4 - 0x38];						// +0x38
-	CharacterViewUnknown1B4Class *Unknown1B4;			// +0x1B4
-	char Unknown1B8[0x1CD - 0x1B8];						// +0x1B8
-	bool Unknown1CD;									// +0x1CD
-	bool Unknown1CE;									// +0x1CE
-	bool Unknown1CF;									// +0x1CF
-	bool Unknown1D0;									// +0x1D0
-	char Unknown1D1[0x514 - 0x1D1];						// +0x1D1
-};
 
 
 

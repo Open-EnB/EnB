@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-435 entries in 96 files.
+444 entries in 97 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -17,6 +17,15 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/cfaction_database.cpp:10` | `CFactionDatabaseClass::Init` | marker | NOT EXACT: register-only in the first string assignment (the client moves the length to ecx before the _Eos store); explain.py says shape (195 vs 197 instructions) |
+| `app/client/charview.cpp:130` | `CharacterViewClass::CharacterViewClass` | marker | NOT EXACT: inline budget (the client calls ShipCustPartClass's constructor 0x6191F0 and the deque iterator's 0x67D300 out of line; ours inlines them); 0.62 0x678450 |
+| `app/client/charview.cpp:197` | `CharacterViewClass::Unknown_04` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x678B70 |
+| `app/client/charview.cpp:249` | `CharacterViewClass::Unknown_08` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x679160 |
+| `app/client/charview.cpp:297` | `CharacterViewClass::Unknown_10` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x679510 |
+| `app/client/charview.cpp:357` | `CharacterViewClass::Unknown_0C` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x679930 |
+| `app/client/charview.cpp:612` | `CharacterViewClass::Unknown_67A8D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0.75) 0x67A8D0 |
+| `app/client/charview.cpp:638` | `CharacterViewClass::Unknown_67A9B0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x67A9B0 |
+| `app/client/charview.cpp:683` | `CharacterViewClass::Unknown_67AB20` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes 0x67AB20 |
+| `app/client/charview.cpp:788` | `CharacterViewClass::Unknown_67AED0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0.36) 0x67AED0 |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:105` | `ClientClass::Find_Object` | marker | NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070) 0x727070 |
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |

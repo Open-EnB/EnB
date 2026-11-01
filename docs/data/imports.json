@@ -935,6 +935,43 @@
     "merged": [],
     "name": "client/cfaction_database.cpp"
    },
+   "charview": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x64EFC0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42F250",
+     "0x53BB50",
+     "0x678820",
+     "0x678850",
+     "0x678970",
+     "0x67A1D0",
+     "0x67A210",
+     "0x67A250",
+     "0x67A290",
+     "0x67A300",
+     "0x67A370",
+     "0x67A3F0",
+     "0x67A670",
+     "0x67A960",
+     "0x67ACE0",
+     "0x67AD30",
+     "0x67ADD0",
+     "0x67AE20",
+     "0x67AE60",
+     "0x67AEA0",
+     "0x67B270",
+     "0x67B2B0",
+     "0x67BBE0",
+     "0x67C3C0"
+    ],
+    "merged": [],
+    "name": "client/charview.cpp"
+   },
    "circbuff": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -12279,6 +12316,7 @@
    "client/aux_roots.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
+   "client/charview.h": "reconstructed",
    "client/client.h": "reconstructed",
    "client/client_lego_impl.h": "reconstructed",
    "client/co.h": "reconstructed",

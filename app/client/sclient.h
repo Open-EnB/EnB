@@ -138,6 +138,7 @@ public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470)
 	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
+	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
 	// (+0x04..+0x50: gclass.h's GClass slots)
 	virtual void Unknown_54(); virtual void Unknown_58();

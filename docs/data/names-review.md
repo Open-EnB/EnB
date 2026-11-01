@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1118 |
-| 2 | describes what the code does | 2799 |
-| 1 | neutral placeholder | 9669 |
+| 3 | by convention from a client-named file or sibling | 1122 |
+| 2 | describes what the code does | 2816 |
+| 1 | neutral placeholder | 9856 |
 
 ## For review (score 3 and below)
 
@@ -90,6 +90,246 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Value` | `app/client/cameraeffects.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cameraeffects.cpp:105` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/charview.cpp:42` | kernel.cpp's |
+| 1 | `Unknown_00` | `app/client/charview.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/charview.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/charview.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/charview.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/charview.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/charview.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/charview.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/charview.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/charview.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `app/client/charview.cpp:50` | 0xBFAEE0 |
+| 1 | `Unknown_BFAE52` | `app/client/charview.cpp:51` | neutral (D10), scriptedmovie.cpp's |
+| 1 | `Unknown67D360Class` | `app/client/charview.cpp:54` | neutral (D10): 0x14 bytes, destructor 0x67D360 (sclient.cpp's) |
+| 1 | `Unknown00` | `app/client/charview.cpp:58` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/charview.cpp:60` | neutral (D10): sclient.cpp's |
+| 1 | `Unknown10` | `app/client/charview.cpp:63` | untagged neutral name (D10) |
+| 1 | `base_asset, a` | `app/client/charview.cpp:65` | sclient.cpp's |
+| 1 | `Unknown_760770` | `app/client/charview.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/charview.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown5DB670InterfaceClass` | `app/client/charview.cpp:78` | neutral (D10): mode 0 CHARACTER_POPUP_MESSAGE |
+| 1 | `view, layer` | `app/client/charview.cpp:81` | as LoginInterface's |
+| 1 | `Unknown574710InterfaceClass` | `app/client/charview.cpp:84` | neutral (D10): mode 3 |
+| 1 | `view, layer` | `app/client/charview.cpp:87` | as LoginInterface's |
+| 1 | `Unknown553AF0InterfaceClass` | `app/client/charview.cpp:90` | neutral (D10): mode 4 (ui_avatr.cpp's window) |
+| 1 | `view, layer, unknown` | `app/client/charview.cpp:93` | neutral |
+| 1 | `Unknown615A50InterfaceClass` | `app/client/charview.cpp:96` | neutral (D10): mode 5 |
+| 1 | `view, layer` | `app/client/charview.cpp:99` | as LoginInterface's |
+| 1 | `Unknown622180InterfaceClass` | `app/client/charview.cpp:102` | neutral (D10): mode 6 |
+| 1 | `view, layer, unknown, unknown2` | `app/client/charview.cpp:105` | neutral |
+| 1 | `Unknown5EF0B0InterfaceClass` | `app/client/charview.cpp:108` | neutral (D10): modes 9-12 |
+| 1 | `view, layer, unknown` | `app/client/charview.cpp:111` | neutral |
+| 1 | `Unknown_BE6018` | `app/client/charview.cpp:116` | neutral (D10) |
+| 1 | `Unknown04C` | `app/client/charview.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown058` | `app/client/charview.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown064` | `app/client/charview.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown068` | `app/client/charview.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown06C` | `app/client/charview.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown070` | `app/client/charview.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown074` | `app/client/charview.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown078` | `app/client/charview.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/charview.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown080` | `app/client/charview.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/charview.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown19C` | `app/client/charview.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown19D` | `app/client/charview.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown19E` | `app/client/charview.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown1A0` | `app/client/charview.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `app/client/charview.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/charview.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/charview.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/charview.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown22C` | `app/client/charview.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/charview.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown234` | `app/client/charview.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/charview.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown23C` | `app/client/charview.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/charview.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/charview.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown4C8` | `app/client/charview.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown4D4` | `app/client/charview.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/charview.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown1A4` | `app/client/charview.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown3A8` | `app/client/charview.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown3B0` | `app/client/charview.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown3B8` | `app/client/charview.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/client/charview.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown4A0` | `app/client/charview.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown4B0` | `app/client/charview.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/charview.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/charview.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_67BF20` | `app/client/charview.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/charview.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown_6B4940` | `app/client/charview.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/charview.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/charview.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/charview.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_515120` | `app/client/charview.cpp:294` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/charview.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/charview.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/charview.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_67CEF0` | `app/client/charview.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown_67BEB0` | `app/client/charview.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/charview.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown_788EF0` | `app/client/charview.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown_67A300` | `app/client/charview.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown_67CBD0` | `app/client/charview.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown_67AF70` | `app/client/charview.cpp:378` | untagged neutral name (D10) |
+| 1 | `Unknown_67C530` | `app/client/charview.cpp:379` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/client/charview.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/charview.cpp:387` | untagged neutral name (D10) |
+| 1 | `Unknown_786370` | `app/client/charview.cpp:388` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/charview.cpp:401` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/charview.cpp:436` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/charview.cpp:436` | untagged neutral name (D10) |
+| 1 | `ViewUnknown1CClass` | `app/client/charview.cpp:442` | untagged neutral name (D10) |
+| 1 | `Unknown_6DA760` | `app/client/charview.cpp:442` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/charview.cpp:453` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/charview.cpp:455` | untagged neutral name (D10) |
+| 1 | `Unknown_67A250` | `app/client/charview.cpp:461` | untagged neutral name (D10) |
+| 1 | `Unknown_67A290` | `app/client/charview.cpp:472` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/charview.cpp:485` | untagged neutral name (D10) |
+| 1 | `Unknown_67A370` | `app/client/charview.cpp:503` | untagged neutral name (D10) |
+| 1 | `Unknown_67A3F0` | `app/client/charview.cpp:513` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/charview.cpp:602` | untagged neutral name (D10) |
+| 1 | `Unknown_67A8D0` | `app/client/charview.cpp:614` | untagged neutral name (D10) |
+| 1 | `Unknown_784A50` | `app/client/charview.cpp:618` | untagged neutral name (D10) |
+| 1 | `Unknown_67A960` | `app/client/charview.cpp:629` | untagged neutral name (D10) |
+| 1 | `Unknown_784C90` | `app/client/charview.cpp:632` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/charview.cpp:685` | untagged neutral name (D10) |
+| 1 | `Unknown_67BBE0` | `app/client/charview.cpp:714` | untagged neutral name (D10) |
+| 1 | `Unknown_67ACE0` | `app/client/charview.cpp:723` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `app/client/charview.cpp:732` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/charview.cpp:745` | untagged neutral name (D10) |
+| 1 | `Unknown_67ADD0` | `app/client/charview.cpp:750` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `app/client/charview.cpp:759` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/charview.cpp:763` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/charview.cpp:769` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/charview.cpp:779` | untagged neutral name (D10) |
+| 1 | `Unknown_67AED0` | `app/client/charview.cpp:790` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/charview.cpp:806` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/charview.cpp:808` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/charview.cpp:808` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/charview.cpp:813` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/charview.cpp:816` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/charview.cpp:819` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/charview.h:38` | untagged neutral name (D10) |
+| 1 | `CharacterViewAvatarClass` | `app/client/charview.h:42` | neutral (D10) |
+| 1 | `Unknown_1C4` | `app/client/charview.h:45` | untagged neutral name (D10) |
+| 1 | `name, a, b` | `app/client/charview.h:46` | neutral |
+| 1 | `Unknown_784A50` | `app/client/charview.h:46` | untagged neutral name (D10) |
+| 1 | `name, a` | `app/client/charview.h:47` | neutral |
+| 1 | `Unknown_784C90` | `app/client/charview.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/charview.h:48` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/charview.h:49` | neutral |
+| 1 | `Unknown_786370` | `app/client/charview.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/charview.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_788EF0` | `app/client/charview.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/charview.h:52` | untagged neutral name (D10) |
+| 1 | `Is_Unknown220` | `app/client/charview.h:53` | neutral (D10) |
+| 1 | `Unknown220` | `app/client/charview.h:53` | untagged neutral name (D10) |
+| 1 | `CharacterViewModeType` | `app/client/charview.h:59` | neutral (D10); NAME 3 [CHARACTER_POPUP_MESSAGE, CHARACTER_LASTVIEWMODE]: the FAIL_IF's |
+| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.h:66` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/charview.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/charview.h:68` | untagged neutral name (D10) |
+| 1 | `Frame` | `app/client/charview.h:70` | what it holds |
+| 1 | `Mode` | `app/client/charview.h:71` | Set_Animation's mode |
+| 1 | `x510` | `app/client/charview.h:76` | neutral (D10) |
+| 1 | `CharacterViewSoundClass` | `app/client/charview.h:77` | neutral (D10) |
+| 1 | `Sound` | `app/client/charview.h:82` | neutral |
+| 1 | `CharacterViewClass` | `app/client/charview.h:85` | the task's member CharacterView (tsk_login.cpp's FAIL_IFs '!CharacterView') |
+| 1 | `Unknown_04` | `app/client/charview.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/charview.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/charview.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/charview.h:93` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/charview.h:94` | what it selects |
+| 1 | `Unknown_18` | `app/client/charview.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/charview.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/charview.h:96` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/charview.h:99` | neutral (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/charview.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/charview.h:99` | untagged neutral name (D10) |
+| 1 | `Get_Unknown198` | `app/client/charview.h:100` | neutral (D10) |
+| 1 | `Get_Unknown1B0` | `app/client/charview.h:101` | neutral (D10) |
+| 1 | `Unknown1B0` | `app/client/charview.h:101` | untagged neutral name (D10) |
+| 1 | `Peek_Model` | `app/client/charview.h:102` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Unknown_67A250` | `app/client/charview.h:103` | untagged neutral name (D10) |
+| 1 | `position, rotation, fov` | `app/client/charview.h:104` | what it stores |
+| 1 | `Unknown_67A290` | `app/client/charview.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_67A300` | `app/client/charview.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_67A370` | `app/client/charview.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_67A3F0` | `app/client/charview.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/charview.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_67BBE0` | `app/client/charview.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/charview.h:110` | untagged neutral name (D10) |
+| 1 | `off` | `app/client/charview.h:111` | what it selects |
+| 1 | `Unknown_67A8D0` | `app/client/charview.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown_67A960` | `app/client/charview.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_67ACE0` | `app/client/charview.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `app/client/charview.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_67ADD0` | `app/client/charview.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `app/client/charview.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/charview.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/charview.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown_67AED0` | `app/client/charview.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/charview.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/charview.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/charview.h:122` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/charview.h:123` | as ui_login.cpp's |
+| 1 | `Unknown_67B4F0` | `app/client/charview.h:123` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/client/charview.h:124` | as ui_login.cpp's |
+| 1 | `Unknown_67C440` | `app/client/charview.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/charview.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/charview.h:126` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/charview.h:127` | what the frame passes |
+| 1 | `Unknown_67AF70` | `app/client/charview.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown_67BEB0` | `app/client/charview.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_67BF20` | `app/client/charview.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown_67C530` | `app/client/charview.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_67CBD0` | `app/client/charview.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown_67CEF0` | `app/client/charview.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown04C` | `app/client/charview.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown058` | `app/client/charview.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown064` | `app/client/charview.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown068` | `app/client/charview.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown06C` | `app/client/charview.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown070` | `app/client/charview.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown074` | `app/client/charview.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown078` | `app/client/charview.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/charview.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown080` | `app/client/charview.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/charview.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/charview.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown19C` | `app/client/charview.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown19D` | `app/client/charview.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown19E` | `app/client/charview.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown1A0` | `app/client/charview.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown1A4` | `app/client/charview.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/charview.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/charview.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/charview.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/charview.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/charview.h:160` | untagged neutral name (D10) |
+| 1 | `Unknown22C` | `app/client/charview.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/charview.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown234` | `app/client/charview.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/charview.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown23C` | `app/client/charview.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/charview.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/charview.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/charview.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown3A8` | `app/client/charview.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown3B0` | `app/client/charview.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown3B8` | `app/client/charview.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown400` | `app/client/charview.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown4A0` | `app/client/charview.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown4B0` | `app/client/charview.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown4C8` | `app/client/charview.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown4D4` | `app/client/charview.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/charview.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown510` | `app/client/charview.h:178` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/client/client.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/client.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/client.cpp:27` | untagged neutral name (D10) |
@@ -3926,16 +4166,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_3C` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `LoginFlagsStruct` | `app/client/tasks/tsk_login.cpp:183` | neutral (D10) |
 | 1 | `Is_0C` | `app/client/tasks/tsk_login.cpp:187` | neutral (D10) |
-| 1 | `Unknown02C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown004` | `app/client/tasks/tsk_login.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/tasks/tsk_login.cpp:236` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/client/tasks/tsk_login.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/tasks/tsk_login.cpp:264` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/tasks/tsk_login.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.cpp:282` | untagged neutral name (D10) |
 | 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/tasks/tsk_login.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/tasks/tsk_login.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/tasks/tsk_login.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/tasks/tsk_login.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/tasks/tsk_login.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.cpp:298` | untagged neutral name (D10) |
@@ -3957,12 +4196,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D480` | `app/client/tasks/tsk_login.cpp:531` | untagged neutral name (D10) |
 | 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.cpp:579` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/tasks/tsk_login.cpp:593` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/tasks/tsk_login.cpp:595` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/tasks/tsk_login.cpp:595` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.cpp:596` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.cpp:597` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.cpp:598` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.cpp:599` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/tasks/tsk_login.cpp:596` | untagged neutral name (D10) |
 | 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.cpp:608` | untagged neutral name (D10) |
 | 1 | `Unknown` | `app/client/tasks/tsk_login.cpp:704` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/tasks/tsk_login.cpp:813` | untagged neutral name (D10) |
@@ -4006,77 +4241,62 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown07C` | `app/client/tasks/tsk_login.h:75` | untagged neutral name (D10) |
 | 1 | `Unknown07D` | `app/client/tasks/tsk_login.h:76` | untagged neutral name (D10) |
 | 1 | `CharacterViewUnknown1B4Class` | `app/client/tasks/tsk_login.h:83` | neutral (D10) |
-| 1 | `CharacterViewClass` | `app/client/tasks/tsk_login.h:85` | the member's name CharacterView (the FAIL_IFs) |
-| 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_67A370` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown008` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown02C` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown030` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown038` | `app/client/tasks/tsk_login.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/tasks/tsk_login.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/tasks/tsk_login.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/tasks/tsk_login.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/tasks/tsk_login.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/tasks/tsk_login.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/tasks/tsk_login.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown1D1` | `app/client/tasks/tsk_login.h:120` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:125` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
-| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:130` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:134` | neutral (D10): what LoginTaskClass +0x18 points to |
-| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
-| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:147` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/tasks/tsk_login.h:154` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
-| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:170` | what it does |
-| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:171` | untagged neutral name (D10) |
-| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:172` | what it does |
-| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
-| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:174` | what it does |
-| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:176` | what it returns |
-| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:177` | what it returns |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:177` | untagged neutral name (D10) |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:178` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:180` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:181` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:182` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:183` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:184` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:185` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:186` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:187` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:188` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:189` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:190` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:191` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:192` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:193` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:194` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:195` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:196` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:197` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:198` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:202` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:203` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:206` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:211` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:215` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:219` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:223` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:225` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:228` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:229` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:230` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:232` | untagged neutral name (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.h:87` | neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp) |
+| 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:92` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.h:96` | neutral (D10): what LoginTaskClass +0x18 points to |
+| 1 | `Unknown_515120` | `app/client/tasks/tsk_login.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_515340` | `app/client/tasks/tsk_login.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/tasks/tsk_login.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/tasks/tsk_login.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown25` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:116` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:132` | what it does |
+| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:133` | untagged neutral name (D10) |
+| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:134` | what it does |
+| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:135` | untagged neutral name (D10) |
+| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:136` | what it does |
+| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:138` | what it returns |
+| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:139` | what it returns |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:139` | untagged neutral name (D10) |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:140` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:142` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:143` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:144` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:145` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:146` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:147` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:148` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:149` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:150` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:151` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:152` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:153` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:154` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:155` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:156` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:157` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:158` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:159` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:160` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:191` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:194` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -6363,69 +6583,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Key` | `app/client/ui_login.cpp:122` | neutral (D10) |
 | 1 | `LoginKeysClass` | `app/client/ui_login.cpp:128` | neutral (D10)  // NAME 1 [event, id]: what the constructor passes |
 | 1 | `Unknown_721E60` | `app/client/ui_login.cpp:128` | untagged neutral name (D10) |
-| 1 | `LoginViewUnknown198Class` | `app/client/ui_login.cpp:131` | neutral (D10) |
-| 1 | `name, a` | `app/client/ui_login.cpp:134` | neutral |
-| 1 | `Unknown_784C90` | `app/client/ui_login.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_784E00` | `app/client/ui_login.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_7863E0` | `app/client/ui_login.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown000` | `app/client/ui_login.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `app/client/ui_login.cpp:138` | untagged neutral name (D10) |
-| 1 | `Is_Unknown220` | `app/client/ui_login.cpp:139` | neutral (D10) |
-| 1 | `LoginViewClass` | `app/client/ui_login.cpp:143` | neutral (D10) |
-| 1 | `Unknown_14` | `app/client/ui_login.cpp:147` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_login.cpp:147` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_login.cpp:147` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/ui_login.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_login.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_login.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown_67A250` | `app/client/ui_login.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown_67A670` | `app/client/ui_login.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_67A6C0` | `app/client/ui_login.cpp:152` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:153` | neutral |
-| 1 | `Unknown_67A8D0` | `app/client/ui_login.cpp:153` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:154` | as ui_avatr.cpp's |
-| 1 | `Unknown_67A9B0` | `app/client/ui_login.cpp:154` | untagged neutral name (D10) |
-| 1 | `index, name` | `app/client/ui_login.cpp:155` | neutral |
-| 1 | `Unknown_67AB20` | `app/client/ui_login.cpp:155` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:156` | neutral |
-| 1 | `Unknown_67ACE0` | `app/client/ui_login.cpp:156` | untagged neutral name (D10) |
-| 1 | `a, name` | `app/client/ui_login.cpp:157` | neutral |
-| 1 | `Unknown_67AD30` | `app/client/ui_login.cpp:157` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:158` | neutral |
-| 1 | `Unknown_67AE20` | `app/client/ui_login.cpp:158` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:159` | neutral |
-| 1 | `Unknown_67AE60` | `app/client/ui_login.cpp:159` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:160` | neutral |
-| 1 | `Unknown_67AEA0` | `app/client/ui_login.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/ui_login.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/ui_login.cpp:162` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_login.cpp:163` | neutral |
-| 1 | `Unknown_67B4F0` | `app/client/ui_login.cpp:163` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/client/ui_login.cpp:164` | neutral |
-| 1 | `Unknown_67C440` | `app/client/ui_login.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_67C7B0` | `app/client/ui_login.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown014` | `app/client/ui_login.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/ui_login.cpp:169` | untagged neutral name (D10) |
-| 1 | `Get_Unknown034` | `app/client/ui_login.cpp:170` | neutral (D10) |
-| 1 | `CharacterViewUnknown34Class` | `app/client/ui_login.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/ui_login.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/ui_login.cpp:172` | untagged neutral name (D10) |
-| 1 | `Peek_Camera` | `app/client/ui_login.cpp:173` | neutral (D10) |
-| 1 | `Unknown068` | `app/client/ui_login.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/ui_login.cpp:175` | untagged neutral name (D10) |
-| 1 | `Get_Unknown198` | `app/client/ui_login.cpp:176` | neutral (D10) |
-| 1 | `Unknown198` | `app/client/ui_login.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown19C` | `app/client/ui_login.cpp:178` | untagged neutral name (D10) |
-| 1 | `Get_Unknown1B0` | `app/client/ui_login.cpp:179` | neutral (D10) |
-| 1 | `Unknown1B0` | `app/client/ui_login.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/ui_login.cpp:181` | untagged neutral name (D10) |
-| 1 | `Peek_Model` | `app/client/ui_login.cpp:182` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `Unknown1B8` | `app/client/ui_login.cpp:182` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/ui_login.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/ui_login.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/ui_login.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown1D1` | `app/client/ui_login.cpp:187` | untagged neutral name (D10) |
-| 1 | `Unknown3A4` | `app/client/ui_login.cpp:188` | untagged neutral name (D10) |
+| 1 | `LoginViewClass` | `app/client/ui_login.cpp:132` | neutral (D10) |
 | 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:194` | neutral (D10) |
 | 1 | `LoginNotifierClass` | `app/client/ui_login.cpp:198` | neutral (D10) |
 | 1 | `SClientUnknown1338Class` | `app/client/ui_login.cpp:211` | neutral (D10): sclient.cpp's (env_map_manager.cpp) |
@@ -6480,17 +6638,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
 | 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:285` | neutral (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_login.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_login.cpp:320` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_login.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_login.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/ui_login.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown068` | `app/client/ui_login.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown_67C440` | `app/client/ui_login.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/ui_login.cpp:331` | untagged neutral name (D10) |
+| 1 | `Unknown_67B4F0` | `app/client/ui_login.cpp:332` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_login.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_login.cpp:350` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `app/client/ui_login.cpp:362` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `app/client/ui_login.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/ui_login.cpp:367` | untagged neutral name (D10) |
 | 1 | `Unknown_Resume_All` | `app/client/ui_login.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/ui_login.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_login.cpp:383` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/ui_login.cpp:396` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_login.cpp:465` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
+| 1 | `Unknown_67A8D0` | `app/client/ui_login.cpp:498` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/ui_login.cpp:503` | untagged neutral name (D10) |
+| 1 | `Get_Unknown198` | `app/client/ui_login.cpp:537` | untagged neutral name (D10) |
+| 1 | `Is_Unknown220` | `app/client/ui_login.cpp:537` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/ui_login.cpp:537` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1B0` | `app/client/ui_login.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown_784C90` | `app/client/ui_login.cpp:548` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/ui_login.cpp:566` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_login.cpp:579` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/ui_login.cpp:582` | untagged neutral name (D10) |
+| 1 | `Unknown_67ACE0` | `app/client/ui_login.cpp:584` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/ui_login.cpp:585` | untagged neutral name (D10) |
 | 1 | `Unknown001D` | `app/client/ui_login.cpp:587` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/ui_login.cpp:592` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/ui_login.cpp:592` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_login.cpp:611` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ui_login.cpp:631` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_login.cpp:664` | untagged neutral name (D10) |
@@ -6498,6 +6684,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_login.cpp:798` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_login.cpp:867` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/ui_login.cpp:911` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_manu.cpp:18` | fontmanager.h's |
 | 1 | `text, unknown` | `app/client/ui_manu.cpp:21` | what this file passes |
 | 1 | `Unknown_6CDBC0` | `app/client/ui_manu.cpp:21` | untagged neutral name (D10) |
@@ -9761,6 +9948,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/cfaction_database.h:34` | the ini key |
 | 2 | `std:` | `app/client/cfaction_database.h:35` | the ini key |
 | 2 | `UseCount` | `app/client/cfaction_database.h:40` | describes what it does |
+| 2 | `Create_Render_Obj` | `app/client/charview.cpp:46` | what it does (the asset manager's slot) |
+| 2 | `Get_HAnim` | `app/client/charview.cpp:48` | what it does (the asset manager's slot) |
+| 2 | `Load` | `app/client/charview.cpp:64` | what it does |
+| 2 | `INI` | `app/client/charview.cpp:68` | what it is |
+| 2 | `Anim` | `app/client/charview.h:69` | what it holds |
+| 2 | `mode` | `app/client/charview.h:88` | the FAIL_IF's 'mode' |
+| 2 | `mode` | `app/client/charview.h:106` | the FAIL_IF's |
+| 2 | `type` | `app/client/charview.h:108` | the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A') |
+| 2 | `type` | `app/client/charview.h:113` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:114` | as 0x67AB20's; NAME 1 [name]: what ui_login.cpp passes |
+| 2 | `type` | `app/client/charview.h:115` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:116` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:117` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:118` | as 0x67AB20's |
+| 2 | `type` | `app/client/charview.h:119` | as 0x67AB20's; NAME 1 [first]: what it selects |
+| 2 | `type` | `app/client/charview.h:126` | 0x67AB20's G_ASSERT 'ViewRObjs[type]' |
+| 2 | `Mode` | `app/client/charview.h:153` | the FAIL_IF's |
 | 2 | `Node` | `app/client/client.h:51` | what it is |
 | 2 | `ID` | `app/client/client.h:53` | what it is |
 | 2 | `Node` | `app/client/client.h:64` | what it is |
@@ -12505,6 +12709,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
+| 3 | `charview.h` | `app/client/charview.h:17` | the header of charview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\charview.cpp') |
+| 3 | `AvatarRObj` | `app/client/charview.h:146` | the assert's |
+| 3 | `NarratorRObj` | `app/client/charview.h:147` | the assert's |
+| 3 | `ViewRObjs` | `app/client/charview.h:156` | the assert's |
 | 3 | `client.h` | `app/client/client.h:20` | header name assumed from the client's client.cpp |
 | 3 | `EffectObjectClass` | `app/client/client.h:42` | class-from-file (D24) for eff_o.cpp |
 | 3 | `Get_Item_Type` | `app/client/client.h:78` | the assert's |
