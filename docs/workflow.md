@@ -1065,6 +1065,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`addpatch.py` appends to an existing (lib, file) entry, so the new importer.py lines do not contain the file
+  name** (2026-10-31, TK7): commit_mine's hunk keys must match the new patch text (an address or symbol), or importer.py
+  is left behind. commit_mine skips imports.json's library totals without `--refresh-totals` (which takes other
+  builders' counts too): the coordinator refreshes totals at the quiet tree.
 * **`attempts.py record` in a shell loop with `set -- $a` cuts a symbol at its first space** (2026-10-31, TK4):
   quote each field or call it once per row.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
@@ -1166,6 +1170,12 @@ unless `--lever` cites a new row of this table.
   xtime): in VC6 a by-value return of a class with a destructor leaves a construction flag (`push ecx; mov [esp+8],0`)
   even without an EH frame, a cheap sign of /GX. `tools/re/names.py` does not scan libs/wwonline (its NAME tags miss
   names-review.md).
+  (TK7) wstring.cpp's and configfile.cpp's client revision is E&B's own, patched onto matchbot's in WWONLINE_PATCHES
+  (RenegadeGR has neither; matchbot, mangler and Renegade's Tools\wlib are one text; its tell: no Joe Howes / MDC
+  additions). The first patch of a wlib file loses the "Modified for..." banner (line 4) and replay reports "content
+  differs": copy it from `.work/replay`. gaps.py pairs wlib's configfile wrongly (the client's object is 0x8B23C0-
+  0x8B3E70: ctor, dtor, clear, readFile, enumerate, getString x2, getInt x4): confirm with `client.py callers`. A static
+  helper whose last caller is one function gets inlined (Get_Date_From_Day into getTime once getYDay is gone).
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
   and `isConnected` treats it as closed; `pumpReads` needs a dead `retval = -1;` (the client's stray
   `or edi, edi`).

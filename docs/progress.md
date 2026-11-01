@@ -1691,6 +1691,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x4D8950 / 0x4D8D20 / 0x4D8DF0 among them). Patch `.work/tk2/objmatch_d166x.diff`, gains
   `.work/tk2/objmatch_d166x_gains.log`. Changes D166 / D100; land after a full verify of every library (measured
   separately from P-TK3-1's +82: the overlap is not yet known).
+* **P-TK7-1** (2026-10-31, TK7; recommend yes): commit E&B's configfile.cpp + xtime.cpp revision (configfile without
+  sectionList and MDC's writers, readFile keeping empty values and joining backslash lines, a new clear 0x8B2690; xtime
+  without FormatTime / ParseDate / Print* / getYDay; one change, wdebug.h's ERRMSG ties them). Measured wlib +11 exact
+  (130 -> 137 in tree) for **4 pairs lost outright**: 0x77AA10, 0x77B030, 0x77B690, 0x850820, app-object template /
+  iostream instances only matchbot's sectionList / writeFile credited to configfile (the client's configfile object
+  has none); not a D66 kind. They come back as their app files are built. Stash `docs/attempts/8B2810/`, diff
+  `.work/tk7/proposal/`.
 
 ## 4. Next steps
 
