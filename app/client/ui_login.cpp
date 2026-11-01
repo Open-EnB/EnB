@@ -426,8 +426,7 @@ void LoginInterface::Unknown_60()
 }
 
 
-// NOT EXACT: block order (the client lays the account buttons' "not implemented" box last, shared by keys 2
-// and 3, and key 3's body before their shared tail) (0x5AD610)
+// 0x5AD610
 bool LoginInterface::Unknown_68(int key)
 {
 	if (Unknown0C8) return(false);
@@ -486,41 +485,41 @@ bool LoginInterface::Unknown_68(int key)
 			CharacterView->Unknown034->Unknown_588A70("YES_NO", 0, "This will exit Earth & Beyond and take you to the EA.COM Account Management Website.\nDo you wish to proceed?", 320, 0, 0);
 			return(false);
 		case 2:
-			if (!Unknown_5FAE70()) {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
-				return(false);
-			}
-			CharacterView->Unknown198->Unknown_784E00();
-			Unknown_5AE7F0();
-			Unknown0A0 = 12;
-			CharacterView->Unknown_67A8D0(1);
-			Unknown0CE = true;
-			if (CharacterView->Unknown_67AD30(0, "FE01A.FE01A-2")) {
-				CharacterView->Unknown_67AE20(0);
+			if (Unknown_5FAE70()) {
+				CharacterView->Unknown198->Unknown_784E00();
+				Unknown_5AE7F0();
+				Unknown0A0 = 12;
+				CharacterView->Unknown_67A8D0(1);
+				Unknown0CE = true;
+				if (CharacterView->Unknown_67AD30(0, "FE01A.FE01A-2")) {
+					CharacterView->Unknown_67AE20(0);
+				} else {
+					CharacterView->Unknown_67AE60(0);
+				}
+				Unknown_5AE320();
+				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown_67AE60(0);
+				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
-			Unknown_5AE320();
-			Unknown0CB = true;
-			return(false);
+			break;
 		case 3:
-			if (!Unknown_5FAE70()) {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
-				return(false);
-			}
-			CharacterView->Unknown198->Unknown_784E00();
-			Unknown_5AE7F0();
-			Unknown0A0 = 11;
-			CharacterView->Unknown_67A8D0(1);
-			Unknown0CE = true;
-			if (CharacterView->Unknown_67AD30(0, "FE01A.FE01A-2")) {
-				CharacterView->Unknown_67AE20(0);
+			if (Unknown_5FAE70()) {
+				CharacterView->Unknown198->Unknown_784E00();
+				Unknown_5AE7F0();
+				Unknown0A0 = 11;
+				CharacterView->Unknown_67A8D0(1);
+				Unknown0CE = true;
+				if (CharacterView->Unknown_67AD30(0, "FE01A.FE01A-2")) {
+					CharacterView->Unknown_67AE20(0);
+				} else {
+					CharacterView->Unknown_67AE60(0);
+				}
+				Unknown_5AE320();
+				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown_67AE60(0);
+				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
-			Unknown_5AE320();
-			Unknown0CB = true;
-			return(false);
+			break;
 	}
 	return(false);
 }
@@ -688,6 +687,7 @@ void LoginInterface::Unknown_5AE240()
 	NameGadget->Unknown44->Unknown_Set_2FC(0.33f);
 	PasswordGadget->Unknown44->Unknown_Set_2FC(0.33f);
 }
+
 
 
 
@@ -927,9 +927,9 @@ void LoginInterface::Unknown_5AEA60()
 **	the adjustor thunks this file emits. Its asserts sit on the client's lines 713 ('!textptr', 0x5AE320, which
 **	0x5AD610 and 0x5ADA50 inline), 787 / 826 ('AccountMenu') and 862 / 866 ('!event', '!gadget') (D25).
 **
-**	Every function of the window is here; four are NOT EXACT (the constructor, slot +0x68, 0x5ADA50 (slot +0x60's
-**	first call: the welcome speech and the step changes) and 0x5AEA60 (the account expiry box)), their notes above
-**	them. Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account
+**	Every function of the window is here; three are NOT EXACT (the constructor, 0x5ADA50 (slot +0x60's first call:
+**	the welcome speech and the step changes) and 0x5AEA60 (the account expiry box)), their notes above them. Slot
+**	+0x68 takes its block order from if / else plus break in the account cases (the shared box last). Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account
 **	menu's button loop indexes the name table (a jl pointer loop, 0x5AE590); the gadget's
 **	mouse-over flag is a bitfield read through an inline getter (shr / test al, 1: 0x5AE9D0); the model's texts are
 **	looked up through an inline Peek_Model (the font manager loaded before the model, 0x5AE160 / 0x5AE320).

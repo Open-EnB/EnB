@@ -5938,10 +5938,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C` | `app/client/ui_login.cpp:344` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:349` | untagged neutral name (D10) |
 | 1 | `Unknown_Resume_All` | `app/client/ui_login.cpp:366` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/ui_login.cpp:486` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/ui_login.cpp:583` | untagged neutral name (D10) |
-| 1 | `Unknown07C` | `app/client/ui_login.cpp:588` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:621` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_login.cpp:485` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_login.cpp:582` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/ui_login.cpp:587` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:620` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_manu.cpp:18` | fontmanager.h's |
 | 1 | `text, unknown` | `app/client/ui_manu.cpp:21` | what this file passes |
