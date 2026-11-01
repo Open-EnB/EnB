@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1084 |
 | 2 | describes what the code does | 2610 |
-| 1 | neutral placeholder | 8281 |
+| 1 | neutral placeholder | 8282 |
 
 ## For review (score 3 and below)
 
@@ -7986,6 +7986,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
@@ -8291,9 +8292,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/udpreplay/conn_replay.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/udpreplay/conn_replay.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/udpreplay/pkitemba_stubs.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |

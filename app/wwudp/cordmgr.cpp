@@ -68,6 +68,31 @@ CordMgr::~CordMgr()
 	}
 }
 
+// 0x857C00: closes the listening sockets on ip / port (0: any) and drops their records; true when it
+// closed one. The record pointer is NULL past the end, as the client's (it then reads through it).
+bool CordMgr::Unlisten(unsigned int ip, unsigned short port)
+{
+	int index = 0;
+	int removed = 0;
+	for (int n = 0; n < ListenSockets_.length(); n++) {
+		CordListenSocketClass *ls;
+		if (!ListenSockets_.getPointer(&ls, index)) {
+			ls = NULL;
+		}
+		if ((ls->Unknown04 == ip || ip == 0) && (ls->Unknown08 == port || port == 0)) {
+			delete ls->Socket;
+			ListenSockets_.remove(index);
+			removed++;
+		} else {
+			index++;
+		}
+	}
+	if (removed != 0) {
+		return(true);
+	}
+	return(false);
+}
+
 // 0x858EC0, reduced: the client binds a data socket (ports 3755-3759) if none has room; here the
 // first data socket. The session id is the manager's counter (+0x1337 each time), the key two
 // random words (SecureRandomClass) when the connection is encrypted.

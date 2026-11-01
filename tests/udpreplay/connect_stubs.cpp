@@ -18,10 +18,9 @@ TCPConnection::TCPConnection(const char *, unsigned short, bool) { Not_In_Replay
 class CompositeListenerClass { public: CompositeListenerClass(); };
 CompositeListenerClass::CompositeListenerClass() { Not_In_Replay("CompositeListenerClass"); }
 
-// udpconn.cpp's UDP listener calls these CordMgr members (0x857940 / 0x857C00), not rebuilt
-class CordMgr { public: bool Listen(unsigned int ip, unsigned short port); bool Unlisten(unsigned int ip, unsigned short port); };
+// udpconn.cpp's UDP listener calls this CordMgr member (0x857940), not rebuilt (Unlisten 0x857C00 is cordmgr.cpp's)
+class CordMgr { public: bool Listen(unsigned int ip, unsigned short port); };
 bool CordMgr::Listen(unsigned int, unsigned short) { Not_In_Replay("CordMgr::Listen"); return(false); }
-bool CordMgr::Unlisten(unsigned int, unsigned short) { Not_In_Replay("CordMgr::Unlisten"); return(false); }
 
 class ConnectionClass;
 class MemoryConnectionFactoryClass
