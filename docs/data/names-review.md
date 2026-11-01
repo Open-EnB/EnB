@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1144 |
-| 2 | describes what the code does | 2876 |
-| 1 | neutral placeholder | 10271 |
+| 3 | by convention from a client-named file or sibling | 1145 |
+| 2 | describes what the code does | 2877 |
+| 1 | neutral placeholder | 10273 |
 
 ## For review (score 3 and below)
 
@@ -1522,6 +1522,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Size` | `app/client/dynamic_window_render_object.h:109` | Get_Size's |
 | 1 | `Offset` | `app/client/dynamic_window_render_object.h:110` | Set_Position adds it (the model's top-left corner, 0x51D0D0) |
 | 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:111` | Layout's Fit_Size result |
+| 1 | `font, flags` | `app/client/dynamic_window_text.h:26` | 'Font'; the base's |
+| 1 | `Create, text` | `app/client/dynamic_window_text.h:29` | font_name the FAIL_IF's |
 | 1 | `flags` | `app/client/dynamic_window_vertical.h:24` | +0x50 |
 | 1 | `MinSize` | `app/client/dynamic_window_vertical.h:59` | Set_Min_Size's |
 | 1 | `ContentSize` | `app/client/dynamic_window_vertical.h:60` | the widest child, the heights summed |
@@ -10574,6 +10576,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
+| 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
 | 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_vertical.h:21` | class from file (D24), dynamic_window_vertical.cpp |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
@@ -13235,6 +13238,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
+| 3 | `dynamic_window_text.h` | `app/client/dynamic_window_text.h:15` | header name assumed from the client's dynamic_window_text.cpp |
 | 3 | `dynamic_window_vertical.h` | `app/client/dynamic_window_vertical.h:15` | header name assumed from the client's dynamic_window_vertical.cpp |
 | 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
 | 3 | `EffectObjectClass` | `app/client/eff_o.h:50` | class-from-file (D24) for eff_o.cpp |

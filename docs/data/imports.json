@@ -2807,6 +2807,30 @@
     "merged": [],
     "name": "client/dynamic_window_render_object.cpp"
    },
+   "dynamic_window_text": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x51D290",
+     "0x51D500",
+     "0x51D5D0",
+     "0x51D600",
+     "0x51D690",
+     "0x51D700"
+    ],
+    "merged": [],
+    "name": "client/dynamic_window_text.cpp",
+    "tiebreak": [
+     "0x51D700"
+    ]
+   },
    "dynamic_window_vertical": {
     "ambiguous": [
      "0x42AAE0",
@@ -13011,6 +13035,7 @@
    "client/dynamic_window_class.h": "reconstructed",
    "client/dynamic_window_horizontal.h": "reconstructed",
    "client/dynamic_window_render_object.h": "reconstructed",
+   "client/dynamic_window_text.h": "reconstructed",
    "client/dynamic_window_vertical.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
