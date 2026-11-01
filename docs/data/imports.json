@@ -4177,6 +4177,23 @@
      "0x4EFBE0"
     ]
    },
+   "main": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x445330",
+     "0x445420",
+     "0x4454A0",
+     "0x445560",
+     "0x445590",
+     "0x4455C0",
+     "0x445630"
+    ],
+    "merged": [],
+    "name": "main/main.cpp"
+   },
    "main_client": {
     "ambiguous": [
      "0x42B2F0"

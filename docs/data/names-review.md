@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1100 |
 | 2 | describes what the code does | 2727 |
-| 1 | neutral placeholder | 9093 |
+| 1 | neutral placeholder | 9122 |
 
 ## For review (score 3 and below)
 
@@ -7083,6 +7083,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:57` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:75` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:87` | what it does |
+| 1 | `Unknown_Debug_Print` | `app/main/main.cpp:21` | 0x509E30 (dbgmgr.cpp), the log line |
+| 1 | `Unknown_VersionStruct` | `app/main/main.cpp:23` | two ints (tsk_login.cpp reads Major / Minor of 0x4456C0's) |
+| 1 | `major, minor` | `app/main/main.cpp:25` | its members |
+| 1 | `Major` | `app/main/main.cpp:26` | tsk_login.cpp's |
+| 1 | `Minor` | `app/main/main.cpp:27` | tsk_login.cpp's |
+| 1 | `Unknown_BDBE4C` | `app/main/main.cpp:30` | neutral (D10) |
+| 1 | `Unknown_BDBE50` | `app/main/main.cpp:31` | neutral (D10) |
+| 1 | `Unknown_445330` | `app/main/main.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_445350` | `app/main/main.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_445420` | `app/main/main.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_4454A0` | `app/main/main.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_4454C0` | `app/main/main.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBE90` | `app/main/main.cpp:92` | neutral (D10) |
+| 1 | `Unknown_BDBF10` | `app/main/main.cpp:93` | neutral (D10) |
+| 1 | `Unknown_BDBF90` | `app/main/main.cpp:94` | neutral (D10) |
+| 1 | `Unknown_445560` | `app/main/main.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_445590` | `app/main/main.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_4455C0` | `app/main/main.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_4455F0` | `app/main/main.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_B704A0` | `app/main/main.cpp:123` | neutral (D10) |
+| 1 | `Unknown_445610` | `app/main/main.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBE78` | `app/main/main.cpp:131` | neutral (D10) |
+| 1 | `Unknown_BDBE80` | `app/main/main.cpp:132` | neutral (D10) |
+| 1 | `Unknown_BDBE88` | `app/main/main.cpp:133` | neutral (D10) |
+| 1 | `Unknown_BDBE70` | `app/main/main.cpp:134` | neutral (D10) |
+| 1 | `Unknown_4456C0` | `app/main/main.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_4456E0` | `app/main/main.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_445700` | `app/main/main.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_445720` | `app/main/main.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/main/main_client.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/main/main_client.cpp:41` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/main/main_client.cpp:42` | 0x50A1E0 (dbgmgr.cpp) |
@@ -7101,7 +7130,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_445420` | `app/main/main_client.cpp:60` | WM_ACTIVATEAPP: the kernel's rendering on / off  // NAME 1 [unknown, active]: its reads |
 | 1 | `Unknown_4454A0` | `app/main/main_client.cpp:61` | WM_DESTROY  // NAME 1 [unknown, unknown2]: neutral |
 | 1 | `Unknown_4454C0` | `app/main/main_client.cpp:62` | WM_CLOSE  // NAME 1 [unknown, unknown2]: neutral |
-| 1 | `Unknown_BDBE4C` | `app/main/main_client.cpp:63` | GetTickCount at start-up |
+| 1 | `Unknown_BDBE4C` | `app/main/main_client.cpp:63` | GetTickCount at start-up (main.cpp) |
 | 1 | `Unknown_431CA0` | `app/main/main_client.cpp:66` | registers the class, makes the 'Earth & Beyond' window  // NAME 1 [instance, width, height, unknown]: what WinMain passes |
 | 1 | `Unknown_42E4A0` | `app/main/main_client.cpp:67` | input.cpp's start-up (input.ini, the DirectInput devices)  // NAME 1 [window]: what WinMain passes |
 | 1 | `Unknown_42EE00` | `app/main/main_client.cpp:68` | input.cpp (the 'KeyRepeatCount' assert) |

@@ -50,25 +50,25 @@ bool Unknown_5FAD50();								// NAME 1 [Unknown_5FAD50]: ui_registration.cpp
 bool Unknown_847D20(const char *filename);			// NAME 1 [Unknown_847D20]: the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes
 bool Unknown_846C90();								// NAME 1 [Unknown_846C90]: the -MENU dialog; false ends the program
 
-// The object at 0x445330-0x445700 ('Main.cpp:' in its log texts): the exception hooks, the build texts, the
+// main.cpp's (the object at 0x445330-0x445725, 'Main.cpp:' in its log texts): the exception hooks, the build texts, the
 // window-message handlers
 int Unknown_445330(EXCEPTION_POINTERS *info);		// NAME 1 [Unknown_445330]: Exception_Handler(code, info) (cdecl)  // NAME 1 [info]: its type
 void Unknown_445350();								// NAME 1 [Unknown_445350]: the application's exception callback
 char *Unknown_445560();								// NAME 1 [Unknown_445560]: string resource 1
 char *Unknown_445590();								// NAME 1 [Unknown_445590]: string resource 2
 char *Unknown_445610();								// NAME 1 [Unknown_445610]: 'Release'
-void Unknown_445420(int unknown, int active);		// NAME 1 [Unknown_445420]: WM_ACTIVATEAPP: the kernel's rendering on / off  // NAME 1 [unknown, active]: its reads
-void Unknown_4454A0(int unknown, int unknown2);		// NAME 1 [Unknown_4454A0]: WM_DESTROY  // NAME 1 [unknown, unknown2]: neutral
-void Unknown_4454C0(int unknown, int unknown2);		// NAME 1 [Unknown_4454C0]: WM_CLOSE  // NAME 1 [unknown, unknown2]: neutral
-extern unsigned long Unknown_BDBE4C;				// NAME 1 [Unknown_BDBE4C]: GetTickCount at start-up
+int Unknown_445420(int unknown, int active);			// NAME 1 [Unknown_445420]: WM_ACTIVATEAPP: the kernel's rendering on / off  // NAME 1 [unknown, active]: its reads
+int Unknown_4454A0(int unknown, int unknown2);			// NAME 1 [Unknown_4454A0]: WM_DESTROY  // NAME 1 [unknown, unknown2]: neutral
+int Unknown_4454C0(int unknown, int unknown2);			// NAME 1 [Unknown_4454C0]: WM_CLOSE  // NAME 1 [unknown, unknown2]: neutral
+extern unsigned long Unknown_BDBE4C;				// NAME 1 [Unknown_BDBE4C]: GetTickCount at start-up (main.cpp)
 
 // input.cpp, the window, the render state, display.cpp, deffont.cpp
 HWND Unknown_431CA0(HINSTANCE instance, int width, int height, int unknown);	// NAME 1 [Unknown_431CA0]: registers the class, makes the 'Earth & Beyond' window  // NAME 1 [instance, width, height, unknown]: what WinMain passes
 void Unknown_42E4A0(HWND window);					// NAME 1 [Unknown_42E4A0]: input.cpp's start-up (input.ini, the DirectInput devices)  // NAME 1 [window]: what WinMain passes
 void Unknown_42EE00(int unknown);					// NAME 1 [Unknown_42EE00]: input.cpp (the 'KeyRepeatCount' assert)
 void Unknown_42E7B0();								// NAME 1 [Unknown_42E7B0]: input.cpp's shut-down
-void Unknown_42F940(int message, void (*handler)(int, int));	// NAME 1 [Unknown_42F940]: adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes
-void Unknown_42FAC0(int message, void (*handler)(int, int));	// NAME 1 [Unknown_42FAC0]: removes it
+void Unknown_42F940(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42F940]: adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes
+void Unknown_42FAC0(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42FAC0]: removes it
 void Unknown_4581E0();								// NAME 1 [Unknown_4581E0]: the render state class's start-up (a critical section, an event)
 void Unknown_458250();								// NAME 1 [Unknown_458250]: its shut-down
 void Unknown_442AC0(HWND window);					// NAME 1 [Unknown_442AC0]: display.cpp's start-up  // NAME 1 [window]: what WinMain passes
