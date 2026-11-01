@@ -253,6 +253,25 @@ RefCountPtr<GalaxyMapSystemClass> GalaxyMapSystemClass::Create()
 	return Create_NEW(new GalaxyMapSystemClass);
 }
 
+// 0x837F00
+GalaxyMapSystemClass::GalaxyMapSystemClass() :
+	HashID(-1),
+	Unknown38(1.0f),
+	Unknown3C(3)
+{
+}
+
+// 0x838050
+void GalaxyMapSystemClass::Set(int hash_id, const std::string &name, const Vector3 &unknown20, const Vector3 &unknown2c, float unknown38, int unknown3c)
+{
+	HashID = hash_id;
+	Name = name;
+	Unknown20 = unknown20;
+	Unknown2C = unknown2c;
+	Unknown38 = unknown38;
+	Unknown3C = unknown3c;
+}
+
 /*
 **	Reconstruction notes
 **
@@ -281,4 +300,9 @@ RefCountPtr<GalaxyMapSystemClass> GalaxyMapSystemClass::Create()
 **	0x836F30, whose FAIL_IFs sit on the client's lines 159 / 160; the blank lines above it hold that
 **	layout); Add_Sector / Add_Gate / Add_Starbase 0x837190 / 0x8373F0 / 0x837650 the same, FAIL_IFs on
 **	169 / 170, 179 / 180, 189 / 190.
+**
+**	The system's constructor 0x837F00 and Set 0x838050 (GM1) are this file's too, after the factory:
+**	neither has a caller in the client (the constructor is inlined into Create, which precedes it;
+**	Set is unreferenced), yet both are kept, as non-inline functions of the object are. Set stores
+**	the hash id, the name (std::string assign inlined) and the four values Read carries.
 */

@@ -189,7 +189,7 @@ public:
 class GalaxyMapSystemClass : public GalaxyMapDataClass	// NAME 2: 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system')
 {
 public:
-	GalaxyMapSystemClass() : HashID(-1), Unknown38(1.0f), Unknown3C(3) {}	virtual ~GalaxyMapSystemClass() {}	// (inline: 0x837C70); the destructor 0x837F80 stores the vtable: explicit
+	GalaxyMapSystemClass();	virtual ~GalaxyMapSystemClass() {}	// 0x837F00 (galaxy_map.cpp; Create 0x837C70 inlines it); the destructor 0x837F80 stores the vtable: explicit
 	virtual int Get_Type() { return(5); }										// +0x08 0x837EC0
 	virtual void Read(LinearBufferClass *buffer)
 	{
@@ -216,6 +216,7 @@ public:
 	virtual GalaxyMapSystemClass *As_System() { return(this); }				// +0x14 0x837EE0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x837EA0
 
+	void Set(int hash_id, const std::string &name, const Vector3 &unknown20, const Vector3 &unknown2c, float unknown38, int unknown3c);	// 0x838050 (no caller)  // NAME 1 [Set, hash_id, name]: stores the members Read carries
 	static RefCountPtr<GalaxyMapSystemClass> Create();						// 0x837C70 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: what it does
 
 	int HashID;																	// +0x0C  // NAME 2: Get_Hash_ID's
