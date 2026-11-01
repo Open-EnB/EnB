@@ -900,6 +900,11 @@ unless `--lever` cites a new row of this table.
   `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
   `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
   stale when part of the work lands separately: diff the park folder against HEAD before using it (M1).
+* **A symbols.json regeneration feeds a run's late-phase results into its early phases** (2026-10-31, SY1, D173): with
+  the run's own names in symbols.json, D80's `known` completes a vtable chain at once, so D171's self name settles a
+  `??_G` before D100's range round does, and a pair can move (0x723AB0 -> 0x4B2AA0, a false range pair). Not only lost
+  proofs (AR1): check every `lost outright` against the client's vtable layout (slot count, slot 0's thunk) before
+  calling it a loss. symbols.py without `--objs` reads no objects: copy every library's verify-* folder and pass each.
 
 ### 3.5 Build VMs and vc6.py
 
