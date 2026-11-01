@@ -228,7 +228,8 @@ Vector2 DynamicWindowBackgroundClass::Get_Min_Size()
 	if (!AnimationData) {
 		return Contents->Get_Min_Size();
 	}
-	return AnimationData->Border * 2.0f + Contents->Get_Min_Size() + Vector2(2.0f, 2.0f);
+	Vector2 min_size = AnimationData->Border * 2.0f + Contents->Get_Min_Size();
+	return Vector2(min_size.X + 2.0f, min_size.Y + 2.0f);
 }
 
 void DynamicWindowBackgroundClass::Layout(const Vector2 &position, const Vector2 &size)
@@ -286,7 +287,6 @@ void DynamicWindowBackgroundClass::Set_Position(const Vector2 &position)
 		Contents->Set_Position(position);
 	}
 }
-
 
 
 

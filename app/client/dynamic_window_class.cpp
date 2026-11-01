@@ -155,21 +155,19 @@ void DynamicWindowClass::Set_Center(Vector2 &center)
 	center.X += size.X * 0.5f;
 	center.Y -= size.Y * 0.5f;
 }
-// NOT EXACT: the client stores X before computing Y (an aliasing form of the return not found yet)
-Vector2 DynamicWindowClass::Get_Center()
+
+void DynamicWindowClass::Get_Center(Vector2 &center)
 {
 	Vector2 size = Get_Size();
-	Vector2 center;
 	center.X = size.X * 0.5f + Position.X;
 	center.Y = Position.Y - size.Y * 0.5f;
-	return center;
 }
-// NOT EXACT: the inlined centre goes through a temporary; the client stores it in place
+
 void DynamicWindowClass::Update_Layout()
 {
 	if (Is_Dirty()) {
-		Vector2 size = Get_Size();
-		Vector2 center(size.X * 0.5f + Position.X, Position.Y - size.Y * 0.5f);
+		Vector2 center;
+		Get_Center(center);
 		Vector2 min_size = Get_Min_Size();
 		Layout_Size(min_size);
 		Set_Center(center);
@@ -190,6 +188,8 @@ void DynamicWindowClass::Remove_All_Children(bool recursive)
 	Rows->Remove_All_Children(true);
 	RowElements.clear();
 }
+
+
 
 
 

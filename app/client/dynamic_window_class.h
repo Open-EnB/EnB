@@ -114,7 +114,7 @@ public:
 	bool Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index);	// 0x517B40 (FAIL_IF 'row_index < 0')  // NAME 1 [Remove_Element]
 	void Layout_Size(const Vector2 &size);														// 0x517C10  // NAME 1 [Layout_Size, size]
 	void Set_Center(Vector2 &center);															// 0x517C50 (kept on the 640 x 480 screen)  // NAME 1 [Set_Center, center]
-	Vector2 Get_Center();																		// 0x517EE0  // NAME 1 [Get_Center]
+	void Get_Center(Vector2 &center);															// 0x517EE0  // NAME 1 [Get_Center, center]
 	void Update_Layout();																		// 0x517F30  // NAME 1 [Update_Layout]
 
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x517FD0
