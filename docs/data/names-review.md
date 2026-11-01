@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1098 |
 | 2 | describes what the code does | 2701 |
-| 1 | neutral placeholder | 8973 |
+| 1 | neutral placeholder | 8976 |
 
 ## For review (score 3 and below)
 
@@ -4311,234 +4311,237 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70` | `app/client/ui_avsel.cpp:41` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_avsel.cpp:42` | neutral |
 | 1 | `Unknown_74` | `app/client/ui_avsel.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_avsel.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_avsel.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_avsel.cpp:46` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_2` | `app/client/ui_avsel.cpp:47` | neutral (D10): inline (0x55F6D0) |
-| 1 | `arg` | `app/client/ui_avsel.cpp:48` | neutral |
-| 1 | `Unknown_660070` | `app/client/ui_avsel.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_avsel.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0` | `app/client/ui_avsel.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown2C_2` | `app/client/ui_avsel.cpp:53` | neutral (D10) |
-| 1 | `Unknown2CBits` | `app/client/ui_avsel.cpp:54` | neutral (D10) |
-| 1 | `UIAvselButtonClass` | `app/client/ui_avsel.cpp:59` | neutral (D10) |
-| 1 | `robj, layer, a, b` | `app/client/ui_avsel.cpp:62` | as ui_manu.cpp's |
-| 1 | `gadget` | `app/client/ui_avsel.cpp:65` | neutral |
-| 1 | `Unknown_65EED0` | `app/client/ui_avsel.cpp:65` | untagged neutral name (D10) |
-| 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:66` | as ui_group.cpp's |
-| 1 | `Unknown_496110` | `app/client/ui_avsel.cpp:66` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:67` | neutral |
-| 1 | `Unknown_496490` | `app/client/ui_avsel.cpp:67` | untagged neutral name (D10) |
-| 1 | `x, y` | `app/client/ui_avsel.cpp:68` | as scriptedmovie.cpp's |
-| 1 | `Unknown_42ECF0` | `app/client/ui_avsel.cpp:68` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:69` | as eff_o.cpp's |
-| 1 | `Unknown_496AE0` | `app/client/ui_avsel.cpp:69` | untagged neutral name (D10) |
-| 1 | `Gadget` | `app/client/ui_avsel.cpp:75` | neutral |
-| 1 | `text, unknown` | `app/client/ui_avsel.cpp:83` | as loadingview.cpp's |
-| 1 | `on` | `app/client/ui_avsel.cpp:84` | neutral |
-| 1 | `Unknown_6CE910` | `app/client/ui_avsel.cpp:84` | untagged neutral name (D10) |
-| 1 | `Set_Unknown2FC` | `app/client/ui_avsel.cpp:85` | neutral (D10): inline (0x55ED20 1.0, 0x55EF90 0.33) |
-| 1 | `Unknown2FC` | `app/client/ui_avsel.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/ui_avsel.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/ui_avsel.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_avsel.cpp:88` | untagged neutral name (D10) |
-| 1 | `UIAvselManagedFontClass` | `app/client/ui_avsel.cpp:91` | neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's |
-| 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:93` | 0xBE67C4 |
-| 1 | `LineDisplaySortClass` | `app/client/ui_avsel.cpp:97` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_avsel.cpp:100` | view.cpp's |
-| 1 | `UIAvselKeyEventStruct` | `app/client/ui_avsel.cpp:107` | neutral (D10): kernel.h's input event |
-| 1 | `key` | `app/client/ui_avsel.cpp:109` | neutral |
-| 1 | `Unknown02` | `app/client/ui_avsel.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_avsel.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/ui_avsel.cpp:109` | untagged neutral name (D10) |
-| 1 | `Key` | `app/client/ui_avsel.cpp:110` | neutral (D10) |
-| 1 | `UIAvselKeysClass` | `app/client/ui_avsel.cpp:116` | neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes (10, 7) |
-| 1 | `Unknown_721E60` | `app/client/ui_avsel.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_721EF0` | `app/client/ui_avsel.cpp:116` | untagged neutral name (D10) |
-| 1 | `UIAvselAvatarVirtualsClass` | `app/client/ui_avsel.cpp:120` | neutral (D10) |
-| 1 | `Unknown_000` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_004` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_008` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_00C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_010` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_014` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_018` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_01C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_020` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_024` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_028` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_02C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_030` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_034` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_038` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_03C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_040` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_044` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_048` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_04C` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_050` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_054` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_058` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_05C` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_060` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_064` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_068` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_06C` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_070` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_074` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_078` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_07C` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_080` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_084` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_088` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_08C` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_090` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_094` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_098` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_09C` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_0A0` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0A4` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0A8` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0AC` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0B0` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0B4` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0B8` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0BC` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_0C0` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0C4` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0C8` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0CC` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0D0` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0D4` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0D8` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0DC` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_0E0` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0E4` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0E8` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0EC` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0F0` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0F4` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0F8` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_0FC` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_100` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_104` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_108` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_10C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_110` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_114` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_118` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_11C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_120` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_124` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_128` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_12C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_130` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_134` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_138` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_13C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_140` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_144` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_148` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_14C` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_150` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_154` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_158` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_15C` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_160` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_164` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_168` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_16C` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_170` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_174` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_178` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_17C` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_180` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_184` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_188` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_18C` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_190` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_194` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_198` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_19C` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_1A0` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1A4` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1A8` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1AC` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1B0` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1B4` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1B8` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1BC` | `app/client/ui_avsel.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_1C0` | `app/client/ui_avsel.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_1C4` | `app/client/ui_avsel.cpp:138` | untagged neutral name (D10) |
-| 1 | `UIAvselAvatarClass` | `app/client/ui_avsel.cpp:142` | neutral (D10) |
-| 1 | `desc, a, b, env` | `app/client/ui_avsel.cpp:145` | neutral |
-| 1 | `Unknown_7863E0` | `app/client/ui_avsel.cpp:146` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_avsel.cpp:147` | neutral |
-| 1 | `Unknown_786370` | `app/client/ui_avsel.cpp:147` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_avsel.cpp:148` | neutral |
-| 1 | `Unknown_77E3D0` | `app/client/ui_avsel.cpp:148` | untagged neutral name (D10) |
-| 1 | `emote, a, b` | `app/client/ui_avsel.cpp:149` | neutral |
-| 1 | `Unknown_784A50` | `app/client/ui_avsel.cpp:149` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_avsel.cpp:150` | neutral |
-| 1 | `Unknown_7896B0` | `app/client/ui_avsel.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/ui_avsel.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_avsel.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_avsel.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown2BC` | `app/client/ui_avsel.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown2C0` | `app/client/ui_avsel.cpp:158` | untagged neutral name (D10) |
-| 1 | `UIAvselEnvMapClass` | `app/client/ui_avsel.cpp:162` | neutral (D10)  // NAME 1 [base_asset, a]: sclient.cpp's |
-| 1 | `Unknown_760770` | `app/client/ui_avsel.cpp:162` | untagged neutral name (D10) |
-| 1 | `UIAvselUnknown1BCClass` | `app/client/ui_avsel.cpp:165` | neutral (D10) |
-| 1 | `Unknown_78` | `app/client/ui_avsel.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_avsel.cpp:175` | untagged neutral name (D10) |
-| 1 | `robj, name` | `app/client/ui_avsel.cpp:176` | neutral |
-| 1 | `Unknown_80` | `app/client/ui_avsel.cpp:176` | untagged neutral name (D10) |
-| 1 | `UIAvselCharacterViewClass` | `app/client/ui_avsel.cpp:180` | neutral (D10) |
-| 1 | `Unknown_67A250` | `app/client/ui_avsel.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_avsel.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_avsel.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_avsel.cpp:45` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_2` | `app/client/ui_avsel.cpp:46` | neutral (D10): inline (0x55F6D0) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:47` | neutral |
+| 1 | `Unknown_660070` | `app/client/ui_avsel.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_avsel.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0` | `app/client/ui_avsel.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown2C_2` | `app/client/ui_avsel.cpp:52` | neutral (D10) |
+| 1 | `Unknown2CBits` | `app/client/ui_avsel.cpp:53` | neutral (D10) |
+| 1 | `UIAvselButtonClass` | `app/client/ui_avsel.cpp:57` | neutral (D10) |
+| 1 | `robj, layer, a, b` | `app/client/ui_avsel.cpp:60` | as ui_manu.cpp's |
+| 1 | `gadget` | `app/client/ui_avsel.cpp:63` | neutral |
+| 1 | `Unknown_65EED0` | `app/client/ui_avsel.cpp:63` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:64` | as ui_group.cpp's |
+| 1 | `Unknown_496110` | `app/client/ui_avsel.cpp:64` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:65` | neutral |
+| 1 | `Unknown_496490` | `app/client/ui_avsel.cpp:65` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ui_avsel.cpp:66` | as scriptedmovie.cpp's |
+| 1 | `Unknown_42ECF0` | `app/client/ui_avsel.cpp:66` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:67` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_avsel.cpp:67` | untagged neutral name (D10) |
+| 1 | `Gadget` | `app/client/ui_avsel.cpp:72` | neutral |
+| 1 | `text, unknown` | `app/client/ui_avsel.cpp:80` | as loadingview.cpp's |
+| 1 | `on` | `app/client/ui_avsel.cpp:81` | neutral |
+| 1 | `Unknown_6CE910` | `app/client/ui_avsel.cpp:81` | untagged neutral name (D10) |
+| 1 | `Set_Unknown2FC` | `app/client/ui_avsel.cpp:82` | neutral (D10): inline (0x55ED20 1.0, 0x55EF90 0.33) |
+| 1 | `Unknown2FC` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/ui_avsel.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_avsel.cpp:85` | untagged neutral name (D10) |
+| 1 | `UIAvselManagedFontClass` | `app/client/ui_avsel.cpp:88` | neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's |
+| 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:90` | 0xBE67C4 |
+| 1 | `LineDisplaySortClass` | `app/client/ui_avsel.cpp:94` | neutral (D10) |
+| 1 | `inter` | `app/client/ui_avsel.cpp:97` | view.cpp's |
+| 1 | `UIAvselKeyEventStruct` | `app/client/ui_avsel.cpp:104` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_avsel.cpp:106` | neutral |
+| 1 | `Unknown02` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_avsel.cpp:107` | neutral (D10) |
+| 1 | `UIAvselKeysClass` | `app/client/ui_avsel.cpp:113` | neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes (10, 7) |
+| 1 | `Unknown_721E60` | `app/client/ui_avsel.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_721EF0` | `app/client/ui_avsel.cpp:113` | untagged neutral name (D10) |
+| 1 | `UIAvselAvatarVirtualsClass` | `app/client/ui_avsel.cpp:117` | neutral (D10) |
+| 1 | `Unknown_000` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_004` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_008` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_00C` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_010` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_014` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_018` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_01C` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_020` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_024` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_028` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_02C` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_030` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_034` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_038` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_03C` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_040` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_044` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_048` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_04C` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_050` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_054` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_058` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_05C` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_060` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_064` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_068` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_06C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_070` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_074` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_078` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_07C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_080` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_084` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_088` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_08C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_090` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_094` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_098` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_09C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_0A0` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0A4` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0A8` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0AC` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B0` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B4` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B8` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0BC` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0C0` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0C4` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0C8` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0CC` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D0` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D4` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D8` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0DC` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0E0` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0E4` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0E8` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0EC` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F0` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F4` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F8` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0FC` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_100` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_104` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_108` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_10C` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_110` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_114` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_118` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_11C` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_120` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_124` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_128` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_12C` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_130` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_134` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_138` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_13C` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_140` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_144` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_148` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_14C` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_150` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_154` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_158` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_15C` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_160` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_164` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_168` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_16C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_170` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_174` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_178` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_17C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_180` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_184` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_188` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_18C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_190` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_194` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_198` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_19C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_1A0` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1A4` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1A8` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1AC` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B0` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B4` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B8` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1BC` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1C0` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
+| 1 | `UIAvselAvatarClass` | `app/client/ui_avsel.cpp:139` | neutral (D10) |
+| 1 | `desc, a, b, env` | `app/client/ui_avsel.cpp:142` | neutral |
+| 1 | `Unknown_7863E0` | `app/client/ui_avsel.cpp:143` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avsel.cpp:144` | neutral |
+| 1 | `Unknown_786370` | `app/client/ui_avsel.cpp:144` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:145` | neutral |
+| 1 | `Unknown_77E3D0` | `app/client/ui_avsel.cpp:145` | untagged neutral name (D10) |
+| 1 | `emote, a, b` | `app/client/ui_avsel.cpp:146` | neutral |
+| 1 | `Unknown_784A50` | `app/client/ui_avsel.cpp:146` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:147` | neutral |
+| 1 | `Unknown_7896B0` | `app/client/ui_avsel.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_avsel.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_avsel.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_avsel.cpp:153` | untagged neutral name (D10) |
+| 1 | `Get_Unknown2BC` | `app/client/ui_avsel.cpp:154` | neutral (D10) |
+| 1 | `Unknown2BC` | `app/client/ui_avsel.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown2C0` | `app/client/ui_avsel.cpp:156` | untagged neutral name (D10) |
+| 1 | `UIAvselEnvMapClass` | `app/client/ui_avsel.cpp:160` | neutral (D10)  // NAME 1 [base_asset, a]: sclient.cpp's |
+| 1 | `Unknown_760770` | `app/client/ui_avsel.cpp:160` | untagged neutral name (D10) |
+| 1 | `UIAvselUnknown1BCClass` | `app/client/ui_avsel.cpp:163` | neutral (D10) |
+| 1 | `Unknown_78` | `app/client/ui_avsel.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_avsel.cpp:173` | untagged neutral name (D10) |
+| 1 | `robj, name` | `app/client/ui_avsel.cpp:174` | neutral |
+| 1 | `Unknown_80` | `app/client/ui_avsel.cpp:174` | untagged neutral name (D10) |
+| 1 | `UIAvselCharacterViewClass` | `app/client/ui_avsel.cpp:178` | neutral (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_avsel.cpp:181` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:182` | neutral |
+| 1 | `Unknown_67ACE0` | `app/client/ui_avsel.cpp:182` | untagged neutral name (D10) |
+| 1 | `slot, name` | `app/client/ui_avsel.cpp:183` | neutral |
+| 1 | `Unknown_67AB20` | `app/client/ui_avsel.cpp:183` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_avsel.cpp:184` | neutral |
-| 1 | `Unknown_67ACE0` | `app/client/ui_avsel.cpp:184` | untagged neutral name (D10) |
-| 1 | `slot, name` | `app/client/ui_avsel.cpp:185` | neutral |
-| 1 | `Unknown_67AB20` | `app/client/ui_avsel.cpp:185` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_avsel.cpp:186` | neutral |
-| 1 | `Unknown_67B7A0` | `app/client/ui_avsel.cpp:186` | untagged neutral name (D10) |
-| 1 | `a, b, fov` | `app/client/ui_avsel.cpp:187` | neutral |
-| 1 | `Unknown_67A290` | `app/client/ui_avsel.cpp:187` | untagged neutral name (D10) |
-| 1 | `slot, name` | `app/client/ui_avsel.cpp:188` | neutral |
-| 1 | `Unknown_67AD30` | `app/client/ui_avsel.cpp:188` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/ui_avsel.cpp:189` | neutral |
-| 1 | `Unknown_67AE20` | `app/client/ui_avsel.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_67B7A0` | `app/client/ui_avsel.cpp:184` | untagged neutral name (D10) |
+| 1 | `a, b, fov` | `app/client/ui_avsel.cpp:185` | neutral |
+| 1 | `Unknown_67A290` | `app/client/ui_avsel.cpp:185` | untagged neutral name (D10) |
+| 1 | `slot, name` | `app/client/ui_avsel.cpp:186` | neutral |
+| 1 | `Unknown_67AD30` | `app/client/ui_avsel.cpp:186` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:187` | neutral |
+| 1 | `Unknown_67AE20` | `app/client/ui_avsel.cpp:187` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:188` | neutral |
+| 1 | `Unknown_67AE60` | `app/client/ui_avsel.cpp:188` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:189` | neutral |
+| 1 | `Unknown_67A9B0` | `app/client/ui_avsel.cpp:189` | untagged neutral name (D10) |
 | 1 | `slot` | `app/client/ui_avsel.cpp:190` | neutral |
-| 1 | `Unknown_67AE60` | `app/client/ui_avsel.cpp:190` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_avsel.cpp:191` | neutral |
-| 1 | `Unknown_67A9B0` | `app/client/ui_avsel.cpp:191` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/ui_avsel.cpp:192` | neutral |
-| 1 | `Unknown_67AEA0` | `app/client/ui_avsel.cpp:192` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/ui_avsel.cpp:193` | neutral |
-| 1 | `Unknown_67ADD0` | `app/client/ui_avsel.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/ui_avsel.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/ui_avsel.cpp:195` | untagged neutral name (D10) |
-| 1 | `desc` | `app/client/ui_avsel.cpp:196` | neutral |
-| 1 | `Unknown_5594B0` | `app/client/ui_avsel.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown000` | `app/client/ui_avsel.cpp:198` | untagged neutral name (D10) |
-| 1 | `Task` | `app/client/ui_avsel.cpp:199` | neutral |
-| 1 | `Unknown018` | `app/client/ui_avsel.cpp:200` | untagged neutral name (D10) |
-| 1 | `ViewUnknown34Class` | `app/client/ui_avsel.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/ui_avsel.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown038` | `app/client/ui_avsel.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown06C` | `app/client/ui_avsel.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown070` | `app/client/ui_avsel.cpp:205` | untagged neutral name (D10) |
-| 1 | `Unknown074` | `app/client/ui_avsel.cpp:206` | untagged neutral name (D10) |
-| 1 | `Peek_Model` | `app/client/ui_avsel.cpp:207` | neutral (D10) |
-| 1 | `Unknown1BC` | `app/client/ui_avsel.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/ui_avsel.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/ui_avsel.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/ui_avsel.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/ui_avsel.cpp:213` | untagged neutral name (D10) |
-| 1 | `Unknown1E4` | `app/client/ui_avsel.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown1E8` | `app/client/ui_avsel.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown244` | `app/client/ui_avsel.cpp:216` | untagged neutral name (D10) |
-| 1 | `Unknown3A4` | `app/client/ui_avsel.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/ui_avsel.cpp:190` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:191` | neutral |
+| 1 | `Unknown_67ADD0` | `app/client/ui_avsel.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_avsel.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_avsel.cpp:193` | untagged neutral name (D10) |
+| 1 | `desc` | `app/client/ui_avsel.cpp:194` | neutral |
+| 1 | `Unknown_5594B0` | `app/client/ui_avsel.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown000` | `app/client/ui_avsel.cpp:196` | untagged neutral name (D10) |
+| 1 | `Task` | `app/client/ui_avsel.cpp:197` | neutral |
+| 1 | `Unknown018` | `app/client/ui_avsel.cpp:198` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/ui_avsel.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/ui_avsel.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/ui_avsel.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown06C` | `app/client/ui_avsel.cpp:202` | untagged neutral name (D10) |
+| 1 | `Get_Unknown070` | `app/client/ui_avsel.cpp:203` | neutral (D10) |
+| 1 | `Unknown070` | `app/client/ui_avsel.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown074` | `app/client/ui_avsel.cpp:205` | untagged neutral name (D10) |
+| 1 | `Peek_Model` | `app/client/ui_avsel.cpp:206` | neutral (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_avsel.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/ui_avsel.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/ui_avsel.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/ui_avsel.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/ui_avsel.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/client/ui_avsel.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/client/ui_avsel.cpp:214` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/ui_avsel.cpp:215` | untagged neutral name (D10) |
+| 1 | `Get_Unknown3A4` | `app/client/ui_avsel.cpp:216` | neutral (D10) |
+| 1 | `Unknown3A4` | `app/client/ui_avsel.cpp:216` | untagged neutral name (D10) |
 | 1 | `UIAvselCallbackBaseClass` | `app/client/ui_avsel.cpp:221` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
 | 1 | `UIAvselNotifierClass` | `app/client/ui_avsel.cpp:227` | neutral (D10) |
 | 1 | `Unknown_65ECE0` | `app/client/ui_avsel.cpp:233` | neutral (D10) |
@@ -9911,9 +9914,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Texture` | `app/client/ui_avatr.cpp:116` | what it does (the asset manager's slot) |
 | 2 | `FontStringFilesClass` | `app/client/ui_avatr.cpp:178` | fontdatabase.h's |
 | 2 | `Remove` | `app/client/ui_avatr.cpp:190` | as sclient.cpp's |
-| 2 | `FontStringFilesClass` | `app/client/ui_avsel.cpp:94` | fontdatabase.h's |
-| 2 | `Camera` | `app/client/ui_avsel.cpp:203` | what it holds |
-| 2 | `Model` | `app/client/ui_avsel.cpp:208` | what it holds |
+| 2 | `FontStringFilesClass` | `app/client/ui_avsel.cpp:91` | fontdatabase.h's |
+| 2 | `Camera` | `app/client/ui_avsel.cpp:201` | what it holds |
+| 2 | `Model` | `app/client/ui_avsel.cpp:207` | what it holds |
 | 2 | `Add` | `app/client/ui_avsel.cpp:230` | as sclient.cpp's |
 | 2 | `Remove` | `app/client/ui_avsel.cpp:231` | as sclient.cpp's |
 | 2 | `Create_Render_Obj` | `app/client/ui_avsel.cpp:240` | what it does (the asset manager's slot) |
@@ -11936,9 +11939,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `FontSys` | `app/client/ui_avatr.cpp:174` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:263` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |
 | 3 | `GadgetClass` | `app/client/ui_avsel.cpp:25` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `FlashingGadgetEvent` | `app/client/ui_avsel.cpp:72` | the client's RTTI (the callback's type name) |
-| 3 | `FontSys` | `app/client/ui_avsel.cpp:80` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
-| 3 | `UIAvselFontManagerClass` | `app/client/ui_avsel.cpp:92` | fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's |
+| 3 | `FlashingGadgetEvent` | `app/client/ui_avsel.cpp:69` | the client's RTTI (the callback's type name) |
+| 3 | `FontSys` | `app/client/ui_avsel.cpp:77` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
+| 3 | `UIAvselFontManagerClass` | `app/client/ui_avsel.cpp:89` | fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's |
 | 3 | `AvatarSelectionInterface` | `app/client/ui_avsel.h:21` | the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>) |
 | 3 | `BuddyReferralUI` | `app/client/ui_avsel.h:69` | the assert's |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |

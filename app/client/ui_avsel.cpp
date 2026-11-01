@@ -40,7 +40,6 @@ public:
 	virtual bool Unknown_60();							// +0x60 (0x55EF90: the button is lit)
 	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
 	virtual void Unknown_74(int arg);					// +0x74 (0x55F760: the edit box, 1)  // NAME 1 [arg]: neutral
-
 	char Unknown04[0x20 - 0x04];						// +0x04
 	void *Unknown20;									// +0x20 (0x55F6D0: the mouse-over sound only when set)
 	char Unknown24[0x2C - 0x24];						// +0x24
@@ -54,7 +53,6 @@ public:
 		} Unknown2CBits;								// NAME 1: neutral (D10)
 	};
 };
-
 // gadget.cpp's button gadget (100 bytes, constructor 0x675240 over a render object and a layer)
 class UIAvselButtonClass : public GadgetClass	// NAME 1: neutral (D10)
 {
@@ -67,7 +65,6 @@ void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x49611
 void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
-
 // The FlashingGadgetEvent the window's callback gets (the client's RTTI name, 0xB7C068)
 class FlashingGadgetEvent	// NAME 3: the client's RTTI (the callback's type name)
 {
@@ -154,6 +151,7 @@ public:
 	int Unknown108;										// +0x108 (0x55F140: the race, 0 .. 2)
 	int Unknown10C;										// +0x10C (0x55F140: the profession, 0 .. 2)
 	char Unknown110[0x2BC - 0x110];						// +0x110
+	RenderObjClass *Get_Unknown2BC() { return(Unknown2BC); }	// NAME 1: neutral (D10)
 	RenderObjClass *Unknown2BC;							// +0x2BC (0x55E370's button is made over it)
 	char Unknown2C0[0x384 - 0x2C0];						// +0x2C0 (900 bytes)
 };
@@ -202,6 +200,7 @@ public:
 	char Unknown038[0x68 - 0x38];						// +0x38
 	CameraClass *Camera;								// +0x68 (the constructor's clip planes)  // NAME 2: what it holds
 	char Unknown06C[0x70 - 0x6C];						// +0x6C
+	LayerClass *Get_Unknown070() { return(Unknown070); }	// NAME 1: neutral (D10)
 	LayerClass *Unknown070;								// +0x70 (0x55E370's avatar buttons are made over it)
 	char Unknown074[0x1B8 - 0x74];						// +0x74
 	RenderObjClass *Peek_Model() { return(Model); }		// NAME 1: neutral (D10)
@@ -214,6 +213,7 @@ public:
 	int Unknown1E4;										// +0x1E4 (slot +0x8C)
 	char Unknown1E8[0x244 - 0x1E8];						// +0x1E8
 	ShipCustDescClass Unknown244;						// +0x244 (slot +0x68 copies the selected character's into it; 0x160 bytes)
+	UIAvselEnvMapClass *Get_Unknown3A4() { return(Unknown3A4); }	// NAME 1: neutral (D10)
 	UIAvselEnvMapClass *Unknown3A4;						// +0x3A4
 };
 
@@ -773,7 +773,7 @@ void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool
 
 
 
-// NOT EXACT: register (0.78; the avatar's constructor, sprintf and slot +0x80 arguments in other registers)
+
 // 0x55E370
 void AvatarSelectionInterface::Unknown_55E370(bool active)
 {
@@ -800,13 +800,13 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 				Unknown_55E2E0(i, descs[i].Get_Full_Name().c_str(), i == Unknown090);
 				Unknown0E4[i] = true;
 				AvatarDescClass *desc = new AvatarDescClass(descs[i]);
-				Unknown0BC[i] = new UIAvselAvatarClass(desc, 1, 0, Unknown084->Unknown3A4);
+				Unknown0BC[i] = new UIAvselAvatarClass(desc, 1, 0, Unknown084->Get_Unknown3A4());
 				if (Unknown0BC[i]) {
 					char name[64];
 					sprintf(name, "DUDE%02d", i);
 					Unknown084->Unknown1BC->Unknown_80(Unknown0BC[i], name);
 					Unknown0BC[i]->Unknown_77E3D0(1);
-					Unknown0D0[i] = new UIAvselButtonClass(Unknown0BC[i]->Unknown2BC, Unknown084->Unknown070, 0x55, 0);
+					Unknown0D0[i] = new UIAvselButtonClass(Unknown0BC[i]->Get_Unknown2BC(), Unknown084->Get_Unknown070(), 0x55, 0);
 					Unknown0D0[i]->Unknown2C |= 0x400;
 					Unknown0D0[i]->Unknown_660070(1);
 					Unknown64.Unknown_6870E0(Unknown0D0[i], i + 11, View, 1, 1);
@@ -1284,8 +1284,9 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 **	set to !on, then to true without the task's +0x1138) exact; 0x55E8E0 (the five names, 0x55E2E0
 **	inlined), 0x55ED20 / 0x55EF90 (the buttons lit / dimmed), 0x55F760 (the referral dialog opened:
 **	G_ASSERT line 1160; its edit box is textgadg.cpp's) and 0x55FBB0 (closed: line 1215) exact. NOT
-**	EXACT (register): 0x55E070 (the avatar under the pointer highlighted, 0.78) and 0x55E370 (the
-**	slots' avatars made, G_ASSERT 'chars' line 782, 0.78). 0x55D9C0 (every frame: the referral's
+**	EXACT (register): 0x55E070 (the avatar under the pointer highlighted, 0.78). 0x55E370 (the
+**	slots' avatars made, G_ASSERT 'chars' line 782) exact through inline accessors (the view's +0x3A4 and
+**	+0x70, the avatar's +0x2BC): read directly, the arguments land in other registers. 0x55D9C0 (every frame: the referral's
 **	result boxes, the emotes, the delete question's answer) exact; slot +0x68 0x55D060 (the buttons
 **	1-17 and the referral dialog's) NOT EXACT (0.49): it assigns the selected character's ship
 **	descriptor, and the client calls ShipCustDescClass's implicit operator= out of line (0x55D8A0)
