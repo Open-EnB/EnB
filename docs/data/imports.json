@@ -2052,6 +2052,7 @@
      "0x8501A0",
      "0x8501D0",
      "0x850220",
+     "0x850820",
      "0x853560",
      "0x854890",
      "0x854B90",
@@ -12292,6 +12293,21 @@
     ],
     "merged": [],
     "name": "streamer.cpp"
+   },
+   "wdebug": {
+    "ambiguous": [],
+    "copy": "Z",
+    "expected": {
+     "R": 0,
+     "Z": 0
+    },
+    "headers_from": null,
+    "in_tree": [
+     "0x8B5560",
+     "0x8B5BF0"
+    ],
+    "merged": [],
+    "name": "wdebug.cpp"
    },
    "wstring": {
     "ambiguous": [

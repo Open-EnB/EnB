@@ -16,13 +16,13 @@
 #define ENABLE_WWPROFILE
 #include "cordcon.h"
 #include "udp.h"
+#include "..\..\libs\wwonline\wlib\wdebug.h"	// E&B's INFMSG (MsgManager::infoStream 0x8B5B90)
 #include "rc4.h"
 #include "wwprofile.h"
 #include "..\shared\unknown_debug.h"
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-
 // ------------------------------------------------------------------------ CordChannelClass
 
 // The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
@@ -352,7 +352,7 @@ bool CordCon::pumpClose()
 
 
 
-			// the client logs 'This isn't good... waiting for an ACK on a non-existant msg....' (INFMSG, line 355)
+			INFMSG("This isn't good... waiting for an ACK on a non-existant msg....");
 			CloseState_ = 1;
 		}
 		if (CloseState_ == 2 && (int)(time(0) - LastReceive_) > 90) {
@@ -387,7 +387,7 @@ bool CordCon::pumpClose()
 
 
 
-		// the client logs 'All data sent, queueing close packet.' (INFMSG, line 390)
+		INFMSG("All data sent, queueing close packet.");
 		CordMessageClass m;
 		m.Data = new unsigned char[strlen("CLOSE")];
 		memcpy(m.Data, "CLOSE", strlen("CLOSE"));
@@ -1010,7 +1010,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		if (CloseState_ == 2) {
 			if ((kind == 0 && CloseSeq_ == seq) || (kind == 2 && CloseSeq_ <= seq)) {
 				CloseState_ = 4;
-			}
+			} else
 
 
 
@@ -1065,7 +1065,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 
 
-			// else the client logs 'This is probably a bug! ACK for non-close message recvd' (INFMSG, line 1068)
+				INFMSG("This is probably a bug! ACK for non-close message recvd");
 		}
 		CordChannelClass *c = Channels_[channel];
 		if (kind == 0 || kind == 2) {
@@ -1138,7 +1138,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 
 
-				// the client logs 'Dup ack' (INFMSG, line 1141)
+				INFMSG("Dup ack");
 				DupAcks_++;
 			}
 		} else if (kind == 1) {
@@ -1746,7 +1746,7 @@ bool CordCon::pumpInternal(Xtime &now)
 
 
 
-					// the client logs 'Removing unreliable' (INFMSG, line 1749)
+					INFMSG("Removing unreliable");
 					Stats_->InFlight -= it->Length;
 					Stats_->On_Loss(it->Length, true);
 					(*it).Free();

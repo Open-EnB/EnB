@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -53,7 +53,7 @@ will you be ready to leave grasshopper.
 #ifndef WDEBUG_HEADER
 #define WDEBUG_HEADER
 
-#define USE_DEBUG_SEM
+//#define USE_DEBUG_SEM  // E&B: DebugLibSemaphore is a CritSec (0xBF5258: CritSec::CritSec 0x8B42F0, lock 0x8B4330)
 
 #include "wstypes.h"
 
@@ -81,6 +81,7 @@ will you be ready to leave grasshopper.
 #include "xtime.h"
 #include "timezone.h" // MDC
 #include "filed.h"
+#include <time.h>  // E&B: INFMSG's time / gmtime / strftime
 
 // This is needed because the streams return a pointer.  Every time you
 //  change the output device the old stream is deleted, and a new one
@@ -99,12 +100,12 @@ extern CritSec DebugLibSemaphore;
 #endif
 
 // Print an information message
+// E&B: the time from the C library's gmtime / strftime into char[80] (client 0x85030C-0x850332)
 #define INFMSG(X)\
 {\
-  char     timebuf[40]; \
-  Xtime now; \
-  now -= TimezoneOffset(); \
-  now.FormatTime(timebuf, "mm/dd/yy hh:mm:ss"); \
+  char     timebuf[80]; \
+  time_t   now = time(NULL); \
+  strftime(timebuf, 80, "%m/%d/%y %H:%M:%S", gmtime(&now)); \
   DEBUGLOCK; \
   if (MsgManager::infoStream()) \
     (*(MsgManager::infoStream())) << "INF " << timebuf << " [" << \
@@ -297,7 +298,6 @@ class MsgManager
 
  public:
    static int                 setAllStreams(OutputDevice *device);
-   static int                 ReplaceAllStreams(FileD *output_device, IN char *device_filename, IN char *copy_filename);
    static int                 setDebugStream(OutputDevice *device);
    static int                 setInfoStream(OutputDevice *device);
    static int                 setWarnStream(OutputDevice *device);
@@ -312,6 +312,9 @@ class MsgManager
    static ostream            *infoStream(void);
    static ostream            *warnStream(void);
    static ostream            *errorStream(void);
+
+ protected:
+   static void                createStreamers(void);  // E&B: 0x8B5BF0  // NAME 2: what it does
 };
 
 #endif

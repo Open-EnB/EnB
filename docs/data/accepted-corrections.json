@@ -39,7 +39,7 @@
    "file": "configfile",
    "moved_to": null,
    "decision": "D175",
-   "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Waits for E&B's INFMSG / MsgManager streams in wlib (P-CC2-1); comes back in cordcon.cpp then."
+   "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Pairs again (2026-11-01 day run, CC2, P-CC2-1): app's cordcon.cpp instantiates it through E&B's INFMSG (wlib's wdebug.h, `<< endl`) on the client's lines 355 / 390 / 1068 / 1141 / 1749."
   }
  ]
 }
