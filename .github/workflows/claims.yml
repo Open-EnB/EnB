@@ -1,7 +1,15 @@
 # Keeps the claims (tools/claims.py, docs/github-plan.md 4.5.2): grants and refuses claim issues, answers
 # /renew and /release, follows the pull requests that name a claim, and expires claims. Every run rebuilds the
-# whole state from the open claim issues, so a run GitHub drops while another waits loses nothing. It runs
-# master's code only and reads issue and PR text through the API; no contributor code is checked out or run.
+# whole state from the open claim issues and the open maintainer PRs' run-claims blocks (a maintainer run claims
+# in its PR's body, tools/run_branch.py claim), so a run GitHub drops while another waits loses nothing. At the end
+# it writes the whole live state as claims.json to the branch `claims-state` (one file, replaced each time), which
+# `claims.py list` and `check` read with one API call.
+#
+# Safety: it runs master's code only. `pull_request_target` runs in the base repository's context with this
+# workflow's token, so it must never check out or run a PR's code: the checkout below names the default branch
+# explicitly, and the PR's text is read only through the API, as data, by tools/claims.py (never interpolated into
+# a shell command). The token can write contents only to push `claims-state`; master stays protected by the
+# ruleset (required checks, no bypass), which this token cannot satisfy.
 name: Claims
 
 on:
@@ -9,6 +17,9 @@ on:
     types: [opened, edited, reopened, closed]
   issue_comment:
     types: [created]
+  pull_request_target:
+    # a run PR's claims change with its body, and end when it closes or merges
+    types: [opened, edited, reopened, closed, ready_for_review, converted_to_draft]
   schedule:
     - cron: '17 * * * *'      # hourly: the clock and expiry
   workflow_dispatch:
@@ -25,20 +36,30 @@ concurrency:
 
 jobs:
   reconcile:
-    # issue events only for claim issues; comments only on issues (not PRs)
+    # issue events only for claim issues; comments only on issues (not PRs); PR events only for PRs that carry
+    # run claims or name a claim issue
     if: >-
       github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issues' && startsWith(github.event.issue.title, 'claim')) ||
-      (github.event_name == 'issue_comment' && !github.event.issue.pull_request && startsWith(github.event.issue.title, 'claim'))
+      (github.event_name == 'issue_comment' && !github.event.issue.pull_request && startsWith(github.event.issue.title, 'claim')) ||
+      (github.event_name == 'pull_request_target' &&
+        (contains(github.event.pull_request.body, 'enb-run-claims') ||
+         contains(github.event.pull_request.body, 'claims #') || contains(github.event.pull_request.body, 'claim #')))
     runs-on: ubuntu-latest
+    permissions:
+      contents: write         # the branch claims-state only (tools/claims.py write_state); master is protected
+      issues: write
+      pull-requests: read
+      statuses: read
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
+          ref: ${{ github.event.repository.default_branch }}    # master's code, never the PR's
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Reconcile the claims
+      - name: Reconcile the claims and write claims-state
         env:
           GH_TOKEN: ${{ github.token }}
         run: python tools/claims.py reconcile
