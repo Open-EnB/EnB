@@ -15,7 +15,7 @@ engineered** from the executable and rebuilt until its functions match.
 ## Status
 
 <!-- progress:start -->
-As of 2026-10-31, **47.33%** of client.exe's `.text` is rebuilt: **31.44%** byte for byte from source (11,653 functions), 15.89% runtime libraries and linker output. **35.51%** is written in C++. Of 38,166 declarations in E&B's code, **69.0%** score 4-5 on D56's name scale (untagged names count as 5, 68.8% of all).
+As of 2026-10-31, **47.54%** of client.exe's `.text` is rebuilt: **31.65%** byte for byte from source (11,845 functions), 15.89% runtime libraries and linker output. **35.70%** is written in C++. Of 38,166 declarations in E&B's code, **69.0%** score 4-5 on D56's name scale (untagged names count as 5, 68.8% of all).
 
 [![Rebuild progress](docs/progress.svg)](tools/progress.py)
 
