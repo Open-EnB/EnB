@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1129 |
+| 3 | by convention from a client-named file or sibling | 1131 |
 | 2 | describes what the code does | 2823 |
-| 1 | neutral placeholder | 10004 |
+| 1 | neutral placeholder | 10057 |
 
 ## For review (score 3 and below)
 
@@ -2215,6 +2215,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_675120Class` | `app/client/gd_resize.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/gd_resize.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_resize.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/gd_resize.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/gd_resize.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_resize.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/gd_resize.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_resize.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_resize.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gd_resize.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_resize.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_resize.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_resize.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_resize.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_66BDA0` | `app/client/gd_resize.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_675120Class` | `app/client/gd_resize.h:25` | neutral (D10) |
+| 1 | `robj, mask` | `app/client/gd_resize.h:28` | the base's |
+| 1 | `Unknown_74` | `app/client/gd_resize.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_resize.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/gd_resize.h:31` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/gd_resize.h:37` | neutral |
+| 1 | `event, x, y, mask` | `app/client/gd_resize.h:39` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_resize.h:39` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_resize.h:40` | the base's |
+| 1 | `Unknown_40` | `app/client/gd_resize.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_66BDA0` | `app/client/gd_resize.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/gd_resize.h:43` | neutral (D10) |
+| 1 | `Unknown68` | `app/client/gd_resize.h:44` | neutral (D10) |
+| 1 | `Unknown70` | `app/client/gd_resize.h:45` | neutral (D10) |
+| 1 | `Unknown78` | `app/client/gd_resize.h:46` | neutral (D10) |
+| 1 | `Unknown80` | `app/client/gd_resize.h:47` | neutral (D10) |
+| 1 | `Unknown88` | `app/client/gd_resize.h:48` | neutral (D10) |
 | 1 | `robj, a, b, c` | `app/client/gd_robj.cpp:10` | as ui_group.h |
 | 1 | `Unknown_496110` | `app/client/gd_robj.cpp:10` | untagged neutral name (D10) |
 | 1 | `robj, arg` | `app/client/gd_robj.cpp:11` | neutral |
@@ -7405,6 +7437,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `view` | `app/client/uiview.h:45` | what Init passes |
 | 1 | `Unknown_6AB5B0` | `app/client/uiview.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/uiview.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/unknown_66b770.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/unknown_66b770.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_66C2D0` | `app/client/unknown_66b770.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/unknown_66b770.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/unknown_66b770.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/unknown_66b770.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_66b770.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_66b770.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/unknown_66b770.cpp:68` | untagged neutral name (D10) |
+| 1 | `unknown_66b770.h` | `app/client/unknown_66b770.h:15` | neutral (D137) |
+| 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.h:20` | neutral (D10) |
+| 1 | `robj, layer, mask, flags` | `app/client/unknown_66b770.h:23` | the base's and what it does |
+| 1 | `robj, mask, flags` | `app/client/unknown_66b770.h:24` | the base's and what it does |
+| 1 | `event, x, y, mask` | `app/client/unknown_66b770.h:26` | the base's |
+| 1 | `Unknown_2C` | `app/client/unknown_66b770.h:26` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/unknown_66b770.h:27` | the base's |
+| 1 | `Unknown_40` | `app/client/unknown_66b770.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/unknown_66b770.h:29` | neutral (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -12962,6 +13015,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
+| 3 | `gd_resize.h` | `app/client/gd_resize.h:17` | header name assumed from the client's gd_resize.cpp |
+| 3 | `ResizeGadgetClass` | `app/client/gd_resize.h:34` | class-from-file (D24) for app\Client\gd_resize.cpp |
 | 3 | `gd_robj.h` | `app/client/gd_robj.h:18` | header name assumed from the client's gd_robj.cpp |
 | 3 | `RObjGadgetClass` | `app/client/gd_robj.h:29` | class-from-file (D24) for app\Client\gd_robj.cpp |
 | 3 | `Peek_Render_Obj` | `app/client/gd_robj.h:55` | the FAIL_IF's |

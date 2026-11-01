@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-449 entries in 100 files.
+451 entries in 102 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -118,6 +118,7 @@ edit the comments in the code, not this file.
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
+| `app/client/gd_resize.cpp:61` | `ResizeGadgetClass::Unknown_2C` | marker | NOT EXACT: shape (2 rows): the client loads the origin first for the x offset (fld +0x60, fsubr); tried pos - origin in place, a Vector2 difference, -origin + pos |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
@@ -271,6 +272,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
+| `app/client/unknown_66b770.cpp:42` | `Unknown_66B770Class::Unknown_2C` | marker | NOT EXACT: shape (block order): the client puts the 0x40 test of the held-button check right after the 4 test; tried ?:, && / \|\|, a bool, early returns, the branches swapped |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

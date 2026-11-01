@@ -3621,6 +3621,20 @@
      "0x4A2FD0"
     ]
    },
+   "gd_resize": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x66BA50",
+     "0x66BAC0",
+     "0x66BD60",
+     "0x66BDA0"
+    ],
+    "merged": [],
+    "name": "client/gd_resize.cpp"
+   },
    "gd_robj": {
     "ambiguous": [
      "0x42B2F0"
@@ -11825,6 +11839,20 @@
     "merged": [],
     "name": "shared/unique_design_id_lookup.cpp"
    },
+   "unknown_66b770": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x66B770",
+     "0x66B7B0",
+     "0x66B7E0",
+     "0x66B840"
+    ],
+    "merged": [],
+    "name": "client/unknown_66b770.cpp"
+   },
    "unknown_authlogin": {
     "ambiguous": [
      "0x42A6C0",
@@ -12454,6 +12482,7 @@
    "client/gadget.h": "reconstructed",
    "client/gadget_list_manager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
+   "client/gd_resize.h": "reconstructed",
    "client/gd_robj.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/html/htmlview.h": "reconstructed",
@@ -12487,6 +12516,7 @@
    "client/ui_manu.h": "reconstructed",
    "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
+   "client/unknown_66b770.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
    "client/unknown_fontsound.h": "reconstructed",
