@@ -149,6 +149,12 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **VC6 /Ob2 inlines a non-inline member defined later in the same file** (2026-10-31, TK10, ui_line_display): a client
+  function with no code callers whose body matches part of a not-exact neighbour was probably inlined there: call it
+  from the neighbour (Find_Ephemeral 0x5A8B60 into Show_Ephemeral 0x5A7A80). The inlined callee's form decides whether
+  its temporaries share stack slots (a ternary gave a 0x10 bigger frame than if / return, though both compile alike out
+  of line). Budget levers can work only together (tutorial_manager Reload 0x6AD7B0: the iterator before the loop and
+  the implicit key string; the ctor 0x6AC600: an early return and one dead size() read): try pairs before giving up.
 * **One extra no-code inline layer moves VC6's inline budget** (2026-10-31, TK2, attrib_dir Detach_Mod 0x4D4BD0): one
   inline handle method left exactly the client's first operator= call out of line, two left two. Try it before
   declaring an inline-budget residue final. **`int i < sizeof(a)/sizeof(a[0])` compiles to `jb`:** cast the count to
