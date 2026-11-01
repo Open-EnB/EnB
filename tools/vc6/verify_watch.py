@@ -53,6 +53,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import wt  # noqa: E402
 import verify_pr  # noqa: E402
+sys.path.insert(1, os.path.dirname(HERE))
+from claims import budget_ok  # noqa: E402  (the GitHub API budget floor, docs/github-plan.md 4.5.3a)
 
 ROOT = wt.ROOT
 OUT = os.path.join(ROOT, '.work', 'verify')
@@ -295,6 +297,10 @@ def eligible(r, p, rec, master, comments):
 # ---------------------------------------------------------------- the pass
 
 def once(dry=False):
+    ok, why = budget_ok()
+    if not ok:
+        log('pass skipped: ' + why)
+        return
     if not take_lock():
         print('another pass is running')
         return

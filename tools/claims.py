@@ -2,8 +2,8 @@
 """Claims: which not-yet-exact functions an agent is rebuilding (docs/github-plan.md section 4.5, P-GH-10).
 
     python tools/claims.py resolve UNIT             the functions UNIT covers (offline, master's data)
-    python tools/claims.py list [--json]            live claims on GitHub
-    python tools/claims.py check UNIT|ADDR          who holds any of these functions
+    python tools/claims.py list [--json] [--fresh]  live claims (the claims-state file, cached 5 minutes)
+    python tools/claims.py check UNIT|ADDR [--fresh] who holds any of these functions
     python tools/claims.py claim UNIT [--agent A] [--model M] [--accountable P] [--no-wait]
                                                     open a claim issue and wait for the bot's answer
     python tools/claims.py renew N | release N      comment /renew or /release on claim issue #N
@@ -23,6 +23,17 @@ contributor's turn (before a PR, while the PR is a draft, after a failed vc6-ver
 changes, until the next push): NOPR_H hours without a PR (`/renew` adds as much, RENEWALS times), INACTIVE_D
 days without the contributor's activity once a PR says `Claims #N`, TOTAL_D days in all; a PR closed unmerged
 leaves GRACE_H hours; a merged PR closes the claim. PER_ACCOUNT live claims per account, maintainers excepted.
+
+A maintainer's run claims in its own PR's body instead (tools/run_branch.py claim): one line per claim,
+`claim: UNIT (BUILDER, MODEL)`, inside the block RUN_OPEN ... RUN_CLOSE. Those claims live while that PR is
+open (draft or not) and end when it closes or merges; only open PRs whose author is a maintainer count. The
+Action counts their functions as held before it grants an issue claim.
+
+Reads: every reconcile writes the whole live state (issue claims and run-PR claims) as claims.json on the
+branch STATE_BRANCH; `list` and `check` read it with one API call, through a local cache (.work/claims-cache.json,
+CACHE_S seconds; --fresh bypasses it). Budget floor: before its first GitHub call and every BUDGET_EVERY calls,
+the process reads `gh api rate_limit` (free) and stops below BUDGET_FLOOR remaining core calls (not in the Action,
+whose token has its own budget).
 
 `gh` (authenticated) is needed for everything but `resolve`. Standard library only.
 """
@@ -55,6 +66,19 @@ TITLE = re.compile(r'^\s*claim\s*:\s*(.+?)\s*$', re.I)
 RANGE = re.compile(r'^(0x[0-9a-f]+)\s*-\s*(0x[0-9a-f]+)$', re.I)
 CLAIMS_REF = re.compile(r'(?i)\bclaims?\s+#(\d+)')
 LIVE = 'granted'
+
+# a maintainer run's claims, in its PR's body
+RUN_OPEN, RUN_CLOSE = '<!-- enb-run-claims -->', '<!-- /enb-run-claims -->'
+RUN_BLOCK = re.compile(re.escape(RUN_OPEN) + r'(.*?)' + re.escape(RUN_CLOSE), re.S)
+RUN_LINE = re.compile(r'^\s*claim:\s*`?(.+?)`?\s*\(([^,()]+?)(?:,\s*([^()]*?))?\)\s*$', re.I)
+
+# reads: the state file, the local cache, the budget floor
+STATE_BRANCH = 'claims-state'
+STATE_FILE = 'claims.json'
+CACHE = os.path.join(ROOT, '.work', 'claims-cache.json')
+CACHE_S = 300
+BUDGET_FLOOR = 500
+BUDGET_EVERY = 20
 
 
 # ---------------------------------------------------------------- units
@@ -204,24 +228,70 @@ def repo():
     return out.stdout.strip() or 'Open-EnB/EnB'
 
 
-def gh(path, method='GET', fields=None):
+_calls = [0]
+
+
+def budget():
+    """(remaining, reset time) of the core REST budget; `rate_limit` costs nothing."""
+    r = subprocess.run(['gh', 'api', 'rate_limit'], capture_output=True, text=True, encoding='utf-8')
+    if r.returncode:
+        return None, None
+    core = json.loads(r.stdout)['resources']['core']
+    return core['remaining'], dt.datetime.fromtimestamp(core['reset'], dt.timezone.utc)
+
+
+def budget_ok(floor=BUDGET_FLOOR):
+    """(True, '') or (False, why): BUDGET_FLOOR remaining core calls at least. Always True inside the Action."""
+    if os.environ.get('GITHUB_ACTIONS') == 'true':
+        return True, ''
+    left, reset = budget()
+    if left is None or left >= floor:
+        return True, ''
+    local = reset.astimezone().strftime('%H:%M')
+    return False, (f'GitHub API budget low: {left} core calls left (floor {floor}); it resets at {local} local '
+                   f'({fmt_time(reset)}). Stopping so the maintainer keeps a margin.')
+
+
+def budget_tick():
+    """Called before each GitHub API call: the floor is checked on the first and every BUDGET_EVERY-th."""
+    if _calls[0] % BUDGET_EVERY == 0:
+        ok, why = budget_ok()
+        if not ok:
+            sys.exit('claims: ' + why)
+    _calls[0] += 1
+
+
+def gh(path, method='GET', fields=None, payload=None, raw=False, missing_ok=False):
+    """One REST call. FIELDS are string fields (-f); PAYLOAD a JSON body; RAW returns the text of a raw-media
+    response; MISSING_OK returns None on a 404."""
+    budget_tick()
     cmd = ['gh', 'api', '-X', method, path]
+    if raw:
+        cmd += ['-H', 'Accept: application/vnd.github.raw']
     for k, v in (fields or {}).items():
         cmd += ['-f', f'{k}={v}']
-    r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
+    if payload is not None:
+        cmd += ['--input', '-']
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8',
+                       input=json.dumps(payload) if payload is not None else None)
     if r.returncode:
-        raise RuntimeError(f'gh api {method} {path}: {r.stderr.strip() or r.stdout.strip()}')
+        err = r.stderr.strip() or r.stdout.strip()
+        if missing_ok and ('404' in err or 'Not Found' in err):
+            return None
+        raise RuntimeError(f'gh api {method} {path}: {err}')
+    if raw:
+        return r.stdout
     return json.loads(r.stdout) if r.stdout.strip() else None
 
 
-def gh_all(path):
+def gh_all(path, limit=None):
     out, page = [], 1
     sep = '&' if '?' in path else '?'
     while True:
         chunk = gh(f'{path}{sep}per_page=100&page={page}')
         out += chunk
-        if len(chunk) < 100:
-            return out
+        if len(chunk) < 100 or (limit and len(out) >= limit):
+            return out[:limit] if limit else out
         page += 1
 
 
@@ -254,10 +324,15 @@ def render(st, note, number='N'):
     return '\n'.join(lines)
 
 
-def linked_prs(r):
-    """{claim number: [PRs naming it]} among the 300 most recently updated PRs."""
+def recent_pulls(r):
+    """The 300 most recently updated PRs (REST pulls objects, open and closed)."""
+    return gh_all(f'repos/{r}/pulls?state=all&sort=updated&direction=desc', limit=300)
+
+
+def linked_prs(r, pulls=None):
+    """{claim number: [PRs naming it]} among PULLS (default: the 300 most recently updated PRs)."""
     out = {}
-    for p in gh_all(f'repos/{r}/pulls?state=all&sort=updated&direction=desc')[:300]:
+    for p in (recent_pulls(r) if pulls is None else pulls):
         state = 'open' if p['state'] == 'open' else ('merged' if p.get('merged_at') else 'closed')
         for n in {int(x) for x in CLAIMS_REF.findall(p.get('body') or '')}:
             out.setdefault(n, []).append({
@@ -288,6 +363,92 @@ def pr_detail(r, pr):
     return pr
 
 
+# ---------------------------------------------------------------- a maintainer run's claims (its PR's body)
+
+def run_lines(body):
+    """[(unit, builder, model)] of the claim lines inside BODY's run-claims block (lines outside it are ignored)."""
+    m = RUN_BLOCK.search(body or '')
+    out = []
+    for line in (m.group(1) if m else '').splitlines():
+        x = RUN_LINE.match(line)
+        if x:
+            out.append((x.group(1).strip(), x.group(2).strip(), (x.group(3) or '').strip()))
+    return out
+
+
+def run_line(unit, builder, model=''):
+    return f'claim: {unit} ({builder}' + (f', {model}' if model else '') + ')'
+
+
+def set_run_lines(body, lines):
+    """BODY with its run-claims block holding LINES [(unit, builder, model)]; the block is added when missing."""
+    block = RUN_OPEN + '\n' + ''.join(run_line(*x) + '\n' for x in lines) + RUN_CLOSE
+    body = body or ''
+    if RUN_BLOCK.search(body):
+        return RUN_BLOCK.sub(lambda _: block, body, count=1)
+    return body.rstrip('\n') + ('\n\n' if body.strip() else '') + block + '\n'
+
+
+def run_claims(pulls, index):
+    """The claims of the open PRs whose author is a maintainer, from their bodies' run-claims blocks:
+    [{kind: 'pr', pr, holder, unit, builder, model, funcs, updated_at}]. The functions are master's not-yet-exact
+    ones the unit covers (a unit gone all exact holds none)."""
+    out = []
+    for p in pulls:
+        if p.get('state') != 'open' or p.get('author_association') not in MAINTAINER:
+            continue
+        for unit, builder, model in run_lines(p.get('body')):
+            try:
+                norm, funcs = index.resolve(unit, cap=None)
+            except ValueError:
+                norm, funcs = unit, []
+            out.append({'kind': 'pr', 'pr': p['number'], 'holder': p['user']['login'], 'unit': norm,
+                        'builder': builder, 'model': model, 'funcs': [f'0x{a:X}' for a in funcs],
+                        'updated_at': p.get('updated_at')})
+    return out
+
+
+def label_of(c):
+    """How a live claim is named: `#N` (an issue) or `PR #N` (a maintainer run's PR)."""
+    return f'PR #{c["pr"]}' if c.get('kind') == 'pr' else f'#{c["number"]}'
+
+
+def holders(claims):
+    """{function '0xADDR': label} of live claims (the first listed wins)."""
+    held = {}
+    for c in claims:
+        for a in c['funcs']:
+            held.setdefault(a, label_of(c))
+    return held
+
+
+def overlap(funcs, claims):
+    """The live claims among CLAIMS holding any of FUNCS (ints)."""
+    want = {f'0x{a:X}' for a in funcs}
+    return [c for c in claims if want & set(c['funcs'])]
+
+
+# ---------------------------------------------------------------- the state file (written by the Action)
+
+def state_doc(claims, now):
+    return {'v': 1, 'generated': fmt_time(now), 'claims': claims}
+
+
+def write_state(r, doc):
+    """Point STATE_BRANCH at a one-file commit holding DOC as claims.json. Each write replaces the last (no parent,
+    a forced ref update), so the branch never grows; master is not touched."""
+    text = json.dumps(doc, indent=1, sort_keys=True) + '\n'
+    tree = gh(f'repos/{r}/git/trees', 'POST',
+              payload={'tree': [{'path': STATE_FILE, 'mode': '100644', 'type': 'blob', 'content': text}]})
+    commit = gh(f'repos/{r}/git/commits', 'POST',
+                payload={'message': f'Claims state {doc["generated"]} ({len(doc["claims"])} live)',
+                         'tree': tree['sha'], 'parents': []})
+    if gh(f'repos/{r}/git/ref/heads/{STATE_BRANCH}', missing_ok=True) is None:
+        gh(f'repos/{r}/git/refs', 'POST', payload={'ref': f'refs/heads/{STATE_BRANCH}', 'sha': commit['sha']})
+    else:
+        gh(f'repos/{r}/git/refs/heads/{STATE_BRANCH}', 'PATCH', payload={'sha': commit['sha'], 'force': True})
+
+
 # ---------------------------------------------------------------- reconcile (the Action)
 
 def reconcile(dry_run=False, now=None, index=None):
@@ -296,7 +457,10 @@ def reconcile(dry_run=False, now=None, index=None):
     index = index or Index()
     issues = [i for i in gh_all(f'repos/{r}/issues?state=open') if 'pull_request' not in i and TITLE.match(i['title'])]
     issues.sort(key=lambda i: i['number'])
-    prs = linked_prs(r)
+    pulls = recent_pulls(r)
+    prs = linked_prs(r, pulls)
+    runs = run_claims(pulls, index)             # maintainer runs' claims: held before any issue is granted
+    live = []                                   # the state file's entries
     log = []
 
     def act(desc, fn):
@@ -322,7 +486,7 @@ def reconcile(dry_run=False, now=None, index=None):
             act(f'#{issue["number"]}: label {name}',
                 lambda: gh(f'repos/{r}/issues/{issue["number"]}/labels', 'POST', {'labels[]': name}))
 
-    held = {}                                   # function -> claim number
+    held = holders(runs)                        # function -> '#N' or 'PR #N'
     per_holder = {}
     pending = []
     for issue in issues:
@@ -370,8 +534,9 @@ def reconcile(dry_run=False, now=None, index=None):
                 close(issue, 'not_planned')
                 continue
             write(issue, marker, st, note or 'Live.', new_comment=bool(note))
+            live.append(issue_entry(issue, st))
             for a in st['funcs']:
-                held[a] = issue['number']
+                held.setdefault(a, f'#{issue["number"]}')
             if issue.get('author_association') not in MAINTAINER:
                 per_holder[st['holder']] = per_holder.get(st['holder'], 0) + 1
         else:
@@ -388,8 +553,8 @@ def reconcile(dry_run=False, now=None, index=None):
         clash = sorted({held[f'0x{a:X}'] for a in funcs if f'0x{a:X}' in held})
         if clash:
             write(issue, None, {'v': 1, 'state': 'refused', 'holder': who},
-                  'Refused: overlaps live claim ' + ', '.join(f'#{n}' for n in clash) + '. `python tools/claims.py '
-                  'list` shows what is held.')
+                  'Refused: overlaps live claim ' + ', '.join(clash) + ' (`PR #N`: a maintainer run\'s claim, '
+                  'held while that PR is open). `python tools/claims.py list` shows what is held.')
             close(issue, 'not_planned')
             continue
         if issue.get('author_association') not in MAINTAINER and per_holder.get(who, 0) >= PER_ACCOUNT:
@@ -400,25 +565,122 @@ def reconcile(dry_run=False, now=None, index=None):
         st = new_state(issue, unit, funcs, now)
         st['seen'] = seen
         write(issue, None, st, 'Granted.')
+        live.append(issue_entry(issue, st))
         for a in st['funcs']:
-            held[a] = issue['number']
+            held.setdefault(a, f'#{issue["number"]}')
         per_holder[who] = per_holder.get(who, 0) + 1
+    doc = state_doc(live + runs, now)
+    act(f'{STATE_BRANCH}: {STATE_FILE} with {len(live)} issue claims and {len(runs)} run-PR claims',
+        lambda: write_state(r, doc))
     for line in log:
         print(('(dry run) ' if dry_run else '') + line)
-    print(f'reconcile: {len(issues)} open claim issues, {len(set(held.values()))} live after this run')
+    print(f'reconcile: {len(issues)} open claim issues, {len(live)} live after this run; '
+          f'{len(runs)} claims in {len({c["pr"] for c in runs})} maintainer run PRs')
+
+
+def issue_entry(issue, st):
+    """A live issue claim as the state file lists it."""
+    return dict(st, kind='issue', number=issue['number'], updated_at=issue.get('updated_at'))
 
 
 # ---------------------------------------------------------------- CLI
 
-def live_claims(r):
+def scan_claims(r, index=None):
+    """The old way, when the state file is missing: one call per open claim issue, plus the open PRs' run claims."""
     out = []
     for i in gh_all(f'repos/{r}/issues?state=open&labels=claim'):
         if 'pull_request' in i:
             continue
         _, st = read_marker(gh_all(f'repos/{r}/issues/{i["number"]}/comments'))
         if st and st.get('state') == LIVE:
-            out.append((i['number'], st))
-    return out
+            out.append(issue_entry(i, st))
+    return out + run_claims(gh_all(f'repos/{r}/pulls?state=open'), index or Index())
+
+
+def read_cache(path=None):
+    try:
+        with open(path or CACHE, encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+def write_cache(doc, path=None):
+    path = path or CACHE
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + '.tmp'
+    with open(tmp, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(doc, f, indent=1)
+    os.replace(tmp, path)
+
+
+def cached(r, path=None, max_age=CACHE_S, now=None):
+    """The cached state document of repo R when younger than MAX_AGE seconds, else None."""
+    c = read_cache(path)
+    now = time.time() if now is None else now
+    if c and c.get('repo') == r and 0 <= now - c.get('fetched', 0) < max_age:
+        return c
+    return None
+
+
+def update_cache(add=(), drop=lambda c: False, path=None):
+    """A run's own grants and releases, applied to the cache (its age unchanged) so the next `check` sees them."""
+    c = read_cache(path)
+    if not c:
+        return
+    c['claims'] = [x for x in c['claims'] if not drop(x)] + list(add)
+    write_cache(c, path)
+
+
+def live_claims(r, fresh=False):
+    """(claims, doc): the live claims (state-file entries, kind 'issue' or 'pr') and the document they came from
+    ({generated, fetched, source: 'state' or 'scan'}). One API call, none within CACHE_S of the last unless FRESH."""
+    c = None if fresh else cached(r)
+    if c:
+        return c['claims'], c
+    text = gh(f'repos/{r}/contents/{STATE_FILE}?ref={STATE_BRANCH}', raw=True, missing_ok=True)
+    if text:
+        doc = json.loads(text)
+        doc['source'] = 'state'
+    else:
+        print(f'claims: warning: no {STATE_FILE} on the branch {STATE_BRANCH} yet (the Claims Action writes it); '
+              'scanning the issues instead, one API call per open claim issue', file=sys.stderr)
+        doc = state_doc(scan_claims(r), dt.datetime.now(dt.timezone.utc).replace(microsecond=0))
+        doc['source'] = 'scan'
+    doc['repo'], doc['fetched'] = r, time.time()
+    write_cache(doc)
+    return doc['claims'], doc
+
+
+def age_note(doc, now=None):
+    now = time.time() if now is None else now
+    gen = parse_time(doc['generated']).timestamp()
+    note = (f'state written {doc["generated"]} ({(now - gen) / 60:.0f} min ago'
+            + (', from claims-state' if doc.get('source') == 'state' else ', scanned: no state file') + ')')
+    if now - doc.get('fetched', now) >= 1:
+        note += f'; local cache {now - doc["fetched"]:.0f} s old (--fresh reads it again)'
+    return note
+
+
+def describe(c):
+    if c.get('kind') == 'pr':
+        return (f'{label_of(c):<8} @{c["holder"]:<20} {c["unit"]:<45} {len(c["funcs"]):>3} functions  '
+                f'run claim ({c.get("builder", "")}' + (f', {c["model"]}' if c.get('model') else '') + ')')
+    return (f'{label_of(c):<8} @{c["holder"]:<20} {c["unit"]:<45} {len(c["funcs"]):>3} functions'
+            + (f'  PR #{c["pr"]}' if c.get('pr') else f'  {c.get("nopr_used", 0) / 3600:.1f} h before a PR'))
+
+
+def answer_backoff(read, budget_s=180, first=5, cap=60, sleep=time.sleep):
+    """Poll READ() with waits of 5, 10, 20, 40, 60, 60... s until it returns something or BUDGET_S has passed."""
+    waited, step = 0, first
+    while waited < budget_s:
+        sleep(step)
+        waited += step
+        got = read()
+        if got:
+            return got
+        step = min(step * 2, cap)
+    return None
 
 
 def main():
@@ -428,8 +690,10 @@ def main():
     p.add_argument('unit', nargs='+')
     p = sub.add_parser('list')
     p.add_argument('--json', action='store_true')
+    p.add_argument('--fresh', action='store_true', help='bypass the 5-minute local cache')
     p = sub.add_parser('check')
     p.add_argument('unit', nargs='+')
+    p.add_argument('--fresh', action='store_true', help='bypass the 5-minute local cache')
     p = sub.add_parser('claim')
     p.add_argument('unit', nargs='+')
     p.add_argument('--agent', default='')
@@ -452,14 +716,13 @@ def main():
         return 0
     r = repo()
     if a.cmd == 'list':
-        claims = live_claims(r)
+        claims, doc = live_claims(r, a.fresh)
         if a.json:
-            print(json.dumps([dict(st, number=n) for n, st in claims], indent=1))
-        for n, st in claims:
-            print(f'#{n:<5} @{st["holder"]:<20} {st["unit"]:<45} {len(st["funcs"]):>3} functions'
-                  + (f'  PR #{st["pr"]}' if st.get('pr') else f'  {st["nopr_used"] / 3600:.1f} h before a PR'))
-        if not a.json:
-            print(f'{len(claims)} live claims')
+            print(json.dumps(claims, indent=1))
+            return 0
+        for c in claims:
+            print(describe(c))
+        print(f'{len(claims)} live claims; {age_note(doc)}')
         return 0
     if a.cmd == 'check':
         text = ' '.join(a.unit)
@@ -467,10 +730,11 @@ def main():
             want = {int(text, 16)}
         else:
             want = set(Index().resolve(text, cap=None)[1])
-        hits = [(n, st) for n, st in live_claims(r) if want & {int(x, 16) for x in st['funcs']}]
-        for n, st in hits:
-            print(f'held: #{n} @{st["holder"]} {st["unit"]}')
-        print('free' if not hits else f'{len(hits)} live claim(s) overlap')
+        claims, doc = live_claims(r, a.fresh)
+        hits = overlap(want, claims)
+        for c in hits:
+            print(f'held: {label_of(c)} @{c["holder"]} {c["unit"]}')
+        print(('free' if not hits else f'{len(hits)} live claim(s) overlap') + f' ({age_note(doc)})')
         return 1 if hits else 0
     if a.cmd in ('renew', 'release'):
         gh(f'repos/{r}/issues/{a.number}/comments', 'POST', {'body': '/' + a.cmd})
@@ -484,12 +748,14 @@ def main():
     print(f'opened #{issue["number"]} for {unit} ({len(funcs)} functions): {issue["html_url"]}')
     if a.no_wait:
         return 0
-    for _ in range(36):
-        time.sleep(5)
+    def poll():
         c, st = read_marker(gh_all(f'repos/{r}/issues/{issue["number"]}/comments'))
-        if st:
-            print(c['body'].split('\n', 1)[0])
-            return 0 if st.get('state') == LIVE else 1
+        return (c, st) if st else None
+    got = answer_backoff(poll)
+    if got:
+        c, st = got
+        print(c['body'].split('\n', 1)[0])
+        return 0 if st.get('state') == LIVE else 1
     print('no answer from the Action in 3 minutes; see the issue')
     return 2
 

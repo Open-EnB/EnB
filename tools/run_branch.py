@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """The coordinator's run branch, its draft PR and its claims (D148, docs/github-plan.md 4.5.3, P-GH-10 step 5).
 
-    python tools/run_branch.py start [--date YYYY-MM-DD]   run/<date> from origin/master (or brought up to it),
-                                                          pushed, with a draft PR to master (opened by `push`
-                                                          once the branch has its first commit)
-    python tools/run_branch.py claim UNIT --builder ID [--model M] [--split] [--wait S]
-                                                          claim a builder's functions (tools/claims.py) and add
-                                                          `Claims #N` to the run's PR; --split claims a big
-                                                          file as several claims of at most 30 functions
-    python tools/run_branch.py release N [--keep-line]      give claim #N back (and drop its line from the PR)
+    python tools/run_branch.py start [--date YYYY-MM-DD] [--co-author 'NAME <EMAIL>']
+                                                          run/<date> from origin/master (or brought up to it),
+                                                          pushed, with its draft PR to master opened at once (an
+                                                          empty commit `Start run <date>` when the branch has none)
+    python tools/run_branch.py claim UNIT --builder ID [--model M] [--split]
+                                                          claim a builder's functions in the run PR's body (one
+                                                          line each in its run-claims block, granted at once);
+                                                          refused when any live claim holds one of them; --split
+                                                          claims a big file as several claims of at most 30
+    python tools/run_branch.py release UNIT|BUILDER         drop the run's claim lines for UNIT or builder ID
+    python tools/run_branch.py release N [--keep-line]      (an old issue claim) comment /release on #N and drop
+                                                          its `Claims #N` line
     python tools/run_branch.py push                         push the run branch (the pre-push check runs)
     python tools/run_branch.py ready --summary FILE [--co-author 'NAME <EMAIL>']
                                                           the progress card regenerated and committed
@@ -20,10 +24,13 @@
                                                           local master, list leftover remote branches
 
 Run start: master is verified by construction (every PR passes vc6-verify), so the run's baseline is
-origin/master's imports.json. The PR opens as a draft at once: its claims stay alive while it is a draft (it is
-the run's turn, docs/github-plan.md 4.5.2) and contributors see the run's work before master does. Push at each
-heartbeat that brought work in; at handoff `ready` takes it out of draft, the verify service verifies it, and the
-maintainer merges it. Builders never push (D148); this script is the coordinator's.
+origin/master's imports.json. The PR opens as a draft at once, so the run's claims have a home: they are lines
+in its body (claims.py's run-claims block, `claim: UNIT (BUILDER, MODEL)`), live while the PR is open (draft or
+not) and ended by its merge or close; no issues, no bot comments, no emails. The Claims Action reads them on
+every edit of the body and refuses any contributor's claim that overlaps them. Push at heartbeats that brought
+builders' work in; at handoff `ready` takes it out of draft, the verify service verifies it, and the maintainer
+merges it. Builders never push (D148); this script is the coordinator's. Its GitHub calls go through claims.py's
+budget floor.
 """
 import argparse
 import datetime as dt
@@ -31,14 +38,12 @@ import os
 import re
 import subprocess
 import sys
-import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import claims as C  # noqa: E402
 
 ROOT = os.path.normpath(os.path.join(HERE, '..'))
-PENDING = os.path.join(ROOT, '.work', 'run_branch.claims')    # claims made before the run's PR exists
 SUMMARY =re.compile(r'<!-- run-summary -->.*?<!-- /run-summary -->', re.S)
 
 
@@ -50,6 +55,7 @@ def git(*args, check=True):
 
 
 def gh(*args):
+    C.budget_tick()
     r = subprocess.run(['gh', *args], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     if r.returncode:
         sys.exit(f'run_branch: gh {" ".join(args[:3])}: {r.stderr.strip() or r.stdout.strip()}')
@@ -79,26 +85,24 @@ def set_body(r, n, body):
 
 
 def initial_body(b):
-    return (f'<!-- run-summary -->\nRun `{b}` in progress: the coordinator pushes as builders\' work comes in, '
-            f'and takes this out of draft at handoff with the summary. The verify service verifies it then; the '
-            f'maintainer merges it (D148).\n<!-- /run-summary -->\n\n')
+    return C.set_run_lines(
+        f'<!-- run-summary -->\nRun `{b}` in progress: the coordinator pushes as builders\' work comes in, '
+        f'and takes this out of draft at handoff with the summary. The verify service verifies it then; the '
+        f'maintainer merges it (D148).\n<!-- /run-summary -->\n\nThe run\'s claims (tools/run_branch.py claim; '
+        f'held while this PR is open, docs/github-plan.md 4.5.3):\n', [])
 
 
 def ensure_pr(r, b):
-    """The run's PR, opened as a draft once the branch has a commit master lacks (GitHub refuses one before)."""
+    """The run's PR, opened as a draft (the branch has a commit master lacks: `start` makes sure of it)."""
     p = run_pr(r, b)
     if p:
         print(f'PR #{p["number"]} is open for {b}' + (' (draft)' if p.get('draft') else ''))
         return p
     if git('rev-list', '--count', f'origin/master..{b}') == '0':
-        print(f'{b} has no commits beyond master yet: `run_branch.py push` opens the draft PR after the first one')
-        return None
-    pending = open(PENDING).read().split() if os.path.exists(PENDING) else []
+        sys.exit(f'run_branch: {b} has no commits beyond master, so GitHub cannot open its PR; rerun `start`')
     url = gh('pr', 'create', '-R', r, '--draft', '--base', 'master', '--head', b, '--title', f'Run {b[4:]}',
-             '--body', initial_body(b) + ''.join(f'Claims #{n}\n' for n in pending))
-    print(f'draft PR: {url}' + (f' (claims {", ".join(pending)})' if pending else ''))
-    if os.path.exists(PENDING):
-        os.remove(PENDING)
+             '--body', initial_body(b))
+    print(f'draft PR: {url}')
     return run_pr(r, b)
 
 
@@ -117,6 +121,11 @@ def cmd_start(a):
     else:
         git('switch', '-q', '-c', b, 'origin/master')
         print(f'{b}: new, from origin/master {git("rev-parse", "--short", "origin/master")}')
+    if git('rev-list', '--count', f'origin/master..{b}') == '0':
+        # GitHub opens no PR for a branch without commits of its own, and the claims need the PR at once
+        msg = f'Start run {b[4:]}' + (f'\n\nCo-Authored-By: {a.co_author}' if a.co_author else '')
+        git('commit', '-q', '--allow-empty', '-m', msg)
+        print(f'{b}: empty commit `Start run {b[4:]}` (the draft PR needs one)')
     base = os.path.join(ROOT, '.work', f'imports.{git("rev-parse", "--short", "origin/master")}.json')
     with open(base, 'w', encoding='utf-8', newline='\n') as f:
         f.write(git('show', 'origin/master:docs/data/imports.json') + '\n')
@@ -125,79 +134,107 @@ def cmd_start(a):
     if push.returncode:
         sys.exit('run_branch: push failed (see the pre-push check above)')
     ensure_pr(r, b)
-    live = C.live_claims(r)
-    print(f'{len(live)} live claims: assign builders only unclaimed functions (python tools/claims.py list)')
+    live, doc = C.live_claims(r, fresh=True)
+    print(f'{len(live)} live claims ({C.age_note(doc)}): assign builders only unclaimed functions '
+          '(python tools/claims.py list)')
 
 
-def open_claim(r, unit, funcs, a):
-    body = (f'### Unit\n\n{unit}\n\n### Agent\n\nClaude Code, coordinator run builder {a.builder}\n\n'
-            f'### Model\n\n{a.model or "_No response_"}\n\n### Accountable person\n\nthe maintainer (run '
-            f'{branch()})\n')
-    issue = C.gh(f'repos/{r}/issues', 'POST', {'title': f'claim: {unit}', 'body': body})
-    return issue['number']
+def split_units(ix, text, split):
+    """The units to claim for TEXT: one, or with SPLIT one per CAP not-yet-exact functions."""
+    if not split:
+        return [ix.resolve(text)[0]]
+    unit, funcs = ix.resolve(text, cap=None)
+    path = unit.split(' ')[0] if '.' in unit.split(' ')[0] else ''
+    chunks = [funcs[i:i + C.CAP] for i in range(0, len(funcs), C.CAP)]
+    units = []
+    for k, ch in enumerate(chunks):
+        end = chunks[k + 1][0] if k + 1 < len(chunks) else ch[-1] + 1
+        units.append(((path + ' ') if path else '') + f'0x{ch[0]:X}-0x{end:X}')
+    return units
 
 
-def answer(r, n, wait=180):
-    """The claim's state once the Action (or, when it does not answer, a local reconcile) has decided."""
-    end = time.time() + wait
-    while time.time() < end:
-        time.sleep(10)
-        _, st = C.read_marker(C.gh_all(f'repos/{r}/issues/{n}/comments'))
-        if st:
-            return st
-    print('the Claims Action did not answer; reconciling here (as the maintainer)')
-    C.reconcile()
-    return C.read_marker(C.gh_all(f'repos/{r}/issues/{n}/comments'))[1] or {}
+def grant(ix, units, own_lines, others, builder, model, pr_number, holder, now=None):
+    """Which UNITS can join the run PR's claim lines OWN_LINES, given OTHERS (the state file's live claims of
+    everyone but this PR). Returns (all lines, [(unit, why refused)], the new state-file entries)."""
+    mine = C.run_claims([{'state': 'open', 'author_association': 'OWNER', 'number': pr_number,
+                          'user': {'login': holder}, 'body': C.set_run_lines('', own_lines)}], ix)
+    stamp = C.fmt_time(now or dt.datetime.now(dt.timezone.utc).replace(microsecond=0))
+    lines, refused, added = list(own_lines), [], []
+    for unit in units:
+        norm, funcs = ix.resolve(unit)
+        hits = C.overlap(funcs, others + mine + added)
+        if hits:
+            names = sorted({C.label_of(c) + (f' ({c["builder"]})' if c.get('builder') else '') for c in hits})
+            refused.append((norm, 'overlaps ' + ', '.join(names)))
+            continue
+        lines.append((norm, builder, model))
+        added.append({'kind': 'pr', 'pr': pr_number, 'holder': holder, 'unit': norm, 'builder': builder,
+                      'model': model, 'funcs': [f'0x{x:X}' for x in funcs], 'updated_at': stamp})
+    return lines, refused, added
 
 
 def cmd_claim(a):
     r, b = C.repo(), branch()
-    p = run_pr(r, b) or ensure_pr(r, b)
+    p = run_pr(r, b)
+    if not p:
+        sys.exit(f'run_branch: {b} has no open PR to hold the claims; run `run_branch.py start` first')
     ix = C.Index()
-    text = ' '.join(a.unit)
-    if a.split:
-        unit, funcs = ix.resolve(text, cap=None)
-        path = unit.split(' ')[0] if '.' in unit.split(' ')[0] else ''
-        chunks = [funcs[i:i + C.CAP] for i in range(0, len(funcs), C.CAP)]
-        units = []
-        for k, ch in enumerate(chunks):
-            end = chunks[k + 1][0] if k + 1 < len(chunks) else ch[-1] + 1
-            units.append(((path + ' ') if path else '') + f'0x{ch[0]:X}-0x{end:X}')
-    else:
-        units = [ix.resolve(text)[0]]
-    granted = []
-    for unit in units:
-        n = open_claim(r, unit, None, a)
-        st = answer(r, n, a.wait)
-        if st.get('state') == C.LIVE:
-            granted.append(n)
-            print(f'#{n} granted: {unit} ({len(st["funcs"])} functions)')
-        else:
-            print(f'#{n} not granted: {unit} (see the issue)')
-    if granted and p:
-        body = body_of(r, p['number']).rstrip('\n') + '\n' + ''.join(f'Claims #{n}\n' for n in granted)
-        set_body(r, p['number'], body)
-        print(f'PR #{p["number"]}: ' + ', '.join(f'Claims #{n}' for n in granted))
-    elif granted:
-        with open(PENDING, 'a', newline='\n') as f:
-            f.write(''.join(f'{n}\n' for n in granted))
-        print(f'no PR yet: Claims #{", #".join(map(str, granted))} go into it when `push` opens it '
-              f'(within {C.NOPR_H} h, or the claims expire)')
-    return 0 if len(granted) == len(units) else 1
+    units = split_units(ix, ' '.join(a.unit), a.split)
+    live, _ = C.live_claims(r, fresh=True)
+    others = [c for c in live if not (c.get('kind') == 'pr' and c.get('pr') == p['number'])]
+    lines, refused, added = grant(ix, units, C.run_lines(p.get('body')), others, a.builder, a.model, p['number'],
+                                  p['user']['login'])
+    for unit, why in refused:
+        print(f'not granted: {unit}: {why} (python tools/claims.py list)')
+    if added:
+        set_body(r, p['number'], C.set_run_lines(p.get('body'), lines))
+        C.update_cache(add=added)
+        for c in added:
+            print(f'PR #{p["number"]} claims {c["unit"]} ({len(c["funcs"])} functions) for {a.builder}')
+    return 0 if not refused else 1
+
+
+def release_lines(lines, what, norm=None):
+    """LINES [(unit, builder, model)] without those naming WHAT (a builder ID or a unit; NORM: WHAT resolved)."""
+    return [x for x in lines if x[1] != what and x[0] != what and x[0] != norm]
 
 
 def cmd_release(a):
     r = C.repo()
-    C.gh(f'repos/{r}/issues/{a.number}/comments', 'POST', {'body': '/release'})
-    print(f'#{a.number}: /release commented')
-    if not a.keep_line:
+    if len(a.what) == 1 and a.what[0].isdigit():
+        return release_issue(r, int(a.what[0]), a.keep_line)
+    p = run_pr(r, branch())
+    if not p:
+        sys.exit('run_branch: the run has no open PR')
+    text = ' '.join(a.what)
+    try:
+        norm = C.Index().resolve(text, cap=None)[0]
+    except ValueError:
+        norm = None
+    lines = C.run_lines(p.get('body'))
+    keep = release_lines(lines, text, norm)
+    if len(keep) == len(lines):
+        sys.exit(f'run_branch: no claim line of PR #{p["number"]} names {text!r}')
+    set_body(r, p['number'], C.set_run_lines(p.get('body'), keep))
+    gone = {x[0] for x in lines} - {x[0] for x in keep}
+    C.update_cache(drop=lambda c: c.get('kind') == 'pr' and c.get('pr') == p['number'] and c['unit'] in gone)
+    print(f'PR #{p["number"]}: released ' + '; '.join(sorted(gone)))
+    return 0
+
+
+def release_issue(r, number, keep_line):
+    C.gh(f'repos/{r}/issues/{number}/comments', 'POST', {'body': '/release'})
+    print(f'#{number}: /release commented')
+    if not keep_line:
         p = run_pr(r, branch())
         if p:
-            body = body_of(r, p['number'])
-            new = re.sub(rf'(?im)^claims?\s+#{a.number}\s*\n?', '', body)
+            body = p.get('body') or ''
+            new = re.sub(rf'(?im)^claims?\s+#{number}\s*\n?', '', body)
             if new != body:
                 set_body(r, p['number'], new)
-                print(f'PR #{p["number"]}: Claims #{a.number} removed')
+                print(f'PR #{p["number"]}: Claims #{number} removed')
+    C.update_cache(drop=lambda c: c.get('kind') == 'issue' and c.get('number') == number)
+    return 0
 
 
 def cmd_push(a):
@@ -249,10 +286,16 @@ def cmd_status(a):
     ahead = git('rev-list', '--count', f'origin/{b}..{b}', check=False)
     print(f'branch {b}; unpushed commits: {ahead.stdout.strip() if ahead.returncode == 0 else "? (not pushed yet)"}')
     if p:
-        mine = {int(x) for x in C.CLAIMS_REF.findall(p.get('body') or '')}
-        print(f'PR #{p["number"]}' + (' (draft)' if p.get('draft') else '') + f': claims {sorted(mine)}')
-    for n, st in C.live_claims(r):
-        print(f'  #{n} @{st["holder"]} {st["unit"]} ({len(st["funcs"])} functions)')
+        old = sorted({int(x) for x in C.CLAIMS_REF.findall(p.get('body') or '')})
+        print(f'PR #{p["number"]}' + (' (draft)' if p.get('draft') else '') + ': run claims:')
+        for unit, builder, model in C.run_lines(p.get('body')):
+            print(f'  {unit} ({builder}' + (f', {model}' if model else '') + ')')
+        if old:
+            print(f'  issue claims named by `Claims #N`: {old}')
+    live, doc = C.live_claims(r)
+    print(f'{len(live)} live claims in all ({C.age_note(doc)}):')
+    for c in live:
+        print('  ' + C.describe(c))
 
 
 def cmd_cleanup(a):
@@ -296,15 +339,16 @@ def cmd_cleanup(a):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
-    sub.add_parser('start').add_argument('--date')
+    p = sub.add_parser('start')
+    p.add_argument('--date')
+    p.add_argument('--co-author', help="the start commit's Co-Authored-By value (D71)")
     p = sub.add_parser('claim')
     p.add_argument('unit', nargs='+')
     p.add_argument('--builder', required=True)
     p.add_argument('--model', default='')
     p.add_argument('--split', action='store_true')
-    p.add_argument('--wait', type=int, default=180, help='seconds to wait for the Claims Action before reconciling here')
     p = sub.add_parser('release')
-    p.add_argument('number', type=int)
+    p.add_argument('what', nargs='+', help='a unit or builder ID (a run claim), or N (an old issue claim)')
     p.add_argument('--keep-line', action='store_true')
     sub.add_parser('push')
     rd = sub.add_parser('ready')
