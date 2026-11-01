@@ -99,7 +99,11 @@ public:
 	// resend timer or time-out).
 	bool Pump_Connections();
 	// A go-away (type 6) from the peer: the connection it names goes away. 0x8586D0
-	bool Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from);
+	// The five arguments of the other Process_* (ret 0x14); socket and unknown unused.
+	bool Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown);
+	// Sends a go-away (type 6) to ip:port on udp, answering a datagram of that type and session. 0x858640
+	// (no caller; Pump has it inlined)
+	void Send_Go_Away(UDP *udp, unsigned int ip, unsigned short port, unsigned char type, unsigned short session);	// NAME 2: what it sends
 	// A 0-byte read (the peer's port unreachable): every connection to that address goes away.
 	// 0x858980
 	void Process_Zero_Read(sockaddr_in *from);	// NAME 2: what it does

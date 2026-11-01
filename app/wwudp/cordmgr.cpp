@@ -150,7 +150,7 @@ bool CordMgr::Pump_Connections()
 // 0x857F20, functional (NOT EXACT): the data sockets, then the listening ones, each until Read
 // says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the
 // data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2,
-// go-away, a 0-byte read (0x858980), the type-6 answer to an unexpected datagram.
+// the type-6 answer to an unexpected datagram (Send_Go_Away 0x858640, inlined).
 void CordMgr::Pump()
 {
 	WWPROFILE("CordMgr::Pump");
@@ -183,7 +183,7 @@ void CordMgr::Pump()
 			} else if (type == 2 && listen) {
 				taken = Process_SYN2_Packet(buf, len, &from, udp, 0);
 			} else if (type == 6) {
-				taken = Process_Go_Away_Packet(buf, len, &from);
+				taken = Process_Go_Away_Packet(buf, len, &from, udp, 0);
 			}
 			if (!taken) {
 				Unexpected_++;
@@ -621,40 +621,53 @@ CordDataSocketClass *CordMgr::Find_Data_Socket(UDP *socket)
 // the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's
 // address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every
 // connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up.
-bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from)
+bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_Go_Away_Packet");
 	if (len != 10) {
 		return false;
 	}
+	unsigned int ip = ntohl(*(unsigned int *)(data + 1));
 	unsigned short port = ntohs(*(unsigned short *)(data + 5));
+	unsigned char type = data[7];
 	unsigned short session = ntohs(*(unsigned short *)(data + 8));
-	if (data[7] == 0 || data[7] == 2) {
-		for (int p = 0; p < Pending_.length(); p++) {
-			CordConnectingClass *c; Pending_.get(c, p);
-			unsigned int lip = 0;
-			unsigned short lport = 0;
-			if (c->Socket != NULL) {
-				c->Socket->getLocalAddr(lip, lport);
+	switch (type) {
+		case 4:
+		case 5:
+		{
+			CordCon *con = NULL;
+			for (int i = 0; i < Connections_.length(); i++) {
+				Connections_.get(con, i);
+				unsigned int lip = 0;
+				unsigned short lport = 0;
+				con->Udp_->getLocalAddr(lip, lport);
+				if (lport == port) {
+					unsigned int cip = con->Ip_;
+					if (ntohl(from->sin_addr.s_addr) == cip) {
+						unsigned short cport = con->Port_;
+						if (ntohs(from->sin_port) == cport && con->Session_ == session) {
+							con->Go_Away();
+							return true;
+						}
+					}
+				}
 			}
-			if (c->Socket != NULL && lport == port && c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
-				c->Created = 1;
-			}
+			break;
 		}
-		return false;
-	}
-	if (data[7] != 4 && data[7] != 5) {
-		return false;
-	}
-	for (int i = 0; i < Connections_.length(); i++) {
-		CordCon *con; Connections_.get(con, i);
-		unsigned int ip = 0;
-		unsigned short local = 0;
-		con->Udp_->getLocalAddr(ip, local);
-		if (local == port && con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)
-			&& (unsigned short)con->Session_ == session) {
-			con->Go_Away();
-			return true;
+		case 0:
+		case 2:
+		{
+			CordConnectingClass *c = NULL;
+			for (int p = 0; p < Pending_.length(); p++) {
+				Pending_.get(c, p);
+				unsigned int lip = 0;
+				unsigned short lport = 0;
+				c->Socket->getLocalAddr(lip, lport);
+				if (lport == port && ntohl(from->sin_addr.s_addr) == c->Ip && ntohs(from->sin_port) == c->Port) {
+					c->Created = 1;
+				}
+			}
+			break;
 		}
 	}
 	return false;
@@ -663,14 +676,20 @@ bool CordMgr::Process_Go_Away_Packet(unsigned char *data, int len, sockaddr_in *
 // 0x858980: the connections to that address and port go away; the connecting records to it age 5 s.
 void CordMgr::Process_Zero_Read(sockaddr_in *from)
 {
+	CordCon *con = NULL;
 	for (int i = 0; i < Connections_.length(); i++) {
-		CordCon *con; Connections_.get(con, i);
-		if (con->Ip_ == ntohl(from->sin_addr.s_addr) && con->Port_ == ntohs(from->sin_port)) {
-			con->Go_Away();
+		Connections_.get(con, i);
+		unsigned int ip = con->Ip_;
+		if (ip == ntohl(from->sin_addr.s_addr)) {
+			unsigned short port = con->Port_;
+			if (port == ntohs(from->sin_port)) {
+				con->Go_Away();
+			}
 		}
 	}
+	CordConnectingClass *c;
 	for (int p = 0; p < Pending_.length(); p++) {
-		CordConnectingClass *c; Pending_.get(c, p);
+		Pending_.get(c, p);
 		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)) {
 			c->Created.addSeconds(-5);
 		}
@@ -743,25 +762,6 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 					con->Port_ = ntohs(from->sin_port);
 					break;
 				}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1434,31 +1434,34 @@ int CordMgr::Wait(int sec, int usec)
 	return 0;
 }
 
-// 0x859440, NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs.
+// 0x859440: wlib ArrayList's remove inlined once, as the client's.
 bool CordMgr::Find_Connection(CordCon **con, unsigned int port, int session)
 {
 	int i;
+	bool found = false;
 	for (i = 0; i < AllConnections_.length(); i++) {
 		AllConnections_.get(*con, i);
 		CordCon *c = *con;
 		if (session == 0 ? (c->IsServer_ && port == c->Unknown0C) : (!c->IsServer_ && session == c->Session_)) {
-			goto found;
+			found = true;
+			break;
 		}
 	}
-	return false;
-found:
+	if (!found) {
+		return false;
+	}
 	AllConnections_.remove(i);
 	return true;
 
 
 }
 
-// 0x8595B0, NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but
+// 0x8595B0: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but
 // left in Pending_, as the client leaves it.
 bool CordMgr::Cancel_Connect(int session)
 {
 	int i;
-	CordCon *con = (CordCon *)session;
+	CordCon *con;
 	for (i = 0; i < AllConnections_.length(); i++) {
 		AllConnections_.get(con, i);
 		if (con->Session_ == session && !con->IsServer_) {
@@ -1467,7 +1470,7 @@ bool CordMgr::Cancel_Connect(int session)
 			return true;
 		}
 	}
-	CordConnectingClass *c = (CordConnectingClass *)session;
+	CordConnectingClass *c;
 	for (i = 0; i < Pending_.length(); i++) {
 		Pending_.get(c, i);
 		if (c->Session == session) {
@@ -1476,6 +1479,19 @@ bool CordMgr::Cancel_Connect(int session)
 		}
 	}
 	return false;
+}
+
+// 0x858640 (between Pump and Process_Go_Away_Packet in the client; inlined in Pump, no caller): a go-away
+// (type 6) to ip:port on udp: the address and port again, the type it answers, the session.
+void CordMgr::Send_Go_Away(UDP *udp, unsigned int ip, unsigned short port, unsigned char type, unsigned short session)
+{
+	unsigned char buf[0x100];
+	buf[0] = 6;
+	*(unsigned int *)(buf + 1) = htonl(ip);
+	*(unsigned short *)(buf + 5) = htons(port);
+	buf[7] = type;
+	*(unsigned short *)(buf + 8) = htons(session);
+	udp->Write(buf, 10, ip, port);
 }
 
 // 0x8598F0 (via the game's 0x82E1D0; after Release 0x8596F0 in the client, here last so the log

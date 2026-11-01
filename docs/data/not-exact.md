@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-395 entries in 81 files.
+393 entries in 81 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -400,9 +400,7 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordcon.cpp:1348` | `CordCon::pumpInternal` | mention | NOT EXACT: Xtime, the vectors' inlined code and the log calls differ): pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are dropped (the client logs 'Removing unreliable'); then the records by priority (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into datagrams of under 500 bytes. A first send counts in flight; a... |
 | `app/wwudp/cordmgr.cpp:7` | `Cord_CRC` | mention | NOT EXACT, D42: the data path). The client's log calls (E&B's log 0x4BC130 with __FILE__ / __LINE__, category "UDP") sit on their lines, 592 and 1272 (D25): the blank stretches below hold the place of the functions not rebuilt. Notes at the end. |
 | `app/wwudp/cordmgr.cpp:97` | `CordMgr::Pump_Connections` | mention | NOT EXACT): SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a connection 60 s old gives up: it becomes a CordCon without a socket (so the caller finds it, closed) and leaves the list. (The client then reads the freed record once more; not rebuil... |
-| `app/wwudp/cordmgr.cpp:150` | `CordMgr::Pump` | mention | NOT EXACT): the data sockets, then the listening ones, each until Read says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2, go-away, a 0-byte read (0x858980), the type-6 answer to an unexpected datagram. |
+| `app/wwudp/cordmgr.cpp:150` | `CordMgr::Pump` | mention | NOT EXACT): the data sockets, then the listening ones, each until Read says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2, the type-6 answer to an unexpected datagram (Send_Go_Away 0x858640, inlined). |
 | `app/wwudp/cordmgr.cpp:620` | `CordMgr::Process_Go_Away_Packet` | mention | NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers, the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up. |
-| `app/wwudp/cordmgr.cpp:691` | `CordMgr::Pump_Releases` | mention | NOT EXACT): as many entries as the list holds while it shrinks; a due one leaves the list, and its connection, when still open, leaves Connections_, its socket's count and memory (the client logs '%d UDP connections managed'). |
+| `app/wwudp/cordmgr.cpp:710` | `CordMgr::Pump_Releases` | mention | NOT EXACT): as many entries as the list holds while it shrinks; a due one leaves the list, and its connection, when still open, leaves Connections_, its socket's count and memory (the client logs '%d UDP connections managed'). |
 | `app/wwudp/cordmgr.cpp:1410` | `CordMgr::Wait` | mention | NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one. |
-| `app/wwudp/cordmgr.cpp:1437` | `CordMgr::Find_Connection` | mention | NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs. |
-| `app/wwudp/cordmgr.cpp:1456` | `CordMgr::Cancel_Connect` | mention | NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but left in Pending_, as the client leaves it. |
