@@ -2806,6 +2806,30 @@
      "0x7126F0"
     ]
    },
+   "font32bit": {
+    "ambiguous": [
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x6BBC60",
+     "0x6BBC90",
+     "0x6BBD50",
+     "0x6BCBB0",
+     "0x6BCC40",
+     "0x6BCC70",
+     "0x6BCDE0",
+     "0x6BCED0",
+     "0x6BCF00"
+    ],
+    "merged": [],
+    "name": "client/font32bit.cpp"
+   },
    "fontdatabase": {
     "ambiguous": [
      "0x42A6C0",
@@ -2832,6 +2856,7 @@
      "0x42D050",
      "0x42DB00",
      "0x42DB80",
+     "0x42F250",
      "0x432B80",
      "0x433700",
      "0x433A10",
@@ -11642,6 +11667,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42F250",
      "0x4FA8F0",
      "0x4FA9C0",
      "0x4FA9F0",
@@ -12075,6 +12101,7 @@
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
    "client/extrap.h": "reconstructed",
+   "client/font32bit.h": "reconstructed",
    "client/fontdatabase.h": "reconstructed",
    "client/fontmanager.h": "reconstructed",
    "client/gadget.h": "reconstructed",

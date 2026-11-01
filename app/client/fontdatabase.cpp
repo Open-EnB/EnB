@@ -938,8 +938,8 @@ void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index,
 	}
 	if (spacing != 0xFFFFFF && info->Spacing[chat_index] != spacing) {
 		info->Spacing[chat_index] = spacing;
-		Font[chat_index].font32Ptr->Set_Spacing(spacing);
-		Font[chat_index].font32Ptr->Set_Spacing(spacing);
+		Font[chat_index].font32Ptr->Set_XSpacing(spacing);
+		Font[chat_index].font32Ptr->Set_XSpacing(spacing);
 		changed = true;
 	}
 	if (value98 != 0xFFFFFF && info->Unknown98[chat_index] != value98) {
@@ -948,9 +948,9 @@ void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index,
 	if (changed) {
 		Font[chat_index].font32Ptr = Create_NEW(new Font32Class(info->Font[chat_index], info->Spacing[chat_index], info->Scale[chat_index]));
 	} else {
-		Font[chat_index].font32Ptr->Set_Spacing(info->Spacing[chat_index]);
+		Font[chat_index].font32Ptr->Set_XSpacing(info->Spacing[chat_index]);
 	}
-	info->Unknown98[chat_index] = Font[chat_index].font32Ptr->Unknown_1C(info->Unknown98[chat_index]);
+	info->Unknown98[chat_index] = Font[chat_index].font32Ptr->Set_YSpacing(info->Unknown98[chat_index]);
 }
 
 

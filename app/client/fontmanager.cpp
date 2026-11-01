@@ -54,7 +54,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 	Name = object->Get_Name();
 	Id = (unsigned int)object;
 	Unknown08 = 1;
-	float font_height = font->font32Ptr->Get_Height(480.0f);
+	float font_height = font->font32Ptr->Get_Char_Height(480.0f);
 	if (def->Width > 0.0f) {
 		width = def->Width;
 	} else {

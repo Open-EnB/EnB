@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1109 |
-| 2 | describes what the code does | 2759 |
-| 1 | neutral placeholder | 9443 |
+| 2 | describes what the code does | 2770 |
+| 1 | neutral placeholder | 9432 |
 
 ## For review (score 3 and below)
 
@@ -1556,23 +1556,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_6C1500` | `app/client/fontdatabase.cpp:509` | untagged neutral name (D10) |
 | 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.cpp:546` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/fontdatabase.cpp:953` | untagged neutral name (D10) |
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1157` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
-| 1 | `Font32BaseClass` | `app/client/fontdatabase.h:73` | neutral (D10): the font object's first base (vtable 0xAFE94C) |
-| 1 | `Unknown_00` | `app/client/fontdatabase.h:76` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/fontdatabase.h:77` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/fontdatabase.h:78` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/fontdatabase.h:79` | neutral (D10) |
-| 1 | `Unknown_10` | `app/client/fontdatabase.h:80` | neutral (D10) |
-| 1 | `Unknown_14` | `app/client/fontdatabase.h:81` | neutral (D10) |
-| 1 | `Unknown_1C` | `app/client/fontdatabase.h:83` | neutral (D10) |
-| 1 | `Unknown_20` | `app/client/fontdatabase.h:84` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/fontdatabase.h:96` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/fontdatabase.h:147` | neutral (D10) |
 | 1 | `Unknown_6BE520` | `app/client/fontdatabase.h:185` | neutral (D10) |
 | 1 | `Unknown_6BF910` | `app/client/fontdatabase.h:187` | neutral (D10) |
@@ -9818,6 +9807,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/extrap.h:293` | what the state passes |
 | 2 | `LeaderID` | `app/client/extrap.h:294` | the packet's LeaderID |
 | 2 | `Offset` | `app/client/extrap.h:295` | the packet's Offset |
+| 2 | `Font32Class` | `app/client/font32bit.h:13` | what font32Ptr points at (0xD30 bytes; vtables 0xAFE94C / 0xAFE940) |
+| 2 | `Get_Line_Spacing` | `app/client/font32bit.h:28` | the height plus YSpacing |
+| 2 | `Get_Text_Width` | `app/client/font32bit.h:29` | String_Pixel_Width scaled to the screen width |
+| 2 | `Get_Char_Width` | `app/client/font32bit.h:30` | Char_Pixel_Width, scaled |
+| 2 | `Get_Char_Height` | `app/client/font32bit.h:31` | Get_Height scaled to the screen height (not Get_Height: VC6 groups the overload next to it) |
+| 2 | `Get_Line_Height` | `app/client/font32bit.h:32` | Get_Line_Spacing, scaled |
+| 2 | `Peek_Surface` | `app/client/font32bit.h:34` | Westwood's Peek_ style |
+| 2 | `Print_To_Surface` | `app/client/font32bit.h:35` | copies each character's cells to dest |
+| 2 | `Update_Resolution` | `app/client/font32bit.h:36` | ScreenWidth / ScreenHeight from WW3D |
+| 2 | `Surface` | `app/client/font32bit.h:43` | the font image |
+| 2 | `Scale` | `app/client/font32bit.h:48` | Scale%d |
+| 2 | `ScreenWidth` | `app/client/font32bit.h:49` | 640 until Update_Resolution |
+| 2 | `ScreenHeight` | `app/client/font32bit.h:50` | 480 until Update_Resolution |
+| 2 | `YSpacing` | `app/client/font32bit.h:53` | Set_YSpacing's |
+| 2 | `XSpacing` | `app/client/font32bit.h:54` | Set_XSpacing's |
+| 2 | `MinSpacing` | `app/client/font32bit.h:55` | Spacing%d, Set_XSpacing's lower bound |
 | 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:244` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
 | 2 | `Name` | `app/client/fontdatabase.cpp:248` | the ini key |
 | 2 | `RGB` | `app/client/fontdatabase.cpp:249` | the ini key |
@@ -9844,11 +9849,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultFont` | `app/client/fontdatabase.h:67` | what 0x6C3D40 restores Font from |
 | 2 | `DefaultScale` | `app/client/fontdatabase.h:68` | what 0x6C3D40 restores Scale from |
 | 2 | `DefaultSpacing` | `app/client/fontdatabase.h:69` | what 0x6C3D40 restores Spacing from |
-| 2 | `Set_Spacing` | `app/client/fontdatabase.h:82` | what it is given |
-| 2 | `Get_Text_Width` | `app/client/fontdatabase.h:85` | what FontSplitStringClass measures with |
-| 2 | `Get_Char_Width` | `app/client/fontdatabase.h:86` | what FontSplitStringClass measures with |
-| 2 | `Get_Height` | `app/client/fontdatabase.h:87` | what 0x6CF930 spaces the lines with |
-| 2 | `Font32Class` | `app/client/fontdatabase.h:90` | what font32Ptr points at (0xD30 bytes) |
 | 2 | `FontStruct` | `app/client/fontdatabase.h:99` | one of the fonts in use (0xC bytes) |
 | 2 | `Name` | `app/client/fontdatabase.h:104` | what Find_Font compares |
 | 2 | `Scale` | `app/client/fontdatabase.h:105` | Scale%d is copied in |
