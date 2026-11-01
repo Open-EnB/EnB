@@ -15,8 +15,8 @@ HtmlViewClass::HtmlViewClass(void) :
 		delete block;
 		Blocks.remove(Blocks.length() - 1);
 	}
-	Unknown130 = 0;
-	Unknown134 = 0;
+	ScrollX = 0;
+	ScrollY = 0;
 	Dirty = 0;
 }
 
@@ -32,8 +32,8 @@ bool HtmlViewClass::Clear(void)
 		delete block;
 		Blocks.remove(Blocks.length() - 1);
 	}
-	Unknown130 = 0;
-	Unknown134 = 0;
+	ScrollX = 0;
+	ScrollY = 0;
 	return true;
 }
 
@@ -116,6 +116,144 @@ void HtmlViewClass::Layout(void)
 	}
 }
 
+// NOT EXACT: 0x7761E0, the clip RECT built in another store order (scheduling); every block drawn through Draw_Block 0x776390
+bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, int height)
+{
+	if (Surf == NULL)
+		return false;
+
+	ScrollX = scrollx;
+	ScrollY = scrolly;
+
+	RECT clip;
+	clip.top = y;
+	clip.left = x;
+	clip.bottom = y + height;
+	clip.right = x + width;
+
+	HtmlBlockClass *block = NULL;
+	for (int i = 0; i < Blocks.length(); i++) {
+		Blocks.get(block, i);
+		if (i == 0) {
+			block->Set_X(scrollx);
+			block->Set_Y(scrolly);
+		}
+		RECT rect = clip;
+		HtmlBlockClass *parent = block->Parent;
+		if (parent != NULL) {
+			RECT bounds;
+			bounds.left = parent->AbsX;
+			bounds.top = parent->AbsY;
+			bounds.right = parent->Width + bounds.left;
+			bounds.bottom = parent->Height + bounds.top;
+			if (!IntersectRect(&rect, &clip, &bounds))
+				continue;
+		}
+		Draw_Block(block, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+	}
+	return true;
+}
+
+// NOT EXACT: 0x776FC0, scheduling (the client reads block->X before the Get_Abs_X call and x after it)
+char *HtmlViewClass::Click(int x, int y, int)
+{
+	static char href[256];
+
+	for (int i = Blocks.length() - 1; i >= 0; i--) {
+		HtmlBlockClass *block = NULL;
+		Blocks.get(block, i);
+		int bx = block->X + x - block->Get_Abs_X();
+		int by = block->Y + y - block->Get_Abs_Y();
+		for (int j = 0; j < block->Items.length(); j++) {
+			HtmlItemStruct *item = block->Get_Item(j);
+			if (bx >= item->X && bx <= item->X + item->Width && by >= item->Y && by <= item->Y + item->Height) {
+				char *value = item->Attributes.Get("Anchor.HREF");
+				if (value == NULL)
+					return NULL;
+				strcpy(href, value);
+				Open(href);
+				return href;
+			}
+		}
+	}
+	return NULL;
+}
+
+// NOT EXACT: 0x7772C0, the same scheduling as Click
+char *HtmlViewClass::Hit_Test(int x, int y, int *type, int *index)
+{
+	for (int i = Blocks.length() - 1; i >= 0; i--) {
+		HtmlBlockClass *block = NULL;
+		Blocks.get(block, i);
+		int bx = block->X + x - block->Get_Abs_X();
+		int by = block->Y + y - block->Get_Abs_Y();
+		for (int j = 0; j < block->Items.length(); j++) {
+			HtmlItemStruct *item = block->Get_Item(j);
+			if (bx >= item->X && bx <= item->X + item->Width && by >= item->Y && by <= item->Y + item->Height) {
+				*index = j;
+				char *value = item->Attributes.Get("Anchor.HREF");
+				if (value == NULL) {
+					*type = 1;
+					return NULL;
+				}
+				*type = 2;
+				return value;
+			}
+		}
+	}
+	*type = 1;
+	*index = -1;
+	return NULL;
+}
+
+bool HtmlViewClass::Find_Link(char *name, HtmlLinkStruct **link)
+{
+	for (int i = 0; i < Links.length(); i++) {
+		Links.getPointer(link, i);
+		if (strcmp((*link)->Name, name) == 0)
+			return true;
+	}
+	*link = NULL;
+	return false;
+}
+
+bool HtmlViewClass::Find_Image(char *name, HtmlImageClass **image)
+{
+	for (int i = 0; i < Images.length(); i++) {
+		HtmlImageClass *entry;
+		Images.get(entry, i);
+		if (strcmp(entry->Get_Name(), name) == 0) {
+			*image = entry;
+			return true;
+		}
+	}
+	*image = NULL;
+	return false;
+}
+
+int HtmlViewClass::Get_Unknown13C(void)
+{
+	return Unknown13C;
+}
+
+int HtmlViewClass::Get_Unknown138(void)
+{
+	return Unknown138;
+}
+
+char *HtmlViewClass::Get_Title(void)
+{
+	char *title = "";
+	if (Blocks.length() != 0) {
+		HtmlBlockClass *block = NULL;
+		Blocks.get(block, 0);
+		title = block->Get_Attribute("Title");
+		if (title == NULL)
+			title = "";
+	}
+	return title;
+}
+
 void HtmlViewClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
 {
 	int light = 0xFFFFFF;
@@ -173,6 +311,10 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 **	  Forms: the constructor writes Clear's body out (its link destructors inline, Clear's call them);
 **	  the block lists empty as `while (getTail(b)) { delete b; remove(length() - 1); }` (remove inline,
 **	  its result unused); Update tests the byte Dirty into a bool set in a branch.
-**	  The view has no callers in the client (unused code). Draw_Line_32 0x7778E0: parked at 0.18 (see
-**	  attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
+**	  Its constructor, destructor, Clear, Open and Clear_* have no callers in the client; image.cpp's
+**	  0x76E9D0 calls 0x770860, which calls Layout and Render. HV1's UnknownHtmlDrawClass is the view (+0 its
+**	  wwlib Surface: Get_Width / Get_Height size Layout's block). Draw_Line_32 0x7778E0: parked at 0.18
+**	  (attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
+**	* NOT EXACT (scheduling): Render (the clip RECT's stores), Click / Hit_Test (the client reads block->X
+**	  before the Get_Abs_X call and x after it; every expression order tried compiles to ours).
 */

@@ -23,9 +23,14 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 	char Url[259];  // +0x10D  // NAME 1: 0x770860's second argument copied in
 };
 
-struct HtmlUnknown20Struct  // NAME 1: element of the view's +0x20 list (only the list's destructor is seen)
+// What the view's +0x20 list holds: Find_Image compares slot +0xC's string with a name.
+class HtmlImageClass  // NAME 1: element of the view's +0x20 list (image.cpp's class, not placed yet)
 {
-	int Unknown00;
+public:
+	virtual void Unknown_00(void) = 0;
+	virtual void Unknown_04(void) = 0;
+	virtual void Unknown_08(void) = 0;
+	virtual char *Get_Name(void) = 0;  // slot +0xC  // NAME 2: Find_Image's key
 };
 
 class HtmlViewClass  // NAME 3: htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0
@@ -43,6 +48,15 @@ public:
 	bool Clear_Blocks(void);  // 0x770720
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
 	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
+	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle
+	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: background and items (not written yet)
+	char *Click(int x, int y, int unknown);  // 0x776FC0  // NAME 2: opens the 'Anchor.HREF' of the item under x, y
+	char *Hit_Test(int x, int y, int *type, int *index);  // 0x7772C0  // NAME 2: the item under x, y: its index, its href (type 2) or none (1)
+	bool Find_Link(char *name, HtmlLinkStruct **link);  // 0x777420
+	bool Find_Image(char *name, HtmlImageClass **image);  // 0x7774F0
+	int Get_Unknown13C(void);  // 0x7775B0
+	int Get_Unknown138(void);  // 0x7775D0
+	char *Get_Title(void);  // 0x7775F0  // NAME 2: the first block's 'Title' attribute, else ""
 
 	void Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised);  // 0x777630
 	void Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x7777C0
@@ -54,11 +68,13 @@ public:
 	HtmlLoaderClass *Loader;  // +0x004  // NAME 2: Set_Loader
 	ArrayList<HtmlBlockClass *> Blocks;  // +0x008  // NAME 2: owned (Clear deletes them)
 	ArrayList<HtmlLinkStruct> Links;  // +0x014  // NAME 1
-	ArrayList<HtmlUnknown20Struct> Unknown20;  // +0x020
+	ArrayList<HtmlImageClass *> Images;  // +0x020  // NAME 2: Find_Image
 	bit8 Dirty;  // +0x02C  // NAME 2: Update returns and clears it (a byte tested, not a bool)
 	char Url[259];  // +0x02D  // NAME 2: Open's strcpy; 259 bytes up to +0x130
-	int Unknown130;  // +0x130  // zeroed by Clear
-	int Unknown134;  // +0x134  // zeroed by Clear
+	int ScrollX;  // +0x130  // NAME 2: Render's first argument (also given to the first block's Set_X); zeroed by Clear
+	int ScrollY;  // +0x134  // NAME 2: Render's second argument; zeroed by Clear
+	int Unknown138;  // +0x138  // set to 1000 by 0x776390
+	int Unknown13C;  // +0x13C  // set to 4000 by 0x776390
 };
 
 #endif
