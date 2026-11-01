@@ -49,9 +49,10 @@ Wstring::Wstring(IN Wstring &other):str(NULL), strsize(0)
 {
   if (other.str!=NULL)
   {
-    str=new char[strlen(other.str)+PADSIZE+1];
-    strsize=strlen(other.str)+PADSIZE+1;
-    strcpy(str,other.str);
+    uint32 len=strlen(other.str)+1;  // E&B: the length once, copied with memcpy (0x8B5E30)
+    str=new char[len+PADSIZE];
+    strsize=len+PADSIZE;
+    memcpy(str,other.str,len);
   }
 }
 
@@ -274,7 +275,7 @@ void Wstring::clear(void)
 void Wstring::setSize(sint32 size)
 {
   clear();
-  if (size<0)
+  if (size<=0)  // E&B: no empty allocation (0x8B6EE0 `jle`)
     return;
 
   str=new char[size]; 
@@ -496,10 +497,10 @@ char Wstring::setFormatted(IN char *msg, ...)
 // case.
 void Wstring::toLower(void)
 {
-  uint32 i;
+  int    i;  // E&B: signed (0x8B79E0 `jle` / `jl`)
   int    strlength=length();
 
-  for(i = 0; i < (uint32)strlength; i++)
+  for(i = 0; i < strlength; i++)
   {
     if((str[i] >= 'A') && (str[i] <= 'Z'))
       str[i] = (sint8)tolower(str[i]);
@@ -511,10 +512,10 @@ void Wstring::toLower(void)
 // case.
 void Wstring::toUpper(void)
 {
-  uint32 i;
+  int    i;  // E&B: signed (0x8B7A50 `jle` / `jl`)
   int    strlength=length();
 
-  for(i = 0; i < (uint32)strlength; i++)
+  for(i = 0; i < strlength; i++)
   {
     if((str[i] >= 'a') && (str[i] <= 'z'))
       str[i] = (sint8)toupper(str[i]);
