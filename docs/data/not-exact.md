@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-459 entries in 103 files.
+458 entries in 103 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -132,7 +132,6 @@ edit the comments in the code, not this file.
 | `app/client/interface_static_sort_list.cpp:545` | `InterfaceStaticSortListClass::Add_PIP_Scene` | marker | NOT EXACT: written from the pseudocode (D64) |
 | `app/client/interface_static_sort_list.cpp:575` | `InterfaceStaticSortListClass::Remove_PIP_Scene` | marker | NOT EXACT: written from the pseudocode (D64) |
 | `app/client/interface_static_sort_list.cpp:620` | `InterfaceStaticSortListClass::Find_Interface` | marker | NOT EXACT: written from the pseudocode (D64) |
-| `app/client/interface_static_sort_list.cpp:651` | `PIPSceneStruct::Render` | marker | NOT EXACT: written from the pseudocode (D64) |
 | `app/client/interface_static_sort_list.cpp:683` | `InterfaceRenderClass::Render` | marker | NOT EXACT: written from the pseudocode (D64) |
 | `app/client/interface_static_sort_list.cpp:787` | `InterfaceRenderClass::Add_PIP` | marker | NOT EXACT: written from the pseudocode (D64) |
 | `app/client/interface_static_sort_list.cpp:801` | `InterfaceRenderClass::Remove_PIP` | marker | NOT EXACT: written from the pseudocode (D64) |

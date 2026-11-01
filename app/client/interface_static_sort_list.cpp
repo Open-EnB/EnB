@@ -438,6 +438,8 @@ InterfaceClass *InterfaceStaticSortListClass::Set_Current_Interface(InterfaceCla
 			InterfaceMapType::iterator imt_it = InterfaceMap.find(ui);
 			FAIL_IF(imt_it == InterfaceMap.end()) return old;
 			CurrentInterface = (*imt_it).second;
+		} else {
+			CurrentInterface = NULL;
 		}
 	}
 	return old;
@@ -456,8 +458,6 @@ InterfaceClass *InterfaceStaticSortListClass::Set_Current_Back()
 	CurrentInterface = BackInterface;
 	return old;
 }
-
-
 
 
 
@@ -648,8 +648,8 @@ InterfaceClass *InterfaceStaticSortListClass::Find_Interface(RenderObjClass *rob
 	return LastInterface->Interface;
 }
 
-// NOT EXACT: written from the pseudocode (D64)
-void PIPSceneStruct::Render()
+
+void PIPSceneStruct::Render(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera)
 {
 	PredictiveLODOptimizerClass::Clear();
 	Scene->Visibility_Check(Camera.Peek());
@@ -700,7 +700,7 @@ void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const Re
 			}
 			max_sort = min_sort - 1;
 			WW3D::Reset_Current_Static_Sort_Lists_To_Default();
-			ps->Render();
+			ps->Render(scene, camera);
 			++it;
 			if (it != PIPScenes.end()) {
 				ps = *it;
@@ -794,7 +794,7 @@ void InterfaceRenderClass::Add_PIP(PIPSceneStruct *ps)
 			break;
 		}
 	}
-	PIPScenes.insert(it, ps);
+	PIPScenes.insert(it, 1, ps);
 }
 
 

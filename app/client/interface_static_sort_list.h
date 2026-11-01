@@ -85,7 +85,7 @@ struct PIPSceneStruct  // NAME 2: the asserts' pip_scene
 	{
 	}
 
-	void Render();											// 0x6DC7C0  // NAME 1: neutral
+	void Render(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera);	// 0x6DC7C0 (InterfaceRenderClass::Render's arguments, unused)  // NAME 1: neutral
 
 	RefCountPtr<InterfaceRenderClass> Owner;				// +0x00  // NAME 1: neutral
 	RefCountPtr<SimpleSceneClass> Scene;					// +0x04  // NAME 1: neutral
