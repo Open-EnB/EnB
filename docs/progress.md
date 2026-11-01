@@ -1755,6 +1755,12 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK9): landdmap 0x468920 (builds the cells; its corner if-chain on k looks like an
+     inline Get_Corner(k)), then 0x467A50; 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
+     0x466920-0x466BC0 is its own object between heightfield and landdmap (an unnamed Line3DClass subclass, member at
+     +0x108, vtable 0xAE8754, no RTTI; ctor called from 0x7B99C0 / 0x7C3AC0): a new unknown_*.cpp when built.
+     heightfield's Get_Height_2 / Set_Height_2 0x463CD0 / 0x463D90 are twins of 0x463C80 / 0x463D20 called from the land
+     code: ambiguous, no tie-break reaches them.
    * From the 2026-10-31 t4 run (TK6, TK11): ui_avatr.cpp (new, AvatarCreationInterface) is ui_avatar_cust.cpp's twin:
      leads 0x553AF0 (ctor), 0x554E80, 0x556F80 onward, and ui_avatar_cust's 0x54B370-0x550670 (a function rebuilt in
      one is the template for the other); 0x55C350 sits at ui_avatr.cpp's end (interim, D137: in the client after line

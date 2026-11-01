@@ -485,6 +485,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Renaming a packet class's member breaks other files that read it** (2026-10-31, TK9, pkupdate Planet's Unknown14
+  -> Position): `grep 'packet->Unknown14'` missed extrap.cpp, and verify's C2039 dropped all 79 of extrap's pairs. Grep
+  for `->Member` across app/ before renaming; any "1 errors" in verify's summary is a stop. **The client's float
+  min / max loops keep each extreme as a separate `float`** (landdmap 0x468BE0: Vector3 locals 0.41, six floats exact).
 * **VC6's inline budget moves with functions added later in the same file** (2026-10-31, TK6, ui_avatar_cust): adding
   0x5513E0-0x551C80 made 0x550A10 inline a third Rotate_Y, and 0x551BF0's form flips with 0x551520's body: re-run every
   marker of the file after adding functions. An out-of-line function with no callers right after a FAIL_IF handler is
