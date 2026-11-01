@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1140 |
 | 2 | describes what the code does | 2849 |
-| 1 | neutral placeholder | 10173 |
+| 1 | neutral placeholder | 10171 |
 
 ## For review (score 3 and below)
 
@@ -5127,10 +5127,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6870E0` | `app/client/ui_avatr.cpp:418` | untagged neutral name (D10) |
 | 1 | `UIAvselGadgetPartStruct` | `app/client/ui_avsel.cpp:19` | neutral (D10) |
 | 1 | `GadgetUnknown08Struct` | `app/client/ui_avsel.cpp:19` | untagged neutral name (D10) |
-| 1 | `UIAvselButtonClass` | `app/client/ui_avsel.cpp:57` | neutral (D10) |
-| 1 | `robj, layer, a, b` | `app/client/ui_avsel.cpp:60` | as ui_manu.cpp's |
-| 1 | `Unknown_30` | `app/client/ui_avsel.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_avsel.cpp:61` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:64` | as ui_group.cpp's |
 | 1 | `Unknown_496110` | `app/client/ui_avsel.cpp:64` | untagged neutral name (D10) |
 | 1 | `robj, unknown` | `app/client/ui_avsel.cpp:65` | neutral |
@@ -5310,6 +5306,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/client/ui_avsel.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_avsel.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ui_avsel.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_avsel.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/ui_avsel.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/ui_avsel.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/ui_avsel.cpp:169` | untagged neutral name (D10) |
@@ -5399,6 +5396,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Text` | `app/client/ui_avsel.cpp:270` | as ui_login.cpp's |
 | 1 | `arg` | `app/client/ui_avsel.cpp:271` | neutral |
 | 1 | `Unknown_6AAD10` | `app/client/ui_avsel.cpp:271` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_avsel.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown3B` | `app/client/ui_avsel.cpp:273` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_avsel.cpp:274` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_avsel.cpp:275` | untagged neutral name (D10) |

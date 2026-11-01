@@ -53,13 +53,13 @@ typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetP
 
 
 
-// gadget.cpp's button gadget (100 bytes, constructor 0x675240 over a render object and a layer)
-class UIAvselButtonClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselButtonClass(RenderObjClass *robj, LayerClass *layer, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x675240 (the constructor passes 0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+#include "unknown_675120.h"
+
+
+
+
+
+
 
 void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
 void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
@@ -329,7 +329,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 		strcpy(name, Unknown_B7B8E0[i]);
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name(name);
 		Unknown_496AE0(robj, 0);
-		GadgetClass *gadget = new UIAvselButtonClass(robj, layer, 0x55, 3);
+		GadgetClass *gadget = new ButtonGadgetClass(robj, *layer, 0x55, 3);
 		Unknown09C[i] = gadget;
 		Unknown64.Unknown_6870E0(gadget, i + 1, View, 1, 1);
 		robj->Release_Ref();
@@ -339,7 +339,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	if (Unknown088->Unknown1138) {
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name("click_me");
 		Unknown_496AE0(robj, 0);
-		Unknown118 = new UIAvselButtonClass(robj, layer, 0x55, 3);
+		Unknown118 = new ButtonGadgetClass(robj, *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown118, 0x11, View, 1, 1);
 		robj->Release_Ref();
 	} else {
@@ -806,7 +806,7 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 					sprintf(name, "DUDE%02d", i);
 					Unknown084->Unknown1BC->Unknown_80(Unknown0BC[i], name);
 					Unknown0BC[i]->Unknown_77E3D0(1);
-					Unknown0D0[i] = new UIAvselButtonClass(Unknown0BC[i]->Get_Unknown2BC(), Unknown084->Get_Unknown070(), 0x55, 0);
+					Unknown0D0[i] = new ButtonGadgetClass(Unknown0BC[i]->Get_Unknown2BC(), *Unknown084->Get_Unknown070(), 0x55, 0);
 					Unknown0D0[i]->Unknown2C_0A = true;
 					Unknown0D0[i]->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown0D0[i], i + 11, View, 1, 1);
@@ -1164,7 +1164,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 	for (int i = 0; i < 2; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(BuddyReferralUI->Get_Sub_Object_By_Name(Unknown_B7B958[i]));
 		Unknown_496AE0(robj.Peek(), 0);
-		Unknown10C[i] = new UIAvselButtonClass(robj.Peek(), Layer, 0x55, 3);
+		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
 	Unknown114 = new UIAvselEditClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);
