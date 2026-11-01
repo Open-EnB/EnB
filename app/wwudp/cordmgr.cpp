@@ -195,142 +195,94 @@ bool CordMgr::Pump_Connections()
 	return true;
 }
 
-// 0x857F20, functional (NOT EXACT): the data sockets, then the listening ones, each until Read
-// says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the
-// data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2,
-// the type-6 answer to an unexpected datagram (Send_Go_Away 0x858640, inlined).
-void CordMgr::Pump()
+#include <stdio.h>
+#include <ctype.h>
+void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter
+
+// NOT EXACT: 0x857F20 (frame 0x6E4 vs 0x6EC, registers: the client keeps this in ebp). Every data socket, then every
+// listening one, until Read says nothing more (< 0); SYN1 / SYN2 only on a listening socket, the data only on a data
+// socket. A datagram nobody takes is logged (line 592) and answered with a go-away (Send_Go_Away, inlined) unless it
+// is an ACK1 / ACK2 or the ACK2 of a connection still in the handshake (line 618). Then every connection's pump.
+bool CordMgr::Pump()
 {
 	WWPROFILE("CordMgr::Pump");
+	CordCon *con = NULL;
 	unsigned char buf[0x400];
-	int total = DataSockets_.length() + ListenSockets_.length();
+	sockaddr_in from;
+	int data_count = DataSockets_.length();
+	int total = ListenSockets_.length() + data_count;
 	for (int i = 0; i < total; i++) {
-		bool listen = i >= DataSockets_.length();
-		CordListenSocketClass *ls; CordDataSocketClass *ds; UDP *udp; if (listen) { ListenSockets_.getPointer(&ls, i - DataSockets_.length()); udp = ls->Socket; }
-		else { DataSockets_.getPointer(&ds, i); udp = ds->Socket; }
-		sockaddr_in from;
+		bool listening;
+		UDP *socket;
+		int unknown;
+		int logged;
+		if (i < DataSockets_.length()) {
+			CordDataSocketClass d;
+			if (!DataSockets_.get(d, i)) {
+				continue;
+			}
+			listening = false;
+			unknown = 0;
+			socket = d.Socket;
+			logged = d.Unknown08;
+		} else {
+			CordListenSocketClass l;
+			if (!ListenSockets_.get(l, i - data_count)) {
+				continue;
+			}
+			listening = true;
+			logged = 0;
+			socket = l.Socket;
+			unknown = l.Unknown08;
+		}
 		int len;
-		while ((len = udp->Read(buf, sizeof(buf), &from)) >= 0) {
+		while ((len = socket->Read(buf, 0x400, &from)) >= 0) {
 			if (len == 0) {
 				Process_Zero_Read(&from);
 				continue;
 			}
-			if (len <= 3) {
+			if (len < 4) {
 				continue;
 			}
-			char type = (char)buf[0];
+			char type = buf[0];
 			bool taken = false;
-			if ((type == 4 || type == 5) && !listen) {
-				taken = Process_CORD_Packet(buf, len, &from, udp, 0, type);
+			if (type == 0) {
+				if (listening == true) {
+					taken = Process_SYN1_Packet(buf, len, &from, socket, unknown);
+				}
 			} else if (type == 1) {
-				taken = Process_ACK1_Packet(buf, len, &from, udp, 0);
+				taken = Process_ACK1_Packet(buf, len, &from, socket, unknown);
+			} else if (type == 2) {
+				if (listening == true) {
+					taken = Process_SYN2_Packet(buf, len, &from, socket, unknown);
+				}
 			} else if (type == 3) {
-				taken = Process_ACK2_Packet(buf, len, &from, udp, 0);
-			} else if (type == 0 && listen) {
-				taken = Process_SYN1_Packet(buf, len, &from, udp, 0);
-			} else if (type == 2 && listen) {
-				taken = Process_SYN2_Packet(buf, len, &from, udp, 0);
+				taken = Process_ACK2_Packet(buf, len, &from, socket, unknown);
+			} else if ((type == 4 || type == 5) && !listening) {
+				taken = Process_CORD_Packet(buf, len, &from, socket, unknown, type);
 			} else if (type == 6) {
-				taken = Process_Go_Away_Packet(buf, len, &from, udp, 0);
+				Process_Go_Away_Packet(buf, len, &from, socket, unknown);
+				continue;
 			}
-			if (!taken) {
-				Unexpected_++;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			if (taken) {
+				continue;
+			}
+			unsigned int lip = 0;
+			unsigned short lport = 0;
+			socket->getLocalAddr(lip, lport);
+			char from_text[0x80];
+			char local_text[0x80];
+			char bytes[0x80];
+			sprintf(from_text, "%s", inet_ntoa(from.sin_addr));
+			sprintf(local_text, "%s", inet_ntoa(*(in_addr *)&lip));
+			memset(bytes, 0, sizeof(bytes));
+			for (int k = 0; k < (len > 16 ? 16 : len); k++) {
+				if (isgraph(buf[k])) {
+					sprintf(bytes + strlen(bytes), "'%c'", buf[k]);
+				} else {
+					sprintf(bytes + strlen(bytes), "%d ", buf[k]);
+				}
+			}
 
 
 
@@ -638,16 +590,51 @@ void CordMgr::Pump()
 
 
 				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
-					len, inet_ntoa(from.sin_addr), ntohs(from.sin_port), 0, 0, "");
+					len, from_text, from.sin_port, lport, logged, bytes);
+			unsigned short session = 0;
+			if ((type == 4 || type == 5) && len >= 3) {
+				session = ntohs(*(unsigned short *)(buf + 1));
 			}
+			bool reply = true;
+			if (type == 1 || type == 3) {
+				reply = false;
+			}
+			if (type == 4) {
+				CordConnectingClass *c = NULL;
+				for (int p = 0; p < Pending_.length(); p++) {
+					Pending_.get(c, p);
+					if (c->Ip == ntohl(from.sin_addr.s_addr) && c->Session == session) {
+
+
+
+
+
+
+
+
+
+
+
+						Unknown_4BC000("", "UDP", __FILE__, __LINE__, "We must have dropped an ack2 packet to the client!: %d", session);
+						goto next;
+					}
+				}
+			}
+			if (reply) {
+				Send_Go_Away(socket, ntohl(from.sin_addr.s_addr), ntohs(from.sin_port), type, session);
+			}
+next:
+			;
 		}
 	}
 	Xtime now;
 	for (int c = 0; c < Connections_.length(); c++) {
-		CordCon *con; Connections_.get(con, c); con->pump(now);
+		Connections_.get(con, c);
+		con->pump(now);
 	}
 	Pump_Connections();
 	Pump_Releases();
+	return true;
 }
 
 // 0x859F80: the record of a data socket.
@@ -1282,41 +1269,6 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
 					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), con->Key_);
 			}
@@ -1325,13 +1277,23 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return handled;
 }
 
-// 0x85A3B0 / 0x85AB30: the client takes no SYN (the server's side of the handshake). The client's
-// EH frame (state -1 only, the profile's enabled flag kept in bl) comes from a delete of a pointer known
-// to be null, as if the server's handshake record were compiled out.
+// 0x85A3B0 / 0x85AB30: the client takes no SYN (the server's side of the handshake): a record known to be null,
+// its block compiled out and the delete left (the client's EH frame, state -1 only). The dead block (not evidence:
+// any body the optimiser drops) keeps Pump from inlining them, as the client's Pump calls both.
 bool CordMgr::Process_SYN1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_SYN1_Packet");
 	CordConnectingClass *c = NULL;
+	if (c != NULL) {
+		c->Ip = ntohl(from->sin_addr.s_addr);
+		c->Port = ntohs(from->sin_port);
+		c->Session = ntohs(*(unsigned short *)(data + 2));
+		c->Socket = socket;
+		c->Unknown24 = unknown;
+		c->State = 2;
+		Pending_.addTail(c);
+		return true;
+	}
 	delete c;
 	return false;
 }
@@ -1340,6 +1302,16 @@ bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *fro
 {
 	WWPROFILE("CordMgr::Process_SYN2_Packet");
 	CordConnectingClass *c = NULL;
+	if (c != NULL) {
+		c->Ip = ntohl(from->sin_addr.s_addr);
+		c->Port = ntohs(from->sin_port);
+		c->Session = ntohs(*(unsigned short *)(data + 2));
+		c->Socket = socket;
+		c->Unknown24 = unknown;
+		c->State = 2;
+		Pending_.addTail(c);
+		return true;
+	}
 	delete c;
 	return false;
 }

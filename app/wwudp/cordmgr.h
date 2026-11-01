@@ -83,7 +83,7 @@ public:
 	~CordMgr();
 
 	// Reads and dispatches every datagram waiting on the sockets. 0x857F20 (data path only)
-	void Pump();
+	bool Pump();
 	CordDataSocketClass *Find_Data_Socket(UDP *socket);											// 0x859F80
 	// A data datagram (type 4 or 5): to the connection with its session id and address. 0x85A000
 	bool Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown,

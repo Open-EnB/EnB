@@ -82,6 +82,10 @@ void Unknown_4BC130(const char *, const char *, const char *, int, const char *,
 {
 	LogLines++;
 }
+void Unknown_4BC000(const char *, const char *, const char *, int, const char *, ...)	// Pump's ack2 note
+{
+	LogLines++;
+}
 
 // ------------------------------------------------------------------------- the replay socket
 
