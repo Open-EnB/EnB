@@ -36,7 +36,7 @@ class Font32Class : public FontClass, public RefCountClass							// NAME 2: what
 		void Update_Resolution(void);												// 0x6BCDE0, inlined into Load_Font_Image  // NAME 2 [Update_Resolution]: ScreenWidth / ScreenHeight from WW3D
 
 	protected:
-		SurfaceClass * Minimize_Font_Image(SurfaceClass * surface);				// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)
+		void Minimize_Font_Image(SurfaceClass * surface);								// 0x6BBE20, no caller (font3d.cpp's name, NAME 4)
 		void Make_Proportional(SurfaceClass * surface);							// 0x6BC120 (font3d.cpp's name, NAME 4)
 		bool Load_Font_Image(const char * filename);								// 0x6BC3A0 (font3d.cpp's name, NAME 4)
 

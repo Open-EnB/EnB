@@ -55,8 +55,8 @@ Font32Class::Font32Class(void) :
 /*
 **	Repacks the characters into a 128 or 256 square A4R4G4B4 image (font3d.cpp's, no caller in the client).
 */
-// NOT EXACT: (D64) written from the pseudocode (font3d.cpp Minimize_Font_Image), no caller (0.87)
-SurfaceClass * Font32Class::Minimize_Font_Image(SurfaceClass * surface)
+
+void Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
@@ -76,10 +76,10 @@ SurfaceClass * Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 	int new_y = 0;
 	float ratio = current_width / scale;
 	for (int char_index = 0; char_index < 256; char_index++) {
-		int src_x = (int)(UOffsetTable[char_index] * current_width + 0.5f);
-		int src_y = (int)(VOffsetTable[char_index] * current_height + 0.5f);
-		int width = (int)(UWidthTable[char_index] * current_width + 0.5f);
-		int height = (int)(VHeight * current_height + 0.5f);
+		int src_x = (int)(UOffsetTable[char_index] * current_width + 0.5);
+		int src_y = (int)(VOffsetTable[char_index] * current_height + 0.5);
+		int width = (int)(UWidthTable[char_index] * current_width + 0.5);
+		int height = (int)(VHeight * current_height + 0.5);
 		if (width != 0) {
 			if (new_x + width > new_width) {
 				new_x = 0;
@@ -95,14 +95,13 @@ SurfaceClass * Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 	VHeight = (current_height / scale) * VHeight;
 	REF_PTR_RELEASE(surface);
 	Surface = new_surface;
-	return(NULL);
 }
 
 /*
 **	Brings each character's cell in to its pixels (font3d.cpp's Make_Proportional): U / width tables,
 **	CharWidthTable, then the common top and the height of all characters.
 */
-// NOT EXACT: (D64) written from the pseudocode (font3d.cpp Make_Proportional with a fixed width for empty cells, 0.21)
+// NOT EXACT: (D64) register allocation: the client spills this and walks the tables through edi (0.26)
 void Font32Class::Make_Proportional(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
@@ -120,9 +119,9 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 		surface->FindBB(&minb, &maxb);
 		int left = minb.I;
 		int right = maxb.I + 1;
-		if (fixed == 0 && left < right) {
+		if (fixed == 0 && right > left) {
 			fixed = right - left;
-			if (MinSpacing + fixed < 1) {
+			if (MinSpacing + fixed <= 0) {
 				fixed = 1 - MinSpacing;
 			}
 		}
@@ -155,6 +154,7 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 	CharHeight = bottom - top + 1;
 	VHeight = (float)CharHeight / (float)sd.Height;
 }
+
 
 
 
