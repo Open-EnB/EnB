@@ -4397,6 +4397,8 @@
      "0x541830",
      "0x5418C0",
      "0x541930",
+     "0x541980",
+     "0x5419B0",
      "0x5419E0",
      "0x541A10",
      "0x541A50",
@@ -4906,6 +4908,21 @@
     ],
     "merged": [],
     "name": "client/loadingview.cpp"
+   },
+   "local_interface_sort": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x5419E0",
+     "0x541A10"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6E18B0"
+    ],
+    "merged": [],
+    "name": "client/local_interface_sort.cpp"
    },
    "lookup": {
     "ambiguous": [
@@ -13014,6 +13031,7 @@
    "client/interface_scene.h": "reconstructed",
    "client/interface_static_sort_list.h": "reconstructed",
    "client/intrface.h": "reconstructed",
+   "client/local_interface_sort.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/option.h": "reconstructed",
    "client/postate.h": "reconstructed",

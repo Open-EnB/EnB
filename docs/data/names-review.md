@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1143 |
-| 2 | describes what the code does | 2862 |
-| 1 | neutral placeholder | 10236 |
+| 3 | by convention from a client-named file or sibling | 1144 |
+| 2 | describes what the code does | 2866 |
+| 1 | neutral placeholder | 10237 |
 
 ## For review (score 3 and below)
 
@@ -2553,9 +2553,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:131` | neutral |
 | 1 | `BackInterface` | `app/client/interface_static_sort_list.h:135` | neutral (FrontInterface's opposite) |
 | 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:139` | neutral |
-| 1 | `InterfaceSortClass` | `app/client/intrface.cpp:28` | neutral (D10) |
-| 1 | `iface` | `app/client/intrface.cpp:31` | neutral |
-| 1 | `Unknown00` | `app/client/intrface.cpp:34` | untagged neutral name (D10) |
 | 1 | `InterfaceSignalMapClass` | `app/client/intrface.cpp:38` | neutral (D10) |
 | 1 | `sender, callback` | `app/client/intrface.cpp:41` | neutral |
 | 1 | `sender, callback` | `app/client/intrface.cpp:42` | neutral |
@@ -2689,6 +2686,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:110` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/loadingview.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/loadingview.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/local_interface_sort.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/local_interface_sort.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/local_interface_sort.cpp:66` | untagged neutral name (D10) |
+| 1 | `InterfaceSortClass` | `app/client/local_interface_sort.h:25` | neutral (D10; intrface.cpp's and fontsys_cursor.cpp's name) |
+| 1 | `Previous` | `app/client/local_interface_sort.h:32` | neutral |
+| 1 | `InterfaceSortScopeClass` | `app/client/local_interface_sort.h:37` | neutral (D10) |
 | 1 | `Unknown_C404F8` | `app/client/mainview.cpp:21` | neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown) |
 | 1 | `MainViewSceneClass` | `app/client/mainview.cpp:24` | neutral (D10) |
 | 1 | `sun, camera, color` | `app/client/mainview.cpp:27` | what Update passes |
@@ -6884,9 +6887,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_login.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_login.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `app/client/ui_login.cpp:107` | 0xBFAEE0 |
-| 1 | `LoginScopeClass` | `app/client/ui_login.cpp:110` | neutral (D10) |
-| 1 | `iface` | `app/client/ui_login.cpp:113` | neutral |
-| 1 | `Unknown00` | `app/client/ui_login.cpp:115` | untagged neutral name (D10) |
 | 1 | `LoginKeyEventStruct` | `app/client/ui_login.cpp:119` | neutral (D10) |
 | 1 | `key` | `app/client/ui_login.cpp:121` | neutral |
 | 1 | `Unknown02` | `app/client/ui_login.cpp:121` | untagged neutral name (D10) |
@@ -6903,6 +6903,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_760770` | `app/client/ui_login.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_login.cpp:212` | ui_registration.cpp |
 | 1 | `LoginSettingsClass` | `app/client/ui_login.cpp:215` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_login.cpp:218` | untagged neutral name (D10) |
 | 1 | `url, a` | `app/client/ui_login.cpp:219` | neutral |
 | 1 | `Unknown_7CB2E0` | `app/client/ui_login.cpp:219` | untagged neutral name (D10) |
 | 1 | `Unknown_Clear` | `app/client/ui_login.cpp:220` | neutral (D10) |
@@ -10913,6 +10914,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:142` | the asserts' |
 | 2 | `view` | `app/client/intrface.h:93` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `key_manager` | `app/client/intrface.h:112` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `ui` | `app/client/local_interface_sort.h:28` | the FAIL_IF's |
+| 2 | `SortList` | `app/client/local_interface_sort.h:31` | the asserts' '!SortList' |
+| 2 | `ui` | `app/client/local_interface_sort.h:40` | InterfaceSortClass's |
+| 2 | `ui` | `app/client/local_interface_sort.h:41` | InterfaceSortClass's |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
@@ -13262,6 +13267,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Active` | `app/client/intrface.h:137` | the FAIL_IF's |
 | 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:138` | the assert's |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
+| 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |
 | 3 | `UIChatPanelClass` | `app/client/mainview.cpp:1111` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
 | 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |

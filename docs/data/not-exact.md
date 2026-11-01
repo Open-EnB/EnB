@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-478 entries in 109 files.
+479 entries in 110 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -156,6 +156,7 @@ edit the comments in the code, not this file.
 | `app/client/interface_static_sort_list.cpp:787` | `InterfaceRenderClass::Add_PIP` | marker | NOT EXACT: inline-budget (the client keeps _Ucopy / _Ufill out of line) |
 | `app/client/intrface.cpp:66` | `InterfaceClass::InterfaceClass` | marker | NOT EXACT: register (shape: 0.62; VC6 keeps the constant 1 of the two reference counts in edi and the view in ebp, the client the view in edi) |
 | `app/client/intrface.cpp:329` | `InterfaceClass::Unknown_84` | marker | NOT EXACT: register (0.77; the view's +0x2C in eax and the table in edx in the client, the other way round here) |
+| `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |

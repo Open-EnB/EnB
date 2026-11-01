@@ -24,15 +24,15 @@
 
 
 
-// local_interface_sort.cpp's sort object (8 bytes; constructor 0x6E0E80 over an interface, destructor 0x6E18B0)
-class InterfaceSortClass  // NAME 1: neutral (D10)
-{
-public:
-	InterfaceSortClass(InterfaceClass *iface);		// 0x6E0E80  // NAME 1 [iface]: neutral
-	~InterfaceSortClass();							// 0x6E18B0
+#include "local_interface_sort.h"	// local_interface_sort.cpp's sort scope (8 bytes; 0x6E0E80 / 0x6E18B0), and the windows' 0x541980
 
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as far as the interfaces connect to it
 class InterfaceSignalMapClass  // NAME 1: neutral (D10)
@@ -449,6 +449,18 @@ void InterfaceClass::Unknown_541930()
 }
 
 
+// 0x541980
+InterfaceSortScopeClass::InterfaceSortScopeClass(InterfaceClass *ui) :
+	InterfaceSortClass(ui)
+{
+}
+
+// 0x5419B0
+InterfaceSortScopeClass::InterfaceSortScopeClass(const RefCountPtr<InterfaceClass> &ui) :
+	InterfaceSortClass(ui.Peek())
+{
+}
+
 /*
 **	Reconstruction notes
 **
@@ -460,8 +472,8 @@ void InterfaceClass::Unknown_541930()
 **	(447). Compiled with them: the key handler's slot 0x540C90 and its destructors 0x540CB0 / 0x540CE0, the
 **	deleting destructor 0x540D00, the two MemberCallback instances 0x541AD0-0x541D90, Create_Peek 0x5419E0, the
 **	RefCountPtr destructor 0x541A10, the template disconnect 0x541A50 and the adjustor thunks 0x541DC0 / 0x541DD0.
-**	0x5411F0 (a jmp to 0x6E18B0) and 0x541980 / 0x5419B0 (local_interface_sort.cpp's constructor over an
-**	interface or a RefCountPtr) are not rebuilt.
+**	0x541980 / 0x5419B0 (local_interface_sort.h's InterfaceSortScopeClass: InterfaceSortClass's constructor over an
+**	interface or a RefCountPtr, the windows' sort scope) end the file; 0x5411F0 (a jmp to 0x6E18B0) is not rebuilt.
 **
 **	The class: the callbacks' RTTI names it InterfaceMemberClass (SignalBaseClass::MemberCallback<void,
 **	InterfaceMemberClass, ..., GadgetGroupToFrontEvent> and <ControlKeysManager, InterfaceMemberClass, ...,

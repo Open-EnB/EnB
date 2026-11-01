@@ -106,14 +106,14 @@ public:
 };
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
-// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0), as ui_manu.cpp's
-class LoginScopeClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginScopeClass(InterfaceClass *iface);				// 0x541980  // NAME 1 [iface]: neutral
-	~LoginScopeClass();									// 0x6E18B0
-	char Unknown00[8];
-};
+// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0)
+#include "local_interface_sort.h"
+
+
+
+
+
+
 
 // The control keys event (0x10 bytes) and InterfaceClass +0x4C, as ui_manu.cpp declares them
 struct LoginKeyEventStruct	// NAME 1: neutral (D10)
@@ -320,7 +320,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	Task = (LoginTaskClass *)Get_Character_View()->Unknown14->Unknown_08();
 	Get_Task()->Close_Global_Connection();
 	Get_Task()->Unknown_64();
-	LoginScopeClass scope(this);
+	InterfaceSortScopeClass scope(this);
 	Get_Character_View()->Unknown_67A250();
 	Get_Character_View()->Unknown_67AB20(0, "FE01A");
 	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->Peek_Model());
