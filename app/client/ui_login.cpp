@@ -135,6 +135,7 @@ public:
 	bool Unknown_7863E0();								// 0x7863E0
 	char Unknown000[0x220];								// +0x000
 	bool Unknown220;									// +0x220 (0x5ADA50: the welcome speech waits for it)
+	bool Is_Unknown220() { return(Unknown220); }		// NAME 1: neutral (D10)
 };
 
 // The character view (charview.cpp's CharacterViewClass, tsk_login.h), as far as this file calls it
@@ -165,13 +166,16 @@ public:
 	char Unknown04[0x14 - 0x04];						// +0x04
 	TaskClass *Unknown014;								// +0x14 (its slot +0x08 gives the login task)
 	char Unknown18[0x34 - 0x18];						// +0x18
+	CharacterViewUnknown34Class *Get_Unknown034() { return(Unknown034); }	// NAME 1: neutral (D10)
 	CharacterViewUnknown34Class *Unknown034;			// +0x34 (the message box)
 	char Unknown38[0x68 - 0x38];						// +0x38
 	CameraClass *Peek_Camera() { return(Unknown068); }	// NAME 1: neutral (D10)
 	CameraClass *Unknown068;							// +0x68
 	char Unknown6C[0x198 - 0x6C];						// +0x6C
+	LoginViewUnknown198Class *Get_Unknown198() { return(Unknown198); }	// NAME 1: neutral (D10)
 	LoginViewUnknown198Class *Unknown198;				// +0x198
 	char Unknown19C[0x1B0 - 0x19C];						// +0x19C
+	int Get_Unknown1B0() { return(Unknown1B0); }		// NAME 1: neutral (D10)
 	int Unknown1B0;										// +0x1B0 (the step before)
 	char Unknown1B4[0x1B8 - 0x1B4];						// +0x1B4
 	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10), as ui_avatr.cpp's
@@ -241,6 +245,7 @@ public:
 	GadgetClass *AccountButtons[4];						// +0x84 (the account menu's 'BUTTON01' ..)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> AccountMenu;			// +0x94 ('FE13A')  // NAME 3: the G_ASSERT's
 	LoginViewClass *CharacterView;						// +0x98 (the view's slot +0x28)  // NAME 1: tsk_login.h's
+	LoginTaskClass *Get_Task() { return(Task); }		// NAME 1: neutral (D10)
 	LoginTaskClass *Task;								// +0x9C (the character view's +0x14's slot +0x08)  // NAME 1: neutral (D10)
 	int Unknown0A0;										// +0x0A0 (the account menu's step: 11, 12)
 	TextGadgetClass *NameGadget;						// +0xA4 ('Name_fe01a')  // NAME 1: its model's name
@@ -312,8 +317,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_Clear();
 	CharacterView = ((LoginViewClass *)View)->Unknown_28();
 	Task = (LoginTaskClass *)CharacterView->Unknown014->Unknown_08();
-	Task->Close_Global_Connection();
-	Task->Unknown_64();
+	Get_Task()->Close_Global_Connection();
+	Get_Task()->Unknown_64();
 	LoginScopeClass scope(this);
 	CharacterView->Unknown_67A250();
 	CharacterView->Unknown_67AB20(0, "FE01A");
@@ -333,7 +338,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 		Unknown64.Unknown_6870E0(Buttons[n], n + 1, View, 1, 1);
 	}
 	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe01a", model.Peek(), Unknown_B08CC4, 0);
-	NameGadget->Set_Text(Task->Username, 0);
+	NameGadget->Set_Text(Get_Task()->Username, 0);
 	NameGadget->Unknown_28(Layer);
 	Unknown64.Unknown_6870E0(NameGadget, 7, View, 1, 1);
 	PasswordGadget = new TextGadgetClass(this, 0x14, "Password_fe01a", model.Peek(), Unknown_B08CC4, 0);
@@ -525,29 +530,28 @@ bool LoginInterface::Unknown_68(int key)
 }
 
 
-// NOT EXACT: inline budget (the client calls the string's _Tidy and _Eos out of line here; ours inlines
-// them) (0x5ADA50)
+// 0x5ADA50
 void LoginInterface::Unknown_5ADA50()
 {
-	if (CharacterView->Unknown198->Unknown220 && Unknown0CA && CharacterView->Unknown_67AEA0(0)) {
+	if (CharacterView->Get_Unknown198()->Is_Unknown220() && Unknown0CA && CharacterView->Unknown_67AEA0(0)) {
 		Unknown0CA = false;
 		Unknown0C9 = false;
 		Unknown_5AE160();
 		std::string speech;
-		if (CharacterView->Unknown1B0 == 9) {
+		if (CharacterView->Get_Unknown1B0() == 9) {
 			speech = "WelcomeReg";
 		} else {
 			speech = "Welcome";
 		}
 		if (!TutorialManagerClass::Instance->Is_Completed(speech.c_str())) {
-			CharacterView->Unknown198->Unknown_784C90(speech.c_str(), 0);
+			CharacterView->Get_Unknown198()->Unknown_784C90(speech.c_str(), 0);
 			TutorialManagerClass::Instance->Set_Completed("Welcome");
 			TutorialManagerClass::Instance->Set_Completed("WelcomeReg");
 		} else {
 			char name[64];
 			_snprintf(name, 64, "ReturningUser%d", time(NULL) % 3);
 			if (!TutorialManagerClass::Instance->Is_Completed(name)) {
-				CharacterView->Unknown198->Unknown_784C90(name, 1);
+				CharacterView->Get_Unknown198()->Unknown_784C90(name, 1);
 				TutorialManagerClass::Instance->Set_Completed("ReturningUser0");
 				TutorialManagerClass::Instance->Set_Completed("ReturningUser1");
 			}
@@ -558,35 +562,35 @@ void LoginInterface::Unknown_5ADA50()
 		}
 	}
 	if (Unknown0CE) {
-		if (CharacterView->Unknown198->Unknown_7863E0()) {
+		if (CharacterView->Get_Unknown198()->Unknown_7863E0()) {
 			Unknown0CE = false;
 		}
 	}
 	if (!Unknown0CE && Unknown0CB && CharacterView->Unknown_67AEA0(0)) {
-		CharacterView->Unknown198->Unknown_784E00();
+		CharacterView->Get_Unknown198()->Unknown_784E00();
 		if (Unknown0A0 == 10) {
-			Task->Set_Step(3, false);
+			Get_Task()->Set_Step(3, false);
 		} else if (Unknown0A0 == 11) {
-			Task->Set_Step(10, false);
+			Get_Task()->Set_Step(10, false);
 		} else if (Unknown0A0 == 12) {
-			Task->Set_Step(11, false);
+			Get_Task()->Set_Step(11, false);
 		} else {
 			CharacterView->Unknown1CF = true;
 			CharacterView->Unknown1D0 = true;
-			Task->Go_Next_Step();
+			Get_Task()->Go_Next_Step();
 			CharacterView->Unknown_67C7B0();
 		}
 		CharacterView->Unknown_67ACE0(4);
 		CharacterView->Unknown_67A670();
 	}
-	if (Task->Unknown001D) {
+	if (Get_Task()->Unknown001D) {
 		if (!Unknown0DA) {
 			Unknown0DA = true;
 			Unknown_5AEA60();
 		}
-		if (!CharacterView->Unknown034->Unknown07C) {
-			Task->Unknown001D = false;
-			Unknown_7CA2D0()->Set_String("lkey", Task->Ticket_Info.Login_Key.c_str());
+		if (!CharacterView->Get_Unknown034()->Unknown07C) {
+			Get_Task()->Unknown001D = false;
+			Unknown_7CA2D0()->Set_String("lkey", Get_Task()->Ticket_Info.Login_Key.c_str());
 			if (Unknown_5AE120()) {
 				Unknown0A0 = 10;
 			} else {
@@ -606,7 +610,7 @@ void LoginInterface::Unknown_5ADA50()
 	if (CharacterView->Unknown_67B2B0()) {
 		Unknown_5AE160();
 	}
-	if (CharacterView->Unknown034->Unknown07C && !Unknown0DA) {
+	if (CharacterView->Get_Unknown034()->Unknown07C && !Unknown0DA) {
 		if (!Unknown0C9) {
 			Unknown0C9 = true;
 			Unknown_5AE240();
@@ -617,16 +621,16 @@ void LoginInterface::Unknown_5ADA50()
 		Unknown_5AE160();
 	}
 	if (Unknown0D8) {
-		int button = CharacterView->Unknown034->Unknown_5890B0("YES_NO");
+		int button = CharacterView->Get_Unknown034()->Unknown_5890B0("YES_NO");
 		if (button) {
 			if (button == 1) {
-				CharacterView->Unknown034->Unknown_5C();
+				CharacterView->Get_Unknown034()->Unknown_5C();
 				((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_7CB2E0("https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F", 1);
 				Unknown0D8 = false;
-				Task->Unknown_6C();
+				Get_Task()->Unknown_6C();
 				return;
 			}
-			CharacterView->Unknown034->Unknown_5C();
+			CharacterView->Get_Unknown034()->Unknown_5C();
 			Unknown0D8 = false;
 		}
 	}
@@ -687,10 +691,6 @@ void LoginInterface::Unknown_5AE240()
 	NameGadget->Unknown44->Unknown_Set_2FC(0.33f);
 	PasswordGadget->Unknown44->Unknown_Set_2FC(0.33f);
 }
-
-
-
-
 
 
 
@@ -927,8 +927,10 @@ void LoginInterface::Unknown_5AEA60()
 **	the adjustor thunks this file emits. Its asserts sit on the client's lines 713 ('!textptr', 0x5AE320, which
 **	0x5AD610 and 0x5ADA50 inline), 787 / 826 ('AccountMenu') and 862 / 866 ('!event', '!gadget') (D25).
 **
-**	Every function of the window is here; two are NOT EXACT (the constructor and 0x5ADA50, slot +0x60's first call:
-**	the welcome speech and the step changes), their notes above them. Slot +0x68 takes its block order from if /
+**	Every function of the window is here; the constructor is NOT EXACT (its note above it). 0x5ADA50 (slot +0x60's
+**	first call: the welcome speech and the step changes) reads the view's and the task's members through inline
+**	getters: they spend the inline budget, so the string's _Tidy and _Eos stay out of line as in the client.
+**	Slot +0x68 takes its block order from if /
 **	else plus break in the account cases (the shared box last); the account expiry box 0x5AEA60 nests its ifs (one
 **	exit through the ticket copy's destructors) and its frame says LoginTicketInfoClass is 0xA0 bytes. Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account
 **	menu's button loop indexes the name table (a jl pointer loop, 0x5AE590); the gadget's
