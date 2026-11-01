@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1082 |
-| 2 | describes what the code does | 2593 |
+| 2 | describes what the code does | 2603 |
 | 1 | neutral placeholder | 8244 |
 
 ## For review (score 3 and below)
@@ -8744,6 +8744,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:122` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:125` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:126` | what it holds |
+| 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
+| 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
+| 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |
+| 2 | `Get` | `app/client/html/unknown_htmlattrib.h:20` | the top of the key's stack, or NULL |
+| 2 | `Push` | `app/client/html/unknown_htmlattrib.h:21` | value added on top of the key's stack |
+| 2 | `Pop` | `app/client/html/unknown_htmlattrib.h:22` | removes the top (or the topmost equal to value) |
+| 2 | `Remove` | `app/client/html/unknown_htmlattrib.h:23` | the key and its whole stack |
+| 2 | `Clear` | `app/client/html/unknown_htmlattrib.h:24` | Dictionary::clear |
+| 2 | `Values` | `app/client/html/unknown_htmlattrib.h:27` | the stacks by key |
+| 2 | `Get_Mime_Type` | `app/client/html/unknown_htmlattrib.h:30` | 'image/gif' for a .gif, else 'text/html' |
 | 2 | `view` | `app/client/intrface.h:91` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
