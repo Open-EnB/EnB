@@ -485,6 +485,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **aux_roots.cpp's budget-bound functions flip on any declaration added to the headers it includes** (2026-10-31,
+  TK5): one more Type_Name overload in strconv_lib.h, a declaration in delta_template.h or money.h, or a member operator
+  removed from MoneyClass loses 6 aux_roots pairs (0x7014B0, 0x701D70, 0x7045F0, 0x7048A0, 0x705860, 0x705A10). Test
+  header edits against an unchanged copy of aux_roots.cpp (appfile); declare locally in the .cpp when it's enough.
 * **A key value built from 16-bit halves** (2026-10-31, TK1, control_keys_manager 0x71AEF0) is read as two words,
   `(hi << 16) | lo`, not one dword cast. **A loop the client runs in one branch only can look like a shared tail**
   (0x71C710): check where that branch returns before restructuring.
@@ -1065,6 +1069,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
+  the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).
 * **`addpatch.py` appends to an existing (lib, file) entry, so the new importer.py lines do not contain the file
   name** (2026-10-31, TK7): commit_mine's hunk keys must match the new patch text (an address or symbol), or importer.py
   is left behind. commit_mine skips imports.json's library totals without `--refresh-totals` (which takes other

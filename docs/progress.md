@@ -1698,6 +1698,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   iostream instances only matchbot's sectionList / writeFile credited to configfile (the client's configfile object
   has none); not a D66 kind. They come back as their app files are built. Stash `docs/attempts/8B2810/`, diff
   `.work/tk7/proposal/`.
+* **P-TK5-1** (2026-10-31, TK5; recommend yes, with P-TK3-1 / P-TK2-1): objmatch's caller_tiebreak credits one of an
+  object's byte-identical symbols when several propose the same address (the linker folded the four
+  Create_NEW<Floor / Ceiling / Closest / Interpolated> into lookup_table's 0x4EE9F0; all four callers exact). Not yet
+  measured over the app; land with the other tie-break changes after a full verify of every library.
 
 ## 4. Next steps
 
@@ -1751,6 +1755,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK5): lookup_table's hash_map() 0x4EE810 and 12 other out-of-line hash_map() copies
+     go exact with _M_initialize_buckets written out in sgistl's three-argument hashtable ctor (sgistl_adapt.py;
+     `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
+     class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
+     delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
    * From the 2026-10-31 evening run: ui_chat_panel.h's UIChatComboClass is ui_combobox.cpp's UIComboBoxClass (it
      declares Unknown_57AD50): move the class into a ui_combobox.h, the chat panel using it (P-TG4-1, D137); AvatarUI /
      ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
