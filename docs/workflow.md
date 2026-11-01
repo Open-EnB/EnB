@@ -471,6 +471,9 @@ unless `--lever` cites a new row of this table.
   signature also ICEs. VC6 has no `snprintf` (use `_snprintf`): the miss shows only as "1 errors" in verify's
   summary line and gains nothing. A VC6 `std::list` member at +0x10 puts its allocator byte there, head +0x14,
   size +0x18.
+* **A hash_map loop's iterator declared in the `for` header (2026-10-31, TK3, fontdatabase 0x6C4F50):** VC6 makes it
+  `begin()`'s return slot and keeps its node in memory. The client declares it before the loop and assigns it in the
+  `for` (`iterator it; for (it = T.begin(); ...)`); a const_iterator copy puts the table pointer in a register instead.
 
 ### 3.3 E&B app code
 

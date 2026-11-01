@@ -4,6 +4,23 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (18:45): handoff; D172 landed (the triage table tracked); master 20f0bf21
+
+* **State:** master 20f0bf21 holds the day's three runs (PR #41 +1,102, #64 +30, #65 D172); the tree is clean,
+  no VM leased, the pool stopped. Local branches cleaned with `run_branch.py cleanup` (wt/pins kept: its own M4
+  measurement commit). Claims #58-#63 close at the Claims Action's next reconcile (their PR merged).
+* **Decisions today:** D167-D172 (the user). Open for the user (§3): P-VM-1 (the pool's VM base before 2027-01-20),
+  P-TG3-1 (CordCon's harness counters out of the class: recommend yes), P-TG4-2 (D130's dead spenders kept for
+  another function's pair: recommend keep).
+* **Usage:** weekly 63 % at the handoff; D163's API credits about $43.40 of $200 spent (`ENB_ANTHROPIC_API_KEY`,
+  workspace `enb-d163`, limit $60).
+* **Next session first:** regenerate symbols.json on the quiet tree to record D171's +841 (workflow.md §3.4: full
+  verify of every library before and after, pairs_cmp gain-only, then `.work/pseudo/` rebuilt), then the triage
+  plan's runs (§4) under D172's reading rule.
+* **Outside git:** `.work/triage/` (the batch ids, raw results, plan.md; the results expire 29 days after
+  2026-10-31), `.work/sym/` (the first regeneration's objects and copies), `.work/run-2026-10-31-api/` and
+  `.work/run-2026-10-31-t2/` (plan logs). No processes running.
+
 ### 2026-10-31 (18:05, evening): the triage's second test (boundary runs, 18 of 23); +30 pairs, 0 lost; branch cleanup
 
 Coordinator Opus 5.5, two Opus builders. Base a581d2cd (PR #41 merged; `.work/imports.a581d2cd.json`); run branch
@@ -1658,6 +1675,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x550A10 (NOT EXACT 0.71) holds four dead finds that exist only to send matrix3d.h's Rotate_Y 0x551270 out of
   line, gaining that pair; each is needed (three leave it inline). D130 was written for functions made exact; does
   it cover spenders kept for another function's pair?
+* **P-TK3-1** (2026-10-31, TK3; recommend yes): extend D166's caller tie-break to `multiple` copies that are not
+  identical (same rule: our exact caller reaches one address and every client caller of it is exact in the same
+  object; copies differing only in relocation targets are pinned harder by the caller). Measured at objmatch level
+  over the verify-app objects: **+82 app pairs, 0 lost** (`.work/tk3/measure.log`; fontdatabase's 0x6C6ED0, 0x6C88D0,
+  0x6C9170, 0x6C9920, 0x6C9AD0, 0x6C9C80, 0x6C9E30 among them). One line in `tools/re/objmatch.py` `caller_tiebreak`
+  (drop the `get('identical')` filter; `.work/tk3/objmatch_x.py`), landed as its own commit after a full verify of
+  all 11 libraries, as D166 was.
+* **P-TK3-2** (2026-10-31, TK3; recommend yes, lower value): D166 counts an EH unwind funclet as part of the function
+  whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three funclets, and its kind).
 
 ## 4. Next steps
 
