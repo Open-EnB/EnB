@@ -20,12 +20,26 @@ public:
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
+
+	char Unknown04[0x2C - 0x04];						// +0x04
+	unsigned int Unknown2C;								// +0x2C (0x556290 sets 0x400)
+};
+
+// The pulls' gadget (0x80 bytes, constructor 0x671300), as far as 0x556290 makes it
+class UIAvatrGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
+
+	char Unknown30[0x80 - 0x30];						// +0x30
 };
 
 // A gadget with its pull model (0x10 bytes, constructor 0x585920; the window's +0x160 / +0x16C / +0x180)
 class UIAvatrPullClass	// NAME 1: neutral (D10)
 {
 public:
+	UIAvatrPullClass();									// 0x585920
+	void Unknown_5859A0();								// 0x5859A0 (0x556290, once the gadget is in)
 	void Show(bool on)		// NAME 1: neutral (D10): inline (0x556630)
 	{
 		Gadget->Unknown_40(on);
@@ -35,6 +49,7 @@ public:
 
 	GadgetClass *Gadget;								// +0x00  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('BODY_PULL' / 'HEAD_PULL', 0x556290)  // NAME 2: what 0x556290 puts there
+	char Unknown08[0x10 - 0x08];						// +0x08
 };
 
 // The +0x8C object's +0x194 (refcounted; +0x110 is 1 when the beard is off, 0x556630)
@@ -58,6 +73,7 @@ public:
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
+void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
 // The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
@@ -170,6 +186,7 @@ static UIAvatrPartStruct UIAvatrParts[50] = {	// NAME 1: neutral (D10)
 class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>)
 {
 public:
+	void Unknown_556290();								// 0x556290 (the body and head pulls made)
 	void Unknown_556630(int tab, bool on);				// 0x556630 (a tab's gadgets and texts shown or hidden: 0 none, 1 head, 2 body)  // NAME 1 [tab, on]: neutral
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
 	void Unknown_55A550(int a, int b, int c, int d);	// 0x55A550 (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
@@ -177,7 +194,7 @@ public:
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
 	void Unknown_Set_Palette(const char *name);		// 0x55C350 (the texture of that name onto the model's COLOR_PALETTE: ui_avatar_cust.cpp's 0x5513E0)  // NAME 1: neutral (D10); NAME 1 [name]: neutral
 
-	char Unknown84[0x88 - 0x84];						// +0x84
+	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
 	int Unknown088;										// +0x88 (the tab, 0x556B20)
 	UIAvatrUnknown08CClass *Unknown08C;					// +0x8C
 	char Unknown90[0x94 - 0x90];						// +0x90
@@ -189,6 +206,29 @@ public:
 	char Unknown170[0x180 - 0x170];						// +0x170
 	UIAvatrPullClass *Unknown180;						// +0x180
 };
+
+// 0x556290
+void AvatarCreationInterface::Unknown_556290()
+{
+	Unknown160 = new UIAvatrPullClass;
+	Unknown16C = new UIAvatrPullClass;
+	RefCountPtr<RenderObjClass> area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_AREA"));
+	Unknown_496AE0(area.Peek(), 0);
+	Unknown160->Gadget = new UIAvatrGadget671300Class(area.Peek(), 0, Unknown084, 0, 0, 0);
+	Unknown160->Gadget->Unknown2C |= 0x400;
+	Unknown160->Unknown_5859A0();
+	Unknown160->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_PULL");
+	Unknown_496AE0(Unknown160->Pull, 1);
+	Unknown64.Unknown_6870E0(Unknown160->Gadget, 0x37, View, 1, 1);
+	area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_AREA"));
+	Unknown_496AE0(area.Peek(), 0);
+	Unknown16C->Gadget = new UIAvatrGadget671300Class(area.Peek(), 0, Unknown084, 0, 0, 0);
+	Unknown16C->Gadget->Unknown2C |= 0x400;
+	Unknown16C->Unknown_5859A0();
+	Unknown16C->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_PULL");
+	Unknown_496AE0(Unknown16C->Pull, 1);
+	Unknown64.Unknown_6870E0(Unknown16C->Gadget, 0x38, View, 1, 1);
+}
 
 // 0x556630
 void AvatarCreationInterface::Unknown_556630(int tab, bool on)
@@ -352,7 +392,8 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	sibling: the literals both use ('COLOR_PALETTE', 'HEAD_PULL', 'FRAME_COLOR', 'fa_avatar_color.tga')
 **	are merged into ui_avatar_cust.cpp's, which links first.
 **
-**	So far (TK6, claim #88): 0x556630 (a tab's gadgets and texts shown or hidden) exact, 0x556B20 (the
+**	So far (TK6, claim #88): 0x556290 (the body and head pulls made) and 0x556630 (a tab's gadgets and
+**	texts shown or hidden) exact, 0x556B20 (the
 **	tab chosen; NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here
 **	for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts
 **	(0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file
