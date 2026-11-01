@@ -5,6 +5,7 @@
 #include "..\common\stredit.h"
 #include "fontmanager.h"
 #include "font32bit.h"
+#include "fontsys_cursor.h"
 #include "..\kernel\kernel.h"
 #include "..\audio\soundlib.h"
 #include "..\input\input.h"
@@ -14,15 +15,14 @@
 #include "ww3d.h"
 #include "..\shared\unknown_debug.h"
 
-// fontsys_cursor.cpp's text cursor (0xFC bytes, a render object: 0x685680 makes it), as far as this file uses it
-class TextCursorClass : public RenderObjClass  // NAME 1: neutral (D10): what it is
-{
-public:
-	void Unknown_685A30(const RefCountPtr<SceneClass> &scene);			// 0x685A30 (into the scene)  // NAME 1 [scene]: what 0x6AB0F0 passes
-	void Unknown_685AB0(const RefCountPtr<FontStyleClass> &text, int cursorpos, bool insert, bool flag);	// 0x685AB0 (at the text's cursor position)  // NAME 1 [text, cursorpos, insert, flag]: what 0x6AAD10 passes
-	void Unknown_685DD0();												// 0x685DD0 (hidden)
-};
-RefCountPtr<TextCursorClass> Unknown_685680(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &unknown = NULL);	// 0x685680 (cdecl; the new cursor)  // NAME 1 [iface, unknown]: what 0x6AA810 passes
+
+
+
+
+
+
+
+
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  // NAME 1 [robj]: as ui_avatr.cpp's
 

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1136 |
-| 2 | describes what the code does | 2839 |
-| 1 | neutral placeholder | 10150 |
+| 3 | by convention from a client-named file or sibling | 1138 |
+| 2 | describes what the code does | 2847 |
+| 1 | neutral placeholder | 10164 |
 
 ## For review (score 3 and below)
 
@@ -1959,6 +1959,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CE910` | `app/client/fontmanager.h:53` | untagged neutral name (D10) |
 | 1 | `left, top, right, bottom` | `app/client/fontmanager.h:54` | what textgadg.cpp passes |
 | 1 | `Unknown_6D88F0` | `app/client/fontmanager.h:54` | untagged neutral name (D10) |
+| 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
+| 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
+| 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/client/fontsys_cursor.cpp:17` | neutral placeholder (D10) |
+| 1 | `Unknown_685680` | `app/client/fontsys_cursor.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_685DD0` | `app/client/fontsys_cursor.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_685A30` | `app/client/fontsys_cursor.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_685AB0` | `app/client/fontsys_cursor.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/fontsys_cursor.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/fontsys_cursor.cpp:105` | untagged neutral name (D10) |
+| 1 | `TextCursorClass` | `app/client/fontsys_cursor.h:28` | neutral (D10): what it is |
+| 1 | `iface, unknown` | `app/client/fontsys_cursor.h:31` | what it stores; neutral |
+| 1 | `scene` | `app/client/fontsys_cursor.h:34` | what 0x6AB0F0 passes |
+| 1 | `Unknown_685A30` | `app/client/fontsys_cursor.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_685AB0` | `app/client/fontsys_cursor.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_685DD0` | `app/client/fontsys_cursor.h:36` | neutral (D10) |
+| 1 | `iface, unknown` | `app/client/fontsys_cursor.h:42` | what 0x6AA810 passes |
+| 1 | `Unknown_685680` | `app/client/fontsys_cursor.h:42` | untagged neutral name (D10) |
 | 1 | `Unknown1E0` | `app/client/fontmanager.h:57` | neutral (D10) |
 | 1 | `Unknown250` | `app/client/fontmanager.h:59` | neutral (D10) |
 | 1 | `Unknown254` | `app/client/fontmanager.h:60` | neutral (D10) |
@@ -4573,14 +4591,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EA80` | `app/client/tasks/tsk_smovie.cpp:43` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
-| 1 | `TextCursorClass` | `app/client/textgadg.cpp:18` | neutral (D10): what it is |
-| 1 | `scene` | `app/client/textgadg.cpp:21` | what 0x6AB0F0 passes |
-| 1 | `Unknown_685A30` | `app/client/textgadg.cpp:21` | untagged neutral name (D10) |
-| 1 | `text, cursorpos, insert, flag` | `app/client/textgadg.cpp:22` | what 0x6AAD10 passes |
-| 1 | `Unknown_685AB0` | `app/client/textgadg.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_685DD0` | `app/client/textgadg.cpp:23` | untagged neutral name (D10) |
-| 1 | `iface, unknown` | `app/client/textgadg.cpp:25` | what 0x6AA810 passes |
-| 1 | `Unknown_685680` | `app/client/textgadg.cpp:25` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/textgadg.cpp:27` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/textgadg.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_RefCountPtr_Scene_Size` | `app/client/textgadg.cpp:29` | not the client's: instantiates RefCountPtr<SceneClass> so its friend Create_Peek (0x514960) is visible (VC6 injects a template's friends on instantiation, as sclient.cpp) |
@@ -4599,17 +4609,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown58` | `app/client/textgadg.cpp:343` | untagged neutral name (D10) |
 | 1 | `Unknown5C` | `app/client/textgadg.cpp:344` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/textgadg.cpp:345` | untagged neutral name (D10) |
+| 1 | `Unknown_685680` | `app/client/textgadg.cpp:349` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CBC` | `app/client/textgadg.cpp:350` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CB0` | `app/client/textgadg.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_685DD0` | `app/client/textgadg.cpp:378` | untagged neutral name (D10) |
 | 1 | `Unknown_6AAD10` | `app/client/textgadg.cpp:391` | untagged neutral name (D10) |
 | 1 | `Unknown_6AB190` | `app/client/textgadg.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CB8` | `app/client/textgadg.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown_6D88F0` | `app/client/textgadg.cpp:435` | untagged neutral name (D10) |
+| 1 | `Unknown_685AB0` | `app/client/textgadg.cpp:439` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CAC` | `app/client/textgadg.cpp:439` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC0` | `app/client/textgadg.cpp:442` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/textgadg.cpp:453` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/textgadg.cpp:461` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/textgadg.cpp:470` | untagged neutral name (D10) |
+| 1 | `Unknown_685A30` | `app/client/textgadg.cpp:472` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CAC` | `app/client/textgadg.h:34` | neutral (D10) |
 | 1 | `Unknown_B08CB0` | `app/client/textgadg.h:35` | neutral (D10) |
 | 1 | `Unknown_B08CB8` | `app/client/textgadg.h:36` | neutral (D10) |
@@ -10666,6 +10680,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/fontdatabase.h:250` | what it holds |
 | 2 | `Color` | `app/client/fontmanager.h:37` | what 0x6D1010 stores |
 | 2 | `Set_Color` | `app/client/fontmanager.h:46` | describes what it does |
+| 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
+| 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
+| 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
 | 2 | `Info` | `app/client/fontmanager.h:56` | what it holds |
 | 2 | `LineCount` | `app/client/fontmanager.h:65` | what 0x6CF930 stores |
 | 2 | `LineNumber` | `app/client/fontmanager.h:66` | what 0x6CF930 stores |
@@ -10969,6 +10986,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Position` | `app/client/postate.h:337` | what it holds |
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
+| 2 | `Rect3DClass` | `app/client/rect3d.h:26` | rect3d.cpp's class (the file name, Westwood's Class suffix) |
+| 2 | `color, rect` | `app/client/rect3d.h:29` | what it does with them |
+| 2 | `Class_ID` | `app/client/rect3d.h:35` | E&B's class id |
+| 2 | `Set_Color` | `app/client/rect3d.h:39` | what it does |
+| 2 | `Set_Rect` | `app/client/rect3d.h:40` | what it does |
 | 2 | `Room` | `app/client/sbaseview.h:37` | what the handler compares with the packet's Room |
 | 2 | `Anim` | `app/client/sbaseview.h:76` | what it holds |
 | 2 | `Model` | `app/client/sbaseview.h:77` | what it holds |
@@ -13113,6 +13135,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `FontDatabaseClass` | `app/client/fontdatabase.h:177` | by convention (D24) from the client's fontdatabase.cpp |
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
 | 3 | `Change_Text` | `app/client/fontmanager.h:50` | the client's label |
+| 3 | `fontsys_cursor.h` | `app/client/fontsys_cursor.h:18` | the header of fontsys_cursor.cpp |
 | 3 | `Font` | `app/client/fontmanager.h:58` | the assert's |
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:105` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gadget.h` | `app/client/gadget.h:20` | header name assumed from the client's gadget.cpp |
@@ -13163,6 +13186,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `radar_data.h` | `app/client/radar_data.h:16` | header name assumed from the client's radar_data.cpp |
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
+| 3 | `rect3d.h` | `app/client/rect3d.h:18` | the header of rect3d.cpp |
 | 3 | `FontSys` | `app/client/sbaseview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
 | 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:22` | class-from-file (D24) for ui_talkt_space.cpp |
 | 3 | `UIStarbaseClass` | `app/client/sbaseview.h:28` | class-from-file (D24) for app\client\ui_starbase.cpp |

@@ -52,6 +52,8 @@ public:
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
+	void Unknown_6D8650(Vector3 &pos);										// 0x6D8650: the text's position (the transform's, or +0x464 with +0x302 set, plus +0x47C and +0x488; ret 4 with the pointer in eax: maybe a Vector3 return)  // NAME 1 [pos]: neutral (D10)
+	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	char Unknown1E0[0x6C];	// +0x1E0  // NAME 1: neutral (D10)
