@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1122 |
 | 2 | describes what the code does | 2822 |
-| 1 | neutral placeholder | 9873 |
+| 1 | neutral placeholder | 9871 |
 
 ## For review (score 3 and below)
 
@@ -162,7 +162,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1D4` | `app/client/charview.cpp:305` | untagged neutral name (D10) |
 | 1 | `Unknown_67A9B0` | `app/client/charview.cpp:306` | untagged neutral name (D10) |
 | 1 | `Unknown4E0` | `app/client/charview.cpp:309` | untagged neutral name (D10) |
-| 1 | `Unknown_67CEF0` | `app/client/charview.cpp:310` | untagged neutral name (D10) |
 | 1 | `Unknown_67BEB0` | `app/client/charview.cpp:316` | untagged neutral name (D10) |
 | 1 | `Unknown_784E00` | `app/client/charview.cpp:326` | untagged neutral name (D10) |
 | 1 | `Unknown_788EF0` | `app/client/charview.cpp:335` | untagged neutral name (D10) |
@@ -195,7 +194,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67A960` | `app/client/charview.cpp:621` | untagged neutral name (D10) |
 | 1 | `Unknown_784C90` | `app/client/charview.cpp:624` | untagged neutral name (D10) |
 | 1 | `Unknown_67AB20` | `app/client/charview.cpp:685` | untagged neutral name (D10) |
-| 1 | `Unknown_67BBE0` | `app/client/charview.cpp:714` | untagged neutral name (D10) |
+| 1 | `Unknown_67BBE0` | `app/client/charview.cpp:704` | untagged neutral name (D10) |
 | 1 | `Unknown_67ACE0` | `app/client/charview.cpp:723` | untagged neutral name (D10) |
 | 1 | `Unknown_67AD30` | `app/client/charview.cpp:732` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/charview.cpp:745` | untagged neutral name (D10) |
@@ -291,7 +290,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67BF20` | `app/client/charview.h:133` | untagged neutral name (D10) |
 | 1 | `Unknown_67C530` | `app/client/charview.h:134` | untagged neutral name (D10) |
 | 1 | `Unknown_67CBD0` | `app/client/charview.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_67CEF0` | `app/client/charview.h:136` | untagged neutral name (D10) |
 | 1 | `Unknown04C` | `app/client/charview.h:138` | untagged neutral name (D10) |
 | 1 | `Unknown058` | `app/client/charview.h:139` | untagged neutral name (D10) |
 | 1 | `Unknown064` | `app/client/charview.h:140` | untagged neutral name (D10) |

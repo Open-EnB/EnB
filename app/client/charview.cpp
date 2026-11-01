@@ -196,7 +196,7 @@ CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 
 
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x678B70
 void CharacterViewClass::Unknown_04()
 {
@@ -233,7 +233,7 @@ void CharacterViewClass::Unknown_04()
 
 	if (Unknown224) {
 		Unknown224->Stop(true);
-		REF_PTR_RELEASE(Unknown224);
+		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
 	Unknown224 = SoundLibraryClass::Play_2D_Sound("fe_music.mp3", 1);
 	if (Unknown224) {
@@ -296,18 +296,18 @@ void CharacterViewClass::Unknown_08()
 	((LoginTaskClass *)Unknown14->Unknown_08())->Unknown0018->Unknown_515120(2);
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// NOT EXACT: inline budget (the client calls the deque's pop_front 0x67CEF0 out of line; ours inlines it), 0.77
 // 0x679510
 void CharacterViewClass::Unknown_10()
 {
 	int i;
 	for (i = 0; i < 5; i++) {
-		REF_PTR_RELEASE(Unknown1D4[i].Anim);
+		if (Unknown1D4[i].Anim) { Unknown1D4[i].Anim->Release_Ref(); Unknown1D4[i].Anim = NULL; }
 		Unknown_67A9B0(i);
 	}
 	SoundLibraryClass::Stop_Dialog();
 	while (Unknown4E0.size() != 0) {
-		Unknown_67CEF0();
+		Unknown4E0.pop_front();
 	}
 	if (Unknown3A4) {
 		delete Unknown3A4;
@@ -316,16 +316,16 @@ void CharacterViewClass::Unknown_10()
 	Unknown_67BEB0();
 	if (Unknown224) {
 		Unknown224->Stop(true);
-		REF_PTR_RELEASE(Unknown224);
+		Unknown224->Release_Ref(); Unknown224 = NULL;
 	}
 	if (AvatarRObj) {
 		AvatarRObj->Remove();
-		REF_PTR_RELEASE(AvatarRObj);
+		AvatarRObj->Release_Ref(); AvatarRObj = NULL;
 	}
 	if (NarratorRObj) {
 		NarratorRObj->Unknown_784E00();
 		NarratorRObj->Remove();
-		REF_PTR_RELEASE(NarratorRObj);
+		NarratorRObj->Release_Ref(); NarratorRObj = NULL;
 	}
 	for (i = 0; i < 2; i++) {
 		if (Unknown1A4[i]) {
@@ -333,17 +333,17 @@ void CharacterViewClass::Unknown_10()
 				ViewRObjs[4]->Remove_Sub_Object(Unknown1A4[i]);
 			}
 			Unknown1A4[i]->Unknown_788EF0();
-			REF_PTR_RELEASE(Unknown1A4[i]);
+			Unknown1A4[i]->Release_Ref(); Unknown1A4[i] = NULL;
 		}
 	}
 	Unknown_67A300();
 	UIViewClass::Unknown_10();
-	REF_PTR_RELEASE(Unknown06C);
-	REF_PTR_RELEASE(Unknown068);
-	REF_PTR_RELEASE(Unknown07C);
-	REF_PTR_RELEASE(Unknown078);
-	REF_PTR_RELEASE(Unknown084);
-	REF_PTR_RELEASE(Unknown080);
+	if (Unknown06C) { Unknown06C->Release_Ref(); Unknown06C = NULL; }
+	if (Unknown068) { Unknown068->Release_Ref(); Unknown068 = NULL; }
+	if (Unknown07C) { Unknown07C->Release_Ref(); Unknown07C = NULL; }
+	if (Unknown078) { Unknown078->Release_Ref(); Unknown078 = NULL; }
+	if (Unknown084) { Unknown084->Release_Ref(); Unknown084 = NULL; }
+	if (Unknown080) { Unknown080->Release_Ref(); Unknown080 = NULL; }
 	if (Unknown070) {
 		delete Unknown070;
 		Unknown070 = NULL;
@@ -356,7 +356,7 @@ void CharacterViewClass::Unknown_10()
 	Unknown230 = NULL;
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// NOT EXACT: inline budget (the client calls Vector4's constructor 0x468E70 through ??_H and Matrix3D::Rotate_Y / Rotate_Z out of line; its Rotate_X keeps the old row values on the FPU stack), 0.40
 // 0x679930
 int CharacterViewClass::Unknown_0C(bool on)
 {
@@ -635,7 +635,7 @@ void CharacterViewClass::Unknown_67A960()
 
 
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67A9B0
 void CharacterViewClass::Unknown_67A9B0(int type)
 {
@@ -680,7 +680,7 @@ void CharacterViewClass::Unknown_67A9B0(int type)
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67AB20
 void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 {
@@ -696,6 +696,13 @@ void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 				case 0:
 					Unknown1C->Add_Render_Object(ViewRObjs[type]);
 					break;
+				case 3:
+					Unknown07C->Add_Render_Object(ViewRObjs[type]);
+					break;
+				case 4:
+					Unknown084->Add_Render_Object(ViewRObjs[type]);
+					Unknown_67BBE0();
+					break;
 				case 1:
 				case 2: {
 					Unknown06C->Add_Render_Object(ViewRObjs[type]);
@@ -706,13 +713,6 @@ void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 					}
 					break;
 				}
-				case 3:
-					Unknown07C->Add_Render_Object(ViewRObjs[type]);
-					break;
-				case 4:
-					Unknown084->Add_Render_Object(ViewRObjs[type]);
-					Unknown_67BBE0();
-					break;
 			}
 		}
 	}
@@ -890,7 +890,7 @@ void CharacterViewClass::Unknown_67AF70(float time)
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67B4F0
 void CharacterViewClass::Unknown_67B4F0(bool on)
 {

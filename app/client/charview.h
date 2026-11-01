@@ -133,7 +133,7 @@ public:
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
 	void Unknown_67C530();								// 0x67C530 (the frame)
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first)
-	void Unknown_67CEF0();								// 0x67CEF0 (Shutdown, while +0x50C)
+	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
 	Vector3 Unknown04C;									// +0x4C the camera's position (0x67A290; the frame translates the model's CAMERA bone by it)
 	Vector3 Unknown058;									// +0x58 the camera's rotation in degrees (the frame: X, then Rotate_Y, Rotate_Z)
