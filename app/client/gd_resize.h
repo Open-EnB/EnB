@@ -6,8 +6,7 @@
 **
 **	gd_resize.cpp's drag handle: a model gadget that follows the pointer between two corners (table 0xAFA954,
 **	0x8C bytes; constructor 0x66BA50, destructor 0x66BAF0). Its base is the model gadget that stays out of the
-**	scene (constructor 0x675120, table 0xAFB870, in a file at 0x675020-0x675160 not rebuilt: declared here as
-**	far as this file uses it).
+**	scene (constructor 0x675120, table 0xAFB870: unknown_675120.h).
 */
 
 #if defined(_MSC_VER)
@@ -21,15 +20,7 @@
 #include "vector2.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-// The model gadget without a scene (0x60 bytes; its slots +0x74 / +0x78 the inline 0x51ADC0 / 0x51ADE0)
-class Unknown_675120Class : public RObjGadgetClass  // NAME 1: neutral (D10)
-{
-public:
-	Unknown_675120Class(RenderObjClass *robj, unsigned int mask);		// 0x675120 (RObjGadgetClass 0x66BEC0)  // NAME 1 [robj, mask]: the base's
-	virtual ~Unknown_675120Class();										// +0x00 0x675150 (deleting 0x675020)
-	virtual void Unknown_74() {}										// +0x74 0x51ADC0 (no scene to enter)
-	virtual void Unknown_78() { Unknown_6607D0(); }						// +0x78 0x51ADE0 (only the flash stopped)
-};
+#include "unknown_675120.h"
 
 class ResizeGadgetClass : public Unknown_675120Class  // NAME 3 [ResizeGadgetClass]: class-from-file (D24) for app\Client\gd_resize.cpp
 {

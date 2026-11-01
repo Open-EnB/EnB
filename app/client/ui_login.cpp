@@ -86,13 +86,13 @@ class FontStringFilesClass { public: void Load(const char *name); void Unload(co
 
 extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text gadgets get
 
-// gadget.cpp's buttons (100 bytes, 0x675240), as ui_manu.cpp makes them
-class LoginButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+#include "unknown_675120.h"
+
+
+
+
+
+
 
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
@@ -335,7 +335,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	for (int n = 0; n < 5; n++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B810DC[n]));
 		Unknown_496AE0(robj.Peek(), 0);
-		Buttons[n] = new LoginButtonGadgetClass(robj.Peek(), layer, 0x55, 3);
+		Buttons[n] = new ButtonGadgetClass(robj.Peek(), *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Buttons[n], n + 1, View, 1, 1);
 	}
 	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe01a", model.Peek(), Unknown_B08CC4, 0);
@@ -791,7 +791,7 @@ void LoginInterface::Unknown_5AE590()
 	for (int i = 0; i < 4; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(AccountMenu->Get_Sub_Object_By_Name(Unknown_B8110C[i]));
 		Unknown_496AE0(robj.Peek(), 0);
-		AccountButtons[i] = new LoginButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
+		AccountButtons[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(AccountButtons[i], i + 1, View, 1, 0);
 	}
 	Unknown_5AE8E0(true);

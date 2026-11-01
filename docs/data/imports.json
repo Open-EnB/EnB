@@ -12116,6 +12116,28 @@
     "merged": [],
     "name": "client/unknown_66b770.cpp"
    },
+   "unknown_675120": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x674F90",
+     "0x675020",
+     "0x675050",
+     "0x675090",
+     "0x675120",
+     "0x675170",
+     "0x675210",
+     "0x675240",
+     "0x675280",
+     "0x675310"
+    ],
+    "merged": [],
+    "name": "client/unknown_675120.cpp"
+   },
    "unknown_authlogin": {
     "ambiguous": [
      "0x42A6C0",
@@ -12785,6 +12807,7 @@
    "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
    "client/unknown_66b770.h": "reconstructed",
+   "client/unknown_675120.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
    "client/unknown_fontsound.h": "reconstructed",
