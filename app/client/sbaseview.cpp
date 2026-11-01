@@ -25,6 +25,27 @@ public:
 	char Unknown84[0x184 - 0x84];
 };
 
+// 0x69CBE0
+bool SBaseViewClass::Unknown_69CBE0()
+{
+	if (Unknown1B0) return(false);
+	if (!Unknown64) return(false);
+	return(Unknown64->Is_Active());
+}
+
+// 0x69CC10: as 0x69CCD0 without PTrade and +0x190
+bool SBaseViewClass::Unknown_69CC10()
+{
+	if (Unknown184 && Unknown184->Is_Active()) return(true);
+	if (Unknown188 && Unknown188->Is_Active()) return(true);
+	if (Unknown18C && Unknown18C->Is_Active()) return(true);
+	if (Jobs && Jobs->Is_Active()) return(true);
+	if (Unknown198 && Unknown198->Is_Active()) return(true);
+	if (AvatarUI != NULL && AvatarUI->Is_Active()) return(true);
+	if (ShipUI != NULL && ShipUI->Is_Active()) return(true);
+	return(false);
+}
+
 // 0x69CCD0: any of the view's interfaces active
 bool SBaseViewClass::Unknown_69CCD0()
 {
@@ -87,27 +108,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1681,6 +1681,6 @@ void SBaseViewClass::Unknown_6A2480()
 **	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
 **	0x69C5A0, ...), and 0x69C8F0 calls 0x69CDE0 / 0x69D030: the view's code runs from 0x69AD30 at the latest
-**	(sbase_info.cpp's last assert function is 0x6987A0). 0x69CCD0 and 0x69CDE0 are written above 0x69D930, in the
+**	(sbase_info.cpp's last assert function is 0x6987A0). 0x69CBE0-0x69CDE0 are written above 0x69D930, in the
 **	client's order (their lines taken from the blank stretch).
 */
