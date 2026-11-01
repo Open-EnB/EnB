@@ -484,6 +484,7 @@ same libraries or by compiling with the same flags. Byte-matched with `tools/vc6
 | C++ standard library (iostreams, locale) | VC6 SP4 `LIBCPMT.LIB` | 181 | 36 | [bytematch-libcpmt](data/bytematch-libcpmt.md) |
 | COM support (`_com_error`, `_bstr_t`) | VC6 SP4 `COMSUPP.LIB` | 13 | 2 | [bytematch-comsupp](data/bytematch-comsupp.md) |
 | D3DX (matrix maths, shader assembler, textures) | DirectX 8.0 SDK `d3dx8.lib` | 627 | 147 | [bytematch-d3dx8](data/bytematch-d3dx8.md) |
+| app (TK12, D163 claim #112): new app/common/galaxy_map.cpp / galaxy_map.h (the client's __FILE__ 0xBA97D4 / 0xBA9770): the data objects' base GalaxyMapDataClass (RefCountClass; vtable 0xB08B74, GalaxyMapID at +0x08, Get_Hash_ID pure) with its Read / Write out of line, and the system GalaxyMapSystemClass (0xB08B44, 0x40 bytes) with its static Create (NAME 2) | 0x837C10 / 0x837C40 `LinearBufferClass::Read` / `Write` of +0x08, 4 bytes, before the factory (the header's inline virtuals follow it from 0x837D50); 0x837C70 `Create_NEW(new GalaxyMapSystemClass)` with both constructors inlined (+0x08 / +0x0C = -1, the string, +0x38 = 1.0f, +0x3C = 3); the base's destructor asserts '!Is_In_Galaxy_Map()' on galaxy_map.h's line 161 | +9 pairs and 1 tie-break, none lost: 0x837C10, 0x837C40, 0x837C70; the header's ~GalaxyMapDataClass 0x837D50 and the deleting destructors 0x837E70 / 0x837F50; COMDAT copies 0x42A820 (basic_string::_Tidy), 0x45CC10 / 0x45CC30 (RefCountClass); tie-break Create_NEW 0x839C90 |
 
 Not code we have to write either:
 

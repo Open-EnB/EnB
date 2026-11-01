@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1070 |
-| 2 | describes what the code does | 2566 |
-| 1 | neutral placeholder | 7969 |
+| 3 | by convention from a client-named file or sibling | 1074 |
+| 2 | describes what the code does | 2573 |
+| 1 | neutral placeholder | 7978 |
 
 ## For review (score 3 and below)
 
@@ -5915,6 +5915,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
+| 1 | `Get_Type` | `app/common/galaxy_map.h:163` | what it returns (the system's 5) |
+| 1 | `Unknown_18` | `app/common/galaxy_map.h:167` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/common/galaxy_map.h:168` | neutral (D10) |
+| 1 | `Unknown_20` | `app/common/galaxy_map.h:169` | neutral (D10) |
+| 1 | `Unknown38` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
+| 1 | `Name` | `app/common/galaxy_map.h:189` | a string on the wire (Read_String) |
+| 1 | `Unknown20` | `app/common/galaxy_map.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/common/galaxy_map.h:191` | untagged neutral name (D10) |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -9040,6 +9049,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `In` | `app/common/dbgconn.h:97` | what it holds |
 | 2 | `Out` | `app/common/dbgconn.h:98` | what it holds |
 | 2 | `StatsConnectionClass` | `app/common/dbgconn.h:102` | what it does (-PACKET_STATS) |
+| 2 | `GalaxyMapDataClass` | `app/common/galaxy_map.h:153` | the map's 'AllData' (galaxy_map.h's asserts) holds them |
+| 2 | `Read, buffer` | `app/common/galaxy_map.h:164` | LinearBufferClass::Read of GalaxyMapID |
+| 2 | `Write, buffer` | `app/common/galaxy_map.h:165` | LinearBufferClass::Write of GalaxyMapID |
+| 2 | `As_System` | `app/common/galaxy_map.h:166` | the system's override |
+| 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:178` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
+| 2 | `Create` | `app/common/galaxy_map.h:186` | what it does |
+| 2 | `HashID` | `app/common/galaxy_map.h:188` | Get_Hash_ID's |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
@@ -10870,6 +10886,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
+| 3 | `NOT_IN_GALAXY_MAP` | `app/common/galaxy_map.h:156` | the asserts' 'GalaxyMapID != NOT_IN_GALAXY_MAP' |
+| 3 | `Get_Hash_ID` | `app/common/galaxy_map.h:170` | galaxy_map.cpp's 'Systems.find(system->Get_Hash_ID())' |
+| 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
+| 3 | `GalaxyMapID` | `app/common/galaxy_map.h:174` | the asserts' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |

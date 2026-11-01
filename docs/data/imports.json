@@ -2894,6 +2894,30 @@
      "0x6D4640"
     ]
    },
+   "galaxy_map": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x45CC10",
+     "0x45CC30",
+     "0x837C10",
+     "0x837C40",
+     "0x837C70",
+     "0x837D50",
+     "0x837E70",
+     "0x837F50",
+     "0x839C90"
+    ],
+    "merged": [],
+    "name": "common/galaxy_map.cpp",
+    "tiebreak": [
+     "0x839C90"
+    ]
+   },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
@@ -11021,6 +11045,7 @@
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
+   "common/galaxy_map.h": "reconstructed",
    "common/lego_identifier.h": "reconstructed",
    "common/memconn.h": "reconstructed",
    "common/prof.h": "reconstructed",
@@ -11236,7 +11261,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5819,
+  "in_tree_total": 5921,
   "totals": {}
  },
  "binkmovie": {
@@ -11356,7 +11381,7 @@
   }
  },
  "wlib": {
-  "ambiguous_total": 4,
+  "ambiguous_total": 5,
   "base": "Z",
   "compile_errors": [],
   "files": {
@@ -11607,7 +11632,7 @@
    "wtime.h": "Z",
    "xtime.h": "Z"
   },
-  "in_tree_total": 84,
+  "in_tree_total": 130,
   "totals": {
    "Z": 74
   }
