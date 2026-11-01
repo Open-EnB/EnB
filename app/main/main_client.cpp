@@ -63,7 +63,7 @@ int Unknown_4454C0(int unknown, int unknown2);			// NAME 1 [Unknown_4454C0]: WM_
 extern unsigned long Unknown_BDBE4C;				// NAME 1 [Unknown_BDBE4C]: GetTickCount at start-up (main.cpp)
 
 // input.cpp, the window, the render state, display.cpp, deffont.cpp
-HWND Unknown_431CA0(HINSTANCE instance, int width, int height, int unknown);	// NAME 1 [Unknown_431CA0]: registers the class, makes the 'Earth & Beyond' window  // NAME 1 [instance, width, height, unknown]: what WinMain passes
+HWND Unknown_431CA0(HINSTANCE instance, int width, int height, bool topmost);	// NAME 1 [Unknown_431CA0]: registers the class, makes the 'Earth & Beyond' window (w32window.cpp)  // NAME 1 [instance, width, height, topmost]: what WinMain passes
 void Unknown_42E4A0(HWND window);					// NAME 1 [Unknown_42E4A0]: input.cpp's start-up (input.ini, the DirectInput devices)  // NAME 1 [window]: what WinMain passes
 bool Unknown_42EE00(bool enable);				// NAME 1 [Unknown_42EE00, enable]: input.cpp's key repeat (the 'KeyRepeatCount' assert)
 void Unknown_42E7B0();								// NAME 1 [Unknown_42E7B0]: input.cpp's shut-down

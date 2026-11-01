@@ -1,9 +1,7 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's window and display (D179). NOT THE CLIENT'S CODE.
 /*
 **	Functional stand-ins, written from Ghidra's pseudocode of the client's functions, for what WinMain
-**	(app\main\main_client.cpp) needs before anything can draw: the main window (0x431CA0 and its window
-**	procedure 0x431DE0),
-**	display.cpp's start-up / shut-down (0x442AC0 / 0x442FF0) and E&B's asset manager's constructor
+**	(app\main\main_client.cpp) needs before anything can draw: display.cpp's start-up / shut-down (0x442AC0 / 0x442FF0) and E&B's asset manager's constructor
 **	(0x48B070). Delete one here when its real function lands in app/ (the linker reports the duplicate).
 **
 **	ENB_POC_WINDOWED=1 in the environment makes the display windowed (the client's default is the registry's
@@ -84,44 +82,7 @@ int Unknown_42FBA0(int message, int wparam, int lparam);
 
 // ---------------------------------------------------------------- the main window
 
-// 0x431DE0
-static LRESULT CALLBACK Unknown_431DE0(HWND window, UINT message, WPARAM wparam, LPARAM lparam)
-{
-	int result = Unknown_42FBA0(message, wparam, lparam);
-	if (result == -1) {
-		return DefWindowProc(window, message, wparam, lparam);
-	}
-	return result;
-}
-
-// 0x431CA0: registers the class, makes the 'Earth & Beyond' window (client area width x height)
-HWND Unknown_431CA0(HINSTANCE instance, int width, int height, int unknown)
-{
-	STUB_CALLED("POC Unknown_431CA0 (0x431CA0): the main window");
-	WNDCLASS wc;
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc = Unknown_431DE0;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = instance;
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = NULL;
-	wc.lpszMenuName = NULL;
-	wc.lpszClassName = "Earth & Beyond";
-	RegisterClass(&wc);
-	HWND window = CreateWindowEx((char)unknown ? WS_EX_TOPMOST : 0, "Earth & Beyond", "Earth & Beyond",
-		WS_CAPTION, 0, 0, width, height, NULL, NULL, instance, NULL);
-	RECT client, frame;
-	GetClientRect(window, &client);
-	GetWindowRect(window, &frame);
-	if (client.right < frame.right - frame.left) {
-		MoveWindow(window, frame.left, frame.top, frame.right - client.right - frame.left + width,
-			frame.bottom - client.bottom - frame.top + height, TRUE);
-	}
-	SetFocus(window);
-	return window;
-}
+// app\input\w32window.cpp has it (0x431CA0) and its window procedure (0x431DE0).
 
 // ---------------------------------------------------------------- display.cpp
 

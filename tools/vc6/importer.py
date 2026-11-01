@@ -3788,6 +3788,9 @@ RECONSTRUCTED = {
                                 "and place, D137: the object between input.cpp and w32kbd.cpp has no __FILE__; builder INP, "
                                 "run PR #140): an SList of handlers, the add 0x42F940 and dispatch 0x42FBA0 exact, the remove "
                                 "0x42FAC0 NOT EXACT (shape), SList's instances",
+    ('app', 'input/w32window.cpp'): "the main window, client 0x431CA0-0x431E10 (PROVISIONAL file name, D10, and place, D137: "
+                                   "after w32mouse.cpp's functions, no __FILE__; builder INP, run PR #140): its window "
+                                   "procedure 0x431DE0 exact, the window's creation 0x431CA0 NOT EXACT (shape)",
     ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3)",
     ('app', 'input/w32kbd.cpp'): "w32kbd.cpp's keyboard handler, client 0x430490-0x430D40 (the reporter's __LINE__ 124 / "
                                 "270, D25; builder INP, run PR #140): the constructor, destructor, Set_Repeat, the "

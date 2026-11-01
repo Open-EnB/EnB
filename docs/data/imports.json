@@ -12322,6 +12322,16 @@
     "merged": [],
     "name": "input/w32mouse.cpp"
    },
+   "w32window": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x431DE0"
+    ],
+    "merged": [],
+    "name": "input/w32window.cpp"
+   },
    "weapontype": {
     "ambiguous": [],
     "copy": "reconstructed",

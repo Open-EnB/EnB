@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1122 |
 | 2 | describes what the code does | 2822 |
-| 1 | neutral placeholder | 9870 |
+| 1 | neutral placeholder | 9873 |
 
 ## For review (score 3 and below)
 
@@ -7682,6 +7682,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/input/w32mouse.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/input/w32mouse.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/input/w32mouse.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_431DE0, window, message, wparam, lparam` | `app/input/w32window.cpp:5` | neutral (D10) |
+| 1 | `Unknown_431DE0` | `app/input/w32window.cpp:5` | untagged neutral name (D10) |
+| 1 | `Unknown_431CA0, instance, width, height, topmost` | `app/input/w32window.cpp:8` | as main_client.cpp |
+| 1 | `Unknown_431CA0` | `app/input/w32window.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `app/input/w32window.cpp:36` | untagged neutral name (D10) |
 | 1 | `MessageHandlerStruct` | `app/input/winmsg.cpp:6` | neutral (D10) |
 | 1 | `Unknown_BDAAD8` | `app/input/winmsg.cpp:14` | neutral (D10) |
 | 1 | `Unknown_42F940` | `app/input/winmsg.cpp:16` | untagged neutral name (D10) |
@@ -9573,16 +9578,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_431DE0` | `programs/clientpoc/poc_window.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_431CA0` | `programs/clientpoc/poc_window.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADB8` | `programs/clientpoc/poc_window.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_442FA0` | `programs/clientpoc/poc_window.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_442AC0` | `programs/clientpoc/poc_window.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown_442FF0` | `programs/clientpoc/poc_window.cpp:209` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADB8` | `programs/clientpoc/poc_window.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_442FA0` | `programs/clientpoc/poc_window.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_442AC0` | `programs/clientpoc/poc_window.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_442FF0` | `programs/clientpoc/poc_window.cpp:170` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
