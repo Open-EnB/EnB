@@ -10490,6 +10490,38 @@
     "merged": [],
     "name": "client/ui_avatr.cpp"
    },
+   "ui_avsel": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x55C650",
+     "0x55CC90",
+     "0x55CCC0",
+     "0x55CEA0",
+     "0x55E2E0",
+     "0x55E8E0",
+     "0x55EBD0",
+     "0x55ECB0",
+     "0x55ED20",
+     "0x55EF90",
+     "0x55F680",
+     "0x55F6D0",
+     "0x55F760",
+     "0x55FBB0",
+     "0x55FDC0",
+     "0x55FE50"
+    ],
+    "merged": [],
+    "name": "client/ui_avsel.cpp"
+   },
    "ui_chat_panel": {
     "ambiguous": [
      "0x42A6C0",
