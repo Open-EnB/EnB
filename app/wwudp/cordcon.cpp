@@ -1443,13 +1443,19 @@ bool CordCon::closec(int channel)
 	return false;
 }
 
-// 0x8501D0, NOT EXACT: the client returns `mov al, 1` early and `sete al` without the xor.
+// 0x8501D0 (`? true : false`: sete al without the xor)
 bool CordCon::Is_Closed()
 {
 	if (Udp_ == NULL) {
 		return true;
 	}
-	return CloseState_ == 4;
+	return (CloseState_ == 4) ? true : false;
+}
+
+// 0x850200: returns false; no caller and no string in the client (between Is_Closed and Go_Away).
+bool CordCon::Unknown_850200()
+{
+	return false;
 }
 
 
