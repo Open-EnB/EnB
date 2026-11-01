@@ -10213,6 +10213,20 @@
      "0x4418B0"
     ]
    },
+   "splash": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x444160",
+     "0x6A9B60",
+     "0x6A9DB0",
+     "0x6A9E40"
+    ],
+    "merged": [],
+    "name": "client/splash.cpp"
+   },
    "spline": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -12373,6 +12387,7 @@
    "client/sclient.h": "reconstructed",
    "client/scriptedmovieline.h": "reconstructed",
    "client/soptions.h": "reconstructed",
+   "client/splash.h": "reconstructed",
    "client/starmap_data.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
    "client/tasks/tsk_login.h": "reconstructed",

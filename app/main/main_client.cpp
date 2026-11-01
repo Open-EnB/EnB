@@ -131,7 +131,7 @@ extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutra
 class Unknown_764480Class { public: Unknown_764480Class(); ~Unknown_764480Class(); char Unknown00[0x10]; };	// NAME 1 [Unknown_764480Class]: the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0
 void Unknown_764510(Unknown_764480Class *manager);	// NAME 1 [Unknown_764510]: sets 0xBE82D0  // NAME 1 [manager]: neutral
 extern Unknown_764480Class *Unknown_BE82D0;			// NAME 1 [Unknown_BE82D0]: neutral (D10)
-class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
+#include "..\client\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 class SClientFontDatabaseClass;					// sclient.h's view of 0xBE67BC (the font string files)
 extern SClientFontDatabaseClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 
@@ -505,13 +505,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	WW3D::Enable_Large_Texture_Extra_Reduction(!reduction);
 
 	if (Unknown_BDADB8 != 0) {
-		Unknown_6A9B60Class *splash;				// NAME 1 [splash]: 0x6A9E40's 'Splash::Render'
+		Splash *splash;				// NAME 1 [splash]: 0x6A9E40's 'Splash::Render'
 		if (Unknown_5FADE0() || !Unknown_5FAD50()) {
-			splash = new Unknown_6A9B60Class(2);
+			splash = new Splash(2);
 		} else {
-			splash = new Unknown_6A9B60Class(0);
+			splash = new Splash(0);
 		}
-		splash->Unknown_6A9E40();
+		splash->Render();
 		delete splash;
 		Sleep(4000);
 

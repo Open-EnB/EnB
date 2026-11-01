@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1121 |
+| 3 | by convention from a client-named file or sibling | 1122 |
 | 2 | describes what the code does | 2824 |
-| 1 | neutral placeholder | 9866 |
+| 1 | neutral placeholder | 9868 |
 
 ## For review (score 3 and below)
 
@@ -4073,6 +4073,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/client/soptions.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/soptions.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/soptions.h:62` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/splash.h:25` | 0 / 2 an 'install%02da' model (2 adds 'demo-esrb01'), 1 'starmap%02da' |
+| 1 | `Camera` | `app/client/splash.h:29` | a CameraClass (0x384 bytes) |
+| 1 | `Scene` | `app/client/splash.h:30` | a SimpleSceneClass (0x98 bytes) |
+| 1 | `Model` | `app/client/splash.h:31` | the asset manager's 'install%02da' / 'starmap%02da' |
+| 1 | `Rating` | `app/client/splash.h:32` | 'demo-esrb01', a sub-object of Model (type 2) |
 | 1 | `Unknown08` | `app/client/starmap_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:18` | untagged neutral name (D10) |
 | 1 | `gm_name` | `app/client/tasks/tsk_game.cpp:19` | '-GM_NAME' |
@@ -4134,9 +4139,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8190D0Class` | `app/client/tasks/tsk_login.cpp:38` | what 0x8190D0 returns |
 | 1 | `Unknown_8191B0` | `app/client/tasks/tsk_login.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8190D0` | `app/client/tasks/tsk_login.cpp:39` | neutral (D10) |
-| 1 | `Unknown_6A9B60Class` | `app/client/tasks/tsk_login.cpp:40` | 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0 |
-| 1 | `Unknown_6A9E40` | `app/client/tasks/tsk_login.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_723150` | `app/client/tasks/tsk_login.cpp:41` | neutral (D10); the destructor calls it |
 | 1 | `Unknown_BB9654` | `app/client/tasks/tsk_login.cpp:42` | neutral (D10); Accept_Focus clears it |
 | 1 | `Galaxies` | `app/client/tasks/tsk_login.cpp:47` | copied to the task's |
@@ -4165,6 +4167,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_515340` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `LoginFlagsStruct` | `app/client/tasks/tsk_login.cpp:183` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_login.cpp:185` | untagged neutral name (D10) |
 | 1 | `Is_0C` | `app/client/tasks/tsk_login.cpp:187` | neutral (D10) |
 | 1 | `Unknown2C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.cpp:235` | untagged neutral name (D10) |
@@ -7781,7 +7784,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDBE4C` | `app/main/main_client.cpp:63` | GetTickCount at start-up (main.cpp) |
 | 1 | `Unknown_431CA0` | `app/main/main_client.cpp:66` | registers the class, makes the 'Earth & Beyond' window  // NAME 1 [instance, width, height, unknown]: what WinMain passes |
 | 1 | `Unknown_42E4A0` | `app/main/main_client.cpp:67` | input.cpp's start-up (input.ini, the DirectInput devices)  // NAME 1 [window]: what WinMain passes |
-| 1 | `Unknown_42EE00` | `app/main/main_client.cpp:68` | input.cpp (the 'KeyRepeatCount' assert) |
+| 1 | `Unknown_42EE00, enable` | `app/main/main_client.cpp:68` | input.cpp's key repeat (the 'KeyRepeatCount' assert) |
+| 1 | `Unknown_42EE00` | `app/main/main_client.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_42E7B0` | `app/main/main_client.cpp:69` | input.cpp's shut-down |
 | 1 | `Unknown_42F940` | `app/main/main_client.cpp:70` | adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes |
 | 1 | `Unknown_42FAC0` | `app/main/main_client.cpp:71` | removes it |
@@ -7816,8 +7820,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764480Class` | `app/main/main_client.cpp:131` | the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0 |
 | 1 | `Unknown_764510` | `app/main/main_client.cpp:132` | sets 0xBE82D0  // NAME 1 [manager]: neutral |
 | 1 | `Unknown_BE82D0` | `app/main/main_client.cpp:133` | neutral (D10) |
-| 1 | `Unknown_6A9B60Class` | `app/main/main_client.cpp:134` | 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0 |
-| 1 | `Unknown_6A9E40` | `app/main/main_client.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/main/main_client.cpp:136` | neutral (D10) |
 | 1 | `Unknown_7CA2D0Class` | `app/main/main_client.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
@@ -12948,6 +12950,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TextureReduction` | `app/client/soptions.h:58` | the registry value's name |
 | 3 | `TextureFilter` | `app/client/soptions.h:59` | the registry value's name |
 | 3 | `CameraMode` | `app/client/soptions.h:63` | the assert's 'cameramode' |
+| 3 | `splash.h` | `app/client/splash.h:15` | after the class name 'Splash' (0x6A9E40's profile string) |
 | 3 | `starmap_data.h` | `app/client/starmap_data.h:16` | header name assumed from the client's starmap_data.cpp |
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:28` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |

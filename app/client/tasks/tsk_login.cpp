@@ -37,7 +37,7 @@ struct Unknown_VersionStruct { int Major; int Minor; };	// NAME 1 [Unknown_Versi
 Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral (D10)
 class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
 Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
-class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
+#include "..\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
@@ -978,8 +978,8 @@ void LoginTaskClass::Start_Game()
 		kernel->Add_Task(task);
 		kernel->Set_Focus(task);
 		Kernel->Remove_Task(this);
-		Unknown_6A9B60Class *unknown = new Unknown_6A9B60Class(1);
-		unknown->Unknown_6A9E40();
+		Splash *unknown = new Splash(1);
+		unknown->Render();
 		delete unknown;
 	}
 }
