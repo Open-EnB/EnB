@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -19,13 +19,26 @@
 #include "udp.h"
 #include "wlib/wdebug.h"
 
+// E&B: the accounting callback (0xBF52C4)
+void (*UDP::accountingCallback)(bool out, int len, unsigned int ip, unsigned short port)=NULL;
+
 UDP::UDP()
 {
   fd=0;
+  unknownFD=0;
+  myIP=0xDEADBEEF;
+  myPort=0xDEAD;
+
+  WSADATA wsadata;
+  WSAStartup(0x0101,&wsadata);
 }
 
 UDP::~UDP()
 {
+  Close();
+  WSACleanup();
+  if (unknownFD)
+    closesocket(unknownFD);
 }
 
 sint32 UDP::Bind(char *Host,uint16 port)
@@ -59,6 +72,7 @@ sint32 UDP::Bind(uint32 IP,uint16 Port)
   addr.sin_family=AF_INET;
   addr.sin_port=Port;
   addr.sin_addr.s_addr=IP;
+  Close();
   fd=socket(AF_INET,SOCK_DGRAM,DEFAULT_PROTOCOL);
   #ifdef _WINDOWS
   if (fd==SOCKET_ERROR)
@@ -93,23 +107,33 @@ sint32 UDP::Bind(uint32 IP,uint16 Port)
   return(OK);
 }
 
+// E&B: close the socket
+void UDP::Close(void)
+{
+  if (fd)
+    closesocket(fd);
+  fd=0;
+}
+
 bit8 UDP::getLocalAddr(uint32 &ip, uint16 &port)
 {
   ip=myIP;
   port=myPort;
-  return(OK);
+  return(TRUE);
 }
 
 
-// private function
-sint32 UDP::SetBlocking(bit8 block)
+// E&B: public, for any socket (this one's by default)
+sint32 UDP::SetBlocking(bit8 block,sint32 sock)
 {
   #ifdef _WINDOWS
+   if (sock==-1)
+     sock=fd;
    unsigned long flag=1;
    if (block)
      flag=0;
    int retval;
-   retval=ioctlsocket(fd,FIONBIO,&flag);
+   retval=ioctlsocket(sock,FIONBIO,&flag);
    if (retval==SOCKET_ERROR)
      return(UNKNOWN);
    else
@@ -130,6 +154,7 @@ sint32 UDP::SetBlocking(bit8 block)
 }
 
 
+// NOT EXACT: 0x8BFD50 0.72, block order: the client puts the accounting call after the retry's `jmp`
 sint32 UDP::Write(uint8 *msg,uint32 len,uint32 IP,uint16 port)
 {
   sint32 retval;
@@ -144,15 +169,28 @@ sint32 UDP::Write(uint8 *msg,uint32 len,uint32 IP,uint16 port)
   to.sin_family=AF_INET;
 
   ClearStatus();
-  retval=sendto(fd,(char *)msg,len,0,(struct sockaddr *)&to,sizeof(to));
-  #ifdef _WINDOWS
-  if (retval==SOCKET_ERROR)
-    retval=-1;
-  #endif
-  
+  while (1)
+  {
+    retval=sendto(fd,(char *)msg,len,0,(struct sockaddr *)&to,sizeof(to));
+    #ifdef _WINDOWS
+    if (retval==SOCKET_ERROR)
+    {
+      retval=-1;
+      if (GetStatus()==INTR)  // E&B: try again when interrupted
+        continue;
+    }
+    else
+    #endif
+    if (accountingCallback)  // E&B
+      accountingCallback(true,len,IP,port);
+    break;
+  }
+
   return(retval);
 }
 
+// NOT EXACT: 0x8BFE30, registers and the status test: the client keeps status on the stack and tests
+//   all four codes again after the push_back; ours knows it is CONNRESET there
 sint32 UDP::Read(uint8 *msg,uint32 len,sockaddr_in *from)
 {
   sint32 retval;
@@ -160,19 +198,43 @@ sint32 UDP::Read(uint8 *msg,uint32 len,sockaddr_in *from)
 
   if (from!=NULL)
   {
+    from->sin_addr.s_addr=0;
     retval=recvfrom(fd,(char *)msg,len,0,(struct sockaddr *)from,&alen);
     #ifdef _WINDOWS
     if (retval==SOCKET_ERROR)
       retval=-1;
+    else
     #endif
+    if ((retval>0)&&(accountingCallback))  // E&B
+      accountingCallback(false,retval,ntohl(from->sin_addr.s_addr),ntohs(from->sin_port));
   }
   else
   {
-    retval=recvfrom(fd,(char *)msg,len,0,NULL,NULL);
+    sockaddr_in sender;  // E&B: the sender, for the accounting
+    retval=recvfrom(fd,(char *)msg,len,0,(struct sockaddr *)&sender,&alen);
     #ifdef _WINDOWS
     if (retval==SOCKET_ERROR)
       retval=-1;
+    else
     #endif
+    if ((retval>0)&&(accountingCallback))  // E&B
+      accountingCallback(false,retval,ntohl(sender.sin_addr.s_addr),ntohs(sender.sin_port));
+  }
+
+  // E&B: a datagram to a closed port comes back as WSAECONNRESET on the next read; keep its
+  //   address and hand it out as an empty read, so that the caller can drop that peer
+  sint32 status=GetStatus();
+  if ((retval==-1)&&(from!=NULL))
+  {
+    if (status==CONNRESET)
+      AddReset(*from);
+    if (((status==AGAIN)||(status==WOULDBLOCK)||(status==CONNRESET)||(status==CONNREFUSED))&&
+        (resetList.size()!=0))
+    {
+      *from=resetList.front();
+      resetList.pop_front();
+      return(0);
+    }
   }
   return(retval);
 }
@@ -183,6 +245,17 @@ void UDP::ClearStatus(void)
   #ifndef _WINDOWS
   errno=0;
   #endif
+}
+
+// E&B: keep a peer whose datagram came back as WSAECONNRESET
+void UDP::AddReset(sockaddr_in &from)
+{
+  resetList.push_back(from);
+}
+
+// E&B: an empty member (0x8C00E0, no caller)
+void UDP::Unknown8C00E0(void)
+{
 }
 
 UDP::sockStat UDP::GetStatus(void)
@@ -200,6 +273,7 @@ UDP::sockStat UDP::GetStatus(void)
   else if (status==WSAEALREADY) return(ALREADY);
   else if (status==WSAEWOULDBLOCK) return(WOULDBLOCK);
   else if (status==WSAEBADF) return(BADF);
+  else if (status==WSAECONNRESET) return(CONNRESET);  // E&B
   else     return(UNKNOWN);
  #else
   int status=errno;
@@ -310,7 +384,7 @@ int UDP::Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet)
 
 bit8 UDP::SetInputBuffer(uint32 bytes)
 {
-  #ifndef _WINDOWS
+  // E&B: on Windows too
    int retval,arg=bytes;
 
    retval=setsockopt(fd,SOL_SOCKET,SO_RCVBUF,
@@ -319,16 +393,13 @@ bit8 UDP::SetInputBuffer(uint32 bytes)
      return(TRUE);
    else
      return(FALSE);
-  #else
-    return(FALSE);
-  #endif
 }
 
 // Same note goes for the output buffer
 
 bit8 UDP::SetOutputBuffer(uint32 bytes)
 {
-  #ifndef _WINDOWS
+  // E&B: on Windows too
    int retval,arg=bytes;
 
    retval=setsockopt(fd,SOL_SOCKET,SO_SNDBUF,
@@ -337,36 +408,39 @@ bit8 UDP::SetOutputBuffer(uint32 bytes)
      return(TRUE);
    else
      return(FALSE);
-  #else
-    return(FALSE);
-  #endif
 }
 
 // Get the system buffer sizes 
 
 int UDP::GetInputBuffer(void)
 {
-  #ifndef _WINDOWS
+  // E&B: on Windows too
    int retval,arg=0,len=sizeof(int);
 
    retval=getsockopt(fd,SOL_SOCKET,SO_RCVBUF,
      (char *)&arg,&len);
    return(arg);
-  #else
-    return(0);
-  #endif
 }
 
 
 int UDP::GetOutputBuffer(void)
 {
-  #ifndef _WINDOWS
+  // E&B: on Windows too
    int retval,arg=0,len=sizeof(int);
 
    retval=getsockopt(fd,SOL_SOCKET,SO_SNDBUF,
      (char *)&arg,&len);
    return(arg);
-  #else
-    return(0);
-  #endif
+}
+
+
+// E&B: the bandwidth accounting's hook (bandwidthaccounting.cpp)
+void UDP::Set_Accounting_Callback(void (*callback)(bool out, int len, unsigned int ip, unsigned short port))
+{
+  accountingCallback=callback;
+}
+
+void UDP::Clear_Accounting_Callback(void)
+{
+  accountingCallback=NULL;
 }
