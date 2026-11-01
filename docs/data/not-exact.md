@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-397 entries in 81 files.
+399 entries in 82 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -238,6 +238,8 @@ edit the comments in the code, not this file.
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
+| `app/common/galaxy_map.cpp:108` | `GalaxyMapClass::Remove_Data` | marker | NOT EXACT: 0.74, the client sends the six failure exits to one shared epilogue (jmp), this form repeats it after each; nesting the first two FAIL_IFs as {} else {} doesn't share it either 0x836B70 |
+| `app/common/galaxy_map.cpp:268` | `GalaxyMapSystemClass::Create` | mention | NOT EXACT (its FAIL_IFs on the client's lines 112 / 115 / 120 / 128 / 136 / 144; the client shares one epilogue for every exit). Not built yet: 0x8360A0-0x836740 (the header's inline functions, the map's destructor 0x836240 among them) and Add_Data 0x836960 (galaxy_map.h's line 180 'GalaxyMapID == NOT_IN_GALAXY_MAP', the FAIL_IF '(int)id >= MaxDataObjects' on line 98, MaxDataObjects at +0x74). |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
 | `app/common/lego_identifier.cpp:102` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x843E80, registers in the inlined vector assignment (shape; attempts.py show 0x843E80) |
 | `app/common/lego_identifier.cpp:108` | `LegoIdentifierClass::Get_Count` | marker | NOT EXACT: 0x844120, npos read from memory in the client's clear (shape; attempts.py show 0x844120) |

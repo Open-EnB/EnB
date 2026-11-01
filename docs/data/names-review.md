@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1080 |
-| 2 | describes what the code does | 2588 |
-| 1 | neutral placeholder | 8240 |
+| 3 | by convention from a client-named file or sibling | 1081 |
+| 2 | describes what the code does | 2592 |
+| 1 | neutral placeholder | 8237 |
 
 ## For review (score 3 and below)
 
@@ -6178,14 +6178,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
 | 1 | `Get_Type` | `app/common/galaxy_map.h:163` | what it returns (the system's 5) |
-| 1 | `Unknown_18` | `app/common/galaxy_map.h:167` | neutral (D10) |
-| 1 | `Unknown_1C` | `app/common/galaxy_map.h:168` | neutral (D10) |
-| 1 | `Unknown_20` | `app/common/galaxy_map.h:169` | neutral (D10) |
-| 1 | `Unknown38` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/common/galaxy_map.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/common/galaxy_map.h:191` | untagged neutral name (D10) |
-| 1 | `Name` | `app/common/galaxy_map.h:211` | a string on the wire (Read_String) |
+| 1 | `Unknown38` | `app/common/galaxy_map.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/common/galaxy_map.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/common/galaxy_map.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/common/galaxy_map.h:202` | untagged neutral name (D10) |
+| 1 | `Name` | `app/common/galaxy_map.h:222` | a string on the wire (Read_String) |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -9317,22 +9314,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Read, buffer` | `app/common/galaxy_map.h:164` | LinearBufferClass::Read of GalaxyMapID |
 | 2 | `Write, buffer` | `app/common/galaxy_map.h:165` | LinearBufferClass::Write of GalaxyMapID |
 | 2 | `As_System` | `app/common/galaxy_map.h:166` | the system's override |
-| 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:178` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
-| 2 | `Create` | `app/common/galaxy_map.h:208` | what it does |
-| 2 | `HashID` | `app/common/galaxy_map.h:210` | Get_Hash_ID's |
-| 2 | `GalaxyMapSectorClass` | `app/common/galaxy_map.h:219` | galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())' |
-| 2 | `GalaxyMapGateClass` | `app/common/galaxy_map.h:220` | galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())' |
-| 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:221` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
-| 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:224` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
-| 2 | `Add_System` | `app/common/galaxy_map.h:229` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
-| 2 | `Add_Sector` | `app/common/galaxy_map.h:230` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
-| 2 | `Add_Gate` | `app/common/galaxy_map.h:231` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
-| 2 | `Add_Starbase` | `app/common/galaxy_map.h:232` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
-| 2 | `Add_Data` | `app/common/galaxy_map.h:233` | Add_System's first call, before Systems[] |
-| 2 | `Get_Data` | `app/common/galaxy_map.h:235` | returns AllData[id] |
-| 2 | `Get_System` | `app/common/galaxy_map.h:236` | Systems.find |
-| 2 | `Get_Sector` | `app/common/galaxy_map.h:237` | Sectors.find |
-| 2 | `Get_Starbase` | `app/common/galaxy_map.h:238` | Starbases.find |
+| 2 | `As_Sector` | `app/common/galaxy_map.h:167` | Remove_Data 0x836B70 calls the sector's Get_Hash_ID through it (Sectors) |
+| 2 | `As_Gate` | `app/common/galaxy_map.h:168` | Remove_Data's Gates branch |
+| 2 | `As_Starbase` | `app/common/galaxy_map.h:169` | Remove_Data's Starbases branch |
+| 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:189` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
+| 2 | `Create` | `app/common/galaxy_map.h:219` | what it does |
+| 2 | `HashID` | `app/common/galaxy_map.h:221` | Get_Hash_ID's |
+| 2 | `GalaxyMapSectorClass` | `app/common/galaxy_map.h:230` | galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())' |
+| 2 | `GalaxyMapGateClass` | `app/common/galaxy_map.h:231` | galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())' |
+| 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:232` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
+| 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:235` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
+| 2 | `Add_System` | `app/common/galaxy_map.h:240` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
+| 2 | `Add_Sector` | `app/common/galaxy_map.h:241` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
+| 2 | `Add_Gate` | `app/common/galaxy_map.h:242` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
+| 2 | `Add_Starbase` | `app/common/galaxy_map.h:243` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
+| 2 | `Remove_Data` | `app/common/galaxy_map.h:244` | FAIL_IF 'id >= AllData.size()', then the four maps' erase |
+| 2 | `Add_Data` | `app/common/galaxy_map.h:245` | Add_System's first call, before Systems[] |
+| 2 | `Get_Data` | `app/common/galaxy_map.h:247` | returns AllData[id] |
+| 2 | `Get_System` | `app/common/galaxy_map.h:248` | Systems.find |
+| 2 | `Get_Sector` | `app/common/galaxy_map.h:249` | Sectors.find |
+| 2 | `Get_Starbase` | `app/common/galaxy_map.h:250` | Starbases.find |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
@@ -11168,11 +11169,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Hash_ID` | `app/common/galaxy_map.h:170` | galaxy_map.cpp's 'Systems.find(system->Get_Hash_ID())' |
 | 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
 | 3 | `GalaxyMapID` | `app/common/galaxy_map.h:174` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:240` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:241` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:242` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:243` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:244` | the asserts' |
+| 3 | `Remove_From_Galaxy_Map` | `app/common/galaxy_map.h:185` | the assert's (line 185; Remove_Data, the map's destructor) |
+| 3 | `std:` | `app/common/galaxy_map.h:252` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:253` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:254` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:255` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:256` | the asserts' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |

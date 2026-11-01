@@ -24,9 +24,9 @@
 
 class LinearBufferClass;
 class GalaxyMapSystemClass;
-
-
-
+class GalaxyMapSectorClass;
+class GalaxyMapGateClass;
+class GalaxyMapStarbaseClass;
 
 
 
@@ -164,14 +164,25 @@ public:
 	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x837C10  // NAME 2 [Read, buffer]: LinearBufferClass::Read of GalaxyMapID
 	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x837C40  // NAME 2 [Write, buffer]: LinearBufferClass::Write of GalaxyMapID
 	virtual GalaxyMapSystemClass *As_System() { return(NULL); }				// +0x14 0x837DF0 (the system's 0x837EE0 returns this)  // NAME 2: the system's override
-	virtual void *Unknown_18() { return(NULL); }								// +0x18 0x837E10  // NAME 1: neutral (D10)
-	virtual void *Unknown_1C() { return(NULL); }								// +0x1C 0x837E30  // NAME 1: neutral (D10)
-	virtual void *Unknown_20() { return(NULL); }								// +0x20 0x837E50  // NAME 1: neutral (D10)
+	virtual GalaxyMapSectorClass *As_Sector() { return(NULL); }				// +0x18 0x837E10  // NAME 2: Remove_Data 0x836B70 calls the sector's Get_Hash_ID through it (Sectors)
+	virtual GalaxyMapGateClass *As_Gate() { return(NULL); }					// +0x1C 0x837E30  // NAME 2: Remove_Data's Gates branch
+	virtual GalaxyMapStarbaseClass *As_Starbase() { return(NULL); }			// +0x20 0x837E50  // NAME 2: Remove_Data's Starbases branch
 	virtual int Get_Hash_ID() = 0;												// +0x24 _purecall  // NAME 3: galaxy_map.cpp's 'Systems.find(system->Get_Hash_ID())'
 
 	bool Is_In_Galaxy_Map() { return(GalaxyMapID != NOT_IN_GALAXY_MAP); }	// NAME 3: the destructor's G_ASSERT
 
 	int GalaxyMapID;															// +0x08  // NAME 3: the asserts'
+
+
+
+
+
+
+
+
+
+
+	void Remove_From_Galaxy_Map() { G_ASSERT(GalaxyMapID != NOT_IN_GALAXY_MAP); GalaxyMapID = NOT_IN_GALAXY_MAP; }	// NAME 3: the assert's (line 185; Remove_Data, the map's destructor)
 };
 
 // A system (vtable 0xB08B44, 0x40 bytes; destructor 0x837F80, deleting 0x837F50)
@@ -230,6 +241,7 @@ public:
 	void Add_Sector(const RefCountPtr<GalaxyMapSectorClass> &sector);				// 0x837190  // NAME 2: FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()'
 	void Add_Gate(const RefCountPtr<GalaxyMapGateClass> &gate);						// 0x8373F0  // NAME 2: FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()'
 	void Add_Starbase(const RefCountPtr<GalaxyMapStarbaseClass> &starbase);			// 0x837650  // NAME 2: FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()'
+	void Remove_Data(unsigned int id);											// 0x836B70 (galaxy_map_client.cpp's 0x7A5260)  // NAME 2: FAIL_IF 'id >= AllData.size()', then the four maps' erase
 	void Add_Data(const RefCountPtr<GalaxyMapDataClass> &data);						// 0x836960 (not built)  // NAME 2: Add_System's first call, before Systems[]
 
 	const RefCountPtr<GalaxyMapDataClass> &Get_Data(unsigned int id);				// 0x8378B0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: returns AllData[id]
