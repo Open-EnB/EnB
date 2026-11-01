@@ -363,7 +363,9 @@ void GClass::Unknown_4A20A0()
 
 // The relation table (0x4A2690-0x4A3000; nothing in the client calls it): a list of entries numbered from 1,
 // each with the relations to it (Sources) and from it (Targets), a DoubleNode<int, int> per relation
-// (the other entry's number, the value) in both lists. Its one instance is 0xBE3A40, its pointer 0xB72F54
+// (the other entry's number, the value) in both lists. Its one instance is 0xBE3A40, its pointer 0xB72F54.
+// Interim placement (D137): <string>'s guarded static (0x4A2650) and GClass's adjustor thunk (0x4A2680) come
+// before it, which may make it an object of its own (no __FILE__ names one)
 typedef DoubleNode<int, int> GClassRelationNode;	// NAME 1: neutral (D10): 0x28 bytes, the other entry's number and the value
 
 class GClassRelationEntryClass : public GenericNode	// NAME 1: neutral (D10): 0x30 bytes, table 0xAEAB80
