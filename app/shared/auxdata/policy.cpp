@@ -404,19 +404,19 @@ PolicyStateClass *PolicyClass::Make_State(int a, int b)
 	PolicyStateClass *state = new PolicyStateClass(Sets.size());
 	for (PolicyRuleSetClass **rule_set = Sets.begin(); rule_set != Sets.end(); rule_set++) {
 		RefCountPtr<PolicyConditionClass> condition = (*rule_set)->Get_Condition(a, b);
-		int index = state->Entries.size();
-		state->Entries.push_back(std::pair<RefCountPtr<PolicyConditionClass>, bool>(condition, false));
-		condition->Attach(state, index);
+		state->Add(condition);
 	}
-	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = state->Entries.begin(); entry != state->Entries.end(); entry++) {
-		bool value = entry->first->Evaluate(a, b);
-		if (value != entry->second) {
-			entry->second = value;
-			state->Dirty = true;
-		}
-	}
+	state->Evaluate(a, b);
 	return state;
 }
+
+
+
+
+
+
+
+
 
 void PolicyClass::Bind(PolicyStateClass *state, DeltaCompoundClass *root)
 {
@@ -483,12 +483,13 @@ void PolicySwitchClass::Update()
 {
 	PolicyStateClass *state = Parent;
 	if (state != 0) {
-		std::pair<RefCountPtr<PolicyConditionClass>, bool> &entry = state->Entries[Index];
-		if (entry.second != Value) {
-			entry.second = Value;
-			state->Dirty = true;
-		}
+		state->Set(Index, Value);
 	}
+}
+
+PolicyStateClass::PolicyStateClass(int count) : Dirty(true)
+{
+	Entries.reserve(count);
 }
 
 PolicyStateClass::~PolicyStateClass()
@@ -496,6 +497,33 @@ PolicyStateClass::~PolicyStateClass()
 	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = Entries.begin(); entry != Entries.end(); entry++) {
 		entry->first->Attach(0, 0);
 	}
+}
+
+void PolicyStateClass::Evaluate(int a, int b)
+{
+	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = Entries.begin(); entry != Entries.end(); entry++) {
+		bool value = entry->first->Evaluate(a, b);
+		if (value != entry->second) {
+			entry->second = value;
+			Dirty = true;
+		}
+	}
+}
+
+void PolicyStateClass::Set(int index, bool value)
+{
+	std::pair<RefCountPtr<PolicyConditionClass>, bool> &entry = Entries[index];
+	if (entry.second != value) {
+		entry.second = value;
+		Dirty = true;
+	}
+}
+
+void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
+{
+	int index = Entries.size();
+	Entries.push_back(std::pair<RefCountPtr<PolicyConditionClass>, bool>(condition, false));
+	condition->Attach(this, index);
 }
 
 /*
@@ -507,7 +535,10 @@ PolicyStateClass::~PolicyStateClass()
 **	0x4AEC70, Get_Action 0x4AED50 line 334) with the compile's statics 0x4AE8D0 / 0x4AEA00 /
 **	0x4AEA50 (line 256), PolicyClass (destructor 0x4AEDD0, Add 0x4AEF40 line 378, Make_State
 **	0x4AF190, Bind 0x4AF3A0, Get_Action 0x4AF490 line 444), PolicySwitchClass (vtable 0xAEB324:
-**	0x4AF550-0x4AF6E0, line 466) and PolicyStateClass's destructor 0x4AF890.
+**	0x4AF550-0x4AF6E0, line 466) and PolicyStateClass (constructor 0x4AF720, destructor 0x4AF890,
+**	Evaluate 0x4AF960, Set 0x4AF9B0, Add 0x4AF9F0: out of line, unreferenced, inlined by Make_State and
+**	PolicySwitchClass::Update). Left: RefCountPtr<PolicyConditionClass>'s destructor 0x4AFAD0 (identical
+**	copies; EH funclets call it, P-TK3-1).
 **	How a policy works: each rule set holds rules (a field path pattern, an action, a value) and is
 **	enabled while its condition evaluates true; Make_State records each set's condition and value,
 **	Bind copies the values into the sets and compiles the policy for the root on first use: per field

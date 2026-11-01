@@ -32,6 +32,7 @@ class RecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: neut
 public:
 	RecustomizationCostClass();	// 0x8492F0 (the 14 ints 0)
 	RecustomizationCostClass(const RecustomizationCostDataStruct &data);	// 0x849320
+	int Unknown_8493F0(AvatarDescClass *oldavatar, AvatarDescClass *newavatar);	// 0x8493F0 (FAIL_IFs '!oldavatar' / '!newavatar', lines 60 / 61): the costs of the slots that differ, summed  // NAME 3 [oldavatar, newavatar]: the FAIL_IFs'
 	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x849920
 	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x849960
 	virtual int Get_Size();	// +0x08 0x8499A0

@@ -1,0 +1,176 @@
+# TK7 2026-10-31: configfile.cpp + xtime.cpp E&B revision (P-TK7-1). Run from the repo root on a tree where these anchors still hold:
+#   python gen3.py (writes .work/tk7/spec3.py), python gen5.py (spec5.py), python gen7.py (spec7.py = spec3 + spec5[1,2,3,5,6]);
+#   python tools/vc6/addpatch.py --block WWONLINE_PATCHES .work/tk7/spec7.py; verify --lib wlib --lib wnet: +11 (0x8B23C0..0x8B3830, 0x8BAA50), lost 0x77AA10 0x77B030 0x77B690 0x850820
+
+######## gen3.py
+import io
+cpp = io.open('libs/wwonline/wlib/configfile.cpp', encoding='latin1', newline='').read()
+h = io.open('libs/wwonline/wlib/configfile.h', encoding='latin1', newline='').read()
+
+# readFile, whole
+rs = cpp.index('// Read and parse the config file.')
+re_ = cpp.index('//\n// Enum through the config strings.')
+old_rf = cpp[rs:re_]
+new_rf = r'''// E&B: clear every entry, under the lock (0x8B2690, between ~ConfigFile and readFile); no caller in the client
+void ConfigFile::clear(void)
+{
+  Critsec_.lock();
+  Dictionary_.clear();
+  Critsec_.unlock();
+}
+
+// Read and parse the config file.  The key value pairs will be stored
+//   for later access by the getString/getInt functions.
+bit8 ConfigFile::readFile(FILE *in)
+{
+  char    string[256];
+  char    sectionname[256];  // section name like '[user parameters]'
+  Wstring  key;
+  Wstring  value;
+  char   *cptr;
+
+  memset(string,0,256);
+  memset(sectionname,0,256);
+
+  while (fgets(string,256,in))
+  {
+    cptr=Eat_Spaces(string);
+    if ((*cptr==0)||(*cptr=='#'))  // '#' signals a comment
+      continue;
+
+    if (*cptr=='[')  // new section
+    {
+      key=cptr;
+      key.truncate(']');    // remove after & including the ]
+      key.cat("]");         // put the ] back
+      strcpy(sectionname,key.get());    // set the current section name
+      if (strlen(sectionname)==2) // clear section with a "[]"
+        sectionname[0]=0;
+      continue;
+    }
+
+    if (strchr(cptr,'=')==NULL)   // All config entries must have a '='
+      continue;
+    key=cptr;
+    key.truncate('=');
+    key.removeSpaces();  // No spaces allowed in the key
+    key.toUpper();       // make key all caps
+
+    // Add the section name to the end of the key
+    if (strlen(sectionname))
+      key.cat(sectionname);
+
+    cptr=Eat_Spaces(strchr(cptr,'=')+1); // Jump to after the '='
+    value=cptr;
+    value.truncate('\r');
+    value.truncate('\n');
+    value.truncate('#');
+
+    if (value.length())  // E&B: an empty value is stored as it is (0x8B2810)
+    {
+      // Remove trailing spaces
+      while(isgraph(value.get()[strlen(value.get())-1])==0)
+        value.get()[strlen(value.get())-1]=0;
+
+      // E&B: a trailing backslash continues the value on the next line (0x8B2810)
+      while(value.get()[strlen(value.get())-1]=='\\')
+      {
+        value.get()[strlen(value.get())-1]=0;
+        if (fgets(string,256,in)==NULL)
+          break;
+        cptr=Eat_Spaces(string);
+        value+=cptr;
+        value.truncate('\r');
+        value.truncate('\n');
+        value.truncate('#');
+      }
+    }
+
+    Critsec_.lock();
+    Dictionary_.add(key,value);
+    Critsec_.unlock();
+  }
+  return(TRUE);
+}
+
+
+'''
+
+ms = cpp.index('/************* MDC; Added functionality')
+me = cpp.index('/************* Static functions below')
+old_mdc = cpp[ms:me]
+
+hs = h.index(' // Manual update of config file\n')
+he = h.index(' ArrayList<Wstring> sectionList;')
+he = h.index('\n', he) + 1
+old_h = h[hs:he]
+new_h = ' void        clear(void);  // E&B: 0x8B2690, every entry under the lock  // NAME 2: what it does (Dictionary::clear)\n'
+
+P = [
+    ('wlib', 'configfile.cpp', old_rf, new_rf,
+     "E&B's configfile.cpp has neither MDC's section list nor its writer: readFile 0x8B2810 keeps only the current "
+     "section name ('[]' clears it), and stores an empty value as it is; a non-empty one loses its trailing spaces and "
+     "a trailing backslash joins the next line (strip it, fgets, Eat_Spaces, operator+= 0x8B6640, truncate '\\r' '\\n' '#'); "
+     "0x8B2690 (no caller, between ~ConfigFile 0x8B24B0 and readFile) is lock 0x8B4330, Dictionary::clear inlined, unlock 0x8B4350"),
+    ('wlib', 'configfile.cpp', old_mdc, '',
+     "MDC's later additions (setString, setInt, removeEntry, writeFile) are not in the client: its configfile object "
+     "runs from the constructor 0x8B23C0 to getInt(char *, sint16 &) 0x8B3830, then the Dictionary templates"),
+    ('wlib', 'configfile.h', old_h, new_h,
+     "the client's ConfigFile is Dictionary_ (0x34 bytes) then Critsec_ at +0x34 (the constructor 0x8B23C0 builds the "
+     "table, then calls CritSec's constructor 0x8B42F0): no sectionList and none of MDC's writers; clear 0x8B2690 added"),
+]
+src = 'P = ' + repr(P) + '\n'
+io.open('.work/tk7/spec3.py', 'w', encoding='utf-8', newline='\n').write(src)
+print(len(old_rf), len(old_mdc), len(old_h))
+
+######## gen5.py
+import io
+cpp = io.open('libs/wwonline/wlib/xtime.cpp', encoding='latin1', newline='').read()
+
+fs = cpp.index('// This takes the standard Microsoft time formatting string')
+fe = cpp.index('// Get day_s since year 0')
+FMT_BLOCK = cpp[fs:fe]
+
+ys = cpp.index('int Xtime::getYDay(void) const')
+ye = cpp.index('//\n// Get all the components of the time in the usual normalized format.')
+YDAY = cpp[ys:ye]
+
+ADD_OLD = "  msec_+=(seconds % 86400)*1000;\n\n  // Now normalize in case msec is > 1 days worth\n  normalize();\n}\n"
+ADD_NEW = ADD_OLD + ("\n//\n// E&B: add some number of milliseconds to the time (can be negative), 0x8BA5F0\n//\n"
+                     "void Xtime::addMsec(sint32 msec)\n{\n  day_+=(msec/86400000);\n  msec_+=(msec % 86400000);\n\n  normalize();\n}\n")
+
+GT_OLD = "    if (DaysAtMonth[isleap][i] >= dayofyear)\n"
+GT_NEW = "    if (DaysAtMonth[isleap][i] > dayofyear)  // E&B: > (0x8BAA50 `jg`)\n"
+assert cpp.count(GT_OLD) == 1
+
+P = [
+    ('wlib', 'xtime.cpp', ADD_OLD, ADD_NEW,
+     "E&B's 0x8BA5F0 (between addSeconds 0x8BA550 and normalize 0x8BA680): day_ += x / 86400000, msec_ += x % 86400000 "
+     "(`idiv 0x5265C00`), then normalize inlined; no caller in the client"),
+    ('wlib', 'xtime.cpp', FMT_BLOCK, '',
+     "the client's xtime object has no FormatTime, ParseDate or Print*: update 0x8BA6F0 ends at 0x8BA7CA and getDay "
+     "0x8BA810 follows (wtime.cpp's FormatTime 0x8B8780 is Wtime's)"),
+    ('wlib', 'xtime.cpp', YDAY, '',
+     "nor getYDay: setTime 0x8BA940 is followed by getTime 0x8BAA50, which inlines Get_Date_From_Day (its only caller "
+     "once getYDay is gone; the static is not emitted)"),
+    ('wlib', 'xtime.cpp', GT_OLD, GT_NEW,
+     "E&B's getTime 0x8BAA50 stops the month search on DaysAtMonth[isleap][i] > dayofyear (`cmp [eax], edi; jg`), "
+     "matchbot's on >= (`jge`)"),
+    ('wlib', 'xtime.h', '    void      addSeconds(sint32 seconds);\n',
+     '    void      addSeconds(sint32 seconds);\n    void      addMsec(sint32 msec);  // E&B: 0x8BA5F0  // NAME 2: addSeconds for milliseconds\n',
+     "E&B's addMsec 0x8BA5F0"),
+    ('wlib', 'xtime.h', '    bit8      ParseDate(char *in);\n    bit8      FormatTime(char *out, char *format);\n', '',
+     "not in the client's xtime object (update 0x8BA6F0 is followed by getDay 0x8BA810)"),
+    ('wlib', 'xtime.h', '    int    getYDay(void) const;   // Day of Year  (1-366)  (366 = leap yr)\n', '',
+     "not in the client's xtime object (setTime 0x8BA940 is followed by getTime 0x8BAA50)"),
+]
+io.open('.work/tk7/spec5.py', 'w', encoding='utf-8', newline='\n').write('P = ' + repr(P) + '\n')
+print(len(FMT_BLOCK), len(YDAY))
+
+######## gen7.py
+import runpy
+P3 = runpy.run_path('.work/tk7/spec3.py')['P']
+P5 = runpy.run_path('.work/tk7/spec5.py')['P']
+P = list(P3) + [P5[1], P5[2], P5[3], P5[5], P5[6]]
+open('.work/tk7/spec7.py', 'w', encoding='utf-8', newline='\n').write('P = ' + repr(P) + '\n')
+print(len(P))

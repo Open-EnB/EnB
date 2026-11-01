@@ -29,17 +29,17 @@ public:
 
 
 
-class FontTextFileClass  // NAME 1 [FontTextFileClass]: neutral (D10): a text file read into lines (0x28 bytes)
-{
-public:
-	FontTextFileClass(const char *file_name, float unknown, int unknown2);	// 0x4F9BF0  // NAME 1 [unknown]: neutral (D10)
-	~FontTextFileClass();											// 0x4F9CC0
-	unsigned int Count();											// 0x4FA710: the number of lines  // NAME 2: what it returns
-	char *Get(unsigned int index);									// 0x4FA740: one line  // NAME 2: what it returns
+#include "..\shared\split_string.h"													// SplitStringClass, the client's text splitter 0x4F9BF0 (D24)
 
-private:
-	char Unknown00[0x28];											// +0x00  // NAME 1 [Unknown00]: neutral (D10)
-};
+
+
+
+
+
+
+
+
+
 
 
 FontStringStruct::FontStringStruct()
@@ -1238,7 +1238,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 		if (option != NULL) {
 			std::string text(option->Value);
 			int length = Name.length();
-			FontTextFileClass file(text.c_str(), 1024.0f, 0);
+			SplitStringClass file(text.c_str(), 1024.0f, 0);
 			char buffer[1024];
 			sprintf(buffer, "%1.1f,%d,%d", Scale[i], Spacing[i], Unknown98[i]);
 			text = Name;
@@ -1248,7 +1248,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 			text += "\\n";
 			text.size();
 			for (unsigned int j = 0; j < file.Count(); j++) {
-				char *str = file.Get(j);
+				char *str = (char *)file.Get(j);
 
 
 
@@ -1281,9 +1281,9 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 	if (option == NULL) return false;
 	std::string file_name(option->Value);
 	int length = Name.length();
-	FontTextFileClass file(file_name.c_str(), 1024.0f, 0);
+	SplitStringClass file(file_name.c_str(), 1024.0f, 0);
 	for (unsigned int i = 0; i < file.Count(); i++) {
-		char *str = file.Get(i);
+		char *str = (char *)file.Get(i);
 
 
 
@@ -1314,6 +1314,18 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 		}
 	}
 	return false;
+}
+
+FontStringFilesClass::~FontStringFilesClass()
+{
+	Unload("fc_default.ini");
+	std::hash_map<std::string, FontStringFileStruct *>::iterator it;
+	for (it = Files.begin(); it != Files.end(); ++it) {
+		FontStringFileStruct *file = (*it).second;
+		Unknown_BE67B8->Unknown_6C1AA0(file->Name.c_str());
+		delete file;
+	}
+	Files.clear();
 }
 
 /*
@@ -1347,9 +1359,11 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 **	resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 (line 1096), 0x6C49C0, and FontInitStruct::Find_Chat_Index
 **	0x6C5730, Save_Fonts 0x6C57B0 (lines 1235 / 1261: the chat fonts' lines into their options' text, then
 **	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
-**	0x7F95E0 and the text file reader 0x4F9BF0; NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
+**	0x7F95E0 and split_string.h's SplitStringClass 0x4F9BF0 (the text split into lines); NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
 **	0x6C4C80, Find 0x6C51A0, Load 0x6C52B0 (HL2: Find inlined, its find 0x6C62A0 and conversion 0x6C6370 called a level
-**	deeper; NOT EXACT: frame) and Unload 0x6C55B0 (the destructor 0x6C4F50 declared only). Every other function of the
+**	deeper; NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the
+**	asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s
+**	return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the
 **	file is not written yet.
 **
 **	Tables (the Add functions' offsets and instances): +0x10 Colors (find 0x6C65A0, find_or_insert 0x6C87A0),

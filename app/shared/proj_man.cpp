@@ -19,11 +19,11 @@
 static float	MIN_STATIC_SHADOW_COS_HALF_THETA		= cos(DEG_TO_RADF(10.0f)/2.0f);	// angle to allow shadow tex re-use
 
 
-/************************************************************************************
-**
-** StaticShadowTexMgrClass Implemenation
-**
-************************************************************************************/
+// StaticShadowTexMgrClass Implemenation (ShadowTexClass's three: the client's uncalled copies 0x4916B0, 0x491730, 0x4917C0)
+StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass(uint32 obj_type_id,const Quaternion & orientation,TextureClass * tex) : ObjectTypeID(obj_type_id), ObjectOrientation(orientation), Texture(NULL) { REF_PTR_SET(Texture,tex); }
+StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass(const StaticShadowTexMgrClass::ShadowTexClass & that) : ObjectTypeID(0), ObjectOrientation(1), Texture(NULL) { *this = that; }
+const StaticShadowTexMgrClass::ShadowTexClass & StaticShadowTexMgrClass::ShadowTexClass::operator = (const StaticShadowTexMgrClass::ShadowTexClass & that) { ObjectTypeID = that.ObjectTypeID; ObjectOrientation = that.ObjectOrientation; REF_PTR_SET(Texture,that.Texture); return *this; }
+
 StaticShadowTexMgrClass::~StaticShadowTexMgrClass(void)
 {
 }

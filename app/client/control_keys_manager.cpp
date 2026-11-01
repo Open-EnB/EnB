@@ -112,13 +112,13 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 }
 
 
-// NOT EXACT: inline budget (ours inlines Get_Key_Id 0x71A190, which the client calls)
+// 0x71A100: exact once 0x71A190 calls find out of line (it is then called, not inlined)
 int ControlKeysManager::Get_Key_Id(ControlKeysSClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	ControlKeysManager *keys_manager = Get(client); FAIL_IF(!keys_manager) return -1;
 	return Get_Key_Id(keys_manager, module_name, key);
 }
-// NOT EXACT: inline budget (ours inlines _KeyIds.find, the client calls 0x71EBC0; ~56 rows)
+// 0x71A190: exact with a const_iterator for find (called out of line, H12's lever) and the module test returning -1
 int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	FAIL_IF(!manager) return -1;
@@ -126,11 +126,11 @@ int ControlKeysManager::Get_Key_Id(ControlKeysManager *manager, const std::strin
 	const std::string &name = manager->Get_Key_Name(k);
 	if (name.empty()) return -1;
 
-	std::hash_map<std::string, KeyIdStruct>::iterator it = _KeyIds.find(name);
+	std::hash_map<std::string, KeyIdStruct>::const_iterator it = _KeyIds.find(name);
 	if (it == _KeyIds.end()) return -1;
 
-	if (it->second.ModuleName == module_name) return it->second.Id;
-	return -1;
+	if (it->second.ModuleName != module_name) return -1;
+	return it->second.Id;
 }
 
 
@@ -343,13 +343,13 @@ const std::string &ControlKeysManager::Get_Key_Name(const ControlKeyValueStruct 
 
 
 
-// NOT EXACT: registers and the loop bounds (begin/end swapped, ~28 rows); four loop forms tried (attempts.csv)
+// 0x71AEF0: exact with the key read as two words (the client's (Modifiers << 16) | Key, not one dword load)
 void ControlKeysManager::Build_Keys_Map()
 {
 	UserKeysMap.clear();
 	for (std::vector<KeyMappingStruct>::iterator it = UserKeys.begin(); it != UserKeys.end(); ++it) {
 		for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-			unsigned int event = *(unsigned int *)&it->Keys[set];
+			unsigned int event = (it->Keys[set].Modifiers << 16) | it->Keys[set].Key;
 			if (event) {
 
 				G_ASSERT(UserKeysMap.find(event) == UserKeysMap.end());
@@ -567,7 +567,7 @@ void ControlKeysManager::Copy_Keys(std::vector<KeyMappingStruct> *to, const std:
 
 
 
-// NOT EXACT: shape, ~56 rows: the client calls 0x71E850 on the whole vector where our erase inlines a copy loop (attempts.csv)
+// 0x71C710: exact with the definitions loop inside the resize branch, clear() (its erase 0x71E850 out of line) and the keys cleared per set from an empty key
 void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
 {
 	FAIL_IF(!_NumKeyDefs) return;
@@ -575,21 +575,21 @@ void ControlKeysManager::Reset_Keys(std::vector<KeyMappingStruct> *keys)
 
 
 	if (keys->size() != _NumKeyDefs) {
-		FAIL_IF(!keys->empty()) keys->erase(keys->begin(), keys->end());
+		FAIL_IF(!keys->empty()) keys->clear();
 		keys->resize(_NumKeyDefs);
+
+
+
+		for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
+			FAIL_IF(!def_ptr) continue;
+			FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
+			(*keys)[def_ptr->Get_Index()].DefPtr = def_ptr;
+		}
 	} else {
-		for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) { *(unsigned int *)&it->Keys[0] = 0; *(unsigned int *)&it->Keys[1] = 0; }
-	}
-	for (std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator it = _KeyDefinitions.begin(); it != _KeyDefinitions.end(); ++it) { ControlKeyDefStruct *def_ptr = it->second.get();
-		FAIL_IF(!def_ptr) continue;
-		FAIL_IF(def_ptr->Get_Index() >= _NumKeyDefs) continue;
-		(*keys)[def_ptr->Get_Index()].DefPtr = def_ptr;
+		ControlKeyStruct empty;
+		for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) { for (int set = 0; set < NUM_MAPPING_SETS; set++) it->Keys[set] = empty; }
 	}
 }
-
-
-
-
 
 
 
@@ -693,5 +693,5 @@ int ControlKeyDefClass::Get_Index() const
 **	Load_Definitions loads into _DefaultUser (0xBE7BF8). control_keys.ini (Load_Definitions
 **	0x71B1F0): one section per key definition (Text, Context, KEY, PSW_1/2, SIM_1/2; a name starting
 **	with '-' is skipped). Save 0x71AD20 emits KeysSavedEvent on the SignalMap 0x71B0F0 returns.
-**	Left unbuilt: the _Instances destructor 0x7198B0 and 0x71BCE0 (P-H11-2).
+**	P-H11-2: the private destructor (control_keys_manager.h) makes 0x71D4D0 / 0x71EE00 exact, 0x7198B0 identical (ambiguous); 0x71BCE0 unbuilt.
 */

@@ -167,6 +167,9 @@ public:
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
 	std::vector<KeyMappingStruct> RestoreKeys;				// +0x2C: the client's asserts
 	char PlayerID[0x18];												// +0x3C: the player's 64-bit id in decimal (0x8B44E0)  // NAME 2: what it holds
+private:
+	~ControlKeysManager() {}									// P-H11-2: private, the map its friend: the client's _Instances destructor 0x7198B0 frees nodes without the values' destructors and operator[] 0x71D4D0 never destroys its pair temporary (VC6 gives pair<const unsigned int, ControlKeysManager> no destructor), while operator[] destroys its ControlKeysManager() temporary
+	friend class std::hash_map<unsigned int, ControlKeysManager>;
 };
 
 #endif //__CONTROL_KEYS_MANAGER_H

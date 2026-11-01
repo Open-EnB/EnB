@@ -149,6 +149,26 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Stack slots and FPU copies (2026-10-31, TK18, landdmap 0x467A50 / 0x468920):** two address-taken Lock pointers
+  the client keeps in one slot need each lock in its own `{}` block. A Vector3 local copied from a vertex stays on the
+  FPU across a loop; copying through a POD (D3DVECTOR / D3DXVECTOR3) gives the client's integer moves. A 16-bit `imul`
+  in an index is `(unsigned short)a * (unsigned short)b + x`. tryv2.py does not keep its objects: `.work/tk18/keep.py`
+  (same spec, each variant's .obj in `.work/tk18/obj-N`) does, for objdiff (worth promoting into tools/).
+* **Float stores (2026-10-31, TK15, ui_avatar_cust 0x54E3C0):** where the client's zero stores come from an integer
+  register but its other values go fld / fstp, route the non-zero values through an inline `(float &dst, float value)`
+  setter (a plain assignment copies them through eax; 0.44 -> exact). A float constant loaded from rdata and negated
+  with fchs is a file `static const float` (VC6 does not fold it). A chain of `G1 == x || G2 == x` tests laid out with
+  the else blocks first is an inline bool helper.
+* **VC6 /Ob2 inlines a non-inline member defined later in the same file** (2026-10-31, TK10, ui_line_display): a client
+  function with no code callers whose body matches part of a not-exact neighbour was probably inlined there: call it
+  from the neighbour (Find_Ephemeral 0x5A8B60 into Show_Ephemeral 0x5A7A80). The inlined callee's form decides whether
+  its temporaries share stack slots (a ternary gave a 0x10 bigger frame than if / return, though both compile alike out
+  of line). Budget levers can work only together (tutorial_manager Reload 0x6AD7B0: the iterator before the loop and
+  the implicit key string; the ctor 0x6AC600: an early return and one dead size() read): try pairs before giving up.
+* **One extra no-code inline layer moves VC6's inline budget** (2026-10-31, TK2, attrib_dir Detach_Mod 0x4D4BD0): one
+  inline handle method left exactly the client's first operator= call out of line, two left two. Try it before
+  declaring an inline-budget residue final. **`int i < sizeof(a)/sizeof(a[0])` compiles to `jb`:** cast the count to
+  int for the client's `jl`.
 * **Sibling blocks share stack slots** (2026-10-29, PX4): a client frame equal to the sum of its cases' locals
   means one case's locals sit at function scope (0x454730: frame 0x368 -> the client's 0x588). `if (g()) return(true);
   return(false);` gives the client's test / setne.
@@ -456,6 +476,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.2 Templates and STL
 
+* **VC6's `vector::clear()` is an extra inline layer over `erase(begin(), end())`** (2026-10-31, TK8, cordcon Reset
+  0x84E770): it changes which `_Destroy` / `??_G(0)` calls stay out of line. Making a callee exact can inline a shared
+  template everywhere and lose its pair (insert(P,x) 0x855C30): check pairs_cmp, and win it back by fixing a client
+  caller (openc).
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
   `??_G` of empty bases: same bytes for every `T`, 30-140 client copies, objmatch lists 5 (uncap
   `[:5]` for all: D19's 0x997EA0..0x9981A0). Don't rebuild them for pairs. D54 ignores `__FILE__`'s
@@ -471,9 +495,46 @@ unless `--lever` cites a new row of this table.
   signature also ICEs. VC6 has no `snprintf` (use `_snprintf`): the miss shows only as "1 errors" in verify's
   summary line and gains nothing. A VC6 `std::list` member at +0x10 puts its allocator byte there, head +0x14,
   size +0x18.
+* **A hash_map loop's iterator declared in the `for` header (2026-10-31, TK3, fontdatabase 0x6C4F50):** VC6 makes it
+  `begin()`'s return slot and keeps its node in memory. The client declares it before the loop and assigns it in the
+  `for` (`iterator it; for (it = T.begin(); ...)`); a const_iterator copy puts the table pointer in a register instead.
+* **A hash_map value whose destructor the client never runs** (2026-10-31, TK1, P-H11-2 solved: operator[] 0x71D4D0
+  leaves its pair temporary alive, 0x7198B0 frees nodes bare): give the value class a private, empty, inline destructor
+  and make the `std::hash_map<K, V>` its friend (a private destructor alone is C2248 in operator[]). It also frees
+  operator[]'s inline budget, sending the hashtable copy constructor out of line as the client has it.
 
 ### 3.3 E&B app code
 
+* **An uncalled run of a class's inline members (ctor, copy ctor, operator=) whose incremental thunks are never called
+  either** comes from non-inline definitions in the .cpp: same-file callers still inline them and the copies are emitted
+  (2026-10-31, TK19, proj_man's ShadowTexClass 0x4916B0 / 0x491730 / 0x4917C0).
+* **A function-local static `RefCountPtr<T>` (a lookup's null return) makes its atexit destructor inline Release_Ref,
+  which needs `T` complete** (2026-10-31, TK16, galaxy_map): a forward declaration fails; an empty shell class deriving
+  from the base works. The lookups match as `if (it == Map.end()) return null; return (*it).second;` (the `!=` form
+  merges the two null returns).
+* **A local set to NULL outside a loop whose address is taken** (push_back) keeps the client's dead store and frees the
+  argument slot for the loop counter (2026-10-31, TK8, cordcon Add_Channels 0x84FAA0). appfile.py markers on two
+  constructors with the same demangled name land on the wrong one: check with objdiff and the mangled name.
+* **Renaming a packet class's member breaks other files that read it** (2026-10-31, TK9, pkupdate Planet's Unknown14
+  -> Position): `grep 'packet->Unknown14'` missed extrap.cpp, and verify's C2039 dropped all 79 of extrap's pairs. Grep
+  for `->Member` across app/ before renaming; any "1 errors" in verify's summary is a stop. **The client's float
+  min / max loops keep each extreme as a separate `float`** (landdmap 0x468BE0: Vector3 locals 0.41, six floats exact).
+* **VC6's inline budget moves with functions added later in the same file** (2026-10-31, TK6, ui_avatar_cust): adding
+  0x5513E0-0x551C80 made 0x550A10 inline a third Rotate_Y, and 0x551BF0's form flips with 0x551520's body: re-run every
+  marker of the file after adding functions. An out-of-line function with no callers right after a FAIL_IF handler is
+  what an earlier function in the file inlines. A register rotation from the first instruction (`this` in ebp, not esi)
+  was fixed by reading members through inline getters (0x556630).
+* **A member store / load VC6 hoists above an earlier member store** (2026-10-31, TK11, dbgconn 0x824EC0), where the
+  client keeps source order: put the members in a sub-object with an inline method (its own `this` stops the hoist);
+  29 orderings of the flat class did not. tryvariants.py finds only a library's top-level files (`app/common/x.cpp`:
+  "no such file"): for app files use appfile.py match on a marked copy (`.work/tk11/run_count.py`).
+* **aux_roots.cpp's budget-bound functions flip on any declaration added to the headers it includes** (2026-10-31,
+  TK5): one more Type_Name overload in strconv_lib.h, a declaration in delta_template.h or money.h, or a member operator
+  removed from MoneyClass loses 6 aux_roots pairs (0x7014B0, 0x701D70, 0x7045F0, 0x7048A0, 0x705860, 0x705A10). Test
+  header edits against an unchanged copy of aux_roots.cpp (appfile); declare locally in the .cpp when it's enough.
+* **A key value built from 16-bit halves** (2026-10-31, TK1, control_keys_manager 0x71AEF0) is read as two words,
+  `(hi << 16) | lo`, not one dword cast. **A loop the client runs in one branch only can look like a shared tail**
+  (0x71C710): check where that branch returns before restructuring.
 * **VC6 folds a constant product into one constant** (2026-10-31, TG4): `x * 0.5f * 1000.0f` and `x * 0.001f * 50.0f`
   compile to one fmul; the client's two fmuls need the intermediate in a named local (cameraeffects, ui_combobox).
   A flag the client stores before an unrelated load needed `volatile` (ui_combobox 0x57AC70 / 0x57AD50); a clamp
@@ -497,8 +558,9 @@ unless `--lever` cites a new row of this table.
   Save_Defaults 0x4C2360).
 * **Moving a class out of a file with asserts** (2026-10-31, LC1): replace the removed lines with as many blank
   lines, so every later `__LINE__` stays on the client's line (`wc -l` before and after must agree), before verifying.
-  A string literal shared with a function in another range (the client does not merge literals across objects)
-  keeps both functions in one object: 0x7FFEA0 stays in scriptedmovie.cpp with 0x803310 ('CREATE_OBJECT'). A
+  A string literal shared with a function in another range keeps both functions in one object *only when no other
+  object uses it* (corrected 2026-10-31, TK6: literals ARE merged across objects; the object linked first holds
+  them, so ui_avatr.cpp pushes ui_avatar_cust.cpp's 'COLOR_PALETTE': a shared literal's address is not file evidence): 0x7FFEA0 stays in scriptedmovie.cpp with 0x803310 ('CREATE_OBJECT'). A
   regex that strips `((T *)x)` casts also eats the call parentheses of `f((T *)x)` (C2065 on verify).
 * **fontmanager.h / fontdatabase.h cannot be included next to sclient.h** (2026-10-29, UI1): tsk_game.h declares
   Unknown_BE67B8 with another type; SClientFontDatabaseClass is declared in sclient.h for now. VC6 inlines a
@@ -671,6 +733,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **Other builders' verifies replace `%TEMP%\enb_import\verify-app`** (2026-10-31, TK12): a new file's .obj can vanish
+  minutes after your verify; objdiff the appfile.py match object (`.work/<id>/appfile/obj/`). attempts.py `--blocker`
+  has no class for "identical copies waiting on a tie-break": policy.cpp's 0x4AFAD0 precedent uses `relocation`.
 * **Caller tie-break (D166, 2026-10-31, TB1):** an identical-copies function (D54's ambiguous column) becomes a pair when
   our callers reach one of its addresses and every client call or jump to that address sits in a function the same
   file is exact at (nothing may hold the address as data; the linker's merged copy with callers everywhere stays
@@ -835,9 +900,18 @@ unless `--lever` cites a new row of this table.
   `in_tree` (it holds COMDAT copies elsewhere): use the object's own non-COMDAT / NODUPLICATES exact functions (M1).
   `build.py build --lib app --allow-dirty` compiles tracked files only: `git add` a new .cpp first (M1). Park scripts go
   stale when part of the work lands separately: diff the park folder against HEAD before using it (M1).
+* **A symbols.json regeneration feeds a run's late-phase results into its early phases** (2026-10-31, SY1, D173): with
+  the run's own names in symbols.json, D80's `known` completes a vtable chain at once, so D171's self name settles a
+  `??_G` before D100's range round does, and a pair can move (0x723AB0 -> 0x4B2AA0, a false range pair). Not only lost
+  proofs (AR1): check every `lost outright` against the client's vtable layout (slot count, slot 0's thunk) before
+  calling it a loss. symbols.py without `--objs` reads no objects: copy every library's verify-* folder and pass each.
 
 ### 3.5 Build VMs and vc6.py
 
+* **`appfile.py match --pool` can return another builder's object** (2026-10-31, TK14: ui_avatar_cust.obj's functions,
+  then KeyError on '??1AvatarCreationInterface@@UAE@XZ' while a builder ran the twin file on a shared pool VM): rerun at
+  once. `run_branch.py claim` can hang minutes after a GitHub API rate limit ends; `claims.py check` shows the grant
+  before the command returns.
 * **At most 4 parallel `appfile.py match --pool` jobs** (2026-10-30, RT1): more made pool.py half-create a clone
   (enb-vc6-07, Off with a 0 GB disk; destroyed with `pool.py destroy`), and parallel matches collide in
   `.work/appfile/appfile/obj`. In Git Bash, `--flags '/nologo ...'` is rewritten into a path (MSYS): prefix
@@ -869,6 +943,13 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **`explain.py OBJ 'Class::name' ADDR` matches by name prefix** (2026-10-31, TK17: 'CordCon::pump' compared
+  pumpClose): pass the mangled name when one name prefixes another. commit_mine.py takes imports.json's block key
+  (`cordcon`, not `wwudp/cordcon.cpp`) and needs `{"whole": [...]}` in the spec to include the .cpp itself (`--path`
+  takes only the rows).
+* **`tools/re/symbols.py` with no arguments regenerates symbols.json, ghidra_symbols.py and coverage.md from the
+  default objects** (2026-10-31, TK13: a stray call gutted symbols.json by 159k lines; restored from HEAD at once). Never
+  call it without `--objs` / `--out` from a builder; the regeneration is the coordinator's, on a quiet tree (3.4).
 * **On a big function objdiff's similarity hardly moves** (2026-10-31, CT1, ui_group 0x5946D0, ~2.7 KB): read
   explain.py's instruction count and register-masked residue instead, and compare the call relocations per callee
   (`objrel.py`) to see which callees inline.
@@ -1051,6 +1132,14 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
+  the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).
+* **`addpatch.py` appends to an existing (lib, file) entry, so the new importer.py lines do not contain the file
+  name** (2026-10-31, TK7): commit_mine's hunk keys must match the new patch text (an address or symbol), or importer.py
+  is left behind. commit_mine skips imports.json's library totals without `--refresh-totals` (which takes other
+  builders' counts too): the coordinator refreshes totals at the quiet tree.
+* **`attempts.py record` in a shell loop with `set -- $a` cuts a symbol at its first space** (2026-10-31, TK4):
+  quote each field or call it once per row.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
   the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 5f62144).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
@@ -1144,6 +1233,21 @@ unless `--lever` cites a new row of this table.
   Check every renamed name against the libraries' headers, and run a full verify, not just replay.
 ### 3.9 Library-specific
 
+* **wlib (wwonline) (2026-10-31, TK4):** Renegade's `Code\Tools\RenegadeGR\wtime.cpp` is the client's revision
+  (no localtime_r wrapper, no "aa" format), not matchbot's: look for older per-file copies in RenegadeGR before
+  patching matchbot's. wlib is built with /GX (`LIB_FLAGS['wlib']`, +17 across wtime / configfile / monod / streamer /
+  xtime): in VC6 a by-value return of a class with a destructor leaves a construction flag (`push ecx; mov [esp+8],0`)
+  even without an EH frame, a cheap sign of /GX. `tools/re/names.py` does not scan libs/wwonline (its NAME tags miss
+  names-review.md).
+  (TK7) wstring.cpp's and configfile.cpp's client revision is E&B's own, patched onto matchbot's in WWONLINE_PATCHES
+  (RenegadeGR has neither; matchbot, mangler and Renegade's Tools\wlib are one text; its tell: no Joe Howes / MDC
+  additions). The first patch of a wlib file loses the "Modified for..." banner (line 4) and replay reports "content
+  differs": copy it from `.work/replay`. gaps.py pairs wlib's configfile wrongly (the client's object is 0x8B23C0-
+  0x8B3E70: ctor, dtor, clear, readFile, enumerate, getString x2, getInt x4): confirm with `client.py callers`. A static
+  helper whose last caller is one function gets inlined (Get_Date_From_Day into getTime once getYDay is gone).
+* **cordcon's header-field reads go through Cord_Get_Small / Cord_Get_Seq** (2026-10-31, TK17), out of line but
+  inlined once declared before the caller: that gives the client's `mov eax, n` / `add edi, eax` and register choice
+  (examinePacket 0x8514D0 0.62 -> 0.73). buildHeader, write and read still use the byte-wise Read_* / Write_* statics.
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
   and `isConnected` treats it as closed; `pumpReads` needs a dead `retval = -1;` (the client's stray
   `or edi, edi`).

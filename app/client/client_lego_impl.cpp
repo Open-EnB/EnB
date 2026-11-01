@@ -833,6 +833,10 @@ LegoKnobClass::LegoKnobClass(std::string bone_name, int bone_index) :
 	BoneIndex(bone_index)
 {
 }
+
+LegoKnobClass::~LegoKnobClass(void)
+{
+}
 /*
 **	Reconstruction notes
 **

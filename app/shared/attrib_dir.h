@@ -241,6 +241,7 @@ public:
 	const char *Get_Name();																// 0x4D7DC0  // NAME 2: as the iterator's
 	bool Is_Done();																		// 0x4D7DE0 (the FAIL_IF's 'iter.Is_Done()')
 	void Next();																			// 0x4D7E00  // NAME 2: as the iterator's
+	void Lock_Next() { Iterator->Lock_Next(); }								// inline only (AttribDir::Detach_Mod by iterator)  // NAME 2: as the iterator's
 
 	AttribModIteratorClass *Iterator;												// +0x00  // NAME 2: what it holds
 };

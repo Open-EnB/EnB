@@ -309,11 +309,11 @@ void UILineDisplayClass::Unknown_74(ControlKeysManagerClass *manager)
 
 
 
+static inline void Push_Line(std::vector<LineDisplayLineStruct *> &lines, LineDisplayLineStruct *const &line) { lines.size(); lines.push_back(line); }  // NAME 2: what it does; the dead size() read spends the inline budget the client spends (workflow.md §3.3, the find-if-set wrapper's reads)
 
 
 
-
-// NOT EXACT: inline budget (explain.py), the client calls the 30-line trim's push_back insert 0x5A8DD0 out of line, ours inlines it
+// 0x5A69B0: the trim's push_back goes through Push_Line, so insert(P, x) 0x5A8DD0 is called out of line as in the client
 void UILineDisplayClass::Unknown_60()
 {
 	Unknown_5A8350();
@@ -334,7 +334,7 @@ void UILineDisplayClass::Unknown_60()
 							delete History[0];
 							History.erase(History.begin());
 						}
-						History.push_back(Current);
+						Push_Line(History, Current);
 						Lines.erase(Lines.begin());
 					}
 					Clear();
@@ -517,13 +517,13 @@ void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const ch
 }
 
 
-// NOT EXACT: inline budget (explain.py), the client converts find's and end()'s iterators to const_iterator out of line (0x5A9010), ours inline
+// 0x5A7A80: Find_Ephemeral inlined (its copy 0x5A8B60 has no caller); its const_iterator conversions 0x5A9010 stay out of line
 void UILineDisplayClass::Show_Ephemeral(const char *type)
 {
 	if (type) {
-		std::hash_map<std::string, EphemeralStruct *>::const_iterator i = Ephemerals.find(std::string(type));
-		if (i != Ephemerals.end() && (*i).second) {
-			Add_Line((*i).second->Get_Text().c_str(), 0, (*i).second->Pick_Font().c_str(), 2);
+		EphemeralStruct *e = Find_Ephemeral(type);
+		if (e) {
+			Add_Line(e->Get_Text().c_str(), 0, e->Pick_Font().c_str(), 2);
 		}
 	}
 }
@@ -646,10 +646,10 @@ void UILineDisplayClass::Skip()
 EphemeralStruct *UILineDisplayClass::Find_Ephemeral(const char *type)
 {
 	std::hash_map<std::string, EphemeralStruct *>::const_iterator i = Ephemerals.find(std::string(type));
-	return i == Ephemerals.end() ? NULL : (*i).second;
-
-
-
+	if (i == Ephemerals.end()) {
+		return NULL;
+	}
+	return (*i).second;
 }
 
 

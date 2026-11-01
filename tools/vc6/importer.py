@@ -193,7 +193,9 @@ LIB_DIR = {
     # Renegade's Code\Tools\wlib too, but for its arraylist.h's addMany/removeMany, written in 2025 from a
     # DLL: "Implementation was missing from source code", and not compiling with VC6). wnet: matchbot's
     # udp.cpp (Z) and Renegade's Code\Tools\RenegadeGR tcpmgr.cpp / tcpcon.cpp (R: no other copy has them).
-    'wlib': {'Z': r'..\..\..\Tools\matchbot\wlib'},
+    # wlib R: RenegadeGR's older wtime.cpp (no localtime_r, no "aa" AM/PM format), the client's: its Get*
+    # call localtime directly (0x8B95A0-0x8B9700), FormatTime 0x8B8780 has no AM/PM suffix (TK4 2026-10-31).
+    'wlib': {'Z': r'..\..\..\Tools\matchbot\wlib', 'R': r'Tools\RenegadeGR'},
     'wnet': {'Z': r'..\..\..\Tools\matchbot\wnet', 'R': r'Tools\RenegadeGR'},
     # D73: Renegade's Code\BinkMovie (BINKMovie, the subtitles), 0xA16190-0xA17Bxx
     'binkmovie': {'R': 'BinkMovie'},
@@ -256,7 +258,11 @@ LIB_FLAGS = {'wwshade': '/nologo /c /MT /W3 /O2 /Ob1 /GX /D _MBCS /D ENABLE_WWPR
              'app': '/nologo /c /MT /W3 /O2 /Ob2 /GX',
              # WWOnline's wnet: /GX. E&B's TCPCon constructor 0x8BBA70 and destructor 0x8BBC90 and tcpqueue.cpp's
              # TCPQueue::~TCPQueue 0x8BE890, add 0x8BF1C0, addHead 0x8BED40 have EH frames (handlers 0xAE03E9..0xAE050B)
-             'wnet': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
+             'wnet': '/nologo /c /MT /W3 /O2 /Ob2 /GX',
+             # WWOnline's wlib: /GX too. Wtime's SignedAdd 0x8B9970 / SignedSubtract 0x8B9C80 have EH frames
+             # (handlers 0xAE0388...) around their Wtime temporaries, and the by-value operators - / + 0x8BA060,
+             # 0x8BA0F0, 0x8BA1D0, 0x8BA210 keep /GX's return-value flag (`push ecx; mov [esp+8], 0`)
+             'wlib': '/nologo /c /MT /W3 /O2 /Ob2 /GX'}
 
 
 # EA files the client does not link: not imported (plan, assemble) and dropped from the state.
@@ -3190,6 +3196,9 @@ WWONLINE_PATCHES = {
         ('             ~Xtime();\n',
          '             ~Xtime();\n\n    time_t    getTime_t(void) const;  // E&B: the time as a time_t (0x8BA510)  // NAME 1: describes what it returns\n',
          "E&B's addition 0x8BA510 (between ~Xtime 0x8BA4F0 and addSeconds 0x8BA550): day_ * 86400 + msec_ / 1000 - 719528 * 86400 (0x79747C00), the time_t of the time; CordStatsClass::Allow 0x85C430 calls it"),
+        ('    void      addSeconds(sint32 seconds);\n',
+         '    void      addSeconds(sint32 seconds);\n    void      addMsec(sint32 msec);  // E&B: 0x8BA5F0  // NAME 2: addSeconds for milliseconds\n',
+         "E&B's addMsec 0x8BA5F0"),
     ],
     ('wlib', 'xtime.cpp'): [
         ('Xtime::Xtime( Xtime &other )\n',
@@ -3201,6 +3210,9 @@ WWONLINE_PATCHES = {
         ('static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)',
          "static bit8 Get_Date_From_Day(sint32 days, OUT int &year, OUT sint32 &yday)\t// E&B: int year (wstypes.h's sint32 is long)",
          "with wstypes.h on WWLib's bittype.h (sint32 long) getYDay's and getTime's `int year` no longer binds to `sint32 &` (C2664); the year is an int as getTime's own parameter. Same code: none of the three matches the client yet"),
+        ('  msec_+=(seconds % 86400)*1000;\n\n  // Now normalize in case msec is > 1 days worth\n  normalize();\n}\n',
+         '  msec_+=(seconds % 86400)*1000;\n\n  // Now normalize in case msec is > 1 days worth\n  normalize();\n}\n\n//\n// E&B: add some number of milliseconds to the time (can be negative), 0x8BA5F0\n//\nvoid Xtime::addMsec(sint32 msec)\n{\n  day_+=(msec/86400000);\n  msec_+=(msec % 86400000);\n\n  normalize();\n}\n',
+         "E&B's 0x8BA5F0 (between addSeconds 0x8BA550 and normalize 0x8BA680): day_ += x / 86400000, msec_ += x % 86400000 (`idiv 0x5265C00`), then normalize inlined; no caller in the client"),
     ],
     ('wlib', 'wstypes.h'): [
         ('typedef char               sint8;\n',
@@ -3233,11 +3245,23 @@ WWONLINE_PATCHES = {
         (" #endif\n}\n\n\n// Parses a date string that's in modified RFC 1123 format\n",
          " #endif\n}\n\n// E&B: sleep for msec milliseconds (0x8B8270, between Update and ParseDate); TCPCon's close waits\n// with it for the buffered writes. matchbot's matcher.cpp calls msleep(1); EA's copy has no definition.\nvoid msleep(sint32 msec)\n{\n  struct timeval tv;\n  tv.tv_sec=msec/1000;\n  tv.tv_usec=(msec%1000)*1000;\n  select(0,NULL,NULL,NULL,&tv);\n}\n\n// Parses a date string that's in modified RFC 1123 format\n",
          "E&B's msleep 0x8B8270 (between Wtime::Update 0x8B8220 and ParseDate 0x8B8330): select(0, 0, 0, 0, {msec / 1000, msec % 1000 * 1000}); TCPCon's destructor, close and setBufferedWrites call it with 1 (0x8BBCF1, 0x8BBE72, 0x8BBFDA); matchbot's matcher.cpp calls msleep(1), EA's copy has no definition"),
+        ('  select(0,NULL,NULL,NULL,&tv);\n}\n\n// Parses a date string',
+         "  select(0,NULL,NULL,NULL,&tv);\n}\n\n// E&B: sleep for usec microseconds (0x8B82E0, after msleep); no caller in the client.\nvoid usleep(sint32 usec)  // NAME 2: msleep's sibling in microseconds (select's timeval)\n{\n  struct timeval tv;\n  tv.tv_sec=usec/1000000;\n  tv.tv_usec=usec%1000000;\n  select(0,NULL,NULL,NULL,&tv);\n}\n\n// Parses a date string",
+         "E&B's 0x8B82E0 (between msleep 0x8B8270 and ParseDate 0x8B8330): select(0, 0, 0, 0, {x / 1000000, x % 1000000}) (`imul 0x431BDE83; sar 0x12`, `idiv 0xF4240`); no caller in the client"),
+        ('void Wtime::SetUsec(uint32 newusec)\n{\n  usec=newusec;\n}\n',
+         'void Wtime::SetUsec(uint32 newusec)\n{\n  usec=newusec;\n}\n\n// E&B: add seconds (0x8B94C0, between SetUsec and Set); no caller in the client\nvoid Wtime::AddSec(uint32 addsec)\n{\n  sec+=addsec;\n}\n\n// E&B: add microseconds, carrying whole seconds into sec (0x8B94E0); no caller in the client\nvoid Wtime::AddUsec(uint32 addusec)\n{\n  sec+=(usec+addusec)/1000000;\n  usec=(usec+addusec)%1000000;\n}\n',
+         "E&B's 0x8B94C0 (`sec += x`, ret 4) and 0x8B94E0 (usec + x: sec += sum / 1000000, usec = sum % 1000000, unsigned `mul 0x431BDE83; shr 0x12` / `div 0xF4240`), between SetUsec 0x8B94A0 and Set 0x8B9520; no callers in the client"),
     ],
     ('wlib', 'wtime.h'): [
         ('class Wtime\n',
          'void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)\n\nclass Wtime\n',
          "msleep's declaration (0x8B8270, wtime.cpp)"),
+        ('void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)\n',
+         "void msleep(sint32 msec);  // E&B: 0x8B8270 (wtime.cpp)\nvoid usleep(sint32 usec);  // E&B: 0x8B82E0 (wtime.cpp)  // NAME 2: msleep's sibling in microseconds\n",
+         "usleep's declaration (0x8B82E0, wtime.cpp)"),
+        ('    void      SetUsec(uint32 newusec);\n',
+         '    void      SetUsec(uint32 newusec);\n    void      AddSec(uint32 addsec);  // E&B: 0x8B94C0  // NAME 2: sec += addsec\n    void      AddUsec(uint32 addusec);  // E&B: 0x8B94E0  // NAME 2: usec += addusec, carried into sec\n',
+         "E&B's two adders between SetUsec and Set (0x8B94C0, 0x8B94E0)"),
     ],
     ('wnet', 'tcpmgr.cpp'): [
         ('  else if (status==WSAEBADF) return(BADF);\n',
@@ -3246,6 +3270,40 @@ WWONLINE_PATCHES = {
         ('TCPMgr::~TCPMgr()\n',
          'TCPMgr::~TCPMgr() throw()  // E&B (0x8BCA90)\n',
          "wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with states 1, 0, -1). The form is the compiler's evidence, not a source line"),
+    ],
+    ('wlib', 'wstring.cpp'): [
+        ('bit8 Wstring::set(IN char *s)\n{\n //uint32 len;\n\n strgrow(strlen(s)+1);\n strcpy(str,s);\n\n return(TRUE);\n}\n',
+         'bit8 Wstring::set(IN char *s)\n{\n uint32 len=strlen(s)+1;  // E&B: the length once, copied with memcpy (0x8B7570)\n\n strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n',
+         "E&B's set(char *) 0x8B7570 takes the length once (strlen(s)+1 in ebp), grows by it and copies that many bytes (`mov ecx, ebp; rep movsd`), no second strlen as strcpy would; with strgrow inlined it is the client's form, and the constructor 0x8B5DB0, operator= 0x8B6100 / 0x8B61D0, insert 0x8B7070, replace 0x8B7230, getToken 0x8B7C60 and getLine 0x8B7EB0 inline it the same way"),
+        ('void Wstring::clear(void)\n{\n if(str)\n   delete[](str);\n',
+         'void Wstring::clear(void)\n{\n delete[](str);  // E&B: no NULL test (0x8B6EB0, ~Wstring 0x8B5EC0)\n',
+         "E&B's clear 0x8B6EB0 and ~Wstring 0x8B5EC0 delete str without testing it (`mov eax, [esi]; push eax; call delete`), and replace 0x8B7230's inlined destructor of its local the same"),
+        ('  return(set(dest.get()));\n}\n',
+         '  return(set(dest.get()));\n}\n\n// E&B: replace every occurrence of one character with another (0x8B7520)\nbit8 Wstring::replace(IN char replaceThis,IN char withThis)\n{\n  char *src=get();\n  while(src && src[0])\n  {\n    src=strchr(src, replaceThis);\n    if(src)\n      src[0]=withThis;\n  }\n  return(TRUE);\n}\n',
+         'E&B\'s 0x8B7520 (after replace 0x8B7230): get(), then strchr(src, c) until NULL or the end, storing the second character at each hit; returns 1 (`mov al, 1; ret 8`). htmlview.cpp\'s 0x7759E0 calls it with (\'\\n\', \' \'), (\'\\r\', \' \'), (\'\\t\', \' \') before replace("&nbsp;", ...)'),
+        (' strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n',
+         ' strgrow(len);\n memcpy(str,s,len);\n\n return(TRUE);\n}\n\n// E&B: set from another Wstring (0x8B7640)\nbit8 Wstring::set(IN Wstring &other)\n{\n  return(set(other.get()));\n}\n\n// E&B: set(char *) without its result (0x8B7730); no caller in the client\nvoid Wstring::Unknown_Set(IN char *s)\n{\n  set(s);\n}\n\n// E&B: set(Wstring &) without its result (0x8B7800); no caller in the client\nvoid Wstring::Unknown_Set(IN Wstring &other)\n{\n  set(other.get());\n}\n',
+         'E&B\'s three after set(char *) 0x8B7570: 0x8B7640 is set(char *) inlined on other.get() (str, or "" when NULL), returning 1; 0x8B7730 and 0x8B7800 are the same two bodies with no result (no `mov al, 1`), `ret 4`; none has a caller'),
+        ('    str=new char[strlen(other.str)+PADSIZE+1];\n    strsize=strlen(other.str)+PADSIZE+1;\n    strcpy(str,other.str);\n',
+         '    uint32 len=strlen(other.str)+1;  // E&B: the length once, copied with memcpy (0x8B5E30)\n    str=new char[len+PADSIZE];\n    strsize=len+PADSIZE;\n    memcpy(str,other.str,len);\n',
+         "E&B's copy constructor 0x8B5E30 takes strlen(other.str)+1 once (esi), allocates it + 0x20 and copies that many bytes (`mov ecx, esi; rep movsd` after reloading other.str), no second strlen; operator+ 0x8B6870 / 0x8B6A90 inline it the same way"),
+        ('  clear();\n  if (size<0)\n    return;\n',
+         '  clear();\n  if (size<=0)  // E&B: no empty allocation (0x8B6EE0 `jle`)\n    return;\n',
+         "E&B's setSize 0x8B6EE0 returns for a size of 0 too (`test ebx, ebx; ... jle`), matchbot's only below 0 (`jl`)"),
+        ('void Wstring::toLower(void)\n{\n  uint32 i;\n  int    strlength=length();\n\n  for(i = 0; i < (uint32)strlength; i++)\n',
+         'void Wstring::toLower(void)\n{\n  int    i;  // E&B: signed (0x8B79E0 `jle` / `jl`)\n  int    strlength=length();\n\n  for(i = 0; i < strlength; i++)\n',
+         "E&B's toLower 0x8B79E0 and toUpper 0x8B7A50 count with a signed index (`test edi, edi; jle`, `cmp esi, edi; jl`), matchbot's with uint32 (`jbe` / `jb`)"),
+        ('void Wstring::toUpper(void)\n{\n  uint32 i;\n  int    strlength=length();\n\n  for(i = 0; i < (uint32)strlength; i++)\n',
+         'void Wstring::toUpper(void)\n{\n  int    i;  // E&B: signed (0x8B7A50 `jle` / `jl`)\n  int    strlength=length();\n\n  for(i = 0; i < strlength; i++)\n',
+         'as toLower: toUpper 0x8B7A50 counts with a signed index'),
+    ],
+    ('wlib', 'wstring.h'): [
+        ('   bit8    replace(IN char *replaceThis,IN char *withThis);\n',
+         "   bit8    replace(IN char *replaceThis,IN char *withThis);\n   bit8    replace(IN char replaceThis,IN char withThis);  // E&B: 0x8B7520  // NAME 3: replace's overload for one character\n",
+         "E&B's replace(char, char) 0x8B7520"),
+        ('   char    set(IN char *str);\n',
+         "   char    set(IN char *str);\n   bit8    set(IN Wstring &other);  // E&B: 0x8B7640  // NAME 3: set's overload for a Wstring\n   void    Unknown_Set(IN char *str);  // E&B: 0x8B7730, set without a result  // NAME 1: no caller\n   void    Unknown_Set(IN Wstring &other);  // E&B: 0x8B7800, set without a result  // NAME 1: no caller\n",
+         "E&B's three after set(char *) 0x8B7570: set(Wstring &) 0x8B7640 and two with no result, 0x8B7730 / 0x8B7800"),
     ],
 }
 for _key, _edits in WWONLINE_PATCHES.items():
@@ -3515,7 +3573,7 @@ RECONSTRUCTED = {
     ('app', 'shared/rs_track.h'): "RsTrackClass (D24, class-from-file for rs_track.cpp; 0x100 bytes, vtable 0xAE8294, Class_ID 0x10001), with rs_list.cpp's RenderStateClass / RenderStateListClass and proj_man's two helpers declared as far as it uses them (interim, D137); co.cpp and cpacket.cpp include it in place of their own declarations",
     ('app', 'shared/rs_track.cpp'): "the render-state track object, client 0x45FDA0-0x462530 of the window 0x45FDA0-0x463490 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_track.cpp, asserts on lines 191 236 290 429 876 1077 1286): constructors, destructor, the render-state switches the packets call, the RenderObjClass forwarders to the current state's model",
     ('app', 'shared/proj_man.h'): "ProjectorManagerClass (D24, class-from-file for proj_man.cpp; 0x74 bytes, vtable 0xAEA74C, ctor 0x491DD0, dtor 0x492020) and StaticShadowTexMgrClass (Renegade's, a RefCountClass in E&B; vtable 0xAEA68C), ProjectorCasterClass / ProjectionDefClass / CasterTexProjectClass / ProjectorReceiverClass (the casters and receivers rs_proj_sup.cpp derives from): E&B's copy of Renegade's PhysicsSceneClass projector members (wwphys/pscene.h)",
-    ('app', 'shared/proj_man.cpp'): "the projector / shadow manager, client 0x491830-0x494D80 (__FILE__ e:\\build\\beta\\G\\app\\shared\\proj_man.cpp, asserts on lines 138 315 322 323 331 332 340 341 349 350 358 367 563 592 654 676 703 782 783 805): Renegade's wwphys/pscene_projectors.cpp moved into ProjectorManagerClass, with the casters' base ProjectorCasterClass, its CasterTexProjectClass and the receivers' ProjectorReceiverClass (Apply_Projectors 0x492C70); Setup_Static_Directional_Shadow 0x493620 NOT EXACT",
+    ('app', 'shared/proj_man.cpp'): "the projector / shadow manager, client 0x4916B0-0x494D80 (ShadowTexClass's uncalled copies first) (__FILE__ e:\\build\\beta\\G\\app\\shared\\proj_man.cpp, asserts on lines 138 315 322 323 331 332 340 341 349 350 358 367 563 592 654 676 703 782 783 805): Renegade's wwphys/pscene_projectors.cpp moved into ProjectorManagerClass, with the casters' base ProjectorCasterClass, its CasterTexProjectClass and the receivers' ProjectorReceiverClass (Apply_Projectors 0x492C70); Setup_Static_Directional_Shadow 0x493620 NOT EXACT",
     ('app', 'shared/heightfield.h'): "HeightFieldClass (descriptive, D24; PROVISIONAL file name: no assert or __FILE__): the land's [HEIGHTMAP] (M2.4); not the client's layout",
     ('app', 'shared/heightfield.cpp'): 'the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)',
     ('app', 'shared/land_lighting.h'): 'LandLightingStruct (VIDTEST\'s name; 0x30 bytes), out of land.h so that sclient.h holds it as the main view\'s +0x178..+0x1A4 (the constructor 0x50B360\'s defaults, Update 0x50F1B0; P-MV2-1, LD4); PROVISIONAL file name',
@@ -3698,6 +3756,8 @@ RECONSTRUCTED = {
                                             "isn't rotated)",
     ('app', 'common/unknown_galaxy.h'): "LoginGalaxyClass, a galaxy of the login's list (0x60 bytes, vtable 0xAEFBD0; PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
     ('app', 'common/unknown_galaxy.cpp'): "the login galaxy's Write / Read / Get_Size, client 0x83C730-0x83C870 in app\\common's run after galaxy_map.h (PROVISIONAL file name, D10: no __FILE__); exact",
+    ('app', 'common/galaxy_map.h'): "the galaxy map's data objects (the client's galaxy_map.h, assert l.161 '!Is_In_Galaxy_Map()'): the base (vtable 0xB08B74) and the system (0xB08B44, 0x40 bytes), as far as galaxy_map.cpp's 0x837C10-0x837C70 need them (TK12, claim #112); the map's layout (AllData, the four hash maps) for the lookups 0x8378B0-0x837B30 (TK16)",
+    ('app', 'common/galaxy_map.cpp'): "PARTIAL: galaxy_map.cpp (the client's __FILE__ 0xBA97D4), its functions end at 0x837C70: so far Add_System / Add_Sector / Add_Gate / Add_Starbase 0x836F30 / 0x837190 / 0x8373F0 / 0x837650 and its last seven, the lookups 0x8378B0 / 0x837970 / 0x837A50 / 0x837B30 (TK16, claims #121 / #127), the base's Read / Write 0x837C10 / 0x837C40 and the system's factory 0x837C70 (TK12, claim #112), exact",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
@@ -4186,7 +4246,8 @@ RECONSTRUCTED = {
     ('app', 'client/ui_manu.h'): "UIManuClass, ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x5AFA00 / destructor 0x5AFCD0 (MU1), over sclient.h's Unknown5BB320Class (second constructor 0x5BB250)",
     ('app', 'client/ui_manu.cpp'): "UIManuClass (ui_manu.cpp's __FILE__; client 0x5AFA00-0x5B6D8E, claims #31 / #32): the constructor, destructor (line 138), slots +0x5C / +0x7C, the font text helper 0x5B1AF0 (line 651), the list and slider helpers 0x5B21A0-0x5B2B40, MANUFACTURE_ITEM_ID 0x5B39B0, the tree checks 0x5B3B90-0x5B3D70, 0x5B6CA0 and the filter warning 0x5B6D30 (lines 1834 / 1835) on the client's lines (D25), MU1",
     ('app', 'client/cameraeffects.cpp'): "the camera effects (cameraeffects.cpp's __FILE__, 0x6E32E0's assert; client 0x6E2B40-0x6E46A0, claim #62): so far the shake's and the shield jitter's slot 0x6E3710 / 0x6E3B60 and the jitter's constructor 0x6E37F0, all exact (TG4); their tables 0xAFFE64 / 0xAFFE84 in the object's constants, the file's generator 0xBE67E8 (TG4)",
-    ('app', 'client/ui_avatar_cust.cpp'): "UIAvatarCustClass, the avatar customisation window (ui_avatar_cust.cpp's __FILE__, 0x551320's FAIL_IFs; client from 0x54B370 (after ui_attrb_skills.cpp) to ui_avatar_dialog.cpp, claim #63): so far 0x550670 (the mode and part buttons) and 0x550970, both exact, and the metal models' turn 0x550A10 (NOT EXACT, register; matrix3d.h's Rotate_Y copy 0x551270 exact with it) (TG4); the class declared only as far as they use it",
+    ('app', 'client/ui_avatar_cust.cpp'): "StarbaseAvatarCreationInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7AC88), the avatar customisation window (ui_avatar_cust.cpp's __FILE__, 0x551320's FAIL_IFs; client from 0x54B370 (after ui_attrb_skills.cpp) to ui_avatar_dialog.cpp 0x551FB0, claims #63, #87): so far 0x550670 (the mode and part buttons) and 0x550970, both exact, and the metal models' turn 0x550A10 (NOT EXACT, register; matrix3d.h's Rotate_Y copy 0x551270 exact with it) (TG4); 0x5513E0-0x551C80 after the FAIL_IFs, eight exact (TK6); the class declared only as far as they use it",
+    ('app', 'client/ui_avatr.cpp'): "AvatarCreationInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7B848), the avatar creation window (ui_avatr.cpp's __FILE__ 0xB7B80C, 0x55C280's FAIL_IFs lines 2207 / 2211; client from 0x553AF0, after ui_avatar_dialog.cpp, claim #88): so far 0x556290 (the pulls made) and 0x556630 (a tab's gadgets and texts) exact, 0x556B20 (the tab chosen) NOT EXACT (inline budget), the palette helper 0x55C350 it inlines exact (TK6); the destructor 0x554B50, 0x554D60, 0x555F60 and 0x5560E0 exact (TK14, claim #118); 0x5571D0, 0x558060, 0x558170, 0x5598A0, 0x5598D0, 0x559F30, 0x55AFD0, 0x55B110 and 0x55B540 exact (TK14, claim #122); the class declared only as far as they use it",
     ('app', 'client/ui_combobox.cpp'): "UIComboBoxClass, the combo box (ui_combobox.cpp's __FILE__, 0x5790C0's assert; client 0x578210 to ui_cpit.cpp's 0x57D6C0, claim #61): so far the drop-down's frame 0x57A330, the rows' refresh 0x57AAB0 and the selection by index / by text 0x57AC70 / 0x57AD50, all exact (TG4); the class declared only as far as they use it (ui_chat_panel.h's UIChatComboClass is the same class)",
     ('app', 'client/ui_chat_panel.h'): "UIChatPanelClass, ui_chat_panel.cpp's chat panel (SClient +0x127C; 0x268 bytes, table 0xAEFF1C; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x561DD0 and its functions, over ui_chat_panel_base.cpp's UIChatPanelBaseClass (constructor 0x56D280, table 0xAF00B4; interim placement here, D137) (CH1)",
     ('app', 'client/ui_chat_panel.cpp'): "UIChatPanelClass (ui_chat_panel.cpp's __FILE__; client 0x561DD0-0x56CBF5, claims #33 / #34): slots +0x58 / +0x5C / +0x7C, the frame and font toggles 0x563DC0-0x564400 (lines 710 / 782 / 798), the channel list 0x565120 (the 0xB7C530 table), the window requests 0x565F80 / 0x566AF0, the combo select 0x5698F0 (line 1980), the control keys (lines 2309 / 2317), the target talk 0x56BEF0 (line 2326), the default window 0x56C0C0 (line 2377), the chat window's handlers 0x56C6A0-0x56C7B0 (line 2441) through the interface event dispatcher 0x540A20, and the small accessors exact on the client's lines (D25); slots +0x60 / +0x68, 0x563910, 0x565390, 0x565D80, 0x567540, 0x567760, 0x5679A0, 0x567DF0, 0x56B700 and 0x56C180 (lines 2404 / 2420 / 2423) NOT EXACT; the constructor, destructor, slot +0x54, 0x5646A0, 0x5689D0, 0x569A00 and 0x56C7E0 not written yet, CH1",

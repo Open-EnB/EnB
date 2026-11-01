@@ -4,6 +4,62 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (22:05, night): the triage plan's runs, 17 Opus builders; +212 pairs, 0 lost; symbols.json regeneration ready (D173)
+
+Coordinator Opus 5.5. Base 20f0bf21 (PR #65 merged; `.work/imports.20f0bf21.json`); run branch `run/2026-10-31-t4`,
+PR #78. Plan log: `.work/run-2026-10-31-t4/plan.md`. The user's goal: keep building, weekly usage to 70 % within five
+hours (63 % at 17:50, 68 % at the handoff). HEAD against the base: **+212 pairs (app +143 written, +23 by tie-break;
+wlib +46), 0 lost outright**; the one move, 0x8C0FD0 delta_money -> unknown_login_data, is D66 (iii) / (v) (TK5).
+
+* **The previous session's handoff (the user's request at 18:05):** its 18:45 entry was an uncommitted hunk in the
+  tree, not on master (first misread as landed): committed here (e3f6a984). The rest of it was clean.
+* **Builders (TK1-TK19, Opus, each a few of the triage plan's runs or a lead from an earlier report):**
+  control_keys_manager (TK1, +7 and +13 tie-break; P-H11-2 solved: a hash_map value's private destructor with the map
+  as friend), attrib_dir (TK2, +6), fontdatabase / fontmanager (TK3, +7), wlib wtime.cpp complete from RenegadeGR's
+  copy and wlib built with /GX (TK4, +27), lookup_table / delta_money / policy (TK5, +16), ui_avatar_cust and the new
+  ui_avatr.cpp (TK6 / TK14 / TK15: 4 -> 32 and 0 -> 19; class names from the client's RTTI), wstring.cpp's E&B
+  revision (TK7, +19), cordcon (TK8 27 -> 48; TK17 forms only), landdmap / pkupdate (TK9 +9, TK18 +1), ui_line_display /
+  tutorial_manager (TK10, +13), dbgconn (TK11, +5), the new galaxy_map.cpp (TK12 / TK16, 0 -> 22), pkgadget /
+  client_lego_impl (TK13, +1 and 16 D99 rows), proj_man (TK19, +3). Hint verdicts: right in every run but one
+  (ui_avatar_dialog was ui_avatr.cpp by its __FILE__).
+* **Proposals for the user (§3):** P-TK3-1 / P-TK2-1 / P-TK5-1 (objmatch's caller tie-break over non-identical copies,
+  D80's survivors and folded symbols: +82 and +45 measured separately, 0 lost; land together after a full verify),
+  P-TK3-2 (EH funclets count as their parent's callers), P-TK7-1 (E&B's configfile / xtime revision: wlib +11 for 4
+  app template instances lost). P-TG4-2 updated (five dead finds).
+* **symbols.json (the previous handoff's first item):** on the quiet tree, a full verify recorded (292e9aa6: ui_avatr's
+  15 pairs were missing from imports.json). The regeneration with every library's objects gave +6 and lost 0x723AB0
+  outright (KVAccessorClass<UnknownB016DCType>'s ??_G, paired by D171's learned-slot self name until symbols.json
+  names it exact: AR1's class). SY1 found the loss is a false pair moving to its true address 0x4B2AA0 (the client's vtable layout); the user accepted it (D173). The regeneration (+6, 0x723AB0 corrected; dc424b62) was then taken out of the run's PR
+  (b980c8e9, the user's choice): vc6-verify counts 0x723AB0 as lost outright and runs master's tools, so it lands in a
+  follow-up PR once master's verify reads accepted corrections (P-GH-11's tools PR). `.work/pseudo/` was rebuilt from it. A regeneration feeds a run's late phases into its early ones (SY1's trap, workflow.md §3.4). symbols.py without `--objs` reads no objects (TK13's trap, hit
+  again here).
+* **Process:** GitHub's API rate limit (20:22-20:32) blocked claims and the PR sync; claims hang after it. Claims
+  released unused: #98, #99, #111, #116, #124, #128, #133, #134.
+* **Traps:** about 30 from the builders, in workflow.md §3.1-§3.9 (LC1's literal trap corrected: literals are merged
+  across objects).
+* **Next session first:** the user's calls on P-TK3-1 / P-TK2-1 / P-TK5-1 (one tie-break change, +82 / +45 measured,
+  landed after a full verify) and P-TK7-1; then the leads in §4's t4 bullets (ui_avatr / ui_avatar_cust, galaxy_map,
+  cordcon, landdmap) and the triage plan's remaining runs.
+* **Outside git:** `.work/run-2026-10-31-t4/` (plan log), `.work/sym2/` (the regeneration's verifies and objects),
+  `.work/tk*/`, `.work/sy1/` (builders' scratch: forms, patches, measurements named in §3 / §4).
+
+### 2026-10-31 (18:45): handoff; D172 landed (the triage table tracked); master 20f0bf21
+
+* **State:** master 20f0bf21 holds the day's three runs (PR #41 +1,102, #64 +30, #65 D172); the tree is clean,
+  no VM leased, the pool stopped. Local branches cleaned with `run_branch.py cleanup` (wt/pins kept: its own M4
+  measurement commit). Claims #58-#63 close at the Claims Action's next reconcile (their PR merged).
+* **Decisions today:** D167-D172 (the user). Open for the user (§3): P-VM-1 (the pool's VM base before 2027-01-20),
+  P-TG3-1 (CordCon's harness counters out of the class: recommend yes), P-TG4-2 (D130's dead spenders kept for
+  another function's pair: recommend keep).
+* **Usage:** weekly 63 % at the handoff; D163's API credits about $43.40 of $200 spent (`ENB_ANTHROPIC_API_KEY`,
+  workspace `enb-d163`, limit $60).
+* **Next session first:** regenerate symbols.json on the quiet tree to record D171's +841 (workflow.md §3.4: full
+  verify of every library before and after, pairs_cmp gain-only, then `.work/pseudo/` rebuilt), then the triage
+  plan's runs (§4) under D172's reading rule.
+* **Outside git:** `.work/triage/` (the batch ids, raw results, plan.md; the results expire 29 days after
+  2026-10-31), `.work/sym/` (the first regeneration's objects and copies), `.work/run-2026-10-31-api/` and
+  `.work/run-2026-10-31-t2/` (plan logs). No processes running.
+
 ### 2026-10-31 (18:05, evening): the triage's second test (boundary runs, 18 of 23); +30 pairs, 0 lost; branch cleanup
 
 Coordinator Opus 5.5, two Opus builders. Base a581d2cd (PR #41 merged; `.work/imports.a581d2cd.json`); run branch
@@ -1643,6 +1699,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D170 | 2026-10-31 | D163's full triage runs on Sonnet 5.5, over the 14,753 functions in the application range only (amends D167's "the full batch on Haiku 5.5"). The calibration (`triage.py calib`, 300 byte-exact functions with their own name, class and paths removed, no neighbours or files): Haiku 5.5 kind 79.7 %, file 40.0 % at medium / high (6 of 15 right even at high), failing D167's gate; Sonnet 5.5 kind 89.3 %, file 63.2 % (19 of 24 at high), passing it. Sonnet costs about $0.0027 a function, so all 20,588 would be about $53; the 5,835 library-range functions (Westwood libraries, which gaps.py already locates from EA's source, and the runtime) are left out, estimate $41, inside the `enb-d163` workspace's $60 limit | user |
 | D171 | 2026-10-31 | P-AR1-1: objmatch's D88 self-name round also uses the slots of vtables learned in the same run (from the exact constructors that store them, e.g. 0x702890 stores 0xB01844) and learns the relocations of short functions at addresses the run already knows, breaking the relocation-only ties of template instances whose vtables symbols.json never names (aux_roots' accessor / KVPair deleting destructors and destructors). Measured on objmatch alone (AR1's prototype `.work/ar1/proto_om.py`): aux_roots.obj 102 -> 335 exact, all 241 app objects +318, 0 lost; shipcust_desc's three range credits move to vtable addresses (0x4F7000 -> 0x4484C0, 0x4F7520 -> 0x42F010, 0x4F7550 -> 0x4488E0; 0x42F010 to be checked). Order (the user, 2026-10-31): once the tree is quiet, symbols.json is regenerated first (it lagged imports.json: 10,005 exact against 13,341 pairs), with the full verify workflow.md §3.4 requires; then this lands as one commit with a full verify of all 11 libraries, the moves listed for the user | user |
 | D172 | 2026-10-31 | P-API-4 (D168's revisit; replaces D168's ".work only"): the triage table is tracked, written by `triage.py ingest full`: `docs/data/triage.json` (one row per line: address, kind, library, file, class, template_of, confidence, contradicts; 1.2 MB), `docs/data/triage-evidence.tsv` (the evidence each answer cited; 3.6 MB) and `docs/data/triage.md` (counts, the score, the reading rule), each under the pre-push check's 5 MB; `plan`, `score` and `show` read it. Still hints, never evidence (D56, D167): no matching tool reads it. Reading rule: a low-confidence hint, or one for a function at a file boundary (the nearest known functions before and after it in different files), is a lead; confirm the object's boundaries (statics, literals, padding) before placing. Evidence: `score` against what is exact, high 494/494, medium 1,219/1,271, low 60/83; the builders' tests against pairs, both neighbours the hinted file 23 of 23, a file boundary 18 of 23, every miss one object no evidence names (unknown_screenfade.cpp: the hint said a neighbour's file) | user |
+| D173 | 2026-10-31 | P-SY1-1: the symbols.json regeneration's one loss, aux_roots' `??_G KVAccessorClass<UnknownB016DCType>` 0x723AB0, is a false pair corrected (D66 (iii)-like): it moves to 0x4B2AA0. Evidence: our object's `??_7` has 4 slots like the client's 0xAEB4BC (slot 0 thunk 0x405EB6 -> 0x4B2AA0, then three purecalls); 0x723AB0 is slot 0 of 0xB02C84, a 2-slot vtable of another class. HEAD's pair came from D100's range tie-break; the regenerated symbols.json lets D171's learned-slot self name resolve it first. Lands with the regeneration (+5 net; dc424b62, taken out of PR #78 to a follow-up PR) | user |
 
 ## 3. Open decisions
 
@@ -1655,9 +1712,36 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   Rejected_) move out of the class (a side table in udpreplay), and its constructor takes the key as one `__int64`:
   the client allocates 0xC0, ours 0xC8; this unblocks ACK2 0x85ABB0 (0.61 with both fixed in a draft).
 * **P-TG4-2** (2026-10-31, TG4; recommend keep): D130's dead spenders in a NOT EXACT function: ui_avatar_cust
-  0x550A10 (NOT EXACT 0.71) holds four dead finds that exist only to send matrix3d.h's Rotate_Y 0x551270 out of
-  line, gaining that pair; each is needed (three leave it inline). D130 was written for functions made exact; does
+  0x550A10 (NOT EXACT 0.71) holds five dead finds (four until TK6 added 0x5513E0-0x551C80, 2026-10-31 t4) that exist
+  only to send matrix3d.h's Rotate_Y 0x551270 out of line, gaining that pair; each is needed (one fewer inlines it). D130 was written for functions made exact; does
   it cover spenders kept for another function's pair?
+* **P-TK3-1** (2026-10-31, TK3; recommend yes): extend D166's caller tie-break to `multiple` copies that are not
+  identical (same rule: our exact caller reaches one address and every client caller of it is exact in the same
+  object; copies differing only in relocation targets are pinned harder by the caller). Measured at objmatch level
+  over the verify-app objects: **+82 app pairs, 0 lost** (`.work/tk3/measure.log`; fontdatabase's 0x6C6ED0, 0x6C88D0,
+  0x6C9170, 0x6C9920, 0x6C9AD0, 0x6C9C80, 0x6C9E30 among them). One line in `tools/re/objmatch.py` `caller_tiebreak`
+  (drop the `get('identical')` filter; `.work/tk3/objmatch_x.py`), landed as its own commit after a full verify of
+  all 11 libraries, as D166 was.
+* **P-TK3-2** (2026-10-31, TK3 and TK1 independently; recommend yes, lower value): D166 counts an EH unwind funclet
+  as part of the function whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three
+  funclets, and control_keys_manager's 0x71EC90 now / 0x71EDC0 once Load_Definitions 0x71B1F0 is exact).
+* **P-TK2-1** (2026-10-31, TK2; recommend yes, with P-TK3-1): objmatch's caller tie-break (a) also runs on D80's
+  survivors when they are identical, and (b) the D80 / self-name / range rounds repeat after it, its credits fed back
+  into D80. Dry run over every app object: **+45 pairs, 0 lost** ((a) alone +12; attrib_dir's string-hashtable finds
+  0x4D8950 / 0x4D8D20 / 0x4D8DF0 among them). Patch `.work/tk2/objmatch_d166x.diff`, gains
+  `.work/tk2/objmatch_d166x_gains.log`. Changes D166 / D100; land after a full verify of every library (measured
+  separately from P-TK3-1's +82: the overlap is not yet known).
+* **P-TK7-1** (2026-10-31, TK7; recommend yes): commit E&B's configfile.cpp + xtime.cpp revision (configfile without
+  sectionList and MDC's writers, readFile keeping empty values and joining backslash lines, a new clear 0x8B2690; xtime
+  without FormatTime / ParseDate / Print* / getYDay; one change, wdebug.h's ERRMSG ties them). Measured wlib +11 exact
+  (130 -> 137 in tree) for **4 pairs lost outright**: 0x77AA10, 0x77B030, 0x77B690, 0x850820, app-object template /
+  iostream instances only matchbot's sectionList / writeFile credited to configfile (the client's configfile object
+  has none); not a D66 kind. They come back as their app files are built. Stash `docs/attempts/8B2810/`, diff
+  `.work/tk7/proposal/`.
+* **P-TK5-1** (2026-10-31, TK5; recommend yes, with P-TK3-1 / P-TK2-1): objmatch's caller_tiebreak credits one of an
+  object's byte-identical symbols when several propose the same address (the linker folded the four
+  Create_NEW<Floor / Ceiling / Closest / Interpolated> into lookup_table's 0x4EE9F0; all four callers exact). Not yet
+  measured over the app; land with the other tie-break changes after a full verify of every library.
 
 ## 4. Next steps
 
@@ -1676,8 +1760,10 @@ below name only the work items, the blocked work, the leads and the queues.
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
   bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
-* **symbols.json again** (quiet tree, full verify of every library, workflow.md §3.4) to record D171's +841, then
-  `.work/pseudo/` rebuilt.
+* **symbols.json** regenerated 2026-10-31 t4 (dc424b62, D173), not yet on master: a follow-up PR after the tools PR
+  teaches vc6-verify accepted corrections (cherry-pick dc424b62; its objects in `.work/sym2/objs/`). Next time: the same procedure (workflow.md §3.4), every
+  `lost outright` checked against the client's vtable layout first. SY1's lead: D100's range (and the self name) could
+  reject a `??_G` / `??_E` whose vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
@@ -1693,7 +1779,8 @@ below name only the work items, the blocked work, the leads and the queues.
      0x6CDBC0; rename when loadingview.cpp's stand-in `class FontSys` merges into fontmanager.h, P-FU1-1); the global
      Unknown_BDADC0 is the client's AssetManager (its assert; scriptedmovie.cpp's #define goes with the rename);
      SClient::Unknown1338 is EnvironmentMapManager (the client's assert; SClientUnknown1338Class); intrface.h's
-     ControlKeysManagerClass is the client's ControlKeysManager.
+     ControlKeysManagerClass is the client's ControlKeysManager. (TK1: 12 files, sclient.h and seven ui_* pairs; no bytes;
+     a quiet window.)
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
      P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
      RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
@@ -1710,6 +1797,52 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK19): sclient's testeffects.ini loader 0x74CA90 (636 instructions; emits
+     vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
+     0x745750, 0x7511A0, 0x749590, 0x749A70 or 0x74BFB0 is exact.
+   * From the 2026-10-31 t4 run (TK16): galaxy_map.cpp: Add_Data 0x836960 next (inlines galaxy_map.h's line 180
+     assert 'GalaxyMapID == NOT_IN_GALAXY_MAP', FAIL_IF '(int)id >= MaxDataObjects' on cpp line 98, MaxDataObjects at
+     +0x74), then 0x8360A0-0x836740, the header's inlines and the map's dtor 0x836240 (line 185); Remove_Data 0x836B70
+     0.74 (shape: the client's six failure exits share one epilogue); importer.py's RECONSTRUCTED text for the file
+     does not mention Remove_Data yet.
+   * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
+     and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
+     50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030
+     bytes), 0x556F80-0x55BAC0's 21 functions (leads 0x55A060, reusing 0x558060's weights pattern, and 0x55B9A0),
+     0x55BFB0.
+   * From the 2026-10-31 t4 run (TK17): cordcon's write 0x850C70 / buildHeader onto Cord_Put_Small / Cord_Put_Seq;
+     pump 0x853560 starts with a test of the byte 0xC40488 before WWPROFILE's string call (the profile macro's form
+     differs); examinePacket 0x8514D0 0.73 (ntohs / ntohl arguments through eax, the channel kept in ebp); handlePacket
+     0x851AE0 0.21 (the resend path's `CordMessageClass m = *it` copy in another stack slot).
+   * From the 2026-10-31 t4 run (TK15): ui_avatar_cust.cpp starts at 0x54B760 (PermStringInitClass static 0xBE5B34;
+     0x54B370 is ui_attrb_skills.cpp's, line 577; 0x54B740 / 0x54B750 are thunks into its 0x549800); ctor 0x54B7B0,
+     dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
+     not InterfaceClass: rebasing it unlocks the per-frame 0x54CAE0, the ctor and dtors. One register residue (the
+     view's Client in edx, not eax) holds 0x54E690 / 0x54E7F0 / 0x54EAD0 / 0x54E950 (0.69-0.85); 0x54EC30 0.77.
+   * From the 2026-10-31 t4 run (TK8, TK12): cordcon's pump 0x853560 (0.46), examinePacket 0x8514D0 (0.62 register),
+     write 0x850C70 (0.39), close 0x850870 (0.43); the CordCon ctor 0x84F640 (0.15) needs P-TG3-1's 0xC0 layout (it
+     inlines Add_Channels(0x40) and builds Stats_ after the channels). galaxy_map.cpp (new, app/common): Add_System
+     0x836F30 (lines 159 / 160), Add_Starbase 0x837650 (189 / 190), lookups 0x8378B0-0x837B30, the header from
+     0x838050. claims.py resolve / check should count attempts.csv `exact` (D99) rows as done (mainview's #111 was
+     handed out though LD4 finished it); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names (As_Main_View,
+     UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
+   * From the 2026-10-31 t4 run (TK9, TK18): landdmap 0x468920 (the cell builder, NOT EXACT, frame 0x8C vs 0x90 after
+     TK18's 22 forms: the client keeps X on the FPU and Y in a spare slot for the upper point, perhaps one inline
+     building both points from floats by value); 0x467A50 exact (TK18); 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
+     0x466920-0x466BC0 is its own object between heightfield and landdmap (an unnamed Line3DClass subclass, member at
+     +0x108, vtable 0xAE8754, no RTTI; ctor called from 0x7B99C0 / 0x7C3AC0): a new unknown_*.cpp when built.
+     heightfield's Get_Height_2 / Set_Height_2 0x463CD0 / 0x463D90 are twins of 0x463C80 / 0x463D20 called from the land
+     code: ambiguous, no tie-break reaches them.
+   * From the 2026-10-31 t4 run (TK6, TK11): ui_avatr.cpp (new, AvatarCreationInterface) is ui_avatar_cust.cpp's twin:
+     leads 0x553AF0 (ctor), 0x554E80, 0x556F80 onward, and ui_avatar_cust's 0x54B370-0x550670 (a function rebuilt in
+     one is the template for the other); 0x55C350 sits at ui_avatr.cpp's end (interim, D137: in the client after line
+     2207). ui_avatr 0x556B20 NOT EXACT 0.54 (inline budget; more dead spenders than D130's 6: left parked).
+     scriptedmovie's 0x8099B0 (register 0.82) and Create_Object 0x804290 (0.58) block five vector copies.
+   * From the 2026-10-31 t4 run (TK5): lookup_table's hash_map() 0x4EE810 and 12 other out-of-line hash_map() copies
+     go exact with _M_initialize_buckets written out in sgistl's three-argument hashtable ctor (sgistl_adapt.py;
+     `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
+     class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
+     delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
    * From the 2026-10-31 evening run: ui_chat_panel.h's UIChatComboClass is ui_combobox.cpp's UIComboBoxClass (it
      declares Unknown_57AD50): move the class into a ui_combobox.h, the chat panel using it (P-TG4-1, D137); AvatarUI /
      ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:

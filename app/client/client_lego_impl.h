@@ -39,6 +39,7 @@ class LegoKnobClass : public RefCountClass  // NAME 1 [LegoKnobClass]: neutral (
 {
 public:
 	LegoKnobClass(std::string bone_name, int bone_index);			// 0x72DE40
+	virtual ~LegoKnobClass(void);									// 0x72E020: declared (the client's stores the vtable first)
 
 	std::string BoneName;											// +0x08: what Add_Sub_Object_To_Bone gets  // NAME 2: what it holds
 	int BoneIndex;													// +0x18: what Capture_Bone / Release_Bone get  // NAME 2: what it holds

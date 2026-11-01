@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -49,9 +49,10 @@ Wstring::Wstring(IN Wstring &other):str(NULL), strsize(0)
 {
   if (other.str!=NULL)
   {
-    str=new char[strlen(other.str)+PADSIZE+1];
-    strsize=strlen(other.str)+PADSIZE+1;
-    strcpy(str,other.str);
+    uint32 len=strlen(other.str)+1;  // E&B: the length once, copied with memcpy (0x8B5E30)
+    str=new char[len+PADSIZE];
+    strsize=len+PADSIZE;
+    memcpy(str,other.str,len);
   }
 }
 
@@ -265,8 +266,7 @@ void Wstring::removeSpaces(void)
 
 void Wstring::clear(void)
 {
- if(str)
-   delete[](str);
+ delete[](str);  // E&B: no NULL test (0x8B6EB0, ~Wstring 0x8B5EC0)
  strsize=0;
  str=NULL;
 }
@@ -275,7 +275,7 @@ void Wstring::clear(void)
 void Wstring::setSize(sint32 size)
 {
   clear();
-  if (size<0)
+  if (size<=0)  // E&B: no empty allocation (0x8B6EE0 `jle`)
     return;
 
   str=new char[size]; 
@@ -404,15 +404,46 @@ bit8 Wstring::replace(IN char *replaceThis,IN char *withThis)
   return(set(dest.get()));
 }
 
+// E&B: replace every occurrence of one character with another (0x8B7520)
+bit8 Wstring::replace(IN char replaceThis,IN char withThis)
+{
+  char *src=get();
+  while(src && src[0])
+  {
+    src=strchr(src, replaceThis);
+    if(src)
+      src[0]=withThis;
+  }
+  return(TRUE);
+}
+
 
 bit8 Wstring::set(IN char *s)
 {
- //uint32 len;
+ uint32 len=strlen(s)+1;  // E&B: the length once, copied with memcpy (0x8B7570)
 
- strgrow(strlen(s)+1);
- strcpy(str,s);
+ strgrow(len);
+ memcpy(str,s,len);
 
  return(TRUE);
+}
+
+// E&B: set from another Wstring (0x8B7640)
+bit8 Wstring::set(IN Wstring &other)
+{
+  return(set(other.get()));
+}
+
+// E&B: set(char *) without its result (0x8B7730); no caller in the client
+void Wstring::Unknown_Set(IN char *s)
+{
+  set(s);
+}
+
+// E&B: set(Wstring &) without its result (0x8B7800); no caller in the client
+void Wstring::Unknown_Set(IN Wstring &other)
+{
+  set(other.get());
 }
 
 
@@ -466,10 +497,10 @@ char Wstring::setFormatted(IN char *msg, ...)
 // case.
 void Wstring::toLower(void)
 {
-  uint32 i;
+  int    i;  // E&B: signed (0x8B79E0 `jle` / `jl`)
   int    strlength=length();
 
-  for(i = 0; i < (uint32)strlength; i++)
+  for(i = 0; i < strlength; i++)
   {
     if((str[i] >= 'A') && (str[i] <= 'Z'))
       str[i] = (sint8)tolower(str[i]);
@@ -481,10 +512,10 @@ void Wstring::toLower(void)
 // case.
 void Wstring::toUpper(void)
 {
-  uint32 i;
+  int    i;  // E&B: signed (0x8B7A50 `jle` / `jl`)
   int    strlength=length();
 
-  for(i = 0; i < (uint32)strlength; i++)
+  for(i = 0; i < strlength; i++)
   {
     if((str[i] >= 'a') && (str[i] <= 'z'))
       str[i] = (sint8)toupper(str[i]);

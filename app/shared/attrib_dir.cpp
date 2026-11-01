@@ -224,7 +224,7 @@ bool AttribDir::Detach_Mod(const char *name, AttribModClass *mod)
 
 
 
-// NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C)
+// Exact with AttributeInfo::Detach_Mod inlined (its find, Advance, erase and Recalculate called) and the handle's Lock_Next (the inline budget: the FAIL_IF's copy calls operator=; TK2)
 AttribModIterator AttribDir::Detach_Mod(AttribModIterator &iter)
 {
 	WWPROFILE("AttribDir::Detach_Mod");
@@ -235,16 +235,16 @@ AttribModIterator AttribDir::Detach_Mod(AttribModIterator &iter)
 	}
 	AttribModClass *mod = iter.Get_Mod();
 	AttribModIterator next(iter);
-	next.Iterator->Lock_Next();
-	AttributeInfo::ModList::iterator it = std::find(info->Mods.begin(), info->Mods.end(), mod);
-	if (it != info->Mods.end()) {
-		info->ModIterators.Advance(it);
-		info->Mods.erase(it);
-		info->Recalculate();
-	}
+	next.Lock_Next();
+	info->Detach_Mod(mod);
 	next.Iterator->Unlock();
 	return next;
 }
+
+
+
+
+
 
 
 
@@ -319,7 +319,7 @@ bool AttribDir::Detach_Update(const char *src, const char *dst)
 
 
 
-// NOT EXACT: shape (explain.py: 4 rows), the client keeps the inlined Recalculate's result in bl as a bool; ours in eax, converted after (int Recalculate keeps 0x4D7060 exact)
+// The result set in each branch: the client's bl (a returned int converted, or a flag set false first, tests eax or clears bl early; TK2)
 bool AttribDir::Recalculate(const char *name)
 {
 	WWPROFILE("AttribDir::Recalculate");
@@ -328,14 +328,14 @@ bool AttribDir::Recalculate(const char *name)
 	if (info == 0) {
 		return false;
 	}
-	return info->Recalculate();
+	bool result;
+	if (info->Recalculate()) {
+		result = true;
+	} else {
+		result = false;
+	}
+	return result;
 }
-
-
-
-
-
-
 
 float AttribDir::Get_Value(const char *name) const
 {
@@ -1055,7 +1055,7 @@ void AttribDirModIteratorClass::Lock_Next()
 
 
 
-// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client calls the bucket function out of line in the inlined ++MapCur
+// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client pops with Pop (erase(end() - 1), _Destroy 0x4D9010 called) and tests MapCur == MapEnd twice before the inlined Skip_Empty; Pop with a guarded Skip_Empty gives 0.80 (attempts.csv, TK2)
 void AttribDirModIteratorClass::Unlock()
 {
 	FAIL_IF(MapCur == MapEnd) return;
@@ -1068,6 +1068,48 @@ void AttribDirModIteratorClass::Unlock()
 		++MapCur;
 		Skip_Empty();
 	}
+}
+
+
+#include <string.h>
+
+// The mod types' names (0xB74958: AttribModClass::Get_Type's 0-5, AttributeInfo::Apply_Mod)
+static struct {
+	int Type;																			// NAME 2: what it holds
+	const char *Name;																	// NAME 2: what it holds
+} AttribModTypeNames[] = {														// NAME 2: what it holds
+	{ 0, "SetBaseMin" },
+	{ 1, "SetBaseMax" },
+	{ 2, "AddAbsolute" },
+	{ 3, "AddPercent" },
+	{ 4, "SetFinalMin" },
+	{ 5, "SetFinalMax" },
+};
+
+// 0x4D8870 (no caller): the type's name, 'Unknown' when it has none
+char *Attrib_Mod_Type_To_String(char *buf, int size, const int &type)	// NAME 2: what it does (the shape of aux_roots.h's Value_To_String)
+{
+	const char *name = "Unknown";
+	for (int i = 0; i < (int)(sizeof(AttribModTypeNames) / sizeof(AttribModTypeNames[0])); i++) {
+		if (AttribModTypeNames[i].Type == type) {
+			name = AttribModTypeNames[i].Name;
+			break;
+		}
+	}
+	strncpy(buf, name, size);
+	return buf;
+}
+
+// 0x4D88E0 (no caller): the named type, case ignored
+bool Attrib_Mod_Type_From_String(const char *text, int *type)				// NAME 2: what it does (the shape of aux_roots.h's String_To_Value)
+{
+	for (int i = 0; i < (int)(sizeof(AttribModTypeNames) / sizeof(AttribModTypeNames[0])); i++) {
+		if (stricmp(AttribModTypeNames[i].Name, text) == 0) {
+			*type = AttribModTypeNames[i].Type;
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -1084,7 +1126,8 @@ void AttribDirModIteratorClass::Unlock()
 **	one attribute's (0xAEC230, Unlock's G_ASSERT(ok) on 990), the directory's (0xAEC1E8, the FAIL_IFs
 **	'MapCur == MapEnd' on 1044 / 1061 and G_ASSERT(ok) on 1066), the handle AttribModIterator
 **	(0x4D7C90-0x4D7E00), Get_All_Mods 0x4D77D0, Get_Mods 0x4D7A20 (882) and Detach_Mod by iterator
-**	0x4D4BD0 (231). Unlock pops with pop_back, Notify with erase(end() - 1) (the client's two forms).
+**	0x4D4BD0 (231); after Unlock, the mod types' name table 0xB74958 and its two lookups 0x4D8870 /
+**	0x4D88E0 (no callers; the String_To_Value shape recurs at 0x835D10 and 0x84C560). Unlock pops with pop_back, Notify with erase(end() - 1) (the client's two forms).
 **	Forms: -FLT_MAX / FLT_MAX are named consts (the client loads them from 0xAEC1A0 / 0xAEC1A4); min and
 **	max are VC6's reference-returning std::_cpp_min / _cpp_max with the bound first; the value is
 **	value + (value * Percent * 0.01f + Add) (other spellings fold to value * (Percent * 0.01f + 1));

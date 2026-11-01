@@ -61,7 +61,18 @@ template <class T> class CordListClass		// NAME 1 [CordListClass]: stand-in for 
 {
 public:
 	struct NodeType { T Node; NodeType *Next; NodeType *Prev; };
-	CordListClass() : Entries(0), Head(0), Tail(0), Current(0), CurIndex(-1) {}
+	// wlib's order (the client's stores: Entries, Current, Tail, Head, then CurIndex; 0x84E170)
+	CordListClass() { Entries = 0; Head = Tail = Current = 0; CurIndex = -1; }
+	// wlib's operator=, through getPointer (0x84E260: the node's own address goes to add)
+	CordListClass<T> &operator=(const CordListClass<T> &other)
+	{
+		CordListClass<T> &from = (CordListClass<T> &)other;
+		Clear();
+		for (int i = 0; i < from.Entries; i++) {
+			Add_Tail(*from.Get(i));
+		}
+		return *this;
+	}
 	~CordListClass() { Clear(); }
 	void Clear()
 	{
@@ -108,20 +119,12 @@ public:
 		CurIndex = pos;
 		return &n->Node;
 	}
-	void Add_Tail(const T &v)
+	// wlib's addTail: add at the end (inline, as wlib's; the client calls add 0x84F220).
+	bool Add_Tail(const T &v, T **newnodeptr = 0)
 	{
-		NodeType *n = new NodeType;
-		n->Node = v;
-		n->Next = 0;
-		n->Prev = Tail;
-		if (Tail) {
-			Tail->Next = n;
-		} else {
-			Head = n;
-		}
-		Tail = n;
-		Entries++;
+		return Add(v, Entries, newnodeptr);
 	}
+	bool Add(const T &node, int pos, T **newnodeptr = 0);
 	void Remove(int pos)
 	{
 		if (pos < 0 || pos >= Entries) {
@@ -145,6 +148,81 @@ private:
 	NodeType *Current;		// +0x0C NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 	int CurIndex;			// +0x10 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 };
+
+// 0x84F220: wlib's LinkedList<T>::add (EA's Generals Tools\matchbot\wlib\linkedlist.h), out of line
+// in the client: the new node goes at the zero-based slot pos, the others move down one.
+template <class T>
+bool CordListClass<T>::Add(const T &node, int pos, T **newnodeptr)
+{
+	NodeType *temp;
+	NodeType *item;
+
+	if (pos < 0)
+		pos = 0;
+	if (pos > Entries)
+		pos = Entries;
+
+	item = (NodeType *)new NodeType;
+	item->Node = node;
+	item->Prev = 0;
+	item->Next = 0;
+
+	if (newnodeptr)
+		*newnodeptr = &(item->Node);
+
+	if ((pos == 0) || (pos == Entries)) {
+		if (pos == 0) {
+			item->Next = Head;
+			if (Head)
+				Head->Prev = item;
+			Head = item;
+		}
+		if (pos == Entries) {
+			item->Prev = Tail;
+			if (Tail)
+				Tail->Next = item;
+			Tail = item;
+		}
+		Entries++;
+		Current = item;
+		CurIndex = pos;
+		return true;
+	}
+
+	if (pos == CurIndex) {
+		item->Next = Current;
+		item->Prev = Current->Prev;
+		Current->Prev = item;
+		item->Prev->Next = item;
+		Current = item;
+		Entries++;
+		return true;
+	}
+	if (pos == CurIndex + 1) {
+		item->Next = Current->Next;
+		item->Prev = Current;
+		Current->Next = item;
+		item->Next->Prev = item;
+		Current = item;
+		CurIndex++;
+		Entries++;
+		return true;
+	}
+
+	temp = Head->Next;
+	for (int i = 1; i < pos; i++) {
+		temp = temp->Next;
+	}
+	item->Next = temp;
+	item->Prev = temp->Prev;
+	temp->Prev = item;
+	item->Prev->Next = item;
+	Current = item;
+	CurIndex = pos;
+	Entries++;
+
+	return true;
+}
 
 // One message, sent or received (0x30 bytes in the client: the records of a channel's send queue
 // and sent list, and the nodes of its receive list; write 0x850C70, handlePacket 0x851AE0).
@@ -174,7 +252,10 @@ class CordChannelClass : public AutoPoolClass<CordChannelClass, 1024>	// NAME 2:
 {
 public:
 	CordChannelClass();
+	CordChannelClass(const CordChannelClass &other);			// 0x84E170 (no caller in the client)
 	~CordChannelClass();
+	CordChannelClass &operator=(const CordChannelClass &other);	// 0x84E230 (no caller in the client)
+	void Copy(const CordChannelClass &other);					// 0x84E260 NAME 2: what it does (the client has no name)
 	void Reset();								// 0x84E770 (inlined in the constructor): unused, everything dropped
 
 	int Mode;									// NAME 2: +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0)
@@ -266,6 +347,10 @@ public:
 	bool getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now);
 
 	void Encrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854D00
+	void Decrypt_Data(unsigned char *data, int len, unsigned short counter);			// 0x854ED0 NAME 2: Encrypt_Data's other half (RC4: the same call; no caller in the client)
+	void Set_Header_CRC(unsigned char *data, int len);								// 0x854F00 (its profile string; inlined in pumpInternal, no caller)
+	void Queue_Empty_Message();														// 0x855100 NAME 2: what it does (inlined in pump, no caller)
+	int Unknown_84FA80();															// 0x84FA80 (D10: returns 500, CORD_MAX_PACKET; no caller)
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0
 	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
@@ -281,6 +366,7 @@ public:
 	bool closec(int channel);	// NAME 1: after openc
 	// No socket, or state 4. 0x8501D0
 	bool Is_Closed();	// NAME 2: what it returns
+	bool Unknown_850200();	// 0x850200 (D10: always false, no caller)
 
 	unsigned int Ip_;							// NAME 2: +0x00 (host order)
 	unsigned short Port_;						// NAME 2: +0x04

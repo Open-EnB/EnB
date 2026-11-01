@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -58,7 +58,11 @@ class Wstring
    bit8    insert(char *instring, uint32 pos);
    bit8    beautifyNumber();
    bit8    replace(IN char *replaceThis,IN char *withThis);
+   bit8    replace(IN char replaceThis,IN char withThis);  // E&B: 0x8B7520  // NAME 3: replace's overload for one character
    char    set(IN char *str);
+   bit8    set(IN Wstring &other);  // E&B: 0x8B7640  // NAME 3: set's overload for a Wstring
+   void    Unknown_Set(IN char *str);  // E&B: 0x8B7730, set without a result  // NAME 1: no caller
+   void    Unknown_Set(IN Wstring &other);  // E&B: 0x8B7800, set without a result  // NAME 1: no caller
    char    set(uint32 size,IN char *str);
    bit8    set(char c, uint32 index);
    char    setFormatted(IN char *str, ...);		// Added by Joe Howes

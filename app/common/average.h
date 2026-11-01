@@ -3,15 +3,15 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Common\average.h (the client's assert names it, l.98)
 **
-**	A running average over Count one-second samples, as dbgconn.cpp's rate wrapper 0x824A90 keeps
-**	two (bytes in and out). The constructor (inline, l.98) allocates the samples; the owner adds to
-**	Current and rolls it into Sample[Index] each second (Time). The client inlines all of it: the
-**	only out-of-line copy is the destructor 0x824C30 (the rate wrapper's unwinding). No string names
-**	the class: AverageClass after the file (D24).
+**	A running average over Count samples, as dbgconn.cpp's rate wrapper 0x824A90 keeps two (bytes
+**	in and out per second, in its RateCounterStruct). The constructor (inline, l.98) allocates the
+**	samples; Add puts one over the oldest. The client inlines all of it: the only out-of-line copy is
+**	the counter's destructor 0x824C30 (the rate wrapper's unwinding). That the samples are a class of
+**	their own, inside the counter, is the client's code: the samples' stores go through Add's own
+**	`this` (0x824EC0's order). No string names the class: AverageClass after the file (D24).
 **
 **	The spacing below keeps the assert on the client's line (D25).
 */
-
 
 
 #if defined(_MSC_VER)
@@ -112,11 +112,16 @@ public:
 		return(sum / Count);
 	}
 
-	int Current;		// +0x00 this second's total  // NAME 2: what it holds
-	unsigned int Time;	// +0x04 the start of this second (Unknown_Get_Ticks)  // NAME 2: what it holds
-	int *Sample;		// +0x08 (S: the assert)
-	int Count;			// +0x0C  // NAME 2: what it holds
-	int Index;			// +0x10 the next sample  // NAME 2: what it holds
+	// One more sample, over the oldest
+	void Add(int value)	// NAME 2: what it does
+	{
+		Sample[Index] = value;
+		Index = (Index + 1) % Count;
+	}
+
+	int *Sample;		// +0x00 (S: the assert)
+	int Count;			// +0x04  // NAME 2: what it holds
+	int Index;			// +0x08 the next sample  // NAME 2: what it holds
 };
 
 #endif

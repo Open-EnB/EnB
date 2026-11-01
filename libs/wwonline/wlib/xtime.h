@@ -64,6 +64,7 @@ class Xtime
     time_t    getTime_t(void) const;  // E&B: the time as a time_t (0x8BA510)  // NAME 1: describes what it returns
 
     void      addSeconds(sint32 seconds);
+    void      addMsec(sint32 msec);  // E&B: 0x8BA5F0  // NAME 2: addSeconds for milliseconds
 
     bit8      getTime(int &month, int &mday, int &year, int &hour, int &minute,
                         int &second) const;
