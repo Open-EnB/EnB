@@ -1759,11 +1759,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
-| 1 | `TableDepth` | `app/client/html/htmlview.cpp:471` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
-| 1 | `RowDepth` | `app/client/html/htmlview.cpp:472` | 0xBE83F4, the same for <tr> |
-| 1 | `CellDepth` | `app/client/html/htmlview.cpp:473` | 0xBE83F8, the same for <td> |
-| 1 | `Unknown1C4` | `app/client/html/htmlview.cpp:755` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/html/htmlview.cpp:1026` | untagged neutral name (D10) |
+| 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
+| 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
+| 1 | `CellDepth` | `app/client/html/htmlview.cpp:458` | 0xBE83F8, the same for <td> |
+| 1 | `Unknown1C4` | `app/client/html/htmlview.cpp:742` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/html/htmlview.cpp:1040` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/html/htmlview.cpp:1326` | untagged neutral name (D10) |
 | 1 | `Unknown138` | `app/client/html/htmlview.cpp:1327` | untagged neutral name (D10) |
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
