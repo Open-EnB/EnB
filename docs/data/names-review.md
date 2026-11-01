@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1064 |
-| 2 | describes what the code does | 2546 |
-| 1 | neutral placeholder | 7805 |
+| 2 | describes what the code does | 2544 |
+| 1 | neutral placeholder | 7802 |
 
 ## For review (score 3 and below)
 
@@ -1530,9 +1530,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown714340Class` | `app/client/extrap.h:285` | neutral (D10) |
 | 1 | `client, packet` | `app/client/extrap.h:288` | what postate's state passes |
 | 1 | `Unknown18` | `app/client/extrap.h:296` | untagged neutral name (D10) |
-| 1 | `FontTextFileClass` | `app/client/fontdatabase.cpp:32` | neutral (D10): a text file read into lines (0x28 bytes) |
-| 1 | `unknown` | `app/client/fontdatabase.cpp:35` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/fontdatabase.cpp:41` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/fontdatabase.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_6BE520` | `app/client/fontdatabase.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_6BF910` | `app/client/fontdatabase.cpp:117` | untagged neutral name (D10) |
@@ -8176,8 +8173,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/extrap.h:293` | what the state passes |
 | 2 | `LeaderID` | `app/client/extrap.h:294` | the packet's LeaderID |
 | 2 | `Offset` | `app/client/extrap.h:295` | the packet's Offset |
-| 2 | `Count` | `app/client/fontdatabase.cpp:37` | what it returns |
-| 2 | `Get` | `app/client/fontdatabase.cpp:38` | what it returns |
 | 2 | `FontColorStruct` | `app/client/fontdatabase.cpp:244` | one COLOR-n section of fontcode.ini / fontart.ini (0x10 bytes) |
 | 2 | `Name` | `app/client/fontdatabase.cpp:248` | the ini key |
 | 2 | `RGB` | `app/client/fontdatabase.cpp:249` | the ini key |
