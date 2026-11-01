@@ -15,11 +15,13 @@
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\light.h"
 #include "..\..\ww3d2\hanim.h"
+#include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\layer.h"
 #include "..\..\ww3d2\dazzle.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\predlod.h"
 #include "matrix3d.h"
+#include "..\..\wwlib\ref_ptr.h"
 #include "wwmath.h"
 #include <vector>
 
@@ -38,16 +40,16 @@
 
 
 
-// kernel.cpp's object at *0xBFAEE0: its slot +0x14 makes a render object by name (as ui_login.cpp declares it)
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
-	virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
-	virtual HAnimClass *Get_HAnim(const char *name);	// +0x28  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+
+
+
+
+
+
+
+
+
+
 extern bool Unknown_BFAE52;								// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
 
 // sclient.cpp's env map object (0x24 bytes): its implicit destructor is out of line here (0x679820)
@@ -497,8 +499,6 @@ void CharacterViewClass::Unknown_67A300()
 
 
 
-
-
 // 0x67A370
 void CharacterViewClass::Unknown_67A370(int mode)
 {
@@ -566,38 +566,6 @@ void CharacterViewClass::Unknown_67A3F0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x67A670
 void CharacterViewClass::Unknown_67A670()
 {
@@ -609,21 +577,45 @@ void CharacterViewClass::Unknown_67A670()
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0.75)
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67A6C0
+void CharacterViewClass::Unknown_67A6C0()
+{
+	if (NarratorRObj == NULL && ViewRObjs[4] != NULL) {
+		AvatarDescClass *desc = new AvatarDescClass(1, (const char *)NULL);
+		NarratorRObj = new CharacterViewAvatarClass(desc, 1, 0, NULL);
+		delete desc;
+		G_ASSERT(NarratorRObj);
+		if (NarratorRObj) {
+			ViewRObjs[4]->Add_Sub_Object_To_Bone(NarratorRObj, "NARRATOR");
+			NarratorRObj->Unknown_77E3D0(1);
+		}
+		Unknown19C = true;
+		Unknown19D = true;
+		NarratorRObj->Unknown_786370(true);
+		if (NarratorRObj && Unknown19C && Unknown19C == Unknown19D) {
+			NarratorRObj->Unknown_784A50("/walk_on", 1, 1);
+			Unknown22C = 3;
+			Unknown19D = false;
+		}
+	}
+}
+
+
 // 0x67A8D0
 void CharacterViewClass::Unknown_67A8D0(bool off)
 {
 	if (NarratorRObj && Unknown19C != off && Unknown19C == Unknown19D) {
 		if (off) {
 			NarratorRObj->Unknown_784A50("/walk_off", 1, 0);
-			Unknown19D = off;
-			return;
+		} else {
+			NarratorRObj->Unknown_784A50("/walk_on", 1, 1);
+			Unknown22C = 3;
 		}
-		NarratorRObj->Unknown_784A50("/walk_on", 1, 1);
-		Unknown22C = 3;
-		Unknown19D = false;
+		Unknown19D = off;
 	}
 }
+
 
 // 0x67A960
 void CharacterViewClass::Unknown_67A960()
@@ -634,6 +626,14 @@ void CharacterViewClass::Unknown_67A960()
 		Unknown19E = true;
 	}
 }
+
+
+
+
+
+
+
+
 
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes
 // 0x67A9B0
@@ -647,17 +647,6 @@ void CharacterViewClass::Unknown_67A9B0(int type)
 		case 0:
 			Unknown1C->Remove_Render_Object(ViewRObjs[type]);
 			break;
-		case 1:
-		case 2:
-			for (i = 0; i < 2; i++) {
-				if (Unknown3A8[i]) {
-					Unknown3A8[i]->Remove();
-					Unknown3A8[i]->Release_Ref();
-					Unknown3A8[i] = NULL;
-				}
-			}
-			Unknown06C->Remove_Render_Object(ViewRObjs[type]);
-			break;
 		case 3:
 			Unknown07C->Remove_Render_Object(ViewRObjs[type]);
 			break;
@@ -670,6 +659,17 @@ void CharacterViewClass::Unknown_67A9B0(int type)
 				}
 			}
 			Unknown084->Remove_Render_Object(ViewRObjs[type]);
+			break;
+		case 1:
+		case 2:
+			for (i = 0; i < 2; i++) {
+				if (Unknown3A8[i]) {
+					Unknown3A8[i]->Remove();
+					Unknown3A8[i]->Release_Ref();
+					Unknown3A8[i] = NULL;
+				}
+			}
+			Unknown06C->Remove_Render_Object(ViewRObjs[type]);
 			break;
 	}
 	ViewRObjs[type]->Release_Ref();
@@ -689,7 +689,7 @@ void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 		Unknown_BFAE52 = true;
 	}
 	if (ViewRObjs[type] == NULL) {
-		ViewRObjs[type] = Unknown_BFAEE0->Create_Render_Obj(name);
+		ViewRObjs[type] = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
 		G_ASSERT(ViewRObjs[type]);
 		if (ViewRObjs[type]) {
 			switch (type) {
@@ -732,7 +732,7 @@ void CharacterViewClass::Unknown_67ACE0(int type)
 bool CharacterViewClass::Unknown_67AD30(int type, const char *name)
 {
 	bool found = false;
-	HAnimClass *anim = Unknown_BFAEE0->Get_HAnim(name);
+	HAnimClass *anim = WW3DAssetManager::Get_Instance()->Get_HAnim(name);
 	if (anim) {
 		if (Unknown1D4[type].Anim) {
 			Unknown1D4[type].Anim->Release_Ref();
@@ -859,6 +859,55 @@ void CharacterViewClass::Unknown_67BBE0()
 		Unknown3B0[1]->Set_Spot_Direction(Vector3(-1.0f, 0.0f, 0.75f));
 		Unknown3B0[0]->Add(Unknown084);
 		Unknown3B0[1]->Add(Unknown084);
+	}
+}
+
+// 0x67AF70
+void CharacterViewClass::Unknown_67AF70(float time)
+{
+	for (int i = 0; i < 5; i++) {
+		CharacterViewUnknown1D4Struct &anim = Unknown1D4[i];
+		if (anim.Anim && anim.Mode == 0 && anim.Frame >= 0.0f) {
+			float rate = anim.Anim->Get_Frame_Rate();
+			float last = (float)(anim.Anim->Get_Num_Frames() - 1);
+			if (anim.Frame < last) {
+				if (anim.Frame != 0.0f) {
+					anim.Frame = rate * time + anim.Frame;
+				} else {
+					anim.Frame = 1.0f;
+				}
+				if (anim.Frame >= last) {
+					anim.Frame = last;
+					anim.Unknown0C = true;
+				}
+			}
+			if (anim.Unknown0D) {
+				ViewRObjs[i]->Set_Animation(anim.Anim, last - anim.Frame, 0);
+			} else {
+				ViewRObjs[i]->Set_Animation(anim.Anim, anim.Frame, 0);
+			}
+		}
+	}
+}
+
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67B4F0
+void CharacterViewClass::Unknown_67B4F0(bool on)
+{
+	if (ViewRObjs[4]) {
+		RefCountPtr<RenderObjClass> platform = Create_Get(ViewRObjs[4]->Get_Sub_Object_By_Name("platform"));
+		if (platform.Peek() != NULL) {
+			platform->Set_Hidden(!on);
+		}
+	}
+}
+
+// 0x67C440
+void CharacterViewClass::Unknown_67C440(int index, bool now)
+{
+	Unknown4D4 = Unknown_BE6018[index];
+	if (now) {
+		Unknown4C8 = Unknown_BE6018[index];
 	}
 }
 

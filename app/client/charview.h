@@ -42,7 +42,11 @@ class SClientUnknown1338Class;		// sclient.cpp's: env_map_manager.cpp's 'envmaps
 class CharacterViewAvatarClass : public RenderObjClass	// NAME 1: neutral (D10)
 {
 public:
+	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes; 0x67A6C0: the narrator's description, 1, 0, NULL; 0x67BF20 passes +0x3A4)  // NAME 1 [desc, a, b, env_maps]: what the callers pass
+	virtual RenderObjClass *Clone() const;				// (avatar.cpp's)
+	virtual void Render(RenderInfoClass &rinfo);		// (avatar.cpp's)
 	void Unknown_1C4();									// the client's slot +0x1C4 (every frame)
+	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
@@ -120,8 +124,8 @@ public:
 	void Unknown_67B270();								// 0x67B270 ('Are you sure you want to quit?')
 	bool Unknown_67B2B0();								// 0x67B2B0 (the quit box answered: yes kills the kernel, no returns true)
 	void Unknown_67A6C0();								// 0x67A6C0 (the G_ASSERT 'NarratorRObj': the narrator made, walking on)
-	void Unknown_67B4F0(int arg);						// 0x67B4F0 ('platform')  // NAME 1 [arg]: as ui_login.cpp's
-	void Unknown_67C440(int a, int b);					// 0x67C440 (the colours at 0xBE6018)  // NAME 1 [a, b]: as ui_login.cpp's
+	void Unknown_67B4F0(bool on);						// 0x67B4F0 (the model of type 4's 'platform' shown, or hidden)  // NAME 1 [on]: what it selects
+	void Unknown_67C440(int index, bool now);			// 0x67C440 (+0x4D4 the colour index of 0xBE6018's three; with now, +0x4C8 too)  // NAME 1 [index, now]: what they select
 	void Unknown_67C7B0();								// 0x67C7B0
 	void Unknown_67A9B0(int type);						// 0x67A9B0 (ui_login.cpp: the destructor passes 0)  // NAME 2 [type]: 0x67AB20's G_ASSERT 'ViewRObjs[type]'
 	void Unknown_67AF70(float time);					// 0x67AF70 (the frame passes the frame time in seconds)  // NAME 1 [time]: what the frame passes

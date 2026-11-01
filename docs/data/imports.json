@@ -938,6 +938,8 @@
    "charview": {
     "ambiguous": [
      "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
      "0x64EFC0"
     ],
     "copy": "reconstructed",
@@ -957,17 +959,22 @@
      "0x67A370",
      "0x67A3F0",
      "0x67A670",
+     "0x67A8D0",
      "0x67A960",
+     "0x67A9B0",
      "0x67ACE0",
      "0x67AD30",
      "0x67ADD0",
      "0x67AE20",
      "0x67AE60",
      "0x67AEA0",
+     "0x67AF70",
      "0x67B270",
      "0x67B2B0",
+     "0x67B4F0",
      "0x67BBE0",
-     "0x67C3C0"
+     "0x67C3C0",
+     "0x67C440"
     ],
     "merged": [],
     "name": "client/charview.cpp"
