@@ -106,7 +106,7 @@ public:
 class Unknown622180InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 6
 {
 public:
-	Unknown622180InterfaceClass(UIViewClass *view, LayerClass *layer, bool unknown, int unknown2);	// 0x622180 (the mode before was 5)  // NAME 1 [view, layer, unknown, unknown2]: neutral
+	Unknown622180InterfaceClass(UIViewClass *view, LayerClass *layer, int unknown, int unknown2);	// 0x622180 (the mode before was 5)  // NAME 1 [view, layer, unknown, unknown2]: neutral
 	char Unknown84[0x26C - 0x84];
 };
 class Unknown5EF0B0InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): modes 9-12
@@ -250,7 +250,7 @@ void CharacterViewClass::Unknown_04()
 	Unknown4C8 = Unknown_BE6018[0];
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x679160
 void CharacterViewClass::Unknown_08()
 {
@@ -279,8 +279,8 @@ void CharacterViewClass::Unknown_08()
 		case 7:
 		case 8:
 			return;
-		case 9:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 3);
+		case 12:
+			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 0);
 			break;
 		case 10:
 			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 20);
@@ -288,14 +288,14 @@ void CharacterViewClass::Unknown_08()
 		case 11:
 			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 3);
 			break;
-		case 12:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 0);
+		case 9:
+			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 3);
 			break;
 	}
 	Unknown1B4->Unknown_54();
 	Unknown_6B4940(Unknown1B4);
 	((LoginTaskClass *)Unknown14->Unknown_08())->Unknown0018->Unknown_515400();
-	((LoginTaskClass *)Unknown14->Unknown_08())->Unknown0018->Unknown_515120(2);
+	LoginTaskClass *task = (LoginTaskClass *)Unknown14->Unknown_08(); task->Unknown0018->Unknown_515120(2);
 }
 
 // NOT EXACT: inline budget (the client calls the deque's pop_front 0x67CEF0 out of line; ours inlines it), 0.77
@@ -533,7 +533,7 @@ void CharacterViewClass::Unknown_67A3F0()
 
 
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// NOT EXACT: register (this in edi, the client's esi; the rest the client's), 0.73
 // 0x67A440
 void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
 {
@@ -548,8 +548,8 @@ void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
 		G_ASSERT(AvatarRObj);
 		if (AvatarRObj) {
 			AvatarRObj->Unknown_77E3D0(1);
-			AvatarRObj->Unknown231 = false;
-			AvatarRObj->Unknown214 = true;
+			AvatarRObj->Unknown_Inline_231();
+
 			AvatarRObj->Unknown232 = true;
 		}
 		TheDX8MeshRenderer.Invalidate();
@@ -577,7 +577,7 @@ void CharacterViewClass::Unknown_67A670()
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67A6C0
 void CharacterViewClass::Unknown_67A6C0()
 {
@@ -1026,7 +1026,7 @@ void CharacterViewClass::Unknown_67B320()
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67B390
 void CharacterViewClass::Unknown_67B390(int race, int profession)
 {
@@ -1050,8 +1050,7 @@ void CharacterViewClass::Unknown_67B390(int race, int profession)
 				ViewRObjs[4]->Add_Sub_Object_To_Bone(Unknown1A4[i], bones[i]);
 				Unknown1A4[i]->Unknown_77E3D0(1);
 				Unknown1A4[i]->Unknown_7896B0(4);
-				Unknown1A4[i]->Unknown231 = false;
-				Unknown1A4[i]->Unknown214 = true;
+				Unknown1A4[i]->Unknown_Inline_231();
 				Unknown1A4[i]->Unknown232 = true;
 			}
 		}
@@ -1078,6 +1077,7 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 		Unknown4C8 = Unknown_BE6018[index];
 	}
 }
+
 
 
 

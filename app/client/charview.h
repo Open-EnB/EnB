@@ -62,6 +62,8 @@ public:
 	char Unknown221[0x231 - 0x221];
 	bool Unknown231;									// +0x231 (0x67A440 clears it)
 	bool Unknown232;									// +0x232 (0x67A440 sets it)
+	void Unknown_Inline_231() { Unknown231 = false; Unknown214 = true; }	// (inline in 0x67A440, 0x67B390: one load of the pointer for both)  // NAME 1: neutral (D10)
+	char Unknown233[0x384 - 0x233];					// +0x233 (0x384 bytes: the callers' new)
 };
 
 // The view's modes (+0x1AC): the FAIL_IF 'mode < CHARACTER_POPUP_MESSAGE || mode >= CHARACTER_LASTVIEWMODE' (0x67A370)
