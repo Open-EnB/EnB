@@ -24,6 +24,12 @@
 #include <time.h>
 #include <windows.h>
 
+// The harness's counters (D176): udpreplay.py build defines CORD_HARNESS_COUNT to count into udpreplay's
+// side table (tests/udpreplay/cord_counters.h); the client has none, and here it is nothing.
+#ifndef CORD_HARNESS_COUNT
+#define CORD_HARNESS_COUNT(con, counter)
+#endif
+
 static unsigned int Get_Short(const unsigned char *p)
 {
 	return ((unsigned int)p[0] << 8) | p[1];
@@ -95,11 +101,31 @@ static CordMessageClass Empty_Message()
 // with blocks of 4 + 1024 x 0x78 bytes).
 DEFINE_AUTO_POOL(CordChannelClass, 1024)
 
+// Reset's body, inlined into the constructor and the destructor as the client does (Reset itself is kept
+// out of line below, where the CordCon constructor and openc call it).
+static inline void Reset_Channel(CordChannelClass *c)	// NAME 2: Reset's body
+{
+	c->Mode = 0;
+	c->IsClosed = true;
+	c->LastWrite = (unsigned int)time(0);
+	c->Priority = 0;
+	c->Written = 0;
+	c->Delivered = 0;
+	c->Expected = 0;
+	c->NextSequenced = 0;
+	c->LastSeq = 0;
+	c->Queue.clear();
+	c->Incoming.Clear();
+	c->Sent.clear();
+	c->ToAck.clear();
+	c->Missing.clear();
+}
+
 CordChannelClass::CordChannelClass()	// 0x84DFC0
 {
 	NextSeq = 0;
 	Index = -1;
-	Reset();
+	Reset_Channel(this);
 }
 
 // 0x84E170: the members' constructors, then the copy.
@@ -155,10 +181,12 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 // destructor leaves them; Free 0x85BEC0 is called where a record is dropped).
 CordChannelClass::~CordChannelClass()
 {
-	Reset();
+	Reset_Channel(this);
 }
 
-// 0x84E770
+// 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannelClass's
+// constructor and destructor inline Reset_Channel).
+#pragma auto_inline(off)
 void CordChannelClass::Reset()
 {
 	Mode = 0;
@@ -176,53 +204,61 @@ void CordChannelClass::Reset()
 	ToAck.clear();
 	Missing.clear();
 }
+#pragma auto_inline(on)
 
 // ------------------------------------------------------------------------ CordCon
 
 // 0x84F640: 64 channels; channel 0 is the connection's own (mode 5: the empty message that carries
 // acks when nothing else is queued, the keep-alive, the close). The statistics object (0x4C bytes,
-// constructor 0x85BF30) gets stats_arg, the window limit ACK2 carries.
+// constructor 0x85BF30) gets stats_arg, the window limit ACK2 carries. Unknown1C and Unknown98 stay
+// unset, as in the client. The six size() statements make no code: they spend the inliner's budget so
+// that Active_'s push_back keeps insert(P, n, x) 0x855E40 out of line, as the client (with five or
+// fewer it is inlined).
 CordCon::CordCon(unsigned int ip, unsigned short port, int session, unsigned short unknown0c, bool is_server,
-	UDP *udp, int stats_arg, unsigned int key_lo, unsigned int key_hi) :
-	Ip_(ip),
-	Port_(port),
-	Session_(session),
-	Unknown0C(unknown0c),
-	Udp_(udp),
-	Unknown14(0),
-	Unknown18(0),
-	Unknown1C(0),
-	OpenChannels_(0),
-	Queued_(0),
-	AcksPending_(0),
-	ResendsPending_(0),
-	Stats_(new CordStatsClass(stats_arg)),
-	BytesSent_(0),
-	BytesResent_(0),
-	BytesRead_(0),
-	BytesAcked_(0),
-	Resends_(0),
-	DupAcks_(0),
-	MessagesSent_(0),
-	PacketsIn_(0),
-	PacketsOut_(0),
-	Quality_(0),
-	HeaderIn_(0),
-	Unknown98(0),
-	ExpireCountdown_(0),
-	LastSend_(0),
-	LastReceive_((unsigned int)time(0)),
-	LastPump_((unsigned int)time(0)),
-	GoneAway_(false),
-	CloseState_(0),
-	CloseSeq_(0),
-	IsServer_(is_server),
-	AcksMatched_(0),
-	ResendRequests_(0),
-	Rejected_(0)
+	UDP *udp, int stats_arg, __int64 key)
 {
-	Key_ = ((__int64)key_hi << 32) | key_lo;
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
 	Add_Channels(0x40);
+	Key_ = key;
+	Unknown14 = 0;
+	Unknown18 = 0;
+	Stats_ = new CordStatsClass(stats_arg);
+	Ip_ = ip;
+	Port_ = port;
+	Session_ = session;
+	Unknown0C = unknown0c;
+	Udp_ = udp;
+	IsServer_ = is_server;
+	OpenChannels_ = 0;
+	AcksPending_ = 0;
+	ResendsPending_ = 0;
+	Queued_ = 0;
+	LastSend_ = 0;
+	LastReceive_ = (unsigned int)time(0);
+	LastPump_ = (unsigned int)time(0);
+	GoneAway_ = false;
+	Resends_ = 0;
+	DupAcks_ = 0;
+	MessagesSent_ = 0;
+	PacketsIn_ = 0;
+	PacketsOut_ = 0;
+	Quality_ = 0;
+	HeaderIn_ = 0;
+	BytesSent_ = 0;
+	BytesRead_ = 0;
+	BytesResent_ = 0;
+	BytesAcked_ = 0;
+	ExpireCountdown_ = 0;
+	CloseState_ = 0;
+	CloseSeq_ = 0;
+	for (unsigned int i = 0; i < Channels_.size(); i++) {
+		Channels_[i]->Reset();
+	}
 	Channels_[0]->Mode = 5;
 	Active_.push_back(Channels_[0]);
 }
@@ -456,7 +492,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
 	if (!examinePacket(data, datalen)) {
 		Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
-		Rejected_++;
+		CORD_HARNESS_COUNT(this, Rejected);
 		return false;
 	}
 	Xtime current;
@@ -506,7 +542,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 					}
 					Stats_->On_Ack(it->Length);
 					BytesAcked_ += it->Length;
-					AcksMatched_++;
+					CORD_HARNESS_COUNT(this, AcksMatched);
 					(*it).Free();
 					it = c->Sent.erase(it);
 					if (kind == 0) {
@@ -529,7 +565,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 					m.SentTime.setMsec(0);
 					c->Sent.erase(it);
 					c->Sent.insert(c->Sent.begin(), m);
-					ResendRequests_++;
+					CORD_HARNESS_COUNT(this, ResendRequests);
 					break;
 				}
 			}

@@ -108,6 +108,9 @@ def build(out):
         # avatar_desc.cpp's typed adds (kv_encoder_base.h's, D104) are declared only under this macro, and
         # an earlier file of this one translation unit includes kv_encoder_base.h first
         f.write('#define UNKNOWN_PACKETDATA_BODIES\n')
+        # D176: CordCon's harness counters live in udpreplay's side table (cord_counters.h defines
+        # CORD_HARNESS_COUNT, which cordcon.cpp leaves empty otherwise)
+        f.write('#include "cord_counters.h"\n')
         for p in WWUDP + CONN:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
             if p.endswith('udpconn.cpp'):

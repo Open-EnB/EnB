@@ -52,11 +52,20 @@
 #include <deque>
 #include "cordcon.h"
 #include "cordmgr.h"
+#include "cord_counters.h"
 #include "udp.h"
 #include "..\..\..\libs\wwonline\wlib\xtime.h"
 
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
+
+// The counters CordCon's handlePacket counts (D176: a side table, the class has the client's layout).
+static std::map<const CordCon *, CordHarnessCounters> Cord_Counters;
+
+CordHarnessCounters *Cord_Harness_Counters(const CordCon *con)
+{
+	return &Cord_Counters[con];
+}
 // --conn: deliver through app\common's UDPConnection and stream framing (conn_replay.cpp)
 extern bool Conn_Mode;
 extern int Conn_Errors;
@@ -194,10 +203,10 @@ static void Make_Side(Session *s, Side &side, bool server)
 	Replay[side.Sock].FromPort = server ? 1024 : 3500;
 	CordDataSocketClass ds = { side.Sock, 0, 0, 0 };
 	side.Mgr.DataSockets_.addTail(ds);
-	unsigned int key[2];
-	memcpy(key, s->Key, 8);
+	__int64 key;
+	memcpy(&key, s->Key, 8);
 	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock,
-		Window_Limit, key[0], key[1]);
+		Window_Limit, key);
 	side.Mgr.Connections_.addTail(side.Con);
 }
 
@@ -576,14 +585,14 @@ int main(int argc, char **argv)
 		tx.Con->Encrypt_Data(&wire[5], (int)wire.size() - 5, (unsigned short)counter);
 		Replay[rx.Sock].In.push_back(wire);
 
-		int rejected = rx.Con->Rejected_;
+		int rejected = Cord_Harness_Counters(rx.Con)->Rejected;
 		int unexpected = rx.Mgr.Unexpected_;
 		Deliver(rx);
 		const char *status = "ok";
 		if (rx.Mgr.Unexpected_ != unexpected) {
 			status = "nocon";
 			s->NoCon[d]++;
-		} else if (rx.Con->Rejected_ != rejected) {
+		} else if (Cord_Harness_Counters(rx.Con)->Rejected != rejected) {
 			status = "rejected";
 			s->Rejected[d]++;
 		} else {
@@ -615,7 +624,7 @@ int main(int argc, char **argv)
 				CordCon *c = d == 0 ? s->Client.Con : s->Server.Con;
 				fprintf(out, "L %s %s sent %d dropped %d resends %d resend-requests %d dup-acks %d close-state %d "
 					"queued %d unacked %d\n", it->first.c_str(), d == 0 ? "C" : "S", s->LoopSent[d],
-					s->LoopDropped[d], c->Resends_, c->ResendRequests_, c->DupAcks_, c->CloseState_, c->Queued_,
+					s->LoopDropped[d], c->Resends_, Cord_Harness_Counters(c)->ResendRequests, c->DupAcks_, c->CloseState_, c->Queued_,
 					Loop_Unacked(c));
 			}
 		}
@@ -659,8 +668,8 @@ int main(int argc, char **argv)
 			fprintf(out, "S %s %s datagrams %d accepted %d rejected %d nocon %d delivered %d generated %d "
 				"peer-accepts %d openc-mismatch %d acks-matched %d dup-acks %d resend-requests %d\n",
 				it->first.c_str(), d == 0 ? "C" : "S", s->Datagrams[d], s->Accepted[d], s->Rejected[d],
-				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d], rx->AcksMatched_,
-				rx->DupAcks_, rx->ResendRequests_);
+				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d],
+				Cord_Harness_Counters(rx)->AcksMatched, rx->DupAcks_, Cord_Harness_Counters(rx)->ResendRequests);
 		}
 	}
 	if (Conn_Mode) {

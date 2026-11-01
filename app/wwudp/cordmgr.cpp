@@ -112,7 +112,7 @@ bool CordMgr::Pump_Connections()
 		CordConnectingClass *c; Pending_.get(c, i);
 		if (c->Created < timeout) {
 			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0,
-				(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
+				c->Key);
 			AllConnections_.addTail(con);
 			Connections_.addTail(con);
 			delete c;
@@ -1388,15 +1388,16 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	if (protocol != Protocol_ || type != 3) {
 		return false;
 	}
+	CordConnectingClass *c = NULL;
 	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *c; Pending_.get(c, i);
+		Pending_.get(c, i);
 		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
 			|| c->Session != session) {
 			continue;
 		}
 		c->State = 5;
 		CordCon *con = new CordCon(c->Ip, port, session, 0, false, c->Socket, (int)word,
-			(unsigned int)c->Key, (unsigned int)(c->Key >> 32));
+			c->Key);
 		AllConnections_.addTail(con);
 		Connections_.addTail(con);
 		delete c;
