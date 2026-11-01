@@ -5921,9 +5921,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/common/galaxy_map.h:169` | neutral (D10) |
 | 1 | `Unknown38` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/common/galaxy_map.h:181` | untagged neutral name (D10) |
-| 1 | `Name` | `app/common/galaxy_map.h:189` | a string on the wire (Read_String) |
 | 1 | `Unknown20` | `app/common/galaxy_map.h:190` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/common/galaxy_map.h:191` | untagged neutral name (D10) |
+| 1 | `Name` | `app/common/galaxy_map.h:211` | a string on the wire (Read_String) |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -9054,8 +9054,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Write, buffer` | `app/common/galaxy_map.h:165` | LinearBufferClass::Write of GalaxyMapID |
 | 2 | `As_System` | `app/common/galaxy_map.h:166` | the system's override |
 | 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:178` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
-| 2 | `Create` | `app/common/galaxy_map.h:186` | what it does |
-| 2 | `HashID` | `app/common/galaxy_map.h:188` | Get_Hash_ID's |
+| 2 | `Create` | `app/common/galaxy_map.h:208` | what it does |
+| 2 | `HashID` | `app/common/galaxy_map.h:210` | Get_Hash_ID's |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |

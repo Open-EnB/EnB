@@ -2,7 +2,7 @@
 /*
 **	The galaxy map's data objects (systems, sectors, gates, starbases), reference counted and
 **	written to / read from a LinearBufferClass. So far only the base and the system, as far as
-**	galaxy_map.cpp's 0x837C10-0x837C70 need them; the map itself (its AllData array and the
+**	galaxy_map.cpp's 0x837C10-0x837C70 and their vtables need them; the map itself (its AllData array and the
 **	Systems / Sectors / Gates / Starbases hash maps, galaxy_map.cpp's asserts) is not declared yet.
 */
 
@@ -18,10 +18,10 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\unknown_debug.h"
+#include "..\shared\auxdata\linearbu.h"
 
 class LinearBufferClass;
 class GalaxyMapSystemClass;
-
 
 
 
@@ -178,8 +178,30 @@ public:
 class GalaxyMapSystemClass : public GalaxyMapDataClass	// NAME 2: 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system')
 {
 public:
-	GalaxyMapSystemClass() : HashID(-1), Unknown38(1.0f), Unknown3C(3) {}	// (inline: 0x837C70)
+	GalaxyMapSystemClass() : HashID(-1), Unknown38(1.0f), Unknown3C(3) {}	virtual ~GalaxyMapSystemClass() {}	// (inline: 0x837C70); the destructor 0x837F80 stores the vtable: explicit
 	virtual int Get_Type() { return(5); }										// +0x08 0x837EC0
+	virtual void Read(LinearBufferClass *buffer)
+	{
+		buffer->Read(&GalaxyMapID, 4);
+		buffer->Read(&HashID, 4);
+		char *name = buffer->Read_String();
+		Name = name;
+		delete name;
+		buffer->Read(&Unknown20, 12);
+		buffer->Read(&Unknown2C, 12);
+		buffer->Read(&Unknown38, 4);
+		buffer->Read(&Unknown3C, 4);
+	}
+	virtual void Write(LinearBufferClass *buffer)
+	{
+		buffer->Write(&GalaxyMapID, 4);
+		buffer->Write(&HashID, 4);
+		buffer->Write_String(Name.c_str());
+		buffer->Write(&Unknown20, 12);
+		buffer->Write(&Unknown2C, 12);
+		buffer->Write(&Unknown38, 4);
+		buffer->Write(&Unknown3C, 4);
+	}
 	virtual GalaxyMapSystemClass *As_System() { return(this); }				// +0x14 0x837EE0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x837EA0
 
@@ -203,5 +225,7 @@ public:
 **	destructor, Get_Type (-1), Read / Write (GalaxyMapID only; galaxy_map.cpp's 0x837C10 / 0x837C40),
 **	four slots returning NULL (the system overrides the first with 'return this') and _purecall
 **	(Get_Hash_ID). The system's Read / Write 0x8381B0 / 0x838320 (inline here, emitted after 0x837F80)
-**	carry GalaxyMapID, HashID, the string, two 12-byte members and two 4-byte ones; not declared yet.
+**	carry GalaxyMapID, HashID, the string, two 12-byte members and two 4-byte ones; Read deletes the
+**	Read_String buffer with scalar delete (operator delete, as the client). The system's destructor
+**	0x837F80 stores its own vtable first: declared, not implicit.
 */
