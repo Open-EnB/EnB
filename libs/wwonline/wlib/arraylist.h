@@ -72,6 +72,7 @@ class ArrayList
 
   // Add a node after the zero based 'pos'
   bit8             add(IN T &node,sint32 pos);
+  bit8             addMany(IN T *inarray,sint32 pos,sint32 howmany);  // E&B: howmany nodes at pos (0x778590)
   bit8             addTail(IN T &node);
   bit8             addHead(IN T &node);
   bit8		   addSortedAsc(IN T &node);		// Ascending
@@ -246,6 +247,29 @@ bit8 ArrayList<T>::add(IN T &node,sint32 pos)
   //  want it at the 'pos' index into our array.
   new((void *)(Vector_+pos)) T((T &)node); // Trust me, this isn't a memory leak
   Entries_++;                         // one new entry
+  return(TRUE);
+}
+
+
+// E&B: add howmany nodes from an array at 'pos' (htmlview.cpp's 0x778590, ArrayList<char>)
+template <class T>
+bit8 ArrayList<T>::addMany(IN T *inarray,sint32 pos,sint32 howmany)
+{
+  if (howmany <= 0)
+    return(FALSE);
+  if (pos < 0)
+    pos=0;
+  if (pos > Entries_)
+    pos=Entries_;
+  while (Entries_+howmany >= Slots_)
+    growVector(howmany);
+
+  if (pos < Entries_)
+    memmove(Vector_+pos+howmany,Vector_+pos,sizeof(T)*(Entries_-pos));
+
+  for (int i=0; i<howmany; i++)
+    new((void *)(Vector_+(pos+i))) T((T &)inarray[i]);
+  Entries_+=howmany;
   return(TRUE);
 }
 
@@ -582,7 +606,10 @@ template <class T>
 bit8 ArrayList<T>::getPointer(OUT T **node,sint32 pos) RO 
 {
   if ((pos < 0)||(pos >= Entries_))
+  {
+    *node=NULL;  // E&B: NULL on a miss (every inlined call: tcpmgr.cpp 0x8BCD10, 0x8BDF80, cordmgr.cpp, unknown_htmlattrib.cpp)
     return(FALSE);
+  }
   *node=&(Vector_[pos]);
   return(TRUE);  
 }

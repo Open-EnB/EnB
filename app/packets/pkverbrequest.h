@@ -17,6 +17,7 @@
 #define PKVERBREQUEST_H
 
 #include "pk.h"
+#include "..\common\unknown_verb.h"	// VerbEnum and its names (unknown_verb.cpp 0x84C450-0x84C5A2)
 #include <set>
 #include <string>
 
@@ -37,14 +38,6 @@ public:
 	int Action;	// +0x14  // NAME 3: the client's Print text 'Action='
 };
 
-// A verb (the client's Value_To_String 0x84C470 names it from its table 0xBB1218 as 'VerbEnum':
-// the high 16 bits pick the verb, the low 16 bits are an argument)
-enum VerbEnum  // NAME 4: the client's own label 'VerbEnum' (0x84C470's table name)
-{
-	VERB_NONE = 0	// NAME 1: neutral placeholder (D10)
-};
-
-char *Value_To_String(char *buf, int size, VerbEnum verb);	// 0x84C470 (not rebuilt)
 
 // opcode 91 (0x005B, ?): vtable 0xB0C268, constructor 0x8AF150, 0x20 bytes
 class VerbListPacketClass : public PacketClass  // NAME 3: the client's Print text 'VerbList'

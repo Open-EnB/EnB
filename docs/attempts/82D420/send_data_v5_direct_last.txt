@@ -1,0 +1,60 @@
+bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
+{
+	if (Con == 0) {
+		return(false);
+	}
+	Lock.lock();
+	bool closed = Con->Is_Closed();
+	Lock.unlock();
+	if (closed) {
+		Disconnect();
+		return(false);
+	}
+	if (channel == 0) channel = -1;
+	UDPChannelClass chan;
+	chan.Channel = Default;
+	if (!Get_Unknown04()) channel = -4;
+	Lock.lock();
+	UDPChannelKeyClass key;
+	key.Channel = channel;
+	key.Reliable = reliable;
+	if (channel >= 0) {
+		if (!Channels.getValue(key, chan)) {
+			int mode = 3;
+			if (!key.Reliable) {
+				mode = 4;
+			}
+			bool open_ok = Con->openc(&chan.Channel, mode, 0);
+			G_ASSERT(open_ok);
+			Channels.add(key, chan);
+		}
+	} else if (channel == -1) {
+		chan.Channel = Default;
+	} else if (channel > -16) {
+		Open_Fixed_Channel(channel);
+		chan.Channel = Fixed[-channel - 1];
+	}
+	if (key.Reliable || rand() % 101 >= 0) {
+		Con->write(chan.Channel, len, Buffer, priority);
+	}
+	if (close && channel >= 0) {
+		key.Reliable = false;
+		if (Channels.getValue(key, chan)) {
+			if (!Is_Fixed_Channel(chan.Channel)) {
+				Con->closec(chan.Channel);
+			}
+			Channels.remove(key);
+		}
+		key.Reliable = true;
+		UDPChannelClass *found = 0;
+		if (Channels.getPointer(key, &found)) {
+			if (found) chan = *found;
+			if (!Is_Fixed_Channel(chan.Channel)) {
+				Con->closec(chan.Channel);
+			}
+			Channels.remove(key);
+		}
+	}
+	Lock.unlock();
+	return(true);
+}

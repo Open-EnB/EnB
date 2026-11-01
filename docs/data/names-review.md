@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 43 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1081 |
-| 2 | describes what the code does | 2592 |
-| 1 | neutral placeholder | 8243 |
+| 5 | the client names it | 45 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
+| 3 | by convention from a client-named file or sibling | 1098 |
+| 2 | describes what the code does | 2724 |
+| 1 | neutral placeholder | 8984 |
 
 ## For review (score 3 and below)
 
@@ -1656,7 +1656,76 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:119` | neutral (D10) |
 | 1 | `Peek_Font` | `app/client/fontmanager.h:121` | neutral (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:123` | neutral (D10) |
+| 1 | `Unknown7C` | `app/client/galaxy_map_client.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/galaxy_map_client.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/galaxy_map_client.cpp:90` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/galaxy_map_client.cpp:93` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/galaxy_map_client.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_7A4FC0` | `app/client/galaxy_map_client.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_7A50A0` | `app/client/galaxy_map_client.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5180` | `app/client/galaxy_map_client.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5260` | `app/client/galaxy_map_client.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_7A52F0` | `app/client/galaxy_map_client.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5400` | `app/client/galaxy_map_client.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5470` | `app/client/galaxy_map_client.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_7A54F0` | `app/client/galaxy_map_client.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5540` | `app/client/galaxy_map_client.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/galaxy_map_client.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_` | `app/client/galaxy_map_client.h:5` | untagged neutral name (D10) |
+| 1 | `sclient, buffer` | `app/client/galaxy_map_client.h:33` | what the handler passes |
+| 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.h:33` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:34` | the packet's data |
+| 1 | `Unknown_7A4FC0` | `app/client/galaxy_map_client.h:34` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:35` | the packet's data |
+| 1 | `Unknown_7A50A0` | `app/client/galaxy_map_client.h:35` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:36` | the packet's data |
+| 1 | `Unknown_7A5180` | `app/client/galaxy_map_client.h:36` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:37` | the packet's data |
+| 1 | `Unknown_7A5260` | `app/client/galaxy_map_client.h:37` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:38` | the packet's data |
+| 1 | `Unknown_7A52F0` | `app/client/galaxy_map_client.h:38` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/galaxy_map_client.h:39` | the assert's '!sector' |
+| 1 | `Unknown_7A5400` | `app/client/galaxy_map_client.h:39` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/galaxy_map_client.h:40` | what it scales |
+| 1 | `Unknown_7A5470` | `app/client/galaxy_map_client.h:40` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/galaxy_map_client.h:41` | what it scales |
+| 1 | `Unknown_7A54F0` | `app/client/galaxy_map_client.h:41` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/galaxy_map_client.h:42` | the assert's '!client' |
+| 1 | `Unknown_7A5540` | `app/client/galaxy_map_client.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/galaxy_map_client.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/galaxy_map_client.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/html/htmlview.cpp:1326` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/html/htmlview.cpp:1327` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:1543` | untagged neutral name (D10) |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1619` | untagged neutral name (D10) |
+| 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:11` | the object at the view's +4 (slots +4 / +8 called) |
+| 1 | `Unknown_00` | `app/client/html/htmlview.h:14` | untagged neutral name (D10) |
+| 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:21` | element of the view's +0x14 list |
+| 1 | `Url` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
+| 1 | `HtmlImageClass` | `app/client/html/htmlview.h:29` | element of the view's +0x20 list (image.cpp's class, not placed yet) |
+| 1 | `Unknown_04` | `app/client/html/htmlview.h:33` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:63` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/html/htmlview.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/html/htmlview.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:10` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/html/unknown_htmlblock.h:17` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:57` | the constructor's first argument, not read here |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
 | 1 | `Unknown_04` | `app/client/influence.h:29` | untagged neutral name (D10) |
@@ -3561,6 +3630,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/client/tasks/tsk_login.cpp:90` | neutral placeholder (D10) |
 | 1 | `Unknown_515340` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
+| 1 | `LoginFlagsStruct` | `app/client/tasks/tsk_login.cpp:183` | neutral (D10) |
+| 1 | `Is_0C` | `app/client/tasks/tsk_login.cpp:187` | neutral (D10) |
 | 1 | `Unknown02C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown004` | `app/client/tasks/tsk_login.cpp:236` | untagged neutral name (D10) |
@@ -3711,7 +3782,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:248` | untagged neutral name (D10) |
 | 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:252` | untagged neutral name (D10) |
 | 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:254` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:256` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:257` | untagged neutral name (D10) |
 | 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:258` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:259` | untagged neutral name (D10) |
@@ -4206,6 +4276,416 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687150` | `app/client/ui_avatr.cpp:354` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_avatr.cpp:357` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_avatr.cpp:418` | untagged neutral name (D10) |
+| 1 | `UIAvselGadgetPartStruct` | `app/client/ui_avsel.cpp:18` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_avsel.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_avsel.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/ui_avsel.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_avsel.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_avsel.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_avsel.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_avsel.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_avsel.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_avsel.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_avsel.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_avsel.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_avsel.cpp:32` | untagged neutral name (D10) |
+| 1 | `layer` | `app/client/ui_avsel.cpp:33` | as ui_cpit.cpp's |
+| 1 | `Unknown_28` | `app/client/ui_avsel.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_avsel.cpp:34` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ui_avsel.cpp:35` | neutral |
+| 1 | `Unknown_30` | `app/client/ui_avsel.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_avsel.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_avsel.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_avsel.cpp:36` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avsel.cpp:37` | neutral |
+| 1 | `Unknown_40` | `app/client/ui_avsel.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_avsel.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_avsel.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_avsel.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_avsel.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_avsel.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_avsel.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_avsel.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_avsel.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_avsel.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_avsel.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_avsel.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_avsel.cpp:41` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:42` | neutral |
+| 1 | `Unknown_74` | `app/client/ui_avsel.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_avsel.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_avsel.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_avsel.cpp:45` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_2` | `app/client/ui_avsel.cpp:46` | neutral (D10): inline (0x55F6D0) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:47` | neutral |
+| 1 | `Unknown_660070` | `app/client/ui_avsel.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_avsel.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0` | `app/client/ui_avsel.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown2C_2` | `app/client/ui_avsel.cpp:52` | neutral (D10) |
+| 1 | `Unknown2CBits` | `app/client/ui_avsel.cpp:53` | neutral (D10) |
+| 1 | `UIAvselButtonClass` | `app/client/ui_avsel.cpp:57` | neutral (D10) |
+| 1 | `robj, layer, a, b` | `app/client/ui_avsel.cpp:60` | as ui_manu.cpp's |
+| 1 | `gadget` | `app/client/ui_avsel.cpp:63` | neutral |
+| 1 | `Unknown_65EED0` | `app/client/ui_avsel.cpp:63` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:64` | as ui_group.cpp's |
+| 1 | `Unknown_496110` | `app/client/ui_avsel.cpp:64` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:65` | neutral |
+| 1 | `Unknown_496490` | `app/client/ui_avsel.cpp:65` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ui_avsel.cpp:66` | as scriptedmovie.cpp's |
+| 1 | `Unknown_42ECF0` | `app/client/ui_avsel.cpp:66` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:67` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_avsel.cpp:67` | untagged neutral name (D10) |
+| 1 | `Gadget` | `app/client/ui_avsel.cpp:72` | neutral |
+| 1 | `text, unknown` | `app/client/ui_avsel.cpp:80` | as loadingview.cpp's |
+| 1 | `on` | `app/client/ui_avsel.cpp:81` | neutral |
+| 1 | `Unknown_6CE910` | `app/client/ui_avsel.cpp:81` | untagged neutral name (D10) |
+| 1 | `Set_Unknown2FC` | `app/client/ui_avsel.cpp:82` | neutral (D10): inline (0x55ED20 1.0, 0x55EF90 0.33) |
+| 1 | `Unknown2FC` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/ui_avsel.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_avsel.cpp:85` | untagged neutral name (D10) |
+| 1 | `UIAvselManagedFontClass` | `app/client/ui_avsel.cpp:88` | neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's |
+| 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:90` | 0xBE67C4 |
+| 1 | `LineDisplaySortClass` | `app/client/ui_avsel.cpp:94` | neutral (D10) |
+| 1 | `inter` | `app/client/ui_avsel.cpp:97` | view.cpp's |
+| 1 | `UIAvselKeyEventStruct` | `app/client/ui_avsel.cpp:104` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_avsel.cpp:106` | neutral |
+| 1 | `Unknown02` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_avsel.cpp:107` | neutral (D10) |
+| 1 | `UIAvselKeysClass` | `app/client/ui_avsel.cpp:113` | neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes (10, 7) |
+| 1 | `Unknown_721E60` | `app/client/ui_avsel.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_721EF0` | `app/client/ui_avsel.cpp:113` | untagged neutral name (D10) |
+| 1 | `UIAvselAvatarVirtualsClass` | `app/client/ui_avsel.cpp:117` | neutral (D10) |
+| 1 | `Unknown_000` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_004` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_008` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_00C` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_010` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_014` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_018` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_01C` | `app/client/ui_avsel.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_020` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_024` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_028` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_02C` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_030` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_034` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_038` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_03C` | `app/client/ui_avsel.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_040` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_044` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_048` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_04C` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_050` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_054` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_058` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_05C` | `app/client/ui_avsel.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_060` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_064` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_068` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_06C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_070` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_074` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_078` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_07C` | `app/client/ui_avsel.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_080` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_084` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_088` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_08C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_090` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_094` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_098` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_09C` | `app/client/ui_avsel.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_0A0` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0A4` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0A8` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0AC` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B0` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B4` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0B8` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0BC` | `app/client/ui_avsel.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_0C0` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0C4` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0C8` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0CC` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D0` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D4` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0D8` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0DC` | `app/client/ui_avsel.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_0E0` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0E4` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0E8` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0EC` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F0` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F4` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0F8` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_0FC` | `app/client/ui_avsel.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_100` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_104` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_108` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_10C` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_110` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_114` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_118` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_11C` | `app/client/ui_avsel.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_120` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_124` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_128` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_12C` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_130` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_134` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_138` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_13C` | `app/client/ui_avsel.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_140` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_144` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_148` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_14C` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_150` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_154` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_158` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_15C` | `app/client/ui_avsel.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_160` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_164` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_168` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_16C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_170` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_174` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_178` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_17C` | `app/client/ui_avsel.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_180` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_184` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_188` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_18C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_190` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_194` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_198` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_19C` | `app/client/ui_avsel.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_1A0` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1A4` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1A8` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1AC` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B0` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B4` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1B8` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1BC` | `app/client/ui_avsel.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_1C0` | `app/client/ui_avsel.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/client/ui_avsel.cpp:135` | untagged neutral name (D10) |
+| 1 | `UIAvselAvatarClass` | `app/client/ui_avsel.cpp:139` | neutral (D10) |
+| 1 | `desc, a, b, env` | `app/client/ui_avsel.cpp:142` | neutral |
+| 1 | `Unknown_7863E0` | `app/client/ui_avsel.cpp:143` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avsel.cpp:144` | neutral |
+| 1 | `Unknown_786370` | `app/client/ui_avsel.cpp:144` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:145` | neutral |
+| 1 | `Unknown_77E3D0` | `app/client/ui_avsel.cpp:145` | untagged neutral name (D10) |
+| 1 | `emote, a, b` | `app/client/ui_avsel.cpp:146` | neutral |
+| 1 | `Unknown_784A50` | `app/client/ui_avsel.cpp:146` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:147` | neutral |
+| 1 | `Unknown_7896B0` | `app/client/ui_avsel.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_avsel.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_avsel.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_avsel.cpp:153` | untagged neutral name (D10) |
+| 1 | `Get_Unknown2BC` | `app/client/ui_avsel.cpp:154` | neutral (D10) |
+| 1 | `Unknown2BC` | `app/client/ui_avsel.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown2C0` | `app/client/ui_avsel.cpp:156` | untagged neutral name (D10) |
+| 1 | `UIAvselEnvMapClass` | `app/client/ui_avsel.cpp:160` | neutral (D10)  // NAME 1 [base_asset, a]: sclient.cpp's |
+| 1 | `Unknown_760770` | `app/client/ui_avsel.cpp:160` | untagged neutral name (D10) |
+| 1 | `UIAvselUnknown1BCClass` | `app/client/ui_avsel.cpp:163` | neutral (D10) |
+| 1 | `Unknown_78` | `app/client/ui_avsel.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_avsel.cpp:173` | untagged neutral name (D10) |
+| 1 | `robj, name` | `app/client/ui_avsel.cpp:174` | neutral |
+| 1 | `Unknown_80` | `app/client/ui_avsel.cpp:174` | untagged neutral name (D10) |
+| 1 | `UIAvselCharacterViewClass` | `app/client/ui_avsel.cpp:178` | neutral (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_avsel.cpp:181` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:182` | neutral |
+| 1 | `Unknown_67ACE0` | `app/client/ui_avsel.cpp:182` | untagged neutral name (D10) |
+| 1 | `slot, name` | `app/client/ui_avsel.cpp:183` | neutral |
+| 1 | `Unknown_67AB20` | `app/client/ui_avsel.cpp:183` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:184` | neutral |
+| 1 | `Unknown_67B7A0` | `app/client/ui_avsel.cpp:184` | untagged neutral name (D10) |
+| 1 | `a, b, fov` | `app/client/ui_avsel.cpp:185` | neutral |
+| 1 | `Unknown_67A290` | `app/client/ui_avsel.cpp:185` | untagged neutral name (D10) |
+| 1 | `slot, name` | `app/client/ui_avsel.cpp:186` | neutral |
+| 1 | `Unknown_67AD30` | `app/client/ui_avsel.cpp:186` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:187` | neutral |
+| 1 | `Unknown_67AE20` | `app/client/ui_avsel.cpp:187` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:188` | neutral |
+| 1 | `Unknown_67AE60` | `app/client/ui_avsel.cpp:188` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_avsel.cpp:189` | neutral |
+| 1 | `Unknown_67A9B0` | `app/client/ui_avsel.cpp:189` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:190` | neutral |
+| 1 | `Unknown_67AEA0` | `app/client/ui_avsel.cpp:190` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/ui_avsel.cpp:191` | neutral |
+| 1 | `Unknown_67ADD0` | `app/client/ui_avsel.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_avsel.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_avsel.cpp:193` | untagged neutral name (D10) |
+| 1 | `desc` | `app/client/ui_avsel.cpp:194` | neutral |
+| 1 | `Unknown_5594B0` | `app/client/ui_avsel.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown000` | `app/client/ui_avsel.cpp:196` | untagged neutral name (D10) |
+| 1 | `Task` | `app/client/ui_avsel.cpp:197` | neutral |
+| 1 | `Unknown018` | `app/client/ui_avsel.cpp:198` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/ui_avsel.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/ui_avsel.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/ui_avsel.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown06C` | `app/client/ui_avsel.cpp:202` | untagged neutral name (D10) |
+| 1 | `Get_Unknown070` | `app/client/ui_avsel.cpp:203` | neutral (D10) |
+| 1 | `Unknown070` | `app/client/ui_avsel.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown074` | `app/client/ui_avsel.cpp:205` | untagged neutral name (D10) |
+| 1 | `Peek_Model` | `app/client/ui_avsel.cpp:206` | neutral (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_avsel.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/ui_avsel.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/ui_avsel.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/ui_avsel.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/ui_avsel.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/client/ui_avsel.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/client/ui_avsel.cpp:214` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/ui_avsel.cpp:215` | untagged neutral name (D10) |
+| 1 | `Get_Unknown3A4` | `app/client/ui_avsel.cpp:216` | neutral (D10) |
+| 1 | `Unknown3A4` | `app/client/ui_avsel.cpp:216` | untagged neutral name (D10) |
+| 1 | `UIAvselCallbackBaseClass` | `app/client/ui_avsel.cpp:221` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
+| 1 | `UIAvselNotifierClass` | `app/client/ui_avsel.cpp:227` | neutral (D10) |
+| 1 | `Unknown_65ECE0` | `app/client/ui_avsel.cpp:233` | neutral (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_avsel.cpp:236` | kernel.cpp's |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_avsel.cpp:242` | 0xBFAEE0 |
+| 1 | `Unknown_BFAE3C` | `app/client/ui_avsel.cpp:244` | neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them) |
+| 1 | `Unknown_BFAE40` | `app/client/ui_avsel.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_B7B8E0` | `app/client/ui_avsel.cpp:247` | neutral (D10) |
+| 1 | `Unknown_B7B904` | `app/client/ui_avsel.cpp:248` | neutral (D10) |
+| 1 | `Unknown_B7B928` | `app/client/ui_avsel.cpp:249` | neutral (D10) |
+| 1 | `Unknown_B7B934` | `app/client/ui_avsel.cpp:250` | neutral (D10) |
+| 1 | `Unknown_B7B958` | `app/client/ui_avsel.cpp:251` | neutral (D10) |
+| 1 | `Unknown_B7B960` | `app/client/ui_avsel.cpp:252` | neutral (D10) |
+| 1 | `UIAvselTaskClass` | `app/client/ui_avsel.cpp:256` | neutral (D10): tsk_login.h's LoginTaskClass |
+| 1 | `Get_Selected` | `app/client/ui_avsel.cpp:259` | neutral (D10) |
+| 1 | `Get_Descs` | `app/client/ui_avsel.cpp:260` | neutral (D10) |
+| 1 | `Unknown0350` | `app/client/ui_avsel.cpp:260` | untagged neutral name (D10) |
+| 1 | `UIAvselEditUnknown4CClass` | `app/client/ui_avsel.cpp:263` | neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1) |
+| 1 | `Unknown_6E2A20` | `app/client/ui_avsel.cpp:263` | untagged neutral name (D10) |
+| 1 | `UIAvselEditClass` | `app/client/ui_avsel.cpp:265` | neutral (D10) |
+| 1 | `iface, length, name, model, a, b` | `app/client/ui_avsel.cpp:268` | as ui_login.cpp's |
+| 1 | `Set_Text` | `app/client/ui_avsel.cpp:269` | as ui_login.cpp's |
+| 1 | `Get_Text` | `app/client/ui_avsel.cpp:270` | as ui_login.cpp's |
+| 1 | `Unknown_6AAD10` | `app/client/ui_avsel.cpp:271` | untagged neutral name (D10) |
+| 1 | `Unknown3B` | `app/client/ui_avsel.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_avsel.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_avsel.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/ui_avsel.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_avsel.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown5D` | `app/client/ui_avsel.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `app/client/ui_avsel.cpp:280` | neutral (D10): what 0x55F760's edit box gets (or'ed) |
+| 1 | `Unknown_B08CBC` | `app/client/ui_avsel.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `app/client/ui_avsel.cpp:280` | untagged neutral name (D10) |
+| 1 | `UIAvselCallbackClass` | `app/client/ui_avsel.cpp:283` | neutral (D10) |
+| 1 | `Unknown084` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown08C` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown090` | `app/client/ui_avsel.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown094` | `app/client/ui_avsel.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown095` | `app/client/ui_avsel.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown096` | `app/client/ui_avsel.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown097` | `app/client/ui_avsel.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown098` | `app/client/ui_avsel.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown0EC` | `app/client/ui_avsel.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown0F0` | `app/client/ui_avsel.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_avsel.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown0F9` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown0FA` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown0FB` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown0FD` | `app/client/ui_avsel.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/ui_avsel.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_avsel.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_avsel.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown09C` | `app/client/ui_avsel.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_avsel.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avsel.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_avsel.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown0E4` | `app/client/ui_avsel.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_avsel.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_avsel.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_avsel.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_avsel.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_55FE50` | `app/client/ui_avsel.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown_55E370` | `app/client/ui_avsel.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_55EF90` | `app/client/ui_avsel.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_55F6D0` | `app/client/ui_avsel.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown_55E070` | `app/client/ui_avsel.cpp:399` | untagged neutral name (D10) |
+| 1 | `Unknown_55D9C0` | `app/client/ui_avsel.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown_55ED20` | `app/client/ui_avsel.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_55F760` | `app/client/ui_avsel.cpp:448` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_avsel.cpp:470` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/ui_avsel.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_avsel.cpp:511` | untagged neutral name (D10) |
+| 1 | `Unknown_55E8E0` | `app/client/ui_avsel.cpp:532` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_avsel.cpp:539` | untagged neutral name (D10) |
+| 1 | `Unknown_55FBB0` | `app/client/ui_avsel.cpp:540` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_avsel.cpp:626` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_avsel.cpp:648` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_avsel.cpp:689` | untagged neutral name (D10) |
+| 1 | `Unknown_55E2E0` | `app/client/ui_avsel.cpp:766` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_avsel.cpp:795` | untagged neutral name (D10) |
+| 1 | `Unknown_55F140` | `app/client/ui_avsel.cpp:876` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_avsel.cpp:1092` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/ui_avsel.cpp:1096` | untagged neutral name (D10) |
+| 1 | `Unknown_55F680` | `app/client/ui_avsel.cpp:1119` | untagged neutral name (D10) |
+| 1 | `Unknown_55FDC0` | `app/client/ui_avsel.cpp:1235` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_avsel.cpp:1274` | untagged neutral name (D10) |
+| 1 | `ui_avsel.h` | `app/client/ui_avsel.h:3` | provisional header name for ui_avsel.cpp |
+| 1 | `view, layer` | `app/client/ui_avsel.h:24` | neutral |
+| 1 | `Unknown_60` | `app/client/ui_avsel.h:26` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_avsel.h:27` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_avsel.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_avsel.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_avsel.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_55D9C0` | `app/client/ui_avsel.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_55E070` | `app/client/ui_avsel.h:31` | untagged neutral name (D10) |
+| 1 | `text, string, selected` | `app/client/ui_avsel.h:32` | neutral |
+| 1 | `Unknown_55E2E0` | `app/client/ui_avsel.h:32` | untagged neutral name (D10) |
+| 1 | `active` | `app/client/ui_avsel.h:33` | neutral |
+| 1 | `Unknown_55E370` | `app/client/ui_avsel.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_55E8E0` | `app/client/ui_avsel.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_55ED20` | `app/client/ui_avsel.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_55EF90` | `app/client/ui_avsel.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_55F140` | `app/client/ui_avsel.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_55F680` | `app/client/ui_avsel.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_55F6D0` | `app/client/ui_avsel.h:39` | neutral (D10); NAME 1 [sender]: neutral |
+| 1 | `Unknown_55F760` | `app/client/ui_avsel.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_55FBB0` | `app/client/ui_avsel.h:41` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avsel.h:42` | neutral |
+| 1 | `Unknown_55FDC0` | `app/client/ui_avsel.h:42` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_avsel.h:43` | neutral |
+| 1 | `Unknown_55FE50` | `app/client/ui_avsel.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_avsel.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_avsel.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown08C` | `app/client/ui_avsel.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown090` | `app/client/ui_avsel.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown094` | `app/client/ui_avsel.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown095` | `app/client/ui_avsel.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown096` | `app/client/ui_avsel.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown097` | `app/client/ui_avsel.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown098` | `app/client/ui_avsel.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown09C` | `app/client/ui_avsel.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avsel.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_avsel.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown0E4` | `app/client/ui_avsel.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0EC` | `app/client/ui_avsel.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown0F0` | `app/client/ui_avsel.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_avsel.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_avsel.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown0F9` | `app/client/ui_avsel.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown0FA` | `app/client/ui_avsel.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown0FB` | `app/client/ui_avsel.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_avsel.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown0FD` | `app/client/ui_avsel.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/ui_avsel.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_avsel.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_avsel.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_avsel.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_avsel.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_avsel.h:74` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_chat_panel.cpp:17` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
@@ -5485,6 +5965,214 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB4` | `app/client/ui_line_display.h:228` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.h:229` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/ui_line_display.h:233` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/ui_login.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_login.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_login.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_login.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_login.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_login.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_login.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_login.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_login.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_login.cpp:26` | untagged neutral name (D10) |
+| 1 | `layer` | `app/client/ui_login.cpp:27` | what the constructor passes |
+| 1 | `Unknown_28` | `app/client/ui_login.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_login.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_login.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_login.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_login.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_login.cpp:28` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_login.cpp:29` | neutral |
+| 1 | `Unknown_40` | `app/client/ui_login.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_login.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_login.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_login.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_login.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_login.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_login.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_login.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_login.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_login.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_login.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_login.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_login.cpp:33` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_login.cpp:34` | neutral |
+| 1 | `Unknown_74` | `app/client/ui_login.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_login.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_login.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_login.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown2C_00` | `app/client/ui_login.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown2C_02` | `app/client/ui_login.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown2C_03` | `app/client/ui_login.cpp:40` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/ui_login.cpp:41` | neutral (D10) |
+| 1 | `FontStyleClass` | `app/client/ui_login.cpp:46` | fontmanager.h's |
+| 1 | `unknown` | `app/client/ui_login.cpp:49` | neutral |
+| 1 | `Unknown_6CE7D0` | `app/client/ui_login.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/ui_login.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_login.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_login.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/ui_login.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_login.cpp:54` | neutral (D10), as ui_manu.cpp's |
+| 1 | `LoginFontManagerClass` | `app/client/ui_login.cpp:56` | neutral (D10): fontmanager.h's FontManagerClass |
+| 1 | `Unknown_6D2700` | `app/client/ui_login.cpp:62` | as fontmanager.h's; NAME 1 [model]: what the constructor passes |
+| 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:64` | 0xBE67C4 |
+| 1 | `iface, length, name, model, a, b` | `app/client/ui_login.cpp:71` | what the constructor passes |
+| 1 | `Set_Text` | `app/client/ui_login.cpp:72` | what it does |
+| 1 | `Get_Text` | `app/client/ui_login.cpp:73` | what it does |
+| 1 | `Unknown_6AAD10` | `app/client/ui_login.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_login.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/client/ui_login.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown3A` | `app/client/ui_login.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown3B` | `app/client/ui_login.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_login.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown3D` | `app/client/ui_login.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_login.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ui_login.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_login.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown5D` | `app/client/ui_login.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `app/client/ui_login.cpp:86` | neutral (D10): what the text gadgets get |
+| 1 | `LoginButtonGadgetClass` | `app/client/ui_login.cpp:89` | neutral (D10) |
+| 1 | `robj, layer, a, b` | `app/client/ui_login.cpp:92` | as ui_manu.cpp's |
+| 1 | `gadget` | `app/client/ui_login.cpp:95` | as ui_cpit.cpp's |
+| 1 | `Unknown_65EED0` | `app/client/ui_login.cpp:95` | untagged neutral name (D10) |
+| 1 | `robj, unknown` | `app/client/ui_login.cpp:96` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_login.cpp:96` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_login.cpp:97` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/ui_login.cpp:97` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_login.cpp:100` | kernel.cpp's |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_login.cpp:106` | 0xBFAEE0 |
+| 1 | `LoginScopeClass` | `app/client/ui_login.cpp:109` | neutral (D10) |
+| 1 | `iface` | `app/client/ui_login.cpp:112` | neutral |
+| 1 | `Unknown00` | `app/client/ui_login.cpp:114` | untagged neutral name (D10) |
+| 1 | `LoginKeyEventStruct` | `app/client/ui_login.cpp:118` | neutral (D10) |
+| 1 | `key` | `app/client/ui_login.cpp:120` | neutral |
+| 1 | `Unknown02` | `app/client/ui_login.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_login.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_login.cpp:120` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_login.cpp:121` | neutral (D10) |
+| 1 | `LoginKeysClass` | `app/client/ui_login.cpp:127` | neutral (D10)  // NAME 1 [event, id]: what the constructor passes |
+| 1 | `Unknown_721E60` | `app/client/ui_login.cpp:127` | untagged neutral name (D10) |
+| 1 | `LoginViewUnknown198Class` | `app/client/ui_login.cpp:130` | neutral (D10) |
+| 1 | `name, a` | `app/client/ui_login.cpp:133` | neutral |
+| 1 | `Unknown_784C90` | `app/client/ui_login.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/ui_login.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/ui_login.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown000` | `app/client/ui_login.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/ui_login.cpp:137` | untagged neutral name (D10) |
+| 1 | `Is_Unknown220` | `app/client/ui_login.cpp:138` | neutral (D10) |
+| 1 | `LoginViewClass` | `app/client/ui_login.cpp:142` | neutral (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_login.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/ui_login.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/ui_login.cpp:151` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:152` | neutral |
+| 1 | `Unknown_67A8D0` | `app/client/ui_login.cpp:152` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:153` | as ui_avatr.cpp's |
+| 1 | `Unknown_67A9B0` | `app/client/ui_login.cpp:153` | untagged neutral name (D10) |
+| 1 | `index, name` | `app/client/ui_login.cpp:154` | neutral |
+| 1 | `Unknown_67AB20` | `app/client/ui_login.cpp:154` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:155` | neutral |
+| 1 | `Unknown_67ACE0` | `app/client/ui_login.cpp:155` | untagged neutral name (D10) |
+| 1 | `a, name` | `app/client/ui_login.cpp:156` | neutral |
+| 1 | `Unknown_67AD30` | `app/client/ui_login.cpp:156` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:157` | neutral |
+| 1 | `Unknown_67AE20` | `app/client/ui_login.cpp:157` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:158` | neutral |
+| 1 | `Unknown_67AE60` | `app/client/ui_login.cpp:158` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:159` | neutral |
+| 1 | `Unknown_67AEA0` | `app/client/ui_login.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_login.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_login.cpp:161` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_login.cpp:162` | neutral |
+| 1 | `Unknown_67B4F0` | `app/client/ui_login.cpp:162` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/client/ui_login.cpp:163` | neutral |
+| 1 | `Unknown_67C440` | `app/client/ui_login.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/ui_login.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown014` | `app/client/ui_login.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_login.cpp:168` | untagged neutral name (D10) |
+| 1 | `Get_Unknown034` | `app/client/ui_login.cpp:169` | neutral (D10) |
+| 1 | `CharacterViewUnknown34Class` | `app/client/ui_login.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/ui_login.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/ui_login.cpp:171` | untagged neutral name (D10) |
+| 1 | `Peek_Camera` | `app/client/ui_login.cpp:172` | neutral (D10) |
+| 1 | `Unknown068` | `app/client/ui_login.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/ui_login.cpp:174` | untagged neutral name (D10) |
+| 1 | `Get_Unknown198` | `app/client/ui_login.cpp:175` | neutral (D10) |
+| 1 | `Unknown198` | `app/client/ui_login.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown19C` | `app/client/ui_login.cpp:177` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1B0` | `app/client/ui_login.cpp:178` | neutral (D10) |
+| 1 | `Unknown1B0` | `app/client/ui_login.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/ui_login.cpp:180` | untagged neutral name (D10) |
+| 1 | `Peek_Model` | `app/client/ui_login.cpp:181` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Unknown1B8` | `app/client/ui_login.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_login.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/ui_login.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/ui_login.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown1D1` | `app/client/ui_login.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/ui_login.cpp:187` | untagged neutral name (D10) |
+| 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:191` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
+| 1 | `LoginNotifierClass` | `app/client/ui_login.cpp:197` | neutral (D10) |
+| 1 | `Unknown_65ECE0` | `app/client/ui_login.cpp:203` | neutral (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/ui_login.cpp:211` | neutral (D10): sclient.cpp's (env_map_manager.cpp) |
+| 1 | `Unknown_760770` | `app/client/ui_login.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAE70` | `app/client/ui_login.cpp:212` | ui_registration.cpp |
+| 1 | `LoginSettingsClass` | `app/client/ui_login.cpp:215` | neutral (D10) |
+| 1 | `url, a` | `app/client/ui_login.cpp:219` | neutral |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_login.cpp:219` | untagged neutral name (D10) |
+| 1 | `Unknown_Clear` | `app/client/ui_login.cpp:220` | neutral (D10) |
+| 1 | `Unknown60` | `app/client/ui_login.cpp:220` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/ui_login.cpp:228` | what 0x679160 passes |
+| 1 | `Unknown_5ADA50` | `app/client/ui_login.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown_5AEA60` | `app/client/ui_login.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE120` | `app/client/ui_login.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE160` | `app/client/ui_login.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE240` | `app/client/ui_login.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE320` | `app/client/ui_login.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE390` | `app/client/ui_login.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE450` | `app/client/ui_login.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE590` | `app/client/ui_login.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE7F0` | `app/client/ui_login.cpp:241` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_login.cpp:242` | neutral |
+| 1 | `Unknown_5AE8E0` | `app/client/ui_login.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown_5AE9D0` | `app/client/ui_login.cpp:243` | untagged neutral name (D10) |
+| 1 | `AccountButtons` | `app/client/ui_login.cpp:245` | neutral (D10) |
+| 1 | `Get_Character_View` | `app/client/ui_login.cpp:247` | neutral (D10) |
+| 1 | `CharacterView` | `app/client/ui_login.cpp:248` | tsk_login.h's |
+| 1 | `Get_Task` | `app/client/ui_login.cpp:249` | neutral (D10) |
+| 1 | `Task` | `app/client/ui_login.cpp:250` | neutral (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_login.cpp:251` | untagged neutral name (D10) |
+| 1 | `NameGadget` | `app/client/ui_login.cpp:252` | its model's name |
+| 1 | `PasswordGadget` | `app/client/ui_login.cpp:253` | its model's name |
+| 1 | `Unknown0AC` | `app/client/ui_login.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_login.cpp:255` | untagged neutral name (D10) |
+| 1 | `Buttons` | `app/client/ui_login.cpp:256` | neutral (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_login.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown0C9` | `app/client/ui_login.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown0CA` | `app/client/ui_login.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown0CB` | `app/client/ui_login.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_login.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown0CD` | `app/client/ui_login.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown0CE` | `app/client/ui_login.cpp:263` | untagged neutral name (D10) |
+| 1 | `Focus` | `app/client/ui_login.cpp:264` | what it holds |
+| 1 | `Unknown0D8` | `app/client/ui_login.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown0D9` | `app/client/ui_login.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown0DA` | `app/client/ui_login.cpp:268` | untagged neutral name (D10) |
+| 1 | `LoginCallbackClass` | `app/client/ui_login.cpp:272` | neutral (D10) |
+| 1 | `Unknown_B810DC` | `app/client/ui_login.cpp:282` | neutral (D10) |
+| 1 | `Unknown_B810F4` | `app/client/ui_login.cpp:283` | neutral (D10) |
+| 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
+| 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:285` | neutral (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_login.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_login.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_Resume_All` | `app/client/ui_login.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_login.cpp:491` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_login.cpp:587` | untagged neutral name (D10) |
+| 1 | `Unknown07C` | `app/client/ui_login.cpp:592` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_manu.cpp:18` | fontmanager.h's |
 | 1 | `text, unknown` | `app/client/ui_manu.cpp:21` | what this file passes |
 | 1 | `Unknown_6CDBC0` | `app/client/ui_manu.cpp:21` | untagged neutral name (D10) |
@@ -6178,12 +6866,49 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/common/galaxy_map.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/common/galaxy_map.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/common/galaxy_map.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/common/galaxy_map.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/common/galaxy_map.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/common/galaxy_map.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/common/galaxy_map.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/common/galaxy_map.cpp:357` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/common/galaxy_map.cpp:359` | untagged neutral name (D10) |
 | 1 | `Get_Type` | `app/common/galaxy_map.h:163` | what it returns (the system's 5) |
-| 1 | `Unknown38` | `app/common/galaxy_map.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/common/galaxy_map.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/common/galaxy_map.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/common/galaxy_map.h:202` | untagged neutral name (D10) |
-| 1 | `Name` | `app/common/galaxy_map.h:222` | a string on the wire (Read_String) |
+| 1 | `Set, hash_id, name` | `app/common/galaxy_map.h:199` | stores the members Read carries |
+| 1 | `Name` | `app/common/galaxy_map.h:203` | a string on the wire (Read_String) |
+| 1 | `Unknown20` | `app/common/galaxy_map.h:204` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/common/galaxy_map.h:205` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/common/galaxy_map.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/common/galaxy_map.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/common/galaxy_map.h:215` | untagged neutral name (D10) |
+| 1 | `Set, hash_id, name` | `app/common/galaxy_map.h:221` | as the system's |
+| 1 | `Unknown10` | `app/common/galaxy_map.h:225` | untagged neutral name (D10) |
+| 1 | `Name` | `app/common/galaxy_map.h:226` | a string on the wire, as the system's |
+| 1 | `Unknown28` | `app/common/galaxy_map.h:228` | untagged neutral name (D10) |
+| 1 | `Set` | `app/common/galaxy_map.h:242` | as the system's |
+| 1 | `Unknown0C` | `app/common/galaxy_map.h:245` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/common/galaxy_map.h:247` | untagged neutral name (D10) |
+| 1 | `Set, hash_id, name` | `app/common/galaxy_map.h:261` | as the system's |
+| 1 | `Name` | `app/common/galaxy_map.h:266` | a string on the wire, as the system's |
+| 1 | `Clear` | `app/common/galaxy_map.h:276` | empties AllData and the four maps |
+| 1 | `GalaxyMapSystemIteratorClass` | `app/common/galaxy_map.h:302` | an iterator over GalaxyMapClass's Systems |
+| 1 | `map` | `app/common/galaxy_map.h:305` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:311` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:312` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapSectorIteratorClass` | `app/common/galaxy_map.h:316` | an iterator over GalaxyMapClass's Sectors |
+| 1 | `map` | `app/common/galaxy_map.h:319` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:325` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:326` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapGateIteratorClass` | `app/common/galaxy_map.h:330` | an iterator over GalaxyMapClass's Gates |
+| 1 | `map` | `app/common/galaxy_map.h:333` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:339` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:340` | the entry at It, NULL at the end |
+| 1 | `GalaxyMapStarbaseIteratorClass` | `app/common/galaxy_map.h:344` | an iterator over GalaxyMapClass's Starbases |
+| 1 | `map` | `app/common/galaxy_map.h:347` | what it walks |
+| 1 | `std:` | `app/common/galaxy_map.h:353` | the position |
+| 1 | `Current` | `app/common/galaxy_map.h:354` | the entry at It, NULL at the end |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
@@ -6200,20 +6925,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
 | 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
+| 1 | `Set_Blocking` | `app/common/tcpconn.cpp:19` | what it does (no caller) |
+| 1 | `TCPConnection::Set_Name_Unknown` | `app/common/tcpconn.cpp:577` | what it does |
+| 1 | `TCPConnection::Get_Manager` | `app/common/tcpconn.cpp:578` | what it returns |
 | 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:64` | after the file tcpconn.cpp |
-| 1 | `Get_Unknown04` | `app/common/udpconn.cpp:373` | untagged neutral name (D10) |
+| 1 | `Set_Name_Unknown` | `app/common/tcpconn.h:50` | what it does |
+| 1 | `Get_Manager` | `app/common/tcpconn.h:51` | what it returns |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:66` | after the file tcpconn.cpp |
+| 1 | `Get_Unknown04` | `app/common/udpconn.cpp:377` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
+| 1 | `Unknown_82DCB0` | `app/common/udpconn.cpp:564` | no caller, no string |
 | 1 | `Unknown_82E1D0` | `app/common/udpconn.cpp:786` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
 | 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
-| 1 | `Unknown_RateClass` | `app/common/udpconn.h:75` | untagged neutral name (D10) |
-| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:93` | after the file udpconn.cpp |
-| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:100` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
-| 1 | `UDPListenerClass` | `app/common/udpconn.h:103` | after the file udpconn.cpp |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:119` | after its profile label 'CordMgr::Run' |
+| 1 | `Unknown_82DCB0` | `app/common/udpconn.h:73` | no caller, no string |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:76` | untagged neutral name (D10) |
+| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:94` | after the file udpconn.cpp |
+| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:101` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
+| 1 | `UDPListenerClass` | `app/common/udpconn.h:104` | after the file udpconn.cpp |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:120` | after its profile label 'CordMgr::Run' |
 | 1 | `Unknown50` | `app/common/unknown_galaxy.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/common/unknown_galaxy.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/common/unknown_galaxy.cpp:20` | untagged neutral name (D10) |
@@ -6237,6 +6969,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown700` | `app/common/unknown_rsakey.h:49` | untagged neutral name (D10) |
 | 1 | `Unknown800` | `app/common/unknown_rsakey.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown200` | `app/common/unknown_rsakey.h:93` | untagged neutral name (D10) |
+| 1 | `VerbNameStruct` | `app/common/unknown_verb.cpp:7` | what it holds |
+| 1 | `Code` | `app/common/unknown_verb.cpp:9` | what it holds |
+| 1 | `Name` | `app/common/unknown_verb.cpp:10` | what it holds |
+| 1 | `VerbNames` | `app/common/unknown_verb.cpp:14` | what it holds |
+| 1 | `VerbReasons` | `app/common/unknown_verb.cpp:32` | what it holds |
+| 1 | `unknown_verb.h` | `app/common/unknown_verb.h:12` | provisional (D10) |
+| 1 | `VERB_NONE` | `app/common/unknown_verb.h:19` | neutral placeholder (D10) |
+| 1 | `Unknown_4A1590` | `app/common/vendor_defs.cpp:8` | neutral placeholder (D10) |
+| 1 | `VendorTypeNames` | `app/common/vendor_defs.cpp:10` | what it holds |
+| 1 | `AmbientTypeNames` | `app/common/vendor_defs.cpp:11` | what it holds |
+| 1 | `Unknown_4A1590` | `app/common/weapontype.cpp:7` | neutral placeholder (D10) |
+| 1 | `WeaponTypeNames` | `app/common/weapontype.cpp:9` | what it holds |
 | 1 | `LoginUnknown0CClass` | `app/input/inpdsp.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/input/inpdsp.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_42A170` | `app/input/inpdsp.cpp:44` | untagged neutral name (D10) |
@@ -6559,10 +7303,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkgloballogin` | `app/packets/pkgloballogin.h:16` | provisional, pk + its first named class's name |
 | 1 | `LoginTicketInfoClass` | `app/packets/pkgloballogin.h:23` | what it holds |
 | 1 | `Unknown20` | `app/packets/pkgloballogin.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/packets/pkgloballogin.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkgloballogin.h:55` | neutral (D10) |
 | 1 | `Ticket_Info` | `app/packets/pkgloballogin.h:56` | copied to the login task's |
-| 1 | `Unknown0AC` | `app/packets/pkgloballogin.h:57` | neutral (D10) |
 | 1 | `Unknown0BC` | `app/packets/pkgloballogin.h:61` | neutral (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkglobalticket.cpp:28` | untagged neutral name (D10) |
 | 1 | `pkglobalticket` | `app/packets/pkglobalticket.h:15` | provisional, pk + its first named class's name |
@@ -7149,7 +7891,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/packets/pkupdate.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8ADB20` | `app/packets/pkupdate.h:133` | neutral (D10) |
 | 1 | `pkverbrequest` | `app/packets/pkverbrequest.h:16` | provisional, pk + its first named class's name |
-| 1 | `VERB_NONE` | `app/packets/pkverbrequest.h:44` | neutral placeholder (D10) |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown` | `app/shared/attrib_dir.cpp:1092` | untagged neutral name (D10) |
@@ -7926,36 +8667,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ExtraOut` | `app/wwudp/bandwidthaccounting.cpp:44` | +0x14 |
 | 1 | `ExtraBwIn` | `app/wwudp/bandwidthaccounting.cpp:47` | +0x20 |
 | 1 | `ExtraBwOut` | `app/wwudp/bandwidthaccounting.cpp:48` | +0x24 |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordcon.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/wwudp/cordcon.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:988` | untagged neutral name (D10) |
-| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:1467` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:321` | untagged neutral name (D10) |
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:60` | stand-in for wlib's LinkedList<T> |
-| 1 | `Unknown28` | `app/wwudp/cordcon.h:309` | untagged neutral name (D10) |
-| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:353` | untagged neutral name (D10) |
-| 1 | `idle` | `app/wwudp/cordcon.h:364` | after openc / read |
-| 1 | `closec` | `app/wwudp/cordcon.h:366` | after openc |
-| 1 | `Unknown_850200` | `app/wwudp/cordcon.h:369` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.h:374` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/wwudp/cordcon.h:376` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.h:377` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordcon.h:378` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/wwudp/cordcon.h:399` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/wwudp/cordcon.h:380` | untagged neutral name (D10) |
+| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:425` | untagged neutral name (D10) |
+| 1 | `idle` | `app/wwudp/cordcon.h:436` | after openc / read |
+| 1 | `closec` | `app/wwudp/cordcon.h:438` | after openc |
+| 1 | `Unknown_850200` | `app/wwudp/cordcon.h:441` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.h:446` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.h:448` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.h:449` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordcon.h:450` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/wwudp/cordcon.h:471` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `app/wwudp/cordmgr.cpp:29` | 0x4BC130 |
 | 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/wwudp/cordmgr.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/wwudp/cordmgr.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/wwudp/cordmgr.h:75` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:107` | after Pump_Releases |
-| 1 | `Set_Accounting_Callback` | `app/wwudp/udp.h:42` | what it does |
-| 1 | `Clear_Accounting_Callback` | `app/wwudp/udp.h:43` | what it does |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/wwudp/cordmgr.cpp:250` | 0x4BC000, E&B's message reporter |
+| 1 | `Unknown04` | `app/wwudp/cordmgr.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/wwudp/cordmgr.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordmgr.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/wwudp/cordmgr.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/wwudp/cordmgr.h:76` | untagged neutral name (D10) |
+| 1 | `Release` | `app/wwudp/cordmgr.h:118` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
@@ -8253,13 +8993,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAEE0` | `tests/udpreplay/conn_replay.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4510` | `tests/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_8B4560` | `tests/udpreplay/conn_replay.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/udpreplay/pkitemba_stubs.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC130` | `tests/udpreplay/udpreplay.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `tests/udpreplay/udpreplay.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `tests/udpreplay/udpreplay.cpp:85` | untagged neutral name (D10) |
 | 2 | `SoundAccessClass` | `app/audio/soundlib.cpp:32` | what it does |
 | 2 | `Sound3DAccessClass` | `app/audio/soundlib.cpp:38` | what it does |
 | 2 | `SoundLibBridgeClass` | `app/audio/soundlib.cpp:398` | what it does (vtable 0xAE74EC) |
@@ -8743,6 +9484,100 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:122` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:125` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:126` | what it holds |
+| 2 | `Load_Ini` | `app/client/galaxy_map_client.h:32` | reads galaxy_map_c.ini's [GalaxyMap] |
+| 2 | `Size` | `app/client/galaxy_map_client.h:47` | the ini's 'Size' |
+| 2 | `SystemPosScale` | `app/client/galaxy_map_client.h:48` | the ini's |
+| 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
+| 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
+| 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
+| 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
+| 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
+| 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
+| 2 | `Data` | `app/client/html/htmlview.h:23` | Add_Data appends to it and keeps it NUL-terminated |
+| 2 | `Name` | `app/client/html/htmlview.h:24` | 0x770860 compares it with its first argument |
+| 2 | `Get_Surface` | `app/client/html/htmlview.h:34` | Draw_Block tiles it (Get_Width / Get_Height) |
+| 2 | `Get_Name` | `app/client/html/htmlview.h:35` | Find_Image's key |
+| 2 | `Draw` | `app/client/html/htmlview.h:36` | Draw_Block's tiles |
+| 2 | `Clear` | `app/client/html/htmlview.h:45` | Links and Blocks emptied (the blocks deleted) |
+| 2 | `Open` | `app/client/html/htmlview.h:46` | Clear, url kept, handed to the loader |
+| 2 | `Update` | `app/client/html/htmlview.h:48` | polls the loader; returns and clears Dirty |
+| 2 | `Set_Surface` | `app/client/html/htmlview.h:49` | Surf = surface, then Layout |
+| 2 | `Add_Data` | `app/client/html/htmlview.h:52` | appends to the link named name (made with url if missing); render: Layout and Render |
+| 2 | `Layout` | `app/client/html/htmlview.h:53` | one block the surface's size for Url's link, then Parse |
+| 2 | `Parse` | `app/client/html/htmlview.h:54` | the 15 KB tag parser (not written yet) |
+| 2 | `Add_Text` | `app/client/html/htmlview.h:55` | lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in') |
+| 2 | `Render` | `app/client/html/htmlview.h:56` | draws every block clipped to the rectangle |
+| 2 | `Draw_Block` | `app/client/html/htmlview.h:57` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
+| 2 | `Draw_Item` | `app/client/html/htmlview.h:58` | by its Type: Text (wrapped TextOut), HR / Table / Cell (bevels), LI (a filled box), Image |
+| 2 | `Click` | `app/client/html/htmlview.h:59` | opens the 'Anchor.HREF' of the item under x, y |
+| 2 | `Hit_Test` | `app/client/html/htmlview.h:60` | the item under x, y: its index, its href (type 2) or none (1) |
+| 2 | `Get_Title` | `app/client/html/htmlview.h:65` | the first block's 'Title' attribute, else "" |
+| 2 | `Surf` | `app/client/html/htmlview.h:73` | Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass) |
+| 2 | `Loader` | `app/client/html/htmlview.h:74` | Set_Loader |
+| 2 | `Blocks` | `app/client/html/htmlview.h:75` | owned (Clear deletes them) |
+| 2 | `Images` | `app/client/html/htmlview.h:77` | Find_Image |
+| 2 | `Dirty` | `app/client/html/htmlview.h:78` | Update returns and clears it (a byte tested, not a bool) |
+| 2 | `Url` | `app/client/html/htmlview.h:79` | Open's strcpy; 259 bytes up to +0x130 |
+| 2 | `ScrollX` | `app/client/html/htmlview.h:80` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
+| 2 | `ScrollY` | `app/client/html/htmlview.h:81` | Render's second argument; zeroed by Clear |
+| 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
+| 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
+| 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |
+| 2 | `Get` | `app/client/html/unknown_htmlattrib.h:20` | the top of the key's stack, or NULL |
+| 2 | `Push` | `app/client/html/unknown_htmlattrib.h:21` | value added on top of the key's stack |
+| 2 | `Pop` | `app/client/html/unknown_htmlattrib.h:22` | removes the top (or the topmost equal to value) |
+| 2 | `Remove` | `app/client/html/unknown_htmlattrib.h:23` | the key and its whole stack |
+| 2 | `Clear` | `app/client/html/unknown_htmlattrib.h:24` | Dictionary::clear |
+| 2 | `Values` | `app/client/html/unknown_htmlattrib.h:27` | the stacks by key |
+| 2 | `Get_Mime_Type` | `app/client/html/unknown_htmlattrib.h:30` | 'image/gif' for a .gif, else 'text/html' |
+| 2 | `HtmlItemStruct` | `app/client/html/unknown_htmlblock.h:8` | what htmlview's parser lays out in a block (position, size, its attribute stacks) |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:12` | moved right by the line's alignment (0x76F3D0) |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:13` | compared with the block's CursorY: the item's line |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:15` | summed over a line for its alignment |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:16` | the line's tallest sets its height |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:18` | read by Get_Font_Height in place of the block's styles |
+| 2 | `HtmlBlockClass` | `app/client/html/unknown_htmlblock.h:22` | htmlview's layout box (parent, children, padding, cursor); constructor 0x76F0F0 |
+| 2 | `Advance_X` | `app/client/html/unknown_htmlblock.h:28` | CursorX += width |
+| 2 | `Advance_Y` | `app/client/html/unknown_htmlblock.h:29` | ends the cursor's line (alignment, baseline) and moves down |
+| 2 | `Add_Child` | `app/client/html/unknown_htmlblock.h:30` | Children.addTail, child->Parent = this |
+| 2 | `Get_X` | `app/client/html/unknown_htmlblock.h:31` | inline (htmlview.cpp reads X before Get_Abs_X in one expression) |
+| 2 | `Get_Y` | `app/client/html/unknown_htmlblock.h:32` | inline |
+| 2 | `Get_Width` | `app/client/html/unknown_htmlblock.h:33` | inline |
+| 2 | `Get_Height` | `app/client/html/unknown_htmlblock.h:34` | inline |
+| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:35` | AbsX plus the parents' |
+| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:36` | AbsY plus the parents' |
+| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:37` | moves the children's AbsX by the difference |
+| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:38` | moves the children's AbsY by the difference |
+| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:39` | Items[index] or NULL |
+| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:40` | 'Align' style: 0 center, 1 right, -1 otherwise |
+| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:41` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
+| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:42` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
+| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:44` | Styles.Set |
+| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:45` | Attributes.Set |
+| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:46` | Styles.Push |
+| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:47` | Attributes.Push |
+| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:48` | Styles.Remove |
+| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:49` | Attributes.Remove |
+| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:50` | Styles.Pop |
+| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:51` | Attributes.Pop |
+| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:52` | Styles.Get |
+| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:53` | Attributes.Get |
+| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:55` | 'Horizontal_Padding' |
+| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:56` | 'Vertical_Padding' |
+| 2 | `Items` | `app/client/html/unknown_htmlblock.h:58` | owned (the destructor deletes them) |
+| 2 | `Children` | `app/client/html/unknown_htmlblock.h:59` | Add_Child; not deleted here |
+| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:60` | set by the parent's Add_Child |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:61` | the constructor's 4th argument copied in; holds the paddings |
+| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:62` | the 5th argument copied in; 'Align', 'Font.*' |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:66` | Set_X |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:67` | Set_Y |
+| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:68` | summed up the parents by Get_Abs_X |
+| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:69` | summed up the parents by Get_Abs_Y |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:70` | the constructor's 2nd argument; Advance_Y aligns within it |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:71` | the constructor's 3rd argument |
+| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:72` | Advance_X; starts at the horizontal padding |
+| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:73` | Advance_Y; starts at the vertical padding |
+| 2 | `RightPadding` | `app/client/html/unknown_htmlblock.h:74` | the horizontal padding again |
 | 2 | `view` | `app/client/intrface.h:91` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
@@ -9109,6 +9944,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Texture` | `app/client/ui_avatr.cpp:116` | what it does (the asset manager's slot) |
 | 2 | `FontStringFilesClass` | `app/client/ui_avatr.cpp:178` | fontdatabase.h's |
 | 2 | `Remove` | `app/client/ui_avatr.cpp:190` | as sclient.cpp's |
+| 2 | `FontStringFilesClass` | `app/client/ui_avsel.cpp:91` | fontdatabase.h's |
+| 2 | `Camera` | `app/client/ui_avsel.cpp:201` | what it holds |
+| 2 | `Model` | `app/client/ui_avsel.cpp:207` | what it holds |
+| 2 | `Add` | `app/client/ui_avsel.cpp:230` | as sclient.cpp's |
+| 2 | `Remove` | `app/client/ui_avsel.cpp:231` | as sclient.cpp's |
+| 2 | `Create_Render_Obj` | `app/client/ui_avsel.cpp:240` | what it does (the asset manager's slot) |
+| 2 | `Layer` | `app/client/ui_avsel.h:68` | what it holds |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
@@ -9172,6 +10014,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_line_display.h:230` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:231` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:232` | describes what it holds |
+| 2 | `FontStringFilesClass` | `app/client/ui_login.cpp:65` | fontdatabase.h's |
+| 2 | `Create_Render_Obj` | `app/client/ui_login.cpp:104` | what it does (the asset manager's slot) |
+| 2 | `Add` | `app/client/ui_login.cpp:200` | as sclient.cpp's |
+| 2 | `Remove` | `app/client/ui_login.cpp:201` | as sclient.cpp's |
+| 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:32` | fontdatabase.h's |
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |
 | 2 | `Owner` | `app/client/ui_manu.cpp:326` | what it holds |
@@ -9323,23 +10170,47 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `As_Sector` | `app/common/galaxy_map.h:167` | Remove_Data 0x836B70 calls the sector's Get_Hash_ID through it (Sectors) |
 | 2 | `As_Gate` | `app/common/galaxy_map.h:168` | Remove_Data's Gates branch |
 | 2 | `As_Starbase` | `app/common/galaxy_map.h:169` | Remove_Data's Starbases branch |
+| 2 | `Set_Galaxy_Map_ID` | `app/common/galaxy_map.h:180` | the assert's (line 180; Add_Data 0x836960) |
 | 2 | `GalaxyMapSystemClass` | `app/common/galaxy_map.h:189` | 0x7A4FC0 hands it to the map's Add_System 0x836F30 (FAIL_IF '!system') |
-| 2 | `Create` | `app/common/galaxy_map.h:219` | what it does |
-| 2 | `HashID` | `app/common/galaxy_map.h:221` | Get_Hash_ID's |
-| 2 | `GalaxyMapSectorClass` | `app/common/galaxy_map.h:230` | galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())' |
-| 2 | `GalaxyMapGateClass` | `app/common/galaxy_map.h:231` | galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())' |
-| 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:232` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
-| 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:235` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
-| 2 | `Add_System` | `app/common/galaxy_map.h:240` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
-| 2 | `Add_Sector` | `app/common/galaxy_map.h:241` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
-| 2 | `Add_Gate` | `app/common/galaxy_map.h:242` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
-| 2 | `Add_Starbase` | `app/common/galaxy_map.h:243` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
-| 2 | `Remove_Data` | `app/common/galaxy_map.h:244` | FAIL_IF 'id >= AllData.size()', then the four maps' erase |
-| 2 | `Add_Data` | `app/common/galaxy_map.h:245` | Add_System's first call, before Systems[] |
-| 2 | `Get_Data` | `app/common/galaxy_map.h:247` | returns AllData[id] |
-| 2 | `Get_System` | `app/common/galaxy_map.h:248` | Systems.find |
-| 2 | `Get_Sector` | `app/common/galaxy_map.h:249` | Sectors.find |
-| 2 | `Get_Starbase` | `app/common/galaxy_map.h:250` | Starbases.find |
+| 2 | `Create` | `app/common/galaxy_map.h:200` | what it does |
+| 2 | `HashID` | `app/common/galaxy_map.h:202` | Get_Hash_ID's |
+| 2 | `GalaxyMapSectorClass` | `app/common/galaxy_map.h:211` | galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())' |
+| 2 | `Create` | `app/common/galaxy_map.h:222` | as the system's |
+| 2 | `HashID` | `app/common/galaxy_map.h:224` | Get_Hash_ID's |
+| 2 | `GalaxyMapGateClass` | `app/common/galaxy_map.h:232` | galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())' |
+| 2 | `Create` | `app/common/galaxy_map.h:243` | as the system's |
+| 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:251` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
+| 2 | `Create` | `app/common/galaxy_map.h:262` | as the system's |
+| 2 | `HashID` | `app/common/galaxy_map.h:264` | Get_Hash_ID's |
+| 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:271` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
+| 2 | `Write` | `app/common/galaxy_map.h:278` | LinearBufferClass::Write of MaxDataObjects, as the data's Write |
+| 2 | `Read` | `app/common/galaxy_map.h:279` | as the data's Read; grows AllData to MaxDataObjects |
+| 2 | `Add_System` | `app/common/galaxy_map.h:281` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
+| 2 | `Add_Sector` | `app/common/galaxy_map.h:282` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
+| 2 | `Add_Gate` | `app/common/galaxy_map.h:283` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
+| 2 | `Add_Starbase` | `app/common/galaxy_map.h:284` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
+| 2 | `Remove_Data` | `app/common/galaxy_map.h:285` | FAIL_IF 'id >= AllData.size()', then the four maps' erase |
+| 2 | `Add_Data` | `app/common/galaxy_map.h:286` | Add_System's first call, before Systems[] |
+| 2 | `Get_Data` | `app/common/galaxy_map.h:288` | returns AllData[id] |
+| 2 | `Get_System` | `app/common/galaxy_map.h:289` | Systems.find |
+| 2 | `Get_Sector` | `app/common/galaxy_map.h:290` | Sectors.find |
+| 2 | `Get_Starbase` | `app/common/galaxy_map.h:291` | Starbases.find |
+| 2 | `Next` | `app/common/galaxy_map.h:306` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:307` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:308` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:310` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:320` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:321` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:322` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:324` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:334` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:335` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:336` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:338` | what it walks |
+| 2 | `Next` | `app/common/galaxy_map.h:348` | what it does |
+| 2 | `First` | `app/common/galaxy_map.h:349` | what it does |
+| 2 | `Reset` | `app/common/galaxy_map.h:350` | what it does |
+| 2 | `Map` | `app/common/galaxy_map.h:352` | what it walks |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
@@ -9376,19 +10247,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:47` | what it does |
 | 2 | `Key_Exchange` | `app/common/tcpconn.h:48` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:53` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:54` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:55` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:56` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:57` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:58` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:59` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:74` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:75` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:76` | what it does |
-| 2 | `Pump_All` | `app/common/tcpconn.h:77` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:81` | what it holds |
-| 2 | `KeyPair` | `app/common/tcpconn.h:82` | what it holds |
+| 2 | `Encrypt` | `app/common/tcpconn.h:55` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:56` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:57` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:58` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:59` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:60` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:61` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:76` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:77` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:78` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:79` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:83` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:84` | what it holds |
 | 2 | `TheMgr` | `app/common/udpconn.cpp:31` | what it holds |
 | 2 | `Init_Mgr` | `app/common/udpconn.cpp:34` | what it does |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
@@ -9398,12 +10269,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
 | 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
 | 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
-| 2 | `Mgr` | `app/common/udpconn.h:114` | what it holds |
-| 2 | `Init` | `app/common/udpconn.h:128` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:129` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:130` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:132` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:133` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:115` | what it holds |
+| 2 | `Init` | `app/common/udpconn.h:129` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:130` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:131` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:133` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:134` | what it holds |
 | 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
 | 2 | `MusicTypeNames` | `app/common/unknown_navlist.cpp:7` | what it holds |
 | 2 | `Music_Type_From_Name` | `app/common/unknown_navlist.h:25` | what it does |
@@ -9440,6 +10311,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Compute` | `app/common/unknown_rsakey.h:128` | what it does |
 | 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
 | 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
+| 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
 | 2 | `Owner` | `app/input/inpdsp.h:42` | what it holds |
 | 2 | `Data` | `app/input/inpdsp.h:43` | what it holds |
 | 2 | `Next` | `app/input/inpdsp.h:45` | what it holds |
@@ -9791,8 +10663,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `game_id, time_stamp, position, orbit_id, orbit_dist, orbit_angle, orbit_rate, rotate_angle, rotate_rate, tilt_angle` | `app/packets/pkupdate.h:161` | the members they set |
 | 2 | `Get_Type` | `app/packets/pkupdate.h:168` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `Position` | `app/packets/pkupdate.h:172` | AdvancedPositionalUpdatePacketClass's Position at the same offset |
-| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:25` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
+| 2 | `Get_Type` | `app/packets/pkverbrequest.h:34` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
 | 2 | `Type` | `app/shared/attrib_dir.cpp:1078` | what it holds |
 | 2 | `Name` | `app/shared/attrib_dir.cpp:1079` | what it holds |
@@ -10746,107 +11618,108 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
-| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1268` | what it does (the client has no name) |
-| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1278` | what it does (the client has no name) |
-| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1288` | what it does (the client has no name) |
-| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1301` | what it does (the client has no name) |
+| 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
+| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1913` | what it does (the client has no name) |
+| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1923` | what it does (the client has no name) |
+| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1933` | what it does (the client has no name) |
+| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1946` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
-| 2 | `CordMessageClass` | `app/wwudp/cordcon.h:229` | describes what it holds |
-| 2 | `SentTime` | `app/wwudp/cordcon.h:236` | +0x00 the last send (day 0 = never, or a resend asked for) |
-| 2 | `SendCount` | `app/wwudp/cordcon.h:237` | +0x08 0 = never sent |
-| 2 | `Length` | `app/wwudp/cordcon.h:238` | +0x0C this record's bytes (a fragment's) |
-| 2 | `TotalLength` | `app/wwudp/cordcon.h:239` | +0x10 the whole message's |
-| 2 | `Priority` | `app/wwudp/cordcon.h:240` | +0x14 |
-| 2 | `Seq` | `app/wwudp/cordcon.h:241` | +0x18 |
-| 2 | `Data` | `app/wwudp/cordcon.h:242` | +0x1C |
-| 2 | `Fragments` | `app/wwudp/cordcon.h:243` | +0x20 received: one flag per fragment |
-| 2 | `Time` | `app/wwudp/cordcon.h:244` | +0x24 received: when complete (0 = not yet) |
-| 2 | `FragIndex` | `app/wwudp/cordcon.h:245` | +0x28 sent |
-| 2 | `Flags` | `app/wwudp/cordcon.h:246` | +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20) |
-| 2 | `CordChannelClass` | `app/wwudp/cordcon.h:251` | describes what it is (the client's name not found) |
-| 2 | `Mode` | `app/wwudp/cordcon.h:261` | +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0) |
-| 2 | `LastWrite` | `app/wwudp/cordcon.h:262` | +0x04 |
-| 2 | `NextSeq` | `app/wwudp/cordcon.h:263` | +0x08 the next sequence number to send |
-| 2 | `Priority` | `app/wwudp/cordcon.h:264` | +0x0C |
-| 2 | `std:` | `app/wwudp/cordcon.h:265` | +0x10 written, not sent |
-| 2 | `std:` | `app/wwudp/cordcon.h:266` | +0x20 sent, waiting for an ack |
-| 2 | `Written` | `app/wwudp/cordcon.h:267` | +0x30 |
-| 2 | `Delivered` | `app/wwudp/cordcon.h:268` | +0x34 mode 3: the next sequence number read() delivers |
-| 2 | `Expected` | `app/wwudp/cordcon.h:269` | +0x38 mode 3: the first sequence number not received in order |
-| 2 | `NextSequenced` | `app/wwudp/cordcon.h:270` | +0x3C mode 4: older ones are dropped |
-| 2 | `LastSeq` | `app/wwudp/cordcon.h:271` | +0x40 |
-| 2 | `Incoming` | `app/wwudp/cordcon.h:272` | +0x44 received, not read |
-| 2 | `ToAck` | `app/wwudp/cordcon.h:273` | +0x58 |
-| 2 | `Missing` | `app/wwudp/cordcon.h:274` | +0x64 resend requests to send |
-| 2 | `Index` | `app/wwudp/cordcon.h:275` | +0x70 |
-| 2 | `CordStatsClass` | `app/wwudp/cordcon.h:284` | describes what it holds (the client's name not found) |
-| 2 | `Window` | `app/wwudp/cordcon.h:300` | +0x00 200 at first |
-| 2 | `PeerWindow` | `app/wwudp/cordcon.h:301` | +0x04 0xFFFFFFF |
-| 2 | `Threshold` | `app/wwudp/cordcon.h:302` | +0x08 0x7FFFFFFF: slow start below it |
-| 2 | `MaxWindow` | `app/wwudp/cordcon.h:303` | +0x0C the constructor's argument |
-| 2 | `InFlight` | `app/wwudp/cordcon.h:304` | +0x10 bytes sent, not acked |
-| 2 | `RateLimit` | `app/wwudp/cordcon.h:305` | +0x14 bytes per second (0xFFFFFFF) |
-| 2 | `RoundStart` | `app/wwudp/cordcon.h:306` | +0x18 |
-| 2 | `Round` | `app/wwudp/cordcon.h:307` | +0x20 |
-| 2 | `RoundTrip` | `app/wwudp/cordcon.h:308` | +0x24 ms, 300 at first |
-| 2 | `LastPeak` | `app/wwudp/cordcon.h:310` | +0x34 the last round's InFlight peak |
-| 2 | `Peak` | `app/wwudp/cordcon.h:311` | +0x38 |
-| 2 | `SecondStart` | `app/wwudp/cordcon.h:312` | +0x3C |
-| 2 | `LastSecondBytes` | `app/wwudp/cordcon.h:313` | +0x44 |
-| 2 | `SecondBytes` | `app/wwudp/cordcon.h:314` | +0x48 bytes sent this second |
-| 2 | `Go_Away` | `app/wwudp/cordcon.h:338` | what it does (called from CordMgr::Process_Go_Away_Packet) |
-| 2 | `Get_Channel` | `app/wwudp/cordcon.h:359` | grows Channels_ as the client does |
-| 2 | `Pending_Messages` | `app/wwudp/cordcon.h:361` | what it counts |
-| 2 | `Is_Closed` | `app/wwudp/cordcon.h:368` | what it returns |
-| 2 | `Ip_` | `app/wwudp/cordcon.h:371` | +0x00 (host order) |
-| 2 | `Port_` | `app/wwudp/cordcon.h:372` | +0x04 |
-| 2 | `Session_` | `app/wwudp/cordcon.h:373` | +0x08 |
-| 2 | `Key_` | `app/wwudp/cordcon.h:379` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
-| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:380` | +0x28 |
-| 2 | `std:` | `app/wwudp/cordcon.h:381` | +0x2C |
-| 2 | `std:` | `app/wwudp/cordcon.h:382` | +0x3C channels in use, in first-use order |
-| 2 | `std:` | `app/wwudp/cordcon.h:383` | +0x4C channels with received messages, in arrival order |
-| 2 | `Queued_` | `app/wwudp/cordcon.h:384` | +0x5C |
-| 2 | `AcksPending_` | `app/wwudp/cordcon.h:385` | +0x60 |
-| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:386` | +0x64 |
-| 2 | `Stats_` | `app/wwudp/cordcon.h:387` | +0x68 (constructor 0x85BF30) |
-| 2 | `BytesSent_` | `app/wwudp/cordcon.h:388` | +0x6C |
-| 2 | `BytesResent_` | `app/wwudp/cordcon.h:389` | +0x70 |
-| 2 | `BytesRead_` | `app/wwudp/cordcon.h:390` | +0x74 |
-| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:391` | +0x78 |
-| 2 | `Resends_` | `app/wwudp/cordcon.h:392` | +0x7C |
-| 2 | `DupAcks_` | `app/wwudp/cordcon.h:393` | +0x80 |
-| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:394` | +0x84 |
-| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:395` | +0x88 |
-| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:396` | +0x8C the datagram counter (the wire's bytes 3-4) |
-| 2 | `Quality_` | `app/wwudp/cordcon.h:397` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
-| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:398` | +0x94 the peer's header byte |
-| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:400` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
-| 2 | `LastSend_` | `app/wwudp/cordcon.h:401` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
-| 2 | `LastReceive_` | `app/wwudp/cordcon.h:402` | +0xA4 time_t (pump: the idle close after 90 s) |
-| 2 | `LastPump_` | `app/wwudp/cordcon.h:403` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
-| 2 | `GoneAway_` | `app/wwudp/cordcon.h:404` | +0xAC set by Go_Away: pump sends nothing |
-| 2 | `CloseState_` | `app/wwudp/cordcon.h:405` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
-| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:406` | +0xB4 |
-| 2 | `IsServer_` | `app/wwudp/cordcon.h:407` | +0xB8 |
-| 2 | `AcksMatched_` | `app/wwudp/cordcon.h:410` | describes its role |
-| 2 | `ResendRequests_` | `app/wwudp/cordcon.h:411` | describes its role |
-| 2 | `Rejected_` | `app/wwudp/cordcon.h:412` | describes its role |
-| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:36` | a data socket's record (the +0x40 list, 16 bytes) |
-| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:44` | a listening socket's record (the +0x4C list, 12 bytes) |
-| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:52` | describes what it holds (the +0x1C list, 8 bytes) |
-| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:60` | describes what it is |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:97` | what it does |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:105` | what it does |
-| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:109` | what it counts |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:111` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:114` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:117` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:118` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:121` | what it does |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:130` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:137` | what it holds |
+| 2 | `CordMessageClass` | `app/wwudp/cordcon.h:300` | describes what it holds |
+| 2 | `SentTime` | `app/wwudp/cordcon.h:307` | +0x00 the last send (day 0 = never, or a resend asked for) |
+| 2 | `SendCount` | `app/wwudp/cordcon.h:308` | +0x08 0 = never sent |
+| 2 | `Length` | `app/wwudp/cordcon.h:309` | +0x0C this record's bytes (a fragment's) |
+| 2 | `TotalLength` | `app/wwudp/cordcon.h:310` | +0x10 the whole message's |
+| 2 | `Priority` | `app/wwudp/cordcon.h:311` | +0x14 |
+| 2 | `Seq` | `app/wwudp/cordcon.h:312` | +0x18 |
+| 2 | `Data` | `app/wwudp/cordcon.h:313` | +0x1C |
+| 2 | `Fragments` | `app/wwudp/cordcon.h:314` | +0x20 received: one flag per fragment |
+| 2 | `Time` | `app/wwudp/cordcon.h:315` | +0x24 received: when complete (0 = not yet) |
+| 2 | `FragIndex` | `app/wwudp/cordcon.h:316` | +0x28 sent |
+| 2 | `Flags` | `app/wwudp/cordcon.h:317` | +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20) |
+| 2 | `CordChannelClass` | `app/wwudp/cordcon.h:322` | describes what it is (the client's name not found) |
+| 2 | `Mode` | `app/wwudp/cordcon.h:332` | +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0) |
+| 2 | `LastWrite` | `app/wwudp/cordcon.h:333` | +0x04 |
+| 2 | `NextSeq` | `app/wwudp/cordcon.h:334` | +0x08 the next sequence number to send |
+| 2 | `Priority` | `app/wwudp/cordcon.h:335` | +0x0C |
+| 2 | `std:` | `app/wwudp/cordcon.h:336` | +0x10 written, not sent |
+| 2 | `std:` | `app/wwudp/cordcon.h:337` | +0x20 sent, waiting for an ack |
+| 2 | `Written` | `app/wwudp/cordcon.h:338` | +0x30 |
+| 2 | `Delivered` | `app/wwudp/cordcon.h:339` | +0x34 mode 3: the next sequence number read() delivers |
+| 2 | `Expected` | `app/wwudp/cordcon.h:340` | +0x38 mode 3: the first sequence number not received in order |
+| 2 | `NextSequenced` | `app/wwudp/cordcon.h:341` | +0x3C mode 4: older ones are dropped |
+| 2 | `LastSeq` | `app/wwudp/cordcon.h:342` | +0x40 |
+| 2 | `Incoming` | `app/wwudp/cordcon.h:343` | +0x44 received, not read |
+| 2 | `ToAck` | `app/wwudp/cordcon.h:344` | +0x58 |
+| 2 | `Missing` | `app/wwudp/cordcon.h:345` | +0x64 resend requests to send |
+| 2 | `Index` | `app/wwudp/cordcon.h:346` | +0x70 |
+| 2 | `CordStatsClass` | `app/wwudp/cordcon.h:355` | describes what it holds (the client's name not found) |
+| 2 | `Window` | `app/wwudp/cordcon.h:371` | +0x00 200 at first |
+| 2 | `PeerWindow` | `app/wwudp/cordcon.h:372` | +0x04 0xFFFFFFF |
+| 2 | `Threshold` | `app/wwudp/cordcon.h:373` | +0x08 0x7FFFFFFF: slow start below it |
+| 2 | `MaxWindow` | `app/wwudp/cordcon.h:374` | +0x0C the constructor's argument |
+| 2 | `InFlight` | `app/wwudp/cordcon.h:375` | +0x10 bytes sent, not acked |
+| 2 | `RateLimit` | `app/wwudp/cordcon.h:376` | +0x14 bytes per second (0xFFFFFFF) |
+| 2 | `RoundStart` | `app/wwudp/cordcon.h:377` | +0x18 |
+| 2 | `Round` | `app/wwudp/cordcon.h:378` | +0x20 |
+| 2 | `RoundTrip` | `app/wwudp/cordcon.h:379` | +0x24 ms, 300 at first |
+| 2 | `LastPeak` | `app/wwudp/cordcon.h:381` | +0x34 the last round's InFlight peak |
+| 2 | `Peak` | `app/wwudp/cordcon.h:382` | +0x38 |
+| 2 | `SecondStart` | `app/wwudp/cordcon.h:383` | +0x3C |
+| 2 | `LastSecondBytes` | `app/wwudp/cordcon.h:384` | +0x44 |
+| 2 | `SecondBytes` | `app/wwudp/cordcon.h:385` | +0x48 bytes sent this second |
+| 2 | `Go_Away` | `app/wwudp/cordcon.h:410` | what it does (called from CordMgr::Process_Go_Away_Packet) |
+| 2 | `Get_Channel` | `app/wwudp/cordcon.h:431` | grows Channels_ as the client does |
+| 2 | `Pending_Messages` | `app/wwudp/cordcon.h:433` | what it counts |
+| 2 | `Is_Closed` | `app/wwudp/cordcon.h:440` | what it returns |
+| 2 | `Ip_` | `app/wwudp/cordcon.h:443` | +0x00 (host order) |
+| 2 | `Port_` | `app/wwudp/cordcon.h:444` | +0x04 |
+| 2 | `Session_` | `app/wwudp/cordcon.h:445` | +0x08 |
+| 2 | `Key_` | `app/wwudp/cordcon.h:451` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
+| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:452` | +0x28 |
+| 2 | `std:` | `app/wwudp/cordcon.h:453` | +0x2C |
+| 2 | `std:` | `app/wwudp/cordcon.h:454` | +0x3C channels in use, in first-use order |
+| 2 | `std:` | `app/wwudp/cordcon.h:455` | +0x4C channels with received messages, in arrival order |
+| 2 | `Queued_` | `app/wwudp/cordcon.h:456` | +0x5C |
+| 2 | `AcksPending_` | `app/wwudp/cordcon.h:457` | +0x60 |
+| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:458` | +0x64 |
+| 2 | `Stats_` | `app/wwudp/cordcon.h:459` | +0x68 (constructor 0x85BF30) |
+| 2 | `BytesSent_` | `app/wwudp/cordcon.h:460` | +0x6C |
+| 2 | `BytesResent_` | `app/wwudp/cordcon.h:461` | +0x70 |
+| 2 | `BytesRead_` | `app/wwudp/cordcon.h:462` | +0x74 |
+| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:463` | +0x78 |
+| 2 | `Resends_` | `app/wwudp/cordcon.h:464` | +0x7C |
+| 2 | `DupAcks_` | `app/wwudp/cordcon.h:465` | +0x80 |
+| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:466` | +0x84 |
+| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:467` | +0x88 |
+| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:468` | +0x8C the datagram counter (the wire's bytes 3-4) |
+| 2 | `Quality_` | `app/wwudp/cordcon.h:469` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
+| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:470` | +0x94 the peer's header byte |
+| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:472` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
+| 2 | `LastSend_` | `app/wwudp/cordcon.h:473` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
+| 2 | `LastReceive_` | `app/wwudp/cordcon.h:474` | +0xA4 time_t (pump: the idle close after 90 s) |
+| 2 | `LastPump_` | `app/wwudp/cordcon.h:475` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
+| 2 | `GoneAway_` | `app/wwudp/cordcon.h:476` | +0xAC set by Go_Away: pump sends nothing |
+| 2 | `CloseState_` | `app/wwudp/cordcon.h:477` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
+| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:478` | +0xB4 |
+| 2 | `IsServer_` | `app/wwudp/cordcon.h:479` | +0xB8 |
+| 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:37` | a data socket's record (the +0x40 list, 16 bytes) |
+| 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:45` | a listening socket's record (the +0x4C list, 12 bytes) |
+| 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:53` | describes what it holds (the +0x1C list, 8 bytes) |
+| 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:61` | describes what it is |
+| 2 | `Init` | `app/wwudp/cordmgr.h:90` | what it does |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:104` | what it does |
+| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:113` | what it sends |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:116` | what it does |
+| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:120` | what it counts |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:122` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:125` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:128` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:129` | what it does |
+| 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:132` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:135` | what it does |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:144` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:151` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
@@ -10950,7 +11823,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
 | 3 | `Change_Text` | `app/client/fontmanager.h:49` | the client's label |
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:101` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
+| 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
+| 3 | `HtmlViewClass` | `app/client/html/htmlview.h:39` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
@@ -11093,6 +11969,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GadgetClass` | `app/client/ui_avatr.cpp:10` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `FontSys` | `app/client/ui_avatr.cpp:174` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:263` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |
+| 3 | `GadgetClass` | `app/client/ui_avsel.cpp:25` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `FlashingGadgetEvent` | `app/client/ui_avsel.cpp:69` | the client's RTTI (the callback's type name) |
+| 3 | `FontSys` | `app/client/ui_avsel.cpp:77` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
+| 3 | `UIAvselFontManagerClass` | `app/client/ui_avsel.cpp:89` | fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's |
+| 3 | `AvatarSelectionInterface` | `app/client/ui_avsel.h:21` | the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>) |
+| 3 | `BuddyReferralUI` | `app/client/ui_avsel.h:69` | the assert's |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_chat_panel.cpp:23` | fontmanager.h's |
 | 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |
@@ -11133,6 +12015,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ControlKeysManagerClass` | `app/client/ui_line_display.cpp:21` | by convention (D24) from the client's control_keys_manager.cpp |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:20` | header name assumed from the client's ui_line_display.cpp |
 | 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:194` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
+| 3 | `GadgetClass` | `app/client/ui_login.cpp:21` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `TextGadgetClass` | `app/client/ui_login.cpp:68` | class-from-file (D24) for app\client\textgadg.cpp |
+| 3 | `Gadget` | `app/client/ui_login.cpp:208` | the FAIL_IF's |
+| 3 | `event` | `app/client/ui_login.cpp:243` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
+| 3 | `AccountMenu` | `app/client/ui_login.cpp:246` | the G_ASSERT's |
 | 3 | `FontManagerClass` | `app/client/ui_manu.cpp:33` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_manu.cpp:38` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_manu.cpp:186` | the FAIL_IF's |
@@ -11176,11 +12063,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
 | 3 | `GalaxyMapID` | `app/common/galaxy_map.h:174` | the asserts' |
 | 3 | `Remove_From_Galaxy_Map` | `app/common/galaxy_map.h:185` | the assert's (line 185; Remove_Data, the map's destructor) |
-| 3 | `std:` | `app/common/galaxy_map.h:252` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:253` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:254` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:255` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:256` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:293` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:294` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:295` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:296` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:297` | the asserts' |
+| 3 | `MaxDataObjects` | `app/common/galaxy_map.h:298` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
@@ -11193,6 +12081,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:18` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `NavigationListClass` | `app/common/unknown_navlist.h:28` | WARP's Print text 'NavigationListSize=' |
+| 3 | `vendor_defs.h` | `app/common/vendor_defs.h:16` | header name assumed from the client's vendor_defs.cpp |
+| 3 | `weapontype.h` | `app/common/weapontype.h:15` | header name assumed from the client's weapontype.cpp |
 | 3 | `inpdsp.h` | `app/input/inpdsp.h:20` | header name assumed from the client's inpdsp.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `pkgeaset.h` | `app/packets/gameedit/pkgeaset.h:15` | the header of the client's gameedit\pkgeaset.cpp |
@@ -11806,15 +12696,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RotateAngle` | `app/packets/pkupdate.h:177` | the client's Print text 'RotateAngle=' |
 | 3 | `RotateRate` | `app/packets/pkupdate.h:178` | the client's Print text 'RotateRate=' |
 | 3 | `TiltAngle` | `app/packets/pkupdate.h:179` | the client's Print text 'TiltAngle=' |
-| 3 | `SubjectID` | `app/packets/pkverbrequest.h:35` | the client's Print text 'SubjectID=' |
-| 3 | `ObjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'ObjectID=' |
-| 3 | `Action` | `app/packets/pkverbrequest.h:37` | the client's Print text 'Action=' |
-| 3 | `VerbListPacketClass` | `app/packets/pkverbrequest.h:50` | the client's Print text 'VerbList' |
-| 3 | `GameID` | `app/packets/pkverbrequest.h:61` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverbrequest.h:62` | the client's Print text 'Verbs=' |
-| 3 | `GameID` | `app/packets/pkverbrequest.h:76` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pkverbrequest.h:77` | the client's Print text 'Drops=' (the first string it prints) |
-| 3 | `std:` | `app/packets/pkverbrequest.h:78` | the client's Print text 'Adds=' |
+| 3 | `SubjectID` | `app/packets/pkverbrequest.h:36` | the client's Print text 'SubjectID=' |
+| 3 | `ObjectID` | `app/packets/pkverbrequest.h:37` | the client's Print text 'ObjectID=' |
+| 3 | `Action` | `app/packets/pkverbrequest.h:38` | the client's Print text 'Action=' |
+| 3 | `VerbListPacketClass` | `app/packets/pkverbrequest.h:43` | the client's Print text 'VerbList' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:54` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:55` | the client's Print text 'Verbs=' |
+| 3 | `GameID` | `app/packets/pkverbrequest.h:69` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pkverbrequest.h:70` | the client's Print text 'Drops=' (the first string it prints) |
+| 3 | `std:` | `app/packets/pkverbrequest.h:71` | the client's Print text 'Adds=' |
 | 3 | `VersionRequestPacketClass` | `app/packets/pkversionrequest.h:22` | the client's Print text 'VersionRequest {' and the PacketClass convention |
 | 3 | `Major` | `app/packets/pkversionrequest.h:32` | the client's Print text 'Major=' |
 | 3 | `Minor` | `app/packets/pkversionrequest.h:33` | the client's Print text 'Minor=' |

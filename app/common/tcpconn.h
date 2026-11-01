@@ -47,6 +47,8 @@ public:
 	bool Try_Connect();												// 0x8290A0: Connect without waiting  // NAME 2: what it does
 	bool Key_Exchange(bool wait, int *error);						// 0x829180: the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
 	void Close();													// 0x829A10: Disconnect through the vtable  // NAME 1: describes what it does
+	void Set_Name_Unknown();										// 0x829E00 (no caller): Name = "unknown"  // NAME 1: what it does
+	static TCPMgr *Get_Manager();									// 0x829E30 (no caller): the TCP manager 0xBE9180  // NAME 1: what it returns
 
 	TCPCon *Con;					// +0x24 NAME 4: as Renegade's TCPMgr calls a TCPCon (getOutgoingConnection's conn)
 	uint32 Handle;					// +0x28 NAME 4: TCPMgr::connect's handle, while the connect is pending

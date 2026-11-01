@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -52,16 +52,22 @@
 
 #include <wlib/wstypes.h>
 #include <wlib/wtime.h>
+#include <list>
 
 class UDP
 {
  // DATA
  private:
-  sint32       fd; 
+  sint32       fd;
+  sint32       unknownFD;  // E&B: a second socket the destructor closes (0x8BFA10)  // NAME 3: neutral, what the destructor does with it
   uint32       myIP;
   uint16       myPort;
   struct       sockaddr_in  addr;
-  
+  std::list<sockaddr_in> resetList;  // E&B: the peers whose datagrams came back as WSAECONNRESET, handed out by Read (0x8BFE30)  // NAME 2: what it holds
+
+  // E&B: the bandwidth accounting's callback (0xBF52C4), called by Write and Read with every datagram
+  static void (*accountingCallback)(bool out, int len, unsigned int ip, unsigned short port);  // NAME 2: what it is
+
   // These defines specify a system independent way to
   //   get error codes for socket services.
   enum sockStat
@@ -83,22 +89,28 @@ class UDP
     PIPE         =-12,     // That operation just made a SIGPIPE
     WOULDBLOCK   =-13,     // That operation would block
     INVAL        =-14,     // Invalid
-    TIMEDOUT     =-15      // Timeout
+    TIMEDOUT     =-15,     // Timeout
+    CONNRESET    =-16      // E&B: the peer's port is closed (WSAECONNRESET, 0x8C0100)
   };
 
 // CODE
- private:
-  sint32           SetBlocking(bit8 block);
-
  public:
                    UDP();
                   ~UDP();
   sint32           Bind(uint32 IP,uint16 port);
   sint32           Bind(char *Host,uint16 port);
+  void             Close(void);  // E&B: 0x8BFCA0  // NAME 2: closes the socket
+  sint32           SetBlocking(bit8 block,sint32 sock=-1);  // E&B: public, any socket (0x8BFD00)
   sint32           Write(uint8 *msg,uint32 len,uint32 IP,uint16 port);
   sint32           Read(uint8 *msg,uint32 len,sockaddr_in *from);
   sockStat         GetStatus(void);
   void             ClearStatus(void);
+  void             AddReset(sockaddr_in &from);  // E&B: 0x8C0060  // NAME 2: what it does
+  void             Unknown8C00E0(void);  // E&B: empty, no caller (0x8C00E0)  // NAME 3: neutral
+
+  // E&B: the bandwidth accounting's hook (bandwidthaccounting.cpp)
+  static void      Set_Accounting_Callback(void (*callback)(bool out, int len, unsigned int ip, unsigned short port));  // NAME 1: what it does
+  static void      Clear_Accounting_Callback(void);  // NAME 1: what it does
   int              Wait(sint32 sec,sint32 usec,fd_set &returnSet);
   int              Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet);
 

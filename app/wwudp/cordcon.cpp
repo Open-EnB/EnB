@@ -1,17 +1,15 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\wwudp\cordcon.cpp (client 0x84FED0-0x854E70)
+**	Original location: e:\build\beta\G\app\wwudp\cordcon.cpp (client 0x84DFC0-0x8557D0)
 **
 **	Functional (NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the
 **	client's code statement by statement; the send path (write, openc, buildHeader,
 **	buildMsgHeader, pump, pumpInternal with its resend timer and send window) too; getHighestPriorityMessage
 **	is byte-exact. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's
-**	asserts sit on lines 521, 632 and 977 (D25): this file does not keep them on their lines.
+**	asserts sit on lines 521, 632 and 977 (D25); the functions are in the client's order.
 **	Notes at the end.
 */
-
-
 
 // E&B built its own code with WWLib's profiler on (every CordCon function opens a sample:
 // WWProfileManager::Start_Profile 0x9EA930 under the flag 0xC40488).
@@ -20,74 +18,10 @@
 #include "udp.h"
 #include "rc4.h"
 #include "wwprofile.h"
+#include "..\shared\unknown_debug.h"
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-
-static unsigned int Get_Short(const unsigned char *p)
-{
-	return ((unsigned int)p[0] << 8) | p[1];
-}
-
-static unsigned int Get_Long(const unsigned char *p)
-{
-	return ((unsigned int)p[0] << 24) | ((unsigned int)p[1] << 16) | ((unsigned int)p[2] << 8) | p[3];
-}
-
-// size / channel: 1 byte below 0x80, else 2 with the top bit; seq: 2 bytes below 0x8000, else 4.
-static int Read_Small(const unsigned char *p, unsigned int *v)
-{
-	if (p[0] < 0x80) {
-		*v = p[0];
-		return 1;
-	}
-	*v = Get_Short(p) & 0x7FFF;
-	return 2;
-}
-
-static int Read_Seq(const unsigned char *p, unsigned int *v)
-{
-	if (p[0] < 0x80) {
-		*v = Get_Short(p);
-		return 2;
-	}
-	*v = Get_Long(p) & 0x7FFFFFFF;
-	return 4;
-}
-
-static int Write_Small(unsigned char *p, unsigned int v)
-{
-	if ((unsigned short)v < 0x80) {
-		p[0] = (unsigned char)v;
-		return 1;
-	}
-	v |= 0x8000;
-	p[0] = (unsigned char)(v >> 8);
-	p[1] = (unsigned char)v;
-	return 2;
-}
-
-static int Write_Seq(unsigned char *p, unsigned int v)
-{
-	if (v < 0x8000) {
-		p[0] = (unsigned char)(v >> 8);
-		p[1] = (unsigned char)v;
-		return 2;
-	}
-	v |= 0x80000000;
-	p[0] = (unsigned char)(v >> 24);
-	p[1] = (unsigned char)(v >> 16);
-	p[2] = (unsigned char)(v >> 8);
-	p[3] = (unsigned char)v;
-	return 4;
-}
-
-static CordMessageClass Empty_Message()
-{
-	CordMessageClass m;
-	memset(&m, 0, sizeof(m));
-	return m;
-}
 
 // ------------------------------------------------------------------------ CordChannelClass
 
@@ -95,11 +29,31 @@ static CordMessageClass Empty_Message()
 // with blocks of 4 + 1024 x 0x78 bytes).
 DEFINE_AUTO_POOL(CordChannelClass, 1024)
 
+// Reset's body, inlined into the constructor and the destructor as the client does (Reset itself is kept
+// out of line below, where the CordCon constructor and openc call it).
+static inline void Reset_Channel(CordChannelClass *c)	// NAME 2: Reset's body
+{
+	c->Mode = 0;
+	c->IsClosed = true;
+	c->LastWrite = (unsigned int)time(0);
+	c->Priority = 0;
+	c->Written = 0;
+	c->Delivered = 0;
+	c->Expected = 0;
+	c->NextSequenced = 0;
+	c->LastSeq = 0;
+	c->Queue.clear();
+	c->Incoming.Clear();
+	c->Sent.clear();
+	c->ToAck.clear();
+	c->Missing.clear();
+}
+
 CordChannelClass::CordChannelClass()	// 0x84DFC0
 {
 	NextSeq = 0;
 	Index = -1;
-	Reset();
+	Reset_Channel(this);
 }
 
 // 0x84E170: the members' constructors, then the copy.
@@ -152,13 +106,18 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 }
 
 // 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessageClass's
-// destructor leaves them; Free 0x85BEC0 is called where a record is dropped).
+// destructor leaves them; Free 0x85BEC0 is called where a record is dropped). Out of line, as
+// ~CordCon 0x84F8C0 calls it.
+#pragma auto_inline(off)
 CordChannelClass::~CordChannelClass()
 {
-	Reset();
+	Reset_Channel(this);
 }
+#pragma auto_inline(on)
 
-// 0x84E770
+// 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannelClass's
+// constructor and destructor inline Reset_Channel).
+#pragma auto_inline(off)
 void CordChannelClass::Reset()
 {
 	Mode = 0;
@@ -176,63 +135,83 @@ void CordChannelClass::Reset()
 	ToAck.clear();
 	Missing.clear();
 }
+#pragma auto_inline(on)
 
 // ------------------------------------------------------------------------ CordCon
 
 // 0x84F640: 64 channels; channel 0 is the connection's own (mode 5: the empty message that carries
 // acks when nothing else is queued, the keep-alive, the close). The statistics object (0x4C bytes,
-// constructor 0x85BF30) gets stats_arg, the window limit ACK2 carries.
+// constructor 0x85BF30) gets stats_arg, the window limit ACK2 carries. Unknown1C and Unknown98 stay
+// unset, as in the client. The six size() statements make no code: they spend the inliner's budget so
+// that Active_'s push_back keeps insert(P, n, x) 0x855E40 out of line, as the client (with five or
+// fewer it is inlined).
 CordCon::CordCon(unsigned int ip, unsigned short port, int session, unsigned short unknown0c, bool is_server,
-	UDP *udp, int stats_arg, unsigned int key_lo, unsigned int key_hi) :
-	Ip_(ip),
-	Port_(port),
-	Session_(session),
-	Unknown0C(unknown0c),
-	Udp_(udp),
-	Unknown14(0),
-	Unknown18(0),
-	Unknown1C(0),
-	OpenChannels_(0),
-	Queued_(0),
-	AcksPending_(0),
-	ResendsPending_(0),
-	Stats_(new CordStatsClass(stats_arg)),
-	BytesSent_(0),
-	BytesResent_(0),
-	BytesRead_(0),
-	BytesAcked_(0),
-	Resends_(0),
-	DupAcks_(0),
-	MessagesSent_(0),
-	PacketsIn_(0),
-	PacketsOut_(0),
-	Quality_(0),
-	HeaderIn_(0),
-	Unknown98(0),
-	ExpireCountdown_(0),
-	LastSend_(0),
-	LastReceive_((unsigned int)time(0)),
-	LastPump_((unsigned int)time(0)),
-	GoneAway_(false),
-	CloseState_(0),
-	CloseSeq_(0),
-	IsServer_(is_server),
-	AcksMatched_(0),
-	ResendRequests_(0),
-	Rejected_(0)
+	UDP *udp, int stats_arg, __int64 key)
 {
-	Key_ = ((__int64)key_hi << 32) | key_lo;
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
+	Channels_.size();
 	Add_Channels(0x40);
+	Key_ = key;
+	Unknown14 = 0;
+	Unknown18 = 0;
+	Stats_ = new CordStatsClass(stats_arg);
+	Ip_ = ip;
+	Port_ = port;
+	Session_ = session;
+	Unknown0C = unknown0c;
+	Udp_ = udp;
+	IsServer_ = is_server;
+	OpenChannels_ = 0;
+	AcksPending_ = 0;
+	ResendsPending_ = 0;
+	Queued_ = 0;
+	LastSend_ = 0;
+	LastReceive_ = (unsigned int)time(0);
+	LastPump_ = (unsigned int)time(0);
+	GoneAway_ = false;
+	Resends_ = 0;
+	DupAcks_ = 0;
+	MessagesSent_ = 0;
+	PacketsIn_ = 0;
+	PacketsOut_ = 0;
+	Quality_ = 0;
+	HeaderIn_ = 0;
+	BytesSent_ = 0;
+	BytesRead_ = 0;
+	BytesResent_ = 0;
+	BytesAcked_ = 0;
+	ExpireCountdown_ = 0;
+	CloseState_ = 0;
+	CloseSeq_ = 0;
+	for (unsigned int i = 0; i < Channels_.size(); i++) {
+		Channels_[i]->Reset();
+	}
 	Channels_[0]->Mode = 5;
 	Active_.push_back(Channels_[0]);
 }
 
+// 0x84F8C0: the channels back to their pool; Active_ and Ready_ emptied with resize(0) (the
+// client's size() / erase(F, L) calls and the default value's slot), the socket dropped, then the
+// statistics.
 CordCon::~CordCon()
 {
-	delete Stats_;
-	for (size_t i = 0; i < Channels_.size(); i++) {
+	for (unsigned int i = 0; i < Channels_.size(); i++) {
 		delete Channels_[i];
 	}
+	Active_.resize(0);
+	Ready_.resize(0);
+	Udp_ = NULL;
+	delete Stats_;
+}
+
+// 0x84FA80
+int CordCon::Unknown_84FA80()
+{
+	return CORD_MAX_PACKET;
 }
 
 // 0x84FAA0 (out of line with no caller: inlined where it is used). c starts NULL outside the loop
@@ -255,6 +234,25 @@ CordChannelClass *CordCon::Get_Channel(int channel)
 	return Channels_[channel];
 }
 
+#define CORD_MIN(a, b)	((a) < (b) ? (a) : (b))
+
+// 0x84FDE0: the counts UDPConnection reads (Receive, Get_Stats).
+void CordCon::getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
+	int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle)
+{
+	*messages_sent = MessagesSent_;
+	*packets_in = PacketsIn_;
+	*bytes_sent = BytesSent_;
+	*bytes_read = BytesRead_;
+	*resends = Resends_;
+	*dup_acks = DupAcks_;
+	*window = CORD_MIN(Stats_->MaxWindow, CORD_MIN(Stats_->Window, Stats_->PeerWindow));
+	*in_flight = Stats_->InFlight;
+	*round_trip = Stats_->RoundTrip;
+	*quality = (unsigned int)(HeaderIn_ + Quality_) >> 1;
+	*idle = time(0) - LastReceive_;
+}
+
 // 0x84FED0: the messages the active channels hold, written and not sent or sent and not acked
 // (CordMgr::Pending_Messages 0x8598F0 sums it over the connections)
 int CordCon::Pending_Messages()
@@ -269,25 +267,29 @@ int CordCon::Pending_Messages()
 	return total;
 }
 
-// 0x84FF70, NOT EXACT (0.28): the client opens odd channels, the server even ones; the unused one
-// written least recently (the search goes on from where it stopped after two more are made),
-// reset, counted in OpenChannels_. The client's start (`sete` / `test cl, 1` on the first index)
-// and its `found > -1` tests are not reproduced.
+// 0x84FF70, NOT EXACT (0.48): the client opens odd channels, the server even ones: the unused one
+// written least recently, the search going on from where it stopped after two more are made. Not
+// reproduced: the client's dead test on the first index (`sete` / `test cl, 1`).
 bool CordCon::openc(unsigned int *channel, int mode, int priority)
 {
 	WWPROFILE("CordCon::openc");
-	int i = IsServer_ ? 2 : 1;
+	int start = IsServer_ ? 2 : 1;
 	int found = -1;
 	for (;;) {
-		for (; i < (int)Channels_.size(); i += 2) {
-			if (Channels_[i]->Mode == 0 && (found < 0 || (int)Channels_[i]->LastWrite < (int)Channels_[found]->LastWrite)) {
-				found = i;
+		int i;
+		int size = Channels_.size();
+		for (i = start; i < size; i += 2) {
+			if (Channels_[i]->Mode == 0) {
+				if (found <= -1 || (int)Channels_[i]->LastWrite < (int)Channels_[found]->LastWrite) {
+					found = i;
+				}
 			}
 		}
-		if (found >= 0) {
+		if (found > -1) {
 			break;
 		}
 		Add_Channels(2);
+		start = i;
 	}
 	Channels_[found]->Reset();
 	Channels_[found]->Mode = mode;
@@ -299,32 +301,396 @@ bool CordCon::openc(unsigned int *channel, int mode, int priority)
 	return true;
 }
 
-// 0x854D00: RC4 with a key per datagram: the session key, the length, the datagram counter, 0.
-void CordCon::Encrypt_Data(unsigned char *data, int len, unsigned short counter)
+// 0x8501A0: marks a channel closed (UDPConnection::Send_Data after a close-channel send).
+bool CordCon::closec(int channel)
 {
-	WWPROFILE("CordCon::Encrypt_Data");
-	if (Key_ == 0) {
-		return;
+	Channels_[channel]->IsClosed = true;
+	return false;
+}
+
+// 0x8501D0 (`? true : false`: sete al without the xor)
+bool CordCon::Is_Closed()
+{
+	if (Udp_ == NULL) {
+		return true;
 	}
-	struct {
-		__int64 Key;
-		int Length;
-		unsigned short Counter;
-		unsigned short Zero;
-	} key;
-	memcpy(&key.Key, &Key_, sizeof(Key_));
-	key.Length = len;
-	key.Counter = counter;
-	key.Zero = 0;
-	RC4Class rc4;
-	{
-		WWPROFILE("rc4.Prepare_Key");
-		rc4.Prepare_Key((unsigned char *)&key, 16);
+	return (CloseState_ == 4) ? true : false;
+}
+
+// 0x850200: returns false; no caller and no string in the client (between Is_Closed and Go_Away).
+bool CordCon::Unknown_850200()
+{
+	return false;
+}
+
+// 0x850220: the idle close (pump: 90 s without a datagram) 10 s from now at the latest.
+void CordCon::Go_Away()
+{
+	unsigned int t = (unsigned int)time(0) - 80;
+	if ((int)LastReceive_ > (int)t) {
+		LastReceive_ = t;
 	}
-	{
-		WWPROFILE("rc4.RC4");
-		rc4.RC4(data, len);
+	GoneAway_ = true;
+}
+
+// 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
+// its ack (handlePacket: state 4). State 2 with channel 0 empty: the client logs 'This isn't
+// good... waiting for an ACK on a non-existant msg....' and goes back to 1; still waiting 90 s
+// after the last datagram, it gives up (state 4, false).
+bool CordCon::pumpClose()
+{
+	WWPROFILE("CordCon::pumpClose");
+	if (CloseState_ == 2) {
+		if (Channels_[0]->Queue.size() + Channels_[0]->Sent.size() == 0) {
+
+
+
+
+
+
+
+
+
+
+			// the client logs 'This isn't good... waiting for an ACK on a non-existant msg....' (INFMSG, line 355)
+			CloseState_ = 1;
+		}
+		if (CloseState_ == 2 && (int)(time(0) - LastReceive_) > 90) {
+			CloseState_ = 4;
+			return false;
+		}
 	}
+	if (CloseState_ != 1) {
+		return false;
+	}
+	if (Queued_ == 0 && ResendsPending_ == 0 && AcksPending_ == 0) {
+		int count = Active_.size();
+		for (int i = 0; i < count; i++) {
+			if (Active_[i]->Queue.size() != 0) {
+				return true;
+			}
+			if (Active_[i]->Sent.size() != 0) {
+				return true;
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// the client logs 'All data sent, queueing close packet.' (INFMSG, line 390)
+		CordMessageClass m;
+		m.Data = new unsigned char[strlen("CLOSE")];
+		memcpy(m.Data, "CLOSE", strlen("CLOSE"));
+		m.Length = strlen("CLOSE");
+		m.Priority = 0;
+		m.SendCount = 0;
+		m.TotalLength = m.Length;
+		m.SentTime.setDay(0);
+		m.SentTime.setMsec(0);
+		m.Seq = Channels_[0]->NextSeq++;
+		CloseSeq_ = m.Seq;
+		Channels_[0]->Queue.push_back(m);
+		Channels_[0]->LastWrite = time(0);
+		Channels_[0]->Written++;
+		CloseState_ = 2;
+		Queued_++;
+	}
+	return true;
+}
+
+// 0x850870 ('CordCon:close'), functional (NOT EXACT: the vectors' and wlib's inlined code): with
+// now, every channel's queued and sent records are freed and its acks and resend requests dropped;
+// then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing
+// is queued or due). Nothing changes once closed (4).
+bool CordCon::close(bool now)
+{
+	WWPROFILE("CordCon:close");
+	if (CloseState_ == 4) {
+		return true;
+	}
+	if (now) {
+		int count = Active_.size();
+		for (int i = 0; i < count; i++) {
+			CordChannelClass *c = Active_[i];
+			std::vector<CordMessageClass>::iterator it = c->Queue.begin();
+			while (c->Queue.size() != 0) {
+				(*it).Free();
+				if (it->SendCount == 0) {
+					Queued_--;
+				}
+				c->Queue.erase(it);
+			}
+			it = c->Sent.begin();
+			while (c->Sent.size() != 0) {
+				(*it).Free();
+				if (it->SendCount == 0) {
+					Queued_--;
+				}
+				c->Sent.erase(it);
+			}
+			while (c->ToAck.length() != 0) {
+				c->ToAck.remove(0);
+				AcksPending_--;
+			}
+			while (c->Missing.length() != 0) {
+				c->Missing.remove(0);
+				ResendsPending_--;
+			}
+		}
+		Queued_ = 0;
+		AcksPending_ = 0;
+		ResendsPending_ = 0;
+	}
+	if (CloseState_ == 3) {
+		CloseState_ = 4;
+	} else if (CloseState_ == 0) {
+		CloseState_ = 1;
+		pumpClose();
+	}
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x850C70: the message in 200-byte records, one sequence number each.
+bool CordCon::write(int channel, unsigned int len, const void *data, int priority)
+{
+	WWPROFILE("CordCon::write");
+	FAIL_IF(Udp_ == NULL) return false;
+	if (CloseState_ != 0) {
+		return false;
+	}
+	if (len > 0xC800) {
+		return false;
+	}
+	CordChannelClass *c = Channels_[channel];
+	if (c->IsClosed) {
+		return false;
+	}
+	if (c->Mode == 4) {
+		// a sequenced channel drops what it hasn't sent yet
+		std::vector<CordMessageClass>::iterator it = c->Queue.begin();
+		while (it != c->Queue.end()) {
+			if (it->SendCount == 0) {
+				(*it).Free();
+				it = c->Queue.erase(it);
+				Queued_--;
+			} else {
+				++it;
+			}
+		}
+	}
+	CordMessageClass m;
+	int n = (len + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
+	const char *p = (const char *)data;
+	for (int i = 0; i < n; i++) {
+		m.Seq = c->NextSeq++;
+		unsigned int part = len;
+		if (n != 1 && (i != n - 1 || (part = len % CORD_FRAGMENT_SIZE) == 0)) {
+			part = CORD_FRAGMENT_SIZE;
+		}
+		m.Data = new unsigned char[part];
+		m.Length = part;
+		m.TotalLength = len;
+		m.Priority = priority;
+		m.FragIndex = i;
+		m.Flags = 0;
+		if (n != 1) {
+			m.Flags = 1;
+		}
+		if (c->Written == 0) {
+			m.Flags |= 2;
+		}
+		m.SentTime.setDay(0);
+		m.SentTime.setMsec(0);
+		m.SendCount = 0;
+		memcpy(m.Data, p, part);
+		c->Queue.push_back(m);
+		c->Written++;
+		c->LastWrite = (unsigned int)time(0);
+		p += CORD_FRAGMENT_SIZE;
+		Queued_++;
+	}
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x850FD0
+bool CordCon::read(int *channel, int *len, void *buf, bool peek)
+{
+	WWPROFILE("CordCon::read");
+	FAIL_IF(Udp_ == NULL) return false;
+	int count = (int)Ready_.size();
+	for (int r = 0; r < count; r++) {
+		CordChannelClass *c = Ready_[r];
+		bool removed = false;
+		int i = 0;
+		int n = (int)c->Incoming.Length();
+		for (int k = 0; k < n; k++) {
+			CordMessageClass &m = *c->Incoming.Get(i);
+			if (c->Mode == 3) {
+				if (m.Seq < c->Delivered) {
+					m.Free();
+					c->Incoming.Remove(i);
+					removed = true;
+					continue;
+				}
+				if (m.Seq != c->Delivered) {
+					i++;
+					continue;
+				}
+			}
+			bool incomplete = (m.Flags & 1) && m.Fragments != 0 && m.Length != 0
+				&& memchr(m.Fragments, 0, (m.TotalLength + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE) != 0;
+			if (incomplete) {
+				i++;
+				continue;
+			}
+			if (c->Mode == 3 && !peek) {
+				c->Delivered++;
+			}
+			if (m.Length != 0) {
+				if (buf != 0) {
+					memcpy(buf, m.Data, m.Length);
+				}
+				*len = (int)m.Length;
+				*channel = c->Index;
+				if (!peek) {
+					m.Free();
+					c->Incoming.Remove(i);
+				}
+				BytesRead_ += *len;
+				if (c->Incoming.Length() == 0) {
+					Ready_.erase(Ready_.begin() + r);
+				}
+				return true;
+			}
+			c->Incoming.Remove(i);
+			removed = true;
+			if (c->Mode == 3 && peek == true) {
+				c->Delivered++;
+			}
+		}
+		if (removed && c->Incoming.Length() == 0) {
+			Ready_.erase(Ready_.begin() + r);
+			r--;
+			count--;
+		}
+	}
+	if (CloseState_ == 3) {
+		CloseState_ = 4;
+	}
+	return false;
 }
 
 int __stdcall Cord_Get_Small(const unsigned char *in, unsigned short *value);
@@ -446,38 +812,195 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	return true;
 }
 
+// The harness's counters (D176): udpreplay.py build defines CORD_HARNESS_COUNT to count into udpreplay's
+// side table (tests/udpreplay/cord_counters.h); the client has none, and here it is nothing.
+#ifndef CORD_HARNESS_COUNT
+#define CORD_HARNESS_COUNT(con, counter)
+#endif
+
+static CordMessageClass Empty_Message()
+{
+	CordMessageClass m;
+	memset(&m, 0, sizeof(m));
+	return m;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 0x851AE0
 bool CordCon::handlePacket(unsigned char *data, int datalen)
 {
-	if (datalen < PACKET_ENCRYPTION_OFFSET) {
-		return false;		// the client asserts 'datalen < PACKET_ENCRYPTION_OFFSET' (line 977)
-	}
+	WWPROFILE("CordCon::handlePacket");
+	Xtime current;
+	int acks = 0;
+	FAIL_IF(datalen < PACKET_ENCRYPTION_OFFSET) return false;
 	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
 	if (!examinePacket(data, datalen)) {
 		Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
-		Rejected_++;
+		CORD_HARNESS_COUNT(this, Rejected);
 		return false;
 	}
-	Xtime current;
-	unsigned int now = current.getTime_t();
 	PacketsIn_++;
-	LastReceive_ = now;
+	LastReceive_ = current.getTime_t();
+	GoneAway_ = false;
 	int pos = 10;
-	unsigned char flags = data[9];
-	if (flags & 2) {
-		CloseState_ = (CloseState_ == 1 || CloseState_ == 2) ? 4 : 3;
+	if (data[9] & 2) {
+		if (CloseState_ == 1 || CloseState_ == 2) {
+			CloseState_ = 4;
+		} else {
+			CloseState_ = 3;
+		}
 	}
-	unsigned int acks = 0;
-	if (flags & 1) {
-		pos = 11;
+	if (data[9] & 1) {
 		acks = data[10];
+		pos = 11;
 	}
-	HeaderIn_ = data[pos];
-	pos++;
+	HeaderIn_ = data[pos++];
 
 	// The ack list: 0 acks one message, 2 every message up to seq, 1 asks for a resend.
-	for (unsigned int a = 0; a < acks; a++) {
+	for (int a = 0; a < acks; a++) {
 		unsigned int kind = data[pos];
 		unsigned short channel;
 		unsigned int seq;
@@ -488,7 +1011,61 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			if ((kind == 0 && CloseSeq_ == seq) || (kind == 2 && CloseSeq_ <= seq)) {
 				CloseState_ = 4;
 			}
-			// else the client logs 'This is probably a bug! ACK for non-close message recvd'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			// else the client logs 'This is probably a bug! ACK for non-close message recvd' (INFMSG, line 1068)
 		}
 		CordChannelClass *c = Channels_[channel];
 		if (kind == 0 || kind == 2) {
@@ -506,7 +1083,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 					}
 					Stats_->On_Ack(it->Length);
 					BytesAcked_ += it->Length;
-					AcksMatched_++;
+					CORD_HARNESS_COUNT(this, AcksMatched);
 					(*it).Free();
 					it = c->Sent.erase(it);
 					if (kind == 0) {
@@ -519,7 +1096,50 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			if (!found && kind == 0) {
 				Stats_->On_Loss(-1, false);
 				Stats_->On_Round_Trip(Stats_->RoundTrip * 2);
-				DupAcks_++;		// the client logs 'Dup ack'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				// the client logs 'Dup ack' (INFMSG, line 1141)
+				DupAcks_++;
 			}
 		} else if (kind == 1) {
 			for (std::vector<CordMessageClass>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
@@ -529,7 +1149,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 					m.SentTime.setMsec(0);
 					c->Sent.erase(it);
 					c->Sent.insert(c->Sent.begin(), m);
-					ResendRequests_++;
+					CORD_HARNESS_COUNT(this, ResendRequests);
 					break;
 				}
 			}
@@ -661,7 +1281,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			memcpy(m.Data, data + pos, len);
 			m.Length = m.TotalLength = len;
 			m.Seq = seq;
-			m.Time = now;
+			m.Time = current.getTime_t();
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -700,13 +1320,13 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 		if (seq == first) {
 			if (t.Time == 0) {
-				t.Time = now;
+				t.Time = current.getTime_t();
 			}
 		} else {
 			// a place holder for the fragment's own sequence number (read() skips it)
 			CordMessageClass m = Empty_Message();
 			m.Seq = seq;
-			m.Time = now;
+			m.Time = current.getTime_t();
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -716,413 +1336,12 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	}
 }
 
-// 0x850FD0
-bool CordCon::read(int *channel, int *len, void *buf, bool peek)
-{
-	if (Udp_ == NULL) {
-		return false;		// the client asserts 'Udp_ == NULL' (line 632)
-	}
-	int count = (int)Ready_.size();
-	for (int r = 0; r < count; r++) {
-		CordChannelClass *c = Ready_[r];
-		bool removed = false;
-		int i = 0;
-		int n = (int)c->Incoming.Length();
-		for (int k = 0; k < n; k++) {
-			CordMessageClass &m = *c->Incoming.Get(i);
-			if (c->Mode == 3) {
-				if (m.Seq < c->Delivered) {
-					m.Free();
-					c->Incoming.Remove(i);
-					removed = true;
-					continue;
-				}
-				if (m.Seq != c->Delivered) {
-					i++;
-					continue;
-				}
-			}
-			bool incomplete = (m.Flags & 1) && m.Fragments != 0 && m.Length != 0
-				&& memchr(m.Fragments, 0, (m.TotalLength + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE) != 0;
-			if (incomplete) {
-				i++;
-				continue;
-			}
-			if (c->Mode == 3 && !peek) {
-				c->Delivered++;
-			}
-			if (m.Length != 0) {
-				if (buf != 0) {
-					memcpy(buf, m.Data, m.Length);
-				}
-				*len = (int)m.Length;
-				*channel = c->Index;
-				if (!peek) {
-					m.Free();
-					c->Incoming.Remove(i);
-				}
-				BytesRead_ += *len;
-				if (c->Incoming.Length() == 0) {
-					Ready_.erase(Ready_.begin() + r);
-				}
-				return true;
-			}
-			m.Free();
-			c->Incoming.Remove(i);
-			removed = true;
-			if (c->Mode == 3 && peek) {
-				c->Delivered++;
-			}
-		}
-		if (removed && c->Incoming.Length() == 0) {
-			Ready_.erase(Ready_.begin() + r);
-			r--;
-			count--;
-		}
-	}
-	if (CloseState_ == 3) {
-		CloseState_ = 4;
-	}
-	return false;
-}
-
-// 0x850C70: the message in 200-byte records, one sequence number each.
-bool CordCon::write(int channel, const void *data, unsigned int len, int priority)
-{
-	if (Udp_ == NULL) {
-		return false;		// the client asserts 'Udp_ == NULL' (line 521)
-	}
-	if (CloseState_ != 0 || len > 0xC800) {
-		return false;
-	}
-	CordChannelClass *c = Get_Channel(channel);
-	if (c->IsClosed) {
-		return false;
-	}
-	if (c->Mode == 4) {
-		// a sequenced channel drops what it hasn't sent yet
-		std::vector<CordMessageClass>::iterator it = c->Queue.begin();
-		while (it != c->Queue.end()) {
-			if (it->SendCount == 0) {
-				(*it).Free();
-				it = c->Queue.erase(it);
-				Queued_--;
-			} else {
-				++it;
-			}
-		}
-	}
-	unsigned int n = (len + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
-	const unsigned char *p = (const unsigned char *)data;
-	for (unsigned int i = 0; i < n; i++) {
-		CordMessageClass m = Empty_Message();
-		m.Seq = c->NextSeq++;
-		unsigned int part = len;
-		if (n != 1 && (i != n - 1 || (part = len % CORD_FRAGMENT_SIZE) == 0)) {
-			part = CORD_FRAGMENT_SIZE;
-		}
-		m.Data = new unsigned char[part];
-		memcpy(m.Data, p, part);
-		m.Length = part;
-		m.TotalLength = len;
-		m.Priority = priority;
-		m.Flags = (n != 1 ? 1 : 0) | (c->Written == 0 ? 2 : 0);
-		m.FragIndex = i;
-		c->Queue.push_back(m);
-		c->Written++;
-		c->LastWrite = (unsigned int)time(0);
-		p += CORD_FRAGMENT_SIZE;
-		Queued_++;
-	}
-	return true;
-}
-
-// 0x854FC0
-bool CordCon::buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
-	unsigned char frag, char flags)
-{
-	WWPROFILE("CordCon::buildMsgHeader");
-	int pos, n;
-	if ((unsigned short)size < 0x80) {
-		pos = 1;
-		*out = (unsigned char)size;
-	} else {
-		*(unsigned short *)out = htons((unsigned short)size | 0x8000);
-		pos = 2;
-	}
-	if ((unsigned short)channel < 0x80) {
-		out[pos] = (unsigned char)channel;
-		n = 1;
-	} else {
-		*(unsigned short *)(out + pos) = htons((unsigned short)channel | 0x8000);
-		n = 2;
-	}
-	pos += n;
-	if (seq < 0x8000) {
-		*(unsigned short *)(out + pos) = htons((unsigned short)seq);
-		n = 2;
-	} else {
-		*(unsigned long *)(out + pos) = htonl(seq | 0x80000000);
-		n = 4;
-	}
-	pos += n;
-	unsigned char type = (unsigned char)Channels_[channel]->Mode | (flags << 4);
-	if (size > CORD_FRAGMENT_SIZE) {
-		type |= 0x10;
-	}
-	out[pos++] = type;
-	if (size > CORD_FRAGMENT_SIZE) {
-		out[pos++] = frag;
-	}
-	*len = pos;
-	return true;
-}
-
-// 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests).
-bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
-{
-	unsigned char list[0x320];
-	int pos = 0;
-	int acks = 0, resends = 0, entries = 0, last = 0;
-	size_t i;
-	out[0] = IsServer_ ? 4 : 5;
-	out[1] = (unsigned char)(Session_ >> 8);
-	out[2] = (unsigned char)Session_;
-	*counter = (unsigned short)PacketsOut_;
-	out[3] = (unsigned char)(PacketsOut_ >> 8);
-	out[4] = (unsigned char)PacketsOut_;
-	memset(out + 5, 0, 4);
-	// One "everything up to" ack per reliable channel for what arrived in order.
-	for (i = 0; i < Active_.size() && acks < 8; i++) {
-		CordChannelClass *c = Active_[i];
-		if (c->Mode != 3 || c->ToAck.length() == 0 || c->Expected <= 1) {
-			continue;
-		}
-		bool any = false;
-		for (size_t k = 0; k < (size_t)c->ToAck.length();) {
-			unsigned int acked; c->ToAck.get(acked, (int)k); if (acked <= c->Expected - 2) {
-				c->ToAck.remove((int)k);
-				AcksPending_--;
-				any = true;
-			} else {
-				k++;
-			}
-		}
-		if (any) {
-			list[pos++] = 2;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, c->Expected - 2);
-			acks++;
-			entries++;
-		}
-	}
-	// Then single acks and resend requests, one per channel per round.
-	int k2 = -1;
-	do {
-		k2++;
-		if (k2 == (int)Active_.size()) {
-			if (entries == last) {
-				break;
-			}
-			last = entries;
-			k2 = 0;
-		}
-		if (Active_.size() == 0) {
-			break;
-		}
-		CordChannelClass *c = Active_[k2];
-		if (acks < 8 && c->ToAck.length() != 0) {
-			unsigned int seq; c->ToAck.get(seq, 0);
-			c->ToAck.remove(0);
-			AcksPending_--;
-			list[pos++] = 0;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, seq);
-			acks++;
-			entries++;
-		}
-		if (resends < 0x20 && c->Missing.length() != 0) {
-			unsigned int seq; c->Missing.get(seq, 0);
-			c->Missing.remove(0);
-			ResendsPending_--;
-			list[pos++] = 1;
-			pos += Write_Small(list + pos, c->Index);
-			pos += Write_Seq(list + pos, seq);
-			resends++;
-			entries++;
-		}
-	} while (acks != 8 || resends != 0x20);
-	unsigned char flags = (CloseState_ == 2 || CloseState_ == 4) ? 2 : 0;
-	if (entries != 0) {
-		flags |= 1;
-	}
-	out[9] = flags;
-	int at = 10;
-	if (entries != 0) {
-		out[10] = (unsigned char)entries;
-		at = 11;
-	}
-	out[at++] = (unsigned char)Quality_;
-	if (entries != 0) {
-		memcpy(out + at, list, pos);
-		at += pos;
-	}
-	*len = at;
-	return true;
-}
-
-// 0x854ED0: RC4 both ways.
-void CordCon::Decrypt_Data(unsigned char *data, int len, unsigned short counter)
-{
-	Encrypt_Data(data, len, counter);
-}
-
-// 0x854F00: the datagram's CRC at +5 (over the whole datagram, its own field 0).
-void CordCon::Set_Header_CRC(unsigned char *data, int len)
-{
-	WWPROFILE("CordCon::Set_Header_CRC");
-	*(unsigned long *)(data + 5) = htonl(Cord_CRC(data, len, 0xFFFFFFFF));
-}
-
-// 0x84FA80
-int CordCon::Unknown_84FA80()
-{
-	return CORD_MAX_PACKET;
-}
-
-static void Finish_Datagram(CordCon *con, unsigned char *buf, int len, unsigned short counter)
-{
-	unsigned int crc = Cord_CRC(buf, len, 0xFFFFFFFF);		// 'CordCon::Set_Header_CRC'
-	buf[5] = (unsigned char)(crc >> 24);
-	buf[6] = (unsigned char)(crc >> 16);
-	buf[7] = (unsigned char)(crc >> 8);
-	buf[8] = (unsigned char)crc;
-	con->Encrypt_Data(buf + PACKET_ENCRYPTION_OFFSET, len - PACKET_ENCRYPTION_OFFSET, counter);
-	con->Udp_->Write(buf, len, con->Ip_, con->Port_);		// 'CordCon::pumpInternal Udp_->Write'
-	con->PacketsOut_++;
-}
-
-// 0x850870 ('CordCon:close'), functional (NOT EXACT: the vectors' and wlib's inlined code): with
-// now, every channel's queued and sent records are freed and its acks and resend requests dropped;
-// then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing
-// is queued or due). Nothing changes once closed (4).
-bool CordCon::close(bool now)
-{
-	WWPROFILE("CordCon::close");
-	if (CloseState_ == 4) {
-		return true;
-	}
-	if (now) {
-		for (size_t i = 0; i < Active_.size(); i++) {
-			CordChannelClass *c = Active_[i];
-			while (c->Queue.size() != 0) {
-				c->Queue[0].Free();
-				if (c->Queue[0].SendCount == 0) {
-					Queued_--;
-				}
-				c->Queue.erase(c->Queue.begin());
-			}
-			while (c->Sent.size() != 0) {
-				c->Sent[0].Free();
-				if (c->Sent[0].SendCount == 0) {
-					Queued_--;
-				}
-				c->Sent.erase(c->Sent.begin());
-			}
-			while (c->ToAck.length() != 0) {
-				c->ToAck.remove(0);
-				AcksPending_--;
-			}
-			while (c->Missing.length() != 0) {
-				c->Missing.remove(0);
-				ResendsPending_--;
-			}
-		}
-		Queued_ = 0;
-		AcksPending_ = 0;
-		ResendsPending_ = 0;
-	}
-	if (CloseState_ == 3) {
-		CloseState_ = 4;
-	} else if (CloseState_ == 0) {
-		CloseState_ = 1;
-		pumpClose();
-	}
-	return true;
-}
-
-// 0x850220: the idle close (pump: 90 s without a datagram) 10 s from now at the latest.
-void CordCon::Go_Away()
-{
-	unsigned int t = (unsigned int)time(0) - 80;
-	if ((int)LastReceive_ > (int)t) {
-		LastReceive_ = t;
-	}
-	GoneAway_ = true;
-}
-
-// 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
-// its ack (handlePacket: state 4). State 2 with channel 0 empty: the client logs 'This isn't
-// good... waiting for an ACK on a non-existant msg....' and goes back to 1. Not rebuilt: the
-// 90-second give-up (state 4).
-bool CordCon::pumpClose()
-{
-	if (CloseState_ == 2) {
-		CordChannelClass *c0 = Channels_[0];
-		if (c0->Queue.size() + c0->Sent.size() == 0) {
-			CloseState_ = 1;
-		}
-	}
-	if (CloseState_ != 1) {
-		return false;
-	}
-	if (Queued_ != 0 || ResendsPending_ != 0 || AcksPending_ != 0) {
-		return true;
-	}
-	for (size_t i = 0; i < Active_.size(); i++) {
-		if (Active_[i]->Queue.size() != 0 || Active_[i]->Sent.size() != 0) {
-			return true;
-		}
-	}
-	// the client logs 'All data sent, queueing close packet.'
-	static const char text[] = "CLOSE";
-	CordChannelClass *c = Channels_[0];
-	CordMessageClass m = Empty_Message();
-	m.Length = m.TotalLength = sizeof(text) - 1;
-	m.Data = new unsigned char[m.Length];
-	memcpy(m.Data, text, m.Length);
-	m.Seq = c->NextSeq++;
-	CloseSeq_ = m.Seq;
-	c->Queue.push_back(m);
-	c->LastWrite = (unsigned int)time(0);
-	c->Written++;
-	CloseState_ = 2;
-	Queued_++;
-	return true;
-}
-
-// 0x855100: an empty message on channel 0 (pump: to carry acks, the keep-alive).
-void CordCon::Queue_Empty_Message()
-{
-	CordMessageClass m;
-	m.Length = 0;
-	m.TotalLength = 0;
-	m.Data = NULL;
-	m.Priority = 0;
-	m.SendCount = 0;
-	m.SentTime.setDay(0);
-	m.SentTime.setMsec(0);
-	m.Seq = Channels_[0]->NextSeq++;
-	Channels_[0]->Queue.push_back(m);
-	Channels_[0]->Written++;
-	Queued_++;
-}
-
-// 0x853560, functional (NOT EXACT: Xtime and the vectors' inlined code differ): pumpInternal,
+// 0x853560: pumpInternal,
 // and while acks or resend requests are due with nothing queued, an empty message on channel 0
 // to carry them; the keep-alive (an empty message after 5 s without a send, every second until
 // something arrives), the idle close (90 s without a datagram), and the channels this side
-// opened that are closed and empty leave the active list.
+// opened that are closed and empty leave the active list. The client's Ready_ search steps from r to
+// i, not r + 1 (kept: it loops for good when Ready_[0] and Ready_[i] are other channels).
 bool CordCon::pump(Xtime &now)
 {
 	WWPROFILE("CordCon::pump");
@@ -1134,7 +1353,7 @@ bool CordCon::pump(Xtime &now)
 		LastReceive_ = t;
 	}
 	LastPump_ = t;
-	for (;;) {
+	while (true) {
 		if (GoneAway_) {
 			pumpClose();
 			break;
@@ -1157,16 +1376,19 @@ bool CordCon::pump(Xtime &now)
 		if (!c->IsClosed || c->Queue.size() != 0 || c->Sent.size() != 0) {
 			continue;
 		}
-		if (((c->Index & 1) != 0) == IsServer_) {
+		if (IsServer_ && (c->Index & 1)) {
 			continue;		// the peer's channel
 		}
+		if (!IsServer_ && !(c->Index & 1)) {
+			continue;
+		}
 		c->Mode = 0;
-		while (c->ToAck.length() != 0) {
-			c->ToAck.remove(0);
+		unsigned int seq;
+		while (c->ToAck.removeHead(seq)) {
 			AcksPending_--;
 		}
 		if (c->Incoming.Length() != 0) {
-			for (size_t r = 0; r < Ready_.size(); r++) {
+			for (size_t r = 0; r < Ready_.size(); r = i) {		// sic (the client's)
 				if (Ready_[r] == c) {
 					Ready_.erase(Ready_.begin() + r);
 					break;
@@ -1176,6 +1398,429 @@ bool CordCon::pump(Xtime &now)
 		Active_.erase(Active_.begin() + i);
 		i--;
 		OpenChannels_--;
+	}
+	return true;
+}
+
+static void Finish_Datagram(CordCon *con, unsigned char *buf, int len, unsigned short counter)
+{
+	unsigned int crc = Cord_CRC(buf, len, 0xFFFFFFFF);		// 'CordCon::Set_Header_CRC'
+	buf[5] = (unsigned char)(crc >> 24);
+	buf[6] = (unsigned char)(crc >> 16);
+	buf[7] = (unsigned char)(crc >> 8);
+	buf[8] = (unsigned char)crc;
+	con->Encrypt_Data(buf + PACKET_ENCRYPTION_OFFSET, len - PACKET_ENCRYPTION_OFFSET, counter);
+	con->Udp_->Write(buf, len, con->Ip_, con->Port_);		// 'CordCon::pumpInternal Udp_->Write'
+	con->PacketsOut_++;
+}
+
+// 0x853A30, functional (NOT EXACT: Xtime, the vectors' inlined code and the log calls differ):
+// pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are
+// dropped (the client logs 'Removing unreliable'); then the records by priority
+// (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into
+// datagrams of under 500 bytes. A first send counts in flight; a resend counts as a loss (a
+// timeout unless the peer asked for it). Sent records wait at the end of the channel's sent list
+// for their ack; 0-byte ones are dropped. The header byte (Quality_) follows the share of
+// reliable sends that were resends.
+bool CordCon::pumpInternal(Xtime &now)
+{
+	WWPROFILE("CordCon::pumpInternal");
+	unsigned char head[0x100];
+	unsigned char buf[0x400];
+	int hlen = 0;
+	int pos = 0;
+	unsigned short counter = 0;
+	int channel = 0;
+	int index = 0;
+	CordMessageClass *m = 0;
+	int reliable = 0;
+	int resent = 0;
+	Xtime expiry(now);
+	Xtime threshold(now);
+	Xtime timeout(now);
+	pumpClose();
+	expiry.setDay(0);
+	expiry.setMsec(Stats_->RoundTrip * 6);
+	Stats_->Update(now);
+	Stats_->Get_Resend_Timeout(timeout);
+	threshold -= timeout;
+	if (--ExpireCountdown_ < 1) {
+		WWPROFILE("CordCon::pumpInternal RemoveExpired");
+		ExpireCountdown_ = 8;
+		for (size_t i = 0; i < Active_.size(); i++) {
+			CordChannelClass *c = Active_[i];
+			if (c->Mode != 1 && c->Mode != 4) {
+				continue;
+			}
+			std::vector<CordMessageClass>::iterator it = c->Sent.begin();
+			while (it != c->Sent.end()) {
+				if (it->SendCount != 0 && (now - it->SentTime) > expiry) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					// the client logs 'Removing unreliable' (INFMSG, line 1749)
+					Stats_->InFlight -= it->Length;
+					Stats_->On_Loss(it->Length, true);
+					(*it).Free();
+					it = c->Sent.erase(it);
+					continue;
+				}
+				++it;
+			}
+		}
+	}
+	while (getHighestPriorityMessage(&channel, &index, threshold, &m, now)) {
+		if (!Stats_->Allow(channel, m->Length, m->SendCount, now)) {
+			break;
+		}
+		CordChannelClass *c = Channels_[channel];
+		MessagesSent_++;
+		BytesSent_ += m->Length;
+		Stats_->SecondBytes += m->Length;
+		if (m->SendCount == 0) {
+			if (m->Length != 0 && c->Mode == 3) {
+				reliable++;
+			}
+			Stats_->Add_In_Flight(m->Length);
+		} else {
+			Resends_++;
+			if (m->Length != 0 && c->Mode == 3) {
+				reliable++;
+				resent++;
+			}
+			BytesResent_ += m->Length;
+			Stats_->On_Loss(m->Length, m->SentTime.getDay() != 0);
+		}
+		if (hlen == 0) {
+			buildHeader(head, &hlen, &counter);
+			memcpy(buf, head, hlen);
+			pos = hlen;
+		}
+		int mlen = 0;
+		if ((int)(m->Length + 10 + pos) < CORD_MAX_PACKET) {
+			buildMsgHeader(buf + pos, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
+			pos += mlen;
+		} else {
+			Finish_Datagram(this, buf, pos, counter);
+			buildHeader(head, &hlen, &counter);
+			memcpy(buf, head, hlen);
+			buildMsgHeader(buf + hlen, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
+			pos = hlen + mlen;
+		}
+		memcpy(buf + pos, m->Data, m->Length);
+		pos += m->Length;
+		if (m->SendCount == 0) {
+			Queued_--;
+		}
+		if (m->Length == 0) {
+			c->Queue.erase(c->Queue.begin() + index);
+		} else {
+			m->SentTime = now;
+			m->SendCount++;
+			if (m->SendCount == 1) {
+				c->Sent.insert(c->Sent.end(), 1, *m);
+				c->Queue.erase(c->Queue.begin() + index);
+			} else if (m != &c->Sent.back()) {
+				CordMessageClass copy = *m;
+				c->Sent.erase(c->Sent.begin() + index);
+				c->Sent.insert(c->Sent.end(), 1, copy);
+			}
+		}
+	}
+	if (pos != 0) {
+		Finish_Datagram(this, buf, pos, counter);
+		LastSend_ = now.getTime_t();
+	}
+	for (int i = reliable; i > 0; i--) {
+		Quality_ = (int)((unsigned int)(Quality_ * 19 + (100 - ((reliable - resent) * 100) / reliable)) / 20);
 	}
 	return true;
 }
@@ -1309,166 +1954,200 @@ int __stdcall Cord_Get_Seq(const unsigned char *in, unsigned int *value)	// NAME
 	return 4;
 }
 
-// 0x853A30, functional (NOT EXACT: Xtime, the vectors' inlined code and the log calls differ):
-// pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are
-// dropped (the client logs 'Removing unreliable'); then the records by priority
-// (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into
-// datagrams of under 500 bytes. A first send counts in flight; a resend counts as a loss (a
-// timeout unless the peer asked for it). Sent records wait at the end of the channel's sent list
-// for their ack; 0-byte ones are dropped. The header byte (Quality_) follows the share of
-// reliable sends that were resends.
-bool CordCon::pumpInternal(Xtime &now)
+// 0x854D00: RC4 with a key per datagram: the session key, the length, the datagram counter, 0.
+void CordCon::Encrypt_Data(unsigned char *data, int len, unsigned short counter)
 {
-	WWPROFILE("CordCon::pumpInternal");
-	unsigned char head[0x100];
-	unsigned char buf[0x400];
-	int hlen = 0;
-	int pos = 0;
-	unsigned short counter = 0;
-	int channel = 0;
-	int index = 0;
-	CordMessageClass *m = 0;
-	int reliable = 0;
-	int resent = 0;
-	Xtime expiry(now);
-	Xtime threshold(now);
-	Xtime timeout(now);
-	pumpClose();
-	expiry.setDay(0);
-	expiry.setMsec(Stats_->RoundTrip * 6);
-	Stats_->Update(now);
-	Stats_->Get_Resend_Timeout(timeout);
-	threshold -= timeout;
-	if (--ExpireCountdown_ < 1) {
-		WWPROFILE("CordCon::pumpInternal RemoveExpired");
-		ExpireCountdown_ = 8;
-		for (size_t i = 0; i < Active_.size(); i++) {
-			CordChannelClass *c = Active_[i];
-			if (c->Mode != 1 && c->Mode != 4) {
-				continue;
-			}
-			std::vector<CordMessageClass>::iterator it = c->Sent.begin();
-			while (it != c->Sent.end()) {
-				if (it->SendCount != 0 && (now - it->SentTime) > expiry) {
-					Stats_->InFlight -= it->Length;
-					Stats_->On_Loss(it->Length, true);
-					(*it).Free();
-					it = c->Sent.erase(it);
-					continue;
-				}
-				++it;
-			}
-		}
+	WWPROFILE("CordCon::Encrypt_Data");
+	if (Key_ == 0) {
+		return;
 	}
-	while (getHighestPriorityMessage(&channel, &index, threshold, &m, now)) {
-		if (!Stats_->Allow(channel, m->Length, m->SendCount, now)) {
-			break;
-		}
-		CordChannelClass *c = Channels_[channel];
-		MessagesSent_++;
-		BytesSent_ += m->Length;
-		Stats_->SecondBytes += m->Length;
-		if (m->SendCount == 0) {
-			if (m->Length != 0 && c->Mode == 3) {
-				reliable++;
-			}
-			Stats_->Add_In_Flight(m->Length);
-		} else {
-			Resends_++;
-			if (m->Length != 0 && c->Mode == 3) {
-				reliable++;
-				resent++;
-			}
-			BytesResent_ += m->Length;
-			Stats_->On_Loss(m->Length, m->SentTime.getDay() != 0);
-		}
-		if (hlen == 0) {
-			buildHeader(head, &hlen, &counter);
-			memcpy(buf, head, hlen);
-			pos = hlen;
-		}
-		int mlen = 0;
-		if ((int)(m->Length + 10 + pos) < CORD_MAX_PACKET) {
-			buildMsgHeader(buf + pos, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
-			pos += mlen;
-		} else {
-			Finish_Datagram(this, buf, pos, counter);
-			buildHeader(head, &hlen, &counter);
-			memcpy(buf, head, hlen);
-			buildMsgHeader(buf + hlen, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
-			pos = hlen + mlen;
-		}
-		memcpy(buf + pos, m->Data, m->Length);
-		pos += m->Length;
-		if (m->SendCount == 0) {
-			Queued_--;
-		}
-		if (m->Length == 0) {
-			c->Queue.erase(c->Queue.begin() + index);
-		} else {
-			m->SentTime = now;
-			m->SendCount++;
-			if (m->SendCount == 1) {
-				c->Sent.insert(c->Sent.end(), 1, *m);
-				c->Queue.erase(c->Queue.begin() + index);
-			} else if (m != &c->Sent.back()) {
-				CordMessageClass copy = *m;
-				c->Sent.erase(c->Sent.begin() + index);
-				c->Sent.insert(c->Sent.end(), 1, copy);
-			}
-		}
+	struct {
+		__int64 Key;
+		int Length;
+		unsigned short Counter;
+		unsigned short Zero;
+	} key;
+	memcpy(&key.Key, &Key_, sizeof(Key_));
+	key.Length = len;
+	key.Counter = counter;
+	key.Zero = 0;
+	RC4Class rc4;
+	{
+		WWPROFILE("rc4.Prepare_Key");
+		rc4.Prepare_Key((unsigned char *)&key, 16);
 	}
-	if (pos != 0) {
-		Finish_Datagram(this, buf, pos, counter);
-		LastSend_ = now.getTime_t();
+	{
+		WWPROFILE("rc4.RC4");
+		rc4.RC4(data, len);
 	}
-	for (int i = reliable; i > 0; i--) {
-		Quality_ = (int)((unsigned int)(Quality_ * 19 + (100 - ((reliable - resent) * 100) / reliable)) / 20);
+}
+
+// 0x854ED0: RC4 both ways.
+void CordCon::Decrypt_Data(unsigned char *data, int len, unsigned short counter)
+{
+	Encrypt_Data(data, len, counter);
+}
+
+// 0x854F00: the datagram's CRC at +5 (over the whole datagram, its own field 0).
+void CordCon::Set_Header_CRC(unsigned char *data, int len)
+{
+	WWPROFILE("CordCon::Set_Header_CRC");
+	*(unsigned long *)(data + 5) = htonl(Cord_CRC(data, len, 0xFFFFFFFF));
+}
+
+// 0x854FC0
+bool CordCon::buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
+	unsigned char frag, char flags)
+{
+	WWPROFILE("CordCon::buildMsgHeader");
+	int pos, n;
+	if ((unsigned short)size < 0x80) {
+		pos = 1;
+		*out = (unsigned char)size;
+	} else {
+		*(unsigned short *)out = htons((unsigned short)size | 0x8000);
+		pos = 2;
 	}
+	if ((unsigned short)channel < 0x80) {
+		out[pos] = (unsigned char)channel;
+		n = 1;
+	} else {
+		*(unsigned short *)(out + pos) = htons((unsigned short)channel | 0x8000);
+		n = 2;
+	}
+	pos += n;
+	if (seq < 0x8000) {
+		*(unsigned short *)(out + pos) = htons((unsigned short)seq);
+		n = 2;
+	} else {
+		*(unsigned long *)(out + pos) = htonl(seq | 0x80000000);
+		n = 4;
+	}
+	pos += n;
+	unsigned char type = (unsigned char)Channels_[channel]->Mode | (flags << 4);
+	if (size > CORD_FRAGMENT_SIZE) {
+		type |= 0x10;
+	}
+	out[pos++] = type;
+	if (size > CORD_FRAGMENT_SIZE) {
+		out[pos++] = frag;
+	}
+	*len = pos;
 	return true;
 }
 
-#define CORD_MIN(a, b)	((a) < (b) ? (a) : (b))
-
-// 0x84FDE0: the counts UDPConnection reads (Receive, Get_Stats).
-void CordCon::getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
-	int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle)
+// 0x855100: an empty message on channel 0 (pump: to carry acks, the keep-alive).
+void CordCon::Queue_Empty_Message()
 {
-	*messages_sent = MessagesSent_;
-	*packets_in = PacketsIn_;
-	*bytes_sent = BytesSent_;
-	*bytes_read = BytesRead_;
-	*resends = Resends_;
-	*dup_acks = DupAcks_;
-	*window = CORD_MIN(Stats_->MaxWindow, CORD_MIN(Stats_->Window, Stats_->PeerWindow));
-	*in_flight = Stats_->InFlight;
-	*round_trip = Stats_->RoundTrip;
-	*quality = (unsigned int)(HeaderIn_ + Quality_) >> 1;
-	*idle = time(0) - LastReceive_;
+	CordMessageClass m;
+	m.Length = 0;
+	m.TotalLength = 0;
+	m.Data = NULL;
+	m.Priority = 0;
+	m.SendCount = 0;
+	m.SentTime.setDay(0);
+	m.SentTime.setMsec(0);
+	m.Seq = Channels_[0]->NextSeq++;
+	Channels_[0]->Queue.push_back(m);
+	Channels_[0]->Written++;
+	Queued_++;
 }
 
-// 0x8501A0: marks a channel closed (UDPConnection::Send_Data after a close-channel send).
-bool CordCon::closec(int channel)
+// 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests).
+bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 {
-	Channels_[channel]->IsClosed = true;
-	return false;
-}
-
-// 0x8501D0 (`? true : false`: sete al without the xor)
-bool CordCon::Is_Closed()
-{
-	if (Udp_ == NULL) {
-		return true;
+	WWPROFILE("CordCon::buildHeader");
+	unsigned char list[0x320];
+	int pos = 0;
+	out[0] = IsServer_ ? 4 : 5;
+	int acks = 0;
+	int resends = 0;
+	int entries = 0;
+	int last = 0;
+	unsigned int seq = 0;
+	*(unsigned short *)(out + 1) = htons((unsigned short)Session_);
+	*counter = (unsigned short)PacketsOut_;
+	*(unsigned short *)(out + 3) = htons(*counter);
+	*(unsigned long *)(out + 5) = htonl(0);
+	int count = Active_.size();
+	int i;
+	for (i = 0; i < count; i++) {
+		if (acks >= 8) {
+			break;
+		}
+		CordChannelClass *c = Active_[i];
+		if (c->Mode == 3 && c->ToAck.length() != 0 && c->Expected >= 2) {
+			int any = 0;
+			int k = 0;
+			int n = c->ToAck.length();
+			for (int j = 0; j < n; j++) {
+				c->ToAck.get(seq, k);
+				if (seq <= c->Expected - 2) {
+					c->ToAck.remove(k);
+					AcksPending_--;
+					any = true;
+				} else {
+					k++;
+				}
+			}
+			if (any) {
+				list[pos++] = 2;
+				pos += Cord_Put_Small(list + pos, (unsigned short)c->Index);
+				pos += Cord_Put_Seq(list + pos, c->Expected - 2);
+				acks++;
+				entries++;
+			}
+		}
 	}
-	return (CloseState_ == 4) ? true : false;
+	i = -1;
+	do {
+		i++;
+		if (i == (int)Active_.size()) {
+			if (entries == last) {
+				break;
+			}
+			last = entries;
+			i = 0;
+		}
+		if (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {
+			AcksPending_--;
+			list[pos++] = 0;
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, seq);
+			acks++;
+			entries++;
+		}
+		unsigned int missing;
+		if (resends < 0x20 && Active_[i]->Missing.removeHead(missing)) {
+			ResendsPending_--;
+			list[pos++] = 1;
+			pos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);
+			pos += Cord_Put_Seq(list + pos, missing);
+			resends++;
+			entries++;
+		}
+	} while (acks != 8 || resends != 0x20);
+	unsigned char flags = 0;
+	if (CloseState_ == 2 || CloseState_ == 4) {
+		flags = 2;
+	}
+	if (entries != 0) {
+		flags |= 1;
+	}
+	out[9] = flags;
+	int at = 10;
+	if (entries != 0) {
+		out[10] = (unsigned char)entries;
+		at = 11;
+	}
+	out[at++] = (unsigned char)Quality_;
+	if (entries != 0) {
+		memcpy(out + at, list, pos);
+		at += pos;
+	}
+	*len = at;
+	return true;
 }
-
-// 0x850200: returns false; no caller and no string in the client (between Is_Closed and Go_Away).
-bool CordCon::Unknown_850200()
-{
-	return false;
-}
-
 
 /*
 **	Reconstruction notes

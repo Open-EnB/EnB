@@ -19,14 +19,14 @@
 #include "pk.h"
 #include <string>
 
-// What GlobalLoginPacketClass carries and its handler 0x76B170 copies to the login task (0x9C bytes; step 16 copies it whole)
+// What GlobalLoginPacketClass carries and its handler 0x76B170 copies to the login task (0xA0 bytes: the __int64 at +0x20 aligns it to 8, ui_login.cpp's 0x5AEA60 copies it so; step 16 copies it whole)
 struct LoginTicketInfoClass	// NAME 1: what it holds
 {
-	LoginTicketInfoClass() : Unknown20(0), Unknown24(0) {}	// (LoginTaskClass's constructors)
+	LoginTicketInfoClass() : Unknown20(0) {}				// (LoginTaskClass's constructors)
 	std::string EA_Customer;							// +0x00 NAME 3: the client's Print text 'EACustomer='
 	std::string EA_Ticket;								// +0x10 NAME 3: the client's Print text 'EATicket='
-	int Unknown20;										// +0x20 (with Unknown24 an __int64 on the wire)
-	int Unknown24;										// +0x24
+	__int64 Unknown20;									// +0x20 (an __int64 on the wire; ui_login.cpp's 0x5AEA60 copies it as one)
+														// (+0x9C: the tail padding to 0xA0)
 	std::string Metrics_ID;								// +0x28 NAME 3: the client's Print text 'MetricsID='
 	std::string Login_Key;								// +0x38 NAME 1: ClientTaskClass::Init's login key ('lkey')
 	std::string EMail;									// +0x48 NAME 3: the client's Print text 'EMail='
@@ -54,7 +54,7 @@ public:
 
 	int Unknown0C;	// +0x0C (never set)  // NAME 1: neutral (D10)
 	LoginTicketInfoClass Ticket_Info;	// +0x10  // NAME 1: copied to the login task's
-	int Unknown0AC;	// +0xAC (never set)  // NAME 1: neutral (D10)
+	// +0xAC: Ticket_Info's tail padding (never set; Ticket_Info is 0xA0 bytes)
 	short Referral_Available;	// +0xB0  // NAME 3: the client's Print text 'ReferralAvailable=' (YES / NO)
 	int Total_Referral_Points;	// +0xB4  // NAME 3: the client's Print text 'TotalReferralPoints='
 	int Spent_Referral_Points;	// +0xB8  // NAME 3: the client's Print text 'SpentReferralPoints='

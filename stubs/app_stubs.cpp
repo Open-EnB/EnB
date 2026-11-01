@@ -217,16 +217,6 @@ void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, c
 	}
 }
 
-// ------------------------------------------------------------------------- VERB_UPDATE's Print (pkverbrequest.cpp)
-
-// 0x84C470: a verb's name from the client's table 0xBB1218 (not known yet: its number)
-char *Value_To_String(char *buf, int size, VerbEnum verb)
-{
-	STUB_CALLED("Value_To_String(VerbEnum) (0x84C470)");
-	_snprintf(buf, size, "%d", (int)verb);
-	return buf;
-}
-
 // ------------------------------------------------------------------------- STARBASE_SET's Print (pkstarbasetow.cpp)
 
 // sector_types.cpp 0x84A3B0: a sector type's name from the client's table 0xBB0AC0 (3 names)

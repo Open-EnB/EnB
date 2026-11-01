@@ -67,7 +67,8 @@ CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpc
         r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp',
         r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list
         r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path (opcodes 11-14)
-        r'app\shared\avatar_desc.cpp']       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)
+        r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)
+        r'app\common\unknown_verb.cpp']      # Value_To_String(VerbEnum) (pkverbrequest.cpp and the other packets' logs)
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
 for _sub in ('', 'gameedit'):
@@ -108,6 +109,9 @@ def build(out):
         # avatar_desc.cpp's typed adds (kv_encoder_base.h's, D104) are declared only under this macro, and
         # an earlier file of this one translation unit includes kv_encoder_base.h first
         f.write('#define UNKNOWN_PACKETDATA_BODIES\n')
+        # D176: CordCon's harness counters live in udpreplay's side table (cord_counters.h defines
+        # CORD_HARNESS_COUNT, which cordcon.cpp leaves empty otherwise)
+        f.write('#include "cord_counters.h"\n')
         for p in WWUDP + CONN:
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
             if p.endswith('udpconn.cpp'):

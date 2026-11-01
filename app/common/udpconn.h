@@ -70,6 +70,7 @@ public:
 	bool Send_Data(int len, int channel, int priority, bool reliable, bool close);	// NAME 2: what it does
 	void Open_Fixed_Channel(int channel);								// 0x82D8C0 (channel -2 .. -15)  // NAME 2: what it does
 	bool Is_Fixed_Channel(unsigned int channel);						// 0x82D940: the default or one of the 16  // NAME 2: what it does
+	void Unknown_82DCB0();											// 0x82DCB0: no caller (Name = "unknown")  // NAME 1 [Unknown_82DCB0]: no caller, no string
 
 	Dictionary<UDPChannelKeyClass, UDPChannelClass> Channels;	// +0x08 NAME 2: the hashed channels
 	Unknown_RateClass InRate;		// +0x40 NAME 2: the bytes in (Receive's samples)

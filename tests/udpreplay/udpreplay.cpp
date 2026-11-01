@@ -52,11 +52,20 @@
 #include <deque>
 #include "cordcon.h"
 #include "cordmgr.h"
+#include "cord_counters.h"
 #include "udp.h"
 #include "..\..\..\libs\wwonline\wlib\xtime.h"
 
 extern unsigned __int64 Replay_Time_Ms;		// wtime_replay.cpp
 static int Window_Limit = 65535;
+
+// The counters CordCon's handlePacket counts (D176: a side table, the class has the client's layout).
+static std::map<const CordCon *, CordHarnessCounters> Cord_Counters;
+
+CordHarnessCounters *Cord_Harness_Counters(const CordCon *con)
+{
+	return &Cord_Counters[con];
+}
 // --conn: deliver through app\common's UDPConnection and stream framing (conn_replay.cpp)
 extern bool Conn_Mode;
 extern int Conn_Errors;
@@ -73,6 +82,10 @@ void Unknown_4BC130(const char *, const char *, const char *, int, const char *,
 {
 	LogLines++;
 }
+void Unknown_4BC000(const char *, const char *, const char *, int, const char *, ...)	// Pump's ack2 note
+{
+	LogLines++;
+}
 
 // ------------------------------------------------------------------------- the replay socket
 
@@ -86,7 +99,16 @@ struct ReplayState
 
 static std::map<const UDP *, ReplayState> Replay;
 
-UDP::UDP() : fd(-1), myIP(0), myPort(0)
+// The datagrams a receiving manager did not take (outside CordMgr, whose +0x58 is the client's per-socket limit).
+static std::map<const CordMgr *, int> Unexpected;
+static int &Unexpected_Count(const CordMgr *mgr)
+{
+	return Unexpected[mgr];
+}
+
+// wnet's UDP (libs\wwonline\wnet\udp.h through app\wwudp\udp.h): the members the wwudp code calls,
+// defined here instead of wnet's udp.cpp (not linked into this program).
+UDP::UDP() : fd(-1), unknownFD(0), myIP(0), myPort(0)
 {
 	memset(&addr, 0, sizeof(addr));
 	Replay[this];
@@ -97,20 +119,20 @@ UDP::~UDP()
 	Replay.erase(this);
 }
 
-int UDP::Bind(unsigned int ip, unsigned short port)
+sint32 UDP::Bind(uint32 ip, uint16 port)
 {
 	myIP = ip;
 	myPort = port;
 	return 0;
 }
 
-int UDP::Write(unsigned char *msg, unsigned int len, unsigned int ip, unsigned short port)
+sint32 UDP::Write(uint8 *msg, uint32 len, uint32 ip, uint16 port)
 {
 	Replay[this].Out.push_back(std::vector<unsigned char>(msg, msg + len));
 	return (int)len;
 }
 
-int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
+sint32 UDP::Read(uint8 *msg, uint32 len, sockaddr_in *from)
 {
 	ReplayState &s = Replay[this];
 	if (s.In.empty()) {
@@ -128,12 +150,23 @@ int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
 }
 
 // CordMgr::Wait's select: the replay never waits (nothing calls UDPConnection::Connect(true) here).
-int UDP::Wait(int, int, fd_set &, fd_set &)
+int UDP::Wait(sint32, sint32, fd_set &, fd_set &)
 {
 	return 0;
 }
 
-bool UDP::getLocalAddr(unsigned int &ip, unsigned short &port)
+// CordMgr::Listen's and Connect's socket buffers (setsockopt in wnet's udp.cpp): nothing to set here.
+bit8 UDP::SetInputBuffer(uint32)
+{
+	return TRUE;
+}
+
+bit8 UDP::SetOutputBuffer(uint32)
+{
+	return TRUE;
+}
+
+bit8 UDP::getLocalAddr(uint32 &ip, uint16 &port)
 {
 	ip = myIP;
 	port = myPort;
@@ -194,10 +227,10 @@ static void Make_Side(Session *s, Side &side, bool server)
 	Replay[side.Sock].FromPort = server ? 1024 : 3500;
 	CordDataSocketClass ds = { side.Sock, 0, 0, 0 };
 	side.Mgr.DataSockets_.addTail(ds);
-	unsigned int key[2];
-	memcpy(key, s->Key, 8);
+	__int64 key;
+	memcpy(&key, s->Key, 8);
 	side.Con = new CordCon(server ? CLIENT_IP : SERVER_IP, server ? 1024 : 3500, s->Id, 0, server, side.OutSock,
-		Window_Limit, key[0], key[1]);
+		Window_Limit, key);
 	side.Mgr.Connections_.addTail(side.Con);
 }
 
@@ -291,7 +324,7 @@ static void Deliver(Side &rx)
 		}
 		char type = (char)buf[0];
 		if (!((type == 4 || type == 5) && rx.Mgr.Process_CORD_Packet(buf, len, &from, rx.Sock, 0, type))) {
-			rx.Mgr.Unexpected_++;
+			Unexpected_Count(&rx.Mgr)++;
 		}
 	}
 }
@@ -337,7 +370,7 @@ static void Write_Side(FILE *out, Session *s, Side &tx, const char *dir, const c
 			tx.Con->Active_.push_back(tc);
 		}
 	}
-	if (!tx.Con->write(channel, data.empty() ? 0 : &data[0], (unsigned int)data.size(), 0)) {
+	if (!tx.Con->write(channel, (unsigned int)data.size(), data.empty() ? 0 : &data[0], 0)) {
 		fprintf(out, "E %s %s write refused on channel %d\n", dir, name, channel);
 	}
 }
@@ -361,6 +394,7 @@ static void Handshake(FILE *out, const char *line)
 	Replay[sock].FromPort = (unsigned short)port;
 	CordDataSocketClass ds = { sock, 0, 0, 0 };
 	mgr.DataSockets_.addTail(ds);
+	mgr.MaxPerSocket_ = 8;	// as the client's first Connect leaves it, so Connect takes this socket
 	mgr.Connect(ip, (unsigned short)port, true);	// the session id; its record is Pending_'s last
 	CordConnectingClass *c = 0;
 	mgr.Pending_.getTail(c);
@@ -576,14 +610,14 @@ int main(int argc, char **argv)
 		tx.Con->Encrypt_Data(&wire[5], (int)wire.size() - 5, (unsigned short)counter);
 		Replay[rx.Sock].In.push_back(wire);
 
-		int rejected = rx.Con->Rejected_;
-		int unexpected = rx.Mgr.Unexpected_;
+		int rejected = Cord_Harness_Counters(rx.Con)->Rejected;
+		int unexpected = Unexpected_Count(&rx.Mgr);
 		Deliver(rx);
 		const char *status = "ok";
-		if (rx.Mgr.Unexpected_ != unexpected) {
+		if (Unexpected_Count(&rx.Mgr) != unexpected) {
 			status = "nocon";
 			s->NoCon[d]++;
-		} else if (rx.Con->Rejected_ != rejected) {
+		} else if (Cord_Harness_Counters(rx.Con)->Rejected != rejected) {
 			status = "rejected";
 			s->Rejected[d]++;
 		} else {
@@ -615,7 +649,7 @@ int main(int argc, char **argv)
 				CordCon *c = d == 0 ? s->Client.Con : s->Server.Con;
 				fprintf(out, "L %s %s sent %d dropped %d resends %d resend-requests %d dup-acks %d close-state %d "
 					"queued %d unacked %d\n", it->first.c_str(), d == 0 ? "C" : "S", s->LoopSent[d],
-					s->LoopDropped[d], c->Resends_, c->ResendRequests_, c->DupAcks_, c->CloseState_, c->Queued_,
+					s->LoopDropped[d], c->Resends_, Cord_Harness_Counters(c)->ResendRequests, c->DupAcks_, c->CloseState_, c->Queued_,
 					Loop_Unacked(c));
 			}
 		}
@@ -659,8 +693,8 @@ int main(int argc, char **argv)
 			fprintf(out, "S %s %s datagrams %d accepted %d rejected %d nocon %d delivered %d generated %d "
 				"peer-accepts %d openc-mismatch %d acks-matched %d dup-acks %d resend-requests %d\n",
 				it->first.c_str(), d == 0 ? "C" : "S", s->Datagrams[d], s->Accepted[d], s->Rejected[d],
-				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d], rx->AcksMatched_,
-				rx->DupAcks_, rx->ResendRequests_);
+				s->NoCon[d], s->Delivered[d], s->Generated[d], s->PeerOk[d], s->OpenMismatch[d],
+				Cord_Harness_Counters(rx)->AcksMatched, rx->DupAcks_, Cord_Harness_Counters(rx)->ResendRequests);
 		}
 	}
 	if (Conn_Mode) {

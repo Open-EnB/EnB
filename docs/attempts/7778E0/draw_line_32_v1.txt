@@ -1,0 +1,103 @@
+#include "surface.h"
+#include <stdlib.h>
+
+class UnknownHtmlDrawClass
+{
+public:
+	void Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
+	Surface *Surf;
+};
+
+static unsigned int Alpha32;
+static unsigned int InvAlpha32;
+
+#define BLEND32(dst, col, alph) \
+	{ \
+		c = *(dst); \
+		Alpha32 = (alph) & 0xFF; \
+		InvAlpha32 = 0xFF - Alpha32; \
+		*(dst) = ((((c & 0xFF0000) * InvAlpha32 + ((col) & 0xFF0000) * Alpha32) & 0xFF0000FF) | \
+			(((c & 0xFF00) * InvAlpha32 + ((col) & 0xFF00) * Alpha32) & 0xFF0000) | \
+			((c & 0xFF) * InvAlpha32 + ((col) & 0xFF) * Alpha32)) >> 8; \
+	}
+
+// @0x7778E0
+void UnknownHtmlDrawClass::Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+{
+	int count, right, bottom, pitch, dx, dy, sx, sy, err;
+	unsigned int *buffer, *p;
+	unsigned int c;
+
+	count = 0;
+	right = clipx + clipw;
+	bottom = clipy + cliph;
+
+	buffer = (unsigned int *)Surf->Lock();
+	if (buffer == NULL)
+		return;
+
+	pitch = Surf->Stride() / 4;
+	p = buffer + (y1 * pitch + x1);
+	dx = x2 - x1;
+	dy = y2 - y1;
+	if (dx < 0) {
+		dx = -dx;
+		sx = -1;
+	} else {
+		sx = 1;
+	}
+	if (dy < 0) {
+		dy = -dy;
+		sy = -1;
+	} else {
+		sy = 1;
+	}
+
+	if (dy < dx) {
+		err = dx >> 2;
+		while (x1 != x2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+				BLEND32(p, color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dy;
+			if (err > dx) {
+				err -= dx;
+				y1 += sy;
+				p += sy * pitch;
+			}
+			x1 += sx;
+			p += sx;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+				BLEND32(p, color, alpha);
+		}
+	} else {
+		err = dy >> 1;
+		while (y1 != y2) {
+			if (count == 1) {
+				if (x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+				BLEND32(p, color, alpha);
+				}
+				count = 0;
+			}
+			count++;
+			err += dx;
+			if (err > dy) {
+				err -= dy;
+				x1 += sx;
+				p += sx;
+			}
+			y1 += sy;
+			p += sy * pitch;
+		}
+		if (count == 1 && x1 >= clipx && x1 < right && y1 >= clipy && y1 < bottom) {
+				BLEND32(p, color, alpha);
+		}
+	}
+
+	Surf->Unlock();
+}

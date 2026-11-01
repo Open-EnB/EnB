@@ -1,0 +1,144 @@
+// Earth & Beyond client (reconstruction): app\client\html\htmlview.cpp (PARTIAL). Notes at the end of the file.
+#include "..\..\..\wwlib\surface.h"
+#include <stdlib.h>
+
+class UnknownHtmlDrawClass  // NAME 1: the object 0x7767A0 draws its frames through; +0 its surface
+{
+public:
+	void Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised);
+	void Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
+	void Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
+	void Draw_Line_24(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
+	void Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
+
+	Surface *Surf;
+};
+
+// @0x777630
+void UnknownHtmlDrawClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
+{
+	int light = 0xFFFFFF;
+	int dark = 0;
+	if (!raised) {
+		light = 0;
+		dark = 0xFFFFFF;
+	}
+
+	for (int i = 0; i < thickness; i++) {
+		Draw_Line(x + i - 1, y + i, x + width - 1 - i - 1, y + i, clipx, clipy, clipw, cliph, light, 0x7F);
+		Draw_Line(x + i, y + height - 1 - i, x + width - 1 - i, y + height - 1 - i, clipx, clipy, clipw, cliph, dark, 0x7F);
+		Draw_Line(x + i, y + i, x + i, y + height - 1 - i, clipx, clipy, clipw, cliph, light, 0x7F);
+		Draw_Line(x + width - 1 - i, y + i - 1, x + width - 1 - i, y + height - 1 - i - 1, clipx, clipy, clipw, cliph, dark, 0x7F);
+	}
+}
+
+// @0x7777C0
+void UnknownHtmlDrawClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+{
+	if (Surf->Bytes_Per_Pixel() == 4) {
+		Draw_Line_32(x1, y1, x2, y2, clipx, clipy, clipw, cliph, color, alpha);
+	} else if (Surf->Bytes_Per_Pixel() == 3) {
+		Draw_Line_24(x1, y1, x2, y2, clipx, clipy, clipw, cliph, color, alpha);
+	} else if (Surf->Bytes_Per_Pixel() == 2) {
+		Draw_Line_16(x1, y1, x2, y2, clipx, clipy, clipw, cliph, color, alpha);
+	}
+}
+
+#pragma auto_inline(off)
+// @0x777EC0
+void UnknownHtmlDrawClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
+{
+}
+#pragma auto_inline(on)
+
+
+static unsigned int Alpha16;
+static unsigned int InvAlpha16;
+
+#define BLEND16(dst, col, alpha) \
+	{ \
+		unsigned int c = *(dst); \
+		Alpha16 = (alpha) & 0xFF; \
+		InvAlpha16 = 0xFF - Alpha16; \
+		*(dst) = (unsigned short)(((((c & 0x3E0) * InvAlpha16 + ((col) & 0x3E0) * Alpha16) >> 8) & 0x3E0) | \
+			((((c & 0x7C00) * InvAlpha16 + ((col) & 0x7C00) * Alpha16) >> 8) & 0x7C00) | \
+			(((c & 0x1F) * InvAlpha16 + ((col) & 0x1F) * Alpha16) >> 8)); \
+	}
+
+// @0x777EE0
+void UnknownHtmlDrawClass::Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+{
+	int count, right, bottom, pitch, dx, dy, sx, sy, err, x, y;
+	unsigned short *buffer, *p;
+
+	count = 0;
+	right = clipx + clipw;
+	bottom = clipy + cliph;
+
+	buffer = (unsigned short *)Surf->Lock();
+	if (buffer == NULL)
+		return;
+
+	pitch = Surf->Stride() / 2;
+	x = x1;
+	y = y1;
+	p = buffer + y * pitch + x;
+	dx = x2 - x;
+	dy = y2 - y;
+	if (dx < 0) {
+		dx = -dx;
+		sx = -1;
+	} else {
+		sx = 1;
+	}
+	if (dy < 0) {
+		dy = -dy;
+		sy = -1;
+	} else {
+		sy = 1;
+	}
+
+	if (dy < dx) {
+		err = dx >> 2;
+		while (x != x2) {
+			if (count == 1) {
+				if (x >= clipx && x < right && y >= clipy && y < bottom)
+					BLEND16(p, (unsigned int)color, alpha);
+				count = 0;
+			}
+			count++;
+			err += dy;
+			if (err > dx) {
+				err -= dx;
+				y += sy;
+				p += sy * pitch;
+			}
+			x += sx;
+			p += sx;
+		}
+		if (count == 1 && x >= clipx && x < right && y >= clipy && y < bottom)
+			BLEND16(p, (unsigned int)color, alpha);
+	} else {
+		err = dy >> 1;
+		while (y != y2) {
+			if (count == 1) {
+				if (x >= clipx && x < right && y >= clipy && y < bottom)
+					BLEND16(p, (unsigned int)color, alpha);
+				count = 0;
+			}
+			count++;
+			err += dx;
+			if (err > dy) {
+				err -= dy;
+				x += sx;
+				p += sx;
+			}
+			y += sy;
+			p += sy * pitch;
+		}
+		if (count == 1 && x >= clipx && x < right && y >= clipy && y < bottom)
+			BLEND16(p, (unsigned int)color, alpha);
+	}
+
+	Surf->Unlock();
+}

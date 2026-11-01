@@ -1,0 +1,106 @@
+// CordMgr::Connect 0x858EC0: byte-exact in a scratch compile (appfile.py match, 2026-11-01, NW3) with these
+// header changes, which wait for the user (P-NW3-1: CordMgr +0x58 is the client's per-socket connection limit,
+// not the harness's Unexpected_; E&B's UDP is 0x2C bytes, ctor 0x8BF990; CordConnectingClass's +0x34 is a BigInt,
+// whose inline constructor gives the XMP_Init(+0x34, 0, 0x40); the data socket record's +0x0C is a byte flag).
+// udp.h: replace
+//   	bool getLocalAddr(unsigned int &ip, unsigned short &port);\n
+// with
+//   	bool getLocalAddr(unsigned int &ip, unsigned short &port);\n	char SetInputBuffer(unsigned int bytes);\n	char SetOutputBuffer(unsigned int bytes);\n
+// cordmgr.h: replace
+//   	int Unexpected_;
+// with
+//   	int MaxPerSocket_;
+// cordmgr.h: replace
+//   	int Unknown0C;\n};\n\nstruct CordListenSocketClass
+// with
+//   	bool Unknown0C;\n};\n\nstruct CordListenSocketClass
+// cordmgr.h: replace
+//   	unsigned long EncryptedKey[0x40];
+// with
+//   	BigInt EncryptedKey;
+// udp.h: replace
+//   	sockaddr_in addr;\n};
+// with
+//   	sockaddr_in addr;\n	int Pad[4];\n};
+// cordmgr.cpp: replace
+//   	Unexpected_(0)
+// with
+//   	MaxPerSocket_(0)
+// cordmgr.cpp: replace
+//   				Unexpected_++;
+// with
+//   				;
+
+int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
+{
+	int index = -1;
+	CordDataSocketClass *record;
+	for (int i = 0; i < DataSockets_.length(); i++) {
+		if (!DataSockets_.getPointer(&record, i)) {
+			record = NULL;
+		}
+		if (record->Unknown04 < MaxPerSocket_ && !record->Unknown0C) {
+			index = i;
+			break;
+		}
+	}
+	if (index == -1) {
+		UDP *udp = new UDP;
+		int result;
+		for (int j = 0; j < 5; j++) {
+			result = udp->Bind((unsigned int)0, (unsigned short)(3755 + j));
+			if (result == 0) {
+				break;
+			}
+		}
+		if (result != 0) {
+			udp->Bind((unsigned int)0, 0);
+		}
+		if (MaxPerSocket_ == 0) {
+			MaxPerSocket_ = 8;
+		}
+		while (MaxPerSocket_ > 1) {
+			int bytes = MaxPerSocket_ << 14;
+			int ok = 1 & udp->SetInputBuffer(bytes);
+			ok &= udp->SetOutputBuffer(bytes);
+			if (ok == 1) {
+				break;
+			}
+			MaxPerSocket_--;
+		}
+		CordDataSocketClass rec;
+		rec.Socket = udp;
+		rec.Unknown04 = 0;
+		rec.Unknown08 = 0;
+		rec.Unknown0C = false;
+		DataSockets_.addTail(rec);
+		if (!DataSockets_.getPointer(&record, DataSockets_.length() - 1)) {
+			record = NULL;
+		}
+	}
+	record->Unknown04++;
+	CordConnectingClass *c = new CordConnectingClass;
+	c->Ip = ip;
+	c->Port = port;
+	c->Session = NextSession_;
+	NextSession_ += 0x1337;
+	c->Socket = record->Socket;
+	c->Record = record;
+	c->State = 1;
+	c->Ack1Word2 = 0;
+	c->Ack1Word1 = 0;
+	c->Unknown24 = 0;
+	c->LastSend.setDay(0);
+	c->Created.update();
+	if (encrypt) {
+		SecureRandomClass random;
+		c->Key = random.Randval();
+		c->Key <<= 24;
+		c->Key ^= random.Randval();
+	} else {
+		c->Key = 0;
+	}
+	Pending_.addTail(c);
+	return(c->Session);
+}
+

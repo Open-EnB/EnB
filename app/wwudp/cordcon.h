@@ -25,7 +25,7 @@
 **	the session key (8 bytes), the encrypted length (4), the datagram counter (2), 0 (2)
 **	(CordCon::Encrypt_Data 0x854D00, WWLib's RC4Class).
 **
-**	Layout: the client's, member for member (CordCon 0xBC bytes, constructor 0x84F640; the channel
+**	Layout: the client's, member for member (CordCon 0xC0 bytes, constructor 0x84F640; the channel
 **	0x78, constructor 0x84DFC0; the message records 0x30), from the constructors and the code
 **	that uses them. The client's lists are WWOnline's wlib LinkedList / ArrayList, inlined
 **	(the bounds-checked get with a cached cursor); the arrays are wlib's ArrayList (D73), CordListClass
@@ -125,21 +125,13 @@ public:
 		return Add(v, Entries, newnodeptr);
 	}
 	bool Add(const T &node, int pos, T **newnodeptr = 0);
-	void Remove(int pos)
+	bool Remove(T &node, int pos);
+	// wlib's remove(pos): a temporary T for remove(node, pos) (inline: read 0x850FD0 constructs it,
+	// calls 0x856500 and destroys it)
+	bool Remove(int pos)
 	{
-		if (pos < 0 || pos >= Entries) {
-			return;
-		}
-		NodeType *n = Head;
-		for (int i = 0; i < pos; i++) {
-			n = n->Next;
-		}
-		if (n->Prev) { n->Prev->Next = n->Next; } else { Head = n->Next; }
-		if (n->Next) { n->Next->Prev = n->Prev; } else { Tail = n->Prev; }
-		delete n;
-		Entries--;
-		Current = 0;
-		CurIndex = -1;
+		T temp_node;
+		return Remove(temp_node, pos);
 	}
 private:
 	int Entries;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
@@ -220,6 +212,85 @@ bool CordListClass<T>::Add(const T &node, int pos, T **newnodeptr)
 	Current = item;
 	CurIndex = pos;
 	Entries++;
+
+	return true;
+}
+
+// 0x856500: wlib's LinkedList<T>::remove(node, pos) (EA's Generals Tools\matchbot\wlib\linkedlist.h),
+// out of line in the client: the node at the zero-based slot pos (clamped) is copied to node and
+// freed, the cursor left on its neighbour.
+template <class T>
+bool CordListClass<T>::Remove(T &node, int pos)
+{
+	NodeType *item;
+
+	if (Entries == 0)
+		return false;
+
+	if (pos < 0)
+		pos = 0;
+	if (pos >= Entries)
+		pos = Entries - 1;
+
+	if ((pos == 0) || (pos == Entries - 1)) {	// Both can be true for a 1 item list
+		if (pos == 0) {
+			item = Head;
+			if (item->Next)
+				item->Next->Prev = 0;
+			Head = item->Next;
+			node = item->Node;
+			Current = Head;
+			CurIndex = 0;
+		}
+		if (pos == Entries - 1) {
+			item = Tail;
+			if (item->Prev)
+				item->Prev->Next = 0;
+			Tail = item->Prev;
+			node = item->Node;
+			Current = Tail;
+			CurIndex = Entries - 2;
+		}
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	if (pos == CurIndex) {
+		item = Current;
+		item->Prev->Next = item->Next;
+		item->Next->Prev = item->Prev;
+		Current = item->Next;
+		node = item->Node;
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	if (pos == CurIndex + 1) {
+		item = Current->Next;
+		item->Prev->Next = item->Next;
+		item->Next->Prev = item->Prev;
+		Current = item->Next;
+		CurIndex++;
+		node = item->Node;
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	item = Head->Next;	// Can start at node '1' because head was special cased
+	for (int i = 1; i < pos; i++) {
+		item = item->Next;
+	}
+
+	item->Prev->Next = item->Next;
+	item->Next->Prev = item->Prev;
+	Current = item->Next;
+	CurIndex = pos;
+	node = item->Node;
+	delete (item);
+	Entries--;
 
 	return true;
 }
@@ -314,16 +385,17 @@ public:
 	int SecondBytes;					// NAME 2: +0x48 bytes sent this second
 };
 
-// CordCon, 0xBC bytes in the client (constructor 0x84F640, 9 arguments): the members in its order.
+// CordCon, 0xC0 bytes in the client (constructor 0x84F640: 8 arguments, the key one __int64; Key_ aligns the
+// whole to 8): the members in its order.
 class CordCon
 {
 public:
 	CordCon(unsigned int ip, unsigned short port, int session, unsigned short unknown0c, bool is_server,
-		UDP *udp, int stats_arg, unsigned int key_lo, unsigned int key_hi);
+		UDP *udp, int stats_arg, __int64 key);
 	~CordCon();
 
 	// Queues a message on an open channel, in 200-byte records. 0x850C70
-	bool write(int channel, const void *data, unsigned int len, int priority);
+	bool write(int channel, unsigned int len, const void *data, int priority);
 	// Opens a free channel (the client odd ones, the server even ones). 0x84FF70
 	bool openc(unsigned int *channel, int mode, int priority);
 	// The next message received, in the order the client reads them. 0x850FD0
@@ -405,11 +477,6 @@ public:
 	int CloseState_;							// NAME 2: +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed
 	unsigned int CloseSeq_;						// NAME 2: +0xB4
 	bool IsServer_;								// NAME 2: +0xB8
-
-	// The harness's counters (not the client's).
-	int AcksMatched_;	// NAME 2: describes its role
-	int ResendRequests_;	// NAME 2: describes its role
-	int Rejected_;	// NAME 2: describes its role
 
 private:
 	void Add_Channels(int count);

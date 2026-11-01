@@ -179,6 +179,13 @@ int LoginTaskClass::Get_Interval()
 	return 500;
 }
 
+// KernelEventClass's Flags as Pre_Run reads them (bit fields: shr / test 1)
+struct LoginFlagsStruct		// NAME 1 [LoginFlagsStruct]: neutral (D10)
+{
+	unsigned short Unknown00 : 12;
+	unsigned short Unknown0C : 1;	// 0x1000: the screen shot key's modifier
+	bool Is_0C() const { return Unknown0C; }	// NAME 1 [Is_0C]: neutral (D10)
+};
 
 
 
@@ -209,14 +216,7 @@ int LoginTaskClass::Get_Interval()
 
 
 
-
-
-
-
-
-
-
-// NOT EXACT: shape (the event's bit 12 test and the dispatchers' argument order; attempts.py show 0x767DA0)
+// The event's bit 12 through a bool accessor on a bit field (shr / test 1) and the +0x2C pointer in a local
 // 0x767DA0
 void LoginTaskClass::Pre_Run()
 {
@@ -224,12 +224,12 @@ void LoginTaskClass::Pre_Run()
 		FAIL_IF(!CharacterView) return;
 		Unknown_42EDB0();
 		KernelEventClass event;
-		if (CharacterView->Unknown02C) {
-			event = Unknown_65F780(CharacterView->Unknown02C);
+		void *unknown = CharacterView->Unknown02C; if (unknown) {
+			event = Unknown_65F780(unknown);
 		} else if (Unknown_42EA80(&event)) {
 			Unknown_42E8A0(&event);
 		}
-		if (event.Key == 0x91 && ((event.Flags >> 12) & 1)) {
+		if (event.Key == 0x91 && ((const LoginFlagsStruct &)event.Flags).Is_0C()) {
 			WW3D::Make_Screen_Shot("ScreenShot", 1.3f, 1);
 		}
 		if (!Unknown000C->Unknown_429A20(&event)) {
@@ -1218,15 +1218,15 @@ void LoginTaskClass::Load_Login()
 	}
 }
 
-// NOT EXACT: shape (the CharacterView test's registers: the client loads +0x1B4 into ecx; attempts.py show 0x76B000)
+// The view's handler test as a ternary (+0x1B4 straight into ecx) and the error code read before the +0x20 store
 // 0x76B000
 void LoginTaskClass::Handle_Global_Error(GlobalErrorPacketClass *packet)
 {
-	if (CharacterView && CharacterView->Unknown1B4 && CharacterView->Unknown1B4->Unknown_78(packet)) {
+	if (CharacterView && (CharacterView->Unknown1B4 ? CharacterView->Unknown1B4->Unknown_78(packet) : false)) {
 		return;
 	}
-	Unknown0020 = 2;
-	Error = packet->Error;
+	int error = packet->Error; Unknown0020 = 2;
+	Error = error;
 	Unknown_Debug_Print(packet->Message.c_str());
 	if ((packet->Error < 8 || packet->Error > 13) && packet->Error != 17 && packet->Error != 3 && packet->Error != 5) {
 		Show_Message(packet->Message.c_str());

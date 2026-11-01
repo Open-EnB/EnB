@@ -146,6 +146,8 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
   `build/` (`vidtest -art DIR`); run originals in a copy (`build/programs/vidtest/ref_ebconfig/`).
   Reading its files in place and copying them out are allowed (D143), e.g. build/art/MSS32.DLL for clienttest (D142).
 * **`git add` by name,** never `-A` or `.`: the tree holds other builders' files.
+* **Heredoc Python mangles regex escapes silently** (2026-11-01, NW2): `\\b` / `\\1` in a heredoc-written regex deleted the names it should have kept and the variant failed to compile. Use the Write tool, as §1 says.
+* **Daylight saving** (2026-11-01): at 02:00 PDT the clock fell back to 01:00 PST mid-run; `date` jumps back an hour, so stop times read against it run an hour longer in real time. Give stop times with the zone.
 
 ### 3.1 VC6 code generation
 
@@ -473,6 +475,9 @@ unless `--lever` cites a new row of this table.
   folds it (0x82D8C0). Two RefCountPtr locals zeroed under one EH state are a struct local (H20, client_lego_impl).
   Separately: a `const_iterator` sent find out of line in co_player_relationship's lookup where this client inlines it
   (plain iterator, `it == end()` tested first: R1); an empty `~T() {}` on a value type adds EH states.
+* **VC6 inline budget, 2026-11-01 night run (several builders):** dead `X.size();` statements spend the budget non-monotonically (CordCon's ctor: 4 gave 0.91, 5 gave 0.30, 6+ exact: sweep the count, don't bisect; CC1). The budget is spent earliest site first: inline getters on later calls push an early small inline (map begin(), string _Tidy / _Eos) out of line (LG1, 0x5ACB80 / 0x5ADA50). Dead locals cost nothing, and a dead inline read after a call site does not change that site's inlining: spend is forward only (FB1). VC6 inlines member functions defined later in the same file (CordMgr's Send_Go_Away / SYN1 / SYN2 into Pump; NW3); `#pragma auto_inline(off)` around an empty or small function defined later keeps it out of line (HV1, CC1's Reset). A 2-argument `Dictionary::remove(key, temp)` frees enough budget for remove itself to inline (+190 bytes); wlib's 1-argument wrapper keeps it out of line (NW1).
+* **VC6 SP4 value threading (2026-11-01, FB1, `.work/fb1/x/jt*.cpp`):** after `if (x == C)` on a register local, a later `x == K` test is folded on every path where x is defined, through copies, unions, any function size and no-code statements between; the test survives only for relational compares, undefined values (the variable becomes a stack slot) or real code between (then constant-assigned paths unfold too). pumpConnections 0x8BE270 and Send_Data 0x82D420 are LIMIT REACHED on it.
+* **Bool and exit forms (2026-11-01, LG1 / LG3):** `return x ? true : false;` drops the `xor eax,eax` before setne / sete and the `mov al,dl` copy (`!= 0`, `(bool)`, `!empty()` keep them; 0x443B90, 0x443020). `p ? p->f() : false` inside an && test loads the member pointer straight into ecx for the virtual call (0x76B000). Early returns after a big local object repeat its destructor chain per return; nested ifs give the client's single exit (0x5AEA60). In switch cases, if / else + `break` versus `return` decides which copy of a shared tail the cross-jump keeps (0x5AD610). A 2-entry clear loop compiles to `xor ecx; mov; mov`; floats initialised to 0 store an immediate 0, ints the zero register (LG2).
 
 ### 3.2 Templates and STL
 
@@ -502,6 +507,7 @@ unless `--lever` cites a new row of this table.
   leaves its pair temporary alive, 0x7198B0 frees nodes bare): give the value class a private, empty, inline destructor
   and make the `std::hash_map<K, V>` its friend (a private destructor alone is C2248 in operator[]). It also frees
   operator[]'s inline budget, sending the hashtable copy constructor out of line as the client has it.
+* **STL and wlib containers, 2026-11-01 night run:** SGI hash_map members the source leaves default-constructed (100 buckets already): writing `Systems(100)` moves `_M_initialize_buckets` inline into another member (GM1). Partial inlining depends on the iterator type: a hash_map iterator member declared `const_iterator` (begin()'s iterator converted) reproduced begin() out of line and size() called; an extra inline helper layer around begin() also pushes size() out of line, forwarding-only wrappers change nothing (GM2). `vector::resize(0)` shows as an out-of-line size(), `test; jbe`, then `erase(begin, end)` after a zero store (CC1). E&B's wlib arraylist.h getPointer sets the out pointer NULL on a miss (NW6, 61199041): don't write call-site NULL forms.
 
 ### 3.3 E&B app code
 
@@ -730,6 +736,8 @@ unless `--lever` cites a new row of this table.
 * **A `VectorClass<T>` member needs `operator==` / `operator!=` declared on T** even when no constructor is emitted
   (VC6 compiles VectorClass's virtuals; declaration-only operators on CameraModeStruct; T7, 2026-10-27).
   Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
+* **App-code forms, 2026-11-01 night run:** a shared epilogue can be file state, not source: write the functions before it in the file first (galaxy_map's Add_Data / Remove_Data went exact unchanged; GM1). Members passed as arguments land in the client's registers when read through inline accessors, and a field read before an out-of-line call in the same expression means an inline getter (VC6 loads a plain field after the call) (LG2 0x55E370 / 0x55E2E0, LG1, HV2). A bitfield bit tested as `mov; shr; test al,1` needs a bool getter returning the bitfield (a plain test gives `test byte,4`; LG2, LG3's Pre_Run). Two adjacent floats set to (0, 0) store out of order where the client had a Vector2 with an inline ctor (GM2). A frame 4 bytes larger as the only difference: look for a struct holding an 8-aligned `__int64` (LG1's LoginTicketInfoClass). A field loaded from 0xAECC44 is `UniqueDesignIDLookupClass::INVALID_ID`, not a literal 0 (GM1). `bit8` returned as `bool` shows as `setne` after an inlined Dictionary::remove (HV1).
+* **Object layout, 2026-11-01 night run:** an unreferenced function in an app object with incremental-link thunks (after Create) is a non-inline .cpp function, and an uncalled function can be a lone out-of-line member that matches as a normal pair (GM1, NW1 0x82DCB0). An uncalled inline member (operator== used only through a vector) gets its client copy only from an out-of-line definition (NW4). A static function is stored by its address with no incremental thunk: it marks a file-local function and an object boundary (HV1). A new `#include` in an app .cpp must replace a blank line, or every assert below it moves (GM1). Log calls are pinned like asserts: cordmgr.cpp's on lines 592 / 618 / 1272, and E&B's INFMSG pushes `__LINE__` as an immediate before the " " string 0xB6E948 (cordcon: 355, 390, 1068, 1141, 1749), so code added above them removes the same number of blank padding lines (NW3, CC2; two commits broke it without a lost pair).
 
 ### 3.4 Importer, verify and pairs
 
@@ -913,6 +921,7 @@ unless `--lever` cites a new row of this table.
   `??_G` before D100's range round does, and a pair can move (0x723AB0 -> 0x4B2AA0, a false range pair). Not only lost
   proofs (AR1): check every `lost outright` against the client's vtable layout (slot count, slot 0's thunk) before
   calling it a loss. symbols.py without `--objs` reads no objects: copy every library's verify-* folder and pass each.
+* **Shared tree, 2026-11-01 night run:** a builder's uncommitted header is compiled into the others' verifies and recorded as their gains (f343bc6a recorded ~CordMgr before NW6's arraylist.h landed; HEAD was inconsistent ~10 minutes). A HEAD that briefly does not compile shows as many losses in a worktree verify: read `compile_errors` before pairs_cmp (NW6). With `ENB_AGENT` set, verify writes its objects under `.work/<agent>/tmp/enb_import/verify-<lib>`; `%TEMP%\enb_import` may hold another builder's stale objects (NW4). A file's dynamic initialisers (`$E` symbols, <string>'s guard, PermStringInit) are not counted by verify: D99 rows (NW5). Tools' function starts lack file-local statics stored without a thunk (appfile reported 0x77A5B0 PREFIX, its size running on to 0x77A710; verify still counted it; HV1).
 
 ### 3.5 Build VMs and vc6.py
 
@@ -949,6 +958,8 @@ unless `--lever` cites a new row of this table.
 * **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
   main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
+* **Pool contention, 2026-11-01 night run (9-10 builders on 7 VMs):** `importer.py verify --pool 1` and `appfile.py --pool` exit at once with "pool cap: 7 VMs exist" when every VM is leased, and `pool.py lease` can print it while `list` shows a free VM (a race): retry in a loop (`.work/gm2/retry.sh`, `.work/nw6/v5.sh`). A `pool.py lease` process held `.work/pool/leases.lock` 15 minutes (01:37-01:52) and blocked every lease and release until the 900 s stale takeover; check `pool.py list` and the lock's holder before assuming a hung VM. A failed lease whose last line is exported unchecked falls back to the stale VM in `.work/vc6_hosts.json` (ssh timeout; LG3). Lock waits ran 20-30 minutes: `--lock-wait 3600` on verify / replay. With the lock busy, a scratch copy compiles alone on a leased VM in ~20 s (`.work/nw5/mc.sh`: vc6.py compile with the library's flags; Git Bash needs `MSYS_NO_PATHCONV=1` or `/nologo` becomes a path).
+
 ### 3.6 RE tools, Ghidra and REA
 
 * **objmatch finds symbols.json at `__file__/../../docs/data`** (2026-11-01, TB1): a copy of objmatch.py outside
@@ -1044,6 +1055,7 @@ unless `--lever` cites a new row of this table.
 * **`_$E` initialisers are `short` (2026-10-27, M3):** never exact by themselves; D115's round locates one by its relocated
   fields (atexit, the global) inside the object's range +-0x1000. ref_ptr.h: a script that finds `G_ASSERT(0 != Referent)`
   by text also hits ref_ptr.h's new header note (F7): match the whole statement line.
+* **RE tools, 2026-11-01 night run:** `appfile.py match` pairs functions only by a `// @0xADDR` marker directly above the definition (more than ~4 comment lines above, or the tree's `Exact` / `NOT EXACT` comments, don't attach); without `ENB_AGENT` its objects land in the shared `.work/appfile/appfile/obj` and another builder's run overwrites them (FB1, LG1, HV2, CC1). tryv2 deletes its objects: `.work/lg3/keep.py` keeps each variant's .obj for objdiff / explain. tryvariants with `#define private public` mangles members as public (`QAE`): objdiff needs that symbol name (NW2). objdiff.py prints every relocated call as `call REL`, so an IAT `call dword ptr [REL]` always shows as a mismatch even when the bytes are equal (HV2). explain.py's window can run on into the next function (0x8BE270's inline-budget label came from growVector 0x8BE7A0; NW2).
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -1141,6 +1153,7 @@ unless `--lever` cites a new row of this table.
   In a worktree, `udpreplay.py build` needs build/app/app.lib (`build.py build --lib app --allow-dirty` first) and a
   baseline worktree needs the libraries and `.work/harness/*.dgram` copied in (`wt.py new` does the copies).
 * **Run tools by absolute path from a worktree (2026-10-27, A-haiku):** tools that write the tree refuse a cwd in another tree (2836859); run them by absolute path so the guard can see it.
+* **udpreplay, 2026-11-01:** a new app file that defines a stubbed function must delete its stub in `stubs/app_stubs.cpp` and join udpreplay.py's source list, or every program linking app.lib + stubs fails with LNK2005 / LNK2001 (unknown_verb.cpp, 7e0061be; verify does not show it; NW3, CC2). `udpreplay.py build` fails with PermissionError while another builder's udpreplay.exe runs: retry (NW7). Harness counters live outside the client's classes (D176: `tests/udpreplay/cord_counters.h`, `CORD_HARNESS_COUNT`).
 
 ### 3.8 Git, docs and scripting hygiene
 
@@ -1243,6 +1256,8 @@ unless `--lever` cites a new row of this table.
   reaches into imported classes by their names (soundlib.cpp's `using AudibleSoundClass::m_Unknown7C`, WWAudio's
   `m_` style); renaming `m_UnknownXX` in app/ broke it (12 compile errors in the verify, soundlib's pairs lost).
   Check every renamed name against the libraries' headers, and run a full verify, not just replay.
+* **commit_mine and worktrees, 2026-11-01 night run:** commit_mine's `-U0` hunks merge adjacent added lines across builders: a library-matching.md row, an imports.md line, a RECONSTRUCTED entry or (with `--path` / `"whole"`) every attempts row of the file next to another builder's uncommitted one travels with yours. Put new rows somewhere other than next to another builder's (CC1, NW4, NW6, LG1). `wt.py bring-over NAME` always lands branch `wt/NAME`, `--dry` still runs the full verify, and bring-over refuses while names-review.md or library-matching.md has another builder's uncommitted hunk (commit_mine from the main tree gets around it; NW3, NW6). Never chain a `cp` into the tree after a script that can fail with `;` or `||`: make each step depend on its exit code (CC2).
+
 ### 3.9 Library-specific
 
 * **wlib (wwonline) (2026-10-31, TK4):** Renegade's `Code\Tools\RenegadeGR\wtime.cpp` is the client's revision
@@ -1293,3 +1308,5 @@ unless `--lever` cites a new row of this table.
   harness stub list (pk_ctor_stubs.cpp would redefine them); an object without an assert ends at the guarded-static
   atexit call inside its last Print. cpacket.cpp calling SoundLibraryClass needs a clienttest stand-in (wwaudio's globals
   break the link, T19).
+* **wnet / wwudp (2026-11-01):** wnet's udp.h defines `close` / `read` / `write` as macros under `_WINDOWS`: app files that include it `#undef` them (app/wwudp/udp.h forwards to wnet's and does; NW7). E&B's UDP is 0x2C bytes (a second socket, a list of CONNRESET peers; NW5, 9727b6d6); udp.cpp includes <string> and app's permstr.h directly (interim). CordCon::write takes `(channel, len, data, priority)` (NW1 / CC1).
+

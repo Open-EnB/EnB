@@ -33,8 +33,8 @@ unsigned int Unknown_Get_Ticks();	// the aux-data clock 0x4A3B40 (unknown_root.h
 // One address's counts (0x3C bytes).
 struct BandwidthEntryClass		// NAME 2: describes what it holds
 {
-	bool operator == (BandwidthEntryClass const &other) const { return memcmp(this, &other, sizeof(*this)) == 0; }	// 0x84D960
-	bool operator != (BandwidthEntryClass const &other) const { return memcmp(this, &other, sizeof(*this)) != 0; }	// 0x84D990
+	bool operator == (BandwidthEntryClass const &other) const;	// 0x84D960 (defined after Compute_Rates: the client's copy)
+	bool operator != (BandwidthEntryClass const &other) const;	// 0x84D990
 
 	unsigned int Ip;			// NAME 2: +0x00 (host order)
 	unsigned short Port;		// NAME 2: +0x04
@@ -555,4 +555,16 @@ void BandwidthAccountingClass::Compute_Rates(unsigned int msec)
 			}
 		}
 	}
+}
+
+// 0x84D960 (VectorClass's operator == and ID compare entries with it; out of line here, uncalled in the client)
+bool BandwidthEntryClass::operator == (BandwidthEntryClass const &other) const
+{
+	return(memcmp(this, &other, sizeof(*this)) == 0);
+}
+
+// 0x84D990
+bool BandwidthEntryClass::operator != (BandwidthEntryClass const &other) const
+{
+	return(memcmp(this, &other, sizeof(*this)) != 0);
 }

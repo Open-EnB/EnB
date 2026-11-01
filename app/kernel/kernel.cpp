@@ -29,7 +29,7 @@ KernelClass *KernelClass::Instance = NULL;
 bool TaskClass::Is_Focused()
 {
 	if (Kernel != NULL) {
-		return Kernel->Is_Focus(this);
+		return Kernel->Is_Focus(this) ? true : false;
 	}
 	return false;
 }
@@ -205,7 +205,7 @@ bool KernelClass::Remove_Task(TaskClass *task)
 	if (task == *Iterator) {
 		Iterator = Tasks.erase(Iterator);
 	} else {
-		Tasks.remove(task);	// NOT EXACT: the client calls the iterator's operator++(int) 0x444190 out of line
+		Tasks.remove(task); Tasks.size();	// the dead size() (D40) leaves the iterator's operator++(int) 0x444190 out of line, as the client calls it
 	}
 	task->Kernel = NULL;
 	if (task->Delete_On_Remove()) {
@@ -347,7 +347,7 @@ bool KernelClass::Is_Running()
 	if (Quit) {
 		return false;
 	}
-	return Tasks.size() != 0;	// NOT EXACT: the client's has no xor before the setne
+	return Tasks.size() ? true : false;	// a '!= 0' compare zeroes eax before the setne; the client has none
 }
 
 // 0x443BC0

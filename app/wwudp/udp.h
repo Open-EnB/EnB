@@ -1,52 +1,27 @@
 // Earth & Beyond client (reconstruction)
 /*
-**	The UDP socket CordMgr and CordCon use (CordCon::Udp_, +0x10). The client's class is Westwood's
-**	wnet UDP (libs\wwonline\wnet, the library at 0x8BF990-0x8C0540 beside tcpqueue.cpp's
-**	__FILE__): ctor 0x8BF990, dtor 0x8BFA10, Bind 0x8BFB70, getLocalAddr 0x8BFCD0, Write 0x8BFD50
-**	(sendto), Read 0x8BFE30 (recvfrom), Wait 0x8C0220 (select), SetInputBuffer / SetOutputBuffer
-**	0x8C04C0 / 0x8C0500 (setsockopt). Its interface is EA's (Generals Tools\matchbot\wnet\udp.h);
-**	this header declares only the part the wwudp code calls, so that a program can link either
-**	the real socket (wnet's udp.cpp, not imported yet) or the capture harness's replay socket
-**	(tests/udpreplay).
+**	The UDP socket CordMgr and CordCon use (CordCon::Udp_, +0x10): WWOnline's wnet UDP
+**	(libs\wwonline\wnet\udp.h, E&B's 0x2C-byte revision; client 0x8BF990-0x8C0620). This header
+**	only forwards to it, for the wwudp files' `#include "udp.h"`. The capture harness
+**	(tests/udpreplay) defines the same class's members as its replay socket instead of linking
+**	wnet's udp.cpp.
+**
+**	wnet's udp.h defines close, read and write as _close, _read and _write under _WINDOWS (for its
+**	own udp.cpp, which calls none of them); here they would rename CordCon::read / write / close
+**	in the files that include this header after cordcon.h, so they are undefined again.
 */
-
-
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#ifndef UDP_HEADER  // NAME 4 [udp.h]: wnet's udp.h (EA's Generals Tools matchbot wnet); its place here assumed
-#define UDP_HEADER
+#ifndef WWUDP_UDP_H
+#define WWUDP_UDP_H
 
-#include <winsock.h>
+#include "..\..\libs\wwonline\wnet\udp.h"
 
-class UDP
-{
-public:
-	UDP();
-	~UDP();
-
-	int Bind(unsigned int ip, unsigned short port);
-	// Sends len bytes to ip:port (host order). Returns the bytes sent, or < 0.
-	int Write(unsigned char *msg, unsigned int len, unsigned int ip, unsigned short port);
-	// Reads one datagram (at most len bytes) and its sender. Returns its length, 0, or < 0 when
-	// there is nothing to read (CordMgr::Pump reads until < 0).
-	int Read(unsigned char *msg, unsigned int len, sockaddr_in *from);
-	bool getLocalAddr(unsigned int &ip, unsigned short &port);
-	int getFD() { return(fd); }	// NAME 4: wnet's name
-	// Waits up to sec / usec for one of givenSet's sockets (select); returnSet gets the ready ones. 0x8C0220
-	int Wait(int sec, int usec, fd_set &givenSet, fd_set &returnSet);	// NAME 4: wnet's name
-	// E&B's addition: a function Write and Read call with every datagram (out, length, the
-	// peer's ip and port; bandwidthaccounting.cpp's), kept in 0xBF52C4. 0x8C05E0 / 0x8C0600
-	static void Set_Accounting_Callback(void (*callback)(bool out, int len, unsigned int ip, unsigned short port));	// NAME 1: what it does
-	static void Clear_Accounting_Callback();	// NAME 1: what it does
-
-private:
-	int fd;
-	unsigned int myIP;
-	unsigned short myPort;
-	sockaddr_in addr;
-};
+#undef close
+#undef read
+#undef write
 
 #endif

@@ -70,7 +70,8 @@ class TCPMgr {
   {
     CLOSED,
     CONNECTING,
-    CONNECTED
+    CONNECTED,
+    FAILED=-1  // E&B: a failed connect (0x8BE270 stores -1, 0x8BDF80 returns it with *conn NULL)  // NAME 2: what it means (winerror.h's FAILED(x) is function-like: no clash)
   };
 
   // These defines specify a system independent way to
