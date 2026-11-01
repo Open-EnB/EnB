@@ -23,7 +23,7 @@
 
 TCPMgr::TCPMgr()
 {
-	HandleSequence_=0;
+	HandleSequence_=1;  // E&B (0x8BCA50): handle 0 is INVALID_HANDLE
 }
 
 TCPMgr::~TCPMgr() throw()  // E&B (0x8BCA90)
@@ -60,7 +60,7 @@ bit8 TCPMgr::removeListener(uint32 ip, uint16 port)
   ListenSocket *lptr;
   for (int i=0; i<ListenArray_.length(); i++)
   {
-    ListenArray_.getPointer(&lptr,i);
+    if (!ListenArray_.getPointer(&lptr,i)) lptr=NULL;  // E&B (0x8BCD10): NULL on a miss
     if ((lptr->ip == ip) && (lptr->port == port))
     {
       closesocket(lptr->fd);
@@ -79,8 +79,8 @@ bit8 TCPMgr::getListener(uint32 ip, uint16 port, OUT SOCKET &outsock)
   ListenSocket *lptr;
   for (int i=0; i<ListenArray_.length(); i++)
   {
-    ListenArray_.getPointer(&lptr,i);
-    if ((lptr->ip == ip) && (lptr->port == port))
+    if (!ListenArray_.getPointer(&lptr,i)) lptr=NULL;  // E&B (0x8BCE70): NULL on a miss
+    if (((lptr->ip == ip) || (ip == 0)) && (lptr->port == port))  // E&B (0x8BCE70): ip 0 matches any
     {
       outsock=lptr->fd;
       return(TRUE);
@@ -198,6 +198,25 @@ bit8 TCPMgr::getOutgoingConnection(TCPCon **conn, uint32 handle, sint32 wait_sec
 bit8 TCPMgr::getIncomingConnection(TCPCon **conn, uint16 port, sint32 wait_secs)
 {
   return(getConnection(conn,INVALID_HANDLE,port,wait_secs,INCOMING));
+}
+
+
+//
+// E&B: drop a pending connection by its handle (0x8BD940; tcpconn.cpp's destructor 0x828EC0 and Disconnect 0x829960)
+//
+bit8 TCPMgr::cancelConnect(uint32 handle)
+{
+  PendingConn *connPtr;
+  for (int i=0; i<ConnectArray_.length(); i++)
+  {
+    if (ConnectArray_.getPointer(&connPtr,i) && (connPtr->handle == handle))
+    {
+      closesocket(connPtr->fd);
+      ConnectArray_.remove(i);
+      return(TRUE);
+    }
+  }
+  return(FALSE);
 }
 
 
@@ -393,7 +412,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
  
   for (int i=0; i<ConnectArray_.length(); i++)
   {
-    ConnectArray_.getPointer(&connPtr,i);
+    if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;  // E&B (0x8BDF80): NULL on a miss
     fdArray[i]=connPtr->fd;
   }
  
@@ -403,8 +422,8 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
 
     for (int i=0; i<ConnectArray_.length(); i++)
     {
-      ConnectArray_.getPointer(&connPtr,i);
-      if (connPtr->state != CONNECTED)
+      if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;
+      if ((connPtr->state != CONNECTED) && (connPtr->state != (CONN_STATE)-1))  // E&B (0x8BDF80): a failed connect is returned too
         continue;
       if (( ! ((int)dir & (int)INCOMING)) && (connPtr->incoming == TRUE))
         continue;
@@ -414,18 +433,17 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
         continue;
       if ((port != 0) && (port != connPtr->port))
         continue;
-      *conn=new TCPCon(connPtr->fd);
+      if (connPtr->state != (CONN_STATE)-1)  // E&B (0x8BDF80): a failed connect gives NULL
+        *conn=new TCPCon(connPtr->fd);
+      else
+        *conn=NULL;
       ConnectArray_.remove(i);
       return(TRUE);
     }
-    // Wait for socket activity for a bit
-	 #ifdef _WINDOWS
-    Sleep(100);  // windows may be getting flooded with conn msgs, test this
-	 #endif
     sint32 remaining_wait=wait_secs - (time(NULL)-start);
     if ((remaining_wait > 0) && (wait(remaining_wait,0,fdArray,ConnectArray_.length(),FALSE) > 0))
       continue;  // got something!
- 
+
     if (remaining_wait <= 0)
       break;
   }
@@ -447,22 +465,39 @@ void TCPMgr::pumpConnections(void)
   int         retval;
 
   // Outgoing connections
+  // NOT EXACT (0x8BE270): the client keeps retval (edi) live and tests it after the doh branch's
+  // createSocket; ours jumps past the test (VC6 knows it is SOCKET_ERROR there)
   for (i=0; i<ConnectArray_.length(); i++)
   {
-    ConnectArray_.getPointer(&connPtr,i);
+    if (!ConnectArray_.getPointer(&connPtr,i)) connPtr=NULL;
 
     if ((connPtr->state == CLOSED) || (connPtr->state == CONNECTING))
     {
       struct sockaddr_in addr;
-		int                addrSize=sizeof(addr);
       addr.sin_family=AF_INET;
       addr.sin_port=htons(connPtr->remotePort);
       addr.sin_addr.s_addr=htonl(connPtr->remoteIp);
 
-		if (connPtr->state == CONNECTING)
+		if (connPtr->state == CONNECTING)  // E&B (0x8BE270): select for the connect's outcome, not getpeername
 		{
-        if (getpeername(connPtr->fd,(sockaddr *)&addr,&addrSize)==0)  // if get endpoint, then success
-		    connPtr->state=CONNECTED;
+        fd_set  writeSet;
+        fd_set  exceptSet;
+        timeval tv;
+        FD_ZERO(&writeSet);
+        FD_SET(connPtr->fd,&writeSet);
+        FD_ZERO(&exceptSet);
+        FD_SET(connPtr->fd,&exceptSet);
+        tv.tv_sec=0;
+        tv.tv_usec=0;
+        select(connPtr->fd+1,NULL,&writeSet,&exceptSet,&tv);
+        if (FD_ISSET(connPtr->fd,&exceptSet))
+        {
+          closesocket(connPtr->fd);
+          connPtr->state=(CONN_STATE)-1;
+        }
+        else if (FD_ISSET(connPtr->fd,&writeSet))
+          connPtr->state=CONNECTED;
+        continue;
       }
       else if ((retval=::connect(connPtr->fd, (struct sockaddr *)&addr, sizeof(addr)))==SOCKET_ERROR)
       {
@@ -473,6 +508,12 @@ void TCPMgr::pumpConnections(void)
         {
           connPtr->state=CONNECTING;
           continue;   // Move on to next pending conn...
+        }
+        else if ((status==CONNREFUSED)||(status==TIMEDOUT)||(status==CONNRESET))
+        {
+          closesocket(connPtr->fd);
+          connPtr->state=(CONN_STATE)-1;
+          continue;
         }
         else // doh, real problem
         {
@@ -494,7 +535,7 @@ void TCPMgr::pumpConnections(void)
   int                 addrlen;
   for (i=0; i<ListenArray_.length(); i++)
   {
-    ListenArray_.getPointer(&listenPtr,i);
+    if (!ListenArray_.getPointer(&listenPtr,i)) listenPtr=NULL;
 
     while(1)  // accept all incoming on each socket
     {
