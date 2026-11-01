@@ -1,5 +1,5 @@
 /*
-**	Command & Conquer Generals Zero Hour(tm)
+**	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
 **	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
@@ -34,27 +34,6 @@ static char *MONTHS[]={"Jan","Feb","Mar","Apr","May","Jun","Jul",
 static char *FULLMONTHS[]={"January","February","March","April","May","June",
                "July","August","September","October","November","December"};
 
-// MDC: Windows doesn't provide a localtime_r, so make our own...
-#ifdef _WINDOWS
-#ifdef _REENTRANT
-#include "critsec.h"
-static CritSec localtime_critsec;
-#undef localtime
-_CRTIMP struct tm *localtime(const time_t *clockval);
-#endif // _REENTRANT
-
-static struct tm *localtime_r(const time_t *clockval, struct tm *res) {
-#ifdef _REENTRANT
-	localtime_critsec.lock();
-#endif
-	struct tm *static_tm = localtime(clockval);
-	res = (struct tm *)memcpy(res, static_tm, sizeof(tm));
-#ifdef _REENTRANT
-	localtime_critsec.unlock();
-#endif
-	return res;
-}
-#endif // _WINDOWS
 
 Wtime::Wtime(void)
 {
@@ -196,14 +175,9 @@ bit8 Wtime::ParseDate(char *in)
 // This takes the standard Microsoft time formatting string
 // make sure the out string is big enough
 // An example format would be "mm/dd/yy hh:mm:ss"
-// CHANGE:  Joe Howes  06/30/99
-// To specify 12-hour format, use "aa" instead of "hh".
-// The hours will be 12 hour and the string will be
-// appended with " AM" or " PM".
 bit8 Wtime::FormatTime(char *out, char *format)
 {
   int lastWasH=0;
-  int ampmflag = 0;
   out[0]=0;
   char *ptr=format;
 
@@ -367,25 +341,10 @@ bit8 Wtime::FormatTime(char *out, char *format)
         GetSecond());
       ptr+=5;
     }
-    else if (strncmp(ptr,"aa",2)==0)
-    {
-      uint32 tmp = (GetHour() <= 12) ? GetHour() : GetHour() - 12;
-      sprintf(out+strlen(out),"%02ld", tmp);
-      lastWasH=2;  // needs to be 1 after top of loop decs it
-      ptr+=2;
-      ampmflag = 1;
-    }
+// todo
+// AM/PM am/pm A/P a/p AMPM
    else  // an unknown char, move to next
      ptr++;
-  }
-  if(ampmflag)
-  {
-    char ampm[4];
-    if( GetHour() < 12 )
-      strcpy(ampm, " AM");
-    else
-      strcpy(ampm, " PM");
-    sprintf(out+strlen(out), "%s", ampm);
   }
   return(TRUE);
 }
@@ -465,44 +424,80 @@ void Wtime::GetTimevalMT(struct timeval &tv)
 
 uint32 Wtime::GetSecond(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_sec);
 }
 uint32 Wtime::GetMinute(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_min);
 }
 uint32 Wtime::GetHour(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+ 
   return(tptr->tm_hour);
 }
 uint32 Wtime::GetMDay(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_mday);
 }
 uint32 Wtime::GetWDay(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_wday+1);
 }
 uint32 Wtime::GetYDay(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_yday+1);
 }
 uint32 Wtime::GetYWeek(void) const
@@ -518,17 +513,29 @@ uint32 Wtime::GetYWeek(void) const
 }
 uint32 Wtime::GetMonth(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   return(tptr->tm_mon+1);
 }
 
 uint32 Wtime::GetYear(void) const
 {
-  struct tm  t;
   struct tm *tptr;
+
+  #ifndef _WINDOWS
+  struct tm  t;
   tptr=localtime_r((time_t *)&sec,&t);
+  #else
+  tptr=localtime((time_t *)&sec);
+  #endif
+
   if ((tptr->tm_year)>=70)
     return((tptr->tm_year)+1900);
   else

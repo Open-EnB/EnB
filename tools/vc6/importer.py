@@ -193,7 +193,9 @@ LIB_DIR = {
     # Renegade's Code\Tools\wlib too, but for its arraylist.h's addMany/removeMany, written in 2025 from a
     # DLL: "Implementation was missing from source code", and not compiling with VC6). wnet: matchbot's
     # udp.cpp (Z) and Renegade's Code\Tools\RenegadeGR tcpmgr.cpp / tcpcon.cpp (R: no other copy has them).
-    'wlib': {'Z': r'..\..\..\Tools\matchbot\wlib'},
+    # wlib R: RenegadeGR's older wtime.cpp (no localtime_r, no "aa" AM/PM format), the client's: its Get*
+    # call localtime directly (0x8B95A0-0x8B9700), FormatTime 0x8B8780 has no AM/PM suffix (TK4 2026-10-31).
+    'wlib': {'Z': r'..\..\..\Tools\matchbot\wlib', 'R': r'Tools\RenegadeGR'},
     'wnet': {'Z': r'..\..\..\Tools\matchbot\wnet', 'R': r'Tools\RenegadeGR'},
     # D73: Renegade's Code\BinkMovie (BINKMovie, the subtitles), 0xA16190-0xA17Bxx
     'binkmovie': {'R': 'BinkMovie'},
