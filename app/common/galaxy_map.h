@@ -14,6 +14,8 @@
 #define __GALAXY_MAP_H
 
 #include <string>
+#include <vector>
+#include <hash_map.h>
 #include "vector3.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -22,8 +24,6 @@
 
 class LinearBufferClass;
 class GalaxyMapSystemClass;
-
-
 
 
 
@@ -215,6 +215,29 @@ public:
 	int Unknown3C;																// +0x3C (3)
 };
 
+// The sector, gate and starbase objects: only named so far (the map's Sectors / Gates / Starbases hold them)
+class GalaxyMapSectorClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())'
+class GalaxyMapGateClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())'
+class GalaxyMapStarbaseClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'starbase_it == Starbases.end()'
+
+// The map (vtable 0xB08B38; destructor 0x836240, galaxy_map.h's assert on line 185: not built yet)
+class GalaxyMapClass	// NAME 2: holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts
+{
+public:
+	virtual ~GalaxyMapClass();
+
+	const RefCountPtr<GalaxyMapDataClass> &Get_Data(unsigned int id);				// 0x8378B0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: returns AllData[id]
+	const RefCountPtr<GalaxyMapSystemClass> &Get_System(int hash_id);				// 0x837970  // NAME 2: Systems.find
+	const RefCountPtr<GalaxyMapSectorClass> &Get_Sector(int hash_id);				// 0x837A50  // NAME 2: Sectors.find
+	const RefCountPtr<GalaxyMapStarbaseClass> &Get_Starbase(int hash_id);			// 0x837B30  // NAME 2: Starbases.find
+
+	std::vector<RefCountPtr<GalaxyMapDataClass> > AllData;							// +0x04  // NAME 3: the asserts'
+	std::hash_map<int, RefCountPtr<GalaxyMapSystemClass> > Systems;					// +0x14  // NAME 3: the asserts'
+	std::hash_map<int, RefCountPtr<GalaxyMapSectorClass> > Sectors;					// +0x2C  // NAME 3: the asserts'
+	std::hash_map<int, RefCountPtr<GalaxyMapGateClass> > Gates;						// +0x44  // NAME 3: the asserts'
+	std::hash_map<int, RefCountPtr<GalaxyMapStarbaseClass> > Starbases;				// +0x5C  // NAME 3: the asserts'
+};
+
 #endif
 
 /*
@@ -228,4 +251,11 @@ public:
 **	carry GalaxyMapID, HashID, the string, two 12-byte members and two 4-byte ones; Read deletes the
 **	Read_String buffer with scalar delete (operator delete, as the client). The system's destructor
 **	0x837F80 stores its own vtable first: declared, not implicit.
+**
+**	The map (TK16): its layout from the lookups 0x8378B0-0x837B30 and its destructor 0x836240 (vtable
+**	0xB08B38 at +0x00; AllData's vector at +0x04; four SGI hash_maps of 0x18 bytes, bucket vectors'
+**	_First at +0x1C / +0x34 / +0x4C / +0x64, in the asserts' order). Its destructor asserts on this
+**	header's line 185 and the AllData asserts are inline here too: the class sits before the system
+**	in the client's header, but stays at the end here until those functions are built. The sector,
+**	gate and starbase classes are empty shells (their RefCountPtr statics need complete types).
 */

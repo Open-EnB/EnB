@@ -3756,8 +3756,8 @@ RECONSTRUCTED = {
                                             "isn't rotated)",
     ('app', 'common/unknown_galaxy.h'): "LoginGalaxyClass, a galaxy of the login's list (0x60 bytes, vtable 0xAEFBD0; PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
     ('app', 'common/unknown_galaxy.cpp'): "the login galaxy's Write / Read / Get_Size, client 0x83C730-0x83C870 in app\\common's run after galaxy_map.h (PROVISIONAL file name, D10: no __FILE__); exact",
-    ('app', 'common/galaxy_map.h'): "the galaxy map's data objects (the client's galaxy_map.h, assert l.161 '!Is_In_Galaxy_Map()'): the base (vtable 0xB08B74) and the system (0xB08B44, 0x40 bytes), as far as galaxy_map.cpp's 0x837C10-0x837C70 need them (TK12, claim #112)",
-    ('app', 'common/galaxy_map.cpp'): "PARTIAL: galaxy_map.cpp (the client's __FILE__ 0xBA97D4), its functions end at 0x837C70: so far its last three, the base's Read / Write 0x837C10 / 0x837C40 and the system's factory 0x837C70, exact (TK12, claim #112)",
+    ('app', 'common/galaxy_map.h'): "the galaxy map's data objects (the client's galaxy_map.h, assert l.161 '!Is_In_Galaxy_Map()'): the base (vtable 0xB08B74) and the system (0xB08B44, 0x40 bytes), as far as galaxy_map.cpp's 0x837C10-0x837C70 need them (TK12, claim #112); the map's layout (AllData, the four hash maps) for the lookups 0x8378B0-0x837B30 (TK16)",
+    ('app', 'common/galaxy_map.cpp'): "PARTIAL: galaxy_map.cpp (the client's __FILE__ 0xBA97D4), its functions end at 0x837C70: so far its last seven, the lookups 0x8378B0 / 0x837970 / 0x837A50 / 0x837B30 (TK16, claims #121 / #127), the base's Read / Write 0x837C10 / 0x837C40 and the system's factory 0x837C70 (TK12, claim #112), exact",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
