@@ -126,13 +126,13 @@ public:
 	void Unknown_67A6C0();								// 0x67A6C0 (the G_ASSERT 'NarratorRObj': the narrator made, walking on)
 	void Unknown_67B4F0(bool on);						// 0x67B4F0 (the model of type 4's 'platform' shown, or hidden)  // NAME 1 [on]: what it selects
 	void Unknown_67C440(int index, bool now);			// 0x67C440 (+0x4D4 the colour index of 0xBE6018's three; with now, +0x4C8 too)  // NAME 1 [index, now]: what they select
-	void Unknown_67C7B0();								// 0x67C7B0
+	void Unknown_67C7B0();								// 0x67C7B0 (the dialog stopped, the queue +0x4E0 emptied)
 	void Unknown_67A9B0(int type);						// 0x67A9B0 (ui_login.cpp: the destructor passes 0)  // NAME 2 [type]: 0x67AB20's G_ASSERT 'ViewRObjs[type]'
 	void Unknown_67AF70(float time);					// 0x67AF70 (the frame passes the frame time in seconds)  // NAME 1 [time]: what the frame passes
-	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown)
+	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown: the eighteen avatars of +0x3B8 released)
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
 	void Unknown_67C530();								// 0x67C530 (the frame)
-	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first)
+	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
 	Vector3 Unknown04C;									// +0x4C the camera's position (0x67A290; the frame translates the model's CAMERA bone by it)

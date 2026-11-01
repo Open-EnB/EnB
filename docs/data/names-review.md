@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1126 |
 | 2 | describes what the code does | 2823 |
-| 1 | neutral placeholder | 9952 |
+| 1 | neutral placeholder | 9953 |
 
 ## For review (score 3 and below)
 
@@ -203,16 +203,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0D` | `app/client/charview.cpp:763` | untagged neutral name (D10) |
 | 1 | `Unknown_67AE60` | `app/client/charview.cpp:769` | untagged neutral name (D10) |
 | 1 | `Unknown_67AEA0` | `app/client/charview.cpp:779` | untagged neutral name (D10) |
-| 1 | `Unknown_67AED0` | `app/client/charview.cpp:790` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/charview.cpp:806` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/charview.cpp:808` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/charview.cpp:808` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/charview.cpp:813` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/charview.cpp:816` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/charview.cpp:819` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:869` | untagged neutral name (D10) |
-| 1 | `Unknown_67B4F0` | `app/client/charview.cpp:895` | untagged neutral name (D10) |
-| 1 | `Unknown_67C440` | `app/client/charview.cpp:906` | untagged neutral name (D10) |
+| 1 | `Unknown_67AED0` | `app/client/charview.cpp:789` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/charview.cpp:803` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/charview.cpp:805` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/charview.cpp:805` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/charview.cpp:810` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/charview.cpp:813` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/charview.cpp:816` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:866` | untagged neutral name (D10) |
+| 1 | `Unknown_67B4F0` | `app/client/charview.cpp:892` | untagged neutral name (D10) |
+| 1 | `Unknown_67C440` | `app/client/charview.cpp:903` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/charview.cpp:929` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1338Class` | `app/client/charview.h:38` | untagged neutral name (D10) |
 | 1 | `CharacterViewAvatarClass` | `app/client/charview.h:42` | neutral (D10) |
 | 1 | `desc, a, b, env_maps` | `app/client/charview.h:45` | what the callers pass |

@@ -785,19 +785,16 @@ bool CharacterViewClass::Unknown_67AEA0(int type)
 	return(false);
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0.36)
 // 0x67AED0
 void CharacterViewClass::Unknown_67AED0(int type, bool first)
 {
-	RenderObjClass *model = ViewRObjs[type];
-	if (model) {
-		HAnimClass *anim = Unknown1D4[type].Anim;
-		if (anim) {
+	if (ViewRObjs[type]) {
+		if (Unknown1D4[type].Anim) {
 			if (first) {
-				model->Set_Animation(anim, 0.0f, 0);
+				ViewRObjs[type]->Set_Animation(Unknown1D4[type].Anim, 0.0f, 0);
 				return;
 			}
-			model->Set_Animation(Unknown1D4[type].Anim, (float)(anim->Get_Num_Frames() - 1));
+			ViewRObjs[type]->Set_Animation(Unknown1D4[type].Anim, (float)(Unknown1D4[type].Anim->Get_Num_Frames() - 1), 0);
 		}
 	}
 }
@@ -908,6 +905,46 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 	Unknown4D4 = Unknown_BE6018[index];
 	if (now) {
 		Unknown4C8 = Unknown_BE6018[index];
+	}
+}
+
+// 0x67BEB0
+void CharacterViewClass::Unknown_67BEB0()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (Unknown3B8[i][j][0]) {
+				Unknown3B8[i][j][0]->Release_Ref();
+				Unknown3B8[i][j][0] = NULL;
+			}
+			if (Unknown3B8[i][j][1]) {
+				Unknown3B8[i][j][1]->Release_Ref();
+				Unknown3B8[i][j][1] = NULL;
+			}
+		}
+	}
+}
+
+// 0x67C7B0
+void CharacterViewClass::Unknown_67C7B0()
+{
+	SoundLibraryClass::Stop_Dialog();
+	while (Unknown4E0.size() != 0) {
+		Unknown4E0.pop_front();
+	}
+}
+
+// NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38
+// 0x67CBD0
+void CharacterViewClass::Unknown_67CBD0()
+{
+	SoundLibraryClass::Update_Dialog();
+	if (!SoundLibraryClass::Is_Dialog_Playing() && Unknown4E0.size() != 0) {
+		std::string name = Unknown4E0.front();
+		Unknown4E0.pop_front();
+		if (name.length()) {
+			SoundLibraryClass::Play_Dialog(name.c_str(), 1);
+		}
 	}
 }
 
