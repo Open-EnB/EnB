@@ -52,9 +52,9 @@ public:
 	}
 };
 
-class GadgetGroupToFrontEvent  // NAME 5: the client's RTTI .?AVGadgetGroupToFrontEvent@@
-{
-};
+
+
+
 
 
 
@@ -147,7 +147,7 @@ InterfaceClass::~InterfaceClass()
 		((RefCountClass *)Unknown44)->Release_Ref();
 		Unknown44 = 0;
 	}
-	((InterfaceSignalMapClass &)GadgetClass::Get_Signal_Map()).Remove((void *)this, this, &InterfaceClass::Unknown_5418C0, GadgetGroupToFrontEvent());
+	((InterfaceSignalMapClass &)GadgetClass::Get_Signal_Map()).Remove((void *)this, this, &InterfaceClass::Unknown_5418C0, GadgetGroupToFrontEvent(NULL));
 }
 
 

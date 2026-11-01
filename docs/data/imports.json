@@ -3077,6 +3077,41 @@
      "0x6D4640"
     ]
    },
+   "gadget": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x65EDD0",
+     "0x65EE60",
+     "0x65EED0",
+     "0x65EFB0",
+     "0x65F2D0",
+     "0x65F340",
+     "0x65F4B0",
+     "0x65F500",
+     "0x65F5F0",
+     "0x65F640",
+     "0x65FFC0",
+     "0x65FFF0",
+     "0x660070",
+     "0x6600F0",
+     "0x660140",
+     "0x6601E0",
+     "0x660250",
+     "0x6602C0",
+     "0x6602F0",
+     "0x660320",
+     "0x6607D0",
+     "0x6608F0",
+     "0x660960"
+    ],
+    "merged": [],
+    "name": "client/gadget.cpp"
+   },
    "galaxy_map": {
     "ambiguous": [
      "0x42A900",
@@ -11917,6 +11952,7 @@
    "client/extrap.h": "reconstructed",
    "client/fontdatabase.h": "reconstructed",
    "client/fontmanager.h": "reconstructed",
+   "client/gadget.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/html/htmlview.h": "reconstructed",

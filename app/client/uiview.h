@@ -20,6 +20,7 @@
 #include "ref_ptr.h"
 
 class CameraClass;
+class GadgetClass;
 class UIViewClass;
 
 // the views' 2-D scene (UIViewClass +0x1C; 0xA0 bytes, constructor 0x6DA4D0)
@@ -40,6 +41,9 @@ class GadgetListManagerClass	// NAME 3: class-from-file (D24) for app\client\gad
 public:
 	GadgetListManagerClass();							// 0x6611B0
 	~GadgetListManagerClass();							// 0x661430
+	void Unknown_661700(GadgetClass *gadget);			// 0x661700 (gadget.cpp's slot +0x54: put in)  // NAME 1 [gadget]: neutral
+	void Unknown_6617E0(GadgetClass *gadget);			// 0x6617E0 (slot +0x58: taken out)  // NAME 1 [gadget]: neutral
+	GadgetClass *Unknown_661AA0(int a, int b);			// 0x661AA0  // NAME 1 [a, b]: neutral
 
 	char Unknown00[0x4C];
 };
