@@ -130,7 +130,7 @@ public:
 class PolicyStateClass  // NAME 2: describes what it does
 {
 public:
-	PolicyStateClass(int count) : Dirty(true) { Entries.reserve(count); }
+	PolicyStateClass(int count);																			// 0x4AF720 (inlined in Make_State)
 	~PolicyStateClass();																					// 0x4AF890
 	void Evaluate(int a, int b);																		// 0x4AF960 every condition's value  // NAME 2: describes what it does
 	void Set(int index, bool value);																	// 0x4AF9B0 one condition's value  // NAME 2: describes what it does

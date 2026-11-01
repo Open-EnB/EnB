@@ -487,6 +487,11 @@ void PolicySwitchClass::Update()
 	}
 }
 
+PolicyStateClass::PolicyStateClass(int count) : Dirty(true)
+{
+	Entries.reserve(count);
+}
+
 PolicyStateClass::~PolicyStateClass()
 {
 	for (std::pair<RefCountPtr<PolicyConditionClass>, bool> *entry = Entries.begin(); entry != Entries.end(); entry++) {
@@ -530,7 +535,10 @@ void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
 **	0x4AEC70, Get_Action 0x4AED50 line 334) with the compile's statics 0x4AE8D0 / 0x4AEA00 /
 **	0x4AEA50 (line 256), PolicyClass (destructor 0x4AEDD0, Add 0x4AEF40 line 378, Make_State
 **	0x4AF190, Bind 0x4AF3A0, Get_Action 0x4AF490 line 444), PolicySwitchClass (vtable 0xAEB324:
-**	0x4AF550-0x4AF6E0, line 466) and PolicyStateClass's destructor 0x4AF890.
+**	0x4AF550-0x4AF6E0, line 466) and PolicyStateClass (constructor 0x4AF720, destructor 0x4AF890,
+**	Evaluate 0x4AF960, Set 0x4AF9B0, Add 0x4AF9F0: out of line, unreferenced, inlined by Make_State and
+**	PolicySwitchClass::Update). Left: RefCountPtr<PolicyConditionClass>'s destructor 0x4AFAD0 (identical
+**	copies; EH funclets call it, P-TK3-1).
 **	How a policy works: each rule set holds rules (a field path pattern, an action, a value) and is
 **	enabled while its condition evaluates true; Make_State records each set's condition and value,
 **	Bind copies the values into the sets and compiles the policy for the root on first use: per field
