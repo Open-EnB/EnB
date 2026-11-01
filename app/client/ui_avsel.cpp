@@ -252,13 +252,13 @@ static const char *Unknown_B7B958[2] = { "CANCEL_BUTTON", "OK_BUTTON" };	// NAME
 static const char *Unknown_B7B960[2] = { "CANCEL_BUTTON_BUDDYREF1", "OK_BUTTON_BUDDYREF1" };	// NAME 1: neutral (D10)
 
 class LoginTaskClass;
-// LoginTaskClass's two accessors slot +0x68 calls out of line (0x55D860, 0x55D880; in this file's window)
-class UIAvselTaskClass	// NAME 1: neutral (D10): tsk_login.h's LoginTaskClass
-{
-public:
-	int Get_Selected() { return(((LoginTaskClass *)this)->Selected); }					// 0x55D860  // NAME 1: neutral (D10)
-	AvatarDescClass *Get_Descs() { return(((LoginTaskClass *)this)->Unknown0350); }	// 0x55D880  // NAME 1: neutral (D10)
-};
+// (LoginTaskClass's two accessors slot +0x68 calls out of line, 0x55D860 and 0x55D880 in this file's window: tsk_login.h)
+
+
+
+
+
+
 // What the edit box's +0x4C points to, as far as 0x55F760 calls it
 class UIAvselEditUnknown4CClass { public: void Unknown_6E2A20(const Vector4 &color); };	// NAME 1: neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1)
 // textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810; as ui_login.cpp declares it): the referral's name
@@ -485,8 +485,8 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 							Unknown088->Unknown_5C();
 							return true;
 						}
-						UIAvselTaskClass *task = (UIAvselTaskClass *)Unknown088;
-						Unknown084->Unknown_5594B0(task->Get_Descs()[task->Get_Selected()]);
+						LoginTaskClass *task = Unknown088;
+						Unknown084->Unknown_5594B0(task->Get_Avatar_Descs()[task->Get_Selected()]);
 						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
 						Unknown084->Unknown_67ACE0(1);
 						Unknown084->Unknown1CD = true;

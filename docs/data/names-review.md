@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1106 |
 | 2 | describes what the code does | 2739 |
-| 1 | neutral placeholder | 9372 |
+| 1 | neutral placeholder | 9371 |
 
 ## For review (score 3 and below)
 
@@ -4000,43 +4000,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Step` | `app/client/tasks/tsk_login.h:201` | what it does |
 | 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:203` | what it does |
 | 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:205` | what it does |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:207` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:209` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:210` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:211` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:212` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:213` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:214` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:215` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:216` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:217` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:218` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:219` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:220` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:221` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:222` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:223` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:224` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:225` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:226` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:227` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:229` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:231` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:232` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:234` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:235` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:243` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:244` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:248` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:252` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:254` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:257` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:258` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:259` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:261` | untagged neutral name (D10) |
+| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:207` | what it returns |
+| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:208` | what it returns |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:208` | untagged neutral name (D10) |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:209` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:210` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:211` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:212` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:213` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:214` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:215` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:216` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:217` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:218` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:219` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:220` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:221` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:222` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:223` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:224` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:225` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:226` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:227` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:228` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:229` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:231` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:233` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:234` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:236` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:237` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:241` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:242` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:246` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:250` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:254` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:256` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:259` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:260` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:261` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:263` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -4809,10 +4811,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B7B934` | `app/client/ui_avsel.cpp:250` | neutral (D10) |
 | 1 | `Unknown_B7B958` | `app/client/ui_avsel.cpp:251` | neutral (D10) |
 | 1 | `Unknown_B7B960` | `app/client/ui_avsel.cpp:252` | neutral (D10) |
-| 1 | `UIAvselTaskClass` | `app/client/ui_avsel.cpp:256` | neutral (D10): tsk_login.h's LoginTaskClass |
-| 1 | `Get_Selected` | `app/client/ui_avsel.cpp:259` | neutral (D10) |
-| 1 | `Get_Descs` | `app/client/ui_avsel.cpp:260` | neutral (D10) |
-| 1 | `Unknown0350` | `app/client/ui_avsel.cpp:260` | untagged neutral name (D10) |
 | 1 | `UIAvselEditUnknown4CClass` | `app/client/ui_avsel.cpp:263` | neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1) |
 | 1 | `Unknown_6E2A20` | `app/client/ui_avsel.cpp:263` | untagged neutral name (D10) |
 | 1 | `UIAvselEditClass` | `app/client/ui_avsel.cpp:265` | neutral (D10) |
@@ -4877,6 +4875,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown001D` | `app/client/ui_avsel.cpp:648` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_avsel.cpp:689` | untagged neutral name (D10) |
 | 1 | `Unknown_55E2E0` | `app/client/ui_avsel.cpp:766` | untagged neutral name (D10) |
+| 1 | `Unknown0350` | `app/client/ui_avsel.cpp:781` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_avsel.cpp:795` | untagged neutral name (D10) |
 | 1 | `Unknown_55F140` | `app/client/ui_avsel.cpp:876` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_avsel.cpp:1092` | untagged neutral name (D10) |

@@ -204,6 +204,8 @@ public:
 	virtual void Unknown_6C();							// +0x6C 0x769360
 	virtual void Create_Character_View();				// +0x70 0x769D60  // NAME 1: what it does
 
+	int Get_Selected() { return(Selected); }			// 0x55D860 (out of line in ui_avsel.cpp's window, called by its 0x55D060)  // NAME 1: what it returns
+	AvatarDescClass *Get_Avatar_Descs() { return(Unknown0350); }	// 0x55D880 (likewise)  // NAME 1: what it returns
 	bool Is_Registered_Character() { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }	// (the assert '!Is_Registered_Character()')  // NAME 1 [Galaxy_ID]: 0x769400 looks it up in the galaxies
 	void Unknown_7692A0();								// 0x7692A0 ('Avatar %d selected.  Ticket request sent.')
 	void Unknown_7693E0();								// 0x7693E0: Step 17
