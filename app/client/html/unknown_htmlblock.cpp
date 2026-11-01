@@ -263,7 +263,8 @@ char *HtmlBlockClass::Get_Attribute(char *key)
 **	  names the file: unknown_htmlblock.cpp is a neutral name (D137 placement). Its literals ('Align',
 **	  'p.center', 'Font.HSize', 'Horizontal_Padding'...) sit before htmlview.cpp's __FILE__ in .rdata, but
 **	  literals are merged across objects (no file evidence). 0x76EB70 (the font cache before it, called
-**	  from htmlview.cpp) is not placed yet: this object or image.cpp's tail.
+**	  from htmlview.cpp) is not this object's: it and 0x76E9D0 (image.cpp's vtable slot, just before it)
+**	  share the static ArrayList at 0xBE82E0, so it ends that object.
 **	* 0x76FCC0 (`xor eax, eax; ret`, between Get_Font_Height and the wrappers) is not written: its class is
 **	  unknown (no caller, no vtable found yet).
 **	* Forms: Get_Abs_X / Y read AbsX into a local after the NULL test (the client loads it before the call);

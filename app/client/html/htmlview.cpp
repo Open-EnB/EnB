@@ -1606,8 +1606,8 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 **	  line by auto_inline(off), as the client calls it). Not yet: the 32-bit and 16-bit alpha line
 **	  drawers 0x7778E0 / 0x777EE0 (alpha factors in the statics 0xC41550 / 0xC41554 and 0xC4153C /
 **	  0xC4154C), the view and its parser. The class sits here until the view's header exists.
-**	* The functions with asserts must sit on the client's lines (D25): everything above stays below line
-**	  158 until 0x770860 is written; this partial file has none of them yet.
+**	* The functions with asserts sit on the client's lines (D25): Add_Data's G_ASSERT(0) on 158, Add_Text's
+**	  two on 1114 / 1115; the blank lines before Add_Text keep the parser 0x7710D0 (its assert on 926) a gap.
 **	* HV2 (2026-11-01): the view, HtmlViewClass (htmlview.h), 0x76FFD0-0x770720, every function exact. The
 **	  file starts at 0x76FFD0: 0x76F0F0-0x76FFCF is HtmlBlockClass's object (unknown_htmlblock.cpp, ended by
 **	  its ArrayList copies), and the view's ArrayList<HtmlLinkStruct> destructor is this file's template
@@ -1621,5 +1621,9 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 **	  (attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
 **	* HtmlBlockClass's inline getters (Get_X / Get_Y / Get_Width / Get_Height) are why the client reads a
 **	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
-**	  top, left, right. NOT EXACT (scheduling): Render (the parent bounds' stores), Hit_Test (its loop top).
+**	  top, left, right. NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text
+**	  (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test).
+**	* Not yet: the parser 0x7710D0 (18 KB; the template copies 0x778CF0-0x779120 are its), Draw_Line_16 /
+**	  Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
+**	  0x76E9D0 (the object before, image.cpp's vtable slot) share its static ArrayList at 0xBE82E0.
 */
