@@ -825,6 +825,22 @@
     "merged": [],
     "name": "client/buff_database.cpp"
    },
+   "cameraeffects": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x546970",
+     "0x6E3710",
+     "0x6E37F0",
+     "0x6E3B60"
+    ],
+    "merged": [],
+    "name": "client/cameraeffects.cpp"
+   },
    "cfaction_database": {
     "ambiguous": [
      "0x42A6C0",
@@ -1921,7 +1937,9 @@
      "0x857850",
      "0x8596F0",
      "0x8598F0",
-     "0x859F80"
+     "0x859F80",
+     "0x85A3B0",
+     "0x85AB30"
     ],
     "merged": [],
     "name": "wwudp/cordmgr.cpp"
@@ -8687,12 +8705,17 @@
      "0x42B2F0",
      "0x46BE90",
      "0x474080",
+     "0x541A10",
      "0x64EFC0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x69CBE0",
+     "0x69CC10",
+     "0x69CCD0",
+     "0x69CDE0",
      "0x69D930",
      "0x69D9D0",
      "0x69DB50",
@@ -9765,6 +9788,22 @@
     "merged": [],
     "name": "common/udpconn.cpp"
    },
+   "ui_avatar_cust": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x550670",
+     "0x550970",
+     "0x551270"
+    ],
+    "merged": [],
+    "name": "client/ui_avatar_cust.cpp"
+   },
    "ui_chat_panel": {
     "ambiguous": [
      "0x42A6C0",
@@ -9833,6 +9872,23 @@
     ],
     "merged": [],
     "name": "client/ui_chat_panel.cpp"
+   },
+   "ui_combobox": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x57A330",
+     "0x57AAB0",
+     "0x57AC70",
+     "0x57AD50"
+    ],
+    "merged": [],
+    "name": "client/ui_combobox.cpp"
    },
    "ui_cpit": {
     "ambiguous": [
@@ -10724,6 +10780,25 @@
     "merged": [],
     "name": "shared/auxdata/unknown_root.cpp"
    },
+   "unknown_screenfade": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7FF010",
+     "0x7FF060",
+     "0x7FF230",
+     "0x7FF3A0",
+     "0x7FF3D0",
+     "0x7FF830",
+     "0x7FF8A0",
+     "0x7FFA30",
+     "0x7FFBE0"
+    ],
+    "merged": [],
+    "name": "client/unknown_screenfade.cpp"
+   },
    "view": {
     "ambiguous": [
      "0x42B2F0",
@@ -11028,7 +11103,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 5794,
+  "in_tree_total": 5819,
   "totals": {}
  },
  "binkmovie": {

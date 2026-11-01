@@ -14,6 +14,10 @@
                                                           the progress card regenerated and committed
                                                           (tools/progress.py), the PR's summary from FILE, out of draft
     python tools/run_branch.py status                       branch, PR, claims
+    python tools/run_branch.py cleanup [--dry]              after a run's PR merged: delete the local branches (and their
+                                                          worktrees) whose every commit is in origin/master, keep
+                                                          and list those with commits of their own, fast-forward
+                                                          local master, list leftover remote branches
 
 Run start: master is verified by construction (every PR passes vc6-verify), so the run's baseline is
 origin/master's imports.json. The PR opens as a draft at once: its claims stay alive while it is a draft (it is
@@ -251,6 +255,44 @@ def cmd_status(a):
         print(f'  #{n} @{st["holder"]} {st["unit"]} ({len(st["funcs"])} functions)')
 
 
+def cmd_cleanup(a):
+    """Local branches whose every commit is in origin/master (merged, or the same patch by `git cherry`) are deleted
+    with their worktrees; branches with commits of their own are kept and listed; local master is fast-forwarded;
+    remote branches other than master and the current run's are listed (GitHub deletes a merged PR's branch)."""
+    git('fetch', '-q', '--prune', 'origin')
+    cur = git('branch', '--show-current')
+    trees = {}
+    for block in git('worktree', 'list', '--porcelain').split('\n\n'):
+        lines = dict(l.split(' ', 1) for l in block.splitlines() if ' ' in l)
+        if lines.get('branch', '').startswith('refs/heads/'):
+            trees[lines['branch'][len('refs/heads/'):]] = lines['worktree']
+    gone, kept = [], []
+    for b in git('for-each-ref', '--format=%(refname:short)', 'refs/heads/').split():
+        if b in (cur, 'master'):
+            continue
+        own = [l for l in git('cherry', 'origin/master', b).splitlines() if l.startswith('+')]
+        if own:
+            kept.append(f'{b} ({len(own)} commit(s) of its own)')
+            continue
+        if b in trees and os.path.normcase(os.path.abspath(trees[b])) != os.path.normcase(ROOT):
+            if git('-C', trees[b], 'status', '--porcelain', check=False).stdout.strip():
+                kept.append(f'{b} (its worktree {trees[b]} has uncommitted changes)')
+                continue
+            if not a.dry:
+                git('worktree', 'remove', trees[b])
+        if not a.dry:
+            git('branch', '-D', b)
+        gone.append(b)
+    if cur != 'master' and not a.dry:
+        git('fetch', '-q', 'origin', 'master:master', check=False)
+    print(f'{"would delete" if a.dry else "deleted"} {len(gone)} local branch(es): {", ".join(gone) or "none"}')
+    print(f'kept {len(kept)}: {"; ".join(kept) or "none"}')
+    remote = [l.split('refs/heads/', 1)[1] for l in git('ls-remote', '--heads', 'origin').splitlines()]
+    left = [x for x in remote if x not in ('master', cur) and not x.startswith('verified/')]
+    print(f'remote branches besides master and {cur}: {", ".join(left) or "none"}'
+          + (' (delete a merged one with `git push origin --delete NAME` once its PR is merged)' if left else ''))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -269,9 +311,10 @@ def main():
     rd.add_argument('--summary', required=True)
     rd.add_argument('--co-author', help="the card commit's Co-Authored-By value (D71), e.g. 'Claude Opus 5.5 <noreply@anthropic.com>'")
     sub.add_parser('status')
+    sub.add_parser('cleanup').add_argument('--dry', action='store_true')
     a = ap.parse_args()
     return {'start': cmd_start, 'claim': cmd_claim, 'release': cmd_release, 'push': cmd_push,
-            'ready': cmd_ready, 'status': cmd_status}[a.cmd](a) or 0
+            'ready': cmd_ready, 'status': cmd_status, 'cleanup': cmd_cleanup}[a.cmd](a) or 0
 
 
 if __name__ == '__main__':

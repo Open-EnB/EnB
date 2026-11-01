@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1058 |
-| 2 | describes what the code does | 2526 |
-| 1 | neutral placeholder | 7578 |
+| 3 | by convention from a client-named file or sibling | 1064 |
+| 2 | describes what the code does | 2541 |
+| 1 | neutral placeholder | 7802 |
 
 ## For review (score 3 and below)
 
@@ -68,6 +68,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:1014` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/buff_database.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/buff_database.cpp:10` | 0x4BC260, 0x4BC000's sibling |
+| 1 | `CameraEffectsRandom` | `app/client/cameraeffects.cpp:11` | neutral (D10) |
+| 1 | `UnknownAFFE6CClass` | `app/client/cameraeffects.cpp:15` | neutral (D10) |
+| 1 | `owner` | `app/client/cameraeffects.cpp:18` | neutral |
+| 1 | `Unknown_10` | `app/client/cameraeffects.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/cameraeffects.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownAFFE64Class` | `app/client/cameraeffects.cpp:25` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/cameraeffects.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown498C10Class` | `app/client/cameraeffects.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/cameraeffects.cpp:30` | untagged neutral name (D10) |
+| 1 | `UnknownAFFE84Class` | `app/client/cameraeffects.cpp:34` | neutral (D10) |
+| 1 | `owner, damage` | `app/client/cameraeffects.cpp:37` | neutral |
+| 1 | `Unknown0C` | `app/client/cameraeffects.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/cameraeffects.cpp:43` | neutral (D10): as co.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/cameraeffects.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/cameraeffects.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_498D40` | `app/client/cameraeffects.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/cameraeffects.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/cameraeffects.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_498C30` | `app/client/cameraeffects.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_Value` | `app/client/cameraeffects.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/cameraeffects.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/cameraeffects.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/client/client.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/client.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/client.cpp:27` | untagged neutral name (D10) |
@@ -465,178 +487,183 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_498F00` | `app/client/co.h:74` | untagged neutral name (D10) |
 | 1 | `value` | `app/client/co.h:75` | neutral |
 | 1 | `Unknown_498CC0` | `app/client/co.h:75` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/co.h:76` | what it gets |
-| 1 | `Unknown_498E00` | `app/client/co.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/co.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/co.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown8CClass` | `app/client/co.h:82` | neutral (D10) |
-| 1 | `Unknown98Class` | `app/client/co.h:95` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/co.h:99` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/co.h:100` | neutral |
-| 1 | `unknown` | `app/client/co.h:101` | neutral |
-| 1 | `unknown` | `app/client/co.h:102` | neutral |
+| 1 | `value, reset` | `app/client/co.h:76` | neutral |
+| 1 | `Unknown_498D40` | `app/client/co.h:76` | untagged neutral name (D10) |
+| 1 | `target, rate` | `app/client/co.h:77` | neutral |
+| 1 | `Unknown_498C30` | `app/client/co.h:77` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/co.h:78` | what it gets |
+| 1 | `Unknown_498E00` | `app/client/co.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_Value` | `app/client/co.h:79` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/co.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/co.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown8CClass` | `app/client/co.h:85` | neutral (D10) |
+| 1 | `Unknown98Class` | `app/client/co.h:98` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/co.h:102` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:103` | neutral |
 | 1 | `unknown` | `app/client/co.h:104` | neutral |
 | 1 | `unknown` | `app/client/co.h:105` | neutral |
 | 1 | `unknown` | `app/client/co.h:106` | neutral |
-| 1 | `state` | `app/client/co.h:107` | neutral |
-| 1 | `UnknownB006B8Class` | `app/client/co.h:113` | neutral (D10), named by its vtable |
-| 1 | `unknown` | `app/client/co.h:117` | neutral |
-| 1 | `unknown` | `app/client/co.h:118` | neutral |
-| 1 | `unknown` | `app/client/co.h:119` | neutral |
+| 1 | `unknown` | `app/client/co.h:107` | neutral |
+| 1 | `unknown` | `app/client/co.h:108` | neutral |
+| 1 | `unknown` | `app/client/co.h:109` | neutral |
+| 1 | `state` | `app/client/co.h:110` | neutral |
+| 1 | `UnknownB006B8Class` | `app/client/co.h:116` | neutral (D10), named by its vtable |
 | 1 | `unknown` | `app/client/co.h:120` | neutral |
-| 1 | `model, state, unknown` | `app/client/co.h:123` | co.cpp passes the model, 1 or 2, and 0 |
-| 1 | `Unknown_810540` | `app/client/co.h:123` | untagged neutral name (D10) |
-| 1 | `model, on` | `app/client/co.h:124` | what co.cpp passes |
-| 1 | `Unknown_810750` | `app/client/co.h:124` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `app/client/co.h:131` | neutral (D10), named by its vtable |
-| 1 | `owner` | `app/client/co.h:134` | co.cpp passes the object itself |
-| 1 | `child, slot, child_slot` | `app/client/co.h:138` | what it does with them |
-| 1 | `child, slot, child_slot` | `app/client/co.h:139` | what it does with them |
-| 1 | `parent, slot, child_slot` | `app/client/co.h:140` | what 0x725610 passes |
-| 1 | `center, radius` | `app/client/co.h:141` | what it computes |
-| 1 | `Unknown_725C60` | `app/client/co.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_725AD0` | `app/client/co.h:142` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/co.h:143` | what type 28 passes |
-| 1 | `Unknown_725A90` | `app/client/co.h:143` | untagged neutral name (D10) |
-| 1 | `parent, slot, child_slot` | `app/client/co.h:144` | what 0x7257F0 passes |
-| 1 | `Unknown08` | `app/client/co.h:147` | untagged neutral name (D10) |
-| 1 | `BufferStruct` | `app/client/co.h:150` | neutral (D10) |
-| 1 | `ElementStruct` | `app/client/co.h:151` | neutral (D10) |
-| 1 | `Unknown34` | `app/client/co.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/co.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/co.h:156` | untagged neutral name (D10) |
-| 1 | `Get` | `app/client/co.h:164` | neutral |
-| 1 | `Count` | `app/client/co.h:165` | neutral |
-| 1 | `Data` | `app/client/co.h:167` | neutral |
-| 1 | `Unknown1C` | `app/client/co.h:170` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/co.h:188` | neutral |
-| 1 | `Unknown_38` | `app/client/co.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/co.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/co.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/co.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFFF0` | `app/client/co.h:196` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF1D0` | `app/client/co.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF330` | `app/client/co.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFE90` | `app/client/co.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFF00` | `app/client/co.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFF50` | `app/client/co.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown_700400` | `app/client/co.h:202` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/co.h:203` | passed on to 0x6FF7A0 |
-| 1 | `Unknown_6FFC80` | `app/client/co.h:203` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/co.h:204` | neutral |
-| 1 | `Unknown_6FF7A0` | `app/client/co.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown_6F3BC0` | `app/client/co.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5DC0` | `app/client/co.h:206` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/co.h:208` | the handler's packet |
-| 1 | `Unknown_6FEF70` | `app/client/co.h:208` | untagged neutral name (D10) |
-| 1 | `Unknown_6F3810` | `app/client/co.h:209` | untagged neutral name (D10) |
-| 1 | `Unknown_6F3ED0` | `app/client/co.h:210` | untagged neutral name (D10) |
-| 1 | `pos` | `app/client/co.h:211` | a Vector3 |
-| 1 | `Unknown_6F4E70` | `app/client/co.h:211` | untagged neutral name (D10) |
-| 1 | `pos` | `app/client/co.h:212` | a Vector3 |
-| 1 | `Unknown_6F4F30` | `app/client/co.h:212` | untagged neutral name (D10) |
-| 1 | `Unknown_6F4290` | `app/client/co.h:213` | untagged neutral name (D10) |
-| 1 | `tm` | `app/client/co.h:214` | a Matrix3D |
-| 1 | `Unknown_6F3FA0` | `app/client/co.h:214` | untagged neutral name (D10) |
-| 1 | `Unknown_6FBEF0` | `app/client/co.h:215` | untagged neutral name (D10) |
-| 1 | `Unknown_6F3BF0` | `app/client/co.h:216` | untagged neutral name (D10) |
-| 1 | `Unknown_6F45E0` | `app/client/co.h:217` | untagged neutral name (D10) |
-| 1 | `Unknown_6F4590` | `app/client/co.h:218` | untagged neutral name (D10) |
-| 1 | `Unknown_6F58B0` | `app/client/co.h:219` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5E40` | `app/client/co.h:220` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5ED0` | `app/client/co.h:221` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5F60` | `app/client/co.h:222` | untagged neutral name (D10) |
-| 1 | `Unknown_7008B0` | `app/client/co.h:223` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5850` | `app/client/co.h:224` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5880` | `app/client/co.h:225` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5980` | `app/client/co.h:226` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A10` | `app/client/co.h:227` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/co.h:228` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A60` | `app/client/co.h:229` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5AB0` | `app/client/co.h:231` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5AD0` | `app/client/co.h:232` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5AF0` | `app/client/co.h:233` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5B10` | `app/client/co.h:234` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5B30` | `app/client/co.h:235` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5B50` | `app/client/co.h:236` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5B70` | `app/client/co.h:237` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5B90` | `app/client/co.h:238` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5BB0` | `app/client/co.h:239` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5BD0` | `app/client/co.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5BF0` | `app/client/co.h:241` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5C20` | `app/client/co.h:242` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5C50` | `app/client/co.h:243` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5C80` | `app/client/co.h:244` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5CA0` | `app/client/co.h:245` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5CD0` | `app/client/co.h:246` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5D00` | `app/client/co.h:247` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5D30` | `app/client/co.h:248` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5D50` | `app/client/co.h:249` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5D70` | `app/client/co.h:250` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5D90` | `app/client/co.h:251` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5DE0` | `app/client/co.h:252` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5E00` | `app/client/co.h:253` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5E20` | `app/client/co.h:254` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/co.h:255` | neutral |
-| 1 | `Unknown_6FC950` | `app/client/co.h:255` | untagged neutral name (D10) |
-| 1 | `Unknown_6FC970` | `app/client/co.h:256` | untagged neutral name (D10) |
-| 1 | `Unknown_6FED30` | `app/client/co.h:257` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFFA0` | `app/client/co.h:258` | untagged neutral name (D10) |
-| 1 | `Unknown_700670` | `app/client/co.h:259` | untagged neutral name (D10) |
-| 1 | `position` | `app/client/co.h:260` | a Vector3 |
-| 1 | `Unknown_700820` | `app/client/co.h:260` | untagged neutral name (D10) |
-| 1 | `Unknown_700860` | `app/client/co.h:261` | untagged neutral name (D10) |
-| 1 | `Unknown_6FC880` | `app/client/co.h:262` | untagged neutral name (D10) |
-| 1 | `Unknown_6FC9A0` | `app/client/co.h:263` | untagged neutral name (D10) |
-| 1 | `Unknown_6FCB20` | `app/client/co.h:264` | untagged neutral name (D10) |
-| 1 | `Unknown_6FD2C0` | `app/client/co.h:265` | untagged neutral name (D10) |
-| 1 | `Unknown_6FD310` | `app/client/co.h:266` | untagged neutral name (D10) |
-| 1 | `Unknown_6FDBD0` | `app/client/co.h:267` | untagged neutral name (D10) |
-| 1 | `model` | `app/client/co.h:268` | what 0x6FDBD0 passes |
-| 1 | `Unknown_6FD7A0` | `app/client/co.h:268` | untagged neutral name (D10) |
-| 1 | `Unknown_6FE1E0` | `app/client/co.h:269` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5090` | `app/client/co.h:270` | untagged neutral name (D10) |
-| 1 | `Unknown_Damage_Reset` | `app/client/co.h:271` | untagged neutral name (D10) |
-| 1 | `Unknown_6FEAC0` | `app/client/co.h:272` | untagged neutral name (D10) |
-| 1 | `Unknown_7009A0` | `app/client/co.h:273` | untagged neutral name (D10) |
-| 1 | `Unknown_6FEC40` | `app/client/co.h:274` | untagged neutral name (D10) |
-| 1 | `Unknown_6FEEE0` | `app/client/co.h:275` | untagged neutral name (D10) |
-| 1 | `Unknown_6F33F0` | `app/client/co.h:276` | untagged neutral name (D10) |
-| 1 | `Unknown_6FCB70` | `app/client/co.h:277` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5140` | `app/client/co.h:278` | untagged neutral name (D10) |
-| 1 | `lego` | `app/client/co.h:279` | what eff_o.cpp's 0x6E8F80 passes |
-| 1 | `Unknown_6FED80` | `app/client/co.h:279` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/co.h:283` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/client/co.h:285` | untagged neutral name (D10) |
-| 1 | `Unknown95` | `app/client/co.h:288` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/co.h:289` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `app/client/co.h:295` | untagged neutral name (D10) |
-| 1 | `UnknownB1` | `app/client/co.h:296` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/co.h:297` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/co.h:298` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/co.h:302` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/co.h:303` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `app/client/co.h:304` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `app/client/co.h:305` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/co.h:306` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/co.h:307` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/co.h:308` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/co.h:309` | untagged neutral name (D10) |
-| 1 | `Unknown128` | `app/client/co.h:310` | untagged neutral name (D10) |
-| 1 | `Unknown129` | `app/client/co.h:311` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/client/co.h:313` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/co.h:314` | untagged neutral name (D10) |
-| 1 | `Unknown148` | `app/client/co.h:315` | untagged neutral name (D10) |
-| 1 | `Unknown14C` | `app/client/co.h:316` | untagged neutral name (D10) |
-| 1 | `Unknown150` | `app/client/co.h:317` | untagged neutral name (D10) |
-| 1 | `Unknown154` | `app/client/co.h:318` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/co.h:319` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/co.h:320` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/co.h:321` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/co.h:322` | untagged neutral name (D10) |
-| 1 | `Unknown184` | `app/client/co.h:323` | untagged neutral name (D10) |
-| 1 | `Unknown185` | `app/client/co.h:324` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/co.h:121` | neutral |
+| 1 | `unknown` | `app/client/co.h:122` | neutral |
+| 1 | `unknown` | `app/client/co.h:123` | neutral |
+| 1 | `model, state, unknown` | `app/client/co.h:126` | co.cpp passes the model, 1 or 2, and 0 |
+| 1 | `Unknown_810540` | `app/client/co.h:126` | untagged neutral name (D10) |
+| 1 | `model, on` | `app/client/co.h:127` | what co.cpp passes |
+| 1 | `Unknown_810750` | `app/client/co.h:127` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `app/client/co.h:134` | neutral (D10), named by its vtable |
+| 1 | `owner` | `app/client/co.h:137` | co.cpp passes the object itself |
+| 1 | `child, slot, child_slot` | `app/client/co.h:141` | what it does with them |
+| 1 | `child, slot, child_slot` | `app/client/co.h:142` | what it does with them |
+| 1 | `parent, slot, child_slot` | `app/client/co.h:143` | what 0x725610 passes |
+| 1 | `center, radius` | `app/client/co.h:144` | what it computes |
+| 1 | `Unknown_725C60` | `app/client/co.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_725AD0` | `app/client/co.h:145` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/co.h:146` | what type 28 passes |
+| 1 | `Unknown_725A90` | `app/client/co.h:146` | untagged neutral name (D10) |
+| 1 | `parent, slot, child_slot` | `app/client/co.h:147` | what 0x7257F0 passes |
+| 1 | `Unknown08` | `app/client/co.h:150` | untagged neutral name (D10) |
+| 1 | `BufferStruct` | `app/client/co.h:153` | neutral (D10) |
+| 1 | `ElementStruct` | `app/client/co.h:154` | neutral (D10) |
+| 1 | `Unknown34` | `app/client/co.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/co.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/co.h:159` | untagged neutral name (D10) |
+| 1 | `Get` | `app/client/co.h:167` | neutral |
+| 1 | `Count` | `app/client/co.h:168` | neutral |
+| 1 | `Data` | `app/client/co.h:170` | neutral |
+| 1 | `Unknown1C` | `app/client/co.h:173` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/co.h:191` | neutral |
+| 1 | `Unknown_38` | `app/client/co.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/co.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/co.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/co.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFFF0` | `app/client/co.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF1D0` | `app/client/co.h:200` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF330` | `app/client/co.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFE90` | `app/client/co.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFF00` | `app/client/co.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFF50` | `app/client/co.h:204` | untagged neutral name (D10) |
+| 1 | `Unknown_700400` | `app/client/co.h:205` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/co.h:206` | passed on to 0x6FF7A0 |
+| 1 | `Unknown_6FFC80` | `app/client/co.h:206` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/co.h:207` | neutral |
+| 1 | `Unknown_6FF7A0` | `app/client/co.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3BC0` | `app/client/co.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5DC0` | `app/client/co.h:209` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/co.h:211` | the handler's packet |
+| 1 | `Unknown_6FEF70` | `app/client/co.h:211` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3810` | `app/client/co.h:212` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3ED0` | `app/client/co.h:213` | untagged neutral name (D10) |
+| 1 | `pos` | `app/client/co.h:214` | a Vector3 |
+| 1 | `Unknown_6F4E70` | `app/client/co.h:214` | untagged neutral name (D10) |
+| 1 | `pos` | `app/client/co.h:215` | a Vector3 |
+| 1 | `Unknown_6F4F30` | `app/client/co.h:215` | untagged neutral name (D10) |
+| 1 | `Unknown_6F4290` | `app/client/co.h:216` | untagged neutral name (D10) |
+| 1 | `tm` | `app/client/co.h:217` | a Matrix3D |
+| 1 | `Unknown_6F3FA0` | `app/client/co.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown_6FBEF0` | `app/client/co.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3BF0` | `app/client/co.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown_6F45E0` | `app/client/co.h:220` | untagged neutral name (D10) |
+| 1 | `Unknown_6F4590` | `app/client/co.h:221` | untagged neutral name (D10) |
+| 1 | `Unknown_6F58B0` | `app/client/co.h:222` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5E40` | `app/client/co.h:223` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5ED0` | `app/client/co.h:224` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5F60` | `app/client/co.h:225` | untagged neutral name (D10) |
+| 1 | `Unknown_7008B0` | `app/client/co.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5850` | `app/client/co.h:227` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5880` | `app/client/co.h:228` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5980` | `app/client/co.h:229` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A10` | `app/client/co.h:230` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/co.h:231` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A60` | `app/client/co.h:232` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5AB0` | `app/client/co.h:234` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5AD0` | `app/client/co.h:235` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5AF0` | `app/client/co.h:236` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5B10` | `app/client/co.h:237` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5B30` | `app/client/co.h:238` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5B50` | `app/client/co.h:239` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5B70` | `app/client/co.h:240` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5B90` | `app/client/co.h:241` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5BB0` | `app/client/co.h:242` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5BD0` | `app/client/co.h:243` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5BF0` | `app/client/co.h:244` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5C20` | `app/client/co.h:245` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5C50` | `app/client/co.h:246` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5C80` | `app/client/co.h:247` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5CA0` | `app/client/co.h:248` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5CD0` | `app/client/co.h:249` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5D00` | `app/client/co.h:250` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5D30` | `app/client/co.h:251` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5D50` | `app/client/co.h:252` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5D70` | `app/client/co.h:253` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5D90` | `app/client/co.h:254` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5DE0` | `app/client/co.h:255` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5E00` | `app/client/co.h:256` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5E20` | `app/client/co.h:257` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/co.h:258` | neutral |
+| 1 | `Unknown_6FC950` | `app/client/co.h:258` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC970` | `app/client/co.h:259` | untagged neutral name (D10) |
+| 1 | `Unknown_6FED30` | `app/client/co.h:260` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFFA0` | `app/client/co.h:261` | untagged neutral name (D10) |
+| 1 | `Unknown_700670` | `app/client/co.h:262` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/co.h:263` | a Vector3 |
+| 1 | `Unknown_700820` | `app/client/co.h:263` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/co.h:264` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC880` | `app/client/co.h:265` | untagged neutral name (D10) |
+| 1 | `Unknown_6FC9A0` | `app/client/co.h:266` | untagged neutral name (D10) |
+| 1 | `Unknown_6FCB20` | `app/client/co.h:267` | untagged neutral name (D10) |
+| 1 | `Unknown_6FD2C0` | `app/client/co.h:268` | untagged neutral name (D10) |
+| 1 | `Unknown_6FD310` | `app/client/co.h:269` | untagged neutral name (D10) |
+| 1 | `Unknown_6FDBD0` | `app/client/co.h:270` | untagged neutral name (D10) |
+| 1 | `model` | `app/client/co.h:271` | what 0x6FDBD0 passes |
+| 1 | `Unknown_6FD7A0` | `app/client/co.h:271` | untagged neutral name (D10) |
+| 1 | `Unknown_6FE1E0` | `app/client/co.h:272` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5090` | `app/client/co.h:273` | untagged neutral name (D10) |
+| 1 | `Unknown_Damage_Reset` | `app/client/co.h:274` | untagged neutral name (D10) |
+| 1 | `Unknown_6FEAC0` | `app/client/co.h:275` | untagged neutral name (D10) |
+| 1 | `Unknown_7009A0` | `app/client/co.h:276` | untagged neutral name (D10) |
+| 1 | `Unknown_6FEC40` | `app/client/co.h:277` | untagged neutral name (D10) |
+| 1 | `Unknown_6FEEE0` | `app/client/co.h:278` | untagged neutral name (D10) |
+| 1 | `Unknown_6F33F0` | `app/client/co.h:279` | untagged neutral name (D10) |
+| 1 | `Unknown_6FCB70` | `app/client/co.h:280` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5140` | `app/client/co.h:281` | untagged neutral name (D10) |
+| 1 | `lego` | `app/client/co.h:282` | what eff_o.cpp's 0x6E8F80 passes |
+| 1 | `Unknown_6FED80` | `app/client/co.h:282` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/co.h:286` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/co.h:288` | untagged neutral name (D10) |
+| 1 | `Unknown95` | `app/client/co.h:291` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/co.h:292` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/co.h:298` | untagged neutral name (D10) |
+| 1 | `UnknownB1` | `app/client/co.h:299` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/co.h:300` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/co.h:301` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/co.h:305` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/co.h:306` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/co.h:307` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/co.h:308` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/co.h:309` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/co.h:310` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/co.h:311` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/co.h:312` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `app/client/co.h:313` | untagged neutral name (D10) |
+| 1 | `Unknown129` | `app/client/co.h:314` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/co.h:316` | untagged neutral name (D10) |
+| 1 | `Unknown144` | `app/client/co.h:317` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/co.h:318` | untagged neutral name (D10) |
+| 1 | `Unknown14C` | `app/client/co.h:319` | untagged neutral name (D10) |
+| 1 | `Unknown150` | `app/client/co.h:320` | untagged neutral name (D10) |
+| 1 | `Unknown154` | `app/client/co.h:321` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/co.h:322` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/co.h:323` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/co.h:324` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/co.h:325` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/client/co.h:326` | untagged neutral name (D10) |
+| 1 | `Unknown185` | `app/client/co.h:327` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co_data.h:42` | the client's slot |
 | 1 | `ClientObjectDataAccessClass` | `app/client/co_data.h:52` | neutral (D10), the per-type access |
@@ -2116,17 +2143,37 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `packet` | `app/client/sbaseview.cpp:19` | what 0x6A0FD0 passes |
 | 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_6987A0` | `app/client/sbaseview.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_69D930` | `app/client/sbaseview.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/sbaseview.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/sbaseview.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/sbaseview.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_69CBE0` | `app/client/sbaseview.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `app/client/sbaseview.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_69CC10` | `app/client/sbaseview.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/client/sbaseview.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/sbaseview.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/sbaseview.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_69CCD0` | `app/client/sbaseview.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/client/sbaseview.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/sbaseview.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_69CDE0` | `app/client/sbaseview.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/sbaseview.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/sbaseview.cpp:72` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.cpp:79` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/sbaseview.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_74C9D0` | `app/client/sbaseview.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/sbaseview.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_695FE0` | `app/client/sbaseview.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_69D930` | `app/client/sbaseview.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/sbaseview.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/sbaseview.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sbaseview.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_69D9D0` | `app/client/sbaseview.cpp:733` | untagged neutral name (D10) |
 | 1 | `Unknown_69DB50` | `app/client/sbaseview.cpp:757` | untagged neutral name (D10) |
 | 1 | `Unknown_69DBA0` | `app/client/sbaseview.cpp:765` | untagged neutral name (D10) |
 | 1 | `Unknown_69DC40` | `app/client/sbaseview.cpp:774` | untagged neutral name (D10) |
 | 1 | `Unknown_69DC60` | `app/client/sbaseview.cpp:780` | untagged neutral name (D10) |
 | 1 | `Unknown_69F440` | `app/client/sbaseview.cpp:786` | untagged neutral name (D10) |
-| 1 | `Unknown1B0` | `app/client/sbaseview.cpp:788` | untagged neutral name (D10) |
 | 1 | `Unknown_69F460` | `app/client/sbaseview.cpp:792` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/sbaseview.cpp:794` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/sbaseview.cpp:795` | untagged neutral name (D10) |
@@ -2165,107 +2212,118 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_63CF30` | `app/client/sbaseview.h:31` | untagged neutral name (D10) |
 | 1 | `avatar_id, orient, position, action` | `app/client/sbaseview.h:32` | the packet's fields |
 | 1 | `Unknown_63E5C0` | `app/client/sbaseview.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/sbaseview.h:33` | untagged neutral name (D10) |
-| 1 | `name, color` | `app/client/sbaseview.h:35` | what 0x750F70 passes |
-| 1 | `Unknown_640150` | `app/client/sbaseview.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_6425D0` | `app/client/sbaseview.h:35` | untagged neutral name (D10) |
-| 1 | `unknown, desc` | `app/client/sbaseview.h:36` | the packet's fields |
-| 1 | `Unknown_6437A0` | `app/client/sbaseview.h:36` | untagged neutral name (D10) |
-| 1 | `state` | `app/client/sbaseview.h:37` | neutral |
-| 1 | `Unknown_640110` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1E4Class` | `app/client/sbaseview.h:42` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/sbaseview.h:45` | what the handler passes |
-| 1 | `Unknown_5E2F70` | `app/client/sbaseview.h:45` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/sbaseview.h:46` | what the handler passes |
-| 1 | `Unknown_5E3050` | `app/client/sbaseview.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_5E3130` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown174Class` | `app/client/sbaseview.h:50` | neutral (D10): the starbase view's +0x174 (SClient 0x74D950 sets its +0x18C) |
-| 1 | `Unknown00` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.h:51` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
-| 1 | `Unknown_61F250` | `app/client/sbaseview.h:51` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:52` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
-| 1 | `Unknown_551C40` | `app/client/sbaseview.h:52` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:59` | the handler's packet |
-| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:60` | the handler's packet |
-| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/sbaseview.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/sbaseview.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.h:35` | untagged neutral name (D10) |
+| 1 | `name, color` | `app/client/sbaseview.h:37` | what 0x750F70 passes |
+| 1 | `Unknown_640150` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_6425D0` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
+| 1 | `unknown, desc` | `app/client/sbaseview.h:38` | the packet's fields |
+| 1 | `Unknown_6437A0` | `app/client/sbaseview.h:38` | untagged neutral name (D10) |
+| 1 | `state` | `app/client/sbaseview.h:39` | neutral |
+| 1 | `Unknown_640110` | `app/client/sbaseview.h:39` | untagged neutral name (D10) |
+| 1 | `MainViewUnknown1E4Class` | `app/client/sbaseview.h:44` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sbaseview.h:47` | what the handler passes |
+| 1 | `Unknown_5E2F70` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sbaseview.h:48` | what the handler passes |
+| 1 | `Unknown_5E3050` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3130` | `app/client/sbaseview.h:49` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown174Class` | `app/client/sbaseview.h:52` | neutral (D10): the starbase view's +0x174 (SClient 0x74D950 sets its +0x18C) |
+| 1 | `Unknown00` | `app/client/sbaseview.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/sbaseview.h:52` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1A0Class` | `app/client/sbaseview.h:53` | neutral (D10): the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields |
+| 1 | `Unknown_61F250` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:54` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field |
+| 1 | `Unknown_551C40` | `app/client/sbaseview.h:54` | untagged neutral name (D10) |
 | 1 | `packet` | `app/client/sbaseview.h:61` | the handler's packet |
-| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:61` | untagged neutral name (D10) |
-| 1 | `job_id` | `app/client/sbaseview.h:62` | the packet's JobID |
-| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:62` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown68Class` | `app/client/sbaseview.h:65` | neutral (D10): what the starbase view's +0x68 points to (0x6A0540) |
-| 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.h:66` | neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4) |
-| 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:70` | neutral (D10) |
-| 1 | `SBaseViewUnknown1F4Class` | `app/client/sbaseview.h:78` | neutral (D10): the starbase view's +0x1F4 (0x441A50, starbasesound.cpp's neighbourhood)  // NAME 1 [arg]: what 0x6A2480 passes |
-| 1 | `Unknown_441A50` | `app/client/sbaseview.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:79` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sbaseview.h:82` | what SoundLibraryClass::Play_2D_Sound gets |
-| 1 | `Unknown_6A1000` | `app/client/sbaseview.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1130` | `app/client/sbaseview.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2480` | `app/client/sbaseview.h:84` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:85` | the handler's packet |
-| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:85` | untagged neutral name (D10) |
-| 1 | `type` | `app/client/sbaseview.h:88` | the assert's index |
-| 1 | `Unknown_69D930` | `app/client/sbaseview.h:88` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sbaseview.h:89` | what 0x69DC40 passes |
-| 1 | `Unknown_69D9D0` | `app/client/sbaseview.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown_69DB50` | `app/client/sbaseview.h:90` | untagged neutral name (D10) |
-| 1 | `obj` | `app/client/sbaseview.h:91` | neutral |
-| 1 | `Unknown_69DBA0` | `app/client/sbaseview.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_69DC40` | `app/client/sbaseview.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown_69DC60` | `app/client/sbaseview.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown_69F440` | `app/client/sbaseview.h:94` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sbaseview.h:95` | neutral |
-| 1 | `Unknown_69F460` | `app/client/sbaseview.h:95` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:96` | neutral |
-| 1 | `Unknown_69F480` | `app/client/sbaseview.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_69F710` | `app/client/sbaseview.h:97` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:98` | neutral |
-| 1 | `Unknown_69F850` | `app/client/sbaseview.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0540` | `app/client/sbaseview.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0E00` | `app/client/sbaseview.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0E50` | `app/client/sbaseview.h:101` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sbaseview.h:102` | what FontSys::Change_Text gets |
-| 1 | `Unknown_6A0E80` | `app/client/sbaseview.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_6A20C0` | `app/client/sbaseview.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2100` | `app/client/sbaseview.h:104` | untagged neutral name (D10) |
-| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:105` | neutral |
-| 1 | `Unknown_6A23E0` | `app/client/sbaseview.h:105` | untagged neutral name (D10) |
-| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:106` | neutral |
-| 1 | `Unknown_6A2430` | `app/client/sbaseview.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/sbaseview.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/sbaseview.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/sbaseview.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/sbaseview.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/sbaseview.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/sbaseview.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/sbaseview.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/sbaseview.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/sbaseview.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/sbaseview.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/sbaseview.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/sbaseview.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/sbaseview.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/sbaseview.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/sbaseview.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown1A8` | `app/client/sbaseview.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown1B0` | `app/client/sbaseview.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/sbaseview.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/sbaseview.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/sbaseview.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/sbaseview.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/sbaseview.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/sbaseview.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/sbaseview.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/sbaseview.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown1EC` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown1ED` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown1EE` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown1EF` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown1F1` | `app/client/sbaseview.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/client/sbaseview.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:61` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:62` | the handler's packet |
+| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:62` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:63` | the handler's packet |
+| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:63` | untagged neutral name (D10) |
+| 1 | `job_id` | `app/client/sbaseview.h:64` | the packet's JobID |
+| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:64` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown68Class` | `app/client/sbaseview.h:67` | neutral (D10): what the starbase view's +0x68 points to (0x6A0540) |
+| 1 | `SBaseViewUnknown190Class` | `app/client/sbaseview.h:68` | neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active) |
+| 1 | `Unknown160` | `app/client/sbaseview.h:68` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.h:69` | neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4) |
+| 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:73` | neutral (D10) |
+| 1 | `SBaseViewUnknown1F4Class` | `app/client/sbaseview.h:81` | neutral (D10): the starbase view's +0x1F4 (0x441A50, starbasesound.cpp's neighbourhood)  // NAME 1 [arg]: what 0x6A2480 passes |
+| 1 | `Unknown_441A50` | `app/client/sbaseview.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:82` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sbaseview.h:85` | what SoundLibraryClass::Play_2D_Sound gets |
+| 1 | `Unknown_6A1000` | `app/client/sbaseview.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1130` | `app/client/sbaseview.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2480` | `app/client/sbaseview.h:87` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:88` | the handler's packet |
+| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_69CBE0` | `app/client/sbaseview.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_69CC10` | `app/client/sbaseview.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_69CCD0` | `app/client/sbaseview.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_69CDE0` | `app/client/sbaseview.h:94` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/sbaseview.h:95` | the assert's index |
+| 1 | `Unknown_69D930` | `app/client/sbaseview.h:95` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sbaseview.h:96` | what 0x69DC40 passes |
+| 1 | `Unknown_69D9D0` | `app/client/sbaseview.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_69DB50` | `app/client/sbaseview.h:97` | untagged neutral name (D10) |
+| 1 | `obj` | `app/client/sbaseview.h:98` | neutral |
+| 1 | `Unknown_69DBA0` | `app/client/sbaseview.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC40` | `app/client/sbaseview.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/sbaseview.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/sbaseview.h:101` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sbaseview.h:102` | neutral |
+| 1 | `Unknown_69F460` | `app/client/sbaseview.h:102` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:103` | neutral |
+| 1 | `Unknown_69F480` | `app/client/sbaseview.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_69F710` | `app/client/sbaseview.h:104` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:105` | neutral |
+| 1 | `Unknown_69F850` | `app/client/sbaseview.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0540` | `app/client/sbaseview.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0E00` | `app/client/sbaseview.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0E50` | `app/client/sbaseview.h:108` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sbaseview.h:109` | what FontSys::Change_Text gets |
+| 1 | `Unknown_6A0E80` | `app/client/sbaseview.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_6A20C0` | `app/client/sbaseview.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2100` | `app/client/sbaseview.h:111` | untagged neutral name (D10) |
+| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:112` | neutral |
+| 1 | `Unknown_6A23E0` | `app/client/sbaseview.h:112` | untagged neutral name (D10) |
+| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:113` | neutral |
+| 1 | `Unknown_6A2430` | `app/client/sbaseview.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/sbaseview.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/sbaseview.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/sbaseview.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/sbaseview.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/sbaseview.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/sbaseview.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/sbaseview.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/sbaseview.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sbaseview.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/sbaseview.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/sbaseview.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/sbaseview.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/sbaseview.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/client/sbaseview.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/sbaseview.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/client/sbaseview.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/sbaseview.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/sbaseview.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/sbaseview.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/sbaseview.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/sbaseview.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/sbaseview.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/sbaseview.h:143` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/sbaseview.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/sbaseview.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1ED` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1EE` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1EF` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown1F1` | `app/client/sbaseview.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown1F4` | `app/client/sbaseview.h:148` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
 | 1 | `Unknown_723150` | `app/client/sclient.cpp:30` | neutral (D10), as tsk_login.cpp |
@@ -2704,509 +2762,513 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `on` | `app/client/sclient.h:292` | what 0x512A00 passes |
 | 1 | `Unknown_7C8DB0` | `app/client/sclient.h:292` | untagged neutral name (D10) |
 | 1 | `Unknown_695F40` | `app/client/sclient.h:300` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/sclient.h:303` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/sclient.h:304` | untagged neutral name (D10) |
-| 1 | `view, layer` | `app/client/sclient.h:310` | what 0x57DD20 passes |
-| 1 | `target, assessment, sound, level` | `app/client/sclient.h:311` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
-| 1 | `Unknown_60E540` | `app/client/sclient.h:311` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/sclient.h:314` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/client/sclient.h:314` | untagged neutral name (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/sclient.h:322` | neutral (D10) |
-| 1 | `mesh, client` | `app/client/sclient.h:325` | what 0x593BD0 passes |
-| 1 | `mesh, view, layer` | `app/client/sclient.h:326` | what 0x57D830 passes |
-| 1 | `Unknown_60` | `app/client/sclient.h:330` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/sclient.h:331` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/sclient.h:332` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/sclient.h:333` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/sclient.h:334` | what 0x594040 passes |
-| 1 | `Unknown_5BB4F0` | `app/client/sclient.h:334` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown13CClass` | `app/client/sclient.h:346` | neutral (D10) |
-| 1 | `Get_Unknown90` | `app/client/sclient.h:349` | neutral (D10): the member it returns |
-| 1 | `Unknown90` | `app/client/sclient.h:349` | untagged neutral name (D10) |
-| 1 | `client, callback` | `app/client/sclient.h:363` | what 0x50BA60 passes |
-| 1 | `Unknown_4F3310` | `app/client/sclient.h:364` | untagged neutral name (D10) |
-| 1 | `ini` | `app/client/sclient.h:365` | what it gets |
-| 1 | `Unknown_4F34C0` | `app/client/sclient.h:365` | untagged neutral name (D10) |
-| 1 | `Get_Unknown54` | `app/client/sclient.h:366` | neutral (D10): the member it returns |
-| 1 | `Unknown54` | `app/client/sclient.h:366` | untagged neutral name (D10) |
-| 1 | `camera, time, planet` | `app/client/sclient.h:368` | what Update passes |
-| 1 | `index` | `app/client/sclient.h:369` | neutral |
-| 1 | `Unknown_4F50D0` | `app/client/sclient.h:369` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sclient.h:301` | neutral |
+| 1 | `Unknown_695FE0` | `app/client/sclient.h:301` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/sclient.h:304` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/sclient.h:305` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/sclient.h:311` | what 0x57DD20 passes |
+| 1 | `target, assessment, sound, level` | `app/client/sclient.h:312` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
+| 1 | `Unknown_60E540` | `app/client/sclient.h:312` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/sclient.h:315` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/sclient.h:315` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/sclient.h:323` | neutral (D10) |
+| 1 | `mesh, client` | `app/client/sclient.h:326` | what 0x593BD0 passes |
+| 1 | `mesh, view, layer` | `app/client/sclient.h:327` | what 0x57D830 passes |
+| 1 | `Unknown_60` | `app/client/sclient.h:331` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/sclient.h:332` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/sclient.h:333` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/sclient.h:334` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/sclient.h:335` | what 0x594040 passes |
+| 1 | `Unknown_5BB4F0` | `app/client/sclient.h:335` | untagged neutral name (D10) |
+| 1 | `MainViewUnknown13CClass` | `app/client/sclient.h:347` | neutral (D10) |
+| 1 | `Get_Unknown90` | `app/client/sclient.h:350` | neutral (D10): the member it returns |
+| 1 | `Unknown90` | `app/client/sclient.h:350` | untagged neutral name (D10) |
+| 1 | `client, callback` | `app/client/sclient.h:364` | what 0x50BA60 passes |
+| 1 | `Unknown_4F3310` | `app/client/sclient.h:365` | untagged neutral name (D10) |
+| 1 | `ini` | `app/client/sclient.h:366` | what it gets |
+| 1 | `Unknown_4F34C0` | `app/client/sclient.h:366` | untagged neutral name (D10) |
+| 1 | `Get_Unknown54` | `app/client/sclient.h:367` | neutral (D10): the member it returns |
+| 1 | `Unknown54` | `app/client/sclient.h:367` | untagged neutral name (D10) |
+| 1 | `camera, time, planet` | `app/client/sclient.h:369` | what Update passes |
 | 1 | `index` | `app/client/sclient.h:370` | neutral |
-| 1 | `Unknown_4F5140` | `app/client/sclient.h:370` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/sclient.h:380` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/sclient.h:382` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/sclient.h:383` | untagged neutral name (D10) |
-| 1 | `MainViewSceneUnknown98Class` | `app/client/sclient.h:387` | neutral (D10) |
-| 1 | `dir` | `app/client/sclient.h:390` | what Update passes |
-| 1 | `Unknown_493D00` | `app/client/sclient.h:390` | untagged neutral name (D10) |
-| 1 | `view, client` | `app/client/sclient.h:397` | what the main view passes |
-| 1 | `type, amount, time` | `app/client/sclient.h:404` | what Shake_Camera passes |
-| 1 | `Unknown_6E32E0` | `app/client/sclient.h:404` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1D4Class` | `app/client/sclient.h:410` | neutral (D10) |
-| 1 | `view, layer` | `app/client/sclient.h:413` | what 0x50C690 passes |
-| 1 | `MainViewUnknown1E4Class` | `app/client/sclient.h:418` | neutral (D10) |
-| 1 | `client` | `app/client/sclient.h:421` | what 0x50C690 passes |
-| 1 | `Unknown_64` | `app/client/sclient.h:422` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/sclient.h:422` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/sclient.h:422` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/sclient.h:423` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/sclient.h:423` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/sclient.h:423` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/sclient.h:424` | what 0x50C690 passes |
-| 1 | `MainViewUnknown53E970Class` | `app/client/sclient.h:429` | neutral (D10) |
-| 1 | `view, scene` | `app/client/sclient.h:432` | what 0x50C690 passes |
-| 1 | `MainViewUnknown1E0Class` | `app/client/sclient.h:445` | neutral (D10) |
-| 1 | `MainViewUnknown1DCClass` | `app/client/sclient.h:450` | neutral (D10) |
-| 1 | `Unknown_80` | `app/client/sclient.h:461` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/sclient.h:461` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:463` | neutral |
-| 1 | `view, scene` | `app/client/sclient.h:464` | what 0x50C690 passes |
-| 1 | `MainViewUnknown138Class` | `app/client/sclient.h:469` | neutral (D10) |
-| 1 | `view, scene, ini` | `app/client/sclient.h:472` | what 0x50C690 passes |
-| 1 | `mode` | `app/client/sclient.h:473` | the main view's |
-| 1 | `Unknown_53DFB0` | `app/client/sclient.h:473` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/sclient.h:474` | the main view's |
-| 1 | `Unknown_53E030` | `app/client/sclient.h:474` | untagged neutral name (D10) |
-| 1 | `offset` | `app/client/sclient.h:475` | neutral |
-| 1 | `Unknown_53E470` | `app/client/sclient.h:475` | untagged neutral name (D10) |
-| 1 | `Unknown_53E0B0` | `app/client/sclient.h:476` | untagged neutral name (D10) |
-| 1 | `Unknown_53E0E0` | `app/client/sclient.h:477` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:478` | neutral |
-| 1 | `Unknown_53E110` | `app/client/sclient.h:478` | untagged neutral name (D10) |
-| 1 | `Unknown_53E160` | `app/client/sclient.h:479` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:480` | neutral |
-| 1 | `Unknown_53E190` | `app/client/sclient.h:480` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:481` | neutral |
-| 1 | `Unknown_53E1E0` | `app/client/sclient.h:481` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:482` | neutral |
-| 1 | `Unknown_53E220` | `app/client/sclient.h:482` | untagged neutral name (D10) |
-| 1 | `Unknown_53E260` | `app/client/sclient.h:483` | untagged neutral name (D10) |
+| 1 | `Unknown_4F50D0` | `app/client/sclient.h:370` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sclient.h:371` | neutral |
+| 1 | `Unknown_4F5140` | `app/client/sclient.h:371` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/sclient.h:381` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/sclient.h:383` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sclient.h:384` | untagged neutral name (D10) |
+| 1 | `MainViewSceneUnknown98Class` | `app/client/sclient.h:388` | neutral (D10) |
+| 1 | `dir` | `app/client/sclient.h:391` | what Update passes |
+| 1 | `Unknown_493D00` | `app/client/sclient.h:391` | untagged neutral name (D10) |
+| 1 | `view, client` | `app/client/sclient.h:398` | what the main view passes |
+| 1 | `effect` | `app/client/sclient.h:401` | neutral |
+| 1 | `UnknownAFFE6CClass` | `app/client/sclient.h:401` | untagged neutral name (D10) |
+| 1 | `type, amount, time` | `app/client/sclient.h:406` | what Shake_Camera passes |
+| 1 | `Unknown_6E32E0` | `app/client/sclient.h:406` | untagged neutral name (D10) |
+| 1 | `MainViewUnknown1D4Class` | `app/client/sclient.h:416` | neutral (D10) |
+| 1 | `view, layer` | `app/client/sclient.h:419` | what 0x50C690 passes |
+| 1 | `MainViewUnknown1E4Class` | `app/client/sclient.h:424` | neutral (D10) |
+| 1 | `client` | `app/client/sclient.h:427` | what 0x50C690 passes |
+| 1 | `Unknown_64` | `app/client/sclient.h:428` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/sclient.h:428` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/sclient.h:428` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/sclient.h:429` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/sclient.h:429` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/sclient.h:429` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/sclient.h:430` | what 0x50C690 passes |
+| 1 | `MainViewUnknown53E970Class` | `app/client/sclient.h:435` | neutral (D10) |
+| 1 | `view, scene` | `app/client/sclient.h:438` | what 0x50C690 passes |
+| 1 | `MainViewUnknown1E0Class` | `app/client/sclient.h:451` | neutral (D10) |
+| 1 | `MainViewUnknown1DCClass` | `app/client/sclient.h:456` | neutral (D10) |
+| 1 | `Unknown_80` | `app/client/sclient.h:467` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/sclient.h:467` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:469` | neutral |
+| 1 | `view, scene` | `app/client/sclient.h:470` | what 0x50C690 passes |
+| 1 | `MainViewUnknown138Class` | `app/client/sclient.h:475` | neutral (D10) |
+| 1 | `view, scene, ini` | `app/client/sclient.h:478` | what 0x50C690 passes |
+| 1 | `mode` | `app/client/sclient.h:479` | the main view's |
+| 1 | `Unknown_53DFB0` | `app/client/sclient.h:479` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/sclient.h:480` | the main view's |
+| 1 | `Unknown_53E030` | `app/client/sclient.h:480` | untagged neutral name (D10) |
+| 1 | `offset` | `app/client/sclient.h:481` | neutral |
+| 1 | `Unknown_53E470` | `app/client/sclient.h:481` | untagged neutral name (D10) |
+| 1 | `Unknown_53E0B0` | `app/client/sclient.h:482` | untagged neutral name (D10) |
+| 1 | `Unknown_53E0E0` | `app/client/sclient.h:483` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:484` | neutral |
-| 1 | `Unknown_53E290` | `app/client/sclient.h:484` | untagged neutral name (D10) |
-| 1 | `Unknown_53E2C0` | `app/client/sclient.h:485` | untagged neutral name (D10) |
+| 1 | `Unknown_53E110` | `app/client/sclient.h:484` | untagged neutral name (D10) |
+| 1 | `Unknown_53E160` | `app/client/sclient.h:485` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:486` | neutral |
-| 1 | `Unknown_53E2F0` | `app/client/sclient.h:486` | untagged neutral name (D10) |
-| 1 | `Unknown_53E3C0` | `app/client/sclient.h:487` | untagged neutral name (D10) |
+| 1 | `Unknown_53E190` | `app/client/sclient.h:486` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:487` | neutral |
+| 1 | `Unknown_53E1E0` | `app/client/sclient.h:487` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:488` | neutral |
-| 1 | `Unknown_53E3F0` | `app/client/sclient.h:488` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/sclient.h:500` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/sclient.h:501` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:515` | neutral |
-| 1 | `x, y, skip_avatar, arg4` | `app/client/sclient.h:519` | what the body does with them |
-| 1 | `Unknown110` | `app/client/sclient.h:521` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/sclient.h:522` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/sclient.h:523` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/sclient.h:524` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/sclient.h:525` | untagged neutral name (D10) |
-| 1 | `Unknown_50CC10` | `app/client/sclient.h:530` | untagged neutral name (D10) |
-| 1 | `Unknown_50CCF0` | `app/client/sclient.h:531` | untagged neutral name (D10) |
-| 1 | `Unknown_50CE00` | `app/client/sclient.h:532` | untagged neutral name (D10) |
-| 1 | `Unknown_50CF70` | `app/client/sclient.h:533` | untagged neutral name (D10) |
-| 1 | `Unknown_50D060` | `app/client/sclient.h:534` | untagged neutral name (D10) |
-| 1 | `Unknown_50D1E0` | `app/client/sclient.h:535` | untagged neutral name (D10) |
-| 1 | `Unknown_50D310` | `app/client/sclient.h:536` | untagged neutral name (D10) |
-| 1 | `Unknown_50D430` | `app/client/sclient.h:537` | untagged neutral name (D10) |
-| 1 | `Unknown_50D520` | `app/client/sclient.h:538` | untagged neutral name (D10) |
-| 1 | `Unknown_510440` | `app/client/sclient.h:539` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sclient.h:540` | Enter_Child's |
-| 1 | `Unknown_5103F0` | `app/client/sclient.h:540` | untagged neutral name (D10) |
-| 1 | `Unknown_510420` | `app/client/sclient.h:541` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:547` | neutral |
-| 1 | `Unknown_510D40` | `app/client/sclient.h:547` | untagged neutral name (D10) |
-| 1 | `Unknown_5141A0` | `app/client/sclient.h:549` | untagged neutral name (D10) |
-| 1 | `Unknown_5141E0` | `app/client/sclient.h:550` | untagged neutral name (D10) |
-| 1 | `Unknown_514220` | `app/client/sclient.h:551` | untagged neutral name (D10) |
-| 1 | `Unknown_512400` | `app/client/sclient.h:552` | untagged neutral name (D10) |
-| 1 | `Unknown_512A00` | `app/client/sclient.h:553` | untagged neutral name (D10) |
-| 1 | `Get_Unknown13C` | `app/client/sclient.h:554` | neutral (D10): the member it returns |
-| 1 | `base_asset` | `app/client/sclient.h:555` | SERVER_PARAMETERS 66's BackdropBaseAsset |
-| 1 | `Unknown_513540` | `app/client/sclient.h:555` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:556` | neutral |
-| 1 | `Unknown_513600` | `app/client/sclient.h:556` | untagged neutral name (D10) |
-| 1 | `target, assessment, sound, level` | `app/client/sclient.h:557` | the scanner's |
-| 1 | `Unknown_513630` | `app/client/sclient.h:557` | untagged neutral name (D10) |
-| 1 | `Unknown_5136A0` | `app/client/sclient.h:558` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.h:559` | the packet's SectorNum |
-| 1 | `Unknown_513700` | `app/client/sclient.h:559` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.h:560` | the packet's SectorNum |
-| 1 | `Unknown_5137F0` | `app/client/sclient.h:560` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.h:561` | the packet's SectorNum |
-| 1 | `Unknown_513B90` | `app/client/sclient.h:561` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/sclient.h:562` | what it gets |
-| 1 | `Unknown_513CD0` | `app/client/sclient.h:562` | untagged neutral name (D10) |
-| 1 | `Unknown_513D00` | `app/client/sclient.h:563` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/sclient.h:564` | neutral |
-| 1 | `Unknown_513D20` | `app/client/sclient.h:564` | untagged neutral name (D10) |
-| 1 | `Unknown_513D50` | `app/client/sclient.h:565` | untagged neutral name (D10) |
-| 1 | `Unknown_513D70` | `app/client/sclient.h:566` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:567` | neutral |
-| 1 | `Unknown_513D90` | `app/client/sclient.h:567` | untagged neutral name (D10) |
-| 1 | `Unknown_513DC0` | `app/client/sclient.h:568` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:569` | neutral |
-| 1 | `Unknown_513DE0` | `app/client/sclient.h:569` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:570` | neutral |
-| 1 | `Unknown_513E10` | `app/client/sclient.h:570` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:571` | neutral |
-| 1 | `Unknown_513E40` | `app/client/sclient.h:571` | untagged neutral name (D10) |
-| 1 | `Unknown_513E70` | `app/client/sclient.h:572` | untagged neutral name (D10) |
+| 1 | `Unknown_53E220` | `app/client/sclient.h:488` | untagged neutral name (D10) |
+| 1 | `Unknown_53E260` | `app/client/sclient.h:489` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:490` | neutral |
+| 1 | `Unknown_53E290` | `app/client/sclient.h:490` | untagged neutral name (D10) |
+| 1 | `Unknown_53E2C0` | `app/client/sclient.h:491` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:492` | neutral |
+| 1 | `Unknown_53E2F0` | `app/client/sclient.h:492` | untagged neutral name (D10) |
+| 1 | `Unknown_53E3C0` | `app/client/sclient.h:493` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:494` | neutral |
+| 1 | `Unknown_53E3F0` | `app/client/sclient.h:494` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/sclient.h:506` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/sclient.h:507` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:521` | neutral |
+| 1 | `x, y, skip_avatar, arg4` | `app/client/sclient.h:525` | what the body does with them |
+| 1 | `Unknown110` | `app/client/sclient.h:527` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/sclient.h:528` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/sclient.h:529` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/sclient.h:530` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/sclient.h:531` | untagged neutral name (D10) |
+| 1 | `Unknown_50CC10` | `app/client/sclient.h:536` | untagged neutral name (D10) |
+| 1 | `Unknown_50CCF0` | `app/client/sclient.h:537` | untagged neutral name (D10) |
+| 1 | `Unknown_50CE00` | `app/client/sclient.h:538` | untagged neutral name (D10) |
+| 1 | `Unknown_50CF70` | `app/client/sclient.h:539` | untagged neutral name (D10) |
+| 1 | `Unknown_50D060` | `app/client/sclient.h:540` | untagged neutral name (D10) |
+| 1 | `Unknown_50D1E0` | `app/client/sclient.h:541` | untagged neutral name (D10) |
+| 1 | `Unknown_50D310` | `app/client/sclient.h:542` | untagged neutral name (D10) |
+| 1 | `Unknown_50D430` | `app/client/sclient.h:543` | untagged neutral name (D10) |
+| 1 | `Unknown_50D520` | `app/client/sclient.h:544` | untagged neutral name (D10) |
+| 1 | `Unknown_510440` | `app/client/sclient.h:545` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sclient.h:546` | Enter_Child's |
+| 1 | `Unknown_5103F0` | `app/client/sclient.h:546` | untagged neutral name (D10) |
+| 1 | `Unknown_510420` | `app/client/sclient.h:547` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:553` | neutral |
+| 1 | `Unknown_510D40` | `app/client/sclient.h:553` | untagged neutral name (D10) |
+| 1 | `Unknown_5141A0` | `app/client/sclient.h:555` | untagged neutral name (D10) |
+| 1 | `Unknown_5141E0` | `app/client/sclient.h:556` | untagged neutral name (D10) |
+| 1 | `Unknown_514220` | `app/client/sclient.h:557` | untagged neutral name (D10) |
+| 1 | `Unknown_512400` | `app/client/sclient.h:558` | untagged neutral name (D10) |
+| 1 | `Unknown_512A00` | `app/client/sclient.h:559` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/sclient.h:560` | neutral (D10): the member it returns |
+| 1 | `base_asset` | `app/client/sclient.h:561` | SERVER_PARAMETERS 66's BackdropBaseAsset |
+| 1 | `Unknown_513540` | `app/client/sclient.h:561` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:562` | neutral |
+| 1 | `Unknown_513600` | `app/client/sclient.h:562` | untagged neutral name (D10) |
+| 1 | `target, assessment, sound, level` | `app/client/sclient.h:563` | the scanner's |
+| 1 | `Unknown_513630` | `app/client/sclient.h:563` | untagged neutral name (D10) |
+| 1 | `Unknown_5136A0` | `app/client/sclient.h:564` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/sclient.h:565` | the packet's SectorNum |
+| 1 | `Unknown_513700` | `app/client/sclient.h:565` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/sclient.h:566` | the packet's SectorNum |
+| 1 | `Unknown_5137F0` | `app/client/sclient.h:566` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/sclient.h:567` | the packet's SectorNum |
+| 1 | `Unknown_513B90` | `app/client/sclient.h:567` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/sclient.h:568` | what it gets |
+| 1 | `Unknown_513CD0` | `app/client/sclient.h:568` | untagged neutral name (D10) |
+| 1 | `Unknown_513D00` | `app/client/sclient.h:569` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/sclient.h:570` | neutral |
+| 1 | `Unknown_513D20` | `app/client/sclient.h:570` | untagged neutral name (D10) |
+| 1 | `Unknown_513D50` | `app/client/sclient.h:571` | untagged neutral name (D10) |
+| 1 | `Unknown_513D70` | `app/client/sclient.h:572` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:573` | neutral |
-| 1 | `Unknown_513E90` | `app/client/sclient.h:573` | untagged neutral name (D10) |
-| 1 | `Unknown_513EC0` | `app/client/sclient.h:574` | untagged neutral name (D10) |
+| 1 | `Unknown_513D90` | `app/client/sclient.h:573` | untagged neutral name (D10) |
+| 1 | `Unknown_513DC0` | `app/client/sclient.h:574` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:575` | neutral |
-| 1 | `Unknown_513EE0` | `app/client/sclient.h:575` | untagged neutral name (D10) |
-| 1 | `Unknown_513F10` | `app/client/sclient.h:576` | untagged neutral name (D10) |
+| 1 | `Unknown_513DE0` | `app/client/sclient.h:575` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:576` | neutral |
+| 1 | `Unknown_513E10` | `app/client/sclient.h:576` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:577` | neutral |
-| 1 | `Unknown_513F30` | `app/client/sclient.h:577` | untagged neutral name (D10) |
-| 1 | `file, indent` | `app/client/sclient.h:578` | Printf_Indented's |
-| 1 | `Unknown_513F60` | `app/client/sclient.h:578` | untagged neutral name (D10) |
+| 1 | `Unknown_513E40` | `app/client/sclient.h:577` | untagged neutral name (D10) |
+| 1 | `Unknown_513E70` | `app/client/sclient.h:578` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/sclient.h:579` | neutral |
-| 1 | `Unknown_513F80` | `app/client/sclient.h:579` | untagged neutral name (D10) |
-| 1 | `Unknown_513FA0` | `app/client/sclient.h:580` | untagged neutral name (D10) |
-| 1 | `Unknown_513FC0` | `app/client/sclient.h:581` | untagged neutral name (D10) |
-| 1 | `Unknown_514010` | `app/client/sclient.h:582` | untagged neutral name (D10) |
-| 1 | `x, y, fx, fy` | `app/client/sclient.h:583` | neutral |
-| 1 | `Unknown_512B10` | `app/client/sclient.h:583` | untagged neutral name (D10) |
-| 1 | `Unknown_514480` | `app/client/sclient.h:584` | untagged neutral name (D10) |
-| 1 | `Unknown_5146D0` | `app/client/sclient.h:585` | untagged neutral name (D10) |
-| 1 | `Unknown_514400` | `app/client/sclient.h:586` | untagged neutral name (D10) |
-| 1 | `Unknown_514450` | `app/client/sclient.h:587` | untagged neutral name (D10) |
-| 1 | `Unknown128` | `app/client/sclient.h:612` | untagged neutral name (D10) |
-| 1 | `Unknown130` | `app/client/sclient.h:614` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/sclient.h:616` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/sclient.h:619` | untagged neutral name (D10) |
-| 1 | `Unknown154` | `app/client/sclient.h:620` | untagged neutral name (D10) |
-| 1 | `Unknown164` | `app/client/sclient.h:621` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/sclient.h:622` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/sclient.h:623` | untagged neutral name (D10) |
-| 1 | `Unknown1C8` | `app/client/sclient.h:629` | untagged neutral name (D10) |
-| 1 | `Unknown1CC` | `app/client/sclient.h:630` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/sclient.h:632` | untagged neutral name (D10) |
-| 1 | `Unknown1DC` | `app/client/sclient.h:634` | untagged neutral name (D10) |
-| 1 | `Unknown1E0` | `app/client/sclient.h:635` | untagged neutral name (D10) |
-| 1 | `Unknown1E4` | `app/client/sclient.h:636` | untagged neutral name (D10) |
-| 1 | `Unknown7B3E30Class` | `app/client/sclient.h:641` | neutral (D10): the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; loadingview.cpp) |
-| 1 | `source_sector, source_system, name, system` | `app/client/sclient.h:651` | the packet's fields |
-| 1 | `Unknown_691830` | `app/client/sclient.h:651` | untagged neutral name (D10) |
-| 1 | `Unknown_692330` | `app/client/sclient.h:652` | untagged neutral name (D10) |
-| 1 | `Unknown_692160` | `app/client/sclient.h:653` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/sclient.h:658` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/sclient.h:659` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/sclient.h:661` | untagged neutral name (D10) |
-| 1 | `Unknown69` | `app/client/sclient.h:662` | untagged neutral name (D10) |
-| 1 | `task, arg` | `app/client/sclient.h:669` | what 0x74BC20 passes |
-| 1 | `Unknown_7EFCC0` | `app/client/sclient.h:670` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieInterfaceClass` | `app/client/sclient.h:684` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/sclient.h:687` | untagged neutral name (D10) |
-| 1 | `camera` | `app/client/sclient.h:688` | what 0x8023A0 passes |
-| 1 | `ScriptedMovieFadeClass` | `app/client/sclient.h:691` | neutral (D10) |
-| 1 | `time` | `app/client/sclient.h:695` | neutral |
-| 1 | `Unknown_80A5A0` | `app/client/sclient.h:695` | untagged neutral name (D10) |
-| 1 | `time, from, to` | `app/client/sclient.h:696` | neutral |
-| 1 | `Unknown_80A730` | `app/client/sclient.h:696` | untagged neutral name (D10) |
-| 1 | `name, arg, client` | `app/client/sclient.h:705` | what Create_Object passes |
-| 1 | `Unknown_5B92B0` | `app/client/sclient.h:706` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9100` | `app/client/sclient.h:707` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9130` | `app/client/sclient.h:708` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:709` | neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral |
-| 1 | `Unknown_5B8B40` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9830` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9930` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5BA460` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9410` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9290` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9550` | `app/client/sclient.h:709` | untagged neutral name (D10) |
-| 1 | `a, loop, b, c, d, e` | `app/client/sclient.h:710` | neutral; NAME 2 [anim_name]: the FAIL_IF's |
-| 1 | `Unknown_5B8DF0` | `app/client/sclient.h:710` | untagged neutral name (D10) |
-| 1 | `Unknown_5E26D0` | `app/client/sclient.h:711` | untagged neutral name (D10) |
-| 1 | `Unknown_5B8B20` | `app/client/sclient.h:711` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/sclient.h:715` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:718` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/sclient.h:719` | untagged neutral name (D10) |
-| 1 | `ScriptedMovieBoneObjectStruct` | `app/client/sclient.h:724` | neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds |
-| 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:725` | neutral (D10) |
-| 1 | `name, bone_name, model` | `app/client/sclient.h:732` | what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes |
-| 1 | `Unknown_7ED410` | `app/client/sclient.h:732` | untagged neutral name (D10) |
-| 1 | `Unknown_7ED6C0` | `app/client/sclient.h:732` | untagged neutral name (D10) |
-| 1 | `Unknown_7EDA60` | `app/client/sclient.h:732` | untagged neutral name (D10) |
-| 1 | `Unknown_7ED630` | `app/client/sclient.h:732` | untagged neutral name (D10) |
-| 1 | `Unknown19` | `app/client/sclient.h:732` | untagged neutral name (D10) |
-| 1 | `task, arg, callback` | `app/client/sclient.h:736` | what 0x74BD90 passes |
-| 1 | `Unknown_802930` | `app/client/sclient.h:737` | untagged neutral name (D10) |
-| 1 | `event` | `app/client/sclient.h:738` | what it gets |
-| 1 | `Unknown_802960` | `app/client/sclient.h:738` | untagged neutral name (D10) |
-| 1 | `Unknown_8027C0` | `app/client/sclient.h:739` | untagged neutral name (D10) |
-| 1 | `Unknown_801860` | `app/client/sclient.h:740` | untagged neutral name (D10) |
-| 1 | `Unknown_8019A0` | `app/client/sclient.h:741` | untagged neutral name (D10) |
-| 1 | `params` | `app/client/sclient.h:742` | neutral |
-| 1 | `Unknown_804A70` | `app/client/sclient.h:742` | untagged neutral name (D10) |
-| 1 | `Unknown_801AE0` | `app/client/sclient.h:743` | untagged neutral name (D10) |
-| 1 | `Unknown_801C40` | `app/client/sclient.h:744` | untagged neutral name (D10) |
-| 1 | `Unknown_801D70` | `app/client/sclient.h:745` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/sclient.h:747` | neutral |
-| 1 | `Unknown_807520` | `app/client/sclient.h:747` | untagged neutral name (D10) |
-| 1 | `line` | `app/client/sclient.h:748` | neutral |
-| 1 | `Unknown_803310` | `app/client/sclient.h:748` | untagged neutral name (D10) |
-| 1 | `Unknown_802B20` | `app/client/sclient.h:749` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/sclient.h:750` | what the fade gets |
-| 1 | `Unknown_8022C0` | `app/client/sclient.h:750` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/sclient.h:751` | what the fade gets |
-| 1 | `Unknown_802330` | `app/client/sclient.h:751` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/sclient.h:752` | neutral |
-| 1 | `Unknown_8023A0` | `app/client/sclient.h:752` | untagged neutral name (D10) |
-| 1 | `Unknown_802900` | `app/client/sclient.h:753` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:754` | neutral |
-| 1 | `Unknown_802AD0` | `app/client/sclient.h:754` | untagged neutral name (D10) |
-| 1 | `Unknown_802D30` | `app/client/sclient.h:755` | untagged neutral name (D10) |
-| 1 | `Unknown_8099B0` | `app/client/sclient.h:755` | untagged neutral name (D10) |
-| 1 | `Unknown_806AD0` | `app/client/sclient.h:756` | untagged neutral name (D10) |
-| 1 | `Unknown_809710` | `app/client/sclient.h:757` | untagged neutral name (D10) |
-| 1 | `Unknown_809730` | `app/client/sclient.h:758` | untagged neutral name (D10) |
-| 1 | `Unknown_808840` | `app/client/sclient.h:770` | untagged neutral name (D10) |
-| 1 | `params` | `app/client/sclient.h:777` | neutral |
-| 1 | `Unknown_8051B0` | `app/client/sclient.h:777` | untagged neutral name (D10) |
-| 1 | `Unknown_809600` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_809750` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_8070C0` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_803180` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_802D80` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_802420` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown_8020B0` | `app/client/sclient.h:782` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/sclient.h:788` | untagged neutral name (D10) |
-| 1 | `Unknown6D` | `app/client/sclient.h:789` | untagged neutral name (D10) |
-| 1 | `Unknown6E` | `app/client/sclient.h:790` | untagged neutral name (D10) |
-| 1 | `Unknown6F` | `app/client/sclient.h:791` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/sclient.h:791` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/sclient.h:791` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/sclient.h:792` | untagged neutral name (D10) |
-| 1 | `Unknown7D` | `app/client/sclient.h:793` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/sclient.h:794` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/sclient.h:801` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/sclient.h:812` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/sclient.h:814` | untagged neutral name (D10) |
-| 1 | `Unknown159` | `app/client/sclient.h:814` | untagged neutral name (D10) |
-| 1 | `Unknown15C` | `app/client/sclient.h:814` | untagged neutral name (D10) |
-| 1 | `Unknown160` | `app/client/sclient.h:814` | untagged neutral name (D10) |
-| 1 | `Unknown169` | `app/client/sclient.h:817` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/sclient.h:817` | untagged neutral name (D10) |
-| 1 | `Unknown171` | `app/client/sclient.h:818` | untagged neutral name (D10) |
-| 1 | `Unknown172` | `app/client/sclient.h:819` | untagged neutral name (D10) |
-| 1 | `Unknown173` | `app/client/sclient.h:819` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/sclient.h:819` | untagged neutral name (D10) |
-| 1 | `Unknown764FD0Class` | `app/client/sclient.h:824` | neutral (D10) |
-| 1 | `Unknown_765010` | `app/client/sclient.h:828` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sclient.h:829` | neutral |
-| 1 | `Unknown_765DF0` | `app/client/sclient.h:829` | untagged neutral name (D10) |
-| 1 | `Unknown77E3F0E8Class` | `app/client/sclient.h:835` | neutral (D10) |
-| 1 | `text` | `app/client/sclient.h:840` | what the handler passes |
-| 1 | `Unknown77E3F0Class` | `app/client/sclient.h:845` | neutral (D10) |
-| 1 | `data, size, flag` | `app/client/sclient.h:848` | what the handler passes |
-| 1 | `Unknown_784B80` | `app/client/sclient.h:848` | untagged neutral name (D10) |
-| 1 | `Unknown_7817E0` | `app/client/sclient.h:849` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/sclient.h:850` | neutral |
-| 1 | `Unknown_780810` | `app/client/sclient.h:850` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1394Class` | `app/client/sclient.h:854` | neutral (D10) |
-| 1 | `desc, unknown1, unknown2, unknown3` | `app/client/sclient.h:870` | what 0x74C3B0 passes |
-| 1 | `Unknown_77E3F0` | `app/client/sclient.h:871` | untagged neutral name (D10) |
-| 1 | `Unknown_77E610` | `app/client/sclient.h:872` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/sclient.h:875` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/sclient.h:876` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknown138Class` | `app/client/sclient.h:880` | neutral (D10) |
-| 1 | `Unknown_90` | `app/client/sclient.h:892` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/sclient.h:892` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/sclient.h:892` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/sclient.h:892` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/sclient.h:893` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/sclient.h:893` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/sclient.h:893` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/sclient.h:894` | neutral |
-| 1 | `Unknown_AC` | `app/client/sclient.h:894` | untagged neutral name (D10) |
-| 1 | `task` | `app/client/sclient.h:901` | ClientTaskClass::Init passes this |
-| 1 | `text` | `app/client/sclient.h:911` | the chat line |
-| 1 | `text` | `app/client/sclient.h:912` | the chat line |
-| 1 | `Unknown_747510` | `app/client/sclient.h:912` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sclient.h:913` | the chat line |
-| 1 | `Unknown_745FF0` | `app/client/sclient.h:913` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sclient.h:914` | the chat line |
-| 1 | `Unknown_747C70` | `app/client/sclient.h:914` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sclient.h:915` | the chat line |
-| 1 | `Unknown_747FA0` | `app/client/sclient.h:915` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sclient.h:916` | the chat line |
-| 1 | `Unknown_749020` | `app/client/sclient.h:916` | untagged neutral name (D10) |
+| 1 | `Unknown_513E90` | `app/client/sclient.h:579` | untagged neutral name (D10) |
+| 1 | `Unknown_513EC0` | `app/client/sclient.h:580` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:581` | neutral |
+| 1 | `Unknown_513EE0` | `app/client/sclient.h:581` | untagged neutral name (D10) |
+| 1 | `Unknown_513F10` | `app/client/sclient.h:582` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:583` | neutral |
+| 1 | `Unknown_513F30` | `app/client/sclient.h:583` | untagged neutral name (D10) |
+| 1 | `file, indent` | `app/client/sclient.h:584` | Printf_Indented's |
+| 1 | `Unknown_513F60` | `app/client/sclient.h:584` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:585` | neutral |
+| 1 | `Unknown_513F80` | `app/client/sclient.h:585` | untagged neutral name (D10) |
+| 1 | `Unknown_513FA0` | `app/client/sclient.h:586` | untagged neutral name (D10) |
+| 1 | `Unknown_513FC0` | `app/client/sclient.h:587` | untagged neutral name (D10) |
+| 1 | `Unknown_514010` | `app/client/sclient.h:588` | untagged neutral name (D10) |
+| 1 | `x, y, fx, fy` | `app/client/sclient.h:589` | neutral |
+| 1 | `Unknown_512B10` | `app/client/sclient.h:589` | untagged neutral name (D10) |
+| 1 | `Unknown_514480` | `app/client/sclient.h:590` | untagged neutral name (D10) |
+| 1 | `Unknown_5146D0` | `app/client/sclient.h:591` | untagged neutral name (D10) |
+| 1 | `Unknown_514400` | `app/client/sclient.h:592` | untagged neutral name (D10) |
+| 1 | `Unknown_514450` | `app/client/sclient.h:593` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `app/client/sclient.h:618` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/sclient.h:620` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/sclient.h:622` | untagged neutral name (D10) |
+| 1 | `Unknown144` | `app/client/sclient.h:625` | untagged neutral name (D10) |
+| 1 | `Unknown154` | `app/client/sclient.h:626` | untagged neutral name (D10) |
+| 1 | `Unknown164` | `app/client/sclient.h:627` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `app/client/sclient.h:628` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/sclient.h:629` | untagged neutral name (D10) |
+| 1 | `Unknown1C8` | `app/client/sclient.h:635` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/sclient.h:636` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/sclient.h:638` | untagged neutral name (D10) |
+| 1 | `Unknown1DC` | `app/client/sclient.h:640` | untagged neutral name (D10) |
+| 1 | `Unknown1E0` | `app/client/sclient.h:641` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/client/sclient.h:642` | untagged neutral name (D10) |
+| 1 | `Unknown7B3E30Class` | `app/client/sclient.h:647` | neutral (D10): the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; loadingview.cpp) |
+| 1 | `source_sector, source_system, name, system` | `app/client/sclient.h:657` | the packet's fields |
+| 1 | `Unknown_691830` | `app/client/sclient.h:657` | untagged neutral name (D10) |
+| 1 | `Unknown_692330` | `app/client/sclient.h:658` | untagged neutral name (D10) |
+| 1 | `Unknown_692160` | `app/client/sclient.h:659` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/sclient.h:664` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/sclient.h:665` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/sclient.h:667` | untagged neutral name (D10) |
+| 1 | `Unknown69` | `app/client/sclient.h:668` | untagged neutral name (D10) |
+| 1 | `task, arg` | `app/client/sclient.h:675` | what 0x74BC20 passes |
+| 1 | `Unknown_7EFCC0` | `app/client/sclient.h:676` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieInterfaceClass` | `app/client/sclient.h:690` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/sclient.h:693` | untagged neutral name (D10) |
+| 1 | `camera` | `app/client/sclient.h:694` | what 0x8023A0 passes |
+| 1 | `ScriptedMovieFadeClass` | `app/client/sclient.h:697` | neutral (D10) |
+| 1 | `time` | `app/client/sclient.h:701` | neutral |
+| 1 | `Unknown_80A5A0` | `app/client/sclient.h:701` | untagged neutral name (D10) |
+| 1 | `time, from, to` | `app/client/sclient.h:702` | neutral |
+| 1 | `Unknown_80A730` | `app/client/sclient.h:702` | untagged neutral name (D10) |
+| 1 | `name, arg, client` | `app/client/sclient.h:711` | what Create_Object passes |
+| 1 | `Unknown_5B92B0` | `app/client/sclient.h:712` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9100` | `app/client/sclient.h:713` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9130` | `app/client/sclient.h:714` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:715` | neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral |
+| 1 | `Unknown_5B8B40` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9830` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9930` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5BA460` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9410` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9290` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9550` | `app/client/sclient.h:715` | untagged neutral name (D10) |
+| 1 | `a, loop, b, c, d, e` | `app/client/sclient.h:716` | neutral; NAME 2 [anim_name]: the FAIL_IF's |
+| 1 | `Unknown_5B8DF0` | `app/client/sclient.h:716` | untagged neutral name (D10) |
+| 1 | `Unknown_5E26D0` | `app/client/sclient.h:717` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B20` | `app/client/sclient.h:717` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/sclient.h:721` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:724` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/sclient.h:725` | untagged neutral name (D10) |
+| 1 | `ScriptedMovieBoneObjectStruct` | `app/client/sclient.h:730` | neutral (D10); NAME 3 [RenderObject, ClientID]: the asserts'; NAME 2 [Bone]: what it holds |
+| 1 | `ScriptedMovieCameraStruct` | `app/client/sclient.h:731` | neutral (D10) |
+| 1 | `name, bone_name, model` | `app/client/sclient.h:738` | what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes |
+| 1 | `Unknown_7ED410` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `Unknown_7ED6C0` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `Unknown_7EDA60` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `Unknown_7ED630` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `Unknown19` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `task, arg, callback` | `app/client/sclient.h:742` | what 0x74BD90 passes |
+| 1 | `Unknown_802930` | `app/client/sclient.h:743` | untagged neutral name (D10) |
+| 1 | `event` | `app/client/sclient.h:744` | what it gets |
+| 1 | `Unknown_802960` | `app/client/sclient.h:744` | untagged neutral name (D10) |
+| 1 | `Unknown_8027C0` | `app/client/sclient.h:745` | untagged neutral name (D10) |
+| 1 | `Unknown_801860` | `app/client/sclient.h:746` | untagged neutral name (D10) |
+| 1 | `Unknown_8019A0` | `app/client/sclient.h:747` | untagged neutral name (D10) |
+| 1 | `params` | `app/client/sclient.h:748` | neutral |
+| 1 | `Unknown_804A70` | `app/client/sclient.h:748` | untagged neutral name (D10) |
+| 1 | `Unknown_801AE0` | `app/client/sclient.h:749` | untagged neutral name (D10) |
+| 1 | `Unknown_801C40` | `app/client/sclient.h:750` | untagged neutral name (D10) |
+| 1 | `Unknown_801D70` | `app/client/sclient.h:751` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/sclient.h:753` | neutral |
+| 1 | `Unknown_807520` | `app/client/sclient.h:753` | untagged neutral name (D10) |
+| 1 | `line` | `app/client/sclient.h:754` | neutral |
+| 1 | `Unknown_803310` | `app/client/sclient.h:754` | untagged neutral name (D10) |
+| 1 | `Unknown_802B20` | `app/client/sclient.h:755` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/sclient.h:756` | what the fade gets |
+| 1 | `Unknown_8022C0` | `app/client/sclient.h:756` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/sclient.h:757` | what the fade gets |
+| 1 | `Unknown_802330` | `app/client/sclient.h:757` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sclient.h:758` | neutral |
+| 1 | `Unknown_8023A0` | `app/client/sclient.h:758` | untagged neutral name (D10) |
+| 1 | `Unknown_802900` | `app/client/sclient.h:759` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:760` | neutral |
+| 1 | `Unknown_802AD0` | `app/client/sclient.h:760` | untagged neutral name (D10) |
+| 1 | `Unknown_802D30` | `app/client/sclient.h:761` | untagged neutral name (D10) |
+| 1 | `Unknown_8099B0` | `app/client/sclient.h:761` | untagged neutral name (D10) |
+| 1 | `Unknown_806AD0` | `app/client/sclient.h:762` | untagged neutral name (D10) |
+| 1 | `Unknown_809710` | `app/client/sclient.h:763` | untagged neutral name (D10) |
+| 1 | `Unknown_809730` | `app/client/sclient.h:764` | untagged neutral name (D10) |
+| 1 | `Unknown_808840` | `app/client/sclient.h:776` | untagged neutral name (D10) |
+| 1 | `params` | `app/client/sclient.h:783` | neutral |
+| 1 | `Unknown_8051B0` | `app/client/sclient.h:783` | untagged neutral name (D10) |
+| 1 | `Unknown_809600` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_809750` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_8070C0` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_803180` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_802D80` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_802420` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown_8020B0` | `app/client/sclient.h:788` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/sclient.h:794` | untagged neutral name (D10) |
+| 1 | `Unknown6D` | `app/client/sclient.h:795` | untagged neutral name (D10) |
+| 1 | `Unknown6E` | `app/client/sclient.h:796` | untagged neutral name (D10) |
+| 1 | `Unknown6F` | `app/client/sclient.h:797` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/sclient.h:797` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sclient.h:797` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/sclient.h:798` | untagged neutral name (D10) |
+| 1 | `Unknown7D` | `app/client/sclient.h:799` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/sclient.h:800` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/sclient.h:807` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/sclient.h:818` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/sclient.h:820` | untagged neutral name (D10) |
+| 1 | `Unknown159` | `app/client/sclient.h:820` | untagged neutral name (D10) |
+| 1 | `Unknown15C` | `app/client/sclient.h:820` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/sclient.h:820` | untagged neutral name (D10) |
+| 1 | `Unknown169` | `app/client/sclient.h:823` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/sclient.h:823` | untagged neutral name (D10) |
+| 1 | `Unknown171` | `app/client/sclient.h:824` | untagged neutral name (D10) |
+| 1 | `Unknown172` | `app/client/sclient.h:825` | untagged neutral name (D10) |
+| 1 | `Unknown173` | `app/client/sclient.h:825` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/sclient.h:825` | untagged neutral name (D10) |
+| 1 | `Unknown764FD0Class` | `app/client/sclient.h:830` | neutral (D10) |
+| 1 | `Unknown_765010` | `app/client/sclient.h:834` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sclient.h:835` | neutral |
+| 1 | `Unknown_765DF0` | `app/client/sclient.h:835` | untagged neutral name (D10) |
+| 1 | `Unknown77E3F0E8Class` | `app/client/sclient.h:841` | neutral (D10) |
+| 1 | `text` | `app/client/sclient.h:846` | what the handler passes |
+| 1 | `Unknown77E3F0Class` | `app/client/sclient.h:851` | neutral (D10) |
+| 1 | `data, size, flag` | `app/client/sclient.h:854` | what the handler passes |
+| 1 | `Unknown_784B80` | `app/client/sclient.h:854` | untagged neutral name (D10) |
+| 1 | `Unknown_7817E0` | `app/client/sclient.h:855` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/sclient.h:856` | neutral |
+| 1 | `Unknown_780810` | `app/client/sclient.h:856` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1394Class` | `app/client/sclient.h:860` | neutral (D10) |
+| 1 | `desc, unknown1, unknown2, unknown3` | `app/client/sclient.h:876` | what 0x74C3B0 passes |
+| 1 | `Unknown_77E3F0` | `app/client/sclient.h:877` | untagged neutral name (D10) |
+| 1 | `Unknown_77E610` | `app/client/sclient.h:878` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/sclient.h:881` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/sclient.h:882` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknown138Class` | `app/client/sclient.h:886` | neutral (D10) |
+| 1 | `Unknown_90` | `app/client/sclient.h:898` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/sclient.h:898` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/sclient.h:898` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/sclient.h:898` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/sclient.h:899` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/sclient.h:899` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/sclient.h:899` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/sclient.h:900` | neutral |
+| 1 | `Unknown_AC` | `app/client/sclient.h:900` | untagged neutral name (D10) |
+| 1 | `task` | `app/client/sclient.h:907` | ClientTaskClass::Init passes this |
 | 1 | `text` | `app/client/sclient.h:917` | the chat line |
-| 1 | `Unknown_749590` | `app/client/sclient.h:917` | untagged neutral name (D10) |
 | 1 | `text` | `app/client/sclient.h:918` | the chat line |
-| 1 | `Unknown_749A70` | `app/client/sclient.h:918` | untagged neutral name (D10) |
+| 1 | `Unknown_747510` | `app/client/sclient.h:918` | untagged neutral name (D10) |
 | 1 | `text` | `app/client/sclient.h:919` | the chat line |
-| 1 | `Unknown_749ED0` | `app/client/sclient.h:919` | untagged neutral name (D10) |
-| 1 | `view` | `app/client/sclient.h:928` | what it gets |
-| 1 | `Unknown_742530` | `app/client/sclient.h:928` | untagged neutral name (D10) |
-| 1 | `Unknown_7429B0` | `app/client/sclient.h:929` | untagged neutral name (D10) |
-| 1 | `event` | `app/client/sclient.h:930` | what it gets |
-| 1 | `Unknown_743380` | `app/client/sclient.h:930` | untagged neutral name (D10) |
-| 1 | `event` | `app/client/sclient.h:931` | what it gets |
-| 1 | `Unknown_7436A0` | `app/client/sclient.h:931` | untagged neutral name (D10) |
-| 1 | `event` | `app/client/sclient.h:932` | what it gets |
-| 1 | `Unknown_744240` | `app/client/sclient.h:932` | untagged neutral name (D10) |
-| 1 | `Unknown_74EDB0` | `app/client/sclient.h:933` | untagged neutral name (D10) |
-| 1 | `Unknown_751660` | `app/client/sclient.h:934` | untagged neutral name (D10) |
-| 1 | `Unknown_74F5C0` | `app/client/sclient.h:935` | untagged neutral name (D10) |
-| 1 | `Unknown_7451D0` | `app/client/sclient.h:936` | untagged neutral name (D10) |
-| 1 | `Unknown_745350` | `app/client/sclient.h:937` | untagged neutral name (D10) |
-| 1 | `Unknown_744C10` | `app/client/sclient.h:938` | untagged neutral name (D10) |
-| 1 | `Unknown_744D80` | `app/client/sclient.h:939` | untagged neutral name (D10) |
-| 1 | `Unknown_744E50` | `app/client/sclient.h:940` | untagged neutral name (D10) |
-| 1 | `Unknown_7518A0` | `app/client/sclient.h:941` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sclient.h:942` | the record's |
-| 1 | `Unknown_7511A0` | `app/client/sclient.h:942` | untagged neutral name (D10) |
-| 1 | `Unknown_750C20` | `app/client/sclient.h:942` | untagged neutral name (D10) |
-| 1 | `Unknown_7555B0` | `app/client/sclient.h:943` | untagged neutral name (D10) |
-| 1 | `Unknown_755600` | `app/client/sclient.h:944` | untagged neutral name (D10) |
-| 1 | `Unknown_743290` | `app/client/sclient.h:945` | untagged neutral name (D10) |
-| 1 | `Unknown_74CA70` | `app/client/sclient.h:946` | untagged neutral name (D10) |
-| 1 | `Unknown_74D730` | `app/client/sclient.h:947` | untagged neutral name (D10) |
-| 1 | `Unknown_74D950` | `app/client/sclient.h:948` | untagged neutral name (D10) |
-| 1 | `Unknown_744B60` | `app/client/sclient.h:949` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/sclient.h:950` | the packet's GameID |
-| 1 | `Unknown_74C530` | `app/client/sclient.h:950` | untagged neutral name (D10) |
-| 1 | `Unknown_74B5E0` | `app/client/sclient.h:951` | untagged neutral name (D10) |
-| 1 | `Unknown_74B600` | `app/client/sclient.h:952` | untagged neutral name (D10) |
-| 1 | `Unknown_74B640` | `app/client/sclient.h:953` | untagged neutral name (D10) |
-| 1 | `game_id, desc` | `app/client/sclient.h:954` | the packet's fields |
-| 1 | `Unknown_74C3B0` | `app/client/sclient.h:954` | untagged neutral name (D10) |
-| 1 | `Unknown_745750` | `app/client/sclient.h:955` | untagged neutral name (D10) |
-| 1 | `Unknown_745AA0` | `app/client/sclient.h:956` | untagged neutral name (D10) |
-| 1 | `Unknown_745B20` | `app/client/sclient.h:957` | untagged neutral name (D10) |
-| 1 | `Unknown_745B90` | `app/client/sclient.h:958` | untagged neutral name (D10) |
-| 1 | `Unknown_745C70` | `app/client/sclient.h:959` | untagged neutral name (D10) |
-| 1 | `Unknown_745D50` | `app/client/sclient.h:960` | untagged neutral name (D10) |
-| 1 | `Unknown_745DD0` | `app/client/sclient.h:961` | untagged neutral name (D10) |
-| 1 | `Unknown_745E40` | `app/client/sclient.h:962` | untagged neutral name (D10) |
-| 1 | `base_asset` | `app/client/sclient.h:963` | the packet's field |
-| 1 | `Unknown_745000` | `app/client/sclient.h:963` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.h:964` | the packet's field |
-| 1 | `Unknown_750A70` | `app/client/sclient.h:964` | untagged neutral name (D10) |
-| 1 | `type` | `app/client/sclient.h:965` | what it selects |
-| 1 | `Unknown_74BB50` | `app/client/sclient.h:965` | untagged neutral name (D10) |
-| 1 | `Unknown_74C690` | `app/client/sclient.h:966` | untagged neutral name (D10) |
-| 1 | `Unknown_745490` | `app/client/sclient.h:967` | untagged neutral name (D10) |
-| 1 | `Unknown_74D570` | `app/client/sclient.h:968` | untagged neutral name (D10) |
-| 1 | `Unknown_74D690` | `app/client/sclient.h:969` | untagged neutral name (D10) |
-| 1 | `co` | `app/client/sclient.h:970` | the FAIL_IF's name |
-| 1 | `Unknown_74D780` | `app/client/sclient.h:970` | untagged neutral name (D10) |
-| 1 | `co` | `app/client/sclient.h:971` | the FAIL_IF's name |
-| 1 | `Unknown_74D8B0` | `app/client/sclient.h:971` | untagged neutral name (D10) |
-| 1 | `Unknown_74D870` | `app/client/sclient.h:972` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:973` | neutral |
-| 1 | `Unknown_74BC20` | `app/client/sclient.h:973` | untagged neutral name (D10) |
-| 1 | `Unknown_74BD10` | `app/client/sclient.h:974` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:975` | neutral |
-| 1 | `Unknown_74BD90` | `app/client/sclient.h:975` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/sclient.h:976` | what it is |
-| 1 | `Unknown_74BF00` | `app/client/sclient.h:976` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:977` | neutral |
-| 1 | `Unknown_744E70` | `app/client/sclient.h:977` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/sclient.h:978` | the table's key |
-| 1 | `Unknown_74C7B0` | `app/client/sclient.h:978` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/sclient.h:979` | the table's key |
-| 1 | `Unknown_74C840` | `app/client/sclient.h:979` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sclient.h:980` | Find_Object's |
-| 1 | `Unknown_74C8D0` | `app/client/sclient.h:980` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/sclient.h:981` | the table's key |
-| 1 | `Unknown_74C960` | `app/client/sclient.h:981` | untagged neutral name (D10) |
-| 1 | `tree` | `app/client/sclient.h:982` | what it holds |
-| 1 | `Unknown_74C9D0` | `app/client/sclient.h:982` | untagged neutral name (D10) |
-| 1 | `type` | `app/client/sclient.h:983` | what the handler passes |
-| 1 | `Unknown_745F30` | `app/client/sclient.h:983` | untagged neutral name (D10) |
-| 1 | `a, starbase_id` | `app/client/sclient.h:984` | what the handler passes |
-| 1 | `Unknown_74B680` | `app/client/sclient.h:984` | untagged neutral name (D10) |
-| 1 | `a, starbase_id, mode` | `app/client/sclient.h:985` | what the handler passes |
-| 1 | `Unknown_74BA30` | `app/client/sclient.h:985` | untagged neutral name (D10) |
-| 1 | `name, channel` | `app/client/sclient.h:986` | what the handler passes |
-| 1 | `Unknown_750F70` | `app/client/sclient.h:986` | untagged neutral name (D10) |
-| 1 | `color, text, a` | `app/client/sclient.h:987` | what the handler passes |
-| 1 | `Unknown_74D990` | `app/client/sclient.h:987` | untagged neutral name (D10) |
-| 1 | `message, id, type` | `app/client/sclient.h:988` | the packet's fields |
-| 1 | `Unknown_74E710` | `app/client/sclient.h:988` | untagged neutral name (D10) |
-| 1 | `type, id` | `app/client/sclient.h:989` | the packet's fields |
-| 1 | `Unknown_74EB00` | `app/client/sclient.h:989` | untagged neutral name (D10) |
-| 1 | `points_total, points_spent` | `app/client/sclient.h:990` | the packet's fields |
-| 1 | `Unknown_751460` | `app/client/sclient.h:990` | untagged neutral name (D10) |
-| 1 | `Unknown_750800` | `app/client/sclient.h:991` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/client/sclient.h:992` | neutral |
-| 1 | `Unknown_7517E0` | `app/client/sclient.h:992` | untagged neutral name (D10) |
-| 1 | `ranks` | `app/client/sclient.h:993` | the packet's field |
-| 1 | `Unknown_751850` | `app/client/sclient.h:993` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:994` | neutral |
-| 1 | `Unknown_745160` | `app/client/sclient.h:994` | untagged neutral name (D10) |
-| 1 | `Unknown_744560` | `app/client/sclient.h:994` | untagged neutral name (D10) |
-| 1 | `Unknown_745050` | `app/client/sclient.h:995` | untagged neutral name (D10) |
-| 1 | `Unknown_7456B0` | `app/client/sclient.h:996` | untagged neutral name (D10) |
-| 1 | `file, indent` | `app/client/sclient.h:998` | Printf_Indented's |
-| 1 | `Unknown_745EC0` | `app/client/sclient.h:998` | untagged neutral name (D10) |
-| 1 | `Unknown_74BF80` | `app/client/sclient.h:999` | untagged neutral name (D10) |
-| 1 | `object` | `app/client/sclient.h:1000` | neutral |
-| 1 | `Unknown_74C370` | `app/client/sclient.h:1000` | untagged neutral name (D10) |
-| 1 | `Unknown_74FA30` | `app/client/sclient.h:1001` | untagged neutral name (D10) |
-| 1 | `Unknown_74FEC0` | `app/client/sclient.h:1002` | untagged neutral name (D10) |
-| 1 | `Unknown_750210` | `app/client/sclient.h:1003` | untagged neutral name (D10) |
-| 1 | `Unknown_750260` | `app/client/sclient.h:1004` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:1005` | neutral |
-| 1 | `Unknown_750B30` | `app/client/sclient.h:1005` | untagged neutral name (D10) |
-| 1 | `text, type, value` | `app/client/sclient.h:1006` | what it does with them |
-| 1 | `Unknown_74E580` | `app/client/sclient.h:1006` | untagged neutral name (D10) |
-| 1 | `color, text, message_type, arg` | `app/client/sclient.h:1007` | what the handler passes |
-| 1 | `Unknown_74DFF0` | `app/client/sclient.h:1007` | untagged neutral name (D10) |
-| 1 | `Unknown_750B60` | `app/client/sclient.h:1008` | untagged neutral name (D10) |
-| 1 | `Unknown1198` | `app/client/sclient.h:1010` | untagged neutral name (D10) |
-| 1 | `Unknown119C` | `app/client/sclient.h:1011` | untagged neutral name (D10) |
-| 1 | `Unknown11AC` | `app/client/sclient.h:1012` | untagged neutral name (D10) |
-| 1 | `Unknown120C` | `app/client/sclient.h:1013` | untagged neutral name (D10) |
-| 1 | `Unknown126C` | `app/client/sclient.h:1014` | untagged neutral name (D10) |
-| 1 | `Unknown1270` | `app/client/sclient.h:1015` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/sclient.h:1016` | untagged neutral name (D10) |
-| 1 | `Unknown1278` | `app/client/sclient.h:1017` | untagged neutral name (D10) |
-| 1 | `Unknown1288` | `app/client/sclient.h:1021` | untagged neutral name (D10) |
-| 1 | `Unknown1298` | `app/client/sclient.h:1025` | untagged neutral name (D10) |
-| 1 | `Unknown129C` | `app/client/sclient.h:1026` | untagged neutral name (D10) |
-| 1 | `Unknown12AC` | `app/client/sclient.h:1030` | untagged neutral name (D10) |
-| 1 | `Unknown12B0` | `app/client/sclient.h:1031` | untagged neutral name (D10) |
-| 1 | `Unknown12B4` | `app/client/sclient.h:1032` | untagged neutral name (D10) |
-| 1 | `Unknown12B8` | `app/client/sclient.h:1033` | untagged neutral name (D10) |
-| 1 | `Unknown12BC` | `app/client/sclient.h:1034` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `app/client/sclient.h:1036` | untagged neutral name (D10) |
-| 1 | `Unknown12D4` | `app/client/sclient.h:1037` | untagged neutral name (D10) |
-| 1 | `Unknown1320` | `app/client/sclient.h:1039` | untagged neutral name (D10) |
-| 1 | `Unknown1324` | `app/client/sclient.h:1040` | untagged neutral name (D10) |
-| 1 | `Unknown1328` | `app/client/sclient.h:1041` | untagged neutral name (D10) |
-| 1 | `Unknown1330` | `app/client/sclient.h:1043` | untagged neutral name (D10) |
-| 1 | `Unknown1334` | `app/client/sclient.h:1044` | untagged neutral name (D10) |
-| 1 | `Unknown1338` | `app/client/sclient.h:1045` | untagged neutral name (D10) |
-| 1 | `Unknown1340` | `app/client/sclient.h:1047` | untagged neutral name (D10) |
-| 1 | `Unknown1358` | `app/client/sclient.h:1050` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `app/client/sclient.h:1051` | untagged neutral name (D10) |
-| 1 | `Unknown1370` | `app/client/sclient.h:1057` | untagged neutral name (D10) |
-| 1 | `Unknown1374` | `app/client/sclient.h:1058` | untagged neutral name (D10) |
-| 1 | `Unknown1378` | `app/client/sclient.h:1059` | untagged neutral name (D10) |
-| 1 | `Unknown137C` | `app/client/sclient.h:1060` | untagged neutral name (D10) |
-| 1 | `Unknown1380` | `app/client/sclient.h:1061` | untagged neutral name (D10) |
-| 1 | `Unknown1388` | `app/client/sclient.h:1063` | untagged neutral name (D10) |
-| 1 | `Unknown138C` | `app/client/sclient.h:1064` | untagged neutral name (D10) |
-| 1 | `Unknown1390` | `app/client/sclient.h:1065` | untagged neutral name (D10) |
-| 1 | `Unknown1394` | `app/client/sclient.h:1066` | untagged neutral name (D10) |
-| 1 | `Unknown13AC` | `app/client/sclient.h:1067` | untagged neutral name (D10) |
-| 1 | `Unknown13B0` | `app/client/sclient.h:1068` | untagged neutral name (D10) |
-| 1 | `Unknown13B4` | `app/client/sclient.h:1069` | untagged neutral name (D10) |
-| 1 | `Unknown13B8` | `app/client/sclient.h:1070` | untagged neutral name (D10) |
-| 1 | `Unknown13BC` | `app/client/sclient.h:1071` | untagged neutral name (D10) |
-| 1 | `Unknown13C0` | `app/client/sclient.h:1072` | untagged neutral name (D10) |
-| 1 | `Unknown13C1` | `app/client/sclient.h:1073` | untagged neutral name (D10) |
-| 1 | `Unknown13CC` | `app/client/sclient.h:1076` | untagged neutral name (D10) |
-| 1 | `Unknown14EC` | `app/client/sclient.h:1077` | untagged neutral name (D10) |
-| 1 | `Unknown14F0` | `app/client/sclient.h:1078` | untagged neutral name (D10) |
-| 1 | `Unknown14F4` | `app/client/sclient.h:1079` | untagged neutral name (D10) |
-| 1 | `SClientMovieCallbackClass` | `app/client/sclient.h:1084` | neutral (D10) |
-| 1 | `object` | `app/client/sclient.h:1089` | neutral |
+| 1 | `Unknown_745FF0` | `app/client/sclient.h:919` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:920` | the chat line |
+| 1 | `Unknown_747C70` | `app/client/sclient.h:920` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:921` | the chat line |
+| 1 | `Unknown_747FA0` | `app/client/sclient.h:921` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:922` | the chat line |
+| 1 | `Unknown_749020` | `app/client/sclient.h:922` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:923` | the chat line |
+| 1 | `Unknown_749590` | `app/client/sclient.h:923` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:924` | the chat line |
+| 1 | `Unknown_749A70` | `app/client/sclient.h:924` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sclient.h:925` | the chat line |
+| 1 | `Unknown_749ED0` | `app/client/sclient.h:925` | untagged neutral name (D10) |
+| 1 | `view` | `app/client/sclient.h:934` | what it gets |
+| 1 | `Unknown_742530` | `app/client/sclient.h:934` | untagged neutral name (D10) |
+| 1 | `Unknown_7429B0` | `app/client/sclient.h:935` | untagged neutral name (D10) |
+| 1 | `event` | `app/client/sclient.h:936` | what it gets |
+| 1 | `Unknown_743380` | `app/client/sclient.h:936` | untagged neutral name (D10) |
+| 1 | `event` | `app/client/sclient.h:937` | what it gets |
+| 1 | `Unknown_7436A0` | `app/client/sclient.h:937` | untagged neutral name (D10) |
+| 1 | `event` | `app/client/sclient.h:938` | what it gets |
+| 1 | `Unknown_744240` | `app/client/sclient.h:938` | untagged neutral name (D10) |
+| 1 | `Unknown_74EDB0` | `app/client/sclient.h:939` | untagged neutral name (D10) |
+| 1 | `Unknown_751660` | `app/client/sclient.h:940` | untagged neutral name (D10) |
+| 1 | `Unknown_74F5C0` | `app/client/sclient.h:941` | untagged neutral name (D10) |
+| 1 | `Unknown_7451D0` | `app/client/sclient.h:942` | untagged neutral name (D10) |
+| 1 | `Unknown_745350` | `app/client/sclient.h:943` | untagged neutral name (D10) |
+| 1 | `Unknown_744C10` | `app/client/sclient.h:944` | untagged neutral name (D10) |
+| 1 | `Unknown_744D80` | `app/client/sclient.h:945` | untagged neutral name (D10) |
+| 1 | `Unknown_744E50` | `app/client/sclient.h:946` | untagged neutral name (D10) |
+| 1 | `Unknown_7518A0` | `app/client/sclient.h:947` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sclient.h:948` | the record's |
+| 1 | `Unknown_7511A0` | `app/client/sclient.h:948` | untagged neutral name (D10) |
+| 1 | `Unknown_750C20` | `app/client/sclient.h:948` | untagged neutral name (D10) |
+| 1 | `Unknown_7555B0` | `app/client/sclient.h:949` | untagged neutral name (D10) |
+| 1 | `Unknown_755600` | `app/client/sclient.h:950` | untagged neutral name (D10) |
+| 1 | `Unknown_743290` | `app/client/sclient.h:951` | untagged neutral name (D10) |
+| 1 | `Unknown_74CA70` | `app/client/sclient.h:952` | untagged neutral name (D10) |
+| 1 | `Unknown_74D730` | `app/client/sclient.h:953` | untagged neutral name (D10) |
+| 1 | `Unknown_74D950` | `app/client/sclient.h:954` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/sclient.h:955` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/sclient.h:956` | the packet's GameID |
+| 1 | `Unknown_74C530` | `app/client/sclient.h:956` | untagged neutral name (D10) |
+| 1 | `Unknown_74B5E0` | `app/client/sclient.h:957` | untagged neutral name (D10) |
+| 1 | `Unknown_74B600` | `app/client/sclient.h:958` | untagged neutral name (D10) |
+| 1 | `Unknown_74B640` | `app/client/sclient.h:959` | untagged neutral name (D10) |
+| 1 | `game_id, desc` | `app/client/sclient.h:960` | the packet's fields |
+| 1 | `Unknown_74C3B0` | `app/client/sclient.h:960` | untagged neutral name (D10) |
+| 1 | `Unknown_745750` | `app/client/sclient.h:961` | untagged neutral name (D10) |
+| 1 | `Unknown_745AA0` | `app/client/sclient.h:962` | untagged neutral name (D10) |
+| 1 | `Unknown_745B20` | `app/client/sclient.h:963` | untagged neutral name (D10) |
+| 1 | `Unknown_745B90` | `app/client/sclient.h:964` | untagged neutral name (D10) |
+| 1 | `Unknown_745C70` | `app/client/sclient.h:965` | untagged neutral name (D10) |
+| 1 | `Unknown_745D50` | `app/client/sclient.h:966` | untagged neutral name (D10) |
+| 1 | `Unknown_745DD0` | `app/client/sclient.h:967` | untagged neutral name (D10) |
+| 1 | `Unknown_745E40` | `app/client/sclient.h:968` | untagged neutral name (D10) |
+| 1 | `base_asset` | `app/client/sclient.h:969` | the packet's field |
+| 1 | `Unknown_745000` | `app/client/sclient.h:969` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/sclient.h:970` | the packet's field |
+| 1 | `Unknown_750A70` | `app/client/sclient.h:970` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/sclient.h:971` | what it selects |
+| 1 | `Unknown_74BB50` | `app/client/sclient.h:971` | untagged neutral name (D10) |
+| 1 | `Unknown_74C690` | `app/client/sclient.h:972` | untagged neutral name (D10) |
+| 1 | `Unknown_745490` | `app/client/sclient.h:973` | untagged neutral name (D10) |
+| 1 | `Unknown_74D570` | `app/client/sclient.h:974` | untagged neutral name (D10) |
+| 1 | `Unknown_74D690` | `app/client/sclient.h:975` | untagged neutral name (D10) |
+| 1 | `co` | `app/client/sclient.h:976` | the FAIL_IF's name |
+| 1 | `Unknown_74D780` | `app/client/sclient.h:976` | untagged neutral name (D10) |
+| 1 | `co` | `app/client/sclient.h:977` | the FAIL_IF's name |
+| 1 | `Unknown_74D8B0` | `app/client/sclient.h:977` | untagged neutral name (D10) |
+| 1 | `Unknown_74D870` | `app/client/sclient.h:978` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:979` | neutral |
+| 1 | `Unknown_74BC20` | `app/client/sclient.h:979` | untagged neutral name (D10) |
+| 1 | `Unknown_74BD10` | `app/client/sclient.h:980` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:981` | neutral |
+| 1 | `Unknown_74BD90` | `app/client/sclient.h:981` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/sclient.h:982` | what it is |
+| 1 | `Unknown_74BF00` | `app/client/sclient.h:982` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:983` | neutral |
+| 1 | `Unknown_744E70` | `app/client/sclient.h:983` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/sclient.h:984` | the table's key |
+| 1 | `Unknown_74C7B0` | `app/client/sclient.h:984` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/sclient.h:985` | the table's key |
+| 1 | `Unknown_74C840` | `app/client/sclient.h:985` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sclient.h:986` | Find_Object's |
+| 1 | `Unknown_74C8D0` | `app/client/sclient.h:986` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/sclient.h:987` | the table's key |
+| 1 | `Unknown_74C960` | `app/client/sclient.h:987` | untagged neutral name (D10) |
+| 1 | `tree` | `app/client/sclient.h:988` | what it holds |
+| 1 | `Unknown_74C9D0` | `app/client/sclient.h:988` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/sclient.h:989` | what the handler passes |
+| 1 | `Unknown_745F30` | `app/client/sclient.h:989` | untagged neutral name (D10) |
+| 1 | `a, starbase_id` | `app/client/sclient.h:990` | what the handler passes |
+| 1 | `Unknown_74B680` | `app/client/sclient.h:990` | untagged neutral name (D10) |
+| 1 | `a, starbase_id, mode` | `app/client/sclient.h:991` | what the handler passes |
+| 1 | `Unknown_74BA30` | `app/client/sclient.h:991` | untagged neutral name (D10) |
+| 1 | `name, channel` | `app/client/sclient.h:992` | what the handler passes |
+| 1 | `Unknown_750F70` | `app/client/sclient.h:992` | untagged neutral name (D10) |
+| 1 | `color, text, a` | `app/client/sclient.h:993` | what the handler passes |
+| 1 | `Unknown_74D990` | `app/client/sclient.h:993` | untagged neutral name (D10) |
+| 1 | `message, id, type` | `app/client/sclient.h:994` | the packet's fields |
+| 1 | `Unknown_74E710` | `app/client/sclient.h:994` | untagged neutral name (D10) |
+| 1 | `type, id` | `app/client/sclient.h:995` | the packet's fields |
+| 1 | `Unknown_74EB00` | `app/client/sclient.h:995` | untagged neutral name (D10) |
+| 1 | `points_total, points_spent` | `app/client/sclient.h:996` | the packet's fields |
+| 1 | `Unknown_751460` | `app/client/sclient.h:996` | untagged neutral name (D10) |
+| 1 | `Unknown_750800` | `app/client/sclient.h:997` | untagged neutral name (D10) |
+| 1 | `a, b, c, d` | `app/client/sclient.h:998` | neutral |
+| 1 | `Unknown_7517E0` | `app/client/sclient.h:998` | untagged neutral name (D10) |
+| 1 | `ranks` | `app/client/sclient.h:999` | the packet's field |
+| 1 | `Unknown_751850` | `app/client/sclient.h:999` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:1000` | neutral |
+| 1 | `Unknown_745160` | `app/client/sclient.h:1000` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/sclient.h:1000` | untagged neutral name (D10) |
+| 1 | `Unknown_745050` | `app/client/sclient.h:1001` | untagged neutral name (D10) |
+| 1 | `Unknown_7456B0` | `app/client/sclient.h:1002` | untagged neutral name (D10) |
+| 1 | `file, indent` | `app/client/sclient.h:1004` | Printf_Indented's |
+| 1 | `Unknown_745EC0` | `app/client/sclient.h:1004` | untagged neutral name (D10) |
+| 1 | `Unknown_74BF80` | `app/client/sclient.h:1005` | untagged neutral name (D10) |
+| 1 | `object` | `app/client/sclient.h:1006` | neutral |
+| 1 | `Unknown_74C370` | `app/client/sclient.h:1006` | untagged neutral name (D10) |
+| 1 | `Unknown_74FA30` | `app/client/sclient.h:1007` | untagged neutral name (D10) |
+| 1 | `Unknown_74FEC0` | `app/client/sclient.h:1008` | untagged neutral name (D10) |
+| 1 | `Unknown_750210` | `app/client/sclient.h:1009` | untagged neutral name (D10) |
+| 1 | `Unknown_750260` | `app/client/sclient.h:1010` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sclient.h:1011` | neutral |
+| 1 | `Unknown_750B30` | `app/client/sclient.h:1011` | untagged neutral name (D10) |
+| 1 | `text, type, value` | `app/client/sclient.h:1012` | what it does with them |
+| 1 | `Unknown_74E580` | `app/client/sclient.h:1012` | untagged neutral name (D10) |
+| 1 | `color, text, message_type, arg` | `app/client/sclient.h:1013` | what the handler passes |
+| 1 | `Unknown_74DFF0` | `app/client/sclient.h:1013` | untagged neutral name (D10) |
+| 1 | `Unknown_750B60` | `app/client/sclient.h:1014` | untagged neutral name (D10) |
+| 1 | `Unknown1198` | `app/client/sclient.h:1016` | untagged neutral name (D10) |
+| 1 | `Unknown119C` | `app/client/sclient.h:1017` | untagged neutral name (D10) |
+| 1 | `Unknown11AC` | `app/client/sclient.h:1018` | untagged neutral name (D10) |
+| 1 | `Unknown120C` | `app/client/sclient.h:1019` | untagged neutral name (D10) |
+| 1 | `Unknown126C` | `app/client/sclient.h:1020` | untagged neutral name (D10) |
+| 1 | `Unknown1270` | `app/client/sclient.h:1021` | untagged neutral name (D10) |
+| 1 | `Unknown1274` | `app/client/sclient.h:1022` | untagged neutral name (D10) |
+| 1 | `Unknown1278` | `app/client/sclient.h:1023` | untagged neutral name (D10) |
+| 1 | `Unknown1288` | `app/client/sclient.h:1027` | untagged neutral name (D10) |
+| 1 | `Unknown1298` | `app/client/sclient.h:1031` | untagged neutral name (D10) |
+| 1 | `Unknown129C` | `app/client/sclient.h:1032` | untagged neutral name (D10) |
+| 1 | `Unknown12AC` | `app/client/sclient.h:1036` | untagged neutral name (D10) |
+| 1 | `Unknown12B0` | `app/client/sclient.h:1037` | untagged neutral name (D10) |
+| 1 | `Unknown12B4` | `app/client/sclient.h:1038` | untagged neutral name (D10) |
+| 1 | `Unknown12B8` | `app/client/sclient.h:1039` | untagged neutral name (D10) |
+| 1 | `Unknown12BC` | `app/client/sclient.h:1040` | untagged neutral name (D10) |
+| 1 | `Unknown12C4` | `app/client/sclient.h:1042` | untagged neutral name (D10) |
+| 1 | `Unknown12D4` | `app/client/sclient.h:1043` | untagged neutral name (D10) |
+| 1 | `Unknown1320` | `app/client/sclient.h:1045` | untagged neutral name (D10) |
+| 1 | `Unknown1324` | `app/client/sclient.h:1046` | untagged neutral name (D10) |
+| 1 | `Unknown1328` | `app/client/sclient.h:1047` | untagged neutral name (D10) |
+| 1 | `Unknown1330` | `app/client/sclient.h:1049` | untagged neutral name (D10) |
+| 1 | `Unknown1334` | `app/client/sclient.h:1050` | untagged neutral name (D10) |
+| 1 | `Unknown1338` | `app/client/sclient.h:1051` | untagged neutral name (D10) |
+| 1 | `Unknown1340` | `app/client/sclient.h:1053` | untagged neutral name (D10) |
+| 1 | `Unknown1358` | `app/client/sclient.h:1056` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/sclient.h:1057` | untagged neutral name (D10) |
+| 1 | `Unknown1370` | `app/client/sclient.h:1063` | untagged neutral name (D10) |
+| 1 | `Unknown1374` | `app/client/sclient.h:1064` | untagged neutral name (D10) |
+| 1 | `Unknown1378` | `app/client/sclient.h:1065` | untagged neutral name (D10) |
+| 1 | `Unknown137C` | `app/client/sclient.h:1066` | untagged neutral name (D10) |
+| 1 | `Unknown1380` | `app/client/sclient.h:1067` | untagged neutral name (D10) |
+| 1 | `Unknown1388` | `app/client/sclient.h:1069` | untagged neutral name (D10) |
+| 1 | `Unknown138C` | `app/client/sclient.h:1070` | untagged neutral name (D10) |
+| 1 | `Unknown1390` | `app/client/sclient.h:1071` | untagged neutral name (D10) |
+| 1 | `Unknown1394` | `app/client/sclient.h:1072` | untagged neutral name (D10) |
+| 1 | `Unknown13AC` | `app/client/sclient.h:1073` | untagged neutral name (D10) |
+| 1 | `Unknown13B0` | `app/client/sclient.h:1074` | untagged neutral name (D10) |
+| 1 | `Unknown13B4` | `app/client/sclient.h:1075` | untagged neutral name (D10) |
+| 1 | `Unknown13B8` | `app/client/sclient.h:1076` | untagged neutral name (D10) |
+| 1 | `Unknown13BC` | `app/client/sclient.h:1077` | untagged neutral name (D10) |
+| 1 | `Unknown13C0` | `app/client/sclient.h:1078` | untagged neutral name (D10) |
+| 1 | `Unknown13C1` | `app/client/sclient.h:1079` | untagged neutral name (D10) |
+| 1 | `Unknown13CC` | `app/client/sclient.h:1082` | untagged neutral name (D10) |
+| 1 | `Unknown14EC` | `app/client/sclient.h:1083` | untagged neutral name (D10) |
+| 1 | `Unknown14F0` | `app/client/sclient.h:1084` | untagged neutral name (D10) |
+| 1 | `Unknown14F4` | `app/client/sclient.h:1085` | untagged neutral name (D10) |
+| 1 | `SClientMovieCallbackClass` | `app/client/sclient.h:1090` | neutral (D10) |
+| 1 | `object` | `app/client/sclient.h:1095` | neutral |
 | 1 | `UnknownBDADC0Class` | `app/client/scriptedmovie.cpp:20` | neutral (D10) |
 | 1 | `Unknown_BDADC0` | `app/client/scriptedmovie.cpp:23` | 0xBDADC0 |
 | 1 | `on, time` | `app/client/scriptedmovie.cpp:27` | what Enable_Letterbox passes |
@@ -3671,6 +3733,60 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
+| 1 | `arg, view` | `app/client/ui_avatar_cust.cpp:13` | neutral |
+| 1 | `Unknown_6603A0` | `app/client/ui_avatar_cust.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_avatar_cust.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_avatar_cust.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown2CLow` | `app/client/ui_avatar_cust.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown2C800` | `app/client/ui_avatar_cust.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_avatar_cust.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_6608F0` | `app/client/ui_avatar_cust.cpp:20` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_avatar_cust.cpp:23` | neutral |
+| 1 | `Unknown_497300` | `app/client/ui_avatar_cust.cpp:23` | untagged neutral name (D10) |
+| 1 | `UIAvatarCustPartStruct` | `app/client/ui_avatar_cust.cpp:26` | neutral (D10) |
+| 1 | `Button` | `app/client/ui_avatar_cust.cpp:29` | neutral ('metals_buy_avatar00') |
+| 1 | `UIAvatarCustMetals` | `app/client/ui_avatar_cust.cpp:31` | neutral (D10) |
+| 1 | `UIAvatarCustAvatarClass` | `app/client/ui_avatar_cust.cpp:38` | neutral (D10) |
+| 1 | `part, value` | `app/client/ui_avatar_cust.cpp:41` | neutral |
+| 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:41` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/ui_avatar_cust.cpp:42` | neutral |
+| 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:42` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_550670` | `app/client/ui_avatar_cust.cpp:49` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/ui_avatar_cust.cpp:50` | neutral |
+| 1 | `Unknown_550970` | `app/client/ui_avatar_cust.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_551BF0` | `app/client/ui_avatar_cust.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_550A10` | `app/client/ui_avatar_cust.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_avatar_cust.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_avatar_cust.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_avatar_cust.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown65B810ViewClass` | `app/client/ui_avatar_cust.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_avatar_cust.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_avatar_cust.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avatar_cust.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_avatar_cust.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_avatar_cust.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/ui_avatar_cust.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/ui_avatar_cust.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown22C` | `app/client/ui_avatar_cust.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown230` | `app/client/ui_avatar_cust.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown234` | `app/client/ui_avatar_cust.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/ui_avatar_cust.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/ui_avatar_cust.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/ui_avatar_cust.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown258` | `app/client/ui_avatar_cust.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown25C` | `app/client/ui_avatar_cust.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown260` | `app/client/ui_avatar_cust.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown264` | `app/client/ui_avatar_cust.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown268` | `app/client/ui_avatar_cust.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/ui_avatar_cust.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown29C` | `app/client/ui_avatar_cust.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown2CC` | `app/client/ui_avatar_cust.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown2FC` | `app/client/ui_avatar_cust.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown358` | `app/client/ui_avatar_cust.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown35C` | `app/client/ui_avatar_cust.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown1338` | `app/client/ui_avatar_cust.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_avatar_cust.cpp:174` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_chat_panel.cpp:17` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
@@ -4070,6 +4186,99 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown265` | `app/client/ui_chat_panel.h:194` | untagged neutral name (D10) |
 | 1 | `Unknown266` | `app/client/ui_chat_panel.h:195` | untagged neutral name (D10) |
 | 1 | `Unknown267` | `app/client/ui_chat_panel.h:196` | untagged neutral name (D10) |
+| 1 | `FontStyleClass` | `app/client/ui_combobox.cpp:13` | fontmanager.h's |
+| 1 | `Unknown_00` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_combobox.cpp:27` | neutral |
+| 1 | `Unknown_40` | `app/client/ui_combobox.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_combobox.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ui_combobox.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_combobox.cpp:33` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_combobox.cpp:34` | neutral |
+| 1 | `Unknown_8C` | `app/client/ui_combobox.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
+| 1 | `value, arg` | `app/client/ui_combobox.cpp:36` | neutral |
+| 1 | `Unknown_A4` | `app/client/ui_combobox.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_combobox.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_combobox.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown5D` | `app/client/ui_combobox.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown61` | `app/client/ui_combobox.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown62` | `app/client/ui_combobox.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/ui_combobox.cpp:43` | untagged neutral name (D10) |
+| 1 | `UIComboBoxSliderClass` | `app/client/ui_combobox.cpp:47` | neutral (D10) |
+| 1 | `Unknown_66E3A0` | `app/client/ui_combobox.cpp:50` | untagged neutral name (D10) |
+| 1 | `object, a, b` | `app/client/ui_combobox.cpp:51` | neutral |
+| 1 | `Unknown_66E460` | `app/client/ui_combobox.cpp:51` | untagged neutral name (D10) |
+| 1 | `range, step, flag` | `app/client/ui_combobox.cpp:52` | neutral |
+| 1 | `Unknown_66FA90` | `app/client/ui_combobox.cpp:52` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_combobox.cpp:53` | neutral |
+| 1 | `Unknown_66FD80` | `app/client/ui_combobox.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_Clamp` | `app/client/ui_combobox.cpp:56` | neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row) |
+| 1 | `robj` | `app/client/ui_combobox.cpp:57` | neutral |
+| 1 | `Unknown_497300` | `app/client/ui_combobox.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BC4` | `app/client/ui_combobox.cpp:59` | neutral (D10): the open combo box (0x57A330 sets it while the list is down) |
+| 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.cpp:62` | neutral (D10) |
+| 1 | `arg` | `app/client/ui_combobox.cpp:72` | neutral |
+| 1 | `Unknown_57A330` | `app/client/ui_combobox.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.cpp:81` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_combobox.cpp:82` | neutral |
+| 1 | `Unknown_57AC70` | `app/client/ui_combobox.cpp:82` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_combobox.cpp:83` | neutral |
+| 1 | `Unknown_57AD50` | `app/client/ui_combobox.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.cpp:85` | neutral (D10) |
+| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.cpp:86` | neutral (D10) |
+| 1 | `Unknown10C` | `app/client/ui_combobox.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_combobox.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_combobox.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_combobox.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_combobox.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown0A4` | `app/client/ui_combobox.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_combobox.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_combobox.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_combobox.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_combobox.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_combobox.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_combobox.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_combobox.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_combobox.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_combobox.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_combobox.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_combobox.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_combobox.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:168` | untagged neutral name (D10) |
 | 1 | `FontStyleClass` | `app/client/ui_cpit.cpp:25` | fontmanager.h's (a DynamicMeshClass there, 0x4E8 bytes) |
 | 1 | `Unknown_Pad` | `app/client/ui_cpit.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown2FC` | `app/client/ui_cpit.cpp:29` | untagged neutral name (D10) |
@@ -5491,6 +5700,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.h:54` | neutral (D10) |
+| 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
+| 1 | `UnknownBE8BA0` | `app/client/unknown_screenfade.cpp:47` | untagged neutral name (D10) |
+| 1 | `UnknownBE8B40` | `app/client/unknown_screenfade.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAE3C` | `app/client/unknown_screenfade.cpp:51` | neutral (D10): the time now in ms (mainview.cpp declares it too) |
+| 1 | `Unknown_BFAE40` | `app/client/unknown_screenfade.cpp:52` | neutral (D10): the last frame's (scriptedmovie.cpp declares it too) |
+| 1 | `Unknown_7FF230` | `app/client/unknown_screenfade.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF3A0` | `app/client/unknown_screenfade.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF3D0` | `app/client/unknown_screenfade.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF810` | `app/client/unknown_screenfade.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_7FF830` | `app/client/unknown_screenfade.cpp:108` | untagged neutral name (D10) |
+| 1 | `color, time` | `app/client/unknown_screenfade.cpp:113` | as 0x7FFA30's |
+| 1 | `Unknown_7FF8A0` | `app/client/unknown_screenfade.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFA30` | `app/client/unknown_screenfade.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_7FFBE0` | `app/client/unknown_screenfade.cpp:127` | untagged neutral name (D10) |
 | 1 | `LineDisplaySortClass` | `app/client/view.cpp:9` | neutral (D10) |
 | 1 | `inter` | `app/client/view.cpp:12` | what 0x6B4860 passes |
 | 1 | `Unknown00` | `app/client/view.cpp:16` | untagged neutral name (D10) |
@@ -7752,35 +7976,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Line` | `app/client/co.cpp:865` | what it holds |
 | 2 | `visible` | `app/client/co.h:53` | 0x6FCB20's argument |
 | 2 | `base_asset, model` | `app/client/co.h:55` | what Set_Model passes |
-| 2 | `base_asset` | `app/client/co.h:136` | what CREATE passes |
-| 2 | `Bone` | `app/client/co.h:152` | what it holds |
-| 2 | `Transform` | `app/client/co.h:153` | what it holds |
-| 2 | `Child` | `app/client/co.h:157` | 0x725120 detaches and deletes it |
-| 2 | `Add` | `app/client/co.h:161` | what it does |
-| 2 | `element, index` | `app/client/co.h:162` | what it does |
-| 2 | `Radius` | `app/client/co.h:168` | what it holds |
-| 2 | `client, type, id` | `app/client/co.h:180` | what CREATE passes |
-| 2 | `thrust` | `app/client/co.h:185` | what true adds |
-| 2 | `Get_Name` | `app/client/co.h:195` | Find_Object compares it with a name |
-| 2 | `text` | `app/client/co.h:196` | what it receives |
-| 2 | `text` | `app/client/co.h:198` | what it receives |
-| 2 | `Set_Decal_Name` | `app/client/co.h:207` | what it does |
-| 2 | `model` | `app/client/co.h:209` | what it is |
-| 2 | `hidden` | `app/client/co.h:216` | Set_Hidden's argument |
-| 2 | `color` | `app/client/co.h:259` | what it receives |
-| 2 | `visible` | `app/client/co.h:264` | what it toggles |
-| 2 | `on, force` | `app/client/co.h:273` | what it tests |
-| 2 | `model, base_asset, scale` | `app/client/co.h:276` | what CREATE passes |
-| 2 | `base_asset, client, scale, hsv` | `app/client/co.h:278` | what CREATE passes |
-| 2 | `Node` | `app/client/co.h:281` | what it is |
-| 2 | `Client` | `app/client/co.h:282` | what it holds |
-| 2 | `Type` | `app/client/co.h:287` | what it holds |
-| 2 | `Radius` | `app/client/co.h:290` | what it holds |
-| 2 | `Model` | `app/client/co.h:294` | what it holds |
-| 2 | `std:` | `app/client/co.h:299` | what it holds |
-| 2 | `std:` | `app/client/co.h:300` | what NAME_DECAL stores in it |
-| 2 | `Sphere` | `app/client/co.h:301` | what it holds |
-| 2 | `Relationship` | `app/client/co.h:312` | what it holds |
+| 2 | `base_asset` | `app/client/co.h:139` | what CREATE passes |
+| 2 | `Bone` | `app/client/co.h:155` | what it holds |
+| 2 | `Transform` | `app/client/co.h:156` | what it holds |
+| 2 | `Child` | `app/client/co.h:160` | 0x725120 detaches and deletes it |
+| 2 | `Add` | `app/client/co.h:164` | what it does |
+| 2 | `element, index` | `app/client/co.h:165` | what it does |
+| 2 | `Radius` | `app/client/co.h:171` | what it holds |
+| 2 | `client, type, id` | `app/client/co.h:183` | what CREATE passes |
+| 2 | `thrust` | `app/client/co.h:188` | what true adds |
+| 2 | `Get_Name` | `app/client/co.h:198` | Find_Object compares it with a name |
+| 2 | `text` | `app/client/co.h:199` | what it receives |
+| 2 | `text` | `app/client/co.h:201` | what it receives |
+| 2 | `Set_Decal_Name` | `app/client/co.h:210` | what it does |
+| 2 | `model` | `app/client/co.h:212` | what it is |
+| 2 | `hidden` | `app/client/co.h:219` | Set_Hidden's argument |
+| 2 | `color` | `app/client/co.h:262` | what it receives |
+| 2 | `visible` | `app/client/co.h:267` | what it toggles |
+| 2 | `on, force` | `app/client/co.h:276` | what it tests |
+| 2 | `model, base_asset, scale` | `app/client/co.h:279` | what CREATE passes |
+| 2 | `base_asset, client, scale, hsv` | `app/client/co.h:281` | what CREATE passes |
+| 2 | `Node` | `app/client/co.h:284` | what it is |
+| 2 | `Client` | `app/client/co.h:285` | what it holds |
+| 2 | `Type` | `app/client/co.h:290` | what it holds |
+| 2 | `Radius` | `app/client/co.h:293` | what it holds |
+| 2 | `Model` | `app/client/co.h:297` | what it holds |
+| 2 | `std:` | `app/client/co.h:302` | what it holds |
+| 2 | `std:` | `app/client/co.h:303` | what NAME_DECAL stores in it |
+| 2 | `Sphere` | `app/client/co.h:304` | what it holds |
+| 2 | `Relationship` | `app/client/co.h:315` | what it holds |
 | 2 | `Get_Client_Object` | `app/client/co_data.h:38` | what it does |
 | 2 | `Get_Client` | `app/client/co_data.h:41` | what it does |
 | 2 | `Remove_All` | `app/client/co_data.h:44` | what it does |
@@ -8241,18 +8465,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Position` | `app/client/postate.h:337` | what it holds |
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
-| 2 | `Room` | `app/client/sbaseview.h:34` | what the handler compares with the packet's Room |
-| 2 | `Anim` | `app/client/sbaseview.h:72` | what it holds |
-| 2 | `Model` | `app/client/sbaseview.h:73` | what it holds |
-| 2 | `Mode` | `app/client/sbaseview.h:74` | Set_Animation's argument |
-| 2 | `Frame` | `app/client/sbaseview.h:75` | what it holds |
-| 2 | `Backward` | `app/client/sbaseview.h:76` | what it does |
-| 2 | `Get_Jobs` | `app/client/sbaseview.h:86` | what it returns |
-| 2 | `Get_Starbase` | `app/client/sbaseview.h:87` | what it returns |
-| 2 | `color, start, end` | `app/client/sbaseview.h:103` | SceneClass's Set_Fog_Color / Set_Fog_Range |
-| 2 | `Starbase` | `app/client/sbaseview.h:112` | what it holds |
-| 2 | `Channels` | `app/client/sbaseview.h:121` | what it holds |
-| 2 | `Jobs` | `app/client/sbaseview.h:125` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
+| 2 | `Room` | `app/client/sbaseview.h:36` | what the handler compares with the packet's Room |
+| 2 | `Anim` | `app/client/sbaseview.h:75` | what it holds |
+| 2 | `Model` | `app/client/sbaseview.h:76` | what it holds |
+| 2 | `Mode` | `app/client/sbaseview.h:77` | Set_Animation's argument |
+| 2 | `Frame` | `app/client/sbaseview.h:78` | what it holds |
+| 2 | `Backward` | `app/client/sbaseview.h:79` | what it does |
+| 2 | `Get_Jobs` | `app/client/sbaseview.h:89` | what it returns |
+| 2 | `Get_Starbase` | `app/client/sbaseview.h:90` | what it returns |
+| 2 | `color, start, end` | `app/client/sbaseview.h:110` | SceneClass's Set_Fog_Color / Set_Fog_Range |
+| 2 | `Starbase` | `app/client/sbaseview.h:119` | what it holds |
+| 2 | `Channels` | `app/client/sbaseview.h:128` | what it holds |
+| 2 | `Jobs` | `app/client/sbaseview.h:134` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -8292,103 +8516,104 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `coords` | `app/client/sclient.h:216` | the FAIL_IF's; NAME 1 [norm]: its counterpart in 0x65B6C0 |
 | 2 | `norm` | `app/client/sclient.h:217` | the FAIL_IF's; NAME 1 [coords]: its counterpart in 0x65B650 |
 | 2 | `Client` | `app/client/sclient.h:249` | what it holds |
-| 2 | `Mesh` | `app/client/sclient.h:336` | what it holds |
-| 2 | `Layer` | `app/client/sclient.h:337` | what it is |
-| 2 | `OrbitalManager` | `app/client/sclient.h:359` | the client's (OrbitalManager::Update) |
-| 2 | `model` | `app/client/sclient.h:462` | what 0x513540 passes |
-| 2 | `ctask` | `app/client/sclient.h:508` | the assert's |
-| 2 | `Add_Object` | `app/client/sclient.h:527` | its caller's |
-| 2 | `Remove_Object` | `app/client/sclient.h:528` | its caller's |
-| 2 | `znear, zfar` | `app/client/sclient.h:531` | the FAIL_IFs' |
-| 2 | `znear, zfar` | `app/client/sclient.h:532` | Set_Clip_Planes's |
-| 2 | `znear, zfar` | `app/client/sclient.h:536` | Set_Clip_Planes's |
-| 2 | `znear, zfar` | `app/client/sclient.h:537` | Set_Clip_Planes's |
-| 2 | `Render_Initializing` | `app/client/sclient.h:542` | its profile label 'MainView::Render_Initializing' |
-| 2 | `Render_Gas_Giant_Mode` | `app/client/sclient.h:543` | its profile label |
-| 2 | `Render_Space_Mode` | `app/client/sclient.h:544` | its profile label |
-| 2 | `Render_Planet_Mode` | `app/client/sclient.h:545` | its profile label |
-| 2 | `Update` | `app/client/sclient.h:546` | its profile label 'MainView::Update'; NAME 1 [camera, under]: what the callers pass |
-| 2 | `Set_Camera` | `app/client/sclient.h:548` | what Init hands it |
-| 2 | `GraphicsDefault` | `app/client/sclient.h:589` | its option's |
-| 2 | `GraphicsGamma` | `app/client/sclient.h:590` | its option's |
-| 2 | `GraphicsLandPoly` | `app/client/sclient.h:591` | its option's |
-| 2 | `GraphicsLandDetail` | `app/client/sclient.h:592` | its option's |
-| 2 | `GraphicsSpacePoly` | `app/client/sclient.h:593` | its option's |
-| 2 | `GraphicsTextureSize` | `app/client/sclient.h:594` | its option's |
-| 2 | `GraphicsChanged` | `app/client/sclient.h:595` | what 0x514480 records |
-| 2 | `DefaultChanged` | `app/client/sclient.h:596` | what 0x514480 records |
-| 2 | `Gamma` | `app/client/sclient.h:597` | what it is set to |
-| 2 | `Intersection` | `app/client/sclient.h:604` | what it is |
-| 2 | `Scene` | `app/client/sclient.h:605` | what it is |
-| 2 | `DazzleLayer` | `app/client/sclient.h:611` | what it is |
-| 2 | `Camera` | `app/client/sclient.h:613` | what Set_Camera stores |
-| 2 | `StarField` | `app/client/sclient.h:615` | what it holds |
-| 2 | `Orbitals` | `app/client/sclient.h:618` | its class's (OrbitalManager::Update) |
-| 2 | `Lighting` | `app/client/sclient.h:624` | what it holds |
-| 2 | `SeaFogNear` | `app/client/sclient.h:625` | its ini key |
-| 2 | `SeaFogFar` | `app/client/sclient.h:626` | its ini key |
-| 2 | `SeaColor` | `app/client/sclient.h:627` | its ini keys |
-| 2 | `Wind` | `app/client/sclient.h:628` | its ini keys |
-| 2 | `ProfileIterator` | `app/client/sclient.h:637` | what it holds |
-| 2 | `ctask` | `app/client/sclient.h:645` | the assert's |
-| 2 | `Movie3DViewClass` | `app/client/sclient.h:666` | SClient's member 'Movie3DView' (G_ASSERT l.4104) |
-| 2 | `Current` | `app/client/sclient.h:697` | what it holds |
-| 2 | `Target` | `app/client/sclient.h:698` | what it holds |
-| 2 | `Rate` | `app/client/sclient.h:699` | what it holds |
-| 2 | `bone_name` | `app/client/sclient.h:707` | the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral |
-| 2 | `bone_name, child` | `app/client/sclient.h:708` | the asserts' / FAIL_IF's |
-| 2 | `Slot` | `app/client/sclient.h:721` | the user errors' 'Need slot number' |
-| 2 | `Bone` | `app/client/sclient.h:728` | Add_Sub_Object_To_Bone's argument |
-| 2 | `HFov` | `app/client/sclient.h:729` | Set_View_Plane's argument |
-| 2 | `VFov` | `app/client/sclient.h:730` | Set_View_Plane's argument |
-| 2 | `ScriptedMovieViewClass` | `app/client/sclient.h:733` | SClient's member 'ScriptedMovieView' (G_ASSERT l.4127) |
-| 2 | `znear, zfar` | `app/client/sclient.h:743` | Set_Clip_Planes' |
-| 2 | `znear, zfar` | `app/client/sclient.h:744` | Set_Clip_Planes' |
-| 2 | `znear, zfar` | `app/client/sclient.h:745` | the main view's |
-| 2 | `filename` | `app/client/sclient.h:755` | the assert's |
-| 2 | `Attach_Camera` | `app/client/sclient.h:759` | the user error's 'Attach_Camera'; NAME 1 [params]: neutral |
-| 2 | `Attach_To_Bone` | `app/client/sclient.h:760` | the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral |
-| 2 | `Attach_Light_To_Bone` | `app/client/sclient.h:761` | the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral |
-| 2 | `Set_Light_Intensity` | `app/client/sclient.h:762` | the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral |
-| 2 | `Set_Light_Far_Attenuation` | `app/client/sclient.h:763` | the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral |
-| 2 | `Set_Light_Ambient_Color` | `app/client/sclient.h:764` | the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral |
-| 2 | `Set_Light_Specular_Color` | `app/client/sclient.h:765` | the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral |
-| 2 | `Set_Light_Diffuse_Color` | `app/client/sclient.h:766` | the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral |
-| 2 | `Set_Camera_View_Plane` | `app/client/sclient.h:767` | the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral |
-| 2 | `Shake_Camera` | `app/client/sclient.h:768` | the user error's 'Shake_Camera'; NAME 1 [params]: neutral |
-| 2 | `Set_Ambient_Light` | `app/client/sclient.h:769` | the user error's 'Set_Ambient_Light'; NAME 1 [params]: neutral |
-| 2 | `Set_Screen_Fade_Color` | `app/client/sclient.h:771` | the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral |
-| 2 | `Set_Screen_Fade_Opacity` | `app/client/sclient.h:772` | the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral |
-| 2 | `Enable_Letterbox` | `app/client/sclient.h:773` | the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral |
-| 2 | `Set_Clip_Plane` | `app/client/sclient.h:774` | the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral |
-| 2 | `Stop_Audio` | `app/client/sclient.h:775` | the user error's 'Stop_Audio'; NAME 1 [params]: neutral |
-| 2 | `Play_Animation` | `app/client/sclient.h:776` | the user error's 'Play_Animation'; NAME 1 [params]: neutral |
-| 2 | `Destroy_Object` | `app/client/sclient.h:778` | the user error's 'Destroy_Object'; NAME 1 [params]: neutral |
-| 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:779` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
-| 2 | `Hide_Object` | `app/client/sclient.h:780` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
-| 2 | `Skip_Frames` | `app/client/sclient.h:781` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
-| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:782` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
-| 2 | `std:` | `app/client/sclient.h:786` | what it holds |
-| 2 | `std:` | `app/client/sclient.h:800` | what it holds |
-| 2 | `std:` | `app/client/sclient.h:813` | what it holds |
-| 2 | `Unknown00` | `app/client/sclient.h:831` | what the constructor writes |
-| 2 | `SClient` | `app/client/sclient.h:898` | the client's 'SClient::Process_Packets' (0x7427C0) |
-| 2 | `Load_INIs` | `app/client/sclient.h:923` | what it does |
-| 2 | `Unload_INIs` | `app/client/sclient.h:924` | what it does |
-| 2 | `Print` | `app/client/sclient.h:927` | what it does |
-| 2 | `turn, tilt, move_direction, fixed_speed` | `app/client/sclient.h:956` | 0x717430's |
-| 2 | `level, auto_level` | `app/client/sclient.h:957` | 0x7179A0's |
-| 2 | `turn` | `app/client/sclient.h:958` | 0x717430's |
-| 2 | `tilt` | `app/client/sclient.h:959` | 0x717430's |
-| 2 | `turn, tilt` | `app/client/sclient.h:960` | 0x717430's |
-| 2 | `move_direction, fixed_speed` | `app/client/sclient.h:962` | 0x717430's |
-| 2 | `reset` | `app/client/sclient.h:1004` | true sets every sample name to NONE |
-| 2 | `ViewMode` | `app/client/sclient.h:1056` | what Do_Frame's asserts show |
-| 2 | `Task` | `app/client/sclient.h:1062` | what it holds |
-| 2 | `Text` | `app/client/sclient.h:1074` | what it holds |
-| 2 | `Font` | `app/client/sclient.h:1075` | what it holds |
-| 2 | `Get_Client` | `app/client/sclient.h:1088` | what it returns |
-| 2 | `Client` | `app/client/sclient.h:1091` | what it holds |
+| 2 | `Mesh` | `app/client/sclient.h:337` | what it holds |
+| 2 | `Layer` | `app/client/sclient.h:338` | what it is |
+| 2 | `OrbitalManager` | `app/client/sclient.h:360` | the client's (OrbitalManager::Update) |
+| 2 | `Client` | `app/client/sclient.h:409` | what it holds |
+| 2 | `model` | `app/client/sclient.h:468` | what 0x513540 passes |
+| 2 | `ctask` | `app/client/sclient.h:514` | the assert's |
+| 2 | `Add_Object` | `app/client/sclient.h:533` | its caller's |
+| 2 | `Remove_Object` | `app/client/sclient.h:534` | its caller's |
+| 2 | `znear, zfar` | `app/client/sclient.h:537` | the FAIL_IFs' |
+| 2 | `znear, zfar` | `app/client/sclient.h:538` | Set_Clip_Planes's |
+| 2 | `znear, zfar` | `app/client/sclient.h:542` | Set_Clip_Planes's |
+| 2 | `znear, zfar` | `app/client/sclient.h:543` | Set_Clip_Planes's |
+| 2 | `Render_Initializing` | `app/client/sclient.h:548` | its profile label 'MainView::Render_Initializing' |
+| 2 | `Render_Gas_Giant_Mode` | `app/client/sclient.h:549` | its profile label |
+| 2 | `Render_Space_Mode` | `app/client/sclient.h:550` | its profile label |
+| 2 | `Render_Planet_Mode` | `app/client/sclient.h:551` | its profile label |
+| 2 | `Update` | `app/client/sclient.h:552` | its profile label 'MainView::Update'; NAME 1 [camera, under]: what the callers pass |
+| 2 | `Set_Camera` | `app/client/sclient.h:554` | what Init hands it |
+| 2 | `GraphicsDefault` | `app/client/sclient.h:595` | its option's |
+| 2 | `GraphicsGamma` | `app/client/sclient.h:596` | its option's |
+| 2 | `GraphicsLandPoly` | `app/client/sclient.h:597` | its option's |
+| 2 | `GraphicsLandDetail` | `app/client/sclient.h:598` | its option's |
+| 2 | `GraphicsSpacePoly` | `app/client/sclient.h:599` | its option's |
+| 2 | `GraphicsTextureSize` | `app/client/sclient.h:600` | its option's |
+| 2 | `GraphicsChanged` | `app/client/sclient.h:601` | what 0x514480 records |
+| 2 | `DefaultChanged` | `app/client/sclient.h:602` | what 0x514480 records |
+| 2 | `Gamma` | `app/client/sclient.h:603` | what it is set to |
+| 2 | `Intersection` | `app/client/sclient.h:610` | what it is |
+| 2 | `Scene` | `app/client/sclient.h:611` | what it is |
+| 2 | `DazzleLayer` | `app/client/sclient.h:617` | what it is |
+| 2 | `Camera` | `app/client/sclient.h:619` | what Set_Camera stores |
+| 2 | `StarField` | `app/client/sclient.h:621` | what it holds |
+| 2 | `Orbitals` | `app/client/sclient.h:624` | its class's (OrbitalManager::Update) |
+| 2 | `Lighting` | `app/client/sclient.h:630` | what it holds |
+| 2 | `SeaFogNear` | `app/client/sclient.h:631` | its ini key |
+| 2 | `SeaFogFar` | `app/client/sclient.h:632` | its ini key |
+| 2 | `SeaColor` | `app/client/sclient.h:633` | its ini keys |
+| 2 | `Wind` | `app/client/sclient.h:634` | its ini keys |
+| 2 | `ProfileIterator` | `app/client/sclient.h:643` | what it holds |
+| 2 | `ctask` | `app/client/sclient.h:651` | the assert's |
+| 2 | `Movie3DViewClass` | `app/client/sclient.h:672` | SClient's member 'Movie3DView' (G_ASSERT l.4104) |
+| 2 | `Current` | `app/client/sclient.h:703` | what it holds |
+| 2 | `Target` | `app/client/sclient.h:704` | what it holds |
+| 2 | `Rate` | `app/client/sclient.h:705` | what it holds |
+| 2 | `bone_name` | `app/client/sclient.h:713` | the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral |
+| 2 | `bone_name, child` | `app/client/sclient.h:714` | the asserts' / FAIL_IF's |
+| 2 | `Slot` | `app/client/sclient.h:727` | the user errors' 'Need slot number' |
+| 2 | `Bone` | `app/client/sclient.h:734` | Add_Sub_Object_To_Bone's argument |
+| 2 | `HFov` | `app/client/sclient.h:735` | Set_View_Plane's argument |
+| 2 | `VFov` | `app/client/sclient.h:736` | Set_View_Plane's argument |
+| 2 | `ScriptedMovieViewClass` | `app/client/sclient.h:739` | SClient's member 'ScriptedMovieView' (G_ASSERT l.4127) |
+| 2 | `znear, zfar` | `app/client/sclient.h:749` | Set_Clip_Planes' |
+| 2 | `znear, zfar` | `app/client/sclient.h:750` | Set_Clip_Planes' |
+| 2 | `znear, zfar` | `app/client/sclient.h:751` | the main view's |
+| 2 | `filename` | `app/client/sclient.h:761` | the assert's |
+| 2 | `Attach_Camera` | `app/client/sclient.h:765` | the user error's 'Attach_Camera'; NAME 1 [params]: neutral |
+| 2 | `Attach_To_Bone` | `app/client/sclient.h:766` | the user error's 'Attach_To_Bone'; NAME 1 [params]: neutral |
+| 2 | `Attach_Light_To_Bone` | `app/client/sclient.h:767` | the user error's 'Attach_Light_To_Bone'; NAME 1 [params]: neutral |
+| 2 | `Set_Light_Intensity` | `app/client/sclient.h:768` | the user error's 'Set_Light_Intensity'; NAME 1 [params]: neutral |
+| 2 | `Set_Light_Far_Attenuation` | `app/client/sclient.h:769` | the user error's 'Set_Light_Far_Attenuation'; NAME 1 [params]: neutral |
+| 2 | `Set_Light_Ambient_Color` | `app/client/sclient.h:770` | the user error's 'Set_Light_Ambient_Color'; NAME 1 [params]: neutral |
+| 2 | `Set_Light_Specular_Color` | `app/client/sclient.h:771` | the user error's 'Set_Light_Specular_Color'; NAME 1 [params]: neutral |
+| 2 | `Set_Light_Diffuse_Color` | `app/client/sclient.h:772` | the user error's 'Set_Light_Diffuse_Color'; NAME 1 [params]: neutral |
+| 2 | `Set_Camera_View_Plane` | `app/client/sclient.h:773` | the user error's 'Set_Camera_View_Plane'; NAME 1 [params]: neutral |
+| 2 | `Shake_Camera` | `app/client/sclient.h:774` | the user error's 'Shake_Camera'; NAME 1 [params]: neutral |
+| 2 | `Set_Ambient_Light` | `app/client/sclient.h:775` | the user error's 'Set_Ambient_Light'; NAME 1 [params]: neutral |
+| 2 | `Set_Screen_Fade_Color` | `app/client/sclient.h:777` | the user error's 'Set_Screen_Fade_Color'; NAME 1 [params]: neutral |
+| 2 | `Set_Screen_Fade_Opacity` | `app/client/sclient.h:778` | the user error's 'Set_Screen_Fade_Opacity'; NAME 1 [params]: neutral |
+| 2 | `Enable_Letterbox` | `app/client/sclient.h:779` | the user error's 'Enable_Letterbox'; NAME 1 [params, on]: neutral |
+| 2 | `Set_Clip_Plane` | `app/client/sclient.h:780` | the user error's 'Set_Clip_Plane'; NAME 1 [params]: neutral |
+| 2 | `Stop_Audio` | `app/client/sclient.h:781` | the user error's 'Stop_Audio'; NAME 1 [params]: neutral |
+| 2 | `Play_Animation` | `app/client/sclient.h:782` | the user error's 'Play_Animation'; NAME 1 [params]: neutral |
+| 2 | `Destroy_Object` | `app/client/sclient.h:784` | the user error's 'Destroy_Object'; NAME 1 [params]: neutral |
+| 2 | `Toggle_Engine_Trails` | `app/client/sclient.h:785` | the user error's 'Toggle_Engine_Trails'; NAME 1 [params, on]: neutral |
+| 2 | `Hide_Object` | `app/client/sclient.h:786` | the user error's 'Hide_Object'; NAME 1 [params, hide]: neutral |
+| 2 | `Skip_Frames` | `app/client/sclient.h:787` | the user error's 'Skip_Frames'; NAME 1 [params]: neutral |
+| 2 | `Turn_On_Damage_Particles` | `app/client/sclient.h:788` | the user errors' 'Turn_On_Damage_Particles', 'Change_Ship_Color' (0x808C30), 'Add_Name_Decal' (0x8091B0), 'Add_Decal_To_Ship' (0x8093D0), 'Create_Special_Effect_On_Object' (0x808090), '..._Between_Objects' (0x807600), '..._Between_Bones' (0x8078D0), '..._Between_Object_And_Bone' (0x807BE0), '..._On_Bone' (0x807EB0), 'Set_Fog' (0x808590), 'Add_Camera' (0x805420), 'Create_Skybox' (0x804800), 'Create_Orbital' (0x804CA0), the render +0x0C (0x8012C0), the shutdown +0x10 (0x8010A0), the frame +0x14 (0x801E60), 'Play_Audio' (0x806BD0), 'Create_Object' (0x804290: CREATE_OBJECT 0 / CREATE_SHIP_OBJECT 1), 'Create_Light' (0x805B60: point 0, directional 1, from a bone; 0x802D80 a bone's object id; 0x8070C0 makes its effect, 0x803180 its object's id, +0x5C 0x800820 is the scene); NAME 1 [params, metal, a, b, model]: neutral; NAME 2 [value]: the assert's |
+| 2 | `std:` | `app/client/sclient.h:792` | what it holds |
+| 2 | `std:` | `app/client/sclient.h:806` | what it holds |
+| 2 | `std:` | `app/client/sclient.h:819` | what it holds |
+| 2 | `Unknown00` | `app/client/sclient.h:837` | what the constructor writes |
+| 2 | `SClient` | `app/client/sclient.h:904` | the client's 'SClient::Process_Packets' (0x7427C0) |
+| 2 | `Load_INIs` | `app/client/sclient.h:929` | what it does |
+| 2 | `Unload_INIs` | `app/client/sclient.h:930` | what it does |
+| 2 | `Print` | `app/client/sclient.h:933` | what it does |
+| 2 | `turn, tilt, move_direction, fixed_speed` | `app/client/sclient.h:962` | 0x717430's |
+| 2 | `level, auto_level` | `app/client/sclient.h:963` | 0x7179A0's |
+| 2 | `turn` | `app/client/sclient.h:964` | 0x717430's |
+| 2 | `tilt` | `app/client/sclient.h:965` | 0x717430's |
+| 2 | `turn, tilt` | `app/client/sclient.h:966` | 0x717430's |
+| 2 | `move_direction, fixed_speed` | `app/client/sclient.h:968` | 0x717430's |
+| 2 | `reset` | `app/client/sclient.h:1010` | true sets every sample name to NONE |
+| 2 | `ViewMode` | `app/client/sclient.h:1062` | what Do_Frame's asserts show |
+| 2 | `Task` | `app/client/sclient.h:1068` | what it holds |
+| 2 | `Text` | `app/client/sclient.h:1080` | what it holds |
+| 2 | `Font` | `app/client/sclient.h:1081` | what it holds |
+| 2 | `Get_Client` | `app/client/sclient.h:1094` | what it returns |
+| 2 | `Client` | `app/client/sclient.h:1097` | what it holds |
 | 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
@@ -8439,12 +8664,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
+| 2 | `Bone` | `app/client/ui_avatar_cust.cpp:28` | what 0x550A10 hands to Get_Bone_Index |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
 | 2 | `Get_Texture` | `app/client/ui_chat_panel.cpp:130` | what it does (the asset manager's slot) |
 | 2 | `Combo` | `app/client/ui_chat_panel.h:142` | the assert's NUM_COMBO |
 | 2 | `MessageButtonShowing` | `app/client/ui_chat_panel.h:193` | its getter's |
+| 2 | `Selected` | `app/client/ui_combobox.cpp:102` | what 0x57AC70 / 0x57AD50 set |
+| 2 | `std:` | `app/client/ui_combobox.cpp:103` | what the rows show |
 | 2 | `FontStringFilesClass` | `app/client/ui_cpit.cpp:24` | fontdatabase.h's |
 | 2 | `Create_Render_Obj` | `app/client/ui_cpit.cpp:43` | what it does (the asset manager's slot) |
 | 2 | `SoundManager` | `app/client/ui_cpit.cpp:394` | what it holds |
@@ -8524,6 +8752,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
 | 2 | `Make_Folder` | `app/client/unknown_creator.h:55` | what it does |
+| 2 | `Set` | `app/client/unknown_screenfade.cpp:11` | what it does |
+| 2 | `Update` | `app/client/unknown_screenfade.cpp:12` | what it does |
+| 2 | `Value` | `app/client/unknown_screenfade.cpp:14` | what it holds |
+| 2 | `Target` | `app/client/unknown_screenfade.cpp:15` | what it holds |
+| 2 | `Rate` | `app/client/unknown_screenfade.cpp:16` | what it holds |
+| 2 | `Letterbox` | `app/client/unknown_screenfade.cpp:42` | Enable_Letterbox's (0x7FF830) |
+| 2 | `Opacity` | `app/client/unknown_screenfade.cpp:43` | Set_Screen_Fade_Opacity's (0x7FFBE0) |
+| 2 | `Red` | `app/client/unknown_screenfade.cpp:44` | Set_Screen_Fade_Color's first (0x7FFA30) |
+| 2 | `Green` | `app/client/unknown_screenfade.cpp:45` | Set_Screen_Fade_Color's second |
+| 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
+| 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Current` | `app/common/average.h:115` | what it holds |
 | 2 | `Time` | `app/common/average.h:116` | what it holds |
@@ -10157,10 +10396,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `co.cpp` | `app/client/co.cpp:1732` | the FAIL_IF's name |
 | 3 | `ProjDecalManagerClass` | `app/client/co.cpp:1733` | the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members) |
 | 3 | `co.h` | `app/client/co.h:23` | header name assumed from the client's co.cpp |
-| 3 | `ClientObjectClass` | `app/client/co.h:177` | the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable |
-| 3 | `AuxData` | `app/client/co.h:284` | the FAIL_IF's name |
-| 3 | `GameID` | `app/client/co.h:286` | Get_Game_ID's |
-| 3 | `RadiusAdjust` | `app/client/co.h:291` | the INI key |
+| 3 | `ClientObjectClass` | `app/client/co.h:180` | the RTTI's .?AVClientObjectClass@@ for co.cpp's class, not tied to this layout by a vtable |
+| 3 | `AuxData` | `app/client/co.h:287` | the FAIL_IF's name |
+| 3 | `GameID` | `app/client/co.h:289` | Get_Game_ID's |
+| 3 | `RadiusAdjust` | `app/client/co.h:294` | the INI key |
 | 3 | `co_data.h` | `app/client/co_data.h:19` | header name assumed from the client's co_data.cpp |
 | 3 | `ClientObjectDataClass` | `app/client/co_data.h:34` | by convention (D24) from the client's co_data.cpp |
 | 3 | `Target` | `app/client/co_player_relationship.cpp:37` | the ini name 'Target' |
@@ -10247,12 +10486,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `radar_icon_data.h` | `app/client/radar_icon_data.h:16` | header name assumed from the client's radar_icon_data.cpp |
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
 | 3 | `FontSys` | `app/client/sbaseview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
+| 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:22` | class-from-file (D24) for ui_talkt_space.cpp |
 | 3 | `UIStarbaseClass` | `app/client/sbaseview.h:28` | class-from-file (D24) for app\client\ui_starbase.cpp |
-| 3 | `UIPTradeClass` | `app/client/sbaseview.h:42` | class-from-file (D24) for app\client\ui_ptrade.cpp |
-| 3 | `UIJobsClass` | `app/client/sbaseview.h:56` | class-from-file (D24) for app\client\ui_jobs.cpp |
-| 3 | `SBaseViewClass` | `app/client/sbaseview.h:79` | class-from-file (D24) for app\client\sbaseview.cpp |
-| 3 | `ViewRObjs` | `app/client/sbaseview.h:120` | the assert's 'ViewRObjs[type]' |
-| 3 | `PTrade` | `app/client/sbaseview.h:126` | its class's file (ui_ptrade.cpp) |
+| 3 | `UIPTradeClass` | `app/client/sbaseview.h:44` | class-from-file (D24) for app\client\ui_ptrade.cpp |
+| 3 | `UIJobsClass` | `app/client/sbaseview.h:58` | class-from-file (D24) for app\client\ui_jobs.cpp |
+| 3 | `SBaseViewClass` | `app/client/sbaseview.h:82` | class-from-file (D24) for app\client\sbaseview.cpp |
+| 3 | `ViewRObjs` | `app/client/sbaseview.h:127` | the assert's 'ViewRObjs[type]' |
+| 3 | `PTrade` | `app/client/sbaseview.h:135` | its class's file (ui_ptrade.cpp) |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4752` | the assert's (Unknown120C's two queues) |
 | 3 | `confirmedlist` | `app/client/sclient.cpp:5035` | the FAIL_IF's  // NAME 1 [timedlist]: 0x74EB00's queue |
@@ -10278,57 +10518,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CameraEffects` | `app/client/sclient.h:233` | the scripted movie's G_ASSERT 'CameraEffects' (0x808220) |
 | 3 | `Get_Client` | `app/client/sclient.h:248` | the assert's |
 | 3 | `RadarSystemClass` | `app/client/sclient.h:275` | class-from-file (D24) for radar_system.cpp |
-| 3 | `UIScanClass` | `app/client/sclient.h:308` | class-from-file (D24) for ui_scan.cpp |
-| 3 | `CameraEffectsClass` | `app/client/sclient.h:394` | class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects) |
-| 3 | `MainViewClass` | `app/client/sclient.h:505` | class-from-file (D24) for mainview.cpp |
-| 3 | `As_Main_View` | `app/client/sclient.h:516` | ui_cpit.cpp's G_ASSERT |
-| 3 | `newmode` | `app/client/sclient.h:582` | its G_ASSERT's  // NAME 2 [oldmode]: newmode's counterpart |
-| 3 | `LandPolyBudget` | `app/client/sclient.h:598` | the registry value's (soptions.h) |
-| 3 | `LandLOD` | `app/client/sclient.h:599` | the registry value's (soptions.h) |
-| 3 | `PolyBudget` | `app/client/sclient.h:600` | the registry value's (soptions.h) |
-| 3 | `TextureReduction` | `app/client/sclient.h:601` | the registry value's (soptions.h) |
-| 3 | `Radar` | `app/client/sclient.h:602` | the FAIL_IF's name |
-| 3 | `Land` | `app/client/sclient.h:617` | the FAIL_IF's name |
-| 3 | `Cpit` | `app/client/sclient.h:631` | its file's (ui_cpit.cpp) |
-| 3 | `Group` | `app/client/sclient.h:633` | its file's (ui_group.cpp) |
-| 3 | `LoadingViewClass` | `app/client/sclient.h:642` | class-from-file (D24) for loadingview.cpp |
-| 3 | `UIMeshClass` | `app/client/sclient.h:702` | class-from-file (D24) for ui_mesh.cpp |
-| 3 | `Peek_Object` | `app/client/sclient.h:711` | the assert's |
-| 3 | `Mesh` | `app/client/sclient.h:720` | the asserts' '(*itor).Mesh' |
-| 3 | `RenderObject` | `app/client/sclient.h:727` | the assert's 'CameraList[CurrentCameraIndex].RenderObject' |
-| 3 | `Get_Client` | `app/client/sclient.h:746` | the assert's |
-| 3 | `ClientInterface` | `app/client/sclient.h:783` | the assert's |
-| 3 | `ScriptedCamera` | `app/client/sclient.h:784` | the asserts' 'ScriptedCamera' (0x802420, Attach_Camera) |
-| 3 | `ScriptedScene` | `app/client/sclient.h:785` | the FAIL_IF's |
-| 3 | `ScriptedMovieViewerSettingsStruct` | `app/client/sclient.h:787` | the asserts' (0x8008B0, 0x8012C0) |
-| 3 | `CurrentCameraIndex` | `app/client/sclient.h:795` | the asserts' |
-| 3 | `MAX_LIGHTS_PER_SCENE` | `app/client/sclient.h:798` | the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene') |
-| 3 | `Lights` | `app/client/sclient.h:799` | the FAIL_IFs' 'Lights[lightslot]' |
-| 3 | `std:` | `app/client/sclient.h:802` | the asserts' 'BoneClientObjectList[i]' |
-| 3 | `std:` | `app/client/sclient.h:803` | the asserts' 'CameraList[CurrentCameraIndex]' |
-| 3 | `BackgroundScene` | `app/client/sclient.h:804` | the asserts' (0x804800) |
-| 3 | `Unknown53AA30InterfaceClass` | `app/client/sclient.h:805` | the asserts' (0x804800) |
-| 3 | `StarsScene` | `app/client/sclient.h:806` | the asserts' 'StarsScene == NULL' (0x804A70) |
-| 3 | `Stars` | `app/client/sclient.h:807` | the asserts' 'Stars == NULL' |
-| 3 | `OrbitalManager` | `app/client/sclient.h:808` | the assert's |
-| 3 | `OrbitalScene` | `app/client/sclient.h:809` | the assert's |
-| 3 | `BackgroundDazzleLayer` | `app/client/sclient.h:811` | the assert's |
-| 3 | `DecalMaterialManager` | `app/client/sclient.h:812` | the assert's (0x8093D0) |
-| 3 | `ChatPanel` | `app/client/sclient.h:1018` | its file's |
-| 3 | `LineDisplay` | `app/client/sclient.h:1019` | its file's |
-| 3 | `PDAInterface` | `app/client/sclient.h:1020` | its file's |
-| 3 | `BridgeInterface` | `app/client/sclient.h:1022` | its file's |
-| 3 | `HotKeys` | `app/client/sclient.h:1023` | its file's |
-| 3 | `VerbManager` | `app/client/sclient.h:1024` | its file's |
-| 3 | `GalaxyMap` | `app/client/sclient.h:1027` | its file's |
-| 3 | `Starmap` | `app/client/sclient.h:1028` | its file's |
-| 3 | `CameraManager` | `app/client/sclient.h:1029` | its file's |
-| 3 | `AuxData` | `app/client/sclient.h:1035` | the assert's name |
-| 3 | `MusicManager` | `app/client/sclient.h:1042` | its file's |
-| 3 | `ProjDecalManager` | `app/client/sclient.h:1046` | its file's |
-| 3 | `MainView` | `app/client/sclient.h:1049` | its file's |
-| 3 | `LoadingView` | `app/client/sclient.h:1054` | its file's |
-| 3 | `Get_Mode` | `app/client/sclient.h:1055` | the assert's |
+| 3 | `UIScanClass` | `app/client/sclient.h:309` | class-from-file (D24) for ui_scan.cpp |
+| 3 | `CameraEffectsClass` | `app/client/sclient.h:395` | class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects) |
+| 3 | `MainViewClass` | `app/client/sclient.h:511` | class-from-file (D24) for mainview.cpp |
+| 3 | `As_Main_View` | `app/client/sclient.h:522` | ui_cpit.cpp's G_ASSERT |
+| 3 | `newmode` | `app/client/sclient.h:588` | its G_ASSERT's  // NAME 2 [oldmode]: newmode's counterpart |
+| 3 | `LandPolyBudget` | `app/client/sclient.h:604` | the registry value's (soptions.h) |
+| 3 | `LandLOD` | `app/client/sclient.h:605` | the registry value's (soptions.h) |
+| 3 | `PolyBudget` | `app/client/sclient.h:606` | the registry value's (soptions.h) |
+| 3 | `TextureReduction` | `app/client/sclient.h:607` | the registry value's (soptions.h) |
+| 3 | `Radar` | `app/client/sclient.h:608` | the FAIL_IF's name |
+| 3 | `Land` | `app/client/sclient.h:623` | the FAIL_IF's name |
+| 3 | `Cpit` | `app/client/sclient.h:637` | its file's (ui_cpit.cpp) |
+| 3 | `Group` | `app/client/sclient.h:639` | its file's (ui_group.cpp) |
+| 3 | `LoadingViewClass` | `app/client/sclient.h:648` | class-from-file (D24) for loadingview.cpp |
+| 3 | `UIMeshClass` | `app/client/sclient.h:708` | class-from-file (D24) for ui_mesh.cpp |
+| 3 | `Peek_Object` | `app/client/sclient.h:717` | the assert's |
+| 3 | `Mesh` | `app/client/sclient.h:726` | the asserts' '(*itor).Mesh' |
+| 3 | `RenderObject` | `app/client/sclient.h:733` | the assert's 'CameraList[CurrentCameraIndex].RenderObject' |
+| 3 | `Get_Client` | `app/client/sclient.h:752` | the assert's |
+| 3 | `ClientInterface` | `app/client/sclient.h:789` | the assert's |
+| 3 | `ScriptedCamera` | `app/client/sclient.h:790` | the asserts' 'ScriptedCamera' (0x802420, Attach_Camera) |
+| 3 | `ScriptedScene` | `app/client/sclient.h:791` | the FAIL_IF's |
+| 3 | `ScriptedMovieViewerSettingsStruct` | `app/client/sclient.h:793` | the asserts' (0x8008B0, 0x8012C0) |
+| 3 | `CurrentCameraIndex` | `app/client/sclient.h:801` | the asserts' |
+| 3 | `MAX_LIGHTS_PER_SCENE` | `app/client/sclient.h:804` | the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene') |
+| 3 | `Lights` | `app/client/sclient.h:805` | the FAIL_IFs' 'Lights[lightslot]' |
+| 3 | `std:` | `app/client/sclient.h:808` | the asserts' 'BoneClientObjectList[i]' |
+| 3 | `std:` | `app/client/sclient.h:809` | the asserts' 'CameraList[CurrentCameraIndex]' |
+| 3 | `BackgroundScene` | `app/client/sclient.h:810` | the asserts' (0x804800) |
+| 3 | `Unknown53AA30InterfaceClass` | `app/client/sclient.h:811` | the asserts' (0x804800) |
+| 3 | `StarsScene` | `app/client/sclient.h:812` | the asserts' 'StarsScene == NULL' (0x804A70) |
+| 3 | `Stars` | `app/client/sclient.h:813` | the asserts' 'Stars == NULL' |
+| 3 | `OrbitalManager` | `app/client/sclient.h:814` | the assert's |
+| 3 | `OrbitalScene` | `app/client/sclient.h:815` | the assert's |
+| 3 | `BackgroundDazzleLayer` | `app/client/sclient.h:817` | the assert's |
+| 3 | `DecalMaterialManager` | `app/client/sclient.h:818` | the assert's (0x8093D0) |
+| 3 | `ChatPanel` | `app/client/sclient.h:1024` | its file's |
+| 3 | `LineDisplay` | `app/client/sclient.h:1025` | its file's |
+| 3 | `PDAInterface` | `app/client/sclient.h:1026` | its file's |
+| 3 | `BridgeInterface` | `app/client/sclient.h:1028` | its file's |
+| 3 | `HotKeys` | `app/client/sclient.h:1029` | its file's |
+| 3 | `VerbManager` | `app/client/sclient.h:1030` | its file's |
+| 3 | `GalaxyMap` | `app/client/sclient.h:1033` | its file's |
+| 3 | `Starmap` | `app/client/sclient.h:1034` | its file's |
+| 3 | `CameraManager` | `app/client/sclient.h:1035` | its file's |
+| 3 | `AuxData` | `app/client/sclient.h:1041` | the assert's name |
+| 3 | `MusicManager` | `app/client/sclient.h:1048` | its file's |
+| 3 | `ProjDecalManager` | `app/client/sclient.h:1052` | its file's |
+| 3 | `MainView` | `app/client/sclient.h:1055` | its file's |
+| 3 | `LoadingView` | `app/client/sclient.h:1060` | its file's |
+| 3 | `Get_Mode` | `app/client/sclient.h:1061` | the assert's |
 | 3 | `AssetManager` | `app/client/scriptedmovie.cpp:24` | the asserts' text 'AssetManager' (0x802D30, the destructor) |
 | 3 | `textures, swatches, secret_textures` | `app/client/scriptedmovie.cpp:147` | the INI names (sclient.cpp's) |
 | 3 | `EnvironmentMapManager` | `app/client/scriptedmovie.cpp:155` | the assert's 'sclient->EnvironmentMapManager' (the constructor, l.231) |
@@ -10353,6 +10593,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_smovie.h` | `app/client/tasks/tsk_smovie.h:17` | header name assumed from the client's tsk_smovie.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
+| 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:10` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `UIAvatarCustClass` | `app/client/ui_avatar_cust.cpp:46` | class-from-file (D24) |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_chat_panel.cpp:23` | fontmanager.h's |
 | 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |
@@ -10365,6 +10607,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `manager` | `app/client/ui_chat_panel.h:88` | the FAIL_IF's |
 | 3 | `chat_int` | `app/client/ui_chat_panel.h:137` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 3 | `ChatInt` | `app/client/ui_chat_panel.h:166` | the assert's 'ChatInt.Peek()' |
+| 3 | `Change_Text` | `app/client/ui_combobox.cpp:16` | the client's label |
+| 3 | `GadgetClass` | `app/client/ui_combobox.cpp:20` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `UIComboBoxClass` | `app/client/ui_combobox.cpp:77` | class-from-file (D24) |
 | 3 | `Change_Text` | `app/client/ui_cpit.cpp:32` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:35` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_cpit.cpp:151` | class-from-file (D24) for app\client\gadget.cpp |

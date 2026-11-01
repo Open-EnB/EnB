@@ -81,7 +81,7 @@ char *ScriptedMovieLineClass::Unknown_7FFDC0()
 }
 
 // Reconstruction notes (LC1, 2026-10-31; placement D137 from SM2's report):
-// - The object: client 0x7FFC50-0x7FFE9F, after the screen fade / letterbox object (0x7FF830-0x7FFC40) and before
+// - The object: client 0x7FFC50-0x7FFE9F, after the screen fade / letterbox object (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F) and before
 //   scriptedmovie.cpp's (from 0x7FFEA0). No asserts, so no __FILE__: the name scriptedmovieline.cpp is provisional
 //   (NAME 1).
 // - 0x7FFEA0 (std::sort's order of the lines) is scriptedmovie.cpp's: it pushes the same 'CREATE_OBJECT' literal

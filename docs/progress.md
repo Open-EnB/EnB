@@ -4,6 +4,30 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (18:05, evening): the triage's second test (boundary runs, 18 of 23); +30 pairs, 0 lost; branch cleanup
+
+Coordinator Opus 5.5, two Opus builders. Base a581d2cd (PR #41 merged; `.work/imports.a581d2cd.json`); run branch
+`run/2026-10-31-t2`, PR #64. Plan log: `.work/run-2026-10-31-t2/plan.md`. The user asked for one more run to firm up
+the triage's score (D168, P-API-4) before finalizing it. HEAD against the baseline: +30 pairs, 0 lost. Weekly 62 % ->
+63 %.
+
+* **The test:** six triage runs between two *different* files (the hint had to choose), 23 functions; the builders
+  decided each file from the client's own evidence before reading the hint. Result: right 18 of 23 (15 proven by a
+  pair); the 5 misses are one object no evidence names (the screen fade, now unknown_screenfade.cpp). Summary and
+  the proposed reading rule in P-API-4 (§3).
+* **TG3** (#58-#60, +16): CordMgr's SYN1 0x85A3B0 / SYN2 0x85AB30 exact (the hint right 5/5 for the run, wrong
+  kind on two); new app/client/unknown_screenfade.cpp, 10 exact (0x7FF010-0x7FFBE0, 0x42F250; the hint said
+  scriptedmovie: wrong 5/5); sbaseview 0x69CBE0 / 0x69CC10 / 0x69CCD0 / 0x69CDE0 exact (right 3/3). P-TG3-1 open.
+* **TG4** (#61-#63, +14): three files the client names by its asserts started: ui_combobox.cpp (0x57A330,
+  0x57AAB0, 0x57AC70, 0x57AD50 exact), cameraeffects.cpp (0x6E3710, 0x6E37F0, 0x6E3B60 exact), ui_avatar_cust.cpp
+  (0x550670, 0x550970 exact, 0x550A10 NOT EXACT register); the hint right 10/10. P-TG4-2 open; P-TG4-1 (ui_chat_panel.h's
+  UIChatComboClass is UIComboBoxClass: move it into a ui_combobox.h) is a placement, the coordinator's (D137): accepted,
+  at the files' next edit (§4 item 1).
+* **Branch cleanup (the user's request):** 16 stale local branches deleted (all merged or the same patch as a commit
+  in master), local master fast-forwarded, wt/pins kept (its own M4 measurement); the remote had nothing left over.
+  `run_branch.py cleanup` (6e3fb718) does this at each handoff now (coordinator-pacing skill).
+* **Traps:** TG3's and TG4's in workflow.md §3.3.
+
 ### 2026-10-31 (15:40, day): D163's triage done (D167-D170), D169's /accept-d66, D171 landed; +1,102 pairs, 0 lost
 
 Coordinator Opus 5.5, up to three Opus builders at a time. Base d290dff0 (PRs #39 and #40 merged;
@@ -1632,6 +1656,22 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   on the 1,824 hinted functions exact after this run, file right at high 494/494, medium 1,206/1,251 (96 %), low
   58/79; TG1 / TG2 found the hinted file right 23 of 23. Tracking it lets every clone (contributors included) see the
   hints and the plan; the cost is a ~5 MB generated file. Alternative: keep it in `.work/` and publish only the plan.
+  **Second test (2026-10-31 evening, the user's "firm it up"):** boundary runs, between two different files. TG3 /
+  TG4 decided each function's file from the client's evidence before reading the hint: right 18 of 23 (15 proven
+  by a pair); all 5 misses are one object no evidence names (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F: the hint
+  said scriptedmovie, a neighbour's file). `score` on the run's newly exact: 15 of 24, the 9 misses that object's 8
+  plus a template copy hinted by its header (0x551270 Rotate_Y: matrix3d, credited to ui_avatar_cust's object).
+  Reading: a hint is reliable when the file has a name in the evidence (asserts, profile strings, catalogue);
+  it cannot name an object nobody named, and then picks the nearest named file instead of none. Proposed rule with
+  the move: builders treat a low-confidence hint, or a hint at a file boundary, as a lead and confirm the object's
+  boundaries (statics, literals, padding) before placing.
+* **P-TG3-1** (2026-10-31, TG3; recommend yes): CordCon's three harness counters (AcksMatched_, ResendRequests_,
+  Rejected_) move out of the class (a side table in udpreplay), and its constructor takes the key as one `__int64`:
+  the client allocates 0xC0, ours 0xC8; this unblocks ACK2 0x85ABB0 (0.61 with both fixed in a draft).
+* **P-TG4-2** (2026-10-31, TG4; recommend keep): D130's dead spenders in a NOT EXACT function: ui_avatar_cust
+  0x550A10 (NOT EXACT 0.71) holds four dead finds that exist only to send matrix3d.h's Rotate_Y 0x551270 out of
+  line, gaining that pair; each is needed (three leave it inline). D130 was written for functions made exact; does
+  it cover spenders kept for another function's pair?
 
 ## 4. Next steps
 
@@ -1684,6 +1724,12 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 evening run: ui_chat_panel.h's UIChatComboClass is ui_combobox.cpp's UIComboBoxClass (it
+     declares Unknown_57AD50): move the class into a ui_combobox.h, the chat panel using it (P-TG4-1, D137); AvatarUI /
+     ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
+     sbaseview 0x69D030 (0x724 bytes) and SBaseView's slots 0x69B5E0 / 0x69C0D0 / 0x69C5A0 / 0x69C5E0 / 0x69C8F0 and
+     ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430, Compute_Ticks 0x85A220 (needs a stub for
+     WWOnline's hash 0x8B4A90); ui_avatar_cust 0x550A10's frame-time prologue (register).
    * From the 2026-10-31 day run: UIGroupMemberUnknown2CClass (ui_group.h) merges into ui_cpit.h's
      UICpitUnknownD0Class (one class, ctor 0x5DBFC0; D137); aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
      KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 /
@@ -1780,7 +1826,9 @@ below name only the work items, the blocked work, the leads and the queues.
    (CP1); ui_group's +0xE8 object 0x5927E0-0x593180 in ui_group.cpp (UG1); UnknownAEEA88Class in ui_scut.h (SC2;
    also bridge_int.cpp's 0x53B040 and the 3-D movie view 0x7EEF90, until bridge_int.cpp is rebuilt); rs_track.h's
    interim rs_list / rs_proj_sup classes (RT1); scriptedmovieline.cpp / .h (LC1, 2026-10-31: the object
-   0x7FFC50-0x7FFE9F between option.cpp and scriptedmovie.cpp, no __FILE__).
+   0x7FFC50-0x7FFE9F between option.cpp and scriptedmovie.cpp, no __FILE__); unknown_screenfade.cpp (TG3,
+   2026-10-31: the screen fade / letterbox object 0x7FF010-0x7FFC4F between option.obj and scriptedmovieline.obj,
+   its own statics, no __FILE__; NAME 1).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote

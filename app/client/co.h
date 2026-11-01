@@ -73,7 +73,10 @@ public:
 	Unknown498C10Class();							// 0x498C10
 	void Unknown_498F00(float a, float b, float c);	// 0x498F00  // NAME 1 [a, b, c]: neutral
 	void Unknown_498CC0(float value);				// 0x498CC0 (co.cpp's tilt 0x6F3FA0 passes the turn's acceleration)  // NAME 1 [value]: neutral
+	void Unknown_498D40(float value, bool reset);	// 0x498D40 (the flag off, +0x04 / +0x0C to value; reset: +0x08 to 0)  // NAME 1 [value, reset]: neutral
+	void Unknown_498C30(float target, float rate);	// 0x498C30 (+0x04 / +0x08; the flag when +0x0C is not yet target)  // NAME 1 [target, rate]: neutral
 	float Unknown_498E00(float time);				// 0x498E00 (0x6F3FA0 passes WW3D's frame time when the flag is set)  // NAME 1 [time]: what it gets
+	float Unknown_Value(int time) { if (!Unknown00) return(Unknown04[2]); return(Unknown_498E00((float)time)); }	// (inline: cameraeffects.cpp's 0x6E3710, 0x6E3B60)  // NAME 1: neutral (D10)
 	bool Unknown00;									// +0x00
 	float Unknown04[3];								// +0x04
 };

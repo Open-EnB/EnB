@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-397 entries in 79 files.
+399 entries in 80 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -41,8 +41,8 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
 | `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
-| `app/client/co.h:130` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
-| `app/client/co.h:266` | `Unknown_810750` | mention | NOT EXACT) |
+| `app/client/co.h:133` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
+| `app/client/co.h:269` | `Unknown_810750` | mention | NOT EXACT) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
@@ -168,6 +168,8 @@ edit the comments in the code, not this file.
 | `app/client/tutorial_manager.cpp:89` | `TutorialManagerClass::TutorialManagerClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the list's _Buynode 0x6AE690 out of line and inlines the key string's destructor after Steps[]; ours the reverse |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
 | `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
+| `app/client/ui_avatar_cust.cpp:170` | `UIAvatarCustClass::Unknown_550A10` | marker | NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10) 0x550A10 |
+| `app/client/ui_avatar_cust.cpp:241` | `UIAvatarCustClass::Unknown_550A10` | mention | NOT EXACT; matrix3d.h's out-of-line Rotate_Y 0x551270 comes with it) (TG4, claim #63). The file's evidence: both sit between ui_attrb_skills.cpp's last functions (0x54B370) and the FAIL_IFs of 0x551320; their callers (0x54CAE0, 0x54CBC0, 0x54E610, 0x54FAA0, 0x550140) all lie in the same stretch, and they call 0x551BF0 (after 0x551320) like 0x54CBC0, 0x54FAA0 and 0x550550 do. The class is declared ... |
 | `app/client/ui_chat_panel.cpp:521` | `UIChatPanelClass::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
@@ -405,6 +407,6 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:150` | `CordMgr::Pump` | mention | NOT EXACT): the data sockets, then the listening ones, each until Read says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2, go-away, a 0-byte read (0x858980), the type-6 answer to an unexpected datagram. |
 | `app/wwudp/cordmgr.cpp:620` | `CordMgr::Process_Go_Away_Packet` | mention | NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers, the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up. |
 | `app/wwudp/cordmgr.cpp:691` | `CordMgr::Pump_Releases` | mention | NOT EXACT): as many entries as the list holds while it shrinks; a due one leaves the list, and its connection, when still open, leaves Connections_, its socket's count and memory (the client logs '%d UDP connections managed'). |
-| `app/wwudp/cordmgr.cpp:1403` | `CordMgr::Wait` | mention | NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one. |
-| `app/wwudp/cordmgr.cpp:1430` | `CordMgr::Find_Connection` | mention | NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs. |
-| `app/wwudp/cordmgr.cpp:1449` | `CordMgr::Cancel_Connect` | mention | NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but left in Pending_, as the client leaves it. |
+| `app/wwudp/cordmgr.cpp:1409` | `CordMgr::Wait` | mention | NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one. |
+| `app/wwudp/cordmgr.cpp:1436` | `CordMgr::Find_Connection` | mention | NOT EXACT: wlib ArrayList's remove inlined once, as the client's; only the not-found return's place differs. |
+| `app/wwudp/cordmgr.cpp:1455` | `CordMgr::Cancel_Connect` | mention | NOT EXACT: as 0x859440 (the shrink out of line, 0x85B8B0). A handshake record is deleted but left in Pending_, as the client leaves it. |

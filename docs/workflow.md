@@ -474,6 +474,15 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **VC6 folds a constant product into one constant** (2026-10-31, TG4): `x * 0.5f * 1000.0f` and `x * 0.001f * 50.0f`
+  compile to one fmul; the client's two fmuls need the intermediate in a named local (cameraeffects, ui_combobox).
+  A flag the client stores before an unrelated load needed `volatile` (ui_combobox 0x57AC70 / 0x57AD50); a clamp
+  matching `ja` (not `jae`) is Clamp_Int's form on unsigned, not always.h's min or std::_cpp_min (0x57A330).
+* **RenderObjClass's slot numbers in the client don't match a count of the tree's rendobj.h** (2026-10-31, TG4): read
+  the slots from the compiled object (objdiff) instead; 0x180 / 0x184 are Is_Hidden / Set_Hidden.
+* **A hand-written `if (p) p->Release_Ref(); p = NULL;` schedules the store after the next load** (2026-10-31, TG3,
+  sbaseview 0x69CDE0): the client's `RefCountPtr = NULL` stores first. Where the client does this on a raw-pointer
+  member, cast the member to `RefCountPtr<T> &` (or make the member a RefCountPtr).
 * **Land-family register and FPU forms** (2026-10-31, TG2): a local declared in the branch that uses it, not at the
   top, changes register allocation (Apply_Colors 0x46D410 exact with `extra` in its else branch); a float local for a
   shared value keeps it on the FPU and reorders the stores with an fxch (Get_Triangles 0x465D30 exact with `float y`

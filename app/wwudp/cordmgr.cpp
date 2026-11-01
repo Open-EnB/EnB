@@ -1277,16 +1277,22 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return handled;
 }
 
-// 0x85A3B0 / 0x85AB30: the client takes no SYN (the server's side of the handshake).
+// 0x85A3B0 / 0x85AB30: the client takes no SYN (the server's side of the handshake). The client's
+// EH frame (state -1 only, the profile's enabled flag kept in bl) comes from a delete of a pointer known
+// to be null, as if the server's handshake record were compiled out.
 bool CordMgr::Process_SYN1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_SYN1_Packet");
+	CordConnectingClass *c = NULL;
+	delete c;
 	return false;
 }
 
 bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_SYN2_Packet");
+	CordConnectingClass *c = NULL;
+	delete c;
 	return false;
 }
 
