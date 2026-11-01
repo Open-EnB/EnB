@@ -3237,6 +3237,34 @@
      "0x83C6D0"
     ]
    },
+   "galaxy_map_client": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x7A4830",
+     "0x7A4970",
+     "0x7A49A0",
+     "0x7A4B10",
+     "0x7A4C50",
+     "0x7A4FC0",
+     "0x7A50A0",
+     "0x7A5180",
+     "0x7A5260",
+     "0x7A5470",
+     "0x7A54F0",
+     "0x7A5540"
+    ],
+    "merged": [],
+    "name": "client/galaxy_map_client.cpp"
+   },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
@@ -11604,6 +11632,7 @@
    "client/extrap.h": "reconstructed",
    "client/fontdatabase.h": "reconstructed",
    "client/fontmanager.h": "reconstructed",
+   "client/galaxy_map_client.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/html/unknown_htmlattrib.h": "reconstructed",
    "client/influence.h": "reconstructed",

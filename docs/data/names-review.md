@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1084 |
-| 2 | describes what the code does | 2610 |
-| 1 | neutral placeholder | 8282 |
+| 3 | by convention from a client-named file or sibling | 1086 |
+| 2 | describes what the code does | 2616 |
+| 1 | neutral placeholder | 8324 |
 
 ## For review (score 3 and below)
 
@@ -1656,6 +1656,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:119` | neutral (D10) |
 | 1 | `Peek_Font` | `app/client/fontmanager.h:121` | neutral (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:123` | neutral (D10) |
+| 1 | `Unknown7C` | `app/client/galaxy_map_client.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/galaxy_map_client.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/galaxy_map_client.cpp:90` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/galaxy_map_client.cpp:93` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/galaxy_map_client.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_7A4FC0` | `app/client/galaxy_map_client.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_7A50A0` | `app/client/galaxy_map_client.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5180` | `app/client/galaxy_map_client.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5260` | `app/client/galaxy_map_client.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_7A52F0` | `app/client/galaxy_map_client.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5400` | `app/client/galaxy_map_client.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5470` | `app/client/galaxy_map_client.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_7A54F0` | `app/client/galaxy_map_client.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5540` | `app/client/galaxy_map_client.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/galaxy_map_client.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_` | `app/client/galaxy_map_client.h:5` | untagged neutral name (D10) |
+| 1 | `sclient, buffer` | `app/client/galaxy_map_client.h:33` | what the handler passes |
+| 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.h:33` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:34` | the packet's data |
+| 1 | `Unknown_7A4FC0` | `app/client/galaxy_map_client.h:34` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:35` | the packet's data |
+| 1 | `Unknown_7A50A0` | `app/client/galaxy_map_client.h:35` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:36` | the packet's data |
+| 1 | `Unknown_7A5180` | `app/client/galaxy_map_client.h:36` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:37` | the packet's data |
+| 1 | `Unknown_7A5260` | `app/client/galaxy_map_client.h:37` | untagged neutral name (D10) |
+| 1 | `buffer` | `app/client/galaxy_map_client.h:38` | the packet's data |
+| 1 | `Unknown_7A52F0` | `app/client/galaxy_map_client.h:38` | untagged neutral name (D10) |
+| 1 | `sector` | `app/client/galaxy_map_client.h:39` | the assert's '!sector' |
+| 1 | `Unknown_7A5400` | `app/client/galaxy_map_client.h:39` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/galaxy_map_client.h:40` | what it scales |
+| 1 | `Unknown_7A5470` | `app/client/galaxy_map_client.h:40` | untagged neutral name (D10) |
+| 1 | `position` | `app/client/galaxy_map_client.h:41` | what it scales |
+| 1 | `Unknown_7A54F0` | `app/client/galaxy_map_client.h:41` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/galaxy_map_client.h:42` | the assert's '!client' |
+| 1 | `Unknown_7A5540` | `app/client/galaxy_map_client.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/galaxy_map_client.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/galaxy_map_client.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:4` | the object 0x7767A0 draws its frames through; +0 its surface |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
@@ -8782,6 +8824,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:122` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:125` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:126` | what it holds |
+| 2 | `Load_Ini` | `app/client/galaxy_map_client.h:32` | reads galaxy_map_c.ini's [GalaxyMap] |
+| 2 | `Size` | `app/client/galaxy_map_client.h:47` | the ini's 'Size' |
+| 2 | `SystemPosScale` | `app/client/galaxy_map_client.h:48` | the ini's |
+| 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
+| 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
+| 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
 | 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
 | 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
 | 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |
@@ -11007,6 +11055,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
 | 3 | `Change_Text` | `app/client/fontmanager.h:49` | the client's label |
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:101` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
+| 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
