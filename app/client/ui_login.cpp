@@ -870,47 +870,49 @@ void LoginInterface::Unknown_5AE9D0(FlashingGadgetEvent *event, GadgetClass *sen
 }
 
 
-// NOT EXACT: inline budget (the client inlines the first two strings of the ticket copy, ours the first; its
-// frame is 4 bytes larger) (0x5AEA60)
+// NOT EXACT: frame (the client's is 4 bytes larger: a slot between the ticket copy and the day text; perhaps
+// LoginTicketInfoClass is 0xA0 bytes, its +0x20 an __int64) (0x5AEA60)
 void LoginInterface::Unknown_5AEA60()
 {
 	LoginTicketInfoClass info = Task->Ticket_Info;
 	time_t created = info.Create_Time;
 	struct tm today = *gmtime(&created);
-	today.tm_sec = 0;
-	today.tm_min = 0;
 	today.tm_hour = 0;
+	today.tm_isdst = 0;
+	today.tm_min = 0;
+	today.tm_sec = 0;
 	today.tm_wday = 0;
 	today.tm_yday = 0;
-	today.tm_isdst = 0;
 	time_t now = mktime(&today);
-	if (now == -1) return;
-	struct tm expiry;
-	memset(&expiry, 0, sizeof(expiry));
-	sscanf(info.Entitlement_Expiry.c_str(), "%d/%d/%d", &expiry.tm_mon, &expiry.tm_mday, &expiry.tm_year);
-	expiry.tm_mon--;
-	expiry.tm_year -= 1900;
-	time_t expires = mktime(&expiry);
-	if (expires == -1) return;
-	int days = (int)(difftime(expires, now) * (1.0 / 86400.0) - 1.0);
-	if (days < 0) {
-		days = 0;
-	} else if (days > 7) {
-		return;
-	}
-	char text[1024];
-	if (!Unknown_5FADE0()) {
-		_snprintf(text, 1024, "It appears your Earth & Beyond account will expire on %s. Please use the \"Account Management\" menu to update your billing information or add a Game Time code.", info.Entitlement_Expiry.c_str());
-	} else {
-		char when[20];
-		if (days == 0) {
-			strcpy(when, "today");
-		} else {
-			_snprintf(when, 20, "in %d days", days);
+	if (now != -1) {
+		struct tm expiry;
+		memset(&expiry, 0, sizeof(expiry));
+		sscanf(info.Entitlement_Expiry.c_str(), "%d/%d/%d", &expiry.tm_mon, &expiry.tm_mday, &expiry.tm_year);
+		expiry.tm_mon--;
+		expiry.tm_year -= 1900;
+		time_t expires = mktime(&expiry);
+		if (expires != -1) {
+			int days = (int)(difftime(expires, now) * (1.0 / 86400.0) - 1.0);
+			if (days < 0) {
+				days = 0;
+			}
+			if (days <= 7) {
+				char text[1024];
+				if (!Unknown_5FADE0()) {
+					_snprintf(text, 1024, "It appears your Earth & Beyond account will expire on %s. Please use the \"Account Management\" menu to update your billing information or add a Game Time code.", info.Entitlement_Expiry.c_str());
+				} else {
+					char when[20];
+					if (days == 0) {
+						strcpy(when, "today");
+					} else {
+						_snprintf(when, 20, "in %d days", days);
+					}
+					_snprintf(text, 1024, "Your Trial of Earth & Beyond will expire %s. If you like Earth & Beyond and wish to continue your adventures, you can buy an Earth & Beyond Upgrade Registration Code at www.eabuddystore.com <http://www.eabuddystore.com>. Enter your new Registration Code by using the \"Account Management\" menu on the login screen and you'll be back in the galaxy in just minutes.\n\nThank you for playing Earth & Beyond!", when);
+				}
+				CharacterView->Unknown034->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
+			}
 		}
-		_snprintf(text, 1024, "Your Trial of Earth & Beyond will expire %s. If you like Earth & Beyond and wish to continue your adventures, you can buy an Earth & Beyond Upgrade Registration Code at www.eabuddystore.com <http://www.eabuddystore.com>. Enter your new Registration Code by using the \"Account Management\" menu on the login screen and you'll be back in the galaxy in just minutes.\n\nThank you for playing Earth & Beyond!", when);
 	}
-	CharacterView->Unknown034->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
 }
 
 /*
