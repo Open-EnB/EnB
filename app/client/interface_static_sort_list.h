@@ -29,6 +29,8 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\ww3d2\static_sort_list.h"
+#include "..\..\ww3d2\scene.h"
+#include "..\..\ww3d2\camera.h"
 
 class InterfaceClass;
 class RenderObjClass;

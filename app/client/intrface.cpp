@@ -7,14 +7,14 @@
 #include "unknown_signalbase.h"
 #include "..\shared\unknown_debug.h"
 
-// interface_static_sort_list.cpp's list (the view's scene's +0x9C, the asserts' 'ssl')
-class InterfaceStaticSortListClass  // NAME 1: neutral (D10)
-{
-public:
-	void Unknown_6DB380(InterfaceClass *iface);		// 0x6DB380 (the interface put in)  // NAME 1 [iface]: neutral
-	void Unknown_6DB6D0(InterfaceClass *iface);		// 0x6DB6D0 (taken out)  // NAME 1 [iface]: neutral
-	void Unknown_6DB950(InterfaceClass *iface);		// 0x6DB950 (to the front)  // NAME 1 [iface]: neutral
-};
+#include "interface_static_sort_list.h"	// the view's scene's +0x9C (the asserts' 'ssl')
+
+
+
+
+
+
+
 
 // the views' scene (slot +0x50: uiview.h's ViewUnknown1CClass), as far as its +0x9C
 class InterfaceSceneClass  // NAME 1: neutral (D10)
@@ -83,7 +83,7 @@ InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 		InterfaceStaticSortListClass *ssl = scene ? scene->SSL : NULL;
 		G_ASSERT(ssl);
 		if (ssl) {
-			ssl->Unknown_6DB380(this);
+			ssl->Add_Interface(this);
 		}
 	}
 	if (view && view->Unknown_20()) {
@@ -191,7 +191,7 @@ void InterfaceClass::Unknown_58()
 		FAIL_IF(!issl) {
 			return;
 		}
-		issl->Unknown_6DB950(this);
+		issl->Interface_To_Front(this);
 		Unknown58.Unknown_686E90();
 		Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
 		ControlKeysManager *manager = ControlKeysManager::Get((ControlKeysSClientClass *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
@@ -280,7 +280,7 @@ void InterfaceClass::Unknown_7C(UIViewClass *view, bool arg)
 		InterfaceSceneClass *scene = (InterfaceSceneClass *)View->Unknown_50();
 		InterfaceStaticSortListClass *ssl = scene ? scene->SSL : NULL;
 		G_ASSERT(ssl);
-		if (ssl) ssl->Unknown_6DB6D0(this);
+		if (ssl) ssl->Remove_Interface(this);
 		View->Unknown_6B4990(this);
 	}
 	View = view;
@@ -290,7 +290,7 @@ void InterfaceClass::Unknown_7C(UIViewClass *view, bool arg)
 
 		G_ASSERT(ssl);
 		if (ssl) {
-			ssl->Unknown_6DB380(this);
+			ssl->Add_Interface(this);
 		}
 		if (!Client && View->Unknown_20()) {
 			Client = (LineDisplayClientClass *)((Unknown65B810ViewClass *)View->Unknown_20())->Get_Client();
@@ -424,7 +424,7 @@ void InterfaceClass::Unknown_5418C0(GadgetGroupToFrontEvent *event, void *sender
 	InterfaceSceneClass *scene = View ? (InterfaceSceneClass *)View->Unknown_50() : NULL;
 	InterfaceStaticSortListClass *ssl = scene ? scene->SSL : NULL;
 	FAIL_IF(!ssl) return;
-	ssl->Unknown_6DB950(this);
+	ssl->Interface_To_Front(this);
 }
 
 
@@ -445,7 +445,7 @@ void InterfaceClass::Unknown_541930()
 	InterfaceSceneClass *scene = View ? (InterfaceSceneClass *)View->Unknown_50() : NULL;
 	InterfaceStaticSortListClass *ssl = scene ? scene->SSL : NULL;
 	FAIL_IF(!ssl) return;
-	ssl->Unknown_6DB950(this);
+	ssl->Interface_To_Front(this);
 }
 
 

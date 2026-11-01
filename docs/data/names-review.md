@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1133 |
 | 2 | describes what the code does | 2835 |
-| 1 | neutral placeholder | 10114 |
+| 1 | neutral placeholder | 10107 |
 
 ## For review (score 3 and below)
 
@@ -2396,45 +2396,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C` | `app/client/interface_static_sort_list.cpp:21` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/interface_static_sort_list.cpp:22` | neutral |
 | 1 | `Unknown_50` | `app/client/interface_static_sort_list.cpp:22` | untagged neutral name (D10) |
-| 1 | `Render` | `app/client/interface_static_sort_list.h:64` | neutral |
-| 1 | `Add_PIP` | `app/client/interface_static_sort_list.h:65` | neutral |
-| 1 | `Remove_PIP` | `app/client/interface_static_sort_list.h:66` | neutral |
-| 1 | `Interface` | `app/client/interface_static_sort_list.h:68` | neutral |
-| 1 | `Index` | `app/client/interface_static_sort_list.h:70` | neutral |
-| 1 | `MinSortLevel` | `app/client/interface_static_sort_list.h:71` | neutral |
-| 1 | `MaxSortLevel` | `app/client/interface_static_sort_list.h:72` | neutral |
-| 1 | `owner, scene` | `app/client/interface_static_sort_list.h:78` | neutral |
-| 1 | `camera, poly_budget, sort_level` | `app/client/interface_static_sort_list.h:79` | neutral |
-| 1 | `Render` | `app/client/interface_static_sort_list.h:88` | neutral |
-| 1 | `Owner` | `app/client/interface_static_sort_list.h:90` | neutral |
-| 1 | `Scene` | `app/client/interface_static_sort_list.h:91` | neutral |
-| 1 | `Camera` | `app/client/interface_static_sort_list.h:92` | neutral |
-| 1 | `PolyBudget` | `app/client/interface_static_sort_list.h:93` | neutral |
-| 1 | `SortLevel` | `app/client/interface_static_sort_list.h:94` | neutral |
-| 1 | `std:` | `app/client/interface_static_sort_list.h:100` | neutral |
-| 1 | `std:` | `app/client/interface_static_sort_list.h:101` | neutral |
+| 1 | `Render` | `app/client/interface_static_sort_list.h:66` | neutral |
+| 1 | `Add_PIP` | `app/client/interface_static_sort_list.h:67` | neutral |
+| 1 | `Remove_PIP` | `app/client/interface_static_sort_list.h:68` | neutral |
+| 1 | `Interface` | `app/client/interface_static_sort_list.h:70` | neutral |
+| 1 | `Index` | `app/client/interface_static_sort_list.h:72` | neutral |
+| 1 | `MinSortLevel` | `app/client/interface_static_sort_list.h:73` | neutral |
+| 1 | `MaxSortLevel` | `app/client/interface_static_sort_list.h:74` | neutral |
+| 1 | `owner, scene` | `app/client/interface_static_sort_list.h:80` | neutral |
+| 1 | `camera, poly_budget, sort_level` | `app/client/interface_static_sort_list.h:81` | neutral |
+| 1 | `Render` | `app/client/interface_static_sort_list.h:90` | neutral |
+| 1 | `Owner` | `app/client/interface_static_sort_list.h:92` | neutral |
+| 1 | `Scene` | `app/client/interface_static_sort_list.h:93` | neutral |
+| 1 | `Camera` | `app/client/interface_static_sort_list.h:94` | neutral |
+| 1 | `PolyBudget` | `app/client/interface_static_sort_list.h:95` | neutral |
+| 1 | `SortLevel` | `app/client/interface_static_sort_list.h:96` | neutral |
 | 1 | `std:` | `app/client/interface_static_sort_list.h:102` | neutral |
-| 1 | `Render` | `app/client/interface_static_sort_list.h:118` | neutral |
-| 1 | `Add_Interface` | `app/client/interface_static_sort_list.h:119` | neutral |
-| 1 | `Remove_Interface` | `app/client/interface_static_sort_list.h:120` | neutral |
-| 1 | `Interface_To_Front` | `app/client/interface_static_sort_list.h:121` | neutral |
-| 1 | `Set_Current_Interface` | `app/client/interface_static_sort_list.h:122` | neutral |
-| 1 | `Set_Current_Front` | `app/client/interface_static_sort_list.h:123` | neutral |
-| 1 | `Set_Current_Back` | `app/client/interface_static_sort_list.h:124` | neutral |
-| 1 | `Add_Render_Object` | `app/client/interface_static_sort_list.h:125` | neutral |
-| 1 | `Remove_Render_Object` | `app/client/interface_static_sort_list.h:126` | neutral |
-| 1 | `Add_PIP_Scene` | `app/client/interface_static_sort_list.h:127` | neutral |
-| 1 | `Remove_PIP_Scene` | `app/client/interface_static_sort_list.h:128` | neutral |
-| 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:129` | neutral |
-| 1 | `BackInterface` | `app/client/interface_static_sort_list.h:133` | neutral (FrontInterface's opposite) |
-| 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:137` | neutral |
-| 1 | `InterfaceStaticSortListClass` | `app/client/intrface.cpp:11` | neutral (D10) |
-| 1 | `iface` | `app/client/intrface.cpp:14` | neutral |
-| 1 | `Unknown_6DB380` | `app/client/intrface.cpp:14` | untagged neutral name (D10) |
-| 1 | `iface` | `app/client/intrface.cpp:15` | neutral |
-| 1 | `Unknown_6DB6D0` | `app/client/intrface.cpp:15` | untagged neutral name (D10) |
-| 1 | `iface` | `app/client/intrface.cpp:16` | neutral |
-| 1 | `Unknown_6DB950` | `app/client/intrface.cpp:16` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/interface_static_sort_list.h:103` | neutral |
+| 1 | `std:` | `app/client/interface_static_sort_list.h:104` | neutral |
+| 1 | `Render` | `app/client/interface_static_sort_list.h:120` | neutral |
+| 1 | `Add_Interface` | `app/client/interface_static_sort_list.h:121` | neutral |
+| 1 | `Remove_Interface` | `app/client/interface_static_sort_list.h:122` | neutral |
+| 1 | `Interface_To_Front` | `app/client/interface_static_sort_list.h:123` | neutral |
+| 1 | `Set_Current_Interface` | `app/client/interface_static_sort_list.h:124` | neutral |
+| 1 | `Set_Current_Front` | `app/client/interface_static_sort_list.h:125` | neutral |
+| 1 | `Set_Current_Back` | `app/client/interface_static_sort_list.h:126` | neutral |
+| 1 | `Add_Render_Object` | `app/client/interface_static_sort_list.h:127` | neutral |
+| 1 | `Remove_Render_Object` | `app/client/interface_static_sort_list.h:128` | neutral |
+| 1 | `Add_PIP_Scene` | `app/client/interface_static_sort_list.h:129` | neutral |
+| 1 | `Remove_PIP_Scene` | `app/client/interface_static_sort_list.h:130` | neutral |
+| 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:131` | neutral |
+| 1 | `BackInterface` | `app/client/interface_static_sort_list.h:135` | neutral (FrontInterface's opposite) |
+| 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:139` | neutral |
 | 1 | `InterfaceSceneClass` | `app/client/intrface.cpp:20` | neutral (D10) |
 | 1 | `Unknown00` | `app/client/intrface.cpp:23` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/intrface.cpp:28` | neutral (D10) |
@@ -10754,18 +10747,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:72` | Advance_X; starts at the horizontal padding |
 | 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:73` | Advance_Y; starts at the vertical padding |
 | 2 | `RightPadding` | `app/client/html/unknown_htmlblock.h:74` | the horizontal padding again |
-| 2 | `InterfaceRenderClass` | `app/client/interface_static_sort_list.h:50` | the asserts' ui_render |
-| 2 | `ui` | `app/client/interface_static_sort_list.h:53` | the asserts'  // NAME 1 [index]: neutral |
-| 2 | `std:` | `app/client/interface_static_sort_list.h:69` | the asserts' 'find == PIPScenes.end()' |
-| 2 | `PIPSceneStruct` | `app/client/interface_static_sort_list.h:76` | the asserts' pip_scene |
-| 2 | `CurrentInterface` | `app/client/interface_static_sort_list.h:131` | the asserts' |
-| 2 | `FrontInterface` | `app/client/interface_static_sort_list.h:132` | the asserts' |
-| 2 | `std:` | `app/client/interface_static_sort_list.h:134` | the asserts' |
-| 2 | `InterfaceMap` | `app/client/interface_static_sort_list.h:135` | the asserts' |
-| 2 | `RenderObjMap` | `app/client/interface_static_sort_list.h:136` | the asserts' |
-| 2 | `LastInterface` | `app/client/interface_static_sort_list.h:138` | the asserts' |
-| 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:139` | the asserts' |
-| 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:140` | the asserts' |
+| 2 | `InterfaceRenderClass` | `app/client/interface_static_sort_list.h:52` | the asserts' ui_render |
+| 2 | `ui` | `app/client/interface_static_sort_list.h:55` | the asserts'  // NAME 1 [index]: neutral |
+| 2 | `std:` | `app/client/interface_static_sort_list.h:71` | the asserts' 'find == PIPScenes.end()' |
+| 2 | `PIPSceneStruct` | `app/client/interface_static_sort_list.h:78` | the asserts' pip_scene |
+| 2 | `CurrentInterface` | `app/client/interface_static_sort_list.h:133` | the asserts' |
+| 2 | `FrontInterface` | `app/client/interface_static_sort_list.h:134` | the asserts' |
+| 2 | `std:` | `app/client/interface_static_sort_list.h:136` | the asserts' |
+| 2 | `InterfaceMap` | `app/client/interface_static_sort_list.h:137` | the asserts' |
+| 2 | `RenderObjMap` | `app/client/interface_static_sort_list.h:138` | the asserts' |
+| 2 | `LastInterface` | `app/client/interface_static_sort_list.h:140` | the asserts' |
+| 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:141` | the asserts' |
+| 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:142` | the asserts' |
 | 2 | `SSL` | `app/client/intrface.cpp:24` | the asserts' |
 | 2 | `view` | `app/client/intrface.h:93` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `key_manager` | `app/client/intrface.h:112` | the FAIL_IF's; NAME 1 [event]: neutral |
@@ -13095,7 +13088,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
 | 3 | `interface_static_sort_list.h` | `app/client/interface_static_sort_list.h:23` | header name assumed from the client's interface_static_sort_list.cpp |
-| 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:97` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
+| 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:99` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
 | 3 | `InterfaceClass` | `app/client/intrface.h:90` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
 | 3 | `Is_Active` | `app/client/intrface.h:116` | the asserts' |
