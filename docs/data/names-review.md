@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1091 |
 | 2 | describes what the code does | 2621 |
-| 1 | neutral placeholder | 8526 |
+| 1 | neutral placeholder | 8528 |
 
 ## For review (score 3 and below)
 
@@ -3604,6 +3604,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A1590` | `app/client/tasks/tsk_login.cpp:90` | neutral placeholder (D10) |
 | 1 | `Unknown_515340` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
+| 1 | `LoginFlagsStruct` | `app/client/tasks/tsk_login.cpp:183` | neutral (D10) |
+| 1 | `Is_0C` | `app/client/tasks/tsk_login.cpp:187` | neutral (D10) |
 | 1 | `Unknown02C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown004` | `app/client/tasks/tsk_login.cpp:236` | untagged neutral name (D10) |

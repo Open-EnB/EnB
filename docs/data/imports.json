@@ -3475,9 +3475,7 @@
     ]
    },
    "kernel": {
-    "ambiguous": [
-     "0x443F30"
-    ],
+    "ambiguous": [],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
@@ -3488,21 +3486,28 @@
      "0x4432A0",
      "0x443380",
      "0x443450",
+     "0x443490",
      "0x443640",
      "0x443680",
      "0x4436C0",
      "0x443710",
      "0x443820",
+     "0x443B90",
      "0x443BC0",
      "0x443C10",
      "0x443CD0",
      "0x443D90",
      "0x443E20",
      "0x443E90",
-     "0x444160"
+     "0x443F30",
+     "0x444160",
+     "0x444190"
     ],
     "merged": [],
-    "name": "kernel/kernel.cpp"
+    "name": "kernel/kernel.cpp",
+    "tiebreak": [
+     "0x444190"
+    ]
    },
    "kv_encoder_base": {
     "ambiguous": [
@@ -10154,6 +10159,7 @@
      "0x767CE0",
      "0x767D30",
      "0x767D70",
+     "0x767DA0",
      "0x767EE0",
      "0x7683A0",
      "0x7688F0",
