@@ -675,10 +675,9 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
 				}
 				return true;
 			}
-			m.Free();
 			c->Incoming.Remove(i);
 			removed = true;
-			if (c->Mode == 3 && peek) {
+			if (c->Mode == 3 && peek == true) {
 				c->Delivered++;
 			}
 		}
@@ -812,6 +811,7 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 	}
 	return true;
 }
+
 
 
 

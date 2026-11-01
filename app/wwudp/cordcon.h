@@ -125,21 +125,13 @@ public:
 		return Add(v, Entries, newnodeptr);
 	}
 	bool Add(const T &node, int pos, T **newnodeptr = 0);
-	void Remove(int pos)
+	bool Remove(T &node, int pos);
+	// wlib's remove(pos): a temporary T for remove(node, pos) (inline: read 0x850FD0 constructs it,
+	// calls 0x856500 and destroys it)
+	bool Remove(int pos)
 	{
-		if (pos < 0 || pos >= Entries) {
-			return;
-		}
-		NodeType *n = Head;
-		for (int i = 0; i < pos; i++) {
-			n = n->Next;
-		}
-		if (n->Prev) { n->Prev->Next = n->Next; } else { Head = n->Next; }
-		if (n->Next) { n->Next->Prev = n->Prev; } else { Tail = n->Prev; }
-		delete n;
-		Entries--;
-		Current = 0;
-		CurIndex = -1;
+		T temp_node;
+		return Remove(temp_node, pos);
 	}
 private:
 	int Entries;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
@@ -220,6 +212,85 @@ bool CordListClass<T>::Add(const T &node, int pos, T **newnodeptr)
 	Current = item;
 	CurIndex = pos;
 	Entries++;
+
+	return true;
+}
+
+// 0x856500: wlib's LinkedList<T>::remove(node, pos) (EA's Generals Tools\matchbot\wlib\linkedlist.h),
+// out of line in the client: the node at the zero-based slot pos (clamped) is copied to node and
+// freed, the cursor left on its neighbour.
+template <class T>
+bool CordListClass<T>::Remove(T &node, int pos)
+{
+	NodeType *item;
+
+	if (Entries == 0)
+		return false;
+
+	if (pos < 0)
+		pos = 0;
+	if (pos >= Entries)
+		pos = Entries - 1;
+
+	if ((pos == 0) || (pos == Entries - 1)) {	// Both can be true for a 1 item list
+		if (pos == 0) {
+			item = Head;
+			if (item->Next)
+				item->Next->Prev = 0;
+			Head = item->Next;
+			node = item->Node;
+			Current = Head;
+			CurIndex = 0;
+		}
+		if (pos == Entries - 1) {
+			item = Tail;
+			if (item->Prev)
+				item->Prev->Next = 0;
+			Tail = item->Prev;
+			node = item->Node;
+			Current = Tail;
+			CurIndex = Entries - 2;
+		}
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	if (pos == CurIndex) {
+		item = Current;
+		item->Prev->Next = item->Next;
+		item->Next->Prev = item->Prev;
+		Current = item->Next;
+		node = item->Node;
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	if (pos == CurIndex + 1) {
+		item = Current->Next;
+		item->Prev->Next = item->Next;
+		item->Next->Prev = item->Prev;
+		Current = item->Next;
+		CurIndex++;
+		node = item->Node;
+		delete (item);
+		Entries--;
+		return true;
+	}
+
+	item = Head->Next;	// Can start at node '1' because head was special cased
+	for (int i = 1; i < pos; i++) {
+		item = item->Next;
+	}
+
+	item->Prev->Next = item->Next;
+	item->Next->Prev = item->Prev;
+	Current = item->Next;
+	CurIndex = pos;
+	node = item->Node;
+	delete (item);
+	Entries--;
 
 	return true;
 }
