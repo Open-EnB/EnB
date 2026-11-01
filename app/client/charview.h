@@ -116,6 +116,7 @@ public:
 	void Unknown_67A370(int mode);						// 0x67A370 (the FAIL_IF 'mode < CHARACTER_POPUP_MESSAGE ...'): the mode's screen  // NAME 2 [mode]: the FAIL_IF's
 	void Unknown_67A3F0();								// 0x67A3F0 (+0x194 released)
 	void Unknown_67AB20(int type, const char *name);	// 0x67AB20 (the G_ASSERT 'ViewRObjs[type]'): the model of the type by name  // NAME 2 [type]: the assert's; NAME 1 [name]: what ui_login.cpp passes ('FE01A')
+	void Unknown_67B7A0(int set);						// 0x67B7A0 (ui_avsel.cpp's and 0x574710's constructors: the two lights of the 3-D scene, the set's colours and directions)  // NAME 1 [set]: neutral
 	void Unknown_67BBE0();								// 0x67BBE0 (0x67AB20, type 4: the two lights into +0x84)
 	void Unknown_67A440(AvatarDescClass *desc, bool copy);	// 0x67A440 (the G_ASSERT 'AvatarRObj': ui_avatr.cpp's player avatar, from desc or from a fresh description of its race, profession and gender)  // NAME 1 [desc, copy]: what it does with them
 	void Unknown_67A670();								// 0x67A670 (+0x198 released)
@@ -152,7 +153,7 @@ public:
 	void Unknown_67AF70(float time);					// 0x67AF70 (the frame passes the frame time in seconds)  // NAME 1 [time]: what the frame passes
 	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown: the eighteen avatars of +0x3B8 released)
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
-	void Unknown_67C530();								// 0x67C530 (the frame)
+	void Unknown_67C530();								// 0x67C530 (the frame: +0x4C8 eased to +0x4D4, the type-3 model's 'box02' glows with it, the second light of +0x3B0 follows)
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
@@ -191,7 +192,7 @@ public:
 	int Unknown240;										// +0x240
 	ShipCustDescClass Unknown244;						// +0x244
 	SClientUnknown1338Class *Unknown3A4;				// +0x3A4 'envmaps.ini' (ui_login.cpp's)
-	RenderObjClass *Unknown3A8[2];						// +0x3A8 (removed with the model of type 1 or 2)
+	LightClass *Unknown3A8[2];							// +0x3A8 the two lights of the 3-D scene +0x6C (0x67B7A0; removed with the model of type 1 or 2)
 	LightClass *Unknown3B0[2];							// +0x3B0 the two lights of the model of type 4 (0x67BBE0)
 	CharacterViewAvatarClass *Unknown3B8[3][3][2];		// +0x3B8 an avatar for each race, profession and gender (0x67BF20, avatar.cpp's 0x77B870)
 	Vector2 Unknown400[10][2];							// +0x400 ten pairs of texture offsets (0.5 each; 0x67C200 / 0x67C270 by the pair's index)

@@ -21,6 +21,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\predlod.h"
 #include "..\..\ww3d2\dx8renderer.h"
+#include "..\..\ww3d2\matinfo.h"
 #include "matrix3d.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "wwmath.h"
@@ -498,7 +499,6 @@ void CharacterViewClass::Unknown_67A300()
 
 
 
-
 // 0x67A370
 void CharacterViewClass::Unknown_67A370(int mode)
 {
@@ -898,6 +898,44 @@ void CharacterViewClass::Unknown_67B750()
 	}
 }
 
+// NOT EXACT: functional (D64): the intensities read from the client's stack tables are approximate (1)
+// 0x67B7A0
+void CharacterViewClass::Unknown_67B7A0(int set)
+{
+	Vector3 direction[2] = { Vector3(-0.66f, -1.0f, 1.0f), Vector3(-1.0f, -0.4f, 0.0f) };
+	Vector3 diffuse[2] = { Vector3(1.0f, 1.0f, 1.0f), Vector3(1.0f, 1.0f, 1.0f) };
+	Vector3 back[2] = { Vector3(0.0f, 0.0f, 0.0f), Vector3(0.8f, 0.3f, 0.3f) };
+	if (Unknown06C) {
+		for (int i = 0; i < 2; i++) {
+			if (Unknown3A8[i]) {
+				Unknown3A8[i]->Remove();
+				Unknown3A8[i]->Release_Ref();
+				Unknown3A8[i] = NULL;
+			}
+		}
+		Unknown3A8[0] = new LightClass(LightClass::DIRECTIONAL);
+		Unknown3A8[0]->Set_Intensity(1.0f);
+		Unknown3A8[0]->Set_Force_Visible(true);
+		Unknown3A8[0]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
+		Unknown3A8[0]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown3A8[0]->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown3A8[0]->Set_Diffuse(diffuse[set]);
+		Unknown3A8[0]->Set_Transform(Matrix3D::Identity);
+		Unknown3A8[0]->Set_Spot_Direction(direction[set]);
+		Unknown3A8[1] = new LightClass(LightClass::DIRECTIONAL);
+		Unknown3A8[1]->Set_Intensity(1.0f);
+		Unknown3A8[1]->Set_Force_Visible(true);
+		Unknown3A8[1]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
+		Unknown3A8[1]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown3A8[1]->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+		Unknown3A8[1]->Set_Diffuse(back[set]);
+		Unknown3A8[1]->Set_Transform(Matrix3D::Identity);
+		Unknown3A8[1]->Set_Spot_Direction(-direction[set]);
+		Unknown3A8[0]->Add(Unknown06C);
+		Unknown3A8[1]->Add(Unknown06C);
+	}
+}
+
 // 0x67BB90
 void CharacterViewClass::Unknown_67BB90()
 {
@@ -1228,44 +1266,6 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #define MAX_OFFSET 10	// the offset pairs at +0x400 (0x67C200 / 0x67C270)  // NAME 3 [MAX_OFFSET]: the FAIL_IFs'
 
 // 0x67C200
@@ -1348,6 +1348,39 @@ void CharacterViewClass::Unknown_67CBD0()
 		Unknown4E0.pop_front();
 		if (name.length()) {
 			SoundLibraryClass::Play_Dialog(name.c_str(), 1);
+		}
+	}
+}
+
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67C530
+void CharacterViewClass::Unknown_67C530()
+{
+	if (ViewRObjs[3]) {
+		Unknown4C8.X = Unknown4C8.X * 0.95f + Unknown4D4.X * 0.05f;
+		Unknown4C8.Y = Unknown4C8.Y * 0.95f + Unknown4D4.Y * 0.05f;
+		Unknown4C8.Z = Unknown4C8.Z * 0.95f + Unknown4D4.Z * 0.05f;
+		RefCountPtr<RenderObjClass> box = Create_Get(ViewRObjs[3]->Get_Sub_Object_By_Name("box02"));
+		if (box.Peek() != NULL) {
+			RefCountPtr<MaterialInfoClass> info = Create_Get(box->Get_Material_Info());
+			if (info.Peek() != NULL && info->Peek_Vertex_Material(0) != NULL) {
+				info->Peek_Vertex_Material(0)->Set_Emissive(Unknown4C8);
+			}
+			if (ViewRObjs[4] && Unknown3B0[1]) {
+				float r = Unknown4C8.X;
+				if (r < 0.5f) {
+					r = (r + 0.5f) * 0.5f;
+				}
+				float g = Unknown4C8.Y;
+				if (g < 0.5f) {
+					g = (g + 0.5f) * 0.5f;
+				}
+				float b = Unknown4C8.Z;
+				if (b < 0.5f) {
+					b = (b + 0.5f) * 0.5f;
+				}
+				Unknown3B0[1]->Set_Diffuse(Vector3(r, g, b));
+			}
 		}
 	}
 }
