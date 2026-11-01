@@ -137,7 +137,7 @@ int UDP::Read(unsigned char *msg, unsigned int len, sockaddr_in *from)
 }
 
 // CordMgr::Wait's select: the replay never waits (nothing calls UDPConnection::Connect(true) here).
-int UDP::Wait(int, int, fd_set &, fd_set &)
+int UDP::Wait(long, long, fd_set &, fd_set &)
 {
 	return 0;
 }

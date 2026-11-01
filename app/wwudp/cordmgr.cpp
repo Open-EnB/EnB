@@ -1407,7 +1407,8 @@ bool CordMgr::Process_ACK2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// 0x857DE0, NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one.
+// 0x857DE0: the set of every data and listening socket, then wnet's UDP::Wait on the last one (FD_SET before
+// the udp store keeps this in ecx and the socket in eax, as the client's).
 int CordMgr::Wait(int sec, int usec)
 {
 	fd_set given;
@@ -1418,14 +1419,14 @@ int CordMgr::Wait(int sec, int usec)
 	for (i = 0; i < count; i++) {
 		CordDataSocketClass record;
 		DataSockets_.get(record, i);
+		FD_SET((unsigned int)record.Socket->getFD(), &given);
 		udp = record.Socket;
-		FD_SET((unsigned int)udp->getFD(), &given);
 	}
 	for (i = 0; i < ListenSockets_.length(); i++) {
 		CordListenSocketClass record;
 		ListenSockets_.get(record, i);
+		FD_SET((unsigned int)record.Socket->getFD(), &given);
 		udp = record.Socket;
-		FD_SET((unsigned int)udp->getFD(), &given);
 	}
 	if (udp) {
 		fd_set ready;

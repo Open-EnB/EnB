@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-393 entries in 82 files.
+392 entries in 82 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -403,4 +403,3 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:150` | `CordMgr::Pump` | mention | NOT EXACT): the data sockets, then the listening ones, each until Read says there is nothing more (< 0); 0x400-byte buffer. The data sockets take ACK1 / ACK2 / the data / go-away, the listening ones SYN1 / SYN2 / ACK1 / ACK2 / go-away. Not rebuilt: ACK1, ACK2, the type-6 answer to an unexpected datagram (Send_Go_Away 0x858640, inlined). |
 | `app/wwudp/cordmgr.cpp:620` | `CordMgr::Process_Go_Away_Packet` | mention | NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers, the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up. |
 | `app/wwudp/cordmgr.cpp:710` | `CordMgr::Pump_Releases` | mention | NOT EXACT): as many entries as the list holds while it shrinks; a due one leaves the list, and its connection, when still open, leaves Connections_, its socket's count and memory (the client logs '%d UDP connections managed'). |
-| `app/wwudp/cordmgr.cpp:1410` | `CordMgr::Wait` | mention | NOT EXACT (registers): the set of every data and listening socket, then wnet's UDP::Wait on the last one. |

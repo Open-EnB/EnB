@@ -1472,7 +1472,7 @@ Base copy: reconstructed. Headers: 262 from reconstructed.
 | common/connect.cpp | reconstructed | 67 | 1 | - | - | - |  |
 | client/control_keys_manager.cpp | reconstructed | 106 | 15 | - | - | - |  |
 | wwudp/cordcon.cpp | reconstructed | 51 | 7 | - | - | - |  |
-| wwudp/cordmgr.cpp | reconstructed | 11 | 4 | - | - | - |  |
+| wwudp/cordmgr.cpp | reconstructed | 12 | 4 | - | - | - |  |
 | client/cpacket.cpp | reconstructed | 133 | 4 | - | - | - |  |
 | common/dbgconn.cpp | reconstructed | 46 | 4 | - | - | - |  |
 | shared/auxdata/delta.cpp | reconstructed | 35 | 2 | - | - | - |  |
