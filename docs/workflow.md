@@ -1061,6 +1061,8 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **`attempts.py record` in a shell loop with `set -- $a` cuts a symbol at its first space** (2026-10-31, TK4):
+  quote each field or call it once per row.
 * **Deleting a tracked app file breaks build.py's definitions scan (FileNotFoundError)** (2026-10-29, PK3) until
   the deletion is staged: `git rm --cached` your own file (names.py had the same crash; fixed in 5f62144).
 * **`\a` in a non-raw Python string becomes BEL** (2026-10-29, SC3): an `#include` written as
@@ -1154,6 +1156,12 @@ unless `--lever` cites a new row of this table.
   Check every renamed name against the libraries' headers, and run a full verify, not just replay.
 ### 3.9 Library-specific
 
+* **wlib (wwonline) (2026-10-31, TK4):** Renegade's `Code\Tools\RenegadeGR\wtime.cpp` is the client's revision
+  (no localtime_r wrapper, no "aa" format), not matchbot's: look for older per-file copies in RenegadeGR before
+  patching matchbot's. wlib is built with /GX (`LIB_FLAGS['wlib']`, +17 across wtime / configfile / monod / streamer /
+  xtime): in VC6 a by-value return of a class with a destructor leaves a construction flag (`push ecx; mov [esp+8],0`)
+  even without an EH frame, a cheap sign of /GX. `tools/re/names.py` does not scan libs/wwonline (its NAME tags miss
+  names-review.md).
 * **wnet (E&B's TCPCon):** a reset connection is `CONNRESET` (-16): reads and writes end quietly on it
   and `isConnected` treats it as closed; `pumpReads` needs a dead `retval = -1;` (the client's stray
   `or edi, edi`).
