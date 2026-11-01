@@ -1,5 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\html\htmlview.cpp (PARTIAL). Notes at the end of the file.
 #include "..\..\..\wwlib\surface.h"
+#include "htmlview.h"
+#include <string.h>
 
 class UnknownHtmlDrawClass  // NAME 1: the object 0x7767A0 draws its frames through; +0 its surface
 {
@@ -12,6 +14,89 @@ public:
 
 	Surface *Surf;
 };
+
+HtmlViewClass::HtmlViewClass(void) :
+	Window(NULL),
+	Loader(NULL)
+{
+	Url[0] = '\0';
+	Links.clear();
+	HtmlBlockClass *block;
+	while (Blocks.getTail(block)) {
+		delete block;
+		Blocks.remove(Blocks.length() - 1);
+	}
+	Unknown130 = 0;
+	Unknown134 = 0;
+	Dirty = 0;
+}
+
+HtmlViewClass::~HtmlViewClass(void)
+{
+}
+
+bool HtmlViewClass::Clear(void)
+{
+	Links.clear();
+	HtmlBlockClass *block;
+	while (Blocks.getTail(block)) {
+		delete block;
+		Blocks.remove(Blocks.length() - 1);
+	}
+	Unknown130 = 0;
+	Unknown134 = 0;
+	return true;
+}
+
+bool HtmlViewClass::Open(char *url)
+{
+	Clear();
+	strcpy(Url, url);
+	if (Loader == NULL)
+		return false;
+	Loader->Open(url);
+	return true;
+}
+
+bool HtmlViewClass::Set_Loader(HtmlLoaderClass *loader)
+{
+	Loader = loader;
+	return true;
+}
+
+bool HtmlViewClass::Update(void)
+{
+	if (Loader != NULL)
+		Loader->Update();
+	bool dirty = false;
+	if (Dirty)
+		dirty = true;
+	Dirty = 0;
+	return dirty;
+}
+
+bool HtmlViewClass::Set_Window(void *window)
+{
+	Window = window;
+	Layout();
+	return true;
+}
+
+bool HtmlViewClass::Clear_Links(void)
+{
+	Links.clear();
+	return true;
+}
+
+bool HtmlViewClass::Clear_Blocks(void)
+{
+	HtmlBlockClass *block;
+	while (Blocks.getTail(block)) {
+		delete block;
+		Blocks.remove(Blocks.length() - 1);
+	}
+	return true;
+}
 
 void UnknownHtmlDrawClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
 {
@@ -63,4 +148,13 @@ void UnknownHtmlDrawClass::Draw_Line_24(int, int, int, int, int, int, int, int, 
 **	  0xC4154C), the view and its parser. The class sits here until the view's header exists.
 **	* The functions with asserts must sit on the client's lines (D25): everything above stays below line
 **	  158 until 0x770860 is written; this partial file has none of them yet.
+**	* HV2 (2026-11-01): the view, HtmlViewClass (htmlview.h), 0x76FFD0-0x770720, every function exact. The
+**	  file starts at 0x76FFD0: 0x76F0F0-0x76FFCF is HtmlBlockClass's object (unknown_htmlblock.cpp, ended by
+**	  its ArrayList copies), and the view's ArrayList<HtmlLinkStruct> destructor is this file's template
+**	  copy 0x7787C0. 0x770430 (the 0x210-byte link's destructor, a COMDAT inside the run) pairs with several.
+**	  Forms: the constructor writes Clear's body out (its link destructors inline, Clear's call them);
+**	  the block lists empty as `while (getTail(b)) { delete b; remove(length() - 1); }` (remove inline,
+**	  its result unused); Update tests the byte Dirty into a bool set in a branch.
+**	  The view has no callers in the client (unused code). Draw_Line_32 0x7778E0: parked at 0.18 (see
+**	  attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
 */

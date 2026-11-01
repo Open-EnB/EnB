@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
-| 3 | by convention from a client-named file or sibling | 1097 |
-| 2 | describes what the code does | 2645 |
-| 1 | neutral placeholder | 8952 |
+| 3 | by convention from a client-named file or sibling | 1098 |
+| 2 | describes what the code does | 2701 |
+| 1 | neutral placeholder | 8976 |
 
 ## For review (score 3 and below)
 
@@ -1699,7 +1699,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
-| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:4` | the object 0x7767A0 draws its frames through; +0 its surface |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:6` | the object 0x7767A0 draws its frames through; +0 its surface |
+| 1 | `Unknown130` | `app/client/html/htmlview.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/html/htmlview.cpp:30` | untagged neutral name (D10) |
+| 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:9` | the object at the view's +4 (slots +4 / +8 called) |
+| 1 | `Unknown_00` | `app/client/html/htmlview.h:12` | untagged neutral name (D10) |
+| 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:19` | element of the view's +0x14 list |
+| 1 | `Unknown00` | `app/client/html/htmlview.h:21` | untagged neutral name (D10) |
+| 1 | `Url` | `app/client/html/htmlview.h:23` | 0x770860's second argument copied in |
+| 1 | `HtmlUnknown20Struct` | `app/client/html/htmlview.h:26` | element of the view's +0x20 list (only the list's destructor is seen) |
+| 1 | `Window` | `app/client/html/htmlview.h:46` | Set_Window; an object with virtuals (0x770860 calls its slots +0x4C / +0x50) |
+| 1 | `Unknown20` | `app/client/html/htmlview.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/html/htmlview.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/html/htmlview.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:12` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/html/unknown_htmlblock.h:15` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:51` | the constructor's first argument, not read here |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
 | 1 | `Unknown_04` | `app/client/influence.h:29` | untagged neutral name (D10) |
@@ -9458,6 +9482,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
 | 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
+| 2 | `Open` | `app/client/html/htmlview.h:13` | given the view's url by Open |
+| 2 | `Update` | `app/client/html/htmlview.h:14` | polled by the view's Update |
+| 2 | `Name` | `app/client/html/htmlview.h:22` | 0x770860 compares it with its first argument |
+| 2 | `Clear` | `app/client/html/htmlview.h:37` | Links and Blocks emptied (the blocks deleted) |
+| 2 | `Open` | `app/client/html/htmlview.h:38` | Clear, url kept, handed to the loader |
+| 2 | `Update` | `app/client/html/htmlview.h:40` | polls the loader; returns and clears Dirty |
+| 2 | `Set_Window` | `app/client/html/htmlview.h:41` | Window = window, then Layout |
+| 2 | `Layout` | `app/client/html/htmlview.h:44` | rebuilds the blocks for Url (not written yet) |
+| 2 | `Loader` | `app/client/html/htmlview.h:47` | Set_Loader |
+| 2 | `Blocks` | `app/client/html/htmlview.h:48` | owned (Clear deletes them) |
+| 2 | `Dirty` | `app/client/html/htmlview.h:51` | Update returns and clears it (a byte tested, not a bool) |
+| 2 | `Url` | `app/client/html/htmlview.h:52` | Open's strcpy; 259 bytes up to +0x130 |
 | 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
 | 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
 | 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |
@@ -9468,6 +9504,50 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Clear` | `app/client/html/unknown_htmlattrib.h:24` | Dictionary::clear |
 | 2 | `Values` | `app/client/html/unknown_htmlattrib.h:27` | the stacks by key |
 | 2 | `Get_Mime_Type` | `app/client/html/unknown_htmlattrib.h:30` | 'image/gif' for a .gif, else 'text/html' |
+| 2 | `HtmlItemStruct` | `app/client/html/unknown_htmlblock.h:8` | what htmlview's parser lays out in a block (position, size, its attribute stacks) |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:10` | moved right by the line's alignment (0x76F3D0) |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:11` | compared with the block's CursorY: the item's line |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:13` | summed over a line for its alignment |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:14` | the line's tallest sets its height |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:16` | read by Get_Font_Height in place of the block's styles |
+| 2 | `HtmlBlockClass` | `app/client/html/unknown_htmlblock.h:20` | htmlview's layout box (parent, children, padding, cursor); constructor 0x76F0F0 |
+| 2 | `Advance_X` | `app/client/html/unknown_htmlblock.h:26` | CursorX += width |
+| 2 | `Advance_Y` | `app/client/html/unknown_htmlblock.h:27` | ends the cursor's line (alignment, baseline) and moves down |
+| 2 | `Add_Child` | `app/client/html/unknown_htmlblock.h:28` | Children.addTail, child->Parent = this |
+| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:29` | AbsX plus the parents' |
+| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:30` | AbsY plus the parents' |
+| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:31` | moves the children's AbsX by the difference |
+| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:32` | moves the children's AbsY by the difference |
+| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:33` | Items[index] or NULL |
+| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:34` | 'Align' style: 0 center, 1 right, -1 otherwise |
+| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:35` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
+| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:36` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
+| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:38` | Styles.Set |
+| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:39` | Attributes.Set |
+| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:40` | Styles.Push |
+| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:41` | Attributes.Push |
+| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:42` | Styles.Remove |
+| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:43` | Attributes.Remove |
+| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:44` | Styles.Pop |
+| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:45` | Attributes.Pop |
+| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:46` | Styles.Get |
+| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:47` | Attributes.Get |
+| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:49` | 'Horizontal_Padding' |
+| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:50` | 'Vertical_Padding' |
+| 2 | `Items` | `app/client/html/unknown_htmlblock.h:52` | owned (the destructor deletes them) |
+| 2 | `Children` | `app/client/html/unknown_htmlblock.h:53` | Add_Child; not deleted here |
+| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:54` | set by the parent's Add_Child |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:55` | the constructor's 4th argument copied in; holds the paddings |
+| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:56` | the 5th argument copied in; 'Align', 'Font.*' |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:60` | Set_X |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:61` | Set_Y |
+| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:62` | summed up the parents by Get_Abs_X |
+| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:63` | summed up the parents by Get_Abs_Y |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:64` | the constructor's 2nd argument; Advance_Y aligns within it |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:65` | the constructor's 3rd argument |
+| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:66` | Advance_X; starts at the horizontal padding |
+| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:67` | Advance_Y; starts at the vertical padding |
+| 2 | `RightPadding` | `app/client/html/unknown_htmlblock.h:68` | the horizontal padding again |
 | 2 | `view` | `app/client/intrface.h:91` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
@@ -11715,6 +11795,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
+| 3 | `HtmlViewClass` | `app/client/html/htmlview.h:31` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |

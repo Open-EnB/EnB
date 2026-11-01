@@ -3346,12 +3346,24 @@
     ]
    },
    "htmlview": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x76FE80"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x76FFD0",
+     "0x7701D0",
+     "0x7702A0",
+     "0x770460",
+     "0x770640",
+     "0x770660",
+     "0x770690",
+     "0x7706B0",
+     "0x770720",
      "0x777630",
-     "0x7777C0"
+     "0x7777C0",
+     "0x7787C0"
     ],
     "merged": [],
     "name": "client/html/htmlview.cpp"
@@ -11450,6 +11462,43 @@
     "merged": [],
     "name": "client/html/unknown_htmlattrib.cpp"
    },
+   "unknown_htmlblock": {
+    "ambiguous": [
+     "0x76FE80"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x76F0F0",
+     "0x76F2B0",
+     "0x76F3A0",
+     "0x76F3D0",
+     "0x76F710",
+     "0x76F8F0",
+     "0x76F920",
+     "0x76F950",
+     "0x76F9C0",
+     "0x76FA30",
+     "0x76FA60",
+     "0x76FBD0",
+     "0x76FCE0",
+     "0x76FD10",
+     "0x76FD40",
+     "0x76FD70",
+     "0x76FDA0",
+     "0x76FDC0",
+     "0x76FDE0",
+     "0x76FE10",
+     "0x76FE40",
+     "0x76FE60",
+     "0x76FEE0"
+    ],
+    "merged": [],
+    "name": "client/html/unknown_htmlblock.cpp",
+    "tiebreak": [
+     "0x76FEE0"
+    ]
+   },
    "unknown_listener": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -11767,7 +11816,9 @@
    "client/fontmanager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
+   "client/html/htmlview.h": "reconstructed",
    "client/html/unknown_htmlattrib.h": "reconstructed",
+   "client/html/unknown_htmlblock.h": "reconstructed",
    "client/influence.h": "reconstructed",
    "client/intrface.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
