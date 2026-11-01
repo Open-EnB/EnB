@@ -1708,7 +1708,7 @@ Base copy: reconstructed. Headers: 271 from reconstructed.
 | client/tutorial_manager.cpp | reconstructed | 49 | 4 | - | - | - |  |
 | common/udpconn.cpp | reconstructed | 39 | 1 | - | - | - |  |
 | client/ui_avatar_cust.cpp | reconstructed | 32 | 4 | - | - | - |  |
-| client/ui_avatr.cpp | reconstructed | 19 | 5 | - | - | - |  |
+| client/ui_avatr.cpp | reconstructed | 25 | 3 | - | - | - |  |
 | client/ui_avsel.cpp | reconstructed | 28 | 4 | - | - | - |  |
 | client/ui_chat_panel.cpp | reconstructed | 53 | 6 | - | - | - |  |
 | client/ui_combobox.cpp | reconstructed | 5 | 2 | - | - | - |  |

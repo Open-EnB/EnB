@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1106 |
 | 2 | describes what the code does | 2746 |
-| 1 | neutral placeholder | 9389 |
+| 1 | neutral placeholder | 9390 |
 
 ## For review (score 3 and below)
 
@@ -4470,7 +4470,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIAvatrFontManagerClass` | `app/client/ui_avatr.cpp:175` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |
 | 1 | `Unknown_6D25D0` | `app/client/ui_avatr.cpp:175` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_avatr.cpp:176` | 0xBE67C4 |
-| 1 | `UIAvatrCallbackBaseClass` | `app/client/ui_avatr.cpp:181` | neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220) |
+| 1 | `UIAvatrCallbackBaseClass` | `app/client/ui_avatr.cpp:182` | neutral (D10) |
 | 1 | `UIAvatrNotifierClass` | `app/client/ui_avatr.cpp:187` | neutral (D10) |
 | 1 | `Unknown_65ECE0` | `app/client/ui_avatr.cpp:192` | neutral (D10) |
 | 1 | `UIAvatrPartStruct` | `app/client/ui_avatr.cpp:195` | neutral (D10) |
@@ -4510,6 +4510,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_55BAC0` | `app/client/ui_avatr.cpp:288` | untagged neutral name (D10) |
 | 1 | `Unknown_559F30` | `app/client/ui_avatr.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_55BFB0` | `app/client/ui_avatr.cpp:290` | untagged neutral name (D10) |
+| 1 | `sender` | `app/client/ui_avatr.cpp:291` | as ui_avsel.h's |
 | 1 | `Unknown_55C280` | `app/client/ui_avatr.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_Palette` | `app/client/ui_avatr.cpp:292` | neutral (D10); NAME 1 [name]: neutral |
 | 1 | `Unknown084` | `app/client/ui_avatr.cpp:294` | untagged neutral name (D10) |
@@ -4541,7 +4542,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2EC` | `app/client/ui_avatr.cpp:320` | untagged neutral name (D10) |
 | 1 | `Unknown2F0` | `app/client/ui_avatr.cpp:321` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/ui_avatr.cpp:322` | untagged neutral name (D10) |
-| 1 | `UIAvatrCallbackClass` | `app/client/ui_avatr.cpp:326` | neutral (D10) |
+| 1 | `UIAvatrCallbackClass` | `app/client/ui_avatr.cpp:328` | neutral (D10) |
 | 1 | `Unknown64` | `app/client/ui_avatr.cpp:354` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_avatr.cpp:354` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_avatr.cpp:357` | untagged neutral name (D10) |

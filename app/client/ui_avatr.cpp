@@ -177,13 +177,13 @@ extern UIAvatrFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0x
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_cpit.cpp does
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
-// The gadget events' callbacks (sclient.cpp's SClientCallbackBaseClass, vtable 0xAEDB58) and what 0x65ECE0 returns
-class UIAvatrCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	~UIAvatrCallbackBaseClass() {}
-	virtual void Call();
-};
+// The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58) and what 0x65ECE0 returns
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::CallbackClass UIAvatrCallbackBaseClass;	// NAME 1 [UIAvatrCallbackBaseClass]: neutral (D10)
+class FlashingGadgetEvent;	// the client's RTTI (.?AVFlashingGadgetEvent@@)
+
+
+
 class UIAvatrNotifierClass		// NAME 1: neutral (D10)
 {
 public:
@@ -288,7 +288,7 @@ public:
 	void Unknown_55BAC0();								// 0x55BAC0
 	void Unknown_559F30();								// 0x559F30 (the destructor)
 	void Unknown_55BFB0();								// 0x55BFB0 (the height and weight texts)
-	void Unknown_55C280();								// 0x55C280 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler; its arguments not declared yet)
+	void Unknown_55C280(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x55C280 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler)  // NAME 1 [sender]: as ui_avsel.h's
 	void Unknown_Set_Palette(const char *name);		// 0x55C350 (the texture of that name onto the model's COLOR_PALETTE: ui_avatar_cust.cpp's 0x5513E0)  // NAME 1: neutral (D10); NAME 1 [name]: neutral
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
@@ -322,16 +322,16 @@ public:
 	UIAvatrUnknown2ECStruct *Unknown2F4;				// +0x2F4
 };
 
-// The window's FlashingGadgetEvent callback (vtable 0xAEF988 over 0xAEDB58)
-class UIAvatrCallbackClass : public UIAvatrCallbackBaseClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvatrCallbackClass(AvatarCreationInterface *object, void (AvatarCreationInterface::*function)()) : Object(object), Function(function) {}
-	virtual void Call();
+// The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAEF988 over 0xAEDB58; its
+// members out of line after the window's: the destructor 0x55C4C0, 0x55C4E0, 0x55C500, 0x55C520, 0x55C5A0 and the
+// deleting destructor 0x55C600)
+typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarCreationInterface, void (AvatarCreationInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIAvatrCallbackClass;	// NAME 1 [UIAvatrCallbackClass]: neutral (D10)
 
-	AvatarCreationInterface *Object;					// +0x04
-	void (AvatarCreationInterface::*Function)();		// +0x08 (8 bytes: two bases)
-};
+
+
+
+
+
 
 // 0x554B50
 AvatarCreationInterface::~AvatarCreationInterface()
@@ -356,7 +356,7 @@ AvatarCreationInterface::~AvatarCreationInterface()
 	Unknown_BE67C4->Remove(Unknown08C->Peek_Model());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_avatar00.ini");
 	Unknown08C->Unknown_67A9B0(0);
-	void (AvatarCreationInterface::*function)() = &AvatarCreationInterface::Unknown_55C280;
+	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
 	UIAvatrNotifierClass *notifier = Unknown_65ECE0();
 	UIAvatrCallbackClass callback(this, function);
 	notifier->Remove(0, &callback);
