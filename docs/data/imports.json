@@ -9790,14 +9790,16 @@
    },
    "ui_avatar_cust": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
      "0x550670",
-     "0x550970"
+     "0x550970",
+     "0x551270"
     ],
     "merged": [],
     "name": "client/ui_avatar_cust.cpp"
