@@ -4,6 +4,43 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-10-31 (22:05, night): the triage plan's runs, 17 Opus builders; +218 pairs; symbols.json regenerated (D173)
+
+Coordinator Opus 5.5. Base 20f0bf21 (PR #65 merged; `.work/imports.20f0bf21.json`); run branch `run/2026-10-31-t4`,
+PR #78. Plan log: `.work/run-2026-10-31-t4/plan.md`. The user's goal: keep building, weekly usage to 70 % within five
+hours (63 % at 17:50, 68 % at the handoff). HEAD against the base: **+218 pairs (app +146 written, +23 by tie-break; ww3d2 +3;
+wlib +46), 0 lost outright but D173's corrected false pair 0x723AB0**; the one move, 0x8C0FD0 delta_money -> unknown_login_data, is D66 (iii) / (v) (TK5).
+
+* **The previous session's handoff (the user's request at 18:05):** its 18:45 entry was an uncommitted hunk in the
+  tree, not on master (first misread as landed): committed here (e3f6a984). The rest of it was clean.
+* **Builders (TK1-TK19, Opus, each a few of the triage plan's runs or a lead from an earlier report):**
+  control_keys_manager (TK1, +7 and +13 tie-break; P-H11-2 solved: a hash_map value's private destructor with the map
+  as friend), attrib_dir (TK2, +6), fontdatabase / fontmanager (TK3, +7), wlib wtime.cpp complete from RenegadeGR's
+  copy and wlib built with /GX (TK4, +27), lookup_table / delta_money / policy (TK5, +16), ui_avatar_cust and the new
+  ui_avatr.cpp (TK6 / TK14 / TK15: 4 -> 32 and 0 -> 19; class names from the client's RTTI), wstring.cpp's E&B
+  revision (TK7, +19), cordcon (TK8 27 -> 48; TK17 forms only), landdmap / pkupdate (TK9 +9, TK18 +1), ui_line_display /
+  tutorial_manager (TK10, +13), dbgconn (TK11, +5), the new galaxy_map.cpp (TK12 / TK16, 0 -> 22), pkgadget /
+  client_lego_impl (TK13, +1 and 16 D99 rows), proj_man (TK19, +3). Hint verdicts: right in every run but one
+  (ui_avatar_dialog was ui_avatr.cpp by its __FILE__).
+* **Proposals for the user (§3):** P-TK3-1 / P-TK2-1 / P-TK5-1 (objmatch's caller tie-break over non-identical copies,
+  D80's survivors and folded symbols: +82 and +45 measured separately, 0 lost; land together after a full verify),
+  P-TK3-2 (EH funclets count as their parent's callers), P-TK7-1 (E&B's configfile / xtime revision: wlib +11 for 4
+  app template instances lost). P-TG4-2 updated (five dead finds).
+* **symbols.json (the previous handoff's first item):** on the quiet tree, a full verify recorded (292e9aa6: ui_avatr's
+  15 pairs were missing from imports.json). The regeneration with every library's objects gave +6 and lost 0x723AB0
+  outright (KVAccessorClass<UnknownB016DCType>'s ??_G, paired by D171's learned-slot self name until symbols.json
+  names it exact: AR1's class). SY1 found the loss is a false pair moving to its true address 0x4B2AA0 (the client's vtable layout); the user accepted it (D173) and the regeneration landed (dc424b62: +6, 0x723AB0 corrected; `.work/pseudo/` rebuilt). A regeneration feeds a run's late phases into its early ones (SY1's trap, workflow.md §3.4). symbols.py without `--objs` reads no objects (TK13's trap, hit
+  again here).
+* **Process:** GitHub's API rate limit (20:22-20:32) blocked claims and the PR sync; claims hang after it. Claims
+  released unused: #98, #99, #111, #116, #124, #128, #133, #134.
+* **Traps:** about 30 from the builders, in workflow.md §3.1-§3.9 (LC1's literal trap corrected: literals are merged
+  across objects).
+* **Next session first:** the user's calls on P-TK3-1 / P-TK2-1 / P-TK5-1 (one tie-break change, +82 / +45 measured,
+  landed after a full verify) and P-TK7-1; then the leads in §4's t4 bullets (ui_avatr / ui_avatar_cust, galaxy_map,
+  cordcon, landdmap) and the triage plan's remaining runs.
+* **Outside git:** `.work/run-2026-10-31-t4/` (plan log), `.work/sym2/` (the regeneration's verifies and objects),
+  `.work/tk*/`, `.work/sy1/` (builders' scratch: forms, patches, measurements named in §3 / §4).
+
 ### 2026-10-31 (18:45): handoff; D172 landed (the triage table tracked); master 20f0bf21
 
 * **State:** master 20f0bf21 holds the day's three runs (PR #41 +1,102, #64 +30, #65 D172); the tree is clean,
@@ -1721,8 +1758,9 @@ below name only the work items, the blocked work, the leads and the queues.
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
   bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
-* **symbols.json again** (quiet tree, full verify of every library, workflow.md §3.4) to record D171's +841, then
-  `.work/pseudo/` rebuilt.
+* **symbols.json** regenerated 2026-10-31 t4 (dc424b62, D173). Next time: the same procedure (workflow.md §3.4), every
+  `lost outright` checked against the client's vtable layout first. SY1's lead: D100's range (and the self name) could
+  reject a `??_G` / `??_E` whose vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
