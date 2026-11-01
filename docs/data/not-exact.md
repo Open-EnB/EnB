@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-426 entries in 90 files.
+425 entries in 90 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -77,7 +77,6 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:1973` | `Unknown714340Class::Unknown_1C` | mention | NOT EXACT ones say why above them (docs/data/not-exact.md). Forms that mattered: WW's Equal_Within_Epsilon before Slerp, In_Place_Pre_Rotate_Z for the turn, `float turn = Unknown80; turn += Unknown50;`, WWMath::Min / Max for the speed, assignment (not initialisation) of returned Vector3s where the client copies them, end_time (the parameter) in 0x7119B0. |
 | `app/client/font32bit.cpp:58` | `Font32Class::Minimize_Font_Image` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Minimize_Font_Image), no caller (0.87) |
 | `app/client/font32bit.cpp:105` | `Font32Class::Make_Proportional` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Make_Proportional with a fixed width for empty cells, 0.21) |
-| `app/client/font32bit.cpp:329` | `Font32Class::Load_Font_Image` | marker | NOT EXACT: (D64) written from the pseudocode (font3d.cpp Load_Font_Image, 0.80) |
 | `app/client/font32bit.cpp:435` | `Font32Class::Print_To_Surface` | marker | NOT EXACT: (D64) written from the pseudocode (0.68) |
 | `app/client/font32bit.cpp:506` | `Font32Class::Print` | marker | NOT EXACT: (D64) a prefix of the client's 81 bytes: the static's guard and atexit differ |
 | `app/client/fontdatabase.cpp:340` | `FontDatabaseClass::Load_String` | marker | NOT EXACT: register, 2 rows: the inlined Text += ' ' addresses [buffer + length] where the client has [length + buffer] |

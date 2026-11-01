@@ -326,7 +326,7 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 **	Loads the font image (font3d.cpp's Load_Font_Image): a strike (one row of characters) or a 16 x 16 grid
 **	made proportional; the image becomes A4R4G4B4.
 */
-// NOT EXACT: (D64) written from the pseudocode (font3d.cpp Load_Font_Image, 0.80)
+
 bool Font32Class::Load_Font_Image(const char * filename)
 {
 	Update_Resolution();
@@ -348,7 +348,7 @@ bool Font32Class::Load_Font_Image(const char * filename)
 		int column = 0;
 		int width = sd.Width;
 		for (int char_index = 0; char_index < 256; char_index++) {
-			if (char_index <= ' ') {
+			if (char_index < 0x21) {
 				UOffsetTable[char_index] = 0;
 				VOffsetTable[char_index] = 0;
 				UWidthTable[char_index] = 0;
@@ -369,13 +369,15 @@ bool Font32Class::Load_Font_Image(const char * filename)
 	} else {
 		float font_width = sd.Width;
 		float font_height = sd.Height;
+		int char_index = 0;
 		float mono_pixel_width = font_width * 0.0625f;
 		float mono_pixel_height = font_height * 0.0625f;
+		float u_width = mono_pixel_width / font_width;
 		unsigned char char_width = (unsigned char)mono_pixel_width;
-		for (int char_index = 0; char_index < 256; char_index++) {
+		for (; char_index < 256; char_index++) {
 			UOffsetTable[char_index] = (float)((char_index % 16) * mono_pixel_width) / font_width;
 			VOffsetTable[char_index] = (float)((char_index / 16) * mono_pixel_height) / font_height;
-			UWidthTable[char_index] = mono_pixel_width / font_width;
+			UWidthTable[char_index] = u_width;
 			CharWidthTable[char_index] = char_width;
 		}
 		VHeight = mono_pixel_height / font_height;
@@ -386,8 +388,6 @@ bool Font32Class::Load_Font_Image(const char * filename)
 	}
 	return(true);
 }
-
-
 
 
 
