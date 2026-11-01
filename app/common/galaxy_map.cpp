@@ -162,6 +162,36 @@ void GalaxyMapClass::Add_System(const RefCountPtr<GalaxyMapSystemClass> &system)
 	Systems[system->Get_Hash_ID()] = system;
 }
 
+
+// 0x837190
+void GalaxyMapClass::Add_Sector(const RefCountPtr<GalaxyMapSectorClass> &sector)
+{
+	FAIL_IF(!sector) return;
+	FAIL_IF(Sectors.find(sector->Get_Hash_ID()) != Sectors.end()) return;
+	Add_Data(sector);
+	Sectors[sector->Get_Hash_ID()] = sector;
+}
+
+
+// 0x8373F0
+void GalaxyMapClass::Add_Gate(const RefCountPtr<GalaxyMapGateClass> &gate)
+{
+	FAIL_IF(!gate) return;
+	FAIL_IF(Gates.find(gate->Get_Hash_ID()) != Gates.end()) return;
+	Add_Data(gate);
+	Gates[gate->Get_Hash_ID()] = gate;
+}
+
+
+// 0x837650
+void GalaxyMapClass::Add_Starbase(const RefCountPtr<GalaxyMapStarbaseClass> &starbase)
+{
+	FAIL_IF(!starbase) return;
+	FAIL_IF(Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()) return;
+	Add_Data(starbase);
+	Starbases[starbase->Get_Hash_ID()] = starbase;
+}
+
 // 0x8378B0
 const RefCountPtr<GalaxyMapDataClass> &GalaxyMapClass::Get_Data(unsigned int id)
 {
@@ -233,7 +263,7 @@ RefCountPtr<GalaxyMapSystemClass> GalaxyMapSystemClass::Create()
 **	order), the base's Read / Write (out of line: they precede the factory, the header's inline
 **	virtuals follow it) and the system's factory 0x837C70 (galaxy_map_client.cpp's 0x7A4FC0 reads
 **	the new system and adds it through Add_System 0x836F30, whose FAIL_IFs sit on the client's lines
-**	159 / 160; the blank lines above it hold that layout). Not built yet: 0x8360A0-0x836B70 (the
-**	header's inline functions and Add_Data 0x836960 among them), 0x837190, 0x8373F0 and Add_Starbase
-**	0x837650 (lines 189 / 190): the lookups move below them when they are added.
+**	159 / 160; the blank lines above it hold that layout); Add_Sector / Add_Gate / Add_Starbase
+**	0x837190 / 0x8373F0 / 0x837650 the same, FAIL_IFs on 169 / 170, 179 / 180, 189 / 190. Not built
+**	yet: 0x8360A0-0x836B70 (the header's inline functions and Add_Data 0x836960 among them).
 */

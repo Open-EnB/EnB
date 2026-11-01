@@ -227,6 +227,9 @@ public:
 	virtual ~GalaxyMapClass();
 
 	void Add_System(const RefCountPtr<GalaxyMapSystemClass> &system);				// 0x836F30 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()'
+	void Add_Sector(const RefCountPtr<GalaxyMapSectorClass> &sector);				// 0x837190  // NAME 2: FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()'
+	void Add_Gate(const RefCountPtr<GalaxyMapGateClass> &gate);						// 0x8373F0  // NAME 2: FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()'
+	void Add_Starbase(const RefCountPtr<GalaxyMapStarbaseClass> &starbase);			// 0x837650  // NAME 2: FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()'
 	void Add_Data(const RefCountPtr<GalaxyMapDataClass> &data);						// 0x836960 (not built)  // NAME 2: Add_System's first call, before Systems[]
 
 	const RefCountPtr<GalaxyMapDataClass> &Get_Data(unsigned int id);				// 0x8378B0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: returns AllData[id]

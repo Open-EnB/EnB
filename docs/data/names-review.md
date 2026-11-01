@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1080 |
-| 2 | describes what the code does | 2585 |
+| 2 | describes what the code does | 2588 |
 | 1 | neutral placeholder | 8233 |
 
 ## For review (score 3 and below)
@@ -9318,11 +9318,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GalaxyMapStarbaseClass` | `app/common/galaxy_map.h:221` | galaxy_map.cpp's 'starbase_it == Starbases.end()' |
 | 2 | `GalaxyMapClass` | `app/common/galaxy_map.h:224` | holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts |
 | 2 | `Add_System` | `app/common/galaxy_map.h:229` | FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()' |
-| 2 | `Add_Data` | `app/common/galaxy_map.h:230` | Add_System's first call, before Systems[] |
-| 2 | `Get_Data` | `app/common/galaxy_map.h:232` | returns AllData[id] |
-| 2 | `Get_System` | `app/common/galaxy_map.h:233` | Systems.find |
-| 2 | `Get_Sector` | `app/common/galaxy_map.h:234` | Sectors.find |
-| 2 | `Get_Starbase` | `app/common/galaxy_map.h:235` | Starbases.find |
+| 2 | `Add_Sector` | `app/common/galaxy_map.h:230` | FAIL_IF 'Sectors.find(sector->Get_Hash_ID()) != Sectors.end()' |
+| 2 | `Add_Gate` | `app/common/galaxy_map.h:231` | FAIL_IF 'Gates.find(gate->Get_Hash_ID()) != Gates.end()' |
+| 2 | `Add_Starbase` | `app/common/galaxy_map.h:232` | FAIL_IF 'Starbases.find(starbase->Get_Hash_ID()) != Starbases.end()' |
+| 2 | `Add_Data` | `app/common/galaxy_map.h:233` | Add_System's first call, before Systems[] |
+| 2 | `Get_Data` | `app/common/galaxy_map.h:235` | returns AllData[id] |
+| 2 | `Get_System` | `app/common/galaxy_map.h:236` | Systems.find |
+| 2 | `Get_Sector` | `app/common/galaxy_map.h:237` | Sectors.find |
+| 2 | `Get_Starbase` | `app/common/galaxy_map.h:238` | Starbases.find |
 | 2 | `std:` | `app/common/lego_identifier.cpp:29` | what it holds |
 | 2 | `Separator` | `app/common/lego_identifier.cpp:32` | what it holds |
 | 2 | `LegoTypeStruct` | `app/common/lego_identifier.cpp:34` | what it holds |
@@ -11158,11 +11161,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Hash_ID` | `app/common/galaxy_map.h:170` | galaxy_map.cpp's 'Systems.find(system->Get_Hash_ID())' |
 | 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
 | 3 | `GalaxyMapID` | `app/common/galaxy_map.h:174` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:237` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:238` | the asserts' |
-| 3 | `std:` | `app/common/galaxy_map.h:239` | the asserts' |
 | 3 | `std:` | `app/common/galaxy_map.h:240` | the asserts' |
 | 3 | `std:` | `app/common/galaxy_map.h:241` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:242` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:243` | the asserts' |
+| 3 | `std:` | `app/common/galaxy_map.h:244` | the asserts' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
