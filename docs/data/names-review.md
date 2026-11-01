@@ -7547,11 +7547,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ExtraOut` | `app/wwudp/bandwidthaccounting.cpp:44` | +0x14 |
 | 1 | `ExtraBwIn` | `app/wwudp/bandwidthaccounting.cpp:47` | +0x20 |
 | 1 | `ExtraBwOut` | `app/wwudp/bandwidthaccounting.cpp:48` | +0x24 |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:197` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:200` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordcon.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/wwudp/cordcon.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordcon.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/wwudp/cordcon.cpp:211` | untagged neutral name (D10) |
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:60` | stand-in for wlib's LinkedList<T> |
 | 1 | `Unknown28` | `app/wwudp/cordcon.h:309` | untagged neutral name (D10) |
 | 1 | `idle` | `app/wwudp/cordcon.h:360` | after openc / read |
@@ -10331,10 +10331,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortCountdown` | `app/wwudp/bandwidthaccounting.cpp:98` | 0xBB13EC |
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
-| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1264` | what it does (the client has no name) |
-| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1274` | what it does (the client has no name) |
-| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1284` | what it does (the client has no name) |
-| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1297` | what it does (the client has no name) |
+| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1257` | what it does (the client has no name) |
+| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1267` | what it does (the client has no name) |
+| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1277` | what it does (the client has no name) |
+| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1290` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:229` | describes what it holds |

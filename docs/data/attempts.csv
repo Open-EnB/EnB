@@ -1068,3 +1068,8 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 19:50,0x8AC980,AdvancedPositionalUpdatePacketClass::Get_Priority,app/packets/pkupdate.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (TK9); inline in pkupdate.h",,opus
 2026-10-31 19:50,0x8AC9A0,AdvancedPositionalUpdatePacketClass::Is_Reliable,app/packets/pkupdate.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (TK9); inline in pkupdate.h",,opus
 2026-10-31 19:50,0x8AC9F0,AdvancedPositionalUpdatePacketClass::~AdvancedPositionalUpdatePacketClass,app/packets/pkupdate.cpp,app,exact,,1,,"D99: too short for the matcher, the implicit destructor (PacketClass's vtable store; the scalar deleting dtor 0x8AC9C0 calls it), objdiff 0 rows but the vtable relocation (TK9)",,opus
+2026-10-31 19:52,0x84E570,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
+2026-10-31 19:52,0x84E770,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
+2026-10-31 19:52,0x84E930,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
+2026-10-31 19:52,0x84EC30,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5
+2026-10-31 19:52,0x84EEB0,,app/wwudp/cordcon.cpp,app,exact,1.00,3,,,,claude-opus-5-5

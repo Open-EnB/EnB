@@ -151,18 +151,11 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 	Index = from.Index;
 }
 
+// 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessageClass's
+// destructor leaves them; Free 0x85BEC0 is called where a record is dropped).
 CordChannelClass::~CordChannelClass()
 {
-	size_t i;
-	for (i = 0; i < Queue.size(); i++) {
-		Queue[i].Free();
-	}
-	for (i = 0; i < Sent.size(); i++) {
-		Sent[i].Free();
-	}
-	for (int k = 0; k < Incoming.Length(); k++) {
-		(*Incoming.Get(k)).Free();
-	}
+	Reset();
 }
 
 // 0x84E770
@@ -177,9 +170,9 @@ void CordChannelClass::Reset()
 	Expected = 0;
 	NextSequenced = 0;
 	LastSeq = 0;
-	Queue.erase(Queue.begin(), Queue.end());
+	Queue.clear();
 	Incoming.Clear();
-	Sent.erase(Sent.begin(), Sent.end());
+	Sent.clear();
 	ToAck.clear();
 	Missing.clear();
 }
