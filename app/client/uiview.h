@@ -36,17 +36,7 @@ public:
 };
 
 // gadget_list_manager.cpp's manager (UIViewClass +0x2C; 0x4C bytes, constructor 0x6611B0, destructor 0x661430)
-class GadgetListManagerClass	// NAME 3: class-from-file (D24) for app\client\gadget_list_manager.cpp
-{
-public:
-	GadgetListManagerClass();							// 0x6611B0
-	~GadgetListManagerClass();							// 0x661430
-	void Unknown_661700(GadgetClass *gadget);			// 0x661700 (gadget.cpp's slot +0x54: put in)  // NAME 1 [gadget]: neutral
-	void Unknown_6617E0(GadgetClass *gadget);			// 0x6617E0 (slot +0x58: taken out)  // NAME 1 [gadget]: neutral
-	GadgetClass *Unknown_661AA0(int a, int b);			// 0x661AA0  // NAME 1 [a, b]: neutral
-
-	char Unknown00[0x4C];
-};
+#include "gadget_list_manager.h"
 
 // UIViewClass +0x30 (0x70 bytes, constructor 0x6AB320, destructor 0x6AB4D0)
 class UIViewUnknown30Class	// NAME 1: neutral (D10)

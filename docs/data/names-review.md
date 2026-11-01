@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1106 |
-| 2 | describes what the code does | 2746 |
-| 1 | neutral placeholder | 9390 |
+| 3 | by convention from a client-named file or sibling | 1109 |
+| 2 | describes what the code does | 2750 |
+| 1 | neutral placeholder | 9426 |
 
 ## For review (score 3 and below)
 
@@ -1807,32 +1807,74 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6608F0` | `app/client/gadget.h:110` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_00` | `app/client/gadget.h:111` | neutral (D10) |
 | 1 | `Unknown2C_00` | `app/client/gadget.h:111` | untagged neutral name (D10) |
-| 1 | `Toggle_Unknown2C_00` | `app/client/gadget.h:112` | neutral (D10) |
-| 1 | `Unknown_6609A0` | `app/client/gadget.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/gadget.h:116` | untagged neutral name (D10) |
-| 1 | `Mask` | `app/client/gadget.h:118` | neutral (D10) |
-| 1 | `Owner` | `app/client/gadget.h:120` | neutral (D10) |
-| 1 | `Unknown1C` | `app/client/gadget.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/gadget.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/gadget.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown2C_02` | `app/client/gadget.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown2C_03` | `app/client/gadget.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown2C_04` | `app/client/gadget.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown2C_06` | `app/client/gadget.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown2C_07` | `app/client/gadget.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown2C_08` | `app/client/gadget.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/gadget.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/gadget.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0E` | `app/client/gadget.h:139` | untagged neutral name (D10) |
-| 1 | `InterfaceDeactivationGadgetClass` | `app/client/gadget.h:143` | neutral (D10) |
-| 1 | `a, b, c, d, e` | `app/client/gadget.h:146` | neutral |
-| 1 | `Unknown30` | `app/client/gadget.h:150` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/gadget.h:160` | neutral |
-| 1 | `Gadget` | `app/client/gadget.h:162` | neutral (D10) |
-| 1 | `iface` | `app/client/gadget.h:168` | neutral |
-| 1 | `Interface` | `app/client/gadget.h:170` | neutral (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/gadget.h:173` | neutral (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/gadget.h:174` | neutral (D10) |
+| 1 | `Get_Interface` | `app/client/gadget.h:112` | neutral (D10): what it returns |
+| 1 | `Unknown08` | `app/client/gadget.h:112` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/gadget.h:113` | neutral (D10) |
+| 1 | `Unknown2C_02` | `app/client/gadget.h:113` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_04` | `app/client/gadget.h:114` | neutral (D10) |
+| 1 | `Unknown2C_04` | `app/client/gadget.h:114` | untagged neutral name (D10) |
+| 1 | `Toggle_Unknown2C_00` | `app/client/gadget.h:117` | neutral (D10) |
+| 1 | `Unknown_6609A0` | `app/client/gadget.h:118` | untagged neutral name (D10) |
+| 1 | `Mask` | `app/client/gadget.h:123` | neutral (D10) |
+| 1 | `Owner` | `app/client/gadget.h:125` | neutral (D10) |
+| 1 | `Unknown1C` | `app/client/gadget.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/gadget.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/gadget.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown2C_03` | `app/client/gadget.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown2C_06` | `app/client/gadget.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown2C_07` | `app/client/gadget.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown2C_08` | `app/client/gadget.h:138` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/gadget.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/gadget.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0E` | `app/client/gadget.h:144` | untagged neutral name (D10) |
+| 1 | `InterfaceDeactivationGadgetClass` | `app/client/gadget.h:148` | neutral (D10) |
+| 1 | `a, b, c, d, e` | `app/client/gadget.h:151` | neutral |
+| 1 | `Unknown30` | `app/client/gadget.h:155` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/gadget.h:165` | neutral |
+| 1 | `Gadget` | `app/client/gadget.h:167` | neutral (D10) |
+| 1 | `iface` | `app/client/gadget.h:173` | neutral |
+| 1 | `Interface` | `app/client/gadget.h:175` | neutral (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gadget.h:178` | neutral (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gadget.h:179` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/gadget_list_manager.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/gadget_list_manager.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/gadget_list_manager.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_661610` | `app/client/gadget_list_manager.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_661B40` | `app/client/gadget_list_manager.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_661700` | `app/client/gadget_list_manager.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_661BB0` | `app/client/gadget_list_manager.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_6617E0` | `app/client/gadget_list_manager.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/gadget_list_manager.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_661940` | `app/client/gadget_list_manager.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_661AA0` | `app/client/gadget_list_manager.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gadget_list_manager.cpp:139` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/gadget_list_manager.cpp:139` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_04` | `app/client/gadget_list_manager.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_661DA0` | `app/client/gadget_list_manager.cpp:218` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/gadget_list_manager.h:28` | neutral (D10) |
+| 1 | `iface` | `app/client/gadget_list_manager.h:42` | neutral |
+| 1 | `Unknown_661610` | `app/client/gadget_list_manager.h:42` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/gadget_list_manager.h:43` | the FAIL_IF's |
+| 1 | `Unknown_661700` | `app/client/gadget_list_manager.h:43` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/gadget_list_manager.h:44` | neutral |
+| 1 | `Unknown_6617E0` | `app/client/gadget_list_manager.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_661940` | `app/client/gadget_list_manager.h:45` | untagged neutral name (D10) |
+| 1 | `shown, flag` | `app/client/gadget_list_manager.h:46` | neutral |
+| 1 | `Unknown_661AA0` | `app/client/gadget_list_manager.h:46` | untagged neutral name (D10) |
+| 1 | `list` | `app/client/gadget_list_manager.h:47` | neutral |
+| 1 | `Unknown_661B40` | `app/client/gadget_list_manager.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_661BB0` | `app/client/gadget_list_manager.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/gadget_list_manager.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/gadget_list_manager.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/gadget_list_manager.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/gadget_list_manager.h:54` | untagged neutral name (D10) |
+| 1 | `GadgetListIteratorClass` | `app/client/gadget_list_manager.h:58` | neutral (D10) |
+| 1 | `manager` | `app/client/gadget_list_manager.h:61` | the member's |
+| 1 | `first` | `app/client/gadget_list_manager.h:63` | neutral |
+| 1 | `Unknown_661DA0` | `app/client/gadget_list_manager.h:63` | untagged neutral name (D10) |
+| 1 | `Get` | `app/client/gadget_list_manager.h:65` | neutral (D10) |
+| 1 | `std:` | `app/client/gadget_list_manager.h:68` | neutral (D10) |
+| 1 | `GadgetListType:` | `app/client/gadget_list_manager.h:69` | neutral (D10) |
 | 1 | `Unknown7C` | `app/client/galaxy_map_client.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/galaxy_map_client.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.cpp:83` | untagged neutral name (D10) |
@@ -7033,16 +7075,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `camera` | `app/client/uiview.h:33` | what they pass |
 | 1 | `Unknown_6DA760` | `app/client/uiview.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/uiview.h:35` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/uiview.h:44` | neutral |
-| 1 | `Unknown_661700` | `app/client/uiview.h:44` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/uiview.h:45` | neutral |
-| 1 | `Unknown_6617E0` | `app/client/uiview.h:45` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/client/uiview.h:46` | neutral |
-| 1 | `Unknown_661AA0` | `app/client/uiview.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/uiview.h:48` | untagged neutral name (D10) |
-| 1 | `UIViewUnknown30Class` | `app/client/uiview.h:52` | neutral (D10) |
-| 1 | `view` | `app/client/uiview.h:55` | what Init passes |
-| 1 | `Unknown_6AB5B0` | `app/client/uiview.h:57` | untagged neutral name (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/uiview.h:42` | neutral (D10) |
+| 1 | `view` | `app/client/uiview.h:45` | what Init passes |
+| 1 | `Unknown_6AB5B0` | `app/client/uiview.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/uiview.h:49` | untagged neutral name (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -9903,7 +9939,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `manager` | `app/client/gadget.h:102` | the FAIL_IF's; NAME 1 [a, b]: neutral |
 | 2 | `Set_First_Sort_Group` | `app/client/gadget.h:106` | the FAIL_IFs; NAME 1 [on]: neutral |
 | 2 | `Set_Last_Sort_Group` | `app/client/gadget.h:107` | the FAIL_IFs; NAME 1 [on]: neutral |
-| 2 | `Id` | `app/client/gadget.h:115` | what slot +0x2C writes into the event |
+| 2 | `Is_First_Sort_Group` | `app/client/gadget.h:115` | as Set_First_Sort_Group |
+| 2 | `Is_Last_Sort_Group` | `app/client/gadget.h:116` | as Set_Last_Sort_Group |
+| 2 | `Id` | `app/client/gadget.h:120` | what slot +0x2C writes into the event |
+| 2 | `name` | `app/client/gadget_list_manager.h:45` | the FAIL_IF's |
+| 2 | `gadget, add` | `app/client/gadget_list_manager.h:48` | the asserts' |
 | 2 | `Load_Ini` | `app/client/galaxy_map_client.h:32` | reads galaxy_map_c.ini's [GalaxyMap] |
 | 2 | `Size` | `app/client/galaxy_map_client.h:47` | the ini's 'Size' |
 | 2 | `SystemPosScale` | `app/client/galaxy_map_client.h:48` | the ini's |
@@ -12252,11 +12292,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Change_Text` | `app/client/fontmanager.h:49` | the client's label |
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:101` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `gadget.h` | `app/client/gadget.h:20` | header name assumed from the client's gadget.cpp |
-| 3 | `Flash` | `app/client/gadget.h:122` | the asserts' |
-| 3 | `InList` | `app/client/gadget.h:126` | the FAIL_IFs' |
-| 3 | `Destroyed` | `app/client/gadget.h:134` | the assert's |
-| 3 | `FirstSortGroup` | `app/client/gadget.h:137` | the FAIL_IF's |
-| 3 | `LastSortGroup` | `app/client/gadget.h:138` | the FAIL_IF's |
+| 3 | `Flash` | `app/client/gadget.h:127` | the asserts' |
+| 3 | `InList` | `app/client/gadget.h:131` | the FAIL_IFs' |
+| 3 | `Destroyed` | `app/client/gadget.h:139` | the assert's |
+| 3 | `FirstSortGroup` | `app/client/gadget.h:142` | the FAIL_IF's |
+| 3 | `LastSortGroup` | `app/client/gadget.h:143` | the FAIL_IF's |
+| 3 | `gadget_list_manager.h` | `app/client/gadget_list_manager.h:18` | header name assumed from the client's gadget_list_manager.cpp |
+| 3 | `GadgetListManagerClass` | `app/client/gadget_list_manager.h:36` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
+| 3 | `std:` | `app/client/gadget_list_manager.h:50` | the assert's |
+| 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
@@ -12486,7 +12530,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bar` | `app/client/ui_scut.h:86` | the FAIL_IF's; NAME 1 [gadget, group, bttn_idx]: 0x611BD0's |
 | 3 | `gadget, bar, group, bttn_idx` | `app/client/ui_scut.h:88` | the FAIL_IFs' |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
-| 3 | `GadgetListManagerClass` | `app/client/uiview.h:39` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:10` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |

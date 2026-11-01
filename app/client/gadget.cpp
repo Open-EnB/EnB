@@ -415,7 +415,7 @@ bool GadgetClass::Unknown_34(GadgetEventStruct *event, float x, float y, unsigne
 
 
 
-GadgetClass *GadgetClass::Unknown_65F5F0(GadgetListManagerClass *manager, int a, int b)
+GadgetClass *GadgetClass::Unknown_65F5F0(GadgetListManagerClass *manager, bool a, bool b)
 {
 	FAIL_IF(!manager) return(NULL);
 	return(manager->Unknown_661AA0(a, b));

@@ -99,7 +99,7 @@ public:
 	void Set_Unknown14(const char *text);								// 0x65F2D0 (the tooltip's text; ui_chat_panel.cpp passes NULL)  // NAME 1: neutral (D10): the member it sets; NAME 1 [text]: neutral
 	const char *Get_Unknown14() { return(Unknown14); }					// 0x65F320  // NAME 1: neutral (D10): the member it returns
 	static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...);	// 0x65F340 ('_%d' after the name)  // NAME 2: describes what it does; NAME 1 [gadget, format]: neutral
-	static GadgetClass *Unknown_65F5F0(GadgetListManagerClass *manager, int a, int b);	// 0x65F5F0 (FAIL_IF '!manager': the manager's 0x661AA0)  // NAME 2 [manager]: the FAIL_IF's; NAME 1 [a, b]: neutral
+	static GadgetClass *Unknown_65F5F0(GadgetListManagerClass *manager, bool a, bool b);	// 0x65F5F0 (FAIL_IF '!manager': the manager's 0x661AA0)  // NAME 2 [manager]: the FAIL_IF's; NAME 1 [a, b]: neutral
 	static GadgetEventStruct Process_Input(GadgetListManagerClass *manager);	// 0x65F780 (the input queue's next event to the manager's gadgets)  // NAME 1: describes what it does; NAME 1 [manager]: neutral
 	void Unknown_65FFA0(int arg);										// 0x65FFA0 (+0x0C; ui_group.cpp passes -1)  // NAME 1 [arg]: neutral
 	void Unknown_65FFC0(int arg, GadgetClass *gadget);					// 0x65FFC0 (+0x0C: the gadget's, or this one's, plus arg)  // NAME 1 [arg, gadget]: neutral
@@ -109,6 +109,11 @@ public:
 	void Unknown_6607D0();												// 0x6607D0 (the flash stopped, FlashingGadgetEvent)
 	void Unknown_6608F0();												// 0x6608F0 (the flash's clone to the model's transform)
 	bool Is_Unknown2C_00() { return(Unknown2C_00); }					// 0x660940  // NAME 1: neutral (D10)
+	InterfaceClass *Get_Interface() { return(Unknown08); }				// (inline: gadget_list_manager.cpp's 0x661BB0 copies it)  // NAME 1: neutral (D10): what it returns
+	bool Is_Unknown2C_02() { return(Unknown2C_02); }					// (inline: gadget_list_manager.cpp's 0x661AA0)  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_04() { return(Unknown2C_04); }					// (inline: 0x661AA0)  // NAME 1: neutral (D10)
+	bool Is_First_Sort_Group() { return(FirstSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_First_Sort_Group
+	bool Is_Last_Sort_Group() { return(LastSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_Last_Sort_Group
 	void Toggle_Unknown2C_00();											// 0x660960 (bit 0, with +0x28's half second)  // NAME 1: neutral (D10)
 	void Unknown_6609A0();												// 0x6609A0 (FAIL_IF '!Flash': the flash's frame)
 
