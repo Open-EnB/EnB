@@ -62,6 +62,22 @@ class Corrections(unittest.TestCase):
             got, rest = pairs_cmp.split_corrections(lost, gained, [self.E])
             self.assertEqual((got, rest), ([], sorted(lost)), gained)
 
+    def test_moved_to_null_is_a_decided_loss(self):
+        d = dict(self.E, address='0x77AA10', lib='wlib', file='configfile', moved_to=None, decision='D175')
+        lost = [('wlib', 'configfile', '0x77aa10'), ('wlib', 'xtime', '0x77AA10')]
+        got, rest = pairs_cmp.split_corrections(lost, [], [d])
+        self.assertEqual([x for _, x in got], [('wlib', 'configfile', '0x77aa10')])
+        self.assertEqual(rest, [('wlib', 'xtime', '0x77AA10')])
+        res = {'verdict': 'success', 'summary': '+11 pairs, 0 lost, 1 corrected (accepted: D175)', 'merge': 'm' * 9,
+               'base': 'b' * 9, 'when': 'now', 'corrected': [('wlib', 'configfile', '0x77AA10', None, 'D175')]}
+        self.assertIn('wlib configfile 0x77AA10 (decided loss) (accepted: D175)',
+                      verify_pr.report({'head': 'h' * 9}, res))
+
+    def test_the_shipped_list_names_d175s_four(self):
+        got = {(e['lib'], e['file'], e['address']) for e in pairs_cmp.load_corrections()
+               if e['decision'] == 'D175' and e['moved_to'] is None}
+        self.assertEqual(got, {('wlib', 'configfile', a) for a in ('0x77AA10', '0x77B030', '0x77B690', '0x850820')})
+
     def test_the_shipped_list_names_d173(self):
         entries = pairs_cmp.load_corrections()
         self.assertTrue(all(set(e) >= {'address', 'lib', 'file', 'moved_to', 'decision', 'note'} for e in entries))

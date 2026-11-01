@@ -445,8 +445,11 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
     `??_G KVAccessorClass<UnknownB016DCType>` 0x723AB0 -> 0x4B2AA0). When such a pair is lost and the same lib and
     file gain `moved_to` in the same comparison, `pairs_cmp.py` prints it as `corrected (accepted: D173) [...]` and
     leaves it out of `lost`, `lost outright` and `moves`, and `verify_pr.py` does not fail on it and names it in the
-    status and the comment. Otherwise it is a loss as before. The list is read from master's checkout, so a PR
-    cannot add its own.
+    status and the comment. Otherwise it is a loss as before. An entry with `moved_to: null` is a decided loss
+    (D175: wlib `configfile` 0x77AA10, 0x77B030, 0x77B690, 0x850820, app template / iostream instances that only
+    matchbot's configfile instantiated): its loss from that lib and file passes with no gain asked for, named as
+    `(decided loss)`. The list is read from master's checkout, so a PR cannot add its own: the entries land in a
+    tools PR before the PR that loses the pairs.
   * The master ruleset requires `checks` and `vc6-verify` (no bypass actors).
 
 #### 4.5.6 Build order (before the repository goes public)

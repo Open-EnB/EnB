@@ -24,8 +24,8 @@
    saved to .work/verify/prPR.json. --no-post prints only.
 
 A lost pair that docs/data/accepted-corrections.json lists (a false pair the user ruled on, D173), whose
-`moved_to` the same file gains in this verify, is not a loss: it is named in the status and the comment as
-corrected. The list is read from this checkout (master's), never from the PR.
+`moved_to` the same file gains in this verify (or whose `moved_to` is null: a decided loss, D175), is not a loss: it
+is named in the status and the comment as corrected. The list is read from this checkout (master's), never from the PR.
 
 The tools run are this checkout's own (and, through the gate, the PR's equal them). The PR's C++ reaches only
 a build VM's compiler.
@@ -136,7 +136,8 @@ def report(pr, res):
             lines += ['```', '</details>']
     if res.get('corrected'):
         lines += ['', 'Accepted corrections (docs/data/accepted-corrections.json; not losses):']
-        lines += [f'* {lib} {f} {a} -> {to} (accepted: {dec})' for lib, f, a, to, dec in res['corrected']]
+        lines += [f'* {lib} {f} {a} ' + (f'-> {to}' if to else '(decided loss)') + f' (accepted: {dec})'
+                  for lib, f, a, to, dec in res['corrected']]
     if res.get('moves'):
         lines += ['', f'D66 moves (a lost pair whose address another file holds): {len(res["moves"])}; '
                       f'lost outright: {len(res["outright"])}.']

@@ -1,5 +1,5 @@
 {
- "about": "Hand-maintained (not generated): false pairs the user ruled on. tools/vc6/pairs_cmp.py and verify_pr.py do not count such a pair as lost when the same comparison gains moved_to for the same lib and file. One entry per decision; docs/github-plan.md 4.5.5.",
+ "about": "Hand-maintained (not generated): false pairs and decided losses the user ruled on. tools/vc6/pairs_cmp.py and verify_pr.py do not count such a pair as lost when the same comparison gains moved_to for the same lib and file, or when moved_to is null (a decided loss, D175). One entry per decision; docs/github-plan.md 4.5.5.",
  "corrections": [
   {
    "address": "0x723AB0",
@@ -8,6 +8,38 @@
    "moved_to": "0x4B2AA0",
    "decision": "D173",
    "note": "??_G KVAccessorClass<UnknownB016DCType>: a false pair. Our ??_7 has 4 slots like the client's 0xAEB4BC, whose slot 0 is 0x4B2AA0; 0x723AB0 is slot 0 of the 2-slot vtable 0xB02C84."
+  },
+  {
+   "address": "0x77AA10",
+   "lib": "wlib",
+   "file": "configfile",
+   "moved_to": null,
+   "decision": "D175",
+   "note": "ArrayList<Wstring>::~ArrayList: an app template / iostream instance, called from 0x779520 and EH funclets 0xACE2B0..0xACE440, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+  },
+  {
+   "address": "0x77B030",
+   "lib": "wlib",
+   "file": "configfile",
+   "moved_to": null,
+   "decision": "D175",
+   "note": "Dictionary<Wstring,Wstring>::keyHash: an app template / iostream instance, called from 0x779520, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+  },
+  {
+   "address": "0x77B690",
+   "lib": "wlib",
+   "file": "configfile",
+   "moved_to": null,
+   "decision": "D175",
+   "note": "ArrayList<Wstring>::growVector: an app template / iostream instance, called from 0x779860, an unattributed app file 0x7772C0-0x77B7D0. Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
+  },
+  {
+   "address": "0x850820",
+   "lib": "wlib",
+   "file": "configfile",
+   "moved_to": null,
+   "decision": "D175",
+   "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built."
   }
  ]
 }
