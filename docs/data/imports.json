@@ -10852,6 +10852,48 @@
      "0x5AABF0"
     ]
    },
+   "ui_login": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x4FDB50"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x5AD350",
+     "0x5AD380",
+     "0x5AD540",
+     "0x5AE120",
+     "0x5AE160",
+     "0x5AE240",
+     "0x5AE320",
+     "0x5AE390",
+     "0x5AE450",
+     "0x5AE590",
+     "0x5AE7F0",
+     "0x5AE8E0",
+     "0x5AE9D0",
+     "0x5AEF50",
+     "0x5AF150",
+     "0x5AF230",
+     "0x5AF710",
+     "0x5AF780"
+    ],
+    "merged": [],
+    "name": "client/ui_login.cpp"
+   },
    "ui_manu": {
     "ambiguous": [
      "0x42A6C0",
