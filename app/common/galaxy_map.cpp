@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\galaxy_map.cpp. Notes at the end of the file.
 #include "galaxy_map.h"
 #include "..\shared\auxdata\linearbu.h"
-
+#include "..\shared\unique_design_id_lookup.h"
 
 // 0x835DD0
 GalaxyMapClass::GalaxyMapClass() :
@@ -272,14 +272,170 @@ void GalaxyMapSystemClass::Set(int hash_id, const std::string &name, const Vecto
 	Unknown3C = unknown3c;
 }
 
+// 0x8381B0
+void GalaxyMapSystemClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(&GalaxyMapID, 4);
+	buffer->Read(&HashID, 4);
+	char *name = buffer->Read_String();
+	Name = name;
+	delete name;
+	buffer->Read(&Unknown20, 12);
+	buffer->Read(&Unknown2C, 12);
+	buffer->Read(&Unknown38, 4);
+	buffer->Read(&Unknown3C, 4);
+}
+
+// 0x838320
+void GalaxyMapSystemClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(&GalaxyMapID, 4);
+	buffer->Write(&HashID, 4);
+	buffer->Write_String(Name.c_str());
+	buffer->Write(&Unknown20, 12);
+	buffer->Write(&Unknown2C, 12);
+	buffer->Write(&Unknown38, 4);
+	buffer->Write(&Unknown3C, 4);
+}
+
+// 0x8383B0
+RefCountPtr<GalaxyMapSectorClass> GalaxyMapSectorClass::Create()
+{
+	return Create_NEW(new GalaxyMapSectorClass);
+}
+
+// 0x8384A0
+GalaxyMapSectorClass::GalaxyMapSectorClass() :
+	HashID(-1),
+	Unknown10(-1),
+	Unknown24(-1)
+{
+}
+
+// 0x8385F0
+void GalaxyMapSectorClass::Set(int hash_id, int unknown10, const std::string &name, int unknown24, const Vector3 &unknown28, int unused)
+{
+	HashID = hash_id;
+	Unknown10 = unknown10;
+	Name = name;
+	Unknown24 = unknown24;
+	Unknown28 = unknown28;
+}
+
+// 0x838780
+void GalaxyMapSectorClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(&GalaxyMapID, 4);
+	buffer->Read(&HashID, 4);
+	buffer->Read(&Unknown10, 4);
+	char *name = buffer->Read_String();
+	Name = name;
+	delete name;
+	buffer->Read(&Unknown24, 4);
+	buffer->Read(&Unknown28, 12);
+}
+
+// 0x8388E0
+void GalaxyMapSectorClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(&GalaxyMapID, 4);
+	buffer->Write(&HashID, 4);
+	buffer->Write(&Unknown10, 4);
+	buffer->Write_String(Name.c_str());
+	buffer->Write(&Unknown24, 4);
+	buffer->Write(&Unknown28, 12);
+}
+
+// 0x838970
+RefCountPtr<GalaxyMapGateClass> GalaxyMapGateClass::Create()
+{
+	return Create_NEW(new GalaxyMapGateClass);
+}
+
+// 0x838A60
+GalaxyMapGateClass::GalaxyMapGateClass() :
+	Unknown0C(0),
+	Unknown10(0),
+	Unknown14(UniqueDesignIDLookupClass::INVALID_ID)
+{
+}
+
+// 0x838B50
+void GalaxyMapGateClass::Set(int unknown0c, int unknown10, int unknown14)
+{
+	Unknown0C = unknown0c;
+	Unknown10 = unknown10;
+	Unknown14 = unknown14;
+}
+
+// 0x838B80
+void GalaxyMapGateClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(&GalaxyMapID, 4);
+	buffer->Read(&Unknown0C, 4);
+	buffer->Read(&Unknown10, 4);
+	Unknown14 = UniqueDesignIDLookupClass::INVALID_ID;
+}
+
+// 0x838BD0
+void GalaxyMapGateClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(&GalaxyMapID, 4);
+	buffer->Write(&Unknown0C, 4);
+	buffer->Write(&Unknown10, 4);
+}
+
+// 0x838C20
+RefCountPtr<GalaxyMapStarbaseClass> GalaxyMapStarbaseClass::Create()
+{
+	return Create_NEW(new GalaxyMapStarbaseClass);
+}
+
+// 0x838D10
+GalaxyMapStarbaseClass::GalaxyMapStarbaseClass() :
+	Unknown10(0)
+{
+}
+
+// 0x838E50
+void GalaxyMapStarbaseClass::Set(int hash_id, int unknown10, const char *name, int unknown24)
+{
+	HashID = hash_id;
+	Name = name;
+	Unknown10 = unknown10;
+	Unknown24 = unknown24;
+}
+
+// 0x838F80
+void GalaxyMapStarbaseClass::Read(LinearBufferClass *buffer)
+{
+	buffer->Read(&GalaxyMapID, 4);
+	buffer->Read(&HashID, 4);
+	char *name = buffer->Read_String();
+	Name = name;
+	delete name;
+	buffer->Read(&Unknown10, 4);
+	buffer->Read(&Unknown24, 4);
+}
+
+// 0x8390C0
+void GalaxyMapStarbaseClass::Write(LinearBufferClass *buffer)
+{
+	buffer->Write(&GalaxyMapID, 4);
+	buffer->Write(&HashID, 4);
+	buffer->Write_String(Name.c_str());
+	buffer->Write(&Unknown10, 4);
+	buffer->Write(&Unknown24, 4);
+}
+
 /*
 **	Reconstruction notes
 **
 **	client.exe: galaxy_map.cpp's object starts with the map's constructor 0x835DD0 (galaxy_map_client.cpp's
 **	0x7A4830 calls it; the compiler's deleting destructor 0x835FA0 and the hash maps' destructors for its
 **	unwinding, 0x835FD0 / 0x8360A0 / 0x836170, follow it; the Starbases one, 0x8364C0, follows the
-**	destructor) and runs to 0x837C70 (__FILE__ 0xBA97D4); its header's inline functions follow from
-**	0x837D50. The constructor leaves the hash maps to their default constructors (SGI's 100 buckets):
+**	destructor) and runs to 0x8390C0 (__FILE__ 0xBA97D4; the data classes' part below). The
+**	constructor leaves the hash maps to their default constructors (SGI's 100 buckets):
 **	writing Systems(100) ... inlines _M_initialize_buckets into Starbases instead of the client's Gates.
 **	The destructor calls Clear (vtable 0xB08B38's second slot), which the client inlines there with
 **	AllData.clear() and the maps' clear() out of line (inlined in Clear 0x836740 itself). Write / Read
@@ -301,8 +457,10 @@ void GalaxyMapSystemClass::Set(int hash_id, const std::string &name, const Vecto
 **	layout); Add_Sector / Add_Gate / Add_Starbase 0x837190 / 0x8373F0 / 0x837650 the same, FAIL_IFs on
 **	169 / 170, 179 / 180, 189 / 190.
 **
-**	The system's constructor 0x837F00 and Set 0x838050 (GM1) are this file's too, after the factory:
-**	neither has a caller in the client (the constructor is inlined into Create, which precedes it;
-**	Set is unreferenced), yet both are kept, as non-inline functions of the object are. Set stores
-**	the hash id, the name (std::string assign inlined) and the four values Read carries.
+**	After the map, each data class in turn (GM1): Create, the constructor (inlined into Create,
+**	which precedes it, yet kept: no caller), Set (no caller) and Read / Write, the class's inline
+**	virtuals emitted between them: the system 0x837C70-0x838320, the sector 0x8383B0-0x8388E0, the
+**	gate 0x838970-0x838BD0 and the starbase 0x838C20-0x8390C0; galaxy_map.cpp's own functions run
+**	to 0x8390C0. The gate's Unknown14 starts as UniqueDesignIDLookupClass::INVALID_ID (0xAECC44, read
+**	from memory: hence that header); the sector's Set takes a sixth argument it never reads.
 */

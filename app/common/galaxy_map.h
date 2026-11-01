@@ -2,8 +2,8 @@
 /*
 **	The galaxy map's data objects (systems, sectors, gates, starbases), reference counted and
 **	written to / read from a LinearBufferClass, and the map holding them (AllData and the Systems /
-**	Sectors / Gates / Starbases hash maps of galaxy_map.cpp's asserts). The sector, gate and starbase
-**	classes are only named so far.
+**	Sectors / Gates / Starbases hash maps of galaxy_map.cpp's asserts). Each data class has a
+**	Create factory and a Set; galaxy_map_client.cpp (0x7A4830-0x7A5260) builds and fills the map.
 */
 
 #if defined(_MSC_VER)
@@ -191,28 +191,8 @@ class GalaxyMapSystemClass : public GalaxyMapDataClass	// NAME 2: 0x7A4FC0 hands
 public:
 	GalaxyMapSystemClass();	virtual ~GalaxyMapSystemClass() {}	// 0x837F00 (galaxy_map.cpp; Create 0x837C70 inlines it); the destructor 0x837F80 stores the vtable: explicit
 	virtual int Get_Type() { return(5); }										// +0x08 0x837EC0
-	virtual void Read(LinearBufferClass *buffer)
-	{
-		buffer->Read(&GalaxyMapID, 4);
-		buffer->Read(&HashID, 4);
-		char *name = buffer->Read_String();
-		Name = name;
-		delete name;
-		buffer->Read(&Unknown20, 12);
-		buffer->Read(&Unknown2C, 12);
-		buffer->Read(&Unknown38, 4);
-		buffer->Read(&Unknown3C, 4);
-	}
-	virtual void Write(LinearBufferClass *buffer)
-	{
-		buffer->Write(&GalaxyMapID, 4);
-		buffer->Write(&HashID, 4);
-		buffer->Write_String(Name.c_str());
-		buffer->Write(&Unknown20, 12);
-		buffer->Write(&Unknown2C, 12);
-		buffer->Write(&Unknown38, 4);
-		buffer->Write(&Unknown3C, 4);
-	}
+	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x8381B0
+	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x838320
 	virtual GalaxyMapSystemClass *As_System() { return(this); }				// +0x14 0x837EE0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x837EA0
 
@@ -227,10 +207,65 @@ public:
 	int Unknown3C;																// +0x3C (3)
 };
 
-// The sector, gate and starbase objects: only named so far (the map's Sectors / Gates / Starbases hold them)
-class GalaxyMapSectorClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())'
-class GalaxyMapGateClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())'
-class GalaxyMapStarbaseClass : public GalaxyMapDataClass {};	// NAME 2: galaxy_map.cpp's 'starbase_it == Starbases.end()'
+// A sector (vtable 0xB08BA4, 0x34 bytes; destructor 0x838520, deleting 0x8384F0)
+class GalaxyMapSectorClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.cpp's 'Sectors.find(sector->Get_Hash_ID())'
+{
+public:
+	GalaxyMapSectorClass();	virtual ~GalaxyMapSectorClass() {}				// 0x8384A0 (galaxy_map.cpp; Create 0x8383B0 inlines it); the destructor stores the vtable: explicit
+	virtual int Get_Type() { return(Unknown24); }								// +0x08 0x838480
+	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838780
+	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x8388E0
+	virtual GalaxyMapSectorClass *As_Sector() { return(this); }				// +0x18 0x838440
+	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x838460
+
+	void Set(int hash_id, int unknown10, const std::string &name, int unknown24, const Vector3 &unknown28, int unused);	// 0x8385F0 (no caller; ret 0x18: a sixth argument it never reads)  // NAME 1 [Set, hash_id, name]: as the system's
+	static RefCountPtr<GalaxyMapSectorClass> Create();						// 0x8383B0 (galaxy_map_client.cpp's 0x7A50A0)  // NAME 2: as the system's
+
+	int HashID;																	// +0x0C (-1)  // NAME 2: Get_Hash_ID's
+	int Unknown10;																// +0x10 (-1)
+	std::string Name;															// +0x14  // NAME 1 [Name]: a string on the wire, as the system's
+	int Unknown24;																// +0x24 (-1; Get_Type returns it)
+	Vector3 Unknown28;															// +0x28
+};
+
+// A gate (vtable 0xB08BD4, 0x18 bytes; destructor 0x838AD0 (implicit), deleting 0x838AA0)
+class GalaxyMapGateClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.cpp's 'Gates.find(gate->Get_Hash_ID())'
+{
+public:
+	GalaxyMapGateClass();														// 0x838A60 (galaxy_map.cpp; Create 0x838970 inlines it)
+	virtual int Get_Type() { return(9); }										// +0x08 0x838A40
+	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838B80
+	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x838BD0
+	virtual GalaxyMapGateClass *As_Gate() { return(this); }					// +0x1C 0x838A00
+	virtual int Get_Hash_ID() { return(GalaxyMapID); }							// +0x24 0x838A20 (the map id: a gate has no hash id of its own)
+
+	void Set(int unknown0c, int unknown10, int unknown14);						// 0x838B50 (no caller)  // NAME 1 [Set]: as the system's
+	static RefCountPtr<GalaxyMapGateClass> Create();							// 0x838970  // NAME 2: as the system's
+
+	int Unknown0C;																// +0x0C (0)
+	int Unknown10;																// +0x10 (0)
+	int Unknown14;																// +0x14 (UniqueDesignIDLookupClass::INVALID_ID 0xAECC44: the constructor and Read set it, Write doesn't carry it)
+};
+
+// A starbase (vtable 0xB08C04, 0x28 bytes; destructor 0x838D80, deleting 0x838D50)
+class GalaxyMapStarbaseClass : public GalaxyMapDataClass	// NAME 2: galaxy_map.cpp's 'starbase_it == Starbases.end()'
+{
+public:
+	GalaxyMapStarbaseClass();	virtual ~GalaxyMapStarbaseClass() {}			// 0x838D10 (galaxy_map.cpp; Create 0x838C20 inlines it); the destructor stores the vtable: explicit
+	virtual int Get_Type() { return(10); }										// +0x08 0x838CF0
+	virtual void Read(LinearBufferClass *buffer);								// +0x0C 0x838F80
+	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x8390C0
+	virtual GalaxyMapStarbaseClass *As_Starbase() { return(this); }			// +0x20 0x838CB0
+	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x838CD0
+
+	void Set(int hash_id, int unknown10, const char *name, int unknown24);		// 0x838E50 (no caller)  // NAME 1 [Set, hash_id, name]: as the system's
+	static RefCountPtr<GalaxyMapStarbaseClass> Create();						// 0x838C20  // NAME 2: as the system's
+
+	int HashID;																	// +0x0C (not initialised)  // NAME 2: Get_Hash_ID's
+	int Unknown10;																// +0x10 (0)
+	std::string Name;															// +0x14  // NAME 1 [Name]: a string on the wire, as the system's
+	int Unknown24;																// +0x24 (not initialised)
+};
 
 // The map (vtable 0xB08B38: the deleting destructor 0x835FA0, Clear 0x836740; 0x78 bytes)
 class GalaxyMapClass	// NAME 2: holds AllData and the Systems / Sectors / Gates / Starbases of galaxy_map.cpp's asserts
@@ -272,10 +307,12 @@ public:
 **	(0xA1), the system's 0x837F80 inlines it. The base's vtable 0xB08B74: Delete_This, the deleting
 **	destructor, Get_Type (-1), Read / Write (GalaxyMapID only; galaxy_map.cpp's 0x837C10 / 0x837C40),
 **	four slots returning NULL (the system overrides the first with 'return this') and _purecall
-**	(Get_Hash_ID). The system's Read / Write 0x8381B0 / 0x838320 (inline here, emitted after 0x837F80)
+**	(Get_Hash_ID). The system's Read / Write 0x8381B0 / 0x838320 (galaxy_map.cpp's, after Set)
 **	carry GalaxyMapID, HashID, the string, two 12-byte members and two 4-byte ones; Read deletes the
 **	Read_String buffer with scalar delete (operator delete, as the client). The system's destructor
-**	0x837F80 stores its own vtable first: declared, not implicit.
+**	0x837F80 stores its own vtable first: declared, not implicit; so do the sector's and the
+**	starbase's (0x838520 / 0x838D80); the gate's 0x838AD0 doesn't (implicit). Each class's
+**	constructor, Set, Read and Write are galaxy_map.cpp's (GM1); its other virtuals are inline here.
 **
 **	The map (TK16, GM1): its layout from the lookups 0x8378B0-0x837B30, its constructor 0x835DD0 and
 **	Add_Data 0x836960 (vtable 0xB08B38 at +0x00; AllData's vector at +0x04; four SGI hash_maps of 0x18
@@ -283,6 +320,5 @@ public:
 **	MaxDataObjects at +0x74, zeroed by the constructor). Set_Galaxy_Map_ID (line 180) and
 **	Remove_From_Galaxy_Map (line 185) are the data object's inlines that Add_Data, Remove_Data and
 **	Clear expand. The class sits before the system in the client's header, but stays at the end here
-**	(no asserts of its own pin it). The sector, gate and starbase classes are empty shells (their
-**	RefCountPtr statics need complete types).
+**	(no asserts of its own pin it).
 */
