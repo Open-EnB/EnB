@@ -745,6 +745,14 @@ unless `--lever` cites a new row of this table.
   `cur`) can leave `tiebreak` stale: verify afterwards. pairs_cmp's "with its caller" is approximate (another pair of
   the same file lost too; it sees no call edges). Readers of pairs_cmp's output parse one labelled list per line
   (`gained tie-break` and the `lost tie-break` lines follow `gained` / `lost`): pacing.py's two-line regex broke.
+* **D174's caller tie-break extensions** (2026-11-01, TB1; `objmatch.caller_tiebreak`): the copies need not be
+  byte-identical (they may differ in a relocation target, e.g. an EH handler address; the callers decide) and the
+  candidates are D80's survivors; a call from an EH unwind funclet (client 0xAA8000-0xACD000) counts as a call by every
+  parent whose FuncInfo unwind map lists it (`funclet_parents`: a parent not exact keeps the callee tied); several
+  symbols of one file with the same bytes and relocations proposing one address (the linker folded them) credit the
+  first by name (`folded`); and the caller tie-break's credits feed D80 / self name / range / initialiser, which run
+  again, then the caller tie-break again, until neither credits. A late credit can therefore change what an early
+  phase resolves: check every `lost` against the client's layout.
 * **A member added to a locally declared base shifts every derived class's padded fields** (2026-10-30, MU1): in a
   draft it silently broke 10 exact functions; re-match the whole file after any base change.
 * **Two builders' adjacent RECONSTRUCTED rows in importer.py form one hunk** (2026-10-30, MU1 / CP1): commit_mine took
@@ -943,6 +951,10 @@ unless `--lever` cites a new row of this table.
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
 ### 3.6 RE tools, Ghidra and REA
 
+* **objmatch finds symbols.json at `__file__/../../docs/data`** (2026-11-01, TB1): a copy of objmatch.py outside
+  tools/re silently runs without symbols (D80 and the self name do nothing; 21 false "losses" in a baseline). Measure
+  variants from inside tools/re, or patch the path. `.work/tb1/measure.py objmatch OUT` scores a module over the last
+  verify's objects in ~80 s.
 * **`explain.py OBJ 'Class::name' ADDR` matches by name prefix** (2026-10-31, TK17: 'CordCon::pump' compared
   pumpClose): pass the mangled name when one name prefixes another. commit_mine.py takes imports.json's block key
   (`cordcon`, not `wwudp/cordcon.cpp`) and needs `{"whole": [...]}` in the spec to include the .cpp itself (`--path`

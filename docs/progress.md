@@ -4,6 +4,31 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (00:15): P-GH-11 landed (claims in the run PR body), symbols.json regenerated, D174's tie-break: +211, 0 lost
+
+Coordinator Opus 5.5, the 2026-10-31 night session continued after the user's three asks: resolve PR #78, cut the
+GitHub API volume and the claim emails, and settle the open proposals. Base d2df79bb (#78 and #135 merged;
+`.work/imports.d2df79bb.json`); run branch `run/2026-11-01`, PR #136.
+
+* **PR #78** (the night run, +212) merged after `/accept-d66` (TK5's move); the symbols.json regeneration was taken
+  out of it (vc6-verify counted D173's corrected pair as lost outright).
+* **P-GH-11 (#135, GH1):** maintainer runs claim in the run PR's body (`<!-- enb-run-claims -->`, `run_branch.py claim`
+  / `release`; no issues, no emails); the Claims Action writes the live state to `claims-state` and `list` / `check` read
+  it in one call (5-minute cache); claim waits back off; a 500-call budget floor; Checks run on master pushes and ready
+  PRs only, a newer push cancelling the older run; `docs/data/accepted-corrections.json` (decisions only) read by
+  pairs_cmp / verify_pr from master. Live-tested: a claim and its release in #136's body, no issue. The 2026-10-31 run
+  burned the 5,000/hour budget (claims.py's per-issue scans) and opened 46 claim issues.
+* **symbols.json** regenerated (79c13952): +6, 0x723AB0 -> 0x4B2AA0 `corrected (accepted: D173)`, 0 lost.
+* **D174 (TB1, e94b3b1e):** objmatch's caller tie-break takes non-identical copies, D80's survivors, repeats the
+  rounds until nothing more is credited, credits one of an object's folded symbols, and counts an EH funclet's call as
+  its parents' (13,088 funclets mapped from the FuncInfo stubs): **+205 (app +191, ww3d2 +13, wnet +1), 0 lost**.
+  Funclet-called copies whose parent is not exact yet wait for it (fontdatabase 0x6C6E20 on 0x6BEA90).
+* **Decisions:** D173-D177 (the user). Open: P-VM-1 (later; deadline 2027-01-20).
+* **Next session first:** D175 (P-TK7-1) in two PRs: a tools PR letting an accepted-corrections entry with
+  `moved_to: null` pass as a decided loss (with D175's four addresses), then wlib's configfile / xtime revision from
+  `docs/attempts/8B2810/` (+11). Then D176 (CordCon's 0xC0 layout, udpreplay's counters outside), then the leads in
+  §4's t4 bullets. Builders: claims are in the run PR body now (builders.md, coordinator-pacing).
+
 ### 2026-10-31 (22:05, night): the triage plan's runs, 17 Opus builders; +212 pairs, 0 lost; symbols.json regeneration ready (D173)
 
 Coordinator Opus 5.5. Base 20f0bf21 (PR #65 merged; `.work/imports.20f0bf21.json`); run branch `run/2026-10-31-t4`,
@@ -1700,6 +1725,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D171 | 2026-10-31 | P-AR1-1: objmatch's D88 self-name round also uses the slots of vtables learned in the same run (from the exact constructors that store them, e.g. 0x702890 stores 0xB01844) and learns the relocations of short functions at addresses the run already knows, breaking the relocation-only ties of template instances whose vtables symbols.json never names (aux_roots' accessor / KVPair deleting destructors and destructors). Measured on objmatch alone (AR1's prototype `.work/ar1/proto_om.py`): aux_roots.obj 102 -> 335 exact, all 241 app objects +318, 0 lost; shipcust_desc's three range credits move to vtable addresses (0x4F7000 -> 0x4484C0, 0x4F7520 -> 0x42F010, 0x4F7550 -> 0x4488E0; 0x42F010 to be checked). Order (the user, 2026-10-31): once the tree is quiet, symbols.json is regenerated first (it lagged imports.json: 10,005 exact against 13,341 pairs), with the full verify workflow.md §3.4 requires; then this lands as one commit with a full verify of all 11 libraries, the moves listed for the user | user |
 | D172 | 2026-10-31 | P-API-4 (D168's revisit; replaces D168's ".work only"): the triage table is tracked, written by `triage.py ingest full`: `docs/data/triage.json` (one row per line: address, kind, library, file, class, template_of, confidence, contradicts; 1.2 MB), `docs/data/triage-evidence.tsv` (the evidence each answer cited; 3.6 MB) and `docs/data/triage.md` (counts, the score, the reading rule), each under the pre-push check's 5 MB; `plan`, `score` and `show` read it. Still hints, never evidence (D56, D167): no matching tool reads it. Reading rule: a low-confidence hint, or one for a function at a file boundary (the nearest known functions before and after it in different files), is a lead; confirm the object's boundaries (statics, literals, padding) before placing. Evidence: `score` against what is exact, high 494/494, medium 1,219/1,271, low 60/83; the builders' tests against pairs, both neighbours the hinted file 23 of 23, a file boundary 18 of 23, every miss one object no evidence names (unknown_screenfade.cpp: the hint said a neighbour's file) | user |
 | D173 | 2026-10-31 | P-SY1-1: the symbols.json regeneration's one loss, aux_roots' `??_G KVAccessorClass<UnknownB016DCType>` 0x723AB0, is a false pair corrected (D66 (iii)-like): it moves to 0x4B2AA0. Evidence: our object's `??_7` has 4 slots like the client's 0xAEB4BC (slot 0 thunk 0x405EB6 -> 0x4B2AA0, then three purecalls); 0x723AB0 is slot 0 of 0xB02C84, a 2-slot vtable of another class. HEAD's pair came from D100's range tie-break; the regenerated symbols.json lets D171's learned-slot self name resolve it first. Lands with the regeneration (+5 net; dc424b62, taken out of PR #78 to a follow-up PR) | user |
+| D174 | 2026-10-31 | P-TK3-1 + P-TK2-1 + P-TK5-1 + P-TK3-2 as one objmatch change to D166's caller tie-break: copies differing only in relocation targets count (P-TK3-1, +82 app measured); the tie-break also runs on D80's identical survivors and the D80 / self-name / range rounds repeat after it (P-TK2-1, +45); one of an object's linker-folded identical symbols is credited (P-TK5-1); an EH unwind funclet's call counts as its parent's (the function whose FuncInfo references it, P-TK3-2). Landed together, measured together, after a full verify of every library, gain-only (any loss back to the user). The user's sequencing: after PR #78 and P-GH-11's PR #135 are resolved, in the same session | user |
+| D175 | 2026-10-31 | P-TK7-1: wlib takes E&B's own configfile.cpp + xtime.cpp revision (configfile without sectionList and MDC's writers, readFile keeping empty values and joining backslash lines, clear 0x8B2690; xtime without FormatTime / ParseDate / Print* / getYDay): wlib +11; the 4 pairs lost outright (0x77AA10, 0x77B030, 0x77B690, 0x850820: app template / iostream instances only matchbot's sectionList / writeFile credited to configfile) are accepted (into accepted-corrections as decided losses) and come back as their app files are built | user |
+| D176 | 2026-10-31 | P-TG3-1: CordCon takes the client's 0xC0 layout: its three harness counters (AcksMatched_, ResendRequests_, Rejected_) move to a side table in udpreplay, and the constructor takes the key as one `__int64` (unblocks the ctor 0x84F640 and ACK2 0x85ABB0) | user |
+| D177 | 2026-10-31 | P-TG4-2: D130 covers dead spenders in a NOT EXACT function kept for another function's pair: ui_avatar_cust 0x550A10 keeps its five dead finds (Rotate_Y 0x551270's pair), marked, until 0x550A10 is rebuilt | user |
 
 ## 3. Open decisions
 
@@ -1708,40 +1737,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
-* **P-TG3-1** (2026-10-31, TG3; recommend yes): CordCon's three harness counters (AcksMatched_, ResendRequests_,
-  Rejected_) move out of the class (a side table in udpreplay), and its constructor takes the key as one `__int64`:
-  the client allocates 0xC0, ours 0xC8; this unblocks ACK2 0x85ABB0 (0.61 with both fixed in a draft).
-* **P-TG4-2** (2026-10-31, TG4; recommend keep): D130's dead spenders in a NOT EXACT function: ui_avatar_cust
-  0x550A10 (NOT EXACT 0.71) holds five dead finds (four until TK6 added 0x5513E0-0x551C80, 2026-10-31 t4) that exist
-  only to send matrix3d.h's Rotate_Y 0x551270 out of line, gaining that pair; each is needed (one fewer inlines it). D130 was written for functions made exact; does
-  it cover spenders kept for another function's pair?
-* **P-TK3-1** (2026-10-31, TK3; recommend yes): extend D166's caller tie-break to `multiple` copies that are not
-  identical (same rule: our exact caller reaches one address and every client caller of it is exact in the same
-  object; copies differing only in relocation targets are pinned harder by the caller). Measured at objmatch level
-  over the verify-app objects: **+82 app pairs, 0 lost** (`.work/tk3/measure.log`; fontdatabase's 0x6C6ED0, 0x6C88D0,
-  0x6C9170, 0x6C9920, 0x6C9AD0, 0x6C9C80, 0x6C9E30 among them). One line in `tools/re/objmatch.py` `caller_tiebreak`
-  (drop the `get('identical')` filter; `.work/tk3/objmatch_x.py`), landed as its own commit after a full verify of
-  all 11 libraries, as D166 was.
-* **P-TK3-2** (2026-10-31, TK3 and TK1 independently; recommend yes, lower value): D166 counts an EH unwind funclet
-  as part of the function whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three
-  funclets, and control_keys_manager's 0x71EC90 now / 0x71EDC0 once Load_Definitions 0x71B1F0 is exact).
-* **P-TK2-1** (2026-10-31, TK2; recommend yes, with P-TK3-1): objmatch's caller tie-break (a) also runs on D80's
-  survivors when they are identical, and (b) the D80 / self-name / range rounds repeat after it, its credits fed back
-  into D80. Dry run over every app object: **+45 pairs, 0 lost** ((a) alone +12; attrib_dir's string-hashtable finds
-  0x4D8950 / 0x4D8D20 / 0x4D8DF0 among them). Patch `.work/tk2/objmatch_d166x.diff`, gains
-  `.work/tk2/objmatch_d166x_gains.log`. Changes D166 / D100; land after a full verify of every library (measured
-  separately from P-TK3-1's +82: the overlap is not yet known).
-* **P-TK7-1** (2026-10-31, TK7; recommend yes): commit E&B's configfile.cpp + xtime.cpp revision (configfile without
-  sectionList and MDC's writers, readFile keeping empty values and joining backslash lines, a new clear 0x8B2690; xtime
-  without FormatTime / ParseDate / Print* / getYDay; one change, wdebug.h's ERRMSG ties them). Measured wlib +11 exact
-  (130 -> 137 in tree) for **4 pairs lost outright**: 0x77AA10, 0x77B030, 0x77B690, 0x850820, app-object template /
-  iostream instances only matchbot's sectionList / writeFile credited to configfile (the client's configfile object
-  has none); not a D66 kind. They come back as their app files are built. Stash `docs/attempts/8B2810/`, diff
-  `.work/tk7/proposal/`.
-* **P-TK5-1** (2026-10-31, TK5; recommend yes, with P-TK3-1 / P-TK2-1): objmatch's caller_tiebreak credits one of an
-  object's byte-identical symbols when several propose the same address (the linker folded the four
-  Create_NEW<Floor / Ceiling / Closest / Interpolated> into lookup_table's 0x4EE9F0; all four callers exact). Not yet
-  measured over the app; land with the other tie-break changes after a full verify of every library.
 
 ## 4. Next steps
 

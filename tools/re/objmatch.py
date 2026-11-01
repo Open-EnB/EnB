@@ -565,95 +565,105 @@ def match_objects(img, paths, region=None, callers=False):
     # D100: when the self name resolves nothing more either, the range breaks a tie: the one survivor
     # inside the object's client range (first..last address of its own exact functions, not COMDAT
     # copies the linker may take from another object); then back to D80
-    phase = 'd80'
-    changed = True
-    while changed:
-        changed = False
-        proposals = []
-        selfname = phase == 'selfname'
-        if selfname:
-            names = run_self_names(img, list({id(x[1]): x[1] for x in results}.values()), known, thunk)
-        ranges = {}
-        if phase in ('range', 'init'):
-            for r, obj, sec, s, length in results:
-                if r['status'] == 'exact' and obj.own(sec):
-                    a = int(r['addresses'][0], 16)
-                    lo, hi = ranges.get(id(obj), (a, a))
-                    ranges[id(obj)] = (min(lo, a), max(hi, a))
-            # D114(b): an exact COMDAT that only this object is exact at, within RANGE_GAP of either
-            # end of the object's own range, widens it (the linker placed that copy with this object)
-            holders = collections.defaultdict(set)
-            for r, obj, sec, s, length in results:
-                if r['status'] == 'exact':
-                    holders[int(r['addresses'][0], 16)].add(id(obj))
-            wide = dict(ranges)
-            for r, obj, sec, s, length in results:
-                if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
-                    a = int(r['addresses'][0], 16)
-                    lo, hi = ranges[id(obj)]
-                    if holders[a] == {id(obj)} and lo - RANGE_GAP <= a <= hi + RANGE_GAP:
-                        wlo, whi = wide[id(obj)]
-                        wide[id(obj)] = (min(wlo, a), max(whi, a))
-            ranges = wide
-        registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
-        for item in pending:
-            r, obj, sec, s, length, hits = item
-            if id(r) in done:
-                continue
-            survivors, confirmed = break_tie(obj, sec, s, length, text, start, hits, img, known)
-            if phase == 'd80':
-                if len(survivors) == 1 and confirmed:
-                    proposals.append((item, survivors[0]))
-            elif phase == 'selfname':
-                own = [h for h in survivors if h in names.get(r['symbol'], ())]
-                if len(own) == 1:
-                    proposals.append((item, own[0]))
-            elif phase == 'init':
-                # D115: a tied constructor / destructor is the one the object's static initialiser
-                # calls or registers; finds and other helpers stay tied
-                if r['symbol'].startswith(('??0', '??1')):
-                    own = [h for h in survivors if h in registered.get(r['symbol'], ())]
+    # D174 (P-TK2-1(b)): the caller tie-break's credits feed D80, the self name and the range like any
+    # exact function, and what those credit may let the caller tie-break resolve more: repeat both
+    while True:
+        phase = 'd80'
+        changed = True
+        while changed:
+            changed = False
+            proposals = []
+            selfname = phase == 'selfname'
+            if selfname:
+                names = run_self_names(img, list({id(x[1]): x[1] for x in results}.values()), known, thunk)
+            ranges = {}
+            if phase in ('range', 'init'):
+                for r, obj, sec, s, length in results:
+                    if r['status'] == 'exact' and obj.own(sec):
+                        a = int(r['addresses'][0], 16)
+                        lo, hi = ranges.get(id(obj), (a, a))
+                        ranges[id(obj)] = (min(lo, a), max(hi, a))
+                # D114(b): an exact COMDAT that only this object is exact at, within RANGE_GAP of either
+                # end of the object's own range, widens it (the linker placed that copy with this object)
+                holders = collections.defaultdict(set)
+                for r, obj, sec, s, length in results:
+                    if r['status'] == 'exact':
+                        holders[int(r['addresses'][0], 16)].add(id(obj))
+                wide = dict(ranges)
+                for r, obj, sec, s, length in results:
+                    if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
+                        a = int(r['addresses'][0], 16)
+                        lo, hi = ranges[id(obj)]
+                        if holders[a] == {id(obj)} and lo - RANGE_GAP <= a <= hi + RANGE_GAP:
+                            wlo, whi = wide[id(obj)]
+                            wide[id(obj)] = (min(wlo, a), max(whi, a))
+                ranges = wide
+            registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
+            for item in pending:
+                r, obj, sec, s, length, hits = item
+                if id(r) in done:
+                    continue
+                survivors, confirmed = break_tie(obj, sec, s, length, text, start, hits, img, known)
+                if phase == 'd80':
+                    if len(survivors) == 1 and confirmed:
+                        proposals.append((item, survivors[0]))
+                elif phase == 'selfname':
+                    own = [h for h in survivors if h in names.get(r['symbol'], ())]
                     if len(own) == 1:
                         proposals.append((item, own[0]))
-            elif id(obj) in ranges:
-                lo, hi = ranges[id(obj)]
-                # an address another function is already exact at is not this one's (one client function
-                # is one source function)
-                inside = [h for h in survivors if lo <= h <= hi and not claimed[h] - {r['symbol']}]
-                if len(inside) == 1:
-                    proposals.append((item, inside[0]))
-        by_addr = collections.defaultdict(set)
-        for (r, *_), a in proposals:
-            by_addr[a].add(r['symbol'])
-        for item, a in proposals:
+                elif phase == 'init':
+                    # D115: a tied constructor / destructor is the one the object's static initialiser
+                    # calls or registers; finds and other helpers stay tied
+                    if r['symbol'].startswith(('??0', '??1')):
+                        own = [h for h in survivors if h in registered.get(r['symbol'], ())]
+                        if len(own) == 1:
+                            proposals.append((item, own[0]))
+                elif id(obj) in ranges:
+                    lo, hi = ranges[id(obj)]
+                    # an address another function is already exact at is not this one's (one client function
+                    # is one source function)
+                    inside = [h for h in survivors if lo <= h <= hi and not claimed[h] - {r['symbol']}]
+                    if len(inside) == 1:
+                        proposals.append((item, inside[0]))
+            by_addr = collections.defaultdict(set)
+            for (r, *_), a in proposals:
+                by_addr[a].add(r['symbol'])
+            for item, a in proposals:
+                r, obj, sec, s, length, hits = item
+                if len(by_addr[a]) > 1 or claimed[a] - {r['symbol']}:
+                    continue
+                r['status'] = 'exact'
+                r['addresses'] = [f'0x{a:06X}']
+                r['tiebreak'] = True
+                if selfname:
+                    r['selfname'] = True
+                if phase == 'range':
+                    r['range'] = True
+                if phase == 'init':
+                    r['initialiser'] = True
+                r.pop('count'), r.pop('identical')
+                claimed[a].add(r['symbol'])
+                learn(r, obj, sec, s, length, a)
+                done.add(id(r))
+                changed = True
+            if phase == 'd80':
+                if not changed:
+                    phase, changed = 'selfname', True   # D80 is done: one self-name round
+            elif changed:
+                phase = 'd80'                           # back to D80 after a round that credited
+            elif phase == 'selfname':
+                phase, changed = 'range', True          # neither D80 nor the self name: one range round
+            elif phase == 'range':
+                phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
+        if not callers:
+            break
+        credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
+        if not credited:
+            break
+        for item in credited:
             r, obj, sec, s, length, hits = item
-            if len(by_addr[a]) > 1 or claimed[a] - {r['symbol']}:
-                continue
-            r['status'] = 'exact'
-            r['addresses'] = [f'0x{a:06X}']
-            r['tiebreak'] = True
-            if selfname:
-                r['selfname'] = True
-            if phase == 'range':
-                r['range'] = True
-            if phase == 'init':
-                r['initialiser'] = True
-            r.pop('count'), r.pop('identical')
-            claimed[a].add(r['symbol'])
-            learn(r, obj, sec, s, length, a)
             done.add(id(r))
-            changed = True
-        if phase == 'd80':
-            if not changed:
-                phase, changed = 'selfname', True   # D80 is done: one self-name round
-        elif changed:
-            phase = 'd80'                           # back to D80 after a round that credited
-        elif phase == 'selfname':
-            phase, changed = 'range', True          # neither D80 nor the self name: one range round
-        elif phase == 'range':
-            phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
-    if callers:
-        caller_tiebreak(img, results, pending, claimed, text, start, thunk)
+            learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
     return [x[0] for x in results]
 
 
@@ -679,25 +689,109 @@ def call_sites(img):
         return _call_sites[id(img)]
 
 
-def caller_tiebreak(img, results, pending, claimed, text, base, thunk):
-    """D166: a function found at several byte-identical client addresses is the one our own callers
-    reach. Our caller C (a function of the same object, exact at A) has a relocated call to X's
-    symbol; the call at A reaches one of X's addresses. X takes that address only when every client
-    call or jump to it comes from a function the same object is exact at (or from X itself) and
-    nothing holds the address as data (a vtable slot, a pushed pointer): the linker's merged copy has
-    callers in every file and stays tied. No other symbol may be exact there or propose the same
-    address. Rounds repeat until nothing changes (an address credited makes its own callees
-    resolvable); a round's proposals are applied together, so the result does not depend on the order
-    of the objects."""
-    todo = [it for it in pending if it[0]['status'] == 'multiple' and it[0].get('identical')]
+_funclets = {}
+FUNCLET_MAX = 0x40   # an unwind funclet is a few instructions (mov ecx, [ebp-x]; jmp dtor)
+
+
+def funclet_parents(img):
+    """D174 (P-TK3-2): ([funclet start VA], {funclet start: (end VA, {parent's push-site VA})}).
+    A function with C++ unwinding pushes its handler stub (`push offset __ehhandler$F`; the stub is
+    `mov eax, offset FuncInfo; jmp ___CxxFrameHandler`), and FuncInfo (magic 0x19930520, maxState,
+    pUnwindMap, ...) lists the unwind funclets as {toState, action} entries. The funclets live apart
+    from their parent (client.exe 0xAA8000-0xACD000); a funclet ends at the next funclet or stub, or
+    FUNCLET_MAX bytes on. A funclet the linker shares between functions has every parent's push site."""
+    with _call_lock:
+        if id(img) in _funclets:
+            return _funclets[id(img)]
+        start, end, raw = img.section('.text')
+        body = img.data[raw:raw + (end - start)]
+        data = img.data
+        stubs = {}
+        for m in re.finditer(rb'\xB8(....)\xE9', body, re.S):
+            fi = struct.unpack_from('<I', body, m.start() + 1)[0]
+            off = img.offset(fi)
+            if off is None or off + 12 > len(data) or struct.unpack_from('<I', data, off)[0] != 0x19930520:
+                continue
+            stubs[start + m.start()] = off
+        pushes = collections.defaultdict(set)
+        for m in re.finditer(rb'(?=\x68(....))', body, re.S):
+            v = struct.unpack_from('<I', body, m.start() + 1)[0]
+            if v in stubs:
+                pushes[v].add(start + m.start())
+        parents = collections.defaultdict(set)
+        for stub, off in stubs.items():
+            if not pushes[stub]:
+                continue
+            nstate, pmap = struct.unpack_from('<iI', data, off + 4)
+            moff = img.offset(pmap)
+            if moff is None or not 0 < nstate < 0x1000:
+                continue
+            for i in range(nstate):
+                if moff + 8 * i + 8 > len(data):
+                    break
+                act = struct.unpack_from('<I', data, moff + 8 * i + 4)[0]
+                if start <= act < end:
+                    parents[act] |= pushes[stub]
+        bounds = sorted(set(parents) | set(stubs))
+        out = {}
+        for f in parents:
+            i = bisect.bisect_right(bounds, f)
+            nxt = bounds[i] if i < len(bounds) else end
+            out[f] = (min(nxt, f + FUNCLET_MAX), parents[f])
+        _funclets[id(img)] = (sorted(out), out)
+        return _funclets[id(img)]
+
+
+def folded(items):
+    """D174 (P-TK5-1): True if the tied items are functions of one object with the same bytes and the
+    same relocations (symbols and addends): copies the linker may fold into one client function."""
+    r0, obj0, sec0, s0, len0, _ = items[0]
+
+    def sig(obj, sec, s, length):
+        info = obj.sections[sec]
+        return (bytes(obj.data[info['raw'] + s:info['raw'] + s + length]),
+                [(k, n, typ, sym and sym['name'], bytes(add)) for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)])
+    first = sig(obj0, sec0, s0, len0)
+    return all(obj is obj0 and length == len0 and sig(obj, sec, s, length) == first
+               for r, obj, sec, s, length, _ in items[1:])
+
+
+def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=None):
+    """D166: a function found at several client addresses is the one our own callers reach. Our
+    caller C (a function of the same object, exact at A) has a relocated call to X's symbol; the
+    call at A reaches one of X's addresses. X takes that address only when every client call or
+    jump to it comes from a function the same object is exact at (or from X itself) and nothing
+    holds the address as data (a vtable slot, a pushed pointer): the linker's merged copy has callers
+    in every file and stays tied. No other symbol may be exact there or propose the same address.
+    Rounds repeat until nothing changes (an address credited makes its own callees resolvable); a
+    round's proposals are applied together, so the result does not depend on the order of the
+    objects. Returns the pending items it credited.
+    D174: the copies need not be byte-identical (P-TK3-1: they may differ in a relocation's target,
+    e.g. an EH handler's address; the callers decide); the candidates are D80's survivors (those no
+    relocation target contradicts, P-TK2-1(a)); a call from an EH unwind funclet counts as a call by
+    its parent function(s) (P-TK3-2, `funclet_parents`); and when several symbols of one object with
+    the same bytes and relocations propose one address (the linker folded them: lookup_table's four
+    Create_NEW<...> at 0x4EE9F0), the first by name takes it (P-TK5-1, `folded` set)."""
+    todo = []
+    for it in pending:
+        r, obj, sec, s, length, hits = it
+        if r['status'] != 'multiple':
+            continue
+        survivors, _ = break_tie(obj, sec, s, length, text, base, hits, img, known)
+        todo.append((it, set(survivors)))
     if not todo:
-        return
-    todo.sort(key=lambda it: (it[0]['object'], it[0]['symbol']))
+        return []
+    todo.sort(key=lambda t: (t[0][0]['object'], t[0][0]['symbol']))
     sites, thunks = call_sites(img)
+    fstarts, funclets = funclet_parents(img)
     alias = collections.defaultdict(set)
     for th, dst in thunks.items():
         alias[dst].add(th)
     data = img.data
+
+    def inside(site, order, funcs):
+        i = bisect.bisect_right(order, site) - 1
+        return i >= 0 and site < order[i] + funcs[order[i]]
 
     def refs_ok(addr, xlen, funcs):
         """funcs: {start: length} of the functions the object is exact at."""
@@ -713,17 +807,22 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk):
                 n += 1
                 if addr <= site < addr + xlen:
                     continue                      # X calling itself
-                i = bisect.bisect_right(order, site) - 1
-                if i < 0 or site >= order[i] + funcs[order[i]]:
-                    return False
+                if inside(site, order, funcs):
+                    continue
+                j = bisect.bisect_right(fstarts, site) - 1
+                if j >= 0 and site < funclets[fstarts[j]][0] and \
+                        all(inside(p, order, funcs) for p in funclets[fstarts[j]][1]):
+                    continue                      # an unwind funclet of the object's exact functions
+                return False
         return n > 0
 
+    credited = []
     changed = True
     while changed:
         changed = False
         proposals = []
-        for item in todo:
-            r, obj, sec, s, length, hits = item
+        for item, hits in todo:
+            r, obj, sec, s, length, _ = item
             if r['status'] != 'multiple':
                 continue
             funcs, callers = {}, []
@@ -750,20 +849,26 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk):
             if a not in hits or claimed[a] - {r['symbol']} or not refs_ok(a, length, funcs):
                 continue
             proposals.append((item, a))
-        by_addr = collections.defaultdict(set)
-        for (r, *_), a in proposals:
-            by_addr[a].add(r['symbol'])
+        by_addr = collections.defaultdict(list)
         for item, a in proposals:
-            r = item[0]
-            if len(by_addr[a]) > 1:
-                continue
-            r['status'] = 'exact'
-            r['addresses'] = [f'0x{a:06X}']
-            r['caller_tiebreak'] = True
-            r.pop('count', None)
-            r.pop('identical', None)
-            claimed[a].add(r['symbol'])
-            changed = True
+            by_addr[a].append(item)
+        for a, items in by_addr.items():
+            if len({it[0]['symbol'] for it in items}) > 1:
+                if not folded(items):
+                    continue
+                items = [min(items, key=lambda it: it[0]['symbol'])]
+                items[0][0]['folded'] = True
+            for item in items:
+                r = item[0]
+                r['status'] = 'exact'
+                r['addresses'] = [f'0x{a:06X}']
+                r['caller_tiebreak'] = True
+                r.pop('count', None)
+                r.pop('identical', None)
+                claimed[a].add(r['symbol'])
+                credited.append(item)
+                changed = True
+    return credited
 
 
 def initialiser_targets(results, pending, ranges, text, base, known, thunk):
