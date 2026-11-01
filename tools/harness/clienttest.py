@@ -42,7 +42,8 @@ APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket
        r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp', r'app\packets\clientstub.cpp',
        r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list (as udpreplay.py's CONN)
        r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path
-       r'app\shared\avatar_desc.cpp']       # AVATAR_DESCRIPTION 97's member
+       r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member
+       r'app\shared\gclass.cpp']            # InterfaceClass's base GClass (gen_stubs cannot write its template-pointer slots)
 for _sub in ('', 'gameedit'):
     _d = os.path.join(REPO, 'app', 'packets', _sub)
     if os.path.isdir(_d):
