@@ -3595,6 +3595,41 @@
      "0x4A2FD0"
     ]
    },
+   "gd_robj": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x66BE90",
+     "0x66BEC0",
+     "0x66BF60",
+     "0x66C000",
+     "0x66C1E0",
+     "0x66C220",
+     "0x66C260",
+     "0x66C2A0",
+     "0x66C2D0",
+     "0x66C360",
+     "0x66C3F0",
+     "0x66C470",
+     "0x66C4C0",
+     "0x66C530",
+     "0x66C5B0",
+     "0x66C5F0",
+     "0x66C630",
+     "0x66C660",
+     "0x66C690",
+     "0x66C6C0",
+     "0x66C7D0",
+     "0x66C860",
+     "0x66C890"
+    ],
+    "merged": [],
+    "name": "client/gd_robj.cpp"
+   },
    "heightfield": {
     "ambiguous": [
      "0x463C80",
@@ -12393,6 +12428,7 @@
    "client/gadget.h": "reconstructed",
    "client/gadget_list_manager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
+   "client/gd_robj.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/html/htmlview.h": "reconstructed",
    "client/html/unknown_htmlattrib.h": "reconstructed",

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-443 entries in 99 files.
+445 entries in 100 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -114,6 +114,8 @@ edit the comments in the code, not this file.
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
+| `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
+| `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1108` | `HtmlViewClass::Add_Text` | marker | NOT EXACT: 0x7759E0, register allocation (widest spilled, one more frame slot than the client's 0x34) |
 | `app/client/html/htmlview.cpp:1231` | `HtmlViewClass::Render` | marker | NOT EXACT: 0x7761E0, the parent bounds' stores scheduled later than the client's (the clip RECT, bottom first, matches) |

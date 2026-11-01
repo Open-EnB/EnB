@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1122 |
-| 2 | describes what the code does | 2822 |
-| 1 | neutral placeholder | 9871 |
+| 3 | by convention from a client-named file or sibling | 1126 |
+| 2 | describes what the code does | 2823 |
+| 1 | neutral placeholder | 9952 |
 
 ## For review (score 3 and below)
 
@@ -2163,6 +2163,87 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/gd_robj.cpp:10` | as ui_group.h |
+| 1 | `Unknown_496110` | `app/client/gd_robj.cpp:10` | untagged neutral name (D10) |
+| 1 | `robj, arg` | `app/client/gd_robj.cpp:11` | neutral |
+| 1 | `Unknown_496240` | `app/client/gd_robj.cpp:11` | untagged neutral name (D10) |
+| 1 | `robj, arg, index` | `app/client/gd_robj.cpp:12` | neutral |
+| 1 | `Unknown_495FD0` | `app/client/gd_robj.cpp:12` | untagged neutral name (D10) |
+| 1 | `robj, index` | `app/client/gd_robj.cpp:13` | neutral |
+| 1 | `Unknown_4960C0` | `app/client/gd_robj.cpp:13` | untagged neutral name (D10) |
+| 1 | `robj, x, y, layer` | `app/client/gd_robj.cpp:14` | neutral |
+| 1 | `Unknown_496960` | `app/client/gd_robj.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/gd_robj.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown5C_00` | `app/client/gd_robj.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown5C_01` | `app/client/gd_robj.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown5C_02` | `app/client/gd_robj.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown5C_03` | `app/client/gd_robj.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/gd_robj.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_robj.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_robj.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_66C2D0` | `app/client/gd_robj.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_robj.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/gd_robj.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_66C220` | `app/client/gd_robj.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/gd_robj.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_66C260` | `app/client/gd_robj.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_66C2A0` | `app/client/gd_robj.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/gd_robj.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/gd_robj.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/gd_robj.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/gd_robj.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_66C4A0` | `app/client/gd_robj.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_robj.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_robj.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/gd_robj.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/gd_robj.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/gd_robj.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/gd_robj.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown_66C6C0` | `app/client/gd_robj.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gd_robj.cpp:248` | untagged neutral name (D10) |
+| 1 | `GadgetUnknown08Struct` | `app/client/gd_robj.h:10` | untagged neutral name (D10) |
+| 1 | `robj, layer, mask` | `app/client/gd_robj.h:32` | what it does with them |
+| 1 | `robj, mask` | `app/client/gd_robj.h:33` | what it does with them |
+| 1 | `Unknown_08` | `app/client/gd_robj.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_robj.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/gd_robj.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_robj.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/gd_robj.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/gd_robj.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gd_robj.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_robj.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_robj.h:43` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_robj.h:44` | neutral |
+| 1 | `Unknown_7C` | `app/client/gd_robj.h:44` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_robj.h:45` | neutral |
+| 1 | `Unknown_80` | `app/client/gd_robj.h:45` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_robj.h:46` | neutral |
+| 1 | `Unknown_84` | `app/client/gd_robj.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/gd_robj.h:47` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_robj.h:48` | neutral |
+| 1 | `Unknown_8C` | `app/client/gd_robj.h:48` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_robj.h:49` | neutral |
+| 1 | `Unknown_90` | `app/client/gd_robj.h:49` | untagged neutral name (D10) |
+| 1 | `style` | `app/client/gd_robj.h:51` | its type |
+| 1 | `Unknown_98` | `app/client/gd_robj.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/gd_robj.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/gd_robj.h:53` | untagged neutral name (D10) |
+| 1 | `r, g, b` | `app/client/gd_robj.h:56` | neutral |
+| 1 | `Unknown_66C220` | `app/client/gd_robj.h:56` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/gd_robj.h:57` | neutral |
+| 1 | `Unknown_66C260` | `app/client/gd_robj.h:57` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_robj.h:58` | neutral |
+| 1 | `Unknown_66C2A0` | `app/client/gd_robj.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_66C2D0` | `app/client/gd_robj.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/gd_robj.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_66C4A0` | `app/client/gd_robj.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_66C6C0` | `app/client/gd_robj.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/gd_robj.h:65` | untagged neutral name (D10) |
+| 1 | `Layer` | `app/client/gd_robj.h:66` | its type |
+| 1 | `Unknown5C_00` | `app/client/gd_robj.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown5C_01` | `app/client/gd_robj.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown5C_02` | `app/client/gd_robj.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown5C_03` | `app/client/gd_robj.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
@@ -10420,6 +10501,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
 | 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
+| 2 | `Set_Render_Obj` | `app/client/gd_robj.h:50` | as Peek_Render_Obj; NAME 1 [robj]: neutral |
 | 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
 | 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
@@ -12825,6 +12907,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
+| 3 | `gd_robj.h` | `app/client/gd_robj.h:18` | header name assumed from the client's gd_robj.cpp |
+| 3 | `RObjGadgetClass` | `app/client/gd_robj.h:29` | class-from-file (D24) for app\Client\gd_robj.cpp |
+| 3 | `Peek_Render_Obj` | `app/client/gd_robj.h:55` | the FAIL_IF's |
+| 3 | `RObj` | `app/client/gd_robj.h:64` | the assert's |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `HtmlViewClass` | `app/client/html/htmlview.h:54` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
