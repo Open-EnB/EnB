@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1064 |
-| 2 | describes what the code does | 2544 |
+| 2 | describes what the code does | 2545 |
 | 1 | neutral placeholder | 7802 |
 
 ## For review (score 3 and below)
@@ -9389,15 +9389,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Mod` | `app/shared/attrib_dir.h:240` | as the iterator's |
 | 2 | `Get_Name` | `app/shared/attrib_dir.h:241` | as the iterator's |
 | 2 | `Next` | `app/shared/attrib_dir.h:243` | as the iterator's |
-| 2 | `Iterator` | `app/shared/attrib_dir.h:245` | what it holds |
-| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:268` | as the other Detach_Mod |
-| 2 | `Get_All_Mods` | `app/shared/attrib_dir.h:269` | what it returns |
-| 2 | `Get_Mods` | `app/shared/attrib_dir.h:270` | what it returns |
-| 2 | `Get_Info` | `app/shared/attrib_dir.h:272` | what it does |
-| 2 | `Find_Info` | `app/shared/attrib_dir.h:273` | what it does |
+| 2 | `Lock_Next` | `app/shared/attrib_dir.h:244` | as the iterator's |
+| 2 | `Iterator` | `app/shared/attrib_dir.h:246` | what it holds |
+| 2 | `Detach_Mod` | `app/shared/attrib_dir.h:269` | as the other Detach_Mod |
+| 2 | `Get_All_Mods` | `app/shared/attrib_dir.h:270` | what it returns |
+| 2 | `Get_Mods` | `app/shared/attrib_dir.h:271` | what it returns |
+| 2 | `Get_Info` | `app/shared/attrib_dir.h:273` | what it does |
 | 2 | `Find_Info` | `app/shared/attrib_dir.h:274` | what it does |
-| 2 | `std:` | `app/shared/attrib_dir.h:275` | what it does |
-| 2 | `Attributes` | `app/shared/attrib_dir.h:277` | what it holds |
+| 2 | `Find_Info` | `app/shared/attrib_dir.h:275` | what it does |
+| 2 | `std:` | `app/shared/attrib_dir.h:276` | what it does |
+| 2 | `Attributes` | `app/shared/attrib_dir.h:278` | what it holds |
 | 2 | `AttribValueFunctionClass` | `app/shared/attrib_dir_collective.h:28` | what it is |
 | 2 | `Add` | `app/shared/attrib_dir_collective.h:31` | what it does |
 | 2 | `Remove` | `app/shared/attrib_dir_collective.h:32` | what it does |

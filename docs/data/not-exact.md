@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-394 entries in 80 files.
+393 entries in 80 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -257,7 +257,6 @@ edit the comments in the code, not this file.
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |
 | `app/packets/pkupdate.h:113` | `?` | mention | NOT EXACT) |
 | `app/shared/attrib_dir.cpp:196` | `AttribDir::Attach_Mod` | marker | NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction |
-| `app/shared/attrib_dir.cpp:227` | `AttribDir::Detach_Mod` | marker | NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C) |
 | `app/shared/attrib_dir.cpp:517` | `AttributeInfo::Attach_Mod` | marker | NOT EXACT: inline budget (explain.py), the client calls the list node value's construction 0x4D9FB0 out of line; ours inlines it |
 | `app/shared/attrib_dir.cpp:690` | `AttributeInfo::Notify` | marker | NOT EXACT: inline budget (explain.py: shape), the client inlines the update table's begin() (ours calls it; frame 0x2C vs 0x28); the callback loop is the client's |
 | `app/shared/attrib_dir.cpp:1031` | `AttribDirModIteratorClass::Next` | marker | NOT EXACT: shape (explain.py: 8 masked rows), registers swapped after ++ModCur and the client tests MapCur != MapEnd twice before the inlined Skip_Empty |

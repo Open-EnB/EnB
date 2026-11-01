@@ -224,7 +224,7 @@ bool AttribDir::Detach_Mod(const char *name, AttribModClass *mod)
 
 
 
-// NOT EXACT: shape (explain.py: 24 vs 25 calls), the client inlines the handle's Is_Done / Get_Name and Find_Info with Make_Key called (frame 0x28; ours 0x3C)
+// Exact with AttributeInfo::Detach_Mod inlined (its find, Advance, erase and Recalculate called) and the handle's Lock_Next (the inline budget: the FAIL_IF's copy calls operator=; TK2)
 AttribModIterator AttribDir::Detach_Mod(AttribModIterator &iter)
 {
 	WWPROFILE("AttribDir::Detach_Mod");
@@ -235,16 +235,16 @@ AttribModIterator AttribDir::Detach_Mod(AttribModIterator &iter)
 	}
 	AttribModClass *mod = iter.Get_Mod();
 	AttribModIterator next(iter);
-	next.Iterator->Lock_Next();
-	AttributeInfo::ModList::iterator it = std::find(info->Mods.begin(), info->Mods.end(), mod);
-	if (it != info->Mods.end()) {
-		info->ModIterators.Advance(it);
-		info->Mods.erase(it);
-		info->Recalculate();
-	}
+	next.Lock_Next();
+	info->Detach_Mod(mod);
 	next.Iterator->Unlock();
 	return next;
 }
+
+
+
+
+
 
 
 
