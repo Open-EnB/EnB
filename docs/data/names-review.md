@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1098 |
 | 2 | describes what the code does | 2701 |
-| 1 | neutral placeholder | 8976 |
+| 1 | neutral placeholder | 8973 |
 
 ## For review (score 3 and below)
 
@@ -3780,7 +3780,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:248` | untagged neutral name (D10) |
 | 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:252` | untagged neutral name (D10) |
 | 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:254` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/tasks/tsk_login.h:256` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:257` | untagged neutral name (D10) |
 | 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:258` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:259` | untagged neutral name (D10) |
@@ -7293,10 +7292,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkgloballogin` | `app/packets/pkgloballogin.h:16` | provisional, pk + its first named class's name |
 | 1 | `LoginTicketInfoClass` | `app/packets/pkgloballogin.h:23` | what it holds |
 | 1 | `Unknown20` | `app/packets/pkgloballogin.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/packets/pkgloballogin.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkgloballogin.h:55` | neutral (D10) |
 | 1 | `Ticket_Info` | `app/packets/pkgloballogin.h:56` | copied to the login task's |
-| 1 | `Unknown0AC` | `app/packets/pkgloballogin.h:57` | neutral (D10) |
 | 1 | `Unknown0BC` | `app/packets/pkgloballogin.h:61` | neutral (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkglobalticket.cpp:28` | untagged neutral name (D10) |
 | 1 | `pkglobalticket` | `app/packets/pkglobalticket.h:15` | provisional, pk + its first named class's name |

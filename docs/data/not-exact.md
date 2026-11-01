@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-407 entries in 85 files.
+406 entries in 85 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -216,8 +216,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_login.cpp:282` | `LoginInterface::LoginInterface` | marker | NOT EXACT: register allocation (the client keeps the layer in edi up to its member store and calls the settings map's begin() 0x5AF130 out of line; ours inlines it) (0x5ACB80) |
 | `app/client/ui_login.cpp:528` | `LoginInterface::Unknown_5ADA50` | marker | NOT EXACT: inline budget (the client calls the string's _Tidy and _Eos out of line here; ours inlines them) (0x5ADA50) |
-| `app/client/ui_login.cpp:873` | `LoginInterface::Unknown_5AEA60` | marker | NOT EXACT: frame (the client's is 4 bytes larger: a slot between the ticket copy and the day text; perhaps LoginTicketInfoClass is 0xA0 bytes, its +0x20 an __int64) (0x5AEA60) |
-| `app/client/ui_login.cpp:930` | `LoginInterface::Unknown_5AEA60` | mention | NOT EXACT (the constructor, 0x5ADA50 (slot +0x60's first call: the welcome speech and the step changes) and 0x5AEA60 (the account expiry box)), their notes above them. Slot +0x68 takes its block order from if / else plus break in the account cases (the shared box last). Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account menu's button loop indexes ... |
+| `app/client/ui_login.cpp:930` | `LoginInterface::Unknown_5AEA60` | mention | NOT EXACT (the constructor and 0x5ADA50, slot +0x60's first call: the welcome speech and the step changes), their notes above them. Slot +0x68 takes its block order from if / else plus break in the account cases (the shared box last); the account expiry box 0x5AEA60 nests its ifs (one exit through the ticket copy's destructors) and its frame says LoginTicketInfoClass is 0xA0 bytes. Forms: the zero... |
 | `app/client/ui_manu.cpp:93` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
 | `app/client/ui_manu.cpp:221` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0) |

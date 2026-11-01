@@ -870,8 +870,7 @@ void LoginInterface::Unknown_5AE9D0(FlashingGadgetEvent *event, GadgetClass *sen
 }
 
 
-// NOT EXACT: frame (the client's is 4 bytes larger: a slot between the ticket copy and the day text; perhaps
-// LoginTicketInfoClass is 0xA0 bytes, its +0x20 an __int64) (0x5AEA60)
+// 0x5AEA60
 void LoginInterface::Unknown_5AEA60()
 {
 	LoginTicketInfoClass info = Task->Ticket_Info;
@@ -909,7 +908,8 @@ void LoginInterface::Unknown_5AEA60()
 					}
 					_snprintf(text, 1024, "Your Trial of Earth & Beyond will expire %s. If you like Earth & Beyond and wish to continue your adventures, you can buy an Earth & Beyond Upgrade Registration Code at www.eabuddystore.com <http://www.eabuddystore.com>. Enter your new Registration Code by using the \"Account Management\" menu on the login screen and you'll be back in the galaxy in just minutes.\n\nThank you for playing Earth & Beyond!", when);
 				}
-				CharacterView->Unknown034->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
+				CharacterViewUnknown34Class *box = CharacterView->Unknown034;
+				box->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
 			}
 		}
 	}
@@ -927,9 +927,10 @@ void LoginInterface::Unknown_5AEA60()
 **	the adjustor thunks this file emits. Its asserts sit on the client's lines 713 ('!textptr', 0x5AE320, which
 **	0x5AD610 and 0x5ADA50 inline), 787 / 826 ('AccountMenu') and 862 / 866 ('!event', '!gadget') (D25).
 **
-**	Every function of the window is here; three are NOT EXACT (the constructor, 0x5ADA50 (slot +0x60's first call:
-**	the welcome speech and the step changes) and 0x5AEA60 (the account expiry box)), their notes above them. Slot
-**	+0x68 takes its block order from if / else plus break in the account cases (the shared box last). Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account
+**	Every function of the window is here; two are NOT EXACT (the constructor and 0x5ADA50, slot +0x60's first call:
+**	the welcome speech and the step changes), their notes above them. Slot +0x68 takes its block order from if /
+**	else plus break in the account cases (the shared box last); the account expiry box 0x5AEA60 nests its ifs (one
+**	exit through the ticket copy's destructors) and its frame says LoginTicketInfoClass is 0xA0 bytes. Forms: the zero test over the five characters keeps its count in a named bool (0x5AE120); the account
 **	menu's button loop indexes the name table (a jl pointer loop, 0x5AE590); the gadget's
 **	mouse-over flag is a bitfield read through an inline getter (shr / test al, 1: 0x5AE9D0); the model's texts are
 **	looked up through an inline Peek_Model (the font manager loaded before the model, 0x5AE160 / 0x5AE320).

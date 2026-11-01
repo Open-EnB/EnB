@@ -253,7 +253,7 @@ public:
 	int Error;											// +0x1090 NAME 1: the global error packet's code (0x76B000)
 	char Unknown1094[0x1098 - 0x1094];					// +0x1094
 	LoginTicketInfoClass Ticket_Info;					// +0x1098 NAME 1: what the ticket packet's handler 0x76B170 fills
-	int Unknown1134;									// +0x1134
+	// +0x1134: Ticket_Info's tail padding (LoginTicketInfoClass is 0xA0 bytes)
 	bool Unknown1138;									// +0x1138: cleared by referrer results 1 and 2
 	char Unknown1139[0x113C - 0x1139];					// +0x1139
 	int Unknown113C;									// +0x113C: the login packet's +0xB4 less its +0xB8 (0x76B170)
