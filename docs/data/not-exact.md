@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-407 entries in 86 files.
+409 entries in 86 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -102,11 +102,13 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
+| `app/client/html/htmlview.cpp:482` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64): written from the pseudocode; 18 KB, not yet compared form by form |
 | `app/client/html/htmlview.cpp:1108` | `HtmlViewClass::Add_Text` | marker | NOT EXACT: 0x7759E0, register allocation (widest spilled, one more frame slot than the client's 0x34) |
 | `app/client/html/htmlview.cpp:1231` | `HtmlViewClass::Render` | marker | NOT EXACT: 0x7761E0, the parent bounds' stores scheduled later than the client's (the clip RECT, bottom first, matches) |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two registers); the text loop's loads are scheduled differently |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
-| `app/client/html/htmlview.cpp:1624` | `HtmlViewClass::Draw_Line_24` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). * Not yet: the parser 0x7710D0 (18 KB; the template copies 0x778CF0-0x779120 are its), Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and 0x76E9D0 (the ob... |
+| `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). |
+| `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |

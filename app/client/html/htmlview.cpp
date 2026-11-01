@@ -468,564 +468,564 @@ static inline bool Has_Graph(char *str)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static int TableDepth;  // NAME 1: 0xBE83F0, counted up by <table>, down by </table>; nothing reads it
+static int RowDepth;  // NAME 1: 0xBE83F4, the same for <tr>
+static int CellDepth;  // NAME 1: 0xBE83F8, the same for <td>
+
+static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
+
+// An HTML colour (#RRGGBB) as a COLORREF (0x00BBGGRR), its digits read three times as the client does.
+#define HTML_COLORREF(str, end) \
+	(((strtoul((str) + 1, &(end), 16) & 0xFF) << 16) | (strtoul((str) + 1, &(end), 16) >> 16) | \
+	(strtoul((str) + 1, &(end), 16) & 0xFF00))
+
+// NOT EXACT: 0x7710D0, functional (D64): written from the pseudocode; 18 KB, not yet compared form by form
+int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
+{
+	char *start;
+	if (!link->Data.getPointer(&start, offset))
+		start = NULL;
+	char *cptr = start;
+	int consumed = 0;
+	ArrayList<HtmlBlockClass *> rowcells;
+	ArrayList<int> colwidths;
+	int column = 0;
+	HtmlAttributeStackClass tableattrs;
+	HtmlAttributeStackClass rowattrs;
+	char buffer[128];
+	char *end;
+
+	if (block == NULL)
+		return 0;
+
+	if (strcmp(link->Url, "image/gif") != 0) {
+		for (;;) {
+			char *tagend = NULL;
+			consumed = cptr - start;
+			if (*cptr == '\0')
+				break;
+			char *tagstart = strchr(cptr, '<');
+			if (tagstart != NULL) {
+				tagend = tagstart;
+				while ((tagend = strchr(tagend, '>')) != NULL) {
+					if (strncmp(tagstart, "<!--", 4) != 0 || strncmp(tagend - 2, "-->", 3) == 0)
+						break;
+					tagend++;
+				}
+			}
+			if (tagend == NULL) {
+				if (strlen(cptr) != 0) {
+					Add_Text(block, cptr, strlen(cptr), block->Width - block->HPadding, -1);
+				}
+				break;
+			}
+			if (cptr < tagstart && strlen(cptr) != 0) {
+				Add_Text(block, cptr, tagstart - cptr, block->Width - block->HPadding, -1);
+				cptr = tagstart;
+				continue;
+			}
+
+			Wstring tag;
+			Wstring name;
+			tag.set(tagend - tagstart - 1, tagstart + 1);
+			int pos = tag.getToken(0, " \t", name);
+			name.toLower();
+			int fontheight = block->Get_Font_Height(NULL);
+
+			if (strcmp(name.get(), "p") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(20, false);
+				while (block->Pop_Style("Align", "p.left")) {}
+				while (block->Pop_Style("Align", "p.right")) {}
+				while (block->Pop_Style("Align", "p.center")) {}
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "align") == 0) {
+						char align[64];
+						sprintf(align, "p.%s", value.get());
+						block->Push_Style("Align", align);
+					}
+				}
+			} else if (strcmp(name.get(), "/p") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(20, false);
+				while (block->Pop_Style("Align", "p.left")) {}
+				while (block->Pop_Style("Align", "p.right")) {}
+				while (block->Pop_Style("Align", "p.center")) {}
+			} else if (strcmp(name.get(), "font") == 0) {
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "face") == 0) {
+						block->Set_Style("Font.Face", value.get());
+					} else if (strcmp(key.get(), "size") == 0) {
+						block->Set_Style("Font.BaseSize", value.get());
+					} else if (strcmp(key.get(), "color") == 0) {
+						end = NULL;
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						block->Set_Style("Font.Colorref", buffer);
+					}
+				}
+			} else if (strcmp(name.get(), "/font") == 0) {
+				block->Remove_Style("Font.Face");
+				block->Remove_Style("Font.BaseSize");
+				block->Remove_Style("Font.Colorref");
+			} else if (strcmp(name.get(), "br") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(5, false);
+			} else if (strcmp(name.get(), "a") == 0) {
+				Wstring key;
+				pos = tag.getToken(pos, " =\t\r\n", key);
+				if (strcmp(key.get(), "href") == 0) {
+					Wstring value;
+					if (Get_Value(pos, tag, value) != -1) {
+						block->Set_Style("Anchor.HREF", value.get());
+					}
+				}
+			} else if (strcmp(name.get(), "/a") == 0) {
+				block->Remove_Style("Anchor.HREF");
+			} else if (strcmp(name.get(), "title") == 0) {
+				block->Set_Attribute("TitleFlag", "1");
+			} else if (strcmp(name.get(), "/title") == 0) {
+				block->Remove_Attribute("TitleFlag");
+			} else if (strcmp(name.get(), "i") == 0) {
+				block->Set_Style("Font.Italic", "true");
+			} else if (strcmp(name.get(), "/i") == 0) {
+				block->Remove_Style("Font.Italic");
+			} else if (strcmp(name.get(), "b") == 0 || strcmp(name.get(), "strong") == 0) {
+				block->Set_Style("Font.Bold", "true");
+			} else if (strcmp(name.get(), "/b") == 0 || strcmp(name.get(), "/strong") == 0) {
+				block->Remove_Style("Font.Bold");
+			} else if (strcmp(name.get(), "center") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(0, false);
+				block->Set_Style("Align", "center");
+			} else if (strcmp(name.get(), "/center") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(0, false);
+				block->Remove_Style("Align");
+			} else if (strcmp(name.get(), "table") == 0) {
+				TableDepth++;
+				colwidths.clear();
+				tableattrs.Add_All(block->Attributes);
+				tableattrs.Remove("BackgroundPointer");
+				tableattrs.Remove("BackgroundName");
+				tableattrs.Remove("BackgroundColorref");
+				tableattrs.Remove("Horizontal_Padding");
+				tableattrs.Remove("Vertical_Padding");
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(20, false);
+				int spacing = 0;
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "bgcolor") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						tableattrs.Set("BackgroundColorref", buffer);
+					}
+					if (strcmp(key.get(), "text") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						tableattrs.Set("TextColorref", buffer);
+					}
+					if (strcmp(key.get(), "link") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						tableattrs.Set("LinkColorref", buffer);
+					}
+					if (strcmp(key.get(), "width") == 0) {
+						int width = atol(value.get());
+						if (value.get()[value.length() - 1] == '%')
+							width = (block->Width - block->HPadding * 2) * width / 100;
+						sprintf(buffer, "%d", width);
+						tableattrs.Set("Width", buffer);
+					}
+					if (strcmp(key.get(), "cellpadding") == 0) {
+						tableattrs.Set("Horizontal_Padding", value.get());
+						tableattrs.Set("Vertical_Padding", value.get());
+					}
+					if (strcmp(key.get(), "cellspacing") == 0) {
+						spacing = atol(value.get()) / 2 * 2;
+						sprintf(buffer, "%d", spacing);
+						tableattrs.Set("CellSpacing", buffer);
+					}
+					if (strcmp(key.get(), "border") == 0) {
+						tableattrs.Set("Border", value.get());
+					}
+				}
+				char *str = tableattrs.Get("Width");
+				int avail = block->Width - block->HPadding * 2;
+				if (str == NULL || atol(str) > avail) {
+					sprintf(buffer, "%d", avail);
+					tableattrs.Set("Width", buffer);
+					str = tableattrs.Get("Width");
+				}
+				int width = atol(str);
+				int align = block->Get_Align();
+				if (align == 0) {
+					block->Advance_X((block->Width - width) / 2, true);
+					block->RightPadding += (block->Width - width) / 2;
+				} else if (align == 1) {
+					block->Advance_X(block->Width - width, true);
+					block->RightPadding += block->Width - width;
+				}
+				HtmlItemStruct *item = new HtmlItemStruct;
+				item->X = block->CursorX;
+				item->Y = block->CursorY;
+				item->Width = 0;
+				item->Height = 0;
+				item->Attributes.Add_All(tableattrs);
+				item->Attributes.Set("Type", "Table");
+				block->Items.add(item, block->Items.length());
+				sprintf(buffer, "%p", item);
+				tableattrs.Set("ElementPointer", buffer);
+				str = tableattrs.Get("Border");
+				if (str != NULL) {
+					int border = atol(str);
+					int inset = spacing / 2 + border;
+					block->Advance_Y(inset, true);
+					block->Advance_X(inset, true);
+					block->RightPadding += spacing / 2 + border;
+					str = tableattrs.Get("Width");
+					if (str != NULL) {
+						sprintf(buffer, "%d", atol(str) - border * 2 - spacing / 2);
+						tableattrs.Set("Width", buffer);
+					}
+				}
+			} else if (strcmp(name.get(), "/table") == 0) {
+				TableDepth--;
+				int border = 0;
+				char *str = tableattrs.Get("Border");
+				if (str != NULL) {
+					border = atol(str);
+					block->RightPadding -= border;
+					block->Advance_X(-border, true);
+					block->Advance_Y(border, true);
+				}
+				int spacing = 0;
+				str = tableattrs.Get("CellSpacing");
+				if (str != NULL)
+					spacing = atol(str);
+				HtmlItemStruct *item = NULL;
+				str = tableattrs.Get("ElementPointer");
+				if (str != NULL) {
+					sscanf(str, "%p", &item);
+					spacing /= 2;
+					item->Width = spacing + atol(tableattrs.Get("Width")) + border * 2;
+					item->Height = spacing - item->Y + block->CursorY;
+					tableattrs.Clear();
+					colwidths.clear();
+					block->Advance_Y(0, true);
+					block->RightPadding -= spacing;
+					int align = block->Get_Align();
+					if (align == 0) {
+						block->RightPadding -= (block->Width - item->Width) / 2;
+					} else if (align == 1) {
+						block->RightPadding -= block->Width - item->Width;
+					}
+					block->CursorX = block->RightPadding;
+				}
+			} else if (strcmp(name.get(), "tr") == 0) {
+				RowDepth++;
+				rowcells.clear();
+				rowattrs.Clear();
+				column = 0;
+				char *str = tableattrs.Get("CellSpacing");
+				if (str != NULL)
+					atol(str);
+				tableattrs.Get("Border");
+			} else if (strcmp(name.get(), "/tr") == 0) {
+				RowDepth--;
+				int height = 1;
+				int width = 0;
+				int spacing = 0;
+				int border = 0;
+				char *str = tableattrs.Get("CellSpacing");
+				if (str != NULL)
+					spacing = atol(str);
+				str = tableattrs.Get("Border");
+				if (str != NULL && atol(str) != 0)
+					border = 1;
+				HtmlBlockClass *cell;
+				int i;
+				for (i = 0; i < rowcells.length(); i++) {
+					rowcells.get(cell, i);
+					if (cell->Unknown1C4 > height)
+						height = cell->Unknown1C4;
+					width += cell->Width + spacing + border * 2;
+				}
+				for (i = 0; i < rowcells.length(); i++) {
+					rowcells.get(cell, i);
+					cell->Height = height;
+					HtmlItemStruct *item = NULL;
+					sscanf(cell->Get_Style("ElementPointer"), "%p", &item);
+					item->Height = height + border * 2;
+				}
+				block->RightPadding -= width;
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(spacing + border * 2 + height, true);
+				rowcells.clear();
+				rowattrs.Clear();
+			} else if (strcmp(name.get(), "td") == 0) {
+				CellDepth++;
+				HtmlAttributeStackClass cellattrs;
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "bgcolor") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						cellattrs.Set("BackgroundColorref", buffer);
+					}
+					if (strcmp(key.get(), "width") == 0) {
+						int width = atol(value.get());
+						if (value.get()[value.length() - 1] == '%') {
+							int full = block->Width;
+							char *str = tableattrs.Get("Width");
+							if (str != NULL)
+								full = atol(str);
+							width = full * width / 100;
+						}
+						sprintf(buffer, "%d", width);
+						cellattrs.Set("Width", buffer);
+					}
+					if (strcmp(key.get(), "height") == 0) {
+						cellattrs.Set("Height", value.get());
+					}
+					if (strcmp(key.get(), "colspan") == 0) {
+						cellattrs.Set("ColSpan", value.get());
+					}
+				}
+				int spacing = 0;
+				int border = 0;
+				char *str = tableattrs.Get("CellSpacing");
+				if (str != NULL)
+					spacing = atol(str);
+				str = tableattrs.Get("Border");
+				if (str != NULL && atol(str) > 0) {
+					sprintf(buffer, "%d", 1);
+					cellattrs.Set("Border", buffer);
+					border = 1;
+				}
+				HtmlAttributeStackClass attributes;
+				attributes.Add_All(tableattrs);
+				attributes.Add_All(rowattrs);
+				attributes.Add_All(cellattrs);
+				int width = 50;
+				str = tableattrs.Get("Width");
+				if (str != NULL)
+					width = atol(str);
+				str = cellattrs.Get("Width");
+				if (str != NULL)
+					width = atol(str);
+				int colspan = 1;
+				str = cellattrs.Get("ColSpan");
+				if (str != NULL)
+					colspan = atol(str);
+				int colwidth = width / colspan;
+				int i;
+				for (i = 0; i < colspan; i++) {
+					if (column + i < 0 || column + i >= colwidths.length())
+						colwidths.add(colwidth, column + i);
+				}
+				int cellwidth = 0;
+				int w = 0;
+				for (i = 0; i < colspan; i++) {
+					colwidths.get(w, column + i);
+					cellwidth += w;
+				}
+				column += colspan;
+				HtmlBlockClass *cell = new HtmlBlockClass((void *)1, cellwidth - border * 2 - spacing, 100, &attributes, NULL);
+				block->Add_Child(cell);
+				int half = spacing / 2;
+				cell->AbsX = block->CursorX + border + half;
+				cell->AbsY = border + half + block->CursorY;
+				Blocks.addTail(cell);
+				rowcells.addTail(cell);
+				int length = Parse(link, cell, tagend - start + offset + 1);
+				cell->Height = cell->Unknown1C4;
+				HtmlItemStruct *item = new HtmlItemStruct;
+				item->X = half + block->CursorX;
+				item->Y = half + block->CursorY;
+				item->Width = cell->Width + border * 2;
+				item->Height = cell->Height + border * 2;
+				item->Attributes.Add_All(cellattrs);
+				item->Attributes.Set("Type", "Cell");
+				block->Items.addTail(item);
+				sprintf(buffer, "%p", item);
+				cell->Set_Style("ElementPointer", buffer);
+				block->RightPadding += cellwidth;
+				block->Advance_X(cellwidth, false);
+				tagend += length;
+			} else if (strcmp(name.get(), "/td") == 0) {
+				CellDepth--;
+				consumed = tagend + 1 - start;
+				break;
+			} else if (strcmp(name.get(), "h1") == 0) {
+				if (block->CursorX != block->RightPadding)
+					block->Advance_Y(0, false);
+				block->CursorX = block->RightPadding;
+				block->Push_Style("Font.HSize", "1");
+			} else if (strcmp(name.get(), "h2") == 0) {
+				if (block->CursorX != block->RightPadding)
+					block->Advance_Y(0, false);
+				block->CursorX = block->RightPadding;
+				block->Push_Style("Font.HSize", "2");
+			} else if (strcmp(name.get(), "h3") == 0) {
+				if (block->CursorX != block->RightPadding)
+					block->Advance_Y(0, false);
+				block->CursorX = block->RightPadding;
+				block->Push_Style("Font.HSize", "3");
+			} else if (strcmp(name.get(), "h4") == 0) {
+				if (block->CursorX != block->RightPadding)
+					block->Advance_Y(0, false);
+				block->CursorX = block->RightPadding;
+				block->Push_Style("Font.HSize", "4");
+			} else if (strncmp(name.get(), "/h", 2) == 0 && isdigit(name.get()[2])) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(20, false);
+				block->Pop_Style("Font.HSize", NULL);
+			} else if (strcmp(name.get(), "body") == 0) {
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "bgcolor") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						block->Set_Attribute("BackgroundColorref", buffer);
+					} else if (strcmp(key.get(), "text") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						block->Set_Attribute("TextColorref", buffer);
+					} else if (strcmp(key.get(), "link") == 0) {
+						sprintf(buffer, "%d", HTML_COLORREF(value.get(), end));
+						block->Set_Attribute("LinkColorref", buffer);
+					} else if (strcmp(key.get(), "background") == 0) {
+						block->Set_Attribute("BackgroundName", value.get());
+						HtmlImageClass *image;
+						if (Find_Image(value.get(), &image)) {
+							sprintf(buffer, "%p", image);
+							block->Set_Attribute("BackgroundPointer", buffer);
+							continue;
+						}
+						image = new HtmlGifImageClass(value.get(), Surf->Bytes_Per_Pixel() << 3);
+						sprintf(buffer, "%p", image);
+						block->Set_Attribute("BackgroundPointer", buffer);
+						Images.addTail(image);
+						Loader->Open(value.get());
+						HtmlLinkStruct *data;
+						if (Find_Link(value.get(), &data)) {
+							if (data->Data.length() > 0) {
+								char *bytes;
+								data->Data.getPointer(&bytes, 0);
+								image->Set_Data(bytes, data->Data.length());
+							}
+							continue;
+						}
+						G_ASSERT(0);
+					}
+				}
+			} else if (strcmp(name.get(), "hr") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(5, false);
+				HtmlItemStruct *item = new HtmlItemStruct;
+				item->X = block->CursorX;
+				item->Y = block->CursorY;
+				item->Height = 4;
+				item->Width = block->Width - block->HPadding - item->X;
+				item->Attributes.Set("Type", "HR");
+				block->Items.addTail(item);
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(5, false);
+			} else if (strcmp(name.get(), "ul") == 0) {
+				block->RightPadding += 32;
+				block->Advance_X(32, false);
+				if (block->RightPadding == block->HPadding + 32)
+					block->Advance_Y(5, false);
+			} else if (strcmp(name.get(), "/ul") == 0) {
+				if (block->RightPadding >= block->HPadding + 32) {
+					block->RightPadding -= 32;
+					if (block->CursorX >= block->HPadding + 32)
+						block->Advance_X(-32, false);
+				}
+				block->CursorX = block->RightPadding;
+				if (block->RightPadding == block->HPadding)
+					block->Advance_Y(20, false);
+			} else if (strcmp(name.get(), "li") == 0) {
+				block->CursorX = block->RightPadding;
+				block->Advance_Y(4, false);
+				HtmlItemStruct *item = new HtmlItemStruct;
+				item->X = block->CursorX - 10;
+				item->Y = fontheight / 2 + block->CursorY;
+				item->Width = 4;
+				item->Height = 4;
+				item->Attributes.Set("Type", "LI");
+				block->Items.addTail(item);
+			} else if (strcmp(name.get(), "img") == 0) {
+				Wstring key;
+				Wstring value;
+				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+					key.toLower();
+					if (strcmp(key.get(), "src") == 0) {
+						HtmlImageClass *image;
+						if (!Find_Image(value.get(), &image)) {
+							image = new HtmlGifImageClass(value.get(), Surf->Bytes_Per_Pixel() << 3);
+							Images.addTail(image);
+							Loader->Open(value.get());
+							HtmlLinkStruct *data;
+							if (Find_Link(value.get(), &data) && data->Data.length() > 0) {
+								char *bytes;
+								data->Data.getPointer(&bytes, 0);
+								image->Set_Data(bytes, data->Data.length());
+							}
+						}
+						HtmlItemStruct *item = new HtmlItemStruct;
+						int width = 32;
+						int height = 32;
+						item->X = block->CursorX;
+						item->Y = block->CursorY;
+						if (image->Get_Surface() != NULL) {
+							width = image->Get_Surface()->Get_Width();
+							height = image->Get_Surface()->Get_Height();
+						}
+						item->Height = height;
+						item->Width = width;
+						item->Attributes.Add_All(block->Styles);
+						item->Attributes.Set("Type", "Image");
+						item->Attributes.Set("URL", value.get());
+						block->Items.addTail(item);
+						block->Advance_X(width, true);
+					}
+					if (strcmp(key.get(), "alt") == 0) {
+						block->Set_Style("Img.Alt", value.get());
+					}
+				}
+				block->Remove_Style("Img.Alt");
+			}
+			cptr = tagend + 1;
+		}
+		block->Advance_X(0, false);
+		block->Advance_Y(0, false);
+	}
+
+	int bottom = 0;
+	int right = 0;
+	int i;
+	for (i = 0; i < block->Items.length(); i++) {
+		HtmlItemStruct *item = block->Get_Item(i);
+		if (item->Height + item->Y > bottom)
+			bottom = item->Height + item->Y;
+	}
+	for (i = 0; i < block->Items.length(); i++) {
+		HtmlItemStruct *item = block->Get_Item(i);
+		if (item->Width + item->X > right)
+			right = item->Width + item->X;
+	}
+	block->Unknown1C4 = block->VPadding + 2 + bottom;
+	block->Unknown1C0 = block->HPadding + right;
+	return consumed;
+}
 
 
 
@@ -1592,6 +1592,26 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 }
 #pragma auto_inline(on)
 
+#pragma auto_inline(off)
+// A tag attribute's value from offset on: quoted ("...") or up to the next delimiter; the offset after it, or -1.
+static int Get_Value(int offset, Wstring &tag, Wstring &value)
+{
+	char *cptr = tag.get() + offset;
+	while (*cptr == ' ' || *cptr == '=' || *cptr == '\t' || *cptr == '\r' || *cptr == '\n')
+		cptr++;
+	if (*cptr == '"') {
+		cptr++;
+		char *end = strchr(cptr, '"');
+		if (end == NULL)
+			return -1;
+		value.set(end - cptr, cptr);
+		return end - tag.get() + 1;
+	}
+	return tag.getToken(offset, " =\t\r\n", value);
+}
+#pragma auto_inline(on)
+
+
 /*
 **	Reconstruction notes (HV1, 2026-11-01).
 **	* The object (htmlview.cpp's __FILE__ 0xB9CA28: asserts in 0x770860 line 158, 0x7710D0 line 926 and
@@ -1623,7 +1643,17 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 **	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
 **	  top, left, right. NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text
 **	  (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test).
-**	* Not yet: the parser 0x7710D0 (18 KB; the template copies 0x778CF0-0x779120 are its), Draw_Line_16 /
-**	  Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
+**	* HV3 (2026-11-01): the parser Parse 0x7710D0, NOT EXACT (functional, D64, from the pseudocode): an
+**	  if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN,
+**	  body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the
+**	  characters used. Its assert (body background with no link of that name) on line 926. Get_Value
+**	  0x7784D0 exact: defined after Draw_Line_24 under auto_inline(off) (VC6 inlines it otherwise, also
+**	  when it is defined last). Not yet: the client keeps ArrayList<HtmlItemStruct *>::add 0x778CF0 and four
+**	  growVector copies (0x778EB0 int, 0x778F80 HtmlBlockClass *, 0x779050 HtmlImageClass *, 0x779120
+**	  HtmlItemStruct *, by their callers) out of line where this build inlines them; the client's frame is
+**	  0x284 bytes against this one's 0x27C. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
+**	  cell depth and are never read. Block +0x1BC (RightPadding) is the line's start x (tables and lists
+**	  move it), +0x1C0 / +0x1C4 the laid-out content's width / height (set at the parser's end).
+**	* Not yet: Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
 **	  0x76E9D0 (the object before, image.cpp's vtable slot) share its static ArrayList at 0xBE82E0.
 */

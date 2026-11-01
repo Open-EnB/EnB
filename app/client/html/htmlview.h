@@ -30,10 +30,25 @@ class HtmlImageClass  // NAME 1: element of the view's +0x20 list (image.cpp's c
 {
 public:
 	virtual void Unknown_00(void) = 0;
-	virtual void Unknown_04(void) = 0;
+	virtual void Set_Data(char *data, int length) = 0;  // slot +4  // NAME 2: the parser hands it the data of the link named like the image
 	virtual Surface *Get_Surface(void) = 0;  // slot +8  // NAME 2: Draw_Block tiles it (Get_Width / Get_Height)
 	virtual char *Get_Name(void) = 0;  // slot +0xC  // NAME 2: Find_Image's key
 	virtual void Draw(Surface *surface, int x, int y, int clipx, int clipy, int clipw, int cliph) = 0;  // slot +0x10  // NAME 2: Draw_Block's tiles
+};
+
+// The image the parser makes for <img src> and <body background>: 0x22A04 bytes, its constructor 0x76D3E0 (on
+// image.cpp's base constructor 0x76E4F0; its vtable 0xB043B8). Declared for the parser; not rebuilt yet.
+class HtmlGifImageClass : public HtmlImageClass  // NAME 1: image.cpp's image (sits before gifload.cpp; 'image/gif' links)
+{
+public:
+	HtmlGifImageClass(char *name, int bits);  // 0x76D3E0  // NAME 2: the src and the surface's bits per pixel
+	virtual void Unknown_00(void);
+	virtual void Set_Data(char *data, int length);
+	virtual Surface *Get_Surface(void);
+	virtual char *Get_Name(void);
+	virtual void Draw(Surface *surface, int x, int y, int clipx, int clipy, int clipw, int cliph);
+
+	char Unknown04[0x22A00];  // +0x004  // the size from the parser's operator new (0x22A04)
 };
 
 class HtmlViewClass  // NAME 3: htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0
@@ -51,7 +66,7 @@ public:
 	bool Clear_Blocks(void);  // 0x770720
 	bool Add_Data(char *name, char *url, char *data, int length, bool render);  // 0x770860  // NAME 2: appends to the link named name (made with url if missing); render: Layout and Render
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
-	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
+	int Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset);  // 0x7710D0  // NAME 2: lays link's data out from offset into block (a cell recursively); returns the characters it used (to its </td>)
 	bool Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int unknown);  // 0x7759E0  // NAME 2: lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in')
 	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle
 	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items
