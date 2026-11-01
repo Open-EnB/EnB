@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-391 entries in 81 files.
+390 entries in 81 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -325,9 +325,8 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:438` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
 | `app/shared/landdmap.cpp:461` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
 | `app/shared/landdmap.cpp:491` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468920 |
-| `app/shared/landdmap.cpp:523` | `LandUnknown466BE0Class::Unknown_468BE0` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468BE0 |
-| `app/shared/landdmap.cpp:544` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
-| `app/shared/landdmap.cpp:574` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, the draw 0x466F60 and its helpers 0x468240-0x468D50. |
+| `app/shared/landdmap.cpp:550` | `LandUnknown466BE0Class::Unknown_468D50` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50 |
+| `app/shared/landdmap.cpp:581` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): 0x467A50, the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |

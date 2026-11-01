@@ -520,25 +520,31 @@ void LandUnknown466BE0Class::Unknown_468920(void)
 	VertexBuffer->Unlock();
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468BE0
 void LandUnknown466BE0Class::Unknown_468BE0(AABoxClass &box, const Vector3 *points)
 {
-	Vector3 lo = points[0];
-	Vector3 hi = points[0];
+	float minx = points[0].X;
+	float maxx = points[0].X;
+	float miny = points[0].Y;
+	float maxy = points[0].Y;
+	float minz = points[0].Z;
+	float maxz = points[0].Z;
 	for (int i = 1; i < 8; i++) {
-		if (points[i].X < lo.X) lo.X = points[i].X;
-		if (points[i].X > hi.X) hi.X = points[i].X;
-		if (points[i].Y < lo.Y) lo.Y = points[i].Y;
-		if (points[i].Y > hi.Y) hi.Y = points[i].Y;
-		if (points[i].Z < lo.Z) lo.Z = points[i].Z;
-		if (points[i].Z > hi.Z) hi.Z = points[i].Z;
+		if (minx > points[i].X) minx = points[i].X;
+		if (maxx < points[i].X) maxx = points[i].X;
+		if (miny > points[i].Y) miny = points[i].Y;
+		if (maxy < points[i].Y) maxy = points[i].Y;
+		if (minz > points[i].Z) minz = points[i].Z;
+		if (maxz < points[i].Z) maxz = points[i].Z;
 	}
-	box.Center.X = (hi.X - lo.X) * 0.5f + lo.X;
-	box.Center.Y = (hi.Y - lo.Y) * 0.5f + lo.Y;
-	box.Center.Z = (hi.Z - lo.Z) * 0.5f + lo.Z;
-	box.Extent.X = (float)fabs(box.Center.X - lo.X);
-	box.Extent.Y = (float)fabs(box.Center.Y - lo.Y);
-	box.Extent.Z = (float)fabs(box.Center.Z - lo.Z);
+	float cx = (maxx - minx) * 0.5f + minx;
+	box.Center.X = cx;
+	float cy = (maxy - miny) * 0.5f + miny;
+	box.Center.Y = cy;
+	float cz = (maxz - minz) * 0.5f + minz;
+	box.Center.Z = cz;
+	box.Extent.X = (float)fabs(cx - minx);
+	box.Extent.Y = (float)fabs(cy - miny);
+	box.Extent.Z = (float)fabs(cz - minz);
 }
 
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50
@@ -570,7 +576,8 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 **	reader 0x468120. Exact: 0x467910 (the L8 levels into the displacement map), the vertex shader 0x467E40 (its declaration
 **	array declared before the two buffers: the client stores the array first), the shader's release 0x467FD0 (inlined in
 **	the dtor), the unused generic shader maker 0x468010, the hardware check 0x4680D0 (inlined in the ctor), the cells' release
-**	0x4688F0 (inlined in the dtor, 0x467A50 and 0x468920) and two empty members 0x467E00 / 0x467E20 (D99 rows). Functional,
-**	NOT EXACT (Matrox only, never run): 0x4677B0, 0x467A50, the draw
-**	0x466F60 and its helpers 0x468240-0x468D50.
+**	0x4688F0 (inlined in the dtor, 0x467A50 and 0x468920), two empty members 0x467E00 / 0x467E20 (D99 rows) and the box
+**	around eight points 0x468BE0 (six float extremes, the centre through float locals, fabs). Functional,
+**	NOT EXACT (Matrox only, never run): 0x467A50, the draw
+**	0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50.
 */
