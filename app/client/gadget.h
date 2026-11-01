@@ -70,7 +70,7 @@ public:
 	virtual int Unknown_18() { return(0); }								// +0x18 0x50A940
 	virtual int Unknown_1C() { return(0); }								// +0x1C 0x50A960
 	virtual void Unknown_20(int arg) {}									// +0x20 0x50A980  // NAME 1 [arg]: neutral
-	virtual RenderObjClass *Unknown_24(Vector3 *unknown, Vector3 *position, bool indicator) { return(NULL); }	// +0x24 0x50A9A0 (the flash's model and where it is)  // NAME 1 [unknown, position, indicator]: what 0x6603A0 / 0x6609A0 pass
+	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }	// +0x24 0x50A9A0 (the flash's model, where it is and its animation frame)  // NAME 1 [position, frame, indicator]: what 0x6603A0 / 0x6609A0 do with them
 	virtual void Unknown_28(LayerClass *layer) {}						// +0x28 0x50A9C0 (the windows pass their layer)  // NAME 1 [layer]: what the windows pass
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x65F4B0 (the event gets the id; the owner's slot +0x44)  // NAME 1 [event, x, y, mask]: what 0x65F780 passes
 	virtual bool Unknown_30(float x, float y) = 0;						// +0x30 (pure; 0x65F780: the pointer over the gadget)  // NAME 1 [x, y]: what 0x65F780 passes

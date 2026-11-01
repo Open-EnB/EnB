@@ -850,9 +850,9 @@ GadgetFlashStruct::~GadgetFlashStruct()
 // slot +0x24 gives, in the model's scene, with the click indicator when asked)
 void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 {
-	Vector3 unknown;
-	Vector3 position(0.0f, 0.0f, 0.0f);
-	RenderObjClass *model = Unknown2C_0A ? NULL : Unknown_24(&unknown, &position, indicator);
+	float frame = 0.0f;
+	Vector3 position;
+	RenderObjClass *model = Unknown2C_0A ? NULL : Unknown_24(&position, &frame, indicator);
 	if (Flash) {
 		if (model == Flash->Model) {
 			return;
@@ -880,7 +880,7 @@ void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 			Unknown_496AE0(Flash->Clone, 0);
 			HAnimClass *anim = model->Peek_Animation();
 			if (anim) {
-				Flash->Clone->Set_Animation(anim, position.X, 0);
+				Flash->Clone->Set_Animation(anim, frame, 0);
 			}
 			Flash->Clone->Add(scene);
 			if (indicator) {
@@ -1052,9 +1052,9 @@ void GadgetClass::Unknown_6609A0()
 	} else {
 		pulse = false;
 	}
-	Vector3 unknown;
-	Vector3 position(0.0f, 0.0f, 0.0f);
-	RenderObjClass *model = Unknown_24(&unknown, &position, Flash->Indicator != NULL);
+	float frame = 0.0f;
+	Vector3 position;
+	RenderObjClass *model = Unknown_24(&position, &frame, Flash->Indicator != NULL);
 	if (model != Flash->Model || Unknown_4960C0(model, 0) != Unknown_4960C0(Flash->Clone, 0)) {
 		Unknown_6607D0();
 		if (!model) {

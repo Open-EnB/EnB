@@ -1767,7 +1767,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_1C` | `app/client/gadget.h:71` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/gadget.h:72` | neutral |
 | 1 | `Unknown_20` | `app/client/gadget.h:72` | untagged neutral name (D10) |
-| 1 | `unknown, position, indicator` | `app/client/gadget.h:73` | what 0x6603A0 / 0x6609A0 pass |
+| 1 | `position, frame, indicator` | `app/client/gadget.h:73` | what 0x6603A0 / 0x6609A0 do with them |
 | 1 | `Unknown_24` | `app/client/gadget.h:73` | untagged neutral name (D10) |
 | 1 | `layer` | `app/client/gadget.h:74` | what the windows pass |
 | 1 | `Unknown_28` | `app/client/gadget.h:74` | untagged neutral name (D10) |
