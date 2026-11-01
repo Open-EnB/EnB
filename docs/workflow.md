@@ -460,6 +460,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.2 Templates and STL
 
+* **VC6's `vector::clear()` is an extra inline layer over `erase(begin(), end())`** (2026-10-31, TK8, cordcon Reset
+  0x84E770): it changes which `_Destroy` / `??_G(0)` calls stay out of line. Making a callee exact can inline a shared
+  template everywhere and lose its pair (insert(P,x) 0x855C30): check pairs_cmp, and win it back by fixing a client
+  caller (openc).
 * **Pointer/POD instances count only in D54's ambiguous column.** `VectorClass<T *>` members,
   `??_G` of empty bases: same bytes for every `T`, 30-140 client copies, objmatch lists 5 (uncap
   `[:5]` for all: D19's 0x997EA0..0x9981A0). Don't rebuild them for pairs. D54 ignores `__FILE__`'s
@@ -485,6 +489,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **A local set to NULL outside a loop whose address is taken** (push_back) keeps the client's dead store and frees the
+  argument slot for the loop counter (2026-10-31, TK8, cordcon Add_Channels 0x84FAA0). appfile.py markers on two
+  constructors with the same demangled name land on the wrong one: check with objdiff and the mangled name.
 * **Renaming a packet class's member breaks other files that read it** (2026-10-31, TK9, pkupdate Planet's Unknown14
   -> Position): `grep 'packet->Unknown14'` missed extrap.cpp, and verify's C2039 dropped all 79 of extrap's pairs. Grep
   for `->Member` across app/ before renaming; any "1 errors" in verify's summary is a stop. **The client's float
@@ -703,6 +710,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **Other builders' verifies replace `%TEMP%\enb_import\verify-app`** (2026-10-31, TK12): a new file's .obj can vanish
+  minutes after your verify; objdiff the appfile.py match object (`.work/<id>/appfile/obj/`). attempts.py `--blocker`
+  has no class for "identical copies waiting on a tie-break": policy.cpp's 0x4AFAD0 precedent uses `relocation`.
 * **Caller tie-break (D166, 2026-10-31, TB1):** an identical-copies function (D54's ambiguous column) becomes a pair when
   our callers reach one of its addresses and every client call or jump to that address sits in a function the same
   file is exact at (nothing may hold the address as data; the linker's merged copy with callers everywhere stays

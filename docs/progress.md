@@ -1755,6 +1755,13 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK8, TK12): cordcon's pump 0x853560 (0.46), examinePacket 0x8514D0 (0.62 register),
+     write 0x850C70 (0.39), close 0x850870 (0.43); the CordCon ctor 0x84F640 (0.15) needs P-TG3-1's 0xC0 layout (it
+     inlines Add_Channels(0x40) and builds Stats_ after the channels). galaxy_map.cpp (new, app/common): Add_System
+     0x836F30 (lines 159 / 160), Add_Starbase 0x837650 (189 / 190), lookups 0x8378B0-0x837B30, the header from
+     0x838050. claims.py resolve / check should count attempts.csv `exact` (D99) rows as done (mainview's #111 was
+     handed out though LD4 finished it); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names (As_Main_View,
+     UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
    * From the 2026-10-31 t4 run (TK9): landdmap 0x468920 (builds the cells; its corner if-chain on k looks like an
      inline Get_Corner(k)), then 0x467A50; 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
      0x466920-0x466BC0 is its own object between heightfield and landdmap (an unnamed Line3DClass subclass, member at
