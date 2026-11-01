@@ -334,9 +334,9 @@ void CordCon::Go_Away()
 }
 
 // 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
-// its ack (handlePacket: state 4). State 2 with channel 0 empty: the client logs 'This isn't
-// good... waiting for an ACK on a non-existant msg....' and goes back to 1; still waiting 90 s
-// after the last datagram, it gives up (state 4, false).
+// its ack (handlePacket: state 4). State 2 with channel 0 empty: logged, back to 1; still waiting
+// 90 s after the last datagram, it gives up (state 4, false). Exact with the early return when
+// anything is queued and the message at the function's level, right above INFMSG's timebuf.
 bool CordCon::pumpClose()
 {
 	WWPROFILE("CordCon::pumpClose");
@@ -363,48 +363,47 @@ bool CordCon::pumpClose()
 	if (CloseState_ != 1) {
 		return false;
 	}
-	if (Queued_ == 0 && ResendsPending_ == 0 && AcksPending_ == 0) {
-		int count = Active_.size();
-		for (int i = 0; i < count; i++) {
-			if (Active_[i]->Queue.size() != 0) {
-				return true;
-			}
-			if (Active_[i]->Sent.size() != 0) {
-				return true;
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		INFMSG("All data sent, queueing close packet.");
-		CordMessageClass m;
-		m.Data = new unsigned char[strlen("CLOSE")];
-		memcpy(m.Data, "CLOSE", strlen("CLOSE"));
-		m.Length = strlen("CLOSE");
-		m.Priority = 0;
-		m.SendCount = 0;
-		m.TotalLength = m.Length;
-		m.SentTime.setDay(0);
-		m.SentTime.setMsec(0);
-		m.Seq = Channels_[0]->NextSeq++;
-		CloseSeq_ = m.Seq;
-		Channels_[0]->Queue.push_back(m);
-		Channels_[0]->LastWrite = time(0);
-		Channels_[0]->Written++;
-		CloseState_ = 2;
-		Queued_++;
+	if (Queued_ != 0 || ResendsPending_ != 0 || AcksPending_ != 0) {
+		return true;
 	}
+	int count = Active_.size();
+	for (int i = 0; i < count; i++) {
+		if (Active_[i]->Queue.size() != 0) {
+			return true;
+		}
+		if (Active_[i]->Sent.size() != 0) {
+			return true;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	INFMSG("All data sent, queueing close packet.");
+	CordMessageClass m;
+	m.Data = new unsigned char[strlen("CLOSE")];
+	memcpy(m.Data, "CLOSE", strlen("CLOSE"));
+	m.Length = strlen("CLOSE");
+	m.Priority = 0;
+	m.SendCount = 0;
+	m.TotalLength = m.Length;
+	m.SentTime.setDay(0);
+	m.SentTime.setMsec(0);
+	m.Seq = Channels_[0]->NextSeq++;
+	CloseSeq_ = m.Seq;
+	Channels_[0]->Queue.push_back(m);
+	Channels_[0]->LastWrite = time(0);
+	Channels_[0]->Written++;
+	CloseState_ = 2;
+	Queued_++;
 	return true;
 }
 
@@ -459,6 +458,7 @@ bool CordCon::close(bool now)
 	}
 	return true;
 }
+
 
 
 

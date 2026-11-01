@@ -100,10 +100,10 @@ extern CritSec DebugLibSemaphore;
 #endif
 
 // Print an information message
-// E&B: the time from the C library's gmtime / strftime into char[80] (client 0x85030C-0x850332)
+// E&B: the time from the C library's gmtime / strftime (client 0x85030C-0x850332); the buffer stays 40 bytes, strftime is told 80 (pumpClose's frame: the timebuf at +0x18, its message at +0x40)
 #define INFMSG(X)\
 {\
-  char     timebuf[80]; \
+  char     timebuf[40]; \
   time_t   now = time(NULL); \
   strftime(timebuf, 80, "%m/%d/%y %H:%M:%S", gmtime(&now)); \
   DEBUGLOCK; \
