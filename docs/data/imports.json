@@ -2099,7 +2099,8 @@
      "0x8598F0",
      "0x859F80",
      "0x85A3B0",
-     "0x85AB30"
+     "0x85AB30",
+     "0x85BB70"
     ],
     "merged": [],
     "name": "wwudp/cordmgr.cpp"

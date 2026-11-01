@@ -61,10 +61,33 @@ CordMgr::CordMgr() :
 	// Releases_ (+0x1C) starts empty
 }
 
+// 0x857590, NOT EXACT (0.84, inline budget): the listening sockets closed, then the connections, the
+// handshakes and the data sockets deleted from the front of their lists. The client calls the
+// destructor of Connections_ (+0x34) out of line as well; ours inlines it (perhaps the full
+// constructor 0x856970 before it, not rebuilt, spends the file's budget).
 CordMgr::~CordMgr()
 {
-	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *d; Pending_.get(d, i); delete d;
+	Unlisten(0, 0);
+	while (Connections_.length() != 0) {
+		CordCon *con = NULL;
+		Connections_.get(con, 0);
+		delete con;
+		Connections_.remove(0);
+	}
+	while (Pending_.length() != 0) {
+		CordConnectingClass *d = NULL;
+		Pending_.get(d, 0);
+		delete d;
+		Pending_.remove(0);
+	}
+	Releases_.clear();
+	while (DataSockets_.length() != 0) {
+		CordDataSocketClass *ds;
+		if (!DataSockets_.getPointer(&ds, 0)) {
+			ds = NULL;
+		}
+		delete ds->Socket;
+		DataSockets_.remove(0);
 	}
 }
 
