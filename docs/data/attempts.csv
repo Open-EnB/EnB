@@ -1139,3 +1139,6 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-10-31 20:19,0x837EA0,GalaxyMapSystemClass::Get_Hash_ID,app/common/galaxy_map.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows but the client's int3 padding (TK12)",,claude-opus-5-5
 2026-10-31 20:19,0x837EC0,GalaxyMapSystemClass::Get_Type,app/common/galaxy_map.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows but the client's int3 padding (TK12)",,claude-opus-5-5
 2026-10-31 20:19,0x837EE0,GalaxyMapSystemClass::As_System,app/common/galaxy_map.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows but the client's int3 padding (TK12)",,claude-opus-5-5
+2026-10-31 20:20,0x84FAA0,CordCon::Add_Channels,app/wwudp/cordcon.cpp,app,exact,1.00,7,,c = NULL outside the loop (the client's dead store); c in the loop / while(count--) / insert: 0.55-0.79,,claude-opus-5-5
+2026-10-31 20:20,0x84FF70,CordCon::openc,app/wwudp/cordcon.cpp,app,partial,0.28,2,shape,"client's start index code (sete / test cl,1 after IsServer_ ? 2 : 1) and found > -1 tests not reproduced; the client's shape kept (search resumes, Reset, OpenChannels_++)",,claude-opus-5-5
+2026-10-31 20:20,0x8562C0,"AutoPoolClass<CordChannelClass,1024>::operator delete",app/wwudp/cordcon.cpp,app,exact,1.00,0,,resolved once Add_Channels 0x84FAA0 is exact (its unwind),,claude-opus-5-5

@@ -235,10 +235,13 @@ CordCon::~CordCon()
 	}
 }
 
+// 0x84FAA0 (out of line with no caller: inlined where it is used). c starts NULL outside the loop
+// (the client's dead store to its slot).
 void CordCon::Add_Channels(int count)
 {
+	CordChannelClass *c = NULL;
 	for (int i = 0; i < count; i++) {
-		CordChannelClass *c = new CordChannelClass;
+		c = new CordChannelClass;
 		c->Index = (int)Channels_.size();
 		Channels_.push_back(c);
 	}
@@ -266,14 +269,18 @@ int CordCon::Pending_Messages()
 	return total;
 }
 
-// 0x84FF70: the client opens odd channels, the server even ones; the unused one written least
-// recently, two more made when none is free.
+// 0x84FF70, NOT EXACT (0.28): the client opens odd channels, the server even ones; the unused one
+// written least recently (the search goes on from where it stopped after two more are made),
+// reset, counted in OpenChannels_. The client's start (`sete` / `test cl, 1` on the first index)
+// and its `found > -1` tests are not reproduced.
 bool CordCon::openc(unsigned int *channel, int mode, int priority)
 {
+	WWPROFILE("CordCon::openc");
+	int i = IsServer_ ? 2 : 1;
 	int found = -1;
 	for (;;) {
-		for (int i = IsServer_ ? 2 : 1; i < (int)Channels_.size(); i += 2) {
-			if (Channels_[i]->Mode == 0 && (found < 0 || Channels_[i]->LastWrite < Channels_[found]->LastWrite)) {
+		for (; i < (int)Channels_.size(); i += 2) {
+			if (Channels_[i]->Mode == 0 && (found < 0 || (int)Channels_[i]->LastWrite < (int)Channels_[found]->LastWrite)) {
 				found = i;
 			}
 		}
@@ -282,12 +289,13 @@ bool CordCon::openc(unsigned int *channel, int mode, int priority)
 		}
 		Add_Channels(2);
 	}
-	CordChannelClass *c = Channels_[found];
-	c->Mode = mode;
-	c->Priority = priority;
-	c->IsClosed = false;
+	Channels_[found]->Reset();
+	Channels_[found]->Mode = mode;
+	Channels_[found]->Priority = priority;
+	Channels_[found]->IsClosed = false;
 	*channel = found;
-	Active_.push_back(c);
+	OpenChannels_++;
+	Active_.push_back(Channels_[found]);
 	return true;
 }
 
