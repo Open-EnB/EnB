@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-390 entries in 81 files.
+389 entries in 81 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -163,7 +163,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
 | `app/client/tutorial_manager.cpp:89` | `TutorialManagerClass::TutorialManagerClass` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the client calls the list's _Buynode 0x6AE690 out of line and inlines the key string's destructor after Steps[]; ours the reverse |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
-| `app/client/tutorial_manager.cpp:363` | `TutorialManagerClass::Reload` | marker | NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both) |
 | `app/client/ui_avatar_cust.cpp:231` | `StarbaseAvatarCreationInterface::Unknown_550A10` | marker | NOT EXACT: register (0.71, 1713 bytes against 0x6A8: the frame time's second global loads into ebp, pushed early, and the copies' registers rotate from there; attempts.py show 0x550A10) 0x550A10 |
 | `app/client/ui_avatar_cust.cpp:420` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT; matrix3d.h's out-of-line Rotate_Y 0x551270 comes with it) (TG4, claim #63), and 0x5513E0-0x551C80 after the FAIL_IFs of 0x551320 (TK6, claim #87): the palette texture, the credits and cost texts, the confirmation box and its answers, the gadgets shown, the cost of the changes, the costs kept, the STARBASE_REQUEST. The file's evidence: they sit between ui_attrb_skills.cpp's last function... |
 | `app/client/ui_avatr.cpp:315` | `AvatarCreationInterface::Unknown_556B20` | marker | NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20) 0x556B20 |

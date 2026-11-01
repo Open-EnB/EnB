@@ -360,11 +360,12 @@ bool TutorialManagerClass::Read_Completed_File(bool ignore)
 
 
 
-// NOT EXACT: inline budget (explain.py: inline-budget), the destructor's iterator loop and the constructor's string inlining (see both)
+// 0x6AD7B0: the destructor's loop form (iterator declared before it) and the step stored under an implicit key string
 void TutorialManagerClass::Reload()
 {
 	Stop_Step();
-	for (std::hash_map<std::string, TutorialStepStruct *>::iterator i = Steps.begin(); i != Steps.end(); ++i) {
+	std::hash_map<std::string, TutorialStepStruct *>::iterator i;
+	for (i = Steps.begin(); i != Steps.end(); ++i) {
 		delete (*i).second;
 	}
 	Steps.clear();
@@ -376,7 +377,6 @@ void TutorialManagerClass::Reload()
 		delete [] LastFinished;
 		LastFinished = 0;
 	}
-
 	INIClass ini("tutorialdef.ini");
 	if (!ini.Is_Loaded()) {
 		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
@@ -419,7 +419,7 @@ void TutorialManagerClass::Reload()
 						}
 						line++;
 					}
-					Steps[std::string(step->Name)] = step;
+					Steps[step->Name] = step;
 				}
 			}
 			index++;
