@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1067 |
 | 2 | describes what the code does | 2556 |
-| 1 | neutral placeholder | 7855 |
+| 1 | neutral placeholder | 7856 |
 
 ## For review (score 3 and below)
 
@@ -6839,8 +6839,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24C` | `app/shared/auxdata/delta_interpolator.h:55` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_item_array.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_item_array.h:52` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/auxdata/delta_money.cpp:21` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/shared/auxdata/delta_money.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
@@ -7574,16 +7575,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `stubs/app_stubs.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `stubs/app_stubs.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `stubs/app_stubs.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `stubs/app_stubs.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `stubs/app_stubs.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:167` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `stubs/app_stubs.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:202` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
