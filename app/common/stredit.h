@@ -6,7 +6,7 @@
 **
 **	The text gadgets' edit buffer (0x20 bytes; constructor 0x84AA10, destructor 0x84AAB0): a string of MaxLen
 **	characters with a cursor, the check character STRING_CHECK_VALUE ('~') after the terminator. Declared as
-**	far as textgadg.cpp uses it (D10); stredit.cpp itself is not rebuilt yet.
+**	far as textgadg.cpp uses it (D10); stredit.cpp has its functions to 0x84B1B0 so far.
 */
 
 
@@ -25,10 +25,10 @@ struct KernelEventClass;
 class StrEditClass  // NAME 3: class-from-file (D24) for app\common\stredit.cpp
 {
 public:
-	StrEditClass(int maxlen, const char *string, unsigned int flags, int unknown);	// 0x84AA10 (String gets maxlen + 2 bytes)  // NAME 3 [maxlen]: the asserts' MaxLen; NAME 1 [string, flags, unknown]: neutral
+	StrEditClass(int maxlen, const char *string, unsigned int flags, const char *chars);	// 0x84AA10 (String gets maxlen + 2 bytes)  // NAME 3 [maxlen]: the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral
 	~StrEditClass();													// 0x84AAB0
-	bool Process_Key(KernelEventClass *event);							// 0x84AAD0 (G_ASSERT 'String[MaxLen + 1] == STRING_CHECK_VALUE': true when the text changed)  // NAME 2: what it does
-	void Insert(const char *text);										// 0x84B020 (G_ASSERT 'StrLen == (int)strlen(String)': at the cursor)  // NAME 2: what it does
+	bool Process_Key(KernelEventClass *event);							// 0x84AAD0 (G_ASSERT 'String[MaxLen + 1] == STRING_CHECK_VALUE': true when the key was taken)  // NAME 2: what it does
+	bool Insert(const char *text);										// 0x84B020 (G_ASSERT 'StrLen == (int)strlen(String)': at the cursor)  // NAME 2: what it does
 	char *Get_String(int length = -1, char *buffer = NULL);				// 0x84B1B0 (-1: StrLen + 1; no buffer: a new one the caller deletes)  // NAME 2: what it does; NAME 1 [length, buffer]: neutral
 
 	int Get_Length() { return(strlen(String)); }						// (inline: textgadg.cpp 0x6AA690 / 0x6AA6C0)  // NAME 2: what it does
@@ -38,8 +38,8 @@ public:
 	int Unknown04;														// +0x04
 	int MaxLen;															// +0x08  // NAME 5: the asserts'
 	int StrLen;															// +0x0C  // NAME 5: the asserts'
-	int Unknown10;														// +0x10 (the constructor's fourth argument)
-	unsigned int Flags;													// +0x14 (the constructor's third argument: textgadg.cpp's flags)  // NAME 1: neutral (D10)
+	const char *Chars;													// +0x10 (the constructor's fourth argument: the characters Process_Key allows, or with flag 0x20 refuses)  // NAME 2: what it holds
+	unsigned int Flags;													// +0x14 (the constructor's third argument: 1 upper case, 2 lower, 4 digits, 8 letters, 0x10 both, 0x20 Chars refused, 0x40 enter, 0x200 space)  // NAME 1: neutral (D10)
 	char *Cursor;														// +0x18 (into String)  // NAME 2: what it points at
 	bool InsertMode;													// +0x1C (the constructor's true; textgadg.cpp hands it to the cursor)  // NAME 2: what it holds
 };

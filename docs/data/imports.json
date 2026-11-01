@@ -10374,6 +10374,19 @@
      "0x4836E0"
     ]
    },
+   "stredit": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x84AA10",
+     "0x84B020",
+     "0x84B1B0"
+    ],
+    "merged": [],
+    "name": "common/stredit.cpp"
+   },
    "symbol_substitution": {
     "ambiguous": [
      "0x42A6C0",
@@ -12326,6 +12339,7 @@
    "common/memconn.h": "reconstructed",
    "common/prof.h": "reconstructed",
    "common/race.h": "reconstructed",
+   "common/stredit.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
    "common/unknown_galaxy.h": "reconstructed",

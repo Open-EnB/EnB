@@ -41,7 +41,7 @@ extern const int Unknown_B08CC4;			// 0xB08CC4 (0x2C0: the login boxes' flags)  
 class TextBaseGadgetClass : public GadgetClass  // NAME 2: the text gadgets' base (no RTTI; the asserts are textgadg.cpp's)
 {
 public:
-	TextBaseGadgetClass(int length, unsigned int flags, int unknown);	// 0x6AA000 (two StrEditClass of the length)  // NAME 1 [length, flags, unknown]: what TextGadgetClass passes
+	TextBaseGadgetClass(int length, unsigned int flags, const char *chars);	// 0x6AA000 (two StrEditClass of the length)  // NAME 1 [length, flags, chars]: what TextGadgetClass passes (StrEditClass's)
 	virtual ~TextBaseGadgetClass();										// +0x00 0x6AA140 (deleting 0x6AA110)
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x6AA200 (the keys: tab, enter, escape, the rest to the edit buffer)
 	virtual bool Unknown_30(float x, float y) { return(false); }		// +0x30 0x65C920 (folded)
@@ -69,7 +69,7 @@ public:
 class TextGadgetClass : public TextBaseGadgetClass  // NAME 3: class-from-file (D24) for app\client\textgadg.cpp
 {
 public:
-	TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, int unknown);	// 0x6AA810  // NAME 5 [string_name]: the assert's; NAME 1 [iface, length, model, flags, unknown]: what ui_login.cpp passes
+	TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars);	// 0x6AA810  // NAME 5 [string_name]: the assert's; NAME 1 [iface, length, model, flags, chars]: what ui_login.cpp passes (chars: StrEditClass's)
 	virtual ~TextGadgetClass();											// +0x00 0x6AAB60 (deleting 0x6AAB30)
 	virtual void Unknown_28(LayerClass *layer);							// +0x28 0x6AB0F0 (the cursor into the layer's scene)  // NAME 1 [layer]: what the windows pass
 	virtual GadgetUnknown64Struct Unknown_64();							// +0x64 0x6AB080 (the text's bounding box)

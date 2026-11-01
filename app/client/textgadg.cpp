@@ -7,6 +7,7 @@
 #include "font32bit.h"
 #include "..\kernel\kernel.h"
 #include "..\audio\soundlib.h"
+#include "..\input\input.h"
 #include "rendobj.h"
 #include "layer.h"
 #include "scene.h"
@@ -23,7 +24,6 @@ public:
 };
 RefCountPtr<TextCursorClass> Unknown_685680(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &unknown = NULL);	// 0x685680 (cdecl; the new cursor)  // NAME 1 [iface, unknown]: what 0x6AA810 passes
 
-void Unknown_42EE00(bool on);					// 0x42EE00 (input.cpp: the keyboard's text mode; main_client.cpp declares it with an int)  // NAME 1 [on]: neutral
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  // NAME 1 [robj]: as ui_avatr.cpp's
 
 typedef char Unknown_RefCountPtr_Scene_Size[sizeof(RefCountPtr<SceneClass>)];	// NAME 1: not the client's: instantiates RefCountPtr<SceneClass> so its friend Create_Peek (0x514960) is visible (VC6 injects a template's friends on instantiation, as sclient.cpp)
@@ -34,8 +34,8 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	Reconstruction notes (textgadg.cpp, client 0x6AA000-0x6AB310; __FILE__ 0xB91874, asserts on the client's lines
 **	194-564, D25: blank lines keep them there).
 **
-**	TextBaseGadgetClass (0x6AA000-0x6AA810): the text in StrEditClass Edit (stredit.cpp, not rebuilt: its constructor,
-**	destructor, Insert, Get_String and Process_Key are stand-ins in the POC); Hidden holds a star per character for
+**	TextBaseGadgetClass (0x6AA000-0x6AA810): the text in StrEditClass Edit (stredit.cpp: the edit buffer, the cursor,
+**	the keys); Hidden holds a star per character for
 **	the password box. Slot +0x74 moves the input focus ('_ActiveUI', 0xBE66C0) and the keyboard's text mode
 **	(input.cpp's 0x42EE00, a bool here). Slot +0x2C takes the key events (mask 0x100) while active: tab to Next (or
 **	Unknown39 when none), enter, escape (Unknown3A), the rest to Edit (Unknown3B, Changed).
@@ -50,7 +50,7 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	file's: tooltip.cpp's start or a file between.
 */
 
-TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, int unknown) :
+TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, const char *chars) :
 	GadgetClass(0x100),
 	Edit(NULL),
 	Hidden(NULL),
@@ -61,8 +61,8 @@ TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, int unk
 	Active(false),
 	Next(NULL)
 {
-	Edit = new StrEditClass(length, NULL, flags, unknown);
-	Hidden = new StrEditClass(length, NULL, Unknown_B08CC4, 0);
+	Edit = new StrEditClass(length, NULL, flags, chars);
+	Hidden = new StrEditClass(length, NULL, Unknown_B08CC4, NULL);
 }
 
 TextBaseGadgetClass::~TextBaseGadgetClass()
@@ -332,8 +332,8 @@ void TextBaseGadgetClass::Unknown_74(bool on)
 
 
 
-TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, int unknown) :
-	TextBaseGadgetClass(length, flags, unknown),
+TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *string_name, RenderObjClass *model, unsigned int flags, const char *chars) :
+	TextBaseGadgetClass(length, flags, chars),
 	Text(NULL),
 	Model(Unknown_497300(model)),
 	Cursor(NULL),

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1118 |
-| 2 | describes what the code does | 2798 |
-| 1 | neutral placeholder | 9658 |
+| 2 | describes what the code does | 2799 |
+| 1 | neutral placeholder | 9669 |
 
 ## For review (score 3 and below)
 
@@ -4092,16 +4092,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EA80` | `app/client/tasks/tsk_smovie.cpp:43` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/client/tasks/tsk_smovie.cpp:44` | hands the event on (input.cpp) |
 | 1 | `Unknown_18` | `app/client/tasks/tsk_smovie.h:30` | untagged neutral name (D10) |
-| 1 | `TextCursorClass` | `app/client/textgadg.cpp:17` | neutral (D10): what it is |
-| 1 | `scene` | `app/client/textgadg.cpp:20` | what 0x6AB0F0 passes |
-| 1 | `Unknown_685A30` | `app/client/textgadg.cpp:20` | untagged neutral name (D10) |
-| 1 | `text, cursorpos, insert, flag` | `app/client/textgadg.cpp:21` | what 0x6AAD10 passes |
-| 1 | `Unknown_685AB0` | `app/client/textgadg.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_685DD0` | `app/client/textgadg.cpp:22` | untagged neutral name (D10) |
-| 1 | `iface, unknown` | `app/client/textgadg.cpp:24` | what 0x6AA810 passes |
-| 1 | `Unknown_685680` | `app/client/textgadg.cpp:24` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/textgadg.cpp:26` | neutral |
-| 1 | `Unknown_42EE00` | `app/client/textgadg.cpp:26` | untagged neutral name (D10) |
+| 1 | `TextCursorClass` | `app/client/textgadg.cpp:18` | neutral (D10): what it is |
+| 1 | `scene` | `app/client/textgadg.cpp:21` | what 0x6AB0F0 passes |
+| 1 | `Unknown_685A30` | `app/client/textgadg.cpp:21` | untagged neutral name (D10) |
+| 1 | `text, cursorpos, insert, flag` | `app/client/textgadg.cpp:22` | what 0x6AAD10 passes |
+| 1 | `Unknown_685AB0` | `app/client/textgadg.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_685DD0` | `app/client/textgadg.cpp:23` | untagged neutral name (D10) |
+| 1 | `iface, unknown` | `app/client/textgadg.cpp:25` | what 0x6AA810 passes |
+| 1 | `Unknown_685680` | `app/client/textgadg.cpp:25` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/textgadg.cpp:27` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/textgadg.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_RefCountPtr_Scene_Size` | `app/client/textgadg.cpp:29` | not the client's: instantiates RefCountPtr<SceneClass> so its friend Create_Peek (0x514960) is visible (VC6 injects a template's friends on instantiation, as sclient.cpp) |
@@ -4113,6 +4111,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `app/client/textgadg.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_6AA340` | `app/client/textgadg.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_6AA5F0` | `app/client/textgadg.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE00` | `app/client/textgadg.cpp:302` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/textgadg.cpp:340` | untagged neutral name (D10) |
 | 1 | `Unknown51` | `app/client/textgadg.cpp:341` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/textgadg.cpp:342` | untagged neutral name (D10) |
@@ -4137,7 +4136,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CBC` | `app/client/textgadg.h:37` | neutral (D10) |
 | 1 | `Unknown_B08CC0` | `app/client/textgadg.h:38` | neutral (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/textgadg.h:39` | neutral (D10) |
-| 1 | `length, flags, unknown` | `app/client/textgadg.h:44` | what TextGadgetClass passes |
+| 1 | `length, flags, chars` | `app/client/textgadg.h:44` | what TextGadgetClass passes (StrEditClass's) |
 | 1 | `Unknown_2C` | `app/client/textgadg.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/textgadg.h:47` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/textgadg.h:48` | neutral |
@@ -7264,8 +7263,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
 | 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
 | 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
+| 1 | `Unknown_42EB80` | `app/common/stredit.cpp:277` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/stredit.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/common/stredit.h:41` | untagged neutral name (D10) |
 | 1 | `Flags` | `app/common/stredit.h:42` | neutral (D10) |
 | 1 | `Unknown_4BC000` | `app/common/tcpconn.cpp:16` | 0x4BC000 |
 | 1 | `Set_Blocking` | `app/common/tcpconn.cpp:19` | what it does (no caller) |
@@ -9357,6 +9356,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:79` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:121` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
+| 1 | `Unknown_BDADC8` | `programs/clientpoc/poc_data.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `programs/clientpoc/poc_data.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_C07550` | `programs/clientpoc/poc_data.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BD0` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAD50` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:37` | untagged neutral name (D10) |
@@ -10976,6 +10987,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_String` | `app/common/stredit.h:32` | what it does; NAME 1 [length, buffer]: neutral |
 | 2 | `Get_Length` | `app/common/stredit.h:34` | what it does |
 | 2 | `Clear` | `app/common/stredit.h:35` | what it does |
+| 2 | `Chars` | `app/common/stredit.h:41` | what it holds |
 | 2 | `Cursor` | `app/common/stredit.h:43` | what it points at |
 | 2 | `InsertMode` | `app/common/stredit.h:44` | what it holds |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
@@ -12839,7 +12851,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RaceBitFieldType` | `app/common/race.h:21` | the client's Type_Name 'RaceBitFieldType' |
 | 3 | `stredit.h` | `app/common/stredit.h:18` | header name assumed from the client's stredit.cpp |
 | 3 | `StrEditClass` | `app/common/stredit.h:25` | class-from-file (D24) for app\common\stredit.cpp |
-| 3 | `maxlen` | `app/common/stredit.h:28` | the asserts' MaxLen; NAME 1 [string, flags, unknown]: neutral |
+| 3 | `maxlen` | `app/common/stredit.h:28` | the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral |
 | 3 | `tcpconn.h` | `app/common/tcpconn.h:18` | header name assumed from the client's tcpconn.cpp |
 | 3 | `udpconn.h` | `app/common/udpconn.h:19` | header name assumed from the client's udpconn.cpp |
 | 3 | `NavigationListClass` | `app/common/unknown_navlist.h:28` | WARP's Print text 'NavigationListSize=' |
