@@ -428,7 +428,7 @@ bool UDPChannelKeyClass::operator == (const UDPChannelKeyClass &other) const
 	return(false);
 }
 
-// NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi
+// Exact (0x82D8C0): the client keeps -1 - channel and Fixed's +0x80 apart (the index form below)
 void UDPConnection::Open_Fixed_Channel(int channel)
 {
 	// an index subscripted twice keeps the client's unfolded [this + index*4 + 0x80]

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-396 entries in 81 files.
+395 entries in 81 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -250,7 +250,6 @@ edit the comments in the code, not this file.
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:358` | `UDPConnection::Send_Data` | marker | NOT EXACT (inline budget): the last lookup keeps keyHash out of line (the client inlines it there and keeps operator == out of line; getPointer direct there inlines both); CordCon::write takes (channel, len, data, priority) in the client |
-| `app/common/udpconn.cpp:431` | `UDPConnection::Open_Fixed_Channel` | marker | NOT EXACT: the client keeps -1 - channel and Fixed's +0x80 apart, and the -4 priority in esi |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers), Send_Data (inline budget: the last lookup's keyHash; and CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two close lookups written out (no lo... |
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
 | `app/input/inpdsp.cpp:226` | `Unknown_42A410` | mention | NOT EXACT (register-only, parked after three forms of the search loop). After 0x429F60: the event key 0x42A170 (a member defined after its users: /Ob2 inlines it everywhere and still emits it), the ini reader 0x42A1A0 and writer 0x42A410 (the key names themselves are the next file's, 0x42B610 / 0x42B7E0). The writer tests the flags through bool accessors on bit fields (the client's word load, shr ... |
