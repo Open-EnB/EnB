@@ -191,7 +191,7 @@ StrEditClass::~StrEditClass()
 bool StrEditClass::Process_Key(KernelEventClass *event)
 {
 	bool result = false;
-	if ((event->Flags >> 12) & 1) {
+	if (event->Is_Up()) {
 		return(false);
 	}
 	switch (event->Key) {
@@ -217,7 +217,7 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 			if (Cursor > String) {
 				do {
 					Cursor--;
-					if (!((event->Flags >> 9) & 1) || isspace(*Cursor)) {
+					if (!event->Is_Ctrl() || isspace(*Cursor)) {
 						result = true;
 						goto done;
 					}
@@ -230,7 +230,7 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 			if (Cursor < String + StrLen) {
 				do {
 					Cursor++;
-					if (!((event->Flags >> 9) & 1) || isspace(*Cursor)) {
+					if (!event->Is_Ctrl() || isspace(*Cursor)) {
 						result = true;
 						goto done;
 					}
@@ -265,7 +265,7 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 		default:
 		{
 			char c;
-			if (((event->Flags >> 8) & 7) && !((event->Flags >> 8) & 1)) {
+			if ((event->Flags & 0x700) && !event->Is_Shift()) {
 				break;
 			}
 			if (event->Key == 0x0D) {

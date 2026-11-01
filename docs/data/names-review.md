@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1122 |
-| 2 | describes what the code does | 2816 |
-| 1 | neutral placeholder | 9856 |
+| 2 | describes what the code does | 2822 |
+| 1 | neutral placeholder | 9860 |
 
 ## For review (score 3 and below)
 
@@ -4328,7 +4328,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3B` | `app/client/textgadg.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/textgadg.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/textgadg.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/textgadg.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/textgadg.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_6AA340` | `app/client/textgadg.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_6AA5F0` | `app/client/textgadg.cpp:207` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/client/textgadg.cpp:302` | untagged neutral name (D10) |
@@ -7717,20 +7717,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/kernel/kernel.h:28` | untagged neutral name (D10) |
-| 1 | `Flags` | `app/kernel/kernel.h:31` | +0x02 0x1000: Handle_Key ignores the event |
-| 1 | `TaskClass` | `app/kernel/kernel.h:39` | after the tasks' own names (LoginTaskClass); the client's not found |
-| 1 | `Describe` | `app/kernel/kernel.h:43` | what the message server's does |
-| 1 | `Unknown_08` | `app/kernel/kernel.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/kernel/kernel.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/kernel/kernel.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/kernel/kernel.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/kernel/kernel.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/kernel/kernel.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/kernel/kernel.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/kernel/kernel.h:52` | untagged neutral name (D10) |
-| 1 | `Pre_Run` | `app/kernel/kernel.h:57` | Run_One_Cycle's order |
-| 1 | `Cycle_Focus` | `app/kernel/kernel.h:75` | what it does |
-| 1 | `Remove_Running` | `app/kernel/kernel.h:87` | what it does |
+| 1 | `Flags` | `app/kernel/kernel.h:32` | +0x02 0x1000: Handle_Key ignores the event |
+| 1 | `Unknown02_00` | `app/kernel/kernel.h:34` | untagged neutral name (D10) |
+| 1 | `Alt` | `app/kernel/kernel.h:37` | the third of stredit.cpp's 0x700 bits |
+| 1 | `Unknown02_0B` | `app/kernel/kernel.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown02_0D` | `app/kernel/kernel.h:40` | untagged neutral name (D10) |
+| 1 | `TaskClass` | `app/kernel/kernel.h:53` | after the tasks' own names (LoginTaskClass); the client's not found |
+| 1 | `Describe` | `app/kernel/kernel.h:57` | what the message server's does |
+| 1 | `Unknown_08` | `app/kernel/kernel.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/kernel/kernel.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/kernel/kernel.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/kernel/kernel.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/kernel/kernel.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/kernel/kernel.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/kernel/kernel.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/kernel/kernel.h:66` | untagged neutral name (D10) |
+| 1 | `Pre_Run` | `app/kernel/kernel.h:71` | Run_One_Cycle's order |
+| 1 | `Cycle_Focus` | `app/kernel/kernel.h:89` | what it does |
+| 1 | `Remove_Running` | `app/kernel/kernel.h:101` | what it does |
 | 1 | `Unknown_Debug_Print` | `app/main/main.cpp:21` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_VersionStruct` | `app/main/main.cpp:23` | two ints (tsk_login.cpp reads Major / Minor of 0x4456C0's) |
 | 1 | `major, minor` | `app/main/main.cpp:25` | its members |
@@ -11281,27 +11285,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Queue` | `app/input/input.h:88` | what it holds |
 | 2 | `Queue` | `app/input/input.h:116` | what it holds |
 | 2 | `Key` | `app/kernel/kernel.h:30` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
-| 2 | `Accept_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: accepting focus.' |
-| 2 | `Yield_Focus` | `app/kernel/kernel.h:54` | 'LoginTask: yielding focus.' |
-| 2 | `Get_Interval` | `app/kernel/kernel.h:56` | Run_One_Cycle's use |
-| 2 | `Delete_On_Remove` | `app/kernel/kernel.h:60` | Remove_Task's use |
-| 2 | `Is_Focused` | `app/kernel/kernel.h:62` | what it does |
-| 2 | `Set_Kernel` | `app/kernel/kernel.h:63` | what it does |
-| 2 | `Shutdown` | `app/kernel/kernel.h:76` | the tasks' Shutdown, all |
-| 2 | `Process_Messages` | `app/kernel/kernel.h:77` | what it does |
-| 2 | `Is_Running` | `app/kernel/kernel.h:79` | what it does |
-| 2 | `Handle_Key` | `app/kernel/kernel.h:80` | what it does |
-| 2 | `Get_Instance` | `app/kernel/kernel.h:82` | returns the instance (assert 'Instance == NULL') |
-| 2 | `Add_Task` | `app/kernel/kernel.h:83` | what it does |
-| 2 | `Remove_Task` | `app/kernel/kernel.h:85` | what it does |
-| 2 | `Get_Task` | `app/kernel/kernel.h:86` | what it does |
-| 2 | `Run` | `app/kernel/kernel.h:88` | what it does |
-| 2 | `Is_Focus` | `app/kernel/kernel.h:89` | what it does |
-| 2 | `Get_Focus` | `app/kernel/kernel.h:90` | what it does |
-| 2 | `Next_Focus` | `app/kernel/kernel.h:91` | what it does |
-| 2 | `Set_Focus` | `app/kernel/kernel.h:92` | what it does |
-| 2 | `Process_Input` | `app/kernel/kernel.h:93` | what it does |
-| 2 | `Pump_Messages` | `app/kernel/kernel.h:94` | what it does |
+| 2 | `Shift` | `app/kernel/kernel.h:35` | what Process_Key does with it |
+| 2 | `Ctrl` | `app/kernel/kernel.h:36` | what Process_Key does with it |
+| 2 | `Up` | `app/kernel/kernel.h:39` | what the handlers do with it |
+| 2 | `Is_Up` | `app/kernel/kernel.h:43` | what it returns |
+| 2 | `Is_Shift` | `app/kernel/kernel.h:44` | what it returns |
+| 2 | `Is_Ctrl` | `app/kernel/kernel.h:45` | what it returns |
+| 2 | `Accept_Focus` | `app/kernel/kernel.h:67` | 'LoginTask: accepting focus.' |
+| 2 | `Yield_Focus` | `app/kernel/kernel.h:68` | 'LoginTask: yielding focus.' |
+| 2 | `Get_Interval` | `app/kernel/kernel.h:70` | Run_One_Cycle's use |
+| 2 | `Delete_On_Remove` | `app/kernel/kernel.h:74` | Remove_Task's use |
+| 2 | `Is_Focused` | `app/kernel/kernel.h:76` | what it does |
+| 2 | `Set_Kernel` | `app/kernel/kernel.h:77` | what it does |
+| 2 | `Shutdown` | `app/kernel/kernel.h:90` | the tasks' Shutdown, all |
+| 2 | `Process_Messages` | `app/kernel/kernel.h:91` | what it does |
+| 2 | `Is_Running` | `app/kernel/kernel.h:93` | what it does |
+| 2 | `Handle_Key` | `app/kernel/kernel.h:94` | what it does |
+| 2 | `Get_Instance` | `app/kernel/kernel.h:96` | returns the instance (assert 'Instance == NULL') |
+| 2 | `Add_Task` | `app/kernel/kernel.h:97` | what it does |
+| 2 | `Remove_Task` | `app/kernel/kernel.h:99` | what it does |
+| 2 | `Get_Task` | `app/kernel/kernel.h:100` | what it does |
+| 2 | `Run` | `app/kernel/kernel.h:102` | what it does |
+| 2 | `Is_Focus` | `app/kernel/kernel.h:103` | what it does |
+| 2 | `Get_Focus` | `app/kernel/kernel.h:104` | what it does |
+| 2 | `Next_Focus` | `app/kernel/kernel.h:105` | what it does |
+| 2 | `Set_Focus` | `app/kernel/kernel.h:106` | what it does |
+| 2 | `Process_Input` | `app/kernel/kernel.h:107` | what it does |
+| 2 | `Pump_Messages` | `app/kernel/kernel.h:108` | what it does |
 | 2 | `SoundManager` | `app/main/main_client.cpp:117` | what it holds |
 | 2 | `Size` | `app/packets/gameedit/pkgeaset.h:33` | what it holds |
 | 2 | `Transform` | `app/packets/gameedit/pkgeclon.h:33` | what it holds (twelve floats, copied whole) |

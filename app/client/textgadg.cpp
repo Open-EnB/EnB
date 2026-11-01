@@ -74,12 +74,10 @@ TextBaseGadgetClass::~TextBaseGadgetClass()
 	delete Hidden;
 }
 
-// NOT EXACT: the key-up test (0.65): the client reads the event's flags as a bit-field ((Flags >> 12) & 1 in a register),
-// VC6 folds this form to a byte test; kernel.h's KernelEventClass has a plain unsigned short
 bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if ((mask & 0x100) && Active) {
-		if (!((event->Flags >> 12) & 1)) {
+		if (!event->Is_Up()) {
 			switch (event->Key) {
 				case 9:
 					SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -113,6 +111,8 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 	}
 	return(false);
 }
+
+
 
 
 

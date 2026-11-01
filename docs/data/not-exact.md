@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-444 entries in 97 files.
+443 entries in 97 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -186,7 +186,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
-| `app/client/textgadg.cpp:77` | `TextBaseGadgetClass::Unknown_2C` | marker | NOT EXACT: the key-up test (0.65): the client reads the event's flags as a bit-field ((Flags >> 12) & 1 in a register), VC6 folds this form to a byte test; kernel.h's KernelEventClass has a plain unsigned short |
 | `app/client/textgadg.cpp:187` | `TextBaseGadgetClass::Unknown_6AA340` | marker | NOT EXACT: registers (0.77): the inlined stars (0x6AA5F0) and the cursor offset take other registers |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.56; 0x128 bytes of locals in the client, 0x130 here): the client keeps the text in ebx and converts the screen width for every width call (here once, kept on the stack) |
 | `app/client/textgadg.cpp:461` | `TextGadgetClass::Unknown_64` | marker | NOT EXACT: the box copy (0.29): the client copies the six floats one by one, as an AABoxClass return would (0x660E40 builds one: centre and half extents); gadget.h's GadgetUnknown64Struct is six ints (copied by rep movsd) |
