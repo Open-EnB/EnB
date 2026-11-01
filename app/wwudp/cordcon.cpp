@@ -29,64 +29,6 @@
 #define CORD_HARNESS_COUNT(con, counter)
 #endif
 
-static unsigned int Get_Short(const unsigned char *p)
-{
-	return ((unsigned int)p[0] << 8) | p[1];
-}
-
-static unsigned int Get_Long(const unsigned char *p)
-{
-	return ((unsigned int)p[0] << 24) | ((unsigned int)p[1] << 16) | ((unsigned int)p[2] << 8) | p[3];
-}
-
-// size / channel: 1 byte below 0x80, else 2 with the top bit; seq: 2 bytes below 0x8000, else 4.
-static int Read_Small(const unsigned char *p, unsigned int *v)
-{
-	if (p[0] < 0x80) {
-		*v = p[0];
-		return 1;
-	}
-	*v = Get_Short(p) & 0x7FFF;
-	return 2;
-}
-
-static int Read_Seq(const unsigned char *p, unsigned int *v)
-{
-	if (p[0] < 0x80) {
-		*v = Get_Short(p);
-		return 2;
-	}
-	*v = Get_Long(p) & 0x7FFFFFFF;
-	return 4;
-}
-
-static int Write_Small(unsigned char *p, unsigned int v)
-{
-	if ((unsigned short)v < 0x80) {
-		p[0] = (unsigned char)v;
-		return 1;
-	}
-	v |= 0x8000;
-	p[0] = (unsigned char)(v >> 8);
-	p[1] = (unsigned char)v;
-	return 2;
-}
-
-static int Write_Seq(unsigned char *p, unsigned int v)
-{
-	if (v < 0x8000) {
-		p[0] = (unsigned char)(v >> 8);
-		p[1] = (unsigned char)v;
-		return 2;
-	}
-	v |= 0x80000000;
-	p[0] = (unsigned char)(v >> 24);
-	p[1] = (unsigned char)(v >> 16);
-	p[2] = (unsigned char)(v >> 8);
-	p[3] = (unsigned char)v;
-	return 4;
-}
-
 static CordMessageClass Empty_Message()
 {
 	CordMessageClass m;
@@ -402,41 +344,67 @@ void CordCon::Go_Away()
 
 // 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
 // its ack (handlePacket: state 4). State 2 with channel 0 empty: the client logs 'This isn't
-// good... waiting for an ACK on a non-existant msg....' and goes back to 1. Not rebuilt: the
-// 90-second give-up (state 4).
+// good... waiting for an ACK on a non-existant msg....' and goes back to 1; still waiting 90 s
+// after the last datagram, it gives up (state 4, false).
 bool CordCon::pumpClose()
 {
+	WWPROFILE("CordCon::pumpClose");
 	if (CloseState_ == 2) {
-		CordChannelClass *c0 = Channels_[0];
-		if (c0->Queue.size() + c0->Sent.size() == 0) {
+		if (Channels_[0]->Queue.size() + Channels_[0]->Sent.size() == 0) {
+
+			// the client logs 'This isn't good... waiting for an ACK on a non-existant msg....' (INFMSG, line 355)
 			CloseState_ = 1;
+		}
+		if (CloseState_ == 2 && (int)(time(0) - LastReceive_) > 90) {
+			CloseState_ = 4;
+			return false;
 		}
 	}
 	if (CloseState_ != 1) {
 		return false;
 	}
-	if (Queued_ != 0 || ResendsPending_ != 0 || AcksPending_ != 0) {
-		return true;
-	}
-	for (size_t i = 0; i < Active_.size(); i++) {
-		if (Active_[i]->Queue.size() != 0 || Active_[i]->Sent.size() != 0) {
-			return true;
+	if (Queued_ == 0 && ResendsPending_ == 0 && AcksPending_ == 0) {
+		int count = Active_.size();
+		for (int i = 0; i < count; i++) {
+			if (Active_[i]->Queue.size() != 0) {
+				return true;
+			}
+			if (Active_[i]->Sent.size() != 0) {
+				return true;
+			}
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// the client logs 'All data sent, queueing close packet.' (INFMSG, line 390)
+		CordMessageClass m;
+		m.Data = new unsigned char[strlen("CLOSE")];
+		memcpy(m.Data, "CLOSE", strlen("CLOSE"));
+		m.Length = strlen("CLOSE");
+		m.Priority = 0;
+		m.SendCount = 0;
+		m.TotalLength = m.Length;
+		m.SentTime.setDay(0);
+		m.SentTime.setMsec(0);
+		m.Seq = Channels_[0]->NextSeq++;
+		CloseSeq_ = m.Seq;
+		Channels_[0]->Queue.push_back(m);
+		Channels_[0]->LastWrite = time(0);
+		Channels_[0]->Written++;
+		CloseState_ = 2;
+		Queued_++;
 	}
-	// the client logs 'All data sent, queueing close packet.'
-	static const char text[] = "CLOSE";
-	CordChannelClass *c = Channels_[0];
-	CordMessageClass m = Empty_Message();
-	m.Length = m.TotalLength = sizeof(text) - 1;
-	m.Data = new unsigned char[m.Length];
-	memcpy(m.Data, text, m.Length);
-	m.Seq = c->NextSeq++;
-	CloseSeq_ = m.Seq;
-	c->Queue.push_back(m);
-	c->LastWrite = (unsigned int)time(0);
-	c->Written++;
-	CloseState_ = 2;
-	Queued_++;
 	return true;
 }
 
@@ -446,26 +414,29 @@ bool CordCon::pumpClose()
 // is queued or due). Nothing changes once closed (4).
 bool CordCon::close(bool now)
 {
-	WWPROFILE("CordCon::close");
+	WWPROFILE("CordCon:close");
 	if (CloseState_ == 4) {
 		return true;
 	}
 	if (now) {
-		for (size_t i = 0; i < Active_.size(); i++) {
+		int count = Active_.size();
+		for (int i = 0; i < count; i++) {
 			CordChannelClass *c = Active_[i];
+			std::vector<CordMessageClass>::iterator it = c->Queue.begin();
 			while (c->Queue.size() != 0) {
-				c->Queue[0].Free();
-				if (c->Queue[0].SendCount == 0) {
+				(*it).Free();
+				if (it->SendCount == 0) {
 					Queued_--;
 				}
-				c->Queue.erase(c->Queue.begin());
+				c->Queue.erase(it);
 			}
+			it = c->Sent.begin();
 			while (c->Sent.size() != 0) {
-				c->Sent[0].Free();
-				if (c->Sent[0].SendCount == 0) {
+				(*it).Free();
+				if (it->SendCount == 0) {
 					Queued_--;
 				}
-				c->Sent.erase(c->Sent.begin());
+				c->Sent.erase(it);
 			}
 			while (c->ToAck.length() != 0) {
 				c->ToAck.remove(0);
@@ -488,6 +459,35 @@ bool CordCon::close(bool now)
 	}
 	return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1011,7 +1011,61 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			if ((kind == 0 && CloseSeq_ == seq) || (kind == 2 && CloseSeq_ <= seq)) {
 				CloseState_ = 4;
 			}
-			// else the client logs 'This is probably a bug! ACK for non-close message recvd'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			// else the client logs 'This is probably a bug! ACK for non-close message recvd' (INFMSG, line 1068)
 		}
 		CordChannelClass *c = Channels_[channel];
 		if (kind == 0 || kind == 2) {
@@ -1042,7 +1096,50 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			if (!found && kind == 0) {
 				Stats_->On_Loss(-1, false);
 				Stats_->On_Round_Trip(Stats_->RoundTrip * 2);
-				DupAcks_++;		// the client logs 'Dup ack'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				// the client logs 'Dup ack' (INFMSG, line 1141)
+				DupAcks_++;
 			}
 		} else if (kind == 1) {
 			for (std::vector<CordMessageClass>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
@@ -1358,6 +1455,298 @@ bool CordCon::pumpInternal(Xtime &now)
 			std::vector<CordMessageClass>::iterator it = c->Sent.begin();
 			while (it != c->Sent.end()) {
 				if (it->SendCount != 0 && (now - it->SentTime) > expiry) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					// the client logs 'Removing unreliable' (INFMSG, line 1749)
 					Stats_->InFlight -= it->Length;
 					Stats_->On_Loss(it->Length, true);
 					(*it).Free();
@@ -1662,6 +2051,33 @@ void CordCon::Queue_Empty_Message()
 	Channels_[0]->Queue.push_back(m);
 	Channels_[0]->Written++;
 	Queued_++;
+}
+
+static int Write_Small(unsigned char *p, unsigned int v)
+{
+	if ((unsigned short)v < 0x80) {
+		p[0] = (unsigned char)v;
+		return 1;
+	}
+	v |= 0x8000;
+	p[0] = (unsigned char)(v >> 8);
+	p[1] = (unsigned char)v;
+	return 2;
+}
+
+static int Write_Seq(unsigned char *p, unsigned int v)
+{
+	if (v < 0x8000) {
+		p[0] = (unsigned char)(v >> 8);
+		p[1] = (unsigned char)v;
+		return 2;
+	}
+	v |= 0x80000000;
+	p[0] = (unsigned char)(v >> 24);
+	p[1] = (unsigned char)(v >> 16);
+	p[2] = (unsigned char)(v >> 8);
+	p[3] = (unsigned char)v;
+	return 4;
 }
 
 // 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests).
