@@ -21,7 +21,9 @@ tie-break pairs out). Then, for D66(v) / D117:
 Accepted corrections (D173): docs/data/accepted-corrections.json lists pairs the user ruled false (hand-maintained,
 one entry per decision: {address, lib, file, moved_to, decision, note}). When such a pair is lost AND the same
 file gains `moved_to` in the same comparison, it is printed as `corrected (accepted: D173) [...]` and left out of
-`lost`, `lost outright` and `moves`; otherwise it is a loss as before.
+`lost`, `lost outright` and `moves`; otherwise it is a loss as before. An entry with `moved_to: null` is a decided
+loss (D175): the pair's loss from that lib and file is accepted with no gain asked for, printed the same way with
+`None` as its target.
 Exit status is 0 either way; read the `lost` and `lost outright` lists.
 """
 import json
@@ -58,13 +60,14 @@ def load_corrections(path=CORRECTIONS):
 
 def split_corrections(lost, gained, corrections):
     """([(entry, pair)], rest): the LOST pairs an accepted correction explains (its lib, file and address lost,
-    its moved_to gained by the same lib and file in GAINED), and the other lost pairs."""
+    its moved_to gained by the same lib and file in GAINED, or moved_to null: a decided loss, D175), and the other
+    lost pairs."""
     gained_at = {(lib, f, int(a, 16)) for lib, f, a in gained}
     by_pair = {(e['lib'], e['file'], int(e['address'], 16)): e for e in corrections}
     corrected, rest = [], []
     for x in sorted(lost):
         e = by_pair.get((x[0], x[1], int(x[2], 16)))
-        if e and (x[0], x[1], int(e['moved_to'], 16)) in gained_at:
+        if e and (e['moved_to'] is None or (x[0], x[1], int(e['moved_to'], 16)) in gained_at):
             corrected.append((e, x))
         else:
             rest.append(x)
