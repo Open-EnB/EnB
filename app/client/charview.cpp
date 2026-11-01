@@ -55,11 +55,12 @@
 extern bool Unknown_BFAE52;								// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
 
 // sclient.cpp's env map object (0x24 bytes): its implicit destructor is out of line here (0x679820)
-class Unknown67D360Class		// NAME 1: neutral (D10): 0x14 bytes, destructor 0x67D360 (sclient.cpp's)
+class Unknown67D360Class		// NAME 1: neutral (D10): 0x14 bytes (env_map_manager.cpp's); its destructor out of line here (0x67D360)
 {
 public:
-	~Unknown67D360Class();								// 0x67D360
-	char Unknown00[0x14];
+	~Unknown67D360Class() { if (Unknown10) { Unknown10->Release_Ref(); Unknown10 = NULL; } }
+	std::string Unknown00;								// +0x00
+	RefCountClass *Unknown10;							// +0x10 (released by the destructor)
 };
 class SClientUnknown1338Class	// NAME 1: neutral (D10): sclient.cpp's
 {
@@ -490,7 +491,6 @@ void CharacterViewClass::Unknown_67A300()
 		REF_PTR_RELEASE(Unknown1B4);
 	}
 }
-
 
 
 
