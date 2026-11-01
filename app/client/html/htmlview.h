@@ -22,7 +22,7 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 {
 	ArrayList<char> Data;  // +0x000  // NAME 2: Add_Data appends to it and keeps it NUL-terminated
 	char Name[257];  // +0x00C  // NAME 2: 0x770860 compares it with its first argument
-	char Url[259];  // +0x10D  // NAME 1: 0x770860's second argument copied in
+	char Url[257];  // +0x10D  // NAME 1: 0x770860's second argument copied in (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
 };
 
 // What the view's +0x20 list holds: Find_Image compares slot +0xC's string with a name.
@@ -55,7 +55,7 @@ public:
 	bool Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int unknown);  // 0x7759E0  // NAME 2: lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in')
 	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle
 	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items
-	void Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int x, int y, int clipx, int clipy, int clipw, int cliph);  // 0x7767A0  // NAME 2: frames, text, images (not written yet)
+	bool Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx, int offy, int clipx, int clipy, int clipw, int cliph);  // 0x7767A0  // NAME 2: by its Type: Text (wrapped TextOut), HR / Table / Cell (bevels), LI (a filled box), Image
 	char *Click(int x, int y, int unknown);  // 0x776FC0  // NAME 2: opens the 'Anchor.HREF' of the item under x, y
 	char *Hit_Test(int x, int y, int *type, int *index);  // 0x7772C0  // NAME 2: the item under x, y: its index, its href (type 2) or none (1)
 	bool Find_Link(char *name, HtmlLinkStruct **link);  // 0x777420

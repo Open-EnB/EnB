@@ -1701,13 +1701,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/html/htmlview.cpp:1326` | untagged neutral name (D10) |
 | 1 | `Unknown138` | `app/client/html/htmlview.cpp:1327` | untagged neutral name (D10) |
-| 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1407` | untagged neutral name (D10) |
-| 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:1412` | untagged neutral name (D10) |
-| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1488` | untagged neutral name (D10) |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:1543` | untagged neutral name (D10) |
+| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1619` | untagged neutral name (D10) |
 | 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:11` | the object at the view's +4 (slots +4 / +8 called) |
 | 1 | `Unknown_00` | `app/client/html/htmlview.h:14` | untagged neutral name (D10) |
 | 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:21` | element of the view's +0x14 list |
-| 1 | `Url` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in |
+| 1 | `Url` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
 | 1 | `HtmlImageClass` | `app/client/html/htmlview.h:29` | element of the view's +0x20 list (image.cpp's class, not placed yet) |
 | 1 | `Unknown_04` | `app/client/html/htmlview.h:33` | untagged neutral name (D10) |
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:63` | untagged neutral name (D10) |
@@ -9508,7 +9508,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Text` | `app/client/html/htmlview.h:55` | lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in') |
 | 2 | `Render` | `app/client/html/htmlview.h:56` | draws every block clipped to the rectangle |
 | 2 | `Draw_Block` | `app/client/html/htmlview.h:57` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
-| 2 | `Draw_Item` | `app/client/html/htmlview.h:58` | frames, text, images (not written yet) |
+| 2 | `Draw_Item` | `app/client/html/htmlview.h:58` | by its Type: Text (wrapped TextOut), HR / Table / Cell (bevels), LI (a filled box), Image |
 | 2 | `Click` | `app/client/html/htmlview.h:59` | opens the 'Anchor.HREF' of the item under x, y |
 | 2 | `Hit_Test` | `app/client/html/htmlview.h:60` | the item under x, y: its index, its href (type 2) or none (1) |
 | 2 | `Get_Title` | `app/client/html/htmlview.h:65` | the first block's 'Title' attribute, else "" |
