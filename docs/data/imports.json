@@ -3717,6 +3717,30 @@
      "0x42E190"
     ]
    },
+   "input": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42E3B0",
+     "0x42E7B0",
+     "0x42E8A0",
+     "0x42EA80",
+     "0x42EB80",
+     "0x42ECF0",
+     "0x42ED20",
+     "0x42ED80",
+     "0x42EDB0",
+     "0x42EE00",
+     "0x42EE90",
+     "0x42EEC0",
+     "0x42F1C0",
+     "0x42F250",
+     "0x42F2F0"
+    ],
+    "merged": [],
+    "name": "input/input.cpp"
+   },
    "intrface": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -12173,6 +12197,7 @@
    "common/weapontype.h": "reconstructed",
    "input/inpdsp.h": "reconstructed",
    "input/inpkeys.h": "reconstructed",
+   "input/input.h": "reconstructed",
    "kernel/kernel.h": "reconstructed",
    "packets/gameedit/pkgeaset.h": "reconstructed",
    "packets/gameedit/pkgeclon.h": "reconstructed",

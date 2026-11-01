@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1105 |
-| 2 | describes what the code does | 2770 |
-| 1 | neutral placeholder | 9395 |
+| 3 | by convention from a client-named file or sibling | 1107 |
+| 2 | describes what the code does | 2777 |
+| 1 | neutral placeholder | 9497 |
 
 ## For review (score 3 and below)
 
@@ -7317,6 +7317,108 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42B7E0` | `app/input/inpkeys.h:27` | neutral (D10) |
 | 1 | `Unknown_42BAE0` | `app/input/inpkeys.h:28` | neutral (D10) |
 | 1 | `Unknown_42BC90` | `app/input/inpkeys.h:29` | neutral (D10) |
+| 1 | `Unknown_BDA968` | `app/input/input.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_BDA96C` | `app/input/input.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA70` | `app/input/input.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA74` | `app/input/input.cpp:11` | untagged neutral name (D10) |
+| 1 | `InputUnknownBDAA78Class` | `app/input/input.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA78` | `app/input/input.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA7C` | `app/input/input.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_BDAA80` | `app/input/input.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_42E390` | `app/input/input.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_42E3B0` | `app/input/input.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_42E4A0` | `app/input/input.cpp:46` | untagged neutral name (D10) |
+| 1 | `InputUnknownAE7160Class` | `app/input/input.cpp:55` | untagged neutral name (D10) |
+| 1 | `InputUnknownAE7134Class` | `app/input/input.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `app/input/input.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_42E7B0` | `app/input/input.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `app/input/input.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `app/input/input.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/input/input.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/input/input.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/input/input.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `app/input/input.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB80` | `app/input/input.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE00` | `app/input/input.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/input/input.cpp:303` | untagged neutral name (D10) |
+| 1 | `INPUT_KEY_COUNT` | `app/input/input.h:25` | neutral (D10): the key tables' size (input.cpp, w32kbd.cpp) |
+| 1 | `InputQueueClass` | `app/input/input.h:28` | neutral (D10) |
+| 1 | `Add` | `app/input/input.h:33` | what it does |
+| 1 | `Peek` | `app/input/input.h:43` | what it does |
+| 1 | `Get` | `app/input/input.h:51` | what it does |
+| 1 | `KeyQueueClass` | `app/input/input.h:68` | neutral (D10) |
+| 1 | `KeyboardClass` | `app/input/input.h:78` | neutral (D10) |
+| 1 | `Unknown_04` | `app/input/input.h:83` | neutral (D10) |
+| 1 | `Unknown_08` | `app/input/input.h:84` | neutral (D10) |
+| 1 | `Unknown_0C, unknown1, unknown2` | `app/input/input.h:85` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/input/input.h:85` | untagged neutral name (D10) |
+| 1 | `Set_Repeat, enable` | `app/input/input.h:86` | 0x42EE00's 'KeyRepeatCount' |
+| 1 | `InputUnknownAE7160Class` | `app/input/input.h:92` | neutral (D10) |
+| 1 | `unknown1, unknown2` | `app/input/input.h:98` | neutral (D10) |
+| 1 | `enable` | `app/input/input.h:99` | as KeyboardClass's |
+| 1 | `MouseClass` | `app/input/input.h:103` | neutral (D10) |
+| 1 | `Unknown_04` | `app/input/input.h:108` | neutral (D10) |
+| 1 | `Unknown_08` | `app/input/input.h:109` | neutral (D10) |
+| 1 | `Unknown_0C, unknown1, unknown2` | `app/input/input.h:110` | neutral (D10) |
+| 1 | `Get_Position, x, y` | `app/input/input.h:111` | what 0x42ECF0's callers do with it |
+| 1 | `Unknown_14, unknown1, unknown2` | `app/input/input.h:112` | neutral (D10) |
+| 1 | `Unknown_14` | `app/input/input.h:112` | untagged neutral name (D10) |
+| 1 | `Set_Position, x, y` | `app/input/input.h:113` | what 0x42ED80 does with it |
+| 1 | `Update` | `app/input/input.h:114` | what its callers do with it |
+| 1 | `InputUnknownAE7134Class` | `app/input/input.h:120` | neutral (D10) |
+| 1 | `unknown1, unknown2` | `app/input/input.h:126` | neutral (D10) |
+| 1 | `unknown1, unknown2` | `app/input/input.h:128` | neutral (D10) |
+| 1 | `Unknown_20` | `app/input/input.h:130` | neutral (D10) |
+| 1 | `InputUnknownBDAA78Class` | `app/input/input.h:135` | neutral (D10) |
+| 1 | `Unknown_BDA968` | `app/input/input.h:139` | neutral (D10) |
+| 1 | `Unknown_BDA96C` | `app/input/input.h:140` | neutral (D10) |
+| 1 | `Unknown_BDAA70` | `app/input/input.h:141` | neutral (D10) |
+| 1 | `Unknown_BDAA74` | `app/input/input.h:142` | neutral (D10) |
+| 1 | `Unknown_BDAA78` | `app/input/input.h:143` | neutral (D10) |
+| 1 | `Unknown_BDAA7C` | `app/input/input.h:144` | neutral (D10) |
+| 1 | `Unknown_BDAA80` | `app/input/input.h:145` | neutral (D10) |
+| 1 | `Unknown_42E390, unknown1, unknown2` | `app/input/input.h:148` | neutral (D10) |
+| 1 | `Unknown_42E390` | `app/input/input.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown_42E3B0, unknown1, unknown2` | `app/input/input.h:149` | neutral (D10) |
+| 1 | `Unknown_42E3B0` | `app/input/input.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown_42E4A0, window` | `app/input/input.h:150` | neutral (D10) |
+| 1 | `Unknown_42E4A0` | `app/input/input.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown_42E7B0` | `app/input/input.h:151` | neutral (D10) |
+| 1 | `Unknown_42E8A0, event` | `app/input/input.h:152` | neutral (D10) |
+| 1 | `Unknown_42E8A0` | `app/input/input.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80, event` | `app/input/input.h:153` | neutral (D10) |
+| 1 | `Unknown_42EA80` | `app/input/input.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB80, event` | `app/input/input.h:154` | neutral (D10) |
+| 1 | `Unknown_42EB80` | `app/input/input.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0, x, y` | `app/input/input.h:155` | neutral (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20, x, y` | `app/input/input.h:156` | neutral (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.h:156` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.h:157` | neutral (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.h:158` | neutral (D10) |
+| 1 | `Unknown_42EE00, enable` | `app/input/input.h:159` | neutral (D10) |
+| 1 | `Unknown_42EE00` | `app/input/input.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/input/input.h:160` | neutral (D10) |
+| 1 | `Win32KeyboardHandlerClass` | `app/input/w32kbd.h:22` | after w32mouse.cpp's Win32MouseHandlerClass |
+| 1 | `Unknown_04` | `app/input/w32kbd.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/input/w32kbd.h:28` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/w32kbd.h:29` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/input/w32kbd.h:29` | untagged neutral name (D10) |
+| 1 | `enable` | `app/input/w32kbd.h:30` | as KeyboardClass's |
+| 1 | `Unknown_42F940, message, handler` | `app/input/w32kbd.h:33` | as main_client.cpp |
+| 1 | `Unknown_42F940` | `app/input/w32kbd.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0, message, handler` | `app/input/w32kbd.h:34` | as main_client.cpp |
+| 1 | `Unknown_42FAC0` | `app/input/w32kbd.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/input/w32mouse.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/input/w32mouse.h:29` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/w32mouse.h:30` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/input/w32mouse.h:30` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/w32mouse.h:32` | neutral (D10) |
+| 1 | `Unknown_14` | `app/input/w32mouse.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `app/kernel/kernel.cpp:20` | WW3D's device check (0 when DX8Wrapper's restore succeeds) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
@@ -10773,6 +10875,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/input/inpkeys.cpp:6` | what it holds |
 | 2 | `KeyNamesReady` | `app/input/inpkeys.cpp:7` | what it holds |
 | 2 | `inpkeys.h` | `app/input/inpkeys.h:19` | provisional: the object has no __FILE__ (it sits between inpdsp.cpp and input.cpp) |
+| 2 | `Buffer` | `app/input/input.h:61` | what it holds |
+| 2 | `Head` | `app/input/input.h:62` | what it holds |
+| 2 | `Tail` | `app/input/input.h:63` | what it holds |
+| 2 | `Size` | `app/input/input.h:64` | what it holds |
+| 2 | `KeyStates` | `app/input/input.h:74` | what it holds |
+| 2 | `Queue` | `app/input/input.h:88` | what it holds |
+| 2 | `Queue` | `app/input/input.h:116` | what it holds |
 | 2 | `Key` | `app/kernel/kernel.h:30` | +0x00 Handle_Key: 0x1B Esc, 0x6A |
 | 2 | `Accept_Focus` | `app/kernel/kernel.h:53` | 'LoginTask: accepting focus.' |
 | 2 | `Yield_Focus` | `app/kernel/kernel.h:54` | 'LoginTask: yielding focus.' |
@@ -12547,6 +12656,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `vendor_defs.h` | `app/common/vendor_defs.h:16` | header name assumed from the client's vendor_defs.cpp |
 | 3 | `weapontype.h` | `app/common/weapontype.h:15` | header name assumed from the client's weapontype.cpp |
 | 3 | `inpdsp.h` | `app/input/inpdsp.h:20` | header name assumed from the client's inpdsp.cpp |
+| 3 | `w32kbd.h` | `app/input/w32kbd.h:17` | header name assumed from the client's w32kbd.cpp |
+| 3 | `w32mouse.h` | `app/input/w32mouse.h:18` | header name assumed from the client's w32mouse.cpp |
 | 3 | `kernel.h` | `app/kernel/kernel.h:18` | header name assumed from the client's kernel.cpp |
 | 3 | `SoundManagerClass` | `app/main/main_client.cpp:110` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `pkgeaset.h` | `app/packets/gameedit/pkgeaset.h:15` | the header of the client's gameedit\pkgeaset.cpp |

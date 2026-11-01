@@ -3773,6 +3773,18 @@ RECONSTRUCTED = {
     ('app', 'input/inpkeys.cpp'): "the key names, client 0x42B3D0-0x42E350 (the object after inpdsp.cpp; builder H19): "
                                  "the name -> code and code -> name lookups 0x42B610 / 0x42B6A0, the event text 0x42B7E0, "
                                  "the table fill 0x42BAE0 / 0x42BC90 and the tables' instances",
+    ('app', 'input/input.h'): "the input layer (input.cpp): the event queue (KeyQueueClass over InputQueueClass, 0x420 "
+                             "bytes), the keyboard and mouse handlers' bases and their DIRECTX_* null classes, the "
+                             "globals (the client's assert string names input.h; D10 names)",
+    ('app', 'input/input.cpp'): "input.cpp, client 0x42E390-0x42EF60 and input.h's inlines to 0x42F340 (FAIL_IF "
+                               "'KeyRepeatCount' line 298, D25; builder INP, run PR #140): start-up 0x42E4A0 NOT EXACT "
+                               "(the queue element's constructor inlined), the rest exact: 0x42E390, 0x42E3B0, 0x42E7B0, "
+                               "the queue 0x42E8A0 / 0x42EA80 / 0x42EEC0, 0x42EB80 (ToAscii), the mouse 0x42ECF0 / "
+                               "0x42ED20 / 0x42ED80 / 0x42EDB0, key repeat 0x42EE00, 0x42EE90",
+    ('app', 'input/w32kbd.h'): "Win32KeyboardHandlerClass's declaration (header name assumed from w32kbd.cpp, NAME 3): "
+                              "only what input.cpp uses; w32kbd.cpp not rebuilt yet",
+    ('app', 'input/w32mouse.h'): "Win32MouseHandlerClass's declaration (header name assumed from w32mouse.cpp, NAME 3): "
+                                "only what input.cpp uses; w32mouse.cpp not rebuilt yet",
     ('app', 'audio/soundlib.h'): "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI "
                                 "hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, "
                                 "the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)",
