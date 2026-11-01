@@ -164,7 +164,7 @@ def link_stubs(log, out, poc=False):
     syms = {}
     for m in UNRES.finditer(open(log, encoding='latin1').read()):
         syms[m.group(2)] = m.group(1)
-    fwd, classes, defs, skipped, data_names, aliases = set(), {}, [], [], {}, []
+    fwd, classes, defs, skipped, data_names, aliases, func_names = set(), {}, [], [], {}, [], {}
     used_templates = set()
 
     def types(text):
@@ -197,6 +197,11 @@ def link_stubs(log, out, poc=False):
             if body is None:
                 skipped.append(dem)
                 continue
+            key = (qual, args, const)
+            if key in func_names:       # two files' views of one function by different return types: one
+                aliases.append((mangled, func_names[key]))      # definition, the other name a weak alias of it
+                continue
+            func_names[key] = mangled
             cls, _, name = qual.rpartition('::')
             const = ' const' if const else ''
             text = '%s(%s)%s' % (name, args, const)

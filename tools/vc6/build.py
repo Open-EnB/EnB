@@ -557,6 +557,8 @@ def link_program(name, out):
             objs.append(os.path.join(gen_dir, 'poc_aliases.obj'))
             coff_alias.write(objs[0], pairs)
         summary = link_one(name, out, extra_srcs=[gen], extra_objs=objs)
+        if summary['cl_errors']:
+            raise SystemExit(f'{name}: the generated stand-ins do not compile ({gen}, {dst}\\cl.log); nothing deployed')
         if not summary['exe'] and prog.get('force_unresolved'):
             # what gen_stubs could not write (a class by value, a template, two types for one global):
             # /force:unresolved leaves those calls and reads at address 0, so a run stops there (the
