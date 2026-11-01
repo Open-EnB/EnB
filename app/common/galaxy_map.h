@@ -226,6 +226,9 @@ class GalaxyMapClass	// NAME 2: holds AllData and the Systems / Sectors / Gates 
 public:
 	virtual ~GalaxyMapClass();
 
+	void Add_System(const RefCountPtr<GalaxyMapSystemClass> &system);				// 0x836F30 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: FAIL_IF 'Systems.find(system->Get_Hash_ID()) != Systems.end()'
+	void Add_Data(const RefCountPtr<GalaxyMapDataClass> &data);						// 0x836960 (not built)  // NAME 2: Add_System's first call, before Systems[]
+
 	const RefCountPtr<GalaxyMapDataClass> &Get_Data(unsigned int id);				// 0x8378B0 (galaxy_map_client.cpp's 0x7A4C50)  // NAME 2: returns AllData[id]
 	const RefCountPtr<GalaxyMapSystemClass> &Get_System(int hash_id);				// 0x837970  // NAME 2: Systems.find
 	const RefCountPtr<GalaxyMapSectorClass> &Get_Sector(int hash_id);				// 0x837A50  // NAME 2: Sectors.find
