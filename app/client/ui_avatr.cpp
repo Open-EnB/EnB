@@ -253,6 +253,8 @@ public:
 	void Unknown_55A1F0(int arg);						// 0x55A1F0 (0x554D60: 0 on the body tab, 1 on the head tab)  // NAME 1 [arg]: neutral
 	void Unknown_55A960();								// 0x55A960
 	void Unknown_55AE50();								// 0x55AE50 (0x5560E0, last)
+	void Unknown_55AFD0();								// 0x55AFD0 (the gender text)
+	void Unknown_55B540(int zoom);						// 0x55B540 (the head's scale: 1 smaller, 2 larger)  // NAME 1 [zoom]: neutral
 	void Unknown_55BAC0();								// 0x55BAC0
 	void Unknown_559F30();								// 0x559F30 (the destructor)
 	void Unknown_55BFB0();								// 0x55BFB0 (the height and weight texts)
@@ -268,7 +270,9 @@ public:
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	char Unknown164[0x16C - 0x164];						// +0x164
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
-	char Unknown170[0x180 - 0x170];						// +0x170
+	char Unknown170[0x178 - 0x170];						// +0x170
+	float Unknown178;									// +0x178 (the head's scale, 0.5 .. +0x17C: 0x55B540)
+	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
 	char Unknown184[0x1C5 - 0x184];						// +0x184
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
@@ -565,6 +569,39 @@ void AvatarCreationInterface::Unknown_5598D0()
 	if (Unknown094) Unknown094->Unknown_40(false);
 }
 
+// 0x55AFD0
+void AvatarCreationInterface::Unknown_55AFD0()
+{
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	FontSys *text = Unknown_BE67C4->Unknown_6D25D0("male_fe_avatar00", model.Peek());
+	if (Unknown08C->Peek_Unknown194()->Unknown110 == 1) {
+		text->Change_Text("Gender: Female", 0);
+	} else {
+		text->Change_Text("Gender: Male", 0);
+	}
+}
+
+// 0x55B540
+void AvatarCreationInterface::Unknown_55B540(int zoom)
+{
+	float step = Unknown178 * 0.033333335f;
+	if (zoom == 1) {
+		Unknown178 = WWMath::Max(Unknown178 - step, 0.5f);
+		if (Unknown178 == 0.5f) {
+			Unknown098[33]->Unknown_40(false);
+		}
+		Unknown098[34]->Unknown_40(true);
+	} else if (zoom == 2) {
+		Unknown178 = WWMath::Min(step + Unknown178, Unknown17C);
+		if (Unknown178 == Unknown17C) {
+			Unknown098[34]->Unknown_40(false);
+		}
+		Unknown098[33]->Unknown_40(true);
+	}
+	Unknown_55A550(1, 0, 0, 0);
+}
+
 // 0x55C350 (after the FAIL_IFs of 0x55C280, lines 2207 / 2211, in the client; no caller: 0x556B20 inlines it)
 void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 {
@@ -607,4 +644,6 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	0x554D60 is not inlined, 0.29), 0x5598A0 and 0x5598D0 (the shared gadgets shown / hidden) exact.
 **	The window's vtable 0xAEF9BC: +0x60 is 0x554D60 and +0x68 0x554E80 (InterfaceClass's Unknown_60 /
 **	Unknown_68 overridden; declared plain members here so far).
+**	0x55AFD0 (the gender text: an if / else of two Change_Text calls, the ?: form loses 0.78) and
+**	0x55B540 (the head's scale, WWMath::Max / Min) exact.
 */
