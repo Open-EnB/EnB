@@ -238,21 +238,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_1C` | `app/client/client_lego_impl.cpp:157` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/client_lego_impl.cpp:626` | untagged neutral name (D10) |
 | 1 | `LegoKnobClass` | `app/client/client_lego_impl.h:38` | neutral (D10), the client's 'knob' locals |
-| 1 | `LegoBoneMapClass` | `app/client/client_lego_impl.h:48` | neutral (D10), the client's 'BoneMap' member |
-| 1 | `LegoClass` | `app/client/client_lego_impl.h:60` | neutral (D10), the client's 'lego' locals |
-| 1 | `Unknown_18` | `app/client/client_lego_impl.h:68` | neutral (D10) |
-| 1 | `Unknown_1C` | `app/client/client_lego_impl.h:69` | neutral (D10) |
-| 1 | `Unknown_3C` | `app/client/client_lego_impl.h:77` | neutral (D10) |
-| 1 | `LegoOrphanDataClass` | `app/client/client_lego_impl.h:89` | neutral (D10), the client's 'child_orphan_data' local |
-| 1 | `LegoSplitStruct` | `app/client/client_lego_impl.h:97` | neutral (D10), the client's 'split' locals |
-| 1 | `State` | `app/client/client_lego_impl.h:102` | neutral (D10) |
-| 1 | `Base` | `app/client/client_lego_impl.h:103` | neutral (D10) |
-| 1 | `LegoParentClass` | `app/client/client_lego_impl.h:109` | neutral (D10), the client's 'Parent' member |
-| 1 | `LegoChildStruct` | `app/client/client_lego_impl.h:116` | neutral (D10): a child lego and the knob it hangs on |
-| 1 | `unknown` | `app/client/client_lego_impl.h:127` | neutral (D10) |
-| 1 | `Unknown50` | `app/client/client_lego_impl.h:164` | neutral (D10) |
-| 1 | `Unknown64` | `app/client/client_lego_impl.h:169` | neutral (D10) |
-| 1 | `Unknown65` | `app/client/client_lego_impl.h:170` | neutral (D10) |
+| 1 | `LegoBoneMapClass` | `app/client/client_lego_impl.h:49` | neutral (D10), the client's 'BoneMap' member |
+| 1 | `LegoClass` | `app/client/client_lego_impl.h:61` | neutral (D10), the client's 'lego' locals |
+| 1 | `Unknown_18` | `app/client/client_lego_impl.h:69` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/client/client_lego_impl.h:70` | neutral (D10) |
+| 1 | `Unknown_3C` | `app/client/client_lego_impl.h:78` | neutral (D10) |
+| 1 | `LegoOrphanDataClass` | `app/client/client_lego_impl.h:90` | neutral (D10), the client's 'child_orphan_data' local |
+| 1 | `LegoSplitStruct` | `app/client/client_lego_impl.h:98` | neutral (D10), the client's 'split' locals |
+| 1 | `State` | `app/client/client_lego_impl.h:103` | neutral (D10) |
+| 1 | `Base` | `app/client/client_lego_impl.h:104` | neutral (D10) |
+| 1 | `LegoParentClass` | `app/client/client_lego_impl.h:110` | neutral (D10), the client's 'Parent' member |
+| 1 | `LegoChildStruct` | `app/client/client_lego_impl.h:117` | neutral (D10): a child lego and the knob it hangs on |
+| 1 | `unknown` | `app/client/client_lego_impl.h:128` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/client_lego_impl.h:165` | neutral (D10) |
+| 1 | `Unknown64` | `app/client/client_lego_impl.h:170` | neutral (D10) |
+| 1 | `Unknown65` | `app/client/client_lego_impl.h:171` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/co.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_B93ACC` | `app/client/co.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_B93AD8` | `app/client/co.cpp:36` | untagged neutral name (D10) |
@@ -8104,45 +8104,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ShipID` | `app/client/client.h:197` | what it holds |
 | 2 | `ObjectsChanged` | `app/client/client.h:201` | what it holds |
 | 2 | `Splines` | `app/client/client.h:203` | what it holds |
-| 2 | `std:` | `app/client/client_lego_impl.h:43` | what it holds |
-| 2 | `BoneIndex` | `app/client/client_lego_impl.h:44` | what it holds |
-| 2 | `Get_Knob` | `app/client/client_lego_impl.h:53` | what it returns |
-| 2 | `std:` | `app/client/client_lego_impl.h:55` | what it holds |
-| 2 | `Radius` | `app/client/client_lego_impl.h:56` | what it holds |
-| 2 | `Get_Identifier` | `app/client/client_lego_impl.h:64` | what it returns |
-| 2 | `Get_Scale` | `app/client/client_lego_impl.h:65` | what it returns |
-| 2 | `Set_Scale` | `app/client/client_lego_impl.h:66` | what it does |
-| 2 | `Get_Radius` | `app/client/client_lego_impl.h:67` | what it returns |
-| 2 | `Init` | `app/client/client_lego_impl.h:70` | what it does |
-| 2 | `Get_Render_Object` | `app/client/client_lego_impl.h:71` | what it returns |
-| 2 | `Find` | `app/client/client_lego_impl.h:72` | what it does |
-| 2 | `Get_Lego_Transform` | `app/client/client_lego_impl.h:73` | what it returns |
-| 2 | `Add` | `app/client/client_lego_impl.h:74` | what it does |
-| 2 | `Remove` | `app/client/client_lego_impl.h:75` | what it does |
-| 2 | `Detach_All` | `app/client/client_lego_impl.h:76` | what it does |
-| 2 | `Set_Parent` | `app/client/client_lego_impl.h:78` | what it does |
-| 2 | `Clear_Parent` | `app/client/client_lego_impl.h:79` | what it does |
-| 2 | `Notify_Parent` | `app/client/client_lego_impl.h:80` | what it does |
-| 2 | `Get_Transform` | `app/client/client_lego_impl.h:81` | what it returns |
-| 2 | `std:` | `app/client/client_lego_impl.h:92` | what it holds |
-| 2 | `std:` | `app/client/client_lego_impl.h:104` | what it holds |
-| 2 | `Rest` | `app/client/client_lego_impl.h:105` | what it holds |
-| 2 | `Child_Moved` | `app/client/client_lego_impl.h:112` | what it does |
-| 2 | `Child_Changed` | `app/client/client_lego_impl.h:113` | what it does |
-| 2 | `Child` | `app/client/client_lego_impl.h:120` | what it holds |
-| 2 | `Knob` | `app/client/client_lego_impl.h:121` | what it holds |
-| 2 | `Init_Bone_Maps` | `app/client/client_lego_impl.h:130` | what it does |
-| 2 | `Shutdown_Bone_Maps` | `app/client/client_lego_impl.h:131` | what it does |
-| 2 | `Get_Bone_Map` | `app/client/client_lego_impl.h:132` | what it returns |
-| 2 | `Create` | `app/client/client_lego_impl.h:133` | what it does |
-| 2 | `Attach` | `app/client/client_lego_impl.h:157` | what it does |
-| 2 | `Detach` | `app/client/client_lego_impl.h:158` | what it does |
-| 2 | `Update_Radius` | `app/client/client_lego_impl.h:159` | what it does |
-| 2 | `Identifier` | `app/client/client_lego_impl.h:163` | what it holds |
-| 2 | `AssetId` | `app/client/client_lego_impl.h:165` | Init's asset_id (the client's assert 'asset_id < 0') |
-| 2 | `Scale` | `app/client/client_lego_impl.h:167` | what Set_Scale sets |
-| 2 | `Radius` | `app/client/client_lego_impl.h:168` | what Update_Radius sets |
-| 2 | `Transform` | `app/client/client_lego_impl.h:172` | what Get_Transform returns |
+| 2 | `std:` | `app/client/client_lego_impl.h:44` | what it holds |
+| 2 | `BoneIndex` | `app/client/client_lego_impl.h:45` | what it holds |
+| 2 | `Get_Knob` | `app/client/client_lego_impl.h:54` | what it returns |
+| 2 | `std:` | `app/client/client_lego_impl.h:56` | what it holds |
+| 2 | `Radius` | `app/client/client_lego_impl.h:57` | what it holds |
+| 2 | `Get_Identifier` | `app/client/client_lego_impl.h:65` | what it returns |
+| 2 | `Get_Scale` | `app/client/client_lego_impl.h:66` | what it returns |
+| 2 | `Set_Scale` | `app/client/client_lego_impl.h:67` | what it does |
+| 2 | `Get_Radius` | `app/client/client_lego_impl.h:68` | what it returns |
+| 2 | `Init` | `app/client/client_lego_impl.h:71` | what it does |
+| 2 | `Get_Render_Object` | `app/client/client_lego_impl.h:72` | what it returns |
+| 2 | `Find` | `app/client/client_lego_impl.h:73` | what it does |
+| 2 | `Get_Lego_Transform` | `app/client/client_lego_impl.h:74` | what it returns |
+| 2 | `Add` | `app/client/client_lego_impl.h:75` | what it does |
+| 2 | `Remove` | `app/client/client_lego_impl.h:76` | what it does |
+| 2 | `Detach_All` | `app/client/client_lego_impl.h:77` | what it does |
+| 2 | `Set_Parent` | `app/client/client_lego_impl.h:79` | what it does |
+| 2 | `Clear_Parent` | `app/client/client_lego_impl.h:80` | what it does |
+| 2 | `Notify_Parent` | `app/client/client_lego_impl.h:81` | what it does |
+| 2 | `Get_Transform` | `app/client/client_lego_impl.h:82` | what it returns |
+| 2 | `std:` | `app/client/client_lego_impl.h:93` | what it holds |
+| 2 | `std:` | `app/client/client_lego_impl.h:105` | what it holds |
+| 2 | `Rest` | `app/client/client_lego_impl.h:106` | what it holds |
+| 2 | `Child_Moved` | `app/client/client_lego_impl.h:113` | what it does |
+| 2 | `Child_Changed` | `app/client/client_lego_impl.h:114` | what it does |
+| 2 | `Child` | `app/client/client_lego_impl.h:121` | what it holds |
+| 2 | `Knob` | `app/client/client_lego_impl.h:122` | what it holds |
+| 2 | `Init_Bone_Maps` | `app/client/client_lego_impl.h:131` | what it does |
+| 2 | `Shutdown_Bone_Maps` | `app/client/client_lego_impl.h:132` | what it does |
+| 2 | `Get_Bone_Map` | `app/client/client_lego_impl.h:133` | what it returns |
+| 2 | `Create` | `app/client/client_lego_impl.h:134` | what it does |
+| 2 | `Attach` | `app/client/client_lego_impl.h:158` | what it does |
+| 2 | `Detach` | `app/client/client_lego_impl.h:159` | what it does |
+| 2 | `Update_Radius` | `app/client/client_lego_impl.h:160` | what it does |
+| 2 | `Identifier` | `app/client/client_lego_impl.h:164` | what it holds |
+| 2 | `AssetId` | `app/client/client_lego_impl.h:166` | Init's asset_id (the client's assert 'asset_id < 0') |
+| 2 | `Scale` | `app/client/client_lego_impl.h:168` | what Set_Scale sets |
+| 2 | `Radius` | `app/client/client_lego_impl.h:169` | what Update_Radius sets |
+| 2 | `Transform` | `app/client/client_lego_impl.h:173` | what Get_Transform returns |
 | 2 | `Object` | `app/client/co.cpp:25` | what it holds |
 | 2 | `Old` | `app/client/co.cpp:26` | what it holds |
 | 2 | `New` | `app/client/co.cpp:27` | what it holds |
@@ -10599,8 +10599,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Px` | `app/client/client.h:159` | px.cpp's |
 | 3 | `PxProcess` | `app/client/client.h:160` | px_process.cpp's |
 | 3 | `client_lego_impl.h` | `app/client/client_lego_impl.h:21` | header name assumed from the client's client_lego_impl.cpp |
-| 3 | `Is_Invalid` | `app/client/client_lego_impl.h:100` | the client's asserts 'split.Is_Invalid()' |
-| 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:124` | by convention (D24) from the client's client_lego_impl.cpp |
+| 3 | `Is_Invalid` | `app/client/client_lego_impl.h:101` | the client's asserts 'split.Is_Invalid()' |
+| 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:125` | by convention (D24) from the client's client_lego_impl.cpp |
 | 3 | `co.cpp` | `app/client/co.cpp:1732` | the FAIL_IF's name |
 | 3 | `ProjDecalManagerClass` | `app/client/co.cpp:1733` | the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members) |
 | 3 | `co.h` | `app/client/co.h:23` | header name assumed from the client's co.cpp |
