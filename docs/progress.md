@@ -1755,6 +1755,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
      (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
+   * From the 2026-10-31 t4 run (TK15): ui_avatar_cust.cpp starts at 0x54B760 (PermStringInitClass static 0xBE5B34;
+     0x54B370 is ui_attrb_skills.cpp's, line 577; 0x54B740 / 0x54B750 are thunks into its 0x549800); ctor 0x54B7B0,
+     dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
+     not InterfaceClass: rebasing it unlocks the per-frame 0x54CAE0, the ctor and dtors. One register residue (the
+     view's Client in edx, not eax) holds 0x54E690 / 0x54E7F0 / 0x54EAD0 / 0x54E950 (0.69-0.85); 0x54EC30 0.77.
    * From the 2026-10-31 t4 run (TK8, TK12): cordcon's pump 0x853560 (0.46), examinePacket 0x8514D0 (0.62 register),
      write 0x850C70 (0.39), close 0x850870 (0.43); the CordCon ctor 0x84F640 (0.15) needs P-TG3-1's 0xC0 layout (it
      inlines Add_Channels(0x40) and builds Stats_ after the channels). galaxy_map.cpp (new, app/common): Add_System

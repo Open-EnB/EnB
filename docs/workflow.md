@@ -149,6 +149,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Float stores (2026-10-31, TK15, ui_avatar_cust 0x54E3C0):** where the client's zero stores come from an integer
+  register but its other values go fld / fstp, route the non-zero values through an inline `(float &dst, float value)`
+  setter (a plain assignment copies them through eax; 0.44 -> exact). A float constant loaded from rdata and negated
+  with fchs is a file `static const float` (VC6 does not fold it). A chain of `G1 == x || G2 == x` tests laid out with
+  the else blocks first is an inline bool helper.
 * **VC6 /Ob2 inlines a non-inline member defined later in the same file** (2026-10-31, TK10, ui_line_display): a client
   function with no code callers whose body matches part of a not-exact neighbour was probably inlined there: call it
   from the neighbour (Find_Ephemeral 0x5A8B60 into Show_Ephemeral 0x5A7A80). The inlined callee's form decides whether
