@@ -267,7 +267,7 @@ bool CordMgr::Pump()
 			if (taken) {
 				continue;
 			}
-			unsigned int lip = 0;
+			uint32 lip = 0;
 			unsigned short lport = 0;
 			socket->getLocalAddr(lip, lport);
 			char from_text[0x80];
