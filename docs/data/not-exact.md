@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-418 entries in 89 files.
+421 entries in 89 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -100,7 +100,10 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
-| `app/client/gadget.cpp:64` | `GadgetClass::GadgetClass` | marker | NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or) |
+| `app/client/gadget.cpp:74` | `GadgetClass::GadgetClass` | marker | NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or) |
+| `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
+| `app/client/gadget.cpp:849` | `GadgetClass::Unknown_6603A0` | marker | NOT EXACT: shape (written from the client's 0x6603A0 for the proof-of-concept client: the flash's clone of the model slot +0x24 gives, in the model's scene, with the click indicator when asked) |
+| `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |

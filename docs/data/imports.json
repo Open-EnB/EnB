@@ -3106,7 +3106,9 @@
    },
    "gadget": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x436420",
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -3122,6 +3124,7 @@
      "0x65F500",
      "0x65F5F0",
      "0x65F640",
+     "0x65FF70",
      "0x65FFC0",
      "0x65FFF0",
      "0x660070",

@@ -3,7 +3,9 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
+#include <vector>
 #include "gadget.h"
+#include "..\kernel\kernel.h"
 #include "sclient.h"
 #include "uiview.h"
 #include "control_keys_manager.h"
@@ -32,10 +34,18 @@ public:
 	UserClickIndicatorClass();							// 0x6B3A90
 	~UserClickIndicatorClass();							// 0x6B3C20
 	bool Unknown_6B3D00(UIViewClass *view);				// 0x6B3D00 (the flash's view)  // NAME 1 [view]: neutral
-	void Unknown_6B3F50(int arg);						// 0x6B3F50 (each frame: the clone's slot +0xF0)  // NAME 1 [arg]: neutral
+	void Unknown_6B3F50(const SphereClass &sphere);		// 0x6B3F50 (each frame: the clone's bounding sphere, slot +0xF0)  // NAME 1 [sphere]: neutral
 
 	char Unknown00[0x3C];
 };
+
+// the input (input.cpp's neighbourhood, cdecl)
+bool Unknown_42EA80(KernelEventClass *event);						// 0x42EA80 (the queue's next event, kept)  // NAME 1 [event]: neutral
+void Unknown_42E8A0(KernelEventClass *event);						// 0x42E8A0 (taken)  // NAME 1 [event]: neutral
+void Unknown_42ECF0(float *x, float *y);							// 0x42ECF0 (the pointer's position, 0..1)  // NAME 1 [x, y]: as scriptedmovie.cpp's
+bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a button down)  // NAME 1 [button, arg]: neutral
+unsigned int Unknown_Get_Ticks();										// (unknown_root.h's)
+static KernelEventClass Unknown_BE5EB0;									// 0xBE5EB0 (0x65F780: the last event)  // NAME 1: neutral (D10)
 
 // ro_funcs.cpp's (cdecl)
 int Unknown_4960C0(RenderObjClass *robj, int arg);					// 0x4960C0  // NAME 1 [robj, arg]: neutral
@@ -89,16 +99,6 @@ GadgetClass::GadgetClass(unsigned int mask) :
 	FirstSortGroup = false;
 	LastSortGroup = false;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -270,6 +270,11 @@ void GadgetClass::Set_Unknown14(const char *text)
 	Unknown2C_07 = true;
 }
 
+const char *GadgetClass::Get_Unknown14()
+{
+	return(Unknown14);
+}
+
 void GadgetClass::Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...)
 {
 	if (format && *format) {
@@ -292,18 +297,18 @@ void GadgetClass::Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...)
 	}
 }
 
-bool GadgetClass::Unknown_2C(GadgetEventStruct *event, float x, float y, unsigned int mask)
+bool GadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (Owner) {
 		Owner->Unknown_44(mask, event, this);
 	}
-	event->Type = (short)Id;
+	event->Key = (unsigned short)Id;
 	Unknown_BE5F34 = mask;
 	Unknown_BE5F2C = this;
 	return(true);
 }
 
-bool GadgetClass::Unknown_34(GadgetEventStruct *event, float x, float y, unsigned int mask)
+bool GadgetClass::Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	mask &= Mask;
 	if (Unknown28 > 0.0f) {
@@ -318,11 +323,6 @@ bool GadgetClass::Unknown_34(GadgetEventStruct *event, float x, float y, unsigne
 	}
 	return(false);
 }
-
-
-
-
-
 
 
 
@@ -435,6 +435,150 @@ void GadgetClass::Unknown_40(bool on)
 	}
 }
 
+// NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the
+// manager's gadgets: the held gadget first, then every gadget under the pointer)
+KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
+{
+	KernelEventClass event;
+	Unknown_BE5F2C = NULL;
+	Unknown_BE5F34 = 0;
+	bool got = Unknown_42EA80(&event);
+	while (got) {
+		Unknown_42E8A0(&event);
+		if (event.Key != 0x10 && event.Key != 0x11 && event.Key != 0x12) {
+			break;
+		}
+		got = Unknown_42EA80(&event);
+	}
+	if (event.Key == 0) {
+		event.Key = 0;
+		event.Flags = 0;
+		Unknown_42ECF0(&event.Unknown04, &event.Unknown08);
+		event.Unknown0C = 0;
+	}
+	Unknown_BE5EB0 = event;
+	float x = (event.Unknown04 < 0.0f) ? 0.0f : ((event.Unknown04 > 1.0f) ? 1.0f : event.Unknown04);
+	float y = (event.Unknown08 < 0.0f) ? 0.0f : ((event.Unknown08 > 1.0f) ? 1.0f : event.Unknown08);
+
+	unsigned int mask = 0;
+	bool buttons = false;
+	if (event.Key == 0) {
+		buttons = true;
+	} else {
+		if (event.Key == 1) {
+			mask = (event.Flags & 0x1000) ? 4 : 1;
+		} else if (event.Key == 2) {
+			mask = (event.Flags & 0x1000) ? 0x40 : 0x10;
+		} else if (event.Key == 0x101 || event.Key == 0x102) {
+			mask = 0x1000;
+		}
+		if (mask == 0) {
+			mask = 0x100;
+		}
+		if (event.Flags & 0x100) {
+			mask |= 0x200;
+		}
+		if (event.Flags & 0x200) {
+			mask |= 0x400;
+		}
+		if (event.Flags & 0x400) {
+			mask |= 0x800;
+		}
+		if (event.Key == 1 || event.Key == 2 || event.Key == 0x10 || event.Key == 0x11 || event.Key == 0x12) {
+			buttons = true;
+		}
+	}
+	if (buttons) {
+		mask |= Unknown_42EC60(1, 0) ? 2 : 8;
+		mask |= Unknown_42EC60(2, 0) ? 0x20 : 0x80;
+	}
+
+	GadgetClass *handled = NULL;
+	GadgetClass *held = NULL;
+	bool over = false;
+	bool front = false;
+	GadgetClass **sticky = NULL;
+	if ((mask & 5) && Unknown_BE5F24) {
+		sticky = &Unknown_BE5F24;
+	} else if ((mask & 0x50) && Unknown_BE5F28) {
+		sticky = &Unknown_BE5F28;
+	} else if ((mask & 2) && Unknown_BE5F24) {
+		sticky = &Unknown_BE5F24;
+	} else if ((mask & 0x20) && Unknown_BE5F28) {
+		sticky = &Unknown_BE5F28;
+	} else if ((mask & 8) && Unknown_BE5F24) {
+		sticky = &Unknown_BE5F24;
+	} else if ((mask & 0x80) && Unknown_BE5F28) {
+		sticky = &Unknown_BE5F28;
+	}
+	if (sticky && *sticky) {
+		held = *sticky;
+		held->Unknown_30(x, y);
+		(*sticky)->Unknown_34(&event, x, y, mask);
+		if (*sticky) {
+			handled = *sticky;
+			front = true;
+			over = true;
+		}
+	}
+
+	static std::vector<GadgetClass *> _under;
+	_under.clear();
+	GadgetClass *last_over = Unknown_BE5F30;
+	Unknown_BE5F30 = NULL;
+	GadgetListIteratorClass it(manager);
+	GadgetClass *gadget;
+	while ((gadget = it.Get()) != NULL) {
+		++it;
+		if (gadget->Flash) {
+			gadget->Unknown_6609A0();
+		}
+		if (gadget == held) {
+			continue;
+		}
+		if (gadget->Unknown_30(x, y)) {
+			_under.push_back(gadget);
+			gadget->Unknown2C_02 = true;
+			if (!over) {
+				over = true;
+				gadget->Unknown2C_04 = true;
+				Unknown_BE5F30 = gadget;
+			} else {
+				gadget->Unknown2C_04 = false;
+			}
+			gadget->Unknown2C_03 = false;
+			if (!handled && gadget->Unknown2C_05) {
+				if (!front) {
+					gadget->Unknown2C_03 = true;
+					front = true;
+					if (last_over == gadget && !gadget->Flash) {
+						gadget->Unknown_6603A0(false, NULL);
+					}
+				}
+				if (gadget->Unknown_34(&event, x, y, mask)) {
+					handled = gadget;
+					if (gadget->Flash) {
+						gadget->Unknown_6607D0();
+					} else {
+						gadget->Unknown_6603A0(false, NULL);
+					}
+				}
+			}
+		} else {
+			gadget->Unknown2C_02 = false;
+			if (!handled && (gadget->Mask & mask & 0x100) && gadget->Unknown2C_05 && gadget->Unknown_34(&event, x, y, mask)) {
+				handled = gadget;
+			}
+		}
+	}
+	manager->Unknown3C.swap(_under);
+	if (handled && (mask & 0x1111) && manager->Unknown_661610(handled->Unknown08)) {
+		InterfaceClass *iface = handled->Unknown08;
+		Get_Signal_Map().emit((void *)iface, GadgetGroupToFrontEvent(iface));
+	}
+	return(event);
+}
+
 void GadgetClass::Unknown_65FFA0(int arg)
 {
 	Unknown0C = arg;
@@ -447,150 +591,6 @@ void GadgetClass::Unknown_65FFC0(int arg, GadgetClass *gadget)
 	}
 	Unknown0C = gadget->Unknown0C + arg;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -832,6 +832,70 @@ GadgetFlashStruct::~GadgetFlashStruct()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: shape (written from the client's 0x6603A0 for the proof-of-concept client: the flash's clone of the model
+// slot +0x24 gives, in the model's scene, with the click indicator when asked)
+void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
+{
+	Vector3 unknown;
+	Vector3 position(0.0f, 0.0f, 0.0f);
+	RenderObjClass *model = Unknown2C_0A ? NULL : Unknown_24(&unknown, &position, indicator);
+	if (Flash) {
+		if (model == Flash->Model) {
+			return;
+		}
+		Flash->Clone->Remove();
+		delete Flash;
+		Flash = NULL;
+		Get_Signal_Map().emit((GadgetClass *)NULL, FlashingGadgetEvent(this));
+		G_ASSERT(!Flash);
+	}
+	if (model) {
+		SceneClass *scene = model->Peek_Scene();
+		GadgetSortClass sort(Unknown_497300(model));
+		Flash = new GadgetFlashStruct;
+		Flash->Clone = model->Clone();
+		model->Add_Ref();
+		if (Flash->Model) {
+			Flash->Model->Release_Ref();
+		}
+		Flash->Model = model;
+		if (!Unknown_496620(Flash->Clone) && !indicator) {
+			Unknown_6607D0();
+		} else {
+			Unknown_4967F0(Flash->Clone, -1, Flash->Model);
+			Unknown_496AE0(Flash->Clone, 0);
+			HAnimClass *anim = model->Peek_Animation();
+			if (anim) {
+				Flash->Clone->Set_Animation(anim, position.X, 0);
+			}
+			Flash->Clone->Add(scene);
+			if (indicator) {
+				Flash->Indicator = new UserClickIndicatorClass;
+				if (!Flash->Indicator->Unknown_6B3D00(view)) {
+					delete Flash->Indicator;
+					Flash->Indicator = NULL;
+				}
+			}
+			Get_Signal_Map().emit((GadgetClass *)NULL, FlashingGadgetEvent(this));
+			Unknown_6609A0();
+		}
+	}
+}
+
 void GadgetClass::Unknown_6607D0()
 {
 	if (Flash) {
@@ -852,6 +916,11 @@ void GadgetClass::Unknown_6608F0()
 	}
 }
 
+bool GadgetClass::Is_Unknown2C_00()
+{
+	return(Unknown2C_00);
+}
+
 void GadgetClass::Toggle_Unknown2C_00()
 {
 	if (Unknown28 > 0.0f) {
@@ -860,6 +929,151 @@ void GadgetClass::Toggle_Unknown2C_00()
 	} else {
 		Unknown2C_00 = false;
 		Unknown28 = 0.5f;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a
+// one-second pulse unless the gadget is held under the pointer)
+void GadgetClass::Unknown_6609A0()
+{
+	FAIL_IF(!Flash) return;
+	float alpha = 1.0f;
+	bool pulse = true;
+	if (!Unknown2C_02 || !Unknown2C_03) {
+		if (Flash->Unknown0C) {
+			if (!Unknown2C_0B) {
+				Unknown_6607D0();
+				return;
+			}
+			Flash->Unknown0C = false;
+			return;
+		}
+		float t = (float)(Unknown_Get_Ticks() % 1000) * 0.001f - 0.5f;
+		alpha = (t >= 0.0f) ? (t + t) : (t * -2.0f);
+	} else if (!Flash->Unknown0C) {
+		Flash->Unknown0C = true;
+	} else {
+		pulse = false;
+	}
+	Vector3 unknown;
+	Vector3 position(0.0f, 0.0f, 0.0f);
+	RenderObjClass *model = Unknown_24(&unknown, &position, Flash->Indicator != NULL);
+	if (model != Flash->Model || Unknown_4960C0(model, 0) != Unknown_4960C0(Flash->Clone, 0)) {
+		Unknown_6607D0();
+		if (!model) {
+			return;
+		}
+		Unknown_6603A0(false, NULL);
+		if (!Flash) {
+			return;
+		}
+	}
+	Vector3 current = Flash->Clone->Get_Position();
+	if (position.X != current.X || position.Y != current.Y || position.Z != current.Z) {
+		Flash->Clone->Set_Position(position);
+	}
+	if (Flash->Indicator) {
+		Flash->Indicator->Unknown_6B3F50(Flash->Clone->Get_Bounding_Sphere());
+	}
+	if (pulse && !Unknown_496110(Flash->Clone, alpha, alpha, alpha)) {
+		Flash->Clone->Set_Hidden(alpha < 0.5f);
 	}
 }
 
@@ -875,5 +1089,6 @@ void GadgetClass::Toggle_Unknown2C_00()
 **	+0x58 (740 / 748), the held gadgets +0x68 / +0x6C (777 / 805), +0x70, +0x64, the flash 0x660320-0x6609A0
 **	(864, 1036). Functions VC6 inlines into callers earlier in the file (0x6607D0 into 0x65F640, 0x660960 into
 **	0x65F500) are ordinary functions defined later: VC6's /Ob2 inlines forward within the file.
-**	Set_Tooltip_Name's buffer is 36 bytes (the client's frame), 31 of them used.
+**	Set_Tooltip_Name's buffer is 36 bytes (the client's frame), 31 of them used. The flash's RenderObjClass slots, as
+**	the client calls them: +0x9C Set_Animation, +0xA4 Peek_Animation, +0xF0 Get_Bounding_Sphere, +0x184 Set_Hidden.
 */

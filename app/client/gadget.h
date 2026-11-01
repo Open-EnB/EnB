@@ -29,16 +29,7 @@ class UserClickIndicatorClass;
 class Vector3;
 class UIViewClass;
 
-// What a gadget's slot +0x34 / +0x2C get: the input event (0x10 bytes; 0x65F780 fills it from the input queue)
-struct GadgetEventStruct  // NAME 1: neutral (D10)
-{
-	short Type;															// +0x00 (0 the pointer, 1 / 2 the buttons, 0x10-0x12, 0x101 / 0x102; slot +0x2C writes the gadget's id)  // NAME 1: neutral (D10)
-	char Unknown02;														// +0x02
-	unsigned char Modifiers;											// +0x03 (bits 0-2: 0x200 / 0x400 / 0x800 of the mask; bit 4)  // NAME 1: neutral (D10)
-	float X;															// +0x04 (the pointer, 0..1)  // NAME 1: neutral (D10)
-	float Y;															// +0x08  // NAME 1: neutral (D10)
-	int Unknown0C;														// +0x0C
-};
+struct KernelEventClass;  // kernel.h's input event (0x10 bytes): what slots +0x2C / +0x34 get
 
 // What slot +0x64 returns (0x18 bytes, zero in the base)
 struct GadgetUnknown64Struct  // NAME 1: neutral (D10)
@@ -72,15 +63,15 @@ public:
 	virtual int Unknown_18() { return(0); }								// +0x18 0x50A940
 	virtual int Unknown_1C() { return(0); }								// +0x1C 0x50A960
 	virtual void Unknown_20(int arg) {}									// +0x20 0x50A980  // NAME 1 [arg]: neutral
-	virtual RenderObjClass *Unknown_24(Vector3 *position, int *arg, bool indicator) { return(NULL); }	// +0x24 0x50A9A0 (the flash's model)  // NAME 1 [position, arg, indicator]: what 0x6603A0 / 0x6609A0 pass
+	virtual RenderObjClass *Unknown_24(Vector3 *unknown, Vector3 *position, bool indicator) { return(NULL); }	// +0x24 0x50A9A0 (the flash's model and where it is)  // NAME 1 [unknown, position, indicator]: what 0x6603A0 / 0x6609A0 pass
 	virtual void Unknown_28(LayerClass *layer) {}						// +0x28 0x50A9C0 (the windows pass their layer)  // NAME 1 [layer]: what the windows pass
-	virtual bool Unknown_2C(GadgetEventStruct *event, float x, float y, unsigned int mask);	// +0x2C 0x65F4B0 (the event gets the id; the owner's slot +0x44)  // NAME 1 [event, x, y, mask]: what 0x65F780 passes
+	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x65F4B0 (the event gets the id; the owner's slot +0x44)  // NAME 1 [event, x, y, mask]: what 0x65F780 passes
 	virtual bool Unknown_30(float x, float y) = 0;						// +0x30 (pure; 0x65F780: the pointer over the gadget)  // NAME 1 [x, y]: what 0x65F780 passes
-	virtual bool Unknown_34(GadgetEventStruct *event, float x, float y, unsigned int mask);	// +0x34 0x65F500 (mask &= +0x10, then slot +0x2C)  // NAME 1 [event, x, y, mask]: what 0x65F780 passes
+	virtual bool Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x34 0x65F500 (mask &= +0x10, then slot +0x2C)  // NAME 1 [event, x, y, mask]: what 0x65F780 passes
 	virtual int Unknown_38() { return(0); }								// +0x38 0x50A9E0
 	virtual int Unknown_3C(int arg) { return(0); }						// +0x3C 0x50AA00  // NAME 1 [arg]: neutral
 	virtual void Unknown_40(bool on);									// +0x40 0x65F640 (bit 5 of +0x2C; off: the held gadgets and the flash cleared)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(unsigned int mask, GadgetEventStruct *event, GadgetClass *gadget) {}	// +0x44 0x50AA20 (slot +0x2C: an owned gadget's event)  // NAME 1 [mask, event, gadget]: what 0x65F4B0 passes
+	virtual void Unknown_44(unsigned int mask, KernelEventClass *event, GadgetClass *gadget) {}	// +0x44 0x50AA20 (slot +0x2C: an owned gadget's event)  // NAME 1 [mask, event, gadget]: what 0x65F4B0 passes
 	virtual void Set_Owner(GadgetClass *owner) { Owner = owner; }		// +0x48 0x50AA40  // NAME 1: neutral (D10): the member it sets
 	virtual GadgetClass *Get_Owner() { return(Owner); }					// +0x4C 0x50AA60  // NAME 1: neutral (D10): the member it returns
 	virtual void Unknown_50() {}										// +0x50 0x50AA80
@@ -97,10 +88,10 @@ public:
 	static SignalMap &Get_Signal_Map();									// 0x65ECE0: the function-local static 0xBE5EE8 (DestroyGadgetEvent, FlashingGadgetEvent)  // NAME 2: as ControlKeysManager's
 	static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (tooltip.ini; ui_group.cpp: "UI_FORMATION", "HELP")  // NAME 2: describes what it does; NAME 1 [gadget, section, entry]: INIClass's
 	void Set_Unknown14(const char *text);								// 0x65F2D0 (the tooltip's text; ui_chat_panel.cpp passes NULL)  // NAME 1: neutral (D10): the member it sets; NAME 1 [text]: neutral
-	const char *Get_Unknown14() { return(Unknown14); }					// 0x65F320  // NAME 1: neutral (D10): the member it returns
+	const char *Get_Unknown14();										// 0x65F320  // NAME 1: neutral (D10): the member it returns
 	static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...);	// 0x65F340 ('_%d' after the name)  // NAME 2: describes what it does; NAME 1 [gadget, format]: neutral
 	static GadgetClass *Unknown_65F5F0(GadgetListManagerClass *manager, bool a, bool b);	// 0x65F5F0 (FAIL_IF '!manager': the manager's 0x661AA0)  // NAME 2 [manager]: the FAIL_IF's; NAME 1 [a, b]: neutral
-	static GadgetEventStruct Process_Input(GadgetListManagerClass *manager);	// 0x65F780 (the input queue's next event to the manager's gadgets)  // NAME 1: describes what it does; NAME 1 [manager]: neutral
+	static KernelEventClass Process_Input(GadgetListManagerClass *manager);	// 0x65F780 (the input queue's next event to the manager's gadgets)  // NAME 1: describes what it does; NAME 1 [manager]: neutral
 	void Unknown_65FFA0(int arg);										// 0x65FFA0 (+0x0C; ui_group.cpp passes -1)  // NAME 1 [arg]: neutral
 	void Unknown_65FFC0(int arg, GadgetClass *gadget);					// 0x65FFC0 (+0x0C: the gadget's, or this one's, plus arg)  // NAME 1 [arg, gadget]: neutral
 	void Set_First_Sort_Group(bool on);									// 0x65FFF0 (FAIL_IF 'InList', 'LastSortGroup')  // NAME 2: the FAIL_IFs; NAME 1 [on]: neutral
@@ -108,7 +99,7 @@ public:
 	void Unknown_6603A0(bool indicator, UIViewClass *view);				// 0x6603A0 (G_ASSERT '!Flash': the flash started; ui_group.cpp)  // NAME 1 [indicator, view]: neutral
 	void Unknown_6607D0();												// 0x6607D0 (the flash stopped, FlashingGadgetEvent)
 	void Unknown_6608F0();												// 0x6608F0 (the flash's clone to the model's transform)
-	bool Is_Unknown2C_00() { return(Unknown2C_00); }					// 0x660940  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_00();												// 0x660940  // NAME 1: neutral (D10)
 	InterfaceClass *Get_Interface() { return(Unknown08); }				// (inline: gadget_list_manager.cpp's 0x661BB0 copies it)  // NAME 1: neutral (D10): what it returns
 	bool Is_Unknown2C_02() { return(Unknown2C_02); }					// (inline: gadget_list_manager.cpp's 0x661AA0)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_04() { return(Unknown2C_04); }					// (inline: 0x661AA0)  // NAME 1: neutral (D10)
