@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1064 |
-| 2 | describes what the code does | 2541 |
-| 1 | neutral placeholder | 7802 |
+| 2 | describes what the code does | 2546 |
+| 1 | neutral placeholder | 7803 |
 
 ## For review (score 3 and below)
 
@@ -6726,6 +6726,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `VERB_NONE` | `app/packets/pkverbrequest.h:44` | neutral placeholder (D10) |
 | 1 | `pkversionrequest` | `app/packets/pkversionrequest.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
+| 1 | `Unknown` | `app/shared/attrib_dir.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_4E0700` | `app/shared/attrib_dir_collective.cpp:211` | neutral placeholder (D10) |
 | 1 | `Unknown_4DFBF0` | `app/shared/attrib_dir_collective.cpp:212` | neutral placeholder (D10) |
@@ -9319,6 +9320,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `VerbRequestPacketClass` | `app/packets/pkverbrequest.h:24` | Net-7's opcode name VERB_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Get_Type` | `app/packets/pkverbrequest.h:33` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `WarpPacketClass` | `app/packets/pkwarpindex.h:23` | Net-7's opcode name WARP (the Net-7 opcode table; no structure check) |
+| 2 | `Type` | `app/shared/attrib_dir.cpp:1078` | what it holds |
+| 2 | `Name` | `app/shared/attrib_dir.cpp:1079` | what it holds |
+| 2 | `AttribModTypeNames` | `app/shared/attrib_dir.cpp:1080` | what it holds |
+| 2 | `Attrib_Mod_Type_To_String` | `app/shared/attrib_dir.cpp:1090` | what it does (the shape of aux_roots.h's Value_To_String) |
+| 2 | `Attrib_Mod_Type_From_String` | `app/shared/attrib_dir.cpp:1104` | what it does (the shape of aux_roots.h's String_To_Value) |
 | 2 | `AttribModClass` | `app/shared/attrib_dir.h:34` | what it is |
 | 2 | `Get_Type` | `app/shared/attrib_dir.h:38` | what it returns |
 | 2 | `Get_Value` | `app/shared/attrib_dir.h:39` | what it returns |

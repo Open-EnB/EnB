@@ -1071,6 +1071,48 @@ void AttribDirModIteratorClass::Unlock()
 }
 
 
+#include <string.h>
+
+// The mod types' names (0xB74958: AttribModClass::Get_Type's 0-5, AttributeInfo::Apply_Mod)
+static struct {
+	int Type;																			// NAME 2: what it holds
+	const char *Name;																	// NAME 2: what it holds
+} AttribModTypeNames[] = {														// NAME 2: what it holds
+	{ 0, "SetBaseMin" },
+	{ 1, "SetBaseMax" },
+	{ 2, "AddAbsolute" },
+	{ 3, "AddPercent" },
+	{ 4, "SetFinalMin" },
+	{ 5, "SetFinalMax" },
+};
+
+// 0x4D8870 (no caller): the type's name, 'Unknown' when it has none
+char *Attrib_Mod_Type_To_String(char *buf, int size, const int &type)	// NAME 2: what it does (the shape of aux_roots.h's Value_To_String)
+{
+	const char *name = "Unknown";
+	for (int i = 0; i < (int)(sizeof(AttribModTypeNames) / sizeof(AttribModTypeNames[0])); i++) {
+		if (AttribModTypeNames[i].Type == type) {
+			name = AttribModTypeNames[i].Name;
+			break;
+		}
+	}
+	strncpy(buf, name, size);
+	return buf;
+}
+
+// 0x4D88E0 (no caller): the named type, case ignored
+bool Attrib_Mod_Type_From_String(const char *text, int *type)				// NAME 2: what it does (the shape of aux_roots.h's String_To_Value)
+{
+	for (int i = 0; i < (int)(sizeof(AttribModTypeNames) / sizeof(AttribModTypeNames[0])); i++) {
+		if (stricmp(AttribModTypeNames[i].Name, text) == 0) {
+			*type = AttribModTypeNames[i].Type;
+			return true;
+		}
+	}
+	return false;
+}
+
+
 /*
 **	Reconstruction notes
 **
@@ -1084,7 +1126,8 @@ void AttribDirModIteratorClass::Unlock()
 **	one attribute's (0xAEC230, Unlock's G_ASSERT(ok) on 990), the directory's (0xAEC1E8, the FAIL_IFs
 **	'MapCur == MapEnd' on 1044 / 1061 and G_ASSERT(ok) on 1066), the handle AttribModIterator
 **	(0x4D7C90-0x4D7E00), Get_All_Mods 0x4D77D0, Get_Mods 0x4D7A20 (882) and Detach_Mod by iterator
-**	0x4D4BD0 (231). Unlock pops with pop_back, Notify with erase(end() - 1) (the client's two forms).
+**	0x4D4BD0 (231); after Unlock, the mod types' name table 0xB74958 and its two lookups 0x4D8870 /
+**	0x4D88E0 (no callers; the String_To_Value shape recurs at 0x835D10 and 0x84C560). Unlock pops with pop_back, Notify with erase(end() - 1) (the client's two forms).
 **	Forms: -FLT_MAX / FLT_MAX are named consts (the client loads them from 0xAEC1A0 / 0xAEC1A4); min and
 **	max are VC6's reference-returning std::_cpp_min / _cpp_max with the bound first; the value is
 **	value + (value * Percent * 0.01f + Add) (other spellings fold to value * (Percent * 0.01f + 1));
