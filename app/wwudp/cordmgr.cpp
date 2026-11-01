@@ -1316,10 +1316,10 @@ bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// 0x85A430, functional: ACK1 (1, protocol, session, two words, the server's modulus and exponent,
-// each a 4-byte length then big-endian bytes) for a connection waiting in state 1. The session key
-// becomes the low 64 bits of a number filled with random bits up to one below the modulus's
-// length, raised to the exponent modulo the modulus (WWLib's XMP); state 3 (SYN2 next).
+// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,
+// two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)
+// for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with
+// an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.
 bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_ACK1_Packet");
@@ -1331,61 +1331,69 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	unsigned short session = ntohs(*(unsigned short *)(data + 2));
 	unsigned long word1 = ntohl(*(unsigned long *)(data + 4));
 	unsigned long word2 = ntohl(*(unsigned long *)(data + 8));
-	digit modulus[0x40], exponent[0x40], zero[0x40];
-	XMP_Init(modulus, 0, 0x40);
-	XMP_Init(exponent, 0, 0x40);
-	XMP_Init(zero, 0, 0x40);
+	BigInt n;
+	BigInt e;
 	unsigned long mlen = ntohl(*(unsigned long *)(data + 12));
-	if (mlen + 0x10 > (unsigned long)len || mlen == 0) {
+	unsigned long offset = mlen + 0x10;
+	if (offset > (unsigned long)len) {
 		return false;
 	}
-	XMP_Unsigned_Decode(modulus, data + 0x10, mlen, 0x40);
-	unsigned long elen = ntohl(*(unsigned long *)(data + mlen + 0x10));
-	if (elen + mlen + 0x14 > (unsigned long)len) {
+	if (mlen == 0) {
 		return false;
 	}
-	if (elen != 0) {
-		XMP_Unsigned_Decode(exponent, data + mlen + 0x14, elen, 0x40);
+	n.Unsigned_Decode(data + 0x10, mlen);
+	unsigned long elen = ntohl(*(unsigned long *)(data + offset));
+	offset += 4;
+	if (elen + offset > (unsigned long)len) {
+		return false;
 	}
+	if (elen == 0) {
+		return false;
+	}
+	e.Unsigned_Decode(data + offset, elen);
 	if (protocol != Protocol_ || type != 1) {
 		return false;
 	}
+	CordConnectingClass *c = NULL;
 	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *c; Pending_.get(c, i);
-		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
-			|| c->Session != session || c->State != 1) {
-			continue;
-		}
-		if (word1 == 0 && word2 == 0) {
-			c->State = 0;		// (the client's: an unencrypted server)
-			return false;
-		}
-		if (memcmp(modulus, zero, sizeof(zero)) != 0 && memcmp(exponent, zero, sizeof(zero)) != 0
-			&& c->Key != 0) {
-			digit plain[0x40], cipher[0x40];
-			XMP_Init(plain, 0, 0x40);
-			for (unsigned int bit = 0; bit < 64; bit++) {
-				if (c->Key & ((__int64)1 << bit)) {
-					plain[bit >> 5] |= 1 << (bit & 0x1F);
-				}
+		Pending_.get(c, i);
+		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)
+			&& c->Session == session && c->State == 1) {
+			if (word1 == 0 && word2 == 0) {
+				c->State = 0;		// (the client's: an unencrypted server)
+				break;
 			}
-			SecureRandomClass random;
-			for (unsigned int b = 64; b < XMP_Count_Bits(modulus, 0x40) - 1; b++) {
-				if (random.Randval() & 1) {
-					plain[b >> 5] |= 1 << (b & 0x1F);
+			BigInt zero;
+			if (n != zero && e != zero && c->Key != 0) {
+				RSAKeyClass key;
+				key.Modulus = n;
+				key.Exponent = e;
+				BigInt m;
+				unsigned __int64 mask = 1;
+				for (unsigned int bit = 0; bit < 64; bit++) {
+					if (c->Key & mask) {
+						m.Set_Bit(bit);
+					}
+					mask <<= 1;
 				}
+				SecureRandomClass random;
+				for (bit = 64; bit < (unsigned int)(n.BitCount() - 1); bit++) {
+					if (random.Randval() & 1) {
+						m.Set_Bit(bit);
+					}
+				}
+				BigInt cipher;
+				cipher = key.Encrypt(m);
+				c->EncryptedKey = cipher;
+			} else if (n == zero || e == zero) {
+				c->EncryptedKey = BigInt((unsigned long)c->Key);
 			}
-			XMP_Init(cipher, 0, 0x40);
-			XMP_Exponent_Mod(cipher, plain, exponent, modulus, 0x40);
-			memcpy(c->EncryptedKey, cipher, sizeof(cipher));
-		} else {
-			memset(c->EncryptedKey, 0, sizeof(c->EncryptedKey));
+			c->State = 3;
+			c->LastSend.set(0, 0);
+			c->Ack1Word1 = word1;
+			c->Ack1Word2 = word2;
+			return true;
 		}
-		c->LastSend.set(0, 0);
-		c->State = 3;
-		c->Ack1Word1 = word1;
-		c->Ack1Word2 = word2;
-		return true;
 	}
 	return false;
 }

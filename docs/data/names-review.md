@@ -12180,8 +12180,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CloseState_` | `app/wwudp/cordcon.h:477` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
 | 2 | `CloseSeq_` | `app/wwudp/cordcon.h:478` | +0xB4 |
 | 2 | `IsServer_` | `app/wwudp/cordcon.h:479` | +0xB8 |
-| 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1572` | what it does |
-| 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1573` | what it does |
+| 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1580` | what it does |
+| 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1581` | what it does |
 | 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:40` | a data socket's record (the +0x40 list, 16 bytes) |
 | 2 | `CordListenSocketClass` | `app/wwudp/cordmgr.h:48` | a listening socket's record (the +0x4C list, 12 bytes) |
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:56` | describes what it holds (the +0x1C list, 8 bytes) |

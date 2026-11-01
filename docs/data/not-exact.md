@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-417 entries in 89 files.
+418 entries in 89 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -428,3 +428,4 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:252` | `CordMgr::Pump` | marker | NOT EXACT: 0x857F20 (frame 0x6E4 vs 0x6EC, registers: the client keeps this in ebp). Every data socket, then every listening one, until Read says nothing more (< 0); SYN1 / SYN2 only on a listening socket, the data only on a data socket. A datagram nobody takes is logged (line 592) and answered with a go-away (Send_Go_Away, inlined) unless it is an ACK1 / ACK2 or the ACK2 of a connection still in ... |
 | `app/wwudp/cordmgr.cpp:655` | `CordMgr::Process_Go_Away_Packet` | mention | NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers, the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up. |
 | `app/wwudp/cordmgr.cpp:745` | `CordMgr::Pump_Releases` | mention | NOT EXACT): as many entries as the list holds while it shrinks; a due one leaves the list, and its connection, when still open, leaves Connections_, its socket's count and memory (the client logs '%d UDP connections managed'). |
+| `app/wwudp/cordmgr.cpp:1319` | `CordMgr::Process_ACK1_Packet` | marker | NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session, two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return) for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with an RSAKeyClass of the two (Key_Exchange 0x829180'... |
