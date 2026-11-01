@@ -9898,6 +9898,23 @@
     "merged": [],
     "name": "client/ui_avatar_cust.cpp"
    },
+   "ui_avatr": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x556630",
+     "0x55C350"
+    ],
+    "merged": [],
+    "name": "client/ui_avatr.cpp"
+   },
    "ui_chat_panel": {
     "ambiguous": [
      "0x42A6C0",
