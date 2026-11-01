@@ -5,8 +5,8 @@
 **
 **	Functional (NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the
 **	client's code statement by statement; the send path (write, openc, buildHeader,
-**	buildMsgHeader, pump, pumpInternal with its priority order, resend timer and send window,
-**	getHighestPriorityMessage) too. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's
+**	buildMsgHeader, pump, pumpInternal with its resend timer and send window) too; getHighestPriorityMessage
+**	is byte-exact. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's
 **	asserts sit on lines 521, 632 and 977 (D25): this file does not keep them on their lines.
 **	Notes at the end.
 */
@@ -1127,7 +1127,7 @@ bool CordCon::pump(Xtime &now)
 	return true;
 }
 
-// 0x854890, functional (NOT EXACT): two passes over the active channels, the sent records first
+// 0x854890: two passes over the active channels, the sent records first
 // (those whose last send is older than threshold: the resend timer, or a resend asked for), then
 // the queued ones (only while Can_Send). Per channel: a reliable one offers its first eligible
 // record at priority 0 + the channel's, a sequenced one its last, the others each record at the
@@ -1140,16 +1140,23 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &thresho
 	int best = -999999;
 	int best_channel = 0;
 	int best_index = 0;
-	bool can_send = Stats_->Can_Send();
+	bool can_send = false;
+	if (Stats_->Can_Send()) {
+		can_send = true;
+	}
 	for (int pass = 0; pass < 2; pass++) {
 		if (!can_send && pass == 1) {
 			continue;
 		}
-		int n = (int)Active_.size();
+		int n = Active_.size();
 		for (int i = 0; i < n; i++) {
 			CordChannelClass *c = Active_[i];
-			std::vector<CordMessageClass> &list = pass == 0 ? c->Sent : c->Queue;
-			int count = (int)list.size();
+			int count;
+			if (pass == 0) {
+				count = c->Sent.size();
+			} else {
+				count = c->Queue.size();
+			}
 			if (count != 0) {
 				c->LastWrite = now.getTime_t();
 			}
@@ -1157,10 +1164,15 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &thresho
 				if (c->Mode == 4 && k != count - 1) {
 					continue;
 				}
+				CordMessageClass *m;
+				if (pass == 0) {
+					m = &c->Sent[k];
+				} else {
+					m = &c->Queue[k];
+				}
 				if (c->Mode == 1 && pass == 0) {
 					continue;
 				}
-				CordMessageClass *m = &list[k];
 				if (m->SentTime < threshold) {
 					if (c->Mode == 3) {
 						m->Priority = 0;
@@ -1193,6 +1205,55 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &thresho
 		}
 	}
 	return false;
+}
+
+// 0x854B90-0x854C90: the message header's variable-length fields in network order, out of line
+// and called by no one (buildMsgHeader 0x854FC0 and examinePacket 0x8514D0 have the same code
+// inline). A size or channel takes 1 byte below 0x80, else 2 with the top bit set; a sequence
+// number 2 bytes below 0x8000, else 4 with the top bit set. Each returns the bytes it wrote or
+// read. __stdcall: the client's `ret 8`.
+int __stdcall Cord_Put_Small(unsigned char *out, unsigned short value)	// NAME 2: what it does (the client has no name)
+{
+	if (value < 0x80) {
+		*out = (unsigned char)value;
+		return 1;
+	}
+	*(unsigned short *)out = htons((unsigned short)(value | 0x8000));
+	return 2;
+}
+
+int __stdcall Cord_Put_Seq(unsigned char *out, unsigned int value)	// NAME 2: what it does (the client has no name)
+{
+	if (value < 0x8000) {
+		*(unsigned short *)out = htons((unsigned short)value);
+		return 2;
+	}
+	*(unsigned long *)out = htonl(value | 0x80000000);
+	return 4;
+}
+
+int __stdcall Cord_Get_Small(const unsigned char *in, unsigned short *value)	// NAME 2: what it does (the client has no name)
+{
+	if (*in < 0x80) {
+		*value = *in;
+		return 1;
+	}
+	*value = *(unsigned short *)in;
+	*value = ntohs(*value) & 0x7FFF;
+	return 2;
+}
+
+// NOT EXACT (0x854C90, 0.84, explain.py: order-only): the client loads `value` between the call and the 0xFFFF mask
+// of the short branch, ours after the mask (12 forms tried: attempts.py show 0x854C90).
+int __stdcall Cord_Get_Seq(const unsigned char *in, unsigned int *value)	// NAME 2: what it does (the client has no name)
+{
+	if (*in < 0x80) {
+		*value = ntohs(*(unsigned short *)in);
+		return 2;
+	}
+	*value = *(unsigned int *)in;
+	*value = ntohl(*value) & 0x7FFFFFFF;
+	return 4;
 }
 
 // 0x853A30, functional (NOT EXACT: Xtime, the vectors' inlined code and the log calls differ):
