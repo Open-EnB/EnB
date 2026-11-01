@@ -2,7 +2,7 @@
 #ifndef HTMLVIEW_H
 #define HTMLVIEW_H
 
-#include "..\..\..\wwlib\surface.h"
+#include "..\..\..\wwlib\dsurface.h"
 #include "unknown_htmlblock.h"
 
 // What the view hands a url to: slot +4 opens it, slot +8 is polled by Update (no implementation found yet).
@@ -29,8 +29,9 @@ class HtmlImageClass  // NAME 1: element of the view's +0x20 list (image.cpp's c
 public:
 	virtual void Unknown_00(void) = 0;
 	virtual void Unknown_04(void) = 0;
-	virtual void Unknown_08(void) = 0;
+	virtual Surface *Get_Surface(void) = 0;  // slot +8  // NAME 2: Draw_Block tiles it (Get_Width / Get_Height)
 	virtual char *Get_Name(void) = 0;  // slot +0xC  // NAME 2: Find_Image's key
+	virtual void Draw(Surface *surface, int x, int y, int clipx, int clipy, int clipw, int cliph) = 0;  // slot +0x10  // NAME 2: Draw_Block's tiles
 };
 
 class HtmlViewClass  // NAME 3: htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0
@@ -43,13 +44,14 @@ public:
 	bool Open(char *url);  // 0x770460  // NAME 2: Clear, url kept, handed to the loader
 	bool Set_Loader(HtmlLoaderClass *loader);  // 0x770640
 	bool Update(void);  // 0x770660  // NAME 2: polls the loader; returns and clears Dirty
-	bool Set_Surface(Surface *surface);  // 0x770690  // NAME 2: Surf = surface, then Layout
+	bool Set_Surface(DSurface *surface);  // 0x770690  // NAME 2: Surf = surface, then Layout
 	bool Clear_Links(void);  // 0x7706B0
 	bool Clear_Blocks(void);  // 0x770720
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
 	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
 	bool Render(int scrollx, int scrolly, int x, int y, int width, int height);  // 0x7761E0  // NAME 2: draws every block clipped to the rectangle
-	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: background and items (not written yet)
+	bool Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height);  // 0x776390  // NAME 2: the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items
+	void Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int x, int y, int clipx, int clipy, int clipw, int cliph);  // 0x7767A0  // NAME 2: frames, text, images (not written yet)
 	char *Click(int x, int y, int unknown);  // 0x776FC0  // NAME 2: opens the 'Anchor.HREF' of the item under x, y
 	char *Hit_Test(int x, int y, int *type, int *index);  // 0x7772C0  // NAME 2: the item under x, y: its index, its href (type 2) or none (1)
 	bool Find_Link(char *name, HtmlLinkStruct **link);  // 0x777420
@@ -64,7 +66,7 @@ public:
 	void Draw_Line_24(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x777EC0
 	void Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x777EE0
 
-	Surface *Surf;  // +0x000  // NAME 2: Set_Surface; Lock / Stride / Get_Width / Get_Height called (HV1's UnknownHtmlDrawClass)
+	DSurface *Surf;  // +0x000  // NAME 2: Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass)
 	HtmlLoaderClass *Loader;  // +0x004  // NAME 2: Set_Loader
 	ArrayList<HtmlBlockClass *> Blocks;  // +0x008  // NAME 2: owned (Clear deletes them)
 	ArrayList<HtmlLinkStruct> Links;  // +0x014  // NAME 1

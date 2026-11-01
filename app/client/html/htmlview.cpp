@@ -64,7 +64,7 @@ bool HtmlViewClass::Update(void)
 	return dirty;
 }
 
-bool HtmlViewClass::Set_Surface(Surface *surface)
+bool HtmlViewClass::Set_Surface(DSurface *surface)
 {
 	Surf = surface;
 	Layout();
@@ -116,7 +116,7 @@ void HtmlViewClass::Layout(void)
 	}
 }
 
-// NOT EXACT: 0x7761E0, the clip RECT built in another store order (scheduling); every block drawn through Draw_Block 0x776390
+// NOT EXACT: 0x7761E0, the parent bounds' stores scheduled later than the client's (the clip RECT, bottom first, matches)
 bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, int height)
 {
 	if (Surf == NULL)
@@ -126,9 +126,9 @@ bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, in
 	ScrollY = scrolly;
 
 	RECT clip;
+	clip.bottom = y + height;
 	clip.top = y;
 	clip.left = x;
-	clip.bottom = y + height;
 	clip.right = x + width;
 
 	HtmlBlockClass *block = NULL;
@@ -144,8 +144,8 @@ bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, in
 			RECT bounds;
 			bounds.left = parent->AbsX;
 			bounds.top = parent->AbsY;
-			bounds.right = parent->Width + bounds.left;
-			bounds.bottom = parent->Height + bounds.top;
+			bounds.right = parent->Get_Width() + bounds.left;
+			bounds.bottom = parent->Get_Height() + bounds.top;
 			if (!IntersectRect(&rect, &clip, &bounds))
 				continue;
 		}
@@ -154,7 +154,68 @@ bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, in
 	return true;
 }
 
-// NOT EXACT: 0x776FC0, scheduling (the client reads block->X before the Get_Abs_X call and x after it)
+bool HtmlViewClass::Draw_Block(HtmlBlockClass *block, int x, int y, int width, int height)
+{
+	if (Surf == NULL)
+		return false;
+
+	RECT clip;
+	clip.bottom = y + height;
+	clip.top = y;
+	clip.left = x;
+	clip.right = x + width;
+	RECT bounds;
+	bounds.bottom = block->Get_Height() + block->Get_Abs_Y();
+	bounds.top = block->Get_Abs_Y();
+	bounds.left = block->Get_Abs_X();
+	bounds.right = block->Get_Width() + block->Get_Abs_X();
+	RECT draw;
+	if (!IntersectRect(&draw, &clip, &bounds))
+		return false;
+
+	HtmlImageClass *image = NULL;
+	char *pointer = block->Get_Attribute("BackgroundPointer");
+	if (pointer != NULL)
+		sscanf(pointer, "%p", &image);
+	if (image == NULL || image->Get_Surface() == NULL) {
+		COLORREF color = 0xC0C0C0;
+		char *colorref = block->Get_Attribute("BackgroundColorref");
+		if (colorref != NULL || block->Owner == NULL) {
+			HDC hdc = Surf->GetDC();
+			if (colorref != NULL)
+				color = atol(colorref);
+			HBRUSH brush = CreateSolidBrush(color);
+			FillRect(hdc, &draw, brush);
+			DeleteObject(brush);
+			Surf->ReleaseDC(hdc);
+		}
+	} else {
+		int tilew = image->Get_Surface()->Get_Width();
+		int tileh = image->Get_Surface()->Get_Height();
+		for (int tx = bounds.left - tilew; tx <= bounds.right + tilew; tx += tilew) {
+			for (int ty = bounds.top - tileh; ty <= bounds.bottom + tileh; ty += tileh) {
+				image->Draw(Surf, tx - block->X % tilew, ty - block->Y % tileh, draw.left, draw.top, draw.right - draw.left, draw.bottom - draw.top);
+			}
+		}
+	}
+
+	for (int i = 0; i < block->Items.length(); i++) {
+		HtmlItemStruct *item = block->Get_Item(i);
+		RECT rect;
+		rect.bottom = item->Y + item->Height - block->Get_Y() + block->Get_Abs_Y();
+		rect.top = item->Y - block->Get_Y() + block->Get_Abs_Y();
+		rect.left = item->X - block->Get_X() + block->Get_Abs_X();
+		rect.right = item->X + item->Width - block->Get_X() + block->Get_Abs_X();
+		RECT visible;
+		if (IntersectRect(&visible, &draw, &rect)) {
+			Draw_Item(block, item, block->Get_X() - block->Get_Abs_X(), block->Get_Y() - block->Get_Abs_Y(), draw.left, draw.top, draw.right - draw.left, draw.bottom - draw.top);
+		}
+	}
+	Unknown13C = 4000;
+	Unknown138 = 1000;
+	return true;
+}
+
 char *HtmlViewClass::Click(int x, int y, int)
 {
 	static char href[256];
@@ -162,8 +223,8 @@ char *HtmlViewClass::Click(int x, int y, int)
 	for (int i = Blocks.length() - 1; i >= 0; i--) {
 		HtmlBlockClass *block = NULL;
 		Blocks.get(block, i);
-		int bx = block->X + x - block->Get_Abs_X();
-		int by = block->Y + y - block->Get_Abs_Y();
+		int bx = block->Get_X() + x - block->Get_Abs_X();
+		int by = block->Get_Y() + y - block->Get_Abs_Y();
 		for (int j = 0; j < block->Items.length(); j++) {
 			HtmlItemStruct *item = block->Get_Item(j);
 			if (bx >= item->X && bx <= item->X + item->Width && by >= item->Y && by <= item->Y + item->Height) {
@@ -179,25 +240,25 @@ char *HtmlViewClass::Click(int x, int y, int)
 	return NULL;
 }
 
-// NOT EXACT: 0x7772C0, the same scheduling as Click
+// NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin
 char *HtmlViewClass::Hit_Test(int x, int y, int *type, int *index)
 {
 	for (int i = Blocks.length() - 1; i >= 0; i--) {
 		HtmlBlockClass *block = NULL;
 		Blocks.get(block, i);
-		int bx = block->X + x - block->Get_Abs_X();
-		int by = block->Y + y - block->Get_Abs_Y();
+		int bx = block->Get_X() + x - block->Get_Abs_X();
+		int by = block->Get_Y() + y - block->Get_Abs_Y();
 		for (int j = 0; j < block->Items.length(); j++) {
 			HtmlItemStruct *item = block->Get_Item(j);
 			if (bx >= item->X && bx <= item->X + item->Width && by >= item->Y && by <= item->Y + item->Height) {
 				*index = j;
 				char *value = item->Attributes.Get("Anchor.HREF");
-				if (value == NULL) {
-					*type = 1;
-					return NULL;
+				if (value != NULL) {
+					*type = 2;
+					return value;
 				}
-				*type = 2;
-				return value;
+				*type = 1;
+				return NULL;
 			}
 		}
 	}
@@ -315,6 +376,7 @@ void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, in
 **	  0x76E9D0 calls 0x770860, which calls Layout and Render. HV1's UnknownHtmlDrawClass is the view (+0 its
 **	  wwlib Surface: Get_Width / Get_Height size Layout's block). Draw_Line_32 0x7778E0: parked at 0.18
 **	  (attempts.csv): the form of Draw_Line_16 compiles to the same shape but keeps alpha, not x1, cached.
-**	* NOT EXACT (scheduling): Render (the clip RECT's stores), Click / Hit_Test (the client reads block->X
-**	  before the Get_Abs_X call and x after it; every expression order tried compiles to ours).
+**	* HtmlBlockClass's inline getters (Get_X / Get_Y / Get_Width / Get_Height) are why the client reads a
+**	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
+**	  top, left, right. NOT EXACT (scheduling): Render (the parent bounds' stores), Hit_Test (its loop top).
 */
