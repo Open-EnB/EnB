@@ -10520,7 +10520,8 @@
      "0x42A6C0",
      "0x42B2F0",
      "0x46BE90",
-     "0x474080"
+     "0x474080",
+     "0x4ACBB0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -10531,6 +10532,7 @@
      "0x55CC90",
      "0x55CCC0",
      "0x55CEA0",
+     "0x55D9C0",
      "0x55E2E0",
      "0x55E8E0",
      "0x55EBD0",
@@ -10542,7 +10544,10 @@
      "0x55F760",
      "0x55FBB0",
      "0x55FDC0",
-     "0x55FE50"
+     "0x55FE50",
+     "0x560010",
+     "0x5600D0",
+     "0x5601D0"
     ],
     "merged": [],
     "name": "client/ui_avsel.cpp"
@@ -11763,6 +11768,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
+   "client/ui_avsel.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",
    "client/ui_cpit.h": "reconstructed",
    "client/ui_group.h": "reconstructed",

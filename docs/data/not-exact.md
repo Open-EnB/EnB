@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-403 entries in 85 files.
+407 entries in 85 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -174,8 +174,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_cust.cpp:732` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT (register) 0x54E690 / 0x54E7F0 (the body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table) exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringI... |
 | `app/client/ui_avatr.cpp:527` | `AvatarCreationInterface::Unknown_556B20` | marker | NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20) 0x556B20 |
 | `app/client/ui_avatr.cpp:775` | `AvatarCreationInterface::Unknown_Set_Palette` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
+| `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:776` | `AvatarSelectionInterface::Unknown_55E370` | marker | NOT EXACT: register (0.78; the avatar's constructor, sprintf and slot +0x80 arguments in other registers) 0x55E370 |
+| `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers) 0x55F140 |
+| `app/client/ui_avsel.cpp:1290` | `AvatarSelectionInterface::Unknown_55FE50` | mention | NOT EXACT (0.49): it assigns the selected character's ship descriptor, and the client calls ShipCustDescClass's implicit operator= out of line (0x55D8A0) where shipcust_desc.h's written-out one (P-P7-1) inlines; 0x55F140 (the selected character's texts: race, profession, level, location, galaxy; FAIL_IFs 1047 / 1053 / 1059 / 1088; the |
+| `app/client/ui_avsel.cpp:1294` | `AvatarSelectionInterface::Unknown_55FE50` | mention | NOT EXACT (inline budget, 0.59). The class is declared in ui_avsel.h (a provisional name: with it in this file the functions before line 769 do not fit above it), the other types only as far as these functions use them. |
 | `app/client/ui_chat_panel.cpp:521` | `UIChatPanelClass::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |

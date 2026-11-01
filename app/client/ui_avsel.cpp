@@ -11,6 +11,8 @@
 #include "..\audio\soundlib.h"
 #include "dx8renderer.h"
 #include "vector4.h"
+#include "tutorial_manager.h"
+#include "ui_avsel.h"
 
 // What a gadget's slot +0x08 returns, as far as 0x55E070 reads it
 struct UIAvselGadgetPartStruct	// NAME 1: neutral (D10)
@@ -86,7 +88,8 @@ public:
 	char Unknown300[0x4C5 - 0x300];
 	bool Unknown4C5;									// +0x4C5
 };
-class UIAvselFontManagerClass { public: void Add(RenderObjClass *object); void Add(const RefCountPtr<RenderObjClass> &object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's
+class UIAvselManagedFontClass { public: void Unknown_6D0A70(const char *name, const char *text); };	// NAME 1: neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's
+class UIAvselFontManagerClass { public: UIAvselManagedFontClass *Find(unsigned int id); void Add(RenderObjClass *object); void Add(const RefCountPtr<RenderObjClass> &object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's
 extern UIAvselFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
@@ -113,6 +116,27 @@ struct UIAvselKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 class UIAvselKeysClass { public: void Unknown_721E60(const UIAvselKeyEventStruct *event, int id); void Unknown_721EF0(const UIAvselKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes (10, 7)
 
 class UIAvselEnvMapClass;
+// An avatar's table as far as its slot +0x1C4 (0x55D9C0 calls it for the five every frame; ui_avatr.cpp's +0x94's +0x54)
+class UIAvselAvatarVirtualsClass	// NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_000(); virtual void Unknown_004(); virtual void Unknown_008(); virtual void Unknown_00C(); virtual void Unknown_010(); virtual void Unknown_014(); virtual void Unknown_018(); virtual void Unknown_01C();
+	virtual void Unknown_020(); virtual void Unknown_024(); virtual void Unknown_028(); virtual void Unknown_02C(); virtual void Unknown_030(); virtual void Unknown_034(); virtual void Unknown_038(); virtual void Unknown_03C();
+	virtual void Unknown_040(); virtual void Unknown_044(); virtual void Unknown_048(); virtual void Unknown_04C(); virtual void Unknown_050(); virtual void Unknown_054(); virtual void Unknown_058(); virtual void Unknown_05C();
+	virtual void Unknown_060(); virtual void Unknown_064(); virtual void Unknown_068(); virtual void Unknown_06C(); virtual void Unknown_070(); virtual void Unknown_074(); virtual void Unknown_078(); virtual void Unknown_07C();
+	virtual void Unknown_080(); virtual void Unknown_084(); virtual void Unknown_088(); virtual void Unknown_08C(); virtual void Unknown_090(); virtual void Unknown_094(); virtual void Unknown_098(); virtual void Unknown_09C();
+	virtual void Unknown_0A0(); virtual void Unknown_0A4(); virtual void Unknown_0A8(); virtual void Unknown_0AC(); virtual void Unknown_0B0(); virtual void Unknown_0B4(); virtual void Unknown_0B8(); virtual void Unknown_0BC();
+	virtual void Unknown_0C0(); virtual void Unknown_0C4(); virtual void Unknown_0C8(); virtual void Unknown_0CC(); virtual void Unknown_0D0(); virtual void Unknown_0D4(); virtual void Unknown_0D8(); virtual void Unknown_0DC();
+	virtual void Unknown_0E0(); virtual void Unknown_0E4(); virtual void Unknown_0E8(); virtual void Unknown_0EC(); virtual void Unknown_0F0(); virtual void Unknown_0F4(); virtual void Unknown_0F8(); virtual void Unknown_0FC();
+	virtual void Unknown_100(); virtual void Unknown_104(); virtual void Unknown_108(); virtual void Unknown_10C(); virtual void Unknown_110(); virtual void Unknown_114(); virtual void Unknown_118(); virtual void Unknown_11C();
+	virtual void Unknown_120(); virtual void Unknown_124(); virtual void Unknown_128(); virtual void Unknown_12C(); virtual void Unknown_130(); virtual void Unknown_134(); virtual void Unknown_138(); virtual void Unknown_13C();
+	virtual void Unknown_140(); virtual void Unknown_144(); virtual void Unknown_148(); virtual void Unknown_14C(); virtual void Unknown_150(); virtual void Unknown_154(); virtual void Unknown_158(); virtual void Unknown_15C();
+	virtual void Unknown_160(); virtual void Unknown_164(); virtual void Unknown_168(); virtual void Unknown_16C(); virtual void Unknown_170(); virtual void Unknown_174(); virtual void Unknown_178(); virtual void Unknown_17C();
+	virtual void Unknown_180(); virtual void Unknown_184(); virtual void Unknown_188(); virtual void Unknown_18C(); virtual void Unknown_190(); virtual void Unknown_194(); virtual void Unknown_198(); virtual void Unknown_19C();
+	virtual void Unknown_1A0(); virtual void Unknown_1A4(); virtual void Unknown_1A8(); virtual void Unknown_1AC(); virtual void Unknown_1B0(); virtual void Unknown_1B4(); virtual void Unknown_1B8(); virtual void Unknown_1BC();
+	virtual void Unknown_1C0();
+	virtual void Unknown_1C4();							// +0x1C4
+};
 
 // One of the five avatars on the screen (avatar.cpp's render object), as far as this file calls it
 class UIAvselAvatarClass : public RenderObjClass	// NAME 1: neutral (D10)
@@ -122,9 +146,14 @@ public:
 	bool Unknown_7863E0();								// 0x7863E0 (slot +0x60: false starts it, 0x786370)
 	void Unknown_786370(int on);						// 0x786370  // NAME 1 [on]: neutral
 	void Unknown_77E3D0(int arg);						// 0x77E3D0 (0x55E370 passes 1)  // NAME 1 [arg]: neutral
+	void Unknown_784A50(const char *emote, int a, int b);	// 0x784A50 ('/happy at your service', 1, 0)  // NAME 1 [emote, a, b]: neutral
+	void Unknown_7896B0(int arg);						// 0x7896B0 (0x55D9C0: 1, the deleted character's)  // NAME 1 [arg]: neutral
 	virtual RenderObjClass *Clone() const;				// (RenderObjClass's pure ones, avatar.cpp's)
 	virtual void Render(RenderInfoClass &rinfo);
-	char Unknown_Pad[0x2BC - sizeof(RenderObjClass)];
+	char Unknown_Pad[0x108 - sizeof(RenderObjClass)];
+	int Unknown108;										// +0x108 (0x55F140: the race, 0 .. 2)
+	int Unknown10C;										// +0x10C (0x55F140: the profession, 0 .. 2)
+	char Unknown110[0x2BC - 0x110];						// +0x110
 	RenderObjClass *Unknown2BC;							// +0x2BC (0x55E370's button is made over it)
 	char Unknown2C0[0x384 - 0x2C0];						// +0x2C0 (900 bytes)
 };
@@ -160,10 +189,17 @@ public:
 	void Unknown_67AE20(int slot);						// 0x67AE20  // NAME 1 [slot]: neutral
 	void Unknown_67AE60(int slot);						// 0x67AE60  // NAME 1 [slot]: neutral
 	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the destructor: 0)  // NAME 1 [arg]: neutral
+	bool Unknown_67AEA0(int slot);						// 0x67AEA0 (0x55D9C0)  // NAME 1 [slot]: neutral
+	void Unknown_67ADD0(int slot);						// 0x67ADD0 (0x55D9C0)  // NAME 1 [slot]: neutral
+	bool Unknown_67B2B0();								// 0x67B2B0 (0x55D9C0; ui_avatr.cpp's)
+	void Unknown_67B270();								// 0x67B270 (slot +0x68, key 10)
+	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (slot +0x68: the selected character's descriptor, by value)  // NAME 1 [desc]: neutral
 
 	char Unknown000[0x14];								// +0x00
 	LoginTaskClass *Task;								// +0x14 (its slot +0x08 returns itself: docs/kernel-map-step9.md 3.3)  // NAME 1: neutral
-	char Unknown018[0x68 - 0x18];						// +0x18
+	char Unknown018[0x34 - 0x18];						// +0x18
+	ViewUnknown34Class *Unknown034;						// +0x34 (the message box: 0x55D9C0's 'OK' and 'YES_NO')
+	char Unknown038[0x68 - 0x38];						// +0x38
 	CameraClass *Camera;								// +0x68 (the constructor's clip planes)  // NAME 2: what it holds
 	char Unknown06C[0x70 - 0x6C];						// +0x6C
 	LayerClass *Unknown070;								// +0x70 (0x55E370's avatar buttons are made over it)
@@ -171,9 +207,13 @@ public:
 	RenderObjClass *Peek_Model() { return(Model); }		// NAME 1: neutral (D10)
 	RenderObjClass *Model;								// +0x1B8 (the screen's model: its texts and buttons by name)  // NAME 2: what it holds
 	UIAvselUnknown1BCClass *Unknown1BC;					// +0x1BC (0x55E370 hands it the avatars by name)
-	char Unknown1C0[0x1E4 - 0x1C0];						// +0x1C0
+	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
+	bool Unknown1CD;										// +0x1CD (0x55D9C0; tsk_login.h's)
+	bool Unknown1CE;										// +0x1CE
+	char Unknown1CF[0x1E4 - 0x1CF];						// +0x1CF
 	int Unknown1E4;										// +0x1E4 (slot +0x8C)
-	char Unknown1E8[0x3A4 - 0x1E8];						// +0x1E8
+	char Unknown1E8[0x244 - 0x1E8];						// +0x1E8
+	ShipCustDescClass Unknown244;						// +0x244 (slot +0x68 copies the selected character's into it; 0x160 bytes)
 	UIAvselEnvMapClass *Unknown3A4;						// +0x3A4
 };
 
@@ -212,6 +252,13 @@ static const char *Unknown_B7B958[2] = { "CANCEL_BUTTON", "OK_BUTTON" };	// NAME
 static const char *Unknown_B7B960[2] = { "CANCEL_BUTTON_BUDDYREF1", "OK_BUTTON_BUDDYREF1" };	// NAME 1: neutral (D10)
 
 class LoginTaskClass;
+// LoginTaskClass's two accessors slot +0x68 calls out of line (0x55D860, 0x55D880; in this file's window)
+class UIAvselTaskClass	// NAME 1: neutral (D10): tsk_login.h's LoginTaskClass
+{
+public:
+	int Get_Selected() { return(((LoginTaskClass *)this)->Selected); }					// 0x55D860  // NAME 1: neutral (D10)
+	AvatarDescClass *Get_Descs() { return(((LoginTaskClass *)this)->Unknown0350); }	// 0x55D880  // NAME 1: neutral (D10)
+};
 // What the edit box's +0x4C points to, as far as 0x55F760 calls it
 class UIAvselEditUnknown4CClass { public: void Unknown_6E2A20(const Vector4 &color); };	// NAME 1: neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1)
 // textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810; as ui_login.cpp declares it): the referral's name
@@ -220,6 +267,7 @@ class UIAvselEditClass : public GadgetClass	// NAME 1: neutral (D10)
 public:
 	UIAvselEditClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: as ui_login.cpp's
 	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: as ui_login.cpp's
+	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: as ui_login.cpp's
 	void Unknown_6AAD10();								// 0x6AAD10 (every frame)
 	char Unknown30[0x3B - 0x30];						// +0x30
 	bool Unknown3B;										// +0x3B (0x55F760 sets it)
@@ -230,64 +278,6 @@ public:
 	char Unknown5D[0x80 - 0x5D];						// +0x5D
 };
 extern const int Unknown_B08CAC; extern const int Unknown_B08CBC; extern const int Unknown_B08CC0;	// NAME 1: neutral (D10): what 0x55F760's edit box gets (or'ed)
-
-// The character select window (ui_avsel.cpp's __FILE__; the client's RTTI: the type name of its FlashingGadgetEvent
-// callback, 0xB7C068), 0x124 bytes, tables 0xAEFB20 / 0xAEFB14 / 0xAEFB08
-class AvatarSelectionInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>)
-{
-public:
-	AvatarSelectionInterface(UIViewClass *view, LayerClass *layer);	// 0x55C650 (charview.cpp's 0x679160, step 2)  // NAME 1 [view, layer]: neutral
-	virtual ~AvatarSelectionInterface();				// 0x55CCC0 (0x55CC90 the deleting one)
-	virtual void Unknown_60();							// +0x60 0x55CEA0 (every frame)
-	virtual bool Unknown_68(int key);					// +0x68 0x55D060 (the events; not rebuilt yet)
-	virtual void Unknown_88();							// +0x88 0x55EBD0
-	virtual void Unknown_8C();							// +0x8C 0x55ECB0
-	void Unknown_55D9C0();								// 0x55D9C0 (the referral's result, every frame)
-	void Unknown_55E070();								// 0x55E070 ('Avatar_Highlight', every frame)
-	void Unknown_55E2E0(int text, const char *string, bool selected);	// 0x55E2E0 (FAIL_IF '!textptr', line 769)  // NAME 1 [text, string, selected]: neutral
-	void Unknown_55E370(bool active);					// 0x55E370 (G_ASSERT 'chars', line 782: the five slots' avatars and names)  // NAME 1 [active]: neutral
-	void Unknown_55E8E0();								// 0x55E8E0
-	void Unknown_55ED20();								// 0x55ED20 (the buttons lit)
-	void Unknown_55EF90();								// 0x55EF90 (the buttons dimmed)
-	void Unknown_55F140();								// 0x55F140 (the selected character's texts)
-	void Unknown_55F680();								// 0x55F680
-	void Unknown_55F6D0(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x55F6D0 (the FlashingGadgetEvent callback: 'Login_Mouse_Over_Buttons')  // NAME 1: neutral (D10); NAME 1 [sender]: neutral
-	void Unknown_55F760();								// 0x55F760 (G_ASSERT 'BuddyReferralUI', line 1160)
-	void Unknown_55FBB0();								// 0x55FBB0 (G_ASSERT 'BuddyReferralUI', line 1215)
-	void Unknown_55FDC0(bool on);						// 0x55FDC0 (the referral dialog's buttons)  // NAME 1 [on]: neutral
-	void Unknown_55FE50(bool on);						// 0x55FE50 ('click_me', the referral button and text shown)  // NAME 1 [on]: neutral
-
-	UIAvselCharacterViewClass *Unknown084;				// +0x84 (the view's slot +0x28)
-	LoginTaskClass *Unknown088;							// +0x88 (the character view's task)
-	int Unknown08C;										// +0x8C
-	int Unknown090;										// +0x90 (the selected slot, -1 for none)
-	bool Unknown094;									// +0x94
-	bool Unknown095;									// +0x95
-	bool Unknown096;									// +0x96
-	bool Unknown097;									// +0x97
-	bool Unknown098;									// +0x98
-	GadgetClass *Unknown09C[8];							// +0x9C (Unknown_B7B8E0's buttons)
-	UIAvselAvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
-	GadgetClass *Unknown0D0[5];							// +0xD0
-	bool Unknown0E4[5];									// +0xE4
-	float Unknown0EC;									// +0xEC (slot +0x60: a countdown, then +0xF4 is selected)
-	float Unknown0F0;									// +0xF0 (slot +0x60: a countdown, 30 after a selection)
-	int Unknown0F4;										// +0xF4
-	bool Unknown0F8;									// +0xF8
-	bool Unknown0F9;									// +0xF9
-	bool Unknown0FA;									// +0xFA
-	bool Unknown0FB;									// +0xFB
-	bool Unknown0FC;									// +0xFC
-	bool Unknown0FD;									// +0xFD
-	int Unknown100;										// +0x100
-	LayerClass *Layer;									// +0x104 (the constructor's)  // NAME 2: what it holds
-	RefCountPtr<RenderObjClass> BuddyReferralUI;		// +0x108 (G_ASSERT 'BuddyReferralUI')  // NAME 3: the assert's
-	GadgetClass *Unknown10C[2];							// +0x10C (Unknown_B7B960's buttons)
-	UIAvselEditClass *Unknown114;						// +0x114
-	GadgetClass *Unknown118;							// +0x118 ('click_me')
-	StringClass Unknown11C;								// +0x11C
-	bool Unknown120;									// +0x120
-};
 
 // The callback (vtable 0xAEFAEC)
 class UIAvselCallbackClass : public UIAvselCallbackBaseClass	// NAME 1: neutral (D10)
@@ -303,28 +293,11 @@ public:
 // 0x55C650
 AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
-	Unknown084(NULL),
-	Unknown088(NULL),
-	Unknown08C(0),
-	Unknown090(-1),
-	Unknown094(false),
-	Unknown095(false),
-	Unknown096(false),
-	Unknown097(false),
-	Unknown098(false),
-	Unknown0EC(0),
-	Unknown0F0(0),
-	Unknown0F4(-1),
-	Unknown0F8(false),
-	Unknown0F9(false),
-	Unknown0FA(false),
-	Unknown0FB(false),
-	Unknown0FC(false),
-	Unknown0FD(false),
-	Unknown100(-1),
-	Layer(layer),
-	Unknown118(NULL),
-	Unknown120(false)
+	Unknown084(NULL), Unknown088(NULL), Unknown08C(0), Unknown090(-1),
+	Unknown094(false), Unknown095(false), Unknown096(false), Unknown097(false), Unknown098(false),
+	Unknown0EC(0), Unknown0F0(0), Unknown0F4(-1),
+	Unknown0F8(false), Unknown0F9(false), Unknown0FA(false), Unknown0FB(false), Unknown0FC(false), Unknown0FD(false),
+	Unknown100(-1), Layer(layer), Unknown118(NULL), Unknown120(false)
 {
 	LineDisplaySortClass sort(this);
 	memset(Unknown09C, 0, sizeof(Unknown09C));
@@ -456,267 +429,294 @@ void AvatarSelectionInterface::Unknown_60()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0)
+// 0x55D060
+bool AvatarSelectionInterface::Unknown_68(int key)
+{
+	if (Unknown0F4 > -1 || Unknown0F0 != 0.0f) {
+		Unknown_55EF90();
+		return true;
+	}
+	if (Unknown0F8 || Unknown0F9 || Unknown0FA || Unknown0FB || Unknown0FC || Unknown0FD || Unknown095 || Unknown094) {
+		return false;
+	}
+	if (!BuddyReferralUI) {
+		int previous;
+		switch (key) {
+			case 17:
+				Unknown_55EF90();
+				Unknown_55F760();
+				return false;
+			case 1: case 2: case 3: case 4: case 5:
+				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				if (Unknown096) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+				}
+				previous = Unknown090;
+				Unknown090 = key - 1;
+				break;
+			case 11: case 12: case 13: case 14: case 15:
+				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				if (Unknown096) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+				}
+				previous = Unknown090;
+				Unknown090 = key - 11;
+				break;
+			case 6:
+				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
+				if (Unknown090 >= 0) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
+					Unknown084->Unknown034->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
+					Unknown097 = true;
+					Unknown0F9 = true;
+					Unknown_55EF90();
+				}
+				return true;
+			case 7:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				if (Unknown090 >= 0) {
+					Unknown08C = 7;
+					Unknown088->Selected = Unknown090;
+					if (Unknown0E4[Unknown090]) {
+						LoginCharacterClass *character = &Unknown088->Characters[Unknown088->Selected];
+						if (character->ID != 0 && character->Galaxy_ID >= 0) {
+							TutorialManagerClass::Instance->Write_Completed_File();
+							Unknown088->Unknown_5C();
+							return true;
+						}
+						UIAvselTaskClass *task = (UIAvselTaskClass *)Unknown088;
+						Unknown084->Unknown_5594B0(task->Get_Descs()[task->Get_Selected()]);
+						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
+						Unknown084->Unknown_67ACE0(1);
+						Unknown084->Unknown1CD = true;
+						Unknown084->Unknown1CE = true;
+						Unknown088->Go_Next_Step();
+						return true;
+					}
+					if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+						Unknown084->Unknown_67AE60(1);
+					}
+					Unknown0FD = true;
+					Unknown_55EF90();
+				}
+				return true;
+			case 8:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				if (Unknown096) {
+					if (Unknown0BC[Unknown090]) {
+						Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+					}
+					Unknown090 = -1;
+					Unknown_8C();
+					return true;
+				}
+				Unknown08C = 8;
+				if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+					Unknown084->Unknown_67AE60(1);
+				}
+				Unknown0FD = true;
+				Unknown_55EF90();
+				return true;
+			case 10:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				Unknown084->Unknown_67B270();
+				Unknown0F9 = true;
+				Unknown_55EF90();
+				return true;
+			default:
+				return false;
+		}
+		Unknown_55ED20();
+		if (Unknown090 != previous) {
+			Unknown_55E8E0();
+		}
+		return true;
+	} else {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+		switch (key) {
+			case 1: case 8:
+				Unknown11C = "";
+				Unknown_55FBB0();
+				Unknown_55ED20();
+				return false;
+			case 4:
+				Unknown114->Unknown_74(1);
+				return false;
+			case 2:
+				{
+					char *text = Unknown114->Get_Text();
+					Unknown11C = text;
+					Unknown11C.Trim();
+					delete text;
+				}
+				if (strcmp(Unknown11C, "") == 0) {
+					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
+					return false;
+				}
+				if (stricmp(Unknown11C, Unknown088->Ticket_Info.EA_Customer.c_str()) == 0) {
+					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+					return false;
+				}
+				Unknown_55FBB0();
+				Unknown088->Send_Referrer(Unknown11C);
+				Unknown120 = true;
+				return false;
+		}
+		return false;
+	}
+}
+
+// 0x55D9C0
+void AvatarSelectionInterface::Unknown_55D9C0()
+{
+	if (Unknown120 && Unknown088->Referrer_Result) {
+		switch (Unknown088->Referrer_Result) {
+			case 2:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you have already been referred by someone.  You cannot be referred more than once.", 0x140, 0, 0);
+				break;
+			case 3:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, that account does not exist.  Please check the name and try again.", 0x140, 0, 0);
+				break;
+			case 4:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "A system error occurred.  Please try again later.", 0x140, 0, 0);
+				break;
+			case 5:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, your account is about to expire.", 0x140, 0, 0);
+				break;
+			case 6:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+				break;
+			case 1:
+				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Your referral was registered successfully.  The person who referred you has received credit for your referral.", 0x140, 0, 0);
+				break;
+		}
+		if (!Unknown088->Unknown1138) {
+			Unknown118 = NULL;
+			Unknown_55FE50(false);
+		}
+		Unknown_55ED20();
+		Unknown120 = false;
+	}
+	if (Unknown095 || Unknown094) {
+		Unknown_55EF90();
+	}
+	for (int i = 0; i < 5; i++) {
+		if (Unknown0BC[i]) {
+			((UIAvselAvatarVirtualsClass *)Unknown0BC[i])->Unknown_1C4();
+		}
+	}
+	if (Unknown095 && Unknown084->Unknown_67AEA0(1)) {
+		Unknown095 = false;
+		Unknown096 = true;
+		Unknown0BC[Unknown090]->Unknown_784A50("/happy at your service", 1, 0);
+		Unknown_55ED20();
+	}
+	if (Unknown094 && Unknown084->Unknown_67AEA0(1)) {
+		Unknown094 = false;
+		Unknown_55FE50(true);
+		if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-10")) {
+			Unknown084->Unknown_67ADD0(1);
+		}
+		if (Unknown090 < 0) {
+			Unknown_55ED20();
+			Unknown_55E8E0();
+		} else if (Unknown08C != 7 && Unknown08C != 8) {
+			if (Unknown0E4[Unknown090]) {
+				Unknown_88();
+				Unknown_55EF90();
+			} else if (Unknown090 < 5 && Unknown098) {
+				Unknown08C = 7;
+				if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+					Unknown084->Unknown_67AE60(1);
+				}
+				Unknown0FD = true;
+				Unknown_55EF90();
+			} else {
+				Unknown090 = -1;
+				Unknown08C = 0;
+				Unknown_55ED20();
+			}
+		} else {
+			if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+				Unknown084->Unknown_67AE60(1);
+			}
+			Unknown0FD = true;
+			Unknown_55EF90();
+		}
+	}
+	if (Unknown088->Unknown001D) {
+		Unknown_55E370(false);
+		Unknown088->Unknown001D = false;
+		Unknown_55EF90();
+		Unknown0F0 = 3.0f;
+	}
+	if (Unknown0FA && Unknown084->Unknown_67AEA0(0)) {
+		Unknown0FA = false;
+	}
+	if (Unknown0FB && Unknown084->Unknown_67AEA0(0)) {
+		Unknown0FB = false;
+	}
+	if (!Unknown0FA && Unknown0FC && Unknown084->Unknown_67AEA0(1)) {
+		Unknown0FC = false;
+		Unknown_55ED20();
+		if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-10")) {
+			Unknown084->Unknown_67ADD0(1);
+		}
+	}
+	if (!Unknown0FB && Unknown0FD && Unknown084->Unknown_67AEA0(1)) {
+		Unknown084->Unknown_67ACE0(1);
+		Unknown084->Unknown1CD = true;
+		Unknown084->Unknown1CE = true;
+		if (Unknown0F4 > -1) {
+			Unknown088->Selected = Unknown0F4;
+			Unknown088->Unknown_50();
+			Unknown0F4 = -1;
+		}
+		if (Unknown08C == 7) {
+			Unknown088->Go_Next_Step();
+		} else {
+			Unknown088->Go_Back_Step();
+		}
+	}
+	if (Unknown084->Unknown_67B2B0()) {
+		Unknown0F9 = false;
+		if (!Unknown095 && !Unknown094) {
+			Unknown_55ED20();
+		}
+	}
+	if (Unknown097) {
+		int answer = Unknown084->Unknown034->Unknown_5890B0("YES_NO");
+		if (answer) {
+			Unknown084->Unknown034->Unknown_5C();
+			Unknown0F9 = false;
+			Unknown097 = false;
+			if (answer == 1) {
+				Unknown0E4[Unknown090] = false;
+				Unknown0BC[Unknown090]->Unknown_784A50("you'll pay for this", 1, 0);
+				Unknown0BC[Unknown090]->Unknown_7896B0(1);
+				Unknown0EC = 3.2f;
+				Unknown0F4 = Unknown090;
+				Unknown_8C();
+			} else {
+				Unknown0BC[Unknown090]->Unknown_784A50("/happy yeah", 1, 0);
+				Unknown_55ED20();
+			}
+		}
+	}
+	if (Unknown084->Unknown034->Active && !Unknown0F9) {
+		Unknown0F9 = true;
+		Unknown_55EF90();
+	} else if (!Unknown084->Unknown034->Active && Unknown0F9) {
+		Unknown0F9 = false;
+		if (!Unknown095 && !Unknown094) {
+			Unknown_55ED20();
+		}
+		if (Unknown08C == 7) {
+			Unknown08C = 0;
+		}
+	}
+}
 
 // NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx)
 // 0x55E070
@@ -1035,75 +1035,75 @@ void AvatarSelectionInterface::Unknown_55EF90()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers)
+// 0x55F140
+void AvatarSelectionInterface::Unknown_55F140()
+{
+	LoginCharacterClass *chars = Unknown088->Characters;
+	if (Unknown090 == -1 || !Unknown0E4[Unknown090]) {
+		return;
+	}
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", Unknown084->Peek_Model());
+	FAIL_IF(!textptr) return;
+	int race = Unknown0BC[Unknown090]->Unknown108;
+	textptr->Change_Text(Unknown_B7B928[race], 0);
+
+
+	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", Unknown084->Peek_Model());
+	FAIL_IF(!textptr) return;
+	textptr->Change_Text(Unknown_B7B934[Unknown0BC[Unknown090]->Unknown10C + race * 3], 0);
+
+
+
+	textptr = Unknown_BE67C4->Get_Style("fe12_Level_Title", Unknown084->Peek_Model());
+	FAIL_IF(!textptr) return;
+	char level[64];
+	sprintf(level, "Level: %d", chars[Unknown090].Level_Combat + chars[Unknown090].Level_Explore + chars[Unknown090].Level_Trade);
+	textptr->Change_Text(level, 0);
+
+	UIAvselManagedFontClass *font = Unknown_BE67C4->Find((unsigned int)Unknown084->Peek_Model());
+	if (font) {
+		const char *sector = chars[Unknown090].Sector_Name;
+		if (strlen(sector)) {
+			char location[0x78];
+			_snprintf(location, sizeof(location), "Location: %s", sector);
+			font->Unknown_6D0A70("WRAP_fe12_Location_Title", location);
+		} else {
+			font->Unknown_6D0A70("WRAP_fe12_Location_Title", "");
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+	std::list<LoginGalaxyClass> galaxies = Unknown088->Galaxies;
+	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", Unknown084->Peek_Model());
+	FAIL_IF(!textptr) return;
+	textptr->Change_Text("", 0);
+	for (std::list<LoginGalaxyClass>::iterator it = galaxies.begin(); it != galaxies.end(); it++) {
+		if ((*it).ID == chars[Unknown090].Galaxy_ID && strlen((*it).Name)) {
+			float capacity = (unsigned int)(*it).Unknown58 * 0.9f;
+			if (capacity == 0.0f) {
+				capacity = 1.0f;
+			}
+			float full = (unsigned int)(*it).Unknown54 / capacity * 100.0f;
+			char galaxy[0x68];
+			if (full >= 100.0f) {
+				_snprintf(galaxy, sizeof(galaxy), "Galaxy: %s (FULL)", (*it).Name);
+			} else {
+				_snprintf(galaxy, sizeof(galaxy), "Galaxy: %s (%.0f%% full)", (*it).Name, full);
+			}
+			textptr->Change_Text(galaxy, 0);
+		}
+	}
+}
 
 
 
@@ -1285,8 +1285,13 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 **	inlined), 0x55ED20 / 0x55EF90 (the buttons lit / dimmed), 0x55F760 (the referral dialog opened:
 **	G_ASSERT line 1160; its edit box is textgadg.cpp's) and 0x55FBB0 (closed: line 1215) exact. NOT
 **	EXACT (register): 0x55E070 (the avatar under the pointer highlighted, 0.78) and 0x55E370 (the
-**	slots' avatars made, G_ASSERT 'chars' line 782, 0.78). The class is declared only as far as these
-**	use it. Not rebuilt yet: slot +0x68 0x55D060 (the events and the referral: 'Sorry, you cannot
-**	refer yourself.'), 0x55D9C0 (the referral's result) and 0x55F140 (the selected character's
-**	texts, FAIL_IFs 1047 / 1088: the galaxies' list copied).
+**	slots' avatars made, G_ASSERT 'chars' line 782, 0.78). 0x55D9C0 (every frame: the referral's
+**	result boxes, the emotes, the delete question's answer) exact; slot +0x68 0x55D060 (the buttons
+**	1-17 and the referral dialog's) NOT EXACT (0.49): it assigns the selected character's ship
+**	descriptor, and the client calls ShipCustDescClass's implicit operator= out of line (0x55D8A0)
+**	where shipcust_desc.h's written-out one (P-P7-1) inlines; 0x55F140 (the selected character's
+**	texts: race, profession, level, location, galaxy; FAIL_IFs 1047 / 1053 / 1059 / 1088; the
+**	galaxies' list copied) NOT EXACT (inline budget, 0.59). The class is declared in ui_avsel.h (a
+**	provisional name: with it in this file the functions before line 769 do not fit above it), the
+**	other types only as far as these functions use them.
 */
