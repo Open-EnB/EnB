@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 43 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 36 |
 | 3 | by convention from a client-named file or sibling | 1098 |
-| 2 | describes what the code does | 2701 |
-| 1 | neutral placeholder | 8976 |
+| 2 | describes what the code does | 2703 |
+| 1 | neutral placeholder | 8974 |
 
 ## For review (score 3 and below)
 
@@ -1699,19 +1699,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
-| 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:6` | the object 0x7767A0 draws its frames through; +0 its surface |
-| 1 | `Unknown130` | `app/client/html/htmlview.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/client/html/htmlview.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/html/htmlview.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/html/htmlview.cpp:19` | untagged neutral name (D10) |
 | 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:9` | the object at the view's +4 (slots +4 / +8 called) |
 | 1 | `Unknown_00` | `app/client/html/htmlview.h:12` | untagged neutral name (D10) |
 | 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:19` | element of the view's +0x14 list |
 | 1 | `Unknown00` | `app/client/html/htmlview.h:21` | untagged neutral name (D10) |
 | 1 | `Url` | `app/client/html/htmlview.h:23` | 0x770860's second argument copied in |
 | 1 | `HtmlUnknown20Struct` | `app/client/html/htmlview.h:26` | element of the view's +0x20 list (only the list's destructor is seen) |
-| 1 | `Window` | `app/client/html/htmlview.h:46` | Set_Window; an object with virtuals (0x770860 calls its slots +0x4C / +0x50) |
-| 1 | `Unknown20` | `app/client/html/htmlview.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown130` | `app/client/html/htmlview.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/client/html/htmlview.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/html/htmlview.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/html/htmlview.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/html/htmlview.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.cpp:24` | untagged neutral name (D10) |
@@ -9488,12 +9486,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Clear` | `app/client/html/htmlview.h:37` | Links and Blocks emptied (the blocks deleted) |
 | 2 | `Open` | `app/client/html/htmlview.h:38` | Clear, url kept, handed to the loader |
 | 2 | `Update` | `app/client/html/htmlview.h:40` | polls the loader; returns and clears Dirty |
-| 2 | `Set_Window` | `app/client/html/htmlview.h:41` | Window = window, then Layout |
-| 2 | `Layout` | `app/client/html/htmlview.h:44` | rebuilds the blocks for Url (not written yet) |
-| 2 | `Loader` | `app/client/html/htmlview.h:47` | Set_Loader |
-| 2 | `Blocks` | `app/client/html/htmlview.h:48` | owned (Clear deletes them) |
-| 2 | `Dirty` | `app/client/html/htmlview.h:51` | Update returns and clears it (a byte tested, not a bool) |
-| 2 | `Url` | `app/client/html/htmlview.h:52` | Open's strcpy; 259 bytes up to +0x130 |
+| 2 | `Set_Surface` | `app/client/html/htmlview.h:41` | Surf = surface, then Layout |
+| 2 | `Layout` | `app/client/html/htmlview.h:44` | one block the surface's size for Url's link, then Parse |
+| 2 | `Parse` | `app/client/html/htmlview.h:45` | the 15 KB tag parser (not written yet) |
+| 2 | `Surf` | `app/client/html/htmlview.h:53` | Set_Surface; Lock / Stride / Get_Width / Get_Height called (HV1's UnknownHtmlDrawClass) |
+| 2 | `Loader` | `app/client/html/htmlview.h:54` | Set_Loader |
+| 2 | `Blocks` | `app/client/html/htmlview.h:55` | owned (Clear deletes them) |
+| 2 | `Dirty` | `app/client/html/htmlview.h:58` | Update returns and clears it (a byte tested, not a bool) |
+| 2 | `Url` | `app/client/html/htmlview.h:59` | Open's strcpy; 259 bytes up to +0x130 |
 | 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
 | 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
 | 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |

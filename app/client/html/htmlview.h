@@ -2,10 +2,10 @@
 #ifndef HTMLVIEW_H
 #define HTMLVIEW_H
 
+#include "..\..\..\wwlib\surface.h"
 #include "unknown_htmlblock.h"
 
-// What the view hands a url to: slot +4 opens it, slot +8 is polled by Update. No implementation in the client
-// calls the view (0x76FFD0's class has no callers: unused code the link kept).
+// What the view hands a url to: slot +4 opens it, slot +8 is polled by Update (no implementation found yet).
 class HtmlLoaderClass  // NAME 1: the object at the view's +4 (slots +4 / +8 called)
 {
 public:
@@ -38,12 +38,19 @@ public:
 	bool Open(char *url);  // 0x770460  // NAME 2: Clear, url kept, handed to the loader
 	bool Set_Loader(HtmlLoaderClass *loader);  // 0x770640
 	bool Update(void);  // 0x770660  // NAME 2: polls the loader; returns and clears Dirty
-	bool Set_Window(void *window);  // 0x770690  // NAME 2: Window = window, then Layout
+	bool Set_Surface(Surface *surface);  // 0x770690  // NAME 2: Surf = surface, then Layout
 	bool Clear_Links(void);  // 0x7706B0
 	bool Clear_Blocks(void);  // 0x770720
-	void Layout(void);  // 0x770C70  // NAME 2: rebuilds the blocks for Url (not written yet)
+	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
+	void Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int unknown);  // 0x7710D0  // NAME 2: the 15 KB tag parser (not written yet)
 
-	void *Window;  // +0x000  // NAME 1: Set_Window; an object with virtuals (0x770860 calls its slots +0x4C / +0x50)
+	void Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised);  // 0x777630
+	void Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x7777C0
+	void Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x7778E0
+	void Draw_Line_24(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x777EC0
+	void Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);  // 0x777EE0
+
+	Surface *Surf;  // +0x000  // NAME 2: Set_Surface; Lock / Stride / Get_Width / Get_Height called (HV1's UnknownHtmlDrawClass)
 	HtmlLoaderClass *Loader;  // +0x004  // NAME 2: Set_Loader
 	ArrayList<HtmlBlockClass *> Blocks;  // +0x008  // NAME 2: owned (Clear deletes them)
 	ArrayList<HtmlLinkStruct> Links;  // +0x014  // NAME 1

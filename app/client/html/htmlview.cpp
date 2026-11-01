@@ -1,22 +1,11 @@
 // Earth & Beyond client (reconstruction): app\client\html\htmlview.cpp (PARTIAL). Notes at the end of the file.
-#include "..\..\..\wwlib\surface.h"
+#include <windows.h>
 #include "htmlview.h"
+#include <stdio.h>
 #include <string.h>
 
-class UnknownHtmlDrawClass  // NAME 1: the object 0x7767A0 draws its frames through; +0 its surface
-{
-public:
-	void Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised);
-	void Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
-	void Draw_Line_32(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
-	void Draw_Line_24(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
-	void Draw_Line_16(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha);
-
-	Surface *Surf;
-};
-
 HtmlViewClass::HtmlViewClass(void) :
-	Window(NULL),
+	Surf(NULL),
 	Loader(NULL)
 {
 	Url[0] = '\0';
@@ -75,9 +64,9 @@ bool HtmlViewClass::Update(void)
 	return dirty;
 }
 
-bool HtmlViewClass::Set_Window(void *window)
+bool HtmlViewClass::Set_Surface(Surface *surface)
 {
-	Window = window;
+	Surf = surface;
 	Layout();
 	return true;
 }
@@ -98,7 +87,36 @@ bool HtmlViewClass::Clear_Blocks(void)
 	return true;
 }
 
-void UnknownHtmlDrawClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
+void HtmlViewClass::Layout(void)
+{
+	HtmlBlockClass *block;
+	while (Blocks.removeTail(block)) {
+		delete block;
+	}
+
+	for (int i = 0; i < Links.length(); i++) {
+		HtmlLinkStruct *link;
+		if (!Links.getPointer(&link, i))
+			link = NULL;
+		if (strcmp(link->Name, Url) == 0) {
+			HtmlAttributeStackClass attributes;
+			char buffer[64];
+			sprintf(buffer, "%d", 10);
+			attributes.Set("Horizontal_Padding", buffer);
+			sprintf(buffer, "%d", 16);
+			attributes.Set("Vertical_Padding", buffer);
+			block = new HtmlBlockClass(NULL, Surf->Get_Width(), Surf->Get_Height(), &attributes, NULL);
+			block->AbsX = 0;
+			block->AbsY = 0;
+			Blocks.addTail(block);
+			Parse(link, block, 0);
+			Dirty = 1;
+			return;
+		}
+	}
+}
+
+void HtmlViewClass::Draw_Bevel(int x, int y, int width, int height, int clipx, int clipy, int clipw, int cliph, int thickness, bool raised)
 {
 	int light = 0xFFFFFF;
 	int dark = 0;
@@ -115,7 +133,7 @@ void UnknownHtmlDrawClass::Draw_Bevel(int x, int y, int width, int height, int c
 	}
 }
 
-void UnknownHtmlDrawClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
+void HtmlViewClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, int clipy, int clipw, int cliph, int color, int alpha)
 {
 	if (Surf->Bytes_Per_Pixel() == 4) {
 		Draw_Line_32(x1, y1, x2, y2, clipx, clipy, clipw, cliph, color, alpha);
@@ -127,7 +145,7 @@ void UnknownHtmlDrawClass::Draw_Line(int x1, int y1, int x2, int y2, int clipx, 
 }
 
 #pragma auto_inline(off)
-void UnknownHtmlDrawClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
+void HtmlViewClass::Draw_Line_24(int, int, int, int, int, int, int, int, int, int)
 {
 }
 #pragma auto_inline(on)
