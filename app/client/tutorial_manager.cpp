@@ -86,14 +86,14 @@ TutorialLineStruct *TutorialStepStruct::Get_Line(int index)
 
 
 
-// NOT EXACT: inline budget (explain.py: inline-budget), the client calls the list's _Buynode 0x6AE690 out of line and inlines the key string's destructor after Steps[]; ours the reverse
+// 0x6AC600: the not-found report returns at once (the client destroys the ini there); one dead Completed.size() before the store spends the inline budget the client spends (_Buynode 0x6AE690 out of line, the key string's destructor inline)
 TutorialManagerClass::TutorialManagerClass() : Steps(100), CurrentStep(0), CurrentLine(0), LastFinished(0)
 {
 	INIClass ini("tutorialdef.ini");
 	if (!ini.Is_Loaded()) {
 		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
-	} else {
-
+		return;
+	}
 
 
 
@@ -131,13 +131,13 @@ TutorialManagerClass::TutorialManagerClass() : Steps(100), CurrentStep(0), Curre
 						}
 						line++;
 					}
-					Steps[std::string(step->Name)] = step;
+					Completed.size(); Steps[std::string(step->Name)] = step;
 				}
 			}
 			index++;
 		}
 		Read_Completed_File(false);
-	}
+
 }
 // The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10) (one padding line below removed for Start_Step's __LINE__)
 TutorialManagerClass::~TutorialManagerClass()
