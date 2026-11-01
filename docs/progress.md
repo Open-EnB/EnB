@@ -1682,8 +1682,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   0x6C9170, 0x6C9920, 0x6C9AD0, 0x6C9C80, 0x6C9E30 among them). One line in `tools/re/objmatch.py` `caller_tiebreak`
   (drop the `get('identical')` filter; `.work/tk3/objmatch_x.py`), landed as its own commit after a full verify of
   all 11 libraries, as D166 was.
-* **P-TK3-2** (2026-10-31, TK3; recommend yes, lower value): D166 counts an EH unwind funclet as part of the function
-  whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three funclets, and its kind).
+* **P-TK3-2** (2026-10-31, TK3 and TK1 independently; recommend yes, lower value): D166 counts an EH unwind funclet
+  as part of the function whose FuncInfo references it (unblocks fontdatabase's ~vector 0x6C6E20, called by three
+  funclets, and control_keys_manager's 0x71EC90 now / 0x71EDC0 once Load_Definitions 0x71B1F0 is exact).
 
 ## 4. Next steps
 
@@ -1719,7 +1720,8 @@ below name only the work items, the blocked work, the leads and the queues.
      0x6CDBC0; rename when loadingview.cpp's stand-in `class FontSys` merges into fontmanager.h, P-FU1-1); the global
      Unknown_BDADC0 is the client's AssetManager (its assert; scriptedmovie.cpp's #define goes with the rename);
      SClient::Unknown1338 is EnvironmentMapManager (the client's assert; SClientUnknown1338Class); intrface.h's
-     ControlKeysManagerClass is the client's ControlKeysManager.
+     ControlKeysManagerClass is the client's ControlKeysManager. (TK1: 12 files, sclient.h and seven ui_* pairs; no bytes;
+     a quiet window.)
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
      P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
      RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /

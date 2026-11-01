@@ -474,9 +474,16 @@ unless `--lever` cites a new row of this table.
 * **A hash_map loop's iterator declared in the `for` header (2026-10-31, TK3, fontdatabase 0x6C4F50):** VC6 makes it
   `begin()`'s return slot and keeps its node in memory. The client declares it before the loop and assigns it in the
   `for` (`iterator it; for (it = T.begin(); ...)`); a const_iterator copy puts the table pointer in a register instead.
+* **A hash_map value whose destructor the client never runs** (2026-10-31, TK1, P-H11-2 solved: operator[] 0x71D4D0
+  leaves its pair temporary alive, 0x7198B0 frees nodes bare): give the value class a private, empty, inline destructor
+  and make the `std::hash_map<K, V>` its friend (a private destructor alone is C2248 in operator[]). It also frees
+  operator[]'s inline budget, sending the hashtable copy constructor out of line as the client has it.
 
 ### 3.3 E&B app code
 
+* **A key value built from 16-bit halves** (2026-10-31, TK1, control_keys_manager 0x71AEF0) is read as two words,
+  `(hi << 16) | lo`, not one dword cast. **A loop the client runs in one branch only can look like a shared tail**
+  (0x71C710): check where that branch returns before restructuring.
 * **VC6 folds a constant product into one constant** (2026-10-31, TG4): `x * 0.5f * 1000.0f` and `x * 0.001f * 50.0f`
   compile to one fmul; the client's two fmuls need the intermediate in a named local (cameraeffects, ui_combobox).
   A flag the client stores before an unrelated load needed `volatile` (ui_combobox 0x57AC70 / 0x57AD50); a clamp
