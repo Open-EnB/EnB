@@ -364,14 +364,14 @@ void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
 	}
 }
 
-// NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv)
+// 0x6D1480 (D185's variant: the iterator assigned, the test an if / else; kept on 3 lines: G_ASSERT's __LINE__ in 0x6D2700)
 FontStyleClass *ManagedFontClass::Unknown_6D1480(std::string name)
 {
 	std::string key = name;
 	key += "_0";
-	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.find(key);
-	if (it == Styles.end()) return NULL;
-	return it->second;
+	std::hash_map<std::string, FontStyleClass *>::iterator it;
+	it = Styles.find(key);
+	if (it == Styles.end()) return NULL; else return it->second;
 }
 
 // NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv)

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-429 entries in 107 files.
+428 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -95,7 +95,6 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:1364` | `FontStringFilesClass::~FontStringFilesClass` | mention | NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the file is not written yet. Tables (the Add functions' offsets and instance... |
 | `app/client/fontmanager.cpp:172` | `ManagedFontClass::Unknown_6D0A70` | marker | NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv) |
 | `app/client/fontmanager.cpp:193` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
-| `app/client/fontmanager.cpp:367` | `ManagedFontClass::Unknown_6D1480` | marker | NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv) |
 | `app/client/fontmanager.cpp:377` | `ManagedFontClass::Unknown_6D1600` | marker | NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv) |
 | `app/client/fontmanager.cpp:427` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
 | `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
