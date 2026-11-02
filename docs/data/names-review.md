@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
-| 2 | describes what the code does | 2906 |
-| 1 | neutral placeholder | 10836 |
+| 2 | describes what the code does | 2907 |
+| 1 | neutral placeholder | 10835 |
 
 ## For review (score 3 and below)
 
@@ -8326,7 +8326,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Get_Ticks` | `app/dbgmgr/dbgmgr.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_509C40` | `app/dbgmgr/dbgmgr.cpp:14` | the log's output (WWDebug's handler 0x509C10 and the print forms) |
 | 1 | `DbgStepStruct` | `app/dbgmgr/dbgmgr.cpp:16` | a step of the step log, 0x5C bytes (44 to a deque block of 0xFD0) |
-| 1 | `Unknown54` | `app/dbgmgr/dbgmgr.cpp:19` | untagged neutral name (D10) |
 | 1 | `Steps` | `app/dbgmgr/dbgmgr.cpp:23` | Begin_Step pushes, End_Step pops |
 | 1 | `Timing` | `app/dbgmgr/dbgmgr.cpp:24` | End_Step prints the milliseconds |
 | 1 | `Unknown_BE59C4` | `app/dbgmgr/dbgmgr.cpp:25` | untagged neutral name (D10) |
@@ -12307,6 +12306,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
 | 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
 | 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
+| 2 | `End` | `app/dbgmgr/dbgmgr.cpp:19` | its use |
 | 2 | `DbgMgrMemoryLogClass` | `app/dbgmgr/dbgmgr.cpp:122` | access only |
 | 2 | `Name` | `app/display/display.cpp:40` | the device name Set_Render_Device takes |
 | 2 | `Width` | `app/display/display.cpp:41` | Registry_Load_Render_Device's argument |

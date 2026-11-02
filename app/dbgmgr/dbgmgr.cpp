@@ -16,7 +16,7 @@ void Unknown_509C40(int type, const char *buf);	// NAME 1 [Unknown_509C40]: the 
 struct DbgStepStruct {			// NAME 1 [DbgStepStruct]: a step of the step log, 0x5C bytes (44 to a deque block of 0xFD0)
 	char Name[80];				// +0x00 Begin_Step's text
 	unsigned int Start;			// +0x50 Unknown_Get_Ticks at Begin_Step (0 with Timing off)
-	unsigned int Unknown54;		// +0x54 always 0
+	unsigned int End;			// +0x54 0 at Begin_Step; End_Step puts Unknown_Get_Ticks here (0x50A43B)  // NAME 2 [End]: its use
 	int Depth;					// +0x58 Unknown_BE59C4 at Begin_Step
 };
 
@@ -149,25 +149,24 @@ void Unknown_Debug_Begin_Step(const char *buf)
 	} else {
 		step.Start = 0;
 	}
-	step.Unknown54 = 0;
+	step.End = 0;
 	step.Depth = Unknown_BE59C4;
 	Steps.push_back(step);
 }
 
 
 
-// NOT EXACT: shape, 0.56 (explain.py): register allocation (the client keeps the deque's map in ebx and reloads buf; see the notes)
+// NOT EXACT: shape, 0.56 (explain.py): register allocation and a dead store of end()._Last (see attempts.csv)
 void Unknown_Debug_End_Step(const char *buf)
 {
 	G_ASSERT(buf);
 	DbgStepStruct step = Steps.back();
 	Steps.pop_back();
-	unsigned int end;
 	if (Timing) {
-		end = Unknown_Get_Ticks();
+		step.End = Unknown_Get_Ticks();
 	}
 	if (Timing) {
-		Unknown_Debug_Printf("%s [done %s] (%u ms)", buf, step.Name, end - step.Start);
+		Unknown_Debug_Printf("%s [done %s] (%u ms)", buf, step.Name, step.End - step.Start);
 	} else {
 		Unknown_Debug_Printf("%s [done %s]", buf, step.Name);
 	}
