@@ -47,6 +47,89 @@ int Unknown4BCA80Class::Unknown_4BCD10()
 
 
 
+// 0x4BCD30
+// NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls
+// ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the
+// vector first; everything else is the client's (0.85)
+void Unknown4BCA80Class::Unknown_4BCD30()
+{
+	TCPCon *con = NULL;
+	Unknown4BCA80EntryStruct *client;
+	Unknown4BB8A0Class *message;
+	char buffer[256];
+	int clients;
+	int count;
+	int i;
+	int j;
+	int n;
+	time_t now = time(NULL);
+	if (Unknown38) {
+		Unknown20.lock();
+	}
+	clients = Unknown04.length();
+	if (now != Unknown1C) {
+		Unknown1C = now;
+		while (Unknown00->getIncomingConnection(&con, 0, 0)) {
+			Unknown00->setBufferedWrites(con, TRUE);
+			Unknown4BCA80EntryStruct entry;
+			entry.Connection = con;
+			Unknown04.addTail(entry);
+		}
+		clients = Unknown04.length();
+		j = 0;
+		for (i = 0; i < clients; i++) {
+			if (!Unknown04.getPointer(&client, j)) {
+				break;
+			}
+			for (n = client->Connection->read((uint8 *)buffer, 255, 0); n > 0; n = client->Connection->read((uint8 *)buffer, 255, 0)) {
+				Unknown4BDFE0Class filter;
+				buffer[n] = 0;
+				if ((int)strlen(buffer) >= n) {
+					client->Connection->unread((uint8 *)buffer, n);
+					break;
+				}
+				Wstring text;
+				text.set(buffer);
+				if (filter.Unknown_4BE7A0(text)) {
+					if (filter.Unknown08 == 0xFFFFFF) {
+						client->Filters.clear();
+						client->Mask = 0;
+					} else {
+						client->Filters.addTail(filter);
+						client->Mask |= filter.Unknown08;
+					}
+				}
+				client->Connection->unread((uint8 *)buffer + strlen(buffer) + 1, n - strlen(buffer) - 1);
+			}
+			if (n == 0) {
+				Unknown00->setBufferedWrites(client->Connection, FALSE);
+				client->Connection->close(TRUE);
+				delete client->Connection;
+				Unknown04.remove(j);
+			} else {
+				j++;
+			}
+		}
+	}
+	count = Messages.length();
+	for (i = 0; i < count; i++) {
+		Messages.getPointer(&message, i);
+		Wstring text;
+		message->To_String(text);
+		for (j = 0; j < clients; j++) {
+			Unknown04.getPointer(&client, j);
+			if (Unknown_4BD3F0(client, message)) {
+				client->Connection->write((uint8 *)text.get(), text.length() + 1, 0);
+			}
+		}
+	}
+	Messages.clear();
+	Unknown00->pumpWriters();
+	if (Unknown38) {
+		Unknown20.unlock();
+	}
+}
+
 // 0x4BD3F0
 bit8 Unknown4BCA80Class::Unknown_4BD3F0(Unknown4BCA80EntryStruct *client, Unknown4BB8A0Class *message)
 {
@@ -95,10 +178,9 @@ void Unknown4BCA80Class::Unknown_4BD470(int level, Wstring &sender, Wstring &fil
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4BCA80-0x4BD470 without 0x4BCD30: the server's constructor, destructor, listener and two
-**	unreferenced methods (0x4BD3F0 a client's filters against a message, 0x4BD470 another way in for a
-**	message, under the lock), with the ArrayList destructors they instantiate (0x4BD3A0, 0x4BD8C0,
-**	0x4BD910). Not rebuilt yet: 0x4BCD30 (accept clients, read their filters, send them the messages:
-**	the error reporters call it) and the ArrayList instances only it uses (0x4BD870, 0x4BD960, 0x4BD990,
-**	0x4BDBE0, 0x4BDEF0).
+**	client.exe 0x4BCA80-0x4BD470: the server's constructor, destructor, listener, 0x4BCD30 (once a second:
+**	accept clients, read their filter lines (0xFFFFFF clears a client's filters), drop closed ones; then
+**	send every queued message's text to the clients whose filters take it, and empty the queue) and two
+**	unreferenced methods (0x4BD3F0 a client's filters against a message, 0x4BCD30 inlines it; 0x4BD470
+**	another way in for a message, under the lock), with the ArrayList instances they use (0x4BD3A0-0x4BDEF0).
 */

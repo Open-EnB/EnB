@@ -68,6 +68,8 @@ public:
 // One connected client of the server (0x14 bytes)
 struct Unknown4BCA80EntryStruct	// NAME 1: after the server's constructor (D10)
 {
+	Unknown4BCA80EntryStruct() : Mask(0) {}	// (0x4BCD30's store order: the mask with the list, before the connection)
+
 	ArrayList<Unknown4BDFE0Class> Filters;	// +0x00  // NAME 2: what it holds
 	uint32 Mask;							// +0x0C the levels its filters take  // NAME 2: what it holds
 	TCPCon *Connection;						// +0x10  // NAME 2: what it holds
@@ -83,7 +85,7 @@ public:
 	void Unknown_4BD470(int level, Wstring &sender, Wstring &file, int line, int x, int y, Wstring &text);	// 0x4BD470 (no caller)  // NAME 1: neutral (D10)
 	bit8 Unknown_4BD3F0(Unknown4BCA80EntryStruct *client, Unknown4BB8A0Class *message);	// 0x4BD3F0 (no caller; this unused)  // NAME 1: neutral (D10)
 	int Unknown_4BCD10();								// 0x4BCD10 the clients' count  // NAME 1: neutral (D10)
-	void Unknown_4BCD30();								// 0x4BCD30 (the error reporters call it after the message)  // NAME 1: neutral (D10)
+	void Unknown_4BCD30();								// 0x4BCD30 accepts clients, reads their filters, sends them the messages (the error reporters call it after the message)  // NAME 1: neutral (D10)
 	void Unknown_4BCCF0(bool value);					// 0x4BCCF0 Unknown38  // NAME 1: neutral (D10)
 
 	TCPMgr *Unknown00;		// +0x00 (0x28 bytes, made by the constructor)

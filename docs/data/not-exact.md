@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-419 entries in 107 files.
+420 entries in 108 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -418,6 +418,7 @@ edit the comments in the code, not this file.
 | `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
 | `app/shared/unique_design_id_lookup.cpp:92` | `UniqueDesignIDLookupClass::Add_Identifier` | marker | NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC) |
 | `app/shared/unique_design_id_lookup.cpp:122` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
+| `app/shared/unknown_message_server.cpp:51` | `Unknown4BCA80Class::Unknown_4BCD30` | marker | NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the vector first; everything else is the client's (0.85) |
 | `app/wwudp/cordcon.cpp:6` | `DEFINE_AUTO_POOL` | mention | NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the client's code statement by statement; the send path (write, openc, buildHeader, buildMsgHeader, pump, pumpInternal with its resend timer and send window) too; getHighestPriorityMessage is byte-exact. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's asserts sit on lines 521, 632 and 977 (... |
 | `app/wwudp/cordcon.cpp:72` | `CordChannelClass::Copy` | mention | NOT EXACT (functional, 0.14: inline budget): member by member in the client's order (the lists through wlib's operator=, the vectors emptied and refilled one record at a time). The client inlines ArrayList::clear, CordListClass's clear and getPointer and calls get / add, the vectors' erase / insert and the second size() out of line; ours inlines erase / insert and calls clear, Clear and Get. |
 | `app/wwudp/cordcon.cpp:270` | `CordCon::openc` | mention | NOT EXACT (0.48): the client opens odd channels, the server even ones: the unused one written least recently, the search going on from where it stopped after two more are made. Not reproduced: the client's dead test on the first index (`sete` / `test cl, 1`). |

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2906 |
-| 1 | neutral placeholder | 10833 |
+| 1 | neutral placeholder | 10836 |
 
 ## For review (score 3 and below)
 
@@ -10401,25 +10401,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/shared/unknown_message.h:64` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/unknown_message.h:65` | untagged neutral name (D10) |
 | 1 | `Unknown4BCA80EntryStruct` | `app/shared/unknown_message.h:69` | after the server's constructor (D10) |
-| 1 | `Unknown4BCA80Class` | `app/shared/unknown_message.h:77` | after its constructor (D10) |
-| 1 | `Unknown_4BCCB0` | `app/shared/unknown_message.h:82` | neutral (D10) |
-| 1 | `Unknown_4BD470` | `app/shared/unknown_message.h:83` | neutral (D10) |
-| 1 | `Unknown_4BD3F0` | `app/shared/unknown_message.h:84` | neutral (D10) |
-| 1 | `Unknown_4BCD10` | `app/shared/unknown_message.h:85` | neutral (D10) |
-| 1 | `Unknown_4BCD30` | `app/shared/unknown_message.h:86` | neutral (D10) |
-| 1 | `Unknown_4BCCF0` | `app/shared/unknown_message.h:87` | neutral (D10) |
-| 1 | `Unknown04` | `app/shared/unknown_message.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/unknown_message.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/shared/unknown_message.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.h:97` | neutral (D10) |
-| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.h:98` | neutral (D10) |
-| 1 | `Unknown_4BBED0` | `app/shared/unknown_message.h:101` | neutral (D10) |
-| 1 | `Unknown_4BC000` | `app/shared/unknown_message.h:102` | neutral (D10) |
-| 1 | `Unknown_4BC130` | `app/shared/unknown_message.h:103` | neutral (D10) |
-| 1 | `Unknown_4BC260` | `app/shared/unknown_message.h:104` | neutral (D10) |
-| 1 | `Unknown_4BC3A0` | `app/shared/unknown_message.h:105` | neutral (D10) |
-| 1 | `Unknown_4BC460` | `app/shared/unknown_message.h:106` | neutral (D10) |
-| 1 | `Unknown_4BC5A0` | `app/shared/unknown_message.h:108` | neutral (D10) |
+| 1 | `Unknown4BCA80Class` | `app/shared/unknown_message.h:79` | after its constructor (D10) |
+| 1 | `Unknown_4BCCB0` | `app/shared/unknown_message.h:84` | neutral (D10) |
+| 1 | `Unknown_4BD470` | `app/shared/unknown_message.h:85` | neutral (D10) |
+| 1 | `Unknown_4BD3F0` | `app/shared/unknown_message.h:86` | neutral (D10) |
+| 1 | `Unknown_4BCD10` | `app/shared/unknown_message.h:87` | neutral (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/unknown_message.h:88` | neutral (D10) |
+| 1 | `Unknown_4BCCF0` | `app/shared/unknown_message.h:89` | neutral (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_message.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/unknown_message.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/shared/unknown_message.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.h:99` | neutral (D10) |
+| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.h:100` | neutral (D10) |
+| 1 | `Unknown_4BBED0` | `app/shared/unknown_message.h:103` | neutral (D10) |
+| 1 | `Unknown_4BC000` | `app/shared/unknown_message.h:104` | neutral (D10) |
+| 1 | `Unknown_4BC130` | `app/shared/unknown_message.h:105` | neutral (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/unknown_message.h:106` | neutral (D10) |
+| 1 | `Unknown_4BC3A0` | `app/shared/unknown_message.h:107` | neutral (D10) |
+| 1 | `Unknown_4BC460` | `app/shared/unknown_message.h:108` | neutral (D10) |
+| 1 | `Unknown_4BC5A0` | `app/shared/unknown_message.h:110` | neutral (D10) |
 | 1 | `Unknown4BDFE0Class` | `app/shared/unknown_message_filter.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/unknown_message_filter.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message_record.cpp:10` | untagged neutral name (D10) |
@@ -10431,13 +10431,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BCCF0` | `app/shared/unknown_message_server.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_4BCD10` | `app/shared/unknown_message_server.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/unknown_message_server.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_4BD3F0` | `app/shared/unknown_message_server.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown4BCA80EntryStruct` | `app/shared/unknown_message_server.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message_server.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown4BDFE0Class` | `app/shared/unknown_message_server.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_4BE2C0` | `app/shared/unknown_message_server.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_4BD470` | `app/shared/unknown_message_server.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/unknown_message_server.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/unknown_message_server.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown4BCA80EntryStruct` | `app/shared/unknown_message_server.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message_server.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/unknown_message_server.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown4BDFE0Class` | `app/shared/unknown_message_server.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_4BE7A0` | `app/shared/unknown_message_server.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/unknown_message_server.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_4BD3F0` | `app/shared/unknown_message_server.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_4BE2C0` | `app/shared/unknown_message_server.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_4BD470` | `app/shared/unknown_message_server.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/shared/unknown_packetdata.h:5` | untagged neutral name (D10) |
 | 1 | `unknown_packetdata.h` | `app/shared/unknown_packetdata.h:16` | neutral file name (D10) |
 | 1 | `unknown_px_callbacks.h` | `app/shared/unknown_px_callbacks.h:13` | neutral header name (D10) |
@@ -13588,10 +13591,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Line` | `app/shared/unknown_message.h:44` | what it holds |
 | 2 | `Time` | `app/shared/unknown_message.h:47` | what it holds |
 | 2 | `Text` | `app/shared/unknown_message.h:48` | what it holds |
-| 2 | `Filters` | `app/shared/unknown_message.h:71` | what it holds |
-| 2 | `Mask` | `app/shared/unknown_message.h:72` | what it holds |
-| 2 | `Connection` | `app/shared/unknown_message.h:73` | what it holds |
-| 2 | `Messages` | `app/shared/unknown_message.h:91` | what it holds |
+| 2 | `Filters` | `app/shared/unknown_message.h:73` | what it holds |
+| 2 | `Mask` | `app/shared/unknown_message.h:74` | what it holds |
+| 2 | `Connection` | `app/shared/unknown_message.h:75` | what it holds |
+| 2 | `Messages` | `app/shared/unknown_message.h:93` | what it holds |
 | 2 | `PxBoxCallback` | `app/shared/unknown_px_callbacks.h:24` | what it does |
 | 2 | `object, callback, extent` | `app/shared/unknown_px_callbacks.h:27` | what it stores |
 | 2 | `object, src` | `app/shared/unknown_px_callbacks.h:28` | as PxBox's |
