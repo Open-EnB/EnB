@@ -6,8 +6,8 @@
 #include "unknown_debug.h"
 #include <string.h>
 
-struct Unknown_C006A0Struct { char Unknown00[0xDC]; bool UnknownDC; };	// NAME 1 [Unknown_C006A0Struct]: neutral (D10), as far as Post_Process reads it
-extern Unknown_C006A0Struct *Unknown_C006A0;	// NAME 1 [Unknown_C006A0]: neutral (D10)
+#include "dx8wrapper.h"
+#include "dx8caps.h"
 
 void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a model (recursive; not rebuilt)  // NAME 1 [Unknown_48E9D0, robj]: neutral (D10)
 void Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (not rebuilt)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
@@ -29,7 +29,7 @@ static inline RenderObjClass *Post_Process(RenderObjClass *robj)	// NAME 3 [Post
 	FAIL_IF(!robj) return(NULL);
 	Unknown_48E9D0(robj);
 	const char *name = robj->Get_Name();
-	if (!Unknown_C006A0->UnknownDC && strnicmp(name, "plt", 3) == 0) {
+	if (!DX8Wrapper::Get_Current_Caps()->Support_TnL() && strnicmp(name, "plt", 3) == 0) {
 		Unknown_48E620(robj);
 	}
 	return(robj);
