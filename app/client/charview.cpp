@@ -1338,6 +1338,22 @@ void CharacterViewClass::Unknown_67C7B0()
 	}
 }
 
+// The queue's push_back one inline level down, as Unknown_Inline_Pop below: 0x67C920 then calls the element's
+// _Construct 0x433700 out of line on all three paths and _Buyback 0x67CFE0 on the second, as the client does
+// (CV2: a direct push_back inlines one _Construct; dead reads after it send _Buyback out on every path).
+static inline void Unknown_Inline_Push(std::deque<std::string> &queue, const std::string &name)
+{
+	queue.push_back(name);
+}
+
+// 0x67C920 (the screens queue a dialog; an empty name is dropped)
+void CharacterViewClass::Unknown_67C920(std::string name)
+{
+	if (name.length()) {
+		Unknown_Inline_Push(Unknown4E0, name);
+	}
+}
+
 // The queue's pop_front one inline level down: 0x67CBD0 then expands pop_front but calls its _Freefront 0x67D1A0
 // and the element's destructor (??_G 0x433A10) out of line, as the client does (CV2: a direct pop_front
 // inlines both, dead reads after it push the string copy out of line first).
