@@ -228,7 +228,8 @@ static void __stdcall Scene10C_Add_Slot(RenderObjClass *obj) { Trace("mainview s
 static void Scene10C_Remove_All_Slot() { Trace("mainview scene Remove_All_Render_Objects"); }	// slot 24 (0x514010)
 // The view slot +0x1C gives (UIViewClass 0x50B720 returns the view itself): Do_Frame's dialog helpers 0x7429B0, 0x74EDB0,
 // 0x751660 and 0x74F5C0 read its +0x34 dialog and the dialog's type at +0x18C. A zeroed dialog: no type matches
-static int Fake_Dialog_Storage[0x190 / sizeof(int)];
+static int Fake_Dialog_Storage[0x1F8 / sizeof(int)];	// sclient.h's ViewUnknown34Class (0x1F8 bytes): its functions are real (unknown_msgbox.cpp), its slots are Dialog_Table's zero slots
+static void *Dialog_Table[64];
 static struct FakeUIViewStruct { char Unknown00[0x34]; void *Dialog; } Fake_UI_View = { { 0 }, Fake_Dialog_Storage };
 // SClient::Unknown_742530 (the view switch, real since 2026-10-31) calls slot +0x7C (two arguments) of the PDA, the chat panel,
 // the hot keys and the line display, and slot +0x5C of the main view's +0x34 object: these fakes have a table that pops them
@@ -237,7 +238,7 @@ static void __stdcall Switch_7C_Slot(void *, int) {}
 static void __stdcall Switch_5C_Slot() {}
 static void *Switch_Pda[0xC0 / 4];			// SClient +0x1284 (Test_Path puts the +0xA8 object in it)
 static void *Switch_Hot_Keys[0x84 / 4];		// SClient +0x1290
-static void *Switch_Main_34[0x40 / 4];		// the main view's +0x34 object
+static void *Switch_Main_34[0x1F8 / 4];	// the main view's +0x34 object: sclient.h's ViewUnknown34Class (0x1F8 bytes; its 0x5890B0 is real: +0xB0, the button, stays 0)
 // InterfaceSortClass (local_interface_sort.cpp, real now) takes the view's slot +0x50 scene's sort list at +0x9C: a zeroed scene whose list
 // is a zeroed InterfaceStaticSortListClass (no current, front or back interface), so Set_Current_Front / Back swap nothing
 static char Fake_Sort_List[0x100];
@@ -1819,6 +1820,8 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 	}
 	UIViewClass *view = client->CurrentView;
 	client->CurrentView = (UIViewClass *)main_view;
+	// the dialog shown (+0x7C Active): the real 0x588A70 queues the question (0x589140) instead of building the box
+	((char *)Fake_Dialog_Storage)[0x7C] = 1;
 	client->Unknown119C = "";
 	Memory->Incoming.push_back(Two_Strings(200, "Alex", "Earthlings"));
 	client->Process_Packets();
@@ -1826,6 +1829,7 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 	Memory->Incoming.push_back(Two_Strings(216, "Old Guild", "New Guild"));
 	client->Process_Packets();
 	Check(client->Unknown119C == "", "216: the rename question to the dialog, +0x119C = \"\"");
+	((char *)Fake_Dialog_Storage)[0x7C] = 0;
 	client->CurrentView = view;
 
 	std::string other("Alex"), guild("Earthlings");
@@ -1924,6 +1928,7 @@ static void Test_Chat_Lists(SClient *client)
 
 	UIViewClass *view = client->CurrentView;
 	client->CurrentView = (UIViewClass *)Test_Main_View;
+	((char *)Fake_Dialog_Storage)[0x7C] = 1;	// shown: the real 0x588A70 queues the questions (as (4k))
 	int types[] = { 0, 1, 3, 5, 7, 9, 11, 13, 16, 18, 20 };
 	int asked = 0;
 	for (int t = 0; t < (int)(sizeof(types) / sizeof(types[0])); t++) {
@@ -1937,6 +1942,7 @@ static void Test_Chat_Lists(SClient *client)
 		asked += (client->Unknown119C == "Alex");
 	}
 	Check(asked == 11, "GUILD_SIMPLE_SECTOR_CLIENT 204: each of the eleven types asks its question (+0x119C = the name)");
+	((char *)Fake_Dialog_Storage)[0x7C] = 0;
 	client->CurrentView = view;
 	Memory->Received = 0;
 }
@@ -2050,6 +2056,10 @@ int main(int argc, char **argv)
 	Switch_Pda[0] = Switch_Table;
 	Switch_Hot_Keys[0] = Switch_Table;
 	Switch_Main_34[0] = Switch_Table;
+	for (int d = 0; d < 64; d++) {
+		Dialog_Table[d] = (void *)Zero_Slot;
+	}
+	Fake_Dialog_Storage[0] = (int)Dialog_Table;
 	client->PDAInterface = (PDAInterfaceClass *)Switch_Pda;
 	client->HotKeys = (UIHotKeysClass *)Switch_Hot_Keys;
 	// Unknown_742530 calls the real smouse.cpp 0x515340 on the software mouse (+0x1274): a zeroed one (no cursor model, no drag)
