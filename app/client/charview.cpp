@@ -898,13 +898,15 @@ void CharacterViewClass::Unknown_67B750()
 	}
 }
 
-// NOT EXACT: functional (D64): the intensities read from the client's stack tables are approximate (1)
+
 // 0x67B7A0
 void CharacterViewClass::Unknown_67B7A0(int set)
 {
 	Vector3 direction[2] = { Vector3(-0.66f, -1.0f, 1.0f), Vector3(-1.0f, -0.4f, 0.0f) };
 	Vector3 diffuse[2] = { Vector3(1.0f, 1.0f, 1.0f), Vector3(1.0f, 1.0f, 1.0f) };
 	Vector3 back[2] = { Vector3(0.0f, 0.0f, 0.0f), Vector3(0.8f, 0.3f, 0.3f) };
+	float intensity[2] = { 3.0f, 1.0f };
+	float back_intensity[2] = { 1.0f, 1.0f };
 	if (Unknown06C) {
 		for (int i = 0; i < 2; i++) {
 			if (Unknown3A8[i]) {
@@ -914,7 +916,7 @@ void CharacterViewClass::Unknown_67B7A0(int set)
 			}
 		}
 		Unknown3A8[0] = new LightClass(LightClass::DIRECTIONAL);
-		Unknown3A8[0]->Set_Intensity(1.0f);
+		Unknown3A8[0]->Set_Intensity(intensity[set]);
 		Unknown3A8[0]->Set_Force_Visible(true);
 		Unknown3A8[0]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
 		Unknown3A8[0]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
@@ -923,7 +925,7 @@ void CharacterViewClass::Unknown_67B7A0(int set)
 		Unknown3A8[0]->Set_Transform(Matrix3D::Identity);
 		Unknown3A8[0]->Set_Spot_Direction(direction[set]);
 		Unknown3A8[1] = new LightClass(LightClass::DIRECTIONAL);
-		Unknown3A8[1]->Set_Intensity(1.0f);
+		Unknown3A8[1]->Set_Intensity(back_intensity[set]);
 		Unknown3A8[1]->Set_Force_Visible(true);
 		Unknown3A8[1]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
 		Unknown3A8[1]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
@@ -1010,7 +1012,6 @@ void CharacterViewClass::Unknown_67AF70(float time)
 	}
 }
 
-
 // 0x67B320
 void CharacterViewClass::Unknown_67B320()
 {
@@ -1025,7 +1026,6 @@ void CharacterViewClass::Unknown_67B320()
 		}
 	}
 }
-
 
 // 0x67B390
 void CharacterViewClass::Unknown_67B390(int race, int profession)

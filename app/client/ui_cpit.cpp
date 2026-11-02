@@ -1914,7 +1914,7 @@ void UICpitClass::Unknown_583F70()
 }
 
 // 0x584000: whether the avatar's engine runs (its MaxSpeed is set), else the message when report is set
-// NOT EXACT: order (the client keeps an epilogue at each early return and the found path inline; ours shares one exit)
+// 0x584000
 bool UICpitClass::Unknown_584000(bool report)
 {
 	SClient *sclient = (SClient *)Client;
@@ -1923,9 +1923,12 @@ bool UICpitClass::Unknown_584000(bool report)
 	if (!avatar->AuxData) return(false);
 	NameClass name("MaxSpeed");
 	DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
-	if (t && t->Unknown70 && t->Value != 0.0f) return(true);
-	if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
-	return(false);
+	bool ok = (t && t->Unknown70 && t->Value != 0.0f);
+	if (!ok) {
+		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
+		return(false);
+	}
+	return(true);
 }
 
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
@@ -1934,9 +1937,6 @@ void UICpitClass::Unknown_584110()
 	RefCountPtr<FontStyleClass> warpfont = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", (unsigned int)Mesh->Peek_Object()));
 	RefCountPtr<FontStyleClass> distressfont = Create_Get(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", (unsigned int)Mesh->Peek_Object()));
 	RefCountPtr<FontStyleClass> spacefont = Create_Get(Unknown_BE67C4->Get_Style("SPACE_CPIT", (unsigned int)Mesh->Peek_Object()));
-
-
-
 
 
 

@@ -1001,11 +1001,13 @@ void ScriptedMovieViewClass::Unknown_802900()
 }
 
 // 0x802930: SClient::Do_Frame ends the movie when it is true (also before +0x6C / +0x6D are set)
-// NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps
-// to one mov eax, 1 (forms: the && chain, an if with != false, this || chain)
+
+// 0x802930
 bool ScriptedMovieViewClass::Unknown_802930()
 {
-	return(!Unknown6C || !Unknown6D || Unknown6E);
+	if (!Unknown6C || !Unknown6D)
+		return(true);
+	return(Unknown6E ? true : false);
 }
 
 // 0x802960: the keys while the movie plays (SClient::Do_Frame): Esc ends it, 0x22 the next camera, space
@@ -1034,8 +1036,6 @@ void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
 		}
 	}
 }
-
-
 
 
 

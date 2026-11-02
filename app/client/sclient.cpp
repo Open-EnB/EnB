@@ -366,16 +366,16 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)
 }
 
-// NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0)
+
 // 0x740BB0
 SClient::~SClient()
 {
 	Unknown_719E10(this);
-	delete Unknown1334;
+	if (Unknown1334) delete Unknown1334;
 	Unknown1334 = NULL;
-	delete Unknown1338;
+	if (Unknown1338) delete Unknown1338;
 	Unknown1338 = NULL;
-	delete ProjDecalManager;
+	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
@@ -2191,7 +2191,7 @@ void SClient::Unknown_745050()
 	Unknown1338->Unknown_760770(Unknown126C, Unknown1320);
 }
 
-// NOT EXACT: shape (explain.py; 15 masked rows): the client copies Get_Point's returned point through eax into a local before the fld/fstp into the element; four forms (attempts.py show 0x7451D0)
+
 // 0x7451D0
 void SClient::Unknown_7451D0()
 {
@@ -2199,17 +2199,17 @@ void SClient::Unknown_7451D0()
 	INIClass ini;
 	ini.Load("colors.ini");
 	char section[256];
+	TPoint3D<float> color;
 	int i = 0; while (true) {
 		_snprintf(section, 255, "Color%02d", i);
 		if (!ini.Find_Section(section)) break;
 		if (i >= Unknown1340.Length()) {
 			((VectorClass<Vector3> &)Unknown1340).Resize(i + 10);
 		}
-		TPoint3D<float> color = ini.Get_Point(section, "RGB", white);
-		Unknown1340[i] = Vector3(color.X, color.Y, color.Z);
+		color = ini.Get_Point(section, "RGB", white);
+		Unknown1340[i].Set(color.X, color.Y, color.Z);
 		i++; }
 }
-
 
 
 
@@ -2270,7 +2270,7 @@ void SClient::Unknown_745350()
 
 
 
-// NOT EXACT: field offset (explain.py; first: the FOV load): sprintf's CameraMode load is scheduled into another register and the Put_Float loads shift; four forms (attempts.py show 0x745490)
+
 // 0x745490
 bool SClient::Unknown_745490()
 {
@@ -2279,19 +2279,19 @@ bool SClient::Unknown_745490()
 	char filename[256];
 	_snprintf(filename, 255, "cam%d.ini", Ticket.Character_ID);
 	ini.Load(filename);
-	sprintf(section, "Mode%02d", CameraMode);
+	int index = CameraMode;
+	sprintf(section, "Mode%02d", index);
 	if (!ini.Find_Section(section)) {
 		return(false);
 	}
-	CameraModeStruct &mode = CameraModes[CameraMode];
-	ini.Put_Float(section, "Heading", RAD_TO_DEG(mode.Heading));
-	ini.Put_Float(section, "Distance", mode.Distance);
-	ini.Put_Float(section, "Tilt", RAD_TO_DEG(mode.Tilt));
-	ini.Put_Float(section, "FOV", RAD_TO_DEG(mode.FOV));
-	ini.Put_Float(section, "ElevationOffset", RAD_TO_DEG(mode.ElevationOffset));
+	CameraModeStruct *mode = &CameraModes[CameraMode];
+	ini.Put_Float(section, "Heading", RAD_TO_DEG(mode->Heading));
+	ini.Put_Float(section, "Distance", mode->Distance);
+	ini.Put_Float(section, "Tilt", RAD_TO_DEG(mode->Tilt));
+	ini.Put_Float(section, "FOV", RAD_TO_DEG(mode->FOV));
+	ini.Put_Float(section, "ElevationOffset", RAD_TO_DEG(mode->ElevationOffset));
 	return(ini.Save(filename) > 0);
 }
-
 
 
 

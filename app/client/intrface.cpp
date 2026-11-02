@@ -326,7 +326,7 @@ void InterfaceClass::Unknown_80()
 }
 
 
-// NOT EXACT: register (0.77; the view's +0x2C in eax and the table in edx in the client, the other way round here)
+// 0x541690
 void InterfaceClass::Unknown_84()
 {
 	FAIL_IF(!PartialDeactivatedGadget) return;
@@ -334,8 +334,10 @@ void InterfaceClass::Unknown_84()
 	InterfaceSortClass sort(this);
 	Unknown58.Unknown_686E90();
 	Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
-	PartialDeactivatedGadget->Unknown_58(View->Unknown2C);
-	GadgetClass::Destroy(PartialDeactivatedGadget);
+	UIViewClass *view = View;
+	PartialDeactivatedGadget->Unknown_58(view->Unknown2C);
+	GadgetClass *gadget = PartialDeactivatedGadget;
+	GadgetClass::Destroy(gadget);
 	PartialDeactivatedGadget = NULL;
 }
 
@@ -359,8 +361,6 @@ InterfaceStaticSortListClass *InterfaceClass::Unknown_541800()
 	}
 	return(scene->SSL);
 }
-
-
 
 
 

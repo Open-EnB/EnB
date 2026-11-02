@@ -259,32 +259,32 @@ void TutorialManagerClass::Write_Completed_File()
 		file.Close();
 	}
 }
-// NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates
+// 0x6AD4B0
+static inline void Add_Completed_Name(std::list<char *> &list, char *name)
+{
+	list.push_back(name);
+}
 bool TutorialManagerClass::Read_Completed_File(bool ignore)
 {
 	if (Full_Path_File_Exists("tutorial.dat")) {
 		if (!ignore) {
-			Completed.push_back(nstrdup("Welcome"));
-			Completed.push_back(nstrdup("WelcomeReg"));
-			Completed.push_back(nstrdup("ClassSelectionIntro"));
-			Completed.push_back(nstrdup("ClassSelectionIntro"));
-			Completed.push_back(nstrdup("AvatarCreationIntro"));
-			Completed.push_back(nstrdup("AvatarCreationHead"));
-			Completed.push_back(nstrdup("AvatarCreationBody"));
-			Completed.push_back(nstrdup("ShipCreationGeometry"));
-			Completed.push_back(nstrdup("ShipCreationColor"));
-			Completed.push_back(nstrdup("ShipCreationDecal"));
-			Completed.push_back(nstrdup("ShipCreationName"));
-			Completed.push_back(nstrdup("ChooseShard"));
+			Add_Completed_Name(Completed, nstrdup("Welcome"));
+			Add_Completed_Name(Completed, nstrdup("WelcomeReg"));
+			Add_Completed_Name(Completed, nstrdup("ClassSelectionIntro"));
+			Add_Completed_Name(Completed, nstrdup("ClassSelectionIntro"));
+			Add_Completed_Name(Completed, nstrdup("AvatarCreationIntro"));
+			Add_Completed_Name(Completed, nstrdup("AvatarCreationHead"));
+			Add_Completed_Name(Completed, nstrdup("AvatarCreationBody"));
+			Add_Completed_Name(Completed, nstrdup("ShipCreationGeometry"));
+			Add_Completed_Name(Completed, nstrdup("ShipCreationColor"));
+			Add_Completed_Name(Completed, nstrdup("ShipCreationDecal"));
+			Add_Completed_Name(Completed, nstrdup("ShipCreationName"));
+			Add_Completed_Name(Completed, nstrdup("ChooseShard"));
 		}
 		return true;
 	}
 	return false;
 }
-
-
-
-
 
 
 

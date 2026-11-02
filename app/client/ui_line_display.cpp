@@ -91,7 +91,7 @@ extern unsigned int Unknown_BFAE3C;							// NAME 1 [Unknown_BFAE3C]: neutral (D
 extern unsigned int Unknown_BFAE40;							// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame
 
 
-// NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it
+// 0x5A4B50
 EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""), TotalChance(0)
 {
 	for (int i = 0; i < 5; i++) {
@@ -113,18 +113,19 @@ EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""),
 			if (!ini.Find_Entry(section, entry)) {
 				break;
 			}
-			StringClass type;
-			ini.Get_String(type, section, entry, "");
-			FontType[font] = type;
-			_snprintf(entry, sizeof(entry), "FontChance%02d", font);
-			float chance = ini.Get_Float(section, entry, 0);
-			TotalChance = TotalChance + chance;
-			Chance[font] = TotalChance;
+			{
+				StringClass type;
+				ini.Get_String(type, section, entry, "");
+				FontType[font] = type;
+				_snprintf(entry, sizeof(entry), "FontChance%02d", font);
+				float chance = ini.Get_Float(section, entry, 0);
+				TotalChance = TotalChance + chance;
+				Chance[font] = TotalChance;
+			}
 			font++;
 		}
 	}
 }
-
 
 std::string EphemeralStruct::Pick_Font()
 {
@@ -136,7 +137,6 @@ std::string EphemeralStruct::Pick_Font()
 	}
 	return std::string("");
 }
-
 
 LineDisplayStringStruct::LineDisplayStringStruct(const char *name) : Name(name)
 {

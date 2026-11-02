@@ -1358,7 +1358,7 @@ void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration,
 
 
 
-// NOT EXACT: 0x712170 order: the tangent's three products come in the client's order but its sums pair (V0 + D) first and use other slots
+// 0x712170
 void Unknown7119B0Class::Unknown_712170(int time, Vector3 *position, Vector3 *velocity)
 {
 	G_ASSERT(time >= StartTime && time <= EndTime);
@@ -1375,12 +1375,12 @@ void Unknown7119B0Class::Unknown_712170(int time, Vector3 *position, Vector3 *ve
 		float dh = 6.0f * t - 6.0f * t2;
 		float dc = 3.0f * t2 - 4.0f * t + 1.0f;
 		float dd = 3.0f * t2 - 2.0f * t;
-		*velocity = (1.0f / (float)(EndTime - StartTime)) * (Unknown34 * dd + Unknown14 * dc + Unknown28 * dh);
+		Vector3 a = Unknown28 * dh;
+		Vector3 b = Unknown14 * dc;
+		Vector3 c = Unknown34 * dd;
+		*velocity = (1.0f / (float)(EndTime - StartTime)) * (b + a + c);
 	}
 }
-
-
-
 
 
 

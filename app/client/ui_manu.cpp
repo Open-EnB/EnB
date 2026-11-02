@@ -266,15 +266,15 @@ void UIManuClass::Unknown_58()
 	}
 }
 
-// NOT EXACT: register (the packets' player id in eax, the three sub-windows' slot +0x5C calls one register off) (0x5B10A0)
+static inline int Manu_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as the client's inline accessor
 void UIManuClass::Unknown_5C()
 {
 	State = UI_CLOSED;
 	Unknown0AC->Unknown_69DC60();
 	Unknown0BAE = false;
 	SClient *sclient = Client->As_Space_Client();
-	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(sclient->Unknown1138, 0));
-	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 0));
+	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(Manu_Player_Id(sclient), 0));
+	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Manu_Player_Id(sclient), 0));
 	Unknown0B4->Unknown_5C();
 	Unknown0B8->Unknown_5C();
 	Unknown0BC->Unknown_5C();

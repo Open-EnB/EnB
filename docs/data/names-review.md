@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1148 |
-| 2 | describes what the code does | 2878 |
+| 2 | describes what the code does | 2881 |
 | 1 | neutral placeholder | 10511 |
 
 ## For review (score 3 and below)
@@ -217,9 +217,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C` | `app/client/charview.cpp:877` | untagged neutral name (D10) |
 | 1 | `Unknown_67B750` | `app/client/charview.cpp:890` | untagged neutral name (D10) |
 | 1 | `Unknown_67B7A0` | `app/client/charview.cpp:903` | untagged neutral name (D10) |
-| 1 | `Unknown_67BB90` | `app/client/charview.cpp:940` | untagged neutral name (D10) |
-| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:989` | untagged neutral name (D10) |
-| 1 | `Unknown_67B320` | `app/client/charview.cpp:1015` | untagged neutral name (D10) |
+| 1 | `Unknown_67BB90` | `app/client/charview.cpp:942` | untagged neutral name (D10) |
+| 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.cpp:991` | untagged neutral name (D10) |
+| 1 | `Unknown_67B320` | `app/client/charview.cpp:1016` | untagged neutral name (D10) |
 | 1 | `Unknown_67B390` | `app/client/charview.cpp:1031` | untagged neutral name (D10) |
 | 1 | `Unknown_7896B0` | `app/client/charview.cpp:1052` | untagged neutral name (D10) |
 | 1 | `Unknown_67B4F0` | `app/client/charview.cpp:1062` | untagged neutral name (D10) |
@@ -2686,8 +2686,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_54` | `app/client/intrface.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/intrface.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/intrface.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown_5417D0` | `app/client/intrface.cpp:342` | untagged neutral name (D10) |
-| 1 | `Unknown_541800` | `app/client/intrface.cpp:351` | untagged neutral name (D10) |
+| 1 | `Unknown_5417D0` | `app/client/intrface.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/intrface.cpp:353` | untagged neutral name (D10) |
 | 1 | `Unknown_541930` | `app/client/intrface.cpp:443` | untagged neutral name (D10) |
 | 1 | `UIUnknownBaseClass` | `app/client/intrface.h:12` | untagged neutral name (D10) |
 | 1 | `GClassUnknownClass` | `app/client/intrface.h:13` | untagged neutral name (D10) |
@@ -3608,7 +3608,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_745000` | `app/client/sclient.cpp:2181` | untagged neutral name (D10) |
 | 1 | `Unknown_513540` | `app/client/sclient.cpp:2184` | untagged neutral name (D10) |
 | 1 | `Unknown_745050` | `app/client/sclient.cpp:2189` | untagged neutral name (D10) |
-| 1 | `Unknown1340` | `app/client/sclient.cpp:2205` | untagged neutral name (D10) |
+| 1 | `Unknown1340` | `app/client/sclient.cpp:2206` | untagged neutral name (D10) |
 | 1 | `Unknown_513CD0` | `app/client/sclient.cpp:2243` | untagged neutral name (D10) |
 | 1 | `Unknown10F4` | `app/client/sclient.cpp:2243` | untagged neutral name (D10) |
 | 1 | `Unknown_513D20` | `app/client/sclient.cpp:2244` | untagged neutral name (D10) |
@@ -4440,7 +4440,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8027C0` | `app/client/scriptedmovie.cpp:968` | untagged neutral name (D10) |
 | 1 | `Unknown_802900` | `app/client/scriptedmovie.cpp:996` | untagged neutral name (D10) |
 | 1 | `Unknown_802930` | `app/client/scriptedmovie.cpp:1006` | untagged neutral name (D10) |
-| 1 | `Unknown_802960` | `app/client/scriptedmovie.cpp:1013` | untagged neutral name (D10) |
+| 1 | `Unknown_802960` | `app/client/scriptedmovie.cpp:1015` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED6C0` | `app/client/scriptedmovie.cpp:1114` | untagged neutral name (D10) |
 | 1 | `Unknown_807520` | `app/client/scriptedmovie.cpp:1139` | untagged neutral name (D10) |
 | 1 | `Unknown_803310` | `app/client/scriptedmovie.cpp:1146` | untagged neutral name (D10) |
@@ -6640,15 +6640,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Value` | `app/client/ui_group.cpp:96` | neutral |
 | 1 | `UIGroupUnknownE8Class` | `app/client/ui_group.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_group.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_group.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_group.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/ui_group.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_group.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_group.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_592C50` | `app/client/ui_group.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_group.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_group.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_group.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_592C50` | `app/client/ui_group.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_592BB0` | `app/client/ui_group.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_592A80` | `app/client/ui_group.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_496110` | `app/client/ui_group.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_group.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ui_group.cpp:217` | untagged neutral name (D10) |
 | 1 | `Unknown_Group_Find` | `app/client/ui_group.cpp:223` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_group.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_group.cpp:239` | untagged neutral name (D10) |
@@ -10594,7 +10594,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/buff_database.h:43` | describes what it does |
 | 2 | `Instance` | `app/client/buff_database.h:45` | describes what it holds |
 | 2 | `std:` | `app/client/buff_database.h:48` | describes what it holds |
-| 2 | `std:` | `app/client/cfaction_database.cpp:39` | what Get_Name and Get_Description return for an unknown faction |
+| 2 | `std:` | `app/client/cfaction_database.cpp:42` | what Get_Name and Get_Description return for an unknown faction |
 | 2 | `Init` | `app/client/cfaction_database.h:27` | describes what it does |
 | 2 | `Shutdown` | `app/client/cfaction_database.h:28` | describes what it does |
 | 2 | `std:` | `app/client/cfaction_database.h:29` | describes what it does |
@@ -10812,10 +10812,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
 | 2 | `Load_Alloc_Data` | `app/client/deffont.h:27` | Westwood's name for the whole-file load (wwlib's Load_Alloc_Data(FileClass &)) |
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
+| 2 | `Or_Flags` | `app/client/dynamic_window_horizontal.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
+| 2 | `Or_Flags` | `app/client/dynamic_window_vertical.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_vertical.h:21` | class from file (D24), dynamic_window_vertical.cpp |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
 | 2 | `Get_Flag` | `app/client/eff_o.h:82` | what it does |
@@ -11662,6 +11664,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Render_Obj` | `app/client/ui_login.cpp:105` | what it does (the asset manager's slot) |
 | 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:32` | fontdatabase.h's |
+| 2 | `Manu_Player_Id` | `app/client/ui_manu.cpp:269` | the player id read as the client's inline accessor |
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |
 | 2 | `Owner` | `app/client/ui_manu.cpp:326` | what it holds |
 | 2 | `Owner` | `app/client/ui_manu.cpp:342` | what it holds |

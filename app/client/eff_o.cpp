@@ -720,7 +720,7 @@ void UnknownB0009CEffectClass::Unknown_18()
 	}
 }
 
-// NOT EXACT: frame (0x8C bytes of locals, the client's 0x80: one Vector3 temporary more; the target's position plus TargetOffset also loads in the other order; 4 forms)
+
 // 0x6E8890
 void UnknownB0009CEffectClass::Unknown_1C()
 {
@@ -735,7 +735,7 @@ void UnknownB0009CEffectClass::Unknown_1C()
 		LineSegClass line(SourcePosition, TargetPosition);
 		CastResultStruct result;
 		if (CollisionMath::Collide(line, sphere, &result)) {
-			TargetPosition = line.Get_P0() + line.Get_DP() * result.Fraction;
+			line.Compute_Point(result.Fraction, &TargetPosition);
 		}
 	}
 }

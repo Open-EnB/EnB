@@ -148,21 +148,21 @@ public:
 
 
 // 0x592910
-// NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor)
+
 UIGroupUnknownE8Class::UIGroupUnknownE8Class(UIGroupClass *owner) :
-	Unknown00(owner),
-	Unknown20(0),
-	Unknown24(0),
-	Unknown28(0),
-	Unknown2C(-1),
-	Unknown30(0)
+	Unknown00(owner)
 {
+	int *p = &Unknown20;
+	p[0] = 0;
+	p[1] = 0;
+	p[2] = 0;
+	Unknown2C = -1;
+	Unknown30 = 0;
 	for (int i = 0; i < 6; i++) {
 		Unknown08[i] = NULL;
 	}
 	Unknown_592C50();
 }
-
 
 
 // 0x5929E0
@@ -686,7 +686,7 @@ RefCountPtr<RenderObjClass> UIGroupUnknownE8Class::Unknown_5944A0()
 
 
 // 0x5944D0
-// NOT EXACT: order (the client stores +0xEC = 0 before it reads +0xC0; '0.0f' and a named gadget local tried)
+
 void UIGroupClass::Unknown_60()
 {
 	Unknown_596770(false);
@@ -698,8 +698,9 @@ void UIGroupClass::Unknown_60()
 		Unknown0EC -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
 		if (Unknown0EC < 0.0f) {
 			Unknown0EC = 0;
-			Unknown0C0[0]->Unknown2C800 = false;
-			Unknown0C0[0]->Unknown_6607D0();
+			GadgetClass **buttons = Unknown0C0;
+			(*buttons)->Unknown2C800 = false;
+			(*buttons)->Unknown_6607D0();
 			Unknown5BB320Class::Unknown_60();
 			return;
 		}
@@ -707,7 +708,6 @@ void UIGroupClass::Unknown_60()
 	}
 	Unknown5BB320Class::Unknown_60();
 }
-
 
 
 
@@ -1380,7 +1380,7 @@ void UIGroupClass::Unknown_596DB0()
 
 
 // 0x596E20
-// NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried)
+
 void UIGroupClass::Unknown_596E20(const char *text, bool leader)
 {
 	if (!Unknown0F1) {
@@ -1396,10 +1396,10 @@ void UIGroupClass::Unknown_596E20(const char *text, bool leader)
 		}
 		char message[128];
 		_snprintf(message, sizeof(message), "<S>%d%s`%s", leader ? 1 : 0, name, text);
-		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->AvatarID, message, 1, NULL));
+		int id = ((ClientClass *)Client)->AvatarID;
+		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(id, message, 1, NULL));
 	}
 }
-
 
 
 
@@ -1470,7 +1470,7 @@ int UIGroupClass::Unknown_597200(RefCountPtr<RenderObjClass> model)
 
 
 // 0x597310
-// NOT EXACT: register (model and the sub-object temporary in each other's registers; the level offsets as two adds in the client)
+
 void UIGroupClass::Unknown_597310(RefCountPtr<RenderObjClass> model, bool raise)
 {
 	if (model == NULL) {
@@ -1478,28 +1478,28 @@ void UIGroupClass::Unknown_597310(RefCountPtr<RenderObjClass> model, bool raise)
 	}
 	int level = Unknown_597200(model);
 	RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name("main"));
-	const char **name;
-	for (name = Unknown_B7F4B8; *name; name++) {
-		sub = Create_Get(model->Get_Sub_Object_By_Name(*name));
+	int i;
+	for (i = 0; Unknown_B7F4B8[i]; i++) {
+		sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7F4B8[i]));
 		if (sub != NULL) {
-			sub->Set_Sort_Level(level + (raise ? 2 : -2));
+			if (raise) {
+				sub->Set_Sort_Level(level + 2);
+			} else {
+				sub->Set_Sort_Level(level - 2);
+			}
 		}
 	}
-	for (name = Unknown_B7F4C4; *name; name++) {
-		sub = Create_Get(model->Get_Sub_Object_By_Name(*name));
+	for (i = 0; Unknown_B7F4C4[i]; i++) {
+		sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7F4C4[i]));
 		if (sub != NULL) {
-			sub->Set_Sort_Level(level + (raise ? 1 : -1));
+			if (raise) {
+				sub->Set_Sort_Level(level + 1);
+			} else {
+				sub->Set_Sort_Level(level - 1);
+			}
 		}
 	}
 }
-
-
-
-
-
-
-
-
 
 
 
