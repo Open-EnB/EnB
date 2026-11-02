@@ -1,8 +1,8 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's window and display (D179). NOT THE CLIENT'S CODE.
 /*
 **	Functional stand-ins, written from Ghidra's pseudocode of the client's functions, for what WinMain
-**	(app\main\main_client.cpp) needs before anything can draw: E&B's asset manager's constructor
-**	(0x48B070). Delete one here when its real function lands in app/ (the linker reports the duplicate).
+**	(app\main\main_client.cpp) needs before anything can draw (none left: E&B's asset manager's
+**	constructor 0x48B070 is app's now). Delete one here when its real function lands in app/ (the linker reports the duplicate).
 **
 **	The display is the client's own (app\display\display.cpp, 0x442AC0): the registry's render device
 **	(read only, RegistryClass below), windowed when the registry says so; ENB_POC_WINDOWED has no effect.
@@ -84,16 +84,4 @@ int Unknown_42FBA0(int message, int wparam, int lparam);
 
 // app\input\w32window.cpp has it (0x431CA0) and its window procedure (0x431DE0).
 
-// ---------------------------------------------------------------- E&B's asset manager
-
-class UnknownBDADC0Class : public WW3DAssetManager
-{
-public:
-	UnknownBDADC0Class();
-};
-
-// 0x48B070: the tree's WW3DAssetManager alone (E&B's overrides are not written yet)
-UnknownBDADC0Class::UnknownBDADC0Class()
-{
-	STUB_CALLED("POC UnknownBDADC0Class (0x48B070): a plain WW3DAssetManager");
-}
+// E&B's asset manager's constructor 0x48B070 is app\shared\enbassetmgr.cpp's (its own table slots not yet written).

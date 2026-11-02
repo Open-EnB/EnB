@@ -3606,6 +3606,17 @@
      "0x6ECB70"
     ]
    },
+   "enbassetmgr": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x48B0A0",
+     "0x48F680"
+    ],
+    "merged": [],
+    "name": "shared/enbassetmgr.cpp"
+   },
    "encode": {
     "ambiguous": [
      "0x42B2F0"
