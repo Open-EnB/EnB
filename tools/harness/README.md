@@ -424,7 +424,8 @@ the focused task alone gets Pre_Run and Render, Set_Focus / Next_Focus respect a
 yield, a task removing itself during its Run is shut down and deleted after it (Pending_Delete),
 another removed from inside a Run is deleted at once, Shutdown asks the focused task to yield,
 then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
-a second kernel). 2026-10-24: 35 of 35 expected lines in order.
+a second kernel). 2026-10-24: 35 of 35 expected lines in order; 2026-11-02 (56d6c356, after it had stopped
+linking at 6a08fe5d): 81 of 81 expected lines in order (100 lines in all).
 
 ## The client base, SClient and the packet handlers (D94(c), kernel-map step 9d)
 
