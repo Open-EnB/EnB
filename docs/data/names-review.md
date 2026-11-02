@@ -27,8 +27,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `m_Unknown168` | `app/audio/soundlib.cpp:44` | untagged neutral name (D10) |
 | 1 | `m_Unknown16C` | `app/audio/soundlib.cpp:45` | untagged neutral name (D10) |
 | 1 | `SoundINIClass` | `app/audio/soundlib.cpp:800` | an INIClass with its own vtable 0xAE7500 (destructor only) |
-| 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
-| 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:885` | untagged neutral name (D10) |
+| 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
+| 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:6` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:11` | untagged neutral name (D10) |
@@ -8281,9 +8281,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/input/w32mouse.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown_431DE0, window, message, wparam, lparam` | `app/input/w32window.cpp:5` | neutral (D10) |
 | 1 | `Unknown_431DE0` | `app/input/w32window.cpp:5` | untagged neutral name (D10) |
-| 1 | `Unknown_431CA0, instance, width, height, topmost` | `app/input/w32window.cpp:8` | as main_client.cpp |
-| 1 | `Unknown_431CA0` | `app/input/w32window.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown_42FBA0` | `app/input/w32window.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_431CA0, instance, width, height, topmost` | `app/input/w32window.cpp:7` | as main_client.cpp |
+| 1 | `Unknown_431CA0` | `app/input/w32window.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `app/input/w32window.cpp:37` | untagged neutral name (D10) |
 | 1 | `MessageHandlerStruct` | `app/input/winmsg.cpp:6` | neutral (D10) |
 | 1 | `Unknown_BDAAD8` | `app/input/winmsg.cpp:14` | neutral (D10) |
 | 1 | `Unknown_42F940` | `app/input/winmsg.cpp:16` | untagged neutral name (D10) |
@@ -9661,15 +9661,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_Unknown1218` | `app/shared/land.cpp:1003` | untagged neutral name (D10) |
 | 1 | `Clear_Unknown1218` | `app/shared/land.cpp:1008` | untagged neutral name (D10) |
 | 1 | `Unknown_4A1590` | `app/shared/land.cpp:1013` | neutral placeholder (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.cpp:1986` | untagged neutral name (D10) |
-| 1 | `LandNormalTable` | `app/shared/land.cpp:2051` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
-| 1 | `Unknown_46F120` | `app/shared/land.cpp:2153` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.cpp:2302` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.cpp:2346` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.cpp:2648` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2677` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/land.cpp:2679` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2683` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.cpp:1985` | untagged neutral name (D10) |
+| 1 | `LandNormalTable` | `app/shared/land.cpp:2050` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
+| 1 | `Unknown_46F120` | `app/shared/land.cpp:2152` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.cpp:2301` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.cpp:2345` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.cpp:2647` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/land.cpp:2676` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/land.cpp:2678` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.cpp:2682` | untagged neutral name (D10) |
 | 1 | `UnknownXX` | `app/shared/land.h:19` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:74` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:89` | members after their offsets (ctor 0x474530) |
@@ -9807,8 +9807,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_453A10` | `app/shared/px_callback_type.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown_453B10` | `app/shared/px_collision.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_453C20` | `app/shared/px_collision.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn2C` | `app/shared/px_collision.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/shared/px_collision.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn2C` | `app/shared/px_collision.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/shared/px_collision.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/px_collision.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Dyn84` | `app/shared/px_collision.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_454730` | `app/shared/px_collision.cpp:40` | untagged neutral name (D10) |
@@ -9844,11 +9844,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_456730` | `app/shared/px_wrapper.cpp:109` | untagged neutral name (D10) |
 | 1 | `Unknown_4568E0` | `app/shared/px_wrapper.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown_456900` | `app/shared/px_wrapper.cpp:245` | untagged neutral name (D10) |
-| 1 | `Unknown_456F60` | `app/shared/px_wrapper.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_452140` | `app/shared/px_wrapper.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown_457190` | `app/shared/px_wrapper.cpp:306` | untagged neutral name (D10) |
-| 1 | `Unknown_452460` | `app/shared/px_wrapper.cpp:308` | untagged neutral name (D10) |
-| 1 | `Unknown_4575E0` | `app/shared/px_wrapper.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown_456F60` | `app/shared/px_wrapper.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown_452140` | `app/shared/px_wrapper.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_457190` | `app/shared/px_wrapper.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_452460` | `app/shared/px_wrapper.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown_4575E0` | `app/shared/px_wrapper.cpp:326` | untagged neutral name (D10) |
 | 1 | `Unknown0D` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown_456F60` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown_457190` | `app/shared/px_wrapper.h:10` | untagged neutral name (D10) |
@@ -12862,13 +12862,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `land.cpp` | `app/shared/land.cpp:1015` | the .dcb's first word (0x4795D0, 0x479A50) |
 | 2 | `LandDecorationRecordStruct` | `app/shared/land.cpp:1018` | a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground |
 | 2 | `Land_Add_Name` | `app/shared/land.cpp:1040` | one inline level around the name's string and push_back: the client calls the string's assign and the names' |
-| 2 | `LandDecorationVertexStruct` | `app/shared/land.cpp:1195` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
-| 2 | `Land_Find_Decoration_Mesh` | `app/shared/land.cpp:1252` | after what it does |
-| 2 | `std:` | `app/shared/land.cpp:1289` | after what it does |
-| 2 | `LandVertexStruct` | `app/shared/land.cpp:1591` | the patch vertex, FVF 0x202 (0x4746C0) |
-| 2 | `LandDirectionX` | `app/shared/land.cpp:1920` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `Pack_Slope8` | `app/shared/land.cpp:1924` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
-| 2 | `LandHorizonTable` | `app/shared/land.cpp:1962` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `LandDecorationVertexStruct` | `app/shared/land.cpp:1194` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
+| 2 | `Land_Find_Decoration_Mesh` | `app/shared/land.cpp:1251` | after what it does |
+| 2 | `std:` | `app/shared/land.cpp:1288` | after what it does |
+| 2 | `LandVertexStruct` | `app/shared/land.cpp:1590` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDirectionX` | `app/shared/land.cpp:1919` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `Pack_Slope8` | `app/shared/land.cpp:1923` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
+| 2 | `LandHorizonTable` | `app/shared/land.cpp:1961` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandDecorationStruct` | `app/shared/land.h:63` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
 | 2 | `Init` | `app/shared/land.h:81` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
@@ -13292,10 +13292,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
 | 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
-| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1913` | what it does (the client has no name) |
-| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1923` | what it does (the client has no name) |
-| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1933` | what it does (the client has no name) |
-| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1946` | what it does (the client has no name) |
+| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1916` | what it does (the client has no name) |
+| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1926` | what it does (the client has no name) |
+| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1936` | what it does (the client has no name) |
+| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1949` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:300` | describes what it holds |
