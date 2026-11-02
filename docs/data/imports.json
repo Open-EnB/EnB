@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 89,
+  "ambiguous_total": 117,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -13390,7 +13390,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 6427,
+  "in_tree_total": 7025,
   "totals": {}
  },
  "binkmovie": {
@@ -13783,7 +13783,7 @@
    "wtime.h": "Z",
    "xtime.h": "Z"
   },
-  "in_tree_total": 137,
+  "in_tree_total": 139,
   "totals": {
    "Z": 74
   }
