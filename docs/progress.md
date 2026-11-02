@@ -34,7 +34,10 @@ were pulled in at 12:26 and the window reopened in small steps.
   (BTN: the buttons and the text cursor), dynamic_window_background / class / render_object / horizontal / vertical.cpp
   (DW1); dynamic_window_text / multi_line_text.cpp (DW1, +177 over four rounds); local_interface_sort.cpp and the shared InterfaceSortScopeClass (LS); ui_login / ui_avsel on the real gadget, button, text-box, scope and signal-map classes. **Where it stands:** POC run 19 (16:02, d00a9ff6): the client starts, opens the real window and display, runs the font system, the menu task hands over to LoginTaskClass, CharacterViewClass builds its scenes, cameras, music and the login models, and LoginInterface is fully constructed; it runs 40 s without a crash and is killed. No screen is drawn yet: the login window's activation and update run on gen stand-ins, and FAIL_IF '!text' fontsys_cursor.cpp(86) fires twice (ui_login's / ui_avsel's local font-manager stand-ins). The startup movie completes at once (P-LINK-1); the scripted movie is skipped by its data (P-MC-1). Item 10 (antprox, D181) is not started.
 * **Health:** clienttest links and passes again (103/103; CT, CT2: its LNK2005 stand-ins deleted, fakes rebuilt, expected.txt
-  regenerated with every change explained); it had been broken two days unnoticed (P-CT-1). The POC run found a real bug
+  regenerated with every change explained); it had been broken two days unnoticed (P-CT-1), and broke again within two hours
+  of the fix (the coordinator's check at HEAD 414513c5: 23 unresolved); CT3 (f1e3d0dc) links it at HEAD again (103/103,
+  3,168 lines; clienttest.py takes udpreplay's Xtime / wdebug stand-ins and LIBCIMT, the exe no longer imports
+  authlogin.dll); udpreplay build / run alex3 / handshake 54/54 pass at the end. The POC run found a real bug
   byte matching had hidden: combo_ffactory asked `_TheFileFactory` instead of `_TheSimpleFileFactory` and recursed (937c3ab9).
 * **Decisions:** D179 (the POC's folder and modal-dialog rules), D180 (P-LG1-1 kept), D181 (P-POC-4, the user at ~12:40:
   antprox may run; HKCU edits to E&B keys allowed; unelevated). The coordinator's calls (client evidence, D137 / the
