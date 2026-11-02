@@ -26,7 +26,7 @@
 class DynamicWindowClass : public DynamicWindowBackgroundClass  // NAME 1 [DynamicWindowClass]: from the file name dynamic_window_class.cpp
 {
 public:
-	DynamicWindowClass(const char *name, bool unknown);											// 0x517240 (the callers pass true; not read)  // NAME 1 [name, unknown]: the dynawin.ini section; neutral
+	DynamicWindowClass(const char *name, int unknown);												// 0x517240 (not read; the callers pass 3 (DIALOG_BOX_WINDOW 0x587747), 20 (TOOLTIPS 0x6AB394))  // NAME 1 [name, unknown]: the dynawin.ini section; neutral
 	virtual ~DynamicWindowClass();																// +0x04 0x517490 (deleting 0x517460)
 
 	void Remove_All(bool recursive);															// 0x517580  // NAME 1 [Remove_All, recursive]

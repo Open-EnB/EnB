@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1148 |
-| 2 | describes what the code does | 2881 |
-| 1 | neutral placeholder | 10511 |
+| 3 | by convention from a client-named file or sibling | 1149 |
+| 2 | describes what the code does | 2883 |
+| 1 | neutral placeholder | 10529 |
 
 ## For review (score 3 and below)
 
@@ -4896,6 +4896,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5C` | `app/client/textgadg.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/textgadg.h:90` | untagged neutral name (D10) |
 | 1 | `Flags` | `app/client/textgadg.h:91` | neutral (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/tooltip.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/tooltip.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tooltip.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/tooltip.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown0E` | `app/client/tooltip.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown0F` | `app/client/tooltip.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tooltip.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/tooltip.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB930` | `app/client/tooltip.cpp:30` | untagged neutral name (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/tooltip.h:27` | neutral (D10) |
+| 1 | `view` | `app/client/tooltip.h:32` | what Init passes |
+| 1 | `Unknown_6AB5B0` | `app/client/tooltip.h:34` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/tooltip.h:35` | neutral |
+| 1 | `Unknown_6AB930` | `app/client/tooltip.h:35` | untagged neutral name (D10) |
+| 1 | `View` | `app/client/tooltip.h:37` | what the constructor stores |
+| 1 | `Unknown08` | `app/client/tooltip.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tooltip.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/tooltip.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown0E` | `app/client/tooltip.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown0F` | `app/client/tooltip.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tooltip.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/tooltip.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `Unknown_00` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
@@ -7743,10 +7765,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown65B810ViewClass` | `app/client/uiview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/uiview.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown1274` | `app/client/uiview.cpp:315` | untagged neutral name (D10) |
-| 1 | `UIViewUnknown30Class` | `app/client/uiview.h:33` | neutral (D10) |
-| 1 | `view` | `app/client/uiview.h:36` | what Init passes |
-| 1 | `Unknown_6AB5B0` | `app/client/uiview.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/uiview.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -11560,6 +11578,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Model` | `app/client/textgadg.h:82` | the constructor's model |
 | 2 | `Cursor` | `app/client/textgadg.h:83` | what it is |
 | 2 | `Box` | `app/client/textgadg.h:89` | what it holds |
+| 2 | `MAX_LINES` | `app/client/tooltip.h:30` | tooltip.cpp's assert 'lines > MAX_LINES' (0x6ABC60); the constructor makes 20 fonts |
+| 2 | `Lines` | `app/client/tooltip.h:48` | 'lines > MAX_LINES' |
 | 2 | `TutorialLineStruct` | `app/client/tutorial_manager.h:28` | what it holds (one Speech%d / Text%d pair, 0xC bytes) |
 | 2 | `Speech` | `app/client/tutorial_manager.h:44` | the ini key |
 | 2 | `Text` | `app/client/tutorial_manager.h:45` | the ini key |
@@ -13691,6 +13711,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `print, s_size, cursorpos, prompt` | `app/client/textgadg.h:50` | the asserts'; NAME 1 [insert, password]: what 0x6AAD10 passes |
 | 3 | `TextGadgetClass` | `app/client/textgadg.h:69` | class-from-file (D24) for app\client\textgadg.cpp |
 | 3 | `pwidth, cp` | `app/client/textgadg.h:79` | the asserts'; NAME 1 [string, font]: neutral |
+| 3 | `tooltip.h` | `app/client/tooltip.h:17` | header name assumed from the client's tooltip.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
 | 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:18` | class-from-file (D24) for app\client\gadget.cpp |

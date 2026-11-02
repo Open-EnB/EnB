@@ -13676,6 +13676,25 @@
      "0x42F250"
     ]
    },
+   "tooltip": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6AB320",
+     "0x6AB4D0"
+    ],
+    "merged": [],
+    "name": "client/tooltip.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "tsk_game": {
     "ambiguous": [
      "0x42A6C0",
@@ -15918,6 +15937,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/textgadg.h": "reconstructed",
+   "client/tooltip.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
    "client/ui_avsel.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",

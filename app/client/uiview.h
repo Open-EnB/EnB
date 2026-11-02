@@ -29,15 +29,7 @@ class UIViewClass;
 // gadget_list_manager.cpp's manager (UIViewClass +0x2C; 0x4C bytes, constructor 0x6611B0, destructor 0x661430)
 #include "gadget_list_manager.h"
 
-// UIViewClass +0x30 (0x70 bytes, constructor 0x6AB320, destructor 0x6AB4D0)
-class UIViewUnknown30Class	// NAME 1: neutral (D10)
-{
-public:
-	UIViewUnknown30Class(UIViewClass *view);			// 0x6AB320 (Init 0x65A820 passes the view)  // NAME 1 [view]: what Init passes
-	~UIViewUnknown30Class();							// 0x6AB4D0
-	void Unknown_6AB5B0();								// 0x6AB5B0 (UIViewClass's +0x14 0x65B470)
-
-	char Unknown00[0x70];
-};
+// UIViewClass +0x30: the tooltip window (tooltip.cpp; 0x70 bytes, constructor 0x6AB320, destructor 0x6AB4D0)
+#include "tooltip.h"
 
 #endif //__UIVIEW_H
