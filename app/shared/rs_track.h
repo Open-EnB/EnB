@@ -8,6 +8,7 @@
 #include "rendobj.h"
 #include "sphere.h"
 #include "aabox.h"
+#include "listnode.h"
 
 class HAnimComboClass;
 class HAnimComboDataClass;
@@ -15,44 +16,52 @@ class CullableClass;
 class RsTrackClass;
 class RenderStateListClass;
 
-// rs_list.cpp's render state and render state list, declared as far as rs_track.cpp uses them
-// (interim placement: rs_list.cpp / its header are not in the tree yet; D137)
-class RenderStateClass	// NAME 2: rs_track.cpp's assert names State and Get_Render_State_List()
+// rs.cpp's render state and rs_list.cpp's render state list, declared as far as rs.cpp and rs_track.cpp use them
+// (interim placement: rs.h / rs_list.cpp are not in the tree yet; D137)
+class RenderStateClass : public Node<RenderStateClass *>	// NAME 2: rs_track.cpp's assert names State and Get_Render_State_List()
 {
 public:
-	virtual ~RenderStateClass();									// +0x00
-	virtual void Unknown_04();										// +0x04  // NAME 1: neutral (D10)
-	virtual void Unknown_08(RsTrackClass *owner, int link_id);		// +0x08 (INIT_RENDER_STATE 47)  // NAME 1 [owner, link_id]: neutral; what 0x460880 passes
-	virtual void Unknown_0C();										// +0x0C  // NAME 1: neutral (D10)
-	virtual void Unknown_10();										// +0x10  // NAME 1: neutral (D10)
-	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 (0x460440 activates through it)  // NAME 1 [owner]: neutral
-	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 (0x460710 deactivates through it)  // NAME 1 [owner]: neutral
-	virtual void Unknown_1C(RsTrackClass *owner);					// +0x1C  // NAME 1 [owner]: neutral
-	virtual RenderObjClass *Peek_Render_Object();					// +0x20  // NAME 2: the assert 'Peek_Render_Object()' at rs_track.cpp line 236
-	virtual void Unknown_24();										// +0x24  // NAME 1: neutral (D10)
-	virtual void Unknown_28();										// +0x28  // NAME 1: neutral (D10)
-	virtual void Unknown_2C();										// +0x2C  // NAME 1: neutral (D10)
-	virtual void Unknown_30();										// +0x30  // NAME 1: neutral (D10)
-	virtual void Unknown_34();										// +0x34  // NAME 1: neutral (D10)
-	virtual void Unknown_38();										// +0x38  // NAME 1: neutral (D10)
-	virtual void Unknown_3C();										// +0x3C (ACTIVATE_NEXT_RENDER_STATE 49)  // NAME 1: neutral (D10)
-	virtual void Unknown_40();										// +0x40  // NAME 1: neutral (D10)
-	virtual void Unknown_44(int arg);								// +0x44  // NAME 1 [arg]: neutral
-	virtual void Unknown_48(int arg);								// +0x48  // NAME 1 [arg]: neutral
+	RenderStateClass(RenderStateListClass *list, const RenderStateClass &source);	// 0x457BE0 (the derived states' copies)  // NAME 1 [list, source]: neutral
+	virtual ~RenderStateClass();									// 0x457D20 (deleting 0x457BB0)
+	virtual int Unknown_04() = 0;									// +0x04 (pure: E&B's _purecall 0x9CCD10)  // NAME 1: neutral (D10)
+	virtual void Unknown_08(RsTrackClass *owner, int link_id) {}	// +0x08 0x458590 (INIT_RENDER_STATE 47)  // NAME 1 [owner, link_id]: neutral; what 0x460880 passes
+	virtual void Unknown_0C() {}									// +0x0C 0x4585B0  // NAME 1: neutral (D10)
+	virtual bool Unknown_10() { return(true); }						// +0x10 0x4585D0 (the loader thread 0x458150 runs it)  // NAME 1: neutral (D10)
+	virtual void Unknown_14(RsTrackClass *owner) = 0;				// +0x14 (pure; 0x460440 activates through it)  // NAME 1 [owner]: neutral
+	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x4582E0 (0x460710 deactivates through it)  // NAME 1 [owner]: neutral
+	virtual void Unknown_1C(RsTrackClass *owner);					// +0x1C 0x458330  // NAME 1 [owner]: neutral
+	virtual RenderObjClass *Peek_Render_Object() { return(NULL); }	// +0x20 0x4585F0  // NAME 2: the assert 'Peek_Render_Object()' at rs_track.cpp line 236
+	virtual void Unknown_24(int a, int b);							// +0x24 0x4582C0  // NAME 1 [a, b]: neutral
+	virtual void Unknown_28(int a, int b) {}						// +0x28 0x458610  // NAME 1 [a, b]: neutral
+	virtual void Unknown_2C(int a, int b) {}						// +0x2C 0x458630  // NAME 1 [a, b]: neutral
+	virtual void Unknown_30(int a, int b);							// +0x30 0x458350  // NAME 1 [a, b]: neutral
+	virtual void Unknown_34(int a) {}								// +0x34 0x458650  // NAME 1 [a]: neutral
+	virtual void Unknown_38(int a) {}								// +0x38 0x458670  // NAME 1 [a]: neutral
+	virtual void Unknown_3C() {}									// +0x3C 0x458690 (ACTIVATE_NEXT_RENDER_STATE 49)  // NAME 1: neutral (D10)
+	virtual void Unknown_40(int a, int b) {}						// +0x40 0x4586B0  // NAME 1 [a, b]: neutral
+	virtual void Unknown_44(int arg) {}								// +0x44 0x4586D0  // NAME 1 [arg]: neutral
+	virtual void Unknown_48(int arg) {}								// +0x48 0x4586F0  // NAME 1 [arg]: neutral
+	void Unknown_457E10();											// 0x457E10 (flag 4 on, into the list's +0x20 chain)  // NAME 1: neutral (D10)
+	void Unknown_457E90();											// 0x457E90 (flag 4 off, unlinked)  // NAME 1: neutral (D10)
+	void Unknown_457EE0(const char *text);							// 0x457EE0 (copies text into Unknown14)  // NAME 1 [text]: neutral
+	void Unknown_457F60(RenderStateListClass *list);				// 0x457F60 (pushes the chain onto list's Head)  // NAME 1 [list]: neutral
 	void Unknown_458010();											// 0x458010 (resolves Link from LinkID)  // NAME 1: neutral (D10)
+	void Unknown_458040();											// 0x458040 (waits for the loader thread)  // NAME 1: neutral (D10)
+	void Unknown_4580D0();											// 0x4580D0 (starts the loader thread 0x458150)  // NAME 1: neutral (D10)
 	RenderStateListClass *Get_Render_State_List() { return(List); }	// the assert at rs_track.cpp line 191
 	bool Unknown_Flag4() const { return((Flags >> 4) & 1); }		// NAME 1: neutral (D10)
 	bool Unknown_Flag10() const { return((Flags >> 10) & 1); }		// NAME 1: neutral (D10)
+	bool Unknown_Flag12() const { return((Flags >> 12) & 1); }		// NAME 1: neutral (D10)
+	bool Unknown_Flag13() const { return((Flags >> 13) & 1); }		// NAME 1: neutral (D10)
 	bool Unknown_Flag16() const { return((Flags >> 16) & 1); }		// NAME 1: neutral (D10)
 
-	char Unknown04[0x0C - 0x04];									// NAME 1: neutral (D10)
 	RenderStateClass *Next;											// +0x0C  // NAME 2: the list walk
 	RenderStateListClass *List;										// +0x10  // NAME 2: Get_Render_State_List()
-	int Unknown14;													// +0x14  // NAME 1: neutral (D10)
+	char *Unknown14;												// +0x14 (0x457EE0's copy)  // NAME 1: neutral (D10)
 	int ID;															// +0x18  // NAME 2: the render state id the packets name
 	int LinkID;														// +0x1C  // NAME 2: -1 ends the chain (INIT_RENDER_STATE's LinkID)
 	RenderStateClass *Link;											// +0x20  // NAME 2: the next state of the chain
-	int Unknown24;													// +0x24  // NAME 1: neutral (D10)
+	char *Unknown24;												// +0x24 (nstrdup'd from the source's)  // NAME 1: neutral (D10)
 	unsigned int Flags;												// +0x28  // NAME 2: bit tests
 };
 
@@ -72,7 +81,8 @@ public:
 	void Unknown_45AA40(void *value, bool recursive);				// 0x45AA40  // NAME 1 [value, recursive]: Set_User_Data's
 
 	RenderStateClass *Head;											// +0x04  // NAME 2: the list walk
-	char Unknown08[0x24 - 0x08];									// NAME 1: neutral (D10)
+	char Unknown08[0x20 - 0x08];									// NAME 1: neutral (D10)
+	GenericNode *Unknown20;											// +0x20 (the active states' chain 0x457E10 links into)  // NAME 1: neutral (D10)
 	RenderStateClass *Current;										// +0x24  // NAME 2: Peek_Render_Object's state
 	RenderStateListClass *Source;									// +0x28  // NAME 2: what Clone passes on
 	unsigned char Unknown2C;										// +0x2C  // NAME 1: neutral (D10)
