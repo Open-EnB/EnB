@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1148 |
 | 2 | describes what the code does | 2878 |
-| 1 | neutral placeholder | 10502 |
+| 1 | neutral placeholder | 10507 |
 
 ## For review (score 3 and below)
 
@@ -8153,22 +8153,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDAA7C` | `app/input/input.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_42E390` | `app/input/input.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_42E3B0` | `app/input/input.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_42E4A0` | `app/input/input.cpp:46` | untagged neutral name (D10) |
-| 1 | `InputUnknownAE7160Class` | `app/input/input.cpp:55` | untagged neutral name (D10) |
-| 1 | `InputUnknownAE7134Class` | `app/input/input.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown_42F940` | `app/input/input.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_42E7B0` | `app/input/input.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_42FAC0` | `app/input/input.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown_42E8A0` | `app/input/input.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/input/input.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/input/input.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/input/input.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_42EA80` | `app/input/input.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_42EB80` | `app/input/input.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/input/input.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED20` | `app/input/input.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/input/input.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_42EDB0` | `app/input/input.cpp:166` | untagged neutral name (D10) |
+| 1 | `New_Key_Queue_Raw` | `app/input/input.cpp:45` | no code of its own (D185 variant: two inline layers keep the element constructor 0x42ED50 out of line) |
+| 1 | `New_Key_Queue` | `app/input/input.cpp:50` | as New_Key_Queue_Raw |
+| 1 | `Unknown_42E4A0` | `app/input/input.cpp:55` | untagged neutral name (D10) |
+| 1 | `InputUnknownAE7160Class` | `app/input/input.cpp:64` | untagged neutral name (D10) |
+| 1 | `InputUnknownAE7134Class` | `app/input/input.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `app/input/input.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_42E7B0` | `app/input/input.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `app/input/input.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `app/input/input.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/input/input.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/input/input.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/input/input.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `app/input/input.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB80` | `app/input/input.cpp:128` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/input.cpp:160` | neutral (D10), as KeyboardClass::Unknown_0C |
+| 1 | `Unknown_42EC60` | `app/input/input.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/input/input.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/input/input.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE90` | `app/input/input.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA80` | `app/input/input.cpp:343` | untagged neutral name (D10) |
