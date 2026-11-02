@@ -4,6 +4,31 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (21:45 PST, evening): D183 (shared COMDATs) landed and D184's Batch API variant pilot applied; +27 pairs, 0 lost
+
+Coordinator Opus 5.5. Base 7fb89dbb (#140 merged; `.work/imports.7fb89dbb.json`); run branch `run/2026-11-01-eve`, PR #141.
+Plan log: `.work/run-2026-11-01-eve/plan.md`. The user approved P-IS-1 (D183, on subscription usage) and the P-API-5 (b)
+pilot (D184) for tonight. HEAD against the base: **+27 pairs (app +26 incl. 1 tie-break, ww3d2 +1), 0 lost outright, no
+moves.** 3 builders (2 Opus, 1 Sonnet); weekly usage 89 % -> 90 %.
+
+* **D183 (IS1):** objmatch credits an exact COMDAT several objects hold at one address under one symbol to the holder
+  whose range is strictly nearest, and marks such pairs `shared` in imports.json (3,661 pairs at 537 addresses, all
+  already paired at the base); D166's tie-break labels decisions that needed a shared caller (`shared_callers`); gaps.py
+  and triage.py's neighbour lookup skip shared pairs; pairs_cmp lists shared gains / lost holders and never counts them as
+  moves. The as-worded form ("each holder") lost inpdsp's 0x42A900 / 0x42AAE0 outright: the user amended D183 (P-IS-2).
+  Full verify of all 11 libraries: +14 (winmsg 0x42FBF0-0x430340 x12, kv_encoder_base 0x4B56F0, ringobj 0x910490)
+  (928fe104).
+* **D184 pilot (VP1, VA1):** `tools/re/variants.py` (pick / build / submit / fetch / try; the key ENB_ANTHROPIC_API_KEY).
+  Batch, claude-opus-5-5: round 1 40 functions ($3.08), round 2 the 20 near misses ($1.59): **$4.66**; 11 of 39 exact in
+  `try`, 7 losing nothing else. VA1 applied all 7 through verify / pairs_cmp (+ 0x596130 Add_Member, exact with its own
+  source, and ui_group's COMDAT helpers): **+13 pairs (da66757d)** in 13 minutes. Cost: **$0.36 of API credit per pair
+  landed**, plus one short Opus builder to apply. not-exact.md 487 -> 479. The 4 variants that lose other pairs (0x460440
+  -9, 0x5B10A0 -7, 0x6D1480 -1, 0x7451D0 -17) are not looked into. Scale-up is P-API-5 (b)'s open part.
+* **Health:** clienttest 103/103 equal to expected.txt, udpreplay handshake 54/54, replay 0 differences at HEAD (D182).
+* **Records:** `wt.py bring-over` lands on local master by default: it did (nothing pushed; reset, cherry-picked as
+  928fe104). Traps filed in workflow.md §3.1 / §3.4. Python changed: objmatch.py, importer.py, pairs_cmp.py, gaps.py,
+  triage.py, variants.py (new): the maintainer's `/verify-approved`.
+
 ### 2026-11-01 (16:30 PST, day): the POC client links, builds the login screen and runs without a crash; +789 pairs, 0 lost
 
 Coordinator Opus 5.5. Base c27a1f0c (#139 merged; `.work/imports.c27a1f0c.json`); run branch `run/2026-11-01-day`, PR #140.
