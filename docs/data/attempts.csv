@@ -1458,3 +1458,20 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-01 21:37,0x711520,Unknown710530Class::Unknown_04,app/client/extrap.cpp,app,exact,,1,,D184 pilot variant (VA1): outer test written time >= Time,,opus
 2026-11-01 21:37,0x728240,ClientClass::Set_Debug_Mode,app/client/client.cpp,app,exact,,1,,D184 pilot variant (VA1): AvatarID read into a local after the G_ASSERT,,opus
 2026-11-01 21:37,0x7381C0,StarbaseSetPacketClass::Process_Packet,app/client/cpacket.cpp,app,exact,,1,,D184 pilot variant (VA1): one 0x74BA30 call after the inner switch (VC6 duplicates it into the cases); assert line kept with a comment,,opus
+2026-11-02 00:45,0x43F2D0,SoundLibraryClass::Play_Dialog,app/audio/soundlib.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x43FE30,SoundLibraryClass::Load,app/audio/soundlib.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x844210,LegoIdentifierClass::operator==,app/common/lego_identifier.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x844330,LegoIdentifierClass::Get_Root,app/common/lego_identifier.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x431CA0,Unknown_431CA0,app/input/w32window.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x4C0310,AvatarDescClass::Clear,app/shared/avatar_desc.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x463E00,HeightFieldClass::World_To_Grid,app/shared/heightfield.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x4B8170,KVPairStringClass::KVPairStringClass,app/shared/kv_pair_string.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x4B9180,KVTripleListClass::~KVTripleListClass,app/shared/kv_tripl.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x46BCC0,LandClass::Save_Sea_Mask,app/shared/land.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x473290,LandClass::Unknown_473290,app/shared/land.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x4791D0,LandClass::Save_Decorations_Ini,app/shared/land.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x468D50,LandUnknown466BE0Class::Unknown_468D50,app/shared/landdmap.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x450AC0,PxAccurateSphereCallback::Test,app/shared/px_callback_accurate.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x453B10,PxCollision::Unknown_453B10,app/shared/px_collision.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x456B60,PxWrapper::Update,app/shared/px_wrapper.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5
+2026-11-02 00:45,0x850870,CordCon::close,app/wwudp/cordcon.cpp,app,exact,,1,,"D185 Batch API variant (.work/variants/full/results.json), tidied; verify run 2026-11-02-night VO",,opus-5.5

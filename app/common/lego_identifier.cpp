@@ -112,24 +112,24 @@ LegoIdentifierClass &LegoIdentifierClass::operator=(const std::string &name)
 	Set_Name(name);
 	return(*this);
 }
-// NOT EXACT: 0x844210 (shape; attempts.py show 0x844210)
 bool LegoIdentifierClass::operator==(const LegoIdentifierClass &src) const
 {
-	if (BoneNameChain.size() != src.BoneNameChain.size()) {
-		return(false);
-	}
-	return(std::equal(BoneNameChain.begin(), BoneNameChain.end(), src.BoneNameChain.begin()));
+	return(BoneNameChain == src.BoneNameChain);
 }
+
+
+
+
 int LegoIdentifierClass::Get_Count() const
 {
 	return(BoneNameChain.size());
 }
 
-// NOT EXACT: 0x844330, the client tests for the empty name first (shape; attempts.py show 0x844330)
 std::string LegoIdentifierClass::Get_Root() const
 {
-	return(BoneNameChain.empty() ? EmptyName : BoneNameChain[0]);
+	return(!BoneNameChain.empty() ? BoneNameChain[0] : EmptyName);
 }
+
 // NOT EXACT: 0x8444C0, npos read from memory in the client's erase (shape; attempts.py show 0x8444C0)
 std::string LegoIdentifierClass::Pop_Root()
 {

@@ -36,13 +36,13 @@ KVPairStringClass::~KVPairStringClass()
 	delete Accessor;
 	free(Unknown10);
 }
-// NOT EXACT (also Clone, which inlines it): the client passes the two flags through byte
-// temporaries on the stack (stored, then pushed as dwords), as for a by-value argument
-KVPairStringClass::KVPairStringClass(const KVPairStringClass &that) : KVPairClass(that.Key.Get_String(), that.Unknown08, that.Unknown09), Accessor(NULL), Unknown10(NULL)
+// the client passes the two flags through byte temporaries (stored, then pushed as dwords)
+static inline bool KV_Flag(bool value) { return value; }
+KVPairStringClass::KVPairStringClass(const KVPairStringClass &that) : KVPairClass(that.Key.Get_String(), KV_Flag(that.Unknown08), KV_Flag(that.Unknown09)), Accessor(NULL), Unknown10(NULL)
 {
 	Accessor = that.Accessor->Clone();
 	G_ASSERT(Accessor);
-	Unknown10 = strdup(that.Unknown10);
+	Unknown10 = _strdup(that.Unknown10);
 }
 
 KVPairClass *KVPairStringClass::Clone() const

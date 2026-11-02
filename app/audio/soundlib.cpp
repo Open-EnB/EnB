@@ -516,9 +516,9 @@ AudibleSoundClass *SoundLibraryClass::Play_Dialog(const char *name, int mode)
 }
 
 
-// NOT EXACT: shape (explain.py: 22 calls vs 23), ours merges the two releases of _CurrentDialog the client keeps apart; name in ebp, not ebx
 AudibleSoundClass *SoundLibraryClass::Play_Dialog(SoundDefClass *def, int mode, const char *name)
 {
+	AudibleSoundClass *sound = NULL;
 	if (name == NULL) return NULL;
 	if (def != NULL) {
 		def->Type = AudibleSoundClass::TYPE_DIALOG;
@@ -527,8 +527,7 @@ AudibleSoundClass *SoundLibraryClass::Play_Dialog(SoundDefClass *def, int mode, 
 	if (_CurrentDialog != NULL && _CurrentDialog->Get_State() == AudibleSoundClass::STATE_STOPPED) {
 		_CurrentDialog->Release_Ref();
 		_CurrentDialog = NULL;
-	}
-	if (_CurrentDialog != NULL) {
+	} else if (_CurrentDialog != NULL) {
 		if (strcmp(_CurrentDialog->Get_Filename(), name) == 0) return NULL;
 		float priority = _DefaultPriority;
 		float next_priority = _DefaultPriority;
@@ -542,48 +541,49 @@ AudibleSoundClass *SoundLibraryClass::Play_Dialog(SoundDefClass *def, int mode, 
 			_CurrentDialog->Stop();
 			_CurrentDialog->Release_Ref();
 			_CurrentDialog = NULL;
-		} else {
-			if (_CurrentDialog->Get_Duration() - _CurrentDialog->Get_Play_Position() < 2000) {
-				if (_NextDialogName != NULL && next_priority >= priority) return NULL;
-				_NextDialogDef = def;
-				if (_NextDialogName != NULL) {
-					delete [] _NextDialogName;
-				}
-				_NextDialogName = nstrdup(name);
-				return NULL;
+		} else if (_CurrentDialog->Get_Duration() - _CurrentDialog->Get_Play_Position() < 2000) {
+			if (_NextDialogName != NULL && next_priority >= priority) return NULL;
+			_NextDialogDef = def;
+			if (_NextDialogName != NULL) {
+				delete [] _NextDialogName;
 			}
-			if (_CurrentDialog != NULL) return NULL;
+			_NextDialogName = nstrdup(name);
+			return NULL;
 		}
 	}
 
-	AudibleSoundClass *sound;
-	if (mode == 2) {
-		if (def != NULL) {
-			sound = def->Create_Sound(1);
+	if (_CurrentDialog == NULL) {
+		if (mode == 2) {
+			if (def != NULL) {
+				sound = def->Create_Sound(1);
+			} else {
+				SoundDefClass temp(name);
+				temp.Set_Volume(_DefaultDialogVolume);
+				temp.Set_Type(AudibleSoundClass::TYPE_DIALOG);
+				sound = temp.Create_Sound(1);
+			}
 		} else {
-			SoundDefClass temp(name);
-			temp.Set_Volume(_DefaultDialogVolume);
-			temp.Set_Type(AudibleSoundClass::TYPE_DIALOG);
-			sound = temp.Create_Sound(1);
+			if (def != NULL) {
+				sound = def->Create_Sound(1);
+			} else {
+				SoundDefClass temp(name);
+				temp.Set_Volume(_DefaultDialogVolume);
+				temp.Set_Type(AudibleSoundClass::TYPE_DIALOG);
+				sound = temp.Create_Sound(1);
+			}
+			if (sound != NULL) {
+				sound->Add_Ref();
+			}
 		}
-	} else {
-		if (def != NULL) {
-			sound = def->Create_Sound(1);
-		} else {
-			SoundDefClass temp(name);
-			temp.Set_Volume(_DefaultDialogVolume);
-			temp.Set_Type(AudibleSoundClass::TYPE_DIALOG);
-			sound = temp.Create_Sound(1);
-		}
-		if (sound != NULL) {
-			sound->Add_Ref();
-		}
+		if (sound == NULL) return NULL;
+		_CurrentDialog = sound;
+		sound->Set_Type(AudibleSoundClass::TYPE_DIALOG);
 	}
-	if (sound == NULL) return NULL;
-	_CurrentDialog = sound;
-	sound->Set_Type(AudibleSoundClass::TYPE_DIALOG);
 	return sound;
 }
+
+
+
 
 
 
@@ -817,12 +817,13 @@ public:
 
 
 
-// NOT EXACT: inline budget (explain.py: 29 calls vs 28, frame 0x84 vs 0x80), ours inlines the key's copy constructor in operator[] where the client calls it
+
 void SoundLibraryClass::Load(const char *filename)
 {
 	file_auto_ptr file(_TheFileFactory, filename);
 	INIClass *ini = new SoundINIClass(*file);
-	for (INISection *section = ini->Get_Section_List().First_Valid(); section != NULL; section = section->Next_Valid()) {
+	INISection *section = ini->Get_Section_List().First_Valid();
+	while (section != NULL) {
 		if (strcmp(section->Section, "SOUND_DEFAULTS") == 0) {
 			_DefaultDropOffRadius = ini->Get_Float("SOUND_DEFAULTS", "Default_DropOffRadius", _DefaultDropOffRadius);
 			_DefaultMaxVolRadius = ini->Get_Float("SOUND_DEFAULTS", "Default_MaxVolRadius", _DefaultMaxVolRadius);
@@ -832,13 +833,15 @@ void SoundLibraryClass::Load(const char *filename)
 			_DefaultDialogVolume = ini->Get_Float("SOUND_DEFAULTS", "Default_Dialog_Volume", _DefaultDialogVolume);
 		} else if (strstr(section->Section, "\\Files") == NULL) {
 			SoundDefClass *def = new SoundDefClass(*ini, section->Section);
-			if (Find(def->Name) == NULL) {
-				_SoundDefs[def->Name] = def;
-			} else {
+			if (Find(def->Name) != NULL) {
+				// a second definition of the same name
 				G_ASSERT(false);
 				delete def;
+			} else {
+				_SoundDefs[def->Name] = def;
 			}
 		}
+		section = section->Next_Valid();
 	}
 	delete ini;
 }

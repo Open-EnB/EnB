@@ -341,7 +341,6 @@ void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
 	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "head_weight", Make_Array_Accessor(Head_Weight, 5, ','));
 }
 
-// NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310)
 // 0x4C0310
 void AvatarDescClass::Clear(int type)
 {
@@ -383,16 +382,17 @@ void AvatarDescClass::Clear(int type)
 	Pants_Secondary_Metal = -1;
 	Skeleton = "";
 	Body_Weight[0] = 1.0F;
-	Body_Weight[1] = 0.0F;
-	Body_Weight[2] = 0.0F;
-	Body_Weight[3] = 0.0F;
-	Body_Weight[4] = 0.0F;
+	for (int i = 1; i < 5; i++) {
+		Body_Weight[i] = 0.0F;
+	}
 	Head_Weight[0] = 1.0F;
-	Head_Weight[1] = 0.0F;
-	Head_Weight[2] = 0.0F;
-	Head_Weight[3] = 0.0F;
-	Head_Weight[4] = 0.0F;
+	memset(&Head_Weight[1], 0, sizeof(Head_Weight) - sizeof(float));
 }
+
+
+
+
+
 
 // 0x4C0580
 bool AvatarDescClass::Is_Valid()

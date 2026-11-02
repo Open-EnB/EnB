@@ -558,7 +558,6 @@ void LandUnknown466BE0Class::Unknown_468BE0(AABoxClass &box, const Vector3 *poin
 	box.Extent.Z = (float)fabs(cz - minz);
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468D50
 void LandUnknown466BE0Class::Unknown_468D50(void)
 {
 	float *verts;
@@ -567,7 +566,8 @@ void LandUnknown466BE0Class::Unknown_468D50(void)
 		verts[i * 13 + 10] = 0.0f;
 	}
 	for (int c = 0; c < Unknown08; c++) {
-		if (Unknown_468760(Unknown04[c].Box.Center, Unknown04[c].Box.Extent) >= 1) {
+		int result = Unknown_468760(Unknown04[c].Box.Center, Unknown04[c].Box.Extent);
+		if (result >= 1) {
 			verts[Unknown04[c].Corner[0] * 13 + 10] = 1.0f;
 			verts[Unknown04[c].Corner[1] * 13 + 10] = 1.0f;
 			verts[Unknown04[c].Corner[2] * 13 + 10] = 1.0f;

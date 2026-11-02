@@ -390,41 +390,41 @@ LandClass::~LandClass(void)
 	Unknown_466F10();
 }
 
-// NOT EXACT: shape (2 rows: the client returns false through al = HasSea, ours xor al, al; 7 forms, attempts.csv 0x46BCC0)
 bool LandClass::Save_Sea_Mask(const char *filename)
 {
-	if (HasSea) {
-		unsigned int size = Field->Get_Size();
-		unsigned char *mask = new unsigned char[size * size];
-		unsigned int row = 0;
-		for (unsigned int j = 0; j < size; j++) {
-			for (unsigned int i = 0; i < size; i++) {
-				if (Field->Get_Height(i, j) < SeaLevel) {
-					mask[row + i] = 0;
-				} else {
-					mask[row + i] = 0xFF;
-				}
-			}
-			row += size;
-		}
-		Targa targa;
-		memset(&targa.Header, 0, sizeof(targa.Header));
-		targa.Header.ImageType = 3;
-		targa.Header.Width = (short)size;
-		targa.Header.Height = (short)size;
-		targa.Header.PixelDepth = 8;
-		targa.SetImage((char *)mask);
-		FileClass *file = _TheWritingFileFactory->Get_File(filename);
-		if (file != NULL) {
-			file->Create();
-			file->Close();
-			_TheWritingFileFactory->Return_File(file);
-		}
-		targa.Save(filename, TGAF_IMAGE, false);
-		delete [] mask;
-		return true;
+	bool has_sea = HasSea;
+	if (!has_sea) {
+		return has_sea;
 	}
-	return false;
+	unsigned int size = Field->Get_Size();
+	unsigned char *mask = new unsigned char[size * size];
+	unsigned int row = 0;
+	for (unsigned int j = 0; j < size; j++) {
+		for (unsigned int i = 0; i < size; i++) {
+			if (Field->Get_Height(i, j) < SeaLevel) {
+				mask[row + i] = 0;
+			} else {
+				mask[row + i] = 0xFF;
+			}
+		}
+		row += size;
+	}
+	Targa targa;
+	memset(&targa.Header, 0, sizeof(targa.Header));
+	targa.Header.ImageType = 3;
+	targa.Header.Width = (short)size;
+	targa.Header.Height = (short)size;
+	targa.Header.PixelDepth = 8;
+	targa.SetImage((char *)mask);
+	FileClass *file = _TheWritingFileFactory->Get_File(filename);
+	if (file != NULL) {
+		file->Create();
+		file->Close();
+		_TheWritingFileFactory->Return_File(file);
+	}
+	targa.Save(filename, TGAF_IMAGE, false);
+	delete [] mask;
+	return true;
 }
 
 // NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse)
@@ -1095,45 +1095,44 @@ void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vecto
 
 // 0x4791D0: the prototypes and decorations as an ini (Load_Decorations_Ini's layout; M is the matrix column by column,
 // "%f" then ",%f"); nothing when either list is empty
-// NOT EXACT: frame (stack slots only: the client keeps the decorations' begin above the ini and the row counter below it;
-// 25 forms, declaration order changes nothing; attempts.csv 0x4791D0)
 void LandClass::Save_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	INIClass ini;
 	unsigned int proto_count = names.size();
 	unsigned int count = decorations.size();
-	if (proto_count != 0 && count != 0) {
-		ini.Put_Int("Prototypes", "NUM_PROTOS", proto_count);
-		char section[256];
-		unsigned int i;
-		for (i = 0; i < proto_count; i++) {
-			sprintf(section, "PROTO%d", i);
-			ini.Put_String("Prototypes", section, names[i].c_str());
-		}
-		for (i = 0; i < count; i++) {
-			sprintf(section, "DECO%d", i);
-			LandDecorationStruct &decoration = decorations[i];
-			ini.Put_Int(section, "DecID", decoration.Proto);
-			const Matrix3D &tm = decoration.Transform;
-			std::string m;
-			bool first = true;
-			for (int column = 0; column < 4; column++) {
-				for (int row = 0; row < 3; row++) {
-					char buffer[512];
-					if (first) {
-						first = false;
-						sprintf(buffer, "%f", tm[row][column]);
-					} else {
-						sprintf(buffer, ",%f", tm[row][column]);
-					}
-					m += buffer;
-				}
-			}
-			ini.Put_String(section, "M", m.c_str());
-			ini.Put_Float(section, "Scale", decoration.Scale);
-		}
-		ini.Save(filename);
+	if (proto_count == 0 || count == 0) {
+		return;
 	}
+	ini.Put_Int("Prototypes", "NUM_PROTOS", proto_count);
+	char section[256];
+	unsigned int i;
+	for (i = 0; i < proto_count; i++) {
+		sprintf(section, "PROTO%d", i);
+		ini.Put_String("Prototypes", section, names[i].c_str());
+	}
+	for (i = 0; i < count; i++) {
+		sprintf(section, "DECO%d", i);
+		LandDecorationStruct &decoration = decorations[i];
+		ini.Put_Int(section, "DecID", decoration.Proto);
+		const Matrix3D &tm = decoration.Transform;
+		std::string m;
+		bool first = true;
+		for (int column = 0; column < 4; column++) {
+			for (int row = 0; row < 3; row++) {
+				char buffer[512];
+				if (first) {
+					first = false;
+					sprintf(buffer, "%f", tm[row][column]);
+				} else {
+					sprintf(buffer, ",%f", tm[row][column]);
+				}
+				m += buffer;
+			}
+		}
+		ini.Put_String(section, "M", m.c_str());
+		ini.Put_Float(section, "Scale", decoration.Scale);
+	}
+	ini.Save(filename);
 }
 
 void LandClass::Load_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
@@ -2661,14 +2660,14 @@ void LandClass::Compute_Horizons(INIClass &ini)
 	delete [] mask;
 }
 
-// NOT EXACT: order-only (3 masked rows: the client loads Spacing before VScale for VScale / Spacing; 6 forms, attempts.csv 0x473290)
 void LandClass::Unknown_473290(unsigned char **a, unsigned char **b, unsigned char **c)
 {
 	int size = Field->Get_Size();
 	*a = new unsigned char[Field->Get_Count() * 3];
 	*b = new unsigned char[Field->Get_Count() * 3];
 	*c = new unsigned char[Field->Get_Count() * 4];
-	float ratio = Field->Get_VScale() / Field->Get_Spacing();
+	const float &spacing = Field->Get_Spacing();
+	float ratio = Field->Get_VScale() / spacing;
 	unsigned char *a_row = *a;
 	unsigned char *b_row = *b;
 	unsigned char *c_row = *c;
