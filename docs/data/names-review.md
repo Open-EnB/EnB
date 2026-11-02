@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1161 |
 | 2 | describes what the code does | 2913 |
-| 1 | neutral placeholder | 11026 |
+| 1 | neutral placeholder | 11028 |
 
 ## For review (score 3 and below)
 
@@ -3100,15 +3100,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
-| 1 | `MouseCursorStruct` | `app/client/mousetbl.cpp:14` | neutral (D10), as smouse.cpp |
-| 1 | `name, hot_x, hot_y` | `app/client/mousetbl.cpp:16` | what it does with them |
-| 1 | `robj, hot_x, hot_y` | `app/client/mousetbl.cpp:17` | as above |
-| 1 | `HotX` | `app/client/mousetbl.cpp:21` | as smouse.cpp |
-| 1 | `HotY` | `app/client/mousetbl.cpp:22` | as smouse.cpp |
-| 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10), as smouse.cpp |
+| 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10) |
 | 1 | `Unknown_BE7CD4` | `app/client/mousetbl.cpp:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown_723150` | `app/client/mousetbl.cpp:123` | untagged neutral name (D10) |
+| 1 | `MouseCursorStruct` | `app/client/mousetbl.h:15` | neutral (D10) |
+| 1 | `name, hot_x, hot_y` | `app/client/mousetbl.h:17` | what it does with them |
+| 1 | `robj, hot_x, hot_y` | `app/client/mousetbl.h:18` | as above |
+| 1 | `HotX` | `app/client/mousetbl.h:22` | neutral (D10) |
+| 1 | `HotY` | `app/client/mousetbl.h:23` | neutral (D10) |
+| 1 | `Unknown_BE7C70` | `app/client/mousetbl.h:26` | neutral (D10) |
+| 1 | `Unknown_7228C0` | `app/client/mousetbl.h:28` | neutral (D10) |
+| 1 | `Unknown_723150` | `app/client/mousetbl.h:29` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |
@@ -4629,8 +4632,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/scriptedmovieline.h:19` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/smouse.cpp:10` | as scriptedmovie.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/smouse.cpp:10` | untagged neutral name (D10) |
-| 1 | `MouseCursorStruct` | `app/client/smouse.cpp:13` | neutral (D10) |
-| 1 | `Unknown_BE7C70` | `app/client/smouse.cpp:19` | neutral (D10) |
 | 1 | `SMouseDragClass` | `app/client/smouse.cpp:22` | neutral (D10) |
 | 1 | `Unknown_685190` | `app/client/smouse.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/smouse.cpp:26` | untagged neutral name (D10) |
@@ -4652,6 +4653,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/client/smouse.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/smouse.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_515080` | `app/client/smouse.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_BE7C70` | `app/client/smouse.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_515120` | `app/client/smouse.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown_515320` | `app/client/smouse.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_515340` | `app/client/smouse.cpp:104` | untagged neutral name (D10) |

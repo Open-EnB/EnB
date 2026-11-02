@@ -5,24 +5,24 @@
 #include "rendobj.h"
 #include "matinfo.h"
 #include "..\shared\auxdata\permstr.h"
-enum
-{
-	MCURSOR_MAX = 25											// the client's name ('idx < MCURSOR_MAX')
-};
+#include "mousetbl.h"
+// MCURSOR_MAX, MouseCursorStruct and the table's declaration are in mousetbl.h (shared with smouse.cpp).
+//
+// The blank lines below keep the asserts on the client's lines 33 and 72 (G_ASSERT's __LINE__).
 
-// One cursor: its texture and hot spot (smouse.cpp's software mouse reads them)
-struct MouseCursorStruct  // NAME 1: neutral (D10), as smouse.cpp
-{
-	MouseCursorStruct(int idx, const char *name, float hot_x, float hot_y);			// NAME 1 [name, hot_x, hot_y]: what it does with them
-	MouseCursorStruct(int idx, RenderObjClass *robj, float hot_x, float hot_y);	// NAME 1 [robj, hot_x, hot_y]: as above
-	~MouseCursorStruct();
 
-	TextureClass *Texture;		// +0x00
-	int HotX;					// +0x04: the hot spot, pixels  // NAME 1: as smouse.cpp
-	int HotY;					// +0x08  // NAME 1: as smouse.cpp
-};
 
-MouseCursorStruct *Unknown_BE7C70[MCURSOR_MAX];			// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10), as smouse.cpp
+
+
+
+
+
+
+
+
+
+
+MouseCursorStruct *Unknown_BE7C70[MCURSOR_MAX];			// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10)
 static int Unknown_BE7CD4;									// 0xBE7CD4: how many loads are open  // NAME 1 [Unknown_BE7CD4]: neutral (D10)
 
 // 0x722770
@@ -149,5 +149,5 @@ void Unknown_723150()
 **	  and SClient::Load_INIs / Unload_INIs each call them.
 **	* The object's start: 0x722720 / 0x722740 before it are a singly linked list's Is_Empty / Count
 **	  (template code, placed by the linker), 0x722660 a list insert; not this file's.
-**	* No header: the struct and the enum live here (interim, D137); smouse.cpp repeats the struct.
+**	* mousetbl.h (PROVISIONAL name, D137) holds the struct, the enum and the table for this file and smouse.cpp (KRN2).
 */

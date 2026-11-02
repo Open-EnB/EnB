@@ -16450,6 +16450,7 @@
    "client/interface_static_sort_list.h": "reconstructed",
    "client/intrface.h": "reconstructed",
    "client/local_interface_sort.h": "reconstructed",
+   "client/mousetbl.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/option.h": "reconstructed",
    "client/postate.h": "reconstructed",

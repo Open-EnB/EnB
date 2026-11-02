@@ -10,13 +10,13 @@
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (input.cpp): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 
 // mousetbl.cpp's table (0xBE7C70, filled by 0x7228C0: 'arrow_blank.tga', 'arrow.tga', 'cursor_w.tga' ...)
-struct MouseCursorStruct  // NAME 1: neutral (D10)
-{
-	TextureClass *Texture;		// +0x00
-	int HotX;					// +0x04: the hot spot, pixels
-	int HotY;					// +0x08
-};
-extern MouseCursorStruct *Unknown_BE7C70[];  // NAME 1 [Unknown_BE7C70]: neutral (D10)
+#include "mousetbl.h"
+// (blank lines: the FAIL_IFs keep the client's lines 267, 269, 278)
+
+
+
+
+
 
 // What the mouse drags (+0x2C), as far as this file calls it
 class SMouseDragClass  // NAME 1: neutral (D10)
