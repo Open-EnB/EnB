@@ -3563,7 +3563,8 @@ RECONSTRUCTED = {
                                                   "listener 0x4BCCB0, 0x4BCCF0, 0x4BCD10, 0x4BD3F0, 0x4BD470 and its ArrayList "
                                                   "instances (a separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
     ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
-                                                  "and destructor 0x4BE060 (a separate object: the server calls them; D137 provisional)",
+                                                  "and destructor 0x4BE060, its ini writer / reader 0x4BE0F0 / 0x4BE1E0, the match 0x4BE2C0 (D64) "
+                                                  "and the parser 0x4BE7A0 (a separate object: the server calls them; D137 provisional)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",

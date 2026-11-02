@@ -24,8 +24,10 @@
 #include "..\..\libs\wwonline\wlib\wstring.h"
 #include "..\..\libs\wwonline\wlib\wtime.h"
 #include "..\..\libs\wwonline\wlib\critsec.h"
+#include <stdio.h>
 
 class TCPMgr;
+class ConfigFile;
 class TCPCon;
 
 // One message (0x34 bytes; the server's list holds them: ArrayList's growVector 0x4BC9B0, the copy 0x4BC8F0)
@@ -55,14 +57,16 @@ class Unknown4BDFE0Class	// NAME 1: after its constructor (D10)
 public:
 	Unknown4BDFE0Class();								// 0x4BDFE0
 	~Unknown4BDFE0Class();								// 0x4BDFE0's destructor 0x4BE060
+	bit8 Unknown_4BE0F0(FILE *out, char *section);		// 0x4BE0F0 writes it as an ini section (no caller)  // NAME 1: neutral (D10)
+	bit8 Unknown_4BE1E0(ConfigFile &config, char *section);	// 0x4BE1E0 reads it from one (no caller)  // NAME 1: neutral (D10)
 	bit8 Unknown_4BE2C0(Unknown4BB8A0Class *message);	// 0x4BE2C0 the message passes it  // NAME 1: neutral (D10)
 	bit8 Unknown_4BE7A0(Wstring &text);					// 0x4BE7A0 parses it  // NAME 1: neutral (D10)
 
-	Wstring Unknown00;		// +0x00
-	int Unknown08;			// +0x08 (0xFFFFFF: clears the client's filters)
-	Wstring Unknown0C;		// +0x0C
-	Wstring Unknown14;		// +0x14
-	Wstring Unknown1C;		// +0x1C
+	Wstring Unknown00;		// +0x00 its ini key "Name"
+	int Unknown08;			// +0x08 "Type": the levels it takes (0xFFFFFF: clears the client's filters)
+	Wstring Unknown0C;		// +0x0C "Modules": senders / categories (',' or ';' separated)
+	Wstring Unknown14;		// +0x14 "Files": __FILE__ names (',' or ';' separated)
+	Wstring Unknown1C;		// +0x1C "Prefix": the text's start
 };
 
 // One connected client of the server (0x14 bytes)
