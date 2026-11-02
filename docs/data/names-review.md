@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1144 |
-| 2 | describes what the code does | 2878 |
-| 1 | neutral placeholder | 10313 |
+| 2 | describes what the code does | 2880 |
+| 1 | neutral placeholder | 10355 |
 
 ## For review (score 3 and below)
 
@@ -7688,6 +7688,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, layer, mask, flags` | `app/client/unknown_675120.h:44` | the base's |
 | 1 | `mesh, name, mask, flags` | `app/client/unknown_675120.h:45` | the base's and what it does |
 | 1 | `robj, mask, flags` | `app/client/unknown_675120.h:46` | the base's |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6ca0c0.cpp:34` | neutral (D10) |
+| 1 | `Unknown4C4` | `app/client/unknown_6ca0c0.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/unknown_6ca0c0.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/unknown_6ca0c0.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6ca0c0.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6ca0c0.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/unknown_6ca0c0.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/unknown_6ca0c0.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/unknown_6ca0c0.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/unknown_6ca0c0.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown454` | `app/client/unknown_6ca0c0.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6ca0c0.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown4DC` | `app/client/unknown_6ca0c0.cpp:379` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.cpp:392` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/unknown_6ca0c0.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:425` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:457` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/unknown_6ca0c0.cpp:458` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6ca0c0.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown418` | `app/client/unknown_6ca0c0.cpp:467` | untagged neutral name (D10) |
+| 1 | `Unknown41C` | `app/client/unknown_6ca0c0.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6ca0c0.cpp:483` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/unknown_6ca0c0.cpp:494` | untagged neutral name (D10) |
+| 1 | `Unknown450` | `app/client/unknown_6ca0c0.cpp:496` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6ca0c0.cpp:506` | untagged neutral name (D10) |
+| 1 | `Unknown2F0` | `app/client/unknown_6ca0c0.cpp:508` | untagged neutral name (D10) |
+| 1 | `Unknown488` | `app/client/unknown_6ca0c0.cpp:543` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6ca0c0.cpp:580` | untagged neutral name (D10) |
+| 1 | `Unknown448` | `app/client/unknown_6ca0c0.cpp:637` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.h:47` | neutral (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.h:50` | neutral (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -11484,6 +11526,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bank` | `app/client/ui_scut.h:64` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.h:67` | what it holds |
 | 2 | `Bars` | `app/client/ui_scut.h:91` | what it holds |
+| 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:8` | the client's ini words |
+| 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:34` | the client's ini words |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
