@@ -93,6 +93,7 @@ public:
 	bool Unknown_6CD180();													// 0x6CD180: Update_Text runs the mouse-over effects while true  // NAME 1 [Unknown_6CD180]: neutral (D10)
 	bool Unknown_6CD6F0();													// 0x6CD6F0: Update_Text runs the click effects while true  // NAME 1 [Unknown_6CD6F0]: neutral (D10)
 	void Unknown_6CCE60();													// 0x6CCE60: Update_Text's step after the timers  // NAME 1 [Unknown_6CCE60]: neutral (D10)
+	void Unknown_6CDAB0(FontEffectStruct *effect);						// 0x6CDAB0: an EffectOn effect's starting state (ROTATE, FADE, RANDLETTER, SCROLL, SCALE; Change_Text)  // NAME 1 [Unknown_6CDAB0]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores

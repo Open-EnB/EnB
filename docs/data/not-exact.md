@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-482 entries in 115 files.
+485 entries in 115 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -134,8 +134,9 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:323` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:373` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:909` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
-| `app/client/fontsys.cpp:949` | `FontStyleClass::Set_Transform` | marker | NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:971` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
+| `app/client/fontsys.cpp:946` | `FontStyleClass::Unknown_6D8650` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6D8650) |
+| `app/client/fontsys.cpp:964` | `FontStyleClass::Set_Transform` | marker | NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:986` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:16` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:89` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
 | `app/client/gadget.cpp:74` | `GadgetClass::GadgetClass` | marker | NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or) |
@@ -318,9 +319,11 @@ edit the comments in the code, not this file.
 | `app/client/unknown_66b770.cpp:42` | `Unknown_66B770Class::Unknown_2C` | marker | NOT EXACT: shape (block order): the client puts the 0x40 test of the held-button check right after the 4 test; tried ?:, && / \|\|, a bool, early returns, the branches swapped |
 | `app/client/unknown_6ca0c0.cpp:102` | `Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6ca0c0.cpp:658` | `Unknown_6D5B10` | marker | NOT EXACT: functional (D64): a FontStyleClass member (__thiscall) in the client; a free function until fontmanager.h declares it |
-| `app/client/unknown_6cce60.cpp:23` | `FontStyleClass::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
-| `app/client/unknown_6cce60.cpp:63` | `FontStyleClass::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
-| `app/client/unknown_6cce60.cpp:130` | `FontStyleClass::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
+| `app/client/unknown_6cce60.cpp:36` | `FontStyleClass::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
+| `app/client/unknown_6cce60.cpp:76` | `FontStyleClass::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
+| `app/client/unknown_6cce60.cpp:143` | `FontStyleClass::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
+| `app/client/unknown_6cce60.cpp:185` | `FontStyleClass::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
+| `app/client/unknown_6cce60.cpp:226` | `FontStyleClass::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

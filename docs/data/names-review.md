@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1148 |
 | 2 | describes what the code does | 2880 |
-| 1 | neutral placeholder | 10490 |
+| 1 | neutral placeholder | 10505 |
 
 ## For review (score 3 and below)
 
@@ -2002,87 +2002,88 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CD180` | `app/client/fontmanager.h:93` | neutral (D10) |
 | 1 | `Unknown_6CD6F0` | `app/client/fontmanager.h:94` | neutral (D10) |
 | 1 | `Unknown_6CCE60` | `app/client/fontmanager.h:95` | neutral (D10) |
-| 1 | `Unknown250` | `app/client/fontmanager.h:102` | neutral (D10) |
-| 1 | `Unknown254` | `app/client/fontmanager.h:103` | neutral (D10) |
-| 1 | `Unknown26C` | `app/client/fontmanager.h:104` | neutral (D10) |
-| 1 | `Unknown270` | `app/client/fontmanager.h:105` | neutral (D10) |
-| 1 | `Unknown274` | `app/client/fontmanager.h:106` | neutral (D10) |
-| 1 | `Unknown2C4` | `app/client/fontmanager.h:111` | neutral (D10) |
-| 1 | `Unknown2C8` | `app/client/fontmanager.h:112` | neutral (D10) |
-| 1 | `Unknown2D0` | `app/client/fontmanager.h:114` | neutral (D10) |
-| 1 | `Unknown2E0` | `app/client/fontmanager.h:115` | neutral (D10) |
-| 1 | `Unknown2F0` | `app/client/fontmanager.h:116` | neutral (D10) |
-| 1 | `Unknown2F4` | `app/client/fontmanager.h:117` | neutral (D10) |
-| 1 | `Unknown300` | `app/client/fontmanager.h:118` | neutral (D10) |
-| 1 | `Unknown301` | `app/client/fontmanager.h:119` | neutral (D10) |
-| 1 | `Unknown302` | `app/client/fontmanager.h:120` | neutral (D10) |
-| 1 | `Unknown303` | `app/client/fontmanager.h:121` | neutral (D10) |
-| 1 | `Unknown402` | `app/client/fontmanager.h:122` | neutral (D10) |
-| 1 | `Unknown403` | `app/client/fontmanager.h:123` | neutral (D10) |
-| 1 | `Unknown404` | `app/client/fontmanager.h:124` | neutral (D10) |
-| 1 | `Unknown405` | `app/client/fontmanager.h:125` | neutral (D10) |
-| 1 | `Unknown406` | `app/client/fontmanager.h:126` | neutral (D10) |
-| 1 | `Unknown408` | `app/client/fontmanager.h:128` | neutral (D10) |
-| 1 | `Unknown409` | `app/client/fontmanager.h:129` | neutral (D10) |
-| 1 | `Unknown410` | `app/client/fontmanager.h:131` | neutral (D10) |
-| 1 | `Unknown414` | `app/client/fontmanager.h:132` | neutral (D10) |
-| 1 | `Unknown418` | `app/client/fontmanager.h:133` | neutral (D10) |
-| 1 | `Unknown41C` | `app/client/fontmanager.h:134` | neutral (D10) |
-| 1 | `Unknown420` | `app/client/fontmanager.h:135` | neutral (D10) |
-| 1 | `Unknown430` | `app/client/fontmanager.h:136` | neutral (D10) |
-| 1 | `Unknown440` | `app/client/fontmanager.h:137` | neutral (D10) |
-| 1 | `Unknown444` | `app/client/fontmanager.h:138` | neutral (D10) |
-| 1 | `Unknown448` | `app/client/fontmanager.h:139` | neutral (D10) |
-| 1 | `Unknown44C` | `app/client/fontmanager.h:140` | neutral (D10) |
-| 1 | `Unknown450` | `app/client/fontmanager.h:141` | neutral (D10) |
-| 1 | `Unknown454` | `app/client/fontmanager.h:142` | neutral (D10) |
-| 1 | `Unknown458` | `app/client/fontmanager.h:143` | neutral (D10) |
-| 1 | `Unknown464` | `app/client/fontmanager.h:146` | neutral (D10) |
-| 1 | `Unknown46C` | `app/client/fontmanager.h:147` | neutral (D10) |
-| 1 | `Unknown470` | `app/client/fontmanager.h:148` | neutral (D10) |
-| 1 | `Unknown47C` | `app/client/fontmanager.h:149` | neutral (D10) |
-| 1 | `Unknown488` | `app/client/fontmanager.h:150` | neutral (D10) |
-| 1 | `Unknown494` | `app/client/fontmanager.h:151` | neutral (D10) |
-| 1 | `Unknown4A4` | `app/client/fontmanager.h:152` | neutral (D10) |
-| 1 | `Unknown4B4` | `app/client/fontmanager.h:153` | neutral (D10) |
-| 1 | `Unknown4C4` | `app/client/fontmanager.h:154` | neutral (D10) |
-| 1 | `Unknown4C5` | `app/client/fontmanager.h:155` | neutral (D10) |
-| 1 | `Unknown4C6` | `app/client/fontmanager.h:156` | neutral (D10) |
-| 1 | `Unknown4C8` | `app/client/fontmanager.h:157` | neutral (D10) |
-| 1 | `Unknown4D0` | `app/client/fontmanager.h:158` | neutral (D10) |
-| 1 | `Unknown4DC` | `app/client/fontmanager.h:159` | neutral (D10) |
-| 1 | `Unknown4E0` | `app/client/fontmanager.h:160` | neutral (D10) |
-| 1 | `Unknown4E4` | `app/client/fontmanager.h:161` | neutral (D10) |
-| 1 | `Unknown4E5` | `app/client/fontmanager.h:162` | neutral (D10) |
-| 1 | `Unknown4E6` | `app/client/fontmanager.h:163` | neutral (D10) |
-| 1 | `Unknown4E7` | `app/client/fontmanager.h:164` | neutral (D10) |
-| 1 | `unknown` | `app/client/fontmanager.h:171` | neutral (D10) |
-| 1 | `Unknown_6CF930` | `app/client/fontmanager.h:172` | neutral (D10) |
-| 1 | `Unknown_All_Styles` | `app/client/fontmanager.h:174` | neutral (D10) |
-| 1 | `Unknown_Set_Styles` | `app/client/fontmanager.h:175` | neutral (D10) |
-| 1 | `Unknown_6D07D0` | `app/client/fontmanager.h:176` | neutral (D10) |
-| 1 | `Unknown_6D0890` | `app/client/fontmanager.h:177` | neutral (D10) |
-| 1 | `Unknown_6D10B0` | `app/client/fontmanager.h:178` | neutral (D10) |
-| 1 | `Unknown_6D1220` | `app/client/fontmanager.h:179` | neutral (D10) |
-| 1 | `Unknown_6D1480` | `app/client/fontmanager.h:180` | neutral (D10) |
-| 1 | `Unknown_6D1600` | `app/client/fontmanager.h:181` | neutral (D10) |
-| 1 | `Unknown_6D1010` | `app/client/fontmanager.h:182` | neutral (D10) |
-| 1 | `Unknown_6D01C0` | `app/client/fontmanager.h:183` | neutral (D10) |
-| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:184` | neutral (D10) |
-| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:185` | neutral (D10) |
-| 1 | `Unknown_6D0A70` | `app/client/fontmanager.h:186` | neutral (D10) |
-| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:187` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/fontmanager.h:191` | neutral (D10) |
-| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:201` | neutral (D10) |
-| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:206` | neutral (D10) |
-| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:207` | neutral (D10) |
-| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:208` | neutral (D10) |
-| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:209` | neutral (D10) |
-| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:210` | neutral (D10) |
-| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:212` | neutral (D10) |
-| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:213` | neutral (D10) |
-| 1 | `Peek_Font` | `app/client/fontmanager.h:215` | neutral (D10) |
-| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:217` | neutral (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/fontmanager.h:96` | neutral (D10) |
+| 1 | `Unknown250` | `app/client/fontmanager.h:103` | neutral (D10) |
+| 1 | `Unknown254` | `app/client/fontmanager.h:104` | neutral (D10) |
+| 1 | `Unknown26C` | `app/client/fontmanager.h:105` | neutral (D10) |
+| 1 | `Unknown270` | `app/client/fontmanager.h:106` | neutral (D10) |
+| 1 | `Unknown274` | `app/client/fontmanager.h:107` | neutral (D10) |
+| 1 | `Unknown2C4` | `app/client/fontmanager.h:112` | neutral (D10) |
+| 1 | `Unknown2C8` | `app/client/fontmanager.h:113` | neutral (D10) |
+| 1 | `Unknown2D0` | `app/client/fontmanager.h:115` | neutral (D10) |
+| 1 | `Unknown2E0` | `app/client/fontmanager.h:116` | neutral (D10) |
+| 1 | `Unknown2F0` | `app/client/fontmanager.h:117` | neutral (D10) |
+| 1 | `Unknown2F4` | `app/client/fontmanager.h:118` | neutral (D10) |
+| 1 | `Unknown300` | `app/client/fontmanager.h:119` | neutral (D10) |
+| 1 | `Unknown301` | `app/client/fontmanager.h:120` | neutral (D10) |
+| 1 | `Unknown302` | `app/client/fontmanager.h:121` | neutral (D10) |
+| 1 | `Unknown303` | `app/client/fontmanager.h:122` | neutral (D10) |
+| 1 | `Unknown402` | `app/client/fontmanager.h:123` | neutral (D10) |
+| 1 | `Unknown403` | `app/client/fontmanager.h:124` | neutral (D10) |
+| 1 | `Unknown404` | `app/client/fontmanager.h:125` | neutral (D10) |
+| 1 | `Unknown405` | `app/client/fontmanager.h:126` | neutral (D10) |
+| 1 | `Unknown406` | `app/client/fontmanager.h:127` | neutral (D10) |
+| 1 | `Unknown408` | `app/client/fontmanager.h:129` | neutral (D10) |
+| 1 | `Unknown409` | `app/client/fontmanager.h:130` | neutral (D10) |
+| 1 | `Unknown410` | `app/client/fontmanager.h:132` | neutral (D10) |
+| 1 | `Unknown414` | `app/client/fontmanager.h:133` | neutral (D10) |
+| 1 | `Unknown418` | `app/client/fontmanager.h:134` | neutral (D10) |
+| 1 | `Unknown41C` | `app/client/fontmanager.h:135` | neutral (D10) |
+| 1 | `Unknown420` | `app/client/fontmanager.h:136` | neutral (D10) |
+| 1 | `Unknown430` | `app/client/fontmanager.h:137` | neutral (D10) |
+| 1 | `Unknown440` | `app/client/fontmanager.h:138` | neutral (D10) |
+| 1 | `Unknown444` | `app/client/fontmanager.h:139` | neutral (D10) |
+| 1 | `Unknown448` | `app/client/fontmanager.h:140` | neutral (D10) |
+| 1 | `Unknown44C` | `app/client/fontmanager.h:141` | neutral (D10) |
+| 1 | `Unknown450` | `app/client/fontmanager.h:142` | neutral (D10) |
+| 1 | `Unknown454` | `app/client/fontmanager.h:143` | neutral (D10) |
+| 1 | `Unknown458` | `app/client/fontmanager.h:144` | neutral (D10) |
+| 1 | `Unknown464` | `app/client/fontmanager.h:147` | neutral (D10) |
+| 1 | `Unknown46C` | `app/client/fontmanager.h:148` | neutral (D10) |
+| 1 | `Unknown470` | `app/client/fontmanager.h:149` | neutral (D10) |
+| 1 | `Unknown47C` | `app/client/fontmanager.h:150` | neutral (D10) |
+| 1 | `Unknown488` | `app/client/fontmanager.h:151` | neutral (D10) |
+| 1 | `Unknown494` | `app/client/fontmanager.h:152` | neutral (D10) |
+| 1 | `Unknown4A4` | `app/client/fontmanager.h:153` | neutral (D10) |
+| 1 | `Unknown4B4` | `app/client/fontmanager.h:154` | neutral (D10) |
+| 1 | `Unknown4C4` | `app/client/fontmanager.h:155` | neutral (D10) |
+| 1 | `Unknown4C5` | `app/client/fontmanager.h:156` | neutral (D10) |
+| 1 | `Unknown4C6` | `app/client/fontmanager.h:157` | neutral (D10) |
+| 1 | `Unknown4C8` | `app/client/fontmanager.h:158` | neutral (D10) |
+| 1 | `Unknown4D0` | `app/client/fontmanager.h:159` | neutral (D10) |
+| 1 | `Unknown4DC` | `app/client/fontmanager.h:160` | neutral (D10) |
+| 1 | `Unknown4E0` | `app/client/fontmanager.h:161` | neutral (D10) |
+| 1 | `Unknown4E4` | `app/client/fontmanager.h:162` | neutral (D10) |
+| 1 | `Unknown4E5` | `app/client/fontmanager.h:163` | neutral (D10) |
+| 1 | `Unknown4E6` | `app/client/fontmanager.h:164` | neutral (D10) |
+| 1 | `Unknown4E7` | `app/client/fontmanager.h:165` | neutral (D10) |
+| 1 | `unknown` | `app/client/fontmanager.h:172` | neutral (D10) |
+| 1 | `Unknown_6CF930` | `app/client/fontmanager.h:173` | neutral (D10) |
+| 1 | `Unknown_All_Styles` | `app/client/fontmanager.h:175` | neutral (D10) |
+| 1 | `Unknown_Set_Styles` | `app/client/fontmanager.h:176` | neutral (D10) |
+| 1 | `Unknown_6D07D0` | `app/client/fontmanager.h:177` | neutral (D10) |
+| 1 | `Unknown_6D0890` | `app/client/fontmanager.h:178` | neutral (D10) |
+| 1 | `Unknown_6D10B0` | `app/client/fontmanager.h:179` | neutral (D10) |
+| 1 | `Unknown_6D1220` | `app/client/fontmanager.h:180` | neutral (D10) |
+| 1 | `Unknown_6D1480` | `app/client/fontmanager.h:181` | neutral (D10) |
+| 1 | `Unknown_6D1600` | `app/client/fontmanager.h:182` | neutral (D10) |
+| 1 | `Unknown_6D1010` | `app/client/fontmanager.h:183` | neutral (D10) |
+| 1 | `Unknown_6D01C0` | `app/client/fontmanager.h:184` | neutral (D10) |
+| 1 | `Unknown_6D0390` | `app/client/fontmanager.h:185` | neutral (D10) |
+| 1 | `Unknown_6D0550` | `app/client/fontmanager.h:186` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/fontmanager.h:187` | neutral (D10) |
+| 1 | `Unknown_6D0A20` | `app/client/fontmanager.h:188` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/fontmanager.h:192` | neutral (D10) |
+| 1 | `Unknown_6D1C10` | `app/client/fontmanager.h:202` | neutral (D10) |
+| 1 | `Unknown_6D2310` | `app/client/fontmanager.h:207` | neutral (D10) |
+| 1 | `Unknown_6D2400` | `app/client/fontmanager.h:208` | neutral (D10) |
+| 1 | `Unknown_6D2480` | `app/client/fontmanager.h:209` | neutral (D10) |
+| 1 | `Unknown_6D2500` | `app/client/fontmanager.h:210` | neutral (D10) |
+| 1 | `Unknown_6D2580` | `app/client/fontmanager.h:211` | neutral (D10) |
+| 1 | `Unknown_6D2700` | `app/client/fontmanager.h:213` | neutral (D10) |
+| 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:214` | neutral (D10) |
+| 1 | `Peek_Font` | `app/client/fontmanager.h:216` | neutral (D10) |
+| 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:218` | neutral (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/fontsys.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5170` | `app/client/fontsys.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6D6390` | `app/client/fontsys.cpp:34` | untagged neutral name (D10) |
@@ -2147,11 +2148,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:439` | untagged neutral name (D10) |
 | 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:442` | untagged neutral name (D10) |
 | 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:478` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:944` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.cpp:968` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67D8` | `app/client/fontsys.cpp:969` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/fontsys.cpp:974` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/fontsys.cpp:975` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:947` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.cpp:983` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67D8` | `app/client/fontsys.cpp:984` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/fontsys.cpp:989` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/fontsys.cpp:990` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
 | 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
 | 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
@@ -7825,40 +7827,53 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown448` | `app/client/unknown_6ca0c0.cpp:637` | untagged neutral name (D10) |
 | 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.h:47` | neutral (D10) |
 | 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.h:50` | neutral (D10) |
-| 1 | `Unknown_BE67B4` | `app/client/unknown_6cce60.cpp:16` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_6cce60.cpp:16` | untagged neutral name (D10) |
-| 1 | `x, y` | `app/client/unknown_6cce60.cpp:17` | neutral |
-| 1 | `Unknown_42ECF0` | `app/client/unknown_6cce60.cpp:17` | untagged neutral name (D10) |
-| 1 | `button, arg` | `app/client/unknown_6cce60.cpp:18` | neutral |
-| 1 | `Unknown_42EC60` | `app/client/unknown_6cce60.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/unknown_6cce60.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown254` | `app/client/unknown_6cce60.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown488` | `app/client/unknown_6cce60.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown274` | `app/client/unknown_6cce60.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown44C` | `app/client/unknown_6cce60.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown4A4` | `app/client/unknown_6cce60.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown406` | `app/client/unknown_6cce60.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown4C4` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown2D0` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown2C4` | `app/client/unknown_6cce60.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/unknown_6cce60.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown2C8` | `app/client/unknown_6cce60.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/unknown_6cce60.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown440` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown250` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown4E4` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown430` | `app/client/unknown_6cce60.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/unknown_6cce60.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B4` | `app/client/unknown_6cce60.cpp:29` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_6cce60.cpp:29` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/unknown_6cce60.cpp:30` | neutral |
+| 1 | `Unknown_42ECF0` | `app/client/unknown_6cce60.cpp:30` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/unknown_6cce60.cpp:31` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/unknown_6cce60.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/unknown_6cce60.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/unknown_6cce60.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown488` | `app/client/unknown_6cce60.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/unknown_6cce60.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/unknown_6cce60.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/unknown_6cce60.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/unknown_6cce60.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown4C4` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6cce60.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/unknown_6cce60.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown430` | `app/client/unknown_6cce60.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/unknown_6cce60.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:315` | untagged neutral name (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -11021,33 +11036,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Obj_Space_Bounding_Sphere` | `app/client/fontmanager.h:72` | RenderObjClass's |
 | 2 | `Get_Obj_Space_Bounding_Box` | `app/client/fontmanager.h:73` | RenderObjClass's |
 | 2 | `Set_Color` | `app/client/fontmanager.h:78` | describes what it does |
-| 2 | `Info` | `app/client/fontmanager.h:97` | what it holds |
-| 2 | `Colors` | `app/client/fontmanager.h:98` | what 0x6D5170 stores |
-| 2 | `Effects` | `app/client/fontmanager.h:99` | what 0x6D5170 stores |
-| 2 | `Object` | `app/client/fontmanager.h:100` | what the constructors pass |
-| 2 | `Width` | `app/client/fontmanager.h:107` | what it holds |
-| 2 | `Height` | `app/client/fontmanager.h:108` | what it holds |
-| 2 | `Bits` | `app/client/fontmanager.h:109` | what it holds |
-| 2 | `Windowed` | `app/client/fontmanager.h:110` | what it holds |
-| 2 | `Scale` | `app/client/fontmanager.h:113` | what Find_Font writes |
-| 2 | `Underline` | `app/client/fontmanager.h:127` | what 0x6D5170 copies |
-| 2 | `FontIndex` | `app/client/fontmanager.h:130` | what 0x6D5170 indexes with |
-| 2 | `LineCount` | `app/client/fontmanager.h:144` | what 0x6CF930 stores |
-| 2 | `LineNumber` | `app/client/fontmanager.h:145` | what 0x6CF930 stores |
-| 2 | `ManagedFontClass` | `app/client/fontmanager.h:167` | what the manager holds per id (0x24 bytes; its +4 is the id) |
-| 2 | `Name` | `app/client/fontmanager.h:189` | the name 0x6D1FD0 looks up in the font database |
-| 2 | `Id` | `app/client/fontmanager.h:190` | what it holds |
-| 2 | `std:` | `app/client/fontmanager.h:192` | what it holds |
-| 2 | `Remove_All` | `app/client/fontmanager.h:200` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:202` | describes what it does |
+| 2 | `Info` | `app/client/fontmanager.h:98` | what it holds |
+| 2 | `Colors` | `app/client/fontmanager.h:99` | what 0x6D5170 stores |
+| 2 | `Effects` | `app/client/fontmanager.h:100` | what 0x6D5170 stores |
+| 2 | `Object` | `app/client/fontmanager.h:101` | what the constructors pass |
+| 2 | `Width` | `app/client/fontmanager.h:108` | what it holds |
+| 2 | `Height` | `app/client/fontmanager.h:109` | what it holds |
+| 2 | `Bits` | `app/client/fontmanager.h:110` | what it holds |
+| 2 | `Windowed` | `app/client/fontmanager.h:111` | what it holds |
+| 2 | `Scale` | `app/client/fontmanager.h:114` | what Find_Font writes |
+| 2 | `Underline` | `app/client/fontmanager.h:128` | what 0x6D5170 copies |
+| 2 | `FontIndex` | `app/client/fontmanager.h:131` | what 0x6D5170 indexes with |
+| 2 | `LineCount` | `app/client/fontmanager.h:145` | what 0x6CF930 stores |
+| 2 | `LineNumber` | `app/client/fontmanager.h:146` | what 0x6CF930 stores |
+| 2 | `ManagedFontClass` | `app/client/fontmanager.h:168` | what the manager holds per id (0x24 bytes; its +4 is the id) |
+| 2 | `Name` | `app/client/fontmanager.h:190` | the name 0x6D1FD0 looks up in the font database |
+| 2 | `Id` | `app/client/fontmanager.h:191` | what it holds |
+| 2 | `std:` | `app/client/fontmanager.h:193` | what it holds |
+| 2 | `Remove_All` | `app/client/fontmanager.h:201` | describes what it does |
 | 2 | `Add` | `app/client/fontmanager.h:203` | describes what it does |
-| 2 | `Create` | `app/client/fontmanager.h:204` | describes what it does |
-| 2 | `Remove` | `app/client/fontmanager.h:205` | describes what it does |
-| 2 | `Get_Style` | `app/client/fontmanager.h:211` | describes what it does |
-| 2 | `Add` | `app/client/fontmanager.h:214` | describes what it does |
-| 2 | `Find` | `app/client/fontmanager.h:216` | describes what it does |
-| 2 | `std:` | `app/client/fontmanager.h:219` | what it holds |
-| 2 | `DebugFont` | `app/client/fontmanager.h:220` | what it holds |
+| 2 | `Add` | `app/client/fontmanager.h:204` | describes what it does |
+| 2 | `Create` | `app/client/fontmanager.h:205` | describes what it does |
+| 2 | `Remove` | `app/client/fontmanager.h:206` | describes what it does |
+| 2 | `Get_Style` | `app/client/fontmanager.h:212` | describes what it does |
+| 2 | `Add` | `app/client/fontmanager.h:215` | describes what it does |
+| 2 | `Find` | `app/client/fontmanager.h:217` | describes what it does |
+| 2 | `std:` | `app/client/fontmanager.h:220` | what it holds |
+| 2 | `DebugFont` | `app/client/fontmanager.h:221` | what it holds |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
 | 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
 | 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
@@ -13499,8 +13514,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `fontmanager.h` | `app/client/fontmanager.h:17` | header name assumed from the client's fontmanager.cpp |
 | 3 | `Update_Text` | `app/client/fontmanager.h:77` | the client's label; NAME 1 [unknown]: neutral (D10) |
 | 3 | `Change_Text` | `app/client/fontmanager.h:83` | the client's label |
-| 3 | `Font` | `app/client/fontmanager.h:101` | the assert's |
-| 3 | `FontManagerClass` | `app/client/fontmanager.h:195` | by convention (D24) from the client's fontmanager.cpp |
+| 3 | `Font` | `app/client/fontmanager.h:102` | the assert's |
+| 3 | `FontManagerClass` | `app/client/fontmanager.h:196` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `fontsys_cursor.h` | `app/client/fontsys_cursor.h:18` | the header of fontsys_cursor.cpp |
 | 3 | `gadget.h` | `app/client/gadget.h:20` | header name assumed from the client's gadget.cpp |
 | 3 | `Flash` | `app/client/gadget.h:126` | the asserts' |
