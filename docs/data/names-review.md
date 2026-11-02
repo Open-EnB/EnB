@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1162 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11056 |
+| 1 | neutral placeholder | 11053 |
 
 ## For review (score 3 and below)
 
@@ -3467,8 +3467,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1F1` | `app/client/sbaseview.h:148` | untagged neutral name (D10) |
 | 1 | `Unknown1F4` | `app/client/sbaseview.h:149` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_7228C0` | `app/client/sclient.cpp:29` | neutral (D10), as tsk_login.cpp |
-| 1 | `Unknown_723150` | `app/client/sclient.cpp:30` | neutral (D10), as tsk_login.cpp |
 | 1 | `Unknown_6766E0` | `app/client/sclient.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_676A00` | `app/client/sclient.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_817070` | `app/client/sclient.cpp:33` | untagged neutral name (D10) |
@@ -3589,6 +3587,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown1394Class` | `app/client/sclient.cpp:380` | untagged neutral name (D10) |
 | 1 | `Unknown1394` | `app/client/sclient.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/sclient.cpp:384` | untagged neutral name (D10) |
+| 1 | `Unknown_7228C0` | `app/client/sclient.cpp:395` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/sclient.cpp:410` | untagged neutral name (D10) |
 | 1 | `Unknown_6C52B0` | `app/client/sclient.cpp:410` | untagged neutral name (D10) |
 | 1 | `Unknown_745350` | `app/client/sclient.cpp:414` | untagged neutral name (D10) |
@@ -3612,6 +3611,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7518A0` | `app/client/sclient.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_514220` | `app/client/sclient.cpp:486` | untagged neutral name (D10) |
 | 1 | `Unknown_5141A0` | `app/client/sclient.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_723150` | `app/client/sclient.cpp:503` | untagged neutral name (D10) |
 | 1 | `Unknown_74C9D0` | `app/client/sclient.cpp:517` | untagged neutral name (D10) |
 | 1 | `Unknown_742530` | `app/client/sclient.cpp:520` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/sclient.cpp:549` | untagged neutral name (D10) |
@@ -4764,11 +4764,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8190D0Class` | `app/client/tasks/tsk_login.cpp:38` | what 0x8190D0 returns |
 | 1 | `Unknown_8191B0` | `app/client/tasks/tsk_login.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_8190D0` | `app/client/tasks/tsk_login.cpp:39` | neutral (D10) |
-| 1 | `Unknown_723150` | `app/client/tasks/tsk_login.cpp:41` | neutral (D10); the destructor calls it |
 | 1 | `Unknown_BB9654` | `app/client/tasks/tsk_login.cpp:42` | neutral (D10); Accept_Focus clears it |
 | 1 | `Galaxies` | `app/client/tasks/tsk_login.cpp:47` | copied to the task's |
 | 1 | `Unknown_7E5F70` | `app/client/tasks/tsk_login.cpp:48` | neutral (D10); once, by the first LoginTaskClass(mode) |
-| 1 | `Unknown_7228C0` | `app/client/tasks/tsk_login.cpp:49` | neutral (D10) |
 | 1 | `Unknown_43FA80` | `app/client/tasks/tsk_login.cpp:50` | neutral (D10) (soundlib.cpp) |
 | 1 | `Unknown_BE82D4` | `app/client/tasks/tsk_login.cpp:51` | neutral (D10): set once Unknown_7E5F70 ran |
 | 1 | `Unknown000C` | `app/client/tasks/tsk_login.cpp:55` | untagged neutral name (D10) |
@@ -4780,6 +4778,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown108C` | `app/client/tasks/tsk_login.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/tasks/tsk_login.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/tasks/tsk_login.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_7228C0` | `app/client/tasks/tsk_login.cpp:75` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/tasks/tsk_login.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_515120` | `app/client/tasks/tsk_login.cpp:78` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/tasks/tsk_login.cpp:80` | untagged neutral name (D10) |
@@ -4789,6 +4788,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/tasks/tsk_login.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC130` | `app/client/tasks/tsk_login.cpp:89` | 0x4BC130, 0x4BC000's sibling (unknown_debug.cpp) |
 | 1 | `Unknown_4A1590` | `app/client/tasks/tsk_login.cpp:90` | neutral placeholder (D10) |
+| 1 | `Unknown_723150` | `app/client/tasks/tsk_login.cpp:142` | untagged neutral name (D10) |
 | 1 | `Unknown_515340` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/tasks/tsk_login.cpp:155` | untagged neutral name (D10) |
 | 1 | `LoginFlagsStruct` | `app/client/tasks/tsk_login.cpp:183` | neutral (D10) |
@@ -8725,10 +8725,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8F870` | `app/main/main_client.cpp:78` | the 768-byte palette, WW3D::Init's default palette |
 | 1 | `Unknown_6832C0` | `app/main/main_client.cpp:79` | deffont.cpp's start-up ('!FontData[style]') |
 | 1 | `Unknown_683940` | `app/main/main_client.cpp:80` | deffont.cpp's shut-down |
-| 1 | `Unknown_C006A0Struct` | `app/main/main_client.cpp:81` | neutral (D10), as far as WinMain reads it |
-| 1 | `Unknown00` | `app/main/main_client.cpp:81` | untagged neutral name (D10) |
-| 1 | `UnknownDD` | `app/main/main_client.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_C006A0` | `app/main/main_client.cpp:82` | neutral (D10) |
 | 1 | `Unknown_BFAE4F` | `app/main/main_client.cpp:85` | neutral (D10) |
 | 1 | `Unknown_BFAE50` | `app/main/main_client.cpp:86` | neutral (D10) |
 | 1 | `Unknown_BFAE51` | `app/main/main_client.cpp:87` | neutral (D10) |
@@ -8736,6 +8732,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B20D0Class` | `app/main/main_client.cpp:99` | neutral (D10) |
 | 1 | `Unknown_8B2230` | `app/main/main_client.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/main/main_client.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/main/main_client.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_6BCFB0Class` | `app/main/main_client.cpp:123` | 0x6BCFB0, 0x6BD060 |
 | 1 | `Unknown_BE67C4` | `app/main/main_client.cpp:124` | neutral (D10) |
 | 1 | `Unknown_BE67B4` | `app/main/main_client.cpp:125` | neutral (D10) |
