@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2886 |
-| 1 | neutral placeholder | 10711 |
+| 1 | neutral placeholder | 10697 |
 
 ## For review (score 3 and below)
 
@@ -4463,8 +4463,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_801C40` | `app/client/scriptedmovie.cpp:478` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/scriptedmovie.cpp:706` | untagged neutral name (D10) |
 | 1 | `Get_Unknown54` | `app/client/scriptedmovie.cpp:707` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/scriptedmovie.cpp:713` | neutral (D10): the time now in ms (mainview.cpp, ui_line_display.cpp declare it so) |
-| 1 | `Unknown_BFAE40` | `app/client/scriptedmovie.cpp:714` | neutral (D10): the time of the last frame (ui_line_display.cpp declares it so) |
 | 1 | `Unknown_7FF3D0` | `app/client/scriptedmovie.cpp:715` | untagged neutral name (D10) |
 | 1 | `Unknown_802B20` | `app/client/scriptedmovie.cpp:744` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9410` | `app/client/scriptedmovie.cpp:756` | untagged neutral name (D10) |
@@ -5724,8 +5722,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIAvselNotifierClass` | `app/client/ui_avsel.cpp:227` | neutral (D10) |
 | 1 | `UnknownBFAEE0Class` | `app/client/ui_avsel.cpp:236` | kernel.cpp's |
 | 1 | `Unknown_BFAEE0` | `app/client/ui_avsel.cpp:242` | 0xBFAEE0 |
-| 1 | `Unknown_BFAE3C` | `app/client/ui_avsel.cpp:244` | neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them) |
-| 1 | `Unknown_BFAE40` | `app/client/ui_avsel.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_B7B8E0` | `app/client/ui_avsel.cpp:247` | neutral (D10) |
 | 1 | `Unknown_B7B904` | `app/client/ui_avsel.cpp:248` | neutral (D10) |
 | 1 | `Unknown_B7B928` | `app/client/ui_avsel.cpp:249` | neutral (D10) |
@@ -5893,8 +5889,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56EFB0` | `app/client/ui_chat_panel.cpp:74` | untagged neutral name (D10) |
 | 1 | `names, arg` | `app/client/ui_chat_panel.cpp:75` | what 0x567540 passes |
 | 1 | `Unknown_56EED0` | `app/client/ui_chat_panel.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/ui_chat_panel.cpp:78` | neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them) |
-| 1 | `Unknown_BFAE40` | `app/client/ui_chat_panel.cpp:78` | untagged neutral name (D10) |
 | 1 | `a, b` | `app/client/ui_chat_panel.cpp:79` | what 0x567760 passes |
 | 1 | `Unknown_42EC60` | `app/client/ui_chat_panel.cpp:79` | untagged neutral name (D10) |
 | 1 | `ChatChannelStruct` | `app/client/ui_chat_panel.cpp:82` | neutral (D10) |
@@ -6726,8 +6720,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65EED0` | `app/client/ui_group.cpp:51` | untagged neutral name (D10) |
 | 1 | `section, name` | `app/client/ui_group.cpp:52` | what this file passes |
 | 1 | `Unknown_65EFB0` | `app/client/ui_group.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/ui_group.cpp:54` | neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp) |
-| 1 | `Unknown_BFAE40` | `app/client/ui_group.cpp:54` | untagged neutral name (D10) |
 | 1 | `UIGroupIconGadgetClass` | `app/client/ui_group.cpp:57` | neutral (D10) |
 | 1 | `object, unknown1, unknown2` | `app/client/ui_group.cpp:60` | neutral |
 | 1 | `Unknown30` | `app/client/ui_group.cpp:61` | untagged neutral name (D10) |
@@ -6976,8 +6968,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4FA710` | `app/client/ui_line_display.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_4FA740` | `app/client/ui_line_display.cpp:73` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_line_display.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/ui_line_display.cpp:90` | neutral (D10): the time now, as slot +0x60 reads it |
-| 1 | `Unknown_BFAE40` | `app/client/ui_line_display.cpp:91` | neutral (D10): the time of the last frame |
 | 1 | `Unknown_16C` | `app/client/ui_line_display.cpp:149` | untagged neutral name (D10) |
 | 1 | `UnknownAD` | `app/client/ui_line_display.cpp:165` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.cpp:166` | untagged neutral name (D10) |
@@ -7285,8 +7275,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4E4` | `app/client/ui_manu.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_manu.cpp:30` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_manu.cpp:34` | neutral (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/ui_manu.cpp:35` | neutral (D10): the time now and the last frame's, in ms (as ui_group.cpp) |
-| 1 | `Unknown_BFAE40` | `app/client/ui_manu.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_manu.cpp:41` | untagged neutral name (D10) |
@@ -8120,8 +8108,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownBE8BA0` | `app/client/unknown_screenfade.cpp:47` | untagged neutral name (D10) |
 | 1 | `UnknownBE8B40` | `app/client/unknown_screenfade.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/unknown_screenfade.cpp:51` | neutral (D10): the time now in ms (mainview.cpp declares it too) |
-| 1 | `Unknown_BFAE40` | `app/client/unknown_screenfade.cpp:52` | neutral (D10): the last frame's (scriptedmovie.cpp declares it too) |
 | 1 | `Unknown_7FF230` | `app/client/unknown_screenfade.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_7FF3A0` | `app/client/unknown_screenfade.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_7FF3D0` | `app/client/unknown_screenfade.cpp:75` | untagged neutral name (D10) |

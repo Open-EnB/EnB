@@ -75,7 +75,7 @@ public:
 	void Unknown_56EED0(std::list<std::string> &names, int arg);	// 0x56EED0 (0x567540: the reply names, +0x1EC)  // NAME 1 [names, arg]: what 0x567540 passes
 };
 
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes
 
 // The chat channels the panel offers (0xB7C530: name, option, the destination's number as text), NULL-ended
@@ -535,7 +535,7 @@ void UIChatPanelClass::Unknown_60()
 		Unknown227 = true;
 	}
 	if (Unknown25C) {
-		Unknown260 += (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown260 += (float)(WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown260 > 0.5f) {
 			Unknown260 -= 0.5f;
 			RenderObjClass *light = Unknown258;

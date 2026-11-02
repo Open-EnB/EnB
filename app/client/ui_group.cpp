@@ -51,7 +51,7 @@ public:
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section ('UI_FORMATION', 'GRP_LEAVE')  // NAME 1 [section, name]: what this file passes
 
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
 // gadget.cpp's icon gadget (100 bytes, constructor 0x675310 over a render object), as far as 0x5938A0 makes it
 class UIGroupIconGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
@@ -177,7 +177,7 @@ void UIGroupUnknownE8Class::Unknown_592A80()
 {
 	int index = Unknown2C;
 	if (index >= 0 && index < 6 && Unknown08[index] != NULL && Unknown30 > 0.0f) {
-		Unknown30 -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown30 -= (WW3D::Get_Frame_Time()) * 0.001f;
 		float fraction = Unknown30 - (int)Unknown30;
 		if (Unknown30 < 0.0f) {
 			if (Unknown2C == 0) {
@@ -449,7 +449,7 @@ void UIGroupMemberClass::Unknown_5935C0()
 	if (Unknown2C) {
 		Unknown2C->Unknown_10();
 	}
-	float elapsed = (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+	float elapsed = (WW3D::Get_Frame_Time()) * 0.001f;
 	if (Unknown24 > 0.0f) {
 		Unknown24 -= elapsed;
 		if (Unknown24 < 0.0f) {
@@ -695,7 +695,7 @@ void UIGroupClass::Unknown_60()
 	Unknown_596DB0();
 	Unknown_597650();
 	if (Unknown0EC > 0.0f) {
-		Unknown0EC -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown0EC -= (WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown0EC < 0.0f) {
 			Unknown0EC = 0;
 			GadgetClass **buttons = Unknown0C0;

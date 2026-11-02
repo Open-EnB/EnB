@@ -87,8 +87,8 @@ private:
 
 
 
-extern unsigned int Unknown_BFAE3C;							// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now, as slot +0x60 reads it
-extern unsigned int Unknown_BFAE40;							// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
 
 
 // 0x5A4B50
@@ -321,7 +321,7 @@ void UILineDisplayClass::Unknown_60()
 		return;
 	}
 	if (Current) {
-		unsigned int elapsed = Unknown_BFAE3C - Unknown_BFAE40;
+		unsigned int elapsed = WW3D::Get_Frame_Time();
 		if (Current->DisplayTimeMS) {
 			if (Current->DisplayTimeMS <= elapsed) {
 				Current->DisplayTimeMS = 0;

@@ -452,7 +452,7 @@ void ScriptedMovieViewClass::Unknown_10()
 #include "..\..\ww3d2\predlod.h"
 #include "..\..\ww3d2\render2d.h"
 #include "..\..\ww3d2\statistics.h"
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// (declared again with the frame 0x801E60)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
 void Unknown_7FF810();					// 0x7FF810 (the file before this one: the screen fade and the letterbox), their render
 
 // 0x8012C0: the view's render (slot +0x0C): the background, the stars, the orbitals and the dazzles, the scene, the fade;
@@ -486,7 +486,7 @@ int ScriptedMovieViewClass::Unknown_0C(bool on)
 		unsigned int frame = (Unknown80 * 30 - Unknown16C * 30) / 1000;
 		StringClass line(255, true);
 		StringClass text(1024, true);
-		unsigned int ms = Unknown_BFAE3C - Unknown_BFAE40;
+		unsigned int ms = WW3D::Get_Frame_Time();
 		if (ms <= 1) {
 			ms = 1;
 		}
@@ -710,8 +710,8 @@ void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
 
 
 #include "..\audio\soundlib.h"
-extern unsigned int Unknown_BFAE3C;	// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, ui_line_display.cpp declare it so)
-extern unsigned int Unknown_BFAE40;	// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (ui_line_display.cpp declares it so)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
+//	(ww3d.h is included above)
 void Unknown_7FF3D0();					// 0x7FF3D0 (the file before this one: the screen fade and the letterbox), their frame
 
 
@@ -736,7 +736,7 @@ void Unknown_7FF3D0();					// 0x7FF3D0 (the file before this one: the screen fad
 // 0x801E60: the view's frame (slot +0x14): the fade-out at the end time, the script, the objects, the sounds, the fades, the orbitals
 void ScriptedMovieViewClass::Unknown_14()
 {
-	unsigned int frame_time = Unknown_BFAE3C - Unknown_BFAE40;
+	unsigned int frame_time = WW3D::Get_Frame_Time();
 	if (Unknown16C && !Unknown170 && Unknown80 >= Unknown16C) {
 		Unknown_7FFBE0(0.0f, 1.0f);
 		Unknown170 = true;
