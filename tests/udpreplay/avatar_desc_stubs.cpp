@@ -17,8 +17,7 @@ std::string Unknown_4BE9D0(const char *name)
 	return std::string(name);
 }
 
-// the key/value encoder's typed adds (0x4C2EB0, 0x4C2FE0, 0x4B2BB0, 0x4B4A70)
-void KVEncoderBaseClass::Add(int, const char *, int *) {}
-void KVEncoderBaseClass::Add(int, const char *, char *) {}
+// the key/value encoder's typed adds (0x4B2BB0, 0x4B4A70; the int and char ones 0x4C2EB0 / 0x4C2FE0
+// are avatar_desc.cpp's own)
 void KVEncoderBaseClass::Add(int, const char *, Vector3 *) {}
 void KVEncoderBaseClass::Add(int, const char *, char *, int) {}
