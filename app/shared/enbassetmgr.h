@@ -24,6 +24,12 @@ public:
 	void Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors);	// NAME 1 [Unknown_48BCF0, geometry, colors]: neutral (D10), what each flag makes unique
 	void Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BDC0]: neutral (D10)
 	void Unknown_48BE60(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BE60]: neutral (D10)
+	void Unknown_48D1F0(RenderObjClass *robj, float *hsv);	// 0x48D1F0: a mesh's HSV shift (not written)  // NAME 1 [Unknown_48D1F0, robj, hsv]: neutral (D10), what 0x48B220 passes
+	void Unknown_48D710(RenderObjClass *robj, float *hsv);	// NAME 1 [Unknown_48D710]: neutral (D10)
+	void Unknown_48D850(RenderObjClass *robj, float *hsv);	// 0x48D850: a particle emitter's (not written)  // NAME 1 [Unknown_48D850]: neutral (D10)
+	void Unknown_48DD00(RenderObjClass *robj, float *hsv);	// 0x48DD00: a sphere's (not written)  // NAME 1 [Unknown_48DD00]: neutral (D10)
+	void Unknown_48E0F0(RenderObjClass *robj, float *hsv);	// 0x48E0F0: a ring's (not written)  // NAME 1 [Unknown_48E0F0]: neutral (D10)
+	void Unknown_48E4E0(RenderObjClass *robj, float *hsv);	// NAME 1 [Unknown_48E4E0]: neutral (D10)
 	void Unknown_48ECA0(TextureClass **textures, unsigned count);	// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78 (also 'ENBAssetManager::Create_Render_Obj' in its profile string)  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
 };

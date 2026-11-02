@@ -135,6 +135,66 @@ void ENBAssetManager::Unknown_48BE60(RenderObjClass *robj, bool geometry, bool c
 	}
 }
 
+// @0x48D710
+void ENBAssetManager::Unknown_48D710(RenderObjClass *robj, float *hsv)
+{
+	int count = robj->Get_Num_Sub_Objects();
+	for (int i = 0; i < count; ++i) {
+		RenderObjClass *sub = robj->Get_Sub_Object(i);
+		switch (sub->Class_ID()) {
+			case RenderObjClass::CLASSID_MESH:
+				Unknown_48D1F0(sub, hsv);
+				break;
+			case RenderObjClass::CLASSID_HLOD:
+				Unknown_48D710(sub, hsv);
+				break;
+			case RenderObjClass::CLASSID_PARTICLEEMITTER:
+				Unknown_48D850(sub, hsv);
+				break;
+			case RenderObjClass::CLASSID_SPHERE:
+				Unknown_48DD00(sub, hsv);
+				break;
+			case RenderObjClass::CLASSID_RING:
+				Unknown_48E0F0(sub, hsv);
+				break;
+		}
+		if (sub != NULL) {
+			sub->Release_Ref();
+		}
+	}
+}
+
+// @0x48E4E0
+void ENBAssetManager::Unknown_48E4E0(RenderObjClass *robj, float *hsv)
+{
+	switch (robj->Class_ID()) {
+		case RenderObjClass::CLASSID_MESH:
+			Unknown_48D1F0(robj, hsv);
+			break;
+		case RenderObjClass::CLASSID_HLOD:
+		{
+			int count = robj->Get_Num_Sub_Objects();
+			for (int i = 0; i < count; ++i) {
+				RenderObjClass *sub = robj->Get_Sub_Object(i);
+				Unknown_48E4E0(sub, hsv);
+				if (sub != NULL) {
+					sub->Release_Ref();
+				}
+			}
+			break;
+		}
+		case RenderObjClass::CLASSID_PARTICLEEMITTER:
+			Unknown_48D850(robj, hsv);
+			break;
+		case RenderObjClass::CLASSID_SPHERE:
+			Unknown_48DD00(robj, hsv);
+			break;
+		case RenderObjClass::CLASSID_RING:
+			Unknown_48E0F0(robj, hsv);
+			break;
+	}
+}
+
 // @0x48E620
 bool Unknown_48E620(RenderObjClass *robj)
 {
@@ -268,4 +328,6 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	and the prototype class at table 0xAEA5A0 are not rebuilt). Its helpers 0x48BCF0 / 0x48BDC0 / 0x48BE60 are: make a mesh's
 **	geometry and / or colours (vertex materials, both colour arrays) unique, for a mesh or recursively for an HLOD's meshes;
 **	a switch on Class_ID is what puts the HLOD test first.
+**	0x48D710 (an HLOD's sub-objects) and 0x48E4E0 (one object, recursing into HLODs) hand the HSV shift to the per-class
+**	helpers 0x48D1F0 (mesh), 0x48D850 (particle emitter), 0x48DD00 (sphere), 0x48E0F0 (ring), not written yet.
 */
