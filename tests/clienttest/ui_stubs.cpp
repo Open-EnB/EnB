@@ -84,13 +84,23 @@ Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
 
 // ------------------------------------------------------------------------- wlib's Wstring (unknown_message.cpp)
 
-// The message reporters' common path 0x4BC5A0 (app.lib's unknown_message.obj, linked for the real reporters)
-// appends with these two; gen_stubs.py --link writes no operators. Never reached here: no message server.
+// The message reporters' common path 0x4BC5A0 and the server (app.lib's unknown_message*.obj, linked for the real
+// reporters) use these; gen_stubs.py --link writes no operators. Never reached here: no message server.
 class Wstring
 {
 public:
 	Wstring &operator+=(const char *other);
 	Wstring &operator+=(const Wstring &other);
+	Wstring &operator=(const Wstring &other);
 };
 Wstring &Wstring::operator+=(const char *) { Trace("stub Wstring::operator+=(const char *) (0x8B6640)"); return *this; }
 Wstring &Wstring::operator+=(const Wstring &) { Trace("stub Wstring::operator+=(const Wstring &) (0x8B6750)"); return *this; }
+Wstring &Wstring::operator=(const Wstring &) { Trace("stub Wstring::operator=(const Wstring &) (0x8B61D0)"); return *this; }
+
+// the message server's 0x4BD470 (unknown_message_server.obj) stamps its record with this; never reached here
+class Wtime
+{
+public:
+	Wtime &operator=(const unsigned long other);
+};
+Wtime &Wtime::operator=(const unsigned long) { Trace("stub Wtime::operator=(uint32) (0x8BA250)"); return *this; }
