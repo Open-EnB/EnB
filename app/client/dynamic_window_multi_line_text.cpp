@@ -74,14 +74,14 @@ DynamicWindowMultiLineTextClass::~DynamicWindowMultiLineTextClass()
 	TopLineIndex = 0;
 	DisplayedLines = 0;
 }
-// NOT EXACT: the string assignment and the inlined Refresh
+
 void DynamicWindowMultiLineTextClass::Set_Text(const std::string &text)
 {
 	Text = text;
 	Dirty = true;
 	Refresh();
 }
-// NOT EXACT: the inlined Refresh
+
 void DynamicWindowMultiLineTextClass::Set_Min_Size(const Vector2 &min_size)
 {
 	MinSize = min_size;
@@ -140,7 +140,7 @@ bool DynamicWindowMultiLineTextClass::Has_Flags(unsigned int flags)
 {
 	return (Flags & flags) == flags;
 }
-// NOT EXACT: the line loop and the inlined Position_Lines
+
 void DynamicWindowMultiLineTextClass::Layout(const Vector2 &position, const Vector2 &size)
 {
 	Size = size;
@@ -167,12 +167,12 @@ Vector2 DynamicWindowMultiLineTextClass::Get_Size()
 {
 	return Size;
 }
-// NOT EXACT: the sum order of the centre
+
 void DynamicWindowMultiLineTextClass::Get_Bounds(AABoxClass &box)
 {
 	box.Extent.X = Size.X * 0.5f;
 	box.Extent.Y = Size.Y * 0.5f;
-	Vector2 position = LayoutPosition + Position;
+	Vector2 position = Position + LayoutPosition;
 	box.Center.X = position.X + box.Extent.X;
 	box.Center.Y = position.Y - box.Extent.Y;
 }
@@ -205,14 +205,15 @@ DynamicWindowContainerClass *DynamicWindowMultiLineTextClass::Get_Container()
 {
 	return NULL;
 }
-// NOT EXACT: the shown-line loop form
+
 void DynamicWindowMultiLineTextClass::Add_To_Scene(SceneClass *scene)
 {
 	if (Scene != NULL) {
 		Remove_From_Scene();
 	}
 	Scene = scene;
-	for (int i = TopLineIndex; i <= (int)(TopLineIndex + DisplayedLines - 1); i++) {
+	int last = TopLineIndex + DisplayedLines - 1;
+	for (int i = TopLineIndex; i <= last; i++) {
 		Lines[i]->Add_To_Scene(scene);
 	}
 }
@@ -242,7 +243,7 @@ int DynamicWindowMultiLineTextClass::Get_Level()
 {
 	return Level;
 }
-// NOT EXACT: the inlined Position_Lines
+
 void DynamicWindowMultiLineTextClass::Set_Position(const Vector2 &position)
 {
 	Position = position;
@@ -253,7 +254,6 @@ void DynamicWindowMultiLineTextClass::Child_Changed(DynamicWindowElementClass &c
 {
 	Invalidate();
 }
-
 
 
 
@@ -283,11 +283,11 @@ bool DynamicWindowMultiLineTextClass::Remove_Child(const RefCountPtr<DynamicWind
 	G_ASSERT(0);
 	return false;
 }
-// NOT EXACT: register and block order
+
 void DynamicWindowMultiLineTextClass::Refresh()
 {
 	Vector2 size = Get_Size();
-	if (size.X > 0) {
+	if (size.Y > 0) {
 		if (Size.X > 0) {
 			Split_Lines(Size.X);
 		}
@@ -373,7 +373,7 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 
 
 
-// NOT EXACT: the inlined Position_Lines and the index loads
+
 void DynamicWindowMultiLineTextClass::Scroll_Up()
 {
 	FAIL_IF(TopLineIndex <= 0) return;
@@ -392,7 +392,7 @@ void DynamicWindowMultiLineTextClass::Scroll_Up()
 
 
 
-// NOT EXACT: the inlined Position_Lines and the index loads
+
 void DynamicWindowMultiLineTextClass::Scroll_Down()
 {
 	FAIL_IF(Lines.size() > TopLineIndex + DisplayedLines) return;
@@ -401,11 +401,13 @@ void DynamicWindowMultiLineTextClass::Scroll_Down()
 	Lines[TopLineIndex + DisplayedLines - 1]->Add_To_Scene(Scene);
 	Position_Lines();
 }
-// NOT EXACT: the unsigned line loop and its float conversion
+
 void DynamicWindowMultiLineTextClass::Position_Lines()
 {
-	Vector2 position(Position.X, TopLineIndex * CharacterHeight + Position.Y);
-	for (int i = TopLineIndex; i <= (int)(TopLineIndex + DisplayedLines - 1); i++) {
+	Vector2 position = Position;
+	position.Y += TopLineIndex * CharacterHeight;
+	int last = TopLineIndex + DisplayedLines - 1;
+	for (int i = TopLineIndex; i <= last; i++) {
 		Lines[i]->Set_Position(position);
 	}
 }
