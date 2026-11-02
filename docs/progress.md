@@ -1855,6 +1855,27 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
+  (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
+  key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
+  7-VM pool): run them when the subscription's week is spent, so the pool keeps working until the reset. Cost from the
+  pilot's stream (4.33M cache reads, 97k cache writes, 25k output: $1.85 for a 63-turn item); a 2-hour builder of today's
+  size (150-400 tool calls) is an estimated $8-20, so ~6-12 rounds; today's rounds gained 30-90 pairs each. Measure
+  `total_cost_usd` per pair gained in the plan log and stop if it runs well above the estimate. No new tool.
+  (b) **~$30: a Batch API variant pilot for NOT EXACT functions** (docs/data/not-exact.md: 487): one request per function
+  with its source, the client's and our disassembly, explain.py's class and the matching §3.1 traps, asking for up to 8
+  source variants; a local script compiles every variant with appfile.py on the pool and keeps exact ones under the D66
+  rule; round 2 resends the best variant's diff. Batch is half price; the verifier is mechanical, so wrong answers cost
+  only VM time. A new tool on triage.py's pattern (build / submit / fetch / try), so a tools decision: pilot on 50
+  functions (~$5-10), compare its cost per pair with (a)'s, scale only if it is cheaper. D89's limits still apply to Fable.
+  (c) **~$20 reserve:** one-off long requests outside builders' 2-hour budget: functional first forms of the two font
+  layout functions 0x6CA0C0 (11.7 KB) / 0x6D64C0 (7.1 KB) from their pseudocode, and the D89 Fable queue.
+  (d) **Not recommended: builder loops on the Batch API, or a web service exposing the build VMs.** A batch request is one
+  model turn with no tool execution: every tool call would end the turn and need a new batch (each round minutes to hours,
+  up to 24 h), so a 200-call builder would take days. The Batch API never calls out, so a web service would not help it;
+  exposing the VMs would only serve Managed Agents (Anthropic-hosted sandboxes reaching the host's Hyper-V VMs through a
+  public endpoint: new infrastructure and attack surface, the same token prices plus sandbox time). Local headless Claude
+  Code already reaches the VMs.
 * **P-IS-1** (2026-11-01, IS; recommend yes): objmatch's D114(b) range widening counts a COMDAT only if one object holds
   it; a COMDAT held by two objects at the same address with the same symbol should count for each holder (0x6DAF80 went to
   nobody until named in symbols_named.json). A D114 amendment, then a full re-verify of every library (a tools change).
