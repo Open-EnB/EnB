@@ -279,11 +279,11 @@ void InterfaceStaticSortListClass::Render(const RefCountPtr<SceneClass> &scene, 
 
 
 
-// NOT EXACT: shape (erase(it) 0x6DD3D0 out of line in the client)
+// 0x6DB380
 void InterfaceStaticSortListClass::Add_Interface(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
-
+	InterfaceVector.size();  // dead read: spends the inline budget, so erase(it) stays out of line as in the client
 
 	G_ASSERT((*InterfaceVector.rbegin()) == FrontInterface);
 	InterfaceVector.pop_back();
@@ -542,7 +542,7 @@ void InterfaceStaticSortListClass::Remove_Render_Object(RenderObjClass *robj)
 
 
 
-// NOT EXACT: inline-budget (the client calls insert(P, n, x) 0x6DDCA0 and the table resize 0x6DF5E0)
+// 0x6DC0A0
 bool InterfaceStaticSortListClass::Add_PIP_Scene(const RefCountPtr<SimpleSceneClass> &scene, const RefCountPtr<CameraClass> &camera, float poly_budget, unsigned int sort_level)
 {
 	FAIL_IF(!CurrentInterface) return false;
