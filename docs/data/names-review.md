@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1150 |
-| 2 | describes what the code does | 2885 |
-| 1 | neutral placeholder | 10656 |
+| 2 | describes what the code does | 2886 |
+| 1 | neutral placeholder | 10700 |
 
 ## For review (score 3 and below)
 
@@ -2331,31 +2331,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C_02` | `app/client/gadget.h:112` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_04` | `app/client/gadget.h:113` | neutral (D10) |
 | 1 | `Unknown2C_04` | `app/client/gadget.h:113` | untagged neutral name (D10) |
-| 1 | `Toggle_Unknown2C_00` | `app/client/gadget.h:116` | neutral (D10) |
-| 1 | `Unknown_6609A0` | `app/client/gadget.h:117` | untagged neutral name (D10) |
-| 1 | `Mask` | `app/client/gadget.h:122` | neutral (D10) |
-| 1 | `Unknown14` | `app/client/gadget.h:123` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/client/gadget.h:124` | neutral (D10) |
-| 1 | `Unknown1C` | `app/client/gadget.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/gadget.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/gadget.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown2C_00` | `app/client/gadget.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown2C_03` | `app/client/gadget.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown2C_06` | `app/client/gadget.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown2C_07` | `app/client/gadget.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown2C_08` | `app/client/gadget.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/gadget.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/gadget.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0E` | `app/client/gadget.h:143` | untagged neutral name (D10) |
-| 1 | `InterfaceDeactivationGadgetClass` | `app/client/gadget.h:147` | neutral (D10) |
-| 1 | `a, b, c, d, e` | `app/client/gadget.h:150` | neutral |
-| 1 | `box` | `app/client/gadget.h:152` | what it fills |
-| 1 | `gadget` | `app/client/gadget.h:164` | neutral |
-| 1 | `Gadget` | `app/client/gadget.h:166` | neutral (D10) |
-| 1 | `iface` | `app/client/gadget.h:172` | neutral |
-| 1 | `Interface` | `app/client/gadget.h:174` | neutral (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/gadget.h:177` | neutral (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/gadget.h:178` | neutral (D10) |
+| 1 | `Is_Unknown2C_06` | `app/client/gadget.h:114` | neutral (D10) |
+| 1 | `Unknown2C_06` | `app/client/gadget.h:114` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_07` | `app/client/gadget.h:115` | neutral (D10) |
+| 1 | `Unknown2C_07` | `app/client/gadget.h:115` | untagged neutral name (D10) |
+| 1 | `Toggle_Unknown2C_00` | `app/client/gadget.h:118` | neutral (D10) |
+| 1 | `Unknown_6609A0` | `app/client/gadget.h:119` | untagged neutral name (D10) |
+| 1 | `Mask` | `app/client/gadget.h:124` | neutral (D10) |
+| 1 | `Unknown14` | `app/client/gadget.h:125` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/gadget.h:126` | neutral (D10) |
+| 1 | `Unknown1C` | `app/client/gadget.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/gadget.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/gadget.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown2C_00` | `app/client/gadget.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown2C_03` | `app/client/gadget.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown2C_08` | `app/client/gadget.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/gadget.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/gadget.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0E` | `app/client/gadget.h:145` | untagged neutral name (D10) |
+| 1 | `InterfaceDeactivationGadgetClass` | `app/client/gadget.h:149` | neutral (D10) |
+| 1 | `a, b, c, d, e` | `app/client/gadget.h:152` | neutral |
+| 1 | `box` | `app/client/gadget.h:154` | what it fills |
+| 1 | `gadget` | `app/client/gadget.h:166` | neutral |
+| 1 | `Gadget` | `app/client/gadget.h:168` | neutral (D10) |
+| 1 | `iface` | `app/client/gadget.h:174` | neutral |
+| 1 | `Interface` | `app/client/gadget.h:176` | neutral (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gadget.h:179` | neutral (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gadget.h:180` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/gadget_list_manager.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/gadget_list_manager.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/gadget_list_manager.cpp:11` | untagged neutral name (D10) |
@@ -4929,28 +4931,69 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5C` | `app/client/textgadg.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/textgadg.h:90` | untagged neutral name (D10) |
 | 1 | `Flags` | `app/client/textgadg.h:91` | neutral (D10) |
-| 1 | `UIViewUnknown30Class` | `app/client/tooltip.cpp:7` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/tooltip.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/tooltip.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown0D` | `app/client/tooltip.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown0E` | `app/client/tooltip.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown0F` | `app/client/tooltip.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/tooltip.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/tooltip.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_6AB930` | `app/client/tooltip.cpp:30` | untagged neutral name (D10) |
-| 1 | `UIViewUnknown30Class` | `app/client/tooltip.h:27` | neutral (D10) |
-| 1 | `view` | `app/client/tooltip.h:32` | what Init passes |
-| 1 | `Unknown_6AB5B0` | `app/client/tooltip.h:34` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/tooltip.h:35` | neutral |
-| 1 | `Unknown_6AB930` | `app/client/tooltip.h:35` | untagged neutral name (D10) |
-| 1 | `View` | `app/client/tooltip.h:37` | what the constructor stores |
-| 1 | `Unknown08` | `app/client/tooltip.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/tooltip.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown0D` | `app/client/tooltip.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown0E` | `app/client/tooltip.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown0F` | `app/client/tooltip.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/tooltip.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/tooltip.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/tooltip.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8_FontDatabase` | `app/client/tooltip.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/client/tooltip.cpp:21` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/tooltip.cpp:22` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/tooltip.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/tooltip.cpp:25` | neutral (D10) |
+| 1 | `text, flags` | `app/client/tooltip.cpp:28` | what the callers pass (6) |
+| 1 | `TooltipSignalMapClass` | `app/client/tooltip.cpp:32` | neutral (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/tooltip.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABC10` | `app/client/tooltip.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tooltip.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown2C_08` | `app/client/tooltip.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/tooltip.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/tooltip.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown0E` | `app/client/tooltip.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown0F` | `app/client/tooltip.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tooltip.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB930` | `app/client/tooltip.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB5B0` | `app/client/tooltip.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/tooltip.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_65F5F0` | `app/client/tooltip.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/tooltip.cpp:102` | untagged neutral name (D10) |
+| 1 | `Get_Unknown14` | `app/client/tooltip.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/tooltip.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/tooltip.cpp:114` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_06` | `app/client/tooltip.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/tooltip.cpp:124` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_07` | `app/client/tooltip.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABC60` | `app/client/tooltip.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABE90` | `app/client/tooltip.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/tooltip.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown2C_07` | `app/client/tooltip.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB850` | `app/client/tooltip.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB890` | `app/client/tooltip.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB8C0` | `app/client/tooltip.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB8F0` | `app/client/tooltip.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown65B810ViewClass` | `app/client/tooltip.cpp:223` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/tooltip.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/tooltip.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/tooltip.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/tooltip.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/tooltip.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_65B650` | `app/client/tooltip.cpp:362` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/tooltip.cpp:374` | untagged neutral name (D10) |
+| 1 | `UIViewUnknown30Class` | `app/client/tooltip.h:29` | neutral (D10) |
+| 1 | `view` | `app/client/tooltip.h:34` | what Init passes |
+| 1 | `Unknown_6AB5B0` | `app/client/tooltip.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB850` | `app/client/tooltip.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB890` | `app/client/tooltip.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB8C0` | `app/client/tooltip.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB8F0` | `app/client/tooltip.h:40` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/tooltip.h:41` | what 0x6AB5B0 passes |
+| 1 | `Unknown_6AB930` | `app/client/tooltip.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABC10` | `app/client/tooltip.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABC60` | `app/client/tooltip.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_6ABE90` | `app/client/tooltip.h:44` | untagged neutral name (D10) |
+| 1 | `View` | `app/client/tooltip.h:46` | what the constructor stores |
+| 1 | `Unknown08` | `app/client/tooltip.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tooltip.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/client/tooltip.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown0E` | `app/client/tooltip.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown0F` | `app/client/tooltip.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tooltip.h:55` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `Unknown_00` | `app/client/ui_avatar_cust.cpp:21` | untagged neutral name (D10) |
@@ -10220,6 +10263,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
 | 1 | `Unknown00` | `app/shared/spline.h:183` | members after their offsets (0x485790); +0x00 unknown |
+| 1 | `Get_New_Lines` | `app/shared/split_string.h:33` | the member it returns |
 | 1 | `unused` | `app/shared/spln_db.h:163` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_4BC260` | `app/shared/symbol_substitution.cpp:5` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
@@ -11228,9 +11272,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `manager` | `app/client/gadget.h:101` | the FAIL_IF's; NAME 1 [a, b]: neutral |
 | 2 | `Set_First_Sort_Group` | `app/client/gadget.h:105` | the FAIL_IFs; NAME 1 [on]: neutral |
 | 2 | `Set_Last_Sort_Group` | `app/client/gadget.h:106` | the FAIL_IFs; NAME 1 [on]: neutral |
-| 2 | `Is_First_Sort_Group` | `app/client/gadget.h:114` | as Set_First_Sort_Group |
-| 2 | `Is_Last_Sort_Group` | `app/client/gadget.h:115` | as Set_Last_Sort_Group |
-| 2 | `Id` | `app/client/gadget.h:119` | what slot +0x2C writes into the event |
+| 2 | `Is_First_Sort_Group` | `app/client/gadget.h:116` | as Set_First_Sort_Group |
+| 2 | `Is_Last_Sort_Group` | `app/client/gadget.h:117` | as Set_Last_Sort_Group |
+| 2 | `Id` | `app/client/gadget.h:121` | what slot +0x2C writes into the event |
 | 2 | `name` | `app/client/gadget_list_manager.h:45` | the FAIL_IF's |
 | 2 | `gadget, add` | `app/client/gadget_list_manager.h:48` | the asserts' |
 | 2 | `Load_Ini` | `app/client/galaxy_map_client.h:32` | reads galaxy_map_c.ini's [GalaxyMap] |
@@ -11706,8 +11750,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Model` | `app/client/textgadg.h:82` | the constructor's model |
 | 2 | `Cursor` | `app/client/textgadg.h:83` | what it is |
 | 2 | `Box` | `app/client/textgadg.h:89` | what it holds |
-| 2 | `MAX_LINES` | `app/client/tooltip.h:30` | tooltip.cpp's assert 'lines > MAX_LINES' (0x6ABC60); the constructor makes 20 fonts |
-| 2 | `Lines` | `app/client/tooltip.h:48` | 'lines > MAX_LINES' |
+| 2 | `MAX_LINES` | `app/client/tooltip.h:32` | tooltip.cpp's assert 'lines > MAX_LINES' (0x6ABC60); the constructor makes 20 fonts |
+| 2 | `gadget` | `app/client/tooltip.h:40` | the FAIL_IF's; NAME 1 [event]: the callback's |
+| 2 | `Lines` | `app/client/tooltip.h:56` | 'lines > MAX_LINES' |
 | 2 | `TutorialLineStruct` | `app/client/tutorial_manager.h:28` | what it holds (one Speech%d / Text%d pair, 0xC bytes) |
 | 2 | `Speech` | `app/client/tutorial_manager.h:44` | the ini key |
 | 2 | `Text` | `app/client/tutorial_manager.h:45` | the ini key |
@@ -13310,16 +13355,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Split` | `app/shared/split_string.h:30` | what it does |
 | 2 | `Count` | `app/shared/split_string.h:31` | what it returns |
 | 2 | `Get` | `app/shared/split_string.h:32` | what it returns |
-| 2 | `Get_Text_Width` | `app/shared/split_string.h:34` | what Split measures a line with |
-| 2 | `Get_Char_Width` | `app/shared/split_string.h:35` | what Split measures a character with |
-| 2 | `std:` | `app/shared/split_string.h:38` | what it holds |
-| 2 | `Width` | `app/shared/split_string.h:39` | what it holds |
-| 2 | `CursorLine` | `app/shared/split_string.h:40` | what it holds |
-| 2 | `CursorColumn` | `app/shared/split_string.h:41` | what it holds |
-| 2 | `NewLines` | `app/shared/split_string.h:42` | what it counts |
-| 2 | `EscapedNewLines` | `app/shared/split_string.h:43` | what it does |
-| 2 | `TrimLast` | `app/shared/split_string.h:44` | what it does |
-| 2 | `TrimLines` | `app/shared/split_string.h:45` | what it does |
+| 2 | `Get_Text_Width` | `app/shared/split_string.h:35` | what Split measures a line with |
+| 2 | `Get_Char_Width` | `app/shared/split_string.h:36` | what Split measures a character with |
+| 2 | `std:` | `app/shared/split_string.h:39` | what it holds |
+| 2 | `Width` | `app/shared/split_string.h:40` | what it holds |
+| 2 | `CursorLine` | `app/shared/split_string.h:41` | what it holds |
+| 2 | `CursorColumn` | `app/shared/split_string.h:42` | what it holds |
+| 2 | `NewLines` | `app/shared/split_string.h:43` | what it counts |
+| 2 | `EscapedNewLines` | `app/shared/split_string.h:44` | what it does |
+| 2 | `TrimLast` | `app/shared/split_string.h:45` | what it does |
+| 2 | `TrimLines` | `app/shared/split_string.h:46` | what it does |
 | 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:15` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
 | 2 | `Copy_String` | `app/shared/spln_db.cpp:25` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
 | 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:32` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |
@@ -13674,11 +13719,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `FontManagerClass` | `app/client/fontmanager.h:198` | by convention (D24) from the client's fontmanager.cpp |
 | 3 | `fontsys_cursor.h` | `app/client/fontsys_cursor.h:18` | the header of fontsys_cursor.cpp |
 | 3 | `gadget.h` | `app/client/gadget.h:20` | header name assumed from the client's gadget.cpp |
-| 3 | `Flash` | `app/client/gadget.h:126` | the asserts' |
-| 3 | `InList` | `app/client/gadget.h:130` | the FAIL_IFs' |
-| 3 | `Destroyed` | `app/client/gadget.h:138` | the assert's |
-| 3 | `FirstSortGroup` | `app/client/gadget.h:141` | the FAIL_IF's |
-| 3 | `LastSortGroup` | `app/client/gadget.h:142` | the FAIL_IF's |
+| 3 | `Flash` | `app/client/gadget.h:128` | the asserts' |
+| 3 | `InList` | `app/client/gadget.h:132` | the FAIL_IFs' |
+| 3 | `Destroyed` | `app/client/gadget.h:140` | the assert's |
+| 3 | `FirstSortGroup` | `app/client/gadget.h:143` | the FAIL_IF's |
+| 3 | `LastSortGroup` | `app/client/gadget.h:144` | the FAIL_IF's |
 | 3 | `gadget_list_manager.h` | `app/client/gadget_list_manager.h:18` | header name assumed from the client's gadget_list_manager.cpp |
 | 3 | `GadgetListManagerClass` | `app/client/gadget_list_manager.h:36` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
 | 3 | `std:` | `app/client/gadget_list_manager.h:50` | the assert's |

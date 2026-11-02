@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-428 entries in 107 files.
+431 entries in 108 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -191,6 +191,9 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
+| `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
+| `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
+| `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC60` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
 | `app/client/ui_avatar_cust.cpp:263` | `StarbaseAvatarCreationInterface::Unknown_54E690` | marker | NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690) 0x54E690 |
 | `app/client/ui_avatar_cust.cpp:282` | `StarbaseAvatarCreationInterface::Unknown_54E7F0` | marker | NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type) 0x54E7F0 |
 | `app/client/ui_avatar_cust.cpp:301` | `StarbaseAvatarCreationInterface::Unknown_54E950` | marker | NOT EXACT: register (0.69: dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950) 0x54E950 |

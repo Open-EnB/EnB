@@ -13695,19 +13695,28 @@
     "ambiguous": [
      "0x42B2F0",
      "0x46BE90",
-     "0x474080"
+     "0x474080",
+     "0x51E9E0",
+     "0x51EA50"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x51E220",
      "0x6AB320",
-     "0x6AB4D0"
+     "0x6AB4D0",
+     "0x6AB850",
+     "0x6AB890",
+     "0x6AB8C0",
+     "0x6AB8F0",
+     "0x6ABE90"
     ],
     "merged": [],
     "name": "client/tooltip.cpp",
     "shared": [
-     "0x42F250"
+     "0x42F250",
+     "0x51E220"
     ]
    },
    "tsk_game": {
