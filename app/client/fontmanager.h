@@ -83,7 +83,7 @@ public:
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
 	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
-	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+	void Unknown_6CD950(int index, float time);							// 0x6CD950: triggers EffectTriggered[index] for time seconds (+0x2A4 in ms) and restarts its state  // NAME 1 [Unknown_6CD950, index, time]: neutral (D10)
 	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
@@ -174,7 +174,7 @@ public:
 	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
 	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: a 'W' template's lines as styles (unknown is the render object)  // NAME 1 [Unknown_6CF930]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
-	void Unknown_All_Styles(int unknown1, int unknown2);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
+	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)
 	void Unknown_6D07D0(int unknown);									// 0x6D07D0 (no caller): each style's 0x6CE7D0  // NAME 1 [Unknown_6D07D0]: neutral (D10)
 	void Unknown_6D0890();												// 0x6D0890 (no caller): each style's 0x6D5D40  // NAME 1 [Unknown_6D0890]: neutral (D10)
@@ -201,7 +201,7 @@ public:
 	FontManagerClass();													// 0x6D16E0
 	~FontManagerClass();												// 0x6D1920
 	void Remove_All();													// 0x6D1AE0  // NAME 2: describes what it does
-	void Unknown_6D1C10(int unknown1, int unknown2);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
+	void Unknown_6D1C10(int index, float time);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
 	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
 	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
 	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does

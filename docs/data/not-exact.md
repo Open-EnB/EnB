@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-428 entries in 107 files.
+430 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -104,14 +104,14 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/fontsys.cpp:18` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:39` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
-| `app/client/fontsys.cpp:57` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4 (from Colors, 10 when none) added by TXT1 |
-| `app/client/fontsys.cpp:175` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
-| `app/client/fontsys.cpp:215` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:240` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
-| `app/client/fontsys.cpp:264` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
-| `app/client/fontsys.cpp:322` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:372` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:908` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
+| `app/client/fontsys.cpp:64` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4 (from Colors, 10 when none) added by TXT1 |
+| `app/client/fontsys.cpp:182` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
+| `app/client/fontsys.cpp:231` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
+| `app/client/fontsys.cpp:256` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
+| `app/client/fontsys.cpp:280` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
+| `app/client/fontsys.cpp:338` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:388` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:924` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:19` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:31` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:104` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
@@ -265,9 +265,11 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:36` | `FontStyleClass::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontStyleClass::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
 | `app/client/unknown_6cce60.cpp:143` | `FontStyleClass::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
-| `app/client/unknown_6cce60.cpp:185` | `FontStyleClass::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
-| `app/client/unknown_6cce60.cpp:226` | `FontStyleClass::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
-| `app/client/unknown_6cce60.cpp:316` | `FontStyleClass::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
+| `app/client/unknown_6cce60.cpp:185` | `FontStyleClass::Unknown_6CD950` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950) |
+| `app/client/unknown_6cce60.cpp:224` | `FontStyleClass::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
+| `app/client/unknown_6cce60.cpp:265` | `FontStyleClass::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
+| `app/client/unknown_6cce60.cpp:355` | `FontStyleClass::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
+| `app/client/unknown_6cce60.cpp:381` | `FontStyleClass::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

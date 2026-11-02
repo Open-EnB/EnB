@@ -157,10 +157,10 @@ void ManagedFontClass::Unknown_6D0890()
 	}
 }
 
-void ManagedFontClass::Unknown_All_Styles(int unknown1, int unknown2)
+void ManagedFontClass::Unknown_All_Styles(int index, float time)
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
-		style->second->Unknown_6CD950(unknown1, unknown2);
+		style->second->Unknown_6CD950(index, time);
 	}
 }
 
@@ -417,10 +417,10 @@ void FontManagerClass::Remove_All()
 	Fonts.clear();
 }
 
-void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
+void FontManagerClass::Unknown_6D1C10(int index, float time)
 {
 	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
-		it->second->Unknown_All_Styles(unknown1, unknown2);
+		it->second->Unknown_All_Styles(index, time);
 	}
 }
 

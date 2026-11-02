@@ -180,6 +180,45 @@ bool FontStyleClass::Unknown_6CD6F0()
 	return true;
 }
 
+// 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
+// only, as the client does) and the state its effect type keeps is reset.
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950)
+void FontStyleClass::Unknown_6CD950(int index, float time)
+{
+	int slot = index < 0 ? 0 : (index > 3 ? 3 : index);
+	Unknown274[12 + slot] = (int)(time * 1000.0f);
+	FontEffectStruct *effect = Effects[5][index];
+	if (effect == NULL) {
+		return;
+	}
+	switch (effect->EffectType) {
+		case 1:		// PULSE
+			Unknown274[3] = 0;
+			break;
+		case 3:		// ROTATE
+			Unknown274[2] = 0;
+			break;
+		case 4:		// FADE
+			Unknown270 = 0;
+			Unknown274[0] = 0;
+			Unknown274[4] = 0;
+			break;
+		case 5:		// RANDLETTER
+			Unknown270 = 0;
+			Unknown274[0] = 0;
+			Unknown414 = 0;
+			Unknown404 = false;
+			memset(Unknown303, 0, sizeof(Unknown303));
+			break;
+		case 19:	// SWITCH
+			Unknown274[9] = 0;
+			break;
+		case 20:	// STRETCH
+			Unknown274[10] = 0;
+			break;
+	}
+}
+
 // 0x6CDAB0: an EffectOn effect's starting state, for Change_Text (ROTATE turns the y scale over, FADE starts at its
 // Initial alpha, RANDLETTER clears the shown letters, SCROLL puts the text back at Info.Offset, SCALE starts at Initial).
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0)
@@ -335,6 +374,27 @@ void FontStyleClass::Unknown_6CE4E0(int font_index)
 	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
 	Unknown2C8 = Unknown420[3] = Font->Get_Height();
 	Unknown4C5 = false;
+}
+
+// 0x6CE7D0: the style restarted in state unknown (+0x440: 0 the EffectOn effects, 1 EffectConst, 2 EffectOff): the
+// clocks and effect states cleared, the text placed again (0x6D5D40) and its rectangle reset to the text's size.
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0)
+void FontStyleClass::Unknown_6CE7D0(int unknown)
+{
+	int i;
+	Unknown440 = unknown;
+	Unknown26C = 0;
+	Unknown270 = 0;
+	for (i = 0; i < 16; i++) Unknown274[i] = 0;
+	Unknown_6D5D40();
+	Unknown420[3] = Unknown2C8;
+	Unknown420[0] = 0;
+	Unknown420[1] = Unknown2C4;
+	Unknown420[2] = 0;
+	Unknown404 = false;
+	Unknown414 = 0;
+	memset(Unknown303, 0, sizeof(Unknown303));
+	for (i = 0; i < 6; i++) Unknown254[i] = 0;
 }
 
 // 0x6CE910: on while the box has the focus (Unknown44C: which of Colors the text uses); a change redraws the text.

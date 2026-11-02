@@ -54,6 +54,13 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 	Unknown26C = (int)(Info.Wait * 1000.0f);
 }
 
+// 0x6D5140: out of its container, then the reference dropped (~ManagedFontClass, 0x6D0A70)
+void FontStyleClass::Unknown_6D5140()
+{
+	Remove();
+	Release_Ref();
+}
+
 // NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
 // (from Colors, 10 when none) added by TXT1
 void FontStyleClass::Unknown_6D5170(int object)
@@ -201,6 +208,15 @@ void FontStyleClass::Set_Container(RenderObjClass *con)
 	}
 	Enable_Sort();
 	RenderObjClass::Set_Container(con);
+}
+
+// 0x6D5A80: a character cell's size: the text rectangle in 640 x 480 units, times Scale
+void FontStyleClass::Unknown_6D5A80(float &width, float &height)
+{
+	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
+	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
+	width *= Scale;
+	height *= Scale;
 }
 
 // 0x6D5B90
@@ -973,6 +989,16 @@ void FontStyleClass::Set_Position(const Vector3 &v)
 {
 	RenderObjClass::Set_Position(v);
 	Unknown4E5 = true;
+	Unknown4C5 = false;
+}
+
+// 0x6D88F0: the screen rectangle the text is clipped to (+0x430: left, right, top, bottom)
+void FontStyleClass::Unknown_6D88F0(int left, int top, int right, int bottom)
+{
+	Unknown430[0] = left;
+	Unknown430[2] = top;
+	Unknown430[1] = right;
+	Unknown430[3] = bottom;
 	Unknown4C5 = false;
 }
 
