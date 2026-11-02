@@ -3794,6 +3794,10 @@ RECONSTRUCTED = {
                                      "0xAE80B0: constructor 0x45D9E0, slots 0x45DBB0 / 0x45DBE0 / 0x45DC60) and receiver "
                                      "Unknown45DC80Class (vtable 0xAE80EC: constructor 0x45DC80, destructor 0x45DDF0, slots "
                                      "0x45DF20 / 0x45DF90 / 0x45E0B0, the material-pass push / pop 0x45DFC0 / 0x45E030); exact",
+    ('app', 'shared/unknown_45e3f0.cpp'): "a named PrimitivePrototypeClass Unknown45E3F0Class (vtable 0xAE8124), client "
+                                        "0x45E3F0-0x45E536 (PROVISIONAL file name D10, interim placement D137: no __FILE__, after "
+                                        "rs_proj_sup.cpp's inline copies, before rs_robj.cpp; builder RPS, run PR #144): the "
+                                        "uncalled constructor 0x45E3F0, destructor 0x45E4A0 (deleting 0x45E470), Get_Name 0x45E530; exact",
     ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
                                  "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
                                  "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "
