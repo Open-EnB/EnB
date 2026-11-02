@@ -26,8 +26,8 @@
 
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
 void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
-void Unknown_7228C0();									// NAME 1 [Unknown_7228C0]: neutral (D10), as tsk_login.cpp
-void Unknown_723150();									// NAME 1 [Unknown_723150]: neutral (D10), as tsk_login.cpp
+#include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
+														// (as tsk_login.cpp)
 void Unknown_6766E0(const char *ini);					// 0x6766E0: 'action.ini'
 void Unknown_676A00();									// 0x676A00: Load_INIs' 0x6766E0 undone
 void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
