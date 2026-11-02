@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1150 |
+| 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2886 |
-| 1 | neutral placeholder | 10700 |
+| 1 | neutral placeholder | 10710 |
 
 ## For review (score 3 and below)
 
@@ -2439,6 +2439,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/gd_dynamicwindow.cpp:8` | as ui_group.h |
+| 1 | `Unknown_496110` | `app/client/gd_dynamicwindow.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_dynamicwindow.cpp:59` | untagged neutral name (D10) |
+| 1 | `object, mask, flags, highlight` | `app/client/gd_dynamicwindow.h:27` | the base's and what it does |
+| 1 | `object, mask, flags, highlight` | `app/client/gd_dynamicwindow.h:28` | the base's and what it does |
+| 1 | `Unknown_24` | `app/client/gd_dynamicwindow.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_dynamicwindow.h:31` | untagged neutral name (D10) |
+| 1 | `Set_Dynamic_Object, object` | `app/client/gd_dynamicwindow.h:33` | the FAIL_IF's DynamicObject |
+| 1 | `Highlight` | `app/client/gd_dynamicwindow.h:36` | what it does |
 | 1 | `Unknown_675120Class` | `app/client/gd_resize.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/gd_resize.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/gd_resize.cpp:10` | untagged neutral name (D10) |
@@ -7893,6 +7902,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown65B810ViewClass` | `app/client/uiview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/uiview.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown1274` | `app/client/uiview.cpp:315` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/unknown_51c800.cpp:7` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/unknown_51c800.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/unknown_51c800.cpp:10` | untagged neutral name (D10) |
+| 1 | `unknown_51c800.h` | `app/client/unknown_51c800.h:14` | neutral (D137) |
+| 1 | `Unknown51C800Class` | `app/client/unknown_51c800.h:21` | neutral (D10) |
+| 1 | `text, flags` | `app/client/unknown_51c800.h:24` | what the callers pass (6) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -8067,45 +8082,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.h:25` | neutral (D10), as app/main declares it |
 | 1 | `Unknown_BE67B8` | `app/client/unknown_msgbox.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/unknown_msgbox.cpp:6` | untagged neutral name (D10) |
-| 1 | `Unknown51C800Class` | `app/client/unknown_msgbox.cpp:26` | neutral (D10) |
-| 1 | `text, flags` | `app/client/unknown_msgbox.cpp:29` | what the callers pass (6) |
-| 1 | `Unknown6689C0Class` | `app/client/unknown_msgbox.cpp:33` | neutral (D10) |
-| 1 | `window, unknown1, unknown2, unknown3` | `app/client/unknown_msgbox.cpp:36` | what the callers pass (0x55, 3) |
-| 1 | `Unknown_30` | `app/client/unknown_msgbox.cpp:37` | untagged neutral name (D10) |
-| 1 | `UnknownPad` | `app/client/unknown_msgbox.cpp:39` | untagged neutral name (D10) |
-| 1 | `MsgBoxKeysClass` | `app/client/unknown_msgbox.cpp:43` | neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes |
-| 1 | `Unknown_721E60` | `app/client/unknown_msgbox.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_721EF0` | `app/client/unknown_msgbox.cpp:43` | untagged neutral name (D10) |
-| 1 | `MsgBoxBrowsersClass` | `app/client/unknown_msgbox.cpp:45` | neutral (D10)  // NAME 1 [index, box, url]: what the box passes |
-| 1 | `Unknown_7CA570` | `app/client/unknown_msgbox.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_7CAD00` | `app/client/unknown_msgbox.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB240` | `app/client/unknown_msgbox.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_497240, robj, on` | `app/client/unknown_msgbox.cpp:46` | neutral (D10) |
-| 1 | `Unknown_497240` | `app/client/unknown_msgbox.cpp:46` | untagged neutral name (D10) |
-| 1 | `ViewUnknown34Class` | `app/client/unknown_msgbox.cpp:49` | untagged neutral name (D10) |
-| 1 | `ViewUnknown34MessageStruct` | `app/client/unknown_msgbox.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/unknown_msgbox.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/unknown_msgbox.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/unknown_msgbox.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/unknown_msgbox.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_588340` | `app/client/unknown_msgbox.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/unknown_msgbox.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_6C55B0` | `app/client/unknown_msgbox.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_587D50` | `app/client/unknown_msgbox.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown_589740` | `app/client/unknown_msgbox.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `app/client/unknown_msgbox.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown_65FFA0` | `app/client/unknown_msgbox.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/unknown_msgbox.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/unknown_msgbox.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/unknown_msgbox.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/unknown_msgbox.cpp:255` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/unknown_msgbox.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown_588870` | `app/client/unknown_msgbox.cpp:278` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/unknown_msgbox.cpp:293` | untagged neutral name (D10) |
-| 1 | `Unknown_589140` | `app/client/unknown_msgbox.cpp:332` | untagged neutral name (D10) |
-| 1 | `Unknown_588DC0` | `app/client/unknown_msgbox.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown_589CA0` | `app/client/unknown_msgbox.cpp:350` | neutral (D10) |
-| 1 | `Unknown_5890B0` | `app/client/unknown_msgbox.cpp:386` | untagged neutral name (D10) |
+| 1 | `MsgBoxKeysClass` | `app/client/unknown_msgbox.cpp:27` | neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes |
+| 1 | `Unknown_721E60` | `app/client/unknown_msgbox.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_721EF0` | `app/client/unknown_msgbox.cpp:27` | untagged neutral name (D10) |
+| 1 | `MsgBoxBrowsersClass` | `app/client/unknown_msgbox.cpp:29` | neutral (D10)  // NAME 1 [index, box, url]: what the box passes |
+| 1 | `Unknown_7CA570` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7CAD00` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB240` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_497240, robj, on` | `app/client/unknown_msgbox.cpp:30` | neutral (D10) |
+| 1 | `Unknown_497240` | `app/client/unknown_msgbox.cpp:30` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/unknown_msgbox.cpp:33` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34MessageStruct` | `app/client/unknown_msgbox.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/unknown_msgbox.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_msgbox.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/unknown_msgbox.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_msgbox.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_588340` | `app/client/unknown_msgbox.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/unknown_msgbox.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_6C55B0` | `app/client/unknown_msgbox.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_587D50` | `app/client/unknown_msgbox.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_589740` | `app/client/unknown_msgbox.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/unknown_msgbox.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `app/client/unknown_msgbox.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/unknown_msgbox.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_msgbox.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/unknown_msgbox.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/unknown_msgbox.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/unknown_msgbox.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/unknown_msgbox.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown_588870` | `app/client/unknown_msgbox.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_msgbox.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_589140` | `app/client/unknown_msgbox.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_588DC0` | `app/client/unknown_msgbox.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown_589CA0` | `app/client/unknown_msgbox.cpp:336` | neutral (D10) |
+| 1 | `Unknown_5890B0` | `app/client/unknown_msgbox.cpp:372` | untagged neutral name (D10) |
 | 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownBE8BA0` | `app/client/unknown_screenfade.cpp:47` | untagged neutral name (D10) |
@@ -13730,6 +13740,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
+| 3 | `gd_dynamicwindow.h` | `app/client/gd_dynamicwindow.h:16` | header name assumed from the client's gd_dynamicwindow.cpp |
+| 3 | `DynamicWindowGadgetClass` | `app/client/gd_dynamicwindow.h:24` | class-from-file (D24) for app\Client\gd_dynamicwindow.cpp |
+| 3 | `DynamicObject` | `app/client/gd_dynamicwindow.h:35` | the FAIL_IF's |
 | 3 | `gd_resize.h` | `app/client/gd_resize.h:16` | header name assumed from the client's gd_resize.cpp |
 | 3 | `ResizeGadgetClass` | `app/client/gd_resize.h:25` | class-from-file (D24) for app\Client\gd_resize.cpp |
 | 3 | `gd_robj.h` | `app/client/gd_robj.h:18` | header name assumed from the client's gd_robj.cpp |

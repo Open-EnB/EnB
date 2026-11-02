@@ -7,6 +7,8 @@
 #include "fontmanager.h"
 #undef Unknown_BE67B8
 #include "gadget.h"
+#include "gd_dynamicwindow.h"
+#include "unknown_51c800.h"
 #include "local_interface_sort.h"
 #include "..\input\input.h"
 #include "..\input\inpdsp.h"
@@ -20,24 +22,6 @@
 #include "layer.h"
 #include <string.h>
 #include <stdio.h>
-
-// 0x51C800's element (0x4C bytes, table 0xAED85C): a DynamicWindowRenderObjectClass over a text (dynamic_window_render_object.h's
-// neighbourhood; not rebuilt)
-class Unknown51C800Class : public DynamicWindowRenderObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown51C800Class(FontStyleClass *text, unsigned int flags);	// 0x51C800  // NAME 1 [text, flags]: what the callers pass (6)
-};
-
-// 0x6689C0's gadget (0x6C bytes, table 0xAF9FD4): a gadget over a dynamic window (not rebuilt)
-class Unknown6689C0Class : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown6689C0Class(DynamicWindowClass *window, int unknown1, int unknown2, bool unknown3);	// 0x6689C0  // NAME 1 [window, unknown1, unknown2, unknown3]: what the callers pass (0x55, 3)
-	virtual bool Unknown_30(float x, float y);
-
-	char UnknownPad[0x6C - sizeof(GadgetClass)];	// (its members not read here)
-};
 
 // InterfaceClass +0x4C's key list (control_key_list.cpp): as ui_avsel.cpp's
 class MsgBoxKeysClass { public: void Unknown_721E60(const KernelEventClass *event, int id); void Unknown_721EF0(const KernelEventClass *event); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes
@@ -99,7 +83,7 @@ ViewUnknown34Class::ViewUnknown34Class(UIViewClass *view, const LayerClass &laye
 	Info = new DynamicWindowClass("DIALOG_BOX_INFO", 2);
 	Unknown_497240(Info->Get_Render_Object().Peek(), false);
 	Window->Add_Object(Info, 0);
-	Gadget = new Unknown6689C0Class(Window, 0x55, 3, false);
+	Gadget = new DynamicWindowGadgetClass(Window, 0x55, 3, false);
 	Gadget->Set_First_Sort_Group(true);
 	Unknown64.Unknown_6870E0(Gadget, 0, View, 1, 1);
 }
@@ -128,7 +112,6 @@ ViewUnknown34Class::~ViewUnknown34Class()
 	Unknown_BE67BC->Unknown_6C55B0("fc_dialogbox.ini");
 }
 
-// NOT EXACT: shape (the Option%d loop: ours is rotated, the sprintf repeated at the bottom; the client's reads OptionCount at the top and ends 'inc [OptionCount]; jmp'; for(;;), do-while and while(comma) all rotate)
 // 0x587D50
 void ViewUnknown34Class::Unknown_587D50()
 {
@@ -152,7 +135,9 @@ void ViewUnknown34Class::Unknown_587D50()
 					text->Release_Ref();
 				}
 			}
-			for (OptionCount = 0; ; OptionCount++) {
+			OptionCount = 0;
+			bool more = true;	// (the client's loop is not rotated: a flag never cleared; for(;;), do-while and while(comma) rotate)
+			while (more) {
 				sprintf(name, "Option%d", OptionCount);
 				if (!ini.Find_Entry(Type, name)) {
 					break;
@@ -171,10 +156,11 @@ void ViewUnknown34Class::Unknown_587D50()
 				if (key.Key != 0x1B && key.Key != 0x0D) {
 					Keys[OptionCount].Flags = 0x400;
 				}
-				OptionGadgets[OptionCount] = new Unknown6689C0Class(Options[OptionCount], 0x55, 3, true);
+				OptionGadgets[OptionCount] = new DynamicWindowGadgetClass(Options[OptionCount], 0x55, 3, true);
 				OptionGadgets[OptionCount]->Unknown_65FFA0(-1002);
 				OptionGadgets[OptionCount]->Set_First_Sort_Group(true);
 				Unknown64.Unknown_6870E0(OptionGadgets[OptionCount], OptionCount + 1, View, 1, 1);
+				OptionCount++;
 			}
 			if (OptionCount) {
 				HasOptions = true;
@@ -352,12 +338,12 @@ static RefCountPtr<FontStyleClass> Unknown_589CA0(const RefCountPtr<RenderObjCla
 	return(Create_Peek((FontStyleClass *)robj.Peek()));
 }
 
-// NOT EXACT: shape (explain.py; 18 rows: the font's RefCountPtr reference and the text are loaded in another order before FontSplitStringClass's constructor; the rest follows)
 // 0x588DC0
 void ViewUnknown34Class::Unknown_588DC0(const char *text, int width)
 {
 	RefCountPtr<FontStyleClass> first = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[0])->Get_Render_Object());
-	FontSplitStringClass split(*(RefCountPtr<Font32Class> *)&first->Font, text, (float)width, 0);
+	RefCountPtr<Font32Class> *font = (RefCountPtr<Font32Class> *)&first->Font;	// (FontStyleClass::Font held as a RefCountPtr: the client loads the font before the text through a local)
+	FontSplitStringClass split(*font, text, (float)width, 0);
 	INIClass ini("dialogbox.ini");
 	unsigned int count = min(split.Count(), (unsigned int)MaxLines);
 	unsigned int i;

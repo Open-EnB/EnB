@@ -4670,6 +4670,29 @@
      "0x4A2FD0"
     ]
    },
+   "gd_dynamicwindow": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x497300"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x668860",
+     "0x668990",
+     "0x6689C0",
+     "0x668B20",
+     "0x668BE0",
+     "0x668C80"
+    ],
+    "merged": [],
+    "name": "client/gd_dynamicwindow.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "gd_resize": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -15178,6 +15201,26 @@
      "0x4E2CC0"
     ]
    },
+   "unknown_51c800": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x51C800",
+     "0x51C8C0"
+    ],
+    "merged": [],
+    "name": "client/unknown_51c800.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10"
+    ]
+   },
    "unknown_66b770": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -15638,11 +15681,13 @@
      "0x587900",
      "0x587930",
      "0x587A10",
+     "0x587D50",
      "0x588340",
      "0x588480",
      "0x588640",
      "0x588870",
      "0x588A20",
+     "0x588DC0",
      "0x5890B0",
      "0x589140",
      "0x589740",
@@ -16003,6 +16048,7 @@
    "client/gadget.h": "reconstructed",
    "client/gadget_list_manager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
+   "client/gd_dynamicwindow.h": "reconstructed",
    "client/gd_resize.h": "reconstructed",
    "client/gd_robj.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
@@ -16042,6 +16088,7 @@
    "client/ui_manu.h": "reconstructed",
    "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
+   "client/unknown_51c800.h": "reconstructed",
    "client/unknown_66b770.h": "reconstructed",
    "client/unknown_675120.h": "reconstructed",
    "client/unknown_6ca0c0.h": "reconstructed",
