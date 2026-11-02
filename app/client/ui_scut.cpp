@@ -17,15 +17,15 @@ class FontManagerClass { public: void Add(RenderObjClass *object); };	// NAME 3:
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);		// 0x541980  // NAME 1 [inter]: view.cpp's
-	~LineDisplaySortClass();							// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
 
-private:
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
 
 // gadget.cpp's gadget, as far as the shortcut bars call it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -585,7 +585,7 @@ bool UIScutBarClass::Unknown_611B10(int *group, int *bttn_idx)
 
 bool UIScutBarClass::Unknown_611BD0(GadgetClass *gadget, int bttn_idx, int group, bool show)
 {
-	LineDisplaySortClass sort(Get_Owner());
+	InterfaceSortScopeClass sort(Get_Owner());
 	if (bttn_idx < 0 || bttn_idx > NUM_SHORTCUT_BUTTONS) {
 		G_ASSERT(bttn_idx == FIRST_AVAIL);
 		G_ASSERT(gadget);
@@ -697,7 +697,7 @@ bool UIScutBarClass::Unknown_611E70(GadgetClass *gadget, int *group_ptr, int *bt
 
 void UIScutBarClass::Unknown_611F60(int group)
 {
-	LineDisplaySortClass sort(Get_Owner());
+	InterfaceSortScopeClass sort(Get_Owner());
 	int groups = 1;
 	for (int lp = 0; lp < NUM_GROUPS; lp++) {
 		if (Counts[lp] != 0) {

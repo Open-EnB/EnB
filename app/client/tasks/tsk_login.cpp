@@ -37,7 +37,7 @@ struct Unknown_VersionStruct { int Major; int Minor; };	// NAME 1 [Unknown_Versi
 Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral (D10)
 class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
 Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
-class Unknown_6A9B60Class { public: Unknown_6A9B60Class(int unknown); ~Unknown_6A9B60Class(); void Unknown_6A9E40(); char Unknown00[0x10]; };	// NAME 1 [Unknown_6A9B60Class]: 0x10 bytes, constructor 0x6A9B60, destructor 0x6A9DB0
+#include "..\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
@@ -84,7 +84,7 @@ LoginTaskClass::LoginTaskClass(int mode) :
 void Unknown_42EDB0();								// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood)
 bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
-KernelEventClass Unknown_65F780(void *unknown);		// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp)
+#include "..\gadget.h"	// 0x65F780: GadgetClass::Process_Input over the view's gadgets
 class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
 void Unknown_4BC130(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC130]: 0x4BC130, 0x4BC000's sibling (unknown_debug.cpp)
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
@@ -152,7 +152,7 @@ bool LoginTaskClass::Accept_Focus()
 {
 	Unknown_Debug_Print("LoginTask: accepting focus.");
 	if (CharacterView) {
-		Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+		Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 	}
 	Unknown_BB9654 = false;
 	Done = false;
@@ -224,8 +224,8 @@ void LoginTaskClass::Pre_Run()
 		FAIL_IF(!CharacterView) return;
 		Unknown_42EDB0();
 		KernelEventClass event;
-		void *unknown = CharacterView->Unknown02C; if (unknown) {
-			event = Unknown_65F780(unknown);
+		void *unknown = CharacterView->Unknown2C; if (unknown) {
+			event = GadgetClass::Process_Input((GadgetListManagerClass *)unknown);
 		} else if (Unknown_42EA80(&event)) {
 			Unknown_42E8A0(&event);
 		}
@@ -233,7 +233,7 @@ void LoginTaskClass::Pre_Run()
 			WW3D::Make_Screen_Shot("ScreenShot", 1.3f, 1);
 		}
 		if (!Unknown000C->Unknown_429A20(&event)) {
-			CharacterView->Unknown004->Unknown_429A20(&event);
+			CharacterView->Unknown04->Unknown_429A20(&event);
 		}
 	}
 }
@@ -282,7 +282,7 @@ void LoginTaskClass::Run()
 		CharacterView->Unknown_67A300();
 		if (Step < 16) {
 			CharacterView->Unknown_67A370(Step);
-			Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+			Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 		}
 		Unknown0014 = false;
 	}
@@ -292,25 +292,25 @@ void LoginTaskClass::Run()
 		Show_Message("Lost connection to the global server.");
 	}
 
-	if (CharacterView && CharacterView->Unknown034 && CharacterView->Unknown034->Unknown07C) {
+	if (CharacterView && CharacterView->Unknown34 && CharacterView->Unknown34->Active) {
 		CharacterView->Unknown_14();
-		if (CharacterView->Unknown034->Is_HTML() && !Unknown0018->Unknown24) {
+		if (CharacterView->Unknown34->Is_HTML() && !Unknown0018->Unknown24) {
 			Unknown0018->Unknown_5153B0();
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("OK") || CharacterView->Unknown034->Unknown_5890B0("OK_SMALL")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("OK") || CharacterView->Unknown34->Unknown_5890B0("OK_SMALL")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Step == 15) {
 				Step = 17;
 			}
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("CANCEL")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("CANCEL")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Step == 1) {
 				Step = 17;
 			}
 		}
-		if (CharacterView->Unknown034->Unknown_5890B0("HTML")) {
-			CharacterView->Unknown034->Unknown_5C();
+		if (CharacterView->Unknown34->Unknown_5890B0("HTML")) {
+			CharacterView->Unknown34->Unknown_5C();
 			if (Unknown0018->Unknown24) {
 				Unknown0018->Unknown_515400();
 			}
@@ -593,10 +593,10 @@ void LoginTaskClass::Unknown_7692A0()
 void LoginTaskClass::Unknown_6C()
 {
 	if (CharacterView && Unknown_7CA2D0()->Unknown2C == 0 && Unknown_5FADE0()) {
-		CharacterView->Unknown1CD = true;
-		CharacterView->Unknown1CE = true;
-		CharacterView->Unknown1CF = true;
-		CharacterView->Unknown1D0 = true;
+		CharacterView->Unknown1CC[1] = true;
+		CharacterView->Unknown1CC[2] = true;
+		CharacterView->Unknown1CC[3] = true;
+		CharacterView->Unknown1CC[4] = true;
 		Step = 0;
 		Unknown0014 = true;
 		return;
@@ -809,8 +809,8 @@ void LoginTaskClass::Set_Password(const char *password)
 void LoginTaskClass::Show_Message(const char *text)
 {
 	if (CharacterView) {
-		CharacterView->Unknown034->Unknown_5C();
-		CharacterView->Unknown034->Unknown_588A70("OK", 0, text, 320, 0, 0);
+		CharacterView->Unknown34->Unknown_5C();
+		CharacterView->Unknown34->Unknown_588A70("OK", 0, text, 320, 0, 0);
 	}
 	Step = 15;
 }
@@ -819,9 +819,9 @@ void LoginTaskClass::Show_Message(const char *text)
 void LoginTaskClass::Show_Message(const char *text, const char *button)
 {
 	if (CharacterView) {
-		CharacterView->Unknown034->Unknown_5C();
+		CharacterView->Unknown34->Unknown_5C();
 		if (text && strlen(text) > 0) {
-			CharacterView->Unknown034->Unknown_588A70(button, 0, text, 320, 0, 0);
+			CharacterView->Unknown34->Unknown_588A70(button, 0, text, 320, 0, 0);
 		}
 	}
 }
@@ -850,7 +850,7 @@ bool LoginTaskClass::Unknown_64()
 					return false;
 				}
 				if (CharacterView) {
-					CharacterView->Unknown034->Unknown_5C();
+					CharacterView->Unknown34->Unknown_5C();
 				}
 				Unknown0030 = true;
 				Unknown_VersionStruct *version = Unknown_4456C0();
@@ -872,7 +872,7 @@ bool LoginTaskClass::Unknown_64()
 
 		G_ASSERT(0);
 		if (CharacterView) {
-			CharacterView->Unknown034->Unknown_5C();
+			CharacterView->Unknown34->Unknown_5C();
 		}
 		Unknown0030 = true;
 		return false;
@@ -946,7 +946,7 @@ void LoginTaskClass::Create_Character_View()
 		CharacterView = new CharacterViewClass(this, Step);
 		FAIL_IF(!CharacterView) return;
 		CharacterView->Unknown_67A370(Step);
-		Unknown0018->Unknown_515340(CharacterView->Unknown_3C());
+		Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 	}
 }
 
@@ -959,30 +959,30 @@ void LoginTaskClass::Kill_Kernel()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "tsk_game.h"	// ClientTaskClass (step 16)
+// NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70)
+// 0x769E70
+void LoginTaskClass::Start_Game()
+{
+	if (Ticket.Character_ID != 0) {
+		LoginTicketInfoClass info = Ticket_Info;
+		Unknown_8190D0(info.Create_Time)->Unknown_8191B0();
+		Unknown_Debug_Print("LoginTask: removing self.");
+		KernelClass *kernel = Kernel;
+		Done = true;
+		Unknown_BB9654 = true;
+		std::string name(Username ? Username : "LoginName");
+		std::string password(Password ? Password : "Password");
+		ClientTaskClass *task = new ClientTaskClass(name, password);
+		task->Init(kernel, &Ticket, info.Login_Key, Galaxy_Address);
+		kernel->Add_Task(task);
+		kernel->Set_Focus(task);
+		Kernel->Remove_Task(this);
+		Splash *unknown = new Splash(1);
+		unknown->Render();
+		delete unknown;
+	}
+}
 
 
 

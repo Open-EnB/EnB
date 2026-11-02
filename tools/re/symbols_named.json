@@ -335,5 +335,20 @@
   "address": "0x707F00",
   "symbol": "?Update_Saved@?$KVPairTemplateClass@W4GameActionValidityBitFlag@@@@UAEXXZ",
   "evidence": "slot +0x18 of the KVPair vtable 0xB019BC (the value type of leaf vtable 0xB018F4, tools/re/auxroots.py); byte-identical to the other enum pairs' (AR2 2026-10-31)"
+ },
+ {
+  "address": "0x6DADE0",
+  "symbol": "??1?$hash_map@PAVInterfaceClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVInterfaceClass@@@std@@U?$equal_to@PAVInterfaceClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+  "evidence": "the static sort list's constructor 0x6DA930 unwinds its InterfaceMap (+0x20, interface_static_sort_list.h) through it: the funclets 0xAC39AA / 0xAC3ABA are `mov ecx, [ebp-N]; add ecx, 0x20; jmp` to it (IS 2026-11-01)"
+ },
+ {
+  "address": "0x6DAEB0",
+  "symbol": "??1?$hash_map@PAVRenderObjClass@@V?$RefCountPtr@VInterfaceRenderClass@@@@U?$hash@PAVRenderObjClass@@@std@@U?$equal_to@PAVRenderObjClass@@@4@V?$allocator@V?$RefCountPtr@VInterfaceRenderClass@@@@@4@@std@@QAE@XZ",
+  "evidence": "the static sort list's constructor 0x6DA930 unwinds its RenderObjMap (+0x38, interface_static_sort_list.h) through it: the funclets 0xAC39B5 / 0xAC3AC5 are `mov ecx, [ebp-N]; add ecx, 0x38; jmp` to it (IS 2026-11-01)"
+ },
+ {
+  "address": "0x6DAF80",
+  "symbol": "??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
+  "evidence": "the static sort list's constructor 0x6DA930 unwinds its PIPScenes (+0x58, interface_static_sort_list.h) through it: the funclets 0xAC39CB / 0xAC3ADB are `mov ecx, [ebp-N]; add ecx, 0x58; jmp` to it (IS 2026-11-01)"
  }
 ]

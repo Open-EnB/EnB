@@ -28,7 +28,21 @@ struct KernelEventClass		// NAME 1: describes what it holds; the input code's na
 	KernelEventClass() : Key(0), Flags(0), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}
 	KernelEventClass(unsigned short key, unsigned short flags = 0) : Key(key), Flags(flags), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}	// inpdsp.cpp's ini reader 0x42A1A0 and writer 0x42A410
 	unsigned short Key;		// NAME 2: +0x00 Handle_Key: 0x1B Esc, 0x6A
-	unsigned short Flags;	// NAME 1: +0x02 0x1000: Handle_Key ignores the event
+	union {
+		unsigned short Flags;	// NAME 1: +0x02 0x1000: Handle_Key ignores the event
+		struct {			// the same bits as read through bit-fields (textgadg.cpp 0x6AA200, stredit.cpp 0x84AAD0: shr / test 1)
+			unsigned short Unknown02_00 : 8;	// bits 0-7
+			unsigned short Shift : 1;			// bit 8 (0x100: stredit.cpp types with it, not with bits 9 / 10)  // NAME 2: what Process_Key does with it
+			unsigned short Ctrl : 1;			// bit 9 (0x200: stredit.cpp moves the cursor by words with it)  // NAME 2: what Process_Key does with it
+			unsigned short Alt : 1;				// bit 10 (0x400)  // NAME 1: the third of stredit.cpp's 0x700 bits
+			unsigned short Unknown02_0B : 1;	// bit 11
+			unsigned short Up : 1;				// bit 12 (0x1000: the key released; the handlers ignore it)  // NAME 2: what the handlers do with it
+			unsigned short Unknown02_0D : 3;	// bits 13-15
+		};
+	};
+	bool Is_Up() const { return(Up); }		// (inline: textgadg.cpp 0x6AA200, stredit.cpp 0x84AAD0)  // NAME 2: what it returns
+	bool Is_Shift() const { return(Shift); }	// (inline: stredit.cpp 0x84AAD0)  // NAME 2: what it returns
+	bool Is_Ctrl() const { return(Ctrl); }		// (inline: stredit.cpp 0x84AAD0)  // NAME 2: what it returns
 	float Unknown04;		// +0x04 (floats: the constructor stores 0.0f as immediates)
 	float Unknown08;		// +0x08
 	int Unknown0C;			// +0x0C

@@ -483,6 +483,19 @@ so the destructor's FAIL_IF (line 70) stays quiet. 67 checks (the PxWrapper's ow
 **px.cpp and px_wrapper.cpp (2026-10-28, PX1):** ClientClass's PxList and type 24's PxWrapper are real code now; the
 PxClass and PxWrapper stand-ins are gone, client_stubs.cpp has stand-ins for the other px_*.cpp classes the wrapper
 builds (PxObject, PxBoxList, PxCollisionBox: the box classes construct their PxBox base). 67 checks, 2,999 trace lines.
+**Real objects instead of stand-ins (2026-11-01, CT):** the link had stopped on LNK2005 duplicates (ui_group, rs_track,
+gadget, gadget_list_manager, ui_cpit, unknown_root, name, lookup, delta, soundlib, WWAudio) and then on the objects they pull
+in. The stand-ins for functions the tree now builds are gone (RsTrackClass, UIGroupClass, GadgetClass::Unknown_6607D0,
+GadgetListManagerClass::Unknown_661940, UICpitClass::Unknown_584690, DeltaCompoundClass::Decode, NameClass / LookupClass /
+DeltaInterpolatorClass, SoundLibraryClass::Play_2D / 3D_Sound, WWAudioClass's, pkupdate's 0x8ADB20), so those run for real on the
+harness's fakes: the fake gadget is a zeroed 0x100-byte object with its name at +0x24 in a real manager's list; the cockpit's
++0xE0 object is a fake whose four calls are stand-ins in clienttest.cpp; the chat panel, PDA, hot keys, line display and
+the main view's +0x34 object are zeroed fakes with a table that pops slot +0x7C's two arguments (SClient::Unknown_742530 is
+real); `Unknown_Get_Ticks` (unknown_root.cpp) and `WWAudioClass::Flush_Cache` are real functions that main() jumps to the
+harness's clock and to a trace line (a second definition would be a duplicate). ui_stubs.cpp / ui_avsel_stubs.cpp hold what
+gen_stubs --link cannot write (as programs/clientpoc/poc_link.cpp). A crash prints its address on stderr (a vectored handler:
+look it up in the exe's .map). 103 checks, 3,178 trace lines; the trace lost the lines of the deleted stand-ins
+(`stub DeltaCompoundClass::Decode` x213, the Play_2D_Sound, RsTrack and gadget 0x6607D0 / group 0x5981B0.. lines, 0x56BA80).
 
 ## Other harness programs (index)
 
@@ -500,6 +513,7 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `kerneltest.py` | `tests/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
 | `clienttest.py` | `tests/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
+| `clientpoc.py` | the proof-of-concept client (D179): `run` starts `ClientPOC\release\client.exe` there (windowed unless `--fullscreen`), kills it by PID after `--seconds`, and digests `stubs.log` (stand-ins' first calls, repeats folded, the first `CRASH:` line named from `client.map`) and `_except.txt`; `log` digests the last run. Build it with `tools/vc6/build.py link --program clientpoc`; each run's first failure goes in `.work/poc/runs.md`. It writes `*.th6` thumbnails beside the mixes in `ClientPOC\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |

@@ -255,22 +255,22 @@ public:
 
 
 
-// The camera manager's callback (vtable 0xB032D8 over the base's 0xAEDB58): an object and a member function
-class SClientCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	virtual void Call();
-};
+// The camera manager's callback: SignalBaseClass::MemberCallback (unknown_signalbase.h; vtable 0xB032D8 over the base's
+// 0xAEDB58, RTTI 0xB9AC18 names the object's class SpaceClientClass): its members out of line, the destructor 0x758EF0,
+// 0x7593E0, 0x759400, 0x759420 (Event_Type), 0x759830 (Is_Equal), 0x7598B0 (Call), 0x7599B0 (deleting destructor)
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SClientCallbackBaseClass]: neutral (D10)
+typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
 
-class SClientCallbackClass : public SClientCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xB032D8 (slot 0 0x7599B0)
-{
-public:
-	SClientCallbackClass(SClient *object, void (SClient::*function)()) : Object(object), Function(function) {}
-	virtual void Call();
 
-	SClient *Object;									// +0x04
-	void (SClient::*Function)();						// +0x08 (8 bytes: SClient has two bases)
-};
+
+
+
+
+
+
+
+
 
 // What 0x79B9E0 returns (camera_manager.cpp's neighbourhood): it keeps the callbacks per camera manager id
 class SClientNotifierClass		// NAME 1: neutral (D10)

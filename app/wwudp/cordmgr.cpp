@@ -192,43 +192,42 @@ int CordMgr::Connect(unsigned int ip, unsigned short port, bool encrypt)
 	return(c->Session);
 }
 
-// 0x858A60, functional (NOT EXACT): SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2,
-// protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting
-// for ACK2, each again a second after the last; a connection 60 s old gives up: it becomes a
-// CordCon without a socket (so the caller finds it, closed) and leaves the list. (The client
-// then reads the freed record once more; not rebuilt.)
+
+
+// NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two
+// words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a
+// connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list.
 bool CordMgr::Pump_Connections()
 {
 	WWPROFILE("CordMgr::Pump_Connections");
-	unsigned char buf[0x400];
+	unsigned char buf[0x200];
+	unsigned char key[0x200];
 	Xtime now;
 	Xtime resend;
 	Xtime timeout;
 	resend.addSeconds(-1);
 	timeout.addSeconds(-60);
-	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *c; Pending_.get(c, i);
+	int count = Pending_.length();
+	int i = 0;
+	CordConnectingClass *c;
+	for (int k = 0; k < count; k++) {
+		Pending_.get(c, i);
 		if (c->Created < timeout) {
-			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0,
-				c->Key);
-			AllConnections_.addTail(con);
-			Connections_.addTail(con);
-			delete c;
-			Pending_.remove(i);
+			CordCon *con = new CordCon(c->Ip, c->Port, c->Session, 0, false, NULL, 0, c->Key);
+			Add_Connection(con, c, i);
+
+
 			i--;
-			continue;
 		}
-		if (c->Socket == NULL) {
-			continue;
-		}
-		if (c->State == 1 && resend > c->LastSend) {
-			buf[0] = 0;
-			buf[1] = Protocol_;
-			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
-			c->Socket->Write(buf, 4, c->Ip, c->Port);
-			c->LastSend = now;
+		if (c->State == 1) {
+			if (resend > c->LastSend) {
+				buf[0] = 0;
+				buf[1] = Protocol_;
+				*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
+				c->Socket->Write(buf, 4, c->Ip, c->Port);
+				c->LastSend = now;
+			}
 		} else if (c->State == 3 && resend > c->LastSend) {
-			unsigned char key[0x200];
 			buf[0] = 2;
 			buf[1] = Protocol_;
 			*(unsigned short *)(buf + 2) = htons((unsigned short)c->Session);
@@ -241,6 +240,7 @@ bool CordMgr::Pump_Connections()
 			c->Socket->Write(buf, n + 20, c->Ip, c->Port);
 			c->LastSend = now;
 		}
+		i++;
 	}
 	return true;
 }
@@ -1316,10 +1316,10 @@ bool CordMgr::Process_SYN2_Packet(unsigned char *data, int len, sockaddr_in *fro
 	return false;
 }
 
-// 0x85A430, functional: ACK1 (1, protocol, session, two words, the server's modulus and exponent,
-// each a 4-byte length then big-endian bytes) for a connection waiting in state 1. The session key
-// becomes the low 64 bits of a number filled with random bits up to one below the modulus's
-// length, raised to the exponent modulo the modulus (WWLib's XMP); state 3 (SYN2 next).
+// NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session,
+// two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return)
+// for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with
+// an RSAKeyClass of the two (Key_Exchange 0x829180's form); a zero modulus or exponent: the key's low word. State 3.
 bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown)
 {
 	WWPROFILE("CordMgr::Process_ACK1_Packet");
@@ -1331,61 +1331,69 @@ bool CordMgr::Process_ACK1_Packet(unsigned char *data, int len, sockaddr_in *fro
 	unsigned short session = ntohs(*(unsigned short *)(data + 2));
 	unsigned long word1 = ntohl(*(unsigned long *)(data + 4));
 	unsigned long word2 = ntohl(*(unsigned long *)(data + 8));
-	digit modulus[0x40], exponent[0x40], zero[0x40];
-	XMP_Init(modulus, 0, 0x40);
-	XMP_Init(exponent, 0, 0x40);
-	XMP_Init(zero, 0, 0x40);
+	BigInt n;
+	BigInt e;
 	unsigned long mlen = ntohl(*(unsigned long *)(data + 12));
-	if (mlen + 0x10 > (unsigned long)len || mlen == 0) {
+	unsigned long offset = mlen + 0x10;
+	if (offset > (unsigned long)len) {
 		return false;
 	}
-	XMP_Unsigned_Decode(modulus, data + 0x10, mlen, 0x40);
-	unsigned long elen = ntohl(*(unsigned long *)(data + mlen + 0x10));
-	if (elen + mlen + 0x14 > (unsigned long)len) {
+	if (mlen == 0) {
 		return false;
 	}
-	if (elen != 0) {
-		XMP_Unsigned_Decode(exponent, data + mlen + 0x14, elen, 0x40);
+	n.Unsigned_Decode(data + 0x10, mlen);
+	unsigned long elen = ntohl(*(unsigned long *)(data + offset));
+	offset += 4;
+	if (elen + offset > (unsigned long)len) {
+		return false;
 	}
+	if (elen == 0) {
+		return false;
+	}
+	e.Unsigned_Decode(data + offset, elen);
 	if (protocol != Protocol_ || type != 1) {
 		return false;
 	}
+	CordConnectingClass *c = NULL;
 	for (int i = 0; i < Pending_.length(); i++) {
-		CordConnectingClass *c; Pending_.get(c, i);
-		if (c->Ip != ntohl(from->sin_addr.s_addr) || c->Port != ntohs(from->sin_port)
-			|| c->Session != session || c->State != 1) {
-			continue;
-		}
-		if (word1 == 0 && word2 == 0) {
-			c->State = 0;		// (the client's: an unencrypted server)
-			return false;
-		}
-		if (memcmp(modulus, zero, sizeof(zero)) != 0 && memcmp(exponent, zero, sizeof(zero)) != 0
-			&& c->Key != 0) {
-			digit plain[0x40], cipher[0x40];
-			XMP_Init(plain, 0, 0x40);
-			for (unsigned int bit = 0; bit < 64; bit++) {
-				if (c->Key & ((__int64)1 << bit)) {
-					plain[bit >> 5] |= 1 << (bit & 0x1F);
-				}
+		Pending_.get(c, i);
+		if (c->Ip == ntohl(from->sin_addr.s_addr) && c->Port == ntohs(from->sin_port)
+			&& c->Session == session && c->State == 1) {
+			if (word1 == 0 && word2 == 0) {
+				c->State = 0;		// (the client's: an unencrypted server)
+				break;
 			}
-			SecureRandomClass random;
-			for (unsigned int b = 64; b < XMP_Count_Bits(modulus, 0x40) - 1; b++) {
-				if (random.Randval() & 1) {
-					plain[b >> 5] |= 1 << (b & 0x1F);
+			BigInt zero;
+			if (n != zero && e != zero && c->Key != 0) {
+				RSAKeyClass key;
+				key.Modulus = n;
+				key.Exponent = e;
+				BigInt m;
+				unsigned __int64 mask = 1;
+				for (unsigned int bit = 0; bit < 64; bit++) {
+					if (c->Key & mask) {
+						m.Set_Bit(bit);
+					}
+					mask <<= 1;
 				}
+				SecureRandomClass random;
+				for (bit = 64; bit < (unsigned int)(n.BitCount() - 1); bit++) {
+					if (random.Randval() & 1) {
+						m.Set_Bit(bit);
+					}
+				}
+				BigInt cipher;
+				cipher = key.Encrypt(m);
+				c->EncryptedKey = cipher;
+			} else if (n == zero || e == zero) {
+				c->EncryptedKey = BigInt((unsigned long)c->Key);
 			}
-			XMP_Init(cipher, 0, 0x40);
-			XMP_Exponent_Mod(cipher, plain, exponent, modulus, 0x40);
-			memcpy(c->EncryptedKey, cipher, sizeof(cipher));
-		} else {
-			memset(c->EncryptedKey, 0, sizeof(c->EncryptedKey));
+			c->State = 3;
+			c->LastSend.set(0, 0);
+			c->Ack1Word1 = word1;
+			c->Ack1Word2 = word2;
+			return true;
 		}
-		c->LastSend.set(0, 0);
-		c->State = 3;
-		c->Ack1Word1 = word1;
-		c->Ack1Word2 = word2;
-		return true;
 	}
 	return false;
 }
@@ -1567,6 +1575,37 @@ void CordMgr::Set_Buffers(UDP *udp)
 	}
 }
 
+// Compute_Ticks' field writes (inlined): through a pointer, so VC6 keeps every store in source order (written
+// straight into the array, the digest's zero stores move above the last field's).
+static inline void Cord_Put_Short(unsigned char *p, unsigned short value) { *(unsigned short *)p = htons(value); }	// NAME 2: what it does
+static inline void Cord_Put_Long(unsigned char *p, unsigned long value) { *(unsigned long *)p = htonl(value); }	// NAME 2: what it does
+
+// 0x85A220 (no caller; in the client after Process_CORD_Packet): the six values in network order, then
+// Unknown04 (Init's random word), 22 bytes in a zeroed 512-byte block, hashed by WWOnline's SHA-1 0x8B4A90;
+// the digest's five words xored.
+unsigned int CordMgr::Compute_Ticks(unsigned short port1, unsigned int ip1, unsigned int ip2, unsigned short port2,
+	unsigned int ip3, unsigned short port3)
+{
+	WWPROFILE("CordMgr::Compute_Ticks");
+	unsigned char buf[0x200];
+	memset(buf, 0, sizeof(buf));
+	Cord_Put_Short(buf + 0, port1);
+	Cord_Put_Long(buf + 2, ip1);
+	Cord_Put_Long(buf + 6, ip2);
+	Cord_Put_Short(buf + 10, port2);
+	Cord_Put_Long(buf + 12, ip3);
+	Cord_Put_Short(buf + 16, port3);
+	Cord_Put_Long(buf + 18, Unknown04);
+	unsigned int digest[5];
+	memset(digest, 0, sizeof(digest));
+	Cord_SHA(buf, 0x16, digest);
+	unsigned int ticks = 0;
+	for (int i = 0; i < 5; i++) {
+		ticks ^= digest[i];
+	}
+	return ticks;
+}
+
 // 0x857940 (in the client after the destructor): a socket with 32 KB buffers bound to ip:port, kept
 // in ListenSockets_; deleted when Bind fails. The record is made before Bind (the client widens the
 // port then).
@@ -1593,7 +1632,7 @@ bool CordMgr::Listen(unsigned int ip, unsigned short port)
 **	  Process_Go_Away_Packet 0x8586D0, 0x858980, Pump_Connections 0x858A60 (XMP_Encode: the SYN2
 **	  key), 0x858EC0 (XMP_Init, SecureRandomClass: the session key), 0x859440-0x8598F0,
 **	  Pump_Releases 0x859940, Get_Data_Socket 0x859D50, Find_Data_Socket 0x859F80,
-**	  Process_CORD_Packet 0x85A000 (log on line 1272), Compute_Ticks 0x85A220, Process_SYN1_Packet
+**	  Process_CORD_Packet 0x85A000 (log on line 1272), Compute_Ticks 0x85A220 (here near the end), Process_SYN1_Packet
 **	  0x85A3B0, Process_ACK1_Packet 0x85A430 (XMP_Unsigned_Decode, XMP_Exponent_Mod: the server's
 **	  RSA key), Process_SYN2_Packet 0x85AB30, Process_ACK2_Packet 0x85ABB0 (the CordCon).
 **	* The handshake on the wire (earlier protocol research on the EA captures): SYN1 00 14 <session>, ACK1

@@ -30,6 +30,7 @@
 
 struct FontStringStruct;
 class FontDatabaseClass;
+class Font32Class;
 
 struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color and one more word
 {
@@ -37,25 +38,101 @@ struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16
 	int Unknown0C;														// +0x0C  // NAME 1: neutral (D10)
 };
 
-class FontStyleClass : public DynamicMeshClass  // NAME 1 [FontStyleClass]: neutral (D10): the debug font's class (0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
+class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontStyleClass +0x2D0 / +0x2E0)
 {
 public:
-	FontStyleClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0  // NAME 1 [unknown1]: neutral (D10)
-	FontStyleClass(FontStringStruct def, unsigned int object, int unknown);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object, unknown]: neutral (D10)
+	Unknown_6D8B90Class();												// 0x6D8B90
+	~Unknown_6D8B90Class();												// 0x6D8C50
+	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
+
+	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
+	int Unknown04;														// +0x04  // NAME 1: neutral (D10)
+	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
+	TextureClass *Texture;												// +0x0C  // NAME 2: what it holds
+
+	static int Count;													// 0xBE67CC: live objects (0x6D8C50 frees 0xBE67C8 at 0)  // NAME 2: what 0x6D8B90 / 0x6D8C50 do with it
+	static int Unknown_BE67D8;											// 0xBE67D8: 0x6D8B90 counts up  // NAME 1: neutral (D10)
+};
+
+class FontStyleClass : public DynamicMeshClass  // NAME 1 [FontStyleClass]: neutral (D10): the client's FontSys (Get_Name 0x67EF20 "FontSys"; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
+{
+public:
+	FontStyleClass(const char *name, int object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
+	FontStyleClass(FontStringStruct def, unsigned int object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+	~FontStyleClass() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
+
+	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
+	virtual const char *Get_Name(void) const { return "FontSys"; }		// 0x67EF20  // NAME 2: RenderObjClass's
+	virtual void Set_Hidden(int onoff) { Unknown300 = (onoff == 0); RenderObjClass::Set_Hidden(onoff); }	// 0x67EF40  // NAME 2: RenderObjClass's
+	virtual bool Is_Complete(void) { return Unknown404; }					// 0x67EEE0  // NAME 2: RenderObjClass's
+	virtual void Render(RenderInfoClass &rinfo);							// 0x6D8270  // NAME 2: RenderObjClass's
+	virtual void Set_Container(RenderObjClass *con);						// 0x6D5920  // NAME 2: RenderObjClass's
+	virtual void Set_Transform(const Matrix3D &m);						// 0x6D87F0  // NAME 2: RenderObjClass's
+	virtual void Set_Position(const Vector3 &v);							// 0x6D88C0  // NAME 2: RenderObjClass's
+	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;	// 0x6D5B90  // NAME 2: RenderObjClass's
+	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;		// 0x6D5C10: the text rectangle +0x420 on a 640 x 480 screen, placed by Info.Justify  // NAME 2: RenderObjClass's
+
+	void Unknown_6D5170(int object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
+	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
+	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
 	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
 
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
 	void Unknown_6CE7D0(int unknown);										// 0x6CE7D0  // NAME 1 [Unknown_6CE7D0]: neutral (D10)
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
+	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
+	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
+	void Unknown_6D8650(Vector3 &pos);										// 0x6D8650: the text's position (the transform's, or +0x464 with +0x302 set, plus +0x47C and +0x488; ret 4 with the pointer in eax: maybe a Vector3 return)  // NAME 1 [pos]: neutral (D10)
+	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
-	char Unknown1E0[0x70];	// +0x1E0  // NAME 1: neutral (D10)
+	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
+	FontEffectStruct *Effects[6][4];									// +0x1E8: Info's six effect lists (EffectOn ... EffectTriggered) found by name (0x6D5170)  // NAME 2: what 0x6D5170 stores
+	RenderObjClass *Object;												// +0x248: the constructors' object, the model the text attaches to (Info.Attach: 0x6D5D40, 0x6D6390)  // NAME 2: what the constructors pass
+	Font32Class *Font;													// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640)  // NAME 3: the assert's
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
-	char Unknown254[0x18];												// +0x254  // NAME 1: neutral (D10)
+	int Unknown254[6];													// +0x254: zeroed by 0x6D5170  // NAME 1: neutral (D10)
 	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)
-	char Unknown270[0x454 - 0x270];									// +0x270  // NAME 1: neutral (D10)
+	int Unknown270;														// +0x270: Render draws while +0x26C <= it  // NAME 1: neutral (D10)
+	int Unknown274[16];													// +0x274: zeroed by 0x6D5170  // NAME 1: neutral (D10)
+	int Width;															// +0x2B4: WW3D::Get_Device_Resolution's (0x6D5170); 640 / it scales the bounding box  // NAME 2: what it holds
+	int Height;															// +0x2B8: WW3D::Get_Device_Resolution's  // NAME 2: what it holds
+	int Bits;															// +0x2BC: WW3D::Get_Device_Resolution's  // NAME 2: what it holds
+	bool Windowed;														// +0x2C0: WW3D::Get_Device_Resolution's  // NAME 2: what it holds
+	int Unknown2C4;														// +0x2C4  // NAME 1: neutral (D10)
+	int Unknown2C8;														// +0x2C8  // NAME 1: neutral (D10)
+	float Scale;														// +0x2CC: Find_Font's scale (1 before)  // NAME 2: what Find_Font writes
+	Unknown_6D8B90Class Unknown2D0;										// +0x2D0  // NAME 1: neutral (D10)
+	Unknown_6D8B90Class Unknown2E0;										// +0x2E0  // NAME 1: neutral (D10)
+	StringClass Unknown2F0;												// +0x2F0  // NAME 1: neutral (D10)
+	float Unknown2F4[3];												// +0x2F4: 1, -1, 1 (0x6D5170)  // NAME 1: neutral (D10)
+	bool Unknown300;													// +0x300: not hidden (Set_Hidden)  // NAME 1: neutral (D10)
+	bool Unknown301;													// +0x301  // NAME 1: neutral (D10)
+	bool Unknown302;													// +0x302: 0x6CD180's x / y apply (+0x464)  // NAME 1: neutral (D10)
+	char Unknown303[0xFF];												// +0x303: zeroed by 0x6D5170  // NAME 1: neutral (D10)
+	bool Unknown402;													// +0x402  // NAME 1: neutral (D10)
+	char Unknown403;													// +0x403  // NAME 1: neutral (D10)
+	bool Unknown404;													// +0x404: Is_Complete's  // NAME 1: neutral (D10)
+	bool Unknown405;													// +0x405  // NAME 1: neutral (D10)
+	bool Unknown406;													// +0x406  // NAME 1: neutral (D10)
+	bool Underline;														// +0x407: Info.Underline (0x6D5170)  // NAME 2: what 0x6D5170 copies
+	bool Unknown408;													// +0x408  // NAME 1: neutral (D10)
+	char Unknown409[3];													// +0x409  // NAME 1: neutral (D10)
+	int FontIndex;														// +0x40C: which of Info.FontType the font is (0 by 0x6D5170)  // NAME 2: what 0x6D5170 indexes with
+	int Unknown410;														// +0x410  // NAME 1: neutral (D10)
+	int Unknown414;														// +0x414  // NAME 1: neutral (D10)
+	int Unknown418;														// +0x418  // NAME 1: neutral (D10)
+	int Unknown41C;														// +0x41C  // NAME 1: neutral (D10)
+	int Unknown420[4];													// +0x420: the text rectangle (left, right, top, bottom: 0x6D5C10)  // NAME 1: neutral (D10)
+	int Unknown430[4];													// +0x430: -320, 320, 240, -240 (0x6D5170)  // NAME 1: neutral (D10)
+	int Unknown440;														// +0x440: Render draws below 3  // NAME 1: neutral (D10)
+	int Unknown444;														// +0x444  // NAME 1: neutral (D10)
+	int Unknown448;														// +0x448  // NAME 1: neutral (D10)
+	int Unknown44C;														// +0x44C  // NAME 1: neutral (D10)
+	int Unknown450;														// +0x450  // NAME 1: neutral (D10)
 	float Unknown454;													// +0x454: 0x6CF930's per-line value, at least +0x480 (0x6D5170 zeroes it)  // NAME 1: neutral (D10)
 	int Unknown458;														// +0x458: zeroed by 0x6D5170 and Change_Text  // NAME 1: neutral (D10)
 	int LineCount;														// +0x45C: the number of lines 0x6CF930 split the text into  // NAME 2: what 0x6CF930 stores
@@ -64,10 +141,21 @@ public:
 	int Unknown46C;														// +0x46C  // NAME 1: neutral (D10)
 	Vector3 Unknown470;													// +0x470: a copy of +0x47C (0x6D5170, 0x6CF930); Change_Text puts its x back  // NAME 1: neutral (D10)
 	Vector3 Unknown47C;													// +0x47C: Info's +0x34 / +0x38 times 640 / 480 (0x6D5170, 0x6CDAB0), y moved per line by 0x6CF930  // NAME 1: neutral (D10)
-	char Unknown488[0x494 - 0x488];									// +0x488  // NAME 1: neutral (D10)
+	int Unknown488[3];													// +0x488: zeroed by 0x6D5170  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown4A4;									// +0x4A4: a copy of +0x494 (0x6D1010)  // NAME 1: neutral (D10)
-	char Unknown4B4[0x34];												// +0x4B4  // NAME 1: neutral (D10)
+	char Unknown4B4[0x4C4 - 0x4B4];									// +0x4B4  // NAME 1: neutral (D10)
+	bool Unknown4C4;													// +0x4C4: Render clears it  // NAME 1: neutral (D10)
+	bool Unknown4C5;													// +0x4C5: Set_Transform / Set_Position clear it  // NAME 1: neutral (D10)
+	char Unknown4C6[2];													// +0x4C6  // NAME 1: neutral (D10)
+	int Unknown4C8[2];													// +0x4C8: -1, -1 (0x6D5170)  // NAME 1: neutral (D10)
+	Vector3 Unknown4D0;													// +0x4D0: the last translation Set_Transform saw  // NAME 1: neutral (D10)
+	float Unknown4DC;													// +0x4DC: an x scale Render undoes above 1  // NAME 1: neutral (D10)
+	float Unknown4E0;													// +0x4E0: a y scale Render undoes above 1  // NAME 1: neutral (D10)
+	bool Unknown4E4;													// +0x4E4: set by 0x6D5170  // NAME 1: neutral (D10)
+	bool Unknown4E5;													// +0x4E5: Set_Transform / Set_Position set it  // NAME 1: neutral (D10)
+	bool Unknown4E6;													// +0x4E6: cleared by 0x6D5170  // NAME 1: neutral (D10)
+	char Unknown4E7;													// +0x4E7  // NAME 1: neutral (D10)
 };
 
 class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per id (0x24 bytes; its +4 is the id)

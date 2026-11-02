@@ -17,29 +17,29 @@
 #include "..\shared\auxdata\permstr.h"
 #include "tutorial_manager.h"
 
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(LayerClass *layer);			// +0x28 (the text gadgets: the window's layer)  // NAME 1 [layer]: what the constructor passes
-	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74(bool on);					// +0x74 (the text gadgets: the input focus)  // NAME 1 [on]: neutral
-	char Unknown04[0x20 - 0x04];						// +0x04
-	void *Unknown20;									// +0x20 (0x5AE9D0: the mouse-over sound only when set)
-	char Unknown24[0x2C - 0x24];						// +0x24
-	unsigned int Unknown2C_00 : 2;						// +0x2C bits 0-1
-	unsigned int Unknown2C_02 : 1;						// +0x2C bit 2 (0x5AE9D0: the mouse-over sound)
-	unsigned int Unknown2C_03 : 29;						// +0x2C
-	bool Is_Unknown2C_02() { return(Unknown2C_02); }	// NAME 1: neutral (D10)
-};
+// gadget.cpp's gadget: gadget.h
+#include "gadget.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // fontmanager.h's FontStyleClass, FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC (neither
 // header can be included next to sclient.h: workflow.md 3.3), as far as this file calls them
@@ -64,35 +64,36 @@ public:
 extern LoginFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
-// textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810), as far as this file calls it
-class TextGadgetClass : public GadgetClass	// NAME 3: class-from-file (D24) for app\client\textgadg.cpp
-{
-public:
-	TextGadgetClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: what the constructor passes
-	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: what it does
-	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: what it does
-	void Unknown_6AAD10();								// 0x6AAD10 (every frame)
-	char Unknown30[0x39 - 0x30];						// +0x30
-	bool Unknown39;										// +0x39 (the slot +0x60 clears it: tab)
-	bool Unknown3A;										// +0x3A
-	char Unknown3B;										// +0x3B
-	bool Unknown3C;										// +0x3C
-	char Unknown3D[0x44 - 0x3D];						// +0x3D
-	FontStyleClass *Unknown44;							// +0x44 (its text)
-	char Unknown48[0x5C - 0x48];						// +0x48
-	bool Unknown5C;										// +0x5C (the password's: hidden)
-	char Unknown5D[0x80 - 0x5D];						// +0x5D
-};
+// textgadg.cpp's text gadgets (the name and password boxes)
+#include "textgadg.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text gadgets get
 
-// gadget.cpp's buttons (100 bytes, 0x675240), as ui_manu.cpp makes them
-class LoginButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
-void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: as ui_cpit.cpp's
+#include "unknown_675120.h"
+
+
+
+
+
+
+
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
 
@@ -105,14 +106,14 @@ public:
 };
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
-// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0), as ui_manu.cpp's
-class LoginScopeClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginScopeClass(InterfaceClass *iface);				// 0x541980  // NAME 1 [iface]: neutral
-	~LoginScopeClass();									// 0x6E18B0
-	char Unknown00[8];
-};
+// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0)
+#include "local_interface_sort.h"
+
+
+
+
+
+
 
 // The control keys event (0x10 bytes) and InterfaceClass +0x4C, as ui_manu.cpp declares them
 struct LoginKeyEventStruct	// NAME 1: neutral (D10)
@@ -126,87 +127,86 @@ struct LoginKeyEventStruct	// NAME 1: neutral (D10)
 };
 class LoginKeysClass { public: void Unknown_721E60(const LoginKeyEventStruct *event, int id); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what the constructor passes
 
-// What the character view's +0x198 points to (avatar.cpp's functions), as far as this file calls it
-class LoginViewUnknown198Class	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('RejectedOnce', 1)  // NAME 1 [name, a]: neutral
-	void Unknown_784E00();								// 0x784E00
-	bool Unknown_7863E0();								// 0x7863E0
-	char Unknown000[0x220];								// +0x000
-	bool Unknown220;									// +0x220 (0x5ADA50: the welcome speech waits for it)
-	bool Is_Unknown220() { return(Unknown220); }		// NAME 1: neutral (D10)
-};
+// The character view: charview.h's CharacterViewClass (its +0x198 the narrator, avatar.cpp's model)
+#include "charview.h"
+typedef CharacterViewClass LoginViewClass;	// NAME 1 [LoginViewClass]: neutral (D10)
 
-// The character view (charview.cpp's CharacterViewClass, tsk_login.h), as far as this file calls it
-class LoginViewClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual LoginViewClass *Unknown_28();				// +0x28 (the interface's view gives the character view)
-	void Unknown_67A250();								// 0x67A250
-	void Unknown_67A670();								// 0x67A670
-	void Unknown_67A6C0();								// 0x67A6C0
-	void Unknown_67A8D0(int arg);						// 0x67A8D0  // NAME 1 [arg]: neutral
-	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the destructor: 0)  // NAME 1 [arg]: as ui_avatr.cpp's
-	void Unknown_67AB20(int index, const char *name);	// 0x67AB20  // NAME 1 [index, name]: neutral
-	void Unknown_67ACE0(int arg);						// 0x67ACE0  // NAME 1 [arg]: neutral
-	bool Unknown_67AD30(int a, const char *name);		// 0x67AD30  // NAME 1 [a, name]: neutral
-	void Unknown_67AE20(int arg);						// 0x67AE20  // NAME 1 [arg]: neutral
-	void Unknown_67AE60(int arg);						// 0x67AE60  // NAME 1 [arg]: neutral
-	bool Unknown_67AEA0(int arg);						// 0x67AEA0  // NAME 1 [arg]: neutral
-	void Unknown_67B270();								// 0x67B270
-	bool Unknown_67B2B0();								// 0x67B2B0 (as ui_avatr.cpp's)
-	void Unknown_67B4F0(int arg);						// 0x67B4F0  // NAME 1 [arg]: neutral
-	void Unknown_67C440(int a, int b);					// 0x67C440  // NAME 1 [a, b]: neutral
-	void Unknown_67C7B0();								// 0x67C7B0
 
-	char Unknown04[0x14 - 0x04];						// +0x04
-	TaskClass *Unknown014;								// +0x14 (its slot +0x08 gives the login task)
-	char Unknown18[0x34 - 0x18];						// +0x18
-	CharacterViewUnknown34Class *Get_Unknown034() { return(Unknown034); }	// NAME 1: neutral (D10)
-	CharacterViewUnknown34Class *Unknown034;			// +0x34 (the message box)
-	char Unknown38[0x68 - 0x38];						// +0x38
-	CameraClass *Peek_Camera() { return(Unknown068); }	// NAME 1: neutral (D10)
-	CameraClass *Unknown068;							// +0x68
-	char Unknown6C[0x198 - 0x6C];						// +0x6C
-	LoginViewUnknown198Class *Get_Unknown198() { return(Unknown198); }	// NAME 1: neutral (D10)
-	LoginViewUnknown198Class *Unknown198;				// +0x198
-	char Unknown19C[0x1B0 - 0x19C];						// +0x19C
-	int Get_Unknown1B0() { return(Unknown1B0); }		// NAME 1: neutral (D10)
-	int Unknown1B0;										// +0x1B0 (the step before)
-	char Unknown1B4[0x1B8 - 0x1B4];						// +0x1B4
-	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10), as ui_avatr.cpp's
-	RenderObjClass *Unknown1B8;							// +0x1B8 (the model: its texts by name)
-	char Unknown1BC[0x1CF - 0x1BC];						// +0x1BC
-	bool Unknown1CF;									// +0x1CF
-	bool Unknown1D0;									// +0x1D0
-	char Unknown1D1[0x3A4 - 0x1D1];						// +0x1D1
-	SClientUnknown1338Class *Unknown3A4;				// +0x3A4 (env_map_manager.cpp's)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The gadget events' callbacks (vtable 0xAEDB58) and what 0x65ECE0 returns, as ui_avatr.cpp declares them
-class LoginCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	~LoginCallbackBaseClass() {}
-	virtual void Call();
-};
-class LoginNotifierClass		// NAME 1: neutral (D10)
-{
-public:
-	void Add(int id, LoginCallbackBaseClass *callback);		// 0x4F9740  // NAME 2: as sclient.cpp's
-	void Remove(int id, LoginCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
-};
-LoginNotifierClass *Unknown_65ECE0();					// 0x65ECE0  // NAME 1 [Unknown_65ECE0]: neutral (D10)
+// (SignalBaseClass::MemberCallback: unknown_signalbase.h)
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginCallbackBaseClass]: neutral (D10)
 
-class FlashingGadgetEvent	// NAME 5: the client's RTTI .?AVFlashingGadgetEvent@@
+
+
+class InterfaceSignalMapClass		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
 {
 public:
-	GadgetClass *Gadget;								// +0x00 (the FAIL_IF '!gadget')  // NAME 3: the FAIL_IF's
+	void Add(void *sender, LoginCallbackBaseClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Remove(void *sender, const LoginCallbackBaseClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
 };
+// (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map; FlashingGadgetEvent: gadget.h)
+
+
+
+
+
 
 class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: neutral (D10): sclient.cpp's (env_map_manager.cpp)
 bool Unknown_5FAE70();									// NAME 1 [Unknown_5FAE70]: ui_registration.cpp
@@ -268,16 +268,16 @@ public:
 	bool Unknown0DA;									// +0xDA
 };
 
-// The window's FlashingGadgetEvent callback (vtable 0xAF2BBC over 0xAEDB58)
-class LoginCallbackClass : public LoginCallbackBaseClass	// NAME 1: neutral (D10)
-{
-public:
-	LoginCallbackClass(LoginInterface *object, void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *)) : Object(object), Function(function) {}
-	virtual void Call();
+// The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAF2BBC over 0xAEDB58; its
+// members out of line after the settings map's: the destructor 0x5AF7F0, 0x5AF810, 0x5AF830, 0x5AF850, 0x5AF8D0 and
+// the deleting destructor 0x5AF930)
+typedef SignalBaseClass::MemberCallback<GadgetClass, LoginInterface, void (LoginInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> LoginCallbackClass;	// NAME 1 [LoginCallbackClass]: neutral (D10)
 
-	LoginInterface *Object;								// +0x04
-	void (LoginInterface::*Function)(FlashingGadgetEvent *, GadgetClass *);	// +0x08 (8 bytes: two bases)
-};
+
+
+
+
+
 
 static const char *Unknown_B810DC[] = { "BUTTON_NAME", "BUTTON_PASSWORD", "BUTTON_NEW", "BUTTON_REGISTRA", "EXIT" };	// NAME 1: neutral (D10)
 static const char *Unknown_B810F4[] = { "Name_fe01a", "Password_fe01a", "New_fe01a", "Register_fe01a", "Quit_fe01a" };	// NAME 1: neutral (D10)
@@ -316,11 +316,11 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 		AccountButtons[j] = NULL;
 	}
 	((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_Clear();
-	CharacterView = ((LoginViewClass *)View)->Unknown_28();
-	Task = (LoginTaskClass *)Get_Character_View()->Unknown014->Unknown_08();
+	CharacterView = (LoginViewClass *)View->Unknown_28();
+	Task = (LoginTaskClass *)Get_Character_View()->Unknown14->Unknown_08();
 	Get_Task()->Close_Global_Connection();
 	Get_Task()->Unknown_64();
-	LoginScopeClass scope(this);
+	InterfaceSortScopeClass scope(this);
 	Get_Character_View()->Unknown_67A250();
 	Get_Character_View()->Unknown_67AB20(0, "FE01A");
 	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->Peek_Model());
@@ -335,7 +335,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	for (int n = 0; n < 5; n++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B810DC[n]));
 		Unknown_496AE0(robj.Peek(), 0);
-		Buttons[n] = new LoginButtonGadgetClass(robj.Peek(), layer, 0x55, 3);
+		Buttons[n] = new ButtonGadgetClass(robj.Peek(), *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Buttons[n], n + 1, View, 1, 1);
 	}
 	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe01a", model.Peek(), Unknown_B08CC4, 0);
@@ -366,7 +366,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	Unknown_5AE240();
 	CharacterView->Unknown3A4->Unknown_760770(100000, true);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = Unknown_65ECE0();
+	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new LoginCallbackClass(this, function));
 	if (WWAudioClass::Get_Instance()) {
 		WWAudioClass::Get_Instance()->Unknown_Resume_All();
@@ -377,27 +377,27 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 // 0x5AD380
 LoginInterface::~LoginInterface()
 {
-	if (CharacterView->Unknown198) {
-		CharacterView->Unknown198->Unknown_784E00();
+	if (CharacterView->NarratorRObj) {
+		CharacterView->NarratorRObj->Unknown_784E00();
 	}
 	Unknown_5C();
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
-			Unknown_65EED0(Buttons[i]);
+			GadgetClass::Destroy(Buttons[i]);
 			Buttons[i] = NULL;
 		}
 	}
-	Unknown_65EED0(NameGadget);
-	Unknown_65EED0(PasswordGadget);
+	GadgetClass::Destroy(NameGadget);
+	GadgetClass::Destroy(PasswordGadget);
 	NameGadget = NULL;
 	PasswordGadget = NULL;
 	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe01a.ini");
 	CharacterView->Unknown_67A9B0(0);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = Unknown_65ECE0();
+	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
 	LoginCallbackClass callback(this, function);
-	notifier->Remove(0, &callback);
+	notifier->Remove(0, callback);
 }
 
 
@@ -426,7 +426,7 @@ void LoginInterface::Unknown_60()
 		Unknown0AC = false;
 	} else if (tab || AccountMenu) {
 		Unknown0AC = false;
-	} else if (Unknown0AC && !PasswordGadget->Unknown3C) {
+	} else if (Unknown0AC && !PasswordGadget->Active) {
 		Unknown_5AE450();
 	}
 }
@@ -488,11 +488,11 @@ bool LoginInterface::Unknown_68(int key)
 			return(false);
 		case 1:
 			Unknown0D8 = true;
-			CharacterView->Unknown034->Unknown_588A70("YES_NO", 0, "This will exit Earth & Beyond and take you to the EA.COM Account Management Website.\nDo you wish to proceed?", 320, 0, 0);
+			CharacterView->Unknown34->Unknown_588A70("YES_NO", 0, "This will exit Earth & Beyond and take you to the EA.COM Account Management Website.\nDo you wish to proceed?", 320, 0, 0);
 			return(false);
 		case 2:
 			if (Unknown_5FAE70()) {
-				CharacterView->Unknown198->Unknown_784E00();
+				CharacterView->NarratorRObj->Unknown_784E00();
 				Unknown_5AE7F0();
 				Unknown0A0 = 12;
 				CharacterView->Unknown_67A8D0(1);
@@ -505,12 +505,12 @@ bool LoginInterface::Unknown_68(int key)
 				Unknown_5AE320();
 				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
+				CharacterView->Unknown34->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
 			break;
 		case 3:
 			if (Unknown_5FAE70()) {
-				CharacterView->Unknown198->Unknown_784E00();
+				CharacterView->NarratorRObj->Unknown_784E00();
 				Unknown_5AE7F0();
 				Unknown0A0 = 11;
 				CharacterView->Unknown_67A8D0(1);
@@ -523,7 +523,7 @@ bool LoginInterface::Unknown_68(int key)
 				Unknown_5AE320();
 				Unknown0CB = true;
 			} else {
-				CharacterView->Unknown034->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
+				CharacterView->Unknown34->Unknown_588A70("OK", 0, "Sorry, This feature is not implemented yet.", 320, 0, 0);
 			}
 			break;
 	}
@@ -576,8 +576,8 @@ void LoginInterface::Unknown_5ADA50()
 		} else if (Unknown0A0 == 12) {
 			Get_Task()->Set_Step(11, false);
 		} else {
-			CharacterView->Unknown1CF = true;
-			CharacterView->Unknown1D0 = true;
+			CharacterView->Unknown1CC[3] = true;
+			CharacterView->Unknown1CC[4] = true;
 			Get_Task()->Go_Next_Step();
 			CharacterView->Unknown_67C7B0();
 		}
@@ -589,7 +589,7 @@ void LoginInterface::Unknown_5ADA50()
 			Unknown0DA = true;
 			Unknown_5AEA60();
 		}
-		if (!CharacterView->Get_Unknown034()->Unknown07C) {
+		if (!CharacterView->Get_Unknown034()->Active) {
 			Get_Task()->Unknown001D = false;
 			Unknown_7CA2D0()->Set_String("lkey", Get_Task()->Ticket_Info.Login_Key.c_str());
 			if (Unknown_5AE120()) {
@@ -611,7 +611,7 @@ void LoginInterface::Unknown_5ADA50()
 	if (CharacterView->Unknown_67B2B0()) {
 		Unknown_5AE160();
 	}
-	if (CharacterView->Get_Unknown034()->Unknown07C && !Unknown0DA) {
+	if (CharacterView->Get_Unknown034()->Active && !Unknown0DA) {
 		if (!Unknown0C9) {
 			Unknown0C9 = true;
 			Unknown_5AE240();
@@ -668,8 +668,8 @@ void LoginInterface::Unknown_5AE160()
 			}
 		}
 	}
-	NameGadget->Unknown44->Unknown_Set_2FC(1.0f);
-	PasswordGadget->Unknown44->Unknown_Set_2FC(1.0f);
+	NameGadget->Text->Unknown_Set_2FC(1.0f);
+	PasswordGadget->Text->Unknown_Set_2FC(1.0f);
 }
 
 
@@ -689,8 +689,8 @@ void LoginInterface::Unknown_5AE240()
 			}
 		}
 	}
-	NameGadget->Unknown44->Unknown_Set_2FC(0.33f);
-	PasswordGadget->Unknown44->Unknown_Set_2FC(0.33f);
+	NameGadget->Text->Unknown_Set_2FC(0.33f);
+	PasswordGadget->Text->Unknown_Set_2FC(0.33f);
 }
 
 
@@ -714,7 +714,7 @@ void LoginInterface::Unknown_5AE320()
 	textptr->Unknown_6CE7D0(2);
 }
 
-
+#pragma auto_inline(off)	// (0x5AE390 stays out of line in its callers: gadget.h's inline bodies move the budget)
 // 0x5AE390
 void LoginInterface::Unknown_5AE390()
 {
@@ -733,7 +733,7 @@ void LoginInterface::Unknown_5AE390()
 		Unknown0AC = true;
 	}
 }
-
+#pragma auto_inline(on)
 
 // 0x5AE450
 void LoginInterface::Unknown_5AE450()
@@ -750,12 +750,12 @@ void LoginInterface::Unknown_5AE450()
 	Task->Set_Password(password);
 	delete name;
 	delete password;
-	CharacterView->Unknown198->Unknown_784E00();
+	CharacterView->NarratorRObj->Unknown_784E00();
 	if (Task->Unknown_4C()) {
 		if (Unknown0B0 < 1) {
-			CharacterView->Unknown198->Unknown_784C90("RejectedOnce", 1);
+			CharacterView->NarratorRObj->Unknown_784C90("RejectedOnce", 1);
 		} else {
-			CharacterView->Unknown198->Unknown_784C90("RejectedTwice", 1);
+			CharacterView->NarratorRObj->Unknown_784C90("RejectedTwice", 1);
 		}
 		Unknown0B0++;
 		Unknown_5AE160();
@@ -782,7 +782,7 @@ void LoginInterface::Unknown_5AE450()
 void LoginInterface::Unknown_5AE590()
 {
 	Unknown_5C();
-	RenderObjClass *model = CharacterView->Unknown1B8;
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	AccountMenu = Create_Get(Unknown_BFAEE0->Create_Render_Obj("FE13A"));
 	G_ASSERT(AccountMenu);
 	model->Add_Sub_Object(AccountMenu.Peek());
@@ -791,7 +791,7 @@ void LoginInterface::Unknown_5AE590()
 	for (int i = 0; i < 4; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(AccountMenu->Get_Sub_Object_By_Name(Unknown_B8110C[i]));
 		Unknown_496AE0(robj.Peek(), 0);
-		AccountButtons[i] = new LoginButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
+		AccountButtons[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(AccountButtons[i], i + 1, View, 1, 0);
 	}
 	Unknown_5AE8E0(true);
@@ -822,7 +822,7 @@ void LoginInterface::Unknown_5AE7F0()
 	}
 	Unknown_BE67C4->Remove((unsigned int)AccountMenu.Peek());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe13a.ini");
-	RenderObjClass *model = CharacterView->Unknown1B8;
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	G_ASSERT(AccountMenu);
 	model->Remove_Sub_Object(AccountMenu.Peek());
 	AccountMenu = NULL;
@@ -864,7 +864,7 @@ void LoginInterface::Unknown_5AE9D0(FlashingGadgetEvent *event, GadgetClass *sen
 
 
 	FAIL_IF(!gadget) return;
-	if (gadget->Unknown20 && gadget->Is_Unknown2C_02()) {
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }
@@ -908,7 +908,7 @@ void LoginInterface::Unknown_5AEA60()
 					}
 					_snprintf(text, 1024, "Your Trial of Earth & Beyond will expire %s. If you like Earth & Beyond and wish to continue your adventures, you can buy an Earth & Beyond Upgrade Registration Code at www.eabuddystore.com <http://www.eabuddystore.com>. Enter your new Registration Code by using the \"Account Management\" menu on the login screen and you'll be back in the galaxy in just minutes.\n\nThank you for playing Earth & Beyond!", when);
 				}
-				CharacterViewUnknown34Class *box = CharacterView->Unknown034;
+				ViewUnknown34Class *box = CharacterView->Unknown34;
 				box->Unknown_588A70("OK_SMALL", 0, text, 320, 0, 0);
 			}
 		}

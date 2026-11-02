@@ -16,13 +16,13 @@
 #define ENABLE_WWPROFILE
 #include "cordcon.h"
 #include "udp.h"
+#include "..\..\libs\wwonline\wlib\wdebug.h"	// E&B's INFMSG (MsgManager::infoStream 0x8B5B90)
 #include "rc4.h"
 #include "wwprofile.h"
 #include "..\shared\unknown_debug.h"
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-
 // ------------------------------------------------------------------------ CordChannelClass
 
 // The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
@@ -334,9 +334,9 @@ void CordCon::Go_Away()
 }
 
 // 0x850260: state 1 (close asked), nothing queued or due: "CLOSE" on channel 0, state 2 until
-// its ack (handlePacket: state 4). State 2 with channel 0 empty: the client logs 'This isn't
-// good... waiting for an ACK on a non-existant msg....' and goes back to 1; still waiting 90 s
-// after the last datagram, it gives up (state 4, false).
+// its ack (handlePacket: state 4). State 2 with channel 0 empty: logged, back to 1; still waiting
+// 90 s after the last datagram, it gives up (state 4, false). Exact with the early return when
+// anything is queued and the message at the function's level, right above INFMSG's timebuf.
 bool CordCon::pumpClose()
 {
 	WWPROFILE("CordCon::pumpClose");
@@ -352,7 +352,7 @@ bool CordCon::pumpClose()
 
 
 
-			// the client logs 'This isn't good... waiting for an ACK on a non-existant msg....' (INFMSG, line 355)
+			INFMSG("This isn't good... waiting for an ACK on a non-existant msg....");
 			CloseState_ = 1;
 		}
 		if (CloseState_ == 2 && (int)(time(0) - LastReceive_) > 90) {
@@ -363,48 +363,47 @@ bool CordCon::pumpClose()
 	if (CloseState_ != 1) {
 		return false;
 	}
-	if (Queued_ == 0 && ResendsPending_ == 0 && AcksPending_ == 0) {
-		int count = Active_.size();
-		for (int i = 0; i < count; i++) {
-			if (Active_[i]->Queue.size() != 0) {
-				return true;
-			}
-			if (Active_[i]->Sent.size() != 0) {
-				return true;
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		// the client logs 'All data sent, queueing close packet.' (INFMSG, line 390)
-		CordMessageClass m;
-		m.Data = new unsigned char[strlen("CLOSE")];
-		memcpy(m.Data, "CLOSE", strlen("CLOSE"));
-		m.Length = strlen("CLOSE");
-		m.Priority = 0;
-		m.SendCount = 0;
-		m.TotalLength = m.Length;
-		m.SentTime.setDay(0);
-		m.SentTime.setMsec(0);
-		m.Seq = Channels_[0]->NextSeq++;
-		CloseSeq_ = m.Seq;
-		Channels_[0]->Queue.push_back(m);
-		Channels_[0]->LastWrite = time(0);
-		Channels_[0]->Written++;
-		CloseState_ = 2;
-		Queued_++;
+	if (Queued_ != 0 || ResendsPending_ != 0 || AcksPending_ != 0) {
+		return true;
 	}
+	int count = Active_.size();
+	for (int i = 0; i < count; i++) {
+		if (Active_[i]->Queue.size() != 0) {
+			return true;
+		}
+		if (Active_[i]->Sent.size() != 0) {
+			return true;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	INFMSG("All data sent, queueing close packet.");
+	CordMessageClass m;
+	m.Data = new unsigned char[strlen("CLOSE")];
+	memcpy(m.Data, "CLOSE", strlen("CLOSE"));
+	m.Length = strlen("CLOSE");
+	m.Priority = 0;
+	m.SendCount = 0;
+	m.TotalLength = m.Length;
+	m.SentTime.setDay(0);
+	m.SentTime.setMsec(0);
+	m.Seq = Channels_[0]->NextSeq++;
+	CloseSeq_ = m.Seq;
+	Channels_[0]->Queue.push_back(m);
+	Channels_[0]->LastWrite = time(0);
+	Channels_[0]->Written++;
+	CloseState_ = 2;
+	Queued_++;
 	return true;
 }
 
@@ -459,6 +458,7 @@ bool CordCon::close(bool now)
 	}
 	return true;
 }
+
 
 
 
@@ -1010,7 +1010,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		if (CloseState_ == 2) {
 			if ((kind == 0 && CloseSeq_ == seq) || (kind == 2 && CloseSeq_ <= seq)) {
 				CloseState_ = 4;
-			}
+			} else
 
 
 
@@ -1065,7 +1065,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 
 
-			// else the client logs 'This is probably a bug! ACK for non-close message recvd' (INFMSG, line 1068)
+				INFMSG("This is probably a bug! ACK for non-close message recvd");
 		}
 		CordChannelClass *c = Channels_[channel];
 		if (kind == 0 || kind == 2) {
@@ -1138,7 +1138,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 
 
-				// the client logs 'Dup ack' (INFMSG, line 1141)
+				INFMSG("Dup ack");
 				DupAcks_++;
 			}
 		} else if (kind == 1) {
@@ -1746,7 +1746,7 @@ bool CordCon::pumpInternal(Xtime &now)
 
 
 
-					// the client logs 'Removing unreliable' (INFMSG, line 1749)
+					INFMSG("Removing unreliable");
 					Stats_->InFlight -= it->Length;
 					Stats_->On_Loss(it->Length, true);
 					(*it).Free();

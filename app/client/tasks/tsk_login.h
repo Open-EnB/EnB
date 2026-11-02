@@ -77,79 +77,10 @@ public:
 	char Unknown18C[4];									// +0x18C: a name, compared with 'HTML'
 };
 
-class CharacterViewUnknown1B4Class	// NAME 1: neutral (D10): what CharacterViewClass +0x1B4 points to
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40();
-	virtual void Unknown_44();
-	virtual void Unknown_48();
-	virtual void Unknown_4C();
-	virtual void Unknown_50();
-	virtual void Unknown_54();
-	virtual void Unknown_58();
-	virtual void Unknown_5C();
-	virtual void Unknown_60();
-	virtual void Unknown_64();
-	virtual void Unknown_68();
-	virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74();
-	virtual bool Unknown_78(GlobalErrorPacketClass *packet);	// +0x78: true when it handled the global error (0x76B000)
-};
-
-class CharacterViewClass	// NAME 1: the member's name CharacterView (the FAIL_IFs)
-{
-public:
-	CharacterViewClass(LoginTaskClass *task, int step);	// 0x678450
-	virtual ~CharacterViewClass();						// +0x00
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C(bool on);					// +0x0C: LoginTaskClass::Render
-	virtual void Unknown_10();							// +0x10: before it is deleted
-	virtual void Unknown_14();
-	virtual void Unknown_18(int unknown);				// +0x18: before it is deleted (0)
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();
-	virtual void *Unknown_3C();							// +0x3C: handed to LoginUnknown18Class::Unknown_515340
-	void Unknown_67A300();								// 0x67A300 (charview.cpp)
-	void Unknown_67A370(int step);						// 0x67A370 (charview.cpp)
-
-	LoginUnknown0CClass *Unknown004;					// +0x04: gets the event Pre_Run's +0x0C didn't take (0x429A20)
-	char Unknown008[0x2C - 0x08];						// +0x08
-	void *Unknown02C;									// +0x2C: when set, Pre_Run's event comes from 0x65F780 (gadget.cpp)
-	char Unknown030[0x34 - 0x30];						// +0x30
-	CharacterViewUnknown34Class *Unknown034;			// +0x34
-	char Unknown038[0x1B4 - 0x38];						// +0x38
-	CharacterViewUnknown1B4Class *Unknown1B4;			// +0x1B4
-	char Unknown1B8[0x1CD - 0x1B8];						// +0x1B8
-	bool Unknown1CD;									// +0x1CD
-	bool Unknown1CE;									// +0x1CE
-	bool Unknown1CF;									// +0x1CF
-	bool Unknown1D0;									// +0x1D0
-	char Unknown1D1[0x514 - 0x1D1];						// +0x1D1
-};
+// The character view: charview.cpp's CharacterViewClass (charview.h; its +0x1B4 is the mode's screen, an
+// intrface.cpp InterfaceClass)
+#include "..\charview.h"
+typedef InterfaceClass CharacterViewUnknown1B4Class;	// NAME 1 [CharacterViewUnknown1B4Class]: neutral (D10)
 
 
 
@@ -204,6 +135,8 @@ public:
 	virtual void Unknown_6C();							// +0x6C 0x769360
 	virtual void Create_Character_View();				// +0x70 0x769D60  // NAME 1: what it does
 
+	int Get_Selected() { return(Selected); }			// 0x55D860 (out of line in ui_avsel.cpp's window, called by its 0x55D060)  // NAME 1: what it returns
+	AvatarDescClass *Get_Avatar_Descs() { return(Unknown0350); }	// 0x55D880 (likewise)  // NAME 1: what it returns
 	bool Is_Registered_Character() { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }	// (the assert '!Is_Registered_Character()')  // NAME 1 [Galaxy_ID]: 0x769400 looks it up in the galaxies
 	void Unknown_7692A0();								// 0x7692A0 ('Avatar %d selected.  Ticket request sent.')
 	void Unknown_7693E0();								// 0x7693E0: Step 17

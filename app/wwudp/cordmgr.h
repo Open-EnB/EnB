@@ -10,8 +10,7 @@
 **	else is logged ('Unexpected packet: ...') and answered with a 10-byte type-6 datagram.
 **	Rebuilt: Pump's data path (functional), Process_CORD_Packet, Process_SYN1_Packet,
 **	Process_SYN2_Packet (the client's take nothing: the server's side), Find_Data_Socket. The
-**	handshake's ACK1 / ACK2, go-away, Pump_Connections, Pump_Releases, Get_Data_Socket and
-**	Compute_Ticks are not.
+**	handshake's ACK1 / ACK2, go-away, Pump_Connections, Pump_Releases and Get_Data_Socket are not.
 **
 **	Layout (the members the rebuilt code uses, at the client's offsets; the lists are WWOnline's
 **	wlib ArrayList): +0x10 Pending_ (connections in the handshake;
@@ -33,6 +32,10 @@
 #include "..\common\unknown_rsakey.h"
 #include "ffactory.h"		// file_auto_ptr (Init's key file)
 #include <time.h>
+
+// 0x8B4A90 (WWOnline's library, cdecl; not in the tree): SHA-1 of len bytes into digest[5]. A program that
+// links CordMgr defines it (tests/udpreplay does).
+void Cord_SHA(const void *data, int len, unsigned int *digest);	// NAME 1: placeholder
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
 {
@@ -135,6 +138,12 @@ public:
 	bool Cancel_Connect(int session);	// NAME 2: what it does
 	// Frees the released connections whose time has come. 0x859940
 	bool Pump_Releases();
+	// A timed-out handshake's CordCon into both lists, its record freed and taken out (inlined in Pump_Connections, as
+	// one block: ACK2 0x85ABB0 has the same code inline but matches better without it)
+	void Add_Connection(CordCon *con, CordConnectingClass *c, int i) { AllConnections_.addTail(con); Connections_.addTail(con); delete c; Pending_.remove(i); }	// NAME 2: what it does
+	// A hash of the six values and Unknown04 (WWOnline's SHA-1, the digest's words xored). 0x85A220 (no caller)
+	unsigned int Compute_Ticks(unsigned short port1, unsigned int ip1, unsigned int ip2, unsigned short port2,
+		unsigned int ip3, unsigned short port3);	// NAME 2: the parameters (the name is the client's profile string)
 
 	unsigned char Protocol_;							// +0x00 NAME 2: the handshake's second byte (0x14 in the captures)
 	int Unknown04;										// +0x04 (Init: a random word)

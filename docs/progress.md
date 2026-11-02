@@ -4,6 +4,60 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (16:30 PST, day): the POC client links, builds the login screen and runs without a crash; +789 pairs, 0 lost
+
+Coordinator Opus 5.5. Base c27a1f0c (#139 merged; `.work/imports.c27a1f0c.json`); run branch `run/2026-11-01-day`, PR #140.
+Plan log: `.work/run-2026-11-01-day/plan.md` (every report, trap and decision of the run). The user's goals: weekly usage to
+~90 % by 19:00 (79 % at 11:18, 89 % at the end); wrap up items 1-4, then start the proof-of-concept client (videos ->
+login -> character select against antprox's /REPLAY). HEAD against the base: **+789 pairs (app +787, wlib +2), 0 lost
+outright.** 23 builders (20 Opus, 3 Sonnet; 27 rounds with GAD4 and DW1 resumed), never more than 7 at once; usage ran ~4 %/h at 6-7 builders, so stop times
+were pulled in at 12:26 and the window reopened in small steps.
+
+* **Items 1-4 (network, login, html):** P-CC2-1 landed (b36dec11: wlib takes matchbot's wdebug.cpp with E&B's revision and
+  E&B's INFMSG; **0x850820, D175's last decided loss, pairs again**), CordCon::pumpClose and CordMgr::Compute_Ticks exact,
+  ACK1 / Pump_Connections 0.37 / 0.38 -> 0.75 / 0.74 (CC2, NW); udpreplay byte-identical throughout (handshake 54/54). Login /
+  character select: the windows' gadget callbacks are the client's SignalBaseClass::MemberCallback (new
+  unknown_signalbase.h), Start_Game in as D64, every member of LoginInterface / AvatarSelectionInterface / LoginTaskClass
+  defined; P-LG2-1 measured and closed (the written operator= stays) (LG). htmlview's tag parser 0x7710D0 written
+  functional (D64, NOT EXACT 0.34, untested), Get_Value exact (HV).
+* **The POC client (items 5-9):** WinMain 0x526DE0 byte-exact in the new `app\main\main_client.cpp` and its 14 helpers in
+  `app\main\main.cpp` (MC). The ledger `.work/poc/ledger.md` (LEDGER): 5,274 functions on the core path, 1,792 missing at
+  the start, a 37-item queue, antprox's /REPLAY read (it starts the client in its folder with `-PROTOCOL UDP -SERVER_ADDR a
+  -GLOBAL_ADDR a`; authlogin.dll's GET /AuthLogin goes to antreplay; the exe imports authlogin.dll statically).
+  `build.py link --program clientpoc` links every library with gen_stubs `--link --poc` stand-ins and deploys client.exe
+  into `ClientPOC\release`; `tools/harness/clientpoc.py run` runs it and digests stubs.log (LINK). New today on the path,
+  each with its own builder: intrface.cpp, gadget.cpp, gadget_list_manager.cpp (UI), gclass.cpp (GC: GClass, the client's
+  name), deffont.cpp, font32bit.cpp (the real Font32Class), unknown_fontsound.cpp (FNT1), fontsys.cpp (FontStyleClass, FS),
+  input.cpp, w32kbd.cpp, w32mouse.cpp, winmsg.cpp, w32window.cpp (INP), textgadg.cpp + stredit.cpp (TG), splash.cpp,
+  gd_robj.cpp, gd_resize.cpp, unknown_66b770.cpp (GAD4), charview.cpp (CV: CharacterViewClass, +60),
+  interface_static_sort_list.cpp (SORT1), interface_scene.cpp (IS), rect3d.cpp, fontsys_cursor.cpp, unknown_675120.cpp
+  (BTN: the buttons and the text cursor), dynamic_window_background / class / render_object / horizontal / vertical.cpp
+  (DW1); dynamic_window_text / multi_line_text.cpp (DW1, +177 over four rounds); local_interface_sort.cpp and the shared InterfaceSortScopeClass (LS); ui_login / ui_avsel on the real gadget, button, text-box, scope and signal-map classes. **Where it stands:** POC run 19 (16:02, d00a9ff6): the client starts, opens the real window and display, runs the font system, the menu task hands over to LoginTaskClass, CharacterViewClass builds its scenes, cameras, music and the login models, and LoginInterface is fully constructed; it runs 40 s without a crash and is killed. No screen is drawn yet: the login window's activation and update run on gen stand-ins, and FAIL_IF '!text' fontsys_cursor.cpp(86) fires twice (ui_login's / ui_avsel's local font-manager stand-ins). The startup movie completes at once (P-LINK-1); the scripted movie is skipped by its data (P-MC-1). Item 10 (antprox, D181) is not started.
+* **Health:** clienttest links and passes again (103/103; CT, CT2: its LNK2005 stand-ins deleted, fakes rebuilt, expected.txt
+  regenerated with every change explained); it had been broken two days unnoticed (P-CT-1), and broke again within two hours
+  of the fix (the coordinator's check at HEAD 414513c5: 23 unresolved); CT3 (f1e3d0dc) links it at HEAD again (103/103,
+  3,168 lines; clienttest.py takes udpreplay's Xtime / wdebug stand-ins and LIBCIMT, the exe no longer imports
+  authlogin.dll); udpreplay build / run alex3 / handshake 54/54 pass at the end. The POC run found a real bug
+  byte matching had hidden: combo_ffactory asked `_TheFileFactory` instead of `_TheSimpleFileFactory` and recursed (937c3ab9).
+* **Decisions:** D179 (the POC's folder and modal-dialog rules), D180 (P-LG1-1 kept), D181 (P-POC-4, the user at ~12:40:
+  antprox may run; HKCU edits to E&B keys allowed; unelevated). The coordinator's calls (client evidence, D137 / the
+  evidence rule): P-POC-1 / P-MC-1 (no scripted movie: WinMain adds it only when moviescript1.txt exists, and ClientPOC has
+  none), P-POC-2 (the 3-D avatar a stand-in), P-POC-3 (message box / dynamic windows stand-ins first); renames queued for a
+  quiet window: SClient -> SpaceClientClass (P-LG4-1, the client's RTTI), InterfaceClass -> InterfaceMemberClass (P-UI-1),
+  UnknownBDADC0Class -> ENBAssetManager (P-MC-3), FontStyleClass -> FontSys (§4.1); interim placements (D137): main.cpp's
+  folder, unknown_signalbase.h, unknown_fontsound.cpp, winmsg.cpp, w32window.cpp, splash.cpp, unknown_66b770.cpp,
+  unknown_675120.cpp, gclass.cpp's relation table, deffont.cpp's 0x684E00, fontsys.cpp's texture holder statics, the dynamic
+  window row / column / element headers. New open: P-IS-1 (§3); after the handoff the user approved P-CT-1 (D182) and restored the intro movies' names (P-LINK-1 closed).
+* **Records:** dee4187a's subject says +28, it is +26 (INP's verify counted stredit's pairs); ad4d5e36's subject was mangled
+  by sed ("Add appientdynamic_window_..."; 6bf3c5fb gives the text). Python changes needing `/verify-approved`: build.py,
+  gen_stubs.py, coff_alias.py, clientpoc.py, clienttest.py, udpreplay.py.
+* **Traps:** ~90 from the reports, filed in workflow.md §3.0-§3.7 (a69a16fe and the handoff commit).
+* **Next session first:** the POC's next failure (below and `.work/poc/runs.md`); then text drawing (Update_Text 0x6D64C0, 11.7
+  KB 0x6CA0C0's layout core, fonttexture.cpp 0x6D8DC0); then item 10 against antprox (D181). The queue: `.work/poc/ledger.md`
+  and §4.1's POC bullet.
+* **Outside git:** `.work/run-2026-11-01-day/` (plan log, briefs, traps/), `.work/poc/` (ledger, runs.md, antlog), builders'
+  scratch `.work/<id>/`.
+
 ### 2026-11-01 (09:30 PST, night): the network stack round, login and character select started; +314 pairs, 0 lost
 
 Coordinator Opus 5.5. Base a230790d (#138 merged; `.work/imports.a230790d.json`); run branch `run/2026-11-01`, PR #139.
@@ -1794,17 +1848,37 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D176 | 2026-10-31 | P-TG3-1: CordCon takes the client's 0xC0 layout: its three harness counters (AcksMatched_, ResendRequests_, Rejected_) move to a side table in udpreplay, and the constructor takes the key as one `__int64` (unblocks the ctor 0x84F640 and ACK2 0x85ABB0) | user |
 | D177 | 2026-10-31 | P-TG4-2: D130 covers dead spenders in a NOT EXACT function kept for another function's pair: ui_avatar_cust 0x550A10 keeps its five dead finds (Rotate_Y 0x551270's pair), marked, until 0x550A10 is rebuilt | user |
 | D178 | 2026-11-01 | P-NW3-1 / P-NW4-2: CordMgr's +0x58 takes the client's meaning (MaxPerSocket_, the per-socket connection limit); the harness's Unexpected_ count moves to udpreplay's side table, as D176 did for CordCon (unblocks Connect 0x858EC0 and the buffer setter 0x8578C0) | user |
+| D179 | 2026-11-01 | The proof-of-concept client (videos -> login -> character select against antprox's /REPLAY): its data is `C:\EnBDevelopment\ClientPOC` (a copy of the game data in EA's layout, not the install folder); the POC exe is deployed into `ClientPOC\release` (the third-party DLLs are already there), and running it there and writing there is allowed. Modal dialogs are allowed in the POC client only; unattended test programs keep D69's `-nomsgbox`. D69 / D143 still govern the real install folder (never its working directory, never written) | user |
+| D180 | 2026-11-01 | P-LG1-1 kept: LoginTicketInfoClass is 0xA0 bytes (its +0x20 an `__int64`, 8-aligned; 9c0a0162, +1, 0 lost); GlobalLoginPacketClass +0xAC and LoginTaskClass +0x1134 become tail padding | user |
+| D181 | 2026-11-01 | P-POC-4: builders may run antprox (`/REPLAY /CLIENT:` the POC exe in `C:\EnBDevelopment\ClientPOC\release`) for the POC, and HKCU registry edits to E&B-related keys / values are allowed (amends D69's "no registry changes" for this case only): antprox's AppCompatFlags\Layers entry for client.exe and its `Westwood Studios\Earth and Beyond\Registration` `Registered=1`. Run unelevated (the session is), so the latter lands in HKCU's VirtualStore, never in HKLM itself; no other registry changes | user |
+| D182 | 2026-11-01 | P-CT-1: the coordinator runs clienttest (build + run: 103 checks, trace equal to expected.txt) and udpreplay (build, run alex3, handshake 54/54) at HEAD after any landed commit that rebuilds a file they link, and once more before every handoff (coordinator-pacing skill, "Harness check"); a failure is a health item fixed by one bounded builder before further launches. P-LINK-1 closed: the user restored ClientPOC's intro movies' names (eb_sizzle.bik, eb_ws_logo.bik) | user |
 
 ## 3. Open decisions
 
-* **P-LG1-1** (2026-11-01, LG1; recommend keep): LoginTicketInfoClass is 0xA0 bytes, not 0x9C: its +0x20 is an
-  `__int64` (8-aligned), the only difference in 0x5AEA60's frame; committed in 9c0a0162 (+1). GlobalLoginPacketClass
-  +0xAC and LoginTaskClass +0x1134 (tsk_login.h `Unknown1134`) become tail padding; nothing else moved, pkgloballogin
-  and tsk_login kept every pair. Keep it?
-* **P-LG2-1** (2026-11-01, LG2; recommend: measure first): ui_avsel's slot +0x68 0x55D060 calls ShipCustDescClass's
-  implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1) inlines there instead.
-  Let ShipCustDescClass use the implicit operator= again (or make the written one non-inline), after checking that
-  tsk_login's pair on 0x55D8A0 survives?
+* **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
+  (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
+  key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
+  7-VM pool): run them when the subscription's week is spent, so the pool keeps working until the reset. Cost from the
+  pilot's stream (4.33M cache reads, 97k cache writes, 25k output: $1.85 for a 63-turn item); a 2-hour builder of today's
+  size (150-400 tool calls) is an estimated $8-20, so ~6-12 rounds; today's rounds gained 30-90 pairs each. Measure
+  `total_cost_usd` per pair gained in the plan log and stop if it runs well above the estimate. No new tool.
+  (b) **~$30: a Batch API variant pilot for NOT EXACT functions** (docs/data/not-exact.md: 487): one request per function
+  with its source, the client's and our disassembly, explain.py's class and the matching §3.1 traps, asking for up to 8
+  source variants; a local script compiles every variant with appfile.py on the pool and keeps exact ones under the D66
+  rule; round 2 resends the best variant's diff. Batch is half price; the verifier is mechanical, so wrong answers cost
+  only VM time. A new tool on triage.py's pattern (build / submit / fetch / try), so a tools decision: pilot on 50
+  functions (~$5-10), compare its cost per pair with (a)'s, scale only if it is cheaper. D89's limits still apply to Fable.
+  (c) **~$20 reserve:** one-off long requests outside builders' 2-hour budget: functional first forms of the two font
+  layout functions 0x6CA0C0 (11.7 KB) / 0x6D64C0 (7.1 KB) from their pseudocode, and the D89 Fable queue.
+  (d) **Not recommended: builder loops on the Batch API, or a web service exposing the build VMs.** A batch request is one
+  model turn with no tool execution: every tool call would end the turn and need a new batch (each round minutes to hours,
+  up to 24 h), so a 200-call builder would take days. The Batch API never calls out, so a web service would not help it;
+  exposing the VMs would only serve Managed Agents (Anthropic-hosted sandboxes reaching the host's Hyper-V VMs through a
+  public endpoint: new infrastructure and attack surface, the same token prices plus sandbox time). Local headless Claude
+  Code already reaches the VMs.
+* **P-IS-1** (2026-11-01, IS; recommend yes): objmatch's D114(b) range widening counts a COMDAT only if one object holds
+  it; a COMDAT held by two objects at the same address with the same symbol should count for each holder (0x6DAF80 went to
+  nobody until named in symbols_named.json). A D114 amendment, then a full re-verify of every library (a tools change).
 * **P-VM-2** (2026-11-01, NW7 / FB1 / GM2 / LG3; recommend yes): `pool.py lease` (and `verify --pool`, `appfile.py
   --pool`) wait in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does
   not hold `leases.lock` past its own save (one held it 15 minutes on 2026-11-01). A tools change (Python: the
@@ -1842,6 +1916,10 @@ below name only the work items, the blocked work, the leads and the queues.
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
+   * P-LG2-1 (the user, 2026-11-01: a work item, not a decision): ui_avsel's slot +0x68 0x55D060 calls
+     ShipCustDescClass's implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1)
+     inlines there instead. Measure ShipCustDescClass with the implicit operator= again (or the written one
+     non-inline), checking that tsk_login's pair on 0x55D8A0 survives; keep it if it gains and loses nothing.
    * app/packets' "(not rebuilt)" comments for 0x735FC0 / 0x739FF0 / 0x734740 are stale (all three exact); 0x738970
      (CLIENT_DAMAGE) is still not rebuilt.
    * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
@@ -1882,7 +1960,7 @@ below name only the work items, the blocked work, the leads and the queues.
      dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
      not InterfaceClass: rebasing it unlocks the per-frame 0x54CAE0, the ctor and dtors. One register residue (the
      view's Client in edx, not eax) holds 0x54E690 / 0x54E7F0 / 0x54EAD0 / 0x54E950 (0.69-0.85); 0x54EC30 0.77.
-   * From the 2026-11-01 night run (network stack; CC2, NW3, NW7, FB1): first P-CC2-1, E&B's INFMSG (`time` /
+   * From the 2026-11-01 night run (network stack; CC2, NW3, NW7, FB1; P-CC2-1, Compute_Ticks, pumpClose and ACK1 / Pump_Connections' forms done in the day run, b36dec11 / f3254408 / 3a077b5d): first P-CC2-1, E&B's INFMSG (`time` /
      `gmtime` / `strftime("%m/%d/%y %H:%M:%S")` into char[80], DebugLibSemaphore's CritSec 0x8B4330 on 0xBF5258,
      `MsgManager::infoStream()` 0x8B5B90 twice, `"INF " << timebuf << " [" << __FILE__ << " " << __LINE__ << "] "`;
      our wdebug.h has Zero Hour's Xtime version; draft `.work/cc2/cordcon_h5.h`, `inf_all.cpp`): 0x850820 exact,
@@ -1907,6 +1985,37 @@ below name only the work items, the blocked work, the leads and the queues.
      (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * **The POC client (from the 2026-11-01 day run; queue `.work/poc/ledger.md`, run log `.work/poc/runs.md`):** build with
+     `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
+     --seconds 40` (`git add -N` new files first: build.py builds only ls-files sources). Next, in order: the current first
+     failure (ui_login's LoginFontManagerClass and ui_avsel's UIAvselFontManagerClass onto fontmanager.h's FontManagerClass: Get_Style 0x6D25D0, Add, 0x6D2700; then the login window's activation / update stand-ins in stubs.log order); text drawing: Update_Text 0x6D64C0 (7.1 KB) and the layout core 0x6CA0C0 (11.7 KB) (functional
+     first or Fable), fonttexture.cpp 0x6D8DC0 / 0x6D8C50; then item 10 against antprox /REPLAY (D181; the ledger's command,
+     kill antprox and the client by PID). Then the ledger's queue: DBG (operator new 0x4E9CB0, dbgmgr's step log), BINK
+     (E&B's BINKMovie gaps 0xA161B0-0xA17330), DISP / RS, UIB2 smouse.cpp, GAD2's tail, SORT2-3, NET (Key_Exchange 0x829180),
+     LD1-2 (avatar_desc, shipcust_desc), MSG (the message box 0x587570-0x589D20 on DW1's windows), DW's icon / move / toggle,
+     KRN, tooltip.cpp (0x6AB320-: uiview.h's UIViewUnknown30Class, TG). Stand-ins to delete as code lands:
+     programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants 0xB08CAC-0xB08CC4 want
+     their owner).
+   * From the 2026-11-01 day run (leftovers by file; attempts.csv rows for each): cordcon read 0x850FD0 (m's home in k's
+     slot), handlePacket / pumpInternal (match the timebufs' frame offsets +0xE8 / +0xC0 first), openc / write (register);
+     cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; intrface 0x540A90 /
+     0x541690 (register); gadget 0x65ED50 (order), 0x6603A0 / 0x6609A0; gclass 0x4A17B0 (order); font32bit
+     Make_Proportional 0x6BC120; fontsound 0x6BCFB0 / 0x6BD060 / 0x6BD270; fontsys Render 0x6D8270 (compare order + floor /
+     scale form), 0x6D47C0 (EH state), 0x6D5170 (it doesn't fill the +0x494 / +0x4A4 float colours: fontmanager.cpp's
+     Set_Color may share the TPoint3D<int> / float mismatch); input Init 0x42E4A0 (inline budget: the queue element ctor);
+     textgadg 0x6AA340 / 0x6AAD10 / 0x6AB190, stredit Process_Key 0x84AAD0; charview ctor 0x678450 / 0x679510 / 0x679930 /
+     0x67CBD0 (inline budget), 0x67B7A0 (functional: the lights' intensities approximate); interface_static_sort_list's
+     erase / insert out of line (0x6DB380 / 0x6DC0A0); rect3d ctor 0x6E2290; dynamic windows' Set_Flags / Set_Alignment /
+     Update_Content_Size; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070 (register); htmlview Parse exact
+     (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it. Files next to today's: rect3d's
+     neighbour fontsys_cursor is done; gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
+     vtable 0xAFAB64), interface_scene's 0x6DAD40, 0x5603E0-0x5608A0 ('fa_bio.ini' / 'TSI10A', not ui_avsel's), the strconv
+     conversions 0x4A30A0-0x4A3640 (P-GC-2: a separate object; claim 0x4A30A0-0x4A3AE0, interim file, delete their stubs),
+     HtmlBlockClass renames (LineStartX +0x1BC, ContentWidth / ContentHeight +0x1C0 / +0x1C4, HtmlLinkStruct::Url ->
+     MimeType). Header merges: gadget.h's GadgetUnknown08Struct and ui_scut's local GadgetClass are RObjGadgetClass;
+     ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
+     ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
+     globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
    * Tools (from the 2026-10-31 t4 run, TK12, still open): claims.py resolve / check should count attempts.csv
      `exact` (D99) rows as done (mainview's #111 was handed out though LD4 finished it; on 2026-11-01 its per-file
      counts still include the night's D99 rows); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names

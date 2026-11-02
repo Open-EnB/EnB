@@ -86,6 +86,9 @@ void Unknown_4BC000(const char *, const char *, const char *, int, const char *,
 {
 	LogLines++;
 }
+void Cord_SHA(const void *, int, unsigned int *)	// WWOnline's SHA-1 0x8B4A90 (Compute_Ticks; no caller)
+{
+}
 
 // ------------------------------------------------------------------------- the replay socket
 

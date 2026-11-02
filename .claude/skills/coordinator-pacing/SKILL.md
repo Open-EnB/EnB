@@ -59,6 +59,12 @@ The rules behind the allowance (defaults in the script, all overridable):
   minute at their heaviest; the observed rate in the log is the better guide once two heartbeats exist.
 - **Health:** no launch while HEAD's imports.json does not parse or an address is lost outright. Fix first
   (usually a builder's commit script: see workflow.md §3.8).
+- **Harness check (D182):** at a heartbeat after any landed commit that rebuilds a file clienttest or udpreplay links
+  (app code under app/, wlib / wnet, their stubs), run them at HEAD on a quiet copy: a worktree at HEAD (`python
+  tools/vc6/wt.py new hc`, `build.py build --lib app --allow-dirty` there, copy build/art/MSS32.DLL) or the main tree when no
+  builder has uncommitted app edits; then `clienttest.py build` + `run` (103 checks, exit 0, trace equal to expected.txt) and
+  `udpreplay.py build`, `run alex3`, `handshake` (54/54). Log the result; a failure is a health item: give it to one bounded
+  builder (Sonnet: tests/ stand-ins only, never app code) before the next launches. Always once more before the handoff.
 
 Observed on 2026-10-27: seven builders at a time on a seven-VM pool left 3 to 4 GB free on the host;
 usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the item.

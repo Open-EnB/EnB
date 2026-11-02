@@ -138,13 +138,10 @@ public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470)
 	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
+	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58();
+	// (+0x04..+0x50: gclass.h's GClass slots)
+	virtual void Unknown_54(); virtual void Unknown_58();
 	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
 
 	char Unknown84[0x18C - 0x84];						// +0x84
@@ -215,8 +212,8 @@ public:
 	void Unknown_65B610(Vector2 &min, Vector2 &max);	// 0x65B610 (the view plane)  // NAME 1 [min, max]: CameraClass::Get_View_Plane's
 	void Unknown_65B650(const Vector2 &norm, Vector2 *coords);	// 0x65B650 (FAIL_IF '!coords': 0..1 to the view plane)  // NAME 2 [coords]: the FAIL_IF's; NAME 1 [norm]: its counterpart in 0x65B6C0
 	void Unknown_65B6C0(const Vector2 &coords, Vector2 *norm);	// 0x65B6C0 (FAIL_IF '!norm', 'width == 0.0f', 'height == 0.0f': the view plane to 0..1)  // NAME 2 [norm]: the FAIL_IF's; NAME 1 [coords]: its counterpart in 0x65B650
-	bool Unknown_65B7A0(int a, int b, int c, int d);	// 0x65B7A0 (+0x1C's 0x6DA6F0)  // NAME 1 [a, b, c, d]: neutral
-	bool Unknown_65B7E0(int a);							// 0x65B7E0 (+0x1C's 0x6DA730)  // NAME 1 [a]: neutral
+	bool Unknown_65B7A0(const RefCountPtr<SimpleSceneClass> &scene, const RefCountPtr<CameraClass> &camera, float poly_budget, unsigned int sort_level);	// 0x65B7A0 (+0x1C's Add_PIP_Scene 0x6DA6F0)  // NAME 1 [scene, camera, poly_budget, sort_level]: the sort list's
+	bool Unknown_65B7E0(const RefCountPtr<SimpleSceneClass> &scene);	// 0x65B7E0 (+0x1C's Remove_PIP_Scene 0x6DA730)  // NAME 1 [scene]: the sort list's
 	ViewUnknown34Class *Get_Unknown34() { return(Unknown34); }	// inline (GROUP 30 and DIALOG 98 read it into eax first)  // NAME 1: neutral (D10): the member it returns
 
 	ClientTaskClass *Unknown14;							// +0x14 (the constructor's task)
@@ -329,7 +326,7 @@ public:
 	virtual void Unknown_58();							// 0x5BB550
 	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
 	virtual void Unknown_60();							// 0x5BB660
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// 0x5BB470
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5BB470
 	virtual void Unknown_88();							// +0x88 0x543750
 	virtual void Unknown_8C();							// +0x8C 0x543770
 	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
@@ -427,7 +424,7 @@ public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
 	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
-	virtual void Unknown_7C(UIViewClass *view, int arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	char Unknown84[0xE8 - 0x84];						// +0x84
 };
 
@@ -436,12 +433,7 @@ class MainViewUnknown53E970Class : public InterfaceClass	// NAME 1: neutral (D10
 {
 public:
 	MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene);	// 0x53E970  // NAME 1 [view, scene]: what 0x50C690 passes
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50();
+	// (+0x04..+0x50: gclass.h's GClass slots)
 	virtual void Unknown_54();
 	virtual void Unknown_58();
 	char Unknown84[0x90 - 0x84];						// +0x84
@@ -456,12 +448,8 @@ class MainViewUnknown1E0Class : public InterfaceClass	// NAME 1: neutral (D10)
 class MainViewUnknown1DCClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
+	// (+0x04..+0x50: gclass.h's GClass slots)
+	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
 	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_80(); virtual void Unknown_84();
@@ -493,12 +481,8 @@ public:
 	void Unknown_53E3C0();								// 0x53E3C0
 	void Unknown_53E3F0(int arg);						// 0x53E3F0  // NAME 1 [arg]: neutral
 
-	virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54();
+	// (+0x04..+0x50: gclass.h's GClass slots)
+	virtual void Unknown_54();
 	virtual void Unknown_58();							// +0x58 (the main view's 0x514010: on)
 	virtual void Unknown_5C();							// +0x5C (0x514010: off)
 
@@ -901,6 +885,7 @@ public:
 };
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
+class CameraModuleClass; class CameraModuleSignal;	// the client's RTTI (the camera manager's callback, 0xB9AC18)
 class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
 {
 public:
@@ -943,7 +928,7 @@ public:
 	void Unknown_745350();								// 0x745350 (Init)
 	void Unknown_744C10();								// 0x744C10 (Init, after the camera mode)
 	void Unknown_744D80();								// 0x744D80 (Init's camera block as a function; 0x6B58A0 calls it)
-	void Unknown_744E50();								// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
+	void Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera);	// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it; it calls 0x744C10)  // NAME 1 [signal, camera]: the callback's types (the client's RTTI 0xB9AC18)
 	void Unknown_7518A0();								// 0x7518A0 (Init)
 	void Unknown_7511A0(); void Unknown_750C20(int index);	// 0x7511A0 (the main view's 0x514010, on every view-mode change); 0x750C20 (no caller: plays testeffects.ini's record)  // NAME 1 [index]: the record's
 	void Unknown_7555B0();								// 0x7555B0 (Shutdown)

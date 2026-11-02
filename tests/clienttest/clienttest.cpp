@@ -51,7 +51,10 @@
 #include <deque>
 #include <map>
 #include <set>
+#include <list>
 #include "clienttest.h"
+#include "..\..\..\app\kernel\kernel.h"
+#include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pk.h"
@@ -87,9 +90,34 @@ static int Lines = 0;
 static int Failures = 0;
 bool Stub_744B60 = false;
 bool Stub_Focused = false;
+// TaskClass::Is_Focused is the real one (kernel.cpp): a fake task on a real KernelClass whose Current_Task is the fake
+// while Stub_Focused is set
+class FakeTaskClass : public TaskClass
+{
+public:
+	virtual int Get_Interval() { return 0; }
+	virtual bool Delete_On_Remove() { return false; }
+};
+extern HWND Unknown_BDAA7C;
+extern InputQueueClass *Unknown_BDA968;
+static FakeTaskClass Fake_Task;
+static KernelClass *Fake_Kernel = 0;
+void Set_Stub_Focused(bool on)
+{
+	Stub_Focused = on;
+	if (Fake_Kernel == 0) {
+		Fake_Kernel = new KernelClass();
+		Fake_Task.Kernel = Fake_Kernel;
+	}
+	Fake_Kernel->Current_Task = on ? &Fake_Task : 0;
+	if (on) Trace("stub TaskClass::Is_Focused -> 1");
+}
 
 void Trace(const char *format, ...)
 {
+	if (Out == 0) {		// a static constructor that is a stand-in (wdebug_replay.cpp's CritSec) runs before main opens the trace
+		return;
+	}
 	va_list va;
 	va_start(va, format);
 	vfprintf(Out, format, va);
@@ -111,7 +139,36 @@ static void Check(bool ok, const char *what)
 
 extern unsigned int Unknown_BE71D4;	// postate.cpp (CLIENT_SET_TIME 52 stores the round trip time)
 static unsigned int Test_Ticks = 0;
-unsigned int Unknown_Get_Ticks() { return Test_Ticks; }		// the aux-data clock (dbgconn.cpp's rate wrapper; SClient::Do_Frame's clock): 0 but in (4)
+unsigned int Unknown_Get_Ticks();	// unknown_root.cpp's 0x4A3B40 (timeGetTime since the first call), linked for real since DeltaCompoundClass::Decode is
+static unsigned int Test_Get_Ticks() { return Test_Ticks; }		// the aux-data clock (dbgconn.cpp's rate wrapper; SClient::Do_Frame's clock): 0 but in (4)
+// main() jumps the real clock to Test_Get_Ticks (a second definition would be a LNK2005 with unknown_root.obj)
+void Hook_Audio_Functions();	// audio_stubs.cpp: WWAudioClass::Flush_Cache to a trace line
+static LONG WINAPI Crash_Filter(EXCEPTION_POINTERS *info)
+{
+	// a crash names its address (look it up in clienttest.map) on the console, and in the trace
+	char text[128];
+	DWORD written;
+	wsprintf(text, "clienttest: exception %08X at %08X\r\n", (unsigned)info->ExceptionRecord->ExceptionCode, (unsigned)info->ExceptionRecord->ExceptionAddress);
+	WriteFile(GetStdHandle(STD_ERROR_HANDLE), text, lstrlen(text), &written, 0);
+	// the code addresses on the stack, nearest first (clienttest.map names them)
+	unsigned *sp = (unsigned *)info->ContextRecord->Esp;
+	for (int w = 0; w < 400 && !IsBadReadPtr(sp + w, 4); w++) {
+		if (sp[w] >= 0x401000 && sp[w] < 0x1000000) {
+			wsprintf(text, "  esp+%X: %08X", w * 4, sp[w]);
+			WriteFile(GetStdHandle(STD_ERROR_HANDLE), text, lstrlen(text), &written, 0);
+		}
+	}
+	return(EXCEPTION_EXECUTE_HANDLER);
+}
+static void Hook_Get_Ticks()
+{
+	unsigned char *at = (unsigned char *)Unknown_Get_Ticks;
+	DWORD old;
+	VirtualProtect(at, 5, PAGE_EXECUTE_READWRITE, &old);
+	at[0] = 0xE9;
+	*(int *)(at + 1) = (int)Test_Get_Ticks - (int)(at + 5);
+	VirtualProtect(at, 5, old, &old);
+}
 
 // wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64), as udpreplay's conn_replay.cpp
 static unsigned __int64 Swap64(unsigned __int64 v)
@@ -173,16 +230,30 @@ static void Scene10C_Remove_All_Slot() { Trace("mainview scene Remove_All_Render
 // 0x751660 and 0x74F5C0 read its +0x34 dialog and the dialog's type at +0x18C. A zeroed dialog: no type matches
 static int Fake_Dialog_Storage[0x190 / sizeof(int)];
 static struct FakeUIViewStruct { char Unknown00[0x34]; void *Dialog; } Fake_UI_View = { { 0 }, Fake_Dialog_Storage };
+// SClient::Unknown_742530 (the view switch, real since 2026-10-31) calls slot +0x7C (two arguments) of the PDA, the chat panel,
+// the hot keys and the line display, and slot +0x5C of the main view's +0x34 object: these fakes have a table that pops them
+static void *Switch_Table[64];
+static void __stdcall Switch_7C_Slot(void *, int) {}
+static void __stdcall Switch_5C_Slot() {}
+static void *Switch_Pda[0xC0 / 4];			// SClient +0x1284 (Test_Path puts the +0xA8 object in it)
+static void *Switch_Hot_Keys[0x84 / 4];		// SClient +0x1290
+static void *Switch_Main_34[0x40 / 4];		// the main view's +0x34 object
+// InterfaceSortClass (local_interface_sort.cpp, real now) takes the view's slot +0x50 scene's sort list at +0x9C: a zeroed scene whose list
+// is a zeroed InterfaceStaticSortListClass (no current, front or back interface), so Set_Current_Front / Back swap nothing
+static char Fake_Sort_List[0x100];
+static char Fake_Interface_Scene_Storage[0x100];
+static char *Fake_Interface_Scene = Fake_Interface_Scene_Storage;
+static struct FakeSceneInit { FakeSceneInit() { *(void **)(Fake_Interface_Scene_Storage + 0x9C) = Fake_Sort_List; } } Fake_Scene_Init;
 class FakeMainViewClass
 {
 public:
 	FakeMainViewClass() { memset(Unknown04, 0, sizeof(Unknown04)); }	// the radar (+0x80) and the rest null: WARP_INDEX's FAIL_IF
 	virtual ~FakeMainViewClass() {}
 	virtual void S04() {} virtual void S08() {} virtual void S0C() {} virtual void S10() {}
-	virtual void S14() {} virtual void S18() {} virtual void *S1C() { return(&Fake_UI_View); } virtual void S20() {}
+	virtual void S14() {} virtual void S18(bool) {} virtual void *S1C() { return(&Fake_UI_View); } virtual void S20() {}
 	virtual void S24() {} virtual void S28() {} virtual void S2C() {} virtual void S30() {}
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
-	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
+	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void *S50() { return(Fake_Interface_Scene); }
 	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
 	virtual int S64() { Trace("mainview 64"); return(Path_Views ? (int)&Fake_View64 : 0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
 	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(Path_Views ? (int)Fake_Camera : 0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments; in (4) Process_AI's objects (Path_Views)
@@ -240,6 +311,8 @@ static char Fake_Player_Var_Root[0x10];	// SClient +0x12C4's entry 0 (Init's pla
 static void *Aux_Table[256];
 static void Aux_Age_Slot() { Trace("aux data +0x20 (the age step)"); }
 static void __stdcall Aux_Delete_Slot(unsigned) { Trace("aux data deleted (slot +0x04)"); }
+// slot +0x08, DeltaClass::Accept (the real LookupClass constructor, 0x4AC3B0's walk, calls it with the visitor, one argument popped): the fake has no fields to visit
+static void __stdcall Aux_Accept_Slot(void *) {}
 const char *Aux_Root_Name(const void *root)
 {
 	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
@@ -716,7 +789,7 @@ static void Test_Packets(SClient *client, const char *path)
 	loading.Unknown68 = true;
 	client->LoadingView = (LoadingViewClass *)&loading;
 	// the first message with the task focused and the loading view up (Process_Packets tells it), then not
-	Stub_Focused = true;
+	Set_Stub_Focused(true);
 	if (!Memory->Incoming.empty()) {
 		std::vector<unsigned char> first = Memory->Incoming.front();
 		Memory->Incoming.pop_front();
@@ -726,7 +799,7 @@ static void Test_Packets(SClient *client, const char *path)
 		client->Process_Packets();
 		Memory->Incoming.swap(rest);
 	}
-	Stub_Focused = false;
+	Set_Stub_Focused(false);
 	unsigned ship = client->ShipID;
 	float zmin = client->Unknown10D4, zmax = client->Unknown10D8;
 	int creates = 0, created = 0, removes = 0, removed = 0;
@@ -917,10 +990,8 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	// object's 0x7C8DB0 is a stand-in
 	static char fake_radar[0x50];
 	static char fake_pda_a8[0x100];
-	static char fake_pda[0xC0];
-	*(void **)&fake_pda[0xA8] = fake_pda_a8;
+	*(void **)((char *)Switch_Pda + 0xA8) = fake_pda_a8;
 	*(void **)&main_view->Unknown04[0x80 - 0x04] = fake_radar;
-	client->PDAInterface = (PDAInterfaceClass *)fake_pda;
 	const unsigned id = 4000;
 
 	// CREATE 4: a ship (type 0) of base asset 900 at scale 0.5
@@ -993,7 +1064,6 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 
 	Path_Views = false;
 	*(void **)&main_view->Unknown04[0x80 - 0x04] = 0;	// the radar back to NULL (WARP_INDEX 156's FAIL_IF in (3))
-	client->PDAInterface = 0;
 	Test_Ticks = 0;
 	client->Unknown1198 = true;
 	client->CurrentView = 0;
@@ -1080,36 +1150,34 @@ class GadgetClass
 {
 public:
 	void Unknown_6603A0(int arg, UIViewClass *view);
-	void Unknown_6607D0();
 };
-class GadgetListManagerClass
+// gadget_list_manager.cpp is real: 0x661940 walks the manager's GroupLists (+0x00, a list of gadget lists) for the
+// gadget whose +0x24 name matches; the harness's manager has one list with the one fake gadget
+struct FakeGadgetManagerStruct
 {
-public:
-	GadgetClass *Unknown_661940(const char *name);
+	std::list<std::list<void *> *> GroupLists;
+	char Rest[0x100];
 };
+static std::list<void *> Gadget_Group;
 static std::string Gadget_Log;
 static void *Gadget_Table[32];
 static void *Gadget_Iface_Table[64];
 static FakeTableStruct Fake_Gadget_Iface = { Gadget_Iface_Table };
-static FakeTableStruct Fake_Gadget = { Gadget_Table };
+static void **Fake_Gadget[0x100 / 4] = { Gadget_Table };	// a zeroed gadget (Flash +0x20 null: the real 0x6607D0 does nothing)
 static FakeTableStruct *__stdcall Gadget_08_Slot() { Gadget_Log += "+08 "; return(&Fake_Gadget_Iface); }
 static void __stdcall Gadget_40_Slot(bool on) { Gadget_Log += on ? "+40(1) " : "+40(0) "; }
 static void __stdcall Gadget_Iface_8C_Slot(bool on) { Gadget_Log += on ? "iface+8C(1) " : "iface+8C(0) "; }
-GadgetClass *GadgetListManagerClass::Unknown_661940(const char *name)
-{
-	Trace("stub GadgetListManagerClass::Unknown_661940 '%s'", name ? name : "(null)");
-	return((name && strcmp(name, "gadget_test") == 0) ? (GadgetClass *)&Fake_Gadget : 0);
-}
 void GadgetClass::Unknown_6603A0(int arg, UIViewClass *view) { Gadget_Log += arg == 1 && view ? "6603A0(1, view) " : "6603A0(?) "; }
-void GadgetClass::Unknown_6607D0() { Gadget_Log += "6607D0 "; }
-static void *Incap_Packet = 0;
-static std::string Incap_Name;
-void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
-{
-	Trace("stub UICpitClass::Unknown_584690 '%s'", packet ? packet->Unknown0C.c_str() : "(null)");
-	Incap_Packet = packet;
-	Incap_Name = packet ? packet->Unknown0C : "";
-}
+static std::string Incap_Calls;
+// ui_cpit.cpp's real 0x584690 (since 2026-11-01) fills the cockpit's +0xE0 object (UICpitUnknownE0Class, 0x551FB0, not
+// rebuilt): the fake below has the table's slot +0x58 and records the four non-virtual calls the real code makes.
+static void __stdcall Incap_E0_58_Slot() { Incap_Calls += "slot58 "; Trace("stub UICpitUnknownE0Class slot +0x58"); }
+void UICpitUnknownE0Class::Unknown_552FC0(AvatarDescClass *) { Incap_Calls += "552FC0 "; }
+void UICpitUnknownE0Class::Unknown_553370(std::string text) { Incap_Calls += "553370('" + text + "') "; }
+void UICpitUnknownE0Class::Unknown_553500(std::vector<std::string> lines) { char t[32]; sprintf(t, "553500(%u) ", (unsigned)lines.size()); Incap_Calls += t; }
+void UICpitUnknownE0Class::Unknown_5537A0(std::vector<std::string> lines) { char t[32]; sprintf(t, "5537A0(%u) ", (unsigned)lines.size()); Incap_Calls += t; }
+static void *Incap_E0_Table[64];
+static void **Incap_E0[0x1B4 / 4] = { Incap_E0_Table };
 
 static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 {
@@ -1129,16 +1197,22 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	Gadget_Iface_Table[0x8C / 4] = (void *)Gadget_Iface_8C_Slot;
 	int list = client->Unknown1278;
 	UIViewClass *view = client->CurrentView;
-	static char fake_list[0x40];
-	client->Unknown1278 = (int)fake_list;
+	static FakeGadgetManagerStruct *manager = 0;
+	if (manager == 0) {
+		manager = new FakeGadgetManagerStruct;
+		Gadget_Group.push_back((void *)Fake_Gadget);
+		manager->GroupLists.push_back(&Gadget_Group);
+		Fake_Gadget[0x24 / 4] = (void **)"gadget_test";
+	}
+	client->Unknown1278 = (int)manager;
 	client->CurrentView = (UIViewClass *)main_view;
 
 	Gadget_Log = "";
 	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x3F, "gadget_test")));
 	client->Process_Packets();
 	Trace("gadget calls: %s", Gadget_Log.c_str());
-	Check(Gadget_Log == "+08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 6607D0 ",
-		"GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view), 0x6607D0");
+	Check(Gadget_Log == "+08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) ",
+		"GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view); 0x6607D0 is the real gadget.cpp now and does nothing without a flash");
 	Gadget_Log = "";
 	client->CurrentView = 0;
 	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x14, "gadget_test")));
@@ -1151,12 +1225,23 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	client->Unknown1278 = list;
 	client->CurrentView = view;
 
-	Incap_Packet = 0;
-	Incap_Name = "";
+	for (int e = 0; e < 64; e++) {
+		Incap_E0_Table[e] = (void *)Zero_Slot;
+	}
+	Incap_E0_Table[0x58 / 4] = (void *)Incap_E0_58_Slot;
+	char *cpit = *(char **)&main_view->Unknown04[0x1D0 - 0x04];
+	void *saved_e0 = *(void **)(cpit + 0xE0);
+	*(void **)(cpit + 0xE0) = (void *)Incap_E0;
+	void *saved_client = *(void **)(cpit + 0x40);
+	*(void **)(cpit + 0x40) = client;	// the interface's Client (+0x40): 0x584690 asks its slot +0x18 for the SClient
+	Incap_Calls = "";
 	Memory->Incoming.push_back(Built_Message(&IncapacitanceDetailsPacket("rescuer", AvatarDescClass(), "a", "b", "c", "d", "e", "f", "g")));
 	client->Process_Packets();
-	Check(Incap_Packet != 0 && Incap_Name == "rescuer",
-		"INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the cockpit's 0x584690 gets the packet (Unknown0C 'rescuer')");
+	*(void **)(cpit + 0xE0) = saved_e0;
+	*(void **)(cpit + 0x40) = saved_client;
+	Trace("incapacitance calls: %s", Incap_Calls.c_str());
+	Check(Incap_Calls == "552FC0 553370('a') 553500(3) 5537A0(3) slot58 ",
+		"INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the real ui_cpit.cpp 0x584690 hands the packet to the cockpit's +0xE0 object (0x552FC0, 0x553370, 0x553500, 0x5537A0, slot +0x58)");
 	Memory->Received = 0;
 }
 
@@ -1484,9 +1569,7 @@ static void Test_GM(SClient *client)
 // 15 sets +0x13C0 and calls 0x598200(true), 17 passes AvatarID to 0x5982A0, 13 does nothing, anything else asserts.
 // Without a group interface the FAIL_IF '!group_interface' (line 3136) returns.
 static std::string Group_Log;
-void UIGroupClass::Unknown_5981B0() { Group_Log += "5981B0 "; }
-void UIGroupClass::Unknown_598200(bool on) { Group_Log += on ? "598200(1) " : "598200(0) "; }
-void UIGroupClass::Unknown_5982A0(int avatar_id) { char t[32]; sprintf(t, "5982A0(%d) ", avatar_id); Group_Log += t; }
+// (0x5981B0, 0x598200 and 0x5982A0 are ui_group.cpp now: they run on a zeroed group and leave no log)
 
 static void Test_CTA(SClient *client)
 {
@@ -1517,7 +1600,7 @@ static void Test_CTA(SClient *client)
 	client->Process_Packets();
 	client->Process_Packets();
 	Trace("group calls: %s", Group_Log.c_str());
-	Check(cleared && set && Group_Log == "5981B0 598200(1) 5982A0(9) ",
+	Check(cleared && set && Group_Log == "",
 		"CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false)");
 	*group = saved;
 	client->Unknown13C0 = false;
@@ -1836,7 +1919,7 @@ static void Test_Chat_Lists(SClient *client)
 		error.Unknown10 = successes[s];
 		error.Process_Packet(client);
 	}
-	Check(Lines - before == 6, "CLIENT_CHAT_ERROR 166 success: five lines (and the sound for 22), type 4 none");
+	Check(Lines - before == 5, "CLIENT_CHAT_ERROR 166 success: five lines (the sound for 22 is soundlib.cpp's real Play_2D_Sound now: no stand-in line), type 4 none");
 	*panel = saved_panel;
 
 	UIViewClass *view = client->CurrentView;
@@ -1870,6 +1953,22 @@ int main(int argc, char **argv)
 	Out = fopen(argv[1], "w");
 	if (Out == 0) {
 		return 2;
+	}
+	Hook_Get_Ticks();
+	Hook_Audio_Functions();
+	// Unknown_42EDB0 (input.cpp, real now) polls the mouse only when GetForegroundWindow() is the game window
+	// Unknown_BDAA7C; a window that is never the foreground one keeps it from the mouse object (not created here)
+	Unknown_BDAA7C = (HWND)1;
+	// Unknown_42EA80 (input.cpp, real now) peeks the key queue: an empty real one (no events, no mouse tracking)
+	Unknown_BDA968 = new KeyQueueClass;
+	SetUnhandledExceptionFilter(Crash_Filter);
+	{
+		// a vectored handler runs first, even over a corrupt frame chain (XP and later)
+		typedef PVOID (WINAPI *AddVectoredExceptionHandlerFunction)(ULONG, LONG (WINAPI *)(EXCEPTION_POINTERS *));
+		AddVectoredExceptionHandlerFunction add = (AddVectoredExceptionHandlerFunction)GetProcAddress(GetModuleHandle("kernel32.dll"), "AddVectoredExceptionHandler");
+		if (add) {
+			add(1, Crash_Filter);
+		}
 	}
 	for (int i = 0; i < 256; i++) {
 		Zero_Table[i] = (void *)Zero_Slot;
@@ -1907,13 +2006,14 @@ int main(int argc, char **argv)
 		Aux_Table[a] = (void *)Zero_Slot;
 	}
 	Aux_Table[1] = (void *)Aux_Delete_Slot;
+	Aux_Table[2] = (void *)Aux_Accept_Slot;
 	Aux_Table[8] = (void *)Aux_Age_Slot;
 	*(void ***)Fake_Aux = Aux_Table;			// the aux data's slot +0x20, Do_Frame's age step (0x6F5120 for the objects)
 	*(void ***)Fake_Player_Root = Aux_Table;
 	*(void ***)Fake_Camera = Zero_Table;	// its Validate_Transform (virtual) does nothing; the Transform stays zero
 
 	Trace("== SClient (its constructor, the base's)");
-	SClient *client = new SClient(0);
+	SClient *client = new SClient((ClientTaskClass *)&Fake_Task);
 	The_Client = client;
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;
@@ -1935,6 +2035,24 @@ int main(int argc, char **argv)
 	*(SClient **)&main_view.Unknown04[0x4C - 0x04] = client;	// +0x4C, the view's client (0x514010's G_ASSERT reads its mode)
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
 	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
+	// the chat panel (+0x127C, a RefCountPtr written raw; Init makes it): ui_chat_panel.cpp is real, so SClient's calls
+	// (Do_Frame's lag flag 0x56BA80, CLIENT_TYPE's 0x5685C0) read a panel; zeroed it has no window and no lag
+	static double fake_chat_panel[0x268 / 8 + 1];
+	*(int *)((char *)fake_chat_panel + 0x3C) = 1000;
+	*(void **)&client->ChatPanel = fake_chat_panel;
+	*(void ***)fake_chat_panel = Switch_Table;
+	*(void ***)fake_line_display = Switch_Table;
+	for (int w = 0; w < 64; w++) {
+		Switch_Table[w] = (void *)Zero_Slot;
+	}
+	Switch_Table[0x7C / 4] = (void *)Switch_7C_Slot;
+	Switch_Table[0x5C / 4] = (void *)Switch_5C_Slot;
+	Switch_Pda[0] = Switch_Table;
+	Switch_Hot_Keys[0] = Switch_Table;
+	Switch_Main_34[0] = Switch_Table;
+	client->PDAInterface = (PDAInterfaceClass *)Switch_Pda;
+	client->HotKeys = (UIHotKeysClass *)Switch_Hot_Keys;
+	*(void **)&main_view.Unknown04[0x34 - 0x04] = Switch_Main_34;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
 	client->Unknown12C4[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");

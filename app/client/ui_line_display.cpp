@@ -77,15 +77,15 @@ private:
 };
 
 // What slot +0x60 builds around the text's +0x34 call (local_interface_sort.cpp's 0x6E1090 / 0x6E18B0)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(void *unknown1, int unknown2);		// 0x6E1090: slot +0x60 passes 1
-	~LineDisplaySortClass();								// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
 
-private:
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
 
 extern unsigned int Unknown_BFAE3C;							// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now, as slot +0x60 reads it
 extern unsigned int Unknown_BFAE40;							// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame
@@ -412,7 +412,7 @@ void UILineDisplayClass::Unknown_60()
 			text->Unknown_054(offset);
 		}
 	}
-	LineDisplaySortClass sort(Unknown_541800(), 1);
+	InterfaceSortClass sort(Unknown_541800(), 1);
 	text->Unknown_034(Unknown44);
 }
 
@@ -588,7 +588,7 @@ void UILineDisplayClass::Flush_Lines()
 
 
 // The iterator declared before the loop (registers as the client); the called string in a named local (the client loads it before the argument)
-void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, int unknown2)
+void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, bool unknown2)
 {
 	Clear();
 	LineDisplaySClientClass *sclient = Client ? Client->Unknown_18() : 0;

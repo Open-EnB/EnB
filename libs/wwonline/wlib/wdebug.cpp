@@ -1,0 +1,170 @@
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include <stdlib.h>
+#include "wdebug.h"
+#include "streamer.h"
+#include "odevice.h"
+
+
+static MsgManager         *msg_manager=NULL;
+
+static int                debug_enabled=0;
+static ostream           *debug_ostream=NULL;
+static Streamer          *debug_streamer=NULL;  // E&B: a pointer, created by createStreamers
+
+static int                info_enabled=0;
+static ostream           *info_ostream=NULL;
+static Streamer          *info_streamer=NULL;  // E&B: a pointer, created by createStreamers
+
+static int                warn_enabled=0;
+static ostream           *warn_ostream=NULL;
+static Streamer          *warn_streamer=NULL;  // E&B: a pointer, created by createStreamers
+
+static int                error_enabled=0;
+static ostream           *error_ostream=NULL;  
+static Streamer          *error_streamer=NULL;  // E&B: a pointer, created by createStreamers
+
+
+// Don't dare touch this semaphore in application code!
+#ifdef USE_DEBUG_SEM
+Sem4                      DebugLibSemaphore;
+#else
+CritSec                      DebugLibSemaphore;
+#endif
+
+
+int MsgManager::setAllStreams(OutputDevice *device)
+{
+  if (device==NULL)
+    return(1);
+
+  createStreamers();  // E&B
+  DEBUGLOCK;
+  debug_streamer->setOutputDevice(device);
+  delete(debug_ostream);
+  debug_ostream=new ostream(debug_streamer);
+
+  info_streamer->setOutputDevice(device);
+  delete(info_ostream);
+  info_ostream=new ostream(info_streamer);
+
+  warn_streamer->setOutputDevice(device);
+  delete(warn_ostream);
+  warn_ostream=new ostream(warn_streamer);
+
+  error_streamer->setOutputDevice(device);
+  delete(error_ostream);
+  error_ostream=new ostream(error_streamer);
+
+  DEBUGUNLOCK;
+
+  return(0);
+}
+
+
+int MsgManager::setDebugStream(OutputDevice *device)
+{
+  if (device==NULL)
+    return(1);
+
+  createStreamers();  // E&B
+  DEBUGLOCK;
+  debug_streamer->setOutputDevice(device);
+  delete(debug_ostream);
+  debug_ostream=new ostream(debug_streamer);
+  DEBUGUNLOCK;
+  return(0);
+}
+
+int MsgManager::setInfoStream(OutputDevice *device)
+{
+  if (device==NULL)
+    return(1);
+
+  createStreamers();  // E&B
+  DEBUGLOCK;
+  info_streamer->setOutputDevice(device);
+  delete(info_ostream);
+  info_ostream=new ostream(info_streamer);
+  DEBUGUNLOCK;
+  return(0);
+}
+
+int MsgManager::setWarnStream(OutputDevice *device)
+{
+  if (device==NULL)
+    return(1);
+
+  createStreamers();  // E&B
+  DEBUGLOCK;
+  warn_streamer->setOutputDevice(device);
+  delete(warn_ostream);
+  warn_ostream=new ostream(warn_streamer);
+  DEBUGUNLOCK;
+  return(0);
+}
+
+int MsgManager::setErrorStream(OutputDevice *device)
+{
+  if (device==NULL)
+    return(1);
+
+  createStreamers();  // E&B
+  DEBUGLOCK;
+  error_streamer->setOutputDevice(device);
+  delete(error_ostream);
+  error_ostream=new ostream(error_streamer);
+  DEBUGUNLOCK;
+  return(0);
+}
+
+
+
+ostream *MsgManager::debugStream(void)
+{
+  return(debug_ostream);
+}   
+
+ostream *MsgManager::infoStream(void)
+{
+  return(info_ostream);
+}   
+
+ostream *MsgManager::warnStream(void)
+{
+  return(warn_ostream);
+}
+
+ostream *MsgManager::errorStream(void)
+{
+  return(error_ostream);
+}
+
+// E&B: the streamers on first use (0x8B5BF0, called by every set*Stream)
+void MsgManager::createStreamers(void)
+{
+  if (debug_streamer==NULL)
+    debug_streamer=new Streamer;
+  if (info_streamer==NULL)
+    info_streamer=new Streamer;
+  if (warn_streamer==NULL)
+    warn_streamer=new Streamer;
+  if (error_streamer==NULL)
+    error_streamer=new Streamer;
+}   

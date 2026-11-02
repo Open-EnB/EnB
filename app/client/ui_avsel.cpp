@@ -14,63 +14,63 @@
 #include "tutorial_manager.h"
 #include "ui_avsel.h"
 
-// What a gadget's slot +0x08 returns, as far as 0x55E070 reads it
-struct UIAvselGadgetPartStruct	// NAME 1: neutral (D10)
-{
-	char Unknown00[0x30];								// +0x00
-	RenderObjClass *Unknown30;							// +0x30 (0x55E070 highlights it)
-};
+// gadget.cpp's gadget: gadget.h (its slot +0x08's part: GadgetUnknown08Struct)
+#include "gadget.h"
+typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetPartStruct]: neutral (D10)
 
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04();
-	virtual UIAvselGadgetPartStruct *Unknown_08();		// +0x08 (0x55E070)
-	virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(LayerClass *layer);			// +0x28 (0x55F760: the window's layer)  // NAME 1 [layer]: as ui_cpit.cpp's
-	virtual void Unknown_2C();
-	virtual bool Unknown_30(float x, float y);			// +0x30 (0x55E070: the pointer's position, 0..1: over the gadget)  // NAME 1 [x, y]: neutral
-	virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (0x55ED20: 1 lights a button, 0x55EF90: 0)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual bool Unknown_60();							// +0x60 (0x55EF90: the button is lit)
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(int arg);					// +0x74 (0x55F760: the edit box, 1)  // NAME 1 [arg]: neutral
-	char Unknown04[0x20 - 0x04];						// +0x04
-	void *Unknown20;									// +0x20 (0x55F6D0: the mouse-over sound only when set)
-	char Unknown24[0x2C - 0x24];						// +0x24
-	bool Is_Unknown2C_2() { return(Unknown2CBits.Unknown2C_2); }	// NAME 1: neutral (D10): inline (0x55F6D0)
-	void Unknown_660070(int arg);						// 0x660070 (0x55E370 passes 1)  // NAME 1 [arg]: neutral
-	union {
-		unsigned int Unknown2C;							// +0x2C (0x55E370 sets 0x400)
-		struct {
-			unsigned int Unknown2C_0 : 2;
-			unsigned int Unknown2C_2 : 1;				// bit 2 (0x55F6D0: the mouse-over sound)  // NAME 1: neutral (D10)
-		} Unknown2CBits;								// NAME 1: neutral (D10)
-	};
-};
-// gadget.cpp's button gadget (100 bytes, constructor 0x675240 over a render object and a layer)
-class UIAvselButtonClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselButtonClass(RenderObjClass *robj, LayerClass *layer, int a, int b);	// 0x675240 (the constructor passes 0x55, 3)  // NAME 1 [robj, layer, a, b]: as ui_manu.cpp's
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
-void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "unknown_675120.h"
+
+
+
+
+
+
+
 void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
 void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
-// The FlashingGadgetEvent the window's callback gets (the client's RTTI name, 0xB7C068)
-class FlashingGadgetEvent	// NAME 3: the client's RTTI (the callback's type name)
-{
-public:
-	GadgetClass *Gadget;								// +0x00 (0x55F6D0's FAIL_IF '!gadget')  // NAME 1: neutral
-};
+// (FlashingGadgetEvent, the client's RTTI name 0xB7C068: gadget.h)
+
+
+
+
+
 
 // fontsys.cpp's text object and fontmanager.h's FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at
 // 0xBE67BC, as far as this file calls them (as ui_cpit.cpp declares them: neither header can be included here)
@@ -91,14 +91,14 @@ extern UIAvselFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0x
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
 // local_interface_sort.cpp's sort object (8 bytes; as ui_cpit.cpp declares it)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);		// 0x541980  // NAME 1 [inter]: view.cpp's
-	~LineDisplaySortClass();							// 0x6E18B0
-private:
-	char Unknown00[8];
-};
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
+
+
+
+
+
+
+
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_manu.cpp's)
 struct UIAvselKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -217,20 +217,20 @@ public:
 	UIAvselEnvMapClass *Unknown3A4;						// +0x3A4
 };
 
-// The window's FlashingGadgetEvent callback (vtable 0xAEFAEC over sclient.cpp's 0xAEDB58)
-class UIAvselCallbackBaseClass	// NAME 1: neutral (D10): vtable 0xAEDB58 (slot 0 0x51E220)
-{
-public:
-	~UIAvselCallbackBaseClass() {}
-	virtual void Call();
-};
+// The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAEFAEC over 0xAEDB58; its
+// members out of line after the galaxy list's: the destructor 0x560250, 0x560270, 0x560290, 0x5602B0, 0x560330 and
+// the deleting destructor 0x560390)
+#include "unknown_signalbase.h"
+typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarSelectionInterface, void (AvatarSelectionInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIAvselCallbackClass;	// NAME 1 [UIAvselCallbackClass]: neutral (D10)
+typedef SignalBaseClass::CallbackClass UIAvselCallbackBaseClass;	// NAME 1 [UIAvselCallbackBaseClass]: neutral (D10)
+
 class UIAvselNotifierClass		// NAME 1: neutral (D10)
 {
 public:
 	void Add(int id, UIAvselCallbackBaseClass *callback);	// 0x4F9740  // NAME 2: as sclient.cpp's
 	void Remove(int id, UIAvselCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
 };
-UIAvselNotifierClass *Unknown_65ECE0();					// 0x65ECE0  // NAME 1 [Unknown_65ECE0]: neutral (D10)
+// (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map)
 
 // The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name (as ui_login.cpp declares it)
 class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
@@ -252,23 +252,23 @@ static const char *Unknown_B7B958[2] = { "CANCEL_BUTTON", "OK_BUTTON" };	// NAME
 static const char *Unknown_B7B960[2] = { "CANCEL_BUTTON_BUDDYREF1", "OK_BUTTON_BUDDYREF1" };	// NAME 1: neutral (D10)
 
 class LoginTaskClass;
-// LoginTaskClass's two accessors slot +0x68 calls out of line (0x55D860, 0x55D880; in this file's window)
-class UIAvselTaskClass	// NAME 1: neutral (D10): tsk_login.h's LoginTaskClass
-{
-public:
-	int Get_Selected() { return(((LoginTaskClass *)this)->Selected); }					// 0x55D860  // NAME 1: neutral (D10)
-	AvatarDescClass *Get_Descs() { return(((LoginTaskClass *)this)->Unknown0350); }	// 0x55D880  // NAME 1: neutral (D10)
-};
+// (LoginTaskClass's two accessors slot +0x68 calls out of line, 0x55D860 and 0x55D880 in this file's window: tsk_login.h)
+
+
+
+
+
+
 // What the edit box's +0x4C points to, as far as 0x55F760 calls it
 class UIAvselEditUnknown4CClass { public: void Unknown_6E2A20(const Vector4 &color); };	// NAME 1: neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1)
 // textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810; as ui_login.cpp declares it): the referral's name
 class UIAvselEditClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIAvselEditClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: as ui_login.cpp's
+	UIAvselEditClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: as ui_login.cpp's
 	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: as ui_login.cpp's
 	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: as ui_login.cpp's
-	void Unknown_6AAD10();								// 0x6AAD10 (every frame)
+	void Unknown_6AAD10(); virtual void Unknown_74(int arg);	// 0x6AAD10 (every frame); slot +0x74 (0x55F760: 1)  // NAME 1 [arg]: neutral
 	char Unknown30[0x3B - 0x30];						// +0x30
 	bool Unknown3B;										// +0x3B (0x55F760 sets it)
 	char Unknown3C[0x4C - 0x3C];						// +0x3C
@@ -279,16 +279,16 @@ public:
 };
 extern const int Unknown_B08CAC; extern const int Unknown_B08CBC; extern const int Unknown_B08CC0;	// NAME 1: neutral (D10): what 0x55F760's edit box gets (or'ed)
 
-// The callback (vtable 0xAEFAEC)
-class UIAvselCallbackClass : public UIAvselCallbackBaseClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselCallbackClass(AvatarSelectionInterface *object, void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *)) : Object(object), Function(function) {}
-	virtual void Call();
 
-	AvatarSelectionInterface *Object;					// +0x04
-	void (AvatarSelectionInterface::*Function)(FlashingGadgetEvent *, GadgetClass *);	// +0x08 (8 bytes: two bases)
-};
+
+
+
+
+
+
+
+
+
 
 // 0x55C650
 AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass *layer) :
@@ -299,7 +299,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown0F8(false), Unknown0F9(false), Unknown0FA(false), Unknown0FB(false), Unknown0FC(false), Unknown0FD(false),
 	Unknown100(-1), Layer(layer), Unknown118(NULL), Unknown120(false)
 {
-	LineDisplaySortClass sort(this);
+	InterfaceSortScopeClass sort(this);
 	memset(Unknown09C, 0, sizeof(Unknown09C));
 	int i;
 	for (i = 0; i < 2; i++) {
@@ -329,7 +329,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 		strcpy(name, Unknown_B7B8E0[i]);
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name(name);
 		Unknown_496AE0(robj, 0);
-		GadgetClass *gadget = new UIAvselButtonClass(robj, layer, 0x55, 3);
+		GadgetClass *gadget = new ButtonGadgetClass(robj, *layer, 0x55, 3);
 		Unknown09C[i] = gadget;
 		Unknown64.Unknown_6870E0(gadget, i + 1, View, 1, 1);
 		robj->Release_Ref();
@@ -339,7 +339,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	if (Unknown088->Unknown1138) {
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name("click_me");
 		Unknown_496AE0(robj, 0);
-		Unknown118 = new UIAvselButtonClass(robj, layer, 0x55, 3);
+		Unknown118 = new ButtonGadgetClass(robj, *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown118, 0x11, View, 1, 1);
 		robj->Release_Ref();
 	} else {
@@ -354,7 +354,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown_55EF90();
 	Unknown084->Unknown3A4->Unknown_760770(100001, true);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
-	UIAvselNotifierClass *notifier = Unknown_65ECE0();
+	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new UIAvselCallbackClass(this, function));
 }
 
@@ -365,17 +365,17 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 	int i;
 	for (i = 0; i < 8; i++) {
 		if (Unknown09C[i]) {
-			Unknown_65EED0(Unknown09C[i]);
+			GadgetClass::Destroy(Unknown09C[i]);
 			Unknown09C[i] = NULL;
 		}
 	}
 	if (Unknown118) {
-		Unknown_65EED0(Unknown118);
+		GadgetClass::Destroy(Unknown118);
 		Unknown118 = NULL;
 	}
 	for (i = 0; i < 5; i++) {
 		if (Unknown0D0[i]) {
-			Unknown_65EED0(Unknown0D0[i]);
+			GadgetClass::Destroy(Unknown0D0[i]);
 			Unknown0D0[i] = NULL;
 		}
 		if (Unknown0BC[i]) {
@@ -388,7 +388,7 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_FE12A.ini");
 	Unknown084->Unknown_67A9B0(0);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
-	UIAvselNotifierClass *notifier = Unknown_65ECE0();
+	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
 	UIAvselCallbackClass callback(this, function);
 	notifier->Remove(0, &callback);
 }
@@ -485,8 +485,8 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 							Unknown088->Unknown_5C();
 							return true;
 						}
-						UIAvselTaskClass *task = (UIAvselTaskClass *)Unknown088;
-						Unknown084->Unknown_5594B0(task->Get_Descs()[task->Get_Selected()]);
+						LoginTaskClass *task = Unknown088;
+						Unknown084->Unknown_5594B0(task->Get_Avatar_Descs()[task->Get_Selected()]);
 						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
 						Unknown084->Unknown_67ACE0(1);
 						Unknown084->Unknown1CD = true;
@@ -793,7 +793,7 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 			}
 			if (Unknown0D0[i]) {
 				Unknown64.Unknown_687150(Unknown0D0[i]);
-				Unknown_65EED0(Unknown0D0[i]);
+				GadgetClass::Destroy(Unknown0D0[i]);
 				Unknown0D0[i] = NULL;
 			}
 			if (chars[i].ID != 0) {
@@ -806,9 +806,9 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 					sprintf(name, "DUDE%02d", i);
 					Unknown084->Unknown1BC->Unknown_80(Unknown0BC[i], name);
 					Unknown0BC[i]->Unknown_77E3D0(1);
-					Unknown0D0[i] = new UIAvselButtonClass(Unknown0BC[i]->Get_Unknown2BC(), Unknown084->Get_Unknown070(), 0x55, 0);
-					Unknown0D0[i]->Unknown2C |= 0x400;
-					Unknown0D0[i]->Unknown_660070(1);
+					Unknown0D0[i] = new ButtonGadgetClass(Unknown0BC[i]->Get_Unknown2BC(), *Unknown084->Get_Unknown070(), 0x55, 0);
+					Unknown0D0[i]->Unknown2C_0A = true;
+					Unknown0D0[i]->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown0D0[i], i + 11, View, 1, 1);
 				}
 				delete desc;
@@ -1134,7 +1134,7 @@ void AvatarSelectionInterface::Unknown_55F6D0(FlashingGadgetEvent *event, Gadget
 	GadgetClass *gadget = event->Gadget;
 	FAIL_IF(!gadget)
 		return;
-	if (gadget->Unknown20 && gadget->Is_Unknown2C_2()) {
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 	}
 }
@@ -1164,7 +1164,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 	for (int i = 0; i < 2; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(BuddyReferralUI->Get_Sub_Object_By_Name(Unknown_B7B958[i]));
 		Unknown_496AE0(robj.Peek(), 0);
-		Unknown10C[i] = new UIAvselButtonClass(robj.Peek(), Layer, 0x55, 3);
+		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
 	Unknown114 = new UIAvselEditClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);

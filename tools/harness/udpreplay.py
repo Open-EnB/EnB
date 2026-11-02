@@ -119,6 +119,10 @@ def build(out):
                 f.write('char *Conn_Receive_Buffer() { return(Buffer); }\n')
     B.PROGRAMS['udpreplay'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['ww3d2'] + ' /GX',
                                'subsystem': 'console', 'runtime': []}
+    # E&B's INFMSG (wlib's wdebug.h, in cordcon.cpp) writes to the old iostream's ostream, as the client
+    # does (0xA40DAB...): its library, LIBCIMT, after the new one
+    if 'LIBCIMT.LIB' not in B.LINK_SYS:
+        B.LINK_SYS.insert(B.LINK_SYS.index('LIBCPMT.LIB') + 1, 'LIBCIMT.LIB')
     B.link_program('udpreplay', out)
     exe = os.path.join(out, 'programs', 'udpreplay', 'udpreplay.exe')
     if not os.path.exists(exe):

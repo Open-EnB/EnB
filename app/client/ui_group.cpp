@@ -998,7 +998,7 @@ symbol:
 
 
 // 0x595480
-void UIGroupClass::Unknown_7C(UIViewClass *view, int arg)
+void UIGroupClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		Unknown5BB320Class::Unknown_7C(view, arg);

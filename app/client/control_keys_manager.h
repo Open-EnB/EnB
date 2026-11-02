@@ -23,6 +23,7 @@
 #include <memory>
 #include <hash_map.h>
 #include <typeinfo.h>
+#include "unknown_signalbase.h"	// SignalMap
 
 #define NUM_MAPPING_SETS	2	// the client's asserts compare '(unsigned int)set > NUM_MAPPING_SETS' with 2
 
@@ -108,17 +109,6 @@ class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_K
 public:
 	void Add(const ControlKeyComboStruct &combo, void *handler);			// 0x721E60  // NAME 2: describes what it does
 	void Remove(const ControlKeyComboStruct &combo);						// 0x721EF0  // NAME 2: describes what it does
-};
-
-class SignalMap  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9AD0); declared as far as Save needs it
-{
-public:
-	SignalMap();														// 0x4F9350
-	~SignalMap();														// 0x4F9530
-	void emit(unsigned int sender, const void *event, const type_info &sender_type, const type_info &event_type);	// 0x4F9AD0: the client's 'SignalMap::emit'
-	template <class S, class E> void emit(S *sender, const E &event) { emit((unsigned int)sender, &event, typeid(S), typeid(E)); }	// NAME 2: the typed form Save's call expands to
-
-	char Unknown00[0x38];												// 0xBE7C08-0xBE7C40 in the client  // NAME 1: neutral (D10)
 };
 
 class KeysSavedEvent  // NAME 5: the client's RTTI .?AVKeysSavedEvent@@ (Save's signal)

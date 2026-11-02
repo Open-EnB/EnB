@@ -15,7 +15,5 @@ static void Not_In_Test(const char *what)
 }
 class TCPConnection { public: TCPConnection(const char *host, unsigned short port, bool encrypt); };
 TCPConnection::TCPConnection(const char *, unsigned short, bool) { Not_In_Test("TCPConnection"); }
-class UDPConnection { public: UDPConnection(const char *host, unsigned short port, bool encrypt); };
-UDPConnection::UDPConnection(const char *, unsigned short, bool) { Not_In_Test("UDPConnection"); }
 class CompositeListenerClass { public: CompositeListenerClass(); };
 CompositeListenerClass::CompositeListenerClass() { Not_In_Test("CompositeListenerClass"); }
