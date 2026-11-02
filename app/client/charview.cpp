@@ -38,12 +38,12 @@ inline void CharacterViewClass::Unknown_Inline_Platform()
 	ViewRObjs[4]->Control_Bone(bone, platform, false);
 }
 
-
-
-
-
-
-
+// The environment maps +0x3A4 read through an inline accessor: the avatars' constructor calls then load and push
+// it before 'this' is set, as the client does (CV2: a plain member read schedules both loads first, 0.79)
+static inline SClientUnknown1338Class *Unknown_Inline_Env_Maps(CharacterViewClass *view)
+{
+	return view->Unknown3A4;
+}
 
 
 
@@ -533,17 +533,17 @@ void CharacterViewClass::Unknown_67A3F0()
 
 
 
-// NOT EXACT: register (this in edi, the client's esi; the rest the client's), 0.73
-// 0x67A440
+// 0x67A440 (the environment maps read through Unknown_Inline_Env_Maps: this in esi, the copy in edi, as the
+// client has them; CV2)
 void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
 {
 	if (AvatarRObj == NULL) {
 		if (copy) {
 			AvatarDescClass *fresh = new AvatarDescClass(desc->Race, desc->Profession, desc->Gender);
-			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown3A4);
+			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
 			delete fresh;
 		} else {
-			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown3A4);
+			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
 		}
 		G_ASSERT(AvatarRObj);
 		if (AvatarRObj) {
@@ -1069,12 +1069,33 @@ void CharacterViewClass::Unknown_67B4F0(bool on)
 	}
 }
 
+// 0x67B5C0 (no caller in the client: the frame's platform turn as a member of its own, ViewRObjs[4] tested)
+void CharacterViewClass::Unknown_67B5C0()
+{
+	if (ViewRObjs[4]) {
+		Matrix3D platform(true);
+		int bone = ViewRObjs[4]->Get_Bone_Index("platform");
+		platform.Rotate_Z(Unknown1A0);
+		ViewRObjs[4]->Capture_Bone(bone);
+		ViewRObjs[4]->Control_Bone(bone, platform, false);
+	}
+}
+
 // 0x67C440
 void CharacterViewClass::Unknown_67C440(int index, bool now)
 {
 	Unknown4D4 = Unknown_BE6018[index];
 	if (now) {
 		Unknown4C8 = Unknown_BE6018[index];
+	}
+}
+
+// 0x67C4C0 (no caller in the client: 0x67C440 with the colour given)
+void CharacterViewClass::Unknown_67C4C0(const Vector3 &color, bool now)
+{
+	Unknown4D4 = color;
+	if (now) {
+		Unknown4C8 = color;
 	}
 }
 
@@ -1240,31 +1261,10 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x67C1E0 (no caller in the client: empty)
+void CharacterViewClass::Unknown_67C1E0()
+{
+}
 
 #define MAX_OFFSET 10	// the offset pairs at +0x400 (0x67C200 / 0x67C270)  // NAME 3 [MAX_OFFSET]: the FAIL_IFs'
 
@@ -1325,6 +1325,27 @@ void CharacterViewClass::Unknown_67BEB0()
 				Unknown3B8[i][j][1]->Release_Ref();
 				Unknown3B8[i][j][1] = NULL;
 			}
+		}
+	}
+}
+
+// 0x67BF20 (Unknown_04: an avatar of each race, profession and gender, the body weights set)
+void CharacterViewClass::Unknown_67BF20()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
+			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
+			male->Body_Weight[0] = 0.5f;
+			male->Body_Weight[4] = 0.25f;
+			male->Body_Weight[3] = 0.25f;
+			female->Body_Weight[0] = 0.5f;
+			male->Body_Weight[2] = 0.25f;
+			female->Body_Weight[1] = 0.25f;
+			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
+			delete male;
+			delete female;
 		}
 	}
 }

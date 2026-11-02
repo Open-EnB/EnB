@@ -166,6 +166,9 @@ public:
 	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown: the eighteen avatars of +0x3B8 released)
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
 	void Unknown_67C530();								// 0x67C530 (the frame: +0x4C8 eased to +0x4D4, the type-3 model's 'box02' glows with it, the second light of +0x3B0 follows)
+	void Unknown_67B5C0();								// 0x67B5C0 (no caller: the platform turned by +0x1A0, ViewRObjs[4] tested)
+	void Unknown_67C1E0();								// 0x67C1E0 (no caller: empty)
+	void Unknown_67C4C0(const Vector3 &color, bool now);	// 0x67C4C0 (no caller: +0x4D4 set to the colour; with now, +0x4C8 too)  // NAME 1 [color, now]: as 0x67C440's
 	void Unknown_Inline_Platform();					// (inline in the frame 0x679930: the platform turned by +0x1A0)  // NAME 1: neutral (D10)
 	void Unknown_67C920(std::string name);				// 0x67C920 (ui_avsel / ui_avatr screens: a dialog queued on +0x4E0; an empty name is dropped)  // NAME 1 [name]: what the callers pass
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
