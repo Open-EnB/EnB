@@ -337,7 +337,7 @@ void FontDatabaseClass::Unknown_6BFD00(const char *ini_name)
 }
 
 
-// NOT EXACT: register, 2 rows: the inlined Text += ' ' addresses [buffer + length] where the client has [length + buffer]
+// 0x6C0430 (D185's variant: Text through a reference in the append branch, kept on the same lines for the asserts' __LINE__)
 void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStruct *str)
 {
 	int misses = 10;
@@ -496,8 +496,8 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 			if (line == 0) {
 				str->Text = text;
 			} else {
-				str->Text += ' ';
-				str->Text += text;
+				StringClass &out = str->Text; out += ' ';
+				out += text;
 			}
 			misses = 10;
 		}
