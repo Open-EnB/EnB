@@ -81,3 +81,16 @@ void Unknown_496110(RenderObjClass *, float, float, float) { Trace("stub Unknown
 class LoadingViewFontManagerClass;
 LoadingViewFontManagerClass *Unknown_BE67C4 = 0;	// 0xBE67C4 (loadingview.cpp's font manager; the loading view's text is not drawn here)
 Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
+
+// ------------------------------------------------------------------------- wlib's Wstring (unknown_message.cpp)
+
+// The message reporters' common path 0x4BC5A0 (app.lib's unknown_message.obj, linked for the real reporters)
+// appends with these two; gen_stubs.py --link writes no operators. Never reached here: no message server.
+class Wstring
+{
+public:
+	Wstring &operator+=(const char *other);
+	Wstring &operator+=(const Wstring &other);
+};
+Wstring &Wstring::operator+=(const char *) { Trace("stub Wstring::operator+=(const char *) (0x8B6640)"); return *this; }
+Wstring &Wstring::operator+=(const Wstring &) { Trace("stub Wstring::operator+=(const Wstring &) (0x8B6750)"); return *this; }

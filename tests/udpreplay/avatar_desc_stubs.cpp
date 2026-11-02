@@ -6,10 +6,8 @@
 #include <string>
 #include "..\..\..\app\shared\unknown_packetdata.h"
 
-// 0x4BC260: E&B's message reporter (the defaults loader's missing-file message)
-void Unknown_4BC260(const char *, const char *, const char *, int, const char *, ...)
-{
-}
+// (0x4BC260, E&B's message reporter for the defaults loader's missing-file message: udpreplay.cpp's,
+// since clienttest links the real one from app.lib's unknown_message.obj)
 
 // 0x4BE9D0: a name turned into another (kv_util.cpp's run)
 std::string Unknown_4BE9D0(const char *name)
