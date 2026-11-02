@@ -15251,6 +15251,29 @@
      "0x4E2CC0"
     ]
    },
+   "unknown_515640": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x515640",
+     "0x515770",
+     "0x5157A0",
+     "0x515840",
+     "0x515930",
+     "0x515980"
+    ],
+    "merged": [],
+    "name": "client/unknown_515640.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10"
+    ]
+   },
    "unknown_51c800": {
     "ambiguous": [
      "0x42B2F0",
@@ -16141,6 +16164,7 @@
    "client/ui_manu.h": "reconstructed",
    "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
+   "client/unknown_515640.h": "reconstructed",
    "client/unknown_51c800.h": "reconstructed",
    "client/unknown_66b770.h": "reconstructed",
    "client/unknown_675120.h": "reconstructed",

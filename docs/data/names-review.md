@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2887 |
-| 1 | neutral placeholder | 10702 |
+| 1 | neutral placeholder | 10723 |
 
 ## For review (score 3 and below)
 
@@ -7893,6 +7893,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown65B810ViewClass` | `app/client/uiview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/uiview.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown1274` | `app/client/uiview.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown515640Class` | `app/client/unknown_515640.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/unknown_515640.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_515640.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown686010Class` | `app/client/unknown_515640.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_515640.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_515640.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown10D4` | `app/client/unknown_515640.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown10D8` | `app/client/unknown_515640.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/unknown_515640.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_6865E0` | `app/client/unknown_515640.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown686010Class` | `app/client/unknown_515640.h:14` | neutral (D10) |
+| 1 | `view, color, pos, size, unknown, unknown2` | `app/client/unknown_515640.h:17` | what 0x515840 passes (the view, green 0 / 0.6 / 0 / 1, 0.96 / 0.1, 0.03 / 0.3, 1, 2.4) |
+| 1 | `value, unknown` | `app/client/unknown_515640.h:19` | what 0x515980 passes (the height's fraction, 0) |
+| 1 | `Unknown_6865E0` | `app/client/unknown_515640.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/unknown_515640.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown515640Class` | `app/client/unknown_515640.h:26` | neutral (D10) |
+| 1 | `view, unknown` | `app/client/unknown_515640.h:29` | InterfaceClass's |
+| 1 | `Unknown_58` | `app/client/unknown_515640.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_515640.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_515640.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/unknown_515640.h:35` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/unknown_51c800.cpp:7` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/unknown_51c800.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown51C800Class` | `app/client/unknown_51c800.cpp:10` | untagged neutral name (D10) |
