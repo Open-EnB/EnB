@@ -40,8 +40,8 @@ public:
 class MainViewUnknown84Class	// NAME 1: neutral (D10)
 {
 public:
-	MainViewUnknown84Class(SClient *client, const RefCountPtr<RefCountClass> &scene); ~MainViewUnknown84Class();	// 0x7B6BD0 / 0x7B6D80 (Shutdown 0x50C2F0)  // NAME 1 [client, scene]: what 0x50BA60 passes
-	char Unknown00[0x24];
+	MainViewUnknown84Class(SClient *client, const RefCountPtr<SimpleSceneClass> &scene); ~MainViewUnknown84Class();	// 0x7B6BD0 / 0x7B6D80 (Shutdown 0x50C2F0)  // NAME 1 [client, scene]: what 0x50BA60 passes
+	char Unknown00[0x04]; RefCountPtr<SimpleSceneClass> Scene; char Unknown08[0x24 - 0x08];	// +0x04: 0x7B6BD0 stores its scene argument there, add-ref'd  // NAME 1 [Scene]: neutral
 };
 
 // the orbitals' callback (table 0xAED01C: 0x50C2B0 / 0x50C2D0)
@@ -196,7 +196,7 @@ void MainViewClass::Unknown_04()
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
 	Radar = new RadarSystemClass((SClient *)Client->Unknown_18());
-	Unknown84 = new MainViewUnknown84Class((SClient *)Client->Unknown_18(), Create_Peek((RefCountClass *)Unknown_50()));
+	Unknown84 = new MainViewUnknown84Class((SClient *)Client->Unknown_18(), Create_Peek((SimpleSceneClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
@@ -1128,7 +1128,7 @@ public:
 	char Unknown11[0x14 - 0x11];
 };
 
-extern unsigned int Unknown_BFAE3C;		// NAME 1: neutral (D10): the time now in ms (ui_line_display.cpp declares it too)
+// 0xBFAE3C is WW3D::SyncTime (WW3D::Sync 0x918200 writes it): read inline through WW3D::Get_Sync_Time (ww3d.h above)
 // Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as
 // the client has it: SClient's Unknown14EC == 3 shows it, every 250 ms rebuilt from the profile iterator (+0x1E8)
 void MainViewClass::Unknown_510440()
@@ -1139,8 +1139,8 @@ void MainViewClass::Unknown_510440()
 	((SClient *)Client->Unknown_18())->Text->Draw_Text(profile_string, 0xFF00FF00);
 	// Only update every 1/4 second
 	static unsigned int last_time;
-	if (Unknown_BFAE3C - last_time < 250) return;
-	last_time = Unknown_BFAE3C;
+	if (WW3D::Get_Sync_Time() - last_time < 250) return;
+	last_time = WW3D::Get_Sync_Time();
 	profile_string = "";
 	working_string = "";
 	/*

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2906 |
-| 1 | neutral placeholder | 10832 |
+| 1 | neutral placeholder | 10833 |
 
 ## For review (score 3 and below)
 
@@ -2838,7 +2838,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `client` | `app/client/mainview.cpp:35` | what 0x50BA60 passes |
 | 1 | `MainViewUnknown84Class` | `app/client/mainview.cpp:40` | neutral (D10) |
 | 1 | `client, scene` | `app/client/mainview.cpp:43` | what 0x50BA60 passes |
+| 1 | `Scene` | `app/client/mainview.cpp:44` | neutral |
 | 1 | `Unknown00` | `app/client/mainview.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/mainview.cpp:44` | untagged neutral name (D10) |
 | 1 | `MainViewOrbitalCallbackClass` | `app/client/mainview.cpp:48` | neutral (D10) |
 | 1 | `view` | `app/client/mainview.cpp:51` | neutral |
 | 1 | `Unknown_00` | `app/client/mainview.cpp:52` | untagged neutral name (D10) |
@@ -2951,7 +2953,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/client/mainview.cpp:1126` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/mainview.cpp:1127` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/mainview.cpp:1128` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/mainview.cpp:1131` | neutral (D10): the time now in ms (ui_line_display.cpp declares it too) |
 | 1 | `Unknown_5103F0` | `app/client/mainview.cpp:1210` | untagged neutral name (D10) |
 | 1 | `Unknown_510420` | `app/client/mainview.cpp:1215` | untagged neutral name (D10) |
 | 1 | `Unknown_512400` | `app/client/mainview.cpp:1409` | untagged neutral name (D10) |
