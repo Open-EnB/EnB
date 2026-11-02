@@ -1132,15 +1132,15 @@ void ScriptedMovieViewClass::Unknown_802AD0(int arg)
 
 // 0x802B20: the movie's time on, the effects that are over ended, then every line due run (a line that is not a
 // command ends the movie)
-// NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form
+// 0x802B20
 void ScriptedMovieViewClass::Unknown_802B20()
 {
-	Unknown80 += WW3D::Get_Frame_Time();
-	Unknown_807520(Unknown80);
+	unsigned int time = Unknown80 += WW3D::Get_Frame_Time();
+	Unknown_807520(time);
 	std::vector<ScriptedMovieLineClass *>::iterator itor = Lines.begin();
 	while (itor != Lines.end()) {
 		G_ASSERT(*itor);
-		if (Unknown80 < (*itor)->Frame) {
+		if ((*itor)->Frame > time) {
 			return;
 		}
 		if (!Unknown_803310(*itor)) {

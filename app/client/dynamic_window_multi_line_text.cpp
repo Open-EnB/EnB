@@ -63,17 +63,17 @@ DynamicWindowMultiLineTextClass::DynamicWindowMultiLineTextClass(const std::stri
 	SampleFont->Unknown_6D5A80(width, CharacterHeight);
 	G_ASSERT(CharacterHeight > 0);
 }
-// NOT EXACT: the line erase (the client calls the vector helpers 0x51C710 / 0x51C6C0 out of line)
+// 0x51B3A0
 DynamicWindowMultiLineTextClass::~DynamicWindowMultiLineTextClass()
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
-		(*it)->Remove_From_Scene();
-		(*it)->Clear_Parent();
-	}
-	Lines.erase(Lines.begin(), Lines.end());
-	TopLineIndex = 0;
-	DisplayedLines = 0;
+	Clear_Lines();
 }
+
+
+
+
+
+
 
 void DynamicWindowMultiLineTextClass::Set_Text(const std::string &text)
 {

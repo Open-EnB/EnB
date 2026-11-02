@@ -85,12 +85,12 @@ bool DynamicWindowRenderObjectClass::Has_Flags(unsigned int flags)
 {
 	return (Flags & flags) == flags;
 }
-// NOT EXACT: the client reads the Fit_Size result through eax, this form through the stack slot
+// 0x51CC10
 void DynamicWindowRenderObjectClass::Layout(const Vector2 &position, const Vector2 &size)
 {
 	Size = size;
-	Vector2 offset = Fit_Size(position, size);
-	LayoutOffset = Vector3(offset.X, offset.Y, 0.0f);
+	const Vector2 *offset = &(const Vector2 &)Fit_Size(position, size);
+	LayoutOffset = Vector3(offset->X, offset->Y, 0.0f);
 	Dirty = false;
 }
 
@@ -216,17 +216,18 @@ void DynamicWindowRenderObjectClass::Set_Position(const Vector2 &position)
 	Vector3 pos(position.X, position.Y, 0.0f);
 	RenderObject->Set_Position(pos + LayoutOffset + Offset);
 }
-// NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it
+// 0x51CFD0
 void DynamicWindowRenderObjectClass::Set_Render_Object(const RefCountPtr<RenderObjClass> &robj)
 {
 	SceneClass *scene = Peek_Scene();
 	Remove_From_Scene();
-	RenderObject = robj;
+	RefCountPtr<RenderObjClass> &ro = RenderObject;
+	ro = robj;
 	if (scene != NULL) {
 		Add_To_Scene(scene);
 	}
 	Set_Level(Level);
-	Update_Bounds(RenderObject);
+	Update_Bounds(ro);
 	Invalidate();
 }
 
@@ -242,6 +243,7 @@ void DynamicWindowRenderObjectClass::Replace_Render_Object(const RefCountPtr<Ren
 	}
 }
 
+#pragma auto_inline(off)
 void DynamicWindowRenderObjectClass::Update_Bounds(const RefCountPtr<RenderObjClass> &robj)
 {
 	if (!robj) {
@@ -255,6 +257,7 @@ void DynamicWindowRenderObjectClass::Update_Bounds(const RefCountPtr<RenderObjCl
 	Offset.X = -(box.Center.X - box.Extent.X);
 	Offset.Y = -(box.Center.Y + box.Extent.Y);
 }
+#pragma auto_inline(on)
 
 Vector2 DynamicWindowRenderObjectClass::Fit_Size(const Vector2 &position, const Vector2 &size)
 {

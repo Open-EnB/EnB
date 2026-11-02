@@ -2316,27 +2316,29 @@ void MainViewClass::Unknown_514480()
 	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
 }
 
-// NOT EXACT: shape (the client multiplies by 0.01 and then by each scale; VC6 folds the two constants here); attempts.csv 0x5146D0
+// 0x5146D0
 // 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent)
 // scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed
 void MainViewClass::Unknown_5146D0()
 {
 	bool defaults = false;
 	bool sliders = false;
-	if (DefaultChanged && GraphicsDefault) {
+	if (DefaultChanged) {
+		if (!GraphicsDefault) goto use_sliders;
 		Gamma = 1.2f;
 		defaults = true;
 		LandPolyBudget = Client->LandPolyBudget;
 		LandLOD = Client->LandLOD;
 		PolyBudget = Client->PolyBudget;
 		TextureReduction = Client->TextureReduction;
-	} else if (!GraphicsDefault && (DefaultChanged || GraphicsChanged)) {
-		Gamma = GraphicsGamma * 0.01f * 2.0f + 1.0f;
+	} else if (!GraphicsDefault && GraphicsChanged) {
+use_sliders:
+		Gamma = 1.0f + (GraphicsGamma * 0.01f) * (3.0f - 1.0f);
 		sliders = true;
-		LandPolyBudget = (int)(GraphicsLandPoly * 0.01f * 32000.0f + 8000.0f);
-		LandLOD = (int)(GraphicsLandDetail * 0.01f * 8.0f);
-		PolyBudget = (int)(GraphicsSpacePoly * 0.01f * 32000.0f + 8000.0f);
-		TextureReduction = (int)((100.0f - GraphicsTextureSize) * 0.01f * 3.0f);
+		LandPolyBudget = (int)(8000.0f + (GraphicsLandPoly * 0.01f) * (40000.0f - 8000.0f));
+		LandLOD = (int)((GraphicsLandDetail * 0.01f) * 8.0f);
+		PolyBudget = (int)(8000.0f + (GraphicsSpacePoly * 0.01f) * (40000.0f - 8000.0f));
+		TextureReduction = (int)(((100.0f - GraphicsTextureSize) * 0.01f) * 3.0f);
 	}
 	float gamma = WWMath::Clamp(Gamma, 1.0f, 3.0f);
 	Gamma = gamma;

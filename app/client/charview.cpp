@@ -1352,14 +1352,12 @@ void CharacterViewClass::Unknown_67CBD0()
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+
 // 0x67C530
 void CharacterViewClass::Unknown_67C530()
 {
 	if (ViewRObjs[3]) {
-		Unknown4C8.X = Unknown4C8.X * 0.95f + Unknown4D4.X * 0.05f;
-		Unknown4C8.Y = Unknown4C8.Y * 0.95f + Unknown4D4.Y * 0.05f;
-		Unknown4C8.Z = Unknown4C8.Z * 0.95f + Unknown4D4.Z * 0.05f;
+		Unknown4C8 = Unknown4D4 * 0.05f + Unknown4C8 * 0.95f;
 		RefCountPtr<RenderObjClass> box = Create_Get(ViewRObjs[3]->Get_Sub_Object_By_Name("box02"));
 		if (box.Peek() != NULL) {
 			RefCountPtr<MaterialInfoClass> info = Create_Get(box->Get_Material_Info());
@@ -1367,23 +1365,25 @@ void CharacterViewClass::Unknown_67C530()
 				info->Peek_Vertex_Material(0)->Set_Emissive(Unknown4C8);
 			}
 			if (ViewRObjs[4] && Unknown3B0[1]) {
-				float r = Unknown4C8.X;
-				if (r < 0.5f) {
-					r = (r + 0.5f) * 0.5f;
-				}
-				float g = Unknown4C8.Y;
-				if (g < 0.5f) {
-					g = (g + 0.5f) * 0.5f;
-				}
-				float b = Unknown4C8.Z;
-				if (b < 0.5f) {
-					b = (b + 0.5f) * 0.5f;
-				}
+				float r = (Unknown4C8.X < 0.5f) ? (Unknown4C8.X + 0.5f) * 0.5f : Unknown4C8.X;
+				float g = (Unknown4C8.Y < 0.5f) ? (Unknown4C8.Y + 0.5f) * 0.5f : Unknown4C8.Y;
+				float b = (Unknown4C8.Z < 0.5f) ? (Unknown4C8.Z + 0.5f) * 0.5f : Unknown4C8.Z;
 				Unknown3B0[1]->Set_Diffuse(Vector3(r, g, b));
 			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

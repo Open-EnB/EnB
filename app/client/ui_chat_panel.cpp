@@ -1166,11 +1166,18 @@ bool UIChatPanelClass::Unknown_567970()
 	return(false);
 }
 
-// NOT EXACT: inline-budget (the client calls string::compare out of line in the inlined 0x5680B0 and keeps more of the string helpers out of line; 296 instructions vs 287)
+
 // 0x5679A0
 void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag)
 {
 	switch (event) {
+		case 9:
+			Unknown_5680B0(channel);
+			UnknownFC = 8;
+			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+			Unknown224 = true;
+			Unknown225 = false;
+			break;
 		case 7:
 			if (strcmp(Unknown214.c_str(), channel.c_str()) != 0) Unknown224 = false;
 			if (flag) {
@@ -1184,13 +1191,6 @@ void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, con
 				Unknown224 = false;
 				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
 			}
-			break;
-		case 9:
-			Unknown_5680B0(channel);
-			UnknownFC = 8;
-			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
-			Unknown224 = true;
-			Unknown225 = false;
 			break;
 		case 23:
 			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) Unknown224 = true;

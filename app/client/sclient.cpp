@@ -5324,20 +5324,20 @@ void SClient::Unknown_750C20(int index)
 #include "..\shared\avatar_desc.h"
 #include "assetmgr.h"
 #include "..\..\wwaudio\WWAudio.h"
-// NOT EXACT: shape (explain.py: 1 masked row; 177 instructions, the client 176): the client calls ids' insert(end, x) 0x755E60 out of line (insert(P, 1, X) inlined into it), ours inlines it and calls insert(P, 1, X); two forms (push_back, insert)
+// 0x7511A0
 // 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8)
 // through 0x74C3B0 once the table is cleared (0x74C690 inline), then the mesh renderer, the DX8 resources, the unused assets and the audio cache are flushed
 void SClient::Unknown_7511A0()
 {
 	int count = 0;
-	std::vector<unsigned> ids;	// NAME 2: what it holds
-	std::vector<AvatarDescClass *> descs;	// NAME 2: what it holds
+	std::vector<unsigned> ids;
+	std::vector<AvatarDescClass *> descs;
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
 		SClientUnknown1394Class *object = (*it).second;
 		if (object) {
 			ids.push_back((*it).first);
-			descs.push_back(new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
+			descs.insert(descs.end(), new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
 			count++;
 		}
 	}

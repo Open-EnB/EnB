@@ -373,12 +373,12 @@ void InterfaceStaticSortListClass::Remove_Interface(InterfaceClass *ui)
 
 
 
-// NOT EXACT: shape (erase(it) 0x6DD3D0 out of line in the client)
+// 0x6DB950
 void InterfaceStaticSortListClass::Interface_To_Front(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
-
-
+	int i;
+	int last;
 	InterfaceMapType::iterator imt_it = InterfaceMap.find(ui);
 	FAIL_IF(imt_it == InterfaceMap.end()) return;
 
@@ -389,8 +389,7 @@ void InterfaceStaticSortListClass::Interface_To_Front(InterfaceClass *ui)
 	G_ASSERT((*InterfaceVector.rbegin()) == FrontInterface);
 	InterfaceVector.pop_back();
 
-	int i;
-	for (i = ui_render->Index; i < (int)InterfaceVector.size() - 1; i++) {
+	for (i = ui_render->Index, last = InterfaceVector.size() - 1; i < last; i++) {
 		InterfaceVector[i] = InterfaceVector[i + 1];
 		InterfaceVector[i]->Index = i;
 	}
@@ -428,11 +427,12 @@ void InterfaceStaticSortListClass::Interface_To_Front(InterfaceClass *ui)
 
 
 
-// NOT EXACT: register (the previous interface in esi in the client)
+
+// 0x6DBC00
 InterfaceClass *InterfaceStaticSortListClass::Set_Current_Interface(InterfaceClass *ui)
 {
 	InterfaceClass *old = CurrentInterface ? CurrentInterface->Interface : NULL;
-	if (old != ui) {
+	if (old == ui) return old; {
 		CurrentInterface = NULL;
 		if (ui != NULL) {
 			InterfaceMapType::iterator imt_it = InterfaceMap.find(ui);
@@ -572,7 +572,7 @@ bool InterfaceStaticSortListClass::Add_PIP_Scene(const RefCountPtr<SimpleSceneCl
 
 
 
-// NOT EXACT: shape (3 masked rows)
+// 0x6DC380
 bool InterfaceStaticSortListClass::Remove_PIP_Scene(const RefCountPtr<SimpleSceneClass> &scene)
 {
 	PIPSceneMapType::iterator pip_it = PIPScenes.find(scene.Peek());
@@ -585,8 +585,8 @@ bool InterfaceStaticSortListClass::Remove_PIP_Scene(const RefCountPtr<SimpleScen
 	FAIL_IF(!pip_scene) return false;
 
 	RefCountPtr<InterfaceRenderClass> ui_render = pip_scene->Owner;
-	PIPPolyBudget -= pip_scene->PolyBudget;
-
+	float poly_budget = pip_scene->PolyBudget;
+	PIPPolyBudget -= poly_budget;
 
 
 
@@ -617,7 +617,7 @@ bool InterfaceStaticSortListClass::Remove_PIP_Scene(const RefCountPtr<SimpleScen
 
 
 
-// NOT EXACT: shape (the client stores robj back before the loop)
+// 0x6DC5F0
 InterfaceClass *InterfaceStaticSortListClass::Find_Interface(RenderObjClass *robj)
 {
 	if (Unknown_BE67E0) {
@@ -627,26 +627,26 @@ InterfaceClass *InterfaceStaticSortListClass::Find_Interface(RenderObjClass *rob
 
 	FAIL_IF(!robj) return LastInterface->Interface;
 
-	RenderObjClass *container = robj->Get_Container();
+	RenderObjClass *top = robj;
+	RenderObjClass *container = top->Get_Container();
 	while (container != NULL) {
-		robj = container;
-		container = robj->Get_Container();
+		top = container;
+		container = top->Get_Container();
 	}
 
-	if (robj != LastRenderObj) {
-		RenderObjMapType::iterator robj_it = RenderObjMap.find(robj);
-		if (robj_it != RenderObjMap.end()) {
-			LastRenderObj = robj;
-			LastInterface = (*robj_it).second;
-			return LastInterface->Interface;
-		}
-
-
-		G_ASSERT(false);
-		LastInterface = FrontInterface;
+	if (top == LastRenderObj) return LastInterface->Interface;
+	RenderObjClass * const &key = top;
+	RenderObjMapType::iterator robj_it = RenderObjMap.find(key);
+	if (robj_it != RenderObjMap.end()) {
+		LastRenderObj = top;
+		LastInterface = (*robj_it).second;
+		return LastInterface->Interface;
 	}
+	G_ASSERT(false);
+	LastInterface = FrontInterface;
 	return LastInterface->Interface;
 }
+
 
 
 void PIPSceneStruct::Render(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera)
@@ -680,7 +680,7 @@ void InterfaceRenderClass::Add_To_List(RenderObjClass *robj, unsigned int sort_l
 	DefaultStaticSortListClass::Add_To_List(robj, sort_level);
 }
 
-// NOT EXACT: shape (the loop layout)
+// 0x6DC8F0
 void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera)
 {
 	if (PIPScenes.size() != 0) {
@@ -689,7 +689,7 @@ void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const Re
 		PIPSceneStruct *ps = *it;
 		int min_sort = ps->SortLevel;
 		for (;;) {
-			if (min_sort < max_sort) {
+			if (max_sort > min_sort) {
 				WW3D::Override_Current_Static_Sort_Lists(this);
 				Set_Max_Sort(max_sort);
 				Set_Min_Sort(min_sort);
@@ -784,17 +784,17 @@ void InterfaceRenderClass::Render(const RefCountPtr<SceneClass> &scene, const Re
 
 
 
-// NOT EXACT: inline-budget (the client keeps _Ucopy / _Ufill out of line)
+// 0x6DCAD0
 void InterfaceRenderClass::Add_PIP(PIPSceneStruct *ps)
 {
 	FAIL_IF(!ps) return;
-	std::vector<PIPSceneStruct *>::iterator it;
-	for (it = PIPScenes.begin(); it != PIPScenes.end(); ++it) {
-		if ((*it)->SortLevel <= ps->SortLevel) {
-			break;
+	for (std::vector<PIPSceneStruct *>::iterator it = PIPScenes.begin(); it != PIPScenes.end(); ++it) {
+		if (ps->SortLevel >= (*it)->SortLevel) {
+			PIPScenes.insert(it, ps);
+			return;
 		}
 	}
-	PIPScenes.insert(it, 1, ps);
+	PIPScenes.push_back(ps);
 }
 
 
