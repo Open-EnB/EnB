@@ -5011,7 +5011,8 @@
      "0x6E1390",
      "0x6E1560",
      "0x6E1730",
-     "0x6E18B0"
+     "0x6E18B0",
+     "0x6E1940"
     ],
     "merged": [],
     "name": "client/local_interface_sort.cpp"

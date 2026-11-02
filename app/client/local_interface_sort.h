@@ -37,6 +37,8 @@ public:
 	InterfaceSortClass(const RefCountPtr<RenderObjClass> &robj);		// 0x6E1730 (the interface the object was sorted into)  // NAME 1 [robj]: neutral
 	~InterfaceSortClass();									// 0x6E18B0
 
+	void Unknown_6E1940(bool front);						// 0x6E1940 (onto the front or the back list; the previous one kept)  // NAME 1 [front]: as the constructors'
+
 	InterfaceStaticSortListClass *SortList;					// +0x00 (the interface's view's scene's static sort list)  // NAME 2: the asserts' '!SortList'
 	RefCountPtr<InterfaceClass> Previous;					// +0x04 (the current interface before this scope)  // NAME 1: neutral
 };

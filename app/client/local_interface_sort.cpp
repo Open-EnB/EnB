@@ -163,6 +163,13 @@ InterfaceSortClass::~InterfaceSortClass()
 	}
 }
 
+// 0x6E1940 (exact in verify; appfile match says PREFIX: the client's size 0x160 counts the int3 padding to 0x6E1AA0)
+void InterfaceSortClass::Unknown_6E1940(bool front)
+{
+	if (front) Previous = Create_Peek(SortList->Set_Current_Front());
+	else Previous = Create_Peek(SortList->Set_Current_Back());
+}
+
 /*
 **	Reconstruction notes
 **

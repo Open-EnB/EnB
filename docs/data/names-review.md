@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1146 |
 | 2 | describes what the code does | 2880 |
-| 1 | neutral placeholder | 10278 |
+| 1 | neutral placeholder | 10281 |
 
 ## For review (score 3 and below)
 
@@ -2744,11 +2744,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_541800` | `app/client/local_interface_sort.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/local_interface_sort.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/local_interface_sort.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_6E1940` | `app/client/local_interface_sort.cpp:167` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/local_interface_sort.h:29` | neutral (D10; intrface.cpp's and fontsys_cursor.cpp's name) |
 | 1 | `sort_list, front` | `app/client/local_interface_sort.h:33` | neutral |
 | 1 | `robj` | `app/client/local_interface_sort.h:37` | neutral |
-| 1 | `Previous` | `app/client/local_interface_sort.h:41` | neutral |
-| 1 | `InterfaceSortScopeClass` | `app/client/local_interface_sort.h:46` | neutral (D10) |
+| 1 | `front` | `app/client/local_interface_sort.h:40` | as the constructors' |
+| 1 | `Unknown_6E1940` | `app/client/local_interface_sort.h:40` | untagged neutral name (D10) |
+| 1 | `Previous` | `app/client/local_interface_sort.h:43` | neutral |
+| 1 | `InterfaceSortScopeClass` | `app/client/local_interface_sort.h:48` | neutral (D10) |
 | 1 | `Unknown_C404F8` | `app/client/mainview.cpp:21` | neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown) |
 | 1 | `MainViewSceneClass` | `app/client/mainview.cpp:24` | neutral (D10) |
 | 1 | `sun, camera, color` | `app/client/mainview.cpp:27` | what Update passes |
@@ -10972,9 +10975,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ui_scene` | `app/client/local_interface_sort.h:34` | the FAIL_IF's  // NAME 1 [front]: neutral |
 | 2 | `castable_ui_scene` | `app/client/local_interface_sort.h:35` | the FAIL_IF's  // NAME 1 [front]: neutral |
 | 2 | `uiview` | `app/client/local_interface_sort.h:36` | the FAIL_IF's  // NAME 1 [front]: neutral |
-| 2 | `SortList` | `app/client/local_interface_sort.h:40` | the asserts' '!SortList' |
-| 2 | `ui` | `app/client/local_interface_sort.h:49` | InterfaceSortClass's |
-| 2 | `ui` | `app/client/local_interface_sort.h:50` | InterfaceSortClass's |
+| 2 | `SortList` | `app/client/local_interface_sort.h:42` | the asserts' '!SortList' |
+| 2 | `ui` | `app/client/local_interface_sort.h:51` | InterfaceSortClass's |
+| 2 | `ui` | `app/client/local_interface_sort.h:52` | InterfaceSortClass's |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
