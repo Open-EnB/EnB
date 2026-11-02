@@ -10,7 +10,7 @@ Coordinator Opus 5.5. Base c27a1f0c (#139 merged; `.work/imports.c27a1f0c.json`)
 Plan log: `.work/run-2026-11-01-day/plan.md` (every report, trap and decision of the run). The user's goals: weekly usage to
 ~90 % by 19:00 (79 % at 11:18, 89 % at the end); wrap up items 1-4, then start the proof-of-concept client (videos ->
 login -> character select against antprox's /REPLAY). HEAD against the base: **+789 pairs (app +787, wlib +2), 0 lost
-outright.** 22 builders (20 Opus, 2 Sonnet; 26 rounds with GAD4 and DW1 resumed), never more than 7 at once; usage ran ~4 %/h at 6-7 builders, so stop times
+outright.** 23 builders (20 Opus, 3 Sonnet; 27 rounds with GAD4 and DW1 resumed), never more than 7 at once; usage ran ~4 %/h at 6-7 builders, so stop times
 were pulled in at 12:26 and the window reopened in small steps.
 
 * **Items 1-4 (network, login, html):** P-CC2-1 landed (b36dec11: wlib takes matchbot's wdebug.cpp with E&B's revision and
