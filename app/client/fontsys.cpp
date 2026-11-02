@@ -278,7 +278,6 @@ void FontStyleClass::Unknown_6D6390()
 extern unsigned int Unknown_BFAE3C;		// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, scriptedmovie.cpp declare it so)
 extern unsigned int Unknown_BFAE40;		// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (scriptedmovie.cpp declares it so)
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
-void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect);	// 0x6CA0C0: one step of one effect (unknown_6ca0c0.h, TXT2: a FontStyleClass member in the client)
 
 // 0x6D5F40: the shader for Info.BlendType[FontIndex]; every case ends with no depth writes and an always-pass compare
 void FontStyleClass::Unknown_6D5F40(ShaderClass &shader)
@@ -437,20 +436,20 @@ void FontStyleClass::Update_Text(bool unknown)
 		}
 		for (i = 0; i < 4; i++) {
 			if (Unknown_6CD180() && Unknown2F4[2] >= 0.5f) {
-				Unknown_6CA0C0(this, Effects[3][i]);
+				Unknown_6CA0C0(Effects[3][i]);
 			}
 			if (Unknown_6CD6F0()) {
-				Unknown_6CA0C0(this, Effects[4][i]);
+				Unknown_6CA0C0(Effects[4][i]);
 			}
 			if (Unknown274[12 + i] > 0) {
-				Unknown_6CA0C0(this, Effects[5][i]);
+				Unknown_6CA0C0(Effects[5][i]);
 			}
 			if (Unknown440 == 0) {
-				Unknown_6CA0C0(this, Effects[0][i]);
+				Unknown_6CA0C0(Effects[0][i]);
 			} else if (Unknown440 == 1) {
-				Unknown_6CA0C0(this, Effects[1][i]);
+				Unknown_6CA0C0(Effects[1][i]);
 			} else if (Unknown440 == 2) {
-				Unknown_6CA0C0(this, Effects[2][i]);
+				Unknown_6CA0C0(Effects[2][i]);
 			}
 		}
 		if (Unknown4E6) {

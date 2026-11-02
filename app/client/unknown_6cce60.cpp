@@ -311,6 +311,32 @@ void FontStyleClass::Change_Text(const char *text, int unknown)
 	Unknown408 = (Unknown2F0 == "");
 }
 
+// 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
+// "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
+// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0)
+void FontStyleClass::Unknown_6CE4E0(int font_index)
+{
+	FontIndex = font_index;
+	if (FontIndex < 0) {
+		FontIndex = 0;
+	}
+	if (FontIndex > 1) {
+		FontIndex = 1;
+	}
+	StringClass text(Info.Text);
+	if (Unknown406) {
+		text += "...";
+	}
+	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
+	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+	REF_PTR_SET(Font, font->font32Ptr.Peek());
+	Reset_XSpacing(Font);
+	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
+	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
+	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Unknown4C5 = false;
+}
+
 // 0x6CE910: on while the box has the focus (Unknown44C: which of Colors the text uses); a change redraws the text.
 void FontStyleClass::Unknown_6CE910(bool on)
 {

@@ -2,7 +2,6 @@
 #ifndef UNKNOWN_6CA0C0_H
 #define UNKNOWN_6CA0C0_H
 
-class FontStyleClass;
 struct FontEffectStruct;
 
 // FontEffectStruct::EffectType: the ini words FontDatabaseClass::Get_Effect_Type 0x6C25A0 maps  // NAME 2: the client's ini words
@@ -42,12 +41,7 @@ enum FontEffectDirection
 	FONT_DIRECTION_RANDOM = 5
 };
 
-// 0x6CA0C0: one step of one effect on a text object (FontSys::Update_Text 0x6D64C0 is its only caller).
-// In the client a FontStyleClass member (__thiscall, this = the style); a free function here until fontmanager.h
-// declares it (proposal in the notes). Update_Text calls it as Unknown_6CA0C0(this, effect).  // NAME 1 [Unknown_6CA0C0]: neutral (D10)
-void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect);
-
-// 0x6D5B10: the text rectangle (+0x420) in 640 x 480 screen units; also a FontStyleClass member in the client.  // NAME 1 [Unknown_6D5B10]: neutral (D10)
-void Unknown_6D5B10(FontStyleClass *style, float &width, float &height);
+// 0x6CA0C0 (one step of one effect) and 0x6D5B10 (the text rectangle in screen units) are FontStyleClass
+// members (fontmanager.h), as the client's __thiscall calls have them.
 
 #endif
