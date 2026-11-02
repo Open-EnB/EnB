@@ -131,22 +131,65 @@ public:
 // the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;
 
-// what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0), as far as cpacket.cpp and uiview.cpp call it
+// what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0, table 0xAF1180): the message box (dialogbox.ini's
+// sections by type: Header%d lines, Option%d buttons with Key%d keys; the "HTML" type opens the settings store's browser 7).
+// Its functions: unknown_msgbox.cpp (interim placement, D137)
+class DynamicWindowClass;
+class DynamicWindowElementClass;
+class GadgetClass;
+class INIClass;
+#include "..\kernel\kernel.h"
+struct ViewUnknown34MessageStruct	// NAME 1: neutral (D10): a box queued while one is shown (0x10 bytes, 0x589140)
+{
+	ViewUnknown34MessageStruct() : Type(NULL), Text(NULL), FollowMouse(false), HideOnKey(false), Width(0) {}
+	~ViewUnknown34MessageStruct();						// 0x587570
+	char *Type;											// +0x00 (nstrdup)  // NAME 1: 0x588A70's argument
+	char *Text;											// +0x04 (nstrdup)  // NAME 1: 0x588A70's argument
+	bool FollowMouse;									// +0x08  // NAME 1: 0x588480 centres the box on the pointer
+	bool HideOnKey;										// +0x09  // NAME 1: 0x588A20 hides the box instead of keeping the key
+	int Width;											// +0x0C  // NAME 1: the text's split width (0x588DC0)
+};
 class ViewUnknown34Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
-	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470)
-	void Unknown_588A70(const char *type, int unknown1, const char *text, int flags, int unknown2, int unknown3);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, unknown1, text, flags, unknown2, unknown3]: neutral, the handlers' arguments
+	virtual ~ViewUnknown34Class();						// 0x587A10 (deleting 0x587900)
+	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470: the HTML box's browser)
+	void Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, follow_mouse, text, width, hide_on_key, flush]: what the function does with them
 	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
 	// (+0x04..+0x50: gclass.h's GClass slots)
-	virtual void Unknown_54(); virtual void Unknown_58();
-	virtual void Unknown_5C();							// +0x5C (SClient::Do_Frame: the main view's, once the lost-connection box is answered)
+	virtual void Unknown_58();							// +0x58 0x588480 (shown, when it has options)
+	virtual void Unknown_5C();							// +0x5C 0x588640 (SClient::Do_Frame: the main view's, once the lost-connection box is answered; the next queued box)
+	virtual bool Unknown_68(int key);					// +0x68 0x588A20 (an option's key: kept for 0x5890B0)  // NAME 1 [key]: InterfaceClass's
 
-	char Unknown84[0x18C - 0x84];						// +0x84
-	char Type[4];										// +0x18C the dialog's type, a string (0x74F5C0 compares it; its length not known)  // NAME 2: what 0x74F5C0 compares
-	char Unknown190[0x1F8 - 0x190];						// +0x190
+	void Unknown_587D50();								// 0x587D50 (dialogbox.ini's section Type: the headers and the options)
+	void Unknown_588340();								// 0x588340 (the options and the headers removed)
+	void Unknown_588DC0(const char *text, int width);	// 0x588DC0 (the text split into the header lines)  // NAME 1 [text, width]: 0x588A70's
+	void Unknown_589140(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key);	// 0x589140 (queued)  // NAME 1: 0x588A70's
+	const char *Unknown_589740(INIClass &ini);			// 0x589740 (the font: FontSize FONT_SMALL makes 16 lines of DIALOG_INFO_SMALL)  // NAME 1 [ini]: neutral
+	void Flush_Queue();									// (inline, unknown_msgbox.cpp)  // NAME 1 [Flush_Queue]: what it does
+
+	bool HasOptions;									// +0x84  // NAME 1: set when Option0 was found
+	bool FollowMouse;									// +0x85  // NAME 1: as the message's
+	bool HideOnKey;										// +0x86  // NAME 1: as the message's
+	LayerClass Layer;									// +0x88 (copied in the constructor)  // NAME 2: what it is
+	int OptionCount;									// +0xAC  // NAME 1: Option%d's count
+	int Button;											// +0xB0 (0x5890B0 returns and clears it)  // NAME 1: tsk_login.h's 'button'
+	DynamicWindowClass *Window;							// +0xB4 'DIALOG_BOX_WINDOW'  // NAME 1: the section's
+	DynamicWindowClass *Info;							// +0xB8 'DIALOG_BOX_INFO'  // NAME 1: the section's
+	GadgetClass *Gadget;								// +0xBC (0x6689C0 over the window)  // NAME 1: neutral
+	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontStyleClass texts)  // NAME 1: dialogbox.ini's 'Header%d'
+	DynamicWindowClass *Options[5];						// +0x100 'DIALOG_BOX_OPTION'  // NAME 1: dialogbox.ini's 'Option%d'
+	DynamicWindowElementClass *OptionTexts[5];			// +0x114 ('OPTION_INFO_%d')  // NAME 1: neutral
+	GadgetClass *OptionGadgets[5];						// +0x128 (0x6689C0 over the option; its id the option's number)  // NAME 1: neutral
+	KernelEventClass Keys[5];							// +0x13C dialogbox.ini's 'Key%d'  // NAME 1: the entries'
+	char Type[0x20];									// +0x18C the dialog's type, the section (0x74F5C0 compares it; 0x1AC the queue)  // NAME 2: what 0x74F5C0 compares
+	std::deque<ViewUnknown34MessageStruct *> Queue;		// +0x1AC  // NAME 1: what it holds
+	bool HTML;											// +0x1DC (the type "HTML")  // NAME 1: Is_HTML's
+	std::string URL;									// +0x1E0 ('about:<html>...' and the text)  // NAME 1: what 0x7CAD00 gets
+	int BrowserDelay;									// +0x1F0 (3 frames from 0x588480 to the browser's open, 0x588870)  // NAME 1: what it counts
+	int MaxLines;										// +0x1F4 (10; 16 with FONT_SMALL)  // NAME 1: the headers' count
 };
 
 // view.cpp's view (0x14 bytes; constructor 0x6B4480, destructor 0x6B45D0): UIViewClass's base, as far as uiview.cpp

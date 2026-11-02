@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's view stand-ins (D179). NOT THE CLIENT'S CODE.
 /*
-**	The views' stand-ins on the login path: the message box, the settings store, the avatar model and
+**	The views' stand-ins on the login path: the settings store, the avatar model and
 **	Create_Peek 0x497300. (The 2-D scene stand-in went when interface_scene.cpp landed in app.)
 */
 
@@ -9,19 +9,7 @@
 #include <string.h>
 #include "..\..\stubs\stub_log.h"
 
-// sclient.h's ViewUnknown34Class (constructor 0x5875C0, 0x1F8 bytes; every view's +0x34, the message box):
-// here the InterfaceClass alone, no dialog gadgets (its +0x7C Active stays false, so LoginTaskClass::Run
-// never asks it for a button)
 #include "..\..\app\client\sclient.h"
-
-// 0x5875C0
-ViewUnknown34Class::ViewUnknown34Class(UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, 0)
-{
-	STUB_CALLED("POC ViewUnknown34Class (0x5875C0, the views' message box): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	memset(Type, 0, sizeof(Type));
-	memset(Unknown190, 0, sizeof(Unknown190));
-}
 
 // tsk_game.h's Unknown_7CA2D0 (0x7CA2D0): the settings store, a function-static object (0x1B4 bytes at
 // 0xBE8890, constructor 0x7C97B0); ui_login.cpp clears its std::map at +0x60. Here zeroed, with the map
