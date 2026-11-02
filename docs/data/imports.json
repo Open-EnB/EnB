@@ -15735,6 +15735,49 @@
      "0x828A10"
     ]
    },
+   "unknown_message": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x4BBED0",
+     "0x4BC000",
+     "0x4BC130",
+     "0x4BC260",
+     "0x4BC3A0",
+     "0x4BC460",
+     "0x4BC5A0",
+     "0x4BC8F0",
+     "0x4BC9B0"
+    ],
+    "merged": [],
+    "name": "shared/unknown_message.cpp",
+    "shared": [
+     "0x444160"
+    ]
+   },
+   "unknown_message_record": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4BB8A0",
+     "0x4BB930",
+     "0x4BB9C0",
+     "0x4BBAA0"
+    ],
+    "merged": [],
+    "name": "shared/unknown_message_record.cpp"
+   },
+   "unknown_message_server": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [],
+    "merged": [],
+    "name": "shared/unknown_message_server.cpp"
+   },
    "unknown_msgbox": {
     "ambiguous": [
      "0x42A6C0",
@@ -16396,6 +16439,7 @@
    "shared/unknown_debug.h": "reconstructed",
    "shared/unknown_font_split_string.h": "reconstructed",
    "shared/unknown_login_data.h": "reconstructed",
+   "shared/unknown_message.h": "reconstructed",
    "shared/unknown_packetdata.h": "reconstructed",
    "shared/unknown_px_callbacks.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",

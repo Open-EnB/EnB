@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
-| 2 | describes what the code does | 2887 |
-| 1 | neutral placeholder | 10723 |
+| 2 | describes what the code does | 2896 |
+| 1 | neutral placeholder | 10765 |
 
 ## For review (score 3 and below)
 
@@ -10325,6 +10325,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/shared/unknown_login_data.h:58` | untagged neutral name (D10) |
 | 1 | `LoginCharacterClass` | `app/shared/unknown_login_data.h:65` | what it holds |
 | 1 | `Unknown_00` | `app/shared/unknown_login_data.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_BE55D0` | `app/shared/unknown_message.cpp:11` | neutral (D10) |
+| 1 | `Unknown4BCA80Class` | `app/shared/unknown_message.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_4BBED0` | `app/shared/unknown_message.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD10` | `app/shared/unknown_message.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC5A0` | `app/shared/unknown_message.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC000` | `app/shared/unknown_message.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `app/shared/unknown_message.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/unknown_message.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/unknown_message.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC3A0` | `app/shared/unknown_message.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC460` | `app/shared/unknown_message.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message.cpp:122` | untagged neutral name (D10) |
+| 1 | `unknown_message.h` | `app/shared/unknown_message.h:17` | neutral file name (D10): the object has no __FILE__ |
+| 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message.h:31` | after its constructor (D10) |
+| 1 | `X` | `app/shared/unknown_message.h:44` | neutral |
+| 1 | `Y` | `app/shared/unknown_message.h:45` | neutral |
+| 1 | `Unknown4BCA80Class` | `app/shared/unknown_message.h:51` | after its constructor (D10) |
+| 1 | `Unknown_4BCD10` | `app/shared/unknown_message.h:54` | neutral (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/unknown_message.h:55` | neutral (D10) |
+| 1 | `Unknown_4BCCF0` | `app/shared/unknown_message.h:56` | neutral (D10) |
+| 1 | `Unknown00` | `app/shared/unknown_message.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_message.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/shared/unknown_message.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/unknown_message.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/shared/unknown_message.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.h:66` | neutral (D10) |
+| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.h:67` | neutral (D10) |
+| 1 | `Unknown_4BBED0` | `app/shared/unknown_message.h:70` | neutral (D10) |
+| 1 | `Unknown_4BC000` | `app/shared/unknown_message.h:71` | neutral (D10) |
+| 1 | `Unknown_4BC130` | `app/shared/unknown_message.h:72` | neutral (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/unknown_message.h:73` | neutral (D10) |
+| 1 | `Unknown_4BC3A0` | `app/shared/unknown_message.h:74` | neutral (D10) |
+| 1 | `Unknown_4BC460` | `app/shared/unknown_message.h:75` | neutral (D10) |
+| 1 | `Unknown_4BC5A0` | `app/shared/unknown_message.h:77` | neutral (D10) |
+| 1 | `Unknown4BB8A0Class` | `app/shared/unknown_message_record.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown4BCA80Class` | `app/shared/unknown_message_server.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCCF0` | `app/shared/unknown_message_server.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/shared/unknown_message_server.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD10` | `app/shared/unknown_message_server.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_message_server.cpp:16` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/shared/unknown_packetdata.h:5` | untagged neutral name (D10) |
 | 1 | `unknown_packetdata.h` | `app/shared/unknown_packetdata.h:16` | neutral file name (D10) |
 | 1 | `unknown_px_callbacks.h` | `app/shared/unknown_px_callbacks.h:13` | neutral header name (D10) |
@@ -13463,6 +13505,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontSplitStringClass` | `app/shared/unknown_font_split_string.h:26` | a SplitStringClass measured with a font |
 | 2 | `Set_Font` | `app/shared/unknown_font_split_string.h:32` | what it does |
 | 2 | `Font` | `app/shared/unknown_font_split_string.h:38` | what it holds |
+| 2 | `To_String` | `app/shared/unknown_message.h:37` | what it does |
+| 2 | `From_String` | `app/shared/unknown_message.h:38` | what it does |
+| 2 | `Level` | `app/shared/unknown_message.h:40` | what it holds |
+| 2 | `Sender` | `app/shared/unknown_message.h:41` | what it holds |
+| 2 | `File` | `app/shared/unknown_message.h:42` | what it holds |
+| 2 | `Line` | `app/shared/unknown_message.h:43` | what it holds |
+| 2 | `Time` | `app/shared/unknown_message.h:46` | what it holds |
+| 2 | `Text` | `app/shared/unknown_message.h:47` | what it holds |
+| 2 | `Messages` | `app/shared/unknown_message.h:60` | what it holds |
 | 2 | `PxBoxCallback` | `app/shared/unknown_px_callbacks.h:24` | what it does |
 | 2 | `object, callback, extent` | `app/shared/unknown_px_callbacks.h:27` | what it stores |
 | 2 | `object, src` | `app/shared/unknown_px_callbacks.h:28` | as PxBox's |

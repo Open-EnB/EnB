@@ -3550,6 +3550,17 @@ RECONSTRUCTED = {
     ('wwshade', 'shd8ssbumpspec.vsh_code.h'): "shd8ssbumpspec_vsh_code, client .data 0xBCE4CC-0xBCEB7B (Shd8BumpSpecClass::Init 0xA147A0)",
     ('wwshade', 'shd8ssbumpspec.psh_code.h'): "shd8ssbumpspec_psh_code, client .data 0xBCEB7C-0xBCEBB7 (Shd8BumpSpecClass::Init 0xA147A0)",
     # E&B's own code (D23, APP_LIBS): paths under app\, as in e:\build\beta\G\app\...
+    ('app', 'shared/unknown_message.h'): "E&B's message reporters 0x4BBED0-0x4BC460 and the message server class "
+                                         "Unknown4BCA80Class (D137 provisional placement: the object 0x4BB8A0-0x4BE9D0 "
+                                         "has no __FILE__): neutral (D10)",
+    ('app', 'shared/unknown_message.cpp'): "the message reporters 0x4BBED0-0x4BC460 (levels 1-0x20, WWPROFILE labels "
+                                           "'Message_Debug'...), their common path 0x4BC5A0 and the server's accessors "
+                                           "0x4BBE90 / 0x4BBEB0 (D137 provisional)",
+    ('app', 'shared/unknown_message_record.cpp'): "the message server's record Unknown4BB8A0Class 0x4BB8A0-0x4BBAA0 (its "
+                                                  "constructor, destructor and text forms: a separate object, the reporters "
+                                                  "call them; D137 provisional)",
+    ('app', 'shared/unknown_message_server.cpp'): "the message server Unknown4BCA80Class from 0x4BCA80: 0x4BCCF0, 0x4BCD10 (a "
+                                                  "separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
