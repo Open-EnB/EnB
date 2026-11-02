@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
-| 2 | describes what the code does | 2886 |
+| 2 | describes what the code does | 2887 |
 | 1 | neutral placeholder | 10700 |
 
 ## For review (score 3 and below)
@@ -12120,6 +12120,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `KeyPair` | `app/common/tcpconn.h:84` | what it holds |
 | 2 | `TheMgr` | `app/common/udpconn.cpp:31` | what it holds |
 | 2 | `Init_Mgr` | `app/common/udpconn.cpp:34` | what it does |
+| 2 | `Find_Ptr` | `app/common/udpconn.cpp:352` | getPointer through one more inline layer (Send_Data's last lookup: inline budget) |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
