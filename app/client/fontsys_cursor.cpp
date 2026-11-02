@@ -101,8 +101,7 @@ void TextCursorClass::Unknown_685AB0(const RefCountPtr<FontStyleClass> &line, in
 	int x = (int)style->Font->Get_Text_Width(buffer, 640.0f);
 	float height = style->Font->Get_Char_Height(480.0f);
 
-	Vector3 pos;
-	line->Unknown_6D8650(pos);
+	Vector3 pos = line->Unknown_6D8650();
 	if (center) {
 		pos.X -= (float)((int)style->Font->Get_Text_Width(text, 640.0f) / 2);
 	}

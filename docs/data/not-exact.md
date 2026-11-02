@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-427 entries in 107 files.
+426 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -112,7 +112,6 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:322` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:372` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:908` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
-| `app/client/fontsys.cpp:945` | `FontStyleClass::Unknown_6D8650` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6D8650) |
 | `app/client/fonttexture.cpp:19` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:31` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:104` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |

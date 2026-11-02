@@ -397,7 +397,7 @@ void FontStyleClass::Update_Text(bool unknown)
 		if (Unknown302) {
 			at.X = Unknown464[0] + Unknown47C.X + offset[0];
 			at.Y = Unknown464[1] + Unknown47C.Y + offset[1];
-			at.Z = *(float *)&Unknown46C + Unknown47C.Z + offset[2];
+			at.Z = Unknown464.Z + Unknown47C.Z + offset[2];
 		} else {
 			Vector3 p = Get_Position();
 			at.X = p.X + Unknown47C.X + offset[0];
@@ -939,19 +939,16 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 	}
 }
 
-// 0x6D8650: the text's position: +0x464 (with +0x302 set) or the transform's, plus +0x47C and the effects' offset
-// +0x488 (floats). The client returns the Vector3 (ret 4, the pointer in eax); fontsys_cursor.cpp calls it with a
-// reference.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6D8650)
-void FontStyleClass::Unknown_6D8650(Vector3 &pos)
+// 0x6D8650: the text's position: +0x464 (with +0x302 set) or the transform's, plus +0x47C and the effects' offset +0x488
+Vector3 FontStyleClass::Unknown_6D8650()
 {
-	const float *offset = (const float *)&Unknown488;
+	Vector3 pos;
 	if (Unknown302) {
-		Vector3 at(Unknown464[0], Unknown464[1], *(float *)&Unknown46C);
-		pos = at + Unknown47C + Vector3(offset[0], offset[1], offset[2]);
+		pos = Unknown464 + Unknown47C + Unknown488;
 	} else {
-		pos = Get_Position() + Unknown47C + Vector3(offset[0], offset[1], offset[2]);
+		pos = Get_Position() + Unknown47C + Unknown488;
 	}
+	return pos;
 }
 
 // 0x6D87D0: the text (Info.Text)

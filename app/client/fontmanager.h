@@ -86,7 +86,7 @@ public:
 	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
 	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
-	void Unknown_6D8650(Vector3 &pos);										// 0x6D8650: the text's position (the transform's, or +0x464 with +0x302 set, plus +0x47C and +0x488; ret 4 with the pointer in eax: maybe a Vector3 return)  // NAME 1 [pos]: neutral (D10)
+	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
 	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
 	void Unknown_6D5F40(ShaderClass &shader);								// 0x6D5F40: the shader for Info.BlendType[FontIndex] (Update_Text)  // NAME 1 [Unknown_6D5F40]: neutral (D10)
 	bool Unknown_6D60C0();													// 0x6D60C0: the show delay (+0x26C ms); true while it lasts (Update_Text)  // NAME 1 [Unknown_6D60C0]: neutral (D10)
@@ -147,8 +147,7 @@ public:
 	float Unknown458;														// +0x458: zeroed by 0x6D5170 and Change_Text  // NAME 1: neutral (D10)
 	int LineCount;														// +0x45C: the number of lines 0x6CF930 split the text into  // NAME 2: what 0x6CF930 stores
 	int LineNumber;														// +0x460: this style's line, from 1 (0x6CF930)  // NAME 2: what 0x6CF930 stores
-	float Unknown464[2];												// +0x464: 0x6CD180's x / y with +0x302 set, added to +0x47C / +0x480  // NAME 1: neutral (D10)
-	int Unknown46C;														// +0x46C  // NAME 1: neutral (D10)
+	Vector3 Unknown464;													// +0x464: 0x6CD180's x / y with +0x302 set, added to +0x47C (0x6D8650)  // NAME 1: neutral (D10)
 	Vector3 Unknown470;													// +0x470: a copy of +0x47C (0x6D5170, 0x6CF930); Change_Text puts its x back  // NAME 1: neutral (D10)
 	Vector3 Unknown47C;													// +0x47C: Info's +0x34 / +0x38 times 640 / 480 (0x6D5170, 0x6CDAB0), y moved per line by 0x6CF930  // NAME 1: neutral (D10)
 	Vector3 Unknown488;													// +0x488: the effects' offset added to the position (SHAKE; 0x6D8650); zeroed by 0x6D5170  // NAME 1: neutral (D10)
