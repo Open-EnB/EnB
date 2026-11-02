@@ -180,7 +180,7 @@ void Unknown_458250()								// NAME 1 [Unknown_458250]: as main_client.cpp
 }
 
 // 0x4582C0
-void RenderStateClass::Unknown_24(int a, int b)
+void RenderStateClass::Unknown_24(void *value, bool recursive)
 {
 }
 
@@ -196,7 +196,7 @@ void RenderStateClass::Unknown_1C(RsTrackClass *owner)
 }
 
 // 0x458350
-void RenderStateClass::Unknown_30(int a, int b)
+void RenderStateClass::Unknown_30(RsTrackClass *owner, float seconds)
 {
 }
 
@@ -283,7 +283,7 @@ void RenderStateClass::Unknown_458460(int flag)
 }
 
 // 0x4584B0
-void RenderStateClass::Unknown_4584B0(RsTrackClass *owner, int arg, RenderStateClass *next)
+void RenderStateClass::Unknown_4584B0(RsTrackClass *owner, float seconds, RenderStateClass *next)
 {
 	if (Flags & 0x6C) {
 		Flags |= 0x80;
@@ -297,7 +297,7 @@ void RenderStateClass::Unknown_4584B0(RsTrackClass *owner, int arg, RenderStateC
 	if (Flags & 0x28) {
 		Flags &= ~0x20;
 		if (next != NULL) {
-			next->Unknown_34(arg);
+			next->Unknown_34(seconds);
 			owner->Unknown_460440(next, 50);
 		}
 	}

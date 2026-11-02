@@ -17,8 +17,8 @@
 #include "..\..\wwlib\nstrdup.h"
 
 // 0x458710 (deleting destructor 0x4587E0)
-Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int a, int b, const char *bone_path, int arg) :
-	Unknown45E850Class(list, id, link_id, flags, name, a, b),
+Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg) :
+	Unknown45E850Class(list, id, link_id, flags, name, next_id, duration),
 	Unknown48(arg)
 {
 	if (bone_path != NULL && *bone_path != 0) {
@@ -41,8 +41,8 @@ Unknown458710Class::Unknown458710Class(RenderStateListClass *list, const Unknown
 }
 
 // 0x4588A0
-Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int a, int b, const char *bone_path, int arg) :
-	Unknown45E850Class(list, id, link_id, flags, robj, a, b),
+Unknown458710Class::Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg) :
+	Unknown45E850Class(list, id, link_id, flags, robj, next_id, duration),
 	Unknown48(arg)
 {
 	if (bone_path != NULL && *bone_path != 0) {

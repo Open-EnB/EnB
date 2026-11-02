@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-422 entries in 109 files.
+424 entries in 110 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -391,6 +391,8 @@ edit the comments in the code, not this file.
 | `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
+| `app/shared/rs_robj.cpp:246` | `Unknown45E850Class::Unknown_30` | marker | NOT EXACT: register (explain.py), 0.71: the inlined Get_Next_Render_State's NextID / List loads and the call's pushes take other registers (5 forms) 0x45ECD0: the time, and on to the next state when it is up |
+| `app/shared/rs_robj.cpp:346` | `Unknown45E850Class::Unknown_10` | marker | NOT EXACT: register (explain.py), 0.79: List goes to ecx, the client's to eax before Source to ecx (5 forms) 0x45EF80: loads the model (the source list's state's, or by name, loading its file when needed) |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |

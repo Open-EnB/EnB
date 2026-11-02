@@ -3788,6 +3788,12 @@ RECONSTRUCTED = {
     ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
                                    "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
                                    "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
+    ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
+                                 "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
+                                 "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "
+                                 "0x45E880 / 0x45E9F0, clone 0x45EB70, destructor 0x45EC00, 0x45ED70 and the virtuals "
+                                 "0x45EC90 / 0x45ECD0 / 0x45EDC0 / 0x45EE50 / 0x45EED0 / 0x45EF10 / 0x45EF80 / 0x45F280; exact "
+                                 "but 0x45ECD0 / 0x45EF80 (NOT EXACT, register)",
     ('app', 'shared/unknown_458710.cpp'): "the render-object state on a bone path Unknown458710Class, client 0x458710-0x458BFA "
                                         "(PROVISIONAL file name D10, interim placement D137: no __FILE__, the object after "
                                         "rs.cpp's, its calls into rs.cpp not inlined; builder DISP, run PR #144): constructors "

@@ -12711,6 +12711,33 @@
      "0x457FA0"
     ]
    },
+   "rs_robj": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45E550",
+     "0x45E5F0",
+     "0x45E850",
+     "0x45E880",
+     "0x45E9F0",
+     "0x45EB70",
+     "0x45EC00",
+     "0x45EC90",
+     "0x45ED70",
+     "0x45EDC0",
+     "0x45EE50",
+     "0x45EED0",
+     "0x45EF10",
+     "0x45F280"
+    ],
+    "merged": [],
+    "name": "shared/rs_robj.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "rs_track": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -15419,8 +15446,10 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x458710",
      "0x4587E0",
      "0x458810",
+     "0x4588A0",
      "0x458970",
      "0x458A60",
      "0x458AE0",
