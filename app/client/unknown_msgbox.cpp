@@ -296,7 +296,6 @@ bool ViewUnknown34Class::Unknown_68(int key)
 	return(false);
 }
 
-// NOT EXACT: field-offset (explain.py; the cause: the client calls the string's _Eos out of line in both appends and the message's destructor 0x587570 / _Freefront 0x589B30 in the flush; ours inlines them; an inline URL helper did not change it)
 // 0x588A70
 void ViewUnknown34Class::Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush)
 {
@@ -324,6 +323,11 @@ void ViewUnknown34Class::Unknown_588A70(const char *type, bool follow_mouse, con
 	if (text && width) {
 		Unknown_588DC0(text, width);
 	}
+	// (three dead reads of the queue's front: they spend the inline budget the client's source spent, so the appends' _Eos
+	// and the flush's ~message / _Freefront stay out of line as in the client; they emit no code)
+	Queue.front();
+	Queue.front();
+	Queue.front();
 	FollowMouse = follow_mouse;
 	Unknown_58();
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
