@@ -314,11 +314,24 @@ def lib_of(path):
     return top if top in APP_LIBS else os.path.basename(os.path.dirname(full)).lower()
 
 
+# Files compiled with other flags than their library's (P-B2, D84: "not added until a library really
+# mixes /GX and none"). wwlib's rawfile.cpp: every RawFileClass function is in the app range
+# (0x683BE0-0x684DD0, none in wwlib's 0x9C7000-0x9E9300) and its constructors / destructor have EH
+# frames (handlers 0xABF368, 0xABF393): E&B compiled it with the app's /GX.
+FILE_FLAGS = {('wwlib', 'rawfile.cpp'): vc6.DEFAULT_FLAGS + ' /GX'}
+
+
+def flags_of(path):
+    """One file's compile flags: FILE_FLAGS, else its library's."""
+    lib = lib_of(path)
+    return FILE_FLAGS.get((lib, os.path.basename(path).lower()), LIB_FLAGS.get(lib, vc6.DEFAULT_FLAGS))
+
+
 def flags_for(paths):
-    """The compile flags of the library the files belong to (all from one library)."""
+    """The compile flags of the files (all with the same flags)."""
     libs = {lib_of(p) for p in paths}
-    flags = {LIB_FLAGS.get(l, vc6.DEFAULT_FLAGS) for l in libs}
-    assert len(flags) == 1, f'files of libraries with different flags in one compile: {sorted(libs)}'
+    flags = {flags_of(p) for p in paths}
+    assert len(flags) == 1, f'files with different flags in one compile: {sorted(libs)}'
     return flags.pop()
 
 # Local changes to imported files. Each keeps the file's line count, so __LINE__ values (which
@@ -5104,7 +5117,13 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
                                        flags=flags_for(paths), extra_sync=[d for d, _, _ in os.walk(root)] + late_sync(),
                                        source_alias=(REPO, app['file_root']))
     else:
-        rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths), extra_sync=late_sync())
+        groups = collections.defaultdict(list)
+        for p in paths:
+            groups[flags_of(p)].append(p)
+        rc, text = 0, ''
+        for fl, ps in groups.items():
+            r, t = vc6.compile_sources(ps, tree_includes(), out=out, flags=fl, extra_sync=late_sync())
+            rc, text = rc or r, text + t
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
     for r in match_objects(image(), objs, app and app['region'], callers=True) if objs else []:
