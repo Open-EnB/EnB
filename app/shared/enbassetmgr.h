@@ -5,20 +5,20 @@
 
 #include "assetmgr.h"
 
-// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings, table 0xAEA5C8; the tree's files call it
-// UnknownBDADC0Class until the rename P-MC-3: kernel.cpp's own declaration of Unknown_BDADC0 carries the old name in
-// the variable's mangled name). Its own slots: +0x10 Release_Unused_Assets 0x48F2C0, +0x14 Create_Render_Obj 0x48B0F0,
-// +0x38 0x48F1A0 (Release_Unused_Textures' slot; not written: it needs 0x48ECA0), +0x78 0x48B220.
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
+// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings, table 0xAEA5C8; renamed from the
+// stand-in UnknownBDADC0Class in P-MC-3, together with kernel.cpp's own declaration of Unknown_BDADC0, whose
+// mangled name carries the class name). Its own slots: +0x10 Release_Unused_Assets 0x48F2C0, +0x14 Create_Render_Obj 0x48B0F0,
+// +0x38 Release_Unused_Textures 0x48F1A0, +0x78 0x48B220.
+class ENBAssetManager : public WW3DAssetManager	// NAME 5: the client's profile string 'ENBAssetManager::Create_Render_Obj'
 {
 public:
-	UnknownBDADC0Class();
-	virtual ~UnknownBDADC0Class();
+	ENBAssetManager();
+	virtual ~ENBAssetManager();
 
 	virtual void Release_Unused_Assets(void);									// +0x10
 	virtual RenderObjClass *Create_Render_Obj(const char *name);				// +0x14
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78 (also 'ENBAssetManager::Create_Render_Obj' in its profile string)  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
 };
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 
 #endif

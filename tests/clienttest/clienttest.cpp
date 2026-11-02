@@ -342,13 +342,13 @@ UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int)
 // state handlers call RsTrackClass; the client's rs_track models come from an RSLID section, whose RsTrackClass
 // constructor 0x45FFB0 isn't rebuilt).
 #include "assetmgr.h"
-class UnknownBDADC0Class : public WW3DAssetManager	// as co.cpp declares it
+class ENBAssetManager : public WW3DAssetManager	// as co.cpp declares it
 {
 public:
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78
 };
-RenderObjClass *UnknownBDADC0Class::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
-UnknownBDADC0Class *Unknown_BDADC0 = 0;	// 0xBDADC0 (main sets it)
+RenderObjClass *ENBAssetManager::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
+ENBAssetManager *Unknown_BDADC0 = 0;	// 0xBDADC0 (main sets it)
 
 static int Models_Made = 0;
 static int Models_Alive = 0;
@@ -409,7 +409,7 @@ static FakeModelClass *Fake_Model_Of(ClientObjectClass *object)	// (only CREATE'
 	return(object ? (FakeModelClass *)object->Model : 0);
 }
 
-class FakeAssetManagerClass : public UnknownBDADC0Class
+class FakeAssetManagerClass : public ENBAssetManager
 {
 public:
 	FakeAssetManagerClass() : Loads(0) {}

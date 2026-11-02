@@ -16,7 +16,7 @@
 #include "wwmath.h"
 #include <stdlib.h>
 #include <string.h>
-// E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
+// E&B's asset manager at 0xBDADC0 (ENBAssetManager): the asserts name it AssetManager
 #include "..\shared\enbassetmgr.h"
 
 

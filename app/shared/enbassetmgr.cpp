@@ -13,12 +13,12 @@ void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a 
 void Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (not rebuilt)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
 
 // @0x48B070
-UnknownBDADC0Class::UnknownBDADC0Class()
+ENBAssetManager::ENBAssetManager()
 {
 }
 
 // @0x48B0D0
-UnknownBDADC0Class::~UnknownBDADC0Class()
+ENBAssetManager::~ENBAssetManager()
 {
 }
 
@@ -36,7 +36,7 @@ static inline RenderObjClass *Post_Process(RenderObjClass *robj)	// NAME 3 [Post
 }
 
 // @0x48B0F0
-RenderObjClass *UnknownBDADC0Class::Create_Render_Obj(const char *name)
+RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
 {
 	WWPROFILE("ENBAssetManager::Create_Render_Obj()");
 	RenderObjClass *robj = WW3DAssetManager::Create_Render_Obj(name);
@@ -49,7 +49,7 @@ RenderObjClass *UnknownBDADC0Class::Create_Render_Obj(const char *name)
 }
 
 // @0x48F2C0
-void UnknownBDADC0Class::Release_Unused_Assets(void)
+void ENBAssetManager::Release_Unused_Assets(void)
 {
 	int count = Prototypes.Count();
 	while (count-- > 0) {

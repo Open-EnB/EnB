@@ -412,7 +412,7 @@ bool Unknown45E850Class::Unknown_10()
 // 0x45F280: the model made again at a scale and HSV shift
 void Unknown45E850Class::Unknown_40(float scale, float *hsv)
 {
-	RenderObjClass *newrobj = ((UnknownBDADC0Class *)WW3DAssetManager::Get_Instance())->Unknown_78(RenderObjName, scale, hsv);
+	RenderObjClass *newrobj = ((ENBAssetManager *)WW3DAssetManager::Get_Instance())->Unknown_78(RenderObjName, scale, hsv);
 	FAIL_IF(!newrobj) {
 		newrobj = new Null3DObjClass("NULL");
 	}

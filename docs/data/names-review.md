@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1162 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11034 |
+| 1 | neutral placeholder | 11027 |
 
 ## For review (score 3 and below)
 
@@ -8623,7 +8623,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Get_Ticks` | `app/kernel/kernel.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `app/kernel/kernel.cpp:21` | the input queue's next event (input.cpp) |
 | 1 | `Unknown_42E8A0` | `app/kernel/kernel.cpp:22` | hands the event on (input.cpp) |
-| 1 | `UnknownBDADC0Class` | `app/kernel/kernel.cpp:89` | the object at *0xBDADC0 (its flag +0x4074) |
 | 1 | `Unknown0000` | `app/kernel/kernel.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown4074` | `app/kernel/kernel.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC0` | `app/kernel/kernel.cpp:95` | 0xBDADC0 |
@@ -8755,7 +8754,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `enable_exceptions` | `app/main/main_client.cpp:405` | the value's name, inverted |
 | 1 | `file_factory` | `app/main/main_client.cpp:426` | what it is |
 | 1 | `Unknown_BDADC0` | `app/main/main_client.cpp:436` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `app/main/main_client.cpp:436` | untagged neutral name (D10) |
 | 1 | `test_path` | `app/main/main_client.cpp:464` | its text |
 | 1 | `message_server` | `app/main/main_client.cpp:471` | its step text |
 | 1 | `wsa_data` | `app/main/main_client.cpp:486` | its type |
@@ -10277,7 +10275,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/shared/rs_robj.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_4583C0` | `app/shared/rs_robj.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/rs_robj.cpp:413` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `app/shared/rs_robj.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/shared/rs_robj.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
@@ -10861,7 +10858,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownRootClass` | `tests/clienttest/clienttest.cpp:323` | untagged neutral name (D10) |
 | 1 | `UnknownCOClass` | `tests/clienttest/clienttest.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Aux_Root` | `tests/clienttest/clienttest.cpp:323` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/clienttest/clienttest.cpp:345` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `tests/clienttest/clienttest.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC0` | `tests/clienttest/clienttest.cpp:351` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `tests/clienttest/clienttest.cpp:579` | untagged neutral name (D10) |
@@ -10972,7 +10968,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_42E8A0` | `tests/kerneltest/kerneltest.cpp:34` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/kerneltest/kerneltest.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown0000` | `tests/kerneltest/kerneltest.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown4074` | `tests/kerneltest/kerneltest.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC0` | `tests/kerneltest/kerneltest.cpp:46` | untagged neutral name (D10) |
@@ -11009,7 +11004,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_9179D0` | `tests/movietest/movietest.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/movietest/movietest.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_42E8A0` | `tests/movietest/movietest.cpp:61` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/movietest/movietest.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown0000` | `tests/movietest/movietest.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown4074` | `tests/movietest/movietest.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC0` | `tests/movietest/movietest.cpp:69` | untagged neutral name (D10) |
@@ -11028,7 +11022,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_9179D0` | `tests/udpreplay/conn_replay.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/udpreplay/conn_replay.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_42E8A0` | `tests/udpreplay/conn_replay.cpp:65` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `tests/udpreplay/conn_replay.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown0000` | `tests/udpreplay/conn_replay.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown4074` | `tests/udpreplay/conn_replay.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC0` | `tests/udpreplay/conn_replay.cpp:73` | untagged neutral name (D10) |

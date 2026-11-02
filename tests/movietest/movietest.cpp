@@ -59,14 +59,14 @@ unsigned int Unknown_Get_Ticks() { return timeGetTime() - Ticks_Start; }	// the 
 int Unknown_9179D0() { return 0; }											// WW3D's device check: fine
 bool Unknown_42EA80(KernelEventClass *) { return false; }					// no input events
 void Unknown_42E8A0(KernelEventClass *) {}
-class UnknownBDADC0Class
+class ENBAssetManager
 {
 public:
 	char Unknown0000[0x4074];
 	bool Unknown4074;
 };
-static UnknownBDADC0Class BDADC0;
-UnknownBDADC0Class *Unknown_BDADC0 = &BDADC0;
+static ENBAssetManager BDADC0;
+ENBAssetManager *Unknown_BDADC0 = &BDADC0;
 class UnknownBFAEE0Class
 {
 public:

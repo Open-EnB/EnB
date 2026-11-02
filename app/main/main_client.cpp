@@ -87,7 +87,7 @@ extern bool Unknown_BFAE50;							// NAME 1 [Unknown_BFAE50]: neutral (D10)
 extern bool Unknown_BFAE51;							// NAME 1 [Unknown_BFAE51]: neutral (D10)
 extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
 
-// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings; the tree's files call it UnknownBDADC0Class)
+// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings)
 #include "..\shared\enbassetmgr.h"
 
 
@@ -433,7 +433,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_Printf("Build: %s %s %s\n", Unknown_445610(), Unknown_445590(), Unknown_445560());
 
 	Unknown_Debug_Begin_Step("initializing the asset manager");
-	Unknown_BDADC0 = new UnknownBDADC0Class;
+	Unknown_BDADC0 = new ENBAssetManager;
 	if (Unknown_BDADC0 == NULL) {
 		MessageBox(MainWindow, "Unable to initialize the asset manager", "WW3D Error", MB_OK);
 		exit(0);
