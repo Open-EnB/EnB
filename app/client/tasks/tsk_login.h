@@ -100,8 +100,9 @@ class LoginUnknown18Class	// NAME 1: neutral (D10): what LoginTaskClass +0x18 po
 public:
 	LoginUnknown18Class(int unknown);					// 0x514FE0 (0x30 bytes)
 	~LoginUnknown18Class();								// 0x515030
-	RenderObjClass *Unknown_515080();					// 0x515080: a Bitmap2DObjClass of the cursor's texture
+	RenderObjClass *Unknown_515080(int cursor);			// 0x515080: a Bitmap2DObjClass of the cursor's texture (0x515120 passes the cursor; ret 4, unread: +0x0C is)  // NAME 1 [cursor]: what 0x515120 passes
 	int Unknown_515120(int cursor);						// 0x515120 (the constructor passes 1): the cursor set, the old one returned  // NAME 1 [cursor]: an index into mousetbl.cpp's table 0xBE7C70
+	int Unknown_515320();								// 0x515320: the cursor (+0x0C)
 	void *Unknown_515340(void *scene);					// 0x515340: the scene set, the old one returned  // NAME 1 [scene]: what the callers pass (the view's slot +0x3C)
 	void Unknown_5153B0();								// 0x5153B0: hidden
 	void Unknown_515400();								// 0x515400: shown again

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-427 entries in 107 files.
+421 entries in 106 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -172,12 +172,6 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
-| `app/client/smouse.cpp:40` | `LoginUnknown18Class::LoginUnknown18Class` | marker | NOT EXACT: register-only (VC6 schedules the stores in another order) |
-| `app/client/smouse.cpp:57` | `LoginUnknown18Class::~LoginUnknown18Class` | marker | NOT EXACT: shape (3 rows; mostly registers) |
-| `app/client/smouse.cpp:69` | `LoginUnknown18Class::Unknown_515080` | marker | NOT EXACT: shape (2 rows: the EH frame around the new) |
-| `app/client/smouse.cpp:75` | `LoginUnknown18Class::Unknown_515120` | marker | NOT EXACT: shape (1 row) |
-| `app/client/smouse.cpp:117` | `LoginUnknown18Class::Unknown_5153B0` | marker | NOT EXACT: shape (3 rows; mostly registers) |
-| `app/client/smouse.cpp:291` | `LoginUnknown18Class::Unknown_5155A0` | mention | NOT EXACT (D64, functional for the POC): 0x514FE0, 0x515030, 0x515080, 0x515120, 0x5153B0. Unbuilt: the views' defaults before 0x514FE0 and the interface defaults 0x515690-0x515750. ACT (run 2026-11-02). |
 | `app/client/tasks/settings_store.cpp:8` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
 | `app/client/tasks/settings_store.cpp:68` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
 | `app/client/tasks/settings_store.cpp:108` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | mention | NOT EXACT (D64, functional for the POC): 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated). ACT (run 2026-11-02). |
