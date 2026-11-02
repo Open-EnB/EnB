@@ -2731,16 +2731,22 @@
     ]
    },
    "ctrngadg": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42F250",
      "0x50A850",
      "0x50AAE0",
      "0x50AB30"
     ],
     "merged": [],
-    "name": "client/ctrngadg.cpp"
+    "name": "client/ctrngadg.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "dbgconn": {
     "ambiguous": [

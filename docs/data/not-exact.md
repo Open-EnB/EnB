@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-420 entries in 108 files.
+422 entries in 109 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -53,6 +53,8 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2314` | `StarbaseAvatarUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0) 0x73A9F0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
+| `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
+| `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |

@@ -3568,7 +3568,7 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
-    ('app', 'client/ctrngadg.cpp'): "the cockpit's full-screen camera gadget (its assert names e:\\build\\beta\\G\\app\\client\\ctrngadg.cpp, 0xB76294): constructor 0x50A850, the table 0xAECDE4's deleting destructor 0x50AAE0 / destructor 0x50AB10, the hit test 0x50AB30 and the event slot 0x50ABC0; GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in its object",
+    ('app', 'client/ctrngadg.cpp'): "the cockpit's full-screen camera gadget (its assert names e:\\build\\beta\\G\\app\\client\\ctrngadg.cpp, 0xB76294): constructor 0x50A850, the table 0xAECDE4's deleting destructor 0x50AAE0 / destructor 0x50AB10, the hit test 0x50AB30 and the event slot 0x50ABC0 (NOT EXACT), its value holder's destructor 0x50B2C0 and the static initialisers 0x50B2E0-0x50B340; GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in its object",
     ('app', 'client/ctrngadg.h'): "CtrnGadgetClass (D24 class-from-file), an InterfaceDeactivationGadgetClass of 0x50 bytes (the constructor 0x50A850's stores); a header name assumed from ctrngadg.cpp, NAME 3",
     ('app', 'dbgmgr/dbgmgr.cpp'): "E&B's debug log (its asserts name e:\\build\\beta\\G\\app\\dbgmgr\\dbgmgr.cpp): "
                                  "WWDebug's handler 0x509C10, the output 0x509C40, the print forms 0x509D50-0x509E30, "

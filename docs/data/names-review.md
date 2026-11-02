@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1158 |
+| 3 | by convention from a client-named file or sibling | 1160 |
 | 2 | describes what the code does | 2907 |
-| 1 | neutral placeholder | 10958 |
+| 1 | neutral placeholder | 10994 |
 
 ## For review (score 3 and below)
 
@@ -1482,12 +1482,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_551C40` | `app/client/cpacket.cpp:3439` | untagged neutral name (D10) |
 | 1 | `Unknown_6437A0` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
-| 1 | `button, arg` | `app/client/ctrngadg.cpp:5` | neutral |
-| 1 | `Unknown_42EC60` | `app/client/ctrngadg.cpp:5` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ctrngadg.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/ctrngadg.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ctrngadg.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ctrngadg.cpp:18` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/ctrngadg.cpp:11` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/ctrngadg.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/client/ctrngadg.cpp:12` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ctrngadg.cpp:13` | input.h's |
+| 1 | `Unknown_42ED20` | `app/client/ctrngadg.cpp:13` | untagged neutral name (D10) |
+| 1 | `yaw` | `app/client/ctrngadg.cpp:19` | what the gadget passes |
+| 1 | `Unknown_53CA00` | `app/client/ctrngadg.cpp:19` | untagged neutral name (D10) |
+| 1 | `pitch` | `app/client/ctrngadg.cpp:20` | what the gadget passes |
+| 1 | `Unknown_53C980` | `app/client/ctrngadg.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ctrngadg.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ctrngadg.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ctrngadg.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ctrngadg.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/ctrngadg.cpp:26` | untagged neutral name (D10) |
+| 1 | `yaw` | `app/client/ctrngadg.cpp:33` | neutral |
+| 1 | `Unknown_79B370` | `app/client/ctrngadg.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_79B390` | `app/client/ctrngadg.cpp:34` | untagged neutral name (D10) |
+| 1 | `zoom` | `app/client/ctrngadg.cpp:35` | neutral |
+| 1 | `Unknown_79B3B0` | `app/client/ctrngadg.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_79B3D0` | `app/client/ctrngadg.cpp:36` | untagged neutral name (D10) |
+| 1 | `pitch` | `app/client/ctrngadg.cpp:37` | neutral |
+| 1 | `Unknown_79B3F0` | `app/client/ctrngadg.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_79B410` | `app/client/ctrngadg.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ctrngadg.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ctrngadg.cpp:44` | neutral (D10) |
+| 1 | `CtrnValueHolderClass` | `app/client/ctrngadg.cpp:47` | neutral (D10) |
+| 1 | `value, temp` | `app/client/ctrngadg.cpp:50` | neutral |
+| 1 | `Unknown44` | `app/client/ctrngadg.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ctrngadg.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ctrngadg.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ctrngadg.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ctrngadg.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_74B5E0` | `app/client/ctrngadg.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ctrngadg.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown12B0` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown12B4` | `app/client/ctrngadg.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ctrngadg.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown1274` | `app/client/ctrngadg.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ctrngadg.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/ctrngadg.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ctrngadg.cpp:213` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ctrngadg.h:7` | untagged neutral name (D10) |
 | 1 | `x, y, width, height, client` | `app/client/ctrngadg.h:28` | what the cockpit passes (0, 0, 640, 480) |
 | 1 | `event, x, y, mask` | `app/client/ctrngadg.h:29` | GadgetClass's |
@@ -13949,6 +13985,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIChatPanelClass` | `app/client/cpacket.cpp:2458` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
 | 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
+| 3 | `BridgeInterfaceClass` | `app/client/ctrngadg.cpp:16` | class-from-file (D24) for bridge_int.cpp |
+| 3 | `CameraManagerClass` | `app/client/ctrngadg.cpp:30` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
