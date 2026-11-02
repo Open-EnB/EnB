@@ -14,6 +14,8 @@
 #include "mesh.h"
 #include "meshmdl.h"
 #include "coltype.h"
+#include "matinfo.h"
+#include "vertmaterial.h"
 
 void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a model (recursive)  // NAME 1 [Unknown_48E9D0, robj]: neutral (D10)
 bool Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (recursive)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
@@ -69,6 +71,68 @@ void ENBAssetManager::Release_Unused_Assets(void)
 	HAnimManager.Free_All_Anims();
 	HTreeManager.Free_All_Trees();
 	WW3DAssetManager::Release_Unused_Assets();
+}
+
+// @0x48BCF0
+void ENBAssetManager::Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors)	// NAME 1 [Unknown_48BCF0, geometry, colors]: neutral (D10), what each flag makes unique
+{
+	mesh->Make_Unique();
+	MeshModelClass *model = mesh->Get_Model();
+	if (colors) {
+		MaterialInfoClass *matinfo = mesh->Get_Material_Info();
+		for (int i = 0; i < matinfo->Vertex_Material_Count(); ++i) {
+			matinfo->Peek_Vertex_Material(i)->Make_Unique();
+		}
+		REF_PTR_RELEASE(matinfo);
+		model->Make_Color_Array_Unique(0);
+		model->Make_Color_Array_Unique(1);
+	}
+	if (geometry) {
+		model->Make_Geometry_Unique();
+	}
+	REF_PTR_RELEASE(model);
+}
+
+// @0x48BDC0
+void ENBAssetManager::Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool colors)	// NAME 1 [Unknown_48BDC0]: neutral (D10)
+{
+	int count = robj->Get_Num_Sub_Objects();
+	for (int i = 0; i < count; ++i) {
+		RenderObjClass *sub = robj->Get_Sub_Object(i);
+		switch (sub->Class_ID()) {
+			case RenderObjClass::CLASSID_MESH:
+				Unknown_48BCF0((MeshClass *)sub, geometry, colors);
+				break;
+			case RenderObjClass::CLASSID_HLOD:
+				Unknown_48BDC0(sub, geometry, colors);
+				break;
+		}
+		if (sub != NULL) {
+			sub->Release_Ref();
+		}
+	}
+}
+
+// @0x48BE60
+void ENBAssetManager::Unknown_48BE60(RenderObjClass *robj, bool geometry, bool colors)	// NAME 1 [Unknown_48BE60]: neutral (D10)
+{
+	switch (robj->Class_ID()) {
+		case RenderObjClass::CLASSID_MESH:
+			Unknown_48BCF0((MeshClass *)robj, geometry, colors);
+			break;
+		case RenderObjClass::CLASSID_HLOD:
+		{
+			int count = robj->Get_Num_Sub_Objects();
+			for (int i = 0; i < count; ++i) {
+				RenderObjClass *sub = robj->Get_Sub_Object(i);
+				Unknown_48BE60(sub, geometry, colors);
+				if (sub != NULL) {
+					sub->Release_Ref();
+				}
+			}
+			break;
+		}
+	}
 }
 
 // @0x48E620
@@ -200,6 +264,8 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	0x48E9D0 builds a culling tree for each mesh over 30 polygons (not skins) and gives the opaque meshes without physical or
 **	projectile collision COLLISION_TYPE_3, recursing into sub-objects; 0x48E620 returns true for a mesh with a 'plt_at' /
 **	'plt3505' / 'plt9601' / 'plt9703' texture and removes such meshes from their containers (only without hardware T&L). The
-**	single return(found) is what keeps found in memory for the container path. Not written: +0x78 0x48B220 (0x590 bytes; its HSV helpers 0x48D1F0 .. 0x48E0F0,
-**	0x48BCF0, 0x48BE60 and the prototype class at table 0xAEA5A0 are not rebuilt).
+**	single return(found) is what keeps found in memory for the container path. Not written: +0x78 0x48B220 (0x590 bytes; its HSV helpers 0x48D1F0 .. 0x48E0F0
+**	and the prototype class at table 0xAEA5A0 are not rebuilt). Its helpers 0x48BCF0 / 0x48BDC0 / 0x48BE60 are: make a mesh's
+**	geometry and / or colours (vertex materials, both colour arrays) unique, for a mesh or recursively for an HLOD's meshes;
+**	a switch on Class_ID is what puts the HLOD test first.
 */

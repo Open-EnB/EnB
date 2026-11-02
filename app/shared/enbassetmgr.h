@@ -5,6 +5,8 @@
 
 #include "assetmgr.h"
 
+class MeshClass;
+
 // E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings, table 0xAEA5C8; renamed from the
 // stand-in UnknownBDADC0Class in P-MC-3, together with kernel.cpp's own declaration of Unknown_BDADC0, whose
 // mangled name carries the class name). Its own slots: +0x10 Release_Unused_Assets 0x48F2C0, +0x14 Create_Render_Obj 0x48B0F0,
@@ -19,6 +21,9 @@ public:
 	virtual RenderObjClass *Create_Render_Obj(const char *name);				// +0x14
 	virtual void Release_Unused_Textures(void);									// +0x38
 
+	void Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors);	// NAME 1 [Unknown_48BCF0, geometry, colors]: neutral (D10), what each flag makes unique
+	void Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BDC0]: neutral (D10)
+	void Unknown_48BE60(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BE60]: neutral (D10)
 	void Unknown_48ECA0(TextureClass **textures, unsigned count);	// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78 (also 'ENBAssetManager::Create_Render_Obj' in its profile string)  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
 };
