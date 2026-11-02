@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 45 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1146 |
-| 2 | describes what the code does | 2882 |
-| 1 | neutral placeholder | 10286 |
+| 2 | describes what the code does | 2880 |
+| 1 | neutral placeholder | 10288 |
 
 ## For review (score 3 and below)
 
@@ -6952,7 +6952,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_721E60` | `app/client/ui_login.cpp:128` | untagged neutral name (D10) |
 | 1 | `LoginViewClass` | `app/client/ui_login.cpp:132` | neutral (D10) |
 | 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:194` | neutral (D10) |
-| 1 | `LoginNotifierClass` | `app/client/ui_login.cpp:198` | neutral (D10) |
+| 1 | `InterfaceSignalMapClass` | `app/client/ui_login.cpp:198` | neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it) |
+| 1 | `sender, callback` | `app/client/ui_login.cpp:201` | intrface.cpp's |
+| 1 | `sender, callback` | `app/client/ui_login.cpp:202` | intrface.cpp's |
 | 1 | `SClientUnknown1338Class` | `app/client/ui_login.cpp:211` | neutral (D10): sclient.cpp's (env_map_manager.cpp) |
 | 1 | `Unknown_760770` | `app/client/ui_login.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_login.cpp:212` | ui_registration.cpp |
@@ -11439,8 +11441,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_line_display.h:232` | describes what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_login.cpp:65` | fontdatabase.h's |
 | 2 | `Create_Render_Obj` | `app/client/ui_login.cpp:105` | what it does (the asset manager's slot) |
-| 2 | `Add` | `app/client/ui_login.cpp:201` | as sclient.cpp's |
-| 2 | `Remove` | `app/client/ui_login.cpp:202` | as sclient.cpp's |
 | 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:32` | fontdatabase.h's |
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |

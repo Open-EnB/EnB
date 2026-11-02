@@ -195,11 +195,11 @@ typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginC
 
 
 
-class LoginNotifierClass		// NAME 1: neutral (D10)
+class InterfaceSignalMapClass		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
 {
 public:
-	void Add(int id, LoginCallbackBaseClass *callback);		// 0x4F9740  // NAME 2: as sclient.cpp's
-	void Remove(int id, LoginCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
+	void Add(void *sender, LoginCallbackBaseClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Remove(void *sender, const LoginCallbackBaseClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
 };
 // (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map; FlashingGadgetEvent: gadget.h)
 
@@ -366,7 +366,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	Unknown_5AE240();
 	CharacterView->Unknown3A4->Unknown_760770(100000, true);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = (LoginNotifierClass *)&GadgetClass::Get_Signal_Map();
+	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new LoginCallbackClass(this, function));
 	if (WWAudioClass::Get_Instance()) {
 		WWAudioClass::Get_Instance()->Unknown_Resume_All();
@@ -395,9 +395,9 @@ LoginInterface::~LoginInterface()
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe01a.ini");
 	CharacterView->Unknown_67A9B0(0);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
-	LoginNotifierClass *notifier = (LoginNotifierClass *)&GadgetClass::Get_Signal_Map();
+	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
 	LoginCallbackClass callback(this, function);
-	notifier->Remove(0, &callback);
+	notifier->Remove(0, callback);
 }
 
 
