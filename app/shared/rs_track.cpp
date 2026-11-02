@@ -467,7 +467,7 @@ void RsTrackClass::Validate_Transform(void) const
 				CullingObject->Set_Cull_Box(Get_Bounding_Box());
 			}
 			if (UnknownC8 != NULL) {
-				UnknownC8->Unknown_493FE0();
+				UnknownC8->Update_Projection();
 			}
 		}
 	}

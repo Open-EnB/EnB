@@ -3788,6 +3788,12 @@ RECONSTRUCTED = {
     ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
                                    "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
                                    "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
+    ('app', 'shared/rs_proj_sup.cpp'): "rs_proj_sup.cpp, client 0x45D9E0-0x45E0B6 and its inline copies to 0x45E3E0 "
+                                     "(__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_proj_sup.cpp in its assert, line 58, D25; "
+                                     "builder RPS, run PR #144): RsTrackClass's projector caster Unknown45D9E0Class (vtable "
+                                     "0xAE80B0: constructor 0x45D9E0, slots 0x45DBB0 / 0x45DBE0 / 0x45DC60) and receiver "
+                                     "Unknown45DC80Class (vtable 0xAE80EC: constructor 0x45DC80, destructor 0x45DDF0, slots "
+                                     "0x45DF20 / 0x45DF90 / 0x45E0B0, the material-pass push / pop 0x45DFC0 / 0x45E030); exact",
     ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
                                  "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
                                  "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "

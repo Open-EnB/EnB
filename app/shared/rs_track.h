@@ -9,6 +9,7 @@
 #include "sphere.h"
 #include "aabox.h"
 #include "listnode.h"
+#include "proj_man.h"
 
 class HAnimComboClass;
 class HAnimComboDataClass;
@@ -151,21 +152,34 @@ public:
 	int Unknown48;													// +0x48 (Unknown_1D0's last argument)  // NAME 1: neutral (D10)
 };
 
-// rs_proj_sup.cpp's projector caster (0x45D9E0) and receiver (0x45DC80) RsTrackClass makes (0x462470, 0x462530), declared as far as it calls them (interim, D137; proj_man.h's ProjectorCasterClass notes)
-class Unknown45D9E0Class : public RefCountClass	// NAME 1: neutral (D10)
+// rs_proj_sup.cpp's projector caster (0x45D9E0, vtable 0xAE80B0) and receiver (0x45DC80, vtable 0xAE80EC) RsTrackClass
+// makes (0x462470, 0x462530); declared here for now (interim, D137: no rs_proj_sup.h is known)
+class Unknown45D9E0Class : public ProjectorCasterClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown45D9E0Class(RsTrackClass *owner, int a, int b);			// 0x45D9E0  // NAME 1 [owner, a, b]: neutral
-	void Unknown_493FE0();											// 0x493FE0 (proj_man.cpp)  // NAME 1: neutral (D10)
-	char Unknown08[0x24 - 0x08];									// 0x24 bytes (0x462470's new)  // NAME 1: neutral (D10)
+	Unknown45D9E0Class(RsTrackClass *owner, int def, int manager);	// 0x45D9E0 (0x24 bytes)  // NAME 1 [owner]: neutral; NAME 2 [def, manager]: the base's (int as RsTrackClass::Unknown_462470 passes them)
+
+	virtual RenderObjClass *Peek_Render_Obj(void);					// 0x45DBB0
+	virtual Matrix3D Get_Transform(void);							// 0x45DBE0
+	virtual uint32 Get_Type_ID(void);								// 0x45DC60
+
+	RsTrackClass *Owner;											// +0x20  // NAME 2: what it points at
 };
-class Unknown45DC80Class : public RefCountClass	// NAME 1: neutral (D10)
+class Unknown45DC80Class : public ProjectorReceiverClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown45DC80Class(RsTrackClass *owner, CullableClass *cull, int a);	// 0x45DC80  // NAME 1 [owner, cull, a]: neutral
-	void Unknown_45DFC0(RenderInfoClass &rinfo);					// 0x45DFC0  // NAME 1 [rinfo]: the Render argument
-	void Unknown_45E030(RenderInfoClass &rinfo);					// 0x45E030  // NAME 1 [rinfo]: the Render argument
-	char Unknown08[0x34 - 0x08];									// 0x34 bytes (0x462530's new)  // NAME 1: neutral (D10)
+	Unknown45DC80Class(RsTrackClass *owner, CullableClass *cull, int a);	// 0x45DC80 (0x34 bytes)  // NAME 1 [owner, cull, a]: neutral
+
+	virtual ~Unknown45DC80Class();									// 0x45DDF0 (deleting 0x45DD90)
+	virtual void Add_Projector(TexProjectClass *texProject);		// 0x45DF20 (the assert's texProject)
+	virtual bool Intersects(const OBBoxClass &box);					// 0x45DF90
+	virtual void *Get_Projection_Object_ID(void);					// 0x45E0B0
+
+	void Unknown_45DFC0(RenderInfoClass &rinfo);					// 0x45DFC0: pushes the projectors' material passes  // NAME 1 [rinfo]: the Render argument
+	void Unknown_45E030(RenderInfoClass &rinfo);					// 0x45E030: releases them, popping the passes  // NAME 1 [rinfo]: the Render argument
+
+	TexProjListClass ProjectorList;									// +0x18  // NAME 2: what it holds
+	RsTrackClass *Owner;											// +0x30  // NAME 2: what it points at
 };
 
 // rs_track.cpp's render object (0x100 bytes, Class_ID 0x10001): a render object that shows one render state's
