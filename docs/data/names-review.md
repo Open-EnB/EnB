@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1144 |
 | 2 | describes what the code does | 2880 |
-| 1 | neutral placeholder | 10355 |
+| 1 | neutral placeholder | 10390 |
 
 ## For review (score 3 and below)
 
@@ -2040,6 +2040,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:439` | untagged neutral name (D10) |
 | 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:442` | untagged neutral name (D10) |
 | 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:478` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:944` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.cpp:968` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67D8` | `app/client/fontsys.cpp:969` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/fontsys.cpp:974` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/fontsys.cpp:975` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5140` | `app/client/fontmanager.h:80` | neutral (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/fontmanager.h:81` | neutral (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/fontmanager.h:83` | neutral (D10) |
@@ -2133,10 +2138,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:207` | neutral (D10) |
 | 1 | `Peek_Font` | `app/client/fontmanager.h:209` | neutral (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:211` | neutral (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.cpp:962` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67D8` | `app/client/fontsys.cpp:963` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/fontsys.cpp:968` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/fontsys.cpp:969` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
 | 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
 | 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
@@ -7730,6 +7731,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown448` | `app/client/unknown_6ca0c0.cpp:637` | untagged neutral name (D10) |
 | 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.h:47` | neutral (D10) |
 | 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.h:50` | neutral (D10) |
+| 1 | `Unknown_BE67B4` | `app/client/unknown_6cce60.cpp:16` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_6cce60.cpp:16` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/unknown_6cce60.cpp:17` | neutral |
+| 1 | `Unknown_42ECF0` | `app/client/unknown_6cce60.cpp:17` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/unknown_6cce60.cpp:18` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/unknown_6cce60.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/unknown_6cce60.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/unknown_6cce60.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown488` | `app/client/unknown_6cce60.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/unknown_6cce60.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/unknown_6cce60.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/unknown_6cce60.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/unknown_6cce60.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown4C4` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/unknown_6cce60.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/unknown_6cce60.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6cce60.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6cce60.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/unknown_6cce60.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/unknown_6cce60.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown430` | `app/client/unknown_6cce60.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/unknown_6cce60.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:163` | untagged neutral name (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |

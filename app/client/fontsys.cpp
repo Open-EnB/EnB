@@ -940,6 +940,12 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 	}
 }
 
+// 0x6D87D0: the text (Info.Text)
+const char *FontStyleClass::Unknown_6D87D0()
+{
+	return Info.Text;
+}
+
 // NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched
 void FontStyleClass::Set_Transform(const Matrix3D &m)
 {
