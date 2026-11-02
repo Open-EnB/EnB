@@ -2726,6 +2726,18 @@
      "0x73F950"
     ]
    },
+   "ctrngadg": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x50A850",
+     "0x50AAE0",
+     "0x50AB30"
+    ],
+    "merged": [],
+    "name": "client/ctrngadg.cpp"
+   },
    "dbgconn": {
     "ambiguous": [
      "0x42A6C0",
@@ -16295,6 +16307,7 @@
    "client/co_data.h": "reconstructed",
    "client/co_subtypes.h": "reconstructed",
    "client/control_keys_manager.h": "reconstructed",
+   "client/ctrngadg.h": "reconstructed",
    "client/deffont.h": "reconstructed",
    "client/dynamic_window_background.h": "reconstructed",
    "client/dynamic_window_class.h": "reconstructed",

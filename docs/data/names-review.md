@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1155 |
+| 3 | by convention from a client-named file or sibling | 1158 |
 | 2 | describes what the code does | 2907 |
-| 1 | neutral placeholder | 10896 |
+| 1 | neutral placeholder | 10911 |
 
 ## For review (score 3 and below)
 
@@ -1474,6 +1474,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_551C40` | `app/client/cpacket.cpp:3439` | untagged neutral name (D10) |
 | 1 | `Unknown_6437A0` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/cpacket.cpp:3449` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/ctrngadg.cpp:5` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/ctrngadg.cpp:5` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ctrngadg.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ctrngadg.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ctrngadg.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ctrngadg.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ctrngadg.h:7` | untagged neutral name (D10) |
+| 1 | `x, y, width, height, client` | `app/client/ctrngadg.h:28` | what the cockpit passes (0, 0, 640, 480) |
+| 1 | `event, x, y, mask` | `app/client/ctrngadg.h:29` | GadgetClass's |
+| 1 | `Unknown_2C` | `app/client/ctrngadg.h:29` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ctrngadg.h:30` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/ctrngadg.h:30` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/ctrngadg.h:32` | neutral (D10), as InterfaceClass's +0x40 |
+| 1 | `Unknown44` | `app/client/ctrngadg.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ctrngadg.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ctrngadg.h:35` | untagged neutral name (D10) |
 | 1 | `Converter` | `app/client/deffont.cpp:399` | 0xBE64A4, ConvertClass(Palette, Unknown_B8F870, ...) |
 | 1 | `RemapSizes` | `app/client/deffont.cpp:400` | 0xBE6438, each Remaps row's byte count |
 | 1 | `Remaps` | `app/client/deffont.cpp:401` | 0xBE63CC, fontpal.pcx's rows (byte 0 = 0) |
@@ -6460,7 +6476,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown84` | `app/client/ui_cpit.cpp:201` | untagged neutral name (D10) |
 | 1 | `UICpitWarpGadgetClass` | `app/client/ui_cpit.cpp:202` | neutral (D10); NAME 1 [object, bar, layer]: what the set-up passes |
 | 1 | `UICpitGadget6B56AClass` | `app/client/ui_cpit.cpp:205` | neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480) |
-| 1 | `UICpitGadget50A850Class` | `app/client/ui_cpit.cpp:206` | neutral (D10); NAME 1 [x, y, width, height, client]: what the set-up passes |
 | 1 | `UICpitGadget674260Class` | `app/client/ui_cpit.cpp:207` | neutral (D10); NAME 1 [model]: what the set-up passes |
 | 1 | `robj` | `app/client/ui_cpit.cpp:208` | neutral |
 | 1 | `Unknown_497300` | `app/client/ui_cpit.cpp:208` | untagged neutral name (D10) |
@@ -13887,6 +13902,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIChatPanelClass` | `app/client/cpacket.cpp:2458` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
 | 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
+| 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
+| 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
@@ -14136,6 +14153,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Change_Text` | `app/client/ui_cpit.cpp:32` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:35` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_cpit.cpp:151` | class-from-file (D24) for app\client\gadget.cpp |
+| 3 | `CtrnGadgetClass` | `app/client/ui_cpit.cpp:206` | ctrngadg.h's (D24 class-from-file) |
 | 3 | `CameraManagerClass` | `app/client/ui_cpit.cpp:377` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `SoundManagerClass` | `app/client/ui_cpit.cpp:389` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/ui_cpit.cpp:1244` | class-from-file (D24) for bridge_int.cpp |
