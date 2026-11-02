@@ -91,12 +91,12 @@ void Unknown4BCA80Class::Unknown_4BCD30()
 				Wstring text;
 				text.set(buffer);
 				if (filter.Unknown_4BE7A0(text)) {
-					if (filter.Unknown08 == 0xFFFFFF) {
+					if (filter.Type == 0xFFFFFF) {
 						client->Filters.clear();
 						client->Mask = 0;
 					} else {
 						client->Filters.addTail(filter);
-						client->Mask |= filter.Unknown08;
+						client->Mask |= filter.Type;
 					}
 				}
 				client->Connection->unread((uint8 *)buffer + strlen(buffer) + 1, n - strlen(buffer) - 1);

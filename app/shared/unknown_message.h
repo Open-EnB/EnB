@@ -62,11 +62,11 @@ public:
 	bit8 Unknown_4BE2C0(Unknown4BB8A0Class *message);	// 0x4BE2C0 the message passes it  // NAME 1: neutral (D10)
 	bit8 Unknown_4BE7A0(Wstring &text);					// 0x4BE7A0 parses it  // NAME 1: neutral (D10)
 
-	Wstring Unknown00;		// +0x00 its ini key "Name"
-	int Unknown08;			// +0x08 "Type": the levels it takes (0xFFFFFF: clears the client's filters)
-	Wstring Unknown0C;		// +0x0C "Modules": senders / categories (',' or ';' separated)
-	Wstring Unknown14;		// +0x14 "Files": __FILE__ names (',' or ';' separated)
-	Wstring Unknown1C;		// +0x1C "Prefix": the text's start
+	Wstring Name;			// +0x00  // NAME 5: the client's ini key "Name" (0x4BE0F0 / 0x4BE1E0)
+	int Type;				// +0x08 the levels it takes (0xFFFFFF: clears the client's filters)  // NAME 5: ini key "Type"
+	Wstring Modules;		// +0x0C senders / categories (',' or ';' separated)  // NAME 5: ini key "Modules"
+	Wstring Files;			// +0x14 __FILE__ names (',' or ';' separated)  // NAME 5: ini key "Files"
+	Wstring Prefix;			// +0x1C the text's start  // NAME 5: ini key "Prefix"
 };
 
 // One connected client of the server (0x14 bytes)

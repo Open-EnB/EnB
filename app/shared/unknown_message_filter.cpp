@@ -4,13 +4,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include "..\..\libs\wwonline\wlib\configfile.h"
+#include <ctype.h>
+#include <string>
 
 // PLACEMENT: provisional (D137): see unknown_message.h; its own object because the server
 // (unknown_message_server.cpp) calls its constructor 0x4BDFE0 and destructor 0x4BE060 instead of inlining them
 
 // 0x4BDFE0
 Unknown4BDFE0Class::Unknown4BDFE0Class() :
-	Unknown08(0)
+	Type(0)
 {
 }
 
@@ -23,11 +25,11 @@ Unknown4BDFE0Class::~Unknown4BDFE0Class()
 bit8 Unknown4BDFE0Class::Unknown_4BE0F0(FILE *out, char *section)
 {
 	fprintf(out, "[%s]%s", section, "\r\n");
-	fprintf(out, "Name = %s%s", Unknown00.get(), "\r\n");
-	fprintf(out, "Type = %d%s", Unknown08, "\r\n");
-	fprintf(out, "Modules = %s%s", Unknown0C.get(), "\r\n");
-	fprintf(out, "Files = %s%s", Unknown14.get(), "\r\n");
-	fprintf(out, "Prefix = %s%s", Unknown1C.get(), "\r\n");
+	fprintf(out, "Name = %s%s", Name.get(), "\r\n");
+	fprintf(out, "Type = %d%s", Type, "\r\n");
+	fprintf(out, "Modules = %s%s", Modules.get(), "\r\n");
+	fprintf(out, "Files = %s%s", Files.get(), "\r\n");
+	fprintf(out, "Prefix = %s%s", Prefix.get(), "\r\n");
 	fprintf(out, "%s", "\r\n");
 	return TRUE;
 }
@@ -35,22 +37,22 @@ bit8 Unknown4BDFE0Class::Unknown_4BE0F0(FILE *out, char *section)
 // 0x4BE1E0
 bit8 Unknown4BDFE0Class::Unknown_4BE1E0(ConfigFile &config, char *section)
 {
-	if (!config.getString("Name", Unknown00, section)) {
+	if (!config.getString("Name", Name, section)) {
 		return FALSE;
 	}
 	sint32 type;
 	if (!config.getInt("Type", type, section)) {
 		return FALSE;
 	}
-	Unknown08 = type;
-	if (!config.getString("Modules", Unknown0C, section)) {
+	Type = type;
+	if (!config.getString("Modules", Modules, section)) {
 		return FALSE;
 	}
-	if (!config.getString("Files", Unknown14, section)) {
+	if (!config.getString("Files", Files, section)) {
 		return FALSE;
 	}
-	Unknown1C.set("");
-	config.getString("Prefix", Unknown1C, section);
+	Prefix.set("");
+	config.getString("Prefix", Prefix, section);
 	return TRUE;
 }
 
@@ -62,14 +64,14 @@ bit8 Unknown4BDFE0Class::Unknown_4BE2C0(Unknown4BB8A0Class *message)
 {
 	bit8 pass = TRUE;
 
-	if ((message->Level & Unknown08) == 0) {
+	if ((message->Level & Type) == 0) {
 		return FALSE;
 	}
 
-	if (Unknown0C.length() != 0) {
+	if (Modules.length() != 0) {
 		Wstring module;
 		Wstring sender;
-		for (int offset = Unknown0C.getToken(0, ",;", module); offset != -1; offset = Unknown0C.getToken(offset, ",;", module)) {
+		for (int offset = Modules.getToken(0, ",;", module); offset != -1; offset = Modules.getToken(offset, ",;", module)) {
 			module.removeSpaces();
 			if (module.length() == 0) {
 				continue;
@@ -90,9 +92,9 @@ bit8 Unknown4BDFE0Class::Unknown_4BE2C0(Unknown4BB8A0Class *message)
 		}
 	}
 
-	if (pass && Unknown14.length() != 0) {
+	if (pass && Files.length() != 0) {
 		Wstring file;
-		for (int pos = Unknown14.getToken(0, ",;", file); pos != -1; pos = Unknown14.getToken(pos, ",;", file)) {
+		for (int pos = Files.getToken(0, ",;", file); pos != -1; pos = Files.getToken(pos, ",;", file)) {
 			file.removeSpaces();
 			if (file.length() != 0 && file == message->File) {
 				break;
@@ -103,14 +105,14 @@ bit8 Unknown4BDFE0Class::Unknown_4BE2C0(Unknown4BB8A0Class *message)
 		}
 	}
 
-	if (pass && Unknown1C.length() != 0) {
-		while (Unknown1C.length() != 0) {
-			if (Unknown1C.get()[Unknown1C.length() - 1] != ' ') {
+	if (pass && Prefix.length() != 0) {
+		while (Prefix.length() != 0) {
+			if (Prefix.get()[Prefix.length() - 1] != ' ') {
 				break;
 			}
-			Unknown1C.truncate(Unknown1C.length() - 1);
+			Prefix.truncate(Prefix.length() - 1);
 		}
-		if (strncmp(Unknown1C.get(), message->Text.get(), Unknown1C.length()) != 0) {
+		if (strncmp(Prefix.get(), message->Text.get(), Prefix.length()) != 0) {
 			return FALSE;
 		}
 	}
@@ -126,7 +128,7 @@ bit8 Unknown4BDFE0Class::Unknown_4BE7A0(Wstring &text)
 	if (text.get(0) != 'S') {
 		return FALSE;
 	}
-	int pos = text.getToken(1, "`", Unknown00);
+	int pos = text.getToken(1, "`", Name);
 	if (pos == -1) {
 		return FALSE;
 	}
@@ -134,27 +136,49 @@ bit8 Unknown4BDFE0Class::Unknown_4BE7A0(Wstring &text)
 	if (pos == -1) {
 		return FALSE;
 	}
-	pos = text.getToken(pos, "`", Unknown0C);
+	pos = text.getToken(pos, "`", Modules);
 	if (pos == -1) {
 		return FALSE;
 	}
-	pos = text.getToken(pos, "`", Unknown14);
+	pos = text.getToken(pos, "`", Files);
 	if (pos == -1) {
 		return FALSE;
 	}
-	pos = text.getToken(pos, "`", Unknown1C);
+	pos = text.getToken(pos, "`", Prefix);
 	if (pos == -1) {
 		return FALSE;
 	}
-	Unknown08 = atol(type.get());
+	Type = atol(type.get());
 	return TRUE;
 }
 
 
+// PLACEMENT: provisional (D137): 0x4BE9D0 is the last function before the 0x50-byte int3 run that ends
+// at avatar_desc.cpp's first (0x4BEB50); its callers (avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names,
+// 0x5D6DC0, 0x616220, 0x649FE0) call it out of line. Its own object or this one: no string, no assert
+
+// 0x4BE9D0 a name with its first letter upper case and the rest lower case, cut to 16 characters
+std::string Unknown_4BE9D0(const char *name)	// NAME 1 [Unknown_4BE9D0]: neutral (D10)
+{
+	char buffer[64];
+	int count = strlen(name);
+	int length = (count < 16) ? count : 16;
+	for (int i = 0; i < length; i++) {
+		if (i == 0) {
+			buffer[i] = toupper(name[i]);
+		} else {
+			buffer[i] = tolower(name[i]);
+		}
+	}
+	buffer[length] = 0;
+	std::string result(buffer);
+	return result;
+}
+
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4BDFE0-0x4BE9D0. The client's text ('S' then '`'-separated name, type, modules,
+**	client.exe 0x4BDFE0-0x4BEAFF. The client's text ('S' then '`'-separated name, type, modules,
 **	files, prefix: 0x4BE7A0) and the ini form (0x4BE0F0 / 0x4BE1E0, no callers) give the fields'
 **	keys: Name, Type, Modules, Files, Prefix.
 */
