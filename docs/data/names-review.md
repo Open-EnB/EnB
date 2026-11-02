@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1160 |
 | 2 | describes what the code does | 2907 |
-| 1 | neutral placeholder | 10994 |
+| 1 | neutral placeholder | 11001 |
 
 ## For review (score 3 and below)
 
@@ -3100,6 +3100,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
+| 1 | `MouseCursorStruct` | `app/client/mousetbl.cpp:14` | neutral (D10), as smouse.cpp |
+| 1 | `name, hot_x, hot_y` | `app/client/mousetbl.cpp:16` | what it does with them |
+| 1 | `robj, hot_x, hot_y` | `app/client/mousetbl.cpp:17` | as above |
+| 1 | `HotX` | `app/client/mousetbl.cpp:21` | as smouse.cpp |
+| 1 | `HotY` | `app/client/mousetbl.cpp:22` | as smouse.cpp |
+| 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10), as smouse.cpp |
+| 1 | `Unknown_BE7CD4` | `app/client/mousetbl.cpp:26` | neutral (D10) |
+| 1 | `Unknown_7228C0` | `app/client/mousetbl.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_723150` | `app/client/mousetbl.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/option.cpp:11` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_Percent` | `app/client/option.cpp:174` | untagged neutral name (D10) |
@@ -10681,8 +10690,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown1338Class` | `programs/clientpoc/poc_ui.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown220` | `programs/clientpoc/poc_ui.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_BE7C70` | `programs/clientpoc/poc_ui.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_7228C0` | `programs/clientpoc/poc_ui.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |

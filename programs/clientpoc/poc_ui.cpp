@@ -64,29 +64,4 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)
 {
 	return(Create_Peek(robj));
 }
-
-// mousetbl.cpp's cursor table (0xBE7C70, 25 entries) and its loader 0x7228C0 (ACT): smouse.cpp's software mouse
-// reads them. The loader makes each entry from the asset manager's texture (slot +0x30: name, 1, 0, 1); here
-// with the client's 25 names and every hot spot 0, 0 (the client's own offsets not read yet).
-#include "assetmgr.h"
-#include "texture.h"
-struct MouseCursorStruct { TextureClass *Texture; int HotX; int HotY; };	// smouse.cpp's
-MouseCursorStruct *Unknown_BE7C70[25];
-void Unknown_7228C0()
-{
-	static const char *names[25] = {"arrow_blank.tga", "arrow.tga", "cursor_w.tga", "cursor_y.tga", "csr0000.tga",
-		"c_talk.tga", "c_terminal.tga", "c_exit.tga", "c_zoomin.tga", "c_zoomout.tga", "c_handgrab.tga", "arr_bl3.tga",
-		"arr_l3.tga", "arr_tl3.tga", "arr_t3.tga", "arr_tr3.tga", "arr_r3.tga", "arr_br3.tga", "arr_bl4.tga", "arr_l4.tga",
-		"arr_tl4.tga", "arr_t4.tga", "arr_tr4.tga", "arr_r4.tga", "arr_br4.tga"};
-	STUB_CALLED("POC Unknown_7228C0 (0x7228C0, mousetbl.cpp): the cursor table, hot spots 0, 0");
-	if (Unknown_BE7C70[0] != NULL) {
-		return;
-	}
-	for (int i = 0; i < 25; i++) {
-		MouseCursorStruct *entry = new MouseCursorStruct;
-		entry->Texture = WW3DAssetManager::Get_Instance()->Get_Texture(names[i], (MipCountType)1, WW3D_FORMAT_UNKNOWN, true);
-		entry->HotX = 0;
-		entry->HotY = 0;
-		Unknown_BE7C70[i] = entry;
-	}
-}
+// mousetbl.cpp's cursor table and its loader / unloader 0x7228C0 / 0x723150: app\client\mousetbl.cpp (KRN, exact).
