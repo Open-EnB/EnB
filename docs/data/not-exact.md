@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-485 entries in 115 files.
+483 entries in 115 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -429,7 +429,6 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:461` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
 | `app/shared/landdmap.cpp:497` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: frame (0x8C, the client 0x90: the client keeps X on the FPU and Y in a spare slot for the upper point instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves) and the corner picked through an if-chain on k (an inlined acc... |
 | `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
-| `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |
@@ -457,7 +456,6 @@ edit the comments in the code, not this file.
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
-| `app/shared/rs_track.cpp:185` | `RsTrackClass::Unknown_460440` | marker | NOT EXACT: shape (0.52): ebx / edi swapped and the loop's two decrement paths; never auto-inlined (#pragma auto_inline(off)) |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
 | `app/shared/spln_db.cpp:57` | `SplineDatabaseClass::~SplineDatabaseClass` | marker | NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it) |
