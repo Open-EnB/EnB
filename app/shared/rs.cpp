@@ -24,6 +24,19 @@ static HANDLE Unknown_BDC098;						// 0xBDC098: the loader thread's event  // NA
 
 static void Unknown_458150(void *arg);				// NAME 1 [Unknown_458150, arg]: neutral (D10)
 
+// 0x457B60
+RenderStateClass::RenderStateClass(RenderStateListClass *list, int id, int link_id, unsigned int flags) :
+	Next(NULL),
+	List(list),
+	Unknown14(NULL),
+	ID(id),
+	LinkID(link_id),
+	Link(NULL),
+	Unknown24(NULL),
+	Flags(flags)
+{
+}
+
 // 0x457BE0 (deleting destructor 0x457BB0)
 RenderStateClass::RenderStateClass(RenderStateListClass *list, const RenderStateClass &source) :
 	Next(NULL),
@@ -186,19 +199,6 @@ void RenderStateClass::Unknown_1C(RsTrackClass *owner)
 void RenderStateClass::Unknown_30(int a, int b)
 {
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
