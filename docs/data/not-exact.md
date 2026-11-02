@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-428 entries in 107 files.
+427 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -194,8 +194,7 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:963` | `LoginTaskClass::Start_Game` | marker | NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70) 0x769E70 |
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
-| `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.56; 0x128 bytes of locals in the client, 0x130 here): the client keeps the text in ebx and converts the screen width for every width call (here once, kept on the stack) |
-| `app/client/textgadg.cpp:538` | `TextGadgetClass::Unknown_6AB190` | marker | NOT EXACT: loop rotation (0.76): VC6 rotates the first loop here (its test repeated at the bottom), the client tests cp at the top only |
+| `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
 | `app/client/ui_avatar_cust.cpp:263` | `StarbaseAvatarCreationInterface::Unknown_54E690` | marker | NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690) 0x54E690 |
 | `app/client/ui_avatar_cust.cpp:282` | `StarbaseAvatarCreationInterface::Unknown_54E7F0` | marker | NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type) 0x54E7F0 |
 | `app/client/ui_avatar_cust.cpp:301` | `StarbaseAvatarCreationInterface::Unknown_54E950` | marker | NOT EXACT: register (0.69: dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950) 0x54E950 |

@@ -13675,7 +13675,8 @@
      "0x6AAB60",
      "0x6AACD0",
      "0x6AB080",
-     "0x6AB0F0"
+     "0x6AB0F0",
+     "0x6AB190"
     ],
     "merged": [],
     "name": "client/textgadg.cpp",
