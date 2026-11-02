@@ -24,6 +24,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 PK_CTOR_STUBS = os.path.join(REPO, 'tests', 'udpreplay', 'pk_ctor_stubs.cpp')
 CPACKET = os.path.join(REPO, 'app', 'client', 'cpacket.cpp')
+TSK_LOGIN = os.path.join(REPO, 'app', 'client', 'tasks', 'tsk_login.cpp')	# these two define Process_Packet of the
+TSK_GAME = os.path.join(REPO, 'app', 'client', 'tasks', 'tsk_game.cpp')	# login / redirect packets too
 PK_CPP = os.path.join(REPO, 'app', 'packets', 'pk.cpp')
 FACTORY = os.path.join(REPO, 'docs', 'data', 'packet-factory.txt')
 # cpacket.cpp's handlers clienttest records instead of driving (none since 2026-10-28, HN1: CREATE 4, CHANGE_BASE_ASSET 38
@@ -38,7 +40,10 @@ def read(p):
 
 def cpacket_classes():
     """The classes whose Process_Packet cpacket.cpp defines."""
-    return set(re.findall(r'^bool (\w+)::Process_Packet\(void \*\w*\)\s*$', read(CPACKET), re.M))
+    out = set()
+    for p in (CPACKET, TSK_LOGIN, TSK_GAME):
+        out |= set(re.findall(r'^bool (\w+)::Process_Packet\(void \*\w*\)\s*$', read(p), re.M))
+    return out
 
 
 def main(out):

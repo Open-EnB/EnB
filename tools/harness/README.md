@@ -492,7 +492,7 @@ harness's fakes: the fake gadget is a zeroed 0x100-byte object with its name at 
 +0xE0 object is a fake whose four calls are stand-ins in clienttest.cpp; the chat panel, PDA, hot keys, line display and
 the main view's +0x34 object are zeroed fakes with a table that pops slot +0x7C's two arguments (SClient::Unknown_742530 is
 real); `Unknown_Get_Ticks` (unknown_root.cpp) and `WWAudioClass::Flush_Cache` are real functions that main() jumps to the
-harness's clock and to a trace line (a second definition would be a duplicate). ui_stubs.cpp / font_stubs.cpp hold what
+harness's clock and to a trace line (a second definition would be a duplicate). ui_stubs.cpp / ui_avsel_stubs.cpp hold what
 gen_stubs --link cannot write (as programs/clientpoc/poc_link.cpp). A crash prints its address on stderr (a vectored handler:
 look it up in the exe's .map). 103 checks, 3,178 trace lines; the trace lost the lines of the deleted stand-ins
 (`stub DeltaCompoundClass::Decode` x213, the Play_2D_Sound, RsTrack and gadget 0x6607D0 / group 0x5981B0.. lines, 0x56BA80).

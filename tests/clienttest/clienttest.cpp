@@ -115,6 +115,9 @@ void Set_Stub_Focused(bool on)
 
 void Trace(const char *format, ...)
 {
+	if (Out == 0) {		// a static constructor that is a stand-in (wdebug_replay.cpp's CritSec) runs before main opens the trace
+		return;
+	}
 	va_list va;
 	va_start(va, format);
 	vfprintf(Out, format, va);
@@ -235,6 +238,12 @@ static void __stdcall Switch_5C_Slot() {}
 static void *Switch_Pda[0xC0 / 4];			// SClient +0x1284 (Test_Path puts the +0xA8 object in it)
 static void *Switch_Hot_Keys[0x84 / 4];		// SClient +0x1290
 static void *Switch_Main_34[0x40 / 4];		// the main view's +0x34 object
+// InterfaceSortClass (local_interface_sort.cpp, real now) takes the view's slot +0x50 scene's sort list at +0x9C: a zeroed scene whose list
+// is a zeroed InterfaceStaticSortListClass (no current, front or back interface), so Set_Current_Front / Back swap nothing
+static char Fake_Sort_List[0x100];
+static char Fake_Interface_Scene_Storage[0x100];
+static char *Fake_Interface_Scene = Fake_Interface_Scene_Storage;
+static struct FakeSceneInit { FakeSceneInit() { *(void **)(Fake_Interface_Scene_Storage + 0x9C) = Fake_Sort_List; } } Fake_Scene_Init;
 class FakeMainViewClass
 {
 public:
@@ -244,7 +253,7 @@ public:
 	virtual void S14() {} virtual void S18(bool) {} virtual void *S1C() { return(&Fake_UI_View); } virtual void S20() {}
 	virtual void S24() {} virtual void S28() {} virtual void S2C() {} virtual void S30() {}
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
-	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void S50() {}
+	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void *S50() { return(Fake_Interface_Scene); }
 	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
 	virtual int S64() { Trace("mainview 64"); return(Path_Views ? (int)&Fake_View64 : 0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
 	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(Path_Views ? (int)Fake_Camera : 0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments; in (4) Process_AI's objects (Path_Views)

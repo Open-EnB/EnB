@@ -150,11 +150,9 @@ mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
 mainview 7C
-gen LineDisplaySortClass::LineDisplaySortClass
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen LineDisplaySortClass::~LineDisplaySortClass
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
@@ -200,11 +198,9 @@ mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
 mainview 7C
-gen LineDisplaySortClass::LineDisplaySortClass
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen LineDisplaySortClass::~LineDisplaySortClass
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
@@ -242,11 +238,9 @@ mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
 mainview 7C
-gen LineDisplaySortClass::LineDisplaySortClass
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen LineDisplaySortClass::~LineDisplaySortClass
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
@@ -318,11 +312,9 @@ mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
 mainview 7C
-gen LineDisplaySortClass::LineDisplaySortClass
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen LineDisplaySortClass::~LineDisplaySortClass
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0
 gen ViewUnknown34Class::Unknown_5890B0

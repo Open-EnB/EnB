@@ -51,6 +51,8 @@ for _sub in ('', 'gameedit'):
                       if f.startswith('pk') and f.endswith('.cpp') and f != 'pk.cpp')
 # udpreplay's stand-ins the packet files need (the same files, copied into the stage)
 UDPREPLAY_STUBS = ['avatar_desc_stubs.cpp', 'pkitemba_stubs.cpp',
+                   'wtime_replay.cpp',     # wlib's Xtime (cordcon.cpp, cordmgr.cpp, unknown_cordmsg.cpp)
+                   'wdebug_replay.cpp',    # DebugLibSemaphore and MsgManager::infoStream (INFMSG in cordcon.cpp)
                    'shipcust_stubs.cpp']   # shipcust_desc.obj's externals (pkrecustomize.cpp, pkcreatecharacter.cpp)
 
 
@@ -65,6 +67,12 @@ def build(out):
             shutil.copy(os.path.join(SRC, fn), stage)
     for fn in UDPREPLAY_STUBS:
         shutil.copy(os.path.join(REPO, 'tests', 'udpreplay', fn), stage)
+    # tsk_login.obj (app.lib) now defines ShipCustDescClass::operator=, which shipcust_stubs.cpp also defines for udpreplay
+    p = os.path.join(stage, 'shipcust_stubs.cpp')
+    t = open(p, encoding='latin1', newline='').read()
+    t2 = re.sub(r'ShipCustDescClass &ShipCustDescClass::operator=\(const ShipCustDescClass &that\)\r?\n\{.*?\r?\n\}', '', t, flags=re.S)
+    assert t2 != t
+    open(p, 'w', encoding='latin1', newline='').write(t2)
     r = subprocess.run([sys.executable, os.path.join(SRC, 'gen_stubs.py'), stage], capture_output=True, text=True)
     print(r.stdout.strip())
     if r.returncode:
@@ -77,6 +85,9 @@ def build(out):
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
                                 'subsystem': 'console', 'runtime': []}
+    # E&B's INFMSG (cordcon.cpp) writes to the old iostream's ostream, as udpreplay.py's link: LIBCIMT after LIBCPMT
+    if 'LIBCIMT.LIB' not in B.LINK_SYS:
+        B.LINK_SYS.insert(B.LINK_SYS.index('LIBCPMT.LIB') + 1, 'LIBCIMT.LIB')
     B.link_program('clienttest', out)
     exe = os.path.join(out, 'programs', 'clienttest', 'clienttest.exe')
     log = os.path.join(out, 'programs', 'clienttest', 'link.log')
