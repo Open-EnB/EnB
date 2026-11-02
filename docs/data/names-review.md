@@ -426,9 +426,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Remove_Unknown86C` | `app/client/client.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown_728180` | `app/client/client.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/client.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/client.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFE90` | `app/client/client.cpp:411` | untagged neutral name (D10) |
-| 1 | `Unknown_728330` | `app/client/client.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/client.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFE90` | `app/client/client.cpp:412` | untagged neutral name (D10) |
+| 1 | `Unknown_728330` | `app/client/client.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF00` | `app/client/client.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_728370` | `app/client/client.cpp:424` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF50` | `app/client/client.cpp:428` | untagged neutral name (D10) |
@@ -1303,7 +1303,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74B600` | `app/client/cpacket.cpp:1494` | untagged neutral name (D10) |
 | 1 | `Unknown_74B640` | `app/client/cpacket.cpp:1497` | untagged neutral name (D10) |
 | 1 | `Unknown_74B680` | `app/client/cpacket.cpp:1521` | untagged neutral name (D10) |
-| 1 | `Unknown_74BA30` | `app/client/cpacket.cpp:1529` | untagged neutral name (D10) |
+| 1 | `Unknown_74BA30` | `app/client/cpacket.cpp:1543` | untagged neutral name (D10) |
 | 1 | `Unknown_6A0FD0` | `app/client/cpacket.cpp:1599` | untagged neutral name (D10) |
 | 1 | `Unknown1298` | `app/client/cpacket.cpp:1609` | untagged neutral name (D10) |
 | 1 | `Unknown_81F810` | `app/client/cpacket.cpp:1632` | untagged neutral name (D10) |
@@ -4724,7 +4724,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74` | `app/client/textgadg.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/textgadg.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_6AA340` | `app/client/textgadg.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown_6AA5F0` | `app/client/textgadg.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_6AA5F0` | `app/client/textgadg.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/client/textgadg.cpp:302` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/textgadg.cpp:340` | untagged neutral name (D10) |
 | 1 | `Unknown51` | `app/client/textgadg.cpp:341` | untagged neutral name (D10) |
