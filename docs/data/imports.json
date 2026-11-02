@@ -3988,12 +3988,15 @@
    },
    "fontsys": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x483600",
+     "0x497350"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x444160",
      "0x45CC10",
      "0x45CC30",
      "0x462BF0",
@@ -4014,6 +4017,8 @@
      "0x48E910",
      "0x48FE60",
      "0x48FF70",
+     "0x490070",
+     "0x497330",
      "0x510CC0",
      "0x67E880",
      "0x67E8A0",
@@ -4024,13 +4029,16 @@
      "0x67EEC0",
      "0x67EF40",
      "0x67F490",
+     "0x6CF410",
      "0x6D5B90",
+     "0x6D5F40",
      "0x6D88C0"
     ],
     "merged": [],
     "name": "client/fontsys.cpp",
     "shared": [
      "0x42F250",
+     "0x444160",
      "0x45CC10",
      "0x45CC30",
      "0x462BF0",
@@ -4051,6 +4059,7 @@
      "0x48E910",
      "0x48FE60",
      "0x48FF70",
+     "0x497330",
      "0x510CC0",
      "0x67E880",
      "0x67E8A0",
@@ -4059,7 +4068,8 @@
      "0x67E9A0",
      "0x67EA70",
      "0x67EEC0",
-     "0x67F490"
+     "0x67F490",
+     "0x6CF410"
     ]
    },
    "fontsys_cursor": {
@@ -4143,6 +4153,21 @@
     ],
     "tiebreak": [
      "0x685E00"
+    ]
+   },
+   "fonttexture": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250"
+    ],
+    "merged": [],
+    "name": "client/fonttexture.cpp",
+    "shared": [
+     "0x42F250"
     ]
    },
    "gadget": {

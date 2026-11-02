@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-479 entries in 111 files.
+483 entries in 112 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -124,16 +124,20 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
-| `app/client/fontsys.cpp:15` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:36` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
-| `app/client/fontsys.cpp:54` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; Info's colours (+0x494 / +0x4A4 from Colors, 10 / 255 when none) are left out |
-| `app/client/fontsys.cpp:147` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
-| `app/client/fontsys.cpp:187` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:212` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
-| `app/client/fontsys.cpp:236` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
+| `app/client/fontsys.cpp:18` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:39` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
+| `app/client/fontsys.cpp:57` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4 (from Colors, 10 when none) added by TXT1 |
+| `app/client/fontsys.cpp:175` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
+| `app/client/fontsys.cpp:215` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
+| `app/client/fontsys.cpp:240` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
+| `app/client/fontsys.cpp:264` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
+| `app/client/fontsys.cpp:323` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:373` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:909` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
 | `app/client/fontsys.cpp:943` | `FontStyleClass::Set_Transform` | marker | NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:965` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
+| `app/client/fonttexture.cpp:16` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
+| `app/client/fonttexture.cpp:89` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
 | `app/client/gadget.cpp:74` | `GadgetClass::GadgetClass` | marker | NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or) |
 | `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
 | `app/client/gadget.cpp:849` | `GadgetClass::Unknown_6603A0` | marker | NOT EXACT: shape (written from the client's 0x6603A0 for the proof-of-concept client: the flash's clone of the model slot +0x24 gives, in the model's scene, with the click indicator when asked) |
