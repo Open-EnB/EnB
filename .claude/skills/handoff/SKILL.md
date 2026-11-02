@@ -33,6 +33,10 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
    - **State outside git**: scratch files, VM addresses, running processes, captures.
 5. **Don't duplicate.** If a fact already lives in a design doc, link to its section.
    Update milestone/status tables in place instead of restating them.
+   **Sweep the Next steps list** (progress.md §4) before writing the entry: for each item, check its
+   addresses against `docs/data/imports.json` (in_tree) and `docs/data/not-exact.md`, and its other claims
+   against the tree. Delete items that are done; rewrite part-done items to say only what is left. Never mark
+   an item done in place: its history goes in the log entry. New leads go in as open work only.
 6. **Report to the user** in five lines or fewer: what you wrote and where, what is
    uncommitted, and the single prompt to paste into the new session, e.g.
    `Read CLAUDE.md and the handoff, then continue with <next step>.`

@@ -92,6 +92,10 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).
+- In the same pass, prune progress.md §4 (Next steps): delete each item the report completes, and cut a part-done
+  item down to what is left (its remaining addresses / functions). Never annotate an item as done ("made exact
+  tonight", "done in run X"): what landed belongs in the plan log and the handoff's log entry, not in §4. Add the
+  report's new leads to §4 only as open work. No builder edits progress.md during a run, so this is safe at any time.
 
 ## Draining to a handoff
 

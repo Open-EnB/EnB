@@ -70,7 +70,8 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
 ## Handoff target
 Prepend a dated entry to the Log in `docs/progress.md` (newest first). Add new traps to
 `docs/workflow.md` §3 (builders put them in their report; the coordinator files them). Update
-decisions/open lists in place. Do not append a second status doc.
+decisions/open lists in place. Do not append a second status doc. progress.md §4 (Next steps) holds
+open work only: delete an item when it lands (its history goes in the log entry), never mark it done.
 
 ## Commits
 Imperative sentence subject stating the evidence/gain (see `git log`). Commit when asked or when
