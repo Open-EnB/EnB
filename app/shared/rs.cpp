@@ -2,7 +2,7 @@
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\rs.cpp (its asserts from client 0x458370 on); this
-**	part: client 0x457BB0-0x458353, the code before rs.cpp's first assert. Interim placement (D137):
+**	part: client 0x457BB0-0x458570, up to the render-object state's code. Interim placement (D137):
 **	the object holds the render state's constructor and destructor and its statics 0xBDC094 / 0xBDC098.
 **
 **	The render state (RenderStateClass, declared in rs_track.h for now): a node of its list's chains,
@@ -17,6 +17,7 @@
 #include <string.h>
 #include "rs_track.h"
 #include "..\..\wwlib\nstrdup.h"
+#include "..\shared\unknown_debug.h"
 
 static CRITICAL_SECTION *Unknown_BDC094;			// 0xBDC094: the render states' lock  // NAME 1 [Unknown_BDC094]: neutral (D10)
 static HANDLE Unknown_BDC098;						// 0xBDC098: the loader thread's event  // NAME 1 [Unknown_BDC098]: neutral (D10)
@@ -185,19 +186,151 @@ void RenderStateClass::Unknown_1C(RsTrackClass *owner)
 void RenderStateClass::Unknown_30(int a, int b)
 {
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x458370: sets a mutable flag
+void RenderStateClass::Unknown_458370(int flag)
+{
+	G_ASSERT(((1<<flag) & RS_MUTABLE_FLAG_MASK));
+	Flags |= (1 << flag) & RS_MUTABLE_FLAG_MASK;
+}
+
+
+// 0x4583C0: clears it
+void RenderStateClass::Unknown_4583C0(int flag)
+{
+	G_ASSERT(((1<<flag) & RS_MUTABLE_FLAG_MASK));
+	Flags &= ~((1 << flag) & RS_MUTABLE_FLAG_MASK);
+}
+
+
+// 0x458410: sets a thread flag
+void RenderStateClass::Unknown_458410(int flag)
+{
+	G_ASSERT(((1<<flag) & RS_THREAD_FLAG_MASK));
+	Flags |= (1 << flag) & RS_THREAD_FLAG_MASK;
+}
+
+
+// 0x458460: clears it
+void RenderStateClass::Unknown_458460(int flag)
+{
+	G_ASSERT(((1<<flag) & RS_THREAD_FLAG_MASK));
+	Flags &= ~((1 << flag) & RS_THREAD_FLAG_MASK);
+}
+
+// 0x4584B0
+void RenderStateClass::Unknown_4584B0(RsTrackClass *owner, int arg, RenderStateClass *next)
+{
+	if (Flags & 0x6C) {
+		Flags |= 0x80;
+	}
+	if (Flags & 0x2A) {
+		owner->Unknown_460710(this, 50);
+	}
+	if (Flags & 0x01) {
+		owner->Unknown8C |= 1;
+	}
+	if (Flags & 0x28) {
+		Flags &= ~0x20;
+		if (next != NULL) {
+			next->Unknown_34(arg);
+			owner->Unknown_460440(next, 50);
+		}
+	}
+}
+
+// 0x458540: Unknown24 from text
+void RenderStateClass::Unknown_458540(const char *text)
+{
+	if (Unknown24 != NULL) {
+		delete Unknown24;
+	}
+	if (text != NULL) {
+		Unknown24 = nstrdup(text);
+	} else {
+		Unknown24 = NULL;
+	}
+}
 /*
 **	Reconstruction notes
 **
-**	client.exe: 0x457BB0-0x458353, all exact (appfile.py match 16 of 16 markers): the deleting
-**	destructor 0x457BB0, the constructor 0x457BE0 (from a list and a source state: the derived states'
-**	copies call it), Node<RenderStateClass *>'s destructor 0x457CA0 and deleting destructor 0x457CF0
-**	(wwlib's listnode.h), the destructor 0x457D20, 0x457E10 / 0x457E90 / 0x457EE0 / 0x457F60,
-**	GenericNode's deleting destructor 0x457FA0, 0x458010, the loader thread's 0x458040 / 0x4580D0 /
-**	0x458150, the start-up / shut-down 0x4581E0 / 0x458250, then the out-of-line virtuals +0x24, +0x18,
-**	+0x1C, +0x30 (0x4582C0-0x458350; the other virtuals are inline, emitted after the asserts from
-**	0x458590; +0x04 and +0x14 are pure: the vtable 0xAE7CF4 holds E&B's _purecall 0x9CCD10 there).
-**	The statics are probably the class's (free here until rs.h exists). 0x458150 enters the lock again
-**	before it returns and never leaves it: the client's code as compiled.
-**	Not here yet: rs.cpp's assert functions from 0x458370 (RS_MUTABLE_FLAG_MASK / RS_THREAD_FLAG_MASK,
-**	lines 257-281) and the inline virtuals after them.
+**	client.exe: 0x457BB0-0x458570, all exact (appfile.py match 13 of 13 markers, plus the
+**	compiler's): the deleting destructor 0x457BB0, the constructor 0x457BE0 (from a list and a source
+**	state: the derived states' copies call it), Node<RenderStateClass *>'s destructor 0x457CA0 and
+**	deleting destructor 0x457CF0 (wwlib's listnode.h), the destructor 0x457D20, 0x457E10 / 0x457E90 /
+**	0x457EE0 / 0x457F60, GenericNode's deleting destructor 0x457FA0, 0x458010, the loader thread's
+**	0x458040 / 0x4580D0 / 0x458150, the start-up / shut-down 0x4581E0 / 0x458250, the out-of-line
+**	virtuals +0x24, +0x18, +0x1C, +0x30 (0x4582C0-0x458350), the flag setters 0x458370-0x458460 (the
+**	asserts on the client's lines 257, 265, 273, 281, D25), 0x4584B0 and 0x458540. The other virtuals
+**	are inline (rs_track.h), emitted after them from 0x458590; +0x04 and +0x14 are pure: the vtable
+**	0xAE7CF4 holds E&B's _purecall 0x9CCD10 there. The statics are probably the class's (free here
+**	until rs.h exists). 0x458150 enters the lock again before it returns and never leaves it: the
+**	client's code as compiled.
+**	Not here yet: the render-object state from 0x458710 (vtable 0xAE7D58: its constructors 0x458710 /
+**	0x458810 / 0x4588A0, clone 0x458970, destructor 0x458A60, 0x458AE0 and its virtuals 0x458B20 /
+**	0x458B70 / 0x458BC0), derived from rs_robj.cpp's class (0x45E5F0 / 0x45E880 / 0x45E9F0, 0x45EC00).
 */

@@ -16,6 +16,10 @@ class CullableClass;
 class RsTrackClass;
 class RenderStateListClass;
 
+// the flag groups rs.cpp's asserts name (0x458370-0x458460)
+#define RS_MUTABLE_FLAG_MASK	0x300										// NAME 3 [RS_MUTABLE_FLAG_MASK]: the asserts' text
+#define RS_THREAD_FLAG_MASK		0x3000										// NAME 3 [RS_THREAD_FLAG_MASK]: the asserts' text (the loader thread's bits 12 / 13)
+
 // rs.cpp's render state and rs_list.cpp's render state list, declared as far as rs.cpp and rs_track.cpp use them
 // (interim placement: rs.h / rs_list.cpp are not in the tree yet; D137)
 class RenderStateClass : public Node<RenderStateClass *>	// NAME 2: rs_track.cpp's assert names State and Get_Render_State_List()
@@ -48,6 +52,12 @@ public:
 	void Unknown_458010();											// 0x458010 (resolves Link from LinkID)  // NAME 1: neutral (D10)
 	void Unknown_458040();											// 0x458040 (waits for the loader thread)  // NAME 1: neutral (D10)
 	void Unknown_4580D0();											// 0x4580D0 (starts the loader thread 0x458150)  // NAME 1: neutral (D10)
+	void Unknown_458370(int flag);									// 0x458370 (sets a RS_MUTABLE_FLAG_MASK flag)  // NAME 1 [flag]: the asserts' text
+	void Unknown_4583C0(int flag);									// 0x4583C0 (clears it)  // NAME 1 [flag]: the asserts' text
+	void Unknown_458410(int flag);									// 0x458410 (sets a RS_THREAD_FLAG_MASK flag)  // NAME 1 [flag]: the asserts' text
+	void Unknown_458460(int flag);									// 0x458460 (clears it)  // NAME 1 [flag]: the asserts' text
+	void Unknown_4584B0(RsTrackClass *owner, int arg, RenderStateClass *next);	// 0x4584B0  // NAME 1 [owner, arg, next]: neutral
+	void Unknown_458540(const char *text);							// 0x458540 (Unknown24 from text)  // NAME 1 [text]: neutral
 	RenderStateListClass *Get_Render_State_List() { return(List); }	// the assert at rs_track.cpp line 191
 	bool Unknown_Flag4() const { return((Flags >> 4) & 1); }		// NAME 1: neutral (D10)
 	bool Unknown_Flag10() const { return((Flags >> 10) & 1); }		// NAME 1: neutral (D10)

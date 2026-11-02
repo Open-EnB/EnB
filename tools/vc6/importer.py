@@ -3785,12 +3785,13 @@ RECONSTRUCTED = {
     ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
                                    "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
                                    "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
-    ('app', 'shared/rs.cpp'): "rs.cpp, client 0x457BB0-0x458353 (the code before rs.cpp's first assert at 0x458370; "
-                             "interim placement D137; builder DISP, run PR #144): RenderStateClass's constructor 0x457BE0, "
-                             "destructor 0x457D20, list links 0x457E10 / 0x457E90 / 0x457F60, 0x457EE0, 0x458010, the loader "
+    ('app', 'shared/rs.cpp'): "rs.cpp, client 0x457BB0-0x458570 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs.cpp in its "
+                             "asserts, lines 257 / 265 / 273 / 281, D25; builder DISP, run PR #144): RenderStateClass's constructor "
+                             "0x457BE0, destructor 0x457D20, list links 0x457E10 / 0x457E90 / 0x457F60, 0x457EE0, 0x458010, the loader "
                              "thread 0x458040 / 0x4580D0 / 0x458150 over the statics 0xBDC094 / 0xBDC098, WinMain's start-up / "
-                             "shut-down 0x4581E0 / 0x458250 ('initializing render state class') and the virtuals +0x24 / +0x18 / "
-                             "+0x1C / +0x30; exact",
+                             "shut-down 0x4581E0 / 0x458250 ('initializing render state class'), the virtuals +0x24 / +0x18 / "
+                             "+0x1C / +0x30, the flag setters 0x458370-0x458460, 0x4584B0, 0x458540; exact (the class is declared "
+                             "in rs_track.h for now, D137)",
     ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
                               "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
                               "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",
