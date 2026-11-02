@@ -299,46 +299,25 @@ void CharacterViewClass::Unknown_08()
 	LoginTaskClass *task = (LoginTaskClass *)Unknown14->Unknown_08(); task->Unknown0018->Unknown_515120(2);
 }
 
-// NOT EXACT: inline budget (the client calls the deque's pop_front 0x67CEF0 out of line; ours inlines it), 0.77
-// 0x679510
+// 0x679510: Shutdown, as calls to the file's own helpers (inlined; the client calls the deque's pop_front
+// 0x67CEF0 out of line from 0x67C7B0's copy)
 void CharacterViewClass::Unknown_10()
 {
 	int i;
 	for (i = 0; i < 5; i++) {
-		if (Unknown1D4[i].Anim) { Unknown1D4[i].Anim->Release_Ref(); Unknown1D4[i].Anim = NULL; }
+		Unknown_67ACE0(i);
 		Unknown_67A9B0(i);
 	}
-	SoundLibraryClass::Stop_Dialog();
-	while (Unknown4E0.size() != 0) {
-		Unknown4E0.pop_front();
-	}
+	Unknown_67C7B0();
 	if (Unknown3A4) {
 		delete Unknown3A4;
 		Unknown3A4 = NULL;
 	}
 	Unknown_67BEB0();
-	if (Unknown224) {
-		Unknown224->Stop(true);
-		Unknown224->Release_Ref(); Unknown224 = NULL;
-	}
-	if (AvatarRObj) {
-		AvatarRObj->Remove();
-		AvatarRObj->Release_Ref(); AvatarRObj = NULL;
-	}
-	if (NarratorRObj) {
-		NarratorRObj->Unknown_784E00();
-		NarratorRObj->Remove();
-		NarratorRObj->Release_Ref(); NarratorRObj = NULL;
-	}
-	for (i = 0; i < 2; i++) {
-		if (Unknown1A4[i]) {
-			if (ViewRObjs[4]) {
-				ViewRObjs[4]->Remove_Sub_Object(Unknown1A4[i]);
-			}
-			Unknown1A4[i]->Unknown_788EF0();
-			Unknown1A4[i]->Release_Ref(); Unknown1A4[i] = NULL;
-		}
-	}
+	Unknown_67B220();
+	Unknown_67A3F0();
+	Unknown_67A670();
+	Unknown_67B320();
 	Unknown_67A300();
 	UIViewClass::Unknown_10();
 	if (Unknown06C) { Unknown06C->Release_Ref(); Unknown06C = NULL; }
@@ -358,6 +337,27 @@ void CharacterViewClass::Unknown_10()
 	delete Unknown230;
 	Unknown230 = NULL;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 0x679930: the avatars' +0x1C4 is their first own virtual (Null3DObjClass's table ends at +0x1C0)
@@ -1338,17 +1338,33 @@ void CharacterViewClass::Unknown_67C7B0()
 	}
 }
 
-// NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38
+// The queue's pop_front one inline level down: 0x67CBD0 then expands pop_front but calls its _Freefront 0x67D1A0
+// and the element's destructor (??_G 0x433A10) out of line, as the client does (CV2: a direct pop_front
+// inlines both, dead reads after it push the string copy out of line first).
+static inline void Unknown_Inline_Pop(std::deque<std::string> &queue)
+{
+	queue.pop_front();
+}
+
 // 0x67CBD0
 void CharacterViewClass::Unknown_67CBD0()
 {
 	SoundLibraryClass::Update_Dialog();
-	if (!SoundLibraryClass::Is_Dialog_Playing() && Unknown4E0.size() != 0) {
-		std::string name = Unknown4E0.front();
+	if (SoundLibraryClass::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
+		return;
+	}
+	std::string name = Unknown4E0.front();
+	Unknown_Inline_Pop(Unknown4E0);
+	if (name.length()) {
+		SoundLibraryClass::Play_Dialog(name.c_str(), 1);
+	}
+}
+
+// 0x67CD40 (no caller in the client: 0x67C7B0's loop without the dialog stop)
+void CharacterViewClass::Unknown_67CD40()
+{
+	while (Unknown4E0.size() != 0) {
 		Unknown4E0.pop_front();
-		if (name.length()) {
-			SoundLibraryClass::Play_Dialog(name.c_str(), 1);
-		}
 	}
 }
 

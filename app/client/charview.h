@@ -168,6 +168,7 @@ public:
 	void Unknown_67C530();								// 0x67C530 (the frame: +0x4C8 eased to +0x4D4, the type-3 model's 'box02' glows with it, the second light of +0x3B0 follows)
 	void Unknown_Inline_Platform();					// (inline in the frame 0x679930: the platform turned by +0x1A0)  // NAME 1: neutral (D10)
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
+	void Unknown_67CD40();								// 0x67CD40 (no caller: the queue +0x4E0 emptied, as 0x67C7B0 without the dialog stop)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
 	CharacterViewCameraStruct Unknown04C;				// +0x4C the camera (0x67A290 sets it; the frame moves the model's CAMERA bone by it)
