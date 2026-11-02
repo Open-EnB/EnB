@@ -4,6 +4,37 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-01 (23:55 PST, night): POC text path and login activation on API-key builders; D185 variants for the whole backlog; +29 pairs, 0 lost
+
+Coordinator Opus 5.5 on the subscription. Base a86efb86 (#141 merged; `.work/imports.a86efb86.json`); run branch
+`run/2026-11-02`, PR #142. Plan log: `.work/run-2026-11-02/plan.md`. The user: scale D184's pilot to the whole NOT EXACT
+backlog (D185), and POC items 1-3 on API credits through headless builders (`claude -p`, Opus 5.5, the key
+`ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` each; launcher `.work/run-2026-11-02/launch.sh`). The `enb-d163` workspace's
+limit is monthly ($140, then $160 by the user); November's spend at 23:30 was the night's alone. HEAD against the base:
+**+29 pairs (+20 shared), 0 lost outright, no moves** (quiet-tree verify a4b9e198). Weekly subscription usage 90 % throughout.
+
+* **API spend tonight $92.67:** D184 pilot $4.66; D185 round 1 $39.89 (367 requests), round 2 $25.43 (201 near misses);
+  five headless builders $22.69 (TXT1 6.36, FM 2.94, TXT2 5.65, ACT 5.23, TXT3 2.51; the stream's `total_cost_usd`).
+* **D185 (VS1):** variants.py `--run full`: 437 of 479 entries resolve, 367 requests (8 / 5 / 3 / 2 variants by source
+  length); `try --pool K` unattended (detached Start-Process; resumable results.d/). Both rounds: **75 of 355 functions
+  have an exact variant, 47 lose no other pair of their file** (`.work/variants/full/results.json`): to apply through
+  verify / pairs_cmp (D66), as VA1 did for the pilot (+13 for 7). Some are stale already (TXT1 changed 0x6D5170).
+* **POC (FM, TXT1, TXT2, TXT3, ACT):** ui_login / ui_avsel on the real FontManagerClass (81968b85; exact sets unchanged);
+  Update_Text 0x6D64C0, fonttexture.cpp, the effect step 0x6CA0C0 (the client's EffectType switch, names from
+  Get_Effect_Type) and Update_Text's callees 0x6CCE60 / 0x6CD180 / 0x6CD6F0 / 0x6D87D0, functional (D64) in fontsys.cpp
+  and the interim unknown_6ca0c0.cpp / unknown_6cce60.cpp (D137); the login activation / update functions (intrlist.cpp
+  0x6871D0 exact, control_key_list.cpp, tasks/settings_store.cpp: the lkey poll and its WinInet thread) and smouse.cpp's
+  software mouse (5 exact); kernel.cpp calls WW3D's real 0x9179D0. POC run 23: no crash in 40 s, the '!text' FAIL_IF gone,
+  Update_Text runs every frame; whether text reaches the screen is unseen (clientpoc has no back-buffer shot yet). Next
+  stand-ins: Unknown_42EC60 (the button-down query: clicks), Change_Text 0x6CDBC0, 0x6D8650, 0x6CE910.
+* **Health:** clienttest relinked (CT4 2ed61121: WININET.LIB in clienttest.py and build.py's clientpoc, a Get_String
+  stand-in, a zeroed software mouse for the now-real smouse 0x515340; expected.txt -1 stub line): 103/103 equal;
+  udpreplay run alex3 / handshake 54/54; replay 0.
+* **Host memory was the limit:** Claude Code's reaper killed the four launcher shells at 22:52 (the builders' claude
+  processes kept running); leases waited ~25 minutes. Headless builders: 2-3 at once on this host (workflow.md §3.0).
+* **Records:** TXT3's subject says POC run 21 (it is 23). Python changed: variants.py (D185), clienttest.py, build.py
+  (WININET.LIB): the maintainer's `/verify-approved`. Open for the user: P-FNT-1 (§3), P-API-5 (a) / (c), P-VM-2, P-VM-1.
+
 ### 2026-11-01 (21:45 PST, evening): D183 (shared COMDATs) landed and D184's Batch API variant pilot applied; +27 pairs, 0 lost
 
 Coordinator Opus 5.5. Base 7fb89dbb (#140 merged; `.work/imports.7fb89dbb.json`); run branch `run/2026-11-01-eve`, PR #141.
