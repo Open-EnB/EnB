@@ -104,7 +104,8 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 - Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
   brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
   `Claims #N` line too). At handoff `run_branch.py ready --summary FILE
-  --co-author 'NAME <EMAIL>'` (the handoff skill) regenerates and commits the README's progress card
+  --co-author 'NAME <EMAIL>'` (the handoff skill; first `python tools/re/names.py` and `tools/re/notexact.py`, and commit
+  what they change: the PR check 'Generated documents are up to date' fails on any line shift a builder left unregenerated) regenerates and commits the README's progress card
   (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - Cleanup, once no builder is running (at handoff, and again at the next run's start, after the previous PR merged):
   `python tools/run_branch.py cleanup` deletes the local branches and worktrees whose every commit is already in
