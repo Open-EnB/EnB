@@ -32,10 +32,10 @@ struct FontStringStruct;
 class FontDatabaseClass;
 class Font32Class;
 
-struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color and one more word
+struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color r, g, b (0..1) and its alpha (floats: 0x6D5170, Update_Text, 0x6CA0C0)
 {
-	TPoint3D<int> Color;												// +0x00  // NAME 2: what 0x6D1010 stores
-	int Unknown0C;														// +0x0C  // NAME 1: neutral (D10)
+	Vector3 Color;														// +0x00  // NAME 2: what 0x6D1010 stores
+	float Unknown0C;													// +0x0C: the alpha (FADE's)  // NAME 1: neutral (D10)
 };
 
 class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontStyleClass +0x2D0 / +0x2E0)
@@ -46,8 +46,8 @@ public:
 	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
-	int Unknown04;														// +0x04  // NAME 1: neutral (D10)
-	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
+	char *Unknown04;														// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 1: neutral (D10)
+	Font32Class *Unknown08;														// +0x08: the font it was printed with (a reference held)  // NAME 1: neutral (D10)
 	TextureClass *Texture;												// +0x0C  // NAME 2: what it holds
 
 	static int Count;													// 0xBE67CC: live objects (0x6D8C50 frees 0xBE67C8 at 0)  // NAME 2: what 0x6D8B90 / 0x6D8C50 do with it
@@ -75,7 +75,7 @@ public:
 	void Unknown_6D5170(int object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
 	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
 	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
-	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
+	void Set_Color(const Vector3 &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
 	void Unknown_Set_2FC(float value) { Unknown2F4[2] = value; Unknown4C5 = false; }	// inline (ui_login.cpp, ui_avsel.cpp: a button's text 1.0, or 0.33 when off)  // NAME 1 [Unknown_Set_2FC]: neutral (D10), as ui_manu.cpp's
 
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
@@ -83,16 +83,20 @@ public:
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
 	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
-	void Unknown_6CD950(int unknown1, int unknown2);						// 0x6CD950  // NAME 1 [Unknown_6CD950]: neutral (D10)
+	void Unknown_6CD950(int index, float time);							// 0x6CD950: triggers EffectTriggered[index] for time seconds (+0x2A4 in ms) and restarts its state  // NAME 1 [Unknown_6CD950, index, time]: neutral (D10)
 	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
-	void Unknown_6D8650(Vector3 &pos);										// 0x6D8650: the text's position (the transform's, or +0x464 with +0x302 set, plus +0x47C and +0x488; ret 4 with the pointer in eax: maybe a Vector3 return)  // NAME 1 [pos]: neutral (D10)
+	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
 	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
 	void Unknown_6D5F40(ShaderClass &shader);								// 0x6D5F40: the shader for Info.BlendType[FontIndex] (Update_Text)  // NAME 1 [Unknown_6D5F40]: neutral (D10)
 	bool Unknown_6D60C0();													// 0x6D60C0: the show delay (+0x26C ms); true while it lasts (Update_Text)  // NAME 1 [Unknown_6D60C0]: neutral (D10)
 	bool Unknown_6CD180();													// 0x6CD180: Update_Text runs the mouse-over effects while true  // NAME 1 [Unknown_6CD180]: neutral (D10)
 	bool Unknown_6CD6F0();													// 0x6CD6F0: Update_Text runs the click effects while true  // NAME 1 [Unknown_6CD6F0]: neutral (D10)
 	void Unknown_6CCE60();													// 0x6CCE60: Update_Text's step after the timers  // NAME 1 [Unknown_6CCE60]: neutral (D10)
+	void Unknown_6CDAB0(FontEffectStruct *effect);						// 0x6CDAB0: an EffectOn effect's starting state (ROTATE, FADE, RANDLETTER, SCROLL, SCALE; Change_Text)  // NAME 1 [Unknown_6CDAB0]: neutral (D10)
+	void Unknown_6CA0C0(FontEffectStruct *effect);						// 0x6CA0C0 (unknown_6ca0c0.cpp): one step of one effect (Update_Text's only callee for them)  // NAME 1 [Unknown_6CA0C0]: neutral (D10)
+	void Unknown_6D5B10(float &width, float &height);					// 0x6D5B10 (unknown_6ca0c0.cpp): the text rectangle (+0x420) in 640 x 480 screen units  // NAME 1 [Unknown_6D5B10]: neutral (D10)
+	void Unknown_6CE4E0(int font_index);								// 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text rebuilt (SWITCH / REVERT; not yet reconstructed)  // NAME 1 [Unknown_6CE4E0, font_index]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
@@ -140,17 +144,16 @@ public:
 	int Unknown44C;														// +0x44C  // NAME 1: neutral (D10)
 	int Unknown450;														// +0x450  // NAME 1: neutral (D10)
 	float Unknown454;													// +0x454: 0x6CF930's per-line value, at least +0x480 (0x6D5170 zeroes it)  // NAME 1: neutral (D10)
-	int Unknown458;														// +0x458: zeroed by 0x6D5170 and Change_Text  // NAME 1: neutral (D10)
+	float Unknown458;														// +0x458: zeroed by 0x6D5170 and Change_Text  // NAME 1: neutral (D10)
 	int LineCount;														// +0x45C: the number of lines 0x6CF930 split the text into  // NAME 2: what 0x6CF930 stores
 	int LineNumber;														// +0x460: this style's line, from 1 (0x6CF930)  // NAME 2: what 0x6CF930 stores
-	float Unknown464[2];												// +0x464: 0x6CD180's x / y with +0x302 set, added to +0x47C / +0x480  // NAME 1: neutral (D10)
-	int Unknown46C;														// +0x46C  // NAME 1: neutral (D10)
+	Vector3 Unknown464;													// +0x464: 0x6CD180's x / y with +0x302 set, added to +0x47C (0x6D8650)  // NAME 1: neutral (D10)
 	Vector3 Unknown470;													// +0x470: a copy of +0x47C (0x6D5170, 0x6CF930); Change_Text puts its x back  // NAME 1: neutral (D10)
 	Vector3 Unknown47C;													// +0x47C: Info's +0x34 / +0x38 times 640 / 480 (0x6D5170, 0x6CDAB0), y moved per line by 0x6CF930  // NAME 1: neutral (D10)
-	int Unknown488[3];													// +0x488: zeroed by 0x6D5170  // NAME 1: neutral (D10)
+	Vector3 Unknown488;													// +0x488: the effects' offset added to the position (SHAKE; 0x6D8650); zeroed by 0x6D5170  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown494;									// +0x494: 0x6D1010's color  // NAME 1: neutral (D10)
 	FontStyleColorStruct Unknown4A4;									// +0x4A4: a copy of +0x494 (0x6D1010)  // NAME 1: neutral (D10)
-	char Unknown4B4[0x4C4 - 0x4B4];									// +0x4B4  // NAME 1: neutral (D10)
+	FontStyleColorStruct Unknown4B4;									// +0x4B4: Colors[1] as floats (0x6D5170, Change_Text)  // NAME 1: neutral (D10)
 	bool Unknown4C4;													// +0x4C4: Render clears it  // NAME 1: neutral (D10)
 	bool Unknown4C5;													// +0x4C5: Set_Transform / Set_Position clear it  // NAME 1: neutral (D10)
 	char Unknown4C6[2];													// +0x4C6  // NAME 1: neutral (D10)
@@ -171,15 +174,15 @@ public:
 	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
 	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: a 'W' template's lines as styles (unknown is the render object)  // NAME 1 [Unknown_6CF930]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
-	void Unknown_All_Styles(int unknown1, int unknown2);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
+	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)
 	void Unknown_6D07D0(int unknown);									// 0x6D07D0 (no caller): each style's 0x6CE7D0  // NAME 1 [Unknown_6D07D0]: neutral (D10)
 	void Unknown_6D0890();												// 0x6D0890 (no caller): each style's 0x6D5D40  // NAME 1 [Unknown_6D0890]: neutral (D10)
-	void Unknown_6D10B0(const char *name, TPoint3D<int> color);			// 0x6D10B0 (no caller): the color of every style named name  // NAME 1 [Unknown_6D10B0]: neutral (D10)
+	void Unknown_6D10B0(const char *name, Vector3 color);			// 0x6D10B0 (no caller): the color of every style named name  // NAME 1 [Unknown_6D10B0]: neutral (D10)
 	void Unknown_6D1220(FontStyleClass *style);							// 0x6D1220: adds a style under its +0xF8 name, else its name  // NAME 1 [Unknown_6D1220]: neutral (D10)
 	FontStyleClass *Unknown_6D1480(std::string name);					// 0x6D1480: the style named name + "_0"  // NAME 1 [Unknown_6D1480]: neutral (D10)
 	FontStyleClass *Unknown_6D1600(std::string name);					// 0x6D1600: the named style, else 0x6D1480's  // NAME 1 [Unknown_6D1600]: neutral (D10)
-	void Unknown_6D1010(const char *name, TPoint3D<int> color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
+	void Unknown_6D1010(const char *name, Vector3 color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
 	void Unknown_6D01C0(int level, const char *name);					// 0x6D01C0: Set_Sort_Level of every style (name NULL) or the styles named name  // NAME 1 [Unknown_6D01C0]: neutral (D10)
 	void Unknown_6D0390(const char *name);								// 0x6D0390: shows every style (name NULL) or the styles named name (Set_Hidden(false))  // NAME 1 [Unknown_6D0390]: neutral (D10)
 	void Unknown_6D0550(const char *name);								// 0x6D0550: hides them (Set_Hidden(true))  // NAME 1 [Unknown_6D0550]: neutral (D10)
@@ -198,7 +201,7 @@ public:
 	FontManagerClass();													// 0x6D16E0
 	~FontManagerClass();												// 0x6D1920
 	void Remove_All();													// 0x6D1AE0  // NAME 2: describes what it does
-	void Unknown_6D1C10(int unknown1, int unknown2);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
+	void Unknown_6D1C10(int index, float time);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
 	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
 	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
 	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
@@ -207,7 +210,7 @@ public:
 	void Unknown_6D2400(unsigned int id);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)
 	void Unknown_6D2480(unsigned int id);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
 	void Unknown_6D2500(const char *name, const char *text, unsigned int id, int unknown);	// 0x6D2500: the font's 0x6D0A20								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
-	void Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
+	void Unknown_6D2580(const char *name, Vector3 color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
 	FontStyleClass *Get_Style(const char *name, unsigned int id);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
 	RefCountPtr<FontStyleClass> Unknown_6D2700(const char *name, const unsigned int &id);	// 0x6D2700: a font's named style, else the debug font  // NAME 1 [Unknown_6D2700]: neutral (D10)
 	void Unknown_6D28C0(int value, unsigned int id);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)

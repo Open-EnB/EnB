@@ -2,7 +2,7 @@
 #include "dynamic_window_class.h"
 #include "..\shared\unknown_debug.h"
 
-DynamicWindowClass::DynamicWindowClass(const char *name, bool unknown) :
+DynamicWindowClass::DynamicWindowClass(const char *name, int unknown) :
 	DynamicWindowBackgroundClass(name, 6),
 	Rows(),
 	RowElements(),

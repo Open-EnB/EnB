@@ -45,7 +45,7 @@ public:
 	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes; 0x67A6C0: the narrator's description, 1, 0, NULL; 0x67BF20 passes +0x3A4)  // NAME 1 [desc, a, b, env_maps]: what the callers pass
 	virtual RenderObjClass *Clone() const;				// (avatar.cpp's)
 	virtual void Render(RenderInfoClass &rinfo);		// (avatar.cpp's)
-	void Unknown_1C4();									// the client's slot +0x1C4 (every frame)
+	virtual void Unknown_1C4();							// +0x1C4 its first own slot, after RenderObjClass's 113 (every frame)
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
@@ -92,6 +92,16 @@ public:
 	CharacterViewSoundClass() : Sound(NULL) {}
 	~CharacterViewSoundClass();							// (inline in 0x678970)
 	AudibleSoundClass *Sound;							// +0x00  // NAME 1: neutral
+};
+
+// The view's camera at +0x4C (0x1C bytes): a sub-object with an inline constructor (the constructor 0x678450
+// matches only so: the try level's store follows the 45)
+struct CharacterViewCameraStruct	// NAME 1: neutral (D10)
+{
+	CharacterViewCameraStruct() : Position(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), Fov(45.0f) {}
+	Vector3 Position;									// +0x00 (the frame translates by it)  // NAME 1: what the frame does with it
+	Vector3 Rotation;									// +0x0C in degrees (the frame: Rotate_X, Rotate_Y, Rotate_Z)  // NAME 1: what the frame does with it
+	float Fov;											// +0x18 the field of view in degrees (45; 0x67A290's Set_View_Plane)  // NAME 1: what 0x67A290 does with it
 };
 
 class CharacterViewClass : public UIViewClass	// NAME 1 [CharacterViewClass]: the task's member CharacterView (tsk_login.cpp's FAIL_IFs '!CharacterView')
@@ -156,12 +166,16 @@ public:
 	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown: the eighteen avatars of +0x3B8 released)
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
 	void Unknown_67C530();								// 0x67C530 (the frame: +0x4C8 eased to +0x4D4, the type-3 model's 'box02' glows with it, the second light of +0x3B0 follows)
+	void Unknown_67B5C0();								// 0x67B5C0 (no caller: the platform turned by +0x1A0, ViewRObjs[4] tested)
+	void Unknown_67C1E0();								// 0x67C1E0 (no caller: empty)
+	void Unknown_67C4C0(const Vector3 &color, bool now);	// 0x67C4C0 (no caller: +0x4D4 set to the colour; with now, +0x4C8 too)  // NAME 1 [color, now]: as 0x67C440's
+	void Unknown_Inline_Platform();					// (inline in the frame 0x679930: the platform turned by +0x1A0)  // NAME 1: neutral (D10)
+	void Unknown_67C920(std::string name);				// 0x67C920 (ui_avsel / ui_avatr screens: a dialog queued on +0x4E0; an empty name is dropped)  // NAME 1 [name]: what the callers pass
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
+	void Unknown_67CD40();								// 0x67CD40 (no caller: the queue +0x4E0 emptied, as 0x67C7B0 without the dialog stop)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
-	Vector3 Unknown04C;									// +0x4C the camera's position (0x67A290; the frame translates the model's CAMERA bone by it)
-	Vector3 Unknown058;									// +0x58 the camera's rotation in degrees (the frame: X, then Rotate_Y, Rotate_Z)
-	float Unknown064;									// +0x64 the camera's field of view in degrees (45; 0x67A290's Set_View_Plane)
+	CharacterViewCameraStruct Unknown04C;				// +0x4C the camera (0x67A290 sets it; the frame moves the model's CAMERA bone by it)
 	CameraClass *Unknown068;							// +0x68 the 3-D camera (ui_login.cpp's Peek_Camera)
 	SimpleSceneClass *Unknown06C;						// +0x6C the 3-D scene
 	LayerClass *Unknown070;								// +0x70 a layer of +0x6C / +0x68

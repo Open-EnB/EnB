@@ -407,10 +407,9 @@ bool CordCon::pumpClose()
 	return true;
 }
 
-// 0x850870 ('CordCon:close'), functional (NOT EXACT: the vectors' and wlib's inlined code): with
-// now, every channel's queued and sent records are freed and its acks and resend requests dropped;
-// then the state: 3 (the peer's close read) -> 4, 0 -> 1 and pumpClose (the "CLOSE" once nothing
-// is queued or due). Nothing changes once closed (4).
+// 0x850870 ('CordCon:close'): with now, every channel's queued and sent records are freed and its
+// acks and resend requests dropped; then the state: 3 (the peer's close read) -> 4, 0 -> 1 and
+// pumpClose (the "CLOSE" once nothing is queued or due). Nothing changes once closing or closed.
 bool CordCon::close(bool now)
 {
 	WWPROFILE("CordCon:close");
@@ -421,28 +420,26 @@ bool CordCon::close(bool now)
 		int count = Active_.size();
 		for (int i = 0; i < count; i++) {
 			CordChannelClass *c = Active_[i];
-			std::vector<CordMessageClass>::iterator it = c->Queue.begin();
+			std::vector<CordMessageClass>::iterator qit = c->Queue.begin();
 			while (c->Queue.size() != 0) {
-				(*it).Free();
-				if (it->SendCount == 0) {
+				(*qit).Free();
+				if (qit->SendCount == 0) {
 					Queued_--;
 				}
-				c->Queue.erase(it);
+				c->Queue.erase(qit);
 			}
-			it = c->Sent.begin();
+			std::vector<CordMessageClass>::iterator sit = c->Sent.begin();
 			while (c->Sent.size() != 0) {
-				(*it).Free();
-				if (it->SendCount == 0) {
+				(*sit).Free();
+				if (sit->SendCount == 0) {
 					Queued_--;
 				}
-				c->Sent.erase(it);
+				c->Sent.erase(sit);
 			}
-			while (c->ToAck.length() != 0) {
-				c->ToAck.remove(0);
+			while (c->ToAck.remove(0)) {
 				AcksPending_--;
 			}
-			while (c->Missing.length() != 0) {
-				c->Missing.remove(0);
+			while (c->Missing.remove(0)) {
 				ResendsPending_--;
 			}
 		}
@@ -452,10 +449,16 @@ bool CordCon::close(bool now)
 	}
 	if (CloseState_ == 3) {
 		CloseState_ = 4;
-	} else if (CloseState_ == 0) {
-		CloseState_ = 1;
-		pumpClose();
+		return true;
 	}
+	if (CloseState_ == 2 || CloseState_ == 1) {
+		return true;
+	}
+	if (CloseState_ != 0) {
+		return true;
+	}
+	CloseState_ = 1;
+	pumpClose();
 	return true;
 }
 

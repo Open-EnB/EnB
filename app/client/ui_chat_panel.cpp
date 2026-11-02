@@ -75,7 +75,7 @@ public:
 	void Unknown_56EED0(std::list<std::string> &names, int arg);	// 0x56EED0 (0x567540: the reply names, +0x1EC)  // NAME 1 [names, arg]: what 0x567540 passes
 };
 
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes
 
 // The chat channels the panel offers (0xB7C530: name, option, the destination's number as text), NULL-ended
@@ -535,7 +535,7 @@ void UIChatPanelClass::Unknown_60()
 		Unknown227 = true;
 	}
 	if (Unknown25C) {
-		Unknown260 += (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown260 += (float)(WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown260 > 0.5f) {
 			Unknown260 -= 0.5f;
 			RenderObjClass *light = Unknown258;
@@ -1166,11 +1166,18 @@ bool UIChatPanelClass::Unknown_567970()
 	return(false);
 }
 
-// NOT EXACT: inline-budget (the client calls string::compare out of line in the inlined 0x5680B0 and keeps more of the string helpers out of line; 296 instructions vs 287)
+
 // 0x5679A0
 void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag)
 {
 	switch (event) {
+		case 9:
+			Unknown_5680B0(channel);
+			UnknownFC = 8;
+			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+			Unknown224 = true;
+			Unknown225 = false;
+			break;
 		case 7:
 			if (strcmp(Unknown214.c_str(), channel.c_str()) != 0) Unknown224 = false;
 			if (flag) {
@@ -1184,13 +1191,6 @@ void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, con
 				Unknown224 = false;
 				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
 			}
-			break;
-		case 9:
-			Unknown_5680B0(channel);
-			UnknownFC = 8;
-			SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
-			Unknown224 = true;
-			Unknown225 = false;
 			break;
 		case 23:
 			if (strcmp(Unknown214.c_str(), channel.c_str()) == 0 && flag) Unknown224 = true;

@@ -181,8 +181,8 @@ RenderObjClass *RsTrackClass::Unknown_460410()
 
 
 
+
 // 0x460440
-// NOT EXACT: shape (0.52): ebx / edi swapped and the loop's two decrement paths; never auto-inlined (#pragma auto_inline(off))
 void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 {
 	if (depth < 0) {
@@ -190,22 +190,22 @@ void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 	}
 	G_ASSERT(state->Get_Render_State_List() == &RenderStateList);
 	state->Unknown_14(this);
-	if (state->LinkID != -1) {
-		if (state->Link == NULL) {
-			state->Unknown_458010();
-			if (state->Link == NULL) {
-				return;
-			}
+	if (state->LinkID == -1) {
+		return;
+	}
+	RenderStateClass *link = state->Link;
+	if (link == NULL) {
+		state->Unknown_458010();
+		state = state->Link;
+		if (state == NULL) {
+			return;
 		}
-		Unknown_460440(state->Link, depth - 1);
+		Unknown_460440(state, depth - 1);
+	} else {
+		Unknown_460440(link, depth - 1);
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
 
 
 
@@ -467,7 +467,7 @@ void RsTrackClass::Validate_Transform(void) const
 				CullingObject->Set_Cull_Box(Get_Bounding_Box());
 			}
 			if (UnknownC8 != NULL) {
-				UnknownC8->Unknown_493FE0();
+				UnknownC8->Update_Projection();
 			}
 		}
 	}

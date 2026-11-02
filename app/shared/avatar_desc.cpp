@@ -341,7 +341,6 @@ void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
 	((KVEncoderBaseClass *)visitor)->Add_String(0x3FF, "head_weight", Make_Array_Accessor(Head_Weight, 5, ','));
 }
 
-// NOT EXACT: shape (the first sprintf's arguments pushed before the three stores, and Head_Weight cleared through a pointer in the client; five forms tried: memset / a loop for Head_Weight, the stores reordered; attempts.py show 0x4C0310)
 // 0x4C0310
 void AvatarDescClass::Clear(int type)
 {
@@ -383,16 +382,17 @@ void AvatarDescClass::Clear(int type)
 	Pants_Secondary_Metal = -1;
 	Skeleton = "";
 	Body_Weight[0] = 1.0F;
-	Body_Weight[1] = 0.0F;
-	Body_Weight[2] = 0.0F;
-	Body_Weight[3] = 0.0F;
-	Body_Weight[4] = 0.0F;
+	for (int i = 1; i < 5; i++) {
+		Body_Weight[i] = 0.0F;
+	}
 	Head_Weight[0] = 1.0F;
-	Head_Weight[1] = 0.0F;
-	Head_Weight[2] = 0.0F;
-	Head_Weight[3] = 0.0F;
-	Head_Weight[4] = 0.0F;
+	memset(&Head_Weight[1], 0, sizeof(Head_Weight) - sizeof(float));
 }
+
+
+
+
+
 
 // 0x4C0580
 bool AvatarDescClass::Is_Valid()
@@ -1107,11 +1107,46 @@ void AvatarDescClass::Convert_Names()
 	_snprintf(Last_Name, sizeof(Last_Name), "%s", Unknown_4BE9D0(Last_Name).c_str());
 }
 
+// strconv_lib.cpp's int and char conversions (not rebuilt; declared here, not in strconv_lib.h, which
+// aux_roots.cpp includes: a declaration there moves its symbol pad window, workflow.md 3.3, and
+// aux_roots.h has its own inline int ones)
+inline const char *Type_Name(int *) { return "int"; }	// (the pair's 0x4C3D10)
+inline const char *Type_Name(char *) { return "char"; }	// (the pair's 0x4C3F00)
+char *Value_To_String(char *buf, int size, char value);		// 0x4A32E0 ("%d")
+bool String_To_Value(const char *text, char *value);			// 0x4A3310 (sscanf "%d", -128..127)
+char *Value_To_String(char *buf, int size, int value);		// 0x4A3410 ("%d")
+bool String_To_Value(const char *text, int *value);			// 0x4A3440 (sscanf "%d")
+
+// 0x4C2EB0 (the encoder's typed adds, compiled here; the pairs' and accessors' bodies follow as
+// this object's template instances: int 0x4C3C50-0x4C3E00 and 0x4C4030 / 0x4C40E0 / 0x4C4290)
+void KVEncoderBaseClass::Add(int mask, const char *name, int *value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairTemplateClass<int>(Make_Key(name), new KVPointerAccessorClass<int>(value), even, odd));
+	}
+}
+
+// 0x4C2FE0 (char: 0x4C3E40-0x4C3FF0, 0x4C4110 / 0x4C41C0 / 0x4C42E0)
+void KVEncoderBaseClass::Add(int mask, const char *name, char *value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairTemplateClass<char>(Make_Key(name), new KVPointerAccessorClass<char>(value), even, odd));
+	}
+}
+
 /*
 **	Reconstruction notes
 **
 **	Not rebuilt yet (the assert 'strchr(buffer, Separator) == 0' is in the window's parser): the
-**	window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s',
-**	and the key/value templates the visitor instantiates: the int add 0x4C2EB0, the char add 0x4C2FE0,
-**	the array text 0x4C3110).
+**	window's other functions 0x4C1020-0x4C45B0 (the INI sections' parser, '[%s]%s' / 'Name = %s%s').
+**	The typed adds 0x4C2EB0 / 0x4C2FE0 are KVEncoderBaseClass's, compiled here (kv_encoder_base.h
+**	declares them; 0x4F6750 calls the int one too); their pair and accessor template
+**	instances follow (0x4C3C50-0x4C4330). The array accessor's Get 0x4C32D0 / Set 0x4C34D0 differ by
+**	the assert's relative __FILE__ (D41) and, in Set, npos (attempts.csv).
 */

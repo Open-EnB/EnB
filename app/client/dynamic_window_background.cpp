@@ -11,7 +11,7 @@
 void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: what the helpers pass
 
 static INIClass DynaWinIni;	// 0xBE59F8  // NAME 1 [DynaWinIni]: neutral, the file it loads
-// NOT EXACT: the 'Use' string's register (esi) and the returned temporary's release (the client does not clear it)
+// 0x515AB0
 RefCountPtr<DynamicWindowAnimationDataClass> DynamicWindowAnimationDataClass::Get(const std::string &name)
 {
 	if (!DynaWinIni.Is_Loaded()) {
@@ -22,9 +22,9 @@ RefCountPtr<DynamicWindowAnimationDataClass> DynamicWindowAnimationDataClass::Ge
 
 	StringClass use;
 	DynaWinIni.Get_String(use, name.c_str(), "Use", "");
-	const char *use_name = use;
-	if (use_name && *use_name) {
-		data = Get(std::string(use_name));
+	if ((const char *)use && *(const char *)use) {
+		std::string use_name((const char *)use);
+		data = Get(use_name);
 	}
 
 	data->Load(DynaWinIni, name.c_str());

@@ -58,7 +58,7 @@ ResizeGadgetClass::~ResizeGadgetClass()
 
 
 
-// NOT EXACT: shape (2 rows): the client loads the origin first for the x offset (fld +0x60, fsubr); tried pos - origin in place, a Vector2 difference, -origin + pos
+// 0x66BB10
 bool ResizeGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	FAIL_IF(!Peek_Render_Obj()) {
@@ -88,7 +88,8 @@ bool ResizeGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, un
 	} else if (!(mask & 2) || Unknown_BE5F24 != this) {
 		return(false);
 	}
-	Vector2 delta(-Unknown60.X + pos.X, Unknown60.Y - pos.Y);
+	float ox = Unknown60.X;
+	Vector2 delta(pos.X - ox, Unknown60.Y - pos.Y);
 	Unknown68.X = WWMath::Clamp(delta.X, Unknown70.X, Unknown78.X);
 	Unknown68.Y = WWMath::Clamp(delta.Y, Unknown70.Y, Unknown78.Y);
 	return(true);

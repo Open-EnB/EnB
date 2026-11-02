@@ -7,22 +7,25 @@
 
 std::hash_map<std::string, CFactionDatabaseClass::FactionStruct> CFactionDatabaseClass::_Factions;
 int CFactionDatabaseClass::UseCount;
-// NOT EXACT: register-only in the first string assignment (the client moves the length to ecx before the _Eos store); explain.py says shape (195 vs 197 instructions)
+// 0x7E4BE0
 void CFactionDatabaseClass::Init()
 {
 	if (UseCount == 0) {
 		INIClass ini("cfaction_t.ini");
-		INISection *next;
-		for (INISection *section = ini.Get_Section_List().First_Valid(); section != 0; section = next) {
-			char *section_name = section->Section;
-			next = section->Next_Valid();
-			FactionStruct &faction = _Factions[std::string(section_name)];
-			char *name = ini.Get_Alloc_String(section_name, "Name", section_name);
-			faction.Name = name;
-			free(name);
-			char *description = ini.Get_Alloc_String(section_name, "Description", section_name);
-			faction.Description = description;
-			free(description);
+		INISection *next = ini.Get_Section_List().First_Valid();
+		if (next != 0) {
+			do {
+				INISection *section = next;
+				char *section_name = section->Section;
+				next = section->Next_Valid();
+				FactionStruct &faction = _Factions[std::string(section_name)];
+				char *name = ini.Get_Alloc_String(section_name, "Name", section_name);
+				faction.Name = name;
+				free(name);
+				char *description = ini.Get_Alloc_String(section_name, "Description", section_name);
+				faction.Description = description;
+				free(description);
+			} while (next != 0);
 		}
 	}
 	UseCount++;
@@ -44,9 +47,6 @@ const std::string &CFactionDatabaseClass::Get_Name(const std::string &faction)
 	if (it == _Factions.end()) return Empty;
 	return (*it).second.Name;
 }
-
-
-
 
 
 

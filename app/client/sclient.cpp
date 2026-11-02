@@ -26,8 +26,8 @@
 
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
 void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
-void Unknown_7228C0();									// NAME 1 [Unknown_7228C0]: neutral (D10), as tsk_login.cpp
-void Unknown_723150();									// NAME 1 [Unknown_723150]: neutral (D10), as tsk_login.cpp
+#include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
+														// (as tsk_login.cpp)
 void Unknown_6766E0(const char *ini);					// 0x6766E0: 'action.ini'
 void Unknown_676A00();									// 0x676A00: Load_INIs' 0x6766E0 undone
 void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
@@ -366,16 +366,16 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)
 }
 
-// NOT EXACT: inline budget (the client inlines the 0x24-byte object's destructor at the second delete, ours calls it: then every EH state after it is one lower; five forms, attempts.py show 0x740BB0)
+
 // 0x740BB0
 SClient::~SClient()
 {
 	Unknown_719E10(this);
-	delete Unknown1334;
+	if (Unknown1334) delete Unknown1334;
 	Unknown1334 = NULL;
-	delete Unknown1338;
+	if (Unknown1338) delete Unknown1338;
 	Unknown1338 = NULL;
-	delete ProjDecalManager;
+	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
@@ -2191,7 +2191,7 @@ void SClient::Unknown_745050()
 	Unknown1338->Unknown_760770(Unknown126C, Unknown1320);
 }
 
-// NOT EXACT: shape (explain.py; 15 masked rows): the client copies Get_Point's returned point through eax into a local before the fld/fstp into the element; four forms (attempts.py show 0x7451D0)
+
 // 0x7451D0
 void SClient::Unknown_7451D0()
 {
@@ -2199,17 +2199,17 @@ void SClient::Unknown_7451D0()
 	INIClass ini;
 	ini.Load("colors.ini");
 	char section[256];
+	TPoint3D<float> color;
 	int i = 0; while (true) {
 		_snprintf(section, 255, "Color%02d", i);
 		if (!ini.Find_Section(section)) break;
 		if (i >= Unknown1340.Length()) {
 			((VectorClass<Vector3> &)Unknown1340).Resize(i + 10);
 		}
-		TPoint3D<float> color = ini.Get_Point(section, "RGB", white);
-		Unknown1340[i] = Vector3(color.X, color.Y, color.Z);
+		color = ini.Get_Point(section, "RGB", white);
+		Unknown1340[i].Set(color.X, color.Y, color.Z);
 		i++; }
 }
-
 
 
 
@@ -2270,7 +2270,7 @@ void SClient::Unknown_745350()
 
 
 
-// NOT EXACT: field offset (explain.py; first: the FOV load): sprintf's CameraMode load is scheduled into another register and the Put_Float loads shift; four forms (attempts.py show 0x745490)
+
 // 0x745490
 bool SClient::Unknown_745490()
 {
@@ -2279,19 +2279,19 @@ bool SClient::Unknown_745490()
 	char filename[256];
 	_snprintf(filename, 255, "cam%d.ini", Ticket.Character_ID);
 	ini.Load(filename);
-	sprintf(section, "Mode%02d", CameraMode);
+	int index = CameraMode;
+	sprintf(section, "Mode%02d", index);
 	if (!ini.Find_Section(section)) {
 		return(false);
 	}
-	CameraModeStruct &mode = CameraModes[CameraMode];
-	ini.Put_Float(section, "Heading", RAD_TO_DEG(mode.Heading));
-	ini.Put_Float(section, "Distance", mode.Distance);
-	ini.Put_Float(section, "Tilt", RAD_TO_DEG(mode.Tilt));
-	ini.Put_Float(section, "FOV", RAD_TO_DEG(mode.FOV));
-	ini.Put_Float(section, "ElevationOffset", RAD_TO_DEG(mode.ElevationOffset));
+	CameraModeStruct *mode = &CameraModes[CameraMode];
+	ini.Put_Float(section, "Heading", RAD_TO_DEG(mode->Heading));
+	ini.Put_Float(section, "Distance", mode->Distance);
+	ini.Put_Float(section, "Tilt", RAD_TO_DEG(mode->Tilt));
+	ini.Put_Float(section, "FOV", RAD_TO_DEG(mode->FOV));
+	ini.Put_Float(section, "ElevationOffset", RAD_TO_DEG(mode->ElevationOffset));
 	return(ini.Save(filename) > 0);
 }
-
 
 
 
@@ -5324,20 +5324,20 @@ void SClient::Unknown_750C20(int index)
 #include "..\shared\avatar_desc.h"
 #include "assetmgr.h"
 #include "..\..\wwaudio\WWAudio.h"
-// NOT EXACT: shape (explain.py: 1 masked row; 177 instructions, the client 176): the client calls ids' insert(end, x) 0x755E60 out of line (insert(P, 1, X) inlined into it), ours inlines it and calls insert(P, 1, X); two forms (push_back, insert)
+// 0x7511A0
 // 0x7511A0 (the main view's 0x514010, on every view-mode change): each +0x1394 value is made again from a copy of its avatar description (+0xF8)
 // through 0x74C3B0 once the table is cleared (0x74C690 inline), then the mesh renderer, the DX8 resources, the unused assets and the audio cache are flushed
 void SClient::Unknown_7511A0()
 {
 	int count = 0;
-	std::vector<unsigned> ids;	// NAME 2: what it holds
-	std::vector<AvatarDescClass *> descs;	// NAME 2: what it holds
+	std::vector<unsigned> ids;
+	std::vector<AvatarDescClass *> descs;
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
 		SClientUnknown1394Class *object = (*it).second;
 		if (object) {
 			ids.push_back((*it).first);
-			descs.push_back(new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
+			descs.insert(descs.end(), new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
 			count++;
 		}
 	}

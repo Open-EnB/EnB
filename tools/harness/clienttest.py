@@ -73,6 +73,13 @@ def build(out):
     t2 = re.sub(r'ShipCustDescClass &ShipCustDescClass::operator=\(const ShipCustDescClass &that\)\r?\n\{.*?\r?\n\}', '', t, flags=re.S)
     assert t2 != t
     open(p, 'w', encoding='latin1', newline='').write(t2)
+    # unknown_message_filter.obj (app.lib, the message server's) now defines 0x4BE9D0, which avatar_desc_stubs.cpp
+    # also defines for udpreplay
+    p = os.path.join(stage, 'avatar_desc_stubs.cpp')
+    t = open(p, encoding='latin1', newline='').read()
+    t2 = re.sub(r'std::string Unknown_4BE9D0\(const char \*name\)\r?\n\{.*?\r?\n\}', '', t, flags=re.S)
+    assert t2 != t
+    open(p, 'w', encoding='latin1', newline='').write(t2)
     r = subprocess.run([sys.executable, os.path.join(SRC, 'gen_stubs.py'), stage], capture_output=True, text=True)
     print(r.stdout.strip())
     if r.returncode:

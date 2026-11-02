@@ -349,14 +349,14 @@ bool UDPConnection::Disconnect()
 
 
 
+static inline bool Find_Ptr(Dictionary<UDPChannelKeyClass, UDPChannelClass> &d, UDPChannelKeyClass &k, UDPChannelClass **p)	// NAME 2: getPointer through one more inline layer (Send_Data's last lookup: inline budget)
+{
+	return(d.getPointer(k, p));
+}
 
 
-
-
-
-
-// NOT EXACT (inline budget): the last lookup keeps keyHash out of line (the client inlines it there and
-// keeps operator == out of line; getPointer direct there inlines both); CordCon::write takes (channel, len, data, priority) in the client
+// Exact: the last lookup goes through Find_Ptr (getValue there leaves keyHash out of line, getPointer direct
+// inlines operator == too: inline budget); CordCon::write takes (channel, len, data, priority) in the client
 bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable, bool close)
 {
 	if (Con == 0) {
@@ -409,7 +409,9 @@ bool UDPConnection::Send_Data(int len, int channel, int priority, bool reliable,
 			Channels.remove(key);
 		}
 		key.Reliable = true;
-		if (Channels.getValue(key, chan)) {
+		UDPChannelClass *found = 0;
+		if (Find_Ptr(Channels, key, &found)) {
+			if (found) chan = *found;
 			if (!Is_Fixed_Channel(chan.Channel)) {
 				Con->closec(chan.Channel);
 			}
@@ -460,8 +462,6 @@ bool UDPConnection::Is_Fixed_Channel(unsigned int channel)
 }
 
 // (spacing kept: the next assert is on the client's line 489)
-
-
 
 
 
@@ -813,8 +813,8 @@ int Unknown_82E1D0()
 **	  UDPConnectionManager's and the listener's constructors; the destructor (Disconnect through
 **	  the base class), Get_Stats (its locals declared at the top: declared in the block they take
 **	  the dead parameters' slots) and Try_Connect (CordMgr::Connect returns the session id).
-**	  NOT EXACT: the constructor over a CordCon (registers), Send_Data (inline budget: the last
-**	  lookup's keyHash; and CordCon::write's argument order, see below).
+**	  NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02:
+**	  its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below).
 **	* Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies
 **	  it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the
 **	  drop test, the two close lookups written out (no loop): getPointer goes out of line (0x82E800,

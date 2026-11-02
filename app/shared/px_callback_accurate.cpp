@@ -386,12 +386,12 @@ void PxAccurateSphereCallback::Set_Self(int self)
 }
 
 // 0x450AC0
-// NOT EXACT: order (the client sums the two radii and squares dz between the other products; attempts.py show 0x450AC0)
 bool PxAccurateSphereCallback::Test(PxObject *object)
 {
 	Vector3 delta = object->Pos - Object->Pos;
 	float dist = object->Radius; dist += Radius;
-	if (delta.Length2() < dist * dist) return(true); return(false);
+	float len2 = delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z;
+	return(len2 < dist * dist);
 }
 
 /*

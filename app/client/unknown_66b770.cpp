@@ -39,7 +39,7 @@ void Unknown_66B770Class::Unknown_40(bool on)
 	GadgetClass::Unknown_40(on);
 }
 
-// NOT EXACT: shape (block order): the client puts the 0x40 test of the held-button check right after the 4 test; tried ?:, && / ||, a bool, early returns, the branches swapped
+// 0x66B910
 bool Unknown_66B770Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (!Unknown_60()) {
@@ -47,19 +47,17 @@ bool Unknown_66B770Class::Unknown_2C(KernelEventClass *event, float x, float y, 
 	}
 	if (mask & 0x11) {
 		GadgetClass::Unknown_2C(event, x, y, mask);
-		if (mask & 1) {
-			if (Mask & 4) {
-				Unknown_68();
-				if ((Unknown60 & 1) == 1) {
-					Unknown_66C2D0();
-				}
+		do {
+			if (mask & 1) {
+				if (!(Mask & 4)) break;
+			} else {
+				if (!(Mask & 0x40)) break;
 			}
-		} else if (Mask & 0x40) {
 			Unknown_68();
 			if ((Unknown60 & 1) == 1) {
 				Unknown_66C2D0();
 			}
-		}
+		} while (0);
 	} else if (((mask & 4) && Unknown_BE5F24 == this) || ((mask & 0x40) && Unknown_BE5F28 == this)) {
 		if ((Unknown60 & 1) == 1) {
 			Unknown_66C360();
@@ -73,6 +71,8 @@ bool Unknown_66B770Class::Unknown_2C(KernelEventClass *event, float x, float y, 
 	}
 	return(true);
 }
+
+
 
 
 

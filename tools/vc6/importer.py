@@ -3550,9 +3550,30 @@ RECONSTRUCTED = {
     ('wwshade', 'shd8ssbumpspec.vsh_code.h'): "shd8ssbumpspec_vsh_code, client .data 0xBCE4CC-0xBCEB7B (Shd8BumpSpecClass::Init 0xA147A0)",
     ('wwshade', 'shd8ssbumpspec.psh_code.h'): "shd8ssbumpspec_psh_code, client .data 0xBCEB7C-0xBCEBB7 (Shd8BumpSpecClass::Init 0xA147A0)",
     # E&B's own code (D23, APP_LIBS): paths under app\, as in e:\build\beta\G\app\...
+    ('app', 'shared/unknown_message.h'): "E&B's message reporters 0x4BBED0-0x4BC460 and the message server class "
+                                         "Unknown4BCA80Class (D137 provisional placement: the object 0x4BB8A0-0x4BE9D0 "
+                                         "has no __FILE__): neutral (D10)",
+    ('app', 'shared/unknown_message.cpp'): "the message reporters 0x4BBED0-0x4BC460 (levels 1-0x20, WWPROFILE labels "
+                                           "'Message_Debug'...), their common path 0x4BC5A0 and the server's accessors "
+                                           "0x4BBE90 / 0x4BBEB0 (D137 provisional)",
+    ('app', 'shared/unknown_message_record.cpp'): "the message server's record Unknown4BB8A0Class 0x4BB8A0-0x4BBAA0 (its "
+                                                  "constructor, destructor and text forms: a separate object, the reporters "
+                                                  "call them; D137 provisional)",
+    ('app', 'shared/unknown_message_server.cpp'): "the message server Unknown4BCA80Class from 0x4BCA80: constructor, destructor, "
+                                                  "listener 0x4BCCB0, 0x4BCCF0, 0x4BCD10, 0x4BD3F0, 0x4BD470 and its ArrayList "
+                                                  "instances (a separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
+    ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
+                                                  "and destructor 0x4BE060, its ini writer / reader 0x4BE0F0 / 0x4BE1E0, the match 0x4BE2C0 (D64) "
+                                                  "and the parser 0x4BE7A0 (a separate object: the server calls them; D137 provisional)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
+    ('app', 'client/ctrngadg.cpp'): "the cockpit's full-screen camera gadget (its assert names e:\\build\\beta\\G\\app\\client\\ctrngadg.cpp, 0xB76294): constructor 0x50A850, the table 0xAECDE4's deleting destructor 0x50AAE0 / destructor 0x50AB10, the hit test 0x50AB30 and the event slot 0x50ABC0 (NOT EXACT), its value holder's destructor 0x50B2C0 and the static initialisers 0x50B2E0-0x50B340; GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in its object",
+    ('app', 'client/ctrngadg.h'): "CtrnGadgetClass (D24 class-from-file), an InterfaceDeactivationGadgetClass of 0x50 bytes (the constructor 0x50A850's stores); a header name assumed from ctrngadg.cpp, NAME 3",
+    ('app', 'dbgmgr/dbgmgr.cpp'): "E&B's debug log (its asserts name e:\\build\\beta\\G\\app\\dbgmgr\\dbgmgr.cpp): "
+                                 "WWDebug's handler 0x509C10, the output 0x509C40, the print forms 0x509D50-0x509E30, "
+                                 "0x509E50-0x509EB0, WinMain's step log 0x509EF0 / 0x50A1E0 over a std::deque<DbgStepStruct> "
+                                 "(its out-of-line members 0x509B30, 0x50A560-0x50A810)",
     ('app', 'shared/unknown_debug.cpp'): "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter "
                                          "0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the "
                                          "two differ only in their strings)",
@@ -3764,6 +3785,36 @@ RECONSTRUCTED = {
     ('app', 'main/main.cpp'): "WinMain's helpers, client 0x445330-0x445725 (no __FILE__; its log texts start 'Main.cpp:', "
                               "the folder beside main_client.cpp is interim, D137): the exception hooks, the window-message "
                               "handlers, the LoadString texts, the versions; exact",
+    ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
+                                   "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
+                                   "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
+    ('app', 'shared/rs_proj_sup.cpp'): "rs_proj_sup.cpp, client 0x45D9E0-0x45E0B6 and its inline copies to 0x45E3E0 "
+                                     "(__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_proj_sup.cpp in its assert, line 58, D25; "
+                                     "builder RPS, run PR #144): RsTrackClass's projector caster Unknown45D9E0Class (vtable "
+                                     "0xAE80B0: constructor 0x45D9E0, slots 0x45DBB0 / 0x45DBE0 / 0x45DC60) and receiver "
+                                     "Unknown45DC80Class (vtable 0xAE80EC: constructor 0x45DC80, destructor 0x45DDF0, slots "
+                                     "0x45DF20 / 0x45DF90 / 0x45E0B0, the material-pass push / pop 0x45DFC0 / 0x45E030); exact",
+    ('app', 'shared/unknown_45e3f0.cpp'): "a named PrimitivePrototypeClass Unknown45E3F0Class (vtable 0xAE8124), client "
+                                        "0x45E3F0-0x45E536 (PROVISIONAL file name D10, interim placement D137: no __FILE__, after "
+                                        "rs_proj_sup.cpp's inline copies, before rs_robj.cpp; builder RPS, run PR #144): the "
+                                        "uncalled constructor 0x45E3F0, destructor 0x45E4A0 (deleting 0x45E470), Get_Name 0x45E530; exact",
+    ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
+                                 "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
+                                 "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "
+                                 "0x45E880 / 0x45E9F0, clone 0x45EB70, destructor 0x45EC00, 0x45ED70 and the virtuals "
+                                 "0x45EC90 / 0x45ECD0 / 0x45EDC0 / 0x45EE50 / 0x45EED0 / 0x45EF10 / 0x45EF80 / 0x45F280; all exact",
+    ('app', 'shared/unknown_458710.cpp'): "the render-object state on a bone path Unknown458710Class, client 0x458710-0x458BFA "
+                                        "(PROVISIONAL file name D10, interim placement D137: no __FILE__, the object after "
+                                        "rs.cpp's, its calls into rs.cpp not inlined; builder DISP, run PR #144): constructors "
+                                        "0x458710 / 0x4588A0 / 0x458810, clone 0x458970, destructor 0x458A60, 0x458AE0, the "
+                                        "virtuals 0x458B20 / 0x458B70 / 0x458BC0; exact",
+    ('app', 'shared/rs.cpp'): "rs.cpp, client 0x457BB0-0x458570 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs.cpp in its "
+                             "asserts, lines 257 / 265 / 273 / 281, D25; builder DISP, run PR #144): RenderStateClass's constructor "
+                             "0x457BE0, destructor 0x457D20, list links 0x457E10 / 0x457E90 / 0x457F60, 0x457EE0, 0x458010, the loader "
+                             "thread 0x458040 / 0x4580D0 / 0x458150 over the statics 0xBDC094 / 0xBDC098, WinMain's start-up / "
+                             "shut-down 0x4581E0 / 0x458250 ('initializing render state class'), the virtuals +0x24 / +0x18 / "
+                             "+0x1C / +0x30, the flag setters 0x458370-0x458460, 0x4584B0, 0x458540; exact (the class is declared "
+                             "in rs_track.h for now, D137)",
     ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
                               "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
                               "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",
@@ -4440,6 +4491,7 @@ RECONSTRUCTED = {
     ('app', 'shared/px_callback_poll.cpp'): "px_callback_poll.cpp, client 0x452780-0x453740 (its __FILE__; FAIL_IFs lines 216 / 223): PxPollCallback (PxWrapper's loose box) and PxPollAccurateCallback: constructors, Process, On_Enter / On_Exit, Clone, Attach / Detach, Update, Add_Filter, Set_Radius / Set_Extent",
     ('app', 'shared/px_callback_type.h'): "PxCallbackType / PxCallbackEvent (the client's name strings) and their string conversions; provisional header and function names",
     ('app', 'shared/px_callback_type.cpp'): "px_callback_type.cpp, client 0x453740-0x453A40 (its __FILE__; asserts lines 47-112): the two enums' names and From_String / To_String (_EventStrings, the FAIL_IF's name); no caller in the client",
+    ('app', 'shared/ro_funcs.cpp'): "ro_funcs.cpp (__FILE__ 0xB724F0), client window 0x495F60-0x497330: so far only 0x497240 (exact), the ALLOW_NPATCHES flag on every mesh's model through the sub-objects; after the file's last assert function 0x496E90 and before its COMDATs (MSG2)",
     ('app', 'shared/px_process.h'): "PxProcessNode / PxProcessClass (client.h's name, D24), px_process.cpp's list of nodes and its static stack of the current list; provisional header name",
     ('app', 'shared/px_process.cpp'): "px_process.cpp, client 0x455880-0x4560B0 (its __FILE__; FAIL_IFs lines 16-62): PxProcessNode (vtable 0xAE7CE8), PxProcessClass's Add / Remove / Remove_All / Process, Get_Current / Push / Pop (Push 0x455D10, Pop 0x455F60 NOT EXACT)",
     ('app', 'client/extrap.h'): "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts "
@@ -4464,7 +4516,7 @@ RECONSTRUCTED = {
     ('app', 'client/interface_static_sort_list.h'): "InterfaceStaticSortListClass (D24 from interface_static_sort_list.cpp's __FILE__; the client holds no string of the header): the inline constructor 0x6DA930 and InterfaceRenderClass's destructors 0x6DAD10 / 0x6DAD40 (interface_scene.cpp's object) (UI)",
     ('app', 'client/gadget_list_manager.h'): "GadgetListManagerClass (D24 from gadget_list_manager.cpp's __FILE__; the client holds no string of the header; uiview.h includes it for UIViewClass +0x2C) (UI)",
     ('app', 'client/textgadg.h'): "TextBaseGadgetClass (table 0xAFD980) and TextGadgetClass (table 0xAFDA10, 0x80 bytes), textgadg.cpp's (__FILE__ 0xB91874; D24 header name): the edit boxes of the login screen; the flag constants 0xB08CAC-0xB08CC4 (extern) (GAD3)",
-    ('app', 'client/textgadg.cpp'): "textgadg.cpp (__FILE__ 0xB91874, asserts on the client's lines 194-564, D25), client 0x6AA000-0x6AB310: the text gadgets' constructors, destructors, focus 0x6AA720 / 0x6AACD0, text 0x6AA570-0x6AA6F0, the layer 0x6AB0F0; the keys 0x6AA200, the box 0x6AB080; NOT EXACT (D64): the print string 0x6AA340, the frame 0x6AAD10, the clip 0x6AB190 (GAD3)",
+    ('app', 'client/textgadg.cpp'): "textgadg.cpp (__FILE__ 0xB91874, asserts on the client's lines 194-564, D25), client 0x6AA000-0x6AB310: the text gadgets' constructors, destructors, focus 0x6AA720 / 0x6AACD0, text 0x6AA570-0x6AA6F0, the layer 0x6AB0F0; the keys 0x6AA200, the box 0x6AB080; NOT EXACT (D64): the frame 0x6AAD10 (GAD3)",
     ('app', 'client/rect3d.cpp'): "Rect3DClass (rect3d.h), client 0x6E2290-0x6E2B40 (__FILE__ 0xB92CE8, G_ASSERT(0) on the client's lines 92 / 100, D25): a four-vertex DynamicMeshClass rectangle in one color; NOT EXACT (D64): the constructor 0x6E2290 (inline budget) (BTN)",
     ('app', 'client/rect3d.h'): "Rect3DClass (vtable 0xAFFB08, 0xF4 bytes), D24 header name from rect3d.cpp's __FILE__ (BTN)",
     ('app', 'client/fontsys_cursor.cpp'): "TextCursorClass (fontsys_cursor.h), client 0x685680-0x685E70 (__FILE__ 0xB8FD0C, FAIL_IF '!line' / '!text' on the client's lines 78 / 86, D25): the edit boxes' text cursor over Rect3DClass; all exact (BTN)",
@@ -4478,6 +4530,8 @@ RECONSTRUCTED = {
     ('app', 'client/view.cpp'): "ViewClass (view.cpp's __FILE__; client 0x6B4480-0x6B4AD0 and its SList<> instances): UIViewClass's base, the input dispatcher +0x04 and the interface objects' SList +0x08; the asserts on the client's lines 40 / 78 / 106 / 113 (LD4)",
     ('app', 'client/uiview.h'): "what uiview.cpp's UIViewClass (sclient.h) makes and calls: the 2-D scene (interface_scene.h, included), GadgetListManagerClass (0x6611B0), the +0x30 object (0x6AB320); PROVISIONAL file name after uiview.cpp (LD4)",
     ('app', 'client/uiview.cpp'): "UIViewClass (the client's 'UIViewClass::Render', __FILE__ e:\\build\\beta\\G\\app\\Client\\uiview.cpp; client 0x65A6C0-0x65B8E0): the views' base over view.cpp's ViewClass, and the second view Unknown65B810ViewClass (0x65B810), the FAIL_IFs on the client's lines 234 / 257 / 268 / 271 / 274 (LD4)",
+    ('app', 'client/tooltip.h'): "UIViewUnknown30Class, UIViewClass +0x30 (0x70 bytes): the gadgets' tooltip window; header name assumed from tooltip.cpp (D24) (GAD3)",
+    ('app', 'client/tooltip.cpp'): "tooltip.cpp (__FILE__ 0xB91938; asserts '!Hides' line 181, 'CurGadget != gadget' 210, 'lines > MAX_LINES' 331), client 0x6AB320-0x6ABE90: the constructor 0x6AB320 ('TOOLTIPS', 'TOOLTIP_FONT') and destructor 0x6AB4D0, their EH handlers in the block of 0x6AB930 / 0x6ABC60 (GAD3)",
     ('app', 'client/mainview.cpp'): "the main view (MainViewClass, sclient.h; client 0x50B2C0-0x5146xx, 97 functions): so far the zone loader 0x5137F0 on the client's FAIL_IF lines 1974 / 1981 / 1983 (LD3)",
     ('app', 'client/sbaseview.h'): "SBaseViewClass, sbaseview.cpp's starbase view (SClient +0x135C), with the interfaces it holds (UIJobsClass, UIStarbaseClass, the +0x19C / +0x1A0 classes), declared as far as cpacket.cpp calls them; moved out of cpacket.cpp (CP1, P-SC1-1), the header's name provisional",
     ('app', 'client/sbaseview.cpp'): "SBaseViewClass (sbaseview.cpp's __FILE__; client 0x69CDE0-0x6A2530): the short and middle-sized members 0x69D930-0x6A2480, the asserts on the client's lines 738 / 1667 (D25; 1261 / 1262 left for 0x6A0590), UI1; NOT EXACT 0x69F710; the large ones not yet",
@@ -4499,6 +4553,7 @@ RECONSTRUCTED = {
     ('app', 'client/ui_avatr.cpp'): "AvatarCreationInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7B848), the avatar creation window (ui_avatr.cpp's __FILE__ 0xB7B80C, 0x55C280's FAIL_IFs lines 2207 / 2211; client from 0x553AF0, after ui_avatar_dialog.cpp, claim #88): so far 0x556290 (the pulls made) and 0x556630 (a tab's gadgets and texts) exact, 0x556B20 (the tab chosen) NOT EXACT (inline budget), the palette helper 0x55C350 it inlines exact (TK6); the destructor 0x554B50, 0x554D60, 0x555F60 and 0x5560E0 exact (TK14, claim #118); 0x5571D0, 0x558060, 0x558170, 0x5598A0, 0x5598D0, 0x559F30, 0x55AFD0, 0x55B110 and 0x55B540 exact (TK14, claim #122); the class declared only as far as they use it",
     ('app', 'client/ui_avsel.cpp'): "AvatarSelectionInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7C068), the character select window (ui_avsel.cpp's __FILE__ 0xB7BEA0, 15 asserts lines 769-1262; client from the constructor 0x55C650, after ui_avatr.cpp's 0x55C640; run PR #139, LG2): the constructor 0x55C650, the destructor 0x55CCC0, slots +0x60 0x55CEA0, +0x88 0x55EBD0, +0x8C 0x55ECB0, 0x55D9C0, 0x55E2E0, 0x55E8E0, 0x55ED20, 0x55EF90, 0x55F680, the callback 0x55F6D0, 0x55F760, 0x55FBB0, 0x55FDC0 and 0x55FE50 exact; 0x55E370 (inline accessors) exact; 0x55E070 NOT EXACT (register), 0x55F140 NOT EXACT (inline budget), slot +0x68 0x55D060 NOT EXACT (the implicit ShipCustDescClass operator= the client calls out of line inlines); the class in ui_avsel.h, the other types declared only as far as they use them",
     ('app', 'client/ui_avsel.h'): "AvatarSelectionInterface's declaration (ui_avsel.cpp's window; a provisional header name, NAME 1: in the .cpp, the functions before the first assert, line 769, do not fit above it)",
+    ('app', 'client/ui_popupmsg.cpp'): "Unknown5DB670InterfaceClass (charview.cpp's neutral name; no RTTI), the end screen charview.cpp's 0x679160 makes for mode 0 ('end_screen00', its seven buttons, 'Exit in %d sec'; ui_popupmsg.cpp's __FILE__ 0xB849A8, assert line 196; client from the constructor 0x5DB670, after ui_popup_browser.cpp's window, through the adjustor thunks 0x5DBF50 / 0x5DBF60 to the PermStringInitClass static 0x5DBF70; run PR #144, SCR): the constructor 0x5DB670, the destructor 0x5DB9F0 (0x5DB9C0), slots +0x7C 0x5DBB00, +0x60 0x5DBB70, +0x68 0x5DBD00, 0x5DBD50 and Get_Site_URL 0x5DBEB0 exact; the class declared in the .cpp only",
     ('app', 'client/charview.cpp'): "CharacterViewClass, the front end's view (charview.cpp's __FILE__ 0xB8D9C4, asserts lines 505-1285; client 0x678450-0x67D300, vtable 0xAFBD5C; LoginTaskClass::Create_Character_View 0x769D60 makes it; run PR #140, CV): the constructor 0x678450, Unknown_04 0x678B70, the mode's screen 0x679160, Shutdown 0x679510, the frame 0x679930 and the small members written functional for the POC client (D64)",
     ('app', 'client/charview.h'): "CharacterViewClass's declaration (provisional header name after charview.cpp, NAME 3; tsk_login.h includes it)",
     ('app', 'client/splash.cpp'): "Splash (0x10 bytes; the class name from 0x6A9E40's profile string 'Splash::Render'), client 0x6A9B60-0x6A9F39: the constructor 0x6A9B60, the destructor 0x6A9DB0, Render 0x6A9E40, byte-exact; its literals 0xB917F8-0xB91836 precede textgadg.cpp's; file name PROVISIONAL (D137: no __FILE__; the app\\Client objects here run alphabetically, loadingview .. textgadg, tutorial_manager, view) (GAD4)",
@@ -4524,6 +4579,17 @@ RECONSTRUCTED = {
     ('app', 'client/intrlist.cpp'): "intrlist.cpp (__FILE__ 0xB8FD5C): InterfaceClass's +0x64 list (intrface.h's InterfaceUnknown64Class, an SList of gadget entries), client 0x686FA0-0x687360; so far 0x6871D0 (activated; FAIL_IF '!View' on the client's line 88, D25), NOT EXACT (D64, functional for the POC) (ACT)",
     ('app', 'client/control_key_list.cpp'): "InterfaceClass's +0x4C key list (intrface.h's InterfaceKeyListClass, control_keys_manager.h's ControlKeyListClass), client 0x721C70-0x721FC0; so far 0x721CC0 and 0x721F40 (activated), NOT EXACT (D64, functional for the POC). File PROVISIONAL (D137: no string; after control_keys_manager.cpp's container instances) (ACT)",
     ('app', 'client/tasks/settings_store.cpp'): "the settings store's lkey check (tsk_game.h's Unknown_7CA2D0Class), client 0x7CB6F0-0x7CBC60: the per-frame poll 0x7CB6F0 and its WinInet thread 0x7CB8F0, NOT EXACT (D64, functional for the POC). File PROVISIONAL (D137: no string ties the store's functions to a file) (ACT)",
+    ('app', 'client/gd_dynamicwindow.cpp'): "DynamicWindowGadgetClass (D24 class-from-file), a button gadget over a dynamic window's model (table 0xAF9FD4, 0x6C bytes), client 0x668860-0x668E1F (__FILE__ 0xB8CF58, FAIL_IF '!DynamicObject' on the client's line 61, D25): the constructors 0x668860 / 0x6689C0, the destructors, Set_Dynamic_Object 0x668BE0, the hit test 0x668C80; all exact (MSG2)",
+    ('app', 'client/gd_dynamicwindow.h'): "DynamicWindowGadgetClass's declaration (D24 header name from gd_dynamicwindow.cpp's __FILE__; the client holds no string of it) (MSG2)",
+    ('app', 'client/unknown_51c800.cpp'): "Unknown51C800Class, a dynamic window element over a font style's text (table 0xAED85C, 0x4C bytes), client 0x51C800-0x51C91B: the constructor, the destructors, slot +0x58 0x51C910; PROVISIONAL file (D137: no string; between dynamic_window_multi_line_text.cpp and dynamic_window_render_object.cpp); all exact (MSG2)",
+    ('app', 'client/unknown_51c800.h'): "Unknown51C800Class's declaration, PROVISIONAL header name (D137) (MSG2)",
+    ('app', 'client/unknown_515640.cpp'): "Unknown515640Class, an InterfaceClass with a gauge of the avatar's height (table 0xAED2B4, 0x88 bytes; unreferenced constructor), client 0x515640-0x515A53: the constructor, the destructors, slots +0x58 / +0x5C / +0x60, the adjustor thunks; its table pulls intrface.h's inline defaults 0x515690-0x515750 into this object. PROVISIONAL file (D137: no string; after smouse.cpp, before the dynawin.ini file at 0x515A60); all exact (SM)",
+    ('app', 'client/unknown_515640.h'): "Unknown515640Class's and its gauge Unknown686010Class's declarations, PROVISIONAL header name (D137) (SM)",
+    ('app', 'client/unknown_msgbox.cpp'): "the views' message box (sclient.h's ViewUnknown34Class, 0x1F8 bytes, table 0xAF1180; UIViewClass's Init 0x65A820 makes it), client 0x587570-0x589D20: dialogbox.ini's Header%d / Option%d / Key%d boxes, the 'HTML' box's browser, the queue of boxes shown while one is up (std::deque instances 0x587930, 0x589970-0x589C60). File PROVISIONAL (D137: no string; after the gadget run, before ui_dynamicwindow.cpp); NOT EXACT (D64) where marked (MSG)",
+    ('app', 'shared/enbassetmgr.cpp'): "enbassetmgr.cpp (__FILE__ in the assert at 0xB721AC): E&B's asset manager (ENBAssetManager in the client's strings, table 0xAEA5C8, 0x408C bytes), client 0x48B070-0x48B0DB: the constructor (WinMain's) and the destructors, exact (KRN2); the table's own slots +0x14 Create_Render_Obj 0x48B0F0 (Post_Process 0x48EB90 inlined) and +0x10 Release_Unused_Assets 0x48F2C0 exact; +0x38 Release_Unused_Textures 0x48F1A0 and Post_Process' helpers 0x48E620 / 0x48E9D0 exact, 0x48ECA0 functional (D64); +0x78's unique-making helpers 0x48BCF0 / 0x48BDC0 / 0x48BE60 and HSV dispatchers 0x48D710 / 0x48E4E0 exact; the mesh's HSV helper 0x48D1F0 (Renegade's hueshift Recolor_Mesh) with 0x48BF20 / 0x48C590 / 0x48CF90 exact, 0x48CB40 functional (D64); +0x78 0x48B220 not yet (EAM, EAM2, EAM3)",
+    ('app', 'shared/enbassetmgr.h'): "E&B's asset manager's class ENBAssetManager (UnknownBDADC0Class until P-MC-3) and Unknown_BDADC0 0xBDADC0, shared by enbassetmgr.cpp, main_client.cpp, display.cpp, co.cpp, eff_o.cpp, scriptedmovie.cpp, rs_robj.cpp (kernel.cpp keeps its own view); PROVISIONAL header name (D137) (EAM)",
+    ('app', 'client/mousetbl.cpp'): "mousetbl.cpp (__FILE__ 0xB94DD0): the mouse cursor table (25 entries, 0xBE7C70, reference counted 0xBE7CD4), client 0x722770-0x723199 and the header's PermStringInit 0x7231C0 / 0x7231F0 (G_ASSERTs on the client's lines 33, 72), all exact (KRN)",
+    ('app', 'client/mousetbl.h'): "the mouse cursor table's declarations (MCURSOR_MAX, MouseCursorStruct, the table 0xBE7C70, the loader 0x7228C0 / unloader 0x723150) shared by mousetbl.cpp and smouse.cpp; PROVISIONAL header name (D137) (KRN2)",
     ('app', 'client/smouse.cpp'): "smouse.cpp (__FILE__ 0xB76820): the software mouse (tsk_login.h's LoginUnknown18Class, 0x30 bytes), client 0x514FE0-0x5155D5 (FAIL_IFs on the client's lines 267, 269, 278, D25), NOT EXACT (D64, functional for the POC); the views' defaults before it and the interface defaults 0x515690-0x515750 not yet (ACT)",
     ('app', 'client/unknown_66b770.cpp'): "Unknown_66B770Class, the model gadget with highlight / hide modes (table 0xAFA890, 0x64 bytes), client 0x66B770-0x66BA10: the constructors, the destructors, slot +0x40 0x66B840; NOT EXACT (D64): slot +0x2C 0x66B910 (block order). File PROVISIONAL (D137: no string; between gd_proxy.cpp and gd_resize.cpp, whose FAIL_IF on line 64 leaves no room for it) (GAD4)",
     ('app', 'client/unknown_66b770.h'): "Unknown_66B770Class's declaration (provisional, D137) (GAD4)",

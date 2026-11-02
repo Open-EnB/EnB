@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's view stand-ins (D179). NOT THE CLIENT'S CODE.
 /*
-**	The views' stand-ins on the login path: the message box, the settings store, the avatar model and
+**	The views' stand-ins on the login path: the settings store, the avatar model and
 **	Create_Peek 0x497300. (The 2-D scene stand-in went when interface_scene.cpp landed in app.)
 */
 
@@ -9,19 +9,7 @@
 #include <string.h>
 #include "..\..\stubs\stub_log.h"
 
-// sclient.h's ViewUnknown34Class (constructor 0x5875C0, 0x1F8 bytes; every view's +0x34, the message box):
-// here the InterfaceClass alone, no dialog gadgets (its +0x7C Active stays false, so LoginTaskClass::Run
-// never asks it for a button)
 #include "..\..\app\client\sclient.h"
-
-// 0x5875C0
-ViewUnknown34Class::ViewUnknown34Class(UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, 0)
-{
-	STUB_CALLED("POC ViewUnknown34Class (0x5875C0, the views' message box): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	memset(Type, 0, sizeof(Type));
-	memset(Unknown190, 0, sizeof(Unknown190));
-}
 
 // tsk_game.h's Unknown_7CA2D0 (0x7CA2D0): the settings store, a function-static object (0x1B4 bytes at
 // 0xBE8890, constructor 0x7C97B0); ui_login.cpp clears its std::map at +0x60. Here zeroed, with the map
@@ -52,11 +40,20 @@ Unknown_7CA2D0Class *Unknown_7CA2D0()
 #include "nullrobj.h"
 #include "..\..\app\client\charview.h"
 
+// The charview frame 0x679930 calls the avatars' first own virtual +0x1C4 (charview.h): the stand-in's table needs
+// that slot after Null3DObjClass's 113 (RenderObjClass's), a no-op here
+class PocAvatarClass : public Null3DObjClass
+{
+public:
+	PocAvatarClass() : Null3DObjClass("AVATAR") {}
+	virtual void Unknown_1C4() {}						// +0x1C4
+};
+
 // 0x77B870
 CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps)
 {
 	STUB_CALLED("POC CharacterViewAvatarClass (0x77B870, avatar.cpp): a Null3DObjClass, no avatar");
-	new ((void *)this) Null3DObjClass("AVATAR");
+	new ((void *)this) PocAvatarClass;
 	Unknown220 = false;
 }
 
@@ -67,29 +64,4 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)
 {
 	return(Create_Peek(robj));
 }
-
-// mousetbl.cpp's cursor table (0xBE7C70, 25 entries) and its loader 0x7228C0 (ACT): smouse.cpp's software mouse
-// reads them. The loader makes each entry from the asset manager's texture (slot +0x30: name, 1, 0, 1); here
-// with the client's 25 names and every hot spot 0, 0 (the client's own offsets not read yet).
-#include "assetmgr.h"
-#include "texture.h"
-struct MouseCursorStruct { TextureClass *Texture; int HotX; int HotY; };	// smouse.cpp's
-MouseCursorStruct *Unknown_BE7C70[25];
-void Unknown_7228C0()
-{
-	static const char *names[25] = {"arrow_blank.tga", "arrow.tga", "cursor_w.tga", "cursor_y.tga", "csr0000.tga",
-		"c_talk.tga", "c_terminal.tga", "c_exit.tga", "c_zoomin.tga", "c_zoomout.tga", "c_handgrab.tga", "arr_bl3.tga",
-		"arr_l3.tga", "arr_tl3.tga", "arr_t3.tga", "arr_tr3.tga", "arr_r3.tga", "arr_br3.tga", "arr_bl4.tga", "arr_l4.tga",
-		"arr_tl4.tga", "arr_t4.tga", "arr_tr4.tga", "arr_r4.tga", "arr_br4.tga"};
-	STUB_CALLED("POC Unknown_7228C0 (0x7228C0, mousetbl.cpp): the cursor table, hot spots 0, 0");
-	if (Unknown_BE7C70[0] != NULL) {
-		return;
-	}
-	for (int i = 0; i < 25; i++) {
-		MouseCursorStruct *entry = new MouseCursorStruct;
-		entry->Texture = WW3DAssetManager::Get_Instance()->Get_Texture(names[i], (MipCountType)1, WW3D_FORMAT_UNKNOWN, true);
-		entry->HotX = 0;
-		entry->HotY = 0;
-		Unknown_BE7C70[i] = entry;
-	}
-}
+// mousetbl.cpp's cursor table and its loader / unloader 0x7228C0 / 0x723150: app\client\mousetbl.cpp (KRN, exact).

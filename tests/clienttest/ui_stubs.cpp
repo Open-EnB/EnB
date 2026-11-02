@@ -24,6 +24,16 @@ public:
 void InterfaceSignalMapClass::Add(void *, SignalBaseClass::CallbackClass *) { Trace("stub InterfaceSignalMapClass::Add (0x4F9740)"); }
 void InterfaceSignalMapClass::Remove(void *, const SignalBaseClass::CallbackClass &) { Trace("stub InterfaceSignalMapClass::Remove (0x4F98D0)"); }
 
+// tooltip.cpp's view of the same two functions (its own TooltipSignalMapClass; unresolved since 627f1bd4)
+class TooltipSignalMapClass
+{
+public:
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
+};
+void TooltipSignalMapClass::Add(void *, SignalBaseClass::CallbackClass *) { Trace("stub TooltipSignalMapClass::Add (0x4F9740)"); }
+void TooltipSignalMapClass::Remove(void *, const SignalBaseClass::CallbackClass &) { Trace("stub TooltipSignalMapClass::Remove (0x4F98D0)"); }
+
 // ------------------------------------------------------------------------- sclient.cpp's notifier (0x79B9E0's object)
 
 typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;
@@ -71,3 +81,31 @@ void Unknown_496110(RenderObjClass *, float, float, float) { Trace("stub Unknown
 class LoadingViewFontManagerClass;
 LoadingViewFontManagerClass *Unknown_BE67C4 = 0;	// 0xBE67C4 (loadingview.cpp's font manager; the loading view's text is not drawn here)
 Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
+
+// ------------------------------------------------------------------------- wlib's Wstring (unknown_message.cpp)
+
+// The message reporters' common path 0x4BC5A0 and the server (app.lib's unknown_message*.obj, linked for the real
+// reporters) use these; gen_stubs.py --link writes no operators. Never reached here: no message server.
+class Wstring
+{
+public:
+	Wstring &operator+=(const char *other);
+	Wstring &operator+=(const Wstring &other);
+	Wstring &operator=(const Wstring &other);
+	char operator==(const Wstring &other) const;
+	char operator!=(const Wstring &other) const;
+};
+Wstring &Wstring::operator+=(const char *) { Trace("stub Wstring::operator+=(const char *) (0x8B6640)"); return *this; }
+Wstring &Wstring::operator+=(const Wstring &) { Trace("stub Wstring::operator+=(const Wstring &) (0x8B6750)"); return *this; }
+Wstring &Wstring::operator=(const Wstring &) { Trace("stub Wstring::operator=(const Wstring &) (0x8B61D0)"); return *this; }
+// the message filter's match 0x4BE2C0 (unknown_message_filter.obj); never reached here
+char Wstring::operator==(const Wstring &) const { Trace("stub Wstring::operator==(const Wstring &) (0x8B5F70)"); return 0; }
+char Wstring::operator!=(const Wstring &) const { Trace("stub Wstring::operator!=(const Wstring &) (0x8B6070)"); return 1; }
+
+// the message server's 0x4BD470 (unknown_message_server.obj) stamps its record with this; never reached here
+class Wtime
+{
+public:
+	Wtime &operator=(const unsigned long other);
+};
+Wtime &Wtime::operator=(const unsigned long) { Trace("stub Wtime::operator=(uint32) (0x8BA250)"); return *this; }

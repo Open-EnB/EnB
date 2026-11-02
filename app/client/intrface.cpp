@@ -63,7 +63,7 @@ public:
 
 
 
-// NOT EXACT: register (shape: 0.62; VC6 keeps the constant 1 of the two reference counts in edi and the view in ebp, the client the view in edi)
+
 InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 	Client(NULL),
 	Unknown44(unknown),
@@ -87,7 +87,7 @@ InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 		}
 	}
 	if (view && view->Unknown_20()) {
-		Client = (LineDisplayClientClass *)((Unknown65B810ViewClass *)view->Unknown_20())->Client;
+		Client = (LineDisplayClientClass *)((Unknown65B810ViewClass *)view->Unknown_20())->Get_Client();
 	} else {
 		Client = NULL;
 	}
@@ -176,7 +176,7 @@ void InterfaceClass::Unknown_58()
 {
 	G_ASSERT(!PartialDeactivatedGadget);
 	if (!Active && View && Unknown44) {
-		InterfaceSortClass sort(this);
+		InterfaceSortScopeClass sort(this);
 		InterfaceSceneClass *scene = View ? (InterfaceSceneClass *)View->Unknown_50() : NULL;
 		InterfaceStaticSortListClass *issl = scene ? scene->SSL : NULL;
 
@@ -326,16 +326,18 @@ void InterfaceClass::Unknown_80()
 }
 
 
-// NOT EXACT: register (0.77; the view's +0x2C in eax and the table in edx in the client, the other way round here)
+// 0x541690
 void InterfaceClass::Unknown_84()
 {
 	FAIL_IF(!PartialDeactivatedGadget) return;
 	FAIL_IF(!Active) return;
-	InterfaceSortClass sort(this);
+	InterfaceSortScopeClass sort(this);
 	Unknown58.Unknown_686E90();
 	Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
-	PartialDeactivatedGadget->Unknown_58(View->Unknown2C);
-	GadgetClass::Destroy(PartialDeactivatedGadget);
+	UIViewClass *view = View;
+	PartialDeactivatedGadget->Unknown_58(view->Unknown2C);
+	GadgetClass *gadget = PartialDeactivatedGadget;
+	GadgetClass::Destroy(gadget);
 	PartialDeactivatedGadget = NULL;
 }
 
@@ -359,8 +361,6 @@ InterfaceStaticSortListClass *InterfaceClass::Unknown_541800()
 	}
 	return(scene->SSL);
 }
-
-
 
 
 
@@ -473,7 +473,10 @@ InterfaceSortScopeClass::InterfaceSortScopeClass(const RefCountPtr<InterfaceClas
 **	deleting destructor 0x540D00, the two MemberCallback instances 0x541AD0-0x541D90, Create_Peek 0x5419E0, the
 **	RefCountPtr destructor 0x541A10, the template disconnect 0x541A50 and the adjustor thunks 0x541DC0 / 0x541DD0.
 **	0x541980 / 0x5419B0 (local_interface_sort.h's InterfaceSortScopeClass: InterfaceSortClass's constructor over an
-**	interface or a RefCountPtr, the windows' sort scope) end the file; 0x5411F0 (a jmp to 0x6E18B0) is not rebuilt.
+**	interface or a RefCountPtr, the windows' sort scope) end the file. 0x5411F0 (a jmp to 0x6E18B0) is the scope's
+**	implicit destructor, emitted out of line after 0x541010 for the unwind funclets of 0x541010 / 0x541690 (their
+**	`sort` locals are InterfaceSortScopeClass: the constructor 0x541980 inlines there, the funclets call 0x5411F0);
+**	every other file's funclets call this copy too.
 **
 **	The class: the callbacks' RTTI names it InterfaceMemberClass (SignalBaseClass::MemberCallback<void,
 **	InterfaceMemberClass, ..., GadgetGroupToFrontEvent> and <ControlKeysManager, InterfaceMemberClass, ...,

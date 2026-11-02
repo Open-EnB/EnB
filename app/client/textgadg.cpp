@@ -46,8 +46,8 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	cursor moved; while active the cursor blinks at GetCaretBlinkTime (flag 0x1000).
 **	The flags are extern constants in .rdata 0xB08C90-0xB08CC4 (1 ... 0x1000, 0x2C0): their file is not known; the POC
 **	defines them (programs/clientpoc/poc_data.cpp).
-**	0x6AB320-0x6AB5B0 after this file ('TOOLTIPS', 'Interface_Tooltip_Delay', calls into tooltip.cpp) are not this
-**	file's: tooltip.cpp's start or a file between.
+**	0x6AB320- after this file ('TOOLTIPS', 'Interface_Tooltip_Delay') are tooltip.cpp's (its EH handlers follow this
+**	file's at 0xAC14A9; tooltip.cpp in this tree).
 */
 
 TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, const char *chars) :
@@ -386,8 +386,8 @@ void TextGadgetClass::Unknown_74(bool on)
 
 
 
-// NOT EXACT: registers and stack (0.56; 0x128 bytes of locals in the client, 0x130 here): the client keeps the text
-// in ebx and converts the screen width for every width call (here once, kept on the stack)
+// NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text
+// in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled
 void TextGadgetClass::Unknown_6AAD10()
 {
 	bool changed = Changed;
@@ -424,8 +424,8 @@ void TextGadgetClass::Unknown_6AAD10()
 				float max_width = (Box.Extent.X * 2.0f - Unknown78 * 2.0f) * (width / 640.0f);
 				if (text_width >= max_width) {
 					char *p = print;
-					while (font->Get_Text_Width(p++, (float)width) > max_width && *p != '\0') {
-					}
+					do {
+					} while (font->Get_Text_Width(p++, (float)width) > max_width && *p != '\0');
 					if (*p-- != '\0') {
 						memmove(print, p, strlen(p) + 1);
 					}
@@ -535,7 +535,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
-// NOT EXACT: loop rotation (0.76): VC6 rotates the first loop here (its test repeated at the bottom), the client tests cp at the top only
+
 char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
@@ -544,12 +544,12 @@ char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&
 	float width = font->Get_Text_Width(string, 640.0f);
 	if (width > pwidth) {
 		int i = strlen(string) - 1;
-		while (cp < i) {
-			width -= font->Get_Char_Width(string[i], 640.0f);
-			i--;
-			if (!(width > pwidth)) {
+		while (width > pwidth) {
+			if (cp >= i) {
 				break;
 			}
+			width -= font->Get_Char_Width(string[i], 640.0f);
+			i--;
 		}
 		string[i + 1] = '\0';
 		while (width > pwidth) {

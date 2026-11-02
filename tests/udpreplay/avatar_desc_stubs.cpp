@@ -6,10 +6,8 @@
 #include <string>
 #include "..\..\..\app\shared\unknown_packetdata.h"
 
-// 0x4BC260: E&B's message reporter (the defaults loader's missing-file message)
-void Unknown_4BC260(const char *, const char *, const char *, int, const char *, ...)
-{
-}
+// (0x4BC260, E&B's message reporter for the defaults loader's missing-file message: udpreplay.cpp's,
+// since clienttest links the real one from app.lib's unknown_message.obj)
 
 // 0x4BE9D0: a name turned into another (kv_util.cpp's run)
 std::string Unknown_4BE9D0(const char *name)
@@ -17,8 +15,7 @@ std::string Unknown_4BE9D0(const char *name)
 	return std::string(name);
 }
 
-// the key/value encoder's typed adds (0x4C2EB0, 0x4C2FE0, 0x4B2BB0, 0x4B4A70)
-void KVEncoderBaseClass::Add(int, const char *, int *) {}
-void KVEncoderBaseClass::Add(int, const char *, char *) {}
+// the key/value encoder's typed adds (0x4B2BB0, 0x4B4A70; the int and char ones 0x4C2EB0 / 0x4C2FE0
+// are avatar_desc.cpp's own)
 void KVEncoderBaseClass::Add(int, const char *, Vector3 *) {}
 void KVEncoderBaseClass::Add(int, const char *, char *, int) {}

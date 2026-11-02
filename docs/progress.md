@@ -4,6 +4,52 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-02 (06:45 PST, night): D185's exact variants applied, the POC's login screen drawn with its text; +476 pairs, 0 lost outright
+
+Coordinator Opus 5.5 on the subscription only. Base 6a08fe5d (#143 merged; `.work/imports.6a08fe5d.json`); run branch
+`run/2026-11-02-night`, PR #144. Plan log: `.work/run-2026-11-02-night/plan.md`. The user (00:30): spend the week to
+98 % by 07:00, subscription usage only; merge D185's exact Batch API variants, then the POC client; accepted
+(`/accept-d66`) the move of the ctor 0x6D8B90 and its statics into fonttexture.cpp (done, 037f86ae: no exact pair changed
+file); declined P-VM-2 for tonight. HEAD against the base (quiet-tree verify at 9f59bf88: 7,456 in tree, 0 errors): **+476 pairs (441 + 35 by caller tie-break; 85 of them shared copies), 0 lost outright; lost 3, all D66 (i): the moves 0x4481E0 (eff_o, held by ww3d2 / wwmath) and 0x77B030 (udpconn, held by unknown_htmlattrib) and 0x510CC0 (fontsys, held by 28 files)**. about 100 commits;
+33 builder launches (28 Opus, 5 Sonnet; several resumed for a second item); weekly usage 90 % -> 98 %.
+
+* **D185 applied (VC, VO, PF, PI):** 72 of the 75 functions with an exact variant are exact in the tree (+102 pairs with
+  their tie-break / inline copies). Most "LOSES" entries were later asserts' `__LINE__` shifts (the variant is longer):
+  absorbed in blank padding. Dropped: 0x78D8A0 (needs an invented forwarding helper), 0x8020B0 (a fake derived struct),
+  0x6E2290 (loses rect3d 0x6B71E0 / 0x6D80A0).
+* **The POC (D179 / D181):** the login screen draws with its text: the welcome header, both labels and edit boxes (the
+  stored name dimmed), Quit Game / Accept, Account Management (`clientpoc.py run --shots`, PI f9b90803: the client's own
+  back buffer through d3d8shot). The invisible text was fontsys.cpp's own externs for WW3D::SyncTime / PreviousSyncTime
+  0xBFAE3C / 40 (zero stand-ins: the FADE clock never moved); PF read WW3D::Get_Frame_Time() (450c321c), FT / MV the same
+  in 8 more files. Real on the path now: the FontStyleClass stand-ins, the click query 0x42EC60, textgadg (14 / 15),
+  tooltip.cpp, the message box (unknown_msgbox.cpp, gd_dynamicwindow.cpp, unknown_51c800.cpp, intrlist's list),
+  ui_popupmsg.cpp, the character view (charview.cpp has no NOT EXACT left), InterfaceClass 0x540A90, smouse.cpp (11 / 11),
+  dbgmgr.cpp (the step log), display.cpp's device 0x442AC0 and RenderStateClass (rs.cpp), mousetbl.cpp / .h (the cursor
+  table: the stand-in had wrong slots), enbassetmgr.cpp / .h (Create_Render_Obj, the texture release loop, the mesh HSV recolour; EAM3 found EA's own source of it in the Renegade code: §4.1), avatar_desc's
+  KV adds, the message reporters / server / filter, TCPConnection::Key_Exchange and UDPConnection::Send_Data byte-exact.
+  Final harness check (HC3, 6d207582): no crash in 40 s, 30 first-call stand-ins (50 at run 22). The 29
+  combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour (MIX: 29 names in two .mix files each). Not run: against
+  antprox /REPLAY (its launcher writes HKCU / HKLM keys; CLAUDE.md forbids registry changes unattended).
+* **New files named by the client's strings:** ctrngadg.cpp, rs_robj.cpp, rs_proj_sup.cpp, mousetbl.cpp, enbassetmgr.cpp,
+  gd_dynamicwindow.cpp, ro_funcs.cpp, dbgmgr.cpp, display.cpp, rs.cpp, ui_popupmsg.cpp, tooltip.cpp. Interim (D137):
+  unknown_msgbox, unknown_51c800, unknown_515640, unknown_458710, unknown_45e3f0, unknown_message{,_record,_server,
+  _filter}, mousetbl.h, enbassetmgr.h. P-MC-3 done (MC3 a0343ac0): UnknownBDADC0Class -> ENBAssetManager (conventions.md).
+* **Levers (workflow.md §3: 42637fb9, 46affcce):** a file-static inline wrapper one level down around an STL call
+  (pop_front, push_back, getPointer: exact three times), `it._Inc()`, a static inline accessor for a member argument
+  (register order, twice), a member pointer read into a local, `bool more` loops against rotation, constructor stores in
+  declaration order, a dead `x = y = 0;` for lea operand order, loop-bound read order before dead reads.
+* **Health:** HC / HC2 / LD1 / LF / MSG / KT closed every link gap the night opened (Tooltip SignalMap, Wstring / Wtime
+  operators, the 4BE9D0 stage strip in clienttest.py 04968dfa, the message box's fake sizes); kerneltest, broken already at
+  the base (taskstest.cpp's WW3D render pair), links and runs again (KT 56d6c356: 81 of 81). Final check at 6d207582:
+  clienttest 103/103 trace equal, udpreplay alex3 / handshake 54/54, POC no crash; later commits checked by their builders
+  the same way. One POC crash landed and was fixed within the hour (d07356a2 -> d043eeba). Python changed: clienttest.py
+  (04968dfa), clientpoc.py (f9b90803 --shots): the maintainer's `/verify-approved`.
+* **Pacing:** 1 % steps of the weekly figure misled the 02:03 heartbeat (stops cut, reopened at 02:18); the true rate was
+  ~0.33 % per Opus builder-hour, and most builders finished well inside their stops.
+* **Open for the user:** P-API-5 (a) / (c), P-VM-2, P-VM-1 (unchanged). Tools ideas logged, not proposals yet: objmatch
+  crediting a tied function by a symbol learnt from an exact caller's relocation (MV); a layout helper for assert lines in
+  appfile.py (RS); d3d8shot saving A4R4G4B4 textures (PI).
+
 ### 2026-11-01 (23:55 PST, night): POC text path and login activation on API-key builders; D185 variants for the whole backlog; +29 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription. Base a86efb86 (#141 merged; `.work/imports.a86efb86.json`); run branch
@@ -1976,8 +2022,6 @@ below name only the work items, the blocked work, the leads and the queues.
      ShipCustDescClass's implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1)
      inlines there instead. Measure ShipCustDescClass with the implicit operator= again (or the written one
      non-inline), checking that tsk_login's pair on 0x55D8A0 survives; keep it if it gains and loses nothing.
-   * app/packets' "(not rebuilt)" comments for 0x735FC0 / 0x739FF0 / 0x734740 are stale (all three exact); 0x738970
-     (CLIENT_DAMAGE) is still not rebuilt.
    * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
      is FontSplitStringClass; 0x4FA8F0's 9 other callers and Set_Font 0x4FAAC0's 2 can include
      unknown_font_split_string.h.
@@ -1990,9 +2034,12 @@ below name only the work items, the blocked work, the leads and the queues.
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
      P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
      RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
-     0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); rs_track.h's
-     Unknown45D9E0Class / Unknown45DC80Class become ProjectorCasterClass / ProjectorReceiverClass subclasses from
-     proj_man.h, the receiver's inline ctor on proj_man.h line 207 when rs_proj_sup.cpp is built (PM1).
+     0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); an
+     rs_proj_sup.h for rs_track.h's two projector classes (their caster constructor's int arguments as
+     ProjectionDefClass * / ProjectorManagerClass *, and RsTrackClass::Unknown_462470's); an rs.h for RenderStateClass
+     and the RS_* masks (now in rs_track.h); ui_popupmsg.h once ui_popupmsg.cpp's lines can be held (a 21-line class
+     before an assert); Unknown_4BE9D0 in a small header of its own (in unknown_message.h, `<string>` costs
+     unknown_message_server's 0x4BCB50).
    * Types: P-FU1-2 (ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned, with a
      full app verify); `ClientClass::Unknown1144` as `HeightFieldClass *`; P-SM1-2 (OrbitalManager's ctor takes a
      shared callback base and ClientClass); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads into
@@ -2005,7 +2052,7 @@ below name only the work items, the blocked work, the leads and the queues.
      added to duration.h re-sweeps auxpad.py).
    * From the 2026-10-31 t4 run (TK19): sclient's testeffects.ini loader 0x74CA90 (636 instructions; emits
      vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
-     0x745750, 0x7511A0, 0x749590, 0x749A70 or 0x74BFB0 is exact.
+     0x745750, 0x749590, 0x749A70 or 0x74BFB0 is exact (0x7511A0 went exact on 2026-11-02 without pairing them).
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
      50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030
@@ -2019,53 +2066,61 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-11-01 night run (network stack; CC2, NW3, NW7, FB1; P-CC2-1, Compute_Ticks, pumpClose and ACK1 / Pump_Connections' forms done in the day run, b36dec11 / f3254408 / 3a077b5d): first P-CC2-1, E&B's INFMSG (`time` /
      `gmtime` / `strftime("%m/%d/%y %H:%M:%S")` into char[80], DebugLibSemaphore's CritSec 0x8B4330 on 0xBF5258,
      `MsgManager::infoStream()` 0x8B5B90 twice, `"INF " << timebuf << " [" << __FILE__ << " " << __LINE__ << "] "`;
-     our wdebug.h has Zero Hour's Xtime version; draft `.work/cc2/cordcon_h5.h`, `inf_all.cpp`): 0x850820 exact,
-     pumpClose 0.66. Then cordcon handlePacket 0x851AE0 (one `CordMessageClass m` before the block loop),
+     our wdebug.h has Zero Hour's Xtime version; draft `.work/cc2/cordcon_h5.h`, `inf_all.cpp`): pumpClose 0.66.
+     Then cordcon handlePacket 0x851AE0 (one `CordMessageClass m` before the block loop),
      pumpInternal 0x853A30 (send block), write 0x850C70 (register, 22 forms), read 0x850FD0 0.72, buildHeader
-     0x8551F0 0.67 (stash), examinePacket 0x8514D0 0.73, openc 0x84FF70 0.48, close 0x850870 0.54, Copy 0x84E260
+     0x8551F0 0.67 (stash), examinePacket 0x8514D0 0.73, openc 0x84FF70 0.48, Copy 0x84E260
      (Fable-eligible); cordmgr Pump 0x857F20 (frame: two more dwords under the 0x80-byte texts, `this` in ebp, the
      profile flag in bl), Pump_Connections 0x858A60 (a shared Add_Connection helper with ACK2), Go_Away 0x8586D0
-     (inline Get_Ip / Get_Port / Get_Session on CordCon: 0.73), ACK2 0x85ABB0 (frame), ACK1 0x85A430, Compute_Ticks
-     0x85A220; P-FB1-1 / P-FB1-2 (Send_Data 0x82D420 and pumpConnections 0x8BE270, LIMIT REACHED: check E&B-era
-     wdebug.h variants and the other Dictionary users' inlined members before a third round). P-NW6-1: the
+     (inline Get_Ip / Get_Port / Get_Session on CordCon: 0.73), ACK2 0x85ABB0 (frame), ACK1 0x85A430; P-FB1-2 (pumpConnections 0x8BE270, LIMIT REACHED: try UDP's thin-forwarder lever from Send_Data
+     6e78f015 before a third round). P-NW6-1: the
      remaining call-site NULL forms (Unlisten, ~CordMgr, Connect) are redundant; leave them until a neutral pass.
-   * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order),
-     its callback members 0x5AF7F0-0x5AF930 need SignalBaseClass::MemberCallback; ui_avsel 0x55E070 (register),
-     0x55D060 (P-LG2-1), 0x55F140, and the window's rest 0x560090-0x560BC0; 0x55D860 / 0x55D880 (LoginTaskClass
+   * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order,
+     LIMIT REACHED); ui_avsel 0x55E070 (register), 0x55D060 (P-LG2-1), 0x55F140 (its iterator copies 0x560090 /
+     0x5600B0 / 0x5601B0 come with it), and the window's rest 0x560090-0x560BC0; 0x55D860 / 0x55D880 (LoginTaskClass
      accessors) unattributed; tsk_login's Fetch_EA_Ticket 0x76A7B0 (the demo box's 0 pushed from eax), 0x7698E0
      (tail-merged sends), 0x76A370 (inline budget); Cycle_Focus 0x443270 is probably
      `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
      edit (their partial GalaxyMapClientClass declarations).
    * From the 2026-11-01 night run (html, galaxy map; HV2, GM2): htmlview's parser 0x7710D0 (18 KB, assert line
-     926, gap left for it; its template copies 0x778CF0-0x779120), Render 0x7761E0 0.86 / Hit_Test 0x7772C0 0.77
-     (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
+     926, gap left for it; its template copies 0x778CF0-0x779120), Hit_Test 0x7772C0 0.77 (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
-   * **Font types on the text path (TXT1 / TXT2 / TXT3, 2026-11-02; once a P-FNT-1 proposal, withdrawn: client-evidenced and gain-only, so the coordinator's call):** fontmanager.h's colours as floats (FontStyleColorStruct, Unknown494.Unknown0C, Unknown4A4.Color, Unknown458, Unknown488[0..1]; Set_Color's int copy settled against it), Unknown_6D8B90Class +0x04 / +0x08 as `char *` / `Font32Class *`; 0x6CA0C0, 0x6D5B10, 0x6CE4E0 as FontStyleClass members; FontColorStruct / FontEffectStruct into fontdatabase.h; Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged when evidence names the object (D137). The ctor 0x6D8B90 and its statics into fonttexture.cpp are moves: that PR waits for the user's `/accept-d66` (D169), the moves listed.
+   * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
+     when evidence names the object (D137); FontStyleClass::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
+     its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is
+     `FontStringFilesClass::Load(const char *)`. FontColorStruct / FontEffectStruct stay in their .cpp files (in
+     fontdatabase.h they cost Load_Init its match).
    * **The POC client (from the 2026-11-01 day run; queue `.work/poc/ledger.md`, run log `.work/poc/runs.md`):** build with
      `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
-     --seconds 40` (`git add -N` new files first: build.py builds only ls-files sources). Next, in order: the current first
-     failure (ui_login's LoginFontManagerClass and ui_avsel's UIAvselFontManagerClass onto fontmanager.h's FontManagerClass: Get_Style 0x6D25D0, Add, 0x6D2700; then the login window's activation / update stand-ins in stubs.log order); text drawing: Update_Text 0x6D64C0 (7.1 KB) and the layout core 0x6CA0C0 (11.7 KB) (functional
-     first or Fable), fonttexture.cpp 0x6D8DC0 / 0x6D8C50; then item 10 against antprox /REPLAY (D181; the ledger's command,
-     kill antprox and the client by PID). Then the ledger's queue: DBG (operator new 0x4E9CB0, dbgmgr's step log), BINK
-     (E&B's BINKMovie gaps 0xA161B0-0xA17330), DISP / RS, UIB2 smouse.cpp, GAD2's tail, SORT2-3, NET (Key_Exchange 0x829180),
-     LD1-2 (avatar_desc, shipcust_desc), MSG (the message box 0x587570-0x589D20 on DW1's windows), DW's icon / move / toggle,
-     KRN, tooltip.cpp (0x6AB320-: uiview.h's UIViewUnknown30Class, TG). Stand-ins to delete as code lands:
-     programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants 0xB08CAC-0xB08CC4 want
-     their owner).
+     --seconds 40 --shots 60000,120000` (the client's own back buffer, PNGs in `.work/poc/shots/`; `git add -N` new files
+     first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
+     2026-11-02-night): the login screen draws with its text, edit boxes and buttons; no crash in 40 s; ~30 first-call
+     stand-ins left; the 29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the login click
+     itself, then item 10 against antprox /REPLAY (D181; its launcher writes HKCU AppCompatFlags / HKLM Registration keys,
+     which CLAUDE.md's safety rule forbids for unattended runs: a run with the user present); the first-call stand-ins in
+     stubs.log order (ui_registration 0x5FADE0 / 0x5FAD50, the EULA dialog 0x847D20, gen Unknown_4581E0's neighbours);
+     ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
+     enbassetmgr.cpp`: import / compare it first; rename the Unknown_ members to its names, NAME 5): slot +0x78
+     0x48B220 Create_Render_Obj(name, scale, hsv) with the prototype class (ctor 0x48AED0), 0x48D850 / 0x48DD00 /
+     0x48E0F0, 0x48EB90, Recolor_Texture 0x48CB40 (register), 0x48ECA0 (EH states); the ledger's queue: BINK (E&B's
+     BINKMovie gaps 0xA161B0-0xA17330), SORT2-3, LD2 (shipcust_desc), DW's icon / move / toggle, operator new 0x4E9CB0.
+     Leads by file: dbgmgr End_Step 0x50A1E0 (a dead store our compiler drops), ctrngadg 0x50ABC0 (block layout), tooltip
+     0x6AB5B0 / 0x6AB930 / 0x6ABC60, textgadg 0x6AAD10, gclass 0x4A17B0, unknown_message_server 0x4BCD30, filter match
+     0x4BE2C0 (register), udpconn's constructor, mainview 0x514B00 (needs a duration.h member) / 0x514BD0 (caller 0x512400),
+     clientpoc.py's docstring: ENB_POC_WINDOWED /
+     --fullscreen no longer act (the real 0x442AC0 reads RenderDeviceWindowed from the registry, read-only). Stand-ins to
+     delete as code lands: programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants
+     0xB08CAC-0xB08CC4 want their owner).
    * From the 2026-11-01 day run (leftovers by file; attempts.csv rows for each): cordcon read 0x850FD0 (m's home in k's
      slot), handlePacket / pumpInternal (match the timebufs' frame offsets +0xE8 / +0xC0 first), openc / write (register);
-     cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; intrface 0x540A90 /
-     0x541690 (register); gadget 0x65ED50 (order), 0x6603A0 / 0x6609A0; gclass 0x4A17B0 (order); font32bit
-     Make_Proportional 0x6BC120; fontsound 0x6BCFB0 / 0x6BD060 / 0x6BD270; fontsys Render 0x6D8270 (compare order + floor /
-     scale form), 0x6D47C0 (EH state), 0x6D5170 (it doesn't fill the +0x494 / +0x4A4 float colours: fontmanager.cpp's
-     Set_Color may share the TPoint3D<int> / float mismatch); input Init 0x42E4A0 (inline budget: the queue element ctor);
-     textgadg 0x6AA340 / 0x6AAD10 / 0x6AB190, stredit Process_Key 0x84AAD0; charview ctor 0x678450 / 0x679510 / 0x679930 /
-     0x67CBD0 (inline budget), 0x67B7A0 (functional: the lights' intensities approximate); interface_static_sort_list's
-     erase / insert out of line (0x6DB380 / 0x6DC0A0); rect3d ctor 0x6E2290; dynamic windows' Set_Flags / Set_Alignment /
-     Update_Content_Size; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070 (register); htmlview Parse exact
-     (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it. Files next to today's: rect3d's
-     neighbour fontsys_cursor is done; gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
+     cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; gadget 0x6609A0;
+     gclass 0x4A17B0 (order); font32bit Make_Proportional 0x6BC120; fontsound 0x6BCFB0 / 0x6BD060 / 0x6BD270; fontsys
+     Render 0x6D8270 (compare order + floor / scale form), 0x6D47C0 (EH state), 0x6D5170, Change_Text 0x6CDBC0 / 0x6CDAB0
+     (functional); stredit Process_Key 0x84AAD0; rect3d ctor 0x6E2290 (its D185 variant needs a helper and loses
+     0x6B71E0 / 0x6D80A0); dynamic windows' Set_Alignment; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070
+     (register); htmlview Parse exact (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it.
+     Files next to today's: gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
      vtable 0xAFAB64), interface_scene's 0x6DAD40, 0x5603E0-0x5608A0 ('fa_bio.ini' / 'TSI10A', not ui_avsel's), the strconv
      conversions 0x4A30A0-0x4A3640 (P-GC-2: a separate object; claim 0x4A30A0-0x4A3AE0, interim file, delete their stubs),
      HtmlBlockClass renames (LineStartX +0x1BC, ContentWidth / ContentHeight +0x1C0 / +0x1C4, HtmlLinkStruct::Url ->
@@ -2079,7 +2134,7 @@ below name only the work items, the blocked work, the leads and the queues.
      (As_Main_View, UIViewClass::Unknown_44 / _58) at the mainview rows' next touch.
    * From the 2026-10-31 t4 run (TK9, TK18): landdmap 0x468920 (the cell builder, NOT EXACT, frame 0x8C vs 0x90 after
      TK18's 22 forms: the client keeps X on the FPU and Y in a spare slot for the upper point, perhaps one inline
-     building both points from floats by value); 0x467A50 exact (TK18); 0x468D50 register 0.88, 0x468760 0.46 (generators in docs/attempts/468760/).
+     building both points from floats by value); 0x468760 0.46 (generators in docs/attempts/468760/).
      0x466920-0x466BC0 is its own object between heightfield and landdmap (an unnamed Line3DClass subclass, member at
      +0x108, vtable 0xAE8754, no RTTI; ctor called from 0x7B99C0 / 0x7C3AC0): a new unknown_*.cpp when built.
      heightfield's Get_Height_2 / Set_Height_2 0x463CD0 / 0x463D90 are twins of 0x463C80 / 0x463D20 called from the land
@@ -2098,20 +2153,17 @@ below name only the work items, the blocked work, the leads and the queues.
      declares Unknown_57AD50): move the class into a ui_combobox.h, the chat panel using it (P-TG4-1, D137); AvatarUI /
      ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
      sbaseview 0x69D030 (0x724 bytes) and SBaseView's slots 0x69B5E0 / 0x69C0D0 / 0x69C5A0 / 0x69C5E0 / 0x69C8F0 and
-     ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430, Compute_Ticks 0x85A220 (needs a stub for
-     WWOnline's hash 0x8B4A90); ui_avatar_cust 0x550A10's frame-time prologue (register).
+     ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430; ui_avatar_cust 0x550A10's frame-time prologue (register).
    * From the 2026-10-31 day run: UIGroupMemberUnknown2CClass (ui_group.h) merges into ui_cpit.h's
      UICpitUnknownD0Class (one class, ctor 0x5DBFC0; D137); aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
-     KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 /
-     0x709650 (vtable 0xB01FD0) and 0x7099F0 / 0x709A40 (rtti.h casts); D99 candidates 0x463410 / 0x463440
-     (Unknown462690Class's deleting dtor / dtor). Leads: ui_manu's money find out of line first in 0x5B4B10 /
+     KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 and
+     0x7099F0 / 0x709A40 (rtti.h casts); D99 candidate 0x463440 (Unknown462690Class's dtor). Leads: ui_manu's money find out of line first in 0x5B4B10 /
      0x5B5320 (DeltaTemplateClass<MoneyClass>'s instantiation state in the client's TU); ui_group 0x5946D0's
      Action2PacketClass string `_Tidy` (case 35-39 or pkaction.h), then 0x593180 out of line; SClient::Shutdown
      0x741BB0 (implicit, inline-shaped dtors of SClientUnknown1334 / 1338 / ProjDecalManager); landdmap 0x466F60's
      spacing temporaries.
    * Blocked: 0x42C330 waits for 0x7D3CC0's file (the account / subscription XML reader 0x7C9000-0x7E3000, between
-     ui_starmap.cpp and avatar_pip.cpp, no __FILE__: a provisional file, D137, when someone builds it); `Send_Data`
-     0x82D420 (the client tests channel >= 0 first; wlib's dictionary.h needs a wlib + app verify).
+     ui_starmap.cpp and avatar_pip.cpp, no __FILE__: a provisional file, D137, when someone builds it).
 
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
@@ -2120,8 +2172,7 @@ below name only the work items, the blocked work, the leads and the queues.
      Leads: P-DF1-1 (the shared inline-budget cause: auxdata.h's Unknown_Find_Field against 0x7079B0's size), P-DF1-2
      (delta_array.h's bounds accessor stays co.cpp-local until the 0x6FB1E0 canary is understood), `Unknown_Find_Valid`
      and the inline-member form on 0x6F3FA0 / 0x6FBEF0 / Get_Name. SUBPARTS 180 is NOT_DRIVEN until clienttest's fake
-     models get slot +0xF8 and an asset-manager stand-in (P-DM1-2). eff_o's 0x6E8890 frame (E&B's lineseg.h may
-     differ: P1 - P0 and the len2 test stay in the FPU in the client).
+     models get slot +0xF8 and an asset-manager stand-in (P-DM1-2).
    * postate.cpp: 0x718830 shape, 0x7179A0 / 0x717430 inline budget (a tryv2 sweep). extrap.cpp: its NOT EXACT rows,
      first lead the negation / flag form shared by 0x7102B0 and 0x710530.
    * px: parked Overlap 0x44E470 (the client inlines in reverse source order; lead: a nested helper for the enter
@@ -2136,19 +2187,18 @@ below name only the work items, the blocked work, the leads and the queues.
      chat commands 0x74ABC0, Print, Unknown_34 / _64, ...); P-T18-2 (gen_stubs: class-by-value returns and template
      parameters; unblocks 0x744C10 / 0x744D80); the destructor's `++it` loop once the UI base exists (P-T7-2); next
      lead the testeffects.ini loader 0x74CA90 that fills 0xBE7D80 and the 0x740050 clear (TestEffectStruct exists);
-     P-SC3-2 (0x7511A0: one tryv2 round of vector forms, low priority); 0x750C20 is dead code (parked, P-SC3-1).
+     0x750C20 is dead code (parked, P-SC3-1).
    * Parked after two rounds: Unknown_50, the fast start 0x76A370, Pre_Run, Run, Start_Game, Go_Next / Back_Step,
-     SClient's destructor / Init / Shutdown. D92's Fable round: ClientClass's constructor and Find_Object /
-     Remove_Object (item 7).
+     SClient's Init / Shutdown. D92's Fable round: ClientClass's constructor (item 7).
    * Lead for the rest: the auto_inline lever on other NOT EXACT app functions that call a same-file function out of
      line.
 
 3. **The packet classes:** 260 of 260 declared, about 255 rebuilt. Left: 45 and 117; 0x867250 register (LIMIT
-   REACHED); Reset_Keys 0x71C710 parked (inline budget, 4 element forms). Lead (F9): the shared-helper reading for
+   REACHED). Lead (F9): the shared-helper reading for
    the other app/packets files parked at inline budget whose ctors / Builds / Prints loop over containers.
 
-4. **The SGI hash_map's users (D87):** client_lego_impl's Get_Lego_Transform 0x72B000, Child_Moved 0x72CE40, Attach
-   0x72D0E0 (Fable-eligible, P-H17-2) and Add 0x72B7F0 (one or two EH states off); control_keys_manager's P-H11-2
+4. **The SGI hash_map's users (D87):** client_lego_impl's Get_Lego_Transform 0x72B000 (Fable-eligible, P-H17-2) and
+   Add 0x72B7F0 (one or two EH states off); control_keys_manager's P-H11-2
    pair and Load_Definitions 0x71B1F0 (Fable-eligible); inpdsp 0x429F60 (register); kv_list's 0x4B6B60 (why
    0x4B7030 is a one-caller find instance); fontmanager's 0x6D0A70 (inline budget); co_player_relationship and
    option.cpp after the eval.
@@ -2159,27 +2209,26 @@ below name only the work items, the blocked work, the leads and the queues.
      Get_Triangles 0x465D30 (its second push_back's end() load; Fable-eligible); the decoration appender 0x47C6A0
      (inline budget, 13 forms: Fable-eligible), 0x479D00 / 0x47C580 shape, 0x478B50 budget, Build 0x47A2F0 (parked;
      it can only gain itself, its helpers are `multiple`; its RefCountPtr form parked: the client calls insert(it, n,
-     x) 0x47D690 out of line), Load_Assets 0x4691D0 frame, Update_Patches 0x46B3C0 shape, the ini writer 0x4791D0
-     frame; the stars' Init 0x4829E0 register, Load 0x481DB0 order; landdmap 0x466780-0x469000 (Matrox only, never
-     runs) untouched; the global byte 0xBFAE52 set during the prototype load is unknown.
+     x) 0x47D690 out of line), Load_Assets 0x4691D0 frame, Update_Patches 0x46B3C0 shape; the stars' Init 0x4829E0
+     register, Load 0x481DB0 order; landdmap 0x466780-0x469000's rest (Matrox only, never runs); the global byte 0xBFAE52 set during the prototype load is unknown.
    * mainview.cpp: ctor 0x50B360 order, Init 0x50BA60 register (`docs/attempts/50BA60`), 0x50D060 register, Update
      0x50F1B0 frame (DurationClass::operator+ out of line costs aux_roots' pad), targeting 0x512400 budget (the client
      calls its find copies 0x514B60 / 0x514BD0), picking 0x512BB0 shape, overlays 0x50D520 budget, sea 0x510D40
-     shape, 0x5146D0 shape (the client keeps * 0.01 and * scale apart; same at 0x5C25C0), 0x514010 / 0x6B4480 shape,
+     shape, 0x5C25C0 shape (the client keeps * 0.01 and * scale apart), 0x514010 / 0x6B4480 shape,
      the three Render_*_Mode; 0x513CD0 / 0x513D20 are ambiguous twins.
    * The views: the loading view's 0x691830 (frame 0x548), 0x6912A0 / 0x691320 (the +0x58..+0x64 class, the font
      globals); the other views' constructors / destructors (mv3dview.cpp's ctor, 2.7 KB, and mv3dsnd.cpp);
-     sbaseview.cpp (leads 0x6A0590, 0x69CDE0 with +0x184..+0x1A0 as interface RefCountPtrs; 0x69F710 order);
-     scriptedmovie.cpp (the dtor 0x8008B0, the loader 0x8099B0, 0x802930 / 0x8059A0 shape, 0x802B20 register).
+     sbaseview.cpp (leads 0x6A0590, +0x184..+0x1A0 as interface RefCountPtrs; 0x69F710 order);
+     scriptedmovie.cpp (the dtor 0x8008B0, the loader 0x8099B0, 0x8059A0 shape, 0x8020B0: its D185 variant needs a
+     fake derived struct).
 
-6. **Step 8's tail:** `Send_Data` 0x82D420 (item 1, blocked); everything else is at LIMIT (Key_Exchange 0x829180,
-   Rate Count, the UDP constructor 0x82CBF0 register, Listen 0x82A470 register) or in the Fable queue (TimedLog
-   0x824540).
+6. **Step 8's tail:** at LIMIT (Rate Count, the UDP constructor 0x82CBF0 register, Listen 0x82A470 register: try
+   tonight's thin-forwarder / `it._Inc()` levers first) or in the Fable queue (TimedLog 0x824540).
 
 7. **The Fable queue** under D89 / D97 (by unlock value; D136: not pruned, rounds scheduled more often):
-   client_lego_impl's Add 0x72B7F0 (P-H20-1's round; Find 0x72ABB0 and Remove 0x72C1D0 are exact since);
-   CLIENT_DAMAGE 0x738970 (P-T19-3; FORMATION 0x734740 is exact since); D92's three (item 2); Get_Lego_Transform
-   then Child_Moved / Attach (P-H17-2); Load_Definitions 0x71B1F0; P-F8-3 (0x6FBEF0 with a per-field inline
+   client_lego_impl's Add 0x72B7F0 (P-H20-1's round);
+   CLIENT_DAMAGE 0x738970 (P-T19-3); ClientClass's constructor (D92, item 2); Get_Lego_Transform (P-H17-2);
+   Load_Definitions 0x71B1F0; P-F8-3 (0x6FBEF0 with a per-field inline
    helper, low priority). Low priority: TimedLog 0x824540 (P-S1-1), option.cpp Get_String 0x7F9700 (D108),
    CLIENT_CHAT_EVENT 0x73B150 (P-T20-1), the kv_list destructor's twin 0x4B6B60 if a lever appears, the distortion
    draw 0x9961E0 (LIMIT), the ShdMesh ctor 0xA08F80 (LIMIT). Out for good (register / order): Make_Screen_Shot,
@@ -2198,7 +2247,9 @@ below name only the work items, the blocked work, the leads and the queues.
    interim rs_list / rs_proj_sup classes (RT1); scriptedmovieline.cpp / .h (LC1, 2026-10-31: the object
    0x7FFC50-0x7FFE9F between option.cpp and scriptedmovie.cpp, no __FILE__); unknown_screenfade.cpp (TG3,
    2026-10-31: the screen fade / letterbox object 0x7FF010-0x7FFC4F between option.obj and scriptedmovieline.obj,
-   its own statics, no __FILE__; NAME 1).
+   its own statics, no __FILE__; NAME 1); from the 2026-11-02 runs: unknown_6ca0c0.cpp / unknown_6cce60.cpp (font
+   layout), unknown_msgbox.cpp, unknown_51c800.cpp, unknown_515640.cpp, unknown_458710.cpp, unknown_45e3f0.cpp,
+   unknown_message.cpp / _record / _server / _filter (and Unknown_4BE9D0 in the filter's), mousetbl.h, enbassetmgr.h.
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
@@ -2207,11 +2258,9 @@ below name only the work items, the blocked work, the leads and the queues.
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.
 
-10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): fontdatabase's Load_String 0x6C0430
-   register (4 rows with auto_inline(off) around the word parsers), Set_Font 0x6C38F0 register, Load 0x6C52B0
-   frame; the inlined StringClass::operator+=(TCHAR)'s base / index swap (LIMIT REACHED; lead: how the client's
-   wwstring.h writes `m_Buffer[cur_len] = ch`); Read_Completed_File 0x6AD4B0 order (LIMIT REACHED); the tutorial
-   ctor 0x6AC600 / Reload 0x6AD7B0; SoundDefClass 0x43D3E0 and Load 0x43FE30; attrib_dir's Notify 0x4D71D0, Unlock
+10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): fontdatabase's Set_Font 0x6C38F0
+   register, Load 0x6C52B0 frame; the inlined StringClass::operator+=(TCHAR)'s base / index swap (LIMIT REACHED; lead:
+   how the client's wwstring.h writes `m_Buffer[cur_len] = ch`); SoundDefClass 0x43D3E0; attrib_dir's Notify 0x4D71D0, Unlock
    0x4D8690, Attach_Mod 0x4D6820 / 0x4D4810; spln_db's Create_Hermite / Create_Color 0x485C10 / 0x487400 (only the
    `new HashNodeClass`'s EH state differs: when VC6 compiles GenericNode's out-of-line ctor, a reasoning lead),
    Get_Color_Curves 0x485440, Create_Blend 0x486200, ~SplineDatabaseClass 0x484810, Resolve 0x487660 (24 masked rows,
@@ -2222,14 +2271,12 @@ below name only the work items, the blocked work, the leads and the queues.
    same-shape template instances stay `multiple` until their relocation targets have names in symbols.json (P9).
 
 11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
-   `docs/data/not-exact.md` shows how much functional code waits); Key_Exchange 0x829180 (LIMIT REACHED after three
-   Opus rounds; F3's two untested leads are in its attempts.csv row, P-S3-2); which bool-return form gives a bare
+   `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
    `setcc al` without the `xor`; the inline budget blocks most parked UI rows: a study of VC6's /Ob2 budget (F8 /
    IB3's levers, workflow.md §3.1) is the shared lead.
 
-12. **The 2026-10-30 night's files**, left in each: rs_track.cpp's ctors 0x45FDA0 / 0x45FFB0 (order), 0x460440
-   (register; `auto_inline(off)` around it is a lever, P-RT1-1), 0x460E80; 0x462610 / 0x462650 / 0x462690 are
-   rs_track's (unclaimed); proj_man's 0x493620 (one register row). ui_group.cpp: 0x5946D0, 0x595530, 0x596770,
+12. **The 2026-10-30 night's files**, left in each: rs_track.cpp's ctors 0x45FDA0 / 0x45FFB0 (order), 0x460E80;
+   proj_man's 0x493620 (one register row). ui_group.cpp: 0x5946D0, 0x595530, 0x596770,
    0x597E40 (best: from 0x5979A0 / 0x597A60's forms), 0x592C50 and its NOT EXACT rows. ui_cpit.cpp: 8 parked, mostly
    inline budget (out-of-line Cast / Find_Field / _Tidy). ui_manu.cpp: 0x5B4B10, 0x5B5320 unbuilt, 11 inline-budget
    parked. ui_scut.cpp: 6 parked (the bar's ctor 0x610F80 register, the control keys 0x611300 / 0x611710, 0x6120E0's

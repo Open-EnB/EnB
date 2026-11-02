@@ -102,17 +102,15 @@ ClientClass::~ClientClass()
 	WWAudioClass::Get_Instance()->Free_Completed_Sounds();
 }
 
-// NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070)
+
 // 0x727070
 ClientObjectClass *ClientClass::Find_Object(unsigned id)
 {
 	HashNodeClass<ClientObjectClass *> *node = ObjectList.Find(id);
-	if (node) {
-		return(node->Get_Record());
-	}
-	node = ObjectList.First_Valid();
-	while (node) {
-		if (node->Get_Record()->Get_Game_ID() == id) {
+	if (!node) {
+		HashNodeClass<ClientObjectClass *> *scan = ObjectList.First_Valid();
+		while (scan) {
+			if (scan->Get_Record()->Get_Game_ID() == id) {
 
 
 
@@ -162,11 +160,13 @@ ClientObjectClass *ClientClass::Find_Object(unsigned id)
 
 
 
-			G_ASSERT(0);
-		}
-		node = node->Next_Valid();
-	}
-	return(NULL);
+
+
+				G_ASSERT(0);
+			}
+			scan = scan->Next_Valid();
+		} }
+	return(node ? node->Get_Record() : NULL);
 }
 
 // 0x727130
@@ -222,18 +222,18 @@ void ClientClass::Add_Object(ClientObjectClass *object)
 	G_ASSERT(ObjectList.Find(object->Get_Game_ID()));
 }
 
-// NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600)
+
 // 0x727600
 ClientObjectClass *ClientClass::Remove_Object(unsigned id)
 {
 	HashNodeClass<ClientObjectClass *> *node = ObjectList.Find(id);
-	if (node == NULL) {
-		return(NULL);
+	if (node != NULL) {
+		ObjectsChanged = true;
+		ClientObjectClass *object = node->Get_Record();
+		ObjectList.Remove(node);
+		return(object);
 	}
-	ObjectsChanged = true;
-	ClientObjectClass *object = node->Get_Record();
-	ObjectList.Remove(node);
-	return(object);
+	return(NULL);
 }
 
 // 0x727780

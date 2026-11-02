@@ -265,14 +265,17 @@ void PxWrapper::Unknown_456900(const Vector3 &low, const Vector3 &high)
 
 
 
+
 // 0x456B60
-// NOT EXACT: shape (the client loads Object->Radius before radius: fld; fsub st(1); attempts.py show 0x456B60)
 void PxWrapper::Update(const Vector3 &pos, float radius)
 {
 	FAIL_IF(!pos.Is_Valid()) return;
 	FAIL_IF(!WWMath::Is_Valid_Float(radius)) return;
-	if (Is_Close(pos, Object->Pos) && Is_Close(radius, Object->Radius)) {
-		return;
+	if (Is_Close(pos, Object->Pos)) {
+		float old_radius = Object->Radius;
+		if (Is_Close(radius, old_radius)) {
+			return;
+		}
 	}
 	Object->Pos = pos;
 	Object->Radius = radius;

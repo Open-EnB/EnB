@@ -350,5 +350,45 @@
   "address": "0x6DAF80",
   "symbol": "??1?$hash_map@PAVSimpleSceneClass@@PAUPIPSceneStruct@@U?$hash@PAVSimpleSceneClass@@@std@@U?$equal_to@PAVSimpleSceneClass@@@4@V?$allocator@PAUPIPSceneStruct@@@4@@std@@QAE@XZ",
   "evidence": "the static sort list's constructor 0x6DA930 unwinds its PIPScenes (+0x58, interface_static_sort_list.h) through it: the funclets 0xAC39CB / 0xAC3ADB are `mov ecx, [ebp-N]; add ecx, 0x58; jmp` to it (IS 2026-11-01)"
+ },
+ {
+  "address": "0x514960",
+  "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: the exact 0x512A00 (mainview.cpp) calls it for the scene it hands the radar's 0x7BCA70 (Create_Peek(RefCountClass *), sclient.h's note); the first of the object's two Create_Peek / destructor pairs"
+ },
+ {
+  "address": "0x514990",
+  "symbol": "??1?$RefCountPtr@VRefCountClass@@@@QAE@XZ",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: the destructor beside 0x514960 (VC6 emits each instance's Create_Peek and destructor together); the other Create_Peek pair's destructor 0x5149F0 is the one 0x50BA60's and 0x7B6BD0's unwind funclets call"
+ },
+ {
+  "address": "0x5149C0",
+  "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSimpleSceneClass@@@@PAVSimpleSceneClass@@@Z",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60 (mainview.cpp) calls it once, for the base's +0x1C scene (a SimpleSceneClass) it passes the +0x84 object's constructor 0x7B6BD0, which keeps it at +0x04"
+ },
+ {
+  "address": "0x5149F0",
+  "symbol": "??1?$RefCountPtr@VSimpleSceneClass@@@@QAE@XZ",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60's unwind funclet 0xAAAA5F and 0x7B6BD0's 0xAD0AB6 / 0xAD0B26 (its +0x04 scene) call it"
+ },
+ {
+  "address": "0x514A20",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VStarFieldClass@@@@PAVStarFieldClass@@@Z",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60 (mainview.cpp) calls it once, for the new StarFieldClass it keeps at StarField"
+ },
+ {
+  "address": "0x514A50",
+  "symbol": "??1?$RefCountPtr@VStarFieldClass@@@@QAE@XZ",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60's unwind funclet 0xAAAAB7 (the star field's temporary) calls it"
+ },
+ {
+  "address": "0x514A80",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VLightClass@@@@PAVLightClass@@@Z",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60 (mainview.cpp) calls it three times (0x50BDB9 / 0x50BE86 / 0x50BF74), for the new LightClass objects of Unknown144 / Unknown154 / Unknown164"
+ },
+ {
+  "address": "0x514AD0",
+  "symbol": "??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
+  "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60's unwind funclets 0xAAAA7E / 0xAAAA91 / 0xAAAAA4 (the three light temporaries) call it"
  }
 ]

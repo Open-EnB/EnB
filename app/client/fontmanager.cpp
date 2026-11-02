@@ -157,10 +157,10 @@ void ManagedFontClass::Unknown_6D0890()
 	}
 }
 
-void ManagedFontClass::Unknown_All_Styles(int unknown1, int unknown2)
+void ManagedFontClass::Unknown_All_Styles(int index, float time)
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
-		style->second->Unknown_6CD950(unknown1, unknown2);
+		style->second->Unknown_6CD950(index, time);
 	}
 }
 
@@ -191,15 +191,15 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 }
 
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
-void ManagedFontClass::Unknown_6D1010(const char *name, TPoint3D<int> color)
+void ManagedFontClass::Unknown_6D1010(const char *name, Vector3 color)
 {
 	FontStyleClass *style = Unknown_6D1600(name);
 	style->Unknown494.Color = color;
 	style->Unknown4A4 = style->Unknown494;
 }
 
-// NOT EXACT: shape, 18 rows: the client stores the color through [ebp+0x494] directly, ours through the member's address (attempts.csv)
-void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
+// 0x6D10B0 (exact with the colour typed as floats: the client copies the three dwords)
+void ManagedFontClass::Unknown_6D10B0(const char *name, Vector3 color)
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
 		FontStyleClass *style = it->second;
@@ -364,14 +364,14 @@ void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
 	}
 }
 
-// NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv)
+// 0x6D1480 (D185's variant: the iterator assigned, the test an if / else; kept on 3 lines: G_ASSERT's __LINE__ in 0x6D2700)
 FontStyleClass *ManagedFontClass::Unknown_6D1480(std::string name)
 {
 	std::string key = name;
 	key += "_0";
-	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.find(key);
-	if (it == Styles.end()) return NULL;
-	return it->second;
+	std::hash_map<std::string, FontStyleClass *>::iterator it;
+	it = Styles.find(key);
+	if (it == Styles.end()) return NULL; else return it->second;
 }
 
 // NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv)
@@ -417,10 +417,10 @@ void FontManagerClass::Remove_All()
 	Fonts.clear();
 }
 
-void FontManagerClass::Unknown_6D1C10(int unknown1, int unknown2)
+void FontManagerClass::Unknown_6D1C10(int index, float time)
 {
 	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
-		it->second->Unknown_All_Styles(unknown1, unknown2);
+		it->second->Unknown_All_Styles(index, time);
 	}
 }
 
@@ -481,7 +481,7 @@ void FontManagerClass::Unknown_6D2500(const char *name, const char *text, unsign
 }
 
 // Find 0x6D2A70 out of line here and in 0x6D2700 (auto_inline off); Peek_Font is its inlined twin elsewhere (H19)
-void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id)
+void FontManagerClass::Unknown_6D2580(const char *name, Vector3 color, unsigned int id)
 {
 	Find(id)->Unknown_6D1010(name, color);
 }

@@ -71,11 +71,12 @@ SignalMap &GadgetClass::Get_Signal_Map()
 	return(_map);
 }
 
-// NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or)
+// 0x65ED50
 GadgetClass::GadgetClass(unsigned int mask) :
 	Id(Unknown_B8C9E0++),
 	Unknown08(NULL),
 	Unknown0C(0),
+	Mask(mask),
 	Unknown14(NULL),
 	Owner(NULL),
 	Unknown1C(0),
@@ -83,7 +84,6 @@ GadgetClass::GadgetClass(unsigned int mask) :
 	Unknown24(NULL),
 	Unknown28(0)
 {
-	Mask = mask;
 	Unknown2C_00 = false;
 	InList = false;
 	Unknown2C_02 = false;
@@ -846,8 +846,8 @@ GadgetFlashStruct::~GadgetFlashStruct()
 
 
 
-// NOT EXACT: shape (written from the client's 0x6603A0 for the proof-of-concept client: the flash's clone of the model
-// slot +0x24 gives, in the model's scene, with the click indicator when asked)
+
+// 0x6603A0
 void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 {
 	float frame = 0.0f;
@@ -857,10 +857,10 @@ void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 		if (model == Flash->Model) {
 			return;
 		}
-		Flash->Clone->Remove();
-		delete Flash;
-		Flash = NULL;
-		Get_Signal_Map().emit((GadgetClass *)NULL, FlashingGadgetEvent(this));
+		//
+		// Stop the old flash first.
+		//
+		Unknown_6607D0();
 		G_ASSERT(!Flash);
 	}
 	if (model) {

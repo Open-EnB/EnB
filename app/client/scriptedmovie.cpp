@@ -16,11 +16,11 @@
 #include "wwmath.h"
 #include <stdlib.h>
 #include <string.h>
-// E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+// E&B's asset manager at 0xBDADC0 (ENBAssetManager): the asserts name it AssetManager
+#include "..\shared\enbassetmgr.h"
+
+
+
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
 
 // the screen fade and the letterbox (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F, before scriptedmovieline.cpp's object)
@@ -452,7 +452,7 @@ void ScriptedMovieViewClass::Unknown_10()
 #include "..\..\ww3d2\predlod.h"
 #include "..\..\ww3d2\render2d.h"
 #include "..\..\ww3d2\statistics.h"
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// (declared again with the frame 0x801E60)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
 void Unknown_7FF810();					// 0x7FF810 (the file before this one: the screen fade and the letterbox), their render
 
 // 0x8012C0: the view's render (slot +0x0C): the background, the stars, the orbitals and the dazzles, the scene, the fade;
@@ -486,7 +486,7 @@ int ScriptedMovieViewClass::Unknown_0C(bool on)
 		unsigned int frame = (Unknown80 * 30 - Unknown16C * 30) / 1000;
 		StringClass line(255, true);
 		StringClass text(1024, true);
-		unsigned int ms = Unknown_BFAE3C - Unknown_BFAE40;
+		unsigned int ms = WW3D::Get_Frame_Time();
 		if (ms <= 1) {
 			ms = 1;
 		}
@@ -710,8 +710,8 @@ void ScriptedMovieViewClass::Unknown_801D70(float *znear, float *zfar)
 
 
 #include "..\audio\soundlib.h"
-extern unsigned int Unknown_BFAE3C;	// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, ui_line_display.cpp declare it so)
-extern unsigned int Unknown_BFAE40;	// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (ui_line_display.cpp declares it so)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
+//	(ww3d.h is included above)
 void Unknown_7FF3D0();					// 0x7FF3D0 (the file before this one: the screen fade and the letterbox), their frame
 
 
@@ -736,7 +736,7 @@ void Unknown_7FF3D0();					// 0x7FF3D0 (the file before this one: the screen fad
 // 0x801E60: the view's frame (slot +0x14): the fade-out at the end time, the script, the objects, the sounds, the fades, the orbitals
 void ScriptedMovieViewClass::Unknown_14()
 {
-	unsigned int frame_time = Unknown_BFAE3C - Unknown_BFAE40;
+	unsigned int frame_time = WW3D::Get_Frame_Time();
 	if (Unknown16C && !Unknown170 && Unknown80 >= Unknown16C) {
 		Unknown_7FFBE0(0.0f, 1.0f);
 		Unknown170 = true;
@@ -1001,11 +1001,13 @@ void ScriptedMovieViewClass::Unknown_802900()
 }
 
 // 0x802930: SClient::Do_Frame ends the movie when it is true (also before +0x6C / +0x6D are set)
-// NOT EXACT: the client normalizes the last test (setne) and returns the early true through mov al, 1; ours jumps
-// to one mov eax, 1 (forms: the && chain, an if with != false, this || chain)
+
+// 0x802930
 bool ScriptedMovieViewClass::Unknown_802930()
 {
-	return(!Unknown6C || !Unknown6D || Unknown6E);
+	if (!Unknown6C || !Unknown6D)
+		return(true);
+	return(Unknown6E ? true : false);
 }
 
 // 0x802960: the keys while the movie plays (SClient::Do_Frame): Esc ends it, 0x22 the next camera, space
@@ -1105,8 +1107,6 @@ void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
 
 
 
-
-
 // 0x802AD0: every sound of +0xF0
 void ScriptedMovieViewClass::Unknown_802AD0(int arg)
 {
@@ -1132,15 +1132,15 @@ void ScriptedMovieViewClass::Unknown_802AD0(int arg)
 
 // 0x802B20: the movie's time on, the effects that are over ended, then every line due run (a line that is not a
 // command ends the movie)
-// NOT EXACT: the inlined effect sweep (0x807520) swaps ebx / ebp with the client's (0.65); one form
+// 0x802B20
 void ScriptedMovieViewClass::Unknown_802B20()
 {
-	Unknown80 += WW3D::Get_Frame_Time();
-	Unknown_807520(Unknown80);
+	unsigned int time = Unknown80 += WW3D::Get_Frame_Time();
+	Unknown_807520(time);
 	std::vector<ScriptedMovieLineClass *>::iterator itor = Lines.begin();
 	while (itor != Lines.end()) {
 		G_ASSERT(*itor);
-		if (Unknown80 < (*itor)->Frame) {
+		if ((*itor)->Frame > time) {
 			return;
 		}
 		if (!Unknown_803310(*itor)) {

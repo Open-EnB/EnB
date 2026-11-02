@@ -1358,7 +1358,7 @@ void Unknown7119B0Class::Set_Motion(int time, float *speed, float *acceleration,
 
 
 
-// NOT EXACT: 0x712170 order: the tangent's three products come in the client's order but its sums pair (V0 + D) first and use other slots
+// 0x712170
 void Unknown7119B0Class::Unknown_712170(int time, Vector3 *position, Vector3 *velocity)
 {
 	G_ASSERT(time >= StartTime && time <= EndTime);
@@ -1375,12 +1375,12 @@ void Unknown7119B0Class::Unknown_712170(int time, Vector3 *position, Vector3 *ve
 		float dh = 6.0f * t - 6.0f * t2;
 		float dc = 3.0f * t2 - 4.0f * t + 1.0f;
 		float dd = 3.0f * t2 - 2.0f * t;
-		*velocity = (1.0f / (float)(EndTime - StartTime)) * (Unknown34 * dd + Unknown14 * dc + Unknown28 * dh);
+		Vector3 a = Unknown28 * dh;
+		Vector3 b = Unknown14 * dc;
+		Vector3 c = Unknown34 * dd;
+		*velocity = (1.0f / (float)(EndTime - StartTime)) * (b + a + c);
 	}
 }
-
-
-
 
 
 
@@ -1914,7 +1914,7 @@ Unknown714340Class::Unknown714340Class(SClient *client, FormationPositionalUpdat
 }
 
 
-// NOT EXACT: 0x714410 order: Matrix3D::Rotate_Vector's rows sum their products in another order in the client (x z y, z y x, z y x)
+// 0x714410
 void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	ClientObjectClass *leader = Client->Find_Object(LeaderID);
@@ -1940,7 +1940,18 @@ void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 	if (position || orientation) {
 		Matrix3D transform = unknown ? state->Unknown_20(time) : state->Unknown_08(time);
 		if (position) {
-			Matrix3D::Rotate_Vector(transform, Offset, position);
+			Vector3 tmp;
+			const Vector3 *in = &Offset;
+			if (position == in) {
+				tmp = *in;
+				in = &tmp;
+			}
+			float x = transform[0][0] * in->X;
+			x += transform[0][2] * in->Z;
+			x += transform[0][1] * in->Y;
+			position->X = x;
+			position->Y = (transform[1][2] * in->Z + transform[1][1] * in->Y) + transform[1][0] * in->X;
+			position->Z = (transform[2][2] * in->Z + transform[2][1] * in->Y) + transform[2][0] * in->X;
 			*position += transform.Get_Translation();
 		}
 		if (orientation) {

@@ -32,6 +32,24 @@ void InterfaceSignalMapClass::Remove(void *sender, const SignalBaseClass::Callba
 	STUB_CALLED("POC InterfaceSignalMapClass::Remove (0x4F98D0, SignalMap::disconnect)");
 }
 
+// tooltip.cpp's view of the same two functions (its own TooltipSignalMapClass)
+class TooltipSignalMapClass
+{
+public:
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
+};
+
+void TooltipSignalMapClass::Add(void *sender, SignalBaseClass::CallbackClass *callback)
+{
+	STUB_CALLED("POC TooltipSignalMapClass::Add (0x4F9740, SignalMap::connect): not connected");
+}
+
+void TooltipSignalMapClass::Remove(void *sender, const SignalBaseClass::CallbackClass &callback)
+{
+	STUB_CALLED("POC TooltipSignalMapClass::Remove (0x4F98D0, SignalMap::disconnect)");
+}
+
 // ---------------------------------------------------------------- input.cpp
 
 // 0x42A1A0: a key combination read from an ini entry; here none

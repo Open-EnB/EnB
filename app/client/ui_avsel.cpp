@@ -241,7 +241,7 @@ public:
 };
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
 
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and at the last frame in ms (as scriptedmovie.cpp declares them)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
 // The button models and their texts (0xB7B8E0, 0xB7B904: the five slots, delete, continue / confirm, cancel / exit)
 static const char *Unknown_B7B8E0[9] = { "name00", "name01", "name02", "name03", "name04", "delete", "continue", "cancel", NULL };	// NAME 1: neutral (D10)
@@ -401,7 +401,7 @@ void AvatarSelectionInterface::Unknown_60()
 	if (Unknown114) {
 		Unknown114->Unknown_6AAD10();
 	}
-	float elapsed = (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+	float elapsed = (WW3D::Get_Frame_Time()) * 0.001f;
 	if (Unknown0F0 > 0.0f && (Unknown0F0 -= elapsed) < 0.0f) {
 		Unknown0F0 = 0.0f;
 		if (!Unknown0F9) {

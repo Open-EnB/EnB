@@ -139,24 +139,24 @@ RefCountPtr<LookupTableClass> LookupTableSetClass::Get(const std::string &name)
 
 
 
-// NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28)
+
 RefCountPtr<LookupTableClass> ContinuousLookupTableClass::Create(const std::string &values)
 {
 	std::vector<std::string> strings;
 	Unknown_4FC2F0(strings, values, std::string(","));
 	FAIL_IF(strings.empty()) return 0;
-
 	RefCountPtr<ContinuousLookupTableClass> table = Create_NEW(new ContinuousLookupTableClass);
-	table->Values.resize(strings.size());
+	std::vector<float> &vals = table->Values;
+	vals.resize(strings.size());
 	int index = 0;
-	for (std::vector<std::string>::iterator it = strings.begin(); it != strings.end(); ++it) {
-		table->Values[index++] = (float)atof((*it).c_str());
+	std::vector<std::string>::iterator it = strings.begin();
+	while (it != strings.end()) {
+		float value = (float)atof((*it).c_str());
+		vals[index++] = value;
+		++it;
 	}
 	return table;
 }
-
-
-
 
 
 

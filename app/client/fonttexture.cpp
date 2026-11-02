@@ -13,6 +13,21 @@ SurfaceClass *Unknown_BE67C8 = NULL;	// 0xBE67C8: the surface every text is prin
 int Unknown_BE67D0 = 0;					// 0xBE67D0: counts the surface's re-creations  // NAME 1 [Unknown_BE67D0]: neutral (D10)
 int Unknown_BE67D4 = 0;					// 0xBE67D4: counts the textures 0x6D8DC0 re-creates  // NAME 1 [Unknown_BE67D4]: neutral (D10)
 
+int Unknown_6D8B90Class::Count = 0;			// 0xBE67CC
+int Unknown_6D8B90Class::Unknown_BE67D8 = 0;	// 0xBE67D8
+
+// NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched
+Unknown_6D8B90Class::Unknown_6D8B90Class() :
+	Size(0x20),
+	Unknown04(NULL),
+	Unknown08(NULL),
+	Texture(NULL)
+{
+	Texture = new TextureClass(Size, Size, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);
+	Count++;
+	Unknown_BE67D8++;
+}
+
 // NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched
 Unknown_6D8B90Class::~Unknown_6D8B90Class()
 {
@@ -21,12 +36,12 @@ Unknown_6D8B90Class::~Unknown_6D8B90Class()
 	if (Count == 0) {
 		REF_PTR_RELEASE(Unknown_BE67C8);
 	}
-	if (Unknown04 != 0) {
-		delete [] (char *)Unknown04;		// +0x04: the text (nstrdup)
+	if (Unknown04 != NULL) {
+		delete [] Unknown04;		// +0x04: the text (nstrdup)
 	}
-	if (Unknown08 != 0) {
-		((Font32Class *)Unknown08)->Release_Ref();	// +0x08: the font it was printed with
-		Unknown08 = 0;
+	if (Unknown08 != NULL) {
+		Unknown08->Release_Ref();	// +0x08: the font it was printed with
+		Unknown08 = NULL;
 	}
 }
 
@@ -90,22 +105,22 @@ Unknown_6D8B90Class::~Unknown_6D8B90Class()
 bool Unknown_6D8B90Class::Unknown_6D8DC0(Font32Class **font, const char *str, int unknown)
 {
 	FAIL_IF(!str) str = "";
-	if (Texture != NULL && Unknown04 != 0 && str != NULL) {
-		if (strcmp((char *)Unknown04, str) == 0 && (Font32Class *)Unknown08 == *font && unknown == 0) {
+	if (Texture != NULL && Unknown04 != NULL && str != NULL) {
+		if (strcmp(Unknown04, str) == 0 && Unknown08 == *font && unknown == 0) {
 			return false;
 		}
 	}
-	if (Unknown04 != 0) {
-		delete [] (char *)Unknown04;
+	if (Unknown04 != NULL) {
+		delete [] Unknown04;
 	}
 	if (*font != NULL) {
 		(*font)->Add_Ref();
 	}
-	if (Unknown08 != 0) {
-		((Font32Class *)Unknown08)->Release_Ref();
+	if (Unknown08 != NULL) {
+		Unknown08->Release_Ref();
 	}
-	Unknown08 = (int)*font;
-	Unknown04 = (int)nstrdup(str);
+	Unknown08 = *font;
+	Unknown04 = nstrdup(str);
 	int fw = (*font)->String_Pixel_Width(str);
 
 

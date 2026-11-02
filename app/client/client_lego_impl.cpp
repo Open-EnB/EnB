@@ -676,7 +676,7 @@ void ClientLegoImplClass::Update_Radius(void)
 
 
 
-// NOT EXACT: shape, 4 rows: the client forms &child (lea ebp) before loading it, ours after (attempts.csv)
+// 0x72CE40
 void ClientLegoImplClass::Child_Moved(const LegoIdentifierClass &id)
 {
 	LegoSplitStruct split(Identifier, id);
@@ -685,12 +685,12 @@ void ClientLegoImplClass::Child_Moved(const LegoIdentifierClass &id)
 
 	FAIL_IF(child_find == Children.end()) return;
 
-
-	const RefCountPtr<LegoClass> &child = (*child_find).second.Child;
+	LegoChildStruct &entry = (*child_find).second;
+	const RefCountPtr<LegoClass> &child = entry.Child;
 
 	FAIL_IF(!child) return;
 
-	const RefCountPtr<LegoKnobClass> &knob = (*child_find).second.Knob;
+	const RefCountPtr<LegoKnobClass> &knob = entry.Knob;
 	FAIL_IF(!knob) return;
 	int bone = knob->BoneIndex;
 	RenderObject->Release_Bone(bone);
@@ -707,21 +707,20 @@ void ClientLegoImplClass::Child_Changed(const LegoIdentifierClass &)
 
 
 
-// NOT EXACT: frame: the client keeps the child's render object in its own stack slot (sub esp 8), ours in a dead parameter's (attempts.csv)
+// 0x72D0E0
 void ClientLegoImplClass::Attach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob)
 {
 	FAIL_IF(!child) return;
 	FAIL_IF(!knob) return;
 	child->Unknown_18(Unknown65);
-	if (render_object) {
-		int bone = knob->BoneIndex;
-		render_object->Capture_Bone(bone);
-		render_object->Control_Bone(bone, child->Get_Transform());
-		RefCountPtr<RenderObjClass> child_object = child->Get_Render_Object();
-		if (child_object) {
-			render_object->Add_Sub_Object_To_Bone(child_object.Peek(), knob->BoneName.c_str());
-			child->Set_Parent(this);
-		}
+	if (!render_object) return;
+	int bone = knob->BoneIndex;
+	render_object->Capture_Bone(bone);
+	render_object->Control_Bone(bone, child->Get_Transform());
+	RefCountPtr<RenderObjClass> child_object = child->Get_Render_Object();
+	if (child_object) {
+		render_object->Add_Sub_Object_To_Bone(child_object.Peek(), knob->BoneName.c_str());
+		child->Set_Parent(this);
 	}
 }
 
@@ -739,14 +738,16 @@ void ClientLegoImplClass::Attach(const RefCountPtr<LegoClass> &child, const RefC
 
 
 
-// NOT EXACT: register-only, 4 rows: eax / edx swapped around the Get_Render_Object call (attempts.csv)
+
+// 0x72D2A0
 void ClientLegoImplClass::Detach(const RefCountPtr<LegoClass> &child, const RefCountPtr<RenderObjClass> &render_object, const RefCountPtr<LegoKnobClass> &knob)
 {
 	FAIL_IF(!child) return;
 	FAIL_IF(!knob) return;
 	if (render_object) {
-		render_object->Release_Bone(knob->BoneIndex);
-		render_object->Remove_Sub_Object(child->Get_Render_Object().Peek());
+		int bone_index = knob->BoneIndex;
+		render_object->Release_Bone(bone_index);
+		render_object->Remove_Sub_Object(child.Peek()->Get_Render_Object().Peek());
 		child->Clear_Parent();
 	}
 }
@@ -761,7 +762,6 @@ RefCountPtr<LegoBoneMapClass> ClientLegoImplClass::Get_Bone_Map(int asset_id)
 	_Global_Bone_Maps[asset_id] = bone_map;
 	return bone_map;
 }
-
 
 
 

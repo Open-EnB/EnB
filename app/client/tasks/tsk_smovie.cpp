@@ -110,10 +110,12 @@ bool ScriptedMovieTaskClass::Init(KernelClass *kernel)
 		return false;
 	}
 	Clients.push_back(new MovieClientClass(this, kernel));
-	// NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;)
-	// with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom)
 	int number = Script_Number + 1;
-	while (Movie_Name != NULL) {
+	bool done = false;
+	while (!done) {
+		if (Movie_Name == NULL) {
+			break;
+		}
 		char filename[128];
 		sprintf(filename, "%s%d.txt", Movie_Name, number);
 		file_auto_ptr file(_TheFileFactory, filename);
@@ -133,8 +135,6 @@ bool ScriptedMovieTaskClass::Shutdown()
 	Unknown_Free_Assets();
 	return true;
 }
-
-
 
 
 

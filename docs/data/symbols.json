@@ -4333,6 +4333,13 @@
 "source": "thunk"
 },
 {
+"address": "0x403012",
+"symbol": "j_??1?$RefCountPtr@VRefCountClass@@@@QAE@XZ",
+"name": "j_??1?$RefCountPtr@VRefCountClass@@@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x403021",
 "symbol": "j_?Set_Value_String@?$KVPairTemplateClass@W4ShipCustomizationMetal@@@@UAE_NPBD@Z",
 "name": "j_?Set_Value_String@?$KVPairTemplateClass@W4ShipCustomizationMetal@@@@UAE_NPBD@Z",
@@ -25382,6 +25389,13 @@
 "source": "thunk"
 },
 {
+"address": "0x40CE64",
+"symbol": "j_?Create_Peek@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z",
+"name": "j_?Create_Peek@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x40CE91",
 "symbol": "j_?Add@GuildRankNamesGuildPacketClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z",
 "name": "j_?Add@GuildRankNamesGuildPacketClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z",
@@ -25707,6 +25721,13 @@
 "address": "0x40D120",
 "symbol": "j_?Add_Pointer@KVEncoderBaseClass@@QAEXHPBDPAW4ProfessionType@@@Z",
 "name": "j_?Add_Pointer@KVEncoderBaseClass@@QAEXHPBDPAW4ProfessionType@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x40D134",
+"symbol": "j_?Create_Peek@@YA?AV?$RefCountPtr@VSimpleSceneClass@@@@PAVSimpleSceneClass@@@Z",
+"name": "j_?Create_Peek@@YA?AV?$RefCountPtr@VSimpleSceneClass@@@@PAVSimpleSceneClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -37205,6 +37226,13 @@
 "source": "thunk"
 },
 {
+"address": "0x412765",
+"symbol": "j_??1?$RefCountPtr@VStarFieldClass@@@@QAE@XZ",
+"name": "j_??1?$RefCountPtr@VStarFieldClass@@@@QAE@XZ",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x41276A",
 "symbol": "j_??_GVerbUpdatePacketClass@@UAEPAXI@Z",
 "name": "j_??_GVerbUpdatePacketClass@@UAEPAXI@Z",
@@ -40124,6 +40152,13 @@
 "source": "thunk"
 },
 {
+"address": "0x413E35",
+"symbol": "j_?Create_NEW@@YA?AV?$RefCountPtr@VStarFieldClass@@@@PAVStarFieldClass@@@Z",
+"name": "j_?Create_NEW@@YA?AV?$RefCountPtr@VStarFieldClass@@@@PAVStarFieldClass@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x413E3A",
 "symbol": "j_??_GStarbaseSetPacketClass@@UAEPAXI@Z",
 "name": "j_??_GStarbaseSetPacketClass@@UAEPAXI@Z",
@@ -40400,6 +40435,13 @@
 "address": "0x414029",
 "symbol": "j_??0Packet_00BBClass@@QAE@PAVRawPacketClass@@@Z",
 "name": "j_??0Packet_00BBClass@@QAE@PAVRawPacketClass@@@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x414042",
+"symbol": "j_??1?$RefCountPtr@VSimpleSceneClass@@@@QAE@XZ",
+"name": "j_??1?$RefCountPtr@VSimpleSceneClass@@@@QAE@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -42836,6 +42878,13 @@
 "address": "0x415271",
 "symbol": "j_??_G?$KVPairTemplateClass@_J@@UAEPAXI@Z",
 "name": "j_??_G?$KVPairTemplateClass@_J@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x415276",
+"symbol": "j_?Create_NEW@@YA?AV?$RefCountPtr@VLightClass@@@@PAVLightClass@@@Z",
+"name": "j_?Create_NEW@@YA?AV?$RefCountPtr@VLightClass@@@@PAVLightClass@@@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -49731,6 +49780,13 @@
 "address": "0x418598",
 "symbol": "j_??_GDeltaPlanetClass@@UAEPAXI@Z",
 "name": "j_??_GDeltaPlanetClass@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x41859D",
+"symbol": "j_??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
+"name": "j_??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -66862,6 +66918,62 @@
 "source": "exact",
 "length": 23,
 "proof": "vtable"
+},
+{
+"address": "0x514960",
+"symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z",
+"name": "Create_Peek",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x514990",
+"symbol": "??1?$RefCountPtr@VRefCountClass@@@@QAE@XZ",
+"name": "??1?$RefCountPtr@VRefCountClass@@@@QAE@XZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x5149C0",
+"symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSimpleSceneClass@@@@PAVSimpleSceneClass@@@Z",
+"name": "Create_Peek",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x5149F0",
+"symbol": "??1?$RefCountPtr@VSimpleSceneClass@@@@QAE@XZ",
+"name": "??1?$RefCountPtr@VSimpleSceneClass@@@@QAE@XZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x514A20",
+"symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VStarFieldClass@@@@PAVStarFieldClass@@@Z",
+"name": "Create_NEW",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x514A50",
+"symbol": "??1?$RefCountPtr@VStarFieldClass@@@@QAE@XZ",
+"name": "??1?$RefCountPtr@VStarFieldClass@@@@QAE@XZ",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x514A80",
+"symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VLightClass@@@@PAVLightClass@@@Z",
+"name": "Create_NEW",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x514AD0",
+"symbol": "??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
+"name": "??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x514B60",

@@ -179,7 +179,7 @@ void Unknown_Fail_If_Report(const char *expr, const char *, int line) { Trace("f
 void Unknown_Debug_Begin_Step(const char *text) { Trace("step: %s", text); }
 void Unknown_Debug_End_Step(const char *text) { Trace("step end: %s", text); }
 void Unknown_Debug_Print(const char *text) { Trace("log: %s", text); }
-// Unknown_Debug_Printf: stubs/app_stubs.cpp's (stubs.lib)
+void Unknown_Debug_Printf(const char *, ...) {}	// 0x509DC0 (app\dbgmgr\dbgmgr.cpp is real; this keeps dbgmgr.obj, and its step log, out)
 
 // ------------------------------------------------------------------------- data gen_stubs.py --link can't write
 

@@ -25,15 +25,15 @@ bool PxCollision::Process()
 }
 
 // 0x453B10
-// NOT EXACT: shape (the client spills the summed radius and dz to the stack and sums dy*dy + dz*dz + dx*dx; attempts.py show 0x453B10)
 bool PxCollision::Unknown_453B10()
 {
 	if (!A->Unknown_Dyn2C() && !B->Unknown_Dyn2C()) {
 	Vector3 apos = A->Unknown_24();
 	Vector3 bpos = B->Unknown_24();
-	float dist = A->Unknown04 + B->Unknown04;
 	Vector3 delta = bpos - apos;
-	if (delta.Length2() <= dist * dist) {
+	float dist = A->Unknown04 + B->Unknown04;
+	float len2 = delta.Length2();
+	if (len2 <= dist * dist) {
 	int aobj_coll_rep = A->Unknown_Dyn84();
 	int bobj_coll_rep = B->Unknown_Dyn84();
 	if (aobj_coll_rep || bobj_coll_rep) {

@@ -4,7 +4,6 @@
 
 LRESULT CALLBACK Unknown_431DE0(HWND window, UINT message, WPARAM wparam, LPARAM lparam);	// NAME 1 [Unknown_431DE0, window, message, wparam, lparam]: neutral (D10)
 
-// NOT EXACT: shape: the client branches on topmost for the ex-style argument (push 8 / push 0), ours computes it with neg / sbb / and (attempts.csv)
 HWND Unknown_431CA0(HINSTANCE instance, int width, int height, bool topmost)	// NAME 1 [Unknown_431CA0, instance, width, height, topmost]: as main_client.cpp
 {
 	WNDCLASS wc;
@@ -19,13 +18,15 @@ HWND Unknown_431CA0(HINSTANCE instance, int width, int height, bool topmost)	// 
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = "G";
 	RegisterClass(&wc);
-	HWND window = CreateWindowEx(topmost ? WS_EX_TOPMOST : 0, "G", "Earth & Beyond", WS_CAPTION | WS_SYSMENU, 0, 0, width, height, NULL, NULL, instance, NULL);
+	HWND window = topmost
+		? CreateWindowEx(WS_EX_TOPMOST, "G", "Earth & Beyond", WS_CAPTION | WS_SYSMENU, 0, 0, width, height, NULL, NULL, instance, NULL)
+		: CreateWindowEx(0, "G", "Earth & Beyond", WS_CAPTION | WS_SYSMENU, 0, 0, width, height, NULL, NULL, instance, NULL);
 	RECT client;
 	RECT frame;
 	GetClientRect(window, &client);
 	GetWindowRect(window, &frame);
-	if (client.right < frame.right - frame.left) {
-		MoveWindow(window, frame.left, frame.top, frame.right - client.right - frame.left + width, frame.bottom - client.bottom - frame.top + height, TRUE);
+	if (frame.right - frame.left > client.right) {
+		MoveWindow(window, frame.left, frame.top, frame.right - client.right - frame.left + width, frame.bottom - frame.top - client.bottom + height, TRUE);
 	}
 	SetFocus(window);
 	return window;

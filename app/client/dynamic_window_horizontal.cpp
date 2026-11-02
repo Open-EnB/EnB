@@ -79,16 +79,16 @@ void DynamicWindowHorizontalClass::Set_Min_Size(const Vector2 &min_size)
 	MinSize = min_size;
 	Invalidate();
 }
-// NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare
+static inline unsigned int Or_Flags(unsigned int &dst, unsigned int bits) { dst |= bits; return(dst); }	// NAME 2: what it does (D185 variant: the returned copy keeps the client's second register)
 void DynamicWindowHorizontalClass::Set_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	unsigned int new_flags = old_flags | flags;
-	Flags = new_flags;
+	unsigned int new_flags = Or_Flags(Flags, flags);
 	if (new_flags != old_flags) {
 		Invalidate();
 	}
 }
+
 
 void DynamicWindowHorizontalClass::Clear_Flags(unsigned int flags)
 {
@@ -349,14 +349,15 @@ bool DynamicWindowHorizontalClass::Remove_Child(const RefCountPtr<DynamicWindowE
 	*it = NULL;
 	return true;
 }
-// NOT EXACT: the client keeps the null element's self-assignment of the summed size (a load and a store); VC6 drops this one
+// 0x519460
 void DynamicWindowHorizontalClass::Update_Content_Size()
 {
 	ContentSize.X = 0.0f;
 	ContentSize.Y = 0.0f;
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (!*it) {
-			ContentSize.X = ContentSize.X;
+			float *width = &ContentSize.X;
+			*width = ContentSize.X;
 		} else {
 			Vector2 element_size = (*it)->Get_Min_Size();
 			ContentSize.X += element_size.X;

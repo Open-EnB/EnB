@@ -51,7 +51,7 @@ public:
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section ('UI_FORMATION', 'GRP_LEAVE')  // NAME 1 [section, name]: what this file passes
 
-extern unsigned int Unknown_BFAE3C; extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the time now and the last frame's, in ms (mainview.cpp, scriptedmovie.cpp)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
 // gadget.cpp's icon gadget (100 bytes, constructor 0x675310 over a render object), as far as 0x5938A0 makes it
 class UIGroupIconGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
@@ -148,21 +148,21 @@ public:
 
 
 // 0x592910
-// NOT EXACT: order (the client stores its second EH state after +0x20..+0x28, ours before; +0x20 as a struct with an empty destructor breaks the window's destructor)
+
 UIGroupUnknownE8Class::UIGroupUnknownE8Class(UIGroupClass *owner) :
-	Unknown00(owner),
-	Unknown20(0),
-	Unknown24(0),
-	Unknown28(0),
-	Unknown2C(-1),
-	Unknown30(0)
+	Unknown00(owner)
 {
+	int *p = &Unknown20;
+	p[0] = 0;
+	p[1] = 0;
+	p[2] = 0;
+	Unknown2C = -1;
+	Unknown30 = 0;
 	for (int i = 0; i < 6; i++) {
 		Unknown08[i] = NULL;
 	}
 	Unknown_592C50();
 }
-
 
 
 // 0x5929E0
@@ -177,7 +177,7 @@ void UIGroupUnknownE8Class::Unknown_592A80()
 {
 	int index = Unknown2C;
 	if (index >= 0 && index < 6 && Unknown08[index] != NULL && Unknown30 > 0.0f) {
-		Unknown30 -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown30 -= (WW3D::Get_Frame_Time()) * 0.001f;
 		float fraction = Unknown30 - (int)Unknown30;
 		if (Unknown30 < 0.0f) {
 			if (Unknown2C == 0) {
@@ -449,7 +449,7 @@ void UIGroupMemberClass::Unknown_5935C0()
 	if (Unknown2C) {
 		Unknown2C->Unknown_10();
 	}
-	float elapsed = (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+	float elapsed = (WW3D::Get_Frame_Time()) * 0.001f;
 	if (Unknown24 > 0.0f) {
 		Unknown24 -= elapsed;
 		if (Unknown24 < 0.0f) {
@@ -686,7 +686,7 @@ RefCountPtr<RenderObjClass> UIGroupUnknownE8Class::Unknown_5944A0()
 
 
 // 0x5944D0
-// NOT EXACT: order (the client stores +0xEC = 0 before it reads +0xC0; '0.0f' and a named gadget local tried)
+
 void UIGroupClass::Unknown_60()
 {
 	Unknown_596770(false);
@@ -695,11 +695,12 @@ void UIGroupClass::Unknown_60()
 	Unknown_596DB0();
 	Unknown_597650();
 	if (Unknown0EC > 0.0f) {
-		Unknown0EC -= (Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+		Unknown0EC -= (WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown0EC < 0.0f) {
 			Unknown0EC = 0;
-			Unknown0C0[0]->Unknown2C800 = false;
-			Unknown0C0[0]->Unknown_6607D0();
+			GadgetClass **buttons = Unknown0C0;
+			(*buttons)->Unknown2C800 = false;
+			(*buttons)->Unknown_6607D0();
 			Unknown5BB320Class::Unknown_60();
 			return;
 		}
@@ -707,7 +708,6 @@ void UIGroupClass::Unknown_60()
 	}
 	Unknown5BB320Class::Unknown_60();
 }
-
 
 
 
@@ -1380,7 +1380,7 @@ void UIGroupClass::Unknown_596DB0()
 
 
 // 0x596E20
-// NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried)
+
 void UIGroupClass::Unknown_596E20(const char *text, bool leader)
 {
 	if (!Unknown0F1) {
@@ -1396,10 +1396,10 @@ void UIGroupClass::Unknown_596E20(const char *text, bool leader)
 		}
 		char message[128];
 		_snprintf(message, sizeof(message), "<S>%d%s`%s", leader ? 1 : 0, name, text);
-		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->AvatarID, message, 1, NULL));
+		int id = ((ClientClass *)Client)->AvatarID;
+		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(id, message, 1, NULL));
 	}
 }
-
 
 
 
@@ -1470,7 +1470,7 @@ int UIGroupClass::Unknown_597200(RefCountPtr<RenderObjClass> model)
 
 
 // 0x597310
-// NOT EXACT: register (model and the sub-object temporary in each other's registers; the level offsets as two adds in the client)
+
 void UIGroupClass::Unknown_597310(RefCountPtr<RenderObjClass> model, bool raise)
 {
 	if (model == NULL) {
@@ -1478,28 +1478,28 @@ void UIGroupClass::Unknown_597310(RefCountPtr<RenderObjClass> model, bool raise)
 	}
 	int level = Unknown_597200(model);
 	RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name("main"));
-	const char **name;
-	for (name = Unknown_B7F4B8; *name; name++) {
-		sub = Create_Get(model->Get_Sub_Object_By_Name(*name));
+	int i;
+	for (i = 0; Unknown_B7F4B8[i]; i++) {
+		sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7F4B8[i]));
 		if (sub != NULL) {
-			sub->Set_Sort_Level(level + (raise ? 2 : -2));
+			if (raise) {
+				sub->Set_Sort_Level(level + 2);
+			} else {
+				sub->Set_Sort_Level(level - 2);
+			}
 		}
 	}
-	for (name = Unknown_B7F4C4; *name; name++) {
-		sub = Create_Get(model->Get_Sub_Object_By_Name(*name));
+	for (i = 0; Unknown_B7F4C4[i]; i++) {
+		sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7F4C4[i]));
 		if (sub != NULL) {
-			sub->Set_Sort_Level(level + (raise ? 1 : -1));
+			if (raise) {
+				sub->Set_Sort_Level(level + 1);
+			} else {
+				sub->Set_Sort_Level(level - 1);
+			}
 		}
 	}
 }
-
-
-
-
-
-
-
-
 
 
 

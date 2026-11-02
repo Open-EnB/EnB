@@ -51,19 +51,6 @@ void Unknown_Report_Message(const char *sender, const char *category, const char
 	Stub_Log_Line("%s: %s, %s(%d)", category, text, file, line);
 }
 
-// permstr.cpp's statistics line
-void Unknown_Debug_Printf(const char *format, ...)
-{
-	STUB_CALLED("Unknown_Debug_Printf");
-	char text[1024];
-	va_list va;
-	va_start(va, format);
-	_vsnprintf(text, sizeof(text) - 1, format, va);
-	va_end(va);
-	text[sizeof(text) - 1] = 0;
-	Stub_Log_Line("Unknown_Debug_Printf: %s", text);
-}
-
 // ------------------------------------------------------------------------- globals (data)
 
 int DeltaUnknownGlobal = 0;					// delta.h
@@ -122,6 +109,34 @@ char *Value_To_String(char *buf, int size, unsigned int value)
 bool String_To_Value(const char *text, unsigned int *value)
 {
 	return sscanf(text, "%u", value) == 1;
+}
+
+// 0x4A32E0 / 0x4A3310 / 0x4A3410 / 0x4A3440: the client's behaviour (char and int)
+char *Value_To_String(char *buf, int size, char value)
+{
+	sprintf(buf, "%d", value);
+	return buf;
+}
+
+bool String_To_Value(const char *text, char *value)
+{
+	int i = 0;
+	if (sscanf(text, "%d", &i) == 1 && i >= -128 && i <= 127) {
+		*value = (char)i;
+		return true;
+	}
+	return false;
+}
+
+char *Value_To_String(char *buf, int size, int value)
+{
+	sprintf(buf, "%d", value);
+	return buf;
+}
+
+bool String_To_Value(const char *text, int *value)
+{
+	return sscanf(text, "%d", value) == 1;
 }
 
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)

@@ -10,13 +10,13 @@
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (input.cpp): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 
 // mousetbl.cpp's table (0xBE7C70, filled by 0x7228C0: 'arrow_blank.tga', 'arrow.tga', 'cursor_w.tga' ...)
-struct MouseCursorStruct  // NAME 1: neutral (D10)
-{
-	TextureClass *Texture;		// +0x00
-	int HotX;					// +0x04: the hot spot, pixels
-	int HotY;					// +0x08
-};
-extern MouseCursorStruct *Unknown_BE7C70[];  // NAME 1 [Unknown_BE7C70]: neutral (D10)
+#include "mousetbl.h"
+// (blank lines: the FAIL_IFs keep the client's lines 267, 269, 278)
+
+
+
+
+
 
 // What the mouse drags (+0x2C), as far as this file calls it
 class SMouseDragClass  // NAME 1: neutral (D10)
@@ -37,14 +37,13 @@ static inline void Release_Model(RenderObjClass *&model)
 	model = NULL;
 }
 
-// NOT EXACT: register-only (VC6 schedules the stores in another order)
 LoginUnknown18Class::LoginUnknown18Class(int unknown)
 {
 	Unknown00 = unknown;
-	Unknown0C = -1;
-	Unknown10 = -1;
 	Unknown04 = NULL;
 	Unknown08 = NULL;
+	Unknown0C = -1;
+	Unknown10 = -1;
 	Unknown14 = -1.0f;
 	Unknown18 = -1.0f;
 	Unknown1C = 0.0f;
@@ -54,11 +53,12 @@ LoginUnknown18Class::LoginUnknown18Class(int unknown)
 	DragObject = NULL;
 }
 
-// NOT EXACT: shape (3 rows; mostly registers)
 LoginUnknown18Class::~LoginUnknown18Class()
 {
 	if (Unknown04 != NULL) {
-		Release_Model(Unknown04);
+		Unknown04->Remove();
+		Unknown04->Release_Ref();
+		Unknown04 = NULL;
 	}
 	if (DragObject != NULL) {
 		DragObject->Unknown_685190();
@@ -66,13 +66,11 @@ LoginUnknown18Class::~LoginUnknown18Class()
 	}
 }
 
-// NOT EXACT: shape (2 rows: the EH frame around the new)
-RenderObjClass *LoginUnknown18Class::Unknown_515080()
+RenderObjClass *LoginUnknown18Class::Unknown_515080(int cursor)
 {
 	return(new Bitmap2DObjClass(Unknown_BE7C70[Unknown0C]->Texture, 0.0f, 0.0f, false, false, false, false));
 }
 
-// NOT EXACT: shape (1 row)
 int LoginUnknown18Class::Unknown_515120(int cursor)
 {
 	int old = Unknown0C;
@@ -85,7 +83,7 @@ int LoginUnknown18Class::Unknown_515120(int cursor)
 		Unknown0C = cursor;
 		Unknown1C = (float)Unknown_BE7C70[cursor]->HotX * -0.0015625f;
 		Unknown20 = (float)Unknown_BE7C70[cursor]->HotY * -0.0020833334f;
-		Unknown04 = Unknown_515080();
+		Unknown04 = Unknown_515080(cursor);
 		if (Unknown04 != NULL) {
 			Unknown04->Set_Transform(tm);
 			Unknown04->Set_Position(Vector3(Unknown14 + Unknown1C, Unknown18 + Unknown20, 0.0f));
@@ -95,6 +93,12 @@ int LoginUnknown18Class::Unknown_515120(int cursor)
 		}
 	}
 	return(old);
+}
+
+
+int LoginUnknown18Class::Unknown_515320()
+{
+	return(Unknown0C);
 }
 
 void *LoginUnknown18Class::Unknown_515340(void *scene)
@@ -114,11 +118,12 @@ void *LoginUnknown18Class::Unknown_515340(void *scene)
 	return(old);
 }
 
-// NOT EXACT: shape (3 rows; mostly registers)
 void LoginUnknown18Class::Unknown_5153B0()
 {
 	if (!Unknown24 && Unknown04 != NULL) {
-		Release_Model(Unknown04);
+		Unknown04->Remove();
+		Unknown04->Release_Ref();
+		Unknown04 = NULL;
 		Unknown24 = true;
 	}
 }
@@ -257,11 +262,6 @@ void LoginUnknown18Class::Unknown_515440()
 
 
 
-
-
-
-
-
 bool LoginUnknown18Class::Unknown_515510(SMouseDragClass *drag)
 {
 	FAIL_IF(!drag) return false;
@@ -287,7 +287,11 @@ bool LoginUnknown18Class::Unknown_5155A0(SMouseDragClass *drag)
 **	client.exe: smouse.cpp 0x514960-0x515E20; the software mouse (tsk_login.h's LoginUnknown18Class, 0x30
 **	bytes: LoginTaskClass +0x18, SClient +0x1274) 0x514FE0-0x5155D5: a Bitmap2DObjClass of mousetbl.cpp's
 **	cursor texture moved to the pointer every frame, and the dragged object (+0x2C). FAIL_IFs on the
-**	client's lines 267, 269 and 278 (D25). Exact: 0x515340, 0x515400, 0x515440, 0x515510, 0x5155A0;
-**	NOT EXACT (D64, functional for the POC): 0x514FE0, 0x515030, 0x515080, 0x515120, 0x5153B0.
-**	Unbuilt: the views' defaults before 0x514FE0 and the interface defaults 0x515690-0x515750. ACT (run 2026-11-02).
+**	client's lines 267, 269 and 278 (D25). All exact (ACT, SM; run 2026-11-02): the constructor stores in
+**	declaration order (VC6 schedules the -1s first), the destructor and 0x5153B0 release the model in
+**	place (Release_Model's reference moved the load through eax), 0x515080 takes the cursor (ret 4) and
+**	reads +0x0C; 0x515320 (4 bytes) returns the cursor. Unbuilt: the views' defaults before 0x514FE0
+**	(next to mainview.cpp's), the unreferenced InterfaceClass subclass 0x515640 (table 0xAED2B4: slots
+**	+0x58 / +0x5C / +0x60 0x515840 / 0x515930 / 0x515980, destructor 0x5157A0) whose table pulls
+**	intrface.h's inline defaults 0x515690-0x515750 into this object.
 */

@@ -48,8 +48,8 @@ static ScreenFadeValueClass UnknownBE8BA0;	// 0xBE8BA0 (no reader)
 static ScreenFadeValueClass UnknownBE8B40;	// 0xBE8B40 (no reader)
 static Render2DClass *Renderer;		// 0xBE8BAC  // NAME 2: what it holds
 
-extern unsigned int Unknown_BFAE3C;	// NAME 1: neutral (D10): the time now in ms (mainview.cpp declares it too)
-extern unsigned int Unknown_BFAE40;	// NAME 1: neutral (D10): the last frame's (scriptedmovie.cpp declares it too)
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
 
 // the scripted movie view's constructor: the renderer over the whole screen (0..1), every fade at rest
 void Unknown_7FF230()
@@ -75,7 +75,7 @@ void Unknown_7FF3A0()
 void Unknown_7FF3D0()
 {
 	RectClass bar;	// (declared here: the client keeps the bars' rectangle apart from the fade's)
-	float seconds = (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+	float seconds = (float)(WW3D::Get_Frame_Time()) * 0.001f;
 	Letterbox.Update(seconds);
 	Opacity.Update(seconds);
 	Red.Update(seconds);

@@ -140,9 +140,20 @@ bool BINKMovie::Is_Complete()
 static int Begin_Renders;
 WW3DErrorType WW3D::Begin_Render(bool, bool, const Vector3 &, void (*)(void)) { Begin_Renders++; return WW3D_ERROR_OK; }
 WW3DErrorType WW3D::End_Render(bool) { return WW3D_ERROR_OK; }
+// kernel.cpp's device check (0x9179D0): without it app's WW3D::Unknown_Restore_Device pulls ww3d2.lib(ww3d.obj),
+// which defines Begin_Render / End_Render too; the device is always fine here
+WW3DErrorType WW3D::Unknown_Restore_Device(void) { return WW3D_ERROR_OK; }
 
 // ------------------------------------------------------------------------- the stand-ins
 
+// dbgmgr.cpp's other functions (app.lib(dbgmgr.obj) is pulled by whichever one is referenced; the three
+// the trace needs stay here, the rest are stand-ins so the real object stays out of the link)
+void Unknown_509C40(int, const char *) {}
+void Unknown_509D50(int, const char *, ...) {}
+void Unknown_Debug_Printf(const char *, ...) {}
+void Unknown_509E50() {}
+void Unknown_509E70() {}
+void Unknown_509EB0() {}
 void Unknown_Debug_Print(const char *text) { fprintf(Out, "log: %s\n", text); }
 void Unknown_Debug_Begin_Step(const char *text) { fprintf(Out, "step: %s\n", text); }
 void Unknown_Debug_End_Step(const char *text) { fprintf(Out, "step end: %s\n", text); }

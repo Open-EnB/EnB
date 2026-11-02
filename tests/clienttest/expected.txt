@@ -153,20 +153,6 @@ mainview 7C
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
 check Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks: ok
 check SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3): ok
   model row 0: 0.0000 -1.0000 0.0000 105.0000
@@ -201,20 +187,6 @@ mainview 7C
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
 aux data +0x20 (the age step)
@@ -241,20 +213,6 @@ mainview 7C
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
   model row 0: 1.0000 0.0000 0.0000 -50.0000
   model row 1: 0.0000 1.0000 0.0000 -15.0000
   model row 2: 0.0000 0.0000 1.0000 5.0000
@@ -315,20 +273,6 @@ mainview 7C
 mainview 64
 gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
-gen ViewUnknown34Class::Unknown_5890B0
 check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2): ok
 check the old model was released and deleted: ok
 check at clock 5000 the new model follows the second packet: ok
@@ -3011,7 +2955,6 @@ msg 1 ? (235) size 36: cpacket.cpp's handler
 gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
-gen InterfaceUnknown64Class::InterfaceUnknown64Class
 gen SignalMap::SignalMap
 stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 0
@@ -3019,7 +2962,6 @@ msg 2 ? (234) size 36: cpacket.cpp's handler
 gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
-gen InterfaceUnknown64Class::InterfaceUnknown64Class
 stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
@@ -3091,10 +3033,8 @@ find calls: 59A400(1 players)
 check FIND_MEMBER 83: the group-find interface gets the packet only with the +0xF8 interface and +0x7C set; the count back to 5: ok
 == (4k) GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208, 216
 msg 1 GUILD_RECRUIT_CONFIRM_SECTOR (200) size 22: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 check GUILD_RECRUIT_CONFIRM_SECTOR 200: the question to the current view's dialog, +0x119C = the inviter: ok
 msg 2 ? (216) size 26: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 check 216: the rename question to the dialog, +0x119C = "": ok
 msg 3 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
 SClient::Unknown_74DFF0 0x8 'Alex has joined Earthlings.' 3 0
@@ -3142,26 +3082,15 @@ stub SClient::Unknown_74D990 0x13 'Set channel Sector 1 access to Bea.' 0
 stub SClient::Unknown_74D990 0x13 'A password has been set for channel Sector 1.' 0
 check CLIENT_CHAT_ERROR 166 success: five lines (the sound for 22 is soundlib.cpp's real Play_2D_Sound now: no stand-in line), type 4 none: ok
 msg 1 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 2 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 3 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 4 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 5 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 6 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 7 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 8 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 9 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 10 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 msg 11 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
-gen ViewUnknown34Class::Unknown_588A70
 check GUILD_SIMPLE_SECTOR_CLIENT 204: each of the eleven types asks its question (+0x119C = the name): ok
 == done: 0 checks failed

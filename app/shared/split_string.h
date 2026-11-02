@@ -30,6 +30,7 @@ public:
 	bool Split(const char *text, float width, int cursor);						// 0x4F9D90: false when one word is wider than width  // NAME 2: what it does
 	unsigned int Count();														// 0x4FA710: the number of lines  // NAME 2: what it returns
 	const char *Get(unsigned int index);										// 0x4FA740: one line, NULL past the end  // NAME 2: what it returns
+	int Get_New_Lines() { return(NewLines); }								// (inline: tooltip.cpp's 0x6ABC60 reads +0x20)  // NAME 1 [Get_New_Lines]: the member it returns
 
 	virtual float Get_Text_Width(const char *buff);								// slot +0x04, 0x4FA790: strlen  // NAME 2: what Split measures a line with
 	virtual float Get_Char_Width(char c);										// slot +0x08, 0x4FA800: 1 or 0  // NAME 2: what Split measures a character with

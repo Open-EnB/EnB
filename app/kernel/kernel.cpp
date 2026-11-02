@@ -86,13 +86,13 @@ KernelClass::~KernelClass()
 	Instance = NULL;
 }
 
-class UnknownBDADC0Class		// NAME 1 [UnknownBDADC0Class]: the object at *0xBDADC0 (its flag +0x4074)
+class ENBAssetManager		// NAME 5 [ENBAssetManager]: the client's strings; the object at *0xBDADC0 (its flag +0x4074)
 {
 public:
 	char Unknown0000[0x4074];
 	bool Unknown4074;
 };
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 
 class UnknownBFAEE0Class		// NAME 1 [UnknownBFAEE0Class]: the object at *0xBFAEE0 (Shutdown calls its slot +0x10)
 {

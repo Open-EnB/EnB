@@ -2774,7 +2774,7 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 
 // The avatar description at +0xF8 of an avatar (MESSAGE_CHATSTREAM 95 reads its full name)
 static inline AvatarDescClass &Unknown_Avatar_Desc(Unknown77E3F0Class *avatar) { return(*(AvatarDescClass *)((char *)avatar + 0xF8)); }	// NAME 1: neutral (D10): what it returns
-// NOT EXACT: register-only (the two AvatarID / ShipID tests load the ids into other registers: the client has ecx / eax, then edi / eax; attempts.py show 0x736F10)
+static inline int Chat_Avatar_ID(SClient *sclient) { return(sclient->AvatarID); }
 // 0x736F10 (placed here, out of address order: it has no assert)
 bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 {
@@ -2784,10 +2784,10 @@ bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 	if (avatar) {
 		avatar->Unknown_784B80(ChatString, Chatsize, true);
 		if (Color == 3 || Color == 4) {
-			if (sclient->AvatarID != ShipID && sclient->ChatPanel) {
+			if (Chat_Avatar_ID(sclient) != ShipID && sclient->ChatPanel) {
 				sclient->ChatPanel->Unknown_563910(ShipID, false);
 			}
-			if (sclient->AvatarID != ShipID && avatar->Unknown_7817E0()->Unknown_0C()) {
+			if (Chat_Avatar_ID(sclient) != ShipID && avatar->Unknown_7817E0()->Unknown_0C()) {
 				AvatarDescClass &desc = Unknown_Avatar_Desc(avatar); std::string name;
 				desc.Get_Full_Name(name);
 				int len = Chatsize + name.size() + 16;

@@ -87,11 +87,11 @@ private:
 
 
 
-extern unsigned int Unknown_BFAE3C;							// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now, as slot +0x60 reads it
-extern unsigned int Unknown_BFAE40;							// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): read inline through WW3D::Get_Frame_Time
 
 
-// NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it
+// 0x5A4B50
 EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""), TotalChance(0)
 {
 	for (int i = 0; i < 5; i++) {
@@ -113,18 +113,19 @@ EphemeralStruct::EphemeralStruct(int index, INIClass &ini) : Type(""), Text(""),
 			if (!ini.Find_Entry(section, entry)) {
 				break;
 			}
-			StringClass type;
-			ini.Get_String(type, section, entry, "");
-			FontType[font] = type;
-			_snprintf(entry, sizeof(entry), "FontChance%02d", font);
-			float chance = ini.Get_Float(section, entry, 0);
-			TotalChance = TotalChance + chance;
-			Chance[font] = TotalChance;
+			{
+				StringClass type;
+				ini.Get_String(type, section, entry, "");
+				FontType[font] = type;
+				_snprintf(entry, sizeof(entry), "FontChance%02d", font);
+				float chance = ini.Get_Float(section, entry, 0);
+				TotalChance = TotalChance + chance;
+				Chance[font] = TotalChance;
+			}
 			font++;
 		}
 	}
 }
-
 
 std::string EphemeralStruct::Pick_Font()
 {
@@ -136,7 +137,6 @@ std::string EphemeralStruct::Pick_Font()
 	}
 	return std::string("");
 }
-
 
 LineDisplayStringStruct::LineDisplayStringStruct(const char *name) : Name(name)
 {
@@ -321,7 +321,7 @@ void UILineDisplayClass::Unknown_60()
 		return;
 	}
 	if (Current) {
-		unsigned int elapsed = Unknown_BFAE3C - Unknown_BFAE40;
+		unsigned int elapsed = WW3D::Get_Frame_Time();
 		if (Current->DisplayTimeMS) {
 			if (Current->DisplayTimeMS <= elapsed) {
 				Current->DisplayTimeMS = 0;

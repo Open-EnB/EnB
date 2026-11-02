@@ -27,23 +27,23 @@
 #include "wwmath.h"
 #include <vector>
 
+// The frame's platform turn (0x679930): a file inline the frame expands (as its own code, the client's Matrix3D's
+// Vector4 constructor goes through ??_H and Rotate_Z is called out of line, ViewRObjs[4] and +0x1A0 read again)
+inline void CharacterViewClass::Unknown_Inline_Platform()
+{
+	Matrix3D platform(true);
+	int bone = ViewRObjs[4]->Get_Bone_Index("platform");
+	platform.Rotate_Z(Unknown1A0);
+	ViewRObjs[4]->Capture_Bone(bone);
+	ViewRObjs[4]->Control_Bone(bone, platform, false);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// The environment maps +0x3A4 read through an inline accessor: the avatars' constructor calls then load and push
+// it before 'this' is set, as the client does (CV2: a plain member read schedules both loads first, 0.79)
+static inline SClientUnknown1338Class *Unknown_Inline_Env_Maps(CharacterViewClass *view)
+{
+	return view->Unknown3A4;
+}
 
 
 
@@ -132,13 +132,13 @@ CharacterViewSoundClass::~CharacterViewSoundClass()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls ShipCustPartClass's constructor 0x6191F0 and the deque iterator's 0x67D300 out of line; ours inlines them); 0.62
+
 // 0x678450
 CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 	UIViewClass((ClientTaskClass *)task, 2),
-	Unknown04C(0.0f, 0.0f, 0.0f),
-	Unknown058(0.0f, 0.0f, 0.0f),
-	Unknown064(45.0f),
+	// +0x4C: the camera's own constructor (0, 0, 0; 0, 0, 0; 45)
+
+
 	Unknown068(NULL),
 	Unknown06C(NULL),
 	Unknown070(NULL),
@@ -191,7 +191,7 @@ CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 		Unknown4A0[i].Set(0.5f, 0.5f);
 		Unknown4B0[i].Set(0.5f, 0.5f, 1.0f);
 	}
-	Unknown_04();
+	Unknown_04(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size();	// dead: VC6's inline budget (the client calls 0x6191F0 and 0x67D300 out of line)
 }
 
 // 0x678970: the implicit destructor (charview.h)
@@ -299,46 +299,25 @@ void CharacterViewClass::Unknown_08()
 	LoginTaskClass *task = (LoginTaskClass *)Unknown14->Unknown_08(); task->Unknown0018->Unknown_515120(2);
 }
 
-// NOT EXACT: inline budget (the client calls the deque's pop_front 0x67CEF0 out of line; ours inlines it), 0.77
-// 0x679510
+// 0x679510: Shutdown, as calls to the file's own helpers (inlined; the client calls the deque's pop_front
+// 0x67CEF0 out of line from 0x67C7B0's copy)
 void CharacterViewClass::Unknown_10()
 {
 	int i;
 	for (i = 0; i < 5; i++) {
-		if (Unknown1D4[i].Anim) { Unknown1D4[i].Anim->Release_Ref(); Unknown1D4[i].Anim = NULL; }
+		Unknown_67ACE0(i);
 		Unknown_67A9B0(i);
 	}
-	SoundLibraryClass::Stop_Dialog();
-	while (Unknown4E0.size() != 0) {
-		Unknown4E0.pop_front();
-	}
+	Unknown_67C7B0();
 	if (Unknown3A4) {
 		delete Unknown3A4;
 		Unknown3A4 = NULL;
 	}
 	Unknown_67BEB0();
-	if (Unknown224) {
-		Unknown224->Stop(true);
-		Unknown224->Release_Ref(); Unknown224 = NULL;
-	}
-	if (AvatarRObj) {
-		AvatarRObj->Remove();
-		AvatarRObj->Release_Ref(); AvatarRObj = NULL;
-	}
-	if (NarratorRObj) {
-		NarratorRObj->Unknown_784E00();
-		NarratorRObj->Remove();
-		NarratorRObj->Release_Ref(); NarratorRObj = NULL;
-	}
-	for (i = 0; i < 2; i++) {
-		if (Unknown1A4[i]) {
-			if (ViewRObjs[4]) {
-				ViewRObjs[4]->Remove_Sub_Object(Unknown1A4[i]);
-			}
-			Unknown1A4[i]->Unknown_788EF0();
-			Unknown1A4[i]->Release_Ref(); Unknown1A4[i] = NULL;
-		}
-	}
+	Unknown_67B220();
+	Unknown_67A3F0();
+	Unknown_67A670();
+	Unknown_67B320();
 	Unknown_67A300();
 	UIViewClass::Unknown_10();
 	if (Unknown06C) { Unknown06C->Release_Ref(); Unknown06C = NULL; }
@@ -359,8 +338,29 @@ void CharacterViewClass::Unknown_10()
 	Unknown230 = NULL;
 }
 
-// NOT EXACT: inline budget (the client calls Vector4's constructor 0x468E70 through ??_H and Matrix3D::Rotate_Y / Rotate_Z out of line; its Rotate_X keeps the old row values on the FPU stack), 0.40
-// 0x679930
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x679930: the avatars' +0x1C4 is their first own virtual (Null3DObjClass's table ends at +0x1C0)
 int CharacterViewClass::Unknown_0C(bool on)
 {
 	Unknown_67CBD0();
@@ -374,12 +374,12 @@ int CharacterViewClass::Unknown_0C(bool on)
 	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
 	Unknown1A0 += time * 0.2f;
 	if (ViewRObjs[4]) {
-		Matrix3D platform(true);
-		int bone = ViewRObjs[4]->Get_Bone_Index("platform");
-		platform.Rotate_Z(Unknown1A0);
-		ViewRObjs[4]->Capture_Bone(bone);
-		ViewRObjs[4]->Control_Bone(bone, platform, false);
+		Unknown_Inline_Platform();
 	}
+
+
+
+
 	Unknown_67AF70(time);
 	Unknown_67C530();
 
@@ -423,12 +423,12 @@ int CharacterViewClass::Unknown_0C(bool on)
 
 	if (ViewRObjs[1]) {
 		Matrix3D camera = ViewRObjs[1]->Get_Bone_Transform("CAMERA");
-		camera.Rotate_X(DEG_TO_RADF(Unknown058.X));
-		camera.Rotate_Y(DEG_TO_RADF(Unknown058.Y));
-		camera.Rotate_Z(DEG_TO_RADF(Unknown058.Z));
-		camera.Translate_X(Unknown04C.X);
-		camera.Translate_Y(Unknown04C.Y);
-		camera.Translate_Z(Unknown04C.Z);
+		camera.Rotate_X(DEG_TO_RAD(Unknown04C.Rotation.X));
+		camera.Rotate_Y(DEG_TO_RAD(Unknown04C.Rotation.Y));
+		camera.Rotate_Z(DEG_TO_RAD(Unknown04C.Rotation.Z));
+		camera.Translate_X(Unknown04C.Position.X);
+		camera.Translate_Y(Unknown04C.Position.Y);
+		camera.Translate_Z(Unknown04C.Position.Z);
 		Unknown068->Set_Transform(camera);
 	}
 
@@ -476,9 +476,9 @@ void CharacterViewClass::Unknown_67A250()
 // 0x67A290
 void CharacterViewClass::Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov)
 {
-	Unknown04C = position;
-	Unknown058 = rotation;
-	Unknown064 = fov;
+	Unknown04C.Position = position;
+	Unknown04C.Rotation = rotation;
+	Unknown04C.Fov = fov;
 	Unknown068->Set_View_Plane(DEG_TO_RAD(fov), -1.0f);
 }
 
@@ -533,17 +533,17 @@ void CharacterViewClass::Unknown_67A3F0()
 
 
 
-// NOT EXACT: register (this in edi, the client's esi; the rest the client's), 0.73
-// 0x67A440
+// 0x67A440 (the environment maps read through Unknown_Inline_Env_Maps: this in esi, the copy in edi, as the
+// client has them; CV2)
 void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
 {
 	if (AvatarRObj == NULL) {
 		if (copy) {
 			AvatarDescClass *fresh = new AvatarDescClass(desc->Race, desc->Profession, desc->Gender);
-			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown3A4);
+			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
 			delete fresh;
 		} else {
-			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown3A4);
+			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
 		}
 		G_ASSERT(AvatarRObj);
 		if (AvatarRObj) {
@@ -898,13 +898,15 @@ void CharacterViewClass::Unknown_67B750()
 	}
 }
 
-// NOT EXACT: functional (D64): the intensities read from the client's stack tables are approximate (1)
+
 // 0x67B7A0
 void CharacterViewClass::Unknown_67B7A0(int set)
 {
 	Vector3 direction[2] = { Vector3(-0.66f, -1.0f, 1.0f), Vector3(-1.0f, -0.4f, 0.0f) };
 	Vector3 diffuse[2] = { Vector3(1.0f, 1.0f, 1.0f), Vector3(1.0f, 1.0f, 1.0f) };
 	Vector3 back[2] = { Vector3(0.0f, 0.0f, 0.0f), Vector3(0.8f, 0.3f, 0.3f) };
+	float intensity[2] = { 3.0f, 1.0f };
+	float back_intensity[2] = { 1.0f, 1.0f };
 	if (Unknown06C) {
 		for (int i = 0; i < 2; i++) {
 			if (Unknown3A8[i]) {
@@ -914,7 +916,7 @@ void CharacterViewClass::Unknown_67B7A0(int set)
 			}
 		}
 		Unknown3A8[0] = new LightClass(LightClass::DIRECTIONAL);
-		Unknown3A8[0]->Set_Intensity(1.0f);
+		Unknown3A8[0]->Set_Intensity(intensity[set]);
 		Unknown3A8[0]->Set_Force_Visible(true);
 		Unknown3A8[0]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
 		Unknown3A8[0]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
@@ -923,7 +925,7 @@ void CharacterViewClass::Unknown_67B7A0(int set)
 		Unknown3A8[0]->Set_Transform(Matrix3D::Identity);
 		Unknown3A8[0]->Set_Spot_Direction(direction[set]);
 		Unknown3A8[1] = new LightClass(LightClass::DIRECTIONAL);
-		Unknown3A8[1]->Set_Intensity(1.0f);
+		Unknown3A8[1]->Set_Intensity(back_intensity[set]);
 		Unknown3A8[1]->Set_Force_Visible(true);
 		Unknown3A8[1]->Set_Far_Attenuation_Range(1000000.0, 1000000.0);
 		Unknown3A8[1]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
@@ -1010,7 +1012,6 @@ void CharacterViewClass::Unknown_67AF70(float time)
 	}
 }
 
-
 // 0x67B320
 void CharacterViewClass::Unknown_67B320()
 {
@@ -1025,7 +1026,6 @@ void CharacterViewClass::Unknown_67B320()
 		}
 	}
 }
-
 
 // 0x67B390
 void CharacterViewClass::Unknown_67B390(int race, int profession)
@@ -1069,12 +1069,33 @@ void CharacterViewClass::Unknown_67B4F0(bool on)
 	}
 }
 
+// 0x67B5C0 (no caller in the client: the frame's platform turn as a member of its own, ViewRObjs[4] tested)
+void CharacterViewClass::Unknown_67B5C0()
+{
+	if (ViewRObjs[4]) {
+		Matrix3D platform(true);
+		int bone = ViewRObjs[4]->Get_Bone_Index("platform");
+		platform.Rotate_Z(Unknown1A0);
+		ViewRObjs[4]->Capture_Bone(bone);
+		ViewRObjs[4]->Control_Bone(bone, platform, false);
+	}
+}
+
 // 0x67C440
 void CharacterViewClass::Unknown_67C440(int index, bool now)
 {
 	Unknown4D4 = Unknown_BE6018[index];
 	if (now) {
 		Unknown4C8 = Unknown_BE6018[index];
+	}
+}
+
+// 0x67C4C0 (no caller in the client: 0x67C440 with the colour given)
+void CharacterViewClass::Unknown_67C4C0(const Vector3 &color, bool now)
+{
+	Unknown4D4 = color;
+	if (now) {
+		Unknown4C8 = color;
 	}
 }
 
@@ -1240,31 +1261,10 @@ void CharacterViewClass::Unknown_67C440(int index, bool now)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x67C1E0 (no caller in the client: empty)
+void CharacterViewClass::Unknown_67C1E0()
+{
+}
 
 #define MAX_OFFSET 10	// the offset pairs at +0x400 (0x67C200 / 0x67C270)  // NAME 3 [MAX_OFFSET]: the FAIL_IFs'
 
@@ -1329,6 +1329,27 @@ void CharacterViewClass::Unknown_67BEB0()
 	}
 }
 
+// 0x67BF20 (Unknown_04: an avatar of each race, profession and gender, the body weights set)
+void CharacterViewClass::Unknown_67BF20()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
+			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
+			male->Body_Weight[0] = 0.5f;
+			male->Body_Weight[4] = 0.25f;
+			male->Body_Weight[3] = 0.25f;
+			female->Body_Weight[0] = 0.5f;
+			male->Body_Weight[2] = 0.25f;
+			female->Body_Weight[1] = 0.25f;
+			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
+			delete male;
+			delete female;
+		}
+	}
+}
+
 // 0x67C7B0
 void CharacterViewClass::Unknown_67C7B0()
 {
@@ -1338,28 +1359,58 @@ void CharacterViewClass::Unknown_67C7B0()
 	}
 }
 
-// NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38
+// The queue's push_back one inline level down, as Unknown_Inline_Pop below: 0x67C920 then calls the element's
+// _Construct 0x433700 out of line on all three paths and _Buyback 0x67CFE0 on the second, as the client does
+// (CV2: a direct push_back inlines one _Construct; dead reads after it send _Buyback out on every path).
+static inline void Unknown_Inline_Push(std::deque<std::string> &queue, const std::string &name)
+{
+	queue.push_back(name);
+}
+
+// 0x67C920 (the screens queue a dialog; an empty name is dropped)
+void CharacterViewClass::Unknown_67C920(std::string name)
+{
+	if (name.length()) {
+		Unknown_Inline_Push(Unknown4E0, name);
+	}
+}
+
+// The queue's pop_front one inline level down: 0x67CBD0 then expands pop_front but calls its _Freefront 0x67D1A0
+// and the element's destructor (??_G 0x433A10) out of line, as the client does (CV2: a direct pop_front
+// inlines both, dead reads after it push the string copy out of line first).
+static inline void Unknown_Inline_Pop(std::deque<std::string> &queue)
+{
+	queue.pop_front();
+}
+
 // 0x67CBD0
 void CharacterViewClass::Unknown_67CBD0()
 {
 	SoundLibraryClass::Update_Dialog();
-	if (!SoundLibraryClass::Is_Dialog_Playing() && Unknown4E0.size() != 0) {
-		std::string name = Unknown4E0.front();
-		Unknown4E0.pop_front();
-		if (name.length()) {
-			SoundLibraryClass::Play_Dialog(name.c_str(), 1);
-		}
+	if (SoundLibraryClass::Is_Dialog_Playing() || Unknown4E0.size() == 0) {
+		return;
+	}
+	std::string name = Unknown4E0.front();
+	Unknown_Inline_Pop(Unknown4E0);
+	if (name.length()) {
+		SoundLibraryClass::Play_Dialog(name.c_str(), 1);
 	}
 }
 
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes
+// 0x67CD40 (no caller in the client: 0x67C7B0's loop without the dialog stop)
+void CharacterViewClass::Unknown_67CD40()
+{
+	while (Unknown4E0.size() != 0) {
+		Unknown4E0.pop_front();
+	}
+}
+
+
 // 0x67C530
 void CharacterViewClass::Unknown_67C530()
 {
 	if (ViewRObjs[3]) {
-		Unknown4C8.X = Unknown4C8.X * 0.95f + Unknown4D4.X * 0.05f;
-		Unknown4C8.Y = Unknown4C8.Y * 0.95f + Unknown4D4.Y * 0.05f;
-		Unknown4C8.Z = Unknown4C8.Z * 0.95f + Unknown4D4.Z * 0.05f;
+		Unknown4C8 = Unknown4D4 * 0.05f + Unknown4C8 * 0.95f;
 		RefCountPtr<RenderObjClass> box = Create_Get(ViewRObjs[3]->Get_Sub_Object_By_Name("box02"));
 		if (box.Peek() != NULL) {
 			RefCountPtr<MaterialInfoClass> info = Create_Get(box->Get_Material_Info());
@@ -1367,23 +1418,25 @@ void CharacterViewClass::Unknown_67C530()
 				info->Peek_Vertex_Material(0)->Set_Emissive(Unknown4C8);
 			}
 			if (ViewRObjs[4] && Unknown3B0[1]) {
-				float r = Unknown4C8.X;
-				if (r < 0.5f) {
-					r = (r + 0.5f) * 0.5f;
-				}
-				float g = Unknown4C8.Y;
-				if (g < 0.5f) {
-					g = (g + 0.5f) * 0.5f;
-				}
-				float b = Unknown4C8.Z;
-				if (b < 0.5f) {
-					b = (b + 0.5f) * 0.5f;
-				}
+				float r = (Unknown4C8.X < 0.5f) ? (Unknown4C8.X + 0.5f) * 0.5f : Unknown4C8.X;
+				float g = (Unknown4C8.Y < 0.5f) ? (Unknown4C8.Y + 0.5f) * 0.5f : Unknown4C8.Y;
+				float b = (Unknown4C8.Z < 0.5f) ? (Unknown4C8.Z + 0.5f) * 0.5f : Unknown4C8.Z;
 				Unknown3B0[1]->Set_Diffuse(Vector3(r, g, b));
 			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

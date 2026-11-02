@@ -203,7 +203,7 @@ class UICpitWarpGadgetClass : public UICpitButtonClass { public: UICpitWarpGadge
 
 // gadget.cpp's and view.cpp's gadgets the set-up makes, as far as it makes them
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); char Unknown50[0x5C - 0x50]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
-class UICpitGadget50A850Class : public GadgetClass { public: UICpitGadget50A850Class(int x, int y, int width, int height, LineDisplayClientClass *client); };	// 0x50A850 (0x50 bytes)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, client]: what the set-up passes
+class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client); };	// 0x50A850 (0x50 bytes): ctrngadg.h's, as far as the set-up makes it (that header's gadget.h clashes with this file's GadgetClass)  // NAME 3: ctrngadg.h's (D24 class-from-file)
 class UICpitGadget674260Class : public GadgetClass { public: UICpitGadget674260Class(const RefCountPtr<RenderObjClass> &model); char Unknown50[0x60 - 0x50]; };	// 0x674260 (0x60 bytes)  // NAME 1: neutral (D10); NAME 1 [model]: what the set-up passes
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 
@@ -293,7 +293,7 @@ void UICpitClass::Unknown_54()
 	Unknown0AC->Unknown_660070(1);
 	Unknown0AC->Unknown_65FFA0(1000);
 	Unknown_5BB4F0(Unknown0AC);
-	GadgetClass *gadget = new UICpitGadget50A850Class(0, 0, 640, 480, Client);
+	GadgetClass *gadget = new CtrnGadgetClass(0, 0, 640, 480, Client);
 	gadget->Unknown_660070(1);
 	gadget->Unknown_65FFC0(-1, Unknown0AC);
 	Unknown64.Unknown_6870E0(gadget, 0x4D, View, 1, 0);
@@ -1914,7 +1914,7 @@ void UICpitClass::Unknown_583F70()
 }
 
 // 0x584000: whether the avatar's engine runs (its MaxSpeed is set), else the message when report is set
-// NOT EXACT: order (the client keeps an epilogue at each early return and the found path inline; ours shares one exit)
+// 0x584000
 bool UICpitClass::Unknown_584000(bool report)
 {
 	SClient *sclient = (SClient *)Client;
@@ -1923,9 +1923,12 @@ bool UICpitClass::Unknown_584000(bool report)
 	if (!avatar->AuxData) return(false);
 	NameClass name("MaxSpeed");
 	DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
-	if (t && t->Unknown70 && t->Value != 0.0f) return(true);
-	if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
-	return(false);
+	bool ok = (t && t->Unknown70 && t->Value != 0.0f);
+	if (!ok) {
+		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
+		return(false);
+	}
+	return(true);
 }
 
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
@@ -1934,9 +1937,6 @@ void UICpitClass::Unknown_584110()
 	RefCountPtr<FontStyleClass> warpfont = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", (unsigned int)Mesh->Peek_Object()));
 	RefCountPtr<FontStyleClass> distressfont = Create_Get(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", (unsigned int)Mesh->Peek_Object()));
 	RefCountPtr<FontStyleClass> spacefont = Create_Get(Unknown_BE67C4->Get_Style("SPACE_CPIT", (unsigned int)Mesh->Peek_Object()));
-
-
-
 
 
 

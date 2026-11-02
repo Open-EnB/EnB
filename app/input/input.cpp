@@ -42,7 +42,16 @@ int Unknown_42E3B0(int unknown1, int unknown2)
 	}
 }
 
-// NOT EXACT: inline-budget: the client calls the queue element's constructor 0x42ED50 in new[]'s loop (EH state 2), ours inlines it (attempts.csv)
+static inline KeyQueueClass *New_Key_Queue_Raw()	// NAME 1 [New_Key_Queue_Raw]: no code of its own (D185 variant: two inline layers keep the element constructor 0x42ED50 out of line)
+{
+	return new KeyQueueClass;
+}
+
+static inline KeyQueueClass *New_Key_Queue()		// NAME 1 [New_Key_Queue]: as New_Key_Queue_Raw
+{
+	return New_Key_Queue_Raw();
+}
+
 void Unknown_42E4A0(HWND window)
 {
 	INIClass ini;
@@ -50,7 +59,7 @@ void Unknown_42E4A0(HWND window)
 	char section[MAX_PATH];
 	ini.Get_String("INPUT", "SETTINGS", "", section, sizeof(section));
 	Unknown_BDAA7C = window;
-	Unknown_BDA968 = new KeyQueueClass;
+	Unknown_BDA968 = New_Key_Queue();
 	if (ini.Get_Bool(section, "DIRECTX_KEYBOARD", false)) {
 		Unknown_BDAA70 = new InputUnknownAE7160Class((KeyQueueClass *)Unknown_BDA968);
 	} else {
@@ -148,6 +157,11 @@ char Unknown_42EB80(KernelEventClass *event)
 	return buffer[0];
 }
 
+bool Unknown_42EC60(int unknown1, int unknown2)	// NAME 1 [unknown1, unknown2]: neutral (D10), as KeyboardClass::Unknown_0C
+{
+	return Unknown_BDAA70->Unknown_0C(unknown1, unknown2);
+}
+
 void Unknown_42ECF0(float *x, float *y)
 {
 	Unknown_BDAA74->Get_Position(x, y);
@@ -172,20 +186,6 @@ void Unknown_42EDB0()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -331,11 +331,13 @@ bool KeyQueueClass::Add(KernelEventClass &event)
 **	queue's 0x42F1C0 / 0x42F2F0 and the compiler's vector constructor iterator 0x42F250.
 **	0x42E3B0 (the window to the top or the bottom) has no caller and no reference in the client.
 **	0x42ED50, between 0x42ED20 and 0x42ED80, is the queue element's constructor (KernelEventClass's
-**	zeroing): the client calls it from Init's new[] loop; ours inlines it there, so Init is NOT
-**	EXACT and 0x42ED50 is not emitted. A non-inline constructor gives Init exactly (a probe with a
-**	stand-in element type); defined in this file it is inlined again (VC6 /Ob2 inlines functions
-**	defined after their callers). #pragma inline_depth, a template queue, the allocation in an
-**	inline helper and extra inline calls before it did not move it.
+**	zeroing): the client calls it from Init's new[] loop. Init (0x42E4A0) is exact with the queue's
+**	new behind two no-code inline layers (D185's variant, 2026-11-02): the extra depth spends the
+**	inline budget so the element constructor stays out of line and 0x42ED50 is emitted. One layer,
+**	#pragma inline_depth, a template queue and extra inline calls before it did not move it.
+**	0x42EC60 (the button-down query: the keyboard's slot +0x0C) is FontStyleClass 0x6CD6F0's and
+**	the gadgets' click test. It and the variant's helpers took their lines from the blank padding before
+**	0x42EE00, whose FAIL_IF stays on line 298.
 **	The key table's bound is sizeof (0x40C bytes) where the table has 0x103 dwords: the client's.
 **	Forms that matched: 0x42E3B0 with a WINDOWPLACEMENT per branch (one shared local hoists the
 **	length store above the test); 0x42E7B0 with `if (p) delete p;` (the joystick's plain delete

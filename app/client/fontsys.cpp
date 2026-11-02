@@ -54,6 +54,13 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 	Unknown26C = (int)(Info.Wait * 1000.0f);
 }
 
+// 0x6D5140: out of its container, then the reference dropped (~ManagedFontClass, 0x6D0A70)
+void FontStyleClass::Unknown_6D5140()
+{
+	Remove();
+	Release_Ref();
+}
+
 // NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
 // (from Colors, 10 when none) added by TXT1
 void FontStyleClass::Unknown_6D5170(int object)
@@ -135,7 +142,7 @@ void FontStyleClass::Unknown_6D5170(int object)
 		Colors[1] = Colors[0];
 	}
 	float *color = (float *)&Unknown494;	// floats r, g, b, a (TXT1: Update_Text reads them so)
-	float *second = (float *)Unknown4B4;
+	float *second = (float *)&Unknown4B4;
 	if (Colors[0] == NULL) {
 		color[0] = 10.0f;
 		color[1] = 10.0f;
@@ -201,6 +208,15 @@ void FontStyleClass::Set_Container(RenderObjClass *con)
 	}
 	Enable_Sort();
 	RenderObjClass::Set_Container(con);
+}
+
+// 0x6D5A80: a character cell's size: the text rectangle in 640 x 480 units, times Scale
+void FontStyleClass::Unknown_6D5A80(float &width, float &height)
+{
+	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
+	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
+	width *= Scale;
+	height *= Scale;
 }
 
 // 0x6D5B90
@@ -275,10 +291,9 @@ void FontStyleClass::Unknown_6D6390()
 	}
 }
 
-extern unsigned int Unknown_BFAE3C;		// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, scriptedmovie.cpp declare it so)
-extern unsigned int Unknown_BFAE40;		// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (scriptedmovie.cpp declares it so)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): the frame time is
+// WW3D::Get_Frame_Time() (the client reads the two statics inline).
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
-void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect);	// 0x6CA0C0: one step of one effect (unknown_6ca0c0.h, TXT2: a FontStyleClass member in the client)
 
 // 0x6D5F40: the shader for Info.BlendType[FontIndex]; every case ends with no depth writes and an always-pass compare
 void FontStyleClass::Unknown_6D5F40(ShaderClass &shader)
@@ -327,7 +342,7 @@ bool FontStyleClass::Unknown_6D60C0()
 		Unknown274[6] = 1;
 		return false;
 	}
-	int frame = Unknown_BFAE3C - Unknown_BFAE40;
+	int frame = WW3D::Get_Frame_Time();
 	if (Unknown270 < Unknown26C) {
 		Unknown274[0] = Unknown270;
 		Bits &= ~IS_NOT_HIDDEN;
@@ -376,8 +391,8 @@ void FontStyleClass::Update_Text(bool unknown)
 	WWPROFILE("FontSys::Update_Text");
 	float *color = (float *)&Unknown494;		// r, g, b, a now
 	float *target = (float *)&Unknown4A4;		// r, g, b, a it moves to
-	float *second = (float *)Unknown4B4;		// the second pass's r, g, b
-	float *offset = (float *)Unknown488;		// +0x488: an offset added to the position (floats)
+	float *second = (float *)&Unknown4B4;		// the second pass's r, g, b
+	float *offset = (float *)&Unknown488;		// +0x488: an offset added to the position (floats)
 	float pos_x = 0.0f;
 	float pos_y = 0.0f;
 	int i;
@@ -398,7 +413,7 @@ void FontStyleClass::Update_Text(bool unknown)
 		if (Unknown302) {
 			at.X = Unknown464[0] + Unknown47C.X + offset[0];
 			at.Y = Unknown464[1] + Unknown47C.Y + offset[1];
-			at.Z = *(float *)&Unknown46C + Unknown47C.Z + offset[2];
+			at.Z = Unknown464.Z + Unknown47C.Z + offset[2];
 		} else {
 			Vector3 p = Get_Position();
 			at.X = p.X + Unknown47C.X + offset[0];
@@ -437,24 +452,24 @@ void FontStyleClass::Update_Text(bool unknown)
 		}
 		for (i = 0; i < 4; i++) {
 			if (Unknown_6CD180() && Unknown2F4[2] >= 0.5f) {
-				Unknown_6CA0C0(this, Effects[3][i]);
+				Unknown_6CA0C0(Effects[3][i]);
 			}
 			if (Unknown_6CD6F0()) {
-				Unknown_6CA0C0(this, Effects[4][i]);
+				Unknown_6CA0C0(Effects[4][i]);
 			}
 			if (Unknown274[12 + i] > 0) {
-				Unknown_6CA0C0(this, Effects[5][i]);
+				Unknown_6CA0C0(Effects[5][i]);
 			}
 			if (Unknown440 == 0) {
-				Unknown_6CA0C0(this, Effects[0][i]);
+				Unknown_6CA0C0(Effects[0][i]);
 			} else if (Unknown440 == 1) {
-				Unknown_6CA0C0(this, Effects[1][i]);
+				Unknown_6CA0C0(Effects[1][i]);
 			} else if (Unknown440 == 2) {
-				Unknown_6CA0C0(this, Effects[2][i]);
+				Unknown_6CA0C0(Effects[2][i]);
 			}
 		}
 		if (Unknown4E6) {
-			float a = (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+			float a = (float)WW3D::Get_Frame_Time() * 0.001f;
 			a = a + a + color[3];
 			color[3] = a;
 			if (a > 1.0f) {
@@ -940,18 +955,30 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 	}
 }
 
+// 0x6D8650: the text's position: +0x464 (with +0x302 set) or the transform's, plus +0x47C and the effects' offset +0x488
+Vector3 FontStyleClass::Unknown_6D8650()
+{
+	Vector3 pos;
+	if (Unknown302) {
+		pos = Unknown464 + Unknown47C + Unknown488;
+	} else {
+		pos = Get_Position() + Unknown47C + Unknown488;
+	}
+	return pos;
+}
+
 // 0x6D87D0: the text (Info.Text)
 const char *FontStyleClass::Unknown_6D87D0()
 {
 	return Info.Text;
 }
 
-// NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched
+// 0x6D87F0 (D185's variant)
 void FontStyleClass::Set_Transform(const Matrix3D &m)
 {
 	RenderObjClass::Set_Transform(m);
 	Unknown4E5 = true;
-	if (m[0][3] != Unknown4D0.X || Unknown4D0.Y != m[1][3] || Unknown4D0.Z != m[2][3]) {
+	if (Unknown4D0 != m.Get_Translation()) {
 		Unknown4D0 = m.Get_Translation();
 		Unknown4C5 = false;
 	}
@@ -965,19 +992,14 @@ void FontStyleClass::Set_Position(const Vector3 &v)
 	Unknown4C5 = false;
 }
 
-int Unknown_6D8B90Class::Count = 0;			// 0xBE67CC (interim here: fonttexture.cpp's, D137)
-int Unknown_6D8B90Class::Unknown_BE67D8 = 0;	// 0xBE67D8 (interim here: fonttexture.cpp's, D137)
-
-// NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched
-Unknown_6D8B90Class::Unknown_6D8B90Class() :
-	Size(0x20),
-	Unknown04(0),
-	Unknown08(0),
-	Texture(NULL)
+// 0x6D88F0: the screen rectangle the text is clipped to (+0x430: left, right, top, bottom)
+void FontStyleClass::Unknown_6D88F0(int left, int top, int right, int bottom)
 {
-	Texture = new TextureClass(Size, Size, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);
-	Count++;
-	Unknown_BE67D8++;
+	Unknown430[0] = left;
+	Unknown430[2] = top;
+	Unknown430[1] = right;
+	Unknown430[3] = bottom;
+	Unknown4C5 = false;
 }
 
 /*

@@ -69,7 +69,7 @@ bool Unknown_42EE00(bool enable);				// NAME 1 [Unknown_42EE00, enable]: input.c
 void Unknown_42E7B0();								// NAME 1 [Unknown_42E7B0]: input.cpp's shut-down
 void Unknown_42F940(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42F940]: adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes
 void Unknown_42FAC0(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42FAC0]: removes it
-void Unknown_4581E0();								// NAME 1 [Unknown_4581E0]: the render state class's start-up (a critical section, an event)
+bool Unknown_4581E0();								// NAME 1 [Unknown_4581E0]: the render state class's start-up (a critical section, an event; rs.cpp)
 void Unknown_458250();								// NAME 1 [Unknown_458250]: its shut-down
 void Unknown_442AC0(HWND window);					// NAME 1 [Unknown_442AC0]: display.cpp's start-up  // NAME 1 [window]: what WinMain passes
 void Unknown_442FF0();								// NAME 1 [Unknown_442FF0]: display.cpp's shut-down (WW3D::Shutdown)
@@ -78,8 +78,8 @@ void Unknown_684E00();								// NAME 1 [Unknown_684E00]: loads fontpal.pcx into
 extern char Unknown_B8F870[];						// NAME 1 [Unknown_B8F870]: the 768-byte palette, WW3D::Init's default palette
 void Unknown_6832C0();								// NAME 1 [Unknown_6832C0]: deffont.cpp's start-up ('!FontData[style]')
 void Unknown_683940();								// NAME 1 [Unknown_683940]: deffont.cpp's shut-down
-struct Unknown_C006A0Struct { char Unknown00[0xDD]; bool UnknownDD; };	// NAME 1 [Unknown_C006A0Struct]: neutral (D10), as far as WinMain reads it
-extern Unknown_C006A0Struct *Unknown_C006A0;		// NAME 1 [Unknown_C006A0]: neutral (D10)
+#include "..\..\ww3d2\dx8wrapper.h"				// DX8Wrapper::Get_Current_Caps (0xC006A0 is DX8Wrapper::CurrentCaps; +0xDD
+													// DX8Caps::SupportDXTC): WinMain's texture reduction
 
 // WW3D2's flags E&B sets after WW3D::Init
 extern bool Unknown_BFAE4F;							// NAME 1 [Unknown_BFAE4F]: neutral (D10)
@@ -87,13 +87,13 @@ extern bool Unknown_BFAE50;							// NAME 1 [Unknown_BFAE50]: neutral (D10)
 extern bool Unknown_BFAE51;							// NAME 1 [Unknown_BFAE51]: neutral (D10)
 extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
 
-// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings; the tree's files call it UnknownBDADC0Class)
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	UnknownBDADC0Class();							// 0x48B070 (0x408C bytes: the tree's WW3DAssetManager is that size already)
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;			// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+// E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings)
+#include "..\shared\enbassetmgr.h"
+
+
+
+
+
 
 // msgserv.cpp's message server, a task (0x48 bytes)
 class Unknown_8B20D0Class : public TaskClass		// NAME 1 [Unknown_8B20D0Class]: neutral (D10)
@@ -433,7 +433,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_Printf("Build: %s %s %s\n", Unknown_445610(), Unknown_445590(), Unknown_445560());
 
 	Unknown_Debug_Begin_Step("initializing the asset manager");
-	Unknown_BDADC0 = new UnknownBDADC0Class;
+	Unknown_BDADC0 = new ENBAssetManager;
 	if (Unknown_BDADC0 == NULL) {
 		MessageBox(MainWindow, "Unable to initialize the asset manager", "WW3D Error", MB_OK);
 		exit(0);
@@ -499,8 +499,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_End_Step("ok");
 
 	bool reduction = false;							// NAME 1 [reduction]: what it gives
-	if (Unknown_C006A0 != NULL) {
-		reduction = Unknown_C006A0->UnknownDD;
+	if (DX8Wrapper::Get_Current_Caps() != NULL) {
+		reduction = DX8Wrapper::Get_Current_Caps()->Support_DXTC();
 	}
 	WW3D::Enable_Large_Texture_Extra_Reduction(!reduction);
 

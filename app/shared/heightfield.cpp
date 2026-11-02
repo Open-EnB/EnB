@@ -186,11 +186,10 @@ void HeightFieldClass::Set_Height_2(float height, unsigned int i, unsigned int j
 	Heights[((j & Mask) << Log2) + (i & Mask)] = (unsigned short)value;
 }
 
-// NOT EXACT: order-only (the client loads HalfSize before the position)
 void HeightFieldClass::World_To_Grid(const Vector2 &pos, float *i, float *j)
 {
-	*i = HalfSize + pos.X / XSpacing;
-	*j = HalfSize + pos.Y / YSpacing;
+	*i = HalfSize + (pos.X / XSpacing);
+	*j = HalfSize + (pos.Y / YSpacing);
 }
 
 void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)

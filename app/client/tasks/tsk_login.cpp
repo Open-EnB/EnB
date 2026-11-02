@@ -38,7 +38,7 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
 Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
 #include "..\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
-void Unknown_723150();								// NAME 1 [Unknown_723150]: neutral (D10); the destructor calls it
+#include "..\mousetbl.h"								// Unknown_723150 (the destructor calls it), Unknown_7228C0 (the first LoginTaskClass(mode))
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
@@ -46,7 +46,7 @@ extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Acc
 // opcode 119 (Packet_0077Class): pkunknown_866ac0.h, included above
 class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
-void Unknown_7228C0();								// NAME 1 [Unknown_7228C0]: neutral (D10)
+// Unknown_7228C0: mousetbl.h, included above
 void Unknown_43FA80();								// NAME 1 [Unknown_43FA80]: neutral (D10) (soundlib.cpp)
 static bool Unknown_BE82D4 = false;				// NAME 1 [Unknown_BE82D4]: neutral (D10): set once Unknown_7E5F70 ran
 

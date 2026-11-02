@@ -74,15 +74,15 @@ KVTripleListClass::KVTripleListClass(const KVTripleListClass &src, const char *p
 	}
 	delete [] match;
 }
-// NOT EXACT: inline budget, the client calls the vector's erase pieces (0x4BAC30, 0x4B9D60), bucket size() and _M_delete_node out of line
 KVTripleListClass::~KVTripleListClass()
 {
-	for (unsigned int i = 0; i < V.size(); i++) {
-		delete V[i];
-	}
-	V.clear();
-	Index.clear();
+	Clear();
 }
+
+
+
+
+
 
 
 

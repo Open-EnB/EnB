@@ -1105,24 +1105,25 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 
 
 
-// NOT EXACT: 0x7759E0, register allocation (widest spilled, one more frame slot than the client's 0x34)
+// 0x7759E0
 bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int)
 {
-	int startx = block->CursorX;
-	int x = startx;
+	int x = block->CursorX;
 	int y = block->CursorY;
+	int startx = x;
 	G_ASSERT(maxlength > 0);
 	G_ASSERT(cptr_in);
-
-	if (startx == block->RightPadding) {
-		while (*cptr_in == ' ' || *cptr_in == '\n' || *cptr_in == '\t' || *cptr_in == '\r') {
-			cptr_in++;
-			maxlength--;
+	{
+		int pad = block->RightPadding;
+		if (startx == pad) {
+			while (*cptr_in == ' ' || *cptr_in == '\n' || *cptr_in == '\t' || *cptr_in == '\r') {
+				cptr_in++;
+				maxlength--;
+			}
 		}
 	}
 	if (maxlength == 0)
 		return false;
-
 	Wstring text;
 	text.set(maxlength, cptr_in);
 	text.replace('\n', ' ');
@@ -1136,15 +1137,14 @@ bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength
 			count++;
 		text.remove(pos, count);
 	}
-
 	if (!Has_Graph(text.get()))
 		return false;
 
 	text.replace("&nbsp;", " ");
-	cptr_in = text.get();
+	char *line = text.get();
 	maxlength = text.length();
 	if (block->Get_Attribute("TitleFlag") != NULL) {
-		block->Set_Attribute("Title", cptr_in);
+		block->Set_Attribute("Title", line);
 		return false;
 	}
 	if (maxlength == 0)
@@ -1169,13 +1169,13 @@ bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength
 		SelectObject(hdc, font);
 
 	int lines = 0;
-	char *line = cptr_in;
+	cptr_in = line;
 	SIZE size;
 	while (true) {
 		int n = 1;
 		while (true) {
 			GetTextExtentPoint32(hdc, cptr_in, n, &size);
-			if (widest < size.cx && size.cx + x < maxwidth)
+			if (size.cx > widest && size.cx + x < maxwidth)
 				widest = size.cx;
 			if (size.cx + x >= maxwidth || n >= maxlength)
 				break;
@@ -1200,23 +1200,23 @@ bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength
 		if (lines == 1 || n == maxlength || startx != block->RightPadding) {
 			HtmlItemStruct *item = new HtmlItemStruct;
 			item->X = x;
+			item->Y = y;
 			item->Width = widest;
 			item->Height = lines * height;
-			item->Y = y;
 			item->Attributes.Add_All(block->Styles);
 			item->Attributes.Set("Type", "Text");
 			item->Attributes.Set("Text", line, cptr_in + n - line);
 			block->Items.addTail(item);
-			if (n == maxlength) {
+			if (n != maxlength) {
+				x = block->CursorX = block->RightPadding;
+				y = block->Advance_Y(0, false);
+			} else {
 				x = block->Advance_X(size.cx, false);
 				if (lines > 1)
 					y = block->Advance_Y(0, false);
-			} else {
-				x = block->RightPadding;
-				block->CursorX = x;
-				y = block->Advance_Y(0, false);
 			}
 			lines = 0;
+			widest = 0;
 			line = cptr_in + n;
 		}
 		cptr_in += n;
@@ -1228,7 +1228,7 @@ bool HtmlViewClass::Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength
 	return true;
 }
 
-// NOT EXACT: 0x7761E0, the parent bounds' stores scheduled later than the client's (the clip RECT, bottom first, matches)
+// 0x7761E0
 bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, int height)
 {
 	if (Surf == NULL)
@@ -1251,13 +1251,13 @@ bool HtmlViewClass::Render(int scrollx, int scrolly, int x, int y, int width, in
 			block->Set_Y(scrolly);
 		}
 		RECT rect = clip;
+		RECT bounds;
 		HtmlBlockClass *parent = block->Parent;
 		if (parent != NULL) {
-			RECT bounds;
 			bounds.left = parent->AbsX;
 			bounds.top = parent->AbsY;
-			bounds.right = parent->Get_Width() + bounds.left;
-			bounds.bottom = parent->Get_Height() + bounds.top;
+			bounds.right = bounds.left + parent->Get_Width();
+			bounds.bottom = bounds.top + parent->Get_Height();
 			if (!IntersectRect(&rect, &clip, &bounds))
 				continue;
 		}

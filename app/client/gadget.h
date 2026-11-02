@@ -111,6 +111,8 @@ public:
 	InterfaceClass *Get_Interface() { return(Unknown08); }				// (inline: gadget_list_manager.cpp's 0x661BB0 copies it)  // NAME 1: neutral (D10): what it returns
 	bool Is_Unknown2C_02() { return(Unknown2C_02); }					// (inline: gadget_list_manager.cpp's 0x661AA0)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_04() { return(Unknown2C_04); }					// (inline: 0x661AA0)  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_06() { return(Unknown2C_06); }					// (inline: tooltip.cpp's 0x6AB5B0 / 0x6AB930, the short delay)  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_07() { return(Unknown2C_07); }					// (inline: tooltip.cpp's 0x6AB5B0, the tooltip changed)  // NAME 1: neutral (D10)
 	bool Is_First_Sort_Group() { return(FirstSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_First_Sort_Group
 	bool Is_Last_Sort_Group() { return(LastSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_Last_Sort_Group
 	void Toggle_Unknown2C_00();											// 0x660960 (bit 0, with +0x28's half second)  // NAME 1: neutral (D10)

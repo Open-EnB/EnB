@@ -177,4 +177,10 @@ Unknown_VersionStruct *Unknown_445720()
 **	  at the object's start; no reference in the client) sits between the handlers and the texts and is
 **	  not written: its class is unknown.
 **	* The bss order (0xBDBE4C, 0xBDBE50, 0xBDBE70-0xBDBE8C, 0xBDBE90-0xBDC00F) is not checked.
+**	* (2026-11-02, builder KRN) 0x445510's body is hanim.h's NamedPivotMapClass::WeightInfoStruct
+**	  destructor (`if (Name) delete [] Name`, 8-byte element): the client passes it (thunk 0x417F58) to
+**	  `eh vector destructor iterator` in VectorClass<WeightInfoStruct>::Resize 0x45D0F0 and in 0x42A100 /
+**	  0x45CB70; an inline COMDAT the linker placed here, so this object made it: what in main.cpp uses
+**	  the vector is not known. 0x445540 is <string>'s guarded static (0xC416FC, atexit 0x42B320, workflow.md
+**	  §3.3 app\packets): this file includes <string>. Neither is written (too short for verify to count).
 */

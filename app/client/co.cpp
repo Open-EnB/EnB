@@ -839,12 +839,12 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 #include "nullrobj.h"
 // The model loader's helpers, declared as far as 0x6F51D0 calls them (none rebuilt):
 // E&B's asset manager (the object at *0xBDADC0, a WW3DAssetManager): its first own slot makes a model at a scale and HSV shift
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+#include "..\shared\enbassetmgr.h"
+
+
+
+
+
 // rs_track.cpp's render object (ACTIVATE_RENDER_STATE 48 and INIT_RENDER_STATE 47 call the same two)
 #include "..\shared\rs_track.h"
 

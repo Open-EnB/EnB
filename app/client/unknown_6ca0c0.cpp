@@ -30,14 +30,6 @@ struct FontEffectStruct  // fontdatabase.cpp's (0x24 bytes)
 	TPoint2D<float> Offset;													// +0x1C
 };
 
-// 0x6CE4E0: the style's font set to Info.FontType[font_index] (clamped to 0..1) and the text rebuilt; a FontStyleClass
-// member in the client, not yet reconstructed (FNT3's range): a link stand-in for now.  // NAME 1 [Unknown_6CE4E0]: neutral (D10)
-void Unknown_6CE4E0(FontStyleClass *style, int font_index);
-
-// Members fontmanager.h declares as int that this function reads and writes as floats (the client's fld / fstp):
-// FontStyleClass::Unknown494.Unknown0C (the alpha), Unknown4A4.Color (the color, 0..1), Unknown458, Unknown488[0..1].
-static inline float &As_Float(int &value) { return *(float *)&value; }
-
 // Moves value toward target by step without passing it (the client's inlined pattern in every gradual effect).
 static inline float Approach(float value, float target, float step)
 {
@@ -100,8 +92,9 @@ static float Ramp(const FontEffectStruct *effect, float current, float rate, int
 
 
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes
-void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
+void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 {
+	FontStyleClass *style = this;
 	if (effect == NULL) {
 		return;
 	}
@@ -112,7 +105,7 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 	// Unknown404 is 'complete' (Is_Complete), Unknown4C5 cleared means the mesh must be rebuilt.
 	int now = style->Unknown270;
 	int delta = now - style->Unknown274[0];
-	float &alpha = As_Float(style->Unknown494.Unknown0C);
+	float &alpha = style->Unknown494.Unknown0C;
 	float &scale = style->Unknown2F4[0];
 	float &rotation = style->Unknown2F4[1];
 	int *rect = style->Unknown420;			// left, right, top, bottom (pixels of the text texture)
@@ -374,7 +367,7 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 			if (style->Object != NULL) {
 				// a ticker: wraps after WrapWidth (screen widths), or after the attached sub-object's box
 				RefCountPtr<RenderObjClass> attach = Create_Get(style->Object->Get_Sub_Object_By_Name(style->Info.Attach));
-				float &scrolled = As_Float(style->Unknown458);
+				float &scrolled = style->Unknown458;
 				if (attach == NULL || style->Info.WrapWidth != 0.0f) {
 					style->Unknown47C.X = style->Unknown47C.X - step / style->Unknown4DC;
 					style->Unknown4C5 = false;
@@ -389,7 +382,7 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 				} else {
 					float extent = attach->Get_Bounding_Box().Extent.X;
 					float width, height;
-					Unknown_6D5B10(style, width, height);
+					style->Unknown_6D5B10(width, height);
 					int box = (int)(extent * 1.9f);
 					float box_width = (float)box;
 					if (box_width < width) {
@@ -455,9 +448,9 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		const TPoint3D<int> &current = style->Colors[style->Unknown44C]->RGB;
-		As_Float(style->Unknown4A4.Color.X) = (float)(second.X <= current.X ? current.X : second.X) * 0.00392156f;
-		As_Float(style->Unknown4A4.Color.Y) = (float)(second.Y <= current.Y ? current.Y : second.Y) * 0.00392156f;
-		As_Float(style->Unknown4A4.Color.Z) = (float)(second.Z <= current.Z ? current.Z : second.Z) * 0.00392156f;
+		style->Unknown4A4.Color.X = (float)(second.X <= current.X ? current.X : second.X) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (float)(second.Y <= current.Y ? current.Y : second.Y) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (float)(second.Z <= current.Z ? current.Z : second.Z) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -540,10 +533,10 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		float dx = (float)rand() * effect->Intensity * (1.0f / 32768.0f);
 		float dy = (float)rand() * effect->Intensity * (1.0f / 32768.0f);
-		As_Float(style->Unknown488[0]) = effect->Intensity * 0.5f - dx;
+		style->Unknown488[0] = effect->Intensity * 0.5f - dx;
 		style->Unknown254[0] = 2;
 		style->Unknown404 = true;
-		As_Float(style->Unknown488[1]) = effect->Intensity * 0.5f - dy;
+		style->Unknown488[1] = effect->Intensity * 0.5f - dy;
 		break;
 	}
 
@@ -552,9 +545,9 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		float step = (float)delta * effect->Speed * 0.01f;
-		As_Float(style->Unknown4A4.Color.X) = Approach(As_Float(style->Unknown4A4.Color.X), (float)second.X * 0.00392156f, step);
-		As_Float(style->Unknown4A4.Color.Y) = Approach(As_Float(style->Unknown4A4.Color.Y), (float)second.Y * 0.00392156f, step);
-		As_Float(style->Unknown4A4.Color.Z) = Approach(As_Float(style->Unknown4A4.Color.Z), (float)second.Z * 0.00392156f, step);
+		style->Unknown4A4.Color.X = Approach(style->Unknown4A4.Color.X, (float)second.X * 0.00392156f, step);
+		style->Unknown4A4.Color.Y = Approach(style->Unknown4A4.Color.Y, (float)second.Y * 0.00392156f, step);
+		style->Unknown4A4.Color.Z = Approach(style->Unknown4A4.Color.Z, (float)second.Z * 0.00392156f, step);
 		style->Unknown254[1] = 2;
 		style->Unknown404 = true;
 		break;
@@ -589,7 +582,7 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		}
 		if (style->FontIndex == 1 && style->Unknown274[7] == 0) {
 			style->FontIndex = 0;
-			Unknown_6CE4E0(style, 0);
+			style->Unknown_6CE4E0(0);
 			style->Unknown4C5 = false;
 		}
 		break;
@@ -604,9 +597,9 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		const TPoint3D<int> &current = style->Colors[style->Unknown44C]->RGB;
 		double wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
-		As_Float(style->Unknown4A4.Color.X) = (float)(((second.X - current.X) / 2 * wave + (second.X + current.X) / 2) * 0.00392156f);
-		As_Float(style->Unknown4A4.Color.Y) = (float)(((second.Y - current.Y) / 2 * wave + (current.Y + second.Y) / 2) * 0.00392156f);
-		As_Float(style->Unknown4A4.Color.Z) = (float)(((second.Z - current.Z) / 2 * wave + (current.Z + second.Z) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.X = (float)(((second.X - current.X) / 2 * wave + (second.X + current.X) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.Y = (float)(((second.Y - current.Y) / 2 * wave + (current.Y + second.Y) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.Z = (float)(((second.Z - current.Z) / 2 * wave + (current.Z + second.Z) / 2) * 0.00392156f);
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -615,7 +608,7 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 		// to the other font (Info.FontType[1]) once, at the effect's start
 		if (style->Unknown274[9] == 0 || (style->Unknown274[7] == 1 && style->Unknown274[8] == 0)) {
 			style->FontIndex = 1 - style->FontIndex;
-			Unknown_6CE4E0(style, style->FontIndex);
+			style->Unknown_6CE4E0(style->FontIndex);
 		}
 		style->Unknown404 = true;
 		style->Unknown4C5 = false;
@@ -655,11 +648,11 @@ void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect)
 }
 
 
-// NOT EXACT: functional (D64): a FontStyleClass member (__thiscall) in the client; a free function until fontmanager.h declares it
-void Unknown_6D5B10(FontStyleClass *style, float &width, float &height)
+// 0x6D5B10
+void FontStyleClass::Unknown_6D5B10(float &width, float &height)
 {
-	width = (640.0f / (float)style->Width) * (float)(style->Unknown420[1] - style->Unknown420[0]);
-	height = (480.0f / (float)style->Height) * (float)(style->Unknown420[3] - style->Unknown420[2]);
+	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
+	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
 }
 
 
@@ -668,10 +661,10 @@ void Unknown_6D5B10(FontStyleClass *style, float &width, float &height)
 **
 **	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
 **	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one unknown_creator's; no known file
-**	fits. Both are FontStyleClass members in the client (__thiscall over the style; 0x6D5B10 sits just before fontsys.cpp's
-**	Get_Obj_Space_Bounding_Sphere 0x6D5B90, so its file is probably fontsys.cpp): free functions here because fontmanager.h
-**	(another builder's file this run) does not declare them yet. Proposal: declare them in FontStyleClass, and move
-**	FontColorStruct / FontEffectStruct from fontdatabase.cpp to fontdatabase.h (restated above meanwhile).
+**	fits. Both are FontStyleClass members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10
+**	sits just before fontsys.cpp's Get_Obj_Space_Bounding_Sphere 0x6D5B90, so its file is probably fontsys.cpp).
+**	FontColorStruct / FontEffectStruct stay restated above: defining them in fontdatabase.h instantiates their TPoints
+**	there, which costs fontdatabase.cpp's Load_Init its match (fontdatabase.cpp's notes).
 **
 **	The switch is the client's: EffectType 1..20 through the jump table 0x6CC4BC; the names are the ini words of
 **	FontDatabaseClass::Get_Effect_Type 0x6C25A0 (PULSE ... STRETCH), the directions Get_Direction 0x6C2460's.
@@ -681,8 +674,6 @@ void Unknown_6D5B10(FontStyleClass *style, float &width, float &height)
 **	strings " " (0xB6E948) and "..." (0xB750A8, appended while Unknown406 is set). The text texture is rebuilt through
 **	Unknown_6D8DC0 (fonttexture.cpp) on +0x2D0 with the font's XSpacing reset to MinSpacing first (RANDLETTER, STAY).
 **
-**	fontmanager.h types as int what this function treats as float: Unknown494.Unknown0C (alpha), Unknown4A4.Color
-**	(0..1 floats; Set_Color copies an int color into it: to settle), Unknown458 (SCROLL's distance), Unknown488[0..1]
-**	(SHAKE's offset): As_Float above until the header says float. 0x6CE4E0 (the font switch, FNT3's range) is called
-**	through a free declaration and gets a link stand-in until it is reconstructed.
+**	fontmanager.h types as floats what this function reads and writes so: Unknown494.Unknown0C (alpha), Unknown4A4.Color
+**	(0..1), Unknown458 (SCROLL's distance), Unknown488 (SHAKE's offset). 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
 */

@@ -101,6 +101,7 @@ public:
 
 	void Replace_Render_Object(const RefCountPtr<RenderObjClass> &robj);						// 0x51D060 (keeps the old one's position)  // NAME 1 [Replace_Render_Object]
 	void Update_Bounds(const RefCountPtr<RenderObjClass> &robj);								// 0x51D0D0 (from the model's object-space box)  // NAME 1 [Update_Bounds]
+	const RefCountPtr<RenderObjClass> &Get_Render_Object() const { return(RenderObject); }			// (inline: the message box 0x5875C0 / 0x588DC0 reads +0x08)  // NAME 1 [Get_Render_Object]
 
 protected:
 	RefCountPtr<RenderObjClass> RenderObject;													// +0x08 (FAIL_IF '!RenderObject')
