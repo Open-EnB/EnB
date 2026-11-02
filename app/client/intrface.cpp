@@ -63,7 +63,7 @@ public:
 
 
 
-// NOT EXACT: register (shape: 0.62; VC6 keeps the constant 1 of the two reference counts in edi and the view in ebp, the client the view in edi)
+
 InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 	Client(NULL),
 	Unknown44(unknown),
@@ -87,7 +87,7 @@ InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 		}
 	}
 	if (view && view->Unknown_20()) {
-		Client = (LineDisplayClientClass *)((Unknown65B810ViewClass *)view->Unknown_20())->Client;
+		Client = (LineDisplayClientClass *)((Unknown65B810ViewClass *)view->Unknown_20())->Get_Client();
 	} else {
 		Client = NULL;
 	}
