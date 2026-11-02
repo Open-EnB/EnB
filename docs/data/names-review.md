@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1146 |
-| 2 | describes what the code does | 2880 |
-| 1 | neutral placeholder | 10323 |
+| 3 | by convention from a client-named file or sibling | 1144 |
+| 2 | describes what the code does | 2878 |
+| 1 | neutral placeholder | 10313 |
 
 ## For review (score 3 and below)
 
@@ -5284,17 +5284,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42ECF0` | `app/client/ui_avsel.cpp:66` | untagged neutral name (D10) |
 | 1 | `robj, unknown` | `app/client/ui_avsel.cpp:67` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_avsel.cpp:67` | untagged neutral name (D10) |
-| 1 | `text, unknown` | `app/client/ui_avsel.cpp:80` | as loadingview.cpp's |
-| 1 | `on` | `app/client/ui_avsel.cpp:81` | neutral |
-| 1 | `Unknown_6CE910` | `app/client/ui_avsel.cpp:81` | untagged neutral name (D10) |
-| 1 | `Set_Unknown2FC` | `app/client/ui_avsel.cpp:82` | neutral (D10): inline (0x55ED20 1.0, 0x55EF90 0.33) |
-| 1 | `Unknown2FC` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/ui_avsel.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/ui_avsel.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_avsel.cpp:85` | untagged neutral name (D10) |
-| 1 | `UIAvselManagedFontClass` | `app/client/ui_avsel.cpp:88` | neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's |
-| 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:90` | 0xBE67C4 |
+| 1 | `Unknown_BE67B8` | `app/client/ui_avsel.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_avsel.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_avsel.cpp:80` | 0xBE67C4 |
 | 1 | `UIAvselKeyEventStruct` | `app/client/ui_avsel.cpp:104` | neutral (D10): kernel.h's input event |
 | 1 | `key` | `app/client/ui_avsel.cpp:106` | neutral |
 | 1 | `Unknown02` | `app/client/ui_avsel.cpp:106` | untagged neutral name (D10) |
@@ -5431,6 +5423,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_784A50` | `app/client/ui_avsel.cpp:146` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_avsel.cpp:147` | neutral |
 | 1 | `Unknown_7896B0` | `app/client/ui_avsel.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/ui_avsel.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown108` | `app/client/ui_avsel.cpp:151` | untagged neutral name (D10) |
 | 1 | `Unknown10C` | `app/client/ui_avsel.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown110` | `app/client/ui_avsel.cpp:153` | untagged neutral name (D10) |
@@ -5600,10 +5593,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown001D` | `app/client/ui_avsel.cpp:648` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_avsel.cpp:689` | untagged neutral name (D10) |
 | 1 | `Unknown_55E2E0` | `app/client/ui_avsel.cpp:766` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_avsel.cpp:771` | untagged neutral name (D10) |
 | 1 | `Unknown0350` | `app/client/ui_avsel.cpp:781` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_avsel.cpp:795` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0A` | `app/client/ui_avsel.cpp:810` | untagged neutral name (D10) |
 | 1 | `Unknown_55F140` | `app/client/ui_avsel.cpp:876` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_avsel.cpp:904` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_avsel.cpp:1070` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_avsel.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/ui_avsel.cpp:1096` | untagged neutral name (D10) |
 | 1 | `Unknown_55F680` | `app/client/ui_avsel.cpp:1119` | untagged neutral name (D10) |
@@ -6934,17 +6930,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB4` | `app/client/ui_line_display.h:228` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_line_display.h:229` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/ui_line_display.h:233` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_login.cpp:46` | fontmanager.h's |
-| 1 | `unknown` | `app/client/ui_login.cpp:49` | neutral |
-| 1 | `Unknown_6CE7D0` | `app/client/ui_login.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/ui_login.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown2FC` | `app/client/ui_login.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_login.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/ui_login.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_login.cpp:54` | neutral (D10), as ui_manu.cpp's |
-| 1 | `LoginFontManagerClass` | `app/client/ui_login.cpp:56` | neutral (D10): fontmanager.h's FontManagerClass |
-| 1 | `Unknown_6D2700` | `app/client/ui_login.cpp:62` | as fontmanager.h's; NAME 1 [model]: what the constructor passes |
-| 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:64` | 0xBE67C4 |
+| 1 | `Unknown_BE67B8` | `app/client/ui_login.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_login.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:49` | 0xBE67C4 |
 | 1 | `Unknown_B08CC4` | `app/client/ui_login.cpp:87` | neutral (D10): what the text gadgets get |
 | 1 | `robj, unknown` | `app/client/ui_login.cpp:97` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_login.cpp:97` | untagged neutral name (D10) |
@@ -7038,6 +7026,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6870E0` | `app/client/ui_login.cpp:339` | untagged neutral name (D10) |
 | 1 | `Unknown5C` | `app/client/ui_login.cpp:346` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_login.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2700` | `app/client/ui_login.cpp:353` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_login.cpp:355` | untagged neutral name (D10) |
 | 1 | `Unknown_67AD30` | `app/client/ui_login.cpp:362` | untagged neutral name (D10) |
 | 1 | `Unknown_67AE20` | `app/client/ui_login.cpp:363` | untagged neutral name (D10) |
@@ -7071,6 +7060,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:625` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ui_login.cpp:631` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_login.cpp:664` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_login.cpp:667` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/ui_login.cpp:714` | untagged neutral name (D10) |
 | 1 | `Unknown_4C` | `app/client/ui_login.cpp:754` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_login.cpp:798` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
@@ -10240,13 +10231,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8Class` | `tests/clienttest/tsk_game_stubs.cpp:3` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `tests/clienttest/ui_avsel_stubs.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/clienttest/ui_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:53` | untagged neutral name (D10) |
@@ -11404,7 +11394,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Texture` | `app/client/ui_avatr.cpp:116` | what it does (the asset manager's slot) |
 | 2 | `FontStringFilesClass` | `app/client/ui_avatr.cpp:178` | fontdatabase.h's |
 | 2 | `Remove` | `app/client/ui_avatr.cpp:190` | as sclient.cpp's |
-| 2 | `FontStringFilesClass` | `app/client/ui_avsel.cpp:91` | fontdatabase.h's |
 | 2 | `Camera` | `app/client/ui_avsel.cpp:201` | what it holds |
 | 2 | `Model` | `app/client/ui_avsel.cpp:207` | what it holds |
 | 2 | `Add` | `app/client/ui_avsel.cpp:230` | as sclient.cpp's |
@@ -11474,7 +11463,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_line_display.h:230` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:231` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:232` | describes what it holds |
-| 2 | `FontStringFilesClass` | `app/client/ui_login.cpp:65` | fontdatabase.h's |
 | 2 | `Create_Render_Obj` | `app/client/ui_login.cpp:105` | what it does (the asset manager's slot) |
 | 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_manu.cpp:32` | fontdatabase.h's |
@@ -13508,8 +13496,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GadgetClass` | `app/client/ui_avatr.cpp:10` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `FontSys` | `app/client/ui_avatr.cpp:174` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's |
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:263` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |
-| 3 | `FontSys` | `app/client/ui_avsel.cpp:77` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0) |
-| 3 | `UIAvselFontManagerClass` | `app/client/ui_avsel.cpp:89` | fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's |
 | 3 | `AvatarSelectionInterface` | `app/client/ui_avsel.h:21` | the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>) |
 | 3 | `BuddyReferralUI` | `app/client/ui_avsel.h:69` | the assert's |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |

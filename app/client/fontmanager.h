@@ -76,6 +76,7 @@ public:
 	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
 	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
 	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
+	void Unknown_Set_2FC(float value) { Unknown2F4[2] = value; Unknown4C5 = false; }	// inline (ui_login.cpp, ui_avsel.cpp: a button's text 1.0, or 0.33 when off)  // NAME 1 [Unknown_Set_2FC]: neutral (D10), as ui_manu.cpp's
 
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
 	void Unknown_6CE7D0(int unknown);										// 0x6CE7D0  // NAME 1 [Unknown_6CE7D0]: neutral (D10)
