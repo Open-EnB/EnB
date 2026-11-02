@@ -124,6 +124,34 @@ bool String_To_Value(const char *text, unsigned int *value)
 	return sscanf(text, "%u", value) == 1;
 }
 
+// 0x4A32E0 / 0x4A3310 / 0x4A3410 / 0x4A3440: the client's behaviour (char and int)
+char *Value_To_String(char *buf, int size, char value)
+{
+	sprintf(buf, "%d", value);
+	return buf;
+}
+
+bool String_To_Value(const char *text, char *value)
+{
+	int i = 0;
+	if (sscanf(text, "%d", &i) == 1 && i >= -128 && i <= 127) {
+		*value = (char)i;
+		return true;
+	}
+	return false;
+}
+
+char *Value_To_String(char *buf, int size, int value)
+{
+	sprintf(buf, "%d", value);
+	return buf;
+}
+
+bool String_To_Value(const char *text, int *value)
+{
+	return sscanf(text, "%d", value) == 1;
+}
+
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
 const char *Type_Name(MoneyClass *)
 {
