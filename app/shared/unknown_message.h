@@ -26,6 +26,7 @@
 #include "..\..\libs\wwonline\wlib\critsec.h"
 
 class TCPMgr;
+class TCPCon;
 
 // One message (0x34 bytes; the server's list holds them: ArrayList's growVector 0x4BC9B0, the copy 0x4BC8F0)
 class Unknown4BB8A0Class	// NAME 1: after its constructor (D10)
@@ -47,16 +48,46 @@ public:
 	Wstring Text;		// +0x2C  // NAME 2: what it holds
 };
 
+// A connected client's filter (0x24 bytes; parsed by 0x4BE7A0 from the client's text, matched by 0x4BE2C0;
+// its own object from 0x4BDFE0: the server calls its constructor and destructor)
+class Unknown4BDFE0Class	// NAME 1: after its constructor (D10)
+{
+public:
+	Unknown4BDFE0Class();								// 0x4BDFE0
+	~Unknown4BDFE0Class();								// 0x4BDFE0's destructor 0x4BE060
+	bit8 Unknown_4BE2C0(Unknown4BB8A0Class *message);	// 0x4BE2C0 the message passes it  // NAME 1: neutral (D10)
+	bit8 Unknown_4BE7A0(Wstring &text);					// 0x4BE7A0 parses it  // NAME 1: neutral (D10)
+
+	Wstring Unknown00;		// +0x00
+	int Unknown08;			// +0x08 (0xFFFFFF: clears the client's filters)
+	Wstring Unknown0C;		// +0x0C
+	Wstring Unknown14;		// +0x14
+	Wstring Unknown1C;		// +0x1C
+};
+
+// One connected client of the server (0x14 bytes)
+struct Unknown4BCA80EntryStruct	// NAME 1: after the server's constructor (D10)
+{
+	ArrayList<Unknown4BDFE0Class> Filters;	// +0x00  // NAME 2: what it holds
+	uint32 Mask;							// +0x0C the levels its filters take  // NAME 2: what it holds
+	TCPCon *Connection;						// +0x10  // NAME 2: what it holds
+};
+
 // The message server (constructor 0x4BCA80, destructor 0x4BCB50; one instance, 0xBE55D0)
 class Unknown4BCA80Class	// NAME 1: after its constructor (D10)
 {
 public:
-	int Unknown_4BCD10();								// 0x4BCD10 Unknown04's length  // NAME 1: neutral (D10)
+	Unknown4BCA80Class();								// 0x4BCA80
+	~Unknown4BCA80Class();								// 0x4BCB50
+	void Unknown_4BCCB0();								// 0x4BCCB0 listens on the first free port of 9999-10009  // NAME 1: neutral (D10)
+	void Unknown_4BD470(int level, Wstring &sender, Wstring &file, int line, int x, int y, Wstring &text);	// 0x4BD470 (no caller)  // NAME 1: neutral (D10)
+	bit8 Unknown_4BD3F0(Unknown4BCA80EntryStruct *client, Unknown4BB8A0Class *message);	// 0x4BD3F0 (no caller; this unused)  // NAME 1: neutral (D10)
+	int Unknown_4BCD10();								// 0x4BCD10 the clients' count  // NAME 1: neutral (D10)
 	void Unknown_4BCD30();								// 0x4BCD30 (the error reporters call it after the message)  // NAME 1: neutral (D10)
 	void Unknown_4BCCF0(bool value);					// 0x4BCCF0 Unknown38  // NAME 1: neutral (D10)
 
 	TCPMgr *Unknown00;		// +0x00 (0x28 bytes, made by the constructor)
-	ArrayList<int> Unknown04;	// +0x04 (0x14-byte entries in the client; element type not known yet)
+	ArrayList<Unknown4BCA80EntryStruct> Unknown04;	// +0x04 the clients
 	ArrayList<Unknown4BB8A0Class> Messages;	// +0x10  // NAME 2: what it holds
 	int Unknown1C;			// +0x1C
 	CritSec Unknown20;		// +0x20

@@ -3559,8 +3559,11 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_message_record.cpp'): "the message server's record Unknown4BB8A0Class 0x4BB8A0-0x4BBAA0 (its "
                                                   "constructor, destructor and text forms: a separate object, the reporters "
                                                   "call them; D137 provisional)",
-    ('app', 'shared/unknown_message_server.cpp'): "the message server Unknown4BCA80Class from 0x4BCA80: 0x4BCCF0, 0x4BCD10 (a "
-                                                  "separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
+    ('app', 'shared/unknown_message_server.cpp'): "the message server Unknown4BCA80Class from 0x4BCA80: constructor, destructor, "
+                                                  "listener 0x4BCCB0, 0x4BCCF0, 0x4BCD10, 0x4BD3F0, 0x4BD470 and its ArrayList "
+                                                  "instances (a separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
+    ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
+                                                  "and destructor 0x4BE060 (a separate object: the server calls them; D137 provisional)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
