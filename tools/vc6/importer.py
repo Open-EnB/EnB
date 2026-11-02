@@ -3782,6 +3782,12 @@ RECONSTRUCTED = {
     ('app', 'main/main.cpp'): "WinMain's helpers, client 0x445330-0x445725 (no __FILE__; its log texts start 'Main.cpp:', "
                               "the folder beside main_client.cpp is interim, D137): the exception hooks, the window-message "
                               "handlers, the LoadString texts, the versions; exact",
+    ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
+                                   "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
+                                   "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
+    ('app', 'shared/rs.cpp'): "rs.cpp's render state start-up / shut-down 0x4581E0 / 0x458250 (WinMain's 'initializing "
+                             "render state class'; before rs.cpp's first assert at 0x458370, sharing its statics 0xBDC094 / "
+                             "0xBDC098 with the render state's lock functions; interim placement D137; builder DISP, run PR #144); exact",
     ('app', 'input/inpdsp.h'): "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's "
                               "key to a stack of InputRecordStruct, D87), its records and their RefCountClass action "
                               "(D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)",

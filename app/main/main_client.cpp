@@ -69,7 +69,7 @@ bool Unknown_42EE00(bool enable);				// NAME 1 [Unknown_42EE00, enable]: input.c
 void Unknown_42E7B0();								// NAME 1 [Unknown_42E7B0]: input.cpp's shut-down
 void Unknown_42F940(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42F940]: adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes
 void Unknown_42FAC0(int message, int (*handler)(int, int));	// NAME 1 [Unknown_42FAC0]: removes it
-void Unknown_4581E0();								// NAME 1 [Unknown_4581E0]: the render state class's start-up (a critical section, an event)
+bool Unknown_4581E0();								// NAME 1 [Unknown_4581E0]: the render state class's start-up (a critical section, an event; rs.cpp)
 void Unknown_458250();								// NAME 1 [Unknown_458250]: its shut-down
 void Unknown_442AC0(HWND window);					// NAME 1 [Unknown_442AC0]: display.cpp's start-up  // NAME 1 [window]: what WinMain passes
 void Unknown_442FF0();								// NAME 1 [Unknown_442FF0]: display.cpp's shut-down (WW3D::Shutdown)

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
-| 2 | describes what the code does | 2900 |
-| 1 | neutral placeholder | 10815 |
+| 2 | describes what the code does | 2906 |
+| 1 | neutral placeholder | 10832 |
 
 ## For review (score 3 and below)
 
@@ -8338,6 +8338,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_509EB0` | `app/dbgmgr/dbgmgr.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/dbgmgr/dbgmgr.cpp:140` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `app/dbgmgr/dbgmgr.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `app/display/display.cpp:27` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `app/display/display.cpp:30` | neutral (D10) |
+| 1 | `Unknown_BDADC0` | `app/display/display.cpp:35` | 0xBDADC0 |
+| 1 | `UnknownDisplayStruct` | `app/display/display.cpp:38` | neutral (D10) |
+| 1 | `Unknown_BDADB8` | `app/display/display.cpp:48` | as main_client.cpp |
+| 1 | `Unknown_442FA0, message, wparam` | `app/display/display.cpp:50` | neutral (D10) |
+| 1 | `Unknown_442FA0` | `app/display/display.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_442AC0` | `app/display/display.cpp:201` | as main_client.cpp  // NAME 1 [window]: what WinMain passes |
+| 1 | `current` | `app/display/display.cpp:205` | neutral (D10) |
+| 1 | `reg` | `app/display/display.cpp:215` | neutral (D10) |
+| 1 | `set_width` | `app/display/display.cpp:266` | Get_Device_Resolution's |
+| 1 | `set_height` | `app/display/display.cpp:267` | Get_Device_Resolution's |
+| 1 | `set_bits` | `app/display/display.cpp:268` | Get_Device_Resolution's |
+| 1 | `set_windowed` | `app/display/display.cpp:269` | Get_Device_Resolution's |
+| 1 | `Unknown_42F940` | `app/display/display.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown_442FF0` | `app/display/display.cpp:301` | as main_client.cpp |
+| 1 | `Unknown_42FAC0` | `app/display/display.cpp:303` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/input/inpdsp.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/input/inpdsp.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_42A170` | `app/input/inpdsp.cpp:44` | untagged neutral name (D10) |
@@ -8636,7 +8653,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42E7B0` | `app/main/main_client.cpp:69` | input.cpp's shut-down |
 | 1 | `Unknown_42F940` | `app/main/main_client.cpp:70` | adds a window-message handler  // NAME 1 [message, handler]: what WinMain passes |
 | 1 | `Unknown_42FAC0` | `app/main/main_client.cpp:71` | removes it |
-| 1 | `Unknown_4581E0` | `app/main/main_client.cpp:72` | the render state class's start-up (a critical section, an event) |
+| 1 | `Unknown_4581E0` | `app/main/main_client.cpp:72` | the render state class's start-up (a critical section, an event; rs.cpp) |
 | 1 | `Unknown_458250` | `app/main/main_client.cpp:73` | its shut-down |
 | 1 | `Unknown_442AC0` | `app/main/main_client.cpp:74` | display.cpp's start-up  // NAME 1 [window]: what WinMain passes |
 | 1 | `Unknown_442FF0` | `app/main/main_client.cpp:75` | display.cpp's shut-down (WW3D::Shutdown) |
@@ -10121,6 +10138,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0E` | `app/shared/px_wrapper.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:7` | neutral (D10) |
 | 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_BDC094` | `app/shared/rs.cpp:16` | neutral (D10) |
+| 1 | `Unknown_BDC098` | `app/shared/rs.cpp:17` | neutral (D10) |
+| 1 | `Unknown_4581E0` | `app/shared/rs.cpp:20` | as main_client.cpp |
+| 1 | `Unknown_458250` | `app/shared/rs.cpp:33` | as main_client.cpp |
 | 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
@@ -10503,11 +10524,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADB8` | `programs/clientpoc/poc_window.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown_442FA0` | `programs/clientpoc/poc_window.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown_442AC0` | `programs/clientpoc/poc_window.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown_442FF0` | `programs/clientpoc/poc_window.cpp:170` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:179` | untagged neutral name (D10) |
+| 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:56` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:57` | untagged neutral name (D10) |
@@ -12287,6 +12304,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
 | 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
 | 2 | `DbgMgrMemoryLogClass` | `app/dbgmgr/dbgmgr.cpp:122` | access only |
+| 2 | `Name` | `app/display/display.cpp:40` | the device name Set_Render_Device takes |
+| 2 | `Width` | `app/display/display.cpp:41` | Registry_Load_Render_Device's argument |
+| 2 | `Height` | `app/display/display.cpp:42` | Registry_Load_Render_Device's argument |
+| 2 | `Bits` | `app/display/display.cpp:43` | Registry_Load_Render_Device's depth |
+| 2 | `Windowed` | `app/display/display.cpp:44` | Registry_Load_Render_Device's argument |
+| 2 | `TextureDepth` | `app/display/display.cpp:45` | the assert text 'texture depth' |
 | 2 | `Owner` | `app/input/inpdsp.h:42` | what it holds |
 | 2 | `Data` | `app/input/inpdsp.h:43` | what it holds |
 | 2 | `Next` | `app/input/inpdsp.h:45` | what it holds |
