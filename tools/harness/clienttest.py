@@ -84,7 +84,7 @@ def build(out):
             f.write('// %s, compiled into clienttest (clienttest.py build)\n' % p)
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
-                                'subsystem': 'console', 'runtime': []}
+                                'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB']}  # settings_store.cpp's lkey thread
     # E&B's INFMSG (cordcon.cpp) writes to the old iostream's ostream, as udpreplay.py's link: LIBCIMT after LIBCPMT
     if 'LIBCIMT.LIB' not in B.LINK_SYS:
         B.LINK_SYS.insert(B.LINK_SYS.index('LIBCPMT.LIB') + 1, 'LIBCIMT.LIB')

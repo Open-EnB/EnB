@@ -41,28 +41,28 @@
 
 
 
-// fontmanager.h's FontStyleClass, FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC (neither
-// header can be included next to sclient.h: workflow.md 3.3), as far as this file calls them
-class FontStyleClass : public RenderObjClass	// NAME 1 [FontStyleClass]: fontmanager.h's
-{
-public:
-	void Unknown_6CE7D0(int unknown);					// 0x6CE7D0  // NAME 1 [unknown]: neutral
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (the buttons' texts: 1.0, or 0.33 when off)
-	char Unknown300[0x4C5 - 0x300];						// +0x300
-	bool Unknown4C5;									// +0x4C5
-	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// NAME 1: neutral (D10), as ui_manu.cpp's
-};
-class LoginFontManagerClass	// NAME 1: neutral (D10): fontmanager.h's FontManagerClass
-{
-public:
-	void Add(const RefCountPtr<RenderObjClass> &object);	// 0x6D1FB0
-	void Remove(unsigned int id);						// 0x6D2220
-	FontStyleClass *Get_Style(const char *name, unsigned int id);	// 0x6D25D0
-	RefCountPtr<FontStyleClass> Unknown_6D2700(const char *name, const RefCountPtr<RenderObjClass> &model);	// 0x6D2700 (fontmanager.h: an unsigned int reference, the model's pointer)  // NAME 1 [Unknown_6D2700]: as fontmanager.h's; NAME 1 [model]: what the constructor passes
-};
-extern LoginFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
+// fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
+// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
+#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+#include "fontmanager.h"
+#undef Unknown_BE67B8
+extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // textgadg.cpp's text gadgets (the name and password boxes)
 #include "textgadg.h"
@@ -350,8 +350,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x1B), 5);
 	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x0D), 3);
 	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x09), 9);
-	RefCountPtr<FontStyleClass> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", model);
-	RefCountPtr<FontStyleClass> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", model);
+	RefCountPtr<FontStyleClass> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", (const unsigned int &)model);
+	RefCountPtr<FontStyleClass> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", (const unsigned int &)model);
 	if (Unknown_5FADE0()) {
 		if (banner) banner->Set_Hidden(true);
 		if (demo) demo->Set_Hidden(false);

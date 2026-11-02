@@ -72,23 +72,23 @@ void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cp
 
 
 
-// fontsys.cpp's text object and fontmanager.h's FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at
-// 0xBE67BC, as far as this file calls them (as ui_cpit.cpp declares them: neither header can be included here)
-class FontSys : public RenderObjClass	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)
-{
-public:
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0  // NAME 1 [text, unknown]: as loadingview.cpp's
-	void Unknown_6CE910(bool on);						// 0x6CE910 (0x55E2E0: the selected slot's text)  // NAME 1 [on]: neutral
-	void Set_Unknown2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// NAME 1: neutral (D10): inline (0x55ED20 1.0, 0x55EF90 0.33)
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (ui_cpit.cpp's)
-	char Unknown300[0x4C5 - 0x300];
-	bool Unknown4C5;									// +0x4C5
-};
-class UIAvselManagedFontClass { public: void Unknown_6D0A70(const char *name, const char *text); };	// NAME 1: neutral (D10): fontmanager.h's ManagedFontClass (0x6D0A70 reloads the styles named name with the text)  // NAME 1 [name, text]: fontmanager.h's
-class UIAvselFontManagerClass { public: UIAvselManagedFontClass *Find(unsigned int id); void Add(RenderObjClass *object); void Add(const RefCountPtr<RenderObjClass> &object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's (0x6D1D80, 0x6D2220, 0x6D25D0)  // NAME 1 [object, id, name]: as ui_cpit.cpp's
-extern UIAvselFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
+// fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
+// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
+#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+#include "fontmanager.h"
+#undef Unknown_BE67B8
+extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+
+
+
+
+
+
+
+
+
+
+
 
 // local_interface_sort.cpp's sort object (8 bytes; as ui_cpit.cpp declares it)
 #include "local_interface_sort.h"	// InterfaceSortScopeClass (0x541980 / 0x6E18B0)
@@ -765,7 +765,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 // 0x55E2E0
 void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool selected)
 {
-	FontSys *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], Unknown084->Peek_Model());
+	FontStyleClass *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(string, 0);
 	textptr->Unknown_6CE910(selected);
@@ -894,14 +894,14 @@ void AvatarSelectionInterface::Unknown_8C()
 void AvatarSelectionInterface::Unknown_55ED20()
 {
 	int i;
-	FontSys *text;
+	FontStyleClass *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
 				Unknown10C[i]->Unknown_40(true);
-				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
+				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
 				if (text) {
-					text->Set_Unknown2FC(1.0f);
+					text->Unknown_Set_2FC(1.0f);
 				}
 			}
 		}
@@ -910,35 +910,35 @@ void AvatarSelectionInterface::Unknown_55ED20()
 	for (i = 0; i < 8; i++) {
 		if (Unknown09C[i] && !Unknown09C[i]->Unknown_60()) {
 			Unknown09C[i]->Unknown_40(true);
-			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
+			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], (unsigned int)Unknown084->Peek_Model());
 			if (text) {
-				text->Set_Unknown2FC(1.0f);
+				text->Unknown_Set_2FC(1.0f);
 			}
 		}
 	}
 	if (Unknown118 && !Unknown118->Unknown_60()) {
 		Unknown118->Unknown_40(true);
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(1.0f);
+			text->Unknown_Set_2FC(1.0f);
 		}
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(1.0f);
+			text->Unknown_Set_2FC(1.0f);
 		}
 	}
 	if (Unknown090 < 0 || !Unknown0E4[Unknown090]) {
 		Unknown09C[5]->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[5], Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[5], (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(0.33f);
+			text->Unknown_Set_2FC(0.33f);
 		}
 	}
 	if (Unknown090 < 0) {
 		Unknown09C[6]->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[6], Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[6], (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(0.33f);
+			text->Unknown_Set_2FC(0.33f);
 		}
 	}
 	Unknown0F9 = false;
@@ -948,14 +948,14 @@ void AvatarSelectionInterface::Unknown_55ED20()
 void AvatarSelectionInterface::Unknown_55EF90()
 {
 	int i;
-	FontSys *text;
+	FontStyleClass *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
 				Unknown10C[i]->Unknown_40(false);
-				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
+				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
 				if (text) {
-					text->Set_Unknown2FC(0.33f);
+					text->Unknown_Set_2FC(0.33f);
 				}
 			}
 		}
@@ -964,21 +964,21 @@ void AvatarSelectionInterface::Unknown_55EF90()
 	for (i = 0; i < 8; i++) {
 		if (Unknown09C[i] && Unknown09C[i]->Unknown_60()) {
 			Unknown09C[i]->Unknown_40(false);
-			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
+			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], (unsigned int)Unknown084->Peek_Model());
 			if (text) {
-				text->Set_Unknown2FC(0.33f);
+				text->Unknown_Set_2FC(0.33f);
 			}
 		}
 	}
 	if (Unknown118 && Unknown118->Unknown_60()) {
 		Unknown118->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(0.33f);
+			text->Unknown_Set_2FC(0.33f);
 		}
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
 		if (text) {
-			text->Set_Unknown2FC(0.33f);
+			text->Unknown_Set_2FC(0.33f);
 		}
 	}
 }
@@ -1043,25 +1043,25 @@ void AvatarSelectionInterface::Unknown_55F140()
 	if (Unknown090 == -1 || !Unknown0E4[Unknown090]) {
 		return;
 	}
-	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", Unknown084->Peek_Model());
+	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	int race = Unknown0BC[Unknown090]->Unknown108;
 	textptr->Change_Text(Unknown_B7B928[race], 0);
 
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(Unknown_B7B934[Unknown0BC[Unknown090]->Unknown10C + race * 3], 0);
 
 
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_Level_Title", Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Level_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	char level[64];
 	sprintf(level, "Level: %d", chars[Unknown090].Level_Combat + chars[Unknown090].Level_Explore + chars[Unknown090].Level_Trade);
 	textptr->Change_Text(level, 0);
 
-	UIAvselManagedFontClass *font = Unknown_BE67C4->Find((unsigned int)Unknown084->Peek_Model());
+	ManagedFontClass *font = Unknown_BE67C4->Find((unsigned int)Unknown084->Peek_Model());
 	if (font) {
 		const char *sector = chars[Unknown090].Sector_Name;
 		if (strlen(sector)) {
@@ -1084,7 +1084,7 @@ void AvatarSelectionInterface::Unknown_55F140()
 
 
 	std::list<LoginGalaxyClass> galaxies = Unknown088->Galaxies;
-	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text("", 0);
 	for (std::list<LoginGalaxyClass>::iterator it = galaxies.begin(); it != galaxies.end(); it++) {
@@ -1237,9 +1237,9 @@ void AvatarSelectionInterface::Unknown_55FDC0(bool on)
 	for (int i = 0; i < 2; i++) {
 		if (Unknown10C[i]) {
 			Unknown10C[i]->Unknown_40(on);
-			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
+			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
 			if (text) {
-				text->Set_Unknown2FC(on ? 1.0f : 0.33f);
+				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
 		}
 	}
@@ -1254,11 +1254,11 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 	G_ASSERT(robj);
 	robj->Set_Hidden(hidden);
 
-	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
+	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 }

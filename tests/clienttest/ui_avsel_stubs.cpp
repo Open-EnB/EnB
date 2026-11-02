@@ -21,8 +21,6 @@ void UIAvselNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *) { Tr
 class UIAvselCharacterViewClass { public: void Unknown_5594B0(AvatarDescClass desc); };
 void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UIAvselCharacterViewClass::Unknown_5594B0 (0x5594B0)"); }
 
-class UIAvselFontManagerClass;
-UIAvselFontManagerClass *Unknown_BE67C4 = 0;		// 0xBE67C4, ui_avsel.cpp's view
 
 extern const int Unknown_B08CAC = 0x80;
 extern const int Unknown_B08CB0 = 0x100;

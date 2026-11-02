@@ -11,6 +11,9 @@
 #include "..\..\wwmath\sphere.h"
 #include <math.h>
 #include <string.h>
+#include "unknown_fontsound.h"
+#include "..\..\ww3d2\shader.h"
+#include "wwprofile.h"
 
 // NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched
 FontStyleClass::FontStyleClass(const char *name, int object, const char *text) :
@@ -51,8 +54,8 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 	Unknown26C = (int)(Info.Wait * 1000.0f);
 }
 
-// NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; Info's colours (+0x494 / +0x4A4
-// from Colors, 10 / 255 when none) are left out
+// NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
+// (from Colors, 10 when none) added by TXT1
 void FontStyleClass::Unknown_6D5170(int object)
 {
 	int i;
@@ -130,6 +133,31 @@ void FontStyleClass::Unknown_6D5170(int object)
 	Colors[1] = Unknown_BE67B8->Find_Color(Info.Color[1]);
 	if (Colors[1] == NULL) {
 		Colors[1] = Colors[0];
+	}
+	float *color = (float *)&Unknown494;	// floats r, g, b, a (TXT1: Update_Text reads them so)
+	float *second = (float *)Unknown4B4;
+	if (Colors[0] == NULL) {
+		color[0] = 10.0f;
+		color[1] = 10.0f;
+		color[2] = 10.0f;
+		color[3] = 1.0f;
+		Unknown4A4 = Unknown494;
+		second[0] = 0.0f;
+		second[1] = 0.0f;
+		second[2] = 0.0f;
+		second[3] = 1.0f;
+	} else {
+		const int *rgb = (const int *)Colors[0];	// FontColorStruct (fontdatabase.cpp): +4 / +8 / +0xC r, g, b
+		color[0] = (float)rgb[1] * 0.00392156f;
+		color[1] = (float)rgb[2] * 0.00392156f;
+		color[3] = 1.0f;
+		color[2] = (float)rgb[3] * 0.00392156f;
+		Unknown4A4 = Unknown494;
+		rgb = (const int *)Colors[1];
+		second[0] = (float)rgb[1] * 0.00392156f;
+		second[1] = (float)rgb[2] * 0.00392156f;
+		second[3] = 1.0f;
+		second[2] = (float)rgb[3] * 0.00392156f;
 	}
 	memset(Unknown303, 0, sizeof(Unknown303));
 	Unknown414 = 0;
@@ -247,428 +275,400 @@ void FontStyleClass::Unknown_6D6390()
 	}
 }
 
+extern unsigned int Unknown_BFAE3C;		// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, scriptedmovie.cpp declare it so)
+extern unsigned int Unknown_BFAE40;		// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (scriptedmovie.cpp declares it so)
+extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
+void Unknown_6CA0C0(FontStyleClass *style, FontEffectStruct *effect);	// 0x6CA0C0: one step of one effect (unknown_6ca0c0.h, TXT2: a FontStyleClass member in the client)
+
+// 0x6D5F40: the shader for Info.BlendType[FontIndex]; every case ends with no depth writes and an always-pass compare
+void FontStyleClass::Unknown_6D5F40(ShaderClass &shader)
+{
+	switch (Info.BlendType[FontIndex]) {
+		case 0:
+			shader = ShaderClass::_PresetAlphaShader;
+			break;
+		case 1:
+			shader = ShaderClass::_PresetAlphaShader;
+			shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ONE_MINUS_SRC_COLOR);
+			break;
+		case 2:
+			shader = ShaderClass::_PresetAlphaShader;
+			shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ONE);
+			break;
+		case 3:
+			shader = ShaderClass::_PresetAlphaShader;
+			shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_SRC_ALPHA);
+			break;
+		case 4:
+			shader = ShaderClass::_PresetMultiplicativeShader;
+			shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_SRC_COLOR);
+			break;
+		case 5:
+			shader = ShaderClass::_PresetOpaqueShader;
+			break;
+		case 6:
+			shader = ShaderClass::_PresetOpaqueShader;
+			shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
+			break;
+		default:
+			shader = ShaderClass::_PresetAlphaShader;
+			break;
+	}
+	shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
+	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+}
+
+// 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn
+// when it ends (or at once without one) unless +0x440 says otherwise.
+// NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched
+bool FontStyleClass::Unknown_6D60C0()
+{
+	if (Unknown274[6] == 0) {
+		Unknown274[6] = 1;
+		return false;
+	}
+	int frame = Unknown_BFAE3C - Unknown_BFAE40;
+	if (Unknown270 < Unknown26C) {
+		Unknown274[0] = Unknown270;
+		Bits &= ~IS_NOT_HIDDEN;
+		Unknown270 += frame;
+		if (Unknown270 < Unknown26C) {
+			return true;
+		}
+	}
+	if (Unknown26C > 0) {
+		if (Unknown300) {
+			Bits |= IS_NOT_HIDDEN;
+		}
+		Unknown270 -= Unknown26C;
+		Unknown274[0] -= Unknown26C;
+		Unknown26C = 0;
+		Unknown274[1] = 0;
+		if (Unknown440 == 0 && Unknown300) {
+			Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+		}
+		return false;
+	}
+	if (Unknown440 == 0 && Unknown270 == 0 && Unknown300) {
+		Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+	}
+	if (Unknown274[6] != 0) {
+		Unknown274[0] = Unknown270;
+		Unknown270 += frame;
+		Unknown274[1]++;
+		Unknown274[3] += frame;
+	}
+	return false;
+}
+
 /*
-**	0x6D5D40-0x6D8270 (not yet rebuilt; Render's assert holds the client's line 914 below):
-**	0x6D5F40, 0x6D60C0, 0x6D64C0 FontSys::Update_Text
-**	(7,104 bytes: ledger FNT7), 0x6D8080, 0x6D80A0.
+**	0x6D64C0 FontSys::Update_Text (the client's profile label): with unknown set (Render) it runs the delay (0x6D60C0),
+**	places the text (the transform's translation), refreshes a clipped last line with "...", steps the effects
+**	(0x6CA0C0 per list) and the timers; then, unless nothing changed (+0x4C5 with the same polygon count +0x4C8),
+**	rebuilds the mesh: per pass (+0x444: 1 adds the second colour +0x4B4, offset by +0x418 / +0x41C) one quad per
+**	strip of the text texture +0x2D0 (strips of Size pixels, stacked Height rows apart: 0x6D8DC0), clipped to the
+**	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
+**	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched
+void FontStyleClass::Update_Text(bool unknown)
+{
+	WWPROFILE("FontSys::Update_Text");
+	float *color = (float *)&Unknown494;		// r, g, b, a now
+	float *target = (float *)&Unknown4A4;		// r, g, b, a it moves to
+	float *second = (float *)Unknown4B4;		// the second pass's r, g, b
+	float *offset = (float *)Unknown488;		// +0x488: an offset added to the position (floats)
+	float pos_x = 0.0f;
+	float pos_y = 0.0f;
+	int i;
+
+	if (unknown) {
+		Unknown444 = 0;
+		if (Unknown_6D60C0()) {
+			return;
+		}
+		if (Unknown4E5) {
+			Unknown4E5 = false;
+			Unknown_6D5D40();
+		}
+		if (LineNumber > 0) {
+			Unknown4C5 = false;
+		}
+		Vector3 at;
+		if (Unknown302) {
+			at.X = Unknown464[0] + Unknown47C.X + offset[0];
+			at.Y = Unknown464[1] + Unknown47C.Y + offset[1];
+			at.Z = *(float *)&Unknown46C + Unknown47C.Z + offset[2];
+		} else {
+			Vector3 p = Get_Position();
+			at.X = p.X + Unknown47C.X + offset[0];
+			at.Y = p.Y + Unknown47C.Y + offset[1];
+			at.Z = p.Z + Unknown47C.Z + offset[2];
+		}
+		pos_x = at.X;
+		pos_y = at.Y;
+		Transform[0][3] = at.X;
+		Transform[1][3] = at.Y;
+		Transform[2][3] = at.Z;
+		int line_height = (int)(Scale * 480.0f * Unknown2C8 / Height);
+		if (LineNumber > 0 && (float)Unknown430[3] < at.Y) {
+			float limit = (float)(Unknown430[3] + line_height);
+			bool refresh = false;
+			if (at.Y < limit && LineNumber != LineCount && !Unknown406) {
+				Unknown406 = true;
+				refresh = true;
+			} else if (at.Y > limit && LineNumber != LineCount && Unknown406) {
+				Unknown406 = false;
+				refresh = true;
+			}
+			if (refresh) {
+				StringClass text = Info.Text;
+				if (Unknown406) {
+					text += "...";
+				}
+				*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
+				Unknown2C4 = Font->String_Pixel_Width(text);
+				Unknown2C8 = Font->Get_Height();
+				Unknown4C5 = false;
+				Unknown420[1] = Unknown2C4;
+				Unknown420[3] = Unknown2C8;
+			}
+		}
+		for (i = 0; i < 4; i++) {
+			if (Unknown_6CD180() && Unknown2F4[2] >= 0.5f) {
+				Unknown_6CA0C0(this, Effects[3][i]);
+			}
+			if (Unknown_6CD6F0()) {
+				Unknown_6CA0C0(this, Effects[4][i]);
+			}
+			if (Unknown274[12 + i] > 0) {
+				Unknown_6CA0C0(this, Effects[5][i]);
+			}
+			if (Unknown440 == 0) {
+				Unknown_6CA0C0(this, Effects[0][i]);
+			} else if (Unknown440 == 1) {
+				Unknown_6CA0C0(this, Effects[1][i]);
+			} else if (Unknown440 == 2) {
+				Unknown_6CA0C0(this, Effects[2][i]);
+			}
+		}
+		if (Unknown4E6) {
+			float a = (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+			a = a + a + color[3];
+			color[3] = a;
+			if (a > 1.0f) {
+				color[3] = a - 1.0f;
+			}
+		}
+		int elapsed = Unknown270 - Unknown274[0];
+		if (Unknown274[8] > 0) {
+			int left = Unknown274[8] - elapsed;
+			if (Unknown404) {
+				Unknown274[8] = left < 0 ? 0 : left;
+			} else {
+				Unknown274[8] = left < 1 ? 1 : left;
+			}
+		}
+		for (i = 0; i < 4; i++) {
+			int left = Unknown274[12 + i] - elapsed;
+			Unknown274[12 + i] = left < 0 ? 0 : left;
+		}
+		Unknown_BE67B4->Update();
+		Unknown_6CCE60();
+	}
+
+	if (color[0] != target[0] || color[1] != target[1] || color[2] != target[2] || color[3] != target[3]) {
+		Unknown4C5 = false;
+	}
+	int size = Unknown2D0.Size;
+	int width = Unknown2C4;
+	int height = Unknown2C8;
+	TextureClass *texture = Unknown2D0.Texture;
+	float step = 1.0f / (float)size;
+	int strips = (int)((float)width * step + ((width & (size - 1)) != 0 ? 1.0f : 0.0f));
+	float origin_x;
+	if (Info.Justify[1] == 3) {
+		origin_x = 0.0f;
+	} else if (Info.Justify[1] == 4) {
+		origin_x = (float)width;
+	} else {
+		origin_x = (float)(width / 2);
+	}
+	float origin_y;
+	if (Info.Justify[0] == 1) {
+		origin_y = 0.0f;
+	} else if (Info.Justify[0] == 2) {
+		origin_y = (float)height;
+	} else {
+		origin_y = (float)(height / 2);
+	}
+	int quads = (Unknown444 != 0) ? 2 : 1;
+	if (Underline && !Unknown408) {
+		quads *= 2;
+	}
+	int polys = quads * strips * 2;
+	if (Unknown4C5 && Unknown4C8[0] == polys) {
+		return;
+	}
+	if (Unknown4C8[1] < polys) {
+		Resize(polys, polys * 2);
+		Unknown4C8[1] = polys;
+	}
+	Unknown4C5 = true;
+	Unknown4C8[0] = polys;
+	Reset_Mesh_Counters();
+	ShaderClass shader;
+	Unknown_6D5F40(shader);
+	Set_Shader(shader);
+	for (i = 0; i < 3; i++) {				// the colour steps to the target, 1 a frame
+		if (color[i] > target[i]) {
+			color[i] -= 1.0f;
+			if (color[i] < target[i]) color[i] = target[i];
+		} else if (color[i] < target[i]) {
+			color[i] += 1.0f;
+			if (color[i] > target[i]) color[i] = target[i];
+		}
+	}
+
+	for (int pass = Unknown444; pass >= 0; pass--) {
+		float alpha = (color[3] < Unknown2F4[2]) ? color[3] : Unknown2F4[2];
+		if (pass == 0) {
+			Set_Vertex_Color(Vector4(color[0], color[1], color[2], alpha));
+		} else {
+			Set_Vertex_Color(Vector4(second[0], second[1], second[2], alpha));
+		}
+		int done = 0;
+		float strip_v = (float)height * step;
+		for (int k = 0; k < strips; k++) {
+			int strip_x = k * size;
+			int strip_w = width - strip_x;
+			if (strip_w >= size) {
+				strip_w = size;
+			}
+			float u_size = (float)strip_w * step;
+			float v0 = (float)(k * height) * step;
+			float px;
+			float top;
+			if (pass != 0) {
+				px = (float)strip_x - (origin_x - (float)Unknown418);
+				top = origin_y - (float)Unknown41C;
+			} else {
+				px = (float)strip_x - origin_x;
+				top = origin_y;
+			}
+			float sx = (float)Width * (1.0f / 640.0f);
+			float sy = (float)Height * (1.0f / 480.0f);
+			int screen_x = (int)(pos_x * sx + px * Scale);
+			int screen_y = (int)(sy * pos_y + top * Scale);
+			int clip_l = (int)(Unknown430[0] * sx);
+			int clip_r = (int)(Unknown430[1] * sx);
+			int clip_t = (int)(Unknown430[2] * sy);
+			int clip_b = (int)(Unknown430[3] * sy);
+			int r0 = (int)(Unknown420[0] * Scale);
+			int r1 = (int)(Unknown420[1] * Scale);
+			int r2 = (int)(Unknown420[2] * Scale);
+			int r3 = (int)(Unknown420[3] * Scale);
+			int c = (int)(done * Scale);
+			int v = c - screen_x + clip_l;
+			int left = (int)((float)(r0 > v ? r0 : v) / Scale);
+			v = c - screen_x + clip_r;
+			int right = (int)((float)(r1 < v ? r1 : v) / Scale);
+			v = screen_y - clip_t;
+			int top_limit = (int)((float)(r2 > v ? r2 : v) / Scale);
+			v = screen_y - clip_b;
+			int bottom_limit = (int)((float)(r3 < v ? r3 : v) / Scale);
+			if (right <= left + 1) {
+				right = left + 1;
+			}
+			if (done <= right && done + strip_w >= left) {
+				int qx = (int)px;
+				int qw = strip_w;
+				float u_start = 0.0f;
+				float u_end = u_size;
+				if (left > done) {
+					int cut = left - done;
+					qx += cut;
+					qw -= cut;
+					u_start = ((float)cut / (float)strip_w) * u_size;
+				}
+				if (qw + done > right) {
+					qw = right - done;
+					u_end = (float)qw * step;
+				}
+				int qy = (int)(top - (float)top_limit);
+				float vt = (float)top_limit / (float)height;
+				int rows = bottom_limit - top_limit;
+				if (rows < 0) {
+					rows = 0;
+				}
+				if (vt > 1.0f) {
+					vt = 1.0f;
+				}
+				float va = vt * strip_v + v0;
+				float v_size = ((float)rows / (float)height) * strip_v;
+				float xs = 640.0f / (float)Width * Scale * Unknown2F4[0];
+				float ys = 480.0f / (float)Height * Scale * Unknown2F4[0];
+				if (Unknown4DC > 1.0f) xs /= Unknown4DC;
+				if (Unknown4E0 > 1.0f) ys /= Unknown4E0;
+				float x = (float)qx * xs;
+				float y = (float)qy * ys;
+				float w = xs * (float)qw;
+				if (0.1f / Unknown4DC > w) w = 0.1f / Unknown4DC;
+				float h = (float)rows * ys;
+				if (0.1f / Unknown4E0 > h) h = 0.1f / Unknown4E0;
+				float v_low = v_size + va;
+				float v_high = va;
+				float lift = (Unknown2F4[1] + 1.0f) * h * 0.5f;
+				float y_high = y - lift;
+				float y_low = (y - h) + lift;
+				if (y_low > y_high) {
+					float t = y_low; y_low = y_high; y_high = t;
+					t = v_low; v_low = v_high; v_high = t;
+				}
+				Set_Texture(texture);
+				Begin_Tri_Strip();
+				Location(x, y_low, 0.0f);
+				UV(u_start, v_low);
+				End_Vertex();
+				Location(x + w, y_low, 0.0f);
+				UV(u_end, v_low);
+				End_Vertex();
+				Location(x, y_high, 0.0f);
+				UV(u_start, v_high);
+				End_Vertex();
+				Location(x + w, y_high, 0.0f);
+				UV(u_end, v_high);
+				End_Vertex();
+				End_Tri_Strip();
+				if (Underline && !Unknown408 && (float)Unknown2E0.Size > 0.0f) {	// the underline: +0x2E0's "_" cell, stretched
+					float size2 = (float)Unknown2E0.Size;
+					float u2 = (float)Font->String_Pixel_Width("_") / size2;
+					float v2 = (float)Font->Get_Height() / size2;
+					float u_a = u2 * 0.2f;
+					float u_b = u2 * 0.8f;
+					Set_Texture(Unknown2E0.Texture);
+					float drop = (float)height * 0.083333336f;
+					Begin_Tri_Strip();
+					Location(x, y_low - drop, 0.0f);
+					UV(u_a, v2);
+					End_Vertex();
+					Location(x + w, y_low - drop, 0.0f);
+					UV(u_b, v2);
+					End_Vertex();
+					Location(x, y_high - drop, 0.0f);
+					UV(u_a, 0.0f);
+					End_Vertex();
+					Location(x + w, y_high - drop, 0.0f);
+					UV(u_b, 0.0f);
+					End_Vertex();
+					End_Tri_Strip();
+				}
+			}
+			done += strip_w;
+		}
+	}
+}
 
 
 
@@ -938,6 +938,12 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 		Transform[1][3] = pos.Y;
 		Transform[2][3] = pos.Z;
 	}
+}
+
+// 0x6D87D0: the text (Info.Text)
+const char *FontStyleClass::Unknown_6D87D0()
+{
+	return Info.Text;
 }
 
 // NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched

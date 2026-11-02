@@ -76,6 +76,7 @@ public:
 	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
 	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
 	void Set_Color(const TPoint3D<int> &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
+	void Unknown_Set_2FC(float value) { Unknown2F4[2] = value; Unknown4C5 = false; }	// inline (ui_login.cpp, ui_avsel.cpp: a button's text 1.0, or 0.33 when off)  // NAME 1 [Unknown_Set_2FC]: neutral (D10), as ui_manu.cpp's
 
 	void Unknown_6D5140();	// 0x6D5140: its +0x38 virtual, then Release_Ref  // NAME 1 [Unknown_6D5140]: neutral (D10)
 	void Unknown_6CE7D0(int unknown);										// 0x6CE7D0  // NAME 1 [Unknown_6CE7D0]: neutral (D10)
@@ -87,6 +88,11 @@ public:
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 	void Unknown_6D8650(Vector3 &pos);										// 0x6D8650: the text's position (the transform's, or +0x464 with +0x302 set, plus +0x47C and +0x488; ret 4 with the pointer in eax: maybe a Vector3 return)  // NAME 1 [pos]: neutral (D10)
 	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
+	void Unknown_6D5F40(ShaderClass &shader);								// 0x6D5F40: the shader for Info.BlendType[FontIndex] (Update_Text)  // NAME 1 [Unknown_6D5F40]: neutral (D10)
+	bool Unknown_6D60C0();													// 0x6D60C0: the show delay (+0x26C ms); true while it lasts (Update_Text)  // NAME 1 [Unknown_6D60C0]: neutral (D10)
+	bool Unknown_6CD180();													// 0x6CD180: Update_Text runs the mouse-over effects while true  // NAME 1 [Unknown_6CD180]: neutral (D10)
+	bool Unknown_6CD6F0();													// 0x6CD6F0: Update_Text runs the click effects while true  // NAME 1 [Unknown_6CD6F0]: neutral (D10)
+	void Unknown_6CCE60();													// 0x6CCE60: Update_Text's step after the timers  // NAME 1 [Unknown_6CCE60]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores

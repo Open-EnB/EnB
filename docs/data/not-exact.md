@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-479 entries in 111 files.
+499 entries in 117 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -54,6 +54,8 @@ edit the comments in the code, not this file.
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
 | `app/client/co_subtypes.cpp:112` | `Unknown70E5A0Class::Unknown_20` | marker | NOT EXACT: shape (stack layout: the client's frame is 0x128 bytes, ours 0xFC; the inverse transform's terms in another order; attempts.py show 0x70E850) 0x70E850 |
 | `app/client/co_subtypes.cpp:169` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory, but its frame holds more temporaries (0x128 bytes against our 0xFC) and the inverse rotation's terms come in another order (attempts.py show 0x70E850 lists the forms tried). |
+| `app/client/control_key_list.cpp:29` | `InterfaceKeyListClass::Unknown_721F40` | marker | NOT EXACT: relocation (ours inlines 0x721CC0, the client calls it) |
+| `app/client/control_key_list.cpp:42` | `InterfaceKeyListClass::Unknown_721F40` | mention | NOT EXACT (D64, functional for the POC): 0x721F40 (0x721CC0 inlined). ACT (run 2026-11-02). |
 | `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:263` | `ControlKeysManager::Remove_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv) |
@@ -124,16 +126,20 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
-| `app/client/fontsys.cpp:15` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:36` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
-| `app/client/fontsys.cpp:54` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; Info's colours (+0x494 / +0x4A4 from Colors, 10 / 255 when none) are left out |
-| `app/client/fontsys.cpp:147` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
-| `app/client/fontsys.cpp:187` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:212` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
-| `app/client/fontsys.cpp:236` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
+| `app/client/fontsys.cpp:18` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:39` | `FontStyleClass::FontStyleClass` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
+| `app/client/fontsys.cpp:57` | `FontStyleClass::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4 (from Colors, 10 when none) added by TXT1 |
+| `app/client/fontsys.cpp:175` | `FontStyleClass::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
+| `app/client/fontsys.cpp:215` | `FontStyleClass::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
+| `app/client/fontsys.cpp:240` | `FontStyleClass::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
+| `app/client/fontsys.cpp:264` | `FontStyleClass::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
+| `app/client/fontsys.cpp:323` | `FontStyleClass::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:373` | `FontStyleClass::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:909` | `FontStyleClass::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
-| `app/client/fontsys.cpp:943` | `FontStyleClass::Set_Transform` | marker | NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:965` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
+| `app/client/fontsys.cpp:949` | `FontStyleClass::Set_Transform` | marker | NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:971` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
+| `app/client/fonttexture.cpp:16` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
+| `app/client/fonttexture.cpp:89` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
 | `app/client/gadget.cpp:74` | `GadgetClass::GadgetClass` | marker | NOT EXACT: order (0.77; the client stores +0x10 and the table between the +0x2C load and its and / or) |
 | `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
 | `app/client/gadget.cpp:849` | `GadgetClass::Unknown_6603A0` | marker | NOT EXACT: shape (written from the client's 0x6603A0 for the proof-of-concept client: the flash's clone of the model slot +0x24 gives, in the model's scene, with the click indicator when asked) |
@@ -214,6 +220,15 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
+| `app/client/smouse.cpp:40` | `LoginUnknown18Class::LoginUnknown18Class` | marker | NOT EXACT: register-only (VC6 schedules the stores in another order) |
+| `app/client/smouse.cpp:57` | `LoginUnknown18Class::~LoginUnknown18Class` | marker | NOT EXACT: shape (3 rows; mostly registers) |
+| `app/client/smouse.cpp:69` | `LoginUnknown18Class::Unknown_515080` | marker | NOT EXACT: shape (2 rows: the EH frame around the new) |
+| `app/client/smouse.cpp:75` | `LoginUnknown18Class::Unknown_515120` | marker | NOT EXACT: shape (1 row) |
+| `app/client/smouse.cpp:117` | `LoginUnknown18Class::Unknown_5153B0` | marker | NOT EXACT: shape (3 rows; mostly registers) |
+| `app/client/smouse.cpp:291` | `LoginUnknown18Class::Unknown_5155A0` | mention | NOT EXACT (D64, functional for the POC): 0x514FE0, 0x515030, 0x515080, 0x515120, 0x5153B0. Unbuilt: the views' defaults before 0x514FE0 and the interface defaults 0x515690-0x515750. ACT (run 2026-11-02). |
+| `app/client/tasks/settings_store.cpp:8` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
+| `app/client/tasks/settings_store.cpp:68` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
+| `app/client/tasks/settings_store.cpp:108` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | mention | NOT EXACT (D64, functional for the POC): 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated). ACT (run 2026-11-02). |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
@@ -303,6 +318,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/unknown_66b770.cpp:42` | `Unknown_66B770Class::Unknown_2C` | marker | NOT EXACT: shape (block order): the client puts the 0x40 test of the held-button check right after the 4 test; tried ?:, && / \|\|, a bool, early returns, the branches swapped |
+| `app/client/unknown_6ca0c0.cpp:102` | `Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
+| `app/client/unknown_6ca0c0.cpp:658` | `Unknown_6D5B10` | marker | NOT EXACT: functional (D64): a FontStyleClass member (__thiscall) in the client; a free function until fontmanager.h declares it |
+| `app/client/unknown_6cce60.cpp:23` | `FontStyleClass::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
+| `app/client/unknown_6cce60.cpp:63` | `FontStyleClass::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
+| `app/client/unknown_6cce60.cpp:130` | `FontStyleClass::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

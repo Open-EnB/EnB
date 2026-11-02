@@ -84,13 +84,23 @@ public:
 	void Set_Int(const char *key, int value);			// 0x7CCE80 ('%d')  // NAME 1: what it does
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
 	void Unknown_7CB610(const char *url);				// 0x7CB610 (LoginTaskClass::Fetch_EA_Ticket: auth.ini's LKeyUrl)
-	void Unknown_7CB6F0(int unknown);					// 0x7CB6F0
+	void Unknown_7CB6F0(int force);						// 0x7CB6F0 (the tasks' per-frame poll: the lkey check thread started when a deadline passed, its result collected)  // NAME 1 [force]: lets the +0x38 / +0x3C deadlines start it (the game task's 1)
+	std::string Get_String(const char *key);			// 0x7CCF20 (0x7CB8F0: 'lkey')  // NAME 1: what it returns
+	static unsigned long __stdcall Unknown_7CB8F0(void *store);	// 0x7CB8F0: the check thread (WinInet, 'ENBCLIENT'; the reply starting 'Success': 1)  // NAME 1 [store]: CreateThread's parameter
 	void Unknown_7CB3D0();								// 0x7CB3D0 (WinMain's shut-down: ShellExecuteEx, 'Earth & Beyond will now exit to allow you to check your E-Mail')  // NAME 1 [Unknown_7CB3D0]: neutral (D10)
 
 	char Unknown00[0x2C];
 	int Unknown2C;										// +0x2C: LoginTaskClass::Unknown_6C tests it
 	char Unknown30[0x34 - 0x30];						// +0x30
 	bool Unknown34;										// +0x34 (the chat panel's slot +0x68 0x563280: set, no Online Manual)
+	char Unknown35[0x38 - 0x35];						// +0x35
+	unsigned int Unknown38;								// +0x38: a GetTickCount deadline (mode 1)
+	unsigned int Unknown3C;								// +0x3C: a deadline (mode 3; zero: none)
+	unsigned int Unknown40;								// +0x40: a deadline (mode 2)
+	unsigned int Unknown44;								// +0x44: a deadline (mode 4; zero: none)
+	void *Unknown48;									// +0x48: the check thread's handle
+	int Unknown4C;										// +0x4C: which deadline started it (1-4)
+	std::string Unknown50;								// +0x50: the lkey URL's format (0x7CB610's; empty: no checks)
 };
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
 #include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)

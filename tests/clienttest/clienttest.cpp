@@ -2052,6 +2052,9 @@ int main(int argc, char **argv)
 	Switch_Main_34[0] = Switch_Table;
 	client->PDAInterface = (PDAInterfaceClass *)Switch_Pda;
 	client->HotKeys = (UIHotKeysClass *)Switch_Hot_Keys;
+	// Unknown_742530 calls the real smouse.cpp 0x515340 on the software mouse (+0x1274): a zeroed one (no cursor model, no drag)
+	static char fake_mouse[0x40];
+	client->Unknown1274 = (LoginUnknown18Class *)fake_mouse;
 	*(void **)&main_view.Unknown04[0x34 - 0x04] = Switch_Main_34;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
 	client->Unknown12C4[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;

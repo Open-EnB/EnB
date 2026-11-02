@@ -15,9 +15,9 @@
 #include "wwprofile.h"
 #include <windows.h>
 #include <malloc.h>
+#include "ww3d.h"			// WW3D::Unknown_Restore_Device (0x9179D0): the device check
 
 unsigned int Unknown_Get_Ticks();		// the aux-data clock 0x4A3B40 (unknown_root.h)
-int Unknown_9179D0();					// NAME 1 [Unknown_9179D0]: WW3D's device check (0 when DX8Wrapper's restore succeeds)
 bool Unknown_42EA80(KernelEventClass *event);	// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);	// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 
@@ -314,7 +314,7 @@ bool KernelClass::Run_One_Cycle()
 						Running_Task->Run();
 					}
 					if (Running_Task != NULL && Render_Enabled) {
-						Device_Ok = Unknown_9179D0() == 0;
+						Device_Ok = WW3D::Unknown_Restore_Device() == WW3D_ERROR_OK;
 						if (Device_Ok) {
 							WWPROFILE("Current_Task->Render()");
 							Running_Task->Render();
