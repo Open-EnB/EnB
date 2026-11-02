@@ -17,6 +17,9 @@ public:
 
 	virtual void Release_Unused_Assets(void);									// +0x10
 	virtual RenderObjClass *Create_Render_Obj(const char *name);				// +0x14
+	virtual void Release_Unused_Textures(void);									// +0x38
+
+	void Unknown_48ECA0(TextureClass **textures, unsigned count);	// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78 (also 'ENBAssetManager::Create_Render_Obj' in its profile string)  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
 };
 extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0

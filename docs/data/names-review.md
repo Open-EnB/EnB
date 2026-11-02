@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1162 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11027 |
+| 1 | neutral placeholder | 11028 |
 
 ## For review (score 3 and below)
 
@@ -9849,15 +9849,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
 | 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:12` | neutral (D10) |
-| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:13` | neutral (D10) |
-| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:13` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `app/shared/enbassetmgr.cpp:16` | untagged neutral name (D10) |
-| 1 | `UnknownBDADC0Class` | `app/shared/enbassetmgr.h:12` | neutral (D10) |
-| 1 | `name, scale, hsv` | `app/shared/enbassetmgr.h:20` | what 0x6F51D0 passes |
-| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:22` | 0xBDADC0 |
+| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:13` | neutral (D10) |
+| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:14` | neutral (D10) |
+| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:22` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:22` | untagged neutral name (D10) |
+| 1 | `name, scale, hsv` | `app/shared/enbassetmgr.h:23` | what 0x6F51D0 passes |
+| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:25` | 0xBDADC0 |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -15050,7 +15051,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:26` | its profile string |
+| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:27` | its profile string |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |
