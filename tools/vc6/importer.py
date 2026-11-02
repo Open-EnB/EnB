@@ -3788,6 +3788,11 @@ RECONSTRUCTED = {
     ('app', 'display/display.cpp'): "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp "
                                    "in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 "
                                    "(the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
+    ('app', 'shared/unknown_458710.cpp'): "the render-object state on a bone path Unknown458710Class, client 0x458710-0x458BFA "
+                                        "(PROVISIONAL file name D10, interim placement D137: no __FILE__, the object after "
+                                        "rs.cpp's, its calls into rs.cpp not inlined; builder DISP, run PR #144): constructors "
+                                        "0x458710 / 0x4588A0 / 0x458810, clone 0x458970, destructor 0x458A60, 0x458AE0, the "
+                                        "virtuals 0x458B20 / 0x458B70 / 0x458BC0; exact",
     ('app', 'shared/rs.cpp'): "rs.cpp, client 0x457BB0-0x458570 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs.cpp in its "
                              "asserts, lines 257 / 265 / 273 / 281, D25; builder DISP, run PR #144): RenderStateClass's constructor "
                              "0x457BE0, destructor 0x457D20, list links 0x457E10 / 0x457E90 / 0x457F60, 0x457EE0, 0x458010, the loader "

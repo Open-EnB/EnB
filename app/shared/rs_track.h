@@ -28,7 +28,7 @@ public:
 	RenderStateClass(RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x457B60 (rs_robj.cpp's constructors call it)  // NAME 1 [list, id, link_id, flags]: the members they set
 	RenderStateClass(RenderStateListClass *list, const RenderStateClass &source);	// 0x457BE0 (the derived states' copies)  // NAME 1 [list, source]: neutral
 	virtual ~RenderStateClass();									// 0x457D20 (deleting 0x457BB0)
-	virtual int Unknown_04() = 0;									// +0x04 (pure: E&B's _purecall 0x9CCD10)  // NAME 1: neutral (D10)
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list) = 0;	// +0x04 (pure: E&B's _purecall 0x9CCD10; 0x458970 clones into list)  // NAME 1 [list]: neutral
 	virtual void Unknown_08(RsTrackClass *owner, int link_id) {}	// +0x08 0x458590 (INIT_RENDER_STATE 47)  // NAME 1 [owner, link_id]: neutral; what 0x460880 passes
 	virtual void Unknown_0C() {}									// +0x0C 0x4585B0  // NAME 1: neutral (D10)
 	virtual bool Unknown_10() { return(true); }						// +0x10 0x4585D0 (the loader thread 0x458150 runs it)  // NAME 1: neutral (D10)
@@ -97,6 +97,49 @@ public:
 	RenderStateClass *Current;										// +0x24  // NAME 2: Peek_Render_Object's state
 	RenderStateListClass *Source;									// +0x28  // NAME 2: what Clone passes on
 	unsigned char Unknown2C;										// +0x2C  // NAME 1: neutral (D10)
+};
+
+// rs_robj.cpp's render-object state (vtable 0xAE8138, 0x44 bytes), declared as far as rs.cpp's derived state uses it
+// (interim, D137: rs_robj.cpp / its header are not in the tree yet)
+class Unknown45E850Class : public RenderStateClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int a, int b);	// 0x45E5F0  // NAME 1 [name, a, b]: neutral
+	Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int a, int b);	// 0x45E880  // NAME 1 [robj, a, b]: neutral
+	Unknown45E850Class(RenderStateListClass *list, const Unknown45E850Class &source);	// 0x45E9F0  // NAME 1 [list, source]: neutral
+	virtual ~Unknown45E850Class();									// 0x45EC00 (deleting 0x45E850)
+	virtual void Unknown_0C();										// +0x0C 0x45EF10  // NAME 1: neutral (D10)
+	virtual bool Unknown_10();										// +0x10 0x45EF80  // NAME 1: neutral (D10)
+	virtual RenderObjClass *Peek_Render_Object();					// +0x20 0x45EDC0
+	virtual void Unknown_24(int a, int b);							// +0x24 0x45EC90  // NAME 1 [a, b]: neutral
+	virtual void Unknown_30(int a, int b);							// +0x30 0x45ECD0  // NAME 1 [a, b]: neutral
+	virtual void Unknown_40(int a, int b);							// +0x40 0x45F280  // NAME 1 [a, b]: neutral
+
+	char *Unknown2C;												// +0x2C (nstrdup'd name)  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown30;										// +0x30  // NAME 1: neutral (D10)
+	int Unknown34;													// +0x34  // NAME 1: neutral (D10)
+	int Unknown38;													// +0x38  // NAME 1: neutral (D10)
+	int Unknown3C;													// +0x3C  // NAME 1: neutral (D10)
+	int Unknown40;													// +0x40  // NAME 1: neutral (D10)
+};
+
+// rs.cpp's render-object state on a bone path (vtable 0xAE7D58, 0x4C bytes): its model goes onto the
+// owner's bone path while it is active
+class Unknown458710Class : public Unknown45E850Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int a, int b, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on
+	Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int a, int b, const char *bone_path, int arg);	// 0x4588A0
+	Unknown458710Class(RenderStateListClass *list, const Unknown458710Class &source);	// 0x458810
+	virtual ~Unknown458710Class();									// 0x458A60 (deleting 0x4587E0)
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x458970
+	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x458B20
+	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x458B70
+	virtual void Unknown_1C(RsTrackClass *owner);					// +0x1C 0x458BC0
+	void Unknown_458AE0(const char *bone_path);						// 0x458AE0  // NAME 1 [bone_path]: neutral
+
+	char *Unknown44;												// +0x44 (the bone path RsTrackClass::Unknown_1D0 / Unknown_461D60 take)  // NAME 1: neutral (D10)
+	int Unknown48;													// +0x48 (Unknown_1D0's last argument)  // NAME 1: neutral (D10)
 };
 
 // rs_proj_sup.cpp's projector caster (0x45D9E0) and receiver (0x45DC80) RsTrackClass makes (0x462470, 0x462530), declared as far as it calls them (interim, D137; proj_man.h's ProjectorCasterClass notes)
