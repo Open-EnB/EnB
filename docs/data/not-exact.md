@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-487 entries in 111 files.
+479 entries in 111 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -28,7 +28,6 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:105` | `ClientClass::Find_Object` | marker | NOT EXACT: shape (the client lays out the list check before the found return; three forms; attempts.py show 0x727070) 0x727070 |
 | `app/client/client.cpp:225` | `ClientClass::Remove_Object` | marker | NOT EXACT: shape (the client puts the not-found return last; three forms; attempts.py show 0x727600) 0x727600 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
-| `app/client/client.cpp:374` | `ClientClass::Set_Debug_Mode` | marker | NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240) 0x728240 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
@@ -63,7 +62,6 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0) 0x733DC0 |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130) 0x734130 |
 | `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
-| `app/client/cpacket.cpp:1513` | `StarbaseSetPacketClass::Process_Packet` | marker | NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0) 0x7381C0 |
 | `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970) 0x738970 |
 | `app/client/cpacket.cpp:2314` | `StarbaseAvatarUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0) 0x73A9F0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
@@ -92,7 +90,6 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |
 | `app/client/extrap.cpp:827` | `Unknown710530Class::Unknown710530Class` | marker | NOT EXACT: 0x710530 shape: the speed block as Set_Motion 0x7102B0's (the flag store before the fst, the negation folded) |
 | `app/client/extrap.cpp:897` | `Unknown710530Class::Unknown_08` | marker | NOT EXACT: 0x710A20 order: the turn's spill to the stack and the operand order of three products differ (the client stores the turn once and reloads it) |
-| `app/client/extrap.cpp:1019` | `Unknown710530Class::Unknown_04` | marker | NOT EXACT: 0x711520 shape: the client keeps Time in ecx and tests it again before stepping back (a top-tested loop); here the else branch knows Time > time |
 | `app/client/extrap.cpp:1361` | `Unknown7119B0Class::Unknown_712170` | marker | NOT EXACT: 0x712170 order: the tangent's three products come in the client's order but its sums pair (V0 + D) first and use other slots |
 | `app/client/extrap.cpp:1457` | `Unknown7125F0Class::Unknown_1C` | marker | NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here |
 | `app/client/extrap.cpp:1668` | `Unknown713520Class::Unknown_1C` | marker | NOT EXACT: 0x713670 inline budget: the client calls Rotate_Z(-angle) out of line (0x577940), this file inlines it |
@@ -226,7 +223,6 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:1011` | `LoginTaskClass::Unknown_76A370` | marker | NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370) 0x76A370 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/tasks/tsk_smovie.cpp:113` | `ScriptedMovieTaskClass::Init` | marker | NOT EXACT: the client's loop keeps its test at the top (a jmp back to it); while, for, for (;;) with a break, a goto and ++ in the call all give VC6's rotated loop (the test at the bottom) |
-| `app/client/textgadg.cpp:187` | `TextBaseGadgetClass::Unknown_6AA340` | marker | NOT EXACT: registers (0.77): the inlined stars (0x6AA5F0) and the cursor offset take other registers |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.56; 0x128 bytes of locals in the client, 0x130 here): the client keeps the text in ebx and converts the screen width for every width call (here once, kept on the stack) |
 | `app/client/textgadg.cpp:538` | `TextGadgetClass::Unknown_6AB190` | marker | NOT EXACT: loop rotation (0.76): VC6 rotates the first loop here (its test repeated at the bottom), the client tests cp at the top only |
 | `app/client/tutorial_manager.cpp:262` | `TutorialManagerClass::Read_Completed_File` | marker | NOT EXACT: inline budget (explain.py: register-only), the client calls the list's insert 0x6AE5A0 out of line for the first nine names; ours for seven, then alternates |
@@ -272,12 +268,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:689` | `UIGroupClass::Unknown_60` | marker | NOT EXACT: order (the client stores +0xEC = 0 before it reads +0xC0; '0.0f' and a named gadget local tried) |
 | `app/client/ui_group.cpp:731` | `UIGroupClass::Unknown_68` | marker | NOT EXACT: inline budget: ours inlines 0x593180 and Action2PacketClass's string _Tidy, which the client calls out of line |
 | `app/client/ui_group.cpp:1020` | `UIGroupClass::Unknown_595530` | marker | NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74) |
-| `app/client/ui_group.cpp:1161` | `UIGroupClass::Add_Member` | marker | NOT EXACT: frame (the client keeps the new member in name's argument slot and the event in id's; ours the other way round) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_group.cpp:1383` | `UIGroupClass::Unknown_596E20` | marker | NOT EXACT: register (the format's and the packet's arguments in other registers; '? 1 : 0' and '(int)' for the flag tried) |
 | `app/client/ui_group.cpp:1473` | `UIGroupClass::Unknown_597310` | marker | NOT EXACT: register (model and the sub-object temporary in each other's registers; the level offsets as two adds in the client) |
 | `app/client/ui_group.cpp:1529` | `UIGroupClass::Unknown_597650` | marker | NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried) |
-| `app/client/ui_group.cpp:1590` | `UIGroupClass::Unknown_597920` | marker | NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's) |
 | `app/client/ui_group.cpp:1749` | `UIGroupClass::Unknown_597E40` | marker | NOT EXACT: inline budget (D130: needs 13 dead reads, over the limit of 6; the client calls rtti.h's cast 0x598D80 out of line at the last two lookups) |
 | `app/client/ui_line_display.cpp:94` | `EphemeralStruct::EphemeralStruct` | marker | NOT EXACT: register-only (explain.py), the Chance pointer stepped before the type string is freed; the client after it |
 | `app/client/ui_login.cpp:288` | `LoginInterface::LoginInterface` | marker | NOT EXACT: scheduling (the client clears the buttons in the member stores' run, ours before it, and loads the model's address before the font manager for Add) (0x5ACB80) |
@@ -428,8 +422,6 @@ edit the comments in the code, not this file.
 | `app/shared/lookup_table.cpp:142` | `ContinuousLookupTableClass::Create` | marker | NOT EXACT: inline budget (explain.py: shape, 19 vs 17 calls), the client inlines the values vector's constructor and resize's first size(); ours calls them (frame 0x2C, the client 0x28) |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
-| `app/shared/px.cpp:212` | `PxBox::Set_Test` | marker | NOT EXACT: scheduling (the client reads Mask before testing List; attempts.py show 0x44BBD0) |
-| `app/shared/px.cpp:220` | `PxBox::Set_Mask` | marker | NOT EXACT: scheduling (the client reads Test before testing List; attempts.py show 0x44BC10) |
 | `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |
 | `app/shared/px.cpp:407` | `PxList::Remove` | marker | NOT EXACT: register (base and index swapped in one address of the overlap test; attempts.py show 0x44C2E0) |
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |

@@ -184,7 +184,7 @@ bool TextBaseGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 
 
 
-// NOT EXACT: registers (0.77): the inlined stars (0x6AA5F0) and the cursor offset take other registers
+
 void TextBaseGadgetClass::Unknown_6AA340(char *print, int s_size, int *cursorpos, bool *insert, const char *prompt, bool password)
 {
 	int dummy;
@@ -202,12 +202,10 @@ void TextBaseGadgetClass::Unknown_6AA340(char *print, int s_size, int *cursorpos
 		*print = '\0';
 	}
 	*cursorpos = strlen(print);
-	StrEditClass *edit = Edit;
 	if (password) {
 		Unknown_6AA5F0();
-		edit = Hidden;
 	}
-	char *text = edit->Get_String();
+	char *text = (password ? Hidden : Edit)->Get_String();
 	if (text != NULL) {
 		strncat(print, text, s_size - strlen(print) - 1);
 		*cursorpos += Edit->Cursor - Edit->String;
@@ -255,6 +253,8 @@ char *TextBaseGadgetClass::Get_Hidden_Text()
 {
 	return(Hidden->Get_String(Hidden->Get_Length() + 1));
 }
+
+
 
 
 

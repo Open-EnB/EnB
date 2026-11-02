@@ -17,7 +17,13 @@ tie-break pairs out). Then, for D66(v) / D117:
 `lost outright [...]` : addresses of lost pairs that no file holds in B (sorted hex strings);
                         D66(v) needs this list empty.
 `moves [...]`         : lost pairs whose address another file holds in B, as
-                        (lib, from_file, [(lib, to_file), ...], addr).
+                        (lib, from_file, [(lib, to_file), ...], addr); never a shared address (below).
+Shared pairs (D183): an address two or more files hold (each file's `shared` list, or, in a copy written before
+that list existed, any address two files of one library hold) is not placement evidence, so:
+`gained shared [...]`  : gained pairs at a shared address of B (also in `gained`);
+`lost shared holder [...]` : lost pairs at an address shared in A or B that another file still holds in B, as
+                        (lib, file, [(lib, other_file), ...], addr): one holder of a shared address less, not a
+                        move and not lost outright (still in `lost`).
 Accepted corrections (D173): docs/data/accepted-corrections.json lists pairs the user ruled false (hand-maintained,
 one entry per decision: {address, lib, file, moved_to, decision, note}). When such a pair is lost AND the same
 file gains `moved_to` in the same comparison, it is printed as `corrected (accepted: D173) [...]` and left out of
@@ -46,6 +52,21 @@ def pairs(data, key='in_tree'):
         for f, v in entry.get('files', {}).items():
             for a in v.get(key, []):
                 out.add((lib, f, a if isinstance(a, str) else str(a)))
+    return out
+
+
+def shared_addresses(data):
+    """D183: {(lib, address)} held by two or more files of a library under one symbol: the files' `shared` lists,
+    or (a copy written before they existed) every address two files of the library hold."""
+    marked = any('shared' in v for e in data.values() for v in e.get('files', {}).values())
+    out, count = set(), {}
+    for lib, entry in data.items():
+        for f, v in entry.get('files', {}).items():
+            for a in v.get('shared' if marked else 'in_tree', []):
+                k = (lib, a if isinstance(a, str) else str(a))
+                count[k] = count.get(k, 0) + 1
+                if marked or count[k] > 1:
+                    out.add(k)
     return out
 
 
@@ -102,9 +123,14 @@ def main(argv):
     holders = {}
     for lib, f, addr in allb:
         holders.setdefault(addr, set()).add((lib, f))
+    sa, sb = shared_addresses(da), shared_addresses(db)
+    print('gained shared', sorted(x for x in pairs(db) - pairs(da) if (x[0], x[2]) in sb))
     print('lost outright', sorted({x[2] for x in lost if x[2] not in holders}))
+    held = [x for x in lost if x[2] in holders]
+    print('lost shared holder (counted in lost, not a move)',
+          sorted((lib, f, sorted(holders[addr]), addr) for lib, f, addr in held if (lib, addr) in sa | sb))
     print('moves', sorted((lib, f, sorted(holders[addr]), addr)
-                          for lib, f, addr in lost if addr in holders))
+                          for lib, f, addr in held if (lib, addr) not in sa | sb))
 
 
 if __name__ == '__main__':

@@ -54,7 +54,9 @@ def gaps_for(img, starts, path):
     # object's sections in order, so the sequence is by section index, then offset.
     items = sorted([(name, sec, s, e, r) for (name, sec, s, e), r in zip(funcs, results)],
                    key=lambda x: (x[1], x[2]))
-    exact = [(i, int(it[4]['addresses'][0], 16)) for i, it in enumerate(items) if it[4]['status'] == 'exact']
+    # D183: a COMDAT another object is exact at too (`shared`) is no anchor for this object's order
+    exact = [(i, int(it[4]['addresses'][0], 16)) for i, it in enumerate(items)
+             if it[4]['status'] == 'exact' and not it[4].get('shared')]
     todo = [i for i, it in enumerate(items) if it[4]['status'] == 'none']
     if not todo:
         return rows

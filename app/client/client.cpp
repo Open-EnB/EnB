@@ -371,7 +371,7 @@ bool ClientClass::Toggle_Debug_Mode(int unused)
 	return(true);
 }
 
-// NOT EXACT: register-only (the id in eax, the flag in ecx; two forms; attempts.py show 0x728240)
+
 // 0x728240
 void ClientClass::Set_Debug_Mode(bool on)
 {
@@ -400,7 +400,8 @@ void ClientClass::Set_Debug_Mode(bool on)
 
 
 		G_ASSERT(Connection);
-		Connection->Send_Packet(&DebugPacketClass(AvatarID, 0x1E, DebugMode));
+		long id = AvatarID;
+		Connection->Send_Packet(&DebugPacketClass(id, 0x1E, DebugMode));
 	}
 }
 // 0x728300
@@ -414,7 +415,6 @@ bool ClientClass::Unknown_728300()
 int ClientClass::Unknown_728330()
 {
 	ClientObjectClass *ship = Get_Ship();
-
 
 	FAIL_IF(!ship) {return(0);}
 	return(ship->Unknown_6FFF00());

@@ -1450,3 +1450,11 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-01 16:04,0x51BFB0,DynamicWindowMultiLineTextClass::Split_Lines,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.41,1,shape,functional from the pseudocode; the per-line string and RefCountPtr temporaries and the shown counter (ebx) differ,,claude-opus-5-5
 2026-11-01 16:04,0x51B7C0,DynamicWindowMultiLineTextClass::Set_Flags,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.38,1,register,as 0x51CA80,,claude-opus-5-5
 2026-11-01 16:04,0x51B820,DynamicWindowMultiLineTextClass::Set_Alignment,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.14,1,shape,as 0x51CAE0,,claude-opus-5-5
+2026-11-01 21:37,0x44BBD0,PxBox::Set_Test,app/shared/px.cpp,app,exact,,1,,"D184 pilot variant (VA1): Set_Test_Mask(test, Mask), inlined; its Mask = Mask stores nothing, the client stores Test only",,opus
+2026-11-01 21:37,0x44BC10,PxBox::Set_Mask,app/shared/px.cpp,app,exact,,1,,"D184 pilot variant (VA1): Set_Test_Mask(Test, mask), inlined",,opus
+2026-11-01 21:37,0x597920,UIGroupClass::Unknown_597920,app/client/ui_group.cpp,app,exact,,1,,"D184 pilot variant (VA1): early return when not found, a named ClientGroupEvent local",,opus
+2026-11-01 21:37,0x596130,UIGroupClass::Add_Member,app/client/ui_group.cpp,app,exact,,1,,"exact with 0x597920's D184 variant (VA1), its own source unchanged; objmatch names it Add_Member",,opus
+2026-11-01 21:37,0x6AA340,TextBaseGadgetClass::Unknown_6AA340,app/client/textgadg.cpp,app,exact,,1,,D184 pilot variant (VA1): (password ? Hidden : Edit)->Get_String() after the stars call,,opus
+2026-11-01 21:37,0x711520,Unknown710530Class::Unknown_04,app/client/extrap.cpp,app,exact,,1,,D184 pilot variant (VA1): outer test written time >= Time,,opus
+2026-11-01 21:37,0x728240,ClientClass::Set_Debug_Mode,app/client/client.cpp,app,exact,,1,,D184 pilot variant (VA1): AvatarID read into a local after the G_ASSERT,,opus
+2026-11-01 21:37,0x7381C0,StarbaseSetPacketClass::Process_Packet,app/client/cpacket.cpp,app,exact,,1,,D184 pilot variant (VA1): one 0x74BA30 call after the inner switch (VC6 duplicates it into the cases); assert line kept with a comment,,opus

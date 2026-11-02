@@ -74,6 +74,15 @@ python matchreport.py --title WWLib --out ../../docs/data/bytematch-wwlib R=rene
 The build-VM tools (`vc6.py`, `pool.py`, `importer.py`, `build.py`, `trial*.py`, `pairs_cmp.py` and the
 rest) are indexed in [../vc6/README.md](../vc6/README.md).
 
+`variants.py` (D184, P-API-5 (b)): the Batch API variant pilot for NOT EXACT functions. `pick` (functions of
+docs/data/not-exact.md: register / shape / inline budget / scheduling, under 450 bytes, at most 5 per file), `build`
+(compiles each file on a pool VM, one request per function: source, class declaration, both disassemblies, diff,
+explain.py's class, the workflow.md 3.1 bullets; `--round 2` resends the closest variant), `submit` / `fetch`
+(key from ENB_ANTHROPIC_API_KEY, batch ids in `.work/variants/batches.json`, raw results in `raw/`, tokens and cost
+in `cost.log`), `try` (splices each variant into a copy under `.work/variants/src/`, keeping the file's line count so
+other functions' `__LINE__` asserts stay, compiles on the pool, reports target exact and the file's other exact
+pairs lost / gained). It never changes the tracked tree; apply an exact variant through the pairs_cmp loop.
+
 `tools/stl/stl_corpus.cpp`: explicit VC6 standard-library instantiations, compiled and matched
 to measure the template code in E&B's app region (docs/app-plan.md).
 
