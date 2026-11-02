@@ -1,6 +1,11 @@
 """Batch API variant pilot (D184, P-API-5 (b)): ask for alternative source forms of NOT EXACT functions, compile them.
 
     python variants.py pick [--count 50]       choose functions from docs/data/not-exact.md -> .work/variants/pick.json
+    python variants.py pick --all --run full   (D185) every entry that resolves to one client function not yet in the tree:
+                                               addresses in the comment / the function's name (Unknown_XXXXXX, _XXXXXX),
+                                               symbols.json and attempts.csv names, then (at build) the best-matching
+                                               candidate of the file; the entries that do not resolve are listed by reason
+                                               in pick-report.txt
     python variants.py build [--round 1|2]     compile the tracked files as they are, then write one request per function
                                                (source, declarations, both disassemblies, explain.py's class, workflow.md
                                                3.1 bullets) -> .work/variants/requests/rN.jsonl; prints the cost estimate
@@ -13,6 +18,22 @@
                                                (.work/variants/src/, never the tracked tree), compile with the pool (ENB_AGENT),
                                                report: target address exact?, the file's other exact pairs kept? ->
                                                .work/variants/results.json and a table
+
+Every command takes --run NAME: the files then live in .work/variants/NAME/ (pick.json, requests/, batches.json, raw/,
+results.json, cost.log, estimate.txt, try.log); without it the pilot's own .work/variants/ is used.
+
+Scaling rules (D185). Functions are not capped in size: function_extent reads to the next '}' at column 0 (2500 lines).
+Variants per request and max_tokens follow the source size, so every answer fits: n = 8 variants up to 60 lines of
+source, 5 up to 120 lines, 3 up to 250, 2 above; max_tokens = max(16000, 6000 + n * (1.15 * source tokens + 120)),
+at most 48000 (adaptive thinking is counted in max_tokens). A request whose text is over ~60k tokens
+(len / 3.0) gets the two full disassemblies dropped and the side-by-side diff cut to the first differing region plus
+40 rows of context before and 600 after; the request says so. The expected output of a request is
+min(max_tokens, 2500 + n * (0.9 * source tokens + 100)) tokens (round 1 of the pilot used 4,800 against 16,000);
+round 2 is estimated at 0.52 of round 1 (the pilot's 20 near misses of 40).
+`try --pool K` runs unattended: K worker processes, each leasing one VM (--agent from ENB_AGENT), take functions from a
+shared queue (one function's variants per compile job), write one file per function under results.d/ (so an
+interrupted run resumes by skipping what is there), log a line per function to try.log; the results.json is merged
+at the end. `try --status` prints progress without touching a VM.
 
 Nothing here changes the tracked tree: an exact variant is applied afterwards by hand, through the normal pairs_cmp loop.
 The key is never printed, logged or stored.
@@ -34,20 +55,29 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'vc6'))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(ROOT, '.work', 'variants')
-REQ = os.path.join(OUT, 'requests')
-RAW = os.path.join(OUT, 'raw')
-SRC = os.path.join(OUT, 'src')
-PICK = os.path.join(OUT, 'pick.json')
-BATCHES = os.path.join(OUT, 'batches.json')
-RESULTS = os.path.join(OUT, 'results.json')
-COSTLOG = os.path.join(OUT, 'cost.log')
-BASE = os.path.join(OUT, 'base.json')
+REQ = RAW = SRC = PICK = BATCHES = RESULTS = COSTLOG = BASE = RESD = None
+
+
+def set_run(name=None):
+    """Point every path at .work/variants/ (the pilot) or .work/variants/NAME/ (--run NAME)."""
+    global OUT, REQ, RAW, SRC, PICK, BATCHES, RESULTS, COSTLOG, BASE, RESD
+    OUT = os.path.join(ROOT, '.work', 'variants') + (os.sep + name if name else '')
+    REQ, RAW, SRC = (os.path.join(OUT, x) for x in ('requests', 'raw', 'src'))
+    PICK, BATCHES, RESULTS, COSTLOG, BASE = (os.path.join(OUT, x) for x in (
+        'pick.json', 'batches.json', 'results.json', 'cost.log', 'base.json'))
+    RESD = os.path.join(OUT, 'results.d')
+
+
+set_run(None)
 
 MODEL = 'claude-opus-5-5'
 BATCH_PRICE = (2.00, 10.00)          # $ per million tokens: input, output (half of $4 / $20)
 MAX_TOKENS = 16000
 EFFORT = 'medium'
 MAX_FUNC_BYTES = 450
+MAX_EXTENT_LINES = 2500
+TRIM_TOKENS = 60000
+MIN_SIM = 0.15
 CLASS_WORDS = ('register', 'shape', 'inline budget', 'inline-budget', 'scheduling', 'order')
 
 SCHEMA = {
@@ -79,7 +109,7 @@ exit, if/else versus a conditional chain, for versus while loops, pre/post incre
 references, inlined-versus-called STL and string helpers decided by VC6's inline budget: a function called at one site and
 inlined at another is a symptom). The client was written in plausible 2001 C++; prefer natural source over contortions.
 
-Answer with up to 8 COMPLETE alternative definitions of that one function, each a different source-level idea (not whitespace or
+Answer with up to the number (at most 8) of COMPLETE alternative definitions of that one function the request asks for, each a different source-level idea (not whitespace or
 renaming variants of one idea). Each `code` is the whole definition, from its return type (or the qualified name for
 constructors) to the closing brace, to be pasted in place of the current one: same signature, same class, no changes to headers
 or to other functions, no new includes; a file-static helper may precede the function only if the idea needs it. `idea` is one
@@ -132,8 +162,106 @@ def candidates():
     return out
 
 
+def signature_name(lines, comment_line):
+    """The qualified name of the signature on the first code line after a column-0 '//' comment, or None."""
+    i = comment_line
+    while i < len(lines) and (not lines[i].strip() or lines[i].lstrip().startswith('//')):
+        i += 1
+    if i >= len(lines) or lines[i][:1] in (' ', '	', '#', '/', '}', '*') or '(' not in lines[i]:
+        return None
+    m = re.search(r'((?:\w+::)*~?(?:operator\s*[^\s(]+|\w+))\s*\(', lines[i])
+    return m.group(1).replace(' ', '') if m else None
+
+
+def entry_class(c):
+    head = c.lower()[:90]
+    if 'functional' in head:
+        return 'functional'
+    return next((w for w in CLASS_WORDS if w in head), 'other').replace(' ', '-')
+
+
+def resolve_all(app):
+    """(picks, unresolved): every not-exact.md entry that names one client function of its file not yet in the
+    tree. A pick with address None has `cands` (a short list) and is resolved at build by the best match of the
+    compiled function (fuzzy_pick). unresolved is [(row, reason)]."""
+    import csv
+    imp = json.load(open(os.path.join(ROOT, 'docs', 'data', 'imports.json'), encoding='utf-8'))['app']['files']
+    intree = {int(a, 16) for v in imp.values() for a in v['in_tree']}
+    byname = collections.defaultdict(set)
+    for x in json.load(open(os.path.join(ROOT, 'docs', 'data', 'symbols.json'), encoding='utf-8')):
+        if x['kind'] == 'function':
+            byname[x['name']].add(int(x['address'], 16))
+    att = collections.defaultdict(set)
+    for r in csv.DictReader(open(os.path.join(ROOT, 'docs', 'data', 'attempts.csv'), encoding='utf-8')):
+        att[(r['file'].replace(chr(92), '/').lower(), r['symbol'])].add(int(r['address'], 16))
+    bs = chr(92)
+
+    def fileof(a):
+        return app.funcs[a].get('file', '').replace(bs, '/').lower()
+    picks, unresolved, seen = [], [], {}
+    for r in not_exact_rows():
+        f = r['file'].lower()
+        c = r['comment']
+        if not f.endswith('.cpp'):
+            unresolved.append((r, 'header: no compile unit of its own (the function lives in a .h/.inl)'))
+            continue
+        adds = [int(x, 16) for x in re.findall(r'0x([0-9A-Fa-f]{6})\b', c)]
+        for m in re.findall(r'(?:_|\b)([0-9A-F]{6})\b', r['func']):
+            adds.insert(0, int(m, 16))
+        adds = list(dict.fromkeys(adds + sorted(byname.get(r['func'], ())) + sorted(att.get((f, r['func']), ()))))
+        inapp = [a for a in adds if a in app.funcs]
+        ok = [a for a in inapp if a not in intree and fileof(a) in (f, '')]
+        own = [a for a in ok if fileof(a) == f]
+        cand = ok if len(ok) == 1 else own if len(own) == 1 else None
+        if cand is None and not ok:
+            win = [a for a, _ in app.window(r['file'].replace('/', bs), 3) if a not in intree]
+            if win:
+                ok = win
+            else:
+                unresolved.append((r, 'no usable address (' + ('none named' if not adds else
+                                   'named ones are in the tree, not functions or in other files') +
+                                   ') and no untracked function attributed to the file'))
+                continue
+        lines = read_lines(r['file'])
+        if not function_extent(lines, int(r['line']), r['func']):
+            fn = signature_name(lines, int(r['line']))          # the listed name is the wrong neighbour (operator=, ...)
+            if fn and r['form'] == 'marker' and function_extent(lines, int(r['line']), fn):
+                r = dict(r, func=fn)
+        if not function_extent(lines, int(r['line']), r['func']):
+            unresolved.append((r, 'no function extent found after/above the comment line'))
+            continue
+        p = {'file': r['file'], 'line': int(r['line']), 'func': r['func'], 'form': r['form'], 'class': entry_class(c),
+             'comment': c}
+        if cand:
+            a = cand[0]
+            if a in seen:
+                unresolved.append((r, f'same function (0x{a:06X}) as {seen[a]}'))
+                continue
+            seen[a] = f'{r["file"]}:{r["line"]}'
+            p.update(address=f'0x{a:06X}', size=app.size(a), via='address')
+        else:
+            p.update(address=None, size=None, cands=[f'0x{a:06X}' for a in ok][:40], via='fuzzy')
+        picks.append(p)
+    return picks, unresolved
+
+
 def cmd_pick(a):
     os.makedirs(OUT, exist_ok=True)
+    if a.all:
+        import appfile
+        picks, unresolved = resolve_all(appfile.App())
+        json.dump(picks, open(PICK, 'w', encoding='utf-8', newline='\n'), indent=1)
+        why = collections.Counter(w.split(' (')[0].split(':')[0] for _, w in unresolved)
+        lines = [f'{len(picks)} of {len(picks) + len(unresolved)} entries resolve '
+                 f'({sum(p["address"] is not None for p in picks)} to one address, '
+                 f'{sum(p["address"] is None for p in picks)} to a candidate list settled at build); '
+                 f'{len(unresolved)} do not:']
+        lines += [f'  {n:3d} {w}' for w, n in why.most_common()]
+        lines += ['', 'unresolved entries:'] + [f'  {r["file"]}:{r["line"]} {r["func"]}: {w}' for r, w in unresolved]
+        open(os.path.join(OUT, 'pick-report.txt'), 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
+        print('\n'.join(lines[:12]))
+        print(f'-> {PICK}, {os.path.join(OUT, "pick-report.txt")}')
+        return
     cands = candidates()
     byfile = collections.OrderedDict()
     for c in sorted(cands, key=lambda c: (c['file'], c['size'])):
@@ -158,18 +286,27 @@ def read_lines(rel):
 
 def function_extent(lines, comment_line, func):
     """(start, end) 0-based inclusive line indexes of the definition after the NOT EXACT comment at
-    1-based `comment_line`: the first line that is no comment and no blank, to the next '}' at column 0."""
+    1-based `comment_line`: the first line that is no comment and no blank, to the next '}' at column 0.
+    A 'mention' inside a longer comment may sit below the signature: then the signature is looked for
+    above the line (column 0, name followed by '(')."""
+    short = func.split('::')[-1].replace(' ', '')
     i = comment_line                              # first line after the comment line
     while i < len(lines) and (not lines[i].strip() or lines[i].lstrip().startswith('//')):
         i += 1
     start = i
-    short = func.split('::')[-1].replace(' ', '')
     if short and short != '?' and short not in ''.join(lines[start:start + 6]).replace(' ', ''):
-        return None
+        start = None
+        for k in range(min(comment_line, len(lines)) - 1, max(-1, comment_line - 400), -1):
+            l = lines[k]
+            if l[:1] not in ('', ' ', '	', '/', '}', '#') and short in l.replace(' ', '') and '(' in l:
+                start = k
+                break
+        if start is None:
+            return None
     j = start
     while j < len(lines) and not lines[j].startswith('}'):
         j += 1
-        if j - start > 400:
+        if j - start > MAX_EXTENT_LINES:
             return None
     return (start, j) if j < len(lines) else None
 
@@ -262,15 +399,26 @@ def short_name(name):
     return name.replace(' ', '').split('(')[0]
 
 
+_OBJINFO = {}
+
+
+def obj_info(img, objpath):
+    """CoffObject, its functions and the match rows of one compiled object, read once."""
+    from objmatch import CoffObject, match_objects
+    if objpath not in _OBJINFO:
+        obj = CoffObject(objpath)
+        funcs = {name: (sec, s, e) for name, sec, s, e in obj.functions()}
+        rows = match_objects(img, [objpath])
+        exact = sorted({int(r['addresses'][0], 16) for r in rows if r['status'] == 'exact'})
+        _OBJINFO[objpath] = (obj, funcs, rows, exact)
+    return _OBJINFO[objpath]
+
+
 def analyse(img, objpath, func, addr, size):
     """{exact, similarity, symbol, exact_addrs, rows} for the compiled function that `func` names, the best
     match to the client at addr; exact_addrs are the addresses the whole object matches exactly (status exact)."""
     import objdiff
-    from objmatch import CoffObject, match_objects
-    obj = CoffObject(objpath)
-    funcs = {name: (sec, s, e) for name, sec, s, e in obj.functions()}
-    rows = match_objects(img, [objpath])
-    exact_addrs = sorted({int(r['addresses'][0], 16) for r in rows if r['status'] == 'exact'})
+    obj, funcs, rows, exact_addrs = obj_info(img, objpath)
     want = func.replace(' ', '')
     short = want.split('::')[-1]
     best = None
@@ -291,6 +439,29 @@ def analyse(img, objpath, func, addr, size):
         if best is None or (ok, cand['similarity']) > (best['exact'], best['similarity']):
             best = cand
     return best, exact_addrs
+
+
+def fuzzy_pick(img, app, objpath, p):
+    """Settle a pick that has only candidate addresses: the candidate whose bytes our compiled function
+    resembles most (similarity at least 0.45 and 0.05 ahead of the next). (address, best, reason)."""
+    scored = []
+    for h in p['cands']:
+        a = int(h, 16)
+        try:
+            best, _ = analyse(img, objpath, p['func'], a, app.size(a))
+        except Exception:
+            continue
+        if best:
+            scored.append((best['similarity'], a, best))
+    scored.sort(key=lambda x: -x[0])
+    if not scored:
+        return None, None, 'the function is not in the compiled object (or no candidate matches its name)'
+    if scored[0][0] < 0.45:
+        return None, None, f'best candidate 0x{scored[0][1]:06X} resembles it only {scored[0][0]}'
+    if len(scored) > 1 and scored[0][0] - scored[1][0] < 0.05:
+        return None, None, (f'0x{scored[0][1]:06X} ({scored[0][0]}) and 0x{scored[1][1]:06X} ({scored[1][0]}) '
+                            'are too close to tell apart')
+    return scored[0][1], scored[0][2], None
 
 
 def diff_table(best):
@@ -340,7 +511,7 @@ def key(rel):
 
 def lease():
     import appfile
-    os.environ.setdefault('ENB_AGENT', 'VP1')
+    os.environ.setdefault('ENB_AGENT', 'variants')
     for k in range(40):                      # the host may have no memory for a clone while other builders hold VMs
         try:
             return appfile.lease_vm()
@@ -355,26 +526,22 @@ def release(names):
     appfile.release_vm(names)
 
 
-def baseline(picks):
-    """Compile each picked file as it is in the tree (a copy under src/base/); {file: obj}, the exact addresses."""
-    import shutil
-    os.makedirs(os.path.join(SRC, 'base'), exist_ok=True)
-    out = {}
-    names = lease()
-    try:
-        for f in sorted({p['file'] for p in picks}):
-            d = os.path.join(SRC, 'base', key(f))
-            os.makedirs(d, exist_ok=True)
-            draft = os.path.join(d, os.path.basename(f))
-            shutil.copyfile(os.path.join(ROOT, f), draft)
-            res, log = compile_drafts([draft], os.path.join(d, 'obj'))
-            out[f] = res[draft]
-            print(f'  baseline {f}: {"ok" if res[draft] else "COMPILE FAILED"}', flush=True)
-            if not res[draft]:
-                print('\n'.join([l for l in log.splitlines() if ' error ' in l][:5]))
-    finally:
-        release(names)
-    return out
+def plan(src):
+    """(variants asked, max_tokens, expected output tokens) from the function's source size (docstring)."""
+    n_lines = src.count('\n') + 1
+    n = 8 if n_lines <= 60 else 5 if n_lines <= 120 else 3 if n_lines <= 250 else 2
+    st = len(src) / 3.2
+    maxtok = int(min(48000, max(MAX_TOKENS, 8000 + n * (1.15 * st + 120))))
+    exp = int(min(maxtok, 2500 + n * (0.9 * st + 100)))
+    return n, maxtok, exp
+
+
+def trim_diff(table, ctx_before=40, after=600):
+    rows = table.split('\n')
+    first = next((i for i, l in enumerate(rows) if l.startswith('*')), 0)
+    lo, hi = max(0, first - ctx_before), min(len(rows), first + after)
+    note = f'(rows {lo + 1}-{hi} of {len(rows)}; the first differing row is {first + 1})'
+    return '\n'.join(rows[lo:hi]), note
 
 
 def user_text(p, base_info, img, names, round2=None):
@@ -383,6 +550,7 @@ def user_text(p, base_info, img, names, round2=None):
     if not ext:
         return None
     src = '\n'.join(lines[ext[0]:ext[1] + 1])
+    nvar, maxtok, exp = plan(src)
     cls = p['func'].split('::')[0] if '::' in p['func'] else None
     decl = class_declaration(cls, p['file']) if cls else None
     addr = int(p['address'], 16)
@@ -392,22 +560,77 @@ def user_text(p, base_info, img, names, round2=None):
     if decl:
         parts.append(f"Class declaration (from {decl[0]}):\n```cpp\n{decl[1]}\n```")
     parts.append(f"Current source (differs from the client; the maintainer's note: {p['comment']}):\n```cpp\n{src}\n```")
-    parts.append(f"The client's disassembly (names resolved):\n```\n{client_dis(img, names, addr, p['size'])}\n```")
-    parts.append(f"Our compiled code (offsets within the function; calls and data are relocations):\n```\n{our_dis(best)}\n```")
-    parts.append(f"Diff, ours | client (* marks differing rows; targets and relocations are masked as REL):\n```\n"
-                 f"{diff_table(best)}\n```")
-    parts.append(f"explain.py's classification:\n```\n{base_info['explain']}\n```")
-    bl = workflow_bullets(p['class'], p['comment'])
-    if bl:
-        parts.append("Known VC6 code generation traps from the project's notes (workflow.md 3.1; use those that apply):\n\n"
-                     + '\n\n'.join(bl))
+    cdis = client_dis(img, names, addr, p['size'])
+    odis = our_dis(best)
+    dtab = diff_table(best)
+    tail = []
     if round2:
-        parts.append(f"ROUND 2. Round 1 tried several variants; the closest was this one (similarity {round2['similarity']}, "
-                     f"idea: {round2['idea']}):\n```cpp\n{round2['code']}\n```\nIts diff against the client "
-                     f"(ours | client):\n```\n{round2['diff']}\n```\nPropose up to 8 new variants that start from it and "
-                     "close the remaining difference.")
-    parts.append("Give up to 8 complete alternative definitions of this one function, each a different source-level idea.")
-    return '\n\n'.join(parts), src
+        tail.append(f"ROUND 2. Round 1 tried several variants; the closest was this one (similarity {round2['similarity']}, "
+                    f"idea: {round2['idea']}):\n```cpp\n{round2['code']}\n```\nIts diff against the client "
+                    f"(ours | client):\n```\n{round2['diff']}\n```\nPropose up to {nvar} new variants that start from it and "
+                    "close the remaining difference.")
+    tail.append(f"Give up to {nvar} complete alternative definitions of this one function, each a different source-level idea.")
+    bl = workflow_bullets(p['class'], p['comment'])
+    expl = f"explain.py's classification:\n```\n{base_info['explain']}\n```"
+    traps = ("Known VC6 code generation traps from the project's notes (workflow.md 3.1; use those that apply):\n\n"
+             + '\n\n'.join(bl)) if bl else None
+    full = '\n\n'.join(parts + [f"The client's disassembly (names resolved):\n```\n{cdis}\n```",
+                                f"Our compiled code (offsets within the function; calls and data are relocations):\n```\n{odis}\n```",
+                                f"Diff, ours | client (* marks differing rows; targets and relocations are masked as REL):\n```\n{dtab}\n```",
+                                expl] + ([traps] if traps else []) + tail)
+    trimmed = False
+    if len(full) / 3.0 > TRIM_TOKENS:
+        trimmed = True
+        t, note = trim_diff(dtab)
+        parts.append(f"Disassembly TRIMMED because the function is long ({p['size']} bytes): the two full listings are left "
+                     f"out; below is the side-by-side diff (ours | client, * marks differing rows; targets and relocations "
+                     f"are masked as REL) cut to the first differing region plus context {note}:\n```\n{t}\n```")
+        parts += [expl] + ([traps] if traps else []) + tail
+        full = '\n\n'.join(parts)
+    else:
+        full = full
+    return full, src, {'n': nvar, 'max_tokens': maxtok, 'exp_out': exp, 'trimmed': trimmed,
+                       'src_lines': src.count('\n') + 1}
+
+
+def baseline_files(files):
+    """Compile each file as it is in the tree (a copy under src/base/<key>/) on the VM this process leases."""
+    import shutil
+    names = lease()
+    try:
+        for f in files:
+            d = os.path.join(SRC, 'base', key(f))
+            os.makedirs(d, exist_ok=True)
+            draft = os.path.join(d, os.path.basename(f))
+            shutil.copyfile(os.path.join(ROOT, f), draft)
+            res, log = compile_drafts([draft], os.path.join(d, 'obj'))
+            print(f'  baseline {f}: {"ok" if res[draft] else "COMPILE FAILED"}', flush=True)
+            if not res[draft]:
+                print('\n'.join([l for l in log.splitlines() if ' error ' in l][:5]), flush=True)
+    finally:
+        release(names)
+
+
+def baseline_obj(f):
+    d = os.path.join(SRC, 'base', key(f), 'obj')
+    o = os.path.join(d, os.path.splitext(os.path.basename(f))[0] + '.obj')
+    return o if os.path.exists(o) else None
+
+
+def baseline(picks, workers=2, redo=False):
+    """Compile every picked file as it is in the tree, on `workers` processes with one VM each; {file: obj}."""
+    import subprocess
+    files = sorted({p['file'] for p in picks})
+    todo = [f for f in files if redo or not baseline_obj(f)]
+    k = max(1, min(workers, len(todo)))
+    procs = []
+    for i in range(k):
+        mine = todo[i::k]
+        if mine:
+            procs.append(subprocess.Popen([sys.executable, os.path.abspath(__file__), '_baseline'] + RUNARG + mine))
+    for pr in procs:
+        pr.wait()
+    return {f: baseline_obj(f) for f in files}
 
 
 def cmd_build(a):
@@ -423,21 +646,35 @@ def cmd_build(a):
         picks = [p for p in picks if p['address'] in prev
                  and not any(v.get('exact') for v in prev[p['address']]['variants'])
                  and max((v.get('similarity') or 0 for v in prev[p['address']]['variants']), default=0) >= 0.6]
-    objs = baseline(picks)
-    base = {}
-    rows = []
+    objs = baseline(picks, a.workers)
+    base, rows, skipped, resolved = {}, [], [], []
     for p in picks:
+        tag = f'{p["file"]}:{p["line"]} {p["func"]}'
         objp = objs.get(p['file'])
         if not objp:
-            print(f'  skip {p["address"]}: no baseline object')
+            skipped.append(f'{tag}: no baseline object (the file does not compile as it is)')
             continue
+        if p.get('address') is None:
+            addr, best, why = fuzzy_pick(img, app, objp, p)
+            if why:
+                skipped.append(f'{tag}: {why}')
+                continue
+            p['address'], p['size'] = f'0x{addr:06X}', app.size(addr)
+            if any(q.get('address') == p['address'] for q in resolved):
+                skipped.append(f'{tag}: same function ({p["address"]}) as an earlier entry')
+                p['address'] = None
+                continue
         addr = int(p['address'], 16)
+        resolved.append(p)
         best, exact_addrs = analyse(img, objp, p['func'], addr, p['size'])
         if not best:
-            print(f'  skip {p["address"]} {p["func"]}: not found in the object')
+            skipped.append(f'{tag}: {p["address"]} not found in the compiled object')
             continue
         if best['exact']:
-            print(f'  skip {p["address"]} {p["func"]}: already exact in the baseline')
+            skipped.append(f'{tag}: {p["address"]} already exact in the baseline')
+            continue
+        if p.get('via') == 'address' and best['similarity'] < MIN_SIM and a.round == 1:
+            skipped.append(f'{tag}: {p["address"]} resembles the compiled function only {best["similarity"]}')
             continue
         info = {'best': best, 'explain': explain_text(objp, best['symbol'], p['address']),
                 'obj': objp, 'exact_addrs': exact_addrs, 'similarity': best['similarity']}
@@ -448,25 +685,28 @@ def cmd_build(a):
             r2 = {'similarity': top['similarity'], 'idea': top['idea'], 'code': top['code'], 'diff': top.get('diff', '')}
         t = user_text(p, info, img, names, r2)
         if not t:
-            print(f'  skip {p["address"]} {p["func"]}: function extent not found')
+            skipped.append(f'{tag}: function extent not found')
             continue
-        text, src = t
+        text, src, meta = t
         base[p['address']] = {'obj': objp, 'exact_addrs': exact_addrs, 'similarity': best['similarity'],
                               'symbol': best['symbol']}
         rows.append({'custom_id': 'fn-' + p['address'][2:], 'user': text,
-                     'hash': hashlib.sha256((SYSTEM + text).encode()).hexdigest()[:16], 'pick': p})
+                     'hash': hashlib.sha256((SYSTEM + text).encode()).hexdigest()[:16], 'pick': p, **meta})
+    if a.round == 1:
+        json.dump([p for p in picks if p.get('address')], open(PICK, 'w', encoding='utf-8', newline='\n'), indent=1)
     json.dump(base, open(BASE if a.round == 1 else BASE.replace('.json', '2.json'), 'w'), indent=1)
-    with open(os.path.join(REQ, rnd + '.jsonl'), 'w', encoding='utf-8', newline='\n') as f:
-        for r in rows:
-            f.write(json.dumps(r) + '\n')
-    print(f'{len(rows)} requests -> {REQ}/{rnd}.jsonl')
-    estimate(rows, a.count_all)
+    with open(os.path.join(OUT, f'build-skipped-{rnd}.txt'), 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(skipped) + '\n')
+    for s in skipped[:15]:
+        print('  skip', s)
+    print(f'{len(skipped)} skipped (build-skipped-{rnd}.txt); {len(rows)} requests -> {REQ}/{rnd}.jsonl')
+    estimate(rows, a.count_all, a.round, os.path.join(REQ, rnd + '.jsonl'))
 
 
-def params(user):
+def params(user, max_tokens=None):
     return {
         'model': MODEL,
-        'max_tokens': MAX_TOKENS,
+        'max_tokens': max_tokens or MAX_TOKENS,
         'system': SYSTEM,
         'thinking': {'type': 'adaptive'},
         'messages': [{'role': 'user', 'content': user}],
@@ -474,24 +714,74 @@ def params(user):
     }
 
 
-def estimate(rows, all_rows=False):
-    """Count input tokens (count_tokens, free) for a sample; the output is bounded by max_tokens."""
+BANDS = ((60, 'up to 60 lines (8 variants)'), (120, '61-120 lines (5)'), (250, '121-250 lines (3)'),
+         (10 ** 9, 'over 250 lines (2)'))
+
+
+def estimate(rows, all_rows=False, rnd=1, path=None):
+    """Count input tokens (count_tokens, free), every request or a sample; the Batch-price total by size band,
+    written to estimate.txt; the rows are written back with their counts."""
+    from concurrent.futures import ThreadPoolExecutor
     c = client()
+    cache_path = os.path.join(OUT, 'tokens.json')
+    cache = json.load(open(cache_path)) if os.path.exists(cache_path) else {}
     sample = rows if all_rows else rows[:3] + rows[len(rows) // 2:len(rows) // 2 + 1] + rows[-1:]
-    toks = []
-    for r in sample:
+
+    def count(r):
+        if r['hash'] in cache:
+            return r['hash'], cache[r['hash']]
         p = params(r['user'])
-        n = c.messages.count_tokens(model=MODEL, system=p['system'], messages=p['messages'],
-                                    thinking=p['thinking']).input_tokens
-        toks.append(n)
-    avg = sum(toks) / len(toks)
-    n = len(rows)
-    inp = avg * n * BATCH_PRICE[0] / 1e6
-    worst = n * MAX_TOKENS * BATCH_PRICE[1] / 1e6
-    typ = n * 12000 * BATCH_PRICE[1] / 1e6
-    print(f'input tokens: {toks} -> average {avg:.0f}; {n} requests: input ${inp:.2f}; output at 12k tokens each '
-          f'${typ:.2f}; worst case (every request hits max_tokens {MAX_TOKENS}) ${worst:.2f}; '
-          f'expected total ${inp + typ:.2f}, ceiling ${inp + worst:.2f}')
+        for k in range(4):
+            try:
+                n = c.messages.count_tokens(model=MODEL, system=p['system'], messages=p['messages'],
+                                            thinking=p['thinking']).input_tokens
+                return r['hash'], n
+            except Exception as e:
+                if k == 3:
+                    print('  count failed', r['custom_id'], type(e).__name__, flush=True)
+                    return r['hash'], None
+                time.sleep(5 * (k + 1))
+    with ThreadPoolExecutor(6) as ex:
+        for h, n in ex.map(count, sample):
+            if n is not None:
+                cache[h] = n
+    json.dump(cache, open(cache_path, 'w'))
+    counted = [r for r in rows if r['hash'] in cache]
+    avg = sum(cache[r['hash']] for r in counted) / max(1, len(counted))
+    for r in rows:
+        r['in_tokens'] = cache.get(r['hash'], round(avg))
+        r['est'] = (r['in_tokens'] * BATCH_PRICE[0] + r.get('exp_out', 12000) * BATCH_PRICE[1]) / 1e6
+        r['ceil'] = (r['in_tokens'] * BATCH_PRICE[0] + r.get('max_tokens', MAX_TOKENS) * BATCH_PRICE[1]) / 1e6
+    if path:
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
+            for r in rows:
+                f.write(json.dumps(r) + '\n')
+    out = [f'Round {rnd}: {len(rows)} requests on {MODEL}, Batch prices ${BATCH_PRICE[0]}/${BATCH_PRICE[1]} per million tokens '
+           f'(input counted for {len(counted)} of {len(rows)}; the rest at the average {avg:.0f}).',
+           f'{"band":30s} {"n":>4s} {"input tok":>11s} {"output est":>11s} {"max_tokens":>11s} {"$ expected":>10s} {"$ ceiling":>9s}']
+    lo, tot = 0, collections.Counter()
+    for hi, name in BANDS:
+        b = [r for r in rows if lo < r.get('src_lines', 0) <= hi]
+        lo = hi
+        if not b:
+            continue
+        v = (len(b), sum(r['in_tokens'] for r in b), sum(r.get('exp_out', 12000) for r in b),
+             sum(r.get('max_tokens', MAX_TOKENS) for r in b), sum(r['est'] for r in b), sum(r['ceil'] for r in b))
+        tot.update(dict(zip('n i o m e c'.split(), v)))
+        out.append(f'{name:30s} {v[0]:4d} {v[1]:11d} {v[2]:11d} {v[3]:11d} {v[4]:10.2f} {v[5]:9.2f}')
+    out.append(f'{"total":30s} {tot["n"]:4d} {tot["i"]:11d} {tot["o"]:11d} {tot["m"]:11d} {tot["e"]:10.2f} {tot["c"]:9.2f}')
+    nt = sum(bool(r.get('trimmed')) for r in rows)
+    out.append(f'{nt} requests have their disassemblies trimmed (over {TRIM_TOKENS} tokens).')
+    if rnd == 1:
+        r2 = 0.52 * tot['e']
+        out += [f'Round 2 (the pilot: 20 of 40 near misses; a round-2 request costs about the same as round 1): '
+                f'about ${r2:.2f} expected (0.52 x round 1).',
+                f'Round 1 + round 2: about ${tot["e"] + r2:.2f} expected; round 1 at the ceiling (every request hits max_tokens): '
+                f'${tot["c"]:.2f}.']
+    text = '\n'.join(out)
+    print(text)
+    open(os.path.join(OUT, 'estimate.txt' if rnd == 1 else f'estimate-r{rnd}.txt'), 'w', encoding='utf-8',
+         newline='\n').write(text + '\n')
 
 
 # ---------------------------------------------------------------- batches
@@ -523,7 +813,23 @@ def cmd_submit(a):
     from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
     from anthropic.types.messages.batch_create_params import Request
     rows = [json.loads(l) for l in open(os.path.join(REQ, f'r{a.round}.jsonl'), encoding='utf-8')]
-    reqs = [Request(custom_id=r['custom_id'], params=MessageCreateParamsNonStreaming(**params(r['user']))) for r in rows]
+    if a.budget is not None:
+        left = []
+        rows.sort(key=lambda r: r['est'])            # the cheapest first; the long functional rewrites fall off last-in
+        kept, tot = [], 0.0
+        for r in rows:
+            if tot + r['est'] <= a.budget:
+                kept.append(r)
+                tot += r['est']
+            else:
+                left.append(r)
+        print(f'budget ${a.budget}: {len(kept)} of {len(rows)} requests, expected ${tot:.2f}; {len(left)} left out')
+        if left:
+            open(os.path.join(OUT, f'left-out-r{a.round}.txt'), 'w', encoding='utf-8', newline='\n').write(
+                '\n'.join(f'{r["custom_id"]} {r["pick"]["file"]} {r["pick"]["func"]} est ${r["est"]:.2f}' for r in left) + '\n')
+        rows = kept
+    reqs = [Request(custom_id=r['custom_id'], params=MessageCreateParamsNonStreaming(
+        **params(r['user'], r.get('max_tokens')))) for r in rows]
     print(f'round {a.round}: {len(reqs)} requests on {MODEL}')
     if a.dry:
         return
@@ -605,66 +911,160 @@ def splice(rel, line, func, code):
     return '\n'.join(lines[:ext[0]] + new + lines[ext[1] + 1:])
 
 
-def cmd_try(a):
+def done_path(rnd, addr):
+    return os.path.join(RESD, f'r{rnd}_{addr[2:]}.json')
+
+
+def claim(rnd, addr):
+    """Take a job for this process: an exclusive create of a marker; False if another worker has it."""
+    try:
+        fd = os.open(done_path(rnd, addr) + '.claim', os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+        return True
+    except FileExistsError:
+        return False
+
+
+def try_one(img, addr, p, b, variants, rnd, tag):
+    """Compile one function's variants (one compile job) and analyse each; the function's result entry."""
+    size = p['size']
+    d = os.path.join(SRC, f'r{rnd}', key(p['file']) + '_' + addr[2:])
+    os.makedirs(d, exist_ok=True)
+    stem = os.path.splitext(os.path.basename(p['file']))[0]
+    drafts = {}
+    for k, v in enumerate(variants):
+        path = os.path.join(d, f'{stem}_v{k}.cpp')
+        try:
+            text = splice(p['file'], p['line'], p['func'], v['code'])
+        except TypeError:
+            continue
+        with open(path, 'w', encoding='latin1', newline='\n') as f:
+            f.write(text)
+        drafts[k] = path
+    if not drafts:
+        return None
+    objs, log = compile_drafts(list(drafts.values()), os.path.join(d, 'obj'))
+    rows = []
+    for k, v in enumerate(variants):
+        row = {'idea': v['idea'], 'code': v['code'], 'compiled': False, 'exact': False}
+        if k in drafts and objs.get(drafts[k]):
+            row['compiled'] = True
+            best, ex = analyse(img, objs[drafts[k]], p['func'], int(addr, 16), size)
+            if best:
+                row.update(exact=best['exact'], similarity=best['similarity'], length=best['length'],
+                           diff=diff_table(best))
+                gone = sorted(set(b['exact_addrs']) - set(ex))
+                new = sorted(set(ex) - set(b['exact_addrs']) - {int(addr, 16)})
+                row.update(lost=[f'0x{x:06X}' for x in gone], gained=[f'0x{x:06X}' for x in new])
+        elif k in drafts:
+            row['errors'] = [l for l in log.splitlines()
+                             if os.path.basename(drafts[k]) in l and ' error ' in l][:3]
+        rows.append(row)
+    for f in os.listdir(os.path.join(d, 'obj')):          # the objects are scratch; keep the disk small
+        if f.lower().endswith('.obj'):
+            os.remove(os.path.join(d, 'obj', f))
+    return {'file': p['file'], 'func': p['func'], 'class': p['class'], 'baseline': b['similarity'], 'round': rnd,
+            'variants': rows}
+
+
+def run_worker(a, wid):
     import appfile
-    from objmatch import CoffObject  # noqa: F401
-    os.makedirs(SRC, exist_ok=True)
+    os.makedirs(RESD, exist_ok=True)
     picks = {p['address']: p for p in json.load(open(PICK, encoding='utf-8'))}
     base = json.load(open(BASE, encoding='utf-8'))
     if a.round == 2 and os.path.exists(BASE.replace('.json', '2.json')):
         base.update(json.load(open(BASE.replace('.json', '2.json'), encoding='utf-8')))
     ans = answers(a.round)
-    results = json.load(open(RESULTS, encoding='utf-8')) if os.path.exists(RESULTS) else {}
+    only = {x.lower() for x in a.only} if a.only else None
+    jobs = [cid for cid in sorted(ans) if not only or ('0x' + cid[3:]).lower() in only]
     img = appfile.App().img
     names = lease()
+    errors = 0
     try:
-        for cid, variants in sorted(ans.items()):
+        for cid in jobs:
             addr = '0x' + cid[3:]
-            if a.only and addr.lower() != a.only.lower():
+            if os.path.exists(done_path(a.round, addr)) or not ans[cid] or not claim(a.round, addr):
                 continue
-            p, b = picks[addr], base[addr]
-            size = p['size']
-            d = os.path.join(SRC, f'r{a.round}', key(p['file']) + '_' + addr[2:])
-            os.makedirs(d, exist_ok=True)
-            stem = os.path.splitext(os.path.basename(p['file']))[0]
-            drafts = {}
-            for k, v in enumerate(variants):
-                path = os.path.join(d, f'{stem}_v{k}.cpp')
-                try:
-                    text = splice(p['file'], p['line'], p['func'], v['code'])
-                except TypeError:
-                    continue
-                with open(path, 'w', encoding='latin1', newline='\n') as f:
-                    f.write(text)
-                drafts[k] = path
-            if not drafts:
+            t0 = time.time()
+            try:
+                res = try_one(img, addr, picks[addr], base[addr], ans[cid], a.round, cid)
+                errors = 0
+            except Exception as e:                          # a VM hiccup: log, free the job, take a fresh VM after 3
+                print(f'{time.strftime("%H:%M:%S")} w{wid} {addr} FAILED {type(e).__name__}: {str(e)[:200]}', flush=True)
+                os.remove(done_path(a.round, addr) + '.claim')
+                errors += 1
+                if errors >= 3:
+                    release(names)
+                    names = lease()
+                    errors = 0
                 continue
-            objs, log = compile_drafts(list(drafts.values()), os.path.join(d, 'obj'))
-            rows = []
-            for k, v in enumerate(variants):
-                row = {'idea': v['idea'], 'code': v['code'], 'compiled': False, 'exact': False}
-                if k in drafts and objs.get(drafts[k]):
-                    row['compiled'] = True
-                    best, ex = analyse(img, objs[drafts[k]], p['func'], int(addr, 16), size)
-                    if best:
-                        row.update(exact=best['exact'], similarity=best['similarity'], length=best['length'],
-                                   diff=diff_table(best))
-                        gone = sorted(set(b['exact_addrs']) - set(ex))
-                        new = sorted(set(ex) - set(b['exact_addrs']) - {int(addr, 16)})
-                        row.update(lost=[f'0x{x:06X}' for x in gone], gained=[f'0x{x:06X}' for x in new])
-                elif k in drafts:
-                    row['errors'] = [l for l in log.splitlines()
-                                     if os.path.basename(drafts[k]) in l and ' error ' in l][:3]
-                rows.append(row)
-            old = results.get(addr, {}).get('variants', []) if a.round > 1 else []
-            results[addr] = {'file': p['file'], 'func': p['func'], 'class': p['class'], 'baseline': b['similarity'],
-                             'round': a.round, 'variants': old + rows}
-            json.dump(results, open(RESULTS, 'w', encoding='utf-8', newline='\n'), indent=1)
-            nex = sum(r['exact'] for r in rows)
-            print(f'  {addr} {p["func"]}: {len(rows)} variants, {sum(r["compiled"] for r in rows)} compiled, '
-                  f'{nex} exact', flush=True)
+            if res is None:
+                res = {'file': picks[addr]['file'], 'func': picks[addr]['func'], 'class': picks[addr]['class'],
+                       'baseline': base[addr]['similarity'], 'round': a.round, 'variants': []}
+            tmp = done_path(a.round, addr) + '.tmp'
+            json.dump(res, open(tmp, 'w', encoding='utf-8', newline='\n'), indent=1)
+            os.replace(tmp, done_path(a.round, addr))
+            os.remove(done_path(a.round, addr) + '.claim')
+            vs = res['variants']
+            ndone = sum(1 for f in os.listdir(RESD) if f.startswith(f'r{a.round}_') and f.endswith('.json'))
+            print(f'{time.strftime("%H:%M:%S")} w{wid} {ndone}/{len(jobs)} {addr} {picks[addr]["func"]}: {len(vs)} variants, '
+                  f'{sum(v["compiled"] for v in vs)} compiled, {sum(bool(v["exact"]) for v in vs)} exact, '
+                  f'{time.time() - t0:.0f} s', flush=True)
     finally:
         release(names)
+
+
+def merge_results(rnd):
+    """results.d/rN_*.json into results.json (round 2 appends to round 1's variants; a round merges once)."""
+    results = json.load(open(RESULTS, encoding='utf-8')) if os.path.exists(RESULTS) else {}
+    for f in sorted(os.listdir(RESD)) if os.path.isdir(RESD) else []:
+        if not (f.startswith(f'r{rnd}_') and f.endswith('.json')):
+            continue
+        addr = '0x' + f[len(f'r{rnd}_'):-5]
+        e = json.load(open(os.path.join(RESD, f), encoding='utf-8'))
+        cur = results.get(addr)
+        if cur and rnd in cur.get('merged_rounds', []):
+            continue
+        if rnd > 1 and cur:
+            e['variants'] = cur['variants'] + e['variants']
+        e['merged_rounds'] = (cur.get('merged_rounds', []) if cur else []) + [rnd]
+        results[addr] = e
+    tmp = RESULTS + '.tmp'
+    json.dump(results, open(tmp, 'w', encoding='utf-8', newline='\n'), indent=1)
+    os.replace(tmp, RESULTS)
+    return results
+
+
+def cmd_try(a):
+    import subprocess
+    os.makedirs(RESD, exist_ok=True)
+    if a.worker is not None:
+        return run_worker(a, a.worker)
+    ans = answers(a.round)
+    total = len([c for c in ans if ans[c]])
+    done = sum(1 for f in os.listdir(RESD) if f.startswith(f'r{a.round}_') and f.endswith('.json'))
+    if a.status:
+        print(f'round {a.round}: {done} of {total} functions tried (results.d), '
+              f'{len([f for f in os.listdir(RESD) if f.endswith(".claim")])} in progress')
+        return
+    for f in os.listdir(RESD):                                 # claims of an interrupted run
+        if f.endswith('.claim') or f.endswith('.tmp'):
+            os.remove(os.path.join(RESD, f))
+    os.environ['ENB_HOLDER_PID'] = str(os.getpid())            # the lease lives as long as this process
+    k = max(1, a.pool or 1)
+    print(f'{time.strftime("%H:%M:%S")} try round {a.round}: {total - done} of {total} functions to do on {k} VM(s)', flush=True)
+    t0 = time.time()
+    extra = ['--round', str(a.round)] + (['--only'] + a.only if a.only else [])
+    procs = [subprocess.Popen([sys.executable, os.path.abspath(__file__), 'try'] + RUNARG + extra + ['--worker', str(i)])
+             for i in range(k)]
+    for pr in procs:
+        pr.wait()
+    results = merge_results(a.round)
+    done2 = sum(1 for f in os.listdir(RESD) if f.startswith(f'r{a.round}_') and f.endswith('.json'))
+    nvar = sum(len(r['variants']) for r in results.values())
+    print(f'{time.strftime("%H:%M:%S")} try finished: {done2} of {total} functions in {time.time() - t0:.0f} s on {k} VM(s)',
+          flush=True)
     table(results)
 
 
@@ -685,23 +1085,42 @@ def table(results):
 
 
 def main():
+    global RUNARG
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--run', help='a named run directory .work/variants/NAME (default: the pilot\'s .work/variants)')
     sub = ap.add_subparsers(dest='cmd', required=True)
-    p = sub.add_parser('pick')
+    runp = argparse.ArgumentParser(add_help=False)
+    runp.add_argument('--run', default=argparse.SUPPRESS)
+    p = sub.add_parser('pick', parents=[runp])
     p.add_argument('--count', type=int, default=50)
-    p = sub.add_parser('build')
+    p.add_argument('--all', action='store_true', help='every resolvable not-exact.md entry (D185)')
+    p = sub.add_parser('build', parents=[runp])
     p.add_argument('--round', type=int, default=1)
     p.add_argument('--count-all', action='store_true')
-    p = sub.add_parser('submit')
+    p.add_argument('--workers', type=int, default=2, help='VMs for the baseline compiles')
+    p = sub.add_parser('submit', parents=[runp])
     p.add_argument('--round', type=int, default=1)
     p.add_argument('--dry', action='store_true')
-    sub.add_parser('fetch')
-    p = sub.add_parser('try')
+    p.add_argument('--budget', type=float, help='$ cap on the expected cost: the cheapest requests that fit')
+    sub.add_parser('fetch', parents=[runp])
+    p = sub.add_parser('try', parents=[runp])
     p.add_argument('--round', type=int, default=1)
-    p.add_argument('--only')
+    p.add_argument('--only', nargs='*')
+    p.add_argument('--pool', type=int, help='K worker processes, one VM each (unattended; resumes from results.d)')
+    p.add_argument('--status', action='store_true')
+    p.add_argument('--worker', type=int, help=argparse.SUPPRESS)
+    p = sub.add_parser('_baseline', parents=[runp])
+    p.add_argument('files', nargs='+')
     a = ap.parse_args()
+    run = getattr(a, 'run', None) or None
+    set_run(run)
+    RUNARG = ['--run', run] if run else []
+    if a.cmd == '_baseline':
+        return baseline_files(a.files)
     {'pick': cmd_pick, 'build': cmd_build, 'submit': cmd_submit, 'fetch': cmd_fetch, 'try': cmd_try}[a.cmd](a)
 
+
+RUNARG = []
 
 if __name__ == '__main__':
     main()

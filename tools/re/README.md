@@ -82,6 +82,12 @@ explain.py's class, the workflow.md 3.1 bullets; `--round 2` resends the closest
 in `cost.log`), `try` (splices each variant into a copy under `.work/variants/src/`, keeping the file's line count so
 other functions' `__LINE__` asserts stay, compiles on the pool, reports target exact and the file's other exact
 pairs lost / gained). It never changes the tracked tree; apply an exact variant through the pairs_cmp loop.
+D185 scaled it to the whole backlog: every command takes `--run NAME` (files in `.work/variants/NAME/`; none = the
+pilot's), `pick --all` resolves every not-exact.md entry it can to one client function (`pick-report.txt` lists the rest by
+reason), no size cap (variants asked and `max_tokens` follow the source size; very long requests get their listings
+trimmed), `build --count-all` counts every request's input tokens (free) and writes `estimate.txt` (Batch price by size
+band, round 2 from the pilot's near-miss rate), `submit --budget N` keeps the cheapest requests that fit, and
+`try --pool K` runs unattended on K VMs and resumes from `results.d/` (`try --status` shows progress).
 
 `tools/stl/stl_corpus.cpp`: explicit VC6 standard-library instantiations, compiled and matched
 to measure the template code in E&B's app region (docs/app-plan.md).
