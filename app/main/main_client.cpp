@@ -78,8 +78,8 @@ void Unknown_684E00();								// NAME 1 [Unknown_684E00]: loads fontpal.pcx into
 extern char Unknown_B8F870[];						// NAME 1 [Unknown_B8F870]: the 768-byte palette, WW3D::Init's default palette
 void Unknown_6832C0();								// NAME 1 [Unknown_6832C0]: deffont.cpp's start-up ('!FontData[style]')
 void Unknown_683940();								// NAME 1 [Unknown_683940]: deffont.cpp's shut-down
-struct Unknown_C006A0Struct { char Unknown00[0xDD]; bool UnknownDD; };	// NAME 1 [Unknown_C006A0Struct]: neutral (D10), as far as WinMain reads it
-extern Unknown_C006A0Struct *Unknown_C006A0;		// NAME 1 [Unknown_C006A0]: neutral (D10)
+#include "..\..\ww3d2\dx8wrapper.h"				// DX8Wrapper::Get_Current_Caps (0xC006A0 is DX8Wrapper::CurrentCaps; +0xDD
+													// DX8Caps::SupportDXTC): WinMain's texture reduction
 
 // WW3D2's flags E&B sets after WW3D::Init
 extern bool Unknown_BFAE4F;							// NAME 1 [Unknown_BFAE4F]: neutral (D10)
@@ -499,8 +499,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_End_Step("ok");
 
 	bool reduction = false;							// NAME 1 [reduction]: what it gives
-	if (Unknown_C006A0 != NULL) {
-		reduction = Unknown_C006A0->UnknownDD;
+	if (DX8Wrapper::Get_Current_Caps() != NULL) {
+		reduction = DX8Wrapper::Get_Current_Caps()->Support_DXTC();
 	}
 	WW3D::Enable_Large_Texture_Extra_Reduction(!reduction);
 
