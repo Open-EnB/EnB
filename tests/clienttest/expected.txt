@@ -515,7 +515,6 @@ stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen Unknown_Log
 gen PDAInterfaceClass::Unknown_695F40
-gen LoginUnknown18Class::Unknown_515340
 gen UITalkTreeSpaceClass::Unknown_64EED0
 d3d ResourceManagerDiscardBytes 0
 stub WWAudioClass::Flush_Cache
