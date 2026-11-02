@@ -243,7 +243,6 @@ void Unknown45E850Class::Unknown_24(void *value, bool recursive)
 	}
 }
 
-// NOT EXACT: register (explain.py), 0.71: the inlined Get_Next_Render_State's NextID / List loads and the call's pushes take other registers (5 forms)
 // 0x45ECD0: the time, and on to the next state when it is up
 void Unknown45E850Class::Unknown_30(RsTrackClass *owner, float seconds)
 {
@@ -260,7 +259,8 @@ void Unknown45E850Class::Unknown_30(RsTrackClass *owner, float seconds)
 RenderStateClass *Unknown45E850Class::Get_Next_Render_State()
 {
 	if (NextRenderState == NULL) {
-		NextRenderState = List->Unknown_45A7E0(NextID);
+		RenderStateListClass *list = List;
+		NextRenderState = list->Unknown_45A7E0(NextID);
 		G_ASSERT(NextRenderState);
 	}
 	return(NextRenderState);
@@ -343,16 +343,16 @@ void Unknown45E850Class::Unknown_0C()
 
 
 
-// NOT EXACT: register (explain.py), 0.79: List goes to ecx, the client's to eax before Source to ecx (5 forms)
+
 // 0x45EF80: loads the model (the source list's state's, or by name, loading its file when needed)
 bool Unknown45E850Class::Unknown_10()
 {
 	if (Test_Flag(RS_DATA_PRESENT)) {
 		return(true);
 	}
-	RenderStateListClass *source = List->Source;
-	if (source != NULL) {
-		RenderStateClass *state = source->Unknown_45A7E0(ID);
+	RenderStateListClass *list = List;
+	if (list->Source != NULL) {
+		RenderStateClass *state = list->Source->Unknown_45A7E0(ID);
 		G_ASSERT(state);
 		RenderObj = state->Peek_Render_Object();
 		G_ASSERT(RenderObj);
@@ -422,14 +422,15 @@ void Unknown45E850Class::Unknown_40(float scale, float *hsv)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x45E550-0x45F343, appfile.py match 13 of 15 exact (and the deleting destructor 0x45E850):
+**	client.exe 0x45E550-0x45F343, appfile.py match 15 of 15 exact (and the deleting destructor 0x45E850):
 **	the mesh marker 0x45E550 (inlined once into 0x45E5F0 / 0x45EF80, the rest recursive), the constructors
 **	by name 0x45E5F0 / by render object 0x45E880 / copy 0x45E9F0 (its time read through a file-static
 **	inline accessor for the client's fld / fstp), the clone 0x45EB70, the destructor 0x45EC00 and the
 **	vtable 0xAE8138's own slots +0x0C 0x45EF10, +0x10 0x45EF80, +0x14 0x45EE50, +0x18 0x45EED0, +0x20
 **	0x45EDC0, +0x24 0x45EC90, +0x30 0x45ECD0, +0x40 0x45F280; 0x45ED70 (no caller) is inlined into 0x45ECD0.
 **	0x45E880 asserts RenderObj != 0 right after its member list zeroes it: the client's call is unconditional.
-**	Register residues (D64 markers above them): 0x45ECD0 and 0x45EF80.
+**	0x45EF80 and 0x45ED70 read List into a local: the client's registers (List->Source / List->... directly
+**	give ecx for List and other registers in 0x45ED70's inlined copy in 0x45ECD0).
 **	The flags it tests: 8 (own copy made: Peek_Render_Object clones the model once when 8 and 10 are clear;
 **	the constructors load by name only with 8), 9 RS_DATA_PRESENT, 10 (share the model), 11 (drop the
 **	asset manager's prototype after loading).

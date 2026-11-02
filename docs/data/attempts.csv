@@ -1656,3 +1656,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-02 04:23,0x50B780,UIViewClass::Unknown_50,app/client/mainview.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (KRN2; inline in sclient.h, emitted in mainview.obj as in the client)",,Opus 5.5
 2026-11-02 04:23,0x50B7A0,UIViewClass::Unknown_54,app/client/mainview.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (KRN2; inline in sclient.h, emitted in mainview.obj as in the client)",,Opus 5.5
 2026-11-02 04:23,0x50B7C0,UIViewClass::Unknown_3C,app/client/mainview.cpp,app,exact,,1,,"D99: too short for the matcher, objdiff 0 rows (KRN2; inline in sclient.h, emitted in mainview.obj as in the client)",,Opus 5.5
+2026-11-02 04:24,0x45ECD0,Unknown45E850Class::Unknown_30,app/shared/rs_robj.cpp,app,exact,,8,,exact once Get_Next_Render_State (inlined) reads List into a local: RenderStateListClass *list = List,,Opus 5.5
+2026-11-02 04:24,0x45EF80,Unknown45E850Class::Unknown_10,app/shared/rs_robj.cpp,app,exact,,7,,exact with RenderStateListClass *list = List; list->Source (the client loads List into eax),,Opus 5.5

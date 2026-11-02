@@ -10255,8 +10255,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/shared/rs_robj.cpp:95` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/rs_robj.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/shared/rs_robj.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/shared/rs_robj.cpp:248` | untagged neutral name (D10) |
-| 1 | `Unknown_4584B0` | `app/shared/rs_robj.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/shared/rs_robj.cpp:247` | untagged neutral name (D10) |
+| 1 | `Unknown_4584B0` | `app/shared/rs_robj.cpp:253` | untagged neutral name (D10) |
 | 1 | `Unknown_45A7E0` | `app/shared/rs_robj.cpp:263` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/rs_robj.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_458370` | `app/shared/rs_robj.cpp:288` | untagged neutral name (D10) |

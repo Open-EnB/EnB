@@ -3792,8 +3792,7 @@ RECONSTRUCTED = {
                                  "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
                                  "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "
                                  "0x45E880 / 0x45E9F0, clone 0x45EB70, destructor 0x45EC00, 0x45ED70 and the virtuals "
-                                 "0x45EC90 / 0x45ECD0 / 0x45EDC0 / 0x45EE50 / 0x45EED0 / 0x45EF10 / 0x45EF80 / 0x45F280; exact "
-                                 "but 0x45ECD0 / 0x45EF80 (NOT EXACT, register)",
+                                 "0x45EC90 / 0x45ECD0 / 0x45EDC0 / 0x45EE50 / 0x45EED0 / 0x45EF10 / 0x45EF80 / 0x45F280; all exact",
     ('app', 'shared/unknown_458710.cpp'): "the render-object state on a bone path Unknown458710Class, client 0x458710-0x458BFA "
                                         "(PROVISIONAL file name D10, interim placement D137: no __FILE__, the object after "
                                         "rs.cpp's, its calls into rs.cpp not inlined; builder DISP, run PR #144): constructors "
