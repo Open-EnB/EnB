@@ -94,6 +94,16 @@ public:
 	AudibleSoundClass *Sound;							// +0x00  // NAME 1: neutral
 };
 
+// The view's camera at +0x4C (0x1C bytes): a sub-object with an inline constructor (the constructor 0x678450
+// matches only so: the try level's store follows the 45)
+struct CharacterViewCameraStruct	// NAME 1: neutral (D10)
+{
+	CharacterViewCameraStruct() : Position(0.0f, 0.0f, 0.0f), Rotation(0.0f, 0.0f, 0.0f), Fov(45.0f) {}
+	Vector3 Position;									// +0x00 (the frame translates by it)  // NAME 1: what the frame does with it
+	Vector3 Rotation;									// +0x0C in degrees (the frame: Rotate_X, Rotate_Y, Rotate_Z)  // NAME 1: what the frame does with it
+	float Fov;											// +0x18 the field of view in degrees (45; 0x67A290's Set_View_Plane)  // NAME 1: what 0x67A290 does with it
+};
+
 class CharacterViewClass : public UIViewClass	// NAME 1 [CharacterViewClass]: the task's member CharacterView (tsk_login.cpp's FAIL_IFs '!CharacterView')
 {
 public:
@@ -159,9 +169,7 @@ public:
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
-	Vector3 Unknown04C;									// +0x4C the camera's position (0x67A290; the frame translates the model's CAMERA bone by it)
-	Vector3 Unknown058;									// +0x58 the camera's rotation in degrees (the frame: X, then Rotate_Y, Rotate_Z)
-	float Unknown064;									// +0x64 the camera's field of view in degrees (45; 0x67A290's Set_View_Plane)
+	CharacterViewCameraStruct Unknown04C;				// +0x4C the camera (0x67A290 sets it; the frame moves the model's CAMERA bone by it)
 	CameraClass *Unknown068;							// +0x68 the 3-D camera (ui_login.cpp's Peek_Camera)
 	SimpleSceneClass *Unknown06C;						// +0x6C the 3-D scene
 	LayerClass *Unknown070;								// +0x70 a layer of +0x6C / +0x68

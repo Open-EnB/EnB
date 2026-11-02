@@ -132,13 +132,13 @@ CharacterViewSoundClass::~CharacterViewSoundClass()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls ShipCustPartClass's constructor 0x6191F0 and the deque iterator's 0x67D300 out of line; ours inlines them); 0.62
+
 // 0x678450
 CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 	UIViewClass((ClientTaskClass *)task, 2),
-	Unknown04C(0.0f, 0.0f, 0.0f),
-	Unknown058(0.0f, 0.0f, 0.0f),
-	Unknown064(45.0f),
+	// +0x4C: the camera's own constructor (0, 0, 0; 0, 0, 0; 45)
+
+
 	Unknown068(NULL),
 	Unknown06C(NULL),
 	Unknown070(NULL),
@@ -191,7 +191,7 @@ CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 		Unknown4A0[i].Set(0.5f, 0.5f);
 		Unknown4B0[i].Set(0.5f, 0.5f, 1.0f);
 	}
-	Unknown_04();
+	Unknown_04(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size();	// dead: VC6's inline budget (the client calls 0x6191F0 and 0x67D300 out of line)
 }
 
 // 0x678970: the implicit destructor (charview.h)
@@ -423,12 +423,12 @@ int CharacterViewClass::Unknown_0C(bool on)
 
 	if (ViewRObjs[1]) {
 		Matrix3D camera = ViewRObjs[1]->Get_Bone_Transform("CAMERA");
-		camera.Rotate_X(DEG_TO_RADF(Unknown058.X));
-		camera.Rotate_Y(DEG_TO_RADF(Unknown058.Y));
-		camera.Rotate_Z(DEG_TO_RADF(Unknown058.Z));
-		camera.Translate_X(Unknown04C.X);
-		camera.Translate_Y(Unknown04C.Y);
-		camera.Translate_Z(Unknown04C.Z);
+		camera.Rotate_X(DEG_TO_RADF(Unknown04C.Rotation.X));
+		camera.Rotate_Y(DEG_TO_RADF(Unknown04C.Rotation.Y));
+		camera.Rotate_Z(DEG_TO_RADF(Unknown04C.Rotation.Z));
+		camera.Translate_X(Unknown04C.Position.X);
+		camera.Translate_Y(Unknown04C.Position.Y);
+		camera.Translate_Z(Unknown04C.Position.Z);
 		Unknown068->Set_Transform(camera);
 	}
 
@@ -476,9 +476,9 @@ void CharacterViewClass::Unknown_67A250()
 // 0x67A290
 void CharacterViewClass::Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov)
 {
-	Unknown04C = position;
-	Unknown058 = rotation;
-	Unknown064 = fov;
+	Unknown04C.Position = position;
+	Unknown04C.Rotation = rotation;
+	Unknown04C.Fov = fov;
 	Unknown068->Set_View_Plane(DEG_TO_RAD(fov), -1.0f);
 }
 
