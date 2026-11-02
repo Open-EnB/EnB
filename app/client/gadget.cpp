@@ -56,14 +56,14 @@ void Unknown_496AE0(RenderObjClass *robj, int unknown);				// 0x496AE0 (effect.i
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // local_interface_sort.cpp's sort object over a model (constructor 0x6E1730, destructor 0x6E18B0)
-class GadgetSortClass  // NAME 1: neutral (D10)
-{
-public:
-	GadgetSortClass(const RefCountPtr<RenderObjClass> &robj);	// 0x6E1730  // NAME 1 [robj]: neutral
-	~GadgetSortClass();									// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
 
-	char Unknown00[8];
-};
+
+
+
+
+
+
 
 SignalMap &GadgetClass::Get_Signal_Map()
 {
@@ -865,7 +865,7 @@ void GadgetClass::Unknown_6603A0(bool indicator, UIViewClass *view)
 	}
 	if (model) {
 		SceneClass *scene = model->Peek_Scene();
-		GadgetSortClass sort(Unknown_497300(model));
+		InterfaceSortClass sort(Unknown_497300(model));
 		Flash = new GadgetFlashStruct;
 		Flash->Clone = model->Clone();
 		model->Add_Ref();

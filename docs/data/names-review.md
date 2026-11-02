@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1146 |
 | 2 | describes what the code does | 2880 |
-| 1 | neutral placeholder | 10288 |
+| 1 | neutral placeholder | 10278 |
 
 ## For review (score 3 and below)
 
@@ -2177,8 +2177,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496AE0` | `app/client/gadget.cpp:55` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/gadget.cpp:56` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/gadget.cpp:56` | untagged neutral name (D10) |
-| 1 | `GadgetSortClass` | `app/client/gadget.cpp:59` | neutral (D10) |
-| 1 | `robj` | `app/client/gadget.cpp:62` | neutral |
 | 1 | `Unknown08` | `app/client/gadget.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/gadget.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/gadget.cpp:79` | untagged neutral name (D10) |
@@ -2771,8 +2769,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74` | `app/client/mainview.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/mainview.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown1C8` | `app/client/mainview.cpp:53` | untagged neutral name (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/mainview.cpp:58` | neutral (D10) |
-| 1 | `view, arg` | `app/client/mainview.cpp:61` | what 0x512A00 passes |
 | 1 | `Unknown14` | `app/client/mainview.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/mainview.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/mainview.cpp:75` | untagged neutral name (D10) |
@@ -6152,10 +6148,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65EED0` | `app/client/ui_cpit.cpp:47` | untagged neutral name (D10) |
 | 1 | `section, name` | `app/client/ui_cpit.cpp:48` | ui_group.cpp's |
 | 1 | `Unknown_65EFB0` | `app/client/ui_cpit.cpp:48` | untagged neutral name (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/ui_cpit.cpp:51` | neutral (D10) |
-| 1 | `inter` | `app/client/ui_cpit.cpp:54` | view.cpp's |
-| 1 | `view, arg` | `app/client/ui_cpit.cpp:55` | mainview.cpp's |
-| 1 | `Unknown00` | `app/client/ui_cpit.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_57D6C0` | `app/client/ui_cpit.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_cpit.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_cpit.cpp:140` | untagged neutral name (D10) |
@@ -6757,8 +6749,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4FA710` | `app/client/ui_line_display.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_4FA740` | `app/client/ui_line_display.cpp:73` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_line_display.cpp:76` | untagged neutral name (D10) |
-| 1 | `LineDisplaySortClass` | `app/client/ui_line_display.cpp:80` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_line_display.cpp:87` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAE3C` | `app/client/ui_line_display.cpp:90` | neutral (D10): the time now, as slot +0x60 reads it |
 | 1 | `Unknown_BFAE40` | `app/client/ui_line_display.cpp:91` | neutral (D10): the time of the last frame |
 | 1 | `Unknown_16C` | `app/client/ui_line_display.cpp:149` | untagged neutral name (D10) |

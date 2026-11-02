@@ -48,16 +48,16 @@ void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): th
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(InterfaceClass *inter);		// 0x541980  // NAME 1 [inter]: view.cpp's
-	LineDisplaySortClass(UIViewClass *view, int arg);	// 0x6E1560  // NAME 1 [view, arg]: mainview.cpp's
-	~LineDisplaySortClass();							// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
 
-private:
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
+
 
 
 
@@ -440,7 +440,7 @@ void UICpitClass::Unknown_7C(UIViewClass *view, bool arg)
 void UICpitClass::Unknown_58()
 {
 	if (Unknown148 == 0) {
-		LineDisplaySortClass sort(this);
+		InterfaceSortScopeClass sort(this);
 		Unknown148 = 1;
 		ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
 		if (avatar) Unknown_582190(avatar, 0);
@@ -448,7 +448,7 @@ void UICpitClass::Unknown_58()
 		Scan->Unknown_58();
 		Unknown_584110();
 		Unknown5BB320Class::Unknown_58();
-		LineDisplaySortClass view_sort(View, 0);
+		InterfaceSortClass view_sort(View, 0);
 		Unknown0B0->Add(Layer.Peek_Scene());
 	}
 }

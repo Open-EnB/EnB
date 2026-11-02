@@ -55,15 +55,15 @@ public:
 };
 
 // local_interface_sort.cpp's sort object (8 bytes; ui_line_display.cpp declares it too, with its constructor 0x6E1090)
-class LineDisplaySortClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplaySortClass(MainViewClass *view, int arg);	// 0x6E1560 (FAIL_IF '!uiview'; the main view's 0x512A00 passes 0)  // NAME 1 [view, arg]: what 0x512A00 passes
-	~LineDisplaySortClass();							// 0x6E18B0
+#include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
 
-private:
-	char Unknown00[8];
-};
+
+
+
+
+
+
+
 
 
 #include "..\..\ww3d2\render2d.h"
@@ -1610,7 +1610,7 @@ void MainViewClass::Unknown_512A00()
 {
 	SClient *sclient = (SClient *)Client->Unknown_18();
 	PDAInterfaceClass *pda = sclient->PDAInterface;
-	LineDisplaySortClass sort(this, 0);
+	InterfaceSortClass sort(this, 0);
 	Radar->Unknown_7BCA70(Unknown84, pda->UnknownA8->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
 }
 
