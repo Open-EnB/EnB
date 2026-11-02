@@ -92,10 +92,15 @@ public:
 	Wstring &operator+=(const char *other);
 	Wstring &operator+=(const Wstring &other);
 	Wstring &operator=(const Wstring &other);
+	char operator==(const Wstring &other) const;
+	char operator!=(const Wstring &other) const;
 };
 Wstring &Wstring::operator+=(const char *) { Trace("stub Wstring::operator+=(const char *) (0x8B6640)"); return *this; }
 Wstring &Wstring::operator+=(const Wstring &) { Trace("stub Wstring::operator+=(const Wstring &) (0x8B6750)"); return *this; }
 Wstring &Wstring::operator=(const Wstring &) { Trace("stub Wstring::operator=(const Wstring &) (0x8B61D0)"); return *this; }
+// the message filter's match 0x4BE2C0 (unknown_message_filter.obj); never reached here
+char Wstring::operator==(const Wstring &) const { Trace("stub Wstring::operator==(const Wstring &) (0x8B5F70)"); return 0; }
+char Wstring::operator!=(const Wstring &) const { Trace("stub Wstring::operator!=(const Wstring &) (0x8B6070)"); return 1; }
 
 // the message server's 0x4BD470 (unknown_message_server.obj) stamps its record with this; never reached here
 class Wtime
