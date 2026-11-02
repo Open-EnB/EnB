@@ -16,6 +16,8 @@
 #include "coltype.h"
 #include "matinfo.h"
 #include "vertmaterial.h"
+#include "colorspace.h"
+#include "texture.h"
 
 void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a model (recursive)  // NAME 1 [Unknown_48E9D0, robj]: neutral (D10)
 bool Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (recursive)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
@@ -133,6 +135,135 @@ void ENBAssetManager::Unknown_48BE60(RenderObjClass *robj, bool geometry, bool c
 			break;
 		}
 	}
+}
+
+// @0x48BF20
+void ENBAssetManager::Unknown_48BF20(VertexMaterialClass *vmat, Vector3 &hsv_shift)
+{
+	Vector3 rgb;
+
+	vmat->Get_Ambient(&rgb);
+	Recolor(rgb, hsv_shift);
+	vmat->Set_Ambient(rgb);
+
+	vmat->Get_Diffuse(&rgb);
+	Recolor(rgb, hsv_shift);
+	vmat->Set_Diffuse(rgb);
+
+	vmat->Get_Emissive(&rgb);
+	Recolor(rgb, hsv_shift);
+	vmat->Set_Emissive(rgb);
+
+	vmat->Get_Specular(&rgb);
+	Recolor(rgb, hsv_shift);
+	vmat->Set_Specular(rgb);
+}
+
+// DX8Wrapper::Convert_Color_Clamp's inline assembly is the client's (dx8wrapper.h, D70)
+void ENBAssetManager::Unknown_Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift)
+{
+	int i;
+	Vector4 rgba;
+
+	for (i = 0; i < count; i++) {
+		rgba = DX8Wrapper::Convert_Color(color[i]);
+		Recolor(reinterpret_cast<Vector3 &>(rgba), hsv_shift);
+		color[i] = DX8Wrapper::Convert_Color_Clamp(rgba);
+	}
+}
+
+// @0x48CF90
+TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
+{
+	char lower_case_name[256];
+	char newname[512];
+	strcpy(lower_case_name, name);
+	_strlwr(lower_case_name);
+	sprintf(newname, "#%s!H%gS%gV%g", lower_case_name, hsv[0], hsv[1], hsv[2]);
+	TextureClass *newtex = TextureHash.Get(newname);
+	if (newtex) newtex->Add_Ref();
+	return(newtex);
+}
+
+// @0x48CB40
+// NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after
+// pushing the format, ours before); the logic is the client's (D64)
+TextureClass *ENBAssetManager::Unknown_48CB40(TextureClass *texture, float *hsv)
+{
+	WWPROFILE("Recolor_Texture()");
+	if (texture == NULL) return(NULL);
+
+	// if texture is procedural return NULL
+	const char *name = texture->Get_Texture_Name();
+	if (name && name[0] == '!') return(NULL);
+
+	char lower_case_name[256];
+	char newname[512];
+	strcpy(lower_case_name, name);
+	_strlwr(lower_case_name);
+	sprintf(newname, "#%s!H%gS%gV%g", lower_case_name, hsv[0], hsv[1], hsv[2]);
+
+	// a new texture under the same file, shifted when it loads
+	TextureClass *newtex = W3DNEW TextureClass(name, NULL, (MipCountType)texture->Get_Mip_Level_Count(),
+		texture->Get_Texture_Format(), texture->Is_Compression_Allowed());
+	newtex->Set_Mag_Filter(texture->Get_Mag_Filter());
+	newtex->Set_Min_Filter(texture->Get_Min_Filter());
+	newtex->Set_Mip_Mapping(texture->Get_Mip_Mapping());
+	newtex->Set_U_Addr_Mode(texture->Get_U_Addr_Mode());
+	newtex->Set_V_Addr_Mode(texture->Get_V_Addr_Mode());
+	newtex->Set_HSV_Shift(*(Vector3 *)hsv);
+
+	TextureHash.Insert(newname, newtex);
+	newtex->Add_Ref();
+	return(newtex);
+}
+
+// The cached copy under the HSV name, else a new one
+static inline TextureClass *Recolored_Texture(ENBAssetManager *mgr, TextureClass *texture, float *hsv)	// NAME 1 [Recolored_Texture]: descriptive (inlined)
+{
+	TextureClass *newtex = mgr->Unknown_48CF90(texture->Get_Texture_Name(), hsv);
+	if (newtex) return(newtex);
+	return(mgr->Unknown_48CB40(texture, hsv));
+}
+
+// @0x48D1F0
+void ENBAssetManager::Unknown_48D1F0(RenderObjClass *robj, float *hsv)
+{
+	Vector3 &hsv_shift = *(Vector3 *)hsv;
+	int i;
+
+	MeshClass *mesh = (MeshClass *)robj;
+	MeshModelClass *model = mesh->Get_Model();
+	MaterialInfoClass *material = mesh->Get_Material_Info();
+
+	// recolor vertex material
+	for (i = 0; i < material->Vertex_Material_Count(); i++) {
+		Unknown_48BF20(material->Peek_Vertex_Material(i), hsv_shift);
+	}
+
+	// recolor color arrays
+	unsigned int *color;
+	color = model->Get_Color_Array(0, false);
+	if (color) Unknown_Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
+	color = model->Get_Color_Array(1, false);
+	if (color) Unknown_Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
+
+	// recolor textures: a cached copy first
+	TextureClass *newtex, *oldtex;
+	for (i = 0; i < material->Texture_Count(); i++) {
+		oldtex = material->Peek_Texture(i);
+		if (oldtex) {
+			newtex = Recolored_Texture(this, oldtex, hsv);
+			if (newtex) {
+				model->Replace_Texture(oldtex, newtex);
+				material->Replace_Texture(i, newtex);
+				newtex->Release_Ref();
+			}
+		}
+	}
+
+	REF_PTR_RELEASE(material);
+	REF_PTR_RELEASE(model);
 }
 
 // @0x48D710
@@ -329,5 +460,12 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	geometry and / or colours (vertex materials, both colour arrays) unique, for a mesh or recursively for an HLOD's meshes;
 **	a switch on Class_ID is what puts the HLOD test first.
 **	0x48D710 (an HLOD's sub-objects) and 0x48E4E0 (one object, recursing into HLODs) hand the HSV shift to the per-class
-**	helpers 0x48D1F0 (mesh), 0x48D850 (particle emitter), 0x48DD00 (sphere), 0x48E0F0 (ring), not written yet.
+**	helpers 0x48D1F0 (mesh), 0x48D850 (particle emitter), 0x48DD00 (sphere), 0x48E0F0 (ring); 0x48D1F0 is written (EAM3).
+**	The mesh helper is Renegade's ww3d2/hueshift/enbassetmgr.cpp Recolor_Mesh (EA's published code: Recolor_Vertex_Material
+**	0x48BF20 and Recolor_Vertices 0x48C590 inlined into it, Recolor out of line) except that it first asks 0x48CF90 for a
+**	cached copy under '#name!H%gS%gV%g' (lower case, with a reference) and only then 0x48CB40 ('Recolor_Texture()'), which
+**	makes a new texture from the same file with the old one's format, filters and address modes and Set_HSV_Shift (shifted
+**	when it loads, not copied from a surface as in Renegade), and caches it. The cache-or-new choice is an inline helper
+**	with two returns: that single merge is what lets the client drop REF_PTR_SET's null test. 0x48CF90 must be defined
+**	before 0x48CB40 in this file, or it loses its EH frame.
 */
