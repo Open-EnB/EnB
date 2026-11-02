@@ -3611,11 +3611,19 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42F250",
+     "0x444160",
      "0x48B0A0",
+     "0x48B0F0",
+     "0x48F2C0",
      "0x48F680"
     ],
     "merged": [],
-    "name": "shared/enbassetmgr.cpp"
+    "name": "shared/enbassetmgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160"
+    ]
    },
    "encode": {
     "ambiguous": [
@@ -16681,6 +16689,7 @@
    "shared/definition_manager.h": "reconstructed",
    "shared/duration.h": "reconstructed",
    "shared/dynamic_obj.h": "reconstructed",
+   "shared/enbassetmgr.h": "reconstructed",
    "shared/gclass.h": "reconstructed",
    "shared/graphics_settings.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",

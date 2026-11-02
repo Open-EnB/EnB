@@ -19,11 +19,11 @@
 #define RSTRACK_CLASSID	0x10001	// NAME 2: RsTrackClass::Class_ID
 
 // E&B's asset manager (WW3DAssetManager::Get_Instance()): its first own slot makes a model at a scale and HSV shift
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: co.cpp's
-};
+#include "enbassetmgr.h"
+
+
+
+
 
 // the copy constructor's read of the source's time (its fld / fstp)
 static inline float Unknown_Duration(const Unknown45E850Class &state) { return(state.Unknown34); }	// NAME 1 [Unknown_Duration, state]: neutral (D10)

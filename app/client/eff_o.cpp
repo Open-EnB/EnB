@@ -1482,12 +1482,12 @@ EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned i
 #include "texture.h"
 #include "vector2.h"
 // E&B's asset manager (as co.cpp declares it): its first own slot makes a model at a scale and HSV shift
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+#include "..\shared\enbassetmgr.h"
+
+
+
+
+
 // eff_pass.cpp's pass effect that the helper 0x6EB9B0 makes (0x174 bytes; not rebuilt): declared as far as it calls it
 class Unknown6ED6C0EffectClass : public EffectObjectClass { public: Unknown6ED6C0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1); void Unknown_6EDBB0(const Vector2 &scale, int projection); virtual void Unknown_24(int next); char Unknown80[0x174 - 0x80]; };	// NAME 1: neutral (D10); 0x6ED6C0, 0x6EDBB0  // NAME 1 [client .. projection1, scale, projection, next]: what the helper passes; [next]: the base's
 static char *Unknown_B92E68[] = {"X", "Y", "Z", NULL};	// 0xB92E68: effect.ini's Projection0Axis / Projection1Axis values  // NAME 1: neutral (D10)

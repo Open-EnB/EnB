@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include <string.h>
 // E&B's asset manager at 0xBDADC0 (co.cpp's UnknownBDADC0Class): the asserts name it AssetManager
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+#include "..\shared\enbassetmgr.h"
+
+
+
 #define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
 
 // the screen fade and the letterbox (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F, before scriptedmovieline.cpp's object)

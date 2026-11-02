@@ -27,12 +27,12 @@
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
 
 // E&B's asset manager (main_client.cpp makes it)
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	UnknownBDADC0Class();							// 0x48B070
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;			// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+#include "..\shared\enbassetmgr.h"
+
+
+
+
+
 
 // a render device's settings: the default and the registry's (two 0x114-byte locals of 0x442AC0)
 struct UnknownDisplayStruct							// NAME 1 [UnknownDisplayStruct]: neutral (D10)

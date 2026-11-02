@@ -88,12 +88,12 @@ extern bool Unknown_BFAE51;							// NAME 1 [Unknown_BFAE51]: neutral (D10)
 extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
 
 // E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings; the tree's files call it UnknownBDADC0Class)
-class UnknownBDADC0Class : public WW3DAssetManager	// NAME 1: neutral (D10)
-{
-public:
-	UnknownBDADC0Class();							// 0x48B070 (0x408C bytes: the tree's WW3DAssetManager is that size already)
-};
-extern UnknownBDADC0Class *Unknown_BDADC0;			// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+#include "..\shared\enbassetmgr.h"
+
+
+
+
+
 
 // msgserv.cpp's message server, a task (0x48 bytes)
 class Unknown_8B20D0Class : public TaskClass		// NAME 1 [Unknown_8B20D0Class]: neutral (D10)
