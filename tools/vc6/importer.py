@@ -4659,7 +4659,7 @@ def app_state(state):
             if k in s['files']:
                 raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
             s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
-            for kept in ('in_tree', 'ambiguous', 'tiebreak'):
+            for kept in ('in_tree', 'ambiguous', 'tiebreak', 'shared', 'shared_callers'):
                 if kept in old.get(k, {}):
                     s['files'][k][kept] = old[k][kept]
         s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
@@ -5009,13 +5009,16 @@ def late_sync():
     return [dest(l) for l in LATE_INCLUDE_LIBS if os.path.isdir(dest(l))]
 
 
-def compile_and_match(paths, tag, ambiguous=None, tiebreak=None):
+def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
     """Compile files from the repository; {file key: set(addresses)} plus compiler output.
     `ambiguous` (a dict, optional) receives {file key: set(first address)} of the functions found
     at several places in client.exe whose copies are all identical (objmatch `multiple` with
     `identical`; D54's "exact, ambiguous address"). They are never pairs, except those D166's caller
     tie-break resolves (objmatch caller_tiebreak): found like any exact function, and also put in
-    `tiebreak` (a dict, optional) as {file key: set(address)}."""
+    `tiebreak` (a dict, optional) as {file key: set(address)}. `shared` (a dict, optional) receives
+    {file key: set(address)} of the exact COMDATs two or more of the objects hold at one address
+    under one symbol (D183: pairs of each holder, never placement evidence), and, under the key
+    'shared_callers', the D166 tie-break pairs whose decision needed such a function."""
     hold_lock()
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
@@ -5035,6 +5038,10 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None):
             found[key_of(r['object'])].add(r['addresses'][0])
             if r.get('caller_tiebreak') and tiebreak is not None:
                 tiebreak.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
+            if r.get('shared') and shared is not None:
+                shared.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
+            if r.get('shared_callers') and shared is not None:
+                shared.setdefault(('shared_callers', key_of(r['object'])), set()).add(r['addresses'][0])
         elif r['status'] == 'multiple' and r.get('identical') and ambiguous is not None:
             ambiguous.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
     for p in paths:
@@ -5058,9 +5065,9 @@ def verify(state, libs=None):
             vc6.use_host(host)
             s = state[lib]
             paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
-            amb, tie = {}, {}
-            found, text = compile_and_match(paths, f'verify-{lib}', amb, tie)
-            return lib, found, text, (amb, tie)
+            amb, tie, sha = {}, {}, {}
+            found, text = compile_and_match(paths, f'verify-{lib}', amb, tie, sha)
+            return lib, found, text, (amb, tie, sha)
         finally:
             free.put(host)
 
@@ -5070,11 +5077,12 @@ def verify(state, libs=None):
         results = {lib: (found, text, amb) for lib, found, text, amb in ex.map(one, order)}
     for lib in libs:
         s = state[lib]
-        found, text, (amb, tie) = results[lib]
+        found, text, (amb, tie, sha) = results[lib]
         errors = [l for l in text.splitlines() if ' error ' in l]
         total = set()
         ambiguous = set()
         tied = 0
+        shared = set()
         short = 0
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
@@ -5087,13 +5095,24 @@ def verify(state, libs=None):
             if tie.get(k):
                 f['tiebreak'] = sorted(tie[k])
                 tied += len(tie[k])
+            # D183: pairs at an address other files of the library hold under the same symbol (also in
+            # in_tree; in_tree_total counts the address once); the key exists only when there are some
+            f.pop('shared', None)
+            if sha.get(k):
+                f['shared'] = sorted(sha[k])
+                shared |= sha[k]
+            # D183: D166 tie-break pairs (in `tiebreak`) whose callers include a shared function: labelled
+            f.pop('shared_callers', None)
+            if sha.get(('shared_callers', k)):
+                f['shared_callers'] = sorted(sha[('shared_callers', k)])
             if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
         s['ambiguous_total'] = len(ambiguous)
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
-              f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address, {tied} tie-break by callers; '
+              f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address, {tied} tie-break by callers, '
+              f'{len(shared)} shared addresses; '
               f'{short} files below their copy; {len(errors)} errors')
     return state
 
@@ -5167,9 +5186,10 @@ def try_with_headers(state, lib, f, c, k, donor):
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
                 ff['ambiguous'] = trial[l]['files'][kk].get('ambiguous', [])
-                ff.pop('tiebreak', None)
-                if trial[l]['files'][kk].get('tiebreak'):
-                    ff['tiebreak'] = trial[l]['files'][kk]['tiebreak']
+                for key in ('tiebreak', 'shared', 'shared_callers'):
+                    ff.pop(key, None)
+                    if trial[l]['files'][kk].get(key):
+                        ff[key] = trial[l]['files'][kk][key]
         hs = state[lib].setdefault('headers', {})
         for n, _ in pairs:
             for old in [x for x in hs if x.lower() == n.lower()]:

@@ -28,8 +28,19 @@ address inside the object's own range (first..last address of its exact function
 alone: not COMDAT copies of inline, template or compiler-generated functions, which the linker
 may place with another object) is credited, `exact` with `tiebreak` and `range` set. The range
 also covers the object's exact COMDATs that no other object is exact at, within 0x1000 bytes of
-either end of that own range (D114(b), P-M1-2). It runs only when D80 and the self name resolve
+either end of that own range (D114(b), P-M1-2), and an exact COMDAT that two or more objects are
+exact at, at one address under one symbol (D183, P-IS-1), for the holder whose own range is
+strictly nearest to it (inside it counts as 0; a tie widens none). Measured 2026-11-01: crediting
+it to every holder lets a later object's range reach over the first object's code (inpkeys' range
+over inpdsp's basic_string copies at 0x42A820) and two objects' tied functions then propose one
+address (inpdsp's 0x42A900, 0x42AAE0 lost). It runs only when D80 and the self name resolve
 nothing more; its credits feed D80's next round.
+
+Such a COMDAT is `shared` (D183's guard): set on each holder's exact result; importer.py lists it in
+the file's `shared` list. A shared result is not placement evidence: a D166 caller tie-break that
+needed one (as our caller, or as the function a client call site sits in) is labelled
+`shared_callers` (importer.py's `shared_callers` list). Skipping them instead lost five tie-break
+pairs (0x4668F0, 0x5199F0 x2, 0x62A5D0 x2), so they are labelled, not skipped.
 
 The self name also comes from the run itself (D171, P-AR1-1): a vtable whose address the run has
 learned (an exact function's relocation to `??_7X@@6B@`, e.g. a constructor's vptr store) names its
@@ -594,7 +605,12 @@ def match_objects(img, paths, region=None, callers=False):
                     if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges[id(obj)]
-                        if holders[a] == {id(obj)} and lo - RANGE_GAP <= a <= hi + RANGE_GAP:
+                        # D183: or held by several objects, all under this symbol, when this holder's own
+                        # range is strictly the nearest of the holders'
+                        if (holders[a] == {id(obj)} or claimed[a] == {r['symbol']} and all(
+                                range_distance(ranges[id(obj)], a) < range_distance(ranges[o], a)
+                                for o in holders[a] if o != id(obj) and o in ranges)) and \
+                                lo - RANGE_GAP <= a <= hi + RANGE_GAP:
                             wlo, whi = wide[id(obj)]
                             wide[id(obj)] = (min(wlo, a), max(whi, a))
                 ranges = wide
@@ -664,7 +680,29 @@ def match_objects(img, paths, region=None, callers=False):
             r, obj, sec, s, length, hits = item
             done.add(id(r))
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    for r, *_ in results:
+        r.pop('shared', None)
+        if r['status'] != 'exact' or not r.get('shared_callers'):
+            r.pop('shared_callers', None)
+    shared = shared_pairs(results)
+    for r, obj, *_ in results:
+        if r['status'] == 'exact' and (int(r['addresses'][0], 16), r['symbol']) in shared:
+            r['shared'] = True
     return [x[0] for x in results]
+
+
+def range_distance(rng, a):
+    """How far address a lies outside the range (lo, hi); 0 inside it."""
+    return 0 if rng[0] <= a <= rng[1] else min(abs(a - rng[0]), abs(a - rng[1]))
+
+
+def shared_pairs(results):
+    """D183: the (address, symbol) pairs that two or more objects are exact at."""
+    by = collections.defaultdict(set)
+    for r, obj, *_ in results:
+        if r['status'] == 'exact':
+            by[(int(r['addresses'][0], 16), r['symbol'])].add(id(obj))
+    return {k for k, v in by.items() if len(v) > 1}
 
 
 _call_sites = {}
@@ -821,18 +859,21 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
     while changed:
         changed = False
         proposals = []
+        shared = shared_pairs(results)   # D183: another object holds it too: labelled when it decides
         for item, hits in todo:
             r, obj, sec, s, length, _ = item
             if r['status'] != 'multiple':
                 continue
-            funcs, callers = {}, []
+            funcs, callers, unshared = {}, [], {}
             for r2, obj2, sec2, s2, len2 in results:
                 if obj2 is obj and r2['status'] == 'exact':
                     a2 = int(r2['addresses'][0], 16)
                     funcs[a2] = max(funcs.get(a2, 0), len2)
+                    if (a2, r2['symbol']) not in shared:
+                        unshared[a2] = max(unshared.get(a2, 0), len2)
                     if r2['symbol'] != r['symbol']:
                         callers.append((sec2, s2, len2, a2))
-            cands, bad = set(), False
+            cands, bad, via = set(), False, set()
             for sec2, s2, len2, a2 in callers:
                 for k, n, typ, sym, addend in obj.reloc_targets(sec2, s2, len2):
                     if sym is None or sym['name'] != r['symbol']:
@@ -843,11 +884,15 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
                     o = a2 - base
                     v = (a2 + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
                     cands.add(thunk.get(v, v))
+                    via.add(a2)
             if bad or len(cands) != 1:
                 continue
             a = next(iter(cands))
             if a not in hits or claimed[a] - {r['symbol']} or not refs_ok(a, length, funcs):
                 continue
+            # D183: a decision that needed a shared function (every caller shared, or a call site that only
+            # a shared function holds) is labelled
+            r['shared_callers'] = not (via & set(unshared)) or not refs_ok(a, length, unshared)
             proposals.append((item, a))
         by_addr = collections.defaultdict(list)
         for item, a in proposals:
@@ -860,6 +905,8 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
                 items[0][0]['folded'] = True
             for item in items:
                 r = item[0]
+                if not r.get('shared_callers'):
+                    r.pop('shared_callers', None)
                 r['status'] = 'exact'
                 r['addresses'] = [f'0x{a:06X}']
                 r['caller_tiebreak'] = True
@@ -971,7 +1018,7 @@ def initialiser_targets(results, pending, ranges, text, base, known, thunk):
     return out
 
 
-RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone exact COMDAT may lie
+RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone (or D183 shared) exact COMDAT may lie
 
 
 def main():

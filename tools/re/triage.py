@@ -142,6 +142,16 @@ def load_pairs():
     return out
 
 
+def shared_pairs():
+    """D183: {address: {file}} of the shared pairs (imports.json files' `shared` lists)."""
+    out = collections.defaultdict(set)
+    for lib, entry in json.load(open(os.path.join(DATA, 'imports.json'), encoding='utf-8')).items():
+        for f, v in entry.get('files', {}).items():
+            for a in v.get('shared', []):
+                out[int(a, 16)].add(f if lib == 'app' else f'{lib}/{f}')
+    return dict(out)
+
+
 def stem(path):
     return re.split(r'[\\/]', path)[-1].rsplit('.', 1)[0].lower() if path else ''
 
@@ -193,11 +203,15 @@ class Facts:
         self.pairs = load_pairs()
         self.app = app_files()
         self.known = {}                     # address -> file, for neighbours and callers
+        self.shared = shared_pairs()        # D183: labelled for callers, never a neighbour
         for a, (lib, f) in self.pairs.items():
             self.known[a] = f if lib == 'app' else f'{lib}/{f}'
+            if a in self.shared:
+                self.known[a] = 'shared: ' + ', '.join(sorted(self.shared[a]))
         for a, (f, _) in self.app.items():
             self.known.setdefault(a, f.replace('\\', '/'))
         self.known_sorted = sorted(self.known)
+        self.known_unshared = [a for a in self.known_sorted if a not in self.shared]
         self.rdata = [self.img.section(n)[:2] for n in ('.rdata', '.data') if n in self.img.sections]
         self._calls()
 
@@ -250,11 +264,13 @@ class Facts:
         return (n[:90] + '...') if n and len(n) > 93 else (n or f'FUN_{va:08x}')
 
     def neighbours(self, va):
-        i = bisect.bisect_left(self.known_sorted, va)
+        # D183: a shared pair (several files hold the address) is no file-boundary evidence: not a neighbour
+        order = self.known_unshared
+        i = bisect.bisect_left(order, va)
         out = []
-        for j, side in ((i - 1, 'before'), (i + (1 if i < len(self.known_sorted) and self.known_sorted[i] == va else 0), 'after')):
-            if 0 <= j < len(self.known_sorted):
-                a = self.known_sorted[j]
+        for j, side in ((i - 1, 'before'), (i + (1 if i < len(order) and order[i] == va else 0), 'after')):
+            if 0 <= j < len(order):
+                a = order[j]
                 gap = abs(bisect.bisect_left(self.starts, a) - bisect.bisect_left(self.starts, va))
                 out.append(f'{side}: 0x{a:X} {self.known[a]} ({gap} function(s) away)')
         return out

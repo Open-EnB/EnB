@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 117,
+  "ambiguous_total": 108,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -126,6 +126,21 @@
     ],
     "merged": [],
     "name": "shared/attrib_dir.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x441480",
+     "0x444160",
+     "0x4D76C0"
+    ],
     "tiebreak": [
      "0x4D5EC0",
      "0x4D8950",
@@ -246,6 +261,22 @@
     ],
     "merged": [],
     "name": "shared/attrib_dir_collective.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x4334D0",
+     "0x441480",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4D76C0"
+    ],
     "tiebreak": [
      "0x4DCBB0",
      "0x4DE0D0",
@@ -656,6 +687,26 @@
     ],
     "merged": [],
     "name": "client/aux_roots.cpp",
+    "shared": [
+     "0x4484C0",
+     "0x4485A0",
+     "0x4485D0",
+     "0x448610",
+     "0x4488B0",
+     "0x4488E0",
+     "0x448A90",
+     "0x448B10",
+     "0x4A3CD0",
+     "0x4A4E50",
+     "0x4A6330",
+     "0x4A6C60",
+     "0x4A6C90",
+     "0x4A6DF0",
+     "0x4A6E60",
+     "0x4A6F00",
+     "0x4A6F40",
+     "0x4A6F80"
+    ],
     "tiebreak": [
      "0x6FB900",
      "0x7048D0",
@@ -714,7 +765,18 @@
      "0x4C3BE0"
     ],
     "merged": [],
-    "name": "shared/avatar_desc.cpp"
+    "name": "shared/avatar_desc.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x4407B0",
+     "0x4A7F00",
+     "0x4C39B0"
+    ]
    },
    "bandwidthaccounting": {
     "ambiguous": [],
@@ -826,6 +888,16 @@
     ],
     "merged": [],
     "name": "shared/boolpars.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x49B740",
      "0x49B8C0"
@@ -870,6 +942,17 @@
     ],
     "merged": [],
     "name": "client/buff_database.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x677850",
      "0x678240",
@@ -890,7 +973,11 @@
      "0x6E3B60"
     ],
     "merged": [],
-    "name": "client/cameraeffects.cpp"
+    "name": "client/cameraeffects.cpp",
+    "shared": [
+     "0x42F250",
+     "0x546970"
+    ]
    },
    "cfaction_database": {
     "ambiguous": [
@@ -933,7 +1020,20 @@
      "0x7E5E50"
     ],
     "merged": [],
-    "name": "client/cfaction_database.cpp"
+    "name": "client/cfaction_database.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x4B5740"
+    ]
    },
    "charview": {
     "ambiguous": [
@@ -1011,7 +1111,20 @@
      "0x67C7B0"
     ],
     "merged": [],
-    "name": "client/charview.cpp"
+    "name": "client/charview.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x433A10",
+     "0x53BB50",
+     "0x551270",
+     "0x577940"
+    ]
    },
    "circbuff": {
     "ambiguous": [],
@@ -1095,10 +1208,31 @@
     ],
     "merged": [],
     "name": "client/client.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42DB80",
+     "0x42F250",
+     "0x447C40",
+     "0x457FA0",
+     "0x45CA00",
+     "0x48A0E0",
+     "0x48A120",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x71BCC0",
+     "0x726A00",
+     "0x726C10",
+     "0x729320"
+    ],
     "tiebreak": [
      "0x728450",
-     "0x728480",
-     "0x7290F0"
+     "0x728480"
     ]
    },
    "client_lego_impl": {
@@ -1233,6 +1367,22 @@
     ],
     "merged": [],
     "name": "client/client_lego_impl.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42DB00",
+     "0x42DB80",
+     "0x42F250",
+     "0x441480",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4B5740"
+    ],
     "tiebreak": [
      "0x72E090",
      "0x72E100",
@@ -1432,7 +1582,10 @@
      "0x869660"
     ],
     "merged": [],
-    "name": "packets/clientstub.cpp"
+    "name": "packets/clientstub.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "co": {
     "ambiguous": [
@@ -1555,7 +1708,27 @@
      "0x7079B0"
     ],
     "merged": [],
-    "name": "client/co.cpp"
+    "name": "client/co.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x4407B0",
+     "0x447C40",
+     "0x457FA0",
+     "0x48A060",
+     "0x546970",
+     "0x6F2C90",
+     "0x6F2D40",
+     "0x6F2D70",
+     "0x6F2DA0",
+     "0x6F2FB0"
+    ]
    },
    "co_data": {
     "ambiguous": [
@@ -1629,6 +1802,21 @@
     ],
     "merged": [],
     "name": "client/co_data.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x42F250",
+     "0x4334D0",
+     "0x441480",
+     "0x47CE60"
+    ],
     "tiebreak": [
      "0x79DE00",
      "0x7A0DD0",
@@ -1701,6 +1889,20 @@
     ],
     "merged": [],
     "name": "client/co_player_relationship.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42F250",
+     "0x441480",
+     "0x4B58D0"
+    ],
     "tiebreak": [
      "0x70D030",
      "0x70D100"
@@ -1739,7 +1941,14 @@
      "0x70E240"
     ],
     "merged": [],
-    "name": "client/co_subtype_base.cpp"
+    "name": "client/co_subtype_base.cpp",
+    "shared": [
+     "0x42F250",
+     "0x44B330",
+     "0x44B360",
+     "0x44B5E0",
+     "0x6F2C90"
+    ]
    },
    "co_subtypes": {
     "ambiguous": [],
@@ -1768,7 +1977,15 @@
      "0x70E7D0"
     ],
     "merged": [],
-    "name": "client/co_subtypes.cpp"
+    "name": "client/co_subtypes.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x44B330",
+     "0x44B360",
+     "0x44B5E0",
+     "0x6F2C90"
+    ]
    },
    "combo_ffactory": {
     "ambiguous": [
@@ -1832,6 +2049,18 @@
     ],
     "merged": [],
     "name": "shared/combo_ffactory.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42DB00",
+     "0x48CA70",
+     "0x4E2CC0",
+     "0x4E6B10"
+    ],
     "tiebreak": [
      "0x4E5B40",
      "0x4E6D00"
@@ -1914,6 +2143,9 @@
     ],
     "merged": [],
     "name": "common/connect.cpp",
+    "shared": [
+     "0x821E40"
+    ],
     "tiebreak": [
      "0x8239E0",
      "0x823A30",
@@ -2053,6 +2285,23 @@
     ],
     "merged": [],
     "name": "client/control_keys_manager.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x42F250",
+     "0x4334D0",
+     "0x441480",
+     "0x4B5740",
+     "0x71BCC0"
+    ],
     "tiebreak": [
      "0x71E3A0",
      "0x71E410",
@@ -2155,6 +2404,9 @@
     ],
     "merged": [],
     "name": "wwudp/cordcon.cpp",
+    "shared": [
+     "0x444160"
+    ],
     "tiebreak": [
      "0x8560E0",
      "0x8564C0"
@@ -2203,6 +2455,13 @@
     ],
     "merged": [],
     "name": "wwudp/cordmgr.cpp",
+    "shared": [
+     "0x444160",
+     "0x82C1A0",
+     "0x82C220",
+     "0x82C260",
+     "0x82C330"
+    ],
     "tiebreak": [
      "0x85AEC0",
      "0x85AEF0",
@@ -2354,7 +2613,39 @@
      "0x73F9E0"
     ],
     "merged": [],
-    "name": "client/cpacket.cpp"
+    "name": "client/cpacket.cpp",
+    "shared": [
+     "0x42A710",
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42F250",
+     "0x432B80",
+     "0x433700",
+     "0x4407B0",
+     "0x444160",
+     "0x44C2B0",
+     "0x457FA0",
+     "0x47E480",
+     "0x4B5740",
+     "0x4E2C00",
+     "0x4E2CC0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x54EDA0",
+     "0x62A560",
+     "0x729320",
+     "0x73F950"
+    ]
    },
    "dbgconn": {
     "ambiguous": [
@@ -2415,6 +2706,16 @@
     ],
     "merged": [],
     "name": "common/dbgconn.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42DB00",
+     "0x821E40"
+    ],
     "tiebreak": [
      "0x8247A0"
     ]
@@ -2443,7 +2744,11 @@
      "0x684E00"
     ],
     "merged": [],
-    "name": "client/deffont.cpp"
+    "name": "client/deffont.cpp",
+    "shared": [
+     "0x42F250",
+     "0x683290"
+    ]
    },
    "delta": {
     "ambiguous": [
@@ -2491,9 +2796,12 @@
     ],
     "merged": [],
     "name": "shared/auxdata/delta.cpp",
-    "tiebreak": [
-     "0x4A5F50",
-     "0x4A5F90"
+    "shared": [
+     "0x4A3CD0",
+     "0x4A4E50",
+     "0x4A5A30",
+     "0x4A5F00",
+     "0x4A5FD0"
     ]
    },
    "delta_interpolator": {
@@ -2534,7 +2842,27 @@
      "0x4A6F80"
     ],
     "merged": [],
-    "name": "shared/auxdata/delta_interpolator.cpp"
+    "name": "shared/auxdata/delta_interpolator.cpp",
+    "shared": [
+     "0x4484C0",
+     "0x4485A0",
+     "0x4485D0",
+     "0x448610",
+     "0x4488B0",
+     "0x4488E0",
+     "0x448A90",
+     "0x448B10",
+     "0x4A3CD0",
+     "0x4A4E50",
+     "0x4A6330",
+     "0x4A6C60",
+     "0x4A6C90",
+     "0x4A6DF0",
+     "0x4A6E60",
+     "0x4A6F00",
+     "0x4A6F40",
+     "0x4A6F80"
+    ]
    },
    "delta_money": {
     "ambiguous": [
@@ -2563,7 +2891,10 @@
      "0x4A77A0"
     ],
     "merged": [],
-    "name": "shared/auxdata/delta_money.cpp"
+    "name": "shared/auxdata/delta_money.cpp",
+    "shared": [
+     "0x4A4E50"
+    ]
    },
    "delta_string": {
     "ambiguous": [
@@ -2588,7 +2919,11 @@
      "0x4A8060"
     ],
     "merged": [],
-    "name": "shared/auxdata/delta_string.cpp"
+    "name": "shared/auxdata/delta_string.cpp",
+    "shared": [
+     "0x4A4E50",
+     "0x4A7F00"
+    ]
    },
    "delta_time": {
     "ambiguous": [
@@ -2617,7 +2952,10 @@
      "0x4A8990"
     ],
     "merged": [],
-    "name": "shared/auxdata/delta_time.cpp"
+    "name": "shared/auxdata/delta_time.cpp",
+    "shared": [
+     "0x4A4E50"
+    ]
    },
    "dynamic_obj": {
     "ambiguous": [],
@@ -2646,7 +2984,14 @@
      "0x44B5E0"
     ],
     "merged": [],
-    "name": "shared/dynamic_obj.cpp"
+    "name": "shared/dynamic_obj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160",
+     "0x44B330",
+     "0x44B360",
+     "0x44B5E0"
+    ]
    },
    "dynamic_window_background": {
     "ambiguous": [
@@ -2687,7 +3032,17 @@
      "0x5170F0"
     ],
     "merged": [],
-    "name": "client/dynamic_window_background.cpp"
+    "name": "client/dynamic_window_background.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x47CE60"
+    ]
    },
    "dynamic_window_class": {
     "ambiguous": [
@@ -2730,6 +3085,14 @@
     ],
     "merged": [],
     "name": "client/dynamic_window_class.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x45CC10"
+    ],
     "tiebreak": [
      "0x518170",
      "0x5182E0",
@@ -2774,7 +3137,14 @@
      "0x51F6D0"
     ],
     "merged": [],
-    "name": "client/dynamic_window_horizontal.cpp"
+    "name": "client/dynamic_window_horizontal.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x5195E0",
+     "0x5199F0"
+    ]
    },
    "dynamic_window_multi_line_text": {
     "ambiguous": [
@@ -2834,6 +3204,24 @@
     ],
     "merged": [],
     "name": "client/dynamic_window_multi_line_text.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4B5740",
+     "0x5195E0",
+     "0x5199F0"
+    ],
+    "shared_callers": [
+     "0x5199F0"
+    ],
     "tiebreak": [
      "0x5199F0",
      "0x51C660"
@@ -2868,7 +3256,12 @@
      "0x51D160"
     ],
     "merged": [],
-    "name": "client/dynamic_window_render_object.cpp"
+    "name": "client/dynamic_window_render_object.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "dynamic_window_text": {
     "ambiguous": [
@@ -2890,6 +3283,10 @@
     ],
     "merged": [],
     "name": "client/dynamic_window_text.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10"
+    ],
     "tiebreak": [
      "0x51D700"
     ]
@@ -2935,6 +3332,16 @@
     ],
     "merged": [],
     "name": "client/dynamic_window_vertical.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x5195E0",
+     "0x5199F0"
+    ],
+    "shared_callers": [
+     "0x5199F0"
+    ],
     "tiebreak": [
      "0x5199F0"
     ]
@@ -3028,6 +3435,16 @@
     ],
     "merged": [],
     "name": "client/eff_o.cpp",
+    "shared": [
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x447C40",
+     "0x457FA0",
+     "0x57DBC0",
+     "0x584E20"
+    ],
     "tiebreak": [
      "0x6E93D0",
      "0x6ECB20",
@@ -3172,6 +3589,12 @@
     ],
     "merged": [],
     "name": "client/extrap.cpp",
+    "shared": [
+     "0x42F250",
+     "0x44C2B0",
+     "0x577940",
+     "0x69F3B0"
+    ],
     "tiebreak": [
      "0x7126F0"
     ]
@@ -3208,7 +3631,13 @@
      "0x6BCF00"
     ],
     "merged": [],
-    "name": "client/font32bit.cpp"
+    "name": "client/font32bit.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x683290"
+    ]
    },
    "fontdatabase": {
     "ambiguous": [
@@ -3353,6 +3782,30 @@
     ],
     "merged": [],
     "name": "client/fontdatabase.cpp",
+    "shared": [
+     "0x42A710",
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x42F250",
+     "0x432B80",
+     "0x433700",
+     "0x433A10",
+     "0x4407B0",
+     "0x47CE60",
+     "0x48CA70",
+     "0x48E910",
+     "0x4E6B10",
+     "0x4FABB0",
+     "0x67F490"
+    ],
     "tiebreak": [
      "0x6C63A0",
      "0x6C63F0",
@@ -3490,6 +3943,28 @@
     ],
     "merged": [],
     "name": "client/fontmanager.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x42F250",
+     "0x4334D0",
+     "0x4407B0",
+     "0x441480",
+     "0x47CE60",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x67F490"
+    ],
     "tiebreak": [
      "0x6D2B50",
      "0x6D2EB0",
@@ -3550,7 +4025,39 @@
      "0x6D88C0"
     ],
     "merged": [],
-    "name": "client/fontsys.cpp"
+    "name": "client/fontsys.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x48E910",
+     "0x48FE60",
+     "0x48FF70",
+     "0x510CC0",
+     "0x67E880",
+     "0x67E8A0",
+     "0x67E8D0",
+     "0x67E970",
+     "0x67E9A0",
+     "0x67EA70",
+     "0x67EEC0",
+     "0x67F490"
+    ]
    },
    "fontsys_cursor": {
     "ambiguous": [
@@ -3600,6 +4107,37 @@
     ],
     "merged": [],
     "name": "client/fontsys_cursor.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48FE60",
+     "0x48FF70",
+     "0x67E880",
+     "0x67E8A0",
+     "0x67E8D0",
+     "0x67E970",
+     "0x67E9A0",
+     "0x67EA70",
+     "0x67EEC0",
+     "0x6857C0",
+     "0x685800"
+    ],
     "tiebreak": [
      "0x685E00"
     ]
@@ -3640,7 +4178,10 @@
      "0x660960"
     ],
     "merged": [],
-    "name": "client/gadget.cpp"
+    "name": "client/gadget.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "gadget_list_manager": {
     "ambiguous": [
@@ -3857,6 +4398,17 @@
     ],
     "merged": [],
     "name": "common/galaxy_map.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x4334D0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4B5740"
+    ],
     "tiebreak": [
      "0x837D50",
      "0x838AD0",
@@ -3944,7 +4496,12 @@
      "0x7A5540"
     ],
     "merged": [],
-    "name": "client/galaxy_map_client.cpp"
+    "name": "client/galaxy_map_client.cpp",
+    "shared": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250"
+    ]
    },
    "gclass": {
     "ambiguous": [
@@ -4008,6 +4565,12 @@
     ],
     "merged": [],
     "name": "shared/gclass.cpp",
+    "shared": [
+     "0x457FA0",
+     "0x45CA00",
+     "0x48A060",
+     "0x48A0E0"
+    ],
     "tiebreak": [
      "0x4A2FD0"
     ]
@@ -4024,7 +4587,10 @@
      "0x66BDA0"
     ],
     "merged": [],
-    "name": "client/gd_resize.cpp"
+    "name": "client/gd_resize.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "gd_robj": {
     "ambiguous": [
@@ -4059,7 +4625,10 @@
      "0x66C890"
     ],
     "merged": [],
-    "name": "client/gd_robj.cpp"
+    "name": "client/gd_robj.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "heightfield": {
     "ambiguous": [
@@ -4091,6 +4660,14 @@
     ],
     "merged": [],
     "name": "shared/heightfield.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4667D0"
+    ],
+    "shared_callers": [
+     "0x4668F0"
+    ],
     "tiebreak": [
      "0x4668F0"
     ]
@@ -4133,6 +4710,9 @@
     ],
     "merged": [],
     "name": "client/html/htmlview.cpp",
+    "shared": [
+     "0x42F250"
+    ],
     "tiebreak": [
      "0x770430"
     ]
@@ -4196,6 +4776,23 @@
     ],
     "merged": [],
     "name": "shared/ini_manager.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4B5740",
+     "0x4C39B0",
+     "0x4E2C00"
+    ],
     "tiebreak": [
      "0x4EB910",
      "0x4EB990",
@@ -4240,6 +4837,13 @@
     ],
     "merged": [],
     "name": "input/inpdsp.cpp",
+    "shared": [
+     "0x42A710",
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30"
+    ],
     "tiebreak": [
      "0x42B2C0"
     ]
@@ -4288,8 +4892,20 @@
     ],
     "merged": [],
     "name": "input/inpkeys.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80"
+    ],
     "tiebreak": [
-     "0x42CA60",
      "0x42CE80",
      "0x42D5D0",
      "0x42DC10",
@@ -4321,7 +4937,12 @@
      "0x42F2F0"
     ],
     "merged": [],
-    "name": "input/input.cpp"
+    "name": "input/input.cpp",
+    "shared": [
+     "0x42F060",
+     "0x42F220",
+     "0x42F250"
+    ]
    },
    "interface_scene": {
     "ambiguous": [
@@ -4382,6 +5003,23 @@
     ],
     "merged": [],
     "name": "client/interface_scene.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x6DACC0",
+     "0x6DAD10",
+     "0x6DADB0",
+     "0x6DADE0",
+     "0x6DAEB0",
+     "0x6DAF80",
+     "0x6DCE80",
+     "0x6DCED0",
+     "0x6DCF10",
+     "0x6DD4A0",
+     "0x6DDF60",
+     "0x6DF130"
+    ],
     "tiebreak": [
      "0x6DD0F0",
      "0x6DD3A0",
@@ -4454,6 +5092,23 @@
     ],
     "merged": [],
     "name": "client/interface_static_sort_list.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x6DACC0",
+     "0x6DAD10",
+     "0x6DADB0",
+     "0x6DADE0",
+     "0x6DAEB0",
+     "0x6DAF80",
+     "0x6DCE80",
+     "0x6DCED0",
+     "0x6DCF10",
+     "0x6DD4A0",
+     "0x6DDF60",
+     "0x6DF130"
+    ],
     "tiebreak": [
      "0x6DD160",
      "0x6DEE00",
@@ -4498,7 +5153,13 @@
      "0x541D90"
     ],
     "merged": [],
-    "name": "client/intrface.cpp"
+    "name": "client/intrface.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x51E220"
+    ]
    },
    "kernel": {
     "ambiguous": [],
@@ -4532,6 +5193,9 @@
     ],
     "merged": [],
     "name": "kernel/kernel.cpp",
+    "shared": [
+     "0x444160"
+    ],
     "tiebreak": [
      "0x444190"
     ]
@@ -4540,8 +5204,7 @@
     "ambiguous": [
      "0x42A6C0",
      "0x42B2F0",
-     "0x444190",
-     "0x49CB70"
+     "0x444190"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -4577,11 +5240,27 @@
      "0x4B5560",
      "0x4B55F0",
      "0x4B56B0",
+     "0x4B56F0",
      "0x4B5740",
      "0x4B58D0"
     ],
     "merged": [],
-    "name": "shared/kv_encoder_base.cpp"
+    "name": "shared/kv_encoder_base.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x433700",
+     "0x4B53D0",
+     "0x4B5560",
+     "0x4B5740",
+     "0x4B58D0"
+    ]
    },
    "kv_list": {
     "ambiguous": [
@@ -4626,6 +5305,15 @@
     ],
     "merged": [],
     "name": "shared/kv_list.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42DB00",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x4B70F0",
      "0x4B73F0",
@@ -4714,6 +5402,18 @@
     ],
     "merged": [],
     "name": "shared/kv_tripl.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x4334D0",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x4BAC70",
      "0x4BAEB0"
@@ -4875,7 +5575,56 @@
      "0x47F520"
     ],
     "merged": [],
-    "name": "shared/land.cpp"
+    "name": "shared/land.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x432B80",
+     "0x432C30",
+     "0x432D50",
+     "0x433700",
+     "0x433A10",
+     "0x444160",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x4627F0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x4632F0",
+     "0x463340",
+     "0x463370",
+     "0x4667D0",
+     "0x47D440",
+     "0x47E480",
+     "0x47E4D0",
+     "0x47E6E0",
+     "0x47E770",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47EB50",
+     "0x47ED00",
+     "0x47F1C0"
+    ]
    },
    "landdmap": {
     "ambiguous": [],
@@ -4904,7 +5653,10 @@
      "0x468BE0"
     ],
     "merged": [],
-    "name": "shared/landdmap.cpp"
+    "name": "shared/landdmap.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "lego_identifier": {
     "ambiguous": [
@@ -4944,7 +5696,25 @@
      "0x844A60"
     ],
     "merged": [],
-    "name": "common/lego_identifier.cpp"
+    "name": "common/lego_identifier.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x432B80",
+     "0x432C30",
+     "0x433700",
+     "0x433A10",
+     "0x47E480",
+     "0x47E4D0",
+     "0x47EB50",
+     "0x47ED00",
+     "0x4B5740"
+    ]
    },
    "linearbu": {
     "ambiguous": [],
@@ -4994,7 +5764,11 @@
      "0x692420"
     ],
     "merged": [],
-    "name": "client/loadingview.cpp"
+    "name": "client/loadingview.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42F250"
+    ]
    },
    "local_interface_sort": {
     "ambiguous": [
@@ -5015,7 +5789,10 @@
      "0x6E1940"
     ],
     "merged": [],
-    "name": "client/local_interface_sort.cpp"
+    "name": "client/local_interface_sort.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "lookup": {
     "ambiguous": [
@@ -5046,6 +5823,11 @@
     ],
     "merged": [],
     "name": "shared/auxdata/lookup.cpp",
+    "shared": [
+     "0x4A5A30",
+     "0x4A5F00",
+     "0x4A5FD0"
+    ],
     "tiebreak": [
      "0x4AD300"
     ]
@@ -5135,6 +5917,23 @@
     ],
     "merged": [],
     "name": "shared/lookup_table.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x432B80",
+     "0x433A10",
+     "0x441480",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4B5740"
+    ],
     "tiebreak": [
      "0x4EDFE0",
      "0x4EE260",
@@ -5163,7 +5962,10 @@
      "0x445630"
     ],
     "merged": [],
-    "name": "main/main.cpp"
+    "name": "main/main.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "main_client": {
     "ambiguous": [
@@ -5176,7 +5978,10 @@
      "0x526DE0"
     ],
     "merged": [],
-    "name": "main/main_client.cpp"
+    "name": "main/main_client.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "mainview": {
     "ambiguous": [
@@ -5250,7 +6055,20 @@
      "0x514E70"
     ],
     "merged": [],
-    "name": "client/mainview.cpp"
+    "name": "client/mainview.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x432B80",
+     "0x444160",
+     "0x447C40",
+     "0x48E910",
+     "0x510CC0"
+    ]
    },
    "memconn": {
     "ambiguous": [
@@ -5291,6 +6109,9 @@
     ],
     "merged": [],
     "name": "common/memconn.cpp",
+    "shared": [
+     "0x820C70"
+    ],
     "tiebreak": [
      "0x8269E0",
      "0x827400",
@@ -5319,7 +6140,10 @@
      "0x4ADBB0"
     ],
     "merged": [],
-    "name": "shared/auxdata/name.cpp"
+    "name": "shared/auxdata/name.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "option": {
     "ambiguous": [
@@ -5481,6 +6305,21 @@
     ],
     "merged": [],
     "name": "client/option.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42F250",
+     "0x4334D0",
+     "0x441480",
+     "0x47CE60"
+    ],
     "tiebreak": [
      "0x7FA540",
      "0x7FA590",
@@ -5609,7 +6448,17 @@
      "0x86F010"
     ],
     "merged": [],
-    "name": "packets/pk.cpp"
+    "name": "packets/pk.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pk_player_object_relationship": {
     "ambiguous": [
@@ -5668,6 +6517,17 @@
     ],
     "merged": [],
     "name": "packets/pk_player_object_relationship.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x875390",
      "0x8753E0",
@@ -5712,6 +6572,19 @@
     ],
     "merged": [],
     "name": "packets/pk_sub_parts.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x875D90",
      "0x876180"
@@ -5746,7 +6619,17 @@
      "0x876980"
     ],
     "merged": [],
-    "name": "packets/pkaction.cpp"
+    "name": "packets/pkaction.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x595410"
+    ]
    },
    "pkauxdata": {
     "ambiguous": [
@@ -5773,6 +6656,13 @@
     ],
     "merged": [],
     "name": "packets/pkauxdata.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x876F60",
      "0x877300"
@@ -5796,7 +6686,14 @@
      "0x878560"
     ],
     "merged": [],
-    "name": "packets/pkcameracontrol.cpp"
+    "name": "packets/pkcameracontrol.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkchangebaseasset": {
     "ambiguous": [
@@ -5816,7 +6713,14 @@
      "0x87E730"
     ],
     "merged": [],
-    "name": "packets/pkchangebaseasset.cpp"
+    "name": "packets/pkchangebaseasset.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkclickindicator": {
     "ambiguous": [
@@ -5836,7 +6740,14 @@
      "0x87EA00"
     ],
     "merged": [],
-    "name": "packets/pkclickindicator.cpp"
+    "name": "packets/pkclickindicator.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkclientavatar": {
     "ambiguous": [
@@ -5856,7 +6767,14 @@
      "0x8775E0"
     ],
     "merged": [],
-    "name": "packets/pkclientavatar.cpp"
+    "name": "packets/pkclientavatar.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkclientchat": {
     "ambiguous": [
@@ -5920,7 +6838,25 @@
      "0x87A8E0"
     ],
     "merged": [],
-    "name": "packets/pkclientchat.cpp"
+    "name": "packets/pkclientchat.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432C30",
+     "0x432D50",
+     "0x433700",
+     "0x47E480",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkclientship": {
     "ambiguous": [
@@ -5941,7 +6877,14 @@
      "0x8A4990"
     ],
     "merged": [],
-    "name": "packets/pkclientship.cpp"
+    "name": "packets/pkclientship.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkcolorization": {
     "ambiguous": [
@@ -5969,6 +6912,19 @@
     ],
     "merged": [],
     "name": "packets/pkcolorization.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x62A0A0",
+     "0x62A560",
+     "0x62A5D0"
+    ],
+    "shared_callers": [
+     "0x62A5D0"
+    ],
     "tiebreak": [
      "0x62A5D0"
     ]
@@ -6010,7 +6966,19 @@
      "0x870E20"
     ],
     "merged": [],
-    "name": "packets/pkconfirmedaction.cpp"
+    "name": "packets/pkconfirmedaction.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkcreate": {
     "ambiguous": [
@@ -6030,7 +6998,14 @@
      "0x87FC50"
     ],
     "merged": [],
-    "name": "packets/pkcreate.cpp"
+    "name": "packets/pkcreate.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkcreateattachment": {
     "ambiguous": [
@@ -6050,7 +7025,14 @@
      "0x876CC0"
     ],
     "merged": [],
-    "name": "packets/pkcreateattachment.cpp"
+    "name": "packets/pkcreateattachment.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkcreatecharacter": {
     "ambiguous": [
@@ -6080,7 +7062,21 @@
      "0x85D140"
     ],
     "merged": [],
-    "name": "packets/pkcreatecharacter.cpp"
+    "name": "packets/pkcreatecharacter.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x85CB00"
+    ]
    },
    "pkcta_request": {
     "ambiguous": [
@@ -6106,7 +7102,14 @@
      "0x86F5B0"
     ],
     "merged": [],
-    "name": "packets/pkcta_request.cpp"
+    "name": "packets/pkcta_request.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkdamage": {
     "ambiguous": [
@@ -6127,7 +7130,14 @@
      "0x880240"
     ],
     "merged": [],
-    "name": "packets/pkdamage.cpp"
+    "name": "packets/pkdamage.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkdebug": {
     "ambiguous": [
@@ -6148,7 +7158,14 @@
      "0x880500"
     ],
     "merged": [],
-    "name": "packets/pkdebug.cpp"
+    "name": "packets/pkdebug.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkdialog": {
     "ambiguous": [
@@ -6170,7 +7187,14 @@
      "0x881620"
     ],
     "merged": [],
-    "name": "packets/pkdialog.cpp"
+    "name": "packets/pkdialog.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkdirlock": {
     "ambiguous": [
@@ -6221,6 +7245,13 @@
     ],
     "merged": [],
     "name": "packets/pkdirlock.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x881880",
      "0x881AF0",
@@ -6247,7 +7278,14 @@
      "0x8AEA70"
     ],
     "merged": [],
-    "name": "packets/pkequipuse.cpp"
+    "name": "packets/pkequipuse.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkfindmember": {
     "ambiguous": [
@@ -6275,6 +7313,13 @@
     ],
     "merged": [],
     "name": "packets/pkfindmember.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x886BD0",
      "0x886C20"
@@ -6304,7 +7349,14 @@
      "0x887230"
     ],
     "merged": [],
-    "name": "packets/pkfindplayerrequest.cpp"
+    "name": "packets/pkfindplayerrequest.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkfire": {
     "ambiguous": [
@@ -6325,7 +7377,14 @@
      "0x887500"
     ],
     "merged": [],
-    "name": "packets/pkfire.cpp"
+    "name": "packets/pkfire.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkflag": {
     "ambiguous": [
@@ -6369,7 +7428,14 @@
      "0x887EC0"
     ],
     "merged": [],
-    "name": "packets/pkgadget.cpp"
+    "name": "packets/pkgadget.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgalaxymap": {
     "ambiguous": [
@@ -6394,7 +7460,14 @@
      "0x871460"
     ],
     "merged": [],
-    "name": "packets/pkgalaxymap.cpp"
+    "name": "packets/pkgalaxymap.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgeaset": {
     "ambiguous": [
@@ -6416,7 +7489,14 @@
      "0x85DDB0"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgeaset.cpp"
+    "name": "packets/gameedit/pkgeaset.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgeclon": {
     "ambiguous": [
@@ -6445,7 +7525,15 @@
      "0x85E580"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgeclon.cpp"
+    "name": "packets/gameedit/pkgeclon.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgekv": {
     "ambiguous": [
@@ -6484,7 +7572,14 @@
      "0x85F1F0"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgekv.cpp"
+    "name": "packets/gameedit/pkgekv.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgeobj": {
     "ambiguous": [
@@ -6546,7 +7641,15 @@
      "0x860CB0"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgeobj.cpp"
+    "name": "packets/gameedit/pkgeobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgeplan": {
     "ambiguous": [
@@ -6584,7 +7687,14 @@
      "0x8616E0"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgeplan.cpp"
+    "name": "packets/gameedit/pkgeplan.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgesave": {
     "ambiguous": [
@@ -6611,7 +7721,14 @@
      "0x8622C0"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgesave.cpp"
+    "name": "packets/gameedit/pkgesave.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgespwn": {
     "ambiguous": [
@@ -6639,7 +7756,14 @@
      "0x862920"
     ],
     "merged": [],
-    "name": "packets/gameedit/pkgespwn.cpp"
+    "name": "packets/gameedit/pkgespwn.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkglobalavatarlist": {
     "ambiguous": [
@@ -6669,7 +7793,18 @@
      "0x863360"
     ],
     "merged": [],
-    "name": "packets/pkglobalavatarlist.cpp"
+    "name": "packets/pkglobalavatarlist.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x560010",
+     "0x560160",
+     "0x5601D0"
+    ]
    },
    "pkglobalconnect": {
     "ambiguous": [
@@ -6692,7 +7827,14 @@
      "0x8636C0"
     ],
     "merged": [],
-    "name": "packets/pkglobalconnect.cpp"
+    "name": "packets/pkglobalconnect.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkglobalcreatecharacter": {
     "ambiguous": [
@@ -6722,7 +7864,21 @@
      "0x864750"
     ],
     "merged": [],
-    "name": "packets/pkglobalcreatecharacter.cpp"
+    "name": "packets/pkglobalcreatecharacter.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x85CB00"
+    ]
    },
    "pkglobaldeletecharacter": {
     "ambiguous": [
@@ -6743,7 +7899,14 @@
      "0x8649B0"
     ],
     "merged": [],
-    "name": "packets/pkglobaldeletecharacter.cpp"
+    "name": "packets/pkglobaldeletecharacter.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkglobalerror": {
     "ambiguous": [
@@ -6768,7 +7931,17 @@
      "0x864FC0"
     ],
     "merged": [],
-    "name": "packets/pkglobalerror.cpp"
+    "name": "packets/pkglobalerror.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgloballock": {
     "ambiguous": [
@@ -6803,7 +7976,14 @@
      "0x865D00"
     ],
     "merged": [],
-    "name": "packets/pkgloballock.cpp"
+    "name": "packets/pkgloballock.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgloballogin": {
     "ambiguous": [
@@ -6834,7 +8014,21 @@
      "0x866640"
     ],
     "merged": [],
-    "name": "packets/pkgloballogin.cpp"
+    "name": "packets/pkgloballogin.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x5AEF50"
+    ]
    },
    "pkglobalticket": {
     "ambiguous": [
@@ -6857,7 +8051,14 @@
      "0x867800"
     ],
     "merged": [],
-    "name": "packets/pkglobalticket.cpp"
+    "name": "packets/pkglobalticket.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkglobalticketrequest": {
     "ambiguous": [
@@ -6878,7 +8079,14 @@
      "0x867A40"
     ],
     "merged": [],
-    "name": "packets/pkglobalticketrequest.cpp"
+    "name": "packets/pkglobalticketrequest.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgmdestroyitem": {
     "ambiguous": [
@@ -6903,7 +8111,16 @@
      "0x8719C0"
     ],
     "merged": [],
-    "name": "packets/pkgmdestroyitem.cpp"
+    "name": "packets/pkgmdestroyitem.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgmeditplayerinventory": {
     "ambiguous": [
@@ -6937,7 +8154,24 @@
      "0x86FCA0"
     ],
     "merged": [],
-    "name": "packets/pkgmeditplayerinventory.cpp"
+    "name": "packets/pkgmeditplayerinventory.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgmresetmission": {
     "ambiguous": [
@@ -6962,7 +8196,16 @@
      "0x871F00"
     ],
     "merged": [],
-    "name": "packets/pkgmresetmission.cpp"
+    "name": "packets/pkgmresetmission.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgmviewmissionlog": {
     "ambiguous": [
@@ -6996,7 +8239,24 @@
      "0x870370"
     ],
     "merged": [],
-    "name": "packets/pkgmviewmissionlog.cpp"
+    "name": "packets/pkgmviewmissionlog.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgpsrequest": {
     "ambiguous": [
@@ -7026,7 +8286,14 @@
      "0x888640"
     ],
     "merged": [],
-    "name": "packets/pkgpsrequest.cpp"
+    "name": "packets/pkgpsrequest.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkgroup": {
     "ambiguous": [
@@ -7049,7 +8316,14 @@
      "0x888AA0"
     ],
     "merged": [],
-    "name": "packets/pkgroup.cpp"
+    "name": "packets/pkgroup.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkguildplayeronline": {
     "ambiguous": [
@@ -7196,6 +8470,21 @@
     ],
     "merged": [],
     "name": "packets/pkguildplayeronline.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x47CE60",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x8942B0",
      "0x894350"
@@ -7281,7 +8570,22 @@
      "0x88E7F0"
     ],
     "merged": [],
-    "name": "packets/pkguildranknamesrequestclient.cpp"
+    "name": "packets/pkguildranknamesrequestclient.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x47CE60",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkhullupgrade": {
     "ambiguous": [
@@ -7302,7 +8606,14 @@
      "0x894C30"
     ],
     "merged": [],
-    "name": "packets/pkhullupgrade.cpp"
+    "name": "packets/pkhullupgrade.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkincapacitancerequest": {
     "ambiguous": [
@@ -7355,7 +8666,21 @@
      "0x873740"
     ],
     "merged": [],
-    "name": "packets/pkincapacitancerequest.cpp"
+    "name": "packets/pkincapacitancerequest.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50"
+    ]
    },
    "pkinitrenderstate": {
     "ambiguous": [
@@ -7387,7 +8712,14 @@
      "0x8A24C0"
     ],
     "merged": [],
-    "name": "packets/pkinitrenderstate.cpp"
+    "name": "packets/pkinitrenderstate.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkinventorymove": {
     "ambiguous": [
@@ -7413,7 +8745,14 @@
      "0x895280"
     ],
     "merged": [],
-    "name": "packets/pkinventorymove.cpp"
+    "name": "packets/pkinventorymove.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkitemba": {
     "ambiguous": [
@@ -7445,7 +8784,20 @@
      "0x895B40"
     ],
     "merged": [],
-    "name": "packets/pkitemba.cpp"
+    "name": "packets/pkitemba.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkitemstate": {
     "ambiguous": [
@@ -7465,7 +8817,14 @@
      "0x895E80"
     ],
     "merged": [],
-    "name": "packets/pkitemstate.cpp"
+    "name": "packets/pkitemstate.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkjoblist": {
     "ambiguous": [
@@ -7515,6 +8874,16 @@
     ],
     "merged": [],
     "name": "packets/pkjoblist.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x8971A0",
      "0x897440"
@@ -7541,7 +8910,14 @@
      "0x89AAC0"
     ],
     "merged": [],
-    "name": "packets/pklogin.cpp"
+    "name": "packets/pklogin.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pklogoff": {
     "ambiguous": [
@@ -7577,7 +8953,14 @@
      "0x89B2C0"
     ],
     "merged": [],
-    "name": "packets/pklogoff.cpp"
+    "name": "packets/pklogoff.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkloothulkpermission": {
     "ambiguous": [
@@ -7598,7 +8981,14 @@
      "0x8739A0"
     ],
     "merged": [],
-    "name": "packets/pkloothulkpermission.cpp"
+    "name": "packets/pkloothulkpermission.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkloungenpc": {
     "ambiguous": [
@@ -7658,6 +9048,20 @@
     ],
     "merged": [],
     "name": "packets/pkloungenpc.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x89A320"
     ]
@@ -7716,7 +9120,14 @@
      "0x89C5A0"
     ],
     "merged": [],
-    "name": "packets/pkmanufactureitemcatagorypacket.cpp"
+    "name": "packets/pkmanufactureitemcatagorypacket.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmasterjoin": {
     "ambiguous": [
@@ -7737,7 +9148,14 @@
      "0x8976C0"
     ],
     "merged": [],
-    "name": "packets/pkmasterjoin.cpp"
+    "name": "packets/pkmasterjoin.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmessagechatstream": {
     "ambiguous": [
@@ -7759,7 +9177,14 @@
      "0x89D620"
     ],
     "merged": [],
-    "name": "packets/pkmessagechatstream.cpp"
+    "name": "packets/pkmessagechatstream.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmessageline": {
     "ambiguous": [
@@ -7794,7 +9219,14 @@
      "0x89E080"
     ],
     "merged": [],
-    "name": "packets/pkmessageline.cpp"
+    "name": "packets/pkmessageline.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmessagestring": {
     "ambiguous": [
@@ -7817,7 +9249,14 @@
      "0x89E520"
     ],
     "merged": [],
-    "name": "packets/pkmessagestring.cpp"
+    "name": "packets/pkmessagestring.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmessagetime": {
     "ambiguous": [
@@ -7838,7 +9277,14 @@
      "0x89E850"
     ],
     "merged": [],
-    "name": "packets/pkmessagetime.cpp"
+    "name": "packets/pkmessagetime.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmissionforfeit": {
     "ambiguous": [
@@ -7864,7 +9310,14 @@
      "0x89CA90"
     ],
     "merged": [],
-    "name": "packets/pkmissionforfeit.cpp"
+    "name": "packets/pkmissionforfeit.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmodechange": {
     "ambiguous": [
@@ -7885,7 +9338,14 @@
      "0x89CD40"
     ],
     "merged": [],
-    "name": "packets/pkmodechange.cpp"
+    "name": "packets/pkmodechange.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmoderequest": {
     "ambiguous": [
@@ -7906,7 +9366,14 @@
      "0x89D000"
     ],
     "merged": [],
-    "name": "packets/pkmoderequest.cpp"
+    "name": "packets/pkmoderequest.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkmove": {
     "ambiguous": [
@@ -7927,7 +9394,14 @@
      "0x89D2A0"
     ],
     "merged": [],
-    "name": "packets/pkmove.cpp"
+    "name": "packets/pkmove.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pknamedecal": {
     "ambiguous": [
@@ -7961,7 +9435,15 @@
      "0x881250"
     ],
     "merged": [],
-    "name": "packets/pknamedecal.cpp"
+    "name": "packets/pknamedecal.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x62A520"
+    ]
    },
    "pknavdelete": {
     "ambiguous": [
@@ -7987,7 +9469,14 @@
      "0x89EEC0"
     ],
     "merged": [],
-    "name": "packets/pknavdelete.cpp"
+    "name": "packets/pknavdelete.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pknote": {
     "ambiguous": [
@@ -8008,7 +9497,14 @@
      "0x89F190"
     ],
     "merged": [],
-    "name": "packets/pknote.cpp"
+    "name": "packets/pknote.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pknotelist": {
     "ambiguous": [
@@ -8042,6 +9538,13 @@
     ],
     "merged": [],
     "name": "packets/pknotelist.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x87F2A0"
     ]
@@ -8065,7 +9568,14 @@
      "0x89F420"
     ],
     "merged": [],
-    "name": "packets/pkopeninterface.cpp"
+    "name": "packets/pkopeninterface.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkoption": {
     "ambiguous": [
@@ -8085,7 +9595,14 @@
      "0x89F6D0"
     ],
     "merged": [],
-    "name": "packets/pkoption.cpp"
+    "name": "packets/pkoption.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkpetitionstuck": {
     "ambiguous": [
@@ -8108,7 +9625,14 @@
      "0x89FAE0"
     ],
     "merged": [],
-    "name": "packets/pkpetitionstuck.cpp"
+    "name": "packets/pkpetitionstuck.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkpointeffect": {
     "ambiguous": [
@@ -8175,6 +9699,16 @@
     ],
     "merged": [],
     "name": "packets/pkpointeffect.cpp",
+    "shared": [
+     "0x42A970",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x882950"
+    ],
     "tiebreak": [
      "0x8839F0",
      "0x884720",
@@ -8237,6 +9771,21 @@
     ],
     "merged": [],
     "name": "packets/pkrecustomize.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50"
+    ],
     "tiebreak": [
      "0x8A1020"
     ]
@@ -8259,7 +9808,14 @@
      "0x878210"
     ],
     "merged": [],
-    "name": "packets/pkreferralpointsavailable.cpp"
+    "name": "packets/pkreferralpointsavailable.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkremove": {
     "ambiguous": [
@@ -8279,7 +9835,14 @@
      "0x8A18F0"
     ],
     "merged": [],
-    "name": "packets/pkremove.cpp"
+    "name": "packets/pkremove.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkrequesttarget": {
     "ambiguous": [
@@ -8310,7 +9873,14 @@
      "0x8A85B0"
     ],
     "merged": [],
-    "name": "packets/pkrequesttarget.cpp"
+    "name": "packets/pkrequesttarget.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkrequesttime": {
     "ambiguous": [
@@ -8336,7 +9906,14 @@
      "0x8AB220"
     ],
     "merged": [],
-    "name": "packets/pkrequesttime.cpp"
+    "name": "packets/pkrequesttime.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkrequesttransformchange": {
     "ambiguous": [
@@ -8356,7 +9933,14 @@
      "0x8A2AA0"
     ],
     "merged": [],
-    "name": "packets/pkrequesttransformchange.cpp"
+    "name": "packets/pkrequesttransformchange.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkserverhandoff": {
     "ambiguous": [
@@ -8386,7 +9970,20 @@
      "0x894950"
     ],
     "merged": [],
-    "name": "packets/pkserverhandoff.cpp"
+    "name": "packets/pkserverhandoff.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkserverparameters": {
     "ambiguous": [
@@ -8407,7 +10004,14 @@
      "0x8A5FD0"
     ],
     "merged": [],
-    "name": "packets/pkserverparameters.cpp"
+    "name": "packets/pkserverparameters.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkserverready": {
     "ambiguous": [
@@ -8428,7 +10032,14 @@
      "0x8A63C0"
     ],
     "merged": [],
-    "name": "packets/pkserverready.cpp"
+    "name": "packets/pkserverready.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkserverredirect": {
     "ambiguous": [
@@ -8448,7 +10059,14 @@
      "0x8A15E0"
     ],
     "merged": [],
-    "name": "packets/pkserverredirect.cpp"
+    "name": "packets/pkserverredirect.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pksetclienttype": {
     "ambiguous": [
@@ -8469,7 +10087,14 @@
      "0x87FEF0"
     ],
     "merged": [],
-    "name": "packets/pksetclienttype.cpp"
+    "name": "packets/pksetclienttype.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pksetzband": {
     "ambiguous": [
@@ -8494,7 +10119,14 @@
      "0x8A4710"
     ],
     "merged": [],
-    "name": "packets/pksetzband.cpp"
+    "name": "packets/pksetzband.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkskill": {
     "ambiguous": [
@@ -8520,7 +10152,14 @@
      "0x8A4EB0"
     ],
     "merged": [],
-    "name": "packets/pkskill.cpp"
+    "name": "packets/pkskill.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkskillstringrq": {
     "ambiguous": [
@@ -8541,7 +10180,14 @@
      "0x8A2740"
     ],
     "merged": [],
-    "name": "packets/pkskillstringrq.cpp"
+    "name": "packets/pkskillstringrq.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pksoundcommand": {
     "ambiguous": [
@@ -8568,7 +10214,14 @@
      "0x8A54B0"
     ],
     "merged": [],
-    "name": "packets/pksoundcommand.cpp"
+    "name": "packets/pksoundcommand.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkspline": {
     "ambiguous": [
@@ -8590,7 +10243,14 @@
      "0x8A5A50"
     ],
     "merged": [],
-    "name": "packets/pkspline.cpp"
+    "name": "packets/pkspline.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkstarbase_avatar_change": {
     "ambiguous": [
@@ -8624,7 +10284,14 @@
      "0x8A41E0"
     ],
     "merged": [],
-    "name": "packets/pkstarbase_avatar_change.cpp"
+    "name": "packets/pkstarbase_avatar_change.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkstarbasetow": {
     "ambiguous": [
@@ -8654,7 +10321,14 @@
      "0x8A3580"
     ],
     "merged": [],
-    "name": "packets/pkstarbasetow.cpp"
+    "name": "packets/pkstarbasetow.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkstart": {
     "ambiguous": [
@@ -8679,7 +10353,14 @@
      "0x8A6A20"
     ],
     "merged": [],
-    "name": "packets/pkstart.cpp"
+    "name": "packets/pkstart.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pktalktreeaction": {
     "ambiguous": [
@@ -8726,6 +10407,19 @@
     ],
     "merged": [],
     "name": "packets/pktalktreeaction.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x8A7CA0"
     ]
@@ -8808,6 +10502,13 @@
     ],
     "merged": [],
     "name": "packets/pktask.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x8A98D0",
      "0x8A9B70",
@@ -8833,7 +10534,14 @@
      "0x8AACE0"
     ],
     "merged": [],
-    "name": "packets/pktilt.cpp"
+    "name": "packets/pktilt.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pktrade": {
     "ambiguous": [
@@ -8853,7 +10561,14 @@
      "0x8AB500"
     ],
     "merged": [],
-    "name": "packets/pktrade.cpp"
+    "name": "packets/pktrade.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pktriggeremote": {
     "ambiguous": [
@@ -8879,7 +10594,14 @@
      "0x886510"
     ],
     "merged": [],
-    "name": "packets/pktriggeremote.cpp"
+    "name": "packets/pktriggeremote.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkturn": {
     "ambiguous": [
@@ -8900,7 +10622,14 @@
      "0x8AB790"
     ],
     "merged": [],
-    "name": "packets/pkturn.cpp"
+    "name": "packets/pkturn.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkuitrigger": {
     "ambiguous": [
@@ -8921,7 +10650,14 @@
      "0x8ABA10"
     ],
     "merged": [],
-    "name": "packets/pkuitrigger.cpp"
+    "name": "packets/pkuitrigger.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_85d1a0": {
     "ambiguous": [
@@ -8942,7 +10678,14 @@
      "0x85D450"
     ],
     "merged": [],
-    "name": "packets/pkunknown_85d1a0.cpp"
+    "name": "packets/pkunknown_85d1a0.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_85d4b0": {
     "ambiguous": [
@@ -8962,7 +10705,14 @@
      "0x85D650"
     ],
     "merged": [],
-    "name": "packets/pkunknown_85d4b0.cpp"
+    "name": "packets/pkunknown_85d4b0.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_85d7b0": {
     "ambiguous": [
@@ -8983,7 +10733,14 @@
      "0x85DA10"
     ],
     "merged": [],
-    "name": "packets/pkunknown_85d7b0.cpp"
+    "name": "packets/pkunknown_85d7b0.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_85f250": {
     "ambiguous": [
@@ -9013,7 +10770,14 @@
      "0x85F7F0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_85f250.cpp"
+    "name": "packets/pkunknown_85f250.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_861760": {
     "ambiguous": [
@@ -9035,7 +10799,15 @@
      "0x861AB0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_861760.cpp"
+    "name": "packets/pkunknown_861760.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_861b30": {
     "ambiguous": [
@@ -9056,7 +10828,14 @@
      "0x861D30"
     ],
     "merged": [],
-    "name": "packets/pkunknown_861b30.cpp"
+    "name": "packets/pkunknown_861b30.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_863720": {
     "ambiguous": [
@@ -9086,7 +10865,14 @@
      "0x864030"
     ],
     "merged": [],
-    "name": "packets/pkunknown_863720.cpp"
+    "name": "packets/pkunknown_863720.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_865020": {
     "ambiguous": [
@@ -9106,7 +10892,14 @@
      "0x865390"
     ],
     "merged": [],
-    "name": "packets/pkunknown_865020.cpp"
+    "name": "packets/pkunknown_865020.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_8667a0": {
     "ambiguous": [
@@ -9126,7 +10919,14 @@
      "0x866A60"
     ],
     "merged": [],
-    "name": "packets/pkunknown_8667a0.cpp"
+    "name": "packets/pkunknown_8667a0.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_866ac0": {
     "ambiguous": [
@@ -9155,7 +10955,18 @@
      "0x866FB0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_866ac0.cpp"
+    "name": "packets/pkunknown_866ac0.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x76B400",
+     "0x76B470"
+    ]
    },
    "pkunknown_867010": {
     "ambiguous": [
@@ -9177,7 +10988,16 @@
      "0x8674B0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_867010.cpp"
+    "name": "packets/pkunknown_867010.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_873a00": {
     "ambiguous": [
@@ -9219,7 +11039,21 @@
      "0x877C10"
     ],
     "merged": [],
-    "name": "packets/pkunknown_877640.cpp"
+    "name": "packets/pkunknown_877640.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50"
+    ]
    },
    "pkunknown_877c80": {
     "ambiguous": [
@@ -9241,7 +11075,14 @@
      "0x877F80"
     ],
     "merged": [],
-    "name": "packets/pkunknown_877c80.cpp"
+    "name": "packets/pkunknown_877c80.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_87a940": {
     "ambiguous": [
@@ -9264,7 +11105,14 @@
      "0x88D500"
     ],
     "merged": [],
-    "name": "packets/pkunknown_87a940.cpp"
+    "name": "packets/pkunknown_87a940.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_87acd0": {
     "ambiguous": [
@@ -9339,7 +11187,31 @@
      "0x87DE60"
     ],
     "merged": [],
-    "name": "packets/pkunknown_87acd0.cpp"
+    "name": "packets/pkunknown_87acd0.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x432B80",
+     "0x432C30",
+     "0x432D50",
+     "0x433700",
+     "0x433A10",
+     "0x47D440",
+     "0x47E480",
+     "0x47E4D0",
+     "0x47EB50",
+     "0x47ED00",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_87dec0": {
     "ambiguous": [
@@ -9362,7 +11234,14 @@
      "0x87E2E0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_87dec0.cpp"
+    "name": "packets/pkunknown_87dec0.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_888b60": {
     "ambiguous": [
@@ -9441,6 +11320,21 @@
     ],
     "merged": [],
     "name": "packets/pkunknown_888b60.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x47CE60",
+     "0x4B5740",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x889230"
     ]
@@ -9464,7 +11358,14 @@
      "0x8A2D10"
     ],
     "merged": [],
-    "name": "packets/pkunknown_8a2b70.cpp"
+    "name": "packets/pkunknown_8a2b70.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_8a5510": {
     "ambiguous": [
@@ -9485,7 +11386,14 @@
      "0x8A5740"
     ],
     "merged": [],
-    "name": "packets/pkunknown_8a5510.cpp"
+    "name": "packets/pkunknown_8a5510.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkunknown_8a6430": {
     "ambiguous": [
@@ -9506,7 +11414,14 @@
      "0x8A65B0"
     ],
     "merged": [],
-    "name": "packets/pkunknown_8a6430.cpp"
+    "name": "packets/pkunknown_8a6430.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkupdate": {
     "ambiguous": [
@@ -9570,7 +11485,17 @@
      "0x8AE790"
     ],
     "merged": [],
-    "name": "packets/pkupdate.cpp"
+    "name": "packets/pkupdate.cpp",
+    "shared": [
+     "0x42F250",
+     "0x44C2B0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x882950"
+    ]
    },
    "pkverbrequest": {
     "ambiguous": [
@@ -9629,6 +11554,18 @@
     ],
     "merged": [],
     "name": "packets/pkverbrequest.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x4407B0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ],
     "tiebreak": [
      "0x8B0420"
     ]
@@ -9657,7 +11594,14 @@
      "0x8B1A40"
     ],
     "merged": [],
-    "name": "packets/pkversionrequest.cpp"
+    "name": "packets/pkversionrequest.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "pkwarpindex": {
     "ambiguous": [
@@ -9684,7 +11628,14 @@
      "0x8B2020"
     ],
     "merged": [],
-    "name": "packets/pkwarpindex.cpp"
+    "name": "packets/pkwarpindex.cpp",
+    "shared": [
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350"
+    ]
    },
    "policy": {
     "ambiguous": [
@@ -9740,6 +11691,11 @@
     ],
     "merged": [],
     "name": "shared/auxdata/policy.cpp",
+    "shared": [
+     "0x45CC10",
+     "0x45CC30",
+     "0x4A42F0"
+    ],
     "tiebreak": [
      "0x4B0360",
      "0x4B03A0",
@@ -9880,6 +11836,14 @@
     ],
     "merged": [],
     "name": "client/postate.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x6F2D40",
+     "0x6F2D70",
+     "0x6F2DA0",
+     "0x6F2FB0"
+    ],
     "tiebreak": [
      "0x715670",
      "0x715BA0",
@@ -9976,7 +11940,13 @@
      "0x494E50"
     ],
     "merged": [],
-    "name": "shared/proj_man.cpp"
+    "name": "shared/proj_man.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "px": {
     "ambiguous": [
@@ -10013,7 +11983,11 @@
      "0x44D320"
     ],
     "merged": [],
-    "name": "shared/px.cpp"
+    "name": "shared/px.cpp",
+    "shared": [
+     "0x444160",
+     "0x44C2B0"
+    ]
    },
    "px_box_list": {
     "ambiguous": [
@@ -10107,7 +12081,10 @@
      "0x451B60"
     ],
     "merged": [],
-    "name": "shared/px_callback_accurate.cpp"
+    "name": "shared/px_callback_accurate.cpp",
+    "shared": [
+     "0x44E170"
+    ]
    },
    "px_callback_poll": {
     "ambiguous": [],
@@ -10139,6 +12116,9 @@
     ],
     "merged": [],
     "name": "shared/px_callback_poll.cpp",
+    "shared": [
+     "0x44E170"
+    ],
     "tiebreak": [
      "0x4528E0",
      "0x452FB0"
@@ -10174,7 +12154,11 @@
      "0x455820"
     ],
     "merged": [],
-    "name": "shared/px_collision.cpp"
+    "name": "shared/px_collision.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160"
+    ]
    },
    "px_process": {
     "ambiguous": [
@@ -10229,6 +12213,10 @@
     ],
     "merged": [],
     "name": "shared/px_wrapper.cpp",
+    "shared": [
+     "0x444160",
+     "0x44C2B0"
+    ],
     "tiebreak": [
      "0x4577E0",
      "0x457A80",
@@ -10297,7 +12285,37 @@
      "0x6E2A90"
     ],
     "merged": [],
-    "name": "client/rect3d.cpp"
+    "name": "client/rect3d.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48FE60",
+     "0x67E880",
+     "0x67E8A0",
+     "0x67E8D0",
+     "0x67E970",
+     "0x67E9A0",
+     "0x67EA70",
+     "0x67EEC0",
+     "0x6857C0",
+     "0x685800"
+    ]
    },
    "rs_track": {
     "ambiguous": [],
@@ -10412,7 +12430,30 @@
      "0x463410"
     ],
     "merged": [],
-    "name": "shared/rs_track.cpp"
+    "name": "shared/rs_track.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x4627F0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x4632F0",
+     "0x463340",
+     "0x463370"
+    ]
    },
    "sbaseview": {
     "ambiguous": [
@@ -10450,7 +12491,10 @@
      "0x6A2480"
     ],
     "merged": [],
-    "name": "client/sbaseview.cpp"
+    "name": "client/sbaseview.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "sclient": {
     "ambiguous": [
@@ -10590,6 +12634,34 @@
     ],
     "merged": [],
     "name": "client/sclient.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x4334D0",
+     "0x444160",
+     "0x47E6E0",
+     "0x47E770",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47F1C0",
+     "0x48A0E0",
+     "0x48E910",
+     "0x510CC0",
+     "0x51E220",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x54EDA0",
+     "0x71BCC0",
+     "0x726A00",
+     "0x726C10"
+    ],
     "tiebreak": [
      "0x756550",
      "0x756910",
@@ -10716,6 +12788,19 @@
     ],
     "merged": [],
     "name": "client/scriptedmovie.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48E910",
+     "0x510CC0",
+     "0x62A0A0",
+     "0x62A520",
+     "0x62A560",
+     "0x62A5D0",
+     "0x69F3B0"
+    ],
+    "shared_callers": [
+     "0x62A5D0"
+    ],
     "tiebreak": [
      "0x62A5D0",
      "0x80A8B0",
@@ -10804,7 +12889,10 @@
      "0x618500"
     ],
     "merged": [],
-    "name": "shared/shipcust_desc.cpp"
+    "name": "shared/shipcust_desc.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "soptions": {
     "ambiguous": [],
@@ -10895,6 +12983,20 @@
     ],
     "merged": [],
     "name": "audio/soundlib.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42F250",
+     "0x4407B0",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x440CD0",
      "0x441270",
@@ -10915,7 +13017,11 @@
      "0x6A9E40"
     ],
     "merged": [],
-    "name": "client/splash.cpp"
+    "name": "client/splash.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160"
+    ]
    },
    "spline": {
     "ambiguous": [],
@@ -10957,7 +13063,20 @@
      "0x4FA830"
     ],
     "merged": [],
-    "name": "shared/split_string.cpp"
+    "name": "shared/split_string.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432C30",
+     "0x432D50",
+     "0x433700",
+     "0x4C39B0"
+    ]
    },
    "spln_db": {
     "ambiguous": [
@@ -11050,6 +13169,15 @@
     ],
     "merged": [],
     "name": "shared/spln_db.cpp",
+    "shared": [
+     "0x42F250",
+     "0x457FA0",
+     "0x45CA00",
+     "0x48A060",
+     "0x48A0E0",
+     "0x48A120",
+     "0x71BCC0"
+    ],
     "tiebreak": [
      "0x489FE0"
     ]
@@ -11109,6 +13237,29 @@
     ],
     "merged": [],
     "name": "shared/stars.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x4627F0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x4632F0",
+     "0x463340",
+     "0x463370"
+    ],
     "tiebreak": [
      "0x483600",
      "0x483670",
@@ -11126,7 +13277,10 @@
      "0x84B1B0"
     ],
     "merged": [],
-    "name": "common/stredit.cpp"
+    "name": "common/stredit.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "symbol_substitution": {
     "ambiguous": [
@@ -11176,6 +13330,22 @@
     ],
     "merged": [],
     "name": "shared/symbol_substitution.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42DB00",
+     "0x441480",
+     "0x47CE60",
+     "0x4B5740",
+     "0x4C39B0",
+     "0x4E2C00",
+     "0x4E2CC0"
+    ],
     "tiebreak": [
      "0x4FE5A0"
     ]
@@ -11238,6 +13408,13 @@
     ],
     "merged": [],
     "name": "common/tcpconn.cpp",
+    "shared": [
+     "0x820C70",
+     "0x82C1A0",
+     "0x82C220",
+     "0x82C260",
+     "0x82C330"
+    ],
     "tiebreak": [
      "0x82BFD0",
      "0x82C080"
@@ -11272,7 +13449,10 @@
      "0x6AB0F0"
     ],
     "merged": [],
-    "name": "client/textgadg.cpp"
+    "name": "client/textgadg.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "tsk_game": {
     "ambiguous": [
@@ -11311,7 +13491,18 @@
      "0x7671E0"
     ],
     "merged": [],
-    "name": "client/tasks/tsk_game.cpp"
+    "name": "client/tasks/tsk_game.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x444160",
+     "0x4B5740"
+    ]
    },
    "tsk_login": {
     "ambiguous": [
@@ -11389,7 +13580,32 @@
      "0x76BBF0"
     ],
     "merged": [],
-    "name": "client/tasks/tsk_login.cpp"
+    "name": "client/tasks/tsk_login.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x4407B0",
+     "0x444160",
+     "0x4E2CC0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x53BB50",
+     "0x560010",
+     "0x560160",
+     "0x5601D0",
+     "0x5AEF50",
+     "0x76B400",
+     "0x76B470"
+    ]
    },
    "tsk_menu": {
     "ambiguous": [
@@ -11406,7 +13622,10 @@
      "0x76BDB0"
     ],
     "merged": [],
-    "name": "client/tasks/tsk_menu.cpp"
+    "name": "client/tasks/tsk_menu.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "tsk_movie": {
     "ambiguous": [
@@ -11440,7 +13659,18 @@
      "0x76C5A0"
     ],
     "merged": [],
-    "name": "client/tasks/tsk_movie.cpp"
+    "name": "client/tasks/tsk_movie.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x432B80",
+     "0x432D50",
+     "0x433700"
+    ]
    },
    "tsk_smovie": {
     "ambiguous": [
@@ -11468,7 +13698,12 @@
      "0x76CF60"
     ],
     "merged": [],
-    "name": "client/tasks/tsk_smovie.cpp"
+    "name": "client/tasks/tsk_smovie.cpp",
+    "shared": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250"
+    ]
    },
    "tutorial_manager": {
     "ambiguous": [
@@ -11532,6 +13767,17 @@
     ],
     "merged": [],
     "name": "client/tutorial_manager.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x441480"
+    ],
     "tiebreak": [
      "0x6ADE60",
      "0x6ADE90",
@@ -11601,7 +13847,11 @@
      "0x82EBB0"
     ],
     "merged": [],
-    "name": "common/udpconn.cpp"
+    "name": "common/udpconn.cpp",
+    "shared": [
+     "0x444160",
+     "0x820C70"
+    ]
    },
    "ui_avatar_cust": {
     "ambiguous": [
@@ -11647,7 +13897,22 @@
      "0x551C80"
     ],
     "merged": [],
-    "name": "client/ui_avatar_cust.cpp"
+    "name": "client/ui_avatar_cust.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CF30",
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x54EDA0",
+     "0x551270"
+    ]
    },
    "ui_avatr": {
     "ambiguous": [
@@ -11685,7 +13950,12 @@
      "0x55C600"
     ],
     "merged": [],
-    "name": "client/ui_avatr.cpp"
+    "name": "client/ui_avatr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x51E220"
+    ]
    },
    "ui_avsel": {
     "ambiguous": [
@@ -11727,7 +13997,14 @@
      "0x560390"
     ],
     "merged": [],
-    "name": "client/ui_avsel.cpp"
+    "name": "client/ui_avsel.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x51E220",
+     "0x560010",
+     "0x5601D0"
+    ]
    },
    "ui_chat_panel": {
     "ambiguous": [
@@ -11797,7 +14074,23 @@
      "0x56C7B0"
     ],
     "merged": [],
-    "name": "client/ui_chat_panel.cpp"
+    "name": "client/ui_chat_panel.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB80",
+     "0x42F250",
+     "0x432C30",
+     "0x433700",
+     "0x4B53D0",
+     "0x4B5560",
+     "0x4B5740"
+    ]
    },
    "ui_combobox": {
     "ambiguous": [
@@ -11814,7 +14107,10 @@
      "0x57AD50"
     ],
     "merged": [],
-    "name": "client/ui_combobox.cpp"
+    "name": "client/ui_combobox.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "ui_cpit": {
     "ambiguous": [
@@ -11897,6 +14193,34 @@
     ],
     "merged": [],
     "name": "client/ui_cpit.cpp",
+    "shared": [
+     "0x42A710",
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x432B80",
+     "0x432C30",
+     "0x433700",
+     "0x457FA0",
+     "0x45CC10",
+     "0x47E480",
+     "0x47E4D0",
+     "0x48A0E0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x546970",
+     "0x57DBC0",
+     "0x584E20",
+     "0x73F950"
+    ],
     "tiebreak": [
      "0x57DC80",
      "0x57DCD0",
@@ -11977,7 +14301,25 @@
      "0x598720"
     ],
     "merged": [],
-    "name": "client/ui_group.cpp"
+    "name": "client/ui_group.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB80",
+     "0x42F250",
+     "0x45CC10",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x595410"
+    ]
    },
    "ui_line_display": {
     "ambiguous": [
@@ -12069,6 +14411,21 @@
     ],
     "merged": [],
     "name": "client/ui_line_display.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x4334D0",
+     "0x4407B0",
+     "0x45CC10"
+    ],
     "tiebreak": [
      "0x5A6200",
      "0x5A6380",
@@ -12146,7 +14503,20 @@
      "0x5AF930"
     ],
     "merged": [],
-    "name": "client/ui_login.cpp"
+    "name": "client/ui_login.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x51E220",
+     "0x5AEF50"
+    ]
    },
    "ui_manu": {
     "ambiguous": [
@@ -12213,7 +14583,25 @@
      "0x5B7260"
     ],
     "merged": [],
-    "name": "client/ui_manu.cpp"
+    "name": "client/ui_manu.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10",
+     "0x4B58D0",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B350",
+     "0x546970"
+    ]
    },
    "ui_scut": {
     "ambiguous": [
@@ -12266,7 +14654,16 @@
      "0x6134F0"
     ],
     "merged": [],
-    "name": "client/ui_scut.cpp"
+    "name": "client/ui_scut.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10"
+    ]
    },
    "uiview": {
     "ambiguous": [
@@ -12297,7 +14694,11 @@
      "0x65B8D0"
     ],
     "merged": [],
-    "name": "client/uiview.cpp"
+    "name": "client/uiview.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160"
+    ]
    },
    "unique_design_id_lookup": {
     "ambiguous": [
@@ -12442,7 +14843,23 @@
      "0x5099D0"
     ],
     "merged": [],
-    "name": "shared/unique_design_id_lookup.cpp"
+    "name": "shared/unique_design_id_lookup.cpp",
+    "shared": [
+     "0x42A710",
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42DB00",
+     "0x42DB80",
+     "0x441480",
+     "0x4E2CC0"
+    ]
    },
    "unknown_66b770": {
     "ambiguous": [],
@@ -12456,7 +14873,10 @@
      "0x66B840"
     ],
     "merged": [],
-    "name": "client/unknown_66b770.cpp"
+    "name": "client/unknown_66b770.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "unknown_675120": {
     "ambiguous": [
@@ -12478,7 +14898,10 @@
      "0x675310"
     ],
     "merged": [],
-    "name": "client/unknown_675120.cpp"
+    "name": "client/unknown_675120.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "unknown_authlogin": {
     "ambiguous": [
@@ -12495,7 +14918,12 @@
      "0x7922B0"
     ],
     "merged": [],
-    "name": "client/unknown_authlogin.cpp"
+    "name": "client/unknown_authlogin.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A970",
+     "0x42AB30"
+    ]
    },
    "unknown_changes": {
     "ambiguous": [
@@ -12573,7 +15001,16 @@
      "0x78E110"
     ],
     "merged": [],
-    "name": "client/unknown_creator.cpp"
+    "name": "client/unknown_creator.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x53BB50"
+    ]
    },
    "unknown_debug": {
     "ambiguous": [],
@@ -12603,7 +15040,11 @@
      "0x4FABB0"
     ],
     "merged": [],
-    "name": "shared/unknown_font_split_string.cpp"
+    "name": "shared/unknown_font_split_string.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4FABB0"
+    ]
    },
    "unknown_fontsound": {
     "ambiguous": [
@@ -12625,7 +15066,10 @@
      "0x6BD530"
     ],
     "merged": [],
-    "name": "client/unknown_fontsound.cpp"
+    "name": "client/unknown_fontsound.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "unknown_galaxy": {
     "ambiguous": [
@@ -12728,7 +15172,10 @@
      "0x820EC0"
     ],
     "merged": [],
-    "name": "common/unknown_listener.cpp"
+    "name": "common/unknown_listener.cpp",
+    "shared": [
+     "0x820C70"
+    ]
    },
    "unknown_login_data": {
     "ambiguous": [],
@@ -12867,7 +15314,10 @@
      "0x452100"
     ],
     "merged": [],
-    "name": "shared/unknown_px_callbacks.cpp"
+    "name": "shared/unknown_px_callbacks.cpp",
+    "shared": [
+     "0x44E170"
+    ]
    },
    "unknown_px_factories": {
     "ambiguous": [
@@ -12920,7 +15370,13 @@
      "0x4B0860"
     ],
     "merged": [],
-    "name": "shared/auxdata/unknown_root.cpp"
+    "name": "shared/auxdata/unknown_root.cpp",
+    "shared": [
+     "0x45CC10",
+     "0x45CC30",
+     "0x4A3CD0",
+     "0x4A42F0"
+    ]
    },
    "unknown_screenfade": {
     "ambiguous": [],
@@ -12939,7 +15395,10 @@
      "0x7FFBE0"
     ],
     "merged": [],
-    "name": "client/unknown_screenfade.cpp"
+    "name": "client/unknown_screenfade.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "unknown_verb": {
     "ambiguous": [],
@@ -12998,7 +15457,11 @@
      "0x6B55A0"
     ],
     "merged": [],
-    "name": "client/view.cpp"
+    "name": "client/view.cpp",
+    "shared": [
+     "0x42F250",
+     "0x430370"
+    ]
    },
    "w32kbd": {
     "ambiguous": [],
@@ -13015,7 +15478,11 @@
      "0x4307A0"
     ],
     "merged": [],
-    "name": "input/w32kbd.cpp"
+    "name": "input/w32kbd.cpp",
+    "shared": [
+     "0x42F060",
+     "0x42F250"
+    ]
    },
    "w32mouse": {
     "ambiguous": [],
@@ -13040,7 +15507,11 @@
      "0x431C30"
     ],
     "merged": [],
-    "name": "input/w32mouse.cpp"
+    "name": "input/w32mouse.cpp",
+    "shared": [
+     "0x42F220",
+     "0x42F250"
+    ]
    },
    "w32window": {
     "ambiguous": [],
@@ -13065,15 +15536,6 @@
    },
    "winmsg": {
     "ambiguous": [
-     "0x42FC60",
-     "0x42FE90",
-     "0x430050",
-     "0x430090",
-     "0x4300C0",
-     "0x430150",
-     "0x4301A0",
-     "0x430260",
-     "0x430340",
      "0x430450"
     ],
     "copy": "reconstructed",
@@ -13081,10 +15543,25 @@
     "in_tree": [
      "0x42F940",
      "0x42FBA0",
+     "0x42FBF0",
+     "0x42FC60",
+     "0x42FD10",
+     "0x42FE90",
+     "0x42FED0",
+     "0x430050",
+     "0x430090",
+     "0x4300C0",
+     "0x430150",
+     "0x4301A0",
+     "0x430260",
+     "0x430340",
      "0x430370"
     ],
     "merged": [],
-    "name": "input/winmsg.cpp"
+    "name": "input/winmsg.cpp",
+    "shared": [
+     "0x430370"
+    ]
    }
   },
   "headers": {
@@ -13390,7 +15867,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7025,
+  "in_tree_total": 7038,
   "totals": {}
  },
  "binkmovie": {
@@ -13423,7 +15900,18 @@
      "0xA16C70"
     ],
     "merged": [],
-    "name": "BINKMovie.cpp"
+    "name": "BINKMovie.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x91FE60",
+     "0x91FF20",
+     "0x91FF60",
+     "0x920010",
+     "0x920040",
+     "0x920080",
+     "0x9200A0"
+    ]
    },
    "subtitle": {
     "ambiguous": [],
@@ -13460,7 +15948,18 @@
      "0x9C7E90"
     ],
     "merged": [],
-    "name": "subtitlemanager.cpp"
+    "name": "subtitlemanager.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x91FE60",
+     "0x91FF20",
+     "0x91FF60",
+     "0x920010",
+     "0x920040",
+     "0x920080",
+     "0x9200A0"
+    ]
    },
    "subtitleparser": {
     "ambiguous": [],
@@ -13984,7 +16483,14 @@
      "0x9B4A90"
     ],
     "merged": [],
-    "name": "aabtree.cpp"
+    "name": "aabtree.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x92B5E0"
+    ]
    },
    "aabtreebuilder": {
     "ambiguous": [
@@ -14021,7 +16527,10 @@
      "0x9B5E90"
     ],
     "merged": [],
-    "name": "aabtreebuilder.cpp"
+    "name": "aabtreebuilder.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "agg_def": {
     "ambiguous": [],
@@ -14089,7 +16598,22 @@
      "0x9A4900"
     ],
     "merged": [],
-    "name": "agg_def.cpp"
+    "name": "agg_def.cpp",
+    "shared": [
+     "0x42F250",
+     "0x992200",
+     "0x992230",
+     "0x9929C0",
+     "0x992A00",
+     "0x992AB0",
+     "0x992AE0",
+     "0x992B20",
+     "0x992B40",
+     "0x992BF0",
+     "0x992D20",
+     "0x992D70",
+     "0x992EE0"
+    ]
    },
    "animatedsoundmgr": {
     "ambiguous": [],
@@ -14148,6 +16672,18 @@
     ],
     "merged": [],
     "name": "animatedsoundmgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E910",
+     "0x48E940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500",
+     "0x9DA8C0"
+    ],
     "tiebreak": [
      "0x90A8A0"
     ]
@@ -14213,7 +16749,26 @@
      "0x9C6450"
     ],
     "merged": [],
-    "name": "animobj.cpp"
+    "name": "animobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x77BFA0",
+     "0x77BFE0",
+     "0x909500"
+    ]
    },
    "assetmgr": {
     "ambiguous": [
@@ -14348,7 +16903,31 @@
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "assetmgr.cpp"
+    "name": "assetmgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E910",
+     "0x48E940",
+     "0x510BE0",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x6CF410",
+     "0x909500",
+     "0x91D880",
+     "0x91D8A0",
+     "0x91FE60",
+     "0x91FF20",
+     "0x91FF60",
+     "0x920010",
+     "0x920040",
+     "0x920080",
+     "0x9200A0",
+     "0x9CEFF0"
+    ]
    },
    "assetstatus": {
     "ambiguous": [],
@@ -14383,6 +16962,13 @@
     ],
     "merged": [],
     "name": "assetstatus.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48E910",
+     "0x48E940",
+     "0x909500"
+    ],
     "tiebreak": [
      "0x9A7B60",
      "0x9A7DF0"
@@ -14410,7 +16996,15 @@
      "0x99C510"
     ],
     "merged": [],
-    "name": "bitmaphandler.cpp"
+    "name": "bitmaphandler.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48F3A0",
+     "0x48FFB0",
+     "0x490150",
+     "0x4902D0",
+     "0x4904B0"
+    ]
    },
    "bmp2d": {
     "ambiguous": [
@@ -14460,7 +17054,35 @@
      "0x975040"
     ],
     "merged": [],
-    "name": "bmp2d.cpp"
+    "name": "bmp2d.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x497330",
+     "0x67E880",
+     "0x67E8A0",
+     "0x67E8D0",
+     "0x67E970",
+     "0x6857C0",
+     "0x685800",
+     "0x975040"
+    ]
    },
    "boxrobj": {
     "ambiguous": [
@@ -14554,7 +17176,28 @@
      "0x99A910"
     ],
     "merged": [],
-    "name": "boxrobj.cpp"
+    "name": "boxrobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370"
+    ]
    },
    "bw_render": {
     "ambiguous": [
@@ -14673,7 +17316,29 @@
      "0x945C30"
     ],
     "merged": [],
-    "name": "camera.cpp"
+    "name": "camera.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x943D50"
+    ]
    },
    "collect": {
     "ambiguous": [],
@@ -14795,7 +17460,53 @@
      "0x992EE0"
     ],
     "merged": [],
-    "name": "collect.cpp"
+    "name": "collect.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x462BF0",
+     "0x462C10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x47F260",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x909500",
+     "0x991EE0",
+     "0x992200",
+     "0x992230",
+     "0x9929C0",
+     "0x992A00",
+     "0x992AB0",
+     "0x992AE0",
+     "0x992B20",
+     "0x992B40",
+     "0x992BF0",
+     "0x992D20",
+     "0x992D70",
+     "0x992EE0"
+    ]
    },
    "coltest": {
     "ambiguous": [],
@@ -14821,7 +17532,10 @@
      "0x92E580"
     ],
     "merged": [],
-    "name": "coltest.cpp"
+    "name": "coltest.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "composite": {
     "ambiguous": [
@@ -14880,7 +17594,30 @@
      "0x986A50"
     ],
     "merged": [],
-    "name": "composite.cpp"
+    "name": "composite.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x77BFA0",
+     "0x77BFE0"
+    ]
    },
    "dazzle": {
     "ambiguous": [
@@ -14975,7 +17712,32 @@
      "0x96EF00"
     ],
     "merged": [],
-    "name": "dazzle.cpp"
+    "name": "dazzle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x510CC0",
+     "0x6CF410"
+    ]
    },
    "ddsfile": {
     "ambiguous": [],
@@ -15008,7 +17770,15 @@
      "0x9A2050"
     ],
     "merged": [],
-    "name": "ddsfile.cpp"
+    "name": "ddsfile.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48F3A0",
+     "0x48FFB0",
+     "0x490150",
+     "0x4902D0",
+     "0x4904B0"
+    ]
    },
    "decalmsh": {
     "ambiguous": [
@@ -15114,6 +17884,25 @@
     ],
     "merged": [],
     "name": "decalmsh.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x9410D0",
+     "0x941160",
+     "0x9411A0",
+     "0x941230",
+     "0x941270",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x963AB0",
+     "0x963AF0",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9BA040"
+    ],
     "tiebreak": [
      "0x9BA220",
      "0x9BA250",
@@ -15174,7 +17963,13 @@
      "0x982300"
     ],
     "merged": [],
-    "name": "decalsys.cpp"
+    "name": "decalsys.cpp",
+    "shared": [
+     "0x42F250",
+     "0x494E50",
+     "0x909500",
+     "0x940120"
+    ]
    },
    "distlod": {
     "ambiguous": [],
@@ -15254,7 +18049,25 @@
      "0x9A5F10"
     ],
     "merged": [],
-    "name": "distlod.cpp"
+    "name": "distlod.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x77BFA0",
+     "0x77BFE0"
+    ]
    },
    "dx8caps": {
     "ambiguous": [],
@@ -15295,7 +18108,14 @@
      "0x9B2540"
     ],
     "merged": [],
-    "name": "dx8caps.cpp"
+    "name": "dx8caps.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E910",
+     "0x510BE0",
+     "0x510CC0"
+    ]
    },
    "dx8fvf": {
     "ambiguous": [],
@@ -15314,7 +18134,11 @@
      "0x9BA6B0"
     ],
     "merged": [],
-    "name": "dx8fvf.cpp"
+    "name": "dx8fvf.cpp",
+    "shared": [
+     "0x48CA70",
+     "0x48E910"
+    ]
    },
    "dx8indexbuffer": {
     "ambiguous": [
@@ -15354,7 +18178,12 @@
      "0x951900"
     ],
     "merged": [],
-    "name": "dx8indexbuffer.cpp"
+    "name": "dx8indexbuffer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "dx8polygonrenderer": {
     "ambiguous": [],
@@ -15376,7 +18205,11 @@
      "0x9C4940"
     ],
     "merged": [],
-    "name": "dx8polygonrenderer.cpp"
+    "name": "dx8polygonrenderer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45E1D0"
+    ]
    },
    "dx8renderer": {
     "ambiguous": [
@@ -15506,7 +18339,28 @@
       "function": "Textures_Material_And_Shader_Booking_Struct::Add_Textures_Material_And_Shader"
      }
     ],
-    "name": "dx8renderer.cpp"
+    "name": "dx8renderer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45E1D0",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x494E50",
+     "0x497330",
+     "0x813880",
+     "0x909500",
+     "0x940120",
+     "0x95B110",
+     "0x9CEFF0"
+    ]
    },
    "dx8rendererdebugger": {
     "ambiguous": [],
@@ -15532,6 +18386,11 @@
     ],
     "merged": [],
     "name": "dx8rendererdebugger.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48E910",
+     "0x510CC0"
+    ],
     "tiebreak": [
      "0x9C5030"
     ]
@@ -15557,7 +18416,10 @@
      "0x995CE0"
     ],
     "merged": [],
-    "name": "dx8texman.cpp"
+    "name": "dx8texman.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "dx8vertexbuffer": {
     "ambiguous": [
@@ -15606,7 +18468,12 @@
      "0x950C70"
     ],
     "merged": [],
-    "name": "dx8vertexbuffer.cpp"
+    "name": "dx8vertexbuffer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "dx8webbrowser": {
     "ambiguous": [
@@ -15642,6 +18509,9 @@
     ],
     "merged": [],
     "name": "dx8webbrowser.cpp",
+    "shared": [
+     "0x42F250"
+    ],
     "tiebreak": [
      "0x920D30"
     ]
@@ -15808,7 +18678,23 @@
       "function": "DX8Wrapper::_Create_DX8_Surface"
      }
     ],
-    "name": "dx8wrapper.cpp"
+    "name": "dx8wrapper.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x4E5B10",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E68C0",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x909500",
+     "0x9217E0"
+    ]
    },
    "dynamesh": {
     "ambiguous": [
@@ -15888,7 +18774,36 @@
      "0x977020"
     ],
     "merged": [],
-    "name": "dynamesh.cpp"
+    "name": "dynamesh.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x490070",
+     "0x67E880",
+     "0x67E8A0",
+     "0x67E8D0",
+     "0x67E970",
+     "0x6857C0",
+     "0x685800",
+     "0x975040"
+    ]
    },
    "font3d": {
     "ambiguous": [],
@@ -15918,7 +18833,11 @@
      "0x982BA0"
     ],
     "merged": [],
-    "name": "font3d.cpp"
+    "name": "font3d.cpp",
+    "shared": [
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "formconv": {
     "ambiguous": [],
@@ -16039,7 +18958,20 @@
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "hanim.cpp"
+    "name": "hanim.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45CC90",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CE00",
+     "0x45CE70",
+     "0x45D2C0",
+     "0x909500",
+     "0x9CEFF0"
+    ]
    },
    "hanimmgr": {
     "ambiguous": [],
@@ -16080,7 +19012,15 @@
       "function": "HAnimManagerClass::~HAnimManagerClass"
      }
     ],
-    "name": "hanimmgr.cpp"
+    "name": "hanimmgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48E910",
+     "0x909500",
+     "0x91D880",
+     "0x91D8A0",
+     "0x964D40"
+    ]
    },
    "hcanim": {
     "ambiguous": [],
@@ -16123,7 +19063,15 @@
      "0x9C47F0"
     ],
     "merged": [],
-    "name": "hcanim.cpp"
+    "name": "hcanim.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x909500",
+     "0x964D40",
+     "0x987100"
+    ]
    },
    "hlod": {
     "ambiguous": [],
@@ -16265,6 +19213,21 @@
     ],
     "merged": [],
     "name": "hlod.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x909500"
+    ],
     "tiebreak": [
      "0x98BA70"
     ]
@@ -16299,7 +19262,21 @@
      "0x9B62A0"
     ],
     "merged": [],
-    "name": "hmdldef.cpp"
+    "name": "hmdldef.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x991EE0"
+    ]
    },
    "hmorphanim": {
     "ambiguous": [],
@@ -16364,6 +19341,15 @@
      }
     ],
     "name": "hmorphanim.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x48E910",
+     "0x909500",
+     "0x964D40",
+     "0x987100"
+    ],
     "tiebreak": [
      "0x988A80"
     ]
@@ -16415,7 +19401,15 @@
       "function": "HRawAnimClass::Free"
      }
     ],
-    "name": "hrawanim.cpp"
+    "name": "hrawanim.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x909500",
+     "0x964D40",
+     "0x987100"
+    ]
    },
    "htree": {
     "ambiguous": [
@@ -16460,7 +19454,12 @@
      "0x98A980"
     ],
     "merged": [],
-    "name": "htree.cpp"
+    "name": "htree.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x909500"
+    ]
    },
    "htreemgr": {
     "ambiguous": [
@@ -16492,6 +19491,13 @@
     ],
     "merged": [],
     "name": "htreemgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48E910",
+     "0x48E940",
+     "0x510CC0",
+     "0x909500"
+    ],
     "tiebreak": [
      "0x964530"
     ]
@@ -16528,7 +19534,11 @@
      "0x9677E0"
     ],
     "merged": [],
-    "name": "intersec.cpp"
+    "name": "intersec.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "layer": {
     "ambiguous": [],
@@ -16556,7 +19566,10 @@
      "0x967B60"
     ],
     "merged": [],
-    "name": "layer.cpp"
+    "name": "layer.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "light": {
     "ambiguous": [
@@ -16607,7 +19620,28 @@
      "0x954190"
     ],
     "merged": [],
-    "name": "light.cpp"
+    "name": "light.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370"
+    ]
    },
    "lightenvironment": {
     "ambiguous": [],
@@ -16636,7 +19670,11 @@
      "0x985840"
     ],
     "merged": [],
-    "name": "lightenvironment.cpp"
+    "name": "lightenvironment.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "line3d": {
     "ambiguous": [
@@ -16687,7 +19725,28 @@
      "0x943B00"
     ],
     "merged": [],
-    "name": "line3d.cpp"
+    "name": "line3d.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370"
+    ]
    },
    "linegrp": {
     "ambiguous": [],
@@ -16722,7 +19781,10 @@
      "0x97C900"
     ],
     "merged": [],
-    "name": "linegrp.cpp"
+    "name": "linegrp.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "mapper": {
     "ambiguous": [
@@ -16848,7 +19910,15 @@
      "0x939AD0"
     ],
     "merged": [],
-    "name": "mapper.cpp"
+    "name": "mapper.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x511E00",
+     "0x9217E0",
+     "0x9306C0"
+    ]
    },
    "matinfo": {
     "ambiguous": [
@@ -16932,7 +20002,47 @@
      "0x953520"
     ],
     "merged": [],
-    "name": "matinfo.cpp"
+    "name": "matinfo.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x9529C0",
+     "0x9529F0",
+     "0x952A10",
+     "0x952A40",
+     "0x952A60",
+     "0x952A90",
+     "0x952AB0",
+     "0x952AF0",
+     "0x952BA0",
+     "0x952BD0",
+     "0x952C10",
+     "0x952C30",
+     "0x952CE0",
+     "0x952D10",
+     "0x952D50",
+     "0x952E00",
+     "0x952E30",
+     "0x952E70",
+     "0x952E90",
+     "0x952F90",
+     "0x952FC0",
+     "0x953000",
+     "0x9530E0",
+     "0x953110",
+     "0x953150",
+     "0x953170",
+     "0x953270",
+     "0x9532A0",
+     "0x9532F0",
+     "0x953340",
+     "0x953390",
+     "0x9533E0",
+     "0x953430",
+     "0x9534D0",
+     "0x953520"
+    ]
    },
    "matpass": {
     "ambiguous": [],
@@ -16959,7 +20069,12 @@
      "0x92E8C0"
     ],
     "merged": [],
-    "name": "matpass.cpp"
+    "name": "matpass.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "matrixmapper": {
     "ambiguous": [],
@@ -16997,7 +20112,17 @@
      "0x981030"
     ],
     "merged": [],
-    "name": "matrixmapper.cpp"
+    "name": "matrixmapper.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x511E00",
+     "0x53F1C0",
+     "0x9217E0",
+     "0x9306C0"
+    ]
    },
    "mesh": {
     "ambiguous": [
@@ -17087,7 +20212,43 @@
      "0x941270"
     ],
     "merged": [],
-    "name": "mesh.cpp"
+    "name": "mesh.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x909500",
+     "0x940120",
+     "0x9410D0",
+     "0x941160",
+     "0x9411A0",
+     "0x941230",
+     "0x941270"
+    ]
    },
    "meshbuild": {
     "ambiguous": [
@@ -17109,7 +20270,11 @@
      "0x447C40"
     ],
     "merged": [],
-    "name": "meshbuild.cpp"
+    "name": "meshbuild.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "meshgeometry": {
     "ambiguous": [
@@ -17194,7 +20359,20 @@
      "0x92D8D0"
     ],
     "merged": [],
-    "name": "meshgeometry.cpp"
+    "name": "meshgeometry.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45E1D0",
+     "0x67FC20",
+     "0x92B5E0",
+     "0x92D6D0",
+     "0x92D780",
+     "0x92D850",
+     "0x92D890"
+    ]
    },
    "meshmatdesc": {
     "ambiguous": [
@@ -17255,7 +20433,13 @@
      "0x9487B0"
     ],
     "merged": [],
-    "name": "meshmatdesc.cpp"
+    "name": "meshmatdesc.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x948770"
+    ]
    },
    "meshmdl": {
     "ambiguous": [
@@ -17350,6 +20534,37 @@
     ],
     "merged": [],
     "name": "meshmdl.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x957C30",
+     "0x957CB0",
+     "0x957DA0",
+     "0x957DD0",
+     "0x957E40",
+     "0x9580C0",
+     "0x95B0C0",
+     "0x95B0F0",
+     "0x95B110",
+     "0x95B2B0",
+     "0x95B2F0",
+     "0x95B3A0",
+     "0x95B3D0",
+     "0x95B410",
+     "0x95B430",
+     "0x95B4E0",
+     "0x95B620",
+     "0x95B670"
+    ],
     "tiebreak": [
      "0x95B6C0"
     ]
@@ -17484,7 +20699,68 @@
      "0x9BE140"
     ],
     "merged": [],
-    "name": "meshmdlio.cpp"
+    "name": "meshmdlio.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x48CA70",
+     "0x497330",
+     "0x53F1C0",
+     "0x813880",
+     "0x92D850",
+     "0x948770",
+     "0x9529C0",
+     "0x9529F0",
+     "0x952A10",
+     "0x952A40",
+     "0x952A60",
+     "0x952A90",
+     "0x952AB0",
+     "0x952AF0",
+     "0x952BA0",
+     "0x952BD0",
+     "0x952C10",
+     "0x952C30",
+     "0x952CE0",
+     "0x952D10",
+     "0x952D50",
+     "0x952E00",
+     "0x952E30",
+     "0x952E70",
+     "0x952E90",
+     "0x952F90",
+     "0x952FC0",
+     "0x953000",
+     "0x9530E0",
+     "0x953110",
+     "0x953150",
+     "0x953170",
+     "0x953270",
+     "0x9532A0",
+     "0x9532F0",
+     "0x953340",
+     "0x953390",
+     "0x9533E0",
+     "0x953430",
+     "0x9534D0",
+     "0x953520",
+     "0x95B0C0",
+     "0x95B0F0",
+     "0x95B2B0",
+     "0x95B2F0",
+     "0x95B3A0",
+     "0x95B3D0",
+     "0x95B410",
+     "0x95B430",
+     "0x95B4E0",
+     "0x95B620",
+     "0x95B670",
+     "0x975040",
+     "0x9B98C0",
+     "0x9B9970",
+     "0x9BA040"
+    ]
    },
    "metalmap": {
     "ambiguous": [],
@@ -17508,7 +20784,11 @@
      "0x9A6B20"
     ],
     "merged": [],
-    "name": "metalmap.cpp"
+    "name": "metalmap.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "missingtexture": {
     "ambiguous": [],
@@ -17526,7 +20806,10 @@
      "0x9AF1E0"
     ],
     "merged": [],
-    "name": "missingtexture.cpp"
+    "name": "missingtexture.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "motchan": {
     "ambiguous": [
@@ -17569,7 +20852,10 @@
      "0x9C7720"
     ],
     "merged": [],
-    "name": "motchan.cpp"
+    "name": "motchan.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "nullrobj": {
     "ambiguous": [
@@ -17617,7 +20903,28 @@
      "0x9416A0"
     ],
     "merged": [],
-    "name": "nullrobj.cpp"
+    "name": "nullrobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370"
+    ]
    },
    "part_buf": {
     "ambiguous": [
@@ -17747,6 +21054,37 @@
     ],
     "merged": [],
     "name": "part_buf.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x92D6D0",
+     "0x92D780",
+     "0x92D890",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x9638B0",
+     "0x963AB0",
+     "0x963AF0",
+     "0x963B50"
+    ],
     "tiebreak": [
      "0x963DC0",
      "0x963E70"
@@ -17833,7 +21171,31 @@
      "0x97F4B0"
     ],
     "merged": [],
-    "name": "part_emt.cpp"
+    "name": "part_emt.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x497330",
+     "0x909500"
+    ]
    },
    "part_ldr": {
     "ambiguous": [],
@@ -17934,7 +21296,10 @@
      "0x917530"
     ],
     "merged": [],
-    "name": "part_ldr.cpp"
+    "name": "part_ldr.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "pivot": {
     "ambiguous": [],
@@ -17952,7 +21317,10 @@
      "0x9C5120"
     ],
     "merged": [],
-    "name": "pivot.cpp"
+    "name": "pivot.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "pointgr": {
     "ambiguous": [],
@@ -18029,7 +21397,38 @@
      "0x958110"
     ],
     "merged": [],
-    "name": "pointgr.cpp"
+    "name": "pointgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC90",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CE00",
+     "0x45CE70",
+     "0x45D2C0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47F1C0",
+     "0x490070",
+     "0x7E6E40",
+     "0x9410D0",
+     "0x941160",
+     "0x941230",
+     "0x957C30",
+     "0x957CB0",
+     "0x957DA0",
+     "0x957DD0",
+     "0x957E40",
+     "0x957E60",
+     "0x957ED0",
+     "0x957FB0",
+     "0x957FE0",
+     "0x958050",
+     "0x9580C0",
+     "0x958110"
+    ]
    },
    "polyinfo": {
     "ambiguous": [
@@ -18048,7 +21447,10 @@
      "0xA039E0"
     ],
     "merged": [],
-    "name": "polyinfo.cpp"
+    "name": "polyinfo.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "predlod": {
     "ambiguous": [],
@@ -18073,7 +21475,11 @@
      "0x96F700"
     ],
     "merged": [],
-    "name": "predlod.cpp"
+    "name": "predlod.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    },
    "projector": {
     "ambiguous": [],
@@ -18097,7 +21503,10 @@
      "0x965270"
     ],
     "merged": [],
-    "name": "projector.cpp"
+    "name": "projector.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "proto": {
     "ambiguous": [],
@@ -18120,7 +21529,10 @@
      "0x93E7E0"
     ],
     "merged": [],
-    "name": "proto.cpp"
+    "name": "proto.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "render2d": {
     "ambiguous": [],
@@ -18226,7 +21638,46 @@
      "0x9743A0"
     ],
     "merged": [],
-    "name": "render2d.cpp"
+    "name": "render2d.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x957E60",
+     "0x957ED0",
+     "0x957FB0",
+     "0x957FE0",
+     "0x958050",
+     "0x958110",
+     "0x95B0C0",
+     "0x95B0F0",
+     "0x95B2B0",
+     "0x95B2F0",
+     "0x95B3A0",
+     "0x95B3D0",
+     "0x95B410",
+     "0x95B430",
+     "0x95B4E0",
+     "0x95B620",
+     "0x95B670",
+     "0x973D50",
+     "0x973D80",
+     "0x973DA0",
+     "0x973DD0",
+     "0x973DF0",
+     "0x973E30",
+     "0x973EE0",
+     "0x973F10",
+     "0x973F50",
+     "0x973F70",
+     "0x974020",
+     "0x974090",
+     "0x974180",
+     "0x974260",
+     "0x9742B0",
+     "0x974300",
+     "0x974350",
+     "0x9743A0"
+    ]
    },
    "render2dsentence": {
     "ambiguous": [],
@@ -18340,7 +21791,20 @@
      "0x9ABD50"
     ],
     "merged": [],
-    "name": "render2dsentence.cpp"
+    "name": "render2dsentence.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x909500",
+     "0x91FE60",
+     "0x91FF20",
+     "0x91FF60",
+     "0x920010",
+     "0x920040",
+     "0x920080",
+     "0x9200A0"
+    ]
    },
    "renderobjectrecycler": {
     "ambiguous": [],
@@ -18356,7 +21820,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "renderobjectrecycler.cpp"
+    "name": "renderobjectrecycler.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "rendobj": {
     "ambiguous": [
@@ -18436,7 +21903,37 @@
      "0x942E20"
     ],
     "merged": [],
-    "name": "rendobj.cpp"
+    "name": "rendobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45E1D0",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x48E910",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x6CF410",
+     "0x909500"
+    ]
    },
    "rinfo": {
     "ambiguous": [],
@@ -18458,11 +21955,13 @@
      "0x9310B0"
     ],
     "merged": [],
-    "name": "rinfo.cpp"
+    "name": "rinfo.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "ringobj": {
     "ambiguous": [
-     "0x62A5D0",
      "0x8DD750",
      "0x8DD780",
      "0x910360",
@@ -18527,6 +22026,7 @@
      "0x910200",
      "0x910240",
      "0x910390",
+     "0x910490",
      "0x9105C0",
      "0x910620",
      "0x910640",
@@ -18607,6 +22107,58 @@
     ],
     "merged": [],
     "name": "ringobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x510CC0",
+     "0x909500",
+     "0x90B2F0",
+     "0x90B370",
+     "0x90EEB0",
+     "0x90EED0",
+     "0x90EF70",
+     "0x90EFF0",
+     "0x90F5D0",
+     "0x90F600",
+     "0x90F6B0",
+     "0x90F710",
+     "0x90F7B0",
+     "0x90F860",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90FAC0",
+     "0x90FC00",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x90FD50",
+     "0x90FE10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x910020",
+     "0x910160",
+     "0x9101A0",
+     "0x910200",
+     "0x910240",
+     "0x910390"
+    ],
     "tiebreak": [
      "0x9141A0",
      "0x914210",
@@ -18665,7 +22217,15 @@
      "0x966480"
     ],
     "merged": [],
-    "name": "scene.cpp"
+    "name": "scene.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x53F1C0"
+    ]
    },
    "segline": {
     "ambiguous": [
@@ -18750,7 +22310,35 @@
      "0x969CA0"
     ],
     "merged": [],
-    "name": "segline.cpp"
+    "name": "segline.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x963AB0",
+     "0x963AF0"
+    ]
    },
    "seglinerenderer": {
     "ambiguous": [
@@ -18786,7 +22374,11 @@
       "function": "SegLineRendererClass::Set_Texture_Tile_Factor"
      }
     ],
-    "name": "seglinerenderer.cpp"
+    "name": "seglinerenderer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "shader": {
     "ambiguous": [],
@@ -18820,7 +22412,11 @@
       "function": "ShaderClass::Guess_Sort_Level"
      }
     ],
-    "name": "shader.cpp"
+    "name": "shader.cpp",
+    "shared": [
+     "0x42F250",
+     "0x53F1C0"
+    ]
    },
    "shattersystem": {
     "ambiguous": [
@@ -18905,6 +22501,19 @@
     ],
     "merged": [],
     "name": "shattersystem.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x497330",
+     "0x67FC20",
+     "0x909500",
+     "0x943D50",
+     "0x9636F0",
+     "0x9637A0",
+     "0x963AB0"
+    ],
     "tiebreak": [
      "0x9AF0C0"
     ]
@@ -18924,7 +22533,10 @@
      "0x9C64C0"
     ],
     "merged": [],
-    "name": "snappts.cpp"
+    "name": "snappts.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "sortingrenderer": {
     "ambiguous": [],
@@ -18962,7 +22574,11 @@
      "0x984CE0"
     ],
     "merged": [],
-    "name": "sortingrenderer.cpp"
+    "name": "sortingrenderer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x511E00"
+    ]
    },
    "soundrobj": {
     "ambiguous": [
@@ -19008,7 +22624,34 @@
      "0x9FE6B0"
     ],
     "merged": [],
-    "name": "soundrobj.cpp"
+    "name": "soundrobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "sphereobj": {
     "ambiguous": [
@@ -19159,6 +22802,59 @@
     ],
     "merged": [],
     "name": "sphereobj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x48C500",
+     "0x510CC0",
+     "0x909500",
+     "0x90B2F0",
+     "0x90B370",
+     "0x90EEB0",
+     "0x90EED0",
+     "0x90EF70",
+     "0x90EFF0",
+     "0x90F5D0",
+     "0x90F600",
+     "0x90F6B0",
+     "0x90F710",
+     "0x90F7B0",
+     "0x90F860",
+     "0x90F930",
+     "0x90F9A0",
+     "0x90FAC0",
+     "0x90FC00",
+     "0x90FC30",
+     "0x90FCE0",
+     "0x90FD50",
+     "0x90FE10",
+     "0x90FEC0",
+     "0x90FF20",
+     "0x910020",
+     "0x910160",
+     "0x9101A0",
+     "0x910200",
+     "0x910240",
+     "0x910390"
+    ],
     "tiebreak": [
      "0x90AF00",
      "0x90DE90",
@@ -19190,7 +22886,12 @@
      "0x97D0A0"
     ],
     "merged": [],
-    "name": "static_sort_list.cpp"
+    "name": "static_sort_list.cpp",
+    "shared": [
+     "0x42F250",
+     "0x494E50",
+     "0x909500"
+    ]
    },
    "statistics": {
     "ambiguous": [],
@@ -19224,6 +22925,14 @@
     ],
     "merged": [],
     "name": "statistics.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E910",
+     "0x510BE0",
+     "0x510CC0",
+     "0x6CE730"
+    ],
     "tiebreak": [
      "0x993A40"
     ]
@@ -19285,7 +22994,40 @@
      "0x969380"
     ],
     "merged": [],
-    "name": "streak.cpp"
+    "name": "streak.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x92D6D0",
+     "0x92D780",
+     "0x92D890",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x9638B0",
+     "0x963AB0",
+     "0x963AF0",
+     "0x963B50"
+    ]
    },
    "streakrender": {
     "ambiguous": [
@@ -19312,7 +23054,11 @@
      "0x9BEB00"
     ],
     "merged": [],
-    "name": "streakRender.cpp"
+    "name": "streakRender.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "stripoptimizer": {
     "ambiguous": [],
@@ -19329,7 +23075,10 @@
      "0x78F9B0"
     ],
     "merged": [],
-    "name": "stripoptimizer.cpp"
+    "name": "stripoptimizer.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "surfaceclass": {
     "ambiguous": [],
@@ -19375,7 +23124,14 @@
      "0x94EB20"
     ],
     "merged": [],
-    "name": "surfaceclass.cpp"
+    "name": "surfaceclass.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x490150",
+     "0x4902D0"
+    ]
    },
    "texproject": {
     "ambiguous": [],
@@ -19422,7 +23178,12 @@
      "0x93E3A0"
     ],
     "merged": [],
-    "name": "texproject.cpp"
+    "name": "texproject.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45E1D0"
+    ]
    },
    "texture": {
     "ambiguous": [],
@@ -19491,7 +23252,15 @@
      "0x94D1F0"
     ],
     "merged": [],
-    "name": "texture.cpp"
+    "name": "texture.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x48E910",
+     "0x53F1C0",
+     "0x9217E0"
+    ]
    },
    "textureloader": {
     "ambiguous": [],
@@ -19558,6 +23327,10 @@
     ],
     "merged": [],
     "name": "textureloader.cpp",
+    "shared": [
+     "0x42F250",
+     "0x9CEFF0"
+    ],
     "tiebreak": [
      "0x94A3A0"
     ]
@@ -19621,6 +23394,22 @@
     ],
     "merged": [],
     "name": "texturethumbnail.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48CED0",
+     "0x48E910",
+     "0x48E940",
+     "0x4E5B10",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E68C0",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500"
+    ],
     "tiebreak": [
      "0x91B970",
      "0x91B9D0",
@@ -19649,7 +23438,10 @@
      "0x8BE860"
     ],
     "merged": [],
-    "name": "txt.cpp"
+    "name": "txt.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "txt2d": {
     "ambiguous": [],
@@ -19665,7 +23457,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "txt2d.cpp"
+    "name": "txt2d.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "unknown_distortion": {
     "ambiguous": [
@@ -19759,7 +23554,61 @@
      "0x9981A0"
     ],
     "merged": [],
-    "name": "unknown_distortion.cpp"
+    "name": "unknown_distortion.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x462BF0",
+     "0x462C10",
+     "0x462F30",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x47D0B0",
+     "0x47D0F0",
+     "0x47E6E0",
+     "0x47E8A0",
+     "0x47E8E0",
+     "0x47E960",
+     "0x47E9F0",
+     "0x47F1C0",
+     "0x47F260",
+     "0x957E60",
+     "0x957ED0",
+     "0x957FB0",
+     "0x957FE0",
+     "0x958050",
+     "0x958110",
+     "0x973D50",
+     "0x973D80",
+     "0x973DA0",
+     "0x973DD0",
+     "0x973DF0",
+     "0x973E30",
+     "0x973EE0",
+     "0x973F10",
+     "0x973F50",
+     "0x973F70",
+     "0x974020",
+     "0x974090",
+     "0x974180",
+     "0x974260",
+     "0x9742B0",
+     "0x974300",
+     "0x974350",
+     "0x9743A0"
+    ]
    },
    "vertmaterial": {
     "ambiguous": [],
@@ -19832,7 +23681,18 @@
      "0x930F60"
     ],
     "merged": [],
-    "name": "vertmaterial.cpp"
+    "name": "vertmaterial.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x53F1C0",
+     "0x9217E0",
+     "0x9306C0"
+    ]
    },
    "visrasterizer": {
     "ambiguous": [
@@ -19882,7 +23742,16 @@
      "0x995490"
     ],
     "merged": [],
-    "name": "visrasterizer.cpp"
+    "name": "visrasterizer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7E6E40",
+     "0x9636F0",
+     "0x9637A0",
+     "0x9637F0",
+     "0x963AB0",
+     "0x963AF0"
+    ]
    },
    "w3d_dep": {
     "ambiguous": [
@@ -19913,7 +23782,11 @@
      "0x909500"
     ],
     "merged": [],
-    "name": "w3d_dep.cpp"
+    "name": "w3d_dep.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    },
    "w3d_util": {
     "ambiguous": [
@@ -19938,7 +23811,10 @@
      "0x9958B0"
     ],
     "merged": [],
-    "name": "w3d_util.cpp"
+    "name": "w3d_util.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "w3dexclusionlist": {
     "ambiguous": [
@@ -19961,7 +23837,14 @@
      "0x909500"
     ],
     "merged": [],
-    "name": "w3dexclusionlist.cpp"
+    "name": "w3dexclusionlist.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E910",
+     "0x48E940",
+     "0x909500"
+    ]
    },
    "ww3d": {
     "ambiguous": [
@@ -20016,7 +23899,10 @@
      "0x919090"
     ],
     "merged": [],
-    "name": "ww3d.cpp"
+    "name": "ww3d.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "ww3dformat": {
     "ambiguous": [],
@@ -20045,7 +23931,12 @@
      "0x968B70"
     ],
     "merged": [],
-    "name": "ww3dformat.cpp"
+    "name": "ww3dformat.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E910"
+    ]
    }
   },
   "headers": {
@@ -20183,7 +24074,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 3250,
+  "in_tree_total": 3251,
   "totals": {
    "G": 548,
    "R": 1323,
@@ -20293,7 +24184,26 @@
      "0x9FF7C0"
     ],
     "merged": [],
-    "name": "AudibleSound.cpp"
+    "name": "AudibleSound.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x4627C0",
+     "0x48C500",
+     "0x909500",
+     "0x941950",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F7910",
+     "0x9F7990",
+     "0x9F79D0",
+     "0x9F79E0",
+     "0x9F7A20",
+     "0x9F7A40"
+    ]
    },
    "audioevents": {
     "ambiguous": [],
@@ -20328,7 +24238,23 @@
      "0xA02820"
     ],
     "merged": [],
-    "name": "AudioEvents.cpp"
+    "name": "AudioEvents.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0",
+     "0xA01370",
+     "0xA013A0",
+     "0xA01410",
+     "0xA01450",
+     "0xA01500",
+     "0xA01530",
+     "0xA01570",
+     "0xA01590",
+     "0xA01640",
+     "0xA01920",
+     "0xA01970"
+    ]
    },
    "filteredsound": {
     "ambiguous": [
@@ -20377,7 +24303,34 @@
      "0xA03850"
     ],
     "merged": [],
-    "name": "FilteredSound.cpp"
+    "name": "FilteredSound.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F7990",
+     "0x9F79D0",
+     "0x9F79E0",
+     "0x9F7A20",
+     "0x9F7A40",
+     "0x9F7A90",
+     "0x9F7AC0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90",
+     "0x9F7BC0",
+     "0x9F7BF0",
+     "0x9FF960",
+     "0x9FF9E0",
+     "0x9FFA10",
+     "0x9FFAA0",
+     "0x9FFAC0"
+    ]
    },
    "listener": {
     "ambiguous": [],
@@ -20416,7 +24369,30 @@
      "0xA02E50"
     ],
     "merged": [],
-    "name": "Listener.cpp"
+    "name": "Listener.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F7910",
+     "0x9F7990",
+     "0x9F79D0",
+     "0x9F79E0",
+     "0x9F7A20",
+     "0x9F7A40",
+     "0x9F7A90",
+     "0x9F7AC0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90",
+     "0x9F7BC0",
+     "0x9F7BF0"
+    ]
    },
    "listenerhandle": {
     "ambiguous": [],
@@ -20434,7 +24410,12 @@
      "0x9DA8C0"
     ],
     "merged": [],
-    "name": "listenerhandle.cpp"
+    "name": "listenerhandle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "logicallistener": {
     "ambiguous": [
@@ -20469,7 +24450,16 @@
      "0xA02500"
     ],
     "merged": [],
-    "name": "LogicalListener.cpp"
+    "name": "LogicalListener.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850"
+    ]
    },
    "logicalsound": {
     "ambiguous": [
@@ -20508,7 +24498,16 @@
      "0xA01FE0"
     ],
     "merged": [],
-    "name": "LogicalSound.cpp"
+    "name": "LogicalSound.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850"
+    ]
    },
    "sound2dhandle": {
     "ambiguous": [],
@@ -20545,7 +24544,12 @@
      "0xA031D0"
     ],
     "merged": [],
-    "name": "sound2dhandle.cpp"
+    "name": "sound2dhandle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "sound3d": {
     "ambiguous": [
@@ -20609,7 +24613,31 @@
      "0x9F9220"
     ],
     "merged": [],
-    "name": "Sound3D.cpp"
+    "name": "Sound3D.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x7E6E40",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F7910",
+     "0x9F7990",
+     "0x9F79D0",
+     "0x9F79E0",
+     "0x9F7A20",
+     "0x9F7A40",
+     "0x9F7A90",
+     "0x9F7AC0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90",
+     "0x9F7BC0",
+     "0x9F7BF0"
+    ]
    },
    "sound3dhandle": {
     "ambiguous": [],
@@ -20634,7 +24662,12 @@
      "0xA02BC0"
     ],
     "merged": [],
-    "name": "sound3dhandle.cpp"
+    "name": "sound3dhandle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "soundbuffer": {
     "ambiguous": [
@@ -20682,7 +24715,14 @@
      "0x9FC8F0"
     ],
     "merged": [],
-    "name": "SoundBuffer.cpp"
+    "name": "SoundBuffer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x48C500",
+     "0x909500"
+    ]
    },
    "soundhandle": {
     "ambiguous": [],
@@ -20704,7 +24744,12 @@
      "0xA039E0"
     ],
     "merged": [],
-    "name": "soundhandle.cpp"
+    "name": "soundhandle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "soundpseudo3d": {
     "ambiguous": [
@@ -20757,7 +24802,34 @@
      "0x9FFFC0"
     ],
     "merged": [],
-    "name": "SoundPseudo3D.cpp"
+    "name": "SoundPseudo3D.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0x9F7900",
+     "0x9F7990",
+     "0x9F79D0",
+     "0x9F79E0",
+     "0x9F7A20",
+     "0x9F7A40",
+     "0x9F7A90",
+     "0x9F7AC0",
+     "0x9F7AE0",
+     "0x9F7B10",
+     "0x9F7B90",
+     "0x9F7BC0",
+     "0x9F7BF0",
+     "0x9FF960",
+     "0x9FF9E0",
+     "0x9FFA10",
+     "0x9FFAA0",
+     "0x9FFAC0"
+    ]
    },
    "soundscene": {
     "ambiguous": [],
@@ -20834,7 +24906,13 @@
      "0x9FB720"
     ],
     "merged": [],
-    "name": "SoundScene.cpp"
+    "name": "SoundScene.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "soundsceneobj": {
     "ambiguous": [],
@@ -20905,7 +24983,31 @@
      "0xA01A10"
     ],
     "merged": [],
-    "name": "SoundSceneObj.cpp"
+    "name": "SoundSceneObj.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0x4627C0",
+     "0x7E6E40",
+     "0x909500",
+     "0x941950",
+     "0x9DA8C0",
+     "0x9F7760",
+     "0x9F7800",
+     "0x9F7850",
+     "0xA01370",
+     "0xA013A0",
+     "0xA01410",
+     "0xA01450",
+     "0xA01500",
+     "0xA01530",
+     "0xA01570",
+     "0xA01590",
+     "0xA01640",
+     "0xA01920",
+     "0xA01970"
+    ]
    },
    "soundstreamhandle": {
     "ambiguous": [],
@@ -20941,7 +25043,12 @@
      "0xA034B0"
     ],
     "merged": [],
-    "name": "soundstreamhandle.cpp"
+    "name": "soundstreamhandle.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "threads": {
     "ambiguous": [],
@@ -21210,6 +25317,12 @@
     ],
     "merged": [],
     "name": "WWAudio.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x909500",
+     "0x9DA8C0"
+    ],
     "tiebreak": [
      "0x9F5EB0",
      "0x9F5F00",
@@ -21328,7 +25441,11 @@
      "0x9EE6F0"
     ],
     "merged": [],
-    "name": "wwmemlog.cpp"
+    "name": "wwmemlog.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    },
    "wwprofile": {
     "ambiguous": [],
@@ -21416,7 +25533,11 @@
      "0x9ED130"
     ],
     "merged": [],
-    "name": "wwprofile.cpp"
+    "name": "wwprofile.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    }
   },
   "headers": {
@@ -21452,7 +25573,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "_convert.cpp"
+    "name": "_convert.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "argv": {
     "ambiguous": [],
@@ -21554,7 +25678,14 @@
      "0x9E80A0"
     ],
     "merged": [],
-    "name": "blit.cpp"
+    "name": "blit.cpp",
+    "shared": [
+     "0x683680",
+     "0x683710",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ]
    },
    "blowfish": {
     "ambiguous": [],
@@ -21659,7 +25790,10 @@
      "0x9D4540"
     ],
     "merged": [],
-    "name": "chunkio.cpp"
+    "name": "chunkio.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "convert": {
     "ambiguous": [],
@@ -21713,7 +25847,10 @@
      "0x9DE170"
     ],
     "merged": [],
-    "name": "convert.cpp"
+    "name": "convert.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "cpudetect": {
     "ambiguous": [],
@@ -21756,7 +25893,12 @@
      "0x9D75C0"
     ],
     "merged": [],
-    "name": "cpudetect.cpp"
+    "name": "cpudetect.cpp",
+    "shared": [
+     "0x48E910",
+     "0x510CC0",
+     "0x6CE730"
+    ]
    },
    "crc": {
     "ambiguous": [],
@@ -21811,7 +25953,10 @@
      "0x9E8BA0"
     ],
     "merged": [],
-    "name": "data.cpp"
+    "name": "data.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "ddraw": {
     "ambiguous": [],
@@ -21839,7 +25984,10 @@
      "0x9E9390"
     ],
     "merged": [],
-    "name": "ddraw.cpp"
+    "name": "ddraw.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "dib": {
     "ambiguous": [],
@@ -21860,7 +26008,15 @@
      "0x683880"
     ],
     "merged": [],
-    "name": "dib.cpp"
+    "name": "dib.cpp",
+    "shared": [
+     "0x42F250",
+     "0x683680",
+     "0x683710",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ]
    },
    "draw": {
     "ambiguous": [
@@ -21883,7 +26039,15 @@
      "0x683880"
     ],
     "merged": [],
-    "name": "draw.cpp"
+    "name": "draw.cpp",
+    "shared": [
+     "0x42F250",
+     "0x683680",
+     "0x683710",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ]
    },
    "dsurface": {
     "ambiguous": [],
@@ -21920,7 +26084,13 @@
      "0x9E0180"
     ],
     "merged": [],
-    "name": "dsurface.cpp"
+    "name": "dsurface.cpp",
+    "shared": [
+     "0x42F250",
+     "0x683680",
+     "0x683710",
+     "0x9DCE10"
+    ]
    },
    "except": {
     "ambiguous": [],
@@ -21983,7 +26153,12 @@
      "0x9DAF60"
     ],
     "merged": [],
-    "name": "FastAllocator.cpp"
+    "name": "FastAllocator.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9CEFF0"
+    ]
    },
    "ffactory": {
     "ambiguous": [],
@@ -22015,7 +26190,15 @@
      "0x9D0EC0"
     ],
     "merged": [],
-    "name": "ffactory.cpp"
+    "name": "ffactory.cpp",
+    "shared": [
+     "0x4418E0",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x510CC0",
+     "0x919CF0"
+    ]
    },
    "gcd_lcm": {
     "ambiguous": [],
@@ -22192,6 +26375,12 @@
     ],
     "merged": [],
     "name": "ini.cpp",
+    "shared": [
+     "0x42F250",
+     "0x9308B0",
+     "0x9C7E90",
+     "0x9C9B60"
+    ],
     "tiebreak": [
      "0x9CC970",
      "0x9CCA00",
@@ -22338,6 +26527,23 @@
     ],
     "merged": [],
     "name": "mixfile.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4418E0",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x4E5B10",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E68C0",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x6CE730",
+     "0x909500",
+     "0x919CF0"
+    ],
     "tiebreak": [
      "0x9DA480"
     ]
@@ -22485,7 +26691,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "msgloop.cpp"
+    "name": "msgloop.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "multilist": {
     "ambiguous": [],
@@ -22510,7 +26719,10 @@
      "0x9D1430"
     ],
     "merged": [],
-    "name": "multilist.cpp"
+    "name": "multilist.cpp",
+    "shared": [
+     "0x9CEFF0"
+    ]
    },
    "mutex": {
     "ambiguous": [],
@@ -22577,7 +26789,10 @@
      "0x9E83E0"
     ],
     "merged": [],
-    "name": "palette.cpp"
+    "name": "palette.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "pcx": {
     "ambiguous": [],
@@ -22599,7 +26814,15 @@
      "0x9DE210"
     ],
     "merged": [],
-    "name": "pcx.cpp"
+    "name": "pcx.cpp",
+    "shared": [
+     "0x42F250",
+     "0x683680",
+     "0x683710",
+     "0x683760",
+     "0x683810",
+     "0x683880"
+    ]
    },
    "pipe": {
     "ambiguous": [],
@@ -22773,7 +26996,10 @@
      "0x9E63A0"
     ],
     "merged": [],
-    "name": "readline.cpp"
+    "name": "readline.cpp",
+    "shared": [
+     "0x9C7E90"
+    ]
    },
    "realcrc": {
     "ambiguous": [],
@@ -22844,7 +27070,20 @@
      "0x9D2640"
     ],
     "merged": [],
-    "name": "registry.cpp"
+    "name": "registry.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48CA70",
+     "0x48E910",
+     "0x4E5B10",
+     "0x4E64E0",
+     "0x4E6820",
+     "0x4E68C0",
+     "0x4E6940",
+     "0x510CC0",
+     "0x53F1C0",
+     "0x909500"
+    ]
    },
    "rgb": {
     "ambiguous": [],
@@ -22863,7 +27102,10 @@
      "0x9E8750"
     ],
     "merged": [],
-    "name": "rgb.cpp"
+    "name": "rgb.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "rndstraw": {
     "ambiguous": [],
@@ -22880,7 +27122,11 @@
      "0x9308B0"
     ],
     "merged": [],
-    "name": "rndstraw.cpp"
+    "name": "rndstraw.cpp",
+    "shared": [
+     "0x42F250",
+     "0x9308B0"
+    ]
    },
    "rndstrng": {
     "ambiguous": [],
@@ -22897,7 +27143,11 @@
      "0x909500"
     ],
     "merged": [],
-    "name": "rndstrng.cpp"
+    "name": "rndstrng.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    },
    "sampler": {
     "ambiguous": [],
@@ -23074,7 +27324,10 @@
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "tagblock.cpp"
+    "name": "tagblock.cpp",
+    "shared": [
+     "0x9CEFF0"
+    ]
    },
    "targa": {
     "ambiguous": [],
@@ -23130,7 +27383,11 @@
      "0x9E6120"
     ],
     "merged": [],
-    "name": "textfile.cpp"
+    "name": "textfile.cpp",
+    "shared": [
+     "0x48E910",
+     "0x510CC0"
+    ]
    },
    "thread": {
     "ambiguous": [],
@@ -23194,7 +27451,11 @@
      "0x9E5DA0"
     ],
     "merged": [],
-    "name": "widestring.cpp"
+    "name": "widestring.cpp",
+    "shared": [
+     "0x9C9B60",
+     "0x9CEFF0"
+    ]
    },
    "win": {
     "ambiguous": [],
@@ -23254,7 +27515,10 @@
      "0x9DB390"
     ],
     "merged": [],
-    "name": "wwfont.cpp"
+    "name": "wwfont.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "wwstring": {
     "ambiguous": [],
@@ -23279,7 +27543,11 @@
      "0x9CF750"
     ],
     "merged": [],
-    "name": "wwstring.cpp"
+    "name": "wwstring.cpp",
+    "shared": [
+     "0x48E910",
+     "0x9CEFF0"
+    ]
    },
    "xpipe": {
     "ambiguous": [],
@@ -23360,7 +27628,10 @@
      "0x9DCE10"
     ],
     "merged": [],
-    "name": "xsurface.cpp"
+    "name": "xsurface.cpp",
+    "shared": [
+     "0x9DCE10"
+    ]
    }
   },
   "headers": {
@@ -23554,7 +27825,10 @@
      "0x8E2F80"
     ],
     "merged": [],
-    "name": "aabox.cpp"
+    "name": "aabox.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "aabtreecull": {
     "ambiguous": [],
@@ -23657,6 +27931,12 @@
     ],
     "merged": [],
     "name": "aabtreecull.cpp",
+    "shared": [
+     "0x42F250",
+     "0x8D6F70",
+     "0x8D78C0",
+     "0x9CEFF0"
+    ],
     "tiebreak": [
      "0x8DD750",
      "0x8DD780"
@@ -23726,7 +28006,38 @@
      "0x8E15F0"
     ],
     "merged": [],
-    "name": "cardinalspline.cpp"
+    "name": "cardinalspline.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC90",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CE00",
+     "0x45CE70",
+     "0x45CF20",
+     "0x45D000",
+     "0x45D2C0",
+     "0x489C00",
+     "0x489C40",
+     "0x48A190",
+     "0x48A210",
+     "0x48A300",
+     "0x48A340",
+     "0x48A3C0",
+     "0x48A3F0",
+     "0x48A4E0",
+     "0x48AB70",
+     "0x6F1FD0",
+     "0x6F2010",
+     "0x6F2050",
+     "0x6F2260",
+     "0x6F22A0",
+     "0x6F2360",
+     "0x6F23F0",
+     "0x6F2490"
+    ]
    },
    "catmullromspline": {
     "ambiguous": [
@@ -23771,7 +28082,28 @@
      "0x8D6DE0"
     ],
     "merged": [],
-    "name": "catmullromspline.cpp"
+    "name": "catmullromspline.cpp",
+    "shared": [
+     "0x42F250",
+     "0x489C00",
+     "0x489C40",
+     "0x48A190",
+     "0x48A210",
+     "0x48A300",
+     "0x48A340",
+     "0x48A3C0",
+     "0x48A3F0",
+     "0x48A4E0",
+     "0x48AB70",
+     "0x6F1FD0",
+     "0x6F2010",
+     "0x6F2050",
+     "0x6F2260",
+     "0x6F22A0",
+     "0x6F2360",
+     "0x6F23F0",
+     "0x6F2490"
+    ]
    },
    "colmath": {
     "ambiguous": [],
@@ -23813,7 +28145,11 @@
      "0x8E2DF0"
     ],
     "merged": [],
-    "name": "colmathaabox.cpp"
+    "name": "colmathaabox.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "colmathaabtri": {
     "ambiguous": [],
@@ -23834,7 +28170,12 @@
      "0x8CBD30"
     ],
     "merged": [],
-    "name": "colmathaabtri.cpp"
+    "name": "colmathaabtri.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0"
+    ]
    },
    "colmathfrustum": {
     "ambiguous": [],
@@ -23856,7 +28197,10 @@
      "0x8E21A0"
     ],
     "merged": [],
-    "name": "colmathfrustum.cpp"
+    "name": "colmathfrustum.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "colmathline": {
     "ambiguous": [],
@@ -23879,7 +28223,10 @@
      "0x8C9770"
     ],
     "merged": [],
-    "name": "colmathline.cpp"
+    "name": "colmathline.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "colmathobbobb": {
     "ambiguous": [],
@@ -23910,7 +28257,11 @@
      "0x8C8B90"
     ],
     "merged": [],
-    "name": "colmathobbobb.cpp"
+    "name": "colmathobbobb.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "colmathobbox": {
     "ambiguous": [],
@@ -23934,7 +28285,11 @@
      "0x8E1BF0"
     ],
     "merged": [],
-    "name": "colmathobbox.cpp"
+    "name": "colmathobbox.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "colmathobbtri": {
     "ambiguous": [],
@@ -23961,7 +28316,12 @@
      "0x8D1BA0"
     ],
     "merged": [],
-    "name": "colmathobbtri.cpp"
+    "name": "colmathobbtri.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0"
+    ]
    },
    "colmathplane": {
     "ambiguous": [],
@@ -23986,7 +28346,10 @@
      "0x8E34C0"
     ],
     "merged": [],
-    "name": "colmathplane.cpp"
+    "name": "colmathplane.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "colmathsphere": {
     "ambiguous": [],
@@ -24002,7 +28365,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "colmathsphere.cpp"
+    "name": "colmathsphere.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "cullsys": {
     "ambiguous": [
@@ -24030,7 +28396,12 @@
      "0x8C8F20"
     ],
     "merged": [],
-    "name": "cullsys.cpp"
+    "name": "cullsys.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "curve": {
     "ambiguous": [
@@ -24107,7 +28478,10 @@
      "0x8D56E0"
     ],
     "merged": [],
-    "name": "curve.cpp"
+    "name": "curve.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "euler": {
     "ambiguous": [],
@@ -24123,7 +28497,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "euler.cpp"
+    "name": "euler.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "frustum": {
     "ambiguous": [],
@@ -24142,7 +28519,12 @@
      "0x8DD7A0"
     ],
     "merged": [],
-    "name": "frustum.cpp"
+    "name": "frustum.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x4481E0"
+    ]
    },
    "gridcull": {
     "ambiguous": [],
@@ -24193,7 +28575,13 @@
      "0x9CEFF0"
     ],
     "merged": [],
-    "name": "gridcull.cpp"
+    "name": "gridcull.cpp",
+    "shared": [
+     "0x42F250",
+     "0x8D6F70",
+     "0x8D78C0",
+     "0x9CEFF0"
+    ]
    },
    "hermitespline": {
     "ambiguous": [
@@ -24254,7 +28642,28 @@
      "0x8D6DE0"
     ],
     "merged": [],
-    "name": "hermitespline.cpp"
+    "name": "hermitespline.cpp",
+    "shared": [
+     "0x42F250",
+     "0x489C00",
+     "0x489C40",
+     "0x48A190",
+     "0x48A210",
+     "0x48A300",
+     "0x48A340",
+     "0x48A3C0",
+     "0x48A3F0",
+     "0x48A4E0",
+     "0x48AB70",
+     "0x6F1FD0",
+     "0x6F2010",
+     "0x6F2050",
+     "0x6F2260",
+     "0x6F22A0",
+     "0x6F2360",
+     "0x6F23F0",
+     "0x6F2490"
+    ]
    },
    "lineseg": {
     "ambiguous": [],
@@ -24275,7 +28684,11 @@
      "0x8DE690"
     ],
     "merged": [],
-    "name": "lineseg.cpp"
+    "name": "lineseg.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "lookuptable": {
     "ambiguous": [
@@ -24312,7 +28725,12 @@
      "0x8DF920"
     ],
     "merged": [],
-    "name": "lookuptable.cpp"
+    "name": "lookuptable.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "matrix3": {
     "ambiguous": [
@@ -24347,7 +28765,10 @@
      "0x8C41D0"
     ],
     "merged": [],
-    "name": "matrix3.cpp"
+    "name": "matrix3.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "matrix3d": {
     "ambiguous": [],
@@ -24391,7 +28812,11 @@
      "0x8C3480"
     ],
     "merged": [],
-    "name": "matrix3d.cpp"
+    "name": "matrix3d.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "matrix4": {
     "ambiguous": [],
@@ -24412,7 +28837,10 @@
      "0x8DEEC0"
     ],
     "merged": [],
-    "name": "matrix4.cpp"
+    "name": "matrix4.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "obbox": {
     "ambiguous": [],
@@ -24429,7 +28857,11 @@
      "0x447C40"
     ],
     "merged": [],
-    "name": "obbox.cpp"
+    "name": "obbox.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "ode": {
     "ambiguous": [],
@@ -24454,7 +28886,19 @@
      "0x45D2C0"
     ],
     "merged": [],
-    "name": "ode.cpp"
+    "name": "ode.cpp",
+    "shared": [
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CC90",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CE00",
+     "0x45CE70",
+     "0x45CF20",
+     "0x45D000",
+     "0x45D2C0"
+    ]
    },
    "pot": {
     "ambiguous": [],
@@ -24507,7 +28951,11 @@
      "0x8D3140"
     ],
     "merged": [],
-    "name": "quat.cpp"
+    "name": "quat.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "tcbspline": {
     "ambiguous": [],
@@ -24553,7 +29001,18 @@
      "0x8E08B0"
     ],
     "merged": [],
-    "name": "tcbspline.cpp"
+    "name": "tcbspline.cpp",
+    "shared": [
+     "0x42F250",
+     "0x6F1FD0",
+     "0x6F2010",
+     "0x6F2050",
+     "0x6F2260",
+     "0x6F22A0",
+     "0x6F2360",
+     "0x6F23F0",
+     "0x6F2490"
+    ]
    },
    "tri": {
     "ambiguous": [],
@@ -24609,7 +29068,10 @@
      "0xA16180"
     ],
     "merged": [],
-    "name": "v3_rnd.cpp"
+    "name": "v3_rnd.cpp",
+    "shared": [
+     "0x447C40"
+    ]
    },
    "vehiclecurve": {
     "ambiguous": [
@@ -24633,7 +29095,11 @@
      "0x966160"
     ],
     "merged": [],
-    "name": "vehiclecurve.cpp"
+    "name": "vehiclecurve.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "vp": {
     "ambiguous": [
@@ -24673,7 +29139,11 @@
      "0x8D39F0"
     ],
     "merged": [],
-    "name": "vp.cpp"
+    "name": "vp.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40"
+    ]
    },
    "wwmath": {
     "ambiguous": [],
@@ -24772,7 +29242,12 @@
      "0xA06270"
     ],
     "merged": [],
-    "name": "definition.cpp"
+    "name": "definition.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "definitionfactory": {
     "ambiguous": [],
@@ -24863,6 +29338,14 @@
     ],
     "merged": [],
     "name": "definitionmgr.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x909500",
+     "0x9DA8C0"
+    ],
     "tiebreak": [
      "0xA05D20"
     ]
@@ -24893,7 +29376,15 @@
      "0x9DA8C0"
     ],
     "merged": [],
-    "name": "parameter.cpp"
+    "name": "parameter.cpp",
+    "shared": [
+     "0x42F250",
+     "0x48C500",
+     "0x48CA70",
+     "0x48E910",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "persistfactory": {
     "ambiguous": [],
@@ -24911,7 +29402,10 @@
      "0xA03C50"
     ],
     "merged": [],
-    "name": "persistfactory.cpp"
+    "name": "persistfactory.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "pointerremap": {
     "ambiguous": [],
@@ -24961,7 +29455,10 @@
      "0xA06E20"
     ],
     "merged": [],
-    "name": "pointerremap.cpp"
+    "name": "pointerremap.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "saveload": {
     "ambiguous": [
@@ -25005,7 +29502,10 @@
      "0xA049A0"
     ],
     "merged": [],
-    "name": "saveload.cpp"
+    "name": "saveload.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "saveloadstatus": {
     "ambiguous": [],
@@ -25026,7 +29526,11 @@
      "0xA07000"
     ],
     "merged": [],
-    "name": "saveloadstatus.cpp"
+    "name": "saveloadstatus.cpp",
+    "shared": [
+     "0x42F250",
+     "0x909500"
+    ]
    },
    "saveloadsubsystem": {
     "ambiguous": [],
@@ -25046,7 +29550,11 @@
      "0xA07AB0"
     ],
     "merged": [],
-    "name": "saveloadsubsystem.cpp"
+    "name": "saveloadsubsystem.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4627C0"
+    ]
    },
    "twiddler": {
     "ambiguous": [],
@@ -25093,7 +29601,13 @@
      "0xA07A00"
     ],
     "merged": [],
-    "name": "twiddler.cpp"
+    "name": "twiddler.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4627C0",
+     "0x909500",
+     "0x9DA8C0"
+    ]
    },
    "wwsaveload": {
     "ambiguous": [],
@@ -25109,7 +29623,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "wwsaveload.cpp"
+    "name": "wwsaveload.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    }
   },
   "headers": {
@@ -25169,7 +29686,14 @@
      "0xA10880"
     ],
     "merged": [],
-    "name": "shd6bumpdiff.cpp"
+    "name": "shd6bumpdiff.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0F2E0",
+     "0xA0FF30"
+    ]
    },
    "shd6bumpspec": {
     "ambiguous": [],
@@ -25193,7 +29717,14 @@
      "0xA13520"
     ],
     "merged": [],
-    "name": "shd6bumpspec.cpp"
+    "name": "shd6bumpspec.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0F2E0",
+     "0xA0FF30"
+    ]
    },
    "shd7bumpdiff": {
     "ambiguous": [],
@@ -25219,7 +29750,14 @@
      "0xA11730"
     ],
     "merged": [],
-    "name": "shd7bumpdiff.cpp"
+    "name": "shd7bumpdiff.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0F2E0",
+     "0xA0FF30"
+    ]
    },
    "shd7bumpspec": {
     "ambiguous": [],
@@ -25245,7 +29783,14 @@
      "0xA14490"
     ],
     "merged": [],
-    "name": "shd7bumpspec.cpp"
+    "name": "shd7bumpspec.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0F2E0",
+     "0xA0FF30"
+    ]
    },
    "shd8bumpdiff": {
     "ambiguous": [],
@@ -25276,7 +29821,15 @@
      "0xA12A30"
     ],
     "merged": [],
-    "name": "shd8bumpdiff.cpp"
+    "name": "shd8bumpdiff.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0xA0F2E0",
+     "0xA0F4F0",
+     "0xA0FF30",
+     "0xA11800"
+    ]
    },
    "shd8bumpspec": {
     "ambiguous": [],
@@ -25308,7 +29861,15 @@
      "0xA15970"
     ],
     "merged": [],
-    "name": "shd8bumpspec.cpp"
+    "name": "shd8bumpspec.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0xA0F2E0",
+     "0xA0F4F0",
+     "0xA0FF30",
+     "0xA11800"
+    ]
    },
    "shdbumpdiff": {
     "ambiguous": [],
@@ -25337,7 +29898,13 @@
      "0xA0BBE0"
     ],
     "merged": [],
-    "name": "shdbumpdiff.cpp"
+    "name": "shdbumpdiff.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x48E910",
+     "0xA0B200"
+    ]
    },
    "shdbumpspec": {
     "ambiguous": [],
@@ -25365,7 +29932,13 @@
      "0xA0C590"
     ],
     "merged": [],
-    "name": "shdbumpspec.cpp"
+    "name": "shdbumpspec.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x48E910",
+     "0xA0B200"
+    ]
    },
    "shdcubemap": {
     "ambiguous": [],
@@ -25398,7 +29971,13 @@
      "0xA0B220"
     ],
     "merged": [],
-    "name": "shdcubemap.cpp"
+    "name": "shdcubemap.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0B200"
+    ]
    },
    "shddef": {
     "ambiguous": [],
@@ -25423,7 +30002,13 @@
      "0xA0F030"
     ],
     "merged": [],
-    "name": "shddef.cpp"
+    "name": "shddef.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30",
+     "0xA0B200"
+    ]
    },
    "shddeffactory": {
     "ambiguous": [],
@@ -25459,7 +30044,10 @@
      "0xA08E20"
     ],
     "merged": [],
-    "name": "shddefmanager.cpp"
+    "name": "shddefmanager.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "shdforcelinks": {
     "ambiguous": [],
@@ -25503,7 +30091,13 @@
      "0xA0D160"
     ],
     "merged": [],
-    "name": "shdglossmask.cpp"
+    "name": "shdglossmask.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0B200"
+    ]
    },
    "shdhwshader": {
     "ambiguous": [],
@@ -25536,7 +30130,12 @@
      "0xA0FE70"
     ],
     "merged": [],
-    "name": "shdhwshader.cpp"
+    "name": "shdhwshader.cpp",
+    "shared": [
+     "0x42F250",
+     "0xA0F2E0",
+     "0xA0F4F0"
+    ]
    },
    "shdinterface": {
     "ambiguous": [],
@@ -25555,7 +30154,12 @@
      "0xA08F00"
     ],
     "merged": [],
-    "name": "shdinterface.cpp"
+    "name": "shdinterface.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "shdlib": {
     "ambiguous": [],
@@ -25569,7 +30173,10 @@
      "0x42F250"
     ],
     "merged": [],
-    "name": "shdlib.cpp"
+    "name": "shdlib.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "shdloader": {
     "ambiguous": [],
@@ -25584,7 +30191,10 @@
      "0xA08B70"
     ],
     "merged": [],
-    "name": "shdloader.cpp"
+    "name": "shdloader.cpp",
+    "shared": [
+     "0x42F250"
+    ]
    },
    "shdmesh": {
     "ambiguous": [],
@@ -25644,7 +30254,12 @@
      "0xA0A780"
     ],
     "merged": [],
-    "name": "shdmesh.cpp"
+    "name": "shdmesh.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "shdrenderer": {
     "ambiguous": [],
@@ -25686,7 +30301,12 @@
      "0xA08AF0"
     ],
     "merged": [],
-    "name": "shdrenderer.cpp"
+    "name": "shdrenderer.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    },
    "shdsimple": {
     "ambiguous": [],
@@ -25719,7 +30339,13 @@
      "0xA0DC00"
     ],
     "merged": [],
-    "name": "shdsimple.cpp"
+    "name": "shdsimple.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x47F300",
+     "0xA0B200"
+    ]
    },
    "shdsubmesh": {
     "ambiguous": [],
@@ -25758,7 +30384,12 @@
      "0xA0EBD0"
     ],
     "merged": [],
-    "name": "shdsubmesh.cpp"
+    "name": "shdsubmesh.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10",
+     "0x45CC30"
+    ]
    }
   },
   "headers": {
