@@ -14874,6 +14874,34 @@
      "0x546970"
     ]
    },
+   "ui_popupmsg": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x45CC10",
+     "0x5DB670",
+     "0x5DB9C0",
+     "0x5DB9F0",
+     "0x5DBB00",
+     "0x5DBB70",
+     "0x5DBD00",
+     "0x5DBD50",
+     "0x5DBEB0"
+    ],
+    "merged": [],
+    "name": "client/ui_popupmsg.cpp",
+    "shared": [
+     "0x42F250",
+     "0x45CC10"
+    ]
+   },
    "ui_scut": {
     "ambiguous": [
      "0x42A6C0"

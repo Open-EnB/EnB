@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1149 |
-| 2 | describes what the code does | 2883 |
-| 1 | neutral placeholder | 10527 |
+| 3 | by convention from a client-named file or sibling | 1150 |
+| 2 | describes what the code does | 2884 |
+| 1 | neutral placeholder | 10579 |
 
 ## For review (score 3 and below)
 
@@ -7552,6 +7552,58 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BB4` | `app/client/ui_manu.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown0BB8` | `app/client/ui_manu.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown0BC0` | `app/client/ui_manu.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/ui_popupmsg.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_popupmsg.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
+| 1 | `robj, unknown` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/ui_popupmsg.cpp:33` | as ui_group.cpp's |
+| 1 | `Unknown_496110` | `app/client/ui_popupmsg.cpp:33` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/ui_popupmsg.cpp:36` | kernel.cpp's |
+| 1 | `Unknown_00` | `app/client/ui_popupmsg.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_popupmsg.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_popupmsg.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_popupmsg.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_popupmsg.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `app/client/ui_popupmsg.cpp:42` | 0xBFAEE0 |
+| 1 | `PopupKeyEventStruct` | `app/client/ui_popupmsg.cpp:45` | neutral (D10) |
+| 1 | `key` | `app/client/ui_popupmsg.cpp:47` | neutral |
+| 1 | `Unknown02` | `app/client/ui_popupmsg.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_popupmsg.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_popupmsg.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_popupmsg.cpp:47` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_popupmsg.cpp:48` | neutral (D10) |
+| 1 | `PopupKeysClass` | `app/client/ui_popupmsg.cpp:54` | neutral (D10)  // NAME 1 [event, id]: as ui_login.cpp's |
+| 1 | `Unknown_721E60` | `app/client/ui_popupmsg.cpp:54` | untagged neutral name (D10) |
+| 1 | `PopupSettingsClass` | `app/client/ui_popupmsg.cpp:57` | neutral (D10)  // NAME 1 [url, a]: as ui_login.cpp's |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_popupmsg.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_popupmsg.cpp:64` | neutral (D10): charview.cpp's |
+| 1 | `view, layer` | `app/client/ui_popupmsg.cpp:67` | as LoginInterface's |
+| 1 | `Unknown_60` | `app/client/ui_popupmsg.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_popupmsg.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_popupmsg.cpp:71` | untagged neutral name (D10) |
+| 1 | `site` | `app/client/ui_popupmsg.cpp:72` | the G_ASSERT's |
+| 1 | `Unknown_5DBD50` | `app/client/ui_popupmsg.cpp:72` | untagged neutral name (D10) |
+| 1 | `Get_Site_URL` | `app/client/ui_popupmsg.cpp:73` | what it returns; NAME 3 [site]: the G_ASSERT's |
+| 1 | `Layer` | `app/client/ui_popupmsg.cpp:75` | what it holds |
+| 1 | `Task` | `app/client/ui_popupmsg.cpp:76` | as LoginInterface's |
+| 1 | `CharacterView` | `app/client/ui_popupmsg.cpp:77` | as LoginInterface's |
+| 1 | `Model` | `app/client/ui_popupmsg.cpp:78` | what it holds |
+| 1 | `Unknown0B4` | `app/client/ui_popupmsg.cpp:79` | untagged neutral name (D10) |
+| 1 | `Buttons` | `app/client/ui_popupmsg.cpp:80` | neutral (D10) |
+| 1 | `Unknown_B846BC` | `app/client/ui_popupmsg.cpp:83` | neutral (D10) |
+| 1 | `Unknown_B846DC` | `app/client/ui_popupmsg.cpp:84` | neutral (D10) |
+| 1 | `Unknown_28` | `app/client/ui_popupmsg.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_popupmsg.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_popupmsg.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_popupmsg.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_popupmsg.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_popupmsg.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_popupmsg.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_popupmsg.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2310` | `app/client/ui_popupmsg.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/ui_popupmsg.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
@@ -11693,6 +11745,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IDs` | `app/client/ui_manu.h:32` | what it holds |
 | 2 | `Gadget` | `app/client/ui_manu.h:42` | what it holds |
 | 2 | `item_id` | `app/client/ui_manu.h:138` | the packet's ItemID |
+| 2 | `Create_Render_Obj` | `app/client/ui_popupmsg.cpp:40` | what it does (the asset manager's slot) |
 | 2 | `FontStringFilesClass` | `app/client/ui_scut.cpp:15` | fontdatabase.h's |
 | 2 | `UIScutBankGadgetClass` | `app/client/ui_scut.cpp:98` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.cpp:107` | what it holds |
@@ -13775,6 +13828,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tech_level, source` | `app/client/ui_manu.h:145` | the asserts'; NAME 1 [on]: neutral |
 | 3 | `source` | `app/client/ui_manu.h:146` | the assert's; NAME 1 [on]: neutral |
 | 3 | `State` | `app/client/ui_manu.h:168` | the assert's |
+| 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_scut.cpp:31` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Owner` | `app/client/ui_scut.cpp:89` | the assert's |
