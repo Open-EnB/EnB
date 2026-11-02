@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1162 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11053 |
+| 1 | neutral placeholder | 11065 |
 
 ## For review (score 3 and below)
 
@@ -9846,37 +9846,49 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
 | 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:20` | neutral (D10) |
-| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:21` | neutral (D10) |
-| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.cpp:77` | neutral (D10), what each flag makes unique |
-| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.cpp:97` | neutral (D10) |
-| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.cpp:117` | neutral (D10) |
-| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.h:24` | neutral (D10), what each flag makes unique |
-| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.h:25` | neutral (D10) |
-| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.h:26` | neutral (D10) |
-| 1 | `Unknown_48D1F0, robj, hsv` | `app/shared/enbassetmgr.h:27` | neutral (D10), what 0x48B220 passes |
-| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.h:28` | neutral (D10) |
-| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.h:29` | neutral (D10) |
-| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.h:30` | neutral (D10) |
-| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.h:31` | neutral (D10) |
-| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.h:32` | neutral (D10) |
-| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:33` | neutral (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:33` | untagged neutral name (D10) |
-| 1 | `name, scale, hsv` | `app/shared/enbassetmgr.h:34` | what 0x6F51D0 passes |
-| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:36` | 0xBDADC0 |
+| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:22` | neutral (D10) |
+| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:23` | neutral (D10) |
+| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.cpp:79` | neutral (D10), what each flag makes unique |
+| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.cpp:99` | neutral (D10) |
+| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.cpp:119` | neutral (D10) |
+| 1 | `Unknown_48BF20` | `app/shared/enbassetmgr.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_Recolor_Vertices` | `app/shared/enbassetmgr.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_48CB40` | `app/shared/enbassetmgr.cpp:191` | untagged neutral name (D10) |
+| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:222` | descriptive (inlined) |
+| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.cpp:230` | untagged neutral name (D10) |
+| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.cpp:283` | untagged neutral name (D10) |
+| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:399` | untagged neutral name (D10) |
+| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.h:26` | neutral (D10), what each flag makes unique |
+| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.h:27` | neutral (D10) |
+| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.h:28` | neutral (D10) |
+| 1 | `Unknown_48BF20, vmat, hsv_shift` | `app/shared/enbassetmgr.h:29` | neutral (D10) |
+| 1 | `Unknown_48BF20` | `app/shared/enbassetmgr.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_Recolor_Vertices` | `app/shared/enbassetmgr.h:30` | neutral (D10) |
+| 1 | `Unknown_48CB40, texture, hsv` | `app/shared/enbassetmgr.h:31` | neutral (D10) |
+| 1 | `Unknown_48CB40` | `app/shared/enbassetmgr.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:32` | neutral (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_48D1F0, robj, hsv` | `app/shared/enbassetmgr.h:33` | neutral (D10), what 0x48B220 passes |
+| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.h:34` | neutral (D10) |
+| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.h:35` | neutral (D10) |
+| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.h:36` | neutral (D10) |
+| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.h:37` | neutral (D10) |
+| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.h:38` | neutral (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:39` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:39` | untagged neutral name (D10) |
+| 1 | `name, scale, hsv` | `app/shared/enbassetmgr.h:40` | what 0x6F51D0 passes |
+| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:42` | 0xBDADC0 |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -15076,7 +15088,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:34` | its profile string |
+| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:36` | its profile string |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |

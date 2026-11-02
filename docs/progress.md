@@ -4,6 +4,52 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-02 (06:45 PST, night): D185's exact variants applied, the POC's login screen drawn with its text; +476 pairs, 0 lost outright
+
+Coordinator Opus 5.5 on the subscription only. Base 6a08fe5d (#143 merged; `.work/imports.6a08fe5d.json`); run branch
+`run/2026-11-02-night`, PR #144. Plan log: `.work/run-2026-11-02-night/plan.md`. The user (00:30): spend the week to
+98 % by 07:00, subscription usage only; merge D185's exact Batch API variants, then the POC client; accepted
+(`/accept-d66`) the move of the ctor 0x6D8B90 and its statics into fonttexture.cpp (done, 037f86ae: no exact pair changed
+file); declined P-VM-2 for tonight. HEAD against the base (quiet-tree verify at 9f59bf88: 7,456 in tree, 0 errors): **+476 pairs (441 + 35 by caller tie-break; 85 of them shared copies), 0 lost outright; lost 3, all D66 (i): the moves 0x4481E0 (eff_o, held by ww3d2 / wwmath) and 0x77B030 (udpconn, held by unknown_htmlattrib) and 0x510CC0 (fontsys, held by 28 files)**. about 100 commits;
+33 builder launches (28 Opus, 5 Sonnet; several resumed for a second item); weekly usage 90 % -> 98 %.
+
+* **D185 applied (VC, VO, PF, PI):** 72 of the 75 functions with an exact variant are exact in the tree (+102 pairs with
+  their tie-break / inline copies). Most "LOSES" entries were later asserts' `__LINE__` shifts (the variant is longer):
+  absorbed in blank padding. Dropped: 0x78D8A0 (needs an invented forwarding helper), 0x8020B0 (a fake derived struct),
+  0x6E2290 (loses rect3d 0x6B71E0 / 0x6D80A0).
+* **The POC (D179 / D181):** the login screen draws with its text: the welcome header, both labels and edit boxes (the
+  stored name dimmed), Quit Game / Accept, Account Management (`clientpoc.py run --shots`, PI f9b90803: the client's own
+  back buffer through d3d8shot). The invisible text was fontsys.cpp's own externs for WW3D::SyncTime / PreviousSyncTime
+  0xBFAE3C / 40 (zero stand-ins: the FADE clock never moved); PF read WW3D::Get_Frame_Time() (450c321c), FT / MV the same
+  in 8 more files. Real on the path now: the FontStyleClass stand-ins, the click query 0x42EC60, textgadg (14 / 15),
+  tooltip.cpp, the message box (unknown_msgbox.cpp, gd_dynamicwindow.cpp, unknown_51c800.cpp, intrlist's list),
+  ui_popupmsg.cpp, the character view (charview.cpp has no NOT EXACT left), InterfaceClass 0x540A90, smouse.cpp (11 / 11),
+  dbgmgr.cpp (the step log), display.cpp's device 0x442AC0 and RenderStateClass (rs.cpp), mousetbl.cpp / .h (the cursor
+  table: the stand-in had wrong slots), enbassetmgr.cpp / .h (Create_Render_Obj, the texture release loop, the mesh HSV recolour; EAM3 found EA's own source of it in the Renegade code: §4.1), avatar_desc's
+  KV adds, the message reporters / server / filter, TCPConnection::Key_Exchange and UDPConnection::Send_Data byte-exact.
+  Final harness check (HC3, 6d207582): no crash in 40 s, 30 first-call stand-ins (50 at run 22). The 29
+  combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour (MIX: 29 names in two .mix files each). Not run: against
+  antprox /REPLAY (its launcher writes HKCU / HKLM keys; CLAUDE.md forbids registry changes unattended).
+* **New files named by the client's strings:** ctrngadg.cpp, rs_robj.cpp, rs_proj_sup.cpp, mousetbl.cpp, enbassetmgr.cpp,
+  gd_dynamicwindow.cpp, ro_funcs.cpp, dbgmgr.cpp, display.cpp, rs.cpp, ui_popupmsg.cpp, tooltip.cpp. Interim (D137):
+  unknown_msgbox, unknown_51c800, unknown_515640, unknown_458710, unknown_45e3f0, unknown_message{,_record,_server,
+  _filter}, mousetbl.h, enbassetmgr.h. P-MC-3 done (MC3 a0343ac0): UnknownBDADC0Class -> ENBAssetManager (conventions.md).
+* **Levers (workflow.md §3: 42637fb9, 46affcce):** a file-static inline wrapper one level down around an STL call
+  (pop_front, push_back, getPointer: exact three times), `it._Inc()`, a static inline accessor for a member argument
+  (register order, twice), a member pointer read into a local, `bool more` loops against rotation, constructor stores in
+  declaration order, a dead `x = y = 0;` for lea operand order, loop-bound read order before dead reads.
+* **Health:** HC / HC2 / LD1 / LF / MSG / KT closed every link gap the night opened (Tooltip SignalMap, Wstring / Wtime
+  operators, the 4BE9D0 stage strip in clienttest.py 04968dfa, the message box's fake sizes); kerneltest, broken already at
+  the base (taskstest.cpp's WW3D render pair), links and runs again (KT 56d6c356: 81 of 81). Final check at 6d207582:
+  clienttest 103/103 trace equal, udpreplay alex3 / handshake 54/54, POC no crash; later commits checked by their builders
+  the same way. One POC crash landed and was fixed within the hour (d07356a2 -> d043eeba). Python changed: clienttest.py
+  (04968dfa), clientpoc.py (f9b90803 --shots): the maintainer's `/verify-approved`.
+* **Pacing:** 1 % steps of the weekly figure misled the 02:03 heartbeat (stops cut, reopened at 02:18); the true rate was
+  ~0.33 % per Opus builder-hour, and most builders finished well inside their stops.
+* **Open for the user:** P-API-5 (a) / (c), P-VM-2, P-VM-1 (unchanged). Tools ideas logged, not proposals yet: objmatch
+  crediting a tied function by a symbol learnt from an exact caller's relocation (MV); a layout helper for assert lines in
+  appfile.py (RS); d3d8shot saving A4R4G4B4 textures (PI).
+
 ### 2026-11-01 (23:55 PST, night): POC text path and login activation on API-key builders; D185 variants for the whole backlog; +29 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription. Base a86efb86 (#141 merged; `.work/imports.a86efb86.json`); run branch
@@ -2044,19 +2090,32 @@ below name only the work items, the blocked work, the leads and the queues.
    * **Font types on the text path (TXT1 / TXT2 / TXT3, 2026-11-02; once a P-FNT-1 proposal, withdrawn: client-evidenced and gain-only, so the coordinator's call):** fontmanager.h's colours as floats (FontStyleColorStruct, Unknown494.Unknown0C, Unknown4A4.Color, Unknown458, Unknown488[0..1]; Set_Color's int copy settled against it), Unknown_6D8B90Class +0x04 / +0x08 as `char *` / `Font32Class *`; 0x6CA0C0, 0x6D5B10, 0x6CE4E0 as FontStyleClass members; FontColorStruct / FontEffectStruct into fontdatabase.h; Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged when evidence names the object (D137). The ctor 0x6D8B90 and its statics into fonttexture.cpp are moves: that PR waits for the user's `/accept-d66` (D169), the moves listed.
    * **The POC client (from the 2026-11-01 day run; queue `.work/poc/ledger.md`, run log `.work/poc/runs.md`):** build with
      `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
-     --seconds 40` (`git add -N` new files first: build.py builds only ls-files sources). Next, in order: the current first
-     failure (ui_login's LoginFontManagerClass and ui_avsel's UIAvselFontManagerClass onto fontmanager.h's FontManagerClass: Get_Style 0x6D25D0, Add, 0x6D2700; then the login window's activation / update stand-ins in stubs.log order); text drawing: Update_Text 0x6D64C0 (7.1 KB) and the layout core 0x6CA0C0 (11.7 KB) (functional
-     first or Fable), fonttexture.cpp 0x6D8DC0 / 0x6D8C50; then item 10 against antprox /REPLAY (D181; the ledger's command,
-     kill antprox and the client by PID). Then the ledger's queue: DBG (operator new 0x4E9CB0, dbgmgr's step log), BINK
-     (E&B's BINKMovie gaps 0xA161B0-0xA17330), DISP / RS, UIB2 smouse.cpp, GAD2's tail, SORT2-3, NET (Key_Exchange 0x829180),
-     LD1-2 (avatar_desc, shipcust_desc), MSG (the message box 0x587570-0x589D20 on DW1's windows), DW's icon / move / toggle,
-     KRN, tooltip.cpp (0x6AB320-: uiview.h's UIViewUnknown30Class, TG). Stand-ins to delete as code lands:
-     programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants 0xB08CAC-0xB08CC4 want
-     their owner).
+     --seconds 40 --shots 60000,120000` (the client's own back buffer, PNGs in `.work/poc/shots/`; `git add -N` new files
+     first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
+     2026-11-02-night): the login screen draws with its text, edit boxes and buttons; no crash in 40 s; ~30 first-call
+     stand-ins left; the 29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the login click
+     itself, then item 10 against antprox /REPLAY (D181; its launcher writes HKCU AppCompatFlags / HKLM Registration keys,
+     which CLAUDE.md's safety rule forbids for unattended runs: a run with the user present); the first-call stand-ins in
+     stubs.log order (ui_registration 0x5FADE0 / 0x5FAD50, the EULA dialog 0x847D20, gen Unknown_4581E0's neighbours);
+     ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
+     enbassetmgr.cpp`: import / compare it first; rename the Unknown_ members to its names, NAME 5): slot +0x78
+     0x48B220 Create_Render_Obj(name, scale, hsv) with the prototype class (ctor 0x48AED0), 0x48D850 / 0x48DD00 /
+     0x48E0F0, 0x48EB90, Recolor_Texture 0x48CB40 (register), 0x48ECA0 (EH states); the ledger's queue: BINK (E&B's
+     BINKMovie gaps 0xA161B0-0xA17330), SORT2-3, LD2 (shipcust_desc), DW's icon / move / toggle, operator new 0x4E9CB0.
+     Leads by file: dbgmgr End_Step 0x50A1E0 (a dead store our compiler drops), ctrngadg 0x50ABC0 (block layout), tooltip
+     0x6AB5B0 / 0x6AB930 / 0x6ABC60, textgadg 0x6AAD10, gclass 0x4A17B0, unknown_message_server 0x4BCD30, filter match
+     0x4BE2C0 (register), udpconn's constructor, mainview 0x514B00 (needs a duration.h member) / 0x514BD0 (caller 0x512400),
+     main_client's `Unknown_C006A0->UnknownDD` = `DX8Wrapper::Get_Current_Caps()->Support_DXTC()`, sclient.cpp /
+     tsk_login.cpp onto mousetbl.h, an rs_proj_sup.h and the caster constructor's typed arguments, ui_popupmsg.h, rs.h
+     (RenderStateClass out of rs_track.h), Unknown_4BE9D0 in a header, clientpoc.py's docstring: ENB_POC_WINDOWED /
+     --fullscreen no longer act (the real 0x442AC0 reads RenderDeviceWindowed from the registry, read-only). Stand-ins to
+     delete as code lands: programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants
+     0xB08CAC-0xB08CC4 want their owner).
    * From the 2026-11-01 day run (leftovers by file; attempts.csv rows for each): cordcon read 0x850FD0 (m's home in k's
      slot), handlePacket / pumpInternal (match the timebufs' frame offsets +0xE8 / +0xC0 first), openc / write (register);
-     cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; intrface 0x540A90 /
-     0x541690 (register); gadget 0x65ED50 (order), 0x6603A0 / 0x6609A0; gclass 0x4A17B0 (order); font32bit
+     cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; gadget 0x6609A0 (the
+     run 2026-11-02-night made intrface 0x540A90 / 0x541690, gadget 0x65ED50 / 0x6603A0, input 0x42E4A0, textgadg 0x6AB190,
+     charview's ctor / 0x679510 / 0x679930 / 0x67CBD0, interface_static_sort_list 0x6DB380 / 0x6DC0A0 exact); gclass 0x4A17B0 (order); font32bit
      Make_Proportional 0x6BC120; fontsound 0x6BCFB0 / 0x6BD060 / 0x6BD270; fontsys Render 0x6D8270 (compare order + floor /
      scale form), 0x6D47C0 (EH state), 0x6D5170 (it doesn't fill the +0x494 / +0x4A4 float colours: fontmanager.cpp's
      Set_Color may share the TPoint3D<int> / float mismatch); input Init 0x42E4A0 (inline budget: the queue element ctor);
