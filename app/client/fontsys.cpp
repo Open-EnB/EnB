@@ -961,12 +961,12 @@ const char *FontStyleClass::Unknown_6D87D0()
 	return Info.Text;
 }
 
-// NOT EXACT: written from the client's code (0x6D87F0) for the POC, not yet matched
+// 0x6D87F0 (D185's variant)
 void FontStyleClass::Set_Transform(const Matrix3D &m)
 {
 	RenderObjClass::Set_Transform(m);
 	Unknown4E5 = true;
-	if (m[0][3] != Unknown4D0.X || Unknown4D0.Y != m[1][3] || Unknown4D0.Z != m[2][3]) {
+	if (Unknown4D0 != m.Get_Translation()) {
 		Unknown4D0 = m.Get_Translation();
 		Unknown4C5 = false;
 	}
@@ -978,21 +978,6 @@ void FontStyleClass::Set_Position(const Vector3 &v)
 	RenderObjClass::Set_Position(v);
 	Unknown4E5 = true;
 	Unknown4C5 = false;
-}
-
-int Unknown_6D8B90Class::Count = 0;			// 0xBE67CC (interim here: fonttexture.cpp's, D137)
-int Unknown_6D8B90Class::Unknown_BE67D8 = 0;	// 0xBE67D8 (interim here: fonttexture.cpp's, D137)
-
-// NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched
-Unknown_6D8B90Class::Unknown_6D8B90Class() :
-	Size(0x20),
-	Unknown04(0),
-	Unknown08(0),
-	Texture(NULL)
-{
-	Texture = new TextureClass(Size, Size, WW3D_FORMAT_A4R4G4B4, MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);
-	Count++;
-	Unknown_BE67D8++;
 }
 
 /*

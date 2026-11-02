@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1148 |
 | 2 | describes what the code does | 2878 |
-| 1 | neutral placeholder | 10505 |
+| 1 | neutral placeholder | 10502 |
 
 ## For review (score 3 and below)
 
@@ -2150,10 +2150,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:478` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:947` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fontsys.cpp:983` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67D8` | `app/client/fontsys.cpp:984` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/fontsys.cpp:989` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/fontsys.cpp:990` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
 | 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
 | 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
@@ -2175,10 +2171,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67C8` | `app/client/fonttexture.cpp:12` | neutral (D10) |
 | 1 | `Unknown_BE67D0` | `app/client/fonttexture.cpp:13` | neutral (D10) |
 | 1 | `Unknown_BE67D4` | `app/client/fonttexture.cpp:14` | neutral (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fonttexture.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/fonttexture.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/fonttexture.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/fonttexture.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8B90Class` | `app/client/fonttexture.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67D8` | `app/client/fonttexture.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/fonttexture.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/fonttexture.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/fonttexture.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F24` | `app/client/gadget.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/gadget.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F2C` | `app/client/gadget.cpp:21` | neutral (D10) |

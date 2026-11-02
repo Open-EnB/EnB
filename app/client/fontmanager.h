@@ -46,8 +46,8 @@ public:
 	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
-	int Unknown04;														// +0x04  // NAME 1: neutral (D10)
-	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
+	char *Unknown04;														// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 1: neutral (D10)
+	Font32Class *Unknown08;														// +0x08: the font it was printed with (a reference held)  // NAME 1: neutral (D10)
 	TextureClass *Texture;												// +0x0C  // NAME 2: what it holds
 
 	static int Count;													// 0xBE67CC: live objects (0x6D8C50 frees 0xBE67C8 at 0)  // NAME 2: what 0x6D8B90 / 0x6D8C50 do with it
