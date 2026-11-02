@@ -47,7 +47,7 @@ were pulled in at 12:26 and the window reopened in small steps.
   UnknownBDADC0Class -> ENBAssetManager (P-MC-3), FontStyleClass -> FontSys (§4.1); interim placements (D137): main.cpp's
   folder, unknown_signalbase.h, unknown_fontsound.cpp, winmsg.cpp, w32window.cpp, splash.cpp, unknown_66b770.cpp,
   unknown_675120.cpp, gclass.cpp's relation table, deffont.cpp's 0x684E00, fontsys.cpp's texture holder statics, the dynamic
-  window row / column / element headers. New open: P-IS-1, P-CT-1, P-LINK-1 (§3).
+  window row / column / element headers. New open: P-IS-1 (§3); after the handoff the user approved P-CT-1 (D182) and restored the intro movies' names (P-LINK-1 closed).
 * **Records:** dee4187a's subject says +28, it is +26 (INP's verify counted stredit's pairs); ad4d5e36's subject was mangled
   by sed ("Add appientdynamic_window_..."; 6bf3c5fb gives the text). Python changes needing `/verify-approved`: build.py,
   gen_stubs.py, coff_alias.py, clientpoc.py, clienttest.py, udpreplay.py.
@@ -1851,18 +1851,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D179 | 2026-11-01 | The proof-of-concept client (videos -> login -> character select against antprox's /REPLAY): its data is `C:\EnBDevelopment\ClientPOC` (a copy of the game data in EA's layout, not the install folder); the POC exe is deployed into `ClientPOC\release` (the third-party DLLs are already there), and running it there and writing there is allowed. Modal dialogs are allowed in the POC client only; unattended test programs keep D69's `-nomsgbox`. D69 / D143 still govern the real install folder (never its working directory, never written) | user |
 | D180 | 2026-11-01 | P-LG1-1 kept: LoginTicketInfoClass is 0xA0 bytes (its +0x20 an `__int64`, 8-aligned; 9c0a0162, +1, 0 lost); GlobalLoginPacketClass +0xAC and LoginTaskClass +0x1134 become tail padding | user |
 | D181 | 2026-11-01 | P-POC-4: builders may run antprox (`/REPLAY /CLIENT:` the POC exe in `C:\EnBDevelopment\ClientPOC\release`) for the POC, and HKCU registry edits to E&B-related keys / values are allowed (amends D69's "no registry changes" for this case only): antprox's AppCompatFlags\Layers entry for client.exe and its `Westwood Studios\Earth and Beyond\Registration` `Registered=1`. Run unelevated (the session is), so the latter lands in HKCU's VirtualStore, never in HKLM itself; no other registry changes | user |
+| D182 | 2026-11-01 | P-CT-1: the coordinator runs clienttest (build + run: 103 checks, trace equal to expected.txt) and udpreplay (build, run alex3, handshake 54/54) at HEAD after any landed commit that rebuilds a file they link, and once more before every handoff (coordinator-pacing skill, "Harness check"); a failure is a health item fixed by one bounded builder before further launches. P-LINK-1 closed: the user restored ClientPOC's intro movies' names (eb_sizzle.bik, eb_ws_logo.bik) | user |
 
 ## 3. Open decisions
 
 * **P-IS-1** (2026-11-01, IS; recommend yes): objmatch's D114(b) range widening counts a COMDAT only if one object holds
   it; a COMDAT held by two objects at the same address with the same symbol should count for each holder (0x6DAF80 went to
   nobody until named in symbols_named.json). A D114 amendment, then a full re-verify of every library (a tools change).
-* **P-CT-1** (2026-11-01, CT; recommend yes): the coordinator's heartbeat runs `clienttest.py build` + `run` (in a worktree at
-  HEAD) after any landed commit that rebuilds a file clienttest links, and udpreplay's `run` after network commits: clienttest
-  was broken two days unnoticed.
-* **P-LINK-1** (2026-11-01, LINK; recommend yes, the user's data): copy `ClientPOC\Data\client\mixfiles\EB_Sizzle.bik.old` to
-  `eb_sizzle.bik` so the start-up movie plays (only the .old exists, so the movie task completes at once). The data folder is
-  the user's copy, so builders don't touch it.
 * **P-VM-2** (2026-11-01, NW7 / FB1 / GM2 / LG3; recommend yes): `pool.py lease` (and `verify --pool`, `appfile.py
   --pool`) wait in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does
   not hold `leases.lock` past its own save (one held it 15 minutes on 2026-11-01). A tools change (Python: the
