@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-430 entries in 107 files.
+429 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,7 +15,6 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/charview.cpp:302` | `CharacterViewClass::Unknown_10` | marker | NOT EXACT: inline budget (the client calls the deque's pop_front 0x67CEF0 out of line; ours inlines it), 0.77 0x679510 |
-| `app/client/charview.cpp:362` | `CharacterViewClass::Unknown_0C` | marker | NOT EXACT: inline budget (the client calls Vector4's constructor 0x468E70 through ??_H and Matrix3D::Rotate_Y / Rotate_Z out of line; its Rotate_X keeps the old row values on the FPU stack), 0.40 0x679930 |
 | `app/client/charview.cpp:536` | `CharacterViewClass::Unknown_67A440` | marker | NOT EXACT: register (this in edi, the client's esi; the rest the client's), 0.73 0x67A440 |
 | `app/client/charview.cpp:1341` | `CharacterViewClass::Unknown_67CBD0` | marker | NOT EXACT: inline budget (the client's pop_front frees an emptied block through 0x67D1A0 out of line), 0.38 0x67CBD0 |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |

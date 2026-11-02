@@ -27,16 +27,16 @@
 #include "wwmath.h"
 #include <vector>
 
-
-
-
-
-
-
-
-
-
-
+// The frame's platform turn (0x679930): a file inline the frame expands (as its own code, the client's Matrix3D's
+// Vector4 constructor goes through ??_H and Rotate_Z is called out of line, ViewRObjs[4] and +0x1A0 read again)
+inline void CharacterViewClass::Unknown_Inline_Platform()
+{
+	Matrix3D platform(true);
+	int bone = ViewRObjs[4]->Get_Bone_Index("platform");
+	platform.Rotate_Z(Unknown1A0);
+	ViewRObjs[4]->Capture_Bone(bone);
+	ViewRObjs[4]->Control_Bone(bone, platform, false);
+}
 
 
 
@@ -359,8 +359,8 @@ void CharacterViewClass::Unknown_10()
 	Unknown230 = NULL;
 }
 
-// NOT EXACT: inline budget (the client calls Vector4's constructor 0x468E70 through ??_H and Matrix3D::Rotate_Y / Rotate_Z out of line; its Rotate_X keeps the old row values on the FPU stack), 0.40
-// 0x679930
+
+// 0x679930: the avatars' +0x1C4 is their first own virtual (Null3DObjClass's table ends at +0x1C0)
 int CharacterViewClass::Unknown_0C(bool on)
 {
 	Unknown_67CBD0();
@@ -374,12 +374,12 @@ int CharacterViewClass::Unknown_0C(bool on)
 	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
 	Unknown1A0 += time * 0.2f;
 	if (ViewRObjs[4]) {
-		Matrix3D platform(true);
-		int bone = ViewRObjs[4]->Get_Bone_Index("platform");
-		platform.Rotate_Z(Unknown1A0);
-		ViewRObjs[4]->Capture_Bone(bone);
-		ViewRObjs[4]->Control_Bone(bone, platform, false);
+		Unknown_Inline_Platform();
 	}
+
+
+
+
 	Unknown_67AF70(time);
 	Unknown_67C530();
 
@@ -423,9 +423,9 @@ int CharacterViewClass::Unknown_0C(bool on)
 
 	if (ViewRObjs[1]) {
 		Matrix3D camera = ViewRObjs[1]->Get_Bone_Transform("CAMERA");
-		camera.Rotate_X(DEG_TO_RADF(Unknown04C.Rotation.X));
-		camera.Rotate_Y(DEG_TO_RADF(Unknown04C.Rotation.Y));
-		camera.Rotate_Z(DEG_TO_RADF(Unknown04C.Rotation.Z));
+		camera.Rotate_X(DEG_TO_RAD(Unknown04C.Rotation.X));
+		camera.Rotate_Y(DEG_TO_RAD(Unknown04C.Rotation.Y));
+		camera.Rotate_Z(DEG_TO_RAD(Unknown04C.Rotation.Z));
 		camera.Translate_X(Unknown04C.Position.X);
 		camera.Translate_Y(Unknown04C.Position.Y);
 		camera.Translate_Z(Unknown04C.Position.Z);

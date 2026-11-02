@@ -40,11 +40,20 @@ Unknown_7CA2D0Class *Unknown_7CA2D0()
 #include "nullrobj.h"
 #include "..\..\app\client\charview.h"
 
+// The charview frame 0x679930 calls the avatars' first own virtual +0x1C4 (charview.h): the stand-in's table needs
+// that slot after Null3DObjClass's 113 (RenderObjClass's), a no-op here
+class PocAvatarClass : public Null3DObjClass
+{
+public:
+	PocAvatarClass() : Null3DObjClass("AVATAR") {}
+	virtual void Unknown_1C4() {}						// +0x1C4
+};
+
 // 0x77B870
 CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps)
 {
 	STUB_CALLED("POC CharacterViewAvatarClass (0x77B870, avatar.cpp): a Null3DObjClass, no avatar");
-	new ((void *)this) Null3DObjClass("AVATAR");
+	new ((void *)this) PocAvatarClass;
 	Unknown220 = false;
 }
 

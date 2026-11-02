@@ -45,7 +45,7 @@ public:
 	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes; 0x67A6C0: the narrator's description, 1, 0, NULL; 0x67BF20 passes +0x3A4)  // NAME 1 [desc, a, b, env_maps]: what the callers pass
 	virtual RenderObjClass *Clone() const;				// (avatar.cpp's)
 	virtual void Render(RenderInfoClass &rinfo);		// (avatar.cpp's)
-	void Unknown_1C4();									// the client's slot +0x1C4 (every frame)
+	virtual void Unknown_1C4();							// +0x1C4 its first own slot, after RenderObjClass's 113 (every frame)
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
@@ -166,6 +166,7 @@ public:
 	void Unknown_67BEB0();								// 0x67BEB0 (Shutdown: the eighteen avatars of +0x3B8 released)
 	void Unknown_67BF20();								// 0x67BF20 (Unknown_04: avatar.cpp's models)
 	void Unknown_67C530();								// 0x67C530 (the frame: +0x4C8 eased to +0x4D4, the type-3 model's 'box02' glows with it, the second light of +0x3B0 follows)
+	void Unknown_Inline_Platform();					// (inline in the frame 0x679930: the platform turned by +0x1A0)  // NAME 1: neutral (D10)
 	void Unknown_67CBD0();								// 0x67CBD0 (the frame, first: the next queued dialog when none plays)
 	// 0x67CEF0: the deque's pop_front, out of line (Shutdown)
 
