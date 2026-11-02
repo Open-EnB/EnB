@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 107,
+  "ambiguous_total": 108,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -2156,6 +2156,18 @@
      "0x823DE0"
     ]
    },
+   "control_key_list": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x721CC0"
+    ],
+    "merged": [],
+    "name": "client/control_key_list.cpp"
+   },
    "control_keys_manager": {
     "ambiguous": [
      "0x42A6C0",
@@ -3966,7 +3978,8 @@
      "0x48CA70",
      "0x48E910",
      "0x510CC0",
-     "0x67F490"
+     "0x67F490",
+     "0x6CF410"
     ],
     "tiebreak": [
      "0x6D2B50",
@@ -5187,6 +5200,22 @@
      "0x45CC10",
      "0x45CC30",
      "0x51E220"
+    ]
+   },
+   "intrlist": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6871D0"
+    ],
+    "merged": [],
+    "name": "client/intrlist.cpp",
+    "shared": [
+     "0x42F250"
     ]
    },
    "kernel": {
@@ -12336,6 +12365,7 @@
      "0x463340",
      "0x463370",
      "0x48FE60",
+     "0x497330",
      "0x67E880",
      "0x67E8A0",
      "0x67E8D0",
@@ -12859,6 +12889,32 @@
     "merged": [],
     "name": "client/scriptedmovieline.cpp"
    },
+   "settings_store": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x4C39B0"
+    ],
+    "merged": [],
+    "name": "client/tasks/settings_store.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x4C39B0"
+    ]
+   },
    "shipcust_desc": {
     "ambiguous": [
      "0x42B2F0"
@@ -12920,6 +12976,26 @@
     ],
     "merged": [],
     "name": "shared/shipcust_desc.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
+   "smouse": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x515340",
+     "0x515400",
+     "0x515440",
+     "0x515510",
+     "0x5155A0"
+    ],
+    "merged": [],
+    "name": "client/smouse.cpp",
     "shared": [
      "0x42F250"
     ]
@@ -15948,7 +16024,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7051,
+  "in_tree_total": 7060,
   "totals": {}
  },
  "binkmovie": {
