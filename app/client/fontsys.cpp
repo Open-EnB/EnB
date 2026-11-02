@@ -275,8 +275,8 @@ void FontStyleClass::Unknown_6D6390()
 	}
 }
 
-extern unsigned int Unknown_BFAE3C;		// NAME 1 [Unknown_BFAE3C]: neutral (D10): the time now in ms (mainview.cpp, scriptedmovie.cpp declare it so)
-extern unsigned int Unknown_BFAE40;		// NAME 1 [Unknown_BFAE40]: neutral (D10): the time of the last frame (scriptedmovie.cpp declares it so)
+// 0xBFAE3C / 0xBFAE40 are WW3D::SyncTime / PreviousSyncTime (WW3D::Sync 0x918200 writes them): the frame time is
+// WW3D::Get_Frame_Time() (the client reads the two statics inline).
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
 
 // 0x6D5F40: the shader for Info.BlendType[FontIndex]; every case ends with no depth writes and an always-pass compare
@@ -326,7 +326,7 @@ bool FontStyleClass::Unknown_6D60C0()
 		Unknown274[6] = 1;
 		return false;
 	}
-	int frame = Unknown_BFAE3C - Unknown_BFAE40;
+	int frame = WW3D::Get_Frame_Time();
 	if (Unknown270 < Unknown26C) {
 		Unknown274[0] = Unknown270;
 		Bits &= ~IS_NOT_HIDDEN;
@@ -453,7 +453,7 @@ void FontStyleClass::Update_Text(bool unknown)
 			}
 		}
 		if (Unknown4E6) {
-			float a = (float)(Unknown_BFAE3C - Unknown_BFAE40) * 0.001f;
+			float a = (float)WW3D::Get_Frame_Time() * 0.001f;
 			a = a + a + color[3];
 			color[3] = a;
 			if (a > 1.0f) {
