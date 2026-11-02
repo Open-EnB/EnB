@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1149 |
 | 2 | describes what the code does | 2883 |
-| 1 | neutral placeholder | 10529 |
+| 1 | neutral placeholder | 10527 |
 
 ## For review (score 3 and below)
 
@@ -2140,8 +2140,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4E6` | `app/client/fontsys.cpp:172` | untagged neutral name (D10) |
 | 1 | `Unknown4C4` | `app/client/fontsys.cpp:269` | untagged neutral name (D10) |
 | 1 | `Unknown2D0` | `app/client/fontsys.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAE3C` | `app/client/fontsys.cpp:278` | neutral (D10): the time now in ms (mainview.cpp, scriptedmovie.cpp declare it so) |
-| 1 | `Unknown_BFAE40` | `app/client/fontsys.cpp:279` | neutral (D10): the time of the last frame (scriptedmovie.cpp declares it so) |
 | 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:280` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
 | 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:283` | untagged neutral name (D10) |
