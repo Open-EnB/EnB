@@ -1157,8 +1157,8 @@ std::vector<UIGroupMemberClass *>::iterator UIGroupClass::Get_Member(const std::
 
 
 
+
 // 0x596130
-// NOT EXACT: frame (the client keeps the new member in name's argument slot and the event in id's; ours the other way round)
 void UIGroupClass::Add_Member(const std::string &name, int id, int unknown)
 {
 	UIGroupMemberClass *member;
@@ -1586,16 +1586,16 @@ void UIGroupClass::Unknown_5978A0(unsigned int id)
 
 
 
+
 // 0x597920
-// NOT EXACT: register / stack slot (the client builds the event in id's argument slot, ours in value's)
 void UIGroupClass::Unknown_597920(unsigned int id, bool value)
 {
 	ClientClass *client = (ClientClass *)Client;
 	FAIL_IF(!client) return;
 	ClientObjectClass *object = client->Find_Object(id);
-	if (object) {
-		Unknown_4F7EF0().emit(object, ClientGroupEvent(value));
-	}
+	if (!object) return;
+	ClientGroupEvent event(value);
+	Unknown_4F7EF0().emit(object, event);
 }
 
 
@@ -1924,10 +1924,10 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	  the window: constructor 0x593BD0, destructor 0x593D70 (scalar deleting 0x593D40), slot +0x54 0x594040
 **	  (not exact), the +0xE8 object's 0x5944A0, slot +0x60 0x5944D0 (not exact), slot +0x68 0x5946D0 (735, 751; the buttons' and keys' switch; not exact), slot +0x7C 0x595480, 0x5954C0, the member rows 0x595530 (not exact),
 **	  0x596040, Get_Member 0x596090,
-**	  Add_Member 0x596130 (1165, 1168; not exact), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
+**	  Add_Member 0x596130 (1165, 1168), Remove_Member 0x596390 / 0x596560 (1198), 0x5966A0,
 **	  0x596770 (1260-1266; not exact), 0x596DB0, 0x596E20 (1388, 1391; not exact), 0x597000, 0x597080, 0x597200, 0x597310 (not exact),
-**	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594;
-**	  not exact), the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
+**	  0x5975D0, 0x597650 (not exact), the ClientGroupEvent emitters 0x597820 / 0x5978A0 / 0x597920 (1594),
+**	  the GroupInfo tests 0x5979A0 / 0x597A60, 0x597B00 (1652, 1655), 0x597B70 (1665, 1668),
 **	  0x597BF0, 0x597D10 (1714), 0x597E40 (1753, 1756; not exact, D130), 0x5981B0, 0x598200, 0x5982A0, 0x598370 (its find through a wrapper with one dead read), the control keys
 **	  0x5985A0 (1891) / 0x598720 (1902).
 **	All of the window's functions are written; 0x5927E0 is auxdata.h's find out of line (a COMDAT

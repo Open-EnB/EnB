@@ -1510,8 +1510,8 @@ bool ModeChangePacketClass::Process_Packet(void *instance)
 
 
 
-// NOT EXACT: shape (the client keeps four calls of 0x74BA30, ours merges them; attempts.py show 0x7381C0)
 // 0x7381C0
+// The client's four calls of 0x74BA30 are VC6's tail duplication of the one call after the switch.
 bool StarbaseSetPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("StarbaseSetPacketClass::Process_Packet(void * instance)");
@@ -1526,21 +1526,21 @@ bool StarbaseSetPacketClass::Process_Packet(void *instance)
 			switch (ExitMode) {
 				case 0:
 					mode = 0;
-					sclient->Unknown_74BA30(0, StarbaseID, mode);
 					break;
 				case 1:
 					mode = 1;
-					sclient->Unknown_74BA30(0, StarbaseID, mode);
 					break;
 				case 2:
 					mode = 5;
-					sclient->Unknown_74BA30(0, StarbaseID, mode);
 					break;
 				default:
+					//
+					// Unknown exit mode: leave the default.
+					//
 					G_ASSERT(!"Bad exit mode in StarbaseSetPacketClass::Process_Packet()");
-					sclient->Unknown_74BA30(0, StarbaseID, mode);
 					break;
 			}
+			sclient->Unknown_74BA30(0, StarbaseID, mode);
 			break;
 		}
 	}

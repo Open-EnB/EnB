@@ -1016,10 +1016,10 @@ bool Unknown710530Class::Unknown_711490()
 }
 
 
-// NOT EXACT: 0x711520 shape: the client keeps Time in ecx and tests it again before stepping back (a top-tested loop); here the else branch knows Time > time
+// time >= Time, in this operand order: with Time <= time VC6 folds the else branch's first loop test (0x711520)
 void Unknown710530Class::Unknown_04(unsigned int time)
 {
-	if (Time <= time) {
+	if (time >= Time) {
 		while (Time < time) {
 			Unknown_08();
 		}

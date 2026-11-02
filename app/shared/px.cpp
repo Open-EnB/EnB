@@ -209,19 +209,19 @@ void PxBox::Set_Self(int self)
 }
 
 // 0x44BBD0
-// NOT EXACT: scheduling (the client reads Mask before testing List; attempts.py show 0x44BBD0)
+// Delegates to the inlined Set_Test_Mask: the client reads Mask before testing List, and the
+// else branch's Mask = Mask stores nothing (the client stores Test only).
 void PxBox::Set_Test(int test)
 {
-	if (List) List->Set_Test_Mask(this, test, Mask);
-	else Test = test;
+	Set_Test_Mask(test, Mask);
 }
 
 // 0x44BC10
-// NOT EXACT: scheduling (the client reads Test before testing List; attempts.py show 0x44BC10)
+// Delegates to the inlined Set_Test_Mask: the client reads Test before testing List, and the
+// else branch's Test = Test stores nothing (the client stores Mask only).
 void PxBox::Set_Mask(int mask)
 {
-	if (List) List->Set_Test_Mask(this, Test, mask);
-	else Mask = mask;
+	Set_Test_Mask(Test, mask);
 }
 
 // 0x44BC50
