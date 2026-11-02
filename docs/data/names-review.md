@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2887 |
-| 1 | neutral placeholder | 10700 |
+| 1 | neutral placeholder | 10702 |
 
 ## For review (score 3 and below)
 
@@ -2711,7 +2711,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6872A0` | `app/client/intrface.h:45` | untagged neutral name (D10) |
 | 1 | `view` | `app/client/intrface.h:46` | what intrface.cpp passes |
 | 1 | `Unknown_687360` | `app/client/intrface.h:46` | untagged neutral name (D10) |
-| 1 | `gadget, id, view, unknown1, unknown2` | `app/client/intrface.h:48` | what ui_group.cpp passes |
+| 1 | `gadget, id, view, active, unknown` | `app/client/intrface.h:48` | the entry's members (stored as bytes) |
 | 1 | `Unknown_6870E0` | `app/client/intrface.h:48` | untagged neutral name (D10) |
 | 1 | `gadget` | `app/client/intrface.h:49` | what ui_group.cpp passes |
 | 1 | `Unknown_687150` | `app/client/intrface.h:49` | untagged neutral name (D10) |
@@ -2763,14 +2763,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `key` | `app/client/intrface.h:148` | InterfaceClass's |
 | 1 | `Unknown_08` | `app/client/intrface.h:148` | untagged neutral name (D10) |
 | 1 | `Owner` | `app/client/intrface.h:150` | neutral (D10) |
-| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:11` | neutral (D10) |
-| 1 | `Active` | `app/client/intrlist.cpp:16` | describes what it gates |
-| 1 | `Unknown0D` | `app/client/intrlist.cpp:17` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:21` | neutral (D10) |
-| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:12` | neutral (D10) |
+| 1 | `Active` | `app/client/intrlist.cpp:17` | describes what it gates |
+| 1 | `Unknown0D` | `app/client/intrlist.cpp:18` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:25` | neutral (D10) |
+| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/intrlist.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/intrlist.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_6871D0` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/intrlist.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/intrlist.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/intrlist.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown_429AF0` | `app/client/intrlist.cpp:93` | untagged neutral name (D10) |
@@ -4946,8 +4947,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Get_Ticks` | `app/client/tooltip.cpp:21` | untagged neutral name (D10) |
 | 1 | `button, arg` | `app/client/tooltip.cpp:22` | neutral |
 | 1 | `Unknown_42EC60` | `app/client/tooltip.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown51C800Class` | `app/client/tooltip.cpp:25` | neutral (D10) |
-| 1 | `text, flags` | `app/client/tooltip.cpp:28` | what the callers pass (6) |
 | 1 | `TooltipSignalMapClass` | `app/client/tooltip.cpp:32` | neutral (D10) |
 | 1 | `UIViewUnknown30Class` | `app/client/tooltip.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_6ABC10` | `app/client/tooltip.cpp:49` | untagged neutral name (D10) |
@@ -4983,6 +4982,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/tooltip.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/tooltip.cpp:344` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/tooltip.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/tooltip.cpp:345` | untagged neutral name (D10) |
 | 1 | `Unknown_65B650` | `app/client/tooltip.cpp:362` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/tooltip.cpp:374` | untagged neutral name (D10) |
 | 1 | `UIViewUnknown30Class` | `app/client/tooltip.h:29` | neutral (D10) |
@@ -10071,6 +10071,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Owner` | `app/shared/px_wrapper.h:56` | the constructor's argument |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown0E` | `app/shared/px_wrapper.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:7` | neutral (D10) |
+| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
@@ -13755,7 +13757,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `View` | `app/client/intrface.h:121` | the assert's |
 | 3 | `Active` | `app/client/intrface.h:137` | the FAIL_IF's |
 | 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:138` | the assert's |
-| 3 | `View` | `app/client/intrlist.cpp:15` | the FAIL_IF's |
+| 3 | `View` | `app/client/intrlist.cpp:16` | the FAIL_IF's |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |

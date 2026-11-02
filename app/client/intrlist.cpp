@@ -6,6 +6,7 @@
 #include "..\input\inpdsp.h"
 #include "..\kernel\kernel.h"
 #include "..\shared\unknown_debug.h"
+#include "slist.h"
 
 // What InterfaceUnknown64Class's list holds (0x10 bytes, 0x6870E0 fills it): a gadget, its key's data, its view
 struct InterfaceUnknown64EntryStruct  // NAME 1: neutral (D10)
@@ -15,6 +16,9 @@ struct InterfaceUnknown64EntryStruct  // NAME 1: neutral (D10)
 	UIViewClass *View;			// +0x08 (FAIL_IF '!View')  // NAME 3: the FAIL_IF's
 	bool Active;				// +0x0C  // NAME 1: describes what it gates
 	bool Unknown0D;				// +0x0D
+
+	InterfaceUnknown64EntryStruct(GadgetClass *gadget, int data, UIViewClass *view, bool active, bool unknown) :
+		Gadget(gadget), Data(data), View(view), Active(active), Unknown0D(unknown) {}
 };
 
 // The list node (wwlib's SLNode: next, data); InterfaceUnknown64Class is an SList (table 0xAFC8DC, head +0x04)
@@ -24,15 +28,11 @@ struct InterfaceUnknown64NodeStruct  // NAME 1: neutral (D10)
 	InterfaceUnknown64EntryStruct *Data;
 };
 
-
-
-
-
-
-
-
-
-
+// 0x6870E0 (Add_Head: slot +0x08 of the SList, table 0xAFC8DC)
+void InterfaceUnknown64Class::Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, bool active, bool unknown)
+{
+	((SList<InterfaceUnknown64EntryStruct> *)Unknown00)->Add_Head(new InterfaceUnknown64EntryStruct(gadget, id, view, active, unknown));
+}
 
 
 
@@ -103,5 +103,8 @@ void InterfaceUnknown64Class::Unknown_6871D0(LoginUnknown0CClass *dispatcher, Re
 **	(0x686FA0-0x687360). Rebuilt so far: 0x6871D0 (activated: each active entry's gadget onto its
 **	view's manager, its key pushed on the dispatcher), FAIL_IF '!View' on the client's line 88 (D25).
 **	0x6871D0 exact (the list read through the raw +0x04 head until intrface.h types it as an SList).
+**	0x6870E0 exact (MSG2): the entry made with an inline constructor and put at the list's head through
+**	SList<InterfaceUnknown64EntryStruct>'s Add_Head (slot +0x08; 0x687150 removes through slot +0x1C, Remove);
+**	its last two arguments are bools (stored as bytes: intrface.h retyped from int).
 **	File placement from the FAIL_IF's __FILE__; ACT (run 2026-11-02).
 */

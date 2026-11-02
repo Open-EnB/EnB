@@ -27,7 +27,7 @@
 class MsgBoxKeysClass { public: void Unknown_721E60(const KernelEventClass *event, int id); void Unknown_721EF0(const KernelEventClass *event); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes
 // tsk_game.h's settings store: the web browser windows (0x7CA570 asks DX8WebBrowser::Is_Browser_Open)
 class MsgBoxBrowsersClass { public: bool Unknown_7CA570(int index); void Unknown_7CAD00(int index, const AABoxClass &box, const char *url); void Unknown_7CB240(int index); };	// NAME 1: neutral (D10)  // NAME 1 [index, box, url]: what the box passes
-void Unknown_497240(RenderObjClass *robj, bool on);	// 0x497240 (flag 0x10000 of +0x8C's +0x18, through the sub-objects)  // NAME 1 [Unknown_497240, robj, on]: neutral (D10)
+void Unknown_497240(RenderObjClass *robj, bool on);	// 0x497240 (ro_funcs.cpp: MeshGeometryClass::ALLOW_NPATCHES on every mesh's model, through the sub-objects)  // NAME 1 [Unknown_497240, robj, on]: neutral (D10)
 
 // (inline: the destructor and 0x588A70 call the message's destructor 0x587570 and the deque's _Freefront 0x589B30 out of line)
 inline void ViewUnknown34Class::Flush_Queue()

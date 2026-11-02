@@ -5349,6 +5349,7 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x6870E0",
      "0x6871D0"
     ],
     "merged": [],
@@ -12534,6 +12535,20 @@
      "0x67EEC0",
      "0x6857C0",
      "0x685800"
+    ]
+   },
+   "ro_funcs": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x497240"
+    ],
+    "merged": [],
+    "name": "shared/ro_funcs.cpp",
+    "shared": [
+     "0x42F250"
     ]
    },
    "rs_track": {

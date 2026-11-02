@@ -21,12 +21,12 @@
 unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock
 bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or key down)  // NAME 1 [button, arg]: neutral
 
-// 0x51C800's element (0x4C bytes, table 0xAED85C): a DynamicWindowRenderObjectClass over a text (as unknown_msgbox.cpp's)
-class Unknown51C800Class : public DynamicWindowRenderObjectClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown51C800Class(FontStyleClass *text, unsigned int flags);	// 0x51C800  // NAME 1 [text, flags]: what the callers pass (6)
-};
+// 0x51C800's element: unknown_51c800.h (the line count kept for the FAIL_IFs below)
+#include "unknown_51c800.h"
+
+
+
+
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as intrface.cpp's InterfaceSignalMapClass
 class TooltipSignalMapClass  // NAME 1: neutral (D10)

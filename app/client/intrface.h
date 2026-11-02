@@ -45,7 +45,7 @@ public:
 	void Unknown_6872A0(LoginUnknown0CClass *dispatcher, InterfaceClass *parent);			// 0x6872A0 (deactivated)  // NAME 1 [dispatcher, parent]: what intrface.cpp passes
 	void Unknown_687360(UIViewClass *view);													// 0x687360 (onto a new view)  // NAME 1 [view]: what intrface.cpp passes
 #endif
-	void Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, int unknown1, int unknown2);	// 0x6870E0: the gadget put in (ui_group.cpp: an id, the view, 1, 1)  // NAME 1 [gadget, id, view, unknown1, unknown2]: what ui_group.cpp passes
+	void Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, bool active, bool unknown);	// 0x6870E0: the gadget put in (ui_group.cpp: an id, the view, 1, 1)  // NAME 1 [gadget, id, view, active, unknown]: the entry's members (stored as bytes)
 	void Unknown_687150(GadgetClass *gadget);												// 0x687150: the gadget taken out (before its delete)  // NAME 1 [gadget]: what ui_group.cpp passes
 	char Unknown00[0x0C];																	// +0x00
 };
