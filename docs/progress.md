@@ -33,7 +33,7 @@ limit is monthly ($140, then $160 by the user); November's spend at 23:30 was th
 * **Host memory was the limit:** Claude Code's reaper killed the four launcher shells at 22:52 (the builders' claude
   processes kept running); leases waited ~25 minutes. Headless builders: 2-3 at once on this host (workflow.md §3.0).
 * **Records:** TXT3's subject says POC run 21 (it is 23). Python changed: variants.py (D185), clienttest.py, build.py
-  (WININET.LIB): the maintainer's `/verify-approved`. Open for the user: P-FNT-1 (§3), P-API-5 (a) / (c), P-VM-2, P-VM-1.
+  (WININET.LIB): the maintainer's `/verify-approved`. Open for the user: P-API-5 (a) / (c), P-VM-2, P-VM-1.
 
 ### 2026-11-01 (21:45 PST, evening): D183 (shared COMDATs) landed and D184's Batch API variant pilot applied; +27 pairs, 0 lost
 
@@ -1935,7 +1935,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   exposing the VMs would only serve Managed Agents (Anthropic-hosted sandboxes reaching the host's Hyper-V VMs through a
   public endpoint: new infrastructure and attack surface, the same token prices plus sandbox time). Local headless Claude
   Code already reaches the VMs.
-* **P-FNT-1** (2026-11-02, TXT1 / TXT2 / TXT3; recommend yes): fontmanager.h takes the client's types for the text path: FontStyleColorStruct's colour and Unknown494.Unknown0C / Unknown4A4.Color / Unknown458 / Unknown488[0..1] as floats (the client loads and stores floats; Set_Color's int copy settled against it), Unknown_6D8B90Class's +0x04 / +0x08 as `char *` / `Font32Class *`; 0x6CA0C0, 0x6D5B10 and 0x6CE4E0 become FontStyleClass members (free functions today: fontmanager.h was another builder's); FontColorStruct / FontEffectStruct move from fontdatabase.cpp to fontdatabase.h; Font32Class's XSpacing / MinSpacing reachable (the client writes them; a shim and a raw +0xD28 write today); the ctor 0x6D8B90 and its statics move to fonttexture.cpp (a D66 move). Interim files unknown_6ca0c0.cpp and unknown_6cce60.cpp are probably one object (D137): merged when evidence names it.
 * **P-VM-2** (2026-11-01, NW7 / FB1 / GM2 / LG3; recommend yes): `pool.py lease` (and `verify --pool`, `appfile.py
   --pool`) wait in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does
   not hold `leases.lock` past its own save (one held it 15 minutes on 2026-11-01). A tools change (Python: the
@@ -2042,6 +2041,7 @@ below name only the work items, the blocked work, the leads and the queues.
      (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * **Font types on the text path (TXT1 / TXT2 / TXT3, 2026-11-02; once a P-FNT-1 proposal, withdrawn: client-evidenced and gain-only, so the coordinator's call):** fontmanager.h's colours as floats (FontStyleColorStruct, Unknown494.Unknown0C, Unknown4A4.Color, Unknown458, Unknown488[0..1]; Set_Color's int copy settled against it), Unknown_6D8B90Class +0x04 / +0x08 as `char *` / `Font32Class *`; 0x6CA0C0, 0x6D5B10, 0x6CE4E0 as FontStyleClass members; FontColorStruct / FontEffectStruct into fontdatabase.h; Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged when evidence names the object (D137). The ctor 0x6D8B90 and its statics into fonttexture.cpp are moves: that PR waits for the user's `/accept-d66` (D169), the moves listed.
    * **The POC client (from the 2026-11-01 day run; queue `.work/poc/ledger.md`, run log `.work/poc/runs.md`):** build with
      `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
      --seconds 40` (`git add -N` new files first: build.py builds only ls-files sources). Next, in order: the current first
