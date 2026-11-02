@@ -169,7 +169,7 @@ bool TCPConnection::Try_Connect()
 // bytes each) in, the 64-bit session key (Encrypt; else 0) keys both RC4 streams and goes back
 // RSA-encrypted in the clear ({u32 length, the number}). Waits only with wait (pumping the listeners).
 // error: 0, -1 (closed), -2 (a bad key: closed). False: no key yet.
-// NOT EXACT: the client inlines the listener loop's iterator increment (_Tree::_Inc), ours calls it (inline budget); two register swaps.
+// Exact: the loop steps with it._Inc() (++it leaves _Inc out of line: inline budget); nbytes = ebytes = 0 picks the lea operand order; the closed block after the loop is dead but kept (removing it changes the layout).
 bool TCPConnection::Key_Exchange(bool wait, int *error)
 {
 	if (error != 0) {
@@ -178,17 +178,17 @@ bool TCPConnection::Key_Exchange(bool wait, int *error)
 	unsigned char *data;
 	int nbytes;
 	int ebytes;
-	for (;;) {
+	while (true) {
 		Con->pumpReads();
 		int available = Con->peekRead(&data);
 		if (!Con->isConnected()) {
-			goto closed;
+			if (error != 0) { *error = -1; } return(true);
 		}
-		ebytes = 0;
+		nbytes = ebytes = 0;
 		if (available > 4) {
-			nbytes = ntohl(*(unsigned long *)data);
+			nbytes = *(int *)data; nbytes = ntohl(nbytes);
 			if (nbytes <= 0x200 && available > nbytes + 8) {
-				ebytes = ntohl(*(unsigned long *)(data + nbytes + 4));
+				ebytes = *(int *)(data + nbytes + 4); ebytes = ntohl(ebytes);
 				if (ebytes <= 0x200 && available >= nbytes + ebytes + 8) {
 					goto received;
 				}
@@ -207,7 +207,7 @@ bool TCPConnection::Key_Exchange(bool wait, int *error)
 			return(false);
 		}
 		Sleep(10);
-		for (std::set<TCPListenerClass *>::iterator it = Listeners.begin(); it != Listeners.end(); ++it) {
+		for (std::set<TCPListenerClass *>::iterator it = Listeners.begin(); it != Listeners.end(); it._Inc()) {
 			(*it)->Accept(false);
 		}
 	}
@@ -225,9 +225,9 @@ received:
 		BigInt n;
 		BigInt e;
 		int offset = 0;
-		int len = ntohl(*(unsigned long *)(buffer + offset)); offset += 4;
+		int len = *(int *)(buffer + offset); len = ntohl(len); offset += 4;
 		n.Unsigned_Decode(buffer + offset, len); offset += len;
-		len = ntohl(*(unsigned long *)(buffer + offset)); offset += 4;
+		len = *(int *)(buffer + offset); len = ntohl(len); offset += 4;
 		e.Unsigned_Decode(buffer + offset, len);
 		if (Encrypt) {
 			SecureRandomClass random;
@@ -894,13 +894,13 @@ ConnectionClass *TCPListenerClass::Pump_Pending()
 **	  the set's destructor 0x828B10, Set_Blocking 0x828C40 (no caller), the constructor by host name 0x828C80 (assert line 74),
 **	  the scalar destructor 0x828DB0, the constructor by address 0x828DE0, the destructor
 **	  0x828EC0, Connect 0x828F90 (assert 'Con == 0', line 119), Try_Connect 0x8290A0, the RSA key
-**	  exchange 0x829180 (assert 'TCP', line 358; 'CONNECT RSA EXCH FAILED: %d : %d': not rebuilt),
+**	  exchange 0x829180 (assert 'TCP', line 358; 'CONNECT RSA EXCH FAILED: %d : %d'),
 **	  Is_Connected 0x829930, Disconnect 0x829960, Get_Address 0x8299D0, Close 0x829A10,
 **	  Transport_Write 0x829A30 (line 440), Transport_Read 0x829BC0 (line 518), the constructor over an
 **	  accepted socket 0x829C80 (line 564), two members with no caller 0x829E00 / 0x829E30; the listener 0x829E50-0x82AA10 (lines 645-780, the
 **	  server's): the constructor 0x829E50 (the key file), destructor, Listen 0x82A470 (functional), Stop, Accept and
 **	  Send_Key 0x82A830, Pump_All 0x82A990, Pump_Pending 0x82AA10 (the server's exchange: RSAKeyClass::Decrypt inlined, BigInt's
-**	  -=, +, >=, exp_b_mod_c, Unsigned_Divide out of line after it, 0x82C0B0-0x82C220) rebuilt. The exchange 0x829180 carries a marker.
+**	  -=, +, >=, exp_b_mod_c, Unsigned_Divide out of line after it, 0x82C0B0-0x82C220) rebuilt. The exchange 0x829180 is exact.
 **	* The TCP layer is WWOnline wnet's TCPMgr / TCPCon (libs\wwonline\wnet, D73): E&B's TCPCon is an
 **	  OutputDevice with a lock and tcpqueue.cpp's queues (wnet's tcpcon.cpp and tcpqueue.cpp),
 **	  TCPMgr::cancelConnect 0x8BD940 is E&B's.
