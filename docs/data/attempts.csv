@@ -1446,3 +1446,7 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-01 15:44,0x51EFB0,DynamicWindowVerticalClass::Set_Alignment,app/client/dynamic_window_vertical.cpp,app,partial,0.14,1,shape,as 0x51CAE0,,claude-opus-5-5
 2026-11-01 15:44,0x518B80,DynamicWindowHorizontalClass::Set_Flags,app/client/dynamic_window_horizontal.cpp,app,partial,0.38,1,register,as 0x51CA80,,claude-opus-5-5
 2026-11-01 15:44,0x518BE0,DynamicWindowHorizontalClass::Set_Alignment,app/client/dynamic_window_horizontal.cpp,app,partial,0.14,1,shape,as 0x51CAE0,,claude-opus-5-5
+2026-11-01 16:04,0x51B3A0,DynamicWindowMultiLineTextClass::~DynamicWindowMultiLineTextClass,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.51,3,inline-budget,"client inlines the lines' erase but calls its copy 0x51C710 and _Destroy 0x51C6C0 out of line; erase(begin,end) / clear() / resize(0) inline them",,claude-opus-5-5
+2026-11-01 16:04,0x51BFB0,DynamicWindowMultiLineTextClass::Split_Lines,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.41,1,shape,functional from the pseudocode; the per-line string and RefCountPtr temporaries and the shown counter (ebx) differ,,claude-opus-5-5
+2026-11-01 16:04,0x51B7C0,DynamicWindowMultiLineTextClass::Set_Flags,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.38,1,register,as 0x51CA80,,claude-opus-5-5
+2026-11-01 16:04,0x51B820,DynamicWindowMultiLineTextClass::Set_Alignment,app/client/dynamic_window_multi_line_text.cpp,app,partial,0.14,1,shape,as 0x51CAE0,,claude-opus-5-5
