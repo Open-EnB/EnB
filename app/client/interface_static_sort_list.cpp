@@ -314,7 +314,7 @@ void InterfaceStaticSortListClass::Add_Interface(InterfaceClass *ui)
 
 
 
-// NOT EXACT: shape (one call more: the pop_back)
+// 0x6DB6D0
 void InterfaceStaticSortListClass::Remove_Interface(InterfaceClass *ui)
 {
 	FAIL_IF(!ui) return;
@@ -331,16 +331,16 @@ void InterfaceStaticSortListClass::Remove_Interface(InterfaceClass *ui)
 
 	RefCountPtr<InterfaceRenderClass> ui_render = (*imt_it).second;
 	FAIL_IF(!ui_render) return;
-
+	int i = ui_render->Index;
 	int count = InterfaceVector.size() - 1;
-	for (int i = ui_render->Index; i < count; i++) {
+	for (; i < count; i++) {
 		InterfaceVector[i] = InterfaceVector[i + 1];
 		InterfaceVector[i]->Index = i;
 	}
 	InterfaceVector.pop_back();
 	InterfaceMap.erase(imt_it);
+	ui_render = NULL;  // the client releases it here, outside the EH state (no -1 store before the release)
 }
-
 
 
 
