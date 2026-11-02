@@ -30,10 +30,6 @@ struct FontEffectStruct  // fontdatabase.cpp's (0x24 bytes)
 	TPoint2D<float> Offset;													// +0x1C
 };
 
-// Members fontmanager.h declares as int that this function reads and writes as floats (the client's fld / fstp):
-// FontStyleClass::Unknown494.Unknown0C (the alpha), Unknown4A4.Color (the color, 0..1), Unknown458, Unknown488[0..1].
-static inline float &As_Float(int &value) { return *(float *)&value; }
-
 // Moves value toward target by step without passing it (the client's inlined pattern in every gradual effect).
 static inline float Approach(float value, float target, float step)
 {
@@ -109,7 +105,7 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 	// Unknown404 is 'complete' (Is_Complete), Unknown4C5 cleared means the mesh must be rebuilt.
 	int now = style->Unknown270;
 	int delta = now - style->Unknown274[0];
-	float &alpha = As_Float(style->Unknown494.Unknown0C);
+	float &alpha = style->Unknown494.Unknown0C;
 	float &scale = style->Unknown2F4[0];
 	float &rotation = style->Unknown2F4[1];
 	int *rect = style->Unknown420;			// left, right, top, bottom (pixels of the text texture)
@@ -371,7 +367,7 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 			if (style->Object != NULL) {
 				// a ticker: wraps after WrapWidth (screen widths), or after the attached sub-object's box
 				RefCountPtr<RenderObjClass> attach = Create_Get(style->Object->Get_Sub_Object_By_Name(style->Info.Attach));
-				float &scrolled = As_Float(style->Unknown458);
+				float &scrolled = style->Unknown458;
 				if (attach == NULL || style->Info.WrapWidth != 0.0f) {
 					style->Unknown47C.X = style->Unknown47C.X - step / style->Unknown4DC;
 					style->Unknown4C5 = false;
@@ -452,9 +448,9 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		const TPoint3D<int> &current = style->Colors[style->Unknown44C]->RGB;
-		As_Float(style->Unknown4A4.Color.X) = (float)(second.X <= current.X ? current.X : second.X) * 0.00392156f;
-		As_Float(style->Unknown4A4.Color.Y) = (float)(second.Y <= current.Y ? current.Y : second.Y) * 0.00392156f;
-		As_Float(style->Unknown4A4.Color.Z) = (float)(second.Z <= current.Z ? current.Z : second.Z) * 0.00392156f;
+		style->Unknown4A4.Color.X = (float)(second.X <= current.X ? current.X : second.X) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (float)(second.Y <= current.Y ? current.Y : second.Y) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (float)(second.Z <= current.Z ? current.Z : second.Z) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -537,10 +533,10 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		float dx = (float)rand() * effect->Intensity * (1.0f / 32768.0f);
 		float dy = (float)rand() * effect->Intensity * (1.0f / 32768.0f);
-		As_Float(style->Unknown488[0]) = effect->Intensity * 0.5f - dx;
+		style->Unknown488[0] = effect->Intensity * 0.5f - dx;
 		style->Unknown254[0] = 2;
 		style->Unknown404 = true;
-		As_Float(style->Unknown488[1]) = effect->Intensity * 0.5f - dy;
+		style->Unknown488[1] = effect->Intensity * 0.5f - dy;
 		break;
 	}
 
@@ -549,9 +545,9 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		float step = (float)delta * effect->Speed * 0.01f;
-		As_Float(style->Unknown4A4.Color.X) = Approach(As_Float(style->Unknown4A4.Color.X), (float)second.X * 0.00392156f, step);
-		As_Float(style->Unknown4A4.Color.Y) = Approach(As_Float(style->Unknown4A4.Color.Y), (float)second.Y * 0.00392156f, step);
-		As_Float(style->Unknown4A4.Color.Z) = Approach(As_Float(style->Unknown4A4.Color.Z), (float)second.Z * 0.00392156f, step);
+		style->Unknown4A4.Color.X = Approach(style->Unknown4A4.Color.X, (float)second.X * 0.00392156f, step);
+		style->Unknown4A4.Color.Y = Approach(style->Unknown4A4.Color.Y, (float)second.Y * 0.00392156f, step);
+		style->Unknown4A4.Color.Z = Approach(style->Unknown4A4.Color.Z, (float)second.Z * 0.00392156f, step);
 		style->Unknown254[1] = 2;
 		style->Unknown404 = true;
 		break;
@@ -601,9 +597,9 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 		const TPoint3D<int> &second = style->Colors[1]->RGB;
 		const TPoint3D<int> &current = style->Colors[style->Unknown44C]->RGB;
 		double wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
-		As_Float(style->Unknown4A4.Color.X) = (float)(((second.X - current.X) / 2 * wave + (second.X + current.X) / 2) * 0.00392156f);
-		As_Float(style->Unknown4A4.Color.Y) = (float)(((second.Y - current.Y) / 2 * wave + (current.Y + second.Y) / 2) * 0.00392156f);
-		As_Float(style->Unknown4A4.Color.Z) = (float)(((second.Z - current.Z) / 2 * wave + (current.Z + second.Z) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.X = (float)(((second.X - current.X) / 2 * wave + (second.X + current.X) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.Y = (float)(((second.Y - current.Y) / 2 * wave + (current.Y + second.Y) / 2) * 0.00392156f);
+		style->Unknown4A4.Color.Z = (float)(((second.Z - current.Z) / 2 * wave + (current.Z + second.Z) / 2) * 0.00392156f);
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -678,7 +674,6 @@ void FontStyleClass::Unknown_6D5B10(float &width, float &height)
 **	strings " " (0xB6E948) and "..." (0xB750A8, appended while Unknown406 is set). The text texture is rebuilt through
 **	Unknown_6D8DC0 (fonttexture.cpp) on +0x2D0 with the font's XSpacing reset to MinSpacing first (RANDLETTER, STAY).
 **
-**	fontmanager.h types as int what this function treats as float: Unknown494.Unknown0C (alpha), Unknown4A4.Color
-**	(0..1 floats; Set_Color copies an int color into it: to settle), Unknown458 (SCROLL's distance), Unknown488[0..1]
-**	(SHAKE's offset): As_Float above until the header says float. 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
+**	fontmanager.h types as floats what this function reads and writes so: Unknown494.Unknown0C (alpha), Unknown4A4.Color
+**	(0..1), Unknown458 (SCROLL's distance), Unknown488 (SHAKE's offset). 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
 */

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-431 entries in 107 files.
+430 entries in 107 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -97,7 +97,6 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:1364` | `FontStringFilesClass::~FontStringFilesClass` | mention | NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the file is not written yet. Tables (the Add functions' offsets and instance... |
 | `app/client/fontmanager.cpp:172` | `ManagedFontClass::Unknown_6D0A70` | marker | NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv) |
 | `app/client/fontmanager.cpp:193` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
-| `app/client/fontmanager.cpp:201` | `ManagedFontClass::Unknown_6D10B0` | marker | NOT EXACT: shape, 18 rows: the client stores the color through [ebp+0x494] directly, ours through the member's address (attempts.csv) |
 | `app/client/fontmanager.cpp:367` | `ManagedFontClass::Unknown_6D1480` | marker | NOT EXACT: shape, 38 rows: the key copy and its destruction differ (attempts.csv) |
 | `app/client/fontmanager.cpp:377` | `ManagedFontClass::Unknown_6D1600` | marker | NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv) |
 | `app/client/fontmanager.cpp:427` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
@@ -266,7 +265,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
-| `app/client/unknown_6ca0c0.cpp:98` | `FontStyleClass::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
+| `app/client/unknown_6ca0c0.cpp:94` | `FontStyleClass::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontStyleClass::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontStyleClass::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
 | `app/client/unknown_6cce60.cpp:143` | `FontStyleClass::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |

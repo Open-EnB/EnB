@@ -249,7 +249,7 @@ void FontStyleClass::Change_Text(const char *text, int unknown)
 				Unknown488[2] = 0;
 				if (Colors[0] != NULL) {
 					float *color = (float *)&Unknown494;
-					float *second = (float *)Unknown4B4;
+					float *second = (float *)&Unknown4B4;
 					color[3] = 1.0f;
 					color[0] = (float)Colors[0]->RGB.X * 0.00392156f;
 					color[1] = (float)Colors[0]->RGB.Y * 0.00392156f;

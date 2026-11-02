@@ -191,15 +191,15 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 }
 
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
-void ManagedFontClass::Unknown_6D1010(const char *name, TPoint3D<int> color)
+void ManagedFontClass::Unknown_6D1010(const char *name, Vector3 color)
 {
 	FontStyleClass *style = Unknown_6D1600(name);
 	style->Unknown494.Color = color;
 	style->Unknown4A4 = style->Unknown494;
 }
 
-// NOT EXACT: shape, 18 rows: the client stores the color through [ebp+0x494] directly, ours through the member's address (attempts.csv)
-void ManagedFontClass::Unknown_6D10B0(const char *name, TPoint3D<int> color)
+// 0x6D10B0 (exact with the colour typed as floats: the client copies the three dwords)
+void ManagedFontClass::Unknown_6D10B0(const char *name, Vector3 color)
 {
 	for (std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
 		FontStyleClass *style = it->second;
@@ -481,7 +481,7 @@ void FontManagerClass::Unknown_6D2500(const char *name, const char *text, unsign
 }
 
 // Find 0x6D2A70 out of line here and in 0x6D2700 (auto_inline off); Peek_Font is its inlined twin elsewhere (H19)
-void FontManagerClass::Unknown_6D2580(const char *name, TPoint3D<int> color, unsigned int id)
+void FontManagerClass::Unknown_6D2580(const char *name, Vector3 color, unsigned int id)
 {
 	Find(id)->Unknown_6D1010(name, color);
 }

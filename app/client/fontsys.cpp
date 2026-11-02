@@ -135,7 +135,7 @@ void FontStyleClass::Unknown_6D5170(int object)
 		Colors[1] = Colors[0];
 	}
 	float *color = (float *)&Unknown494;	// floats r, g, b, a (TXT1: Update_Text reads them so)
-	float *second = (float *)Unknown4B4;
+	float *second = (float *)&Unknown4B4;
 	if (Colors[0] == NULL) {
 		color[0] = 10.0f;
 		color[1] = 10.0f;
@@ -375,8 +375,8 @@ void FontStyleClass::Update_Text(bool unknown)
 	WWPROFILE("FontSys::Update_Text");
 	float *color = (float *)&Unknown494;		// r, g, b, a now
 	float *target = (float *)&Unknown4A4;		// r, g, b, a it moves to
-	float *second = (float *)Unknown4B4;		// the second pass's r, g, b
-	float *offset = (float *)Unknown488;		// +0x488: an offset added to the position (floats)
+	float *second = (float *)&Unknown4B4;		// the second pass's r, g, b
+	float *offset = (float *)&Unknown488;		// +0x488: an offset added to the position (floats)
 	float pos_x = 0.0f;
 	float pos_y = 0.0f;
 	int i;
@@ -945,7 +945,7 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6D8650)
 void FontStyleClass::Unknown_6D8650(Vector3 &pos)
 {
-	const float *offset = (const float *)Unknown488;
+	const float *offset = (const float *)&Unknown488;
 	if (Unknown302) {
 		Vector3 at(Unknown464[0], Unknown464[1], *(float *)&Unknown46C);
 		pos = at + Unknown47C + Vector3(offset[0], offset[1], offset[2]);
