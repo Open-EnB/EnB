@@ -2955,7 +2955,6 @@ msg 1 ? (235) size 36: cpacket.cpp's handler
 gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
-gen InterfaceUnknown64Class::InterfaceUnknown64Class
 gen SignalMap::SignalMap
 stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 0
@@ -2963,7 +2962,6 @@ msg 2 ? (234) size 36: cpacket.cpp's handler
 gen SignalMap::SignalMap
 gen InterfaceKeyListClass::InterfaceKeyListClass
 gen InterfaceUnknown58Class::InterfaceUnknown58Class
-gen InterfaceUnknown64Class::InterfaceUnknown64Class
 stub InterfaceSignalMapClass::Add (0x4F9740)
 stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 

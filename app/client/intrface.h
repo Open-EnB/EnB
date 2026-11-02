@@ -24,6 +24,7 @@
 
 #include "..\..\wwlib\refcount.h"
 #include "..\shared\gclass.h"
+#include "slist.h"
 
 class UIViewClass;
 class INIClass;
@@ -33,6 +34,7 @@ class GadgetClass;  // gadget.cpp's
 class LoginUnknown0CClass;  // sclient.h's: the views' +0x04 (the input dispatcher)
 class InterfaceStaticSortListClass;  // interface_static_sort_list.cpp's: the views' scene's +0x9C ('ssl')
 class InterfaceClass;
+struct InterfaceUnknown64EntryStruct;  // intrlist.cpp's list entry
 
 // What InterfaceClass holds at +0x64 (0x0C bytes, constructor 0x686FA0; intrlist.cpp's functions), as far as ui_group.cpp calls it
 class InterfaceUnknown64Class  // NAME 1: neutral (D10)
@@ -47,7 +49,7 @@ public:
 #endif
 	void Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, bool active, bool unknown);	// 0x6870E0: the gadget put in (ui_group.cpp: an id, the view, 1, 1)  // NAME 1 [gadget, id, view, active, unknown]: the entry's members (stored as bytes)
 	void Unknown_687150(GadgetClass *gadget);												// 0x687150: the gadget taken out (before its delete)  // NAME 1 [gadget]: what ui_group.cpp passes
-	char Unknown00[0x0C];																	// +0x00
+	SList<InterfaceUnknown64EntryStruct> List;								// +0x00 (table 0xAFC8DC: 0x6870E0 Add_Head, 0x687150 Remove)  // NAME 1: its type
 };
 
 #ifdef __INTRFACE_MEMBERS

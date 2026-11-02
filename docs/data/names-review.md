@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
 | 2 | describes what the code does | 2896 |
-| 1 | neutral placeholder | 10765 |
+| 1 | neutral placeholder | 10766 |
 
 ## For review (score 3 and below)
 
@@ -2703,73 +2703,74 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_541930` | `app/client/intrface.cpp:443` | untagged neutral name (D10) |
 | 1 | `UIUnknownBaseClass` | `app/client/intrface.h:12` | untagged neutral name (D10) |
 | 1 | `GClassUnknownClass` | `app/client/intrface.h:13` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/intrface.h:33` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown64Class` | `app/client/intrface.h:38` | neutral (D10) |
-| 1 | `dispatcher, handler, parent` | `app/client/intrface.h:44` | what intrface.cpp passes |
-| 1 | `Unknown_6871D0` | `app/client/intrface.h:44` | untagged neutral name (D10) |
-| 1 | `dispatcher, parent` | `app/client/intrface.h:45` | what intrface.cpp passes |
-| 1 | `Unknown_6872A0` | `app/client/intrface.h:45` | untagged neutral name (D10) |
-| 1 | `view` | `app/client/intrface.h:46` | what intrface.cpp passes |
-| 1 | `Unknown_687360` | `app/client/intrface.h:46` | untagged neutral name (D10) |
-| 1 | `gadget, id, view, active, unknown` | `app/client/intrface.h:48` | the entry's members (stored as bytes) |
-| 1 | `Unknown_6870E0` | `app/client/intrface.h:48` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/intrface.h:49` | what ui_group.cpp passes |
-| 1 | `Unknown_687150` | `app/client/intrface.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/intrface.h:50` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyListClass` | `app/client/intrface.h:59` | neutral (D10) |
-| 1 | `dispatcher, handler, iface` | `app/client/intrface.h:64` | what intrface.cpp passes |
-| 1 | `Unknown_721F40` | `app/client/intrface.h:64` | untagged neutral name (D10) |
-| 1 | `dispatcher, iface` | `app/client/intrface.h:65` | what intrface.cpp passes |
-| 1 | `Unknown_721F80` | `app/client/intrface.h:65` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown58Class` | `app/client/intrface.h:71` | neutral (D10) |
-| 1 | `Unknown_686E90` | `app/client/intrface.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown_686EE0` | `app/client/intrface.h:77` | untagged neutral name (D10) |
-| 1 | `scene` | `app/client/intrface.h:78` | what intrface.cpp passes |
-| 1 | `Unknown_686F10` | `app/client/intrface.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/intrface.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/intrface.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/intrface.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/intrface.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/intrface.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/intrface.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/intrface.h:100` | untagged neutral name (D10) |
-| 1 | `ini` | `app/client/intrface.h:101` | what 0x745080 passes |
-| 1 | `Unknown_6C` | `app/client/intrface.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/intrface.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/intrface.h:103` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/intrface.h:104` | neutral |
-| 1 | `Unknown_78` | `app/client/intrface.h:104` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/intrface.h:105` | what the callers pass |
-| 1 | `Unknown_7C` | `app/client/intrface.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/intrface.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/intrface.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_541800` | `app/client/intrface.h:108` | untagged neutral name (D10) |
-| 1 | `parent` | `app/client/intrface.h:109` | neutral |
-| 1 | `Unknown_5417D0` | `app/client/intrface.h:109` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/intrface.h:111` | the member's |
-| 1 | `Unknown_541830` | `app/client/intrface.h:112` | untagged neutral name (D10) |
-| 1 | `event, sender` | `app/client/intrface.h:113` | neutral |
-| 1 | `Unknown_5418C0` | `app/client/intrface.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_541930` | `app/client/intrface.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/intrface.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/intrface.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/intrface.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/intrface.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/intrface.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/intrface.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/intrface.h:133` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:144` | neutral (D10) |
-| 1 | `owner` | `app/client/intrface.h:147` | neutral |
-| 1 | `key` | `app/client/intrface.h:148` | InterfaceClass's |
-| 1 | `Unknown_08` | `app/client/intrface.h:148` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/client/intrface.h:150` | neutral (D10) |
-| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:12` | neutral (D10) |
-| 1 | `Active` | `app/client/intrlist.cpp:17` | describes what it gates |
-| 1 | `Unknown0D` | `app/client/intrlist.cpp:18` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:25` | neutral (D10) |
-| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/intrlist.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/intrlist.cpp:34` | untagged neutral name (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/intrface.h:34` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrface.h:37` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64Class` | `app/client/intrface.h:40` | neutral (D10) |
+| 1 | `dispatcher, handler, parent` | `app/client/intrface.h:46` | what intrface.cpp passes |
+| 1 | `Unknown_6871D0` | `app/client/intrface.h:46` | untagged neutral name (D10) |
+| 1 | `dispatcher, parent` | `app/client/intrface.h:47` | what intrface.cpp passes |
+| 1 | `Unknown_6872A0` | `app/client/intrface.h:47` | untagged neutral name (D10) |
+| 1 | `view` | `app/client/intrface.h:48` | what intrface.cpp passes |
+| 1 | `Unknown_687360` | `app/client/intrface.h:48` | untagged neutral name (D10) |
+| 1 | `gadget, id, view, active, unknown` | `app/client/intrface.h:50` | the entry's members (stored as bytes) |
+| 1 | `Unknown_6870E0` | `app/client/intrface.h:50` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/intrface.h:51` | what ui_group.cpp passes |
+| 1 | `Unknown_687150` | `app/client/intrface.h:51` | untagged neutral name (D10) |
+| 1 | `List` | `app/client/intrface.h:52` | its type |
+| 1 | `InterfaceKeyListClass` | `app/client/intrface.h:61` | neutral (D10) |
+| 1 | `dispatcher, handler, iface` | `app/client/intrface.h:66` | what intrface.cpp passes |
+| 1 | `Unknown_721F40` | `app/client/intrface.h:66` | untagged neutral name (D10) |
+| 1 | `dispatcher, iface` | `app/client/intrface.h:67` | what intrface.cpp passes |
+| 1 | `Unknown_721F80` | `app/client/intrface.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/intrface.h:69` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown58Class` | `app/client/intrface.h:73` | neutral (D10) |
+| 1 | `Unknown_686E90` | `app/client/intrface.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_686EE0` | `app/client/intrface.h:79` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/intrface.h:80` | what intrface.cpp passes |
+| 1 | `Unknown_686F10` | `app/client/intrface.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/intrface.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/intrface.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/intrface.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/intrface.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/intrface.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/intrface.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/intrface.h:102` | untagged neutral name (D10) |
+| 1 | `ini` | `app/client/intrface.h:103` | what 0x745080 passes |
+| 1 | `Unknown_6C` | `app/client/intrface.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/intrface.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/intrface.h:105` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/intrface.h:106` | neutral |
+| 1 | `Unknown_78` | `app/client/intrface.h:106` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/intrface.h:107` | what the callers pass |
+| 1 | `Unknown_7C` | `app/client/intrface.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/intrface.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/intrface.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/intrface.h:110` | untagged neutral name (D10) |
+| 1 | `parent` | `app/client/intrface.h:111` | neutral |
+| 1 | `Unknown_5417D0` | `app/client/intrface.h:111` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/intrface.h:113` | the member's |
+| 1 | `Unknown_541830` | `app/client/intrface.h:114` | untagged neutral name (D10) |
+| 1 | `event, sender` | `app/client/intrface.h:115` | neutral |
+| 1 | `Unknown_5418C0` | `app/client/intrface.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_541930` | `app/client/intrface.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/intrface.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/intrface.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/intrface.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/intrface.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/intrface.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/intrface.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/intrface.h:135` | untagged neutral name (D10) |
+| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:146` | neutral (D10) |
+| 1 | `owner` | `app/client/intrface.h:149` | neutral |
+| 1 | `key` | `app/client/intrface.h:150` | InterfaceClass's |
+| 1 | `Unknown_08` | `app/client/intrface.h:150` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/intrface.h:152` | neutral (D10) |
+| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:11` | neutral (D10) |
+| 1 | `Active` | `app/client/intrlist.cpp:16` | describes what it gates |
+| 1 | `Unknown0D` | `app/client/intrlist.cpp:17` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:24` | neutral (D10) |
+| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/intrlist.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_6871D0` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/intrlist.cpp:90` | untagged neutral name (D10) |
@@ -11454,8 +11455,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInterface` | `app/client/interface_static_sort_list.h:140` | the asserts' |
 | 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:141` | the asserts' |
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:142` | the asserts' |
-| 2 | `view` | `app/client/intrface.h:93` | the member's assert '!View'; NAME 1 [unknown]: neutral |
-| 2 | `key_manager` | `app/client/intrface.h:112` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `view` | `app/client/intrface.h:95` | the member's assert '!View'; NAME 1 [unknown]: neutral |
+| 2 | `key_manager` | `app/client/intrface.h:114` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
 | 2 | `ui_scene` | `app/client/local_interface_sort.h:34` | the FAIL_IF's  // NAME 1 [front]: neutral |
@@ -13823,13 +13824,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `interface_static_sort_list.h` | `app/client/interface_static_sort_list.h:23` | header name assumed from the client's interface_static_sort_list.cpp |
 | 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:99` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
-| 3 | `InterfaceClass` | `app/client/intrface.h:90` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
-| 3 | `Is_Active` | `app/client/intrface.h:116` | the asserts' |
-| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:117` | the assert's |
-| 3 | `View` | `app/client/intrface.h:121` | the assert's |
-| 3 | `Active` | `app/client/intrface.h:137` | the FAIL_IF's |
-| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:138` | the assert's |
-| 3 | `View` | `app/client/intrlist.cpp:16` | the FAIL_IF's |
+| 3 | `InterfaceClass` | `app/client/intrface.h:92` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
+| 3 | `Is_Active` | `app/client/intrface.h:118` | the asserts' |
+| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:119` | the assert's |
+| 3 | `View` | `app/client/intrface.h:123` | the assert's |
+| 3 | `Active` | `app/client/intrface.h:139` | the FAIL_IF's |
+| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:140` | the assert's |
+| 3 | `View` | `app/client/intrlist.cpp:15` | the FAIL_IF's |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |
