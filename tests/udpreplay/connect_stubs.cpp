@@ -32,3 +32,4 @@ ConnectionClass *MemoryConnectionFactoryClass::Connect(unsigned short) { Not_In_
 void Unknown_Debug_Begin_Step(const char *text) { printf("step: %s\n", text); }
 void Unknown_Debug_End_Step(const char *text) { printf("step end: %s\n", text); }
 void Unknown_Debug_Print(const char *text) { printf("log: %s\n", text); }
+void Unknown_Debug_Printf(const char *, ...) {}	// 0x509DC0 (app\dbgmgr\dbgmgr.cpp is real; this keeps dbgmgr.obj, and its step log, out)

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 59 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1153 |
-| 2 | describes what the code does | 2896 |
-| 1 | neutral placeholder | 10766 |
+| 2 | describes what the code does | 2897 |
+| 1 | neutral placeholder | 10786 |
 
 ## For review (score 3 and below)
 
@@ -8312,6 +8312,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `AmbientTypeNames` | `app/common/vendor_defs.cpp:11` | what it holds |
 | 1 | `Unknown_4A1590` | `app/common/weapontype.cpp:7` | neutral placeholder (D10) |
 | 1 | `WeaponTypeNames` | `app/common/weapontype.cpp:9` | what it holds |
+| 1 | `Unknown_4BC000` | `app/dbgmgr/dbgmgr.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC130` | `app/dbgmgr/dbgmgr.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/dbgmgr/dbgmgr.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/dbgmgr/dbgmgr.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_509C40` | `app/dbgmgr/dbgmgr.cpp:14` | the log's output (WWDebug's handler 0x509C10 and the print forms) |
+| 1 | `DbgStepStruct` | `app/dbgmgr/dbgmgr.cpp:16` | a step of the step log, 0x5C bytes (44 to a deque block of 0xFD0) |
+| 1 | `Unknown54` | `app/dbgmgr/dbgmgr.cpp:19` | untagged neutral name (D10) |
+| 1 | `Steps` | `app/dbgmgr/dbgmgr.cpp:23` | Begin_Step pushes, End_Step pops |
+| 1 | `Timing` | `app/dbgmgr/dbgmgr.cpp:24` | End_Step prints the milliseconds |
+| 1 | `Unknown_BE59C4` | `app/dbgmgr/dbgmgr.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_509C10` | `app/dbgmgr/dbgmgr.cpp:27` | WWDebug's message handler |
+| 1 | `Unknown_509D50` | `app/dbgmgr/dbgmgr.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `app/dbgmgr/dbgmgr.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `app/dbgmgr/dbgmgr.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_509E50` | `app/dbgmgr/dbgmgr.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_509E70` | `app/dbgmgr/dbgmgr.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_509EB0` | `app/dbgmgr/dbgmgr.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `app/dbgmgr/dbgmgr.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `app/dbgmgr/dbgmgr.cpp:160` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/input/inpdsp.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/input/inpdsp.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_42A170` | `app/input/inpdsp.cpp:44` | untagged neutral name (D10) |
@@ -10461,20 +10480,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_442FF0` | `programs/clientpoc/poc_window.cpp:170` | untagged neutral name (D10) |
 | 1 | `UnknownBDADC0Class` | `programs/clientpoc/poc_window.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Printf` | `stubs/app_stubs.cpp:55` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `stubs/app_stubs.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `stubs/app_stubs.cpp:177` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `stubs/app_stubs.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:202` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:56` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `stubs/app_stubs.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `stubs/app_stubs.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `stubs/app_stubs.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:217` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
@@ -10542,6 +10560,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/clienttest/client_stubs.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/clienttest/client_stubs.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/clienttest/client_stubs.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `tests/clienttest/client_stubs.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_C07550` | `tests/clienttest/client_stubs.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7D80` | `tests/clienttest/client_stubs.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_C404D8Struct` | `tests/clienttest/client_stubs.cpp:193` | untagged neutral name (D10) |
@@ -10778,6 +10797,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `tests/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `tests/udpreplay/pkitemba_stubs.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
@@ -12237,6 +12257,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
 | 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
 | 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
+| 2 | `DbgMgrMemoryLogClass` | `app/dbgmgr/dbgmgr.cpp:122` | access only |
 | 2 | `Owner` | `app/input/inpdsp.h:42` | what it holds |
 | 2 | `Data` | `app/input/inpdsp.h:43` | what it holds |
 | 2 | `Next` | `app/input/inpdsp.h:45` | what it holds |

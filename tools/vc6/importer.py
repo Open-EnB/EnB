@@ -3564,6 +3564,10 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
+    ('app', 'dbgmgr/dbgmgr.cpp'): "E&B's debug log (its asserts name e:\\build\\beta\\G\\app\\dbgmgr\\dbgmgr.cpp): "
+                                 "WWDebug's handler 0x509C10, the output 0x509C40, the print forms 0x509D50-0x509E30, "
+                                 "0x509E50-0x509EB0, WinMain's step log 0x509EF0 / 0x50A1E0 over a std::deque<DbgStepStruct> "
+                                 "(its out-of-line members 0x509B30, 0x50A560-0x50A810)",
     ('app', 'shared/unknown_debug.cpp'): "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter "
                                          "0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the "
                                          "two differ only in their strings)",

@@ -51,19 +51,6 @@ void Unknown_Report_Message(const char *sender, const char *category, const char
 	Stub_Log_Line("%s: %s, %s(%d)", category, text, file, line);
 }
 
-// permstr.cpp's statistics line
-void Unknown_Debug_Printf(const char *format, ...)
-{
-	STUB_CALLED("Unknown_Debug_Printf");
-	char text[1024];
-	va_list va;
-	va_start(va, format);
-	_vsnprintf(text, sizeof(text) - 1, format, va);
-	va_end(va);
-	text[sizeof(text) - 1] = 0;
-	Stub_Log_Line("Unknown_Debug_Printf: %s", text);
-}
-
 // ------------------------------------------------------------------------- globals (data)
 
 int DeltaUnknownGlobal = 0;					// delta.h
