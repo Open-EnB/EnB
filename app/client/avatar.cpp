@@ -406,7 +406,7 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
 }
 
 // 0x784C90
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts)
 void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 {
 	if (PlayerNLP == NULL) {
@@ -479,7 +479,7 @@ bool CharacterViewAvatarClass::Unknown_7863E0()
 }
 
 // 0x781D10
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape
 std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 {
 	char name[256];
@@ -494,7 +494,7 @@ std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 }
 
 // 0x7831C0
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer)
 void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 {
 	int i = 1;
@@ -536,7 +536,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 }
 
 // 0x781EA0
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built)
 void CharacterViewAvatarClass::Unknown_781EA0()
 {
 	int delay = PlayerNLP->Unknown0C->Unknown_20();
@@ -589,7 +589,7 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 }
 
 // 0x783620
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built)
 void CharacterViewAvatarClass::Unknown_783620(float time)
 {
 	for (int i = 0; i < 2; i++) {
@@ -694,7 +694,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 }
 
 // 0x783B50
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
