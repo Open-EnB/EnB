@@ -7,6 +7,11 @@
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\hanim.h"
 #include "..\..\ww3d2\ww3d.h"
+#include "..\..\ww3d2\mesh.h"
+#include "..\..\ww3d2\meshmdl.h"
+#include "..\..\ww3d2\htree.h"
+#include "..\..\ww3d2\hlod.h"
+#include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\surfacetypes.h"
 #include "..\shared\unknown_message.h"
 #include "random.h"
@@ -141,6 +146,8 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	Unknown268 = 0.0f;
 	Unknown26C = 0;
 	Unknown270 = 0;
+	Unknown29C = false;
+	Unknown29D = false;
 	Unknown2F4 = true;
 	Unknown330.Make_Identity();
 	if (desc) {
@@ -223,6 +230,37 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 					Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
 				}
 			}
+		}
+
+		// The client normalises the morph weights and shows them at once (player avatars only)
+		if (Desc.Avatar_Type == 0) {
+			float *weights = Desc.Body_Weight;
+			float sum = 0.0f;
+			Unknown29C = true;
+			int i;
+			for (i = 0; i < 5; i++) {
+				G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+				sum += weights[i];
+			}
+			if (sum > 0.0f) {
+				for (i = 0; i < 5; i++) {
+					weights[i] = weights[i] / sum;
+				}
+			}
+			weights = Desc.Head_Weight;
+			sum = 0.0f;
+			Unknown29D = true;
+			for (i = 0; i < 5; i++) {
+				G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+				sum += weights[i];
+			}
+			if (sum > 0.0f) {
+				for (i = 0; i < 5; i++) {
+					weights[i] = weights[i] / sum;
+				}
+			}
+			Unknown_781410(1, 0);
+			Unknown_781570(1, 0);
 		}
 
 		// 4. Release creation prototypes if non-player or not retaining
@@ -731,7 +769,19 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	} else {
 		Unknown22C = 0.0f;
 	}
-	// The client then (+0x233) steps the blinks (0x781410, 0x781570) 20 times a second: not built yet.
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
 	if (Unknown2EC && (Unknown2BC == NULL || !Unknown2BC->Is_Hidden())) {
 		Unknown2F0 -= time;
 		if (Unknown2F0 < 0.0f) {
@@ -773,6 +823,159 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		}
 	}
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
+}
+
+// 0x780AF0
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(Unknown2BC == NULL || BodySource == NULL) {
+		return;
+	}
+	Vector3 scale(0.0f, 0.0f, 0.0f);
+	int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		Vector3 morph;
+		Desc.Get_Body_Morph(morph, i);
+		scale.X += w * morph.X;
+		scale.Y += w * morph.Y;
+		scale.Z += w * morph.Z;
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL; i++) {
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(names[i]));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(names[i]));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)Unknown2BC->Get_Sub_Object_By_Name(names[i]));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)Unknown2BC)->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+// 0x780F30
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_780F30()
+{
+	FAIL_IF(Unknown2B8 == 0 || HeadSource == 0) {
+		return;
+	}
+	Vector3 scale(0.0f, 0.0f, 0.0f);
+	int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown288[i];
+		Vector3 morph;
+		Desc.Get_Head_Morph(morph, i);
+		scale.X += w * morph.X;
+		scale.Y += w * morph.Y;
+		scale.Z += w * morph.Z;
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad head scale values");
+		return;
+	}
+	for (i = 0; i < Unknown2B8->Get_Num_Sub_Objects(); i++) {
+		RefCountPtr<RenderObjClass> obj = Create_Get(HeadSource->Get_Sub_Object(i));
+		if (obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)HeadSource->Get_Sub_Object(i));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)Unknown2B8->Get_Sub_Object(i));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.X, scale.Y, scale.Z);
+		}
+	}
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(HeadSource->Get_HTree(), scale);
+	((HLodClass *)Unknown2B8)->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+// 0x7812A0
+// NOT EXACT: functional for POC (D64), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh)
+{
+	FAIL_IF(!source_mesh || !dest_mesh) {
+		return;
+	}
+	RefCountPtr<MeshModelClass> source = Create_Get(source_mesh->Get_Model());
+	RefCountPtr<MeshModelClass> dest = Create_Get(dest_mesh->Get_Model());
+	int count = source->Get_Vertex_Count();
+	Vector3 *from = source->Get_Vertex_Array();
+	Vector3 *to = dest->Get_Vertex_Array();
+	for (int i = 0; i < count; i++) {
+		to[i] = from[i];
+	}
+}
+
+// 0x781410
+// NOT EXACT: functional for POC (D64), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
+{
+	if (Unknown2BC == NULL) {
+		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar body object");
+		Unknown29C = false;
+		Unknown29D = false;
+		return;
+	}
+	float keep = 1.0f;
+	bool moving = false;
+	for (; steps > 0; steps--) {
+		keep *= 0.75f;
+	}
+	for (int i = 0; i < 5; i++) {
+		if (now == 1 || fabs(Unknown274[i] - Desc.Body_Weight[i]) < 0.0001) {
+			Unknown274[i] = Desc.Body_Weight[i];
+		} else {
+			moving = true;
+			Unknown274[i] = keep * Unknown274[i] + (1.0f - keep) * Desc.Body_Weight[i];
+		}
+	}
+	if (!moving) {
+		Unknown29C = false;
+	}
+	Unknown_780AF0();
+	Matrix3D head = Unknown2BC->Get_Bone_Transform("K_HEAD");
+	Unknown234 = head[2][3] - Unknown2BC->Get_Bone_Transform("skel_reference")[2][3];
+}
+
+// 0x781570
+// NOT EXACT: functional for POC (D64), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
+{
+	if (Unknown2B8 == NULL) {
+		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar head object");
+		Unknown29D = false;
+		return;
+	}
+	float keep = 1.0f;
+	bool moving = false;
+	for (; steps > 0; steps--) {
+		keep *= 0.75f;
+	}
+	for (int i = 0; i < 5; i++) {
+		if (now == 1 || fabs(Unknown288[i] - Desc.Head_Weight[i]) < 0.0001) {
+			Unknown288[i] = Desc.Head_Weight[i];
+		} else {
+			moving = true;
+			Unknown288[i] = keep * Unknown288[i] + (1.0f - keep) * Desc.Head_Weight[i];
+		}
+	}
+	if (!moving) {
+		Unknown29D = false;
+	}
+	Unknown_780F30();
 }
 
 // 0x7854B0

@@ -9,6 +9,7 @@ class HAnimClass;
 class AudibleSoundClass;
 class SClientUnknown1338Class;
 class PlayerNLPClass;
+class MeshClass;
 
 // avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4)
 class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutral (D10)
@@ -36,7 +37,12 @@ public:
 	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
 	void Unknown_7831C0(const char *name);				// 0x7831C0 (the gesture animation into +0xC0, or +0xC4 to blend; 'Cannot Find Gesture Animation')  // NAME 1 [name]: neutral
 	void Unknown_783620(float time);					// 0x783620 (the frames on, the body's Set_Animation)  // NAME 1 [time]: neutral
-	void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
+void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT meshes scaled, the HTree altered)
+	void Unknown_780F30();								// 0x780F30 (the head morph: every head mesh scaled, the HTree altered)
+	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
+	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
+	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
+		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)
 	int Unknown0BC;										// +0xBC (0x781EA0: the face animation)
@@ -71,7 +77,7 @@ public:
 	bool Unknown232;									// +0x232 (0x67A440 sets it)
 	void Unknown_Inline_231() { Unknown231 = false; Unknown214 = true; }	// NAME 1: neutral (D10)
 	bool Unknown233;									// +0x233 (0x77B870 sets it)
-	int Unknown234;										// +0x234
+	float Unknown234;									// +0x234 (0x781410: K_HEAD's height above skel_reference)
 	int Unknown238;										// +0x238 (0x783620: footsteps played)
 	int Unknown23C;										// +0x23C (0x783620: the surface type)
 	int Unknown240;										// +0x240
@@ -87,7 +93,11 @@ public:
 	float Unknown268;									// +0x268 (0x7854B0: random pitch offset -5..5; 0x781EA0 clears it)
 	unsigned int Unknown26C;							// +0x26C (0x7854B0: the step count)
 	unsigned int Unknown270;							// +0x270 (0x7854B0: the step of the next random offsets)
-	char Unknown_Pad274[0x2B0 - 0x274];
+	float Unknown274[5];								// +0x274 (0x781410: the body morph weights shown, stepped toward Desc.Body_Weight)
+	float Unknown288[5];								// +0x288 (0x781570: the head morph weights shown, stepped toward Desc.Head_Weight)
+	bool Unknown29C;									// +0x29C (0x781410: the body morph still stepping)
+	bool Unknown29D;									// +0x29D (0x781570: the head morph still stepping)
+	char Unknown_Pad29E[0x2B0 - 0x29E];
 	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2B8;							// +0x2B8 (HeadObj, 0x786370 sets hidden)

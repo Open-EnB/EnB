@@ -723,7 +723,9 @@
    "avatar": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
     ],
     "copy": "reconstructed",
     "expected": {},
