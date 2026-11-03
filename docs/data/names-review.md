@@ -7,9 +7,9 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 87 |
+| 5 | the client names it | 88 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1165 |
+| 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2920 |
 | 1 | neutral placeholder | 11041 |
 
@@ -9855,19 +9855,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
 | 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:25` | neutral (D10) |
-| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:26` | neutral (D10) |
-| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:313` | untagged neutral name (D10) |
-| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:359` | descriptive (inlined) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:536` | untagged neutral name (D10) |
+| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:28` | neutral (D10) |
+| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:29` | neutral (D10) |
+| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:306` | untagged neutral name (D10) |
+| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:352` | descriptive (inlined) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:646` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/shared/enbassetmgr.h:28` | compatibility alias for Create_Render_Obj |
-| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:36` | neutral (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:43` | neutral (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:45` | 0xBDADC0 |
+| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:37` | neutral (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:44` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:46` | 0xBDADC0 |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -15065,9 +15065,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:91` | its profile string |
-| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:40` | EA hueshift style for CLASSID_SPHERE |
-| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_RING |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:462` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:490` | EA hueshift style for CLASSID_RING |
+| 3 | `Post_Process` | `app/shared/enbassetmgr.h:30` | its profile string |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_RING |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |

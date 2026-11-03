@@ -21,6 +21,9 @@
 #include "vector3.h"
 #include "wwmath.h"
 #include "..\..\wwlib\nstrdup.h"
+#include "part_emt.h"
+#include "sphereobj.h"
+#include "ringobj.h"
 
 void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a model (recursive)  // NAME 1 [Unknown_48E9D0, robj]: neutral (D10)
 bool Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (recursive)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
@@ -87,18 +90,7 @@ ENBAssetManager::~ENBAssetManager()
 {
 }
 
-// 'ENBAssetManager::Post_Process' (0x48EB90, its FAIL_IF(!robj) on line 635; not rebuilt): Create_Render_Obj's copy
-static inline RenderObjClass *Post_Process(RenderObjClass *robj)	// NAME 3 [Post_Process]: its profile string
-{
-	WWPROFILE("ENBAssetManager::Post_Process");
-	FAIL_IF(!robj) return(NULL);
-	Unknown_48E9D0(robj);
-	const char *name = robj->Get_Name();
-	if (!DX8Wrapper::Get_Current_Caps()->Support_TnL() && strnicmp(name, "plt", 3) == 0) {
-		Unknown_48E620(robj);
-	}
-	return(robj);
-}
+
 
 // @0x48B0F0
 RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
@@ -106,7 +98,7 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
 	WWPROFILE("ENBAssetManager::Create_Render_Obj()");
 	RenderObjClass *robj = WW3DAssetManager::Create_Render_Obj(name);
 	if (robj != NULL) {
-		robj = Post_Process(robj);
+		Post_Process(robj);
 	} else {
 		robj = NULL;
 	}
@@ -135,7 +127,8 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale
 
 	RenderObjClass *rendobj = WW3DAssetManager::Create_Render_Obj(newname);
 	if (rendobj != NULL) {
-		return Post_Process(rendobj);
+		Post_Process(rendobj);
+		return rendobj;
 	}
 
 	rendobj = WW3DAssetManager::Create_Render_Obj(name);
@@ -432,6 +425,95 @@ void ENBAssetManager::Recolor_HLOD(RenderObjClass *robj, float *hsv)	// NAME 5: 
 	}
 }
 
+// @0x48D850
+void ENBAssetManager::Recolor_ParticleEmitter(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
+{
+	unsigned int i;
+	ParticleEmitterClass *emit = (ParticleEmitterClass *)robj;
+	ParticlePropertyStruct<Vector3> colors;
+
+	emit->Get_Color_Key_Frames(colors);
+	Recolor(colors.Start, *(const Vector3 *)hsv);
+	Recolor(colors.Rand, *(const Vector3 *)hsv);
+	for (i = 0; i < colors.NumKeyFrames; i++) {
+		Recolor(colors.Values[i], *(const Vector3 *)hsv);
+	}
+	emit->Reset_Colors(colors);
+
+	if (colors.KeyTimes != NULL) {
+		delete colors.KeyTimes;
+	}
+	if (colors.Values != NULL) {
+		delete colors.Values;
+	}
+
+	TextureClass *tex = emit->Get_Texture();
+	if (tex != NULL) {
+		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		if (newtex != NULL) {
+			emit->Set_Texture(newtex);
+			newtex->Release_Ref();
+		}
+		tex->Release_Ref();
+	}
+}
+
+// @0x48DD00
+void ENBAssetManager::Recolor_Sphere(RenderObjClass *robj, float *hsv)	// NAME 3 [Recolor_Sphere]: EA hueshift style for CLASSID_SPHERE
+{
+	SphereRenderObjClass *sphere = (SphereRenderObjClass *)robj;
+	SphereColorChannelClass &channel = sphere->Get_Color_Channel();
+	int count = channel.Get_Key_Count();
+	if (count > 0) {
+		for (int i = 0; i < count; ++i) {
+			SphereColorChannelClass::KeyClass key = channel.Get_Key(i);
+			Vector3 color = key.Get_Value();
+			Recolor(color, *(const Vector3 *)hsv);
+			channel.Set_Key_Value(i, color);
+		}
+	} else {
+		Vector3 color = sphere->Get_Color();
+		Recolor(color, *(const Vector3 *)hsv);
+		sphere->Set_Color(color);
+	}
+	TextureClass *tex = sphere->Peek_Texture();
+	if (tex != NULL) {
+		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		if (newtex != NULL) {
+			sphere->Set_Texture(newtex);
+			newtex->Release_Ref();
+		}
+	}
+}
+
+// @0x48E0F0
+void ENBAssetManager::Recolor_Ring(RenderObjClass *robj, float *hsv)	// NAME 3 [Recolor_Ring]: EA hueshift style for CLASSID_RING
+{
+	RingRenderObjClass *ring = (RingRenderObjClass *)robj;
+	RingColorChannelClass &channel = ring->Get_Color_Channel();
+	int count = channel.Get_Key_Count();
+	if (count > 0) {
+		for (int i = 0; i < count; ++i) {
+			RingColorChannelClass::KeyClass key = channel.Get_Key(i);
+			Vector3 color = key.Get_Value();
+			Recolor(color, *(const Vector3 *)hsv);
+			channel.Set_Key_Value(i, color);
+		}
+	} else {
+		Vector3 color = ring->Get_Color();
+		Recolor(color, *(const Vector3 *)hsv);
+		ring->Set_Color(color);
+	}
+	TextureClass *tex = ring->Peek_Texture();
+	if (tex != NULL) {
+		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		if (newtex != NULL) {
+			ring->Set_Texture(newtex);
+			newtex->Release_Ref();
+		}
+	}
+}
+
 // @0x48E4E0
 void ENBAssetManager::Recolor_Asset(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
@@ -527,6 +609,34 @@ void Unknown_48E9D0(RenderObjClass *robj)
 				sub->Release_Ref();
 			}
 		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x48EB90
+void ENBAssetManager::Post_Process(RenderObjClass *robj)
+{
+	WWPROFILE("ENBAssetManager::Post_Process");
+	FAIL_IF(!robj) return;
+	Unknown_48E9D0(robj);
+	const char *name = robj->Get_Name();
+	if (!DX8Wrapper::Get_Current_Caps()->Support_TnL() && strnicmp(name, "plt", 3) == 0) {
+		Unknown_48E620(robj);
 	}
 }
 

@@ -27,6 +27,7 @@ public:
 	RenderObjClass *Create_Render_Obj(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }
 	RenderObjClass *Unknown_78(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }	// NAME 1 [Unknown_78]: compatibility alias for Create_Render_Obj
 
+	void Post_Process(RenderObjClass *robj);										// NAME 3 [Post_Process]: its profile string
 	void Make_Mesh_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
 	void Make_HLOD_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
 	void Make_Unique(RenderObjClass *robj, bool geometry, bool colors);			// NAME 5: EA hueshift enbassetmgr.h
