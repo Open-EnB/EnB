@@ -3,6 +3,8 @@
 #include "intrface.h"
 #include "sclient.h"
 #include "gadget.h"
+#include "rendobj.h"
+#include "scene.h"
 #include "..\input\inpdsp.h"
 #include "..\kernel\kernel.h"
 #include "..\shared\unknown_debug.h"
@@ -27,12 +29,38 @@ struct InterfaceUnknown64NodeStruct  // NAME 1: neutral (D10)
 	InterfaceUnknown64EntryStruct *Data;
 };
 
-// 0x686FA0
+struct InterfaceUnknown58EntryStruct  // NAME 1: neutral (D10)
+{
+	RenderObjClass *RObj;		// +0x00
+	SceneClass *Scene;			// +0x04
+
+	InterfaceUnknown58EntryStruct(RenderObjClass *robj, SceneClass *scene) : RObj(NULL), Scene(NULL) { REF_PTR_SET(RObj, robj); REF_PTR_SET(Scene, scene); }
+};
+static inline void Release_Entry(InterfaceUnknown58EntryStruct *e) { if (e) { G_ASSERT(e->RObj); REF_PTR_RELEASE(e->RObj); REF_PTR_RELEASE(e->Scene); delete e; } }
+InterfaceUnknown58Class::InterfaceUnknown58Class() {}
+InterfaceUnknown58Class::~InterfaceUnknown58Class() { SLNode<InterfaceUnknown58EntryStruct> *next; for (SLNode<InterfaceUnknown58EntryStruct> *n = List.Head(); n; n = next) { InterfaceUnknown58EntryStruct *e = n->Data(); next = n->Next(); List.Remove(e); Release_Entry(e); } }
+void InterfaceUnknown58Class::Unknown_686CC0(RenderObjClass *r, SceneClass *s) { List.Add_Head(new InterfaceUnknown58EntryStruct(r, s)); }
+void InterfaceUnknown58Class::Unknown_686DA0(RenderObjClass *&r, SceneClass *s) { Unknown_686CC0(r, s); }
+void InterfaceUnknown58Class::Unknown_686DD0(RenderObjClass *r) { SLNode<InterfaceUnknown58EntryStruct> *next; for (SLNode<InterfaceUnknown58EntryStruct> *n = List.Head(); n; n = next) { InterfaceUnknown58EntryStruct *e = n->Data(); next = n->Next(); if (r == e->RObj) List.Remove(e); Release_Entry(e); } }
+// @0x686E90
+void InterfaceUnknown58Class::Unknown_686E90() { for (SLNode<InterfaceUnknown58EntryStruct> *n = List.Head(); n; n = n->Next()) { FAIL_IF(!n->Data()->Scene) continue; n->Data()->RObj->Add(n->Data()->Scene); } }
+// @0x686EE0
+void InterfaceUnknown58Class::Unknown_686EE0()
+{
+	for (SLNode<InterfaceUnknown58EntryStruct> *node = List.Head(); node != NULL; node = node->Next()) {
+		InterfaceUnknown58EntryStruct *entry = node->Data();
+		entry->RObj->Remove();
+	}
+}
+// @0x686F10
+void InterfaceUnknown58Class::Unknown_686F10(SceneClass *s)
+{ for (SLNode<InterfaceUnknown58EntryStruct> *node = List.Head(); node != NULL; node = node->Next()) { InterfaceUnknown58EntryStruct *entry = node->Data();
+		FAIL_IF(entry->RObj->Peek_Scene()) entry->RObj->Remove(); REF_PTR_SET(entry->Scene, s); } }
+// @0x686FA0
 InterfaceUnknown64Class::InterfaceUnknown64Class()
 {
 }
-
-// 0x686FD0
+// @0x686FD0
 InterfaceUnknown64Class::~InterfaceUnknown64Class()
 {
 	SLNode<InterfaceUnknown64EntryStruct> *next;
@@ -49,64 +77,20 @@ InterfaceUnknown64Class::~InterfaceUnknown64Class()
 		}
 	}
 }
-
-// 0x6870E0 (Add_Head: slot +0x08 of the SList, table 0xAFC8DC)
+// @0x6870E0
 void InterfaceUnknown64Class::Unknown_6870E0(GadgetClass *gadget, int id, UIViewClass *view, bool active, bool unknown)
 {
 	List.Add_Head(new InterfaceUnknown64EntryStruct(gadget, id, view, active, unknown));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x6871D0
 void InterfaceUnknown64Class::Unknown_6871D0(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *parent)
 {
-	for (InterfaceUnknown64NodeStruct *node = (InterfaceUnknown64NodeStruct *)List.Head(); node != NULL; node = node->Next) {
-		InterfaceUnknown64EntryStruct *entry = node->Data;
-		FAIL_IF(!entry->View) continue;
-		if (entry->Active) {
-			entry->Gadget->Unknown_54(entry->View->Unknown2C, parent);
-			if (entry->Data != 0) {
-				KernelEventClass event((unsigned short)entry->Gadget->Get_Id());
-				dispatcher->Unknown_429AF0(&event, (InputActionClass *)handler, entry->Data, parent);
-			}
-		}
-	}
-}
+	for (InterfaceUnknown64NodeStruct *node = (InterfaceUnknown64NodeStruct *)List.Head(); node != NULL; node = node->Next) { InterfaceUnknown64EntryStruct *entry = node->Data; FAIL_IF(!entry->View) continue; if (entry->Active) { entry->Gadget->Unknown_54(entry->View->Unknown2C, parent); if (entry->Data != 0) { KernelEventClass event((unsigned short)entry->Gadget->Get_Id()); dispatcher->Unknown_429AF0(&event, (InputActionClass *)handler, entry->Data, parent); } } } }
 
 /*
 **	Reconstruction notes
 **
 **	client.exe: intrlist.cpp's InterfaceUnknown58Class (0x686B50-0x686F10) and InterfaceUnknown64Class
-**	(0x686FA0-0x687360). Rebuilt so far: 0x6871D0 (activated: each active entry's gadget onto its
-**	view's manager, its key pushed on the dispatcher), FAIL_IF '!View' on the client's line 88 (D25).
-**	0x6871D0 exact (the list's head read as the raw node struct).
-**	0x686FA0 / 0x686FD0 exact (MSG2): intrface.h types +0x00 as SList<InterfaceUnknown64EntryStruct>; the destructor
-**	takes every entry out (Remove), destroys its gadget unless +0x0D, deletes it.
-**	0x6870E0 exact (MSG2): the entry made with an inline constructor and put at the list's head through
-**	SList<InterfaceUnknown64EntryStruct>'s Add_Head (slot +0x08; 0x687150 removes through slot +0x1C, Remove);
-**	its last two arguments are bools (stored as bytes: intrface.h retyped from int).
-**	File placement from the FAIL_IF's __FILE__; ACT (run 2026-11-02).
+**	(0x686FA0-0x687360).
+**	Asserts: line 39 (0x27) RObj, line 46 (0x2e) !Scene, line 58 (0x3a) RObj->Peek_Scene(), line 88 (0x58) !View.
 */

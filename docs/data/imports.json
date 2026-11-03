@@ -2235,15 +2235,40 @@
    },
    "control_key_list": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x430450"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
-     "0x721CC0"
+     "0x430370",
+     "0x721C70",
+     "0x721CC0",
+     "0x721CF0",
+     "0x721D20",
+     "0x721D50",
+     "0x721D80",
+     "0x721EF0",
+     "0x721F40",
+     "0x721F80",
+     "0x721FC0",
+     "0x722010",
+     "0x722080",
+     "0x722110",
+     "0x722290",
+     "0x7222D0",
+     "0x722450",
+     "0x722490",
+     "0x7224C0",
+     "0x722550",
+     "0x7225A0",
+     "0x722660",
+     "0x722740"
     ],
     "merged": [],
-    "name": "client/control_key_list.cpp"
+    "name": "client/control_key_list.cpp",
+    "shared": [
+     "0x430370"
+    ]
    },
    "control_keys_manager": {
     "ambiguous": [
@@ -5513,12 +5538,33 @@
     "in_tree": [
      "0x42F250",
      "0x430370",
+     "0x686B50",
+     "0x686B80",
+     "0x686CC0",
+     "0x686DA0",
+     "0x686DD0",
+     "0x686E90",
+     "0x686EE0",
+     "0x686F10",
      "0x686FA0",
      "0x686FD0",
      "0x6870E0",
      "0x6871D0",
+     "0x687430",
      "0x687480",
+     "0x6874D0",
      "0x687540",
+     "0x6875B0",
+     "0x687640",
+     "0x6877C0",
+     "0x687800",
+     "0x687980",
+     "0x6879C0",
+     "0x6879F0",
+     "0x687A80",
+     "0x687AD0",
+     "0x687B90",
+     "0x687C70",
      "0x687CA0",
      "0x687D30",
      "0x687EB0",
@@ -17012,7 +17058,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7487,
+  "in_tree_total": 7529,
   "totals": {}
  },
  "binkmovie": {

@@ -104,12 +104,28 @@ public:
 	__int64 Unknown12E8;												// +0x12E8: the player's id (in the ticket at +0x12D8)  // NAME 1: neutral (D10)
 };
 
+#ifndef __CONTROL_KEY_LIST_CLASS
+#define __CONTROL_KEY_LIST_CLASS
+#include "slist.h"
+class LoginUnknown0CClass;
+class RefCountClass;
+class InterfaceClass;
+struct InterfaceKeyEntryStruct;
+
 class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
 {
 public:
-	void Add(const ControlKeyComboStruct &combo, void *handler);			// 0x721E60  // NAME 2: describes what it does
-	void Remove(const ControlKeyComboStruct &combo);						// 0x721EF0  // NAME 2: describes what it does
+	ControlKeyListClass();																	// 0x721D50
+	~ControlKeyListClass();																	// 0x721D80
+	void Add(const ControlKeyComboStruct &combo, void *handler);							// 0x721E60  // NAME 2: describes what it does
+	void Remove(const ControlKeyComboStruct &combo);										// 0x721EF0  // NAME 2: describes what it does
+	void Unknown_721F40(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *iface);	// 0x721F40 (activated)
+	void Unknown_721F80(LoginUnknown0CClass *dispatcher, InterfaceClass *iface);			// 0x721F80 (deactivated)
+
+	SList<InterfaceKeyEntryStruct> List;													// +0x00 (0x0C bytes)
 };
+typedef ControlKeyListClass InterfaceKeyListClass;
+#endif
 
 class KeysSavedEvent  // NAME 5: the client's RTTI .?AVKeysSavedEvent@@ (Save's signal)
 {

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2922 |
-| 1 | neutral placeholder | 11093 |
+| 1 | neutral placeholder | 11108 |
 
 ## For review (score 3 and below)
 
@@ -1112,14 +1112,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown190` | `app/client/co_subtypes.h:83` | untagged neutral name (D10) |
 | 1 | `Unknown1C4` | `app/client/co_subtypes.h:85` | untagged neutral name (D10) |
 | 1 | `Unknown1D0` | `app/client/co_subtypes.h:86` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyEntryStruct` | `app/client/control_key_list.cpp:9` | neutral (D10) |
-| 1 | `dispatcher, handler, iface` | `app/client/control_key_list.cpp:11` | what 0x721F40 passes |
-| 1 | `Unknown_721CC0` | `app/client/control_key_list.cpp:11` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/control_key_list.cpp:11` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyNodeStruct` | `app/client/control_key_list.cpp:18` | neutral (D10) |
-| 1 | `Unknown_429AF0` | `app/client/control_key_list.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_721F40` | `app/client/control_key_list.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/control_key_list.cpp:32` | untagged neutral name (D10) |
+| 1 | `InterfaceKeyEntryStruct` | `app/client/control_key_list.cpp:10` | neutral (D10) |
+| 1 | `dispatcher, handler, iface` | `app/client/control_key_list.cpp:13` | what 0x721F40 passes |
+| 1 | `Unknown_721CC0` | `app/client/control_key_list.cpp:13` | untagged neutral name (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/control_key_list.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_721CF0` | `app/client/control_key_list.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_429AF0` | `app/client/control_key_list.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_429D90` | `app/client/control_key_list.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_721F40` | `app/client/control_key_list.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_721F80` | `app/client/control_key_list.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_721E60` | `app/client/control_key_list.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
 | 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:12` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
@@ -1154,8 +1156,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ControlKeysSClientClass` | `app/client/control_keys_manager.h:100` | neutral (D10): sclient.cpp's SClient, as far as Init reads it |
 | 1 | `Unknown0000` | `app/client/control_keys_manager.h:103` | untagged neutral name (D10) |
 | 1 | `Unknown12E8` | `app/client/control_keys_manager.h:104` | neutral (D10) |
-| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:107` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
-| 1 | `std:` | `app/client/control_keys_manager.h:151` | neutral (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/control_keys_manager.h:110` | untagged neutral name (D10) |
+| 1 | `ControlKeyListClass` | `app/client/control_keys_manager.h:115` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
+| 1 | `Unknown_721F40` | `app/client/control_keys_manager.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_721F80` | `app/client/control_keys_manager.h:123` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/control_keys_manager.h:167` | neutral (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:89` | the packet's fields |
 | 1 | `Unknown_75AE30` | `app/client/cpacket.cpp:89` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:90` | the packet's fields |
@@ -2784,66 +2789,76 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `gadget` | `app/client/intrface.h:51` | what ui_group.cpp passes |
 | 1 | `Unknown_687150` | `app/client/intrface.h:51` | untagged neutral name (D10) |
 | 1 | `List` | `app/client/intrface.h:52` | its type |
-| 1 | `InterfaceKeyListClass` | `app/client/intrface.h:61` | neutral (D10) |
-| 1 | `dispatcher, handler, iface` | `app/client/intrface.h:66` | what intrface.cpp passes |
-| 1 | `Unknown_721F40` | `app/client/intrface.h:66` | untagged neutral name (D10) |
-| 1 | `dispatcher, iface` | `app/client/intrface.h:67` | what intrface.cpp passes |
-| 1 | `Unknown_721F80` | `app/client/intrface.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/intrface.h:69` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown58Class` | `app/client/intrface.h:73` | neutral (D10) |
-| 1 | `Unknown_686E90` | `app/client/intrface.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_686EE0` | `app/client/intrface.h:79` | untagged neutral name (D10) |
-| 1 | `scene` | `app/client/intrface.h:80` | what intrface.cpp passes |
-| 1 | `Unknown_686F10` | `app/client/intrface.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/intrface.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/intrface.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/intrface.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/intrface.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/intrface.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/intrface.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/intrface.h:102` | untagged neutral name (D10) |
-| 1 | `ini` | `app/client/intrface.h:103` | what 0x745080 passes |
-| 1 | `Unknown_6C` | `app/client/intrface.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/intrface.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/intrface.h:105` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/intrface.h:106` | neutral |
-| 1 | `Unknown_78` | `app/client/intrface.h:106` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/intrface.h:107` | what the callers pass |
-| 1 | `Unknown_7C` | `app/client/intrface.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/intrface.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/intrface.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown_541800` | `app/client/intrface.h:110` | untagged neutral name (D10) |
-| 1 | `parent` | `app/client/intrface.h:111` | neutral |
-| 1 | `Unknown_5417D0` | `app/client/intrface.h:111` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/intrface.h:113` | the member's |
-| 1 | `Unknown_541830` | `app/client/intrface.h:114` | untagged neutral name (D10) |
-| 1 | `event, sender` | `app/client/intrface.h:115` | neutral |
-| 1 | `Unknown_5418C0` | `app/client/intrface.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_541930` | `app/client/intrface.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/intrface.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/intrface.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/intrface.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/intrface.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/intrface.h:133` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/intrface.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/intrface.h:135` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:146` | neutral (D10) |
-| 1 | `owner` | `app/client/intrface.h:149` | neutral |
-| 1 | `key` | `app/client/intrface.h:150` | InterfaceClass's |
-| 1 | `Unknown_08` | `app/client/intrface.h:150` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/client/intrface.h:152` | neutral (D10) |
-| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:11` | neutral (D10) |
-| 1 | `Active` | `app/client/intrlist.cpp:16` | describes what it gates |
-| 1 | `Unknown0D` | `app/client/intrlist.cpp:17` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:24` | neutral (D10) |
-| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/intrlist.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_6871D0` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
-| 1 | `LoginUnknown0CClass` | `app/client/intrlist.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/intrlist.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/intrlist.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown_429AF0` | `app/client/intrlist.cpp:93` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown58Class` | `app/client/intrlist.cpp:102` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown58EntryStruct` | `app/client/intrface.h:61` | untagged neutral name (D10) |
+| 1 | `ControlKeyListClass` | `app/client/intrface.h:68` | neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist') |
+| 1 | `dispatcher, handler, iface` | `app/client/intrface.h:75` | what intrface.cpp passes |
+| 1 | `Unknown_721F40` | `app/client/intrface.h:75` | untagged neutral name (D10) |
+| 1 | `dispatcher, iface` | `app/client/intrface.h:76` | what intrface.cpp passes |
+| 1 | `Unknown_721F80` | `app/client/intrface.h:76` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown58Class` | `app/client/intrface.h:84` | neutral (D10) |
+| 1 | `Unknown_686CC0` | `app/client/intrface.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown_686DA0` | `app/client/intrface.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_686DD0` | `app/client/intrface.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_686E90` | `app/client/intrface.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_686EE0` | `app/client/intrface.h:93` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/intrface.h:94` | what intrface.cpp passes |
+| 1 | `Unknown_686F10` | `app/client/intrface.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/intrface.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/intrface.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/intrface.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/intrface.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/intrface.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/intrface.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/intrface.h:117` | untagged neutral name (D10) |
+| 1 | `ini` | `app/client/intrface.h:118` | what 0x745080 passes |
+| 1 | `Unknown_6C` | `app/client/intrface.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/intrface.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/intrface.h:120` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/intrface.h:121` | neutral |
+| 1 | `Unknown_78` | `app/client/intrface.h:121` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/intrface.h:122` | what the callers pass |
+| 1 | `Unknown_7C` | `app/client/intrface.h:122` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/intrface.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/intrface.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/intrface.h:125` | untagged neutral name (D10) |
+| 1 | `parent` | `app/client/intrface.h:126` | neutral |
+| 1 | `Unknown_5417D0` | `app/client/intrface.h:126` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/intrface.h:128` | the member's |
+| 1 | `Unknown_541830` | `app/client/intrface.h:129` | untagged neutral name (D10) |
+| 1 | `event, sender` | `app/client/intrface.h:130` | neutral |
+| 1 | `Unknown_5418C0` | `app/client/intrface.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_541930` | `app/client/intrface.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/intrface.h:137` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/intrface.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/intrface.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/intrface.h:146` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/intrface.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/intrface.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/intrface.h:150` | untagged neutral name (D10) |
+| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:161` | neutral (D10) |
+| 1 | `owner` | `app/client/intrface.h:164` | neutral |
+| 1 | `key` | `app/client/intrface.h:165` | InterfaceClass's |
+| 1 | `Unknown_08` | `app/client/intrface.h:165` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/intrface.h:167` | neutral (D10) |
+| 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:13` | neutral (D10) |
+| 1 | `Active` | `app/client/intrlist.cpp:18` | describes what it gates |
+| 1 | `Unknown0D` | `app/client/intrlist.cpp:19` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64NodeStruct` | `app/client/intrlist.cpp:26` | neutral (D10) |
+| 1 | `InterfaceUnknown58EntryStruct` | `app/client/intrlist.cpp:32` | neutral (D10) |
+| 1 | `InterfaceUnknown58Class` | `app/client/intrlist.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_686CC0` | `app/client/intrlist.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_686DA0` | `app/client/intrlist.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_686DD0` | `app/client/intrlist.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_686E90` | `app/client/intrlist.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_686EE0` | `app/client/intrlist.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_686F10` | `app/client/intrlist.cpp:56` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown64Class` | `app/client/intrlist.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/intrlist.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_6871D0` | `app/client/intrlist.cpp:86` | untagged neutral name (D10) |
+| 1 | `LoginUnknown0CClass` | `app/client/intrlist.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/intrlist.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/intrlist.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_429AF0` | `app/client/intrlist.cpp:88` | untagged neutral name (D10) |
 | 1 | `LoadingViewFontManagerClass` | `app/client/loadingview.cpp:15` | neutral (D10)  // NAME 1 [object, name]: what this file passes |
 | 1 | `Unknown_6D2310` | `app/client/loadingview.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_6D25D0` | `app/client/loadingview.cpp:15` | untagged neutral name (D10) |
@@ -11360,34 +11375,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Modifiers` | `app/client/control_keys_manager.h:83` | the modifier bits |
 | 2 | `std:` | `app/client/control_keys_manager.h:88` | describes what it does |
 | 2 | `Id` | `app/client/control_keys_manager.h:96` | what it holds |
-| 2 | `Add` | `app/client/control_keys_manager.h:110` | describes what it does |
-| 2 | `Remove` | `app/client/control_keys_manager.h:111` | describes what it does |
-| 2 | `Set_Key` | `app/client/control_keys_manager.h:123` | describes what it does |
-| 2 | `Add_Keys` | `app/client/control_keys_manager.h:124` | describes what it does |
-| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:125` | describes what it does |
-| 2 | `Save` | `app/client/control_keys_manager.h:126` | describes what it does |
-| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:127` | describes what it does |
-| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:128` | describes what it does |
-| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:129` | describes what it does |
-| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:130` | describes what it does |
-| 2 | `std:` | `app/client/control_keys_manager.h:131` | describes what it does |
-| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:132` | describes what it does |
-| 2 | `Init` | `app/client/control_keys_manager.h:133` | describes what it does |
-| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:134` | describes what it does |
-| 2 | `Load_Keys` | `app/client/control_keys_manager.h:135` | describes what it does |
-| 2 | `Save_Keys` | `app/client/control_keys_manager.h:136` | describes what it does |
-| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:137` | describes what it does |
-| 2 | `Create` | `app/client/control_keys_manager.h:138` | describes what it does |
-| 2 | `Destroy` | `app/client/control_keys_manager.h:139` | what its caller uses it for |
-| 2 | `Get` | `app/client/control_keys_manager.h:140` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:141` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:142` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:143` | describes what it does |
-| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:146` | describes what it does |
-| 2 | `Client` | `app/client/control_keys_manager.h:148` | what it holds |
-| 2 | `std:` | `app/client/control_keys_manager.h:154` | what it holds |
-| 2 | `PlayerID` | `app/client/control_keys_manager.h:159` | what it holds |
+| 2 | `Add` | `app/client/control_keys_manager.h:120` | describes what it does |
+| 2 | `Remove` | `app/client/control_keys_manager.h:121` | describes what it does |
+| 2 | `Set_Key` | `app/client/control_keys_manager.h:139` | describes what it does |
+| 2 | `Add_Keys` | `app/client/control_keys_manager.h:140` | describes what it does |
+| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:141` | describes what it does |
+| 2 | `Save` | `app/client/control_keys_manager.h:142` | describes what it does |
+| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:143` | describes what it does |
+| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:144` | describes what it does |
+| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:145` | describes what it does |
+| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:146` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:147` | describes what it does |
+| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:148` | describes what it does |
+| 2 | `Init` | `app/client/control_keys_manager.h:149` | describes what it does |
+| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:150` | describes what it does |
+| 2 | `Load_Keys` | `app/client/control_keys_manager.h:151` | describes what it does |
+| 2 | `Save_Keys` | `app/client/control_keys_manager.h:152` | describes what it does |
+| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:153` | describes what it does |
+| 2 | `Create` | `app/client/control_keys_manager.h:154` | describes what it does |
+| 2 | `Destroy` | `app/client/control_keys_manager.h:155` | what its caller uses it for |
+| 2 | `Get` | `app/client/control_keys_manager.h:156` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:157` | describes what it does |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:158` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:159` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:161` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:162` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:164` | what it holds |
+| 2 | `std:` | `app/client/control_keys_manager.h:170` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:175` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
@@ -11784,8 +11799,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInterface` | `app/client/interface_static_sort_list.h:140` | the asserts' |
 | 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:141` | the asserts' |
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:142` | the asserts' |
-| 2 | `view` | `app/client/intrface.h:95` | the member's assert '!View'; NAME 1 [unknown]: neutral |
-| 2 | `key_manager` | `app/client/intrface.h:114` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `view` | `app/client/intrface.h:110` | the member's assert '!View'; NAME 1 [unknown]: neutral |
+| 2 | `key_manager` | `app/client/intrface.h:129` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
 | 2 | `ui_scene` | `app/client/local_interface_sort.h:34` | the FAIL_IF's  // NAME 1 [front]: neutral |
@@ -14181,13 +14196,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `interface_static_sort_list.h` | `app/client/interface_static_sort_list.h:23` | header name assumed from the client's interface_static_sort_list.cpp |
 | 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:99` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
-| 3 | `InterfaceClass` | `app/client/intrface.h:92` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
-| 3 | `Is_Active` | `app/client/intrface.h:118` | the asserts' |
-| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:119` | the assert's |
-| 3 | `View` | `app/client/intrface.h:123` | the assert's |
-| 3 | `Active` | `app/client/intrface.h:139` | the FAIL_IF's |
-| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:140` | the assert's |
-| 3 | `View` | `app/client/intrlist.cpp:15` | the FAIL_IF's |
+| 3 | `InterfaceClass` | `app/client/intrface.h:107` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
+| 3 | `Is_Active` | `app/client/intrface.h:133` | the asserts' |
+| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:134` | the assert's |
+| 3 | `View` | `app/client/intrface.h:138` | the assert's |
+| 3 | `Active` | `app/client/intrface.h:154` | the FAIL_IF's |
+| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:155` | the assert's |
+| 3 | `View` | `app/client/intrlist.cpp:17` | the FAIL_IF's |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |
