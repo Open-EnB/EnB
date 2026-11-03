@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 87 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1164 |
+| 3 | by convention from a client-named file or sibling | 1165 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11034 |
+| 1 | neutral placeholder | 11037 |
 
 ## For review (score 3 and below)
 
@@ -7756,6 +7756,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2310` | `app/client/ui_popupmsg.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_7693E0` | `app/client/ui_popupmsg.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
+| 1 | `RegistrationKey` | `app/client/ui_registration.cpp:5` | client .data 0xB85EFC |
+| 1 | `Unknown_5FAD50` | `app/client/ui_registration.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_5FADE0` | `app/client/ui_registration.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAD50` | `app/client/ui_registration.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_5FADE0` | `app/client/ui_registration.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
@@ -8690,14 +8695,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4456E0` | `app/main/main.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown_445700` | `app/main/main.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown_445720` | `app/main/main.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Printf` | `app/main/main_client.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `app/main/main_client.cpp:41` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
-| 1 | `Unknown_Debug_End_Step` | `app/main/main_client.cpp:42` | 0x50A1E0 (dbgmgr.cpp) |
-| 1 | `Unknown_509E70` | `app/main/main_client.cpp:43` | dbgmgr.cpp, opens the log ('Earth and Beyond') |
-| 1 | `Unknown_509EB0` | `app/main/main_client.cpp:44` | dbgmgr.cpp, closes it (the allocation count assert, WWMemoryLog's Release_Log) |
-| 1 | `Unknown_4BC000` | `app/main/main_client.cpp:45` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
-| 1 | `Unknown_5FADE0` | `app/main/main_client.cpp:48` | ui_registration.cpp |
-| 1 | `Unknown_5FAD50` | `app/main/main_client.cpp:49` | ui_registration.cpp |
+| 1 | `Unknown_Debug_Printf` | `app/main/main_client.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `app/main/main_client.cpp:42` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
+| 1 | `Unknown_Debug_End_Step` | `app/main/main_client.cpp:43` | 0x50A1E0 (dbgmgr.cpp) |
+| 1 | `Unknown_509E70` | `app/main/main_client.cpp:44` | dbgmgr.cpp, opens the log ('Earth and Beyond') |
+| 1 | `Unknown_509EB0` | `app/main/main_client.cpp:45` | dbgmgr.cpp, closes it (the allocation count assert, WWMemoryLog's Release_Log) |
+| 1 | `Unknown_4BC000` | `app/main/main_client.cpp:46` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_847D20` | `app/main/main_client.cpp:50` | the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes |
 | 1 | `Unknown_846C90` | `app/main/main_client.cpp:51` | the -MENU dialog; false ends the program |
 | 1 | `Unknown_445330` | `app/main/main_client.cpp:55` | Exception_Handler(code, info) (cdecl)  // NAME 1 [info]: its type |
@@ -8748,6 +8751,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8Class` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
 | 1 | `hInstance, hPrevInstance, lpCmdLine, nCmdShow` | `app/main/main_client.cpp:382` | Win32's |
 | 1 | `purchase` | `app/main/main_client.cpp:386` | its text |
+| 1 | `Unknown_5FADE0` | `app/main/main_client.cpp:396` | untagged neutral name (D10) |
 | 1 | `enable_exceptions` | `app/main/main_client.cpp:405` | the value's name, inverted |
 | 1 | `file_factory` | `app/main/main_client.cpp:426` | what it is |
 | 1 | `Unknown_BDADC0` | `app/main/main_client.cpp:436` | untagged neutral name (D10) |
@@ -8756,6 +8760,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `wsa_data` | `app/main/main_client.cpp:486` | its type |
 | 1 | `reduction` | `app/main/main_client.cpp:501` | what it gives |
 | 1 | `splash` | `app/main/main_client.cpp:508` | 0x6A9E40's 'Splash::Render' |
+| 1 | `Unknown_5FAD50` | `app/main/main_client.cpp:509` | untagged neutral name (D10) |
 | 1 | `kernel` | `app/main/main_client.cpp:531` | its class |
 | 1 | `movie` | `app/main/main_client.cpp:539` | its class |
 | 1 | `script` | `app/main/main_client.cpp:557` | its text |
@@ -10698,20 +10703,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0Class` | `programs/clientpoc/poc_link.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_5FADE0` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAD50` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_8B20D0Class` | `programs/clientpoc/poc_standins.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_8B2230` | `programs/clientpoc/poc_standins.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `programs/clientpoc/poc_standins.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown_790560Class` | `programs/clientpoc/poc_standins.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `programs/clientpoc/poc_standins.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_BE856C` | `programs/clientpoc/poc_standins.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_790940` | `programs/clientpoc/poc_standins.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_8B20D0Class` | `programs/clientpoc/poc_standins.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_8B2230` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `programs/clientpoc/poc_standins.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_790560Class` | `programs/clientpoc/poc_standins.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_standins.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_BE856C` | `programs/clientpoc/poc_standins.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_790940` | `programs/clientpoc/poc_standins.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:103` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `programs/clientpoc/poc_ui.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `programs/clientpoc/poc_ui.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `programs/clientpoc/poc_ui.cpp:24` | untagged neutral name (D10) |
@@ -14328,6 +14331,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `source` | `app/client/ui_manu.h:146` | the assert's; NAME 1 [on]: neutral |
 | 3 | `State` | `app/client/ui_manu.h:168` | the assert's |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
+| 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_scut.cpp:31` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Owner` | `app/client/ui_scut.cpp:89` | the assert's |

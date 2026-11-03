@@ -35,6 +35,7 @@
 #include "..\client\tasks\tsk_smovie.h"
 #include "..\client\tasks\tsk_menu.h"
 #include "..\client\tasks\tsk_login.h"
+#include "..\client\ui_registration.h"
 
 // dbgmgr.cpp's log (the step texts, D38)
 void Unknown_Debug_Printf(const char *format, ...);	// 0x509DC0 (dbgmgr.cpp, D38)
@@ -44,9 +45,8 @@ void Unknown_509E70();								// NAME 1 [Unknown_509E70]: dbgmgr.cpp, opens the 
 void Unknown_509EB0();								// NAME 1 [Unknown_509EB0]: dbgmgr.cpp, closes it (the allocation count assert, WWMemoryLog's Release_Log)
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
 
-// ui_registration.cpp and the dialogs (optdlg.cpp's neighbours)
-bool Unknown_5FADE0();								// NAME 1 [Unknown_5FADE0]: ui_registration.cpp
-bool Unknown_5FAD50();								// NAME 1 [Unknown_5FAD50]: ui_registration.cpp
+// ui_registration.h: Unknown_5FAD50, Unknown_5FADE0
+// dialogs (optdlg.cpp's neighbours)
 bool Unknown_847D20(const char *filename);			// NAME 1 [Unknown_847D20]: the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes
 bool Unknown_846C90();								// NAME 1 [Unknown_846C90]: the -MENU dialog; false ends the program
 

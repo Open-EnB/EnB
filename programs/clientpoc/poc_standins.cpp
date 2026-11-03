@@ -19,20 +19,6 @@
 
 // ---------------------------------------------------------------- ui_registration.cpp, the dialogs
 
-// 0x5FADE0: false, the retail (not the demo) build: no demo EULA
-bool Unknown_5FADE0()
-{
-	STUB_CALLED("Unknown_5FADE0 (0x5FADE0, ui_registration.cpp): false");
-	return false;
-}
-
-// 0x5FAD50: false
-bool Unknown_5FAD50()
-{
-	STUB_CALLED("Unknown_5FAD50 (0x5FAD50, ui_registration.cpp): false");
-	return false;
-}
-
 // 0x847D20: the EULA / ROC text in a dialog; true, as if accepted
 bool Unknown_847D20(const char *filename)
 {

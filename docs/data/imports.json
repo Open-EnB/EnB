@@ -15342,6 +15342,17 @@
      "0x45CC10"
     ]
    },
+   "ui_registration": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x5FAD50",
+     "0x5FADE0"
+    ],
+    "merged": [],
+    "name": "client/ui_registration.cpp"
+   },
    "ui_scut": {
     "ambiguous": [
      "0x42A6C0"
@@ -16641,6 +16652,7 @@
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/ui_manu.h": "reconstructed",
+   "client/ui_registration.h": "reconstructed",
    "client/ui_scut.h": "reconstructed",
    "client/uiview.h": "reconstructed",
    "client/unknown_515640.h": "reconstructed",
@@ -16883,7 +16895,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7464,
+  "in_tree_total": 7466,
   "totals": {}
  },
  "binkmovie": {
