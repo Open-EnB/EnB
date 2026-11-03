@@ -4046,6 +4046,8 @@ RECONSTRUCTED = {
                                            "client's lines 105 / 119 / 133 / 146 / 212 (D25)",
     ('app', 'shared/definition_auto_ptr.h'): "DefinitionAutoPtr<T>: a definition acquired from a DefinitionManagerClass; "
                                             "the FAIL_IFs on the client's lines 119 / 120 (D25)",
+    ('app', 'shared/chat_edit_stream.cpp'): "the chat stream, client 0x4C4360-0x4C4962 (vtable 0xAEBAA8; __FILE__ from 0x4C45B0's 'type <= HIGHWATER' assert, line 94): rebuilt from the client by builder CHAT (2026-11-03), the constructor NOT EXACT (call form)",
+    ('app', 'shared/chat_edit_stream.h'): "its class (the avatar's +0xE8, opcodes 94 / 95's Print; pkmessagechatstream.h includes it)",
     ('app', 'shared/ini_manager.h'): "INIManagerClass (D24), the ini files as shared definitions",
     ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
                                       "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
