@@ -1,9 +1,44 @@
-// Earth & Beyond client (reconstruction): the settings store's lkey check (client 0x7CB6F0-0x7CBC60).
-// File PROVISIONAL (D137): no string ties it to a file; the store's other functions (0x7C97B0-0x7CCF20) unbuilt. Notes at the end.
+// Earth & Beyond client (reconstruction): the settings store (client 0x7C97B0-0x7CCF20: constructor, accessor, URL check, string settings).
+// File PROVISIONAL (D137): no string ties it to a file; the store's other functions (0x7CA340-0x7CB4E0, 0x7CBC60-0x7CCB30) unbuilt. Notes at the end.
 #include <windows.h>
 #include <wininet.h>
 #include <stdio.h>
+#include <string.h>
 #include "tsk_game.h"
+
+// 0x7C97B0
+// NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global,
+// and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the
+// state the login path reads is set here: the empty strings and map, the URL-check deadlines)
+Unknown_7CA2D0Class::Unknown_7CA2D0Class()
+{
+	memset(Unknown00, 0, sizeof(Unknown00));
+	Unknown2C = 0;
+	memset(Unknown30, 0, sizeof(Unknown30));
+	Unknown34 = false;
+	unsigned int now = GetTickCount();
+	Unknown38 = now + 5400000;	// 90 minutes
+	Unknown3C = 0;
+	Unknown40 = now + 6900000;	// 115 minutes
+	Unknown44 = 0;
+	Unknown48 = NULL;
+	Unknown4C = 0;
+	memset(Unknown70, 0, sizeof(Unknown70));
+}
+
+// 0x7CA2D0
+// NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit)
+Unknown_7CA2D0Class *Unknown_7CA2D0()
+{
+	static Unknown_7CA2D0Class store;
+	return &store;
+}
+
+// @0x7CB610
+void Unknown_7CA2D0Class::Unknown_7CB610(const char *url)
+{
+	Unknown50 = url;
+}
 
 // NOT EXACT: shape (functional: the deadline tests' branch layout differs)
 void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
@@ -97,14 +132,84 @@ unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 	return(result);
 }
 
+// 0x7CCB30
+// NOT EXACT: shape (the client's std::map insert / erase and string assigns are inlined helpers; the order of the temporaries differs)
+void Unknown_7CA2D0Class::Set_String(const char *key, const char *value)
+{
+	char canon_key[2084];
+	DWORD canon_key_size = sizeof(canon_key);
+	canon_key[0] = '\0';
+	if (!InternetCanonicalizeUrlA(key, canon_key, &canon_key_size, 0)) {
+		return;
+	}
+	if (value != NULL) {
+		char canon_value[2084];
+		DWORD canon_value_size = sizeof(canon_value);
+		canon_value[0] = '\0';
+		if (!InternetCanonicalizeUrlA(value, canon_value, &canon_value_size, 0)) {
+			return;
+		}
+		if (strlen(value) != 0) {
+			Unknown60[std::string(canon_key)] = canon_value;
+			return;
+		}
+	}
+	std::map<std::string, std::string>::iterator it = Unknown60.find(std::string(canon_key));
+	if (it != Unknown60.end()) {
+		Unknown60.erase(it);
+	}
+}
+
+// @0x7CCE80
+void Unknown_7CA2D0Class::Set_Int(const char *key, int value)
+{
+	char buffer[100];
+	_snprintf(buffer, 100, "%d", value);
+	Set_String(key, buffer);
+}
+
+// @0x7CCED0
+void Unknown_7CA2D0Class::Set_Int64(const char *key, __int64 value)
+{
+	char buffer[100];
+	_snprintf(buffer, 100, "%I64d", value);
+	Set_String(key, buffer);
+}
+
+// 0x7CCF20
+// NOT EXACT: shape (the client reads the entry with the map's operator[], which adds an empty one for a missing key, then
+// canonicalises the value; its failures return the empty default string)
+std::string Unknown_7CA2D0Class::Get_String(const char *key)
+{
+	char canon_key[2084];
+	DWORD canon_key_size = sizeof(canon_key);
+	canon_key[0] = '\0';
+	if (!InternetCanonicalizeUrlA(key, canon_key, &canon_key_size, 0)) {
+		return std::string("");
+	}
+	std::string &entry = Unknown60[std::string(canon_key)];
+	char canon_value[2084];
+	DWORD canon_value_size = sizeof(canon_value);
+	canon_value[0] = '\0';
+	if (!InternetCanonicalizeUrlA(entry.c_str(), canon_value, &canon_value_size, 0)) {
+		return std::string("");
+	}
+	return std::string(canon_value);
+}
+
 /*
 **	Reconstruction notes
 **
 **	client.exe: Unknown_7CA2D0Class (tsk_game.h), the settings store, is a function-static object (0x1B4
-**	bytes at 0xBE8890, constructor 0x7C97B0). 0x7CB6F0 is the login and game tasks' per-frame poll: with
+**	bytes at 0xBE8890, constructor 0x7C97B0, accessor 0x7CA2D0). Set_String / Get_String keep canonicalised
+**	(InternetCanonicalizeUrlA) keys and values in a std::map at +0x60 (an empty value erases the entry).
+**	0x7CB6F0 is the login and game tasks' per-frame poll: with
 **	an lkey URL set (0x7CB610, auth.ini's LKeyUrl) and a deadline passed it starts 0x7CB8F0 on a thread,
 **	which fetches the URL formatted with the stored 'lkey' and returns 1 for a reply starting "Success";
 **	the next poll collects the exit code and sets the next deadlines (15 min after a success, 90 / 115 min
-**	after a failure). NOT EXACT (D64, functional for the POC): 0x7CB6F0, 0x7CB8F0 (the reply read with
-**	strlen as the client does: the 100-byte buffer is not terminated). ACT (run 2026-11-02).
+**	after a failure; the constructor's first ones: 90 and 115 minutes after start, so no fetch before then).
+**	NOT EXACT (D64, functional for the POC): 0x7C97B0 (no vtables, no browser descriptors), 0x7CA2D0, 0x7CB6F0,
+**	0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated), 0x7CCB30,
+**	0x7CCF20. Not built here: the destructor 0x7CA340, 0x7CB2E0 / 0x7CB3D0 (the callers in ui_login.cpp,
+**	ui_popupmsg.cpp and main_client.cpp use other class types for them). ACT (run 2026-11-02).
 */

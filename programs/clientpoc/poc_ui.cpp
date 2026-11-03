@@ -1,7 +1,8 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's view stand-ins (D179). NOT THE CLIENT'S CODE.
 /*
-**	The views' stand-ins on the login path: the settings store, the avatar model and
-**	Create_Peek 0x497300. (The 2-D scene stand-in went when interface_scene.cpp landed in app.)
+**	The views' stand-ins on the login path: the avatar model and
+**	Create_Peek 0x497300. (The 2-D scene stand-in went when interface_scene.cpp landed in app; the settings store
+**	when settings_store.cpp's 0x7CA2D0 did.)
 */
 
 
@@ -10,28 +11,6 @@
 #include "..\..\stubs\stub_log.h"
 
 #include "..\..\app\client\sclient.h"
-
-// tsk_game.h's Unknown_7CA2D0 (0x7CA2D0): the settings store, a function-static object (0x1B4 bytes at
-// 0xBE8890, constructor 0x7C97B0); ui_login.cpp clears its std::map at +0x60. Here zeroed, with the map
-// constructed, so the readers see no settings.
-#include <map>
-#include <string>
-#include "..\..\app\client\tasks\tsk_game.h"
-struct PocSettingsStruct
-{
-	PocSettingsStruct() { memset(Unknown00, 0, sizeof(Unknown00)); memset(Unknown70, 0, sizeof(Unknown70)); }
-	char Unknown00[0x60];
-	std::map<std::string, std::string> Unknown60;
-	char Unknown70[0x1B4 - 0x60 - sizeof(std::map<std::string, std::string>)];
-};
-
-Unknown_7CA2D0Class *Unknown_7CA2D0()
-{
-	static PocSettingsStruct settings;
-	STUB_CALLED("POC Unknown_7CA2D0 (0x7CA2D0, the settings store): an empty one");
-	return((Unknown_7CA2D0Class *)&settings);
-}
-
 
 // 0x497300 (gadget.cpp, textgadg.cpp, ui_login.cpp declare it): Create_Peek<RenderObjClass> out of line; gen_stubs'
 // stand-in cannot build the returned RefCountPtr

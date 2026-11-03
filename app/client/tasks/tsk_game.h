@@ -20,6 +20,7 @@
 
 #include "..\..\kernel\kernel.h"
 #include <string>
+#include <map>
 #include "..\..\shared\unknown_login_data.h"		// TicketClass
 
 class ConnectionClass;
@@ -80,6 +81,7 @@ void Unknown_43FD70();									// NAME 1 [Unknown_43FD70]: soundlib.cpp
 class Unknown_7CA2D0Class								// NAME 1 [Unknown_7CA2D0Class]: the settings store 0x7CA2D0 returns
 {
 public:
+	Unknown_7CA2D0Class();									// 0x7C97B0 (the constructor; the accessor 0x7CA2D0 runs it once)
 	void Set_String(const char *key, const char *value);	// 0x7CCB30  // NAME 1: what it does
 	void Set_Int(const char *key, int value);			// 0x7CCE80 ('%d')  // NAME 1: what it does
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
@@ -101,6 +103,8 @@ public:
 	void *Unknown48;									// +0x48: the check thread's handle
 	int Unknown4C;										// +0x4C: which deadline started it (1-4)
 	std::string Unknown50;								// +0x50: the lkey URL's format (0x7CB610's; empty: no checks)
+	std::map<std::string, std::string> Unknown60;		// +0x60: the settings (Set_String / Get_String's canonicalised keys and values)  // NAME 1: neutral (D10)
+	char Unknown70[0x1B4 - 0x60 - sizeof(std::map<std::string, std::string>)];	// +0x70: the browser descriptors (0x7C97B0 fills them: not rebuilt)
 };
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
 #include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)

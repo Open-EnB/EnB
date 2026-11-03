@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-448 entries in 115 files.
+452 entries in 115 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -187,9 +187,13 @@ edit the comments in the code, not this file.
 | `app/client/signal_map.cpp:155` | `SignalMap::connect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:166` | `SignalMap::disconnect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
-| `app/client/tasks/settings_store.cpp:8` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
-| `app/client/tasks/settings_store.cpp:68` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
-| `app/client/tasks/settings_store.cpp:108` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | mention | NOT EXACT (D64, functional for the POC): 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated). ACT (run 2026-11-02). |
+| `app/client/tasks/settings_store.cpp:10` | `Unknown_7CA2D0Class::Unknown_7CA2D0Class` | marker | NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global, and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the state the login path reads is set here: the empty strings and map, the URL-check deadlines) |
+| `app/client/tasks/settings_store.cpp:30` | `Unknown_7CA2D0` | marker | NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit) |
+| `app/client/tasks/settings_store.cpp:43` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
+| `app/client/tasks/settings_store.cpp:103` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
+| `app/client/tasks/settings_store.cpp:136` | `Unknown_7CA2D0Class::Set_String` | marker | NOT EXACT: shape (the client's std::map insert / erase and string assigns are inlined helpers; the order of the temporaries differs) |
+| `app/client/tasks/settings_store.cpp:180` | `Unknown_7CA2D0Class::Get_String` | marker | NOT EXACT: shape (the client reads the entry with the map's operator[], which adds an empty one for a missing key, then canonicalises the value; its failures return the empty default string) |
+| `app/client/tasks/settings_store.cpp:211` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64, functional for the POC): 0x7C97B0 (no vtables, no browser descriptors), 0x7CA2D0, 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated), 0x7CCB30, 0x7CCF20. Not built here: the destructor 0x7CA340, 0x7CB2E0 / 0x7CB3D0 (the callers in ui_login.cpp, ui_popupmsg.cpp and main_client.cpp use other class types for them). ACT (run 2026-1... |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500) 0x769500 |
