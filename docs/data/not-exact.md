@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-425 entries in 112 files.
+430 entries in 113 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -394,6 +394,11 @@ edit the comments in the code, not this file.
 | `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
+| `app/shared/ro_funcs.cpp:81` | `Unknown_496110` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:114` | `Unknown_496240` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:148` | `Unknown_496360` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:182` | `Unknown_496490` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |

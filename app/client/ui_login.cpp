@@ -94,7 +94,7 @@ extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text ga
 
 
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name

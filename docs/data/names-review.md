@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2922 |
-| 1 | neutral placeholder | 11073 |
+| 1 | neutral placeholder | 11091 |
 
 ## For review (score 3 and below)
 
@@ -1636,7 +1636,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6E4750EffectClass` | `app/client/eff_o.cpp:46` | neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes |
 | 1 | `Unknown6ECC50EffectClass` | `app/client/eff_o.cpp:47` | neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes |
 | 1 | `Unknown6E5040EffectClass` | `app/client/eff_o.cpp:48` | neutral (D10); 0x6E5040, eff_line.cpp's line effect of 0x6EAC50 (not rebuilt)  // NAME 1 [client .. tiling_min_length, next]: effect.ini's keys |
-| 1 | `robj, unknown` | `app/client/eff_o.cpp:49` | what the helpers pass |
+| 1 | `robj, make_geometry_unique` | `app/client/eff_o.cpp:49` | what the helpers pass |
 | 1 | `Unknown_496AE0` | `app/client/eff_o.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:50` | neutral (D10), as ui_line_display.cpp's |
 | 1 | `Unknown_Time` | `app/client/eff_o.cpp:51` | neutral (D10): the client clock as the link calls read it (evaluated before the other arguments) |
@@ -7214,7 +7214,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_login.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:49` | 0xBE67C4 |
 | 1 | `Unknown_B08CC4` | `app/client/ui_login.cpp:87` | neutral (D10): what the text gadgets get |
-| 1 | `robj, unknown` | `app/client/ui_login.cpp:97` | as eff_o.cpp's |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_login.cpp:97` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_login.cpp:97` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_login.cpp:98` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/ui_login.cpp:98` | untagged neutral name (D10) |
@@ -10246,12 +10246,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Owner` | `app/shared/px_wrapper.h:56` | the constructor's argument |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown0E` | `app/shared/px_wrapper.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_496730, robj, sort_level, dec_if_match` | `app/shared/ro_funcs.cpp:9` | neutral (D10) |
-| 1 | `Unknown_496730` | `app/shared/ro_funcs.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown_496AE0, robj, make_geometry_unique` | `app/shared/ro_funcs.cpp:31` | neutral (D10) |
-| 1 | `Unknown_496AE0` | `app/shared/ro_funcs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:63` | neutral (D10) |
-| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_495FD0, robj, tex, index` | `app/shared/ro_funcs.cpp:46` | neutral (D10) |
+| 1 | `Unknown_495FD0` | `app/shared/ro_funcs.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_4960C0, robj, index` | `app/shared/ro_funcs.cpp:67` | neutral (D10) |
+| 1 | `Unknown_4960C0` | `app/shared/ro_funcs.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_496110, robj, r, g, b` | `app/shared/ro_funcs.cpp:82` | neutral (D10) |
+| 1 | `Unknown_496110` | `app/shared/ro_funcs.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_496240, robj, opacity` | `app/shared/ro_funcs.cpp:115` | neutral (D10) |
+| 1 | `Unknown_496240` | `app/shared/ro_funcs.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_496360, robj, r, g, b` | `app/shared/ro_funcs.cpp:149` | neutral (D10) |
+| 1 | `Unknown_496360` | `app/shared/ro_funcs.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_496490, robj, half` | `app/shared/ro_funcs.cpp:183` | neutral (D10) |
+| 1 | `Unknown_496490` | `app/shared/ro_funcs.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_496620, robj` | `app/shared/ro_funcs.cpp:224` | neutral (D10) |
+| 1 | `Unknown_496620` | `app/shared/ro_funcs.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_496730, robj, sort_level, dec_if_match` | `app/shared/ro_funcs.cpp:257` | neutral (D10) |
+| 1 | `Unknown_496730` | `app/shared/ro_funcs.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_4967F0, robj, delta, base_robj` | `app/shared/ro_funcs.cpp:280` | neutral (D10) |
+| 1 | `Unknown_4967F0` | `app/shared/ro_funcs.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_496960, robj, x, y, layer` | `app/shared/ro_funcs.cpp:316` | neutral (D10) |
+| 1 | `Unknown_496960` | `app/shared/ro_funcs.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0, robj, make_geometry_unique` | `app/shared/ro_funcs.cpp:327` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/shared/ro_funcs.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:359` | neutral (D10) |
+| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC094` | `app/shared/rs.cpp:22` | neutral (D10) |
 | 1 | `Unknown_BDC098` | `app/shared/rs.cpp:23` | neutral (D10) |
 | 1 | `Unknown_458150, arg` | `app/shared/rs.cpp:25` | neutral (D10) |
