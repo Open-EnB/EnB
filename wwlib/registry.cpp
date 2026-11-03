@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -61,6 +61,26 @@ bool RegistryClass::Exists(const char* sub_key)
 /*
 **
 */
+RegistryClass::RegistryClass( HKEY root, const char * sub_key, bool create ) :
+	IsValid( false )
+{
+	HKEY key;
+	LONG result = -1;
+
+	if (create && !IsLocked) {
+		DWORD disposition;
+		result = RegCreateKeyEx(root, sub_key, 0, NULL, 0,
+			KEY_ALL_ACCESS, NULL, &key, &disposition);
+	} else {
+		result = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);
+	}
+
+	if (ERROR_SUCCESS == result) {
+		IsValid = true;
+		Key = (int)key;
+	}
+}
+
 RegistryClass::RegistryClass( const char * sub_key, bool create ) :
 	IsValid( false )
 {
@@ -75,6 +95,25 @@ RegistryClass::RegistryClass( const char * sub_key, bool create ) :
 			KEY_ALL_ACCESS, NULL, &key, &disposition);
 	} else {
 		result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);
+	}
+
+	if (ERROR_SUCCESS == result) {
+		IsValid = true;
+		Key = (int)key;
+	}
+}
+
+void RegistryClass::Unknown_Open_Key( HKEY root, const char * sub_key, bool create )
+{
+	HKEY key;
+	LONG result = -1;
+
+	if (create && !IsLocked) {
+		DWORD disposition;
+		result = RegCreateKeyEx(root, sub_key, 0, NULL, 0,
+			KEY_ALL_ACCESS, NULL, &key, &disposition);
+	} else {
+		result = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);
 	}
 
 	if (ERROR_SUCCESS == result) {

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -58,7 +58,9 @@ public:
 	static bool Exists(const char* sub_key);
 
 	// Constructor & Destructor
+	RegistryClass( HKEY root, const char * sub_key, bool create );
 	RegistryClass( const char * sub_key, bool create = true );
+	void Unknown_Open_Key( HKEY root, const char * sub_key, bool create );	// NAME 1: no caller, no name in the client (0x9D1600)
 	~RegistryClass( void );
 
 	bool	Is_Valid( void )		{ return IsValid; }

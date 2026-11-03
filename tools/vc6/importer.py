@@ -3528,6 +3528,25 @@ WW3D_API_PATCHES = {
 for _key, _edits in WW3D_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of WW3D_API_PATCHES
+# wwlib registry: E&B's HKEY-rooted open (client 0x9D1500, 0x9D1600; no EA copy has them)
+WWLIB_TINY_PATCHES = {
+    ('wwlib', 'registry.h'): [
+        ('\tRegistryClass( const char * sub_key, bool create = true );\n',
+         '\tRegistryClass( HKEY root, const char * sub_key, bool create );\n\tRegistryClass( const char * sub_key, bool create = true );\n\tvoid Unknown_Open_Key( HKEY root, const char * sub_key, bool create );\t// NAME 1: no caller, no name in the client (0x9D1600)\n',
+         'client 0x9D1500 (a constructor taking the root key first) and 0x9D1600 (the same open without the IsValid reset, returns void), no callers; between Exists 0x9D14C0, the (sub_key, create) constructor 0x9D1580 and ~RegistryClass 0x9D1680'),
+    ],
+    ('wwlib', 'registry.cpp'): [
+        ('/*\n**\n*/\nRegistryClass::RegistryClass( const char * sub_key, bool create ) :\n',
+         '/*\n**\n*/\nRegistryClass::RegistryClass( HKEY root, const char * sub_key, bool create ) :\n\tIsValid( false )\n{\n\tHKEY key;\n\tLONG result = -1;\n\n\tif (create && !IsLocked) {\n\t\tDWORD disposition;\n\t\tresult = RegCreateKeyEx(root, sub_key, 0, NULL, 0,\n\t\t\tKEY_ALL_ACCESS, NULL, &key, &disposition);\n\t} else {\n\t\tresult = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);\n\t}\n\n\tif (ERROR_SUCCESS == result) {\n\t\tIsValid = true;\n\t\tKey = (int)key;\n\t}\n}\n\nRegistryClass::RegistryClass( const char * sub_key, bool create ) :\n',
+         'client 0x9D1500'),
+        ('RegistryClass::~RegistryClass( void )\n',
+         'void RegistryClass::Unknown_Open_Key( HKEY root, const char * sub_key, bool create )\n{\n\tHKEY key;\n\tLONG result = -1;\n\n\tif (create && !IsLocked) {\n\t\tDWORD disposition;\n\t\tresult = RegCreateKeyEx(root, sub_key, 0, NULL, 0,\n\t\t\tKEY_ALL_ACCESS, NULL, &key, &disposition);\n\t} else {\n\t\tresult = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);\n\t}\n\n\tif (ERROR_SUCCESS == result) {\n\t\tIsValid = true;\n\t\tKey = (int)key;\n\t}\n}\n\nRegistryClass::~RegistryClass( void )\n',
+         'client 0x9D1600'),
+    ],
+}
+for _key, _edits in WWLIB_TINY_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WWLIB_TINY_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
