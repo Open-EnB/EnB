@@ -36,6 +36,7 @@ public:
 	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
 	void Unknown_7831C0(const char *name);				// 0x7831C0 (the gesture animation into +0xC0, or +0xC4 to blend; 'Cannot Find Gesture Animation')  // NAME 1 [name]: neutral
 	void Unknown_783620(float time);					// 0x783620 (the frames on, the body's Set_Animation)  // NAME 1 [time]: neutral
+	void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)
 	int Unknown0BC;										// +0xBC (0x781EA0: the face animation)
@@ -77,7 +78,15 @@ public:
 	int Unknown244;										// +0x244 (0x781EA0: the bored count)
 	int Unknown248;										// +0x248
 	int Unknown24C;										// +0x24C
-	int Unknown250[9];									// +0x250 (0x77B870 clears them; 0x781EA0 +0x250, +0x258, +0x264, +0x268)
+	float Unknown250;									// +0x250 (0x7854B0: the head's yaw to look at, degrees; 0x781EA0 clears it)
+	float Unknown254;									// +0x254 (0x7854B0: the head's yaw, degrees)
+	float Unknown258;									// +0x258 (0x7854B0: the head's pitch to look at; 0x781EA0 clears it)
+	float Unknown25C;									// +0x25C (0x7854B0: the head's pitch, degrees)
+	float Unknown260;									// +0x260 (0x7854B0: the time not yet stepped, 20 steps a second)
+	float Unknown264;									// +0x264 (0x7854B0: random yaw offset -10..10; 0x781EA0 clears it)
+	float Unknown268;									// +0x268 (0x7854B0: random pitch offset -5..5; 0x781EA0 clears it)
+	unsigned int Unknown26C;							// +0x26C (0x7854B0: the step count)
+	unsigned int Unknown270;							// +0x270 (0x7854B0: the step of the next random offsets)
 	char Unknown_Pad274[0x2B0 - 0x274];
 	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)

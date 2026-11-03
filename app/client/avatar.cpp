@@ -132,9 +132,15 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	Unknown240 = 0;
 	Unknown244 = 0;
 	Unknown248 = 0;
-	for (int k = 0; k < 9; k++) {
-		Unknown250[k] = 0;
-	}
+	Unknown250 = 0.0f;
+	Unknown254 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown25C = 0.0f;
+	Unknown260 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	Unknown26C = 0;
+	Unknown270 = 0;
 	Unknown2F4 = true;
 	Unknown330.Make_Identity();
 	if (desc) {
@@ -559,10 +565,10 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 		}
 		Unknown22C = 0.0f;
 		Unknown224 = Unknown_BDBB84(0, delay / 2);
-		Unknown250[0] = 0;
-		Unknown250[2] = 0;
-		Unknown250[5] = 0;
-		Unknown250[6] = 0;
+		Unknown250 = 0.0f;
+		Unknown258 = 0.0f;
+		Unknown264 = 0.0f;
+		Unknown268 = 0.0f;
 	} else if (Unknown231) {
 		_snprintf(name, 0x20, "stand_still");
 	} else if (Unknown314 != 1) {
@@ -736,7 +742,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		}
 	}
 	Unknown_783620(time);
-	// The client then calls 0x7854B0 (time), the face: not built yet.
+	Unknown_7854B0(time);
 	if (Unknown0C0[1] == NULL) {
 		bool next = false;
 		if (Unknown214) {
@@ -767,6 +773,36 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		}
 	}
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
+}
+
+// 0x7854B0
+void CharacterViewAvatarClass::Unknown_7854B0(float time)
+{
+	if (!Unknown230) {
+		return;
+	}
+	Unknown260 += time;
+	int steps = (int)(Unknown260 * 20.0f);
+	if (steps == 0) {
+		return;
+	}
+	Unknown260 -= steps * 0.05f;
+	if (Unknown26C >= Unknown270) {
+		Unknown270 = Unknown26C + Unknown_BDBB84(5, 30);
+		Unknown264 = (float)Unknown_BDBB84(-10, 10);
+		Unknown268 = (float)Unknown_BDBB84(-5, 5);
+	}
+	Unknown26C++;
+	for (int i = steps; i > 0; i--) {
+		Unknown254 = Unknown254 * 0.95f + (Unknown264 + Unknown250) * 0.05f;
+		Unknown25C = Unknown25C * 0.95f + (Unknown268 + Unknown258) * 0.05f;
+	}
+	Matrix3D m(true);
+	m.Rotate_Z(DEG_TO_RAD(Unknown254));
+	m.Rotate_Y(DEG_TO_RAD(Unknown25C));
+	int bone = Unknown2BC->Get_Bone_Index("K_Head");
+	Unknown2BC->Capture_Bone(bone);
+	Unknown2BC->Control_Bone(bone, m, false);
 }
 
 void CharacterViewAvatarClass::Unknown_788EF0()

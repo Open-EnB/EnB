@@ -16,15 +16,15 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/avatar.cpp:76` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:254` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:352` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:395` | `CharacterViewAvatarClass::Unknown_784A50` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:409` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
-| `app/client/avatar.cpp:482` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
-| `app/client/avatar.cpp:497` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
-| `app/client/avatar.cpp:539` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
-| `app/client/avatar.cpp:592` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
-| `app/client/avatar.cpp:697` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built) |
+| `app/client/avatar.cpp:260` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:358` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:401` | `CharacterViewAvatarClass::Unknown_784A50` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:415` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
+| `app/client/avatar.cpp:488` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
+| `app/client/avatar.cpp:503` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
+| `app/client/avatar.cpp:545` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
+| `app/client/avatar.cpp:598` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
+| `app/client/avatar.cpp:703` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
