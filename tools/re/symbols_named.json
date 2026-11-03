@@ -552,5 +552,25 @@
   "address": "0x946090",
   "symbol": "?Peek_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z",
   "evidence": "MeshModelClass::post_process_fog calls it once (0x9BCFBE) for TextureArray[1][0]->Peek_Element(i), right before TexBufferClass::Set_Element 0x946010 (0x9BCFCE) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x94F090",
+  "symbol": "??1WriteLockClass@VertexBufferClass@@QAE@XZ",
+  "evidence": "a VertexBufferClass::WriteLockClass local's destructor: wwshade's ShdDX8RendererNodeClass constructor (0xA0850F) and the app's vertex fills (0x4748F1, 0x47B9DA); its byte twin 0x94F150 is the append lock's (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x94F150",
+  "symbol": "??1AppendLockClass@VertexBufferClass@@QAE@XZ",
+  "evidence": "DX8RigidFVFCategoryContainer::Add_Mesh's VertexBufferClass::AppendLockClass local (dx8renderer.cpp) is destroyed through it (0x978FA1), its only caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9511D0",
+  "symbol": "??1WriteLockClass@IndexBufferClass@@QAE@XZ",
+  "evidence": "PointGroupClass::_Init's four IndexBufferClass::WriteLockClass locals (pointgr.cpp: locktris / lockquads twice) are destroyed through it (0x957900, 0x957952, 0x95797E, 0x9579D1), as are LandClass::Build_Index_Buffers' (0x4783EB) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x951280",
+  "symbol": "??1AppendLockClass@IndexBufferClass@@QAE@XZ",
+  "evidence": "DX8TextureCategoryClass::Add_Mesh's IndexBufferClass::AppendLockClass local (dx8renderer.cpp) is destroyed through it (0x97A204), its only caller (TW3, run 2026-11-03 pm)"
  }
 ]

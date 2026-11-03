@@ -127087,12 +127087,26 @@
 "length": 85
 },
 {
+"address": "0x94F090",
+"symbol": "??1WriteLockClass@VertexBufferClass@@QAE@XZ",
+"name": "WriteLockClass::~WriteLockClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x94F0D0",
 "symbol": "??0AppendLockClass@VertexBufferClass@@QAE@PAV1@II@Z",
 "name": "AppendLockClass::AppendLockClass",
 "kind": "function",
 "source": "exact",
 "length": 114
+},
+{
+"address": "0x94F150",
+"symbol": "??1AppendLockClass@VertexBufferClass@@QAE@XZ",
+"name": "AppendLockClass::~AppendLockClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x94F190",
@@ -127342,12 +127356,26 @@
 "length": 99
 },
 {
+"address": "0x9511D0",
+"symbol": "??1WriteLockClass@IndexBufferClass@@QAE@XZ",
+"name": "WriteLockClass::~WriteLockClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x951210",
 "symbol": "??0AppendLockClass@IndexBufferClass@@QAE@PAV1@II@Z",
 "name": "AppendLockClass::AppendLockClass",
 "kind": "function",
 "source": "exact",
 "length": 103
+},
+{
+"address": "0x951280",
+"symbol": "??1AppendLockClass@IndexBufferClass@@QAE@XZ",
+"name": "AppendLockClass::~AppendLockClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x9512C0",
