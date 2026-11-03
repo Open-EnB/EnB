@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11041 |
+| 1 | neutral placeholder | 11045 |
 
 ## For review (score 3 and below)
 
@@ -10218,8 +10218,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Owner` | `app/shared/px_wrapper.h:56` | the constructor's argument |
 | 1 | `Unknown0C` | `app/shared/px_wrapper.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown0E` | `app/shared/px_wrapper.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:7` | neutral (D10) |
-| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_496730, robj, sort_level, dec_if_match` | `app/shared/ro_funcs.cpp:9` | neutral (D10) |
+| 1 | `Unknown_496730` | `app/shared/ro_funcs.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0, robj, make_geometry_unique` | `app/shared/ro_funcs.cpp:31` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/shared/ro_funcs.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:63` | neutral (D10) |
+| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC094` | `app/shared/rs.cpp:22` | neutral (D10) |
 | 1 | `Unknown_BDC098` | `app/shared/rs.cpp:23` | neutral (D10) |
 | 1 | `Unknown_458150, arg` | `app/shared/rs.cpp:25` | neutral (D10) |
