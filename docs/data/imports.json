@@ -13655,6 +13655,7 @@
      "0x42DB00",
      "0x42F250",
      "0x4407B0",
+     "0x441220",
      "0x441480"
     ],
     "tiebreak": [
@@ -13941,6 +13942,24 @@
     "name": "common/stredit.cpp",
     "shared": [
      "0x42F250"
+    ]
+   },
+   "surfacetypes": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x441220",
+     "0x442870"
+    ],
+    "merged": [],
+    "name": "audio/surfacetypes.cpp",
+    "shared": [
+     "0x42F250",
+     "0x441220"
     ]
    },
    "symbol_substitution": {
@@ -16609,6 +16628,7 @@
   },
   "headers": {
    "audio/soundlib.h": "reconstructed",
+   "audio/surfacetypes.h": "reconstructed",
    "client/aux_roots.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
@@ -16921,7 +16941,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7473,
+  "in_tree_total": 7474,
   "totals": {}
  },
  "binkmovie": {

@@ -47,7 +47,7 @@ extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Acc
 class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 // Unknown_7228C0: mousetbl.h, included above
-void Unknown_43FA80();								// NAME 1 [Unknown_43FA80]: neutral (D10) (soundlib.cpp)
+#include "..\..\audio\soundlib.h"
 static bool Unknown_BE82D4 = false;				// NAME 1 [Unknown_BE82D4]: neutral (D10): set once Unknown_7E5F70 ran
 
 // 0x767240
@@ -73,7 +73,7 @@ LoginTaskClass::LoginTaskClass(int mode) :
 	Load_Login();
 	EATicket[0] = 0;
 	Unknown_7228C0();
-	Unknown_43FA80();
+	SoundLibraryClass::Flush_Playlist();
 	Unknown0018 = new LoginUnknown18Class(0);
 	Unknown0018->Unknown_515120(1);
 	Create_Character_View();

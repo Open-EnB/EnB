@@ -3871,6 +3871,8 @@ RECONSTRUCTED = {
                                   "slots and the table's instances to 0x441A50: the asserts on the client's lines "
                                   "198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, "
                                   "Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
+    ('app', 'audio/surfacetypes.h'): "Unknown_442650-Unknown_442930 declarations (0x442650 footsteps.ini loader)",
+    ('app', 'audio/surfacetypes.cpp'): "footsteps.ini surface-type sound effects (0x442650-0x442970): asserts on lines 65 and 80 confirm path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\surfacetypes.cpp (D25); Unknown_442650 (NOT EXACT, frame), Unknown_442870 / Unknown_4428E0 / Unknown_442930 exact",
     ('app', 'client/buff_database.h'): "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an "
                                       "SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)",
     ('app', 'client/buff_database.cpp'): "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's "

@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 88 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
-| 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11045 |
+| 2 | describes what the code does | 2922 |
+| 1 | neutral placeholder | 11053 |
 
 ## For review (score 3 and below)
 
@@ -29,6 +29,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SoundINIClass` | `app/audio/soundlib.cpp:800` | an INIClass with its own vtable 0xAE7500 (destructor only) |
 | 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
+| 1 | `SoundINIClass` | `app/audio/surfacetypes.cpp:13` | an INIClass with its own vtable 0xAE7500 (destructor only) |
+| 1 | `Unknown_442650` | `app/audio/surfacetypes.cpp:24` | 0x442650, surfacetypes.cpp's loader |
+| 1 | `Unknown_442870` | `app/audio/surfacetypes.cpp:86` | 0x442870, surfacetypes.cpp's release |
+| 1 | `Unknown_4428E0` | `app/audio/surfacetypes.cpp:102` | 0x4428E0 |
+| 1 | `Unknown_442930` | `app/audio/surfacetypes.cpp:117` | 0x442930 |
+| 1 | `Unknown_442650` | `app/audio/surfacetypes.h:6` | neutral (D10) |
+| 1 | `Unknown_442870` | `app/audio/surfacetypes.h:7` | neutral (D10) |
+| 1 | `Unknown_4428E0` | `app/audio/surfacetypes.h:8` | neutral (D10) |
+| 1 | `Unknown_442930` | `app/audio/surfacetypes.h:9` | neutral (D10) |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:6` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:11` | untagged neutral name (D10) |
@@ -4767,7 +4776,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BB9654` | `app/client/tasks/tsk_login.cpp:42` | neutral (D10); Accept_Focus clears it |
 | 1 | `Galaxies` | `app/client/tasks/tsk_login.cpp:47` | copied to the task's |
 | 1 | `Unknown_7E5F70` | `app/client/tasks/tsk_login.cpp:48` | neutral (D10); once, by the first LoginTaskClass(mode) |
-| 1 | `Unknown_43FA80` | `app/client/tasks/tsk_login.cpp:50` | neutral (D10) (soundlib.cpp) |
 | 1 | `Unknown_BE82D4` | `app/client/tasks/tsk_login.cpp:51` | neutral (D10): set once Unknown_7E5F70 ran |
 | 1 | `Unknown000C` | `app/client/tasks/tsk_login.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown0014` | `app/client/tasks/tsk_login.cpp:55` | untagged neutral name (D10) |
@@ -11118,6 +11126,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `_Audio` | `app/audio/soundlib.h:104` | what it holds |
 | 2 | `_CurrentDialog` | `app/audio/soundlib.h:105` | what it holds |
 | 2 | `_PlayUndefined` | `app/audio/soundlib.h:108` | what it does |
+| 2 | `SoundWalking` | `app/audio/surfacetypes.cpp:19` | what it holds |
+| 2 | `SoundRunning` | `app/audio/surfacetypes.cpp:20` | what it holds |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
 | 2 | `Asset` | `app/client/buff_database.h:30` | the ini key |
