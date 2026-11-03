@@ -1,7 +1,22 @@
 """Runs the proof-of-concept client (D179; built by `tools/vc6/build.py link --program clientpoc`).
 
     python tools/harness/clientpoc.py run [--seconds N] [--fullscreen] [--shots N,M,...] [-- CLIENT ARGS...]
+    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M]
     python tools/harness/clientpoc.py log         the last run's stubs.log, digested
+
+Several runs at once (builders): give each its own --instance NAME. The run then uses the sibling folder
+C:\\EnBDevelopment\\ClientPOC\\inst-NAME (so the client's ..\\Data paths still resolve), filled from release\\
+on each run (client.exe and client.map, or --exe PATH's exe and map beside it; the DLLs and data files when
+they differ), with its own stubs.log, _except.txt and d3d8.dll proxy, and shots in
+.work/poc/shots/NAME-HHMMSS. The PID of the client is printed ("client pid N"); kill it by that PID only.
+programs/clientpoc/poc_multi.cpp makes that possible without app code changes (mutex per process, no cursor
+warp). --exe lets a worktree's `build.py link --program clientpoc --out DIR` output run without being deployed.
+
+replay: antprox /REPLAY (D181; the loopback server for one client; each instance gets its own address, so
+several replays run at once) starts the client (/CLIENT:<instance exe>), ENB_POC_INPUT=1, the --input steps
+are posted to the window of the client.exe whose parent is that antprox (found by parent PID, not by name),
+then both are killed by PID. antprox's console output and its per-run files go in the shot folder
+(antprox.out, antprox-logs\\).
 
 run: starts C:\\EnBDevelopment\\ClientPOC\\release\\client.exe with that folder as working directory (never
 the game's install), ENB_POC_WINDOWED=1 unless --fullscreen, waits N seconds (default 40) and kills it by PID
@@ -51,12 +66,84 @@ EXE = os.path.join(RELEASE, 'client.exe')
 MAP = os.path.join(RELEASE, 'client.map')
 LOG = os.path.join(RELEASE, 'stubs.log')
 EXCEPT = os.path.join(RELEASE, '_except.txt')
+ANTPROX = r'C:\EnBDevelopment\AntaresProxy\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe'
 ROOT = os.path.dirname(os.path.dirname(HERE))
 PROXY = os.path.join(ROOT, 'build', 'd3d8shot', 'd3d8.dll')
 SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
 
 
-def digest():
+class Inst:
+    """Where a run happens: the release folder, or ClientPOC\\inst-NAME filled from it."""
+    def __init__(self, name=None, exe=None):
+        self.name = name
+        self.dir = RELEASE if not name else os.path.join(os.path.dirname(RELEASE), 'inst-' + name)
+        self.src_exe = exe or EXE
+        self.exe = EXE if (not name and not exe) else os.path.join(self.dir, 'client.exe')
+        self.map = os.path.join(self.dir, 'client.map')
+        self.log = os.path.join(self.dir, 'stubs.log')
+        self.exc = os.path.join(self.dir, '_except.txt')
+        if name and not re.fullmatch(r'[A-Za-z0-9_.-]+', name):
+            raise SystemExit('--instance: letters, digits, _ . - only')
+        if exe and not name:
+            raise SystemExit('--exe needs --instance (the release folder is not overwritten)')
+
+    def prepare(self):
+        if self.name:
+            os.makedirs(self.dir, exist_ok=True)
+            skip = {'client.exe', 'client.map', 'd3d8.dll', 'stubs.log', '_except.txt', 'd3d8shot.log',
+                    'authlogin.log', 'stderr.txt'}
+            for f in os.listdir(RELEASE):
+                if f.lower() not in skip and os.path.isfile(os.path.join(RELEASE, f)):
+                    self._copy(os.path.join(RELEASE, f), os.path.join(self.dir, f))
+            self._copy(self.src_exe, self.exe)
+            m = os.path.splitext(self.src_exe)[0] + '.map'
+            self._copy(m if os.path.exists(m) else MAP, self.map)
+        for f in (self.log, self.exc):
+            if os.path.exists(f):
+                os.remove(f)
+
+    @staticmethod
+    def _copy(src, dst):
+        a, b = os.stat(src), os.stat(dst) if os.path.exists(dst) else None
+        if b is None or a.st_size != b.st_size or int(a.st_mtime) != int(b.st_mtime):
+            shutil.copy2(src, dst)
+
+    def shots_dir(self, prefix=''):
+        tag = (self.name + '-' if self.name else '') + prefix
+        return os.path.join(SHOTS, tag + time.strftime('%H%M%S'))
+
+
+def descendants(pid):
+    """(PID, image name) of every process below pid (Toolhelp32)."""
+    class PE(ctypes.Structure):
+        _fields_ = [('dwSize', wintypes.DWORD), ('cntUsage', wintypes.DWORD), ('pid', wintypes.DWORD),
+                    ('heap', ctypes.c_void_p), ('mod', wintypes.DWORD), ('threads', wintypes.DWORD),
+                    ('ppid', wintypes.DWORD), ('pri', wintypes.LONG), ('flags', wintypes.DWORD),
+                    ('exe', ctypes.c_char * 260)]
+    k = ctypes.windll.kernel32
+    k.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+    snap = k.CreateToolhelp32Snapshot(2, 0)
+    procs = []
+    e = PE()
+    e.dwSize = ctypes.sizeof(PE)
+    ok = k.Process32First(snap, ctypes.byref(e))
+    while ok:
+        procs.append((e.pid, e.ppid, e.exe.decode('latin1').lower()))
+        ok = k.Process32Next(snap, ctypes.byref(e))
+    k.CloseHandle(snap)
+    found, todo = [], [pid]
+    while todo:
+        cur = todo.pop()
+        for p, pp, name in procs:
+            if pp == cur and p != cur:
+                found.append((p, name))
+                todo.append(p)
+    return found
+
+
+def digest(inst=None):
+    inst = inst or Inst()
+    LOG, MAP, EXCEPT = inst.log, inst.map, inst.exc
     if not os.path.exists(LOG):
         print('no stubs.log')
         return
@@ -149,10 +236,10 @@ def post_step(hwnd, op, rest):
         raise SystemExit(f'--input: unknown step {op!r}')
 
 
-def run(seconds, fullscreen, args, shots=None, steps=None):
-    for f in (LOG, EXCEPT):
-        if os.path.exists(f):
-            os.remove(f)
+def run(seconds, fullscreen, args, shots=None, steps=None, inst=None):
+    inst = inst or Inst()
+    inst.prepare()
+    RELEASE, EXE = inst.dir, inst.exe
     env = dict(os.environ)
     if not fullscreen:
         env['ENB_POC_WINDOWED'] = '1'
@@ -164,13 +251,14 @@ def run(seconds, fullscreen, args, shots=None, steps=None):
             raise SystemExit(f'{PROXY} missing: python tools/harness/run_reference.py build')
         if os.path.exists(proxy):
             raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
-        out = os.path.join(SHOTS, time.strftime('%H%M%S'))
+        out = inst.shots_dir()
         os.makedirs(out, exist_ok=True)
         shutil.copyfile(PROXY, proxy)
         env['D3D8SHOT_DIR'] = out
         env['D3D8SHOT_FRAMES'] = shots
     try:
         p = subprocess.Popen([EXE] + list(args), cwd=RELEASE, env=env)
+        print(f'client pid {p.pid}', flush=True)
         start = time.time()
         end = start + seconds
         hwnd, t0, pending = None, None, list(steps or [])
@@ -196,35 +284,99 @@ def run(seconds, fullscreen, args, shots=None, steps=None):
     finally:
         if shots and os.path.exists(proxy):
             os.remove(proxy)
-    digest()
+    digest(inst)
     if shots:
-        for name in sorted(os.listdir(out)):
-            if name.endswith('.bmp'):
-                bmp = os.path.join(out, name)
-                png = bmp[:-4] + '.png'
-                w, h, rows = bmp2png.read_bmp(bmp)
-                bmp2png.write_png(png, w, h, rows)
-                os.remove(bmp)
-                print('shot:', png)
-        log = os.path.join(out, 'd3d8shot.log')
-        if os.path.exists(log):
-            presents = [l for l in open(log, encoding='latin1') if 'frame' in l]
-            print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
+        convert_shots(out)
+
+
+def convert_shots(out):
+    for name in sorted(os.listdir(out)):
+        if name.endswith('.bmp'):
+            bmp = os.path.join(out, name)
+            png = bmp[:-4] + '.png'
+            w, h, rows = bmp2png.read_bmp(bmp)
+            bmp2png.write_png(png, w, h, rows)
+            os.remove(bmp)
+            print('shot:', png)
+    log = os.path.join(out, 'd3d8shot.log')
+    if os.path.exists(log):
+        presents = [l for l in open(log, encoding='latin1') if 'frame' in l]
+        print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
+
+
+def replay(seconds, shots, steps, inst):
+    inst.prepare()
+    env = dict(os.environ)
+    env['ENB_POC_INPUT'] = '1'
+    env['ENB_POC_WINDOWED'] = '1'
+    proxy = os.path.join(inst.dir, 'd3d8.dll')
+    if os.path.exists(proxy) and inst.dir == RELEASE:
+        raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
+    out = inst.shots_dir('replay-' if not inst.name else '')
+    os.makedirs(out, exist_ok=True)
+    if shots:
+        shutil.copyfile(PROXY, proxy)
+        env['D3D8SHOT_DIR'] = out
+        env['D3D8SHOT_FRAMES'] = shots
+    logdir = os.path.join(out, 'antprox-logs')
+    os.makedirs(logdir, exist_ok=True)
+    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir], cwd=inst.dir, env=env,
+                         stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
+    start = time.time()
+    pid = None
+    try:
+        while time.time() - start < 30 and pid is None and a.poll() is None:
+            for p, name in descendants(a.pid):
+                if name == 'client.exe':
+                    pid = p
+            time.sleep(0.5)
+        print(f'antprox pid {a.pid}, client pid {pid}', flush=True)
+        hwnd, t0, pending = None, None, list(steps)
+        end = time.time() + seconds
+        while time.time() < end:
+            if pending and hwnd is None and pid:
+                hwnd = find_window(pid)
+                if hwnd:
+                    t0 = time.time()
+                    print(f'input: window 0x{hwnd:X} at {t0 - start:.1f} s')
+            while pending and hwnd and (time.time() - t0) * 1000 >= pending[0][0]:
+                t, op, rest = pending.pop(0)
+                post_step(hwnd, op, rest)
+                print(f'input: {t} ms {op} {rest}')
+            time.sleep(0.05)
+    finally:
+        if pid:
+            subprocess.run(['taskkill', '/F', '/PID', str(pid)], capture_output=True)
+        subprocess.run(['taskkill', '/F', '/T', '/PID', str(a.pid)], capture_output=True)
+        time.sleep(1)
+        if shots and os.path.exists(proxy):
+            os.remove(proxy)
+    digest(inst)
+    if shots:
+        convert_shots(out)
+    print('antprox output:', os.path.join(out, 'antprox.out'))
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('command', choices=['run', 'log'])
+    ap.add_argument('command', choices=['run', 'replay', 'log'])
     ap.add_argument('--seconds', type=int, default=40)
     ap.add_argument('--fullscreen', action='store_true')
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
+    ap.add_argument('--instance', help='run in ClientPOC\\inst-NAME with its own logs, proxy and shots (several at once)')
+    ap.add_argument('--exe', help='a client.exe to run instead of release\\client.exe (needs --instance)')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args()
+    inst = Inst(a.instance, a.exe)
     if a.command == 'run':
-        run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None)
+        run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst)
+    elif a.command == 'replay':
+        if not a.input:
+            raise SystemExit('replay needs --input FILE')
+        replay(a.seconds, a.shots, read_input(a.input), inst)
     else:
-        digest()
+        digest(inst)
 
 
 if __name__ == '__main__':
