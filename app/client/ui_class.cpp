@@ -55,7 +55,7 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300
 void Unknown_496AE0(RenderObjClass *robj, int a);	// 0x496AE0
 void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs; 0x577B80 calls it on each shown sub-object)
-void Unknown_42ECF0(int *x, int *y);	// 0x42ECF0
+void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position, 0..1)
 void Unknown_6CDBC0(const char *text, int a);	// 0x6CDBC0
 void Unknown_65F2D0(const char *text);	// 0x65F2D0
 const char *Unknown_82F3C0(int index);	// 0x82F3C0
@@ -132,7 +132,9 @@ static ClassSelectTitleStruct Unknown_BE5B6C[9] = {
 static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 static unsigned char Unknown_B7DC98[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 
-// 0x5746C0
+#pragma auto_inline(off)
+// NOT EXACT: shape (0.64: the backward step tests with test / jge where ours uses dec's flags)
+// @0x5746C0
 static int Unknown_5746C0(int index, bool forward)
 {
 	while (true) {
@@ -146,6 +148,7 @@ static int Unknown_5746C0(int index, bool forward)
 		}
 	}
 }
+#pragma auto_inline(on)
 
 
 // NOT EXACT: register
@@ -294,71 +297,67 @@ ClassSelectInterface::~ClassSelectInterface()
 }
 
 
-// NOT EXACT: register
 // @0x5754E0
 void ClassSelectInterface::Unknown_60()
 {
 	Unknown_576AC0();
-	for (int i = 0; i < 9; i++) {
-		GadgetClass *g = Buttons[i + 5];
-		if (g) {
+	int i;
+	for (i = 0; i < 9; i++) {
+		if (Buttons[i + 5]) {
 			if (Unknown8C == i) {
-				g->Unknown2C_0B = 1;
-				g->Unknown_6603A0(0, 0);
+				Buttons[i + 5]->Unknown2C_0B = 1;
+				Buttons[i + 5]->Unknown_6603A0(0, 0);
 			} else {
-				g->Unknown2C_0B = 0;
-				g->Unknown_6607D0();
+				Buttons[i + 5]->Unknown2C_0B = 0;
+				Buttons[i + 5]->Unknown_6607D0();
 			}
 		}
 	}
-	int slider_val = (int)((GadgetSlider *)Slider)->Value;
-	if (SliderValue != slider_val) {
-		SliderValue = slider_val;
+	int value = (int)((GadgetSlider *)Slider)->Value;
+	if (SliderValue != value) {
+		SliderValue = value;
 		Unknown_576270();
 	}
-	int mouse_x, mouse_y;
-	Unknown_42ECF0(&mouse_x, &mouse_y);
-	for (int j = 0; j < 8; j++) {
-		GadgetClass *g = SkillGadgets[j];
-		if (g && !g->Unknown_30((float)mouse_x, (float)mouse_y)) {
-			g->Unknown2C_06 = 0;
+	float x, y;
+	Unknown_42ECF0(&x, &y);
+	for (i = 0; i < 8; i++) {
+		if (SkillGadgets[i] && !SkillGadgets[i]->Unknown_30(x, y)) {
+			SkillGadgets[i]->Unknown2C_06 = 0;
 		}
 	}
 	if (CharacterView->Unknown_67B2B0()) {
 		Unknown13D = false;
 	}
-	bool flag = CharacterView->Unknown30->Unknown0E;
-	if (flag) {
-		if (!Unknown13D) {
-			Unknown13D = true;
-			Unknown_5760C0(false);
-			return;
-		}
-	} else {
-		if (Unknown13D) {
-			Unknown13D = false;
-			Unknown_5760C0(true);
-		}
+	bool active = CharacterView->Unknown34->Active;
+	if (CharacterView->Unknown34->Active && !Unknown13D) {
+		Unknown13D = true;
+		Unknown_5760C0(false);
+		return;
+	}
+	if (!CharacterView->Unknown34->Active && Unknown13D) {
+		Unknown13D = false;
+		Unknown_5760C0(true);
 	}
 }
 
 
-// NOT EXACT: register
+// NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case)
 // @0x575660
 bool ClassSelectInterface::Unknown_68(int key)
 {
 	if (Unknown13C || Unknown13D || Unknown13E || Unknown13F || Unknown140 || Unknown141) {
 		return(false);
 	}
-	switch (key - 1) {
-		case 0:
+	GadgetClass *skill = NULL;
+	switch (key) {
+		case 1:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown1CC[1] = true;
 			Unknown_575D50();
 			LoginTask->Go_Next_Step();
 			CharacterView->Unknown_67C7B0();
 			return(true);
-		case 1:
+		case 2:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (LoginTask->Previous_Step == 1) {
 				LoginTask->Set_Step(1, false);
@@ -371,7 +370,7 @@ bool ClassSelectInterface::Unknown_68(int key)
 			CharacterView->Unknown1CC[4] = true;
 			CharacterView->Unknown_67C7B0();
 			return(true);
-		case 2: {
+		case 3: {
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			int next = Unknown8C - 1;
 			if (next < 0) next = 8;
@@ -380,63 +379,140 @@ bool ClassSelectInterface::Unknown_68(int key)
 			Unknown_5779D0();
 			return(true);
 		}
-		case 3: {
+		case 4: {
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			int next = (Unknown8C + 1) % 9;
-			if (Unknown_B7DC98[next]) next = Unknown_5746C0(next, true);
-			Unknown8C = next;
+			Unknown8C = Unknown_B7DC98[next] ? Unknown_5746C0(next, true) : next;
 			Unknown_5779D0();
 			return(true);
 		}
 		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		case 13: {
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			int class_idx = key - 6;
-			if (Unknown8C != class_idx) {
-				Unknown8C = class_idx;
-				Unknown_5779D0();
-			}
-			return(true);
-		}
-		case 15:
+			break;
+		case 16:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			CharacterView->Unknown_67B270();
 			Unknown13D = true;
 			CharacterView->Unknown_67C7B0();
 			return(true);
-		case 16:
-		case 17:
-		case 18:
-		case 19:
-		case 20:
-		case 21:
-		case 22:
-		case 23: {
+		case 6:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			int skill_idx = key - 17;
-			if (skill_idx >= 0 && skill_idx < 8 && SkillGadgets[skill_idx]) {
-				SkillGadgets[skill_idx]->Unknown2C_06 = 1;
+			if (Unknown8C == 0) {
+				break;
 			}
+			Unknown8C = 0;
+			Unknown_5779D0();
 			return(true);
-		}
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 1) {
+				break;
+			}
+			Unknown8C = 1;
+			Unknown_5779D0();
+			return(true);
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 2) {
+				break;
+			}
+			Unknown8C = 2;
+			Unknown_5779D0();
+			return(true);
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 3) {
+				break;
+			}
+			Unknown8C = 3;
+			Unknown_5779D0();
+			return(true);
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 4) {
+				break;
+			}
+			Unknown8C = 4;
+			Unknown_5779D0();
+			return(true);
+		case 11:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 5) {
+				break;
+			}
+			Unknown8C = 5;
+			Unknown_5779D0();
+			return(true);
+		case 12:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 6) {
+				break;
+			}
+			Unknown8C = 6;
+			Unknown_5779D0();
+			return(true);
+		case 13:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 7) {
+				break;
+			}
+			Unknown8C = 7;
+			Unknown_5779D0();
+			return(true);
+		case 14:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (Unknown8C == 8) {
+				break;
+			}
+			Unknown8C = 8;
+			Unknown_5779D0();
+			return(true);
+		case 17:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[0];
+			break;
+		case 18:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[1];
+			break;
+		case 19:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[2];
+			break;
+		case 20:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[3];
+			break;
+		case 21:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[4];
+			break;
+		case 22:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[5];
+			break;
+		case 23:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[6];
+			break;
+		case 24:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			skill = SkillGadgets[7];
+			break;
+		default:
+			return(false);
+	}
+	if (skill) {
+		skill->Unknown2C_06 = 1;
 	}
 	return(true);
 }
 
 
-// NOT EXACT: register
+// NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C)
 // @0x575D50
 void ClassSelectInterface::Unknown_575D50()
 {
-	AvatarDescClass desc(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, CharacterView->Unknown088.Gender);
-	CharacterView->Unknown088 = desc;
+	CharacterView->Unknown088 = AvatarDescClass(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, CharacterView->Unknown088.Gender);
 }
 
 
@@ -464,7 +540,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 }
 
 
-// NOT EXACT: register
+// NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp)
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
 {
@@ -481,11 +557,11 @@ void ClassSelectInterface::Unknown_576270()
 }
 
 
-// NOT EXACT: register
-// @0x576AC0
-void ClassSelectInterface::Unknown_576AC0()
-{
-}
+// 0x576AC0 (Unknown_576AC0, the per-frame planet turn toward UnknownE8 with 'planet' / 0x5760C0) is not built here:
+// Unknown_60 calls it out of line (an empty body here was inlined away).
+
+
+
 
 
 // @0x5779D0
@@ -887,96 +963,6 @@ void ClassSelectInterface::Unknown_577B80()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x577DA0
 void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClass *sender)
 {
@@ -987,9 +973,10 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 	FAIL_IF(!gadget)
 		return;
 
-	if (gadget->Flash != NULL && gadget->Unknown2C_02) {
+	if (gadget->Flash != NULL && gadget->Is_Unknown2C_02()) {
+		// the client's last test compares the gadget with +0x8C itself (cmp eax, [ecx+0x8C]), not a button
 		if (gadget == Buttons[0] || gadget == Buttons[1] || gadget == Buttons[2] ||
-		    gadget == Buttons[3] || gadget == Buttons[4] || gadget == Buttons[Unknown8C + 5]) {
+		    gadget == Buttons[3] || gadget == Buttons[4] || gadget == (GadgetClass *)Unknown8C) {
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
 	}
