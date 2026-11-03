@@ -50,7 +50,8 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	  Unknown2F0(0.0f),
 	  Unknown2F8(0),
 	  Unknown308(0.0f),
-	  Unknown314(0)
+	  Unknown314(0),
+	  Unknown36C(false)
 {
 	Unknown330.Make_Identity();
 	if (desc) {
@@ -258,6 +259,27 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 RenderObjClass *CharacterViewAvatarClass::Clone() const
 {
 	return new CharacterViewAvatarClass((AvatarDescClass *)&Desc, 1, 0, NULL);
+}
+
+// 0x77D1E0
+void CharacterViewAvatarClass::Set_Transform(const Matrix3D &m)
+{
+	if (Unknown2BC) {
+		Unknown2BC->Set_Transform(m);
+		RenderObjClass::Set_Transform(m);
+		if (!Unknown36C) {
+			Unknown330 = m;
+		}
+	}
+}
+
+// 0x77D2B0
+void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
+{
+	if (Unknown2BC) {
+		Unknown2BC->Set_Position(v);
+		RenderObjClass::Set_Position(v);
+	}
 }
 
 // 0x77D420
