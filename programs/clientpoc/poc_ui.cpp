@@ -35,6 +35,7 @@ Unknown_7CA2D0Class *Unknown_7CA2D0()
 
 // 0x497300 (gadget.cpp, textgadg.cpp, ui_login.cpp declare it): Create_Peek<RenderObjClass> out of line; gen_stubs'
 // stand-in cannot build the returned RefCountPtr
+#include "rendobj.h"
 #include "ref_ptr.h"
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)
 {
