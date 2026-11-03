@@ -3372,6 +3372,11 @@
      "0x518F80",
      "0x518FF0",
      "0x519070",
+     "0x5190E0",
+     "0x519130",
+     "0x519190",
+     "0x5191F0",
+     "0x5192E0",
      "0x5193D0",
      "0x519460",
      "0x5194F0",
@@ -3380,12 +3385,7 @@
      "0x5195E0",
      "0x519950",
      "0x5199F0",
-     "0x51F4A0",
-     "0x51F4F0",
-     "0x51F550",
-     "0x51F5B0",
-     "0x51F600",
-     "0x51F6D0"
+     "0x51F600"
     ],
     "merged": [],
     "name": "client/dynamic_window_horizontal.cpp",
@@ -17254,7 +17254,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7561,
+  "in_tree_total": 7566,
   "totals": {}
  },
  "binkmovie": {
