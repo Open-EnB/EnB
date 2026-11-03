@@ -120437,6 +120437,13 @@
 "length": 43
 },
 {
+"address": "0x921140",
+"symbol": "?Log_DX8_ErrorCode@@YAXI@Z",
+"name": "Log_DX8_ErrorCode",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x9211C0",
 "symbol": "?Init@DX8Wrapper@@SA_NPAX_N@Z",
 "name": "DX8Wrapper::Init",
@@ -129590,6 +129597,13 @@
 "kind": "function",
 "source": "exact",
 "length": 231
+},
+{
+"address": "0x964090",
+"symbol": "?Free_All_Trees@HTreeManagerClass@@QAEXXZ",
+"name": "HTreeManagerClass::Free_All_Trees",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x964130",
@@ -140458,6 +140472,13 @@
 "length": 14
 },
 {
+"address": "0x9B5F60",
+"symbol": "??1HModelDefClass@@QAE@XZ",
+"name": "HModelDefClass::~HModelDefClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x9B6000",
 "symbol": "?Load_W3D@HModelDefClass@@QAEHAAVChunkLoadClass@@@Z",
 "name": "HModelDefClass::Load_W3D",
@@ -142462,6 +142483,13 @@
 "length": 34
 },
 {
+"address": "0x9C65D0",
+"symbol": "??1MotionChannelClass@@QAE@XZ",
+"name": "MotionChannelClass::~MotionChannelClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x9C6650",
 "symbol": "?Load_W3D@MotionChannelClass@@QAE_NAAVChunkLoadClass@@@Z",
 "name": "MotionChannelClass::Load_W3D",
@@ -142499,6 +142527,13 @@
 "kind": "function",
 "source": "exact",
 "length": 28
+},
+{
+"address": "0x9C68D0",
+"symbol": "??1TimeCodedMotionChannelClass@@QAE@XZ",
+"name": "TimeCodedMotionChannelClass::~TimeCodedMotionChannelClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x9C6910",
@@ -142586,6 +142621,13 @@
 "kind": "function",
 "source": "exact",
 "length": 121
+},
+{
+"address": "0x9C7040",
+"symbol": "??1AdaptiveDeltaMotionChannelClass@@QAE@XZ",
+"name": "AdaptiveDeltaMotionChannelClass::~AdaptiveDeltaMotionChannelClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x9C70C0",
