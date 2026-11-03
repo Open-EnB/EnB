@@ -36,20 +36,7 @@
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
-// 0x4BC260, the reporter of the assert functions (app/shared/unknown_debug.cpp: 0x4E9410, 0x4E9450).
-// An assert is worth a line each time, not only the first.
-void Unknown_Report_Message(const char *sender, const char *category, const char *file, int line,
-	const char *format, ...)
-{
-	STUB_CALLED("Unknown_Report_Message (0x4BC260)");
-	char text[1024];
-	va_list va;
-	va_start(va, format);
-	_vsnprintf(text, sizeof(text) - 1, format, va);
-	va_end(va);
-	text[sizeof(text) - 1] = 0;
-	Stub_Log_Line("%s: %s, %s(%d)", category, text, file, line);
-}
+// (0x4BC260, the assert functions' reporter, is real: app/shared/unknown_message.cpp)
 
 // ------------------------------------------------------------------------- globals (data)
 

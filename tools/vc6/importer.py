@@ -3648,6 +3648,8 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
                                                   "and destructor 0x4BE060, its ini writer / reader 0x4BE0F0 / 0x4BE1E0, the match 0x4BE2C0 (D64) "
                                                   "and the parser 0x4BE7A0 (a separate object: the server calls them; D137 provisional)",
+    ('app', 'shared/message/msgserv.cpp'): "the message server task MsgServer 0x8B20D0-0x8B2379 (its __FILE__ e:\\build\\beta\\G\\app\\shared\\message\\msgserv.cpp, the assert 'Get_Internal_Server_Protocol() == NULL' at line 48, the profiler label 'MsgServer::Run'): all byte-exact",
+    ('app', 'shared/message/msgserv.h'): "MsgServer's class (vtable 0xB0C418; header name assumed from msgserv.cpp)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",

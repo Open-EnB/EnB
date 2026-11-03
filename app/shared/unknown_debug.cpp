@@ -1,19 +1,16 @@
 // Earth & Beyond client (reconstruction): the assert reporters of unknown_debug.h. Notes at the end of the file.
 #include "unknown_debug.h"
 
-// E&B's message reporter (0x4BC260, cdecl, printf-style; the debug manager's: app\dbgmgr calls its
-// sibling 0x4BC130 the same way). Not rebuilt: stubs/app_stubs.cpp has a stand-in (D75).
-void Unknown_Report_Message(const char *sender, const char *category, const char *file, int line,
-	const char *format, ...);	// NAME 1 [Unknown_Report_Message]: 0x4BC260 (its "Message_Error" string is a profiler label)
+#include "unknown_message.h"
 
 void Unknown_Assert_Failed(const char *expr, const char *file, int line)
 {
-	Unknown_Report_Message("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
+	Unknown_4BC260("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
 }
 
 void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
 {
-	Unknown_Report_Message("", "FAIL_IF", file, line, "ERROR: %s", expr);
+	Unknown_4BC260("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
 
 

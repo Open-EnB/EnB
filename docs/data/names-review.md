@@ -7,10 +7,10 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 91 |
+| 5 | the client names it | 93 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1173 |
-| 2 | describes what the code does | 2979 |
+| 2 | describes what the code does | 2980 |
 | 1 | neutral placeholder | 11634 |
 
 ## For review (score 3 and below)
@@ -9293,9 +9293,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BFAE50` | `app/main/main_client.cpp:86` | neutral (D10) |
 | 1 | `Unknown_BFAE51` | `app/main/main_client.cpp:87` | neutral (D10) |
 | 1 | `Unknown_BFAE52` | `app/main/main_client.cpp:88` | neutral (D10) |
-| 1 | `Unknown_8B20D0Class` | `app/main/main_client.cpp:99` | neutral (D10) |
-| 1 | `Unknown_8B2230` | `app/main/main_client.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/main/main_client.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/main/main_client.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_6BCFB0Class` | `app/main/main_client.cpp:123` | 0x6BCFB0, 0x6BD060 |
 | 1 | `Unknown_BE67C4` | `app/main/main_client.cpp:124` | neutral (D10) |
@@ -9315,6 +9312,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDADC0` | `app/main/main_client.cpp:436` | untagged neutral name (D10) |
 | 1 | `test_path` | `app/main/main_client.cpp:464` | its text |
 | 1 | `message_server` | `app/main/main_client.cpp:471` | its step text |
+| 1 | `Unknown_8B2230` | `app/main/main_client.cpp:475` | untagged neutral name (D10) |
 | 1 | `wsa_data` | `app/main/main_client.cpp:486` | its type |
 | 1 | `reduction` | `app/main/main_client.cpp:501` | what it gives |
 | 1 | `splash` | `app/main/main_client.cpp:508` | 0x6A9E40's 'Splash::Render' |
@@ -10671,6 +10669,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown12` | `app/shared/landdmap.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/shared/landdmap.h:75` | +0x8C, never written |
 | 1 | `Unknown_4FC2F0` | `app/shared/lookup_table.cpp:10` | neutral placeholder (D10) |
+| 1 | `Unknown_8B2230` | `app/shared/message/msgserv.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCCB0` | `app/shared/message/msgserv.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/message/msgserv.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown4BCA80Class` | `app/shared/message/msgserv.h:7` | untagged neutral name (D10) |
+| 1 | `msgserv.h` | `app/shared/message/msgserv.h:18` | msgserv.cpp's header |
+| 1 | `Unknown_8B2230` | `app/shared/message/msgserv.h:37` | neutral (D10) |
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
@@ -11131,9 +11135,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.cpp:34` | wwonline's 64-bit ntohl |
 | 1 | `Unknown_8B4510` | `app/shared/unknown_8b4560.h:6` | wwonline's 64-bit htonl |
 | 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.h:7` | wwonline's 64-bit ntohl |
-| 1 | `Unknown_Report_Message` | `app/shared/unknown_debug.cpp:7` | 0x4BC260 (its "Message_Error" string is a profiler label) |
-| 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/shared/unknown_debug.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.cpp:11` | untagged neutral name (D10) |
 | 1 | `unknown_debug.h` | `app/shared/unknown_debug.h:30` | neutral file name (D37, D10): the object has no __FILE__ |
 | 1 | `Unknown_Assert_Failed` | `app/shared/unknown_debug.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `app/shared/unknown_debug.h:34` | untagged neutral name (D10) |
@@ -11169,8 +11173,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/shared/unknown_login_data.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown_BE55D0` | `app/shared/unknown_message.cpp:11` | neutral (D10) |
 | 1 | `Unknown4BCA80Class` | `app/shared/unknown_message.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_4BBED0` | `app/shared/unknown_message.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_4BCD10` | `app/shared/unknown_message.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC5A0` | `app/shared/unknown_message.cpp:37` | untagged neutral name (D10) |
@@ -11203,8 +11205,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/shared/unknown_message.h:98` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/shared/unknown_message.h:99` | untagged neutral name (D10) |
 | 1 | `Unknown38` | `app/shared/unknown_message.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_4BBE90` | `app/shared/unknown_message.h:103` | neutral (D10) |
-| 1 | `Unknown_4BBEB0` | `app/shared/unknown_message.h:104` | neutral (D10) |
+| 1 | `Set_Internal_Server_Protocol` | `app/shared/unknown_message.h:104` | the getter's pair |
 | 1 | `Unknown_4BBED0` | `app/shared/unknown_message.h:107` | neutral (D10) |
 | 1 | `Unknown_4BC000` | `app/shared/unknown_message.h:108` | neutral (D10) |
 | 1 | `Unknown_4BC130` | `app/shared/unknown_message.h:109` | neutral (D10) |
@@ -11297,9 +11298,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_8B20D0Class` | `programs/clientpoc/poc_standins.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_8B2230` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `programs/clientpoc/poc_standins.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `programs/clientpoc/poc_standins.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `programs/clientpoc/poc_standins.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:20` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1338Class` | `programs/clientpoc/poc_ui.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
@@ -11330,20 +11331,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_Report_Message` | `stubs/app_stubs.cpp:41` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:56` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `stubs/app_stubs.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `stubs/app_stubs.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `stubs/app_stubs.cpp:195` | untagged neutral name (D10) |
-| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:205` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:217` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:43` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `stubs/app_stubs.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_ChatStreamClass` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `stubs/app_stubs.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `stubs/app_stubs.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_4C48C0` | `stubs/app_stubs.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:204` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
@@ -14167,6 +14167,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown` | `app/shared/lookup_table.h:136` | what it does |
 | 2 | `Lookup` | `app/shared/lookup_table.h:137` | what it does |
 | 2 | `Get_Table` | `app/shared/lookup_table.h:138` | what it does |
+| 2 | `Server` | `app/shared/message/msgserv.h:39` | what it holds |
 | 2 | `Create_Projector_Render_Target` | `app/shared/proj_man.h:43` | Renegade's pscene_projectors.cpp helper |
 | 2 | `ProjectionDefClass` | `app/shared/proj_man.h:49` | the asserts' ProjectionDef |
 | 2 | `Is_Additive` | `app/shared/proj_man.h:52` | Renegade's Shadow_Is_Additive |

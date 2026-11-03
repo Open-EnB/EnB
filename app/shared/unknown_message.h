@@ -100,8 +100,8 @@ public:
 	bool Unknown38;			// +0x38
 };
 
-Unknown4BCA80Class *Unknown_4BBE90();				// 0x4BBE90 the server  // NAME 1: neutral (D10)
-void Unknown_4BBEB0(Unknown4BCA80Class *server);	// 0x4BBEB0  // NAME 1: neutral (D10)
+Unknown4BCA80Class *Get_Internal_Server_Protocol();		// 0x4BBE90 the server  // NAME 5: msgserv.cpp's assert 'Get_Internal_Server_Protocol() == NULL'
+void Set_Internal_Server_Protocol(Unknown4BCA80Class *server);	// 0x4BBEB0  // NAME 1: the getter's pair
 
 // The reporters, by the level they pass (and the profiler label they run under)
 void Unknown_4BBED0(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BBED0 1 "Message_Debug"  // NAME 1: neutral (D10)

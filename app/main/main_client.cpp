@@ -95,16 +95,16 @@ extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a m
 
 
 
-// msgserv.cpp's message server, a task (0x48 bytes)
-class Unknown_8B20D0Class : public TaskClass		// NAME 1 [Unknown_8B20D0Class]: neutral (D10)
-{
-public:
-	Unknown_8B20D0Class();							// 0x8B20D0 (WSAStartup)
-	virtual int Get_Interval();
-	virtual bool Delete_On_Remove();
-	void Unknown_8B2230();							// 0x8B2230 (the assert 'Get_Internal_Server_Protocol() == NULL')
-	char Unknown0C[0x48 - 0x0C];
-};
+// msgserv.cpp's message server task (0x48 bytes)
+#include "..\shared\message\msgserv.h"
+
+
+
+
+
+
+
+
 
 // sound_manager.cpp's sound manager (0x340 bytes)
 class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
@@ -468,10 +468,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_BFAE4F = true;
 	ProgramInstance = hInstance;
 
-	Unknown_8B20D0Class *message_server = NULL;		// NAME 1 [message_server]: its step text
+	MsgServer *message_server = NULL;				// NAME 1 [message_server]: its step text
 	if (argv.Find("-ENABLE_MESSAGES")) {
 		Unknown_Debug_Begin_Step("starting message server");
-		message_server = new Unknown_8B20D0Class;
+		message_server = new MsgServer;
 		message_server->Unknown_8B2230();
 		message_server->Run();
 		Unknown_Debug_End_Step("ok");

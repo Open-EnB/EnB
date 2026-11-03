@@ -1,7 +1,7 @@
 """Runs the proof-of-concept client (D179; built by `tools/vc6/build.py link --program clientpoc`).
 
     python tools/harness/clientpoc.py run [--seconds N] [--fullscreen] [--shots N,M,...] [-- CLIENT ARGS...]
-    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M]
+    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
     python tools/harness/clientpoc.py log         the last run's stubs.log, digested
 
 Several runs at once (builders): give each its own --instance NAME. The run then uses
@@ -48,6 +48,12 @@ a line, '#' comments; T is milliseconds after the window first appears, X Y clie
     T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab)
     T text STRING       WM_KEYDOWN / WM_KEYUP per character (VkKeyScan; Shift around capitals)
 Each step is logged to stdout with the time it was sent.
+
+--messages (run, replay): starts the client with -ENABLE_MESSAGES (replay: antprox's /CLIENTOP:, as it does
+every CLIENT ARG; it adds the '-') and tools/harness/msglisten.py beside it (--pid: the client's own port), which writes the
+client's debug messages (G_ASSERT / FAIL_IF and the reporters' others) to <shots dir>\\messages.log. The
+client drops messages until msglisten is accepted (the kernel's first message-server run, after the sound
+library starts): the start-up asserts reach stubs.log only (poc_standins.cpp's tee).
 """
 import argparse
 import os
@@ -63,6 +69,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import symbolize  # noqa: E402
 import bmp2png  # noqa: E402
+
+MSGLISTEN = os.path.join(HERE, 'msglisten.py')
+
+
+def start_listener(pid, out, seconds):
+    """msglisten.py for the client PID, writing out\\messages.log."""
+    log = os.path.join(out, 'messages.log')
+    print(f'messages: {log}', flush=True)
+    return subprocess.Popen([sys.executable, MSGLISTEN, '--pid', str(pid), '--out', log, '--seconds', str(seconds)],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+
+
+def stop_listener(listener):
+    if listener is None:
+        return
+    try:
+        listener.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        listener.kill()
 
 RELEASE = r'C:\EnBDevelopment\ClientPOC\release'
 EXE = os.path.join(RELEASE, 'client.exe')
@@ -273,7 +298,7 @@ def post_step(hwnd, op, rest):
         raise SystemExit(f'--input: unknown step {op!r}')
 
 
-def run(seconds, fullscreen, args, shots=None, steps=None, inst=None):
+def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=False):
     inst = inst or Inst()
     inst.prepare()
     RELEASE, EXE = inst.dir, inst.exe
@@ -293,9 +318,17 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None):
         shutil.copyfile(PROXY, proxy)
         env['D3D8SHOT_DIR'] = out
         env['D3D8SHOT_FRAMES'] = shots
+    listener = None
+    if messages:
+        args = ['-ENABLE_MESSAGES'] + list(args)
+        if not shots:
+            out = inst.shots_dir()
+            os.makedirs(out, exist_ok=True)
     try:
         p = subprocess.Popen([EXE] + list(args), cwd=RELEASE, env=env)
         print(f'client pid {p.pid}', flush=True)
+        if messages:
+            listener = start_listener(p.pid, out, seconds + 5)
         start = time.time()
         end = start + seconds
         hwnd, t0, pending = None, None, list(steps or [])
@@ -321,6 +354,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None):
     finally:
         if shots and os.path.exists(proxy):
             os.remove(proxy)
+        stop_listener(listener)
     digest(inst)
     if shots:
         convert_shots(out)
@@ -341,7 +375,7 @@ def convert_shots(out):
         print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
 
 
-def replay(seconds, shots, steps, inst):
+def replay(seconds, shots, steps, inst, messages=False, args=()):
     inst.prepare()
     env = dict(os.environ)
     env['ENB_POC_INPUT'] = '1'
@@ -371,10 +405,13 @@ def replay(seconds, shots, steps, inst):
             except OSError:
                 pass
             time.sleep(0.2)
-    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir], cwd=inst.dir, env=env,
+    args = (['-ENABLE_MESSAGES'] if messages else []) + list(args)
+    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
+                         + ['/CLIENTOP:' + x.lstrip('-') for x in args], cwd=inst.dir, env=env,  # antprox adds the '-'
                          stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
     start = time.time()
     pid = None
+    listener = None
     try:
         while time.time() - start < 20 and a.poll() is None:
             if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
@@ -389,6 +426,8 @@ def replay(seconds, shots, steps, inst):
                     pid = p
             time.sleep(0.5)
         print(f'antprox pid {a.pid}, client pid {pid}', flush=True)
+        if messages and pid:
+            listener = start_listener(pid, out, seconds + 5)
         hwnd, t0, pending = None, None, list(steps)
         end = time.time() + seconds
         while time.time() < end:
@@ -409,6 +448,7 @@ def replay(seconds, shots, steps, inst):
         time.sleep(1)
         if shots and os.path.exists(proxy):
             os.remove(proxy)
+        stop_listener(listener)
     digest(inst)
     if shots:
         convert_shots(out)
@@ -424,15 +464,17 @@ def main():
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
     ap.add_argument('--instance', help='run in ClientPOC\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
     ap.add_argument('--exe', help='a client.exe to run instead of release\\client.exe (needs --instance)')
+    ap.add_argument('--messages', action='store_true',
+                    help='-ENABLE_MESSAGES and msglisten.py beside the client: <shots dir>\\messages.log')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args()
     inst = Inst(a.instance, a.exe)
     if a.command == 'run':
-        run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst)
+        run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)
     elif a.command == 'replay':
         if not a.input:
             raise SystemExit('replay needs --input FILE')
-        replay(a.seconds, a.shots, read_input(a.input), inst)
+        replay(a.seconds, a.shots, read_input(a.input), inst, a.messages, a.args)
     else:
         digest(inst)
 
