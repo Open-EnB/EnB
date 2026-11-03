@@ -16,8 +16,8 @@ class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutr
 public:
 	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes)
 	virtual ~CharacterViewAvatarClass();				// 0x77C080
-	virtual RenderObjClass *Clone() const;				// 0x78A890
-	virtual void Render(RenderInfoClass &rinfo);		// 0x78A6B0
+	virtual RenderObjClass *Clone() const;				// 0x77C870
+	virtual void Render(RenderInfoClass &rinfo);		// 0x77D420
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const { sphere = ObjSphere; }	// 0x77BFA0
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
@@ -50,10 +50,21 @@ public:
 	void Unknown_Inline_231() { Unknown231 = false; Unknown214 = true; }	// NAME 1: neutral (D10)
 	char Unknown_Pad233[0x24C - 0x233];
 	int Unknown24C;										// +0x24C
-	char Unknown_Pad250[0x2B8 - 0x250];
-	RenderObjClass *Unknown2B8;							// +0x2B8 (0x786370 sets hidden)
-	RenderObjClass *Unknown2BC;							// +0x2BC (0x786370 / 0x7863E0)
-	char Unknown_Pad2C0[0x2E8 - 0x2C0];
+	char Unknown_Pad250[0x2B0 - 0x250];
+	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
+	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown2B8;							// +0x2B8 (HeadObj, 0x786370 sets hidden)
+	RenderObjClass *Unknown2BC;							// +0x2BC (BodyObj, 0x786370 / 0x7863E0)
+	RenderObjClass *CollisionObj;						// +0x2C0  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown2C4;							// +0x2C4
+	RenderObjClass *HairSource;							// +0x2C8  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown2CC;							// +0x2CC
+	RenderObjClass *GoggleSource;						// +0x2D0  // NAME 1: neutral (D10)
+	RenderObjClass *BeardSource;						// +0x2D4  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponHip;							// +0x2D8  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponUnique;						// +0x2DC  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
+	RenderObjClass *MaskObj;							// +0x2E4  // NAME 1: neutral (D10)
 	AudibleSoundClass *SpeechSound;						// +0x2E8 (0x784E00 / 0x784C90)  // NAME 2: plays speech sound
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
 	float Unknown2F0;									// +0x2F0 (60.0f in 0x784C90)
@@ -63,7 +74,9 @@ public:
 	float Unknown308;									// +0x308 (tested in 0x784A50)
 	char Unknown_Pad30C[0x314 - 0x30C];
 	int Unknown314;										// +0x314
-	char Unknown_Pad318[0x384 - 0x318];					// +0x318 (total size 0x384)
+	char Unknown_Pad318[0x330 - 0x318];
+	Matrix3D Unknown330;								// +0x330  // NAME 1: neutral (D10)
+	char Unknown_Pad360[0x384 - 0x360];					// +0x360 (total size 0x384)
 };
 
 #endif
