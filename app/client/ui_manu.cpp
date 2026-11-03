@@ -72,7 +72,7 @@ class UIManuSliderClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	UIManuSliderClass(int arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, int a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
+	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, bool a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
 	char Unknown34[0xD4 - 0x34];						// +0x34

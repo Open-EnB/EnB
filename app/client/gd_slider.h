@@ -14,9 +14,9 @@
 #include "always.h"
 #include "gd_robj.h"
 #include "vector3.h"
-#include "hanim.h"
 
 struct KernelEventClass;
+class HAnimClass;
 
 class GadgetSlider : public RObjGadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@
 {
@@ -33,7 +33,7 @@ public:
 	virtual void Unknown_A4(float val, bool arg2);		// +0xA4 0x66FC70
 
 	void Unknown_66E3A0();								// 0x66E3A0
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int is_horizontal, int bone_idx);	// 0x66E460
+	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx);	// 0x66E460
 	bool Unknown_66FD80(bool force = false);			// 0x66FD80
 
 	RefCountPtr<RenderObjClass> SliderObject;			// +0x60  // NAME 2 [SliderObject]: FAIL_IF '!SliderObject'
@@ -41,7 +41,7 @@ public:
 	RefCountPtr<RenderObjClass> MaxArrow;				// +0x68  // NAME 2 [MaxArrow]: FAIL_IF '!MaxArrow'
 	RefCountPtr<RenderObjClass> Thumb;					// +0x6C  // NAME 2 [Thumb]: FAIL_IF '!Thumb'
 	RefCountPtr<RenderObjClass> WheelRegion;			// +0x70  // NAME 2 [WheelRegion]: FAIL_IF '!WheelRegion'
-	RefCountPtr<HAnimClass> ThumbAnim;					// +0x74 (WW3DAssetManager::Get_HAnim)  // NAME 2 [ThumbAnim]: FAIL_IF '!ThumbAnim'
+	RefCountPtr<HAnimClass> ThumbAnim;					// +0x74  // NAME 2 [ThumbAnim]: FAIL_IF '!ThumbAnim'
 	int MinBoneIdx;										// +0x78  // NAME 2 [MinBoneIdx]: G_ASSERT 'MinBoneIdx'
 	int MaxBoneIdx;										// +0x7C  // NAME 2 [MaxBoneIdx]: G_ASSERT 'MaxBoneIdx'
 	float Unknown80;									// +0x80

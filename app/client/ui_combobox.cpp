@@ -48,7 +48,7 @@ class UIComboBoxSliderClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_66E3A0();								// 0x66E3A0
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int a, int b);	// 0x66E460 (0x57A330: the mesh's model, 0, 0)  // NAME 1 [object, a, b]: neutral
+	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool a, int b);	// 0x66E460 (0x57A330: the mesh's model, 0, 0)  // NAME 1 [object, a, b]: neutral
 	void Unknown_66FA90(float range, float step, bool flag);	// 0x66FA90 (0x57A330: the items past the rows plus one, 1.0, true)  // NAME 1 [range, step, flag]: neutral
 	void Unknown_66FD80(int arg);						// 0x66FD80 (0x57A330 passes 0)  // NAME 1 [arg]: neutral
 };

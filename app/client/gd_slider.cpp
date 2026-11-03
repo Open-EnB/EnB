@@ -5,6 +5,8 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "rendobj.h"
 #include "aabox.h"
+#include "assetmgr.h"
+#include "hanim.h"
 #include "gd_slider.h"
 
 // NOT EXACT: order-only (similarity 0.89): member store order
@@ -81,22 +83,12 @@ void GadgetSlider::Unknown_66E3A0()
 	WheelRegion = NULL;
 }
 
-#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
-
-
-
-
-
-
-
-
-
-
 
 bool Unknown_4967F0(RenderObjClass *robj, int delta, RenderObjClass *base_robj);
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);
 
+extern const int Unknown_B8D440;	// 0xB8D440 (2, .rdata: read by fisub, not folded: defined at the end of the file)  // NAME 1: neutral
 
 
 
@@ -134,9 +126,17 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);
 
 
 
-// NOT EXACT: relocation (similarity 0.68): frame/scheduling differences
+
+
+
+
+
+
+
+
+
 // @0x66E460
-void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int is_horizontal, int bone_idx)
+void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx)
 {
 	Unknown_66E3A0();
 	if (object.Peek() == NULL) {
@@ -151,33 +151,33 @@ void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int
 	sprintf(buf, "slider_%02d_max", bone_idx);
 	MaxBoneIdx = object->Get_Bone_Index(buf);
 	G_ASSERT(MaxBoneIdx);
-	IsHorizontal = (is_horizontal != 0);
+	IsHorizontal = is_horizontal;
 	if (IsHorizontal) {
 		ThumbAnim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("slider_hor.slider_hor-1"));
-		Thumb = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_hor"));
-		MinArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_lt"));
-		MaxArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_rt"));
+		Thumb = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_hor"));
+		MinArrow = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_lt"));
+		MaxArrow = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_rt"));
 	} else {
 		ThumbAnim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("slider_vert.slider_vert-1"));
-		Thumb = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_vert"));
-		MinArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_up"));
-		MaxArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_dn"));
+		Thumb = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_vert"));
+		MinArrow = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_up"));
+		MaxArrow = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_dn"));
 	}
 	sprintf(buf, "slider_%02d_regio", bone_idx);
 	WheelRegion = Create_Get(object->Get_Sub_Object_By_Name(buf));
 	if (WheelRegion == NULL) {
-		if (object->Get_Container() != NULL) {
-			WheelRegion = Unknown_497300(object->Get_Container());
-		} else {
-			WheelRegion = object;
-		}
+		WheelRegion = (object->Get_Container() != NULL) ? Unknown_497300(object->Get_Container()) : object;
 	}
 
-	FAIL_IF(!ThumbAnim);
-	FAIL_IF(!Thumb);
-	FAIL_IF(!MaxArrow);
-	FAIL_IF(!MinArrow);
-	FAIL_IF(!WheelRegion);
+
+
+
+
+	FAIL_IF(!ThumbAnim) return;
+	FAIL_IF(!Thumb) return;
+	FAIL_IF(!MaxArrow) return;
+	FAIL_IF(!MinArrow) return;
+	FAIL_IF(!WheelRegion) return;
 
 	Unknown_496AE0(Thumb.Peek(), true);
 	Unknown_496AE0(MaxArrow.Peek(), true);
@@ -189,9 +189,9 @@ void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int
 
 	const AABoxClass &box = MinArrow->Get_Bounding_Box();
 	if (IsHorizontal) {
-		Unknown80 = box.Extent.X * 2.0f - 2;
+		Unknown80 = box.Extent.X * 2.0f - Unknown_B8D440;
 	} else {
-		Unknown80 = box.Extent.Y * 2.0f - 2;
+		Unknown80 = box.Extent.Y * 2.0f - Unknown_B8D440;
 	}
 
 	SliderObject = object;
@@ -206,5 +206,10 @@ void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int
 **	0x66E1A0 (scalar deleting destructor): byte-exact.
 **	0x66E1D0 (~GadgetSlider): byte-exact.
 **	0x66E3A0 (Unknown_66E3A0): byte-exact.
-**	NOT EXACT (D64): constructor 0x66DFC0 (order-only, similarity 0.89), 0x66E460 (relocation, similarity 0.68).
+**	0x66E460 (Unknown_66E460): byte-exact (NEX 2026-11-03: is_horizontal is a bool, ThumbAnim a RefCountPtr<HAnimClass>
+**	through Get_HAnim (Create_Get 0x57B6B0), the render objects through Create_NEW (0x47D2E0), the wheel region a ?:
+**	with a conditional temporary, FAIL_IF returns, and the arrow width subtracts the not-folded int 0xB8D440).
+**	NOT EXACT (D64): constructor 0x66DFC0 (order-only, similarity 0.89).
 */
+
+const int Unknown_B8D440 = 2;
