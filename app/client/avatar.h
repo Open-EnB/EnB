@@ -26,7 +26,7 @@ public:
 
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
-	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
+	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
 	bool Unknown_7863E0();								// 0x7863E0

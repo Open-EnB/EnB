@@ -407,33 +407,32 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
 
 // 0x784C90
 // NOT EXACT: functional for POC (D64)
-void CharacterViewAvatarClass::Unknown_784C90(const char *name, int a)
+void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 {
-	if (!PlayerNLP) {
-		// In the client, asserts PlayerNLP != 0
+	if (PlayerNLP == NULL) {
+		Unknown_Assert_Failed("PlayerNLP", __FILE__, __LINE__);
+		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid NLP pointer");
+		return;
 	}
 	if (!a) {
-		if (TutorialManagerClass::Instance && !TutorialManagerClass::Instance->Is_Completed(name)) {
-			TutorialManagerClass::Instance->Set_Completed(name);
+		if (TutorialManagerClass::Instance->Is_Completed(name)) {
+			return;
 		}
+		TutorialManagerClass::Instance->Set_Completed(name);
 	}
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
 		SpeechSound->Release_Ref();
 		SpeechSound = NULL;
 	}
-	if (TutorialManagerClass::Instance) {
-		TutorialManagerClass::Instance->Stop_Step();
-	}
+	TutorialManagerClass::Instance->Stop_Step();
 	Unknown208 = 0;
 	Unknown214 = true;
 	if (Unknown2EC) {
-		delete[] Unknown2EC;
+		delete Unknown2EC;
 		Unknown2EC = NULL;
 	}
-	if (TutorialManagerClass::Instance) {
-		TutorialManagerClass::Instance->Start_Step(name);
-	}
+	TutorialManagerClass::Instance->Start_Step(name);
 	Unknown2F0 = 60.0f;
 	Unknown2EC = nstrdup(name);
 }
