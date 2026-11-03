@@ -6,6 +6,7 @@
 
 class LightClass;
 class HAnimClass;
+class HMorphAnimClass;
 class AudibleSoundClass;
 class SClientUnknown1338Class;
 class PlayerNLPClass;
@@ -35,6 +36,9 @@ public:
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
 	void Unknown_781EA0();								// 0x781EA0 (the idle: breathe / bored / sit_breathe; sets +0x220)
 	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
+	void Unknown_782CA0();								// 0x782CA0 (the face animation's brow and blink keys over the gesture animation)
+	void Unknown_782FF0(const char *text);				// 0x782FF0 (the face animation's lip-sync keys for text)  // NAME 1 [text]: neutral
+	void Unknown_783470();								// 0x783470 (the face animation onto the head)
 	void Unknown_7831C0(const char *name);				// 0x7831C0 (the gesture animation into +0xC0, or +0xC4 to blend; 'Cannot Find Gesture Animation')  // NAME 1 [name]: neutral
 	void Unknown_783620(float time);					// 0x783620 (the frames on, the body's Set_Animation)  // NAME 1 [time]: neutral
 void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT meshes scaled, the HTree altered)
@@ -45,7 +49,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)
-	int Unknown0BC;										// +0xBC (0x781EA0: the face animation)
+	HMorphAnimClass *Unknown0BC;						// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr in the client)
 	HAnimClass *Unknown0C0[2];							// +0xC0 (0x7831C0: the gesture animation, [1] the one blended to)
 	bool Unknown0C8[2];									// +0xC8 (0x783620: the frame reached)
 	char Unknown_Pad0CA[0xCC - 0xCA];

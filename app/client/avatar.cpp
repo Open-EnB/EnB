@@ -6,6 +6,7 @@
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\hanim.h"
+#include "..\..\ww3d2\hmorphanim.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\mesh.h"
 #include "..\..\ww3d2\meshmdl.h"
@@ -22,6 +23,10 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 
 // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
 static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
+
+// 0xB9CD30: the gender prefixes, 0xB9CD38 the race letters (0x77DA20, 0x783470)
+static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
+static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 
@@ -178,6 +183,21 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 					Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
 				}
 			}
+
+			// 0x77DA20's face animation: three channels (mouth, brows, eyelids) morphing the head
+			// skeleton's poses
+			HAnimClass *anims[3];
+			char anim_name[32];
+			for (int i = 0; i < 3; i++) {
+				_snprintf(anim_name, 0x20, "%sHSKEL.%sHANIM%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD30[Desc.Gender], i);
+				anims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name);
+			}
+			if (anims[0] == NULL || anims[1] == NULL || anims[2] == NULL) {
+				Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
+			} else {
+				Unknown0BC = new HMorphAnimClass();
+				Unknown0BC->Create_New_Morph(3, anims);
+			}
 		}
 
 		// The client normalises the morph weights and shows them at once (player avatars only)
@@ -250,6 +270,11 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	if (PlayerNLP) {
 		delete PlayerNLP;
 		PlayerNLP = NULL;
+	}
+	if (Unknown0BC) {
+		Unknown0BC->Free_Morph();
+		Unknown0BC->Release_Ref();
+		Unknown0BC = NULL;
 	}
 	for (int a = 0; a < 2; a++) {
 		if (Unknown0C0[a]) {
@@ -576,8 +601,129 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 	}
 	std::string anim = Unknown_781D10(PlayerNLP->Unknown_78F640(name));
 	Unknown_7831C0(anim.c_str());
-	// The client then (+0xBC set, a gesture animation loaded) releases the face animation's keys and
-	// starts its own (HMorphAnimClass::Release_Keys, 0x782FF0, 0x782CA0, 0x783470): not built yet.
+	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+		Unknown0BC->Release_Keys();
+		Unknown_782FF0("");
+		Unknown_782CA0();
+		Unknown_783470();
+	}
+}
+
+// 0x782CA0
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_782CA0()
+{
+	int delay = PlayerNLP->Personality->Get_Blink_Delay();
+	int step = 1;
+	if (delay > 0) {
+		step = delay;
+	}
+	int frames;
+	if (Unknown0C0[1] == NULL) {
+		frames = Unknown0C0[0]->Get_Num_Frames() + Unknown248;
+	} else {
+		frames = Unknown0C0[1]->Get_Num_Frames() + Unknown248;
+	}
+	int count;
+	if (frames < step) {
+		count = Unknown_BDBB84(0, 1);
+		step = frames;
+	} else {
+		int n = Unknown_BDBB84(1, frames / step);
+		count = frames / 4;
+		if (n <= count) {
+			count = n;
+		}
+		step = frames / count;
+	}
+	int brow = Desc.Mood_Type * 5;
+	int r;
+	if (Unknown208 == 1) {
+		r = Unknown_BDBB84(0, 1);
+	} else {
+		r = Unknown_BDBB84(0, 3);
+	}
+	if (r == 1) {
+		brow += 2;
+	}
+	Unknown0BC->Insert_Morph_Key(1, 0, Unknown240);
+	int i;
+	int at;
+	for (i = 0, at = 2; i < count; i++, at += step) {
+		int key = Unknown_BDBB84(at, at - 7 + step);
+		Unknown0BC->Insert_Morph_Key(1, key, brow);
+		Unknown0BC->Insert_Morph_Key(1, key + 2, brow + 1);
+		Unknown0BC->Insert_Morph_Key(1, key + 4, brow);
+	}
+	Unknown0BC->Insert_Morph_Key(1, frames - 1, brow);
+	Unknown240 = brow;
+	Unknown0BC->Insert_Morph_Key(2, 0, 0);
+	for (i = 0, at = 0; i < count; i++, at += step) {
+		int shut = Unknown_BDBB84(0, 1) * 2 + 1;
+		int hold = Unknown_BDBB84(2, step / 4);
+		int key = Unknown_BDBB84(at + 1, at - hold - 4 + step);
+		Unknown0BC->Insert_Morph_Key(2, key, 0);
+		Unknown0BC->Insert_Morph_Key(2, key + 2, shut);
+		Unknown0BC->Insert_Morph_Key(2, key + 2 + hold, shut);
+		Unknown0BC->Insert_Morph_Key(2, key + 4 + hold, 0);
+	}
+	Unknown0BC->Insert_Morph_Key(2, frames - 1, 0);
+}
+
+// 0x782FF0
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
+{
+	int delay = PlayerNLP->Personality->Get_Speech_Delay();
+	int base;
+	if (Desc.Mood_Type == 3) {
+		base = 0;
+	} else {
+		base = Desc.Mood_Type * 17;
+	}
+	Unknown24C = 0;
+	int phonemes[256];
+	int count = Unknown_BE856C->Phonemes.Unknown_791400(text, phonemes, 0xFF);
+	Unknown0BC->Insert_Morph_Key(0, Unknown24C, base);
+	Unknown24C += delay;
+	for (int i = 0; i < count; i++) {
+		Unknown0BC->Insert_Morph_Key(0, Unknown24C, phonemes[i] + 1 + base);
+		Unknown24C += delay;
+	}
+	Unknown24C += delay;
+	Unknown0BC->Insert_Morph_Key(0, Unknown24C, base);
+	int frames;
+	if (Unknown0C0[1] == NULL) {
+		frames = Unknown0C0[0]->Get_Num_Frames();
+	} else {
+		frames = Unknown0C0[1]->Get_Num_Frames();
+	}
+	int over = Unknown24C - frames;
+	Unknown248 = (over < 0) ? 0 : over;
+	if (strcmp(text, "") == 0) {
+		Unknown24C = -1;
+	}
+}
+
+// 0x783470
+// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x474080 as a plain pointer)
+void CharacterViewAvatarClass::Unknown_783470()
+{
+	char name[32];
+	if (Desc.Avatar_Type == 0) {
+		_snprintf(name, 0x20, "%s%sHEAD%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Head_Type);
+	} else {
+		_snprintf(name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
+	}
+	RenderObjClass *head = Unknown2BC->Get_Sub_Object_By_Name(name);
+	if (head) {
+		if (Unknown0BC->Get_Num_Frames() < 1) {
+			head->Set_Animation();
+		} else {
+			head->Set_Animation(Unknown0BC, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
+		}
+		head->Release_Ref();
+	}
 }
 
 // 0x783620
