@@ -52,9 +52,9 @@ public:
 // 0x77B870
 CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps)
 {
-	STUB_CALLED("POC CharacterViewAvatarClass (0x77B870, avatar.cpp): a Null3DObjClass, no avatar");
+	STUB_CALLED("POC CharacterViewAvatarClass (0x77B870, avatar.cpp): a Null3DObjClass, no avatar, ready at once");
 	new ((void *)this) PocAvatarClass;
-	Unknown220 = false;
+	Unknown220 = true;		// +0x220: the narrator is ready (ui_login.cpp's 0x5ADA50 turns the login buttons on only then)
 }
 
 // 0x497300 (gadget.cpp, textgadg.cpp, ui_login.cpp declare it): Create_Peek<RenderObjClass> out of line; gen_stubs'
