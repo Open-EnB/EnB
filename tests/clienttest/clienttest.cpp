@@ -171,16 +171,6 @@ static void Hook_Get_Ticks()
 }
 
 // wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64), as udpreplay's conn_replay.cpp
-static unsigned __int64 Swap64(unsigned __int64 v)
-{
-	unsigned __int64 r = 0;
-	for (int i = 0; i < 8; i++) {
-		r = (r << 8) | ((v >> (8 * i)) & 0xFF);
-	}
-	return r;
-}
-unsigned __int64 Unknown_8B4510(unsigned __int64 value) { return Swap64(value); }
-unsigned __int64 Unknown_8B4560(unsigned __int64 value) { return Swap64(value); }
 
 // The packets whose raw constructor isn't rebuilt (pk_stubs.cpp, generated): the factory still makes
 // them; the harness never hands one to a handler (Opcode_Table's Handler 0 / 2 go to the recording packet)

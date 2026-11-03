@@ -4637,6 +4637,8 @@ RECONSTRUCTED = {
     ('app', 'client/html/htmlview.cpp'): "htmlview.cpp (its __FILE__ 0xB9CA28; client from after image.cpp's 0x76E9D0 to its template copies 0x778590-0x779120, claims 0x76FDA0-0x7775D0, 0x7775D0-0x77A9F0): so far HtmlViewClass (HV2): 0x76FFD0-0x770720, Add_Data 0x770860 (line 158), Layout 0x770C70, Draw_Block 0x776390, Click 0x776FC0, the finders and accessors 0x777420-0x7775F0 exact; Draw_Item 0x7767A0, Add_Text 0x7759E0 (lines 1114 / 1115), Render 0x7761E0 and Hit_Test 0x7772C0 NOT EXACT; ArrayList<char>::addMany / growVector / shrinkVector and ArrayList<HtmlLinkStruct>::add among its template copies; and the frame drawing on its wwlib Surface (HV1's UnknownHtmlDrawClass is the view: +0 its surface): Draw_Bevel 0x777630, Draw_Line 0x7777C0 and the empty 24-bit line 0x777EC0 exact, HV1",
     ('app', 'client/unknown_log.cpp'): "Unknown_Log 0x7E5F90 and Unknown_7E5F70 (client 0x7E5F70-0x7E6022): the enb_client.log functions; file PROVISIONAL (D137: no __FILE__ string; between cfaction_database.cpp and distance_calc_client.cpp)",
     ('app', 'client/unknown_log.h'): "Unknown_Log and Unknown_7E5F70 declarations; header PROVISIONAL (D137)",
+    ('app', 'shared/unknown_8b4560.cpp'): "Unknown_8B4510 and Unknown_8B4560 (client 0x8B4510-0x8B4596): the 64-bit byte swap functions; file PROVISIONAL (D137)",
+    ('app', 'shared/unknown_8b4560.h'): "Unknown_8B4510 and Unknown_8B4560 declarations; header PROVISIONAL (D137)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
