@@ -22,4 +22,15 @@ bool Unknown_5FAD50();
 // 0x5FADE0: reads the "Trial" bool from the registry key (ui_registration.cpp)
 bool Unknown_5FADE0();
 
+// 0x5FAE70: registration predicate (ui_registration.cpp)
+bool Unknown_5FAE70();
+
+#include <string>
+
+// 0x5FB330: strips hyphens from a string (ui_registration.cpp)
+std::string __stdcall Unknown_5FB330(std::string str);
+
+// 0x5FB540: strips spaces from a string (ui_registration.cpp)
+std::string __stdcall Unknown_5FB540(std::string str);
+
 #endif // UI_REGISTRATION_H
