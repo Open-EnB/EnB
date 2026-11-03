@@ -17029,7 +17029,17 @@
     ],
     "copy": "reconstructed",
     "expected": {},
-    "in_tree": [],
+    "in_tree": [
+     "0x6B61B0",
+     "0x6B61D0",
+     "0x6B6240",
+     "0x6B63B0",
+     "0x6B6490",
+     "0x6B65A0",
+     "0x6B66B0",
+     "0x6B67A0",
+     "0x6B6860"
+    ],
     "merged": [],
     "name": "client/wnd_file.cpp"
    }
@@ -17124,6 +17134,7 @@
    "client/unknown_fontsound.h": "reconstructed",
    "client/unknown_log.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
+   "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
@@ -17357,7 +17368,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7587,
+  "in_tree_total": 7596,
   "totals": {}
  },
  "binkmovie": {
