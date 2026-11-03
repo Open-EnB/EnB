@@ -6,7 +6,7 @@
 #include <string.h>
 #include "tsk_game.h"
 
-// 0x7C97B0
+// @0x7C97B0
 // NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global,
 // and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the
 // state the login path reads is set here: the empty strings and map, the URL-check deadlines)
@@ -26,7 +26,7 @@ Unknown_7CA2D0Class::Unknown_7CA2D0Class()
 	memset(Unknown70, 0, sizeof(Unknown70));
 }
 
-// 0x7CA2D0
+// @0x7CA2D0
 // NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit)
 Unknown_7CA2D0Class *Unknown_7CA2D0()
 {
@@ -40,7 +40,8 @@ void Unknown_7CA2D0Class::Unknown_7CB610(const char *url)
 	Unknown50 = url;
 }
 
-// NOT EXACT: shape (functional: the deadline tests' branch layout differs)
+// @0x7CB6F0
+// NOT EXACT: shape (0.66: the client cross-jumps the CreateThread tails one instruction later)
 void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
 {
 	if (Unknown50.length() == 0) {
@@ -48,26 +49,7 @@ void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
 	}
 
 	unsigned int now = GetTickCount();
-	if (Unknown48 == NULL) {
-		if (Unknown44 != 0 && Unknown44 - now > 0x80000000) {
-			Unknown4C = 4;
-		} else if (Unknown40 - now > 0x80000000) {
-			Unknown4C = 2;
-		} else {
-			if (!(char)force) {
-				return;
-			}
-			if (Unknown3C != 0 && Unknown3C - now > 0x80000000) {
-				Unknown4C = 3;
-			} else if (Unknown38 - now > 0x80000000) {
-				Unknown4C = 1;
-			} else {
-				return;
-			}
-		}
-		DWORD id;
-		Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
-	} else {
+	if (Unknown48 != NULL) {
 		DWORD code = 0;
 		GetExitCodeThread(Unknown48, &code);
 		if (code == STILL_ACTIVE) {
@@ -97,9 +79,27 @@ void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
 		CloseHandle(Unknown48);
 		Unknown48 = NULL;
 		Unknown4C = 0;
+	} else {
+		DWORD id;
+		if (Unknown44 != 0 && Unknown44 - now > 0x80000000) {
+			Unknown4C = 4;
+			Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
+		} else if (Unknown40 - now > 0x80000000) {
+			Unknown4C = 2;
+			Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
+		} else if ((char)force) {
+			if (Unknown3C != 0 && Unknown3C - now > 0x80000000) {
+				Unknown4C = 3;
+				Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
+			} else if (Unknown38 - now > 0x80000000) {
+				Unknown4C = 1;
+				Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
+			}
+		}
 	}
 }
 
+// @0x7CB8F0
 // NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit)
 unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 {
@@ -132,7 +132,7 @@ unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 	return(result);
 }
 
-// 0x7CCB30
+// @0x7CCB30
 // NOT EXACT: shape (the client's std::map insert / erase and string assigns are inlined helpers; the order of the temporaries differs)
 void Unknown_7CA2D0Class::Set_String(const char *key, const char *value)
 {
@@ -176,7 +176,7 @@ void Unknown_7CA2D0Class::Set_Int64(const char *key, __int64 value)
 	Set_String(key, buffer);
 }
 
-// 0x7CCF20
+// @0x7CCF20
 // NOT EXACT: shape (the client reads the entry with the map's operator[], which adds an empty one for a missing key, then
 // canonicalises the value; its failures return the empty default string)
 std::string Unknown_7CA2D0Class::Get_String(const char *key)

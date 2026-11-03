@@ -151,15 +151,15 @@ static int Unknown_5746C0(int index, bool forward)
 #pragma auto_inline(on)
 
 
-// NOT EXACT: register
+// NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot)
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	CharacterView(NULL),
 	LoginTask(NULL),
 	Unknown8C(0),
-	UnknownE4(20.0f),
-	UnknownE8(20.0f),
+	UnknownE4((float)Unknown_B7DB60[0].Angle),
+	UnknownE8((float)Unknown_B7DB60[0].Angle),
 	UnknownEC(0),
 	UnknownF0(0),
 	Slider(NULL),
@@ -207,37 +207,27 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 
 	for (i = 0; i < 14; i++) {
 		if (Unknown_B7DBCC[i].Name != NULL) {
-			RenderObjClass *sub = model->Get_Sub_Object_By_Name(Unknown_B7DBCC[i].Name);
-			if (sub) {
-				Unknown_496AE0(sub, 0);
-				ButtonGadgetClass *btn = new ButtonGadgetClass(sub, *layer, 0x55, 3);
-				Buttons[i] = btn;
-				Unknown64.Unknown_6870E0(btn, i + 1, View, 1, 0);
-				sub->Release_Ref();
-			}
+			RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7DBCC[i].Name));
+			Unknown_496AE0(sub.Peek(), 0);
+			Buttons[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(Buttons[i], i + 1, View, 1, 0);
 		}
 	}
 
 	for (i = 0; i < 8; i++) {
 		if (Unknown_B7DC44[i].Name != NULL) {
-			RenderObjClass *sub = model->Get_Sub_Object_By_Name(Unknown_B7DC44[i].Name);
-			if (sub) {
-				Unknown_496AE0(sub, 0);
-				ButtonGadgetClass *btn = new ButtonGadgetClass(sub, *layer, 0x55, 3);
-				SkillGadgets[i] = btn;
-				Unknown64.Unknown_6870E0(btn, i + 0x11, View, 1, 0);
-				if (Unknown_B7DC44[i].SubObject != NULL) {
-					FontStyleClass *text_obj = Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, (unsigned int)model);
-					btn->Unknown_98(text_obj);
-				}
-				sub->Release_Ref();
+			RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7DC44[i].Name));
+			Unknown_496AE0(sub.Peek(), 0);
+			SkillGadgets[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(SkillGadgets[i], i + 0x11, View, 1, 0);
+			if (Unknown_B7DC44[i].SubObject != NULL) {
+				((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, (unsigned int)model));
 			}
 		}
 	}
 
-	GadgetSlider *slider = new GadgetSlider(0, layer);
-	Slider = slider;
-	slider->Unknown_66E460(Unknown_497300(model), 0, 0);
+	Slider = new GadgetSlider(false, layer);
+	((GadgetSlider *)Slider)->Unknown_66E460(Unknown_497300(model), 0, 0);
 	Unknown64.Unknown_6870E0(Slider, 0x1A, View, 1, 0);
 
 	((UIClassKeysClass *)Unknown4C)->Unknown_721E60(&UIClassKeyEventStruct(0x1B), 0x10);
@@ -253,8 +243,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 		}
 	}
 
-	UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
-	UnknownE8 = UnknownE4;
+	UnknownE8 = UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, 1);
 	Unknown_5779D0();
 	CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
@@ -266,14 +255,15 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 		TutorialManagerClass::Instance->Set_Completed("ClassSelectionIntro");
 	}
 
-	if (LoginTask->Previous_Step != 4 && Unknown8C == 0) {
+	if (!(LoginTask->Previous_Step == 4) && Unknown8C == 0) {
 		CharacterView->Unknown_67C920("1492_00_344se.mp3");
 		CharacterView->Unknown_67C920("1492_00_345se.mp3");
 		CharacterView->Unknown_67C920("1492_00_346se.mp3");
 	}
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
-	GadgetClass::Get_Signal_Map().connect(NULL, new UIClassCallbackClass(this, function));
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
+	notifier->connect(NULL, new UIClassCallbackClass(this, function));
 
 	CharacterView->Unknown30->Unknown0F = true;
 }
@@ -615,6 +605,16 @@ void ClassSelectInterface::Unknown_577B80()
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
