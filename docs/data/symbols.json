@@ -156332,10 +156332,10 @@
 },
 {
 "address": "0xA08F80",
-"symbol": "MeshModelClass::write_header",
-"name": "MeshModelClass::write_header",
+"symbol": "??0ShdMeshClass@@QAE@XZ",
+"name": "ShdMeshClass::ShdMeshClass",
 "kind": "function",
-"source": "strings"
+"source": "named"
 },
 {
 "address": "0xA09070",
@@ -157638,6 +157638,13 @@
 "kind": "function",
 "source": "exact",
 "length": 88
+},
+{
+"address": "0xA0EC30",
+"symbol": "??0ShdDefClass@@QAE@K@Z",
+"name": "ShdDefClass::ShdDefClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0xA0ED20",

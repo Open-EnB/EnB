@@ -492,5 +492,15 @@
   "address": "0x93AB90",
   "symbol": "?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z",
   "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 5 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0xA08F80",
+  "symbol": "??0ShdMeshClass@@QAE@XZ",
+  "evidence": "calls RenderObjClass's constructor 0x941880, builds Name from the 'UnNamed' literal 0xBCB7F4, stores ShdMeshClass's vtables 0xB16B0C/0xB16AF8/0xB16AF4 and SimpleVecClass<ShdSubMeshStruct>'s 0xB16CD0, plain ret: the default constructor (shdmesh.cpp); the strings heuristic's MeshModelClass::write_header was wrong (TSH 2026-11-03)"
+ },
+ {
+  "address": "0xA0EC30",
+  "symbol": "??0ShdDefClass@@QAE@K@Z",
+  "evidence": "stores its argument at +0xC (ClassID), builds Name from the 'UnNamed' literal 0xBCB7F4, stores ShdDefClass's vtables 0xB16F70/0xB16F68, ret 4: ShdDefClass(uint32 classid) (shddef.cpp; TSH 2026-11-03)"
  }
 ]

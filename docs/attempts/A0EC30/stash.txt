@@ -1,0 +1,41 @@
+# ==== .work/tsh/v1.py
+W = 'wwlib/wwstring.h'
+S = 'wwshade/shdmesh.cpp'
+D = 'wwshade/shddef.cpp'
+OLD = ('\tint len=string ? _tcsclen(string) : 0;\n'
+       '\tif (hint_temporary || len>0) {\n'
+       '\t\tGet_String (len+1, hint_temporary);\n'
+       '\t}\n'
+       '\n'
+       '\t(*this) = string;\n'
+       '\treturn ;\n')
+V = {
+    'ifassign': [(W, OLD, OLD.replace('\tint len=string ? _tcsclen(string) : 0;\n',
+                                      '\tint len = 0;\n\tif (string != 0) {\n\t\tlen = _tcsclen(string);\n\t}\n'))],
+    'nested': [(W, OLD, '\tif (string != 0) {\n\t\tint len = _tcsclen(string);\n'
+                        '\t\tif (hint_temporary || len>0) {\n\t\t\tGet_String (len+1, hint_temporary);\n\t\t}\n\t}\n'
+                        '\n\t(*this) = string;\n\treturn ;\n')],
+    'neq': [(W, OLD, OLD.replace('string ? _tcsclen', '(string != 0) ? _tcsclen'))],
+    'order': [(W, OLD, OLD.replace('hint_temporary || len>0', 'len>0 || hint_temporary'))],
+    'castop': [(W, OLD, OLD.replace('(*this) = string;', '(*this) = (const TCHAR *)string;'))],
+    'tcslen': [(W, OLD, OLD.replace('_tcsclen(string)', '_tcslen(string)'))],
+}
+COMPILE = [S, D]
+WATCH = ['0xA08F80', '0xA0EC30']
+
+# ==== .work/tsh/v2.py
+S = 'wwshade/shdmesh.cpp'
+D = 'wwshade/shddef.cpp'
+W = 'wwlib/wwstring.h'
+V = {
+    # the name through a const pointer constant (no line moves: on the blank line before the constructor)
+    'sconst': [(D, '#include "w3d_file.h"\n\n\nShdDefClass::ShdDefClass(uint32 classid) :\n\tClassID(classid),\n\tName("UnNamed"),',
+                '#include "w3d_file.h"\n\nstatic const char * const _UnNamed = "UnNamed";\nShdDefClass::ShdDefClass(uint32 classid) :\n\tClassID(classid),\n\tName(_UnNamed),')],
+    # a non-const pointer variable
+    'svar': [(D, '#include "w3d_file.h"\n\n\nShdDefClass::ShdDefClass(uint32 classid) :\n\tClassID(classid),\n\tName("UnNamed"),',
+              '#include "w3d_file.h"\n\nstatic const char * _UnNamed = "UnNamed";\nShdDefClass::ShdDefClass(uint32 classid) :\n\tClassID(classid),\n\tName(_UnNamed),')],
+    # the hint argument spelled true/false through a variable
+    'cast': [(D, '\tName("UnNamed"),', '\tName((const char *)"UnNamed"),')],
+}
+COMPILE = [S, D]
+WATCH = ['0xA08F80', '0xA0EC30']
