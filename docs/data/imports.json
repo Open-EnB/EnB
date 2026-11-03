@@ -16364,6 +16364,16 @@
      "0x820C70"
     ]
    },
+   "unknown_log": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x7E5F90"
+    ],
+    "merged": [],
+    "name": "client/unknown_log.cpp"
+   },
    "unknown_login_data": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -16972,6 +16982,7 @@
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
    "client/unknown_fontsound.h": "reconstructed",
+   "client/unknown_log.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
@@ -17205,7 +17216,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7550,
+  "in_tree_total": 7551,
   "totals": {}
  },
  "binkmovie": {

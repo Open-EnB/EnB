@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2925 |
-| 1 | neutral placeholder | 11283 |
+| 1 | neutral placeholder | 11287 |
 
 ## For review (score 3 and below)
 
@@ -8400,6 +8400,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/unknown_fontsound.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.h:25` | neutral (D10), as app/main declares it |
+| 1 | `Unknown_7E5F70` | `app/client/unknown_log.cpp:10` | neutral (D10) |
+| 1 | `Unknown_Log` | `app/client/unknown_log.cpp:16` | neutral (D10) |
+| 1 | `Unknown_7E5F70` | `app/client/unknown_log.h:6` | neutral (D10); resets enb_client.log |
+| 1 | `Unknown_Log` | `app/client/unknown_log.h:7` | 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log |
 | 1 | `Unknown_BE67B8` | `app/client/unknown_msgbox.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/unknown_msgbox.cpp:6` | untagged neutral name (D10) |
 | 1 | `MsgBoxKeysClass` | `app/client/unknown_msgbox.cpp:27` | neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes |

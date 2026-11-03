@@ -74,7 +74,7 @@ public:
 // What tsk_game.cpp calls in files that aren't rebuilt (declared here only)
 class INIClass;
 INIClass &Get_Network_INI();							// 0x821B40 (connect.cpp)
-void Unknown_Log(const char *tag, const char *format, ...);	// NAME 1 [Unknown_Log]: 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log
+int Unknown_Log(const char *tag, const char *format, ...);	// NAME 1 [Unknown_Log]: 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log
 int Unknown_82E1D0();									// NAME 1 [Unknown_82E1D0]: udpconn.cpp
 bool Unknown_5FADE0();									// NAME 1 [Unknown_5FADE0]: ui_registration.cpp
 void Unknown_43FD70();									// NAME 1 [Unknown_43FD70]: soundlib.cpp
