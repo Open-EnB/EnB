@@ -63,7 +63,7 @@ static int __cdecl Unknown_7913B0(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x791310
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the index loop)
 Unknown_791310Class::Unknown_791310Class()
 {
 	qsort(Unknown_B9DAB8, 0x23, sizeof(Unknown_PhonemeGroupStruct), Unknown_7913B0);
@@ -80,7 +80,7 @@ Unknown_791310Class::Unknown_791310Class()
 }
 
 // 0x791400
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order)
 int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max)
 {
 	char prev = '\0';
@@ -182,7 +182,7 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 }
 
 // 0x7917B0
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the index entry's loads)
 int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
 {
 	int letter = (char)tolower(*text) - 'a';
@@ -202,7 +202,7 @@ int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes
 }
 
 // 0x791880
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791880(const char *text, char prev, int *shapes)
 {
 	shapes[0] = 11;
@@ -243,7 +243,7 @@ int Unknown_791310Class::Unknown_791880(const char *text, char prev, int *shapes
 }
 
 // 0x791970
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791970(const char *text, char prev, int *shapes)
 {
 	shapes[1] = -1;
@@ -289,7 +289,7 @@ int Unknown_791310Class::Unknown_791970(const char *text, char prev, int *shapes
 }
 
 // 0x791B00
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)
 {
 	shapes[0] = 2;
@@ -323,7 +323,7 @@ int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes
 }
 
 // 0x791BF0
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791BF0(const char *text, char prev, int *shapes)
 {
 	shapes[0] = 3;
@@ -397,7 +397,7 @@ int Unknown_791310Class::Unknown_791BF0(const char *text, char prev, int *shapes
 }
 
 // 0x791E50
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791E50(const char *text, char prev, int *shapes)
 {
 	shapes[0] = 14;
@@ -424,6 +424,7 @@ int Unknown_791310Class::Unknown_791E50(const char *text, char prev, int *shapes
 }
 
 // 0x791F10
+// NOT EXACT: functional for POC (D64), shape (2 rows)
 int Unknown_791310Class::Unknown_791F10(const char *text, char prev, int *shapes)
 {
 	int n = 1;
@@ -441,7 +442,7 @@ int Unknown_791310Class::Unknown_791F10(const char *text, char prev, int *shapes
 }
 
 // 0x791F80
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (registers and the branch layout)
 int Unknown_791310Class::Unknown_791F80(const char *text, char prev, int *shapes)
 {
 	shapes[0] = 5;
