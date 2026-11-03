@@ -3563,6 +3563,11 @@ RECONSTRUCTED = {
                           "Print_State and operator= are Zero Hour's. All 5 functions byte-exact "
                           "(docs/library-matching.md §3.6)",
     ('wwlib', 'rc4.h'): "InitialKey / InitialKeyBuilt statics added; Prepare_Key_8bytes/16bytes removed",
+    ('wwlib', 'unknown_jpeg.cpp'): "E&B's baseline JPEG writer (client 0x9E3850-0x9E531E, between srandom.cpp and "
+                                  "realcrc.cpp; WW3D::Make_Screen_Shot's 'jpg' format), written from the client: "
+                                  "three one-component scans, a direct 8x8 DCT, E&B's quantization tables, the "
+                                  "standard Huffman tables; no EA copy has it. File PROVISIONAL (D137: no __FILE__)",
+    ('wwlib', 'unknown_jpeg.h'): "its two classes, JPEGWriterClass and JPEGBitBufferClass (NAME 2); PROVISIONAL (D137)",
     ('ww3d2', 'unknown_distortion.cpp'): "E&B's screen-distortion module (D19; client 0x995D20-0x998200, between "
                                          "dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, "
                                          "the distortion render object and the ripple function; names neutral (D10)",
