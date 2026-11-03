@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 66 |
+| 5 | the client names it | 87 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1162 |
+| 3 | by convention from a client-named file or sibling | 1164 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11065 |
+| 1 | neutral placeholder | 11034 |
 
 ## For review (score 3 and below)
 
@@ -9846,49 +9846,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
 | 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:22` | neutral (D10) |
-| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:23` | neutral (D10) |
-| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.cpp:79` | neutral (D10), what each flag makes unique |
-| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.cpp:99` | neutral (D10) |
-| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.cpp:119` | neutral (D10) |
-| 1 | `Unknown_48BF20` | `app/shared/enbassetmgr.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_Recolor_Vertices` | `app/shared/enbassetmgr.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown_48CB40` | `app/shared/enbassetmgr.cpp:191` | untagged neutral name (D10) |
-| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:222` | descriptive (inlined) |
-| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.cpp:270` | untagged neutral name (D10) |
-| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.cpp:299` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:399` | untagged neutral name (D10) |
-| 1 | `Unknown_48BCF0, geometry, colors` | `app/shared/enbassetmgr.h:26` | neutral (D10), what each flag makes unique |
-| 1 | `Unknown_48BCF0` | `app/shared/enbassetmgr.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_48BDC0` | `app/shared/enbassetmgr.h:27` | neutral (D10) |
-| 1 | `Unknown_48BE60` | `app/shared/enbassetmgr.h:28` | neutral (D10) |
-| 1 | `Unknown_48BF20, vmat, hsv_shift` | `app/shared/enbassetmgr.h:29` | neutral (D10) |
-| 1 | `Unknown_48BF20` | `app/shared/enbassetmgr.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_Recolor_Vertices` | `app/shared/enbassetmgr.h:30` | neutral (D10) |
-| 1 | `Unknown_48CB40, texture, hsv` | `app/shared/enbassetmgr.h:31` | neutral (D10) |
-| 1 | `Unknown_48CB40` | `app/shared/enbassetmgr.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:32` | neutral (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_48D1F0, robj, hsv` | `app/shared/enbassetmgr.h:33` | neutral (D10), what 0x48B220 passes |
-| 1 | `Unknown_48D1F0` | `app/shared/enbassetmgr.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_48D710` | `app/shared/enbassetmgr.h:34` | neutral (D10) |
-| 1 | `Unknown_48D850` | `app/shared/enbassetmgr.h:35` | neutral (D10) |
-| 1 | `Unknown_48DD00` | `app/shared/enbassetmgr.h:36` | neutral (D10) |
-| 1 | `Unknown_48E0F0` | `app/shared/enbassetmgr.h:37` | neutral (D10) |
-| 1 | `Unknown_48E4E0` | `app/shared/enbassetmgr.h:38` | neutral (D10) |
-| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:39` | neutral (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:39` | untagged neutral name (D10) |
-| 1 | `name, scale, hsv` | `app/shared/enbassetmgr.h:40` | what 0x6F51D0 passes |
-| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:42` | 0xBDADC0 |
+| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:25` | neutral (D10) |
+| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:26` | neutral (D10) |
+| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:313` | untagged neutral name (D10) |
+| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:359` | descriptive (inlined) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:536` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/shared/enbassetmgr.h:28` | compatibility alias for Create_Render_Obj |
+| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:36` | neutral (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:43` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC0` | `app/shared/enbassetmgr.h:45` | 0xBDADC0 |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -10306,7 +10276,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/shared/rs_robj.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_4583C0` | `app/shared/rs_robj.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/rs_robj.cpp:413` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/shared/rs_robj.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
@@ -15088,7 +15057,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
 | 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:36` | its profile string |
+| 3 | `Post_Process` | `app/shared/enbassetmgr.cpp:91` | its profile string |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:40` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_RING |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |

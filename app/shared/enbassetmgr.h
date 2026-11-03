@@ -22,22 +22,25 @@ public:
 	virtual void Release_Unused_Assets(void);									// +0x10
 	virtual RenderObjClass *Create_Render_Obj(const char *name);				// +0x14
 	virtual void Release_Unused_Textures(void);									// +0x38
+	virtual RenderObjClass *Create_Render_Obj(const char *name, float scale, Vector3 &hsv_shift);	// +0x78  // NAME 5: EA hueshift enbassetmgr.h
 
-	void Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors);	// NAME 1 [Unknown_48BCF0, geometry, colors]: neutral (D10), what each flag makes unique
-	void Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BDC0]: neutral (D10)
-	void Unknown_48BE60(RenderObjClass *robj, bool geometry, bool colors);	// NAME 1 [Unknown_48BE60]: neutral (D10)
-	void Unknown_48BF20(VertexMaterialClass *vmat, Vector3 &hsv_shift);	// 0x48BF20: recolour a vertex material's four colours  // NAME 1 [Unknown_48BF20, vmat, hsv_shift]: neutral (D10)
-	void Unknown_Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift);	// recolour a colour array (inlined)  // NAME 1 [Unknown_Recolor_Vertices]: neutral (D10)
-	TextureClass *Unknown_48CB40(TextureClass *texture, float *hsv);	// 0x48CB40: 'Recolor_Texture()' in its profile string: a new HSV-shifted texture, cached  // NAME 1 [Unknown_48CB40, texture, hsv]: neutral (D10)
-	TextureClass *Unknown_48CF90(const char *name, float *hsv);	// 0x48CF90: the cached copy under '#name!H%gS%gV%g', with a reference  // NAME 1 [Unknown_48CF90, name, hsv]: neutral (D10)
-	void Unknown_48D1F0(RenderObjClass *robj, float *hsv);	// 0x48D1F0: a mesh's HSV shift  // NAME 1 [Unknown_48D1F0, robj, hsv]: neutral (D10), what 0x48B220 passes
-	void Unknown_48D710(RenderObjClass *robj, float *hsv);	// NAME 1 [Unknown_48D710]: neutral (D10)
-	void Unknown_48D850(RenderObjClass *robj, float *hsv);	// 0x48D850: a particle emitter's (not written)  // NAME 1 [Unknown_48D850]: neutral (D10)
-	void Unknown_48DD00(RenderObjClass *robj, float *hsv);	// 0x48DD00: a sphere's (not written)  // NAME 1 [Unknown_48DD00]: neutral (D10)
-	void Unknown_48E0F0(RenderObjClass *robj, float *hsv);	// 0x48E0F0: a ring's (not written)  // NAME 1 [Unknown_48E0F0]: neutral (D10)
-	void Unknown_48E4E0(RenderObjClass *robj, float *hsv);	// NAME 1 [Unknown_48E4E0]: neutral (D10)
-	void Unknown_48ECA0(TextureClass **textures, unsigned count);	// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
-	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78 (also 'ENBAssetManager::Create_Render_Obj' in its profile string)  // NAME 1 [name, scale, hsv]: what 0x6F51D0 passes
+	RenderObjClass *Create_Render_Obj(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }
+	RenderObjClass *Unknown_78(const char *name, float scale, float *hsv) { return Create_Render_Obj(name, scale, *(Vector3 *)hsv); }	// NAME 1 [Unknown_78]: compatibility alias for Create_Render_Obj
+
+	void Make_Mesh_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
+	void Make_HLOD_Unique(RenderObjClass *robj, bool geometry, bool colors);	// NAME 5: EA hueshift enbassetmgr.h
+	void Make_Unique(RenderObjClass *robj, bool geometry, bool colors);			// NAME 5: EA hueshift enbassetmgr.h
+	void Recolor_Vertex_Material(VertexMaterialClass *vmat, Vector3 &hsv_shift);	// NAME 5: EA hueshift enbassetmgr.h
+	void Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift);		// NAME 5: EA hueshift enbassetmgr.h
+	TextureClass *Recolor_Texture(TextureClass *texture, float *hsv);				// NAME 5: EA hueshift enbassetmgr.h
+	TextureClass *Unknown_48CF90(const char *name, float *hsv);						// NAME 1 [Unknown_48CF90, name, hsv]: neutral (D10)
+	void Recolor_Mesh(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
+	void Recolor_HLOD(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
+	void Recolor_ParticleEmitter(RenderObjClass *robj, float *hsv);					// NAME 5: EA hueshift enbassetmgr.h
+	void Recolor_Sphere(RenderObjClass *robj, float *hsv);							// NAME 3 [Recolor_Sphere]: EA hueshift style for CLASSID_SPHERE
+	void Recolor_Ring(RenderObjClass *robj, float *hsv);							// NAME 3 [Recolor_Ring]: EA hueshift style for CLASSID_RING
+	void Recolor_Asset(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
+	void Unknown_48ECA0(TextureClass **textures, unsigned count);					// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
 };
 extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 

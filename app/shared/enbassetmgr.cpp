@@ -18,9 +18,64 @@
 #include "vertmaterial.h"
 #include "colorspace.h"
 #include "texture.h"
+#include "vector3.h"
+#include "wwmath.h"
+#include "..\..\wwlib\nstrdup.h"
 
 void Unknown_48E9D0(RenderObjClass *robj);	// 0x48E9D0: Post_Process' walk of a model (recursive)  // NAME 1 [Unknown_48E9D0, robj]: neutral (D10)
 bool Unknown_48E620(RenderObjClass *robj);	// 0x48E620: Post_Process' step for the 'plt' models (recursive)  // NAME 1 [Unknown_48E620, robj]: neutral (D10)
+
+const float ident_scale(1.0f);
+const Vector3 ident_HSV(0,0,0);
+
+class ENBPrototypeClass : public PrototypeClass	// NAME 5: EA hueshift enbassetmgr.cpp
+{
+public:
+	ENBPrototypeClass(RenderObjClass *proto, const char *name);
+	virtual ~ENBPrototypeClass(void);
+
+	virtual const char *Get_Name(void) const;
+	virtual int Get_Class_ID(void) const;
+	virtual RenderObjClass *Create(void);
+
+	RenderObjClass *Proto;
+	char *Name;
+};
+
+// @0x48AED0
+ENBPrototypeClass::ENBPrototypeClass(RenderObjClass *proto, const char *name)
+{
+	Name = nstrdup(name);
+	Proto = proto;
+	Proto->Add_Ref();
+}
+
+// @0x48AF80
+ENBPrototypeClass::~ENBPrototypeClass(void)
+{
+	delete [] Name;
+	if (Proto != NULL) {
+		Proto->Release_Ref();
+	}
+}
+
+// @0x48B010
+const char *ENBPrototypeClass::Get_Name(void) const
+{
+	return Name;
+}
+
+// @0x48B030
+int ENBPrototypeClass::Get_Class_ID(void) const
+{
+	return Proto->Class_ID();
+}
+
+// @0x48B050
+RenderObjClass *ENBPrototypeClass::Create(void)
+{
+	return Proto->Clone();
+}
 
 // @0x48B070
 ENBAssetManager::ENBAssetManager()
@@ -58,6 +113,87 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
 	return(robj);
 }
 
+// @0x48B220
+// NOT EXACT: shape (explain.py: the same callees, 40 calls in ours and 35 in the client: a merged or split tail; the logic is the client's, D64)
+RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale, Vector3 &HSV_shift)
+{
+	bool scale = (WWMath::Fabs(Scale - ident_scale) > 0.01f);
+	bool hsv_shift = (WWMath::Fabs(HSV_shift.X - ident_HSV.X) > 1.0f) ||
+	                 (WWMath::Fabs(HSV_shift.Y - ident_HSV.Y) > 0.01f) ||
+	                 (WWMath::Fabs(HSV_shift.Z - ident_HSV.Z) > 0.01f);
+
+	if (!scale && !hsv_shift) {
+		return WW3DAssetManager::Create_Render_Obj(name);
+	}
+
+	char lower_case_name[256];
+	strcpy(lower_case_name, name);
+	_strlwr(lower_case_name);
+
+	char newname[512];
+	sprintf(newname, "#%s!%gH%gS%gV%g", lower_case_name, Scale, HSV_shift.X, HSV_shift.Y, HSV_shift.Z);
+
+	RenderObjClass *rendobj = WW3DAssetManager::Create_Render_Obj(newname);
+	if (rendobj != NULL) {
+		return Post_Process(rendobj);
+	}
+
+	rendobj = WW3DAssetManager::Create_Render_Obj(name);
+	if (rendobj == NULL) {
+		return NULL;
+	}
+
+	switch (rendobj->Class_ID()) {
+		case RenderObjClass::CLASSID_MESH:
+			Make_Mesh_Unique(rendobj, scale, hsv_shift);
+			break;
+		case RenderObjClass::CLASSID_HLOD:
+		{
+			int count = rendobj->Get_Num_Sub_Objects();
+			for (int i = 0; i < count; ++i) {
+				RenderObjClass *sub = rendobj->Get_Sub_Object(i);
+				Make_Unique(sub, scale, hsv_shift);
+				if (sub != NULL) {
+					sub->Release_Ref();
+				}
+			}
+			break;
+		}
+	}
+
+	if (scale) {
+		rendobj->Scale(Scale);
+	}
+
+	if (hsv_shift) {
+		switch (rendobj->Class_ID()) {
+			case RenderObjClass::CLASSID_MESH:
+				Recolor_Mesh(rendobj, (float *)&HSV_shift);
+				break;
+			case RenderObjClass::CLASSID_HLOD:
+				Recolor_HLOD(rendobj, (float *)&HSV_shift);
+				break;
+			case RenderObjClass::CLASSID_PARTICLEEMITTER:
+				Recolor_ParticleEmitter(rendobj, (float *)&HSV_shift);
+				break;
+			case RenderObjClass::CLASSID_SPHERE:
+				Recolor_Sphere(rendobj, (float *)&HSV_shift);
+				break;
+			case RenderObjClass::CLASSID_RING:
+				Recolor_Ring(rendobj, (float *)&HSV_shift);
+				break;
+		}
+	}
+
+	Post_Process(rendobj);
+
+	ENBPrototypeClass *proto = new ENBPrototypeClass(rendobj, newname);
+	rendobj->Release_Ref();
+	Add_Prototype(proto);
+
+	return proto->Create();
+}
+
 // @0x48F2C0
 void ENBAssetManager::Release_Unused_Assets(void)
 {
@@ -76,8 +212,9 @@ void ENBAssetManager::Release_Unused_Assets(void)
 }
 
 // @0x48BCF0
-void ENBAssetManager::Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors)	// NAME 1 [Unknown_48BCF0, geometry, colors]: neutral (D10), what each flag makes unique
+void ENBAssetManager::Make_Mesh_Unique(RenderObjClass *robj, bool geometry, bool colors)	// NAME 5: EA hueshift enbassetmgr.h
 {
+	MeshClass *mesh = (MeshClass *)robj;
 	mesh->Make_Unique();
 	MeshModelClass *model = mesh->Get_Model();
 	if (colors) {
@@ -96,17 +233,17 @@ void ENBAssetManager::Unknown_48BCF0(MeshClass *mesh, bool geometry, bool colors
 }
 
 // @0x48BDC0
-void ENBAssetManager::Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool colors)	// NAME 1 [Unknown_48BDC0]: neutral (D10)
+void ENBAssetManager::Make_HLOD_Unique(RenderObjClass *robj, bool geometry, bool colors)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	int count = robj->Get_Num_Sub_Objects();
 	for (int i = 0; i < count; ++i) {
 		RenderObjClass *sub = robj->Get_Sub_Object(i);
 		switch (sub->Class_ID()) {
 			case RenderObjClass::CLASSID_MESH:
-				Unknown_48BCF0((MeshClass *)sub, geometry, colors);
+				Make_Mesh_Unique(sub, geometry, colors);
 				break;
 			case RenderObjClass::CLASSID_HLOD:
-				Unknown_48BDC0(sub, geometry, colors);
+				Make_HLOD_Unique(sub, geometry, colors);
 				break;
 		}
 		if (sub != NULL) {
@@ -116,18 +253,18 @@ void ENBAssetManager::Unknown_48BDC0(RenderObjClass *robj, bool geometry, bool c
 }
 
 // @0x48BE60
-void ENBAssetManager::Unknown_48BE60(RenderObjClass *robj, bool geometry, bool colors)	// NAME 1 [Unknown_48BE60]: neutral (D10)
+void ENBAssetManager::Make_Unique(RenderObjClass *robj, bool geometry, bool colors)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	switch (robj->Class_ID()) {
 		case RenderObjClass::CLASSID_MESH:
-			Unknown_48BCF0((MeshClass *)robj, geometry, colors);
+			Make_Mesh_Unique(robj, geometry, colors);
 			break;
 		case RenderObjClass::CLASSID_HLOD:
 		{
 			int count = robj->Get_Num_Sub_Objects();
 			for (int i = 0; i < count; ++i) {
 				RenderObjClass *sub = robj->Get_Sub_Object(i);
-				Unknown_48BE60(sub, geometry, colors);
+				Make_Unique(sub, geometry, colors);
 				if (sub != NULL) {
 					sub->Release_Ref();
 				}
@@ -138,7 +275,7 @@ void ENBAssetManager::Unknown_48BE60(RenderObjClass *robj, bool geometry, bool c
 }
 
 // @0x48BF20
-void ENBAssetManager::Unknown_48BF20(VertexMaterialClass *vmat, Vector3 &hsv_shift)
+void ENBAssetManager::Recolor_Vertex_Material(VertexMaterialClass *vmat, Vector3 &hsv_shift)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	Vector3 rgb;
 
@@ -160,7 +297,7 @@ void ENBAssetManager::Unknown_48BF20(VertexMaterialClass *vmat, Vector3 &hsv_shi
 }
 
 // DX8Wrapper::Convert_Color_Clamp's inline assembly is the client's (dx8wrapper.h, D70)
-void ENBAssetManager::Unknown_Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift)
+void ENBAssetManager::Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	int i;
 	Vector4 rgba;
@@ -188,7 +325,7 @@ TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
 // @0x48CB40
 // NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after
 // pushing the format, ours before); the logic is the client's (D64)
-TextureClass *ENBAssetManager::Unknown_48CB40(TextureClass *texture, float *hsv)
+TextureClass *ENBAssetManager::Recolor_Texture(TextureClass *texture, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	WWPROFILE("Recolor_Texture()");
 	if (texture == NULL) return(NULL);
@@ -223,11 +360,11 @@ static inline TextureClass *Recolored_Texture(ENBAssetManager *mgr, TextureClass
 {
 	TextureClass *newtex = mgr->Unknown_48CF90(texture->Get_Texture_Name(), hsv);
 	if (newtex) return(newtex);
-	return(mgr->Unknown_48CB40(texture, hsv));
+	return(mgr->Recolor_Texture(texture, hsv));
 }
 
 // @0x48D1F0
-void ENBAssetManager::Unknown_48D1F0(RenderObjClass *robj, float *hsv)
+void ENBAssetManager::Recolor_Mesh(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	Vector3 &hsv_shift = *(Vector3 *)hsv;
 	int i;
@@ -238,15 +375,15 @@ void ENBAssetManager::Unknown_48D1F0(RenderObjClass *robj, float *hsv)
 
 	// recolor vertex material
 	for (i = 0; i < material->Vertex_Material_Count(); i++) {
-		Unknown_48BF20(material->Peek_Vertex_Material(i), hsv_shift);
+		Recolor_Vertex_Material(material->Peek_Vertex_Material(i), hsv_shift);
 	}
 
 	// recolor color arrays
 	unsigned int *color;
 	color = model->Get_Color_Array(0, false);
-	if (color) Unknown_Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
+	if (color) Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
 	color = model->Get_Color_Array(1, false);
-	if (color) Unknown_Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
+	if (color) Recolor_Vertices(color, model->Get_Vertex_Count(), hsv_shift);
 
 	// recolor textures: a cached copy first
 	TextureClass *newtex, *oldtex;
@@ -267,26 +404,26 @@ void ENBAssetManager::Unknown_48D1F0(RenderObjClass *robj, float *hsv)
 }
 
 // @0x48D710
-void ENBAssetManager::Unknown_48D710(RenderObjClass *robj, float *hsv)
+void ENBAssetManager::Recolor_HLOD(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	int count = robj->Get_Num_Sub_Objects();
 	for (int i = 0; i < count; ++i) {
 		RenderObjClass *sub = robj->Get_Sub_Object(i);
 		switch (sub->Class_ID()) {
 			case RenderObjClass::CLASSID_MESH:
-				Unknown_48D1F0(sub, hsv);
+				Recolor_Mesh(sub, hsv);
 				break;
 			case RenderObjClass::CLASSID_HLOD:
-				Unknown_48D710(sub, hsv);
+				Recolor_HLOD(sub, hsv);
 				break;
 			case RenderObjClass::CLASSID_PARTICLEEMITTER:
-				Unknown_48D850(sub, hsv);
+				Recolor_ParticleEmitter(sub, hsv);
 				break;
 			case RenderObjClass::CLASSID_SPHERE:
-				Unknown_48DD00(sub, hsv);
+				Recolor_Sphere(sub, hsv);
 				break;
 			case RenderObjClass::CLASSID_RING:
-				Unknown_48E0F0(sub, hsv);
+				Recolor_Ring(sub, hsv);
 				break;
 		}
 		if (sub != NULL) {
@@ -296,18 +433,18 @@ void ENBAssetManager::Unknown_48D710(RenderObjClass *robj, float *hsv)
 }
 
 // @0x48E4E0
-void ENBAssetManager::Unknown_48E4E0(RenderObjClass *robj, float *hsv)
+void ENBAssetManager::Recolor_Asset(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	switch (robj->Class_ID()) {
 		case RenderObjClass::CLASSID_MESH:
-			Unknown_48D1F0(robj, hsv);
+			Recolor_Mesh(robj, hsv);
 			break;
 		case RenderObjClass::CLASSID_HLOD:
 		{
 			int count = robj->Get_Num_Sub_Objects();
 			for (int i = 0; i < count; ++i) {
 				RenderObjClass *sub = robj->Get_Sub_Object(i);
-				Unknown_48E4E0(sub, hsv);
+				Recolor_Asset(sub, hsv);
 				if (sub != NULL) {
 					sub->Release_Ref();
 				}
@@ -315,13 +452,13 @@ void ENBAssetManager::Unknown_48E4E0(RenderObjClass *robj, float *hsv)
 			break;
 		}
 		case RenderObjClass::CLASSID_PARTICLEEMITTER:
-			Unknown_48D850(robj, hsv);
+			Recolor_ParticleEmitter(robj, hsv);
 			break;
 		case RenderObjClass::CLASSID_SPHERE:
-			Unknown_48DD00(robj, hsv);
+			Recolor_Sphere(robj, hsv);
 			break;
 		case RenderObjClass::CLASSID_RING:
-			Unknown_48E0F0(robj, hsv);
+			Recolor_Ring(robj, hsv);
 			break;
 	}
 }
@@ -455,8 +592,13 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	0x48E9D0 builds a culling tree for each mesh over 30 polygons (not skins) and gives the opaque meshes without physical or
 **	projectile collision COLLISION_TYPE_3, recursing into sub-objects; 0x48E620 returns true for a mesh with a 'plt_at' /
 **	'plt3505' / 'plt9601' / 'plt9703' texture and removes such meshes from their containers (only without hardware T&L). The
-**	single return(found) is what keeps found in memory for the container path. Not written: +0x78 0x48B220 (0x590 bytes; its HSV helpers 0x48D1F0 .. 0x48E0F0
-**	and the prototype class at table 0xAEA5A0 are not rebuilt). Its helpers 0x48BCF0 / 0x48BDC0 / 0x48BE60 are: make a mesh's
+**	single return(found) is what keeps found in memory for the container path.
+**	ENBPrototypeClass (0x48AED0 ctor, 0x48AF50/0x48AF80 dtors, 0x48B010 Get_Name, 0x48B030 Get_Class_ID, 0x48B050 Create)
+**	and +0x78 Create_Render_Obj(name, scale, hsv) 0x48B220 reconstructed (EAM4): the prototype class exact (table 0xAEA5A0);
+**	Create_Render_Obj calls Post_Process on cached or created objects, inlines the unique-making switch, scales, recolors
+**	via Recolor_Mesh / Recolor_HLOD / Recolor_ParticleEmitter / Recolor_Sphere / Recolor_Ring, Post_Processes, creates the
+**	prototype, releases the object reference and returns proto->Create().
+**	Its helpers Make_Mesh_Unique 0x48BCF0 / Make_HLOD_Unique 0x48BDC0 / Make_Unique 0x48BE60 are: make a mesh's
 **	geometry and / or colours (vertex materials, both colour arrays) unique, for a mesh or recursively for an HLOD's meshes;
 **	a switch on Class_ID is what puts the HLOD test first.
 **	0x48D710 (an HLOD's sub-objects) and 0x48E4E0 (one object, recursing into HLODs) hand the HSV shift to the per-class

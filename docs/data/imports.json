@@ -3629,6 +3629,9 @@
      "0x444160",
      "0x45CC10",
      "0x45CC30",
+     "0x48AED0",
+     "0x48AF50",
+     "0x48AF80",
      "0x48B0A0",
      "0x48B0F0",
      "0x48BCF0",
@@ -3652,6 +3655,7 @@
      "0x48F3A0",
      "0x48F3E0",
      "0x48F680",
+     "0x48F6F0",
      "0x48F720",
      "0x48FA10",
      "0x48FD80",
@@ -16879,7 +16883,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7460,
+  "in_tree_total": 7464,
   "totals": {}
  },
  "binkmovie": {
