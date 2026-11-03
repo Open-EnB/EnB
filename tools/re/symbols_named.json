@@ -502,5 +502,45 @@
   "address": "0xA0EC30",
   "symbol": "??0ShdDefClass@@QAE@K@Z",
   "evidence": "stores its argument at +0xC (ClassID), builds Name from the 'UnNamed' literal 0xBCB7F4, stores ShdDefClass's vtables 0xB16F70/0xB16F68, ret 4: ShdDefClass(uint32 classid) (shddef.cpp; TSH 2026-11-03)"
+ },
+ {
+  "address": "0x9B4B50",
+  "symbol": "??1AABTreeBuilderClass@@QAE@XZ",
+  "evidence": "the stack AABTreeBuilderClass's destructor: MeshGeometryClass::Generate_Culling_Tree calls it last with lea ecx,[esp+4] (0x92C96B), as do Load_W3D (0x92CCCD) and Scale (0x92D654); its byte twin 0x9B4C20 (Reset, after it in aabtreebuilder.cpp's order) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x988C20",
+  "symbol": "??1HTreeClass@@QAE@XZ",
+  "evidence": "called right before operator delete on an HTreeClass pointer: Animatable3DObjClass::Set_HTree 0x9C6460 (then 0x412B7A ??3), its destructor 0x9C5527, HTreeManagerClass::~HTreeManagerClass 0x963F7A, Load_Tree 0x9642F0; the byte twin 0x989330 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C6780",
+  "symbol": "??1BitChannelClass@@QAE@XZ",
+  "evidence": "hrawanim's NodeMotionStruct::~NodeMotionStruct deletes its BitChannelClass *Vis through it (0x9C2C3D) and HRawAnimClass::Load_W3D frees a rejected bit channel (0x9C3110) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C6E30",
+  "symbol": "??1TimeCodedBitChannelClass@@QAE@XZ",
+  "evidence": "hcanim's NodeCompressedMotionStruct::~NodeCompressedMotionStruct deletes its TimeCodedBitChannelClass *Vis through it (0x9C3B2C) and HCompressedAnimClass::Load_W3D frees a rejected one (0x9C3FF3) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x945E10",
+  "symbol": "?Set_Element@MatBufferClass@@QAEXHPAVVertexMaterialClass@@@Z",
+  "evidence": "called by DynamicMeshModel::Initialize_Material_Array (0x975E18) and DynamicMeshClass::Set_Vertex_Material (0x976B47); its byte twin 0x946010 is called by the texture paths (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x946010",
+  "symbol": "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
+  "evidence": "called by DynamicMeshModel::Initialize_Texture_Array (0x975DDA), DynamicMeshClass::Set_Texture (0x976E1C) and MeshModelClass::post_process_fog (0x9BCFCE) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x950CA0",
+  "symbol": "?_Reset@DynamicVBAccessClass@@SAX_N@Z",
+  "evidence": "WW3D::Begin_Render calls it first (0x917B0F) and SortingRendererClass::Flush second (0x9846FF), as ww3d.cpp (VB then IB) and sortingrenderer.cpp (IB then VB) order their _Reset calls (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x951A70",
+  "symbol": "?_Reset@DynamicIBAccessClass@@SAX_N@Z",
+  "evidence": "WW3D::Begin_Render calls it second (0x917B16) and SortingRendererClass::Flush first (0x9846F8), as ww3d.cpp and sortingrenderer.cpp order their _Reset calls (TW3, run 2026-11-03 pm)"
  }
 ]

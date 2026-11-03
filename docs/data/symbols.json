@@ -125751,6 +125751,13 @@
 "length": 99
 },
 {
+"address": "0x945E10",
+"symbol": "?Set_Element@MatBufferClass@@QAEXHPAVVertexMaterialClass@@@Z",
+"name": "MatBufferClass::Set_Element",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x945EA0",
 "symbol": "??0TexBufferClass@@QAE@ABV0@@Z",
 "name": "TexBufferClass::TexBufferClass",
@@ -125773,6 +125780,13 @@
 "kind": "function",
 "source": "exact",
 "length": 99
+},
+{
+"address": "0x946010",
+"symbol": "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
+"name": "TexBufferClass::Set_Element",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x9460A0",
@@ -127259,6 +127273,13 @@
 "length": 47
 },
 {
+"address": "0x950CA0",
+"symbol": "?_Reset@DynamicVBAccessClass@@SAX_N@Z",
+"name": "DynamicVBAccessClass::_Reset",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x950CC0",
 "symbol": "??0IndexBufferClass@@QAE@IG@Z",
 "name": "IndexBufferClass::IndexBufferClass",
@@ -127417,6 +127438,13 @@
 "kind": "function",
 "source": "exact",
 "length": 368
+},
+{
+"address": "0x951A70",
+"symbol": "?_Reset@DynamicIBAccessClass@@SAX_N@Z",
+"name": "DynamicIBAccessClass::_Reset",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x951A90",
@@ -134650,6 +134678,13 @@
 "length": 59
 },
 {
+"address": "0x988C20",
+"symbol": "??1HTreeClass@@QAE@XZ",
+"name": "HTreeClass::~HTreeClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x988C60",
 "symbol": "??0HTreeClass@@QAE@ABV0@@Z",
 "name": "HTreeClass::HTreeClass",
@@ -140222,6 +140257,13 @@
 "length": 22
 },
 {
+"address": "0x9B4B50",
+"symbol": "??1AABTreeBuilderClass@@QAE@XZ",
+"name": "AABTreeBuilderClass::~AABTreeBuilderClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x9B4BD0",
 "symbol": "??_GCullNodeStruct@AABTreeBuilderClass@@QAEPAXI@Z",
 "name": "CullNodeStruct::scalar deleting dtor",
@@ -142394,6 +142436,13 @@
 "length": 25
 },
 {
+"address": "0x9C6780",
+"symbol": "??1BitChannelClass@@QAE@XZ",
+"name": "BitChannelClass::~BitChannelClass",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x9C67C0",
 "symbol": "?Load_W3D@BitChannelClass@@QAE_NAAVChunkLoadClass@@@Z",
 "name": "BitChannelClass::Load_W3D",
@@ -142464,6 +142513,13 @@
 "kind": "function",
 "source": "exact",
 "length": 19
+},
+{
+"address": "0x9C6E30",
+"symbol": "??1TimeCodedBitChannelClass@@QAE@XZ",
+"name": "TimeCodedBitChannelClass::~TimeCodedBitChannelClass",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x9C6E70",
