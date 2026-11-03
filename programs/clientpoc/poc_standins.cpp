@@ -65,22 +65,3 @@ void Unknown_8B20D0Class::Unknown_8B2230()
 	STUB_CALLED("Unknown_8B20D0Class::Unknown_8B2230 (0x8B2230, msgserv.cpp)");
 }
 
-// ---------------------------------------------------------------- the personality manager
-
-class Unknown_790560Class { public: Unknown_790560Class(); ~Unknown_790560Class(); char Unknown00[0x14]; };
-
-Unknown_790560Class *Unknown_BE856C;	// 0xBE856C
-
-Unknown_790560Class::Unknown_790560Class()
-{
-	STUB_CALLED("Unknown_790560Class (0x790560, the personality manager): no personalities");
-}
-
-Unknown_790560Class::~Unknown_790560Class()
-{
-}
-
-void Unknown_790940(Unknown_790560Class *manager)
-{
-	Unknown_BE856C = manager;
-}

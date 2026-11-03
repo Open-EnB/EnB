@@ -16,6 +16,7 @@
 #include "..\shared\unknown_message.h"
 #include "random.h"
 #include "ini.h"
+#include "nlp.h"
 
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
@@ -23,59 +24,6 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
-
-// POC stand-in (D64) for the personality manager's entry (0x790260 builds one, 0x188 bytes, from
-// personalities\Personality%02d.ini; 0x790D40 finds it by number): only what avatar.cpp asks of it,
-// read from the same INI. Its vtable +0x20 is the HEADER's FigetDelay (0x77B870 halves it for the
-// random part of the delay), +0x30 the BANIM entry by Tag (0x78F640 returns its +0x04 AnimNumber).
-class Unknown_790260Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown_790260Class(int personality) : FigetDelay(50), Ini(NULL)
-	{
-		char name[256];
-		_snprintf(name, sizeof(name), "%sPersonality%02d.ini", "personalities\\", personality);
-		Ini = new INIClass(name);
-		if (Ini->Is_Loaded()) {
-			FigetDelay = Ini->Get_Int("HEADER", "FigetDelay", 50);
-		}
-	}
-	~Unknown_790260Class() { delete Ini; }
-	int Unknown_20() { return(FigetDelay); }
-	int Unknown_30(const char *tag)
-	{
-		if (Ini->Is_Loaded()) {
-			for (int i = 0; i < 256; i++) {
-				char section[32];
-				char value[64];
-				sprintf(section, "BANIM-%d", i);
-				if (!Ini->Section_Present(section)) {
-					break;
-				}
-				Ini->Get_String(section, "Tag", "", value, sizeof(value));
-				if (stricmp(value, tag) == 0) {
-					return(Ini->Get_Int(section, "AnimNumber", 0));
-				}
-			}
-		}
-		return(0);
-	}
-	int FigetDelay;
-	INIClass *Ini;
-};
-
-// POC stand-in (D64) for nlp.cpp's class (0x78EB50, vtable 0xB04A2C): +0x0C the personality
-class PlayerNLPClass
-{
-public:
-	PlayerNLPClass() : Unknown0C(NULL) {}
-	virtual ~PlayerNLPClass() { delete Unknown0C; }
-	// 0x78EC00 (vtable +0x00: 0x77B870 passes the descriptor's personality and nlp): +0x0C from 0x790D40, +0x10 lexicon%02d.ini
-	void Unknown_78EC00(int personality, int nlp) { if (!Unknown0C) Unknown0C = new Unknown_790260Class(personality); }
-	// 0x78F640: the personality's body animation number by tag (FAIL_IF '!body_anim')
-	int Unknown_78F640(const char *tag) { return(Unknown0C ? Unknown0C->Unknown_30(tag) : 0); }
-	Unknown_790260Class *Unknown0C;
-};
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -159,7 +107,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			PlayerNLP = new PlayerNLPClass();
 		}
 		PlayerNLP->Unknown_78EC00(Desc.Personality, Desc.NLP);
-		Unknown224 = Unknown_BDBB84(0, PlayerNLP->Unknown0C->Unknown_20() / 2);
+		Unknown224 = Unknown_BDBB84(0, PlayerNLP->Personality->Get_Fidget_Delay() / 2);
 		Unknown221 = true;
 		Unknown220 = true;
 
@@ -583,7 +531,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 // NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built)
 void CharacterViewAvatarClass::Unknown_781EA0()
 {
-	int delay = PlayerNLP->Unknown0C->Unknown_20();
+	int delay = PlayerNLP->Personality->Get_Fidget_Delay();
 	Unknown220 = true;
 	if (SpeechSound) {
 		SpeechSound->Stop(1);

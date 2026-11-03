@@ -27,6 +27,13 @@ public:
 	virtual char *Unknown_00();	// +0x00 0x4C43D0: Unknown04  // NAME 1: neutral (D10)
 	virtual int Unknown_04();	// +0x04 0x4C43F0: Unknown08 (AVATAR_EMOTE 94 takes it as its ChatSize)  // NAME 1: neutral (D10)
 	virtual void Unknown_4C48C0(char *text);	// +0x08 0x4C48C0: the blocks' text  // NAME 1: neutral (D10)
+	// the rest of the vtable, declared for nlp.cpp's parser (the avatar's +0xE8 is one: 0x4C4430 constructs it)
+	virtual void Unknown_4C4940();	// +0x0C 0x4C4940  // NAME 1: neutral (D10)
+	virtual void Unknown_4C44A0();	// +0x10 0x4C44A0 (the avatar clears it before parsing)  // NAME 1: neutral (D10)
+	virtual void Unknown_4C4850(int a, int b);	// +0x14 0x4C4850  // NAME 1: neutral (D10)
+	virtual void Unknown_4C47B0(int a, int b);	// +0x18 0x4C47B0  // NAME 1: neutral (D10)
+	virtual void Unknown_4C46E0(int a);	// +0x1C 0x4C46E0  // NAME 1: neutral (D10)
+	virtual void Unknown_4C45B0(int type, unsigned char value, const char *text, int len);	// +0x20 0x4C45B0: adds a block (nlp.cpp: 0 mood, 1 text with its talk animation, 2 gesture)  // NAME 1: neutral (D10)
 
 	void *Unknown04;	// +0x04 (malloc'd)
 	int Unknown08;	// +0x08

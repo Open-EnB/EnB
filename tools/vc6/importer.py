@@ -4079,6 +4079,8 @@ RECONSTRUCTED = {
                                  "Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
     ('app', 'client/unknown_creator.h'): "CharacterCreatorClass (the Character and Starship Creator's folder) and LoginNameDataClass (0x84 bytes, vtable 0xB04160) (PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
     ('app', 'client/unknown_creator.cpp'): "client 0x78CEE0-0x78E190, the run between avatar.cpp and nlp.cpp (PROVISIONAL file name, D10: no __FILE__): the creator's constructor (registry, folders; D69: never run), the byte sum, Make_Folder, the name's Set_Name / Write / Read / Get_Size; exact; the avatar files' functions 0x78D480-0x78DE40 not yet",
+    ('app', 'client/nlp.cpp'): "client 0x78E190-0x7911D0 (the asserts' __FILE__ nlp.cpp, lines 413, 454, 708): the lexicon (NLPLexiconClass), PlayerNLPClass (vtable 0xB04A2C) with the text parser 0x78F050, and the personality data / entries / manager 0x78F700-0x790EE0 (interim placement, D137); NOT EXACT functional for the POC (D64) where marked",
+    ('app', 'client/nlp.h'): "PlayerNLPClass, NLPLexiconClass, the personality classes (D24: by convention from nlp.cpp)",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
