@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 88 |
+| 5 | the client names it | 89 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2922 |
-| 1 | neutral placeholder | 11091 |
+| 1 | neutral placeholder | 11093 |
 
 ## For review (score 3 and below)
 
@@ -2731,11 +2731,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:131` | neutral |
 | 1 | `BackInterface` | `app/client/interface_static_sort_list.h:135` | neutral (FrontInterface's opposite) |
 | 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:139` | neutral |
-| 1 | `InterfaceSignalMapClass` | `app/client/intrface.cpp:38` | neutral (D10) |
-| 1 | `sender, callback` | `app/client/intrface.cpp:41` | neutral |
-| 1 | `sender, callback` | `app/client/intrface.cpp:42` | neutral |
-| 1 | `sender, object, function` | `app/client/intrface.cpp:44` | neutral |
-| 1 | `sender, object, function, event` | `app/client/intrface.cpp:49` | neutral |
 | 1 | `Unknown44` | `app/client/intrface.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/intrface.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/intrface.cpp:72` | untagged neutral name (D10) |
@@ -4634,6 +4629,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7FFD30` | `app/client/scriptedmovieline.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFDC0` | `app/client/scriptedmovieline.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/scriptedmovieline.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/signal_map.cpp:22` | same layout as SignalMap |
+| 1 | `std:` | `app/client/signal_map.cpp:25` | neutral (D10) |
+| 1 | `std:` | `app/client/signal_map.cpp:26` | neutral (D10) |
+| 1 | `SignalMapData` | `app/client/signal_map.cpp:28` | neutral (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/signal_map.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_4F7F60` | `app/client/signal_map.cpp:46` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/smouse.cpp:10` | as scriptedmovie.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/smouse.cpp:10` | untagged neutral name (D10) |
 | 1 | `SMouseDragClass` | `app/client/smouse.cpp:22` | neutral (D10) |
@@ -8258,7 +8259,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Is_Same` | `app/client/unknown_signalbase.h:42` | what it does |
 | 1 | `Object` | `app/client/unknown_signalbase.h:45` | what it holds |
 | 1 | `Function` | `app/client/unknown_signalbase.h:46` | what it holds |
-| 1 | `Unknown00` | `app/client/unknown_signalbase.h:59` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/unknown_signalbase.h:90` | neutral (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:93` | untagged neutral name (D10) |
 | 1 | `InterfaceClass` | `app/client/view.cpp:27` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/view.cpp:32` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/view.cpp:32` | untagged neutral name (D10) |
@@ -10754,9 +10756,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0Class` | `programs/clientpoc/poc_link.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0Class` | `programs/clientpoc/poc_link.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_8B20D0Class` | `programs/clientpoc/poc_standins.cpp:38` | untagged neutral name (D10) |
@@ -12297,7 +12299,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Green` | `app/client/unknown_screenfade.cpp:45` | Set_Screen_Fade_Color's second |
 | 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
 | 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
-| 2 | `emit` | `app/client/unknown_signalbase.h:57` | the typed form Save's call expands to |
+| 2 | `emit` | `app/client/unknown_signalbase.h:73` | the typed form Save's call expands to |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Add` | `app/common/average.h:116` | what it does |
 | 2 | `Count` | `app/common/average.h:123` | what it holds |

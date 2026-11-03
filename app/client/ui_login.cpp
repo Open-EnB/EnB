@@ -195,11 +195,11 @@ typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginC
 
 
 
-class InterfaceSignalMapClass		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
+class InterfaceSignalMapClass : public SignalMap		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
 {
 public:
-	void Add(void *sender, LoginCallbackBaseClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
-	void Remove(void *sender, const LoginCallbackBaseClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Add(void *sender, LoginCallbackBaseClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Remove(void *sender, const LoginCallbackBaseClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
 };
 // (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map; FlashingGadgetEvent: gadget.h)
 

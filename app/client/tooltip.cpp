@@ -29,11 +29,11 @@ bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or k
 
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as intrface.cpp's InterfaceSignalMapClass
-class TooltipSignalMapClass  // NAME 1: neutral (D10)
+class TooltipSignalMapClass : public SignalMap  // NAME 1: neutral (D10)
 {
 public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
 	template <class SENDER, class OBJECT, class EVENT>
 	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
 	{

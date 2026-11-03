@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 102,
+  "ambiguous_total": 105,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -13535,6 +13535,40 @@
      "0x42F250"
     ]
    },
+   "signal_map": {
+    "ambiguous": [
+     "0x42A890",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x436420",
+     "0x443F30",
+     "0x4D8F80",
+     "0x4F8910",
+     "0x4F8BD0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x4F8AA0",
+     "0x4F8F00",
+     "0x4F9030",
+     "0x4F9200"
+    ],
+    "merged": [],
+    "name": "client/signal_map.cpp",
+    "shared": [
+     "0x444160"
+    ],
+    "tiebreak": [
+     "0x4F9030",
+     "0x4F9200"
+    ]
+   },
    "smouse": {
     "ambiguous": [
      "0x42B2F0"
@@ -16978,7 +17012,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7483,
+  "in_tree_total": 7487,
   "totals": {}
  },
  "binkmovie": {
