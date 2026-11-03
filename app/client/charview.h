@@ -38,33 +38,7 @@ class AudibleSoundClass;
 class SClientUnknown1338Class;		// sclient.cpp's: env_map_manager.cpp's 'envmaps.ini' (0x24 bytes)
 #include "rendobj.h"
 
-// avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4), as far as charview.cpp and ui_login.cpp call it
-class CharacterViewAvatarClass : public RenderObjClass	// NAME 1: neutral (D10)
-{
-public:
-	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes; 0x67A6C0: the narrator's description, 1, 0, NULL; 0x67BF20 passes +0x3A4)  // NAME 1 [desc, a, b, env_maps]: what the callers pass
-	virtual RenderObjClass *Clone() const;				// (avatar.cpp's)
-	virtual void Render(RenderInfoClass &rinfo);		// (avatar.cpp's)
-	virtual void Unknown_1C4();							// +0x1C4 its first own slot, after RenderObjClass's 113 (every frame)
-	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
-	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
-	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
-	void Unknown_784E00();								// 0x784E00
-	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
-	bool Unknown_7863E0();								// 0x7863E0
-	void Unknown_788EF0();								// 0x788EF0
-	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
-	char Unknown_Pad[0x214 - sizeof(RenderObjClass)];
-	bool Unknown214;									// +0x214 (0x67A440 sets it)
-	char Unknown215[0x220 - 0x215];
-	bool Is_Unknown220() { return(Unknown220); }		// (ui_login.cpp)  // NAME 1: neutral (D10)
-	bool Unknown220;									// +0x220 (ui_login.cpp's 0x5ADA50: the narrator's welcome waits for it)
-	char Unknown221[0x231 - 0x221];
-	bool Unknown231;									// +0x231 (0x67A440 clears it)
-	bool Unknown232;									// +0x232 (0x67A440 sets it)
-	void Unknown_Inline_231() { Unknown231 = false; Unknown214 = true; }	// (inline in 0x67A440, 0x67B390: one load of the pointer for both)  // NAME 1: neutral (D10)
-	char Unknown233[0x384 - 0x233];					// +0x233 (0x384 bytes: the callers' new)
-};
+#include "avatar.h"
 
 // The view's modes (+0x1AC): the FAIL_IF 'mode < CHARACTER_POPUP_MESSAGE || mode >= CHARACTER_LASTVIEWMODE' (0x67A370)
 // and the screens 0x679160 makes for them

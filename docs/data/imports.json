@@ -720,6 +720,70 @@
      "0x7584F0"
     ]
    },
+   "avatar": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x462BF0",
+     "0x462C10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x53BB50",
+     "0x77BFA0",
+     "0x77BFE0",
+     "0x77E3D0",
+     "0x786370",
+     "0x7863E0"
+    ],
+    "merged": [],
+    "name": "client/avatar.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x462BF0",
+     "0x462C10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x53BB50"
+    ]
+   },
    "avatar_desc": {
     "ambiguous": [
      "0x42A6C0",
@@ -16747,6 +16811,7 @@
    "audio/soundlib.h": "reconstructed",
    "audio/surfacetypes.h": "reconstructed",
    "client/aux_roots.h": "reconstructed",
+   "client/avatar.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/charview.h": "reconstructed",
@@ -17058,7 +17123,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7529,
+  "in_tree_total": 7534,
   "totals": {}
  },
  "binkmovie": {
