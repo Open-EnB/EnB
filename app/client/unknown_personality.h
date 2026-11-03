@@ -80,12 +80,21 @@ public:
 	Unknown_78F700Class *Data;						// +0x184  // NAME 2: what it holds
 };
 
-// The lip-sync phoneme converter (0x791310-0x792040, not rebuilt: another file's), the manager's +0x10
+// The lip-sync phoneme converter (unknown_phoneme.cpp, 0x791310-0x792040), the manager's +0x10: text
+// to mouth shape numbers (0-15), by letter groups (the table 0xB9DAB8) and rules per vowel
 class Unknown_791310Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
-	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400  // NAME 1: neutral (D10)
+	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+	static int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+	static int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+	static int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+	static int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+	static int Unknown_791BF0(const char *text, char prev, int *shapes);	// 0x791BF0: 'o'  // NAME 1: neutral (D10)
+	static int Unknown_791E50(const char *text, char prev, int *shapes);	// 0x791E50: 's'  // NAME 1: neutral (D10)
+	static int Unknown_791F10(const char *text, char prev, int *shapes);	// 0x791F10: 't' (0x791400 has its own copy)  // NAME 1: neutral (D10)
+	static int Unknown_791F80(const char *text, char prev, int *shapes);	// 0x791F80: 'u'  // NAME 1: neutral (D10)
 };
 
 // The personality manager (0x14 bytes, 0xBE856C; WinMain makes it): personalities\PersonalityNN.ini from 00

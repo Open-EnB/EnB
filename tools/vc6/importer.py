@@ -4084,6 +4084,7 @@ RECONSTRUCTED = {
     ('app', 'client/unknown_personality.h'): "the personality data (vtable 0xB04A40), the personality file and the personality manager (0xBE856C) (PROVISIONAL file name, D10: no __FILE__)",
     ('app', 'client/unknown_personality.cpp'): "client 0x78F700-0x790560 after nlp.cpp (PROVISIONAL file name, D10; a separate file from nlp.cpp and the manager's: the client inlines none of its functions there): a personality's data loaded from personalities\\PersonalityNN.ini, the personality file; NOT EXACT functional for the POC (D64) where marked",
     ('app', 'client/unknown_personality_manager.cpp'): "client 0x790560-0x7912E0 (PROVISIONAL file name, D10): the personality manager (0xBE856C, WinMain makes it) and its std::vector instances; NOT EXACT functional for the POC (D64) where marked",
+    ('app', 'client/unknown_phoneme.cpp'): "client 0x791310-0x792040 after the personality manager (PROVISIONAL file name, D10: no __FILE__): the lip-sync phoneme converter (the manager's +0x10; 0x78EEF0 times the talk animation with it), its table 0xB9DAB8 and index 0xBE8570; NOT EXACT functional for the POC (D64) where marked",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
