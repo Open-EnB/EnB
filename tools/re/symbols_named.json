@@ -542,5 +542,15 @@
   "address": "0x951A70",
   "symbol": "?_Reset@DynamicIBAccessClass@@SAX_N@Z",
   "evidence": "WW3D::Begin_Render calls it second (0x917B16) and SortingRendererClass::Flush first (0x9846F8), as ww3d.cpp and sortingrenderer.cpp order their _Reset calls (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x945E90",
+  "symbol": "?Peek_Element@MatBufferClass@@QAEPAVVertexMaterialClass@@H@Z",
+  "evidence": "MeshModelClass::post_process_fog calls it twice (0x9BCFEC, 0x9BD02E) for MaterialArray[1]->Peek_Element(0) and MaterialArray[0]->Peek_Element(i), meshmdlio.cpp's two material peeks; its byte twin 0x946090 is the texture peek (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x946090",
+  "symbol": "?Peek_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z",
+  "evidence": "MeshModelClass::post_process_fog calls it once (0x9BCFBE) for TextureArray[1][0]->Peek_Element(i), right before TexBufferClass::Set_Element 0x946010 (0x9BCFCE) (TW3, run 2026-11-03 pm)"
  }
 ]

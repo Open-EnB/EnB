@@ -125758,6 +125758,13 @@
 "source": "named"
 },
 {
+"address": "0x945E90",
+"symbol": "?Peek_Element@MatBufferClass@@QAEPAVVertexMaterialClass@@H@Z",
+"name": "MatBufferClass::Peek_Element",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x945EA0",
 "symbol": "??0TexBufferClass@@QAE@ABV0@@Z",
 "name": "TexBufferClass::TexBufferClass",
@@ -125785,6 +125792,13 @@
 "address": "0x946010",
 "symbol": "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
 "name": "TexBufferClass::Set_Element",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x946090",
+"symbol": "?Peek_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z",
+"name": "TexBufferClass::Peek_Element",
 "kind": "function",
 "source": "named"
 },
