@@ -136749,6 +136749,20 @@
 "length": 223
 },
 {
+"address": "0x995610",
+"symbol": "?Convert_Vector@W3dUtilityClass@@SAXABUIOVector3Struct@@PAVVector3@@@Z",
+"name": "W3dUtilityClass::Convert_Vector",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x995630",
+"symbol": "?Convert_Vector@W3dUtilityClass@@SAXABVVector3@@PAUIOVector3Struct@@@Z",
+"name": "W3dUtilityClass::Convert_Vector",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x995690",
 "symbol": "?Convert_Color@W3dUtilityClass@@SAXABUW3dRGBStruct@@PAVVector3@@@Z",
 "name": "W3dUtilityClass::Convert_Color",

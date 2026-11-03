@@ -17753,6 +17753,8 @@ SYMBOLS = [
     (0x00994CA0, 'IDBufferClass__Render_Triangle', 'function'),
     (0x00995330, 'IDBufferClass__Render_Occluder_Scanline', 'function'),
     (0x00995490, 'IDBufferClass__Render_Non_Occluder_Scanline', 'function'),
+    (0x00995610, 'W3dUtilityClass__Convert_Vector', 'function'),
+    (0x00995630, 'W3dUtilityClass__Convert_Vector', 'function'),
     (0x00995690, 'W3dUtilityClass__Convert_Color', 'function'),
     (0x009956E0, 'W3dUtilityClass__Convert_Color', 'function'),
     (0x00995730, 'W3dUtilityClass__Convert_Color', 'function'),

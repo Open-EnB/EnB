@@ -602,5 +602,15 @@
   "address": "0x921140",
   "symbol": "?Log_DX8_ErrorCode@@YAXI@Z",
   "evidence": "147 callers (dx8wrapper.h's inline DX8_ErrorCode calls Log_DX8_ErrorCode); its byte twin 0x921180 (Non_Fatal_Log_DX8_ErrorCode) has none (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x995610",
+  "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABUIOVector3Struct@@PAVVector3@@@Z",
+  "evidence": "file-to-engine direction: LightClass::Load_W3D (0x953D48, light.cpp's Convert_Vector(spotinfo.SpotDirection,&vec)), SpherePrototypeClass::Create (0x90E299, 0x90E2A9: Definition -> sphere) and RingPrototypeClass::Create (0x9131F0) call it (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x995630",
+  "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABVVector3@@PAUIOVector3Struct@@@Z",
+  "evidence": "engine-to-file direction: SpherePrototypeClass's constructor from a sphere calls it four times (0x90DD28, 0x90DD36, 0x90DD5C, 0x90DD82; sphereobj.cpp's def_color / def_scale / Center / Extent into Definition) (TW3, run 2026-11-03 pm)"
  }
 ]
