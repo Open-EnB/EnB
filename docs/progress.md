@@ -4,6 +4,38 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (11:45 PST, morning): the POC gets past the avatar list without a crash; agy Flash window spent; +45 pairs, 0 lost
+
+Coordinator Opus 5.5 on the subscription (Claude weekly 99 %: hourly heartbeats, minimal); builders Gemini 3.8 Flash high
+through agy (D187), 7 items, the 5-hour window 100 % -> 0 % in 2h50m (about 1.4 % per 100k tokens; 7.5M tokens in all).
+Branch run/2026-11-03, PR #147 (draft), base 7cf59deb (PR #146 merged); HEAD cd74e1a8, +45 pairs vs the baseline, 0 lost.
+Plan log `.work/run-2026-11-03-agy/plan.md`.
+
+- STORE (0.45M; resumed from the night's Flash + Sonnet edits): settings_store.cpp 0x7C97B0-0x7CCF20 (accessor 0x7CA2D0,
+  ctor, 0x7CB610, Set_String / Set_Int / Set_Int64 / Get_String) +23, 6 NOT EXACT; POC store stand-in and clienttest's
+  settings stubs gone.
+- A574 (1.30M): ClassSelectInterface, new app/client/ui_class.cpp/.h (0x574710-0x577DA0) +12, 9 NOT EXACT.
+- LOG (1.52M): Unknown_Log 0x7E5F90 / 0x7E5F70 (unknown_log.cpp), 0x8B4560 / 0x8B4510 (shared/unknown_8b4560.cpp), ro_funcs
+  0x496730 / 0x496AE0 retyped bool in 8 callers (39 fewer gen stand-ins): +3, all exact.
+- CUR3 (1.89M, no commit): the cursor's black square is _PresetOpaque2DShader chosen at 0x974CD0 while the cursor texture's
+  format is still UNKNOWN (Request_Foreground_Loading off the DX8 thread queues it); smouse 0x515120 never re-creates it.
+  ARROW.dds is DXT5 with alpha.
+- SLD (0.96M): GadgetSlider, new app/client/gd_slider.cpp/.h (0x128 bytes, vtable 0xAFAF78) +4, 0x66DFC0 / 0x66E460 NOT EXACT.
+- CVW (1.13M): the crash at 0x400003 was ui_class's undeclared UIClassNotifierClass method (/FORCE:UNRESOLVED points it at the
+  image base); ClassSelectInterface connects FlashingGadgetEvent through SignalMap 0x4F9740 / 0x4F98D0.
+- AVS (0.66M): POC forwarders in poc_ui.cpp for UIAvsel* -> the real CharacterViewClass / CharacterViewAvatarClass (the gen
+  no-op 0x67AB20 left Model NULL: crash 0x4F592E in FontManagerClass::Add).
+- TIP (1.02M, timed out before committing; the coordinator committed its verified work): intrlist.cpp 0x687150 / 0x6872A0 /
+  0x687360 +3, exact.
+- POC via antprox /REPLAY (D181) + input3, per landing: at 9ca5bfd9 a crash after Accept in GadgetClass::Unknown_65F5F0
+  (0x42AC5F, garbage pointer) <- tooltip 0x6AB5B0 <- UIViewClass::Unknown_14 <- LoginTaskClass::Run; at cd74e1a8 (with
+  0x6872A0 real) no crash in 50 s, login + avatar list received, but the screen stays the login screen (shots
+  .work/poc/shots/replay-113603).
+- Coordinator traps: a worktree reset onto a new base needs its wt base file updated (bring-over refused 'merge commits');
+  poc_check.sh's LOG and rebase_gen.sh's BASELINE must be absolute paths.
+- Proposals (user): build.py:568 skip the clientpoc deploy when `--out` is given (CVW: worktree links deploy over
+  ClientPOC\release); D66-free. prepush_check.py's cat-file pipe can deadlock on Windows (CVW).
+
 ### 2026-11-02 (23:10 PST, night): the POC's mouse and keyboard log in against antprox /REPLAY; agy quota measured; +85 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription (Claude weekly 98-99 % all run: lean); builders Gemini 3.8 Flash high through agy
@@ -2165,12 +2197,11 @@ below name only the work items, the blocked work, the leads and the queues.
      first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
      2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with poc_input.cpp's virtual
      cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
-     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the avatar selection interface
-     Unknown574710InterfaceClass (ctor 0x574710, a gen stand-in: after GLOBAL_AVATAR_LIST the login task makes it, then
-     crashes in CharacterViewClass::Unknown_67A370 reading +0x54); the settings store 0x7CA2D0-0x7CBA00 (the Accept path:
-     gen 0x7CB610 / Set_String, POC stand-in store; Flash + Sonnet partial edits uncommitted in .work/wt/store), gen
-     0x8B4560 / Unknown_Log; the cursor's black square (smouse 0x515080 over mousetbl's textures: alpha lost; not
-     bmp2d 0x974CD0, exact); the first-call stand-ins in
+     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: after the avatar list the screen stays the login screen
+     (no crash since cd74e1a8): why the login task does not show the avatar selection / class select interface (an
+     earlier run crashed there in GadgetClass::Unknown_65F5F0 <- tooltip 0x6AB5B0, NOT EXACT); ui_class.cpp's 9 and
+     settings_store.cpp's 6 NOT EXACT; the cursor's black square (0x974CD0 picks the opaque shader while the cursor
+     texture's format is UNKNOWN: foreground loading off the DX8 thread; smouse 0x515120 never re-creates it); the first-call stand-ins in
      stubs.log order (gen SoundManagerClass's ctor and Unknown_442650's neighbours, Full_Path_File_Exists, SignalMap /
      InterfaceKeyListClass / InterfaceUnknown58Class ctors, SClientUnknown1338Class::Load, the avatar's 0x77E3D0 /
      0x786370 / 0x784A50; never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
