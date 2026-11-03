@@ -32,7 +32,7 @@ public:
 	InterfaceSceneClass();									// 0x6DA4D0
 	virtual ~InterfaceSceneClass();							// 0x6DA5C0 (scalar deleting 0x6DA590)
 
-	virtual int Get_Scene_ID(void) { return(SCENE_ID_LAST + 1); }	// 0x6DA570 (0x10000)
+	virtual int Get_Scene_ID(void) const { return(SCENE_ID_LAST + 1); }	// 0x6DA570 (0x10000)
 
 	virtual void Add_Render_Object(RenderObjClass *obj);	// 0x6DA650 (and to the sort list)
 	virtual void Remove_Render_Object(RenderObjClass *obj);	// 0x6DA680
