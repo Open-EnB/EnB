@@ -4087,6 +4087,8 @@ RECONSTRUCTED = {
                                          "(builder P4, 15 of 15 exact in appfile.py match)",
     ('app', 'common/unknown_navlist.h'): "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, "
                                        "a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp",
+    ('app', 'common/unknown_847d20.h'): "PROVISIONAL file name (D10, D137): the EULA / ROC dialog helper Unknown_847D20; rebuilt in unknown_847d20.cpp",
+    ('app', 'common/unknown_847d20.cpp'): "PROVISIONAL file name (D10, D137): the EULA / ROC dialog helper Unknown_847D20 (0x847D20 exact) and its dialog procedure Unknown_847FE0 (0x847FE0, NOT EXACT: inline-budget), client 0x847D20-0x8480C0 in app\\common after optdlg.cpp and before pal_mgr.cpp",
     ('app', 'common/vendor_defs.cpp'): "vendor_defs.cpp (the client's __FILE__, FAIL_IF l.47 / 48 / 85 / 86): the "
                                      "vendor's and the ambient character's type converters, client 0x84C270-0x84C42C "
                                      "(builder NW4, 6 of 6 exact in appfile.py match)",

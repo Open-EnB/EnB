@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1165 |
 | 2 | describes what the code does | 2920 |
-| 1 | neutral placeholder | 11037 |
+| 1 | neutral placeholder | 11041 |
 
 ## For review (score 3 and below)
 
@@ -8355,6 +8355,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_82E1D0` | `app/common/udpconn.h:101` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
 | 1 | `UDPListenerClass` | `app/common/udpconn.h:104` | after the file udpconn.cpp |
 | 1 | `CordMgrTaskClass` | `app/common/udpconn.h:120` | after its profile label 'CordMgr::Run' |
+| 1 | `Unknown_BF3DB4` | `app/common/unknown_847d20.cpp:9` | background brush for the EULA / ROC static text (0xBF3DB4) |
+| 1 | `Unknown_847FE0` | `app/common/unknown_847d20.cpp:11` | dialog procedure for the EULA / ROC dialog (0x847FE0) |
+| 1 | `Unknown_847D20` | `app/common/unknown_847d20.cpp:14` | the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes |
+| 1 | `Unknown_847D20` | `app/common/unknown_847d20.h:5` | the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes |
 | 1 | `Unknown50` | `app/common/unknown_galaxy.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/common/unknown_galaxy.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/common/unknown_galaxy.cpp:20` | untagged neutral name (D10) |

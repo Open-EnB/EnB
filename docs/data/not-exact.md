@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-422 entries in 109 files.
+423 entries in 110 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -284,6 +284,7 @@ edit the comments in the code, not this file.
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02: its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two clos... |
+| `app/common/unknown_847d20.cpp:42` | `Unknown_847FE0` | marker | NOT EXACT: inline-budget |
 | `app/common/unknown_verb.cpp:45` | `Value_To_String` | marker | NOT EXACT: 0.65, prologue: the client saves ebx / edi only in the found path (their pushes after the search loop) |
 | `app/dbgmgr/dbgmgr.cpp:159` | `Unknown_Debug_End_Step` | marker | NOT EXACT: shape, 0.56 (explain.py): register allocation and a dead store of end()._Last (see attempts.csv) |
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |

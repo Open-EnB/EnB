@@ -47,7 +47,7 @@ void Unknown_4BC000(const char *sender, const char *category, const char *file, 
 
 // ui_registration.h: Unknown_5FAD50, Unknown_5FADE0
 // dialogs (optdlg.cpp's neighbours)
-bool Unknown_847D20(const char *filename);			// NAME 1 [Unknown_847D20]: the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes
+#include "..\common\unknown_847d20.h"					// NAME 1 [Unknown_847D20]: the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes
 bool Unknown_846C90();								// NAME 1 [Unknown_846C90]: the -MENU dialog; false ends the program
 
 // main.cpp's (the object at 0x445330-0x445725, 'Main.cpp:' in its log texts): the exception hooks, the build texts, the

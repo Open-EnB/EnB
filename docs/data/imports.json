@@ -15784,6 +15784,25 @@
      "0x6CF410"
     ]
    },
+   "unknown_847d20": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A970",
+     "0x42AB30",
+     "0x847D20"
+    ],
+    "merged": [],
+    "name": "common/unknown_847d20.cpp",
+    "shared": [
+     "0x42A970",
+     "0x42AB30"
+    ]
+   },
    "unknown_authlogin": {
     "ambiguous": [
      "0x42A6C0",
@@ -16676,6 +16695,7 @@
    "common/stredit.h": "reconstructed",
    "common/tcpconn.h": "reconstructed",
    "common/udpconn.h": "reconstructed",
+   "common/unknown_847d20.h": "reconstructed",
    "common/unknown_galaxy.h": "reconstructed",
    "common/unknown_navlist.h": "reconstructed",
    "common/unknown_rate.h": "reconstructed",
@@ -16895,7 +16915,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7466,
+  "in_tree_total": 7467,
   "totals": {}
  },
  "binkmovie": {
