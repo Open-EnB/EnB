@@ -53,7 +53,8 @@ Each step is logged to stdout with the time it was sent.
 every CLIENT ARG; it adds the '-') and tools/harness/msglisten.py beside it (--pid: the client's own port), which writes the
 client's debug messages (G_ASSERT / FAIL_IF and the reporters' others) to <shots dir>\\messages.log. The
 client drops messages until msglisten is accepted (the kernel's first message-server run, after the sound
-library starts): the start-up asserts reach stubs.log only (poc_standins.cpp's tee).
+library starts), so the start-up asserts reach only stubs.log (poc_standins.cpp's tee); after the run every
+G_ASSERT / FAIL_IF line of stubs.log is appended to messages.log under a '# stubs.log' header.
 """
 import argparse
 import os
@@ -81,13 +82,23 @@ def start_listener(pid, out, seconds):
                             stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
 
-def stop_listener(listener):
+def stop_listener(listener, inst=None, out=None):
+    """Waits for msglisten; then appends stubs.log's G_ASSERT / FAIL_IF lines (programs/clientpoc/poc_standins.cpp's
+    tee) to messages.log: the client drops the start-up ones (no listener yet), so the log has every report."""
     if listener is None:
         return
     try:
         listener.wait(timeout=5)
     except subprocess.TimeoutExpired:
         listener.kill()
+    if inst is None or out is None or not os.path.exists(inst.log):
+        return
+    lines = [l.rstrip() for l in open(inst.log, encoding='latin1') if l.startswith(('G_ASSERT: ', 'FAIL_IF: '))]
+    with open(os.path.join(out, 'messages.log'), 'a', encoding='utf-8', newline='\n') as f:
+        f.write(f'# stubs.log: {len(lines)} G_ASSERT / FAIL_IF reports, in order, the start-up ones included '
+                '(the client sends a report only while a listener is connected)\n')
+        for l in lines:
+            f.write(l + '\n')
 
 RELEASE = r'C:\EnBDevelopment\ClientPOC\release'
 EXE = os.path.join(RELEASE, 'client.exe')
@@ -354,7 +365,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
     finally:
         if shots and os.path.exists(proxy):
             os.remove(proxy)
-        stop_listener(listener)
+        stop_listener(listener, inst, out if messages else None)
     digest(inst)
     if shots:
         convert_shots(out)
@@ -448,7 +459,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         time.sleep(1)
         if shots and os.path.exists(proxy):
             os.remove(proxy)
-        stop_listener(listener)
+        stop_listener(listener, inst, out if messages else None)
     digest(inst)
     if shots:
         convert_shots(out)
