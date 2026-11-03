@@ -41,14 +41,14 @@ struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 };
 class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct *event, int id); void Unknown_721EF0(const UIClassKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes
 
-// gd_slider.cpp's slider (0x128 bytes)
-class GadgetSlider : public RObjGadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@
-{
-public:
-	GadgetSlider(int arg, LayerClass *layer);		// 0x66DFC0
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int a, int b);	// 0x66E460
-	float Value;										// +0xD4
-};
+#include "gd_slider.h"
+//
+//
+//
+//
+//
+//
+//
 
 typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void (ClassSelectInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIClassCallbackClass;
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-462 entries in 116 files.
+465 entries in 117 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -124,6 +124,9 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
+| `app/client/gd_slider.cpp:10` | `GadgetSlider::GadgetSlider` | marker | NOT EXACT: order-only (similarity 0.89): member store order @0x66DFC0 |
+| `app/client/gd_slider.cpp:137` | `GadgetSlider::Unknown_66E460` | marker | NOT EXACT: relocation (similarity 0.68): frame/scheduling differences @0x66E460 |
+| `app/client/gd_slider.cpp:209` | `GadgetSlider::Unknown_66E460` | mention | NOT EXACT (D64): constructor 0x66DFC0 (order-only, similarity 0.89), 0x66E460 (relocation, similarity 0.68). |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two registers); the text loop's loads are scheduled differently |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |

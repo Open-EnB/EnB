@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 91 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
-| 2 | describes what the code does | 2925 |
-| 1 | neutral placeholder | 11289 |
+| 2 | describes what the code does | 2933 |
+| 1 | neutral placeholder | 11388 |
 
 ## For review (score 3 and below)
 
@@ -2697,6 +2697,105 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5C_01` | `app/client/gd_robj.h:68` | untagged neutral name (D10) |
 | 1 | `Unknown5C_02` | `app/client/gd_robj.h:69` | untagged neutral name (D10) |
 | 1 | `Unknown5C_03` | `app/client/gd_robj.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_slider.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/gd_slider.cpp:26` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/gd_slider.cpp:27` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/gd_slider.cpp:28` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/gd_slider.cpp:29` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/gd_slider.cpp:30` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/gd_slider.cpp:31` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/gd_slider.cpp:32` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/gd_slider.cpp:33` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/gd_slider.cpp:34` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/gd_slider.cpp:35` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/gd_slider.cpp:36` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/gd_slider.cpp:37` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/gd_slider.cpp:38` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/gd_slider.cpp:40` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/gd_slider.cpp:41` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/gd_slider.cpp:42` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/gd_slider.cpp:43` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/gd_slider.cpp:44` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/gd_slider.cpp:45` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/gd_slider.cpp:46` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/gd_slider.cpp:47` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/gd_slider.cpp:48` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/gd_slider.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/gd_slider.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/gd_slider.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/gd_slider.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown109` | `app/client/gd_slider.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/gd_slider.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/gd_slider.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/gd_slider.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/gd_slider.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/gd_slider.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/gd_slider.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/gd_slider.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/gd_slider.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_66E3A0` | `app/client/gd_slider.cpp:70` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `app/client/gd_slider.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/gd_slider.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/gd_slider.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/gd_slider.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/gd_slider.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/gd_slider.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/gd_slider.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/gd_slider.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/gd_slider.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_slider.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_BFAEE0` | `app/client/gd_slider.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_4967F0` | `app/client/gd_slider.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/gd_slider.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_497300` | `app/client/gd_slider.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/gd_slider.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/gd_slider.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_slider.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_slider.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_slider.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_slider.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_slider.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_slider.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_slider.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_slider.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_66E3A0` | `app/client/gd_slider.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/gd_slider.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/gd_slider.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_slider.h:46` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/gd_slider.h:50` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/gd_slider.h:51` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/gd_slider.h:52` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/gd_slider.h:53` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/gd_slider.h:54` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/gd_slider.h:55` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/gd_slider.h:56` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/gd_slider.h:57` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/gd_slider.h:58` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/gd_slider.h:59` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/gd_slider.h:60` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/gd_slider.h:61` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/gd_slider.h:62` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/gd_slider.h:64` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/gd_slider.h:65` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/gd_slider.h:66` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/gd_slider.h:67` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/gd_slider.h:68` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/gd_slider.h:69` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/gd_slider.h:70` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/gd_slider.h:71` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/gd_slider.h:72` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/gd_slider.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/gd_slider.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/gd_slider.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/gd_slider.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown109` | `app/client/gd_slider.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/gd_slider.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/gd_slider.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/gd_slider.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/gd_slider.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/gd_slider.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/gd_slider.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/gd_slider.h:84` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
@@ -6445,7 +6544,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIClassKeysClass` | `app/client/ui_class.cpp:42` | neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes |
 | 1 | `Unknown_721E60` | `app/client/ui_class.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_721EF0` | `app/client/ui_class.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_class.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `app/client/ui_class.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_class.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_42ECF0` | `app/client/ui_class.cpp:57` | untagged neutral name (D10) |
@@ -6484,6 +6582,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_class.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_class.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_class.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_class.cpp:218` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_class.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_5760C0` | `app/client/ui_class.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown088` | `app/client/ui_class.cpp:227` | untagged neutral name (D10) |
@@ -11878,6 +11977,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
 | 2 | `Set_Render_Obj` | `app/client/gd_robj.h:50` | as Peek_Render_Obj; NAME 1 [robj]: neutral |
+| 2 | `SliderObject` | `app/client/gd_slider.h:38` | FAIL_IF '!SliderObject' |
+| 2 | `MinArrow` | `app/client/gd_slider.h:39` | FAIL_IF '!MinArrow' |
+| 2 | `MaxArrow` | `app/client/gd_slider.h:40` | FAIL_IF '!MaxArrow' |
+| 2 | `Thumb` | `app/client/gd_slider.h:41` | FAIL_IF '!Thumb' |
+| 2 | `WheelRegion` | `app/client/gd_slider.h:42` | FAIL_IF '!WheelRegion' |
+| 2 | `ThumbAnim` | `app/client/gd_slider.h:43` | FAIL_IF '!ThumbAnim' |
+| 2 | `MinBoneIdx` | `app/client/gd_slider.h:44` | G_ASSERT 'MinBoneIdx' |
+| 2 | `MaxBoneIdx` | `app/client/gd_slider.h:45` | G_ASSERT 'MaxBoneIdx' |
 | 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
 | 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |

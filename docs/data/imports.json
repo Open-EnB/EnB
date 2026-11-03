@@ -5025,6 +5025,26 @@
      "0x42F250"
     ]
    },
+   "gd_slider": {
+    "ambiguous": [
+     "0x46BE90",
+     "0x474080",
+     "0x5988A0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x66E1A0",
+     "0x66E1D0",
+     "0x66E3A0"
+    ],
+    "merged": [],
+    "name": "client/gd_slider.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "heightfield": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -16945,6 +16965,7 @@
    "client/gd_dynamicwindow.h": "reconstructed",
    "client/gd_resize.h": "reconstructed",
    "client/gd_robj.h": "reconstructed",
+   "client/gd_slider.h": "reconstructed",
    "client/gutter_data.h": "reconstructed",
    "client/html/htmlview.h": "reconstructed",
    "client/html/unknown_htmlattrib.h": "reconstructed",
