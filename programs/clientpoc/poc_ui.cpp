@@ -32,33 +32,10 @@ Unknown_7CA2D0Class *Unknown_7CA2D0()
 	return((Unknown_7CA2D0Class *)&settings);
 }
 
-// avatar.cpp's model (charview.h's CharacterViewAvatarClass, constructor 0x77B870, 0x384 bytes): P-POC-2's
-// stand-in. The 3-D avatar is not built: the object is a ww3d2 Null3DObjClass (a render object that draws
-// nothing) under the class's name, so the view can attach, remove and release it; +0x220 (the narrator's
-// speech flag) stays false. Its other members are gen_stubs' no-ops.
-#include <new.h>
-#include "nullrobj.h"
-#include "..\..\app\client\charview.h"
-
-// The charview frame 0x679930 calls the avatars' first own virtual +0x1C4 (charview.h): the stand-in's table needs
-// that slot after Null3DObjClass's 113 (RenderObjClass's), a no-op here
-class PocAvatarClass : public Null3DObjClass
-{
-public:
-	PocAvatarClass() : Null3DObjClass("AVATAR") {}
-	virtual void Unknown_1C4() {}						// +0x1C4
-};
-
-// 0x77B870
-CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps)
-{
-	STUB_CALLED("POC CharacterViewAvatarClass (0x77B870, avatar.cpp): a Null3DObjClass, no avatar");
-	new ((void *)this) PocAvatarClass;
-	Unknown220 = false;
-}
 
 // 0x497300 (gadget.cpp, textgadg.cpp, ui_login.cpp declare it): Create_Peek<RenderObjClass> out of line; gen_stubs'
 // stand-in cannot build the returned RefCountPtr
+#include "rendobj.h"
 #include "ref_ptr.h"
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)
 {

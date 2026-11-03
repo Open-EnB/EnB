@@ -38,6 +38,7 @@
 #include "pot.h"
 #include "ww3d.h"
 #include "texture.h"
+#include "textureloader.h"
 #include "surfaceclass.h"
 
 Bitmap2DObjClass::Bitmap2DObjClass
@@ -211,6 +212,10 @@ Bitmap2DObjClass::Bitmap2DObjClass
 	// but other code expects an aspect ratio of 1.0
 	// Hector Yee 2/22/01
 	//Set_Aspect(resh/(float)resw);
+
+	if (!texture->Is_Initialized()) {
+		TextureLoader::Request_Foreground_Loading(texture);
+	}
 
 	// Find the dimensions of the texture:
 //	SurfaceClass::SurfaceDescription sd;

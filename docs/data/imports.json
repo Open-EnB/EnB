@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 102,
+  "ambiguous_total": 105,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -718,6 +718,71 @@
      "0x7048D0",
      "0x709D90",
      "0x7584F0"
+    ]
+   },
+   "avatar": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x462BF0",
+     "0x462C10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x53BB50",
+     "0x77BFA0",
+     "0x77BFE0",
+     "0x77D420",
+     "0x77E3D0",
+     "0x786370",
+     "0x7863E0"
+    ],
+    "merged": [],
+    "name": "client/avatar.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x45CC10",
+     "0x462BF0",
+     "0x462C10",
+     "0x463030",
+     "0x463060",
+     "0x4630B0",
+     "0x4630E0",
+     "0x463100",
+     "0x463130",
+     "0x463150",
+     "0x4631A0",
+     "0x4631F0",
+     "0x463240",
+     "0x463340",
+     "0x463370",
+     "0x53BB50"
     ]
    },
    "avatar_desc": {
@@ -2235,15 +2300,40 @@
    },
    "control_key_list": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x430450"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
-     "0x721CC0"
+     "0x430370",
+     "0x721C70",
+     "0x721CC0",
+     "0x721CF0",
+     "0x721D20",
+     "0x721D50",
+     "0x721D80",
+     "0x721EF0",
+     "0x721F40",
+     "0x721F80",
+     "0x721FC0",
+     "0x722010",
+     "0x722080",
+     "0x722110",
+     "0x722290",
+     "0x7222D0",
+     "0x722450",
+     "0x722490",
+     "0x7224C0",
+     "0x722550",
+     "0x7225A0",
+     "0x722660",
+     "0x722740"
     ],
     "merged": [],
-    "name": "client/control_key_list.cpp"
+    "name": "client/control_key_list.cpp",
+    "shared": [
+     "0x430370"
+    ]
    },
    "control_keys_manager": {
     "ambiguous": [
@@ -5513,12 +5603,33 @@
     "in_tree": [
      "0x42F250",
      "0x430370",
+     "0x686B50",
+     "0x686B80",
+     "0x686CC0",
+     "0x686DA0",
+     "0x686DD0",
+     "0x686E90",
+     "0x686EE0",
+     "0x686F10",
      "0x686FA0",
      "0x686FD0",
      "0x6870E0",
      "0x6871D0",
+     "0x687430",
      "0x687480",
+     "0x6874D0",
      "0x687540",
+     "0x6875B0",
+     "0x687640",
+     "0x6877C0",
+     "0x687800",
+     "0x687980",
+     "0x6879C0",
+     "0x6879F0",
+     "0x687A80",
+     "0x687AD0",
+     "0x687B90",
+     "0x687C70",
      "0x687CA0",
      "0x687D30",
      "0x687EB0",
@@ -6468,6 +6579,7 @@
      "0x444160",
      "0x447C40",
      "0x48E910",
+     "0x4973B0",
      "0x510CC0",
      "0x514960",
      "0x514990",
@@ -12757,14 +12869,23 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x495FD0",
+     "0x4960C0",
+     "0x496620",
      "0x496730",
+     "0x496960",
      "0x496AE0",
-     "0x497240"
+     "0x497240",
+     "0x497330",
+     "0x497350",
+     "0x4973B0"
     ],
     "merged": [],
     "name": "shared/ro_funcs.cpp",
     "shared": [
-     "0x42F250"
+     "0x42F250",
+     "0x497330",
+     "0x4973B0"
     ]
    },
    "rs": {
@@ -13523,6 +13644,40 @@
     "name": "shared/shipcust_desc.cpp",
     "shared": [
      "0x42F250"
+    ]
+   },
+   "signal_map": {
+    "ambiguous": [
+     "0x42A890",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x436420",
+     "0x443F30",
+     "0x4D8F80",
+     "0x4F8910",
+     "0x4F8BD0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x4F8AA0",
+     "0x4F8F00",
+     "0x4F9030",
+     "0x4F9200"
+    ],
+    "merged": [],
+    "name": "client/signal_map.cpp",
+    "shared": [
+     "0x444160"
+    ],
+    "tiebreak": [
+     "0x4F9030",
+     "0x4F9200"
     ]
    },
    "smouse": {
@@ -16657,6 +16812,7 @@
    "audio/soundlib.h": "reconstructed",
    "audio/surfacetypes.h": "reconstructed",
    "client/aux_roots.h": "reconstructed",
+   "client/avatar.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/charview.h": "reconstructed",
@@ -16968,7 +17124,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7478,
+  "in_tree_total": 7535,
   "totals": {}
  },
  "binkmovie": {
@@ -18151,6 +18307,7 @@
      "0x974BF0",
      "0x974C30",
      "0x974C90",
+     "0x974CD0",
      "0x974FF0",
      "0x975040"
     ],
@@ -25175,7 +25332,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 3251,
+  "in_tree_total": 3252,
   "totals": {
    "G": 548,
    "R": 1323,

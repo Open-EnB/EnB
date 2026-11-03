@@ -12,43 +12,7 @@
 class INIClass;
 
 // ---------------------------------------------------------------- the UI kit's SignalMap (intrface.cpp's view)
-
-class InterfaceSignalMapClass
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
-};
-
-// 0x4F9740 'SignalMap::connect': not kept (no gadget event reaches its interface yet)
-void InterfaceSignalMapClass::Add(void *sender, SignalBaseClass::CallbackClass *callback)
-{
-	STUB_CALLED("POC InterfaceSignalMapClass::Add (0x4F9740, SignalMap::connect): not connected");
-}
-
-// 0x4F98D0 'SignalMap::disconnect'
-void InterfaceSignalMapClass::Remove(void *sender, const SignalBaseClass::CallbackClass &callback)
-{
-	STUB_CALLED("POC InterfaceSignalMapClass::Remove (0x4F98D0, SignalMap::disconnect)");
-}
-
-// tooltip.cpp's view of the same two functions (its own TooltipSignalMapClass)
-class TooltipSignalMapClass
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
-};
-
-void TooltipSignalMapClass::Add(void *sender, SignalBaseClass::CallbackClass *callback)
-{
-	STUB_CALLED("POC TooltipSignalMapClass::Add (0x4F9740, SignalMap::connect): not connected");
-}
-
-void TooltipSignalMapClass::Remove(void *sender, const SignalBaseClass::CallbackClass &callback)
-{
-	STUB_CALLED("POC TooltipSignalMapClass::Remove (0x4F98D0, SignalMap::disconnect)");
-}
+// Replaced by real SignalMap in app/client/signal_map.cpp (0x4F7E00-0x4F9D00).
 
 // ---------------------------------------------------------------- input.cpp
 

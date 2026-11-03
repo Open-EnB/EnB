@@ -53,10 +53,43 @@ class SignalMap  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9
 public:
 	SignalMap();														// 0x4F9350
 	~SignalMap();														// 0x4F9530
+
+	void connect(void *sender, SignalBaseClass::CallbackClass *callback);			// 0x4F9740: the client's 'SignalMap::connect'
+	void disconnect(void *sender, const SignalBaseClass::CallbackClass &callback);		// 0x4F98D0: the client's 'SignalMap::disconnect'
 	void emit(unsigned int sender, const void *event, const type_info &sender_type, const type_info &event_type);	// 0x4F9AD0: the client's 'SignalMap::emit'
+
+	template <class SENDER, class OBJECT, class EVENT>
+	void connect(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
+	{
+		connect((void *)sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
+	}
+
+	template <class SENDER, class OBJECT, class EVENT>
+	void disconnect(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
+	{
+		disconnect((void *)sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
+	}
+
 	template <class S, class E> void emit(S *sender, const E &event) { emit((unsigned int)sender, &event, typeid(S), typeid(E)); }	// NAME 2: the typed form Save's call expands to
+
+	template <class SENDER, class OBJECT, class EVENT>
+	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
+	{
+		connect(sender, object, function);
+	}
+
+	template <class SENDER, class OBJECT, class EVENT>
+	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
+	{
+		disconnect(sender, object, function, event);
+	}
+
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
 
 	char Unknown00[0x28];												// 0x28 bytes: GClass's +0x10..+0x38 (0x4F9350 fills +0x00..+0x24)  // NAME 1: neutral (D10)
 };
+
+SignalMap &Unknown_4F7EF0();											// 0x4F7EF0: the function-local static 0xBE57C0
 
 #endif

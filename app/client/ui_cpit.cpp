@@ -43,7 +43,7 @@ public:
 	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
 };
 extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
-void Unknown_496730(RenderObjClass *robj, int a, int b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
+void Unknown_496730(RenderObjClass *robj, int a, bool b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
 

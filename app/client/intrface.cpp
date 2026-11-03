@@ -35,18 +35,18 @@
 
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as far as the interfaces connect to it
-class InterfaceSignalMapClass  // NAME 1: neutral (D10)
+class InterfaceSignalMapClass : public SignalMap
 {
 public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: neutral
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: neutral
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
 	template <class SENDER, class OBJECT, class EVENT>
-	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))	// NAME 1 [sender, object, function]: neutral
+	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
 	{
 		Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
 	}
 	template <class SENDER, class OBJECT, class EVENT>
-	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)	// 0x541A50 (KeysSavedEvent)  // NAME 1 [sender, object, function, event]: neutral
+	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
 	{
 		Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
 	}

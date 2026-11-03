@@ -56,18 +56,29 @@ public:
 class KeysSavedEvent;
 class ControlKeysManager;
 class GadgetGroupToFrontEvent;
+struct InterfaceKeyEntryStruct;
+struct ControlKeyComboStruct;
+struct InterfaceUnknown58EntryStruct;
+class RenderObjClass;
+class SceneClass;
 
+#ifndef __CONTROL_KEY_LIST_CLASS
+#define __CONTROL_KEY_LIST_CLASS
 // control_keys_manager.cpp's key list (InterfaceClass +0x4C, 0x0C bytes): control_keys_manager.h's ControlKeyListClass
-class InterfaceKeyListClass  // NAME 1: neutral (D10)
+class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
 {
 public:
-	InterfaceKeyListClass();																// 0x721D50
-	~InterfaceKeyListClass();																// 0x721D80
+	ControlKeyListClass();																	// 0x721D50
+	~ControlKeyListClass();																	// 0x721D80
+	void Add(const ControlKeyComboStruct &combo, void *handler);							// 0x721E60
+	void Remove(const ControlKeyComboStruct &combo);										// 0x721EF0
 	void Unknown_721F40(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *iface);	// 0x721F40 (activated)  // NAME 1 [dispatcher, handler, iface]: what intrface.cpp passes
 	void Unknown_721F80(LoginUnknown0CClass *dispatcher, InterfaceClass *iface);			// 0x721F80 (deactivated)  // NAME 1 [dispatcher, iface]: what intrface.cpp passes
 
-	char Unknown00[0x0C];
+	SList<InterfaceKeyEntryStruct> List;													// +0x00 (0x0C bytes)
 };
+typedef ControlKeyListClass InterfaceKeyListClass;
+#endif
 
 // intrlist.cpp's (InterfaceClass +0x58, 0x0C bytes)
 class InterfaceUnknown58Class  // NAME 1: neutral (D10)
@@ -75,11 +86,15 @@ class InterfaceUnknown58Class  // NAME 1: neutral (D10)
 public:
 	InterfaceUnknown58Class();																// 0x686B50
 	~InterfaceUnknown58Class();																// 0x686B80
+	void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene);							// 0x686CC0
+	void Unknown_686DA0(RenderObjClass *&robj, SceneClass *scene);							// 0x686DA0
+	void Unknown_686DD0(RenderObjClass *robj);												// 0x686DD0
 	void Unknown_686E90();																	// 0x686E90 (activated)
 	void Unknown_686EE0();																	// 0x686EE0 (deactivated)
-	void Unknown_686F10(int scene);															// 0x686F10 (onto a new view: its scene)  // NAME 1 [scene]: what intrface.cpp passes
+	void Unknown_686F10(SceneClass *scene);													// 0x686F10 (onto a new view: its scene)  // NAME 1 [scene]: what intrface.cpp passes
+	void Unknown_686F10(int scene) { Unknown_686F10((SceneClass *)scene); }
 
-	char Unknown00[0x0C];
+	SList<InterfaceUnknown58EntryStruct> List;												// +0x00 (0x0C bytes)
 };
 
 class InterfaceKeyHandlerClass;

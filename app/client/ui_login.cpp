@@ -94,7 +94,7 @@ extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text ga
 
 
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name
@@ -195,11 +195,11 @@ typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginC
 
 
 
-class InterfaceSignalMapClass		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
+class InterfaceSignalMapClass : public SignalMap		// NAME 1: neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it)
 {
 public:
-	void Add(void *sender, LoginCallbackBaseClass *callback);			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
-	void Remove(void *sender, const LoginCallbackBaseClass &callback);	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Add(void *sender, LoginCallbackBaseClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')  // NAME 1 [sender, callback]: intrface.cpp's
+	void Remove(void *sender, const LoginCallbackBaseClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')  // NAME 1 [sender, callback]: intrface.cpp's
 };
 // (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map; FlashingGadgetEvent: gadget.h)
 

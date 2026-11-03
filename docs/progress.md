@@ -4,6 +4,41 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-02 (23:10 PST, night): the POC's mouse and keyboard log in against antprox /REPLAY; agy quota measured; +85 pairs, 0 lost
+
+Coordinator Opus 5.5 on the subscription (Claude weekly 98-99 % all run: lean); builders Gemini 3.8 Flash high through agy
+(D187), one Sonnet test. Base 25d96676 (#145 merged; `.work/imports.25d96676.json`); run branch `run/2026-11-02`, PR #146.
+Plan log: `.work/run-2026-11-03/plan.md`. The user (19:55): 4h45m, spend agy's 5-hour window on the POC: the mouse on the
+login screen's buttons and text boxes.
+
+* **Input (coordinator):** `clientpoc.py --input FILE` posts timed window messages; programs/clientpoc/poc_input.cpp
+  (ENB_POC_INPUT=1) redirects the exe's GetCursorPos / GetMessagePos / SetCursorPos / GetForegroundWindow / GetKeyState /
+  GetAsyncKeyState / GetMessageA imports to a virtual cursor and keyboard (the client reads the cursor, not the message,
+  and takes input only in the foreground): the real desktop is never touched (2a22360b). Traced (uncommitted trace build):
+  clicks reached GadgetClass::Process_Input, but RObjGadgetClass's hit test called the gen pick 0x496960 (always false),
+  and the buttons stayed disabled until the narrator avatar's +0x220 (POC stand-in false; 2518a681 made it true).
+* **Builders (Flash):** PICK 5a83ed09 ro_funcs.cpp, the pick 0x496960 exact, +7; SIG 94b2360f SignalMap / SignalList, +5
+  (12 NOT EXACT); KEYS 819dcbde key list / intrlist, +43; HOV a1cf3c59 InterfaceSceneClass::Get_Scene_ID const (it never
+  overrode the slot: the hover FAIL_IF local_interface_sort.cpp(148) every frame); CUR c3427718 bmp2d 0x974CD0, ww3d2 +1
+  (the cursor's black square stays); AV a69808c6 avatar.cpp, +5 (+23 shared); AV2 4f190458 the avatar's constructor makes
+  ANPCBODY000 (+0x2BC) / ANPCHEAD000, Render 0x77D420 exact, +1. CSEL's 2d1b3969 (ui_avsel forwarders) never linked:
+  reverted (cb329d99). CUR2 / STORE stopped for quota (STORE's partial edits uncommitted in .work/wt/store).
+* **POC (coordinator, D181 replay with `.work/coord/replay.py`):** at cb329d99 the mouse clicks the edit boxes (focus),
+  typing shows ("tester", ******), Accept logs in: AuthLogin accepted, GLOBAL_LOGIN, GLOBAL_AVATAR_LIST (Karen); the task
+  goes on (AV2), makes the avatar selection interface (gen 0x574710 ctor) and crashes in CharacterViewClass::Unknown_67A370
+  (+0x54 of it). Without a server (the default 40 s run) no crash. Harness check at cb329d99 (worktree hc2): POC 40 s no crash; clienttest 103 checks, 0 failed, expected.txt updated (413 stand-in trace lines gone: SignalMap, key list, intrlist now real); udpreplay alex3 ran, handshake 54.
+* **agy quota (the user's `agy -p /usage --output-format json`; Git Bash needs MSYS_NO_PATHCONV=1;
+  `.work/coord/agyquota.py sample|items`, samples in .work/agy-quota.csv; stream usage is per turn, summed):** Gemini 5h
+  window 7.8-11M stream tokens (100 % -> 11.3 % for ~6.9M; AV2 alone 0.84M = 7.5 %: the charge is by cost, cache reads
+  included, so it varies by item): 6-9 Flash items; Gemini weekly fell 2.28 %
+  (48.91 -> 46.63) while the 5h fell 7.48 % (22:04 -> 22:48): the week is ~3.3 five-hour windows, ~25-36M stream tokens
+  (~20-28 Flash items a week; refine with more samples). Claude/GPT group via agy: Sonnet 5.5 high used 170k stream tokens (2.9M cache reads) =
+  36.8 % of its 5h and ~16-18 % of its week: 5h ~460k, week ~1M tokens: not a builder pool.
+* **Totals:** +85 pairs (27 shared, 2 tie-break), 0 lost against 25d96676. 11 Flash launches (8 with commits), 1 Sonnet.
+* **Traps (workflow.md §3.7):** a builder's POC-only edit must be linked, not just app.lib built (CSEL); the agy usage
+  stream line is per turn. **Open for the user:** P-API-5 (a) / (c), P-VM-2, P-VM-1 (unchanged); CLAUDE.md's safety line
+  already names D181 (the user's edit tonight).
+
 ### 2026-11-02 (19:00 PST, evening): agy (Antigravity) builders on the user's Google subscription; P-B2 adopted (D186); +39 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription; builders through the Antigravity CLI (`agy -p`, the user's Google Pro
@@ -2128,10 +2163,14 @@ below name only the work items, the blocked work, the leads and the queues.
      `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
      --seconds 40 --shots 60000,120000` (the client's own back buffer, PNGs in `.work/poc/shots/`; `git add -N` new files
      first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
-     2026-11-02-night): the login screen draws with its text, edit boxes and buttons; no crash in 40 s; ~30 first-call
-     stand-ins left; the 29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the login click
-     itself, then item 10 against antprox /REPLAY (D181; its launcher writes HKCU AppCompatFlags / HKLM Registration keys,
-     which CLAUDE.md's safety rule forbids for unattended runs: a run with the user present); the first-call stand-ins in
+     2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with poc_input.cpp's virtual
+     cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
+     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the avatar selection interface
+     Unknown574710InterfaceClass (ctor 0x574710, a gen stand-in: after GLOBAL_AVATAR_LIST the login task makes it, then
+     crashes in CharacterViewClass::Unknown_67A370 reading +0x54); the settings store 0x7CA2D0-0x7CBA00 (the Accept path:
+     gen 0x7CB610 / Set_String, POC stand-in store; Flash + Sonnet partial edits uncommitted in .work/wt/store), gen
+     0x8B4560 / Unknown_Log; the cursor's black square (smouse 0x515080 over mousetbl's textures: alpha lost; not
+     bmp2d 0x974CD0, exact); the first-call stand-ins in
      stubs.log order (gen SoundManagerClass's ctor and Unknown_442650's neighbours, Full_Path_File_Exists, SignalMap /
      InterfaceKeyListClass / InterfaceUnknown58Class ctors, SClientUnknown1338Class::Load, the avatar's 0x77E3D0 /
      0x786370 / 0x784A50; never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);

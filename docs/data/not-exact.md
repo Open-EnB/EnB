@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-425 entries in 112 files.
+448 entries in 115 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,6 +15,12 @@ edit the comments in the code, not this file.
 | `app/audio/surfacetypes.cpp:22` | `Unknown_442650` | marker | NOT EXACT: frame (0.51, sub esp 0x90 vs 0x8c) @0x442650 |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
+| `app/client/avatar.cpp:19` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:165` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:257` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:279` | `CharacterViewAvatarClass::Unknown_784A50` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:293` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:367` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -40,8 +46,8 @@ edit the comments in the code, not this file.
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
 | `app/client/co_subtypes.cpp:112` | `Unknown70E5A0Class::Unknown_20` | marker | NOT EXACT: shape (stack layout: the client's frame is 0x128 bytes, ours 0xFC; the inverse transform's terms in another order; attempts.py show 0x70E850) 0x70E850 |
 | `app/client/co_subtypes.cpp:169` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory, but its frame holds more temporaries (0x128 bytes against our 0xFC) and the inverse rotation's terms come in another order (attempts.py show 0x70E850 lists the forms tried). |
-| `app/client/control_key_list.cpp:29` | `InterfaceKeyListClass::Unknown_721F40` | marker | NOT EXACT: relocation (ours inlines 0x721CC0, the client calls it) |
-| `app/client/control_key_list.cpp:42` | `InterfaceKeyListClass::Unknown_721F40` | mention | NOT EXACT (D64, functional for the POC): 0x721F40 (0x721CC0 inlined). ACT (run 2026-11-02). |
+| `app/client/control_key_list.cpp:61` | `ControlKeyListClass::Add` | marker | NOT EXACT: shape (calls Add_Head on new entry; client has exception unwind frame) 0x721E60 |
+| `app/client/control_key_list.cpp:116` | `LoginKeysClass::Unknown_721E60` | mention | NOT EXACT (D64, functional for the POC): 0x721E60 (shape). File PROVISIONAL (D137: no string; after control_keys_manager.cpp's container instances). |
 | `app/client/control_keys_manager.cpp:236` | `ControlKeysManager::Add_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:263` | `ControlKeysManager::Remove_Keys` | marker | NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv) |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv) |
@@ -169,6 +175,18 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
+| `app/client/signal_map.cpp:36` | `Unknown_4F7EF0` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:45` | `Unknown_4F7F60` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:54` | `SignalList::SignalList` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:64` | `SignalList::~SignalList` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:74` | `SignalList::Add` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:85` | `SignalList::remove` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:111` | `SignalList::emit` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:135` | `SignalMap::SignalMap` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:145` | `SignalMap::~SignalMap` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:155` | `SignalMap::connect` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:166` | `SignalMap::disconnect` | marker | NOT EXACT: functional (shape) |
+| `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
 | `app/client/tasks/settings_store.cpp:8` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
 | `app/client/tasks/settings_store.cpp:68` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
 | `app/client/tasks/settings_store.cpp:108` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | mention | NOT EXACT (D64, functional for the POC): 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated). ACT (run 2026-11-02). |
@@ -394,6 +412,11 @@ edit the comments in the code, not this file.
 | `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
+| `app/shared/ro_funcs.cpp:81` | `Unknown_496110` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:114` | `Unknown_496240` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:148` | `Unknown_496360` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:182` | `Unknown_496490` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
