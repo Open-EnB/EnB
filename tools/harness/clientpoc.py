@@ -17,6 +17,19 @@ by bmp2png.py, the .bmp deleted) with the proxy's d3d8shot.log (the Present coun
 The digest: stubs.log's lines in order, repeats folded ("x12"), each CRASH: line (poc_window.cpp's
 vectored handler) with its addresses named from client.map (tools/harness/symbolize.py), and the first
 lines of _except.txt. Nothing is run against a server (antprox stays off: it writes the registry).
+
+--input FILE: posts window messages to the client's top-level window (found by its PID) at the times the
+file gives; never the real cursor or keyboard (PostMessage only: nothing reaches other programs). It sets
+ENB_POC_INPUT=1: programs/clientpoc/poc_input.cpp then gives the client a virtual cursor and keyboard (the
+client reads GetCursorPos / GetMessagePos, not the message's coordinates, and takes input only while its
+window is in the foreground). One step
+a line, '#' comments; T is milliseconds after the window first appears, X Y client-area pixels:
+    T move X Y          WM_MOUSEMOVE
+    T click X Y         WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_LBUTTONUP (50 ms apart)
+    T rclick X Y        the same with the right button
+    T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab)
+    T text STRING       WM_KEYDOWN / WM_KEYUP per character (VkKeyScan; Shift around capitals)
+Each step is logged to stdout with the time it was sent.
 """
 import argparse
 import os
@@ -25,6 +38,8 @@ import shutil
 import subprocess
 import sys
 import time
+import ctypes
+from ctypes import wintypes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -71,13 +86,78 @@ def digest():
             print('   ', line)
 
 
-def run(seconds, fullscreen, args, shots=None):
+WM = {'move': 0x200, 'ldown': 0x201, 'lup': 0x202, 'rdown': 0x204, 'rup': 0x205,
+      'keydown': 0x100, 'keyup': 0x101, 'char': 0x102}
+
+
+def read_input(path):
+    steps = []
+    for line in open(path, encoding='utf-8'):
+        line = line.rstrip('\n')
+        if not line.strip() or line.lstrip().startswith('#'):
+            continue
+        t, op, rest = (line.split(None, 2) + ['', ''])[:3]
+        steps.append((int(t), op, rest))
+    return sorted(steps, key=lambda s: s[0])
+
+
+def find_window(pid):
+    user32 = ctypes.windll.user32
+    found = []
+    proc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+
+    def cb(hwnd, _):
+        owner = wintypes.DWORD()
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(owner))
+        if owner.value == pid and user32.IsWindowVisible(hwnd):
+            found.append(hwnd)
+        return True
+    user32.EnumWindows(proc(cb), 0)
+    return found[0] if found else None
+
+
+def post_step(hwnd, op, rest):
+    user32 = ctypes.windll.user32
+    post = lambda m, w, l: user32.PostMessageW(hwnd, m, w, l)
+    if op in ('move', 'click', 'rclick'):
+        x, y = (int(v) for v in rest.split()[:2])
+        lp = (y << 16) | (x & 0xFFFF)
+        post(WM['move'], 0, lp)
+        if op != 'move':
+            down, up, mk = (('ldown', 'lup', 1) if op == 'click' else ('rdown', 'rup', 2))
+            time.sleep(0.05)
+            post(WM[down], mk, lp)
+            time.sleep(0.05)
+            post(WM[up], 0, lp)
+    elif op == 'key':
+        vk = int(rest.split()[0], 0)
+        scan = user32.MapVirtualKeyW(vk, 0)
+        post(WM['keydown'], vk, 1 | (scan << 16))
+        time.sleep(0.05)
+        post(WM['keyup'], vk, 1 | (scan << 16) | (3 << 30))
+    elif op == 'text':
+        for ch in rest:
+            vs = user32.VkKeyScanW(ord(ch))
+            vk, shift = vs & 0xFF, bool(vs & 0x100)
+            if shift:
+                post(WM['keydown'], 0x10, 1 | (user32.MapVirtualKeyW(0x10, 0) << 16))
+            post_step(hwnd, 'key', str(vk))
+            if shift:
+                post(WM['keyup'], 0x10, 1 | (user32.MapVirtualKeyW(0x10, 0) << 16) | (3 << 30))
+            time.sleep(0.03)
+    else:
+        raise SystemExit(f'--input: unknown step {op!r}')
+
+
+def run(seconds, fullscreen, args, shots=None, steps=None):
     for f in (LOG, EXCEPT):
         if os.path.exists(f):
             os.remove(f)
     env = dict(os.environ)
     if not fullscreen:
         env['ENB_POC_WINDOWED'] = '1'
+    if steps:
+        env['ENB_POC_INPUT'] = '1'
     proxy = os.path.join(RELEASE, 'd3d8.dll')
     if shots:
         if not os.path.exists(PROXY):
@@ -91,9 +171,22 @@ def run(seconds, fullscreen, args, shots=None):
         env['D3D8SHOT_FRAMES'] = shots
     try:
         p = subprocess.Popen([EXE] + list(args), cwd=RELEASE, env=env)
-        end = time.time() + seconds
+        start = time.time()
+        end = start + seconds
+        hwnd, t0, pending = None, None, list(steps or [])
         while time.time() < end and p.poll() is None:
-            time.sleep(0.5)
+            if pending and hwnd is None:
+                hwnd = find_window(p.pid)
+                if hwnd:
+                    t0 = time.time()
+                    print(f'input: window 0x{hwnd:X} at {t0 - start:.1f} s')
+            while pending and hwnd and (time.time() - t0) * 1000 >= pending[0][0]:
+                t, op, rest = pending.pop(0)
+                post_step(hwnd, op, rest)
+                print(f'input: {t} ms {op} {rest} (sent at {(time.time() - t0) * 1000:.0f} ms)')
+            time.sleep(0.05 if pending else 0.5)
+        if pending:
+            print(f'input: {len(pending)} steps not sent')
         if p.poll() is None:
             print(f'still running after {seconds} s: killing PID {p.pid}')
             subprocess.run(['taskkill', '/F', '/PID', str(p.pid)], capture_output=True)
@@ -125,10 +218,11 @@ def main():
     ap.add_argument('--seconds', type=int, default=40)
     ap.add_argument('--fullscreen', action='store_true')
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
+    ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args()
     if a.command == 'run':
-        run(a.seconds, a.fullscreen, a.args, a.shots)
+        run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None)
     else:
         digest()
 
