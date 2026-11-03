@@ -5090,7 +5090,8 @@
      "0x42F250",
      "0x66E1A0",
      "0x66E1D0",
-     "0x66E3A0"
+     "0x66E3A0",
+     "0x66E460"
     ],
     "merged": [],
     "name": "client/gd_slider.cpp",
@@ -17381,7 +17382,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7599,
+  "in_tree_total": 7610,
   "totals": {}
  },
  "binkmovie": {

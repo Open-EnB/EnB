@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-476 entries in 118 files.
+470 entries in 118 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -135,9 +135,8 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
-| `app/client/gd_slider.cpp:10` | `GadgetSlider::GadgetSlider` | marker | NOT EXACT: order-only (similarity 0.89): member store order @0x66DFC0 |
-| `app/client/gd_slider.cpp:137` | `GadgetSlider::Unknown_66E460` | marker | NOT EXACT: relocation (similarity 0.68): frame/scheduling differences @0x66E460 |
-| `app/client/gd_slider.cpp:209` | `GadgetSlider::Unknown_66E460` | mention | NOT EXACT (D64): constructor 0x66DFC0 (order-only, similarity 0.89), 0x66E460 (relocation, similarity 0.68). |
+| `app/client/gd_slider.cpp:12` | `GadgetSlider::GadgetSlider` | marker | NOT EXACT: order-only (similarity 0.89): member store order @0x66DFC0 |
+| `app/client/gd_slider.cpp:212` | `GadgetSlider::Unknown_66E460` | mention | NOT EXACT (D64): constructor 0x66DFC0 (order-only, similarity 0.89). |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two registers); the text loop's loads are scheduled differently |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
@@ -203,7 +202,7 @@ edit the comments in the code, not this file.
 | `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
 | `app/client/tasks/settings_store.cpp:10` | `Unknown_7CA2D0Class::Unknown_7CA2D0Class` | marker | NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global, and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the state the login path reads is set here: the empty strings and map, the URL-check deadlines) |
 | `app/client/tasks/settings_store.cpp:30` | `Unknown_7CA2D0` | marker | NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit) |
-| `app/client/tasks/settings_store.cpp:43` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (functional: the deadline tests' branch layout differs) |
+| `app/client/tasks/settings_store.cpp:44` | `Unknown_7CA2D0Class::Unknown_7CB6F0` | marker | NOT EXACT: shape (0.66: the client cross-jumps the CreateThread tails one instruction later) |
 | `app/client/tasks/settings_store.cpp:103` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
 | `app/client/tasks/settings_store.cpp:136` | `Unknown_7CA2D0Class::Set_String` | marker | NOT EXACT: shape (the client's std::map insert / erase and string assigns are inlined helpers; the order of the temporaries differs) |
 | `app/client/tasks/settings_store.cpp:180` | `Unknown_7CA2D0Class::Get_String` | marker | NOT EXACT: shape (the client reads the entry with the map's operator[], which adds an empty one for a missing key, then canonicalises the value; its failures return the empty default string) |
@@ -246,16 +245,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1204` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `UIChatPanelClass::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
-| `app/client/ui_class.cpp:132` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: register @0x574710 |
-| `app/client/ui_class.cpp:260` | `ClassSelectInterface::~ClassSelectInterface` | marker | NOT EXACT: register @0x575220 |
-| `app/client/ui_class.cpp:278` | `ClassSelectInterface::Unknown_60` | marker | NOT EXACT: register @0x5754E0 |
-| `app/client/ui_class.cpp:327` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register @0x575660 |
-| `app/client/ui_class.cpp:415` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: register @0x575D50 |
-| `app/client/ui_class.cpp:424` | `ClassSelectInterface::Unknown_5760C0` | marker | NOT EXACT: register @0x5760C0 |
-| `app/client/ui_class.cpp:450` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register @0x576270 |
-| `app/client/ui_class.cpp:471` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: register @0x576AC0 |
-| `app/client/ui_class.cpp:478` | `ClassSelectInterface::Unknown_5779D0` | marker | NOT EXACT: register @0x5779D0 |
-| `app/client/ui_class.cpp:502` | `ClassSelectInterface::Unknown_577B80` | marker | NOT EXACT: register @0x577B80 |
+| `app/client/ui_class.cpp:136` | `Unknown_5746C0` | marker | NOT EXACT: shape (0.64: the backward step tests with test / jge where ours uses dec's flags) @0x5746C0 |
+| `app/client/ui_class.cpp:154` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
+| `app/client/ui_class.cpp:334` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case) @0x575660 |
+| `app/client/ui_class.cpp:501` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
+| `app/client/ui_class.cpp:533` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp) @0x576270 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
