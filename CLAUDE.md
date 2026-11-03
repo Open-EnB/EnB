@@ -13,8 +13,8 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
    Coordinators pace launches and the drain with the `coordinator-pacing` skill (usage, host memory,
    HEAD's health, the launch allowance, one command per heartbeat).
 4. Index of everything else: `docs/README.md`. Tools: `tools/re/README.md`, `tools/vc6/README.md`,
-   `tools/harness/README.md`.
-Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section you need.
+   `tools/harness/README.md`. Do not read whole docs "to familiarize"; use `grep -n '^#'` and open
+   the section you need.
 
 ## Hard rules
 - **The git tree is authoritative.** Never run `tools/vc6/importer.py assemble` on a tree with
@@ -32,10 +32,11 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
   `importer.py verify --pool K`), addressed by IP (clones share a computer name); release what
   you lease, never use the base image. After a VM restart run `python tools/vc6/vc6.py discover`.
 - Inline assembly stays wherever the client has it, with a C-equivalent comment (D70).
-- Safety (D69): never a modal dialog (`-nomsgbox`); full screen is fine; no screen grabs, images
-  only from a program's own back buffer; never the game's install folder as working directory, and
-  never write into it (reading it in place and copying from it are fine, D143); no registry
-  changes; never push `master` (the coordinator pushes only its run branch and opens a PR, D148,
+- Safety (D69): never a modal dialog (`-nomsgbox`) unless you have way to pass input and respond to 
+  the dialog yourself; full screen is fine; no screen grabs, images only from a program's own back buffer;
+  never the game's install folder as working directory, and never write into it (reading it in place and 
+  copying from it are fine, D143); no registry changes except as stated by D181 or to keys in client.exe; 
+  never push `master` (the coordinator pushes only its run branch and opens a PR, D148,
   D157; builders never push); `git add` by name (never stage `.claude/settings.json`: tracked, the
   maintainer changes it).
 - Decisions are the user's (D1, D2...). Propose with a recommendation; don't decide silently.
@@ -71,7 +72,7 @@ Do not read whole docs "to familiarize"; use `grep -n '^#'` and open the section
 Prepend a dated entry to the Log in `docs/progress.md` (newest first). Add new traps to
 `docs/workflow.md` §3 (builders put them in their report; the coordinator files them). Update
 decisions/open lists in place. Do not append a second status doc. progress.md §4 (Next steps) holds
-open work only: delete an item when it lands (its history goes in the log entry), never mark it done.
+open work only: delete an item when it lands, never mark it done (its history goes in the log entry).
 
 ## Commits
 Imperative sentence subject stating the evidence/gain (see `git log`). Commit when asked or when
