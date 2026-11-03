@@ -3533,6 +3533,16 @@ WW3D_API_PATCHES = {
          '\tREF_PTR_RELEASE(texture);\n\tREF_PTR_RELEASE(surface);\n\n\tSet_Dirty();\n}',
          'Bitmap2DObjClass::Bitmap2DObjClass 0x974420: releases the texture before the surface (0x974AF2, 0x974B03)'),
     ],
+    ('ww3d2', 'part_emt.h'): [
+        ('\t\tvirtual void\t\t\tRestart(void);\n',
+         '\t\tvirtual void\t\t\tRestart(void);\n\n\t\t// E&B: the transform also moves the particle buffer when UnknownFlag is set (0x97DD90, 0x97DDC0)\n\t\tvirtual void\t\t\tSet_Transform(const Matrix3D &m);\n\t\tvirtual void\t\t\tSet_Position(const Vector3 &v);\n',
+         "ParticleEmitterClass's vtable 0xB12CD8 slots 20 / 21 (0xB12D28 / 0xB12D2C) hold its own Set_Transform 0x97DD90 and Set_Position 0x97DDC0, not RenderObjClass's"),
+    ],
+    ('ww3d2', 'part_emt.cpp'): [
+        ('void ParticleEmitterClass::Restart(void)\n{\n\t// calling Start will cause all internal counters to reset\n\tStart();\n}\n',
+         'void ParticleEmitterClass::Restart(void)\n{\n\t// calling Start will cause all internal counters to reset\n\tStart();\n}\n\nvoid ParticleEmitterClass::Set_Transform(const Matrix3D &m)\n{\n\tRenderObjClass::Set_Transform(m);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Transform(m);\n\t}\n}\n\nvoid ParticleEmitterClass::Set_Position(const Vector3 &v)\n{\n\tRenderObjClass::Set_Position(v);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Position(v);\n\t}\n}\n',
+         "ParticleEmitterClass::Set_Transform 0x97DD90 / Set_Position 0x97DDC0 (after Restart 0x97DCD0): call RenderObjClass's (0x941C20 / 0x941CF0), then, when the byte at +0xFD (UnknownFlag) is set, the buffer's (+0xF8) vtable slot 20 / 21 with the same argument"),
+    ],
 }
 for _key, _edits in WW3D_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
