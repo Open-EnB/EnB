@@ -51,14 +51,6 @@ public:
 };
 
 typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void (ClassSelectInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIClassCallbackClass;
-typedef SignalBaseClass::CallbackClass UIClassCallbackBaseClass;
-
-class UIClassNotifierClass
-{
-public:
-	void Add(int id, UIClassCallbackBaseClass *callback);
-	void Remove(int id, UIClassCallbackBaseClass *callback);
-};
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300
 void Unknown_496AE0(RenderObjClass *robj, int a);	// 0x496AE0
@@ -259,8 +251,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	}
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
-	UIClassNotifierClass *notifier = (UIClassNotifierClass *)&GadgetClass::Get_Signal_Map();
-	notifier->Add(0, new UIClassCallbackClass(this, function));
+	GadgetClass::Get_Signal_Map().connect(NULL, new UIClassCallbackClass(this, function));
 
 	CharacterView->Unknown30->Unknown0F = true;
 }
@@ -279,9 +270,8 @@ ClassSelectInterface::~ClassSelectInterface()
 	CharacterView->Unknown_67A9B0(0);
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
-	UIClassNotifierClass *notifier = (UIClassNotifierClass *)&GadgetClass::Get_Signal_Map();
 	UIClassCallbackClass callback(this, function);
-	notifier->Remove(0, &callback);
+	GadgetClass::Get_Signal_Map().disconnect(NULL, callback);
 }
 
 

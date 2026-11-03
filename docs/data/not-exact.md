@@ -232,16 +232,16 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1204` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `UIChatPanelClass::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
-| `app/client/ui_class.cpp:140` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: register @0x574710 |
-| `app/client/ui_class.cpp:269` | `ClassSelectInterface::~ClassSelectInterface` | marker | NOT EXACT: register @0x575220 |
-| `app/client/ui_class.cpp:288` | `ClassSelectInterface::Unknown_60` | marker | NOT EXACT: register @0x5754E0 |
-| `app/client/ui_class.cpp:337` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register @0x575660 |
-| `app/client/ui_class.cpp:425` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: register @0x575D50 |
-| `app/client/ui_class.cpp:434` | `ClassSelectInterface::Unknown_5760C0` | marker | NOT EXACT: register @0x5760C0 |
-| `app/client/ui_class.cpp:460` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register @0x576270 |
-| `app/client/ui_class.cpp:481` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: register @0x576AC0 |
-| `app/client/ui_class.cpp:488` | `ClassSelectInterface::Unknown_5779D0` | marker | NOT EXACT: register @0x5779D0 |
-| `app/client/ui_class.cpp:512` | `ClassSelectInterface::Unknown_577B80` | marker | NOT EXACT: register @0x577B80 |
+| `app/client/ui_class.cpp:132` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: register @0x574710 |
+| `app/client/ui_class.cpp:260` | `ClassSelectInterface::~ClassSelectInterface` | marker | NOT EXACT: register @0x575220 |
+| `app/client/ui_class.cpp:278` | `ClassSelectInterface::Unknown_60` | marker | NOT EXACT: register @0x5754E0 |
+| `app/client/ui_class.cpp:327` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register @0x575660 |
+| `app/client/ui_class.cpp:415` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: register @0x575D50 |
+| `app/client/ui_class.cpp:424` | `ClassSelectInterface::Unknown_5760C0` | marker | NOT EXACT: register @0x5760C0 |
+| `app/client/ui_class.cpp:450` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register @0x576270 |
+| `app/client/ui_class.cpp:471` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: register @0x576AC0 |
+| `app/client/ui_class.cpp:478` | `ClassSelectInterface::Unknown_5779D0` | marker | NOT EXACT: register @0x5779D0 |
+| `app/client/ui_class.cpp:502` | `ClassSelectInterface::Unknown_577B80` | marker | NOT EXACT: register @0x577B80 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
