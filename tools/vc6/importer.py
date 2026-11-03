@@ -4851,7 +4851,7 @@ def app_state(state):
             if k in s['files']:
                 raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
             s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
-            for kept in ('in_tree', 'ambiguous', 'tiebreak', 'shared', 'shared_callers'):
+            for kept in ('in_tree', 'ambiguous', 'tiebreak', 'shared', 'shared_callers', 'short_known'):
                 if kept in old.get(k, {}):
                     s['files'][k][kept] = old[k][kept]
         s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
@@ -5210,7 +5210,9 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
     `tiebreak` (a dict, optional) as {file key: set(address)}. `shared` (a dict, optional) receives
     {file key: set(address)} of the exact COMDATs two or more of the objects hold at one address
     under one symbol (D183: pairs of each holder, never placement evidence), and, under the key
-    'shared_callers', the D166 tie-break pairs whose decision needed such a function."""
+    'shared_callers', the D166 tie-break pairs whose decision needed such a function, and under the key
+    'short_known', the short functions credited at an address the run knows (D188: pairs like any exact
+    result; a COMDAT one is also in the file's `shared` list)."""
     hold_lock()
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
@@ -5240,6 +5242,8 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
                 shared.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
             if r.get('shared_callers') and shared is not None:
                 shared.setdefault(('shared_callers', key_of(r['object'])), set()).add(r['addresses'][0])
+            if r.get('short_known') and shared is not None:
+                shared.setdefault(('short_known', key_of(r['object'])), set()).add(r['addresses'][0])
         elif r['status'] == 'multiple' and r.get('identical') and ambiguous is not None:
             ambiguous.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
     for p in paths:
@@ -5281,6 +5285,7 @@ def verify(state, libs=None):
         ambiguous = set()
         tied = 0
         shared = set()
+        shortk = set()
         short = 0
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
@@ -5303,6 +5308,11 @@ def verify(state, libs=None):
             f.pop('shared_callers', None)
             if sha.get(('shared_callers', k)):
                 f['shared_callers'] = sorted(sha[('shared_callers', k)])
+            # D188: short functions credited at an address the run knows (also in in_tree)
+            f.pop('short_known', None)
+            if sha.get(('short_known', k)):
+                f['short_known'] = sorted(sha[('short_known', k)])
+                shortk |= sha[('short_known', k)]
             if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
@@ -5310,7 +5320,7 @@ def verify(state, libs=None):
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
               f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address, {tied} tie-break by callers, '
-              f'{len(shared)} shared addresses; '
+              f'{len(shared)} shared addresses, {len(shortk)} short at known addresses; '
               f'{short} files below their copy; {len(errors)} errors')
     return state
 
@@ -5384,7 +5394,7 @@ def try_with_headers(state, lib, f, c, k, donor):
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
                 ff['ambiguous'] = trial[l]['files'][kk].get('ambiguous', [])
-                for key in ('tiebreak', 'shared', 'shared_callers'):
+                for key in ('tiebreak', 'shared', 'shared_callers', 'short_known'):
                     ff.pop(key, None)
                     if trial[l]['files'][kk].get(key):
                         ff[key] = trial[l]['files'][kk][key]

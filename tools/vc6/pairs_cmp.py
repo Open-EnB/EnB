@@ -21,6 +21,7 @@ tie-break pairs out). Then, for D66(v) / D117:
 Shared pairs (D183): an address two or more files hold (each file's `shared` list, or, in a copy written before
 that list existed, any address two files of one library hold) is not placement evidence, so:
 `gained shared [...]`  : gained pairs at a shared address of B (also in `gained`);
+`gained short at a known address [...]` : gained pairs of B's `short_known` lists (D188; also in `gained`);
 `lost shared holder [...]` : lost pairs at an address shared in A or B that another file still holds in B, as
                         (lib, file, [(lib, other_file), ...], addr): one holder of a shared address less, not a
                         move and not lost outright (still in `lost`).
@@ -125,6 +126,7 @@ def main(argv):
         holders.setdefault(addr, set()).add((lib, f))
     sa, sb = shared_addresses(da), shared_addresses(db)
     print('gained shared', sorted(x for x in pairs(db) - pairs(da) if (x[0], x[2]) in sb))
+    print('gained short at a known address (D188; also in gained)', sorted(pairs(db, 'short_known') - pairs(da)))
     print('lost outright', sorted({x[2] for x in lost if x[2] not in holders}))
     held = [x for x in lost if x[2] in holders]
     print('lost shared holder (counted in lost, not a move)',

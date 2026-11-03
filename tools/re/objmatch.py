@@ -55,6 +55,25 @@ initialiser calls, or registers through its atexit function (`initialiser_target
 `tiebreak` and `initialiser` set. Finds and other helpers stay tied. It runs only when the range
 resolves nothing more; its credits feed D80's next round.
 
+A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
+call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
+`ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
+function after a switch's byte index table, Hue_Shift 0x94EB20). A hit inside a function (XMP's
+Write_Marker without its 0x66 operand-size prefix, 0x9E4F11) is dropped before anything else sees it;
+`unanchored` counts the dropped hits. ANCHOR_HITS switches the rule (off until the user rules on the
+pairs it corrects).
+
+A `short` function (fewer than MIN_FIXED fixed bytes: too little to search) is credited only at an
+address the run knows independently of its bytes (D188): a slot of a vtable whose address is known
+(symbols.json's vtables, or one D171 learned, `vtable`; one an exact function's vptr store gave,
+`vptr`), or the target of a call (REL32) in an exact function's relocations (`call`). Its pattern
+must fullmatch there, no relocation target may contradict it (D80's checks), the proofs must name one
+address, and no other symbol may hold it. Never by pattern alone. Such a result is `exact` with
+`short_known` set to the kind of proof; one in a COMDAT section (an inline, template or
+compiler-generated function) is also `shared` (D183's guard: it credits the address, not a file
+placement). The round runs when the static initialiser resolves nothing more; its credits feed D80's
+next round like any exact function.
+
     python objmatch.py [--client PATH] [--json OUT] file.obj...
 """
 import argparse
@@ -71,6 +90,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from clientimage import ClientImage, DEFAULT_CLIENT  # noqa: E402
 
 MIN_FIXED = 12   # a pattern needs at least this many non-wildcard bytes to be searched
+# D189(2): searched hits count only at a function start (function_start). Off until the user rules on the
+# pairs it corrects (D66: mid-function hits that are pairs today, listed in SHRT's report of 2026-11-03)
+ANCHOR_HITS = False
 
 
 def generated(name):
@@ -521,6 +543,10 @@ def match_objects(img, paths, region=None, callers=False):
                 r['addresses'] = []
             else:
                 hits = [start + m.start() for m in re.finditer(pat, text, re.S)]
+                anchored = [h for h in hits if not ANCHOR_HITS or function_start(img, h)]     # D189(2)
+                if len(anchored) < len(hits):
+                    r['unanchored'] = len(hits) - len(anchored)
+                hits = anchored
                 r['addresses'] = [f'0x{a:06X}' for a in hits[:5]]
                 r['status'] = 'exact' if len(hits) == 1 else 'multiple' if hits else 'none'
                 if len(hits) > 1:
@@ -562,14 +588,20 @@ def match_objects(img, paths, region=None, callers=False):
                 continue
             if typ == 0x06:
                 v = struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]
+                if sym['name'].startswith('??_7'):
+                    vptrs[sym['name']].add(v)            # D188: a vptr store (constructor / destructor)
             elif typ == 0x14:
                 v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
+                called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)   # D188: a call's target
             else:
                 continue
             known.setdefault(sym['name'], set()).add(thunk.get(v, v))
+    called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
+    vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    shorts = [x for x in results if x[0]['status'] == 'short' and x[4] > 0]
     # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
     # symbols.json names with the function's own symbol (from a vtable slot or a string, not an
     # exact match); its credits may let D80 resolve more, so the loop goes on
@@ -615,6 +647,19 @@ def match_objects(img, paths, region=None, callers=False):
                             wide[id(obj)] = (min(wlo, a), max(whi, a))
                 ranges = wide
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
+            if phase == 'short':
+                # D188: a short function at an address the run knows independently of its bytes
+                got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed)
+                for (r, obj, sec, s, length), a, kind in got:
+                    r['status'] = 'exact'
+                    r['addresses'] = [f'0x{a:06X}']
+                    r['short_known'] = kind
+                    claimed[a].add(r['symbol'])
+                    learn(r, obj, sec, s, length, a)
+                    changed = True
+                shorts = [x for x in shorts if x[0]['status'] == 'short']
+                phase = 'd80' if changed else 'done'
+                continue
             for item in pending:
                 r, obj, sec, s, length, hits = item
                 if id(r) in done:
@@ -671,6 +716,8 @@ def match_objects(img, paths, region=None, callers=False):
                 phase, changed = 'range', True          # neither D80 nor the self name: one range round
             elif phase == 'range':
                 phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
+            elif phase == 'init':
+                phase, changed = 'short', True          # nor the initialiser: one short-function round (D188)
         if not callers:
             break
         credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
@@ -685,10 +732,109 @@ def match_objects(img, paths, region=None, callers=False):
         if r['status'] != 'exact' or not r.get('shared_callers'):
             r.pop('shared_callers', None)
     shared = shared_pairs(results)
-    for r, obj, *_ in results:
+    for r, obj, sec, *_ in results:
         if r['status'] == 'exact' and (int(r['addresses'][0], 16), r['symbol']) in shared:
             r['shared'] = True
+        if r.get('short_known') and not obj.own(sec):
+            r['shared'] = True      # D188: a short COMDAT credits the address, not a file placement
     return [x[0] for x in results]
+
+
+def function_start(img, va):
+    """D189(2): True if a searched hit at `va` may be a function's start: a thunk's or a call / jump's
+    target, the start of .text, or the byte after padding (int3 / nop) or after the end of another
+    function (`ret`, `ret n`, `jmp rel32` / `rel8`, an indirect `jmp`, or a jump table's last entry, a
+    .text address), or a 16-byte aligned address (a function after a switch's byte index table,
+    Hue_Shift 0x94EB20). Never an unaligned hit inside a function."""
+    start, end, raw = img.section('.text')
+    if va == start:
+        return True
+    sites, thunks = call_sites(img)
+    if va in sites or va in _thunk_targets(img):
+        return True
+    o = img.offset(va)
+    d = img.data
+    if o is None or o < 7:
+        return False
+    if d[o - 1] in (0xCC, 0x90, 0xC3) or d[o - 3] == 0xC2 or d[o - 5] == 0xE9 or d[o - 2] == 0xEB:
+        return True
+    # an indirect jmp (FF /4): jmp reg, jmp [reg], jmp [reg+disp8], jmp [disp32] / [reg+disp32]
+    if d[o - 2] == 0xFF and (0xE0 <= d[o - 1] <= 0xE7 or 0x20 <= d[o - 1] <= 0x27 and d[o - 1] not in (0x24, 0x25)):
+        return True
+    if d[o - 3] == 0xFF and 0x60 <= d[o - 2] <= 0x67 and d[o - 2] != 0x64:
+        return True
+    if d[o - 6] == 0xFF and (d[o - 5] == 0x25 or 0xA0 <= d[o - 5] <= 0xA7 and d[o - 5] != 0xA4):
+        return True
+    # after a jump table (its last entry a .text address), or 16-byte aligned (after a switch's index bytes)
+    return start <= struct.unpack_from('<I', d, o - 4)[0] < end or va % 16 == 0
+
+
+_targets = {}
+
+
+def _thunk_targets(img):
+    if id(img) not in _targets:
+        _targets[id(img)] = set(thunks_of(img).values())
+    return _targets[id(img)]
+
+
+def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed):
+    """D188: [(item, address, kind)] for the `short` functions at an address the run knows independently
+    of their bytes: a call's target in an exact function (`call`), or a slot of a vtable whose address is
+    known (`vptr` when an exact function's vptr store gave it, `vtable` otherwise: symbols.json, D171).
+    The pattern must fullmatch there, D80's checks must leave it, the proofs must name one address, and
+    neither another symbol already exact there nor another short function may take it."""
+    objs = list({id(x[1]): x[1] for x in shorts}.values())
+    slot_of = collections.defaultdict(lambda: collections.defaultdict(set))   # symbol -> address -> kinds
+    names = self_names()
+    owners = collections.defaultdict(set)
+    for k, v in names.items():
+        for a in v:
+            owners[a].add(k[4:] if k.startswith(('??_E', '??_G')) else k)
+    for obj in objs:
+        for vt, sl in vtable_slots(obj):
+            addrs = known.get(vt)
+            if not addrs or len(addrs) != 1:
+                continue
+            va = next(iter(addrs))
+            kind = 'vptr' if va in vptrs.get(vt, ()) else 'vtable'
+            for off, slot in sl:
+                o = img.offset(va + off)
+                if o is None or generated(slot):
+                    continue
+                v = struct.unpack_from('<I', img.data, o)[0]
+                v = thunk.get(v, v)
+                n = slot[4:] if slot.startswith(('??_E', '??_G')) else slot
+                if owners.get(v) and n not in owners[v]:
+                    continue        # symbols.json names another function there
+                slot_of[slot][v].add(kind)
+    for name, addrs in called.items():
+        for a in addrs:
+            slot_of[name][a].add('call')
+    props = []
+    for item in shorts:
+        r, obj, sec, s, length = item
+        if obj.symbol_class(r['symbol']) != 2 or generated(r['symbol']):
+            continue
+        cands = slot_of.get(r['symbol'])
+        if not cands or len(cands) != 1:
+            continue
+        a, kinds = next(iter(cands.items()))
+        o = a - base
+        if not 0 <= o <= len(text) - length or claimed[a] - {r['symbol']}:
+            continue
+        pat = obj.pattern(sec, s, s + length)[0]
+        if not re.fullmatch(pat, text[o:o + length], re.S):
+            continue
+        survivors, _ = break_tie(obj, sec, s, length, text, base, [a], img, known)
+        if survivors != [a]:
+            continue
+        kind = 'call' if 'call' in kinds else 'vptr' if 'vptr' in kinds else 'vtable'
+        props.append((item, a, kind))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a, _ in props:
+        by_addr[a].add(r['symbol'])
+    return [p for p in props if len(by_addr[p[1]]) == 1]
 
 
 def range_distance(rng, a):
