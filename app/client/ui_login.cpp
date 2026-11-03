@@ -97,14 +97,14 @@ extern const int Unknown_B08CC4;						// NAME 1: neutral (D10): what the text ga
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl)  // NAME 1 [robj]: as ui_avatr.cpp's
 
-// The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
 
 // intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0)
 #include "local_interface_sort.h"
@@ -783,7 +783,7 @@ void LoginInterface::Unknown_5AE590()
 {
 	Unknown_5C();
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	AccountMenu = Create_Get(Unknown_BFAEE0->Create_Render_Obj("FE13A"));
+	AccountMenu = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("FE13A"));
 	G_ASSERT(AccountMenu);
 	model->Add_Sub_Object(AccountMenu.Peek());
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("fa_fe13a.ini");

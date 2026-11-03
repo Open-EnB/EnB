@@ -14141,6 +14141,16 @@
      "0x489FE0"
     ]
    },
+   "starbase_lights": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x764480"
+    ],
+    "merged": [],
+    "name": "client/starbase_lights.cpp"
+   },
    "stars": {
     "ambiguous": [
      "0x46BE90",
@@ -17084,6 +17094,7 @@
    "client/soptions.h": "reconstructed",
    "client/sound_manager.h": "reconstructed",
    "client/splash.h": "reconstructed",
+   "client/starbase_lights.h": "reconstructed",
    "client/starmap_data.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
    "client/tasks/tsk_login.h": "reconstructed",
@@ -17346,7 +17357,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7586,
+  "in_tree_total": 7587,
   "totals": {}
  },
  "binkmovie": {

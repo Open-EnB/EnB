@@ -81,17 +81,17 @@ void GadgetSlider::Unknown_66E3A0()
 	WheelRegion = NULL;
 }
 
-class UnknownBFAEE0Class
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);
-	virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual RenderObjClass *Create_Animation(const char *name);
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+
+
+
+
 
 bool Unknown_4967F0(RenderObjClass *robj, int delta, RenderObjClass *base_robj);
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
@@ -153,15 +153,15 @@ void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, int
 	G_ASSERT(MaxBoneIdx);
 	IsHorizontal = (is_horizontal != 0);
 	if (IsHorizontal) {
-		ThumbAnim = Create_Get(Unknown_BFAEE0->Create_Animation("slider_hor.slider_hor-1"));
-		Thumb = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_hor"));
-		MinArrow = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_lt"));
-		MaxArrow = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_rt"));
+		ThumbAnim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("slider_hor.slider_hor-1"));
+		Thumb = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_hor"));
+		MinArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_lt"));
+		MaxArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_rt"));
 	} else {
-		ThumbAnim = Create_Get(Unknown_BFAEE0->Create_Animation("slider_vert.slider_vert-1"));
-		Thumb = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_vert"));
-		MinArrow = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_up"));
-		MaxArrow = Create_Get(Unknown_BFAEE0->Create_Render_Obj("slider_dn"));
+		ThumbAnim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("slider_vert.slider_vert-1"));
+		Thumb = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_vert"));
+		MinArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_up"));
+		MaxArrow = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("slider_dn"));
 	}
 	sprintf(buf, "slider_%02d_regio", bone_idx);
 	WheelRegion = Create_Get(object->Get_Sub_Object_By_Name(buf));

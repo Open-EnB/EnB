@@ -84,23 +84,3 @@ void Unknown_790940(Unknown_790560Class *manager)
 {
 	Unknown_BE856C = manager;
 }
-
-// ---------------------------------------------------------------- the starbase lights manager
-
-class Unknown_764480Class { public: Unknown_764480Class(); ~Unknown_764480Class(); char Unknown00[0x10]; };
-
-Unknown_764480Class *Unknown_BE82D0;	// 0xBE82D0
-
-Unknown_764480Class::Unknown_764480Class()
-{
-	STUB_CALLED("Unknown_764480Class (0x764480, the starbase lights manager): no lights");
-}
-
-Unknown_764480Class::~Unknown_764480Class()
-{
-}
-
-void Unknown_764510(Unknown_764480Class *manager)
-{
-	Unknown_BE82D0 = manager;
-}

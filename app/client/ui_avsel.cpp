@@ -61,7 +61,7 @@ typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetP
 
 
 
-void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
+bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
 void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
@@ -232,14 +232,14 @@ public:
 };
 // (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map)
 
-// The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name (as ui_login.cpp declares it)
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14 ('BUDDYREF1')  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
@@ -1156,7 +1156,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 	Unknown_5C();
 	Unknown11C = "";
 	RenderObjClass *model = Unknown084->Peek_Model();
-	BuddyReferralUI = Create_Get(Unknown_BFAEE0->Create_Render_Obj("BUDDYREF1"));
+	BuddyReferralUI = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("BUDDYREF1"));
 	G_ASSERT(BuddyReferralUI);
 	model->Add_Sub_Object(BuddyReferralUI.Peek());
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_buddyref1.ini");

@@ -14,6 +14,7 @@
 #include "always.h"
 #include "gd_robj.h"
 #include "vector3.h"
+#include "hanim.h"
 
 struct KernelEventClass;
 
@@ -40,7 +41,7 @@ public:
 	RefCountPtr<RenderObjClass> MaxArrow;				// +0x68  // NAME 2 [MaxArrow]: FAIL_IF '!MaxArrow'
 	RefCountPtr<RenderObjClass> Thumb;					// +0x6C  // NAME 2 [Thumb]: FAIL_IF '!Thumb'
 	RefCountPtr<RenderObjClass> WheelRegion;			// +0x70  // NAME 2 [WheelRegion]: FAIL_IF '!WheelRegion'
-	RefCountPtr<RenderObjClass> ThumbAnim;				// +0x74  // NAME 2 [ThumbAnim]: FAIL_IF '!ThumbAnim'
+	RefCountPtr<HAnimClass> ThumbAnim;					// +0x74 (WW3DAssetManager::Get_HAnim)  // NAME 2 [ThumbAnim]: FAIL_IF '!ThumbAnim'
 	int MinBoneIdx;										// +0x78  // NAME 2 [MinBoneIdx]: G_ASSERT 'MinBoneIdx'
 	int MaxBoneIdx;										// +0x7C  // NAME 2 [MaxBoneIdx]: G_ASSERT 'MaxBoneIdx'
 	float Unknown80;									// +0x80

@@ -128,9 +128,9 @@ extern Unknown_6BCFB0Class *Unknown_BE67B4;			// NAME 1 [Unknown_BE67B4]: neutra
 class Unknown_790560Class { public: Unknown_790560Class(); ~Unknown_790560Class(); char Unknown00[0x14]; };	// NAME 1 [Unknown_790560Class]: the personality manager (personalities\%sPersonality%02d.ini); 0x790560, 0x790870
 void Unknown_790940(Unknown_790560Class *manager);	// NAME 1 [Unknown_790940]: sets 0xBE856C  // NAME 1 [manager]: neutral
 extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutral (D10)
-class Unknown_764480Class { public: Unknown_764480Class(); ~Unknown_764480Class(); char Unknown00[0x10]; };	// NAME 1 [Unknown_764480Class]: the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0
-void Unknown_764510(Unknown_764480Class *manager);	// NAME 1 [Unknown_764510]: sets 0xBE82D0  // NAME 1 [manager]: neutral
-extern Unknown_764480Class *Unknown_BE82D0;			// NAME 1 [Unknown_BE82D0]: neutral (D10)
+#include "..\client\starbase_lights.h"	// the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0, 0x764510
+// (starbase_lights.h: Unknown_764480Class, Unknown_764510 and Unknown_BE82D0;
+// one line each before, kept for the line numbers below)
 #include "..\client\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 class SClientFontDatabaseClass;					// sclient.h's view of 0xBE67BC (the font string files)
 extern SClientFontDatabaseClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
