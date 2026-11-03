@@ -320,10 +320,31 @@ def replay(seconds, shots, steps, inst):
         env['D3D8SHOT_FRAMES'] = shots
     logdir = os.path.join(out, 'antprox-logs')
     os.makedirs(logdir, exist_ok=True)
+    # antprox picks its loopback address at start: two starting together can pick the same one, so start one at a
+    # time (a lock folder in %TEMP%) and let each say "Replay server ready" before the next starts
+    gate = os.path.join(os.environ.get('TEMP', '.'), 'clientpoc-antprox-start.lock')
+    for _ in range(300):
+        try:
+            os.mkdir(gate)
+            break
+        except OSError:
+            try:
+                if time.time() - os.path.getmtime(gate) > 60:
+                    shutil.rmtree(gate, ignore_errors=True)
+            except OSError:
+                pass
+            time.sleep(0.2)
     a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir], cwd=inst.dir, env=env,
                          stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
     start = time.time()
     pid = None
+    try:
+        while time.time() - start < 20 and a.poll() is None:
+            if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
+                break
+            time.sleep(0.1)
+    finally:
+        shutil.rmtree(gate, ignore_errors=True)
     try:
         while time.time() - start < 30 and pid is None and a.poll() is None:
             for p, name in descendants(a.pid):
