@@ -54,6 +54,7 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void 
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300
 void Unknown_496AE0(RenderObjClass *robj, int a);	// 0x496AE0
+void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs; 0x577B80 calls it on each shown sub-object)
 void Unknown_42ECF0(int *x, int *y);	// 0x42ECF0
 void Unknown_6CDBC0(const char *text, int a);	// 0x6CDBC0
 void Unknown_65F2D0(const char *text);	// 0x65F2D0
@@ -108,6 +109,24 @@ static ClassSelectButtonDefStruct Unknown_B7DC44[8] = {
 	{ "skill05", "skill05_fe_class00" },
 	{ "skill06", "skill06_fe_class00" },
 	{ "skill07", "skill07_fe_class00" }
+};
+
+struct ClassSelectTitleStruct {	// NAME 1: neutral (D10): the class select title and subtitle (0x5779D0)
+	const char *Title;		// +0x00 (0x82F3C0's name for the class)  // NAME 1: what 0x5779D0 shows it in
+	const char *Subtitle;	// +0x04 ('Terran Warrior' ...)  // NAME 1: what 0x5779D0 shows it in
+};
+
+// 0xBE5B6C (the dynamic initialiser 0x5745B0 fills it: 0x82F3C0(0, 2, 1, 8, 7, 6, 3, 4, 5) in Unknown_B7DB60's order)
+static ClassSelectTitleStruct Unknown_BE5B6C[9] = {
+	{ Unknown_82F3C0(0), "Terran Warrior" },
+	{ Unknown_82F3C0(2), "Terran Explorer" },
+	{ Unknown_82F3C0(1), "Terran Tradesman" },
+	{ Unknown_82F3C0(8), "Progen Explorer" },
+	{ Unknown_82F3C0(7), "Progen Tradesman" },
+	{ Unknown_82F3C0(6), "Progen Warrior" },
+	{ Unknown_82F3C0(3), "Jenquai Warrior" },
+	{ Unknown_82F3C0(4), "Jenquai Tradesman" },
+	{ Unknown_82F3C0(5), "Jenquai Explorer" }
 };
 
 static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
@@ -257,7 +276,6 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 }
 
 
-// NOT EXACT: register
 // @0x575220
 ClassSelectInterface::~ClassSelectInterface()
 {
@@ -265,13 +283,14 @@ ClassSelectInterface::~ClassSelectInterface()
 	Unknown_5C();
 	Descriptions.clear();
 	SkillDescriptions.clear();
-	Unknown_BE67C4->Remove((unsigned int)CharacterView->ViewRObjs[0]);
+	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
 	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_class00.ini");
 	CharacterView->Unknown_67A9B0(0);
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	UIClassCallbackClass callback(this, function);
-	GadgetClass::Get_Signal_Map().disconnect(NULL, callback);
+	notifier->disconnect(0, callback);
 }
 
 
@@ -421,7 +440,6 @@ void ClassSelectInterface::Unknown_575D50()
 }
 
 
-// NOT EXACT: register
 // @0x5760C0
 void ClassSelectInterface::Unknown_5760C0(bool arg)
 {
@@ -429,21 +447,20 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(arg);
 			if (Unknown_B7DBCC[i].SubObject) {
-				FontStyleClass *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->ViewRObjs[0]);
+				FontStyleClass *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
 				if (font) {
-					font->Unknown_Set_2FC(arg ? 1.0f : 0.33f);
+					if (arg) {
+						font->Unknown_Set_2FC(1.0f);
+					} else {
+						font->Unknown_Set_2FC(0.33f);
+					}
 				}
 			}
 		}
 	}
-	if (Buttons[4]) {
-		Buttons[4]->Unknown_40(false);
-		((RObjGadgetClass *)Buttons[4])->Unknown_8C(true);
-	}
-	FontStyleClass *skill_obj = Unknown_BE67C4->Get_Style("skill_fe_class00", (unsigned int)CharacterView->ViewRObjs[0]);
-	if (skill_obj) {
-		skill_obj->Set_Hidden(1);
-	}
+	Buttons[4]->Unknown_40(false);
+	((RObjGadgetClass *)Buttons[4])->Unknown_8C(true);
+	Unknown_BE67C4->Get_Style("skill_fe_class00", (unsigned int)CharacterView->Peek_Model())->Set_Hidden(1);
 }
 
 
@@ -451,19 +468,15 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
 {
-	int count = (int)Descriptions.size();
 	for (int i = 0; i < 8; i++) {
-		int idx = SliderValue + i;
-		if (idx < count) {
-			Unknown_6CDBC0(Descriptions[idx].c_str(), 0);
-			Unknown_65F2D0(SkillDescriptions[idx].c_str());
+		if (SliderValue + i < (int)Descriptions.size()) {
+			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text(Descriptions[SliderValue + i].c_str(), 0);
+			SkillGadgets[i]->Set_Unknown14(SkillDescriptions[SliderValue + i].c_str());
 		} else {
-			Unknown_6CDBC0("", 0);
-			Unknown_65F2D0("");
+			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text("", 0);
+			SkillGadgets[i]->Set_Unknown14("");
 		}
-		if (SkillGadgets[i]) {
-			SkillGadgets[i]->Unknown2C_06 = 0;
-		}
+		SkillGadgets[i]->Unknown2C_06 = 0;
 	}
 }
 
@@ -475,43 +488,54 @@ void ClassSelectInterface::Unknown_576AC0()
 }
 
 
-// NOT EXACT: register
 // @0x5779D0
 void ClassSelectInterface::Unknown_5779D0()
 {
 	CharacterView->Unknown_67B320();
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	FontStyleClass *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)model);
+	FontStyleClass *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
 	if (title) {
-		Unknown_6CDBC0(Unknown_B7DBCC[Unknown8C + 5].SubObject, 0);
+		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
 	}
-	FontStyleClass *sub = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)model);
-	if (sub) {
-		Unknown_6CDBC0(Unknown_B7DBCC[Unknown8C + 5].SubObject, 0);
+	FontStyleClass *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	if (subtitle) {
+		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
 	}
+	Unknown_576360();
+	Unknown_5767F0();
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, false);
-	if ((float)Unknown_B7DB60[Unknown8C].Angle != UnknownE4) {
-		UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
+	int angle = Unknown_B7DB60[Unknown8C].Angle;
+	if ((float)angle != UnknownE4) {
+		int delta = (int)((float)angle - UnknownE4);
+		if (delta > 180) {
+			delta -= 360;
+		} else if (delta < -180) {
+			delta += 360;
+		}
 		UnknownEC = 0x3F800000;
+		UnknownE8 = (float)delta + UnknownE4;
 		SoundLibraryClass::Play_2D_Sound("planet_spin.wav", 2);
 	}
 	CharacterView->Unknown_67C7B0();
 }
 
 
-// NOT EXACT: register
 // @0x577B80
 void ClassSelectInterface::Unknown_577B80()
 {
-	RenderObjClass *model = CharacterView->ViewRObjs[1];
-	if (!model) return;
+	RenderObjClass *robj = CharacterView->ViewRObjs[1];
+	RefCountPtr<RenderObjClass> model = Unknown_497300(robj);
 	for (int i = 0; i < 9; i++) {
-		const char *name = Unknown_82F3C0(i);
 		char buf[64];
-		sprintf(buf, "%s03", name);
-		RenderObjClass *sub = model->Get_Sub_Object_By_Name(buf);
-		if (sub) {
-			sub->Set_Hidden(Unknown_B7DC8C[i] ? 1 : 0);
+		_snprintf(buf, sizeof(buf), "%s03", Unknown_82F3C0(i));
+		int bone = model->Get_Bone_Index(buf);
+		for (int j = 0; j < model->Get_Num_Sub_Objects_On_Bone(bone); j++) {
+			RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_On_Bone(j, bone));
+			if (Unknown_B7DC8C[i]) {
+				sub->Set_Hidden(1);
+			} else {
+				sub->Set_Hidden(0);
+				Unknown_496DB0(sub.Peek());
+			}
 		}
 	}
 }

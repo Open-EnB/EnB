@@ -33,6 +33,8 @@ public:
 	void Unknown_5779D0();							// 0x5779D0
 	void Unknown_5760C0(bool arg);					// 0x5760C0  // NAME 1 [arg]: neutral
 	void Unknown_576270();							// 0x576270
+	void Unknown_576360();							// 0x576360 (0x5779D0 calls it; not built)
+	void Unknown_5767F0();							// 0x5767F0 (0x5779D0 calls it; not built)
 	void Unknown_576AC0();							// 0x576AC0
 	void Unknown_575D50();							// 0x575D50
 	void Unknown_577DA0(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x577DA0  // NAME 1: neutral (D10); NAME 1 [sender]: neutral
