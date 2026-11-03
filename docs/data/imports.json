@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 105,
+  "ambiguous_total": 106,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -722,6 +722,7 @@
    },
    "avatar": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0"
     ],
     "copy": "reconstructed",
@@ -3825,6 +3826,53 @@
      "0x4AA9C0",
      "0x4AAAE0",
      "0x4AAB20"
+    ]
+   },
+   "env_map_manager": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x4B5740",
+     "0x760360",
+     "0x761540",
+     "0x7617A0",
+     "0x7617E0",
+     "0x761820",
+     "0x761870",
+     "0x7618B0",
+     "0x761A30",
+     "0x761BC0"
+    ],
+    "merged": [],
+    "name": "client/env_map_manager.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42F250",
+     "0x4B5740"
+    ],
+    "tiebreak": [
+     "0x7617E0",
+     "0x761BC0"
     ]
    },
    "extrap": {
@@ -13789,6 +13837,38 @@
     "merged": [],
     "name": "client/soptions.cpp"
    },
+   "sound_manager": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x740AE0",
+     "0x75AB10",
+     "0x75AB70",
+     "0x75AC50",
+     "0x75AE30",
+     "0x75B0D0",
+     "0x75B170",
+     "0x75B2B0",
+     "0x75B320",
+     "0x75B4F0",
+     "0x75B6B0",
+     "0x75B740"
+    ],
+    "merged": [],
+    "name": "client/sound_manager.cpp",
+    "shared": [
+     "0x42F250"
+    ],
+    "tiebreak": [
+     "0x75B4F0",
+     "0x75B6B0",
+     "0x75B740"
+    ]
+   },
    "soundlib": {
     "ambiguous": [
      "0x42A6C0",
@@ -16932,6 +17012,16 @@
     "shared": [
      "0x430370"
     ]
+   },
+   "wnd_file": {
+    "ambiguous": [
+     "0x6B6880"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [],
+    "merged": [],
+    "name": "client/wnd_file.cpp"
    }
   },
   "headers": {
@@ -16959,6 +17049,7 @@
    "client/dynamic_window_vertical.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
+   "client/env_map_manager.h": "reconstructed",
    "client/extrap.h": "reconstructed",
    "client/font32bit.h": "reconstructed",
    "client/fontdatabase.h": "reconstructed",
@@ -16991,6 +17082,7 @@
    "client/sclient.h": "reconstructed",
    "client/scriptedmovieline.h": "reconstructed",
    "client/soptions.h": "reconstructed",
+   "client/sound_manager.h": "reconstructed",
    "client/splash.h": "reconstructed",
    "client/starmap_data.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
@@ -17254,7 +17346,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7566,
+  "in_tree_total": 7586,
   "totals": {}
  },
  "binkmovie": {
