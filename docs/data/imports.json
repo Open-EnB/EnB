@@ -17820,7 +17820,7 @@
   }
  },
  "ww3d2": {
-  "ambiguous_total": 56,
+  "ambiguous_total": 51,
   "base": "R",
   "compile_errors": [],
   "files": {
@@ -21175,13 +21175,7 @@
     ]
    },
    "mapper": {
-    "ambiguous": [
-     "0x9348B0",
-     "0x934FB0",
-     "0x939880",
-     "0x939910",
-     "0x939F50"
-    ],
+    "ambiguous": [],
     "best": "R",
     "copy": "Z",
     "expected": {
@@ -21295,7 +21289,19 @@
      "0x9398F0",
      "0x939910",
      "0x9399A0",
-     "0x939AD0"
+     "0x939AD0",
+     "0x939EE0",
+     "0x939F50",
+     "0x939FF0",
+     "0x93A010",
+     "0x93A150",
+     "0x93A1E0",
+     "0x93A890",
+     "0x93A900",
+     "0x93A9A0",
+     "0x93A9C0",
+     "0x93AB00",
+     "0x93AB90"
     ],
     "merged": [],
     "name": "mapper.cpp",
@@ -25462,7 +25468,7 @@
    "ww3dids.h": "R",
    "ww3dtrig.h": "R"
   },
-  "in_tree_total": 3252,
+  "in_tree_total": 3264,
   "totals": {
    "G": 548,
    "R": 1323,

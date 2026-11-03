@@ -410,5 +410,87 @@
   "address": "0x463D90",
   "symbol": "?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
   "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D90 is called by LandClass::Unknown_46E120 at 0x46E524 (land.cpp) with contact point height"
+ },
+ {
+  "address": "0xB110C8",
+  "symbol": "??_7GridWSClassicEnvironmentMapperClass@@6B@",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT): stored by the constructors 0x939EE0 / 0x93A010 / 0x93A150; slots 1 0x939FF0, 2 0x939F40, 3 0x939F50, 5 0x93A1E0, 8 0x939AD0 GridWSEnvMapperClass::Calculate_Texture_Matrix (mapper.cpp, Zero Hour; MAPR 2026-11-03)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0xB110EC",
+  "symbol": "??_7GridWSEnvironmentMapperClass@@6B@",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT): stored by the constructors 0x93A890 / 0x93A9C0 / 0x93AB00; slots 1 0x93A9A0, 2 0x93A8F0, 3 0x93A900, 5 0x93AB90, 8 0x939AD0 (mapper.cpp, Zero Hour; MAPR 2026-11-03)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x939EE0",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; six arguments (ret 0x18) (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939F40",
+  "symbol": "?Mapper_ID@GridWSClassicEnvironmentMapperClass@@UBEHXZ",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 2 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939F50",
+  "symbol": "?Clone@GridWSClassicEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 3; news 0x34 and stores 0xB110C8 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939FF0",
+  "symbol": "??_GGridWSClassicEnvironmentMapperClass@@UAEPAXI@Z",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 1 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A010",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; reads the INI (Get_Float / Get_Int, the Axis Get_String switch), ret 0xc (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A150",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; one argument (ret 4), copies +0x4..+0x30 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A1E0",
+  "symbol": "?Apply@GridWSClassicEnvironmentMapperClass@@UAEXH@Z",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 5 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A890",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; six arguments (ret 0x18) (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A8F0",
+  "symbol": "?Mapper_ID@GridWSEnvironmentMapperClass@@UBEHXZ",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 2 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A900",
+  "symbol": "?Clone@GridWSEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 3; news 0x34 and stores 0xB110EC (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A9A0",
+  "symbol": "??_GGridWSEnvironmentMapperClass@@UAEPAXI@Z",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 1 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A9C0",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; reads the INI (Get_Float / Get_Int, the Axis Get_String switch), ret 0xc (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93AB00",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; one argument (ret 4), copies +0x4..+0x30 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93AB90",
+  "symbol": "?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 5 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
  }
 ]

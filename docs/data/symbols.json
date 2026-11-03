@@ -123983,6 +123983,104 @@
 "proof": "vtable"
 },
 {
+"address": "0x939EE0",
+"symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+"name": "GridWSClassicEnvironmentMapperClass::GridWSClassicEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x939F40",
+"symbol": "?Mapper_ID@GridWSClassicEnvironmentMapperClass@@UBEHXZ",
+"name": "GridWSClassicEnvironmentMapperClass::Mapper_ID",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x939F50",
+"symbol": "?Clone@GridWSClassicEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "GridWSClassicEnvironmentMapperClass::Clone",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x939FF0",
+"symbol": "??_GGridWSClassicEnvironmentMapperClass@@UAEPAXI@Z",
+"name": "GridWSClassicEnvironmentMapperClass::scalar deleting dtor",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A010",
+"symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "GridWSClassicEnvironmentMapperClass::GridWSClassicEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A150",
+"symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+"name": "GridWSClassicEnvironmentMapperClass::GridWSClassicEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A1E0",
+"symbol": "?Apply@GridWSClassicEnvironmentMapperClass@@UAEXH@Z",
+"name": "GridWSClassicEnvironmentMapperClass::Apply",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A890",
+"symbol": "??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+"name": "GridWSEnvironmentMapperClass::GridWSEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A8F0",
+"symbol": "?Mapper_ID@GridWSEnvironmentMapperClass@@UBEHXZ",
+"name": "GridWSEnvironmentMapperClass::Mapper_ID",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A900",
+"symbol": "?Clone@GridWSEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+"name": "GridWSEnvironmentMapperClass::Clone",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A9A0",
+"symbol": "??_GGridWSEnvironmentMapperClass@@UAEPAXI@Z",
+"name": "GridWSEnvironmentMapperClass::scalar deleting dtor",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93A9C0",
+"symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+"name": "GridWSEnvironmentMapperClass::GridWSEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93AB00",
+"symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+"name": "GridWSEnvironmentMapperClass::GridWSEnvironmentMapperClass",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x93AB90",
+"symbol": "?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z",
+"name": "GridWSEnvironmentMapperClass::Apply",
+"kind": "function",
+"source": "named"
+},
+{
 "address": "0x93B3A0",
 "symbol": "?Init_From_Material3@ShaderClass@@QAEXABUW3dMaterial3Struct@@@Z",
 "name": "ShaderClass::Init_From_Material3",
@@ -170094,6 +170192,20 @@
 "name": "??_7GridWSEnvMapperClass@@6B@",
 "kind": "vtable",
 "source": "vtable"
+},
+{
+"address": "0xB110C8",
+"symbol": "??_7GridWSClassicEnvironmentMapperClass@@6B@",
+"name": "??_7GridWSClassicEnvironmentMapperClass@@6B@",
+"kind": "vtable",
+"source": "named"
+},
+{
+"address": "0xB110EC",
+"symbol": "??_7GridWSEnvironmentMapperClass@@6B@",
+"name": "??_7GridWSEnvironmentMapperClass@@6B@",
+"kind": "vtable",
+"source": "named"
 },
 {
 "address": "0xB11120",
