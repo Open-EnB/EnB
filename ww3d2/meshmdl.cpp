@@ -203,8 +203,6 @@ void MeshModelClass::Register_For_Rendering()
 
 void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)
 {
-#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")
-#if 0
 	WWASSERT(texture);
 	WWASSERT(new_texture);
 	for (int stage=0;stage<MeshMatDescClass::MAX_TEX_STAGES;++stage) {
@@ -229,13 +227,10 @@ void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_tex
 			}
 		}
 	}
-#endif
 }
 
 void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)
 {
-#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")
-#if 0
 	WWASSERT(vmat);
 	WWASSERT(new_vmat);
 	
@@ -259,7 +254,18 @@ void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMate
 			fvf_category->Change_Polygon_Renderer_Material(PolygonRendererList,vmat,new_vmat,pass);
 		}
 	}	
-#endif
+}
+
+DX8FVFCategoryContainer* MeshModelClass::Peek_FVF_Category_Container()
+{
+	if (PolygonRendererList.Is_Empty()) return NULL;
+	DX8PolygonRendererClass* polygon_renderer=PolygonRendererList.Get_Head();
+	WWASSERT(polygon_renderer);
+	DX8TextureCategoryClass* texture_category=polygon_renderer->Get_Texture_Category();
+	WWASSERT(texture_category);
+	DX8FVFCategoryContainer* fvf_category=texture_category->Get_Container();
+	WWASSERT(fvf_category);
+	return fvf_category;
 }
 
 void MeshModelClass::Shadow_Render(SpecialRenderInfoClass & rinfo,const Matrix3D & tm,const HTreeClass * htree)

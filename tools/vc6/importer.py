@@ -3543,6 +3543,25 @@ WW3D_API_PATCHES = {
          'void ParticleEmitterClass::Restart(void)\n{\n\t// calling Start will cause all internal counters to reset\n\tStart();\n}\n\nvoid ParticleEmitterClass::Set_Transform(const Matrix3D &m)\n{\n\tRenderObjClass::Set_Transform(m);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Transform(m);\n\t}\n}\n\nvoid ParticleEmitterClass::Set_Position(const Vector3 &v)\n{\n\tRenderObjClass::Set_Position(v);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Position(v);\n\t}\n}\n',
          "ParticleEmitterClass::Set_Transform 0x97DD90 / Set_Position 0x97DDC0 (after Restart 0x97DCD0): call RenderObjClass's (0x941C20 / 0x941CF0), then, when the byte at +0xFD (UnknownFlag) is set, the buffer's (+0xF8) vtable slot 20 / 21 with the same argument"),
     ],
+    ('ww3d2', 'meshmdl.cpp'): [
+        ('void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)\n{\n#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")\n#if 0\n',
+         'void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)\n{\n',
+         "MeshModelClass::Replace_Texture 0x9587E0 is live in E&B (called by MeshClass::Replace_Texture 0x9402D0 and the app, 0x48D57E): Generals' body, not Renegade's #if 0"),
+        ('void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)\n{\n#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")\n#if 0\n',
+         'void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)\n{\n',
+         "MeshModelClass::Replace_VertexMaterial 0x9588D0 is live in E&B (called by MeshClass::Replace_VertexMaterial 0x9402F0): Generals' body"),
+        ('\t\t}\n\t}\n#endif\n}\n\nvoid MeshModelClass::Replace_VertexMaterial',
+         '\t\t}\n\t}\n}\n\nvoid MeshModelClass::Replace_VertexMaterial',
+         'MeshModelClass::Replace_Texture 0x9587E0: end of the former #if 0'),
+        ('\t}\t\n#endif\n}\n\nvoid MeshModelClass::Shadow_Render',
+         '\t}\t\n}\n\nDX8FVFCategoryContainer* MeshModelClass::Peek_FVF_Category_Container()\n{\n\tif (PolygonRendererList.Is_Empty()) return NULL;\n\tDX8PolygonRendererClass* polygon_renderer=PolygonRendererList.Get_Head();\n\tWWASSERT(polygon_renderer);\n\tDX8TextureCategoryClass* texture_category=polygon_renderer->Get_Texture_Category();\n\tWWASSERT(texture_category);\n\tDX8FVFCategoryContainer* fvf_category=texture_category->Get_Container();\n\tWWASSERT(fvf_category);\n\treturn fvf_category;\n}\n\nvoid MeshModelClass::Shadow_Render',
+         "MeshModelClass::Peek_FVF_Category_Container 0x9589A0 (Generals' meshmdl.cpp, after Replace_VertexMaterial): the polygon renderer list's head's texture category's container, NULL for an empty list"),
+    ],
+    ('ww3d2', 'meshmdl.h'): [
+        ('\tbool\t\t\t\t\t\t\tIs_Alternate_Material_Description_Enabled(void);\n\n',
+         "\tbool\t\t\t\t\t\t\tIs_Alternate_Material_Description_Enabled(void);\n\n\t// FVF category container will be NULL if the mesh hasn't been registered to the rendering system\n\tDX8FVFCategoryContainer* Peek_FVF_Category_Container();\n\n",
+         "MeshModelClass::Peek_FVF_Category_Container 0x9589A0: Generals' declaration"),
+    ],
 }
 for _key, _edits in WW3D_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
