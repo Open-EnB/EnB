@@ -31,6 +31,7 @@ class UnknownRippleClass : public RefCountClass
 {
 public:
 	UnknownRippleClass(void);
+	UnknownRippleClass(float decay, float speed, float amplitude);
 
 	virtual void			Unknown_Distort(Vector2 & uv, UnknownDistortionClass * owner);
 
