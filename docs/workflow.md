@@ -1102,7 +1102,7 @@ unless `--lever` cites a new row of this table.
 * **POC runs started by agy builders crash at startup (2026-11-02 evening run):** every clientpoc run an agy builder made
   (runs 63-69) crashed in WW3D::Set_Gamma (render device not set) while the coordinator's runs of the same code at master
   and the run's HEAD ran 40 s; a process agy starts apparently gets no usable D3D adapter. Builders' POC checks prove
-  nothing: the coordinator runs the POC itself (`.work/run-2026-11-02-agy/poc_check.sh NAME COMMIT`).
+  nothing: the coordinator runs the POC itself (`tools/agy/poc_check.sh NAME COMMIT`, D187).
 * **agy builders (2026-11-02 evening run):** `--mode auto` is not available on the user's account (`--dangerously-skip-permissions`
   suffices); under Git Bash set `MSYS_NO_PATHCONV=1` (a leading `/` in an argument becomes `C:/Program Files/Git/...`); agy runs
   its commands in PowerShell whatever the brief says; take tokens from the stream's last line (`result.usage`), never from
@@ -1219,7 +1219,7 @@ unless `--lever` cites a new row of this table.
 * **bring-over refuses a cherry-pick with generated-file conflicts (2026-11-02 evening run):** two builders from the same
   base both rewrite imports.json / names-review.md; rebase the worktree branch, take the run's side of each generated
   file, regenerate (names.py, notexact.py, verify --lib app --pool 1, report), continue, bring over:
-  `.work/run-2026-11-02-agy/rebase_gen.sh ID` (attempts.csv: both sides' rows).
+  `tools/agy/rebase_gen.sh ID run/<date>` (attempts.csv: both sides' rows).
 
 * **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
   the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).
