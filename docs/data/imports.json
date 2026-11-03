@@ -6758,6 +6758,33 @@
      "0x42F250"
     ]
    },
+   "nlp": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x78E2C0",
+     "0x78E2F0",
+     "0x78E870",
+     "0x78E8A0",
+     "0x78E8F0",
+     "0x78E980",
+     "0x78EC00",
+     "0x78ECC0",
+     "0x78EE00",
+     "0x78EEF0",
+     "0x78F640",
+     "0x78F690"
+    ],
+    "merged": [],
+    "name": "client/nlp.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "option": {
     "ambiguous": [
      "0x42A6C0",
@@ -16768,6 +16795,54 @@
     "merged": [],
     "name": "shared/unknown_new.cpp"
    },
+   "unknown_personality": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x78F9F0",
+     "0x78FAB0",
+     "0x78FB30",
+     "0x78FBB0",
+     "0x78FC20",
+     "0x790190",
+     "0x7901C0",
+     "0x790260",
+     "0x790320"
+    ],
+    "merged": [],
+    "name": "client/unknown_personality.cpp"
+   },
+   "unknown_personality_manager": {
+    "ambiguous": [
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x4333D0",
+     "0x436730"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x790870",
+     "0x790C70",
+     "0x790D00",
+     "0x790DE0",
+     "0x790E70"
+    ],
+    "merged": [],
+    "name": "client/unknown_personality_manager.cpp"
+   },
+   "unknown_phoneme": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x7913B0"
+    ],
+    "merged": [],
+    "name": "client/unknown_phoneme.cpp"
+   },
    "unknown_px_callbacks": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -17107,6 +17182,7 @@
    "client/local_interface_sort.h": "reconstructed",
    "client/mousetbl.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
+   "client/nlp.h": "reconstructed",
    "client/option.h": "reconstructed",
    "client/postate.h": "reconstructed",
    "client/radar_data.h": "reconstructed",
@@ -17147,6 +17223,7 @@
    "client/unknown_creator.h": "reconstructed",
    "client/unknown_fontsound.h": "reconstructed",
    "client/unknown_log.h": "reconstructed",
+   "client/unknown_personality.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
@@ -17382,7 +17459,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7610,
+  "in_tree_total": 7637,
   "totals": {}
  },
  "binkmovie": {

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-470 entries in 118 files.
+493 entries in 122 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,21 +15,21 @@ edit the comments in the code, not this file.
 | `app/audio/surfacetypes.cpp:22` | `Unknown_442650` | marker | NOT EXACT: frame (0.51, sub esp 0x90 vs 0x8c) @0x442650 |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
-| `app/client/avatar.cpp:81` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:298` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:396` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:439` | `CharacterViewAvatarClass::Unknown_784A50` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:453` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
-| `app/client/avatar.cpp:526` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
-| `app/client/avatar.cpp:541` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
-| `app/client/avatar.cpp:583` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
-| `app/client/avatar.cpp:636` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
-| `app/client/avatar.cpp:741` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built) |
-| `app/client/avatar.cpp:829` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__) |
-| `app/client/avatar.cpp:869` | `CharacterViewAvatarClass::Unknown_780F30` | marker | NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__) |
-| `app/client/avatar.cpp:906` | `CharacterViewAvatarClass::Unknown_7812A0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:923` | `CharacterViewAvatarClass::Unknown_781410` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:954` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:29` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:246` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:344` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:387` | `CharacterViewAvatarClass::Unknown_784A50` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:401` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
+| `app/client/avatar.cpp:474` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
+| `app/client/avatar.cpp:489` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
+| `app/client/avatar.cpp:531` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
+| `app/client/avatar.cpp:584` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
+| `app/client/avatar.cpp:689` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built) |
+| `app/client/avatar.cpp:777` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__) |
+| `app/client/avatar.cpp:817` | `CharacterViewAvatarClass::Unknown_780F30` | marker | NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__) |
+| `app/client/avatar.cpp:854` | `CharacterViewAvatarClass::Unknown_7812A0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:871` | `CharacterViewAvatarClass::Unknown_781410` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:902` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -155,6 +155,10 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: functional (MV2, from the disassembly) |
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: functional (MV2, from the disassembly) slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10, within their apparent size), the one nearest the ray that no nearer occluder covers |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
+| `app/client/nlp.cpp:20` | `Unknown_78E190` | marker | NOT EXACT: functional for POC (D64), order-only (the same instructions in another order) |
+| `app/client/nlp.cpp:62` | `NLPLexiconClass::NLPLexiconClass` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x78E190 and 0x78E8F0; ours inlines them) |
+| `app/client/nlp.cpp:211` | `PlayerNLPClass::Unknown_78ED30` | marker | NOT EXACT: functional for POC (D64), shape (the loops' guards: ours merges the second guard into its loop) |
+| `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
@@ -308,6 +312,25 @@ edit the comments in the code, not this file.
 | `app/client/unknown_fontsound.cpp:9` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
 | `app/client/unknown_fontsound.cpp:14` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
 | `app/client/unknown_fontsound.cpp:33` | `Unknown_6BCFB0Class::Play` | marker | NOT EXACT: (D64) the client stores Duration before the fcomp of seconds and places the Add branch after the epilogue; this form schedules the store after it (0.81) |
+| `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
+| `app/client/unknown_personality.cpp:77` | `Unknown_78F700Class::Load` | marker | NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently) |
+| `app/client/unknown_personality.cpp:173` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
+| `app/client/unknown_personality_manager.cpp:14` | `Unknown_790560Class::Unknown_790560Class` | marker | NOT EXACT: functional for POC (D64), shape (push_back's inlined insert, a merged or split tail) |
+| `app/client/unknown_personality_manager.cpp:49` | `Unknown_790560Class::Unknown_790960` | marker | NOT EXACT: functional for POC (D64), inline-budget (push_back's inlined insert) |
+| `app/client/unknown_personality_manager.cpp:87` | `Unknown_790560Class::Unknown_790D40` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
+| `app/client/unknown_personality_manager.cpp:97` | `Unknown_790560Class::Unknown_790D90` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
+| `app/client/unknown_personality_manager.cpp:116` | `Unknown_790560Class::Unknown_790E20` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
+| `app/client/unknown_personality_manager.cpp:137` | `Unknown_790560Class::Unknown_790EE0` | marker | NOT EXACT: functional for POC (D64), shape (push_back's inlined insert) |
+| `app/client/unknown_phoneme.cpp:66` | `Unknown_791310Class::Unknown_791310Class` | marker | NOT EXACT: functional for POC (D64), shape (the index loop) |
+| `app/client/unknown_phoneme.cpp:83` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order) |
+| `app/client/unknown_phoneme.cpp:185` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), shape (the index entry's loads) |
+| `app/client/unknown_phoneme.cpp:205` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
+| `app/client/unknown_phoneme.cpp:246` | `Unknown_791310Class::Unknown_791970` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
+| `app/client/unknown_phoneme.cpp:292` | `Unknown_791310Class::Unknown_791B00` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
+| `app/client/unknown_phoneme.cpp:326` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
+| `app/client/unknown_phoneme.cpp:400` | `Unknown_791310Class::Unknown_791E50` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
+| `app/client/unknown_phoneme.cpp:427` | `Unknown_791310Class::Unknown_791F10` | marker | NOT EXACT: functional for POC (D64), shape (2 rows) |
+| `app/client/unknown_phoneme.cpp:445` | `Unknown_791310Class::Unknown_791F80` | marker | NOT EXACT: functional for POC (D64), shape (registers and the branch layout) |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/galaxy_map.cpp:438` | `GalaxyMapSystemIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839220) |
