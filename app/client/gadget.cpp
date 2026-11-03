@@ -52,7 +52,7 @@ int Unknown_4960C0(RenderObjClass *robj, int arg);					// 0x4960C0  // NAME 1 [r
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (a model's highlight)  // NAME 1 [robj, a, b, c]: as ui_avsel.cpp's
 bool Unknown_496620(RenderObjClass *robj);							// 0x496620  // NAME 1 [robj]: neutral
 void Unknown_4967F0(RenderObjClass *robj, int arg, RenderObjClass *model);	// 0x4967F0  // NAME 1 [robj, arg, model]: neutral
-void Unknown_496AE0(RenderObjClass *robj, int unknown);				// 0x496AE0 (effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // local_interface_sort.cpp's sort object over a model (constructor 0x6E1730, destructor 0x6E18B0)

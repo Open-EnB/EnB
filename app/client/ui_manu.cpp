@@ -342,7 +342,7 @@ public:
 	UIManuClass *Owner;									// +0x68  // NAME 2: what it holds
 };
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the callers pass
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: what 0x5B42F0 passes
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the gadget's text from a string section  // NAME 1 [gadget, section, name]: as ui_group.cpp's
 

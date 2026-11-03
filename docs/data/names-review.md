@@ -1626,7 +1626,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_683940` | `app/client/deffont.h:26` | deffont.cpp's shut-down |
 | 1 | `Unknown_683AC0` | `app/client/deffont.h:28` | neutral (D10) |
 | 1 | `Unknown_684E00` | `app/client/deffont.h:29` | loads fontpal.pcx into Unknown_B8F870 |
-| 1 | `robj, unknown` | `app/client/dynamic_window_background.cpp:11` | what the helpers pass |
+| 1 | `robj, make_geometry_unique` | `app/client/dynamic_window_background.cpp:11` | what the helpers pass |
 | 1 | `Unknown_496AE0` | `app/client/dynamic_window_background.cpp:11` | untagged neutral name (D10) |
 | 1 | `DynaWinIni` | `app/client/dynamic_window_background.cpp:13` | neutral, the file it loads |
 | 1 | `DynamicWindowAnimationDataClass` | `app/client/dynamic_window_background.h:29` | from the assert's 'AnimationData' (0x516250) |
@@ -1653,7 +1653,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.h:82` | neutral |
-| 1 | `robj, a, b` | `app/client/dynamic_window_render_object.cpp:7` | ui_cpit.cpp's |
+| 1 | `robj, sort_level, dec_if_match` | `app/client/dynamic_window_render_object.cpp:7` | ui_cpit.cpp's |
 | 1 | `Unknown_496730` | `app/client/dynamic_window_render_object.cpp:7` | untagged neutral name (D10) |
 | 1 | `DynamicWindowContainerClass` | `app/client/dynamic_window_render_object.h:37` | from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50) |
 | 1 | `Child_Changed, child` | `app/client/dynamic_window_render_object.h:40` | the assert's 'child' |
@@ -2354,7 +2354,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496620` | `app/client/gadget.cpp:53` | untagged neutral name (D10) |
 | 1 | `robj, arg, model` | `app/client/gadget.cpp:54` | neutral |
 | 1 | `Unknown_4967F0` | `app/client/gadget.cpp:54` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/gadget.cpp:55` | as eff_o.cpp's |
+| 1 | `robj, make_geometry_unique` | `app/client/gadget.cpp:55` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/gadget.cpp:55` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/gadget.cpp:56` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/gadget.cpp:56` | untagged neutral name (D10) |
@@ -5441,7 +5441,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1B8` | `app/client/ui_avatr.cpp:101` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_avatr.cpp:105` | neutral |
 | 1 | `Unknown_497300` | `app/client/ui_avatr.cpp:105` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_avatr.cpp:106` | as eff_o.cpp's |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_avatr.cpp:106` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_avatr.cpp:106` | untagged neutral name (D10) |
 | 1 | `robj, texture, unknown` | `app/client/ui_avatr.cpp:107` | as ui_manu.cpp's |
 | 1 | `Unknown_495FD0` | `app/client/ui_avatr.cpp:107` | untagged neutral name (D10) |
@@ -5660,7 +5660,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496490` | `app/client/ui_avsel.cpp:65` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/ui_avsel.cpp:66` | as scriptedmovie.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/ui_avsel.cpp:66` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_avsel.cpp:67` | as eff_o.cpp's |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_avsel.cpp:67` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_avsel.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/ui_avsel.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_avsel.cpp:77` | untagged neutral name (D10) |
@@ -7011,7 +7011,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/client/ui_group.cpp:61` | untagged neutral name (D10) |
 | 1 | `UnknownBFAEE0Class` | `app/client/ui_group.cpp:64` | kernel.cpp's |
 | 1 | `Unknown_BFAEE0` | `app/client/ui_group.cpp:70` | 0xBFAEE0 |
-| 1 | `robj, unknown` | `app/client/ui_group.cpp:71` | what the callers pass |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_group.cpp:71` | what the callers pass |
 | 1 | `Unknown_496AE0` | `app/client/ui_group.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/ui_group.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_B7F4B8` | `app/client/ui_group.cpp:75` | neutral (D10) |
@@ -7710,7 +7710,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIManuAllLevelsButtonClass` | `app/client/ui_manu.cpp:329` | neutral (D10) |
 | 1 | `robj, layer, owner` | `app/client/ui_manu.cpp:332` | neutral |
 | 1 | `Unknown_5B6A80` | `app/client/ui_manu.cpp:337` | untagged neutral name (D10) |
-| 1 | `robj, unknown` | `app/client/ui_manu.cpp:345` | what the callers pass |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_manu.cpp:345` | what the callers pass |
 | 1 | `Unknown_496AE0` | `app/client/ui_manu.cpp:345` | untagged neutral name (D10) |
 | 1 | `robj, texture, unknown` | `app/client/ui_manu.cpp:346` | what 0x5B42F0 passes |
 | 1 | `Unknown_495FD0` | `app/client/ui_manu.cpp:346` | untagged neutral name (D10) |
@@ -7916,7 +7916,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8` | `app/client/ui_popupmsg.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_popupmsg.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
-| 1 | `robj, unknown` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_popupmsg.cpp:33` | as ui_group.cpp's |
 | 1 | `Unknown_496110` | `app/client/ui_popupmsg.cpp:33` | untagged neutral name (D10) |

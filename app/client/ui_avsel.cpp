@@ -64,7 +64,7 @@ typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetP
 void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
 void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 // (FlashingGadgetEvent, the client's RTTI name 0xB7C068: gadget.h)
 
 
