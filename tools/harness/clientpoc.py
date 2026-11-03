@@ -4,9 +4,12 @@
     python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M]
     python tools/harness/clientpoc.py log         the last run's stubs.log, digested
 
-Several runs at once (builders): give each its own --instance NAME. The run then uses the sibling folder
-C:\\EnBDevelopment\\ClientPOC\\inst-NAME (so the client's ..\\Data paths still resolve), filled from release\\
-on each run (client.exe and client.map, or --exe PATH's exe and map beside it; the DLLs and data files when
+Several runs at once (builders): give each its own --instance NAME. The run then uses
+C:\\EnBDevelopment\\ClientPOC\\inst\\NAME\\release beside its own inst\\NAME\\Data (so the client's ..\\Data paths
+resolve): Data\\client\\ini and output are the instance's own copies, every other folder a junction to
+ClientPOC\\Data's (antprox /REPLAY rewrites ini\\auth.ini's AAIUrl / LKeyUrl for its own replay server at
+each start: with one shared auth.ini the first-started client sent its account login to the second's server,
+failed, and crashed in the error message box). The release folder is filled from release\\ on each run (client.exe and client.map, or --exe PATH's exe and map beside it; the DLLs and data files when
 they differ), with its own stubs.log, _except.txt and d3d8.dll proxy, and shots in
 .work/poc/shots/NAME-HHMMSS. The PID of the client is printed ("client pid N"); kill it by that PID only.
 programs/clientpoc/poc_multi.cpp makes that possible without app code changes (mutex per process, no cursor
@@ -73,10 +76,11 @@ SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
 
 
 class Inst:
-    """Where a run happens: the release folder, or ClientPOC\\inst-NAME filled from it."""
+    """Where a run happens: the release folder, or ClientPOC\\inst\\NAME\\release filled from it."""
     def __init__(self, name=None, exe=None):
         self.name = name
-        self.dir = RELEASE if not name else os.path.join(os.path.dirname(RELEASE), 'inst-' + name)
+        self.base = None if not name else os.path.join(os.path.dirname(RELEASE), 'inst', name)
+        self.dir = RELEASE if not name else os.path.join(self.base, 'release')
         self.src_exe = exe or EXE
         self.exe = EXE if (not name and not exe) else os.path.join(self.dir, 'client.exe')
         self.map = os.path.join(self.dir, 'client.map')
@@ -90,6 +94,7 @@ class Inst:
     def prepare(self):
         if self.name:
             os.makedirs(self.dir, exist_ok=True)
+            self._data()
             skip = {'client.exe', 'client.map', 'd3d8.dll', 'stubs.log', '_except.txt', 'd3d8shot.log',
                     'authlogin.log', 'stderr.txt'}
             for f in os.listdir(RELEASE):
@@ -101,6 +106,38 @@ class Inst:
         for f in (self.log, self.exc):
             if os.path.exists(f):
                 os.remove(f)
+
+    # Data\client's folders the instance gets its own copy of (antprox writes ini\auth.ini); the rest are junctions
+    OWN = {'ini', 'output'}
+
+    def _data(self):
+        shared = os.path.join(os.path.dirname(RELEASE), 'Data')
+        mine = os.path.join(self.base, 'Data')
+        for top in os.listdir(shared):
+            src, dst = os.path.join(shared, top), os.path.join(mine, top)
+            if top.lower() != 'client' or not os.path.isdir(src):
+                self._link(src, dst)
+                continue
+            os.makedirs(dst, exist_ok=True)
+            for f in os.listdir(src):
+                a, b = os.path.join(src, f), os.path.join(dst, f)
+                if f.lower() in self.OWN and os.path.isdir(a):
+                    if not os.path.exists(b):
+                        shutil.copytree(a, b)
+                else:
+                    self._link(a, b)
+
+    @staticmethod
+    def _link(src, dst):
+        """A junction to the shared folder src (a copy for a file), once."""
+        if os.path.lexists(dst):
+            return
+        if os.path.isdir(src):
+            r = subprocess.run(['cmd', '/c', 'mklink', '/J', dst, src], capture_output=True, text=True)
+            if r.returncode:
+                raise SystemExit(f'mklink /J {dst} {src}: {r.stdout}{r.stderr}')
+        else:
+            shutil.copy2(src, dst)
 
     @staticmethod
     def _copy(src, dst):
@@ -385,7 +422,7 @@ def main():
     ap.add_argument('--fullscreen', action='store_true')
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
-    ap.add_argument('--instance', help='run in ClientPOC\\inst-NAME with its own logs, proxy and shots (several at once)')
+    ap.add_argument('--instance', help='run in ClientPOC\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
     ap.add_argument('--exe', help='a client.exe to run instead of release\\client.exe (needs --instance)')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args()
