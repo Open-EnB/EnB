@@ -17,7 +17,7 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 static const char Unknown_B9D668[5] = { 7, 15, 30, 45, 60 };	// NAME 1 [Unknown_B9D668]: neutral (D10)
 
 // 0x78E190: the path of fname in dir, unless fname already holds dir
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), order-only (the same instructions in another order)
 void Unknown_78E190(char *path, const char *dir, const char *fname, const char *ext)	// NAME 1: neutral (D10)
 {
 	if (dir != NULL) {
@@ -55,11 +55,11 @@ void Unknown_78E2F0(const char *format, ...)
 // 0x78E870
 static int __cdecl Unknown_78E870(const void *a, const void *b)	// NAME 1: neutral (D10)
 {
-	return(stricmp((const char *)a, (const char *)b));
+	return(_stricmp((const char *)a, (const char *)b));
 }
 
 // 0x78E330
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x78E190 and 0x78E8F0; ours inlines them)
 NLPLexiconClass::NLPLexiconClass(const char *filename)
 {
 	Initialized = false;
@@ -139,16 +139,15 @@ void NLPLexiconClass::Unknown_78E8F0()
 	memset(Index, 0, sizeof(Index));
 	Unknown_NLPPhraseStruct *phrase = Phrases;
 	for (int i = 0; i < PhraseCount; i++, phrase++) {
-		int letter = tolower(phrase->Phrase[0]);
-		if (Index[letter].Count == 0) {
-			Index[letter].First = i;
+		IndexStruct *index = &Index[tolower(phrase->Phrase[0])];
+		if (index->Count == 0) {
+			index->First = i;
 		}
-		Index[letter].Count++;
+		index->Count++;
 	}
 }
 
 // 0x78E980
-// NOT EXACT: functional for POC (D64)
 Unknown_NLPPhraseStruct *NLPLexiconClass::Unknown_78E980(const char *text)
 {
 	if (!Initialized) {
@@ -164,11 +163,15 @@ Unknown_NLPPhraseStruct *NLPLexiconClass::Unknown_78E980(const char *text)
 		return(NULL);
 	}
 	int letter = (char)tolower(*text);
-	if (letter >= 0 && letter < 256 && Index[letter].Count != 0) {
-		Unknown_NLPPhraseStruct *phrase = &Phrases[Index[letter].First + Index[letter].Count - 1];
-		for (int i = 0; i < Index[letter].Count; i++, phrase--) {
+	if (letter >= 0 && letter < 256) {
+		IndexStruct *index = &Index[letter];
+		if (index->Count == 0) {
+			return(NULL);
+		}
+		Unknown_NLPPhraseStruct *phrase = &Phrases[index->First + index->Count - 1];
+		for (int i = 0; i < index->Count; i++, phrase--) {
 			int len = strlen(phrase->Phrase);
-			if (strnicmp(text, phrase->Phrase, len) == 0) {
+			if (_strnicmp(text, phrase->Phrase, len) == 0) {
 				char next = text[len];
 				tolower(next);	// the client drops the result
 				if (next < 'a' || next > 'z') {
@@ -183,7 +186,7 @@ Unknown_NLPPhraseStruct *NLPLexiconClass::Unknown_78E980(const char *text)
 }
 
 // 0x78EC00
-void PlayerNLPClass::Unknown_78EC00(int personality, int nlp)
+bool PlayerNLPClass::Unknown_78EC00(int personality, int nlp)
 {
 	Unknown_78ECC0();
 	Personality = Unknown_BE856C->Unknown_790D40(personality);
@@ -191,6 +194,7 @@ void PlayerNLPClass::Unknown_78EC00(int personality, int nlp)
 	sprintf(name, "lexicon%02d.ini", nlp);
 	Lexicon = new NLPLexiconClass(name);
 	Initialized = true;
+	return(true);
 }
 
 // 0x78ECC0
@@ -204,7 +208,7 @@ void PlayerNLPClass::Unknown_78ECC0()
 }
 
 // 0x78ED30
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (the loops' guards: ours merges the second guard into its loop)
 const char *PlayerNLPClass::Unknown_78ED30(const char *text, const char *end)
 {
 	if (!Initialized) {
@@ -384,11 +388,7 @@ const char *PlayerNLPClass::Unknown_78ED30(const char *text, const char *end)
 
 
 
-
-
-
 // 0x78EE00
-// NOT EXACT: functional for POC (D64)
 int PlayerNLPClass::Unknown_78EE00(int value, bool sitting)
 {
 	if (Personality == NULL) {
@@ -401,21 +401,18 @@ int PlayerNLPClass::Unknown_78EE00(int value, bool sitting)
 			break;
 		}
 	}
-	const char *format;
-	if (sitting) {
-		format = "sit_talk%d";
-	} else {
-		format = (Unknown_BDBB84(0, 10) < 3) ? "talk%d" : "idle_talk%d";
-	}
 	char name[64];
-	sprintf(name, format, level);
+	if (sitting) {
+		sprintf(name, "sit_talk%d", level);
+	} else if (Unknown_BDBB84(0, 10) < 3) {
+		sprintf(name, "talk%d", level);
+	} else {
+		sprintf(name, "idle_talk%d", level);
+	}
 	Unknown_78F700Class::BAnimStruct *body_anim = Personality->Find_BAnim(name);
 	G_ASSERT(body_anim);
 	return(body_anim->AnimNumber);
 }
-
-
-
 
 
 
@@ -428,7 +425,6 @@ int PlayerNLPClass::Unknown_78EE00(int value, bool sitting)
 
 
 // 0x78EEF0
-// NOT EXACT: functional for POC (D64)
 int PlayerNLPClass::Unknown_78EEF0(const char *text, int len)
 {
 	if (Personality == NULL) {
@@ -439,17 +435,21 @@ int PlayerNLPClass::Unknown_78EEF0(const char *text, int len)
 	copy[len] = '\0';
 	int delay = Personality->Get_Speech_Delay();
 	int phonemes[256];
-	int count = Unknown_BE856C->Phonemes.Unknown_791400(copy, phonemes, 0xFF);
+	int value = (Unknown_BE856C->Phonemes.Unknown_791400(copy, phonemes, 0xFF) + 3) * delay;
 	delete [] copy;
 	int level = 5;
 	for (int i = 0; i < 5; i++) {
-		if ((count + 3) * delay < Unknown_B9D668[i]) {
+		if (value < Unknown_B9D668[i]) {
 			level = i + 1;
 			break;
 		}
 	}
 	char name[64];
-	_snprintf(name, sizeof(name), (Unknown_BDBB84(0, 10) < 3) ? "talk%d" : "idle_talk%d", level);
+	if (Unknown_BDBB84(0, 10) < 3) {
+		_snprintf(name, sizeof(name), "talk%d", level);
+	} else {
+		_snprintf(name, sizeof(name), "idle_talk%d", level);
+	}
 	Unknown_78F700Class::BAnimStruct *body_anim = Personality->Find_BAnim(name);
 	G_ASSERT(body_anim);
 	return(body_anim->AnimNumber);
@@ -457,7 +457,7 @@ int PlayerNLPClass::Unknown_78EEF0(const char *text, int len)
 
 // 0x78F050: the text into the stream's blocks: punctuation ends a phrase (1, its talk animation),
 // '/name' is a body animation (2) or a mood (0, *mood set), a lexicon phrase gets its context's gesture
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), shape (a merged or split tail)
 void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *lexicon, int *mood, Unknown_ChatStreamClass *stream)
 {
 	if (text == NULL) {
@@ -504,7 +504,7 @@ void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *
 			const char *space = strchr(p, ' ');
 			int cmdlen = space ? (space - p) + 1 : strlen(p);
 			int n = cmdlen - 1;
-			if (n > 0x3E) {
+			if (n >= 0x3F) {
 				n = 0x3F;
 			}
 			char name[64];
@@ -563,7 +563,7 @@ void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *
 					context = Unknown_78ED30(p + n, end) ? 1 : 2;
 				}
 				const char *tag = phrase->Context[context];
-				if (stricmp(tag, "none") == 0 || Personality->Find_BAnim(tag) == NULL) {
+				if (_stricmp(tag, "none") == 0 || Personality->Find_BAnim(tag) == NULL) {
 					Unknown_78E2F0("NLP: No Gesture for phrase in the context or Personality's body anim is missing.\n");
 					const char *next = Unknown_78ED30(p, end);
 					int m = next ? next - p : strlen(p);
@@ -719,324 +719,11 @@ void PlayerNLPClass::Unknown_78F690(const char *text, int len, int *mood, Unknow
 	Unknown_78F050(text, len, Lexicon, mood, stream);
 }
 
-// 0x78F850
-Unknown_78F700Class::~Unknown_78F700Class()
-{
-	if (Name) {
-		delete [] Name;
-		Name = NULL;
-	}
-	if (Moods) {
-		delete [] Moods;
-		Moods = NULL;
-	}
-	if (BAnims) {
-		delete [] BAnims;
-		BAnims = NULL;
-	}
-	if (Label) {
-		delete [] Label;
-	}
-	if (Desc) {
-		delete [] Desc;
-	}
-}
-
-// 0x78F9F0
-void Unknown_78F700Class::Unknown_78F9F0()
-{
-	if (Name) {
-		delete [] Name;
-		Name = NULL;
-	}
-	if (Moods) {
-		delete [] Moods;
-		Moods = NULL;
-	}
-	if (BAnims) {
-		delete [] BAnims;
-		BAnims = NULL;
-	}
-}
-
-// 0x78FBB0
-int Unknown_78F700Class::Get_Mood_Number(const char *name)
-{
-	for (int i = 0; i < 4; i++) {
-		if (stricmp(name, Moods[i].MoodName) == 0) {
-			return(Moods[i].MoodNumber);
-		}
-	}
-	return(-1);
-}
-
-// 0x78FC20
-Unknown_78F700Class::BAnimStruct *Unknown_78F700Class::Find_BAnim(const char *tag)
-{
-	int letter = (char)tolower(*tag);
-	BAnimStruct *banim = &BAnims[Index[letter].First + Index[letter].Count - 1];
-	for (int i = 0; i < Index[letter].Count; i++, banim--) {
-		if (stricmp(tag, banim->Tag) == 0) {
-			return(banim);
-		}
-	}
-	return(NULL);
-}
-
-// 0x78FCB0
-// NOT EXACT: functional for POC (D64)
-bool Unknown_78F700Class::Load(const char *filename)
-{
-	INIClass ini(filename);
-	char header[64];
-	char buffer[256];
-	sprintf(header, "HEADER");
-	ini.Get_String(header, "Label", "", buffer, 0x3F);
-	Label = nstrdup(buffer);
-	ini.Get_String(header, "Desc", "", buffer, 0xFF);
-	Desc = nstrdup(buffer);
-	Gender = ini.Get_Bool(header, "Gender", false);
-	FidgetDelay = ini.Get_Int(header, "FidgetDelay", 45);
-	SpeechDelay = ini.Get_Int(header, "SpeechDelay", 3);
-	BlinkDelay = ini.Get_Int(header, "BlinkDelay", 60);
-	Moods = new MoodStruct[4];
-	int i;
-	for (i = 0; i < 4; i++) {
-		char section[64];
-		char name[64];
-		sprintf(section, "MOOD-%d", i);
-		ini.Get_String(section, "MoodName", "", name, 0x3F);
-		Moods[i].MoodName = nstrdup(name);
-		Moods[i].MoodNumber = ini.Get_Int(section, "MoodNumber", 0);
-	}
-	int count = 0;
-	for (;;) {
-		char section[64];
-		sprintf(section, "BANIM-%d", count);
-		if (!ini.Section_Present(section)) {
-			break;
-		}
-		count++;
-	}
-	BAnimCount = count;
-	BAnims = new BAnimStruct[BAnimCount];
-	for (i = 0; i < BAnimCount; i++) {
-		char section[64];
-		char tag[64];
-		sprintf(section, "BANIM-%d", i);
-		ini.Get_String(section, "Tag", "", tag, 0x3F);
-		BAnims[i].Tag = nstrdup(tag);
-		BAnims[i].AnimNumber = (ini.Get_Int(section, "AnimNumber", 0) < 0xFF) ? ini.Get_Int(section, "AnimNumber", 0) : 0xFF;
-	}
-	Unknown_7901C0();
-	char fname[256];
-	_splitpath(filename, NULL, NULL, fname, NULL);
-	Name = new char[strlen(fname) + 1];
-	strcpy(Name, fname);
-	return(true);
-}
-
-// 0x790190
-static int __cdecl Unknown_790190(const void *a, const void *b)	// NAME 1: neutral (D10)
-{
-	return(stricmp(*(const char * const *)a, *(const char * const *)b));
-}
-
-// 0x7901C0
-void Unknown_78F700Class::Unknown_7901C0()
-{
-	qsort(BAnims, Get_BAnim_Count(), sizeof(BAnimStruct), Unknown_790190);
-	memset(Index, 0, sizeof(Index));
-	BAnimStruct *banim = BAnims;
-	for (int i = 0; i < Get_BAnim_Count(); i++, banim++) {
-		int letter = tolower(*banim->Tag);
-		if (Index[letter].Count == 0) {
-			Index[letter].First = i;
-		}
-		Index[letter].Count++;
-	}
-}
-
-// 0x790260
-// NOT EXACT: functional for POC (D64)
-Unknown_790260Class::Unknown_790260Class(const char *filename)
-{
-	strcpy(Filename, filename);
-	strlwr(Filename);
-	_splitpath(Filename, NULL, NULL, Name, NULL);
-	strlwr(Name);
-	char fname[256];
-	_splitpath(Filename, NULL, NULL, fname, NULL);
-	strchr(fname, '_');	// the client drops the result
-	Data = NULL;
-}
-
-// 0x790320
-Unknown_790260Class::~Unknown_790260Class()
-{
-	if (Data) {
-		delete Data;
-		Data = NULL;
-	}
-}
-
-// 0x790360
-Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
-{
-	if (Data == NULL) {
-		Data = new Unknown_78F700Class;
-		if (!Data->Load(Filename) && !Data->Load("personalities\\Personality00.ini")) {
-			delete Data;
-			Data = NULL;
-			return(NULL);
-		}
-	}
-	return(Data);
-}
-
-Unknown_790560Class *Unknown_BE856C;
-
-// 0x790560
-// NOT EXACT: functional for POC (D64)
-Unknown_790560Class::Unknown_790560Class()
-{
-	for (int i = 0; ; i++) {
-		char name[256];
-		_snprintf(name, sizeof(name), "%sPersonality%02d.ini", "personalities\\", i);
-		INIClass ini(name);
-		if (!ini.Is_Loaded()) {
-			break;
-		}
-		Unknown_790260Class *personality = new Unknown_790260Class(name);
-		if (personality != NULL) {
-			Personalities.push_back(personality);
-		}
-	}
-}
-
-// 0x790870
-Unknown_790560Class::~Unknown_790560Class()
-{
-	for (std::vector<Unknown_790260Class *>::iterator it = Personalities.begin(); it != Personalities.end(); it++) {
-		if (*it) {
-			delete *it;
-		}
-	}
-	Personalities.erase(Personalities.begin(), Personalities.end());
-}
-
-// 0x790940
-void Unknown_790940(Unknown_790560Class *manager)
-{
-	Unknown_BE856C = manager;
-}
-
-// 0x790960
-// NOT EXACT: functional for POC (D64)
-void Unknown_790560Class::Unknown_790960()
-{
-	for (int i = 0; ; i++) {
-		char name[256];
-		_snprintf(name, sizeof(name), "%sPersonality%02d.ini", "personalities\\", i);
-		INIClass ini(name);
-		if (!ini.Is_Loaded()) {
-			break;
-		}
-		Unknown_790260Class *personality = new Unknown_790260Class(name);
-		if (personality != NULL) {
-			Personalities.push_back(personality);
-		}
-	}
-}
-
-// 0x790C70
-void Unknown_790560Class::Unknown_790C70()
-{
-	for (std::vector<Unknown_790260Class *>::iterator it = Personalities.begin(); it != Personalities.end(); it++) {
-		if (*it) {
-			delete *it;
-		}
-	}
-	Personalities.erase(Personalities.begin(), Personalities.end());
-}
-
-// 0x790D00
-Unknown_790260Class *Unknown_790560Class::Unknown_790D00(int index)
-{
-	if (index < (int)Personalities.size() && index >= 0) {
-		return(Personalities[index]);
-	}
-	return(NULL);
-}
-
-// 0x790D40
-Unknown_78F700Class *Unknown_790560Class::Unknown_790D40(int index)
-{
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Unknown_790360());
-	}
-	return(NULL);
-}
-
-// 0x790D90
-const char *Unknown_790560Class::Unknown_790D90(int index)
-{
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Name);
-	}
-	return(NULL);
-}
-
-// 0x790DE0
-Unknown_790260Class *Unknown_790560Class::Unknown_790DE0(int index)
-{
-	if (index >= (int)Personalities.size() || index < 0 || Personalities[index] == NULL) {
-		return(NULL);
-	}
-	return(Personalities[index]);
-}
-
-// 0x790E20
-const char *Unknown_790560Class::Unknown_790E20(int index)
-{
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Unknown140);
-	}
-	return(NULL);
-}
-
-// 0x790E70
-int Unknown_790560Class::Unknown_790E70(const char *filename)
-{
-	for (int i = 0; i < (int)Personalities.size(); i++) {
-		if (stricmp(Personalities[i]->Filename, filename) == 0) {
-			return(i);
-		}
-	}
-	return(-1);
-}
-
-// 0x790EE0
-bool Unknown_790560Class::Unknown_790EE0(const char *filename)
-{
-	Unknown_790260Class *personality = new Unknown_790260Class(filename);
-	if (personality == NULL) {
-		return(false);
-	}
-	Personalities.push_back(personality);
-	return(true);
-}
-
 /*
 **	Reconstruction notes
 **
 **	The client's nlp.cpp: 0x78E190 to 0x78F690 (the asserts on lines 413, 454 and 708), its data
-**	0xB9D668 and strings 0xB9D670-0xB9D9C0. The personality code 0x78F700-0x7911D0 follows with its
-**	strings 0xB9D9D8-0xB9DAA4 and no template run between, its vtable 0xB04A40 right after
-**	PlayerNLPClass's 0xB04A2C, the manager's std::vector instances 0x7911D0-0x7912E0 after it:
-**	placed here (interim, D137) until a __FILE__ says otherwise. The phoneme converter from 0x791310
-**	(its table 0xB9DAB8, 0xBE8570) is another file's, not rebuilt.
-**
-**	The client reads HEADER's 'FidgetDelay' (default 45); the shipped PersonalityNN.ini files spell it
-**	'FigetDelay', so the client's avatars use 45. avatar.cpp's stand-in read 'FigetDelay' (50).
+**	0xB9D668 and strings 0xB9D670-0xB9D9C0. The personality code from 0x78F700 is another file's
+**	(unknown_personality.cpp): 0x78EC00 calls 0x790D40 (20 instructions) where the same compiler
+**	inlines it when both share a file.
 */
