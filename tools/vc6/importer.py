@@ -3523,6 +3523,15 @@ WW3D_API_PATCHES = {
         ('\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\t// Find the dimensions of the texture:\n',
          '\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\tif (!texture->Is_Initialized()) {\n\t\tTextureLoader::Request_Foreground_Loading(texture);\n\t}\n\n\t// Find the dimensions of the texture:\n',
          'Bitmap2DObjClass::Bitmap2DObjClass 0x974CD0: request foreground loading if uninitialized so texture format has alpha and dimensions are valid before shader selection'),
+        ('#include "surfaceclass.h"\n',
+         '#include "surfaceclass.h"\n#include "assetmgr.h"\n',
+         'Bitmap2DObjClass 0x974420: include assetmgr.h for WW3DAssetManager::Get_Texture'),
+        ('\t// load up the surfaces file name\n\tSurfaceClass *surface=NEW_REF(SurfaceClass,(filename));\t\n',
+         "\t// E&B: the image comes through the asset manager's texture (0x974420)\n\tTextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(filename, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);\n\tif (!texture->Is_Initialized()) {\n\t\tTextureLoader::Request_Foreground_Loading(texture);\n\t}\n\tSurfaceClass *surface = texture->Get_Surface_Level(0);\n\tif (surface == NULL) {\n\t\tsurface = NEW_REF(SurfaceClass,(32, 32, Get_Valid_Texture_Format(WW3D_FORMAT_R8G8B8, true)));\n\t}\n",
+         "Bitmap2DObjClass::Bitmap2DObjClass(const char *,...) 0x974420: E&B's filename ctor loads the image as a texture through the asset manager (0x974469: [0xBFAEE0] vtable +0x30 with (filename, 1, 0, 1)), requests foreground loading when uninitialised (0x949550), takes surface level 0 (0x94BB50) and falls back to a 32x32 surface of Get_Valid_Texture_Format(R8G8B8, true) (0x9689A0, 0x94D590)"),
+        ('\tREF_PTR_RELEASE(surface);\t\n\n\tSet_Dirty();\n}',
+         '\tREF_PTR_RELEASE(texture);\n\tREF_PTR_RELEASE(surface);\n\n\tSet_Dirty();\n}',
+         'Bitmap2DObjClass::Bitmap2DObjClass 0x974420: releases the texture before the surface (0x974AF2, 0x974B03)'),
     ],
 }
 for _key, _edits in WW3D_API_PATCHES.items():
