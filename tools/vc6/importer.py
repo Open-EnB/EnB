@@ -3516,6 +3516,14 @@ WW3D_API_PATCHES = {
          'void WW3D::Reset_Current_Static_Sort_Lists_To_Default(void)\n{\n\tCurrentStaticSortLists = DefaultStaticSortLists;\n}\n\nvoid WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)\n{\n\tDX8Wrapper::Set_Gamma(gamma,bright,contrast,calibrate);\n}',
          "E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists 0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no Set_Gamma (callers 0x5146D0, 0x442AC0)"),
     ],
+    ('ww3d2', 'bmp2d.cpp'): [
+        ('#include "texture.h"\n',
+         '#include "texture.h"\n#include "textureloader.h"\n',
+         'Bitmap2DObjClass 0x974CD0: include textureloader.h for Request_Foreground_Loading'),
+        ('\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\t// Find the dimensions of the texture:\n',
+         '\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\tif (!texture->Is_Initialized()) {\n\t\tTextureLoader::Request_Foreground_Loading(texture);\n\t}\n\n\t// Find the dimensions of the texture:\n',
+         'Bitmap2DObjClass::Bitmap2DObjClass 0x974CD0: request foreground loading if uninitialized so texture format has alpha and dimensions are valid before shader selection'),
+    ],
 }
 for _key, _edits in WW3D_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
