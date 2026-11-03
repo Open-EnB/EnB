@@ -125,7 +125,7 @@ struct LoginKeyEventStruct	// NAME 1: neutral (D10)
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class LoginKeysClass { public: void Unknown_721E60(const LoginKeyEventStruct *event, int id); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what the constructor passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60, Remove 0x721EF0), as far as this file calls it
 
 // The character view: charview.h's CharacterViewClass (its +0x198 the narrator, avatar.cpp's model)
 #include "charview.h"
@@ -347,9 +347,9 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	PasswordGadget->Set_Text("", 0);
 	PasswordGadget->Unknown_28(Layer);
 	Unknown64.Unknown_6870E0(PasswordGadget, 8, View, 1, 1);
-	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x1B), 5);
-	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x0D), 3);
-	((LoginKeysClass *)Unknown4C)->Unknown_721E60(&LoginKeyEventStruct(0x09), 9);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x1B), (void *)5);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x0D), (void *)3);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x09), (void *)9);
 	RefCountPtr<FontStyleClass> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", (const unsigned int &)model);
 	RefCountPtr<FontStyleClass> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", (const unsigned int &)model);
 	if (Unknown_5FADE0()) {
