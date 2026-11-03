@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-465 entries in 117 files.
+467 entries in 118 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -72,6 +72,8 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_render_object.cpp:62` | `DynamicWindowRenderObjectClass::Invalidate` | marker | NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
+| `app/client/env_map_manager.cpp:50` | `SClientUnknown1338Class::Unknown_760770` | marker | NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64) 0x760770 |
+| `app/client/env_map_manager.cpp:215` | `SClientUnknown1338Class::Unknown_760770` | mention | NOT EXACT (D64). |
 | `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |
 | `app/client/extrap.cpp:827` | `Unknown710530Class::Unknown710530Class` | marker | NOT EXACT: 0x710530 shape: the speed block as Set_Motion 0x7102B0's (the flag store before the fst, the negation folded) |

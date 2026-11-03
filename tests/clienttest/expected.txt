@@ -1825,7 +1825,7 @@ msg 752 SERVER_PARAMETERS (66) size 74: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 203
 mainview 1DC's +0x88 a model
 model 203 'missing' deleted
-gen SClientUnknown1338Class::Unknown_760770
+fail_if !name[0] (line 56)
 gen OrbitalManager::Unknown_4F3310
 gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 753 START (5) size 8: cpacket.cpp's handler
