@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1167 |
 | 2 | describes what the code does | 2933 |
-| 1 | neutral placeholder | 11388 |
+| 1 | neutral placeholder | 11414 |
 
 ## For review (score 3 and below)
 
@@ -11077,7 +11077,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764480Class` | `programs/clientpoc/poc_standins.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown_BE82D0` | `programs/clientpoc/poc_standins.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown_764510` | `programs/clientpoc/poc_standins.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:20` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1338Class` | `programs/clientpoc/poc_ui.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_760770` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_67A250` | `programs/clientpoc/poc_ui.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_67ACE0` | `programs/clientpoc/poc_ui.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `programs/clientpoc/poc_ui.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_67B7A0` | `programs/clientpoc/poc_ui.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_67A290` | `programs/clientpoc/poc_ui.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `programs/clientpoc/poc_ui.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `programs/clientpoc/poc_ui.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `programs/clientpoc/poc_ui.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `programs/clientpoc/poc_ui.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `programs/clientpoc/poc_ui.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_67ADD0` | `programs/clientpoc/poc_ui.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `programs/clientpoc/poc_ui.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `programs/clientpoc/poc_ui.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_5594B0` | `programs/clientpoc/poc_ui.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `programs/clientpoc/poc_ui.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `programs/clientpoc/poc_ui.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `programs/clientpoc/poc_ui.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_721E60` | `programs/clientpoc/poc_ui.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_721EF0` | `programs/clientpoc/poc_ui.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `programs/clientpoc/poc_ui.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_786370` | `programs/clientpoc/poc_ui.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_77E3D0` | `programs/clientpoc/poc_ui.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_784A50` | `programs/clientpoc/poc_ui.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown_7896B0` | `programs/clientpoc/poc_ui.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
