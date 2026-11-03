@@ -7,11 +7,12 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-421 entries in 109 files.
+425 entries in 112 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
+| `app/audio/surfacetypes.cpp:22` | `Unknown_442650` | marker | NOT EXACT: frame (0.51, sub esp 0x90 vs 0x8c) @0x442650 |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
@@ -246,6 +247,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1513` | `Unknown_5B5CD0` | marker | NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0) |
 | `app/client/ui_manu.cpp:1562` | `UIManuClass::Unknown_5B5320` | marker | NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
+| `app/client/ui_registration.cpp:126` | `RegistrationInterface::Unknown_5FAF60` | marker | NOT EXACT: register @0x5FAF60 |
 | `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
@@ -284,6 +286,7 @@ edit the comments in the code, not this file.
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02: its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two clos... |
+| `app/common/unknown_847d20.cpp:42` | `Unknown_847FE0` | marker | NOT EXACT: inline-budget |
 | `app/common/unknown_verb.cpp:45` | `Value_To_String` | marker | NOT EXACT: 0.65, prologue: the client saves ebx / edi only in the found path (their pushes after the search loop) |
 | `app/dbgmgr/dbgmgr.cpp:159` | `Unknown_Debug_End_Step` | marker | NOT EXACT: shape, 0.56 (explain.py): register allocation and a dead store of end()._Last (see attempts.csv) |
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
@@ -324,8 +327,9 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
-| `app/shared/enbassetmgr.cpp:189` | `ENBAssetManager::Unknown_48CB40` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before); the logic is the client's (D64) |
-| `app/shared/enbassetmgr.cpp:397` | `ENBAssetManager::Unknown_48ECA0` | marker | NOT EXACT: shape (explain.py: 194 masked rows; 0.48), the client keeps one EH state (around the out-of-line Remove of the plain name) where ours numbers all four StringClass temporaries; the logic is the client's (D64) |
+| `app/shared/enbassetmgr.cpp:109` | `ENBAssetManager::Create_Render_Obj` | marker | NOT EXACT: shape (explain.py: the same callees, 40 calls in ours and 35 in the client: a merged or split tail; the logic is the client's, D64) |
+| `app/shared/enbassetmgr.cpp:319` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before); the logic is the client's (D64) |
+| `app/shared/enbassetmgr.cpp:644` | `ENBAssetManager::Unknown_48ECA0` | marker | NOT EXACT: shape (explain.py: 194 masked rows; 0.48), the client keeps one EH state (around the out-of-line Remove of the plain name) where ours numbers all four StringClass temporaries; the logic is the client's (D64) |
 | `app/shared/gclass.cpp:12` | `GClass::Unknown_4A17B0` | marker | NOT EXACT: order-only (0.65; the client saves esi before the first test, VC6 after the Is_Valid tests; fifteen forms, attempts.py show 0x4A17B0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:202` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |

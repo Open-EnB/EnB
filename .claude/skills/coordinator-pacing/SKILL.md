@@ -121,6 +121,22 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   let them run into the next window; the handoff then gets an addendum after the last report. If the user says
   nothing new starts, close the window at once and log it.
 
+## agy builders (D187)
+
+Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google subscription, outside the Claude windows;
+`tools/agy/README.md` has the steps. `pacing.py` cannot see agy's quota (no CLI or API figure), so:
+
+- **Ask the user for the agy window's % used** at the start and once mid-run (agy's own display); calibrate with the
+  streams: about 1 % of the 5-hour window per 100k `result.usage.total_tokens` (2026-11-02); a Flash item costs 0.6-1.6M.
+  Plan the launches so the window is spent by its reset, the last ones ending before it.
+- **A 429** (`RESOURCE_EXHAUSTED`, "Individual quota reached", with a reset time) in a stream stops agy launches until the
+  reset. Quotas are per model: Flash only (Opus through agy ran out in one short item).
+- **Memory and VMs** count as for any builder (3-4 at a time on this host); each works in its own `wt.py` worktree.
+- **Each exit:** log `result.usage` (never the builder's own token figure), land with `wt.py bring-over ID --target
+  run/<date>` (or `tools/agy/rebase_gen.sh` for generated-file conflicts), run the heartbeat; after POC code lands, the POC
+  check is yours (`tools/agy/poc_check.sh`): builders' own POC runs crash at startup and prove nothing.
+- **Briefs** name every WinMain stand-in that opens a dialog (0x847D20, 0x846C90) and say it stays (D69).
+
 ## Session caps
 
 If the session window caps mid-run, the builders stop where they are with their leases intact; nothing is lost.

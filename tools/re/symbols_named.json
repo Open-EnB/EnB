@@ -390,5 +390,25 @@
   "address": "0x514AD0",
   "symbol": "??1?$RefCountPtr@VLightClass@@@@QAE@XZ",
   "evidence": "mainview.obj's RefCountPtr instances (MV 2026-11-02), byte-identical to every other instance, told apart by their callers: 0x50BA60's unwind funclets 0xAAAA7E / 0xAAAA91 / 0xAAAAA4 (the three light temporaries) call it"
+ },
+ {
+  "address": "0x463C80",
+  "symbol": "?Get_Height@HeightFieldClass@@QAEMII@Z",
+  "evidence": "heightfield.obj's Get_Height / Get_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463C80 is called by LandClass::Save_Sea_Mask at 0x46BD26 (land.cpp) with unsigned loop counters (i, j)"
+ },
+ {
+  "address": "0x463CD0",
+  "symbol": "?Get_Height_2@HeightFieldClass@@QAEMII@Z",
+  "evidence": "heightfield.obj's Get_Height / Get_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463CD0 is called by LandClass::Build_Vertices at 0x474790 and LandClass::Compute_Normals at 0x46F120 in land.cpp (33 calls)"
+ },
+ {
+  "address": "0x463D20",
+  "symbol": "?Set_Height@HeightFieldClass@@QAEXMII@Z",
+  "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D20 is the uncalled overload of Set_Height in heightfield.cpp, defined before Set_Height_2"
+ },
+ {
+  "address": "0x463D90",
+  "symbol": "?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
+  "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D90 is called by LandClass::Unknown_46E120 at 0x46E524 (land.cpp) with contact point height"
  }
 ]

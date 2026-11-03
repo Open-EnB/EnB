@@ -162,6 +162,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Adjacent scalar deletes (2026-11-02 evening run, EAM5):** VC6 /O2 merges the stack cleanups of consecutive `delete p;`
+  calls (`add esp, 8`); the client's per-call `add esp, 4` comes from `if (p != NULL) delete p;`.
+
 * **Stack slots and FPU copies (2026-10-31, TK18, landdmap 0x467A50 / 0x468920):** two address-taken Lock pointers
   the client keeps in one slot need each lock in its own `{}` block. A Vector3 local copied from a vertex stays on the
   FPU across a loop; copying through a POD (D3DVECTOR / D3DXVECTOR3) gives the client's integer moves. A 16-bit `imul`
@@ -532,6 +535,14 @@ unless `--lever` cites a new row of this table.
 * **STL and wlib containers, 2026-11-01 night run:** SGI hash_map members the source leaves default-constructed (100 buckets already): writing `Systems(100)` moves `_M_initialize_buckets` inline into another member (GM1). Partial inlining depends on the iterator type: a hash_map iterator member declared `const_iterator` (begin()'s iterator converted) reproduced begin() out of line and size() called; an extra inline helper layer around begin() also pushes size() out of line, forwarding-only wrappers change nothing (GM2). `vector::resize(0)` shows as an out-of-line size(), `test; jbe`, then `erase(begin, end)` after a zero store (CC1). E&B's wlib arraylist.h getPointer sets the out pointer NULL on a miss (NW6, 61199041): don't write call-site NULL forms.
 
 ### 3.3 E&B app code
+
+* **Renamed vtable slots and header wrappers (2026-11-02 evening run, EAM4):** an inline compatibility wrapper for a renamed
+  slot makes callers inline it instead of the client's `call dword ptr [eax + slot]` (rs_robj 0x45F280): change the callers.
+* **`bool` parameters (2026-11-02 evening run, ROF):** `mov al, byte ptr [esp + ...]` on a parameter means `bool`; an `int`
+  declaration changes the callers' code (ro_funcs' callers in ui_login / ui_cpit / eff_o still declare `int`).
+* **A placeholder declaration hides a written helper (2026-11-02 evening run, AUD):** tsk_login declared `void
+  Unknown_43FA80()` for SoundLibraryClass::Flush_Playlist (written, too short for the matcher), so gen_stubs stood in for it;
+  grep the callers' declarations before writing a "missing" function.
 
 * **An uncalled run of a class's inline members (ctor, copy ctor, operator=) whose incremental thunks are never called
   either** comes from non-inline definitions in the .cpp: same-file callers still inline them and the copies are emitted
@@ -1088,6 +1099,16 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **POC runs started by agy builders crash at startup (2026-11-02 evening run):** every clientpoc run an agy builder made
+  (runs 63-69) crashed in WW3D::Set_Gamma (render device not set) while the coordinator's runs of the same code at master
+  and the run's HEAD ran 40 s; a process agy starts apparently gets no usable D3D adapter. Builders' POC checks prove
+  nothing: the coordinator runs the POC itself (`tools/agy/poc_check.sh NAME COMMIT`, D187).
+* **agy builders (2026-11-02 evening run):** `--mode auto` is not available on the user's account (`--dangerously-skip-permissions`
+  suffices); under Git Bash set `MSYS_NO_PATHCONV=1` (a leading `/` in an argument becomes `C:/Program Files/Git/...`); agy runs
+  its commands in PowerShell whatever the brief says; take tokens from the stream's last line (`result.usage`), never from
+  the builder's report (off by 10x or more). A brief must say which WinMain stand-ins open dialogs: 0x847D20 shows the ROC
+  text in retail too (the brief that said "the POC never reaches it" let the builder remove its stand-in).
+
 * **clienttest after a rebuild** (2026-10-29, UI1): a rebuilt function in an object the link already pulls runs its
   real code on the fakes (START crashed until the fake view held render objects); hand stand-ins in client_stubs.cpp
   give LNK2005 once the function is rebuilt (delete them in the same commit); gen_stubs writes pointer parameter
@@ -1192,6 +1213,13 @@ unless `--lever` cites a new row of this table.
 * **POC runs (2026-11-02 night run, SCR, PI, CV2, MV, DISP):** a run in the shared tree crashes from others' dirty files: use a clean worktree (copy d3d8shot.dll / MSS32.DLL); the login runs ~5,000 fps (shot frames in tens of thousands, per-frame deltas ~0 ms); `clientpoc` link fails with PermissionError / deploy fails while another client.exe runs (retry ~45 s); the real 0x442AC0 reads the registry (read-only), so `ENB_POC_WINDOWED` / `--fullscreen` no longer act; runs.md row numbers collide (read the last row before appending). `open(p,'w',newline=bad)` truncates the file before raising (PI). Reports of a clienttest crash at HEAD in a worktree: first check the link (UIB, HC2 items).
 
 ### 3.8 Git, docs and scripting hygiene
+
+* **`wt.py bring-over` lands on master by default (2026-11-02 evening run):** pass `--target run/<date>`; without it, it
+  compared against a stale local master and refused (3 'lost' pairs that were master's age, not the builder's).
+* **bring-over refuses a cherry-pick with generated-file conflicts (2026-11-02 evening run):** two builders from the same
+  base both rewrite imports.json / names-review.md; rebase the worktree branch, take the run's side of each generated
+  file, regenerate (names.py, notexact.py, verify --lib app --pool 1, report), continue, bring over:
+  `tools/agy/rebase_gen.sh ID run/<date>` (attempts.csv: both sides' rows).
 
 * **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
   the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).

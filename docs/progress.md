@@ -4,6 +4,41 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-02 (19:00 PST, evening): agy (Antigravity) builders on the user's Google subscription; P-B2 adopted (D186); +39 pairs, 0 lost
+
+Coordinator Opus 5.5 on the subscription; builders through the Antigravity CLI (`agy -p`, the user's Google Pro
+subscription, no API key). Base 3436a036 (#144 merged; `.work/imports.3436a036.json`); run branch `run/2026-11-02`,
+PR #145. Plan log: `.work/run-2026-11-02-agy/plan.md`; launcher `.work/run-2026-11-02-agy/launch-agy.sh ID MODEL TIMEOUT`
+(one `wt.py` worktree per builder, stream-json to `ID.jsonl`). The user (16:05): spend the remaining 90 % of agy's
+5-hour window (reset ~19:15) on the POC.
+
+* **Pilots (afternoon):** P-LG2-1 through the agy MCP bridge (Gemini 4 Argon): re-measured, both forms lose (the item was
+  already closed; its stale section-4 bullet is deleted). RF (Opus 5.5 high via agy): wwlib rawfile's four functions; the
+  ctor / dtor need /GX (RawFileClass lies in the app range): **P-B2 adopted (D186)**, `importer.py FILE_FLAGS`, wwlib +4.
+  Opus via agy hit `RESOURCE_EXHAUSTED (429) Individual quota reached` after 8 min (214k tokens). HF (Gemini 3.8 Flash
+  high): heightfield's byte-identical Get / Set twins named by their land.cpp callers (symbols_named.json, D88), app +4.
+* **Run (Gemini 3.8 Flash high, 3-4 at a time):** EAM4 (75624fe0): ENBPrototypeClass 0x48AED0-0x48B050 exact,
+  Create_Render_Obj 0x48B220 functional (NOT EXACT shape), the Unknown_ members renamed to EA's names, +4. UREG (f82efe6b):
+  new ui_registration.cpp, demo checks 0x5FAD50 / 0x5FADE0 exact, their POC stand-ins gone, +2. EULA (8b6cf858): stopped
+  by the coordinator (WinMain calls 0x847D20 for the ROC text in retail too: its POC run would show the real dialog; my
+  brief said otherwise; its run 65 reached DialogBoxParamA, which returned -1, no dialog shown); finished by the
+  coordinator with the POC stand-in kept: 0x847D20 exact, 0x847FE0 NOT EXACT (inline-budget), provisional
+  unknown_847d20.cpp, +1 (+2 shared). EAM5 (32a43c5d): Recolor_ParticleEmitter / Recolor_Sphere / Recolor_Ring /
+  Post_Process exact, +4. ROF (f2652478): ro_funcs 0x496730 / 0x496AE0 exact, +2. AUD (d14272b7): new surfacetypes.cpp
+  (0x442870 / 0x4428E0 / 0x442930 exact, 0x442650 NOT EXACT frame 0.51), tsk_login calls the real Flush_Playlist 0x43FA80,
+  +1 (+2 shared). UREG2 (6dd03470): ui_registration 0x5FAE70 / 0x5FAE90 / 0x5FAFF0 / 0x5FB330 / 0x5FB540 exact,
+  0x5FAF60 NOT EXACT (register), +4 (+11 shared).
+* **Totals:** +39 pairs, +13 shared, 0 lost against 3436a036. Final check at HEAD (coordinator): POC 40 s, no crash (24 first-call stand-ins, gen 0x5FAE70 / 0x43FA80 / 0x442650 gone; 0x496730 / 0x496AE0 still gen: their callers declare int parameters, section 4); clienttest 103 checks, 0 failed; udpreplay alex3 ran, handshake 54.
+* **agy as a builder host (the evidence for D187):** every builder followed builders.md (baseline, verify, pairs_cmp, attempts
+  rows, VM release, no push). Tokens from the stream's result line (`usage`): HF 0.62M, EAM4 1.29M, UREG 1.30M, EULA ~1.58M
+  (killed), EAM5 1.12M, ROF 0.59M, AUD 0.66M, UREG2 0.72M, plus 17-43M cache-read tokens each; builders' own token figures
+  were off by 10x or more. The user's readings: HF = 10 % of the 5-hour window, 4 % of the week; 60 % at 18:05: about 1 %
+  of the window per 100k tokens. Per-model quotas: Opus via agy ran out in one short item, Flash ran nine. POC runs started
+  by agy builders all crash in WW3D::Set_Gamma at startup (runs 63-69) while the coordinator's runs of the same code do not:
+  builders' POC checks prove nothing (workflow.md §3.7).
+* **Decided:** P-AGY-1 approved (D187; tools/agy/). **Open for the user:** P-HF-1 (the builder's: heightfield's `_2` twins as real overloads, when land.cpp is
+  next edited; no proposal needed now), P-API-5 (a) / (c), P-VM-2, P-VM-1.
+
 ### 2026-11-02 (06:45 PST, night): D185's exact variants applied, the POC's login screen drawn with its text; +476 pairs, 0 lost outright
 
 Coordinator Opus 5.5 on the subscription only. Base 6a08fe5d (#143 merged; `.work/imports.6a08fe5d.json`); run branch
@@ -881,7 +916,7 @@ wlib's `msleep` 0x8B8270 and `growVector(howmany)`; wnet builds with /GX), then 
 Not exact: `Try_Connect` 0x8290A0 (the client repeats the `Handle = 0; return true` tail; 0.75 after
 three forms). Not started: `Add_Connection` 0x822CC0 (needs the peek/stats wrapper classes, vtables
 0xB08590/0xB0854C, and ArgvClass), `Accept_New` 0x822300, the factories 0x821000/0x821450, the RSA
-exchange 0x829180, memconn.cpp. D84 records P-B1 (`~TCPMgr() throw()`); P-B2 (per-file flags) declined
+exchange 0x829180, memconn.cpp. D84 records P-B1 (`~TCPMgr() throw()`); P-B2 (per-file flags) declined then, adopted 2026-11-02 (D186)
 as not needed. Earlier the same night: the screenshot residue parked (85d3506).
 
 ### 2026-10-25 (night): four parallel builders; +654 pairs, 0 lost; D73 imported; 91 packet classes; D80-D82
@@ -1957,6 +1992,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D183 | 2026-11-01 | P-IS-1: objmatch's D114(b) range widening credits a COMDAT held by two or more objects at the same client address with the same symbol to the holder whose own range is strictly nearest (a tie credits none; amends D114(b)'s "only if one object holds it"; first: 0x6DAF80, credited to nobody until named in symbols_named.json). Amended by the user 2026-11-01 (P-IS-2): "each holder" lost inpdsp's 0x42A900 / 0x42AAE0 outright (one holder's widened range reached over the other's code); D166's tie-break labels a decision that needed a shared caller (`shared_callers`) instead of skipping it (skipping lost 5 tie-break pairs). Landed 05b691f4: +14, 0 lost, no moves. Guard: such pairs are marked shared, counted once in the totals (imports.json, coverage), and never used as placement or file-boundary evidence (gaps, triage's neighbours; D166's tie-break labels them); the function's home stays an interim placement (D137) until other evidence decides it. Lands as one objmatch commit in its own PR with a full verify of all 11 libraries against master 7fb89dbb, the moves and shared pairs listed for the user; any pair lost outright back to the user | user |
 | D184 | 2026-11-01 | P-API-5 (b) piloted: a Batch API variant pilot for NOT EXACT functions (one new tool on triage.py's pattern: build / submit / fetch / try; the key `ENB_ANTHROPIC_API_KEY`; batch ids, raw results and cost in `.work/`, cost in the run's plan log). 50 functions from docs/data/not-exact.md, at most $10; each request holds the function's source, the client's and our disassembly, explain.py's class and the matching workflow.md §3.1 traps and asks for up to 8 variants; the try step compiles each with appfile.py on the pool and reports which are exact. The pilot changes no app source: exact variants are applied afterwards like any builder's change (pairs_cmp, D66). Its result (cost per function made exact) decides P-API-5 (b)'s scale-up; (a) and (c) stay open | user |
 | D185 | 2026-11-01 | P-API-5 (b) scaled up: `tools/re/variants.py` runs over the whole NOT EXACT backlog (docs/data/not-exact.md, 479 entries: every function an entry resolves to one client address, the functional (D64) rewrites and long functions included) on the Batch API (claude-opus-5-5), round 1 for all, round 2 for the near misses. The whole batch's cost is counted (token counting) before submitting and the `enb-d163` workspace's spend limit is the user's to raise; `try` runs unattended on the pool. Exact variants are applied afterwards by builders through verify / pairs_cmp (D66), as in D184. Pilot: $4.66, +13 pairs (da66757d) | user |
+| D186 | 2026-11-02 | P-B2 adopted (D84's condition met): per-file compile flags, `importer.py FILE_FLAGS` keyed (lib, file). First entry wwlib `rawfile.cpp` with /GX: every RawFileClass function lies in the app range (0x683BE0-0x684DD0, none in wwlib's 0x9C7000-0x9E9300) and its ctor / dtor carry EH frames (handlers 0xABF368 / 0xABF393), so E&B compiled it with the app's /GX. wwlib +4 (0x683BE0, 0x683E10, 0x683EA0, 0x683FB0), 0 lost; found by the agy pilot builder RF | user |
+| D187 | 2026-11-02 | P-AGY-1 approved: Gemini 3.8 Flash (high) through the Antigravity CLI (`agy`, the user's Google subscription) is a builder model next to D72's, for bounded POC and triage items (the functions of one file, 30-60 minutes). Launched by `tools/agy/launch.sh` in a `wt.py` worktree, landed with `wt.py bring-over --target run/<date>`; paced by the user's agy window (about 1 % of the 5-hour window per 100k stream tokens, the user's reading at the start and mid-run; a 429 stops launches); the coordinator runs every POC check itself (`tools/agy/poc_check.sh`: agy-started processes get no D3D device). Not Opus through agy (its quota covers one short item). Evidence: run 2026-11-02 evening, nine Flash items, +39 pairs and 0 lost after the coordinator's verify of each | user |
 
 ## 3. Open decisions
 
@@ -2018,10 +2055,6 @@ below name only the work items, the blocked work, the leads and the queues.
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
-   * P-LG2-1 (the user, 2026-11-01: a work item, not a decision): ui_avsel's slot +0x68 0x55D060 calls
-     ShipCustDescClass's implicit operator= out of line (0x55D8A0); shipcust_desc.h's written-out operator= (P-P7-1)
-     inlines there instead. Measure ShipCustDescClass with the implicit operator= again (or the written one
-     non-inline), checking that tsk_login's pair on 0x55D8A0 survives; keep it if it gains and loses nothing.
    * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
      is FontSplitStringClass; 0x4FA8F0's 9 other callers and Set_Font 0x4FAAC0's 2 can include
      unknown_font_split_string.h.
@@ -2099,11 +2132,17 @@ below name only the work items, the blocked work, the leads and the queues.
      stand-ins left; the 29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the login click
      itself, then item 10 against antprox /REPLAY (D181; its launcher writes HKCU AppCompatFlags / HKLM Registration keys,
      which CLAUDE.md's safety rule forbids for unattended runs: a run with the user present); the first-call stand-ins in
-     stubs.log order (ui_registration 0x5FADE0 / 0x5FAD50, the EULA dialog 0x847D20, gen Unknown_4581E0's neighbours);
+     stubs.log order (gen SoundManagerClass's ctor and Unknown_442650's neighbours, Full_Path_File_Exists, SignalMap /
+     InterfaceKeyListClass / InterfaceUnknown58Class ctors, SClientUnknown1338Class::Load, the avatar's 0x77E3D0 /
+     0x786370 / 0x784A50; never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
+     ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
+     ro_funcs' callers (ui_login.cpp:97, ui_cpit.cpp:46, eff_o.cpp:49) still declare 0x496730 / 0x496AE0 with int
+     parameters where the exact code takes bool, so the POC links gen stand-ins for them: retype the declarations;
+     ro_funcs 0x4967F0 (frame) / 0x496960 (rebuild 0x495FD0-0x496620 first for the assert lines), surfacetypes 0x442650
+     (frame), unknown_847d20 0x847FE0 (inline-budget);
      ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
-     enbassetmgr.cpp`: import / compare it first; rename the Unknown_ members to its names, NAME 5): slot +0x78
-     0x48B220 Create_Render_Obj(name, scale, hsv) with the prototype class (ctor 0x48AED0), 0x48D850 / 0x48DD00 /
-     0x48E0F0, 0x48EB90, Recolor_Texture 0x48CB40 (register), 0x48ECA0 (EH states); the ledger's queue: BINK (E&B's
+     enbassetmgr.cpp`): Create_Render_Obj 0x48B220 to exact (NOT EXACT shape: 40 calls vs the client's 35, a merged tail),
+     Recolor_Texture 0x48CB40 (register), 0x48ECA0 (EH states); the ledger's queue: BINK (E&B's
      BINKMovie gaps 0xA161B0-0xA17330), SORT2-3, LD2 (shipcust_desc), DW's icon / move / toggle, operator new 0x4E9CB0.
      Leads by file: dbgmgr End_Step 0x50A1E0 (a dead store our compiler drops), ctrngadg 0x50ABC0 (block layout), tooltip
      0x6AB5B0 / 0x6AB930 / 0x6ABC60, textgadg 0x6AAD10, gclass 0x4A17B0, unknown_message_server 0x4BCD30, filter match

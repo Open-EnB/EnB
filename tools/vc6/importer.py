@@ -314,11 +314,24 @@ def lib_of(path):
     return top if top in APP_LIBS else os.path.basename(os.path.dirname(full)).lower()
 
 
+# Files compiled with other flags than their library's (P-B2, D84: "not added until a library really
+# mixes /GX and none"). wwlib's rawfile.cpp: every RawFileClass function is in the app range
+# (0x683BE0-0x684DD0, none in wwlib's 0x9C7000-0x9E9300) and its constructors / destructor have EH
+# frames (handlers 0xABF368, 0xABF393): E&B compiled it with the app's /GX.
+FILE_FLAGS = {('wwlib', 'rawfile.cpp'): vc6.DEFAULT_FLAGS + ' /GX'}
+
+
+def flags_of(path):
+    """One file's compile flags: FILE_FLAGS, else its library's."""
+    lib = lib_of(path)
+    return FILE_FLAGS.get((lib, os.path.basename(path).lower()), LIB_FLAGS.get(lib, vc6.DEFAULT_FLAGS))
+
+
 def flags_for(paths):
-    """The compile flags of the library the files belong to (all from one library)."""
+    """The compile flags of the files (all with the same flags)."""
     libs = {lib_of(p) for p in paths}
-    flags = {LIB_FLAGS.get(l, vc6.DEFAULT_FLAGS) for l in libs}
-    assert len(flags) == 1, f'files of libraries with different flags in one compile: {sorted(libs)}'
+    flags = {flags_of(p) for p in paths}
+    assert len(flags) == 1, f'files with different flags in one compile: {sorted(libs)}'
     return flags.pop()
 
 # Local changes to imported files. Each keeps the file's line count, so __LINE__ values (which
@@ -3858,6 +3871,8 @@ RECONSTRUCTED = {
                                   "slots and the table's instances to 0x441A50: the asserts on the client's lines "
                                   "198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, "
                                   "Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
+    ('app', 'audio/surfacetypes.h'): "Unknown_442650-Unknown_442930 declarations (0x442650 footsteps.ini loader)",
+    ('app', 'audio/surfacetypes.cpp'): "footsteps.ini surface-type sound effects (0x442650-0x442970): asserts on lines 65 and 80 confirm path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\surfacetypes.cpp (D25); Unknown_442650 (NOT EXACT, frame), Unknown_442870 / Unknown_4428E0 / Unknown_442930 exact",
     ('app', 'client/buff_database.h'): "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an "
                                       "SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)",
     ('app', 'client/buff_database.cpp'): "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's "
@@ -4074,6 +4089,8 @@ RECONSTRUCTED = {
                                          "(builder P4, 15 of 15 exact in appfile.py match)",
     ('app', 'common/unknown_navlist.h'): "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, "
                                        "a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp",
+    ('app', 'common/unknown_847d20.h'): "PROVISIONAL file name (D10, D137): the EULA / ROC dialog helper Unknown_847D20; rebuilt in unknown_847d20.cpp",
+    ('app', 'common/unknown_847d20.cpp'): "PROVISIONAL file name (D10, D137): the EULA / ROC dialog helper Unknown_847D20 (0x847D20 exact) and its dialog procedure Unknown_847FE0 (0x847FE0, NOT EXACT: inline-budget), client 0x847D20-0x8480C0 in app\\common after optdlg.cpp and before pal_mgr.cpp",
     ('app', 'common/vendor_defs.cpp'): "vendor_defs.cpp (the client's __FILE__, FAIL_IF l.47 / 48 / 85 / 86): the "
                                      "vendor's and the ambient character's type converters, client 0x84C270-0x84C42C "
                                      "(builder NW4, 6 of 6 exact in appfile.py match)",
@@ -4554,6 +4571,8 @@ RECONSTRUCTED = {
     ('app', 'client/ui_avsel.cpp'): "AvatarSelectionInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7C068), the character select window (ui_avsel.cpp's __FILE__ 0xB7BEA0, 15 asserts lines 769-1262; client from the constructor 0x55C650, after ui_avatr.cpp's 0x55C640; run PR #139, LG2): the constructor 0x55C650, the destructor 0x55CCC0, slots +0x60 0x55CEA0, +0x88 0x55EBD0, +0x8C 0x55ECB0, 0x55D9C0, 0x55E2E0, 0x55E8E0, 0x55ED20, 0x55EF90, 0x55F680, the callback 0x55F6D0, 0x55F760, 0x55FBB0, 0x55FDC0 and 0x55FE50 exact; 0x55E370 (inline accessors) exact; 0x55E070 NOT EXACT (register), 0x55F140 NOT EXACT (inline budget), slot +0x68 0x55D060 NOT EXACT (the implicit ShipCustDescClass operator= the client calls out of line inlines); the class in ui_avsel.h, the other types declared only as far as they use them",
     ('app', 'client/ui_avsel.h'): "AvatarSelectionInterface's declaration (ui_avsel.cpp's window; a provisional header name, NAME 1: in the .cpp, the functions before the first assert, line 769, do not fit above it)",
     ('app', 'client/ui_popupmsg.cpp'): "Unknown5DB670InterfaceClass (charview.cpp's neutral name; no RTTI), the end screen charview.cpp's 0x679160 makes for mode 0 ('end_screen00', its seven buttons, 'Exit in %d sec'; ui_popupmsg.cpp's __FILE__ 0xB849A8, assert line 196; client from the constructor 0x5DB670, after ui_popup_browser.cpp's window, through the adjustor thunks 0x5DBF50 / 0x5DBF60 to the PermStringInitClass static 0x5DBF70; run PR #144, SCR): the constructor 0x5DB670, the destructor 0x5DB9F0 (0x5DB9C0), slots +0x7C 0x5DBB00, +0x60 0x5DBB70, +0x68 0x5DBD00, 0x5DBD50 and Get_Site_URL 0x5DBEB0 exact; the class declared in the .cpp only",
+    ('app', 'client/ui_registration.h'): "ui_registration's demo/registration checks and helpers (provisional header name after ui_registration.cpp, NAME 3; main_client.cpp includes it)",
+    ('app', 'client/ui_registration.cpp'): "ui_registration.cpp's demo/registration checks and helpers (client 0x5FAD50-0x5FB540, claim #145 UREG2): 0x5FAD50 (reads 'Registered'), 0x5FADE0 (reads 'Trial'), 0x5FAE70 (predicate), 0x5FAE90 (wrap text), 0x5FAFF0 (status helper), 0x5FB330 (strip hyphens) and 0x5FB540 (strip spaces) byte-exact; 0x5FAF60 NOT EXACT (register)",
     ('app', 'client/charview.cpp'): "CharacterViewClass, the front end's view (charview.cpp's __FILE__ 0xB8D9C4, asserts lines 505-1285; client 0x678450-0x67D300, vtable 0xAFBD5C; LoginTaskClass::Create_Character_View 0x769D60 makes it; run PR #140, CV): the constructor 0x678450, Unknown_04 0x678B70, the mode's screen 0x679160, Shutdown 0x679510, the frame 0x679930 and the small members written functional for the POC client (D64)",
     ('app', 'client/charview.h'): "CharacterViewClass's declaration (provisional header name after charview.cpp, NAME 3; tsk_login.h includes it)",
     ('app', 'client/splash.cpp'): "Splash (0x10 bytes; the class name from 0x6A9E40's profile string 'Splash::Render'), client 0x6A9B60-0x6A9F39: the constructor 0x6A9B60, the destructor 0x6A9DB0, Render 0x6A9E40, byte-exact; its literals 0xB917F8-0xB91836 precede textgadg.cpp's; file name PROVISIONAL (D137: no __FILE__; the app\\Client objects here run alphabetically, loadingview .. textgadg, tutorial_manager, view) (GAD4)",
@@ -5104,7 +5123,13 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
                                        flags=flags_for(paths), extra_sync=[d for d, _, _ in os.walk(root)] + late_sync(),
                                        source_alias=(REPO, app['file_root']))
     else:
-        rc, text = vc6.compile_sources(paths, tree_includes(), out=out, flags=flags_for(paths), extra_sync=late_sync())
+        groups = collections.defaultdict(list)
+        for p in paths:
+            groups[flags_of(p)].append(p)
+        rc, text = 0, ''
+        for fl, ps in groups.items():
+            r, t = vc6.compile_sources(ps, tree_includes(), out=out, flags=fl, extra_sync=late_sync())
+            rc, text = rc or r, text + t
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
     for r in match_objects(image(), objs, app and app['region'], callers=True) if objs else []:

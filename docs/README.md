@@ -57,7 +57,7 @@ Near misses: `tools/re/explain.py` classifies one (the classes and their levers:
 table, with the triage order and the two-attempt stop rule), `tools/vc6/flagsweep.py` rules compiler switches
 out, `tools/vc6/tryv2.py` / `tryvariants.py` try source forms.
 
-Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md).
+Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md), [tools/agy/README.md](../tools/agy/README.md) (agy builders, D187).
 
 Publishing: [../README.md](../README.md) (what the project is), [../CONTRIBUTING.md](../CONTRIBUTING.md), [../AGENTS.md](../AGENTS.md) (rules for contributors' agents), [../SECURITY.md](../SECURITY.md), [../CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md), [../LICENSE](../LICENSE) (GPL v3 with EA's additional terms). `tools/progress.py` builds the progress card, `tools/docs_check.py` and `tools/prepush_check.py` guard the documentation and what may be pushed; CI is in [../.github/workflows/](../.github/workflows/) ([tools/re/README.md](../tools/re/README.md) lists the tools).
 

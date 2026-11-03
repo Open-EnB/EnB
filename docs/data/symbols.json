@@ -616,6 +616,13 @@
 "source": "thunk"
 },
 {
+"address": "0x4014A6",
+"symbol": "j_?Get_Height_2@HeightFieldClass@@QAEMII@Z",
+"name": "j_?Get_Height_2@HeightFieldClass@@QAEMII@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x4014B0",
 "symbol": "j_?Get_Text@LineDisplayStringStruct@@QBE?AV?$RefCountPtr@VLineDisplayTextClass@@@@XZ",
 "name": "j_?Get_Text@LineDisplayStringStruct@@QBE?AV?$RefCountPtr@VLineDisplayTextClass@@@@XZ",
@@ -724,6 +731,13 @@
 "address": "0x40152D",
 "symbol": "j_??_GPacket_00A9Class@@UAEPAXI@Z",
 "name": "j_??_GPacket_00A9Class@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x401537",
+"symbol": "j_?Get_Height@HeightFieldClass@@QAEMII@Z",
+"name": "j_?Get_Height@HeightFieldClass@@QAEMII@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -33481,6 +33495,13 @@
 "source": "thunk"
 },
 {
+"address": "0x410ACD",
+"symbol": "j_?Set_Height@HeightFieldClass@@QAEXMII@Z",
+"name": "j_?Set_Height@HeightFieldClass@@QAEXMII@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
 "address": "0x410ADC",
 "symbol": "j_?ID@?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEHABUWeightInfoStruct@NamedPivotMapClass@@@Z",
 "name": "j_?ID@?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEHABUWeightInfoStruct@NamedPivotMapClass@@@Z",
@@ -33575,6 +33596,13 @@
 "address": "0x410B81",
 "symbol": "j_??_GCatmullRomSpline1DClass@@UAEPAXI@Z",
 "name": "j_??_GCatmullRomSpline1DClass@@UAEPAXI@Z",
+"kind": "thunk",
+"source": "thunk"
+},
+{
+"address": "0x410B86",
+"symbol": "j_?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
+"name": "j_?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
 "kind": "thunk",
 "source": "thunk"
 },
@@ -56496,6 +56524,34 @@
 "kind": "function",
 "source": "exact",
 "length": 99
+},
+{
+"address": "0x463C80",
+"symbol": "?Get_Height@HeightFieldClass@@QAEMII@Z",
+"name": "HeightFieldClass::Get_Height",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x463CD0",
+"symbol": "?Get_Height_2@HeightFieldClass@@QAEMII@Z",
+"name": "HeightFieldClass::Get_Height_2",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x463D20",
+"symbol": "?Set_Height@HeightFieldClass@@QAEXMII@Z",
+"name": "HeightFieldClass::Set_Height",
+"kind": "function",
+"source": "named"
+},
+{
+"address": "0x463D90",
+"symbol": "?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
+"name": "HeightFieldClass::Set_Height_2",
+"kind": "function",
+"source": "named"
 },
 {
 "address": "0x463E70",
