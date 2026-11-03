@@ -86,12 +86,12 @@ public:
 	Unknown5DB670InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x5DB670  // NAME 1 [view, layer]: as LoginInterface's
 	char Unknown84[0xD4 - 0x84];
 };
-class Unknown574710InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 3
-{
-public:
-	Unknown574710InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x574710  // NAME 1 [view, layer]: as LoginInterface's
-	char Unknown84[0x154 - 0x84];
-};
+#include "ui_class.h"
+
+
+
+
+
 class Unknown553AF0InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 4 (ui_avatr.cpp's window)
 {
 public:

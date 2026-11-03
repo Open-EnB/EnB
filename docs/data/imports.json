@@ -15008,6 +15008,46 @@
      "0x4B5740"
     ]
    },
+   "ui_class": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x536F70",
+     "0x536FF0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x432B80",
+     "0x432C30",
+     "0x45CC10",
+     "0x51E220",
+     "0x53BB50"
+    ],
+    "merged": [],
+    "name": "client/ui_class.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42F250",
+     "0x432B80",
+     "0x432C30",
+     "0x45CC10",
+     "0x51E220",
+     "0x53BB50"
+    ]
+   },
    "ui_combobox": {
     "ambiguous": [
      "0x42B2F0",
@@ -16916,6 +16956,7 @@
    "client/tutorial_manager.h": "reconstructed",
    "client/ui_avsel.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",
+   "client/ui_class.h": "reconstructed",
    "client/ui_cpit.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
