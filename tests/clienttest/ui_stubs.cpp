@@ -81,6 +81,7 @@ void Unknown_496110(RenderObjClass *, float, float, float) { Trace("stub Unknown
 class LoadingViewFontManagerClass;
 LoadingViewFontManagerClass *Unknown_BE67C4 = 0;	// 0xBE67C4 (loadingview.cpp's font manager; the loading view's text is not drawn here)
 Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
+RandomClass Unknown_BDBB84;		// 0xBDBB84 (avatar.cpp's)
 
 // ------------------------------------------------------------------------- wlib's Wstring (unknown_message.cpp)
 
