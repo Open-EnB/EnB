@@ -50,4 +50,10 @@ jobs:
           python -m compileall -q tools
           python -m unittest discover -s tools -p "test_*.py"
       - name: Nothing that must stay out of the repository (binaries, captures, secrets, install paths)
-        run: python tools/prepush_check.py
+        # a PR: only what it adds to its base (minutes -> seconds); anything else: all of history
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python tools/prepush_check.py --base "origin/${{ github.base_ref }}"
+          else
+            python tools/prepush_check.py --full
+          fi
