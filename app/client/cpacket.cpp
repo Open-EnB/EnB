@@ -2167,7 +2167,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 	UIStarbaseClass *starbase = NULL;
 	UIPTradeClass *trade = NULL;
 	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
-		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade;
+		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
 		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
 		trade = (UIPTradeClass *)sclient->MainView->Unknown1E4;
@@ -3420,7 +3420,7 @@ bool RecustomizeShipStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	SBaseViewUnknown1A0Class *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI;
+	SBaseViewUnknown1A0Class *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI.Peek();
 
 	FAIL_IF(!ship_ui) return(true);
 	ship_ui->Unknown_61F250(&Desc, &Cost, Unknown1A4, Unknown1A8, Unknown1AC, Unknown1B0);
@@ -3433,7 +3433,7 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	SBaseViewUnknown19CClass *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI;
+	SBaseViewUnknown19CClass *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
 
 	FAIL_IF(!avatar_ui) return(true);
 	avatar_ui->Unknown_551C40(&Cost);

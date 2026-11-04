@@ -8,6 +8,8 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwaudio\AudibleSound.h"
 #include "..\audio\soundlib.h"
+#include "..\..\ww3d2\camera.h"
+#include "fontdatabase.h"
 
 // fontsys.cpp's text object (a render object), as far as the starbase view calls it
 class FontSys : public RenderObjClass	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)
@@ -24,6 +26,79 @@ class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D
 public:
 	char Unknown84[0x184 - 0x84];
 };
+
+// 0x69AC20
+SBaseViewChannelStruct::SBaseViewChannelStruct() :
+	Mode(0),
+	Frame(0),
+	Backward(false)
+{
+}
+
+// 0x69AC50
+SBaseViewChannelStruct::~SBaseViewChannelStruct()
+{
+	Anim = NULL;
+	Model = NULL;
+}
+
+// 0x69AD30
+SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
+	Unknown65B810ViewClass(task, 4),
+	Unknown50(-1),
+	Unknown54(-1),
+	Unknown58(-1),
+	Unknown5C(-1),
+	Unknown68(NULL),
+	Unknown7C(0),
+	Unknown80(0),
+	Unknown84(true),
+	UnknownB4(true),
+	UnknownE4(0),
+	UnknownE8(0),
+	Unknown170(false),
+	Unknown1B0(false),
+	Unknown1B4(NULL),
+	Unknown1BC(0),
+	Unknown1C4(0),
+	Unknown1C8(0),
+	Unknown1D4(0.0f, 0.0f, 0.0f),
+	Unknown1E0(0.0f, 0.0f, 0.0f),
+	Unknown1EC(false),
+	Unknown1ED(false),
+	Unknown1EE(false),
+	Unknown1EF(false),
+	Unknown1F0(false),
+	Unknown1F4(arg)
+{
+	for (int i = 0; i < 3; i++) {
+		ViewRObjs[i] = NULL;
+	}
+	Unknown_BE67BC->Load("fa_sbase.ini");
+}
+
+// 0x69B0C0
+SBaseViewClass::~SBaseViewClass()
+{
+	if (Unknown1B4) {
+		delete Unknown1B4;
+		Unknown1B4 = NULL;
+	}
+	Unknown_BE67BC->Unload("fa_sbase.ini");
+	Unknown1CC = NULL;
+	Unknown1D0 = NULL;
+}
+
+// 0x69C5A0
+void SBaseViewClass::Unknown_18(int arg)
+{
+	if ((char)arg) {
+		Unknown54 = 0;
+		Unknown58 = Unknown50;
+	} else {
+		Unknown_69D030(-1);
+	}
+}
 
 // 0x69CBE0
 bool SBaseViewClass::Unknown_69CBE0()
@@ -61,8 +136,7 @@ bool SBaseViewClass::Unknown_69CCD0()
 	return(false);
 }
 
-// 0x69CDE0: the interfaces released. AvatarUI and ShipUI are RefCountPtrs in the client (released and cleared as
-// the others are, the store before the next load); cpacket.cpp reads them as plain pointers, so they are cast here
+// 0x69CDE0: the interfaces released (AvatarUI and ShipUI too: RefCountPtrs, released and cleared as the others are)
 void SBaseViewClass::Unknown_69CDE0()
 {
 	Unknown1B0 = false;
@@ -76,8 +150,8 @@ void SBaseViewClass::Unknown_69CDE0()
 		Unknown190 = NULL;
 		Jobs = NULL;
 		Unknown198 = NULL;
-		(RefCountPtr<SBaseViewUnknown19CClass> &)AvatarUI = NULL;
-		(RefCountPtr<SBaseViewUnknown1A0Class> &)ShipUI = NULL;
+		AvatarUI = NULL;
+		ShipUI = NULL;
 		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C9D0(RefCountPtr<UITalkTreeSpaceClass>());
 		if (Starbase) {
 			Starbase->Unknown_8C();
@@ -108,80 +182,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -799,10 +799,10 @@ void SBaseViewClass::Unknown_69F460(int arg)
 void SBaseViewClass::Unknown_69F480(int index)
 {
 	if (Channels[index].Model && Channels[index].Anim) {
-		Channels[index].Model->Set_Animation(Channels[index].Anim, 0.0f, 0);
+		Channels[index].Model->Set_Animation(Channels[index].Anim.Peek(), 0.0f, 0);
 	}
-	REF_PTR_RELEASE(Channels[index].Model);
-	REF_PTR_RELEASE(Channels[index].Anim);
+	Channels[index].Model = NULL;
+	Channels[index].Anim = NULL;
 	Channels[index].Mode = 0;
 	Channels[index].Frame = 0.0f;
 }
@@ -818,10 +818,10 @@ void SBaseViewClass::Unknown_69F710()
 		if (channel.Mode && channel.Anim && channel.Model) {
 			float frames = channel.Anim->Get_Num_Frames();
 			if (channel.Backward) {
-				channel.Model->Set_Animation(channel.Anim, frames - 1.0f, channel.Mode);
+				channel.Model->Set_Animation(channel.Anim.Peek(), frames - 1.0f, channel.Mode);
 				channel.Frame = frames;
 			} else {
-				channel.Model->Set_Animation(channel.Anim, 0.0f, channel.Mode);
+				channel.Model->Set_Animation(channel.Anim.Peek(), 0.0f, channel.Mode);
 				channel.Frame = 0.0f;
 			}
 			channel.Mode = 0;
@@ -829,7 +829,7 @@ void SBaseViewClass::Unknown_69F710()
 			float step = channel.Anim->Get_Frame_Rate() * time;
 			if (channel.Backward) {
 				channel.Frame -= step;
-				channel.Model->Set_Animation(channel.Anim, channel.Frame, channel.Mode);
+				channel.Model->Set_Animation(channel.Anim.Peek(), channel.Frame, channel.Mode);
 			} else {
 				channel.Frame += step;
 			}
@@ -840,7 +840,7 @@ void SBaseViewClass::Unknown_69F710()
 // 0x69F850: channel index at its end (no animation counts as ended)
 bool SBaseViewClass::Unknown_69F850(int index)
 {
-	HAnimClass *anim = Channels[index].Anim;
+	HAnimClass *anim = Channels[index].Anim.Peek();
 	if (!anim) {
 		return(true);
 	}
@@ -1675,12 +1675,18 @@ void SBaseViewClass::Unknown_6A2480()
 **	its Client at +0x4C), client 0x69CDE0-0x6A2530 (appfile.py show app\client\sbaseview.cpp; __FILE__
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
-**	loader 0x6A0590, not written) are left free. The constructor and destructor are not in the window; not rebuilt
-**	either: 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90, 0x6A2120.
+**	loader 0x6A0590, not written) are left free. Not rebuilt
+**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90, 0x6A2120.
 **
 **	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
 **	0x69C5A0, ...), and 0x69C8F0 calls 0x69CDE0 / 0x69D030: the view's code runs from 0x69AD30 at the latest
 **	(sbase_info.cpp's last assert function is 0x6987A0). 0x69CBE0-0x69CDE0 are written above 0x69D930, in the
 **	client's order (their lines taken from the blank stretch).
+**
+**	SBV (2026-11-04): the constructor, the destructor and the channels' constructor / destructor 0x69AC20 /
+**	0x69AC50 (the view's vector iterators) give the layout: the destructor's release order and EH states name
+**	every RefCountPtr (+0x60..+0x78 but +0x68, +0xEC, the channels' +0x00 / +0x04, +0x174..+0x1AC, +0x1B8,
+**	+0x1C0, +0x1CC, +0x1D0) and +0x1B4 as a deleted pointer; 0x69C5A0 is slot +0x18. Their lines come from
+**	the blank stretch above 0x69D9D0 (its assert stays on line 738).
 */
