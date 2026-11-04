@@ -3697,6 +3697,7 @@ RECONSTRUCTED = {
     ('app', 'shared/auxdata/delta_money.cpp'): "the money field's Read 0x4A7470 and Write 0x4A74F0 "
                                                "(DeltaTemplateClass<MoneyClass> specialisations), asserts on "
                                                "the client's lines 69 and 86 (D25)",
+    ('app', 'shared/auxdata/delta_money.h'): "DeltaTemplateClass<MoneyClass> as a full specialisation with every member out of line in delta_money.cpp (interim placement, D137; provisional header name, NAME 1): the client calls ~DeltaTemplateClass<MoneyClass> 0x4A7100 under an EH state and never inlines it (SCI)",
     ('app', 'shared/auxdata/delta_template.h'): "DeltaTemplateClass<T> (D24), only what the delta files use: "
                                                 "Read/Write (slots 0x2C/0x30), the value after DeltaClass, the "
                                                 "constructor (inlined for float in 0x4A6110; the time field's "
