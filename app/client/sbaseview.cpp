@@ -10,6 +10,9 @@
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\camera.h"
 #include "fontdatabase.h"
+#include "ui_group.h"
+#include "..\packets\pkaction.h"
+#include "..\..\ww3d2\layer.h"
 
 // fontsys.cpp's text object (a render object), as far as the starbase view calls it
 class FontSys : public RenderObjClass	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)
@@ -89,6 +92,73 @@ SBaseViewClass::~SBaseViewClass()
 	Unknown1D0 = NULL;
 }
 
+// 0x69C0D0: the interfaces, the render objects, the channels and the scenes released (UIViewClass's 0x65B4A0
+// first, not the base's 0x65B8B0)
+void SBaseViewClass::Unknown_10()
+{
+	UIViewClass::Unknown_10();
+	Starbase = NULL;
+	Unknown64 = NULL;
+	Unknown174 = NULL;
+	Unknown178 = NULL;
+	Unknown17C = NULL;
+	Unknown180 = NULL;
+	Unknown184 = NULL;
+	Unknown188 = NULL;
+	Unknown18C = NULL;
+	Unknown190 = NULL;
+	Jobs = NULL;
+	Unknown198 = NULL;
+	AvatarUI = NULL;
+	ShipUI = NULL;
+	Unknown_6A1130();
+	Unknown_6A0540();
+	if (Unknown68) {
+		Unknown68->Unknown00->Remove();
+		delete Unknown68;
+		Unknown68 = NULL;
+	}
+	if (Unknown1CC) {
+		Unknown1CC->Remove();
+		Unknown1CC = NULL;
+	}
+	if (Unknown1D0) {
+		Unknown1D0->Remove();
+		Unknown1D0 = NULL;
+	}
+	for (int i = 0; i < 3; i++) {
+		Unknown_69D930(i);
+	}
+	for (i = 0; i < 6; i++) {
+		Unknown_69F480(i);
+	}
+	if (PTrade) {
+		PTrade->Unknown_5C();
+		PTrade = NULL;
+	}
+	if (Unknown1A8) {
+		Unknown1A8->Unknown_5C();
+		Unknown1A8 = NULL;
+	}
+	if (Unknown1AC) {
+		Unknown1AC->Unknown_5C();
+		Unknown1AC = NULL;
+	}
+	Unknown_6A0E00();
+	Unknown70 = NULL;
+	Unknown6C = NULL;
+	Unknown78 = NULL;
+	Unknown74 = NULL;
+	if (Unknown80) {
+		delete Unknown80;
+		Unknown80 = NULL;
+	}
+	if (Unknown7C) {
+		delete Unknown7C;
+		Unknown7C = NULL;
+	}
+}
+
 // 0x69C5A0
 void SBaseViewClass::Unknown_18(int arg)
 {
@@ -97,6 +167,69 @@ void SBaseViewClass::Unknown_18(int arg)
 		Unknown58 = Unknown50;
 	} else {
 		Unknown_69D030(-1);
+	}
+}
+
+// the client reads these through inline functions: as plain member reads 0x69C8F0 loads them in another order
+inline unsigned Unknown_Avatar_ID(SClient *client) { return(((ClientClass *)((ClientClass *)client)->Unknown_18())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
+inline int Unknown_1134(SClient *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
+inline int Unknown_84(UIStarbaseClass *starbase) { return(starbase->Unknown84); }	// NAME 1: neutral (D10)
+
+// 0x69C8F0: the base's frame, then the talk interface's choice, the pending view change, the sounds, the trade
+// and the group window
+void SBaseViewClass::Unknown_14()
+{
+	UIViewClass::Unknown_14();
+	if (Unknown5C == 11) {
+		if (Unknown190->Unknown_64CF90()) {
+			switch (Unknown50) {
+				case 0:
+					if (Unknown174) Unknown174->Unknown_639030(Unknown190->Unknown_64CF90());
+					break;
+				case 1:
+					if (Unknown178) Unknown178->Unknown_639030(Unknown190->Unknown_64CF90());
+					break;
+				case 3:
+					if (Unknown17C) Unknown17C->Unknown_639030(Unknown190->Unknown_64CF90());
+					break;
+				case 2:
+					if (Unknown180) Unknown180->Unknown_639030(Unknown190->Unknown_64CF90());
+					break;
+			}
+			Unknown190->Unknown_64CFF0();
+		}
+		if (Unknown190->Unknown_64D3E0()) {
+			Unknown_69CDE0();
+		}
+	}
+	if (Unknown1B0) {
+		Unknown_69CDE0();
+	}
+	if (Unknown54 != Unknown50) {
+		Unknown_69D030(Unknown54);
+	}
+	if (Unknown170) {
+		Unknown_69D030(-1);
+		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74BA30(1, 0, 0);
+		Unknown170 = false;
+	}
+	Unknown_6A1B80();
+	if (Client && Starbase) {
+		Unknown1F4.Unknown_441A90(Client->Unknown10BC, Unknown_84(Starbase.Peek()));
+	}
+	if (Unknown64 && Unknown64->Is_Active() && PTrade && PTrade->Is_Active()) {
+		((ClientClass *)((ClientClass *)Client)->Unknown_18())->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 22, Unknown_1134(Client), 0));
+		PTrade->Unknown_5C();
+	}
+	if ((Unknown64 && Unknown64->Is_Active()) || (Unknown190 && (Unknown190->Is_Active() || Unknown190->Unknown_64EEA0())) || (PTrade && PTrade->Is_Active())) {
+		if (Unknown1A8 && Unknown1A8->Is_Active()) {
+			Unknown1A8->Unknown_5C();
+		}
+	} else {
+		if (Unknown1A8 && !Unknown1A8->Is_Active()) {
+			Unknown1A8->Unknown_58();
+			Unknown1A8->Unknown_596770(true);
+		}
 	}
 }
 
@@ -596,139 +729,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -794,8 +794,8 @@ void SBaseViewClass::Unknown_69F460(int arg)
 	Unknown54 = arg;
 	Unknown58 = Unknown50;
 }
-
-// 0x69F480: channel index stopped and released
+#pragma auto_inline(off)
+// 0x69F480: channel index stopped and released (never inlined: 0x69C0D0 and 0x69F540 call it)
 void SBaseViewClass::Unknown_69F480(int index)
 {
 	if (Channels[index].Model && Channels[index].Anim) {
@@ -806,7 +806,7 @@ void SBaseViewClass::Unknown_69F480(int index)
 	Channels[index].Mode = 0;
 	Channels[index].Frame = 0.0f;
 }
-
+#pragma auto_inline(on)
 // 0x69F710: every channel one frame on (a new one starts at its first or last frame)
 // NOT EXACT: two store-order residues (the backward start stores Frame before Mode; the backward step stores
 // Frame and its copy before the pushes); Mode = 0 in each branch with a named frame local scored lower

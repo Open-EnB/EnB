@@ -34,7 +34,8 @@ public:
 	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
 	virtual void Unknown_88();	// +0x88
 	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
-	char Unknown84[0xAC - 0x84];	// +0x84 (+0x7C Active: both handlers test it)
+	int Unknown84;	// +0x84 (+0x7C Active: both handlers test it; the starbase view's 0x69C8F0 hands +0x84 to its +0x1F4's 0x441A90)
+	char Unknown88[0xAC - 0x88];	// +0x88
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
@@ -65,12 +66,13 @@ public:
 	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
 };
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
-class SBaseViewUnknown68Class { public: RenderObjClass *Unknown00; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x6A0540)
-class SBaseViewUnknown190Class : public InterfaceClass { public: char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active)
+class SBaseViewUnknown68Class { public: ~SBaseViewUnknown68Class(); RenderObjClass *Unknown00; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x6A0540; 0x69C0D0 deletes it through 0x4909A0, the destructor of scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct)
+class SBaseViewUnknown190Class : public InterfaceClass { public: int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active; 0x69C8F0 calls 0x64CF90 / 0x64CFF0 / 0x64D3E0 / 0x64EEA0)
 class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370)
-class SBaseViewUnknown174Class : public InterfaceClass { public: char Unknown84[0x18C - 0x84]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (SClient 0x74D950 sets its +0x18C; released as an interface by 0x69B0C0)
+class SBaseViewUnknown174Class : public InterfaceClass { public: void Unknown_639030(int arg); char Unknown84[0x18C - 0x84]; bool Unknown18C; };	// NAME 1: neutral (D10): the starbase view's +0x174 (SClient 0x74D950 sets its +0x18C; released as an interface by 0x69B0C0); +0x178..+0x180 too (0x69C8F0 calls 0x639030 on any of the four)  // NAME 1 [arg]: what 0x69C8F0 passes
 class HAnimClass;
 class AudibleSoundClass;
+class LayerClass;
 // one of the starbase view's six animation channels (0x14 bytes at +0xF8; 0x69F480 / 0x69F710 / 0x69F850; the
 // constructor 0x69AC20 and destructor 0x69AC50 are the view's vector constructor's)
 struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
@@ -91,6 +93,7 @@ public:
 	SBaseViewUnknown1F4Class(int arg);	// 0x441910 (the view's constructor passes its second argument)  // NAME 1 [arg]: neutral
 	~SBaseViewUnknown1F4Class();	// 0x4419B0
 	void Unknown_441A50(int arg);	// 0x441A50  // NAME 1 [arg]: what 0x6A2480 passes
+	void Unknown_441A90(int a, int b);	// 0x441A90 (0x69C8F0: the client's +0x10BC, the starbase interface's +0x84)  // NAME 1 [a, b]: neutral
 	int Unknown00[0x4C / 4];	// +0x00 (0x441910 stores dwords up to +0x48)
 };
 class SBaseViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
@@ -106,6 +109,7 @@ public:
 	virtual SimpleSceneClass *Unknown_5C() { return(Unknown70.Peek()); }	// +0x5C 0x69B070 (the view's own slot; out of line after the constructor)
 	virtual void Unknown_18(int arg);	// +0x18 0x69C5A0 (its byte: set, +0x54 = 0 and +0x58 = +0x50; else 0x69D030(-1))  // NAME 1 [arg]: neutral
 	void Unknown_69D030(int arg);	// 0x69D030 (not rebuilt)  // NAME 1 [arg]: neutral
+	void Unknown_6A1B80();	// 0x6A1B80 (not rebuilt; 0x69C8F0 calls it every frame)
 	void Unknown_6A1000(const char *name);	// 0x6A1000: the sound +0x1C0, looped  // NAME 1 [name]: what SoundLibraryClass::Play_2D_Sound gets
 	void Unknown_6A1130();	// 0x6A1130: the sound +0x1C0 stopped
 	void Unknown_6A2480();	// 0x6A2480 (FAIL_IF 'Client == NULL', l.1667)
@@ -147,8 +151,8 @@ public:
 	RefCountPtr<SimpleSceneClass> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
 	RefCountPtr<CameraClass> Unknown74;	// +0x74 (+0x78's camera: 0x69C5E0)
 	RefCountPtr<SimpleSceneClass> Unknown78;	// +0x78 (ViewRObjs[2]'s scene)
-	int Unknown7C;	// +0x7C
-	int Unknown80;	// +0x80
+	LayerClass *Unknown7C;	// +0x7C (0x69B5E0: a layer of the base's +0x1C scene and +0x20 camera; 0x69C0D0 deletes it)
+	LayerClass *Unknown80;	// +0x80 (0x69B5E0: a layer of +0x70 and +0x6C; 0x69C0D0 deletes it)
 	Matrix3D Unknown84;	// +0x84 (identity from the constructor)
 	Matrix3D UnknownB4;	// +0xB4 (identity from the constructor)
 	int UnknownE4;	// +0xE4
@@ -157,12 +161,12 @@ public:
 	SBaseViewChannelStruct Channels[6];	// +0xF8  // NAME 2: what it holds
 	bool Unknown170;	// +0x170 (0x69C8F0: set, 0x69D030(-1) and cleared)
 	RefCountPtr<SBaseViewUnknown174Class> Unknown174;	// +0x174
-	RefCountPtr<InterfaceClass> Unknown178, Unknown17C, Unknown180;	// +0x178 (0x69C8F0 picks +0x174..+0x180 by +0x50)
+	RefCountPtr<SBaseViewUnknown174Class> Unknown178, Unknown17C, Unknown180;	// +0x178 (0x69C8F0 picks +0x174..+0x180 by +0x50)
 	RefCountPtr<InterfaceClass> Unknown184, Unknown188, Unknown18C;	// +0x184 (0x69CDE0 releases them)
 	RefCountPtr<SBaseViewUnknown190Class> Unknown190;	// +0x190
 	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<InterfaceClass> Unknown198; RefCountPtr<SBaseViewUnknown19CClass> AvatarUI; RefCountPtr<SBaseViewUnknown1A0Class> ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 	RefCountPtr<UIPTradeClass> PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
-	RefCountPtr<InterfaceClass> Unknown1A8;	// +0x1A8 (0x69C8F0: its slots +0x58 / +0x5C)
+	RefCountPtr<UIGroupClass> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
 	RefCountPtr<InterfaceClass> Unknown1AC;	// +0x1AC
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
 	SBaseViewUnknown1B4Class *Unknown1B4;	// +0x1B4 (LOUNGE_NPC 82: sbase_info.cpp's 0x6987A0 of the packet; the destructor deletes it)
