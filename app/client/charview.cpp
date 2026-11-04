@@ -92,10 +92,10 @@ public:
 
 
 
-class Unknown553AF0InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 4 (ui_avatr.cpp's window)
+class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (ui_avatr.cpp's window, mode 4), as far as this file makes it
 {
 public:
-	Unknown553AF0InterfaceClass(UIViewClass *view, LayerClass *layer, int unknown);	// 0x553AF0  // NAME 1 [view, layer, unknown]: neutral
+	AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep);	// 0x553AF0 (ui_avatr.cpp)  // NAME 1 [view, layer, keep]: as ui_avatr.cpp's
 	char Unknown84[0x2F8 - 0x84];
 };
 class Unknown615A50InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 5
@@ -269,7 +269,7 @@ void CharacterViewClass::Unknown_08()
 			Unknown1B4 = new Unknown574710InterfaceClass(this, Unknown074);
 			break;
 		case 4:
-			Unknown1B4 = new Unknown553AF0InterfaceClass(this, Unknown074, 0);
+			Unknown1B4 = new AvatarCreationInterface(this, Unknown074, 0);
 			break;
 		case 5:
 			Unknown1B4 = new Unknown615A50InterfaceClass(this, Unknown074);
