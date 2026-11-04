@@ -30,8 +30,12 @@ static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// 
 static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
 static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
 
+// 0xB9CD44: the eye sides (0x7804A0)
+static const char *Unknown_B9CD44[2] = { "L", "R" };	// NAME 1 [Unknown_B9CD44]: neutral (D10)
+
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
-void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
+void Unknown_496DB0(RenderObjClass *robj);
+void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
 
 // 0x77B870
@@ -211,6 +215,20 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			// 0x77DA20's accessories (player avatars only): each one's meshes join the head
 			// prototype's LOD models, then the head object is cloned again (0x77F750)
 			if (Desc.Avatar_Type == 0 && HeadSource) {
+				// the weapons on the body's bones (+0x2D8 the unique one, +0x2DC the hip's, +0x2E0 the back's)
+				if (Desc.Weapon_Unique_Num) {
+					if (Desc.Gender == 0) {
+						Unknown_77E0E0(0, "WEAPLEG", Desc.Weapon_Unique_Num, "WEAPON01", &WeaponHip);
+					} else {
+						Unknown_77E0E0(0, "WEAPARM", Desc.Weapon_Unique_Num, "WEAPON04", &WeaponHip);
+					}
+				}
+				if (Desc.Weapon_Hip_Num) {
+					Unknown_77E0E0(0, "WEAPHIP", Desc.Weapon_Hip_Num, "WEAPON02", &WeaponUnique);
+				}
+				if (Desc.Weapon_Back_Num) {
+					Unknown_77E0E0(2, "WEAPBAK", Desc.Weapon_Back_Num, "WEAPON03", &WeaponBack);
+				}
 				Unknown_77F960("HAIR", Desc.Hair_Num, &HairSource);
 				Unknown_77FFA0(Desc.Hair_Color, false);
 				Unknown_77F960("EAR", Desc.Ear_Num, &Unknown2CC);
@@ -948,9 +966,43 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
 }
 
+// 0x77E0E0: the weapon model made into *slot and put on the body's bone; kind 0 '<gender><race><part><num>',
+// 1 'a<race><part><num>', 2 'a<part><num>'
+// NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr)
+void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot)
+{
+	if (*slot) {
+		Unknown2BC->Remove_Sub_Object(*slot);
+		(*slot)->Release_Ref();
+		*slot = NULL;
+	}
+	char name[32];
+	if (kind == 0) {
+		_snprintf(name, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
+	} else if (kind == 1) {
+		_snprintf(name, 0x20, "a%s%s%02d", Unknown_B9CD38[Desc.Race], part, num);
+	} else {
+		_snprintf(name, 0x20, "a%s%02d", part, num);
+	}
+	bool making = Unknown_BFAE52;
+	if (!making) {
+		Unknown_BFAE52 = true;
+	}
+	*slot = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+	if (!making) {
+		Unknown_BFAE52 = false;
+	}
+	if (*slot) {
+		Unknown_496AE0(*slot, true);
+		Unknown2BC->Add_Sub_Object_To_Bone(*slot, bone);
+		return;
+	}
+	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
+}
+
 // 0x77F750: the head object cloned again from the head prototype (with the accessories it now
 // holds) and put on the body's K_HEAD bone
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj; its members are RefCountPtrs), literal (__LINE__)
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC BodyObj; its members are RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_77F750()
 {
 	FAIL_IF(!HeadSource || !Unknown2BC) {
@@ -966,7 +1018,8 @@ void CharacterViewAvatarClass::Unknown_77F750()
 	Unknown_496DB0(Unknown2B8);
 	if (Desc.Avatar_Type == 0) {
 		Unknown_780F30();
-		// 0x7804A0 (the eye colour), 0x7857D0 (Head_Texture_Num), 0x7859F0 (Tattoo_Texture_Num) and
+		Unknown_7804A0(Desc.Eye_Color);
+		// 0x7857D0 (Head_Texture_Num), 0x7859F0 (Tattoo_Texture_Num) and
 		// 0x785C00 (Tattoo_Offset) follow here in the client; not built yet
 	}
 	Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
@@ -974,7 +1027,7 @@ void CharacterViewAvatarClass::Unknown_77F750()
 
 // 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
 // '<part>0'..'<part>4' of the head prototype are removed first, the new ones added by 0x789D80
-// NOT EXACT: functional for POC (D64), relocation (the client's slot is a RefCountPtr), literal (__LINE__)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr)
 void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderObjClass **slot)
 {
 	FAIL_IF(!HeadSource) {
@@ -1014,7 +1067,7 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderO
 }
 
 // 0x77FEC0: the colour onto the mesh's vertex material (ambient and diffuse)
-// NOT EXACT: functional for POC (D64), relocation (the client's robj is a RefCountPtr)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls)
 void CharacterViewAvatarClass::Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index)
 {
 	if (*robj) {
@@ -1034,7 +1087,7 @@ void CharacterViewAvatarClass::Unknown_77FEC0(RenderObjClass **robj, const Vecto
 }
 
 // 0x77FFA0: the hair colour onto the head prototype's HAIR0..4 and BEARD0..4 meshes; rebuild: 0x77F750
-// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs; 0x77FEC0 inline)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
 void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
@@ -1055,7 +1108,7 @@ void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild
 }
 
 // 0x7802F0: the beard colour onto the head prototype's BEARD0..4 meshes; rebuild: 0x77F750
-// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs; 0x77FEC0 inline)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
 void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
@@ -1070,6 +1123,26 @@ void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild
 	}
 	if (rebuild) {
 		Unknown_77F750();
+	}
+}
+
+// 0x7804A0: the eye colour onto the head object's LEYE010..4 and REYE010..4 meshes (vertex material 1)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
+void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
+{
+	Desc.Eye_Color = color;
+	if (Unknown2B8) {
+		for (int side = 0; side < 2; side++) {
+			for (int i = 0; i < 5; i++) {
+				char name[32];
+				_snprintf(name, 0x20, "%sEYE01%d", Unknown_B9CD44[side], i);
+				RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(name);
+				if (robj) {
+					Unknown_77FEC0(&robj, color, 1);
+					robj->Release_Ref();
+				}
+			}
+		}
 	}
 }
 
@@ -1266,7 +1339,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
 // each into the LOD that holds it in the accessory
-// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls)
 void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char *part)
 {
 	if (HeadSource == NULL || *slot == NULL || part == NULL) {

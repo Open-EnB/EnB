@@ -46,6 +46,8 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
+	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
 	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
 	void Unknown_77F960(const char *part, int num, RenderObjClass **slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
 	void Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
@@ -118,8 +120,8 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RenderObjClass *Unknown2CC;							// +0x2CC
 	RenderObjClass *GoggleSource;						// +0x2D0  // NAME 1: neutral (D10)
 	RenderObjClass *BeardSource;						// +0x2D4  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponHip;							// +0x2D8  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponUnique;						// +0x2DC  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponHip;							// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponUnique;						// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
 	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
 	RenderObjClass *MaskObj;							// +0x2E4  // NAME 1: neutral (D10)
 	AudibleSoundClass *SpeechSound;						// +0x2E8 (0x784E00 / 0x784C90)  // NAME 2: plays speech sound
