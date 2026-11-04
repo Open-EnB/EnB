@@ -25768,6 +25768,7 @@
    "client/unknown_fontsound.h": "reconstructed",
    "client/unknown_log.h": "reconstructed",
    "client/unknown_personality.h": "reconstructed",
+   "client/unknown_robj_hash.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",

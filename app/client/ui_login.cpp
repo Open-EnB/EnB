@@ -350,8 +350,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x1B), (void *)5);
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x0D), (void *)3);
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x09), (void *)9);
-	RefCountPtr<FontSys> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", (const unsigned int &)model);
-	RefCountPtr<FontSys> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", (const unsigned int &)model);
+	RefCountPtr<FontSys> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", model);
+	RefCountPtr<FontSys> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", model);
 	if (Unknown_5FADE0()) {
 		if (banner) banner->Set_Hidden(true);
 		if (demo) demo->Set_Hidden(false);
@@ -391,7 +391,7 @@ LoginInterface::~LoginInterface()
 	GadgetClass::Destroy(PasswordGadget);
 	NameGadget = NULL;
 	PasswordGadget = NULL;
-	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
+	Unknown_BE67C4->Remove(CharacterView->Peek_Model());
 	Unknown_BE67BC->Unload("fa_fe01a.ini");
 	CharacterView->Unknown_67A9B0(0);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
@@ -662,7 +662,7 @@ void LoginInterface::Unknown_5AE160()
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(true);
-			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], CharacterView->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(1.0f);
 			}
@@ -683,7 +683,7 @@ void LoginInterface::Unknown_5AE240()
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(false);
-			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], CharacterView->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(0.33f);
 			}
@@ -709,7 +709,7 @@ void LoginInterface::Unknown_5AE240()
 // 0x5AE320
 void LoginInterface::Unknown_5AE320()
 {
-	FontSys *textptr = Unknown_BE67C4->Get_Style("Banner_fe01a", (unsigned int)CharacterView->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("Banner_fe01a", CharacterView->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Unknown_6CE7D0(2);
 }
@@ -820,7 +820,7 @@ void LoginInterface::Unknown_5AE7F0()
 		Unknown64.Unknown_687150(AccountButtons[i]);
 		AccountButtons[i] = NULL;
 	}
-	Unknown_BE67C4->Remove((unsigned int)AccountMenu.Peek());
+	Unknown_BE67C4->Remove(AccountMenu.Peek());
 	Unknown_BE67BC->Unload("fa_fe13a.ini");
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	G_ASSERT(AccountMenu);
@@ -837,7 +837,7 @@ void LoginInterface::Unknown_5AE8E0(bool on)
 	for (int i = 0; i < 4; i++) {
 		if (AccountButtons[i]) {
 			AccountButtons[i]->Unknown_40(on);
-			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B8111C[i], (unsigned int)AccountMenu.Peek());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B8111C[i], AccountMenu.Peek());
 			if (text) {
 				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
@@ -845,7 +845,7 @@ void LoginInterface::Unknown_5AE8E0(bool on)
 	}
 	if (Unknown_5FADE0()) {
 		AccountButtons[2]->Unknown_40(false);
-		FontSys *text = Unknown_BE67C4->Get_Style("BUTTON03_FE13A", (unsigned int)AccountMenu.Peek());
+		FontSys *text = Unknown_BE67C4->Get_Style("BUTTON03_FE13A", AccountMenu.Peek());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}

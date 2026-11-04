@@ -8,7 +8,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 {
 	Styles.clear();
 	Name = object->Get_Name();
-	Id = (unsigned int)object;
+	Id = object;
 	Unknown08 = 0;
 	for (std::hash_map<std::string, FontStringStruct *>::iterator it = Unknown_BE67B8->Strings.begin(); it != Unknown_BE67B8->Strings.end(); ++it) {
 		FontStringStruct *def = it->second;
@@ -16,7 +16,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 			if (def->StringID[0] == 'W') {
 				Unknown_6CF930(def, (int)object);
 			} else {
-				Unknown_6D1220(new FontSys(*def, Id, 0));
+				Unknown_6D1220(new FontSys(*def, (unsigned int)Id, 0));
 			}
 		}
 	}
@@ -52,7 +52,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 	float scale;
 	FontStruct *font = Unknown_BE67B8->Find_Font(def->FontType[0], scale);
 	Name = object->Get_Name();
-	Id = (unsigned int)object;
+	Id = object;
 	Unknown08 = 1;
 	float font_height = font->font32Ptr->Get_Char_Height(480.0f);
 	if (def->Width > 0.0f) {
@@ -80,7 +80,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 		FontStringStruct copy(*def);
 		copy.Unknown04 = id;
 		copy.Text = split.Get(i);
-		FontSys *style = new FontSys(copy, Id, 0);
+		FontSys *style = new FontSys(copy, (unsigned int)Id, 0);
 		style->Unknown26C = (int)((i * def->TimeSpacing + def->Wait) * 1000.0f);
 		style->Unknown47C.Y += i * def->Spacing * font_height;
 		style->Unknown470 = style->Unknown47C;
@@ -187,7 +187,7 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 		it = next;
 	}
 	def.Text = text;
-	Unknown_6CF930(&def, Id);
+	Unknown_6CF930(&def, (int)Id);
 }
 
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
@@ -411,7 +411,7 @@ FontManagerClass::~FontManagerClass()
 
 void FontManagerClass::Remove_All()
 {
-	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+	for (std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
 		delete it->second;
 	}
 	Fonts.clear();
@@ -419,7 +419,7 @@ void FontManagerClass::Remove_All()
 
 void FontManagerClass::Unknown_6D1C10(int index, float time)
 {
-	for (std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+	for (std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
 		it->second->Unknown_All_Styles(index, time);
 	}
 }
@@ -446,49 +446,49 @@ ManagedFontClass *FontManagerClass::Create(const char *name, int unknown)
 	return font;
 }
 
-void FontManagerClass::Remove(unsigned int id)
+void FontManagerClass::Remove(RenderObjClass *object)
 {
-	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.find(object);
 	if (it != Fonts.end()) {
 		delete it->second;
 		Fonts.erase(it);
 	}
 }
 
-void FontManagerClass::Unknown_6D2310(const unsigned int &id)
+void FontManagerClass::Unknown_6D2310(const RefCountPtr<RenderObjClass> &object)
 {
-	unsigned int key = id;
-	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(key);
+	RenderObjClass *key = object.Peek();
+	std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.find(key);
 	if (it != Fonts.end()) {
 		delete it->second;
 		Fonts.erase(it);
 	}
 }
 
-void FontManagerClass::Unknown_6D2400(unsigned int id)
+void FontManagerClass::Unknown_6D2400(RenderObjClass *object)
 {
-	Peek_Font(id)->Unknown_6D0390(NULL);
+	Peek_Font(object)->Unknown_6D0390(NULL);
 }
 
-void FontManagerClass::Unknown_6D2480(unsigned int id)
+void FontManagerClass::Unknown_6D2480(RenderObjClass *object)
 {
-	Peek_Font(id)->Unknown_6D0550(NULL);
+	Peek_Font(object)->Unknown_6D0550(NULL);
 }
 
-void FontManagerClass::Unknown_6D2500(const char *name, const char *text, unsigned int id, int unknown)
+void FontManagerClass::Unknown_6D2500(const char *name, const char *text, RenderObjClass *object, int unknown)
 {
-	Peek_Font(id)->Unknown_6D0A20(name, text, unknown);
+	Peek_Font(object)->Unknown_6D0A20(name, text, unknown);
 }
 
 // Find 0x6D2A70 out of line here and in 0x6D2700 (auto_inline off); Peek_Font is its inlined twin elsewhere (H19)
-void FontManagerClass::Unknown_6D2580(const char *name, Vector3 color, unsigned int id)
+void FontManagerClass::Unknown_6D2580(const char *name, Vector3 color, RenderObjClass *object)
 {
-	Find(id)->Unknown_6D1010(name, color);
+	Find(object)->Unknown_6D1010(name, color);
 }
 
-inline ManagedFontClass *FontManagerClass::Peek_Font(unsigned int id)
+inline ManagedFontClass *FontManagerClass::Peek_Font(RenderObjClass *object)
 {
-	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.find(object);
 	if (it == Fonts.end()) return NULL;
 	return it->second;
 }
@@ -517,9 +517,9 @@ inline ManagedFontClass *FontManagerClass::Peek_Font(unsigned int id)
 
 
 // NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv)
-FontSys *FontManagerClass::Get_Style(const char *name, unsigned int id)
+FontSys *FontManagerClass::Get_Style(const char *name, RenderObjClass *object)
 {
-	ManagedFontClass *font = Peek_Font(id);
+	ManagedFontClass *font = Peek_Font(object);
 	if (!font) {
 		G_ASSERT(0);
 		return DebugFont.Peek();
@@ -536,10 +536,10 @@ FontSys *FontManagerClass::Get_Style(const char *name, unsigned int id)
 	return style;
 }
 // The style test after the if (font) block (the font-less path skips it); the key copy keeps ecx = this for Find (H21)
-RefCountPtr<FontSys> FontManagerClass::Unknown_6D2700(const char *name, const unsigned int &id)
+RefCountPtr<FontSys> FontManagerClass::Unknown_6D2700(const char *name, const RefCountPtr<RenderObjClass> &object)
 {
 	RefCountPtr<FontSys> style;
-	unsigned int key = id;
+	RenderObjClass *key = object.Peek();
 	ManagedFontClass *font = Find(key);
 	if (font) {
 		style = Create_Peek(font->Unknown_6D1600(name));
@@ -552,9 +552,9 @@ RefCountPtr<FontSys> FontManagerClass::Unknown_6D2700(const char *name, const un
 }
 
 // NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
-void FontManagerClass::Unknown_6D28C0(int value, unsigned int id)
+void FontManagerClass::Unknown_6D28C0(int value, RenderObjClass *object)
 {
-	Peek_Font(id)->Unknown_Set_Styles(value);
+	Peek_Font(object)->Unknown_Set_Styles(value);
 }
 
 void FontManagerClass::Add(ManagedFontClass *font)
@@ -565,16 +565,16 @@ void FontManagerClass::Add(ManagedFontClass *font)
 }
 
 #pragma auto_inline(off)
-ManagedFontClass *FontManagerClass::Find(unsigned int id)
+ManagedFontClass *FontManagerClass::Find(RenderObjClass *object)
 {
-	std::hash_map<unsigned int, ManagedFontClass *>::iterator it = Fonts.find(id);
+	std::hash_map<RenderObjClass *, ManagedFontClass *>::iterator it = Fonts.find(object);
 	if (it == Fonts.end()) return NULL;
 	return it->second;
 }
 
-ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const unsigned int &id)
+ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const RefCountPtr<RenderObjClass> &object)
 {
-	return Peek_Font(id);
+	return Peek_Font(object.Peek());
 }
 #pragma auto_inline(on)
 /*

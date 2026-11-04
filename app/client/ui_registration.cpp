@@ -67,7 +67,7 @@ void __stdcall Unknown_5F8DB0(int arg);  // NAME 1 [Unknown_5F8DB0]: ui_registra
 
 struct RegistrationInterface {
 	char pad_000[0x120];
-	unsigned int FontId;  // NAME 1 [FontId]: +0x120
+	RenderObjClass *FontId;  // NAME 1 [FontId]: +0x120 (the font manager's key, a render object)
 	char pad_124[0x14C - 0x124];
 	Sub14CClass Sub14C;   // NAME 1 [Sub14C]: +0x14C
 	char pad_150[0x1B0 - (0x14C + sizeof(Sub14CClass))];
@@ -108,7 +108,7 @@ void __cdecl Unknown_5FAE90(RegistrationInterface *self, const char *format, ...
 		vsprintf(buffer, format, args);
 		va_end(args);
 		FontManagerClass *fm = Unknown_BE67C4;
-		unsigned int font_id = self->FontId;
+		RenderObjClass *font_id = self->FontId;
 		ManagedFontClass *font = fm->Find(font_id);
 		if (font) {
 			font->Unknown_6D0A70("WRAP_TEXT_MAIN_RG_X1", buffer);

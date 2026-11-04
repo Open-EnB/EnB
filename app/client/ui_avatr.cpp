@@ -172,8 +172,8 @@ public:
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
-class UIAvatrFontManagerClass { public: void Remove(RenderObjClass *object); FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
-extern UIAvatrFontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+class FontManagerClass { public: void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_cpit.cpp does
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 
@@ -471,7 +471,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 					Unknown098[i]->Unknown_40(on);
 					Unknown098[i]->Unknown_8C(!on);
 					if (UIAvatrParts[i].Text) {
-						FontSys *text = Unknown_BE67C4->Unknown_6D25D0(UIAvatrParts[i].Text, model.Peek());
+						FontSys *text = Unknown_BE67C4->Get_Style(UIAvatrParts[i].Text, model.Peek());
 						if (text) text->Set_Hidden(!on);
 					}
 				}
@@ -491,7 +491,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 					Unknown098[18]->Unknown_8C(true);
 					Unknown098[19]->Unknown_40(false);
 					Unknown098[19]->Unknown_8C(true);
-					FontSys *text = Unknown_BE67C4->Unknown_6D25D0("beard_fe_avatar00", model.Peek());
+					FontSys *text = Unknown_BE67C4->Get_Style("beard_fe_avatar00", model.Peek());
 					if (text) text->Set_Hidden(true);
 				}
 			}
@@ -501,7 +501,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 				Unknown098[i]->Unknown_40(on);
 				Unknown098[i]->Unknown_8C(!on);
 				if (UIAvatrParts[i].Text) {
-					FontSys *text = Unknown_BE67C4->Unknown_6D25D0(UIAvatrParts[i].Text, model.Peek());
+					FontSys *text = Unknown_BE67C4->Get_Style(UIAvatrParts[i].Text, model.Peek());
 					if (text) text->Set_Hidden(!on);
 				}
 			}
@@ -682,7 +682,7 @@ void AvatarCreationInterface::Unknown_55AFD0()
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	FontSys *text = Unknown_BE67C4->Unknown_6D25D0("male_fe_avatar00", model.Peek());
+	FontSys *text = Unknown_BE67C4->Get_Style("male_fe_avatar00", model.Peek());
 	if (Unknown08C->Peek_Unknown194()->Unknown110 == 1) {
 		text->Change_Text("Gender: Female", 0);
 	} else {

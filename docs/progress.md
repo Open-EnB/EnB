@@ -4,6 +4,28 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (late night): P-FU1-2, the font manager keyed by render objects; app 9,039 = 9,039, 0 lost
+
+Coordinator Opus 5.5 with the user; branch `types/fontmanager-keys` from 1ff6d912 (PR #153 merged). P-T12-2 left for
+the aux_roots generator's next edit (the user).
+
+- **P-FU1-2:** FontManagerClass's map, ManagedFontClass::Id and the lookups take `RenderObjClass *` (Add 0x6D1D80 files
+  a font under its object's address); the by-reference ones 0x6D2310 / 0x6D2700 / 0x6D2AE0 take
+  `const RefCountPtr<RenderObjClass> &` (loadingview / ui_popupmsg / ui_login pass a RefCountPtr member). hash<RenderObjClass *>
+  moves from interface_static_sort_list.h into a new unknown_robj_hash.h (D137 interim) both include. The callers'
+  `(unsigned int)` / `(const unsigned int &)` casts go; ui_chat_panel / ui_cpit / ui_group / ui_manu's local views take
+  the new types, and loadingview / ui_avatar_cust / ui_avatr's views carry the real class and method names (Get_Style,
+  Remove, Unknown_6D2310), so their calls reach fontmanager.cpp instead of generated stand-ins; ui_registration's
+  FontId +0x120 is a RenderObjClass *. app verify 9,039 = 9,039, pairs_cmp empty (the renamed hash_map instances lost
+  nothing), replay 0. clienttest 103 / 0: its 0xBE67C4 is an empty FontManagerClass (members only), ui_stubs.cpp's
+  second definition gone, expected.txt loses `gen LoadingViewFontManagerClass::Unknown_6D2310`. POC: character select,
+  no crash, the same first calls.
+- **Quit at character select (the user, run 4):** the shutdown faults: ~LoginTaskClass -> CharacterViewClass::Unknown_10
+  -> UIViewClass::Unknown_10 reads 0x29282726 (string bytes as a pointer). **Master 1ff6d912 does the same** (its POC
+  built in a worktree, linked outside ClientPOC\release): not P-FU1-2's; §4 item. Scripted runs never quit before (killed
+  at 60 s): `.work/run-2026-11-03/input3-quit.txt` is input3 plus Escape at 40 s and the confirm dialog's Yes (505, 543)
+  at 44 s (the user: Escape opens the quit dialog from login and character select; Quit / Back are bottom left).
+
 ### 2026-11-03 (night): the quiet tree's client-name renames (AssetManager, EnvironmentMapManager, ControlKeysManager) and two retypes; app 9,039 = 9,039, 0 gained, 0 lost
 
 Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103`, base c9403bfe; scratch `.work/cn1/`
@@ -2256,8 +2278,8 @@ below name only the work items, the blocked work, the leads and the queues.
      and the RS_* masks (now in rs_track.h); ui_popupmsg.h once ui_popupmsg.cpp's lines can be held (a 21-line class
      before an assert); Unknown_4BE9D0 in a small header of its own (in unknown_message.h, `<string>` costs
      unknown_message_server's 0x4BCB50).
-   * Types: P-FU1-2 (ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned, with a
-     full app verify); P-SM1-2 (OrbitalManager's ctor takes a
+   * Types: FontSys's constructors 0x6D47C0 / 0x6D4C70 and ManagedFontClass::Unknown_6CF930 still take the render object
+     as an integer (fontmanager.cpp casts ManagedFontClass::Id for them since P-FU1-2); P-SM1-2 (OrbitalManager's ctor takes a
      shared callback base and ClientClass); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads into
      strconv_lib.h through the aux_roots generator).
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
@@ -2349,6 +2371,9 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
+   * The POC faults when quitting from character select (seen 2026-11-03 on master 1ff6d912 and after P-FU1-2):
+     KernelClass::Shutdown -> ~LoginTaskClass -> CharacterViewClass::Unknown_10 -> UIViewClass::Unknown_10 reads
+     0x29282726 (string bytes as a pointer); repeat with `clientpoc.py replay --input .work/run-2026-11-03/input3-quit.txt`.
    * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
      tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
      symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.

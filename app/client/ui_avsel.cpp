@@ -384,7 +384,7 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 			Unknown0BC[i] = NULL;
 		}
 	}
-	Unknown_BE67C4->Remove((unsigned int)Unknown084->Peek_Model());
+	Unknown_BE67C4->Remove(Unknown084->Peek_Model());
 	Unknown_BE67BC->Unload("FA_FE12A.ini");
 	Unknown084->Unknown_67A9B0(0);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
@@ -765,7 +765,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 // 0x55E2E0
 void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool selected)
 {
-	FontSys *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(string, 0);
 	textptr->Unknown_6CE910(selected);
@@ -899,7 +899,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
 				Unknown10C[i]->Unknown_40(true);
-				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
+				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
 				if (text) {
 					text->Unknown_Set_2FC(1.0f);
 				}
@@ -910,7 +910,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 	for (i = 0; i < 8; i++) {
 		if (Unknown09C[i] && !Unknown09C[i]->Unknown_60()) {
 			Unknown09C[i]->Unknown_40(true);
-			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], (unsigned int)Unknown084->Peek_Model());
+			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(1.0f);
 			}
@@ -918,25 +918,25 @@ void AvatarSelectionInterface::Unknown_55ED20()
 	}
 	if (Unknown118 && !Unknown118->Unknown_60()) {
 		Unknown118->Unknown_40(true);
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(1.0f);
 		}
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(1.0f);
 		}
 	}
 	if (Unknown090 < 0 || !Unknown0E4[Unknown090]) {
 		Unknown09C[5]->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[5], (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[5], Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}
 	}
 	if (Unknown090 < 0) {
 		Unknown09C[6]->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[6], (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style(Unknown_B7B904[6], Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}
@@ -953,7 +953,7 @@ void AvatarSelectionInterface::Unknown_55EF90()
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
 				Unknown10C[i]->Unknown_40(false);
-				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
+				text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
 				if (text) {
 					text->Unknown_Set_2FC(0.33f);
 				}
@@ -964,7 +964,7 @@ void AvatarSelectionInterface::Unknown_55EF90()
 	for (i = 0; i < 8; i++) {
 		if (Unknown09C[i] && Unknown09C[i]->Unknown_60()) {
 			Unknown09C[i]->Unknown_40(false);
-			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], (unsigned int)Unknown084->Peek_Model());
+			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(0.33f);
 			}
@@ -972,11 +972,11 @@ void AvatarSelectionInterface::Unknown_55EF90()
 	}
 	if (Unknown118 && Unknown118->Unknown_60()) {
 		Unknown118->Unknown_40(false);
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}
-		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
+		text = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}
@@ -1043,25 +1043,25 @@ void AvatarSelectionInterface::Unknown_55F140()
 	if (Unknown090 == -1 || !Unknown0E4[Unknown090]) {
 		return;
 	}
-	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	int race = Unknown0BC[Unknown090]->Unknown108;
 	textptr->Change_Text(Unknown_B7B928[race], 0);
 
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", (unsigned int)Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(Unknown_B7B934[Unknown0BC[Unknown090]->Unknown10C + race * 3], 0);
 
 
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_Level_Title", (unsigned int)Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Level_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	char level[64];
 	sprintf(level, "Level: %d", chars[Unknown090].Level_Combat + chars[Unknown090].Level_Explore + chars[Unknown090].Level_Trade);
 	textptr->Change_Text(level, 0);
 
-	ManagedFontClass *font = Unknown_BE67C4->Find((unsigned int)Unknown084->Peek_Model());
+	ManagedFontClass *font = Unknown_BE67C4->Find(Unknown084->Peek_Model());
 	if (font) {
 		const char *sector = chars[Unknown090].Sector_Name;
 		if (strlen(sector)) {
@@ -1084,7 +1084,7 @@ void AvatarSelectionInterface::Unknown_55F140()
 
 
 	std::list<LoginGalaxyClass> galaxies = Unknown088->Galaxies;
-	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", (unsigned int)Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text("", 0);
 	for (std::list<LoginGalaxyClass>::iterator it = galaxies.begin(); it != galaxies.end(); it++) {
@@ -1209,7 +1209,7 @@ void AvatarSelectionInterface::Unknown_55FBB0()
 		Unknown64.Unknown_687150(Unknown10C[i]);
 		Unknown10C[i] = NULL;
 	}
-	Unknown_BE67C4->Remove((unsigned int)BuddyReferralUI.Peek());
+	Unknown_BE67C4->Remove(BuddyReferralUI.Peek());
 	Unknown_BE67BC->Unload("fc_buddyref1.ini");
 	RenderObjClass *model = Unknown084->Peek_Model();
 	G_ASSERT(BuddyReferralUI);
@@ -1237,7 +1237,7 @@ void AvatarSelectionInterface::Unknown_55FDC0(bool on)
 	for (int i = 0; i < 2; i++) {
 		if (Unknown10C[i]) {
 			Unknown10C[i]->Unknown_40(on);
-			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], BuddyReferralUI.Peek());
 			if (text) {
 				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
@@ -1254,11 +1254,11 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 	G_ASSERT(robj);
 	robj->Set_Hidden(hidden);
 
-	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 
-	textptr = Unknown_BE67C4->Get_Style("fe12_ReferralButton", (unsigned int)Unknown084->Peek_Model());
+	textptr = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 }

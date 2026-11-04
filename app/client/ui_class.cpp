@@ -221,7 +221,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 			SkillGadgets[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
 			Unknown64.Unknown_6870E0(SkillGadgets[i], i + 0x11, View, 1, 0);
 			if (Unknown_B7DC44[i].SubObject != NULL) {
-				((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, (unsigned int)model));
+				((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model));
 			}
 		}
 	}
@@ -276,7 +276,7 @@ ClassSelectInterface::~ClassSelectInterface()
 	Unknown_5C();
 	Descriptions.clear();
 	SkillDescriptions.clear();
-	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
+	Unknown_BE67C4->Remove(CharacterView->Peek_Model());
 	Unknown_BE67BC->Unload("fa_fe_class00.ini");
 	CharacterView->Unknown_67A9B0(0);
 
@@ -513,7 +513,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(arg);
 			if (Unknown_B7DBCC[i].SubObject) {
-				FontSys *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
+				FontSys *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, CharacterView->Peek_Model());
 				if (font) {
 					if (arg) {
 						font->Unknown_Set_2FC(1.0f);
@@ -526,7 +526,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 	}
 	Buttons[4]->Unknown_40(false);
 	((RObjGadgetClass *)Buttons[4])->Unknown_8C(true);
-	Unknown_BE67C4->Get_Style("skill_fe_class00", (unsigned int)CharacterView->Peek_Model())->Set_Hidden(1);
+	Unknown_BE67C4->Get_Style("skill_fe_class00", CharacterView->Peek_Model())->Set_Hidden(1);
 }
 
 
@@ -558,11 +558,11 @@ void ClassSelectInterface::Unknown_576270()
 void ClassSelectInterface::Unknown_5779D0()
 {
 	CharacterView->Unknown_67B320();
-	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", CharacterView->Peek_Model());
 	if (title) {
 		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
 	}
-	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", CharacterView->Peek_Model());
 	if (subtitle) {
 		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
 	}
