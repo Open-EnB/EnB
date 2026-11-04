@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-638 entries in 129 files.
+642 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -163,6 +163,10 @@ edit the comments in the code, not this file.
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
+| `app/client/gd_buffgadg.cpp:90` | `BuffInfoStruct::Get_Element` | marker | NOT EXACT: register (the static element's zero expiry: the client stores ebx twice, ours a second zeroed register; one instruction) 0x6656A0 |
+| `app/client/gd_buffgadg.cpp:101` | `BuffElementStruct::BuffElementStruct` | marker | NOT EXACT: inline budget (the client calls basic_string::assign for both members, ours inlines it: 52 vs 115 instructions) 0x665940 |
+| `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
+| `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_slider.cpp:12` | `GadgetSlider::GadgetSlider` | marker | NOT EXACT: order-only (similarity 0.89): member store order @0x66DFC0 |

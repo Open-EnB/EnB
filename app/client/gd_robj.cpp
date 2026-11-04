@@ -8,7 +8,7 @@
 
 // ro_funcs.cpp (app\shared, cdecl), as far as this file calls it
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110: a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
-bool Unknown_496240(RenderObjClass *robj, int arg);	// 0x496240 (over the sub-objects)  // NAME 1 [robj, arg]: neutral
+bool Unknown_496240(RenderObjClass *robj, float opacity);	// 0x496240 (over the sub-objects)  // NAME 1 [robj, opacity]: as ro_funcs.cpp's
 bool Unknown_495FD0(RenderObjClass *robj, class TextureClass *tex, int index);	// 0x495FD0 (into the material's table at index)  // NAME 1 [robj, tex, index]: ro_funcs.cpp's
 class TextureClass *Unknown_4960C0(RenderObjClass *robj, int index);	// 0x4960C0 (out of the material's table at index)  // NAME 1 [robj, index]: neutral
 bool Unknown_496960(RenderObjClass *robj, float x, float y, const LayerClass &layer);	// 0x496960 (FAIL_IFs on the layer's scene and camera: a pick)  // NAME 1 [robj, x, y, layer]: neutral
@@ -111,9 +111,9 @@ void RObjGadgetClass::Unknown_66C260(const Vector3 &color)
 	}
 }
 
-void RObjGadgetClass::Unknown_66C2A0(int arg)
+void RObjGadgetClass::Unknown_66C2A0(float opacity)
 {
-	Unknown_496240(RObj, arg);
+	Unknown_496240(RObj, opacity);
 }
 
 void RObjGadgetClass::Unknown_66C2D0()
