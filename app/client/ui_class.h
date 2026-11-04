@@ -35,7 +35,7 @@ public:
 	void Unknown_576270();							// 0x576270
 	void Unknown_576360();							// 0x576360 (0x5779D0 calls it)
 	void Unknown_5767F0();							// 0x5767F0 (0x5779D0 calls it)
-	void Unknown_576AC0();							// 0x576AC0
+	void Unknown_576AC0();							// 0x576AC0 (Unknown_60: the planet and moons turned)
 	void Unknown_575D50();							// 0x575D50
 	void Unknown_577DA0(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x577DA0  // NAME 1: neutral (D10); NAME 1 [sender]: neutral
 	void Unknown_575CD0();							// 0x575CD0 (Unknown_60 inlines it)
@@ -55,8 +55,8 @@ public:
 	RefCountPtr<RenderObjClass> Models[7];			// +0xC8
 	float UnknownE4;								// +0xE4 (20.0f)
 	float UnknownE8;								// +0xE8 (20.0f)
-	int UnknownEC;									// +0xEC
-	int UnknownF0;									// +0xF0
+	float UnknownEC;								// +0xEC (the planet turn's time left, 1.0f at its start: 0x5779D0, 0x576AC0)
+	float UnknownF0;								// +0xF0 (the moons' turn, 0.33 per second: 0x576AC0)
 	GadgetClass *SkillGadgets[8];					// +0xF4
 	std::vector<std::string> Descriptions;			// +0x114
 	std::vector<std::string> SkillDescriptions;		// +0x124
