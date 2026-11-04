@@ -60,8 +60,7 @@ call / jump reaches, or one right after padding (int3 / nop) or after the end of
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
 function after a switch's byte index table, Hue_Shift 0x94EB20). A hit inside a function (XMP's
 Write_Marker without its 0x66 operand-size prefix, 0x9E4F11) is dropped before anything else sees it;
-`unanchored` counts the dropped hits. ANCHOR_HITS switches the rule (off until the user rules on the
-pairs it corrects).
+`unanchored` counts the dropped hits. ANCHOR_HITS switches the rule.
 
 A `short` function (fewer than MIN_FIXED fixed bytes: too little to search) is credited only at an
 address the run knows independently of its bytes (D188): a slot of a vtable whose address is known
@@ -90,9 +89,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from clientimage import ClientImage, DEFAULT_CLIENT  # noqa: E402
 
 MIN_FIXED = 12   # a pattern needs at least this many non-wildcard bytes to be searched
-# D189(2): searched hits count only at a function start (function_start). Off until the user rules on the
-# pairs it corrects (D66: mid-function hits that are pairs today, listed in SHRT's report of 2026-11-03)
-ANCHOR_HITS = False
+# D189(2): searched hits count only at a function start (function_start). The user accepted its four
+# corrections (0x9CEEF7, 0x9F367D, 0x924875, 0x8437A4: mid-function hits, 2026-11-03)
+ANCHOR_HITS = True
 
 
 def generated(name):
