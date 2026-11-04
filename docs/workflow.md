@@ -1111,7 +1111,9 @@ unless `--lever` cites a new row of this table.
   rewrite build/app/app.lib: `build.py build --lib app` before linking. `build.py link --out DIR` needs every library
   under DIR (copy the whole build/). Shots count presented frames, not ms (the login renders 2,000-4,000 fps; use
   D3D8SHOT_EVERY with D3D8SHOT_MAX). Per-instance runs: `clientpoc.py run|replay --instance NAME --exe EXE [--messages]`
-  (ClientPOC\inst\NAME\release, own Data\client\ini: antprox /REPLAY rewrites auth.ini at start); replay takes
+  (ClientPOC\inst\NAME\release, own Data\client\ini: antprox /REPLAY rewrites auth.ini at start; `clientpoc.py clean
+  --instance NAME` when done, `--all` / `--older HOURS` for the coordinator: it unlinks the instance's junctions into
+  ClientPOC\Data, never follows them, and keeps an instance whose client.exe still runs); replay takes
   d3d8.dll from the worktree's own build/d3d8shot; symbolize crashes with the instance's own client.map, never
   retail's. `clienttest.py build` has no --pool: lease a VM and set ENB_VC6_HOSTS when others build. The gen stand-ins
   define `Unknown_XXXXXX` data globals that may really be a library's statics (WW3D 0xBFAE4F-0xBFAE52: the app wrote

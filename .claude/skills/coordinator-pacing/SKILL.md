@@ -103,7 +103,8 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   that the window is closed, and keep it closed unless the user reopens it.
 - While the last builders run, draft the progress.md entry and the §4 refresh as scripts in `.work/coord/`
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
-- Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `git status` clean except `.claude/settings.json`,
+- Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientpoc.py clean --all` (POC
+  instances; a running client's is kept), `git status` clean except `.claude/settings.json`,
   HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
 - Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
   brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
