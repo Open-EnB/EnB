@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-640 entries in 130 files.
+639 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -112,7 +112,6 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/dynamic_window_render_object.cpp:32` | `DynamicWindowRenderObjectClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
-| `app/client/dynamic_window_render_object.cpp:62` | `DynamicWindowRenderObjectClass::Invalidate` | marker | NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/env_map_manager.cpp:50` | `EnvironmentMapManagerClass::Unknown_760770` | marker | NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64) 0x760770 |
 | `app/client/env_map_manager.cpp:215` | `EnvironmentMapManagerClass::Unknown_760770` | mention | NOT EXACT (D64). |
