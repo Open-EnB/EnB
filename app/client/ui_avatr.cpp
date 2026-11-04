@@ -185,7 +185,7 @@ public:
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
 // The asset manager (*0xBFAEE0)
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
@@ -1458,4 +1458,105 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 		case 6: desc->Unknown_780790(4, arg); break;
 	}
 	desc->Unknown_780810(Unknown08C->Unknown3A4);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old
+// gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one
+// in the other gender with the palettes' default colours; the old description is then kept at +0x1CC)
+// 0x5582A0
+void AvatarCreationInterface::Unknown_5582A0()
+{
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	AvatarDescClass old(desc->Desc);
+	Unknown08C->Unknown_67C270(Unknown184, 7, old.Gender);
+	Unknown08C->Unknown_67C310(&Unknown164, old.Gender);
+	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, old.Gender);
+	desc->Desc.Gender = (desc->Desc.Gender == 0);
+	Unknown_55AFD0();
+	AvatarDescClass *kept = (AvatarDescClass *)((char *)this + 0x1CC);
+	if (Unknown2D8) {
+		Unknown08C->Unknown_67A3F0();
+		Unknown08C->Unknown_67A440(kept, false);
+		Unknown_559900();
+		Unknown08C->Unknown_67C200(Unknown184, 7, kept->Gender);
+		Unknown08C->Unknown_67C2E0(&Unknown164, kept->Gender);
+		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, kept->Gender);
+	} else {
+		AvatarDescClass copy(desc->Desc);
+		Unknown08C->Unknown_67A3F0();
+		Unknown08C->Unknown_67A440(&copy, true);
+		Unknown_559900();
+		Unknown_Set_Palette("fa_skin_color.tga");
+		Unknown_557950(2, 1, 0);
+		Unknown_Set_Palette("fa_avatar_color.tga");
+		Unknown_557950(0, 1, 0);
+		Unknown_557950(1, 1, 0);
+		Unknown_557950(3, 1, 0);
+		Unknown_557950(4, 1, 0);
+		Unknown_557950(5, 1, 0);
+		Unknown_557950(6, 1, 0);
+		Unknown164.X = 0.5f;
+		Unknown164.Y = 0.5f;
+		Unknown170 = 0.5f;
+		Unknown174 = 0.5f;
+		Unknown178 = 1.0f;
+	}
+	*kept = old;
+	Unknown2D8 = true;
+	Unknown_559350();
+	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
+	avatar->Unknown_780810(Unknown08C->Unknown3A4);
+	avatar->Unknown232 = true;
+	Unknown094->Unknown_84(avatar);
+	Unknown08C->Unknown_67C7B0();
+	if (avatar->Desc.Gender == 1) {
+		Unknown08C->Unknown_67C920("1492_00_350se.mp3");
+	} else {
+		Unknown08C->Unknown_67C920("1492_00_349se.mp3");
+	}
+}
+
+// NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's
+// default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too))
+// 0x557950
+void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
+{
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
+	if (avatar.Peek() == NULL) {
+		return;
+	}
+	Vector2 uv(0.0f, 0.0f);
+	if (!keep) {
+		uv.X = Unknown_BDBB84(0, 100) * 0.01f;
+		uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
+	} else if (stored) {
+		uv = Unknown184[which];
+	} else {
+		switch (which) {
+			case 0: uv = avatar->Desc.Get_Hair_Offset(); break;
+			case 1: uv = avatar->Desc.Get_Eye_Offset(); break;
+			case 2: uv = avatar->Desc.Get_Skin_Offset(); break;
+			case 3: uv = avatar->Desc.Get_Shirt_Primary_Offset(); break;
+			case 4: uv = avatar->Desc.Get_Shirt_Secondary_Offset(); break;
+			case 5: uv = avatar->Desc.Get_Pants_Primary_Offset(); break;
+			case 6: uv = avatar->Desc.Get_Pants_Secondary_Offset(); break;
+		}
+	}
+	RefCountPtr<RenderObjClass> palette = Create_Get(model->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+	Vector3 color;
+	Unknown_496C00(palette.Peek(), uv.X, stored ? 1.0f - uv.Y : uv.Y, &color);
+	switch (which) {
+		case 0: avatar->Unknown_77FFA0(color, true); break;
+		case 1: avatar->Unknown_7804A0(color); break;
+		case 2: avatar->Unknown_780680(0, color); break;
+		case 3: avatar->Unknown_780680(1, color); if (!keep) avatar->Unknown_780790(1, Unknown_BDBB84(-1, 2)); break;
+		case 4: avatar->Unknown_780680(2, color); if (!keep) avatar->Unknown_780790(2, Unknown_BDBB84(-1, 2)); break;
+		case 5: avatar->Unknown_780680(3, color); if (!keep) avatar->Unknown_780790(3, Unknown_BDBB84(-1, 2)); break;
+		case 6: avatar->Unknown_780680(4, color); if (!keep) avatar->Unknown_780790(4, Unknown_BDBB84(-1, 2)); break;
+	}
+	Unknown184[which].X = uv.X;
+	Unknown184[which].Y = stored ? uv.Y : 1.0f - uv.Y;
+	Unknown_55AE50();
 }

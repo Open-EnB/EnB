@@ -30,6 +30,7 @@ class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10), as ui_avatr.cpp's
 {
 public:
 	UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits);	// 0x585B50 (0x24 bytes)  // NAME 1 [model, name, texture, part, two_digits]: what ui_avatr.cpp's 0x559900 passes
+	~UIAvatrUnknown2ECStruct();							// 0x585BF0 (ui_avatr.cpp's 0x559F30)
 	void Unknown_585C90();								// 0x585C90 (the next choice, wrapping to 0)
 	void Unknown_585CC0();								// 0x585CC0 (the previous choice, wrapping to +0x20)
 	void Unknown_585CF0(int choice);					// 0x585CF0 (+0x18 set)  // NAME 1 [choice]: neutral
@@ -282,3 +283,27 @@ void UIAvatrUnknown2ECStruct::Unknown_585D10()
 **	were inlined into its exact 0x5560E0 / 0x556290 / 0x554B50, or shifted its Create_Peek 0x55C490 and $E 0x55C5D0.
 **	0x585BF0 (the choice's destructor: two gadgets destroyed, +0x08 released, +0x0C .. +0x14 deleted) is not built.
 */
+
+// @0x585BF0
+UIAvatrUnknown2ECStruct::~UIAvatrUnknown2ECStruct()
+{
+	for (int i = 0; i < 2; i++) {
+		if (Unknown00[i]) {
+			GadgetClass::Destroy(Unknown00[i]);
+			Unknown00[i] = NULL;
+		}
+	}
+	if (Unknown08) {
+		Unknown08->Release_Ref();
+		Unknown08 = NULL;
+	}
+	if (Unknown0C) {
+		delete [] Unknown0C;
+	}
+	if (Unknown10) {
+		delete [] Unknown10;
+	}
+	if (Unknown14) {
+		delete [] Unknown14;
+	}
+}
