@@ -73,6 +73,10 @@ INLINE_SEND = {'Hull': 0x7518A0}
 # into which ours does not inline the Elements array's base (ARRAY_DERIVED; the client does), so
 # an inline Element is lost there (0x707430); plain, it stays exact.
 OOLINE_PLAIN = {0xB01F74}
+# Compounds whose destructor the client declares (an empty body: VC6 stores the class's vtable first,
+# which an implicit destructor leaves out): Harvestable 0x6FA5E0, the Buffs array (inlined: the address of its store).
+USER_DTOR = {0xB010C0: 0x6FA5E0,
+             0xB00B0C: 0x6F8EA9}   # Ship.BuffArray, inlined in Ship's destructor 0x6F8D30
 # Arrays whose class derives from the template instance: the client calls the instance's
 # constructor and then stores the array's own vtable and per-class global (Ship's BuffArray:
 # 0x707040 stores 0xB01A98, Ship 0x6F73DA then 0xB00B0C and [0xC41600]; the two vtables differ
@@ -384,7 +388,9 @@ class Gen:
                          'then stores the two', tag,
                          f'class {name} : public {inst}', '{', 'public:',
                          f'\t{name}(const char *name, unsigned int count) : {inst}(name, count)', '\t{',
-                         '\t\tUnknown04 = UnknownGlobal;', '\t}', '',
+                         '\t\tUnknown04 = UnknownGlobal;', '\t}'] + \
+                        ([f'\t~{name}() {{}}\t// user-declared: the client stores the vtable 0x{hexu(vt)} first (0x{USER_DTOR[vt]:X})']
+                         if vt in USER_DTOR else []) + ['',
                          '\tstatic int UnknownGlobal;\t// the per-class global at +0x04', '};']
                 self.decl[vt] = '\n'.join(lines)
                 self.order.append(vt)
@@ -520,6 +526,8 @@ class Gen:
             lines.append('\t{')
             lines += ['\t' + b for b in body]
             lines.append('\t}')
+        if vt in USER_DTOR:
+            lines.append(f'	~{name}() {{}}	// 0x{USER_DTOR[vt]:X}: user-declared (it stores the vtable first)')
         if members:
             lines.append('')
         for off, cls, m, _ in members:

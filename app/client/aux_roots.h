@@ -427,6 +427,7 @@ public:
 	{
 		Unknown04 = UnknownGlobal;
 	}
+	~DeltaBuffsClass() {}	// user-declared: the client stores the vtable 0xB00B0C first (0x6F8EA9)
 
 	static int UnknownGlobal;	// the per-class global at +0x04
 };
@@ -604,6 +605,7 @@ class DeltaHarvestableClass : public UnknownRootClass
 {
 public:
 	DeltaHarvestableClass(int unknown);
+	~DeltaHarvestableClass() {}	// 0x6FA5E0: user-declared (it stores the vtable first)
 
 	DeltaStringClass Name;	// +0xA0
 	DeltaItemArrayClass<DeltaItemClass> HarvestableResources;	// +0x128
