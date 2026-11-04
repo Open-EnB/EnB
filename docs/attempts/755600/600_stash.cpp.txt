@@ -1,0 +1,27 @@
+// SClient::Unknown_755600 (sclient.cpp), AUXR 2026-11-04: similarity 0.50, frame 0x50 vs 0x54
+// 0x755600 (0x745750): the roots back to their defaults: a new root's encoding decoded into each
+void SClient::Unknown_755600()
+{
+	DeltaPlayerClass *player = new DeltaPlayerClass;
+	{
+		DeltaPlayerClass *aux = AuxData;
+		LinearBufferClass buf(0x400, 0x400);
+		DurationClass base(0);
+		player->Unknown_0C(buf);
+		buf.Seek(0);
+		aux->Unknown_10(buf, base);
+		aux->Unknown_1C();
+	}
+	delete player;
+	DeltaHullClass *hull = new DeltaHullClass(AvatarID);
+	{
+		DeltaHullClass *aux = (DeltaHullClass *)PlayerVarAuxData[0];
+		LinearBufferClass buf(0x400, 0x400);
+		DurationClass base(0);
+		hull->Unknown_0C(buf);
+		buf.Seek(0);
+		aux->Unknown_10(buf, base);
+		aux->Unknown_1C();
+	}
+	delete hull;
+}
