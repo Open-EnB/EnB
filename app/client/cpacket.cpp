@@ -115,7 +115,7 @@ public:
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
 
 // shiputils.cpp's colorization helper (cdecl): the packet's regions on the object's model
-void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0  // NAME 1 [model, regions, unknown]: what COLORIZATION 17 passes
+void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *unknown);	// 0x80EFF0  // NAME 1 [model, regions, unknown]: what COLORIZATION 17 passes
 
 // co.h's +0xC8 Colorization: the object's colorization regions, which COLORIZATION 17 assigns
 // (0x73F770, their vector's operator=)

@@ -43,7 +43,7 @@ extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [U
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
-CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps)
+CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, EnvironmentMapManagerClass *env_maps)
 	: CompositeRenderObjClass(),
 	  PlayerNLP(NULL),
 	  Unknown204(0),

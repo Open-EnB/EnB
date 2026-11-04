@@ -40,7 +40,7 @@ inline void CharacterViewClass::Unknown_Inline_Platform()
 
 // The environment maps +0x3A4 read through an inline accessor: the avatars' constructor calls then load and push
 // it before 'this' is set, as the client does (CV2: a plain member read schedules both loads first, 0.79)
-static inline SClientUnknown1338Class *Unknown_Inline_Env_Maps(CharacterViewClass *view)
+static inline EnvironmentMapManagerClass *Unknown_Inline_Env_Maps(CharacterViewClass *view)
 {
 	return view->Unknown3A4;
 }
@@ -62,10 +62,10 @@ public:
 	std::string Unknown00;								// +0x00
 	RefCountClass *Unknown10;							// +0x10 (released by the destructor)
 };
-class SClientUnknown1338Class	// NAME 1: neutral (D10): sclient.cpp's
+class EnvironmentMapManagerClass	// NAME 3: by convention (D24) from the client's env_map_manager.cpp
 {
 public:
-	SClientUnknown1338Class() : Unknown10(2) {}
+	EnvironmentMapManagerClass() : Unknown10(2) {}
 	void Load(const char *ini);							// 0x760360 (env_map_manager.cpp): 'envmaps.ini'  // NAME 2: what it does
 	void Unknown_760770(int base_asset, bool a);		// 0x760770 (env_map_manager.cpp)  // NAME 1 [base_asset, a]: sclient.cpp's
 	std::vector<Unknown67D360Class> Unknown00;			// +0x00
@@ -243,7 +243,7 @@ void CharacterViewClass::Unknown_04()
 		Unknown224->Set_Loop_Count(0);
 	}
 
-	Unknown3A4 = new SClientUnknown1338Class;
+	Unknown3A4 = new EnvironmentMapManagerClass;
 	Unknown3A4->Load("envmaps.ini");
 	Unknown3A4->Unknown_760770(100000, true);
 	Unknown_67BF20();

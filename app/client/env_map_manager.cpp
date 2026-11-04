@@ -4,7 +4,7 @@
 #include "..\shared\unknown_debug.h"
 
 // 0x760360
-void SClientUnknown1338Class::Load(const char *env_map_ini_filename)
+void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 {
 	FAIL_IF(!env_map_ini_filename || !env_map_ini_filename[0]) return;
 
@@ -49,7 +49,7 @@ void SClientUnknown1338Class::Load(const char *env_map_ini_filename)
 }
 // NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64)
 // 0x760770
-void SClientUnknown1338Class::Unknown_760770(int base_asset, bool a)
+void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {
 	char section[256]; char name[256]; sprintf(section, "BACK-%i", base_asset); INI.Get_String(section, "Texture", "", name, 0xFE);
 	if (!name[0]) INI.Get_String("BACK-DEFAULT", "Texture", "", name, 0xFE);

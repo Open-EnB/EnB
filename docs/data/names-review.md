@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 93 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1173 |
+| 3 | by convention from a client-named file or sibling | 1177 |
 | 2 | describes what the code does | 2983 |
-| 1 | neutral placeholder | 11777 |
+| 1 | neutral placeholder | 11762 |
 
 ## For review (score 3 and below)
 
@@ -85,7 +85,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_495FD0` | `app/client/avatar.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/avatar.cpp:41` | 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too) |
 | 1 | `Unknown_BFAE52` | `app/client/avatar.cpp:42` | neutral (D10), scriptedmovie.cpp's |
-| 1 | `SClientUnknown1338Class` | `app/client/avatar.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown204` | `app/client/avatar.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown208` | `app/client/avatar.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown20C` | `app/client/avatar.cpp:51` | untagged neutral name (D10) |
@@ -234,7 +233,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_788700` | `app/client/avatar.cpp:2045` | untagged neutral name (D10) |
 | 1 | `Unknown_788730` | `app/client/avatar.cpp:2048` | untagged neutral name (D10) |
 | 1 | `Unknown_788890` | `app/client/avatar.cpp:2057` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/avatar.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown_AvatarQueueStruct` | `app/client/avatar.h:21` | neutral (D10) |
 | 1 | `Anim` | `app/client/avatar.h:32` | neutral (D10) |
 | 1 | `Text` | `app/client/avatar.h:33` | neutral (D10) |
@@ -455,7 +453,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown67D360Class` | `app/client/charview.cpp:58` | neutral (D10): 0x14 bytes (env_map_manager.cpp's); its destructor out of line here (0x67D360) |
 | 1 | `Unknown10` | `app/client/charview.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/charview.cpp:62` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/charview.cpp:65` | neutral (D10): sclient.cpp's |
 | 1 | `base_asset, a` | `app/client/charview.cpp:70` | sclient.cpp's |
 | 1 | `Unknown_760770` | `app/client/charview.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown84` | `app/client/charview.cpp:81` | untagged neutral name (D10) |
@@ -594,7 +591,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67C920` | `app/client/charview.cpp:1371` | untagged neutral name (D10) |
 | 1 | `Unknown_Inline_Pop` | `app/client/charview.cpp:1381` | untagged neutral name (D10) |
 | 1 | `Unknown_67CD40` | `app/client/charview.cpp:1401` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/charview.h:38` | untagged neutral name (D10) |
 | 1 | `CharacterViewModeType` | `app/client/charview.h:45` | neutral (D10); NAME 3 [CHARACTER_POPUP_MESSAGE, CHARACTER_LASTVIEWMODE]: the FAIL_IF's |
 | 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.h:52` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/charview.h:54` | untagged neutral name (D10) |
@@ -1499,7 +1495,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown1334Class` | `app/client/cpacket.cpp:115` | untagged neutral name (D10) |
 | 1 | `model, regions, unknown` | `app/client/cpacket.cpp:118` | what COLORIZATION 17 passes |
 | 1 | `Unknown_80EFF0` | `app/client/cpacket.cpp:118` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/cpacket.cpp:118` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/cpacket.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown_745160` | `app/client/cpacket.cpp:135` | untagged neutral name (D10) |
 | 1 | `Unknown_692330` | `app/client/cpacket.cpp:136` | untagged neutral name (D10) |
@@ -2160,13 +2155,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A70` | `app/client/emote_data.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/emote_data.h:30` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/env_map_manager.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown67D360Class` | `app/client/env_map_manager.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/env_map_manager.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/env_map_manager.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `app/client/env_map_manager.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown67D360Class` | `app/client/env_map_manager.h:32` | neutral (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/env_map_manager.h:39` | neutral (D10): sclient.cpp's |
 | 1 | `base_asset, a` | `app/client/env_map_manager.h:44` | sclient.cpp's |
 | 1 | `Unknown_760770` | `app/client/env_map_manager.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/env_map_manager.h:47` | neutral (D10) |
@@ -3968,7 +3961,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/client/sclient.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/sclient.cpp:73` | untagged neutral name (D10) |
 | 1 | `Unknown67D360Class` | `app/client/sclient.cpp:76` | neutral (D10): 0x14 bytes, destructor 0x67D360 |
-| 1 | `SClientUnknown1338Class` | `app/client/sclient.cpp:84` | untagged neutral name (D10) |
 | 1 | `base_asset, a` | `app/client/sclient.cpp:89` | SERVER_PARAMETERS 66's BackdropBaseAsset; neutral |
 | 1 | `Unknown_760770` | `app/client/sclient.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown758F40Class` | `app/client/sclient.cpp:96` | neutral (D10): 0x0C bytes, destructor 0x758F40 |
@@ -4284,7 +4276,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MainViewUnknown84Class` | `app/client/sclient.h:82` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `app/client/sclient.h:98` | neutral (D10): the elements of SClient +0x12C4 |
 | 1 | `SClientUnknown1334Class` | `app/client/sclient.h:99` | neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it |
-| 1 | `SClientUnknown1338Class` | `app/client/sclient.h:100` | neutral (D10): 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it |
 | 1 | `SClientUnknown12BCClass` | `app/client/sclient.h:101` | neutral (D10): what SClient +0x12BC points to (a virtual destructor) |
 | 1 | `Unknown6D47C0Class` | `app/client/sclient.h:102` | neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp) |
 | 1 | `SClientUnknown1330Class` | `app/client/sclient.h:103` | neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood) |
@@ -4946,7 +4937,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/scriptedmovie.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown619280Class` | `app/client/scriptedmovie.cpp:135` | neutral (D10) |
 | 1 | `base_asset, a` | `app/client/scriptedmovie.cpp:137` | sclient.cpp's |
-| 1 | `SClientUnknown1338Class` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/scriptedmovie.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown53AA30InterfaceClass` | `app/client/scriptedmovie.cpp:139` | neutral (D10) |
@@ -5671,7 +5661,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_780790` | `app/client/ui_avatar_cust.cpp:106` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/ui_avatar_cust.cpp:107` | neutral |
 | 1 | `Unknown_780810` | `app/client/ui_avatar_cust.cpp:107` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `app/client/ui_avatar_cust.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/ui_avatar_cust.cpp:109` | untagged neutral name (D10) |
 | 1 | `Get_Desc` | `app/client/ui_avatar_cust.cpp:110` | neutral (D10) |
 | 1 | `Unknown0F8` | `app/client/ui_avatar_cust.cpp:110` | untagged neutral name (D10) |
@@ -6839,7 +6828,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8` | `app/client/ui_class.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8_FontDatabase` | `app/client/ui_class.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_class.cpp:28` | 0xBE67C4 |
-| 1 | `SClientUnknown1338Class` | `app/client/ui_class.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/ui_class.cpp:30` | untagged neutral name (D10) |
 | 1 | `UIClassKeyEventStruct` | `app/client/ui_class.cpp:33` | neutral (D10): kernel.h's input event |
 | 1 | `key` | `app/client/ui_class.cpp:35` | neutral |
@@ -7841,7 +7829,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `InterfaceSignalMapClass` | `app/client/ui_login.cpp:198` | neutral (D10): intrface.cpp's (the signal map, as far as the windows connect to it) |
 | 1 | `sender, callback` | `app/client/ui_login.cpp:201` | intrface.cpp's |
 | 1 | `sender, callback` | `app/client/ui_login.cpp:202` | intrface.cpp's |
-| 1 | `SClientUnknown1338Class` | `app/client/ui_login.cpp:211` | neutral (D10): sclient.cpp's (env_map_manager.cpp) |
 | 1 | `Unknown_760770` | `app/client/ui_login.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_login.cpp:212` | ui_registration.cpp |
 | 1 | `LoginSettingsClass` | `app/client/ui_login.cpp:215` | neutral (D10) |
@@ -11455,7 +11442,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Assert_Failed` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `programs/clientpoc/poc_standins.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:20` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `programs/clientpoc/poc_ui.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_67A250` | `programs/clientpoc/poc_ui.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_67ACE0` | `programs/clientpoc/poc_ui.cpp:43` | untagged neutral name (D10) |
@@ -11563,7 +11549,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_C404D8` | `tests/clienttest/client_stubs.cpp:187` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:194` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:202` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1338Class` | `tests/clienttest/client_stubs.cpp:205` | untagged neutral name (D10) |
 | 1 | `Unknown_80EFF0` | `tests/clienttest/client_stubs.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_80F220` | `tests/clienttest/client_stubs.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown6E9490TargetClass` | `tests/clienttest/client_stubs.cpp:221` | untagged neutral name (D10) |
@@ -14797,6 +14782,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
+| 3 | `EnvironmentMapManagerClass` | `app/client/charview.cpp:65` | by convention (D24) from the client's env_map_manager.cpp |
 | 3 | `MAX_OFFSET` | `app/client/charview.cpp:1269` | the FAIL_IFs' |
 | 3 | `charview.h` | `app/client/charview.h:17` | the header of charview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\charview.cpp') |
 | 3 | `size` | `app/client/charview.h:126` | the FAIL_IF's; NAME 1 [offsets, which]: neutral |
@@ -14872,6 +14858,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SourceLego` | `app/client/eff_o.h:188` | the effect packets' SourceLego |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `env_map_manager.h` | `app/client/env_map_manager.h:15` | beside the client's env_map_manager.cpp |
+| 3 | `EnvironmentMapManagerClass` | `app/client/env_map_manager.h:39` | by convention (D24) from the client's env_map_manager.cpp |
 | 3 | `extrap.h` | `app/client/extrap.h:19` | header name assumed from the client's extrap.cpp |
 | 3 | `StateNode` | `app/client/extrap.h:35` | the client's assert 'Bad function call! StateNode::Set_Motion()' |
 | 3 | `position, orientation, velocity, speed, rotrate` | `app/client/extrap.h:45` | the client's asserts 'position->Is_Valid()' ... (0x70F630)  // NAME 1 [unknown]: neutral |
@@ -14979,6 +14966,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UITalkTreeSpaceClass` | `app/client/sclient.h:94` | class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes) |
 | 3 | `GalaxyMapClientClass` | `app/client/sclient.h:95` | class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes) |
 | 3 | `UIStarmapClass` | `app/client/sclient.h:96` | class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes) |
+| 3 | `EnvironmentMapManagerClass` | `app/client/sclient.h:100` | by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it |
 | 3 | `ProjDecalManagerClass` | `app/client/sclient.h:104` | class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector) |
 | 3 | `VerbManagerClass` | `app/client/sclient.h:120` | class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes) |
 | 3 | `ViewClass` | `app/client/sclient.h:198` | class-from-file (D24) for view.cpp |
@@ -15123,6 +15111,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Members` | `app/client/ui_group.h:143` | the asserts' |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:20` | header name assumed from the client's ui_line_display.cpp |
 | 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:194` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
+| 3 | `EnvironmentMapManagerClass` | `app/client/ui_login.cpp:211` | by convention (D24) from the client's env_map_manager.cpp |
 | 3 | `event` | `app/client/ui_login.cpp:243` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
 | 3 | `AccountMenu` | `app/client/ui_login.cpp:246` | the G_ASSERT's |
 | 3 | `FontManagerClass` | `app/client/ui_manu.cpp:33` | fontmanager.h's |

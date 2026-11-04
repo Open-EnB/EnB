@@ -81,10 +81,10 @@ public:
 	char Unknown00[0x14];
 };
 
-class SClientUnknown1338Class
+class EnvironmentMapManagerClass
 {
 public:
-	SClientUnknown1338Class() : Unknown10(2) {}
+	EnvironmentMapManagerClass() : Unknown10(2) {}
 	void Load(const char *ini);							// 0x760360 (env_map_manager.cpp): 'envmaps.ini'  // NAME 2: what it does
 	void Unknown_760770(int base_asset, bool a);		// 0x760770 (env_map_manager.cpp): 0x745000 / 0x745050 pass Unknown126C and Unknown1320  // NAME 1 [base_asset, a]: SERVER_PARAMETERS 66's BackdropBaseAsset; neutral
 
@@ -360,7 +360,7 @@ SClient::SClient(ClientTaskClass *task) :
 {
 	Unknown12C4[0] = NULL;
 	Unknown1334 = new SClientUnknown1334Class;
-	EnvironmentMapManager = new SClientUnknown1338Class;
+	EnvironmentMapManager = new EnvironmentMapManagerClass;
 	ProjDecalManager = new ProjDecalManagerClass;
 	Unknown_C404D8->Unknown19A5 = true;
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)

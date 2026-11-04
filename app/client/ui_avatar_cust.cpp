@@ -104,7 +104,7 @@ public:
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
-	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (0x550970 passes the client's EnvironmentMapManager)  // NAME 1 [unknown]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (0x550970 passes the client's EnvironmentMapManager)  // NAME 1 [unknown]: neutral
 
 	char Unknown08[0xF8 - 0x08];						// +0x08
 	AvatarDescClass *Get_Desc() { return(&Unknown0F8); }	// NAME 1: neutral (D10)

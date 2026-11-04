@@ -13,7 +13,8 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
 - **Renames (client wins, conventions.md §5):** the global 0xBDADC0 `Unknown_BDADC0` -> `AssetManager`
   (scriptedmovie.cpp's G_ASSERT 'AssetManager' 0x802D30; the user's call over MC3's neutral name; 7 app files and the
   four test programs' definitions); SClient +0x1338 `Unknown1338` -> `EnvironmentMapManager` (option.cpp's and
-  scriptedmovie.cpp's 'sclient->EnvironmentMapManager'; the class keeps SClientUnknown1338Class); intrface.h's
+  scriptedmovie.cpp's 'sclient->EnvironmentMapManager'; its class SClientUnknown1338Class -> `EnvironmentMapManagerClass`, the
+  user's call: NAME 3 by convention from env_map_manager.cpp); intrface.h's
   stand-in `ControlKeysManagerClass` -> control_keys_manager.h's `ControlKeysManager` (RTTI): the interface slots
   +0x70 / +0x74 and their overrides take it, the windows' casts are gone, ui_line_display.cpp's local stand-in class
   gives way to the header (calls Add_Keys / Remove_Keys; its 6 lines held for the FAIL_IFs). scriptedmovie.cpp's two

@@ -133,8 +133,8 @@ static float Unknown_B07C60 = 1.0f;	// NAME 1: neutral (D10)
 // the members' classes as far as the constructor builds them (sclient.cpp defines them so)
 class Unknown67D360Class { public: ~Unknown67D360Class(); char Unknown00[0x14]; };	// 0x67D360  // NAME 1: neutral (D10)
 class Unknown619280Class { public: Unknown619280Class(); ~Unknown619280Class(); char Unknown00[0x44]; };	// 0x619280  // NAME 1: neutral (D10)
-// env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's SClientUnknown1338Class), as far as Create_Skybox calls it
-class SClientUnknown1338Class { public: SClientUnknown1338Class() : Unknown10(2) {} ~SClientUnknown1338Class(); void Load(const char *ini); void Unknown_760770(int base_asset, bool a); std::vector<Unknown67D360Class> Unknown00; int Unknown10; INIClass INI; };	// destructor 0x679820, Load 0x760360, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
+// env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's EnvironmentMapManagerClass), as far as Create_Skybox calls it
+class EnvironmentMapManagerClass { public: EnvironmentMapManagerClass() : Unknown10(2) {} ~EnvironmentMapManagerClass(); void Load(const char *ini); void Unknown_760770(int base_asset, bool a); std::vector<Unknown67D360Class> Unknown00; int Unknown10; INIClass INI; };	// destructor 0x679820, Load 0x760360, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
 // the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
 class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
@@ -232,7 +232,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 		Unknown140 = sclient->EnvironmentMapManager;
 		DecalMaterialManager = sclient->Unknown1334;
 	} else {
-		Unknown140 = new SClientUnknown1338Class;
+		Unknown140 = new EnvironmentMapManagerClass;
 		Unknown140->Load("envmaps.ini");
 		DecalMaterialManager = new SClientUnknown1334Class;
 		DecalMaterialManager->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
@@ -794,7 +794,7 @@ void ScriptedMovieViewClass::Unknown_14()
 
 
 #include "..\packets\pkcolorization.h"
-void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *unknown);	// 0x80EFF0 (shiputils.cpp; cpacket.cpp declares it so)
+void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *unknown);	// 0x80EFF0 (shiputils.cpp; cpacket.cpp declares it so)
 // NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30
 // 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0)
 void ScriptedMovieViewClass::Unknown_8020B0(RenderObjClass *model, Vector3 a, Vector3 b, int metal)

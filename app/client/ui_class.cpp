@@ -27,7 +27,7 @@
 #undef Unknown_BE67B8
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };
+class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_avsel.cpp's)
 struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event

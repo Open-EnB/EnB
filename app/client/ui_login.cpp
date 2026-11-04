@@ -208,7 +208,7 @@ public:
 
 
 
-class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: neutral (D10): sclient.cpp's (env_map_manager.cpp)
+class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };	// NAME 3: by convention (D24) from the client's env_map_manager.cpp
 bool Unknown_5FAE70();									// NAME 1 [Unknown_5FAE70]: ui_registration.cpp
 
 // The settings store 0x7CA2D0 returns (tsk_game.h's Unknown_7CA2D0Class), as far as the constructor clears it
