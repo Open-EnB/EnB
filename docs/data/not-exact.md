@@ -231,8 +231,8 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
 | `app/client/ship_pip.cpp:294` | `ShipPipClass::Unknown_7C` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp) @0x80C640 |
 | `app/client/ship_pip.cpp:343` | `ShipPipClass::Unknown_84` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way) @0x80CA30 |
-| `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, shape (the client keeps Rotate_Z's cosine on the FPU stack) @0x80CE10 |
-| `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass, field-offset (first: [edi + 0x28] against the client's [edi + 0x24]) @0x80D5E0 |
+| `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24) @0x80CE10 |
+| `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10) @0x80D5E0 |
 | `app/client/shiputils.cpp:68` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
 | `app/client/shiputils.cpp:77` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
 | `app/client/shiputils.cpp:111` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |

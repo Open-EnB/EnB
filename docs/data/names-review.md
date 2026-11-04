@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1204 |
 | 2 | describes what the code does | 3001 |
-| 1 | neutral placeholder | 13134 |
+| 1 | neutral placeholder | 13139 |
 
 ## For review (score 3 and below)
 
@@ -5418,25 +5418,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Zoom` | `app/client/ship_pip.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/ship_pip.cpp:345` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/client/ship_pip.cpp:378` | untagged neutral name (D10) |
-| 1 | `Unknown_80E7A0` | `app/client/ship_pip.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_80E7A0` | `app/client/ship_pip.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown_80E020` | `app/client/ship_pip.cpp:437` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/ship_pip.cpp:443` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ship_pip.cpp:445` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ship_pip.cpp:459` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ship_pip.cpp:466` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/ship_pip.cpp:473` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/ship_pip.cpp:474` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/ship_pip.cpp:475` | untagged neutral name (D10) |
-| 1 | `Unknown_80E7D0` | `app/client/ship_pip.cpp:475` | untagged neutral name (D10) |
-| 1 | `Unknown_515120` | `app/client/ship_pip.cpp:477` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/client/ship_pip.cpp:547` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/ship_pip.cpp:550` | untagged neutral name (D10) |
-| 1 | `Unknown_80E190` | `app/client/ship_pip.cpp:561` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/ship_pip.cpp:588` | untagged neutral name (D10) |
-| 1 | `Unknown_77D9F0` | `app/client/ship_pip.cpp:630` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ship_pip.cpp:690` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ship_pip.cpp:690` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/ship_pip.cpp:691` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/ship_pip.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ship_pip.cpp:466` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/ship_pip.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_80E7D0` | `app/client/ship_pip.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_515120` | `app/client/ship_pip.cpp:470` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ship_pip.cpp:480` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/client/ship_pip.cpp:548` | untagged neutral name (D10) |
+| 1 | `Unknown_42EC90` | `app/client/ship_pip.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECC0` | `app/client/ship_pip.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_80E190` | `app/client/ship_pip.cpp:560` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ship_pip.cpp:578` | untagged neutral name (D10) |
+| 1 | `Unknown_77D9F0` | `app/client/ship_pip.cpp:624` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ship_pip.cpp:684` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ship_pip.cpp:684` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/ship_pip.cpp:685` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/ship_pip.h:33` | untagged neutral name (D10) |
 | 1 | `type` | `app/client/ship_pip.h:38` | neutral |
 | 1 | `event, x, y, mask` | `app/client/ship_pip.h:41` | GadgetClass's |
@@ -10534,10 +10535,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown1, unknown2` | `app/input/input.cpp:160` | neutral (D10), as KeyboardClass::Unknown_0C |
 | 1 | `Unknown_42EC60` | `app/input/input.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/input/input.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/input/input.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED20` | `app/input/input.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/input/input.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_42EDB0` | `app/input/input.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_42EC90` | `app/input/input.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECC0` | `app/input/input.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.cpp:196` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/input/input.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE90` | `app/input/input.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA80` | `app/input/input.cpp:345` | untagged neutral name (D10) |
@@ -10586,15 +10589,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EA80` | `app/input/input.h:153` | untagged neutral name (D10) |
 | 1 | `Unknown_42EB80, event` | `app/input/input.h:154` | neutral (D10) |
 | 1 | `Unknown_42EB80` | `app/input/input.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0, x, y` | `app/input/input.h:155` | neutral (D10) |
-| 1 | `Unknown_42ECF0` | `app/input/input.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED20, x, y` | `app/input/input.h:156` | neutral (D10) |
-| 1 | `Unknown_42ED20` | `app/input/input.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/input/input.h:157` | neutral (D10) |
-| 1 | `Unknown_42EDB0` | `app/input/input.h:158` | neutral (D10) |
-| 1 | `Unknown_42EE00, enable` | `app/input/input.h:159` | neutral (D10) |
-| 1 | `Unknown_42EE00` | `app/input/input.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown_42EE90` | `app/input/input.h:160` | neutral (D10) |
+| 1 | `Unknown_42EC90` | `app/input/input.h:155` | neutral (D10) |
+| 1 | `Unknown_42ECC0` | `app/input/input.h:156` | neutral (D10) |
+| 1 | `Unknown_42ECF0, x, y` | `app/input/input.h:157` | neutral (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20, x, y` | `app/input/input.h:158` | neutral (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.h:159` | neutral (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.h:160` | neutral (D10) |
+| 1 | `Unknown_42EE00, enable` | `app/input/input.h:161` | neutral (D10) |
+| 1 | `Unknown_42EE00` | `app/input/input.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown_42EE90` | `app/input/input.h:162` | neutral (D10) |
 | 1 | `Unknown_4BC000` | `app/input/w32kbd.cpp:6` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_B6EA58` | `app/input/w32kbd.cpp:8` | neutral (D10) |
 | 1 | `Unknown_BDAAE8` | `app/input/w32kbd.cpp:9` | neutral (D10) |

@@ -373,7 +373,7 @@ void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 	Unknown_90();
 }
 
-// NOT EXACT: ShipPipClass, shape (the client keeps Rotate_Z's cosine on the FPU stack)
+// NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24)
 // @0x80CE10
 void ShipPipClass::Unknown_78()
 {
@@ -384,8 +384,9 @@ void ShipPipClass::Unknown_78()
 	float x = 0.0f;
 	float y = 0.0f;
 	if (Type == 0 && FloatParent) {
+		float angle = Unknown_B07DC8 * time;
 		Matrix3D tm = FloatParent->Get_Transform();
-		tm.Rotate_Z(time * Unknown_B07DC8);
+		tm.Rotate_Z(angle);
 		FloatParent->Set_Transform(tm);
 	}
 	if (Unknown0B8 == 0.0f && Unknown0BC == 0.0f && Unknown0C0 == 0.0f && Unknown0C4 == 0.0f && Unknown0C8 == 0.0f) {
@@ -433,8 +434,7 @@ void ShipPipClass::Unknown_78()
 			return;
 		}
 	} else {
-		float speed = Unknown_80E7A0();
-		Unknown_80E020(speed * time * Unknown0C0, speed * Unknown0C4 * time);
+		Unknown_80E020(Unknown_80E7A0() * time * Unknown0C0, Unknown_80E7A0() * Unknown0C4 * time);
 		Unknown_90();
 	}
 }
@@ -454,7 +454,7 @@ bool ShipPipClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-// NOT EXACT: ShipPipClass, field-offset (first: [edi + 0x28] against the client's [edi + 0x24])
+// NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10)
 // @0x80D5E0
 bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
@@ -462,130 +462,124 @@ bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 		return(false);
 	}
 	GadgetClass::Unknown_2C(event, x, y, mask);
-	if (mask & 0x11) {
-		Unknown_68();
-		Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
-		Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
-		Unknown09C = Unknown0A4;
-		Unknown0A0 = Unknown0A8;
-		return(true);
-	}
-	if ((mask & 4) && Unknown_BE5F24 == this) {
-		if (Unknown_BE5F28 == this) {
+	if (!(mask & 0x11)) {
+		if ((mask & 4) && Unknown_BE5F24 == this || (mask & 0x40) && Unknown_BE5F28 == this) {
+			if (Unknown_BE5F28 == this) {
+				LoginUnknown18Class *mouse = Unknown_80E7D0();
+				if (mouse) {
+					mouse->Unknown_515120(2);
+				}
+			}
+			if (Unknown_BE5F24 == this) {
+				LoginUnknown18Class *mouse = Unknown_80E7D0();
+				if (mouse) {
+					mouse->Unknown_515120(2);
+				}
+				Unknown0E8 = true;
+			}
+			Unknown_6C();
+			return(true);
+		}
+		if ((mask & 2) && Unknown_BE5F24 == this && !(mask & 0x20) && Unknown_BE5F28 != this && Unknown0B8 == 0.0f && Unknown0BC == 0.0f) {
+
+			// the left drag: the camera turns round the model, with momentum
+			Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
+			Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
+			float half_w = Unknown040 * 0.5f;
+			float half_h = Unknown044 * 0.5f;
+			float time = WW3D::Get_Frame_Time() * 0.001f;
+			float x0 = (Unknown09C - half_w) / half_w;
+			float y0 = (half_h - Unknown0A0) / half_h;
+			float x1 = (Unknown0A4 - half_w) / half_w;
+			float y1 = (half_h - Unknown0A8) / half_h;
+			if (time > 0.0f) {
+				float dy = y1 - y0;
+				if (x1 - x0 == 0.0f) {
+					Unknown0E0 = Unknown0E0 * 0.66f;
+				} else {
+					Unknown0E0 = (x1 - x0) / time;
+				}
+				if (dy == 0.0f) {
+					Unknown0E4 = Unknown0E4 * 0.66f;
+				} else {
+					Unknown0E4 = dy / time;
+				}
+				if (fabs(Unknown0E0) + fabs(Unknown0E4) < 1.0f) {
+					Unknown0E0 = 0.0f;
+					Unknown0E4 = 0.0f;
+				}
+			}
+			Unknown0E8 = false;
+			Quaternion q(true);
+			if (Type == 0) {
+				q = Trackball(x0, y0, x1, y1, 0.8f);
+			}
+		if (Type == 1) {
+				q = Trackball(x0, 0.0f, x1, 0.0f, 0.8f);
+			}
+			Matrix3D inverse;
+			Unknown06C.Get_Orthogonal_Inverse(inverse);
+			Vector3 center = inverse.Get_Translation();
+			Unknown06C.Translate(center);
+			Matrix3D::Multiply(Unknown06C, Build_Matrix3D(q), &Unknown06C);
+			Unknown06C.Translate(-center);
+			Unknown_90();
+			Unknown09C = Unknown0A4;
+			Unknown0A0 = Unknown0A8;
 			LoginUnknown18Class *mouse = Unknown_80E7D0();
 			if (mouse) {
-				mouse->Unknown_515120(2);
+				mouse->Unknown_515120(0x18);
 			}
+			return(true);
 		}
-	} else if ((mask & 0x40) && Unknown_BE5F28 == this) {
-		LoginUnknown18Class *mouse = Unknown_80E7D0();
-		if (mouse) {
-			mouse->Unknown_515120(2);
-		}
-	} else if ((mask & 2) && Unknown_BE5F24 == this && !(mask & 0x20) && Unknown_BE5F28 != this && Unknown0B8 == 0.0f && Unknown0BC == 0.0f) {
+		if ((mask & 0x20) && Unknown_BE5F28 == this && (mask & 2) && Unknown_BE5F24 == this) {
 
-		// the left drag: the camera turns round the model, with momentum
-		Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
-		Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
-		float half_w = Unknown040 * 0.5f;
-		float half_h = Unknown044 * 0.5f;
-		float time = WW3D::Get_Frame_Time() * 0.001f;
-		float x0 = (Unknown09C - half_w) / half_w;
-		float y0 = (half_h - Unknown0A0) / half_h;
-		float x1 = (Unknown0A4 - half_w) / half_w;
-		float y1 = (half_h - Unknown0A8) / half_h;
-		if (time > 0.0f) {
-			float dy = y1 - y0;
-			if (x1 - x0 == 0.0f) {
-				Unknown0E0 = Unknown0E0 * 0.66f;
-			} else {
-				Unknown0E0 = (x1 - x0) / time;
+			// both buttons: the pan
+			Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
+			Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
+			float dy = ((Unknown0A0 - Unknown0A8) / Unknown044) * -1.0f;
+			float dx = (Unknown09C - Unknown0A4) / Unknown040;
+			Unknown_80E020(Unknown_80E7A0() * dx, Unknown_80E7A0() * dy);
+			Unknown_90();
+			LoginUnknown18Class *mouse = Unknown_80E7D0();
+			if (mouse) {
+				mouse->Unknown_515120(0x18);
 			}
-			if (dy == 0.0f) {
-				Unknown0E4 = Unknown0E4 * 0.66f;
-			} else {
-				Unknown0E4 = dy / time;
-			}
-			if (fabs(Unknown0E0) + fabs(Unknown0E4) < 1.0f) {
-				Unknown0E0 = 0.0f;
-				Unknown0E4 = 0.0f;
-			}
+			Unknown_42ED80();
+			Unknown_30(Unknown_42EC90(), Unknown_42ECC0());
+			Unknown09C = Unknown0A4;
+			Unknown0A0 = Unknown0A8;
+			return(true);
 		}
-		Unknown0E8 = false;
-		Quaternion q(true);
-		if (Type == 0) {
-			q = Trackball(x0, y0, x1, y1, 0.8f);
-		} else if (Type == 1) {
-			q = Trackball(x0, 0.0f, x1, 0.0f, 0.8f);
-		}
-		Matrix3D inverse;
-		Unknown06C.Get_Orthogonal_Inverse(inverse);
-		Vector3 center = inverse.Get_Translation();
-		Unknown06C.Translate(center);
-		Matrix3D::Multiply(Unknown06C, Build_Matrix3D(q), &Unknown06C);
-		Unknown06C.Translate(-center);
-		Unknown_90();
-		Unknown09C = Unknown0A4;
-		Unknown0A0 = Unknown0A8;
-		LoginUnknown18Class *mouse = Unknown_80E7D0();
-		if (mouse) {
-			mouse->Unknown_515120(0x18);
-		}
-		return(true);
-	} else if ((mask & 0x20) && Unknown_BE5F28 == this && (mask & 2) && Unknown_BE5F24 == this) {
+		if ((mask & 0x20) && Unknown_BE5F28 == this) {
 
-		// both buttons: the pan
-		Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
-		Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
-		float speed = Unknown_80E7A0();
-		Unknown_80E020(speed * ((Unknown09C - Unknown0A4) / Unknown040), speed * ((Unknown0A0 - Unknown0A8) / Unknown044) * -1.0f);
-		Unknown_90();
-		LoginUnknown18Class *mouse = Unknown_80E7D0();
-		if (mouse) {
-			mouse->Unknown_515120(0x18);
-		}
-		Unknown_42ED80();
-		float px;
-		float py;
-		Unknown_42ECF0(&px, &py);
-		Unknown_30(px, py);
-		Unknown09C = Unknown0A4;
-		Unknown0A0 = Unknown0A8;
-		return(true);
-	} else if ((mask & 0x20) && Unknown_BE5F28 == this) {
-
-		// the right drag: the zoom
-		Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
-		Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
-		float distance = ((Unknown0A0 - Unknown0A8) / Unknown044) * Unknown0B4 * 3.0f;
-		Unknown_80E190(distance);
-		Unknown_90();
-		LoginUnknown18Class *mouse = Unknown_80E7D0();
-		if (mouse) {
-			if (distance > 0.0f) {
-				mouse->Unknown_515120(0x17);
-			} else if (distance < 0.0f) {
-				mouse->Unknown_515120(0x16);
+			// the right drag: the zoom
+			Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
+			Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
+			float distance = ((Unknown0A0 - Unknown0A8) / Unknown044) * Unknown0B4 * 3.0f;
+			Unknown_80E190(distance);
+			Unknown_90();
+			LoginUnknown18Class *mouse = Unknown_80E7D0();
+			if (mouse) {
+				if (distance > 0.0f) {
+					mouse->Unknown_515120(0x17);
+				}
+		if (distance < 0.0f) {
+					mouse->Unknown_515120(0x16);
+				}
 			}
+			Unknown_42ED80();
+			Unknown_30(Unknown_42EC90(), Unknown_42ECC0());
+			Unknown0A0 = Unknown0A8;
+			return(true);
 		}
-		Unknown_42ED80();
-		float px;
-		float py;
-		Unknown_42ECF0(&px, &py);
-		Unknown_30(px, py);
-		Unknown0A0 = Unknown0A8;
-		return(true);
-	} else {
 		return(false);
 	}
-	if (Unknown_BE5F24 == this) {
-		LoginUnknown18Class *mouse = Unknown_80E7D0();
-		if (mouse) {
-			mouse->Unknown_515120(2);
-		}
-		Unknown0E8 = true;
-	}
-	Unknown_6C();
+	Unknown_68();
+	Unknown0A4 = (int)(x * 640.0f - Unknown064.X);
+	Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
+	Unknown09C = Unknown0A4;
+	Unknown0A0 = Unknown0A8;
 	return(true);
 }
 
@@ -704,6 +698,6 @@ LoginUnknown18Class *ShipPipClass::Unknown_80E7D0()
 **	8-byte and a 16-byte copy, and an std::sort partition of pointers with a predicate) are out-of-line template
 **	and inline copies, not this file's code; 0x80CD90 is Matrix3D::Translate(float, float, float) out of line.
 **	The destructor inlines slot +0x80 (0x80C5C0). The pointer's position after a pan or zoom drag: the client
-**	reads it through 0x42EC90 / 0x42ECC0 (x and y, the input device's slot +0x10), not declared in input.h yet;
-**	0x42ECF0 gives both.
+**	reads it through 0x42EC90 / 0x42ECC0 (x and y, the input device's slot +0x10; input.cpp), right
+**	argument first, not 0x42ECF0.
 */

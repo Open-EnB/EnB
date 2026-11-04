@@ -152,6 +152,8 @@ void Unknown_42E7B0();									// 0x42E7B0: shut-down  // NAME 1 [Unknown_42E7B0
 void Unknown_42E8A0(KernelEventClass *event);			// 0x42E8A0: takes the next event (waits for one)  // NAME 1 [Unknown_42E8A0, event]: neutral (D10)
 bool Unknown_42EA80(KernelEventClass *event);			// 0x42EA80: the next event, kept  // NAME 1 [Unknown_42EA80, event]: neutral (D10)
 char Unknown_42EB80(KernelEventClass *event);			// 0x42EB80: a key event's character (ToAscii), 0 for none  // NAME 1 [Unknown_42EB80, event]: neutral (D10)
+float Unknown_42EC90();									// 0x42EC90: the pointer's x, 0..1  // NAME 1 [Unknown_42EC90]: neutral (D10)
+float Unknown_42ECC0();									// 0x42ECC0: the pointer's y, 0..1  // NAME 1 [Unknown_42ECC0]: neutral (D10)
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0: the pointer's position, 0..1  // NAME 1 [Unknown_42ECF0, x, y]: neutral (D10)
 void Unknown_42ED20(float x, float y);					// 0x42ED20  // NAME 1 [Unknown_42ED20, x, y]: neutral (D10)
 void Unknown_42ED80();									// 0x42ED80: the pointer to the centre  // NAME 1 [Unknown_42ED80]: neutral (D10)
