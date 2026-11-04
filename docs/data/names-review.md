@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1204 |
-| 2 | describes what the code does | 3001 |
-| 1 | neutral placeholder | 13144 |
+| 2 | describes what the code does | 3004 |
+| 1 | neutral placeholder | 13137 |
 
 ## For review (score 3 and below)
 
@@ -3187,8 +3187,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
 | 1 | `CellDepth` | `app/client/html/htmlview.cpp:458` | 0xBE83F8, the same for <td> |
-| 1 | `Unknown1C4` | `app/client/html/htmlview.cpp:742` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/html/htmlview.cpp:1040` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/html/htmlview.cpp:1326` | untagged neutral name (D10) |
 | 1 | `Unknown138` | `app/client/html/htmlview.cpp:1327` | untagged neutral name (D10) |
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
@@ -3197,7 +3195,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:11` | the object at the view's +4 (slots +4 / +8 called) |
 | 1 | `Unknown_00` | `app/client/html/htmlview.h:14` | untagged neutral name (D10) |
 | 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:21` | element of the view's +0x14 list |
-| 1 | `Url` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
 | 1 | `HtmlImageClass` | `app/client/html/htmlview.h:29` | element of the view's +0x20 list (image.cpp's class, not placed yet) |
 | 1 | `HtmlGifImageClass` | `app/client/html/htmlview.h:41` | image.cpp's image (sits before gifload.cpp; 'image/gif' links) |
 | 1 | `Unknown04` | `app/client/html/htmlview.h:51` | untagged neutral name (D10) |
@@ -3206,8 +3203,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown138` | `app/client/html/htmlview.h:97` | untagged neutral name (D10) |
 | 1 | `Unknown13C` | `app/client/html/htmlview.h:98` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/html/unknown_htmlblock.h:17` | untagged neutral name (D10) |
@@ -3215,8 +3210,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:63` | untagged neutral name (D10) |
 | 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:64` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/html/unknown_htmlblock.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/html/unknown_htmlblock.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.h:24` | untagged neutral name (D10) |
 | 1 | `client, id, model` | `app/client/influence.h:27` | what CREATE passes |
 | 1 | `Unknown_04` | `app/client/influence.h:29` | untagged neutral name (D10) |
@@ -13759,6 +13752,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
 | 2 | `Data` | `app/client/html/htmlview.h:23` | Add_Data appends to it and keeps it NUL-terminated |
 | 2 | `Name` | `app/client/html/htmlview.h:24` | 0x770860 compares it with its first argument |
+| 2 | `MimeType` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
 | 2 | `Set_Data` | `app/client/html/htmlview.h:33` | the parser hands it the data of the link named like the image |
 | 2 | `Get_Surface` | `app/client/html/htmlview.h:34` | Draw_Block tiles it (Get_Width / Get_Height) |
 | 2 | `Get_Name` | `app/client/html/htmlview.h:35` | Find_Image's key |
@@ -13768,7 +13762,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Open` | `app/client/html/htmlview.h:61` | Clear, url kept, handed to the loader |
 | 2 | `Update` | `app/client/html/htmlview.h:63` | polls the loader; returns and clears Dirty |
 | 2 | `Set_Surface` | `app/client/html/htmlview.h:64` | Surf = surface, then Layout |
-| 2 | `Add_Data` | `app/client/html/htmlview.h:67` | appends to the link named name (made with url if missing); render: Layout and Render |
+| 2 | `Add_Data` | `app/client/html/htmlview.h:67` | appends to the link named name (made with mimetype if missing; 0x76E9D0 passes Get_Mime_Type's result); render: Layout and Render |
 | 2 | `Layout` | `app/client/html/htmlview.h:68` | one block the surface's size for Url's link, then Parse |
 | 2 | `Parse` | `app/client/html/htmlview.h:69` | lays link's data out from offset into block (a cell recursively); returns the characters it used (to its </td>) |
 | 2 | `Add_Text` | `app/client/html/htmlview.h:70` | lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in') |
@@ -13843,7 +13837,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Height` | `app/client/html/unknown_htmlblock.h:71` | the constructor's 3rd argument |
 | 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:72` | Advance_X; starts at the horizontal padding |
 | 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:73` | Advance_Y; starts at the vertical padding |
-| 2 | `RightPadding` | `app/client/html/unknown_htmlblock.h:74` | the horizontal padding again |
+| 2 | `LineStartX` | `app/client/html/unknown_htmlblock.h:74` | starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells |
+| 2 | `ContentWidth` | `app/client/html/unknown_htmlblock.h:75` | Parse sets it to the rightmost item plus the horizontal padding |
+| 2 | `ContentHeight` | `app/client/html/unknown_htmlblock.h:76` | Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest |
 | 2 | `Render_With_PIP_Scenes` | `app/client/interface_scene.h:43` | after the assert's InsideRenderWithPIPScenes |
 | 2 | `InsideRenderWithPIPScenes` | `app/client/interface_scene.h:50` | the assert's |
 | 2 | `SSL` | `app/client/interface_scene.h:51` | the asserts' |
