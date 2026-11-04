@@ -180,7 +180,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			if (BodyObj) {
 				BodyObj->Add_Ref();
 				Unknown_496AE0(BodyObj, true);
-				BodyObj->Set_LOD_Level(BodyObj->Get_LOD_Count() - 1);
+				Unknown_496DB0(BodyObj);		// 0x77E9D0: every LOD level to its highest, the sub-objects' too
 
 				BodyObj->Get_Obj_Space_Bounding_Sphere(ObjSphere);
 				BodyObj->Get_Obj_Space_Bounding_Box(ObjBox);

@@ -355,6 +355,22 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique)	// NAME 1 [
 	}
 }
 
+// 0x496DB0: every LOD level to its highest (Get_LOD_Count - 1), each sub-object's too (avatar.cpp's body 0x77E9D0,
+// ui_class.cpp's 0x577B80)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object)
+void Unknown_496DB0(RenderObjClass *robj)	// NAME 1 [Unknown_496DB0, robj]: neutral (D10)
+{
+	robj->Set_LOD_Level(robj->Get_LOD_Count() - 1);
+	int count = robj->Get_Num_Sub_Objects();
+	for (int i = 0; i < count; i++) {
+		RenderObjClass *sub = robj->Get_Sub_Object(i);
+		Unknown_496DB0(sub);
+		if (sub) {
+			sub->Release_Ref();
+		}
+	}
+}
+
 // 0x497240
 void Unknown_497240(RenderObjClass *robj, bool on)	// NAME 1 [Unknown_497240, robj, on]: neutral (D10)
 {
