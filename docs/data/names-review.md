@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1192 |
 | 2 | describes what the code does | 2987 |
-| 1 | neutral placeholder | 12476 |
+| 1 | neutral placeholder | 12478 |
 
 ## For review (score 3 and below)
 
@@ -11663,6 +11663,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496DB0` | `app/shared/ro_funcs.cpp:361` | untagged neutral name (D10) |
 | 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:375` | neutral (D10) |
 | 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:375` | untagged neutral name (D10) |
+| 1 | `Unknown_496C00, robj, u, v, color` | `app/shared/ro_funcs.cpp:402` | neutral (D10) |
+| 1 | `Unknown_496C00` | `app/shared/ro_funcs.cpp:402` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC094` | `app/shared/rs.cpp:22` | neutral (D10) |
 | 1 | `Unknown_BDC098` | `app/shared/rs.cpp:23` | neutral (D10) |
 | 1 | `Unknown_458150, arg` | `app/shared/rs.cpp:25` | neutral (D10) |

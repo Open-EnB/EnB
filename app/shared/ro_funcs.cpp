@@ -391,6 +391,43 @@ void Unknown_497240(RenderObjClass *robj, bool on)	// NAME 1 [Unknown_497240, ro
 	}
 }
 
+// (included here, not at the top, so the FAIL_IFs above keep the client's __LINE__)
+#include "texture.h"
+#include "textureloader.h"
+#include "surfaceclass.h"
+
+// NOT EXACT: functional (D64), from the pseudocode and the disassembly: the colour of the model's first texture
+// at (u, v), u and v 0..1 (FAIL_IFs '!material' l.365, l.367, '!surf' l.374); black when it can't
+// @0x496C00
+void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color)	// NAME 1 [Unknown_496C00, robj, u, v, color]: neutral (D10)
+{
+	MaterialInfoClass *material = robj->Get_Material_Info();
+	FAIL_IF(!material) {
+		color->Set(0.0f, 0.0f, 0.0f);
+		return;
+	}
+	TextureClass *texture = material->Peek_Texture(0);
+	FAIL_IF(!texture) {
+		color->Set(0.0f, 0.0f, 0.0f);
+		material->Release_Ref();
+		return;
+	}
+	if (!texture->Is_Initialized()) {
+		TextureLoader::Request_Foreground_Loading(texture);
+	}
+	SurfaceClass *surf = texture->Get_Surface_Level(0);
+	FAIL_IF(!surf) {
+		color->Set(0.0f, 0.0f, 0.0f);
+		material->Release_Ref();
+		return;
+	}
+	SurfaceClass::SurfaceDescription desc;
+	surf->Get_Description(desc);
+	surf->Get_Pixel(*color, (int)(desc.Width * u), (int)(desc.Height * v));
+	surf->Release_Ref();
+	material->Release_Ref();
+}
+
 /*
 **	Reconstruction notes (MSG2, 2026-11-02; rof; pick)
 **

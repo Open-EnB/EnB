@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-609 entries in 128 files.
+610 entries in 128 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -578,6 +578,7 @@ edit the comments in the code, not this file.
 | `app/shared/ro_funcs.cpp:182` | `Unknown_496490` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:360` | `Unknown_496DB0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object) |
+| `app/shared/ro_funcs.cpp:399` | `Unknown_496C00` | marker | NOT EXACT: functional (D64), from the pseudocode and the disassembly: the colour of the model's first texture at (u, v), u and v 0..1 (FAIL_IFs '!material' l.365, l.367, '!surf' l.374); black when it can't @0x496C00 |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
