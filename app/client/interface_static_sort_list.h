@@ -25,6 +25,7 @@
 
 #include <vector>
 #include <hash_map.h>
+#include "unknown_robj_hash.h"	// hash<RenderObjClass *>
 #include "gadget_list_manager.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -40,9 +41,6 @@ class CameraClass;
 struct PIPSceneStruct;
 
 __STL_BEGIN_NAMESPACE
-__STL_TEMPLATE_NULL struct hash<RenderObjClass *> {  // the key's address (as co_data.h's)
-	size_t operator()(RenderObjClass *robj) const { return((size_t)robj); }
-};
 __STL_TEMPLATE_NULL struct hash<SimpleSceneClass *> {  // the key's address (as co_data.h's)
 	size_t operator()(SimpleSceneClass *scene) const { return((size_t)scene); }
 };

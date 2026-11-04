@@ -32,7 +32,7 @@ public:
 	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
 	void Unknown_6CE910(int on);						// 0x6CE910 (0x5821C0: 1 past the speed limit)  // NAME 1 [on]: neutral
 };
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The asset manager (*0xBFAEE0)
@@ -287,7 +287,7 @@ void UICpitClass::Unknown_54()
 
 
 	G_ASSERT(View->As_Main_View());
-	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", (unsigned int)Mesh->Peek_Object());
+	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", Mesh->Peek_Object());
 	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
 	Unknown0AC->Unknown_660070(1);
@@ -411,7 +411,7 @@ UICpitClass::~UICpitClass()
 	}
 	Unknown158.clear();
 	Unknown154 = NULL;
-	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Object());
+	Unknown_BE67C4->Remove(Mesh->Peek_Object());
 	Unknown_BE67BC->Unload("fc_cpit.ini");
 	Unknown_5C();
 	delete Unknown0D0;
@@ -1934,9 +1934,9 @@ bool UICpitClass::Unknown_584000(bool report)
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
 void UICpitClass::Unknown_584110()
 {
-	RefCountPtr<FontSys> warpfont = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", (unsigned int)Mesh->Peek_Object()));
-	RefCountPtr<FontSys> distressfont = Create_Get(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", (unsigned int)Mesh->Peek_Object()));
-	RefCountPtr<FontSys> spacefont = Create_Get(Unknown_BE67C4->Get_Style("SPACE_CPIT", (unsigned int)Mesh->Peek_Object()));
+	RefCountPtr<FontSys> warpfont = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> distressfont = Create_Get(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> spacefont = Create_Get(Unknown_BE67C4->Get_Style("SPACE_CPIT", Mesh->Peek_Object()));
 
 
 
@@ -2004,7 +2004,7 @@ void UICpitClass::Unknown_584110()
 // 0x5845A0: the WARP_CPIT text dimmed while the warp button is off
 void UICpitClass::Unknown_5845A0()
 {
-	RefCountPtr<FontSys> style = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", (unsigned int)Mesh->Peek_Object()));
+	RefCountPtr<FontSys> style = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
 	if (style) {
 		FontSys *font;
 		if (Unknown0B4->Unknown_60()) {

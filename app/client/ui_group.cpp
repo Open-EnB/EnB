@@ -17,7 +17,7 @@
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
 // gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)
@@ -629,7 +629,7 @@ UIGroupClass::~UIGroupClass()
 	}
 	Members.clear();
 	Unknown_5954C0();
-	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Remove(Mesh->Peek_Mesh_Object());
 	Unknown_BE67BC->Unload("FA_TSI03A.INI");
 	delete Unknown0E8;
 	Unknown0E8 = NULL;
@@ -665,7 +665,7 @@ void UIGroupClass::Unknown_54()
 			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, View, 1, 1);
 			Unknown_5BB4F0(Unknown0C0[i]);
 			if (Unknown_B7F518[i]) {
-				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], (unsigned int)Mesh->Peek_Mesh_Object());
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], Mesh->Peek_Mesh_Object());
 				if (style) {
 					Unknown0C0[i]->Unknown_98(style);
 				}
@@ -1013,7 +1013,7 @@ void UIGroupClass::Unknown_5954C0()
 	char name[32];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(name, sizeof(name), "NAME%02d_TSI03A", i);
-		Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object())->Set_Hidden(1);
+		Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object())->Set_Hidden(1);
 	}
 }
 // 0x595530
@@ -1102,7 +1102,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			char name[32];
 			_snprintf(name, sizeof(name), "NAME%02d_TSI03A", index);
-			FontSys *text = Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object());
+			FontSys *text = Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object());
 			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C7B0(member->ID));
 			if (avatar) {
 				text->Change_Text(avatar->Name, 0);

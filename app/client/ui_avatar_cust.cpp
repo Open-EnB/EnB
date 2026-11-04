@@ -77,8 +77,8 @@ extern GadgetClass *Unknown_BE5F28;					// NAME 1 [Unknown_BE5F28]: 0xBE5F28
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
-class UIAvatarCustFontManagerClass { public: FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
-extern UIAvatarCustFontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+class FontManagerClass { public: FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // money.cpp's comparisons (cdecl, not rebuilt)
 bool operator==(const MoneyClass &a, const MoneyClass &b);	// 0x4F0600  // NAME 1 [a, b]: neutral
@@ -620,14 +620,14 @@ void StarbaseAvatarCreationInterface::Unknown_551520(bool any)
 	}
 	if (money) {
 		Unknown380 = money->Value;
-		FontSys *text = Unknown_BE67C4->Unknown_6D25D0("credits_buy_avatar00", Unknown084->Peek_Object());
+		FontSys *text = Unknown_BE67C4->Get_Style("credits_buy_avatar00", Unknown084->Peek_Object());
 		if (text) {
 			std::string line("Credits: ");
 			line += Unknown380.Unknown_4F00C0(true);
 			text->Change_Text(line.c_str(), 0);
 		}
 	}
-	FontSys *text = Unknown_BE67C4->Unknown_6D25D0("cost_buy_avatar00", Unknown084->Peek_Object());
+	FontSys *text = Unknown_BE67C4->Get_Style("cost_buy_avatar00", Unknown084->Peek_Object());
 	if (text) {
 		std::string line("Cost: ");
 		line += Unknown388.Unknown_4F00C0(true);

@@ -30,7 +30,7 @@ public:
 	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// (inline: the go button's brightness in 0x5B2480 / 0x5B4850)  // NAME 1: neutral (D10)
 };
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
@@ -235,17 +235,17 @@ void UIManuClass::Unknown_58()
 		Unknown0B0->Unknown_66FA90(0, 10.0f, true);
 		Unknown_5B2950();
 		Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
-		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", (unsigned int)Mesh->Peek_Mesh_Object()));
+		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", Mesh->Peek_Mesh_Object()));
 		RefCountPtr<RenderObjClass> name_obj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
 		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
 		char buffer[264];
 		for (int i = 0; i < 10; i++) {
 			sprintf(buffer, "desc%02d_tsm01a", i);
-			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, (unsigned int)Mesh->Peek_Mesh_Object()));
+			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, Mesh->Peek_Mesh_Object()));
 			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
 			Unknown16C[i]->Unknown_6CDBC0("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
-			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, (unsigned int)Mesh->Peek_Mesh_Object()));
+			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, Mesh->Peek_Mesh_Object()));
 			Unknown194[i]->Unknown_6CDBC0("", 0);
 		}
 		Unknown0AC->Unknown_69DC40();
@@ -282,7 +282,7 @@ void UIManuClass::Unknown_5C()
 		((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
-	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Remove(Mesh->Peek_Mesh_Object());
 	Unknown5BB320Class::Unknown_5C();
 	((UIManuSClientClass *)sclient)->Unknown_744560(0x18);
 	for (int i = 0; i < 10; i++) {
@@ -647,7 +647,7 @@ bool UIManuClass::Unknown_68(int key)
 // 0x5B1AF0
 void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 {
-	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object()));
+	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
 	font->Unknown_6CDBC0(text, 0);
 	font->Set_Hidden(!show);
@@ -796,7 +796,7 @@ void UIManuClass::Unknown_5B2480()
 			Unknown0CC[i + 2]->Unknown2C800 = 0;
 		}
 	}
-	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
+	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object()));
 	NameClass name("Validity");
 	UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
 	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
@@ -1061,7 +1061,7 @@ void UIManuClass::Unknown_5B3A70()
 			Unknown0BC->Unknown_62F5B0(false);
 		}
 		Unknown0CC[6]->Unknown_40(false);
-		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object());
+		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object());
 		style->Unknown2FC = 0.33f;
 		style->Unknown4C5 = false;
 	}
@@ -1286,7 +1286,7 @@ void UIManuClass::Unknown_5B4850()
 	int player = Client->As_Space_Client()->Unknown1138;
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(player, 0));
 	Unknown0CC[6]->Unknown_40(false);
-	RefCountPtr<FontSys> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
+	RefCountPtr<FontSys> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object()));
 	go->Unknown_Set_2FC(0.33f);
 	Unknown_5B1AF0(2, true, "");
 	Unknown_5B1AF0(3, true, "");

@@ -19,6 +19,7 @@
 
 #include <string>
 #include <hash_map.h>
+#include "unknown_robj_hash.h"									// hash<RenderObjClass *>: the fonts are keyed by their render object
 #include "..\shared\unknown_debug.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -190,7 +191,7 @@ public:
 	void Unknown_6D0A20(const char *name, const char *text, int unknown);	// 0x6D0A20: the named style's Change_Text  // NAME 1 [Unknown_6D0A20]: neutral (D10)
 
 	StringClass Name;													// +0x00  // NAME 2: the name 0x6D1FD0 looks up in the font database
-	unsigned int Id;													// +0x04: the manager's key  // NAME 2: what it holds
+	RenderObjClass *Id;												// +0x04: the manager's key, the render object (0x6CE990 stores it)  // NAME 2: what it holds
 	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
 	std::hash_map<std::string, FontSys *> Styles;				// +0x0C: its styles by name (0x6D1C10 walks them)  // NAME 2: what it holds
 };
@@ -205,21 +206,21 @@ public:
 	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
 	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
 	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
-	void Remove(unsigned int id);										// 0x6D2220  // NAME 2: describes what it does
-	void Unknown_6D2310(const unsigned int &id);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)
-	void Unknown_6D2400(unsigned int id);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)
-	void Unknown_6D2480(unsigned int id);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
-	void Unknown_6D2500(const char *name, const char *text, unsigned int id, int unknown);	// 0x6D2500: the font's 0x6D0A20								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
-	void Unknown_6D2580(const char *name, Vector3 color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
-	FontSys *Get_Style(const char *name, unsigned int id);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
-	RefCountPtr<FontSys> Unknown_6D2700(const char *name, const unsigned int &id);	// 0x6D2700: a font's named style, else the debug font  // NAME 1 [Unknown_6D2700]: neutral (D10)
-	void Unknown_6D28C0(int value, unsigned int id);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)
+	void Remove(RenderObjClass *object);										// 0x6D2220  // NAME 2: describes what it does
+	void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)
+	void Unknown_6D2400(RenderObjClass *object);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)
+	void Unknown_6D2480(RenderObjClass *object);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
+	void Unknown_6D2500(const char *name, const char *text, RenderObjClass *object, int unknown);	// 0x6D2500: the font's 0x6D0A20								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
+	void Unknown_6D2580(const char *name, Vector3 color, RenderObjClass *object);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
+	FontSys *Get_Style(const char *name, RenderObjClass *object);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
+	RefCountPtr<FontSys> Unknown_6D2700(const char *name, const RefCountPtr<RenderObjClass> &object);	// 0x6D2700: a font's named style, else the debug font  // NAME 1 [Unknown_6D2700]: neutral (D10)
+	void Unknown_6D28C0(int value, RenderObjClass *object);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)
 	void Add(ManagedFontClass *font);									// 0x6D29A0: under its id  // NAME 2: describes what it does
-	ManagedFontClass *Peek_Font(unsigned int id);						// inline only: Find's body where the client inlines it (the trio 0x6D2400, Get_Style, 0x6D28C0)  // NAME 1 [Peek_Font]: neutral (D10)
-	ManagedFontClass *Find(unsigned int id);							// 0x6D2A70  // NAME 2: describes what it does
-	ManagedFontClass *Unknown_6D2AE0(const unsigned int &id);			// 0x6D2AE0: Find through a reference (no caller in the client)  // NAME 1 [Unknown_6D2AE0]: neutral (D10)
+	ManagedFontClass *Peek_Font(RenderObjClass *object);						// inline only: Find's body where the client inlines it (the trio 0x6D2400, Get_Style, 0x6D28C0)  // NAME 1 [Peek_Font]: neutral (D10)
+	ManagedFontClass *Find(RenderObjClass *object);							// 0x6D2A70  // NAME 2: describes what it does
+	ManagedFontClass *Unknown_6D2AE0(const RefCountPtr<RenderObjClass> &object);			// 0x6D2AE0: Find through a reference (no caller in the client)  // NAME 1 [Unknown_6D2AE0]: neutral (D10)
 
-	std::hash_map<unsigned int, ManagedFontClass *> Fonts;				// +0x00: 100 buckets  // NAME 2: what it holds
+	std::hash_map<RenderObjClass *, ManagedFontClass *> Fonts;				// +0x00: 100 buckets  // NAME 2: what it holds
 	RefCountPtr<FontSys> DebugFont;								// +0x18: "DebugFont"  // NAME 2: what it holds
 };
 

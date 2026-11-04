@@ -4,6 +4,26 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (late night): P-FU1-2, the font manager keyed by render objects; app 9,039 = 9,039, 0 lost
+
+Coordinator Opus 5.5 with the user; branch `types/fontmanager-keys` from 1ff6d912 (PR #153 merged). P-T12-2 left for
+the aux_roots generator's next edit (the user).
+
+- **P-FU1-2:** FontManagerClass's map, ManagedFontClass::Id and the lookups take `RenderObjClass *` (Add 0x6D1D80 files
+  a font under its object's address); the by-reference ones 0x6D2310 / 0x6D2700 / 0x6D2AE0 take
+  `const RefCountPtr<RenderObjClass> &` (loadingview / ui_popupmsg / ui_login pass a RefCountPtr member). hash<RenderObjClass *>
+  moves from interface_static_sort_list.h into a new unknown_robj_hash.h (D137 interim) both include. The callers'
+  `(unsigned int)` / `(const unsigned int &)` casts go; ui_chat_panel / ui_cpit / ui_group / ui_manu's local views take
+  the new types, and loadingview / ui_avatar_cust / ui_avatr's views carry the real class and method names (Get_Style,
+  Remove, Unknown_6D2310), so their calls reach fontmanager.cpp instead of generated stand-ins; ui_registration's
+  FontId +0x120 is a RenderObjClass *. app verify 9,039 = 9,039, pairs_cmp empty (the renamed hash_map instances lost
+  nothing), replay 0. clienttest 103 / 0: its 0xBE67C4 is an empty FontManagerClass (members only), ui_stubs.cpp's
+  second definition gone, expected.txt loses `gen LoadingViewFontManagerClass::Unknown_6D2310`. POC: character select,
+  no crash, the same first calls.
+- **Quit at character select (the user, run 4):** the shutdown faults: ~LoginTaskClass -> CharacterViewClass::Unknown_10
+  -> UIViewClass::Unknown_10 reads 0x29282726 (string bytes as a pointer). Scripted runs never quit (killed at 60 s);
+  whether master does the same is open.
+
 ### 2026-11-03 (night): the quiet tree's client-name renames (AssetManager, EnvironmentMapManager, ControlKeysManager) and two retypes; app 9,039 = 9,039, 0 gained, 0 lost
 
 Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103`, base c9403bfe; scratch `.work/cn1/`
@@ -2256,8 +2276,8 @@ below name only the work items, the blocked work, the leads and the queues.
      and the RS_* masks (now in rs_track.h); ui_popupmsg.h once ui_popupmsg.cpp's lines can be held (a 21-line class
      before an assert); Unknown_4BE9D0 in a small header of its own (in unknown_message.h, `<string>` costs
      unknown_message_server's 0x4BCB50).
-   * Types: P-FU1-2 (ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned, with a
-     full app verify); P-SM1-2 (OrbitalManager's ctor takes a
+   * Types: FontSys's constructors 0x6D47C0 / 0x6D4C70 and ManagedFontClass::Unknown_6CF930 still take the render object
+     as an integer (fontmanager.cpp casts ManagedFontClass::Id for them since P-FU1-2); P-SM1-2 (OrbitalManager's ctor takes a
      shared callback base and ClientClass); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads into
      strconv_lib.h through the aux_roots generator).
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
