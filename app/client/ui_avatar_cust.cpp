@@ -107,7 +107,11 @@ class UIAvatarCustGadget671300Class : public GadgetClass	// NAME 1: neutral (D10
 {
 public:
 	UIAvatarCustGadget671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671300 (0x54D8A0: the palette, 0, the window's layer +0xAC, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
-	char Unknown34[0x80 - 0x34];						// +0x34
+	void Unknown_671630();								// 0x671630 (the buttons' flags off, as ui_avatr.cpp's)
+	char Unknown34[0x64 - 0x34];						// +0x34
+	bool Unknown64;										// +0x64 (the left button held, as ui_avatr.cpp's)
+	bool Unknown65;										// +0x65 (the right button held)
+	char Unknown66[0x80 - 0x66];						// +0x66
 };
 
 // gadget.h's FlashingGadgetEvent (its header cannot be included next to this file's GadgetClass)
@@ -117,6 +121,7 @@ public:
 	GadgetClass *Gadget;								// +0x00  // NAME 1: as gadget.h's
 };
 
+void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as gadget.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 
 // The client at InterfaceClass +0x40, as this file calls it
@@ -140,7 +145,8 @@ struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
 	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
 	GadgetClass *Unknown00;								// +0x00
 	RenderObjClass *Unknown04;							// +0x04 (the pull: 'PULL_COLOR')
-	char Unknown08[0x10 - 0x08];						// +0x08
+	bool Unknown08;										// +0x08 (dragged: 0x54F390)
+	char Unknown09[0x10 - 0x09];						// +0x09
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -283,7 +289,8 @@ public:
 	virtual void Unknown_54();							// +0x54 0x54BD30 (InterfaceClass's: Init calls it after construction)
 	virtual void Unknown_60();							// +0x60 0x54CAE0 (every frame)
 	virtual bool Unknown_68(int key);					// +0x68 0x54CBC0 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
-	void Unknown_54F390(int arg);						// 0x54F390 (0x54CAE0 in mode 1: 1)  // NAME 1 [arg]: neutral
+	void Set_Unknown30C(float u, float v) { Unknown30C = u; Unknown310 = v; }	// NAME 1: neutral (D10): inline (0x54F390 computes v first)  // NAME 1 [u, v]: neutral
+	void Unknown_54F390(int arg);						// 0x54F390 (0x54CAE0 in mode 1: 1; the head pull dragged: its point +0x30C)  // NAME 1 [arg]: neutral
 	void Unknown_54FAA0();								// 0x54FAA0 (0x54CAE0)
 	void Unknown_54D720(int text);						// 0x54D720 (the palette's texture: 'text1' .. 'text7', as ui_avatr.cpp's 0x555F60)  // NAME 1 [text]: neutral
 	void Unknown_54D8A0();								// 0x54D8A0 (the colour pull made, +0x31C; as ui_avatr.cpp's 0x5560E0)
@@ -829,9 +836,53 @@ void StarbaseAvatarCreationInterface::Unknown_54F2B0()
 	}
 }
 
-// NOT EXACT: shape (195 instructions against 196: the client copies +0x310 into its local with integer moves before the
+// NOT EXACT: shape (one byte: when +0x64 is clear our first je skips straight to the +0x65 test, the client's re-tests
+// +0x64; == true, an inline grab helper and a named gadget local tried. tm[2][3] = 0, the edges declared up front and
+// the point stored through an inline setter (v computed first) made the rest the client's)
+// 0x54F390
+void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
+{
+	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
+	if (((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown64) {
+		pull->Unknown08 = true;
+	}
+	if ((((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown64 || ((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown65) && pull->Unknown08) {
+		AABoxClass box;
+		pull->Unknown00->Unknown_64(box);
+		float x;
+		float y;
+		float top, left, width, height;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
+		RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+		int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
+		model->Capture_Bone(bone);
+		Matrix3D tm = pull->Unknown04->Get_Transform();
+		tm[0][3] = x - box.Center.X;
+		tm[1][3] = y - box.Center.Y;
+		tm[2][3] = 0.0f;
+		model->Control_Bone(bone, tm, false);
+		top = box.Center.Y - box.Extent.Y;
+		left = box.Center.X - box.Extent.X;
+		width = box.Extent.X * 2.0f;
+		height = box.Extent.Y * 2.0f;
+		Set_Unknown30C((x - left) / width, (y - top) / height);
+		Unknown_550550(0);
+		Unknown_551BF0();
+	} else {
+		pull->Unknown08 = false;
+	}
+	((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown_671630();
+}
+
+// NOT EXACT: shape (194 instructions against 196: the client copies +0x310 into its local with integer moves before the
 // first add, ours loads it onto the FPU; locals u / v, a Vector2 from the two floats and a Vector2 member at +0x30C
-// tried, the last breaks the constructor's scheduling)
+// tried, the last breaks the constructor's scheduling; tm[2][3] = 0 is the client's, as 0x54F390's)
 // 0x54F6F0
 void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, float du, float dv)
 {
@@ -863,6 +914,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	Matrix3D tm = pull->Unknown04->Get_Transform();
 	tm[0][3] = width * point.X + left - box.Center.X;
 	tm[1][3] = height * point.Y + top - box.Center.Y;
+	tm[2][3] = 0.0f;
 	model->Control_Bone(bone, tm, false);
 	Unknown30C = point.X;
 	Unknown310 = point.Y;
@@ -1130,58 +1182,6 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		Unknown240[10]->Unknown_6608F0();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
