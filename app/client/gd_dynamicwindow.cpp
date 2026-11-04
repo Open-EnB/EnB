@@ -5,7 +5,7 @@
 #include "aabox.h"
 #include "..\shared\unknown_debug.h"
 
-void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
+bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
 
 DynamicWindowGadgetClass::DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowClass> &object, unsigned int mask, unsigned int flags, bool highlight) :
 	ButtonGadgetClass(NULL, mask, flags),

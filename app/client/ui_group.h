@@ -58,7 +58,7 @@ public:
 	GadgetClass *Unknown50;								// +0x50 (0x595530: the BOOT button)
 };
 
-void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (1, 0.6, 0; 1, 1, 1 to reset)  // NAME 1 [robj, a, b, c]: neutral
+bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (1, 0.6, 0; 1, 1, 1 to reset)  // NAME 1 [robj, a, b, c]: neutral
 
 // What +0xE8 points to (0x34 bytes; constructor 0x592910 over the window; its inline destructor calls 0x592BB0)
 class UIGroupUnknownE8Class	// NAME 1: neutral (D10)

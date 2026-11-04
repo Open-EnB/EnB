@@ -146,6 +146,10 @@ class ParticleEmitterClass : public RenderObjClass
 		virtual void			Render(RenderInfoClass & rinfo) { }
 		virtual void			Restart(void);
 
+		// E&B: the transform also moves the particle buffer when UnknownFlag is set (0x97DD90, 0x97DDC0)
+		virtual void			Set_Transform(const Matrix3D &m);
+		virtual void			Set_Position(const Vector3 &v);
+
 		// Scales the size of all particles and effects positions/velocities of
 		// particles emitted after the Scale() call (but not before)
 		virtual void			Scale(float scale);

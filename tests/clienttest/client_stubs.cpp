@@ -127,20 +127,8 @@ void Unknown763E00Class::Unknown_763FF0() { Trace("stub Unknown763E00Class::Unkn
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 
-// sound_manager.cpp: declared as cpacket.cpp declares it (same names, same mangling)
-class SoundManagerClass
-{
-public:
-	void Unknown_75AE30(const char *name, int channel);
-	void Unknown_75B0D0(const char *name, int channel);
-	void Unknown_75B170(int channel);
-	void Unknown_75B2B0(int channel);
-	char Unknown00[4];
-};
-void SoundManagerClass::Unknown_75AE30(const char *name, int channel) { Trace("stub SoundManagerClass::Unknown_75AE30 '%s' %d", name, channel); }
-void SoundManagerClass::Unknown_75B0D0(const char *name, int channel) { Trace("stub SoundManagerClass::Unknown_75B0D0 '%s' %d", name, channel); }
-void SoundManagerClass::Unknown_75B170(int channel) { Trace("stub SoundManagerClass::Unknown_75B170 %d", channel); }
-void SoundManagerClass::Unknown_75B2B0(int channel) { Trace("stub SoundManagerClass::Unknown_75B2B0 %d", channel); }
+// sound_manager.cpp's real SoundManagerClass (app.lib); the global WinMain makes (0xBE82A4) is a static here
+#include "..\..\app\client\sound_manager.h"
 static SoundManagerClass The_Sound_Manager;
 SoundManagerClass *SoundManager = &The_Sound_Manager;
 

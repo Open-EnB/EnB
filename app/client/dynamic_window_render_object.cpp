@@ -4,7 +4,7 @@
 #include "wwmath.h"
 #include "..\shared\unknown_debug.h"
 
-void Unknown_496730(RenderObjClass *robj, int a, int b);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, a, b]: ui_cpit.cpp's
+void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, sort_level, dec_if_match]: ui_cpit.cpp's
 
 DynamicWindowRenderObjectClass::DynamicWindowRenderObjectClass(unsigned int flags) :
 	RenderObject(),

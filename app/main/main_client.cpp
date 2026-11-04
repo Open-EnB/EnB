@@ -81,11 +81,11 @@ void Unknown_683940();								// NAME 1 [Unknown_683940]: deffont.cpp's shut-dow
 #include "..\..\ww3d2\dx8wrapper.h"				// DX8Wrapper::Get_Current_Caps (0xC006A0 is DX8Wrapper::CurrentCaps; +0xDD
 													// DX8Caps::SupportDXTC): WinMain's texture reduction
 
-// WW3D2's flags E&B sets after WW3D::Init
-extern bool Unknown_BFAE4F;							// NAME 1 [Unknown_BFAE4F]: neutral (D10)
-extern bool Unknown_BFAE50;							// NAME 1 [Unknown_BFAE50]: neutral (D10)
-extern bool Unknown_BFAE51;							// NAME 1 [Unknown_BFAE51]: neutral (D10)
-extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
+// WW3D2's flags E&B sets after WW3D::Init are WW3D's statics (ww3d.h): 0xBFAE4F IsScreenUVBiased (read by
+// Render2DClass::Update_Bias 0x96FDF0), 0xBFAE50 AreStaticSortListsEnabled (SphereRenderObjClass::Render 0x90C4D0),
+// 0xBFAE51 MungeSortOnLoad and 0xBFAE52 OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40); set through
+// ww3d.h's inline setters, so ww3d2 reads what WinMain, charview.cpp, scriptedmovie.cpp and co.cpp write
+// (keep this comment five lines long: WinMain's asserts carry __LINE__)
 
 // E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings)
 #include "..\shared\enbassetmgr.h"
@@ -95,16 +95,16 @@ extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a m
 
 
 
-// msgserv.cpp's message server, a task (0x48 bytes)
-class Unknown_8B20D0Class : public TaskClass		// NAME 1 [Unknown_8B20D0Class]: neutral (D10)
-{
-public:
-	Unknown_8B20D0Class();							// 0x8B20D0 (WSAStartup)
-	virtual int Get_Interval();
-	virtual bool Delete_On_Remove();
-	void Unknown_8B2230();							// 0x8B2230 (the assert 'Get_Internal_Server_Protocol() == NULL')
-	char Unknown0C[0x48 - 0x0C];
-};
+// msgserv.cpp's message server task (0x48 bytes)
+#include "..\shared\message\msgserv.h"
+
+
+
+
+
+
+
+
 
 // sound_manager.cpp's sound manager (0x340 bytes)
 class SoundManagerClass	// NAME 3: class-from-file (D24) for app\client\sound_manager.cpp
@@ -128,9 +128,9 @@ extern Unknown_6BCFB0Class *Unknown_BE67B4;			// NAME 1 [Unknown_BE67B4]: neutra
 class Unknown_790560Class { public: Unknown_790560Class(); ~Unknown_790560Class(); char Unknown00[0x14]; };	// NAME 1 [Unknown_790560Class]: the personality manager (personalities\%sPersonality%02d.ini); 0x790560, 0x790870
 void Unknown_790940(Unknown_790560Class *manager);	// NAME 1 [Unknown_790940]: sets 0xBE856C  // NAME 1 [manager]: neutral
 extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutral (D10)
-class Unknown_764480Class { public: Unknown_764480Class(); ~Unknown_764480Class(); char Unknown00[0x10]; };	// NAME 1 [Unknown_764480Class]: the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0
-void Unknown_764510(Unknown_764480Class *manager);	// NAME 1 [Unknown_764510]: sets 0xBE82D0  // NAME 1 [manager]: neutral
-extern Unknown_764480Class *Unknown_BE82D0;			// NAME 1 [Unknown_BE82D0]: neutral (D10)
+#include "..\client\starbase_lights.h"	// the starbase lights manager (starbase_lights.ini); 0x764480, 0x7644F0, 0x764510
+// (starbase_lights.h: Unknown_764480Class, Unknown_764510 and Unknown_BE82D0;
+// one line each before, kept for the line numbers below)
 #include "..\client\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 class SClientFontDatabaseClass;					// sclient.h's view of 0xBE67BC (the font string files)
 extern SClientFontDatabaseClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
@@ -457,21 +457,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		exit(0);
 	}
 	Unknown_Debug_End_Step("ok");
-	Unknown_BFAE50 = true;
+	WW3D::Enable_Static_Sort_Lists(true);
 	WW3D::Enable_Sorting(false);
-	Unknown_BFAE51 = true;
-	Unknown_BFAE52 = false;
+	WW3D::Enable_Munge_Sort_On_Load(true);
+	WW3D::Enable_Overbright_Modify_On_Load(false);
 	const char *test_path = argv.Find_Value("-TEST_PATH");	// NAME 1 [test_path]: its text
 	if (test_path != NULL) {
 		_TheSimpleFileFactory->Prepend_Sub_Directory(test_path);
 	}
-	Unknown_BFAE4F = true;
+	WW3D::Set_Screen_UV_Bias(true);
 	ProgramInstance = hInstance;
 
-	Unknown_8B20D0Class *message_server = NULL;		// NAME 1 [message_server]: its step text
+	MsgServer *message_server = NULL;				// NAME 1 [message_server]: its step text
 	if (argv.Find("-ENABLE_MESSAGES")) {
 		Unknown_Debug_Begin_Step("starting message server");
-		message_server = new Unknown_8B20D0Class;
+		message_server = new MsgServer;
 		message_server->Unknown_8B2230();
 		message_server->Run();
 		Unknown_Debug_End_Step("ok");

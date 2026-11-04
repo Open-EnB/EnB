@@ -103,19 +103,19 @@ public:
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: as eff_o.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
-// The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (the name, 0, 0, 1)  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+
+
 
 // The +0x94 object's +0x54, as far as 0x556B20 writes it
 class UIAvatrUnknown094Unknown054Struct	// NAME 1: neutral (D10)
@@ -396,7 +396,7 @@ void AvatarCreationInterface::Unknown_555F60(int text)
 	const char *names[] = { "text1", "text2", "Text3", "text4", "Text5", "Text6", "text7" };
 	RefCountPtr<RenderObjClass> palette = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	if (palette) {
-		RefCountPtr<TextureClass> texture = Create_Get(Unknown_BFAEE0->Get_Texture(names[text], 0, 0, 1));
+		RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(names[text], MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 		if (texture) {
 			Unknown_495FD0(palette.Peek(), texture.Peek(), 0);
 		}
@@ -750,7 +750,7 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<RenderObjClass> palette = Create_Get(model->Get_Sub_Object_By_Name("COLOR_PALETTE"));
-	TextureClass *texture = Unknown_BFAEE0->Get_Texture(name, 0, 0, 1);
+	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
 	if (texture) {
 		Unknown_495FD0(palette.Peek(), texture, 0);
 		texture->Release_Ref();

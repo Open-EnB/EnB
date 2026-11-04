@@ -2,13 +2,37 @@
 #define AVATAR_H
 
 #include "composite.h"
+#include <list>
 #include "..\shared\avatar_desc.h"
+#include "..\shared\chat_edit_stream.h"
+#include "nstrdup.h"
+#include <string.h>
+#include <vector>
 
 class LightClass;
 class HAnimClass;
+class HMorphAnimClass;
 class AudibleSoundClass;
 class SClientUnknown1338Class;
 class PlayerNLPClass;
+class MeshClass;
+
+// an entry of the avatar's animation queue (+0x2A0; 0xC bytes, 0x781880 makes them, 0x781C10 deletes them)
+struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
+{
+	Unknown_AvatarQueueStruct(char anim, const char *text, int mood)
+	{
+		Anim = anim;
+		Text = nstrdup(text);
+		strcpy(Text, text);
+		Mood = mood;
+	}
+	~Unknown_AvatarQueueStruct() { delete Text; }	// 0x781C10 (its scalar deleting destructor)
+
+	char Anim;	// +0x00 (0x782200: the body animation's number for 0x781D10)  // NAME 1: neutral (D10)
+	char *Text;	// +0x04 (0x782200: the line its lip-sync keys are made for)  // NAME 1: neutral (D10)
+	int Mood;	// +0x08 (0x782200: into Desc.Mood_Type unless < 0)  // NAME 1: neutral (D10)
+};
 
 // avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4)
 class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutral (D10)
@@ -17,21 +41,85 @@ public:
 	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, SClientUnknown1338Class *env_maps);	// 0x77B870 (0x384 bytes)
 	virtual ~CharacterViewAvatarClass();				// 0x77C080
 	virtual RenderObjClass *Clone() const;				// 0x77C870
+	virtual void Set_Transform(const Matrix3D &m);		// 0x77D1E0 (the body too; +0x330 keeps it unless +0x36C)
+	virtual void Set_Position(const Vector3 &v);		// 0x77D2B0 (the body too)
 	virtual void Render(RenderInfoClass &rinfo);		// 0x77D420
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const { sphere = ObjSphere; }	// 0x77BFA0
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
 
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
-	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
-	void Unknown_784C90(const char *name, int a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
+	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
+	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
+	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
+	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
+	void Unknown_782200();								// 0x782200 (state 1: the queue's first entry played, its face keys made)
+	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
+	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)
+	bool Unknown_7829B0(const char *name);				// 0x7829B0 (the animation's face keys from its ini; false: none)  // NAME 1 [name]: neutral
+	int Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
+	void Unknown_7861B0(const char *speech);			// 0x7861B0 (the speech sound into +0x2E8)  // NAME 1 [speech]: neutral
+	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
+	void Unknown_786B60(bool keep);						// 0x786B60 (flag 1)  // NAME 1 [keep]: neutral
+	void Unknown_786BF0(bool keep);						// 0x786BF0 (flag 2)  // NAME 1 [keep]: neutral
+	void Unknown_786C70();								// 0x786C70 (flags 1 / 2 off)
+	void Unknown_Inline_786C70() { if (Unknown20C != 2) { Unknown208 = 0; Unknown20C = 2; Unknown214 = true; } Unknown2F8 &= 0xFFFC; }	// (0x786B60 / 0x786BF0: 0x786C70 inline)  // NAME 1: neutral (D10)
+	void Unknown_786CC0(float rate);					// 0x786CC0 (flag 8)  // NAME 1 [rate]: neutral
+	void Unknown_786CF0(float rate);					// 0x786CF0 (flag 4)  // NAME 1 [rate]: neutral
+	void Unknown_786D20();								// 0x786D20 (flags 4 / 8 off)
+	void Unknown_786D40(float rate);					// 0x786D40 (flag 0x10)  // NAME 1 [rate]: neutral
+	void Unknown_786D70(float rate);					// 0x786D70 (flag 0x20)  // NAME 1 [rate]: neutral
+	void Unknown_786DA0();								// 0x786DA0 (flags 0x10 / 0x20 off)
+	void Unknown_786DC0(float rate);					// 0x786DC0 (flag 0x40)  // NAME 1 [rate]: neutral
+	void Unknown_786E00(float rate);					// 0x786E00 (flag 0x80)  // NAME 1 [rate]: neutral
+	void Unknown_786E40();								// 0x786E40 (flags 0x40 / 0x80 off)
+	void Unknown_786E60();								// 0x786E60 (all movement off)
+	void Unknown_7885D0(bool second);					// 0x7885D0 (clears +0x318, or +0x324)  // NAME 1 [second]: neutral
+	void Unknown_788700(const Matrix3D &goal);			// 0x788700 (the path: goal alone)  // NAME 1 [goal]: neutral
+	void Unknown_788730(const Matrix3D &goal, bool trim);	// 0x788730 (goal onto the path; trim: 3 at most)  // NAME 1 [goal, trim]: neutral
+	void Unknown_788890();								// 0x788890 (the path's first goal off)
+	void Unknown_788900();								// 0x788900 (the movement flags toward the path's first goal)
+	void Unknown_7897D0();								// 0x7897D0 (the teleport effect's time)
+	void Unknown_781EA0();								// 0x781EA0 (the idle: breathe / bored / sit_breathe; sets +0x220)
+	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
+	void Unknown_782CA0();								// 0x782CA0 (the face animation's brow and blink keys over the gesture animation)
+	void Unknown_782FF0(const char *text);				// 0x782FF0 (the face animation's lip-sync keys for text)  // NAME 1 [text]: neutral
+	void Unknown_783470();								// 0x783470 (the face animation onto the head)
+	void Unknown_7831C0(const char *name);				// 0x7831C0 (the gesture animation into +0xC0, or +0xC4 to blend; 'Cannot Find Gesture Animation')  // NAME 1 [name]: neutral
+	void Unknown_783620(float time);					// 0x783620 (the frames on, the body's Set_Animation)  // NAME 1 [time]: neutral
+void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT meshes scaled, the HTree altered)
+	void Unknown_780F30();								// 0x780F30 (the head morph: every head mesh scaled, the HTree altered)
+	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
+	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
+	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
+	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
+	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
+	void Unknown_7857D0(int num);						// 0x7857D0 (Head_Texture_Num's '<gender><race>FACETEX%02d.tga' onto head0..4)  // NAME 1 [num]: neutral
+	void Unknown_7859F0(int num);						// 0x7859F0 (Tattoo_Texture_Num's 'ATATTOO%02d.tga' onto HEAD0..4, stage 1)  // NAME 1 [num]: neutral
+	void Unknown_785C00(const Vector3 &offset);			// 0x785C00 (Tattoo_Offset: a linear offset mapper on HEAD0..4's stage 1)  // NAME 1 [offset]: neutral
+	void Unknown_77F960(const char *part, int num, RenderObjClass **slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
+	void Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
+	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (Hair_Color onto HAIR0..4 and BEARD0..4)  // NAME 1 [color, rebuild]: neutral
+	void Unknown_7802F0(const Vector3 &color, bool rebuild);	// 0x7802F0 (Beard_Color onto BEARD0..4)  // NAME 1 [color, rebuild]: neutral
+	void Unknown_789D80(RenderObjClass **slot, const char *part);	// 0x789D80 (the accessory's '<part>0..4' meshes into the head prototype's LODs)  // NAME 1 [slot, part]: neutral
+		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
-	char Unknown_Pad0[0xF4 - sizeof(CompositeRenderObjClass)];	// +0xA4
+	// +0xBC: sizeof(CompositeRenderObjClass)
+	HMorphAnimClass *Unknown0BC;						// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr in the client)
+	HAnimClass *Unknown0C0[2];							// +0xC0 (0x7831C0: the gesture animation, [1] the one blended to)
+	bool Unknown0C8[2];									// +0xC8 (0x783620: the frame reached)
+	char Unknown_Pad0CA[0xCC - 0xCA];
+	float Unknown0CC[2];								// +0xCC (0x783620: the frame)
+	float Unknown0D4[2];								// +0xD4 (0x783620: the frame to stop at)
+	int Unknown0DC[2];									// +0xDC (0x783620: flags, -1 none)
+	int Unknown0E4;										// +0xE4 (0x783B50: the WW3D frame count of the last update)
+	Unknown_ChatStreamClass Unknown0E8;					// +0xE8 (0x77B870: 0x4C4430; the NLP's command stream, 0x784A50)
 	PlayerNLPClass *PlayerNLP;							// +0xF4 (0x77B870: 0x78EB50)  // NAME 2: PlayerNLP != 0 assert
 	AvatarDescClass Desc;								// +0xF8 (0x10C bytes)
 	int Unknown204;										// +0x204 (0x77E3D0 sets it)
@@ -40,43 +128,79 @@ public:
 	int Unknown210;										// +0x210
 	bool Unknown214;									// +0x214 (0x67A440 sets it)
 	bool Unknown215;									// +0x215
-	char Unknown_Pad216[0x220 - 0x216];
+	char Unknown_Pad216[0x218 - 0x216];
+	float Unknown218;									// +0x218 (0x7831C0: the blend time, 0.5)
+	float Unknown21C;									// +0x21C (0x783620: the blend time left)
 	bool Is_Unknown220() { return(Unknown220); }		// (ui_login.cpp)  // NAME 1: neutral (D10)
 	bool Unknown220;									// +0x220 (ui_login.cpp's 0x5ADA50: narrator welcome waits for it)
 	bool Unknown221;									// +0x221
-	char Unknown_Pad222[0x231 - 0x222];
+	char Unknown_Pad222[0x224 - 0x222];
+	int Unknown224;										// +0x224 (0x781EA0: random part of the fidget delay)
+	float Unknown228;									// +0x228
+	float Unknown22C;									// +0x22C (0x783B50: the time idle)
+	bool Unknown230;									// +0x230 (0x77B870 sets it)
 	bool Unknown231;									// +0x231 (0x67A440 clears it)
 	bool Unknown232;									// +0x232 (0x67A440 sets it)
 	void Unknown_Inline_231() { Unknown231 = false; Unknown214 = true; }	// NAME 1: neutral (D10)
-	char Unknown_Pad233[0x24C - 0x233];
+	bool Unknown233;									// +0x233 (0x77B870 sets it)
+	float Unknown234;									// +0x234 (0x781410: K_HEAD's height above skel_reference)
+	int Unknown238;										// +0x238 (0x783620: footsteps played)
+	int Unknown23C;										// +0x23C (0x783620: the surface type)
+	int Unknown240;										// +0x240
+	int Unknown244;										// +0x244 (0x781EA0: the bored count)
+	int Unknown248;										// +0x248
 	int Unknown24C;										// +0x24C
-	char Unknown_Pad250[0x2B0 - 0x250];
+	float Unknown250;									// +0x250 (0x7854B0: the head's yaw to look at, degrees; 0x781EA0 clears it)
+	float Unknown254;									// +0x254 (0x7854B0: the head's yaw, degrees)
+	float Unknown258;									// +0x258 (0x7854B0: the head's pitch to look at; 0x781EA0 clears it)
+	float Unknown25C;									// +0x25C (0x7854B0: the head's pitch, degrees)
+	float Unknown260;									// +0x260 (0x7854B0: the time not yet stepped, 20 steps a second)
+	float Unknown264;									// +0x264 (0x7854B0: random yaw offset -10..10; 0x781EA0 clears it)
+	float Unknown268;									// +0x268 (0x7854B0: random pitch offset -5..5; 0x781EA0 clears it)
+	unsigned int Unknown26C;							// +0x26C (0x7854B0: the step count)
+	unsigned int Unknown270;							// +0x270 (0x7854B0: the step of the next random offsets)
+	float Unknown274[5];								// +0x274 (0x781410: the body morph weights shown, stepped toward Desc.Body_Weight)
+	float Unknown288[5];								// +0x288 (0x781570: the head morph weights shown, stepped toward Desc.Head_Weight)
+	bool Unknown29C;									// +0x29C (0x781410: the body morph still stepping)
+	bool Unknown29D;									// +0x29D (0x781570: the head morph still stepping)
+	std::vector<Unknown_AvatarQueueStruct *> Unknown2A0;	// +0x2A0 (the animation queue: 0x781880 pushes, 0x782200 plays, 0x784700 / 0x77C080 empty it)
 	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
-	RenderObjClass *Unknown2B8;							// +0x2B8 (HeadObj, 0x786370 sets hidden)
-	RenderObjClass *Unknown2BC;							// +0x2BC (BodyObj, 0x786370 / 0x7863E0)
+	RenderObjClass *HeadObj;							// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
+	RenderObjClass *BodyObj;							// +0x2BC  // NAME 2: '!HeadSource || !BodyObj' assert (0x786370 / 0x7863E0)
 	RenderObjClass *CollisionObj;						// +0x2C0  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2C4;							// +0x2C4
 	RenderObjClass *HairSource;							// +0x2C8  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2CC;							// +0x2CC
 	RenderObjClass *GoggleSource;						// +0x2D0  // NAME 1: neutral (D10)
 	RenderObjClass *BeardSource;						// +0x2D4  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponHip;							// +0x2D8  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponUnique;						// +0x2DC  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponHip;							// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
+	RenderObjClass *WeaponUnique;						// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
 	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
 	RenderObjClass *MaskObj;							// +0x2E4  // NAME 1: neutral (D10)
 	AudibleSoundClass *SpeechSound;						// +0x2E8 (0x784E00 / 0x784C90)  // NAME 2: plays speech sound
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
 	float Unknown2F0;									// +0x2F0 (60.0f in 0x784C90)
-	char Unknown_Pad2F4[0x2F8 - 0x2F4];
-	int Unknown2F8;										// +0x2F8 (tested in 0x784A50)
-	char Unknown_Pad2FC[0x308 - 0x2FC];
-	float Unknown308;									// +0x308 (tested in 0x784A50)
-	char Unknown_Pad30C[0x314 - 0x30C];
+	bool Unknown2F4;									// +0x2F4 (0x77B870 sets it; 0x783620: running footsteps)
+	bool Unknown2F5;									// +0x2F5 (0x77B870 sets it; 0x786DC0 / 0x786E00 test it)
+	int Unknown2F8;										// +0x2F8 (the movement flags: 1 / 2 forward / back, 4 / 8 turn, 0x10 / 0x20 +0x30C, 0x40 / 0x80 +0x310)
+	float Unknown2FC;									// +0x2FC (the turn rate, 1.0: 0x786CC0 / 0x786CF0)
+	float Unknown300;									// +0x300 (+0x30C's rate, 1.0: 0x786D40 / 0x786D70)
+	float Unknown304;									// +0x304 (+0x310's rate, 1.0: 0x786DC0 / 0x786E00)
+	float Unknown308;									// +0x308 (the speed, 0x783B50: -10 .. 10, 25 running)
+	float Unknown30C;									// +0x30C (0x783B50: -0.8 .. 0.4 by flags 0x10 / 0x20)
+	float Unknown310;									// +0x310 (0x783B50: by flags 0x40 / 0x80)
 	int Unknown314;										// +0x314
-	char Unknown_Pad318[0x330 - 0x318];
+	std::list<Matrix3D *> Unknown318;					// +0x318 (the path to walk: 0x788730 adds, 0x788900 follows)
+	std::list<Matrix3D *> Unknown324;					// +0x324 (0x7885D0 clears it)
 	Matrix3D Unknown330;								// +0x330  // NAME 1: neutral (D10)
-	char Unknown_Pad360[0x384 - 0x360];					// +0x360 (total size 0x384)
+	Vector3 Unknown360;									// +0x360 (0x783B50: the step moved this frame)
+	bool Unknown36C;									// +0x36C (0x77B870 clears it; set: 0x77D1E0 leaves +0x330 alone)
+	RenderObjClass *Unknown370;							// +0x370 (0x788F90's av_teleNN; a RefCountPtr in the client)
+	RenderObjClass *Unknown374;							// +0x374 (0x788F90's av_teleNNa; a RefCountPtr in the client)
+	float Unknown378;									// +0x378 (0x7897D0: the time left at which the body shows / hides; -100 done)
+	float Unknown37C;									// +0x37C (0x7897D0: the time left)
+	int Unknown380;										// +0x380 (0x7897D0: the teleport effect, 0 none, 2 / 4 show the body)
 };
 
 #endif

@@ -641,7 +641,7 @@ void LoginTaskClass::Set_Step(int step, bool force)
 	}
 }
 
-// NOT EXACT: register-only (the client keeps 1 in ebx and the slot's address; attempts.py show 0x769500)
+// NOT EXACT: register-only (0.36; the client keeps 1 in ebx and the slot's address, and re-reads the ID in Is_Registered_Character; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500)
 // 0x769500
 void LoginTaskClass::Go_Next_Step()
 {
@@ -654,7 +654,7 @@ void LoginTaskClass::Go_Next_Step()
 			case 9:
 			case 10:
 			case 11:
-				LoginTaskClass::Set_Step(1, false);
+				Step = 1; Unknown0014 = true;
 				break;
 
 			case 1:
@@ -667,7 +667,7 @@ void LoginTaskClass::Go_Next_Step()
 					break;
 				}
 				G_ASSERT(!Is_Registered_Character());
-				LoginTaskClass::Set_Step(5, false);
+				LoginTaskClass::Set_Step(5, true);
 				break;
 
 			case 3:
@@ -708,7 +708,7 @@ void LoginTaskClass::Go_Next_Step()
 	}
 }
 
-// NOT EXACT: register-only (the client keeps 1 in ebx for the flag and step 1; attempts.py show 0x769680)
+// NOT EXACT: register-only (0.46; the client keeps 1 in ebx for the flag and step 1; the cases' order and step 1's stores are the client's block layout; attempts.py show 0x769680)
 
 
 
@@ -736,12 +736,6 @@ void LoginTaskClass::Go_Back_Step()
 				LoginTaskClass::Set_Step(0, false);
 				break;
 
-			case 2:
-			case 7:
-			case 8:
-				LoginTaskClass::Set_Step(1, false);
-				break;
-
 			case 3:
 				LoginTaskClass::Set_Step(2, false);
 				break;
@@ -756,6 +750,12 @@ void LoginTaskClass::Go_Back_Step()
 
 			case 6:
 				LoginTaskClass::Set_Step(4, false);
+				break;
+
+			case 2:
+			case 7:
+			case 8:
+				Step = 1; Unknown0014 = true;
 				break;
 
 			default:

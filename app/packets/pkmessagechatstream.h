@@ -16,21 +16,7 @@
 #define PKMESSAGECHATSTREAM_H
 
 #include "pk.h"
-
-// A chat stream's text decoder (vtable 0xAEBAA8; client 0x4C4360-0x4C4A00, not rebuilt): a malloc'd
-// copy of the stream, its blocks' text written into a buffer. Declared for opcode 95's Print only.
-class Unknown_ChatStreamClass  // NAME 1: neutral (D10): what it reads
-{
-public:
-	Unknown_ChatStreamClass(const void *data, int size);	// 0x4C4360
-	~Unknown_ChatStreamClass();	// 0x4C4460
-	virtual char *Unknown_00();	// +0x00 0x4C43D0: Unknown04  // NAME 1: neutral (D10)
-	virtual int Unknown_04();	// +0x04 0x4C43F0: Unknown08 (AVATAR_EMOTE 94 takes it as its ChatSize)  // NAME 1: neutral (D10)
-	virtual void Unknown_4C48C0(char *text);	// +0x08 0x4C48C0: the blocks' text  // NAME 1: neutral (D10)
-
-	void *Unknown04;	// +0x04 (malloc'd)
-	int Unknown08;	// +0x08
-};
+#include "..\shared\chat_edit_stream.h"	// the chat stream (0x4C4360-0x4C4962)
 
 // opcode 95 (0x005F, AVATAR_EMOTE_RESPONSE): vtable 0xB0B374, constructor 0x89D3F0, 0x1C bytes
 class MessageChatstreamPacketClass : public PacketClass

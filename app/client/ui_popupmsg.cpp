@@ -29,17 +29,17 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // The character view: charview.h's CharacterViewClass
 #include "charview.h"
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: as eff_o.cpp's
-void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
+bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
 
-// The object at *0xBFAEE0 (kernel.cpp's): its slot +0x14 makes a render object by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
 
 // The control keys event (0x10 bytes) and InterfaceClass +0x4C, as ui_login.cpp declares them
 struct PopupKeyEventStruct	// NAME 1: neutral (D10)
@@ -51,7 +51,7 @@ struct PopupKeyEventStruct	// NAME 1: neutral (D10)
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class PopupKeysClass { public: void Unknown_721E60(const PopupKeyEventStruct *event, int id); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: as ui_login.cpp's
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60, Remove 0x721EF0), as far as this file calls it
 
 // The settings store 0x7CA2D0 returns (tsk_game.h's Unknown_7CA2D0Class), as far as the site's link opens through it
 class PopupSettingsClass { public: void Unknown_7CB2E0(const char *url, int a); };	// NAME 1: neutral (D10)  // NAME 1 [url, a]: as ui_login.cpp's
@@ -103,7 +103,7 @@ Unknown5DB670InterfaceClass::Unknown5DB670InterfaceClass(UIViewClass *view, Laye
 	CharacterView = (CharacterViewClass *)View->Unknown_28();
 	Task = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
 	CharacterView->Unknown_67A250();
-	Model = Create_Get(Unknown_BFAEE0->Create_Render_Obj("end_screen00"));
+	Model = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("end_screen00"));
 	Model->Add(Layer.Peek_Scene());
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("end_screen00.ini");
 	Unknown_BE67C4->Add(Model);
@@ -116,7 +116,7 @@ Unknown5DB670InterfaceClass::Unknown5DB670InterfaceClass(UIViewClass *view, Laye
 			Unknown64.Unknown_6870E0(Buttons[i], i + 1, View, 1, 0);
 		}
 	}
-	((PopupKeysClass *)Unknown4C)->Unknown_721E60(&PopupKeyEventStruct(0x1B), 7);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&PopupKeyEventStruct(0x1B), (void *)7);
 }
 
 // 0x5DB9F0

@@ -7,10 +7,10 @@
 #include "..\shared\unknown_debug.h"
 
 // ro_funcs.cpp (app\shared, cdecl), as far as this file calls it
-void Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110: a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
+bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110: a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
 bool Unknown_496240(RenderObjClass *robj, int arg);	// 0x496240 (over the sub-objects)  // NAME 1 [robj, arg]: neutral
 int Unknown_495FD0(RenderObjClass *robj, int arg, int index);	// 0x495FD0 (into the material's table at index)  // NAME 1 [robj, arg, index]: neutral
-int Unknown_4960C0(RenderObjClass *robj, int index);	// 0x4960C0 (out of the material's table at index)  // NAME 1 [robj, index]: neutral
+class TextureClass *Unknown_4960C0(RenderObjClass *robj, int index);	// 0x4960C0 (out of the material's table at index)  // NAME 1 [robj, index]: neutral
 bool Unknown_496960(RenderObjClass *robj, float x, float y, const LayerClass &layer);	// 0x496960 (FAIL_IFs on the layer's scene and camera: a pick)  // NAME 1 [robj, x, y, layer]: neutral
 
 // NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact

@@ -26,15 +26,3 @@ ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const c
 // ---------------------------------------------------------------- shipcust_desc.cpp's defaults
 
 ShipCustSettingsClass Unknown_BE56D8[3][2];		// 0xBE56D8: each race's two default settings (three races assumed)
-
-// ---------------------------------------------------------------- the settings store's Get_String (a std::string by value)
-
-#include <string>
-#include "..\..\app\client\tasks\tsk_game.h"
-
-// 0x7CCF20: not kept (the lkey check thread 0x7CB8F0 asks for 'lkey'; empty: no check URL)
-std::string Unknown_7CA2D0Class::Get_String(const char *key)
-{
-	STUB_CALLED("Unknown_7CA2D0Class::Get_String (0x7CCF20, settings_store.cpp's lkey): empty");
-	return std::string();
-}

@@ -410,5 +410,207 @@
   "address": "0x463D90",
   "symbol": "?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
   "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D90 is called by LandClass::Unknown_46E120 at 0x46E524 (land.cpp) with contact point height"
+ },
+ {
+  "address": "0xB110C8",
+  "symbol": "??_7GridWSClassicEnvironmentMapperClass@@6B@",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT): stored by the constructors 0x939EE0 / 0x93A010 / 0x93A150; slots 1 0x939FF0, 2 0x939F40, 3 0x939F50, 5 0x93A1E0, 8 0x939AD0 GridWSEnvMapperClass::Calculate_Texture_Matrix (mapper.cpp, Zero Hour; MAPR 2026-11-03)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0xB110EC",
+  "symbol": "??_7GridWSEnvironmentMapperClass@@6B@",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT): stored by the constructors 0x93A890 / 0x93A9C0 / 0x93AB00; slots 1 0x93A9A0, 2 0x93A8F0, 3 0x93A900, 5 0x93AB90, 8 0x939AD0 (mapper.cpp, Zero Hour; MAPR 2026-11-03)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x939EE0",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; six arguments (ret 0x18) (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939F40",
+  "symbol": "?Mapper_ID@GridWSClassicEnvironmentMapperClass@@UBEHXZ",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 2 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939F50",
+  "symbol": "?Clone@GridWSClassicEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 3; news 0x34 and stores 0xB110C8 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x939FF0",
+  "symbol": "??_GGridWSClassicEnvironmentMapperClass@@UAEPAXI@Z",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 1 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A010",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; reads the INI (Get_Float / Get_Int, the Axis Get_String switch), ret 0xc (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A150",
+  "symbol": "??0GridWSClassicEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+  "evidence": "stores vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; one argument (ret 4), copies +0x4..+0x30 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A1E0",
+  "symbol": "?Apply@GridWSClassicEnvironmentMapperClass@@UAEXH@Z",
+  "evidence": "vtable 0xB110C8 (GridWSClassicEnvironmentMapperClass: slot 2 Mapper_ID returns 0x15 = MAPPER_ID_GRID_WS_CLASSIC_ENVIRONMENT) slot 5 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A890",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; six arguments (ret 0x18) (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A8F0",
+  "symbol": "?Mapper_ID@GridWSEnvironmentMapperClass@@UBEHXZ",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 2 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A900",
+  "symbol": "?Clone@GridWSEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 3; news 0x34 and stores 0xB110EC (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A9A0",
+  "symbol": "??_GGridWSEnvironmentMapperClass@@UAEPAXI@Z",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 1 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93A9C0",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; reads the INI (Get_Float / Get_Int, the Axis Get_String switch), ret 0xc (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93AB00",
+  "symbol": "??0GridWSEnvironmentMapperClass@@QAE@ABVGridWSEnvMapperClass@@@Z",
+  "evidence": "stores vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) over the GridWSEnvMapperClass vtable 0xB110A4; one argument (ret 4), copies +0x4..+0x30 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0x93AB90",
+  "symbol": "?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z",
+  "evidence": "vtable 0xB110EC (GridWSEnvironmentMapperClass: slot 2 Mapper_ID returns 0x16 = MAPPER_ID_GRID_WS_ENVIRONMENT) slot 5 (mapper.cpp, Zero Hour; MAPR 2026-11-03)"
+ },
+ {
+  "address": "0xA08F80",
+  "symbol": "??0ShdMeshClass@@QAE@XZ",
+  "evidence": "calls RenderObjClass's constructor 0x941880, builds Name from the 'UnNamed' literal 0xBCB7F4, stores ShdMeshClass's vtables 0xB16B0C/0xB16AF8/0xB16AF4 and SimpleVecClass<ShdSubMeshStruct>'s 0xB16CD0, plain ret: the default constructor (shdmesh.cpp); the strings heuristic's MeshModelClass::write_header was wrong (TSH 2026-11-03)"
+ },
+ {
+  "address": "0xA0EC30",
+  "symbol": "??0ShdDefClass@@QAE@K@Z",
+  "evidence": "stores its argument at +0xC (ClassID), builds Name from the 'UnNamed' literal 0xBCB7F4, stores ShdDefClass's vtables 0xB16F70/0xB16F68, ret 4: ShdDefClass(uint32 classid) (shddef.cpp; TSH 2026-11-03)"
+ },
+ {
+  "address": "0x9B4B50",
+  "symbol": "??1AABTreeBuilderClass@@QAE@XZ",
+  "evidence": "the stack AABTreeBuilderClass's destructor: MeshGeometryClass::Generate_Culling_Tree calls it last with lea ecx,[esp+4] (0x92C96B), as do Load_W3D (0x92CCCD) and Scale (0x92D654); its byte twin 0x9B4C20 (Reset, after it in aabtreebuilder.cpp's order) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x988C20",
+  "symbol": "??1HTreeClass@@QAE@XZ",
+  "evidence": "called right before operator delete on an HTreeClass pointer: Animatable3DObjClass::Set_HTree 0x9C6460 (then 0x412B7A ??3), its destructor 0x9C5527, HTreeManagerClass::~HTreeManagerClass 0x963F7A, Load_Tree 0x9642F0; the byte twin 0x989330 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C6780",
+  "symbol": "??1BitChannelClass@@QAE@XZ",
+  "evidence": "hrawanim's NodeMotionStruct::~NodeMotionStruct deletes its BitChannelClass *Vis through it (0x9C2C3D) and HRawAnimClass::Load_W3D frees a rejected bit channel (0x9C3110) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C6E30",
+  "symbol": "??1TimeCodedBitChannelClass@@QAE@XZ",
+  "evidence": "hcanim's NodeCompressedMotionStruct::~NodeCompressedMotionStruct deletes its TimeCodedBitChannelClass *Vis through it (0x9C3B2C) and HCompressedAnimClass::Load_W3D frees a rejected one (0x9C3FF3) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x945E10",
+  "symbol": "?Set_Element@MatBufferClass@@QAEXHPAVVertexMaterialClass@@@Z",
+  "evidence": "called by DynamicMeshModel::Initialize_Material_Array (0x975E18) and DynamicMeshClass::Set_Vertex_Material (0x976B47); its byte twin 0x946010 is called by the texture paths (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x946010",
+  "symbol": "?Set_Element@TexBufferClass@@QAEXHPAVTextureClass@@@Z",
+  "evidence": "called by DynamicMeshModel::Initialize_Texture_Array (0x975DDA), DynamicMeshClass::Set_Texture (0x976E1C) and MeshModelClass::post_process_fog (0x9BCFCE) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x950CA0",
+  "symbol": "?_Reset@DynamicVBAccessClass@@SAX_N@Z",
+  "evidence": "WW3D::Begin_Render calls it first (0x917B0F) and SortingRendererClass::Flush second (0x9846FF), as ww3d.cpp (VB then IB) and sortingrenderer.cpp (IB then VB) order their _Reset calls (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x951A70",
+  "symbol": "?_Reset@DynamicIBAccessClass@@SAX_N@Z",
+  "evidence": "WW3D::Begin_Render calls it second (0x917B16) and SortingRendererClass::Flush first (0x9846F8), as ww3d.cpp and sortingrenderer.cpp order their _Reset calls (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x945E90",
+  "symbol": "?Peek_Element@MatBufferClass@@QAEPAVVertexMaterialClass@@H@Z",
+  "evidence": "MeshModelClass::post_process_fog calls it twice (0x9BCFEC, 0x9BD02E) for MaterialArray[1]->Peek_Element(0) and MaterialArray[0]->Peek_Element(i), meshmdlio.cpp's two material peeks; its byte twin 0x946090 is the texture peek (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x946090",
+  "symbol": "?Peek_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z",
+  "evidence": "MeshModelClass::post_process_fog calls it once (0x9BCFBE) for TextureArray[1][0]->Peek_Element(i), right before TexBufferClass::Set_Element 0x946010 (0x9BCFCE) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x94F090",
+  "symbol": "??1WriteLockClass@VertexBufferClass@@QAE@XZ",
+  "evidence": "a VertexBufferClass::WriteLockClass local's destructor: wwshade's ShdDX8RendererNodeClass constructor (0xA0850F) and the app's vertex fills (0x4748F1, 0x47B9DA); its byte twin 0x94F150 is the append lock's (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x94F150",
+  "symbol": "??1AppendLockClass@VertexBufferClass@@QAE@XZ",
+  "evidence": "DX8RigidFVFCategoryContainer::Add_Mesh's VertexBufferClass::AppendLockClass local (dx8renderer.cpp) is destroyed through it (0x978FA1), its only caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9511D0",
+  "symbol": "??1WriteLockClass@IndexBufferClass@@QAE@XZ",
+  "evidence": "PointGroupClass::_Init's four IndexBufferClass::WriteLockClass locals (pointgr.cpp: locktris / lockquads twice) are destroyed through it (0x957900, 0x957952, 0x95797E, 0x9579D1), as are LandClass::Build_Index_Buffers' (0x4783EB) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x951280",
+  "symbol": "??1AppendLockClass@IndexBufferClass@@QAE@XZ",
+  "evidence": "DX8TextureCategoryClass::Add_Mesh's IndexBufferClass::AppendLockClass local (dx8renderer.cpp) is destroyed through it (0x97A204), its only caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C65D0",
+  "symbol": "??1MotionChannelClass@@QAE@XZ",
+  "evidence": "hrawanim's NodeMotionStruct::~NodeMotionStruct deletes its X / Y / Z / R channels through it (0x9C2B9C, 0x9C2BB3, 0x9C2BCA, 0x9C2BE1, ...); its byte twin 0x9C6610 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C68D0",
+  "symbol": "??1TimeCodedMotionChannelClass@@QAE@XZ",
+  "evidence": "hcanim's NodeCompressedMotionStruct::~NodeCompressedMotionStruct deletes its time-coded channels through it (0x9C3AD0, 0x9C3AE7, 0x9C3AFE, 0x9C3B15); its byte twin 0x9C68F0 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9C7040",
+  "symbol": "??1AdaptiveDeltaMotionChannelClass@@QAE@XZ",
+  "evidence": "hcanim's NodeCompressedMotionStruct::~NodeCompressedMotionStruct deletes its adaptive-delta channels through it (0x9C3A7B, 0x9C3A92, 0x9C3AA9, 0x9C3AC0); its byte twin 0x9C7080 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x9B5F60",
+  "symbol": "??1HModelDefClass@@QAE@XZ",
+  "evidence": "HModelPrototypeClass's scalar deleting destructor deletes its definition through it (0x93E7F3), as does HModelLoaderClass::Load_W3D on failure (0x93E74E); its byte twin 0x9B5FB0 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x964090",
+  "symbol": "?Free_All_Trees@HTreeManagerClass@@QAEXXZ",
+  "evidence": "WW3DAssetManager::Free_Assets calls it (0x91D1CE), as assetmgr.cpp's HTreeManager.Free_All_Trees(); its byte twin 0x963FF0 (Free) has no caller (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x921140",
+  "symbol": "?Log_DX8_ErrorCode@@YAXI@Z",
+  "evidence": "147 callers (dx8wrapper.h's inline DX8_ErrorCode calls Log_DX8_ErrorCode); its byte twin 0x921180 (Non_Fatal_Log_DX8_ErrorCode) has none (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x995610",
+  "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABUIOVector3Struct@@PAVVector3@@@Z",
+  "evidence": "file-to-engine direction: LightClass::Load_W3D (0x953D48, light.cpp's Convert_Vector(spotinfo.SpotDirection,&vec)), SpherePrototypeClass::Create (0x90E299, 0x90E2A9: Definition -> sphere) and RingPrototypeClass::Create (0x9131F0) call it (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x995630",
+  "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABVVector3@@PAUIOVector3Struct@@@Z",
+  "evidence": "engine-to-file direction: SpherePrototypeClass's constructor from a sphere calls it four times (0x90DD28, 0x90DD36, 0x90DD5C, 0x90DD82; sphereobj.cpp's def_color / def_scale / Center / Extent into Definition) (TW3, run 2026-11-03 pm)"
  }
 ]

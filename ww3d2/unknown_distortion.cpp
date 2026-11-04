@@ -297,6 +297,14 @@ UnknownRippleClass::UnknownRippleClass(void) :
 {
 }
 
+// 0x997DB0: the three parameters straight into the members
+UnknownRippleClass::UnknownRippleClass(float decay, float speed, float amplitude) :
+	Unknown08(decay),
+	Unknown0C(speed),
+	Unknown10(amplitude)
+{
+}
+
 void UnknownRippleClass::Unknown_Distort(Vector2 & uv, UnknownDistortionClass * owner)
 {
 	float dy = uv.Y - 0.5f;

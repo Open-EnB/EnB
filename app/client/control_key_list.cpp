@@ -95,18 +95,6 @@ void ControlKeyListClass::Unknown_721F80(LoginUnknown0CClass *dispatcher, Interf
 	}
 }
 
-// Stand-in for ui_login.cpp's LoginKeysClass::Unknown_721E60
-class LoginKeysClass
-{
-public:
-	void Unknown_721E60(const void *event, int id);
-};
-
-void LoginKeysClass::Unknown_721E60(const void *event, int id)
-{
-	((ControlKeyListClass *)this)->Add(*(const ControlKeyComboStruct *)event, (void *)id);
-}
-
 /*
 **	Reconstruction notes
 **

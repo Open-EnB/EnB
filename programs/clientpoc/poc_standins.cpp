@@ -33,74 +33,23 @@ bool Unknown_846C90()
 	return true;
 }
 
-// ---------------------------------------------------------------- msgserv.cpp's message server (-ENABLE_MESSAGES only)
+// ---------------------------------------------------------------- the assert reporters (0x4E9410 / 0x4E9450), teed
 
-class Unknown_8B20D0Class : public TaskClass
-{
-public:
-	Unknown_8B20D0Class();
-	virtual int Get_Interval();
-	virtual bool Delete_On_Remove();
-	void Unknown_8B2230();
-	char Unknown0C[0x48 - 0x0C];
-};
+// app/shared/unknown_debug.cpp's two functions, with a line in the stub log first: the client's reporter
+// 0x4BC260 (called next, as the client does) drops every message while no listener is connected to the
+// message server (-ENABLE_MESSAGES; tools/harness/msglisten.py), and the start-up ones (combo_ffactory.cpp,
+// soundlib.cpp) come before the server can accept one. Defining both keeps unknown_debug.obj out.
+void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);
 
-Unknown_8B20D0Class::Unknown_8B20D0Class()
+void Unknown_Assert_Failed(const char *expr, const char *file, int line)
 {
-	STUB_CALLED("Unknown_8B20D0Class (0x8B20D0, msgserv.cpp's message server)");
+	Stub_Log_Line("G_ASSERT: ASSERTION FAILED: %s, %s(%d)", expr, file, line);
+	Unknown_4BC260("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
 }
 
-int Unknown_8B20D0Class::Get_Interval()
+void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
 {
-	return 1000;
+	Stub_Log_Line("FAIL_IF: ERROR: %s, %s(%d)", expr, file, line);
+	Unknown_4BC260("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
 
-bool Unknown_8B20D0Class::Delete_On_Remove()
-{
-	return true;
-}
-
-void Unknown_8B20D0Class::Unknown_8B2230()
-{
-	STUB_CALLED("Unknown_8B20D0Class::Unknown_8B2230 (0x8B2230, msgserv.cpp)");
-}
-
-// ---------------------------------------------------------------- the personality manager
-
-class Unknown_790560Class { public: Unknown_790560Class(); ~Unknown_790560Class(); char Unknown00[0x14]; };
-
-Unknown_790560Class *Unknown_BE856C;	// 0xBE856C
-
-Unknown_790560Class::Unknown_790560Class()
-{
-	STUB_CALLED("Unknown_790560Class (0x790560, the personality manager): no personalities");
-}
-
-Unknown_790560Class::~Unknown_790560Class()
-{
-}
-
-void Unknown_790940(Unknown_790560Class *manager)
-{
-	Unknown_BE856C = manager;
-}
-
-// ---------------------------------------------------------------- the starbase lights manager
-
-class Unknown_764480Class { public: Unknown_764480Class(); ~Unknown_764480Class(); char Unknown00[0x10]; };
-
-Unknown_764480Class *Unknown_BE82D0;	// 0xBE82D0
-
-Unknown_764480Class::Unknown_764480Class()
-{
-	STUB_CALLED("Unknown_764480Class (0x764480, the starbase lights manager): no lights");
-}
-
-Unknown_764480Class::~Unknown_764480Class()
-{
-}
-
-void Unknown_764510(Unknown_764480Class *manager)
-{
-	Unknown_BE82D0 = manager;
-}

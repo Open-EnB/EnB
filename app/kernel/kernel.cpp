@@ -94,16 +94,16 @@ public:
 };
 extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
 
-class UnknownBFAEE0Class		// NAME 1 [UnknownBFAEE0Class]: the object at *0xBFAEE0 (Shutdown calls its slot +0x10)
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;	// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+
+
+
 
 // 0x443250
 KernelClass *KernelClass::Get_Instance()
@@ -134,7 +134,7 @@ bool KernelClass::Shutdown()
 		}
 	}
 	Tasks.clear();
-	Unknown_BFAEE0->Unknown_10();
+	WW3DAssetManager::Get_Instance()->Release_Unused_Assets();
 	if (_heapchk() != _HEAPOK) {
 		DebugBreak();
 	}

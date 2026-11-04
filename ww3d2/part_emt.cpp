@@ -325,6 +325,22 @@ void ParticleEmitterClass::Restart(void)
 	Start();
 }
 
+void ParticleEmitterClass::Set_Transform(const Matrix3D &m)
+{
+	RenderObjClass::Set_Transform(m);
+	if (UnknownFlag) {
+		Buffer->Set_Transform(m);
+	}
+}
+
+void ParticleEmitterClass::Set_Position(const Vector3 &v)
+{
+	RenderObjClass::Set_Position(v);
+	if (UnknownFlag) {
+		Buffer->Set_Position(v);
+	}
+}
+
 void ParticleEmitterClass::Notify_Added(SceneClass * scene)
 {
 	RenderObjClass::Notify_Added(scene);

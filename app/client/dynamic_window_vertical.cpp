@@ -379,5 +379,5 @@ void DynamicWindowVerticalClass::Update_Content_Size()
 **	slots 0x51F600 / 0x51F6D0 / 0x51F7C0 and Update_Content_Size 0x51F850. The client's loops test the
 **	iterator itself in Add_To_Scene / Remove_From_Scene / Set_Level / Set_Position / Remove_All_Children
 **	('if (it)'), the element in Child_Changed, Layout and Update_Content_Size. dynamic_window_horizontal.cpp
-**	is the same file with X and Y exchanged.
+**	is the same file with X and Y exchanged, except that the row's five loops above test the element.
 */

@@ -36,20 +36,7 @@
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
-// 0x4BC260, the reporter of the assert functions (app/shared/unknown_debug.cpp: 0x4E9410, 0x4E9450).
-// An assert is worth a line each time, not only the first.
-void Unknown_Report_Message(const char *sender, const char *category, const char *file, int line,
-	const char *format, ...)
-{
-	STUB_CALLED("Unknown_Report_Message (0x4BC260)");
-	char text[1024];
-	va_list va;
-	va_start(va, format);
-	_vsnprintf(text, sizeof(text) - 1, format, va);
-	va_end(va);
-	text[sizeof(text) - 1] = 0;
-	Stub_Log_Line("%s: %s, %s(%d)", category, text, file, line);
-}
+// (0x4BC260, the assert functions' reporter, is real: app/shared/unknown_message.cpp)
 
 // ------------------------------------------------------------------------- globals (data)
 
@@ -187,13 +174,6 @@ std::string MoneyClass::Unknown_4F00C0(bool) const
 	char buffer[32];
 	return std::string(_i64toa(Unknown00, buffer, 10));
 }
-
-// 0x4C4360-0x4C48C0: the chat-stream decoder (opcode 95's Print): the text left empty
-Unknown_ChatStreamClass::Unknown_ChatStreamClass(const void *, int) : Unknown04(0), Unknown08(0) {}
-Unknown_ChatStreamClass::~Unknown_ChatStreamClass() {}
-char *Unknown_ChatStreamClass::Unknown_00() { return (char *)Unknown04; }
-int Unknown_ChatStreamClass::Unknown_04() { return Unknown08; }
-void Unknown_ChatStreamClass::Unknown_4C48C0(char *) { STUB_CALLED("Unknown_ChatStreamClass::Unknown_4C48C0 (0x4C48C0)"); }
 
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
 char *Unknown_8B44E0(__int64 value, char *buffer)

@@ -120,16 +120,16 @@ static const char *Unknown_B7C2B8[] = { "Broadcast:", "Local:", "To Guild:", "To
 // The chat window's icons by kind (0xB7C2E0)
 static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "if_chat03.tga" };	// NAME 1: neutral (D10)
 
-// The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (0x56C180: the icon, 1, 0, 1)  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+
+
 
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
 
@@ -2419,7 +2419,7 @@ void UIChatPanelClass::Unknown_56C180(int window)
 	const char *icon_name = Unknown_B7C2E0[window];
 	FAIL_IF(!icon_name) return;
 
-	RefCountPtr<TextureClass> texture = Create_Get(Unknown_BFAEE0->Get_Texture(icon_name, 1, 0, 1));
+	RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(icon_name, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
 	FAIL_IF(!texture) return;
 	UnknownA4[3]->Unknown_90(texture.Peek());
 }

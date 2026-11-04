@@ -11,13 +11,13 @@
 static Unknown4BCA80Class *Unknown_BE55D0;	// 0xBE55D0 the server  // NAME 1: neutral (D10)
 
 // 0x4BBE90
-Unknown4BCA80Class *Unknown_4BBE90()
+Unknown4BCA80Class *Get_Internal_Server_Protocol()
 {
 	return Unknown_BE55D0;
 }
 
 // 0x4BBEB0
-void Unknown_4BBEB0(Unknown4BCA80Class *server)
+void Set_Internal_Server_Protocol(Unknown4BCA80Class *server)
 {
 	Unknown_BE55D0 = server;
 }

@@ -491,6 +491,35 @@ static void Query_State(void *dev)
 	if (obj) ((ReleaseType)VT(obj, SLOT_RELEASE))(obj);
 }
 
+/* the material and the enabled lights at a dumped draw, written to d3d8shot.log (D3DMATERIAL8 17 floats,
+** D3DLIGHT8 26 dwords) */
+#define SLOT_GETMATERIAL		43
+#define SLOT_GETLIGHT			45
+#define SLOT_GETLIGHTENABLE		47
+typedef HRESULT (STDMETHODCALLTYPE *GetMaterialType)(void *, float *);
+typedef HRESULT (STDMETHODCALLTYPE *GetLightType)(void *, DWORD, float *);
+typedef HRESULT (STDMETHODCALLTYPE *GetLightEnableType)(void *, DWORD, BOOL *);
+static void Log_Lights(void *dev, int draw)
+{
+	float m[17], l[26];
+	char line[1024];
+	int n = 0;
+	DWORD i;
+	memset(m, 0, sizeof(m));
+	((GetMaterialType)VT(dev, SLOT_GETMATERIAL))(dev, m);
+	n += _snprintf(line + n, sizeof(line) - n, "draw %d: material D %.2f %.2f %.2f A %.2f %.2f %.2f E %.2f %.2f %.2f;",
+		draw, m[0], m[1], m[2], m[4], m[5], m[6], m[12], m[13], m[14]);
+	for (i = 0; i < 4; i++) {
+		BOOL on = FALSE;
+		if (((GetLightEnableType)VT(dev, SLOT_GETLIGHTENABLE))(dev, i, &on) != 0 || !on) continue;
+		memset(l, 0, sizeof(l));
+		((GetLightType)VT(dev, SLOT_GETLIGHT))(dev, i, l);
+		n += _snprintf(line + n, sizeof(line) - n, " L%u type %u D %.2f %.2f %.2f A %.2f %.2f %.2f dir %.2f %.2f %.2f;",
+			i, *(DWORD *)&l[0], l[1], l[2], l[3], l[9], l[10], l[11], l[16], l[17], l[18]);
+	}
+	Log("%s\n", line);
+}
+
 static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed(void *dev, UINT type, UINT minidx, UINT count, UINT start, UINT prims)
 {
 	int frame = Presented + 1;
@@ -537,6 +566,7 @@ static HRESULT STDMETHODCALLTYPE Hook_Draw_Indexed(void *dev, UINT type, UINT mi
 			if (vs && vs->Data && Stride0 <= 256 && at + Stride0 <= vs->Size) fwrite(vs->Data + at, Stride0, 1, DumpFile);
 			else fwrite(zero, Stride0 <= 256 ? Stride0 : 256, 1, DumpFile);
 		}
+		Log_Lights(dev, DumpDraws);
 		DumpDraws++;
 	} else if (DumpFile) {
 		Close_Dump();

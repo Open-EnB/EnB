@@ -16,6 +16,9 @@ Sources, best first (a name from a better source wins):
   strings   string-anchored matches (docs/data/funcmatch.json, high/medium confidence)
   thunk     incremental-link thunks named after their target (j_<name>)
 
+An exact entry lying strictly inside another exact entry of the same symbol (a stale mid-function
+match left by a version without E&B's early-out guard) is dropped (D189(1)).
+
 Writes:
   symbols.json        [{address, name, symbol, kind, source[, proof][, length]}]; `proof` (D114(c)) is the
                       non-exact evidence (vtable, strings) an exact name also has
@@ -176,10 +179,34 @@ def main():
     finish(a, img, starts, thunks, syms, vt_named)
 
 
+def drop_nested(syms):
+    """D189(1): an exact entry strictly inside another exact entry of the same symbol is a stale
+    mid-function match (a version without E&B's early-out guard: WW3D::Render 0x917C5C inside
+    0x917C50); it goes. Returns the dropped [(address, outer address, name)]."""
+    by = {}
+    for addr, e in syms.items():
+        if e['source'] == 'exact' and e['kind'] == 'function':
+            by.setdefault(e['symbol'], []).append(addr)
+    out = []
+    for sym, addrs in by.items():
+        for outer in addrs:
+            n = syms[outer].get('length') or 0
+            for inner in addrs:
+                if outer < inner < outer + n and inner in syms:
+                    out.append((inner, outer, syms[inner]['name']))
+    for inner, _, _ in out:
+        syms.pop(inner, None)
+    return out
+
+
 def finish(a, img, starts, thunks, syms, vt_named):
+    for inner, outer, name in drop_nested(syms):
+        print(f'dropped 0x{inner:06X} {name}: inside its exact 0x{outer:06X} (D189(1))')
     rows = [syms[k] for k in sorted(syms)]
     os.makedirs(a.out, exist_ok=True)
-    json.dump(rows, open(os.path.join(a.out, 'symbols.json'), 'w', newline='\n'), indent=0)
+    # one entry per line, compact separators (a diff shows one changed symbol per line; 2026-11-03)
+    with open(os.path.join(a.out, 'symbols.json'), 'w', newline='\n') as f:
+        f.write('[\n' + ',\n'.join(json.dumps(r, separators=(',', ':')) for r in rows) + '\n]\n')
     write_ghidra(rows, os.path.join(a.out, 'ghidra_symbols.py'))
     if not a.apply_named:   # its vtable count belongs to the last regeneration
         write_coverage(img, starts, thunks, rows, os.path.join(a.out, '..', 'coverage.md'), vt_named)

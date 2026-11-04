@@ -8,7 +8,7 @@
 #include "wwstring.h"
 #include "..\shared\unknown_debug.h"
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, unknown]: what the helpers pass
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
 
 static INIClass DynaWinIni;	// 0xBE59F8  // NAME 1 [DynaWinIni]: neutral, the file it loads
 // 0x515AB0

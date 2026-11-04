@@ -3523,11 +3523,68 @@ WW3D_API_PATCHES = {
         ('\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\t// Find the dimensions of the texture:\n',
          '\tWW3D::Get_Device_Resolution(resw, resh, resbits, windowed);\n\t// This should be the correct way to do things\n\t// but other code expects an aspect ratio of 1.0\n\t// Hector Yee 2/22/01\n\t//Set_Aspect(resh/(float)resw);\n\n\tif (!texture->Is_Initialized()) {\n\t\tTextureLoader::Request_Foreground_Loading(texture);\n\t}\n\n\t// Find the dimensions of the texture:\n',
          'Bitmap2DObjClass::Bitmap2DObjClass 0x974CD0: request foreground loading if uninitialized so texture format has alpha and dimensions are valid before shader selection'),
+        ('#include "surfaceclass.h"\n',
+         '#include "surfaceclass.h"\n#include "assetmgr.h"\n',
+         'Bitmap2DObjClass 0x974420: include assetmgr.h for WW3DAssetManager::Get_Texture'),
+        ('\t// load up the surfaces file name\n\tSurfaceClass *surface=NEW_REF(SurfaceClass,(filename));\t\n',
+         "\t// E&B: the image comes through the asset manager's texture (0x974420)\n\tTextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(filename, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);\n\tif (!texture->Is_Initialized()) {\n\t\tTextureLoader::Request_Foreground_Loading(texture);\n\t}\n\tSurfaceClass *surface = texture->Get_Surface_Level(0);\n\tif (surface == NULL) {\n\t\tsurface = NEW_REF(SurfaceClass,(32, 32, Get_Valid_Texture_Format(WW3D_FORMAT_R8G8B8, true)));\n\t}\n",
+         "Bitmap2DObjClass::Bitmap2DObjClass(const char *,...) 0x974420: E&B's filename ctor loads the image as a texture through the asset manager (0x974469: [0xBFAEE0] vtable +0x30 with (filename, 1, 0, 1)), requests foreground loading when uninitialised (0x949550), takes surface level 0 (0x94BB50) and falls back to a 32x32 surface of Get_Valid_Texture_Format(R8G8B8, true) (0x9689A0, 0x94D590)"),
+        ('\tREF_PTR_RELEASE(surface);\t\n\n\tSet_Dirty();\n}',
+         '\tREF_PTR_RELEASE(texture);\n\tREF_PTR_RELEASE(surface);\n\n\tSet_Dirty();\n}',
+         'Bitmap2DObjClass::Bitmap2DObjClass 0x974420: releases the texture before the surface (0x974AF2, 0x974B03)'),
+    ],
+    ('ww3d2', 'part_emt.h'): [
+        ('\t\tvirtual void\t\t\tRestart(void);\n',
+         '\t\tvirtual void\t\t\tRestart(void);\n\n\t\t// E&B: the transform also moves the particle buffer when UnknownFlag is set (0x97DD90, 0x97DDC0)\n\t\tvirtual void\t\t\tSet_Transform(const Matrix3D &m);\n\t\tvirtual void\t\t\tSet_Position(const Vector3 &v);\n',
+         "ParticleEmitterClass's vtable 0xB12CD8 slots 20 / 21 (0xB12D28 / 0xB12D2C) hold its own Set_Transform 0x97DD90 and Set_Position 0x97DDC0, not RenderObjClass's"),
+    ],
+    ('ww3d2', 'part_emt.cpp'): [
+        ('void ParticleEmitterClass::Restart(void)\n{\n\t// calling Start will cause all internal counters to reset\n\tStart();\n}\n',
+         'void ParticleEmitterClass::Restart(void)\n{\n\t// calling Start will cause all internal counters to reset\n\tStart();\n}\n\nvoid ParticleEmitterClass::Set_Transform(const Matrix3D &m)\n{\n\tRenderObjClass::Set_Transform(m);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Transform(m);\n\t}\n}\n\nvoid ParticleEmitterClass::Set_Position(const Vector3 &v)\n{\n\tRenderObjClass::Set_Position(v);\n\tif (UnknownFlag) {\n\t\tBuffer->Set_Position(v);\n\t}\n}\n',
+         "ParticleEmitterClass::Set_Transform 0x97DD90 / Set_Position 0x97DDC0 (after Restart 0x97DCD0): call RenderObjClass's (0x941C20 / 0x941CF0), then, when the byte at +0xFD (UnknownFlag) is set, the buffer's (+0xF8) vtable slot 20 / 21 with the same argument"),
+    ],
+    ('ww3d2', 'meshmdl.cpp'): [
+        ('void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)\n{\n#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")\n#if 0\n',
+         'void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)\n{\n',
+         "MeshModelClass::Replace_Texture 0x9587E0 is live in E&B (called by MeshClass::Replace_Texture 0x9402D0 and the app, 0x48D57E): Generals' body, not Renegade's #if 0"),
+        ('void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)\n{\n#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")\n#if 0\n',
+         'void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)\n{\n',
+         "MeshModelClass::Replace_VertexMaterial 0x9588D0 is live in E&B (called by MeshClass::Replace_VertexMaterial 0x9402F0): Generals' body"),
+        ('\t\t}\n\t}\n#endif\n}\n\nvoid MeshModelClass::Replace_VertexMaterial',
+         '\t\t}\n\t}\n}\n\nvoid MeshModelClass::Replace_VertexMaterial',
+         'MeshModelClass::Replace_Texture 0x9587E0: end of the former #if 0'),
+        ('\t}\t\n#endif\n}\n\nvoid MeshModelClass::Shadow_Render',
+         '\t}\t\n}\n\nDX8FVFCategoryContainer* MeshModelClass::Peek_FVF_Category_Container()\n{\n\tif (PolygonRendererList.Is_Empty()) return NULL;\n\tDX8PolygonRendererClass* polygon_renderer=PolygonRendererList.Get_Head();\n\tWWASSERT(polygon_renderer);\n\tDX8TextureCategoryClass* texture_category=polygon_renderer->Get_Texture_Category();\n\tWWASSERT(texture_category);\n\tDX8FVFCategoryContainer* fvf_category=texture_category->Get_Container();\n\tWWASSERT(fvf_category);\n\treturn fvf_category;\n}\n\nvoid MeshModelClass::Shadow_Render',
+         "MeshModelClass::Peek_FVF_Category_Container 0x9589A0 (Generals' meshmdl.cpp, after Replace_VertexMaterial): the polygon renderer list's head's texture category's container, NULL for an empty list"),
+    ],
+    ('ww3d2', 'meshmdl.h'): [
+        ('\tbool\t\t\t\t\t\t\tIs_Alternate_Material_Description_Enabled(void);\n\n',
+         "\tbool\t\t\t\t\t\t\tIs_Alternate_Material_Description_Enabled(void);\n\n\t// FVF category container will be NULL if the mesh hasn't been registered to the rendering system\n\tDX8FVFCategoryContainer* Peek_FVF_Category_Container();\n\n",
+         "MeshModelClass::Peek_FVF_Category_Container 0x9589A0: Generals' declaration"),
     ],
 }
 for _key, _edits in WW3D_API_PATCHES.items():
     PATCHES.setdefault(_key, []).extend(_edits)
 # end of WW3D_API_PATCHES
+# wwlib registry: E&B's HKEY-rooted open (client 0x9D1500, 0x9D1600; no EA copy has them)
+WWLIB_TINY_PATCHES = {
+    ('wwlib', 'registry.h'): [
+        ('\tRegistryClass( const char * sub_key, bool create = true );\n',
+         '\tRegistryClass( HKEY root, const char * sub_key, bool create );\n\tRegistryClass( const char * sub_key, bool create = true );\n\tvoid Unknown_Open_Key( HKEY root, const char * sub_key, bool create );\t// NAME 1: no caller, no name in the client (0x9D1600)\n',
+         'client 0x9D1500 (a constructor taking the root key first) and 0x9D1600 (the same open without the IsValid reset, returns void), no callers; between Exists 0x9D14C0, the (sub_key, create) constructor 0x9D1580 and ~RegistryClass 0x9D1680'),
+    ],
+    ('wwlib', 'registry.cpp'): [
+        ('/*\n**\n*/\nRegistryClass::RegistryClass( const char * sub_key, bool create ) :\n',
+         '/*\n**\n*/\nRegistryClass::RegistryClass( HKEY root, const char * sub_key, bool create ) :\n\tIsValid( false )\n{\n\tHKEY key;\n\tLONG result = -1;\n\n\tif (create && !IsLocked) {\n\t\tDWORD disposition;\n\t\tresult = RegCreateKeyEx(root, sub_key, 0, NULL, 0,\n\t\t\tKEY_ALL_ACCESS, NULL, &key, &disposition);\n\t} else {\n\t\tresult = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);\n\t}\n\n\tif (ERROR_SUCCESS == result) {\n\t\tIsValid = true;\n\t\tKey = (int)key;\n\t}\n}\n\nRegistryClass::RegistryClass( const char * sub_key, bool create ) :\n',
+         'client 0x9D1500'),
+        ('RegistryClass::~RegistryClass( void )\n',
+         'void RegistryClass::Unknown_Open_Key( HKEY root, const char * sub_key, bool create )\n{\n\tHKEY key;\n\tLONG result = -1;\n\n\tif (create && !IsLocked) {\n\t\tDWORD disposition;\n\t\tresult = RegCreateKeyEx(root, sub_key, 0, NULL, 0,\n\t\t\tKEY_ALL_ACCESS, NULL, &key, &disposition);\n\t} else {\n\t\tresult = RegOpenKeyEx(root, sub_key, 0, IsLocked ? KEY_READ : KEY_ALL_ACCESS, &key);\n\t}\n\n\tif (ERROR_SUCCESS == result) {\n\t\tIsValid = true;\n\t\tKey = (int)key;\n\t}\n}\n\nRegistryClass::~RegistryClass( void )\n',
+         'client 0x9D1600'),
+    ],
+}
+for _key, _edits in WWLIB_TINY_PATCHES.items():
+    PATCHES.setdefault(_key, []).extend(_edits)
+# end of WWLIB_TINY_PATCHES
 # Files reconstructed by us from the client (no EA copy matches): `assemble` keeps the repository's
 # version, and refine leaves them alone. Each entry: (library, file) -> what was done.
 RECONSTRUCTED = {
@@ -3544,6 +3601,11 @@ RECONSTRUCTED = {
                           "Print_State and operator= are Zero Hour's. All 5 functions byte-exact "
                           "(docs/library-matching.md §3.6)",
     ('wwlib', 'rc4.h'): "InitialKey / InitialKeyBuilt statics added; Prepare_Key_8bytes/16bytes removed",
+    ('wwlib', 'unknown_jpeg.cpp'): "E&B's baseline JPEG writer (client 0x9E3850-0x9E531E, between srandom.cpp and "
+                                  "realcrc.cpp; WW3D::Make_Screen_Shot's 'jpg' format), written from the client: "
+                                  "three one-component scans, a direct 8x8 DCT, E&B's quantization tables, the "
+                                  "standard Huffman tables; no EA copy has it. File PROVISIONAL (D137: no __FILE__)",
+    ('wwlib', 'unknown_jpeg.h'): "its two classes, JPEGWriterClass and JPEGBitBufferClass (NAME 2); PROVISIONAL (D137)",
     ('ww3d2', 'unknown_distortion.cpp'): "E&B's screen-distortion module (D19; client 0x995D20-0x998200, between "
                                          "dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, "
                                          "the distortion render object and the ripple function; names neutral (D10)",
@@ -3586,6 +3648,8 @@ RECONSTRUCTED = {
     ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
                                                   "and destructor 0x4BE060, its ini writer / reader 0x4BE0F0 / 0x4BE1E0, the match 0x4BE2C0 (D64) "
                                                   "and the parser 0x4BE7A0 (a separate object: the server calls them; D137 provisional)",
+    ('app', 'shared/message/msgserv.cpp'): "the message server task MsgServer 0x8B20D0-0x8B2379 (its __FILE__ e:\\build\\beta\\G\\app\\shared\\message\\msgserv.cpp, the assert 'Get_Internal_Server_Protocol() == NULL' at line 48, the profiler label 'MsgServer::Run'): all byte-exact",
+    ('app', 'shared/message/msgserv.h'): "MsgServer's class (vtable 0xB0C418; header name assumed from msgserv.cpp)",
     ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
@@ -3982,6 +4046,8 @@ RECONSTRUCTED = {
                                            "client's lines 105 / 119 / 133 / 146 / 212 (D25)",
     ('app', 'shared/definition_auto_ptr.h'): "DefinitionAutoPtr<T>: a definition acquired from a DefinitionManagerClass; "
                                             "the FAIL_IFs on the client's lines 119 / 120 (D25)",
+    ('app', 'shared/chat_edit_stream.cpp'): "the chat stream, client 0x4C4360-0x4C4962 (vtable 0xAEBAA8; __FILE__ from 0x4C45B0's 'type <= HIGHWATER' assert, line 94): rebuilt from the client by builder CHAT (2026-11-03), the constructor NOT EXACT (call form)",
+    ('app', 'shared/chat_edit_stream.h'): "its class (the avatar's +0xE8, opcodes 94 / 95's Print; pkmessagechatstream.h includes it)",
     ('app', 'shared/ini_manager.h'): "INIManagerClass (D24), the ini files as shared definitions",
     ('app', 'shared/ini_manager.cpp'): "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and "
                                       "definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI "
@@ -4017,6 +4083,12 @@ RECONSTRUCTED = {
                                  "Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
     ('app', 'client/unknown_creator.h'): "CharacterCreatorClass (the Character and Starship Creator's folder) and LoginNameDataClass (0x84 bytes, vtable 0xB04160) (PROVISIONAL file name, D10; from tsk_login.h, D90 9b)",
     ('app', 'client/unknown_creator.cpp'): "client 0x78CEE0-0x78E190, the run between avatar.cpp and nlp.cpp (PROVISIONAL file name, D10: no __FILE__): the creator's constructor (registry, folders; D69: never run), the byte sum, Make_Folder, the name's Set_Name / Write / Read / Get_Size; exact; the avatar files' functions 0x78D480-0x78DE40 not yet",
+    ('app', 'client/nlp.cpp'): "client 0x78E190-0x78F700 (the asserts' __FILE__ nlp.cpp, lines 413, 454, 708): the lexicon (NLPLexiconClass), PlayerNLPClass (vtable 0xB04A2C) with the text parser 0x78F050; NOT EXACT functional for the POC (D64) where marked",
+    ('app', 'client/nlp.h'): "PlayerNLPClass, NLPLexiconClass (D24: by convention from nlp.cpp)",
+    ('app', 'client/unknown_personality.h'): "the personality data (vtable 0xB04A40), the personality file and the personality manager (0xBE856C) (PROVISIONAL file name, D10: no __FILE__)",
+    ('app', 'client/unknown_personality.cpp'): "client 0x78F700-0x790560 after nlp.cpp (PROVISIONAL file name, D10; a separate file from nlp.cpp and the manager's: the client inlines none of its functions there): a personality's data loaded from personalities\\PersonalityNN.ini, the personality file; NOT EXACT functional for the POC (D64) where marked",
+    ('app', 'client/unknown_personality_manager.cpp'): "client 0x790560-0x7912E0 (PROVISIONAL file name, D10): the personality manager (0xBE856C, WinMain makes it) and its std::vector instances; NOT EXACT functional for the POC (D64) where marked",
+    ('app', 'client/unknown_phoneme.cpp'): "client 0x791310-0x792040 after the personality manager (PROVISIONAL file name, D10: no __FILE__): the lip-sync phoneme converter (the manager's +0x10; 0x78EEF0 times the talk animation with it), its table 0xB9DAB8 and index 0xBE8570; NOT EXACT functional for the POC (D64) where marked",
     ('app', 'client/tasks/tsk_game.h'): "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 "
                                         "bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only",
     ('app', 'client/tasks/tsk_game.cpp'): "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on "
@@ -4585,10 +4657,20 @@ RECONSTRUCTED = {
     ('app', 'client/charview.h'): "CharacterViewClass's declaration (provisional header name after charview.cpp, NAME 3; tsk_login.h includes it)",
     ('app', 'client/avatar.cpp'): "CharacterViewAvatarClass (0x384 bytes, client 0x77B870-0x789D80, table 0xB044D0, __FILE__ 0xB9CE74 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\avatar.cpp', asserts lines 579-3920; run PR #146 AV): constructor 0x77B870, destructor 0x77C080, Unknown_77E3D0, Unknown_784A50, Unknown_784C90, Unknown_784E00, Unknown_786370, Unknown_7863E0, Unknown_1C4 functional for the POC login narrator (D64)",
     ('app', 'client/avatar.h'): "CharacterViewAvatarClass's declaration (D24 header name from avatar.cpp's __FILE__)",
+    ('app', 'client/wnd_file.cpp'): "E&B's copy of Westwood's Autorun Wnd_file.cpp, streams only (asserts 0xB91DF8-0xB91FF0 on the client's lines): StandardFileClass 0x6B61B0-0x6B686D (constructor, destructor, Open, Close, Read, Write, Seek, Query_Size, Query_File_Stream_Pointer, Reset) and Full_Path_File_Exists 0x6B6880, all byte-exact (STB, STB2)",
+    ('app', 'client/wnd_file.h'): "StandardFileClass's declaration (provisional header name after EA's Wnd_File.h, NAME 3) (STB2)",
+    ('app', 'client/sound_manager.cpp'): "SoundManagerClass (0x340 bytes: 16 std::deque queues of nstrdup'd names, 16 AudibleSoundClass pointers; NUM_CHANNELS from the asserts), client 0x75AB10-0x75B460 (__FILE__ 0xB9AE38): the constructor, destructor, 0x75AE30, 0x75B0D0, 0x75B170, 0x75B2B0, 0x75B320, all byte-exact (STB)",
+    ('app', 'client/sound_manager.h'): "SoundManagerClass's declaration (provisional header name beside sound_manager.cpp, NAME 3) (STB)",
+    ('app', 'client/env_map_manager.cpp'): "SClientUnknown1338Class (sclient.cpp's name; 0x24 bytes: the BaseGridTextures vector, an axis, envmaps.ini's INIClass), client 0x7602C0-0x7617C0 (__FILE__ 0xB9B1D4, asserts on lines 9, 42, 56-137): Load 0x760360 byte-exact; 0x760770 (the BACK-%i reflection blended into each base grid texture) functional NOT EXACT (D64) (STB)",
+    ('app', 'client/env_map_manager.h'): "SClientUnknown1338Class / Unknown67D360Class declarations (provisional header name beside env_map_manager.cpp, NAME 3) (STB)",
+    ('app', 'client/starbase_lights.cpp'): "Unknown_764480Class, the starbase lights manager (0x10 bytes: an INIClass member at +0x00, 'starbase_lights.ini'), client 0x764480-0x764519: the constructor, the destructor 0x7644F0 and the setter 0x764510 of 0xBE82D0 (PROVISIONAL file name after its INI file, D137) (STB2)",
+    ('app', 'client/starbase_lights.h'): "Unknown_764480Class's declaration (provisional header name beside starbase_lights.cpp, NAME 3) (STB2)",
     ('app', 'client/splash.cpp'): "Splash (0x10 bytes; the class name from 0x6A9E40's profile string 'Splash::Render'), client 0x6A9B60-0x6A9F39: the constructor 0x6A9B60, the destructor 0x6A9DB0, Render 0x6A9E40, byte-exact; its literals 0xB917F8-0xB91836 precede textgadg.cpp's; file name PROVISIONAL (D137: no __FILE__; the app\\Client objects here run alphabetically, loadingview .. textgadg, tutorial_manager, view) (GAD4)",
     ('app', 'client/splash.h'): "Splash's declaration (provisional header name after the class, NAME 3; main_client.cpp and tsk_login.cpp include it) (GAD4)",
     ('app', 'client/gd_robj.cpp'): "RObjGadgetClass (D24 class-from-file), the gadget over a model (table 0xAFAAA0, 41 slots, 0x60 bytes), client 0x66BDF0-0x66C8A1 (__FILE__ 0xB8D374, G_ASSERT 'RObj' on the client's line 250, D25): the constructors, the destructor, Set_Render_Obj 0x66C000, the highlight, the slots 0x66C1E0-0x66C890; NOT EXACT (D64): the constructor 0x66BDF0 (scheduling) (GAD4)",
     ('app', 'client/gd_robj.h'): "RObjGadgetClass's declaration (D24 header name from gd_robj.cpp's __FILE__; the client holds no string of it) (GAD4)",
+    ('app', 'client/gd_slider.cpp'): "GadgetSlider (D24 class-from-file), the slider gadget (table 0xAFAF78, 42 slots, 0x128 bytes), client 0x66DFC0-0x66EBE4 (__FILE__ 0xB8D56C 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\gd_slider.cpp', asserts lines 149-180, D25): the constructor 0x66DFC0, destructor 0x66E1D0, Unknown_66E3A0, Unknown_66E460; NOT EXACT (D64): constructor 0x66DFC0 (order-only), 0x66E460 (relocation) (SLD)",
+    ('app', 'client/gd_slider.h'): "GadgetSlider's declaration (D24 header name from gd_slider.cpp's __FILE__; the client holds no string of it) (SLD)",
     ('app', 'client/gd_resize.cpp'): "ResizeGadgetClass (D24 class-from-file), the drag handle over a model (table 0xAFA954, 0x8C bytes), client 0x66BA50-0x66BDD1 (__FILE__ 0xB8D340, FAIL_IF '!Peek_Render_Obj()' on the client's line 64, D25): the constructor, the destructors, slot +0x40 0x66BD60, 0x66BDA0; NOT EXACT (D64): the drag 0x66BB10 (2 rows) (GAD4)",
     ('app', 'client/gd_resize.h'): "ResizeGadgetClass and its base Unknown_675120Class (constructor 0x675120, table 0xAFB870; its file not rebuilt), D24 header name from gd_resize.cpp's __FILE__ (GAD4)",
     ('app', 'client/dynamic_window_background.cpp'): "DynamicWindowBackgroundClass (D24 class-from-file), a window's animated frame (table 0xAED374, 0x64 bytes), and its dynawin.ini entry DynamicWindowAnimationDataClass (table 0xAED358), client 0x515AB0-0x5170F0 (__FILE__ 0xB768D0, G_ASSERT 'AnimMin.I >= 0' on the client's line 110, D25); NOT EXACT (D64): Get 0x515AB0 (DW1)",
@@ -4624,6 +4706,8 @@ RECONSTRUCTED = {
     ('app', 'client/unknown_66b770.h'): "Unknown_66B770Class's declaration (provisional, D137) (GAD4)",
     ('app', 'client/unknown_signalbase.h'): "SignalBaseClass (the client's RTTI: the scope of the MemberCallback type names, 0xB7C068 / 0xB817B0 and ~20 more) and its MemberCallback<SENDER, OBJECT, FUNC, EVENT> template over a neutral base CallbackClass (vtable 0xAEDB58): the windows' gadget-event callbacks, out of line in ui_avsel.cpp's window (0x560250-0x5603AB) and ui_login.cpp's (0x5AF7F0-0x5AF94B); neutral header name, interim placement (D137), LG4",
     ('app', 'client/signal_map.cpp'): "SignalMap and SignalList (the client's profile strings 'SignalMap::emit' 0x4F9AD0, 'SignalMap::connect' 0x4F9740, 'SignalMap::disconnect' 0x4F98D0, 'SignalList::Add' 0x4F84C0, 'SignalList::remove' 0x4F8650, 'SignalList::emit' 0x4F8820), client 0x4F7E00-0x4F9D00: the accessor Unknown_4F7EF0, constructors, destructors, connect, disconnect, emit, functional (NOT EXACT); PROVISIONAL file name (D137: no __FILE__; between shipcust_desc.cpp and split_string.cpp)",
+    ('app', 'client/ui_class.h'): "ClassSelectInterface's declaration (ui_class.cpp's window; a provisional header name, NAME 1: in the .cpp, the functions before the first assert, line 969, do not fit above it)",
+    ('app', 'client/ui_class.cpp'): "ClassSelectInterface, the class select window (ui_class.cpp's __FILE__, 0x577DA0's asserts lines 969 and 973; client 0x5746C0-0x578200, item A574, run PR #147): constructor 0x574710, destructor 0x575220, virtuals Unknown_60 0x5754E0 and Unknown_68 0x575660, and helpers",
     ('app', 'client/ui_combobox.cpp'): "UIComboBoxClass, the combo box (ui_combobox.cpp's __FILE__, 0x5790C0's assert; client 0x578210 to ui_cpit.cpp's 0x57D6C0, claim #61): so far the drop-down's frame 0x57A330, the rows' refresh 0x57AAB0 and the selection by index / by text 0x57AC70 / 0x57AD50, all exact (TG4); the class declared only as far as they use it (ui_chat_panel.h's UIChatComboClass is the same class)",
     ('app', 'client/ui_chat_panel.h'): "UIChatPanelClass, ui_chat_panel.cpp's chat panel (SClient +0x127C; 0x268 bytes, table 0xAEFF1C; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x561DD0 and its functions, over ui_chat_panel_base.cpp's UIChatPanelBaseClass (constructor 0x56D280, table 0xAF00B4; interim placement here, D137) (CH1)",
     ('app', 'client/ui_chat_panel.cpp'): "UIChatPanelClass (ui_chat_panel.cpp's __FILE__; client 0x561DD0-0x56CBF5, claims #33 / #34): slots +0x58 / +0x5C / +0x7C, the frame and font toggles 0x563DC0-0x564400 (lines 710 / 782 / 798), the channel list 0x565120 (the 0xB7C530 table), the window requests 0x565F80 / 0x566AF0, the combo select 0x5698F0 (line 1980), the control keys (lines 2309 / 2317), the target talk 0x56BEF0 (line 2326), the default window 0x56C0C0 (line 2377), the chat window's handlers 0x56C6A0-0x56C7B0 (line 2441) through the interface event dispatcher 0x540A20, and the small accessors exact on the client's lines (D25); slots +0x60 / +0x68, 0x563910, 0x565390, 0x565D80, 0x567540, 0x567760, 0x5679A0, 0x567DF0, 0x56B700 and 0x56C180 (lines 2404 / 2420 / 2423) NOT EXACT; the constructor, destructor, slot +0x54, 0x5646A0, 0x5689D0, 0x569A00 and 0x56C7E0 not written yet, CH1",
@@ -4633,6 +4717,10 @@ RECONSTRUCTED = {
     ('app', 'client/html/unknown_htmlblock.cpp'): "HtmlBlockClass (client 0x76F0F0-0x76FFCF: its members 0x76F0F0-0x76FE60, then the ArrayList copies 0x76FE80-0x76FEE0, a run of template copies that ends the object before htmlview.cpp's 0x76FFD0; claims 0x76EB70-0x770640); every written function exact, HV2",
     ('app', 'client/html/htmlview.h'): "HtmlViewClass (NAME 3, D24 from htmlview.cpp), the view: its wwlib Surface, loader, ArrayList<HtmlBlockClass *> blocks, the 0x210-byte links, url (0x138 bytes), with HtmlLoaderClass and the list element stand-ins (NAME 1), HV2",
     ('app', 'client/html/htmlview.cpp'): "htmlview.cpp (its __FILE__ 0xB9CA28; client from after image.cpp's 0x76E9D0 to its template copies 0x778590-0x779120, claims 0x76FDA0-0x7775D0, 0x7775D0-0x77A9F0): so far HtmlViewClass (HV2): 0x76FFD0-0x770720, Add_Data 0x770860 (line 158), Layout 0x770C70, Draw_Block 0x776390, Click 0x776FC0, the finders and accessors 0x777420-0x7775F0 exact; Draw_Item 0x7767A0, Add_Text 0x7759E0 (lines 1114 / 1115), Render 0x7761E0 and Hit_Test 0x7772C0 NOT EXACT; ArrayList<char>::addMany / growVector / shrinkVector and ArrayList<HtmlLinkStruct>::add among its template copies; and the frame drawing on its wwlib Surface (HV1's UnknownHtmlDrawClass is the view: +0 its surface): Draw_Bevel 0x777630, Draw_Line 0x7777C0 and the empty 24-bit line 0x777EC0 exact, HV1",
+    ('app', 'client/unknown_log.cpp'): "Unknown_Log 0x7E5F90 and Unknown_7E5F70 (client 0x7E5F70-0x7E6022): the enb_client.log functions; file PROVISIONAL (D137: no __FILE__ string; between cfaction_database.cpp and distance_calc_client.cpp)",
+    ('app', 'client/unknown_log.h'): "Unknown_Log and Unknown_7E5F70 declarations; header PROVISIONAL (D137)",
+    ('app', 'shared/unknown_8b4560.cpp'): "Unknown_8B4510 and Unknown_8B4560 (client 0x8B4510-0x8B4596): the 64-bit byte swap functions; file PROVISIONAL (D137)",
+    ('app', 'shared/unknown_8b4560.h'): "Unknown_8B4510 and Unknown_8B4560 declarations; header PROVISIONAL (D137)",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
@@ -4763,7 +4851,7 @@ def app_state(state):
             if k in s['files']:
                 raise SystemExit(f'{lib}: {n} and {s["files"][k]["name"]} share the key {k} (see APP_LIBS)')
             s['files'][k] = {'copy': 'reconstructed', 'name': n, 'expected': {}, 'merged': []}
-            for kept in ('in_tree', 'ambiguous', 'tiebreak', 'shared', 'shared_callers'):
+            for kept in ('in_tree', 'ambiguous', 'tiebreak', 'shared', 'shared_callers', 'short_known'):
                 if kept in old.get(k, {}):
                     s['files'][k][kept] = old[k][kept]
         s['headers'] = {n: 'reconstructed' for n in names if not n.endswith('.cpp')}
@@ -5122,7 +5210,9 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
     `tiebreak` (a dict, optional) as {file key: set(address)}. `shared` (a dict, optional) receives
     {file key: set(address)} of the exact COMDATs two or more of the objects hold at one address
     under one symbol (D183: pairs of each holder, never placement evidence), and, under the key
-    'shared_callers', the D166 tie-break pairs whose decision needed such a function."""
+    'shared_callers', the D166 tie-break pairs whose decision needed such a function, and under the key
+    'short_known', the short functions credited at an address the run knows (D188: pairs like any exact
+    result; a COMDAT one is also in the file's `shared` list)."""
     hold_lock()
     out = os.path.join(WORK, tag)
     if os.path.isdir(out):
@@ -5152,6 +5242,8 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
                 shared.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
             if r.get('shared_callers') and shared is not None:
                 shared.setdefault(('shared_callers', key_of(r['object'])), set()).add(r['addresses'][0])
+            if r.get('short_known') and shared is not None:
+                shared.setdefault(('short_known', key_of(r['object'])), set()).add(r['addresses'][0])
         elif r['status'] == 'multiple' and r.get('identical') and ambiguous is not None:
             ambiguous.setdefault(key_of(r['object']), set()).add(r['addresses'][0])
     for p in paths:
@@ -5193,6 +5285,7 @@ def verify(state, libs=None):
         ambiguous = set()
         tied = 0
         shared = set()
+        shortk = set()
         short = 0
         for k, f in s['files'].items():
             f['in_tree'] = sorted(found.get(k, set()))
@@ -5215,6 +5308,11 @@ def verify(state, libs=None):
             f.pop('shared_callers', None)
             if sha.get(('shared_callers', k)):
                 f['shared_callers'] = sorted(sha[('shared_callers', k)])
+            # D188: short functions credited at an address the run knows (also in in_tree)
+            f.pop('short_known', None)
+            if sha.get(('short_known', k)):
+                f['short_known'] = sorted(sha[('short_known', k)])
+                shortk |= sha[('short_known', k)]
             if len(f['in_tree']) < f['expected'].get(f['copy'], 0):
                 short += 1
         s['in_tree_total'] = len(total)
@@ -5222,7 +5320,7 @@ def verify(state, libs=None):
         s['compile_errors'] = errors[:50]
         print(f'{lib:11s} in tree: {len(total)} client functions (best copy alone: '
               f'{max(s["totals"].values(), default=0)}), {len(ambiguous)} exact with an ambiguous address, {tied} tie-break by callers, '
-              f'{len(shared)} shared addresses; '
+              f'{len(shared)} shared addresses, {len(shortk)} short at known addresses; '
               f'{short} files below their copy; {len(errors)} errors')
     return state
 
@@ -5296,7 +5394,7 @@ def try_with_headers(state, lib, f, c, k, donor):
             for kk, ff in state[l]['files'].items():
                 ff['in_tree'] = trial[l]['files'][kk].get('in_tree', [])
                 ff['ambiguous'] = trial[l]['files'][kk].get('ambiguous', [])
-                for key in ('tiebreak', 'shared', 'shared_callers'):
+                for key in ('tiebreak', 'shared', 'shared_callers', 'short_known'):
                     ff.pop(key, None)
                     if trial[l]['files'][kk].get(key):
                         ff[key] = trial[l]['files'][kk][key]

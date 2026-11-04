@@ -249,7 +249,7 @@ DynamicWindowContainerClass *DynamicWindowHorizontalClass::Get_Container()
 void DynamicWindowHorizontalClass::Add_To_Scene(SceneClass *scene)
 {
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
-		if (it != NULL) {
+		if (*it) {
 			(*it)->Remove_From_Scene();
 			(*it)->Add_To_Scene(scene);
 		}
@@ -259,7 +259,7 @@ void DynamicWindowHorizontalClass::Add_To_Scene(SceneClass *scene)
 void DynamicWindowHorizontalClass::Remove_From_Scene()
 {
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
-		if (it != NULL) {
+		if (*it) {
 			(*it)->Remove_From_Scene();
 		}
 	}
@@ -274,7 +274,7 @@ void DynamicWindowHorizontalClass::Set_Level(int level)
 {
 	Level = level;
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
-		if (it != NULL) {
+		if (*it) {
 			(*it)->Set_Level(level);
 		}
 	}
@@ -289,7 +289,7 @@ void DynamicWindowHorizontalClass::Set_Position(const Vector2 &position)
 {
 	Position = position;
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
-		if (it != NULL) {
+		if (*it) {
 			(*it)->Set_Position(position);
 		}
 	}
@@ -322,7 +322,7 @@ void DynamicWindowHorizontalClass::Child_Changed(DynamicWindowElementClass &chil
 void DynamicWindowHorizontalClass::Remove_All_Children(bool recursive)
 {
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
-		if (it != NULL) {
+		if (*it) {
 			if (recursive) {
 				DynamicWindowContainerClass *container = (*it)->Get_Container();
 				if (container != NULL) {
@@ -373,7 +373,11 @@ void DynamicWindowHorizontalClass::Update_Content_Size()
 **	Reconstruction notes (DW1, 2026-11-01)
 **
 **	Client 0x5186F0-0x5194C5: the row, dynamic_window_vertical.cpp with X and Y exchanged (the same
-**	lines). The constructor 0x5186F0 (table 0xAED490, container side 0xAED480), deleting destructor
+**	lines), except that the row's loops in Add_To_Scene 0x5190E0, Remove_From_Scene 0x519130, Set_Level
+**	0x519190, Set_Position 0x5191F0 and Remove_All_Children 0x5192E0 test the element ('if (*it)': the
+**	client loads it and tests ecx), where the column's test the iterator; Remove_Child leaves a NULL in
+**	the row (a message box's options, removed when the next box is built), so the column's form crashed
+**	there (DynamicWindowClass::Set_Center on the second message box, MRC 2026-11-03).The constructor 0x5186F0 (table 0xAED490, container side 0xAED480), deleting destructor
 **	0x518780, destructor 0x5187B0, Insert_Element 0x518900 (FAIL_IF '!element' on line 52), Add_Element
 **	0x518B10, the slots 0x518B50-0x5191F0 (FAIL_IF 'excess_size.X < 0' on 163, G_ASSERT '!Parent' on 229,
 **	FAIL_IF '!parent' on 230, FAIL_IF '!Parent' on 239), the container slots 0x519240 / 0x5192E0 / 0x5193D0

@@ -565,7 +565,7 @@ def link_program(name, out):
             # summary lists them); write them by hand in the program's directory
             summary = link_one(name, out, extra_srcs=[gen], extra_objs=objs, force=True)
     exe = os.path.join(dst, name + '.exe')
-    if prog.get('deploy') and summary['exe']:
+    if prog.get('deploy') and summary['exe'] and os.path.normcase(os.path.abspath(out)) == os.path.normcase(os.path.abspath(os.path.join(REPO, 'build'))):
         import shutil
         base = os.path.join(prog['deploy'], prog.get('deploy_name', name))
         shutil.copy2(exe, base + '.exe')

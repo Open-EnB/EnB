@@ -208,6 +208,9 @@ public:
 	void							Enable_Alternate_Material_Description(bool onoff);
 	bool							Is_Alternate_Material_Description_Enabled(void);
 
+	// FVF category container will be NULL if the mesh hasn't been registered to the rendering system
+	DX8FVFCategoryContainer* Peek_FVF_Category_Container();
+
 	// Determine whether any rendering feature used by this mesh requires vertex normals
 	bool							Needs_Vertex_Normals(void);
 

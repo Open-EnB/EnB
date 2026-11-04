@@ -59,7 +59,7 @@ def build(pool):
         for f in ('d3d8.dll', 'build.log', 'exports.txt'):
             try:
                 vc6.scp(vc6.remote(w + '\\' + f), os.path.join(DLL_DIR, f))
-            except Exception as e:      # noqa: BLE001 - report what the VM produced
+            except BaseException as e:      # noqa: BLE001 - report what the VM produced
                 print(f'{f}: not copied ({e})')
         vc6.ssh(f'cmd /c rmdir /s /q "{w}"', check=False)
 

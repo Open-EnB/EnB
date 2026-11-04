@@ -4,6 +4,74 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (18:45 PST, afternoon): the POC's character select lit, Karen with hair, blinking and idling, the narrator walks off on Accept; D188 / D189 (+5,421 pairs); multi-instance POC; +2,321 in-tree, lost outright only D189's four accepted
+
+Coordinator Opus 5.5 (Claude weekly 0 % -> ~7 %, the user's soft goal); 21 Claude builders (Opus, two Sonnet), branch
+run/2026-11-03 (PR #147, draft), HEAD 20550a64; plan log `.work/run-2026-11-03-pm/plan.md` (every report, merge and decision).
+
+- POC: login -> avatar list -> character select works against antprox /REPLAY with no crash (clienttest 103/0 equal).
+  LTS: the login was never stuck (shots count presented frames: frame 45000 is ~20 s at ~3,500 fps); characters did not
+  draw because CharacterViewAvatarClass lacked Set_Transform / Set_Position 0x77D1E0 / 0x77D2B0 (exact). POS: per-frame
+  update 0x783B50 + idle animations; NLP: personality manager 0x790560, PlayerNLPClass, phonemes (+28); FACE: morph
+  weights, head look 0x7854B0; BLINK: the face HMorphAnim (blink, brows, lip sync); HAIR: hair / ears / goggles / beard /
+  weapons / eye colour (0x77DA20's player branch); CHAT: chat_edit_stream.cpp + the avatar's command path (interpreter
+  0x784700, queue 0x782200, walk / sit, narrator lines): the narrator's '/walk_off' on Accept; PATH: movement code;
+  LIGHT: the flat look was WW3D statics 0xBFAE4F-0xBFAE52 written into gen stand-in globals (OverbrightModifyOnLoad never
+  reached ww3d2); CUR4: the cursor's black square was a stale build/ww3d2/ww3d2.lib (all main-tree libs rebuilt);
+  STB / STB2: sound_manager.cpp, wnd_file.cpp (StandardFileClass), env_map_manager.cpp, starbase_lights.cpp,
+  Unknown_BFAEE0 = WW3DAssetManager::TheInstance; MSG: msgserv.cpp (the client's -ENABLE_MESSAGES debug server, binds
+  0.0.0.0:9999) + tools/harness/msglisten.py + clientpoc.py --messages; NEX / LGX: ui_class 0 -> 7 exact, gd_slider +1,
+  login path LIMIT REACHED (the /O2 constant-in-ebx region). MRC: concurrent-replay crash = shared auth.ini (per-instance
+  Data\client\ini now) + DynamicWindowHorizontalClass's element tests (5 D66 moves the user accepted).
+- Multi-instance POC (the user's request): poc_multi.cpp (CreateMutexA enb_mutex_lock -> _<pid>, SetCursorPos no-op
+  without ENB_POC_INPUT), `clientpoc.py run|replay --instance NAME --exe EXE` (ClientPOC\inst\NAME\release, client by
+  antprox's descendant PID, antprox starts serialized), `build.py link --out` no longer deploys.
+- Libraries: MAPR (mapper twins named: +12), XMP (E&B's JPEG writer, wwlib/unknown_jpeg.cpp, +20), TW3 (ww3d2 +39),
+  TSH / TLIB triage (most leftover runs are objmatch `short`). D188 / D189 (SHRT): short functions credited at
+  independently known addresses (vptr 4690, call 628, vtable 33; COMDATs shared), nested exact starts dropped, matches
+  anchored to function starts: +5,421 pairs, in-tree +2,321 (app 7672 -> 9039, ww3d2 3303 -> 3739, wwaudio 574 -> 780,
+  wwshade 278 -> 487 ...), lost outright only 0x8437A4 / 0x924875 / 0x9CEEF7 (-> 0x9CEFD0) / 0x9F367D (accepted), one
+  D66(v) move 0x9306E0.
+- AVX: Karen's head / tattoo textures 0x7857D0 / 0x7859F0 / 0x785C00 (functional) called from 0x77F750; the dtor 0x77C080 releases the gesture queue and the EAR clone; +0x2B8 / +0x2BC renamed HeadObj / BodyObj (the client's asserts). Harness at 20550a64: clienttest 103/0 equal, udpreplay alex3 + handshake 54. Open leads (section 4): RefCountPtr avatar members; gd_robj's 0x495FD0 declared int (ro_funcs: bool); ChatStream rename (D137).
+- Decisions: D188, D189 (the user; (b) source-order tie-break left open). User calls: MRC's 5 D66 moves accepted;
+  ANCHOR_HITS on; message server option (a) + a listener.
+- Coordinator traps: never keep-both a C++ conflict (gd_slider duplicated, caught by verify, redone); rebase_gen.sh takes the
+  run's imports.json and re-verifies only app (a library's new file drops out of the record: verify --lib reads its file
+  list from imports.json); symbols.py needs --objs and a good symbols.json as input; TaskStop of a background shell leaves
+  its children running; a worktree reset needs its wt base file updated; poc_check.sh / rebase_gen.sh paths must be absolute.
+
+### 2026-11-03 (11:45 PST, morning): the POC gets past the avatar list without a crash; agy Flash window spent; +45 pairs, 0 lost
+
+Coordinator Opus 5.5 on the subscription (Claude weekly 99 %: hourly heartbeats, minimal); builders Gemini 3.8 Flash high
+through agy (D187), 7 items, the 5-hour window 100 % -> 0 % in 2h50m (about 1.4 % per 100k tokens; 7.5M tokens in all).
+Branch run/2026-11-03, PR #147 (draft), base 7cf59deb (PR #146 merged); HEAD cd74e1a8, +45 pairs vs the baseline, 0 lost.
+Plan log `.work/run-2026-11-03-agy/plan.md`.
+
+- STORE (0.45M; resumed from the night's Flash + Sonnet edits): settings_store.cpp 0x7C97B0-0x7CCF20 (accessor 0x7CA2D0,
+  ctor, 0x7CB610, Set_String / Set_Int / Set_Int64 / Get_String) +23, 6 NOT EXACT; POC store stand-in and clienttest's
+  settings stubs gone.
+- A574 (1.30M): ClassSelectInterface, new app/client/ui_class.cpp/.h (0x574710-0x577DA0) +12, 9 NOT EXACT.
+- LOG (1.52M): Unknown_Log 0x7E5F90 / 0x7E5F70 (unknown_log.cpp), 0x8B4560 / 0x8B4510 (shared/unknown_8b4560.cpp), ro_funcs
+  0x496730 / 0x496AE0 retyped bool in 8 callers (39 fewer gen stand-ins): +3, all exact.
+- CUR3 (1.89M, no commit): the cursor's black square is _PresetOpaque2DShader chosen at 0x974CD0 while the cursor texture's
+  format is still UNKNOWN (Request_Foreground_Loading off the DX8 thread queues it); smouse 0x515120 never re-creates it.
+  ARROW.dds is DXT5 with alpha.
+- SLD (0.96M): GadgetSlider, new app/client/gd_slider.cpp/.h (0x128 bytes, vtable 0xAFAF78) +4, 0x66DFC0 / 0x66E460 NOT EXACT.
+- CVW (1.13M): the crash at 0x400003 was ui_class's undeclared UIClassNotifierClass method (/FORCE:UNRESOLVED points it at the
+  image base); ClassSelectInterface connects FlashingGadgetEvent through SignalMap 0x4F9740 / 0x4F98D0.
+- AVS (0.66M): POC forwarders in poc_ui.cpp for UIAvsel* -> the real CharacterViewClass / CharacterViewAvatarClass (the gen
+  no-op 0x67AB20 left Model NULL: crash 0x4F592E in FontManagerClass::Add).
+- TIP (1.02M, timed out before committing; the coordinator committed its verified work): intrlist.cpp 0x687150 / 0x6872A0 /
+  0x687360 +3, exact.
+- POC via antprox /REPLAY (D181) + input3, per landing: at 9ca5bfd9 a crash after Accept in GadgetClass::Unknown_65F5F0
+  (0x42AC5F, garbage pointer) <- tooltip 0x6AB5B0 <- UIViewClass::Unknown_14 <- LoginTaskClass::Run; at cd74e1a8 (with
+  0x6872A0 real) no crash in 50 s, login + avatar list received, but the screen stays the login screen (shots
+  .work/poc/shots/replay-113603).
+- Coordinator traps: a worktree reset onto a new base needs its wt base file updated (bring-over refused 'merge commits');
+  poc_check.sh's LOG and rebase_gen.sh's BASELINE must be absolute paths.
+- Proposals (user): build.py:568 skip the clientpoc deploy when `--out` is given (CVW: worktree links deploy over
+  ClientPOC\release); D66-free. prepush_check.py's cat-file pipe can deadlock on Windows (CVW).
+
 ### 2026-11-02 (23:10 PST, night): the POC's mouse and keyboard log in against antprox /REPLAY; agy quota measured; +85 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription (Claude weekly 98-99 % all run: lean); builders Gemini 3.8 Flash high through agy
@@ -2029,6 +2097,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D185 | 2026-11-01 | P-API-5 (b) scaled up: `tools/re/variants.py` runs over the whole NOT EXACT backlog (docs/data/not-exact.md, 479 entries: every function an entry resolves to one client address, the functional (D64) rewrites and long functions included) on the Batch API (claude-opus-5-5), round 1 for all, round 2 for the near misses. The whole batch's cost is counted (token counting) before submitting and the `enb-d163` workspace's spend limit is the user's to raise; `try` runs unattended on the pool. Exact variants are applied afterwards by builders through verify / pairs_cmp (D66), as in D184. Pilot: $4.66, +13 pairs (da66757d) | user |
 | D186 | 2026-11-02 | P-B2 adopted (D84's condition met): per-file compile flags, `importer.py FILE_FLAGS` keyed (lib, file). First entry wwlib `rawfile.cpp` with /GX: every RawFileClass function lies in the app range (0x683BE0-0x684DD0, none in wwlib's 0x9C7000-0x9E9300) and its ctor / dtor carry EH frames (handlers 0xABF368 / 0xABF393), so E&B compiled it with the app's /GX. wwlib +4 (0x683BE0, 0x683E10, 0x683EA0, 0x683FB0), 0 lost; found by the agy pilot builder RF | user |
 | D187 | 2026-11-02 | P-AGY-1 approved: Gemini 3.8 Flash (high) through the Antigravity CLI (`agy`, the user's Google subscription) is a builder model next to D72's, for bounded POC and triage items (the functions of one file, 30-60 minutes). Launched by `tools/agy/launch.sh` in a `wt.py` worktree, landed with `wt.py bring-over --target run/<date>`; paced by the user's agy window (about 1 % of the 5-hour window per 100k stream tokens, the user's reading at the start and mid-run; a 429 stops launches); the coordinator runs every POC check itself (`tools/agy/poc_check.sh`: agy-started processes get no D3D device). Not Opus through agy (its quota covers one short item). Evidence: run 2026-11-02 evening, nine Flash items, +39 pairs and 0 lost after the coordinator's verify of each | user |
+| D188 | 2026-11-03 | TW3 / TSH proposal (a) accepted with conditions: objmatch credits a `short` function (fewer than MIN_FIXED fixed bytes) as exact only at an address the run knows independently of its bytes: a learned vtable slot (D171), the target of a call from an exact function, or a constructor's vptr store; its pattern must hold there and its relocations' targets must agree (D80). Never by pattern alone. A short function that is a COMDAT (header inline, template, compiler-generated) is marked `shared` (D183's guard): it credits the address, not a file placement. |
+| D189 | 2026-11-03 | TW3 proposal (c) accepted: symbols.py drops an exact entry that lies inside another exact entry of the same symbol (stale mid-function matches such as WW3D::Render 0x917C5C, RegistryClass::Set_Bin 0x9D18D9, Delete_Value 0x9D1C29, left by versions without E&B's early-out guard); and objmatch credits a match only at a known function start or right after padding / another function's end, never inside a function. Proposal (b) (source-order tie-break for byte-identical overload twins) is left open. |
 
 ## 3. Open decisions
 
@@ -2165,15 +2235,12 @@ below name only the work items, the blocked work, the leads and the queues.
      first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
      2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with poc_input.cpp's virtual
      cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
-     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: the avatar selection interface
-     Unknown574710InterfaceClass (ctor 0x574710, a gen stand-in: after GLOBAL_AVATAR_LIST the login task makes it, then
-     crashes in CharacterViewClass::Unknown_67A370 reading +0x54); the settings store 0x7CA2D0-0x7CBA00 (the Accept path:
-     gen 0x7CB610 / Set_String, POC stand-in store; Flash + Sonnet partial edits uncommitted in .work/wt/store), gen
-     0x8B4560 / Unknown_Log; the cursor's black square (smouse 0x515080 over mousetbl's textures: alpha lost; not
-     bmp2d 0x974CD0, exact); the first-call stand-ins in
-     stubs.log order (gen SoundManagerClass's ctor and Unknown_442650's neighbours, Full_Path_File_Exists, SignalMap /
-     InterfaceKeyListClass / InterfaceUnknown58Class ctors, SClientUnknown1338Class::Load, the avatar's 0x77E3D0 /
-     0x786370 / 0x784A50; never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
+     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: avatar.cpp's functional NOT EXACT functions toward exact (RefCountPtr members +0x2B0..+0x2E4 /
+     +0xBC as the client has them; 0x782200 / 0x7826A0 / 0x782850); the dtor 0x77C080's queue release if AVX did not
+     land it; gen globals the client starts at 1 (0xBB9654, 0xBBB084) and TextureLoader's 0xC01290; the /O2
+     constant-in-ebx residue blocking 0x769500 / 0x769680 / 0x76A370 (.work/wt/lgx/.work/lgx/find_ebx1.py); the
+     remaining gen first calls (0x82F3C0, 0x496DB0); the in-game users of the movement setters (ui_starbase 0x63A100);
+     never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
      ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
      ro_funcs' callers (ui_login.cpp:97, ui_cpit.cpp:46, eff_o.cpp:49) still declare 0x496730 / 0x496AE0 with int
      parameters where the exact code takes bool, so the POC links gen stand-ins for them: retype the declarations;

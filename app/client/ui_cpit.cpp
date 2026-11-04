@@ -35,14 +35,14 @@ public:
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
-// The object at *0xBFAEE0 (kernel.cpp's), as far as the constructor calls it: its slot +0x14 makes a render object by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
@@ -242,7 +242,7 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 	Unknown154(NULL),
 	Unknown158(0)
 {
-	Unknown0B0 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi01_gutter"));
+	Unknown0B0 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi01_gutter"));
 	Unknown_496730(Unknown0B0.Peek(), 0x20, 0);
 	Mesh->Unknown_5BA460(1);
 	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_cpit.ini");

@@ -72,7 +72,7 @@ class UIManuSliderClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	UIManuSliderClass(int arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, int a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
+	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, bool a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
 	char Unknown34[0xD4 - 0x34];						// +0x34
@@ -342,7 +342,7 @@ public:
 	UIManuClass *Owner;									// +0x68  // NAME 2: what it holds
 };
 
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the callers pass
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: what 0x5B42F0 passes
 void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the gadget's text from a string section  // NAME 1 [gadget, section, name]: as ui_group.cpp's
 

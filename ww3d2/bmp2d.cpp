@@ -40,6 +40,7 @@
 #include "texture.h"
 #include "textureloader.h"
 #include "surfaceclass.h"
+#include "assetmgr.h"
 
 Bitmap2DObjClass::Bitmap2DObjClass
 (
@@ -67,8 +68,15 @@ Bitmap2DObjClass::Bitmap2DObjClass
 	// Set_Aspect(resh/(float)resw);
 	
 
-	// load up the surfaces file name
-	SurfaceClass *surface=NEW_REF(SurfaceClass,(filename));	
+	// E&B: the image comes through the asset manager's texture (0x974420)
+	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(filename, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);
+	if (!texture->Is_Initialized()) {
+		TextureLoader::Request_Foreground_Loading(texture);
+	}
+	SurfaceClass *surface = texture->Get_Surface_Level(0);
+	if (surface == NULL) {
+		surface = NEW_REF(SurfaceClass,(32, 32, Get_Valid_Texture_Format(WW3D_FORMAT_R8G8B8, true)));
+	}
 
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
@@ -186,7 +194,8 @@ Bitmap2DObjClass::Bitmap2DObjClass
 			REF_PTR_RELEASE(piece_texture);			
 		}
 	}
-	REF_PTR_RELEASE(surface);	
+	REF_PTR_RELEASE(texture);
+	REF_PTR_RELEASE(surface);
 
 	Set_Dirty();
 }

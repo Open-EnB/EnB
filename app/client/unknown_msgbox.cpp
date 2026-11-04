@@ -24,7 +24,7 @@
 #include <stdio.h>
 
 // InterfaceClass +0x4C's key list (control_key_list.cpp): as ui_avsel.cpp's
-class MsgBoxKeysClass { public: void Unknown_721E60(const KernelEventClass *event, int id); void Unknown_721EF0(const KernelEventClass *event); };	// NAME 1: neutral (D10)  // NAME 1 [event, id]: what 0x588480 passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60, Remove 0x721EF0), as far as this file calls it
 // tsk_game.h's settings store: the web browser windows (0x7CA570 asks DX8WebBrowser::Is_Browser_Open)
 class MsgBoxBrowsersClass { public: bool Unknown_7CA570(int index); void Unknown_7CAD00(int index, const AABoxClass &box, const char *url); void Unknown_7CB240(int index); };	// NAME 1: neutral (D10)  // NAME 1 [index, box, url]: what the box passes
 void Unknown_497240(RenderObjClass *robj, bool on);	// 0x497240 (ro_funcs.cpp: MeshGeometryClass::ALLOW_NPATCHES on every mesh's model, through the sub-objects)  // NAME 1 [Unknown_497240, robj, on]: neutral (D10)
@@ -222,7 +222,7 @@ void ViewUnknown34Class::Unknown_58()
 		Window->Add_To_Scene(Layer.Peek_Scene());
 		for (int i = 0; i < OptionCount; i++) {
 			if (Keys[i].Key) {
-				((MsgBoxKeysClass *)Unknown4C)->Unknown_721E60(&Keys[i], i + 1);
+				((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&Keys[i], (void *)(i + 1));
 			}
 		}
 		if (HTML) {
@@ -242,7 +242,7 @@ void ViewUnknown34Class::Unknown_5C()
 		}
 		for (int i = 0; i < OptionCount; i++) {
 			if (Keys[i].Key) {
-				((MsgBoxKeysClass *)Unknown4C)->Unknown_721EF0(&Keys[i]);
+				((ControlKeyListClass *)Unknown4C)->Remove(*(const ControlKeyComboStruct *)&Keys[i]);
 			}
 		}
 		Window->Remove_From_Scene();

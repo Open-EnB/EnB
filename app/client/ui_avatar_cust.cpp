@@ -62,18 +62,18 @@ struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
-// The object at *0xBFAEE0 (kernel.cpp's), as far as this file calls it: its slot +0x30 gives a texture by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual TextureClass *Get_Texture(const char *name, int a, int b, int c);	// +0x30 (0x5513E0: the name, 0, 0, 1)  // NAME 2: what it does (the asset manager's slot)
-};
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+
 extern GadgetClass *Unknown_BE5F24;					// NAME 1 [Unknown_BE5F24]: 0xBE5F24 (0x54E3C0: a gadget held down, as 0xBE5F28)
 extern GadgetClass *Unknown_BE5F28;					// NAME 1 [Unknown_BE5F28]: 0xBE5F28
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
+
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
@@ -601,7 +601,7 @@ void StarbaseAvatarCreationInterface::Unknown_5513E0(const char *name)
 {
 	RefCountPtr<RenderObjClass> mesh = Unknown_497300(Unknown084->Peek_Object());
 	RefCountPtr<RenderObjClass> palette = Create_Get(mesh->Get_Sub_Object_By_Name("COLOR_PALETTE"));
-	TextureClass *texture = Unknown_BFAEE0->Get_Texture(name, 0, 0, 1);
+	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
 	if (texture) {
 		Unknown_495FD0(palette.Peek(), texture, 0);
 		texture->Release_Ref();

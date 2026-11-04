@@ -60,15 +60,15 @@ public:
 	UIGroupIconGadgetClass(RenderObjClass *object, int unknown1, int unknown2);	// 0x675310 (0x5938A0 passes the symbol, 5, 3)  // NAME 1 [object, unknown1, unknown2]: neutral
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
-// The object at *0xBFAEE0 (kernel.cpp's), as far as 0x5938A0 calls it: its slot +0x14 makes a render object by name
-class UnknownBFAEE0Class	// NAME 1 [UnknownBFAEE0Class]: kernel.cpp's
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual RenderObjClass *Create_Render_Obj(const char *name);	// +0x14  // NAME 2: what it does (the asset manager's slot)
-};
-extern UnknownBFAEE0Class *Unknown_BFAEE0;				// NAME 1 [Unknown_BFAEE0]: 0xBFAEE0
-void Unknown_496AE0(RenderObjClass *robj, int unknown);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, unknown]: what the callers pass
+// The asset manager (*0xBFAEE0)
+#include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
+
+
+
+
+
+
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the callers pass
 void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
 
 // The member rows' bars (0xB7F4B8 / 0xB7F4C4): 0x597310 sorts them above or below the row's 'main'
@@ -230,7 +230,7 @@ void UIGroupUnknownE8Class::Unknown_592C50()
 	DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Unknown00->Client)->Unknown_18())->AuxData;
 	int formation = 0;
 	if (!aux) {
-		Unknown04 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_form0"));
+		Unknown04 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi03a_form0"));
 		Unknown_496AE0(Unknown04.Peek(), 1);
 		Unknown04->Set_Hidden(1);
 		return;
@@ -249,13 +249,13 @@ void UIGroupUnknownE8Class::Unknown_592C50()
 		}
 		char model[64];
 		_snprintf(model, sizeof(model), "tsi03a_form%d", formation);
-		Unknown04 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj(model));
+		Unknown04 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 		Unknown_496AE0(Unknown04.Peek(), 1);
 		if (formation) {
 			char bone[64];
 			int position = group->Position.Value;
 			if (position >= 0) {
-				Unknown08[position] = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_ShipLrg"));
+				Unknown08[position] = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi03a_ShipLrg"));
 				Unknown_496AE0(Unknown08[position].Peek(), 0);
 				if (position == 0) {
 					Unknown_496110(Unknown08[0].Peek(), 1.0f, 0.6f, 0.0f);
@@ -268,7 +268,7 @@ void UIGroupUnknownE8Class::Unknown_592C50()
 			for (int i = 0; i < 5; i++) {
 				position = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;
 				if (position >= 0) {
-					Unknown08[position] = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_ShipSml"));
+					Unknown08[position] = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi03a_ShipSml"));
 					Unknown_496AE0(Unknown08[position].Peek(), 0);
 					if (position == 0) {
 						Unknown_496110(Unknown08[0].Peek(), 1.0f, 0.6f, 0.0f);
@@ -548,7 +548,7 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 	}
 	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); Unknown_65EED0(Unknown3C); Unknown3C = NULL; }
 	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
-	Unknown38 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj(Unknown28));
+	Unknown38 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown28));
 	if (Unknown38 != NULL && Unknown30 != NULL) {
 		Unknown_496AE0(Unknown38.Peek(), 0);
 		Unknown30->Add_Sub_Object_To_Bone(Unknown38.Peek(), "icon");
@@ -1026,7 +1026,7 @@ void UIGroupClass::Unknown_595530()
 	for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++) {
 		UIGroupMemberClass *member = *it;
 		member->Unknown_5934A0();
-		member->Unknown34 = Create_NEW(Unknown_BFAEE0->Create_Render_Obj("tsi03a_frame"));
+		member->Unknown34 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi03a_frame"));
 		if (member->Unknown34) {
 			char bone[32];
 			Unknown_496AE0(member->Unknown34.Peek(), 0);
