@@ -2319,3 +2319,141 @@ RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
 	BodyObj->Add_Ref();
 	return(BodyObj);
 }
+
+// 0x77E830: the body morph weights, normalised, into Desc.Body_Weight (+0x29C: step them, 0x781410)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 725)
+void CharacterViewAvatarClass::Unknown_77E830(const float *weights)
+{
+	float sum = 0.0f;
+	Unknown29C = true;
+	int i;
+	for (i = 0; i < 5; i++) {
+		G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+		sum += weights[i];
+	}
+	if (sum > 0.0f) {
+		for (i = 0; i < 5; i++) {
+			Desc.Body_Weight[i] = weights[i] / sum;
+		}
+	}
+}
+
+// 0x77E900: the head morph weights, normalised, into Desc.Head_Weight (+0x29D: step them, 0x781570)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 748)
+void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
+{
+	float sum = 0.0f;
+	Unknown29D = true;
+	int i;
+	for (i = 0; i < 5; i++) {
+		G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+		sum += weights[i];
+	}
+	if (sum > 0.0f) {
+		for (i = 0; i < 5; i++) {
+			Desc.Head_Weight[i] = weights[i] / sum;
+		}
+	}
+}
+
+// 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
+// for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
+// colour onto its hair and beard, then the head object is cloned again (0x77F750)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_77F000(int num)
+{
+	char name[64];
+	char head_name[32];
+	int i;
+	Desc.Head_Type = (char)num;
+	if (BodyObj == NULL) {
+		return;
+	}
+	if (HeadSource) {
+		const char *parts[4] = { "HAIR", "EAR", "GOGGLE", "BEARD" };
+		RenderObjClass *slots[4] = { HairSource, Unknown2CC, GoggleSource, BeardSource };
+		for (int p = 0; p < 4; p++) {
+			if (slots[p] && HeadSource) {
+				for (i = 0; i < 5; i++) {
+					_snprintf(name, 0x40, "%s%d", parts[p], i);
+					RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+					if (robj) {
+						HeadSource->Remove_Sub_Object(robj);
+						robj->Release_Ref();
+					}
+				}
+			}
+		}
+		HeadSource->Release_Ref();
+		HeadSource = NULL;
+	}
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	if (Desc.Avatar_Type == 0) {
+		_snprintf(head_name, 0x20, "%s%sHEAD%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Head_Type);
+	} else {
+		_snprintf(head_name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
+	}
+	HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	if (HeadSource == NULL) {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, 924, "Error loading up the head asset: %s", head_name);
+		return;
+	}
+	Unknown_496AE0(HeadSource, true);
+	if (HairSource) {
+		Unknown_789D80(&HairSource, "HAIR");
+		for (i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "HAIR%d", i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
+				robj->Release_Ref();
+			}
+		}
+		Unknown_7802F0(Desc.Hair_Color, false);
+	}
+	if (Unknown2CC) {
+		Unknown_789D80(&Unknown2CC, "EAR");
+	}
+	if (GoggleSource) {
+		Unknown_789D80(&GoggleSource, "GOGGLE");
+	}
+	if (BeardSource) {
+		Unknown_789D80(&BeardSource, "BEARD");
+		Desc.Beard_Color = Desc.Hair_Color;
+		for (i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "BEARD%d", i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
+				robj->Release_Ref();
+			}
+		}
+	}
+	Unknown_77F750();
+}
+
+// 0x77FC90: Ear_Num's ear pieces ('EAR'), then (rebuild) the head object cloned again
+void CharacterViewAvatarClass::Unknown_77FC90(int num, bool rebuild)
+{
+	Desc.Ear_Num = (char)num;
+	Unknown_77F960("EAR", num, &Unknown2CC);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x77FCE0: Goggle_Num's glasses ('GOGGLE'), then (rebuild) the head object cloned again
+void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
+{
+	Desc.Goggle_Num = (char)num;
+	Unknown_77F960("GOGGLE", num, &GoggleSource);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}

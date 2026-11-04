@@ -104,7 +104,12 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
 	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
-	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
+	void Unknown_77E830(const float *weights);			// 0x77E830 (the body morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
+	void Unknown_77E900(const float *weights);			// 0x77E900 (the head morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
+	void Unknown_77F000(int num);						// 0x77F000 (Head_Type's head loaded again; 0x77DA20, ui_avatr.cpp)  // NAME 1 [num]: neutral
+	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (Ear_Num's 'EAR' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (Goggle_Num's 'GOGGLE' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77F750();							// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
 	void Unknown_7857D0(int num);						// 0x7857D0 (Head_Texture_Num's '<gender><race>FACETEX%02d.tga' onto head0..4)  // NAME 1 [num]: neutral
 	void Unknown_7859F0(int num);						// 0x7859F0 (Tattoo_Texture_Num's 'ATATTOO%02d.tga' onto HEAD0..4, stage 1)  // NAME 1 [num]: neutral
 	void Unknown_785C00(const Vector3 &offset);			// 0x785C00 (Tattoo_Offset: a linear offset mapper on HEAD0..4's stage 1)  // NAME 1 [offset]: neutral

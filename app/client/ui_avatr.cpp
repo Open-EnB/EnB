@@ -14,7 +14,7 @@
 #include <new>
 #include "aabox.h"
 #include "..\shared\avatar_desc.h"
-
+#include "avatar.h"
 class SignalMap;
 class AABoxClass;
 // gadget.cpp's gadget, as far as this file calls it
@@ -80,39 +80,39 @@ struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
 UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
 extern RandomClass Unknown_BDBB84;						// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
-// The +0x8C object's +0x194 (refcounted; +0x110 is 1 when the beard is off, 0x556630)
-class UIAvatrUnknown194Class : public RefCountClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_77E830(const UIAvatrWeightsStruct &weights);	// 0x77E830 (avatar.cpp's neighbourhood; 0x558060)  // NAME 1 [weights]: neutral
-	void Unknown_7859F0(int type);						// 0x7859F0 (0x558170: a random one of the +0x2EC object's +0x20)  // NAME 1 [type]: neutral
-	void Unknown_77F000(int num);						// 0x77F000 (ids 0x16 / 0x17: the +0x2DC choice)  // NAME 1 [num]: neutral
-	void Unknown_7857D0(int num);						// 0x7857D0 (ids 0x18 / 0x19: the +0x2E8 choice, avatar.h's head texture)  // NAME 1 [num]: neutral
-	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (ids 0x1C / 0x1D: the +0x2F0 choice, 1)  // NAME 1 [num, rebuild]: neutral
-	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (ids 0x1E / 0x1F: the +0x2F4 choice, 1)  // NAME 1 [num, rebuild]: neutral
-	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor: the view's +0x3A4)  // NAME 1 [env_maps]: neutral
-	void Unknown_77E900(const UIAvatrWeightsStruct &weights);	// 0x77E900 (0x558060)  // NAME 1 [weights]: neutral
-	char Unknown08[0x108 - 0x08];						// +0x08
-	int Unknown108;										// +0x108 (its Desc.Race: the constructor's environment map and the pip)
-	int Unknown10C;										// +0x10C
-	int Unknown110;										// +0x110
-	char Unknown114[0x11C - 0x114];						// +0x114
-	char Unknown11C;									// +0x11C (the head)
-	char Unknown11D;									// +0x11D (the hair)
-	char Unknown11E;									// +0x11E (the ears)
-	char Unknown11F;									// +0x11F (the goggles)
-	char Unknown120;									// +0x120 (the beard)
-	char Unknown121[0x124 - 0x121];						// +0x121
-	char Unknown124;									// +0x124 (the face texture)
-	char Unknown125;									// +0x125 (the tattoo)
-	char Unknown126[0x194 - 0x126];						// +0x126
-	int Unknown194;										// +0x194 (0x55B110: the body tab's 0x2A .. 0x2D values)
-	int Unknown198;										// +0x198
-	int Unknown19C;										// +0x19C
-	int Unknown1A0;										// +0x1A0
-	char Unknown1A4[0x232 - 0x1A4];						// +0x1A4
-	bool Unknown232;									// +0x232 (avatar.h's: 0x67A440 sets it)
-};
+// The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The +0x8C object's +0x34, as far as 0x554D60 reads it
 struct UIAvatrUnknown08CUnknown034Struct	// NAME 1: neutral (D10)
@@ -171,8 +171,8 @@ public:
 	CameraClass *Unknown068;							// +0x68
 	char Unknown6C[0x88 - 0x6C];						// +0x6C
 	AvatarDescClass Unknown088;							// +0x88
-	UIAvatrUnknown194Class *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
-	UIAvatrUnknown194Class *Unknown194;					// +0x194 (AvatarRObj)
+	CharacterViewAvatarClass *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
+	CharacterViewAvatarClass *Unknown194;					// +0x194 (AvatarRObj)
 	char Unknown198[0x1B8 - 0x198];						// +0x198
 	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10)
 	RenderObjClass *Unknown1B8;							// +0x1B8 (ViewRObjs[0], the model: its texts by name)
@@ -243,9 +243,9 @@ public:
 	virtual void Unknown_70();
 	virtual void Unknown_74(int race);					// +0x74 0x80BAB0 (the lights by race)  // NAME 1 [race]: neutral
 	virtual void Unknown_78();							// +0x78 (0x554D60)
-	virtual void Unknown_7C(const RefCountPtr<UIAvatrUnknown194Class> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
+	virtual void Unknown_7C(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
 	virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<UIAvatrUnknown194Class> &avatar);	// +0x84 0x80CA30  // NAME 1 [avatar]: neutral
+	virtual void Unknown_84(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x84 0x80CA30  // NAME 1 [avatar]: neutral
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
 	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
 	virtual void Unknown_8C();							// +0x8C
@@ -558,9 +558,9 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	}
 
 	{
-		RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+		RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 		Unknown094 = new ShipPipClass(1);
-		Unknown094->Unknown_74(desc->Unknown108);
+		Unknown094->Unknown_74(desc->Desc.Race);
 		Unknown094->Unknown_80C220((ViewClass *)Unknown08C);
 		((GadgetClass *)Unknown094)->Unknown_65FFC0(1, NULL);
 		Unknown094->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
@@ -575,9 +575,9 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	Unknown_5560E0();
 	bool back = (Unknown090->Previous_Step == 6);
 	if (back) {
-		Unknown08C->Unknown_67C200(Unknown184, 7, Unknown08C->Peek_Unknown194()->Unknown110);
-		Unknown08C->Unknown_67C2E0(&Unknown164, Unknown08C->Peek_Unknown194()->Unknown110);
-		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, Unknown08C->Peek_Unknown194()->Unknown110);
+		Unknown08C->Unknown_67C200(Unknown184, 7, Unknown08C->Peek_Unknown194()->Desc.Gender);
+		Unknown08C->Unknown_67C2E0(&Unknown164, Unknown08C->Peek_Unknown194()->Desc.Gender);
+		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, Unknown08C->Peek_Unknown194()->Desc.Gender);
 	}
 	if (!keep && !back) {
 		Unknown_Set_Palette("fa_skin_color.tga");
@@ -591,8 +591,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown_557950(6, 1, 0);
 	}
 	{
-		RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-		Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Unknown108], 1);
+		RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+		Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);
 		Unknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);
 		Unknown08C->Peek_Unknown194()->Unknown232 = true;
 		Unknown094->Unknown_84(Create_Peek(Unknown08C->Peek_Unknown194()));
@@ -676,7 +676,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 	if (Unknown1C4 || Unknown1C5 || Unknown1C6 || Unknown1C7 || Unknown1C8 || Unknown1C9) {
 		return(false);
 	}
-	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (key) {
 		case 1:
 			Unknown_5582A0();
@@ -942,8 +942,8 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 					Unknown160->Gadget->Unknown_8C(true);
 					Unknown160->Pull->Set_Hidden(true);
 				}
-				RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-				if (desc->Unknown110 == 1) {
+				RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+				if (desc->Desc.Gender == 1) {
 					Unknown098[18]->Unknown_40(false);
 					Unknown098[18]->Unknown_8C(true);
 					Unknown098[19]->Unknown_40(false);
@@ -1062,8 +1062,8 @@ void AvatarCreationInterface::Unknown_558060()
 	uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
 	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
 	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
-	Unknown08C->Peek_Unknown194()->Unknown_77E900(body);
-	Unknown08C->Peek_Unknown194()->Unknown_77E830(face);
+	Unknown08C->Peek_Unknown194()->Unknown_77E900(body.Weight);
+	Unknown08C->Peek_Unknown194()->Unknown_77E830(face.Weight);
 	Unknown164 = uv;
 }
 
@@ -1105,11 +1105,11 @@ void AvatarCreationInterface::Unknown_5598D0()
 // 0x559350
 void AvatarCreationInterface::Unknown_559350()
 {
-	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	Unknown08C->Unknown_5594B0(*(AvatarDescClass *)((char *)desc.Peek() + 0xF8));
-	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Unknown110);
-	Unknown08C->Unknown_67C310(&Unknown164, desc->Unknown110);
-	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Unknown110);
+	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Desc.Gender);
+	Unknown08C->Unknown_67C310(&Unknown164, desc->Desc.Gender);
+	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Desc.Gender);
 }
 
 // NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment)
@@ -1163,36 +1163,36 @@ void AvatarCreationInterface::Unknown_559900()
 	char texture[64];
 	Unknown_559F30();
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	const char *gender = UIAvatrGenders[desc->Unknown110];
-	const char *race = UIAvatrRaces[desc->Unknown108];
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	const char *gender = UIAvatrGenders[desc->Desc.Gender];
+	const char *race = UIAvatrRaces[desc->Desc.Race];
 	_snprintf(name, sizeof(name), "%s%shead", gender, race);
 	Unknown2DC = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HEAD", false);
-	Unknown2DC->Unknown_585CF0(desc->Unknown11C);
+	Unknown2DC->Unknown_585CF0(desc->Desc.Head_Type);
 	Unknown2DC->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%shair", gender, race);
 	Unknown2E0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HAIR", false);
-	Unknown2E0->Unknown_585CF0(desc->Unknown11D);
+	Unknown2E0->Unknown_585CF0(desc->Desc.Hair_Num);
 	Unknown2E0->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sbeard", gender, race);
 	Unknown2E4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "BEARD", false);
-	Unknown2E4->Unknown_585CF0(desc->Unknown120);
+	Unknown2E4->Unknown_585CF0(desc->Desc.Beard_Num);
 	Unknown2E4->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%shead%02d", gender, race, desc->Unknown11C);
+	_snprintf(name, sizeof(name), "%s%shead%02d", gender, race, desc->Desc.Head_Type);
 	_snprintf(texture, sizeof(texture), "%s%sFACETEX", gender, race);
 	Unknown2E8 = new UIAvatrUnknown2ECStruct(model.Peek(), name, texture, "FACE", false);
-	Unknown2E8->Unknown_585CF0(desc->Unknown124);
+	Unknown2E8->Unknown_585CF0(desc->Desc.Head_Texture_Num);
 	Unknown2E8->Unknown_585D10();
 	Unknown2EC = new UIAvatrUnknown2ECStruct(model.Peek(), NULL, "atattoo", "TATTOO", false);
-	Unknown2EC->Unknown_585CF0(desc->Unknown125);
+	Unknown2EC->Unknown_585CF0(desc->Desc.Tattoo_Texture_Num);
 	Unknown2EC->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sGOGGLE", gender, race);
 	Unknown2F0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EYE", false);
-	Unknown2F0->Unknown_585CF0(desc->Unknown11F);
+	Unknown2F0->Unknown_585CF0(desc->Desc.Goggle_Num);
 	Unknown2F0->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sEAR", gender, race);
 	Unknown2F4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EAR", false);
-	Unknown2F4->Unknown_585CF0(desc->Unknown11E);
+	Unknown2F4->Unknown_585CF0(desc->Desc.Ear_Num);
 	Unknown2F4->Unknown_585D10();
 }
 
@@ -1200,9 +1200,9 @@ void AvatarCreationInterface::Unknown_559900()
 void AvatarCreationInterface::Unknown_55AFD0()
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	FontSys *text = Unknown_BE67C4->Get_Style("male_fe_avatar00", model.Peek());
-	if (Unknown08C->Peek_Unknown194()->Unknown110 == 1) {
+	if (Unknown08C->Peek_Unknown194()->Desc.Gender == 1) {
 		text->Change_Text("Gender: Female", 0);
 	} else {
 		text->Change_Text("Gender: Male", 0);
@@ -1212,7 +1212,7 @@ void AvatarCreationInterface::Unknown_55AFD0()
 // 0x55B110
 void AvatarCreationInterface::Unknown_55B110(int arg)
 {
-	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (arg) {
 		case 0x20:
 			Unknown1BC = 0;
@@ -1225,19 +1225,19 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 			break;
 		case 0x2A:
 			Unknown1BC = 3;
-			Unknown1C0 = desc->Unknown194;
+			Unknown1C0 = desc->Desc.Shirt_Primary_Metal;
 			break;
 		case 0x2B:
 			Unknown1BC = 4;
-			Unknown1C0 = desc->Unknown198;
+			Unknown1C0 = desc->Desc.Shirt_Secondary_Metal;
 			break;
 		case 0x2C:
 			Unknown1BC = 5;
-			Unknown1C0 = desc->Unknown19C;
+			Unknown1C0 = desc->Desc.Pants_Primary_Metal;
 			break;
 		case 0x2D:
 			Unknown1BC = 6;
-			Unknown1C0 = desc->Unknown1A0;
+			Unknown1C0 = desc->Desc.Pants_Secondary_Metal;
 			break;
 	}
 	Unknown_55AE50();
