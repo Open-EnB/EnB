@@ -4,6 +4,42 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (18:45 PST, afternoon): the POC's character select lit, Karen with hair, blinking and idling, the narrator walks off on Accept; D188 / D189 (+5,421 pairs); multi-instance POC; +2,321 in-tree, lost outright only D189's four accepted
+
+Coordinator Opus 5.5 (Claude weekly 0 % -> ~7 %, the user's soft goal); 21 Claude builders (Opus, two Sonnet), branch
+run/2026-11-03 (PR #147, draft), HEAD 20550a64; plan log `.work/run-2026-11-03-pm/plan.md` (every report, merge and decision).
+
+- POC: login -> avatar list -> character select works against antprox /REPLAY with no crash (clienttest 103/0 equal).
+  LTS: the login was never stuck (shots count presented frames: frame 45000 is ~20 s at ~3,500 fps); characters did not
+  draw because CharacterViewAvatarClass lacked Set_Transform / Set_Position 0x77D1E0 / 0x77D2B0 (exact). POS: per-frame
+  update 0x783B50 + idle animations; NLP: personality manager 0x790560, PlayerNLPClass, phonemes (+28); FACE: morph
+  weights, head look 0x7854B0; BLINK: the face HMorphAnim (blink, brows, lip sync); HAIR: hair / ears / goggles / beard /
+  weapons / eye colour (0x77DA20's player branch); CHAT: chat_edit_stream.cpp + the avatar's command path (interpreter
+  0x784700, queue 0x782200, walk / sit, narrator lines): the narrator's '/walk_off' on Accept; PATH: movement code;
+  LIGHT: the flat look was WW3D statics 0xBFAE4F-0xBFAE52 written into gen stand-in globals (OverbrightModifyOnLoad never
+  reached ww3d2); CUR4: the cursor's black square was a stale build/ww3d2/ww3d2.lib (all main-tree libs rebuilt);
+  STB / STB2: sound_manager.cpp, wnd_file.cpp (StandardFileClass), env_map_manager.cpp, starbase_lights.cpp,
+  Unknown_BFAEE0 = WW3DAssetManager::TheInstance; MSG: msgserv.cpp (the client's -ENABLE_MESSAGES debug server, binds
+  0.0.0.0:9999) + tools/harness/msglisten.py + clientpoc.py --messages; NEX / LGX: ui_class 0 -> 7 exact, gd_slider +1,
+  login path LIMIT REACHED (the /O2 constant-in-ebx region). MRC: concurrent-replay crash = shared auth.ini (per-instance
+  Data\client\ini now) + DynamicWindowHorizontalClass's element tests (5 D66 moves the user accepted).
+- Multi-instance POC (the user's request): poc_multi.cpp (CreateMutexA enb_mutex_lock -> _<pid>, SetCursorPos no-op
+  without ENB_POC_INPUT), `clientpoc.py run|replay --instance NAME --exe EXE` (ClientPOC\inst\NAME\release, client by
+  antprox's descendant PID, antprox starts serialized), `build.py link --out` no longer deploys.
+- Libraries: MAPR (mapper twins named: +12), XMP (E&B's JPEG writer, wwlib/unknown_jpeg.cpp, +20), TW3 (ww3d2 +39),
+  TSH / TLIB triage (most leftover runs are objmatch `short`). D188 / D189 (SHRT): short functions credited at
+  independently known addresses (vptr 4690, call 628, vtable 33; COMDATs shared), nested exact starts dropped, matches
+  anchored to function starts: +5,421 pairs, in-tree +2,321 (app 7672 -> 9039, ww3d2 3303 -> 3739, wwaudio 574 -> 780,
+  wwshade 278 -> 487 ...), lost outright only 0x8437A4 / 0x924875 / 0x9CEEF7 (-> 0x9CEFD0) / 0x9F367D (accepted), one
+  D66(v) move 0x9306E0.
+- AVX: Karen's head / tattoo textures 0x7857D0 / 0x7859F0 / 0x785C00 (functional) called from 0x77F750; the dtor 0x77C080 releases the gesture queue and the EAR clone; +0x2B8 / +0x2BC renamed HeadObj / BodyObj (the client's asserts). Harness at 20550a64: clienttest 103/0 equal, udpreplay alex3 + handshake 54. Open leads (section 4): RefCountPtr avatar members; gd_robj's 0x495FD0 declared int (ro_funcs: bool); ChatStream rename (D137).
+- Decisions: D188, D189 (the user; (b) source-order tie-break left open). User calls: MRC's 5 D66 moves accepted;
+  ANCHOR_HITS on; message server option (a) + a listener.
+- Coordinator traps: never keep-both a C++ conflict (gd_slider duplicated, caught by verify, redone); rebase_gen.sh takes the
+  run's imports.json and re-verifies only app (a library's new file drops out of the record: verify --lib reads its file
+  list from imports.json); symbols.py needs --objs and a good symbols.json as input; TaskStop of a background shell leaves
+  its children running; a worktree reset needs its wt base file updated; poc_check.sh / rebase_gen.sh paths must be absolute.
+
 ### 2026-11-03 (11:45 PST, morning): the POC gets past the avatar list without a crash; agy Flash window spent; +45 pairs, 0 lost
 
 Coordinator Opus 5.5 on the subscription (Claude weekly 99 %: hourly heartbeats, minimal); builders Gemini 3.8 Flash high
@@ -2199,14 +2235,12 @@ below name only the work items, the blocked work, the leads and the queues.
      first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
      2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with poc_input.cpp's virtual
      cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
-     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: after the avatar list the screen stays the login screen
-     (no crash since cd74e1a8): why the login task does not show the avatar selection / class select interface (an
-     earlier run crashed there in GadgetClass::Unknown_65F5F0 <- tooltip 0x6AB5B0, NOT EXACT); ui_class.cpp's 9 and
-     settings_store.cpp's 6 NOT EXACT; the cursor's black square (0x974CD0 picks the opaque shader while the cursor
-     texture's format is UNKNOWN: foreground loading off the DX8 thread; smouse 0x515120 never re-creates it); the first-call stand-ins in
-     stubs.log order (gen SoundManagerClass's ctor and Unknown_442650's neighbours, Full_Path_File_Exists, SignalMap /
-     InterfaceKeyListClass / InterfaceUnknown58Class ctors, SClientUnknown1338Class::Load, the avatar's 0x77E3D0 /
-     0x786370 / 0x784A50; never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
+     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: avatar.cpp's functional NOT EXACT functions toward exact (RefCountPtr members +0x2B0..+0x2E4 /
+     +0xBC as the client has them; 0x782200 / 0x7826A0 / 0x782850); the dtor 0x77C080's queue release if AVX did not
+     land it; gen globals the client starts at 1 (0xBB9654, 0xBBB084) and TextureLoader's 0xC01290; the /O2
+     constant-in-ebx residue blocking 0x769500 / 0x769680 / 0x76A370 (.work/wt/lgx/.work/lgx/find_ebx1.py); the
+     remaining gen first calls (0x82F3C0, 0x496DB0); the in-game users of the movement setters (ui_starbase 0x63A100);
+     never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
      ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
      ro_funcs' callers (ui_login.cpp:97, ui_cpit.cpp:46, eff_o.cpp:49) still declare 0x496730 / 0x496AE0 with int
      parameters where the exact code takes bool, so the POC links gen stand-ins for them: retype the declarations;

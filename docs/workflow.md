@@ -1099,6 +1099,19 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **POC (2026-11-03 afternoon run):** a POC link takes `build/<lib>/<lib>.lib` as they are: a library fixed in
+  source but not rebuilt ships the old code with no warning (the cursor fix c3427718 was missing from every exe until
+  ww3d2.lib was rebuilt; check a fix's function in the exe at its client.map address). `importer.py verify` does not
+  rewrite build/app/app.lib: `build.py build --lib app` before linking. `build.py link --out DIR` needs every library
+  under DIR (copy the whole build/). Shots count presented frames, not ms (the login renders 2,000-4,000 fps; use
+  D3D8SHOT_EVERY with D3D8SHOT_MAX). Per-instance runs: `clientpoc.py run|replay --instance NAME --exe EXE [--messages]`
+  (ClientPOC\inst\NAME\release, own Data\client\ini: antprox /REPLAY rewrites auth.ini at start); replay takes
+  d3d8.dll from the worktree's own build/d3d8shot; symbolize crashes with the instance's own client.map, never
+  retail's. `clienttest.py build` has no --pool: lease a VM and set ENB_VC6_HOSTS when others build. The gen stand-ins
+  define `Unknown_XXXXXX` data globals that may really be a library's statics (WW3D 0xBFAE4F-0xBFAE52: the app wrote
+  them, ww3d2 never saw them) and zero-fill globals the client starts at 1: check `client.py refs ADDR` first. The
+  client's message server (-ENABLE_MESSAGES) sends only while a listener is connected and accepts at most once a
+  second: start-up reports before its first run are lost (the POC tees them into stubs.log).
 * **POC runs started by agy builders crash at startup (2026-11-02 evening run):** every clientpoc run an agy builder made
   (runs 63-69) crashed in WW3D::Set_Gamma (render device not set) while the coordinator's runs of the same code at master
   and the run's HEAD ran 40 s; a process agy starts apparently gets no usable D3D adapter. Builders' POC checks prove
@@ -1215,6 +1228,14 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Coordinator merges (2026-11-03 afternoon run):** never resolve a C++ source conflict by keeping both sides (it
+  duplicated gd_slider's code: 3 lost outright, caught by the verify); append-append of new functions is the one safe
+  case. `tools/agy/rebase_gen.sh` takes the run's imports.json and re-verifies only app: a library's new file then drops
+  out of the record (verify --lib reads its file list from imports.json): verify that library too. `symbols.py` needs
+  `--objs` for every verify-* folder and a good symbols.json as its input (it reads its own output: a gutted one cost 16
+  pairs, a weak one moved template twins). TaskStop of a background shell leaves its child processes (two redo
+  scripts ran in one worktree): check Win32_Process before restarting. A worktree reset onto a new base needs its wt
+  base file updated, or bring-over refuses 'merge commits'.
 * **`wt.py bring-over` lands on master by default (2026-11-02 evening run):** pass `--target run/<date>`; without it, it
   compared against a stale local master and refused (3 'lost' pairs that were master's age, not the builder's).
 * **bring-over refuses a cherry-pick with generated-file conflicts (2026-11-02 evening run):** two builders from the same
