@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1204 |
 | 2 | describes what the code does | 3001 |
-| 1 | neutral placeholder | 13125 |
+| 1 | neutral placeholder | 13129 |
 
 ## For review (score 3 and below)
 
@@ -2922,51 +2922,55 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6C` | `app/client/gd_buffgadg.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_4A13A0` | `app/client/gd_buffgadg.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_666440` | `app/client/gd_buffgadg.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown_666470` | `app/client/gd_buffgadg.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown_6664E0` | `app/client/gd_buffgadg.cpp:281` | untagged neutral name (D10) |
+| 1 | `Unknown2C_06` | `app/client/gd_buffgadg.cpp:286` | untagged neutral name (D10) |
 | 1 | `offset` | `app/client/gd_buffgadg.h:34` | what it sets |
 | 1 | `Unknown_4A13A0` | `app/client/gd_buffgadg.h:34` | untagged neutral name (D10) |
 | 1 | `BuffElementStruct` | `app/client/gd_buffgadg.h:38` | neutral (D10) |
 | 1 | `source_entity, source_object, magnitude, expiration_time, is_active` | `app/client/gd_buffgadg.h:40` | the aux fields ui_buff.cpp's 0x5615C0 passes |
 | 1 | `BuffInfoStruct` | `app/client/gd_buffgadg.h:50` | neutral (D10) |
 | 1 | `Set_Scrub_Type_Name, name` | `app/client/gd_buffgadg.h:53` | the member it sets |
-| 1 | `Set_Is_Permanent, permanent` | `app/client/gd_buffgadg.h:54` | the member it sets |
-| 1 | `Set_Buff_Removal_Time, time` | `app/client/gd_buffgadg.h:55` | the member it sets |
-| 1 | `Add_Element, element` | `app/client/gd_buffgadg.h:56` | what it does |
-| 1 | `Get_Element_Count` | `app/client/gd_buffgadg.h:57` | what it answers |
-| 1 | `Get_Active_Count` | `app/client/gd_buffgadg.h:58` | what it answers |
-| 1 | `Get_Element` | `app/client/gd_buffgadg.h:59` | what it does; NAME 3 [index]: the FAIL_IF's |
-| 1 | `Sort_Elements` | `app/client/gd_buffgadg.h:60` | what it does |
-| 1 | `Unknown_671300Class` | `app/client/gd_buffgadg.h:70` | neutral (D10) |
-| 1 | `robj, unknown1, layer, unknown2, unknown3, unknown4` | `app/client/gd_buffgadg.h:73` | neutral |
-| 1 | `event, x, y, mask` | `app/client/gd_buffgadg.h:75` | the base's |
-| 1 | `Unknown_2C` | `app/client/gd_buffgadg.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/gd_buffgadg.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/gd_buffgadg.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/gd_buffgadg.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/gd_buffgadg.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/gd_buffgadg.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/gd_buffgadg.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/gd_buffgadg.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/gd_buffgadg.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/gd_buffgadg.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/gd_buffgadg.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/gd_buffgadg.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/gd_buffgadg.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/gd_buffgadg.h:89` | untagged neutral name (D10) |
-| 1 | `client, info, unknown, layer` | `app/client/gd_buffgadg.h:96` | what ui_buff.cpp's 0x560D20 passes; NAME 3 [buffinfo, robj]: the asserts' |
-| 1 | `info, now` | `app/client/gd_buffgadg.h:99` | what ui_buff.cpp's 0x560BC0 passes |
-| 1 | `Unknown_6661F0` | `app/client/gd_buffgadg.h:99` | untagged neutral name (D10) |
-| 1 | `unknown` | `app/client/gd_buffgadg.h:100` | neutral |
-| 1 | `Unknown_666440` | `app/client/gd_buffgadg.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_666470` | `app/client/gd_buffgadg.h:101` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/gd_buffgadg.h:102` | neutral |
-| 1 | `Unknown_6664E0` | `app/client/gd_buffgadg.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_666570` | `app/client/gd_buffgadg.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/gd_buffgadg.h:106` | untagged neutral name (D10) |
-| 1 | `Info` | `app/client/gd_buffgadg.h:107` | its type |
-| 1 | `Unknown_B8` | `app/client/gd_buffgadg.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_BC` | `app/client/gd_buffgadg.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown_C4` | `app/client/gd_buffgadg.h:111` | untagged neutral name (D10) |
-| 1 | `Client` | `app/client/gd_buffgadg.h:112` | its type |
+| 1 | `std:` | `app/client/gd_buffgadg.h:54` | the member it answers |
+| 1 | `Set_Is_Permanent, permanent` | `app/client/gd_buffgadg.h:55` | the member it sets |
+| 1 | `Set_Buff_Removal_Time, time` | `app/client/gd_buffgadg.h:56` | the member it sets |
+| 1 | `Add_Element, element` | `app/client/gd_buffgadg.h:57` | what it does |
+| 1 | `Get_Element_Count` | `app/client/gd_buffgadg.h:58` | what it answers |
+| 1 | `Get_Active_Count` | `app/client/gd_buffgadg.h:59` | what it answers |
+| 1 | `Get_Element` | `app/client/gd_buffgadg.h:60` | what it does; NAME 3 [index]: the FAIL_IF's |
+| 1 | `Sort_Elements` | `app/client/gd_buffgadg.h:61` | what it does |
+| 1 | `Unknown_671300Class` | `app/client/gd_buffgadg.h:71` | neutral (D10) |
+| 1 | `robj, unknown1, layer, unknown2, unknown3, unknown4` | `app/client/gd_buffgadg.h:74` | neutral |
+| 1 | `event, x, y, mask` | `app/client/gd_buffgadg.h:76` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_buffgadg.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_buffgadg.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/gd_buffgadg.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/gd_buffgadg.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/gd_buffgadg.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/gd_buffgadg.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/gd_buffgadg.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/gd_buffgadg.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_buffgadg.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/gd_buffgadg.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/gd_buffgadg.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/gd_buffgadg.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/gd_buffgadg.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/gd_buffgadg.h:90` | untagged neutral name (D10) |
+| 1 | `client, info, unknown, layer` | `app/client/gd_buffgadg.h:97` | what ui_buff.cpp's 0x560D20 passes; NAME 3 [buffinfo, robj]: the asserts' |
+| 1 | `info, now` | `app/client/gd_buffgadg.h:100` | what ui_buff.cpp's 0x560BC0 passes |
+| 1 | `Unknown_6661F0` | `app/client/gd_buffgadg.h:100` | untagged neutral name (D10) |
+| 1 | `unknown` | `app/client/gd_buffgadg.h:101` | neutral |
+| 1 | `Unknown_666440` | `app/client/gd_buffgadg.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_666470` | `app/client/gd_buffgadg.h:102` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_buffgadg.h:103` | neutral |
+| 1 | `Unknown_6664E0` | `app/client/gd_buffgadg.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_666570` | `app/client/gd_buffgadg.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/gd_buffgadg.h:107` | untagged neutral name (D10) |
+| 1 | `Info` | `app/client/gd_buffgadg.h:108` | its type |
+| 1 | `Unknown_B8` | `app/client/gd_buffgadg.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/gd_buffgadg.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_C4` | `app/client/gd_buffgadg.h:112` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/gd_buffgadg.h:113` | its type |
 | 1 | `robj, a, b, c` | `app/client/gd_dynamicwindow.cpp:8` | as ui_group.h |
 | 1 | `Unknown_496110` | `app/client/gd_dynamicwindow.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gd_dynamicwindow.cpp:59` | untagged neutral name (D10) |
@@ -13723,9 +13727,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ExpirationTime` | `app/client/gd_buffgadg.h:44` | the aux field's |
 | 2 | `Magnitude` | `app/client/gd_buffgadg.h:45` | the aux field's |
 | 2 | `IsActive` | `app/client/gd_buffgadg.h:46` | the aux field's |
-| 2 | `std:` | `app/client/gd_buffgadg.h:62` | the aux field's |
-| 2 | `IsPermanent` | `app/client/gd_buffgadg.h:63` | the aux field's |
-| 2 | `BuffRemovalTime` | `app/client/gd_buffgadg.h:64` | the aux field's |
+| 2 | `std:` | `app/client/gd_buffgadg.h:63` | the aux field's |
+| 2 | `IsPermanent` | `app/client/gd_buffgadg.h:64` | the aux field's |
+| 2 | `BuffRemovalTime` | `app/client/gd_buffgadg.h:65` | the aux field's |
 | 2 | `Set_Render_Obj` | `app/client/gd_robj.h:50` | as Peek_Render_Obj; NAME 1 [robj]: neutral |
 | 2 | `SliderObject` | `app/client/gd_slider.h:40` | FAIL_IF '!SliderObject' |
 | 2 | `MinArrow` | `app/client/gd_slider.h:41` | FAIL_IF '!MinArrow' |
@@ -16283,10 +16287,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `UVControllerClass` | `app/client/gd_buffgadg.h:31` | class-from-file (D24) for app\shared\uvcontrl.cpp |
-| 3 | `std:` | `app/client/gd_buffgadg.h:65` | the FAIL_IF's 'index >= Elements.size()' |
-| 3 | `BuffGadgetClass` | `app/client/gd_buffgadg.h:93` | class-from-file (D24) for app\Client\gd_buffgadg.cpp |
-| 3 | `BuffInfo` | `app/client/gd_buffgadg.h:105` | the assert's 'buffinfo' (ui_buff.cpp) |
-| 3 | `BuffCount` | `app/client/gd_buffgadg.h:110` | the assert's |
+| 3 | `std:` | `app/client/gd_buffgadg.h:66` | the FAIL_IF's 'index >= Elements.size()' |
+| 3 | `BuffGadgetClass` | `app/client/gd_buffgadg.h:94` | class-from-file (D24) for app\Client\gd_buffgadg.cpp |
+| 3 | `BuffInfo` | `app/client/gd_buffgadg.h:106` | the assert's 'buffinfo' (ui_buff.cpp) |
+| 3 | `BuffCount` | `app/client/gd_buffgadg.h:111` | the assert's |
 | 3 | `gd_dynamicwindow.h` | `app/client/gd_dynamicwindow.h:16` | header name assumed from the client's gd_dynamicwindow.cpp |
 | 3 | `DynamicWindowGadgetClass` | `app/client/gd_dynamicwindow.h:24` | class-from-file (D24) for app\Client\gd_dynamicwindow.cpp |
 | 3 | `DynamicObject` | `app/client/gd_dynamicwindow.h:35` | the FAIL_IF's |

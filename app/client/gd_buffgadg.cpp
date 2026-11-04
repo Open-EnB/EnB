@@ -265,6 +265,70 @@ void BuffGadgetClass::Unknown_666440(bool unknown)
 	Unknown_BC = 0;
 }
 
+// 0x666470
+bool BuffGadgetClass::Unknown_666470()
+{
+	if (Info.IsPermanent) {
+		return false;
+	}
+	if (Info.BuffRemovalTime == 0) {
+		return true;
+	}
+	return DurationClass((unsigned int)Client->Unknown10BC).Time > Info.BuffRemovalTime.Time;
+}
+
+// 0x6664E0
+void BuffGadgetClass::Unknown_6664E0(bool on)
+{
+	if (on != Unknown84) {
+		Unknown84 = on;
+		if (on) {
+			Unknown2C_06 = true;
+			if (BuffInfo != NULL) {
+				Set_Unknown14(BuffInfo->AltToolTip);
+			}
+		} else {
+			Unknown2C_06 = false;
+			if (BuffInfo != NULL) {
+				Set_Unknown14(Unknown_C4.c_str());
+			}
+		}
+	}
+}
+
+// 0x666570
+void BuffGadgetClass::Unknown_666570()
+{
+	Unknown_C4 = "";
+	if (BuffInfo != NULL) {
+		Unknown_C4 += BuffInfo->ToolTip;
+	}
+	std::string type = Info.Get_Scrub_Type_Name();
+	if (type.length() != 0) {
+		if (Unknown_C4.length() != 0) {
+			Unknown_C4 += "\n";
+		}
+		Unknown_C4 += std::string("(") + type + ")";
+	}
+	unsigned int count = Info.Get_Element_Count();
+	for (unsigned int i = 0; i < count; i++) {
+		const BuffElementStruct &element = Info.Get_Element(i);
+		Unknown_C4 += "\n ";
+		if (element.IsActive) {
+			Unknown_C4 += '+';
+		} else {
+			Unknown_C4 += ' ';
+		}
+		if (element.SourceEntity.length() == 0) {
+			Unknown_C4 += "(unknown)";
+		} else {
+			Unknown_C4 += element.SourceEntity;
+		}
+		Unknown_C4 += ": ";
+		Unknown_C4 += element.SourceObject;
+	}
+}
+
 /*
 **	Notes (GADG, 2026-11-04)
 **
@@ -273,13 +337,17 @@ void BuffGadgetClass::Unknown_666440(bool unknown)
 **	182), linked after gd_attrb_skills.cpp (whose static's initialiser is 0x665120). First PulseTime's initialiser
 **	0x665150 (too short to count), then BuffInfoStruct's members 0x665180-0x665A10 (the element constructor 0x665940
 **	between them, inlined into 0x6656A0's static), the gadget's constructor 0x665A40, its deleting destructor 0x665D30
-**	and destructor 0x665D60, slot +0xAC 0x665F20, 0x6661F0, 0x666440. Not rebuilt yet: 0x666470, 0x6664E0, 0x666570
-**	(the tooltip text: the BuffDefStruct's name, then the elements' through 0x6669D0) and the template instances after
-**	them. The COMDATs this file brings that match: the element vector's _Ufill / _Ucopy / fill / copy_backward / _Destroy
+**	and destructor 0x665D60, slot +0xAC 0x665F20, 0x6661F0, 0x666440, 0x666470 (the buff is over), 0x6664E0 (the
+**	alternative tooltip) and 0x666570 (the tooltip text: the BuffDefStruct's tool tip, '(type)', then a line per element),
+**	then the template instances. The COMDATs this file brings that match: Get_Scrub_Type_Name 0x6669D0, the info's vector
+**	constructor / operator= 0x666B50 / 0x666B80, the element vector's _Ufill / _Ucopy / fill / copy_backward / _Destroy
 **	(0x666EE0 / 0x666E90 / 0x666F20 / 0x6670A0 / 0x561BD0), BuffElementStruct::operator= 0x667300, std::sort's _Sort_0 /
 **	_Sort / _Unguarded_insert 0x667540 / 0x667B60 / 0x667D20 and the order BuffElementSortClass 0x667950.
 **
 **	Forms the client needs: the order's expiry test on Time ('>', duration.h has no operator>); 0x6661F0 computes 'grew'
 **	before the expiry test and compares the old and new BuffRemovalTime after the assignment (as the client does).
 **	RObjGadgetClass::Unknown_66C2A0 takes a float (0x665F20 passes the pulse 0..1; ro_funcs.cpp's 0x496240 'opacity').
+**	0x666570 appends '+' or ' ' through an if / else (the client's two pushes before one call: the tails merged; a ?:
+**	gives neg / sbb). Not matching, the same residue each time: the element's copies 0x665940, its implicit copy
+**	constructor 0x667A60 and _Construct 0x667230 call basic_string::assign where ours inlines it.
 */

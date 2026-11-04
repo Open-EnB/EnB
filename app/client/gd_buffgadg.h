@@ -51,6 +51,7 @@ struct BuffInfoStruct	// NAME 1: neutral (D10)
 {
 	BuffInfoStruct();									// 0x665180
 	void Set_Scrub_Type_Name(const std::string &name);	// 0x6651C0  // NAME 1 [Set_Scrub_Type_Name, name]: the member it sets
+	std::string Get_Scrub_Type_Name() const { return ScrubTypeName; }	// 0x6669D0 (out of line in 0x666570)  // NAME 1: the member it answers
 	void Set_Is_Permanent(bool permanent);				// 0x665340  // NAME 1 [Set_Is_Permanent, permanent]: the member it sets
 	void Set_Buff_Removal_Time(const DurationClass &time);	// 0x665360  // NAME 1 [Set_Buff_Removal_Time, time]: the member it sets
 	void Add_Element(const BuffElementStruct &element);	// 0x665390 (push_back)  // NAME 1 [Add_Element, element]: what it does
@@ -99,11 +100,11 @@ public:
 	bool Unknown_6661F0(const BuffInfoStruct &info, const DurationClass &now);	// 0x6661F0 (the values taken: true when the elements grew or the buff runs out sooner)  // NAME 1 [info, now]: what ui_buff.cpp's 0x560BC0 passes
 	void Unknown_666440(bool unknown);					// 0x666440 (the pulse started: +0xB8 = 1, +0xBC = 0; the argument unused)  // NAME 1 [unknown]: neutral
 	bool Unknown_666470();								// 0x666470 (true: the buff is over)
-	void Unknown_6664E0(bool on);						// 0x6664E0  // NAME 1 [on]: neutral
-	void Unknown_666570();								// 0x666570 (the tooltip text +0xC4 from the buff's name and the elements)
+	void Unknown_6664E0(bool on);						// 0x6664E0 (on: the BuffDefStruct's AltToolTip as the tooltip, bit 6 of +0x2C set)  // NAME 1 [on]: neutral
+	void Unknown_666570();								// 0x666570 (the tooltip text +0xC4: the tool tip, (type), a line per element)
 
 	BuffDefStruct *BuffInfo;							// +0x80  // NAME 3: the assert's 'buffinfo' (ui_buff.cpp)
-	bool Unknown84;										// +0x84 (set: the tooltip is left alone)
+	bool Unknown84;										// +0x84 (0x6664E0: the alternative tooltip shown)
 	BuffInfoStruct Info;								// +0x88  // NAME 1: its type
 	float Unknown_B8;									// +0xB8 (the pulse's length, seconds; 0x666440 sets 1)
 	float Unknown_BC;									// +0xBC (the pulse's time)
