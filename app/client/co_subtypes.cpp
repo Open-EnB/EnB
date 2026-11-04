@@ -74,7 +74,7 @@ Unknown70E5A0Class::~Unknown70E5A0Class()
 	if (ParentID != -1) {
 		ClientObjectClass *parent = Client->Find_Object(ParentID);
 		if (parent) {
-			parent->Model->Release_Bone(Bone);
+			parent->RenderObject->Release_Bone(Bone);
 		}
 	}
 }
@@ -92,7 +92,7 @@ void Unknown70E5A0Class::Unknown_14(UnknownB02C90Class *parent, int slot, int ch
 	ClientObjectClass *owner = (ClientObjectClass *)parent->Unknown04;
 	ParentID = owner->GameID;
 	Bone = owner->Unknown_725A90(slot);
-	owner->Model->Capture_Bone(Bone);
+	owner->RenderObject->Capture_Bone(Bone);
 }
 
 // 0x70E7D0
@@ -101,7 +101,7 @@ void Unknown70E5A0Class::Unknown_18(UnknownB02C90Class *parent, int slot, int ch
 	if (ParentID != -1) {
 		ClientObjectClass *parent_object = Client->Find_Object(ParentID);
 		if (parent_object) {
-			parent_object->Model->Release_Bone(Bone);
+			parent_object->RenderObject->Release_Bone(Bone);
 		}
 	}
 	ParentID = 0;
@@ -120,7 +120,7 @@ void Unknown70E5A0Class::Unknown_20()
 	if (!target) {
 		return;
 	}
-	RenderObjClass *model = Client->Find_Object(ParentID)->Model;
+	RenderObjClass *model = Client->Find_Object(ParentID)->RenderObject;
 	Vector3 target_pos = target->Unknown_24();
 	Matrix3D bone(true);
 	bone = model->Get_Bone_Transform(Bone);

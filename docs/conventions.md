@@ -302,7 +302,7 @@ Where the client's names disagree with these conventions, the client's are used;
 
 * **FontDatabaseClass (2026-10-27, H12):** app/client/fontdatabase.h; the globals 0xBE67B8 / 0xBE67BC are declared under stand-in names in tsk_game.h, sclient.cpp and ui_line_display.cpp: point them at fontdatabase.h at those files' next edit (P-H12-3).
 
-* **ClientObjectClass's render object (2026-10-27, T11):** co.h names the member `Model`; co.cpp's assert texts say `RenderObject`, the client's name. Rename at cpacket.cpp's next edit (it and clienttest use it; P-T11-1). The aux_roots.h UnknownCOClass merge waits for the CREATE factory to move into co.cpp (aux_roots.cpp is generated; P-T11-2).
+* **ClientObjectClass's render object (2026-10-27, T11):** co.h's member +0xAC is `RenderObject`, co.cpp's assert text (2026-11-03, P-T11-1; was `Model`; gadget.h's, sbaseview.h's, splash.h's and textgadg.h's own `Model` members are other classes'). The aux_roots.h UnknownCOClass merge waits for the CREATE factory to move into co.cpp (aux_roots.cpp is generated; P-T11-2).
 
 * **The input dispatcher (2026-10-27, H18):** the client's path is `app\input\inpdsp.cpp` (client wins: app/input/, not app/client/). `LoginUnknown0CClass` is defined in app/input/inpdsp.h; tsk_login.h includes it (2026-11-03, P-H18-1: its opaque `char[0x18]` twin is gone; app verify unchanged).
 

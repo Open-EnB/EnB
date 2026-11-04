@@ -1792,7 +1792,7 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	if (!skip_avatar) {
 		LayerClass layer(Scene, Camera, false, false, Vector3(0.0f, 0.0f, 0.0f));
 		ClientObjectClass *avatar = Client->Get_Avatar();
-		if (avatar && Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, avatar->Model, NULL)) {
+		if (avatar && Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, avatar->RenderObject, NULL)) {
 			return(avatar);
 		}
 		skip_avatar = true;
@@ -2241,7 +2241,7 @@ void MainViewClass::Add_Object(ClientObjectClass *object)
 		G_ASSERT(object);
 		return;
 	}
-	RenderObjClass *model = object->Model;
+	RenderObjClass *model = object->RenderObject;
 	if (model) {
 		model->Set_User_Data(object);
 		if (!object->Unknown_6F5D90()) model->Add(Unknown_64());
@@ -2261,7 +2261,7 @@ void MainViewClass::Remove_Object(ClientObjectClass *object)
 		G_ASSERT(object);
 		return;
 	}
-	if (object->Model && !object->Unknown_6F5D90()) object->Model->Remove();
+	if (object->RenderObject && !object->Unknown_6F5D90()) object->RenderObject->Remove();
 }
 
 int MainViewClass::Unknown_514400()

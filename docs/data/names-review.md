@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 99 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1177 |
-| 2 | describes what the code does | 2983 |
+| 2 | describes what the code does | 2982 |
 | 1 | neutral placeholder | 11755 |
 
 ## For review (score 3 and below)
@@ -11975,7 +11975,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/co.h:285` | what it holds |
 | 2 | `Type` | `app/client/co.h:290` | what it holds |
 | 2 | `Radius` | `app/client/co.h:293` | what it holds |
-| 2 | `Model` | `app/client/co.h:297` | what it holds |
 | 2 | `std:` | `app/client/co.h:302` | what it holds |
 | 2 | `std:` | `app/client/co.h:303` | what NAME_DECAL stores in it |
 | 2 | `Sphere` | `app/client/co.h:304` | what it holds |

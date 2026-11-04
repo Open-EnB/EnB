@@ -294,7 +294,7 @@ public:
 	float RadiusAdjust;									// +0xA0 (0x6F39F0: cbasset.ini's RadiusAdjust)  // NAME 3: the INI key
 	float Scale;										// +0xA4 1.0f (co.cpp's FAIL_IF 'Scale <= 0.0f', l.331)
 	int BaseAsset;										// +0xA8 -1 (CREATE 4 and CHANGE_BASE_ASSET 38 store the packet's BaseAsset; 0x6F39F0's 'BASE-%d' number; D121)
-	RenderObjClass *Model;								// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods; co.cpp's G_ASSERT 'RenderObject != 0', l.361, names it RenderObject)  // NAME 2: what it holds
+	RenderObjClass *RenderObject;						// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods): co.cpp's G_ASSERT 'RenderObject != 0', l.361
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
 	RefCountPtr<UnknownB4Class> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)

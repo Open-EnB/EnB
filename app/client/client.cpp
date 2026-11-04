@@ -475,8 +475,8 @@ bool UnknownB02C90Class::Unknown_0C(UnknownB02C90Class *child, int slot, int chi
 			e->Child = child;
 			ce->Unknown3C = this;
 			child->Unknown08 = Unknown08;
-			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->Model;
-			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->Model;
+			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->RenderObject;
+			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->RenderObject;
 			if (model && child_model) {
 				BufferStruct::ElementStruct *b = Buffer.Get(slot);
 				model->Add_Sub_Object_To_Bone(child_model, (b == NULL) ? -1 : b->Bone);
@@ -514,8 +514,8 @@ bool UnknownB02C90Class::Unknown_10(UnknownB02C90Class *child, int slot, int chi
 		BufferStruct::ElementStruct *e = Buffer.Get(slot);
 		BufferStruct::ElementStruct *ce = child->Buffer.Get(child_slot);
 		if (e && ce && e->Child == child && ce->Unknown3C == this) {
-			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->Model;
-			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->Model;
+			RenderObjClass *model = ((ClientObjectClass *)Unknown04)->RenderObject;
+			RenderObjClass *child_model = ((ClientObjectClass *)child->Unknown04)->RenderObject;
 			if (model && child_model) {
 				model->Remove_Sub_Object(child_model);
 			}

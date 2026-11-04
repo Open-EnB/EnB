@@ -179,7 +179,7 @@ bool ClientAvatarPacketClass::Process_Packet(void *instance)
 	WWPROFILE("ClientAvatarPacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
 	client->Set_Avatar_ID(AvatarID);
-	ClientObjectClass *object = client->Get_Avatar(); object->Model->Set_LOD_Bias(1000000000.0f);
+	ClientObjectClass *object = client->Get_Avatar(); object->RenderObject->Set_LOD_Bias(1000000000.0f);
 	return(true);
 }
 
@@ -1284,8 +1284,8 @@ bool InitRenderStatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("InitRenderStatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
-	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
-		RsTrackClass *track = (RsTrackClass *)object->Model;
+	if (object && object->RenderObject->Class_ID() == RSTRACK_CLASSID) {
+		RsTrackClass *track = (RsTrackClass *)object->RenderObject;
 		track->Unknown_460880(RenderStateID, LinkID);
 	}
 	return(true);
@@ -1297,8 +1297,8 @@ bool ActivateRenderStatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("ActivateRenderStatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
-	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
-		((RsTrackClass *)object->Model)->Unknown_4604D0(RenderStateID);
+	if (object && object->RenderObject->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->RenderObject)->Unknown_4604D0(RenderStateID);
 	}
 	return(true);
 }
@@ -1309,8 +1309,8 @@ bool ActivateNextRenderStateOncePacketClass::Process_Packet(void *instance)
 	WWPROFILE("ActivateNextRenderStateOncePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
-	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
-		((RsTrackClass *)object->Model)->Unknown_460850(RenderStateID);
+	if (object && object->RenderObject->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->RenderObject)->Unknown_460850(RenderStateID);
 	}
 	return(true);
 }
@@ -1321,8 +1321,8 @@ bool DeactivateRenderStatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("DeactivateRenderStatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
-	if (object && object->Model->Class_ID() == RSTRACK_CLASSID) {
-		((RsTrackClass *)object->Model)->Unknown_460780(RenderStateID);
+	if (object && object->RenderObject->Class_ID() == RSTRACK_CLASSID) {
+		((RsTrackClass *)object->RenderObject)->Unknown_460780(RenderStateID);
 	}
 	return(true);
 }
