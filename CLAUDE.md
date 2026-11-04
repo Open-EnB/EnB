@@ -62,13 +62,22 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
    Don't spend calls on `set_addresses_names`: names are lost on close. Record confirmed
    addresses in docs (and `symbols.json` via `symbols.py`), not in REA or just the chat.
 
-## Keeping context small
-- Pipe noisy commands through `| tail -30` / `| head -40`; send full output to `.work/*.log`
-  and read only what you need. Long jobs: `bytematch_all.sh` ~4 min, `importer.py verify` ~50 s;
-  run once, don't loop.
-- Put big scratch in `.work/` (git-ignored). Long searches or log digging: use a subagent
-  (`docs/builders.md` §4 says which model).
-- Work in focused sessions (one library / one subsystem). Finish with `/handoff`.
+## Keeping context small (rules, same weight as the hard rules)
+- These always go to a log, and only the summary is printed: `importer.py verify` (the per-library
+  totals line), `pairs_cmp.py` (category counts; entries only for a non-empty category, at most 20),
+  `build.py`, harness runs, `client.py callers|refs`, and any `grep -r` over `app/`, `tests/` or
+  `docs/` (run `-c` or `-l` first). Pattern: `cmd > .work/log/<name>.log 2>&1; tail -20 .work/log/<name>.log`.
+- Any other command whose output size you don't know: same pattern, or `| head -40`. Long jobs
+  (`bytematch_all.sh` ~4 min, `importer.py verify` ~50 s): run once, don't loop.
+- Reads: `grep -n` to find the place, then Read with offset/limit (at most ~150 lines). Never read
+  progress.md, workflow.md or conventions.md whole.
+- Images cost the most: one back-buffer shot per check (the one that answers the question), never a
+  run's whole set.
+- Delegate when a question needs a third search, a fourth file, or any digging through logs,
+  transcripts or git history: give it to a subagent (Explore for code, general-purpose for logs;
+  `docs/builders.md` §4 for builders' models) and keep only its conclusion.
+- One item per session: when a PR merges or an item lands, offer `/handoff` and a fresh session
+  before starting the next item.
 
 ## Handoff target
 Prepend a dated entry to the Log in `docs/progress.md` (newest first). Add new traps to
