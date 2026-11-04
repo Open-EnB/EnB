@@ -803,6 +803,105 @@ static void Hook_Imports(void)
 	}
 }
 
+
+/* LIGHT (run 2026-11-04): virtual input for the RETAIL client (as programs/clientpoc/poc_input.cpp does for the POC):
+   with D3D8SHOT_INPUT=1 the program's user32 imports read the messages a harness posts, never the real cursor */
+static POINT In_Cursor = { 0, 0 };
+static HWND In_Window = NULL;
+static BYTE In_Keys[256];
+typedef BOOL (WINAPI *GetMessageType)(LPMSG, HWND, UINT, UINT);
+typedef BOOL (WINAPI *PeekMessageType)(LPMSG, HWND, UINT, UINT, UINT);
+static GetMessageType Real_GetMessageA = NULL;
+static PeekMessageType Real_PeekMessageA = NULL;
+static void In_Screen(POINT *p) { *p = In_Cursor; if (In_Window) ClientToScreen(In_Window, p); }
+static void In_Take(LPMSG msg)
+{
+	POINT p;
+	if (msg->hwnd == NULL) return;
+	if ((msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) || msg->message == WM_KEYDOWN
+		|| msg->message == WM_CHAR) {
+		if (In_Window != msg->hwnd) Log("input: window %p\n", msg->hwnd);
+		In_Window = msg->hwnd;		/* the harness posts to the main window */
+	}
+	if (msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) {
+		In_Cursor.x = (short)LOWORD(msg->lParam);
+		In_Cursor.y = (short)HIWORD(msg->lParam);
+		if (msg->message == WM_LBUTTONDOWN) In_Keys[VK_LBUTTON] |= 0x80;
+		if (msg->message == WM_LBUTTONUP) In_Keys[VK_LBUTTON] &= ~0x80;
+		if (msg->message == WM_RBUTTONDOWN) In_Keys[VK_RBUTTON] |= 0x80;
+		if (msg->message == WM_RBUTTONUP) In_Keys[VK_RBUTTON] &= ~0x80;
+		if (msg->message != WM_MOUSEMOVE) Log("input: mouse 0x%X at %d, %d\n", msg->message, In_Cursor.x, In_Cursor.y);
+	} else if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
+		if (!(In_Keys[msg->wParam & 0xFF] & 0x80)) In_Keys[msg->wParam & 0xFF] ^= 0x01;
+		In_Keys[msg->wParam & 0xFF] |= 0x80;
+	} else if (msg->message == WM_KEYUP || msg->message == WM_SYSKEYUP) {
+		In_Keys[msg->wParam & 0xFF] &= ~0x80;
+	}
+	In_Screen(&p);
+	msg->pt = p;
+}
+static BOOL WINAPI In_GetMessageA(LPMSG msg, HWND w, UINT a, UINT b)
+{
+	BOOL r = Real_GetMessageA(msg, w, a, b);
+	if (r > 0) In_Take(msg);
+	return r;
+}
+static BOOL WINAPI In_PeekMessageA(LPMSG msg, HWND w, UINT a, UINT b, UINT f)
+{
+	BOOL r = Real_PeekMessageA(msg, w, a, b, f);
+	if (r && (f & PM_REMOVE)) In_Take(msg);
+	return r;
+}
+static BOOL WINAPI In_GetCursorPos(LPPOINT p) { In_Screen(p); return TRUE; }
+static DWORD WINAPI In_GetMessagePos(void) { POINT p; In_Screen(&p); return MAKELONG((short)p.x, (short)p.y); }
+static BOOL WINAPI In_SetCursorPos(int x, int y)
+{
+	POINT p; p.x = x; p.y = y;
+	if (In_Window) ScreenToClient(In_Window, &p);
+	In_Cursor = p;
+	return TRUE;
+}
+static HWND WINAPI In_GetForegroundWindow(void) { return In_Window; }
+static HWND WINAPI In_GetActiveWindow(void) { return In_Window; }
+static SHORT WINAPI In_GetKeyState(int k) { BYTE s = In_Keys[k & 0xFF]; return (SHORT)(((s & 0x80) ? 0x8000 : 0) | (s & 1)); }
+static SHORT WINAPI In_GetAsyncKeyState(int k) { return (SHORT)((In_Keys[k & 0xFF] & 0x80) ? 0x8000 : 0); }
+static BOOL WINAPI In_ClipCursor(const RECT *r) { return TRUE; }
+
+static void Hook_Input(void)
+{
+	char v[8];
+	unsigned char *base = (unsigned char *)GetModuleHandleA(NULL);
+	IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)(base + ((IMAGE_DOS_HEADER *)base)->e_lfanew);
+	IMAGE_DATA_DIRECTORY *dir = &nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
+	IMAGE_IMPORT_DESCRIPTOR *imp;
+	if (!GetEnvironmentVariableA("D3D8SHOT_INPUT", v, sizeof(v)) || v[0] != '1') return;
+	if (!dir->VirtualAddress) return;
+	for (imp = (IMAGE_IMPORT_DESCRIPTOR *)(base + dir->VirtualAddress); imp->Name; imp++) {
+		IMAGE_THUNK_DATA *names, *funcs;
+		if (stricmp((const char *)(base + imp->Name), "user32.dll") != 0) continue;
+		if (!imp->OriginalFirstThunk) continue;
+		names = (IMAGE_THUNK_DATA *)(base + imp->OriginalFirstThunk);
+		funcs = (IMAGE_THUNK_DATA *)(base + imp->FirstThunk);
+		for (; names->u1.AddressOfData; names++, funcs++) {
+			const char *n;
+			void *to = NULL;
+			if (names->u1.Ordinal & IMAGE_ORDINAL_FLAG) continue;
+			n = (const char *)((IMAGE_IMPORT_BY_NAME *)(base + (DWORD)names->u1.AddressOfData))->Name;
+			if (!strcmp(n, "GetMessageA")) { Real_GetMessageA = (GetMessageType)funcs->u1.Function; to = (void *)In_GetMessageA; }
+			else if (!strcmp(n, "PeekMessageA")) { Real_PeekMessageA = (PeekMessageType)funcs->u1.Function; to = (void *)In_PeekMessageA; }
+			else if (!strcmp(n, "GetCursorPos")) to = (void *)In_GetCursorPos;
+			else if (!strcmp(n, "GetMessagePos")) to = (void *)In_GetMessagePos;
+			else if (!strcmp(n, "SetCursorPos")) to = (void *)In_SetCursorPos;
+			else if (!strcmp(n, "GetForegroundWindow")) to = (void *)In_GetForegroundWindow;
+			else if (!strcmp(n, "GetActiveWindow")) to = (void *)In_GetActiveWindow;
+			else if (!strcmp(n, "GetKeyState")) to = (void *)In_GetKeyState;
+			else if (!strcmp(n, "GetAsyncKeyState")) to = (void *)In_GetAsyncKeyState;
+			else if (!strcmp(n, "ClipCursor")) to = (void *)In_ClipCursor;
+			if (to) { Patch((void **)&funcs->u1.Function, to); Log("input: hooked %s\n", n); }
+		}
+	}
+}
+
 static void Init(void)
 {
 	char path[MAX_PATH], log[MAX_PATH], frames[512];
@@ -833,6 +932,7 @@ static void Init(void)
 	Log("d3d8shot: real %s = %p, Direct3DCreate8 = %p; every %d, %d listed frames, max %d\n", path, Real,
 		RealCreate, Every, FrameCount, Max);
 	Hook_Imports();
+	Hook_Input();
 }
 
 void * WINAPI Direct3DCreate8(UINT version)
