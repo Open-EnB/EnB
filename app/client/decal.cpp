@@ -165,7 +165,7 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 					swatch.Unknown00 = passes;
 					for (unsigned int pass = 0; pass < passes; pass++) {
 						for (int stage = 0; stage < 2; stage++) {
-							swatch.Unknown04[pass][stage] = Create_Get(model->Get_Single_Texture(pass, stage));
+							swatch.Unknown04[pass][stage] = Create_Peek(model->Peek_Single_Texture(pass, stage));
 						}
 						swatch.Unknown24[pass] = model->Get_Single_Shader(pass);
 						swatch.Unknown34[pass] = Create_Peek(model->Peek_Single_Material(pass));
