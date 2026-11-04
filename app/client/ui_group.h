@@ -12,16 +12,7 @@ class UIGroupClass;
 
 // (The interface base, Unknown5BB320Class, is in sclient.h since its second user, ui_cpit.h: D137)
 
-// What a member's +0x2C points to (a virtual destructor; 0x5DCAE0 before the delete)
-class UIGroupMemberUnknown2CClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual ~UIGroupMemberUnknown2CClass();
-	virtual void Unknown_04(); virtual void Unknown_08(ClientObjectClass *object); virtual void Unknown_0C();	// +0x08 (0x595530: the member's object)  // NAME 1 [object]: what 0x595530 passes
-	virtual void Unknown_10();							// +0x10 (0x5935C0, every frame)
-	void Unknown_5DC390();								// 0x5DC390 (0x595530: no object)
-	void Unknown_5DCAE0();								// 0x5DCAE0 (before the delete)
-};
+// What a member's +0x2C points to: ui_cpit.h's UICpitUnknownD0Class (constructor 0x5DBFC0; sclient.h includes ui_cpit.h)
 
 // One member of the group (0x54 bytes, in Members; destructor 0x5932E0): the asserts' Get_Interface() is its +0x00
 class UIGroupMemberClass	// NAME 2: what UIGroupClass's Members holds
@@ -46,7 +37,7 @@ public:
 	float Unknown20;									// +0x20 (0x5982A0: 15.0f; 0x5935C0 runs it down, then clears +0x48's flag 0x800)
 	float Unknown24;									// +0x24 (0x5935C0 runs it down, then releases +0x3C / +0x38 / +0x28)
 	char *Unknown28;									// +0x28 (deleted, no destructor)
-	UIGroupMemberUnknown2CClass *Unknown2C;				// +0x2C
+	UICpitUnknownD0Class *Unknown2C;					// +0x2C (0x595530 news one, 0x5935C0 calls its slot +0x10 every frame)
 	RefCountPtr<RenderObjClass> Unknown30;				// +0x30 (0x593830 sets it)
 	RefCountPtr<RenderObjClass> Unknown34;				// +0x34 (0x5934A0: slot +0x38, released)
 	RefCountPtr<RenderObjClass> Unknown38;				// +0x38 (slot +0x38, released)

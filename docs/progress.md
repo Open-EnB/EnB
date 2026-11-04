@@ -52,7 +52,9 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   0xBE67B8) and expected.txt loses the one `gen SClientFontDatabaseClass::Unknown_6C55B0` line: 103 checks, 0 failed.
   B2.2 had missed clienttest.cpp's TestObjectClass destructor (`Model = 0`): fixed here (the app verify compiles no
   tests). POC: character select drawn, no crash, the same first calls. B2.4: tsk_login.h's unused
-  `typedef InterfaceClass CharacterViewUnknown1B4Class` deleted (no user left): 9,039 = 9,039.
+  `typedef InterfaceClass CharacterViewUnknown1B4Class` deleted (no user left): 9,039 = 9,039. B2.5: ui_group.h's
+  stand-in UIGroupMemberUnknown2CClass is ui_cpit.h's UICpitUnknownD0Class (same slots; ui_cpit.h gains 0x5DC390 /
+  0x5DCAE0, ui_group.cpp's cast gone): 9,039 = 9,039.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2372,8 +2374,7 @@ below name only the work items, the blocked work, the leads and the queues.
      ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
      sbaseview 0x69D030 (0x724 bytes) and SBaseView's slots 0x69B5E0 / 0x69C0D0 / 0x69C5A0 / 0x69C5E0 / 0x69C8F0 and
      ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430; ui_avatar_cust 0x550A10's frame-time prologue (register).
-   * From the 2026-10-31 day run: UIGroupMemberUnknown2CClass (ui_group.h) merges into ui_cpit.h's
-     UICpitUnknownD0Class (one class, ctor 0x5DBFC0; D137); aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
+   * From the 2026-10-31 day run: aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
      KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 and
      0x7099F0 / 0x709A40 (rtti.h casts); D99 candidate 0x463440 (Unknown462690Class's dtor). Leads: ui_manu's money find out of line first in 0x5B4B10 /
      0x5B5320 (DeltaTemplateClass<MoneyClass>'s instantiation state in the client's TU); ui_group 0x5946D0's

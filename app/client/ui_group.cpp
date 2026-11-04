@@ -1082,7 +1082,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			member->Unknown_593790();
 			member->Unknown_593830(member->Unknown34);
-			member->Unknown2C = (UIGroupMemberUnknown2CClass *)new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
+			member->Unknown2C = new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
 			ClientObjectClass *object = ((ClientClass *)Client)->Find_Object(member->ID);
 			if (object) {
 				member->Unknown2C->Unknown_08(object);

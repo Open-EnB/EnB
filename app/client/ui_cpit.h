@@ -76,6 +76,8 @@ public:
 	UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg);	// 0x5DBFC0 (the set-up passes the mesh's model, the layer, the cockpit, -1)  // NAME 1 [model, layer, cpit, arg]: what the set-up passes
 	virtual void Unknown_0C();							// +0x0C (its own)
 	virtual void Unknown_10();							// +0x10 (slot +0x60, every frame)
+	void Unknown_5DC390();								// 0x5DC390 (ui_group.cpp's 0x595530: a member with no object)
+	void Unknown_5DCAE0();								// 0x5DCAE0 (ui_group.cpp: before the delete)
 	char Unknown18[0x28 - 0x18];						// +0x18
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
 };
