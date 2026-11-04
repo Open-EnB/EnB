@@ -5,7 +5,17 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
 #include "random.h"
+#include "camera.h"
+#include "layer.h"
+#include "dx8renderer.h"
+#include "..\audio\soundlib.h"
+#include "tutorial_manager.h"
+#include "local_interface_sort.h"
+#include <new>
+#include "aabox.h"
 
+class SignalMap;
+class AABoxClass;
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
@@ -17,11 +27,16 @@ public:
 	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
+	virtual void Unknown_60();
+	virtual void Unknown_64(AABoxClass &box);			// +0x64 (gadget.h's: the box)  // NAME 1 [box]: gadget.h's
+	virtual void Unknown_68(); virtual void Unknown_6C();
 	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
 	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
+	static void Destroy(GadgetClass *del_me);			// 0x65EED0 (gadget.h's)  // NAME 2 [del_me]: gadget.h's
 
+	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
+	void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
 	char Unknown04[0x2C - 0x04];						// +0x04
 	unsigned int Unknown2C;								// +0x2C (0x556290 sets 0x400)
 };
@@ -51,7 +66,8 @@ public:
 
 	GadgetClass *Gadget;								// +0x00  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('BODY_PULL' / 'HEAD_PULL', 0x556290)  // NAME 2: what 0x556290 puts there
-	char Unknown08[0x10 - 0x08];						// +0x08
+	bool Unknown08;										// +0x08
+	float Unknown0C;									// +0x0C (0.5)
 };
 
 // What 0x5860B0 returns (avatar.cpp's neighbourhood: five blend weights from a point in 0 .. 1)
@@ -69,14 +85,23 @@ class UIAvatrUnknown194Class : public RefCountClass	// NAME 1: neutral (D10)
 public:
 	void Unknown_77E830(const UIAvatrWeightsStruct &weights);	// 0x77E830 (avatar.cpp's neighbourhood; 0x558060)  // NAME 1 [weights]: neutral
 	void Unknown_7859F0(int type);						// 0x7859F0 (0x558170: a random one of the +0x2EC object's +0x20)  // NAME 1 [type]: neutral
+	void Unknown_77F000(int num);						// 0x77F000 (ids 0x16 / 0x17: the +0x2DC choice)  // NAME 1 [num]: neutral
+	void Unknown_7857D0(int num);						// 0x7857D0 (ids 0x18 / 0x19: the +0x2E8 choice, avatar.h's head texture)  // NAME 1 [num]: neutral
+	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (ids 0x1C / 0x1D: the +0x2F0 choice, 1)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (ids 0x1E / 0x1F: the +0x2F4 choice, 1)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor: the view's +0x3A4)  // NAME 1 [env_maps]: neutral
 	void Unknown_77E900(const UIAvatrWeightsStruct &weights);	// 0x77E900 (0x558060)  // NAME 1 [weights]: neutral
-	char Unknown08[0x110 - 0x08];						// +0x08
+	char Unknown08[0x108 - 0x08];						// +0x08
+	int Unknown108;										// +0x108 (its Desc.Race: the constructor's environment map and the pip)
+	int Unknown10C;										// +0x10C
 	int Unknown110;										// +0x110
 	char Unknown114[0x194 - 0x114];						// +0x114
 	int Unknown194;										// +0x194 (0x55B110: the body tab's 0x2A .. 0x2D values)
 	int Unknown198;										// +0x198
 	int Unknown19C;										// +0x19C
 	int Unknown1A0;										// +0x1A0
+	char Unknown1A4[0x232 - 0x1A4];						// +0x1A4
+	bool Unknown232;									// +0x232 (avatar.h's: 0x67A440 sets it)
 };
 
 // The +0x8C object's +0x34, as far as 0x554D60 reads it
@@ -86,20 +111,62 @@ struct UIAvatrUnknown08CUnknown034Struct	// NAME 1: neutral (D10)
 	bool Unknown7C;										// +0x7C (0x554D60)
 };
 
-// The window's +0x8C, as far as this file reads it
-class UIAvatrUnknown08CClass	// NAME 1: neutral (D10)
+// tsk_login.h's LoginTaskClass (the window's +0x90), as far as this file calls it (tsk_login.h includes charview.h,
+// which this file declares as far as it uses it)
+class UIAvatrLoginTaskClass	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the window's destructor: 0)  // NAME 1 [arg]: neutral
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
+	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
+	virtual void Unknown_50();
+	virtual void Go_Next_Step();						// +0x54 (tsk_login.h's)
+	virtual void Go_Back_Step();						// +0x58 (tsk_login.h's)
+	char Unknown04[0x28 - 0x04];						// +0x04
+	int Previous_Step;									// +0x28 (tsk_login.h's: 6 when the ship screen sent us back)
+};
+
+// charview.h's CharacterViewClass (the window's +0x8C), as far as this file uses it: the same class, declared here
+// because charview.h changes this file's code (0x556630, 0x55AFD0, 0x55B110 lost their match with it)
+class CharacterViewClass	// NAME 1 [CharacterViewClass]: charview.h's
+{
+public:
+	void Unknown_67A9B0(int type);						// 0x67A9B0 (the window's destructor: 0)
 	bool Unknown_67B2B0();								// 0x67B2B0 (0x554D60: true clears the window's +0x1C5)
-	char Unknown00[0x34];								// +0x00
+	void Unknown_67A250();								// 0x67A250
+	void Unknown_67ACE0(int type);						// 0x67ACE0
+	void Unknown_67AB20(int type, const char *name);	// 0x67AB20
+	void Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov);	// 0x67A290
+	void Unknown_67A3F0();								// 0x67A3F0 (+0x194 released)
+	void Unknown_67A440(AvatarDescClass *desc, bool copy);	// 0x67A440
+	void Unknown_67A670();								// 0x67A670 (+0x198 released)
+	void Unknown_67B270();								// 0x67B270 ('Are you sure you want to quit?')
+	void Unknown_67B4F0(bool on);						// 0x67B4F0
+	void Unknown_67C200(Vector2 *offsets, int size, int which);	// 0x67C200
+	void Unknown_67C2E0(Vector2 *out, int index);		// 0x67C2E0
+	void Unknown_67C340(Vector3 *out, int index);		// 0x67C340
+	void Unknown_67C7B0();								// 0x67C7B0
+	void Unknown_67C920(std::string name);				// 0x67C920
+	char Unknown00[0x14];								// +0x00
+	ClientTaskClass *Unknown14;							// +0x14 (UIViewClass's: the task)
+	char Unknown18[0x34 - 0x18];						// +0x18
 	UIAvatrUnknown08CUnknown034Struct *Unknown034;		// +0x34
-	char Unknown38[0x194 - 0x38];						// +0x38
+	char Unknown38[0x68 - 0x38];						// +0x38
+	CameraClass *Unknown068;							// +0x68
+	char Unknown6C[0x88 - 0x6C];						// +0x6C
+	char Unknown088[0x194 - 0x88];						// +0x88 (an AvatarDescClass)
 	UIAvatrUnknown194Class *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
-	UIAvatrUnknown194Class *Unknown194;					// +0x194
+	UIAvatrUnknown194Class *Unknown194;					// +0x194 (AvatarRObj)
 	char Unknown198[0x1B8 - 0x198];						// +0x198
 	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10)
-	RenderObjClass *Unknown1B8;							// +0x1B8 (the model: its texts by name)
+	RenderObjClass *Unknown1B8;							// +0x1B8 (ViewRObjs[0], the model: its texts by name)
+	RenderObjClass *Unknown1BC;							// +0x1BC (ViewRObjs[1])
+	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
+	bool Unknown1CD;									// +0x1CD (Unknown1CC[1])
+	char Unknown1CE[0x3A4 - 0x1CE];						// +0x1CE
+	EnvironmentMapManagerClass *Unknown3A4;				// +0x3A4 'envmaps.ini'
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -144,10 +211,13 @@ public:
 	bool Unknown231;									// +0x231 (set on the head tab)
 };
 
-// The window's +0x94, as far as 0x556B20 calls it
-class UIAvatrUnknown094Class	// NAME 1: neutral (D10)
+// The window's +0x94: ship_pip.cpp's gadget (0xF4 bytes, vtable 0xB07DF4), as far as this file calls it
+class ShipPipClass	// NAME 3: class-from-file (D24) for app\client\ship_pip.cpp
 {
 public:
+	ShipPipClass(int type);								// 0x80B2E0 (the constructor passes 1)  // NAME 1 [type]: neutral
+	bool Unknown_80C220(ViewClass *view);		// 0x80C220 (FAIL_IF '!PIPView': its scene, camera and FloatParent)  // NAME 1 [view]: neutral
+	void Unknown_80C540(const Vector2 &size, const Vector3 &offset, unsigned int sort_level);	// 0x80C540 (the constructor: (640, 480), (0, 0, 0), 0x1C)  // NAME 1 [size, offset, a]: neutral
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
@@ -156,10 +226,12 @@ public:
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74();
+	virtual void Unknown_70();
+	virtual void Unknown_74(int race);					// +0x74 0x80BAB0 (the lights by race)  // NAME 1 [race]: neutral
 	virtual void Unknown_78();							// +0x78 (0x554D60)
-	virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84();
+	virtual void Unknown_7C(const RefCountPtr<UIAvatrUnknown194Class> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
+	virtual void Unknown_80();
+	virtual void Unknown_84(const RefCountPtr<UIAvatrUnknown194Class> &avatar);	// +0x84 0x80CA30  // NAME 1 [avatar]: neutral
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
 	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
 	virtual void Unknown_8C();							// +0x8C
@@ -168,11 +240,12 @@ public:
 	UIAvatrUnknown094Unknown054Struct *Unknown054;		// +0x54
 	char Unknown58[0xDC - 0x58];						// +0x58
 	bool Unknown0DC;									// +0xDC (set on the head tab)
+	char Unknown0DD[0xF4 - 0xDD];						// +0xDD (ship_pip.h's: 0xF4 bytes; the constructor writes +0xEC / +0xF0)
 };
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
-class FontManagerClass { public: void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_cpit.cpp does
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
@@ -255,7 +328,11 @@ class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10)
 {
 public:
 	~UIAvatrUnknown2ECStruct();							// 0x585BF0
-	char Unknown00[0x20];								// +0x00
+	void Unknown_585C90();								// 0x585C90 (the next choice: the odd ids)
+	void Unknown_585CC0();								// 0x585CC0 (the previous choice: the even ids)
+	char Unknown00[0x18];								// +0x00
+	int Unknown18;										// +0x18 (the choice)
+	char Unknown1C[0x20 - 0x1C];						// +0x1C
 	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
 };
 
@@ -263,14 +340,26 @@ public:
 class AvatarCreationInterface : public InterfaceClass	// NAME 3: the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>)
 {
 public:
+	AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep);	// 0x553AF0 (charview.cpp's 0x679160, mode 4: keep 0)  // NAME 1 [view, layer, keep]: neutral
 	virtual ~AvatarCreationInterface();					// 0x554B50 (0x554B20 the deleting one)
-	void Unknown_554D60();								// 0x554D60
+	virtual void Unknown_60();							// +0x60 0x554D60 (every frame)
+	virtual bool Unknown_68(int key);					// +0x68 0x554E80 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
+	void Unknown_557290();								// 0x557290 (id 4)
+	void Unknown_557950(int a, bool b, bool c);			// 0x557950 (the constructor: 2, 1, 0 then 0 .. 6, 1, 0)  // NAME 1 [a, b, c]: neutral
+	void Unknown_5582A0();								// 0x5582A0 (id 1)
+	void Unknown_558D30(int dir);						// 0x558D30 (ids 0x26 / 0x27: 1, 2)  // NAME 1 [dir]: neutral
+	void Unknown_558EA0(int dir);						// 0x558EA0 (ids 0x28 / 0x29: 1, 2)  // NAME 1 [dir]: neutral
+	void Unknown_559010(int dir);						// 0x559010 (ids 0x12 / 0x13: 1, 2)  // NAME 1 [dir]: neutral
+	void Unknown_5591E0(int dir);						// 0x5591E0 (ids 0x14 / 0x15: 1, 2)  // NAME 1 [dir]: neutral
+	void Unknown_559350();								// 0x559350 (id 0xF, before the next step)
+	void Unknown_559900();								// 0x559900 (the constructor)
+	void Unknown_55B9A0(int arg);						// 0x55B9A0 (ids 0x32 .. 0x34: 0, 1, 2)  // NAME 1 [arg]: neutral
 	void Unknown_555F60(int text);						// 0x555F60 (the palette's texture: 'text1' .. 'text7')  // NAME 1 [text]: neutral
 	void Unknown_5560E0();								// 0x5560E0 (the colour pull made)
 	void Unknown_556290();								// 0x556290 (the body and head pulls made)
 	void Unknown_556630(int tab, bool on);				// 0x556630 (a tab's gadgets and texts shown or hidden: 0 none, 1 head, 2 body)  // NAME 1 [tab, on]: neutral
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
-	void Unknown_55A550(int a, int b, int c, int d);	// 0x55A550 (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
+	void Unknown_55A550(int a, float b, float c, float d);	// 0x55A550 (ids 0x2E .. 0x31: +-0.05 in c or d) (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B650();								// 0x55B650 (0x55B110, last)
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
@@ -293,9 +382,9 @@ public:
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
 	int Unknown088;										// +0x88 (the tab, 0x556B20)
-	UIAvatrUnknown08CClass *Unknown08C;					// +0x8C
-	char Unknown90[0x94 - 0x90];						// +0x90
-	UIAvatrUnknown094Class *Unknown094;					// +0x94
+	CharacterViewClass *Unknown08C;					// +0x8C
+	UIAvatrLoginTaskClass *Unknown090;					// +0x90 (the view's task)
+	ShipPipClass *Unknown094;					// +0x94
 	GadgetClass *Unknown098[50];						// +0x98 (UIAvatrParts' gadgets)
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	Vector2 Unknown164;									// +0x164 (0x558060's point)
@@ -305,14 +394,18 @@ public:
 	float Unknown178;									// +0x178 (the head's scale, 0.5 .. +0x17C: 0x55B540)
 	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
-	char Unknown184[0x1BC - 0x184];						// +0x184
+	Vector2 Unknown184[7];								// +0x184 (0.5, 0.5 each; 0x67C200 fills them when the ship screen sent us back)
 	int Unknown1BC;										// +0x1BC (0x55B110: 0 .. 6 from the button)
 	int Unknown1C0;										// +0x1C0 (0x55B110: the +0x194 object's value for it)
 	char Unknown1C4;									// +0x1C4
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
-	char Unknown1C6[0x2C8 - 0x1C6];						// +0x1C6
+	bool Unknown1C6;									// +0x1C6
+	bool Unknown1C7;									// +0x1C7
+	bool Unknown1C8;									// +0x1C8
+	bool Unknown1C9;									// +0x1C9
+	char Unknown1CA[0x2C8 - 0x1CA];						// +0x1CA (+0x1CC an AvatarDescClass, 0x10C bytes: its string at +0x2C8)
 	std::string Unknown2C8;								// +0x2C8 (the destructor's)
-	char Unknown2D8[0x2DC - 0x2D8];						// +0x2D8
+	bool Unknown2D8;									// +0x2D8
 	UIAvatrUnknown2ECStruct *Unknown2DC;				// +0x2DC (0x559F30 deletes the seven)
 	UIAvatrUnknown2ECStruct *Unknown2E0;				// +0x2E0
 	UIAvatrUnknown2ECStruct *Unknown2E4;				// +0x2E4
@@ -332,6 +425,176 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarCreationInterface, vo
 
 
 
+
+
+
+// env_map_manager.h's EnvironmentMapManagerClass (the view's +0x3A4), as ui_class.cpp declares it
+class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: as ui_class.cpp's
+struct UIAvatrKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event, as ui_class.cpp's UIClassKeyEventStruct
+{
+	UIAvatrKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
+	short Key;											// +0x00 (0x1B, 0x0D)  // NAME 1: neutral (D10)
+	short Unknown02;									// +0x02
+	float Unknown04;									// +0x04
+	float Unknown08;									// +0x08
+	int Unknown0C;										// +0x0C
+};
+class UIAvatrKeysClass { public: void Unknown_721E60(const UIAvatrKeyEventStruct *event, int id); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60, as ui_class.cpp's  // NAME 1 [event, id]: what the constructor passes
+class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it
+{
+public:
+	ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675240 (the screens pass 0x55, 3)
+	char Unknown30[0x64 - 0x30];						// +0x30
+};
+class AvatarDescClass { public: AvatarDescClass(); };	// avatar_desc.h's (0x10C bytes; tsk_login.h's include of charview.h keeps it out)  // NAME 1: avatar_desc.h's
+static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
+
+// NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the
+// AvatarDescClass at +0x1CC is constructed in place over this file's char block
+// 0x553AF0
+AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
+	InterfaceClass(view, (int)layer->Peek_Scene())
+{
+	int i;
+	Unknown084 = (UIMeshClass *)layer;
+	Unknown088 = 3;
+	Unknown08C = NULL;
+	Unknown090 = NULL;
+	Unknown094 = NULL;
+	Unknown160 = NULL;
+	Unknown164.X = 0.5f;
+	Unknown164.Y = 0.5f;
+	Unknown16C = NULL;
+	Unknown170 = 0.5f;
+	Unknown174 = 0.5f;
+	Unknown178 = 1.0f;
+	Unknown17C = 1.0f;
+	Unknown180 = NULL;
+	Unknown1BC = 0;
+	Unknown1C0 = -1;
+	Unknown1C4 = 0;
+	Unknown1C5 = false;
+	Unknown1C6 = false;
+	Unknown1C7 = false;
+	Unknown1C8 = false;
+	Unknown1C9 = false;
+	::new ((void *)((char *)this + 0x1CC)) AvatarDescClass;
+	Unknown2D8 = false;
+	Unknown2DC = NULL;
+	Unknown2E0 = NULL;
+	Unknown2E4 = NULL;
+	Unknown2E8 = NULL;
+	Unknown2EC = NULL;
+	Unknown2F0 = NULL;
+	Unknown2F4 = NULL;
+	for (i = 0; i < 50; i++) {
+		Unknown098[i] = NULL;
+	}
+	for (i = 0; i < 7; i++) {
+		Unknown184[i].X = 0.5f;
+		Unknown184[i].Y = 0.5f;
+	}
+	Unknown08C = (CharacterViewClass *)View->Unknown_28();
+	Unknown090 = (UIAvatrLoginTaskClass *)Unknown08C->Unknown14->Unknown_08();
+	InterfaceSortScopeClass sort(this);
+	Unknown08C->Unknown_67A250();
+	Unknown08C->Unknown_67ACE0(0);
+	Unknown08C->Unknown_67AB20(0, "fe_avatar00");
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	Unknown08C->Unknown068->Set_Clip_Planes(1.0f, 500.0f);
+	if (Unknown08C->Unknown1BC == NULL) {
+		Unknown08C->Unknown_67AB20(1, "FE01C");
+		Unknown08C->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 60.0f);
+		Unknown08C->Unknown_67A440((AvatarDescClass *)Unknown08C->Unknown088, false);
+		Unknown08C->Peek_Unknown194()->Unknown232 = true;
+	}
+	Unknown08C->Unknown_67B4F0(false);
+	Unknown_BE67BC->Load("fa_fe_avatar00.ini");
+	Unknown_BE67C4->Add(model.Peek());
+
+	for (i = 0; i < 16; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown098[i], i + 1, View, 1, 0);
+	}
+	for (i = 16; i < 35; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown098[i], i + 2, View, 1, 0);
+	}
+	for (i = 35; i < 50; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown098[i], i + 3, View, 1, 0);
+	}
+	{
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name("turn_down"));
+		if (sub) {
+			sub->Set_Hidden(1);
+		}
+		sub = Create_Get(model->Get_Sub_Object_By_Name("turn_up"));
+		if (sub) {
+			sub->Set_Hidden(1);
+		}
+	}
+
+	{
+		RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+		Unknown094 = new ShipPipClass(1);
+		Unknown094->Unknown_74(desc->Unknown108);
+		Unknown094->Unknown_80C220((ViewClass *)Unknown08C);
+		((GadgetClass *)Unknown094)->Unknown_65FFC0(1, NULL);
+		Unknown094->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
+		Unknown64.Unknown_6870E0((GadgetClass *)Unknown094, 0x36, View, 1, 0);
+		Unknown094->Unknown_7C(Create_Peek(Unknown08C->Peek_Unknown194()));
+	}
+
+	Unknown_559900();
+	((UIAvatrKeysClass *)&Unknown4C)->Unknown_721E60(&UIAvatrKeyEventStruct(0x1B), 0x3A);
+	((UIAvatrKeysClass *)&Unknown4C)->Unknown_721E60(&UIAvatrKeyEventStruct(0x0D), 0xF);
+	Unknown_556290();
+	Unknown_5560E0();
+	bool back = (Unknown090->Previous_Step == 6);
+	if (back) {
+		Unknown08C->Unknown_67C200(Unknown184, 7, Unknown08C->Peek_Unknown194()->Unknown110);
+		Unknown08C->Unknown_67C2E0(&Unknown164, Unknown08C->Peek_Unknown194()->Unknown110);
+		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, Unknown08C->Peek_Unknown194()->Unknown110);
+	}
+	if (!keep && !back) {
+		Unknown_Set_Palette("fa_skin_color.tga");
+		Unknown_557950(2, 1, 0);
+		Unknown_Set_Palette("fa_avatar_color.tga");
+		Unknown_557950(0, 1, 0);
+		Unknown_557950(1, 1, 0);
+		Unknown_557950(3, 1, 0);
+		Unknown_557950(4, 1, 0);
+		Unknown_557950(5, 1, 0);
+		Unknown_557950(6, 1, 0);
+	}
+	{
+		RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+		Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Unknown108], 1);
+		Unknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);
+		Unknown08C->Peek_Unknown194()->Unknown232 = true;
+		Unknown094->Unknown_84(Create_Peek(Unknown08C->Peek_Unknown194()));
+	}
+	Unknown_556630(0, true);
+	if (Unknown094) {
+		Unknown094->Unknown_40(true);
+	}
+	Unknown_55AFD0();
+	Unknown_556B20(0);
+	Unknown08C->Unknown_67C7B0();
+	if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationIntro")) {
+		Unknown08C->Unknown_67C920("1492_00_347se.mp3");
+		TutorialManagerClass::Instance->Set_Completed("AvatarCreationIntro");
+	}
+	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
+	GadgetClass::Get_Signal_Map().connect(NULL, new UIAvatrCallbackClass(this, function));
+}
 
 // 0x554B50
 AvatarCreationInterface::~AvatarCreationInterface()
@@ -357,13 +620,13 @@ AvatarCreationInterface::~AvatarCreationInterface()
 	Unknown_BE67BC->Unload("fa_fe_avatar00.ini");
 	Unknown08C->Unknown_67A9B0(0);
 	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
-	UIAvatrNotifierClass *notifier = Unknown_65ECE0();
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	UIAvatrCallbackClass callback(this, function);
-	notifier->Remove(0, &callback);
+	notifier->disconnect(0, callback);
 }
 
 // 0x554D60
-void AvatarCreationInterface::Unknown_554D60()
+void AvatarCreationInterface::Unknown_60()
 {
 	Unknown_556F80();
 	if (Unknown08C->Unknown_67B2B0()) {
@@ -388,6 +651,184 @@ void AvatarCreationInterface::Unknown_554D60()
 	Unknown_55BAC0();
 	Unknown094->Unknown_78();
 	Unknown094->Unknown054->Unknown_1C4();
+}
+
+// NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails)
+// 0x554E80
+bool AvatarCreationInterface::Unknown_68(int key)
+{
+	if (Unknown1C4 || Unknown1C5 || Unknown1C6 || Unknown1C7 || Unknown1C8 || Unknown1C9) {
+		return(false);
+	}
+	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	switch (key) {
+		case 1:
+			Unknown_5582A0();
+			Unknown_556B20(0);
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 2:
+			Unknown_556B20(1);
+			Unknown_55B650();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown08C->Unknown_67C7B0();
+			if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationHead")) {
+				Unknown08C->Unknown_67C920("1492_00_351se.mp3");
+				Unknown08C->Unknown_67C920("1492_00_352se.mp3");
+				Unknown08C->Unknown_67C920("1492_00_353se.mp3");
+				TutorialManagerClass::Instance->Set_Completed("AvatarCreationHead");
+			}
+			return(true);
+		case 3:
+			Unknown_556B20(2);
+			Unknown_55B650();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown08C->Unknown_67C7B0();
+			if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationBody")) {
+				Unknown08C->Unknown_67C920("1492_00_355se.mp3");
+				Unknown08C->Unknown_67C920("1492_00_356se.mp3");
+				Unknown08C->Unknown_67C920("1492_00_357se.mp3");
+				TutorialManagerClass::Instance->Set_Completed("AvatarCreationBody");
+			}
+			return(true);
+		case 4:
+			Unknown_557290();
+			Unknown094->Unknown_84(desc);
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 5:
+			Unknown094->Unknown_8C();
+			break;
+		case 0xA:
+			Unknown094->Unknown_88();
+			break;
+		case 0xF:
+			Unknown_559350();
+			Unknown08C->Unknown_67A3F0();
+			Unknown08C->Unknown_67ACE0(1);
+			Unknown08C->Unknown1CD = true;
+			Unknown090->Go_Next_Step();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown08C->Unknown_67C7B0();
+			return(true);
+		case 0x10:
+			Unknown08C->Unknown_67A3F0();
+			Unknown08C->Unknown_67ACE0(1);
+			Unknown08C->Unknown_67ACE0(4);
+			Unknown08C->Unknown_67A670();
+			Unknown08C->Unknown1CD = true;
+			Unknown090->Go_Back_Step();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown08C->Unknown_67C7B0();
+			return(true);
+		case 0x12:
+			Unknown_559010(1);
+			break;
+		case 0x13:
+			Unknown_559010(2);
+			break;
+		case 0x14:
+			Unknown_5591E0(1);
+			break;
+		case 0x15:
+			Unknown_5591E0(2);
+			break;
+		case 0x16:
+		case 0x17:
+			if (key == 0x16) Unknown2DC->Unknown_585CC0(); else Unknown2DC->Unknown_585C90();
+			desc->Unknown_77F000(Unknown2DC->Unknown18);
+			desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc);
+			break;
+		case 0x18:
+		case 0x19:
+			if (key == 0x18) Unknown2E8->Unknown_585CC0(); else Unknown2E8->Unknown_585C90();
+			desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown094->Unknown_84(desc);
+			break;
+		case 0x1A:
+		case 0x1B:
+			if (key == 0x1A) Unknown2EC->Unknown_585CC0(); else Unknown2EC->Unknown_585C90();
+			desc->Unknown_7859F0(Unknown2EC->Unknown18);
+			Unknown_55B2D0();
+			Unknown094->Unknown_84(desc);
+			break;
+		case 0x1C:
+		case 0x1D:
+			if (key == 0x1C) Unknown2F0->Unknown_585CC0(); else Unknown2F0->Unknown_585C90();
+			desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1);
+			TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc);
+			break;
+		case 0x1E:
+		case 0x1F:
+			if (key == 0x1E) Unknown2F4->Unknown_585CC0(); else Unknown2F4->Unknown_585C90();
+			desc->Unknown_77FC90(Unknown2F4->Unknown18, 1);
+			TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc);
+			break;
+		case 0x20:
+		case 0x21:
+			Unknown_Set_Palette("fa_avatar_color.tga");
+			Unknown_55B110(key);
+			break;
+		case 0x22:
+			Unknown_Set_Palette("fa_skin_color.tga");
+			Unknown_55B110(key);
+			break;
+		case 0x26:
+			Unknown_558D30(1);
+			break;
+		case 0x27:
+			Unknown_558D30(2);
+			break;
+		case 0x28:
+			Unknown_558EA0(1);
+			break;
+		case 0x29:
+			Unknown_558EA0(2);
+			break;
+		case 0x2A:
+		case 0x2B:
+		case 0x2C:
+		case 0x2D:
+			Unknown_55B110(key);
+			break;
+		case 0x2E:
+			Unknown_55A550(0, 0.0f, 0.0f, 0.05f);
+			break;
+		case 0x2F:
+			Unknown_55A550(0, 0.0f, 0.0f, -0.05f);
+			break;
+		case 0x30:
+			Unknown_55A550(0, 0.0f, -0.05f, 0.0f);
+			break;
+		case 0x31:
+			Unknown_55A550(0, 0.0f, 0.05f, 0.0f);
+			break;
+		case 0x32:
+			Unknown_55B9A0(0);
+			break;
+		case 0x33:
+			Unknown_55B9A0(1);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			return(true);
+		case 0x34:
+			Unknown_55B9A0(2);
+			break;
+		case 0x3A:
+			Unknown08C->Unknown_67B270();
+			Unknown1C5 = true;
+			Unknown08C->Unknown_67C7B0();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		default:
+			return(false);
+	}
+	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	return(true);
 }
 
 // 0x555F60
@@ -756,6 +1197,8 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 		texture->Release_Ref();
 	}
 }
+
+
 
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).

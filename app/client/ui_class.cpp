@@ -6,6 +6,7 @@
 #include "sclient.h"
 #include "tasks\tsk_login.h"
 #include "rendobj.h"
+#include "assetmgr.h"
 #include "camera.h"
 #include "layer.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -21,7 +22,6 @@
 #include "local_interface_sort.h"
 #include "tooltip.h"
 #include "unknown_signalbase.h"
-
 
 #include "fontmanager.h"
 
@@ -42,7 +42,6 @@ struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct *event, int id); void Unknown_721EF0(const UIClassKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes
 
 #include "gd_slider.h"
-//
 //
 //
 //
@@ -547,6 +546,7 @@ void ClassSelectInterface::Unknown_576270()
 }
 
 
+
 // 0x576AC0 (Unknown_576AC0, the per-frame planet turn toward UnknownE8 with 'planet' / 0x5760C0) is not built here:
 // Unknown_60 calls it out of line (an empty body here was inlined away).
 
@@ -978,6 +978,76 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 		if (gadget == Buttons[0] || gadget == Buttons[1] || gadget == Buttons[2] ||
 		    gadget == Buttons[3] || gadget == Buttons[4] || gadget == (GadgetClass *)Unknown8C) {
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		}
+	}
+}
+
+
+static std::string Unknown_BDA908;	// 0xBDA908: the skill's tooltip when SKILL_TOOL_TIPS has none (empty)  // NAME 1: neutral (D10)
+
+// NOT EXACT: functional (D64), from the client's 0x576360
+// @0x576360
+void ClassSelectInterface::Unknown_576360()
+{
+	char section[64];
+	char entry[64];
+	_snprintf(section, sizeof(section), "CLASS-%d%d", Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	Descriptions.erase(Descriptions.begin(), Descriptions.end());
+	SkillDescriptions.erase(SkillDescriptions.begin(), SkillDescriptions.end());
+	for (int i = 0; ; i++) {
+		_snprintf(entry, sizeof(entry), "Info%d", i);
+		if (!INI.Is_Present(section, entry)) {
+			((GadgetSlider *)Slider)->Unknown_66FA90((float)(int)Descriptions.size(), 8.0f, true);
+			int value = (int)((GadgetSlider *)Slider)->Value;
+			if (SliderValue != value) {
+				SliderValue = value;
+				Unknown_576270();
+			}
+			Unknown_576270();
+			return;
+		}
+		StringClass text;
+		StringClass tip;
+		INI.Get_String(text, section, entry, " ");
+		if (((const char *)text)[0] != 0) {
+			std::string name = (const char *)text;
+			Descriptions.insert(Descriptions.end(), name);
+			std::string key = name + " " + Unknown_BE5B6C[Unknown8C].Title;
+			const char *found = INI.Is_Present("SKILL_TOOL_TIPS", key.c_str()) ? key.c_str() : name.c_str();
+			INI.Get_String(tip, "SKILL_TOOL_TIPS", found, " ");
+			std::string description = Unknown_BDA908;
+			if (((const char *)tip)[0] != 0) {
+				description = (const char *)tip;
+			}
+			SkillDescriptions.insert(SkillDescriptions.end(), 1, description);
+		}
+	}
+}
+
+
+// NOT EXACT: functional (D64), from the client's 0x5767F0
+// @0x5767F0
+void ClassSelectInterface::Unknown_5767F0()
+{
+	char section[64];
+	char entry[64];
+	char name[64];
+	char bone[64];
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
+	_snprintf(section, sizeof(section), "CLASS-%d%d", Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	for (int i = 0; i < 7; i++) {
+		if (Models[i]) {
+			model->Remove_Sub_Object(Models[i].Peek());
+			Models[i] = NULL;
+		}
+		_snprintf(entry, sizeof(entry), "Stat%d", i);
+		if (INI.Is_Present(section, entry)) {
+			_snprintf(name, sizeof(name), "fe_stats%02d", INI.Get_Int(section, entry, 0));
+			Models[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
+			if (Models[i]) {
+				_snprintf(bone, sizeof(bone), "stats%02d", i + 1);
+				model->Add_Sub_Object_To_Bone(Models[i].Peek(), bone);
+			}
 		}
 	}
 }
