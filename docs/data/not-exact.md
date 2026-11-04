@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-532 entries in 124 files.
+537 entries in 125 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,44 +15,45 @@ edit the comments in the code, not this file.
 | `app/audio/surfacetypes.cpp:22` | `Unknown_442650` | marker | NOT EXACT: frame (0.51, sub esp 0x90 vs 0x8c) @0x442650 |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Read` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
-| `app/client/avatar.cpp:45` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:328` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:458` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:546` | `CharacterViewAvatarClass::Unknown_784700` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:640` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:707` | `CharacterViewAvatarClass::Unknown_7826A0` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:741` | `CharacterViewAvatarClass::Unknown_782850` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:767` | `CharacterViewAvatarClass::Unknown_7829B0` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:821` | `CharacterViewAvatarClass::Unknown_7861B0` | marker | NOT EXACT: functional for POC (D64), shape (the client holds the sound in a RefCountPtr) |
-| `app/client/avatar.cpp:833` | `CharacterViewAvatarClass::Unknown_7860C0` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:856` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
-| `app/client/avatar.cpp:929` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
-| `app/client/avatar.cpp:944` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
-| `app/client/avatar.cpp:986` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
-| `app/client/avatar.cpp:1043` | `CharacterViewAvatarClass::Unknown_782CA0` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:1104` | `CharacterViewAvatarClass::Unknown_782FF0` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:1139` | `CharacterViewAvatarClass::Unknown_783470` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x474080 as a plain pointer) |
-| `app/client/avatar.cpp:1160` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
-| `app/client/avatar.cpp:1265` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
-| `app/client/avatar.cpp:1451` | `CharacterViewAvatarClass::Unknown_77E0E0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
-| `app/client/avatar.cpp:1485` | `CharacterViewAvatarClass::Unknown_77F750` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the client's members are RefCountPtrs) |
-| `app/client/avatar.cpp:1511` | `CharacterViewAvatarClass::Unknown_7857D0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
-| `app/client/avatar.cpp:1541` | `CharacterViewAvatarClass::Unknown_7859F0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
-| `app/client/avatar.cpp:1573` | `CharacterViewAvatarClass::Unknown_785C00` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
-| `app/client/avatar.cpp:1611` | `CharacterViewAvatarClass::Unknown_77F960` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
-| `app/client/avatar.cpp:1651` | `CharacterViewAvatarClass::Unknown_77FEC0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
-| `app/client/avatar.cpp:1671` | `CharacterViewAvatarClass::Unknown_77FFA0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
-| `app/client/avatar.cpp:1692` | `CharacterViewAvatarClass::Unknown_7802F0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
-| `app/client/avatar.cpp:1711` | `CharacterViewAvatarClass::Unknown_7804A0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
-| `app/client/avatar.cpp:1731` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:1771` | `CharacterViewAvatarClass::Unknown_780F30` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:1808` | `CharacterViewAvatarClass::Unknown_7812A0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:1825` | `CharacterViewAvatarClass::Unknown_781410` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:1856` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:2027` | `CharacterViewAvatarClass::Unknown_7885D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's) |
-| `app/client/avatar.cpp:2072` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
-| `app/client/avatar.cpp:2185` | `CharacterViewAvatarClass::Unknown_7897D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr +0x370 / +0x374 as plain pointers) |
-| `app/client/avatar.cpp:2224` | `CharacterViewAvatarClass::Unknown_789D80` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
+| `app/client/avatar.cpp:51` | `CharacterViewAvatarClass::CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:349` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:479` | `CharacterViewAvatarClass::Clone` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:567` | `CharacterViewAvatarClass::Unknown_784700` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:661` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:728` | `CharacterViewAvatarClass::Unknown_7826A0` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:762` | `CharacterViewAvatarClass::Unknown_782850` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:788` | `CharacterViewAvatarClass::Unknown_7829B0` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:842` | `CharacterViewAvatarClass::Unknown_7861B0` | marker | NOT EXACT: functional for POC (D64), shape (the client holds the sound in a RefCountPtr) |
+| `app/client/avatar.cpp:854` | `CharacterViewAvatarClass::Unknown_7860C0` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:877` | `CharacterViewAvatarClass::Unknown_784C90` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts) |
+| `app/client/avatar.cpp:950` | `CharacterViewAvatarClass::Unknown_781D10` | marker | NOT EXACT: functional for POC (D64), shape |
+| `app/client/avatar.cpp:965` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
+| `app/client/avatar.cpp:1007` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
+| `app/client/avatar.cpp:1064` | `CharacterViewAvatarClass::Unknown_782CA0` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:1125` | `CharacterViewAvatarClass::Unknown_782FF0` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:1160` | `CharacterViewAvatarClass::Unknown_783470` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x474080 as a plain pointer) |
+| `app/client/avatar.cpp:1181` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
+| `app/client/avatar.cpp:1286` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
+| `app/client/avatar.cpp:1472` | `CharacterViewAvatarClass::Unknown_77E0E0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
+| `app/client/avatar.cpp:1506` | `CharacterViewAvatarClass::Unknown_77F750` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the client's members are RefCountPtrs) |
+| `app/client/avatar.cpp:1532` | `CharacterViewAvatarClass::Unknown_7857D0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
+| `app/client/avatar.cpp:1562` | `CharacterViewAvatarClass::Unknown_7859F0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
+| `app/client/avatar.cpp:1594` | `CharacterViewAvatarClass::Unknown_785C00` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
+| `app/client/avatar.cpp:1632` | `CharacterViewAvatarClass::Unknown_77F960` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
+| `app/client/avatar.cpp:1672` | `CharacterViewAvatarClass::Unknown_77FEC0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
+| `app/client/avatar.cpp:1692` | `CharacterViewAvatarClass::Unknown_77FFA0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
+| `app/client/avatar.cpp:1713` | `CharacterViewAvatarClass::Unknown_7802F0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
+| `app/client/avatar.cpp:1732` | `CharacterViewAvatarClass::Unknown_7804A0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
+| `app/client/avatar.cpp:1754` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
+| `app/client/avatar.cpp:1776` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:1816` | `CharacterViewAvatarClass::Unknown_780F30` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:1853` | `CharacterViewAvatarClass::Unknown_7812A0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:1870` | `CharacterViewAvatarClass::Unknown_781410` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:1901` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
+| `app/client/avatar.cpp:2072` | `CharacterViewAvatarClass::Unknown_7885D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's) |
+| `app/client/avatar.cpp:2117` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
+| `app/client/avatar.cpp:2230` | `CharacterViewAvatarClass::Unknown_7897D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr +0x370 / +0x374 as plain pointers) |
+| `app/client/avatar.cpp:2269` | `CharacterViewAvatarClass::Unknown_789D80` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -215,6 +216,9 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
+| `app/client/shiputils.cpp:62` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:71` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:105` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
 | `app/client/signal_map.cpp:36` | `Unknown_4F7EF0` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:45` | `Unknown_4F7F60` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:54` | `SignalList::SignalList` | marker | NOT EXACT: functional (shape) |
@@ -501,6 +505,7 @@ edit the comments in the code, not this file.
 | `app/shared/ro_funcs.cpp:148` | `Unknown_496360` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:182` | `Unknown_496490` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
+| `app/shared/ro_funcs.cpp:360` | `Unknown_496DB0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object) |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
