@@ -14,13 +14,13 @@
 #include "control_keys_manager.h"
 
 // fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls it (as ui_cpit.cpp declares it)
-class FontStyleClass : public RenderObjClass	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
+class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there)
 {
 public:
 	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
 	const char *Unknown_6D87D0();						// 0x6D87D0: the text shown  // NAME 1: neutral (D10)
 };
-class FontManagerClass { public: FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // What the avatar pip's +0x2C holds (a render object), as far as 0x563C50 reads it
@@ -706,7 +706,7 @@ void UIChatPanelClass::Unknown_563C50()
 // 0x563DC0
 void UIChatPanelClass::Unknown_563DC0(bool on)
 {
-	RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", (unsigned int)Peek_Unknown84()));
+	RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", (unsigned int)Peek_Unknown84()));
 	FAIL_IF(!font) return;
 	if (on) {
 		if (strcmp(Unknown124.c_str(), font->Unknown_6D87D0()) != 0) font->Change_Text(Unknown124.c_str(), 0);
@@ -2293,7 +2293,7 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 	UnknownA4[4]->Unknown_40(show);
 	UnknownA4[4]->Unknown_8C(!show);
 	if (text) {
-		RefCountPtr<FontStyleClass> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", (unsigned int)Peek_Unknown84()));
+		RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", (unsigned int)Peek_Unknown84()));
 		FAIL_IF(!font) return;
 		font->Change_Text(text, 0);
 	}
@@ -2303,19 +2303,19 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 
 
 // 0x56BC10
-void UIChatPanelClass::Unknown_70(ControlKeysManagerClass *manager)
+void UIChatPanelClass::Unknown_70(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), (void *)16, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), (void *)16, 0);
 }
 
 // 0x56BD80
-void UIChatPanelClass::Unknown_74(ControlKeysManagerClass *manager)
+void UIChatPanelClass::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), 0);
 }
 
 

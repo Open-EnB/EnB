@@ -21,12 +21,12 @@
 #include <string>
 #include <vector>
 
-class FontStyleClass;
+class FontSys;
 
 class DynamicWindowMultiLineTextClass : public DynamicWindowElementClass, public DynamicWindowContainerClass  // NAME 2 [DynamicWindowMultiLineTextClass]: class from file (D24)
 {
 public:
-	DynamicWindowMultiLineTextClass(const std::string &font_name, const RefCountPtr<FontStyleClass> &sample_font, const Vector2 &min_size, unsigned int flags);	// 0x51B180 (G_ASSERT 'CharacterHeight > 0')  // NAME 1 [font_name, sample_font, min_size, flags]: the FAIL_IFs'; Set_Min_Size's; the base's
+	DynamicWindowMultiLineTextClass(const std::string &font_name, const RefCountPtr<FontSys> &sample_font, const Vector2 &min_size, unsigned int flags);	// 0x51B180 (G_ASSERT 'CharacterHeight > 0')  // NAME 1 [font_name, sample_font, min_size, flags]: the FAIL_IFs'; Set_Min_Size's; the base's
 	virtual ~DynamicWindowMultiLineTextClass();													// +0x04 0x51B3A0 (deleting 0x51B340)
 
 	static RefCountPtr<DynamicWindowMultiLineTextClass> Create(const std::string &font_name, const Vector2 &min_size, unsigned int flags);	// 0x51AFA0 (FAIL_IF 'font_name.empty()', '!sample_font')  // NAME 1 [Create]
@@ -70,7 +70,7 @@ protected:
 	SceneClass *Scene;																			// +0x14  // NAME 1 [Scene]
 	int Level;																					// +0x18  // NAME 1 [Level]
 	std::string FontName;																		// +0x1C ('font_name')
-	RefCountPtr<FontStyleClass> SampleFont;														// +0x2C ('sample_font')
+	RefCountPtr<FontSys> SampleFont;														// +0x2C ('sample_font')
 	float CharacterHeight;																		// +0x30 (G_ASSERT 'CharacterHeight > 0')
 	Vector2 MinSize;																			// +0x34  // NAME 1 [MinSize]
 	Vector2 Size;																				// +0x3C  // NAME 1 [Size]

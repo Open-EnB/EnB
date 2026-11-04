@@ -16,7 +16,7 @@
 #include "wwprofile.h"
 
 // NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched
-FontStyleClass::FontStyleClass(const char *name, int object, const char *text) :
+FontSys::FontSys(const char *name, int object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
@@ -37,7 +37,7 @@ FontStyleClass::FontStyleClass(const char *name, int object, const char *text) :
 }
 
 // NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched
-FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const char *text) :
+FontSys::FontSys(FontStringStruct def, unsigned int object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
@@ -55,7 +55,7 @@ FontStyleClass::FontStyleClass(FontStringStruct def, unsigned int object, const 
 }
 
 // 0x6D5140: out of its container, then the reference dropped (~ManagedFontClass, 0x6D0A70)
-void FontStyleClass::Unknown_6D5140()
+void FontSys::Unknown_6D5140()
 {
 	Remove();
 	Release_Ref();
@@ -63,7 +63,7 @@ void FontStyleClass::Unknown_6D5140()
 
 // NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
 // (from Colors, 10 when none) added by TXT1
-void FontStyleClass::Unknown_6D5170(int object)
+void FontSys::Unknown_6D5170(int object)
 {
 	int i;
 	Unknown4DC = 1.0f;
@@ -180,7 +180,7 @@ void FontStyleClass::Unknown_6D5170(int object)
 }
 
 // NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched
-void FontStyleClass::Set_Container(RenderObjClass *con)
+void FontSys::Set_Container(RenderObjClass *con)
 {
 	if (con == NULL) {
 		Set_Sort_Level(SORT_LEVEL_NONE);
@@ -211,7 +211,7 @@ void FontStyleClass::Set_Container(RenderObjClass *con)
 }
 
 // 0x6D5A80: a character cell's size: the text rectangle in 640 x 480 units, times Scale
-void FontStyleClass::Unknown_6D5A80(float &width, float &height)
+void FontSys::Unknown_6D5A80(float &width, float &height)
 {
 	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
 	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
@@ -220,7 +220,7 @@ void FontStyleClass::Unknown_6D5A80(float &width, float &height)
 }
 
 // 0x6D5B90
-void FontStyleClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
+void FontSys::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 {
 	AABoxClass box;
 	Get_Obj_Space_Bounding_Box(box);
@@ -229,7 +229,7 @@ void FontStyleClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 }
 
 // NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched
-void FontStyleClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
+void FontSys::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 {
 	float x = (float)(Unknown420[1] - Unknown420[0]) * (640.0f / (float)Width) * 0.5f;
 	float y = (float)(Unknown420[3] - Unknown420[2]) * (480.0f / (float)Height) * 0.5f;
@@ -254,7 +254,7 @@ void FontStyleClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 }
 
 // NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched
-void FontStyleClass::Unknown_6D5D40()
+void FontSys::Unknown_6D5D40()
 {
 	if (Object != NULL) {
 		RenderObjClass *sub = Object->Get_Sub_Object_By_Name(Info.Attach);
@@ -278,7 +278,7 @@ void FontStyleClass::Unknown_6D5D40()
 }
 
 // NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched
-void FontStyleClass::Unknown_6D6390()
+void FontSys::Unknown_6D6390()
 {
 	const char *text = Info.Text;
 	Unknown408 = (strcmp(text, " ") == 0);
@@ -296,7 +296,7 @@ void FontStyleClass::Unknown_6D6390()
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
 
 // 0x6D5F40: the shader for Info.BlendType[FontIndex]; every case ends with no depth writes and an always-pass compare
-void FontStyleClass::Unknown_6D5F40(ShaderClass &shader)
+void FontSys::Unknown_6D5F40(ShaderClass &shader)
 {
 	switch (Info.BlendType[FontIndex]) {
 		case 0:
@@ -336,7 +336,7 @@ void FontStyleClass::Unknown_6D5F40(ShaderClass &shader)
 // 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn
 // when it ends (or at once without one) unless +0x440 says otherwise.
 // NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched
-bool FontStyleClass::Unknown_6D60C0()
+bool FontSys::Unknown_6D60C0()
 {
 	if (Unknown274[6] == 0) {
 		Unknown274[6] = 1;
@@ -386,7 +386,7 @@ bool FontStyleClass::Unknown_6D60C0()
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
 // NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched
-void FontStyleClass::Update_Text(bool unknown)
+void FontSys::Update_Text(bool unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
 	float *color = (float *)&Unknown494;		// r, g, b, a now
@@ -922,7 +922,7 @@ void FontStyleClass::Update_Text(bool unknown)
 
 
 // NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched
-void FontStyleClass::Render(RenderInfoClass &rinfo)
+void FontSys::Render(RenderInfoClass &rinfo)
 {
 	Unknown4C4 = false;
 	if (Unknown440 < 3) {
@@ -956,7 +956,7 @@ void FontStyleClass::Render(RenderInfoClass &rinfo)
 }
 
 // 0x6D8650: the text's position: +0x464 (with +0x302 set) or the transform's, plus +0x47C and the effects' offset +0x488
-Vector3 FontStyleClass::Unknown_6D8650()
+Vector3 FontSys::Unknown_6D8650()
 {
 	Vector3 pos;
 	if (Unknown302) {
@@ -968,13 +968,13 @@ Vector3 FontStyleClass::Unknown_6D8650()
 }
 
 // 0x6D87D0: the text (Info.Text)
-const char *FontStyleClass::Unknown_6D87D0()
+const char *FontSys::Unknown_6D87D0()
 {
 	return Info.Text;
 }
 
 // 0x6D87F0 (D185's variant)
-void FontStyleClass::Set_Transform(const Matrix3D &m)
+void FontSys::Set_Transform(const Matrix3D &m)
 {
 	RenderObjClass::Set_Transform(m);
 	Unknown4E5 = true;
@@ -985,7 +985,7 @@ void FontStyleClass::Set_Transform(const Matrix3D &m)
 }
 
 // 0x6D88C0
-void FontStyleClass::Set_Position(const Vector3 &v)
+void FontSys::Set_Position(const Vector3 &v)
 {
 	RenderObjClass::Set_Position(v);
 	Unknown4E5 = true;
@@ -993,7 +993,7 @@ void FontStyleClass::Set_Position(const Vector3 &v)
 }
 
 // 0x6D88F0: the screen rectangle the text is clipped to (+0x430: left, right, top, bottom)
-void FontStyleClass::Unknown_6D88F0(int left, int top, int right, int bottom)
+void FontSys::Unknown_6D88F0(int left, int top, int right, int bottom)
 {
 	Unknown430[0] = left;
 	Unknown430[2] = top;
@@ -1005,13 +1005,13 @@ void FontStyleClass::Unknown_6D88F0(int left, int top, int right, int bottom)
 /*
 **	Reconstruction notes (fontsys.cpp)
 **
-**	The client's FontSys (the tree's FontStyleClass, fontmanager.h; rename pending): a DynamicMeshClass(2, 4) that
+**	The client's FontSys (fontmanager.h; was FontSys until 2026-11-03): a DynamicMeshClass(2, 4) that
 **	draws one string template. __FILE__ 'e:\build\beta\G\app\Client\fontsys.cpp' (0xB92828) is used once, by
 **	Render 0x6D8270's G_ASSERT on line 914 (DynamicMeshClass::Render's check, copied). The file's start (the
 **	fontmanager.cpp | fontsys.cpp boundary between 0x6D2A70 and 0x6D47C0) is not settled: the constructors
 **	0x6D47C0 / 0x6D4C70 are here as the class's own code, interim (D137).
 **	Vtable 0xAFECB4 (122 slots, as DynamicMeshClass's): destructor 0x6D4C40 (the deleting form of the inline
-**	~FontStyleClass 0x67F230), Class_ID 0x67EF00, Get_Name 0x67EF20, Render 0x6D8270, Set_Container 0x6D5920,
+**	~FontSys 0x67F230), Class_ID 0x67EF00, Get_Name 0x67EF20, Render 0x6D8270, Set_Container 0x6D5920,
 **	Set_Transform 0x6D87F0, Set_Position 0x6D88C0, the bounding volumes 0x6D5B90 / 0x6D5C10, Set_Hidden 0x67EF40,
 **	Is_Complete 0x67EEE0.
 **	Functional (D64) for the POC client: TextGadgetClass's constructor needs a real object with a table. Not yet

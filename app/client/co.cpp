@@ -49,11 +49,11 @@ void ClientObjectClass::Unknown_34(float value)
 // 0x6F3BC0
 RenderObjClass *ClientObjectClass::Unknown_6F3BC0()
 {
-	if (Model == 0) {
-		return(Model);
+	if (RenderObject == 0) {
+		return(RenderObject);
 	}
-	Model->Add_Ref();
-	return(Model);
+	RenderObject->Add_Ref();
+	return(RenderObject);
 }
 static inline void Attach_To_Bone(RenderObjClass *model, RenderObjClass *object, const char *bone_name)
 {
@@ -92,7 +92,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	RadiusAdjust(0),
 	Scale(1.0f),
 	BaseAsset(-1),
-	Model(0),
+	RenderObject(0),
 	UnknownB0(false),
 	UnknownB8(0),
 	Sphere(Vector3(0.0f, 0.0f, 0.0f), 0.0f),
@@ -165,10 +165,10 @@ ClientObjectClass::~ClientObjectClass()
 		UnknownB4->Unknown_732690();
 		UnknownB4 = NULL;
 	}
-	if (Model) {
-		Model->Remove();
-		Model->Release_Ref();
-		Model = NULL;
+	if (RenderObject) {
+		RenderObject->Remove();
+		RenderObject->Release_Ref();
+		RenderObject = NULL;
 	}
 	if (Unknown98) {
 		delete Unknown98;
@@ -264,11 +264,11 @@ public:
 void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale)
 {
 	SceneClass *scene = NULL;
-	if (Model) {
-		scene = Model->Get_Scene();
-		Model->Remove();
-		Model->Release_Ref();
-		Model = NULL;
+	if (RenderObject) {
+		scene = RenderObject->Get_Scene();
+		RenderObject->Remove();
+		RenderObject->Release_Ref();
+		RenderObject = NULL;
 		if (Unknown118) {
 			Unknown118->Attach_To_Object(NULL, -1);
 		}
@@ -282,30 +282,30 @@ void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, fl
 			Unknown124->Attach_To_Object(NULL, -1);
 		}
 	}
-	Model = model;
+	RenderObject = model;
 	BaseAsset = base_asset;
 	Scale = scale;
 	if (UnknownB4) {
-		UnknownB4->Unknown_20(base_asset, Create_Peek(Model));
+		UnknownB4->Unknown_20(base_asset, Create_Peek(RenderObject));
 	}
-	if (Model) {
-		Model->Add_Ref();
+	if (RenderObject) {
+		RenderObject->Add_Ref();
 		if (scene) {
-			Model->Add(scene);
+			RenderObject->Add(scene);
 		}
-		Model->Set_Render_Hook(new UnknownB007A4Class);
+		RenderObject->Set_Render_Hook(new UnknownB007A4Class);
 		Unknown_38();
 		if (Unknown118) {
-			Unknown118->Attach_To_Object(Model, -1);
+			Unknown118->Attach_To_Object(RenderObject, -1);
 		}
 		if (Unknown11C) {
-			Unknown11C->Attach_To_Object(Model, -1);
+			Unknown11C->Attach_To_Object(RenderObject, -1);
 		}
 		if (Unknown120) {
-			Unknown120->Attach_To_Object(Model, -1);
+			Unknown120->Attach_To_Object(RenderObject, -1);
 		}
 		if (Unknown124) {
-			Unknown124->Attach_To_Object(Model, -1);
+			Unknown124->Attach_To_Object(RenderObject, -1);
 		}
 	} else {
 		Unknown_34(0);
@@ -319,7 +319,7 @@ void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, fl
 // 0x6F39F0
 void ClientObjectClass::Unknown_38()
 {
-	if (Model) {
+	if (RenderObject) {
 		static INIClass ini;
 		if (!ini.Is_Loaded()) {
 			ini.Load("cbasset.ini");
@@ -358,9 +358,9 @@ void ClientObjectClass::Unknown_38()
 // 0x6F3BF0
 void ClientObjectClass::Unknown_6F3BF0(bool hidden)
 {
-	G_ASSERT(Model != 0);
-	if (Model) {
-		Model->Set_Hidden(hidden);
+	G_ASSERT(RenderObject != 0);
+	if (RenderObject) {
+		RenderObject->Set_Hidden(hidden);
 	}
 }
 #pragma auto_inline(off)
@@ -447,11 +447,11 @@ void ClientObjectClass::Unknown_20()
 		case 41: return;
 	}
 
-	if (Model) {
+	if (RenderObject) {
 		if (!tm.Is_Orthogonal()) {
 			tm.Re_Orthogonalize();
 		}
-		Model->Set_Transform(tm);
+		RenderObject->Set_Transform(tm);
 		Unknown_6FD2C0();
 	}
 	if (Type == 0 || Type == 1) {
@@ -894,7 +894,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		return(new Null3DObjClass("NULL"));
 	}
 	if (!ini.Find_Section(section)) {
-		return(Unknown_BDADC0->Create_Render_Obj("missing"));
+		return(AssetManager->Create_Render_Obj("missing"));
 	}
 	if (ini.Get_Bool(section, "OverbrightOff", false)) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
@@ -905,7 +905,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 	if (ini.Is_Present(section, "RSLID")) {
 		int rslid = ini.Get_Int(section, "RSLID", -1);
 		if (rslid == -1 || client == NULL) {
-			return(Unknown_BDADC0->Create_Render_Obj("missing"));
+			return(AssetManager->Create_Render_Obj("missing"));
 		}
 		RenderStateListClass *list = (RenderStateListClass *)client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
 		int link_id = ini.Get_Int(section, "LINKID", -1);
@@ -923,17 +923,17 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		char file[256];
 		ini.Get_String(section, "FILE", "", file, 255);
 		ini.Get_String(section, "NAME", "", name, 255);
-		RenderObjClass *robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		RenderObjClass *robj = AssetManager->Unknown_78(name, scale, hsv);
 		if (robj) {
 			return(robj);
 		}
-		Unknown_BDADC0->Load_3D_Assets(file);
-		robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		AssetManager->Load_3D_Assets(file);
+		robj = AssetManager->Unknown_78(name, scale, hsv);
 		if (robj) {
 			return(robj);
 		}
 		Unknown_4BC260("Base Asset", "", __FILE__, __LINE__, "Could not create render object %s from file %s", name, file);
-		return(Unknown_BDADC0->Create_Render_Obj("missing"));
+		return(AssetManager->Create_Render_Obj("missing"));
 
 
 
@@ -1554,16 +1554,16 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (player) { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 2.5f); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
 			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
 			if (Unknown118) {
-				Unknown118->Attach_To_Object(Model, -1);
+				Unknown118->Attach_To_Object(RenderObject, -1);
 			}
 			if (Unknown11C) {
-				Unknown11C->Attach_To_Object(Model, -1);
+				Unknown11C->Attach_To_Object(RenderObject, -1);
 			}
 			if (player) {
 				((SClient *)Client)->CameraManager->Unknown_79B2B0(2);
 			}
 			if (Unknown_6F5A40() && Unknown184) {
-				Unknown_810540(Model, 1, 0);
+				Unknown_810540(RenderObject, 1, 0);
 				Unknown184 = false;
 			}
 			Unknown14C = --Client->Unknown113C;
@@ -1631,7 +1631,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown_6F5A40() && Unknown184 != true) {
-				Unknown_810540(Model, 2, 0); Unknown184 = true;
+				Unknown_810540(RenderObject, 2, 0); Unknown184 = true;
 			}
 			Unknown_6FC880(); break;
 	}
@@ -1656,7 +1656,7 @@ void ClientObjectClass::Unknown_6FC880()
 		Unknown14C = 0;
 	}
 	if (Unknown_6F5A40() && Unknown184 != true) {
-		Unknown_810540(Model, 2, 0);
+		Unknown_810540(RenderObject, 2, 0);
 		Unknown184 = true;
 	}
 }
@@ -1681,7 +1681,7 @@ static inline void Set_Floats(char *p, float a, float b) { ((float *)p)[0] = a; 
 void ClientObjectClass::Unknown_6FC9A0()
 {
 	char *aux = AuxData;
-	char *model = (char *)Model;
+	char *model = (char *)RenderObject;
 	if (*(unsigned *)(aux + 0x198) > 1) {
 		*(float *)(model + 0x98) = Get_Float(aux + 0x1AC);
 	}
@@ -1739,7 +1739,7 @@ void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 // a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
 
 int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
-inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && Model) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(Model, 0); Unknown150 = Unknown_810CF0(Model, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
+inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && RenderObject) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(RenderObject, 0); Unknown150 = Unknown_810CF0(RenderObject, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
 // NOT EXACT: inline budget (the client calls Colorization.size() 0x700E30, the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
 // 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization,
 // then for an organic type 0 or 1 that isn't IsOrganic the six bone models (+0x158) from base assets 0x618 / 0x617 / 0x73F, hidden
@@ -1747,7 +1747,7 @@ void ClientObjectClass::Unknown_6FCB70()
 {
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
-	if (Colorization.size() && Model) Unknown_80F220(Model, Colorization);
+	if (Colorization.size() && RenderObject) Unknown_80F220(RenderObject, Colorization);
 	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
 		NameClass name("IsOrganic");
@@ -1767,7 +1767,7 @@ void ClientObjectClass::Unknown_6FCB70()
 					G_ASSERT(0); Unknown170 = false;
 				}
 			}
-			if (Unknown170) Unknown_6F3810(Model);
+			if (Unknown170) Unknown_6F3810(RenderObject);
 		}
 	}
 }
@@ -1776,7 +1776,7 @@ void ClientObjectClass::Unknown_6FCB70()
 // 0x6FD2C0
 void ClientObjectClass::Unknown_6FD2C0()
 {
-	FAIL_IF(!Model) {return;}
+	FAIL_IF(!RenderObject) {return;}
 	Unknown_6FD310();
 	Unknown_6FDBD0();
 	Unknown_6FE1E0();
@@ -1858,8 +1858,8 @@ void ClientObjectClass::Unknown_6FD310()
 							Generator_PoolID = pool;
 							Generator_SlotID = slot;
 							DecalGeneratorClass *generator = Lock_Decal_Generator();
-							proj_decal_manager->Unknown_7633E0(generator, decal, Model);
-							Model->Create_Decal(generator);
+							proj_decal_manager->Unknown_7633E0(generator, decal, RenderObject);
+							RenderObject->Create_Decal(generator);
 							Unlock_Decal_Generator(generator);
 						}
 						pool_changed[slot] = false;
@@ -1949,7 +1949,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 		DeltaTemplateClass<int> *t = Unknown_Find_Aux((DeltaTemplateClass<int> *)NULL, this, "EngineTrailType");
 		if (t && t->Unknown70 > 1) {
 			if (Type == 1 && ((SClient *)Client->Unknown_18())->ViewMode == 1) {
-				Unknown_6FD7A0(Model);
+				Unknown_6FD7A0(RenderObject);
 			}
 			if (Unknown120) {
 				Unknown120->Stop(true);
@@ -1969,7 +1969,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 				Unknown120 = SoundLibraryClass::Play_3D_Sound("engine_loop_1", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown120) {
-				Unknown120->Attach_To_Object(Model, -1);
+				Unknown120->Attach_To_Object(RenderObject, -1);
 			}
 			if (Unknown124) {
 				Unknown124->Stop(true);
@@ -1987,7 +1987,7 @@ void ClientObjectClass::Unknown_6FDBD0()
 				Unknown124 = SoundLibraryClass::Play_3D_Sound("imploop1.wav", Unknown_28(false), 0, 1.0f);
 			}
 			if (Unknown124) {
-				Unknown124->Attach_To_Object(Model, -1);
+				Unknown124->Attach_To_Object(RenderObject, -1);
 			}
 		}
 	}
@@ -2020,18 +2020,18 @@ void ClientObjectClass::Unknown_6FDBD0()
 				Unknown120->Remove_From_Scene();
 			}
 		}
-		Unknown_810750(Model, on);
+		Unknown_810750(RenderObject, on);
 		UnknownFC = on;
 	}
 	if (UnknownFC) {
 		if (Unknown100 > 0) {
 			Unknown100--;
-			Unknown_810750(Model, false);
+			Unknown_810750(RenderObject, false);
 			return;
 		}
 		if (Unknown100 == 0) {
 			Unknown100 = -1;
-			Unknown_810750(Model, true);
+			Unknown_810750(RenderObject, true);
 		}
 	}
 }
@@ -2181,7 +2181,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 		return;
 	}
 	if (Unknown_6F5A40()) {
-		Unknown150 = Unknown_810CF0(Model, level, hull_level, Client, GameID, Unknown150);
+		Unknown150 = Unknown_810CF0(RenderObject, level, hull_level, Client, GameID, Unknown150);
 	} else {
 		bool view = false;
 		switch (((SClient *)Client->Unknown_18())->ViewMode) {
@@ -2197,7 +2197,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 				break;
 		}
 		bool is_organic = Unknown_6F5E40();
-		Unknown150 = Unknown_8117D0(Model, hull_level, BaseAsset, GameID, is_organic, view, Client, Unknown150);
+		Unknown150 = Unknown_8117D0(RenderObject, hull_level, BaseAsset, GameID, is_organic, view, Client, Unknown150);
 	}
 	for (int j = 0; j < 4; j++) {
 		if (level[j]) Unknown104[j] = level[j];
@@ -2236,10 +2236,10 @@ void ClientObjectClass::Unknown_6FEC40(SphereClass *sphere)
 // 0x6FED30
 void ClientObjectClass::Unknown_6FED30()
 {
-	if (Model == 0) {
+	if (RenderObject == 0) {
 		Sphere.Init(Vector3(0.0f, 0.0f, 0.0f), Radius);
 	} else {
-		Model->Get_Obj_Space_Bounding_Sphere(Sphere);
+		RenderObject->Get_Obj_Space_Bounding_Sphere(Sphere);
 	}
 }
 
@@ -2253,10 +2253,10 @@ Matrix3D ClientObjectClass::Unknown_6FED80(const LegoIdentifierClass &lego)
 	if (UnknownB4) {
 		return(UnknownB4->Unknown_2C(lego));
 	}
-	if (Model) {
-		return(Model->Get_Transform());
+	if (RenderObject) {
+		return(RenderObject->Get_Transform());
 	}
-	G_ASSERT(Model);
+	G_ASSERT(RenderObject);
 	return(Matrix3D::Identity);
 }
 // 0x6FEEE0
@@ -2394,7 +2394,7 @@ bool ClientObjectClass::Unknown_700400()
 // 0x6FF1D0
 void ClientObjectClass::Unknown_6FF1D0()
 {
-	if (Type == 38 && Model && Model->Class_ID() == RSTRACK_CLASSID && AuxData) {
+	if (Type == 38 && RenderObject && RenderObject->Class_ID() == RSTRACK_CLASSID && AuxData) {
 		NameClass name("PercentFull");
 		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, name);
 		if (t && t->Unknown70 > 1) {
@@ -2406,7 +2406,7 @@ void ClientObjectClass::Unknown_6FF1D0()
 			else state = 0;
 			if (Unknown148 != state) {
 				Unknown148 = state;
-				((RsTrackClass *)Model)->Unknown_4604D0(state);
+				((RsTrackClass *)RenderObject)->Unknown_4604D0(state);
 			}
 		}
 	}
@@ -2491,8 +2491,8 @@ void ClientObjectClass::Unknown_6FFFF0(std::string &text)
 bool ClientObjectClass::Unknown_7008B0()
 {
 	if (!Unknown_6F58B0()) return(false);
-	if (!Model) return(false);
-	Unknown_810750(Model, 0);
+	if (!RenderObject) return(false);
+	Unknown_810750(RenderObject, 0);
 	UnknownFC = false;
 	return(true);
 }
@@ -2596,11 +2596,11 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 {
 	if (force || on != Unknown184) {
 		if (on) {
-			Unknown_810540(Model, 2, 0);
+			Unknown_810540(RenderObject, 2, 0);
 			Unknown184 = true;
 			return;
 		}
-		Unknown_810540(Model, 1, 0);
+		Unknown_810540(RenderObject, 1, 0);
 		Unknown184 = false;
 	}
 }

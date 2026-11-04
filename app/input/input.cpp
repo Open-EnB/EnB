@@ -335,7 +335,7 @@ bool KeyQueueClass::Add(KernelEventClass &event)
 **	new behind two no-code inline layers (D185's variant, 2026-11-02): the extra depth spends the
 **	inline budget so the element constructor stays out of line and 0x42ED50 is emitted. One layer,
 **	#pragma inline_depth, a template queue and extra inline calls before it did not move it.
-**	0x42EC60 (the button-down query: the keyboard's slot +0x0C) is FontStyleClass 0x6CD6F0's and
+**	0x42EC60 (the button-down query: the keyboard's slot +0x0C) is FontSys 0x6CD6F0's and
 **	the gadgets' click test. It and the variant's helpers took their lines from the blank padding before
 **	0x42EE00, whose FAIL_IF stays on line 298.
 **	The key table's bound is sizeof (0x40C bytes) where the table has 0x103 dwords: the client's.

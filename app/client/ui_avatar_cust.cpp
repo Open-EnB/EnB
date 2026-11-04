@@ -104,7 +104,7 @@ public:
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
-	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (0x550970 passes the client's Unknown1338)  // NAME 1 [unknown]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (0x550970 passes the client's EnvironmentMapManager)  // NAME 1 [unknown]: neutral
 
 	char Unknown08[0xF8 - 0x08];						// +0x08
 	AvatarDescClass *Get_Desc() { return(&Unknown0F8); }	// NAME 1: neutral (D10)
@@ -160,7 +160,7 @@ public:
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
 	char Unknown88[0xB0 - 0x88];						// +0x88
 	int Unknown0B0;										// +0xB0 (the mode: 1, 2)
-	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's Unknown1338; 0x551A80 calls 0x69F440)
+	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's EnvironmentMapManager; 0x551A80 calls 0x69F440)
 	GadgetClass *Unknown0B8;							// +0xB8
 	RefCountPtr<UIAvatarCustAvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
 	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
@@ -274,7 +274,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -293,7 +293,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -310,7 +310,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 		}
 	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
 	Unknown0BC->Unknown_77FC20(Unknown368->Unknown18, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -325,7 +325,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 		Unknown36C->Unknown_585C90();
 	}
 	Unknown0BC->Unknown_77FD30(Unknown36C->Unknown18, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->Unknown1338);
+	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -525,7 +525,7 @@ void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 		case 5: Unknown0BC->Unknown_780790(3, value); break;
 		case 6: Unknown0BC->Unknown_780790(4, value); break;
 	}
-	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Unknown1338);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->EnvironmentMapManager);
 	Unknown_551BF0();
 }
 

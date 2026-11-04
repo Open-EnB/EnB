@@ -23,7 +23,7 @@
 #include "tasks\tsk_login.h"
 #include <string>
 #include <vector>
-
+#include "fontdatabase.h"		// FontStringFilesClass at 0xBE67BC: Init loads the default string files (P-H12-3)
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
 void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
 #include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
@@ -81,10 +81,10 @@ public:
 	char Unknown00[0x14];
 };
 
-class SClientUnknown1338Class
+class EnvironmentMapManagerClass
 {
 public:
-	SClientUnknown1338Class() : Unknown10(2) {}
+	EnvironmentMapManagerClass() : Unknown10(2) {}
 	void Load(const char *ini);							// 0x760360 (env_map_manager.cpp): 'envmaps.ini'  // NAME 2: what it does
 	void Unknown_760770(int base_asset, bool a);		// 0x760770 (env_map_manager.cpp): 0x745000 / 0x745050 pass Unknown126C and Unknown1320  // NAME 1 [base_asset, a]: SERVER_PARAMETERS 66's BackdropBaseAsset; neutral
 
@@ -327,7 +327,7 @@ SClient::SClient(ClientTaskClass *task) :
 	MusicManager(NULL),
 	Unknown1330(0),
 	Unknown1334(NULL),
-	Unknown1338(NULL),
+	EnvironmentMapManager(NULL),
 	ProjDecalManager(NULL),
 	CurrentView(0),
 	MainView(NULL),
@@ -360,7 +360,7 @@ SClient::SClient(ClientTaskClass *task) :
 {
 	Unknown12C4[0] = NULL;
 	Unknown1334 = new SClientUnknown1334Class;
-	Unknown1338 = new SClientUnknown1338Class;
+	EnvironmentMapManager = new EnvironmentMapManagerClass;
 	ProjDecalManager = new ProjDecalManagerClass;
 	Unknown_C404D8->Unknown19A5 = true;
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)
@@ -373,8 +373,8 @@ SClient::~SClient()
 	Unknown_719E10(this);
 	if (Unknown1334) delete Unknown1334;
 	Unknown1334 = NULL;
-	if (Unknown1338) delete Unknown1338;
-	Unknown1338 = NULL;
+	if (EnvironmentMapManager) delete EnvironmentMapManager;
+	EnvironmentMapManager = NULL;
 	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
@@ -407,7 +407,7 @@ void SClient::Load_INIs()
 // 0x741180
 void SClient::Init()
 {
-	Unknown_BE67BC->Unknown_6C52B0(0);
+	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
 	PxProcessClass::Push(PxProcess);
 	Unknown_BBB084 = false;
@@ -439,7 +439,7 @@ void SClient::Init()
 	MainView->Unknown_08();
 	LoadingView = new LoadingViewClass(Task);
 	LoadingView->Unknown_04();
-	Unknown1338->Load("envmaps.ini");
+	EnvironmentMapManager->Load("envmaps.ini");
 	Unknown1358 = new Unknown514CC0ViewClass(Task);
 	Unknown1358->Unknown_04();
 	Unknown1358->Unknown_08();
@@ -594,8 +594,8 @@ void SClient::Shutdown()
 	}
 	delete Unknown1334;
 	Unknown1334 = NULL;
-	delete Unknown1338;
-	Unknown1338 = NULL;
+	delete EnvironmentMapManager;
+	EnvironmentMapManager = NULL;
 	delete ProjDecalManager;
 	ProjDecalManager = NULL;
 	Unload_INIs();
@@ -2182,13 +2182,13 @@ void SClient::Unknown_745000(int base_asset)
 {
 	Unknown126C = base_asset;
 	MainView->Unknown_513540(base_asset);
-	Unknown1338->Unknown_760770(base_asset, Unknown1320);
+	EnvironmentMapManager->Unknown_760770(base_asset, Unknown1320);
 }
 
 // 0x745050
 void SClient::Unknown_745050()
 {
-	Unknown1338->Unknown_760770(Unknown126C, Unknown1320);
+	EnvironmentMapManager->Unknown_760770(Unknown126C, Unknown1320);
 }
 
 
@@ -4286,7 +4286,7 @@ Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
 		Unknown77E3F0Class *object = (*it).second->Unknown_77E3F0();
-		object->Unknown_780810(Unknown1338);
+		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
 	return(NULL);
@@ -4298,7 +4298,7 @@ Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
 	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
 		Unknown77E3F0Class *object = (*it).second->Unknown_77E610();
-		object->Unknown_780810(Unknown1338);
+		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
 	return(NULL);

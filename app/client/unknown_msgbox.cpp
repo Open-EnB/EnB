@@ -2,10 +2,10 @@
 // File PROVISIONAL (D137): no string; after the gadget run 0x585780- and before ui_dynamicwindow.cpp (0x58A030). Notes at the end.
 #include "sclient.h"
 #include "dynamic_window_class.h"
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, as ui_login.cpp does)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 #include "gadget.h"
 #include "gd_dynamicwindow.h"
 #include "unknown_51c800.h"
@@ -76,7 +76,7 @@ ViewUnknown34Class::ViewUnknown34Class(UIViewClass *view, const LayerClass &laye
 		Keys[i].Key = 0;
 	}
 	Type[0] = 0;
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_dialogbox.ini");
+	Unknown_BE67BC->Load("fc_dialogbox.ini");
 	Window = new DynamicWindowClass("DIALOG_BOX_WINDOW", 3);
 	Window->Set_Level(3);
 	Unknown_497240(Window->Get_Render_Object().Peek(), false);
@@ -109,7 +109,7 @@ ViewUnknown34Class::~ViewUnknown34Class()
 		Window->Release_Ref();
 		Window = NULL;
 	}
-	Unknown_BE67BC->Unknown_6C55B0("fc_dialogbox.ini");
+	Unknown_BE67BC->Unload("fc_dialogbox.ini");
 }
 
 // 0x587D50
@@ -126,7 +126,7 @@ void ViewUnknown34Class::Unknown_587D50()
 			for (i = 0; i < MaxLines; i++) {
 				sprintf(name, "Header%d", i);
 				if (ini.Find_Entry(Type, name)) {
-					FontStyleClass *text = new FontStyleClass(font, 0, ini.Get_String(str, Type, name));
+					FontSys *text = new FontSys(font, 0, ini.Get_String(str, Type, name));
 					Headers[i] = new Unknown51C800Class(text, 6);
 					Info->Add_Object(Headers[i], i);
 					if (HTML) {
@@ -145,7 +145,7 @@ void ViewUnknown34Class::Unknown_587D50()
 				Options[OptionCount] = new DynamicWindowClass("DIALOG_BOX_OPTION", 1);
 				Window->Add_Object(Options[OptionCount], 1);
 				sprintf(info, "OPTION_INFO_%d", OptionCount);
-				FontStyleClass *text = new FontStyleClass(info, 0, NULL);
+				FontSys *text = new FontSys(info, 0, NULL);
 				text->Change_Text(ini.Get_String(str, Type, name), 0);
 				OptionTexts[OptionCount] = new Unknown51C800Class(text, 6);
 				Options[OptionCount]->Add_Object(OptionTexts[OptionCount], 0);
@@ -337,27 +337,27 @@ void ViewUnknown34Class::Unknown_588A70(const char *type, bool follow_mouse, con
 }
 
 // 0x589CA0: the text of a header element (a RefCountPtr of its render object)
-static RefCountPtr<FontStyleClass> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	// NAME 1: neutral (D10)
+static RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	// NAME 1: neutral (D10)
 {
-	return(Create_Peek((FontStyleClass *)robj.Peek()));
+	return(Create_Peek((FontSys *)robj.Peek()));
 }
 
 // 0x588DC0
 void ViewUnknown34Class::Unknown_588DC0(const char *text, int width)
 {
-	RefCountPtr<FontStyleClass> first = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[0])->Get_Render_Object());
-	RefCountPtr<Font32Class> *font = (RefCountPtr<Font32Class> *)&first->Font;	// (FontStyleClass::Font held as a RefCountPtr: the client loads the font before the text through a local)
+	RefCountPtr<FontSys> first = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[0])->Get_Render_Object());
+	RefCountPtr<Font32Class> *font = (RefCountPtr<Font32Class> *)&first->Font;	// (FontSys::Font held as a RefCountPtr: the client loads the font before the text through a local)
 	FontSplitStringClass split(*font, text, (float)width, 0);
 	INIClass ini("dialogbox.ini");
 	unsigned int count = min(split.Count(), (unsigned int)MaxLines);
 	unsigned int i;
 	for (i = 0; i < count; i++) {
 		if (Headers[i]) {
-			RefCountPtr<FontStyleClass> line = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[i])->Get_Render_Object());
+			RefCountPtr<FontSys> line = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[i])->Get_Render_Object());
 			line->Change_Text(split.Get(i), 0);
 			Headers[i]->Invalidate();
 		} else {
-			FontStyleClass *line = new FontStyleClass(Unknown_589740(ini), 0, split.Get(i));
+			FontSys *line = new FontSys(Unknown_589740(ini), 0, split.Get(i));
 			Headers[i] = new Unknown51C800Class(line, 6);
 			Info->Add_Object(Headers[i], i);
 			line->Release_Ref();

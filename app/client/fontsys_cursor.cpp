@@ -47,7 +47,7 @@ void TextCursorClass::Unknown_685A30(const RefCountPtr<SceneClass> &scene)
 	Scene = scene;
 }
 
-void TextCursorClass::Unknown_685AB0(const RefCountPtr<FontStyleClass> &line, int cursorpos, bool insert, bool center)
+void TextCursorClass::Unknown_685AB0(const RefCountPtr<FontSys> &line, int cursorpos, bool insert, bool center)
 {
 	if (Scene == NULL) {
 		return;
@@ -85,7 +85,7 @@ void TextCursorClass::Unknown_685AB0(const RefCountPtr<FontStyleClass> &line, in
 	const char *text = line->Unknown_6D87D0();
 	FAIL_IF(!text) return;
 
-	FontStyleClass *style = line.Peek();
+	FontSys *style = line.Peek();
 	int level = style->Get_Sort_Level() - 1;
 	if (level <= 1) level = 1;
 	Set_Sort_Level(level);

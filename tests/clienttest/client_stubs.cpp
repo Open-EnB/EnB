@@ -202,8 +202,8 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 
 // shiputils.cpp's colorization helper (COLORIZATION 17)
-class SClientUnknown1338Class;
-void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions, SClientUnknown1338Class *)
+class EnvironmentMapManagerClass;
+void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *)
 {
 	Trace("stub Unknown_80EFF0 %d regions", (int)regions.size());
 }

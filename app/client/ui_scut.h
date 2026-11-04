@@ -12,7 +12,7 @@ class UIScutClass;
 class UIScutBarClass;
 class UIScutBankGadgetClass;
 class UIScutProxyGadgetClass;
-class ControlKeysManagerClass;
+class ControlKeysManager;
 
 enum {
 	NUM_SHORTCUT_BARS = 2,	// (FAIL_IF 'bar >= NUM_SHORTCUT_BARS' l.325 / 336; the constructor makes two bars)  // NAME 3: the FAIL_IF's
@@ -44,8 +44,8 @@ public:
 	virtual void Unknown_00(void *source, int *event);	// +0x00 0x612510: the buttons' shortcuts shown again  // NAME 1 [source, event]: the base's
 	UIScutClass *Get_Owner() { return((UIScutClass *)Unknown04); }	// NAME 1: what it returns
 	void Unknown_6112B0();								// 0x6112B0 (FAIL_IF '!ProxyButtons[lp]' l.479): the proxy buttons' help section
-	void Unknown_611300(ControlKeysManagerClass *manager);	// 0x611300: the 'Use Slot %d' keys added  // NAME 1 [manager]: the interface's slot +0x70's
-	void Unknown_611710(ControlKeysManagerClass *manager);	// 0x611710: the 'Use Slot %d' keys removed  // NAME 1 [manager]: the interface's slot +0x74's
+	void Unknown_611300(ControlKeysManager *manager);	// 0x611300: the 'Use Slot %d' keys added  // NAME 1 [manager]: the interface's slot +0x70's
+	void Unknown_611710(ControlKeysManager *manager);	// 0x611710: the 'Use Slot %d' keys removed  // NAME 1 [manager]: the interface's slot +0x74's
 	bool Unknown_611B10(int *group, int *bttn_idx);		// 0x611B10 (G_ASSERT 'false' l.564): the first free button from the current group on  // NAME 3 [group, bttn_idx]: 0x611BD0's
 	bool Unknown_611BD0(GadgetClass *gadget, int bttn_idx, int group, bool show);	// 0x611BD0 (G_ASSERTs l.590 / 591 / 603): the shortcut at a button  // NAME 3 [gadget, bttn_idx, group]: the asserts'; NAME 1 [show]: neutral
 	bool Unknown_611E20(GadgetClass *gadget);			// 0x611E20: the gadget's shortcuts cleared  // NAME 1 [gadget]: 0x611E70's
@@ -78,8 +78,8 @@ public:
 	virtual void Unknown_54();							// 0x610940
 	virtual void Unknown_60();							// 0x610980
 	virtual bool Unknown_68(int key);					// 0x610A40  // NAME 1 [key]: the base's
-	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x610780  // NAME 1 [manager]: the base's
-	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x6107C0  // NAME 1 [manager]: the base's
+	virtual void Unknown_70(ControlKeysManager *manager);	// 0x610780  // NAME 1 [manager]: the base's
+	virtual void Unknown_74(ControlKeysManager *manager);	// 0x6107C0  // NAME 1 [manager]: the base's
 	void Unknown_5417D0(InterfaceClass *owner);		// 0x5417D0 (intrface.cpp's; the set-up passes the cockpit)  // NAME 1 [owner]: neutral
 	bool Unknown_610B00(GadgetClass *gadget);			// 0x610B00: the gadget onto the first free button of either bar  // NAME 1 [gadget]: 0x611BD0's
 	bool Unknown_610C70(GadgetClass *gadget, unsigned int bar);	// 0x610C70 (FAIL_IF l.325): onto a bar's first free button  // NAME 3 [bar]: the FAIL_IF's; NAME 1 [gadget]: 0x611BD0's

@@ -10,20 +10,20 @@
 
 extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): the random generator the fonts are picked with
 
-class LineDisplayFontDatabaseClass  // NAME 1: neutral (D10): fontdatabase.cpp's class (the one at 0xBE67BC)
-{
-public:
-	void Unknown_6C52B0(const char *file_name);				// 0x6C52B0: the constructor passes fc_line_display.ini
-	void Unknown_6C55B0(const char *file_name);				// 0x6C55B0: the destructor passes it
-};
-extern LineDisplayFontDatabaseClass *Unknown_BE67BC;		// NAME 1 [Unknown_BE67BC]: neutral (D10)
+#include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini
+extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
 
-class ControlKeysManagerClass  // NAME 3: by convention (D24) from the client's control_keys_manager.cpp
-{
-public:
-	void Unknown_71A960(void *handler, const std::string &name, int id, int unknown);	// 0x71A960
-	void Unknown_71AB40(void *handler, const std::string &name, int unknown);	// 0x71AB40
-};
+
+
+
+
+
+#include "control_keys_manager.h"	// ControlKeysManager: slots +0x70 / +0x74 call Add_Keys 0x71A960 / Remove_Keys 0x71AB40
+
+
+
+
+
 
 class LineDisplayUnknown138Class  // NAME 1: neutral (D10)
 {
@@ -167,7 +167,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 	Style(""),
 	UnknownFC(true)
 {
-	Unknown_BE67BC->Unknown_6C52B0("fc_line_display.ini");
+	Unknown_BE67BC->Load("fc_line_display.ini");
 	Client = client;
 	G_ASSERT(Client);
 }
@@ -176,7 +176,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 // The hash_map iterators declared before their loops (registers as the client, as 0x677410); two padding lines below Unknown_5C removed for the later reports' lines
 UILineDisplayClass::~UILineDisplayClass()
 {
-	Unknown_BE67BC->Unknown_6C55B0("fc_line_display.ini");
+	Unknown_BE67BC->Unload("fc_line_display.ini");
 	Clear();
 	for (std::vector<LineDisplayLineStruct *>::iterator line = Lines.begin(); line != Lines.end(); ++line) {
 		delete *line;
@@ -278,18 +278,18 @@ void UILineDisplayClass::Unknown_5C()
 
 
 
-void UILineDisplayClass::Unknown_70(ControlKeysManagerClass *manager)
+void UILineDisplayClass::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Unknown_71A960(Unknown4C, std::string("Prev Ephemeral History"), 1, 0);
-	manager->Unknown_71A960(Unknown4C, std::string("Next Ephemeral History"), 2, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Prev Ephemeral History"), (void *)1, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Next Ephemeral History"), (void *)2, 0);
 }
 
-void UILineDisplayClass::Unknown_74(ControlKeysManagerClass *manager)
+void UILineDisplayClass::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Unknown_71AB40(Unknown4C, std::string("Prev Ephemeral History"), 0);
-	manager->Unknown_71AB40(Unknown4C, std::string("Next Ephemeral History"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Prev Ephemeral History"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Next Ephemeral History"), 0);
 }
 
 

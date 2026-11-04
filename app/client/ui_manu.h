@@ -8,7 +8,7 @@
 
 class GadgetClass;			// gadget.cpp's
 class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0x11C)
-class FontStyleClass;		// fontmanager.h's text objects (+0x16C, +0x194)
+class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class UIManuSliderClass;	// gd_slider.cpp's slider (+0xB0)
 
@@ -157,8 +157,8 @@ public:
 	GadgetClass *Unknown0E8[10];						// +0x0E8 the rows' buttons ('desc%02d')
 	RefCountPtr<RenderObjClass> Unknown110[3];			// +0x110
 	UIManuRowStruct Unknown11C[10];						// +0x11C the list's rows
-	RefCountPtr<FontStyleClass> Unknown16C[10];			// +0x16C the rows' first texts
-	RefCountPtr<FontStyleClass> Unknown194[10];			// +0x194 the rows' second texts
+	RefCountPtr<FontSys> Unknown16C[10];			// +0x16C the rows' first texts
+	RefCountPtr<FontSys> Unknown194[10];			// +0x194 the rows' second texts
 	const char *Unknown1BC[500];						// +0x1BC the list's names ("" when empty)
 	bool Unknown98C[500];								// +0x98C
 	int Unknown0B80[4];									// +0xB80 the pick on each level (-1 for none)

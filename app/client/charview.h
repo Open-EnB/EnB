@@ -35,7 +35,7 @@ class DazzleLayerClass;
 class LightClass;
 class HAnimClass;
 class AudibleSoundClass;
-class SClientUnknown1338Class;		// sclient.cpp's: env_map_manager.cpp's 'envmaps.ini' (0x24 bytes)
+class EnvironmentMapManagerClass;		// sclient.cpp's: env_map_manager.cpp's 'envmaps.ini' (0x24 bytes)
 #include "rendobj.h"
 
 #include "avatar.h"
@@ -181,7 +181,7 @@ public:
 	int Unknown23C;										// +0x23C
 	int Unknown240;										// +0x240
 	ShipCustDescClass Unknown244;						// +0x244
-	SClientUnknown1338Class *Unknown3A4;				// +0x3A4 'envmaps.ini' (ui_login.cpp's)
+	EnvironmentMapManagerClass *Unknown3A4;				// +0x3A4 'envmaps.ini' (ui_login.cpp's)
 	LightClass *Unknown3A8[2];							// +0x3A8 the two lights of the 3-D scene +0x6C (0x67B7A0; removed with the model of type 1 or 2)
 	LightClass *Unknown3B0[2];							// +0x3B0 the two lights of the model of type 4 (0x67BBE0)
 	CharacterViewAvatarClass *Unknown3B8[3][3][2];		// +0x3B8 an avatar for each race, profession and gender (0x67BF20, avatar.cpp's 0x77B870)

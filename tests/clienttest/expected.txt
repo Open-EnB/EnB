@@ -1831,7 +1831,6 @@ gen SClientUnknown1330Class::SClientUnknown1330Class
 msg 753 START (5) size 8: cpacket.cpp's handler
 loadingview render object Remove
 gen LoadingViewFontManagerClass::Unknown_6D2310
-gen SClientFontDatabaseClass::Unknown_6C55B0
 loadingview render object released
 loadingview render object released
 loadingview render object released

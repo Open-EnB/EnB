@@ -22,12 +22,12 @@
 #include "tooltip.h"
 #include "unknown_signalbase.h"
 
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-class SClientUnknown1338Class { public: void Unknown_760770(int base_asset, bool a); };
+class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_avsel.cpp's)
 struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -53,7 +53,7 @@ class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct
 typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void (ClassSelectInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIClassCallbackClass;
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300
-void Unknown_496AE0(RenderObjClass *robj, int a);	// 0x496AE0
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
 void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs; 0x577B80 calls it on each shown sub-object)
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position, 0..1)
 void Unknown_6CDBC0(const char *text, int a);	// 0x6CDBC0
@@ -202,7 +202,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	}
 	CharacterView->Unknown_67B4F0(1);
 	INI.Load("fa_fe_class00.ini");
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fa_fe_class00.ini");
+	Unknown_BE67BC->Load("fa_fe_class00.ini");
 	Unknown_BE67C4->Add(model);
 
 	for (i = 0; i < 14; i++) {
@@ -277,7 +277,7 @@ ClassSelectInterface::~ClassSelectInterface()
 	Descriptions.clear();
 	SkillDescriptions.clear();
 	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_class00.ini");
+	Unknown_BE67BC->Unload("fa_fe_class00.ini");
 	CharacterView->Unknown_67A9B0(0);
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
@@ -513,7 +513,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(arg);
 			if (Unknown_B7DBCC[i].SubObject) {
-				FontStyleClass *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
+				FontSys *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
 				if (font) {
 					if (arg) {
 						font->Unknown_Set_2FC(1.0f);
@@ -558,11 +558,11 @@ void ClassSelectInterface::Unknown_576270()
 void ClassSelectInterface::Unknown_5779D0()
 {
 	CharacterView->Unknown_67B320();
-	FontStyleClass *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
 	if (title) {
 		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
 	}
-	FontStyleClass *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
 	if (subtitle) {
 		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
 	}

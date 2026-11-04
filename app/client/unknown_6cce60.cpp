@@ -34,7 +34,7 @@ bool Unknown_42EC60(int button, int arg);	// 0x42EC60 (cdecl): a button down (ga
 // its effect changed (+0x488 the offset, +0x27C, +0x4A4 the colour from Colors[+0x44C], +0x284, +0x288, and +0x29C
 // with the text rebuilt from Info.Text, "..." added while +0x406 says the line is clipped).
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60)
-void FontStyleClass::Unknown_6CCE60()
+void FontSys::Unknown_6CCE60()
 {
 	if (Unknown254[0] > 0 && --Unknown254[0] == 0) {
 		Unknown488[0] = 0;
@@ -74,7 +74,7 @@ void FontStyleClass::Unknown_6CCE60()
 // box, its half size plus Info.BoxOffset, placed by Info.Justify); counts the frames in +0x290 and plays Info.SoundOver
 // on the first.
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180)
-bool FontStyleClass::Unknown_6CD180()
+bool FontSys::Unknown_6CD180()
 {
 	if (Unknown440 != 1 || Unknown250 == 0 || !Unknown4E4) {
 		return false;
@@ -141,7 +141,7 @@ bool FontStyleClass::Unknown_6CD180()
 // 0x6CD6F0: true while the click effects run (+0x294 ms, from Info.TriggerTime): +0x250 2 starts them on button 1 down
 // over the text (0x6CD180's +0x290), 1 while +0x301 is set; the start resets the timers and plays Info.SoundClick.
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0)
-bool FontStyleClass::Unknown_6CD6F0()
+bool FontSys::Unknown_6CD6F0()
 {
 	if (Unknown440 != 1) {
 		return false;
@@ -183,7 +183,7 @@ bool FontStyleClass::Unknown_6CD6F0()
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
 // only, as the client does) and the state its effect type keeps is reset.
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950)
-void FontStyleClass::Unknown_6CD950(int index, float time)
+void FontSys::Unknown_6CD950(int index, float time)
 {
 	int slot = index < 0 ? 0 : (index > 3 ? 3 : index);
 	Unknown274[12 + slot] = (int)(time * 1000.0f);
@@ -222,7 +222,7 @@ void FontStyleClass::Unknown_6CD950(int index, float time)
 // 0x6CDAB0: an EffectOn effect's starting state, for Change_Text (ROTATE turns the y scale over, FADE starts at its
 // Initial alpha, RANDLETTER clears the shown letters, SCROLL puts the text back at Info.Offset, SCALE starts at Initial).
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0)
-void FontStyleClass::Unknown_6CDAB0(FontEffectStruct *effect)
+void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 {
 	if (effect == NULL) {
 		return;
@@ -263,7 +263,7 @@ static inline void Reset_XSpacing(Font32Class *font)
 // start over (1: every effect state reset first; else, with EffectOff effects, the style only goes to state 2: the
 // off effects run first); without it the text is replaced in place (the position x back to +0x470's).
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0)
-void FontStyleClass::Change_Text(const char *text, int unknown)
+void FontSys::Change_Text(const char *text, int unknown)
 {
 	WWPROFILE("FontSys::Change_Text");
 	if (unknown) {
@@ -353,7 +353,7 @@ void FontStyleClass::Change_Text(const char *text, int unknown)
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
 // "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0)
-void FontStyleClass::Unknown_6CE4E0(int font_index)
+void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;
 	if (FontIndex < 0) {
@@ -379,7 +379,7 @@ void FontStyleClass::Unknown_6CE4E0(int font_index)
 // 0x6CE7D0: the style restarted in state unknown (+0x440: 0 the EffectOn effects, 1 EffectConst, 2 EffectOff): the
 // clocks and effect states cleared, the text placed again (0x6D5D40) and its rectangle reset to the text's size.
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0)
-void FontStyleClass::Unknown_6CE7D0(int unknown)
+void FontSys::Unknown_6CE7D0(int unknown)
 {
 	int i;
 	Unknown440 = unknown;
@@ -398,7 +398,7 @@ void FontStyleClass::Unknown_6CE7D0(int unknown)
 }
 
 // 0x6CE910: on while the box has the focus (Unknown44C: which of Colors the text uses); a change redraws the text.
-void FontStyleClass::Unknown_6CE910(bool on)
+void FontSys::Unknown_6CE910(bool on)
 {
 	int old = Unknown44C;
 	Unknown44C = (on != false);
@@ -413,7 +413,7 @@ void FontStyleClass::Unknown_6CE910(bool on)
 /*
 **	Notes
 **
-**	Interim file (D137, TXT3): FontStyleClass's members 0x6CCE60-0x6CD900, right after the layout core 0x6CA0C0
+**	Interim file (D137, TXT3): FontSys's members 0x6CCE60-0x6CD900, right after the layout core 0x6CA0C0
 **	(unknown_6ca0c0.cpp, TXT2) and probably the same source file (fontsys.cpp's constructors are at 0x6D47C0, so
 **	the client's FontSys code spans two objects or one large one); no __FILE__ or string ties them yet.
 **	The +0x254 .. +0x29C words are fontmanager.h's Unknown254[6] / Unknown274[16] (+0x290 = Unknown274[7] the

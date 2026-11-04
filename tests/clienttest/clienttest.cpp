@@ -338,7 +338,7 @@ public:
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78
 };
 RenderObjClass *ENBAssetManager::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
-ENBAssetManager *Unknown_BDADC0 = 0;	// 0xBDADC0 (main sets it)
+ENBAssetManager *AssetManager = 0;	// 0xBDADC0 (main sets it)
 
 static int Models_Made = 0;
 static int Models_Alive = 0;
@@ -396,7 +396,7 @@ public:
 };
 static FakeModelClass *Fake_Model_Of(ClientObjectClass *object)	// (only CREATE's objects hold one)
 {
-	return(object ? (FakeModelClass *)object->Model : 0);
+	return(object ? (FakeModelClass *)object->RenderObject : 0);
 }
 
 class FakeAssetManagerClass : public ENBAssetManager
@@ -441,7 +441,7 @@ class TestObjectClass : public ClientObjectClass
 {
 public:
 	TestObjectClass(ClientClass *client, unsigned id) : ClientObjectClass(client, 0, id) {}	// type 0: a player ship for co.cpp's type tests (0x6F5A10); the client: the per-frame update reads its clock
-	virtual ~TestObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); AuxData = 0; Model = 0; }
+	virtual ~TestObjectClass() { Trace("stub ClientObjectClass::~ClientObjectClass %u", GameID); AuxData = 0; RenderObject = 0; }
 };
 
 static SClient *The_Client = 0;
@@ -453,7 +453,7 @@ static ClientObjectClass *New_Object(unsigned id)
 	object->AuxData = Fake_Aux;		// (the constructor's own aux root is the same)
 	// the constructor's default state (type 0, identity) stays: Process_AI's per-frame update (4) asks every
 	// object's state for its matrix
-	object->Model = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
+	object->RenderObject = (RenderObjClass *)((id & 1) ? &Track_Model : &Fake_Model);
 	return object;
 }
 
@@ -830,7 +830,7 @@ static void Test_Packets(SClient *client, const char *path)
 			unsigned id = *(unsigned *)&next[4];
 			ClientObjectClass *object = client->Find_Object(id);
 			creates++;
-			if (object && object->Get_Game_ID() == id && object->Type == (char)next[14] && object->BaseAsset == *(short *)&next[12] && object->Model) {
+			if (object && object->Get_Game_ID() == id && object->Type == (char)next[14] && object->BaseAsset == *(short *)&next[12] && object->RenderObject) {
 				created++;
 			}
 		} else if (opcode == 7 && next.size() >= 4 + 4) {
@@ -2061,7 +2061,7 @@ int main(int argc, char **argv)
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
 	// the asset manager (after the SClient, whose constructor runs as before without one)
 	Fake_Assets = new FakeAssetManagerClass;
-	Unknown_BDADC0 = Fake_Assets;
+	AssetManager = Fake_Assets;
 	Check(WW3DAssetManager::Get_Instance() == Fake_Assets, "the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance()");
 	Install_Fake_D3D_Device();	// 0x7511A0 (CLIENT_TYPE 60) flushes DX8Wrapper's resource manager
 

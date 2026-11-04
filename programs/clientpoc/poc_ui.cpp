@@ -30,7 +30,7 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)
 #include "..\..\app\client\control_keys_manager.h"
 #include "..\..\app\client\unknown_signalbase.h"
 
-class SClientUnknown1338Class
+class EnvironmentMapManagerClass
 {
 public:
 	void Unknown_760770(int base_asset, bool a);
@@ -78,7 +78,7 @@ public:
 
 void UIAvselEnvMapClass::Unknown_760770(int base_asset, bool a)
 {
-	((SClientUnknown1338Class *)this)->Unknown_760770(base_asset, a);
+	((EnvironmentMapManagerClass *)this)->Unknown_760770(base_asset, a);
 }
 
 struct UIAvselKeyEventStruct
@@ -139,7 +139,7 @@ public:
 
 UIAvselAvatarClass::UIAvselAvatarClass(AvatarDescClass *desc, int a, int b, UIAvselEnvMapClass *env)
 {
-	new (this) CharacterViewAvatarClass(desc, a, b, (SClientUnknown1338Class *)env);
+	new (this) CharacterViewAvatarClass(desc, a, b, (EnvironmentMapManagerClass *)env);
 }
 
 bool UIAvselAvatarClass::Unknown_7863E0() { return ((CharacterViewAvatarClass *)this)->Unknown_7863E0(); }

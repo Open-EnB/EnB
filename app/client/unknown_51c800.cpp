@@ -7,7 +7,7 @@
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // 0x51C800 (the deleting destructor 0x51C8C0, the destructor 0x51C8F0 and slot +0x58 0x51C910 follow: the header's)
-Unknown51C800Class::Unknown51C800Class(FontStyleClass *text, unsigned int flags) :
+Unknown51C800Class::Unknown51C800Class(FontSys *text, unsigned int flags) :
 	DynamicWindowRenderObjectClass(flags)
 {
 	Set_Render_Object(Unknown_497300(text));

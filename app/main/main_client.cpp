@@ -132,8 +132,8 @@ extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutra
 // (starbase_lights.h: Unknown_764480Class, Unknown_764510 and Unknown_BE82D0;
 // one line each before, kept for the line numbers below)
 #include "..\client\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
-class SClientFontDatabaseClass;					// sclient.h's view of 0xBE67BC (the font string files)
-extern SClientFontDatabaseClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
+// 0xBE67BC: sclient.h declares it (FontStringFilesClass *, P-H12-3)
+
 
 /*
 **	Reconstruction notes (WinMain 0x526DE0, 0xBDD bytes, byte-exact with appfile.py match on 2026-11-01).
@@ -161,11 +161,11 @@ extern SClientFontDatabaseClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 **	  _TheSimpleFileFactory and _TheWritingFileFactory (the last used as a SimpleFileFactoryClass);
 **	  0xC1E1B4 / 0xC1E1B8 are win.cpp's MainWindow and ProgramInstance; 0xBFAEE0 is
 **	  WW3DAssetManager::TheInstance (Delete_This, twice).
-**	* The font globals: tsk_game.h's Unknown_BE67B8 (Unknown_BE67B8Class) and sclient.h's Unknown_BE67BC
-**	  (SClientFontDatabaseClass) are views of fontdatabase.h's FontDatabaseClass and FontStringFilesClass,
-**	  and tsk_login.h (needed for LoginTaskClass) brings tsk_game.h, whose 0xBE67B8 clashes with
-**	  fontdatabase.h's: so this file declares the four font classes as far as it uses them and casts the
-**	  two globals. One declaration of each (as D107 did for OptionClass) removes the casts.
+**	* The font globals: tsk_game.h's Unknown_BE67B8 and sclient.h's Unknown_BE67BC have fontdatabase.h's
+**	  types, FontDatabaseClass * and FontStringFilesClass * (P-H12-3, 2026-11-03); this file still declares
+**	  the four font classes as far as it uses them (their constructors and destructors) instead of
+**	  including fontdatabase.h.
+**
 */
 
 
@@ -433,8 +433,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_Printf("Build: %s %s %s\n", Unknown_445610(), Unknown_445590(), Unknown_445560());
 
 	Unknown_Debug_Begin_Step("initializing the asset manager");
-	Unknown_BDADC0 = new ENBAssetManager;
-	if (Unknown_BDADC0 == NULL) {
+	AssetManager = new ENBAssetManager;
+	if (AssetManager == NULL) {
 		MessageBox(MainWindow, "Unable to initialize the asset manager", "WW3D Error", MB_OK);
 		exit(0);
 	}
@@ -549,10 +549,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		Unknown_Debug_Begin_Step("starting up font system");
-		Unknown_BE67B8 = (Unknown_BE67B8Class *)new FontDatabaseClass;
+		Unknown_BE67B8 = new FontDatabaseClass;
 		Unknown_BE67C4 = new FontManagerClass;
 		Unknown_BE67B4 = new Unknown_6BCFB0Class;
-		Unknown_BE67BC = (SClientFontDatabaseClass *)new FontStringFilesClass;
+		Unknown_BE67BC = new FontStringFilesClass;
 		if (!purchase) {
 			file_auto_ptr script(_TheFileFactory, "moviescript1.txt");	// NAME 1 [script]: its text
 			if (script->Is_Available()) {
@@ -622,9 +622,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		Unknown_Debug_Begin_Step("shutting down font system");
 		delete Unknown_BE67B4;
-		delete (FontStringFilesClass *)Unknown_BE67BC;
+		delete Unknown_BE67BC;
 		delete Unknown_BE67C4;
-		delete (FontDatabaseClass *)Unknown_BE67B8;
+		delete Unknown_BE67B8;
 		Unknown_Debug_End_Step("ok");
 
 		Unknown_Debug_Begin_Step("shutting down sound manager");
@@ -642,7 +642,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	Unknown_Debug_Begin_Step("freeing assets");
-	Unknown_BDADC0->Free_Assets();
+	AssetManager->Free_Assets();
 	Unknown_Debug_End_Step("ok");
 
 	Unknown_Debug_Begin_Step("shutting down the asset manager");

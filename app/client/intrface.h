@@ -28,7 +28,7 @@
 
 class UIViewClass;
 class INIClass;
-class ControlKeysManagerClass;  // control_keys_manager.cpp's (0x71A960 / 0x71AB40)
+class ControlKeysManager;  // control_keys_manager.h's (the client's RTTI)
 class LineDisplayClientClass;  // what +0x40 points to (slot +0x18 gives the sclient)
 class GadgetClass;  // gadget.cpp's
 class LoginUnknown0CClass;  // sclient.h's: the views' +0x04 (the input dispatcher)
@@ -116,8 +116,8 @@ public:
 	virtual void Unknown_64() {}															// 0x5156B0 (the views' slot +0x14 otherwise)
 	virtual bool Unknown_68(int key) { return(false); }										// 0x5156D0
 	virtual void Unknown_6C(INIClass &ini) {}												// 0x5156F0 (the views' 0x6B4900: SClient 0x745080 saves settings.ini through it)  // NAME 1 [ini]: what 0x745080 passes
-	virtual void Unknown_70(ControlKeysManagerClass *manager) {}							// 0x515710
-	virtual void Unknown_74(ControlKeysManagerClass *manager) {}							// 0x515730
+	virtual void Unknown_70(ControlKeysManager *manager) {}							// 0x515710
+	virtual void Unknown_74(ControlKeysManager *manager) {}							// 0x515730
 	virtual bool Unknown_78(void *arg) { return(false); }									// 0x515750 ( tsk_login.h's screens: the global error packet)  // NAME 1 [arg]: neutral
 	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x5412F0 (onto the view, off the old one; the views' slot +0x10 passes NULL, 0)  // NAME 1 [view, arg]: what the callers pass
 	virtual void Unknown_80();																// 0x541550 (FAIL_IF 'PartialDeactivatedGadget', '!Active')

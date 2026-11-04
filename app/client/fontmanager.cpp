@@ -16,7 +16,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 			if (def->StringID[0] == 'W') {
 				Unknown_6CF930(def, (int)object);
 			} else {
-				Unknown_6D1220(new FontStyleClass(*def, Id, 0));
+				Unknown_6D1220(new FontSys(*def, Id, 0));
 			}
 		}
 	}
@@ -33,7 +33,7 @@ ManagedFontClass::ManagedFontClass(const char *name, int unknown)
 
 ManagedFontClass::~ManagedFontClass()
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+	for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 		style->second->Unknown_6D5140();
 	}
 	Styles.clear();
@@ -80,7 +80,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 		FontStringStruct copy(*def);
 		copy.Unknown04 = id;
 		copy.Text = split.Get(i);
-		FontStyleClass *style = new FontStyleClass(copy, Id, 0);
+		FontSys *style = new FontSys(copy, Id, 0);
 		style->Unknown26C = (int)((i * def->TimeSpacing + def->Wait) * 1000.0f);
 		style->Unknown47C.Y += i * def->Spacing * font_height;
 		style->Unknown470 = style->Unknown47C;
@@ -94,11 +94,11 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 void ManagedFontClass::Unknown_6D01C0(int level, const char *name)
 {
 	if (name == NULL) {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			style->second->Set_Sort_Level(level);
 		}
 	} else {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			if (strcmp(name, style->second->Info.StringID) == 0) {
 				style->second->Set_Sort_Level(level);
 			}
@@ -109,11 +109,11 @@ void ManagedFontClass::Unknown_6D01C0(int level, const char *name)
 void ManagedFontClass::Unknown_6D0390(const char *name)
 {
 	if (name == NULL) {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			style->second->Set_Hidden(false);
 		}
 	} else {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			if (strcmp(name, style->second->Info.StringID) == 0) {
 				style->second->Set_Hidden(false);
 			}
@@ -124,11 +124,11 @@ void ManagedFontClass::Unknown_6D0390(const char *name)
 void ManagedFontClass::Unknown_6D0550(const char *name)
 {
 	if (name == NULL) {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			style->second->Set_Hidden(true);
 		}
 	} else {
-		for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+		for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 			if (strcmp(name, style->second->Info.StringID) == 0) {
 				style->second->Set_Hidden(true);
 			}
@@ -138,28 +138,28 @@ void ManagedFontClass::Unknown_6D0550(const char *name)
 
 void ManagedFontClass::Unknown_Set_Styles(int value)
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+	for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 		style->second->Unknown250 = value;
 	}
 }
 
 void ManagedFontClass::Unknown_6D07D0(int unknown)
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+	for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 		style->second->Unknown_6CE7D0(unknown);
 	}
 }
 
 void ManagedFontClass::Unknown_6D0890()
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+	for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 		style->second->Unknown_6D5D40();
 	}
 }
 
 void ManagedFontClass::Unknown_All_Styles(int index, float time)
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
+	for (std::hash_map<std::string, FontSys *>::iterator style = Styles.begin(); style != Styles.end(); ++style) {
 		style->second->Unknown_6CD950(index, time);
 	}
 }
@@ -173,10 +173,10 @@ void ManagedFontClass::Unknown_6D0A20(const char *name, const char *text, int un
 void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 {
 	FontStringStruct def;
-	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin();
+	std::hash_map<std::string, FontSys *>::iterator it = Styles.begin();
 	while (it != Styles.end()) {
-		FontStyleClass *style = (*it).second;
-		std::hash_map<std::string, FontStyleClass *>::iterator next = ++it;
+		FontSys *style = (*it).second;
+		std::hash_map<std::string, FontSys *>::iterator next = ++it;
 		if (strcmp(name, style->Info.StringID) == 0) {
 			def = style->Info;
 			style->Unknown_6D5140();
@@ -193,7 +193,7 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
 void ManagedFontClass::Unknown_6D1010(const char *name, Vector3 color)
 {
-	FontStyleClass *style = Unknown_6D1600(name);
+	FontSys *style = Unknown_6D1600(name);
 	style->Unknown494.Color = color;
 	style->Unknown4A4 = style->Unknown494;
 }
@@ -201,8 +201,8 @@ void ManagedFontClass::Unknown_6D1010(const char *name, Vector3 color)
 // 0x6D10B0 (exact with the colour typed as floats: the client copies the three dwords)
 void ManagedFontClass::Unknown_6D10B0(const char *name, Vector3 color)
 {
-	for (std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
-		FontStyleClass *style = it->second;
+	for (std::hash_map<std::string, FontSys *>::iterator it = Styles.begin(); it != Styles.end(); ++it) {
+		FontSys *style = it->second;
 		if (strcmp(name, style->Info.StringID) == 0) {
 			style->Set_Color(color);
 		}
@@ -342,7 +342,7 @@ void ManagedFontClass::Unknown_6D10B0(const char *name, Vector3 color)
 
 
 
-void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
+void ManagedFontClass::Unknown_6D1220(FontSys *style)
 {
 	if (style && style->Info.StringID) {
 		std::string key = "";
@@ -365,19 +365,19 @@ void ManagedFontClass::Unknown_6D1220(FontStyleClass *style)
 }
 
 // 0x6D1480 (D185's variant: the iterator assigned, the test an if / else; kept on 3 lines: G_ASSERT's __LINE__ in 0x6D2700)
-FontStyleClass *ManagedFontClass::Unknown_6D1480(std::string name)
+FontSys *ManagedFontClass::Unknown_6D1480(std::string name)
 {
 	std::string key = name;
 	key += "_0";
-	std::hash_map<std::string, FontStyleClass *>::iterator it;
+	std::hash_map<std::string, FontSys *>::iterator it;
 	it = Styles.find(key);
 	if (it == Styles.end()) return NULL; else return it->second;
 }
 
 // NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv)
-FontStyleClass *ManagedFontClass::Unknown_6D1600(std::string name)
+FontSys *ManagedFontClass::Unknown_6D1600(std::string name)
 {
-	std::hash_map<std::string, FontStyleClass *>::iterator it = Styles.find(name);
+	std::hash_map<std::string, FontSys *>::iterator it = Styles.find(name);
 	if (it == Styles.end()) return Unknown_6D1480(name);
 	return it->second;
 }
@@ -400,7 +400,7 @@ FontStyleClass *ManagedFontClass::Unknown_6D1600(std::string name)
 FontManagerClass::FontManagerClass()
 {
 	Fonts.clear();
-	DebugFont = Create_NEW(new FontStyleClass("DebugFont", 0, 0));
+	DebugFont = Create_NEW(new FontSys("DebugFont", 0, 0));
 }
 
 FontManagerClass::~FontManagerClass()
@@ -517,7 +517,7 @@ inline ManagedFontClass *FontManagerClass::Peek_Font(unsigned int id)
 
 
 // NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv)
-FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
+FontSys *FontManagerClass::Get_Style(const char *name, unsigned int id)
 {
 	ManagedFontClass *font = Peek_Font(id);
 	if (!font) {
@@ -525,7 +525,7 @@ FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 		return DebugFont.Peek();
 	}
 
-	FontStyleClass *style = font->Unknown_6D1600(name);
+	FontSys *style = font->Unknown_6D1600(name);
 	if (!style) {
 
 
@@ -536,9 +536,9 @@ FontStyleClass *FontManagerClass::Get_Style(const char *name, unsigned int id)
 	return style;
 }
 // The style test after the if (font) block (the font-less path skips it); the key copy keeps ecx = this for Find (H21)
-RefCountPtr<FontStyleClass> FontManagerClass::Unknown_6D2700(const char *name, const unsigned int &id)
+RefCountPtr<FontSys> FontManagerClass::Unknown_6D2700(const char *name, const unsigned int &id)
 {
-	RefCountPtr<FontStyleClass> style;
+	RefCountPtr<FontSys> style;
 	unsigned int key = id;
 	ManagedFontClass *font = Find(key);
 	if (font) {
@@ -588,7 +588,7 @@ ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const unsigned int &id)
 **	0x6D0A70 (FU1): 0x6D0A70 inlines FontStringStruct's copy only through the explicit inline operator=
 **	in fontdatabase.h; with the implicit one it is called out of line and fontdatabase.cpp's Load_Init
 **	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
-**	defined (FU1). FontStyleClass is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
+**	defined (FU1). FontSys is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
 **	+0x16C is Set_Sort_Level (0x6D01C0), its +0x184 Set_Hidden (0x6D0390 / 0x6D0550; its override 0x67EF40).
 **	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name
 **	is the font's name, its address the id) and loads the database's templates whose RenderObj is that name;

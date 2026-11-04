@@ -4,11 +4,11 @@
 #include "client.h"
 #include "dynamic_window_class.h"
 #include "dynamic_window_render_object.h"
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, as unknown_msgbox.cpp does)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
 #include "..\shared\unknown_font_split_string.h"
-#undef Unknown_BE67B8
+
 #include "gadget.h"
 #include "local_interface_sort.h"
 #include "unknown_signalbase.h"
@@ -76,7 +76,7 @@ UIViewUnknown30Class::UIViewUnknown30Class(UIViewClass *view) :
 	Window = Create_NEW(new DynamicWindowClass("TOOLTIPS", MAX_LINES));
 	Window->Set_Level(2);
 	for (int i = 0; i < MAX_LINES; i++) {
-		Lines[i] = new FontStyleClass("TOOLTIP_FONT", 0, NULL);
+		Lines[i] = new FontSys("TOOLTIP_FONT", 0, NULL);
 	}
 }
 

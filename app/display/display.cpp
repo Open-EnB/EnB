@@ -282,9 +282,9 @@ void Unknown_442AC0(HWND window)						// NAME 1 [Unknown_442AC0]: as main_client
 	Unknown_42F940(WM_PAINT, Unknown_442FA0);
 	UpdateWindow((HWND)Unknown_BDADB8);
 
-	Unknown_BDADC0->Register_Prototype_Loader(&_ParticleEmitterLoader);
-	Unknown_BDADC0->Register_Prototype_Loader(&_RingLoader);
-	Unknown_BDADC0->Register_Prototype_Loader(&_SphereLoader);
+	AssetManager->Register_Prototype_Loader(&_ParticleEmitterLoader);
+	AssetManager->Register_Prototype_Loader(&_RingLoader);
+	AssetManager->Register_Prototype_Loader(&_SphereLoader);
 }
 
 // 0x442FA0: WM_PAINT

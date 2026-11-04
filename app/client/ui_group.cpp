@@ -15,9 +15,9 @@
 #include "..\packets\pkcta_request.h"
 #include "..\packets\pkrequesttarget.h"
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
-class FontStyleClass : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 1 [FontStyleClass]: fontmanager.h's (a DynamicMeshClass there)
+class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
 // gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)
@@ -39,7 +39,7 @@ public:
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
 	virtual void Unknown_90();
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
-	virtual void Unknown_98(FontStyleClass *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
+	virtual void Unknown_98(FontSys *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5938A0 passes -1)  // NAME 1 [arg]: neutral
@@ -609,7 +609,7 @@ UIGroupClass::UIGroupClass(SClient *client) :
 	for (int i = 0; i < 9; i++) {
 		Unknown0C0[i] = NULL;
 	}
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSI03A.INI");
+	Unknown_BE67BC->Load("FA_TSI03A.INI");
 	Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
 }
 
@@ -630,7 +630,7 @@ UIGroupClass::~UIGroupClass()
 	Members.clear();
 	Unknown_5954C0();
 	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Mesh_Object());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSI03A.INI");
+	Unknown_BE67BC->Unload("FA_TSI03A.INI");
 	delete Unknown0E8;
 	Unknown0E8 = NULL;
 }
@@ -665,7 +665,7 @@ void UIGroupClass::Unknown_54()
 			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, View, 1, 1);
 			Unknown_5BB4F0(Unknown0C0[i]);
 			if (Unknown_B7F518[i]) {
-				FontStyleClass *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], (unsigned int)Mesh->Peek_Mesh_Object());
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], (unsigned int)Mesh->Peek_Mesh_Object());
 				if (style) {
 					Unknown0C0[i]->Unknown_98(style);
 				}
@@ -1082,7 +1082,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			member->Unknown_593790();
 			member->Unknown_593830(member->Unknown34);
-			member->Unknown2C = (UIGroupMemberUnknown2CClass *)new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
+			member->Unknown2C = new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
 			ClientObjectClass *object = ((ClientClass *)Client)->Find_Object(member->ID);
 			if (object) {
 				member->Unknown2C->Unknown_08(object);
@@ -1102,7 +1102,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			char name[32];
 			_snprintf(name, sizeof(name), "NAME%02d_TSI03A", index);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object());
+			FontSys *text = Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object());
 			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C7B0(member->ID));
 			if (avatar) {
 				text->Change_Text(avatar->Name, 0);
@@ -1886,22 +1886,22 @@ void UIGroupClass::Unknown_598370()
 
 
 // 0x5985A0
-void UIGroupClass::Unknown_70(ControlKeysManagerClass *manager)
+void UIGroupClass::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	if (!Unknown0F1) {
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), (void *)47, 0);
+		manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), (void *)47, 0);
 	}
 }
 
 
 
 // 0x598720
-void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
+void UIGroupClass::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	if (!Unknown0F1) {
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), 0);
+		manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), 0);
 	}
 }
 
@@ -1940,8 +1940,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	on before off and reads +0xC0 again for the 0x6603A0 call; Get_Member reads Members.end() in the loop (the
 **	cached form leaves Add_Member's expansion further off); 0x597BF0 writes the disabled case first with its
 **	i == 3 branch on Unknown0C0[2]; 0x5938A0 tests 'Unknown28 == NULL || strcmp' so the inner null test stays.
-**	intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass, control_keys_manager.h's class is the
-**	client's ControlKeysManager: the casts are ours.
+**	intrface.h's slots +0x70 / +0x74 take control_keys_manager.h's ControlKeysManager (the client's RTTI;
+**	intrface.h's stand-in ControlKeysManagerClass and its casts went on 2026-11-03).
 **	0x597E40 (not exact, D130): exact only with 6 / 4 / 3 dead size() reads in its three lookup wrappers (13, over
 **	D130's limit of 6; 92a34cb8), so A keeps 6 (its find out of line as the client's 0x5927E0) and B / C none, 0.76;
 **	the stricmp's string through a named local; its argument is a bool (stored in +0xF0 by byte).

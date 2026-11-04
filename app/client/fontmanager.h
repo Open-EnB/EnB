@@ -38,7 +38,7 @@ struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16
 	float Unknown0C;													// +0x0C: the alpha (FADE's)  // NAME 1: neutral (D10)
 };
 
-class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontStyleClass +0x2D0 / +0x2E0)
+class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontSys +0x2D0 / +0x2E0)
 {
 public:
 	Unknown_6D8B90Class();												// 0x6D8B90
@@ -54,12 +54,12 @@ public:
 	static int Unknown_BE67D8;											// 0xBE67D8: 0x6D8B90 counts up  // NAME 1: neutral (D10)
 };
 
-class FontStyleClass : public DynamicMeshClass  // NAME 1 [FontStyleClass]: neutral (D10): the client's FontSys (Get_Name 0x67EF20 "FontSys"; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
+class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67EF20 "FontSys", the profile labels 'FontSys::Change_Text' / 'FontSys::Update_Text'; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
 {
 public:
-	FontStyleClass(const char *name, int object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
-	FontStyleClass(FontStringStruct def, unsigned int object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
-	~FontStyleClass() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
+	FontSys(const char *name, int object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
+	FontSys(FontStringStruct def, unsigned int object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+	~FontSys() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
 
 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
 	virtual const char *Get_Name(void) const { return "FontSys"; }		// 0x67EF20  // NAME 2: RenderObjClass's
@@ -179,9 +179,9 @@ public:
 	void Unknown_6D07D0(int unknown);									// 0x6D07D0 (no caller): each style's 0x6CE7D0  // NAME 1 [Unknown_6D07D0]: neutral (D10)
 	void Unknown_6D0890();												// 0x6D0890 (no caller): each style's 0x6D5D40  // NAME 1 [Unknown_6D0890]: neutral (D10)
 	void Unknown_6D10B0(const char *name, Vector3 color);			// 0x6D10B0 (no caller): the color of every style named name  // NAME 1 [Unknown_6D10B0]: neutral (D10)
-	void Unknown_6D1220(FontStyleClass *style);							// 0x6D1220: adds a style under its +0xF8 name, else its name  // NAME 1 [Unknown_6D1220]: neutral (D10)
-	FontStyleClass *Unknown_6D1480(std::string name);					// 0x6D1480: the style named name + "_0"  // NAME 1 [Unknown_6D1480]: neutral (D10)
-	FontStyleClass *Unknown_6D1600(std::string name);					// 0x6D1600: the named style, else 0x6D1480's  // NAME 1 [Unknown_6D1600]: neutral (D10)
+	void Unknown_6D1220(FontSys *style);							// 0x6D1220: adds a style under its +0xF8 name, else its name  // NAME 1 [Unknown_6D1220]: neutral (D10)
+	FontSys *Unknown_6D1480(std::string name);					// 0x6D1480: the style named name + "_0"  // NAME 1 [Unknown_6D1480]: neutral (D10)
+	FontSys *Unknown_6D1600(std::string name);					// 0x6D1600: the named style, else 0x6D1480's  // NAME 1 [Unknown_6D1600]: neutral (D10)
 	void Unknown_6D1010(const char *name, Vector3 color);			// 0x6D1010: the named style's color (+0x494, +0x4A4)  // NAME 1 [Unknown_6D1010]: neutral (D10)
 	void Unknown_6D01C0(int level, const char *name);					// 0x6D01C0: Set_Sort_Level of every style (name NULL) or the styles named name  // NAME 1 [Unknown_6D01C0]: neutral (D10)
 	void Unknown_6D0390(const char *name);								// 0x6D0390: shows every style (name NULL) or the styles named name (Set_Hidden(false))  // NAME 1 [Unknown_6D0390]: neutral (D10)
@@ -192,7 +192,7 @@ public:
 	StringClass Name;													// +0x00  // NAME 2: the name 0x6D1FD0 looks up in the font database
 	unsigned int Id;													// +0x04: the manager's key  // NAME 2: what it holds
 	int Unknown08;														// +0x08  // NAME 1: neutral (D10)
-	std::hash_map<std::string, FontStyleClass *> Styles;				// +0x0C: its styles by name (0x6D1C10 walks them)  // NAME 2: what it holds
+	std::hash_map<std::string, FontSys *> Styles;				// +0x0C: its styles by name (0x6D1C10 walks them)  // NAME 2: what it holds
 };
 
 class FontManagerClass  // NAME 3 [FontManagerClass]: by convention (D24) from the client's fontmanager.cpp
@@ -211,8 +211,8 @@ public:
 	void Unknown_6D2480(unsigned int id);								// 0x6D2480  // NAME 1 [Unknown_6D2480]: neutral (D10)
 	void Unknown_6D2500(const char *name, const char *text, unsigned int id, int unknown);	// 0x6D2500: the font's 0x6D0A20								// 0x6D2500  // NAME 1 [Unknown_6D2500]: neutral (D10)
 	void Unknown_6D2580(const char *name, Vector3 color, unsigned int id);	// 0x6D2580: a font's style color  // NAME 1 [Unknown_6D2580]: neutral (D10)
-	FontStyleClass *Get_Style(const char *name, unsigned int id);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
-	RefCountPtr<FontStyleClass> Unknown_6D2700(const char *name, const unsigned int &id);	// 0x6D2700: a font's named style, else the debug font  // NAME 1 [Unknown_6D2700]: neutral (D10)
+	FontSys *Get_Style(const char *name, unsigned int id);		// 0x6D25D0: a font's named style, else the debug font  // NAME 2: describes what it does
+	RefCountPtr<FontSys> Unknown_6D2700(const char *name, const unsigned int &id);	// 0x6D2700: a font's named style, else the debug font  // NAME 1 [Unknown_6D2700]: neutral (D10)
 	void Unknown_6D28C0(int value, unsigned int id);					// 0x6D28C0: each style's +0x250 of a font  // NAME 1 [Unknown_6D28C0]: neutral (D10)
 	void Add(ManagedFontClass *font);									// 0x6D29A0: under its id  // NAME 2: describes what it does
 	ManagedFontClass *Peek_Font(unsigned int id);						// inline only: Find's body where the client inlines it (the trio 0x6D2400, Get_Style, 0x6D28C0)  // NAME 1 [Peek_Font]: neutral (D10)
@@ -220,7 +220,7 @@ public:
 	ManagedFontClass *Unknown_6D2AE0(const unsigned int &id);			// 0x6D2AE0: Find through a reference (no caller in the client)  // NAME 1 [Unknown_6D2AE0]: neutral (D10)
 
 	std::hash_map<unsigned int, ManagedFontClass *> Fonts;				// +0x00: 100 buckets  // NAME 2: what it holds
-	RefCountPtr<FontStyleClass> DebugFont;								// +0x18: "DebugFont"  // NAME 2: what it holds
+	RefCountPtr<FontSys> DebugFont;								// +0x18: "DebugFont"  // NAME 2: what it holds
 };
 
 #endif //__FONTMANAGER_H

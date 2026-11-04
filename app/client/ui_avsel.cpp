@@ -73,10 +73,10 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
@@ -322,7 +322,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown084->Unknown_67B7A0(1);
 	Unknown084->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 45.0f);
 	Unknown084->Camera->Set_Clip_Planes(1.0f, 500.0f);
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_FE12A.ini");
+	Unknown_BE67BC->Load("FA_FE12A.ini");
 	Unknown_BE67C4->Add(model);
 	for (i = 0; i < 8; i++) {
 		char name[64];
@@ -385,7 +385,7 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 		}
 	}
 	Unknown_BE67C4->Remove((unsigned int)Unknown084->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_FE12A.ini");
+	Unknown_BE67BC->Unload("FA_FE12A.ini");
 	Unknown084->Unknown_67A9B0(0);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
 	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
@@ -765,7 +765,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 // 0x55E2E0
 void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool selected)
 {
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(string, 0);
 	textptr->Unknown_6CE910(selected);
@@ -894,7 +894,7 @@ void AvatarSelectionInterface::Unknown_8C()
 void AvatarSelectionInterface::Unknown_55ED20()
 {
 	int i;
-	FontStyleClass *text;
+	FontSys *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
@@ -948,7 +948,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 void AvatarSelectionInterface::Unknown_55EF90()
 {
 	int i;
-	FontStyleClass *text;
+	FontSys *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
@@ -1043,7 +1043,7 @@ void AvatarSelectionInterface::Unknown_55F140()
 	if (Unknown090 == -1 || !Unknown0E4[Unknown090]) {
 		return;
 	}
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	int race = Unknown0BC[Unknown090]->Unknown108;
 	textptr->Change_Text(Unknown_B7B928[race], 0);
@@ -1159,7 +1159,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 	BuddyReferralUI = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("BUDDYREF1"));
 	G_ASSERT(BuddyReferralUI);
 	model->Add_Sub_Object(BuddyReferralUI.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_buddyref1.ini");
+	Unknown_BE67BC->Load("fc_buddyref1.ini");
 	Unknown_BE67C4->Add(BuddyReferralUI);
 	for (int i = 0; i < 2; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(BuddyReferralUI->Get_Sub_Object_By_Name(Unknown_B7B958[i]));
@@ -1210,7 +1210,7 @@ void AvatarSelectionInterface::Unknown_55FBB0()
 		Unknown10C[i] = NULL;
 	}
 	Unknown_BE67C4->Remove((unsigned int)BuddyReferralUI.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fc_buddyref1.ini");
+	Unknown_BE67BC->Unload("fc_buddyref1.ini");
 	RenderObjClass *model = Unknown084->Peek_Model();
 	G_ASSERT(BuddyReferralUI);
 	model->Remove_Sub_Object(BuddyReferralUI.Peek());
@@ -1237,7 +1237,7 @@ void AvatarSelectionInterface::Unknown_55FDC0(bool on)
 	for (int i = 0; i < 2; i++) {
 		if (Unknown10C[i]) {
 			Unknown10C[i]->Unknown_40(on);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
 			if (text) {
 				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
@@ -1254,7 +1254,7 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 	G_ASSERT(robj);
 	robj->Set_Hidden(hidden);
 
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 

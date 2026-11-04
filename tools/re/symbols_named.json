@@ -612,5 +612,84 @@
   "address": "0x995630",
   "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABVVector3@@PAUIOVector3Struct@@@Z",
   "evidence": "engine-to-file direction: SpherePrototypeClass's constructor from a sphere calls it four times (0x90DD28, 0x90DD36, 0x90DD5C, 0x90DD82; sphereobj.cpp's def_color / def_scale / Center / Extent into Definition) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x515710",
+  "symbol": "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "InterfaceClass's slot +0x70 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x515730",
+  "symbol": "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "InterfaceClass's slot +0x74 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x610780",
+  "symbol": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "UIScutClass's slot +0x70 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x6107C0",
+  "symbol": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "UIScutClass's slot +0x74 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x66C470",
+  "symbol": "?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z",
+  "evidence": "RObjGadgetClass's slot +0x90 (the vtable's proof, as before) passes its argument to ro_funcs.cpp's 0x495FD0 as the TextureClass * it takes; ui_chat_panel.cpp calls the slot with a texture (2026-11-03)",
+  "replaces": "?Unknown_90@RObjGadgetClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x67EEE0",
+  "symbol": "?Is_Complete@FontSys@@UAE_NXZ",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Is_Complete@FontStyleClass@@UAE_NXZ"
+ },
+ {
+  "address": "0x67EF00",
+  "symbol": "?Class_ID@FontSys@@UBEHXZ",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Class_ID@FontStyleClass@@UBEHXZ"
+ },
+ {
+  "address": "0x67EF20",
+  "symbol": "?Get_Name@FontSys@@UBEPBDXZ",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Get_Name@FontStyleClass@@UBEPBDXZ"
+ },
+ {
+  "address": "0x67EF80",
+  "symbol": "??_EFontSys@@UAEPAXI@Z",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "??_EFontStyleClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x6D5920",
+  "symbol": "?Set_Container@FontSys@@UAEXPAVRenderObjClass@@@Z",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Set_Container@FontStyleClass@@UAEXPAVRenderObjClass@@@Z"
+ },
+ {
+  "address": "0x6D5C10",
+  "symbol": "?Get_Obj_Space_Bounding_Box@FontSys@@UBEXAAVAABoxClass@@@Z",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Get_Obj_Space_Bounding_Box@FontStyleClass@@UBEXAAVAABoxClass@@@Z"
+ },
+ {
+  "address": "0x6D8270",
+  "symbol": "?Render@FontSys@@UAEXAAVRenderInfoClass@@@Z",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "?Render@FontStyleClass@@UAEXAAVRenderInfoClass@@@Z"
+ },
+ {
+  "address": "0xAFBF28",
+  "symbol": "??_7FontSys@@6BRefCountClass@@@",
+  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
+  "replaces": "??_7FontStyleClass@@6BRefCountClass@@@",
+  "kind": "vtable"
  }
 ]

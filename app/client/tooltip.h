@@ -21,7 +21,7 @@
 #include "..\..\wwmath\vector2.h"
 
 class UIViewClass;
-class FontStyleClass;
+class FontSys;
 class GadgetClass;
 class DynamicWindowClass;
 class DestroyGadgetEvent;
@@ -53,7 +53,7 @@ public:
 	int Hides;											// +0x10 (0x6AB850's assert '!Hides'; 0x6AB890 counts it up)
 	RefCountPtr<DynamicWindowClass> Window;				// +0x14 (DynamicWindowClass "TOOLTIPS", 20; level 2)  // NAME 1 [Window]
 	Vector2 Unknown18;									// +0x18 (the pointer where the gadget was found)
-	FontStyleClass *Lines[MAX_LINES];					// +0x20 (TOOLTIP_FONT each)  // NAME 2 [Lines]: 'lines > MAX_LINES'
+	FontSys *Lines[MAX_LINES];					// +0x20 (TOOLTIP_FONT each)  // NAME 2 [Lines]: 'lines > MAX_LINES'
 };
 
 #endif

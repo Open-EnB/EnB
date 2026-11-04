@@ -97,22 +97,16 @@ class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (con
 class DeltaPlayerClass;
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
-class SClientUnknown1338Class;	// NAME 1: neutral (D10): 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
+class EnvironmentMapManagerClass;	// NAME 3: by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
 class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC points to (a virtual destructor)
 class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp)
 class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
 
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as sclient.cpp and loadingview.cpp call it (fontdatabase.h's
-// own 0xBE67B8 clashes with tsk_game.h's, so they can't include it; one declaration, so the harness stand-ins agree)
-class SClientFontDatabaseClass	// NAME 1: neutral (D10): fontdatabase.cpp's class
-{
-public:
-	void Unknown_6C52B0(int arg);						// 0x6C52B0 (SClient::Init passes 0)
-	void Unknown_6C55B0(const char *name);				// 0x6C55B0 (Unload: the loading view's 'fc_map_load00.ini')  // NAME 1 [name]: what it gets
-};
-extern SClientFontDatabaseClass *Unknown_BE67BC;		// NAME 1: neutral (D10)
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC (P-H12-3: its callers include fontdatabase.h)
+class FontStringFilesClass;
+extern FontStringFilesClass *Unknown_BE67BC;		// NAME 1: neutral (D10); fontdatabase.h declares it too
 class AvatarDescClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
@@ -179,7 +173,7 @@ public:
 	DynamicWindowClass *Window;							// +0xB4 'DIALOG_BOX_WINDOW'  // NAME 1: the section's
 	DynamicWindowClass *Info;							// +0xB8 'DIALOG_BOX_INFO'  // NAME 1: the section's
 	GadgetClass *Gadget;								// +0xBC (0x6689C0 over the window)  // NAME 1: neutral
-	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontStyleClass texts)  // NAME 1: dialogbox.ini's 'Header%d'
+	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontSys texts)  // NAME 1: dialogbox.ini's 'Header%d'
 	DynamicWindowClass *Options[5];						// +0x100 'DIALOG_BOX_OPTION'  // NAME 1: dialogbox.ini's 'Option%d'
 	DynamicWindowElementClass *OptionTexts[5];			// +0x114 ('OPTION_INFO_%d')  // NAME 1: neutral
 	GadgetClass *OptionGadgets[5];						// +0x128 (0x6689C0 over the option; its id the option's number)  // NAME 1: neutral
@@ -387,10 +381,10 @@ class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
 {
 public:
-	int Get_Unknown90() { return(Unknown90); }		// (inline: SERVER_PARAMETERS 66 reads it through eax)  // NAME 1: neutral (D10): the member it returns
+	HeightFieldClass *Get_Unknown90() { return(Unknown90); }		// (inline: SERVER_PARAMETERS 66 reads it through eax)  // NAME 1: neutral (D10): the member it returns
 
 	char Unknown00[0x90];								// +0x00
-	int Unknown90;										// +0x90
+	HeightFieldClass *Unknown90;						// +0x90: LandClass::Field
 };
 
 class MainViewClass;
@@ -466,7 +460,7 @@ class MainViewUnknown1E4Class : public InterfaceClass	// NAME 1: neutral (D10)
 public:
 	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
-	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
+	virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	char Unknown84[0xE8 - 0x84];						// +0x84
 };
@@ -494,7 +488,7 @@ public:
 	// (+0x04..+0x50: gclass.h's GClass slots)
 	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
-	virtual void Unknown_70(ControlKeysManagerClass *manager); virtual void Unknown_74(ControlKeysManagerClass *manager); virtual bool Unknown_78(void *arg);
+	virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_80(); virtual void Unknown_84();
 	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (0x513540: the backdrop model)  // NAME 2 [model]: what 0x513540 passes
 	virtual void Unknown_8C(int arg);					// +0x8C (0x513600)  // NAME 1 [arg]: neutral
@@ -842,7 +836,7 @@ public:
 	SimpleSceneClass *OrbitalScene;						// +0x134 (0x801AE0 renders it at depth 0.95..1)  // NAME 3: the assert's
 	unsigned Unknown138;								// +0x138: the orbital%04d.ini number (Create_Orbital; the orbital callback 0x804FE0 returns it)
 	DazzleLayerClass *BackgroundDazzleLayer;			// +0x13C (0x801C40 renders it at depth 1)  // NAME 3: the assert's
-	SClientUnknown1338Class *Unknown140; SClientUnknown1334Class *DecalMaterialManager;	// +0x140 (0x8020B0 hands it to shiputils.cpp's 0x80EFF0), +0x144 (Add_Decal_To_Ship hands it to 0x80E8C0)  // NAME 3 [DecalMaterialManager]: the assert's (0x8093D0)
+	EnvironmentMapManagerClass *Unknown140; SClientUnknown1334Class *DecalMaterialManager;	// +0x140 (0x8020B0 hands it to shiputils.cpp's 0x80EFF0), +0x144 (Add_Decal_To_Ship hands it to 0x80E8C0)  // NAME 3 [DecalMaterialManager]: the assert's (0x8093D0)
 	std::vector<ScriptedMovieEffectStruct> Effects;		// +0x148: the timed effects  // NAME 2: what it holds
 	bool Unknown158; char Unknown159[3]; Render2DTextClass *Unknown15C; RefCountPtr<Font3DInstanceClass> Unknown160;	// +0x158: the stats shown (with +0x171), +0x15C: their text (the render 0x8012C0), +0x160: its font (the constructor: font12x16.tga)
 	int Unknown164;										// +0x164 (Skip_Frames adds to it)
@@ -880,7 +874,7 @@ class Unknown77E3F0Class	// NAME 1: neutral (D10)
 public:
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (avatar.cpp; cpacket.cpp: CLIENT_CHAT_EVENT 165 passes Unknown74, Unknown78, 1)  // NAME 1 [data, size, flag]: what the handler passes
 	Unknown77E3F0E8Class *Unknown_7817E0();			// 0x7817E0 (avatar.cpp: returns this + 0xE8)
-	void Unknown_780810(SClientUnknown1338Class *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass Unknown1338)  // NAME 1 [unknown]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass EnvironmentMapManager)  // NAME 1 [unknown]: neutral
 };
 
 // The values of SClient +0x1394 (reference counted: Delete_This in slot 0, the count at +0x04)
@@ -1009,7 +1003,7 @@ public:
 	void Unknown_74BD90(int arg);						// 0x74BD90: the scripted movie view made, view mode 6 (G_ASSERT '!ScriptedMovieView', l.4117)  // NAME 1 [arg]: neutral
 	void Unknown_74BF00(int mode);						// 0x74BF00: the scripted movie view ended into view mode 'mode' (l.4127)  // NAME 1 [mode]: what it is
 	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
-	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given Unknown1338  // NAME 1 [id]: the table's key
+	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given EnvironmentMapManager  // NAME 1 [id]: the table's key
 	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
 	Unknown77E3F0Class *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
@@ -1076,7 +1070,7 @@ public:
 	MusicManagerClass *MusicManager;					// +0x132C Init  // NAME 3: its file's
 	SClientUnknown1330Class *Unknown1330;				// +0x1330 (Shutdown deletes it: destructor 0x43C560)
 	SClientUnknown1334Class *Unknown1334;				// +0x1334
-	SClientUnknown1338Class *Unknown1338;				// +0x1338
+	EnvironmentMapManagerClass *EnvironmentMapManager;	// +0x1338  // NAME 3: option.cpp's and scriptedmovie.cpp's asserts 'sclient->EnvironmentMapManager'
 	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's
 	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C
 	UIViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')

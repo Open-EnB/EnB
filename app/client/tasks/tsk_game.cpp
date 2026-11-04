@@ -14,7 +14,7 @@
 #include "..\..\..\wwlib\ini.h"
 #include "wwprofile.h"
 #include <time.h>
-
+#include "..\fontdatabase.h"	// FontDatabaseClass at 0xBE67B8 (P-H12-3)
 class MasterJoinPacketClass : public PacketClass { public: MasterJoinPacketClass(TicketClass *ticket); ~MasterJoinPacketClass(); char Unknown0C[0x54]; };	// opcode 53: 0x8974C0, 0x897650 (pk_classes.h: the receiving side only)
 class LoginPacketClass : public PacketClass { public: LoginPacketClass(TicketClass *ticket, const char *gm_name, int unknown); ~LoginPacketClass(); char Unknown0C[0xAC]; };	// opcode 2: 0x89A740, 0x89A940  // NAME 1 [gm_name]: '-GM_NAME'
 class ServerRedirectPacketClass : public PacketClass { public: ServerRedirectPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; unsigned long Address; unsigned short Port; };	// opcode 54: 0x8A1590, 0x18 bytes (pk_classes.h declares no fields)  // NAME 1 [Address, Port]: handed to Redirect
