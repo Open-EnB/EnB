@@ -4,6 +4,39 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-04 (15:45 PST, day): nineteen builders on NOT EXACT code and strong-hint files; five new files; +570 pairs (+801 in PR #158), 0 lost outright
+
+Coordinator Opus 5.5 (the user away; weekly 12 % -> 19 %, goal 21 % by 16:00); branch run/2026-11-04 (PR #158, back in
+draft for the day, `ready` at the handoff), plan log `.work/run-2026-11-04/plan.md` (Day session section). The user approved
+P-LIGHT-1 and P-QUIT-2 (D190, D191) and set no focus: cheap NOT EXACT refinements and new functions with strong hints.
+Builders (Opus unless noted): TOOLS (Sonnet), CGP, UAC, AUXR, REG, CLS, REG2, EAM, AVS2, NET, SBV, BIO, SCI, BUFF, GADG, STRC,
+PIP, HTML, LINES (Sonnet).
+
+- **Tools (D190 / D191):** `clientpoc.py replay --retail` (a copy of the retail client under d3d8shot's user32 hooks, BM_CLICK
+  on I Agree: retail character select on the POC's replay input), `tools/harness/dumpcmp.py` (draw dumps), and `replay`'s
+  `client exit:` line. d3d8shot must be rebuilt for the hooks (`run_reference.py build`).
+- **New files:** ui_buff.cpp (the client's __FILE__), gd_buffgadg.cpp (the client's __FILE__), strconv_lib.cpp (the client's
+  __FILE__) and, interim (D137): ui_bio.cpp (the character info window's bio tab), unknown_strconv.cpp (the conversions
+  0x4A30A0-0x4A3640), headers delta_money.h and aux_roots_send.h.
+- **Toward exact:** ui_avatar_cust.cpp rebased on Unknown5BB320Class (ctor / dtors / per-frame exact, UAC); ui_registration
+  (REG / REG2: second base at +0x84, 0x5FA900 / 0x5F8FD0 / combo fillers exact); ui_class 0x576360 / 0x5767F0 D64 -> exact
+  and the planet turn (CLS); aux_roots gaps and SClient 0x7518A0 / 0x7555B0 with the Hull root (AUXR), USER_DTOR /
+  delta_money (SCI); ENBAssetManager Create_Render_Obj / 0x48ECA0 (EAM); sbaseview's ctor / dtor / Shutdown / render (SBV);
+  cordmgr Pump_Releases, cordcon pumpInternal 0.18 -> 0.76 (NET); ShipPip 0x80E260 / 0x80E530 (PIP); ui_avsel 0x55F140
+  (AVS2); htmlview renames (HTML).
+- **Create_Get / Create_Peek:** ui_manu / ui_chat_panel fixed (CGP); ui_cpit's waits for P-CGP-1 (§3).
+- **Pairs:** +801 vs a302d4d3 for the PR (+570 today), 0 lost outright; D66 moves: 0x4A3CD0 to unknown_root alone (AUXR, D66 (v): the PR needs
+  `/accept-d66`, D169), 0x4A7100 into delta_money (SCI, D66 (i)). Harness: udpreplay alex3 (messages equal) and handshake 54 at b62513b9; clienttest 103, trace equal after CTDAY's stand-ins (c366a207: ui_buff.cpp pulled aux_roots.obj and three symbols of its local gadget names). POC full creation flow at
+  b62513b9: antprox receives GLOBAL_CREATE_CHARACTER 0x0072 (539 bytes; `.work/poc/shots/coord-152245`).
+- **Proposals:** P-CGP-1 (objmatch: drop a D100 candidate an exact caller's call contradicts; +91 / 1 loss).
+- **Coordinator traps:** plain `git worktree remove` on a wt.py worktree deleted the main tree's `.work/pseudo` through its
+  junction twice (restored from `.work/pseudo-backup/`; use `wt.py remove`); builders' worktree POC links deploy to the shared
+  ClientPOC\release (REG overwrote it); landing a branch by fast-forward skips bring-over's replay check (SCI's delta_money.h
+  was unregistered and blocked every later landing); an importer.py SyntaxWarning reads as a replay difference; two builders
+  on aux_roots' inputs move the SYMBOL_PAD window (STRC re-swept after SCI); builders finished in 0.5-1.5 h, faster than
+  briefed: plan a second item per brief.
+- **Next session:** PR #158 (`/accept-d66`, then merge); P-CGP-1; then one section 4 item.
+
 ### 2026-11-04 (05:15 PST, night): POC character creation end to end, the avatar lit like retail, the quit fault fixed; +231 pairs, 0 lost
 
 Coordinator Opus 5.5 (the user away; weekly 8 % -> 12 %, cap 14 %); branch run/2026-11-04 (PR #158, draft), plan log
@@ -2383,7 +2416,9 @@ below name only the work items, the blocked work, the leads and the queues.
      0x561DD0): 0x561030 / 0x5615C0 functional, inline budget (the client calls auxdata.h's find 0x561C40 / ~vector 0x561B80
      out of line; string::assign out of line for the first two strings); gd_buffgadg.cpp (0x665180-0x666470) would give
      ui_buff.cpp's local gadget stand-ins their real header: done by GADG (2026-11-04, gd_buffgadg.cpp / .h, 0x665150-0x666570),
-     so ui_buff.cpp switches to gd_buffgadg.h (GADG's report in the 2026-11-04 plan log: BuffElementStruct / BuffInfoStruct /
+     so ui_buff.cpp switches to gd_buffgadg.h first (until then the app / POC link leaves UIBuffGadgetClass's ctor,
+     ::Unknown_6661F0 and UIBuffInfoStruct::Unknown_665390 unresolved, and clienttest stands them in: drop those in
+     tests/clienttest/client_stubs.cpp with the switch) (GADG's report in the 2026-11-04 plan log: BuffElementStruct / BuffInfoStruct /
      BuffGadgetClass, the element layout ExpirationTime +0x20, Magnitude +0x28, IsActive +0x2C, the gadget's base
      Unknown_671300Class, `(ClientClass *)Client`). gd_buffgadg NOT EXACT: 0x665940 / 0x667A60 / 0x667230 (one inline-budget
      cause: basic_string::assign out of line), 0x6656A0 / 0x6661F0 (register), 0x665F20 (frame). Leads: `operator>` for
