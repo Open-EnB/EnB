@@ -706,7 +706,7 @@ void UIChatPanelClass::Unknown_563C50()
 // 0x563DC0
 void UIChatPanelClass::Unknown_563DC0(bool on)
 {
-	RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
 	FAIL_IF(!font) return;
 	if (on) {
 		if (strcmp(Unknown124.c_str(), font->Unknown_6D87D0()) != 0) font->Change_Text(Unknown124.c_str(), 0);
@@ -2293,7 +2293,7 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 	UnknownA4[4]->Unknown_40(show);
 	UnknownA4[4]->Unknown_8C(!show);
 	if (text) {
-		RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", Peek_Unknown84()));
+		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("message_TSI05B", Peek_Unknown84()));
 		FAIL_IF(!font) return;
 		font->Change_Text(text, 0);
 	}
