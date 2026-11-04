@@ -456,8 +456,8 @@ void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 }
 
 // 0x784A50
-// NOT EXACT: functional for POC (D64), literal (the asserts' lines written as the client's numbers)
-void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
+// (the asserts' lines written as the client's numbers)
+void CharacterViewAvatarClass::Unknown_784A50(const char *name, bool a, bool b)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
 		if (PlayerNLP == NULL) {
@@ -469,17 +469,17 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
 		PlayerNLP->Unknown_78F690(name, strlen(name), &Desc.Mood_Type, &Unknown0E8);
 		Unknown0E8.Unknown_4C4410();
 		Unknown_784700();
-		Unknown214 = (a != 0);
+		Unknown214 = a;
 		if (a) {
 			Unknown24C = -1;
 		}
 		Unknown220 = false;
-		Unknown215 = (b != 0);
+		Unknown215 = b;
 	}
 }
 
 // 0x784B80
-// NOT EXACT: functional for POC (D64), literal (the asserts' lines written as the client's numbers)
+// (the asserts' lines written as the client's numbers)
 void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
@@ -588,7 +588,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 }
 
 // 0x781880
-// NOT EXACT: functional for POC (D64)
+// (push_back: VC6 vector's insert inlined)
 void CharacterViewAvatarClass::Unknown_781880(char anim, const char *text, int mood)
 {
 	Unknown2A0.push_back(new Unknown_AvatarQueueStruct(anim, text, mood));
@@ -677,13 +677,15 @@ void CharacterViewAvatarClass::Unknown_7826A0()
 		}
 	}
 	char name[32];
-	if (Unknown2F8 & 2) {
-		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("walk_backward"));
+	int anim;
+	if ((Unknown2F8 >> 1) & 1) {
+		anim = PlayerNLP->Unknown_78F640("walk_backward");
 	} else if (!Unknown2F4) {
-		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("walk_forward"));
+		anim = PlayerNLP->Unknown_78F640("walk_forward");
 	} else {
-		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("run_forward"));
+		anim = PlayerNLP->Unknown_78F640("run_forward");
 	}
+	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, anim);
 	Unknown_7831C0(name);
 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
 		Unknown0BC->Release_Keys();
@@ -707,7 +709,8 @@ void CharacterViewAvatarClass::Unknown_782850()
 		strcpy(tag, "stand_up");
 		Unknown210 = 0;
 	}
-	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640(tag));
+	int anim = PlayerNLP->Unknown_78F640(tag);
+	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, anim);
 	Unknown_7831C0(name);
 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
 		Unknown0BC->Release_Keys();

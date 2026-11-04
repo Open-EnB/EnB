@@ -19,10 +19,12 @@ class MeshClass;
 // an entry of the avatar's animation queue (+0x2A0; 0xC bytes, 0x781880 makes them, 0x781C10 deletes them)
 struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
 {
-	Unknown_AvatarQueueStruct(char anim, const char *text, int mood) : Anim(anim), Mood(mood)
+	Unknown_AvatarQueueStruct(char anim, const char *text, int mood)
 	{
+		Anim = anim;
 		Text = nstrdup(text);
 		strcpy(Text, text);
+		Mood = mood;
 	}
 	~Unknown_AvatarQueueStruct() { delete Text; }	// 0x781C10 (its scalar deleting destructor)
 
@@ -46,7 +48,7 @@ public:
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
 
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
-	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
+	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
 	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
 	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
