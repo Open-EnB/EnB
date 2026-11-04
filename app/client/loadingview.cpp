@@ -13,7 +13,7 @@
 class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes
 // fontmanager.h's FontManagerClass at 0xBE67C4 (its header includes fontdatabase.h, whose 0xBE67B8 clashes with tsk_game.h's): 0x6D2310 removes the fonts kept for a render object, 0x6D25D0 finds a named one
 class LoadingViewFontManagerClass { public: void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object); FontSys *Unknown_6D25D0(const char *name, RenderObjClass *object); }; extern LoadingViewFontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)  // NAME 1 [object, name]: what this file passes
-// (fontdatabase.h's FontStringFilesClass at 0xBE67BC: sclient.h's SClientFontDatabaseClass)
+#include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC (P-H12-3)
 
 
 // the 0xFC-byte render object at +0x64 (constructor 0x7B3E30), as far as this file calls it
@@ -90,7 +90,7 @@ void LoadingViewClass::Unknown_692330()
 		}
 		Unknown58->Remove();
 		Unknown_BE67C4->Unknown_6D2310(Unknown58);
-		Unknown_BE67BC->Unknown_6C55B0("fc_map_load00.ini");
+		Unknown_BE67BC->Unload("fc_map_load00.ini");
 		Unknown58 = NULL;
 		Unknown5C = NULL;
 		Unknown60 = NULL;
@@ -131,7 +131,7 @@ int LoadingViewClass::Unknown_0C(bool on)
 			}
 			Unknown58->Remove();
 			Unknown_BE67C4->Unknown_6D2310(Unknown58);
-			Unknown_BE67BC->Unknown_6C55B0("fc_map_load00.ini");
+			Unknown_BE67BC->Unload("fc_map_load00.ini");
 			Unknown58 = NULL;
 			Unknown5C = NULL;
 			Unknown60 = NULL;

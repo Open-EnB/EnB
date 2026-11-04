@@ -10,13 +10,13 @@
 
 extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): the random generator the fonts are picked with
 
-class LineDisplayFontDatabaseClass  // NAME 1: neutral (D10): fontdatabase.cpp's class (the one at 0xBE67BC)
-{
-public:
-	void Unknown_6C52B0(const char *file_name);				// 0x6C52B0: the constructor passes fc_line_display.ini
-	void Unknown_6C55B0(const char *file_name);				// 0x6C55B0: the destructor passes it
-};
-extern LineDisplayFontDatabaseClass *Unknown_BE67BC;		// NAME 1 [Unknown_BE67BC]: neutral (D10)
+#include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini
+extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
+
+
+
+
+
 
 #include "control_keys_manager.h"	// ControlKeysManager: slots +0x70 / +0x74 call Add_Keys 0x71A960 / Remove_Keys 0x71AB40
 
@@ -167,7 +167,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 	Style(""),
 	UnknownFC(true)
 {
-	Unknown_BE67BC->Unknown_6C52B0("fc_line_display.ini");
+	Unknown_BE67BC->Load("fc_line_display.ini");
 	Client = client;
 	G_ASSERT(Client);
 }
@@ -176,7 +176,7 @@ UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *client) :
 // The hash_map iterators declared before their loops (registers as the client, as 0x677410); two padding lines below Unknown_5C removed for the later reports' lines
 UILineDisplayClass::~UILineDisplayClass()
 {
-	Unknown_BE67BC->Unknown_6C55B0("fc_line_display.ini");
+	Unknown_BE67BC->Unload("fc_line_display.ini");
 	Clear();
 	for (std::vector<LineDisplayLineStruct *>::iterator line = Lines.begin(); line != Lines.end(); ++line) {
 		delete *line;

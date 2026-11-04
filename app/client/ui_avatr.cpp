@@ -354,7 +354,7 @@ AvatarCreationInterface::~AvatarCreationInterface()
 	Unknown64.Unknown_687150((GadgetClass *)Unknown094);
 	Unknown_559F30();
 	Unknown_BE67C4->Remove(Unknown08C->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_avatar00.ini");
+	Unknown_BE67BC->Unload("fa_fe_avatar00.ini");
 	Unknown08C->Unknown_67A9B0(0);
 	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
 	UIAvatrNotifierClass *notifier = Unknown_65ECE0();

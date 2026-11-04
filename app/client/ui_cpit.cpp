@@ -245,7 +245,7 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 	Unknown0B0 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi01_gutter"));
 	Unknown_496730(Unknown0B0.Peek(), 0x20, 0);
 	Mesh->Unknown_5BA460(1);
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_cpit.ini");
+	Unknown_BE67BC->Load("fc_cpit.ini");
 	Unknown_BE67C4->Add(Mesh->Peek_Object());
 }
 
@@ -412,7 +412,7 @@ UICpitClass::~UICpitClass()
 	Unknown158.clear();
 	Unknown154 = NULL;
 	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Object());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fc_cpit.ini");
+	Unknown_BE67BC->Unload("fc_cpit.ini");
 	Unknown_5C();
 	delete Unknown0D0;
 	Unknown0D0 = NULL;

@@ -115,7 +115,7 @@ UIScutClass::UIScutClass(UIViewClass *view, LayerClass *layer) :
 	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
 		Bars[lp] = NULL;
 	}
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_scut.ini");
+	Unknown_BE67BC->Load("fc_scut.ini");
 	Unknown_BE67C4->Add(Mesh->Peek_Object());
 	int id = 2;
 	for (lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
@@ -148,7 +148,7 @@ UIScutClass::~UIScutClass()
 	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
 		delete Bars[lp];
 	}
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fc_scut.ini");
+	Unknown_BE67BC->Unload("fc_scut.ini");
 }
 
 

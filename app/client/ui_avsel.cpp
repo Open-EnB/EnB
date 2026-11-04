@@ -73,10 +73,10 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
@@ -322,7 +322,7 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown084->Unknown_67B7A0(1);
 	Unknown084->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 45.0f);
 	Unknown084->Camera->Set_Clip_Planes(1.0f, 500.0f);
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_FE12A.ini");
+	Unknown_BE67BC->Load("FA_FE12A.ini");
 	Unknown_BE67C4->Add(model);
 	for (i = 0; i < 8; i++) {
 		char name[64];
@@ -385,7 +385,7 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 		}
 	}
 	Unknown_BE67C4->Remove((unsigned int)Unknown084->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_FE12A.ini");
+	Unknown_BE67BC->Unload("FA_FE12A.ini");
 	Unknown084->Unknown_67A9B0(0);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
 	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
@@ -1159,7 +1159,7 @@ void AvatarSelectionInterface::Unknown_55F760()
 	BuddyReferralUI = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("BUDDYREF1"));
 	G_ASSERT(BuddyReferralUI);
 	model->Add_Sub_Object(BuddyReferralUI.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_buddyref1.ini");
+	Unknown_BE67BC->Load("fc_buddyref1.ini");
 	Unknown_BE67C4->Add(BuddyReferralUI);
 	for (int i = 0; i < 2; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(BuddyReferralUI->Get_Sub_Object_By_Name(Unknown_B7B958[i]));
@@ -1210,7 +1210,7 @@ void AvatarSelectionInterface::Unknown_55FBB0()
 		Unknown10C[i] = NULL;
 	}
 	Unknown_BE67C4->Remove((unsigned int)BuddyReferralUI.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fc_buddyref1.ini");
+	Unknown_BE67BC->Unload("fc_buddyref1.ini");
 	RenderObjClass *model = Unknown084->Peek_Model();
 	G_ASSERT(BuddyReferralUI);
 	model->Remove_Sub_Object(BuddyReferralUI.Peek());

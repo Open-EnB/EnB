@@ -22,9 +22,9 @@
 #include "tooltip.h"
 #include "unknown_signalbase.h"
 
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };
@@ -202,7 +202,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	}
 	CharacterView->Unknown_67B4F0(1);
 	INI.Load("fa_fe_class00.ini");
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fa_fe_class00.ini");
+	Unknown_BE67BC->Load("fa_fe_class00.ini");
 	Unknown_BE67C4->Add(model);
 
 	for (i = 0; i < 14; i++) {
@@ -277,7 +277,7 @@ ClassSelectInterface::~ClassSelectInterface()
 	Descriptions.clear();
 	SkillDescriptions.clear();
 	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe_class00.ini");
+	Unknown_BE67BC->Unload("fa_fe_class00.ini");
 	CharacterView->Unknown_67A9B0(0);
 
 	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;

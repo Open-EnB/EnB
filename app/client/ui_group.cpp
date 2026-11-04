@@ -609,7 +609,7 @@ UIGroupClass::UIGroupClass(SClient *client) :
 	for (int i = 0; i < 9; i++) {
 		Unknown0C0[i] = NULL;
 	}
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSI03A.INI");
+	Unknown_BE67BC->Load("FA_TSI03A.INI");
 	Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
 }
 
@@ -630,7 +630,7 @@ UIGroupClass::~UIGroupClass()
 	Members.clear();
 	Unknown_5954C0();
 	Unknown_BE67C4->Remove((unsigned int)Mesh->Peek_Mesh_Object());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSI03A.INI");
+	Unknown_BE67BC->Unload("FA_TSI03A.INI");
 	delete Unknown0E8;
 	Unknown0E8 = NULL;
 }

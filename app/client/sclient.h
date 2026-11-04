@@ -104,15 +104,9 @@ class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 po
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
 
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as sclient.cpp and loadingview.cpp call it (fontdatabase.h's
-// own 0xBE67B8 clashes with tsk_game.h's, so they can't include it; one declaration, so the harness stand-ins agree)
-class SClientFontDatabaseClass	// NAME 1: neutral (D10): fontdatabase.cpp's class
-{
-public:
-	void Unknown_6C52B0(int arg);						// 0x6C52B0 (SClient::Init passes 0)
-	void Unknown_6C55B0(const char *name);				// 0x6C55B0 (Unload: the loading view's 'fc_map_load00.ini')  // NAME 1 [name]: what it gets
-};
-extern SClientFontDatabaseClass *Unknown_BE67BC;		// NAME 1: neutral (D10)
+// fontdatabase.h's FontStringFilesClass at 0xBE67BC (P-H12-3: its callers include fontdatabase.h)
+class FontStringFilesClass;
+extern FontStringFilesClass *Unknown_BE67BC;		// NAME 1: neutral (D10); fontdatabase.h declares it too
 class AvatarDescClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 

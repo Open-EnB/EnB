@@ -14,10 +14,10 @@
 #include "gadget.h"
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // unknown_675120.cpp's button gadget (the screen's seven buttons)
@@ -105,7 +105,7 @@ Unknown5DB670InterfaceClass::Unknown5DB670InterfaceClass(UIViewClass *view, Laye
 	CharacterView->Unknown_67A250();
 	Model = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("end_screen00"));
 	Model->Add(Layer.Peek_Scene());
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("end_screen00.ini");
+	Unknown_BE67BC->Load("end_screen00.ini");
 	Unknown_BE67C4->Add(Model);
 	for (int i = 0; i < 7; i++) {
 		if (Unknown_B846BC[i]) {
@@ -124,7 +124,7 @@ Unknown5DB670InterfaceClass::~Unknown5DB670InterfaceClass()
 {
 	Unknown_5C();
 	Unknown_BE67C4->Unknown_6D2310((const unsigned int &)Model);
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("end_screen00.ini");
+	Unknown_BE67BC->Unload("end_screen00.ini");
 	Model = NULL;
 }
 

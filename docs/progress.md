@@ -41,7 +41,17 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   character select drawn at frame 190000 (Karen idling, the list, the buttons' text), no FontSys stand-in generated.
 - **B2 (the stand-in merges, one verify each):** B2.1 P-H18-1, tsk_login.h includes app/input/inpdsp.h instead of its
   opaque LoginUnknown0CClass: app 9,039 = 9,039. B2.2 P-T11-1, ClientObjectClass::Model -> RenderObject (co.cpp's
-  G_ASSERT 'RenderObject != 0'; 7 files, only ClientObjectClass's uses): 9,039 = 9,039.
+  G_ASSERT 'RenderObject != 0'; 7 files, only ClientObjectClass's uses): 9,039 = 9,039. B2.3 P-H12-3, the font
+  globals 0xBE67B8 / 0xBE67BC as FontDatabaseClass * / FontStringFilesClass * everywhere (19 files: tsk_game.h /
+  sclient.h forward declarations, fontdatabase.h included by tsk_game.cpp / sclient.cpp / loadingview.cpp /
+  ui_line_display.cpp on held lines, the stand-ins' Unknown_6C52B0 / 6C55B0 as Load / Unload, the casts and the six
+  `#define Unknown_BE67B8` workarounds gone): 9,039 = 9,039, +1 shared (ui_line_display 0x42F250), 0 lost. Before it,
+  each global was two data symbols in a linked program (the type is in the mangled name). clienttest: the loading
+  view's Unload now reaches the real FontStringFilesClass::Unload, so tsk_game_stubs.cpp gives 0xBE67BC an empty
+  FontStringFilesClass (member constructed, not the constructor: it would load fc_default.ini through the null
+  0xBE67B8) and expected.txt loses the one `gen SClientFontDatabaseClass::Unknown_6C55B0` line: 103 checks, 0 failed.
+  B2.2 had missed clienttest.cpp's TestObjectClass destructor (`Model = 0`): fixed here (the app verify compiles no
+  tests). POC: character select drawn, no crash, the same first calls.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2232,7 +2242,7 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_group, ui_manu: `class FontSys : public RenderObjClass`, the real one a DynamicMeshClass) can include
      fontmanager.h at their file's next edit (P-FU1-1's merge; the names agree since 2026-11-03).
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
-     P-H11-1 / P-H12-3 / P-H13-2 (stand-in names and twins switched to the real headers); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
+     P-H11-1 / P-H13-2 (stand-in names and twins switched to the real headers); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
      0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); an
      rs_proj_sup.h for rs_track.h's two projector classes (their caster constructor's int arguments as
      ProjectionDefClass * / ProjectorManagerClass *, and RsTrackClass::Unknown_462470's); an rs.h for RenderStateClass

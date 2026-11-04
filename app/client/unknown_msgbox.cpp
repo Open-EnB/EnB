@@ -2,10 +2,10 @@
 // File PROVISIONAL (D137): no string; after the gadget run 0x585780- and before ui_dynamicwindow.cpp (0x58A030). Notes at the end.
 #include "sclient.h"
 #include "dynamic_window_class.h"
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, as ui_login.cpp does)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 #include "gadget.h"
 #include "gd_dynamicwindow.h"
 #include "unknown_51c800.h"
@@ -76,7 +76,7 @@ ViewUnknown34Class::ViewUnknown34Class(UIViewClass *view, const LayerClass &laye
 		Keys[i].Key = 0;
 	}
 	Type[0] = 0;
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fc_dialogbox.ini");
+	Unknown_BE67BC->Load("fc_dialogbox.ini");
 	Window = new DynamicWindowClass("DIALOG_BOX_WINDOW", 3);
 	Window->Set_Level(3);
 	Unknown_497240(Window->Get_Render_Object().Peek(), false);
@@ -109,7 +109,7 @@ ViewUnknown34Class::~ViewUnknown34Class()
 		Window->Release_Ref();
 		Window = NULL;
 	}
-	Unknown_BE67BC->Unknown_6C55B0("fc_dialogbox.ini");
+	Unknown_BE67BC->Unload("fc_dialogbox.ini");
 }
 
 // 0x587D50

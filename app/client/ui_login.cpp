@@ -42,10 +42,10 @@
 
 
 // fontmanager.h's FontManagerClass at 0xBE67C4 and its text style; fontdatabase.h's FontStringFilesClass at 0xBE67BC
-// (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's: renamed while it is included, it is not used here)
-#define Unknown_BE67B8 Unknown_BE67B8_FontDatabase
+// fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
+
 #include "fontmanager.h"
-#undef Unknown_BE67B8
+
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
@@ -330,7 +330,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	CharacterView->Unknown_67AB20(4, "FE_NAR_AGG");
 	CharacterView->Unknown_67A6C0();
 	CharacterView->Unknown_67B4F0(0);
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fa_fe01a.ini");
+	Unknown_BE67BC->Load("fa_fe01a.ini");
 	Unknown_BE67C4->Add(model);
 	for (int n = 0; n < 5; n++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B810DC[n]));
@@ -392,7 +392,7 @@ LoginInterface::~LoginInterface()
 	NameGadget = NULL;
 	PasswordGadget = NULL;
 	Unknown_BE67C4->Remove((unsigned int)CharacterView->Peek_Model());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe01a.ini");
+	Unknown_BE67BC->Unload("fa_fe01a.ini");
 	CharacterView->Unknown_67A9B0(0);
 	void (LoginInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &LoginInterface::Unknown_5AE9D0;
 	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
@@ -786,7 +786,7 @@ void LoginInterface::Unknown_5AE590()
 	AccountMenu = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("FE13A"));
 	G_ASSERT(AccountMenu);
 	model->Add_Sub_Object(AccountMenu.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("fa_fe13a.ini");
+	Unknown_BE67BC->Load("fa_fe13a.ini");
 	Unknown_BE67C4->Add(AccountMenu);
 	for (int i = 0; i < 4; i++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(AccountMenu->Get_Sub_Object_By_Name(Unknown_B8110C[i]));
@@ -821,7 +821,7 @@ void LoginInterface::Unknown_5AE7F0()
 		AccountButtons[i] = NULL;
 	}
 	Unknown_BE67C4->Remove((unsigned int)AccountMenu.Peek());
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("fa_fe13a.ini");
+	Unknown_BE67BC->Unload("fa_fe13a.ini");
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	G_ASSERT(AccountMenu);
 	model->Remove_Sub_Object(AccountMenu.Peek());

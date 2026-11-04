@@ -120,7 +120,7 @@ UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown1BC, 0, sizeof(Unknown1BC));
 	memset(Unknown98C, 1, sizeof(Unknown98C));
 	memset(Unknown11C, 0, sizeof(Unknown11C));
-	((FontStringFilesClass *)Unknown_BE67BC)->Load("FA_TSM01A.INI");
+	Unknown_BE67BC->Load("FA_TSM01A.INI");
 }
 
 
@@ -147,7 +147,7 @@ UIManuClass::~UIManuClass()
 	Unknown0B4 = NULL;
 	Unknown0B8 = NULL;
 	Unknown0BC = NULL;
-	((FontStringFilesClass *)Unknown_BE67BC)->Unload("FA_TSM01A.INI");
+	Unknown_BE67BC->Unload("FA_TSM01A.INI");
 }
 
 // The control keys event slot +0x54 registers (0x10 bytes) and what InterfaceClass +0x4C is, as far as this file calls it

@@ -300,7 +300,7 @@ Where the client's names disagree with these conventions, the client's are used;
 
 * **ClientObjectClass (2026-10-27, H13):** declared in app/client/co.h (vtable 0xB0070C, constructor 0x6F2820, destructor 0x6F2FE0). aux_roots.h's `UnknownCOClass` (the factory 0x6F6000) is the same class: merge it into co.h at aux_roots.h's next edit (P-H13-2). co_data's Remove_All 0x79D390 keeps a dead `Get_Game_ID()` call (the D40 budget lever, P-H13-1).
 
-* **FontDatabaseClass (2026-10-27, H12):** app/client/fontdatabase.h; the globals 0xBE67B8 / 0xBE67BC are declared under stand-in names in tsk_game.h, sclient.cpp and ui_line_display.cpp: point them at fontdatabase.h at those files' next edit (P-H12-3).
+* **FontDatabaseClass (2026-10-27, H12):** app/client/fontdatabase.h; the globals 0xBE67B8 / 0xBE67BC have its types everywhere, `FontDatabaseClass *` and `FontStringFilesClass *` (2026-11-03, P-H12-3: tsk_game.h and sclient.h forward-declare them; the stand-in classes, main_client.cpp's casts and the six files' `#define Unknown_BE67B8` workaround are gone).
 
 * **ClientObjectClass's render object (2026-10-27, T11):** co.h's member +0xAC is `RenderObject`, co.cpp's assert text (2026-11-03, P-T11-1; was `Model`; gadget.h's, sbaseview.h's, splash.h's and textgadg.h's own `Model` members are other classes'). The aux_roots.h UnknownCOClass merge waits for the CREATE factory to move into co.cpp (aux_roots.cpp is generated; P-T11-2).
 

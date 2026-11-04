@@ -23,7 +23,7 @@
 #include "tasks\tsk_login.h"
 #include <string>
 #include <vector>
-
+#include "fontdatabase.h"		// FontStringFilesClass at 0xBE67BC: Init loads the default string files (P-H12-3)
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
 void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
 #include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
@@ -407,7 +407,7 @@ void SClient::Load_INIs()
 // 0x741180
 void SClient::Init()
 {
-	Unknown_BE67BC->Unknown_6C52B0(0);
+	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
 	PxProcessClass::Push(PxProcess);
 	Unknown_BBB084 = false;
