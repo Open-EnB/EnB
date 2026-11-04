@@ -3751,10 +3751,11 @@ RECONSTRUCTED = {
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
                                      "from strconv_lib.cpp, D57): the bool, int, float and unsigned int "
                                      "ones the pairs share (unknown_strconv.cpp's) and their type names",
-    ('app', 'shared/strconv_lib.cpp'): "the wwmath and __int64 conversions, client 0x4A3750-0x4A3AB0 "
+    ('app', 'shared/strconv_lib.cpp'): "the wwmath and __int64 conversions, client 0x4A3750-0x4A3B10 "
                                        "(__FILE__ e:\\build\\beta\\G\\app\\shared\\strconv_lib.cpp, "
                                        "asserts on the client's lines 24 / 57, D25): Vector3 0x4A3750 / "
-                                       "0x4A3810, Matrix3D 0x4A3850 / 0x4A3990, __int64 0x4A3A80 / 0x4A3AB0",
+                                       "0x4A3810, Matrix3D 0x4A3850 / 0x4A3990, __int64 0x4A3A80 / 0x4A3AB0; "
+                                       "unsigned __int64 0x4A3AE0 / 0x4A3B10 (the same bytes: not counted)",
     ('app', 'shared/unknown_strconv.cpp'): "the plain types' conversions, client 0x4A30A0-0x4A3640 (no "
                                            "assert, no __FILE__: INTERIM file name, D137; strconv_lib.cpp's "
                                            "first assert, line 24, is too early for them): bool, float, "
