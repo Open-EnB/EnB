@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction)
 #include "sbaseview.h"
+#include "wwmath.h"
 #include "..\shared\unknown_debug.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\scene.h"
@@ -11,6 +12,12 @@
 #include "..\..\ww3d2\camera.h"
 #include "fontdatabase.h"
 #include "ui_group.h"
+#include <string>
+#include "option.h"
+#include "interface_scene.h"
+#include "tasks\tsk_login.h"
+#include "..\input\input.h"
+#include "..\..\ww3d2\predlod.h"
 #include "..\packets\pkaction.h"
 #include "..\..\ww3d2\layer.h"
 
@@ -170,6 +177,51 @@ void SBaseViewClass::Unknown_18(int arg)
 	}
 }
 
+// 0x69C5E0: the render (the text object follows the pointer, 0.02 up a frame with cursor 5, else 0.01 down)
+int SBaseViewClass::Unknown_0C(bool on)
+{
+	if (Unknown1C4 > 0) {
+		Unknown1C4--;
+	}
+	if (Unknown1C4 == 0) {
+		Unknown_69ED80();
+	}
+	Unknown_69F710();
+	if (Unknown1B8) {
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_515320() == 5) {
+			y = WWMath::Min(1.0f, y + 0.02f);
+		} else {
+			y = WWMath::Max(0.0f, y - 0.01f);
+		}
+		Unknown1B8->Set_Position(Vector3(x * 640.0f - 320.0f, 240.0f - y * 480.0f, 0.0f));
+	}
+	WW3D::Begin_Render(on, true, Vector3(0.0f, 0.0f, 0.0f));
+	PredictiveLODOptimizerClass::Clear();
+	Unknown70->Visibility_Check(Unknown6C.Peek());
+	Unknown1C->Visibility_Check(Unknown20.Peek());
+	Unknown24->Visibility_Check(Unknown28);
+	int budget;
+	if (OptionClass::Instance->Get_Bool("Graphics_Default")) {
+		budget = Client->PolyBudget;
+	} else {
+		budget = (int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
+	}
+	PredictiveLODOptimizerClass::Optimize_LODs(budget * 0.67f);
+	if (ViewRObjs[2]) {
+		WW3D::Render(Unknown78.Peek(), Unknown74.Peek(), false, false, Vector3(0.0f, 0.0f, 0.0f));
+	} else {
+		WW3D::Render(Unknown70.Peek(), Unknown6C.Peek(), false, false, Vector3(0.0f, 0.0f, 0.0f));
+	}
+	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
+	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
+	Unknown_6A1180();
+	WW3D::End_Render(true);
+	return(0);
+}
+
 // the client reads these through inline functions: as plain member reads 0x69C8F0 loads them in another order
 inline unsigned Unknown_Avatar_ID(SClient *client) { return(((ClientClass *)((ClientClass *)client)->Unknown_18())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
 inline int Unknown_1134(SClient *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
@@ -294,6 +346,77 @@ void SBaseViewClass::Unknown_69CDE0()
 	}
 }
 
+// 0x69D030: starbase interface index made (once, with 0x6A2120's name) and activated as Starbase, the listener
+// turned to the +0x6C camera; -1 (allowed without +0x1B4) leaves none. The cases in the client's order (3 before 2)
+// NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client
+void SBaseViewClass::Unknown_69D030(int index)
+{
+	if (!Unknown1B4 && index != -1) return;
+	if (index == Unknown50) return;
+	if (Starbase) {
+		Starbase->Unknown_5C();
+	}
+	Unknown50 = index;
+	switch (index) {
+		case 0:
+			if (!Unknown174) {
+				std::string name = Unknown_6A2120(0);
+				Unknown174 = Create_Get(new UIStarbaseClass(this, Unknown80, 0, name.c_str()));
+				Unknown174->Unknown_54();
+				Unknown_6B4940(Unknown174.Peek());
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown174->Unknown_58();
+			Starbase = Unknown174;
+			break;
+		case 1:
+			if (!Unknown178) {
+				std::string name = Unknown_6A2120(1);
+				Unknown178 = Create_Get(new UIStarbaseClass(this, Unknown80, 1, name.c_str()));
+				Unknown178->Unknown_54();
+				Unknown_6B4940(Unknown178.Peek());
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown178->Unknown_58();
+			Starbase = Unknown178;
+			break;
+		case 3:
+			if (!Unknown17C) {
+				std::string name = Unknown_6A2120(3);
+				Unknown17C = Create_Get(new UIStarbaseClass(this, Unknown80, 3, name.c_str()));
+				Unknown17C->Unknown_54();
+				Unknown_6B4940(Unknown17C.Peek());
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown17C->Unknown_58();
+			Starbase = Unknown17C;
+			break;
+		case 2:
+			if (!Unknown180) {
+				std::string name = Unknown_6A2120(2);
+				Unknown180 = Create_Get(new UIStarbaseClass(this, Unknown80, 2, name.c_str()));
+				Unknown180->Unknown_54();
+				Unknown_6B4940(Unknown180.Peek());
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown180->Unknown_58();
+			Starbase = Unknown180;
+			break;
+		default:
+			Starbase = NULL;
+			if (index == -1) goto done;
+	}
+	if (Unknown6C) {
+		Matrix3D tm = Unknown6C->Get_Transform();
+		tm.Rotate_X(-WWMATH_PI / 2.0f);
+		tm.Rotate_Z(WWMATH_PI / 2.0f);
+		SoundLibraryClass::Set_Listener_Transform(tm);
+	}
+	Unknown1F4.Unknown_441A30(index);
+done:
+	Unknown54 = Unknown50;
+}
+
 // 0x69D930: ViewRObjs[type] out of its scene (0 the view's +0x1C, 1 +0x70, 2 +0x78), then released (the client
 // calls it from 0x69D9D0 and 0x69DC60, never inlined: auto-inlining off for it)
 #pragma auto_inline(off)
@@ -315,129 +438,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -20137,6 +20137,7 @@
    },
    "sbaseview": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0",
      "0x46BE90",
      "0x474080",
@@ -20148,6 +20149,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
      "0x42F250",
      "0x50B680",
      "0x50B6A0",
@@ -20181,6 +20183,7 @@
      "0x69B0C0",
      "0x69C0D0",
      "0x69C5A0",
+     "0x69C5E0",
      "0x69C8F0",
      "0x69CBE0",
      "0x69CC10",
@@ -20212,6 +20215,7 @@
     "merged": [],
     "name": "client/sbaseview.cpp",
     "shared": [
+     "0x42A820",
      "0x42F250",
      "0x50B680",
      "0x50B6A0",
@@ -21475,6 +21479,7 @@
      "0x515030",
      "0x515080",
      "0x515120",
+     "0x515320",
      "0x515340",
      "0x5153B0",
      "0x515400",
@@ -21486,6 +21491,9 @@
     "name": "client/smouse.cpp",
     "shared": [
      "0x42F250"
+    ],
+    "short_known": [
+     "0x515320"
     ]
    },
    "soptions": {
@@ -27480,7 +27488,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9339,
+  "in_tree_total": 9341,
   "totals": {}
  },
  "binkmovie": {
