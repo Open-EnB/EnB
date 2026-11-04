@@ -781,6 +781,19 @@ void SBaseViewClass::Unknown_69DC60()
 {
 	Unknown_69D930(2);
 }
+// 0x69E510: the +0x6C camera at tm turned -90 degrees about y and z (with ViewRObjs[1] only)
+void SBaseViewClass::Unknown_69E510(Matrix3D tm)
+{
+	if (ViewRObjs[1]) {
+		Unknown84 = tm;
+		Unknown84.Rotate_Y(-WWMATH_PI / 2.0f);
+		Unknown84.Rotate_Z(-WWMATH_PI / 2.0f);
+		Unknown6C->Set_Transform(Unknown84);
+		UnknownE8 = 0;
+		Unknown1BC = 0;
+	}
+}
+
 #pragma auto_inline(off)
 // 0x69ED80: the +0x6C camera between +0x84 and +0xB4 (0x77B7D0 eases the fraction); at the end it is +0xB4
 void SBaseViewClass::Unknown_69ED80()
@@ -1235,37 +1248,6 @@ void SBaseViewClass::Unknown_6A0540()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x6A0E00: the text object away
 void SBaseViewClass::Unknown_6A0E00()
 {
@@ -1334,6 +1316,24 @@ void SBaseViewClass::Unknown_6A1130()
 		Unknown1C0->Stop();
 		Unknown1C0 = NULL;
 	}
+}
+
+// 0x6A1880: a text object of kind (0 name, 1 / 2 NPC, 3 guild) into text, added to the +0x1C scene
+void SBaseViewClass::Unknown_6A1880(RefCountPtr<FontSys> &text, int kind)
+{
+	switch (kind) {
+		case 0:
+			text = Create_NEW(new FontSys("NameText_SBASE", 0, ""));
+			break;
+		case 1:
+		case 2:
+			text = Create_NEW(new FontSys("NPCText_SBASE", 0, ""));
+			break;
+		case 3:
+			text = Create_NEW(new FontSys("GuildText_SBASE", 0, ""));
+			break;
+	}
+	text->Add(Unknown1C);
 }
 
 // 0x6A1B80: the GROUP_INVITE box's answer (1 accept, 2 decline) sent, the box closed

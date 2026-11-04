@@ -143,6 +143,8 @@ public:
 	void Unknown_69F480(int index);	// 0x69F480: channel index stopped and released  // NAME 1 [index]: neutral
 	void Unknown_69F540(const RefCountPtr<RenderObjClass> &model, const char *name, int index, bool once, bool backward);	// 0x69F540: channel index started: name's animation on model (the mode 1 or 2; backward from the last frame)  // NAME 1 [model, name, index, once, backward]: neutral
 	void Unknown_6A0EC0();	// 0x6A0EC0: the text object +0x1B8 follows the pointer (inlined in 0x69C5E0)
+	void Unknown_69E510(Matrix3D tm);	// 0x69E510: with ViewRObjs[1], +0x84 = tm turned -90 degrees about y and z, the +0x6C camera's transform; +0xE8 / +0x1BC cleared  // NAME 1 [tm]: neutral
+	void Unknown_6A1880(RefCountPtr<FontSys> &text, int kind);	// 0x6A1880: text made (kind 0 NameText_SBASE, 1 / 2 NPCText_SBASE, 3 GuildText_SBASE) and added to the +0x1C scene  // NAME 1 [text, kind]: neutral
 	void Unknown_69F710();	// 0x69F710: every channel one frame on
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
 	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
