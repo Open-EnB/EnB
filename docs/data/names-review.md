@@ -6957,9 +6957,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown150` | `app/client/ui_chat_panel.cpp:937` | untagged neutral name (D10) |
 | 1 | `Unknown188` | `app/client/ui_chat_panel.cpp:937` | untagged neutral name (D10) |
 | 1 | `Unknown_565C40` | `app/client/ui_chat_panel.cpp:942` | untagged neutral name (D10) |
-| 1 | `Unknown_565D80` | `app/client/ui_chat_panel.cpp:957` | untagged neutral name (D10) |
-| 1 | `Unknown1D8` | `app/client/ui_chat_panel.cpp:959` | untagged neutral name (D10) |
-| 1 | `Unknown_567540` | `app/client/ui_chat_panel.cpp:972` | untagged neutral name (D10) |
+| 1 | `Unknown_565D80` | `app/client/ui_chat_panel.cpp:956` | untagged neutral name (D10) |
+| 1 | `Unknown1D8` | `app/client/ui_chat_panel.cpp:958` | untagged neutral name (D10) |
+| 1 | `Unknown_567540` | `app/client/ui_chat_panel.cpp:971` | untagged neutral name (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_chat_panel.cpp:977` | untagged neutral name (D10) |
 | 1 | `Unknown108` | `app/client/ui_chat_panel.cpp:979` | untagged neutral name (D10) |
 | 1 | `Unknown10C` | `app/client/ui_chat_panel.cpp:980` | untagged neutral name (D10) |

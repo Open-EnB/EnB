@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-636 entries in 129 files.
+635 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -311,7 +311,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
 | `app/client/ui_chat_panel.cpp:838` | `UIChatPanelClass::Unknown_565390` | marker | NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328) 0x565390 |
-| `app/client/ui_chat_panel.cpp:955` | `UIChatPanelClass::Unknown_565D80` | marker | NOT EXACT: inline-budget (the client calls _Grow out of line in the last assign, ours inlines it; ebx / esi swapped in the shift loop) 0x565D80 |
 | `app/client/ui_chat_panel.cpp:1093` | `UIChatPanelClass::Unknown_567540` | marker | NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141) 0x567540 |
 | `app/client/ui_chat_panel.cpp:1119` | `UIChatPanelClass::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
 | `app/client/ui_chat_panel.cpp:1204` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |

@@ -952,7 +952,6 @@ void UIChatPanelClass::Unknown_565C40(int index)
 	}
 }
 
-// NOT EXACT: inline-budget (the client calls _Grow out of line in the last assign, ours inlines it; ebx / esi swapped in the shift loop)
 // 0x565D80
 void UIChatPanelClass::Unknown_565D80(const char *name)
 {
@@ -971,6 +970,7 @@ void UIChatPanelClass::Unknown_565D80(const char *name)
 		Unknown1E8->Unknown_5C();
 		Unknown_567540(true);
 	}
+	return; Unknown1D8 = name;	// not the client's: a dead assign after the return (unreachable: no code) spends the inline budget the client spent (D130), so the last assign calls _Grow out of line as the client's
 }
 
 // 0x565F30
