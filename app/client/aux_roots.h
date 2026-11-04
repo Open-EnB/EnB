@@ -39,13 +39,8 @@
 
 // ------------------------------------------------------------------------- value types
 
-// The client's conversions for int and bool are strconv_lib.cpp's (0x4A30A0-0x4A35F0, not rebuilt)
-inline const char *Type_Name(int *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, int value) { _snprintf(buf, size, "%d", value); return buf; }
-inline bool String_To_Value(const char *text, int *value) { return sscanf(text, "%d", value) == 1; }
-inline const char *Type_Name(bool *) { return "bool"; }
-inline char *Value_To_String(char *buf, int size, bool value) { _snprintf(buf, size, "%s", value ? "true" : "false"); return buf; }
-inline bool String_To_Value(const char *text, bool *value) { *value = strcmp(text, "true") == 0; return true; }
+// The int and bool conversions and type names are strconv_lib.h's (the client's are out of line,
+// unknown_strconv.cpp 0x4A30A0-0x4A3640)
 inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, int n)
 {
 	int k = 0;

@@ -3749,8 +3749,17 @@ RECONSTRUCTED = {
                                           "slots, Is_Changed, Update_Saved; the copy constructor (line 44) "
                                           "and Clone not exact",
     ('app', 'shared/strconv_lib.h'): "the key/value pairs' value <-> text conversions (name assumed "
-                                     "from strconv_lib.cpp, whose object holds them: 0x4A30A0-0x4A35F0); "
-                                     "only float and unsigned int declared, defined in stubs/",
+                                     "from strconv_lib.cpp, D57): the bool, int, float and unsigned int "
+                                     "ones the pairs share (unknown_strconv.cpp's) and their type names",
+    ('app', 'shared/strconv_lib.cpp'): "the wwmath and __int64 conversions, client 0x4A3750-0x4A3AB0 "
+                                       "(__FILE__ e:\\build\\beta\\G\\app\\shared\\strconv_lib.cpp, "
+                                       "asserts on the client's lines 24 / 57, D25): Vector3 0x4A3750 / "
+                                       "0x4A3810, Matrix3D 0x4A3850 / 0x4A3990, __int64 0x4A3A80 / 0x4A3AB0",
+    ('app', 'shared/unknown_strconv.cpp'): "the plain types' conversions, client 0x4A30A0-0x4A3640 (no "
+                                           "assert, no __FILE__: INTERIM file name, D137; strconv_lib.cpp's "
+                                           "first assert, line 24, is too early for them): bool, float, "
+                                           "double, char, unsigned char, int, short, long, unsigned long, "
+                                           "unsigned int, std::string",
     ('app', 'shared/gclass.h'): "GClass (the client's RTTI; table 0xAEAAD8, 0x38 bytes) over two one-slot-table bases (0xAEAB48, 0xAEAB3C), TargetChangeEvent (RTTI); Get_Target_Node / Get_Targeting_List from gclass.cpp's asserts; header name assumed from gclass.cpp (D57)",
     ('app', 'shared/gclass.cpp'): "GClass, client 0x4A15E0-0x4A3000 (__FILE__ e:\\build\\beta\\G\\app\\shared\\gclass.cpp, asserts on the client's lines 325 / 344, D25): the constructors 0x4A1880 / 0x4A1B40, the destructor 0x4A1BD0, the slots 0x4A1800-0x4A2010, the statics 0x4A17B0 / 0x4A20A0, the template instances to 0x4A2650 and the relation table 0x4A26E0-0x4A2FD0 (unreferenced in the client); NOT EXACT: 0x4A17B0",
     ('app', 'shared/kv_list.h'): "KVListClass (D24): the pairs in order and a key index, SGI STL's hash_map "

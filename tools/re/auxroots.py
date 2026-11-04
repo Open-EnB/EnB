@@ -720,13 +720,8 @@ HEADER = r'''// Earth & Beyond client (reconstruction)
 
 // ------------------------------------------------------------------------- value types
 
-// The client's conversions for int and bool are strconv_lib.cpp's (0x4A30A0-0x4A35F0, not rebuilt)
-inline const char *Type_Name(int *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, int value) { _snprintf(buf, size, "%d", value); return buf; }
-inline bool String_To_Value(const char *text, int *value) { return sscanf(text, "%d", value) == 1; }
-inline const char *Type_Name(bool *) { return "bool"; }
-inline char *Value_To_String(char *buf, int size, bool value) { _snprintf(buf, size, "%s", value ? "true" : "false"); return buf; }
-inline bool String_To_Value(const char *text, bool *value) { *value = strcmp(text, "true") == 0; return true; }
+// The int and bool conversions and type names are strconv_lib.h's (the client's are out of line,
+// unknown_strconv.cpp 0x4A30A0-0x4A3640)
 inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, int n)
 {
 	int k = 0;
@@ -766,7 +761,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 33
+SYMBOL_PAD = 44
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)

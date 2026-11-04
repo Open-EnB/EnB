@@ -46,15 +46,6 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// The value <-> text conversions the key/value pairs use. Not stubs: the client's behaviour
-// (0x4A3200 / 0x4A3240 / 0x4A3590 / 0x4A35C0), here until strconv_lib.cpp is rebuilt.
-// 0x4A30A0 (strconv_lib.cpp): the client's behaviour
-char *Value_To_String(char *buf, int size, bool value)
-{
-	strcpy(buf, value ? "true" : "false");
-	return buf;
-}
-
 // faction_and_reputation.cpp 0x835890: the reaction's name from the client's table 0xBA9614 (not
 // known yet: its number), 'BadReaction' out of range
 char *Value_To_String(char *buf, int size, MobReactionType reaction)
@@ -73,57 +64,6 @@ RelationshipClass::RelationshipClass()
 {
 	Reaction = (MobReactionType)1;
 	IsAttacking = false;
-}
-
-char *Value_To_String(char *buf, int size, float value)
-{
-	sprintf(buf, "%f", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, float *value)
-{
-	*value = (float)atof(text);
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, unsigned int value)
-{
-	sprintf(buf, "%u", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, unsigned int *value)
-{
-	return sscanf(text, "%u", value) == 1;
-}
-
-// 0x4A32E0 / 0x4A3310 / 0x4A3410 / 0x4A3440: the client's behaviour (char and int)
-char *Value_To_String(char *buf, int size, char value)
-{
-	sprintf(buf, "%d", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, char *value)
-{
-	int i = 0;
-	if (sscanf(text, "%d", &i) == 1 && i >= -128 && i <= 127) {
-		*value = (char)i;
-		return true;
-	}
-	return false;
-}
-
-char *Value_To_String(char *buf, int size, int value)
-{
-	sprintf(buf, "%d", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, int *value)
-{
-	return sscanf(text, "%d", value) == 1;
 }
 
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
@@ -179,6 +119,12 @@ std::string MoneyClass::Unknown_4F00C0(bool) const
 char *Unknown_8B44E0(__int64 value, char *buffer)
 {
 	return _i64toa(value, buffer, 10);
+}
+
+// 0x8B44C0: the int64 from decimal text (the client's behaviour; strconv_lib.cpp's 0x4A3AB0 calls it)
+__int64 Unknown_8B44C0(const char *text)
+{
+	return _atoi64(text);
 }
 
 // 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
