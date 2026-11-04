@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\delta_money.cpp. Notes at the end of the file.
-#include "delta_template.h"
+#include "delta_money.h"
 #include "linearbu.h"
 #include "..\money.h"
 #include "..\unknown_debug.h"
@@ -18,19 +18,21 @@ bool operator!=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0640 (MoneyCla
 // Set 0x4A7360). Specialisations: the generic ones use MoneyClass's inline member !=
 template<> inline const char *KVPairTemplateClass<MoneyClass>::Get_Type_Name() const { return Type_Name(Value); }
 template<> inline bool KVPairTemplateClass<MoneyClass>::Is_Changed() const { return ::operator!=(Value, Accessor->Get()); }
-template<> void DeltaTemplateClass<MoneyClass>::Set_Value(const MoneyClass &value) { if (!(Value == value)) { Value = value; Unknown_34(this); } }
-// The per-class global (0xBE3A94) and the constructor (0x4A7080): an explicit specialisation with
-// delta_template.h's body, as the time field's (delta_time.cpp); aux_roots.h declares the instance
-// `extern template`, so the roots call it out of line as the client does
-template<> int DeltaTemplateClass<MoneyClass>::UnknownGlobal = 0;
+void DeltaTemplateClass<MoneyClass>::Set_Value(const MoneyClass &value) { if (!(Value == value)) { Value = value; Unknown_34(this); } }
+// The per-class global (0xBE3A94), the constructor (0x4A7080, delta_template.h's body) and the
+// destructor (0x4A7100): delta_money.h's specialisation declares every member out of line, so the
+// roots call the constructor and destructor as the client does (EH state before the destructor)
+int DeltaTemplateClass<MoneyClass>::UnknownGlobal = 0;
 
-template<> DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const MoneyClass &value) :
+DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const MoneyClass &value) :
 	DeltaClass(name),
 	Value(value)
 {
 	Unknown04 = UnknownGlobal;
 }
 
+DeltaTemplateClass<MoneyClass>::~DeltaTemplateClass() {}
+void DeltaTemplateClass<MoneyClass>::Unknown_00(DeltaChildVisitorClass *visitor) { visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<MoneyClass>(this)); }
 
 
 
@@ -60,9 +62,7 @@ template<> DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, 
 
 
 
-
-
-template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &)
+bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &)
 {
 	__int64 value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
@@ -80,7 +80,7 @@ template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, con
 
 
 
-template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf)
+bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf)
 {
 	if (buf.Write(&Value, sizeof(Value)) != sizeof(Value)) {
 		G_ASSERT(0);
@@ -89,9 +89,9 @@ template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf)
 	return true;
 }
 
-// Every member out of line (the destructor 0x4A7100 and Set_Value 0x4A7150 have no caller): an
-// explicit instantiation
-template class DeltaTemplateClass<MoneyClass>;
+// (an explicit instantiation stood here before delta_money.h: the destructor 0x4A7100 and Set_Value
+// 0x4A7150 have no caller, the specialisation's out-of-line members emit them)
+
 
 
 /*

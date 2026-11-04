@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1198 |
-| 2 | describes what the code does | 2991 |
-| 1 | neutral placeholder | 12937 |
+| 2 | describes what the code does | 2993 |
+| 1 | neutral placeholder | 12942 |
 
 ## For review (score 3 and below)
 
@@ -11486,7 +11486,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_money.cpp:21` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/shared/auxdata/delta_money.cpp:72` | untagged neutral name (D10) |
+| 1 | `delta_money.h` | `app/shared/auxdata/delta_money.h:5` | provisional file name (the specialisation's members are delta_money.cpp's) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.h:30` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_string.cpp:56` | untagged neutral name (D10) |
@@ -15001,6 +15006,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Change` | `app/shared/auxdata/delta_interpolator.h:36` | describes what it does |
 | 2 | `Get_Value` | `app/shared/auxdata/delta_interpolator.h:39` | describes what it does |
 | 2 | `LastValue` | `app/shared/auxdata/delta_interpolator.h:65` | after the assert's LastTime |
+| 2 | `Set_Value` | `app/shared/auxdata/delta_money.h:34` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_money.h:36` | describes what it does |
 | 2 | `DeltaStringValueClass` | `app/shared/auxdata/delta_string.cpp:149` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_string.cpp:157` | describes what it does |
 | 2 | `Assign` | `app/shared/auxdata/delta_string.h:34` | describes what it does |

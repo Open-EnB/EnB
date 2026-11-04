@@ -31,11 +31,11 @@
 #include "..\shared\strconv_lib.h"
 #include "..\shared\unknown_debug.h"
 
-// The money field's Read and Write are delta_money.cpp's specialisations
-template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &);
-template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf);
-// and its constructor is delta_money.cpp's (0x4A7080, called out of line as the client's)
-extern template class DeltaTemplateClass<MoneyClass>;
+// The money field is delta_money.h's specialisation: every member out of line in delta_money.cpp
+// (the constructor 0x4A7080 and destructor 0x4A7100 are called, the destructor under an EH state
+// as one that can throw: Player's destructor 0x7551D0, the Item destructors 0x6FA4C0 / 0x702750)
+#include "..\shared\auxdata\delta_money.h"
+
 
 // ------------------------------------------------------------------------- value types
 

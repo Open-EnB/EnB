@@ -704,11 +704,11 @@ HEADER = r'''// Earth & Beyond client (reconstruction)
 #include "..\shared\strconv_lib.h"
 #include "..\shared\unknown_debug.h"
 
-// The money field's Read and Write are delta_money.cpp's specialisations
-template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &);
-template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf);
-// and its constructor is delta_money.cpp's (0x4A7080, called out of line as the client's)
-extern template class DeltaTemplateClass<MoneyClass>;
+// The money field is delta_money.h's specialisation: every member out of line in delta_money.cpp
+// (the constructor 0x4A7080 and destructor 0x4A7100 are called, the destructor under an EH state
+// as one that can throw: Player's destructor 0x7551D0, the Item destructors 0x6FA4C0 / 0x702750)
+#include "..\shared\auxdata\delta_money.h"
+
 
 // ------------------------------------------------------------------------- value types
 
@@ -758,7 +758,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 33
+SYMBOL_PAD = 36
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
