@@ -245,17 +245,7 @@ int SBaseViewClass::Unknown_0C(bool on)
 		Unknown_69ED80();
 	}
 	Unknown_69F710();
-	if (Unknown1B8) {
-		float x;
-		float y;
-		Unknown_42ECF0(&x, &y);
-		if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_515320() == 5) {
-			y = WWMath::Min(1.0f, y + 0.02f);
-		} else {
-			y = WWMath::Max(0.0f, y - 0.01f);
-		}
-		Unknown1B8->Set_Position(Vector3(x * 640.0f - 320.0f, 240.0f - y * 480.0f, 0.0f));
-	}
+	Unknown_6A0EC0();
 	WW3D::Begin_Render(on, true, Vector3(0.0f, 0.0f, 0.0f));
 	PredictiveLODOptimizerClass::Clear();
 	Unknown70->Visibility_Check(Unknown6C.Peek());
@@ -729,6 +719,16 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
+
+
+
+
+
+
+
+
+
+
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -824,6 +824,29 @@ void SBaseViewClass::Unknown_69F480(int index)
 	Channels[index].Frame = 0.0f;
 }
 #pragma auto_inline(on)
+// 0x69F540: channel index started (stopped first): name's animation on model, mode 1 when once else 2; backward
+// it starts at the last frame
+void SBaseViewClass::Unknown_69F540(const RefCountPtr<RenderObjClass> &model, const char *name, int index, bool once, bool backward)
+{
+	if (model) {
+		Unknown_69F480(index);
+		Channels[index].Anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(name));
+		if (Channels[index].Anim) {
+			Channels[index].Model = model;
+			if (once) {
+				Channels[index].Mode = 1;
+			} else {
+				Channels[index].Mode = 2;
+			}
+			Channels[index].Backward = backward;
+			if (backward) {
+				int frames = Channels[index].Anim->Get_Num_Frames();
+				Channels[index].Model->Set_Animation(Channels[index].Anim.Peek(), frames - 1.0f, Channels[index].Mode);
+			}
+		}
+	}
+}
+
 // 0x69F710: every channel one frame on (a new one starts at its first or last frame)
 // NOT EXACT: two store-order residues (the backward start stores Frame before Mode; the backward step stores
 // Frame and its copy before the pushes); Mode = 0 in each branch with a named frame local scored lower
@@ -1243,45 +1266,6 @@ void SBaseViewClass::Unknown_6A0540()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x6A0E00: the text object away
 void SBaseViewClass::Unknown_6A0E00()
 {
@@ -1305,6 +1289,22 @@ void SBaseViewClass::Unknown_6A0E80(const char *text)
 	if (Unknown1B8) {
 		Unknown1B8->Change_Text(text, 0);
 		Unknown1B8->Set_Hidden(0);
+	}
+}
+
+// 0x6A0EC0: the text object follows the pointer (0.02 up a frame with cursor 5, else 0.01 down; 0x69C5E0 inlines it)
+void SBaseViewClass::Unknown_6A0EC0()
+{
+	if (Unknown1B8) {
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_515320() == 5) {
+			y = WWMath::Min(1.0f, y + 0.02f);
+		} else {
+			y = WWMath::Max(0.0f, y - 0.01f);
+		}
+		Unknown1B8->Set_Position(Vector3(x * 640.0f - 320.0f, 240.0f - y * 480.0f, 0.0f));
 	}
 }
 

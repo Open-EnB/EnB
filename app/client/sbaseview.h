@@ -141,6 +141,8 @@ public:
 	void Unknown_69F440();	// 0x69F440: +0x1B0 set
 	void Unknown_69F460(int arg);	// 0x69F460  // NAME 1 [arg]: neutral
 	void Unknown_69F480(int index);	// 0x69F480: channel index stopped and released  // NAME 1 [index]: neutral
+	void Unknown_69F540(const RefCountPtr<RenderObjClass> &model, const char *name, int index, bool once, bool backward);	// 0x69F540: channel index started: name's animation on model (the mode 1 or 2; backward from the last frame)  // NAME 1 [model, name, index, once, backward]: neutral
+	void Unknown_6A0EC0();	// 0x6A0EC0: the text object +0x1B8 follows the pointer (inlined in 0x69C5E0)
 	void Unknown_69F710();	// 0x69F710: every channel one frame on
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
 	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
