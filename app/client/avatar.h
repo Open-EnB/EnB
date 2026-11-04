@@ -46,6 +46,12 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
+	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
+	void Unknown_77F960(const char *part, int num, RenderObjClass **slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
+	void Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
+	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (Hair_Color onto HAIR0..4 and BEARD0..4)  // NAME 1 [color, rebuild]: neutral
+	void Unknown_7802F0(const Vector3 &color, bool rebuild);	// 0x7802F0 (Beard_Color onto BEARD0..4)  // NAME 1 [color, rebuild]: neutral
+	void Unknown_789D80(RenderObjClass **slot, const char *part);	// 0x789D80 (the accessory's '<part>0..4' meshes into the head prototype's LODs)  // NAME 1 [slot, part]: neutral
 		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)

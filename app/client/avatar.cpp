@@ -12,6 +12,8 @@
 #include "..\..\ww3d2\meshmdl.h"
 #include "..\..\ww3d2\htree.h"
 #include "..\..\ww3d2\hlod.h"
+#include "..\..\ww3d2\matinfo.h"
+#include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\surfacetypes.h"
 #include "..\shared\unknown_message.h"
@@ -29,6 +31,8 @@ static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30
 static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
+void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
+extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -106,6 +110,12 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	if (desc) {
 		Desc = *desc;
 	}
+	for (int w = 0; w < 5; w++) {
+		Unknown274[w] = Desc.Body_Weight[w];
+	}
+	for (w = 0; w < 5; w++) {
+		Unknown288[w] = Desc.Head_Weight[w];
+	}
 	Desc.Upgrade();
 	if (a) {
 		if (!PlayerNLP) {
@@ -178,7 +188,6 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				Unknown_496AE0(HeadSource, true);
 				Unknown2B8 = HeadSource->Clone();
 				if (Unknown2B8) {
-					Unknown2B8->Add_Ref();
 					Unknown_496AE0(Unknown2B8, true);
 					Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
 				}
@@ -197,6 +206,26 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			} else {
 				Unknown0BC = new HMorphAnimClass();
 				Unknown0BC->Create_New_Morph(3, anims);
+			}
+
+			// 0x77DA20's accessories (player avatars only): each one's meshes join the head
+			// prototype's LOD models, then the head object is cloned again (0x77F750)
+			if (Desc.Avatar_Type == 0 && HeadSource) {
+				Unknown_77F960("HAIR", Desc.Hair_Num, &HairSource);
+				Unknown_77FFA0(Desc.Hair_Color, false);
+				Unknown_77F960("EAR", Desc.Ear_Num, &Unknown2CC);
+				Unknown_77F960("GOGGLE", Desc.Goggle_Num, &GoggleSource);
+				Unknown_77F960("BEARD", Desc.Beard_Num, &BeardSource);
+				char beard_name[64];
+				for (int beard = 0; beard < 5; beard++) {
+					_snprintf(beard_name, 0x40, "BEARD%d", beard);
+					RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(beard_name);
+					if (robj) {
+						Unknown_77FEC0(&robj, Desc.Beard_Color, 0);
+						robj->Release_Ref();
+					}
+				}
+				Unknown_77F750();
 			}
 		}
 
@@ -919,6 +948,131 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
 }
 
+// 0x77F750: the head object cloned again from the head prototype (with the accessories it now
+// holds) and put on the body's K_HEAD bone
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj; its members are RefCountPtrs), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_77F750()
+{
+	FAIL_IF(!HeadSource || !Unknown2BC) {
+		return;
+	}
+	if (Unknown2B8) {
+		Unknown2BC->Remove_Sub_Object(Unknown2B8);
+		Unknown2B8->Release_Ref();
+		Unknown2B8 = NULL;
+	}
+	Unknown2B8 = HeadSource->Clone();
+	Unknown_496AE0(Unknown2B8, true);
+	Unknown_496DB0(Unknown2B8);
+	if (Desc.Avatar_Type == 0) {
+		Unknown_780F30();
+		// 0x7804A0 (the eye colour), 0x7857D0 (Head_Texture_Num), 0x7859F0 (Tattoo_Texture_Num) and
+		// 0x785C00 (Tattoo_Offset) follow here in the client; not built yet
+	}
+	Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
+}
+
+// 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
+// '<part>0'..'<part>4' of the head prototype are removed first, the new ones added by 0x789D80
+// NOT EXACT: functional for POC (D64), relocation (the client's slot is a RefCountPtr), literal (__LINE__)
+void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderObjClass **slot)
+{
+	FAIL_IF(!HeadSource) {
+		return;
+	}
+	char name[64];
+	if (HeadSource && part) {
+		for (int i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "%s%d", part, i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				HeadSource->Remove_Sub_Object(robj);
+				robj->Release_Ref();
+			}
+		}
+	}
+	if (*slot) {
+		(*slot)->Release_Ref();
+		*slot = NULL;
+	}
+	bool making = Unknown_BFAE52;
+	if (!making) {
+		Unknown_BFAE52 = true;
+	}
+	char model[32];
+	_snprintf(model, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
+	RenderObjClass *proto = WW3DAssetManager::Get_Instance()->Create_Render_Obj(model);
+	if (!making) {
+		Unknown_BFAE52 = false;
+	}
+	if (proto) {
+		*slot = proto->Clone();
+		Unknown_496AE0(*slot, true);
+		Unknown_789D80(slot, part);
+		proto->Release_Ref();
+	}
+}
+
+// 0x77FEC0: the colour onto the mesh's vertex material (ambient and diffuse)
+// NOT EXACT: functional for POC (D64), relocation (the client's robj is a RefCountPtr)
+void CharacterViewAvatarClass::Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index)
+{
+	if (*robj) {
+		MaterialInfoClass *info = (*robj)->Get_Material_Info();
+		if (info) {
+			VertexMaterialClass *material = info->Peek_Vertex_Material(index);
+			if (material) {
+				material->Set_Ambient(color);
+				material->Set_Diffuse(color);
+			}
+		}
+		Unknown_496AE0(*robj, true);
+		if (info) {
+			info->Release_Ref();
+		}
+	}
+}
+
+// 0x77FFA0: the hair colour onto the head prototype's HAIR0..4 and BEARD0..4 meshes; rebuild: 0x77F750
+// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs; 0x77FEC0 inline)
+void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild)
+{
+	char name[64];
+	int i;
+	Desc.Hair_Color = color;
+	for (i = 0; i < 5; i++) {
+		_snprintf(name, 0x40, "HAIR%d", i);
+		RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+		if (robj) {
+			Unknown_77FEC0(&robj, color, 0);
+			robj->Release_Ref();
+		}
+	}
+	Unknown_7802F0(color, false);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x7802F0: the beard colour onto the head prototype's BEARD0..4 meshes; rebuild: 0x77F750
+// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs; 0x77FEC0 inline)
+void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild)
+{
+	char name[64];
+	Desc.Beard_Color = color;
+	for (int i = 0; i < 5; i++) {
+		_snprintf(name, 0x40, "BEARD%d", i);
+		RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+		if (robj) {
+			Unknown_77FEC0(&robj, color, 0);
+			robj->Release_Ref();
+		}
+	}
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
 // 0x780AF0
 // NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__)
 void CharacterViewAvatarClass::Unknown_780AF0()
@@ -1108,4 +1262,42 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 
 void CharacterViewAvatarClass::Unknown_7896B0(int a)
 {
+}
+
+// 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
+// each into the LOD that holds it in the accessory
+// NOT EXACT: functional for POC (D64), relocation (the client's RefCountPtrs)
+void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char *part)
+{
+	if (HeadSource == NULL || *slot == NULL || part == NULL) {
+		return;
+	}
+	char name[64];
+	for (int i = 0; i < 5; i++) {
+		_snprintf(name, 0x40, "%s%d", part, i);
+		RenderObjClass *sub = (*slot)->Get_Sub_Object_By_Name(name);
+		if (sub && sub->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			HLodClass *head = (HLodClass *)HeadSource;
+			HLodClass *source = (HLodClass *)*slot;
+			RenderObjClass *copy = sub->Clone();
+			Unknown_496AE0(copy, true);
+			copy->Set_Container(NULL);
+			for (int lod = 0; lod < source->Get_Lod_Count(); lod++) {
+				for (int j = 0; j < source->Get_Lod_Model_Count(lod); j++) {
+					if (sub == source->Peek_Lod_Model(lod, j)) {
+						head->Add_Lod_Model(lod, copy, 0);
+						Unknown_496AE0(HeadSource, true);
+						lod = 100;
+						break;
+					}
+				}
+			}
+			if (copy) {
+				copy->Release_Ref();
+			}
+		}
+		if (sub) {
+			sub->Release_Ref();
+		}
+	}
 }
