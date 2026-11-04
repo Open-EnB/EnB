@@ -781,6 +781,19 @@ void SBaseViewClass::Unknown_69DC60()
 {
 	Unknown_69D930(2);
 }
+// 0x69E260: the +0x6C camera at ViewRObjs[1]'s bone, turned -90 degrees about y and z (+0x84 keeps it)
+void SBaseViewClass::Unknown_69E260(const char *bone)
+{
+	if (ViewRObjs[1]) {
+		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
+		tm.Rotate_Y(-WWMATH_PI / 2.0f);
+		tm.Rotate_Z(-WWMATH_PI / 2.0f);
+		Unknown84 = tm;
+		Unknown6C->Set_Transform(tm);
+		Unknown1BC = 0;
+	}
+}
+
 // 0x69E510: the +0x6C camera at tm turned -90 degrees about y and z (with ViewRObjs[1] only)
 void SBaseViewClass::Unknown_69E510(Matrix3D tm)
 {
@@ -791,6 +804,22 @@ void SBaseViewClass::Unknown_69E510(Matrix3D tm)
 		Unknown6C->Set_Transform(Unknown84);
 		UnknownE8 = 0;
 		Unknown1BC = 0;
+	}
+}
+
+// 0x69EB20: the camera move's target +0xB4 (tm turned as 0x69E510) over seconds; restart starts it now
+void SBaseViewClass::Unknown_69EB20(Matrix3D tm, int seconds, bool restart)
+{
+	if (ViewRObjs[1]) {
+		UnknownB4 = tm;
+		UnknownB4.Rotate_Y(-WWMATH_PI / 2.0f);
+		UnknownB4.Rotate_Z(-WWMATH_PI / 2.0f);
+		Unknown1BC = 0;
+		UnknownE4 = (float)seconds;
+		if (restart) {
+			UnknownE8 = 0;
+			Unknown1C4 = 3;
+		}
 	}
 }
 
@@ -922,35 +951,6 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
