@@ -48,6 +48,8 @@ a line, '#' comments; T is milliseconds after the window first appears, X Y clie
     T move X Y          WM_MOUSEMOVE
     T click X Y         WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_LBUTTONUP (50 ms apart)
     T rclick X Y        the same with the right button
+    T down X Y          WM_MOUSEMOVE, WM_LBUTTONDOWN (a drag's start; 'move' steps, then 'up')
+    T up X Y            WM_MOUSEMOVE (button held), WM_LBUTTONUP
     T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab)
     T text STRING       WM_KEYDOWN / WM_KEYUP per character (VkKeyScan; Shift around capitals)
 Each step is logged to stdout with the time it was sent.
@@ -294,6 +296,12 @@ def post_step(hwnd, op, rest):
             post(WM[down], mk, lp)
             time.sleep(0.05)
             post(WM[up], 0, lp)
+    elif op in ('down', 'up'):
+        x, y = (int(v) for v in rest.split()[:2])
+        lp = (y << 16) | (x & 0xFFFF)
+        post(WM['move'], 0 if op == 'down' else 1, lp)
+        time.sleep(0.05)
+        post(WM['ldown'] if op == 'down' else WM['lup'], 1 if op == 'down' else 0, lp)
     elif op == 'key':
         vk = int(rest.split()[0], 0)
         scan = user32.MapVirtualKeyW(vk, 0)

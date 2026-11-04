@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 100 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1192 |
-| 2 | describes what the code does | 2987 |
-| 1 | neutral placeholder | 12478 |
+| 3 | by convention from a client-named file or sibling | 1195 |
+| 2 | describes what the code does | 2988 |
+| 1 | neutral placeholder | 12514 |
 
 ## For review (score 3 and below)
 
@@ -1866,6 +1866,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/ctrngadg.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/client/ctrngadg.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ctrngadg.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown619280Class` | `app/client/decal.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/decal.cpp:32` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/decal.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_61DF40` | `app/client/decal.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_82EF70` | `app/client/decal.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/decal.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/decal.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/decal.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/decal.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/decal.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/decal.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/decal.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/client/decal.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/decal.cpp:188` | untagged neutral name (D10) |
+| 1 | `decal.h` | `app/client/decal.h:4` | provisional header name for decal.cpp |
+| 1 | `Unknown619280Class` | `app/client/decal.h:18` | neutral (D10): 0x44 bytes, constructor 0x619280 |
+| 1 | `Unknown00` | `app/client/decal.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/decal.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/decal.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/decal.h:27` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/decal.h:32` | neutral (D10): 0xB8 bytes, destructor 0x618A50 |
+| 1 | `index` | `app/client/decal.h:37` | neutral |
+| 1 | `Unknown_61DF40` | `app/client/decal.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/decal.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/decal.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/decal.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/decal.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/decal.h:44` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/decal.h:47` | neutral |
+| 1 | `Unknown_82EF70` | `app/client/decal.h:47` | untagged neutral name (D10) |
 | 1 | `Converter` | `app/client/deffont.cpp:399` | 0xBE64A4, ConvertClass(Palette, Unknown_B8F870, ...) |
 | 1 | `RemapSizes` | `app/client/deffont.cpp:400` | 0xBE6438, each Remaps row's byte count |
 | 1 | `Remaps` | `app/client/deffont.cpp:401` | 0xBE63CC, fontpal.pcx's rows (byte 0 = 0) |
@@ -5247,27 +5277,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0E8` | `app/client/ship_pip.h:93` | untagged neutral name (D10) |
 | 1 | `Unknown0EC` | `app/client/ship_pip.h:94` | untagged neutral name (D10) |
 | 1 | `Unknown0F0` | `app/client/ship_pip.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_80FD10` | `app/client/shiputils.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_812390` | `app/client/shiputils.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_Region_Material` | `app/client/shiputils.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_Region_Half` | `app/client/shiputils.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/shiputils.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/shiputils.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/shiputils.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_810130` | `app/client/shiputils.cpp:236` | neutral (D10); NAME 1 [robj, texture, color]: as 0x80FF20's |
-| 1 | `Unknown_80FF20` | `app/client/shiputils.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/shiputils.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/shiputils.cpp:299` | untagged neutral name (D10) |
-| 1 | `Unknown_810750` | `app/client/shiputils.cpp:315` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/shiputils.cpp:367` | what 0x80E8C0 passes |
-| 1 | `Unknown_80EAF0` | `app/client/shiputils.cpp:367` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/shiputils.cpp:367` | untagged neutral name (D10) |
-| 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:369` | neutral (D10): inline in 0x80E8C0 |
-| 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:382` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/shiputils.cpp:397` | untagged neutral name (D10) |
-| 1 | `Unknown_80F020` | `app/client/shiputils.cpp:409` | neutral (D10); NAME 1 [all]: as 0x80FD10's |
-| 1 | `Unknown_80EFF0` | `app/client/shiputils.cpp:447` | untagged neutral name (D10) |
+| 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_80FD10` | `app/client/shiputils.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_812390` | `app/client/shiputils.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_Region_Material` | `app/client/shiputils.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Region_Half` | `app/client/shiputils.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/shiputils.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/shiputils.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/shiputils.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_810130` | `app/client/shiputils.cpp:237` | neutral (D10); NAME 1 [robj, texture, color]: as 0x80FF20's |
+| 1 | `Unknown_80FF20` | `app/client/shiputils.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8B90Class` | `app/client/shiputils.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/shiputils.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_810750` | `app/client/shiputils.cpp:316` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/shiputils.cpp:373` | what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro) |
+| 1 | `Unknown_80EAF0` | `app/client/shiputils.cpp:373` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/shiputils.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown619280Class` | `app/client/shiputils.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/shiputils.cpp:409` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/shiputils.cpp:411` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/shiputils.cpp:411` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/shiputils.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/shiputils.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:433` | neutral (D10): inline in 0x80E8C0 |
+| 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:446` | untagged neutral name (D10) |
+| 1 | `Unknown_80F020` | `app/client/shiputils.cpp:473` | neutral (D10); NAME 1 [all]: as 0x80FD10's |
+| 1 | `Unknown_80EFF0` | `app/client/shiputils.cpp:511` | untagged neutral name (D10) |
 | 1 | `shiputils.h` | `app/client/shiputils.h:4` | provisional header name for shiputils.cpp |
 | 1 | `SClientUnknown1334Class` | `app/client/shiputils.h:14` | untagged neutral name (D10) |
 | 1 | `model, decals, decal_ini` | `app/client/shiputils.h:17` | as cpacket.cpp's |
@@ -8988,148 +9023,148 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A4` | `app/client/ui_shipcust.cpp:95` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `app/client/ui_shipcust.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_shipcust.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/ui_shipcust.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_shipcust.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/ui_shipcust.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/ui_shipcust.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/ui_shipcust.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/ui_shipcust.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_shipcust.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/ui_shipcust.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/ui_shipcust.cpp:109` | untagged neutral name (D10) |
-| 1 | `UIAvatrPullClass` | `app/client/ui_shipcust.cpp:111` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `Unknown_5859A0` | `app/client/ui_shipcust.cpp:116` | untagged neutral name (D10) |
-| 1 | `Gadget` | `app/client/ui_shipcust.cpp:118` | neutral (D10) |
-| 1 | `Unknown_BE5E2C` | `app/client/ui_shipcust.cpp:125` | neutral (D10) |
-| 1 | `Unknown_B89C60` | `app/client/ui_shipcust.cpp:126` | neutral (D10) |
-| 1 | `Unknown_B89C80` | `app/client/ui_shipcust.cpp:127` | neutral (D10) |
-| 1 | `Unknown_B89C8C` | `app/client/ui_shipcust.cpp:128` | neutral (D10) |
+| 1 | `Unknown_671630` | `app/client/ui_shipcust.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_shipcust.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/ui_shipcust.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/ui_shipcust.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/ui_shipcust.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/ui_shipcust.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_shipcust.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/ui_shipcust.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/ui_shipcust.cpp:108` | untagged neutral name (D10) |
+| 1 | `UIAvatrPullClass` | `app/client/ui_shipcust.cpp:110` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Unknown_5859A0` | `app/client/ui_shipcust.cpp:115` | untagged neutral name (D10) |
+| 1 | `Gadget` | `app/client/ui_shipcust.cpp:117` | neutral (D10) |
+| 1 | `Unknown_BE5E2C` | `app/client/ui_shipcust.cpp:124` | neutral (D10) |
+| 1 | `Unknown_B89C60` | `app/client/ui_shipcust.cpp:125` | neutral (D10) |
+| 1 | `Unknown_B89C80` | `app/client/ui_shipcust.cpp:126` | neutral (D10) |
+| 1 | `Unknown_B89C8C` | `app/client/ui_shipcust.cpp:127` | neutral (D10) |
+| 1 | `all` | `app/client/ui_shipcust.cpp:129` | neutral |
+| 1 | `Unknown_621530` | `app/client/ui_shipcust.cpp:129` | untagged neutral name (D10) |
 | 1 | `all` | `app/client/ui_shipcust.cpp:130` | neutral |
-| 1 | `Unknown_621530` | `app/client/ui_shipcust.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_621610` | `app/client/ui_shipcust.cpp:130` | untagged neutral name (D10) |
 | 1 | `all` | `app/client/ui_shipcust.cpp:131` | neutral |
-| 1 | `Unknown_621610` | `app/client/ui_shipcust.cpp:131` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/ui_shipcust.cpp:132` | neutral |
-| 1 | `Unknown_6216D0` | `app/client/ui_shipcust.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown620D20Class` | `app/client/ui_shipcust.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_shipcust.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/ui_shipcust.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/client/ui_shipcust.cpp:140` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/client/ui_shipcust.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_621E20` | `app/client/ui_shipcust.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown_6211D0` | `app/client/ui_shipcust.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_80EFF0` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown160` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown_621390` | `app/client/ui_shipcust.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown_80E8C0` | `app/client/ui_shipcust.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_621500` | `app/client/ui_shipcust.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_80FF20` | `app/client/ui_shipcust.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_621790` | `app/client/ui_shipcust.cpp:302` | untagged neutral name (D10) |
-| 1 | `Unknown164` | `app/client/ui_shipcust.cpp:306` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/ui_shipcust.cpp:308` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_shipcust.cpp:310` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_shipcust.cpp:313` | untagged neutral name (D10) |
-| 1 | `Unknown_810750` | `app/client/ui_shipcust.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown210` | `app/client/ui_shipcust.cpp:351` | untagged neutral name (D10) |
-| 1 | `Unknown211` | `app/client/ui_shipcust.cpp:352` | untagged neutral name (D10) |
-| 1 | `Unknown212` | `app/client/ui_shipcust.cpp:353` | untagged neutral name (D10) |
-| 1 | `Unknown213` | `app/client/ui_shipcust.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown214` | `app/client/ui_shipcust.cpp:355` | untagged neutral name (D10) |
-| 1 | `Unknown215` | `app/client/ui_shipcust.cpp:356` | untagged neutral name (D10) |
-| 1 | `Unknown218` | `app/client/ui_shipcust.cpp:357` | untagged neutral name (D10) |
-| 1 | `Unknown22C` | `app/client/ui_shipcust.cpp:358` | untagged neutral name (D10) |
-| 1 | `Unknown248` | `app/client/ui_shipcust.cpp:361` | untagged neutral name (D10) |
-| 1 | `Unknown24C` | `app/client/ui_shipcust.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown258` | `app/client/ui_shipcust.cpp:364` | untagged neutral name (D10) |
-| 1 | `Unknown25C` | `app/client/ui_shipcust.cpp:365` | untagged neutral name (D10) |
-| 1 | `Unknown260` | `app/client/ui_shipcust.cpp:366` | untagged neutral name (D10) |
-| 1 | `Unknown264` | `app/client/ui_shipcust.cpp:367` | untagged neutral name (D10) |
-| 1 | `Unknown268` | `app/client/ui_shipcust.cpp:368` | untagged neutral name (D10) |
-| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_shipcust.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_shipcust.cpp:374` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_shipcust.cpp:374` | untagged neutral name (D10) |
-| 1 | `Unknown244` | `app/client/ui_shipcust.cpp:376` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/ui_shipcust.cpp:379` | untagged neutral name (D10) |
-| 1 | `Unknown_67C7B0` | `app/client/ui_shipcust.cpp:383` | untagged neutral name (D10) |
-| 1 | `Unknown_67C920` | `app/client/ui_shipcust.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown3A4` | `app/client/ui_shipcust.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_760770` | `app/client/ui_shipcust.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_80C220` | `app/client/ui_shipcust.cpp:394` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_shipcust.cpp:395` | untagged neutral name (D10) |
-| 1 | `Unknown_65FFC0` | `app/client/ui_shipcust.cpp:396` | untagged neutral name (D10) |
-| 1 | `Unknown_80C540` | `app/client/ui_shipcust.cpp:399` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_shipcust.cpp:400` | untagged neutral name (D10) |
-| 1 | `Unknown_67A8D0` | `app/client/ui_shipcust.cpp:401` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_shipcust.cpp:404` | untagged neutral name (D10) |
-| 1 | `Unknown054` | `app/client/ui_shipcust.cpp:406` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_shipcust.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/ui_shipcust.cpp:409` | untagged neutral name (D10) |
-| 1 | `Unknown_625A60` | `app/client/ui_shipcust.cpp:411` | untagged neutral name (D10) |
-| 1 | `Unknown_628900` | `app/client/ui_shipcust.cpp:416` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_shipcust.cpp:426` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/ui_shipcust.cpp:428` | untagged neutral name (D10) |
-| 1 | `Unknown_80C180` | `app/client/ui_shipcust.cpp:429` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/ui_shipcust.cpp:430` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_shipcust.cpp:441` | untagged neutral name (D10) |
-| 1 | `Unknown21C` | `app/client/ui_shipcust.cpp:449` | untagged neutral name (D10) |
-| 1 | `Unknown_67A9B0` | `app/client/ui_shipcust.cpp:454` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_shipcust.cpp:464` | untagged neutral name (D10) |
-| 1 | `Unknown_6AAD10` | `app/client/ui_shipcust.cpp:474` | untagged neutral name (D10) |
-| 1 | `Unknown_624270` | `app/client/ui_shipcust.cpp:476` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/ui_shipcust.cpp:477` | untagged neutral name (D10) |
-| 1 | `Unknown_628420` | `app/client/ui_shipcust.cpp:478` | untagged neutral name (D10) |
-| 1 | `Unknown_624E50` | `app/client/ui_shipcust.cpp:479` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_shipcust.cpp:485` | untagged neutral name (D10) |
-| 1 | `Unknown_6257A0` | `app/client/ui_shipcust.cpp:496` | untagged neutral name (D10) |
-| 1 | `Unknown_6277A0` | `app/client/ui_shipcust.cpp:536` | untagged neutral name (D10) |
-| 1 | `Unknown_627200` | `app/client/ui_shipcust.cpp:547` | untagged neutral name (D10) |
-| 1 | `Unknown_6271A0` | `app/client/ui_shipcust.cpp:553` | untagged neutral name (D10) |
-| 1 | `Unknown_6271D0` | `app/client/ui_shipcust.cpp:564` | untagged neutral name (D10) |
-| 1 | `Unknown_625260` | `app/client/ui_shipcust.cpp:590` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_shipcust.cpp:598` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/ui_shipcust.cpp:611` | untagged neutral name (D10) |
-| 1 | `Unknown_6280E0` | `app/client/ui_shipcust.cpp:629` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_shipcust.cpp:651` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shipcust.cpp:656` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/ui_shipcust.cpp:677` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/ui_shipcust.cpp:677` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_shipcust.cpp:678` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_shipcust.cpp:686` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_shipcust.cpp:700` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_shipcust.cpp:708` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_shipcust.cpp:722` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/ui_shipcust.cpp:767` | untagged neutral name (D10) |
-| 1 | `Unknown_6249D0` | `app/client/ui_shipcust.cpp:768` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_shipcust.cpp:771` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_shipcust.cpp:791` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_shipcust.cpp:793` | untagged neutral name (D10) |
-| 1 | `Unknown_624AE0` | `app/client/ui_shipcust.cpp:807` | untagged neutral name (D10) |
-| 1 | `Unknown_624B50` | `app/client/ui_shipcust.cpp:818` | untagged neutral name (D10) |
-| 1 | `Unknown_624D00` | `app/client/ui_shipcust.cpp:842` | untagged neutral name (D10) |
-| 1 | `Unknown_624D70` | `app/client/ui_shipcust.cpp:853` | untagged neutral name (D10) |
-| 1 | `Unknown_624DF0` | `app/client/ui_shipcust.cpp:866` | untagged neutral name (D10) |
-| 1 | `Unknown_624E20` | `app/client/ui_shipcust.cpp:874` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_shipcust.cpp:894` | untagged neutral name (D10) |
-| 1 | `Unknown_6251F0` | `app/client/ui_shipcust.cpp:923` | untagged neutral name (D10) |
-| 1 | `Unknown_627110` | `app/client/ui_shipcust.cpp:938` | untagged neutral name (D10) |
-| 1 | `Unknown_625440` | `app/client/ui_shipcust.cpp:963` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_shipcust.cpp:976` | untagged neutral name (D10) |
-| 1 | `Unknown_625760` | `app/client/ui_shipcust.cpp:988` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1001` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1002` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/ui_shipcust.cpp:1007` | untagged neutral name (D10) |
-| 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1014` | untagged neutral name (D10) |
-| 1 | `Unknown_6259C0` | `app/client/ui_shipcust.cpp:1027` | untagged neutral name (D10) |
-| 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1073` | untagged neutral name (D10) |
-| 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1173` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1212` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `app/client/ui_shipcust.cpp:1212` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1235` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1248` | untagged neutral name (D10) |
-| 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1254` | untagged neutral name (D10) |
-| 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1316` | untagged neutral name (D10) |
-| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:1509` | untagged neutral name (D10) |
-| 1 | `Unknown2C_02` | `app/client/ui_shipcust.cpp:1534` | untagged neutral name (D10) |
+| 1 | `Unknown_6216D0` | `app/client/ui_shipcust.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown620D20Class` | `app/client/ui_shipcust.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/ui_shipcust.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/ui_shipcust.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/client/ui_shipcust.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/client/ui_shipcust.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_621E20` | `app/client/ui_shipcust.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_6211D0` | `app/client/ui_shipcust.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_80EFF0` | `app/client/ui_shipcust.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/ui_shipcust.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_621390` | `app/client/ui_shipcust.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_80E8C0` | `app/client/ui_shipcust.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown_621500` | `app/client/ui_shipcust.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_80FF20` | `app/client/ui_shipcust.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_621790` | `app/client/ui_shipcust.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown164` | `app/client/ui_shipcust.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `app/client/ui_shipcust.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/ui_shipcust.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_shipcust.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown_810750` | `app/client/ui_shipcust.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown210` | `app/client/ui_shipcust.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown211` | `app/client/ui_shipcust.cpp:351` | untagged neutral name (D10) |
+| 1 | `Unknown212` | `app/client/ui_shipcust.cpp:352` | untagged neutral name (D10) |
+| 1 | `Unknown213` | `app/client/ui_shipcust.cpp:353` | untagged neutral name (D10) |
+| 1 | `Unknown214` | `app/client/ui_shipcust.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown215` | `app/client/ui_shipcust.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown218` | `app/client/ui_shipcust.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown22C` | `app/client/ui_shipcust.cpp:357` | untagged neutral name (D10) |
+| 1 | `Unknown248` | `app/client/ui_shipcust.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown24C` | `app/client/ui_shipcust.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown258` | `app/client/ui_shipcust.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown25C` | `app/client/ui_shipcust.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown260` | `app/client/ui_shipcust.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown264` | `app/client/ui_shipcust.cpp:366` | untagged neutral name (D10) |
+| 1 | `Unknown268` | `app/client/ui_shipcust.cpp:367` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/ui_shipcust.cpp:369` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_shipcust.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_shipcust.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_shipcust.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/ui_shipcust.cpp:375` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_shipcust.cpp:378` | untagged neutral name (D10) |
+| 1 | `Unknown_67C7B0` | `app/client/ui_shipcust.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown_67C920` | `app/client/ui_shipcust.cpp:384` | untagged neutral name (D10) |
+| 1 | `Unknown3A4` | `app/client/ui_shipcust.cpp:390` | untagged neutral name (D10) |
+| 1 | `Unknown_760770` | `app/client/ui_shipcust.cpp:390` | untagged neutral name (D10) |
+| 1 | `Unknown_80C220` | `app/client/ui_shipcust.cpp:393` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_shipcust.cpp:394` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFC0` | `app/client/ui_shipcust.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown_80C540` | `app/client/ui_shipcust.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_shipcust.cpp:399` | untagged neutral name (D10) |
+| 1 | `Unknown_67A8D0` | `app/client/ui_shipcust.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_shipcust.cpp:403` | untagged neutral name (D10) |
+| 1 | `Unknown054` | `app/client/ui_shipcust.cpp:405` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_shipcust.cpp:406` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ui_shipcust.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_625A60` | `app/client/ui_shipcust.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown_628900` | `app/client/ui_shipcust.cpp:415` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_shipcust.cpp:425` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/ui_shipcust.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_80C180` | `app/client/ui_shipcust.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_shipcust.cpp:429` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_shipcust.cpp:440` | untagged neutral name (D10) |
+| 1 | `Unknown21C` | `app/client/ui_shipcust.cpp:448` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/ui_shipcust.cpp:453` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_shipcust.cpp:463` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_shipcust.cpp:473` | untagged neutral name (D10) |
+| 1 | `Unknown_624270` | `app/client/ui_shipcust.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ui_shipcust.cpp:476` | untagged neutral name (D10) |
+| 1 | `Unknown_628420` | `app/client/ui_shipcust.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown_624E50` | `app/client/ui_shipcust.cpp:478` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_shipcust.cpp:484` | untagged neutral name (D10) |
+| 1 | `Unknown_6257A0` | `app/client/ui_shipcust.cpp:495` | untagged neutral name (D10) |
+| 1 | `Unknown_6277A0` | `app/client/ui_shipcust.cpp:535` | untagged neutral name (D10) |
+| 1 | `Unknown_627200` | `app/client/ui_shipcust.cpp:546` | untagged neutral name (D10) |
+| 1 | `Unknown_6271A0` | `app/client/ui_shipcust.cpp:552` | untagged neutral name (D10) |
+| 1 | `Unknown_6271D0` | `app/client/ui_shipcust.cpp:563` | untagged neutral name (D10) |
+| 1 | `Unknown_625260` | `app/client/ui_shipcust.cpp:589` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_shipcust.cpp:597` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_shipcust.cpp:610` | untagged neutral name (D10) |
+| 1 | `Unknown_6280E0` | `app/client/ui_shipcust.cpp:628` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_shipcust.cpp:650` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shipcust.cpp:655` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/ui_shipcust.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ui_shipcust.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_shipcust.cpp:677` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_shipcust.cpp:685` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_shipcust.cpp:699` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_shipcust.cpp:707` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_shipcust.cpp:721` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_shipcust.cpp:766` | untagged neutral name (D10) |
+| 1 | `Unknown_6249D0` | `app/client/ui_shipcust.cpp:767` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_shipcust.cpp:770` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_shipcust.cpp:790` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_shipcust.cpp:792` | untagged neutral name (D10) |
+| 1 | `Unknown_624AE0` | `app/client/ui_shipcust.cpp:806` | untagged neutral name (D10) |
+| 1 | `Unknown_624B50` | `app/client/ui_shipcust.cpp:817` | untagged neutral name (D10) |
+| 1 | `Unknown_624D00` | `app/client/ui_shipcust.cpp:841` | untagged neutral name (D10) |
+| 1 | `Unknown_624D70` | `app/client/ui_shipcust.cpp:852` | untagged neutral name (D10) |
+| 1 | `Unknown_624DF0` | `app/client/ui_shipcust.cpp:865` | untagged neutral name (D10) |
+| 1 | `Unknown_624E20` | `app/client/ui_shipcust.cpp:873` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_shipcust.cpp:893` | untagged neutral name (D10) |
+| 1 | `Unknown_6251F0` | `app/client/ui_shipcust.cpp:922` | untagged neutral name (D10) |
+| 1 | `Unknown_627110` | `app/client/ui_shipcust.cpp:937` | untagged neutral name (D10) |
+| 1 | `Unknown_625440` | `app/client/ui_shipcust.cpp:962` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_shipcust.cpp:975` | untagged neutral name (D10) |
+| 1 | `Unknown_625760` | `app/client/ui_shipcust.cpp:987` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1000` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1001` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_shipcust.cpp:1006` | untagged neutral name (D10) |
+| 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1013` | untagged neutral name (D10) |
+| 1 | `Unknown_6259C0` | `app/client/ui_shipcust.cpp:1026` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1072` | untagged neutral name (D10) |
+| 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1172` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1211` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `app/client/ui_shipcust.cpp:1211` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1234` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1247` | untagged neutral name (D10) |
+| 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1253` | untagged neutral name (D10) |
+| 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1315` | untagged neutral name (D10) |
+| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:1508` | untagged neutral name (D10) |
+| 1 | `Unknown2C_02` | `app/client/ui_shipcust.cpp:1533` | untagged neutral name (D10) |
 | 1 | `ui_shipcust.h` | `app/client/ui_shipcust.h:4` | provisional header name for ui_shipcust.cpp |
 | 1 | `SClientUnknown1334Class` | `app/client/ui_shipcust.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown620D20Class` | `app/client/ui_shipcust.h:27` | neutral (D10) |
@@ -9311,16 +9346,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A4` | `app/client/unknown_585920.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `app/client/unknown_585920.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/unknown_585920.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/unknown_585920.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/unknown_585920.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/unknown_585920.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/unknown_585920.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/unknown_585920.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/unknown_585920.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/unknown_585920.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/unknown_585920.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/unknown_585920.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/unknown_585920.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/unknown_585920.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_585920.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/unknown_585920.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/unknown_585920.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/unknown_585920.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/unknown_585920.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/unknown_585920.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/unknown_585920.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/unknown_585920.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/unknown_585920.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_585920.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_66B770Class` | `app/client/unknown_585920.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/unknown_585920.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -12248,49 +12286,47 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown763E00Class` | `tests/clienttest/client_stubs.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown_763E70` | `tests/clienttest/client_stubs.cpp:125` | untagged neutral name (D10) |
 | 1 | `Unknown_763FF0` | `tests/clienttest/client_stubs.cpp:126` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `tests/clienttest/client_stubs.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown_80E8C0` | `tests/clienttest/client_stubs.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_81F810` | `tests/clienttest/client_stubs.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_Assert_Failed` | `tests/clienttest/client_stubs.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown_Fail_If_Report` | `tests/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Begin_Step` | `tests/clienttest/client_stubs.cpp:167` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_End_Step` | `tests/clienttest/client_stubs.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Print` | `tests/clienttest/client_stubs.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown_Debug_Printf` | `tests/clienttest/client_stubs.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown_C07550` | `tests/clienttest/client_stubs.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown_BE7D80` | `tests/clienttest/client_stubs.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8Struct` | `tests/clienttest/client_stubs.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown0000` | `tests/clienttest/client_stubs.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown19A5` | `tests/clienttest/client_stubs.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown_C404D8` | `tests/clienttest/client_stubs.cpp:187` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:194` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown_80EFF0` | `tests/clienttest/client_stubs.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown_80F220` | `tests/clienttest/client_stubs.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490TargetClass` | `tests/clienttest/client_stubs.cpp:221` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/clienttest/client_stubs.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/clienttest/client_stubs.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/clienttest/client_stubs.cpp:226` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/clienttest/client_stubs.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/clienttest/client_stubs.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `tests/clienttest/client_stubs.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/clienttest/client_stubs.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `tests/clienttest/client_stubs.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `tests/clienttest/client_stubs.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `tests/clienttest/client_stubs.cpp:233` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `tests/clienttest/client_stubs.cpp:234` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `tests/clienttest/client_stubs.cpp:235` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `tests/clienttest/client_stubs.cpp:252` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `tests/clienttest/client_stubs.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `tests/clienttest/client_stubs.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `tests/clienttest/client_stubs.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_6E82A0` | `tests/clienttest/client_stubs.cpp:262` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `tests/clienttest/client_stubs.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `tests/clienttest/client_stubs.cpp:265` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490BinaryClass` | `tests/clienttest/client_stubs.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown6E9490EffectClass` | `tests/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_6E9490` | `tests/clienttest/client_stubs.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `tests/clienttest/client_stubs.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown_80FF20` | `tests/clienttest/client_stubs.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown_81F810` | `tests/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/clienttest/client_stubs.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_Fail_If_Report` | `tests/clienttest/client_stubs.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Begin_Step` | `tests/clienttest/client_stubs.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_End_Step` | `tests/clienttest/client_stubs.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Print` | `tests/clienttest/client_stubs.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_Debug_Printf` | `tests/clienttest/client_stubs.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_C07550` | `tests/clienttest/client_stubs.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_BE7D80` | `tests/clienttest/client_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8Struct` | `tests/clienttest/client_stubs.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/clienttest/client_stubs.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown19A5` | `tests/clienttest/client_stubs.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_C404D8` | `tests/clienttest/client_stubs.cpp:190` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:197` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_80F220` | `tests/clienttest/client_stubs.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490TargetClass` | `tests/clienttest/client_stubs.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/clienttest/client_stubs.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/clienttest/client_stubs.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/clienttest/client_stubs.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/clienttest/client_stubs.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/clienttest/client_stubs.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/clienttest/client_stubs.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/clienttest/client_stubs.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `tests/clienttest/client_stubs.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `tests/clienttest/client_stubs.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `tests/clienttest/client_stubs.cpp:230` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `tests/clienttest/client_stubs.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `tests/clienttest/client_stubs.cpp:232` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `tests/clienttest/client_stubs.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `tests/clienttest/client_stubs.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `tests/clienttest/client_stubs.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `tests/clienttest/client_stubs.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown_6E82A0` | `tests/clienttest/client_stubs.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `tests/clienttest/client_stubs.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `tests/clienttest/client_stubs.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490BinaryClass` | `tests/clienttest/client_stubs.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown6E9490EffectClass` | `tests/clienttest/client_stubs.cpp:283` | untagged neutral name (D10) |
+| 1 | `Unknown_6E9490` | `tests/clienttest/client_stubs.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `tests/clienttest/client_stubs.cpp:313` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `tests/clienttest/clienttest.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_BDA968` | `tests/clienttest/clienttest.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_BE71D4` | `tests/clienttest/clienttest.cpp:140` | untagged neutral name (D10) |
@@ -12780,6 +12816,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
+| 2 | `Load` | `app/client/decal.h:36` | what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names |
 | 2 | `DefaultFontData` | `app/client/deffont.cpp:17` | the file's name (deffont) and FontData[0] |
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
@@ -13681,7 +13718,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bank` | `app/client/ui_scut.h:64` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.h:67` | what it holds |
 | 2 | `Bars` | `app/client/ui_scut.h:91` | what it holds |
-| 2 | `Pull` | `app/client/ui_shipcust.cpp:119` | what ui_avatr.cpp's 0x556290 puts there |
+| 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/unknown_585920.cpp:23` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
@@ -15555,6 +15592,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CameraManagerClass` | `app/client/ctrngadg.cpp:30` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
+| 3 | `decal.cpp` | `app/client/decal.cpp:26` | the FAIL_IF's 'i - SECRET_DECALS' |
+| 3 | `decal_texture_ini_filename` | `app/client/decal.cpp:96` | the FAIL_IF's |
+| 3 | `mat_desc` | `app/client/decal.h:38` | the FAIL_IF's '!mat_desc'; NAME 1 [index, color]: neutral |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
@@ -15755,7 +15795,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ShipPipClass` | `app/client/ship_pip.h:35` | class-from-file (D24) for app\client\ship_pip.cpp |
 | 3 | `PIPView` | `app/client/ship_pip.h:62` | the FAIL_IF's |
 | 3 | `FloatParent` | `app/client/ship_pip.h:88` | the assert's |
-| 3 | `shiputils.cpp` | `app/client/shiputils.cpp:365` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
+| 3 | `shiputils.cpp` | `app/client/shiputils.cpp:366` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |

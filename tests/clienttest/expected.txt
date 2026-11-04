@@ -3,8 +3,6 @@ stub Unknown763E00Class::Unknown763E00Class
 stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
 gen Unknown764FD0Class::Unknown764FD0Class
-gen Unknown619280Class::Unknown619280Class
-gen Unknown619280Class::Unknown619280Class
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists

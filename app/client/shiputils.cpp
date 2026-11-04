@@ -16,6 +16,7 @@
 #include "..\..\ww3d2\shader.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "shiputils.h"
+#include "decal.h"
 #include "..\..\ww3d2\texture.h"
 #include "..\shared\enbassetmgr.h"
 #include "font32bit.h"
@@ -364,7 +365,70 @@ void Unknown_810750(RenderObjClass *robj, bool on)
 // The decals by slot (0x18 bytes each, 16 slots: DecalStruct's layout, the slot in +0x00, 0x7FFFFFF in +0x04 for none)
 #define MAX_NUM_DECAL_SLOTS 16	// NAME 3: the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS'
 
-void Unknown_80EAF0(RenderObjClass *robj, DecalStruct *slots, SClientUnknown1334Class *decal_ini);	// 0x80EAF0 (cdecl, FAIL_IFs '!robj' l.41, '!robj_name' l.45, 'slot_id >= MAX_NUM_DECAL_SLOTS' l.59: each 'decalNN' mesh's slot through decal.cpp's 0x75DA20 / 0x75CB10; not rebuilt yet)  // NAME 1 [all]: what 0x80E8C0 passes
+// NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an
+// empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two
+// texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its
+// sub-objects
+// @0x80EAF0
+static void (Unknown_80EAF0)(RenderObjClass *robj, DecalStruct *slots, SClientUnknown1334Class *decal_ini)	// NAME 1 [all]: what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro)
+{
+	FAIL_IF(!robj) {	/*@L41*/
+		return;
+	}
+	if (robj->Class_ID() != RenderObjClass::CLASSID_MESH) {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			Unknown_80EAF0(sub, slots, decal_ini);
+			sub->Release_Ref();
+		}
+		return;
+	}
+	const char *robj_name = robj->Get_Name();
+	FAIL_IF(!robj_name) {	/*@L45*/
+		return;
+	}
+	const char *name = strchr(robj_name, '.');
+	if (name != NULL && *name != '\0') {
+		name++;
+	}
+	if (name == NULL) {
+		name = robj_name;
+	}
+	if (strlen(name) < 7
+		|| (name[0] != 'd' && name[0] != 'D') || (name[1] != 'e' && name[1] != 'E') || (name[2] != 'c' && name[2] != 'C')
+		|| (name[3] != 'a' && name[3] != 'A') || (name[4] != 'l' && name[4] != 'L')
+		|| name[5] < '0' || name[5] > '9' || name[6] < '0' || name[6] > '9') {
+		return;
+	}
+	unsigned int slot_id = (name[5] - '0') * 10 + (name[6] - '0');
+	FAIL_IF(slot_id >= MAX_NUM_DECAL_SLOTS) {	/*@L59*/
+		slot_id = MAX_NUM_DECAL_SLOTS - 1;
+	}
+	Unknown619280Class mat_desc;
+	mat_desc = decal_ini->Unknown74;
+	if (slots[slot_id].Unknown04 != 0x7FFFFFF) {
+		decal_ini->Unknown_75CB10(slots[slot_id].Unknown04, slots[slot_id].Unknown08, &mat_desc);
+	}
+	MeshClass *mesh = (MeshClass *)robj;
+	mesh->Make_Unique(true);
+	MeshModelClass *model = mesh->Peek_Model();
+	RefCountPtr<MaterialInfoClass> matinfo = Create_Get(mesh->Get_Material_Info());
+	matinfo->Reset();	// the client calls Free (0x951E20) directly: private in the tree's matinfo.h
+	model->Set_Pass_Count(mat_desc.Unknown00);
+	for (int pass = 0; pass < mat_desc.Unknown00; pass++) {
+		for (int stage = 0; stage < 2; stage++) {
+			TextureClass *texture = mat_desc.Unknown04[pass][stage].Peek();
+			model->Set_Single_Texture(texture, pass, stage);
+			if (texture) {
+				matinfo->Add_Texture(texture);
+			}
+		}
+		model->Set_Single_Shader(mat_desc.Unknown24[pass], pass);
+		model->Set_Single_Material(mat_desc.Unknown34[pass].Peek(), pass);
+		matinfo->Add_Vertex_Material(mat_desc.Unknown34[pass].Peek());
+	}
+}
 
 static float Unknown_Clamp01(float value)	// NAME 1: neutral (D10): inline in 0x80E8C0
 {

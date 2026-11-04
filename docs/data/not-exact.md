@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-610 entries in 128 files.
+612 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -95,6 +95,8 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
+| `app/client/decal.cpp:74` | `SClientUnknown1334Class::Load` | marker | NOT EXACT: functional (D64), from the pseudocode: the two base materials, then each INI's sections in order @0x75BE00 |
+| `app/client/decal.cpp:185` | `SClientUnknown1334Class::Unknown_75CB10` | marker | NOT EXACT: functional (D64), from the pseudocode: a swatch (negative index) as loaded; an insignia (or a secret one from SECRET_DECALS) on the base material, its vertex material tinted when the colour isn't white @0x75CB10 |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
@@ -222,14 +224,15 @@ edit the comments in the code, not this file.
 | `app/client/ship_pip.cpp:454` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass @0x80D5E0 |
 | `app/client/ship_pip.cpp:617` | `ShipPipClass::Unknown_88` | marker | NOT EXACT: ShipPipClass @0x80E260 |
 | `app/client/ship_pip.cpp:658` | `ShipPipClass::Unknown_90` | marker | NOT EXACT: ShipPipClass @0x80E530 |
-| `app/client/shiputils.cpp:67` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
-| `app/client/shiputils.cpp:76` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
-| `app/client/shiputils.cpp:110` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
-| `app/client/shiputils.cpp:289` | `Unknown_80FF20` | marker | NOT EXACT: functional (D64), from the pseudocode @0x80FF20 |
-| `app/client/shiputils.cpp:313` | `Unknown_810750` | marker | NOT EXACT: functional (D64), from the pseudocode @0x810750 |
-| `app/client/shiputils.cpp:380` | `Unknown_80E8C0` | marker | NOT EXACT: functional (D64), from the pseudocode: the decals sorted into their slots, the coordinates clamped @0x80E8C0 |
-| `app/client/shiputils.cpp:406` | `Unknown_80F020` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones @0x80F020 |
-| `app/client/shiputils.cpp:445` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
+| `app/client/shiputils.cpp:68` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:77` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:111` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:290` | `Unknown_80FF20` | marker | NOT EXACT: functional (D64), from the pseudocode @0x80FF20 |
+| `app/client/shiputils.cpp:314` | `Unknown_810750` | marker | NOT EXACT: functional (D64), from the pseudocode @0x810750 |
+| `app/client/shiputils.cpp:368` | `void` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
+| `app/client/shiputils.cpp:444` | `Unknown_80E8C0` | marker | NOT EXACT: functional (D64), from the pseudocode: the decals sorted into their slots, the coordinates clamped @0x80E8C0 |
+| `app/client/shiputils.cpp:470` | `Unknown_80F020` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones @0x80F020 |
+| `app/client/shiputils.cpp:509` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
 | `app/client/signal_map.cpp:36` | `Unknown_4F7EF0` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:45` | `Unknown_4F7F60` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:54` | `SignalList::SignalList` | marker | NOT EXACT: functional (shape) |
@@ -357,60 +360,59 @@ edit the comments in the code, not this file.
 | `app/client/ui_shard.cpp:498` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
 | `app/client/ui_shard.cpp:518` | `Unknown615A50InterfaceClass::Unknown_6179D0` | marker | NOT EXACT: functional (D64) @0x6179D0 |
 | `app/client/ui_shard.cpp:536` | `Unknown615A50InterfaceClass::Unknown_617AA0` | marker | NOT EXACT: functional (D64) @0x617AA0 |
-| `app/client/ui_shipcust.cpp:98` | `Unknown_42ECF0` | marker | NOT EXACT: out of line in the client (0x671630, beside 0x671300); inline here until that file lands |
-| `app/client/ui_shipcust.cpp:135` | `Unknown620D20Class::Unknown620D20Class` | marker | NOT EXACT: functional (D64) @0x620D20 |
-| `app/client/ui_shipcust.cpp:146` | `Unknown620D20Class::~Unknown620D20Class` | marker | NOT EXACT: functional (D64) @0x6210A0 |
-| `app/client/ui_shipcust.cpp:154` | `Unknown620D20Class::Unknown_6211D0` | marker | NOT EXACT: functional (D64) @0x6211D0 |
-| `app/client/ui_shipcust.cpp:184` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
-| `app/client/ui_shipcust.cpp:208` | `Unknown620D20Class::Unknown_621500` | marker | NOT EXACT: functional (D64) @0x621500 |
-| `app/client/ui_shipcust.cpp:216` | `Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
-| `app/client/ui_shipcust.cpp:257` | `Unknown_621610` | marker | NOT EXACT: functional (D64) @0x621610 |
-| `app/client/ui_shipcust.cpp:277` | `Unknown_6216D0` | marker | NOT EXACT: functional (D64) @0x6216D0 |
-| `app/client/ui_shipcust.cpp:300` | `Unknown620D20Class::Unknown_621790` | marker | NOT EXACT: functional (D64) @0x621790 |
-| `app/client/ui_shipcust.cpp:327` | `Unknown620D20Class::Unknown_621E20` | marker | NOT EXACT: functional (D64) @0x621E20 |
-| `app/client/ui_shipcust.cpp:345` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
-| `app/client/ui_shipcust.cpp:422` | `ShipCustomizeInterface::~ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622B90 |
-| `app/client/ui_shipcust.cpp:462` | `ShipCustomizeInterface::Unknown_60` | marker | NOT EXACT: functional (D64) @0x622FC0 |
-| `app/client/ui_shipcust.cpp:483` | `ShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x623080 |
-| `app/client/ui_shipcust.cpp:671` | `ShipCustomizeInterface::Unknown_624270` | marker | NOT EXACT: functional (D64) @0x624270 |
-| `app/client/ui_shipcust.cpp:786` | `ShipCustomizeInterface::Unknown_6249D0` | marker | NOT EXACT: functional (D64) @0x6249D0 |
-| `app/client/ui_shipcust.cpp:805` | `ShipCustomizeInterface::Unknown_624AE0` | marker | NOT EXACT: functional (D64) @0x624AE0 |
-| `app/client/ui_shipcust.cpp:816` | `ShipCustomizeInterface::Unknown_624B50` | marker | NOT EXACT: functional (D64) @0x624B50 |
-| `app/client/ui_shipcust.cpp:840` | `ShipCustomizeInterface::Unknown_624D00` | marker | NOT EXACT: functional (D64) @0x624D00 |
-| `app/client/ui_shipcust.cpp:851` | `ShipCustomizeInterface::Unknown_624D70` | marker | NOT EXACT: functional (D64) @0x624D70 |
-| `app/client/ui_shipcust.cpp:864` | `ShipCustomizeInterface::Unknown_624DF0` | marker | NOT EXACT: functional (D64) @0x624DF0 |
-| `app/client/ui_shipcust.cpp:872` | `ShipCustomizeInterface::Unknown_624E20` | marker | NOT EXACT: functional (D64) @0x624E20 |
-| `app/client/ui_shipcust.cpp:880` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
-| `app/client/ui_shipcust.cpp:934` | `ShipCustomizeInterface::Unknown_6251F0` | marker | NOT EXACT: functional (D64) @0x6251F0 |
-| `app/client/ui_shipcust.cpp:944` | `ShipCustomizeInterface::Unknown_625260` | marker | NOT EXACT: functional (D64) @0x625260 |
-| `app/client/ui_shipcust.cpp:961` | `ShipCustomizeInterface::Unknown_625440` | marker | NOT EXACT: functional (D64) @0x625440 |
-| `app/client/ui_shipcust.cpp:986` | `ShipCustomizeInterface::Unknown_625760` | marker | NOT EXACT: functional (D64) @0x625760 |
-| `app/client/ui_shipcust.cpp:994` | `ShipCustomizeInterface::Unknown_6257A0` | marker | NOT EXACT: functional (D64) @0x6257A0 |
-| `app/client/ui_shipcust.cpp:1012` | `ShipCustomizeInterface::Unknown_625930` | marker | NOT EXACT: functional (D64) @0x625930 |
-| `app/client/ui_shipcust.cpp:1025` | `ShipCustomizeInterface::Unknown_6259C0` | marker | NOT EXACT: functional (D64) @0x6259C0 |
-| `app/client/ui_shipcust.cpp:1039` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
-| `app/client/ui_shipcust.cpp:1241` | `ShipCustomizeInterface::Unknown_627110` | marker | NOT EXACT: functional (D64) @0x627110 |
-| `app/client/ui_shipcust.cpp:1252` | `ShipCustomizeInterface::Unknown_627160` | marker | NOT EXACT: functional (D64) @0x627160 |
-| `app/client/ui_shipcust.cpp:1263` | `ShipCustomizeInterface::Unknown_6271A0` | marker | NOT EXACT: functional (D64) @0x6271A0 |
-| `app/client/ui_shipcust.cpp:1271` | `ShipCustomizeInterface::Unknown_6271D0` | marker | NOT EXACT: functional (D64) @0x6271D0 |
-| `app/client/ui_shipcust.cpp:1279` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
-| `app/client/ui_shipcust.cpp:1367` | `ShipCustomizeInterface::Unknown_627730` | marker | NOT EXACT: functional (D64) @0x627730 |
-| `app/client/ui_shipcust.cpp:1378` | `ShipCustomizeInterface::Unknown_6277A0` | marker | NOT EXACT: functional (D64) @0x6277A0 |
-| `app/client/ui_shipcust.cpp:1444` | `ShipCustomizeInterface::Unknown_627FA0` | marker | NOT EXACT: functional (D64) @0x627FA0 |
-| `app/client/ui_shipcust.cpp:1458` | `ShipCustomizeInterface::Unknown_6280E0` | marker | NOT EXACT: functional (D64) @0x6280E0 |
-| `app/client/ui_shipcust.cpp:1494` | `ShipCustomizeInterface::Unknown_628420` | marker | NOT EXACT: functional (D64) @0x628420 |
-| `app/client/ui_shipcust.cpp:1514` | `ShipCustomizeInterface::Unknown_78` | marker | NOT EXACT: functional (D64) @0x6288C0 |
-| `app/client/ui_shipcust.cpp:1525` | `ShipCustomizeInterface::Unknown_628900` | marker | NOT EXACT: functional (D64) @0x628900 |
-| `app/client/unknown_585920.cpp:80` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
-| `app/client/unknown_585920.cpp:99` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
-| `app/client/unknown_585920.cpp:110` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |
-| `app/client/unknown_585920.cpp:120` | `UIAvatrPullClass::~UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585950 |
-| `app/client/unknown_585920.cpp:135` | `UIAvatrPullClass::Unknown_5859A0` | marker | NOT EXACT: interim placement (D137), functional @0x5859A0 |
-| `app/client/unknown_585920.cpp:149` | `UIAvatrUnknown2ECStruct::Unknown_585C90` | marker | NOT EXACT: interim placement (D137), functional @0x585C90 |
-| `app/client/unknown_585920.cpp:160` | `UIAvatrUnknown2ECStruct::Unknown_585CC0` | marker | NOT EXACT: interim placement (D137), functional @0x585CC0 |
-| `app/client/unknown_585920.cpp:172` | `UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct` | marker | NOT EXACT: interim placement (D137), functional @0x585B50 |
-| `app/client/unknown_585920.cpp:197` | `UIAvatrUnknown2ECStruct::Unknown_585CF0` | marker | NOT EXACT: interim placement (D137), functional @0x585CF0 |
-| `app/client/unknown_585920.cpp:204` | `UIAvatrUnknown2ECStruct::Unknown_585D10` | marker | NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup) @0x585D10 |
+| `app/client/ui_shipcust.cpp:134` | `Unknown620D20Class::Unknown620D20Class` | marker | NOT EXACT: functional (D64) @0x620D20 |
+| `app/client/ui_shipcust.cpp:145` | `Unknown620D20Class::~Unknown620D20Class` | marker | NOT EXACT: functional (D64) @0x6210A0 |
+| `app/client/ui_shipcust.cpp:153` | `Unknown620D20Class::Unknown_6211D0` | marker | NOT EXACT: functional (D64) @0x6211D0 |
+| `app/client/ui_shipcust.cpp:183` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
+| `app/client/ui_shipcust.cpp:207` | `Unknown620D20Class::Unknown_621500` | marker | NOT EXACT: functional (D64) @0x621500 |
+| `app/client/ui_shipcust.cpp:215` | `Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
+| `app/client/ui_shipcust.cpp:256` | `Unknown_621610` | marker | NOT EXACT: functional (D64) @0x621610 |
+| `app/client/ui_shipcust.cpp:276` | `Unknown_6216D0` | marker | NOT EXACT: functional (D64) @0x6216D0 |
+| `app/client/ui_shipcust.cpp:299` | `Unknown620D20Class::Unknown_621790` | marker | NOT EXACT: functional (D64) @0x621790 |
+| `app/client/ui_shipcust.cpp:326` | `Unknown620D20Class::Unknown_621E20` | marker | NOT EXACT: functional (D64) @0x621E20 |
+| `app/client/ui_shipcust.cpp:344` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
+| `app/client/ui_shipcust.cpp:421` | `ShipCustomizeInterface::~ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622B90 |
+| `app/client/ui_shipcust.cpp:461` | `ShipCustomizeInterface::Unknown_60` | marker | NOT EXACT: functional (D64) @0x622FC0 |
+| `app/client/ui_shipcust.cpp:482` | `ShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x623080 |
+| `app/client/ui_shipcust.cpp:670` | `ShipCustomizeInterface::Unknown_624270` | marker | NOT EXACT: functional (D64) @0x624270 |
+| `app/client/ui_shipcust.cpp:785` | `ShipCustomizeInterface::Unknown_6249D0` | marker | NOT EXACT: functional (D64) @0x6249D0 |
+| `app/client/ui_shipcust.cpp:804` | `ShipCustomizeInterface::Unknown_624AE0` | marker | NOT EXACT: functional (D64) @0x624AE0 |
+| `app/client/ui_shipcust.cpp:815` | `ShipCustomizeInterface::Unknown_624B50` | marker | NOT EXACT: functional (D64) @0x624B50 |
+| `app/client/ui_shipcust.cpp:839` | `ShipCustomizeInterface::Unknown_624D00` | marker | NOT EXACT: functional (D64) @0x624D00 |
+| `app/client/ui_shipcust.cpp:850` | `ShipCustomizeInterface::Unknown_624D70` | marker | NOT EXACT: functional (D64) @0x624D70 |
+| `app/client/ui_shipcust.cpp:863` | `ShipCustomizeInterface::Unknown_624DF0` | marker | NOT EXACT: functional (D64) @0x624DF0 |
+| `app/client/ui_shipcust.cpp:871` | `ShipCustomizeInterface::Unknown_624E20` | marker | NOT EXACT: functional (D64) @0x624E20 |
+| `app/client/ui_shipcust.cpp:879` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
+| `app/client/ui_shipcust.cpp:933` | `ShipCustomizeInterface::Unknown_6251F0` | marker | NOT EXACT: functional (D64) @0x6251F0 |
+| `app/client/ui_shipcust.cpp:943` | `ShipCustomizeInterface::Unknown_625260` | marker | NOT EXACT: functional (D64) @0x625260 |
+| `app/client/ui_shipcust.cpp:960` | `ShipCustomizeInterface::Unknown_625440` | marker | NOT EXACT: functional (D64) @0x625440 |
+| `app/client/ui_shipcust.cpp:985` | `ShipCustomizeInterface::Unknown_625760` | marker | NOT EXACT: functional (D64) @0x625760 |
+| `app/client/ui_shipcust.cpp:993` | `ShipCustomizeInterface::Unknown_6257A0` | marker | NOT EXACT: functional (D64) @0x6257A0 |
+| `app/client/ui_shipcust.cpp:1011` | `ShipCustomizeInterface::Unknown_625930` | marker | NOT EXACT: functional (D64) @0x625930 |
+| `app/client/ui_shipcust.cpp:1024` | `ShipCustomizeInterface::Unknown_6259C0` | marker | NOT EXACT: functional (D64) @0x6259C0 |
+| `app/client/ui_shipcust.cpp:1038` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
+| `app/client/ui_shipcust.cpp:1240` | `ShipCustomizeInterface::Unknown_627110` | marker | NOT EXACT: functional (D64) @0x627110 |
+| `app/client/ui_shipcust.cpp:1251` | `ShipCustomizeInterface::Unknown_627160` | marker | NOT EXACT: functional (D64) @0x627160 |
+| `app/client/ui_shipcust.cpp:1262` | `ShipCustomizeInterface::Unknown_6271A0` | marker | NOT EXACT: functional (D64) @0x6271A0 |
+| `app/client/ui_shipcust.cpp:1270` | `ShipCustomizeInterface::Unknown_6271D0` | marker | NOT EXACT: functional (D64) @0x6271D0 |
+| `app/client/ui_shipcust.cpp:1278` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
+| `app/client/ui_shipcust.cpp:1366` | `ShipCustomizeInterface::Unknown_627730` | marker | NOT EXACT: functional (D64) @0x627730 |
+| `app/client/ui_shipcust.cpp:1377` | `ShipCustomizeInterface::Unknown_6277A0` | marker | NOT EXACT: functional (D64) @0x6277A0 |
+| `app/client/ui_shipcust.cpp:1443` | `ShipCustomizeInterface::Unknown_627FA0` | marker | NOT EXACT: functional (D64) @0x627FA0 |
+| `app/client/ui_shipcust.cpp:1457` | `ShipCustomizeInterface::Unknown_6280E0` | marker | NOT EXACT: functional (D64) @0x6280E0 |
+| `app/client/ui_shipcust.cpp:1493` | `ShipCustomizeInterface::Unknown_628420` | marker | NOT EXACT: functional (D64) @0x628420 |
+| `app/client/ui_shipcust.cpp:1513` | `ShipCustomizeInterface::Unknown_78` | marker | NOT EXACT: functional (D64) @0x6288C0 |
+| `app/client/ui_shipcust.cpp:1524` | `ShipCustomizeInterface::Unknown_628900` | marker | NOT EXACT: functional (D64) @0x628900 |
+| `app/client/unknown_585920.cpp:81` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
+| `app/client/unknown_585920.cpp:100` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
+| `app/client/unknown_585920.cpp:145` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |
+| `app/client/unknown_585920.cpp:155` | `UIAvatrPullClass::~UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585950 |
+| `app/client/unknown_585920.cpp:170` | `UIAvatrPullClass::Unknown_5859A0` | marker | NOT EXACT: interim placement (D137), functional @0x5859A0 |
+| `app/client/unknown_585920.cpp:184` | `UIAvatrUnknown2ECStruct::Unknown_585C90` | marker | NOT EXACT: interim placement (D137), functional @0x585C90 |
+| `app/client/unknown_585920.cpp:195` | `UIAvatrUnknown2ECStruct::Unknown_585CC0` | marker | NOT EXACT: interim placement (D137), functional @0x585CC0 |
+| `app/client/unknown_585920.cpp:207` | `UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct` | marker | NOT EXACT: interim placement (D137), functional @0x585B50 |
+| `app/client/unknown_585920.cpp:232` | `UIAvatrUnknown2ECStruct::Unknown_585CF0` | marker | NOT EXACT: interim placement (D137), functional @0x585CF0 |
+| `app/client/unknown_585920.cpp:239` | `UIAvatrUnknown2ECStruct::Unknown_585D10` | marker | NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup) @0x585D10 |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontSys::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |

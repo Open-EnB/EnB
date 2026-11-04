@@ -92,6 +92,11 @@ def build(out):
             f.write('// %s, compiled into clienttest (clienttest.py build)\n' % p)
             if p.endswith('shiputils.cpp'):
                 f.write('#define Unknown_80FF20 Real_Unknown_80FF20\n')
+                # the real 0x80EAF0 (decals onto 'decalNN' meshes) needs decal.cpp's library and real meshes: its
+                # calls stand in (the trace's 'gen Unknown_80EAF0' as before)
+                f.write('void Trace(const char *format, ...);\n'
+                        'static void Clienttest_Unknown_80EAF0() { Trace("gen Unknown_80EAF0"); }\n'
+                        '#define Unknown_80EAF0(a, b, c) Clienttest_Unknown_80EAF0()\n')
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
                                 'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB']}  # settings_store.cpp's lkey thread

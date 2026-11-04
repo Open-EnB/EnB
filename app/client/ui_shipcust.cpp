@@ -95,8 +95,7 @@ public:
 	virtual void Unknown_A4();							// +0xA4 0x671650
 	virtual void Unknown_A8();							// +0xA8 0x671670
 	virtual void Unknown_AC();							// +0xAC 0x6716B0
-	// NOT EXACT: out of line in the client (0x671630, beside 0x671300); inline here until that file lands
-	void Unknown_671630() { Unknown64 = false; Unknown65 = false; Unknown66 = false; }	// 0x671630 (the frame's end: the drag's flags cleared)
+	void Unknown_671630();								// 0x671630 (the frame's end: the drag's flags cleared; unknown_585920.cpp)
 
 	bool Unknown64;										// +0x64 (pressed)
 	bool Unknown65;										// +0x65 (held)

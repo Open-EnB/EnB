@@ -64,10 +64,11 @@ public:
 	virtual void Unknown_A4();							// +0xA4 0x671650
 	virtual void Unknown_A8();							// +0xA8 0x671670
 	virtual void Unknown_AC();							// +0xAC 0x6716B0
+	void Unknown_671630();								// 0x671630 (the frame's end: the drag's flags cleared)
 
-	bool Unknown64;										// +0x64
-	bool Unknown65;										// +0x65
-	bool Unknown66;										// +0x66
+	bool Unknown64;										// +0x64 (pressed: mask 0x11)
+	bool Unknown65;										// +0x65 (held: mask 0x22)
+	bool Unknown66;										// +0x66 (released: mask 0x44)
 	UIAvatrUnknown4A1240Class *Unknown68;				// +0x68
 	int Unknown6C;										// +0x6C
 	int Unknown70;										// +0x70
@@ -106,6 +107,40 @@ UIAvatrGadget671300Class::~UIAvatrGadget671300Class()
 	}
 }
 
+
+// Interim placement (D137): an enabled pull passes the event to its
+// base and notes which kind it was (the window reads the flags each frame, then 0x671630 clears them)
+// @0x671570
+bool UIAvatrGadget671300Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+{
+	if (Unknown_60()) {
+		if (mask & 0x11) {
+			Unknown_66B770Class::Unknown_2C(event, x, y, mask);
+			Unknown64 = true;
+			return true;
+		}
+		if (mask & 0x22) {
+			Unknown_66B770Class::Unknown_2C(event, x, y, mask);
+			Unknown65 = true;
+			return true;
+		}
+		if (mask & 0x44) {
+			Unknown_66B770Class::Unknown_2C(event, x, y, mask);
+			Unknown66 = true;
+			return true;
+		}
+	}
+	return false;
+}
+
+// Interim placement (D137)
+// @0x671630
+void UIAvatrGadget671300Class::Unknown_671630()
+{
+	Unknown64 = false;
+	Unknown65 = false;
+	Unknown66 = false;
+}
 
 // NOT EXACT: interim placement (D137), functional
 // @0x585920
