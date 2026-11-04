@@ -291,7 +291,7 @@ void ShipPipClass::Unknown_80()
 	}
 }
 
-// NOT EXACT: ShipPipClass
+// NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp)
 // @0x80C640
 void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 {
@@ -299,24 +299,28 @@ void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 		Unknown_80();
 	}
 	Unknown054 = model;
-	const SphereClass &sphere = Unknown054->Get_Bounding_Sphere();
+	SphereClass sphere = Unknown054->Get_Bounding_Sphere();
 	Unknown058 = sphere.Center;
-	float radius = sphere.Radius;
 	Matrix3D identity(true);
 	Unknown054->Set_Transform(identity);
-	float distance = radius * Unknown0F0;
+	float distance = sphere.Radius * Unknown0F0;
 	Unknown0AC = distance;
-	Unknown0B0 = radius * Unknown0EC;
+	if (Type == 0) {
+		Unknown0B0 = sphere.Radius * Unknown0EC;
+	} else {
+		Unknown0B0 = sphere.Radius * Unknown0EC;
+	}
 	Unknown0B4 = distance;
-	Unknown06C.Make_Identity();
-	Unknown06C.Set_Z_Translation(distance);
+	Unknown06C.Set(Vector3(0.0f, 0.0f, distance));
 	Unknown04C->Add(Scene.Peek());
 	Unknown050->Add(Scene.Peek());
 	FloatParent->Add(Scene.Peek());
 	int bone = FloatParent->Get_Bone_Index("NewShipScale");
 	FloatParent->Capture_Bone(bone);
 	Matrix3D tm = Unknown054->Get_Transform();
-	tm.Translate(-Unknown058);
+	tm.Translate_X(-sphere.Center.X);
+	tm.Translate_Y(-sphere.Center.Y);
+	tm.Translate_Z(-sphere.Center.Z);
 	FloatParent->Control_Bone(bone, tm, false);
 	FloatParent->Add_Sub_Object_To_Bone(Unknown054.Peek(), "NewShipScale");
 	PIPView->Unknown_65B7A0(Scene, Camera, Unknown_B07D78, Unknown048);
@@ -325,7 +329,18 @@ void ShipPipClass::Unknown_7C(const RefCountPtr<RenderObjClass> &model)
 	Unknown_90();
 }
 
-// NOT EXACT: ShipPipClass
+// The zoom by distance within +0xB0..+0xAC as 0x80CA30 (twice) and 0x80CE10 inline it: a nested inline, which is why
+// their Matrix3D::Translate(0, 0, z) stays out of line (0x80CD90) where 0x80E190's Translate_Z does not  // NAME 1 [Unknown_Zoom, pip, distance]: neutral, PROVISIONAL (the form is the client's, the helper's name and signature a guess)
+static inline void Unknown_Zoom(ShipPipClass *pip, float distance)
+{
+	if (distance != 0.0f) {
+		float clamped = WWMath::Clamp(distance + pip->Unknown0B4, pip->Unknown0B0, pip->Unknown0AC);
+		pip->Unknown06C.Translate(0.0f, 0.0f, clamped - pip->Unknown0B4);
+		pip->Unknown0B4 = clamped;
+	}
+}
+
+// NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way)
 // @0x80CA30
 void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 {
@@ -346,19 +361,11 @@ void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 	}
 	if (Unknown0B4 < Unknown0B0) {
 		float distance = Unknown0B0 - Unknown0B4;
-		if (distance != 0.0f) {
-			float clamped = WWMath::Clamp(distance + Unknown0B4, Unknown0B0, Unknown0AC);
-			Unknown06C.Translate(0.0f, 0.0f, clamped - Unknown0B4);
-			Unknown0B4 = clamped;
-		}
+		Unknown_Zoom(this, distance);
 	}
-	if (Unknown0AC < Unknown0B4) {
+	if (Unknown0B4 > Unknown0AC) {
 		float distance = Unknown0AC - Unknown0B4;
-		if (distance != 0.0f) {
-			float clamped = WWMath::Clamp(distance + Unknown0B4, Unknown0B0, Unknown0AC);
-			Unknown06C.Translate(0.0f, 0.0f, clamped - Unknown0B4);
-			Unknown0B4 = clamped;
-		}
+		Unknown_Zoom(this, distance);
 	}
 	Matrix3D identity(true);
 	Unknown054->Set_Transform(identity);
@@ -366,7 +373,7 @@ void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
 	Unknown_90();
 }
 
-// NOT EXACT: ShipPipClass
+// NOT EXACT: ShipPipClass, shape (the client keeps Rotate_Z's cosine on the FPU stack)
 // @0x80CE10
 void ShipPipClass::Unknown_78()
 {
@@ -405,11 +412,7 @@ void ShipPipClass::Unknown_78()
 	if (Unknown0C0 == 0.0f && Unknown0C4 == 0.0f) {
 		if (Unknown0C8 != 0.0f) {
 			float distance = Unknown_80E7A0() * time * Unknown0C8;
-			if (distance != 0.0f) {
-				float clamped = WWMath::Clamp(distance + Unknown0B4, Unknown0B0, Unknown0AC);
-				Unknown06C.Translate(0.0f, 0.0f, clamped - Unknown0B4);
-				Unknown0B4 = clamped;
-			}
+			Unknown_Zoom(this, distance);
 			Unknown_90();
 			return;
 		}
@@ -451,7 +454,7 @@ bool ShipPipClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-// NOT EXACT: ShipPipClass
+// NOT EXACT: ShipPipClass, field-offset (first: [edi + 0x28] against the client's [edi + 0x24])
 // @0x80D5E0
 bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {

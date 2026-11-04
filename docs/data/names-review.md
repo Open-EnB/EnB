@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1204 |
 | 2 | describes what the code does | 3001 |
-| 1 | neutral placeholder | 13132 |
+| 1 | neutral placeholder | 13134 |
 
 ## For review (score 3 and below)
 
@@ -5410,31 +5410,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown054` | `app/client/ship_pip.cpp:285` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7E0` | `app/client/ship_pip.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ship_pip.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown_65B7A0` | `app/client/ship_pip.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ship_pip.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ship_pip.cpp:324` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ship_pip.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/ship_pip.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/ship_pip.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_80E7A0` | `app/client/ship_pip.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_80E020` | `app/client/ship_pip.cpp:434` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ship_pip.cpp:440` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ship_pip.cpp:442` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/ship_pip.cpp:456` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ship_pip.cpp:463` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/ship_pip.cpp:470` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/ship_pip.cpp:471` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `app/client/ship_pip.cpp:472` | untagged neutral name (D10) |
-| 1 | `Unknown_80E7D0` | `app/client/ship_pip.cpp:472` | untagged neutral name (D10) |
-| 1 | `Unknown_515120` | `app/client/ship_pip.cpp:474` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/client/ship_pip.cpp:544` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/ship_pip.cpp:547` | untagged neutral name (D10) |
-| 1 | `Unknown_80E190` | `app/client/ship_pip.cpp:558` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/ship_pip.cpp:585` | untagged neutral name (D10) |
-| 1 | `Unknown_77D9F0` | `app/client/ship_pip.cpp:627` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ship_pip.cpp:687` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ship_pip.cpp:687` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/ship_pip.cpp:688` | untagged neutral name (D10) |
+| 1 | `Unknown_65B7A0` | `app/client/ship_pip.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ship_pip.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ship_pip.cpp:328` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ship_pip.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown_Zoom, pip, distance` | `app/client/ship_pip.cpp:333` | neutral, PROVISIONAL (the form is the client's, the helper's name and signature a guess) |
+| 1 | `Unknown_Zoom` | `app/client/ship_pip.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/ship_pip.cpp:345` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/ship_pip.cpp:378` | untagged neutral name (D10) |
+| 1 | `Unknown_80E7A0` | `app/client/ship_pip.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_80E020` | `app/client/ship_pip.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ship_pip.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ship_pip.cpp:445` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ship_pip.cpp:459` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ship_pip.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/ship_pip.cpp:473` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ship_pip.cpp:474` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/ship_pip.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown_80E7D0` | `app/client/ship_pip.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown_515120` | `app/client/ship_pip.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/client/ship_pip.cpp:547` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ship_pip.cpp:550` | untagged neutral name (D10) |
+| 1 | `Unknown_80E190` | `app/client/ship_pip.cpp:561` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ship_pip.cpp:588` | untagged neutral name (D10) |
+| 1 | `Unknown_77D9F0` | `app/client/ship_pip.cpp:630` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ship_pip.cpp:690` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ship_pip.cpp:690` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/ship_pip.cpp:691` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/ship_pip.h:33` | untagged neutral name (D10) |
 | 1 | `type` | `app/client/ship_pip.h:38` | neutral |
 | 1 | `event, x, y, mask` | `app/client/ship_pip.h:41` | GadgetClass's |
