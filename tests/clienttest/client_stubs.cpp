@@ -195,6 +195,9 @@ Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
+// ui_buff.cpp (BUFF) names these two classes' per-class globals; app.lib has them in aux_roots.obj
+int DeltaElementsClass::UnknownGlobal;
+int DeltaBuffsClass::UnknownGlobal;
 // (co.cpp's constructor asks the factory 0x6F6000 for its aux root: clienttest.cpp's stand-in hands out the harness's)
 
 // ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)
@@ -311,3 +314,24 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 // gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
 #include "..\..\..\app\client\control_keys_manager.h"
 ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
+
+// ------------------------------------------------------------------------- ui_buff.cpp's gadget (BUFF)
+
+// ui_buff.cpp declares UIBuffGadgetClass / UIBuffInfoStruct (not gd_buffgadg.cpp's BuffGadgetClass / BuffInfoStruct, so its
+// calls name symbols no object defines) and gen_stubs cannot write members of an incomplete class: declared here as far as the mangled names go
+class LineDisplayClientClass;
+struct BuffDefStruct;
+class RenderObjClass;
+class LayerClass;
+class DurationClass;
+struct UIBuffElementStruct;
+struct UIBuffInfoStruct { void Unknown_665390(const UIBuffElementStruct &); };
+class UIBuffGadgetClass
+{
+public:
+	UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &);
+	bool Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &);
+};
+UIBuffGadgetClass::UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &) { Trace("stub UIBuffGadgetClass::UIBuffGadgetClass (0x665A40)"); }
+bool UIBuffGadgetClass::Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &) { Trace("stub UIBuffGadgetClass::Unknown_6661F0"); return false; }
+void UIBuffInfoStruct::Unknown_665390(const UIBuffElementStruct &) { Trace("stub UIBuffInfoStruct::Unknown_665390"); }
