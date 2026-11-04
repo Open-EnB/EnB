@@ -21,8 +21,10 @@ the aux_roots generator's next edit (the user).
   second definition gone, expected.txt loses `gen LoadingViewFontManagerClass::Unknown_6D2310`. POC: character select,
   no crash, the same first calls.
 - **Quit at character select (the user, run 4):** the shutdown faults: ~LoginTaskClass -> CharacterViewClass::Unknown_10
-  -> UIViewClass::Unknown_10 reads 0x29282726 (string bytes as a pointer). Scripted runs never quit (killed at 60 s);
-  whether master does the same is open.
+  -> UIViewClass::Unknown_10 reads 0x29282726 (string bytes as a pointer). **Master 1ff6d912 does the same** (its POC
+  built in a worktree, linked outside ClientPOC\release): not P-FU1-2's; §4 item. Scripted runs never quit before (killed
+  at 60 s): `.work/run-2026-11-03/input3-quit.txt` is input3 plus Escape at 40 s and the confirm dialog's Yes (505, 543)
+  at 44 s (the user: Escape opens the quit dialog from login and character select; Quit / Back are bottom left).
 
 ### 2026-11-03 (night): the quiet tree's client-name renames (AssetManager, EnvironmentMapManager, ControlKeysManager) and two retypes; app 9,039 = 9,039, 0 gained, 0 lost
 
@@ -2369,6 +2371,9 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
+   * The POC faults when quitting from character select (seen 2026-11-03 on master 1ff6d912 and after P-FU1-2):
+     KernelClass::Shutdown -> ~LoginTaskClass -> CharacterViewClass::Unknown_10 -> UIViewClass::Unknown_10 reads
+     0x29282726 (string bytes as a pointer); repeat with `clientpoc.py replay --input .work/run-2026-11-03/input3-quit.txt`.
    * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
      tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
      symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.
