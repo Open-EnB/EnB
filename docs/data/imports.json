@@ -25750,6 +25750,7 @@
    "client/ui_avsel.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",
    "client/ui_class.h": "reconstructed",
+   "client/ui_combobox.h": "reconstructed",
    "client/ui_cpit.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",

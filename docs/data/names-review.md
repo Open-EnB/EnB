@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 99 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1177 |
+| 3 | by convention from a client-named file or sibling | 1178 |
 | 2 | describes what the code does | 2982 |
-| 1 | neutral placeholder | 11723 |
+| 1 | neutral placeholder | 11740 |
 
 ## For review (score 3 and below)
 
@@ -6641,174 +6641,170 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56C6A0` | `app/client/ui_chat_panel.cpp:2428` | untagged neutral name (D10) |
 | 1 | `Unknown_571430` | `app/client/ui_chat_panel.cpp:2452` | untagged neutral name (D10) |
 | 1 | `ui_chat_panel.h` | `app/client/ui_chat_panel.h:4` | provisional header name for ui_chat_panel.cpp |
-| 1 | `UIChatComboClass` | `app/client/ui_chat_panel.h:17` | neutral (D10) |
-| 1 | `Unknown_57B440` | `app/client/ui_chat_panel.h:20` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_chat_panel.h:21` | neutral |
-| 1 | `Unknown_57AD50` | `app/client/ui_chat_panel.h:21` | untagged neutral name (D10) |
-| 1 | `UIChatIntEventClass` | `app/client/ui_chat_panel.h:25` | neutral (D10): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler) |
-| 1 | `Unknown00` | `app/client/ui_chat_panel.h:25` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/ui_chat_panel.h:36` | what 0x561DD0 passes |
-| 1 | `Unknown_58` | `app/client/ui_chat_panel.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_chat_panel.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_chat_panel.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_chat_panel.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_chat_panel.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_chat_panel.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/ui_chat_panel.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_chat_panel.h:45` | untagged neutral name (D10) |
-| 1 | `Peek_Unknown84` | `app/client/ui_chat_panel.h:46` | neutral (D10) |
-| 1 | `Unknown88` | `app/client/ui_chat_panel.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_chat_panel.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_chat_panel.h:49` | untagged neutral name (D10) |
-| 1 | `UIChatPanelWindowClass` | `app/client/ui_chat_panel.h:53` | neutral (D10) |
-| 1 | `UIChatIntClass` | `app/client/ui_chat_panel.h:61` | neutral (D10): the assert's 'ChatInt' |
-| 1 | `Unknown_A0` | `app/client/ui_chat_panel.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_chat_panel.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/ui_chat_panel.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/ui_chat_panel.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_chat_panel.h:66` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_chat_panel.h:67` | neutral |
-| 1 | `Unknown_B4` | `app/client/ui_chat_panel.h:67` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_chat_panel.h:68` | what 0x5638E0 passes |
-| 1 | `Unknown_B8` | `app/client/ui_chat_panel.h:68` | untagged neutral name (D10) |
-| 1 | `client, a, b, kind` | `app/client/ui_chat_panel.h:70` | what 0x56C180 passes |
-| 1 | `owner` | `app/client/ui_chat_panel.h:71` | neutral |
-| 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_571430` | `app/client/ui_chat_panel.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_chat_panel.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_chat_panel.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_chat_panel.h:85` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_chat_panel.h:86` | intrface.h's |
-| 1 | `Unknown_7C` | `app/client/ui_chat_panel.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/ui_chat_panel.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_chat_panel.h:88` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_chat_panel.h:90` | neutral |
-| 1 | `Unknown_5638E0` | `app/client/ui_chat_panel.h:90` | untagged neutral name (D10) |
-| 1 | `id, flag` | `app/client/ui_chat_panel.h:91` | what cpacket.cpp passes |
-| 1 | `Unknown_563910` | `app/client/ui_chat_panel.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_563C50` | `app/client/ui_chat_panel.h:92` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_chat_panel.h:93` | neutral |
-| 1 | `Unknown_563DC0` | `app/client/ui_chat_panel.h:93` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_chat_panel.h:94` | neutral |
-| 1 | `Unknown_564030` | `app/client/ui_chat_panel.h:94` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_chat_panel.h:95` | neutral |
-| 1 | `Unknown_564150` | `app/client/ui_chat_panel.h:95` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_chat_panel.h:96` | neutral |
-| 1 | `Unknown_564400` | `app/client/ui_chat_panel.h:96` | untagged neutral name (D10) |
-| 1 | `channel` | `app/client/ui_chat_panel.h:97` | neutral |
-| 1 | `Unknown_5646A0` | `app/client/ui_chat_panel.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_564F50` | `app/client/ui_chat_panel.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_565100` | `app/client/ui_chat_panel.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_565120` | `app/client/ui_chat_panel.h:100` | untagged neutral name (D10) |
-| 1 | `back` | `app/client/ui_chat_panel.h:101` | neutral |
-| 1 | `Unknown_565390` | `app/client/ui_chat_panel.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown_565BA0` | `app/client/ui_chat_panel.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_565BC0` | `app/client/ui_chat_panel.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_565C00` | `app/client/ui_chat_panel.h:104` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_chat_panel.h:105` | neutral |
-| 1 | `Unknown_565C40` | `app/client/ui_chat_panel.h:105` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_chat_panel.h:106` | cpacket.cpp's |
-| 1 | `Unknown_565D80` | `app/client/ui_chat_panel.h:106` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_chat_panel.h:107` | neutral |
-| 1 | `Unknown_5658B0` | `app/client/ui_chat_panel.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_565F30` | `app/client/ui_chat_panel.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown_565F80` | `app/client/ui_chat_panel.h:109` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_chat_panel.h:110` | what 0x7436A0 passes |
-| 1 | `Unknown_566AF0` | `app/client/ui_chat_panel.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown_567760` | `app/client/ui_chat_panel.h:111` | untagged neutral name (D10) |
-| 1 | `channel` | `app/client/ui_chat_panel.h:112` | neutral |
-| 1 | `Unknown_567930` | `app/client/ui_chat_panel.h:112` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_chat_panel.h:113` | neutral |
-| 1 | `Unknown_567540` | `app/client/ui_chat_panel.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_567970` | `app/client/ui_chat_panel.h:114` | untagged neutral name (D10) |
-| 1 | `event, channel, name, flag` | `app/client/ui_chat_panel.h:115` | cpacket.cpp's |
-| 1 | `Unknown_5679A0` | `app/client/ui_chat_panel.h:115` | untagged neutral name (D10) |
-| 1 | `code` | `app/client/ui_chat_panel.h:116` | cpacket.cpp's |
-| 1 | `Unknown_567DF0` | `app/client/ui_chat_panel.h:116` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_chat_panel.h:117` | neutral |
-| 1 | `Unknown_5680B0` | `app/client/ui_chat_panel.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown_5682C0` | `app/client/ui_chat_panel.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown_568440` | `app/client/ui_chat_panel.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_5685C0` | `app/client/ui_chat_panel.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_568690` | `app/client/ui_chat_panel.h:121` | untagged neutral name (D10) |
-| 1 | `list` | `app/client/ui_chat_panel.h:122` | neutral |
-| 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown_568910` | `app/client/ui_chat_panel.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown_568950` | `app/client/ui_chat_panel.h:124` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_chat_panel.h:125` | neutral |
-| 1 | `Unknown_5689D0` | `app/client/ui_chat_panel.h:125` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/ui_chat_panel.h:126` | neutral |
-| 1 | `Unknown_5698F0` | `app/client/ui_chat_panel.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown_569A00` | `app/client/ui_chat_panel.h:127` | untagged neutral name (D10) |
-| 1 | `Unknown_56B700` | `app/client/ui_chat_panel.h:128` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_chat_panel.h:129` | what Do_Frame passes |
-| 1 | `Unknown_56BA40` | `app/client/ui_chat_panel.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_56BA80` | `app/client/ui_chat_panel.h:130` | untagged neutral name (D10) |
-| 1 | `show, text` | `app/client/ui_chat_panel.h:131` | what 0x74E710 passes |
-| 1 | `Unknown_56BAA0` | `app/client/ui_chat_panel.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown_56BEF0` | `app/client/ui_chat_panel.h:132` | untagged neutral name (D10) |
-| 1 | `Unknown_56C0C0` | `app/client/ui_chat_panel.h:133` | untagged neutral name (D10) |
-| 1 | `window` | `app/client/ui_chat_panel.h:134` | neutral |
-| 1 | `Unknown_56C180` | `app/client/ui_chat_panel.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown_56C6A0` | `app/client/ui_chat_panel.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_56C7E0` | `app/client/ui_chat_panel.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown_56C730` | `app/client/ui_chat_panel.h:137` | untagged neutral name (D10) |
-| 1 | `event, sender` | `app/client/ui_chat_panel.h:138` | neutral |
-| 1 | `Unknown_56C7B0` | `app/client/ui_chat_panel.h:138` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/ui_chat_panel.h:140` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_chat_panel.h:141` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_chat_panel.h:143` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_chat_panel.h:144` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_chat_panel.h:145` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/ui_chat_panel.h:146` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_chat_panel.h:147` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_chat_panel.h:148` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/ui_chat_panel.h:149` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/ui_chat_panel.h:150` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `app/client/ui_chat_panel.h:151` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/ui_chat_panel.h:152` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/ui_chat_panel.h:153` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `app/client/ui_chat_panel.h:154` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `app/client/ui_chat_panel.h:155` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/ui_chat_panel.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_chat_panel.h:157` | untagged neutral name (D10) |
-| 1 | `Unknown10D` | `app/client/ui_chat_panel.h:158` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_chat_panel.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_chat_panel.h:160` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/ui_chat_panel.h:161` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_chat_panel.h:162` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/ui_chat_panel.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/ui_chat_panel.h:164` | untagged neutral name (D10) |
-| 1 | `Unknown134` | `app/client/ui_chat_panel.h:165` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/ui_chat_panel.h:167` | untagged neutral name (D10) |
-| 1 | `Unknown140` | `app/client/ui_chat_panel.h:168` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/ui_chat_panel.h:169` | untagged neutral name (D10) |
-| 1 | `Unknown148` | `app/client/ui_chat_panel.h:170` | untagged neutral name (D10) |
-| 1 | `Unknown14C` | `app/client/ui_chat_panel.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown150` | `app/client/ui_chat_panel.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown154` | `app/client/ui_chat_panel.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown158` | `app/client/ui_chat_panel.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/client/ui_chat_panel.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown1D8` | `app/client/ui_chat_panel.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown1E8` | `app/client/ui_chat_panel.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown1EC` | `app/client/ui_chat_panel.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/client/ui_chat_panel.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/client/ui_chat_panel.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown204` | `app/client/ui_chat_panel.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown214` | `app/client/ui_chat_panel.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown224` | `app/client/ui_chat_panel.h:183` | untagged neutral name (D10) |
-| 1 | `Unknown225` | `app/client/ui_chat_panel.h:184` | untagged neutral name (D10) |
-| 1 | `Unknown226` | `app/client/ui_chat_panel.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown227` | `app/client/ui_chat_panel.h:186` | untagged neutral name (D10) |
-| 1 | `Unknown228` | `app/client/ui_chat_panel.h:187` | untagged neutral name (D10) |
-| 1 | `Unknown238` | `app/client/ui_chat_panel.h:188` | untagged neutral name (D10) |
-| 1 | `Unknown248` | `app/client/ui_chat_panel.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown258` | `app/client/ui_chat_panel.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown25C` | `app/client/ui_chat_panel.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown260` | `app/client/ui_chat_panel.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown265` | `app/client/ui_chat_panel.h:194` | untagged neutral name (D10) |
-| 1 | `Unknown266` | `app/client/ui_chat_panel.h:195` | untagged neutral name (D10) |
-| 1 | `Unknown267` | `app/client/ui_chat_panel.h:196` | untagged neutral name (D10) |
+| 1 | `UIChatIntEventClass` | `app/client/ui_chat_panel.h:19` | neutral (D10): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler) |
+| 1 | `Unknown00` | `app/client/ui_chat_panel.h:19` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_chat_panel.h:30` | what 0x561DD0 passes |
+| 1 | `Unknown_58` | `app/client/ui_chat_panel.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_chat_panel.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_chat_panel.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_chat_panel.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_chat_panel.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_chat_panel.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_chat_panel.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_chat_panel.h:39` | untagged neutral name (D10) |
+| 1 | `Peek_Unknown84` | `app/client/ui_chat_panel.h:40` | neutral (D10) |
+| 1 | `Unknown88` | `app/client/ui_chat_panel.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_chat_panel.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_chat_panel.h:43` | untagged neutral name (D10) |
+| 1 | `UIChatPanelWindowClass` | `app/client/ui_chat_panel.h:47` | neutral (D10) |
+| 1 | `UIChatIntClass` | `app/client/ui_chat_panel.h:55` | neutral (D10): the assert's 'ChatInt' |
+| 1 | `Unknown_A0` | `app/client/ui_chat_panel.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_chat_panel.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_chat_panel.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_chat_panel.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_chat_panel.h:60` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_chat_panel.h:61` | neutral |
+| 1 | `Unknown_B4` | `app/client/ui_chat_panel.h:61` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_chat_panel.h:62` | what 0x5638E0 passes |
+| 1 | `Unknown_B8` | `app/client/ui_chat_panel.h:62` | untagged neutral name (D10) |
+| 1 | `client, a, b, kind` | `app/client/ui_chat_panel.h:64` | what 0x56C180 passes |
+| 1 | `owner` | `app/client/ui_chat_panel.h:65` | neutral |
+| 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_571430` | `app/client/ui_chat_panel.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_chat_panel.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_chat_panel.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_chat_panel.h:79` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_chat_panel.h:80` | intrface.h's |
+| 1 | `Unknown_7C` | `app/client/ui_chat_panel.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_chat_panel.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_chat_panel.h:82` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_chat_panel.h:84` | neutral |
+| 1 | `Unknown_5638E0` | `app/client/ui_chat_panel.h:84` | untagged neutral name (D10) |
+| 1 | `id, flag` | `app/client/ui_chat_panel.h:85` | what cpacket.cpp passes |
+| 1 | `Unknown_563910` | `app/client/ui_chat_panel.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_563C50` | `app/client/ui_chat_panel.h:86` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_chat_panel.h:87` | neutral |
+| 1 | `Unknown_563DC0` | `app/client/ui_chat_panel.h:87` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_chat_panel.h:88` | neutral |
+| 1 | `Unknown_564030` | `app/client/ui_chat_panel.h:88` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_chat_panel.h:89` | neutral |
+| 1 | `Unknown_564150` | `app/client/ui_chat_panel.h:89` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_chat_panel.h:90` | neutral |
+| 1 | `Unknown_564400` | `app/client/ui_chat_panel.h:90` | untagged neutral name (D10) |
+| 1 | `channel` | `app/client/ui_chat_panel.h:91` | neutral |
+| 1 | `Unknown_5646A0` | `app/client/ui_chat_panel.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_564F50` | `app/client/ui_chat_panel.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_565100` | `app/client/ui_chat_panel.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_565120` | `app/client/ui_chat_panel.h:94` | untagged neutral name (D10) |
+| 1 | `back` | `app/client/ui_chat_panel.h:95` | neutral |
+| 1 | `Unknown_565390` | `app/client/ui_chat_panel.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_565BA0` | `app/client/ui_chat_panel.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_565BC0` | `app/client/ui_chat_panel.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_565C00` | `app/client/ui_chat_panel.h:98` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_chat_panel.h:99` | neutral |
+| 1 | `Unknown_565C40` | `app/client/ui_chat_panel.h:99` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_chat_panel.h:100` | cpacket.cpp's |
+| 1 | `Unknown_565D80` | `app/client/ui_chat_panel.h:100` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_chat_panel.h:101` | neutral |
+| 1 | `Unknown_5658B0` | `app/client/ui_chat_panel.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown_565F30` | `app/client/ui_chat_panel.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown_565F80` | `app/client/ui_chat_panel.h:103` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_chat_panel.h:104` | what 0x7436A0 passes |
+| 1 | `Unknown_566AF0` | `app/client/ui_chat_panel.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown_567760` | `app/client/ui_chat_panel.h:105` | untagged neutral name (D10) |
+| 1 | `channel` | `app/client/ui_chat_panel.h:106` | neutral |
+| 1 | `Unknown_567930` | `app/client/ui_chat_panel.h:106` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_chat_panel.h:107` | neutral |
+| 1 | `Unknown_567540` | `app/client/ui_chat_panel.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_567970` | `app/client/ui_chat_panel.h:108` | untagged neutral name (D10) |
+| 1 | `event, channel, name, flag` | `app/client/ui_chat_panel.h:109` | cpacket.cpp's |
+| 1 | `Unknown_5679A0` | `app/client/ui_chat_panel.h:109` | untagged neutral name (D10) |
+| 1 | `code` | `app/client/ui_chat_panel.h:110` | cpacket.cpp's |
+| 1 | `Unknown_567DF0` | `app/client/ui_chat_panel.h:110` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_chat_panel.h:111` | neutral |
+| 1 | `Unknown_5680B0` | `app/client/ui_chat_panel.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/ui_chat_panel.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown_568440` | `app/client/ui_chat_panel.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_5685C0` | `app/client/ui_chat_panel.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_568690` | `app/client/ui_chat_panel.h:115` | untagged neutral name (D10) |
+| 1 | `list` | `app/client/ui_chat_panel.h:116` | neutral |
+| 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_568910` | `app/client/ui_chat_panel.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_568950` | `app/client/ui_chat_panel.h:118` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_chat_panel.h:119` | neutral |
+| 1 | `Unknown_5689D0` | `app/client/ui_chat_panel.h:119` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_chat_panel.h:120` | neutral |
+| 1 | `Unknown_5698F0` | `app/client/ui_chat_panel.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_569A00` | `app/client/ui_chat_panel.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown_56B700` | `app/client/ui_chat_panel.h:122` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_chat_panel.h:123` | what Do_Frame passes |
+| 1 | `Unknown_56BA40` | `app/client/ui_chat_panel.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_56BA80` | `app/client/ui_chat_panel.h:124` | untagged neutral name (D10) |
+| 1 | `show, text` | `app/client/ui_chat_panel.h:125` | what 0x74E710 passes |
+| 1 | `Unknown_56BAA0` | `app/client/ui_chat_panel.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_56BEF0` | `app/client/ui_chat_panel.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown_56C0C0` | `app/client/ui_chat_panel.h:127` | untagged neutral name (D10) |
+| 1 | `window` | `app/client/ui_chat_panel.h:128` | neutral |
+| 1 | `Unknown_56C180` | `app/client/ui_chat_panel.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_56C6A0` | `app/client/ui_chat_panel.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown_56C7E0` | `app/client/ui_chat_panel.h:130` | untagged neutral name (D10) |
+| 1 | `Unknown_56C730` | `app/client/ui_chat_panel.h:131` | untagged neutral name (D10) |
+| 1 | `event, sender` | `app/client/ui_chat_panel.h:132` | neutral |
+| 1 | `Unknown_56C7B0` | `app/client/ui_chat_panel.h:132` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_chat_panel.h:134` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_chat_panel.h:135` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_chat_panel.h:137` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_chat_panel.h:138` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_chat_panel.h:139` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/ui_chat_panel.h:140` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_chat_panel.h:141` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_chat_panel.h:142` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_chat_panel.h:143` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/ui_chat_panel.h:144` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/ui_chat_panel.h:145` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/ui_chat_panel.h:146` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/ui_chat_panel.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/ui_chat_panel.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/ui_chat_panel.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_chat_panel.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_chat_panel.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown10D` | `app/client/ui_chat_panel.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_chat_panel.h:153` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_chat_panel.h:154` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_chat_panel.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_chat_panel.h:156` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_chat_panel.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_chat_panel.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown134` | `app/client/ui_chat_panel.h:159` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/ui_chat_panel.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/ui_chat_panel.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown144` | `app/client/ui_chat_panel.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/ui_chat_panel.h:164` | untagged neutral name (D10) |
+| 1 | `Unknown14C` | `app/client/ui_chat_panel.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown150` | `app/client/ui_chat_panel.h:166` | untagged neutral name (D10) |
+| 1 | `Unknown154` | `app/client/ui_chat_panel.h:167` | untagged neutral name (D10) |
+| 1 | `Unknown158` | `app/client/ui_chat_panel.h:168` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/ui_chat_panel.h:169` | untagged neutral name (D10) |
+| 1 | `Unknown1D8` | `app/client/ui_chat_panel.h:170` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/client/ui_chat_panel.h:171` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/client/ui_chat_panel.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/client/ui_chat_panel.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown1F4` | `app/client/ui_chat_panel.h:174` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/ui_chat_panel.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown214` | `app/client/ui_chat_panel.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown224` | `app/client/ui_chat_panel.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown225` | `app/client/ui_chat_panel.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown226` | `app/client/ui_chat_panel.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown227` | `app/client/ui_chat_panel.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/ui_chat_panel.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/ui_chat_panel.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown248` | `app/client/ui_chat_panel.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown258` | `app/client/ui_chat_panel.h:184` | untagged neutral name (D10) |
+| 1 | `Unknown25C` | `app/client/ui_chat_panel.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown260` | `app/client/ui_chat_panel.h:186` | untagged neutral name (D10) |
+| 1 | `Unknown265` | `app/client/ui_chat_panel.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown266` | `app/client/ui_chat_panel.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown267` | `app/client/ui_chat_panel.h:190` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_class.cpp:28` | 0xBE67C4 |
 | 1 | `Unknown_760770` | `app/client/ui_class.cpp:30` | untagged neutral name (D10) |
 | 1 | `UIClassKeyEventStruct` | `app/client/ui_class.cpp:33` | neutral (D10): kernel.h's input event |
@@ -6993,33 +6989,54 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5BC4` | `app/client/ui_combobox.cpp:59` | neutral (D10): the open combo box (0x57A330 sets it while the list is down) |
 | 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.cpp:62` | neutral (D10) |
 | 1 | `arg` | `app/client/ui_combobox.cpp:72` | neutral |
-| 1 | `Unknown_57A330` | `app/client/ui_combobox.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.cpp:81` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_combobox.cpp:82` | neutral |
-| 1 | `Unknown_57AC70` | `app/client/ui_combobox.cpp:82` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_combobox.cpp:83` | neutral |
-| 1 | `Unknown_57AD50` | `app/client/ui_combobox.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.cpp:85` | neutral (D10) |
-| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.cpp:86` | neutral (D10) |
-| 1 | `Unknown10C` | `app/client/ui_combobox.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_combobox.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_combobox.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/ui_combobox.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown0A0` | `app/client/ui_combobox.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown0A4` | `app/client/ui_combobox.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_combobox.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_combobox.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_combobox.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_combobox.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_combobox.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_combobox.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_combobox.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown0D8` | `app/client/ui_combobox.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown0DC` | `app/client/ui_combobox.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown0F4` | `app/client/ui_combobox.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown0F8` | `app/client/ui_combobox.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown0FC` | `app/client/ui_combobox.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_combobox.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_combobox.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_combobox.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_combobox.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_combobox.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_combobox.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_57AC70` | `app/client/ui_combobox.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_combobox.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_combobox.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_57AD50` | `app/client/ui_combobox.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_57A330` | `app/client/ui_combobox.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_combobox.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown084` | `app/client/ui_combobox.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_combobox.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_combobox.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_combobox.cpp:162` | untagged neutral name (D10) |
+| 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.h:14` | untagged neutral name (D10) |
+| 1 | `Unknown_57A330` | `app/client/ui_combobox.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.h:21` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_combobox.h:22` | neutral |
+| 1 | `Unknown_57AC70` | `app/client/ui_combobox.h:22` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_combobox.h:23` | neutral |
+| 1 | `Unknown_57AD50` | `app/client/ui_combobox.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_57B440` | `app/client/ui_combobox.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.h:26` | neutral (D10) |
+| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.h:27` | neutral (D10) |
+| 1 | `Unknown084` | `app/client/ui_combobox.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_combobox.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_combobox.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown0A4` | `app/client/ui_combobox.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_combobox.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_combobox.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_combobox.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_combobox.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_combobox.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_combobox.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_combobox.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_combobox.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_combobox.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_combobox.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_combobox.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_combobox.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_combobox.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_combobox.h:48` | untagged neutral name (D10) |
 | 1 | `Unknown_Pad` | `app/client/ui_cpit.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown2FC` | `app/client/ui_cpit.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/ui_cpit.cpp:30` | untagged neutral name (D10) |
@@ -12847,10 +12864,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
-| 2 | `Combo` | `app/client/ui_chat_panel.h:142` | the assert's NUM_COMBO |
-| 2 | `MessageButtonShowing` | `app/client/ui_chat_panel.h:193` | its getter's |
-| 2 | `Selected` | `app/client/ui_combobox.cpp:102` | what 0x57AC70 / 0x57AD50 set |
-| 2 | `std:` | `app/client/ui_combobox.cpp:103` | what the rows show |
+| 2 | `Combo` | `app/client/ui_chat_panel.h:136` | the assert's NUM_COMBO |
+| 2 | `MessageButtonShowing` | `app/client/ui_chat_panel.h:187` | its getter's |
+| 2 | `Selected` | `app/client/ui_combobox.h:43` | what 0x57AC70 / 0x57AD50 set |
+| 2 | `std:` | `app/client/ui_combobox.h:44` | what the rows show |
 | 2 | `FontStringFilesClass` | `app/client/ui_cpit.cpp:24` | fontdatabase.h's |
 | 2 | `SoundManager` | `app/client/ui_cpit.cpp:394` | what it holds |
 | 2 | `Object` | `app/client/ui_cpit.h:46` | what it holds |
@@ -15036,16 +15053,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_chat_panel.cpp:57` | ui_manu.cpp's FAIL_IF's |
 | 3 | `GadgetClass` | `app/client/ui_chat_panel.cpp:159` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `NUM_COMBO` | `app/client/ui_chat_panel.h:29` | the assert's |
-| 3 | `UIChatPanelBaseClass` | `app/client/ui_chat_panel.h:33` | class-from-file (D24) for app\client\ui_chat_panel_base.cpp |
-| 3 | `UIChatPanelClass` | `app/client/ui_chat_panel.h:77` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
-| 3 | `manager` | `app/client/ui_chat_panel.h:87` | the FAIL_IF's |
-| 3 | `manager` | `app/client/ui_chat_panel.h:88` | the FAIL_IF's |
-| 3 | `chat_int` | `app/client/ui_chat_panel.h:137` | the FAIL_IF's; NAME 1 [event]: neutral |
-| 3 | `ChatInt` | `app/client/ui_chat_panel.h:166` | the assert's 'ChatInt.Peek()' |
+| 3 | `NUM_COMBO` | `app/client/ui_chat_panel.h:23` | the assert's |
+| 3 | `UIChatPanelBaseClass` | `app/client/ui_chat_panel.h:27` | class-from-file (D24) for app\client\ui_chat_panel_base.cpp |
+| 3 | `UIChatPanelClass` | `app/client/ui_chat_panel.h:71` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
+| 3 | `manager` | `app/client/ui_chat_panel.h:81` | the FAIL_IF's |
+| 3 | `manager` | `app/client/ui_chat_panel.h:82` | the FAIL_IF's |
+| 3 | `chat_int` | `app/client/ui_chat_panel.h:131` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 3 | `ChatInt` | `app/client/ui_chat_panel.h:160` | the assert's 'ChatInt.Peek()' |
 | 3 | `Change_Text` | `app/client/ui_combobox.cpp:16` | the client's label |
 | 3 | `GadgetClass` | `app/client/ui_combobox.cpp:20` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `UIComboBoxClass` | `app/client/ui_combobox.cpp:77` | class-from-file (D24) |
+| 3 | `ui_combobox.h` | `app/client/ui_combobox.h:4` | header name by convention (D24) from the client's ui_combobox.cpp |
+| 3 | `UIComboBoxClass` | `app/client/ui_combobox.h:17` | class-from-file (D24) |
 | 3 | `Change_Text` | `app/client/ui_cpit.cpp:32` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:35` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_cpit.cpp:151` | class-from-file (D24) for app\client\gadget.cpp |

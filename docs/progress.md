@@ -54,7 +54,9 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   tests). POC: character select drawn, no crash, the same first calls. B2.4: tsk_login.h's unused
   `typedef InterfaceClass CharacterViewUnknown1B4Class` deleted (no user left): 9,039 = 9,039. B2.5: ui_group.h's
   stand-in UIGroupMemberUnknown2CClass is ui_cpit.h's UICpitUnknownD0Class (same slots; ui_cpit.h gains 0x5DC390 /
-  0x5DCAE0, ui_group.cpp's cast gone): 9,039 = 9,039.
+  0x5DCAE0, ui_group.cpp's cast gone): 9,039 = 9,039. B2.6 P-TG4-1: UIComboBoxClass moves into a new ui_combobox.h
+  (D137 interim name, NAME 3; forward declarations for ui_combobox.cpp's local stand-ins, Unknown_Show_Selected
+  defined inline in the .cpp before its callers), ui_chat_panel.h's UIChatComboClass gives way to it: 9,039 = 9,039.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2369,8 +2371,7 @@ below name only the work items, the blocked work, the leads and the queues.
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
      delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
-   * From the 2026-10-31 evening run: ui_chat_panel.h's UIChatComboClass is ui_combobox.cpp's UIComboBoxClass (it
-     declares Unknown_57AD50): move the class into a ui_combobox.h, the chat panel using it (P-TG4-1, D137); AvatarUI /
+   * From the 2026-10-31 evening run: AvatarUI /
      ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
      sbaseview 0x69D030 (0x724 bytes) and SBaseView's slots 0x69B5E0 / 0x69C0D0 / 0x69C5A0 / 0x69C5E0 / 0x69C8F0 and
      ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430; ui_avatar_cust 0x550A10's frame-time prologue (register).

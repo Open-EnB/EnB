@@ -13,13 +13,7 @@ class GadgetClass;			// gadget.cpp's
 
 class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_chat_panel.cpp)
 
-// A combo of the panel (Combo[]), as far as this file calls it
-class UIChatComboClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_57B440();								// 0x57B440 (slot +0x7C, before each combo's slot +0x7C)
-	void Unknown_57AD50(const char *text);				// 0x57AD50 (0x5698F0: +0x1F4's text for the first)  // NAME 1 [text]: neutral
-};
+#include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
 // What the chat window's events carry, as far as 0x56C730 reads it
 class UIChatIntEventClass { public: UIChatIntEventClass() : Unknown00(0) {} int Unknown00; };	// NAME 1: neutral (D10): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler)
@@ -139,8 +133,8 @@ public:
 
 	int UnknownA0;										// +0xA0
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)
-	RefCountPtr<UIChatComboClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
-	RefCountPtr<UIChatComboClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
+	RefCountPtr<UIComboBoxClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
+	RefCountPtr<UIComboBoxClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
 	void *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)
 	void *UnknownDC;									// +0xDC
 	void *UnknownE0;									// +0xE0
