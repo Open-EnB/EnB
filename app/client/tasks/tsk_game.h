@@ -73,6 +73,7 @@ public:
 
 // What tsk_game.cpp calls in files that aren't rebuilt (declared here only)
 class INIClass;
+class RenderObjClass;
 INIClass &Get_Network_INI();							// 0x821B40 (connect.cpp)
 int Unknown_Log(const char *tag, const char *format, ...);	// NAME 1 [Unknown_Log]: 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log
 int Unknown_82E1D0();									// NAME 1 [Unknown_82E1D0]: udpconn.cpp
@@ -87,6 +88,7 @@ public:
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
 	void Unknown_7CB610(const char *url);				// 0x7CB610 (LoginTaskClass::Fetch_EA_Ticket: auth.ini's LKeyUrl)
 	void Unknown_7CB6F0(int force);						// 0x7CB6F0 (the tasks' per-frame poll: the lkey check thread started when a deadline passed, its result collected)  // NAME 1 [force]: lets the +0x38 / +0x3C deadlines start it (the game task's 1)
+	unsigned int Unknown_7CA5C0(int unknown, RenderObjClass *object, void *unknown2);	// 0x7CA5C0 (ui_registration.cpp 0x5FB030: 4, its 'LABEL_TEXT', NULL)  // NAME 1 [Unknown_7CA5C0, unknown, object, unknown2]: neutral (D10)
 	std::string Get_String(const char *key);			// 0x7CCF20 (0x7CB8F0: 'lkey')  // NAME 1: what it returns
 	static unsigned long __stdcall Unknown_7CB8F0(void *store);	// 0x7CB8F0: the check thread (WinInet, 'ENBCLIENT'; the reply starting 'Success': 1)  // NAME 1 [store]: CreateThread's parameter
 	void Unknown_7CB3D0();								// 0x7CB3D0 (WinMain's shut-down: ShellExecuteEx, 'Earth & Beyond will now exit to allow you to check your E-Mail')  // NAME 1 [Unknown_7CB3D0]: neutral (D10)

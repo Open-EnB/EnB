@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12553 |
+| 1 | neutral placeholder | 12584 |
 
 ## For review (score 3 and below)
 
@@ -5471,38 +5471,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/tasks/tsk_game.h:67` | untagged neutral name (D10) |
 | 1 | `UnknownA4` | `app/client/tasks/tsk_game.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_Log` | `app/client/tasks/tsk_game.h:77` | 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log |
-| 1 | `Unknown_82E1D0` | `app/client/tasks/tsk_game.h:78` | udpconn.cpp |
-| 1 | `Unknown_5FADE0` | `app/client/tasks/tsk_game.h:79` | ui_registration.cpp |
-| 1 | `Unknown_43FD70` | `app/client/tasks/tsk_game.h:80` | soundlib.cpp |
-| 1 | `Unknown_7CA2D0Class` | `app/client/tasks/tsk_game.h:81` | the settings store 0x7CA2D0 returns |
-| 1 | `Set_String` | `app/client/tasks/tsk_game.h:85` | what it does |
-| 1 | `Set_Int` | `app/client/tasks/tsk_game.h:86` | what it does |
-| 1 | `Set_Int64` | `app/client/tasks/tsk_game.h:87` | what it does |
-| 1 | `Unknown_7CB610` | `app/client/tasks/tsk_game.h:88` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/tasks/tsk_game.h:89` | lets the +0x38 / +0x3C deadlines start it (the game task's 1) |
-| 1 | `Unknown_7CB6F0` | `app/client/tasks/tsk_game.h:89` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/tasks/tsk_game.h:90` | what it returns |
-| 1 | `store` | `app/client/tasks/tsk_game.h:91` | CreateThread's parameter |
-| 1 | `Unknown_7CB8F0` | `app/client/tasks/tsk_game.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB3D0` | `app/client/tasks/tsk_game.h:92` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_game.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/tasks/tsk_game.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/tasks/tsk_game.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/tasks/tsk_game.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown35` | `app/client/tasks/tsk_game.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/tasks/tsk_game.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/tasks/tsk_game.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/tasks/tsk_game.h:101` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/tasks/tsk_game.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/tasks/tsk_game.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/tasks/tsk_game.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/tasks/tsk_game.h:105` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/tasks/tsk_game.h:106` | neutral (D10) |
-| 1 | `Unknown60` | `app/client/tasks/tsk_game.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/tasks/tsk_game.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:109` | a function-static instance |
-| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:112` | neutral (D10); fontdatabase.h declares it too |
+| 1 | `Unknown_Log` | `app/client/tasks/tsk_game.h:78` | 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log |
+| 1 | `Unknown_82E1D0` | `app/client/tasks/tsk_game.h:79` | udpconn.cpp |
+| 1 | `Unknown_5FADE0` | `app/client/tasks/tsk_game.h:80` | ui_registration.cpp |
+| 1 | `Unknown_43FD70` | `app/client/tasks/tsk_game.h:81` | soundlib.cpp |
+| 1 | `Unknown_7CA2D0Class` | `app/client/tasks/tsk_game.h:82` | the settings store 0x7CA2D0 returns |
+| 1 | `Set_String` | `app/client/tasks/tsk_game.h:86` | what it does |
+| 1 | `Set_Int` | `app/client/tasks/tsk_game.h:87` | what it does |
+| 1 | `Set_Int64` | `app/client/tasks/tsk_game.h:88` | what it does |
+| 1 | `Unknown_7CB610` | `app/client/tasks/tsk_game.h:89` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/tasks/tsk_game.h:90` | lets the +0x38 / +0x3C deadlines start it (the game task's 1) |
+| 1 | `Unknown_7CB6F0` | `app/client/tasks/tsk_game.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0, unknown, object, unknown2` | `app/client/tasks/tsk_game.h:91` | neutral (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/tasks/tsk_game.h:91` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/tasks/tsk_game.h:92` | what it returns |
+| 1 | `store` | `app/client/tasks/tsk_game.h:93` | CreateThread's parameter |
+| 1 | `Unknown_7CB8F0` | `app/client/tasks/tsk_game.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB3D0` | `app/client/tasks/tsk_game.h:94` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_game.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/tasks/tsk_game.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/tasks/tsk_game.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/tasks/tsk_game.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown35` | `app/client/tasks/tsk_game.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/tasks/tsk_game.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/tasks/tsk_game.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/tasks/tsk_game.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/tasks/tsk_game.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/tasks/tsk_game.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/tasks/tsk_game.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/tasks/tsk_game.h:107` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/tasks/tsk_game.h:108` | neutral (D10) |
+| 1 | `Unknown60` | `app/client/tasks/tsk_game.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/tasks/tsk_game.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:111` | a function-static instance |
+| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:114` | neutral (D10); fontdatabase.h declares it too |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
 | 1 | `password` | `app/client/tasks/tsk_login.cpp:28` | '123456' |
@@ -8692,26 +8694,55 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2310` | `app/client/ui_popupmsg.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_7693E0` | `app/client/ui_popupmsg.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:9` | 0xBE67C4 |
-| 1 | `RegistrationKey` | `app/client/ui_registration.cpp:11` | client .data 0xB85EFC |
-| 1 | `StatusStrings` | `app/client/ui_registration.cpp:13` | client .data 0xB86004 |
-| 1 | `Sub14CClass` | `app/client/ui_registration.cpp:47` | vtable 0xAF7130 |
-| 1 | `Slot12` | `app/client/ui_registration.cpp:61` | slot 0x30 |
-| 1 | `RegistrationInterface` | `app/client/ui_registration.cpp:64` | provisional (D137) |
-| 1 | `Unknown_5F8DB0` | `app/client/ui_registration.cpp:66` | ui_registration.cpp |
-| 1 | `FontId` | `app/client/ui_registration.cpp:70` | +0x120 (the font manager's key, a render object) |
-| 1 | `Sub14C` | `app/client/ui_registration.cpp:72` | +0x14C |
-| 1 | `StatusIndex` | `app/client/ui_registration.cpp:74` | +0x1B0 |
-| 1 | `Unknown_5F3770` | `app/client/ui_registration.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAF60` | `app/client/ui_registration.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAFF0` | `app/client/ui_registration.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAD50` | `app/client/ui_registration.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_5FADE0` | `app/client/ui_registration.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAE70` | `app/client/ui_registration.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAE90` | `app/client/ui_registration.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_6D0A70` | `app/client/ui_registration.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB330` | `app/client/ui_registration.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB540` | `app/client/ui_registration.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:13` | 0xBE67C4 |
+| 1 | `RegistrationKey` | `app/client/ui_registration.cpp:15` | client .data 0xB85EFC |
+| 1 | `RegistrationServerError` | `app/client/ui_registration.cpp:16` | client .data 0xB85F00 |
+| 1 | `StatusStrings` | `app/client/ui_registration.cpp:18` | client .data 0xB86004 |
+| 1 | `Sub14CClass` | `app/client/ui_registration.cpp:52` | vtable 0xAF7130 |
+| 1 | `Slot11` | `app/client/ui_registration.cpp:65` | slot 0x2C (0x5FB950 hands its result to slot 0x30) |
+| 1 | `Slot12` | `app/client/ui_registration.cpp:66` | slot 0x30 |
+| 1 | `RegistrationCallbackClass` | `app/client/ui_registration.cpp:71` | neutral (D10): the server's replies reach the screen through it |
+| 1 | `Unknown_5F00C0` | `app/client/ui_registration.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_5F00E0` | `app/client/ui_registration.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_5F0100` | `app/client/ui_registration.cpp:77` | untagged neutral name (D10) |
+| 1 | `RegistrationErrorStruct` | `app/client/ui_registration.cpp:81` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_registration.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_registration.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_registration.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_registration.cpp:86` | untagged neutral name (D10) |
+| 1 | `RegistrationInterface` | `app/client/ui_registration.cpp:89` | provisional (D137) |
+| 1 | `Unknown_5F8DB0` | `app/client/ui_registration.cpp:91` | ui_registration.cpp |
+| 1 | `Unknown88` | `app/client/ui_registration.cpp:99` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_registration.cpp:100` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_registration.cpp:101` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_registration.cpp:102` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_registration.cpp:103` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_registration.cpp:104` | untagged neutral name (D10) |
+| 1 | `FontId` | `app/client/ui_registration.cpp:105` | +0x120 (the font manager's key, a render object) |
+| 1 | `Sub14C` | `app/client/ui_registration.cpp:107` | +0x14C |
+| 1 | `StatusIndex` | `app/client/ui_registration.cpp:109` | +0x1B0 |
+| 1 | `Unknown1B4` | `app/client/ui_registration.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown390` | `app/client/ui_registration.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3770` | `app/client/ui_registration.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAF60` | `app/client/ui_registration.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAFF0` | `app/client/ui_registration.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB030` | `app/client/ui_registration.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB890` | `app/client/ui_registration.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAD50` | `app/client/ui_registration.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_5FADE0` | `app/client/ui_registration.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAE70` | `app/client/ui_registration.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAE90` | `app/client/ui_registration.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_registration.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_registration.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/ui_registration.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/ui_registration.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ui_registration.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB330` | `app/client/ui_registration.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB540` | `app/client/ui_registration.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB750` | `app/client/ui_registration.cpp:2866` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB7A0` | `app/client/ui_registration.cpp:2881` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_registration.cpp:2889` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_registration.cpp:2889` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAD50` | `app/client/ui_registration.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_registration.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_registration.h:26` | untagged neutral name (D10) |
