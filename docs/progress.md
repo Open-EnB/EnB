@@ -4,6 +4,25 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (evening, after the handoff): PR #147 verified and merged; prepush_check scans only what a push adds; verify_pr runs only from master
+
+Coordinator Opus 5.5; no builders. Plan log `.work/run-2026-11-03-pm/plan.md`.
+
+- **PR #147 (the run) merged** after vc6-verify success on 0f9cb094c: +5,666 pairs, 6 D66 moves accepted by the
+  maintainer (`/accept-d66 0f9cb094`), D189(2)'s four losses corrected through master's accepted-corrections.json,
+  0 lost outright. Its earlier failures were the host, not the PR: free memory (5.5 GB; MSBuild node-reuse
+  `.NET Host` workers, not antprox), two verifies of #147 at once (the second drops the first's `pr147.vf`
+  worktree), and a run from the main tree on the run branch, whose corrections list lacked the D189 entries.
+- **PR #148 (merged):** the four D189(2) entries in `docs/data/accepted-corrections.json`; prepush_check.py lets
+  docs/data's generated tables reach 25 MB (5 MB elsewhere) and scans only the blobs no remote-tracking ref has
+  (`--base origin/<base>` in CI on a PR, `--full` otherwise): 4 min 47 s -> 4 s. symbols.py writes symbols.json
+  one entry per line (5.93 -> 5.59 MB).
+- **PR #149 (merged):** verify_pr.py refuses unless its checkout is origin/master with no local change under
+  tools/ or to the corrections list (`.work/wt/verifier`); `--no-post` still runs anywhere, printing only, under a
+  `pr<N>.test` record verify_watch.py never lands from.
+- Repo upkeep: `git gc` (.git 283 -> 114 MB), worktrees 51 -> 7 (kept: hc2, mrc, pocin with uncommitted work;
+  poc1, verifier, corr).
+
 ### 2026-11-03 (18:45 PST, afternoon): the POC's character select lit, Karen with hair, blinking and idling, the narrator walks off on Accept; D188 / D189 (+5,421 pairs); multi-instance POC; +2,321 in-tree, lost outright only D189's four accepted
 
 Coordinator Opus 5.5 (Claude weekly 0 % -> ~7 %, the user's soft goal); 21 Claude builders (Opus, two Sonnet), branch
