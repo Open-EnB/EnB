@@ -723,6 +723,9 @@
    "avatar": {
     "ambiguous": [
      "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AFF0",
      "0x42B2F0",
      "0x46BE90",
      "0x474080"
@@ -759,9 +762,14 @@
      "0x77D2B0",
      "0x77D420",
      "0x77E3D0",
+     "0x781880",
+     "0x784A50",
+     "0x784B80",
      "0x7854B0",
      "0x786370",
-     "0x7863E0"
+     "0x7863E0",
+     "0x78A670",
+     "0x78A810"
     ],
     "merged": [],
     "name": "client/avatar.cpp",
@@ -789,6 +797,10 @@
      "0x463340",
      "0x463370",
      "0x53BB50"
+    ],
+    "tiebreak": [
+     "0x78A670",
+     "0x78A810"
     ]
    },
    "avatar_desc": {
@@ -1262,6 +1274,26 @@
      "0x67D300",
      "0x67D320"
     ]
+   },
+   "chat_edit_stream": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4C4410",
+     "0x4C4460",
+     "0x4C44A0",
+     "0x4C44E0",
+     "0x4C4530",
+     "0x4C45B0",
+     "0x4C46E0",
+     "0x4C47B0",
+     "0x4C4850",
+     "0x4C48C0",
+     "0x4C4940"
+    ],
+    "merged": [],
+    "name": "shared/chat_edit_stream.cpp"
    },
    "circbuff": {
     "ambiguous": [],
@@ -17428,6 +17460,7 @@
    "shared/auxdata/unknown_root.h": "reconstructed",
    "shared/avatar_desc.h": "reconstructed",
    "shared/boolpars.h": "reconstructed",
+   "shared/chat_edit_stream.h": "reconstructed",
    "shared/combo_ffactory.h": "reconstructed",
    "shared/data_binder.h": "reconstructed",
    "shared/definition_auto_ptr.h": "reconstructed",
@@ -17481,7 +17514,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 7643,
+  "in_tree_total": 7659,
   "totals": {}
  },
  "binkmovie": {
