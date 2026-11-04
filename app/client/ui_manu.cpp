@@ -437,10 +437,10 @@ void UIManuClass::Unknown_54()
 	Unknown0B0->Unknown_66E460(Create_Peek(Mesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
 	SClient *sclient = Client->As_Space_Client();
-	Unknown0B4 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
+	Unknown0B4 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
-	Unknown0B8 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
+	Unknown0B8 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
 	char buffer[64];
 	for (int k = 0; k < 3; k++) {
 		Unknown0C0[k] = new UIManuUnknownC0Class(k);
@@ -465,7 +465,7 @@ void UIManuClass::Unknown_54()
 	}
 	Unknown0B8->Unknown_54();
 	Unknown0B8->Unknown_7C(View, 0);
-	Unknown0BC = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
+	Unknown0BC = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
 	Unknown0BC->Unknown_54();
 	Unknown0BC->Unknown_7C(View, 0);
 	RefCountPtr<RenderObjClass> tutorial = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
