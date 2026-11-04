@@ -128,6 +128,7 @@ CLIENT_TYPES = {
     0xB009A8: ('InterruptStateType', 0xB01B40, 0x7083B0, 'inline'),
     0xB0100C: ('WW3DLightAttenuationType', 0xB01B78, 0x708520, 'inline'),
     0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
+    0xB03694: ('SkillLevelAvailabilityStruct', 0xB03AB4, 0x759CE0, 'inline'),
 }
 INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133C: 0x708AE0}
 # The enums' conversions the client calls out of line (other files' functions, not rebuilt; stand-ins in
@@ -151,9 +152,17 @@ ENUM_EXTERN = {
 # A blob's operator!= where the client's Set_Value shows it (the rest memcmp): the colour 0xB00A00's
 # accessor Set 0x7080C0 compares the three fields as dwords (cmp/jne, no FPU), the delta's first.
 BLOB_NE = {
+    # 0xB03694: its KVPair's Is_Changed 0x759D30 compares the four ints (cmp/jne), the saved value's first
+    0xB03694: 'inline bool operator!=(const NAME &a, const NAME &b) { return a.I00 != b.I00 || a.I04 != b.I04 || '
+              'a.I08 != b.I08 || a.I0C != b.I0C; }',
     0xB00A00: 'inline bool operator!=(const NAME &a, const NAME &b) { return *(const int *)&a.R != *(const int *)&b.R || '
               '*(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }',
 }
+# A blob's conversions the client calls out of line (another file's functions, not rebuilt; stand-ins in
+# stubs/aux_roots_stubs.cpp): leaf vtable -> (String_To_Value, Value_To_String), from the KVPair's
+# Set_Value_String / Get_Value_String. 0xB03694: 0x75A190 calls 0x84A600 (text, &value), 0x759D00 calls
+# 0x84A560 (buf, size, &value), both in app\Common\skill_level_availability.cpp ('%d,%d,%d,%d', 0xBB0C88).
+BLOB_EXTERN = {0xB03694: (0x84A600, 0x84A560)}
 BLOB_CONV = {
     0xB01A40: ('ProjectedDecalClass',
                'inline bool operator!=(const NAME &a, const NAME &b) '
@@ -555,6 +564,11 @@ class Gen:
                 out.append(f'char *Value_To_String(char *buf, int size, {name} value);\t// 0x{v2s:X}')
                 continue
             out.append(f'inline const char *Type_Name({name} *) {{ return "{tname}"; }}')
+            bext = BLOB_EXTERN.get(vt) if kind != 'enum' else None
+            if bext:
+                out.append(f'bool String_To_Value(const char *text, {name} *value);\t// 0x{bext[0]:X}')
+                out.append(f'char *Value_To_String(char *buf, int size, const {name} &value);\t// 0x{bext[1]:X}')
+                continue
             if conv:
                 out.append(f'inline char *Value_To_String(char *buf, int, {ref}value) {conv[2]}')
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
@@ -577,6 +591,14 @@ class Gen:
         out = [STUBS_HEAD]
         for vt, (kind, size, name) in sorted(self.types.items()):
             ext = ENUM_EXTERN.get(vt) if kind == 'enum' else None
+            bext = BLOB_EXTERN.get(vt) if kind != 'enum' else None
+            if bext:
+                out.append(f'bool String_To_Value(const char *, {name} *)\n{{\n'
+                           f'\tSTUB_CALLED("String_To_Value({name}) (0x{bext[0]:X})");\n\treturn false;\n}}\n')
+                out.append(f'char *Value_To_String(char *buf, int size, const {name} &value)\n{{\n'
+                           f'\tSTUB_CALLED("Value_To_String({name}) (0x{bext[1]:X})");\n'
+                           f'\t_snprintf(buf, size, "%d,%d,%d,%d", value.I00, value.I04, value.I08, value.I0C);\n\treturn buf;\n}}\n')
+                continue
             if not ext:
                 continue
             tn, s2v, v2s = ext

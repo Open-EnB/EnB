@@ -150,12 +150,12 @@ enum UnknownB035E0Enum { UNKNOWN_B035E0_0 };	// vtable 0xB035E0, 4 bytes
 inline const char *Type_Name(UnknownB035E0Enum *) { return "UnknownB035E0Enum"; }
 inline char *Value_To_String(char *buf, int size, UnknownB035E0Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
 inline bool String_To_Value(const char *text, UnknownB035E0Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB035E0Enum)v; return true; }
-// NAME 1: the value type of the leaf vtable 0xB03694 (no name in the client, Net-7 or C#)
-struct UnknownB03694Type { int I00; int I04; int I08; int I0C; UnknownB03694Type() : I00(0), I04(0), I08(0), I0C(0) {} };	// vtable 0xB03694, 16 bytes, zeroed (0x757B00)
-inline bool operator!=(const UnknownB03694Type &a, const UnknownB03694Type &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
-inline const char *Type_Name(UnknownB03694Type *) { return "UnknownB03694Type"; }
-inline char *Value_To_String(char *buf, int size, const UnknownB03694Type &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
-inline bool String_To_Value(const char *, UnknownB03694Type *) { return false; }
+// NAME 5: the client's Get_Type_Name string 'SkillLevelAvailabilityStruct' (KVPair vtable 0xB03AB4, 0x759CE0 inline), leaf vtable 0xB03694
+struct SkillLevelAvailabilityStruct { int I00; int I04; int I08; int I0C; SkillLevelAvailabilityStruct() : I00(0), I04(0), I08(0), I0C(0) {} };	// vtable 0xB03694, 16 bytes, zeroed (0x757B00)
+inline bool operator!=(const SkillLevelAvailabilityStruct &a, const SkillLevelAvailabilityStruct &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08 || a.I0C != b.I0C; }
+inline const char *Type_Name(SkillLevelAvailabilityStruct *) { return "SkillLevelAvailabilityStruct"; }
+bool String_To_Value(const char *text, SkillLevelAvailabilityStruct *value);	// 0x84A600
+char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value);	// 0x84A560
 // NAME 1: the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#)
 enum UnknownB03970Enum { UNKNOWN_B03970_0 };	// vtable 0xB03970, 4 bytes
 inline const char *Type_Name(UnknownB03970Enum *) { return "UnknownB03970Enum"; }
@@ -716,7 +716,7 @@ public:
 	DeltaTemplateClass<int> Level;	// +0x9C
 	DeltaTemplateClass<int> RecycleTime;	// +0x124
 	DeltaTemplateClass<DurationClass> LastActivation;	// +0x1B0
-	DeltaTemplateClass<UnknownB03694Type> Availability;	// +0x240
+	DeltaTemplateClass<SkillLevelAvailabilityStruct> Availability;	// +0x240
 	DeltaTemplateClass<int> QuestOnlyLevels;	// +0x2D4
 	DeltaTemplateClass<int> MaxSkillLevels;	// +0x35C
 	DeltaStringClass Affiliations;	// +0x3E4

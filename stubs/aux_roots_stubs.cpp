@@ -223,3 +223,16 @@ char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value)
 	_snprintf(buf, size, "%d", (int)value);
 	return buf;
 }
+
+bool String_To_Value(const char *, SkillLevelAvailabilityStruct *)
+{
+	STUB_CALLED("String_To_Value(SkillLevelAvailabilityStruct) (0x84A600)");
+	return false;
+}
+
+char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value)
+{
+	STUB_CALLED("Value_To_String(SkillLevelAvailabilityStruct) (0x84A560)");
+	_snprintf(buf, size, "%d,%d,%d,%d", value.I00, value.I04, value.I08, value.I0C);
+	return buf;
+}

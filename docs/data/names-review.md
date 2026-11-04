@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 101 |
+| 5 | the client names it | 102 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12661 |
+| 1 | neutral placeholder | 12660 |
 
 ## For review (score 3 and below)
 
@@ -58,7 +58,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB016DCType` | `app/client/aux_roots.h:108` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:143` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:148` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB03694Type` | `app/client/aux_roots.h:153` | the value type of the leaf vtable 0xB03694 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03970Enum` | `app/client/aux_roots.h:159` | the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:186` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown04` | `app/client/aux_roots.h:388` | untagged neutral name (D10) |
