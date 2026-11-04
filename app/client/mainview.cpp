@@ -17,7 +17,7 @@
 #include "..\..\wwdebug\wwprofile.h"
 #include "..\..\ww3d2\colorspace.h"
 #include "ui_group.h"
-
+#include "ui_buff.h"
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
 // the +0x10C scene (0x75ECF0, 0xF4 bytes)
@@ -313,7 +313,7 @@ void MainViewClass::Unknown_08()
 	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Cpit->Unknown_54();
 	Unknown_6B4940(Cpit);
-	Unknown1D4 = new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20.Peek()));
+	Unknown1D4 = new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown1D4->Unknown_54();
 	Unknown_6B4940(Unknown1D4);
 	Group = new UIGroupClass(Client);

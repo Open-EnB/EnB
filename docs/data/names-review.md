@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1204 |
-| 2 | describes what the code does | 3004 |
-| 1 | neutral placeholder | 13137 |
+| 3 | by convention from a client-named file or sibling | 1207 |
+| 2 | describes what the code does | 3007 |
+| 1 | neutral placeholder | 13178 |
 
 ## For review (score 3 and below)
 
@@ -3506,7 +3506,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/mainview.cpp:310` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/mainview.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/mainview.cpp:313` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1D4Class` | `app/client/mainview.cpp:316` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/mainview.cpp:321` | untagged neutral name (D10) |
 | 1 | `MainViewUnknown1E4Class` | `app/client/mainview.cpp:322` | untagged neutral name (D10) |
 | 1 | `MainViewUnknown1DCClass` | `app/client/mainview.cpp:325` | untagged neutral name (D10) |
@@ -3933,7 +3932,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1A8` | `app/client/sbaseview.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown0F1` | `app/client/sbaseview.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown1AC` | `app/client/sbaseview.cpp:141` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1D4Class` | `app/client/sbaseview.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/sbaseview.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/sbaseview.cpp:153` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/sbaseview.cpp:162` | untagged neutral name (D10) |
@@ -4171,7 +4169,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown190` | `app/client/sbaseview.h:184` | untagged neutral name (D10) |
 | 1 | `Unknown198` | `app/client/sbaseview.h:185` | untagged neutral name (D10) |
 | 1 | `Unknown1A8` | `app/client/sbaseview.h:187` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1D4Class` | `app/client/sbaseview.h:188` | untagged neutral name (D10) |
 | 1 | `Unknown1AC` | `app/client/sbaseview.h:188` | untagged neutral name (D10) |
 | 1 | `Unknown1B0` | `app/client/sbaseview.h:189` | untagged neutral name (D10) |
 | 1 | `Unknown1B4` | `app/client/sbaseview.h:190` | untagged neutral name (D10) |
@@ -4695,8 +4692,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/client/sclient.h:437` | untagged neutral name (D10) |
 | 1 | `type, amount, time` | `app/client/sclient.h:440` | what Shake_Camera passes |
 | 1 | `Unknown_6E32E0` | `app/client/sclient.h:440` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown1D4Class` | `app/client/sclient.h:450` | neutral (D10) |
-| 1 | `view, layer` | `app/client/sclient.h:453` | what 0x50C690 passes |
 | 1 | `MainViewUnknown1E4Class` | `app/client/sclient.h:458` | neutral (D10) |
 | 1 | `client` | `app/client/sclient.h:461` | what 0x50C690 passes |
 | 1 | `Unknown_64` | `app/client/sclient.h:462` | untagged neutral name (D10) |
@@ -7189,6 +7184,52 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `key` | `app/client/ui_bio.h:23` | InterfaceClass's |
 | 1 | `Unknown_68` | `app/client/ui_bio.h:23` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_bio.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_buff.cpp:19` | untagged neutral name (D10) |
+| 1 | `UIBuffElementStruct` | `app/client/ui_buff.cpp:21` | neutral (D10) |
+| 1 | `UIBuffInfoStruct` | `app/client/ui_buff.cpp:27` | neutral (D10) |
+| 1 | `UIBuffGadgetClass` | `app/client/ui_buff.cpp:35` | neutral (D10) |
+| 1 | `client, info, robj, unknown, layer` | `app/client/ui_buff.cpp:38` | what 0x560D20 passes; NAME 3 [buffinfo]: the asserts' |
+| 1 | `info, now` | `app/client/ui_buff.cpp:39` | what 0x560BC0 passes |
+| 1 | `Unknown_6661F0` | `app/client/ui_buff.cpp:39` | untagged neutral name (D10) |
+| 1 | `good` | `app/client/ui_buff.cpp:40` | what it gets (BuffDefStruct::IsGoodBuff) |
+| 1 | `Unknown_666440` | `app/client/ui_buff.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_buff.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown85` | `app/client/ui_buff.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_buff.cpp:46` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_buff.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_buff.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_buff.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_buff.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_560FA0` | `app/client/ui_buff.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_buff.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_buff.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_561030` | `app/client/ui_buff.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_560BC0` | `app/client/ui_buff.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_buff.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_561B40` | `app/client/ui_buff.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_560D20` | `app/client/ui_buff.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_buff.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_5BB4F0` | `app/client/ui_buff.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_buff.cpp:162` | untagged neutral name (D10) |
+| 1 | `ui_buff.h` | `app/client/ui_buff.h:4` | provisional header name for ui_buff.cpp |
+| 1 | `UIBuffClass` | `app/client/ui_buff.h:14` | from the client's file ui_buff.cpp |
+| 1 | `Unknown5BB320Class` | `app/client/ui_buff.h:14` | untagged neutral name (D10) |
+| 1 | `MAX_BUFFS` | `app/client/ui_buff.h:17` | the ship's BuffArray's count (the loops' 15) |
+| 1 | `view, layer` | `app/client/ui_buff.h:19` | the base 0x5BB250's (0x50C690 passes the main view) |
+| 1 | `Unknown_58` | `app/client/ui_buff.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_buff.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_buff.h:23` | untagged neutral name (D10) |
+| 1 | `info` | `app/client/ui_buff.h:25` | neutral; NAME 3 [slot]: the asserts' 'BuffTable[slot]' |
+| 1 | `Unknown_560BC0` | `app/client/ui_buff.h:25` | untagged neutral name (D10) |
+| 1 | `type, info` | `app/client/ui_buff.h:26` | neutral; NAME 3 [slot]: the asserts' |
+| 1 | `Unknown_560D20` | `app/client/ui_buff.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_560FA0` | `app/client/ui_buff.h:27` | untagged neutral name (D10) |
+| 1 | `good` | `app/client/ui_buff.h:28` | what it tells (BuffDefStruct::IsGoodBuff) |
+| 1 | `Unknown_561B40` | `app/client/ui_buff.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_561030` | `app/client/ui_buff.h:29` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_buff.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
 | 1 | `AvatarPipUnknown2CClass` | `app/client/ui_chat_panel.cpp:27` | neutral (D10) |
@@ -14272,6 +14313,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add` | `app/client/ui_avsel.cpp:230` | as sclient.cpp's |
 | 2 | `Remove` | `app/client/ui_avsel.cpp:231` | as sclient.cpp's |
 | 2 | `Layer` | `app/client/ui_avsel.h:68` | what it holds |
+| 2 | `std:` | `app/client/ui_buff.cpp:23` | the aux fields' |
+| 2 | `Magnitude` | `app/client/ui_buff.cpp:24` | the aux fields' |
+| 2 | `std:` | `app/client/ui_buff.cpp:30` | the aux fields' |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
@@ -16486,6 +16530,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:357` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |
 | 3 | `AvatarSelectionInterface` | `app/client/ui_avsel.h:21` | the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>) |
 | 3 | `BuddyReferralUI` | `app/client/ui_avsel.h:69` | the assert's |
+| 3 | `std:` | `app/client/ui_buff.cpp:31` | gd_buffgadg.cpp's assert 'index >= Elements.size()' |
+| 3 | `slot` | `app/client/ui_buff.h:27` | the asserts' |
+| 3 | `BuffTable` | `app/client/ui_buff.h:32` | the asserts' 'BuffTable[slot]' |
 | 3 | `Change_Text` | `app/client/ui_chat_panel.cpp:20` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_chat_panel.cpp:23` | fontmanager.h's |
 | 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |

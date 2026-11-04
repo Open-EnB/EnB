@@ -23,7 +23,7 @@
 #include "..\..\ww3d2\predlod.h"
 #include "..\packets\pkaction.h"
 #include "..\..\ww3d2\layer.h"
-
+#include "ui_buff.h"
 
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
@@ -138,7 +138,7 @@ void SBaseViewClass::Unknown_04()
 	Unknown1A8->Unknown0F1 = true;
 	Unknown1A8->Unknown_54();
 	Unknown1A8->Unknown_7C(this, 0);
-	Unknown1AC = Create_NEW(new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20.Peek())));
+	Unknown1AC = Create_NEW(new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek())));
 	Unknown1AC->Unknown_54();
 	Unknown_6B4940(Unknown1AC.Peek());
 	RKey = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
