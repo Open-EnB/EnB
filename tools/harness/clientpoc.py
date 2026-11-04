@@ -3,6 +3,9 @@
     python tools/harness/clientpoc.py run [--seconds N] [--fullscreen] [--shots N,M,...] [-- CLIENT ARGS...]
     python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
     python tools/harness/clientpoc.py log         the last run's stubs.log, digested
+    python tools/harness/clientpoc.py clean --instance NAME | --all | --older HOURS
+                                                  delete instances (a builder its own before reporting; the
+                                                  coordinator --all at handoff); junctions unlinked, never followed
 
 Several runs at once (builders): give each its own --instance NAME. The run then uses
 C:\\EnBDevelopment\\ClientPOC\\inst\\NAME\\release beside its own inst\\NAME\\Data (so the client's ..\\Data paths
@@ -187,7 +190,7 @@ class Inst:
 
 
 def descendants(pid):
-    """(PID, image name) of every process below pid (Toolhelp32)."""
+    """(PID, image name) of every process below pid (Toolhelp32); pid None: every process."""
     class PE(ctypes.Structure):
         _fields_ = [('dwSize', wintypes.DWORD), ('cntUsage', wintypes.DWORD), ('pid', wintypes.DWORD),
                     ('heap', ctypes.c_void_p), ('mod', wintypes.DWORD), ('threads', wintypes.DWORD),
@@ -204,6 +207,8 @@ def descendants(pid):
         procs.append((e.pid, e.ppid, e.exe.decode('latin1').lower()))
         ok = k.Process32Next(snap, ctypes.byref(e))
     k.CloseHandle(snap)
+    if pid is None:                                     # every process
+        return [(p, name) for p, _, name in procs]
     found, todo = [], [pid]
     while todo:
         cur = todo.pop()
@@ -466,9 +471,77 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
     print('antprox output:', os.path.join(out, 'antprox.out'))
 
 
+def running_from(folder):
+    """PIDs of client.exe processes whose image lies under folder (QueryFullProcessImageNameW)."""
+    k = ctypes.windll.kernel32
+    k.OpenProcess.restype = wintypes.HANDLE
+    pids = [p for p, name in descendants(None) if name == 'client.exe']
+    hit, root = [], os.path.normcase(os.path.abspath(folder)) + os.sep
+    for p in pids:
+        h = k.OpenProcess(0x1000, False, p)              # PROCESS_QUERY_LIMITED_INFORMATION
+        if not h:
+            continue
+        buf, n = ctypes.create_unicode_buffer(1024), wintypes.DWORD(1024)
+        if k.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(n)) and \
+                os.path.normcase(buf.value).startswith(root):
+            hit.append(p)
+        k.CloseHandle(h)
+    return hit
+
+
+def _is_link(p):
+    """A junction or symlink (os.walk would descend into a junction)."""
+    return os.path.islink(p) or bool(getattr(os.lstat(p), 'st_reparse_tag', 0))
+
+
+def _walk_own(base):
+    """os.walk over base that never enters a junction; yields (dirpath, files, links)."""
+    for dirpath, dirnames, files in os.walk(base):
+        links = [d for d in dirnames if _is_link(os.path.join(dirpath, d))]
+        dirnames[:] = [d for d in dirnames if d not in links]
+        yield dirpath, files, links
+
+
+def remove_instance(base):
+    """Delete an instance folder: its junctions into ClientPOC\\Data are unlinked first (os.rmdir on the junction
+    itself), never followed, so the shared data stays; then the rest (its own copies, logs, exe) is deleted."""
+    for dirpath, _, links in list(_walk_own(base)):
+        for d in links:
+            os.rmdir(os.path.join(dirpath, d))           # the link only
+    shutil.rmtree(base)
+
+
+def clean(name=None, older=None):
+    """Delete ClientPOC\\inst\\NAME (or every instance, or those unused for `older` hours), skipping any whose
+    client still runs. Shots and antprox logs stay in .work/poc/shots."""
+    top = os.path.join(os.path.dirname(RELEASE), 'inst')
+    names = [name] if name else (sorted(os.listdir(top)) if os.path.isdir(top) else [])
+    freed = 0
+    for n in names:
+        base = os.path.join(top, n)
+        if not os.path.isdir(base):
+            print(f'{n}: no such instance')
+            continue
+        if older is not None and time.time() - os.stat(os.path.join(base, 'release')
+                                                         if os.path.isdir(os.path.join(base, 'release'))
+                                                         else base).st_mtime < older * 3600:
+            continue
+        busy = running_from(base)
+        if busy:
+            print(f'{n}: client.exe still running (pid {", ".join(map(str, busy))}); kept')
+            continue
+        size = sum(os.path.getsize(os.path.join(d, f)) for d, fs, _ in _walk_own(base) for f in fs)
+        remove_instance(base)
+        freed += size
+        print(f'{n}: removed')
+    print(f'clean: {freed / 1048576:.0f} MB freed')
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('command', choices=['run', 'replay', 'log'])
+    ap.add_argument('command', choices=['run', 'replay', 'log', 'clean'])
+    ap.add_argument('--all', action='store_true', help='clean: every instance')
+    ap.add_argument('--older', type=float, metavar='HOURS', help='clean: instances unused for HOURS')
     ap.add_argument('--seconds', type=int, default=40)
     ap.add_argument('--fullscreen', action='store_true')
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
@@ -479,6 +552,10 @@ def main():
                     help='-ENABLE_MESSAGES and msglisten.py beside the client: <shots dir>\\messages.log')
     ap.add_argument('args', nargs='*')
     a = ap.parse_args()
+    if a.command == 'clean':
+        if not (a.instance or a.all or a.older is not None):
+            raise SystemExit('clean needs --instance NAME, --all or --older HOURS')
+        return clean(a.instance, a.older)
     inst = Inst(a.instance, a.exe)
     if a.command == 'run':
         run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)

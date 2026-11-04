@@ -63,6 +63,10 @@ LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inli
 `importer.py verify --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).
 
+**POC instances.** Run the POC client only through `clientpoc.py run|replay --instance NAME` (your builder id),
+never by copying builds into `C:\EnBDevelopment\ClientPOC` yourself. Before you report, delete yours:
+`python tools/harness/clientpoc.py clean --instance NAME` (your shots stay in .work/poc/shots).
+
 **Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
 `.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
