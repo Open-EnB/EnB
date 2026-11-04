@@ -41,11 +41,12 @@ public:
 	virtual void Unknown_1C4();							// +0x1C4 (0x54CAE0, last)
 };
 
+struct UIAvatarCustGadgetUnknown08Struct { char Unknown00[0x30]; RenderObjClass *Unknown30; };	// gadget.h's slot +0x08 return: the model at +0x30 (as ui_avatr.cpp's)  // NAME 1: neutral (D10)
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatarCustGadgetUnknown08Struct *Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -121,6 +122,7 @@ public:
 	GadgetClass *Gadget;								// +0x00  // NAME 1: as gadget.h's
 };
 
+void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ro_funcs.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as gadget.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 
@@ -240,6 +242,9 @@ public:
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
+	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (avatar.h's: Hair_Color)  // NAME 1 [color, rebuild]: avatar.h's
+	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (avatar.h's: Eye_Color)  // NAME 1 [color]: avatar.h's
+	void Unknown_780680(int index, Vector3 color);		// 0x780680 (avatar.h's: Skin_Color, the shirt's and pants' colours by index 1 .. 4)  // NAME 1 [index, color]: avatar.h's
 	void Unknown_785C00(const Vector3 &offset);		// 0x785C00 (avatar.cpp's: the tattoo offset; 0x54F6F0)  // NAME 1 [offset]: avatar.cpp's
 	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (0x550970 passes the client's EnvironmentMapManager)  // NAME 1 [unknown]: neutral
 
@@ -291,7 +296,7 @@ public:
 	virtual bool Unknown_68(int key);					// +0x68 0x54CBC0 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
 	void Set_Unknown30C(float u, float v) { Unknown30C = u; Unknown310 = v; }	// NAME 1: neutral (D10): inline (0x54F390 computes v first)  // NAME 1 [u, v]: neutral
 	void Unknown_54F390(int arg);						// 0x54F390 (0x54CAE0 in mode 1: 1; the head pull dragged: its point +0x30C)  // NAME 1 [arg]: neutral
-	void Unknown_54FAA0();								// 0x54FAA0 (0x54CAE0)
+	void Unknown_54FAA0();								// 0x54FAA0 (0x54CAE0: the colour pull dragged, the part's colour from the palette)
 	void Unknown_54D720(int text);						// 0x54D720 (the palette's texture: 'text1' .. 'text7', as ui_avatr.cpp's 0x555F60)  // NAME 1 [text]: neutral
 	void Unknown_54D8A0();								// 0x54D8A0 (the colour pull made, +0x31C; as ui_avatr.cpp's 0x5560E0)
 	void Unknown_54DA50();								// 0x54DA50 (the head pull made, +0x308; as ui_avatr.cpp's 0x556290)
@@ -863,8 +868,8 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 		int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 		model->Capture_Bone(bone);
 		Matrix3D tm = pull->Unknown04->Get_Transform();
-		tm[0][3] = x - box.Center.X;
-		tm[1][3] = y - box.Center.Y;
+		tm.Set_X_Translation(x - box.Center.X);
+		tm.Set_Y_Translation(y - box.Center.Y);
 		tm[2][3] = 0.0f;
 		model->Control_Bone(bone, tm, false);
 		top = box.Center.Y - box.Extent.Y;
@@ -919,6 +924,89 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	Unknown30C = point.X;
 	Unknown310 = point.Y;
 	Unknown0BC->Unknown_785C00(Vector3(point.X, 1.0f - point.Y, Unknown314.X));
+}
+
+// 0x54FAA0
+void StarbaseAvatarCreationInterface::Unknown_54FAA0()
+{
+	if (((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown64) {
+		Unknown31C->Unknown08 = true;
+	}
+	if ((((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown64 || ((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown65) && Unknown31C->Unknown08) {
+		AABoxClass box;
+		Unknown31C->Unknown00->Unknown_64(box);
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
+		RenderObjClass *model = Mesh->Peek_Object();
+		int bone = model->Get_Sub_Object_Bone_Index(Unknown31C->Unknown04);
+		model->Capture_Bone(bone);
+		Matrix3D tm = Unknown31C->Unknown04->Get_Transform();
+		tm.Set_X_Translation(x - box.Center.X);
+		tm.Set_Y_Translation(y - box.Center.Y);
+		model->Control_Bone(bone, tm, false);
+		Vector2 point;
+		point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		float cu;
+		if (point.X < 0.01f) {
+			cu = 0.01f;
+		} else if (point.X > 0.99f) {
+			cu = 0.99f;
+		} else {
+			cu = point.X;
+		}
+		float cv;
+		if (point.Y < 0.01f) {
+			cv = 0.01f;
+		} else if (point.Y > 0.99f) {
+			cv = 0.99f;
+		} else {
+			cv = point.Y;
+		}
+		Vector3 color;
+		UIAvatarCustGadgetUnknown08Struct *area = Unknown31C->Unknown00->Unknown_08();
+		Unknown_496C00(area->Unknown30, cu, 1.0f - cv, &color);
+		Unknown320[Unknown358].Set(cu, cv);
+		switch (Unknown358) {
+			case 0:
+				Unknown0BC->Unknown_77FFA0(color, true);
+				break;
+			case 1:
+				Unknown0BC->Unknown_7804A0(color);
+				break;
+			case 2:
+				Unknown0BC->Unknown_780680(0, color);
+				break;
+			case 3:
+				Unknown0BC->Unknown_780680(1, color);
+				Unknown_550970(-1);
+				break;
+			case 4:
+				Unknown0BC->Unknown_780680(2, color);
+				Unknown_550970(-1);
+				break;
+			case 5:
+				Unknown0BC->Unknown_780680(3, color);
+				Unknown_550970(-1);
+				break;
+			case 6:
+				Unknown0BC->Unknown_780680(4, color);
+				Unknown_550970(-1);
+				break;
+		}
+		Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+		Unknown_551BF0();
+	} else {
+		Unknown31C->Unknown08 = false;
+	}
+	((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown_671630();
 }
 
 // NOT EXACT: order-only (292 bytes, the same 91 instructions: Control_Bone's `push 0` comes before the matrix copy, the
@@ -1182,94 +1270,6 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		Unknown240[10]->Unknown_6608F0();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
