@@ -1472,10 +1472,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_721CC0` | `app/client/control_key_list.cpp:13` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/control_key_list.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_721CF0` | `app/client/control_key_list.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_429AF0` | `app/client/control_key_list.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_429D90` | `app/client/control_key_list.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_721F40` | `app/client/control_key_list.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_721F80` | `app/client/control_key_list.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_429AF0` | `app/client/control_key_list.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_429D90` | `app/client/control_key_list.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_721F40` | `app/client/control_key_list.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_721F80` | `app/client/control_key_list.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44E0` | `app/client/control_keys_manager.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_42A1A0` | `app/client/control_keys_manager.cpp:11` | neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry |
 | 1 | `Unknown_42A410` | `app/client/control_keys_manager.cpp:12` | neutral (D10): 0x42A410 (app\input), a key written to an ini entry |
