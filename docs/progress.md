@@ -20,6 +20,16 @@ the aux_roots generator's next edit (the user).
   nothing), replay 0. clienttest 103 / 0: its 0xBE67C4 is an empty FontManagerClass (members only), ui_stubs.cpp's
   second definition gone, expected.txt loses `gen LoadingViewFontManagerClass::Unknown_6D2310`. POC: character select,
   no crash, the same first calls.
+- **symbols.json regenerated (quiet tree, stacked on P-FU1-2; 43ac8a37):** full verify of all eleven libraries before
+  (equal to the record) and after, pairs_cmp empty in every category, replay 0; 127 entries take tonight's renamed
+  mangled names, function/exact 16,094 -> 16,134.
+- **.work/pseudo/ (the user: never lose its files again):** found empty (wiped 18:52, before this session; worktrees
+  reach it through wt.py's junction). The old refresh ("delete, rerun") also lost every function that had become exact,
+  since a plain run skips those. pseudocode.py gains `--all` (every function start, exact ones included, in place) and
+  `--check` (starts without a file, triage requests without one; exit 1 if a start was never decompiled); CLAUDE.md,
+  tools/re/README.md and workflow.md §3.6 say so. `--all` took 83 s: 29,804 of 29,817 starts decompiled (13 no
+  function), triage's full.jsonl 14,753 requests all covered. Zip copy `.work/pseudo-backup/pseudo-2026-11-03.zip`
+  (13 MB).
 - **Quit at character select (the user, run 4):** the shutdown faults: ~LoginTaskClass -> CharacterViewClass::Unknown_10
   -> UIViewClass::Unknown_10 reads 0x29282726 (string bytes as a pointer). **Master 1ff6d912 does the same** (its POC
   built in a worktree, linked outside ClientPOC\release): not P-FU1-2's; §4 item. Scripted runs never quit before (killed

@@ -1,8 +1,15 @@
 """Ghidra pseudocode of client.exe's functions, decompiled ahead of need into .work/pseudo/.
 
     python pseudocode.py                     every function not yet byte-exact, not yet decompiled
+    python pseudocode.py --all               every function start, byte-exact ones included, decompiled again in place
+                                             (the refresh after symbols.json gains names; nothing is deleted)
+    python pseudocode.py --check             which function starts (and triage.py's request addresses) have no file
     python pseudocode.py ADDR...             these functions (decompiled again)
     python pseudocode.py --show ADDR...      print the saved pseudocode
+
+Never delete .work/pseudo/ to refresh it (2026-11-03): a plain run decompiles only functions not yet exact, so a
+delete-and-rerun loses every file of a function that became exact since, and triage.py's requests and appfile.py's
+drafts read those too. Refresh with --all, then --check.
 
 Runs Ghidra's headless analyzer itself instead of going through REA: REA can only decompile
 functions Ghidra's auto-analysis found, and that misses methods reached only through a vtable
@@ -102,10 +109,37 @@ def remove_outputs(addrs):
         f.writelines(line for line in rows if line.split('\t', 1)[0] not in gone)
 
 
+def check(starts):
+    """Counts the function starts with and without a file, and lists the addresses triage.py's request files
+    hold (each sent its pseudocode) that have none. Exit 1 when any start lacks a file."""
+    have = {int(os.path.basename(p)[:-2], 16) for p in glob.glob(os.path.join(OUT, '*.c'))}
+    index = os.path.join(OUT, 'index.tsv')
+    status = {}
+    if os.path.exists(index):
+        for line in open(index, encoding='utf-8'):
+            if line.strip():
+                cols = line.rstrip('\n').split('\t')
+                status[int(cols[0], 16)] = cols[1]
+    missing = [va for va in starts if va not in have]
+    unexplained = [va for va in missing if status.get(va) not in ('failed', 'no_function')]
+    print(f'{len(starts)} function starts: {len(starts) - len(missing)} with pseudocode, {len(missing)} without '
+          f'({len(missing) - len(unexplained)} failed or no function in index.tsv, {len(unexplained)} never decompiled)')
+    for name in sorted(glob.glob(os.path.join(ROOT, '.work', 'triage', 'requests', '*.jsonl'))):
+        if os.path.basename(name).startswith('calib'):
+            continue                                    # calib reads .work/triage/calib_pseudo/
+        sent = [int(json.loads(l)['custom_id'][3:], 16) for l in open(name, encoding='utf-8') if l.strip()]
+        lost = [va for va in sent if va not in have]
+        print(f'{os.path.relpath(name, ROOT)}: {len(sent)} requests, {len(lost)} without a file now'
+              + (': ' + ' '.join(f'0x{va:X}' for va in lost[:20]) + (' ...' if len(lost) > 20 else '') if lost else ''))
+    return 1 if unexplained else 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('addrs', nargs='*', type=parse_addr)
     ap.add_argument('--show', action='store_true', help='print saved pseudocode instead of decompiling')
+    ap.add_argument('--all', action='store_true', help='every function start, byte-exact ones included, decompiled again')
+    ap.add_argument('--check', action='store_true', help='list the function starts and triage requests without a file')
     ap.add_argument('--client', default=DEFAULT_CLIENT)
     ap.add_argument('--timeout', type=int, default=60, help='decompiler seconds per function')
     ap.add_argument('--limit', type=int, help='decompile at most N targets (trial runs)')
@@ -122,8 +156,13 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(PROJECT_DIR, exist_ok=True)
     drop = []
+    if args.check:
+        return check(starts)
     if args.addrs:
         targets = args.addrs
+    elif args.all:
+        drop, redo = false_start_leftovers(img, starts, exact)
+        targets = sorted(set(starts))
     else:
         drop, redo = false_start_leftovers(img, starts, exact)
         done = {int(os.path.basename(p)[:-2], 16) for p in glob.glob(os.path.join(OUT, '*.c'))}
@@ -174,4 +213,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
