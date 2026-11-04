@@ -13,6 +13,7 @@
 #include "local_interface_sort.h"
 #include <new>
 #include "aabox.h"
+#include "..\shared\avatar_desc.h"
 
 class SignalMap;
 class AABoxClass;
@@ -156,6 +157,10 @@ public:
 	void Unknown_67C200(Vector2 *offsets, int size, int which);	// 0x67C200
 	void Unknown_67C2E0(Vector2 *out, int index);		// 0x67C2E0
 	void Unknown_67C340(Vector3 *out, int index);		// 0x67C340
+	void Unknown_67C270(const Vector2 *offsets, int size, int which);	// 0x67C270 (charview.h's: the offsets in)
+	void Unknown_67C310(const Vector2 *in, int index);	// 0x67C310
+	void Unknown_67C380(const Vector3 *in, int index);	// 0x67C380
+	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (out of line in this file: +0x88 = desc; ui_avsel.cpp's too)  // NAME 1 [desc]: neutral
 	void Unknown_67C7B0();								// 0x67C7B0
 	void Unknown_67C920(std::string name);				// 0x67C920
 	char Unknown00[0x14];								// +0x00
@@ -165,7 +170,7 @@ public:
 	char Unknown38[0x68 - 0x38];						// +0x38
 	CameraClass *Unknown068;							// +0x68
 	char Unknown6C[0x88 - 0x6C];						// +0x6C
-	char Unknown088[0x194 - 0x88];						// +0x88 (an AvatarDescClass)
+	AvatarDescClass Unknown088;							// +0x88
 	UIAvatrUnknown194Class *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
 	UIAvatrUnknown194Class *Unknown194;					// +0x194 (AvatarRObj)
 	char Unknown198[0x1B8 - 0x198];						// +0x198
@@ -458,7 +463,6 @@ public:
 	ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675240 (the screens pass 0x55, 3)
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
-class AvatarDescClass { public: AvatarDescClass(); };	// avatar_desc.h's (0x10C bytes; tsk_login.h's include of charview.h keeps it out)  // NAME 1: avatar_desc.h's
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
 // NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the
@@ -517,7 +521,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	if (Unknown08C->Unknown1BC == NULL) {
 		Unknown08C->Unknown_67AB20(1, "FE01C");
 		Unknown08C->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 60.0f);
-		Unknown08C->Unknown_67A440((AvatarDescClass *)Unknown08C->Unknown088, false);
+		Unknown08C->Unknown_67A440(&Unknown08C->Unknown088, false);
 		Unknown08C->Peek_Unknown194()->Unknown232 = true;
 	}
 	Unknown08C->Unknown_67B4F0(false);
@@ -1095,6 +1099,24 @@ void AvatarCreationInterface::Unknown_5598D0()
 {
 	Unknown_556630(0, false);
 	if (Unknown094) Unknown094->Unknown_40(false);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x559350 (the avatar's Desc at +0xF8, avatar.h's)
+// 0x559350
+void AvatarCreationInterface::Unknown_559350()
+{
+	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	Unknown08C->Unknown_5594B0(*(AvatarDescClass *)((char *)desc.Peek() + 0xF8));
+	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Unknown110);
+	Unknown08C->Unknown_67C310(&Unknown164, desc->Unknown110);
+	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Unknown110);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment)
+// 0x5594B0
+void CharacterViewClass::Unknown_5594B0(AvatarDescClass desc)
+{
+	Unknown088 = desc;
 }
 
 // 0x559F30
