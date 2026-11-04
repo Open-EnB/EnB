@@ -52,7 +52,7 @@ static inline SClientUnknown1338Class *Unknown_Inline_Env_Maps(CharacterViewClas
 
 
 
-extern bool Unknown_BFAE52;								// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
+// 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): FE_ROOM loads overbright
 
 // sclient.cpp's env map object (0x24 bytes): its implicit destructor is out of line here (0x679820)
 class Unknown67D360Class		// NAME 1: neutral (D10): 0x14 bytes (env_map_manager.cpp's); its destructor out of line here (0x67D360)
@@ -686,7 +686,7 @@ void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 {
 	Unknown_67A9B0(type);
 	if (type == 2) {
-		Unknown_BFAE52 = true;
+		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
 	if (ViewRObjs[type] == NULL) {
 		ViewRObjs[type] = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
@@ -716,7 +716,7 @@ void CharacterViewClass::Unknown_67AB20(int type, const char *name)
 			}
 		}
 	}
-	Unknown_BFAE52 = false;
+	WW3D::Enable_Overbright_Modify_On_Load(false);
 }
 
 // 0x67ACE0

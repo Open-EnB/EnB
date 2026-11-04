@@ -1425,7 +1425,7 @@ bool ScriptedMovieViewClass::Unknown_803310(ScriptedMovieLineClass *line)
 
 
 
-extern bool Unknown_BFAE52;	// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
+// 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): Create_Object's mesh loads overbright
 
 // NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer)
 // 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD
@@ -1442,14 +1442,14 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool 
 	param = params->Unknown_7FFDC0();
 
 	FAIL_IF((param == NULL) && "User error: Create_Object: Need mesh name") {return(false);}
-	Unknown_BFAE52 = true;
+	WW3D::Enable_Overbright_Modify_On_Load(true);
 	UIMeshClass *mesh;
 	if (ship) {
 		mesh = new UIMeshClass(param, Get_Client());
 	} else {
 		mesh = new UIMeshClass(param, true);
 	}
-	Unknown_BFAE52 = false;
+	WW3D::Enable_Overbright_Modify_On_Load(false);
 	mesh->Unknown_5B9290(ScriptedScene);
 	mesh->Unknown70 |= 3;
 

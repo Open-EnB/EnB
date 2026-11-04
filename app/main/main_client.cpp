@@ -81,11 +81,11 @@ void Unknown_683940();								// NAME 1 [Unknown_683940]: deffont.cpp's shut-dow
 #include "..\..\ww3d2\dx8wrapper.h"				// DX8Wrapper::Get_Current_Caps (0xC006A0 is DX8Wrapper::CurrentCaps; +0xDD
 													// DX8Caps::SupportDXTC): WinMain's texture reduction
 
-// WW3D2's flags E&B sets after WW3D::Init
-extern bool Unknown_BFAE4F;							// NAME 1 [Unknown_BFAE4F]: neutral (D10)
-extern bool Unknown_BFAE50;							// NAME 1 [Unknown_BFAE50]: neutral (D10)
-extern bool Unknown_BFAE51;							// NAME 1 [Unknown_BFAE51]: neutral (D10)
-extern bool Unknown_BFAE52;							// 0xBFAE52: set while Create_Object makes a mesh  // NAME 1 [Unknown_BFAE52]: neutral (D10)
+// WW3D2's flags E&B sets after WW3D::Init are WW3D's statics (ww3d.h): 0xBFAE4F IsScreenUVBiased (read by
+// Render2DClass::Update_Bias 0x96FDF0), 0xBFAE50 AreStaticSortListsEnabled (SphereRenderObjClass::Render 0x90C4D0),
+// 0xBFAE51 MungeSortOnLoad and 0xBFAE52 OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40); set through
+// ww3d.h's inline setters, so ww3d2 reads what WinMain, charview.cpp, scriptedmovie.cpp and co.cpp write
+// (keep this comment five lines long: WinMain's asserts carry __LINE__)
 
 // E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings)
 #include "..\shared\enbassetmgr.h"
@@ -457,15 +457,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		exit(0);
 	}
 	Unknown_Debug_End_Step("ok");
-	Unknown_BFAE50 = true;
+	WW3D::Enable_Static_Sort_Lists(true);
 	WW3D::Enable_Sorting(false);
-	Unknown_BFAE51 = true;
-	Unknown_BFAE52 = false;
+	WW3D::Enable_Munge_Sort_On_Load(true);
+	WW3D::Enable_Overbright_Modify_On_Load(false);
 	const char *test_path = argv.Find_Value("-TEST_PATH");	// NAME 1 [test_path]: its text
 	if (test_path != NULL) {
 		_TheSimpleFileFactory->Prepend_Sub_Directory(test_path);
 	}
-	Unknown_BFAE4F = true;
+	WW3D::Set_Screen_UV_Bias(true);
 	ProgramInstance = hInstance;
 
 	MsgServer *message_server = NULL;				// NAME 1 [message_server]: its step text
