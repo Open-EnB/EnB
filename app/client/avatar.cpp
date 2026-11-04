@@ -512,6 +512,16 @@ void CharacterViewAvatarClass::Render(RenderInfoClass &rinfo)
 	}
 }
 
+// 0x77D9F0
+// NOT EXACT: shape (the client loads +0x234 again in each branch)
+float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
+{
+	if (a) {
+		return(Unknown234 + 1.0f);
+	}
+	return(Unknown234);
+}
+
 // 0x77E3D0
 void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 {

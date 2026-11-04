@@ -21413,7 +21413,9 @@
      "0x80D540",
      "0x80E020",
      "0x80E190",
+     "0x80E260",
      "0x80E350",
+     "0x80E530",
      "0x80E7A0",
      "0x80E7D0"
     ],
@@ -27643,7 +27645,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9381,
+  "in_tree_total": 9383,
   "totals": {}
  },
  "binkmovie": {

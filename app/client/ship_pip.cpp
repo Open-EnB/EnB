@@ -614,7 +614,6 @@ void ShipPipClass::Unknown_80E190(float distance)
 	}
 }
 
-// NOT EXACT: ShipPipClass
 // @0x80E260
 void ShipPipClass::Unknown_88()
 {
@@ -625,7 +624,8 @@ void ShipPipClass::Unknown_88()
 		if (Unknown0DC) {
 			Unknown0CC = Unknown_B07DAC;
 			if (Unknown054) {
-				Unknown0D0 = Unknown_B07DB0 + (((CharacterViewAvatarClass *)Unknown054.Peek())->Unknown234 - 7.3f);	// the client calls avatar.cpp's 0x77D9F0(false), which returns +0x234
+				float h = ((CharacterViewAvatarClass *)Unknown054.Peek())->Unknown_77D9F0(false) - 7.3f;
+				Unknown0D0 = Unknown_B07DB0 + h;
 			} else {
 				Unknown0D0 = Unknown_B07DB0;
 			}
@@ -655,13 +655,13 @@ void ShipPipClass::Unknown_8C()
 	Unknown_90();
 }
 
-// NOT EXACT: ShipPipClass
 // @0x80E530
 void ShipPipClass::Unknown_90()
 {
+	Vector3 xv = Unknown06C.Get_X_Vector() * Unknown0CC;
+	Vector3 yv = Unknown06C.Get_Y_Vector() * Unknown0D0;
 	Matrix3D tm(Unknown06C);
-	tm.Translate_X(Unknown0CC);
-	tm.Translate_Y(Unknown0D0);
+	tm.Set_Translation(Unknown06C.Get_Translation() + xv + yv);
 	Camera->Set_Transform(tm);
 	if (Type == 0) {
 		Unknown04C->Set_Spot_Direction(tm.Rotate_Vector(Unknown_BE8C60));
