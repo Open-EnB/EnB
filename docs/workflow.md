@@ -1008,6 +1008,14 @@ unless `--lever` cites a new row of this table.
 
 ### 3.6 RE tools, Ghidra and REA
 
+* **Never delete `.work/pseudo/` (2026-11-03, the user):** a plain `pseudocode.py` run decompiles only functions not
+  yet exact in symbols.json, so the old "delete and rerun" refresh lost every file of a function that had become
+  exact since (found when the P-API-5 (b) batch runs needed them); triage.py's `build` and appfile.py's drafts read
+  those files. Refresh with `pseudocode.py --all` (every start, in place), then `--check` (exit 1 when a start lacks a
+  file; it also lists triage requests without one). The folder was found empty on 2026-11-03 (18:52): worktrees
+  reach it through a junction (wt.py), so delete a worktree only with `wt.py remove`, never a recursive delete or a
+  bare `git worktree remove`. A zip copy sits in `.work/pseudo-backup/` (no junction points there).
+
 * **objmatch finds symbols.json at `__file__/../../docs/data`** (2026-11-01, TB1): a copy of objmatch.py outside
   tools/re silently runs without symbols (D80 and the self name do nothing; 21 false "losses" in a baseline). Measure
   variants from inside tools/re, or patch the path. `.work/tb1/measure.py objmatch OUT` scores a module over the last

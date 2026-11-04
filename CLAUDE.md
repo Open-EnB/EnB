@@ -51,7 +51,9 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
 3. Pseudocode: `python tools/re/pseudocode.py --show ADDR` prints Ghidra's saved output from
    `.work/pseudo/` (every function not yet byte-exact, vtable-only ones included). Missing (fresh
    clone)? `python tools/re/pseudocode.py` rebuilds it (~4 min analysis the first time, then ~80 s).
-   After `symbols.json` gains names, delete `.work/pseudo/` and rerun so calls show them.
+   After `symbols.json` gains names, refresh with `pseudocode.py --all` (every function, exact ones included,
+   in place), then `--check`. Never delete `.work/pseudo/`: a plain run skips exact functions, so their files
+   (triage.py's and appfile.py's input) would be lost.
 4. REA MCP server (`mcp__rea__*`) only when the saved pseudocode isn't enough (xrefs, call graphs,
    interactive questions). Its first request in a session runs Ghidra's full analysis of
    client.exe: about 5 minutes, every session (the project is discarded on close; a `close_binary`
