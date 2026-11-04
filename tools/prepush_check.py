@@ -8,7 +8,8 @@
 The project publishes source and notes only. This scans every file ever committed (the push
 publishes all of history, not just the tip) for:
 
-  big files      any blob over 5 MB
+  big files      any blob over 5 MB; generated data under docs/data/ (.json .tsv .csv .md) up to 25 MB
+                 (the 5 MB rule catches stray binaries and scratch dumps, not the tools' own tables)
   binaries       exe dll lib obj vhdx pcapng jsonl ... (by extension) and files with NUL bytes that
                  are not on the small allow list
   captures       network and gameplay recordings (pcap, pcapng, cap, jsonl, .rec, ...)
@@ -28,6 +29,14 @@ import sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 BIG = 5 * 1024 * 1024
+BIG_DATA = 25 * 1024 * 1024        # docs/data's generated tables (symbols.json 5.9 MB after D188, 2026-11-03)
+DATA_EXT = ('.json', '.tsv', '.csv', '.md')
+
+
+def size_limit(path):
+    """The largest blob allowed at `path`: BIG_DATA for docs/data's generated tables, BIG for anything else."""
+    p = path.replace('\\', '/')
+    return BIG_DATA if p.startswith('docs/data/') and p.lower().endswith(DATA_EXT) else BIG
 BINARY_EXT = {'.exe', '.dll', '.lib', '.obj', '.vhdx', '.vhd', '.pcapng', '.pcap', '.cap', '.jsonl',
               '.pdb', '.ilk', '.exp', '.sys', '.ocx', '.res', '.mix', '.big', '.iso', '.zip', '.7z',
               '.rar', '.cab', '.bik', '.mp3', '.wav', '.tga', '.dds', '.bmp', '.png', '.jpg', '.gif',
@@ -119,7 +128,7 @@ def main():
     # 1. names and sizes (cheap)
     for s, p in bl:
         ext = os.path.splitext(p)[1].lower()
-        if sizes[s] > BIG:
+        if sizes[s] > size_limit(p):
             problems['big files'].append(f'{p} ({sizes[s] / 1048576:.1f} MB) {s[:10]}')
         if ext in CAPTURE_EXT:
             problems['captures'].append(f'{p} {s[:10]}')
@@ -130,7 +139,7 @@ def main():
             problems['install-tree names'].append(f'{p} {s[:10]}')
 
     # 2. contents: one cat-file --batch pass over blobs under 2 MB that are not already flagged
-    want = [s for s, p in bl if sizes[s] <= BIG]
+    want = [s for s, p in bl if sizes[s] <= size_limit(p)]
     seen_nul = set()
     proc = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     import threading

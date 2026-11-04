@@ -204,7 +204,9 @@ def finish(a, img, starts, thunks, syms, vt_named):
         print(f'dropped 0x{inner:06X} {name}: inside its exact 0x{outer:06X} (D189(1))')
     rows = [syms[k] for k in sorted(syms)]
     os.makedirs(a.out, exist_ok=True)
-    json.dump(rows, open(os.path.join(a.out, 'symbols.json'), 'w', newline='\n'), indent=0)
+    # one entry per line, compact separators (a diff shows one changed symbol per line; 2026-11-03)
+    with open(os.path.join(a.out, 'symbols.json'), 'w', newline='\n') as f:
+        f.write('[\n' + ',\n'.join(json.dumps(r, separators=(',', ':')) for r in rows) + '\n]\n')
     write_ghidra(rows, os.path.join(a.out, 'ghidra_symbols.py'))
     if not a.apply_named:   # its vtable count belongs to the last regeneration
         write_coverage(img, starts, thunks, rows, os.path.join(a.out, '..', 'coverage.md'), vt_named)
