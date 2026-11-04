@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12533 |
+| 1 | neutral placeholder | 12537 |
 
 ## For review (score 3 and below)
 
@@ -9338,46 +9338,50 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_51c800.h` | `app/client/unknown_51c800.h:14` | neutral (D137) |
 | 1 | `Unknown51C800Class` | `app/client/unknown_51c800.h:21` | neutral (D10) |
 | 1 | `text, flags` | `app/client/unknown_51c800.h:24` | what the callers pass (6) |
-| 1 | `UIAvatrPullClass` | `app/client/unknown_585920.cpp:15` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `Unknown_5859A0` | `app/client/unknown_585920.cpp:20` | untagged neutral name (D10) |
-| 1 | `Gadget` | `app/client/unknown_585920.cpp:22` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/unknown_585920.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_585920.cpp:25` | untagged neutral name (D10) |
-| 1 | `UIAvatrUnknown2ECStruct` | `app/client/unknown_585920.cpp:29` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `model, name, texture, part, two_digits` | `app/client/unknown_585920.cpp:32` | what ui_avatr.cpp's 0x559900 passes |
-| 1 | `Unknown_585C90` | `app/client/unknown_585920.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_585CC0` | `app/client/unknown_585920.cpp:35` | untagged neutral name (D10) |
-| 1 | `choice` | `app/client/unknown_585920.cpp:36` | neutral |
-| 1 | `Unknown_585CF0` | `app/client/unknown_585920.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_585D10` | `app/client/unknown_585920.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/unknown_585920.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/unknown_585920.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/unknown_585920.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/unknown_585920.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/unknown_585920.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/unknown_585920.cpp:45` | untagged neutral name (D10) |
-| 1 | `UIAvatrUnknown4A1240Class` | `app/client/unknown_585920.cpp:51` | neutral (D10) |
-| 1 | `a, b, c` | `app/client/unknown_585920.cpp:54` | neutral |
-| 1 | `UIAvatrGadget671300Class` | `app/client/unknown_585920.cpp:59` | neutral (D10), as ui_avatr.cpp's |
-| 1 | `area, a, mesh, b, c, d` | `app/client/unknown_585920.cpp:62` | as ui_avatr.cpp's |
-| 1 | `event, x, y, mask` | `app/client/unknown_585920.cpp:64` | gadget.h's |
-| 1 | `Unknown_2C` | `app/client/unknown_585920.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/unknown_585920.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/unknown_585920.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/unknown_585920.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/unknown_585920.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/unknown_585920.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/unknown_585920.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/unknown_585920.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/unknown_585920.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/unknown_585920.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/unknown_585920.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/unknown_585920.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/unknown_585920.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/unknown_585920.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/unknown_585920.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_66B770Class` | `app/client/unknown_585920.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/unknown_585920.cpp:177` | untagged neutral name (D10) |
+| 1 | `UIAvatrPullClass` | `app/client/unknown_585920.cpp:17` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Unknown_5859A0` | `app/client/unknown_585920.cpp:22` | untagged neutral name (D10) |
+| 1 | `Gadget` | `app/client/unknown_585920.cpp:24` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/unknown_585920.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_585920.cpp:27` | untagged neutral name (D10) |
+| 1 | `UIAvatrUnknown2ECStruct` | `app/client/unknown_585920.cpp:31` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `model, name, texture, part, two_digits` | `app/client/unknown_585920.cpp:34` | what ui_avatr.cpp's 0x559900 passes |
+| 1 | `Unknown_585C90` | `app/client/unknown_585920.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_585CC0` | `app/client/unknown_585920.cpp:37` | untagged neutral name (D10) |
+| 1 | `choice` | `app/client/unknown_585920.cpp:38` | neutral |
+| 1 | `Unknown_585CF0` | `app/client/unknown_585920.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_585D10` | `app/client/unknown_585920.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/unknown_585920.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/unknown_585920.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/unknown_585920.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/unknown_585920.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/unknown_585920.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/unknown_585920.cpp:47` | untagged neutral name (D10) |
+| 1 | `UIAvatrUnknown4A1240Class` | `app/client/unknown_585920.cpp:53` | neutral (D10) |
+| 1 | `a, b, c` | `app/client/unknown_585920.cpp:56` | neutral |
+| 1 | `UIAvatrGadget671300Class` | `app/client/unknown_585920.cpp:61` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `area, a, mesh, b, c, d` | `app/client/unknown_585920.cpp:64` | as ui_avatr.cpp's |
+| 1 | `event, x, y, mask` | `app/client/unknown_585920.cpp:66` | gadget.h's |
+| 1 | `Unknown_2C` | `app/client/unknown_585920.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/unknown_585920.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/unknown_585920.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/unknown_585920.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/unknown_585920.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_585920.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/unknown_585920.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/unknown_585920.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/unknown_585920.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/unknown_585920.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/unknown_585920.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/unknown_585920.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/unknown_585920.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/unknown_585920.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_585920.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_66B770Class` | `app/client/unknown_585920.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/unknown_585920.cpp:179` | untagged neutral name (D10) |
+| 1 | `UIAvatrWeightsStruct` | `app/client/unknown_585920.cpp:314` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Weight` | `app/client/unknown_585920.cpp:317` | neutral |
+| 1 | `Unknown_5860B0, uv` | `app/client/unknown_585920.cpp:323` | neutral (D10) |
+| 1 | `Unknown_5860B0` | `app/client/unknown_585920.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -13738,7 +13742,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Group` | `app/client/ui_scut.h:67` | what it holds |
 | 2 | `Bars` | `app/client/ui_scut.h:91` | what it holds |
 | 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
-| 2 | `Pull` | `app/client/unknown_585920.cpp:23` | what ui_avatr.cpp's 0x556290 puts there |
+| 2 | `Pull` | `app/client/unknown_585920.cpp:25` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |

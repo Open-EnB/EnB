@@ -10,6 +10,8 @@
 #include "textureloader.h"
 #include "nstrdup.h"
 #include <stdio.h>
+#include <math.h>
+#include "vector2.h"
 
 // ui_avatr.cpp's pull: a gadget with its pull model (0x10 bytes; the avatar window's +0x160 / +0x16C / +0x180)
 class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
@@ -306,4 +308,45 @@ UIAvatrUnknown2ECStruct::~UIAvatrUnknown2ECStruct()
 	if (Unknown14) {
 		delete [] Unknown14;
 	}
+}
+
+// ui_avatr.cpp's five blend weights (0x558060: the body's and the head's)
+struct UIAvatrWeightsStruct	// NAME 1: neutral (D10), as ui_avatr.cpp's
+{
+	UIAvatrWeightsStruct() {}
+	float Weight[5];									// NAME 1: neutral
+};
+
+// NOT EXACT: interim placement (D137), functional: five blend weights from a point (u, v) in 0 .. 1: the centre's,
+// then the four corners' less it, none below 0
+// @0x5860B0
+UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv)	// NAME 1 [Unknown_5860B0, uv]: neutral (D10)
+{
+	UIAvatrWeightsStruct weights;
+	float centre = 0.5f - (float)fabs(uv.Y - 0.5f);
+	float x = 0.5f - (float)fabs(uv.X - 0.5f);
+	if (x < centre) {
+		centre = x;
+	}
+	weights.Weight[0] = centre;
+	float ix = 1.0f - uv.X;
+	float iy = 1.0f - uv.Y;
+	float w = (ix < iy) ? ix : iy;
+	w -= centre;
+	weights.Weight[1] = (w <= 0.0f) ? 0.0f : w;
+	w = (uv.X < iy) ? uv.X : iy;
+	w -= centre;
+	weights.Weight[2] = (w <= 0.0f) ? 0.0f : w;
+	w = (uv.X < uv.Y) ? uv.X : uv.Y;
+	w -= centre;
+	weights.Weight[3] = (w <= 0.0f) ? 0.0f : w;
+	w = (uv.Y <= ix) ? uv.Y : ix;
+	w -= centre;
+	weights.Weight[4] = (w <= 0.0f) ? 0.0f : w;
+	for (int i = 0; i < 5; i++) {
+		if (weights.Weight[i] < 0.0f) {
+			weights.Weight[i] = 0.0f;
+		}
+	}
+	return(weights);
 }

@@ -1560,3 +1560,51 @@ void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 	Unknown184[which].Y = stored ? uv.Y : 1.0f - uv.Y;
 	Unknown_55AE50();
 }
+
+// NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1,
+// the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard)
+// 0x557290
+void AvatarCreationInterface::Unknown_557290()
+{
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	int gender = desc->Desc.Gender;
+	if (Unknown088 == 0 || Unknown088 == 1) {
+		desc->Unknown_77F000(Unknown_BDBB84(0, Unknown2DC->Unknown20));
+		if (gender == 1) {
+			desc->Unknown_77FC20(Unknown_BDBB84(1, Unknown2E0->Unknown20), true);
+			desc->Unknown_77FD30(0, true);
+		} else {
+			desc->Unknown_77FC20(Unknown_BDBB84(0, Unknown2E0->Unknown20), true);
+			desc->Unknown_77FD30(Unknown_BDBB84(0, Unknown2E4->Unknown20), true);
+		}
+		desc->Unknown_77FCE0(Unknown_BDBB84(0, Unknown2F0->Unknown20), true);
+		desc->Unknown_77FC90(Unknown_BDBB84(0, Unknown2F4->Unknown20), true);
+		Unknown_Set_Palette("fa_skin_color.tga");
+		Unknown_557950(2, 0, 0);
+		Unknown_Set_Palette("fa_avatar_color.tga");
+		Unknown_557950(0, 0, 0);
+		Unknown_557950(1, 0, 0);
+		desc->Unknown_7857D0(Unknown_BDBB84(0, Unknown2E8->Unknown20));
+		Unknown_558170();
+		Unknown_55A550(1, 0.0f, 0.0f, 0.0f);
+	}
+	if (Unknown088 == 0 || Unknown088 == 2) {
+		int body = Unknown_BDBB84(0, 2);
+		int pants = Unknown_BDBB84(0, 2);
+		desc->Unknown_77E9D0(body, pants, true);
+		Unknown_Set_Palette("fa_avatar_color.tga");
+		Unknown_557950(3, 0, 0);
+		Unknown_557950(4, 0, 0);
+		Unknown_557950(5, 0, 0);
+		Unknown_557950(6, 0, 0);
+		Unknown_558060();
+		Unknown_55A550(0, 0.0f, 0.0f, 0.0f);
+	}
+	Unknown_559350();
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	if (Unknown1BC == 2) {
+		Unknown_Set_Palette("fa_skin_color.tga");
+	} else {
+		Unknown_Set_Palette("fa_avatar_color.tga");
+	}
+}
