@@ -29,7 +29,7 @@ RefCountPtr<DynamicWindowMultiLineTextClass> DynamicWindowMultiLineTextClass::Cr
 {
 	FAIL_IF(font_name.empty()) return NULL;
 
-	RefCountPtr<FontStyleClass> sample_font = Create_NEW(new FontStyleClass(font_name.c_str(), 0, "W"));
+	RefCountPtr<FontSys> sample_font = Create_NEW(new FontSys(font_name.c_str(), 0, "W"));
 
 	FAIL_IF(!sample_font) return NULL;
 
@@ -40,7 +40,7 @@ RefCountPtr<DynamicWindowMultiLineTextClass> DynamicWindowMultiLineTextClass::Cr
 
 
 
-DynamicWindowMultiLineTextClass::DynamicWindowMultiLineTextClass(const std::string &font_name, const RefCountPtr<FontStyleClass> &sample_font, const Vector2 &min_size, unsigned int flags) :
+DynamicWindowMultiLineTextClass::DynamicWindowMultiLineTextClass(const std::string &font_name, const RefCountPtr<FontSys> &sample_font, const Vector2 &min_size, unsigned int flags) :
 	Dirty(false),
 	Parent(NULL),
 	Scene(NULL),

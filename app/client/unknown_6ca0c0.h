@@ -41,7 +41,7 @@ enum FontEffectDirection
 	FONT_DIRECTION_RANDOM = 5
 };
 
-// 0x6CA0C0 (one step of one effect) and 0x6D5B10 (the text rectangle in screen units) are FontStyleClass
+// 0x6CA0C0 (one step of one effect) and 0x6D5B10 (the text rectangle in screen units) are FontSys
 // members (fontmanager.h), as the client's __thiscall calls have them.
 
 #endif

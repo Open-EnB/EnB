@@ -24,7 +24,7 @@
 #include "gadget.h"
 
 class RenderObjClass;
-class FontStyleClass;
+class FontSys;
 
 class RObjGadgetClass : public GadgetClass  // NAME 3 [RObjGadgetClass]: class-from-file (D24) for app\Client\gd_robj.cpp
 {
@@ -48,7 +48,7 @@ public:
 	virtual void Unknown_8C(bool on);									// +0x8C 0x66C3F0 (the model and the style hidden)  // NAME 1 [on]: neutral
 	virtual void Unknown_90(class TextureClass *texture);									// +0x90 0x66C470 (ro_funcs.cpp's 0x495FD0 on the model, index 0)  // NAME 1 [texture]: ro_funcs.cpp's parameter (ui_chat_panel.cpp passes a texture)
 	virtual void Set_Render_Obj(RenderObjClass *robj);					// +0x94 0x66C000 (the flags carried over to the new model)  // NAME 2: as Peek_Render_Obj; NAME 1 [robj]: neutral
-	virtual void Unknown_98(FontStyleClass *style);						// +0x98 0x66C1E0 (+0x34, referenced)  // NAME 1 [style]: its type
+	virtual void Unknown_98(FontSys *style);						// +0x98 0x66C1E0 (+0x34, referenced)  // NAME 1 [style]: its type
 	virtual Vector3 Unknown_9C();										// +0x9C 0x66C860 (0.35 grey: the highlight's colour)
 	virtual Vector3 Unknown_A0();										// +0xA0 0x66C890 (white: the colour without it)
 
@@ -62,7 +62,7 @@ public:
 	const Matrix3D &Unknown_66C6C0();									// 0x66C6C0 (the model's transform, or a static identity)
 
 	RenderObjClass *RObj;												// +0x30 (G_ASSERT 'RObj' l.250)  // NAME 3: the assert's
-	FontStyleClass *Unknown34;											// +0x34 (slot +0x98; hidden and highlighted with the model)
+	FontSys *Unknown34;											// +0x34 (slot +0x98; hidden and highlighted with the model)
 	LayerClass Layer;													// +0x38 (0x24 bytes; slot +0x28 sets it)  // NAME 1: its type
 	unsigned char Unknown5C_00 : 1;										// +0x5C bit 0: highlighted (0x66C2D0 / 0x66C360)
 	unsigned char Unknown5C_01 : 1;										// +0x5C bit 1: in the layer's scene (slots +0x74 / +0x78)

@@ -6,7 +6,7 @@
 **
 **	The UI kit's text gadgets (the edit boxes): TextBaseGadgetClass (table 0xAFD980, constructor 0x6AA000,
 **	0x44 bytes: the text in a StrEditClass, the active box '_ActiveUI' 0xBE66C0) and TextGadgetClass over
-**	it (table 0xAFDA10, constructor 0x6AA810, 0x80 bytes: the text drawn by a FontStyleClass on a model,
+**	it (table 0xAFDA10, constructor 0x6AA810, 0x80 bytes: the text drawn by a FontSys on a model,
 **	with a cursor). The login screen's name and password boxes are TextGadgetClass. Declared as far as
 **	textgadg.cpp and its callers use them (D10).
 */
@@ -25,7 +25,7 @@
 #include "..\..\wwmath\aabox.h"
 
 class StrEditClass;
-class FontStyleClass;
+class FontSys;
 class TextCursorClass;
 class Font32Class;
 
@@ -78,7 +78,7 @@ public:
 	void Unknown_6AAD10();												// 0x6AAD10 (every frame: G_ASSERT 'font', FAIL_IF 'max >= 255': the text redrawn, the cursor blinked)
 	static char *Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
 
-	RefCountPtr<FontStyleClass> Text;									// +0x44 (0x4E8 bytes, 0x6D47C0: string_name's style on the model)  // NAME 2: what it draws
+	RefCountPtr<FontSys> Text;									// +0x44 (0x4E8 bytes, 0x6D47C0: string_name's style on the model)  // NAME 2: what it draws
 	RefCountPtr<RenderObjClass> Model;									// +0x48  // NAME 2: the constructor's model
 	RefCountPtr<TextCursorClass> Cursor;								// +0x4C (fontsys_cursor.cpp's, 0x685680)  // NAME 2: what it is
 	char Unknown50;														// +0x50 (' ')

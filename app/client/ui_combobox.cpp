@@ -10,7 +10,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 
 // fontmanager.h's text object, as far as this file calls it (fontmanager.h clashes with tsk_game.h through sclient.h)
-class FontStyleClass	// NAME 1 [FontStyleClass]: fontmanager.h's
+class FontSys	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
 {
 public:
 	void Change_Text(const char *text, int unknown);	// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
@@ -40,7 +40,7 @@ public:
 	char Unknown5D[0x61 - 0x5D];						// +0x5D
 	bool Unknown61;										// +0x61 (a row: the selected one; the row's constructor 0x578210 clears it)
 	char Unknown62[0x68 - 0x62];						// +0x62
-	FontStyleClass *Unknown68;							// +0x68 (the text)
+	FontSys *Unknown68;							// +0x68 (the text)
 };
 
 // gd_slider.cpp's slider (the list's scroll bar, the combo box's +0xD8), as far as this file calls it

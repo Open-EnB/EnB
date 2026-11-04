@@ -16,12 +16,12 @@
 
 #include "dynamic_window_render_object.h"
 
-class FontStyleClass;
+class FontSys;
 
 class Unknown51C800Class : public DynamicWindowRenderObjectClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown51C800Class(FontStyleClass *text, unsigned int flags);	// 0x51C800  // NAME 1 [text, flags]: what the callers pass (6)
+	Unknown51C800Class(FontSys *text, unsigned int flags);	// 0x51C800  // NAME 1 [text, flags]: what the callers pass (6)
 	// (implicit destructor: 0x51C8F0, deleting 0x51C8C0)
 	virtual void Set_Render_Object(const RefCountPtr<RenderObjClass> &robj) { DynamicWindowRenderObjectClass::Set_Render_Object(robj); }	// +0x58 0x51C910
 };

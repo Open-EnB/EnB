@@ -513,7 +513,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(arg);
 			if (Unknown_B7DBCC[i].SubObject) {
-				FontStyleClass *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
+				FontSys *font = Unknown_BE67C4->Get_Style(Unknown_B7DBCC[i].SubObject, (unsigned int)CharacterView->Peek_Model());
 				if (font) {
 					if (arg) {
 						font->Unknown_Set_2FC(1.0f);
@@ -558,11 +558,11 @@ void ClassSelectInterface::Unknown_576270()
 void ClassSelectInterface::Unknown_5779D0()
 {
 	CharacterView->Unknown_67B320();
-	FontStyleClass *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", (unsigned int)CharacterView->Peek_Model());
 	if (title) {
 		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
 	}
-	FontStyleClass *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
+	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", (unsigned int)CharacterView->Peek_Model());
 	if (subtitle) {
 		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
 	}

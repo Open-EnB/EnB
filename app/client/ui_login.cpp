@@ -350,8 +350,8 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x1B), (void *)5);
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x0D), (void *)3);
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x09), (void *)9);
-	RefCountPtr<FontStyleClass> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", (const unsigned int &)model);
-	RefCountPtr<FontStyleClass> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", (const unsigned int &)model);
+	RefCountPtr<FontSys> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", (const unsigned int &)model);
+	RefCountPtr<FontSys> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", (const unsigned int &)model);
 	if (Unknown_5FADE0()) {
 		if (banner) banner->Set_Hidden(true);
 		if (demo) demo->Set_Hidden(false);
@@ -662,7 +662,7 @@ void LoginInterface::Unknown_5AE160()
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(true);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(1.0f);
 			}
@@ -683,7 +683,7 @@ void LoginInterface::Unknown_5AE240()
 	for (int i = 0; i < 5; i++) {
 		if (Buttons[i]) {
 			Buttons[i]->Unknown_40(false);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B810F4[i], (unsigned int)CharacterView->Peek_Model());
 			if (text) {
 				text->Unknown_Set_2FC(0.33f);
 			}
@@ -709,7 +709,7 @@ void LoginInterface::Unknown_5AE240()
 // 0x5AE320
 void LoginInterface::Unknown_5AE320()
 {
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("Banner_fe01a", (unsigned int)CharacterView->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("Banner_fe01a", (unsigned int)CharacterView->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Unknown_6CE7D0(2);
 }
@@ -837,7 +837,7 @@ void LoginInterface::Unknown_5AE8E0(bool on)
 	for (int i = 0; i < 4; i++) {
 		if (AccountButtons[i]) {
 			AccountButtons[i]->Unknown_40(on);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B8111C[i], (unsigned int)AccountMenu.Peek());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B8111C[i], (unsigned int)AccountMenu.Peek());
 			if (text) {
 				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
@@ -845,7 +845,7 @@ void LoginInterface::Unknown_5AE8E0(bool on)
 	}
 	if (Unknown_5FADE0()) {
 		AccountButtons[2]->Unknown_40(false);
-		FontStyleClass *text = Unknown_BE67C4->Get_Style("BUTTON03_FE13A", (unsigned int)AccountMenu.Peek());
+		FontSys *text = Unknown_BE67C4->Get_Style("BUTTON03_FE13A", (unsigned int)AccountMenu.Peek());
 		if (text) {
 			text->Unknown_Set_2FC(0.33f);
 		}

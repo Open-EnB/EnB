@@ -312,4 +312,9 @@ Where the client's names disagree with these conventions, the client's are used;
 
 * **ENBAssetManager (2026-11-02, MC3):** the client's strings name the asset manager at *0xBDADC0 `ENBAssetManager` (`ENBAssetManager::Create_Render_Obj`; its file is enbassetmgr.cpp by the `__FILE__` 0xB721AC), without a `Class` suffix: app/shared/enbassetmgr.h, kernel.cpp's own view and the tests' stand-ins use it (was `UnknownBDADC0Class`). The global is `AssetManager` (2026-11-03, the user's call over MC3's neutral `Unknown_BDADC0`): scriptedmovie.cpp's `G_ASSERT(AssetManager)` 0x802D30 tests `[0xBDADC0]` itself, NAME 3; scriptedmovie.cpp's macro is gone.
 
+* **FontSys (2026-11-03):** fontmanager.h's text object is the client's `FontSys`, without a `Class` suffix
+  (Get_Name 0x67EF20 returns "FontSys"; the profile labels 'FontSys::Change_Text' 0x6CDBC0 and 'FontSys::Update_Text'
+  0x6D64C0), NAME 5 (was `FontStyleClass`, NAME 1). The files' local views of it carry the same name, so their calls
+  link to the real members; its vtable-named entries are renamed in tools/re/symbols_named.json.
+
 * **SClient::EnvironmentMapManager (2026-11-03):** option.cpp's assert `sclient->EnvironmentMapManager` (0xBA245C) and scriptedmovie.cpp's (the constructor's l.231) name SClient's +0x1338 (was `Unknown1338`; scriptedmovie.cpp's macro is gone). No string names its class: it is `EnvironmentMapManagerClass` (the user, 2026-11-03), NAME 3 by convention (D24) from the client's file env_map_manager.cpp (was `SClientUnknown1338Class`).

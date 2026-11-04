@@ -15,7 +15,7 @@
 
 // fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
 // this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
-class FontStyleClass : public RenderObjClass	// NAME 1 [FontStyleClass]: fontmanager.h's
+class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
 {
 public:
 	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
@@ -30,7 +30,7 @@ public:
 	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// (inline: the go button's brightness in 0x5B2480 / 0x5B4850)  // NAME 1: neutral (D10)
 };
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontStyleClass *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(unsigned int id); FontSys *Get_Style(const char *name, unsigned int id); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
@@ -235,7 +235,7 @@ void UIManuClass::Unknown_58()
 		Unknown0B0->Unknown_66FA90(0, 10.0f, true);
 		Unknown_5B2950();
 		Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
-		RefCountPtr<FontStyleClass> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", (unsigned int)Mesh->Peek_Mesh_Object()));
+		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", (unsigned int)Mesh->Peek_Mesh_Object()));
 		RefCountPtr<RenderObjClass> name_obj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
 		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
 		char buffer[264];
@@ -647,7 +647,7 @@ bool UIManuClass::Unknown_68(int key)
 // 0x5B1AF0
 void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 {
-	const char *name = Unknown_B81868[index]; RefCountPtr<FontStyleClass> font = Create_Peek(Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object()));
+	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, (unsigned int)Mesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
 	font->Unknown_6CDBC0(text, 0);
 	font->Set_Hidden(!show);
@@ -785,7 +785,7 @@ void UIManuClass::Unknown_5B2230()
 // NOT EXACT: inline budget (the client calls the 'Validity' find out of line, 0x5465C0; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480)
 void UIManuClass::Unknown_5B2480()
 {
-	RefCountPtr<FontStyleClass> go;
+	RefCountPtr<FontSys> go;
 	for (int i = 0; i < 3; i++) {
 		Unknown_5B42F0(i);
 		if (Unknown0B98 == i) {
@@ -1061,7 +1061,7 @@ void UIManuClass::Unknown_5B3A70()
 			Unknown0BC->Unknown_62F5B0(false);
 		}
 		Unknown0CC[6]->Unknown_40(false);
-		FontStyleClass *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object());
+		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object());
 		style->Unknown2FC = 0.33f;
 		style->Unknown4C5 = false;
 	}
@@ -1286,7 +1286,7 @@ void UIManuClass::Unknown_5B4850()
 	int player = Client->As_Space_Client()->Unknown1138;
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(player, 0));
 	Unknown0CC[6]->Unknown_40(false);
-	RefCountPtr<FontStyleClass> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
+	RefCountPtr<FontSys> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], (unsigned int)Mesh->Peek_Mesh_Object()));
 	go->Unknown_Set_2FC(0.33f);
 	Unknown_5B1AF0(2, true, "");
 	Unknown_5B1AF0(3, true, "");

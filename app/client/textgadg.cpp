@@ -39,7 +39,7 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	the password box. Slot +0x74 moves the input focus ('_ActiveUI', 0xBE66C0) and the keyboard's text mode
 **	(input.cpp's 0x42EE00, a bool here). Slot +0x2C takes the key events (mask 0x100) while active: tab to Next (or
 **	Unknown39 when none), enter, escape (Unknown3A), the rest to Edit (Unknown3B, Changed).
-**	TextGadgetClass (0x6AA810-0x6AB190): a FontStyleClass (fontmanager.h, 0x4E8 bytes) named string_name on the model
+**	TextGadgetClass (0x6AA810-0x6AB190): a FontSys (fontmanager.h, 0x4E8 bytes) named string_name on the model
 **	(or its top container), the box of the model's sub-object named by the style's Attach, a cursor
 **	(fontsys_cursor.cpp's TextCursorClass, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
 **	(clipped to the box around the cursor, 0x6AB190; with flag 0x400 scrolled to fit the screen-scaled box), the
@@ -352,7 +352,7 @@ TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *
 			model = model->Get_Container();
 		}
 	}
-	Text = Create_NEW(new FontStyleClass(string_name, (int)model, 0));
+	Text = Create_NEW(new FontSys(string_name, (int)model, 0));
 	RenderObjClass *sub = model->Get_Sub_Object_By_Name(Text->Info.Attach);
 	Box = sub->Get_Bounding_Box();
 	sub->Release_Ref();

@@ -765,7 +765,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 // 0x55E2E0
 void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool selected)
 {
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style(Unknown_B7B904[text], (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text(string, 0);
 	textptr->Unknown_6CE910(selected);
@@ -894,7 +894,7 @@ void AvatarSelectionInterface::Unknown_8C()
 void AvatarSelectionInterface::Unknown_55ED20()
 {
 	int i;
-	FontStyleClass *text;
+	FontSys *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
@@ -948,7 +948,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 void AvatarSelectionInterface::Unknown_55EF90()
 {
 	int i;
-	FontStyleClass *text;
+	FontSys *text;
 	if (BuddyReferralUI) {
 		for (i = 0; i < 2; i++) {
 			if (Unknown10C[i]) {
@@ -1043,7 +1043,7 @@ void AvatarSelectionInterface::Unknown_55F140()
 	if (Unknown090 == -1 || !Unknown0E4[Unknown090]) {
 		return;
 	}
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", (unsigned int)Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	int race = Unknown0BC[Unknown090]->Unknown108;
 	textptr->Change_Text(Unknown_B7B928[race], 0);
@@ -1237,7 +1237,7 @@ void AvatarSelectionInterface::Unknown_55FDC0(bool on)
 	for (int i = 0; i < 2; i++) {
 		if (Unknown10C[i]) {
 			Unknown10C[i]->Unknown_40(on);
-			FontStyleClass *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
+			FontSys *text = Unknown_BE67C4->Get_Style(Unknown_B7B960[i], (unsigned int)BuddyReferralUI.Peek());
 			if (text) {
 				text->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 			}
@@ -1254,7 +1254,7 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 	G_ASSERT(robj);
 	robj->Set_Hidden(hidden);
 
-	FontStyleClass *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
+	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_ReferralText", (unsigned int)Unknown084->Peek_Model());
 	G_ASSERT(textptr);
 	textptr->Set_Hidden(hidden);
 

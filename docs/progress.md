@@ -29,6 +29,16 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   and gd_robj's 0x66C470, `symbols.py --apply-named`: the second verify 9,039 = baseline, pairs_cmp empty; replay
   0 files differ. The long renamed functions keep their old mangled names in symbols.json until the next full
   regeneration (§4).
+- **SClientUnknown1338Class -> EnvironmentMapManagerClass** (the user: NAME 3 by convention from env_map_manager.cpp;
+  e96390a3): app 9,039 = 9,039, clienttest 103 / 0.
+- **B1, FontStyleClass -> FontSys** (NAME 5: Get_Name 0x67EF20 "FontSys", 'FontSys::Change_Text' /
+  'FontSys::Update_Text'; 34 files, 177 uses, lines held). The nine files' local `class FontSys` views now share the
+  real class's mangled names, so their calls reach fontsys.cpp's members. The first verify lost 4 outright
+  (Is_Complete 0x67EEE0, Class_ID 0x67EF00, Get_Name 0x67EF20, ??_E 0x67EF80: vtable-named short slots);
+  symbols_named.json renames every vtable-sourced FontSys entry (8, the vtable 0xAFBF28 with `"kind": "vtable"`,
+  else apply-named makes it a function). Second verify 9,039 = baseline, pairs_cmp empty, replay 0. clienttest 103 / 0;
+  POC (`build.py link --out .work/cn1/pocbuild`, not deployed; instance cn1, /REPLAY input3, 60 s): no crash,
+  character select drawn at frame 190000 (Karen idling, the list, the buttons' text), no FontSys stand-in generated.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2215,9 +2225,9 @@ below name only the work items, the blocked work, the leads and the queues.
    * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
      is FontSplitStringClass; 0x4FA8F0's 9 other callers and Set_Font 0x4FAAC0's 2 can include
      unknown_font_split_string.h.
-   * Client names (client wins): FontStyleClass is the client's `FontSys` (0x6D0A20 calls 'FontSys::Change_Text'
-     0x6CDBC0; rename when loadingview.cpp's stand-in `class FontSys` merges into fontmanager.h, P-FU1-1; 33 files: its
-     own item, with a full app verify).
+   * FontSys's local views (loadingview, sbaseview, ui_avatar_cust, ui_avatr, ui_chat_panel, ui_combobox, ui_cpit,
+     ui_group, ui_manu: `class FontSys : public RenderObjClass`, the real one a DynamicMeshClass) can include
+     fontmanager.h at their file's next edit (P-FU1-1's merge; the names agree since 2026-11-03).
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
      P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
      RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
@@ -2274,7 +2284,7 @@ below name only the work items, the blocked work, the leads and the queues.
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
-     when evidence names the object (D137); FontStyleClass::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
+     when evidence names the object (D137); FontSys::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
      its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is
      `FontStringFilesClass::Load(const char *)`. FontColorStruct / FontEffectStruct stay in their .cpp files (in
      fontdatabase.h they cost Load_Init its match).

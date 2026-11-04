@@ -86,7 +86,7 @@ void RObjGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 	}
 }
 
-void RObjGadgetClass::Unknown_98(FontStyleClass *style)
+void RObjGadgetClass::Unknown_98(FontSys *style)
 {
 	if (style) {
 		style->Add_Ref();

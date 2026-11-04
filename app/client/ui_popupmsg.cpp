@@ -157,7 +157,7 @@ void Unknown5DB670InterfaceClass::Unknown_60()
 	}
 	char text[64];
 	_snprintf(text, 64, "Exit in %d sec", (int)(30.0f - Unknown0B4 + 0.5));
-	RefCountPtr<FontStyleClass> style = Create_Peek(Unknown_BE67C4->Get_Style("EXIT_end_screen00", (unsigned int)Model.Peek()));
+	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("EXIT_end_screen00", (unsigned int)Model.Peek()));
 	style->Change_Text(text, 0);
 }
 

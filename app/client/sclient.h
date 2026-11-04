@@ -179,7 +179,7 @@ public:
 	DynamicWindowClass *Window;							// +0xB4 'DIALOG_BOX_WINDOW'  // NAME 1: the section's
 	DynamicWindowClass *Info;							// +0xB8 'DIALOG_BOX_INFO'  // NAME 1: the section's
 	GadgetClass *Gadget;								// +0xBC (0x6689C0 over the window)  // NAME 1: neutral
-	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontStyleClass texts)  // NAME 1: dialogbox.ini's 'Header%d'
+	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontSys texts)  // NAME 1: dialogbox.ini's 'Header%d'
 	DynamicWindowClass *Options[5];						// +0x100 'DIALOG_BOX_OPTION'  // NAME 1: dialogbox.ini's 'Option%d'
 	DynamicWindowElementClass *OptionTexts[5];			// +0x114 ('OPTION_INFO_%d')  // NAME 1: neutral
 	GadgetClass *OptionGadgets[5];						// +0x128 (0x6689C0 over the option; its id the option's number)  // NAME 1: neutral

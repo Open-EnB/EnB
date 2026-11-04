@@ -76,7 +76,7 @@ UIViewUnknown30Class::UIViewUnknown30Class(UIViewClass *view) :
 	Window = Create_NEW(new DynamicWindowClass("TOOLTIPS", MAX_LINES));
 	Window->Set_Level(2);
 	for (int i = 0; i < MAX_LINES; i++) {
-		Lines[i] = new FontStyleClass("TOOLTIP_FONT", 0, NULL);
+		Lines[i] = new FontSys("TOOLTIP_FONT", 0, NULL);
 	}
 }
 

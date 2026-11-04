@@ -64,7 +64,7 @@ struct Font32SpacingAccess : public Font32Class
 };
 
 // The text as drawn after a change (the effects that rebuild the string: RANDLETTER, STAY, STRETCH share the tail).
-static void Rebuild_Texture(FontStyleClass *style, StringClass &text, bool reset_spacing)
+static void Rebuild_Texture(FontSys *style, StringClass &text, bool reset_spacing)
 {
 	if (reset_spacing) {
 		Font32SpacingAccess::Reset_XSpacing(style->Font);
@@ -92,9 +92,9 @@ static float Ramp(const FontEffectStruct *effect, float current, float rate, int
 
 
 // NOT EXACT: functional (D64), not yet worked toward the client's bytes
-void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
+void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 {
-	FontStyleClass *style = this;
+	FontSys *style = this;
 	if (effect == NULL) {
 		return;
 	}
@@ -649,7 +649,7 @@ void FontStyleClass::Unknown_6CA0C0(FontEffectStruct *effect)
 
 
 // 0x6D5B10
-void FontStyleClass::Unknown_6D5B10(float &width, float &height)
+void FontSys::Unknown_6D5B10(float &width, float &height)
 {
 	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
 	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
@@ -661,7 +661,7 @@ void FontStyleClass::Unknown_6D5B10(float &width, float &height)
 **
 **	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
 **	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one unknown_creator's; no known file
-**	fits. Both are FontStyleClass members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10
+**	fits. Both are FontSys members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10
 **	sits just before fontsys.cpp's Get_Obj_Space_Bounding_Sphere 0x6D5B90, so its file is probably fontsys.cpp).
 **	FontColorStruct / FontEffectStruct stay restated above: defining them in fontdatabase.h instantiates their TPoints
 **	there, which costs fontdatabase.cpp's Load_Init its match (fontdatabase.cpp's notes).

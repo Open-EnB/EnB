@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 93 |
+| 5 | the client names it | 99 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1177 |
 | 2 | describes what the code does | 2983 |
-| 1 | neutral placeholder | 11762 |
+| 1 | neutral placeholder | 11756 |
 
 ## For review (score 3 and below)
 
@@ -2371,13 +2371,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.cpp:575` | untagged neutral name (D10) |
 | 1 | `FontStyleColorStruct` | `app/client/fontmanager.h:35` | neutral (D10): 16 bytes, a color r, g, b (0..1) and its alpha (floats: 0x6D5170, Update_Text, 0x6CA0C0) |
 | 1 | `Unknown0C` | `app/client/fontmanager.h:38` | neutral (D10) |
-| 1 | `Unknown_6D8B90Class` | `app/client/fontmanager.h:41` | neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontStyleClass +0x2D0 / +0x2E0) |
+| 1 | `Unknown_6D8B90Class` | `app/client/fontmanager.h:41` | neutral (D10): 16 bytes, a 32 x 32 texture; counted in 0xBE67CC (FontSys +0x2D0 / +0x2E0) |
 | 1 | `Unknown_6D8DC0, unknown` | `app/client/fontmanager.h:46` | neutral (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/fontmanager.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/fontmanager.h:49` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/fontmanager.h:50` | neutral (D10) |
 | 1 | `Unknown_BE67D8` | `app/client/fontmanager.h:54` | neutral (D10) |
-| 1 | `FontStyleClass` | `app/client/fontmanager.h:57` | neutral (D10): the client's FontSys (Get_Name 0x67EF20 "FontSys"; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4) |
 | 1 | `object` | `app/client/fontmanager.h:60` | neutral (D10) |
 | 1 | `def, object` | `app/client/fontmanager.h:61` | neutral (D10) |
 | 1 | `Unknown_6D5170, object` | `app/client/fontmanager.h:75` | neutral (D10) |
@@ -6432,7 +6431,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown118` | `app/client/ui_avsel.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown11C` | `app/client/ui_avsel.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown120` | `app/client/ui_avsel.h:74` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_chat_panel.cpp:17` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
 | 1 | `AvatarPipUnknown2CClass` | `app/client/ui_chat_panel.cpp:27` | neutral (D10) |
@@ -6946,7 +6944,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown140` | `app/client/ui_class.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown141` | `app/client/ui_class.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown574710InterfaceClass` | `app/client/ui_class.h:65` | transition alias |
-| 1 | `FontStyleClass` | `app/client/ui_combobox.cpp:13` | fontmanager.h's |
 | 1 | `Unknown_00` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
@@ -7039,7 +7036,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0F8` | `app/client/ui_combobox.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown0FC` | `app/client/ui_combobox.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:168` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_cpit.cpp:25` | fontmanager.h's (a DynamicMeshClass there, 0x4E8 bytes) |
 | 1 | `Unknown_Pad` | `app/client/ui_cpit.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown2FC` | `app/client/ui_cpit.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/ui_cpit.cpp:30` | untagged neutral name (D10) |
@@ -7348,7 +7344,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown16C` | `app/client/ui_cpit.h:178` | untagged neutral name (D10) |
 | 1 | `Unknown170` | `app/client/ui_cpit.h:179` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.h:180` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_group.cpp:18` | fontmanager.h's (a DynamicMeshClass there) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_group.cpp:21` | neutral (D10) |
 | 1 | `UIGroupAvatarClass` | `app/client/ui_group.cpp:22` | neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC) |
 | 1 | `Unknown` | `app/client/ui_group.cpp:22` | untagged neutral name (D10) |
@@ -7937,7 +7932,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687150` | `app/client/ui_login.cpp:820` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_login.cpp:867` | untagged neutral name (D10) |
 | 1 | `ViewUnknown34Class` | `app/client/ui_login.cpp:911` | untagged neutral name (D10) |
-| 1 | `FontStyleClass` | `app/client/ui_manu.cpp:18` | fontmanager.h's |
 | 1 | `text, unknown` | `app/client/ui_manu.cpp:21` | what this file passes |
 | 1 | `Unknown_6CDBC0` | `app/client/ui_manu.cpp:21` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/ui_manu.cpp:22` | neutral |
