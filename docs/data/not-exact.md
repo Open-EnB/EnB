@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-637 entries in 129 files.
+636 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -322,8 +322,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_class.cpp:300` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case) @0x575660 |
 | `app/client/ui_class.cpp:486` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
 | `app/client/ui_class.cpp:532` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp) @0x576270 |
-| `app/client/ui_class.cpp:1020` | `ClassSelectInterface::Unknown_576360` | marker | NOT EXACT: functional (D64), from the client's 0x576360 @0x576360 |
-| `app/client/ui_class.cpp:1055` | `ClassSelectInterface::Unknown_5767F0` | marker | NOT EXACT: functional (D64), from the client's 0x5767F0 @0x5767F0 |
+| `app/client/ui_class.cpp:1063` | `ClassSelectInterface::Unknown_5767F0` | marker | NOT EXACT: functional (D64), from the client's 0x5767F0 @0x5767F0 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |

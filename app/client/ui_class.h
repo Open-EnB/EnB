@@ -45,7 +45,7 @@ public:
 	void Unknown_576A80();							// 0x576A80
 	void Unknown_577D30();							// 0x577D30 (Unknown_60 inlines it)
 	void Unknown_577E70(int count);					// 0x577E70 (Unknown_576360 inlines it: the skills' count)  // NAME 1 [count]: what 0x576360 passes
-	void Unknown_577EE0();							// 0x577EE0 (Unknown_60, 0x577E70 inline it)
+	void Unknown_577EE0();							// 0x577EE0 (Unknown_60 inlines it)
 	void Unknown_577F20();							// 0x577F20 (Unknown_60 inlines it)
 
 	CharacterViewClass *CharacterView;				// +0x84

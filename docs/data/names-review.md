@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12670 |
+| 1 | neutral placeholder | 12668 |
 
 ## For review (score 3 and below)
 
@@ -7266,12 +7266,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Is_Unknown2C_02` | `app/client/ui_class.cpp:976` | untagged neutral name (D10) |
 | 1 | `Unknown_577E70` | `app/client/ui_class.cpp:987` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/ui_class.cpp:989` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_class.cpp:1011` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_class.cpp:1018` | neutral (D10) |
-| 1 | `Unknown_BDA908` | `app/client/ui_class.cpp:1018` | untagged neutral name (D10) |
-| 1 | `Unknown_576A40` | `app/client/ui_class.cpp:1084` | untagged neutral name (D10) |
-| 1 | `Unknown_67B320` | `app/client/ui_class.cpp:1092` | untagged neutral name (D10) |
-| 1 | `Unknown_67B390` | `app/client/ui_class.cpp:1099` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_class.cpp:1015` | untagged neutral name (D10) |
+| 1 | `Unknown_576A40` | `app/client/ui_class.cpp:1092` | untagged neutral name (D10) |
+| 1 | `Unknown_67B320` | `app/client/ui_class.cpp:1100` | untagged neutral name (D10) |
+| 1 | `Unknown_67B390` | `app/client/ui_class.cpp:1107` | untagged neutral name (D10) |
 | 1 | `ui_class.h` | `app/client/ui_class.h:3` | provisional header name for ui_class.cpp |
 | 1 | `view, layer` | `app/client/ui_class.h:27` | neutral |
 | 1 | `Unknown_60` | `app/client/ui_class.h:29` | untagged neutral name (D10) |

@@ -987,11 +987,15 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 void ClassSelectInterface::Unknown_577E70(int count)
 {
 	((GadgetSlider *)Slider)->Unknown_66FA90((float)count, 8.0f, true);
-	Unknown_577EE0();
+	int value = (int)((GadgetSlider *)Slider)->Value;
+	if (SliderValue != value) {
+		SliderValue = value;
+		Unknown_576270();
+	}
 }
 
 
-// @0x577EE0 (Unknown_60 and Unknown_577E70 inline it)
+// @0x577EE0 (Unknown_60 inlines it; Unknown_577E70 has the same code)
 void ClassSelectInterface::Unknown_577EE0()
 {
 	int value = (int)((GadgetSlider *)Slider)->Value;
@@ -1015,39 +1019,43 @@ void ClassSelectInterface::Unknown_577F20()
 }
 
 
-static std::string Unknown_BDA908;	// 0xBDA908: the skill's tooltip when SKILL_TOOL_TIPS has none (empty)  // NAME 1: neutral (D10)
-
-// NOT EXACT: functional (D64), from the client's 0x576360
+// 0xBDA908 (the description's "") is the pooled empty string literal
 // @0x576360
 void ClassSelectInterface::Unknown_576360()
 {
 	char section[64];
 	char entry[64];
 	_snprintf(section, sizeof(section), "CLASS-%d%d", Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
-	Descriptions.erase(Descriptions.begin(), Descriptions.end());
-	SkillDescriptions.erase(SkillDescriptions.begin(), SkillDescriptions.end());
-	for (int i = 0; ; i++) {
+	Descriptions.clear();
+	SkillDescriptions.clear();
+	int i = 0;
+	while (true) {
 		_snprintf(entry, sizeof(entry), "Info%d", i);
-		if (!INI.Is_Present(section, entry)) {
+		if (INI.Find_Entry(section, entry) == NULL) {
 			Unknown_577E70(Descriptions.size());
 			Unknown_576270();
 			return;
-		}
-		StringClass text;
-		StringClass tip;
-		INI.Get_String(text, section, entry, " ");
-		if (((const char *)text)[0] != 0) {
-			std::string name = (const char *)text;
-			Descriptions.insert(Descriptions.end(), name);
-			std::string key = name + " " + Unknown_BE5B6C[Unknown8C].Title;
-			const char *found = INI.Is_Present("SKILL_TOOL_TIPS", key.c_str()) ? key.c_str() : name.c_str();
-			INI.Get_String(tip, "SKILL_TOOL_TIPS", found, " ");
-			std::string description = Unknown_BDA908;
-			if (((const char *)tip)[0] != 0) {
-				description = (const char *)tip;
+		} else {
+			StringClass text;
+			StringClass tip;
+			INI.Get_String(text, section, entry, " ");
+			if (!text.Is_Empty()) {
+				std::string name = (const char *)text;
+				Descriptions.push_back(name);
+				std::string key = name + " " + Unknown_BE5B6C[Unknown8C].Title;
+				if (INI.Find_Entry("SKILL_TOOL_TIPS", key.c_str()) != NULL) {
+					INI.Get_String(tip, "SKILL_TOOL_TIPS", key.c_str(), " ");
+				} else {
+					INI.Get_String(tip, "SKILL_TOOL_TIPS", name.c_str(), " ");
+				}
+				std::string description = "";
+				if (!tip.Is_Empty()) {
+					description = (const char *)tip;
+				}
+				SkillDescriptions.push_back(description);
 			}
-			SkillDescriptions.insert(SkillDescriptions.end(), 1, description);
 		}
+		i++;
 	}
 }
 
