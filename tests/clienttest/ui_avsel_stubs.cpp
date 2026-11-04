@@ -22,10 +22,6 @@ class UIAvselCharacterViewClass { public: void Unknown_5594B0(AvatarDescClass de
 void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UIAvselCharacterViewClass::Unknown_5594B0 (0x5594B0)"); }
 
 
-// ui_avatr.obj (linked since charview.cpp makes AvatarCreationInterface, mode 4): a struct returned by value
-struct UIAvatrWeightsStruct { UIAvatrWeightsStruct() {} float Weight[5]; };
-#include "vector2.h"
-UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv) { Trace("stub Unknown_5860B0 (0x5860B0)"); UIAvatrWeightsStruct w; for (int i = 0; i < 5; i++) w.Weight[i] = 0.2f; return(w); }
 
 
 extern const int Unknown_B08CAC = 0x80;
