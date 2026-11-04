@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1198 |
-| 2 | describes what the code does | 2989 |
+| 2 | describes what the code does | 2991 |
 | 1 | neutral placeholder | 12910 |
 
 ## For review (score 3 and below)
@@ -15806,10 +15806,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInIndex` | `app/wwudp/bandwidthaccounting.cpp:99` | 0xBB13F0 |
 | 2 | `LastOutIndex` | `app/wwudp/bandwidthaccounting.cpp:100` | 0xBB13F4 |
 | 2 | `Reset_Channel` | `app/wwudp/cordcon.cpp:34` | Reset's body |
-| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1916` | what it does (the client has no name) |
-| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1926` | what it does (the client has no name) |
-| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1936` | what it does (the client has no name) |
-| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1949` | what it does (the client has no name) |
+| 2 | `current` | `app/wwudp/cordcon.cpp:1435` | the copy of now the expiry loop compares |
+| 2 | `percent` | `app/wwudp/cordcon.cpp:1854` | the share of first sends |
+| 2 | `Cord_Put_Small` | `app/wwudp/cordcon.cpp:1947` | what it does (the client has no name) |
+| 2 | `Cord_Put_Seq` | `app/wwudp/cordcon.cpp:1957` | what it does (the client has no name) |
+| 2 | `Cord_Get_Small` | `app/wwudp/cordcon.cpp:1967` | what it does (the client has no name) |
+| 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1980` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
 | 2 | `CordMessageClass` | `app/wwudp/cordcon.h:300` | describes what it holds |
