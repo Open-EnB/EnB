@@ -2299,6 +2299,15 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
+* **P-CGP-1** (2026-11-04, CGP; recommend yes): objmatch's D100 range round drops a candidate address when the object's
+  exact callers' relocated calls to that symbol reach a different address. Cause: ui_cpit's Create_Get -> Create_Peek fix
+  (0x584110 lines 1937-1939, 0x5845A0 line 2007: the client calls Create_Peek 0x546510; today the cockpit warp / distress
+  text releases a FontSys once too often) leaves two same-bytes COMDATs (Create_Peek<VertexMaterialClass> /
+  <FontSys>) proposing 0x584DF0, so neither is credited (-1). Measured on a full verify with the fix: +91 pairs (app,
+  ww3d2), 0x584DF0 kept, 1 loss: avatar 0x780AC0 (ColorizationHalfStruct::operator=) moves to the shared 0x62A5D0, where
+  the exact `vector<ColorizationRegionStruct>::insert` 0x62A0A0 calls it (evidence-backed, but a loss: yours to accept).
+  Patches `.work/wt/cgp/.work/objmatch_pcgp1.patch`, `.work/wt/cgp/.work/cpit_peek.patch`; gains `.work/wt/cgp/.work/pcgp1_gains.txt`.
+  A tools change.
 
 ## 4. Next steps
 
@@ -2357,21 +2366,35 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides if 0x554E80's
      functional rebuild (2026-11-04) does not, then rerun every marker; its functions toward exact: the POC creation item.
-   * From the 2026-10-31 t4 run (TK15): ui_avatar_cust.cpp starts at 0x54B760 (PermStringInitClass static 0xBE5B34;
-     0x54B370 is ui_attrb_skills.cpp's, line 577; 0x54B740 / 0x54B750 are thunks into its 0x549800); ctor 0x54B7B0,
-     dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
-     not InterfaceClass: rebasing it unlocks the per-frame 0x54CAE0, the ctor and dtors. One register residue (the
-     view's Client in edx, not eax) holds 0x54E690 / 0x54E7F0 / 0x54EAD0 / 0x54E950 (0.69-0.85); 0x54EC30 0.77.
-   * From the 2026-11-01 night run (network stack; CC2, NW3, NW7, FB1; P-CC2-1, Compute_Ticks, pumpClose and ACK1 / Pump_Connections' forms done in the day run, b36dec11 / f3254408 / 3a077b5d): first P-CC2-1, E&B's INFMSG (`time` /
-     `gmtime` / `strftime("%m/%d/%y %H:%M:%S")` into char[80], DebugLibSemaphore's CritSec 0x8B4330 on 0xBF5258,
-     `MsgManager::infoStream()` 0x8B5B90 twice, `"INF " << timebuf << " [" << __FILE__ << " " << __LINE__ << "] "`;
-     our wdebug.h has Zero Hour's Xtime version; draft `.work/cc2/cordcon_h5.h`, `inf_all.cpp`): pumpClose 0.66.
-     Then cordcon handlePacket 0x851AE0 (one `CordMessageClass m` before the block loop),
-     pumpInternal 0x853A30 (send block), write 0x850C70 (register, 22 forms), read 0x850FD0 0.72, buildHeader
-     0x8551F0 0.67 (stash), examinePacket 0x8514D0 0.73, openc 0x84FF70 0.48, Copy 0x84E260
-     (Fable-eligible); cordmgr Pump 0x857F20 (frame: two more dwords under the 0x80-byte texts, `this` in ebp, the
-     profile flag in bl), Pump_Connections 0x858A60 (a shared Add_Connection helper with ACK2), Go_Away 0x8586D0
-     (inline Get_Ip / Get_Port / Get_Session on CordCon: 0.73), ACK2 0x85ABB0 (frame), ACK1 0x85A430; P-FB1-2 (pumpConnections 0x8BE270, LIMIT REACHED: try UDP's thin-forwarder lever from Send_Data
+   * SClient's aux code (SCI, 2026-11-04): Player's dtor 0x7551D0 (0.91) and RPGInfo's 0x753C60 are order-only: exact in a
+     draft where Race / Profession are `DeltaTemplateClass<int>`, but the client emits the enum instances' dtors (0x753C20 /
+     0x753C40) before them, because its object 0x751BE0-0x75A4E0 holds SClient's aux functions (0x7518A0, 0x7555B0,
+     0x755600) with Player's inline ctor 0x752510 right after its first caller: moving them into one TU is a placement call
+     (D137) to make with the next builder there. SClient::Init 0x741180: the client calls RefCountPtr operator= 0x758970
+     out of line in 0x74C9D0's else branch (stash docs/attempts/741180/); 0x755600 the same pattern; ShipInv dtor 0x6F8880
+     (vector::size out of line). Retyping PlayerVarAuxData loses 41 of cpacket.cpp's functions (aux_roots_send.h): dropped.
+     delta_money.h (interim, D137, NAME 1).
+   * The character info window (BIO / AVS2, 2026-11-04): its builder 0x5738B0 makes four tabs, 0x549640 (0x124,
+     ui_attrb?), 0x5C4170 (0xEC, ui_missn?), 0x58D080 (0xE4, ui_faction?) and ui_bio.cpp's UIBioClass (interim, D137, NAME 1;
+     0x5603E0-0x5608BF exact): 0x5738B0 can include ui_bio.h. ui_buff.cpp (0x5608D0-0x561DC0; ui_chat_panel starts at
+     0x561DD0): 0x561030 / 0x5615C0 functional, inline budget (the client calls auxdata.h's find 0x561C40 / ~vector 0x561B80
+     out of line; string::assign out of line for the first two strings); gd_buffgadg.cpp (0x665180-0x666470) would give
+     ui_buff.cpp's local gadget stand-ins their real header. The 0x674260 gadget is declared twice (ui_cpit's UICpitGadget674260Class, ui_bio's
+     UIBioGadget674260Class): one interim header (unknown_674260.h) when a third user appears or its file is found.
+     ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
+   * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
+     gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
+     0x54CBC0 (slot +0x68); NOT EXACT 0x54DFE0 (inline budget: ~RefCountPtr 0x4740B0 out of line, as ui_avatr 0x556B20),
+     0x54F390 (1 byte: the client re-tests the gadget's +0x64), 0x54F6F0 / 0x54FFC0 (order), 0x5502F0 (two bools' slots);
+     register residues 0x54E690 / 0x54E7F0 / 0x54E950 / 0x54EAD0 / 0x54EC30. The EventCallbackClass + Remove lever for
+     dtors should fit the starbase windows' 0x6186A0 / 0x622B90.
+   * The network stack (NET, 2026-11-04; cordmgr Pump_Releases 0x859940 exact with E&B's INFMSG): cordcon pumpInternal
+     0x853A30 0.76 (the resend copy's EH state 9 vs the client's 10: one more numbered object between the full-datagram
+     Write and the copy), handlePacket 0x851AE0 0.31 (frame 0xF8 vs 0x100, Incoming scans through getPointer), cordmgr Pump
+     0x857F20 0.30; read 0x850FD0 0.71 (the second Ready_.erase out of line), ACK2 0x85ABB0 0.58 / Pump_Connections
+     0x858A60 0.74 (frame: declaration order does not move it), Go_Away 0x8586D0 0.65 (lport / lip in dead parameter slots),
+     Copy 0x84E260; register lotteries write 0x850C70, examinePacket 0x8514D0, buildHeader 0x8551F0, ACK1 0x85A430, openc
+     0x84FF70 (three LIMIT REACHED). P-FB1-2 (pumpConnections 0x8BE270, LIMIT REACHED: try UDP's thin-forwarder lever from Send_Data
      6e78f015 before a third round). P-NW6-1: the
      remaining call-site NULL forms (Unlisten, ~CordMgr, Connect) are redundant; leave them until a neutral pass.
    * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order,
@@ -2402,7 +2425,9 @@ below name only the work items, the blocked work, the leads and the queues.
      constant-in-ebx residue blocking 0x769500 / 0x769680 / 0x76A370 (.work/wt/lgx/.work/lgx/find_ebx1.py); the
      the in-game users of the movement setters (ui_starbase 0x63A100);
      never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
-     ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
+     ui_registration.cpp's rest: 0x5FA900 (make 0x5FB330 / 0x5FB540 / 0x5FB750 RegistrationInterface members first),
+     0x5F8FD0 (INI load), 0x5FA0B0, 0x5FA5F0, 0x5FBD30 and the reply handler 0x600000 (~14 KB each; the getters 0x5FFFC0 /
+     0x5FFFE0 pair with 0x5FBD30), functional toward exact 0x5FB9F0 / 0x5FB0C0 / 0x5F9460 (attempts.csv rows),
      ro_funcs 0x4967F0 (frame) / 0x496960 (rebuild 0x495FD0-0x496620 first for the assert lines), surfacetypes 0x442650
      (frame), unknown_847d20 0x847FE0 (inline-budget);
      ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
@@ -2437,17 +2462,18 @@ below name only the work items, the blocked work, the leads and the queues.
      (turning indicator models), 0x55C280 (flash callback); ui_avatar_cust.cpp:63 declares 0x495FD0 `void` (ro_funcs:
      `bool`: a different mangled name, so it stays a gen); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
-     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class 0x576360 / 0x5767F0, ShipPip 0x80C640 / 0x80CA30 /
+     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (inline-budget 0.80: argument
+     / prologue order, dead `size()` reads) and its parked rows (0x575D50 order 0.91, 0x575660, 0x5746C0, 0x576270, ctor frame), ShipPip 0x80C640 / 0x80CA30 /
      0x80CE10 / 0x80D5E0 / 0x80E260 / 0x80E530; the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
      0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
      places them.
-   * Create_Get / Create_Peek (P-QUIT-1's audit, `.work/run-2026-11-04/aud-create-get.md`; the two compile to identical
-     bytes, so an exact function can call the wrong one): Get -> Peek in ui_chat_panel.cpp 709 (0x563DC0) / 2296
-     (0x56BAA0) and ui_cpit.cpp 1937-1939 (0x584110) / 2007 (0x5845A0) (Get_Style 0x6D25D0's result); Peek -> Get in
-     ui_manu.cpp 440 / 443 / 468 (0x5AFFC0, `new UIManuInvClass`); decal.cpp 168 spelling only; unverified: ui_chat_panel
-     0x565F80 (11 uses), land Build_Decorations (3), INIManagerClass::Get_INI.
+   * Create_Get / Create_Peek: ui_cpit.cpp 1937-1939 (0x584110) / 2007 (0x5845A0) Get -> Peek waits for P-CGP-1 (it costs
+     0x584DF0 without it). ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
+     frame only (0xAC vs 0x9C), inline budget 0x567DF0 / 0x567760 / 0x563280 / 0x565390, register 0x5630B0 / 0x5AFCD0 /
+     0x5B4850, order 0x5AFA00; 0x563910 calls AvatarPipUnknown2CClass::Unknown_77E3D0, the client's symbol is
+     CharacterViewAvatarClass's (a naming fix).
    * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
      tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
      symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.
@@ -2472,10 +2498,13 @@ below name only the work items, the blocked work, the leads and the queues.
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
      delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
-   * From the 2026-10-31 evening run: AvatarUI /
-     ShipUI as RefCountPtrs with `.Peek()` in cpacket.cpp's lines 3423 / 3436, dropping 0x69CDE0's cast (TG3). Leads:
-     sbaseview 0x69D030 (0x724 bytes) and SBaseView's slots 0x69B5E0 / 0x69C0D0 / 0x69C5A0 / 0x69C5E0 / 0x69C8F0 and
-     ctor / dtor; CordMgr's ACK2 0x85ABB0 after P-TG3-1, ACK1 0x85A430; ui_avatar_cust 0x550A10's frame-time prologue (register).
+   * sbaseview.cpp (SBV, 2026-11-04): 0x6A1C90 (vector math on +0x1D4..+0x1E8, RCamera from the +0x6C camera), 0x69E6E0
+     (frame 0x74), 0x69DFC0 / 0x69DC80 (need ui_starbase's avatar class, Matrix3D at +0x330), 0x69EF00, 0x6A1180, the lights
+     loader 0x6A0590, 0x69F8F0, 0x6A2120 (stubbed); functional 0x69D030 (literal 0.87: Rotate_Z's first row order) and Init
+     0x69B5E0 (shape 0.84). Evidence-backed retypes: ViewClass::Unknown_18 takes a bool (charview 0x67A210 / sbaseview
+     0x69C5A0 read a byte, `(char)arg` today); MainViewUnknown1E4Class is UIPTradeClass (both construct with 0x5E1BE0);
+     SBaseViewUnknown68Class is scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct (0x490900 / 0x4909A0): a shared header.
+     ui_avatar_cust 0x550A10's frame-time prologue (register).
    * From the 2026-10-31 day run: aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
      KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 and
      0x7099F0 / 0x709A40 (rtti.h casts); D99 candidate 0x463440 (Unknown462690Class's dtor). Leads: ui_manu's money find out of line first in 0x5B4B10 /
