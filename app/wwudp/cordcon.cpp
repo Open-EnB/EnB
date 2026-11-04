@@ -514,9 +514,6 @@ bool CordCon::close(bool now)
 
 
 
-
-
-
 // 0x850C70: the message in 200-byte records, one sequence number each.
 bool CordCon::write(int channel, unsigned int len, const void *data, int priority)
 {
