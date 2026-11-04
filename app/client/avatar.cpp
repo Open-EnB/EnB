@@ -902,7 +902,7 @@ void CharacterViewAvatarClass::Unknown_784E00()
 		Unknown2EC = NULL;
 	}
 }
-
+bool CharacterViewAvatarClass::Unknown_784EA0(const char *name) { return(TutorialManagerClass::Instance->Was_Just_Finished(name)); }	// 0x784EA0 (on one line: avatar.cpp's later asserts keep their lines)
 // 0x786370
 void CharacterViewAvatarClass::Unknown_786370(bool on)
 {

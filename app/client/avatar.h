@@ -62,6 +62,7 @@ public:
 	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
+	bool Unknown_784EA0(const char *name);				// 0x784EA0 (TutorialManagerClass::Was_Just_Finished of the name; ui_shard.cpp's 'AllGood')  // NAME 1 [name]: Was_Just_Finished's
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
