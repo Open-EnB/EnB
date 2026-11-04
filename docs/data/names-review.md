@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1198 |
 | 2 | describes what the code does | 2989 |
-| 1 | neutral placeholder | 12854 |
+| 1 | neutral placeholder | 12855 |
 
 ## For review (score 3 and below)
 
@@ -6189,15 +6189,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIAvatarCustTilt` | `app/client/ui_avatar_cust.cpp:376` | neutral (D10) |
 | 1 | `UIAvatarCustRise` | `app/client/ui_avatar_cust.cpp:377` | neutral (D10) |
 | 1 | `UIAvatarCustCallbackClass` | `app/client/ui_avatar_cust.cpp:380` | neutral (D10) |
-| 1 | `Unknown_69DC60` | `app/client/ui_avatar_cust.cpp:440` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/ui_avatar_cust.cpp:458` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_avatar_cust.cpp:461` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_avatar_cust.cpp:509` | untagged neutral name (D10) |
-| 1 | `Unknown_74C530` | `app/client/ui_avatar_cust.cpp:765` | untagged neutral name (D10) |
-| 1 | `Unknown_74C3B0` | `app/client/ui_avatar_cust.cpp:766` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `app/client/ui_avatar_cust.cpp:767` | untagged neutral name (D10) |
-| 1 | `Unknown_6435E0` | `app/client/ui_avatar_cust.cpp:769` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_avatar_cust.cpp:771` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/ui_avatar_cust.cpp:435` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_avatar_cust.cpp:453` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_avatar_cust.cpp:456` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_avatar_cust.cpp:501` | untagged neutral name (D10) |
+| 1 | `Unknown_74C530` | `app/client/ui_avatar_cust.cpp:757` | untagged neutral name (D10) |
+| 1 | `Unknown_74C3B0` | `app/client/ui_avatar_cust.cpp:758` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_avatar_cust.cpp:759` | untagged neutral name (D10) |
+| 1 | `Unknown_6435E0` | `app/client/ui_avatar_cust.cpp:761` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_avatar_cust.cpp:763` | untagged neutral name (D10) |
 | 1 | `Unknown_4F00C0` | `app/client/ui_avatar_cust.cpp:2250` | untagged neutral name (D10) |
 | 1 | `Get_Unknown34` | `app/client/ui_avatar_cust.cpp:2266` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_avatar_cust.cpp:2266` | untagged neutral name (D10) |
@@ -9990,11 +9990,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Type` | `app/client/unknown_signalbase.h:20` | what it returns |
 | 1 | `Is_Equal` | `app/client/unknown_signalbase.h:21` | what it does |
 | 1 | `Call` | `app/client/unknown_signalbase.h:22` | what it does |
-| 1 | `Is_Same` | `app/client/unknown_signalbase.h:42` | what it does |
-| 1 | `Object` | `app/client/unknown_signalbase.h:45` | what it holds |
-| 1 | `Function` | `app/client/unknown_signalbase.h:46` | what it holds |
-| 1 | `Unknown00` | `app/client/unknown_signalbase.h:90` | neutral (D10) |
-| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:93` | untagged neutral name (D10) |
+| 1 | `EventCallbackClass` | `app/client/unknown_signalbase.h:29` | neutral (D10) |
+| 1 | `Is_Same` | `app/client/unknown_signalbase.h:52` | what it does |
+| 1 | `Object` | `app/client/unknown_signalbase.h:55` | what it holds |
+| 1 | `Function` | `app/client/unknown_signalbase.h:56` | what it holds |
+| 1 | `Unknown00` | `app/client/unknown_signalbase.h:100` | neutral (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:103` | untagged neutral name (D10) |
 | 1 | `InterfaceClass` | `app/client/view.cpp:27` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/view.cpp:32` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/view.cpp:32` | untagged neutral name (D10) |
@@ -14123,7 +14124,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Green` | `app/client/unknown_screenfade.cpp:45` | Set_Screen_Fade_Color's second |
 | 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
 | 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
-| 2 | `emit` | `app/client/unknown_signalbase.h:73` | the typed form Save's call expands to |
+| 2 | `emit` | `app/client/unknown_signalbase.h:83` | the typed form Save's call expands to |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Add` | `app/common/average.h:116` | what it does |
 | 2 | `Count` | `app/common/average.h:123` | what it holds |

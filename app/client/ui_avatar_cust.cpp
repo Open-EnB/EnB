@@ -427,11 +427,6 @@ StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *vi
 	Unknown_BB9654 = false;
 }
 
-// NOT EXACT: inline budget (482 bytes against 0x1F1: the client calls its callback's base constructor out of line,
-// 0x551EE0, which stores vtable 0xAEF788: an intermediate class over SignalBaseClass::CallbackClass with Event_Type
-// 0x53D130 and Is_Equal 0x551F00 (Type() == that.Type()); a template EventCallbackClass<EVENT> between them in
-// unknown_signalbase.h still inlines, with 6 or 20 dead inline reads before it and with a temporary callback;
-// attempts.py show 0x54BAB0)
 // 0x54BAB0
 StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 {
@@ -459,10 +454,7 @@ StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 	Unknown_54F2B0();
 	Unknown_BE67C4->Remove(Mesh->Peek_Object());
 	Unknown_BE67BC->Unload("fa_buy_avatar00.ini");
-	void (StarbaseAvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &StarbaseAvatarCreationInterface::Unknown_551320;
-	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
-	UIAvatarCustCallbackClass callback(this, function);
-	notifier->disconnect(0, callback);
+	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &StarbaseAvatarCreationInterface::Unknown_551320, FlashingGadgetEvent());
 }
 
 // 0x54CAE0
@@ -885,14 +877,16 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 	((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown_671630();
 }
 
-// NOT EXACT: shape (194 instructions against 196: the client copies +0x310 into its local with integer moves before the
-// first add, ours loads it onto the FPU; locals u / v, a Vector2 from the two floats and a Vector2 member at +0x30C
-// tried, the last breaks the constructor's scheduling; tm[2][3] = 0 is the client's, as 0x54F390's)
+// NOT EXACT: order-only (196 instructions: the two translations' adds and the stores of +0x30C / +0x310 scheduled
+// otherwise; found: a Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo
+// offset built from the members; an inline setter for the point is worse)
 // 0x54F6F0
 void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, float du, float dv)
 {
 	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
-	Vector2 point(Unknown30C, Unknown310);
+	Vector2 point;
+	point.X = Unknown30C;
+	point.Y = Unknown310;
 	if (du > 0.0f) {
 		point.X = WWMath::Min(point.X + du, 1.0f);
 	} else {
@@ -905,25 +899,26 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	}
 	AABoxClass box;
 	pull->Unknown00->Unknown_64(box);
+	float top, left, width, height;
 	if (random) {
 		point.X = Unknown_BDBB84(0, 100) * 0.01f;
 		point.Y = Unknown_BDBB84(0, 100) * 0.01f;
 	}
-	float top = box.Center.Y - box.Extent.Y;
-	float left = box.Center.X - box.Extent.X;
-	float width = box.Extent.X * 2.0f;
-	float height = box.Extent.Y * 2.0f;
+	top = box.Center.Y - box.Extent.Y;
+	left = box.Center.X - box.Extent.X;
+	width = box.Extent.X * 2.0f;
+	height = box.Extent.Y * 2.0f;
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Unknown04->Get_Transform();
-	tm[0][3] = width * point.X + left - box.Center.X;
-	tm[1][3] = height * point.Y + top - box.Center.Y;
+	tm.Set_X_Translation(width * point.X + left - box.Center.X);
+	tm.Set_Y_Translation(height * point.Y + top - box.Center.Y);
 	tm[2][3] = 0.0f;
 	model->Control_Bone(bone, tm, false);
 	Unknown30C = point.X;
 	Unknown310 = point.Y;
-	Unknown0BC->Unknown_785C00(Vector3(point.X, 1.0f - point.Y, Unknown314.X));
+	Unknown0BC->Unknown_785C00(Vector3(Unknown30C, 1.0f - Unknown310, Unknown314.X));
 }
 
 // 0x54FAA0
@@ -2204,6 +2199,11 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 
 
 
+
+
+
+
+
 // 0x551320
 void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event, GadgetClass *sender)
 {
@@ -2361,7 +2361,16 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	atexit 0x54B790): 0x54B370 is ui_attrb_skills.cpp's (its FAIL_IF, line 577), and 0x54B740 / 0x54B750 are
 **	adjustor thunks to 0x549800 (ui_attrb_skills.cpp's class); the constructor 0x54B7B0 ('buy_avatar00') and
 **	the destructor 0x54BAB0 follow.
-**	The class is declared only as far as these use it; the rest of the file (about 2,200 lines before
-**	the FAIL_IFs, 0x54B7B0-0x550670) is not rebuilt. +0xC0 is the old look (an AvatarDescClass, 0x10C
-**	bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one.
+**	2026-11-04 (UAC): the window's base is Unknown5BB320Class (the mesh at +0x84, the layer at +0xAC); exact
+**	since: the constructor 0x54B7B0, the deleting destructor 0x54BA80 and its thunks 0x551F90 / 0x551FA0, the
+**	per-frame 0x54CAE0 (0x54E610 inlined), 0x54D720 (the palette texture), 0x54D8A0 / 0x54DA50 (the colour and
+**	head pulls made), 0x54DC20 (a mode's gadgets shown), 0x54EEC0 (the choosers made), 0x54FAA0 (the colour pull
+**	dragged), 0x551320 (the FlashingGadgetEvent handler) and the destructor 0x54BAB0 (the callback taken off
+**	through SignalMap::Remove, its base SignalBaseClass::EventCallbackClass<FlashingGadgetEvent>'s constructor
+**	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
+**	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
+**	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init
+**	0x54BD30 (slot +0x54) and the key handler 0x54CBC0 (slot +0x68).
+**	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
+**	the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass).
 */

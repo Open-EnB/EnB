@@ -22,9 +22,19 @@ public:
 		virtual void Call(void *sender, void *event) = 0;		// +0x14 (0x560330, 0x5AF8D0: the handler gets (event, sender))  // NAME 1: what it does
 	};
 
+	// The callbacks of one event (FlashingGadgetEvent's: vtable 0xAEF788, the deleting destructor 0x551F40, Event_Type
+	// 0x53D130, Is_Equal 0x551F00, the rest pure). Its constructor stays out of line, 0x551EE0, where a window's
+	// destructor takes its callback off through SignalMap::Remove (ui_avatar_cust.cpp's 0x54BAB0 and two more)
+	template <class EVENT>
+	class EventCallbackClass : public CallbackClass	// NAME 1: neutral (D10)
+	{
+	public:
+		virtual const type_info &Event_Type() const { return(typeid(EVENT)); }
+		virtual bool Is_Equal(const CallbackClass &that) const { return(Type() == that.Type()); }
+	};
 	// An object and a member function (0x10 bytes: the function pointer is 8, the windows have two bases)
 	template <class SENDER, class OBJECT, class FUNC, class EVENT>
-	class MemberCallback : public CallbackClass	// NAME 5: the client's RTTI
+	class MemberCallback : public EventCallbackClass<EVENT>	// NAME 5: the client's RTTI
 	{
 	public:
 		MemberCallback(OBJECT *object, FUNC function) : Object(object), Function(function) {}
