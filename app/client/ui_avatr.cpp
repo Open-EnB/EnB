@@ -1316,3 +1316,75 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	0x559F30 (the seven +0x2DC .. +0x2F4 objects deleted, destructor 0x585BF0) exact.
 **	0x55B110 (the button 0x20 .. 0x22 / 0x2A .. 0x2D into +0x1BC, +0x1C0 from the +0x194 object) exact.
 */
+
+// NOT EXACT: functional (D64), from the client's 0x558D30 (inline-budget: the client's RefCountPtr temporaries)
+// 0x558D30
+void AvatarCreationInterface::Unknown_558D30(int dir)
+{
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	int num = desc->Desc.Body_Type;
+	if (dir == 2) {
+		num = (num + 1) % 3;
+	} else if (dir == 1) {
+		num--;
+		if (num < 0) {
+			num = 2;
+		}
+	}
+	desc->Unknown_77E9D0(num, desc->Desc.Pants_Type, true);
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown094->Unknown_84(desc);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x558EA0 (inline-budget: the client's RefCountPtr temporaries)
+// 0x558EA0
+void AvatarCreationInterface::Unknown_558EA0(int dir)
+{
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	int num = desc->Desc.Pants_Type;
+	if (dir == 2) {
+		num = (num + 1) % 3;
+	} else if (dir == 1) {
+		num--;
+		if (num < 0) {
+			num = 2;
+		}
+	}
+	desc->Unknown_77E9D0(desc->Desc.Body_Type, num, true);
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown094->Unknown_84(desc);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again)
+// 0x559010
+void AvatarCreationInterface::Unknown_559010(int dir)
+{
+	if (dir == 1) {
+		Unknown2E0->Unknown_585CC0();
+	} else {
+		Unknown2E0->Unknown_585C90();
+	}
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	if (desc->Desc.Gender == 1 && Unknown2E0->Unknown18 == 0) {
+		Unknown_559010(dir);
+		return;
+	}
+	desc->Unknown_77FC20(Unknown2E0->Unknown18, true);
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown094->Unknown_84(desc);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries)
+// 0x5591E0
+void AvatarCreationInterface::Unknown_5591E0(int dir)
+{
+	if (dir == 1) {
+		Unknown2E4->Unknown_585CC0();
+	} else {
+		Unknown2E4->Unknown_585C90();
+	}
+	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Unknown18, true);
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown094->Unknown_84(desc);
+}

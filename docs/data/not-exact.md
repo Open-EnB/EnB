@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-615 entries in 129 files.
+622 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -57,6 +57,9 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:2324` | `CharacterViewAvatarClass::Unknown_77E830` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 725) |
 | `app/client/avatar.cpp:2342` | `CharacterViewAvatarClass::Unknown_77E900` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 748) |
 | `app/client/avatar.cpp:2362` | `CharacterViewAvatarClass::Unknown_77F000` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
+| `app/client/avatar.cpp:2464` | `CharacterViewAvatarClass::Unknown_77E9D0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
+| `app/client/avatar.cpp:2528` | `CharacterViewAvatarClass::Unknown_77FC20` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
+| `app/client/avatar.cpp:2540` | `CharacterViewAvatarClass::Unknown_77FD30` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -282,7 +285,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1104` | `AvatarCreationInterface::Unknown_559350` | marker | NOT EXACT: functional (D64), from the client's 0x559350 (the avatar's Desc at +0xF8, avatar.h's) 0x559350 |
 | `app/client/ui_avatr.cpp:1115` | `CharacterViewClass::Unknown_5594B0` | marker | NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment) 0x5594B0 |
 | `app/client/ui_avatr.cpp:1158` | `AvatarCreationInterface::Unknown_559900` | marker | NOT EXACT: functional (D64), from the client's 0x559900 0x559900 |
-| `app/client/ui_avatr.cpp:1296` | `AvatarCreationInterface::Unknown_Set_Palette` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
+| `app/client/ui_avatr.cpp:1296` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
+| `app/client/ui_avatr.cpp:1320` | `AvatarCreationInterface::Unknown_558D30` | marker | NOT EXACT: functional (D64), from the client's 0x558D30 (inline-budget: the client's RefCountPtr temporaries) 0x558D30 |
+| `app/client/ui_avatr.cpp:1339` | `AvatarCreationInterface::Unknown_558EA0` | marker | NOT EXACT: functional (D64), from the client's 0x558EA0 (inline-budget: the client's RefCountPtr temporaries) 0x558EA0 |
+| `app/client/ui_avatr.cpp:1358` | `AvatarCreationInterface::Unknown_559010` | marker | NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again) 0x559010 |
+| `app/client/ui_avatr.cpp:1377` | `AvatarCreationInterface::Unknown_5591E0` | marker | NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries) 0x5591E0 |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers) 0x55F140 |

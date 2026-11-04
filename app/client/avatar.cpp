@@ -2457,3 +2457,93 @@ void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
 		Unknown_77F750();
 	}
 }
+
+// 0x77E9D0: Body_Type / Pants_Type's body '<gender><race>BODY%02d%02d' ('ANPCBODY%03d' for an NPC) loaded
+// again: the head, weapons and collision objects come off the old one and onto the new one; +0x234 is
+// K_HEAD's height above skel_reference; morph: the body weights shown at once (0x781410)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
+{
+	char body_name[32];
+	Desc.Pants_Type = (char)pants;
+	Desc.Body_Type = (char)body;
+	if (BodyObj) {
+		if (HeadObj) BodyObj->Remove_Sub_Object(HeadObj);
+		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique);
+		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip);
+		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack);
+		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj);
+		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4);
+		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
+		BodyObj->Remove();
+		BodyObj->Release_Ref();
+		BodyObj = NULL;
+	}
+	if (BodySource) {
+		BodySource->Release_Ref();
+		BodySource = NULL;
+	}
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	if (Desc.Avatar_Type == 0) {
+		_snprintf(body_name, 0x20, "%s%sBODY%02d%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Body_Type, (int)Desc.Pants_Type);
+	} else {
+		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
+	}
+	BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	if (BodySource == NULL) {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, 826, "Error loading up the body asset: %s", body_name);
+		return;
+	}
+	Unknown_496AE0(BodySource, true);
+	BodyObj = BodySource->Clone();
+	Unknown_496AE0(BodyObj, true);
+	Unknown_496DB0(BodyObj);
+	Set_Name(BodyObj->Get_Name());
+	Set_Base_Model_Name(BodyObj->Get_Base_Model_Name());
+	Update_Obj_Space_Bounding_Volumes();
+	if (HeadObj) BodyObj->Add_Sub_Object_To_Bone(HeadObj, "K_HEAD");
+	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique, "WEAPON02");
+	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack, "WEAPON03");
+	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
+	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4, "skel_reference");
+	if (Desc.Gender == 0 && WeaponHip) {
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON01");
+	} else if (WeaponHip) {
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON04");
+	}
+	float head = BodyObj->Get_Bone_Transform("K_HEAD").Get_Z_Translation();
+	Unknown234 = head - BodyObj->Get_Bone_Transform("skel_reference").Get_Z_Translation();
+	if (morph) {
+		Unknown_781410(1, 0);
+	}
+}
+
+// 0x77FC20: Hair_Num's hair ('HAIR'), Hair_Color onto it, then (rebuild) the head object cloned again
+// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+void CharacterViewAvatarClass::Unknown_77FC20(int num, bool rebuild)
+{
+	Desc.Hair_Num = (char)num;
+	Unknown_77F960("HAIR", num, &HairSource);
+	Unknown_77FFA0(Desc.Hair_Color, false);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x77FD30: Beard_Num's beard ('BEARD'), Beard_Color onto it, then (rebuild) the head object cloned again
+// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
+{
+	Desc.Beard_Num = (char)num;
+	Unknown_77F960("BEARD", num, &BeardSource);
+	Unknown_7802F0(Desc.Beard_Color, false);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
