@@ -2264,6 +2264,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D187 | 2026-11-02 | P-AGY-1 approved: Gemini 3.8 Flash (high) through the Antigravity CLI (`agy`, the user's Google subscription) is a builder model next to D72's, for bounded POC and triage items (the functions of one file, 30-60 minutes). Launched by `tools/agy/launch.sh` in a `wt.py` worktree, landed with `wt.py bring-over --target run/<date>`; paced by the user's agy window (about 1 % of the 5-hour window per 100k stream tokens, the user's reading at the start and mid-run; a 429 stops launches); the coordinator runs every POC check itself (`tools/agy/poc_check.sh`: agy-started processes get no D3D device). Not Opus through agy (its quota covers one short item). Evidence: run 2026-11-02 evening, nine Flash items, +39 pairs and 0 lost after the coordinator's verify of each | user |
 | D188 | 2026-11-03 | TW3 / TSH proposal (a) accepted with conditions: objmatch credits a `short` function (fewer than MIN_FIXED fixed bytes) as exact only at an address the run knows independently of its bytes: a learned vtable slot (D171), the target of a call from an exact function, or a constructor's vptr store; its pattern must hold there and its relocations' targets must agree (D80). Never by pattern alone. A short function that is a COMDAT (header inline, template, compiler-generated) is marked `shared` (D183's guard): it credits the address, not a file placement. |
 | D189 | 2026-11-03 | TW3 proposal (c) accepted: symbols.py drops an exact entry that lies inside another exact entry of the same symbol (stale mid-function matches such as WW3D::Render 0x917C5C, RegistryClass::Set_Bin 0x9D18D9, Delete_Value 0x9D1C29, left by versions without E&B's early-out guard); and objmatch credits a match only at a known function start or right after padding / another function's end, never inside a function. Proposal (b) (source-order tie-break for byte-identical overload twins) is left open. |
+| D190 | 2026-11-04 | P-LIGHT-1 approved: `clientpoc.py replay --retail` runs a copy of the retail client.exe (copied out of the install folder, D143) with a d3d8shot build that has poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on the terms box's "I Agree" (the dialog's own input, D69), so any builder can take a retail reference shot or draw dump on the same replay. From LIGHT's `.work/wt/light/.work/light/` (agree.py, build_d3d8in.py, cpoc_retail.py, cmp2.py / cmp3.py) | user |
+| D191 | 2026-11-04 | P-QUIT-2 approved: `clientpoc.py replay` prints whether the client exited and when (antprox.out's "Client exited" line against the last input's time), as `run` does | user |
 
 ## 3. Open decisions
 
@@ -2297,12 +2299,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
-* **P-LIGHT-1** (2026-11-04, LIGHT; recommend yes): `clientpoc.py replay --retail`: a copy of the retail client.exe with
-  a d3d8shot build that has poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on the terms box's "I Agree"
-  (the dialog's own input, D69), so any builder can take a retail reference shot or draw dump on the same replay. Today
-  in `.work/wt/light/.work/light/` (agree.py, build_d3d8in.py, cpoc_retail.py, cmp2.py / cmp3.py). A tools change.
-* **P-QUIT-2** (2026-11-04, QUIT; recommend yes): `clientpoc.py replay` prints whether the client exited and when
-  (antprox.out's "Client exited" line against the last input's time), as `run` does. A tools change.
 
 ## 4. Next steps
 
