@@ -1195,7 +1195,7 @@ void UIManuClass::Unknown_5B3E00()
 	Unknown_5B2FE0();
 }
 
-// NOT EXACT: register (the gadget and the texture for 0x495FD0 in edx / ecx, ours eax / edx) (0x5B42F0)
+// 0x5B42F0
 void UIManuClass::Unknown_5B42F0(int level)
 {
 	char name[64];
@@ -1238,7 +1238,7 @@ void UIManuClass::Unknown_5B42F0(int level)
 		}
 	}
 	if (texture && !texture->Is_Missing_Texture()) {
-		Unknown_495FD0(Unknown0CC[level + 2]->Unknown30, texture.Peek(), 0);
+		RenderObjClass *robj = Unknown0CC[level + 2]->Unknown30; Unknown_495FD0(robj, texture.Peek(), 0);
 		Unknown0CC[level + 2]->Unknown_40(true);
 		Unknown0CC[level + 2]->Unknown_8C(false);
 		Unknown110[level]->Set_Hidden(false);
@@ -1867,7 +1867,7 @@ void UIManuClass::Unknown_5B6D30()
 **	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
 **	are defined before it, and the client emits them after it.
 **	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
+**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
