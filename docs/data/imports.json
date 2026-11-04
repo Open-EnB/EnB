@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 110,
+  "ambiguous_total": 109,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -23966,12 +23966,12 @@
      "0x42A6C0",
      "0x42B2F0",
      "0x4ACBB0",
-     "0x4ACF00",
-     "0x60A9D0"
+     "0x4ACF00"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A710",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -24002,13 +24002,26 @@
      "0x5FB7A0",
      "0x5FB890",
      "0x5FB950",
+     "0x606150",
+     "0x606980",
      "0x607120",
+     "0x608690",
+     "0x6089A0",
+     "0x608A20",
      "0x608BC0",
-     "0x609250"
+     "0x608ED0",
+     "0x608F80",
+     "0x609170",
+     "0x6091A0",
+     "0x609220",
+     "0x609250",
+     "0x60A990",
+     "0x60A9D0"
     ],
     "merged": [],
     "name": "client/ui_registration.cpp",
     "shared": [
+     "0x42A710",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -24023,6 +24036,9 @@
     "short_known": [
      "0x42D120",
      "0x5FAE70"
+    ],
+    "tiebreak": [
+     "0x60A9D0"
     ]
    },
    "ui_scut": {
@@ -26623,7 +26639,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9154,
+  "in_tree_total": 9166,
   "totals": {}
  },
  "binkmovie": {

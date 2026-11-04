@@ -7,9 +7,11 @@
 #include "charview.h"
 #include "avatar.h"
 #include "ui_combobox.h"
+#include "textgadg.h"
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <stdlib.h>
 #include "ww3d.h"
 #include "..\shared\unknown_debug.h"
 #include <stdio.h>
@@ -62,6 +64,8 @@ static const char *PaymentTypeTexts[] = {  // NAME 1 [PaymentTypeTexts]: client 
 	0
 };
 
+static const int DaysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };  // NAME 1 [DaysInMonth]: client .rdata 0xAF6F58 (0x5F9460)
+
 class Sub14CClass {  // NAME 1 [Sub14CClass]: vtable 0xAF7130
 public:
 	virtual void Slot0() {}
@@ -109,6 +113,16 @@ struct RegistrationComboStruct  // NAME 1 [RegistrationComboStruct]: neutral (D1
 	int Unknown08;
 };
 
+// The text fields' map value (0x14 bytes: operator[] copies five dwords; the first is the field, 0x5FB0C0)
+struct RegistrationTextStruct  // NAME 1 [RegistrationTextStruct]: neutral (D10)
+{
+	TextBaseGadgetClass *Gadget;	// +0x00  // NAME 1 [Gadget]: what 0x5FB0C0 calls Get_Text / Set_Text on
+	int Unknown04;
+	int Unknown08;
+	int Unknown0C;
+	int Unknown10;
+};
+
 // The 0x14-byte entries of the interface's vector +0x5A8 (0x5F9A90 hands their text to the combo box 0x22)
 struct RegistrationUnknown5A8Struct  // NAME 1 [RegistrationUnknown5A8Struct]: neutral (D10)
 {
@@ -151,7 +165,8 @@ public:
 	char UnknownCB[0xD4 - 0xCB];
 	int UnknownD4;				// +0xD4: the screen's state (0x5FAFF0's 0x5F3770(0x16); 0x5FB950 tests 0x16)
 	std::vector<int> UnknownD8;	// +0xD8: the states to go back to (0x5FB9F0 pops one into 0x5F3770)
-	char UnknownE8[0x108 - 0xE8];
+	char UnknownE8[0xF8 - 0xE8];
+	std::map<int, RegistrationTextStruct> UnknownF8;	// +0xF8: the text fields by id (0x5FB0C0: 0x2B, the card number)
 	std::map<int, RegistrationComboStruct> Unknown108;	// +0x108: the combo boxes by id (0x5F9700 0x19, 0x5F98C0 0x16, 0x5F9EB0 0x2A; 0x5FB9F0 calls 0x57B3C0(0) on each)
 	char Unknown118[0x11B - 0x118];
 	bool Unknown11B;			// +0x11B (0x5FB9F0: with state 1)
@@ -177,6 +192,8 @@ public:
 
 	void Unknown_5F2990(int arg);
 	void Unknown_5F3770(int arg);
+	bool Unknown_5F8EA0(int month, int day, int year);  // 0x5F8EA0 (a date check: false before 1900)  // NAME 1 [month, day, year]: 0x5F9460 passes 2, 29, the year
+	void Unknown_5F9460();
 	void Unknown_5F9700();
 	void Unknown_5F98C0(int from, int to);  // NAME 1 [from, to]: the loop's bounds
 	void Unknown_5F9A90();
@@ -186,8 +203,31 @@ public:
 	void Unknown_5FAF60(int arg);
 	void Unknown_5FAFF0(const char *text);
 	void Unknown_5FB030();
+	void Unknown_5FB0C0();
 	void Unknown_5FB890();
 };
+
+// NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ)
+// @0x5F9460
+void RegistrationInterface::Unknown_5F9460()
+{
+	int month = Unknown108[0x14].Combo->Selected;
+	int day = Unknown108[0x15].Combo->Selected;
+	int days = DaysInMonth[month];
+	UIComboBoxClass *years = Unknown108[0x16].Combo;
+	int year = (years->Selected < years->Items.size()) ? atoi(years->Items[years->Selected].c_str()) : 0;
+	if (month == 1 && Unknown_5F8EA0(2, 29, year)) {
+		days = 29;
+	}
+	UIComboBoxClass *days_box = Unknown108[0x15].Combo;
+	days_box->Unknown_57B210();
+	for (int i = 1; i <= days; i++) {
+		char text[5];
+		_snprintf(text, sizeof(text), "%02d", i);
+		days_box->Unknown_57B000(text);
+	}
+	Unknown108[0x15].Combo->Unknown_57AC70(day);
+}
 
 // @0x5F9700
 void RegistrationInterface::Unknown_5F9700()
@@ -224,46 +264,6 @@ void RegistrationInterface::Unknown_5F9C90()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2435,6 +2435,41 @@ void RegistrationInterface::Unknown_5FB030()
 	label->Release_Ref();
 }
 
+// NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line)
+// @0x5FB0C0
+void RegistrationInterface::Unknown_5FB0C0()
+{
+	if (UnknownD4 != 0x11 && UnknownD4 != 0x14) {
+		return;
+	}
+	TextBaseGadgetClass *gadget = UnknownF8[0x2B].Gadget;
+	bool changed = gadget->Changed;
+	gadget->Changed = false;
+	if (!changed) {
+		return;
+	}
+	if (gadget->Active) {
+		char *text = gadget->Get_Text();
+		std::string number;
+		int count = 1;
+		for (unsigned int i = 0; i < min(strlen(text), 19u); i++) {
+			if (text[i] != '-') {
+				number += text[i];
+				if ((count & 3) == 0) {
+					number += '-';
+				}
+				count++;
+			}
+		}
+		delete text;
+		if (number.length() != 0 && *(number.end() - 1) == '-') {
+			number.erase(number.end() - 1);
+		}
+		gadget->Set_Text(number.c_str(), false);
+	}
+	gadget->Changed = true;
+}
+
 // @0x5FB330
 std::string __stdcall Unknown_5FB330(std::string str)
 {
@@ -2462,41 +2497,6 @@ std::string __stdcall Unknown_5FB540(std::string str)
 	}
 	return copy;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2991,4 +2991,7 @@ void RegistrationInterface::Unknown_5F0100()
 **	  line 2342). Unknown108[id] is the map's operator[]: its insert inlined with begin, --, _Insert and pair's
 **	  constructor out of line, as the client has them. The status table ends at 0xB86048, where the payment type
 **	  names and descriptions follow (two 7-entry tables).
+**	- 0x5F9460 (functional): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
+**	  29 February of the year box's year). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
+**	  regrouped in fours with '-', at most 19 characters, in states 0x11 / 0x14.
 */

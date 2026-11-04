@@ -21,6 +21,7 @@ public:
 	void Unknown_57AAB0();								// 0x57AAB0 (the rows from the top item)
 	void Unknown_57AC70(int index);						// 0x57AC70 (select by index)  // NAME 1 [index]: neutral
 	void Unknown_57AD50(const char *text);				// 0x57AD50 (select by text: the first item it begins)  // NAME 1 [text]: neutral
+	void Unknown_57B210();										// 0x57B210 (ui_registration.cpp 0x5F9460: the rows emptied before a refill)  // NAME 1 [Unknown_57B210]: neutral (D10)
 	void Unknown_57B000(const char *text);						// 0x57B000 (ui_registration.cpp's map inserts: the entry's text)  // NAME 1 [Unknown_57B000, text]: neutral (D10)
 	void Unknown_57B3C0(int arg);							// 0x57B3C0 (ui_registration.cpp 0x5FB9F0: 0 on each of its combo boxes; the +0xD0 / +0xD4 gadgets' slot +0x40)  // NAME 1 [Unknown_57B3C0, arg]: neutral (D10)
 	void Unknown_57B440();								// 0x57B440 (ui_chat_panel.cpp: slot +0x7C, before each combo's slot +0x7C)
