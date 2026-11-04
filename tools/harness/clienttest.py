@@ -43,6 +43,7 @@ APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket
        r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list (as udpreplay.py's CONN)
        r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path
        r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member
+       r'app\client\shiputils.cpp',       # the real 0x80E8C0 / 0x80EFF0 run; its 0x80FF20 is renamed (client_stubs.cpp's stand-in)
        r'app\shared\gclass.cpp']            # InterfaceClass's base GClass (gen_stubs cannot write its template-pointer slots)
 for _sub in ('', 'gameedit'):
     _d = os.path.join(REPO, 'app', 'packets', _sub)
@@ -89,6 +90,8 @@ def build(out):
         name = 'app_' + re.sub(r'\W', '_', os.path.splitext(p)[0][4:]) + '.cpp'
         with open(os.path.join(stage, name), 'w', newline='\r\n') as f:
             f.write('// %s, compiled into clienttest (clienttest.py build)\n' % p)
+            if p.endswith('shiputils.cpp'):
+                f.write('#define Unknown_80FF20 Real_Unknown_80FF20\n')
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
                                 'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB']}  # settings_store.cpp's lkey thread

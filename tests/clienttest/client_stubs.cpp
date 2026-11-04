@@ -153,9 +153,12 @@ void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const ch
 void UILineDisplayClass::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
 void UILineDisplayClass::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
 
-// shiputils.cpp 0x80E8C0 (DECAL 16)
-class SClientUnknown1334Class;
-void Unknown_80E8C0(RenderObjClass *, std::vector<DecalStruct> &decals, SClientUnknown1334Class *) { Trace("stub Unknown_80E8C0 %d decals", (int)decals.size()); }
+// shiputils.cpp is compiled into clienttest (clienttest.py's APP) with its real 0x80FF20 renamed: the real one builds a
+// Font32Class from ship_font.tga (SurfaceClass -> DX8Wrapper::_Create_DX8_Surface), which needs a device
+void Unknown_80FF20(RenderObjClass *, const char *, float *)
+{
+	Trace("gen Unknown_80FF20");	// the line gen_stubs.py's stand-in wrote
+}
 
 // verbmanager.cpp (VERB_UPDATE 92: the handler tests VerbManager first, which Init makes)
 void VerbManagerClass::Unknown_81F810(int game_id, void *, void *) { Trace("stub VerbManagerClass::Unknown_81F810 %d", game_id); }
@@ -201,12 +204,6 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 
-// shiputils.cpp's colorization helper (COLORIZATION 17)
-class EnvironmentMapManagerClass;
-void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *)
-{
-	Trace("stub Unknown_80EFF0 %d regions", (int)regions.size());
-}
 // and its colorization of a new model (co.cpp's 0x6FCB70: a vector by reference gen_stubs.py cannot write)
 void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions)
 {
