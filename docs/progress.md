@@ -4,6 +4,20 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-04 (early): #153-#156 merged; CLAUDE.md's context section made rules
+
+Coordinator Opus 5.5 with the user. PRs #153 (renames, FontSys, B2 merges), #154 (P-FU1-2), #155 (symbols.json
+regenerated, pseudocode.py `--all` / `--check`) and #156 merged; no app change since the late-night entry.
+
+- **Context rules (#156):** the session reached 525k tokens (Read 440k, Bash 154k) because CLAUDE.md's "Keeping context
+  small" was worded as tips with a judgment-call trigger. It is now rules: named commands always log to `.work/log/` and
+  print only their summary (verify, pairs_cmp, build, harness, client.py callers/refs, recursive grep); Reads use
+  offset/limit; one back-buffer image per check; a third search or fourth file goes to a subagent; one item per session,
+  with `/handoff` after each PR.
+- **Next session:** pick one §4 item. Open from this run: the POC's quit fault (on master too), FontSys's constructors
+  taking the render object as an integer, kerneltest's link failure, P-VM-1 (quiet tree; the user's call), P-T12-2
+  (with the aux_roots generator's next edit), P-HF-1 (left).
+
 ### 2026-11-03 (late night): P-FU1-2, the font manager keyed by render objects; app 9,039 = 9,039, 0 lost
 
 Coordinator Opus 5.5 with the user; branch `types/fontmanager-keys` from 1ff6d912 (PR #153 merged). P-T12-2 left for
