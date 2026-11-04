@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """Pre-push check: what must not reach the public repository.
 
-    python tools/prepush_check.py            # tree and history, prints a verdict
+    python tools/prepush_check.py            # what the push adds: blobs no remote-tracking ref has (seconds)
+    python tools/prepush_check.py --base REF # blobs REF cannot reach (CI on a PR: origin/master)
+    python tools/prepush_check.py --full     # every blob in all of history (minutes: an audit; CI off PRs)
     python tools/prepush_check.py --tree     # current tree only (fast)
     python tools/prepush_check.py -v         # also list every informational finding
 
-The project publishes source and notes only. This scans every file ever committed (the push
-publishes all of history, not just the tip) for:
+The project publishes source and notes only. A push publishes history, not just the tip, so this scans
+every blob the push would add (the remotes' history was checked when it was pushed; with no remote, or
+--full, all of history; 2026-11-03: the full scan had reached 11,700 blobs / 2.1 GB and ~5 minutes) for:
 
-  big files      any blob over 5 MB
+  big files      any blob over 5 MB; generated data under docs/data/ (.json .tsv .csv .md) up to 25 MB
+                 (the 5 MB rule catches stray binaries and scratch dumps, not the tools' own tables)
   binaries       exe dll lib obj vhdx pcapng jsonl ... (by extension) and files with NUL bytes that
                  are not on the small allow list
   captures       network and gameplay recordings (pcap, pcapng, cap, jsonl, .rec, ...)
@@ -28,6 +32,14 @@ import sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 BIG = 5 * 1024 * 1024
+BIG_DATA = 25 * 1024 * 1024        # docs/data's generated tables (symbols.json 5.9 MB after D188, 2026-11-03)
+DATA_EXT = ('.json', '.tsv', '.csv', '.md')
+
+
+def size_limit(path):
+    """The largest blob allowed at `path`: BIG_DATA for docs/data's generated tables, BIG for anything else."""
+    p = path.replace('\\', '/')
+    return BIG_DATA if p.startswith('docs/data/') and p.lower().endswith(DATA_EXT) else BIG
 BINARY_EXT = {'.exe', '.dll', '.lib', '.obj', '.vhdx', '.vhd', '.pcapng', '.pcap', '.cap', '.jsonl',
               '.pdb', '.ilk', '.exp', '.sys', '.ocx', '.res', '.mix', '.big', '.iso', '.zip', '.7z',
               '.rar', '.cab', '.bik', '.mp3', '.wav', '.tga', '.dds', '.bmp', '.png', '.jpg', '.gif',
@@ -69,8 +81,9 @@ def git(*args, binary=False, inp=None):
     return r.stdout if binary else r.stdout.decode('utf-8', 'replace')
 
 
-def blobs(history):
-    """[(sha, path)] of every blob in the tip tree, or in all of history."""
+def blobs(history, exclude=None):
+    """[(sha, path)] of every blob in the tip tree, or in all of history; with `exclude` (rev-list arguments such
+    as ['--remotes'] or ['origin/master']) only the blobs those refs cannot reach: what a push adds."""
     if not history:
         out = []
         for line in git('ls-tree', '-r', '-z', 'HEAD').split('\0'):
@@ -82,7 +95,8 @@ def blobs(history):
                 out.append((parts[2], path))
         return out
     seen, out = set(), []
-    for line in git('rev-list', '--objects', '--all').splitlines():
+    args = ['rev-list', '--objects', '--all'] + (['--not'] + exclude if exclude else [])
+    for line in git(*args).splitlines():
         sha, _, path = line.partition(' ')
         if path and sha not in seen:
             seen.add(sha)
@@ -100,10 +114,20 @@ def blobs(history):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--tree', action='store_true', help='current tree only, not history')
+    ap.add_argument('--full', action='store_true', help='every blob in all of history (minutes; an audit)')
+    ap.add_argument('--base', metavar='REF', help='only blobs REF cannot reach (CI: origin/master)')
     ap.add_argument('-v', '--verbose', action='store_true')
     a = ap.parse_args()
     history = not a.tree
-    bl = blobs(history)
+    exclude = None
+    if history and not a.full:
+        if a.base:
+            exclude = [a.base]
+        elif git('for-each-ref', '--count=1', 'refs/remotes').strip():
+            exclude = ['--remotes']      # the remotes' history was checked when it was pushed
+    bl = blobs(history, exclude)
+    if exclude:
+        print(f'prepush_check: only what {" ".join(exclude)} does not have ({len(bl)} blobs); --full scans all history')
     sizes = {}
     chk = git('cat-file', '--batch-check=%(objectname) %(objectsize)', inp='\n'.join(s for s, _ in bl).encode())
     for line in chk.splitlines():
@@ -119,7 +143,7 @@ def main():
     # 1. names and sizes (cheap)
     for s, p in bl:
         ext = os.path.splitext(p)[1].lower()
-        if sizes[s] > BIG:
+        if sizes[s] > size_limit(p):
             problems['big files'].append(f'{p} ({sizes[s] / 1048576:.1f} MB) {s[:10]}')
         if ext in CAPTURE_EXT:
             problems['captures'].append(f'{p} {s[:10]}')
@@ -130,7 +154,7 @@ def main():
             problems['install-tree names'].append(f'{p} {s[:10]}')
 
     # 2. contents: one cat-file --batch pass over blobs under 2 MB that are not already flagged
-    want = [s for s, p in bl if sizes[s] <= BIG]
+    want = [s for s, p in bl if sizes[s] <= size_limit(p)]
     seen_nul = set()
     proc = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     import threading
