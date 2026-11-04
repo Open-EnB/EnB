@@ -87,7 +87,7 @@ public:
 	char Unknown84[0xD4 - 0x84];
 };
 #include "ui_class.h"
-
+#include "ui_shipcust.h"
 
 
 
@@ -104,12 +104,12 @@ public:
 	Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's
 	char Unknown84[0xEC - 0x84];
 };
-class Unknown622180InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 6
-{
-public:
-	Unknown622180InterfaceClass(UIViewClass *view, LayerClass *layer, int unknown, int unknown2);	// 0x622180 (the mode before was 5)  // NAME 1 [view, layer, unknown, unknown2]: neutral
-	char Unknown84[0x26C - 0x84];
-};
+// mode 6: ShipCustomizeInterface (ui_shipcust.h; the lines it held kept blank, so the FAIL_IFs below keep the client's __LINE__)
+
+
+
+
+
 class Unknown5EF0B0InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): modes 9-12
 {
 public:

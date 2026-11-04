@@ -15,6 +15,11 @@
 #include "..\..\ww3d2\mapper.h"
 #include "..\..\ww3d2\shader.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include "shiputils.h"
+#include "..\..\ww3d2\texture.h"
+#include "..\shared\enbassetmgr.h"
+#include "font32bit.h"
+#include "fontmanager.h"
 
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions,
 	EnvironmentMapManagerClass *env_maps, const Vector3 *skin);
@@ -223,4 +228,223 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 	}
 	REF_PTR_RELEASE(mapper1);
 	REF_PTR_RELEASE(mapper2);
+}
+
+
+// the model's +0x84 list, here false (the ship customisation's model is its own)
+// @0x810130
+static void Unknown_810130(RenderObjClass *robj, TextureClass *texture, const Vector3 &color)	// NAME 1 [Unknown_810130]: neutral (D10); NAME 1 [robj, texture, color]: as 0x80FF20's
+{
+
+
+	FAIL_IF(!robj) return;
+	if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+		const char *robj_name = robj->Get_Name();
+
+		FAIL_IF(!robj_name) return;
+		const char *name = strrchr(robj_name, '.');
+		if (name != NULL && *name != 0) {
+			name++;
+		}
+		if (name == NULL) {
+			name = robj_name;
+		}
+		if (strlen(name) >= 9 && strnicmp(name, "namedecal", 9) == 0) {
+			MeshClass *mesh = (MeshClass *)robj;
+			mesh->Make_Unique(false);
+			MeshModelClass *model = mesh->Peek_Model();
+
+
+			FAIL_IF(!model) return;
+			FAIL_IF(model->Has_Material_Array(0)) return;
+			FAIL_IF(model->Has_Texture_Array(0, 0)) return;
+			FAIL_IF(model->Has_Shader_Array(0)) return;
+			MaterialInfoClass *minfo = robj->Get_Material_Info();
+			FAIL_IF(!minfo) return;
+			minfo->Reset();
+			model->Set_Single_Texture(texture, 0, 0);
+			minfo->Add_Texture(texture);
+			ShaderClass shader = ShaderClass::_PresetOpaqueShader;
+			shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
+			model->Set_Single_Shader(shader, 0);
+			VertexMaterialClass *vmat = model->Get_Single_Material(0);
+			FAIL_IF(!vmat) return;
+			vmat->Set_Diffuse(color);
+			vmat->Set_Ambient(color);
+			minfo->Add_Vertex_Material(vmat);
+			vmat->Release_Ref();
+			minfo->Release_Ref();
+		}
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			Unknown_810130(sub, texture, color);
+			sub->Release_Ref();
+		}
+	}
+}
+
+
+// NOT EXACT: functional (D64), from the pseudocode
+// @0x80FF20
+void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
+{
+	Vector3 color(rgb[0], rgb[1], rgb[2]);
+	RefCountPtr<Font32Class> font_32bit = Create_NEW(new Font32Class("ship_font.tga", 1, 1.0f));
+
+
+	FAIL_IF(font_32bit.Peek()->Get_Height() != 16) return;
+	Unknown_6D8B90Class *text = new Unknown_6D8B90Class;
+	text->Unknown_6D8DC0((Font32Class **)&font_32bit, name, 4);
+	TextureClass *name_texture = text->Texture;
+
+
+	FAIL_IF(!name_texture) return;
+	name_texture->Add_Ref();
+	delete text;
+	name_texture->Set_U_Addr_Mode((TextureClass::TxtAddrMode)2);	// the client's 2 (the tree's enum stops at 1)
+	name_texture->Set_V_Addr_Mode((TextureClass::TxtAddrMode)2);
+	Unknown_810130(robj, name_texture, color);
+	name_texture->Release_Ref();
+}
+
+
+// NOT EXACT: functional (D64), from the pseudocode
+// @0x810750
+void Unknown_810750(RenderObjClass *robj, bool on)
+{
+
+
+	FAIL_IF(!robj) return;
+	int bones = robj->Get_Num_Bones();
+	int i;
+	for (i = 0; i < bones; i++) {
+		const char *bone = robj->Get_Bone_Name(i);
+		if (strnicmp(bone, "exhaust", 7) == 0) {
+			int count = robj->Get_Num_Sub_Objects_On_Bone(i);
+			for (int j = 0; j < count; j++) {
+				RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object_On_Bone(j, i));
+				sub->Set_Hidden(!on);
+			}
+		} else if (strlen(bone) == 4 && strnicmp(bone, "eng", 3) == 0 && bone[3] >= '0' && bone[3] <= '9') {
+			if (robj->Get_Num_Sub_Objects_On_Bone(i) == 0) {
+				RefCountPtr<RenderObjClass> eng1 = Create_Get(AssetManager->Create_Render_Obj("p-eng1"));
+				if (eng1) {
+					robj->Add_Sub_Object_To_Bone(eng1.Peek(), i);
+				}
+				RefCountPtr<RenderObjClass> eng2 = Create_Get(AssetManager->Create_Render_Obj("p-eng2"));
+				if (eng2) {
+					robj->Add_Sub_Object_To_Bone(eng2.Peek(), i);
+				}
+				RefCountPtr<RenderObjClass> eng3 = Create_Get(AssetManager->Create_Render_Obj("p-eng3"));
+				if (eng3) {
+					robj->Add_Sub_Object_To_Bone(eng3.Peek(), i);
+				}
+				RefCountPtr<RenderObjClass> eng4 = Create_Get(AssetManager->Create_Render_Obj("p-eng4"));
+				if (eng4) {
+					robj->Add_Sub_Object_To_Bone(eng4.Peek(), i);
+				}
+			}
+			int count = robj->Get_Num_Sub_Objects_On_Bone(i);
+			for (int j = 0; j < count; j++) {
+				RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object_On_Bone(j, i));
+				sub->Set_Hidden(!on);
+			}
+		}
+	}
+	int subs = robj->Get_Num_Sub_Objects();
+	for (i = 0; i < subs; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object(i));
+		Unknown_810750(sub.Peek(), on);
+	}
+}
+
+
+// The decals by slot (0x18 bytes each, 16 slots: DecalStruct's layout, the slot in +0x00, 0x7FFFFFF in +0x04 for none)
+#define MAX_NUM_DECAL_SLOTS 16	// NAME 3: the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS'
+
+void Unknown_80EAF0(RenderObjClass *robj, DecalStruct *slots, SClientUnknown1334Class *decal_ini);	// 0x80EAF0 (cdecl, FAIL_IFs '!robj' l.41, '!robj_name' l.45, 'slot_id >= MAX_NUM_DECAL_SLOTS' l.59: each 'decalNN' mesh's slot through decal.cpp's 0x75DA20 / 0x75CB10; not rebuilt yet)  // NAME 1 [all]: what 0x80E8C0 passes
+
+static float Unknown_Clamp01(float value)	// NAME 1: neutral (D10): inline in 0x80E8C0
+{
+	if (value < 0.0f) {
+		return 0.0f;
+	}
+	if (value > 1.0f) {
+		return 1.0f;
+	}
+	return value;
+}
+
+// NOT EXACT: functional (D64), from the pseudocode: the decals sorted into their slots, the coordinates clamped
+// @0x80E8C0
+void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini)
+{
+	DecalStruct slots[MAX_NUM_DECAL_SLOTS];
+	int i;
+	for (i = 0; i < MAX_NUM_DECAL_SLOTS; i++) {
+		slots[i].Unknown04 = 0x7FFFFFF;
+	}
+	int count = decals.size();
+	for (i = 0; i < count; i++) {
+		unsigned int slot = decals[i].Unknown00;
+		FAIL_IF(slot >= MAX_NUM_DECAL_SLOTS) {	/*@L433*/
+			slot = MAX_NUM_DECAL_SLOTS - 1;
+		}
+		slots[slot] = decals[i];
+		slots[slot].Unknown00 = slot;
+		slots[slot].Unknown08.X = Unknown_Clamp01(slots[slot].Unknown08.X);
+		slots[slot].Unknown08.Y = Unknown_Clamp01(slots[slot].Unknown08.Y);
+		slots[slot].Unknown08.Z = Unknown_Clamp01(slots[slot].Unknown08.Z);
+		slots[slot].Unknown08.W = Unknown_Clamp01(slots[slot].Unknown08.W);
+	}
+	Unknown_80EAF0(model, slots, decal_ini);
+}
+
+
+// NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it
+// sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones
+// @0x80F020
+static void Unknown_80F020(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int region, int axis)	// NAME 1 [Unknown_80F020]: neutral (D10); NAME 1 [all]: as 0x80FD10's
+{
+	FAIL_IF(!robj) {	/*@L109*/
+		return;
+	}
+	if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+		Vector3 skin(0.0f, 0.0f, 0.0f);
+		Unknown_812390(robj, regions, region, axis, &skin);
+		return;
+	}
+	int bones = robj->Get_Num_Bones();
+	if (bones <= 0) {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			Unknown_80F020(sub, regions, region, axis);
+			sub->Release_Ref();
+		}
+		return;
+	}
+	for (int bone = 0; bone < bones; bone++) {
+		const char *name = robj->Get_Bone_Name(bone);
+		int bone_region = region;
+		if (name[0] == '~' && name[1] >= '0' && name[1] <= '9' && name[2] >= '0' && name[2] <= '9') {
+			bone_region = (name[1] - '0') * 10 + (name[2] - '0');
+		}
+		int count = robj->Get_Num_Sub_Objects_On_Bone(bone);
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object_On_Bone(i, bone);
+			Unknown_80F020(sub, regions, bone_region, axis);
+			sub->Release_Ref();
+		}
+	}
+}
+
+
+// NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10)
+// @0x80EFF0
+void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *unknown)
+{
+	Unknown_80F020(model, regions, 0, unknown->Unknown10);
 }
