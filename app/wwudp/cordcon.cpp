@@ -818,12 +818,12 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 #define CORD_HARNESS_COUNT(con, counter)
 #endif
 
-static CordMessageClass Empty_Message()
-{
-	CordMessageClass m;
-	memset(&m, 0, sizeof(m));
-	return m;
-}
+
+
+
+
+
+
 
 
 
@@ -1157,6 +1157,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	}
 
 	// The blocks.
+	CordMessageClass m;
 	for (;;) {
 		if (pos == datalen) {
 			return true;
@@ -1276,12 +1277,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			continue;
 		}
 		if (!isfrag) {
-			CordMessageClass m = Empty_Message();
 			m.Data = new unsigned char[len];
-			memcpy(m.Data, data + pos, len);
-			m.Length = m.TotalLength = len;
+			m.Fragments = NULL;
 			m.Seq = seq;
+			m.Length = len;
+			m.TotalLength = len;
 			m.Time = current.getTime_t();
+			m.Priority = 0;
+			m.Flags = 0;
+			memcpy(m.Data, data + pos, len);
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -1301,13 +1305,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				pos += len;
 				continue;
 			}
-			CordMessageClass m = Empty_Message();
 			m.Data = new unsigned char[size];
-			unsigned int n = (size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
+			int n = ((int)size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
 			m.Fragments = new unsigned char[n];
 			memset(m.Fragments, 0, n);
-			m.Length = m.TotalLength = size;
+			m.Length = size;
+			m.TotalLength = size;
 			m.Seq = first;
+			m.Priority = 0;
+			m.Time = 0;
 			m.Flags = 1;
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
@@ -1324,9 +1330,14 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 		} else {
 			// a place holder for the fragment's own sequence number (read() skips it)
-			CordMessageClass m = Empty_Message();
+			m.Data = NULL;
+			m.Length = 0;
+			m.TotalLength = 0;
+			m.Fragments = NULL;
 			m.Seq = seq;
 			m.Time = current.getTime_t();
+			m.Priority = 0;
+			m.Flags = 0;
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -1401,17 +1412,6 @@ bool CordCon::pump(Xtime &now)
 	}
 	return true;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 // NOT EXACT: 0x853A30 (0.76, explain.py: literal, EH state 9 vs 10 for the resend copy; frame slots of index and the Xtimes): the client's four Xtime copies of now, its send block (profiled memcpys, Set_Header_CRC inlined, push_back).
