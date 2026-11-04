@@ -26,6 +26,7 @@ template<class T> class DeltaArrayClass : public DeltaCompoundClass	// NAME 3: b
 {
 public:
 	DeltaArrayClass(const char *name, int count, const T &value = T());
+	~DeltaArrayClass();
 
 	static int UnknownGlobal;	// the per-class global at +0x04 (float: 0xC415DC)
 };
@@ -35,13 +36,12 @@ template<class T> int DeltaArrayClass<T>::UnknownGlobal;
 // (the lines down to the constructor's assert hold code of the client's header not rebuilt yet:
 // the assert is on line 71)
 
-
-
-
-
-
-
-
+template<class T> DeltaArrayClass<T>::~DeltaArrayClass()
+{
+	for (unsigned int i = 0; i < Children.size(); i++) {
+		delete Children[i];
+	}
+}
 
 
 
