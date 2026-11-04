@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1198 |
 | 2 | describes what the code does | 2991 |
-| 1 | neutral placeholder | 12910 |
+| 1 | neutral placeholder | 12937 |
 
 ## For review (score 3 and below)
 
@@ -6977,6 +6977,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown118` | `app/client/ui_avsel.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown11C` | `app/client/ui_avsel.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown120` | `app/client/ui_avsel.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_bio.cpp:13` | 0xBE67C4 |
+| 1 | `UIBioGadget674260Class` | `app/client/ui_bio.cpp:16` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_bio.cpp:16` | untagged neutral name (D10) |
+| 1 | `model` | `app/client/ui_bio.cpp:19` | what the constructor passes |
+| 1 | `Unknown5BB320Class` | `app/client/ui_bio.cpp:24` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_bio.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_bio.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_bio.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_bio.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_bio.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_bio.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_bio.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_bio.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_bio.cpp:75` | untagged neutral name (D10) |
+| 1 | `ui_bio.h` | `app/client/ui_bio.h:5` | provisional header name (the string file 'fa_bio.ini') |
+| 1 | `UIBioClass` | `app/client/ui_bio.h:14` | from the string file 'fa_bio.ini' (the bio tab) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_bio.h:14` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_bio.h:17` | what the base's 0x5BB320 takes |
+| 1 | `Unknown_54` | `app/client/ui_bio.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_bio.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_bio.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_bio.h:22` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_bio.h:23` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_bio.h:23` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_bio.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:21` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_chat_panel.cpp:24` | neutral (D10) |
 | 1 | `AvatarPipUnknown2CClass` | `app/client/ui_chat_panel.cpp:27` | neutral (D10) |
