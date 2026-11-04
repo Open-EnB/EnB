@@ -2363,7 +2363,7 @@ below name only the work items, the blocked work, the leads and the queues.
      +0xBC as the client has them; 0x782200 / 0x7826A0 / 0x782850); the dtor 0x77C080's queue release if AVX did not
      land it; gen globals the client starts at 1 (0xBB9654, 0xBBB084) and TextureLoader's 0xC01290; the /O2
      constant-in-ebx residue blocking 0x769500 / 0x769680 / 0x76A370 (.work/wt/lgx/.work/lgx/find_ebx1.py); the
-     remaining gen first calls (0x82F3C0, 0x496DB0); the in-game users of the movement setters (ui_starbase 0x63A100);
+     the in-game users of the movement setters (ui_starbase 0x63A100);
      never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
      ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
      ro_funcs 0x4967F0 (frame) / 0x496960 (rebuild 0x495FD0-0x496620 first for the assert lines), surfacetypes 0x442650

@@ -536,6 +536,18 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Stand-ins on the POC path (2026-11-04 night run, CRE1, SHIP, LIGHT, DEC):** a stand-in class used with `new` needs the
+  real size (ui_avatr's ShipPip stand-in was 0xE0 bytes, the real ctor wrote 0xF4 and operator new crashed later); a
+  stand-in's ctor / dtor defined in the same file, even last with `auto_inline(off)`, inlines into exact callers or breaks
+  `$E` tie-breaks: put it in a separate file; renaming a file's stand-in to the client's class name links the real calls
+  without including the real header (including charview.h in ui_avatr.cpp changed 3 exact functions). Lines added or removed
+  above a FAIL_IF move its `__LINE__` (charview's stand-in removal lost 6 exact functions, 3 `#include`s at the top of
+  ro_funcs lost 2): keep the line count or add at the end. gen stubs returning a NULL `const char *` (0x82F3C0) crash string
+  concatenation; gen_stubs cannot stub a function with a `std::vector<struct>` parameter (the call links to 0). gen stand-ins
+  also hide behind `extern` globals: avatar.cpp set `Unknown_BFAE52` instead of WW3D::OverbrightModifyOnLoad (grep `extern
+  .*Unknown_` when a WW3D static is involved). Declare 0x80FF20 `float *` as its other callers do (`const Vector3 &`
+  mangles differently).
+
 * **Renamed vtable slots and header wrappers (2026-11-02 evening run, EAM4):** an inline compatibility wrapper for a renamed
   slot makes callers inline it instead of the client's `call dword ptr [eax + slot]` (rs_robj 0x45F280): change the callers.
 * **`bool` parameters (2026-11-02 evening run, ROF):** `mov al, byte ptr [esp + ...]` on a parameter means `bool`; an `int`
@@ -774,6 +786,12 @@ unless `--lever` cites a new row of this table.
 * **Client facts from the 2026-11-01 day run:** E&B's INFMSG keeps matchbot's `char timebuf[40]` while strftime is told 80 (pumpClose exact), and any harness linking CordCon needs old iostream (LIBCIMT) (CC2). ViewClass slot +0x18 stays `int` (MainViewClass overrides it; a bool base opened a new slot, -15 pairs); keep inline accessors (Peek_Model, Get_Unknown198) instead of direct member reads (ui_login -12); 0xBFAEE0 is WW3DAssetManager::TheInstance: `Get_Instance()`, not a file-local extern (CV). E&B's rendobj.h: slot 0x184 Set_Hidden, 0x180 Is_Hidden: check slots by compiling, not by counting `virtual` lines (GAD4). A member called `Surface` hides wwlib's type (`::Surface &`; FNT1). The tree's WW3DAssetManager is already 0x408C (MC). Retyping a base's `void Unknown_XX()` virtuals gives C2555 in every stand-in subclass that redeclares placeholders: grep descendants first (`.work/gc/derived.py`); a header whose inline ctor copies `RefCountPtr<CameraClass>` must include camera.h (C2027 in other includers; SORT1). A compact fixed-line assert / FAIL_IF bounds where a file can start too (gd_resize, GAD4). VC6 puts out-of-line copies of inlines among a file's own functions, so they are not object boundaries (INP). A template body identical across instances (MemberCallback's Is_Equal / Call / ??_G) pairs only inside the compiling file's window (LG).
 
 ### 3.4 Importer, verify and pairs
+
+* **Landing builders' new files (2026-11-04 night run):** a new file not registered in importer.py (`NEW_FILES` /
+  `RECONSTRUCTED`) fails `wt.py bring-over`'s replay check ("only in repository"); registering it can add pairs, so
+  re-verify and commit docs/data/imports.json with it (bring-over refuses a branch whose record differs from its verify).
+  bring-over refuses a branch with merge commits: `tools/agy/rebase_gen.sh ID run/<date> BASELINE` rebases it (the merge
+  dropped). appfile.py's definition regex reads `static void (Name)(` as a function named `void` (harmless; verify is right).
 
 * **Other builders' verifies replace `%TEMP%\enb_import\verify-app`** (2026-10-31, TK12): a new file's .obj can vanish
   minutes after your verify; objdiff the appfile.py match object (`.work/<id>/appfile/obj/`). attempts.py `--blocker`
@@ -1112,6 +1130,21 @@ unless `--lever` cites a new row of this table.
 * **RE tools, 2026-11-01 night run:** `appfile.py match` pairs functions only by a `// @0xADDR` marker directly above the definition (more than ~4 comment lines above, or the tree's `Exact` / `NOT EXACT` comments, don't attach); without `ENB_AGENT` its objects land in the shared `.work/appfile/appfile/obj` and another builder's run overwrites them (FB1, LG1, HV2, CC1). tryv2 deletes its objects: `.work/lg3/keep.py` keeps each variant's .obj for objdiff / explain. tryvariants with `#define private public` mangles members as public (`QAE`): objdiff needs that symbol name (NW2). objdiff.py prints every relocated call as `call REL`, so an IAT `call dword ptr [REL]` always shows as a mismatch even when the bytes are equal (HV2). explain.py's window can run on into the next function (0x8BE270's inline-budget label came from growVector 0x8BE7A0; NW2).
 
 ### 3.7 Harnesses, programs, unattended runs
+
+* **POC and the retail reference (2026-11-04 night run, LIGHT, CRE2, SHIP, DEC, CTFIX):** `build.py link --out DIR` reads
+  the libraries from DIR (`<lib>\<lib>.lib`, `_sys`): copy the worktree's `build\*\*.lib` there first. `clienttest.py build`
+  needs ENB_VC6_HOSTS (`pool.py lease --agent ID` prints it; `--agent` is required). clienttest links the worktree's whole
+  app.lib: a newly real function anywhere removes its `gen` lines from the trace, and a real function that collides with a
+  client_stubs.cpp stand-in fails the link (LNK2005): shiputils.cpp is now compiled into clienttest with 0x80FF20 renamed (it
+  needs a device). clientpoc input times are ms from the window's start (the full creation flow needs `--seconds 150`);
+  `T down X Y` / `T up X Y` drag; D3D8SHOT_EVERY saves nothing without `--shots`; D3D8SHOT_DUMP runs ~2,200 fps (against
+  ~3,500): pick a dump's frame from a run with the dump set; the main tree's build/d3d8shot/d3d8.dll may predate d3d8shot.c
+  (no `draw N: material` lines): rebuild before diffing dumps; d3d8shot.log logs every CreateFileA (grep it). A step hook
+  that jumps to creation's galaxy select must create the narrator (0x67AB20 / 0x67C440) or ui_shard's ctor crashes.
+  Retail reference runs (`--exe` a copy of the retail client.exe): `find_window` takes the terms dialog (#32770) as the input
+  window (input to it is lost when it closes); the retail client reads the real cursor, so LIGHT's
+  `.work/wt/light/.work/light/` has a d3d8shot proxy with poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on
+  "I Agree" (the dialog's own input; P-LIGHT-1 proposes `clientpoc.py --retail`).
 
 * **POC (2026-11-03 afternoon run):** a POC link takes `build/<lib>/<lib>.lib` as they are: a library fixed in
   source but not rebuilt ships the old code with no warning (the cursor fix c3427718 was missing from every exe until
