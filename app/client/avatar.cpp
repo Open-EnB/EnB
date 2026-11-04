@@ -2301,3 +2301,21 @@ void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char 
 		}
 	}
 }
+
+// 0x77D3E0 (the body's LODs, when the avatar is not hidden)
+void CharacterViewAvatarClass::Prepare_LOD(CameraClass &camera)
+{
+	if (Is_Not_Hidden_At_All() && BodyObj) {
+		BodyObj->Prepare_LOD(camera);
+	}
+}
+
+// 0x77D460 (the body is the one sub-object: CompositeRenderObjClass's bounds come from it)
+RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
+{
+	if (index != 0) {
+		return(NULL);
+	}
+	BodyObj->Add_Ref();
+	return(BodyObj);
+}

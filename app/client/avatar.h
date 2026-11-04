@@ -44,6 +44,9 @@ public:
 	virtual void Set_Transform(const Matrix3D &m);		// 0x77D1E0 (the body too; +0x330 keeps it unless +0x36C)
 	virtual void Set_Position(const Vector3 &v);		// 0x77D2B0 (the body too)
 	virtual void Render(RenderInfoClass &rinfo);		// 0x77D420
+	virtual int Get_Num_Sub_Objects() const { return(1); }	// 0x77C030 (the body)
+	virtual RenderObjClass *Get_Sub_Object(int index) const;	// 0x77D460 (the body, index 0)
+	virtual void Prepare_LOD(CameraClass &camera);		// 0x77D3E0 (the body's)
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const { sphere = ObjSphere; }	// 0x77BFA0
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
