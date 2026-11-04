@@ -39,7 +39,8 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_496DB0(RenderObjClass *robj);
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
-extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
+// 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
+// (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -156,8 +157,15 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			_snprintf(body_name, sizeof(body_name), "ANPCBODY%03d", (int)Desc.Body_Type);
 		}
 
+		bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();		// 0x77E9D0: the body loads overbright
+		if (!making) {
+			WW3D::Enable_Overbright_Modify_On_Load(true);
+		}
 		if (WW3DAssetManager::Get_Instance()) {
 			BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+		}
+		if (!making) {
+			WW3D::Enable_Overbright_Modify_On_Load(false);
 		}
 		FAIL_IF(BodySource == NULL) {
 		}
@@ -198,8 +206,15 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				_snprintf(head_name, sizeof(head_name), "ANPCHEAD%03d", (int)Desc.Head_Type);
 			}
 
+			bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();	// 0x77F000: the head loads overbright
+			if (!making) {
+				WW3D::Enable_Overbright_Modify_On_Load(true);
+			}
 			if (WW3DAssetManager::Get_Instance()) {
 				HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+			}
+			if (!making) {
+				WW3D::Enable_Overbright_Modify_On_Load(false);
 			}
 			FAIL_IF(HeadSource == NULL) {
 			}
@@ -1464,13 +1479,13 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	} else {
 		_snprintf(name, 0x20, "a%s%02d", part, num);
 	}
-	bool making = Unknown_BFAE52;
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
-		Unknown_BFAE52 = true;
+		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
 	*slot = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
 	if (!making) {
-		Unknown_BFAE52 = false;
+		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (*slot) {
 		Unknown_496AE0(*slot, true);
@@ -1629,15 +1644,15 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderO
 		(*slot)->Release_Ref();
 		*slot = NULL;
 	}
-	bool making = Unknown_BFAE52;
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
-		Unknown_BFAE52 = true;
+		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
 	char model[32];
 	_snprintf(model, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
 	RenderObjClass *proto = WW3DAssetManager::Get_Instance()->Create_Render_Obj(model);
 	if (!making) {
-		Unknown_BFAE52 = false;
+		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (proto) {
 		*slot = proto->Clone();
