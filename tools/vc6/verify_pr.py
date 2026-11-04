@@ -27,6 +27,10 @@ A lost pair that docs/data/accepted-corrections.json lists (a false pair the use
 `moved_to` the same file gains in this verify (or whose `moved_to` is null: a decided loss, D175), is not a loss: it
 is named in the status and the comment as corrected. The list is read from this checkout (master's), never from the PR.
 
+This checkout must be origin/master after the fetch, with no local change under tools/ or to the corrections list
+(normally .work/wt/verifier, which verify_watch.py moves there); anywhere else it refuses, except with --no-post,
+which prints and posts nothing.
+
 The tools run are this checkout's own (and, through the gate, the PR's equal them). The PR's C++ reaches only
 a build VM's compiler.
 """
@@ -81,6 +85,17 @@ def not_exact_count(rev):
     """`// NOT EXACT` markers in the C/C++ sources at REV (D64)."""
     r = wt.git('grep', '-c', '// NOT EXACT', rev, '--', '*.cpp', '*.c', '*.h', '*.inl', check=False)
     return sum(int(l.rsplit(':', 1)[1]) for l in r.stdout.decode(errors='replace').splitlines() if ':' in l)
+
+
+def off_master(head, master, dirty):
+    """Why this checkout cannot judge a PR (None when it can): its HEAD must be origin/master, with no local change
+    to the tools or the accepted corrections, since those decide the verdict (2026-11-03: a run from a run branch's
+    checkout read a corrections list without the merged D189 entries and failed PR #147)."""
+    if head != master:
+        return f'this checkout is at {head[:9]}, not origin/master {master[:9]}'
+    if dirty:
+        return 'this checkout has local changes: ' + ', '.join(dirty)
+    return None
 
 
 def moves_and_outright(lost, verified):
@@ -175,11 +190,12 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     res = {'pr': a.pr, 'head': pr['head'], 'when': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
            'reasons': []}
+    rec = f'pr{a.pr}'                  # pr{N}.test off master: never the record verify_watch.py lands from
 
     def finish(verdict, summary):
         res['verdict'], res['summary'] = verdict, summary
         res['report'] = report(pr, res)
-        with open(os.path.join(OUT, f'pr{a.pr}.json'), 'w', encoding='utf-8', newline='\n') as f:
+        with open(os.path.join(OUT, f'{rec}.json'), 'w', encoding='utf-8', newline='\n') as f:
             json.dump(res, f, indent=1, default=list)
         print(res['report'])
         if not a.no_post:
@@ -196,6 +212,17 @@ def main():
             res['reasons'].append('GitHub has no test merge: the PR conflicts with master; rebase it')
             finish('failure', 'conflicts with master: rebase the PR')
         sys.exit(f'verify_pr: git fetch: {fetch.stderr.decode(errors="replace").strip()}')
+    master = wt.rev('refs/remotes/origin/master')
+    dirty = [l[3:] for l in wt.git('status', '--porcelain', '--untracked-files=no', '--', 'tools',
+                                   'docs/data/accepted-corrections.json').splitlines() if l.strip()]
+    why = off_master(wt.rev('HEAD'), master, dirty)
+    if why and not a.no_post:
+        sys.exit(f'verify_pr: {why}. The verdict comes from this checkout\'s tools and accepted corrections, so it '
+                 f'runs only from master: .work/wt/verifier (verify_watch.py launch moves it there). --no-post runs '
+                 f'it here anyway and prints only (testing a tools change).')
+    if why:
+        rec = f'pr{a.pr}.test'
+        print(f'note: {why}; --no-post: printing only (record .work/verify/{rec}.json)')
     head, merge = wt.rev(f'{pre}/head'), wt.rev(f'{pre}/merge')
     if head != pr['head']:
         sys.exit(f'verify_pr: the PR moved while fetching ({pr["head"][:9]} -> {head[:9]}); rerun')
@@ -235,7 +262,7 @@ def main():
             with open(os.path.join(vf, *wt.IMPORTS.split('/')), encoding='utf-8') as f:
                 verified = wt.pairs_of(f.read())
             # the files the verify rewrote (imports.json, imports.md, ...): verify_watch.py lands them with the PR
-            keep = os.path.join(OUT, f'pr{a.pr}.files')
+            keep = os.path.join(OUT, f'{rec}.files')
             if os.path.isdir(keep):
                 shutil.rmtree(keep)
             rewritten = [p for p in wt.git('diff', '--name-only', cwd=vf).splitlines() if p]
