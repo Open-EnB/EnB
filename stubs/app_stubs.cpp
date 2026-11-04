@@ -235,3 +235,29 @@ char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
 	static char *names[] = { "None", "Manufacture", "Analyze", "Dismantle" };
 	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
 }
+
+// ------------------------------------------------------------------------- ui_registration.cpp's reply source
+
+// 0x7D1AC0: what ui_registration.cpp's 0x5FB9F0 asks +0x1AC for, returned by value (gen_stubs skips those);
+// the struct as ui_registration.cpp declares it
+struct RegistrationErrorStruct
+{
+	std::string Unknown00;
+	short Unknown10;
+	std::string Unknown14;
+	std::string Unknown24;
+};
+
+class RegistrationUnknown1ACClass
+{
+public:
+	RegistrationErrorStruct Unknown_7D1AC0();
+};
+
+RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
+{
+	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D1AC0 (0x7D1AC0)");
+	RegistrationErrorStruct error;
+	error.Unknown10 = -1;
+	return error;
+}

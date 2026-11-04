@@ -4,6 +4,11 @@
 #include "fontmanager.h"
 #include "sclient.h"
 #include "tasks\tsk_login.h"
+#include "charview.h"
+#include "avatar.h"
+#include "ui_combobox.h"
+#include <map>
+#include <vector>
 #include "ww3d.h"
 #include "..\shared\unknown_debug.h"
 #include <stdio.h>
@@ -88,6 +93,21 @@ struct RegistrationErrorStruct  // NAME 1 [RegistrationErrorStruct]: neutral (D1
 
 class RegistrationInterface;  // NAME 1 [RegistrationInterface]: provisional (D137)
 
+// The combo boxes' map value (12 bytes: operator[] copies three dwords; the first is what 0x57B000 / 0x57B3C0 run on)
+struct RegistrationComboStruct  // NAME 1 [RegistrationComboStruct]: neutral (D10)
+{
+	UIComboBoxClass *Combo;	// +0x00  // NAME 1 [Combo]: what it points to (ui_combobox.cpp's 0x57B000 / 0x57B3C0)
+	int Unknown04;
+	int Unknown08;
+};
+
+// What the interface holds at +0x1AC (0x5FB9F0 / 0x600000 ask it for the reply)
+class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neutral (D10)
+{
+public:
+	RegistrationErrorStruct Unknown_7D1AC0();	// 0x7D1AC0 (the reply's '/status', '/message', '/url')
+};
+
 void __stdcall Unknown_5F8DB0(int arg);  // NAME 1 [Unknown_5F8DB0]: ui_registration.cpp
 
 class RegistrationInterface : public InterfaceClass, public RegistrationCallbackClass  // the constructor 0x5EF0B0: InterfaceClass, then the table 0xAF7184 at +0x84
@@ -97,25 +117,52 @@ public:
 	virtual void Unknown_5F0100();	// 0x5FB9F0 (RegistrationCallbackClass's slot +0x0C)
 
 	char Unknown88[0xBC - 0x88];
-	UIViewClass *UnknownBC;		// +0xBC: the message boxes' view (0x5FB7A0, 0x5FB890)
+	CharacterViewClass *UnknownBC;	// +0xBC: the constructor's +0x48 slot +0x28 (0x5FB9F0 calls CharacterViewClass::Unknown_67A8D0 on it); the message boxes' view
 	LoginTaskClass *UnknownC0;	// +0xC0: the constructor's view +0xBC's task +0x14, slot +0x08 (LoginTaskClass's returns this)
-	char UnknownC4[0xD4 - 0xC4];
+	char UnknownC4[0xC7 - 0xC4];
+	bool UnknownC7;				// +0xC7 (0x5FB9F0 sets it)
+	char UnknownC8[0xCA - 0xC8];
+	bool UnknownCA;				// +0xCA (0x5FB9F0 sets it)
+	char UnknownCB[0xD4 - 0xCB];
 	int UnknownD4;				// +0xD4: the screen's state (0x5FAFF0's 0x5F3770(0x16); 0x5FB950 tests 0x16)
-	char UnknownD8[0x120 - 0xD8];
+	std::vector<int> UnknownD8;	// +0xD8: the states to go back to (0x5FB9F0 pops one into 0x5F3770)
+	char UnknownE8[0x108 - 0xE8];
+	std::map<int, RegistrationComboStruct> Unknown108;	// +0x108: the combo boxes by id (0x5F9700 0x19, 0x5F98C0 0x16, 0x5F9EB0 0x2A; 0x5FB9F0 calls 0x57B3C0(0) on each)
+	char Unknown118[0x11B - 0x118];
+	bool Unknown11B;			// +0x11B (0x5FB9F0: with state 1)
+	char Unknown11C;
+	bool Unknown11D;			// +0x11D (0x5FB9F0: with state 0; the constructor sets it with state 0x17)
+	char Unknown11E[0x120 - 0x11E];
 	RenderObjClass *FontId;  // NAME 1 [FontId]: +0x120 (the font manager's key, a render object)
 	char pad_124[0x14C - 0x124];
 	Sub14CClass Sub14C;   // NAME 1 [Sub14C]: +0x14C
-	char pad_150[0x1B0 - (0x14C + sizeof(Sub14CClass))];
+	char pad_150[0x1AC - (0x14C + sizeof(Sub14CClass))];
+	RegistrationUnknown1ACClass *Unknown1AC;	// +0x1AC (0x5FB9F0's 0x7D1AC0)
 	int StatusIndex;      // NAME 1 [StatusIndex]: +0x1B0
-	char Unknown1B4[0x390 - 0x1B4];
+	char Unknown1B4[0x1CD - 0x1B4];
+	bool Unknown1CD;			// +0x1CD: written as 'Trial' (0x5FAC90)
+	char Unknown1CE[0x390 - 0x1CE];
 	RegistrationErrorStruct Unknown390;	// +0x390 (0x5FB9F0 fills it from the reply)
 
+	void Unknown_5F2990(int arg);
 	void Unknown_5F3770(int arg);
+	void Unknown_5FAC90();
 	void Unknown_5FAF60(int arg);
 	void Unknown_5FAFF0(const char *text);
 	void Unknown_5FB030();
 	void Unknown_5FB890();
 };
+
+// @0x5FAC90
+void RegistrationInterface::Unknown_5FAC90()
+{
+	{
+		RegistryClass reg(RegistrationKey, true);
+		reg.Set_Bool("Registered", true);
+		reg.Set_Bool("Trial", Unknown1CD);
+	}
+	RegFlushKey(HKEY_LOCAL_MACHINE);
+}
 
 // @0x5FAD50
 bool Unknown_5FAD50()
@@ -2815,53 +2862,6 @@ std::string __stdcall Unknown_5FB540(std::string str)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x5FB750
 bool __stdcall Unknown_5FB750(const char *test)
 {
@@ -2913,6 +2913,41 @@ void RegistrationInterface::Unknown_5F00E0()
 	}
 }
 
+// NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's
+// operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state)
+// @0x5FB9F0
+void RegistrationInterface::Unknown_5F0100()
+{
+	Unknown390 = Unknown1AC->Unknown_7D1AC0();
+	if (Unknown390.Unknown10 == -1) {
+		Unknown_5FB890();
+	} else {
+		UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+	}
+	if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+		Unknown_5F2990(0);
+		for (std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin(); it != Unknown108.end(); it++) {
+			if ((*it).second.Combo) {
+				(*it).second.Combo->Unknown_57B3C0(0);
+			}
+		}
+		UnknownCA = true;
+		UnknownC7 = true;
+		UnknownBC->Get_Unknown198()->Unknown_784E00();
+		UnknownBC->Unknown_67A8D0(true);
+		UnknownC0->Go_Next_Step();
+	} else {
+		int state = 0;
+		if (UnknownD8.size() != 0) {
+			state = UnknownD8.back();
+		}
+		if (UnknownD8.size() != 0) {
+			UnknownD8.pop_back();
+		}
+		Unknown_5F3770(state);
+	}
+}
+
 /*
 **	Reconstruction notes (builder ureg2, 2026-11-02)
 **
@@ -2938,4 +2973,16 @@ void RegistrationInterface::Unknown_5F00E0()
 **	- 0x5FB030 (no caller): the 'LABEL_TEXT' sub-object handed to the settings store's 0x7CA5C0, then the login
 **	  task's (+0xC0) software mouse 0x5153B0; the device resolution is read and unused, byte-exact.
 **	- 0x5FB950: the status line refresh in state 0x16 (0x5FAF60 inlined with Sub14C's slot 0x2C), byte-exact.
+**	- 0x5FAC90 (0x5F3770's caller): 'Registered' 1 and 'Trial' +0x1CD written, then RegFlushKey(HKLM), byte-exact.
+**	- 0x5FB9F0 (slot +0x0C): the reply's error shown, then on (state 1 and +0x11B) / (state 0 and +0x11D) / state
+**	  0x17 the combo boxes reset (0x57B3C0) and the login task's Go_Next_Step, else the previous state popped.
+**	  Functional: the client calls the map's begin 0x606960, the iterator's operator++(int) 0x604DF0 and
+**	  pop_back's copy / _Destroy out of line (as the map inserts 0x5F9700 / 0x5F98C0 / 0x5F9EB0 call begin and
+**	  pair's constructor 0x6074E0), and destroys the reply under one EH state with only its first string's
+**	  _Tidy inlined; ours inlines all of them. An empty ~RegistrationErrorStruct and a named local were tried.
+**	- The map at +0x108: 12-byte values whose first dword is a UIComboBoxClass * (0x5FBD30 reads its Selected
+**	  through the out-of-line getter 0x5FFFE0, 'mov eax, [ecx + 0xE0]'). 0x5FFFC0 is UIViewClass::Get_Unknown34
+**	  emitted out of line for 0x5FBD30; 0x600000 is slot +0x04 of 0xAF6FF4 (the reply handler): all three belong
+**	  to this object (triage's run 0x5FFFC0-0x603660).
+**	- 0x5F0A80: a template instance the map / vector members bring in (verify matches it in this object).
 */

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-634 entries in 128 files.
+635 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -361,6 +361,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1513` | `Unknown_5B5CD0` | marker | NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0) |
 | `app/client/ui_manu.cpp:1562` | `UIManuClass::Unknown_5B5320` | marker | NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
+| `app/client/ui_registration.cpp:2916` | `RegistrationInterface::Unknown_5F0100` | marker | NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state) @0x5FB9F0 |
 | `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
