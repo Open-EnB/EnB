@@ -71,9 +71,9 @@ public:
 	int Height;  // +0x1B0  // NAME 2: the constructor's 3rd argument
 	int CursorX;  // +0x1B4  // NAME 2: Advance_X; starts at the horizontal padding
 	int CursorY;  // +0x1B8  // NAME 2: Advance_Y; starts at the vertical padding
-	int RightPadding;  // +0x1BC  // NAME 2: the horizontal padding again
-	int Unknown1C0;  // +0x1C0
-	int Unknown1C4;  // +0x1C4
+	int LineStartX;  // +0x1BC  // NAME 2: starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells
+	int ContentWidth;  // +0x1C0  // NAME 2: Parse sets it to the rightmost item plus the horizontal padding
+	int ContentHeight;  // +0x1C4  // NAME 2: Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest
 };
 
 #endif
