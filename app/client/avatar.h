@@ -3,6 +3,10 @@
 
 #include "composite.h"
 #include "..\shared\avatar_desc.h"
+#include "..\shared\chat_edit_stream.h"
+#include "nstrdup.h"
+#include <string.h>
+#include <vector>
 
 class LightClass;
 class HAnimClass;
@@ -11,6 +15,21 @@ class AudibleSoundClass;
 class SClientUnknown1338Class;
 class PlayerNLPClass;
 class MeshClass;
+
+// an entry of the avatar's animation queue (+0x2A0; 0xC bytes, 0x781880 makes them, 0x781C10 deletes them)
+struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
+{
+	Unknown_AvatarQueueStruct(char anim, const char *text, int mood) : Anim(anim), Mood(mood)
+	{
+		Text = nstrdup(text);
+		strcpy(Text, text);
+	}
+	~Unknown_AvatarQueueStruct() { delete Text; }	// 0x781C10 (its scalar deleting destructor)
+
+	char Anim;	// +0x00 (0x782200: the body animation's number for 0x781D10)  // NAME 1: neutral (D10)
+	char *Text;	// +0x04 (0x782200: the line its lip-sync keys are made for)  // NAME 1: neutral (D10)
+	int Mood;	// +0x08 (0x782200: into Desc.Mood_Type unless < 0)  // NAME 1: neutral (D10)
+};
 
 // avatar.cpp's model (the view's +0x194, +0x198 and +0x1A4)
 class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutral (D10)
@@ -27,7 +46,16 @@ public:
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
 
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
-	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0)  // NAME 1 [name, a, b]: neutral
+	void Unknown_784A50(const char *name, int a, int b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
+	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
+	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
+	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
+	void Unknown_782200();								// 0x782200 (state 1: the queue's first entry played, its face keys made)
+	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
+	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)
+	bool Unknown_7829B0(const char *name);				// 0x7829B0 (the animation's face keys from its ini; false: none)  // NAME 1 [name]: neutral
+	int Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
+	void Unknown_7861B0(const char *speech);			// 0x7861B0 (the speech sound into +0x2E8)  // NAME 1 [speech]: neutral
 	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
@@ -65,7 +93,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	float Unknown0D4[2];								// +0xD4 (0x783620: the frame to stop at)
 	int Unknown0DC[2];									// +0xDC (0x783620: flags, -1 none)
 	int Unknown0E4;										// +0xE4 (0x783B50: the WW3D frame count of the last update)
-	char Unknown_Pad0E8[0xF4 - 0xE8];					// +0xE8 (0x784A50: the NLP's command stream)
+	Unknown_ChatStreamClass Unknown0E8;					// +0xE8 (0x77B870: 0x4C4430; the NLP's command stream, 0x784A50)
 	PlayerNLPClass *PlayerNLP;							// +0xF4 (0x77B870: 0x78EB50)  // NAME 2: PlayerNLP != 0 assert
 	AvatarDescClass Desc;								// +0xF8 (0x10C bytes)
 	int Unknown204;										// +0x204 (0x77E3D0 sets it)
@@ -109,7 +137,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	float Unknown288[5];								// +0x288 (0x781570: the head morph weights shown, stepped toward Desc.Head_Weight)
 	bool Unknown29C;									// +0x29C (0x781410: the body morph still stepping)
 	bool Unknown29D;									// +0x29D (0x781570: the head morph still stepping)
-	char Unknown_Pad29E[0x2B0 - 0x29E];
+	std::vector<Unknown_AvatarQueueStruct *> Unknown2A0;	// +0x2A0 (the animation queue: 0x781880 pushes, 0x782200 plays, 0x784700 / 0x77C080 empty it)
 	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2B8;							// +0x2B8 (HeadObj, 0x786370 sets hidden)

@@ -456,10 +456,19 @@ void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 }
 
 // 0x784A50
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: functional for POC (D64), literal (the asserts' lines written as the client's numbers)
 void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
+		if (PlayerNLP == NULL) {
+			Unknown_Assert_Failed("PlayerNLP", __FILE__, 2675);
+			Unknown_4BC260("Avatar Animation", "", __FILE__, 2676, "Invalid NLP pointer");
+			return;
+		}
+		Unknown0E8.Unknown_4C44A0();
+		PlayerNLP->Unknown_78F690(name, strlen(name), &Desc.Mood_Type, &Unknown0E8);
+		Unknown0E8.Unknown_4C4410();
+		Unknown_784700();
 		Unknown214 = (a != 0);
 		if (a) {
 			Unknown24C = -1;
@@ -467,6 +476,335 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, int a, int b)
 		Unknown220 = false;
 		Unknown215 = (b != 0);
 	}
+}
+
+// 0x784B80
+// NOT EXACT: functional for POC (D64), literal (the asserts' lines written as the client's numbers)
+void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
+{
+	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
+		if (PlayerNLP == NULL) {
+			Unknown_Assert_Failed("PlayerNLP", __FILE__, 2704);
+			Unknown_4BC260("Avatar Animation", "", __FILE__, 2705, "Invalid NLP pointer");
+			return;
+		}
+		Unknown0E8.Unknown_4C44A0();
+		Unknown0E8.Unknown_4C44E0(data, size);
+		Unknown_784700();
+		Unknown214 = flag;
+		if (flag) {
+			Unknown24C = -1;
+		}
+		Unknown220 = false;
+		Unknown208 = 1;
+	}
+}
+
+// 0x784700
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_784700()
+{
+	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
+	if (block == NULL) {
+		return;
+	}
+	unsigned int i;
+	for (i = 0; i < Unknown2A0.size(); i++) {
+		if (Unknown2A0[i]) {
+			delete Unknown2A0[i];
+		}
+	}
+	Unknown2A0.clear();
+	int mood = -1;
+	for (;;) {
+		switch ((unsigned char)block->Type) {
+			case 0:
+				if (Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
+					mood = (char)block->Value;
+				}
+				break;
+			case 1:
+				if (block->Value && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
+					Unknown_781880(block->Value, (const char *)(block + 1), mood);
+					Unknown208 = 1;
+					mood = -1;
+				}
+				break;
+			case 2:
+				if (block->Value && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
+					Unknown_781880(block->Value, "", mood);
+					Unknown208 = 1;
+					mood = -1;
+				}
+				break;
+			case 3:
+				Desc.Mood_Type = (char)block->Value;
+				break;
+			case 4:
+				if (Unknown210 == 0) {
+					Unknown210 = 1;
+					Unknown22C = 0.0f;
+					Unknown244 = 0;
+					Unknown208 = 3;
+					Unknown214 = true;
+					Unknown20C = 2;
+				}
+				break;
+			case 5:
+				if (Unknown210 == 3) {
+					Unknown210 = 2;
+					Unknown208 = 3;
+					Unknown214 = true;
+				}
+				break;
+			case 6:
+				if (Unknown20C == 2 && Unknown210 == 0) {
+					Unknown20C = 0;
+					Unknown214 = true;
+					Unknown208 = 2;
+				}
+				break;
+			case 7:
+				if (Unknown20C != 2) {
+					Unknown208 = 0;
+					Unknown20C = 2;
+					Unknown214 = true;
+				}
+				break;
+			case 8:
+				if (Unknown210 == 1 || Unknown210 == 2 || Unknown20C != 2) {
+					return;
+				}
+				if (Unknown204 == 1 && mood < 0) {
+					return;
+				}
+				Unknown_781880((char)PlayerNLP->Unknown_78F640("breathe1"), "", mood);
+				Unknown314 = 1;
+				Unknown208 = 1;
+				return;
+		}
+		block = (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct));
+	}
+}
+
+// 0x781880
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_781880(char anim, const char *text, int mood)
+{
+	Unknown2A0.push_back(new Unknown_AvatarQueueStruct(anim, text, mood));
+}
+
+// 0x782200
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1] == NULL) {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+		} else {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+		}
+		Unknown248 -= frames;
+		if (Unknown248 < 0) {
+			Unknown248 = 0;
+		}
+		return;
+	}
+	Unknown_AvatarQueueStruct *entry;
+	if (Unknown2A0.size() != 0 && (entry = Unknown2A0[0]) != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = PlayerNLP->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim);
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim);
+		}
+		Unknown_7831C0(name.c_str());
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		unsigned int i;
+		for (i = 0; i < Unknown2A0.size(); i++) {
+			if (Unknown2A0[i] == entry) {
+				Unknown2A0.erase(Unknown2A0.begin() + i);
+				delete entry;
+				break;
+			}
+		}
+	}
+	if ((Unknown2A0.size() == 0 || Unknown2A0[0] == NULL) && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+}
+
+// 0x7826A0
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_7826A0()
+{
+	Unknown220 = false;
+	Unknown22C = 0.0f;
+	Unknown244 = 0;
+	Unknown238 = 0;
+	if (Unknown20C != 2) {
+		if (Unknown20C == 0) {
+			Unknown20C = 1;
+		} else {
+			Unknown215 = true;
+		}
+	}
+	char name[32];
+	if (Unknown2F8 & 2) {
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("walk_backward"));
+	} else if (!Unknown2F4) {
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("walk_forward"));
+	} else {
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640("run_forward"));
+	}
+	Unknown_7831C0(name);
+	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+		Unknown0BC->Release_Keys();
+		Unknown_782CA0();
+		Unknown_782FF0("");
+		Unknown_783470();
+	}
+}
+
+// 0x782850
+// NOT EXACT: functional for POC (D64)
+void CharacterViewAvatarClass::Unknown_782850()
+{
+	char tag[16];
+	char name[32];
+	Unknown220 = false;
+	if (Unknown210 == 1) {
+		strcpy(tag, "sit_down");
+		Unknown210 = 3;
+	} else if (Unknown210 == 2) {
+		strcpy(tag, "stand_up");
+		Unknown210 = 0;
+	}
+	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, PlayerNLP->Unknown_78F640(tag));
+	Unknown_7831C0(name);
+	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+		Unknown0BC->Release_Keys();
+		Unknown_782CA0();
+		Unknown_782FF0("");
+		Unknown_783470();
+	}
+	Unknown208 = 0;
+}
+
+// 0x7829B0
+// NOT EXACT: functional for POC (D64)
+bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
+{
+	static char *moods[] = { "Mormal", "Angry", "Happy", "Puzzled", NULL };	// 0xB9CD4C
+	static char *brows[] = { "Open1", "Close1", "Open2", "Close2", "Wink", NULL };	// 0xB9CD60
+	static char *eyes[] = { "Straight", "Left", "Fullleft", "Right", "Fullright", NULL };	// 0xB9CD78
+	INIClass ini(name);
+	if (!ini.Is_Loaded()) {
+		return(false);
+	}
+	int frames;
+	if (Unknown0C0[1]) {
+		frames = Unknown0C0[1]->Get_Num_Frames();
+	} else if (Unknown0C0[0]) {
+		frames = Unknown0C0[0]->Get_Num_Frames();
+	} else {
+		return(false);
+	}
+	if (frames <= 2) {
+		return(false);
+	}
+	Unknown0BC->Insert_Morph_Key(1, 0, Unknown240);
+	Unknown0BC->Insert_Morph_Key(2, 0, 0);
+	int mood = 0;
+	char section[64];
+	for (int index = 0; ; index++) {
+		_snprintf(section, 0x40, "Index-%04d", index);
+		if (!ini.Section_Present(section)) {
+			break;
+		}
+		int frame = ini.Get_Int(section, "Frame", -1);
+		if (frame > 0 && frame < frames - 1) {
+			if (ini.Is_Present(section, "Mood")) {
+				mood = ini.Get_List_Index(section, "Mood", 0, moods);
+			}
+			int brow = ini.Get_List_Index(section, "Brow", -1, brows);
+			if (brow >= 0) {
+				brow += mood * 5;
+				Unknown240 = brow;
+				Unknown0BC->Insert_Morph_Key(1, frame, brow);
+			}
+			int eye = ini.Get_List_Index(section, "Eye", -1, eyes);
+			if (eye >= 0) {
+				Unknown0BC->Insert_Morph_Key(2, frame, eye);
+			}
+		}
+	}
+	Unknown240 = Desc.Mood_Type * 5;
+	Unknown0BC->Insert_Morph_Key(1, frames - 1, Unknown240);
+	Unknown0BC->Insert_Morph_Key(2, frames - 1, 0);
+	return(true);
+}
+
+// 0x7861B0
+// NOT EXACT: functional for POC (D64), shape (the client holds the sound in a RefCountPtr)
+void CharacterViewAvatarClass::Unknown_7861B0(const char *speech)
+{
+	if (SpeechSound) {
+		SpeechSound->Stop(1);
+		SpeechSound->Release_Ref();
+		SpeechSound = NULL;
+	}
+	SpeechSound = SoundLibraryClass::Play_2D_Sound(speech, 1);
+}
+
+// 0x7860C0
+// NOT EXACT: functional for POC (D64)
+int CharacterViewAvatarClass::Unknown_7860C0()
+{
+	if (Desc.Avatar_Type != 0) {
+		TutorialLineStruct *line = TutorialManagerClass::Instance->Next_Line();
+		if (line) {
+			const char *text = line->Text;
+			if (PlayerNLP) {
+				Unknown0E8.Unknown_4C44A0();
+				PlayerNLP->Unknown_78F690(text, strlen(text), &Desc.Mood_Type, &Unknown0E8);
+				Unknown0E8.Unknown_4C4410();
+			}
+			Unknown_7861B0(line->Speech);
+			Unknown215 = line->SkipBlend;
+			Unknown_784700();
+			Unknown24C = -1;
+			return(1);
+		}
+	}
+	return(0);
 }
 
 // 0x784C90
@@ -950,15 +1288,20 @@ void CharacterViewAvatarClass::Unknown_1C4()
 						Unknown204 = 0;
 						break;
 					}
-					// The client asks TutorialManagerClass::Next_Line for a narrator (Desc.Avatar_Type != 0)
-					// and speaks its line through the NLP (0x7861B0, 0x784700, 0x782200): not built yet.
-					Unknown_781EA0();
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
 					break;
 				case 1:
+					Unknown_782200();
+					break;
 				case 2:
+					Unknown_7826A0();
+					break;
 				case 3:
-					// 0x782200 / 0x7826A0 / 0x782850 (the NLP's queue, walking, sitting): not built yet.
-					Unknown208 = 0;
+					Unknown_782850();
 					break;
 			}
 		}
