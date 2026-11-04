@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13201 |
+| 1 | neutral placeholder | 13200 |
 
 ## For review (score 3 and below)
 
@@ -7229,13 +7229,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687150` | `app/client/ui_buff.cpp:162` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/ui_buff.cpp:185` | neutral |
 | 1 | `Unknown_42ECF0` | `app/client/ui_buff.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Changed` | `app/client/ui_buff.cpp:186` | neutral (D10), as ui_avatar_cust.cpp's |
-| 1 | `Unknown_Find_Field` | `app/client/ui_buff.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown_5615C0, info, buff` | `app/client/ui_buff.cpp:191` | neutral (D10) |
 | 1 | `Unknown_5615C0` | `app/client/ui_buff.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_buff.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_6AB8C0` | `app/client/ui_buff.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_buff.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_buff.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_6AB8C0` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_buff.cpp:255` | untagged neutral name (D10) |
 | 1 | `ui_buff.h` | `app/client/ui_buff.h:4` | provisional header name for ui_buff.cpp |
 | 1 | `UIBuffClass` | `app/client/ui_buff.h:14` | from the client's file ui_buff.cpp |
 | 1 | `Unknown5BB320Class` | `app/client/ui_buff.h:14` | untagged neutral name (D10) |

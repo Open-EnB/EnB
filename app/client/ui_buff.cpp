@@ -183,7 +183,7 @@ void UIBuffClass::Unknown_560FA0(int slot)
 #include "co.h"
 #include "tooltip.h"
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (the pointer's position, 0..1; as gadget.cpp declares it)  // NAME 1 [x, y]: neutral
-template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_avatar_cust.cpp's
+
 enum { MAX_BUFF_ELEMENTS = 5 };	// NAME 3: the assert's (the ship's BuffArray.N.Elements count)
 
 // 0x5615C0: the ship's DeltaBuffClass to a UIBuffInfoStruct (static: called directly)
@@ -219,7 +219,11 @@ void UIBuffClass::Unknown_561030()
 	if (avatar && avatar->AuxData) {
 		float x, y;
 		Unknown_42ECF0(&x, &y);
-		DeltaBuffsClass *buffs = Unknown_Find_Changed<DeltaBuffsClass>((DeltaCompoundClass *)avatar->AuxData, "BuffArray");
+		NameClass name("BuffArray");
+		DeltaBuffsClass *buffs = Unknown_Find_Field<DeltaBuffsClass>((DeltaCompoundClass *)avatar->AuxData, name);
+		if (!buffs || buffs->Unknown70 <= 1) {
+			buffs = NULL;
+		}
 		bool shown = false;
 		if (buffs) {
 			for (int slot = 0; slot < MAX_BUFFS; slot++) {
