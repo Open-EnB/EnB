@@ -33,7 +33,7 @@ class UnknownRootClass : public DeltaCompoundClass
 {
 public:
 	UnknownRootClass(int unknown, const char *name);		// 0x4A3BD0
-	virtual ~UnknownRootClass();								// +0x04 0x4A3D30 (deleting 0x4A3D00)
+	virtual ~UnknownRootClass() {}							// +0x04 0x4A3D30 (deleting 0x4A3D00): inline, as every root's destructor has it (0x6FBA30 ...); only the deleting destructor and unwind funclets call the copy
 
 	// 0x4A3D50: an update of what changed since the last (DeltaCollectorClass, encode.cpp), in the
 	// record form or the tree form, whichever is smaller; 0 when there is nothing to send
