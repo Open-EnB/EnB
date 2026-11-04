@@ -110,6 +110,8 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_77E9D0(int body, int pants, bool morph);	// 0x77E9D0 (Body_Type / Pants_Type's body loaded again; 0x77DA20, ui_avatr.cpp)  // NAME 1 [body, pants, morph]: neutral
 	void Unknown_77FC20(int num, bool rebuild);			// 0x77FC20 (Hair_Num's 'HAIR' accessory)  // NAME 1 [num, rebuild]: neutral
 	void Unknown_77FD30(int num, bool rebuild);			// 0x77FD30 (Beard_Num's 'BEARD' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_780680(int index, Vector3 color);		// 0x780680 (Skin_Color, then the shirt's and pants' colours by index 1 .. 4)  // NAME 1 [index, color]: neutral
+	void Unknown_780790(int index, int metal);			// 0x780790 (the shirt's and pants' metals by index 1 .. 4)  // NAME 1 [index, metal]: neutral
 	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (Ear_Num's 'EAR' accessory)  // NAME 1 [num, rebuild]: neutral
 	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (Goggle_Num's 'GOGGLE' accessory)  // NAME 1 [num, rebuild]: neutral
 	void Unknown_77F750();							// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)

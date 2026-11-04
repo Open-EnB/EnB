@@ -15,13 +15,13 @@
 #include "aabox.h"
 #include "..\shared\avatar_desc.h"
 #include "avatar.h"
-class SignalMap;
+class SignalMap; struct UIAvatrGadgetUnknown08Struct { char Unknown00[0x30]; RenderObjClass *Unknown30; };	// gadget.h's slot +0x08 return: the model at +0x30  // NAME 1: neutral (D10)
 class AABoxClass;
 // gadget.cpp's gadget, as far as this file calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatrGadgetUnknown08Struct *Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -46,9 +46,9 @@ public:
 class UIAvatrGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
+	void Unknown_671630();	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
 
-	char Unknown30[0x80 - 0x30];						// +0x30
+	char Unknown30[0x64 - 0x30]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x30; +0x64 / +0x65 the left / right button held (0x671570)
 };
 
 // A gadget with its pull model (0x10 bytes, constructor 0x585920; the window's +0x160 / +0x16C / +0x180)
@@ -78,7 +78,7 @@ struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
 	float Weight[5];									// NAME 1: neutral
 };
 UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
-extern RandomClass Unknown_BDBB84;						// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+extern RandomClass Unknown_BDBB84; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
 
 // The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
 
@@ -1387,4 +1387,75 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	desc->Unknown_780810(Unknown08C->Unknown3A4);
 	Unknown094->Unknown_84(desc);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x55A960 (the colour pull: dragged, it moves its marker on the
+// window model's bone and takes the palette's colour under it into the chosen part, +0x1BC)
+// 0x55A960
+void AvatarCreationInterface::Unknown_55A960()
+{
+	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)Unknown180->Gadget;
+	if (gadget->Unknown64) {
+		Unknown180->Unknown08 = true;
+	}
+	if ((gadget->Unknown64 || gadget->Unknown65) && Unknown180->Unknown08) {
+		AABoxClass box;
+		gadget->Unknown_64(box);
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
+		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
+		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
+		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		RenderObjClass *model = Unknown08C->Unknown1B8;
+		int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
+		model->Capture_Bone(bone);
+		Matrix3D tm = Unknown180->Pull->Get_Transform();
+		tm.Set_X_Translation(x - box.Center.X);
+		tm.Set_Y_Translation(y - box.Center.Y);
+		model->Control_Bone(bone, tm, false);
+		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		if (u < 0.01f) u = 0.01f; else if (u > 0.99f) u = 0.99f;
+		if (v < 0.01f) v = 0.01f; else if (v > 0.99f) v = 0.99f;
+		Vector3 color;
+		Unknown_496C00(gadget->Unknown_08()->Unknown30, u, 1.0f - v, &color);
+		Unknown184[Unknown1BC].X = u;
+		Unknown184[Unknown1BC].Y = v;
+		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
+		switch (Unknown1BC) {
+			case 0: avatar->Unknown_77FFA0(color, true); break;
+			case 1: avatar->Unknown_7804A0(color); break;
+			case 2: avatar->Unknown_780680(0, color); break;
+			case 3: avatar->Unknown_780680(1, color); Unknown_55B9A0(-1); break;
+			case 4: avatar->Unknown_780680(2, color); Unknown_55B9A0(-1); break;
+			case 5: avatar->Unknown_780680(3, color); Unknown_55B9A0(-1); break;
+			case 6: avatar->Unknown_780680(4, color); Unknown_55B9A0(-1); break;
+		}
+		avatar->Unknown_780810(Unknown08C->Unknown3A4);
+	} else {
+		Unknown180->Unknown08 = false;
+	}
+	gadget->Unknown_671630();
+}
+
+// NOT EXACT: functional (D64), from the client's 0x55B9A0 (the body tab's metal, -1: none, into +0x1C0 and the chosen part)
+// 0x55B9A0
+void AvatarCreationInterface::Unknown_55B9A0(int arg)
+{
+	if (Unknown088 != 2) {
+		return;
+	}
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	Unknown1C0 = arg;
+	switch (Unknown1BC) {
+		case 3: desc->Unknown_780790(1, arg); break;
+		case 4: desc->Unknown_780790(2, arg); break;
+		case 5: desc->Unknown_780790(3, arg); break;
+		case 6: desc->Unknown_780790(4, arg); break;
+	}
+	desc->Unknown_780810(Unknown08C->Unknown3A4);
 }

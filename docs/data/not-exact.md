@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-622 entries in 129 files.
+624 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -290,6 +290,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1339` | `AvatarCreationInterface::Unknown_558EA0` | marker | NOT EXACT: functional (D64), from the client's 0x558EA0 (inline-budget: the client's RefCountPtr temporaries) 0x558EA0 |
 | `app/client/ui_avatr.cpp:1358` | `AvatarCreationInterface::Unknown_559010` | marker | NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again) 0x559010 |
 | `app/client/ui_avatr.cpp:1377` | `AvatarCreationInterface::Unknown_5591E0` | marker | NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries) 0x5591E0 |
+| `app/client/ui_avatr.cpp:1392` | `AvatarCreationInterface::Unknown_55A960` | marker | NOT EXACT: functional (D64), from the client's 0x55A960 (the colour pull: dragged, it moves its marker on the window model's bone and takes the palette's colour under it into the chosen part, +0x1BC) 0x55A960 |
+| `app/client/ui_avatr.cpp:1445` | `AvatarCreationInterface::Unknown_55B9A0` | marker | NOT EXACT: functional (D64), from the client's 0x55B9A0 (the body tab's metal, -1: none, into +0x1C0 and the chosen part) 0x55B9A0 |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers) 0x55F140 |

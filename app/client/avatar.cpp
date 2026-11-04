@@ -2547,3 +2547,26 @@ void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
 		Unknown_77F750();
 	}
 }
+
+// 0x780680: a colour by index: 0 Skin_Color, 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
+void CharacterViewAvatarClass::Unknown_780680(int index, Vector3 color)
+{
+	switch (index) {
+		case 0: Desc.Skin_Color = color; break;
+		case 1: Desc.Shirt_Primary_Color = color; break;
+		case 2: Desc.Shirt_Secondary_Color = color; break;
+		case 3: Desc.Pants_Primary_Color = color; break;
+		case 4: Desc.Pants_Secondary_Color = color; break;
+	}
+}
+
+// 0x780790: a metal by index: 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
+void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
+{
+	switch (index) {
+		case 1: Desc.Shirt_Primary_Metal = metal; break;
+		case 2: Desc.Shirt_Secondary_Metal = metal; break;
+		case 3: Desc.Pants_Primary_Metal = metal; break;
+		case 4: Desc.Pants_Secondary_Metal = metal; break;
+	}
+}
