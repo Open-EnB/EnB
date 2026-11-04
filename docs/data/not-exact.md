@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-554 entries in 127 files.
+558 entries in 127 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -265,10 +265,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_cust.cpp:721` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT; matrix3d.h's out-of-line Rotate_Y 0x551270 comes with it) (TG4, claim #63), and 0x5513E0-0x551C80 after the FAIL_IFs of 0x551320 (TK6, claim #87): the palette texture, the credits and cost texts, the confirmation box and its answers, the gadgets shown, the cost of the changes, the costs kept, the STARBASE_REQUEST. The file's evidence: they sit between ui_attrb_skills.cpp's last function... |
 | `app/client/ui_avatar_cust.cpp:730` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT: the new look sent, RECUSTOMIZE_AVATAR_DONE; it brings SBaseViewClass's Get_Starbase 0x54EDA0 and the packet's implicit destructor 0x54EDD0 out of line), 0x54F2B0 (+0x368..+0x378 |
 | `app/client/ui_avatar_cust.cpp:732` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT (register) 0x54E690 / 0x54E7F0 (the body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table) exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringI... |
-| `app/client/ui_avatr.cpp:452` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the AvatarDescClass at +0x1CC is constructed in place over this file's char block 0x553AF0 |
-| `app/client/ui_avatr.cpp:656` | `AvatarCreationInterface::Unknown_68` | marker | NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails) 0x554E80 |
-| `app/client/ui_avatr.cpp:968` | `AvatarCreationInterface::Unknown_556B20` | marker | NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20) 0x556B20 |
-| `app/client/ui_avatr.cpp:1218` | `AvatarCreationInterface::Unknown_Set_Palette` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
+| `app/client/ui_avatr.cpp:464` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the AvatarDescClass at +0x1CC is constructed in place over this file's char block 0x553AF0 |
+| `app/client/ui_avatr.cpp:668` | `AvatarCreationInterface::Unknown_68` | marker | NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails) 0x554E80 |
+| `app/client/ui_avatr.cpp:980` | `AvatarCreationInterface::Unknown_556B20` | marker | NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20) 0x556B20 |
+| `app/client/ui_avatr.cpp:1136` | `AvatarCreationInterface::Unknown_559900` | marker | NOT EXACT: functional (D64), from the client's 0x559900 0x559900 |
+| `app/client/ui_avatr.cpp:1274` | `AvatarCreationInterface::Unknown_Set_Palette` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers) 0x55F140 |
@@ -349,13 +350,16 @@ edit the comments in the code, not this file.
 | `app/client/ui_shard.cpp:498` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
 | `app/client/ui_shard.cpp:518` | `Unknown615A50InterfaceClass::Unknown_6179D0` | marker | NOT EXACT: functional (D64) @0x6179D0 |
 | `app/client/ui_shard.cpp:536` | `Unknown615A50InterfaceClass::Unknown_617AA0` | marker | NOT EXACT: functional (D64) @0x617AA0 |
-| `app/client/unknown_585920.cpp:68` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
-| `app/client/unknown_585920.cpp:87` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
-| `app/client/unknown_585920.cpp:98` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |
-| `app/client/unknown_585920.cpp:108` | `UIAvatrPullClass::~UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585950 |
-| `app/client/unknown_585920.cpp:123` | `UIAvatrPullClass::Unknown_5859A0` | marker | NOT EXACT: interim placement (D137), functional @0x5859A0 |
-| `app/client/unknown_585920.cpp:137` | `UIAvatrUnknown2ECStruct::Unknown_585C90` | marker | NOT EXACT: interim placement (D137), functional @0x585C90 |
-| `app/client/unknown_585920.cpp:148` | `UIAvatrUnknown2ECStruct::Unknown_585CC0` | marker | NOT EXACT: interim placement (D137), functional @0x585CC0 |
+| `app/client/unknown_585920.cpp:80` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
+| `app/client/unknown_585920.cpp:99` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
+| `app/client/unknown_585920.cpp:110` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |
+| `app/client/unknown_585920.cpp:120` | `UIAvatrPullClass::~UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585950 |
+| `app/client/unknown_585920.cpp:135` | `UIAvatrPullClass::Unknown_5859A0` | marker | NOT EXACT: interim placement (D137), functional @0x5859A0 |
+| `app/client/unknown_585920.cpp:149` | `UIAvatrUnknown2ECStruct::Unknown_585C90` | marker | NOT EXACT: interim placement (D137), functional @0x585C90 |
+| `app/client/unknown_585920.cpp:160` | `UIAvatrUnknown2ECStruct::Unknown_585CC0` | marker | NOT EXACT: interim placement (D137), functional @0x585CC0 |
+| `app/client/unknown_585920.cpp:172` | `UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct` | marker | NOT EXACT: interim placement (D137), functional @0x585B50 |
+| `app/client/unknown_585920.cpp:197` | `UIAvatrUnknown2ECStruct::Unknown_585CF0` | marker | NOT EXACT: interim placement (D137), functional @0x585CF0 |
+| `app/client/unknown_585920.cpp:204` | `UIAvatrUnknown2ECStruct::Unknown_585D10` | marker | NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup) @0x585D10 |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontSys::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |

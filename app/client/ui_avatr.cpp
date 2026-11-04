@@ -95,7 +95,16 @@ public:
 	int Unknown108;										// +0x108 (its Desc.Race: the constructor's environment map and the pip)
 	int Unknown10C;										// +0x10C
 	int Unknown110;										// +0x110
-	char Unknown114[0x194 - 0x114];						// +0x114
+	char Unknown114[0x11C - 0x114];						// +0x114
+	char Unknown11C;									// +0x11C (the head)
+	char Unknown11D;									// +0x11D (the hair)
+	char Unknown11E;									// +0x11E (the ears)
+	char Unknown11F;									// +0x11F (the goggles)
+	char Unknown120;									// +0x120 (the beard)
+	char Unknown121[0x124 - 0x121];						// +0x121
+	char Unknown124;									// +0x124 (the face texture)
+	char Unknown125;									// +0x125 (the tattoo)
+	char Unknown126[0x194 - 0x126];						// +0x126
 	int Unknown194;										// +0x194 (0x55B110: the body tab's 0x2A .. 0x2D values)
 	int Unknown198;										// +0x198
 	int Unknown19C;										// +0x19C
@@ -328,8 +337,11 @@ class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10)
 {
 public:
 	~UIAvatrUnknown2ECStruct();							// 0x585BF0
+	UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits);	// 0x585B50 (0x24 bytes)  // NAME 1 [model, name, texture, part, two_digits]: what 0x559900 passes
 	void Unknown_585C90();								// 0x585C90 (the next choice: the odd ids)
 	void Unknown_585CC0();								// 0x585CC0 (the previous choice: the even ids)
+	void Unknown_585CF0(int choice);					// 0x585CF0  // NAME 1 [choice]: neutral
+	void Unknown_585D10();								// 0x585D10 (+0x20: how many choices exist)
 	char Unknown00[0x18];								// +0x00
 	int Unknown18;										// +0x18 (the choice)
 	char Unknown1C[0x20 - 0x1C];						// +0x1C
@@ -1116,6 +1128,50 @@ void AvatarCreationInterface::Unknown_559F30()
 		delete Unknown2F4;
 		Unknown2F4 = NULL;
 	}
+}
+
+static const char *UIAvatrGenders[2] = { "AM", "AF" };	// 0xB7B114: the models' gender prefix  // NAME 1: neutral (D10)
+static const char *UIAvatrRaces[3] = { "T", "J", "P" };		// 0xB7B11C: the models' race prefix  // NAME 1: neutral (D10)
+
+// NOT EXACT: functional (D64), from the client's 0x559900
+// 0x559900
+void AvatarCreationInterface::Unknown_559900()
+{
+	char name[64];
+	char texture[64];
+	Unknown_559F30();
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	RefCountPtr<UIAvatrUnknown194Class> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	const char *gender = UIAvatrGenders[desc->Unknown110];
+	const char *race = UIAvatrRaces[desc->Unknown108];
+	_snprintf(name, sizeof(name), "%s%shead", gender, race);
+	Unknown2DC = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HEAD", false);
+	Unknown2DC->Unknown_585CF0(desc->Unknown11C);
+	Unknown2DC->Unknown_585D10();
+	_snprintf(name, sizeof(name), "%s%shair", gender, race);
+	Unknown2E0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HAIR", false);
+	Unknown2E0->Unknown_585CF0(desc->Unknown11D);
+	Unknown2E0->Unknown_585D10();
+	_snprintf(name, sizeof(name), "%s%sbeard", gender, race);
+	Unknown2E4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "BEARD", false);
+	Unknown2E4->Unknown_585CF0(desc->Unknown120);
+	Unknown2E4->Unknown_585D10();
+	_snprintf(name, sizeof(name), "%s%shead%02d", gender, race, desc->Unknown11C);
+	_snprintf(texture, sizeof(texture), "%s%sFACETEX", gender, race);
+	Unknown2E8 = new UIAvatrUnknown2ECStruct(model.Peek(), name, texture, "FACE", false);
+	Unknown2E8->Unknown_585CF0(desc->Unknown124);
+	Unknown2E8->Unknown_585D10();
+	Unknown2EC = new UIAvatrUnknown2ECStruct(model.Peek(), NULL, "atattoo", "TATTOO", false);
+	Unknown2EC->Unknown_585CF0(desc->Unknown125);
+	Unknown2EC->Unknown_585D10();
+	_snprintf(name, sizeof(name), "%s%sGOGGLE", gender, race);
+	Unknown2F0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EYE", false);
+	Unknown2F0->Unknown_585CF0(desc->Unknown11F);
+	Unknown2F0->Unknown_585D10();
+	_snprintf(name, sizeof(name), "%s%sEAR", gender, race);
+	Unknown2F4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EAR", false);
+	Unknown2F4->Unknown_585CF0(desc->Unknown11E);
+	Unknown2F4->Unknown_585D10();
 }
 
 // 0x55AFD0

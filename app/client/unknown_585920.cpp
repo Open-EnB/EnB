@@ -5,6 +5,11 @@
 #include "matrix3d.h"
 #include "gadget.h"
 #include "unknown_675120.h"
+#include "assetmgr.h"
+#include "texture.h"
+#include "textureloader.h"
+#include "nstrdup.h"
+#include <stdio.h>
 
 // ui_avatr.cpp's pull: a gadget with its pull model (0x10 bytes; the avatar window's +0x160 / +0x16C / +0x180)
 class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
@@ -24,11 +29,18 @@ public:
 class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10), as ui_avatr.cpp's
 {
 public:
+	UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits);	// 0x585B50 (0x24 bytes)  // NAME 1 [model, name, texture, part, two_digits]: what ui_avatr.cpp's 0x559900 passes
 	void Unknown_585C90();								// 0x585C90 (the next choice, wrapping to 0)
 	void Unknown_585CC0();								// 0x585CC0 (the previous choice, wrapping to +0x20)
-	char Unknown00[0x18];								// +0x00
+	void Unknown_585CF0(int choice);					// 0x585CF0 (+0x18 set)  // NAME 1 [choice]: neutral
+	void Unknown_585D10();								// 0x585D10 (+0x20: how many '%s%02d' models, or '%s%02d.tga' textures, exist)
+	GadgetClass *Unknown00[2];							// +0x00 (0x585BF0 destroys them)
+	RenderObjClass *Unknown08;							// +0x08 (the window's model, referenced)
+	char *Unknown0C;									// +0x0C (the models' name)
+	char *Unknown10;									// +0x10 (the textures' name)
+	char *Unknown14;									// +0x14 (the part: 'HEAD', 'HAIR', 'BEARD', 'FACE', 'TATTOO', ...)
 	int Unknown18;										// +0x18 (the choice)
-	char Unknown1C[0x20 - 0x1C];						// +0x1C
+	bool Unknown1C;										// +0x1C ('%s%02d00' instead of '%s%02d')
 	int Unknown20;										// +0x20 (the last choice)
 };
 
@@ -154,6 +166,77 @@ void UIAvatrUnknown2ECStruct::Unknown_585CC0()
 		return;
 	}
 	Unknown18--;
+}
+
+
+// NOT EXACT: interim placement (D137), functional
+// @0x585B50
+UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits)
+{
+	Unknown0C = NULL;
+	Unknown10 = NULL;
+	Unknown14 = NULL;
+	Unknown18 = 0;
+	Unknown1C = two_digits;
+	Unknown20 = 0;
+	Unknown00[0] = NULL;
+	Unknown00[1] = NULL;
+	Unknown08 = model;
+	model->Add_Ref();
+	if (name) {
+		Unknown0C = nstrdup(name);
+	}
+	if (texture) {
+		Unknown10 = nstrdup(texture);
+	}
+	if (part) {
+		Unknown14 = nstrdup(part);
+	}
+}
+
+// NOT EXACT: interim placement (D137), functional
+// @0x585CF0
+void UIAvatrUnknown2ECStruct::Unknown_585CF0(int choice)
+{
+	Unknown18 = choice;
+}
+
+// NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup)
+// @0x585D10
+void UIAvatrUnknown2ECStruct::Unknown_585D10()
+{
+	char name[64];
+	int i = 1;
+	if (Unknown10 == NULL) {
+		while (true) {
+			_snprintf(name, sizeof(name), Unknown1C ? "%s%02d00" : "%s%02d", Unknown0C, i);
+			RenderObjClass *robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+			if (robj == NULL) {
+				break;
+			}
+			robj->Release_Ref();
+			i++;
+		}
+		Unknown20 = i - 1;
+	} else {
+		while (true) {
+			_snprintf(name, sizeof(name), "%s%02d.tga", Unknown10, i);
+			TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, (MipCountType)0, (WW3DFormat)0, true);
+			if (texture == NULL) {
+				break;
+			}
+			if (!texture->Is_Initialized()) {
+				TextureLoader::Request_Foreground_Loading(texture);
+			}
+			bool missing = texture->Is_Missing_Texture();
+			texture->Release_Ref();
+			if (missing) {
+				break;
+			}
+			i++;
+		}
+		Unknown20 = i - 1;
+	}
 }
 
 
