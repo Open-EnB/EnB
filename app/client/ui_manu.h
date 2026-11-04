@@ -10,7 +10,7 @@ class GadgetClass;			// gadget.cpp's
 class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0x11C)
 class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
-class UIManuSliderClass;	// gd_slider.cpp's slider (+0xB0)
+class GadgetSlider;	// gd_slider.cpp's slider (+0xB0)
 
 class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
@@ -148,7 +148,7 @@ public:
 	void Unknown_5B6D30();								// 0x5B6D30: the filter request warning (FAIL_IFs '!Client' l.1834, '!Client->As_Space_Client()' l.1835)
 
 	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
-	UIManuSliderClass *Unknown0B0;						// +0x0B0 (the list's slider: its +0xD4 the first row)
+	GadgetSlider *Unknown0B0;						// +0x0B0 (the list's slider: its +0xD4 the first row)
 	RefCountPtr<UIManuInvClass> Unknown0B4;				// +0x0B4 'TSM01A.E%02d' (slots +0x58 / +0x5C / +0x7C passed on)
 	RefCountPtr<UIManuInvClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
 	RefCountPtr<UIManuInvClass> Unknown0BC;				// +0x0BC 'TSM01A.OVER'
