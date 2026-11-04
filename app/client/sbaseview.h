@@ -55,6 +55,7 @@ class UIPTradeClass : public MainViewUnknown1E4Class	// NAME 3: class-from-file 
 public:
 	void Unknown_5E2F70(bool on);	// 0x5E2F70 (TRADE 31 types 3 / 4)  // NAME 1 [on]: what the handler passes
 	void Unknown_5E3050(bool on);	// 0x5E3050 (TRADE 31 types 5 / 6)  // NAME 1 [on]: what the handler passes
+	UIPTradeClass(SClient *client);	// 0x5E1BE0 (0xE8 bytes: the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
 	void Unknown_5E3130();	// 0x5E3130 (TRADE 31 type 2)
 };
 
@@ -72,9 +73,11 @@ public:
 	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
 };
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
-class SBaseViewUnknown68Class { public: ~SBaseViewUnknown68Class(); RenderObjClass *Unknown00; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x6A0540; 0x69C0D0 deletes it through 0x4909A0, the destructor of scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct)
+class SBaseViewUnknown68Class { public: SBaseViewUnknown68Class(); ~SBaseViewUnknown68Class(); RenderObjClass *Unknown00; char Unknown04[0x1C - 0x04]; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x1C bytes, 0x69B5E0 makes it with 0x490900; 0x6A0540; 0x69C0D0 deletes it through 0x4909A0, the destructor of scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct)
 class SBaseViewUnknown190Class : public InterfaceClass { public: int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active; 0x69C8F0 calls 0x64CF90 / 0x64CFF0 / 0x64D3E0 / 0x64EEA0)
 class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370)
+class SBaseViewUnknown70Class;	// the +0x70 scene (sbaseview.cpp declares it)
+class LightClass;
 class HAnimClass;
 class AudibleSoundClass;
 class LayerClass;
@@ -107,12 +110,12 @@ class SBaseViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file 
 public:
 	SBaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SClient 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
 	virtual ~SBaseViewClass();	// +0x00 0x69B0C0 (deleting 0x69B090)
-	virtual void Unknown_04();	// +0x04 0x69B5E0 (not rebuilt)
+	virtual void Unknown_04();	// +0x04 0x69B5E0 (Init: the scenes, cameras, layers, text object, interfaces and lights)
 	virtual int Unknown_0C(bool on);	// +0x0C 0x69C5E0 (not rebuilt: the render, WW3D::Begin_Render with on)
 	virtual void Unknown_10();	// +0x10 0x69C0D0 (not rebuilt)
 	virtual void Unknown_14();	// +0x14 0x69C8F0 (not rebuilt: the frame, the base's 0x6B4860 first)
 	virtual int Unknown_30() { return((int)this); }	// +0x30 0x69B050 (out of line after the constructor)
-	virtual SimpleSceneClass *Unknown_5C() { return(Unknown70.Peek()); }	// +0x5C 0x69B070 (the view's own slot; out of line after the constructor)
+	virtual SimpleSceneClass *Unknown_5C();	// +0x5C 0x69B070 (the view's own slot: the +0x70 scene)
 	virtual void Unknown_18(int arg);	// +0x18 0x69C5A0 (its byte: set, +0x54 = 0 and +0x58 = +0x50; else 0x69D030(-1))  // NAME 1 [arg]: neutral
 	void Unknown_69D030(int index);	// 0x69D030: starbase interface index (0..3: +0x174 / +0x178 / +0x180 / +0x17C) made once and activated as Starbase; -1 none  // NAME 1 [index]: neutral
 	std::string Unknown_6A2120(int index);	// 0x6A2120 (not rebuilt): the name 0x69D030 hands the starbase interface  // NAME 1 [index]: neutral
@@ -157,7 +160,7 @@ public:
 	RefCountPtr<InterfaceClass> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released)
 	SBaseViewUnknown68Class *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object; the destructor leaves it)
 	RefCountPtr<CameraClass> Unknown6C;	// +0x6C (+0x70's camera: 0x69C5E0)
-	RefCountPtr<SimpleSceneClass> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
+	RefCountPtr<SBaseViewUnknown70Class> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
 	RefCountPtr<CameraClass> Unknown74;	// +0x74 (+0x78's camera: 0x69C5E0)
 	RefCountPtr<SimpleSceneClass> Unknown78;	// +0x78 (ViewRObjs[2]'s scene)
 	LayerClass *Unknown7C;	// +0x7C (0x69B5E0: a layer of the base's +0x1C scene and +0x20 camera; 0x69C0D0 deletes it)
@@ -176,7 +179,7 @@ public:
 	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<InterfaceClass> Unknown198; RefCountPtr<SBaseViewUnknown19CClass> AvatarUI; RefCountPtr<SBaseViewUnknown1A0Class> ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 	RefCountPtr<UIPTradeClass> PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
 	RefCountPtr<UIGroupClass> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
-	RefCountPtr<InterfaceClass> Unknown1AC;	// +0x1AC
+	RefCountPtr<MainViewUnknown1D4Class> Unknown1AC;	// +0x1AC (0x69B5E0: the main view's +0x1D4 class, 0x5608D0)
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
 	SBaseViewUnknown1B4Class *Unknown1B4;	// +0x1B4 (LOUNGE_NPC 82: sbase_info.cpp's 0x6987A0 of the packet; the destructor deletes it)
 	RefCountPtr<FontSys> Unknown1B8;	// +0x1B8: a text object (0x6A0E80 changes its text)
@@ -184,8 +187,8 @@ public:
 	RefCountPtr<AudibleSoundClass> Unknown1C0;	// +0x1C0: a 2-D sound (0x6A1000 plays it looped, 0x6A1130 stops it)
 	int Unknown1C4;	// +0x1C4 (0x69C5E0 counts it down)
 	int Unknown1C8;	// +0x1C8
-	RefCountPtr<RenderObjClass> Unknown1CC;	// +0x1CC (0x6A0540 removes it)
-	RefCountPtr<RenderObjClass> Unknown1D0;	// +0x1D0 (0x6A0540 removes it)
+	RefCountPtr<LightClass> RKey;	// +0x1CC a light (0x69B5E0; 0x6A0540 removes it)  // NAME 3: the lights loader's G_ASSERT '!RKey.Peek()' (0x6A0590)
+	RefCountPtr<LightClass> RCamera;	// +0x1D0 a light (0x69B5E0; 0x6A0540 removes it)  // NAME 3: the lights loader's G_ASSERT '!RCamera.Peek()' (0x6A0590)
 	Vector3 Unknown1D4;	// +0x1D4 (six zero dwords: as two Vector3s the constructor stores them before the +0x1F4 call, as the client)  // NAME 1 [Unknown1D4]: neutral; the type from the store order only
 	Vector3 Unknown1E0;	// +0x1E0  // NAME 1 [Unknown1E0]: neutral; as Unknown1D4
 	bool Unknown1EC; bool Unknown1ED; bool Unknown1EE; bool Unknown1EF; bool Unknown1F0;	// +0x1EC..+0x1F0 (0x6A23E0 / 0x6A2430)

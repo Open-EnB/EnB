@@ -11,7 +11,10 @@
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\camera.h"
 #include "fontdatabase.h"
+#include "fontmanager.h"
 #include "ui_group.h"
+#include "local_interface_sort.h"
+#include "..\..\ww3d2\light.h"
 #include <string>
 #include "option.h"
 #include "interface_scene.h"
@@ -21,12 +24,9 @@
 #include "..\packets\pkaction.h"
 #include "..\..\ww3d2\layer.h"
 
-// fontsys.cpp's text object (a render object), as far as the starbase view calls it
-class FontSys : public RenderObjClass	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)
-{
-public:
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0  // NAME 1 [text, unknown]: what 0x6A0E80 passes
-};
+
+// the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
+class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
 SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
 
@@ -87,6 +87,12 @@ SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
 	Unknown_BE67BC->Load("fa_sbase.ini");
 }
 
+// 0x69B070
+SimpleSceneClass *SBaseViewClass::Unknown_5C()
+{
+	return(Unknown70.Peek());
+}
+
 // 0x69B0C0
 SBaseViewClass::~SBaseViewClass()
 {
@@ -95,8 +101,59 @@ SBaseViewClass::~SBaseViewClass()
 		Unknown1B4 = NULL;
 	}
 	Unknown_BE67BC->Unload("fa_sbase.ini");
-	Unknown1CC = NULL;
-	Unknown1D0 = NULL;
+	RKey = NULL;
+	RCamera = NULL;
+}
+
+// 0x69B5E0: Init (the base's first): the scenes and cameras, the layers, the pointer's text object, the trade, group
+// and chat interfaces and the two lights
+// NOT EXACT: shape (explain.py; 0.84): the trade and group assignments store the member before the temporary's release (the
+// other Create_NEW assignments match), and the second light's temporary reuses the first slot
+void SBaseViewClass::Unknown_04()
+{
+	UIViewClass::Unknown_04();
+	InterfaceSortClass sort(this, true);
+	Unknown68 = new SBaseViewUnknown68Class;
+	Unknown70 = Create_NEW(new SBaseViewUnknown70Class);
+	Unknown70->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+	Unknown6C = Create_NEW(new CameraClass);
+	Unknown6C->Set_Position(Vector3(0.0f, 0.0f, 100.0f));
+	Unknown6C->Set_View_Plane(DEG_TO_RADF(65.0f), -1.0f);
+	Unknown6C->Set_Clip_Planes(1.0f, 2000.0f);
+	Unknown78 = Create_NEW(new SimpleSceneClass);
+	Unknown78->Set_Ambient_Light(Vector3(1.0f, 1.0f, 1.0f));
+	Unknown74 = Create_NEW(new CameraClass);
+	Unknown74->Set_Position(Vector3(0.0f, 0.0f, 640.0f));
+	Unknown74->Set_View_Plane(DEG_TO_RADF(45.0f), -1.0f);
+	Unknown74->Set_Clip_Planes(1.0f, 10000.0f);
+	Unknown7C = new LayerClass(Unknown1C, Unknown20.Peek());
+	Unknown80 = new LayerClass(Unknown70.Peek(), Unknown6C.Peek());
+	Unknown1B8 = Create_NEW(new FontSys("MouseText_SBASE", 0, ""));
+	Unknown1B8->Add(Unknown1C);
+	PTrade = Create_NEW(new UIPTradeClass(Client));
+	PTrade->Unknown_54();
+	PTrade->Unknown_7C(this, 0);
+	Unknown1A8 = Create_NEW(new UIGroupClass(Client));
+	Unknown1A8->Unknown0F1 = true;
+	Unknown1A8->Unknown_54();
+	Unknown1A8->Unknown_7C(this, 0);
+	Unknown1AC = Create_NEW(new MainViewUnknown1D4Class(this, LayerClass(Unknown1C, Unknown20.Peek())));
+	Unknown1AC->Unknown_54();
+	Unknown_6B4940(Unknown1AC.Peek());
+	RKey = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
+	RKey->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+	RKey->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
+	RKey->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+	RCamera = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
+	RCamera->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+	RCamera->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
+	RCamera->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+	if (Unknown1A8) {
+		Unknown1A8->Unknown_58();
+	}
+	if (Unknown1AC) {
+		Unknown1AC->Unknown_58();
+	}
 }
 
 // 0x69C0D0: the interfaces, the render objects, the channels and the scenes released (UIViewClass's 0x65B4A0
@@ -125,13 +182,13 @@ void SBaseViewClass::Unknown_10()
 		delete Unknown68;
 		Unknown68 = NULL;
 	}
-	if (Unknown1CC) {
-		Unknown1CC->Remove();
-		Unknown1CC = NULL;
+	if (RKey) {
+		RKey->Remove();
+		RKey = NULL;
 	}
-	if (Unknown1D0) {
-		Unknown1D0->Remove();
-		Unknown1D0 = NULL;
+	if (RCamera) {
+		RCamera->Remove();
+		RCamera = NULL;
 	}
 	for (int i = 0; i < 3; i++) {
 		Unknown_69D930(i);
@@ -672,63 +729,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -862,11 +862,11 @@ void SBaseViewClass::Unknown_6A0540()
 	if (Unknown68) {
 		Unknown68->Unknown00->Remove();
 	}
-	if (Unknown1CC) {
-		Unknown1CC->Remove();
+	if (RKey) {
+		RKey->Remove();
 	}
-	if (Unknown1D0) {
-		Unknown1D0->Remove();
+	if (RCamera) {
+		RCamera->Remove();
 	}
 }
 

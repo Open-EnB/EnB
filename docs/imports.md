@@ -1920,7 +1920,7 @@ Base copy: reconstructed. Headers: 335 from reconstructed.
 | shared/rs_proj_sup.cpp | reconstructed | 30 | 0 | - | - | - |  |
 | shared/rs_robj.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | shared/rs_track.cpp | reconstructed | 181 | 0 | - | - | - |  |
-| client/sbaseview.cpp | reconstructed | 62 | 8 | - | - | - |  |
+| client/sbaseview.cpp | reconstructed | 64 | 8 | - | - | - |  |
 | client/sclient.cpp | reconstructed | 317 | 21 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 125 | 10 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 4 | 1 | - | - | - |  |

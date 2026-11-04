@@ -450,7 +450,7 @@ public:
 class MainViewUnknown1D4Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	MainViewUnknown1D4Class(MainViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes)  // NAME 1 [view, layer]: what 0x50C690 passes
+	MainViewUnknown1D4Class(UIViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes; the starbase view's 0x69B5E0 passes itself too)  // NAME 1 [view, layer]: what 0x50C690 passes
 	char Unknown84[0xEC - 0x84];						// +0x84
 };
 
