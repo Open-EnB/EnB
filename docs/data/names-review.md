@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12550 |
+| 1 | neutral placeholder | 12554 |
 
 ## For review (score 3 and below)
 
@@ -6398,6 +6398,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_780790` | `app/client/ui_avatr.cpp:1455` | untagged neutral name (D10) |
 | 1 | `Unknown_785C00` | `app/client/ui_avatr.cpp:1778` | untagged neutral name (D10) |
 | 1 | `UIAvatrFlash, gadget, on, stop_first` | `app/client/ui_avatr.cpp:1783` | neutral (D10) |
+| 1 | `UIAvatrWeightBase` | `app/client/ui_avatr.cpp:1815` | neutral (D10) |
+| 1 | `UIAvatrWeightRange` | `app/client/ui_avatr.cpp:1816` | neutral (D10) |
+| 1 | `UIAvatrHeightBase` | `app/client/ui_avatr.cpp:1817` | neutral (D10) |
+| 1 | `UIAvatrHeightRange` | `app/client/ui_avatr.cpp:1818` | neutral (D10) |
 | 1 | `UIAvselGadgetPartStruct` | `app/client/ui_avsel.cpp:19` | neutral (D10) |
 | 1 | `GadgetUnknown08Struct` | `app/client/ui_avsel.cpp:19` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:64` | as ui_group.cpp's |

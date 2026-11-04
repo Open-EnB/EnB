@@ -1810,3 +1810,35 @@ void AvatarCreationInterface::Unknown_55B650()
 	UIAvatrFlash(Unknown098[41], Unknown1BC == 5, false);
 	UIAvatrFlash(Unknown098[42], Unknown1BC == 6, false);
 }
+
+// The body tab's weight and height ranges by race * 2 + gender (0xB7B134 / 0xB7B14C: lbs, 0xB7B164 / 0xB7B17C: inches)
+static int UIAvatrWeightBase[6] = { 150, 110, 150, 110, 200, 160 };	// NAME 1: neutral (D10)
+static int UIAvatrWeightRange[6] = { 50, 35, 50, 25, 60, 30 };		// NAME 1: neutral (D10)
+static int UIAvatrHeightBase[6] = { 64, 60, 68, 64, 72, 68 };		// NAME 1: neutral (D10)
+static int UIAvatrHeightRange[6] = { 18, 16, 16, 14, 18, 16 };		// NAME 1: neutral (D10)
+
+// NOT EXACT: functional (D64), from the client's 0x55BFB0 (on the body tab, the weight '%d lbs' and the height
+// '%d ft, %d inch' from the body pull's point (+0x164), each text changed only when it differs: FontSys's +0xFC)
+// 0x55BFB0
+void AvatarCreationInterface::Unknown_55BFB0()
+{
+	if (Unknown088 != 2) {
+		return;
+	}
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	int i = desc->Desc.Race * 2 + desc->Desc.Gender;
+	int lbs = (int)(UIAvatrWeightRange[i] * Unknown164.X + UIAvatrWeightRange[i] * Unknown164.Y + UIAvatrWeightBase[i]);
+	int inches = (int)(UIAvatrHeightRange[i] * Unknown164.Y + UIAvatrHeightBase[i]);
+	char text[64];
+	_snprintf(text, 0x40, "%d lbs", lbs);
+	FontSys *weight = Unknown_BE67C4->Get_Style("weight_var_fe_avatar00", model.Peek());
+	if (strcmp(text, *(const char **)((char *)weight + 0xFC)) != 0) {
+		weight->Change_Text(text, 0);
+	}
+	_snprintf(text, 0x40, "%d ft, %d inch", inches / 12, inches % 12);
+	FontSys *height = Unknown_BE67C4->Get_Style("height_var_fe_avatar00", model.Peek());
+	if (strcmp(text, *(const char **)((char *)height + 0xFC)) != 0) {
+		height->Change_Text(text, 0);
+	}
+}
