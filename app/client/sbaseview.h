@@ -119,9 +119,9 @@ public:
 	virtual void Unknown_18(int arg);	// +0x18 0x69C5A0 (its byte: set, +0x54 = 0 and +0x58 = +0x50; else 0x69D030(-1))  // NAME 1 [arg]: neutral
 	void Unknown_69D030(int index);	// 0x69D030: starbase interface index (0..3: +0x174 / +0x178 / +0x180 / +0x17C) made once and activated as Starbase; -1 none  // NAME 1 [index]: neutral
 	std::string Unknown_6A2120(int index);	// 0x6A2120 (not rebuilt): the name 0x69D030 hands the starbase interface  // NAME 1 [index]: neutral
-	void Unknown_69ED80();	// 0x69ED80 (not rebuilt; 0x69C5E0 calls it when +0x1C4 counts down to 0)
+	void Unknown_69ED80();	// 0x69ED80: the +0x6C camera moved from +0x84 towards +0xB4 (0x69C5E0 calls it when +0x1C4 is 0)
 	void Unknown_6A1180();	// 0x6A1180 (not rebuilt; 0x69C5E0 calls it before End_Render)
-	void Unknown_6A1B80();	// 0x6A1B80 (not rebuilt; 0x69C8F0 calls it every frame)
+	void Unknown_6A1B80();	// 0x6A1B80: the GROUP_INVITE box's answer sent (0x69C8F0 calls it every frame; as ui_group.cpp's 0x597650)
 	void Unknown_6A1000(const char *name);	// 0x6A1000: the sound +0x1C0, looped  // NAME 1 [name]: what SoundLibraryClass::Play_2D_Sound gets
 	void Unknown_6A1130();	// 0x6A1130: the sound +0x1C0 stopped
 	void Unknown_6A2480();	// 0x6A2480 (FAIL_IF 'Client == NULL', l.1667)
@@ -167,8 +167,8 @@ public:
 	LayerClass *Unknown80;	// +0x80 (0x69B5E0: a layer of +0x70 and +0x6C; 0x69C0D0 deletes it)
 	Matrix3D Unknown84;	// +0x84 (identity from the constructor)
 	Matrix3D UnknownB4;	// +0xB4 (identity from the constructor)
-	int UnknownE4;	// +0xE4
-	int UnknownE8;	// +0xE8
+	float UnknownE4;	// +0xE4: the +0x84 -> +0xB4 move's length in seconds (0x69ED80; 0 when none)
+	float UnknownE8;	// +0xE8: its time so far (0x69ED80)
 	RefCountPtr<RenderObjClass> ViewRObjs[3];	// +0xEC: by type, in the scenes +0x1C / +0x70 / +0x78 (0x69D930)  // NAME 3: the assert's 'ViewRObjs[type]'
 	SBaseViewChannelStruct Channels[6];	// +0xF8  // NAME 2: what it holds
 	bool Unknown170;	// +0x170 (0x69C8F0: set, 0x69D030(-1) and cleared)

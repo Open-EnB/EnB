@@ -20196,6 +20196,7 @@
      "0x69DB50",
      "0x69DBA0",
      "0x69DC60",
+     "0x69ED80",
      "0x69F440",
      "0x69F460",
      "0x69F480",
@@ -20207,6 +20208,7 @@
      "0x6A0FD0",
      "0x6A1000",
      "0x6A1130",
+     "0x6A1B80",
      "0x6A20C0",
      "0x6A23E0",
      "0x6A2430",
@@ -27491,7 +27493,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9341,
+  "in_tree_total": 9343,
   "totals": {}
  },
  "binkmovie": {

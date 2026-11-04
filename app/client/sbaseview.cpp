@@ -28,6 +28,7 @@
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
+float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
 
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
@@ -728,7 +729,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
-
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -781,7 +781,24 @@ void SBaseViewClass::Unknown_69DC60()
 {
 	Unknown_69D930(2);
 }
-
+#pragma auto_inline(off)
+// 0x69ED80: the +0x6C camera between +0x84 and +0xB4 (0x77B7D0 eases the fraction); at the end it is +0xB4
+void SBaseViewClass::Unknown_69ED80()
+{
+	if (UnknownE4 != 0.0f) {
+		UnknownE8 += WW3D::Get_Frame_Time() * 0.001f;
+		if (UnknownE8 > UnknownE4) {
+			Unknown84 = UnknownB4;
+			UnknownE4 = 0;
+			Unknown6C->Set_Transform(Unknown84);
+		} else {
+			float factor = Unknown_77B7D0(UnknownE8 / UnknownE4);
+			Matrix3D tm = Lerp(Unknown84, UnknownB4, factor);
+			Unknown6C->Set_Transform(tm);
+		}
+	}
+}
+#pragma auto_inline(on)
 // 0x69F440
 void SBaseViewClass::Unknown_69F440()
 {
@@ -1265,38 +1282,6 @@ void SBaseViewClass::Unknown_6A0540()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x6A0E00: the text object away
 void SBaseViewClass::Unknown_6A0E00()
 {
@@ -1348,6 +1333,21 @@ void SBaseViewClass::Unknown_6A1130()
 	if (Unknown1C0) {
 		Unknown1C0->Stop();
 		Unknown1C0 = NULL;
+	}
+}
+
+// 0x6A1B80: the GROUP_INVITE box's answer (1 accept, 2 decline) sent, the box closed
+void SBaseViewClass::Unknown_6A1B80()
+{
+	if (!Get_Unknown34()->Is_Active()) return;
+	int button = Get_Unknown34()->Unknown_5890B0("GROUP_INVITE");
+	if (button) {
+		if (button == 1) {
+			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 11, ((ClientClass *)Client)->AvatarID, 0));
+		} else if (button == 2) {
+			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 12, ((ClientClass *)Client)->AvatarID, 0));
+		}
+		Unknown34->Unknown_5C();
 	}
 }
 
