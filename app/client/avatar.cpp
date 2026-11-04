@@ -22,6 +22,8 @@
 #include "random.h"
 #include "ini.h"
 #include "nlp.h"
+#include "env_map_manager.h"
+#include "..\packets\pkcolorization.h"
 
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
@@ -41,6 +43,9 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
 // (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
+
+void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
+	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -334,6 +339,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		if (BodyObj) {
 			Unknown_781EA0();
 		}
+		Unknown_780810(env_maps);
 	} else {
 		Unknown221 = false;
 	}
@@ -1739,6 +1745,30 @@ void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 				}
 			}
 		}
+	}
+}
+
+// 0x780810: two colorization regions from the description, shirt (primary, secondary) and pants (primary, secondary):
+// a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
+// the body and the head with the skin colour
+// NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies)
+void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
+{
+	if (env_maps) {
+		std::vector<ColorizationRegionStruct> regions;
+		ColorizationRegionStruct region;
+		region.Unknown00.Unknown00 = Desc.Shirt_Primary_Metal;
+		region.Unknown00.Unknown04 = (Desc.Shirt_Primary_Metal < 0) ? Desc.Shirt_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		region.Unknown10.Unknown00 = Desc.Shirt_Secondary_Metal;
+		region.Unknown10.Unknown04 = (Desc.Shirt_Secondary_Metal < 0) ? Desc.Shirt_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		regions.insert(regions.end(), 1, region);
+		region.Unknown00.Unknown00 = Desc.Pants_Primary_Metal;
+		region.Unknown00.Unknown04 = (Desc.Pants_Primary_Metal < 0) ? Desc.Pants_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		region.Unknown10.Unknown00 = Desc.Pants_Secondary_Metal;
+		region.Unknown10.Unknown04 = (Desc.Pants_Secondary_Metal < 0) ? Desc.Pants_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		regions.insert(regions.end(), 1, region);
+		Unknown_80FCE0(BodyObj, regions, env_maps, &Desc.Skin_Color);
+		Unknown_80FCE0(HeadObj, regions, env_maps, &Desc.Skin_Color);
 	}
 }
 

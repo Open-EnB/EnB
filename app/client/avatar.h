@@ -99,6 +99,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
 	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
 	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
 	void Unknown_7857D0(int num);						// 0x7857D0 (Head_Texture_Num's '<gender><race>FACETEX%02d.tga' onto head0..4)  // NAME 1 [num]: neutral
