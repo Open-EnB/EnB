@@ -4,6 +4,43 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-04 (05:15 PST, night): POC character creation end to end, the avatar lit like retail, the quit fault fixed; +231 pairs, 0 lost
+
+Coordinator Opus 5.5 (the user away; weekly 8 % -> 12 %, cap 14 %); branch run/2026-11-04 (PR #158, draft), plan log
+`.work/run-2026-11-04/plan.md` (every report, landing and decision). Builders: LIGHT, CRE1, CRE2, SHIP, AVS, DEC, QUIT
+(Opus), CTFIX, AUD (Sonnet). The user's goals: the avatars' lighting, and an empty slot opening character creation.
+
+- **POC:** login -> character select -> empty slot -> class screen (profession, skills, stats) -> avatar customization
+  (the avatar draws; gender, head, hair, beard, shirt / pants styles, colours, random, body pull, height / weight) -> ship
+  customization (hull / wing, paint, random, decals, palette drag, ship name) -> galaxy select -> Play Game: antprox
+  receives GLOBAL_CREATE_CHARACTER 0x0072 (539 bytes; ShipCustDesc with the choices, decal 7). Checked by the coordinator at
+  72203519 with no hook (`.work/coord/pocfull.sh`, input `.work/run-2026-11-04/in_full.txt`, shots
+  `.work/poc/shots/coord-044407`). Quitting from character select or from creation exits cleanly.
+- **LIGHT:** the avatar at character select matches retail in all 63 draws of a draw dump (render / stage states, textures,
+  material colours, lights; the POC drew 60): avatar.cpp set the gen stand-in Unknown_BFAE52 instead of
+  WW3D::OverbrightModifyOnLoad (MODULATE vs MODULATE2X); shiputils.cpp (new) colours the '~S1' / '~S2' / '~SK' materials
+  (0x80FCE0 / 0x80FD10 / 0x812390); ro_funcs 0x496DB0 (highest LOD). Retail reference: a copy of the retail client on the
+  same replay (P-LIGHT-1). Shots `.work/poc/shots/light-retail-004551` vs `light-011030`.
+- **Creation:** CRE1 (class / avatar screens, AvatarCreationInterface 0x553AF0 / 0x554E80, ship_pip.cpp, chartemplate.cpp,
+  unknown_585920.cpp interim; the reported slot-click crash was the class screen's Next into a gen ctor), CRE2 (ui_shard.cpp,
+  the galaxy select and the create packet path), SHIP (ui_shipcust.cpp, ShipCustomizeInterface 0x620D20-0x628BF0, 14 of 43
+  exact; shiputils), AVS (the avatar draws: CharacterViewAvatarClass lacked Get_Num_Sub_Objects / Get_Sub_Object, so its
+  bounds were radius 0; ui_avatr's controls), DEC (decal.cpp's library, 0x80EAF0, palette drag 0x671570 / 0x671630 exact).
+- **QUIT:** ViewClass::Unknown_10 0x6B46F0 called Create_Get where the client calls Create_Peek (identical bytes, so it
+  matched exact): the vector freed the quit box. AUD's audit of every Create_Get / Create_Peek: 10 mismatches off the POC
+  path (section 4).
+- **Pairs:** +231 vs a302d4d3, 0 lost outright. Harness: clienttest (103, trace equal; clienttest.py now compiles
+  shiputils.cpp with 0x80FF20 stood in: CTFIX, a tools change for the maintainer's review; expected.txt loses the stand-in
+  lines the real functions replace), udpreplay alex3 equal, handshake 54.
+- **Proposals:** P-LIGHT-1 (`clientpoc.py --retail`), P-QUIT-2 (replay reports the client's exit). Interim placements
+  (D137): unknown_585920.cpp, decal.cpp's foreign functions, chartemplate.cpp (listed in section 4).
+- **Coordinator traps:** the first 40 minutes of three Opus builders read as ~3 %/h on the weekly meter (start-up), later
+  ~0.5 %/h per builder: measure twice before cutting builders; a message saying "merge when X lands" was read as "hand
+  back now" (SHIP stopped early): say "keep working"; two builders rebuilding the same functions (DEC / AVS 0x671570) cost
+  a hand-resolved rebase (`.work/coord/resolve_avs2.py`, `land_avs.sh`): name shared helper files in both briefs.
+- **Next session:** PR #158 (review clienttest.py's change, then merge); P-LIGHT-1 / P-QUIT-2; then one section 4 item:
+  the Create_Get mismatches, or POC creation's leftovers.
+
 ### 2026-11-04 (early): #153-#156 merged; CLAUDE.md's context section made rules
 
 Coordinator Opus 5.5 with the user. PRs #153 (renames, FontSys, B2 merges), #154 (P-FU1-2), #155 (symbols.json
@@ -2260,6 +2297,12 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
+* **P-LIGHT-1** (2026-11-04, LIGHT; recommend yes): `clientpoc.py replay --retail`: a copy of the retail client.exe with
+  a d3d8shot build that has poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on the terms box's "I Agree"
+  (the dialog's own input, D69), so any builder can take a retail reference shot or draw dump on the same replay. Today
+  in `.work/wt/light/.work/light/` (agree.py, build_d3d8in.py, cpoc_retail.py, cmp2.py / cmp3.py). A tools change.
+* **P-QUIT-2** (2026-11-04, QUIT; recommend yes): `clientpoc.py replay` prints whether the client exited and when
+  (antprox.out's "Client exited" line against the last input's time), as `run` does. A tools change.
 
 ## 4. Next steps
 
@@ -2316,10 +2359,8 @@ below name only the work items, the blocked work, the leads and the queues.
      vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
      0x745750, 0x749590, 0x749A70 or 0x74BFB0 is exact (0x7511A0 went exact on 2026-11-02 without pairing them).
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
-     and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides when 0x554E80 (the
-     50-case gadget handler, 0x10E0 bytes) is rebuilt, then rerun every marker. Open: the ctor 0x553AF0 (0x1030
-     bytes), 0x556F80-0x55BAC0's 21 functions (leads 0x55A060, reusing 0x558060's weights pattern, and 0x55B9A0),
-     0x55BFB0.
+     and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides if 0x554E80's
+     functional rebuild (2026-11-04) does not, then rerun every marker; its functions toward exact: the POC creation item.
    * From the 2026-10-31 t4 run (TK15): ui_avatar_cust.cpp starts at 0x54B760 (PermStringInitClass static 0xBE5B34;
      0x54B370 is ui_attrb_skills.cpp's, line 577; 0x54B740 / 0x54B750 are thunks into its 0x549800); ctor 0x54B7B0,
      dtors 0x54BA80 / 0x54BAB0. The window's real base is Unknown5BB320Class (sclient.h; mesh at +0x84, dtor 0x5BB3B0),
@@ -2395,9 +2436,22 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
-   * The POC faults when quitting from character select (seen 2026-11-03 on master 1ff6d912 and after P-FU1-2):
-     KernelClass::Shutdown -> ~LoginTaskClass -> CharacterViewClass::Unknown_10 -> UIViewClass::Unknown_10 reads
-     0x29282726 (string bytes as a pointer); repeat with `clientpoc.py replay --input .work/run-2026-11-03/input3-quit.txt`.
+   * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
+     check `.work/coord/pocfull.sh`): the avatar screen's per-frame gens 0x55B2D0 (tattoo pull visibility), 0x55BAC0
+     (turning indicator models), 0x55C280 (flash callback); ui_avatar_cust.cpp:63 declares 0x495FD0 `void` (ro_funcs:
+     `bool`: a different mangled name, so it stays a gen); swatch (negative) and secret decals untested; the functional
+     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
+     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class 0x576360 / 0x5767F0, ShipPip 0x80C640 / 0x80CA30 /
+     0x80CE10 / 0x80D5E0 / 0x80E260 / 0x80E530; the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
+     +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
+     unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
+     0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
+     places them.
+   * Create_Get / Create_Peek (P-QUIT-1's audit, `.work/run-2026-11-04/aud-create-get.md`; the two compile to identical
+     bytes, so an exact function can call the wrong one): Get -> Peek in ui_chat_panel.cpp 709 (0x563DC0) / 2296
+     (0x56BAA0) and ui_cpit.cpp 1937-1939 (0x584110) / 2007 (0x5845A0) (Get_Style 0x6D25D0's result); Peek -> Get in
+     ui_manu.cpp 440 / 443 / 468 (0x5AFFC0, `new UIManuInvClass`); decal.cpp 168 spelling only; unverified: ui_chat_panel
+     0x565F80 (11 uses), land Build_Decorations (3), INIManagerClass::Get_INI.
    * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
      tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
      symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.

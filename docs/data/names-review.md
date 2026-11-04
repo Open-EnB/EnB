@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12554 |
+| 1 | neutral placeholder | 12553 |
 
 ## For review (score 3 and below)
 
@@ -12469,13 +12469,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_5860B0` | `tests/clienttest/ui_avsel_stubs.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/clienttest/ui_stubs.cpp:56` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:63` | untagged neutral name (D10) |

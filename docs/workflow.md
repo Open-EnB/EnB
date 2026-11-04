@@ -546,7 +546,11 @@ unless `--lever` cites a new row of this table.
   concatenation; gen_stubs cannot stub a function with a `std::vector<struct>` parameter (the call links to 0). gen stand-ins
   also hide behind `extern` globals: avatar.cpp set `Unknown_BFAE52` instead of WW3D::OverbrightModifyOnLoad (grep `extern
   .*Unknown_` when a WW3D static is involved). Declare 0x80FF20 `float *` as its other callers do (`const Vector3 &`
-  mangles differently).
+  mangles differently); a stand-in declaration whose return type differs from the real one (0x495FD0 `void` vs `bool`)
+  is another mangled name and stays a gen, and a stand-in class name (UIAvatrUnknown194Class) keeps real functions as gens:
+  use the real header. Exact does not prove the right helper: `Create_Get` and `Create_Peek` compile to identical bytes,
+  only the call target differs (ViewClass::Unknown_10's Get freed the quit box: QUIT, 2026-11-04); check the client's
+  target with `client.py dis`.
 
 * **Renamed vtable slots and header wrappers (2026-11-02 evening run, EAM4):** an inline compatibility wrapper for a renamed
   slot makes callers inline it instead of the client's `call dword ptr [eax + slot]` (rs_robj 0x45F280): change the callers.
@@ -1141,6 +1145,9 @@ unless `--lever` cites a new row of this table.
   ~3,500): pick a dump's frame from a run with the dump set; the main tree's build/d3d8shot/d3d8.dll may predate d3d8shot.c
   (no `draw N: material` lines): rebuild before diffing dumps; d3d8shot.log logs every CreateFileA (grep it). A step hook
   that jumps to creation's galaxy select must create the narrator (0x67AB20 / 0x67C440) or ui_shard's ctor crashes.
+  A POC link with unresolved symbols still writes the exe: calls to them jump into the PE header (EIP 0x400003): read
+  the link log's `unresolved:` lines first. `clientpoc.py replay` does not say whether the client exited: read
+  antprox.out's "Client exited" line (P-QUIT-2). appfile.py match in a worktree needs `--pool` (with ENB_AGENT set).
   Retail reference runs (`--exe` a copy of the retail client.exe): `find_window` takes the terms dialog (#32770) as the input
   window (input to it is lost when it closes); the retail client reads the real cursor, so LIGHT's
   `.work/wt/light/.work/light/` has a d3d8shot proxy with poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on
