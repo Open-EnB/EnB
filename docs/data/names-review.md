@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1186 |
 | 2 | describes what the code does | 2986 |
-| 1 | neutral placeholder | 12188 |
+| 1 | neutral placeholder | 12183 |
 
 ## For review (score 3 and below)
 
@@ -6300,8 +6300,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `key` | `app/client/ui_avatr.cpp:452` | neutral |
 | 1 | `Unknown02` | `app/client/ui_avatr.cpp:452` | untagged neutral name (D10) |
 | 1 | `Key` | `app/client/ui_avatr.cpp:453` | neutral (D10) |
-| 1 | `UIAvatrKeysClass` | `app/client/ui_avatr.cpp:459` | neutral (D10): InterfaceClass +0x4C's 0x721E60, as ui_class.cpp's  // NAME 1 [event, id]: what the constructor passes |
-| 1 | `Unknown_721E60` | `app/client/ui_avatr.cpp:459` | untagged neutral name (D10) |
 | 1 | `ButtonGadgetClass` | `app/client/ui_avatr.cpp:460` | unknown_675120.h's (0x64 bytes), as far as this file makes it |
 | 1 | `UIAvatrEnvMaps` | `app/client/ui_avatr.cpp:466` | neutral (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_avatr.cpp:528` | untagged neutral name (D10) |
@@ -7087,9 +7085,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/ui_class.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/ui_class.cpp:35` | untagged neutral name (D10) |
 | 1 | `Key` | `app/client/ui_class.cpp:36` | neutral (D10) |
-| 1 | `UIClassKeysClass` | `app/client/ui_class.cpp:42` | neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes |
-| 1 | `Unknown_721E60` | `app/client/ui_class.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_721EF0` | `app/client/ui_class.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `app/client/ui_class.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_class.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_496DB0` | `app/client/ui_class.cpp:56` | untagged neutral name (D10) |

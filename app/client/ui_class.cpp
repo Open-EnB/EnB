@@ -39,7 +39,7 @@ struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct *event, int id); void Unknown_721EF0(const UIClassKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_login.cpp declares it
 
 #include "gd_slider.h"
 //
@@ -229,8 +229,8 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	((GadgetSlider *)Slider)->Unknown_66E460(Unknown_497300(model), 0, 0);
 	Unknown64.Unknown_6870E0(Slider, 0x1A, View, 1, 0);
 
-	((UIClassKeysClass *)Unknown4C)->Unknown_721E60(&UIClassKeyEventStruct(0x1B), 0x10);
-	((UIClassKeysClass *)Unknown4C)->Unknown_721E60(&UIClassKeyEventStruct(0x0D), 1);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x1B), (void *)0x10);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x0D), (void *)1);
 
 	Unknown_5760C0(true);
 

@@ -456,7 +456,7 @@ struct UIAvatrKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event, a
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class UIAvatrKeysClass { public: void Unknown_721E60(const UIAvatrKeyEventStruct *event, int id); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60, as ui_class.cpp's  // NAME 1 [event, id]: what the constructor passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_login.cpp declares it
 class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it
 {
 public:
@@ -569,8 +569,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	}
 
 	Unknown_559900();
-	((UIAvatrKeysClass *)&Unknown4C)->Unknown_721E60(&UIAvatrKeyEventStruct(0x1B), 0x3A);
-	((UIAvatrKeysClass *)&Unknown4C)->Unknown_721E60(&UIAvatrKeyEventStruct(0x0D), 0xF);
+	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvatrKeyEventStruct(0x1B), (void *)0x3A);
+	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvatrKeyEventStruct(0x0D), (void *)0xF);
 	Unknown_556290();
 	Unknown_5560E0();
 	bool back = (Unknown090->Previous_Step == 6);
