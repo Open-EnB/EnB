@@ -248,11 +248,31 @@ struct RegistrationErrorStruct
 	std::string Unknown24;
 };
 
+// 0x7D3570: the 0x5C-byte entries ui_registration.cpp's 0x5FA5F0 sorts, returned in a vector by value
+struct RegistrationUnknown578Struct
+{
+	std::string Unknown00;
+	std::string Unknown10;
+	int Unknown20;
+	std::string Unknown24;
+	std::string Unknown34;
+	int Unknown44;
+	int Unknown48;
+	std::vector<int> Unknown4C;
+};
+
 class RegistrationUnknown1ACClass
 {
 public:
 	RegistrationErrorStruct Unknown_7D1AC0();
+	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();
 };
+
+std::vector<RegistrationUnknown578Struct> RegistrationUnknown1ACClass::Unknown_7D3570()
+{
+	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D3570 (0x7D3570)");
+	return std::vector<RegistrationUnknown578Struct>();
+}
 
 RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
 {

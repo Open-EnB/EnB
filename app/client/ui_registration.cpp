@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_registration.cpp. Notes at the end of the file.
 #include "ui_registration.h"
 #include "..\..\wwlib\registry.h"
+#include "..\..\wwlib\ini.h"
 #include "fontmanager.h"
 #include "sclient.h"
 #include "tasks\tsk_login.h"
@@ -20,6 +21,7 @@
 
 extern FontManagerClass *Unknown_BE67C4;  // NAME 1: 0xBE67C4
 
+static const char *RegDataFile = "RG_REGDATA.INI";  // NAME 1 [RegDataFile]: client .data 0xB85EF8 (0x5F8FD0's INIClass)
 static const char *RegistrationKey = "Software\\Westwood Studios\\Earth and Beyond\\Registration";  // NAME 1 [RegistrationKey]: client .data 0xB85EFC
 static const char *RegistrationServerError = "Could not communicate with registration server.\nPlease try again later.";  // NAME 1 [RegistrationServerError]: client .data 0xB85F00
 
@@ -133,10 +135,32 @@ struct RegistrationUnknown5A8Struct  // NAME 1 [RegistrationUnknown5A8Struct]: n
 // The 0x5C-byte entries of the interface's vector +0x578 (0x5F9C90 shows the ones whose id list holds +0x38C)
 struct RegistrationUnknown578Struct  // NAME 1 [RegistrationUnknown578Struct]: neutral (D10)
 {
-	char Unknown00[0x24];
+	std::string Unknown00;		// +0x00 (0x5FA900: 0x7D9790's third string)
+	std::string Unknown10;		// +0x10
+	int Unknown20;				// +0x20
 	std::string Unknown24;		// +0x24: the text handed to the combo box
-	char Unknown34[0x4C - 0x34];
+	std::string Unknown34;		// +0x34
+	int Unknown44;				// +0x44
+	int Unknown48;				// +0x48: the sort key (0x60BCF0)
 	std::vector<int> Unknown4C;	// +0x4C: the ids it applies to
+
+	// 0x60BCF0 (std::sort's in 0x5FA5F0, by value: it destroys its copy)
+	bool operator<(RegistrationUnknown578Struct other) const { return Unknown48 < other.Unknown48; }
+};
+
+// The 0x14-byte entries of the interface's vector +0x88 (0x5F8FD0 reads them from [CardPrefixes]; their operator= is 0x4450B0)
+struct RegistrationCardPrefixStruct  // NAME 1 [RegistrationCardPrefixStruct]: the INI keys card%02dprefix / card%02did
+{
+	std::string Prefix;			// +0x00: card%02dprefix  // NAME 1 [Prefix]: the INI key
+	int Id;						// +0x10: card%02did  // NAME 1 [Id]: the INI key
+};
+
+// The account details the interface holds at +0x3C4 (0x7D4E30 reads +0x58, +0x60, +0x70, +0x7C..+0x7E, +0x90, +0x91;
+// its size is not known)
+struct RegistrationUnknown3C4Struct  // NAME 1 [RegistrationUnknown3C4Struct]: neutral (D10)
+{
+	char Unknown00[0x80];
+	std::string Unknown80;		// +0x80 (+0x444 in the interface): 'US' when empty (0x5FA900)
 };
 
 // What the interface holds at +0x1AC (0x5FB9F0 / 0x600000 ask it for the reply)
@@ -144,9 +168,14 @@ class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neut
 {
 public:
 	RegistrationErrorStruct Unknown_7D1AC0();	// 0x7D1AC0 (the reply's '/status', '/message', '/url')
+	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();	// 0x7D3570 (0x5FA0B0, 0x5FA5F0, 0x600000)
+	bool Unknown_7D4E30(const char *a, const char *b, RegistrationUnknown3C4Struct *info, const char *c, bool d, int e, int f);	// 0x7D4E30 ('addAcctInfo')  // NAME 1 [a, b, info, c, d, e, f]: neutral
+	bool Unknown_7D5600(const char *a, const char *b, RegistrationUnknown3C4Struct *info, bool d, int e);	// 0x7D5600  // NAME 1 [a, b, info, d, e]: neutral
+	bool Unknown_7D9790(const char *a, const char *b, const char *c, int payment_type, const char *code, const char *gt_pricing, const char *gt_code, bool send_email, int f);	// 0x7D9790 ('payment_type' itoa, 'gt_pricing_selection_id', 'gt_validation_code', 'send_email')  // NAME 1 [a, b, c, payment_type, code, gt_pricing, gt_code, send_email, f]: the request keys they fill
 };
 
-void __stdcall Unknown_5F8DB0(int arg);  // NAME 1 [Unknown_5F8DB0]: ui_registration.cpp
+extern int Unknown_BE8AD4;  // NAME 1 [Unknown_BE8AD4]: 0xBE8AD4 (0x7CF190 zeroes it; the registration requests' last argument)
+void __cdecl Unknown_5FAE90(RegistrationInterface *self, const char *format, ...);
 
 class RegistrationInterface : public InterfaceClass, public RegistrationCallbackClass  // the constructor 0x5EF0B0: InterfaceClass, then the table 0xAF7184 at +0x84
 {
@@ -154,7 +183,12 @@ public:
 	virtual void Unknown_5F00E0();	// 0x5FB950 (RegistrationCallbackClass's slot +0x08)
 	virtual void Unknown_5F0100();	// 0x5FB9F0 (RegistrationCallbackClass's slot +0x0C)
 
-	char Unknown88[0xAC - 0x88];
+	std::vector<RegistrationCardPrefixStruct> Unknown88;	// +0x88: RG_REGDATA.INI's [CardPrefixes] (0x5F8FD0)
+	StringClass Unknown98;		// +0x98: [Connection] regserverurl (0x5F8FD0)
+	StringClass Unknown9C;		// +0x9C: [Connection] regserverpage
+	StringClass UnknownA0;		// +0xA0: [Connection] regserverver
+	StringClass UnknownA4;		// +0xA4: [Settings] defaultcountry, then that entry of [Countries]
+	StringClass UnknownA8;		// +0xA8: [Settings] csrphone
 	std::vector<StringClass> UnknownAC;	// +0xAC: the countries (0x5F8FD0 reads them from RG_REGDATA.INI; 0x5F9700 fills the combo box 0x19)
 	CharacterViewClass *UnknownBC;	// +0xBC: the constructor's +0x48 slot +0x28 (0x5FB9F0 calls CharacterViewClass::Unknown_67A8D0 on it); the message boxes' view
 	LoginTaskClass *UnknownC0;	// +0xC0: the constructor's view +0xBC's task +0x14, slot +0x08 (LoginTaskClass's returns this)
@@ -179,19 +213,38 @@ public:
 	char pad_150[0x1AC - (0x14C + sizeof(Sub14CClass))];
 	RegistrationUnknown1ACClass *Unknown1AC;	// +0x1AC (0x5FB9F0's 0x7D1AC0)
 	int StatusIndex;      // NAME 1 [StatusIndex]: +0x1B0
-	char Unknown1B4[0x1CD - 0x1B4];
+	char Unknown1B4[0x1C9 - 0x1B4];
+	bool Unknown1C9;			// +0x1C9 (0x5FA900: +0x208 handed to 0x7D4E30 when set, else 0)
+	char Unknown1CA[0x1CD - 0x1CA];
 	bool Unknown1CD;			// +0x1CD: written as 'Trial' (0x5FAC90)
-	char Unknown1CE[0x38C - 0x1CE];
+	char Unknown1CE[0x1D0 - 0x1CE];
+	bool Unknown1D0;			// +0x1D0 (0x5FA900 sets it)
+	bool Unknown1D1;			// +0x1D1 (0x5FA900: set or +0x1D3 set, 0x7D5600 instead of 0x7D4E30)
+	char Unknown1D2;
+	bool Unknown1D3;			// +0x1D3
+	char Unknown1D4[0x1D8 - 0x1D4];
+	std::string Unknown1D8;		// +0x1D8 (0x5FA900: the network calls' first string)
+	std::string Unknown1E8;		// +0x1E8 (0x5FA900: their second string)
+	char Unknown1F8[0x208 - 0x1F8];
+	std::string Unknown208;		// +0x208 (0x5FA900: 0x7D4E30's fourth argument)
+	char Unknown218[0x238 - 0x218];
+	std::string Unknown238;		// +0x238 (0x5FA900: through 0x5FB330 to 0x7D9790)
+	char Unknown248[0x328 - 0x248];
+	RegistrationUnknown578Struct Unknown328;	// +0x328: +0x588's first after the sort (0x5FA5F0); 0x5FA900 hands +0x00 and +0x4C's [0] (the out-of-line operator[] 0x604130) to 0x7D9790
+	char Unknown384[0x38C - 0x384];
 	int Unknown38C;				// +0x38C: the id 0x5F9C90 looks for
 	RegistrationErrorStruct Unknown390;	// +0x390 (0x5FB9F0 fills it from the reply)
-	char Unknown3C4[0x578 - 0x3C4];
+	RegistrationUnknown3C4Struct Unknown3C4;	// +0x3C4 (0x5FA900 hands its address to 0x7D4E30 / 0x7D5600)
+	char Unknown454[0x578 - (0x3C4 + sizeof(RegistrationUnknown3C4Struct))];
 	std::vector<RegistrationUnknown578Struct> Unknown578;	// +0x578 (0x5F9C90)
-	char Unknown588[0x598 - 0x588];
+	std::vector<RegistrationUnknown578Struct> Unknown588;	// +0x588: what 0x7D3570 returns, sorted by +0x48 (0x5FA5F0)
 	std::vector<int> Unknown598;	// +0x598: the payment types offered (0x5F9EB0)
 	std::vector<RegistrationUnknown5A8Struct> Unknown5A8;	// +0x5A8 (0x5F9A90)
 
 	void Unknown_5F2990(int arg);
 	void Unknown_5F3770(int arg);
+	void Unknown_5F8FD0();
+	void Unknown_5F8DB0(bool arg);  // 0x5F8DB0 (ecx = this in 0x5FA900; 'Button_Privacy')  // NAME 1 [arg]: neutral
 	bool Unknown_5F8EA0(int month, int day, int year);  // 0x5F8EA0 (a date check: false before 1900)  // NAME 1 [month, day, year]: 0x5F9460 passes 2, 29, the year
 	void Unknown_5F9460();
 	void Unknown_5F9700();
@@ -199,13 +252,52 @@ public:
 	void Unknown_5F9A90();
 	void Unknown_5F9C90();
 	void Unknown_5F9EB0();
+	void Unknown_5FA5F0();
+	bool Unknown_5FA900();
 	void Unknown_5FAC90();
 	void Unknown_5FAF60(int arg);
 	void Unknown_5FAFF0(const char *text);
 	void Unknown_5FB030();
 	void Unknown_5FB0C0();
+	std::string Unknown_5FB330(std::string str);  // 0x5FB330 (0x5FA900 calls it with ecx = this)
+	std::string Unknown_5FB540(std::string str);
+	bool Unknown_5FB750(const char *test);
 	void Unknown_5FB890();
 };
+
+// @0x5F8FD0
+void RegistrationInterface::Unknown_5F8FD0()
+{
+	INIClass ini(RegDataFile);
+	ini.Get_String(Unknown98, "Connection", "regserverurl", "");
+	ini.Get_String(Unknown9C, "Connection", "regserverpage", "");
+	ini.Get_String(UnknownA0, "Connection", "regserverver", "");
+	ini.Get_String(UnknownA4, "Settings", "defaultcountry", "");
+	ini.Get_String(UnknownA4, "Countries", UnknownA4, "");
+	ini.Get_String(UnknownA8, "Settings", "csrphone", "");
+	int count = ini.Entry_Count("Countries");
+	int i;
+	for (i = 0; i < count; i++) {
+		StringClass country;
+		char key[15];
+		_snprintf(key, 15, "country%03d", i);
+		ini.Get_String(country, "Countries", key, "");
+		UnknownAC.push_back(country);
+	}
+	int numprefixes = ini.Get_Int("CardPrefixes", "numprefixes", 0);
+	Unknown88.clear();
+	for (i = 0; i < numprefixes; i++) {
+		StringClass prefix;
+		char key[15];
+		_snprintf(key, 15, "card%02dprefix", i);
+		ini.Get_String(prefix, "CardPrefixes", key, "");
+		RegistrationCardPrefixStruct entry;
+		entry.Prefix = prefix;
+		_snprintf(key, 15, "card%02did", i);
+		entry.Id = ini.Get_Int("CardPrefixes", key, 0);
+		Unknown88.push_back(entry);
+	}
+}
 
 // NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ)
 // @0x5F9460
@@ -2242,98 +2334,6 @@ void RegistrationInterface::Unknown_5F9C90()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x5F9EB0
 void RegistrationInterface::Unknown_5F9EB0()
 {
@@ -2342,6 +2342,56 @@ void RegistrationInterface::Unknown_5F9EB0()
 		G_ASSERT(typetext);
 		Unknown108[0x2A].Combo->Unknown_57B000(typetext);
 	}
+}
+
+// @0x5FA5F0
+void RegistrationInterface::Unknown_5FA5F0()
+{
+	Unknown588 = Unknown1AC->Unknown_7D3570();
+	std::sort(Unknown588.begin(), Unknown588.end());
+	Unknown328 = Unknown588[0];
+}
+
+// @0x5FA900
+bool RegistrationInterface::Unknown_5FA900()
+{
+	Unknown1D0 = true;
+	if (Unknown11B) {
+		StatusIndex = 0xB;
+		Unknown_5FAE90(this, 0);
+		if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown328.Unknown00.c_str(), Unknown328.Unknown4C[0],
+				Unknown_5FB330(Unknown238).c_str(), 0, 0, true, Unknown_BE8AD4)) {
+			Unknown_5F8DB0(false);
+			Unknown_5F3770(0x16);
+			Unknown_5FAE90(this, "Registering GameTime...");
+			UnknownBC->Get_Unknown198()->Unknown_784E00();
+			return true;
+		}
+	} else {
+		StatusIndex = 8;
+		if (!Unknown1D1 && !Unknown1D3) {
+			if (Unknown1AC->Unknown_7D4E30(Unknown1D8.c_str(), Unknown1E8.c_str(), &Unknown3C4,
+					Unknown1C9 ? Unknown208.c_str() : 0, true, 0, Unknown_BE8AD4)) {
+				Unknown_5F8DB0(false);
+				Unknown_5F3770(0x16);
+				Unknown_5FAE90(this, "Creating EA Account...");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG21", false);
+				return true;
+			}
+		} else {
+			if (Unknown3C4.Unknown80.length() == 0) {
+				Unknown3C4.Unknown80 = "US";
+			}
+			if (Unknown1AC->Unknown_7D5600(Unknown1D8.c_str(), Unknown1E8.c_str(), &Unknown3C4, false, Unknown_BE8AD4)) {
+				Unknown_5F8DB0(false);
+				Unknown_5F3770(0x16);
+				Unknown_5FAE90(this, "Updating EA Account...");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG21", false);
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 // @0x5FAC90
@@ -2471,7 +2521,7 @@ void RegistrationInterface::Unknown_5FB0C0()
 }
 
 // @0x5FB330
-std::string __stdcall Unknown_5FB330(std::string str)
+std::string RegistrationInterface::Unknown_5FB330(std::string str)
 {
 	std::string copy = str;
 	for (std::string::iterator it = copy.begin(); it != copy.end(); ) {
@@ -2485,7 +2535,7 @@ std::string __stdcall Unknown_5FB330(std::string str)
 }
 
 // @0x5FB540
-std::string __stdcall Unknown_5FB540(std::string str)
+std::string RegistrationInterface::Unknown_5FB540(std::string str)
 {
 	std::string copy = str;
 	for (std::string::iterator it = copy.begin(); it != copy.end(); ) {
@@ -2812,58 +2862,8 @@ std::string __stdcall Unknown_5FB540(std::string str)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x5FB750
-bool __stdcall Unknown_5FB750(const char *test)
+bool RegistrationInterface::Unknown_5FB750(const char *test)
 {
 	FAIL_IF(!test || *test == '\0') return false;
 	for (;;) {
@@ -2994,4 +2994,15 @@ void RegistrationInterface::Unknown_5F0100()
 **	- 0x5F9460 (functional): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
 **	  29 February of the year box's year). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
 **	  regrouped in fours with '-', at most 19 characters, in states 0x11 / 0x14.
+**
+**	Builder reg2, 2026-11-04:
+**	- 0x5FB330 / 0x5FB540 / 0x5FB750 and 0x5F8DB0 are RegistrationInterface members (0x5FA900 sets ecx = this).
+**	- 0x5FA900 (byte-exact): the account request: with +0x11B the GameTime one (0x7D9790, +0x238 through 0x5FB330;
+**	  the client's own out-of-line c_str 0x553A60 and vector operator[] 0x604130 come out of ours too), else
+**	  create (0x7D4E30) or, with +0x1D1 / +0x1D3, update (0x7D5600; +0x3C4's +0x80 defaults to 'US').
+**	- 0x5FA5F0 (byte-exact): +0x588 = 0x7D3570's vector, sorted (operator< 0x60BCF0 compares +0x48, by value),
+**	  its first copied to +0x328. That makes +0x328 (and +0x270 / +0x2CC, 0x5FA0B0) 0x5C-byte entries:
+**	  RegistrationUnknown578Struct is four strings, three ints and the id vector.
+**	- 0x5F8FD0 (byte-exact): RG_REGDATA.INI ([Connection], [Settings], [Countries] into +0xAC, [CardPrefixes]
+**	  into +0x88). The key buffer is char[15] (with [16] the INIClass and the buffer swap stack slots).
 */
