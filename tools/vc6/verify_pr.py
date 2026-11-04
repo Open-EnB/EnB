@@ -49,6 +49,8 @@ import wt  # noqa: E402
 import pairs_cmp  # noqa: E402
 
 ROOT = wt.ROOT
+SELF = os.path.normpath(os.path.join(HERE, '..', '..'))     # this script's own checkout (pairs_cmp.ROOT)
+assert os.path.normcase(SELF) == os.path.normcase(pairs_cmp.ROOT)
 OUT = os.path.join(ROOT, '.work', 'verify')
 CONTEXT = 'vc6-verify'
 GATED = 3                       # exit status: the gate stopped it (verify_watch.py asks for approval)
@@ -212,10 +214,13 @@ def main():
             res['reasons'].append('GitHub has no test merge: the PR conflicts with master; rebase it')
             finish('failure', 'conflicts with master: rebase the PR')
         sys.exit(f'verify_pr: git fetch: {fetch.stderr.decode(errors="replace").strip()}')
+    # SELF, not wt.ROOT: wt.ROOT is always the main tree (git's common dir), while the tools and the corrections list
+    # (pairs_cmp.ROOT) that judge the PR are this script's own checkout, normally .work/wt/verifier (2026-11-03: the
+    # first version checked wt.ROOT and refused PR #150 because the main tree was on a branch)
     master = wt.rev('refs/remotes/origin/master')
     dirty = [l[3:] for l in wt.git('status', '--porcelain', '--untracked-files=no', '--', 'tools',
-                                   'docs/data/accepted-corrections.json').splitlines() if l.strip()]
-    why = off_master(wt.rev('HEAD'), master, dirty)
+                                   'docs/data/accepted-corrections.json', cwd=SELF).splitlines() if l.strip()]
+    why = off_master(wt.rev('HEAD', cwd=SELF), master, dirty)
     if why and not a.no_post:
         sys.exit(f'verify_pr: {why}. The verdict comes from this checkout\'s tools and accepted corrections, so it '
                  f'runs only from master: .work/wt/verifier (verify_watch.py launch moves it there). --no-post runs '
