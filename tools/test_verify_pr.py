@@ -30,6 +30,15 @@ class Gate(unittest.TestCase):
         self.assertEqual(verify_pr.needs_approval(paths), paths)
 
 
+class Checkout(unittest.TestCase):
+    def test_only_master_with_no_local_changes_judges_a_pr(self):
+        m = 'a' * 40
+        self.assertIsNone(verify_pr.off_master(m, m, []))
+        self.assertIn('not origin/master', verify_pr.off_master('b' * 40, m, []))
+        self.assertIn('docs/data/accepted-corrections.json',
+                      verify_pr.off_master(m, m, ['docs/data/accepted-corrections.json']))
+
+
 class Pairs(unittest.TestCase):
     def test_moves_and_outright(self):
         lost = [('app', 'a', '0x10'), ('app', 'a', '0x20')]
