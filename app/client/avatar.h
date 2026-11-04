@@ -2,6 +2,7 @@
 #define AVATAR_H
 
 #include "composite.h"
+#include <list>
 #include "..\shared\avatar_desc.h"
 #include "..\shared\chat_edit_stream.h"
 #include "nstrdup.h"
@@ -64,6 +65,26 @@ public:
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
+	void Unknown_786B60(bool keep);						// 0x786B60 (flag 1)  // NAME 1 [keep]: neutral
+	void Unknown_786BF0(bool keep);						// 0x786BF0 (flag 2)  // NAME 1 [keep]: neutral
+	void Unknown_786C70();								// 0x786C70 (flags 1 / 2 off)
+	void Unknown_Inline_786C70() { if (Unknown20C != 2) { Unknown208 = 0; Unknown20C = 2; Unknown214 = true; } Unknown2F8 &= 0xFFFC; }	// (0x786B60 / 0x786BF0: 0x786C70 inline)  // NAME 1: neutral (D10)
+	void Unknown_786CC0(float rate);					// 0x786CC0 (flag 8)  // NAME 1 [rate]: neutral
+	void Unknown_786CF0(float rate);					// 0x786CF0 (flag 4)  // NAME 1 [rate]: neutral
+	void Unknown_786D20();								// 0x786D20 (flags 4 / 8 off)
+	void Unknown_786D40(float rate);					// 0x786D40 (flag 0x10)  // NAME 1 [rate]: neutral
+	void Unknown_786D70(float rate);					// 0x786D70 (flag 0x20)  // NAME 1 [rate]: neutral
+	void Unknown_786DA0();								// 0x786DA0 (flags 0x10 / 0x20 off)
+	void Unknown_786DC0(float rate);					// 0x786DC0 (flag 0x40)  // NAME 1 [rate]: neutral
+	void Unknown_786E00(float rate);					// 0x786E00 (flag 0x80)  // NAME 1 [rate]: neutral
+	void Unknown_786E40();								// 0x786E40 (flags 0x40 / 0x80 off)
+	void Unknown_786E60();								// 0x786E60 (all movement off)
+	void Unknown_7885D0(bool second);					// 0x7885D0 (clears +0x318, or +0x324)  // NAME 1 [second]: neutral
+	void Unknown_788700(const Matrix3D &goal);			// 0x788700 (the path: goal alone)  // NAME 1 [goal]: neutral
+	void Unknown_788730(const Matrix3D &goal, bool trim);	// 0x788730 (goal onto the path; trim: 3 at most)  // NAME 1 [goal, trim]: neutral
+	void Unknown_788890();								// 0x788890 (the path's first goal off)
+	void Unknown_788900();								// 0x788900 (the movement flags toward the path's first goal)
+	void Unknown_7897D0();								// 0x7897D0 (the teleport effect's time)
 	void Unknown_781EA0();								// 0x781EA0 (the idle: breathe / bored / sit_breathe; sets +0x220)
 	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
 	void Unknown_782CA0();								// 0x782CA0 (the face animation's brow and blink keys over the gesture animation)
@@ -158,17 +179,25 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
 	float Unknown2F0;									// +0x2F0 (60.0f in 0x784C90)
 	bool Unknown2F4;									// +0x2F4 (0x77B870 sets it; 0x783620: running footsteps)
-	char Unknown_Pad2F5[0x2F8 - 0x2F5];
-	int Unknown2F8;										// +0x2F8 (tested in 0x784A50)
-	char Unknown_Pad2FC[0x308 - 0x2FC];
-	float Unknown308;									// +0x308 (tested in 0x784A50)
-	char Unknown_Pad30C[0x314 - 0x30C];
+	bool Unknown2F5;									// +0x2F5 (0x77B870 sets it; 0x786DC0 / 0x786E00 test it)
+	int Unknown2F8;										// +0x2F8 (the movement flags: 1 / 2 forward / back, 4 / 8 turn, 0x10 / 0x20 +0x30C, 0x40 / 0x80 +0x310)
+	float Unknown2FC;									// +0x2FC (the turn rate, 1.0: 0x786CC0 / 0x786CF0)
+	float Unknown300;									// +0x300 (+0x30C's rate, 1.0: 0x786D40 / 0x786D70)
+	float Unknown304;									// +0x304 (+0x310's rate, 1.0: 0x786DC0 / 0x786E00)
+	float Unknown308;									// +0x308 (the speed, 0x783B50: -10 .. 10, 25 running)
+	float Unknown30C;									// +0x30C (0x783B50: -0.8 .. 0.4 by flags 0x10 / 0x20)
+	float Unknown310;									// +0x310 (0x783B50: by flags 0x40 / 0x80)
 	int Unknown314;										// +0x314
-	char Unknown_Pad318[0x330 - 0x318];
+	std::list<Matrix3D *> Unknown318;					// +0x318 (the path to walk: 0x788730 adds, 0x788900 follows)
+	std::list<Matrix3D *> Unknown324;					// +0x324 (0x7885D0 clears it)
 	Matrix3D Unknown330;								// +0x330  // NAME 1: neutral (D10)
-	char Unknown_Pad360[0x36C - 0x360];					// +0x360
+	Vector3 Unknown360;									// +0x360 (0x783B50: the step moved this frame)
 	bool Unknown36C;									// +0x36C (0x77B870 clears it; set: 0x77D1E0 leaves +0x330 alone)
-	char Unknown_Pad36D[0x384 - 0x36D];					// +0x36D (total size 0x384)
+	RenderObjClass *Unknown370;							// +0x370 (0x788F90's av_teleNN; a RefCountPtr in the client)
+	RenderObjClass *Unknown374;							// +0x374 (0x788F90's av_teleNNa; a RefCountPtr in the client)
+	float Unknown378;									// +0x378 (0x7897D0: the time left at which the body shows / hides; -100 done)
+	float Unknown37C;									// +0x37C (0x7897D0: the time left)
+	int Unknown380;										// +0x380 (0x7897D0: the teleport effect, 0 none, 2 / 4 show the body)
 };
 
 #endif

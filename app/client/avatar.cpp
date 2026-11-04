@@ -110,7 +110,19 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	Unknown29C = false;
 	Unknown29D = false;
 	Unknown2F4 = true;
+	Unknown2F5 = true;
+	Unknown2FC = 1.0f;
+	Unknown300 = 1.0f;
+	Unknown304 = 1.0f;
+	Unknown30C = 0.0f;
+	Unknown310 = 0.0f;
 	Unknown330.Make_Identity();
+	Unknown360.Set(0.0f, 0.0f, 0.0f);
+	Unknown370 = NULL;
+	Unknown374 = NULL;
+	Unknown378 = -100.0f;
+	Unknown37C = 0.0f;
+	Unknown380 = 0;
 	if (desc) {
 		Desc = *desc;
 	}
@@ -317,6 +329,18 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	if (PlayerNLP) {
 		delete PlayerNLP;
 		PlayerNLP = NULL;
+	}
+	Unknown_7885D0(false);
+	Unknown_7885D0(true);
+	if (Unknown370) {
+		Unknown370->Set_Animation();
+		Unknown370->Remove();
+		Unknown370->Release_Ref();
+		Unknown370 = NULL;
+	}
+	if (Unknown374) {
+		Unknown374->Release_Ref();
+		Unknown374 = NULL;
 	}
 	if (Unknown0BC) {
 		Unknown0BC->Free_Morph();
@@ -1220,7 +1244,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 }
 
 // 0x783B50
-// NOT EXACT: functional for POC (D64), inline-budget (the NLP, path, blink and face callees not built)
+// NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
@@ -1234,13 +1258,105 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", Unknown2BC, Unknown2B8, PlayerNLP);
 		return;
 	}
-	// The client first calls 0x788900 (the path to walk, +0x320) and 0x7897D0 (+0x380): not built yet.
-	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	Unknown_788900();
+	Unknown_7897D0();
+	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
+	float time = frame;
 	if (time > 0.25f) {
 		time = 0.25f;
 	}
-	// The client then moves +0x330 by the movement flags +0x2F8 and the speed +0x308 (both 0 here:
-	// nothing sets them yet): not built yet.
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		float accel = time * 30.0f;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel *= 2.5f;
+		}
+		float turn = 2.0f * time;
+		if (frame > 0.25f) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25f) {
+			turn = Unknown2FC * 4.0f * turn;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = Unknown300 * 1.0f * time;
+		if (frame > 0.25f) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = Unknown304 * 2.0f * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		bool move = true;
+		if (flags & 3) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C != 1) {
+				move = false;
+			} else if (flags & 1) {
+				float speed = accel + Unknown308;
+				float top = Unknown2F4 ? 25.0f : 10.0f;
+				if (speed > top) {
+					speed = top;
+				}
+				Unknown308 = speed;
+			} else {
+				float speed = Unknown308 - accel;
+				if (speed < -10.0f) {
+					speed = -10.0f;
+				}
+				Unknown308 = speed;
+			}
+		} else if (Unknown308 == 0.0f) {
+			move = false;
+		} else if (Unknown308 > 0.0f) {
+			float speed = Unknown308 - accel;
+			if (speed < 0.0f) {
+				speed = 0.0f;
+			}
+			Unknown308 = speed;
+		} else if (Unknown308 < 0.0f) {
+			float speed = accel + Unknown308;
+			if (speed > 0.0f) {
+				speed = 0.0f;
+			}
+			Unknown308 = speed;
+		}
+		if (move) {
+			Unknown360.Y = Unknown330[1][0] * Unknown308 * time;
+			Unknown360.X = Unknown330[0][0] * Unknown308 * time;
+			Unknown360.Z = Unknown330[2][0] * Unknown308 * time;
+			Unknown330[0][3] = Unknown360.X + Unknown330[0][3];
+			Unknown330[1][3] = Unknown360.Y + Unknown330[1][3];
+			Unknown330[2][3] = Unknown360.Z + Unknown330[2][3];
+		}
+	}
 	if (!Unknown36C) {
 		Set_Transform(Unknown330);
 	}
@@ -1681,6 +1797,307 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 
 void CharacterViewAvatarClass::Unknown_7896B0(int a)
 {
+}
+
+// 0x786B60
+void CharacterViewAvatarClass::Unknown_786B60(bool keep)
+{
+	if (!keep) {
+		Unknown_Inline_786C70();
+	}
+	Unknown2F8 |= 1;
+}
+
+// 0x786BF0
+void CharacterViewAvatarClass::Unknown_786BF0(bool keep)
+{
+	if (!keep) {
+		Unknown_Inline_786C70();
+	}
+	Unknown2F8 |= 2;
+}
+
+// 0x786C70
+void CharacterViewAvatarClass::Unknown_786C70()
+{
+	if (Unknown20C != 2) {
+		Unknown208 = 0;
+		Unknown20C = 2;
+		Unknown214 = true;
+	}
+	Unknown2F8 &= 0xFFFC;
+}
+
+// 0x786CC0
+void CharacterViewAvatarClass::Unknown_786CC0(float rate)
+{
+	Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
+	Unknown2FC = rate;
+}
+
+// 0x786CF0
+void CharacterViewAvatarClass::Unknown_786CF0(float rate)
+{
+	Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
+	Unknown2FC = rate;
+}
+
+// 0x786D20
+void CharacterViewAvatarClass::Unknown_786D20()
+{
+	Unknown2F8 &= 0xFFF3;
+}
+
+// 0x786D40
+void CharacterViewAvatarClass::Unknown_786D40(float rate)
+{
+	Unknown2F8 = (Unknown2F8 & 0xFFCF) | 0x10;
+	Unknown300 = rate;
+}
+
+// 0x786D70
+void CharacterViewAvatarClass::Unknown_786D70(float rate)
+{
+	Unknown2F8 = (Unknown2F8 & 0xFFCF) | 0x20;
+	Unknown300 = rate;
+}
+
+// 0x786DA0
+void CharacterViewAvatarClass::Unknown_786DA0()
+{
+	Unknown2F8 &= 0xFFCF;
+}
+
+// 0x786DC0
+void CharacterViewAvatarClass::Unknown_786DC0(float rate)
+{
+	if (Unknown2F5) {
+		Unknown2F8 = (Unknown2F8 & 0xFF3F) | 0x40;
+		Unknown304 = rate;
+	}
+}
+
+// 0x786E00
+void CharacterViewAvatarClass::Unknown_786E00(float rate)
+{
+	if (Unknown2F5) {
+		Unknown2F8 = (Unknown2F8 & 0xFF3F) | 0x80;
+		Unknown304 = rate;
+	}
+}
+
+// 0x786E40
+void CharacterViewAvatarClass::Unknown_786E40()
+{
+	Unknown2F8 &= 0xFF3F;
+}
+
+// 0x786E60
+void CharacterViewAvatarClass::Unknown_786E60()
+{
+	Unknown2F8 = 0;
+	Unknown308 = 0.0f;
+	if (Unknown20C != 2) {
+		Unknown208 = 0;
+		Unknown20C = 2;
+		Unknown214 = true;
+	}
+}
+
+// 0x7885D0
+// NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's)
+void CharacterViewAvatarClass::Unknown_7885D0(bool second)
+{
+	std::list<Matrix3D *>::iterator it;
+	if (second) {
+		for (it = Unknown324.begin(); it != Unknown324.end(); it++) {
+			delete *it;
+		}
+		Unknown324.erase(Unknown324.begin(), Unknown324.end());
+	} else {
+		for (it = Unknown318.begin(); it != Unknown318.end(); it++) {
+			delete *it;
+		}
+		Unknown318.erase(Unknown318.begin(), Unknown318.end());
+	}
+}
+
+// 0x788700
+void CharacterViewAvatarClass::Unknown_788700(const Matrix3D &goal)
+{
+	Unknown_7885D0(false);
+	Unknown_788730(goal, true);
+}
+
+// 0x788730
+void CharacterViewAvatarClass::Unknown_788730(const Matrix3D &goal, bool trim)
+{
+	Unknown318.push_back(new Matrix3D(goal));
+	if (trim) {
+		for (int i = Unknown318.size() - 4; i > 0; i--) {
+			Unknown_788890();
+		}
+	}
+}
+
+// 0x788890
+void CharacterViewAvatarClass::Unknown_788890()
+{
+	if (Unknown318.size() != 0) {
+		delete Unknown318.front();
+		Unknown318.pop_front();
+	}
+}
+
+// 0x788900
+// NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores)
+void CharacterViewAvatarClass::Unknown_788900()
+{
+	if (Unknown318.size() == 0) {
+		return;
+	}
+	Matrix3D *goal;
+	Vector3 delta;
+	float dist;
+	for (;;) {
+		goal = Unknown318.front();
+		delta.X = (*goal)[0][3] - Unknown330[0][3];
+		delta.Y = (*goal)[1][3] - Unknown330[1][3];
+		delta.Z = (*goal)[2][3] - Unknown330[2][3];
+		dist = sqrt(delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z);
+		if (dist >= 3.0f) {
+			break;
+		}
+		if (Unknown318.size() < 2) {
+			if (Unknown20C != 2) {
+				Unknown208 = 0;
+				Unknown20C = 2;
+				Unknown214 = true;
+			}
+			int flags = Unknown2F8;
+			Unknown2F8 = flags & 0xFFFC;
+			float facing = Unknown330[0][0] * (*goal)[0][1] + Unknown330[1][0] * (*goal)[1][1] + Unknown330[2][0] * (*goal)[2][1];
+			float rate = (float)fabs(facing);
+			if (rate < 0.0436193f) {
+				Unknown2F8 = flags & 0xFFF0;
+				if (Unknown318.size() != 0) {
+					delete *Unknown318.begin();
+					Unknown318.erase(Unknown318.begin());
+				}
+				return;
+			}
+			Unknown2FC = rate;
+			if (facing < 0.0f) {
+				Unknown2F8 = (flags & 0xFFF0) | 4;
+			} else {
+				Unknown2F8 = (flags & 0xFFF0) | 8;
+			}
+			return;
+		}
+		if (Unknown318.size() != 0) {
+			delete *Unknown318.begin();
+			Unknown318.erase(Unknown318.begin());
+		}
+		if (Unknown318.size() == 0) {
+			return;
+		}
+	}
+	float len2 = delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z;
+	if (len2 != 0.0f) {
+		float inv = WWMath::Inv_Sqrt(len2);
+		delta.X *= inv;
+		delta.Y *= inv;
+		delta.Z *= inv;
+	}
+	float side = Unknown330[0][1] * delta.X + delta.Y * Unknown330[1][1] + delta.Z * Unknown330[2][1];
+	float rate = (float)fabs(side);
+	if (Unknown330[0][0] * delta.X + Unknown330[1][0] * delta.Y + Unknown330[2][0] * delta.Z <= 0.0f
+		&& Unknown330[0][0] * (*goal)[0][0] + Unknown330[1][0] * (*goal)[1][0] + Unknown330[2][0] * (*goal)[2][0] >= 0.0f
+		&& dist <= 10.0f) {
+		// The goal is behind and faces our way: back up to it.
+		bool full = false;
+		if (rate < 0.5f) {
+			int flags = Unknown2F8;
+			if (flags & 1) {
+				if (dist >= 10.0f) {
+					full = true;
+				} else {
+					if (Unknown20C != 2) {
+						Unknown208 = 0;
+						Unknown20C = 2;
+						Unknown214 = true;
+					}
+					flags &= 0xFFFC;
+				}
+			}
+			if (!full) {
+				Unknown2F8 = flags | 2;
+			}
+		}
+		Unknown2FC = full ? 1.0f : rate;
+		if (side < 0.0f) {
+			Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
+		} else {
+			Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
+		}
+		return;
+	}
+	if (rate < 0.5f) {
+		int flags = Unknown2F8;
+		if (flags & 2) {
+			if (Unknown20C != 2) {
+				Unknown208 = 0;
+				Unknown20C = 2;
+				Unknown214 = true;
+			}
+			flags &= 0xFFFC;
+		}
+		Unknown2F8 = flags | 1;
+	}
+	Unknown2FC = rate;
+	if (side < 0.0f) {
+		Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
+	} else {
+		Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
+	}
+}
+
+// 0x7897D0
+// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr +0x370 / +0x374 as plain pointers)
+void CharacterViewAvatarClass::Unknown_7897D0()
+{
+	if (Unknown380 == 0) {
+		return;
+	}
+	if (Unknown370 != NULL && Unknown374 != NULL) {
+		Unknown37C -= (float)WW3D::Get_Frame_Time() * 0.001f;
+		if (Unknown37C <= Unknown378) {
+			Unknown378 = -100.0f;
+			bool hidden = !(Unknown380 == 2 || Unknown380 == 4);
+			if (Unknown2BC) {
+				Unknown2BC->Set_Hidden(hidden);
+			}
+			if (Unknown2B8) {
+				Unknown2B8->Set_Hidden(hidden);
+			}
+		}
+		if (Unknown37C > 0.0f) {
+			return;
+		}
+	}
+	if (Unknown370) {
+		Unknown370->Set_Animation();
+		Unknown370->Remove();
+		Unknown370->Release_Ref();
+		Unknown370 = NULL;
+	}
+	if (Unknown374) {
+		Unknown374->Release_Ref();
+		Unknown374 = NULL;
+	}
+	Unknown380 = 0;
+	Unknown378 = -100.0f;
+	Unknown37C = 0.0f;
 }
 
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
