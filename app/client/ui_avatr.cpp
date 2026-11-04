@@ -386,7 +386,7 @@ public:
 	void Unknown_5571D0();								// 0x5571D0 (0x554D60's first half: the +0x1C5 flag)
 	void Unknown_5598A0();								// 0x5598A0 (the shared gadgets shown)
 	void Unknown_5598D0();								// 0x5598D0 (the shared gadgets hidden)
-	void Unknown_55A1F0(int arg);						// 0x55A1F0 (0x554D60: 0 on the body tab, 1 on the head tab)  // NAME 1 [arg]: neutral
+	void Unknown_55A060(Vector2 uv); void Unknown_55A1F0(int arg);	// 0x55A060 (the blend weights from a point, kept at +0x164); 0x55A1F0 (0x554D60: 0 on the body tab, 1 on the head tab)  // NAME 1 [arg]: neutral
 	void Unknown_55A960();								// 0x55A960
 	void Unknown_55AE50();								// 0x55AE50 (0x5560E0, last)
 	void Unknown_55AFD0();								// 0x55AFD0 (the gender text)
@@ -1650,4 +1650,64 @@ void AvatarCreationInterface::Unknown_556F80()
 			Unknown_55B540(2);
 		}
 	}
+}
+
+// NOT EXACT: functional (D64), from the client's 0x55A060 (the body's and the head's blend weights from the point)
+// 0x55A060
+void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
+{
+	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
+	desc->Unknown_77E900(body.Weight);
+	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
+	desc->Unknown_77E830(face.Weight);
+	Unknown164 = uv;
+	if (Unknown094) {
+		Unknown094->Unknown_84(desc);
+	}
+}
+
+// NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend
+// weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone)
+// 0x55A1F0
+void AvatarCreationInterface::Unknown_55A1F0(int arg)
+{
+	UIAvatrPullClass *pull = (arg == 0) ? Unknown160 : Unknown16C;
+	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)pull->Gadget;
+	if (gadget->Unknown64) {
+		pull->Unknown08 = true;
+	}
+	if ((gadget->Unknown64 || gadget->Unknown65) && pull->Unknown08) {
+		AABoxClass box;
+		gadget->Unknown_64(box);
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
+		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
+		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
+		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+		int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
+		model->Capture_Bone(bone);
+		Matrix3D tm = pull->Pull->Get_Transform();
+		tm.Set_X_Translation(x - box.Center.X);
+		tm.Set_Y_Translation(y - box.Center.Y);
+		model->Control_Bone(bone, tm, false);
+		Vector2 uv;
+		uv.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		uv.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		if (arg == 0) {
+			Unknown_55A060(uv);
+		} else {
+			Unknown170 = uv.X;
+			Unknown174 = uv.Y;
+			Unknown_55B540(0);
+		}
+	} else {
+		pull->Unknown08 = false;
+	}
+	gadget->Unknown_671630();
 }
