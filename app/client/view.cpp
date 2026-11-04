@@ -23,7 +23,7 @@
 
 
 
-// (RefCountPtr<InterfaceClass> instantiated here, so that its friend Create_Get is found)
+// (RefCountPtr<InterfaceClass> instantiated here, so that its friend Create_Peek is found)
 enum { VIEW_INTERFACE_PTR_SIZE = sizeof(RefCountPtr<InterfaceClass>) };	// NAME 1: neutral (D10)
 
 // 0x6B4480: the input dispatcher (0x18 bytes) to +0x04
@@ -69,7 +69,7 @@ void ViewClass::Unknown_10()
 	std::vector<RefCountPtr<InterfaceClass> > objects;
 	SLNode<InterfaceClass> *node;
 	for (node = InterfaceObjects.Head(); node != NULL; node = node->Next()) {
-		objects.push_back(Create_Get(node->Data()));
+		objects.push_back(Create_Peek(node->Data()));
 	}
 	for (std::vector<RefCountPtr<InterfaceClass> >::iterator i = objects.begin(); i != objects.end(); i++) {
 		(*i)->Unknown_7C(NULL, 0);
