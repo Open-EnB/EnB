@@ -78,7 +78,7 @@ struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
 	float Weight[5];									// NAME 1: neutral
 };
 UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
-extern RandomClass Unknown_BDBB84; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
+extern RandomClass Unknown_BDBB84; extern GadgetClass *Unknown_BE5F24; extern GadgetClass *Unknown_BE5F28; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
 
 // The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
 
@@ -252,7 +252,7 @@ public:
 
 	char Unknown04[0x54 - 0x04];						// +0x04
 	UIAvatrUnknown094Unknown054Struct *Unknown054;		// +0x54
-	char Unknown58[0xDC - 0x58];						// +0x58
+	char Unknown58[0xB8 - 0x58]; float Unknown0B8; float Unknown0BC; float Unknown0C0; float Unknown0C4; float Unknown0C8; char Unknown0CC[0xDC - 0xCC];	// +0x58; +0xB8 .. +0xC8 the turn, pan and zoom rates (0x556F80; ship_pip.cpp's 0x80CE10 reads them)
 	bool Unknown0DC;									// +0xDC (set on the head tab)
 	char Unknown0DD[0xF4 - 0xDD];						// +0xDD (ship_pip.h's: 0xF4 bytes; the constructor writes +0xEC / +0xF0)
 };
@@ -1606,5 +1606,48 @@ void AvatarCreationInterface::Unknown_557290()
 		Unknown_Set_Palette("fa_skin_color.tga");
 	} else {
 		Unknown_Set_Palette("fa_avatar_color.tga");
+	}
+}
+
+// NOT EXACT: functional (D64), from the client's 0x556F80 (the bottom buttons held (gadget.cpp's 0xBE5F24 /
+// 0xBE5F28) into the pip's turn (+0xB8), pan (+0xC0 / +0xC4) and zoom (+0xC8) rates; on the head tab the head's scale)
+// 0x556F80
+void AvatarCreationInterface::Unknown_556F80()
+{
+	if (Unknown_BE5F24 == Unknown098[5] || Unknown_BE5F28 == Unknown098[5]) {
+		Unknown094->Unknown0B8 = -2.0f;
+	} else if (Unknown_BE5F24 == Unknown098[6] || Unknown_BE5F28 == Unknown098[6]) {
+		Unknown094->Unknown0B8 = 2.0f;
+	} else {
+		Unknown094->Unknown0B8 = 0.0f;
+		Unknown094->Unknown0BC = 0.0f;
+	}
+	if (Unknown_BE5F24 == Unknown098[13] || Unknown_BE5F28 == Unknown098[13]) {
+		Unknown094->Unknown0C0 = -0.75f;
+	} else if (Unknown_BE5F24 == Unknown098[12] || Unknown_BE5F28 == Unknown098[12]) {
+		Unknown094->Unknown0C0 = 0.75f;
+	} else if (Unknown_BE5F24 == Unknown098[10] || Unknown_BE5F28 == Unknown098[10]) {
+		Unknown094->Unknown0C4 = -0.75f;
+	} else if (Unknown_BE5F24 == Unknown098[11] || Unknown_BE5F28 == Unknown098[11]) {
+		Unknown094->Unknown0C4 = 0.75f;
+	} else {
+		Unknown094->Unknown0C0 = 0.0f;
+		Unknown094->Unknown0C4 = 0.0f;
+	}
+	if (Unknown_BE5F24 == Unknown098[7] || Unknown_BE5F28 == Unknown098[7]) {
+		Unknown094->Unknown0C8 = -1.0f;
+	} else if (Unknown_BE5F24 == Unknown098[8] || Unknown_BE5F28 == Unknown098[8]) {
+		Unknown094->Unknown0C8 = 1.0f;
+	} else {
+		Unknown094->Unknown0C8 = 0.0f;
+	}
+	if (Unknown088 == 1) {
+		if (Unknown_BE5F24 == Unknown098[33] || Unknown_BE5F28 == Unknown098[33]) {
+			Unknown_55B540(1);
+			return;
+		}
+		if (Unknown_BE5F24 == Unknown098[34] || Unknown_BE5F28 == Unknown098[34]) {
+			Unknown_55B540(2);
+		}
 	}
 }

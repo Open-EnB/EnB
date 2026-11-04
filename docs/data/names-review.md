@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12537 |
+| 1 | neutral placeholder | 12545 |
 
 ## For review (score 3 and below)
 
@@ -6072,6 +6072,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5860B0, uv` | `app/client/ui_avatr.cpp:80` | neutral (D10) |
 | 1 | `Unknown_5860B0` | `app/client/ui_avatr.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/ui_avatr.cpp:81` | neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's |
+| 1 | `Unknown_BE5F24` | `app/client/ui_avatr.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ui_avatr.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_42ECF0` | `app/client/ui_avatr.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_496C00` | `app/client/ui_avatr.cpp:81` | untagged neutral name (D10) |
 | 1 | `UIAvatrUnknown08CUnknown034Struct` | `app/client/ui_avatr.cpp:118` | neutral (D10) |
@@ -6253,6 +6255,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_80C180` | `app/client/ui_avatr.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown054` | `app/client/ui_avatr.cpp:254` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_avatr.cpp:255` | untagged neutral name (D10) |
 | 1 | `Unknown0DC` | `app/client/ui_avatr.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown0DD` | `app/client/ui_avatr.cpp:257` | untagged neutral name (D10) |
 | 1 | `FontManagerClass` | `app/client/ui_avatr.cpp:262` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |

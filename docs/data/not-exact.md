@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-628 entries in 129 files.
+629 entries in 129 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -295,6 +295,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1463` | `AvatarCreationInterface::Unknown_5582A0` | marker | NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one in the other gender with the palettes' default colours; the old description is then kept at +0x1CC) 0x5582A0 |
 | `app/client/ui_avatr.cpp:1520` | `AvatarCreationInterface::Unknown_557950` | marker | NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too)) 0x557950 |
 | `app/client/ui_avatr.cpp:1564` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
+| `app/client/ui_avatr.cpp:1612` | `AvatarCreationInterface::Unknown_556F80` | marker | NOT EXACT: functional (D64), from the client's 0x556F80 (the bottom buttons held (gadget.cpp's 0xBE5F24 / 0xBE5F28) into the pip's turn (+0xB8), pan (+0xC0 / +0xC4) and zoom (+0xC8) rates; on the head tab the head's scale) 0x556F80 |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers) 0x55F140 |
