@@ -40,6 +40,38 @@
    "moved_to": null,
    "decision": "D175",
    "note": "ostream::operator<<(ostream &(*)(ostream &)): an app template / iostream instance, called from app/wwudp/cordcon.cpp (pumpClose 0x850260, handlePacket 0x851AE0, pumpInternal 0x853A30) and cordmgr.cpp (Pump_Releases 0x859940). Only matchbot's configfile (sectionList / writeFile) instantiated it; E&B's configfile revision does not, so the pair is lost outright until its app file is built. Pairs again (2026-11-01 day run, CC2, P-CC2-1): app's cordcon.cpp instantiates it through E&B's INFMSG (wlib's wdebug.h, `<< endl`) on the client's lines 355 / 390 / 1068 / 1141 / 1749."
+  },
+  {
+   "address": "0x8437A4",
+   "lib": "app",
+   "file": "lego_identifier",
+   "moved_to": null,
+   "decision": "D189",
+   "note": "D189(2) (the maintainer accepted it 2026-11-03, PR #147): objmatch credits a match only at a function start; this pair was a mid-function hit: our function matched only the tail of the client's, inside the guarded static initialiser 0x843790 (`_$E15`). Lost outright until the guard is rebuilt."
+  },
+  {
+   "address": "0x924875",
+   "lib": "ww3d2",
+   "file": "dx8wrapper",
+   "moved_to": null,
+   "decision": "D189",
+   "note": "D189(2) (the maintainer accepted it 2026-11-03, PR #147): objmatch credits a match only at a function start; this pair was a mid-function hit: our function matched only the tail of the client's, inside DX8Wrapper::Begin_Scene 0x924870, which starts with a call E&B added. Lost outright until E&B's call is rebuilt."
+  },
+  {
+   "address": "0x9CEEF7",
+   "lib": "wwlib",
+   "file": "mutex",
+   "moved_to": "0x9CEFD0",
+   "decision": "D189",
+   "note": "D189(2) (the maintainer accepted it 2026-11-03, PR #147): objmatch credits a match only at a function start; this pair was a mid-function hit: our function matched only the tail of the client's, inside MutexClass's ~LockClass 0x9CEEF0 (after a jne). The pair moves within mutex to CriticalSectionClass's ~LockClass 0x9CEFD0, which symbols.json names."
+  },
+  {
+   "address": "0x9F367D",
+   "lib": "wwlib",
+   "file": "pkstraw",
+   "moved_to": null,
+   "decision": "D189",
+   "note": "D189(2) (the maintainer accepted it 2026-11-03, PR #147): objmatch credits a match only at a function start; this pair was a mid-function hit: our function matched only the tail of the client's, inside PKStraw::Get_From 0x9F3670, which has E&B's null-check early-out. Lost outright until the early-out is rebuilt."
   }
  ]
 }
