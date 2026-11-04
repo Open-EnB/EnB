@@ -245,7 +245,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	UnknownE8 = UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, 1);
 	Unknown_5779D0();
-	CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	Unknown_576A80();
 	CharacterView->Unknown3A4->Unknown_760770(100000, 1);
 	CharacterView->Unknown_67C7B0();
 
@@ -271,7 +271,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 // @0x575220
 ClassSelectInterface::~ClassSelectInterface()
 {
-	CharacterView->Unknown_67B320();
+	Unknown_576A60();
 	Unknown_5C();
 	Descriptions.clear();
 	SkillDescriptions.clear();
@@ -290,43 +290,10 @@ ClassSelectInterface::~ClassSelectInterface()
 void ClassSelectInterface::Unknown_60()
 {
 	Unknown_576AC0();
-	int i;
-	for (i = 0; i < 9; i++) {
-		if (Buttons[i + 5]) {
-			if (Unknown8C == i) {
-				Buttons[i + 5]->Unknown2C_0B = 1;
-				Buttons[i + 5]->Unknown_6603A0(0, 0);
-			} else {
-				Buttons[i + 5]->Unknown2C_0B = 0;
-				Buttons[i + 5]->Unknown_6607D0();
-			}
-		}
-	}
-	int value = (int)((GadgetSlider *)Slider)->Value;
-	if (SliderValue != value) {
-		SliderValue = value;
-		Unknown_576270();
-	}
-	float x, y;
-	Unknown_42ECF0(&x, &y);
-	for (i = 0; i < 8; i++) {
-		if (SkillGadgets[i] && !SkillGadgets[i]->Unknown_30(x, y)) {
-			SkillGadgets[i]->Unknown2C_06 = 0;
-		}
-	}
-	if (CharacterView->Unknown_67B2B0()) {
-		Unknown13D = false;
-	}
-	bool active = CharacterView->Unknown34->Active;
-	if (CharacterView->Unknown34->Active && !Unknown13D) {
-		Unknown13D = true;
-		Unknown_5760C0(false);
-		return;
-	}
-	if (!CharacterView->Unknown34->Active && Unknown13D) {
-		Unknown13D = false;
-		Unknown_5760C0(true);
-	}
+	Unknown_577D30();
+	Unknown_577EE0();
+	Unknown_577F20();
+	Unknown_575CD0();
 }
 
 
@@ -497,6 +464,25 @@ bool ClassSelectInterface::Unknown_68(int key)
 }
 
 
+// @0x575CD0 (Unknown_60 inlines it)
+void ClassSelectInterface::Unknown_575CD0()
+{
+	if (CharacterView->Unknown_67B2B0()) {
+		Unknown13D = false;
+	}
+	bool active = CharacterView->Unknown34->Active;
+	if (CharacterView->Unknown34->Active && !Unknown13D) {
+		Unknown13D = true;
+		Unknown_5760C0(false);
+		return;
+	}
+	if (!CharacterView->Unknown34->Active && Unknown13D) {
+		Unknown13D = false;
+		Unknown_5760C0(true);
+	}
+}
+
+
 // NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C)
 // @0x575D50
 void ClassSelectInterface::Unknown_575D50()
@@ -529,6 +515,20 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 }
 
 
+// @0x5761D0 (Unknown_5779D0 inlines it)
+void ClassSelectInterface::Unknown_5761D0()
+{
+	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", CharacterView->Peek_Model());
+	if (title) {
+		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
+	}
+	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", CharacterView->Peek_Model());
+	if (subtitle) {
+		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
+	}
+}
+
+
 // NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp)
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
@@ -557,15 +557,8 @@ void ClassSelectInterface::Unknown_576270()
 // @0x5779D0
 void ClassSelectInterface::Unknown_5779D0()
 {
-	CharacterView->Unknown_67B320();
-	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", CharacterView->Peek_Model());
-	if (title) {
-		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
-	}
-	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", CharacterView->Peek_Model());
-	if (subtitle) {
-		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
-	}
+	Unknown_576A60();
+	Unknown_5761D0();
 	Unknown_576360();
 	Unknown_5767F0();
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, false);
@@ -953,14 +946,21 @@ void ClassSelectInterface::Unknown_577B80()
 
 
 
-
-
-
-
-
-
-
-
+// @0x577D30 (Unknown_60 inlines it)
+void ClassSelectInterface::Unknown_577D30()
+{
+	for (int i = 0; i < 9; i++) {
+		if (Buttons[i + 5]) {
+			if (Unknown8C == i) {
+				Buttons[i + 5]->Unknown2C_0B = 1;
+				Buttons[i + 5]->Unknown_6603A0(0, 0);
+			} else {
+				Buttons[i + 5]->Unknown2C_0B = 0;
+				Buttons[i + 5]->Unknown_6607D0();
+			}
+		}
+	}
+}
 
 
 // @0x577DA0
@@ -983,6 +983,38 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 }
 
 
+// @0x577E70 (Unknown_576360 inlines it)
+void ClassSelectInterface::Unknown_577E70(int count)
+{
+	((GadgetSlider *)Slider)->Unknown_66FA90((float)count, 8.0f, true);
+	Unknown_577EE0();
+}
+
+
+// @0x577EE0 (Unknown_60 and Unknown_577E70 inline it)
+void ClassSelectInterface::Unknown_577EE0()
+{
+	int value = (int)((GadgetSlider *)Slider)->Value;
+	if (SliderValue != value) {
+		SliderValue = value;
+		Unknown_576270();
+	}
+}
+
+
+// @0x577F20 (Unknown_60 inlines it)
+void ClassSelectInterface::Unknown_577F20()
+{
+	float x, y;
+	Unknown_42ECF0(&x, &y);
+	for (int i = 0; i < 8; i++) {
+		if (SkillGadgets[i] && !SkillGadgets[i]->Unknown_30(x, y)) {
+			SkillGadgets[i]->Unknown2C_06 = 0;
+		}
+	}
+}
+
+
 static std::string Unknown_BDA908;	// 0xBDA908: the skill's tooltip when SKILL_TOOL_TIPS has none (empty)  // NAME 1: neutral (D10)
 
 // NOT EXACT: functional (D64), from the client's 0x576360
@@ -997,12 +1029,7 @@ void ClassSelectInterface::Unknown_576360()
 	for (int i = 0; ; i++) {
 		_snprintf(entry, sizeof(entry), "Info%d", i);
 		if (!INI.Is_Present(section, entry)) {
-			((GadgetSlider *)Slider)->Unknown_66FA90((float)(int)Descriptions.size(), 8.0f, true);
-			int value = (int)((GadgetSlider *)Slider)->Value;
-			if (SliderValue != value) {
-				SliderValue = value;
-				Unknown_576270();
-			}
+			Unknown_577E70(Descriptions.size());
 			Unknown_576270();
 			return;
 		}
@@ -1050,4 +1077,24 @@ void ClassSelectInterface::Unknown_5767F0()
 			}
 		}
 	}
+}
+
+
+// @0x576A40 (no code callers)
+void ClassSelectInterface::Unknown_576A40()
+{
+}
+
+
+// @0x576A60 (Unknown_5779D0 and the destructor inline it)
+void ClassSelectInterface::Unknown_576A60()
+{
+	CharacterView->Unknown_67B320();
+}
+
+
+// @0x576A80 (the constructor inlines it)
+void ClassSelectInterface::Unknown_576A80()
+{
+	CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
 }

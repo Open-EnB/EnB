@@ -33,11 +33,20 @@ public:
 	void Unknown_5779D0();							// 0x5779D0
 	void Unknown_5760C0(bool arg);					// 0x5760C0  // NAME 1 [arg]: neutral
 	void Unknown_576270();							// 0x576270
-	void Unknown_576360();							// 0x576360 (0x5779D0 calls it; not built)
-	void Unknown_5767F0();							// 0x5767F0 (0x5779D0 calls it; not built)
+	void Unknown_576360();							// 0x576360 (0x5779D0 calls it)
+	void Unknown_5767F0();							// 0x5767F0 (0x5779D0 calls it)
 	void Unknown_576AC0();							// 0x576AC0
 	void Unknown_575D50();							// 0x575D50
 	void Unknown_577DA0(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x577DA0  // NAME 1: neutral (D10); NAME 1 [sender]: neutral
+	void Unknown_575CD0();							// 0x575CD0 (Unknown_60 inlines it)
+	void Unknown_5761D0();							// 0x5761D0 (Unknown_5779D0 inlines it)
+	void Unknown_576A40();							// 0x576A40 (empty, no code callers)
+	void Unknown_576A60();							// 0x576A60 (Unknown_5779D0 inlines it)
+	void Unknown_576A80();							// 0x576A80
+	void Unknown_577D30();							// 0x577D30 (Unknown_60 inlines it)
+	void Unknown_577E70(int count);					// 0x577E70 (Unknown_576360 inlines it: the skills' count)  // NAME 1 [count]: what 0x576360 passes
+	void Unknown_577EE0();							// 0x577EE0 (Unknown_60, 0x577E70 inline it)
+	void Unknown_577F20();							// 0x577F20 (Unknown_60 inlines it)
 
 	CharacterViewClass *CharacterView;				// +0x84
 	LoginTaskClass *LoginTask;						// +0x88

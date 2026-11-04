@@ -319,11 +319,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_class.cpp:135` | `Unknown_5746C0` | marker | NOT EXACT: shape (0.64: the backward step tests with test / jge where ours uses dec's flags) @0x5746C0 |
 | `app/client/ui_class.cpp:153` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
-| `app/client/ui_class.cpp:333` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case) @0x575660 |
-| `app/client/ui_class.cpp:500` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
+| `app/client/ui_class.cpp:300` | `ClassSelectInterface::Unknown_68` | marker | NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case) @0x575660 |
+| `app/client/ui_class.cpp:486` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
 | `app/client/ui_class.cpp:532` | `ClassSelectInterface::Unknown_576270` | marker | NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp) @0x576270 |
-| `app/client/ui_class.cpp:988` | `ClassSelectInterface::Unknown_576360` | marker | NOT EXACT: functional (D64), from the client's 0x576360 @0x576360 |
-| `app/client/ui_class.cpp:1028` | `ClassSelectInterface::Unknown_5767F0` | marker | NOT EXACT: functional (D64), from the client's 0x5767F0 @0x5767F0 |
+| `app/client/ui_class.cpp:1020` | `ClassSelectInterface::Unknown_576360` | marker | NOT EXACT: functional (D64), from the client's 0x576360 @0x576360 |
+| `app/client/ui_class.cpp:1055` | `ClassSelectInterface::Unknown_5767F0` | marker | NOT EXACT: functional (D64), from the client's 0x5767F0 @0x5767F0 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
