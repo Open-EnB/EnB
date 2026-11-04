@@ -59,8 +59,8 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	  Unknown24C(-1),
 	  HeadSource(NULL),
 	  BodySource(NULL),
-	  Unknown2B8(NULL),
-	  Unknown2BC(NULL),
+	  HeadObj(NULL),
+	  BodyObj(NULL),
 	  CollisionObj(NULL),
 	  Unknown2C4(NULL),
 	  HairSource(NULL),
@@ -163,14 +163,14 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		}
 		if (BodySource != NULL) {
 			Unknown_496AE0(BodySource, true);
-			Unknown2BC = BodySource->Clone();
-			if (Unknown2BC) {
-				Unknown2BC->Add_Ref();
-				Unknown_496AE0(Unknown2BC, true);
-				Unknown2BC->Set_LOD_Level(Unknown2BC->Get_LOD_Count() - 1);
+			BodyObj = BodySource->Clone();
+			if (BodyObj) {
+				BodyObj->Add_Ref();
+				Unknown_496AE0(BodyObj, true);
+				BodyObj->Set_LOD_Level(BodyObj->Get_LOD_Count() - 1);
 
-				Unknown2BC->Get_Obj_Space_Bounding_Sphere(ObjSphere);
-				Unknown2BC->Get_Obj_Space_Bounding_Box(ObjBox);
+				BodyObj->Get_Obj_Space_Bounding_Sphere(ObjSphere);
+				BodyObj->Get_Obj_Space_Bounding_Box(ObjBox);
 				Update_Obj_Space_Bounding_Volumes();
 			}
 		}
@@ -180,14 +180,14 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			CollisionObj = WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision");
 			if (CollisionObj) {
 				Unknown_496AE0(CollisionObj, true);
-				if (Unknown2BC) {
-					Unknown2BC->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
+				if (BodyObj) {
+					BodyObj->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
 				}
 			}
 		}
 
 		// 3. Build head render object
-		if (Unknown2BC) {
+		if (BodyObj) {
 			char head_name[32];
 			if (Desc.Avatar_Type == 0) {
 				const char *gender = (Desc.Gender == 1) ? "AF" : "AM";
@@ -205,10 +205,10 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			}
 			if (HeadSource != NULL) {
 				Unknown_496AE0(HeadSource, true);
-				Unknown2B8 = HeadSource->Clone();
-				if (Unknown2B8) {
-					Unknown_496AE0(Unknown2B8, true);
-					Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
+				HeadObj = HeadSource->Clone();
+				if (HeadObj) {
+					Unknown_496AE0(HeadObj, true);
+					BodyObj->Add_Sub_Object_To_Bone(HeadObj, "K_HEAD");
 				}
 			}
 
@@ -316,7 +316,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				BeardSource = NULL;
 			}
 		}
-		if (Unknown2BC) {
+		if (BodyObj) {
 			Unknown_781EA0();
 		}
 	} else {
@@ -363,46 +363,46 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 			Unknown0C0[a] = NULL;
 		}
 	}
-	if (Unknown2BC) {
+	if (BodyObj) {
 		if (WeaponHip) {
-			Unknown2BC->Remove_Sub_Object(WeaponHip);
+			BodyObj->Remove_Sub_Object(WeaponHip);
 			WeaponHip->Release_Ref();
 			WeaponHip = NULL;
 		}
 		if (WeaponUnique) {
-			Unknown2BC->Remove_Sub_Object(WeaponUnique);
+			BodyObj->Remove_Sub_Object(WeaponUnique);
 			WeaponUnique->Release_Ref();
 			WeaponUnique = NULL;
 		}
 		if (WeaponBack) {
-			Unknown2BC->Remove_Sub_Object(WeaponBack);
+			BodyObj->Remove_Sub_Object(WeaponBack);
 			WeaponBack->Release_Ref();
 			WeaponBack = NULL;
 		}
 		if (CollisionObj) {
-			Unknown2BC->Remove_Sub_Object(CollisionObj);
+			BodyObj->Remove_Sub_Object(CollisionObj);
 			CollisionObj->Release_Ref();
 			CollisionObj = NULL;
 		}
-		if (Unknown2B8) {
-			Unknown2BC->Remove_Sub_Object(Unknown2B8);
-			Unknown2B8->Release_Ref();
-			Unknown2B8 = NULL;
+		if (HeadObj) {
+			BodyObj->Remove_Sub_Object(HeadObj);
+			HeadObj->Release_Ref();
+			HeadObj = NULL;
 		}
 		if (MaskObj) {
-			Unknown2BC->Remove_Sub_Object(MaskObj);
+			BodyObj->Remove_Sub_Object(MaskObj);
 			MaskObj->Release_Ref();
 			MaskObj = NULL;
 		}
-		int head_bone = Unknown2BC->Get_Bone_Index("K_HEAD");
-		Unknown2BC->Release_Bone(head_bone);
-		Unknown2BC->Remove();
-		Unknown2BC->Release_Ref();
-		Unknown2BC = NULL;
+		int head_bone = BodyObj->Get_Bone_Index("K_HEAD");
+		BodyObj->Release_Bone(head_bone);
+		BodyObj->Remove();
+		BodyObj->Release_Ref();
+		BodyObj = NULL;
 	}
-	if (Unknown2B8) {
-		Unknown2B8->Release_Ref();
-		Unknown2B8 = NULL;
+	if (HeadObj) {
+		HeadObj->Release_Ref();
+		HeadObj = NULL;
 	}
 	if (HeadSource) {
 		HeadSource->Release_Ref();
@@ -464,8 +464,8 @@ RenderObjClass *CharacterViewAvatarClass::Clone() const
 // 0x77D1E0
 void CharacterViewAvatarClass::Set_Transform(const Matrix3D &m)
 {
-	if (Unknown2BC) {
-		Unknown2BC->Set_Transform(m);
+	if (BodyObj) {
+		BodyObj->Set_Transform(m);
 		RenderObjClass::Set_Transform(m);
 		if (!Unknown36C) {
 			Unknown330 = m;
@@ -476,8 +476,8 @@ void CharacterViewAvatarClass::Set_Transform(const Matrix3D &m)
 // 0x77D2B0
 void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
 {
-	if (Unknown2BC) {
-		Unknown2BC->Set_Position(v);
+	if (BodyObj) {
+		BodyObj->Set_Position(v);
 		RenderObjClass::Set_Position(v);
 	}
 }
@@ -485,9 +485,9 @@ void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
 // 0x77D420
 void CharacterViewAvatarClass::Render(RenderInfoClass &rinfo)
 {
-	if (Unknown2BC) {
+	if (BodyObj) {
 		Set_Transform(Unknown330);
-		Unknown2BC->Render(rinfo);
+		BodyObj->Render(rinfo);
 	}
 }
 
@@ -906,19 +906,19 @@ void CharacterViewAvatarClass::Unknown_784E00()
 // 0x786370
 void CharacterViewAvatarClass::Unknown_786370(bool on)
 {
-	if (Unknown2BC) {
-		Unknown2BC->Set_Hidden(on);
+	if (BodyObj) {
+		BodyObj->Set_Hidden(on);
 	}
-	if (Unknown2B8) {
-		Unknown2B8->Set_Hidden(on);
+	if (HeadObj) {
+		HeadObj->Set_Hidden(on);
 	}
 }
 
 // 0x7863E0
 bool CharacterViewAvatarClass::Unknown_7863E0()
 {
-	if (Unknown2BC) {
-		if (Unknown2BC->Is_Hidden()) {
+	if (BodyObj) {
+		if (BodyObj->Is_Hidden()) {
 			return(true);
 		}
 	}
@@ -1145,7 +1145,7 @@ void CharacterViewAvatarClass::Unknown_783470()
 	} else {
 		_snprintf(name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
 	}
-	RenderObjClass *head = Unknown2BC->Get_Sub_Object_By_Name(name);
+	RenderObjClass *head = BodyObj->Get_Sub_Object_By_Name(name);
 	if (head) {
 		if (Unknown0BC->Get_Num_Frames() < 1) {
 			head->Set_Animation();
@@ -1218,7 +1218,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 		return;
 	}
 	if (Unknown0C0[1] == NULL) {
-		Unknown2BC->Set_Animation(Unknown0C0[0], Unknown0CC[0], 0);
+		BodyObj->Set_Animation(Unknown0C0[0], Unknown0CC[0], 0);
 		// The client then sets +0x214 once the frame passes +0x24C while the NLP's queue (+0x2A4)
 		// has an entry: not built yet.
 		return;
@@ -1240,7 +1240,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 	} else {
 		blend = (float)sin((t - 0.5f) * 3.1415927f) + 1.0f;
 	}
-	Unknown2BC->Set_Animation(Unknown0C0[0], Unknown0CC[0], Unknown0C0[1], Unknown0CC[1], blend * 0.5f);
+	BodyObj->Set_Animation(Unknown0C0[0], Unknown0CC[0], Unknown0C0[1], Unknown0CC[1], blend * 0.5f);
 	if (Unknown21C >= 0.0f) {
 		return;
 	}
@@ -1272,8 +1272,8 @@ void CharacterViewAvatarClass::Unknown_1C4()
 		return;
 	}
 	Unknown0E4 = WW3D::Get_Frame_Count();
-	if (Unknown2BC == NULL || Unknown2B8 == NULL || PlayerNLP == NULL) {
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", Unknown2BC, Unknown2B8, PlayerNLP);
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj, HeadObj, PlayerNLP);
 		return;
 	}
 	Unknown_788900();
@@ -1398,7 +1398,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 			}
 		}
 	}
-	if (Unknown2EC && (Unknown2BC == NULL || !Unknown2BC->Is_Hidden())) {
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
 		Unknown2F0 -= time;
 		if (Unknown2F0 < 0.0f) {
 			if (TutorialManagerClass::Instance) {
@@ -1452,7 +1452,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot)
 {
 	if (*slot) {
-		Unknown2BC->Remove_Sub_Object(*slot);
+		BodyObj->Remove_Sub_Object(*slot);
 		(*slot)->Release_Ref();
 		*slot = NULL;
 	}
@@ -1474,7 +1474,7 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	}
 	if (*slot) {
 		Unknown_496AE0(*slot, true);
-		Unknown2BC->Add_Sub_Object_To_Bone(*slot, bone);
+		BodyObj->Add_Sub_Object_To_Bone(*slot, bone);
 		return;
 	}
 	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
@@ -1482,20 +1482,20 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 
 // 0x77F750: the head object cloned again from the head prototype (with the accessories it now
 // holds) and put on the body's K_HEAD bone
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC BodyObj; its members are RefCountPtrs)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the client's members are RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_77F750()
 {
-	FAIL_IF(!HeadSource || !Unknown2BC) {
+	FAIL_IF(!HeadSource || !BodyObj) {
 		return;
 	}
-	if (Unknown2B8) {
-		Unknown2BC->Remove_Sub_Object(Unknown2B8);
-		Unknown2B8->Release_Ref();
-		Unknown2B8 = NULL;
+	if (HeadObj) {
+		BodyObj->Remove_Sub_Object(HeadObj);
+		HeadObj->Release_Ref();
+		HeadObj = NULL;
 	}
-	Unknown2B8 = HeadSource->Clone();
-	Unknown_496AE0(Unknown2B8, true);
-	Unknown_496DB0(Unknown2B8);
+	HeadObj = HeadSource->Clone();
+	Unknown_496AE0(HeadObj, true);
+	Unknown_496DB0(HeadObj);
 	if (Desc.Avatar_Type == 0) {
 		Unknown_780F30();
 		Unknown_7804A0(Desc.Eye_Color);
@@ -1503,15 +1503,15 @@ void CharacterViewAvatarClass::Unknown_77F750()
 		Unknown_7859F0(Desc.Tattoo_Texture_Num);
 		Unknown_785C00(Desc.Tattoo_Offset);
 	}
-	Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
+	BodyObj->Add_Sub_Object_To_Bone(HeadObj, "K_HEAD");
 }
 
 // 0x7857D0: Head_Texture_Num's face texture '<gender><race>FACETEX<num>.tga' onto the head
 // object's head0..4 meshes (stage 0)
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
 void CharacterViewAvatarClass::Unknown_7857D0(int num)
 {
-	FAIL_IF(!Unknown2B8) {
+	FAIL_IF(!HeadObj) {
 		return;
 	}
 	char name[32];
@@ -1522,7 +1522,7 @@ void CharacterViewAvatarClass::Unknown_7857D0(int num)
 		Desc.Head_Texture_Num = (char)num;
 		for (int i = 0; i < 5; i++) {
 			_snprintf(mesh, 0x40, "head%d", i);
-			RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+			RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
 			Unknown_495FD0(robj, tex, 0);
 			Unknown_496AE0(robj, true);
 			if (robj) {
@@ -1530,7 +1530,7 @@ void CharacterViewAvatarClass::Unknown_7857D0(int num)
 			}
 		}
 	}
-	Unknown_496AE0(Unknown2B8, true);
+	Unknown_496AE0(HeadObj, true);
 	if (tex) {
 		tex->Release_Ref();
 	}
@@ -1538,10 +1538,10 @@ void CharacterViewAvatarClass::Unknown_7857D0(int num)
 
 // 0x7859F0: Tattoo_Texture_Num's 'ATATTOO<num>.tga' (clamped) onto the head object's HEAD0..4
 // meshes (stage 1)
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
 void CharacterViewAvatarClass::Unknown_7859F0(int num)
 {
-	FAIL_IF(!Unknown2B8) {
+	FAIL_IF(!HeadObj) {
 		return;
 	}
 	char name[32];
@@ -1553,7 +1553,7 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 		tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		for (int i = 0; i < 5; i++) {
 			_snprintf(mesh, 0x40, "HEAD%d", i);
-			RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+			RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
 			Unknown_495FD0(robj, tex, 1);
 			Unknown_496AE0(robj, true);
 			if (robj) {
@@ -1562,7 +1562,7 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 		}
 		Desc.Tattoo_Texture_Num = (char)num;
 	}
-	Unknown_496AE0(Unknown2B8, true);
+	Unknown_496AE0(HeadObj, true);
 	if (tex) {
 		tex->Release_Ref();
 	}
@@ -1570,10 +1570,10 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 
 // 0x785C00: Tattoo_Offset onto the head object's HEAD0..4 meshes: a linear offset mapper on stage 1
 // of vertex material 0 (X, Y the tattoo's place, Z its scale, clamped to 0.5 .. 16)
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
 void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 {
-	FAIL_IF(!Unknown2B8) {
+	FAIL_IF(!HeadObj) {
 		return;
 	}
 	float scale = offset.Z;
@@ -1589,7 +1589,7 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 	char mesh[64];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(mesh, 0x40, "HEAD%d", i);
-		RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+		RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
 		if (robj) {
 			MaterialInfoClass *info = robj->Get_Material_Info();
 			if (info) {
@@ -1602,7 +1602,7 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 			robj->Release_Ref();
 		}
 	}
-	Unknown_496AE0(Unknown2B8, true);
+	Unknown_496AE0(HeadObj, true);
 	Desc.Tattoo_Offset = offset;
 }
 
@@ -1712,12 +1712,12 @@ void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild
 void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 {
 	Desc.Eye_Color = color;
-	if (Unknown2B8) {
+	if (HeadObj) {
 		for (int side = 0; side < 2; side++) {
 			for (int i = 0; i < 5; i++) {
 				char name[32];
 				_snprintf(name, 0x20, "%sEYE01%d", Unknown_B9CD44[side], i);
-				RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(name);
+				RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(name);
 				if (robj) {
 					Unknown_77FEC0(&robj, color, 1);
 					robj->Release_Ref();
@@ -1728,10 +1728,10 @@ void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 }
 
 // 0x780AF0
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__)
+// NOT EXACT: functional for POC (D64), literal (__LINE__)
 void CharacterViewAvatarClass::Unknown_780AF0()
 {
-	FAIL_IF(Unknown2BC == NULL || BodySource == NULL) {
+	FAIL_IF(!BodyObj || !BodySource) {
 		return;
 	}
 	Vector3 scale(0.0f, 0.0f, 0.0f);
@@ -1754,24 +1754,24 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(names[i]));
 		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(names[i]));
-			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)Unknown2BC->Get_Sub_Object_By_Name(names[i]));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(names[i]));
 			Unknown_7812A0(source.Peek(), dest.Peek());
 			dest->Scale(scale.Y, scale.Z, scale.X);
 		}
 	}
 	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
 	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
-	((HLodClass *)Unknown2BC)->Set_HTree(tree);
+	((HLodClass *)BodyObj)->Set_HTree(tree);
 	if (tree) {
 		delete tree;
 	}
 }
 
 // 0x780F30
-// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client names +0x2BC / +0x2B8 BodyObj / HeadObj), literal (__LINE__)
+// NOT EXACT: functional for POC (D64), literal (__LINE__)
 void CharacterViewAvatarClass::Unknown_780F30()
 {
-	FAIL_IF(Unknown2B8 == 0 || HeadSource == 0) {
+	FAIL_IF(HeadObj == 0 || HeadSource == 0) {
 		return;
 	}
 	Vector3 scale(0.0f, 0.0f, 0.0f);
@@ -1788,17 +1788,17 @@ void CharacterViewAvatarClass::Unknown_780F30()
 		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad head scale values");
 		return;
 	}
-	for (i = 0; i < Unknown2B8->Get_Num_Sub_Objects(); i++) {
+	for (i = 0; i < HeadObj->Get_Num_Sub_Objects(); i++) {
 		RefCountPtr<RenderObjClass> obj = Create_Get(HeadSource->Get_Sub_Object(i));
 		if (obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)HeadSource->Get_Sub_Object(i));
-			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)Unknown2B8->Get_Sub_Object(i));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)HeadObj->Get_Sub_Object(i));
 			Unknown_7812A0(source.Peek(), dest.Peek());
 			dest->Scale(scale.X, scale.Y, scale.Z);
 		}
 	}
 	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(HeadSource->Get_HTree(), scale);
-	((HLodClass *)Unknown2B8)->Set_HTree(tree);
+	((HLodClass *)HeadObj)->Set_HTree(tree);
 	if (tree) {
 		delete tree;
 	}
@@ -1825,7 +1825,7 @@ void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass 
 // NOT EXACT: functional for POC (D64), literal (__LINE__)
 void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 {
-	if (Unknown2BC == NULL) {
+	if (BodyObj == NULL) {
 		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar body object");
 		Unknown29C = false;
 		Unknown29D = false;
@@ -1848,15 +1848,15 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 		Unknown29C = false;
 	}
 	Unknown_780AF0();
-	Matrix3D head = Unknown2BC->Get_Bone_Transform("K_HEAD");
-	Unknown234 = head[2][3] - Unknown2BC->Get_Bone_Transform("skel_reference")[2][3];
+	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
+	Unknown234 = head[2][3] - BodyObj->Get_Bone_Transform("skel_reference")[2][3];
 }
 
 // 0x781570
 // NOT EXACT: functional for POC (D64), literal (__LINE__)
 void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 {
-	if (Unknown2B8 == NULL) {
+	if (HeadObj == NULL) {
 		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar head object");
 		Unknown29D = false;
 		return;
@@ -1905,9 +1905,9 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 	Matrix3D m(true);
 	m.Rotate_Z(DEG_TO_RAD(Unknown254));
 	m.Rotate_Y(DEG_TO_RAD(Unknown25C));
-	int bone = Unknown2BC->Get_Bone_Index("K_Head");
-	Unknown2BC->Capture_Bone(bone);
-	Unknown2BC->Control_Bone(bone, m, false);
+	int bone = BodyObj->Get_Bone_Index("K_Head");
+	BodyObj->Capture_Bone(bone);
+	BodyObj->Control_Bone(bone, m, false);
 }
 
 void CharacterViewAvatarClass::Unknown_788EF0()
@@ -2193,11 +2193,11 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		if (Unknown37C <= Unknown378) {
 			Unknown378 = -100.0f;
 			bool hidden = !(Unknown380 == 2 || Unknown380 == 4);
-			if (Unknown2BC) {
-				Unknown2BC->Set_Hidden(hidden);
+			if (BodyObj) {
+				BodyObj->Set_Hidden(hidden);
 			}
-			if (Unknown2B8) {
-				Unknown2B8->Set_Hidden(hidden);
+			if (HeadObj) {
+				HeadObj->Set_Hidden(hidden);
 			}
 		}
 		if (Unknown37C > 0.0f) {
