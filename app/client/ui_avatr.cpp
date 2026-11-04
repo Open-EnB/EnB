@@ -1711,3 +1711,70 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 	}
 	gadget->Unknown_671630();
 }
+
+// NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184)
+// 0x55AE50
+void AvatarCreationInterface::Unknown_55AE50()
+{
+	AABoxClass box;
+	Unknown180->Gadget->Unknown_64(box);
+	RenderObjClass *model = Unknown08C->Unknown1B8;
+	int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
+	model->Capture_Bone(bone);
+	Matrix3D tm = Unknown180->Pull->Get_Transform();
+	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * Unknown184[Unknown1BC].X + (box.Center.X - box.Extent.X) - box.Center.X);
+	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * Unknown184[Unknown1BC].Y + (box.Center.Y - box.Extent.Y) - box.Center.Y);
+	model->Control_Bone(bone, tm, false);
+}
+
+// NOT EXACT: functional (D64), from the client's 0x55A550 (a pull's point moved by (c, d), kept in 0 .. 1, or a
+// random one (the client tests b's low byte; its callers pass 0); its marker placed; 0: the blend weights (0x55A060),
+// 1: the tattoo's offset (+0x170 / +0x174, the scale +0x178, avatar.cpp's 0x785C00))
+// 0x55A550
+void AvatarCreationInterface::Unknown_55A550(int a, float b, float c, float d)
+{
+	UIAvatrPullClass *pull;
+	float u;
+	float v;
+	if (a == 0) {
+		pull = Unknown160;
+		u = Unknown164.X;
+		v = Unknown164.Y;
+	} else {
+		pull = Unknown16C;
+		u = Unknown170;
+		v = Unknown174;
+	}
+	u += c;
+	if (c > 0.0f) {
+		if (u >= 1.0f) u = 1.0f;
+	} else if (u <= 0.0f) {
+		u = 0.0f;
+	}
+	v += d;
+	if (d > 0.0f) {
+		if (v >= 1.0f) v = 1.0f;
+	} else if (v <= 0.0f) {
+		v = 0.0f;
+	}
+	AABoxClass box;
+	pull->Gadget->Unknown_64(box);
+	if (*(unsigned char *)&b) {
+		u = Unknown_BDBB84(0, 100) * 0.01f;
+		v = Unknown_BDBB84(0, 100) * 0.01f;
+	}
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
+	int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
+	model->Capture_Bone(bone);
+	Matrix3D tm = pull->Pull->Get_Transform();
+	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * u + (box.Center.X - box.Extent.X) - box.Center.X);
+	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * v + (box.Center.Y - box.Extent.Y) - box.Center.Y);
+	model->Control_Bone(bone, tm, false);
+	if (a == 0) {
+		Unknown_55A060(Vector2(u, v));
+	} else {
+		Unknown170 = u;
+		Unknown174 = v;
+		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(u, 1.0f - v, Unknown178));
+	}
+}

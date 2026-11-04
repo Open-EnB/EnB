@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1195 |
 | 2 | describes what the code does | 2988 |
-| 1 | neutral placeholder | 12546 |
+| 1 | neutral placeholder | 12547 |
 
 ## For review (score 3 and below)
 
@@ -6394,6 +6394,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7804A0` | `app/client/ui_avatr.cpp:1431` | untagged neutral name (D10) |
 | 1 | `Unknown_780680` | `app/client/ui_avatr.cpp:1432` | untagged neutral name (D10) |
 | 1 | `Unknown_780790` | `app/client/ui_avatr.cpp:1455` | untagged neutral name (D10) |
+| 1 | `Unknown_785C00` | `app/client/ui_avatr.cpp:1778` | untagged neutral name (D10) |
 | 1 | `UIAvselGadgetPartStruct` | `app/client/ui_avsel.cpp:19` | neutral (D10) |
 | 1 | `GadgetUnknown08Struct` | `app/client/ui_avsel.cpp:19` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_avsel.cpp:64` | as ui_group.cpp's |
