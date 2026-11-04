@@ -14,6 +14,8 @@
 #include "..\..\ww3d2\hlod.h"
 #include "..\..\ww3d2\matinfo.h"
 #include "..\..\ww3d2\vertmaterial.h"
+#include "..\..\ww3d2\texture.h"
+#include "..\..\ww3d2\mapper.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\surfacetypes.h"
 #include "..\shared\unknown_message.h"
@@ -35,6 +37,7 @@ static const char *Unknown_B9CD44[2] = { "L", "R" };	// NAME 1 [Unknown_B9CD44]:
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_496DB0(RenderObjClass *robj);
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
 
@@ -325,6 +328,13 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 // NOT EXACT: functional for POC (D64)
 CharacterViewAvatarClass::~CharacterViewAvatarClass()
 {
+	unsigned int i;
+	for (i = 0; i < Unknown2A0.size(); i++) {
+		if (Unknown2A0[i]) {
+			delete Unknown2A0[i];
+		}
+	}
+	Unknown2A0.clear();
 	Unknown_784E00();
 	if (PlayerNLP) {
 		delete PlayerNLP;
@@ -433,6 +443,14 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	if (MaskObj) {
 		MaskObj->Release_Ref();
 		MaskObj = NULL;
+	}
+	if (Unknown2C4) {
+		Unknown2C4->Release_Ref();
+		Unknown2C4 = NULL;
+	}
+	if (Unknown2CC) {
+		Unknown2CC->Release_Ref();
+		Unknown2CC = NULL;
 	}
 }
 
@@ -1481,10 +1499,111 @@ void CharacterViewAvatarClass::Unknown_77F750()
 	if (Desc.Avatar_Type == 0) {
 		Unknown_780F30();
 		Unknown_7804A0(Desc.Eye_Color);
-		// 0x7857D0 (Head_Texture_Num), 0x7859F0 (Tattoo_Texture_Num) and
-		// 0x785C00 (Tattoo_Offset) follow here in the client; not built yet
+		Unknown_7857D0(Desc.Head_Texture_Num);
+		Unknown_7859F0(Desc.Tattoo_Texture_Num);
+		Unknown_785C00(Desc.Tattoo_Offset);
 	}
 	Unknown2BC->Add_Sub_Object_To_Bone(Unknown2B8, "K_HEAD");
+}
+
+// 0x7857D0: Head_Texture_Num's face texture '<gender><race>FACETEX<num>.tga' onto the head
+// object's head0..4 meshes (stage 0)
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_7857D0(int num)
+{
+	FAIL_IF(!Unknown2B8) {
+		return;
+	}
+	char name[32];
+	char mesh[64];
+	_snprintf(name, 0x20, "%s%sFACETEX%02d.tga", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], num);
+	TextureClass *tex = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	if (tex) {
+		Desc.Head_Texture_Num = (char)num;
+		for (int i = 0; i < 5; i++) {
+			_snprintf(mesh, 0x40, "head%d", i);
+			RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+			Unknown_495FD0(robj, tex, 0);
+			Unknown_496AE0(robj, true);
+			if (robj) {
+				robj->Release_Ref();
+			}
+		}
+	}
+	Unknown_496AE0(Unknown2B8, true);
+	if (tex) {
+		tex->Release_Ref();
+	}
+}
+
+// 0x7859F0: Tattoo_Texture_Num's 'ATATTOO<num>.tga' (clamped) onto the head object's HEAD0..4
+// meshes (stage 1)
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_7859F0(int num)
+{
+	FAIL_IF(!Unknown2B8) {
+		return;
+	}
+	char name[32];
+	char mesh[64];
+	_snprintf(name, 0x20, "ATATTOO%02d.tga", num);
+	TextureClass *tex = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	if (tex) {
+		tex->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+		tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+		for (int i = 0; i < 5; i++) {
+			_snprintf(mesh, 0x40, "HEAD%d", i);
+			RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+			Unknown_495FD0(robj, tex, 1);
+			Unknown_496AE0(robj, true);
+			if (robj) {
+				robj->Release_Ref();
+			}
+		}
+		Desc.Tattoo_Texture_Num = (char)num;
+	}
+	Unknown_496AE0(Unknown2B8, true);
+	if (tex) {
+		tex->Release_Ref();
+	}
+}
+
+// 0x785C00: Tattoo_Offset onto the head object's HEAD0..4 meshes: a linear offset mapper on stage 1
+// of vertex material 0 (X, Y the tattoo's place, Z its scale, clamped to 0.5 .. 16)
+// NOT EXACT: functional for POC (D64), relocation (the FAIL_IF text: the client's '!HeadObj'), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
+{
+	FAIL_IF(!Unknown2B8) {
+		return;
+	}
+	float scale = offset.Z;
+	if (scale < 0.5f) {
+		scale = 0.5f;
+	} else if (scale > 16.0f) {
+		scale = 16.0f;
+	}
+	float size = 1.0f / scale;
+	float half = size * 0.5f;
+	Vector2 start(-((offset.X - half) / size), -((offset.Y - half) / size));
+	Vector2 scales(scale, scale);
+	char mesh[64];
+	for (int i = 0; i < 5; i++) {
+		_snprintf(mesh, 0x40, "HEAD%d", i);
+		RenderObjClass *robj = Unknown2B8->Get_Sub_Object_By_Name(mesh);
+		if (robj) {
+			MaterialInfoClass *info = robj->Get_Material_Info();
+			if (info) {
+				VertexMaterialClass *material = info->Peek_Vertex_Material(0);
+				LinearOffsetTextureMapperClass *mapper = new LinearOffsetTextureMapperClass(Vector2(0.0f, 0.0f), start, true, scales, 1);
+				material->Set_Mapper(mapper, 1);
+				mapper->Release_Ref();
+				info->Release_Ref();
+			}
+			robj->Release_Ref();
+		}
+	}
+	Unknown_496AE0(Unknown2B8, true);
+	Desc.Tattoo_Offset = offset;
 }
 
 // 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
