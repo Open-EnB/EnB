@@ -57,6 +57,8 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   0x5DCAE0, ui_group.cpp's cast gone): 9,039 = 9,039. B2.6 P-TG4-1: UIComboBoxClass moves into a new ui_combobox.h
   (D137 interim name, NAME 3; forward declarations for ui_combobox.cpp's local stand-ins, Unknown_Show_Selected
   defined inline in the .cpp before its callers), ui_chat_panel.h's UIChatComboClass gives way to it: 9,039 = 9,039.
+  At the branch head (d3aa1bd1, committed tree): clienttest 103 / 0; POC to character select, no crash, the same three
+  first-call stand-ins.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
