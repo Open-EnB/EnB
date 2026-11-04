@@ -51,7 +51,8 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   FontStringFilesClass (member constructed, not the constructor: it would load fc_default.ini through the null
   0xBE67B8) and expected.txt loses the one `gen SClientFontDatabaseClass::Unknown_6C55B0` line: 103 checks, 0 failed.
   B2.2 had missed clienttest.cpp's TestObjectClass destructor (`Model = 0`): fixed here (the app verify compiles no
-  tests). POC: character select drawn, no crash, the same first calls.
+  tests). POC: character select drawn, no crash, the same first calls. B2.4: tsk_login.h's unused
+  `typedef InterfaceClass CharacterViewUnknown1B4Class` deleted (no user left): 9,039 = 9,039.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2241,7 +2242,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * FontSys's local views (loadingview, sbaseview, ui_avatar_cust, ui_avatr, ui_chat_panel, ui_combobox, ui_cpit,
      ui_group, ui_manu: `class FontSys : public RenderObjClass`, the real one a DynamicMeshClass) can include
      fontmanager.h at their file's next edit (P-FU1-1's merge; the names agree since 2026-11-03).
-   * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
+   * Merges into real headers: P-H9-3 /
      P-H11-1 / P-H13-2 (stand-in names and twins switched to the real headers); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
      0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); an
      rs_proj_sup.h for rs_track.h's two projector classes (their caster constructor's int arguments as

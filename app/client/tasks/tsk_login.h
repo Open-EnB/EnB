@@ -80,7 +80,6 @@ public:
 // The character view: charview.cpp's CharacterViewClass (charview.h; its +0x1B4 is the mode's screen, an
 // intrface.cpp InterfaceClass)
 #include "..\charview.h"
-typedef InterfaceClass CharacterViewUnknown1B4Class;	// NAME 1 [CharacterViewUnknown1B4Class]: neutral (D10)
 
 
 
