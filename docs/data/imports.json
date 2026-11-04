@@ -20613,6 +20613,26 @@
      "0x4F7780"
     ]
    },
+   "shiputils": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x497350"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x497330",
+     "0x80FCE0",
+     "0x8138B0"
+    ],
+    "merged": [],
+    "name": "client/shiputils.cpp",
+    "shared": [
+     "0x42F250",
+     "0x497330"
+    ]
+   },
    "signal_map": {
     "ambiguous": [
      "0x42A890",
@@ -26100,7 +26120,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9046,
+  "in_tree_total": 9048,
   "totals": {}
  },
  "binkmovie": {
