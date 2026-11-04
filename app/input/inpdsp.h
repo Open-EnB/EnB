@@ -7,8 +7,8 @@
 **	The input dispatcher (0x18 bytes): an SGI hash_map (100 buckets, D87) from an input event's
 **	first dword (key and flags) to a stack of records; the top record's action takes the event.
 **	LoginTaskClass +0x0C and SClient +0x1270 own one; the interface list (intrlist.cpp) pushes and
-**	removes records. tsk_login.h keeps an opaque declaration of the same class (char[0x18]) so
-**	that its users compile as before (P-H18-1).
+**	removes records. tsk_login.h includes this header (its opaque char[0x18] copy went with
+**	P-H18-1, 2026-11-03).
 */
 
 

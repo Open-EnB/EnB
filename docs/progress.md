@@ -39,6 +39,8 @@ Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103
   else apply-named makes it a function). Second verify 9,039 = baseline, pairs_cmp empty, replay 0. clienttest 103 / 0;
   POC (`build.py link --out .work/cn1/pocbuild`, not deployed; instance cn1, /REPLAY input3, 60 s): no crash,
   character select drawn at frame 190000 (Karen idling, the list, the buttons' text), no FontSys stand-in generated.
+- **B2 (the stand-in merges, one verify each):** B2.1 P-H18-1, tsk_login.h includes app/input/inpdsp.h instead of its
+  opaque LoginUnknown0CClass: app 9,039 = 9,039.
 - **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
   clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
   rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
@@ -2229,8 +2231,8 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_group, ui_manu: `class FontSys : public RenderObjClass`, the real one a DynamicMeshClass) can include
      fontmanager.h at their file's next edit (P-FU1-1's merge; the names agree since 2026-11-03).
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
-     P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
-     RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
+     P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 (stand-in names and twins switched to the real headers; Model ->
+     RenderObject); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
      0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); an
      rs_proj_sup.h for rs_track.h's two projector classes (their caster constructor's int arguments as
      ProjectionDefClass * / ProjectorManagerClass *, and RsTrackClass::Unknown_462470's); an rs.h for RenderStateClass

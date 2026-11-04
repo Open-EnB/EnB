@@ -84,14 +84,8 @@ typedef InterfaceClass CharacterViewUnknown1B4Class;	// NAME 1 [CharacterViewUnk
 
 
 
-class LoginUnknown0CClass	// NAME 1: neutral (D10): what LoginTaskClass +0x0C points to (inpdsp.cpp)
-{
-public:
-	LoginUnknown0CClass();								// 0x429630 (0x18 bytes)
-	bool Unknown_429A20(KernelEventClass *event);		// 0x429A20 (inpdsp.cpp): true when it took the event
-	char Unknown00[0x18];
-	~LoginUnknown0CClass();								// 0x429800 (inpdsp.cpp)
-};
+// What LoginTaskClass +0x0C points to: inpdsp.cpp's input dispatcher (P-H18-1)
+#include "..\..\input\inpdsp.h"
 
 class RenderObjClass;
 class SMouseDragClass;  // smouse.cpp's: what +0x2C holds (0x685190's class)
