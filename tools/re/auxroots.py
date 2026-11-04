@@ -5,8 +5,8 @@
     python tools/re/auxroots.py check [--schema JSON]       the extracted trees vs that committed schema
     python tools/re/auxroots.py tree ROOT                   prints one extracted tree
 
-The trees come from tools/re/auxextract.py (symbolic execution of the 11 roots' constructors: the
-CREATE factory 0x6F6000's ten and the Player root 0x752510). Each compound the client builds has
+The trees come from tools/re/auxextract.py (symbolic execution of the 12 roots' constructors: the
+CREATE factory 0x6F6000's ten, the Player root 0x752510 and the Hull root SClient 0x7518A0 builds inline). Each compound the client builds has
 its own vtable, so each becomes one C++ class: the roots `Delta<Name>Class` (derived from
 UnknownRootClass, unknown_root.h; `<Name>` is the client's string; D56 score 3), the nested
 compounds `Delta<X>Class` where tools/re/auxnames.py matched Net-7's `Aux<X>` (or a C# class) by
@@ -60,7 +60,11 @@ PADS = os.path.join(HERE, 'auxroots_pads.json')
 # The factory's create types (0x6F6000's switch) and the roots it builds; Player is game id 0.
 ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decoration': 0x6F9C30,
              'Harvestable': 0x6F9ED0, 'ManufacturingLab': 0x6FA6F0, 'Player': 0x752510}
-SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
+SEND_ROOTS = {'Player', 'Hull'}     # derived from UnknownSendRootClass (unknown_root.h)
+# Send roots the client builds inline in another file's function (auxextract.py INLINE_SEND): their
+# constructor is inline in the header and takes the base's first argument (Hull: SClient 0x7518A0
+# passes its +0x112C).
+INLINE_SEND = {'Hull': 0x7518A0}
 # The factory's roots' constructors are inline functions in the header (the rest: SEND_ROOTS, in
 # aux_roots.cpp): the client's out-of-line copies follow the factory 0x6F6000, their first caller
 # (Ship 0x6F66E0 right after it), and the factory is exact only so (with 1.0f in ARRAY_VALUES).
@@ -129,7 +133,16 @@ CLIENT_TYPES = {
     0xB0100C: ('WW3DLightAttenuationType', 0xB01B78, 0x708520, 'inline'),
     0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
     0xB03694: ('SkillLevelAvailabilityStruct', 0xB03AB4, 0x759CE0, 'inline'),
+    0xB03A24: ('HullPreviewStatusEnum', 0xB03A7C, 0x759B50, 'inline'),
 }
+# An enum's inline conversions where the client's KVPair shows another form than the default
+# (_snprintf / sscanf into a local, == 1): leaf vtable -> (Value_To_String's value parameter, its body,
+# String_To_Value's body).
+# 0xB03A24: Get_Value_String 0x759B70 sprintf's '%d' and returns the buffer; Set_Value_String 0x75A140
+# sscanf's '%d' and tests the result for nonzero, passing the (uninitialised) value itself, not its address:
+# its slot is the text argument's, so the client pushes the text pointer ([esp+4]) and Sets from that slot.
+ENUM_FORMS = {0xB03A24: ('const NAME &value', '{ sprintf(buf, "%d", value); return buf; }',
+                         '{ return sscanf(text, "%d", *value) != 0; }')}
 INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133C: 0x708AE0}
 # The enums' conversions the client calls out of line (other files' functions, not rebuilt; stand-ins in
 # stubs/app_stubs.cpp): leaf vtable -> (Type_Name(value) or None when inline, String_To_Value,
@@ -465,7 +478,10 @@ class Gen:
             # Player's base is the second root class (vtable 0xAEAC40, ctor 0x4A3FF0: the name
             # argument is passed but not used); the factory's roots derive from UnknownRootClass
             basecls = 'UnknownSendRootClass' if root in SEND_ROOTS else 'UnknownRootClass'
-            if root in SEND_ROOTS:
+            if root in INLINE_SEND:
+                init = [f'{basecls}(unknown, "{n["_cname"]}")']
+                sig = f'{name}(int unknown)'
+            elif root in SEND_ROOTS:
                 # Player's constructor takes nothing (0x752510 ends `ret`) and passes 0
                 init = [f'{basecls}(0, "{n["_cname"]}")']
                 sig = f'{name}()'
@@ -477,12 +493,12 @@ class Gen:
             init = [f'{basecls}(name)']
             sig = f'{name}(const char *name)'
         init += [f'{m}({a})' for _, _, m, a in members]
-        lines = [f'// vtable 0x{hexu(vt)}' + (f', constructor 0x{ROOT_CTOR[root]:X}' if root in ROOT_CTOR else '')
+        lines = [f'// vtable 0x{hexu(vt)}' + (f', constructor 0x{ROOT_CTOR[root]:X}' if root in ROOT_CTOR else f', built inline in 0x{INLINE_SEND[root]:X}' if root in INLINE_SEND else '')
                  + ('' if root else f' (e.g. {path})'), tag,
                  f'class {name} : public {basecls}', '{', 'public:']
-        inline = root in INLINE_ROOT_VT or root == 'Hulk'
+        inline = root in INLINE_ROOT_VT or root == 'Hulk' or root in INLINE_SEND
         if inline:
-            body = body + ['\tDeltaCompoundClass::Unknown_48();']
+            body = body + ['\tUnknown_48();' if root in INLINE_SEND else '\tDeltaCompoundClass::Unknown_48();']
         if root and not inline:
             lines.append(f'\t{sig};')
             if ship:
@@ -519,9 +535,11 @@ class Gen:
         self.order.append(vt)
         return name
 
-    def type_decls(self):
+    def type_decls(self, only=None, skip=()):
         out = []
         for vt, (kind, size, name) in sorted(self.types.items()):
+            if (only is not None and vt not in only) or vt in skip:
+                continue
             if vt in CLIENT_TYPES:
                 cn, kv, gtn, src = CLIENT_TYPES[vt]
                 out.append(f'// NAME 5: the client\'s Get_Type_Name string \'{cn}\' (KVPair vtable 0x{hexu(kv)}, '
@@ -574,7 +592,10 @@ class Gen:
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
                            f'inline bool String_To_Value(const char *, {name} *) {{ return false; }}')
                 continue
-            if kind == 'enum':
+            if kind == 'enum' and vt in ENUM_FORMS:
+                out.append(f'inline char *Value_To_String(char *buf, int, {ENUM_FORMS[vt][0].replace("NAME", name)}) {ENUM_FORMS[vt][1]}')
+                out.append(f'inline bool String_To_Value(const char *text, {name} *value) {ENUM_FORMS[vt][2]}')
+            elif kind == 'enum':
                 out.append(f'inline char *Value_To_String(char *buf, int size, {name} value) '
                            '{ _snprintf(buf, size, "%d", (int)value); return buf; }')
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) '
@@ -625,6 +646,30 @@ STUBS_HEAD = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/r
 #include "..\app\client\aux_roots.h"
 '''
 
+
+# The roots other files build inline (INLINE_SEND) and the value types only they use, in a header of their
+# own: aux_roots.cpp doesn't include it, so they don't move its SYMBOL_PAD windows (workflow.md 3.3; with
+# Hull in aux_roots.h no pad had all six constructors exact, 3/6 at best).
+SEND_HEADER = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/re/auxroots.py, do not edit.
+// The aux-data roots other files build inline (auxroots.py INLINE_SEND: Hull, SClient 0x7518A0) and the
+// value types only they use. NOT EXACT (D42) where aux_roots.h is.
+// NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3)
+
+#if defined(_MSC_VER)
+#pragma once
+#endif
+
+#ifndef __AUX_ROOTS_SEND_H
+#define __AUX_ROOTS_SEND_H
+
+#include "aux_roots.h"
+
+%(types)s
+
+%(classes)s
+
+#endif //__AUX_ROOTS_SEND_H
+'''
 
 HEADER = r'''// Earth & Beyond client (reconstruction)
 /*
@@ -753,6 +798,7 @@ def generate(doc, out_dir):
     inline_roots = []      # the factory's roots: inline (header), as the client's (see the note at SEND_ROOTS)
     roots = doc['roots']
     g.prepare(roots)
+    send_vts, send_types = set(), set()     # INLINE_SEND's classes and value types: aux_roots_send.h
     for rname, r in roots.items():
         r = dict(r)
         if rname in INLINE_ROOT_VT:
@@ -763,7 +809,11 @@ def generate(doc, out_dir):
             raise SystemExit(f'{rname}: no vtable')
         r['_cname'] = rname
         g.root_ctor = None
+        before = (set(g.order), set(g.types))
         g.compound(r, rname, root=rname)
+        if rname in INLINE_SEND:
+            send_vts |= set(g.order) - before[0]
+            send_types |= set(g.types) - before[1]
         if g.root_ctor is None:
             continue
         text = (f'// {rname}' + (f' (0x{ROOT_CTOR[rname]:X})' if rname in ROOT_CTOR else ' (built in the factory 0x6F6000)')
@@ -782,8 +832,10 @@ def generate(doc, out_dir):
     for rn, ts in sorted(by_root.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99):
         cases += [f'\t\tcase {t}:' for t in sorted(ts)]
         cases.append(f'\t\t\treturn new Delta{rn}Class(unknown);')
-    classes = '\n\n'.join(g.decl[vt] for vt in g.order)
-    h = HEADER.replace('%(types)s', g.type_decls()).replace('%(classes)s', classes).replace(
+    classes = '\n\n'.join(g.decl[vt] for vt in g.order if vt not in send_vts)
+    send = SEND_HEADER.replace('%(types)s', g.type_decls(only=send_types)).replace(
+        '%(classes)s', '\n\n'.join(g.decl[vt] for vt in g.order if vt in send_vts))
+    h = HEADER.replace('%(types)s', g.type_decls(skip=send_types)).replace('%(classes)s', classes).replace(
         '%(inline_roots)s', ''.join(text + '\n\n' for _, text in sorted(inline_roots)))
     # the client's order (its objects compile in address order: VC6's inlining depends on what came before)
     ctors += g.nested + [(0x6F8C70, SHIP_ADD), (0x6F6000, FACTORY.replace('%(cases)s', '\n'.join(cases)))]
@@ -791,7 +843,7 @@ def generate(doc, out_dir):
     pad = PAD % ', '.join(f'AUX_ROOTS_PAD_{i:02d}' for i in range(SYMBOL_PAD)) if SYMBOL_PAD else ''
     c = c.replace('%(pad)s', pad)
     os.makedirs(out_dir, exist_ok=True)
-    for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c)):
+    for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c), ('aux_roots_send.h', send)):
         with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
             f.write(text)
     if os.path.normcase(os.path.abspath(out_dir)) == os.path.normcase(OUT_DIR):

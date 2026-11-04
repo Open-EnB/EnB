@@ -7,9 +7,9 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 102 |
+| 5 | the client names it | 103 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1195 |
+| 3 | by convention from a client-named file or sibling | 1197 |
 | 2 | describes what the code does | 2988 |
 | 1 | neutral placeholder | 12660 |
 
@@ -74,6 +74,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown428` | `app/client/aux_roots.h:951` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownCOClass` | `app/client/aux_roots.h:1009` | neutral (D10), the class of co.cpp's objects (vtable 0xB0070C) |
 | 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.h:1014` | untagged neutral name (D10) |
+| 1 | `aux_roots_send.h` | `app/client/aux_roots_send.h:4` | provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots_send.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/avatar.cpp:28` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9CD28` | `app/client/avatar.cpp:31` | neutral (D10) |
 | 1 | `Unknown_B9CD30` | `app/client/avatar.cpp:34` | neutral (D10) |
@@ -1622,7 +1625,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/cpacket.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5DC0` | `app/client/cpacket.cpp:889` | untagged neutral name (D10) |
 | 1 | `Unknown_70E750` | `app/client/cpacket.cpp:890` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `app/client/cpacket.cpp:919` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/cpacket.cpp:928` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `app/client/cpacket.cpp:954` | untagged neutral name (D10) |
 | 1 | `Get_Unknown34` | `app/client/cpacket.cpp:963` | untagged neutral name (D10) |
@@ -4093,7 +4095,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown12B4` | `app/client/sclient.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown12B8` | `app/client/sclient.cpp:319` | untagged neutral name (D10) |
 | 1 | `Unknown12BC` | `app/client/sclient.cpp:320` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `app/client/sclient.cpp:322` | untagged neutral name (D10) |
 | 1 | `Unknown12D4` | `app/client/sclient.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown1320` | `app/client/sclient.cpp:325` | untagged neutral name (D10) |
 | 1 | `Unknown1324` | `app/client/sclient.cpp:326` | untagged neutral name (D10) |
@@ -4308,6 +4309,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown49F200Class` | `app/client/sclient.cpp:5371` | untagged neutral name (D10) |
 | 1 | `Unknown_49F200` | `app/client/sclient.cpp:5371` | untagged neutral name (D10) |
 | 1 | `Unknown_49F300` | `app/client/sclient.cpp:5371` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `app/client/sclient.cpp:5467` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5520` | neutral (D10) |
 | 1 | `Unknown_747510` | `app/client/sclient.cpp:5527` | untagged neutral name (D10) |
 | 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5530` | untagged neutral name (D10) |
@@ -4942,7 +4944,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown12B4` | `app/client/sclient.h:1060` | untagged neutral name (D10) |
 | 1 | `Unknown12B8` | `app/client/sclient.h:1061` | untagged neutral name (D10) |
 | 1 | `Unknown12BC` | `app/client/sclient.h:1062` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `app/client/sclient.h:1064` | untagged neutral name (D10) |
 | 1 | `Unknown12D4` | `app/client/sclient.h:1065` | untagged neutral name (D10) |
 | 1 | `Unknown1320` | `app/client/sclient.h:1067` | untagged neutral name (D10) |
 | 1 | `Unknown1324` | `app/client/sclient.h:1068` | untagged neutral name (D10) |
@@ -12570,7 +12571,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:1903` | untagged neutral name (D10) |
 | 1 | `Unknown1274` | `tests/clienttest/clienttest.cpp:2057` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2057` | untagged neutral name (D10) |
-| 1 | `Unknown12C4` | `tests/clienttest/clienttest.cpp:2060` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2060` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2061` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:9` | untagged neutral name (D10) |
@@ -15681,6 +15681,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:957` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:973` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:989` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaHullClass` | `app/client/aux_roots_send.h:22` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
 | 3 | `buff_database.h` | `app/client/buff_database.h:18` | header name assumed from the client's buff_database.cpp |
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
@@ -15928,6 +15929,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Starmap` | `app/client/sclient.h:1056` | its file's |
 | 3 | `CameraManager` | `app/client/sclient.h:1057` | its file's |
 | 3 | `AuxData` | `app/client/sclient.h:1063` | the assert's name |
+| 3 | `PlayerVarAuxData` | `app/client/sclient.h:1064` | 0x7518A0's assert '!PlayerVarAuxData[lp]' |
 | 3 | `MusicManager` | `app/client/sclient.h:1070` | its file's |
 | 3 | `EnvironmentMapManager` | `app/client/sclient.h:1073` | option.cpp's and scriptedmovie.cpp's asserts 'sclient->EnvironmentMapManager' |
 | 3 | `ProjDecalManager` | `app/client/sclient.h:1074` | its file's |

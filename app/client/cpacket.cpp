@@ -916,7 +916,7 @@ bool AuxDataPlayerVarPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("AuxDataPlayerVarPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->Unknown12C4[GameID]->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+	sclient->PlayerVarAuxData[GameID]->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
 	return(true);
 }
 

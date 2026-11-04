@@ -2057,7 +2057,7 @@ int main(int argc, char **argv)
 	client->Unknown1274 = (LoginUnknown18Class *)fake_mouse;
 	*(void **)&main_view.Unknown04[0x34 - 0x04] = Switch_Main_34;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
-	client->Unknown12C4[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;
+	client->PlayerVarAuxData[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
 	// the asset manager (after the SClient, whose constructor runs as before without one)
 	Fake_Assets = new FakeAssetManagerClass;

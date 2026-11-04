@@ -1061,7 +1061,7 @@ public:
 	RefCountClass *Unknown12B8;							// +0x12B8 (0x74C370: released, set, referenced)
 	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
 	DeltaPlayerClass *AuxData;							// +0x12C0 (0x7518A0's G_ASSERT '!AuxData' before its new; AUX_DATA 27 decodes into it)  // NAME 3: the assert's name
-	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
+	VectorClass<SClientUnknown12C4Class *> PlayerVarAuxData;	// +0x12C4 vtable 0xB032BC, one entry (NULL; 0x7518A0 sets it to a new DeltaHullClass)  // NAME 3: 0x7518A0's assert '!PlayerVarAuxData[lp]'
 	int Unknown12D4;									// +0x12D4
 	TicketClass Ticket;									// +0x12D8 NAME 1: ClientTaskClass::Init copies the ticket here
 	bool Unknown1320;									// +0x1320 (true)
