@@ -158,7 +158,7 @@ class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
-public:
+public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
@@ -179,7 +179,7 @@ public:
 	RenderObjClass *Peek_Unknown30() { return(Unknown30); }	// NAME 1: neutral (D10)
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
-void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
+// 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
 
 
@@ -786,7 +786,7 @@ void UIChatPanelClass::Unknown_564150(bool on)
 	UnknownA4[2]->Unknown_8C(!on);
 	UnknownA4[2]->Unknown_40(on);
 	UnknownA4[5]->Unknown_40(on);
-	if (on) Unknown_65EFB0(UnknownA4[5], "UI_CHAT_PANEL", "AVATAR_THEM");
+	if (on) GadgetClass::Set_Tooltip(UnknownA4[5], "UI_CHAT_PANEL", "AVATAR_THEM");
 }
 
 
