@@ -10,7 +10,7 @@ class VertexMaterialClass;
 class Vector3;
 
 // E&B's asset manager, 0x408C bytes (ENBAssetManager in the client's strings, table 0xAEA5C8; renamed from the
-// stand-in UnknownBDADC0Class in P-MC-3, together with kernel.cpp's own declaration of Unknown_BDADC0, whose
+// stand-in UnknownBDADC0Class in P-MC-3, together with kernel.cpp's own declaration of AssetManager, whose
 // mangled name carries the class name). Its own slots: +0x10 Release_Unused_Assets 0x48F2C0, +0x14 Create_Render_Obj 0x48B0F0,
 // +0x38 Release_Unused_Textures 0x48F1A0, +0x78 0x48B220.
 class ENBAssetManager : public WW3DAssetManager	// NAME 5: the client's profile string 'ENBAssetManager::Create_Render_Obj'
@@ -43,6 +43,6 @@ public:
 	void Recolor_Asset(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
 	void Unknown_48ECA0(TextureClass **textures, unsigned count);					// NAME 1 [Unknown_48ECA0, textures, count]: neutral (D10)
 };
-extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+extern ENBAssetManager *AssetManager;	// NAME 3 [AssetManager]: 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30)
 
 #endif

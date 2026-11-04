@@ -2303,19 +2303,19 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 
 
 // 0x56BC10
-void UIChatPanelClass::Unknown_70(ControlKeysManagerClass *manager)
+void UIChatPanelClass::Unknown_70(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), (void *)16, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), (void *)16, 0);
 }
 
 // 0x56BD80
-void UIChatPanelClass::Unknown_74(ControlKeysManagerClass *manager)
+void UIChatPanelClass::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Help"), 0);
 }
 
 

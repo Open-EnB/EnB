@@ -104,8 +104,8 @@ public:
 	virtual void Unknown_54();							// 0x594040 (0x50C690 calls it after construction)
 	virtual void Unknown_60();							// 0x5944D0
 	virtual bool Unknown_68(int key);					// 0x5946D0
-	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x5985A0 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
-	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x598720 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
+	virtual void Unknown_70(ControlKeysManager *manager);	// 0x5985A0 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
+	virtual void Unknown_74(ControlKeysManager *manager);	// 0x598720 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x595480 (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_5954C0();								// 0x5954C0 (the destructor expands it: the NAMEnn_TSI03A styles hidden)
 	std::vector<UIGroupMemberClass *>::iterator Get_Member(const std::string &name);	// 0x596090 (the asserts' 'Get_Member(name) != Members.end()')  // NAME 3: the asserts'

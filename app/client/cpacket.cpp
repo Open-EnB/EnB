@@ -855,7 +855,7 @@ bool ColorizationPacketClass::Process_Packet(void *instance)
 		Unknown_Set_Colorization(object, Regions);
 		RenderObjClass *model = object->Unknown_6F3BC0();
 		if (model) {
-			Unknown_80EFF0(model, Regions, sclient->Unknown1338);
+			Unknown_80EFF0(model, Regions, sclient->EnvironmentMapManager);
 			model->Release_Ref();
 		}
 	}

@@ -66,7 +66,7 @@ public:
 	bool Unknown4074;
 };
 static ENBAssetManager BDADC0;
-ENBAssetManager *Unknown_BDADC0 = &BDADC0;
+ENBAssetManager *AssetManager = &BDADC0;
 class UnknownBFAEE0Class
 {
 public:

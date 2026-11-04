@@ -338,7 +338,7 @@ public:
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78
 };
 RenderObjClass *ENBAssetManager::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
-ENBAssetManager *Unknown_BDADC0 = 0;	// 0xBDADC0 (main sets it)
+ENBAssetManager *AssetManager = 0;	// 0xBDADC0 (main sets it)
 
 static int Models_Made = 0;
 static int Models_Alive = 0;
@@ -2061,7 +2061,7 @@ int main(int argc, char **argv)
 	Check(client->Unknown_18() == (int)client, "SClient's slot +0x18 returns the client");
 	// the asset manager (after the SClient, whose constructor runs as before without one)
 	Fake_Assets = new FakeAssetManagerClass;
-	Unknown_BDADC0 = Fake_Assets;
+	AssetManager = Fake_Assets;
 	Check(WW3DAssetManager::Get_Instance() == Fake_Assets, "the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance()");
 	Install_Fake_D3D_Device();	// 0x7511A0 (CLIENT_TYPE 60) flushes DX8Wrapper's resource manager
 

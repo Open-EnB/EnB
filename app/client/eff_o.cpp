@@ -1503,10 +1503,10 @@ EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned i
 	if (swatch[0] != '\0') {
 		char filename[256];
 		sprintf(filename, "%s.w3d", swatch);
-		RenderObjClass *robj = Unknown_BDADC0->Unknown_78(swatch, 1.0f, hsv);
+		RenderObjClass *robj = AssetManager->Unknown_78(swatch, 1.0f, hsv);
 		if (robj == NULL) {
-			Unknown_BDADC0->Load_3D_Assets(filename);
-			robj = Unknown_BDADC0->Unknown_78(swatch, 1.0f, hsv);
+			AssetManager->Load_3D_Assets(filename);
+			robj = AssetManager->Unknown_78(swatch, 1.0f, hsv);
 		}
 		if (robj) {
 			if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
@@ -1554,7 +1554,7 @@ EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned i
 	}
 	if (!pass) {
 		pass = Create_NEW(new MaterialPassClass);
-		TextureClass *texture = Unknown_BDADC0->Get_Texture("missingtexture.tga");
+		TextureClass *texture = AssetManager->Get_Texture("missingtexture.tga");
 		pass->Set_Texture(texture, 0);
 		texture->Release_Ref();
 		pass->Set_Shader(ShaderClass::_PresetOpaqueShader);

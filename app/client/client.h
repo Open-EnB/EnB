@@ -28,6 +28,7 @@
 #include "matrix3d.h"
 #include "..\shared\duration.h"
 class KernelClass;
+class HeightFieldClass;
 class RenderObjClass;
 class SubPartsPacket;
 class PacketClass;
@@ -199,7 +200,7 @@ public:
 	int Unknown1138;									// +0x1138 rand() after srand(timeGetTime())
 	int Unknown113C;									// +0x113C
 	bool ObjectsChanged;								// +0x1140 set by Add_Object / Remove_Object  // NAME 2: what it holds
-	int Unknown1144;									// +0x1144
+	HeightFieldClass *Unknown1144;						// +0x1144: the land's height field (SERVER_PARAMETERS 66 copies LandClass +0x90)
 	SplineDatabaseClass *Splines;						// +0x1148 splines.wsd  // NAME 2: what it holds
 	int Unknown114C;									// +0x114C
 };

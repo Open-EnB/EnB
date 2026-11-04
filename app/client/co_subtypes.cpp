@@ -25,7 +25,7 @@ Unknown70E2E0Class::~Unknown70E2E0Class()
 // 0x70E3B0 (inlined into the next three)
 void Unknown70E2E0Class::Unknown_70E3B0(const Vector3 &pos)
 {
-	HeightFieldClass *field = (HeightFieldClass *)Client->Unknown1144;
+	HeightFieldClass *field = Client->Unknown1144;
 	float height = field->Get_Height(pos);
 	Unknown20C = pos.Z - height;
 }
@@ -159,7 +159,7 @@ void Unknown70E5A0Class::Unknown_20()
 **
 ** Type 24 adds the height above the land's height field (+0x20C), kept by its position and
 ** transform setters and its per-frame update through 0x70E3B0, which VC6 inlines into all three (0x70E3B0 itself has
-** no caller). The height field is the client's +0x1144 (an int in client.h, cast here).
+** no caller). The height field is the client's +0x1144 (client.h's HeightFieldClass *).
 **
 ** Type 28 hangs on a parent object's attachment slot: attaching (+0x14 0x70E780) records the parent's id and captures
 ** the slot's bone (UnknownB02C90Class 0x725A90); SET_TARGET 25 (0x70E750) sets the target; the per-frame update 0x70E850

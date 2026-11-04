@@ -53,7 +53,7 @@ class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct
 typedef SignalBaseClass::MemberCallback<GadgetClass, ClassSelectInterface, void (ClassSelectInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIClassCallbackClass;
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300
-void Unknown_496AE0(RenderObjClass *robj, int a);	// 0x496AE0
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
 void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs; 0x577B80 calls it on each shown sub-object)
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position, 0..1)
 void Unknown_6CDBC0(const char *text, int a);	// 0x6CDBC0

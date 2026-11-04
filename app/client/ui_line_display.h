@@ -201,8 +201,8 @@ public:
 	virtual void Unknown_5C();																// 0x5A6520
 	virtual void Unknown_60();																// 0x5A69B0: shows the next line
 	virtual bool Unknown_68(int key);														// 0x5A70B0: 1 = previous, 2 = next history line
-	virtual void Unknown_70(ControlKeysManagerClass *manager);								// 0x5A6550: registers the history keys
-	virtual void Unknown_74(ControlKeysManagerClass *manager);								// 0x5A6780: removes them
+	virtual void Unknown_70(ControlKeysManager *manager);								// 0x5A6550: registers the history keys
+	virtual void Unknown_74(ControlKeysManager *manager);								// 0x5A6780: removes them
 	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x5A7E80
 
 	std::string Format_Line(const char *text, int count, int index);				// 0x5A72B0: one of count lines, '...' where it was split  // NAME 2: describes what it does

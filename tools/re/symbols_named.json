@@ -612,5 +612,35 @@
   "address": "0x995630",
   "symbol": "?Convert_Vector@W3dUtilityClass@@SAXABVVector3@@PAUIOVector3Struct@@@Z",
   "evidence": "engine-to-file direction: SpherePrototypeClass's constructor from a sphere calls it four times (0x90DD28, 0x90DD36, 0x90DD5C, 0x90DD82; sphereobj.cpp's def_color / def_scale / Center / Extent into Definition) (TW3, run 2026-11-03 pm)"
+ },
+ {
+  "address": "0x515710",
+  "symbol": "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "InterfaceClass's slot +0x70 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x515730",
+  "symbol": "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "InterfaceClass's slot +0x74 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x610780",
+  "symbol": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "UIScutClass's slot +0x70 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x6107C0",
+  "symbol": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "evidence": "UIScutClass's slot +0x74 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
+  "replaces": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+ },
+ {
+  "address": "0x66C470",
+  "symbol": "?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z",
+  "evidence": "RObjGadgetClass's slot +0x90 (the vtable's proof, as before) passes its argument to ro_funcs.cpp's 0x495FD0 as the TextureClass * it takes; ui_chat_panel.cpp calls the slot with a texture (2026-11-03)",
+  "replaces": "?Unknown_90@RObjGadgetClass@@UAEXH@Z"
  }
 ]

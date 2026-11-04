@@ -470,7 +470,7 @@ void UICpitClass::Unknown_5C()
 }
 
 // 0x57F240
-void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
+void UICpitClass::Unknown_70(ControlKeysManager *manager)
 {
 
 
@@ -621,48 +621,48 @@ void UICpitClass::Unknown_70(ControlKeysManagerClass *manager)
 
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Stop", (void *)13, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)9, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)13, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)8, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)13, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", (void *)10, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", (void *)11, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", (void *)12, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)20, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)21, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)19, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)21, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), (void *)16, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), (void *)18, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), (void *)17, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), (void *)18, 0x1000);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)2, 0);
-	((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)3, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Stop", (void *)13, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)9, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", (void *)13, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)8, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", (void *)13, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", (void *)10, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", (void *)11, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", (void *)12, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)20, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", (void *)21, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)19, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), (void *)21, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), (void *)16, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), (void *)18, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), (void *)17, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), (void *)18, 0x1000);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)2, 0);
+	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)3, 0x1000);
 }
 // 0x57FCC0
-void UICpitClass::Unknown_74(ControlKeysManagerClass *manager)
+void UICpitClass::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Stop", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), 0x1000);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), 0);
-	((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Stop", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward", 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward", 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Toggle", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Forward Lock", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Move Backward Lock", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, "Tilt Down", 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Down"), 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Tilt Up"), 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Left"), 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Turn Right"), 0x1000);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), 0);
+	manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), 0x1000);
 }
 
 

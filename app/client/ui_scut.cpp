@@ -127,7 +127,7 @@ UIScutClass::UIScutClass(UIViewClass *view, LayerClass *layer) :
 }
 
 
-void UIScutClass::Unknown_70(ControlKeysManagerClass *manager)
+void UIScutClass::Unknown_70(ControlKeysManager *manager)
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
 		Bars[lp]->Unknown_611300(manager);
@@ -135,7 +135,7 @@ void UIScutClass::Unknown_70(ControlKeysManagerClass *manager)
 }
 
 
-void UIScutClass::Unknown_74(ControlKeysManagerClass *manager)
+void UIScutClass::Unknown_74(ControlKeysManager *manager)
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
 		Bars[lp]->Unknown_611710(manager);
@@ -483,32 +483,32 @@ void UIScutBarClass::Unknown_6112B0()
 
 
 // NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's)
-void UIScutBarClass::Unknown_611300(ControlKeysManagerClass *manager)
+void UIScutBarClass::Unknown_611300(ControlKeysManager *manager)
 {
 	char name[32];
 	int slot = Bar * NUM_SHORTCUT_BUTTONS + 1;
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 		sprintf(name, "Use Slot %d", lp + slot);
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(FirstId + lp), 0);
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(SecondId + lp), 0x1000);
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), (void *)(FirstId + lp), 0x400);
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), (void *)(SecondId + lp), 0x1400);
+		manager->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(FirstId + lp), 0);
+		manager->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, (void *)(SecondId + lp), 0x1000);
+		manager->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), (void *)(FirstId + lp), 0x400);
+		manager->Add_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), (void *)(SecondId + lp), 0x1400);
 	}
 }
 
 
 // NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's)
-void UIScutBarClass::Unknown_611710(ControlKeysManagerClass *manager)
+void UIScutBarClass::Unknown_611710(ControlKeysManager *manager)
 {
 	char name[32];
 	int slot = Bar * NUM_SHORTCUT_BUTTONS + 1;
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 		sprintf(name, "Use Slot %d", lp + slot);
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 1);
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 0);
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x1000);
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x400);
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x1400);
+		manager->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 1);
+		manager->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, name, 0);
+		manager->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x1000);
+		manager->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x400);
+		manager->Remove_Keys((ControlKeyListClass *)Get_Owner()->Unknown4C, std::string(name), 0x1400);
 	}
 }
 

@@ -84,8 +84,8 @@ public:
 	virtual void Unknown_60();							// 0x5630B0 (every frame)
 	virtual bool Unknown_68(int key);					// 0x563280
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x563620 (onto the view with its windows and combos)  // NAME 1 [view, arg]: intrface.h's
-	virtual void Unknown_70(ControlKeysManagerClass *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
-	virtual void Unknown_74(ControlKeysManagerClass *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
+	virtual void Unknown_70(ControlKeysManager *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
+	virtual void Unknown_74(ControlKeysManager *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
 
 	bool Unknown_5638E0(int key);						// 0x5638E0: the chat window's slot +0xB8, false without one  // NAME 1 [key]: neutral
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0; the main view: the target, true)  // NAME 1 [id, flag]: what cpacket.cpp passes

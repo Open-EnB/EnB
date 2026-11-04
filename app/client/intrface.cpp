@@ -195,7 +195,7 @@ void InterfaceClass::Unknown_58()
 		Unknown58.Unknown_686E90();
 		Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
 		ControlKeysManager *manager = ControlKeysManager::Get((ControlKeysSClientClass *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
-		Unknown_70((ControlKeysManagerClass *)manager);
+		Unknown_70(manager);
 		if (manager) {
 			((InterfaceSignalMapClass &)ControlKeysManager::Get_Signal_Map()).Add(manager, this, &InterfaceClass::Unknown_541830);
 		}
@@ -230,7 +230,7 @@ void InterfaceClass::Unknown_5C()
 		if (manager) {
 			((InterfaceSignalMapClass &)ControlKeysManager::Get_Signal_Map()).Remove(manager, this, &InterfaceClass::Unknown_541830, KeysSavedEvent());
 		}
-		Unknown_74((ControlKeysManagerClass *)manager);
+		Unknown_74(manager);
 		Unknown64.Unknown_6872A0(View->Get_Unknown04(), Unknown78);
 		Unknown58.Unknown_686EE0();
 		Active = false;
@@ -400,8 +400,8 @@ void InterfaceClass::Unknown_541830(KeysSavedEvent *event, ControlKeysManager *k
 {
 	FAIL_IF(!key_manager) return;
 	Unknown4C.Unknown_721F80(View->Get_Unknown04(), this);
-	Unknown_74((ControlKeysManagerClass *)key_manager);
-	Unknown_70((ControlKeysManagerClass *)key_manager);
+	Unknown_74(key_manager);
+	Unknown_70(key_manager);
 	Unknown4C.Unknown_721F40(View->Get_Unknown04(), Unknown70, this);
 }
 

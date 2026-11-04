@@ -433,8 +433,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_Debug_Printf("Build: %s %s %s\n", Unknown_445610(), Unknown_445590(), Unknown_445560());
 
 	Unknown_Debug_Begin_Step("initializing the asset manager");
-	Unknown_BDADC0 = new ENBAssetManager;
-	if (Unknown_BDADC0 == NULL) {
+	AssetManager = new ENBAssetManager;
+	if (AssetManager == NULL) {
 		MessageBox(MainWindow, "Unable to initialize the asset manager", "WW3D Error", MB_OK);
 		exit(0);
 	}
@@ -642,7 +642,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	Unknown_Debug_Begin_Step("freeing assets");
-	Unknown_BDADC0->Free_Assets();
+	AssetManager->Free_Assets();
 	Unknown_Debug_End_Step("ok");
 
 	Unknown_Debug_Begin_Step("shutting down the asset manager");

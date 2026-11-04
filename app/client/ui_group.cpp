@@ -1886,22 +1886,22 @@ void UIGroupClass::Unknown_598370()
 
 
 // 0x5985A0
-void UIGroupClass::Unknown_70(ControlKeysManagerClass *manager)
+void UIGroupClass::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	if (!Unknown0F1) {
-		((ControlKeysManager *)manager)->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), (void *)47, 0);
+		manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), (void *)47, 0);
 	}
 }
 
 
 
 // 0x598720
-void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
+void UIGroupClass::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
 	if (!Unknown0F1) {
-		((ControlKeysManager *)manager)->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), 0);
+		manager->Remove_Keys((ControlKeyListClass *)Unknown4C, std::string("Formation"), 0);
 	}
 }
 
@@ -1940,8 +1940,8 @@ void UIGroupClass::Unknown_74(ControlKeysManagerClass *manager)
 **	on before off and reads +0xC0 again for the 0x6603A0 call; Get_Member reads Members.end() in the loop (the
 **	cached form leaves Add_Member's expansion further off); 0x597BF0 writes the disabled case first with its
 **	i == 3 branch on Unknown0C0[2]; 0x5938A0 tests 'Unknown28 == NULL || strcmp' so the inner null test stays.
-**	intrface.h's slots +0x70 / +0x74 take a ControlKeysManagerClass, control_keys_manager.h's class is the
-**	client's ControlKeysManager: the casts are ours.
+**	intrface.h's slots +0x70 / +0x74 take control_keys_manager.h's ControlKeysManager (the client's RTTI;
+**	intrface.h's stand-in ControlKeysManagerClass and its casts went on 2026-11-03).
 **	0x597E40 (not exact, D130): exact only with 6 / 4 / 3 dead size() reads in its three lookup wrappers (13, over
 **	D130's limit of 6; 92a34cb8), so A keeps 6 (its find out of line as the client's 0x5927E0) and B / C none, 0.76;
 **	the stricmp's string through a named local; its argument is a bool (stored in +0xF0 by byte).

@@ -21,7 +21,7 @@
 
 
 
-#define AssetManager Unknown_BDADC0	// NAME 3 [AssetManager]: the asserts' text 'AssetManager' (0x802D30, the destructor)
+// (enbassetmgr.h declares the global as the asserts name it: AssetManager, 0x802D30)
 
 // the screen fade and the letterbox (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F, before scriptedmovieline.cpp's object)
 void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // NAME 1 [on, time]: what Enable_Letterbox passes
@@ -152,7 +152,7 @@ void Unknown_7FF230();	// 0x7FF230 (the file before this one: the screen fade an
 extern bool Unknown_BB9654;	// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
 extern int Unknown_C01290;	// NAME 1: neutral (D10): 300000 while the scripted movie view is up (the constructor), else 0 (the destructor)
 extern RectClass Unknown_C07550;	// NAME 1: neutral (D10) (sclient.cpp's): the text's coordinate range
-#define EnvironmentMapManager Unknown1338	// NAME 3 [EnvironmentMapManager]: the assert's 'sclient->EnvironmentMapManager' (the constructor, l.231)
+// (sclient.h names SClient's +0x1338 as the asserts do: EnvironmentMapManager, the constructor's l.231)
 
 // 0x8000C0: the view: its scene, camera, environment maps and decals (SClient's, or its own without one), the script
 ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, SClientMovieCallbackClass *callback) :

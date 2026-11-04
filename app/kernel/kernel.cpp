@@ -92,7 +92,7 @@ public:
 	char Unknown0000[0x4074];
 	bool Unknown4074;
 };
-extern ENBAssetManager *Unknown_BDADC0;	// NAME 1 [Unknown_BDADC0]: 0xBDADC0
+extern ENBAssetManager *AssetManager;	// NAME 3 [AssetManager]: 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30)
 
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
 
@@ -115,7 +115,7 @@ KernelClass *KernelClass::Get_Instance()
 void KernelClass::Cycle_Focus()
 {
 	Next_Focus();
-	Unknown_BDADC0->Unknown4074 = true;
+	AssetManager->Unknown4074 = true;
 }
 
 // 0x4432A0: unless the focused task keeps the focus, every task shuts down (and is deleted when

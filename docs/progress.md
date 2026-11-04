@@ -4,6 +4,38 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-03 (night): the quiet tree's client-name renames (AssetManager, EnvironmentMapManager, ControlKeysManager) and two retypes; app 9,039 = 9,039, 0 gained, 0 lost
+
+Coordinator Opus 5.5 with the user; no builders. Branch `names/client-names-1103`, base c9403bfe; scratch `.work/cn1/`
+(apply.py, apply2.py, named.py, the verifies' imports.json copies). The user reviewed §4's quiet-tree items: group A
+(client-evidenced renames and types, no code change) now; P-HF-1 left as it is.
+
+- **Renames (client wins, conventions.md §5):** the global 0xBDADC0 `Unknown_BDADC0` -> `AssetManager`
+  (scriptedmovie.cpp's G_ASSERT 'AssetManager' 0x802D30; the user's call over MC3's neutral name; 7 app files and the
+  four test programs' definitions); SClient +0x1338 `Unknown1338` -> `EnvironmentMapManager` (option.cpp's and
+  scriptedmovie.cpp's 'sclient->EnvironmentMapManager'; the class keeps SClientUnknown1338Class); intrface.h's
+  stand-in `ControlKeysManagerClass` -> control_keys_manager.h's `ControlKeysManager` (RTTI): the interface slots
+  +0x70 / +0x74 and their overrides take it, the windows' casts are gone, ui_line_display.cpp's local stand-in class
+  gives way to the header (calls Add_Keys / Remove_Keys; its 6 lines held for the FAIL_IFs). scriptedmovie.cpp's two
+  macros are gone.
+- **Types:** ClientClass +0x1144 is `HeightFieldClass *` (sclient.h's land view +0x90 too: LandClass::Field;
+  co_subtypes.cpp's cast gone). ui_class.cpp's 0x496AE0 takes bool and gd_robj's 0x495FD0 / slot +0x90 a
+  `TextureClass *`, as ro_funcs.cpp defines them (ui_chat_panel.cpp calls the slot with a texture). §4's
+  ui_login / ui_cpit / eff_o declarations already matched (stale bullet deleted).
+- **Verify (app, pool 3):** the first verify lost 4 outright, 0x515710 / 0x515730 (InterfaceClass's empty slots,
+  3 bytes) and 0x610780 / 0x6107C0 (UIScutClass): short functions credited by their symbols.json name, which the
+  renamed parameter type changed (AR2's trap, workflow.md §3.3). `replaces` entries in symbols_named.json for them
+  and gd_robj's 0x66C470, `symbols.py --apply-named`: the second verify 9,039 = baseline, pairs_cmp empty; replay
+  0 files differ. The long renamed functions keep their old mangled names in symbols.json until the next full
+  regeneration (§4).
+- **Harness:** clienttest 103 checks, 0 failed; udpreplay alex3 as before, handshake 54; movietest links. A first
+  clienttest run crashed (0xC0000005, output ending at line 87): it linked the main tree's app.lib from before the
+  rename, whose objects still named `Unknown_BDADC0`, and the second link pass made a NULL stand-in for it (§3.7's
+  "build app before a clienttest link"; for a renamed global it shows as a crash, not a link error). **kerneltest
+  does not link on master either** (c9403bfe, checked in a worktree): ww3d2.lib(ww3d.obj) is pulled in again and
+  clashes with taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins (56d6c356's fix
+  no longer holds; §4).
+
 ### 2026-11-03 (evening, after the handoff): PR #147 verified and merged; prepush_check scans only what a push adds; verify_pr runs only from master
 
 Coordinator Opus 5.5; no builders. Plan log `.work/run-2026-11-03-pm/plan.md`.
@@ -2169,10 +2201,10 @@ below name only the work items, the blocked work, the leads and the queues.
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
   bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
-* **symbols.json** regenerated 2026-10-31 t4 (dc424b62, D173), not yet on master: a follow-up PR after the tools PR
-  teaches vc6-verify accepted corrections (cherry-pick dc424b62; its objects in `.work/sym2/objs/`). Next time: the same procedure (workflow.md §3.4), every
-  `lost outright` checked against the client's vtable layout first. SY1's lead: D100's range (and the self name) could
-  reject a `??_G` / `??_E` whose vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
+* **symbols.json:** the next full regeneration (workflow.md §3.4, every `lost outright` checked against the client's
+  vtable layout first) also renews the 2026-11-03 renames' long functions (still under `ControlKeysManagerClass`
+  mangled names; they match by bytes). SY1's lead: D100's range (and the self name) could reject a `??_G` / `??_E`
+  whose vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
@@ -2183,11 +2215,8 @@ below name only the work items, the blocked work, the leads and the queues.
      is FontSplitStringClass; 0x4FA8F0's 9 other callers and Set_Font 0x4FAAC0's 2 can include
      unknown_font_split_string.h.
    * Client names (client wins): FontStyleClass is the client's `FontSys` (0x6D0A20 calls 'FontSys::Change_Text'
-     0x6CDBC0; rename when loadingview.cpp's stand-in `class FontSys` merges into fontmanager.h, P-FU1-1); the global
-     Unknown_BDADC0 is the client's AssetManager (its assert; scriptedmovie.cpp's #define goes with the rename);
-     SClient::Unknown1338 is EnvironmentMapManager (the client's assert; SClientUnknown1338Class); intrface.h's
-     ControlKeysManagerClass is the client's ControlKeysManager. (TK1: 12 files, sclient.h and seven ui_* pairs; no bytes;
-     a quiet window.)
+     0x6CDBC0; rename when loadingview.cpp's stand-in `class FontSys` merges into fontmanager.h, P-FU1-1; 33 files: its
+     own item, with a full app verify).
    * Merges into real headers: tsk_login.h's CharacterViewUnknown1B4Class is InterfaceClass (intrface.h); P-H9-3 /
      P-H11-1 / P-H12-3 / P-H13-2 / P-T11-1 / P-H18-1 (stand-in names and twins switched to the real headers; Model ->
      RenderObject; LoginUnknown0CClass from inpdsp.h); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
@@ -2198,7 +2227,7 @@ below name only the work items, the blocked work, the leads and the queues.
      before an assert); Unknown_4BE9D0 in a small header of its own (in unknown_message.h, `<string>` costs
      unknown_message_server's 0x4BCB50).
    * Types: P-FU1-2 (ManagedFontClass::Id / FontManagerClass's keys as RenderObjClass * instead of unsigned, with a
-     full app verify); `ClientClass::Unknown1144` as `HeightFieldClass *`; P-SM1-2 (OrbitalManager's ctor takes a
+     full app verify); P-SM1-2 (OrbitalManager's ctor takes a
      shared callback base and ClientClass); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads into
      strconv_lib.h through the aux_roots generator).
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
@@ -2261,8 +2290,6 @@ below name only the work items, the blocked work, the leads and the queues.
      remaining gen first calls (0x82F3C0, 0x496DB0); the in-game users of the movement setters (ui_starbase 0x63A100);
      never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
      ui_registration.cpp's rest (0x5FB030, 0x5FB0C0, 0x5FB750, 0x5FB7A0, 0x5FB890, 0x5FB950, 0x5FB9F0; 0x5FAF60 register),
-     ro_funcs' callers (ui_login.cpp:97, ui_cpit.cpp:46, eff_o.cpp:49) still declare 0x496730 / 0x496AE0 with int
-     parameters where the exact code takes bool, so the POC links gen stand-ins for them: retype the declarations;
      ro_funcs 0x4967F0 (frame) / 0x496960 (rebuild 0x495FD0-0x496620 first for the assert lines), surfacetypes 0x442650
      (frame), unknown_847d20 0x847FE0 (inline-budget);
      ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
@@ -2292,6 +2319,9 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
+   * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
+     tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
+     symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.
    * Tools (from the 2026-10-31 t4 run, TK12, still open): claims.py resolve / check should count attempts.csv
      `exact` (D99) rows as done (mainview's #111 was handed out though LD4 finished it; on 2026-11-01 its per-file
      counts still include the night's D99 rows); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names

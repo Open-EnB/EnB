@@ -894,7 +894,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		return(new Null3DObjClass("NULL"));
 	}
 	if (!ini.Find_Section(section)) {
-		return(Unknown_BDADC0->Create_Render_Obj("missing"));
+		return(AssetManager->Create_Render_Obj("missing"));
 	}
 	if (ini.Get_Bool(section, "OverbrightOff", false)) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
@@ -905,7 +905,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 	if (ini.Is_Present(section, "RSLID")) {
 		int rslid = ini.Get_Int(section, "RSLID", -1);
 		if (rslid == -1 || client == NULL) {
-			return(Unknown_BDADC0->Create_Render_Obj("missing"));
+			return(AssetManager->Create_Render_Obj("missing"));
 		}
 		RenderStateListClass *list = (RenderStateListClass *)client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
 		int link_id = ini.Get_Int(section, "LINKID", -1);
@@ -923,17 +923,17 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		char file[256];
 		ini.Get_String(section, "FILE", "", file, 255);
 		ini.Get_String(section, "NAME", "", name, 255);
-		RenderObjClass *robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		RenderObjClass *robj = AssetManager->Unknown_78(name, scale, hsv);
 		if (robj) {
 			return(robj);
 		}
-		Unknown_BDADC0->Load_3D_Assets(file);
-		robj = Unknown_BDADC0->Unknown_78(name, scale, hsv);
+		AssetManager->Load_3D_Assets(file);
+		robj = AssetManager->Unknown_78(name, scale, hsv);
 		if (robj) {
 			return(robj);
 		}
 		Unknown_4BC260("Base Asset", "", __FILE__, __LINE__, "Could not create render object %s from file %s", name, file);
-		return(Unknown_BDADC0->Create_Render_Obj("missing"));
+		return(AssetManager->Create_Render_Obj("missing"));
 
 
 
