@@ -962,6 +962,12 @@ unless `--lever` cites a new row of this table.
 * **Variants (2026-11-01 evening run, D184 pilot):** a variant that changes a function's line count moves every later `__LINE__` (G_ASSERT / FAIL_IF) in the file: it can look exact and lose later functions (Set_Debug_Mode: -4); `variants.py try` pads or trims each variant to the original line count, and a function can go exact by its assert's line alone (0x7381C0). `try` compares one object's exact set by address: a filter, never verify or pairs_cmp.
 * **Shared work in one tree (2026-11-02 run):** commit_mine with a shared header in "files" takes names-review rows from the working copy (other builders' line shifts): leave the header's rows out and regenerate before the PR; a hunk key equal to a file's stem also matches another builder's importer entry that names that file: use the full key `('app', 'client/x.`. Replacing a stand-in block by a shorter `#include` shifts every later FAIL_IF / G_ASSERT `__LINE__` (FM: 6 ui_login functions lost their pair until padded). `explain.py --n 2` tracebacks with one match.
 
+- **A failed vc6-verify: check where and how often it ran before blaming the PR** (2026-11-03, PR #147). verify_pr.py
+  judges with its own checkout's tools and accepted-corrections.json, so it now refuses off origin/master (PR #149);
+  run it from `.work/wt/verifier`. Two verifies of one PR at once share `.work/wt/prN.vf`: the second drops the first's
+  worktree mid-build and both fail. Low host memory (MSBuild's `.NET Host` workers: `dotnet build-server shutdown`)
+  shows as compile errors.
+
 ### 3.5 Build VMs and vc6.py
 
 * **`appfile.py match --pool` can return another builder's object** (2026-10-31, TK14: ui_avatar_cust.obj's functions,
