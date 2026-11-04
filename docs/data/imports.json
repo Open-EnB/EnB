@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 112,
+  "ambiguous_total": 113,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -24548,8 +24548,10 @@
      "0x42B2F0",
      "0x4333A0",
      "0x4333D0",
+     "0x436730",
      "0x436980",
      "0x439C40",
+     "0x4A0B20",
      "0x4ACBB0",
      "0x4ACF00",
      "0x604130",
@@ -24576,6 +24578,7 @@
      "0x472C80",
      "0x48E910",
      "0x4B5740",
+     "0x4CBA10",
      "0x4E2CC0",
      "0x510CC0",
      "0x553A60",
@@ -24633,7 +24636,8 @@
      "0x60BF10",
      "0x60C9C0",
      "0x60CCC0",
-     "0x60D420"
+     "0x60D420",
+     "0x818E90"
     ],
     "merged": [],
     "name": "client/ui_registration.cpp",
@@ -27271,7 +27275,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9291,
+  "in_tree_total": 9293,
   "totals": {}
  },
  "binkmovie": {

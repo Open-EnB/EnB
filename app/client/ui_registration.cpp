@@ -21,6 +21,8 @@
 
 extern FontManagerClass *Unknown_BE67C4;  // NAME 1: 0xBE67C4
 
+static const char *ProductEB = "EB";  // NAME 1 [ProductEB]: client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it)
+static const char *ProductTrial = "EB-TRIAL";  // NAME 1 [ProductTrial]: client .data 0xB85EF4 (0x5FA0B0)
 static const char *RegDataFile = "RG_REGDATA.INI";  // NAME 1 [RegDataFile]: client .data 0xB85EF8 (0x5F8FD0's INIClass)
 static const char *RegistrationKey = "Software\\Westwood Studios\\Earth and Beyond\\Registration";  // NAME 1 [RegistrationKey]: client .data 0xB85EFC
 static const char *RegistrationServerError = "Could not communicate with registration server.\nPlease try again later.";  // NAME 1 [RegistrationServerError]: client .data 0xB85F00
@@ -216,8 +218,9 @@ public:
 	char Unknown1B4[0x1C9 - 0x1B4];
 	bool Unknown1C9;			// +0x1C9 (0x5FA900: +0x208 handed to 0x7D4E30 when set, else 0)
 	char Unknown1CA[0x1CD - 0x1CA];
-	bool Unknown1CD;			// +0x1CD: written as 'Trial' (0x5FAC90)
-	char Unknown1CE[0x1D0 - 0x1CE];
+	bool Unknown1CD;			// +0x1CD: written as 'Trial' (0x5FAC90); 0x5FA0B0 sets it when it picks an 'EB-TRIAL' entry
+	char Unknown1CE;
+	bool Unknown1CF;			// +0x1CF (0x5FA0B0: the 'EB-TRIAL' entry is taken when clear, or with +0x11D)
 	bool Unknown1D0;			// +0x1D0 (0x5FA900 sets it)
 	bool Unknown1D1;			// +0x1D1 (0x5FA900: set or +0x1D3 set, 0x7D5600 instead of 0x7D4E30)
 	char Unknown1D2;
@@ -229,7 +232,9 @@ public:
 	std::string Unknown208;		// +0x208 (0x5FA900: 0x7D4E30's fourth argument)
 	char Unknown218[0x238 - 0x218];
 	std::string Unknown238;		// +0x238 (0x5FA900: through 0x5FB330 to 0x7D9790)
-	char Unknown248[0x328 - 0x248];
+	char Unknown248[0x270 - 0x248];
+	RegistrationUnknown578Struct Unknown270;	// +0x270: +0x578's 'EB-TRIAL' entry (0x5FA0B0)
+	RegistrationUnknown578Struct Unknown2CC;	// +0x2CC: the 'EB' entry offering payment type 3 (0x5FA0B0)
 	RegistrationUnknown578Struct Unknown328;	// +0x328: +0x588's first after the sort (0x5FA5F0); 0x5FA900 hands +0x00 and +0x4C's [0] (the out-of-line operator[] 0x604130) to 0x7D9790
 	char Unknown384[0x38C - 0x384];
 	int Unknown38C;				// +0x38C: the id 0x5F9C90 looks for
@@ -252,6 +257,7 @@ public:
 	void Unknown_5F9A90();
 	void Unknown_5F9C90();
 	void Unknown_5F9EB0();
+	void Unknown_5FA0B0();
 	void Unknown_5FA5F0();
 	bool Unknown_5FA900();
 	void Unknown_5FAC90();
@@ -2328,12 +2334,6 @@ void RegistrationInterface::Unknown_5F9C90()
 
 
 
-
-
-
-
-
-
 // @0x5F9EB0
 void RegistrationInterface::Unknown_5F9EB0()
 {
@@ -2341,6 +2341,47 @@ void RegistrationInterface::Unknown_5F9EB0()
 		const char *typetext = PaymentTypeNames[*it];
 		G_ASSERT(typetext);
 		Unknown108[0x2A].Combo->Unknown_57B000(typetext);
+	}
+}
+
+// NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare)
+// @0x5FA0B0
+void RegistrationInterface::Unknown_5FA0B0()
+{
+	Unknown578 = Unknown1AC->Unknown_7D3570();
+	Unknown598.clear();
+	std::sort(Unknown578.begin(), Unknown578.end());
+	std::vector<RegistrationUnknown578Struct>::iterator it = Unknown578.begin();
+	Unknown1CD = false;
+	while (it != Unknown578.end()) {
+		bool found = false;
+		if ((*it).Unknown10 == ProductTrial && (!Unknown1CF || Unknown11D)) {
+			Unknown1CD = true;
+			Unknown270 = *it;
+			Unknown38C = 1;
+			return;
+		}
+		if ((*it).Unknown10 == ProductEB) {
+			for (std::vector<int>::iterator type = (*it).Unknown4C.begin(); type != (*it).Unknown4C.end(); type++) {
+				if (PaymentTypeNames[*type]) {
+					if (std::find(Unknown598.begin(), Unknown598.end(), *type) == Unknown598.end()) {
+						if (*type == 3) {
+							Unknown2CC = *it;
+						}
+						Unknown598.push_back(*type);
+					}
+					found = true;
+				}
+			}
+		}
+		if (!found) {
+			it = Unknown578.erase(it);
+		} else {
+			it++;
+		}
+	}
+	if (Unknown598.size() != 0) {
+		Unknown598.push_back(5);
 	}
 }
 
@@ -2821,47 +2862,6 @@ std::string RegistrationInterface::Unknown_5FB540(std::string str)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x5FB750
 bool RegistrationInterface::Unknown_5FB750(const char *test)
 {
@@ -3005,4 +3005,13 @@ void RegistrationInterface::Unknown_5F0100()
 **	  RegistrationUnknown578Struct is four strings, three ints and the id vector.
 **	- 0x5F8FD0 (byte-exact): RG_REGDATA.INI ([Connection], [Settings], [Countries] into +0xAC, [CardPrefixes]
 **	  into +0x88). The key buffer is char[15] (with [16] the INIClass and the buffer swap stack slots).
+**	- 0x5FA0B0 (functional): +0x578 = 0x7D3570's entries, +0x598 cleared, sorted; an 'EB-TRIAL' entry (taken
+**	  while +0x1CF is clear or +0x11D set) goes to +0x270 with +0x1CD and +0x38C = 1; 'EB' entries add their
+**	  payment types with a name (0xB86048) to +0x598 (type 3's entry to +0x2CC); the others are erased; a non-empty
+**	  +0x598 gets 5 appended. The string compares are operator== (the client calls compare(const char *) 0x4CBA10
+**	  out of line); the residue is register choice in the inlined operator= into +0x2CC.
+**	- 0x600000 (not written): the reply handler, a switch on StatusIndex (+0x1B0, this at +0x84) with shared tails;
+**	  its case 1 copies 0x7D21C0's account record into +0x3C4 (five strings in a loop, so +0x3C4 starts with a
+**	  std::string[5]; ints +0x50..+0x58, strings +0x5C / +0x6C, bytes +0x7C / +0x7D, short +0x7E, +0x80, bytes
+**	  +0x90 / +0x91, two more strings).
 */
