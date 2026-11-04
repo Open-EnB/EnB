@@ -2352,8 +2352,11 @@ below name only the work items, the blocked work, the leads and the queues.
      unknown_message_server's 0x4BCB50).
    * Types: FontSys's constructors 0x6D47C0 / 0x6D4C70 and ManagedFontClass::Unknown_6CF930 still take the render object
      as an integer (fontmanager.cpp casts ManagedFontClass::Id for them since P-FU1-2); P-SM1-2 (OrbitalManager's ctor takes a
-     shared callback base and ClientClass); P-T12-2 (aux_roots.h's bool `Type_Name` / `String_To_Value` overloads into
-     strconv_lib.h through the aux_roots generator).
+     shared callback base and ClientClass). strconv (STRC, 2026-11-04): unknown_root.cpp (~line 166) and the importer's
+     unknown_root evidence still give the root object 0x4A3990-0x4A3B10 (strconv_lib.cpp's now: the root starts at 0x4A3B40;
+     D57's range likewise); the char / long / __int64 / Vector3 conversions are declared where used (avatar_desc.cpp,
+     unknown_packetdata.h, co_player_relationship.cpp, eff_o.cpp): into strconv_lib.h with a pad sweep;
+     co_player_relationship.cpp:17's comment has `"%f %f %f"`, the client's format is `"%f,%f,%f"`.
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
      file or sclient 0x7472A0's, when 0x737960 is rebuilt; RenderHookClass's 7-byte destructor 0x6F36F0 wants a D99
      exact row; docs/attempts/726100's stash still says `new PxClass` (PxList); asserts.txt files px.cpp's
@@ -2379,7 +2382,13 @@ below name only the work items, the blocked work, the leads and the queues.
      0x5603E0-0x5608BF exact): 0x5738B0 can include ui_bio.h. ui_buff.cpp (0x5608D0-0x561DC0; ui_chat_panel starts at
      0x561DD0): 0x561030 / 0x5615C0 functional, inline budget (the client calls auxdata.h's find 0x561C40 / ~vector 0x561B80
      out of line; string::assign out of line for the first two strings); gd_buffgadg.cpp (0x665180-0x666470) would give
-     ui_buff.cpp's local gadget stand-ins their real header. The 0x674260 gadget is declared twice (ui_cpit's UICpitGadget674260Class, ui_bio's
+     ui_buff.cpp's local gadget stand-ins their real header: done by GADG (2026-11-04, gd_buffgadg.cpp / .h, 0x665150-0x666570),
+     so ui_buff.cpp switches to gd_buffgadg.h (GADG's report in the 2026-11-04 plan log: BuffElementStruct / BuffInfoStruct /
+     BuffGadgetClass, the element layout ExpirationTime +0x20, Magnitude +0x28, IsActive +0x2C, the gadget's base
+     Unknown_671300Class, `(ClientClass *)Client`). gd_buffgadg NOT EXACT: 0x665940 / 0x667A60 / 0x667230 (one inline-budget
+     cause: basic_string::assign out of line), 0x6656A0 / 0x6661F0 (register), 0x665F20 (frame). Leads: `operator>` for
+     duration.h (0x667950 / 0x6661F0 compare `.Time >`; re-sweep auxpad.py after, P-MV2-3); Unknown_671300Class's own header
+     for ui_avatr / ui_avatar_cust / gd_buffgadg once its file is found (near gd_slot_data.cpp). The 0x674260 gadget is declared twice (ui_cpit's UICpitGadget674260Class, ui_bio's
      UIBioGadget674260Class): one interim header (unknown_674260.h) when a third user appears or its file is found.
      ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
    * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
@@ -2405,7 +2414,9 @@ below name only the work items, the blocked work, the leads and the queues.
      `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
      edit (their partial GalaxyMapClientClass declarations).
    * From the 2026-11-01 night run (html, galaxy map; HV2, GM2): htmlview's parser 0x7710D0 (18 KB, assert line
-     926, gap left for it; its template copies 0x778CF0-0x779120), Hit_Test 0x7772C0 0.77 (order), Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
+     926, gap left for it; its template copies 0x778CF0-0x779120; frame 0x298 vs the client's 0x284 since D185's bef21977:
+     find the inlined copies adding 0x14, then fix line 469's stale "0x27C" comment), Hit_Test 0x7772C0 0.77 (order) and
+     Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
@@ -2450,10 +2461,7 @@ below name only the work items, the blocked work, the leads and the queues.
      0x6B71E0 / 0x6D80A0); dynamic windows' Set_Alignment; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070
      (register); htmlview Parse exact (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it.
      Files next to today's: gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
-     vtable 0xAFAB64), interface_scene's 0x6DAD40, 0x5603E0-0x5608A0 ('fa_bio.ini' / 'TSI10A', not ui_avsel's), the strconv
-     conversions 0x4A30A0-0x4A3640 (P-GC-2: a separate object; claim 0x4A30A0-0x4A3AE0, interim file, delete their stubs),
-     HtmlBlockClass renames (LineStartX +0x1BC, ContentWidth / ContentHeight +0x1C0 / +0x1C4, HtmlLinkStruct::Url ->
-     MimeType). Header merges: gadget.h's GadgetUnknown08Struct and ui_scut's local GadgetClass are RObjGadgetClass;
+     vtable 0xAFAB64), interface_scene's 0x6DAD40. Header merges: gadget.h's GadgetUnknown08Struct and ui_scut's local GadgetClass are RObjGadgetClass;
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
@@ -2463,8 +2471,10 @@ below name only the work items, the blocked work, the leads and the queues.
      `bool`: a different mangled name, so it stays a gen); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
      ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (inline-budget 0.80: argument
-     / prologue order, dead `size()` reads) and its parked rows (0x575D50 order 0.91, 0x575660, 0x5746C0, 0x576270, ctor frame), ShipPip 0x80C640 / 0x80CA30 /
-     0x80CE10 / 0x80D5E0 / 0x80E260 / 0x80E530; the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
+     / prologue order, dead `size()` reads) and its parked rows (0x575D50 order 0.91, 0x575660, 0x5746C0, 0x576270, ctor frame), ShipPip (PIP, 2026-11-04) 0x80CE10
+     0.83 (frame: the trackball's Matrix3D inverse / Quaternion slots), 0x80D5E0 0.65 (literal: FPU order of Translate(-center)),
+     0x80CA30 0.62 (frame 0x48 vs 0x44: the clamp's min / max), 0x80C640 0.50 (frame 0xA0 vs 0x74: a Matrix3D temporary for +0x6C,
+     the bone index in ebp), avatar 0x77D9F0 (shape); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
      0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
