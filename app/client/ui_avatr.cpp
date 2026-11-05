@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_avatr.cpp. Notes at the end of the file.
 #include "sclient.h"
 #include "rendobj.h"
+#include "ww3d.h"
 #include "texture.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
@@ -37,9 +38,12 @@ public:
 	static void Destroy(GadgetClass *del_me);			// 0x65EED0 (gadget.h's)  // NAME 2 [del_me]: gadget.h's
 
 	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(bool indicator, UIViewClass *view); void Unknown_6607D0(); void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
-	char Unknown04[0x2C - 0x04];						// +0x04
-	unsigned int Unknown2C;								// +0x2C (0x556290 sets 0x400)
+	void Unknown_6603A0(bool indicator, UIViewClass *view); void Unknown_6607D0(); void Unknown_6608F0(); bool Is_Unknown2C_02() { return(Unknown2C_02); } void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
+	char Unknown04[0x20 - 0x04];						// +0x04
+	void *Flash;										// +0x20 (gadget.h's GadgetFlashStruct *: 0x55C280 tests it)  // NAME 3: gadget.h's
+	char Unknown24[0x2C - 0x24];						// +0x24
+	union { unsigned int Unknown2C; struct { unsigned int Unknown2C_00 : 2; unsigned int Unknown2C_02 : 1; }; };	// +0x2C (0x556290 sets 0x400; bit 2 under the pointer: 0x55C280)  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown30;							// +0x30 (the gadget's model: 0x55BAC0 turns it)
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as far as 0x556290 makes it
@@ -48,7 +52,7 @@ class UIAvatrGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
 public:
 	void Unknown_671630();	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
 
-	char Unknown30[0x64 - 0x30]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x30; +0x64 / +0x65 the left / right button held (0x671570)
+	char Unknown34[0x64 - 0x34]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x34; +0x64 / +0x65 the left / right button held (0x671570)
 };
 
 // A gadget with its pull model (0x10 bytes, constructor 0x585920; the window's +0x160 / +0x16C / +0x180)
@@ -71,13 +75,13 @@ public:
 	float Unknown0C;									// +0x0C (0.5)
 };
 
-// What 0x5860B0 returns (avatar.cpp's neighbourhood: five blend weights from a point in 0 .. 1)
-struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
-{
-	UIAvatrWeightsStruct() {}
-	float Weight[5];									// NAME 1: neutral
-};
-UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
+// 0x5860B0 (unknown_585920.cpp): five blend weights from a point in 0 .. 1, written through its first argument
+// (the client's 0x5860B0 reads the pointer from its first slot and returns nothing in eax)
+
+
+
+
+void Unknown_5860B0(float *weights, Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, weights, uv]: neutral (D10)
 extern RandomClass Unknown_BDBB84; extern GadgetClass *Unknown_BE5F24; extern GadgetClass *Unknown_BE5F28; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
 
 // The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
@@ -180,7 +184,7 @@ public:
 	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
 	bool Unknown1CD;									// +0x1CD (Unknown1CC[1])
 	char Unknown1CE[0x3A4 - 0x1CE];						// +0x1CE
-	EnvironmentMapManagerClass *Unknown3A4;				// +0x3A4 'envmaps.ini'
+	EnvironmentMapManagerClass *Unknown3A4;	EnvironmentMapManagerClass *Peek_Unknown3A4() { return(Unknown3A4); }	// +0x3A4 'envmaps.ini' (0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Peek_Unknown3A4]: neutral (D10)
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -245,15 +249,15 @@ public:
 	virtual void Unknown_78();							// +0x78 (0x554D60)
 	virtual void Unknown_7C(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
 	virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x84 0x80CA30  // NAME 1 [avatar]: neutral
+	virtual void Unknown_84(const RefCountPtr<RenderObjClass> &model);	// +0x84 0x80CA30 (ship_pip.h's: the model replaced; the avatar goes through a converted temporary)  // NAME 1 [model]: ship_pip.h's
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
 	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
 	virtual void Unknown_8C();							// +0x8C
 
 	char Unknown04[0x54 - 0x04];						// +0x04
-	UIAvatrUnknown094Unknown054Struct *Unknown054;		// +0x54
+	UIAvatrUnknown094Unknown054Struct *Unknown054;	UIAvatrUnknown094Unknown054Struct *Get_Avatar() { return(Unknown054); }	// +0x54 (0x556B20 reads it through the inline getter)  // NAME 1 [Get_Avatar]: neutral (D10)
 	char Unknown58[0xB8 - 0x58]; float Unknown0B8; float Unknown0BC; float Unknown0C0; float Unknown0C4; float Unknown0C8; char Unknown0CC[0xDC - 0xCC];	// +0x58; +0xB8 .. +0xC8 the turn, pan and zoom rates (0x556F80; ship_pip.cpp's 0x80CE10 reads them)
-	bool Unknown0DC;									// +0xDC (set on the head tab)
+	bool Unknown0DC;	void Set_Unknown0DC(bool on) { Unknown0DC = on; }	// +0xDC (set on the head tab, through the inline setter: 0x556B20's eax for the store)  // NAME 1 [Set_Unknown0DC]: neutral (D10)
 	char Unknown0DD[0xF4 - 0xDD];						// +0xDD (ship_pip.h's: 0xF4 bytes; the constructor writes +0xEC / +0xF0)
 };
 
@@ -267,7 +271,7 @@ class FontStringFilesClass { public: void Load(const char *name); void Unload(co
 // The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58) and what 0x65ECE0 returns
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass UIAvatrCallbackBaseClass;	// NAME 1 [UIAvatrCallbackBaseClass]: neutral (D10)
-class FlashingGadgetEvent;	// the client's RTTI (.?AVFlashingGadgetEvent@@)
+class FlashingGadgetEvent { public: GadgetClass *Gadget; };	// the client's RTTI (.?AVFlashingGadgetEvent@@); gadget.h's (+0x00 the gadget: 0x55C280)  // NAME 1 [Gadget]: gadget.h's
 
 
 
@@ -348,7 +352,7 @@ public:
 	void Unknown_585CF0(int choice);					// 0x585CF0  // NAME 1 [choice]: neutral
 	void Unknown_585D10();								// 0x585D10 (+0x20: how many choices exist)
 	char Unknown00[0x18];								// +0x00
-	int Unknown18;										// +0x18 (the choice)
+	int Unknown18;	int Get_Unknown18() { return(Unknown18); }	// +0x18 (the choice; 0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Get_Unknown18]: neutral (D10)
 	char Unknown1C[0x20 - 0x1C];						// +0x1C
 	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
 };
@@ -376,7 +380,7 @@ public:
 	void Unknown_556290();								// 0x556290 (the body and head pulls made)
 	void Unknown_556630(int tab, bool on);				// 0x556630 (a tab's gadgets and texts shown or hidden: 0 none, 1 head, 2 body)  // NAME 1 [tab, on]: neutral
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
-	void Unknown_55A550(int a, float b, float c, float d);	// 0x55A550 (ids 0x2E .. 0x31: +-0.05 in c or d) (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
+	void Unknown_55A550(int a, bool random, float c, float d);	// 0x55A550 (ids 0x2E .. 0x31: +-0.05 in c or d) (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B650();								// 0x55B650 (0x55B110, last)
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
@@ -669,7 +673,13 @@ void AvatarCreationInterface::Unknown_60()
 	Unknown094->Unknown054->Unknown_1C4();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails)
+// NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F
+// (585CC0 / 585C90, no `key ==` test) and shares its sound tails; it calls basic_string's assign out of line for the
+// six tutorial names (Unknown_67C920 takes a std::string by value: _Tidy(false) + assign(s, len), both out of line)
+// where VC6 here inlines assign. Dead desc.Peek()s after the switch show the budget: 12 nothing, 18-24 give 0.64
+// (assign out of line), 30+ 0.61; far over D130's six, so the client spent it in forms not found yet (the strings,
+// the tutorial manager or the conversions to RefCountPtr<RenderObjClass>). attempts.py show 0x554E80
+// (the cases' tails shared as the client's)
 // 0x554E80
 bool AvatarCreationInterface::Unknown_68(int key)
 {
@@ -750,41 +760,35 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown_5591E0(2);
 			break;
 		case 0x16:
+			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc); break;
 		case 0x17:
-			if (key == 0x16) Unknown2DC->Unknown_585CC0(); else Unknown2DC->Unknown_585C90();
-			desc->Unknown_77F000(Unknown2DC->Unknown18);
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc); break;
 		case 0x18:
+			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown094->Unknown_84(desc); break;
 		case 0x19:
-			if (key == 0x18) Unknown2E8->Unknown_585CC0(); else Unknown2E8->Unknown_585C90();
-			desc->Unknown_7857D0(Unknown2E8->Unknown18);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown094->Unknown_84(desc); break;
 		case 0x1A:
+			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown094->Unknown_84(desc); break;
 		case 0x1B:
-			if (key == 0x1A) Unknown2EC->Unknown_585CC0(); else Unknown2EC->Unknown_585C90();
-			desc->Unknown_7859F0(Unknown2EC->Unknown18);
-			Unknown_55B2D0();
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown094->Unknown_84(desc); break;
 		case 0x1C:
+			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1D:
-			if (key == 0x1C) Unknown2F0->Unknown_585CC0(); else Unknown2F0->Unknown_585C90();
-			desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1);
-			TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1E:
+			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1F:
-			if (key == 0x1E) Unknown2F4->Unknown_585CC0(); else Unknown2F4->Unknown_585C90();
-			desc->Unknown_77FC90(Unknown2F4->Unknown18, 1);
-			TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x20:
 		case 0x21:
 			Unknown_Set_Palette("fa_avatar_color.tga");
@@ -981,7 +985,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 	}
 }
 
-// NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20)
+// The tab switch (as ui_avatar_cust.cpp's 0x54DFE0): the palette helper's two ~RefCountPtr out of line (0x4740B0) in both inlined copies
 // 0x556B20
 void AvatarCreationInterface::Unknown_556B20(int tab)
 {
@@ -998,11 +1002,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown_556630(0, true);
 			if (frame) frame->Set_Hidden(true);
 			Unknown_55B110(0x20);
-			Unknown094->Unknown0DC = false;
+			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = false;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; }
 			break;
 		case 1:
 			Unknown_556630(0, false);
@@ -1013,11 +1017,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_55B110(0x20);
 			Unknown_Set_Palette("fa_avatar_color.tga");
-			Unknown094->Unknown0DC = true;
+			Unknown094->Set_Unknown0DC(true);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = true;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = true;
+			avatar->Unknown214 = true; }
 			break;
 		case 2:
 			Unknown_556630(0, false);
@@ -1027,11 +1031,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_55B110(0x2A);
 			Unknown_Set_Palette("fa_avatar_color.tga");
-			Unknown094->Unknown0DC = false;
+			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = false;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; } frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the palette helper's copies call their ~RefCountPtr out of line (5 too few)
 			break;
 	}
 }
@@ -1060,10 +1064,10 @@ void AvatarCreationInterface::Unknown_558060()
 	Vector2 uv;
 	uv.X = Unknown_BDBB84(0, 100) * 0.01f;
 	uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
-	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
-	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
-	Unknown08C->Peek_Unknown194()->Unknown_77E900(body.Weight);
-	Unknown08C->Peek_Unknown194()->Unknown_77E830(face.Weight);
+	float body[5]; Unknown_5860B0(body, uv);
+	float face[5]; Unknown_5860B0(face, uv);
+	Unknown08C->Peek_Unknown194()->Unknown_77E900(body);
+	Unknown08C->Peek_Unknown194()->Unknown_77E830(face);
 	Unknown164 = uv;
 }
 
@@ -1101,12 +1105,12 @@ void AvatarCreationInterface::Unknown_5598D0()
 	if (Unknown094) Unknown094->Unknown_40(false);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x559350 (the avatar's Desc at +0xF8, avatar.h's)
+// The avatar's Desc through avatar.h's Get_Desc, out of line in the client (0x559490, emitted here)
 // 0x559350
 void AvatarCreationInterface::Unknown_559350()
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	Unknown08C->Unknown_5594B0(*(AvatarDescClass *)((char *)desc.Peek() + 0xF8));
+	Unknown08C->Unknown_5594B0(*desc->Get_Desc());
 	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Desc.Gender);
 	Unknown08C->Unknown_67C310(&Unknown164, desc->Desc.Gender);
 	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Desc.Gender);
@@ -1155,7 +1159,7 @@ void AvatarCreationInterface::Unknown_559F30()
 static const char *UIAvatrGenders[2] = { "AM", "AF" };	// 0xB7B114: the models' gender prefix  // NAME 1: neutral (D10)
 static const char *UIAvatrRaces[3] = { "T", "J", "P" };		// 0xB7B11C: the models' race prefix  // NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), from the client's 0x559900
+// The seven choosers from the model, their names from the gender and race read at each use (the client keeps no locals)
 // 0x559900
 void AvatarCreationInterface::Unknown_559900()
 {
@@ -1164,33 +1168,33 @@ void AvatarCreationInterface::Unknown_559900()
 	Unknown_559F30();
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	const char *gender = UIAvatrGenders[desc->Desc.Gender];
-	const char *race = UIAvatrRaces[desc->Desc.Race];
-	_snprintf(name, sizeof(name), "%s%shead", gender, race);
+
+
+	_snprintf(name, sizeof(name), "%s%shead", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2DC = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HEAD", false);
 	Unknown2DC->Unknown_585CF0(desc->Desc.Head_Type);
 	Unknown2DC->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%shair", gender, race);
+	_snprintf(name, sizeof(name), "%s%shair", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HAIR", false);
 	Unknown2E0->Unknown_585CF0(desc->Desc.Hair_Num);
 	Unknown2E0->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sbeard", gender, race);
+	_snprintf(name, sizeof(name), "%s%sbeard", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "BEARD", false);
 	Unknown2E4->Unknown_585CF0(desc->Desc.Beard_Num);
 	Unknown2E4->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%shead%02d", gender, race, desc->Desc.Head_Type);
-	_snprintf(texture, sizeof(texture), "%s%sFACETEX", gender, race);
+	_snprintf(name, sizeof(name), "%s%shead%02d", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race], desc->Desc.Head_Type);
+	_snprintf(texture, sizeof(texture), "%s%sFACETEX", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E8 = new UIAvatrUnknown2ECStruct(model.Peek(), name, texture, "FACE", false);
 	Unknown2E8->Unknown_585CF0(desc->Desc.Head_Texture_Num);
 	Unknown2E8->Unknown_585D10();
 	Unknown2EC = new UIAvatrUnknown2ECStruct(model.Peek(), NULL, "atattoo", "TATTOO", false);
 	Unknown2EC->Unknown_585CF0(desc->Desc.Tattoo_Texture_Num);
 	Unknown2EC->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sGOGGLE", gender, race);
+	_snprintf(name, sizeof(name), "%s%sGOGGLE", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2F0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EYE", false);
 	Unknown2F0->Unknown_585CF0(desc->Desc.Goggle_Num);
 	Unknown2F0->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sEAR", gender, race);
+	_snprintf(name, sizeof(name), "%s%sEAR", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2F4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EAR", false);
 	Unknown2F4->Unknown_585CF0(desc->Desc.Ear_Num);
 	Unknown2F4->Unknown_585D10();
@@ -1244,6 +1248,40 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 	Unknown_55B650();
 }
 
+// As ui_avatar_cust.cpp's 0x5502F0: the last test reads zoom (the client's reload of zoom's slot), not movable
+// 0x55B2D0
+void AvatarCreationInterface::Unknown_55B2D0()
+{
+	AvatarDescClass desc(Unknown08C->Peek_Unknown194()->Desc);
+	bool movable;
+	int scale;
+	desc.Get_Facial_Feature(movable, scale);
+	Unknown17C = (float)scale;
+	if (Unknown088 == 1) {
+		Unknown16C->Gadget->Unknown_40(movable);
+		Unknown16C->Gadget->Unknown_8C(!movable);
+		Unknown16C->Pull->Set_Hidden(!movable);
+		if (!movable) {
+			Unknown170 = 0.5f;
+			Unknown174 = 0.5f;
+		}
+		bool zoom = true;
+		if (!(Unknown17C > 1.0f)) {
+			zoom = false;
+		}
+		Unknown098[33]->Unknown_40(zoom);
+		Unknown098[33]->Unknown_8C(!zoom);
+		Unknown098[34]->Unknown_40(zoom);
+		Unknown098[34]->Unknown_8C(!zoom);
+		if (!zoom) {
+			Unknown178 = 1.0f;
+		}
+	}
+	Unknown178 = WWMath::Min(Unknown178, Unknown17C);
+	Unknown178 = WWMath::Max(Unknown178, 0.5f);
+	Unknown_55B540(0);
+}
+
 // 0x55B540
 void AvatarCreationInterface::Unknown_55B540(int zoom)
 {
@@ -1262,6 +1300,51 @@ void AvatarCreationInterface::Unknown_55B540(int zoom)
 		Unknown098[33]->Unknown_40(true);
 	}
 	Unknown_55A550(1, 0, 0, 0);
+}
+
+// NOT EXACT: inline-budget (as ui_avatar_cust.cpp's 0x550A10: the client calls the third temporary's ~RefCountPtr 0x4740B0 out of line and holds 0 in ebx)
+// 0x55BAC0
+void AvatarCreationInterface::Unknown_55BAC0()
+{
+	if (Unknown088 != 2) {
+		return;
+	}
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	float slow = time * 0.3f;
+	float fast = time + time;
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown098[47]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		if (Unknown1C0 == 0) {
+			tm.Rotate_Y(fast);
+		} else {
+			tm.Rotate_Y(slow);
+		}
+		model->Set_Transform(tm);
+		Unknown098[47]->Unknown_6608F0();
+	}
+	model = Unknown_497300(Unknown098[48]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		float angle = slow;
+		if (Unknown1C0 == 1) {
+			angle = fast;
+		}
+		tm.Rotate_Y(angle);
+		model->Set_Transform(tm);
+		Unknown098[48]->Unknown_6608F0();
+	}
+	model = Unknown_497300(Unknown098[49]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		float angle = slow;
+		if (Unknown1C0 == 2) {
+			angle = fast;
+		}
+		tm.Rotate_Y(angle);
+		model->Set_Transform(tm);
+		Unknown098[49]->Unknown_6608F0();
+	}
 }
 
 // 0x55C350 (after the FAIL_IFs of 0x55C280, lines 2207 / 2211, in the client; no caller: 0x556B20 inlines it)
@@ -1315,47 +1398,48 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	0x558170 (a random head type and scale; the type count read into a local first) exact.
 **	0x559F30 (the seven +0x2DC .. +0x2F4 objects deleted, destructor 0x585BF0) exact.
 **	0x55B110 (the button 0x20 .. 0x22 / 0x2A .. 0x2D into +0x1BC, +0x1C0 from the +0x194 object) exact.
+**	CS1 (2026-11-04): 0x55C280 (the flash callback, padded to its FAIL_IF lines) exact; 0x55B2D0 and 0x55BAC0 NOT EXACT (the POC's last avatar-screen gens).
 */
 
-// NOT EXACT: functional (D64), from the client's 0x558D30 (inline-budget: the client's RefCountPtr temporaries)
+// Both types read up front, the step as --x < 0; the envmaps through the inline Peek_Unknown3A4() (the client's eax / edx)
 // 0x558D30
 void AvatarCreationInterface::Unknown_558D30(int dir)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	int num = desc->Desc.Body_Type;
+	int body = desc->Desc.Body_Type;
+	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
-		num = (num + 1) % 3;
+		body = (body + 1) % 3;
 	} else if (dir == 1) {
-		num--;
-		if (num < 0) {
-			num = 2;
+		if (--body < 0) {
+			body = 2;
 		}
 	}
-	desc->Unknown_77E9D0(num, desc->Desc.Pants_Type, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_77E9D0(body, pants, true);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x558EA0 (inline-budget: the client's RefCountPtr temporaries)
+// As 0x558D30's
 // 0x558EA0
 void AvatarCreationInterface::Unknown_558EA0(int dir)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	int num = desc->Desc.Pants_Type;
+	int body = desc->Desc.Body_Type;
+	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
-		num = (num + 1) % 3;
+		pants = (pants + 1) % 3;
 	} else if (dir == 1) {
-		num--;
-		if (num < 0) {
-			num = 2;
+		if (--pants < 0) {
+			pants = 2;
 		}
 	}
-	desc->Unknown_77E9D0(desc->Desc.Body_Type, num, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_77E9D0(body, pants, true);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again)
+// A female avatar skips hair 0 (the client calls itself again); the choice and the envmaps through inline getters
 // 0x559010
 void AvatarCreationInterface::Unknown_559010(int dir)
 {
@@ -1369,12 +1453,12 @@ void AvatarCreationInterface::Unknown_559010(int dir)
 		Unknown_559010(dir);
 		return;
 	}
-	desc->Unknown_77FC20(Unknown2E0->Unknown18, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown08C->Peek_Unknown194()->Unknown_77FC20(Unknown2E0->Get_Unknown18(), true);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries)
+// The choice and the envmaps through inline getters (the client's load order)
 // 0x5591E0
 void AvatarCreationInterface::Unknown_5591E0(int dir)
 {
@@ -1383,33 +1467,33 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 	} else {
 		Unknown2E4->Unknown_585C90();
 	}
-	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Unknown18, true);
+	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Get_Unknown18(), true);
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A960 (the colour pull: dragged, it moves its marker on the
+// The colour pull (as ui_avatar_cust.cpp's 0x54FAA0: the gadget re-cast at each use, WWMath clamps, the point as a Vector2): dragged, it moves its marker on the
 // window model's bone and takes the palette's colour under it into the chosen part, +0x1BC)
 // 0x55A960
 void AvatarCreationInterface::Unknown_55A960()
 {
-	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)Unknown180->Gadget;
-	if (gadget->Unknown64) {
+
+	if (((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64) {
 		Unknown180->Unknown08 = true;
 	}
-	if ((gadget->Unknown64 || gadget->Unknown65) && Unknown180->Unknown08) {
+	if ((((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown65) && Unknown180->Unknown08) {
 		AABoxClass box;
-		gadget->Unknown_64(box);
+		Unknown180->Gadget->Unknown_64(box);
 		float x;
 		float y;
 		Unknown_42ECF0(&x, &y);
 		x = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
-		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
-		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
-		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
 		RenderObjClass *model = Unknown08C->Unknown1B8;
 		int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
 		model->Capture_Bone(bone);
@@ -1417,14 +1501,14 @@ void AvatarCreationInterface::Unknown_55A960()
 		tm.Set_X_Translation(x - box.Center.X);
 		tm.Set_Y_Translation(y - box.Center.Y);
 		model->Control_Bone(bone, tm, false);
-		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
-		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
-		if (u < 0.01f) u = 0.01f; else if (u > 0.99f) u = 0.99f;
-		if (v < 0.01f) v = 0.01f; else if (v > 0.99f) v = 0.99f;
+		Vector2 point; point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		float u; if (point.X < 0.01f) { u = 0.01f; } else if (point.X > 0.99f) { u = 0.99f; } else { u = point.X; }
+		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
-		Unknown_496C00(gadget->Unknown_08()->Unknown30, u, 1.0f - v, &color);
-		Unknown184[Unknown1BC].X = u;
-		Unknown184[Unknown1BC].Y = v;
+		UIAvatrGadgetUnknown08Struct *area = Unknown180->Gadget->Unknown_08(); Unknown_496C00(area->Unknown30, u, 1.0f - v, &color);
+		Unknown184[Unknown1BC].Set(u, v);
+
 		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
 		switch (Unknown1BC) {
 			case 0: avatar->Unknown_77FFA0(color, true); break;
@@ -1435,14 +1519,14 @@ void AvatarCreationInterface::Unknown_55A960()
 			case 5: avatar->Unknown_780680(3, color); Unknown_55B9A0(-1); break;
 			case 6: avatar->Unknown_780680(4, color); Unknown_55B9A0(-1); break;
 		}
-		avatar->Unknown_780810(Unknown08C->Unknown3A4);
+		avatar->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	} else {
 		Unknown180->Unknown08 = false;
 	}
-	gadget->Unknown_671630();
+	((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown_671630();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55B9A0 (the body tab's metal, -1: none, into +0x1C0 and the chosen part)
+// The body tab's metal (-1: none) into +0x1C0 and the chosen part; the envmaps through the inline Peek_Unknown3A4()
 // 0x55B9A0
 void AvatarCreationInterface::Unknown_55B9A0(int arg)
 {
@@ -1457,7 +1541,7 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 		case 5: desc->Unknown_780790(3, arg); break;
 		case 6: desc->Unknown_780790(4, arg); break;
 	}
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 }
 
 // NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old
@@ -1506,7 +1590,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 	Unknown2D8 = true;
 	Unknown_559350();
 	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
-	avatar->Unknown_780810(Unknown08C->Unknown3A4);
+	avatar->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	avatar->Unknown232 = true;
 	Unknown094->Unknown_84(avatar);
 	Unknown08C->Unknown_67C7B0();
@@ -1517,39 +1601,39 @@ void AvatarCreationInterface::Unknown_5582A0()
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's
+// A colour from the palette at a point (the cases in the client's jump-table order, stored or the description's per case, two 0x496C00 calls): the description's
 // default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too))
 // 0x557950
 void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
-	if (avatar.Peek() == NULL) {
-		return;
-	}
-	Vector2 uv(0.0f, 0.0f);
-	if (!keep) {
+	if (avatar.Peek() != NULL) {
+
+
+	Vector2 uv;
+	if (keep) {
+		switch (which) {
+			case 1: if (stored) uv = Unknown184[1]; else uv = avatar->Desc.Get_Eye_Offset(); break;
+			case 0: if (stored) uv = Unknown184[0]; else uv = avatar->Desc.Get_Hair_Offset(); break;
+			case 2: if (stored) uv = Unknown184[2]; else uv = avatar->Desc.Get_Skin_Offset(); break;
+			case 3: if (stored) uv = Unknown184[3]; else uv = avatar->Desc.Get_Shirt_Primary_Offset(); break;
+			case 4: if (stored) uv = Unknown184[4]; else uv = avatar->Desc.Get_Shirt_Secondary_Offset(); break;
+			case 5: if (stored) uv = Unknown184[5]; else uv = avatar->Desc.Get_Pants_Primary_Offset(); break;
+			case 6: if (stored) uv = Unknown184[6]; else uv = avatar->Desc.Get_Pants_Secondary_Offset(); break;
+		}
+	} else {
 		uv.X = Unknown_BDBB84(0, 100) * 0.01f;
 		uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
-	} else if (stored) {
-		uv = Unknown184[which];
-	} else {
-		switch (which) {
-			case 0: uv = avatar->Desc.Get_Hair_Offset(); break;
-			case 1: uv = avatar->Desc.Get_Eye_Offset(); break;
-			case 2: uv = avatar->Desc.Get_Skin_Offset(); break;
-			case 3: uv = avatar->Desc.Get_Shirt_Primary_Offset(); break;
-			case 4: uv = avatar->Desc.Get_Shirt_Secondary_Offset(); break;
-			case 5: uv = avatar->Desc.Get_Pants_Primary_Offset(); break;
-			case 6: uv = avatar->Desc.Get_Pants_Secondary_Offset(); break;
-		}
 	}
+
+
 	RefCountPtr<RenderObjClass> palette = Create_Get(model->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	Vector3 color;
-	Unknown_496C00(palette.Peek(), uv.X, stored ? 1.0f - uv.Y : uv.Y, &color);
+	if (stored) Unknown_496C00(palette.Peek(), uv.X, 1.0f - uv.Y, &color); else Unknown_496C00(palette.Peek(), uv.X, uv.Y, &color);
 	switch (which) {
-		case 0: avatar->Unknown_77FFA0(color, true); break;
 		case 1: avatar->Unknown_7804A0(color); break;
+		case 0: avatar->Unknown_77FFA0(color, true); break;
 		case 2: avatar->Unknown_780680(0, color); break;
 		case 3: avatar->Unknown_780680(1, color); if (!keep) avatar->Unknown_780790(1, Unknown_BDBB84(-1, 2)); break;
 		case 4: avatar->Unknown_780680(2, color); if (!keep) avatar->Unknown_780790(2, Unknown_BDBB84(-1, 2)); break;
@@ -1558,7 +1642,7 @@ void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 	}
 	Unknown184[which].X = uv.X;
 	Unknown184[which].Y = stored ? uv.Y : 1.0f - uv.Y;
-	Unknown_55AE50();
+	Unknown_55AE50(); }
 }
 
 // NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1,
@@ -1601,7 +1685,7 @@ void AvatarCreationInterface::Unknown_557290()
 		Unknown_55A550(0, 0.0f, 0.0f, 0.0f);
 	}
 	Unknown_559350();
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	if (Unknown1BC == 2) {
 		Unknown_Set_Palette("fa_skin_color.tga");
 	} else {
@@ -1609,58 +1693,58 @@ void AvatarCreationInterface::Unknown_557290()
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x556F80 (the bottom buttons held (gadget.cpp's 0xBE5F24 /
-// 0xBE5F28) into the pip's turn (+0xB8), pan (+0xC0 / +0xC4) and zoom (+0xC8) rates; on the head tab the head's scale)
+static inline void Set_Rate(float &rate, float value) { rate = value; }	// the client stores each rate through the FPU, as an inline float setter does (probably ShipPipClass's own: interim here)  // NAME 1: neutral (D10)
+// The bottom buttons held (gadget.cpp's 0xBE5F24 / 0xBE5F28) into the pip's turn / pan / zoom rates; the rates are .rdata constants (0xAEF964-0xAEF96C)
 // 0x556F80
 void AvatarCreationInterface::Unknown_556F80()
-{
-	if (Unknown_BE5F24 == Unknown098[5] || Unknown_BE5F28 == Unknown098[5]) {
-		Unknown094->Unknown0B8 = -2.0f;
-	} else if (Unknown_BE5F24 == Unknown098[6] || Unknown_BE5F28 == Unknown098[6]) {
-		Unknown094->Unknown0B8 = 2.0f;
+{ static const float turn = 2.0f; static const float pan = 0.75f; static const float zoom = 1.0f;
+	if (Unknown_BE5F24 == Unknown098[5] ? true : Unknown_BE5F28 == Unknown098[5]) {
+		Set_Rate(Unknown094->Unknown0B8, -turn);
+	} else if (Unknown_BE5F24 == Unknown098[6] ? true : Unknown_BE5F28 == Unknown098[6]) {
+		Set_Rate(Unknown094->Unknown0B8, turn);
 	} else {
 		Unknown094->Unknown0B8 = 0.0f;
 		Unknown094->Unknown0BC = 0.0f;
 	}
-	if (Unknown_BE5F24 == Unknown098[13] || Unknown_BE5F28 == Unknown098[13]) {
-		Unknown094->Unknown0C0 = -0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[12] || Unknown_BE5F28 == Unknown098[12]) {
-		Unknown094->Unknown0C0 = 0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[10] || Unknown_BE5F28 == Unknown098[10]) {
-		Unknown094->Unknown0C4 = -0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[11] || Unknown_BE5F28 == Unknown098[11]) {
-		Unknown094->Unknown0C4 = 0.75f;
+	if (Unknown_BE5F24 == Unknown098[13] ? true : Unknown_BE5F28 == Unknown098[13]) {
+		Set_Rate(Unknown094->Unknown0C0, -pan);
+	} else if (Unknown_BE5F24 == Unknown098[12] ? true : Unknown_BE5F28 == Unknown098[12]) {
+		Set_Rate(Unknown094->Unknown0C0, pan);
+	} else if (Unknown_BE5F24 == Unknown098[10] ? true : Unknown_BE5F28 == Unknown098[10]) {
+		Set_Rate(Unknown094->Unknown0C4, -pan);
+	} else if (Unknown_BE5F24 == Unknown098[11] ? true : Unknown_BE5F28 == Unknown098[11]) {
+		Set_Rate(Unknown094->Unknown0C4, pan);
 	} else {
 		Unknown094->Unknown0C0 = 0.0f;
 		Unknown094->Unknown0C4 = 0.0f;
 	}
-	if (Unknown_BE5F24 == Unknown098[7] || Unknown_BE5F28 == Unknown098[7]) {
-		Unknown094->Unknown0C8 = -1.0f;
-	} else if (Unknown_BE5F24 == Unknown098[8] || Unknown_BE5F28 == Unknown098[8]) {
-		Unknown094->Unknown0C8 = 1.0f;
+	if (Unknown_BE5F24 == Unknown098[7] ? true : Unknown_BE5F28 == Unknown098[7]) {
+		Set_Rate(Unknown094->Unknown0C8, -zoom);
+	} else if (Unknown_BE5F24 == Unknown098[8] ? true : Unknown_BE5F28 == Unknown098[8]) {
+		Set_Rate(Unknown094->Unknown0C8, zoom);
 	} else {
 		Unknown094->Unknown0C8 = 0.0f;
 	}
 	if (Unknown088 == 1) {
-		if (Unknown_BE5F24 == Unknown098[33] || Unknown_BE5F28 == Unknown098[33]) {
+		if (Unknown_BE5F24 == Unknown098[33] ? true : Unknown_BE5F28 == Unknown098[33]) {
 			Unknown_55B540(1);
 			return;
 		}
-		if (Unknown_BE5F24 == Unknown098[34] || Unknown_BE5F28 == Unknown098[34]) {
+		if (Unknown_BE5F24 == Unknown098[34] ? true : Unknown_BE5F28 == Unknown098[34]) {
 			Unknown_55B540(2);
 		}
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A060 (the body's and the head's blend weights from the point)
+// The body's and the head's blend weights from the point (the pip's slot +0x84 through a converted temporary)
 // 0x55A060
 void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
-	desc->Unknown_77E900(body.Weight);
-	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
-	desc->Unknown_77E830(face.Weight);
+	float body[5]; Unknown_5860B0(body, uv);
+	desc->Unknown_77E900(body);
+	float face[5]; Unknown_5860B0(face, uv);
+	desc->Unknown_77E830(face);
 	Unknown164 = uv;
 	if (Unknown094) {
 		Unknown094->Unknown_84(desc);
@@ -1673,32 +1757,32 @@ void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 void AvatarCreationInterface::Unknown_55A1F0(int arg)
 {
 	UIAvatrPullClass *pull = (arg == 0) ? Unknown160 : Unknown16C;
-	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)pull->Gadget;
-	if (gadget->Unknown64) {
+
+	if (((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64) {
 		pull->Unknown08 = true;
 	}
-	if ((gadget->Unknown64 || gadget->Unknown65) && pull->Unknown08) {
+	if ((((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)pull->Gadget)->Unknown65) && pull->Unknown08) {
 		AABoxClass box;
-		gadget->Unknown_64(box);
+		pull->Gadget->Unknown_64(box);
 		float x;
-		float y;
+		float y; float top, left, width, height;
 		Unknown_42ECF0(&x, &y);
 		x = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
-		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
-		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
-		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
 		RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 		int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
 		model->Capture_Bone(bone);
 		Matrix3D tm = pull->Pull->Get_Transform();
 		tm.Set_X_Translation(x - box.Center.X);
 		tm.Set_Y_Translation(y - box.Center.Y);
-		model->Control_Bone(bone, tm, false);
-		Vector2 uv;
-		uv.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
-		uv.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		tm[2][3] = 0.0f; model->Control_Bone(bone, tm, false);
+		Vector2 uv; top = box.Center.Y - box.Extent.Y; left = box.Center.X - box.Extent.X;
+		width = box.Extent.X * 2.0f; height = box.Extent.Y * 2.0f;
+		uv.Set((x - left) / width, (y - top) / height);
 		if (arg == 0) {
 			Unknown_55A060(uv);
 		} else {
@@ -1709,106 +1793,106 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 	} else {
 		pull->Unknown08 = false;
 	}
-	gadget->Unknown_671630();
+	((UIAvatrGadget671300Class *)pull->Gadget)->Unknown_671630();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184)
+// The colour pull's marker onto the chosen part's point (+0x184), in ui_avatar_cust.cpp's 0x54FFC0 form
 // 0x55AE50
 void AvatarCreationInterface::Unknown_55AE50()
 {
 	AABoxClass box;
 	Unknown180->Gadget->Unknown_64(box);
-	RenderObjClass *model = Unknown08C->Unknown1B8;
-	int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
-	model->Capture_Bone(bone);
-	Matrix3D tm = Unknown180->Pull->Get_Transform();
-	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * Unknown184[Unknown1BC].X + (box.Center.X - box.Extent.X) - box.Center.X);
-	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * Unknown184[Unknown1BC].Y + (box.Center.Y - box.Extent.Y) - box.Center.Y);
+	float top = box.Center.Y - box.Extent.Y; float left = box.Center.X - box.Extent.X;
+	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
+	RenderObjClass *model = Unknown08C->Unknown1B8; int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
+	model->Capture_Bone(bone); Matrix3D tm = Unknown180->Pull->Get_Transform();
+	tm.Set_X_Translation((width * Unknown184[Unknown1BC].X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * Unknown184[Unknown1BC].Y) + top - box.Center.Y);
 	model->Control_Bone(bone, tm, false);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A550 (a pull's point moved by (c, d), kept in 0 .. 1, or a
-// random one (the client tests b's low byte; its callers pass 0); its marker placed; 0: the blend weights (0x55A060),
+// A pull's point moved by (c, d), kept in 0 .. 1, or a random one (a bool: the client tests the low byte), in
+// ui_avatar_cust.cpp's 0x54F6F0 form with the products parenthesised; its marker placed; 0: the blend weights (0x55A060),
 // 1: the tattoo's offset (+0x170 / +0x174, the scale +0x178, avatar.cpp's 0x785C00))
 // 0x55A550
-void AvatarCreationInterface::Unknown_55A550(int a, float b, float c, float d)
+void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float d)
 {
 	UIAvatrPullClass *pull;
-	float u;
-	float v;
+	Vector2 point;
 	if (a == 0) {
 		pull = Unknown160;
-		u = Unknown164.X;
-		v = Unknown164.Y;
+		point.X = Unknown164.X;
+		point.Y = Unknown164.Y;
 	} else {
 		pull = Unknown16C;
-		u = Unknown170;
-		v = Unknown174;
+		point.X = Unknown170;
+		point.Y = Unknown174;
 	}
-	u += c;
 	if (c > 0.0f) {
-		if (u >= 1.0f) u = 1.0f;
-	} else if (u <= 0.0f) {
-		u = 0.0f;
+		point.X = WWMath::Min(point.X + c, 1.0f);
+	} else {
+		point.X = WWMath::Max(point.X + c, 0.0f);
 	}
-	v += d;
 	if (d > 0.0f) {
-		if (v >= 1.0f) v = 1.0f;
-	} else if (v <= 0.0f) {
-		v = 0.0f;
+		point.Y = WWMath::Min(point.Y + d, 1.0f);
+	} else {
+		point.Y = WWMath::Max(point.Y + d, 0.0f);
 	}
 	AABoxClass box;
 	pull->Gadget->Unknown_64(box);
-	if (*(unsigned char *)&b) {
-		u = Unknown_BDBB84(0, 100) * 0.01f;
-		v = Unknown_BDBB84(0, 100) * 0.01f;
+	float top, left, width, height;
+	if (random) {
+		point.X = Unknown_BDBB84(0, 100) * 0.01f;
+		point.Y = Unknown_BDBB84(0, 100) * 0.01f;
 	}
+	top = box.Center.Y - box.Extent.Y; left = box.Center.X - box.Extent.X;
+	width = box.Extent.X * 2.0f; height = box.Extent.Y * 2.0f;
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Pull->Get_Transform();
-	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * u + (box.Center.X - box.Extent.X) - box.Center.X);
-	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * v + (box.Center.Y - box.Extent.Y) - box.Center.Y);
-	model->Control_Bone(bone, tm, false);
+	tm.Set_X_Translation((width * point.X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * point.Y) + top - box.Center.Y);
+	tm[2][3] = 0.0f; model->Control_Bone(bone, tm, false);
 	if (a == 0) {
-		Unknown_55A060(Vector2(u, v));
+		Unknown_55A060(point);
 	} else {
-		Unknown170 = u;
-		Unknown174 = v;
-		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(u, 1.0f - v, Unknown178));
+		Unknown170 = point.X;
+		Unknown174 = point.Y;
+		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(Unknown170, 1.0f - Unknown174, Unknown178));
 	}
 }
 
-// The gadget's flash on (bit 11 of +0x2C set, gadget.h's 0x6603A0) or off (0x6607D0), as 0x55B650 inlines it
-static void UIAvatrFlash(GadgetClass *gadget, bool on, bool stop_first)	// NAME 1 [UIAvatrFlash, gadget, on, stop_first]: neutral (D10)
-{
-	if (on) {
-		if (stop_first) {
-			gadget->Unknown_6607D0();
-		}
-		gadget->Unknown2C |= 0x800;
-		gadget->Unknown_6603A0(false, NULL);
-	} else {
-		gadget->Unknown2C &= ~0x800;
-		gadget->Unknown_6607D0();
-	}
-}
+// The gadget's flash on (bit 11 of +0x2C set, gadget.h's 0x6603A0) or off (0x6607D0): 0x55B650 writes each one out:
+//  static void UIAvatrFlash(GadgetClass *gadget, bool on, bool stop_first)
+//  {
+//      if (on) {
+//          if (stop_first) {
+//              gadget->Unknown_6607D0();
+//          }
+//          gadget->Unknown2C |= 0x800;
+//          gadget->Unknown_6603A0(false, NULL);
+//      } else {
+//          gadget->Unknown2C &= ~0x800;
+//          gadget->Unknown_6607D0();
+//      }
+//  }
 
-// NOT EXACT: functional (D64), from the client's 0x55B650 (the tab buttons, and the chosen colour part's button,
+// The tab buttons, and the chosen colour part's button,
 // flash; the client writes each pair out inline)
 // 0x55B650
 void AvatarCreationInterface::Unknown_55B650()
 {
-	UIAvatrFlash(Unknown098[0], Unknown088 == 0, false);
-	UIAvatrFlash(Unknown098[1], Unknown088 == 1, false);
-	UIAvatrFlash(Unknown098[2], Unknown088 == 2, false);
-	UIAvatrFlash(Unknown098[30], Unknown1BC == 0, true);
-	UIAvatrFlash(Unknown098[31], Unknown1BC == 1, false);
-	UIAvatrFlash(Unknown098[32], Unknown1BC == 2, false);
-	UIAvatrFlash(Unknown098[39], Unknown1BC == 3, true);
-	UIAvatrFlash(Unknown098[40], Unknown1BC == 4, false);
-	UIAvatrFlash(Unknown098[41], Unknown1BC == 5, false);
-	UIAvatrFlash(Unknown098[42], Unknown1BC == 6, false);
+	if (Unknown088 == 0) { Unknown098[0]->Unknown2C |= 0x800; Unknown098[0]->Unknown_6603A0(false, NULL); } else { Unknown098[0]->Unknown2C &= ~0x800; Unknown098[0]->Unknown_6607D0(); }
+	if (Unknown088 == 1) { Unknown098[1]->Unknown2C |= 0x800; Unknown098[1]->Unknown_6603A0(false, NULL); } else { Unknown098[1]->Unknown2C &= ~0x800; Unknown098[1]->Unknown_6607D0(); }
+	if (Unknown088 == 2) { Unknown098[2]->Unknown2C |= 0x800; Unknown098[2]->Unknown_6603A0(false, NULL); } else { Unknown098[2]->Unknown2C &= ~0x800; Unknown098[2]->Unknown_6607D0(); }
+	if (Unknown1BC == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C |= 0x800; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C &= ~0x800; Unknown098[30]->Unknown_6607D0(); }
+	if (Unknown1BC == 1) { Unknown098[31]->Unknown2C |= 0x800; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C &= ~0x800; Unknown098[31]->Unknown_6607D0(); }
+	if (Unknown1BC == 2) { Unknown098[32]->Unknown2C |= 0x800; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C &= ~0x800; Unknown098[32]->Unknown_6607D0(); }
+	if (Unknown1BC == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C |= 0x800; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C &= ~0x800; Unknown098[39]->Unknown_6607D0(); }
+	if (Unknown1BC == 4) { Unknown098[40]->Unknown2C |= 0x800; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C &= ~0x800; Unknown098[40]->Unknown_6607D0(); }
+	if (Unknown1BC == 5) { Unknown098[41]->Unknown2C |= 0x800; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C &= ~0x800; Unknown098[41]->Unknown_6607D0(); }
+	if (Unknown1BC == 6) { Unknown098[42]->Unknown2C |= 0x800; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C &= ~0x800; Unknown098[42]->Unknown_6607D0(); }
 }
 
 // The body tab's weight and height ranges by race * 2 + gender (0xB7B134 / 0xB7B14C: lbs, 0xB7B164 / 0xB7B17C: inches)
@@ -1817,8 +1901,8 @@ static int UIAvatrWeightRange[6] = { 50, 35, 50, 25, 60, 30 };		// NAME 1: neutr
 static int UIAvatrHeightBase[6] = { 64, 60, 68, 64, 72, 68 };		// NAME 1: neutral (D10)
 static int UIAvatrHeightRange[6] = { 18, 16, 16, 14, 18, 16 };		// NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), from the client's 0x55BFB0 (on the body tab, the weight '%d lbs' and the height
-// '%d ft, %d inch' from the body pull's point (+0x164), each text changed only when it differs: FontSys's +0xFC)
+// On the body tab, the weight '%d lbs' and the height '%d ft, %d inch' from the body pull's point (+0x164), each text
+// changed only when it differs (FontSys's +0xFC); the index written in each subscript (the client's lea / shl offset)
 // 0x55BFB0
 void AvatarCreationInterface::Unknown_55BFB0()
 {
@@ -1827,9 +1911,9 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	}
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	int i = desc->Desc.Race * 2 + desc->Desc.Gender;
-	int lbs = (int)(UIAvatrWeightRange[i] * Unknown164.X + UIAvatrWeightRange[i] * Unknown164.Y + UIAvatrWeightBase[i]);
-	int inches = (int)(UIAvatrHeightRange[i] * Unknown164.Y + UIAvatrHeightBase[i]);
+	int base = UIAvatrWeightBase[desc->Desc.Race * 2 + desc->Desc.Gender]; int range = UIAvatrWeightRange[desc->Desc.Race * 2 + desc->Desc.Gender];
+	int lbs = (int)((range * Unknown164.X) + (range * Unknown164.Y) + base);
+	int hbase = UIAvatrHeightBase[desc->Desc.Race * 2 + desc->Desc.Gender]; int hrange = UIAvatrHeightRange[desc->Desc.Race * 2 + desc->Desc.Gender]; int inches = (int)((hrange * Unknown164.Y) + hbase);
 	char text[64];
 	_snprintf(text, 0x40, "%d lbs", lbs);
 	FontSys *weight = Unknown_BE67C4->Get_Style("weight_var_fe_avatar00", model.Peek());
@@ -1840,5 +1924,295 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	FontSys *height = Unknown_BE67C4->Get_Style("height_var_fe_avatar00", model.Peek());
 	if (strcmp(text, *(const char **)((char *)height + 0xFC)) != 0) {
 		height->Change_Text(text, 0);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x55C280
+void AvatarCreationInterface::Unknown_55C280(FlashingGadgetEvent *event, GadgetClass *sender)
+{
+	FAIL_IF(!event)
+		return;
+
+	GadgetClass *gadget = event->Gadget;
+	FAIL_IF(!gadget)
+		return;
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
+		if (gadget == Unknown098[0] || gadget == Unknown098[1] || gadget == Unknown098[2] || gadget == Unknown098[3] || gadget == Unknown098[14] || gadget == Unknown098[15]) {
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		}
 	}
 }

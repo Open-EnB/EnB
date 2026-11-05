@@ -1,0 +1,73 @@
+--- app/client/ui_shard.cpp	2026-11-04 21:04:14.041841400 -0800
++++ .work/cs5/vm/ne_1/ui_shard.cpp	2026-11-04 21:19:43.236707900 -0800
+@@ -265,6 +265,8 @@
+ }
+ 
+ 
++static inline void Clear_Result(LoginTaskClass *task) { task->Unknown0020 = 0; task->Error = 0; }
++
+ // NOT EXACT: functional (D64)
+ // @0x616A10
+ void Unknown615A50InterfaceClass::Unknown_616A10()
+@@ -298,44 +300,35 @@
+ 		}
+ 	}
+ 	if (LoginTask->Unknown0020 != 0) {
+-		if (LoginTask->Unknown0020 == 1) {
+-			if (LoginTask->Unknown001D) {
+-				LoginTask->Unknown0020 = 0;
+-				LoginTask->Error = 0;
+-				CharacterView->NarratorRObj->Unknown_784C90("AllGood", true);
+-			}
+-		} else {
++		if (LoginTask->Unknown0020 != 1) {
+ 			NameGadget->Set_Text(Unknown_B8909C, 0);
+ 			Unknown_617660(false);
+ 			Unknown9C = false;
+-			const char *speech = NULL;
+ 			switch (LoginTask->Error) {
+-				case 8: speech = "NameTaken"; break;
+-				case 9: speech = "NameWithNumbers"; break;
+-				case 10: speech = "NameTooShort"; break;
+-				case 11: speech = "NameNoVowels"; break;
+-				case 12: speech = "NameRepeatCharacters"; break;
+-				case 13: speech = "NameRestricted"; break;
++				case 8: CharacterView->NarratorRObj->Unknown_784C90("NameTaken", true); break;
++				case 9: CharacterView->NarratorRObj->Unknown_784C90("NameWithNumbers", true); break;
++				case 10: CharacterView->NarratorRObj->Unknown_784C90("NameTooShort", true); break;
++				case 11: CharacterView->NarratorRObj->Unknown_784C90("NameNoVowels", true); break;
++				case 12: CharacterView->NarratorRObj->Unknown_784C90("NameRepeatCharacters", true); break;
++				case 13: CharacterView->NarratorRObj->Unknown_784C90("NameRestricted", true); break;
+ 			}
+-			if (speech) {
+-				CharacterView->NarratorRObj->Unknown_784C90(speech, true);
++			Clear_Result(LoginTask);
++		} else {
++			if (LoginTask->Unknown001D) {
++				Clear_Result(LoginTask);
++				CharacterView->NarratorRObj->Unknown_784C90("AllGood", true);
+ 			}
+-			LoginTask->Unknown0020 = 0;
+-			LoginTask->Error = 0;
+ 		}
+ 	}
+ 	if (CharacterView->Unknown_67B2B0()) {
+ 		UnknownE8 = false;
+ 	}
+-	if (CharacterView->Unknown34->Active) {
+-		if (!UnknownD1) {
+-			UnknownD1 = true;
+-			Unknown_617540();
+-			return;
+-		}
+-		return;
++	bool active = CharacterView->Unknown34->Active;
++	if (active && !UnknownD1) {
++		UnknownD1 = true;
++		Unknown_617540();
+ 	}
+-	if (UnknownD1) {
++	if (!active && UnknownD1) {
+ 		UnknownD1 = false;
+ 		Unknown_617310();
+ 		UnknownE8 = false;

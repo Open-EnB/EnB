@@ -1,0 +1,116 @@
+static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
+// @0x574710
+ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
+	InterfaceClass(view, (int)layer->Peek_Scene()),
+	CharacterView(NULL),
+	LoginTask(NULL),
+	Unknown8C(0),
+	UnknownE4((float)Unknown_B7DB60[0].Angle),
+	UnknownE8((float)Unknown_B7DB60[0].Angle),
+	UnknownEC(0),
+	UnknownF0(0),
+	Slider(NULL),
+	SliderValue(0),
+	Unknown13C(false),
+	Unknown13D(false),
+	Unknown13E(false),
+	Unknown13F(false),
+	Unknown140(false),
+	Unknown141(false)
+{
+	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); 
+	int i;
+	for (i = 0; i < 14; i++) {
+		Buttons[i] = NULL;
+	}
+	for (i = 0; i < 8; i++) {
+		SkillGadgets[i] = NULL;
+	}
+	for (i = 0; i < 7; i++) {
+		Models[i] = NULL;
+	}
+	CharacterView = (CharacterViewClass *)View->Unknown_28();
+	LoginTask = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
+	CharacterView->Unknown_67A250();
+	CharacterView->Unknown_67ACE0(0);
+	CharacterView->Unknown_67ACE0(1);
+	CharacterView->Unknown_67AB20(0, "fe_class00");
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
+	Camera_Of(CharacterView)->Set_Clip_Planes(10.0f, 10000.0f);
+	if (CharacterView->ViewRObjs[1] == NULL) {
+		CharacterView->Unknown_67AB20(1, "fe_class01");
+		CharacterView->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 90.0f);
+		CharacterView->Unknown_67B7A0(0);
+		Unknown_577B80();
+	}
+	if (CharacterView->ViewRObjs[3] == NULL) {
+		CharacterView->Unknown_67AB20(3, "comp00a");
+		CharacterView->Unknown_67AB20(4, "FE_NAR_AGG");
+	}
+	CharacterView->Unknown_67B4F0(1);
+	INI.Load("fa_fe_class00.ini");
+	Unknown_BE67BC->Load("fa_fe_class00.ini");
+	Unknown_BE67C4->Add(model);
+
+	for (i = 0; i < 14; i++) {
+		if (Unknown_B7DBCC[i].Name != NULL) {
+			RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7DBCC[i].Name));
+			Unknown_496AE0(sub.Peek(), 0);
+			Buttons[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(Buttons[i], i + 1, View, 1, 0);
+		}
+	}
+
+	for (i = 0; i < 8; i++) {
+		if (Unknown_B7DC44[i].Name != NULL) {
+			RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(Unknown_B7DC44[i].Name));
+			Unknown_496AE0(sub.Peek(), 0);
+			SkillGadgets[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(SkillGadgets[i], i + 0x11, View, 1, 0);
+			if (Unknown_B7DC44[i].SubObject != NULL) {
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model); ((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(style);
+			}
+		}
+	}
+
+	Slider = new GadgetSlider(false, layer);
+	((GadgetSlider *)Slider)->Unknown_66E460(Unknown_497300(model), 0, 0);
+	Unknown64.Unknown_6870E0(Slider, 0x1A, View, 1, 0);
+
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x1B), (void *)0x10);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x0D), (void *)1);
+
+	Unknown_5760C0(true);
+
+	for (i = 0; i < 9; i++) {
+		if (Unknown_B7DB60[i].Race == CharacterView->Unknown088.Race &&
+		    Unknown_B7DB60[i].Profession == CharacterView->Unknown088.Profession) {
+			Unknown8C = i;
+			break;
+		}
+	}
+
+	UnknownE8 = UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
+	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, 1);
+	Unknown_5779D0();
+	Unknown_576A80();
+	CharacterView->Unknown3A4->Unknown_760770(100000, 1);
+	CharacterView->Unknown_67C7B0();
+
+	if (!TutorialManagerClass::Instance->Is_Completed("ClassSelectionIntro")) {
+		CharacterView->Unknown_67C920("1492_00_328se.mp3");
+		TutorialManagerClass::Instance->Set_Completed("ClassSelectionIntro");
+	}
+
+	bool back = LoginTask->Previous_Step == 4; if (!back && Unknown8C == 0) {
+		CharacterView->Unknown_67C920("1492_00_344se.mp3");
+		CharacterView->Unknown_67C920("1492_00_345se.mp3");
+		CharacterView->Unknown_67C920("1492_00_346se.mp3");
+	}
+
+	void (ClassSelectInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ClassSelectInterface::Unknown_577DA0;
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
+	notifier->connect(NULL, new UIClassCallbackClass(this, function));
+
+	CharacterView->Unknown30->Unknown0F = true;
+}

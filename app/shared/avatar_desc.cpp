@@ -793,15 +793,14 @@ void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
 }
 
 // 0x4C1780
-void AvatarDescClass::Get_Body_Morph(Vector3 &scale, int morph)
+Vector3 AvatarDescClass::Get_Body_Morph(int morph)
 {
 	const char *names[5] = { "normal", "short_skinny", "short_fat", "tall_fat", "tall_skinny" };
 	Vector3 result(1.0F, 1.0F, 1.0F);
 	char section[64];
 
 	if (!AvatarDefinitions.Is_Loaded() || morph < 1 || morph > 4) {
-		scale.Set(1.0F, 1.0F, 1.0F);
-		return;
+		return Vector3(1.0F, 1.0F, 1.0F);
 	}
 	_snprintf(section, sizeof(section), "%s%smorph", AvatarGenderNames[Gender], AvatarRaceNames[Race]);
 	if (AvatarDefinitions.Find_Section(section) != NULL) {
@@ -814,19 +813,18 @@ void AvatarDescClass::Get_Body_Morph(Vector3 &scale, int morph)
 			result.Z = point.Z;
 		}
 	}
-	scale = result;
+	return result;
 }
 
 // 0x4C1930
-void AvatarDescClass::Get_Head_Morph(Vector3 &scale, int morph)
+Vector3 AvatarDescClass::Get_Head_Morph(int morph)
 {
 	const char *names[5] = { "normal", "short_narrow", "short_wide", "long_wide", "long_narrow" };
 	Vector3 result(1.0F, 1.0F, 1.0F);
 	char section[64];
 
 	if (!AvatarDefinitions.Is_Loaded() || morph < 1 || morph > 4) {
-		scale.Set(1.0F, 1.0F, 1.0F);
-		return;
+		return Vector3(1.0F, 1.0F, 1.0F);
 	}
 	_snprintf(section, sizeof(section), "%s%smorph", AvatarGenderNames[Gender], AvatarRaceNames[Race]);
 	if (AvatarDefinitions.Find_Section(section) != NULL) {
@@ -838,7 +836,7 @@ void AvatarDescClass::Get_Head_Morph(Vector3 &scale, int morph)
 			result.Z = point.Y;
 		}
 	}
-	scale = result;
+	return result;
 }
 
 // 0x4C1AC0

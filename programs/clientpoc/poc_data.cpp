@@ -24,7 +24,8 @@ std::string Unknown_BE5BD0;						// 0xBE5BD0 (ui_cpit.cpp's)
 struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's record, 0x64 bytes (only its size matters here)
 std::vector<TestEffectStruct> Unknown_BE7D80;		// 0xBE7D80 (sclient.cpp's)
 
-// textgadg.h's flag constants (.rdata 0xB08CAC-0xB08CC4, the client's values; the file that defines them is not known)
+// textgadg.h's flag constants (.rdata 0xB08C9C-0xB08CC4, the client's values; the file that defines them is not known)
+extern const int Unknown_B08C9C = 0x8;
 extern const int Unknown_B08CAC = 0x80;
 extern const int Unknown_B08CB0 = 0x100;
 extern const int Unknown_B08CB8 = 0x400;

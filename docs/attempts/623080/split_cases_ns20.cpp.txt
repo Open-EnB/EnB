@@ -1,0 +1,465 @@
+// CS9 2026-11-05: 0x623080 split cases, cases 1-4 without Gadgets[key].Selected (the client stores Selected once, in the inlined 0x6257A0), 20 dead Gadgets.size() on the final return line: 0.77 (over D130); switch and final return only
+	switch (key) {
+		case 1:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+
+		case 2:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+
+		case 3:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+
+		case 5:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown218 = 5;
+			Unknown215 = true;
+			if (NameGadget) {
+				NameGadget->Unknown_74(false);
+			}
+			CharacterView->Unknown_67C7B0();
+			return(true);
+
+		case 6:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown218 = 0;
+			Unknown215 = true;
+			if (NameGadget) {
+				NameGadget->Unknown_74(false);
+			}
+			CharacterView->Unknown_67C7B0();
+			return(true);
+
+		case 0x1C:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown211 = false;
+			CharacterView->Unknown_67B270();
+			CharacterView->Unknown_67C7B0();
+			return(true);
+
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Hull_Style >= 3) {
+				Desc.Hull_Style = 0;
+			}
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) {
+				Unknown22C->Unknown_7C(Unknown160);
+			} else {
+				Unknown22C->Unknown_84(Unknown160);
+			}
+			return(false);
+
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Hull_Style < 0) {
+				Desc.Hull_Style = 2;
+			}
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) {
+				Unknown22C->Unknown_7C(Unknown160);
+			} else {
+				Unknown22C->Unknown_84(Unknown160);
+			}
+			return(false);
+
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Wing_Style >= 3) {
+				Desc.Wing_Style = 0;
+			}
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) {
+				Unknown22C->Unknown_7C(Unknown160);
+			} else {
+				Unknown22C->Unknown_84(Unknown160);
+			}
+			return(false);
+
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Wing_Style < 0) {
+				Desc.Wing_Style = 2;
+			}
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) {
+				Unknown22C->Unknown_7C(Unknown160);
+			} else {
+				Unknown22C->Unknown_84(Unknown160);
+			}
+			return(false);
+
+		case 0x11:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271A0() = false;
+			Unknown_6257A0(key);
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_621390(Unknown264, Unknown268);
+			Unknown_6277A0();
+			return(false);
+
+		case 0x10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271A0() = true;
+			Unknown_6257A0(key);
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_621390(Unknown264, Unknown268);
+			Unknown_6277A0();
+			return(false);
+
+		case 0x12:
+		case 0x13:
+		case 0x14:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271D0() = (ShipCustomizationMetal)(key - 0x12);
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_6277A0();
+			return(false);
+
+		case 0x17:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 0;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x18:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 2;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x19:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 1;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x1A:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 3;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x15:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown25C = 0;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x16:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown25C = 1;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x0B:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_627200();
+			return(false);
+
+		case 0x1D:
+		case 0x1E:
+		case 0x1F:
+		case 0x20:
+		case 0x21:
+		case 0x22:
+		case 0x23:
+		case 0x24:
+		case 0x25:
+		case 0x26:
+		case 0x27:
+		case 0x28:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown264 = Unknown260 - 0x1D + key;
+			Unknown_6280E0();
+			Unknown_621390(Unknown264, Unknown268);
+			return(false);
+
+		case 0x29:
+			if (Unknown260 != 0) {
+				Unknown260--;
+			}
+			Unknown_6280E0();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x2A:
+			if ((unsigned int)Unknown260 < Unknown268->Unknown00.size() - 9) {
+				Unknown260++;
+			}
+			Unknown_6280E0();
+			Unknown_6277A0();
+			return(false);
+
+		case 0x33:
+			if (Page != 1) {
+				return(false);
+			}
+			*Unknown_6271D0() = METAL_NONE;
+			Unknown_6277A0();
+			return(false);
+
+		case 0x1B:
+		{
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->ViewRObjs[0]);
+			if (style != NULL && style->Unknown300) {
+				style->Set_Hidden(1);
+			}
+			char *text = NameGadget->Get_Text();
+			NameGadget->Set_Text((text != NULL && *text != 0) ? text : NULL, 0);
+			NameGadget->Unknown_74(true);
+			delete text;
+			return(false);
+		}
+
+		case 0x31:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown22C->Unknown_88();
+			return(false);
+
+		case 0x32:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown22C->Unknown_8C();
+			return(false);
+	}
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); return(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

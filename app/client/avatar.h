@@ -8,6 +8,7 @@
 #include "nstrdup.h"
 #include <string.h>
 #include <vector>
+#include "..\..\wwlib\ref_ptr.h"
 
 class LightClass;
 class HAnimClass;
@@ -61,7 +62,7 @@ public:
 	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
 	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)
 	bool Unknown_7829B0(const char *name);				// 0x7829B0 (the animation's face keys from its ini; false: none)  // NAME 1 [name]: neutral
-	int Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
+	bool Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
 	void Unknown_7861B0(const char *speech);			// 0x7861B0 (the speech sound into +0x2E8)  // NAME 1 [speech]: neutral
 	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
@@ -69,6 +70,7 @@ public:
 	bool Unknown_784EA0(const char *name);				// 0x784EA0 (TutorialManagerClass::Was_Just_Finished of the name; ui_shard.cpp's 'AllGood')  // NAME 1 [name]: Was_Just_Finished's
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
+	void Unknown_788F90(int mode);						// 0x788F90 (the teleport effect: 1..4, 0 none)  // NAME 1 [mode]: neutral
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
 	void Unknown_786B60(bool keep);						// 0x786B60 (flag 1)  // NAME 1 [keep]: neutral
 	void Unknown_786BF0(bool keep);						// 0x786BF0 (flag 2)  // NAME 1 [keep]: neutral
@@ -102,7 +104,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
-	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
 	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
 	void Unknown_77E830(const float *weights);			// 0x77E830 (the body morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
@@ -119,15 +121,15 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7857D0(int num);						// 0x7857D0 (Head_Texture_Num's '<gender><race>FACETEX%02d.tga' onto head0..4)  // NAME 1 [num]: neutral
 	void Unknown_7859F0(int num);						// 0x7859F0 (Tattoo_Texture_Num's 'ATATTOO%02d.tga' onto HEAD0..4, stage 1)  // NAME 1 [num]: neutral
 	void Unknown_785C00(const Vector3 &offset);			// 0x785C00 (Tattoo_Offset: a linear offset mapper on HEAD0..4's stage 1)  // NAME 1 [offset]: neutral
-	void Unknown_77F960(const char *part, int num, RenderObjClass **slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
-	void Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
+	void Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
+	void Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
 	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (Hair_Color onto HAIR0..4 and BEARD0..4)  // NAME 1 [color, rebuild]: neutral
 	void Unknown_7802F0(const Vector3 &color, bool rebuild);	// 0x7802F0 (Beard_Color onto BEARD0..4)  // NAME 1 [color, rebuild]: neutral
-	void Unknown_789D80(RenderObjClass **slot, const char *part);	// 0x789D80 (the accessory's '<part>0..4' meshes into the head prototype's LODs)  // NAME 1 [slot, part]: neutral
+	void Unknown_789D80(RefCountPtr<RenderObjClass> *slot, const char *part);	// 0x789D80 (the accessory's '<part>0..4' meshes into the head prototype's LODs)  // NAME 1 [slot, part]: neutral
 		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)
-	HMorphAnimClass *Unknown0BC;						// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr in the client)
+	RefCountPtr<HMorphAnimClass> Unknown0BC;			// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr: 0x77B870 constructs, 0x77C080 destroys it as a member)
 	HAnimClass *Unknown0C0[2];							// +0xC0 (0x7831C0: the gesture animation, [1] the one blended to)
 	bool Unknown0C8[2];									// +0xC8 (0x783620: the frame reached)
 	char Unknown_Pad0CA[0xCC - 0xCA];
@@ -137,6 +139,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	int Unknown0E4;										// +0xE4 (0x783B50: the WW3D frame count of the last update)
 	Unknown_ChatStreamClass Unknown0E8;					// +0xE8 (0x77B870: 0x4C4430; the NLP's command stream, 0x784A50)
 	PlayerNLPClass *PlayerNLP;							// +0xF4 (0x77B870: 0x78EB50)  // NAME 2: PlayerNLP != 0 assert
+	AvatarDescClass *Get_Desc() { return(&Desc); }	// (inline: ui_avatr.cpp's 0x559350 calls an out-of-line copy, 0x559490)  // NAME 1: neutral (D10), as ui_avatar_cust.cpp's view
 	AvatarDescClass Desc;								// +0xF8 (0x10C bytes)
 	int Unknown204;										// +0x204 (0x77E3D0 sets it)
 	int Unknown208;										// +0x208
@@ -180,21 +183,21 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	bool Unknown29C;									// +0x29C (0x781410: the body morph still stepping)
 	bool Unknown29D;									// +0x29D (0x781570: the head morph still stepping)
 	std::vector<Unknown_AvatarQueueStruct *> Unknown2A0;	// +0x2A0 (the animation queue: 0x781880 pushes, 0x782200 plays, 0x784700 / 0x77C080 empty it)
-	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
-	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
-	RenderObjClass *HeadObj;							// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
+	RefCountPtr<RenderObjClass> HeadSource;	// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
+	RefCountPtr<RenderObjClass> BodySource;	// +0x2B4  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> HeadObj;				// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
 	RenderObjClass *BodyObj;							// +0x2BC  // NAME 2: '!HeadSource || !BodyObj' assert (0x786370 / 0x7863E0)
-	RenderObjClass *CollisionObj;						// +0x2C0  // NAME 1: neutral (D10)
-	RenderObjClass *Unknown2C4;							// +0x2C4
-	RenderObjClass *HairSource;							// +0x2C8  // NAME 1: neutral (D10)
-	RenderObjClass *Unknown2CC;							// +0x2CC
-	RenderObjClass *GoggleSource;						// +0x2D0  // NAME 1: neutral (D10)
-	RenderObjClass *BeardSource;						// +0x2D4  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponHip;							// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponUnique;						// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
-	RenderObjClass *MaskObj;							// +0x2E4  // NAME 1: neutral (D10)
-	AudibleSoundClass *SpeechSound;						// +0x2E8 (0x784E00 / 0x784C90)  // NAME 2: plays speech sound
+	RefCountPtr<RenderObjClass> CollisionObj;	// +0x2C0  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> Unknown2C4;	// +0x2C4
+	RefCountPtr<RenderObjClass> HairSource;	// +0x2C8  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> Unknown2CC;	// +0x2CC
+	RefCountPtr<RenderObjClass> GoggleSource;	// +0x2D0  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> BeardSource;	// +0x2D4  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponHip;	// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponUnique;	// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponBack;	// +0x2E0  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> MaskObj;	// +0x2E4  // NAME 1: neutral (D10)
+	RefCountPtr<AudibleSoundClass> SpeechSound;			// +0x2E8 (0x784E00 / 0x784C90, 0x7861B0 a RefCountPtr)  // NAME 2: plays speech sound
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
 	float Unknown2F0;									// +0x2F0 (60.0f in 0x784C90)
 	bool Unknown2F4;									// +0x2F4 (0x77B870 sets it; 0x783620: running footsteps)
@@ -212,8 +215,8 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	Matrix3D Unknown330;								// +0x330  // NAME 1: neutral (D10)
 	Vector3 Unknown360;									// +0x360 (0x783B50: the step moved this frame)
 	bool Unknown36C;									// +0x36C (0x77B870 clears it; set: 0x77D1E0 leaves +0x330 alone)
-	RenderObjClass *Unknown370;							// +0x370 (0x788F90's av_teleNN; a RefCountPtr in the client)
-	RenderObjClass *Unknown374;							// +0x374 (0x788F90's av_teleNNa; a RefCountPtr in the client)
+	RefCountPtr<RenderObjClass> Unknown370;			// +0x370 (0x788F90's av_teleNN; a RefCountPtr: 0x77C080 releases it through 0x5988A0, operator =(0))
+	RefCountPtr<HAnimClass> Unknown374;				// +0x374 (0x788F90's av_teleNNa animation; a RefCountPtr: 0x77C080 releases it through 0x78A460, operator =(0))
 	float Unknown378;									// +0x378 (0x7897D0: the time left at which the body shows / hides; -100 done)
 	float Unknown37C;									// +0x37C (0x7897D0: the time left)
 	int Unknown380;										// +0x380 (0x7897D0: the teleport effect, 0 none, 2 / 4 show the body)

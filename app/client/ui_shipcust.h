@@ -24,7 +24,7 @@ class UIAvatrPullClass;
 
 // The window's ship: its description with the models built from it (0x184 bytes; constructor 0x620D20, copy
 // constructor 0x620E40, destructor 0x6210A0, all out of line in this file)
-class Unknown620D20Class : public ShipCustDescClass	// NAME 1: neutral (D10)
+class Unknown620D20Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown620D20Class();								// 0x620D20
@@ -33,9 +33,13 @@ public:
 	void Unknown_6211D0(EnvironmentMapManagerClass *environmentmapmanager);	// 0x6211D0 (G_ASSERT 'environmentmapmanager != NULL' l.174): the parts' colours onto the model  // NAME 3 [environmentmapmanager]: the assert's
 	void Unknown_621390(int decal, SClientUnknown1334Class *decalmaterialmanager);	// 0x621390 (G_ASSERT 'decalmaterialmanager != NULL' l.237): the insignia onto the model  // NAME 3 [decalmaterialmanager]: the assert's; NAME 1 [decal]: neutral
 	void Unknown_621500();								// 0x621500 (the name onto the model)
+	char *Unknown_621530(int race, int part, int style, int variant);	// 0x621530 (a part's model name, 'S' race part style variant; this unused: 0x621790 sets ecx)  // NAME 1 [all]: neutral
+	bool Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *format);	// 0x621610 (copies of part on the model's numbered bones; this unused)  // NAME 1 [all]: neutral
+	void Unknown_6216D0(RenderObjClass *model, const char *format);	// 0x6216D0 (the numbered bones' sub-objects taken off; this unused)  // NAME 1 [all]: neutral
 	void Unknown_621790(EnvironmentMapManagerClass *environmentmapmanager, int decal, SClientUnknown1334Class *decalmaterialmanager);	// 0x621790 (G_ASSERTs 'result' l.501, 505): the models built from the description  // NAME 1 [all]: as 0x6211D0's / 0x621390's
 	void Unknown_621E20();								// 0x621E20 (the models taken apart and released)
 
+	ShipCustDescClass Desc;								// +0x000 (a member: the ctor 0x620D20 and dtor 0x6210A0 store no table of their own)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown160;				// +0x160 the hull ('S' race 'H' style variant) and the ship  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown164;				// +0x164 the engine, on each part's '~03_nn' bones
 	RefCountPtr<RenderObjClass> Unknown168;				// +0x168 the wing (on the hull's '~02')
@@ -63,7 +67,9 @@ struct ShipCustGadgetStruct	// NAME 1: neutral (D10)
 // callback's type name MemberCallback<GadgetClass,ShipCustomizeInterface,...>), 0x26C bytes, tables 0xAF79A4 /
 // 0xAF7998 / 0xAF798C; the character view's mode 6 (LoginTaskClass step 6). Its pages FA_SHIP01-04: hull, paint,
 // insignia, name.
-class ShipCustomizeInterface : public InterfaceClass	// NAME 5: the client's RTTI
+// Its second base, at +0x084, is the description being edited (CONFIRM copies it to the view's +0x244): the
+// destructor 0x622B90 null-checks this before running ~Unknown620D20Class inline, as for a base, not a member.
+class ShipCustomizeInterface : public InterfaceClass, public Unknown620D20Class	// NAME 5: the client's RTTI
 {
 public:
 	ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, int unknown2);	// 0x622180 (charview.cpp's 0x679160: the mode before was 5, 0)  // NAME 1 [view, layer, unknown, unknown2]: as charview.cpp's
@@ -81,7 +87,7 @@ public:
 	void Unknown_624DF0();							// 0x624DF0
 	void Unknown_624E20();							// 0x624E20
 	void Unknown_624E50();							// 0x624E50 (the colour pull dragged)
-	void Unknown_6251F0(float u, float v);			// 0x6251F0 (the colour's palette position)  // NAME 1 [u, v]: neutral
+	void Unknown_6251F0(Vector2 uv);				// 0x6251F0 (the colour's palette position; its callers copy a Vector2 onto the stack)  // NAME 1 [uv]: neutral
 	void Unknown_625260();							// 0x625260 (the pull to the colour's palette position)
 	void Unknown_625440();							// 0x625440 (the colour palette and its pull; G_ASSERT 'ColorSliderTexture' l.1600)
 	void Unknown_625760(bool on);					// 0x625760 (the pull shown)  // NAME 1 [on]: neutral
@@ -94,14 +100,13 @@ public:
 	bool *Unknown_6271A0();							// 0x6271A0 (the setting's matte flag)
 	ShipCustomizationMetal *Unknown_6271D0();		// 0x6271D0 (the setting's metal)
 	void Unknown_627200();							// 0x627200 (RANDOM)
-	void Unknown_627730(float r, float g, float b);	// 0x627730 (the colour)  // NAME 1 [r, g, b]: neutral
+	void Unknown_627730(Vector3 color);				// 0x627730 (the colour; its callers copy a Vector3 onto the stack)  // NAME 1 [color]: neutral
 	void Unknown_6277A0();							// 0x6277A0 (the page's buttons from the description)
 	void Unknown_627FA0();							// 0x627FA0 (the insignia buttons; inlined in 0x625A60)
 	void Unknown_6280E0();							// 0x6280E0 (the insignia list's textures)
 	void Unknown_628420();							// 0x628420 (the metal models turned)
 	void Unknown_628900(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x628900 (FAIL_IFs '!event', '!gadget')  // NAME 3 [event]: the FAIL_IF's; NAME 1 [sender]: the callback's type
 
-	Unknown620D20Class Ship;						// +0x084 the description being edited (CONFIRM copies it to the view's +0x244)  // NAME 1: what it holds
 	CharacterViewClass *CharacterView;				// +0x208 (the view's slot +0x28)  // NAME 1: as ui_class.h's
 	LoginTaskClass *LoginTask;						// +0x20C  // NAME 1: as ui_class.h's
 	bool Unknown210;								// +0x210

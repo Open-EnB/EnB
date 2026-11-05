@@ -1137,11 +1137,6 @@ static void Test_Subtypes(SClient *client)
 // 0x20 0x6607D0 (both only with a current view +0x1350); a Name the list doesn't know takes the FAIL_IF '!gadget'.
 // INCAPACITANCE_DETAILS puts the camera in mode 0x19 and hands the packet to the cockpit (main view +0x1D0, 0x584690).
 class UIGadgetInterfaceClass;
-class GadgetClass
-{
-public:
-	void Unknown_6603A0(int arg, UIViewClass *view);
-};
 // gadget_list_manager.cpp is real: 0x661940 walks the manager's GroupLists (+0x00, a list of gadget lists) for the
 // gadget whose +0x24 name matches; the harness's manager has one list with the one fake gadget
 struct FakeGadgetManagerStruct
@@ -1158,7 +1153,9 @@ static void **Fake_Gadget[0x100 / 4] = { Gadget_Table };	// a zeroed gadget (Fla
 static FakeTableStruct *__stdcall Gadget_08_Slot() { Gadget_Log += "+08 "; return(&Fake_Gadget_Iface); }
 static void __stdcall Gadget_40_Slot(bool on) { Gadget_Log += on ? "+40(1) " : "+40(0) "; }
 static void __stdcall Gadget_Iface_8C_Slot(bool on) { Gadget_Log += on ? "iface+8C(1) " : "iface+8C(0) "; }
-void GadgetClass::Unknown_6603A0(int arg, UIViewClass *view) { Gadget_Log += arg == 1 && view ? "6603A0(1, view) " : "6603A0(?) "; }
+// the real 0x6603A0 (gadget.cpp) runs on the fake gadget: it asks slot +0x24 for the flash's model (the fake logs and
+// returns null, so nothing more happens); the log shows 0x6603A0 was reached with the indicator flag 1
+static void *__stdcall Gadget_24_Slot(void *position, float *frame, bool indicator) { Gadget_Log += indicator ? "6603A0(1) " : "6603A0(0) "; return(0); }
 static std::string Incap_Calls;
 // ui_cpit.cpp's real 0x584690 (since 2026-11-01) fills the cockpit's +0xE0 object (UICpitUnknownE0Class, 0x551FB0, not
 // rebuilt): the fake below has the table's slot +0x58 and records the four non-virtual calls the real code makes.
@@ -1184,6 +1181,7 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 		Gadget_Iface_Table[i] = (void *)Zero_Slot;
 	}
 	Gadget_Table[0x08 / 4] = (void *)Gadget_08_Slot;
+	Gadget_Table[0x24 / 4] = (void *)Gadget_24_Slot;
 	Gadget_Table[0x40 / 4] = (void *)Gadget_40_Slot;
 	Gadget_Iface_Table[0x8C / 4] = (void *)Gadget_Iface_8C_Slot;
 	int list = client->Unknown1278;
@@ -1202,8 +1200,8 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x3F, "gadget_test")));
 	client->Process_Packets();
 	Trace("gadget calls: %s", Gadget_Log.c_str());
-	Check(Gadget_Log == "+08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) ",
-		"GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view); 0x6607D0 is the real gadget.cpp now and does nothing without a flash");
+	Check(Gadget_Log == "+08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1) ",
+		"GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1) reaching the real gadget.cpp's slot +0x24; 0x6607D0 is the real gadget.cpp now and does nothing without a flash");
 	Gadget_Log = "";
 	client->CurrentView = 0;
 	Memory->Incoming.push_back(Built_Message(&GadgetPacketClass(0x14, "gadget_test")));

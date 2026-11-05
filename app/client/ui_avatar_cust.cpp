@@ -10,6 +10,7 @@
 #include "rendobj.h"
 #include "matrix3d.h"
 #include "texture.h"
+#include "dx8renderer.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\unknown_debug.h"
 #include "..\audio\soundlib.h"
@@ -62,7 +63,7 @@ public:
 
 	bool Is_Unknown2C_02() { return(Unknown2C_02); }	// (gadget.h's inline)  // NAME 1: neutral (D10)
 	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
 	void Unknown_6607D0();								// 0x6607D0
 
 	char Unknown04[0x20 - 0x04];						// +0x04
@@ -100,7 +101,7 @@ public:
 	char Unknown58[0xB8 - 0x58];						// +0x58
 	float UnknownB8, UnknownBC, UnknownC0, UnknownC4, UnknownC8;	// +0xB8 (its model's turn: 0x54E3C0 sets them while a turn button is down)
 	char UnknownCC[0xDC - 0xCC];						// +0xCC
-	bool UnknownDC;										// +0xDC (0x54DFE0: set in mode 1, the head)
+	bool UnknownDC;	void Set_UnknownDC(bool on) { UnknownDC = on; }	// +0xDC (0x54DFE0: set in mode 1, the head, through an inline setter: the client's eax for the store)  // NAME 1 [Set_UnknownDC]: neutral (D10)
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as ui_avatr.cpp's UIAvatrGadget671300Class
@@ -152,7 +153,7 @@ struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
 // The asset manager (*0xBFAEE0)
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
@@ -240,6 +241,9 @@ class UIAvatarCustAvatarClass : public RefCountClass	// NAME 1: neutral (D10); a
 public:
 	void Unknown_77FC20(int value, bool unknown);		// 0x77FC20 (0x54E950: +0x368's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
+	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (avatar.h's: Goggle_Num's 'GOGGLE' accessory; 0x54CBC0: +0x374's value, 1)  // NAME 1 [num, rebuild]: avatar.h's
+	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (avatar.h's: Ear_Num's 'EAR' accessory; 0x54CBC0: +0x378's value, 1)  // NAME 1 [num, rebuild]: avatar.h's
+	void Unknown_7859F0(int num);						// 0x7859F0 (avatar.h's: Tattoo_Texture_Num; 0x54CBC0: +0x370's value)  // NAME 1 [num]: avatar.h's
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
 	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (avatar.h's: Hair_Color)  // NAME 1 [color, rebuild]: avatar.h's
@@ -272,7 +276,7 @@ public:
 	void Unknown_585CC0();								// 0x585CC0 (0x54EAD0: direction 1)
 
 	char Unknown00[0x18];								// +0x00
-	int Unknown18;										// +0x18 (the value: 0x54EAD0 hands it to the avatar's 0x77FD30)
+	int Unknown18;	int Get_Unknown18() { return(Unknown18); }	// +0x18 (the value: 0x54EAD0 hands it to the avatar's 0x77FD30; 0x54CBC0's 0x14-0x19 and 0x54E950 read it through the inline getter)  // NAME 1 [Get_Unknown18]: neutral (D10)
 	char Unknown1C[0x24 - 0x1C];						// +0x1C (0x24 bytes: 0x54EEC0)
 };
 
@@ -473,6 +477,126 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
+// NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined
+// for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the
+// view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the
+// client's ecx); left: its converted temporary in the 0x54EAD0 copies through the out-of-line 0x551D40 with the
+// destructor inline (ours the reverse), ebp / ebx roles in the palette copies, and eax where VC6 here takes edx
+// (attempts.py show 0x54CBC0)
+// 0x54CBC0
+bool StarbaseAvatarCreationInterface::Unknown_68(int key)
+{
+	SClient *client = Unknown0B4->Client;
+	if (!Unknown3CC) {
+		return(true);
+	}
+	if (Unknown360 || Unknown361 || Unknown362 || Unknown363 || Unknown364 || Unknown365) {
+		return(false);
+	}
+	switch (key) {
+		case 1:
+			Unknown_54DFE0(1);
+			Unknown_550670();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 2:
+			Unknown_54DFE0(2);
+			Unknown_550670();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 3:
+			Unknown0B8->Unknown_8C();
+			break;
+		case 8:
+			Unknown0B8->Unknown_88();
+			break;
+		case 0xD:
+			Unknown_551900();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 0xE:
+			Unknown0B4->Unknown_69F440();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 0x10:
+			Unknown_54E950(1);
+			break;
+		case 0x11:
+			Unknown_54E950(2);
+			break;
+		case 0x12:
+			Unknown_54EAD0(1);
+			break;
+		case 0x13:
+			Unknown_54EAD0(2);
+			break;
+		case 0x14:
+			Unknown370->Unknown_585CC0(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x15:
+			Unknown370->Unknown_585C90(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x16:
+			Unknown374->Unknown_585CC0(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x17:
+			Unknown374->Unknown_585C90(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x18:
+			Unknown378->Unknown_585CC0(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x19:
+			Unknown378->Unknown_585C90(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
+		case 0x1A:
+		case 0x1B:
+			Unknown_5513E0("fa_avatar_color.tga");
+			Unknown_550140(key);
+			break;
+		case 0x1C:
+			Unknown_5513E0("fa_skin_color.tga");
+			Unknown_550140(key);
+			break;
+		case 0x20:
+			Unknown_54E690(1);
+			break;
+		case 0x21:
+			Unknown_54E690(2);
+			break;
+		case 0x22:
+			Unknown_54E7F0(1);
+			break;
+		case 0x23:
+			Unknown_54E7F0(2);
+			break;
+		case 0x24:
+		case 0x25:
+		case 0x26:
+		case 0x27:
+			Unknown_550140(key);
+			break;
+		case 0x28:
+			Unknown_550970(0);
+			break;
+		case 0x29:
+			Unknown_550970(1);
+			break;
+		case 0x2A:
+			Unknown_550970(2);
+			break;
+		default:
+			return(false);
+	}
+	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	return(true);
+}
+
 // 0x54D720
 void StarbaseAvatarCreationInterface::Unknown_54D720(int text)
 {
@@ -578,9 +702,9 @@ void StarbaseAvatarCreationInterface::Unknown_54DC20(int mode, bool on)
 	}
 }
 
-// NOT EXACT: inline budget (248 instructions against 235: the client calls the palette helper's two ~RefCountPtr out
-// of line, 0x4740B0, in both inlined copies of 0x5513E0, as ui_avatr.cpp's 0x556B20; dead reads before the helper or
-// in it (1-2) change nothing, 3 keep the helper out of line)
+// The tab switch: the palette helper 0x5513E0 inlined twice, its two ~RefCountPtr out of line (0x4740B0) in both
+// copies; the pip's +0xDC through an inline setter and the avatar through one pointer per tab (the client's single
+// load of +0xBC); two dead Peek()s spend the inline budget the client spent (D130; not the client's)
 // 0x54DFE0
 void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 {
@@ -599,11 +723,11 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x1A);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->UnknownDC = true;
+			Unknown0B8->Set_UnknownDC(true);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			Unknown0BC->Unknown231 = true;
-			Unknown0BC->Unknown214 = true;
+			{ UIAvatarCustAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = true;
+			avatar->Unknown214 = true; }
 			break;
 		case 2:
 			Unknown_54DC20(1, false);
@@ -611,11 +735,11 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x24);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->UnknownDC = false;
+			Unknown0B8->Set_UnknownDC(false);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			Unknown0BC->Unknown231 = false;
-			Unknown0BC->Unknown214 = true;
+			{ UIAvatarCustAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; } Unknown0BC.Peek(); Unknown0BC.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the helper's second copy calls its ~RefCountPtr out of line
 			break;
 	}
 }
@@ -679,7 +803,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E610()
 	}
 }
 
-// NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690)
+// The view's client through Get_Client() and its envmaps through sclient.h's inline Peek_Environment_Map_Manager() (the client's eax)
 // 0x54E690
 void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
 {
@@ -693,12 +817,12 @@ void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type)
+// As 0x54E690's, its twin for Pants_Type
 // 0x54E7F0
 void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 {
@@ -712,12 +836,12 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.69: dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
+// NOT EXACT: register (0.73 with the value through Get_Unknown18(): dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
 // 0x54E950
 void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 {
@@ -728,13 +852,13 @@ void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 			Unknown368->Unknown_585C90();
 		}
 	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
-	Unknown0BC->Unknown_77FC20(Unknown368->Unknown18, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_77FC20(Unknown368->Get_Unknown18(), true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.81: as 0x54E690's, the view's Client chain)
+// As 0x54E690's, the chooser's value through Get_Unknown18() (the client's eax)
 // 0x54EAD0
 void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 {
@@ -743,8 +867,8 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 	} else {
 		Unknown36C->Unknown_585C90();
 	}
-	Unknown0BC->Unknown_77FD30(Unknown36C->Unknown18, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_77FD30(Unknown36C->Get_Unknown18(), true);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -877,9 +1001,9 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 	((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown_671630();
 }
 
-// NOT EXACT: order-only (196 instructions: the two translations' adds and the stores of +0x30C / +0x310 scheduled
-// otherwise; found: a Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo
-// offset built from the members; an inline setter for the point is worse)
+// A Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo offset built from the
+// members, and each translation's product parenthesised ((width * point.X) + left: without the parentheses VC6
+// schedules the adds otherwise)
 // 0x54F6F0
 void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, float du, float dv)
 {
@@ -912,8 +1036,8 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Unknown04->Get_Transform();
-	tm.Set_X_Translation(width * point.X + left - box.Center.X);
-	tm.Set_Y_Translation(height * point.Y + top - box.Center.Y);
+	tm.Set_X_Translation((width * point.X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * point.Y) + top - box.Center.Y);
 	tm[2][3] = 0.0f;
 	model->Control_Bone(bone, tm, false);
 	Unknown30C = point.X;
@@ -996,7 +1120,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 				Unknown_550970(-1);
 				break;
 		}
-		Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+		Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 		Unknown_551BF0();
 	} else {
 		Unknown31C->Unknown08 = false;
@@ -1004,8 +1128,8 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 	((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown_671630();
 }
 
-// NOT EXACT: order-only (292 bytes, the same 91 instructions: Control_Bone's `push 0` comes before the matrix copy, the
-// client's after the two translations; the default argument and Set_X/Y_Translation give the same)
+// The translations through Set_X / Set_Y_Translation with the products parenthesised (either alone leaves
+// Control_Bone's `push 0` hoisted above the matrix copy)
 // 0x54FFC0
 void StarbaseAvatarCreationInterface::Unknown_54FFC0()
 {
@@ -1019,8 +1143,8 @@ void StarbaseAvatarCreationInterface::Unknown_54FFC0()
 	int bone = model->Get_Sub_Object_Bone_Index(Unknown31C->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = Unknown31C->Unknown04->Get_Transform();
-	tm[0][3] = width * Unknown320[Unknown358].Unknown00 + left - box.Center.X;
-	tm[1][3] = height * Unknown320[Unknown358].Unknown04 + top - box.Center.Y;
+	tm.Set_X_Translation((width * Unknown320[Unknown358].Unknown00) + left - box.Center.X);
+	tm.Set_Y_Translation((height * Unknown320[Unknown358].Unknown04) + top - box.Center.Y);
 	model->Control_Bone(bone, tm, false);
 }
 
@@ -1058,9 +1182,9 @@ void StarbaseAvatarCreationInterface::Unknown_550140(int id)
 	Unknown_550670();
 }
 
-// NOT EXACT: shape (131 instructions against 132: the client keeps the two bools the other way round on the stack,
-// movable at +0xC and zoom at +8, and writes zoom's 0 as an immediate; `zoom = true; if (!(...)) zoom = false;` gives 132
-// with the slots still swapped, and declaring zoom first or movable after scale changes nothing)
+// The step's last test reads zoom, not movable (the client's reload of zoom's slot before pop edi): with it the
+// two bools take the client's slots (zoom set then cleared in memory, zoom's 1 from the ebx kept for the
+// Unknown0B0 == 1 compare)
 // 0x5502F0
 void StarbaseAvatarCreationInterface::Unknown_5502F0()
 {
@@ -1082,7 +1206,7 @@ void StarbaseAvatarCreationInterface::Unknown_5502F0()
 		Unknown204[13]->Unknown_8C(!zoom);
 		Unknown204[14]->Unknown_40(zoom);
 		Unknown204[14]->Unknown_8C(!zoom);
-		if (!movable) {
+		if (!zoom) {
 			Unknown314.X = 1.0f;
 		}
 	}
@@ -2080,130 +2204,6 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x551320
 void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event, GadgetClass *sender)
 {
@@ -2370,7 +2370,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
 **	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
 **	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init
-**	0x54BD30 (slot +0x54) and the key handler 0x54CBC0 (slot +0x68).
+**	0x54BD30 (slot +0x54). The key handler 0x54CBC0 (slot +0x68) functional (CS1, 2026-11-04; NOT EXACT 0.42).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
 **	the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass).
 */

@@ -134,7 +134,7 @@ static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 static unsigned char Unknown_B7DC98[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 
 #pragma auto_inline(off)
-// NOT EXACT: shape (0.64: the backward step tests with test / jge where ours uses dec's flags)
+// the backward step through a local (prev): `index--` reuses dec's flags (jns), the client tests (test / jge)
 // @0x5746C0
 static int Unknown_5746C0(int index, bool forward)
 {
@@ -143,8 +143,8 @@ static int Unknown_5746C0(int index, bool forward)
 			index = (index + 1) % 9;
 			if (Unknown_B7DC98[index] == 0) return(index);
 		} else {
-			index--;
-			if (index < 0) index = 8;
+			int prev = index - 1;
+			index = (prev < 0) ? 8 : prev;
 			if (Unknown_B7DC98[index] == 0) return(index);
 		}
 	}
@@ -299,7 +299,7 @@ void ClassSelectInterface::Unknown_60()
 }
 
 
-// NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case)
+// key 7 alone sets the class under `!= 1` and returns in place (the others break to the end): the client's per-case ebx = 1
 // @0x575660
 bool ClassSelectInterface::Unknown_68(int key)
 {
@@ -362,12 +362,12 @@ bool ClassSelectInterface::Unknown_68(int key)
 			return(true);
 		case 7:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			if (Unknown8C == 1) {
-				break;
+			if (Unknown8C != 1) {
+				Unknown8C = 1;
+				Unknown_5779D0();
 			}
-			Unknown8C = 1;
-			Unknown_5779D0();
 			return(true);
+
 		case 8:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 2) {
@@ -533,7 +533,7 @@ void ClassSelectInterface::Unknown_5761D0()
 }
 
 
-// NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp)
+// the bit clear written in both branches (tail-merged): VC6 then keeps its mask in ebp, as the client
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
 {
@@ -541,14 +541,14 @@ void ClassSelectInterface::Unknown_576270()
 		if (SliderValue + i < (int)Descriptions.size()) {
 			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text(Descriptions[SliderValue + i].c_str(), 0);
 			SkillGadgets[i]->Set_Unknown14(SkillDescriptions[SliderValue + i].c_str());
+			SkillGadgets[i]->Unknown2C_06 = 0;
 		} else {
 			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text("", 0);
 			SkillGadgets[i]->Set_Unknown14("");
+			SkillGadgets[i]->Unknown2C_06 = 0;
 		}
-		SkillGadgets[i]->Unknown2C_06 = 0;
 	}
 }
-
 
 
 

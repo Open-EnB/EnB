@@ -1069,7 +1069,7 @@ public:
 	int Unknown1328;									// +0x1328 (the constructor leaves it)
 	MusicManagerClass *MusicManager;					// +0x132C Init  // NAME 3: its file's
 	SClientUnknown1330Class *Unknown1330;				// +0x1330 (Shutdown deletes it: destructor 0x43C560)
-	SClientUnknown1334Class *Unknown1334;				// +0x1334
+	SClientUnknown1334Class *Unknown1334;	EnvironmentMapManagerClass *Peek_Environment_Map_Manager() { return(EnvironmentMapManager); }	// +0x1334; the getter reads +0x1338 below (ui_avatar_cust.cpp's 0x54E690 / 0x54E7F0)  // NAME 1 [Peek_Environment_Map_Manager]: neutral (D10)
 	EnvironmentMapManagerClass *EnvironmentMapManager;	// +0x1338  // NAME 3: option.cpp's and scriptedmovie.cpp's asserts 'sclient->EnvironmentMapManager'
 	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's
 	VectorClass<Vector3> Unknown1340;					// +0x1340 vtable 0xAE9B0C

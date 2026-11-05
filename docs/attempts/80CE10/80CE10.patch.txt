@@ -1,0 +1,42 @@
+--- app/client/ship_pip.cpp	2026-11-04 16:18:23.478525500 -0800
++++ .work/cs5/vm/w1/ship_pip.cpp	2026-11-04 21:19:24.580939500 -0800
+@@ -381,6 +381,8 @@
+ 		return;
+ 	}
+ 	float time = WW3D::Get_Frame_Time() * 0.001f;
++	Quaternion q;
++	Matrix3D inverse;
+ 	float x = 0.0f;
+ 	float y = 0.0f;
+ 	if (Type == 0 && FloatParent) {
+@@ -412,19 +414,18 @@
+ 	}
+ 	if (Unknown0C0 == 0.0f && Unknown0C4 == 0.0f) {
+ 		if (Unknown0C8 != 0.0f) {
+-			float distance = Unknown_80E7A0() * time * Unknown0C8;
++			float distance = Unknown_80E7A0() * time;
++			distance *= Unknown0C8;
+ 			Unknown_Zoom(this, distance);
+ 			Unknown_90();
+ 			return;
+ 		}
+ 		if (fabs(x) >= 0.0001f || fabs(y) >= 0.0001f) {
+-			Quaternion q;
+ 			if (Type == 0) {
+ 				q = Trackball(0.0f, 0.0f, x, y, 0.8f);
+ 			} else {
+ 				q = Trackball(0.0f, 0.0f, x, 0.0f, 0.8f);
+ 			}
+-			Matrix3D inverse;
+ 			Unknown06C.Get_Orthogonal_Inverse(inverse);
+ 			Vector3 center = inverse.Get_Translation();
+ 			Unknown06C.Translate(center);
+@@ -434,7 +435,7 @@
+ 			return;
+ 		}
+ 	} else {
+-		Unknown_80E020(Unknown_80E7A0() * time * Unknown0C0, Unknown_80E7A0() * Unknown0C4 * time);
++		Unknown_80E020((Unknown_80E7A0() * time) * Unknown0C0, Unknown_80E7A0() * Unknown0C4 * time);
+ 		Unknown_90();
+ 	}
+ }

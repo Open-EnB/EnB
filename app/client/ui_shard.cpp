@@ -26,7 +26,8 @@
 #include "local_interface_sort.h"
 #include "fontmanager.h"
 #include "fontdatabase.h"
-extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+extern FontManagerClass *Unknown_BE67C4;
+extern const int Unknown_B08C9C;					// 0xB08C9C (8: or'ed with textgadg.h's Unknown_B08CAC for the name's gadget)  // NAME 1: neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_class.cpp's)
 struct UIShardKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -41,7 +42,7 @@ struct UIShardKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 std::string Unknown_4BE9D0(const char *name);			// 0x4BE9D0 (avatar_desc.cpp's): a name turned into another
 
 static const char *Unknown_B8901C[] = { "button_shard00", "button_shard01", "button_shard02", "button_shard03", "button_shard04", "button_shard05", "skip", "name", "button_cancel", "exit" };	// NAME 1: neutral (D10)
@@ -52,7 +53,10 @@ static const char *Unknown_B8909C = "Click to set Name";	// NAME 1: neutral (D10
 static char Unknown_BDA908[1];						// 0xBDA908 (.bss: an empty row's text)  // NAME 1: neutral (D10)
 
 
-// NOT EXACT: functional (D64), written from the pseudocode for the POC
+// The camera read through an inline accessor: the client loads it into eax and copies it to ecx (a member read
+// straight into ecx does not).
+static inline CameraClass *Camera_Of(CharacterViewClass *view) { return(view->Unknown068); }	// NAME 1: neutral (D10)
+
 // @0x615A50
 Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -85,8 +89,9 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 	CharacterView->Unknown_67A250();
 	CharacterView->Unknown_67AB20(0, "FE02A");
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	CharacterView->Unknown068->Set_Clip_Planes(1.0f, 1000.0f);
-	if (LoginTask->Previous_Step == 2) {
+	Camera_Of(CharacterView)->Set_Clip_Planes(1.0f, 1000.0f);
+	int step = LoginTask->Previous_Step;
+	if (step == 2) {
 		CharacterView->Unknown_67AB20(3, "comp00a");
 		CharacterView->Unknown_67C440(CharacterView->Unknown088.Race, 1);
 		CharacterView->Unknown_67AB20(4, "FE_NAR_AGG");
@@ -112,7 +117,7 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 		Unknown64.Unknown_6870E0(Arrows[i], i + 13, View, 1, 1);
 		sub->Release_Ref();
 	}
-	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe02a", model, 0x88, 0);
+	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe02a", model, Unknown_B08CAC | Unknown_B08C9C, 0);
 	NameGadget->Set_Text(Unknown_B8909C, 0);
 	NameGadget->Unknown_28(layer);
 	Unknown64.Unknown_6870E0(NameGadget, 15, View, 1, 1);
@@ -125,13 +130,13 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 	SoundLibraryClass::Play_2D_Sound("fontshoosh.wav", 2);
 	UnknownD2 = true;
 	Unknown_617540();
-	LoginTask->Unknown0020 = 0;
-	LoginTask->Error = 0;
+	LoginTaskClass *task = LoginTask;
+	task->Unknown0020 = 0;
+	task->Error = 0;
 	Unknown9E = TutorialManagerClass::Instance->Read_Completed_File(true);
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x616090
 Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 {
@@ -153,7 +158,7 @@ Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 		GadgetClass::Destroy(NameGadget);
 		NameGadget = NULL;
 	}
-	Unknown_BE67C4->Remove(CharacterView->ViewRObjs[0]);
+	Unknown_BE67C4->Remove(CharacterView->Peek_Model());
 	Unknown_BE67BC->Unload("fa_fe02a.ini");
 	CharacterView->Unknown_67A9B0(0);
 }
@@ -189,7 +194,6 @@ void Unknown615A50InterfaceClass::Unknown_60()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6164E0
 bool Unknown615A50InterfaceClass::Unknown_68(int key)
 {
@@ -198,6 +202,14 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 	}
 	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 	switch (key) {
+		case 8:
+			NameGadget->Unknown_74(true);
+			NameGadget->Set_Text(NULL, 0);
+			Unknown9C = false;
+			Unknown_617660(false);
+			Unknown_617310();
+			return true;
+
 		case 1:
 		case 2:
 		case 3:
@@ -207,33 +219,26 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 			Unknown_6179D0(key - 1);
 			return true;
 
-		case 7:
-			Unknown_617AA0();
+		case 13:
+			Unknown_617270();
 			return true;
 
-		case 8:
-			NameGadget->Unknown_74(true);
-			NameGadget->Set_Text(NULL, 0);
-			Unknown9C = false;
-			Unknown_617660(false);
-			Unknown_617310();
+		case 14:
+			Unknown_6172A0();
 			return true;
 
 		case 9:
-		{
-			if (!Unknown9C || ShardSelection < 0 || ShardSelection >= (int)SortedGalaxies.size() || UnknownE8) {
-				return true;
+			if (Unknown9C && ShardSelection >= 0 && ShardSelection < (int)SortedGalaxies.size() && !UnknownE8) {
+				Unknown94 = 9;
+				NameGadget->Unknown_74(false);
+				Unknown_617540();
+				char name[0x14];
+				NameGadget->Unknown_6AA340(name, sizeof(name), NULL, NULL, NULL, false);
+				CharacterView->Unknown088.Unknown_4C1460(name, true);
+				LoginTask->Unknown_48(&CharacterView->Unknown088, &CharacterView->Unknown244, Unknown_617A10(), Unknown9D);
+				UnknownE8 = true;
 			}
-			Unknown94 = 9;
-			NameGadget->Unknown_74(false);
-			Unknown_617540();
-			char name[0x14];
-			NameGadget->Unknown_6AA340(name, sizeof(name), NULL, NULL, NULL, false);
-			CharacterView->Unknown088.Unknown_4C1460(name, true);
-			LoginTask->Unknown_48(&CharacterView->Unknown088, &CharacterView->Unknown244, Unknown_617A10(), Unknown9D);
-			UnknownE8 = true;
 			return true;
-		}
 
 		case 10:
 			Unknown94 = 10;
@@ -252,19 +257,16 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 			UnknownD1 = true;
 			return true;
 
-		case 13:
-			Unknown_617270();
-			return true;
-
-		case 14:
-			Unknown_6172A0();
+		case 7:
+			Unknown_617AA0();
 			return true;
 	}
 	return false;
 }
 
 
-// NOT EXACT: functional (D64)
+static inline void Clear_Result(LoginTaskClass *task) { task->Unknown0020 = 0; task->Error = 0; }	// NAME 1: neutral (D10): the client loads the task once for both stores
+
 // @0x616A10
 void Unknown615A50InterfaceClass::Unknown_616A10()
 {
@@ -297,44 +299,33 @@ void Unknown615A50InterfaceClass::Unknown_616A10()
 		}
 	}
 	if (LoginTask->Unknown0020 != 0) {
-		if (LoginTask->Unknown0020 == 1) {
-			if (LoginTask->Unknown001D) {
-				LoginTask->Unknown0020 = 0;
-				LoginTask->Error = 0;
-				CharacterView->NarratorRObj->Unknown_784C90("AllGood", true);
-			}
-		} else {
+		if (LoginTask->Unknown0020 != 1) {
 			NameGadget->Set_Text(Unknown_B8909C, 0);
 			Unknown_617660(false);
 			Unknown9C = false;
-			const char *speech = NULL;
 			switch (LoginTask->Error) {
-				case 8: speech = "NameTaken"; break;
-				case 9: speech = "NameWithNumbers"; break;
-				case 10: speech = "NameTooShort"; break;
-				case 11: speech = "NameNoVowels"; break;
-				case 12: speech = "NameRepeatCharacters"; break;
-				case 13: speech = "NameRestricted"; break;
+				case 8: CharacterView->NarratorRObj->Unknown_784C90("NameTaken", true); break;
+				case 9: CharacterView->NarratorRObj->Unknown_784C90("NameWithNumbers", true); break;
+				case 10: CharacterView->NarratorRObj->Unknown_784C90("NameTooShort", true); break;
+				case 11: CharacterView->NarratorRObj->Unknown_784C90("NameNoVowels", true); break;
+				case 12: CharacterView->NarratorRObj->Unknown_784C90("NameRepeatCharacters", true); break;
+				case 13: CharacterView->NarratorRObj->Unknown_784C90("NameRestricted", true); break;
 			}
-			if (speech) {
-				CharacterView->NarratorRObj->Unknown_784C90(speech, true);
+			Clear_Result(LoginTask);
+		} else {
+			if (LoginTask->Unknown001D) {
+				Clear_Result(LoginTask);
+				CharacterView->NarratorRObj->Unknown_784C90("AllGood", true);
 			}
-			LoginTask->Unknown0020 = 0;
-			LoginTask->Error = 0;
 		}
 	}
 	if (CharacterView->Unknown_67B2B0()) {
 		UnknownE8 = false;
 	}
-	if (CharacterView->Unknown34->Active) {
-		if (!UnknownD1) {
-			UnknownD1 = true;
-			Unknown_617540();
-			return;
-		}
-		return;
-	}
-	if (UnknownD1) {
+	if (CharacterView->Unknown34->Active && !UnknownD1) {
+		UnknownD1 = true;
+		Unknown_617540();
+	} else if (!CharacterView->Unknown34->Active && UnknownD1) {
 		UnknownD1 = false;
 		Unknown_617310();
 		UnknownE8 = false;
@@ -342,15 +333,27 @@ void Unknown615A50InterfaceClass::Unknown_616A10()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x616DA0
 void Unknown615A50InterfaceClass::Unknown_616DA0()
 {
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	char name[32];
 	char text[32];
-	int row = 0;
-	for (int index = Unknown8C; index < (int)SortedGalaxies.size() && row < 6; index++, row++) {
+	int row;
+	if ((int)SortedGalaxies.size() <= Unknown8C) {
+		for (row = 0; row < 6; row++) {
+			sprintf(name, "Galaxy%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			sprintf(name, "Pop%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			Buttons[row]->Unknown_6607D0();
+			Buttons[row]->Unknown2C_0B = 0;
+		}
+		Unknown_617190();
+		return;
+	}
+	row = 0;
+	for (int index = Unknown8C; index < (int)SortedGalaxies.size() && row < 6; row++, index++) {
 		sprintf(name, "Galaxy%02d_fe02a", row);
 		Unknown_BE67C4->Unknown_6D2500(name, SortedGalaxies[index].Name, model, 0);
 		sprintf(name, "Pop%02d_fe02a", row);
@@ -358,11 +361,11 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 		if (capacity == 0.0f) {
 			capacity = 1.0f;
 		}
-		float full = ((float)SortedGalaxies[index].Unknown54 / capacity) * 100.0f;
-		if (full < 100.0f) {
-			_snprintf(text, sizeof(text), "%.0f%% full", (double)full);
-		} else {
+		float full = ((float)(unsigned int)SortedGalaxies[index].Unknown54 / capacity) * 100.0f;
+		if (full >= 100.0f) {
 			_snprintf(text, sizeof(text), "FULL");
+		} else {
+			_snprintf(text, sizeof(text), "%.0f%% full", (double)full);
 		}
 		Unknown_BE67C4->Unknown_6D2500(name, text, model, 0);
 		if (ShardSelection == row + Unknown8C) {
@@ -373,26 +376,33 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 			Buttons[row]->Unknown2C_0B = 0;
 		}
 	}
-	for (; row < 6; row++) {
-		sprintf(name, "Galaxy%02d_fe02a", row);
-		Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
-		sprintf(name, "Pop%02d_fe02a", row);
-		Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
-		Buttons[row]->Unknown_6607D0();
-		Buttons[row]->Unknown2C_0B = 0;
+	if (row < 6) {
+		int count = 6 - row;
+		do {
+			sprintf(name, "Galaxy%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			sprintf(name, "Pop%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			Buttons[row]->Unknown_6607D0();
+			Buttons[row]->Unknown2C_0B = 0;
+			row++;
+		} while (--count != 0);
 	}
 	Unknown_617190();
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617190
 void Unknown615A50InterfaceClass::Unknown_617190()
 {
-	bool up = Unknown8C != 0;
-	Arrows[0]->Unknown_40(up);
-	((RObjGadgetClass *)Arrows[0])->Unknown_8C(!up);
-	if ((int)SortedGalaxies.size() - 6 <= Unknown8C) {
+	if (Unknown8C == 0) {
+		Arrows[0]->Unknown_40(false);
+		((RObjGadgetClass *)Arrows[0])->Unknown_8C(true);
+	} else {
+		Arrows[0]->Unknown_40(true);
+		((RObjGadgetClass *)Arrows[0])->Unknown_8C(false);
+	}
+	if (Unknown8C >= (int)SortedGalaxies.size() - 6) {
 		Arrows[1]->Unknown_40(false);
 		((RObjGadgetClass *)Arrows[1])->Unknown_8C(true);
 	} else {
@@ -402,7 +412,6 @@ void Unknown615A50InterfaceClass::Unknown_617190()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617270
 void Unknown615A50InterfaceClass::Unknown_617270()
 {
@@ -413,7 +422,6 @@ void Unknown615A50InterfaceClass::Unknown_617270()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6172A0
 void Unknown615A50InterfaceClass::Unknown_6172A0()
 {
@@ -424,25 +432,23 @@ void Unknown615A50InterfaceClass::Unknown_6172A0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617310
 void Unknown615A50InterfaceClass::Unknown_617310()
 {
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	int i;
 	for (i = 0; i < 10; i++) {
 		if ((i != 6 || Unknown9E) && Buttons[i] != NULL) {
 			Buttons[i]->Unknown_40(true);
-			Unknown_BE67C4->Get_Style(Unknown_B89048[i], model)->Unknown_Set_2FC(1.0f);
+			Unknown_BE67C4->Get_Style(Unknown_B89048[i], CharacterView->Peek_Model())->Unknown_Set_2FC(1.0f);
 		}
 	}
 	for (i = 0; i < 6; i++) {
-		FontSys *pop = Unknown_BE67C4->Get_Style(Unknown_B89074[i], model);
-		if (Unknown8C + i < (int)SortedGalaxies.size()) {
-			pop->Set_Hidden(0);
-		} else {
+		FontSys *pop = Unknown_BE67C4->Get_Style(Unknown_B89074[i], CharacterView->Peek_Model());
+		if (Unknown8C + i >= (int)SortedGalaxies.size()) {
 			Buttons[i]->Unknown_40(false);
 			pop->Set_Hidden(1);
+		} else {
+			pop->Set_Hidden(0);
 		}
 	}
 	NameGadget->Text->Unknown_Set_2FC(1.0f);
@@ -455,24 +461,22 @@ void Unknown615A50InterfaceClass::Unknown_617310()
 		return;
 	}
 	Buttons[8]->Unknown_40(false);
-	Unknown_BE67C4->Get_Style("Accept_fe02a", model)->Unknown_Set_2FC(0.33f);
+	Unknown_BE67C4->Get_Style("Accept_fe02a", CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617540
 void Unknown615A50InterfaceClass::Unknown_617540()
 {
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	int i;
 	for (i = 0; i < 10; i++) {
 		if (Buttons[i] != NULL) {
 			Buttons[i]->Unknown_40(false);
-			Unknown_BE67C4->Get_Style(Unknown_B89048[i], model)->Unknown_Set_2FC(0.33f);
+			Unknown_BE67C4->Get_Style(Unknown_B89048[i], CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 		}
 	}
 	for (i = 0; i < 6; i++) {
-		Unknown_BE67C4->Get_Style(Unknown_B89074[i], model)->Unknown_Set_2FC(0.33f);
+		Unknown_BE67C4->Get_Style(Unknown_B89074[i], CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 	}
 	NameGadget->Text->Unknown_Set_2FC(0.33f);
 	for (i = 0; i < 2; i++) {
@@ -483,11 +487,15 @@ void Unknown615A50InterfaceClass::Unknown_617540()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617660
 void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 {
-	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(named ? "co0102nw_gd.tga" : "co0102nw.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	TextureClass *texture;
+	if (named) {
+		texture = WW3DAssetManager::Get_Instance()->Get_Texture("co0102nw_gd.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	} else {
+		texture = WW3DAssetManager::Get_Instance()->Get_Texture("co0102nw.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	}
 	if (texture) {
 		Unknown_495FD0(((RObjGadgetClass *)Buttons[7])->RObj, texture, 0);
 		texture->Release_Ref();
@@ -495,11 +503,16 @@ void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 }
 
 
-// NOT EXACT: functional (D64)
+// The four dead size() reads spend VC6's inline budget so that clear()'s erase and insert(at, 1, x) stay out of
+// line (0x617F70, 0x617B70) as in the client (workflow.md 3.1: 4 or 5 reads match, 2-3 or 6 do not).
 // @0x6176F0
 void Unknown615A50InterfaceClass::Unknown_6176F0()
 {
-	SortedGalaxies.erase(SortedGalaxies.begin(), SortedGalaxies.end());
+	SortedGalaxies.clear();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
 	std::list<LoginGalaxyClass> galaxies(LoginTask->Galaxies);
 	for (std::list<LoginGalaxyClass>::iterator it = galaxies.begin(); it != galaxies.end(); it++) {
 		LoginGalaxyClass galaxy = *it;
@@ -507,15 +520,15 @@ void Unknown615A50InterfaceClass::Unknown_6176F0()
 		while (at != SortedGalaxies.end() && (unsigned int)at->Unknown54 <= (unsigned int)galaxy.Unknown54) {
 			at++;
 		}
-		if (galaxy.Unknown5C != 0) {
-			SortedGalaxies.insert(at, 1, galaxy);
+		LoginGalaxyClass entry(galaxy);
+		if (entry.Unknown5C != 0) {
+			SortedGalaxies.insert(at, 1, entry);
 		}
 	}
 	Unknown_616DA0();
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6179D0
 void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 {
@@ -523,6 +536,169 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // @0x617A10
@@ -533,12 +709,11 @@ int Unknown615A50InterfaceClass::Unknown_617A10()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617AA0
 void Unknown615A50InterfaceClass::Unknown_617AA0()
 {
 	Unknown9D = !Unknown9D;
-	FontSys *skip = Unknown_BE67C4->Get_Style("Skip_fe02a", CharacterView->ViewRObjs[0]);
+	FontSys *skip = Unknown_BE67C4->Get_Style("Skip_fe02a", CharacterView->Peek_Model());
 	if (skip) {
 		if (Unknown9D) {
 			skip->Change_Text("Skipping Beginner Tutorial", 0);
@@ -556,7 +731,7 @@ void Unknown615A50InterfaceClass::Unknown_617AA0()
 **	0x615A50-0x617AF0 (then the vector<LoginGalaxyClass> members it instantiates, 0x617B20-0x618050). __FILE__
 **	'e:\build\beta\G\app\Client\ui_shard.cpp' (0xB89390) from the FAIL_IF of 0x617A10 (line 707), inlined in the
 **	Accept of slot +0x68. Functional (D64) for the POC client: written from the saved pseudocode and the
-**	disassembly; the FAIL_IF's line is not yet the client's (the file's layout is not reconstructed).
+**	disassembly; the FAIL_IF sits on the client's line 707 through the blank lines above 0x617A10 (D25).
 **
 **	The Accept (event 9; its button is the model's 'button_cancel') names the character view's avatar (+0x88,
 **	AvatarDescClass::Unknown_4C1460 with the text gadget's 0x14 characters) and calls LoginTaskClass slot +0x48
