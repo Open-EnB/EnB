@@ -24,7 +24,7 @@
 #include "..\packets\pkaction.h"
 #include "..\..\ww3d2\layer.h"
 #include "ui_buff.h"
-
+#include "ui_ship_cust.h"	// ShipUI (+0x1A0)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
