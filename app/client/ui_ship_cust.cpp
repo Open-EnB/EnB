@@ -18,6 +18,7 @@
 #include "fontdatabase.h"
 #include "ship_pip.h"
 #include "unknown_675120.h"
+#include "textgadg.h"
 #include "vector2.h"
 #include "aabox.h"
 #include "matrix3d.h"
@@ -56,6 +57,8 @@ public:
 class StarbaseShipCustomizeInterface : public Unknown5BB320Class, public Unknown620D20Class	// NAME 3: the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's)
 {
 public:
+	virtual void Unknown_60();							// 0x6193A0 (every frame, then Unknown5BB320Class's 0x5BB660)
+	void Unknown_61A4D0();								// 0x61A4D0 (G_ASSERT l.712)
 	void Unknown_61AC20(bool on);						// 0x61AC20 (the gadgets on or off, their texts dimmed: as ui_shipcust.cpp's 0x6249D0)  // NAME 1 [on]: neutral
 	void Unknown_61AD30(const char *style, bool on);	// 0x61AD30 (a style shown or hidden: as 0x624AE0)  // NAME 1 [style, on]: neutral
 	void Unknown_61ADA0(int id, const char *name, const char *style, short key, short group);	// 0x61ADA0 (a button of the model's sub-object into the map: as 0x624B50)  // NAME 1 [all]: as ui_shipcust.h's
@@ -65,6 +68,7 @@ public:
 	void Unknown_61B510(Vector2 uv);					// 0x61B510 (the colour's palette position: as 0x6251F0)  // NAME 1 [uv]: neutral
 	void Unknown_61B580();								// 0x61B580 (the pull to the colour's palette position: as ui_shipcust.cpp's 0x625260)
 	void Unknown_61BA80(bool on);						// 0x61BA80 (the pull shown: as 0x625760)  // NAME 1 [on]: neutral
+	void Unknown_61B170();								// 0x61B170
 	void Unknown_61BAC0(int id);						// 0x61BAC0 (a button selected in its group: as ui_shipcust.cpp's 0x6257A0)  // NAME 1 [id]: neutral
 	int Unknown_61BC50(short group);					// 0x61BC50 (the selected id of a group: as 0x625930)  // NAME 1 [group]: neutral
 	void Unknown_61BCE0(short group);					// 0x61BCE0 (a group's buttons unselected: as 0x6259C0)  // NAME 1 [group]: neutral
@@ -73,7 +77,10 @@ public:
 	bool *Unknown_61D200();								// 0x61D200 (the setting's matte flag: as 0x6271A0)
 	ShipCustomizationMetal *Unknown_61D230();			// 0x61D230 (the setting's metal: as 0x6271D0)
 	void Unknown_61DBF0();								// 0x61DBF0 (the insignia list's textures: as 0x6280E0)
-	void Unknown_61E8B0();								// 0x61E8B0 (the client's 0x74C960 for its avatar)
+	void Unknown_61DF80();								// 0x61DF80 (the metal models: 'METAL00' ..)
+	void Unknown_61E8B0();
+	void Unknown_61E8E0(int arg);						// 0x61E8E0  // NAME 1 [arg]: neutral
+	void Unknown_61F0E0();								// 0x61F0E0								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
 
 	SBaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
@@ -86,7 +93,8 @@ public:
 	std::map<int, ShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's
 	char Unknown2FC[0x300 - 0x2FC];						// +0x2FC
 	UIAvatrPullClass *Unknown300;						// +0x300 the colour palette and its pull (as ui_shipcust.cpp's +0x24C)
-	char Unknown304[0x30C - 0x304];						// +0x304
+	char Unknown304[0x308 - 0x304];						// +0x304
+	TextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
 	int Unknown30C;										// +0x30C the part
 	int Unknown310;										// +0x310 the part's setting
 	int Unknown314;										// +0x314 the insignia list's first
@@ -94,6 +102,29 @@ public:
 	char Unknown31C[0x330 - 0x31C];						// +0x31C
 	SClientUnknown1334Class *Unknown330;				// +0x330 the decal library
 };
+
+// @0x6193A0
+void StarbaseShipCustomizeInterface::Unknown_60()
+{
+	if (NameGadget) {
+		bool changed = NameGadget->Changed;
+		NameGadget->Changed = false;
+		if (changed) {
+			_snprintf(Desc.Ship_Name, 0x1A, "%s", NameGadget->Get_Text());
+			Unknown_621500();
+			NameGadget->Changed = true;
+			Unknown_61F180();
+		}
+		NameGadget->Unknown_6AAD10();
+	}
+	Unknown_61A4D0();
+	Unknown_61F0E0();
+	Unknown2E0->Unknown_78();
+	Unknown_61DF80();
+	Unknown_61B170();
+	Unknown_61E8E0(0);
+	Unknown5BB320Class::Unknown_60();
+}
 
 // @0x61AC20
 void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
