@@ -131,7 +131,6 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x616090
 Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 {
@@ -153,7 +152,7 @@ Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 		GadgetClass::Destroy(NameGadget);
 		NameGadget = NULL;
 	}
-	Unknown_BE67C4->Remove(CharacterView->ViewRObjs[0]);
+	Unknown_BE67C4->Remove(CharacterView->Peek_Model());
 	Unknown_BE67BC->Unload("fa_fe02a.ini");
 	CharacterView->Unknown_67A9B0(0);
 }
@@ -425,25 +424,23 @@ void Unknown615A50InterfaceClass::Unknown_6172A0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617310
 void Unknown615A50InterfaceClass::Unknown_617310()
 {
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	int i;
 	for (i = 0; i < 10; i++) {
 		if ((i != 6 || Unknown9E) && Buttons[i] != NULL) {
 			Buttons[i]->Unknown_40(true);
-			Unknown_BE67C4->Get_Style(Unknown_B89048[i], model)->Unknown_Set_2FC(1.0f);
+			Unknown_BE67C4->Get_Style(Unknown_B89048[i], CharacterView->Peek_Model())->Unknown_Set_2FC(1.0f);
 		}
 	}
 	for (i = 0; i < 6; i++) {
-		FontSys *pop = Unknown_BE67C4->Get_Style(Unknown_B89074[i], model);
-		if (Unknown8C + i < (int)SortedGalaxies.size()) {
-			pop->Set_Hidden(0);
-		} else {
+		FontSys *pop = Unknown_BE67C4->Get_Style(Unknown_B89074[i], CharacterView->Peek_Model());
+		if (Unknown8C + i >= (int)SortedGalaxies.size()) {
 			Buttons[i]->Unknown_40(false);
 			pop->Set_Hidden(1);
+		} else {
+			pop->Set_Hidden(0);
 		}
 	}
 	NameGadget->Text->Unknown_Set_2FC(1.0f);
@@ -456,24 +453,22 @@ void Unknown615A50InterfaceClass::Unknown_617310()
 		return;
 	}
 	Buttons[8]->Unknown_40(false);
-	Unknown_BE67C4->Get_Style("Accept_fe02a", model)->Unknown_Set_2FC(0.33f);
+	Unknown_BE67C4->Get_Style("Accept_fe02a", CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617540
 void Unknown615A50InterfaceClass::Unknown_617540()
 {
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	int i;
 	for (i = 0; i < 10; i++) {
 		if (Buttons[i] != NULL) {
 			Buttons[i]->Unknown_40(false);
-			Unknown_BE67C4->Get_Style(Unknown_B89048[i], model)->Unknown_Set_2FC(0.33f);
+			Unknown_BE67C4->Get_Style(Unknown_B89048[i], CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 		}
 	}
 	for (i = 0; i < 6; i++) {
-		Unknown_BE67C4->Get_Style(Unknown_B89074[i], model)->Unknown_Set_2FC(0.33f);
+		Unknown_BE67C4->Get_Style(Unknown_B89074[i], CharacterView->Peek_Model())->Unknown_Set_2FC(0.33f);
 	}
 	NameGadget->Text->Unknown_Set_2FC(0.33f);
 	for (i = 0; i < 2; i++) {
@@ -701,6 +696,11 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 
 
 
+
+
+
+
+
 // @0x617A10
 int Unknown615A50InterfaceClass::Unknown_617A10()
 {
@@ -709,12 +709,11 @@ int Unknown615A50InterfaceClass::Unknown_617A10()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617AA0
 void Unknown615A50InterfaceClass::Unknown_617AA0()
 {
 	Unknown9D = !Unknown9D;
-	FontSys *skip = Unknown_BE67C4->Get_Style("Skip_fe02a", CharacterView->ViewRObjs[0]);
+	FontSys *skip = Unknown_BE67C4->Get_Style("Skip_fe02a", CharacterView->Peek_Model());
 	if (skip) {
 		if (Unknown9D) {
 			skip->Change_Text("Skipping Beginner Tutorial", 0);
