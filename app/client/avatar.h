@@ -216,7 +216,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	Vector3 Unknown360;									// +0x360 (0x783B50: the step moved this frame)
 	bool Unknown36C;									// +0x36C (0x77B870 clears it; set: 0x77D1E0 leaves +0x330 alone)
 	RefCountPtr<RenderObjClass> Unknown370;			// +0x370 (0x788F90's av_teleNN; a RefCountPtr: 0x77C080 releases it through 0x5988A0, operator =(0))
-	HAnimClass *Unknown374;								// +0x374 (0x788F90's av_teleNNa animation; a RefCountPtr in the client)
+	RefCountPtr<HAnimClass> Unknown374;				// +0x374 (0x788F90's av_teleNNa animation; a RefCountPtr: 0x77C080 releases it through 0x78A460, operator =(0))
 	float Unknown378;									// +0x378 (0x7897D0: the time left at which the body shows / hides; -100 done)
 	float Unknown37C;									// +0x37C (0x7897D0: the time left)
 	int Unknown380;										// +0x380 (0x7897D0: the teleport effect, 0 none, 2 / 4 show the body)

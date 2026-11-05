@@ -109,7 +109,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown308` | `app/client/avatar.cpp:100` | untagged neutral name (D10) |
 | 1 | `Unknown314` | `app/client/avatar.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown36C` | `app/client/avatar.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/avatar.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown0C0` | `app/client/avatar.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown0C8` | `app/client/avatar.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown0CC` | `app/client/avatar.cpp:108` | untagged neutral name (D10) |
@@ -149,8 +148,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown310` | `app/client/avatar.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown330` | `app/client/avatar.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown360` | `app/client/avatar.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown370` | `app/client/avatar.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown374` | `app/client/avatar.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown378` | `app/client/avatar.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown37C` | `app/client/avatar.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown380` | `app/client/avatar.cpp:150` | untagged neutral name (D10) |
@@ -158,6 +155,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown288` | `app/client/avatar.cpp:158` | untagged neutral name (D10) |
 | 1 | `Unknown_78EC00` | `app/client/avatar.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC260` | `app/client/avatar.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/avatar.cpp:262` | untagged neutral name (D10) |
 | 1 | `Unknown_77E0E0` | `app/client/avatar.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_77F960` | `app/client/avatar.cpp:283` | untagged neutral name (D10) |
 | 1 | `Unknown_77FFA0` | `app/client/avatar.cpp:284` | untagged neutral name (D10) |
@@ -170,6 +168,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2A0` | `app/client/avatar.cpp:369` | untagged neutral name (D10) |
 | 1 | `Unknown_784E00` | `app/client/avatar.cpp:375` | untagged neutral name (D10) |
 | 1 | `Unknown_7885D0` | `app/client/avatar.cpp:380` | untagged neutral name (D10) |
+| 1 | `Unknown370` | `app/client/avatar.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown374` | `app/client/avatar.cpp:388` | untagged neutral name (D10) |
 | 1 | `Unknown_77D9F0` | `app/client/avatar.cpp:551` | untagged neutral name (D10) |
 | 1 | `Unknown_77E3D0` | `app/client/avatar.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_77E830` | `app/client/avatar.cpp:719` | untagged neutral name (D10) |

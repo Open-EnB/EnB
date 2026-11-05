@@ -144,7 +144,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	Unknown330.Make_Identity();
 	Unknown360.Set(0.0f, 0.0f, 0.0f);
 
-	Unknown374 = NULL;
+
 	Unknown378 = -100.0f;
 	Unknown37C = 0.0f;
 	Unknown380 = 0;
@@ -386,8 +386,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (Unknown374) {
-		Unknown374->Release_Ref();
 		Unknown374 = NULL;
+
 	}
 	if (Unknown0BC) {
 		Unknown0BC->Free_Morph();
@@ -2184,7 +2184,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 }
 
 // 0x783470
-// NOT EXACT: functional for POC (D64), register (the client's Unknown0BC is a RefCountPtr: one load into esi per branch)
+// the head sub-object playing the face animation (+0xBC, a RefCountPtr)
 void CharacterViewAvatarClass::Unknown_783470()
 {
 	char name[32];
@@ -3414,7 +3414,7 @@ void CharacterViewAvatarClass::Unknown_788900()
 
 // 0x788EF0
 // the teleport effect dropped at once (charview 0x67B390)
-// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
+// (exact once +0x370 / +0x374 are RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_788EF0()
 {
 	if (Unknown370) {
@@ -3423,7 +3423,7 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 		Unknown370 = NULL;
 	}
 	if (Unknown374) {
-		REF_PTR_RELEASE(Unknown374);
+		Unknown374 = NULL;
 	}
 	Unknown380 = 0;
 	Unknown37C = 0.0f;
@@ -3445,7 +3445,7 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 		Unknown370 = NULL;
 	}
 	if (Unknown374) {
-		REF_PTR_RELEASE(Unknown374);
+		Unknown374 = NULL;
 	}
 	Unknown378 = -100.0f;
 	Unknown37C = 0.0f;
@@ -3456,13 +3456,13 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 	switch (mode) {
 		case 1:
 			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
-			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1");
+			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
 			Unknown378 = 0.7f;
 			Unknown37C = 3.2f;
 			break;
 		case 2:
 			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
-			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1");
+			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
 			if (BodyObj) {
 				BodyObj->Set_Hidden(1);
 			}
@@ -3474,13 +3474,13 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 			break;
 		case 3:
 			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
-			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1");
+			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
 			Unknown378 = 0.5f;
 			Unknown37C = 1.0f;
 			break;
 		case 4:
 			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
-			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1");
+			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
 			Unknown_786370(true);
 			Unknown378 = 0.0f;
 			Unknown37C = 0.5f;
@@ -3510,7 +3510,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 	if (Unknown370) {
 		if (Unknown374) {
 			Reset_All_Texture_Mappers(Unknown370.Peek(), false);
-			Unknown370->Set_Animation(Unknown374, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
+			Unknown370->Set_Animation(Unknown374.Peek(), 0.0f, RenderObjClass::ANIM_MODE_ONCE);
 			Unknown370->Set_Hidden(0);
 			Unknown370->Set_Animation_Hidden(0);
 			return;
@@ -3522,7 +3522,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 		}
 	}
 	if (Unknown374) {
-		REF_PTR_RELEASE(Unknown374);
+		Unknown374 = NULL;
 	}
 	Unknown380 = 0;
 	Unknown37C = 0.0f;
@@ -3559,8 +3559,8 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 
 	}
 	if (Unknown374) {
-		Unknown374->Release_Ref();
 		Unknown374 = NULL;
+
 	}
 	Unknown380 = 0;
 	Unknown378 = -100.0f;
