@@ -26,6 +26,9 @@
 #include "ui_buff.h"
 #include "ui_ship_cust.h"	// ShipUI (+0x1A0)
 #include "avatar.h"	// CharacterViewAvatarClass (0x69DC80 / 0x69DFC0)
+#include "ui_manu.h"	// UIManuClass (+0x18C, 0x69F8F0)
+#include "ui_chat_panel.h"	// SClient's ChatPanel (0x69F8F0)
+#include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x69F8F0)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
@@ -386,7 +389,7 @@ void SBaseViewClass::Unknown_69CDE0()
 		Unknown198 = NULL;
 		AvatarUI = NULL;
 		ShipUI = NULL;
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C9D0(RefCountPtr<UITalkTreeSpaceClass>());
+		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C9D0(RefCountPtr<UITalkTreeClass>());
 		if (Starbase) {
 			Starbase->Unknown_8C();
 			SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
@@ -487,9 +490,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
 
 
 
@@ -1030,6 +1030,143 @@ bool SBaseViewClass::Unknown_69F850(int index)
 	return(false);
 }
 
+// 0x69F8F0: interface type made once (5 +0x184, 6 +0x188, 7 the manufacturing window +0x18C, 11 the talk tree
+// +0x190, 8 Jobs, 9 +0x198, 14 AvatarUI, 13 ShipUI; the cases in the client's order) and shown as +0x64; 11 also
+// hands the talk tree to the client and sends STARBASE_REQUEST action 4 with arg
+// NOT EXACT: register (0.84): case 11 loads Unknown1138 into edx (the client eax), case 8 the task's table into eax (the client edx)
+void SBaseViewClass::Unknown_69F8F0(int type, int arg)
+{
+	Unknown_69CDE0();
+	switch (type) {
+		case 5:
+			if (!Unknown184) {
+				Unknown184 = Create_Get(new SBaseViewUnknown184Class(this, Unknown7C));
+				Unknown184->Unknown_54();
+				Unknown_6B4940(Unknown184.Peek());
+				Unknown184->Unknown_58();
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = Unknown184;
+			Unknown5C = type;
+			break;
+		case 6:
+			if (!Unknown188) {
+				Unknown188 = Create_Get(new SBaseViewUnknown188Class(this, Unknown7C));
+				Unknown188->Unknown_54();
+				Unknown_6B4940(Unknown188.Peek());
+				Unknown188->Unknown_58();
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = Unknown188;
+			Unknown5C = type;
+			break;
+		case 7:
+			if (!Unknown18C) {
+				Unknown18C = Create_Get(new UIManuClass(this, *Unknown7C));
+				Unknown18C->Unknown_54();
+				Unknown_6B4940(Unknown18C.Peek());
+				Unknown18C->Unknown_58();
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = Unknown18C;
+			Unknown5C = type;
+			break;
+		case 11:
+		{
+			SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+			if (!Unknown190) {
+				Unknown190 = Create_Get(new UITalkTreeClass(client, 1));
+				Unknown190->Unknown_54();
+				Unknown190->Unknown_7C(this, false);
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			client->Unknown_74C9D0(Unknown190);
+			Unknown64 = Unknown190;
+			Unknown5C = type;
+			client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 4, arg));
+			break;
+		}
+		case 8:
+			if (!Jobs) {
+				Jobs = Create_Get(new UIJobsClass((SClient *)((ClientClass *)Client)->Unknown_18()));
+				Jobs->Unknown_54();
+				Jobs->Unknown_7C(this, true);
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = Jobs;
+			Unknown5C = type;
+			break;
+		case 9:
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_5685C0();
+			}
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_568690();
+			}
+			if (!Unknown198) {
+				Unknown198 = Create_Get(new SBaseViewUnknown198Class((SClient *)((ClientClass *)Client)->Unknown_18()));
+				Unknown198->Unknown_54();
+				Unknown198->Unknown_7C(this, true);
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = Unknown198;
+			Unknown5C = type;
+			break;
+		case 14:
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_5685C0();
+			}
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_568690();
+			}
+			if (!AvatarUI) {
+				AvatarUI = Create_Get(new SBaseViewUnknown19CClass(this, Unknown7C));
+				AvatarUI->Unknown_54();
+				Unknown_6B4940(AvatarUI.Peek());
+				AvatarUI->Unknown_7C(this, true);
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = AvatarUI;
+			Unknown5C = type;
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->PDAInterface->Unknown_695FE0(false);
+			}
+			break;
+		case 13:
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_5685C0();
+			}
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->ChatPanel->Unknown_568690();
+			}
+			if (!ShipUI) {
+				ShipUI = Create_Get(new StarbaseShipCustomizeInterface(this, Unknown7C));
+				Unknown_6B4940(ShipUI.Peek());
+				ShipUI->Unknown_54();
+				ShipUI->Unknown_7C(this, true);
+				((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74CA70();
+			}
+			Unknown64 = ShipUI;
+			Unknown5C = type;
+			{
+				SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+				client->PDAInterface->Unknown_695FE0(false);
+			}
+			break;
+	}
+	if (Starbase) {
+		Starbase->Unknown_88();
+	}
+	Unknown58 = Unknown5C;
+}
+
 // 0x6A0540: the render objects out of their scenes
 void SBaseViewClass::Unknown_6A0540()
 {
@@ -1043,143 +1180,6 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -93,12 +93,12 @@ enum
 	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
 };
 
-// ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
-#pragma pack(push, 4)		// 0xBC4 bytes with the __int64 at +0xBB8 (as tsk_game.h's ClientClass)
+// ui_manu.cpp's manufacturing window (0xBC8 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
+// (natural alignment: the __int64 at +0xBB8 rounds the size up to 0xBC8, 0x69F8F0's new; no #pragma pack)
 class UIManuClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_manu.cpp
 {
 public:
-	UIManuClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5AFA00 (0xBC4 bytes)  // NAME 1 [view, layer]: what 0x69F8F0 passes
+	UIManuClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5AFA00 (0xBC8 bytes: 0x69F8F0's new)  // NAME 1 [view, layer]: what 0x69F8F0 passes
 	virtual ~UIManuClass();								// 0x5AFCD0 (slot 0x5AFCA0)
 	virtual void Unknown_54();							// 0x5AFFC0
 	virtual void Unknown_58();							// 0x5B0BB0
@@ -177,6 +177,6 @@ public:
 	__int64 Unknown0BB8;							// +0xBB8 (slot +0x60: the next time a filter request is given back)
 	unsigned int Unknown0BC0;							// +0xBC0 (compared with Unknown_B8183C)
 };
-#pragma pack(pop)
+
 
 #endif // UI_MANU_H

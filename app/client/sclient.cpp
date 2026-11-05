@@ -163,12 +163,12 @@ public:
 	// 0x84 bytes: no members of its own here
 };
 
-class UITalkTreeSpaceClass : public InterfaceClass
+class UITalkTreeSpaceClass : public UITalkTreeClass
 {
 public:
 	UITalkTreeSpaceClass(SClient *client);				// 0x64F310
 	void Unknown_64EED0();								// 0x64EED0 (0x742530, for the main and +0x135C views)
-	char Unknown84[0x184 - 0x84];
+	char Unknown180[0x184 - 0x180];
 };
 
 class BridgeInterfaceClass
@@ -4322,7 +4322,7 @@ int *SClient::Unknown_74C960(unsigned id)
 }
 
 // 0x74C9D0
-void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
+void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 {
 	if (!(tree == Unknown1298)) {
 		if (tree) {

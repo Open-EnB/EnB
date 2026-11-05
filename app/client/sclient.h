@@ -125,6 +125,23 @@ public:
 // the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;
 
+// ui_talkt.cpp's talk tree (0x180 bytes): SClient's +0x1298 holds it or ui_talkt_space.cpp's (derived) +0x129C;
+// the starbase view's +0x190 is one (0x69F8F0 hands &+0x190 straight to 0x74C9D0)
+class TalkTreePacketClass;
+class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
+{
+public:
+	UITalkTreeClass(SClient *client, int arg);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1)  // NAME 1 [client, arg]: neutral
+	virtual void Unknown_88();
+	virtual void Unknown_8C();
+	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
+	int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); void Unknown_64EED0();	// the starbase view's 0x69C8F0 / 0x69CCD0; 0x64EED0 (0x742530)
+	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
+	char Unknown84[0x160 - 0x84];	// +0x84
+	int Unknown160;	// +0x160 (the starbase view's 0x69CCD0 tests it with Active)
+	char Unknown164[0x180 - 0x164];	// +0x164
+};
+
 // what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0, table 0xAF1180): the message box (dialogbox.ini's
 // sections by type: Header%d lines, Option%d buttons with Key%d keys; the "HTML" type opens the settings store's browser 7).
 // Its functions: unknown_msgbox.cpp (interim placement, D137)
@@ -1009,7 +1026,7 @@ public:
 	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
 	Unknown77E3F0Class *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
-	void Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
+	void Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
 	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
 	void Unknown_74BA30(int a, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode)  // NAME 1 [a, starbase_id, mode]: what the handler passes
@@ -1052,7 +1069,7 @@ public:
 	BridgeInterfaceClass *BridgeInterface;				// +0x128C Init  // NAME 3: its file's
 	UIHotKeysClass *HotKeys;							// +0x1290 Init  // NAME 3: its file's
 	VerbManagerClass *VerbManager;						// +0x1294 Init  // NAME 3: its file's
-	RefCountPtr<UITalkTreeSpaceClass> Unknown1298;		// +0x1298 Init: Unknown129C's object
+	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
 	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
 	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
 	UIStarmapClass *Starmap;							// +0x12A4 Init  // NAME 3: its file's

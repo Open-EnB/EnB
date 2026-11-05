@@ -53,21 +53,27 @@ public:
 // ui_ptrade.cpp's player trade interface UIPTradeClass (the starbase view's +0x1A4): sclient.h (the main view's +0x1E4)
 
 class StarbaseShipCustomizeInterface;	// ui_ship_cust.h: the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250; the client's RTTI 0xB89BB0)
-class SBaseViewUnknown19CClass : public InterfaceClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };	// NAME 1: neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40)  // NAME 1 [cost]: the packet's field
+class SBaseViewUnknown19CClass : public InterfaceClass { public: SBaseViewUnknown19CClass(UIViewClass *view, LayerClass *layer); void Unknown_551C40(RecustomizationCostClass *cost); char Unknown84[0x3D0 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40; ui_avatar_cust.cpp's StarbaseAvatarCreationInterface, 0x69F8F0 case 14: 0x54B7B0, 0x3D0 bytes)  // NAME 1 [cost]: the packet's field  // NAME 1 [view, layer]: what 0x69F8F0 passes
+class SBaseViewUnknown184Class : public InterfaceClass { public: SBaseViewUnknown184Class(UIViewClass *view, LayerClass *layer); char Unknown84[0xB08 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes
+class SBaseViewUnknown188Class : public InterfaceClass { public: SBaseViewUnknown188Class(UIViewClass *view, LayerClass *layer); char Unknown84[0x11C - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes
+class SBaseViewUnknown198Class : public InterfaceClass { public: SBaseViewUnknown198Class(SClient *client); char Unknown84[0xB8 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes
+class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x5AFA00)
 
 // ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
 // (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
 class UIJobsClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
 {
 public:
+	UIJobsClass(SClient *client);	// 0x5A1170 (0x1F8 bytes; the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
 	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
+	char Unknown84[0x1F8 - 0x84];	// +0x84
 };
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 // ScriptedMovieViewerSettingsStruct (the view's +0x68): unknown_490900.h
-class SBaseViewUnknown190Class : public InterfaceClass { public: int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active; 0x69C8F0 calls 0x64CF90 / 0x64CFF0 / 0x64D3E0 / 0x64EEA0)
+// ui_talkt.cpp's talk tree UITalkTreeClass (the view's +0x190): sclient.h
 struct SBaseViewUnknown698730Struct { char Unknown00[0x0A]; bool Unknown0A; bool Unknown0B; };	// NAME 1: neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B)
 class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); SBaseViewUnknown698730Struct *Unknown_698730(int key); char Unknown00[0x18]; int Unknown18; };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral
 class SBaseViewUnknown70Class;	// the +0x70 scene (sbaseview.cpp declares it)
@@ -147,6 +153,7 @@ public:
 	void Unknown_69EB20(Matrix3D tm, int seconds, bool restart);	// 0x69EB20: with ViewRObjs[1], the move target +0xB4 = tm turned as 0x69E510, over seconds (+0xE4); restart: +0xE8 = 0, +0x1C4 = 3  // NAME 1 [tm, seconds, restart]: neutral
 	void Unknown_69F710();	// 0x69F710: every channel one frame on
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
+	void Unknown_69F8F0(int type, int arg);	// 0x69F8F0: interface type (5..14) made once and shown as +0x64 (11: the talk tree, SClient's too, and STARBASE_REQUEST action 4 with arg)  // NAME 1 [type, arg]: neutral
 	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
 	void Unknown_6A0E00();	// 0x6A0E00: the text object +0x1B8 away
 	void Unknown_6A0E50();	// 0x6A0E50: the text object hidden
@@ -178,9 +185,9 @@ public:
 	bool Unknown170;	// +0x170 (0x69C8F0: set, 0x69D030(-1) and cleared)
 	RefCountPtr<UIStarbaseClass> Unknown174;	// +0x174
 	RefCountPtr<UIStarbaseClass> Unknown178, Unknown17C, Unknown180;	// +0x178 (0x69C8F0 picks +0x174..+0x180 by +0x50)
-	RefCountPtr<InterfaceClass> Unknown184, Unknown188, Unknown18C;	// +0x184 (0x69CDE0 releases them)
-	RefCountPtr<SBaseViewUnknown190Class> Unknown190;	// +0x190
-	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<InterfaceClass> Unknown198; RefCountPtr<SBaseViewUnknown19CClass> AvatarUI; RefCountPtr<StarbaseShipCustomizeInterface> ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
+	RefCountPtr<SBaseViewUnknown184Class> Unknown184; RefCountPtr<SBaseViewUnknown188Class> Unknown188; RefCountPtr<UIManuClass> Unknown18C;	// +0x184 (0x69CDE0 releases them; 0x69F8F0 makes them)
+	RefCountPtr<UITalkTreeClass> Unknown190;	// +0x190 (0x69F8F0, case 11: 0x64B6E0 with the client and 1)
+	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<SBaseViewUnknown198Class> Unknown198; RefCountPtr<SBaseViewUnknown19CClass> AvatarUI; RefCountPtr<StarbaseShipCustomizeInterface> ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
 	RefCountPtr<UIPTradeClass> PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
 	RefCountPtr<UIGroupClass> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
 	RefCountPtr<UIBuffClass> Unknown1AC;	// +0x1AC (0x69B5E0: the main view's +0x1D4 class, 0x5608D0)

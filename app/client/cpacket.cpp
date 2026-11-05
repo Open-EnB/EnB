@@ -261,16 +261,16 @@ bool CreatePacketClass::Process_Packet(void *instance)
 
 
 
-// ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
-// talk tree packets call them
-class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
-{
-public:
-	virtual void Unknown_88();
-	virtual void Unknown_8C();
-	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
-	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
-};
+// ui_talkt.cpp's talk tree interface UITalkTreeClass (SClient +0x1298, the talk tree packets call its
+// Unknown_90 / Unknown_64D230): sclient.h (the starbase view's +0x190 is one too). ui_talkt_space.cpp's
+// derives from it.
+//
+//
+//
+//
+//
+//
+//
 class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
 {
 };
