@@ -18,6 +18,11 @@ class EnvironmentMapManagerClass;
 class PlayerNLPClass;
 class MeshClass;
 
+// 0x784700's block reads: inline (no client copy); the inline budget they spend is what leaves
+// the inlined 0x781C50's ??_G 0x781C10 and clear 0x78A510 out of line there, as in the client
+inline unsigned char Unknown_Block_Value(const Unknown_ChatBlockStruct *block) { return block->Value; }	// NAME 1 [block]: neutral (D10)
+inline const Unknown_ChatBlockStruct *Unknown_Block_Next(const Unknown_ChatBlockStruct *block) { return (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct)); }	// NAME 1 [block]: neutral (D10)
+
 // an entry of the avatar's animation queue (+0x2A0; 0xC bytes, 0x781880 makes them, 0x781C10 deletes them)
 struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
 {
@@ -57,6 +62,7 @@ public:
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
 	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
+	bool Unknown_Queue_Open() const { return Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2; }	// 0x784700 (+0x210 not 1 / 2 and +0x20C 2: blocks may queue; inline, no client copy)  // NAME 1: neutral (D10)
 	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
 	Unknown_AvatarQueueStruct *Unknown_781B20();				// 0x781B20 (the queue's first entry or NULL; unreferenced: 0x782200 inlines it)  // NAME 1: neutral
 	void Unknown_781B50(Unknown_AvatarQueueStruct *entry);	// 0x781B50 (entry erased from the queue and deleted; unreferenced: 0x782200 inlines it)  // NAME 1 [entry]: neutral

@@ -2562,7 +2562,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 }
 
 // 0x784700
-// NOT EXACT: inline-budget (the client's inlined 0x781C50 calls the queue struct's ??_G 0x781C10 and clear 0x78A510 out of line; ours inlines them here, as in the dtor 0x77C080 the client's do not)
+// (the queue emptied by 0x781C50, the blocks read through inline helpers: the budget they spend leaves 0x781C50's ??_G 0x781C10 and clear 0x78A510 out of line, as the client calls them)
 void CharacterViewAvatarClass::Unknown_784700()
 {
 	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
@@ -2579,26 +2579,26 @@ void CharacterViewAvatarClass::Unknown_784700()
 	for (;;) {
 		switch (block->Type) {
 			case 0:
-				if (Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
-					mood = (char)block->Value;
+				if (Unknown_Queue_Open()) {
+					mood = (char)Unknown_Block_Value(block);
 				}
 				break;
 			case 1:
-				if (block->Value && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
-					Unknown_781880(block->Value, (const char *)(block + 1), mood);
+				if (Unknown_Block_Value(block) && Unknown_Queue_Open()) {
+					Unknown_781880(Unknown_Block_Value(block), (const char *)(block + 1), mood);
 					Unknown208 = 1;
 					mood = -1;
 				}
 				break;
 			case 2:
-				if (block->Value && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
-					Unknown_781880(block->Value, "", mood);
+				if (Unknown_Block_Value(block) && Unknown_Queue_Open()) {
+					Unknown_781880(Unknown_Block_Value(block), "", mood);
 					Unknown208 = 1;
 					mood = -1;
 				}
 				break;
 			case 3:
-				Desc.Mood_Type = (char)block->Value;
+				Desc.Mood_Type = (char)Unknown_Block_Value(block);
 				break;
 			case 4:
 				if (Unknown210 == 0) {
@@ -2632,7 +2632,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 				}
 				break;
 			case 8:
-				if (Unknown210 == 1 || Unknown210 == 2 || Unknown20C != 2) {
+				if (!Unknown_Queue_Open()) {
 					return;
 				}
 				if (Unknown204 == 1 && mood < 0) {
@@ -2643,7 +2643,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 				Unknown208 = 1;
 				return;
 		}
-		block = (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct));
+		block = Unknown_Block_Next(block);
 	}
 }
 
