@@ -40,7 +40,7 @@ public:
 class InterfaceUnknown58Class  // NAME 1: neutral (D10)
 {
 public:
-	void Unknown_686DD0(RenderObjClass *robj);			// 0x686DD0
+	void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene);	void Unknown_686DD0(RenderObjClass *robj);	// 0x686CC0 / 0x686DD0
 };
 
 // 0x549640
@@ -62,7 +62,7 @@ UIAttrbSkillsClass::UIAttrbSkillsClass(SClient *client) :
 // 0x549830
 UIAttrbSkillsClass::~UIAttrbSkillsClass()
 {
-	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686DD0(UnknownBC.Peek());	// (InterfaceClass +0x58)
+	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686DD0(InterfaceMesh.Peek());	// (InterfaceClass +0x58)
 	Unknown_54B050();
 	UnknownFC = NULL;
 	if (UnknownD4) {
@@ -75,87 +75,9 @@ UIAttrbSkillsClass::~UIAttrbSkillsClass()
 	}
 	UnknownDC = NULL;
 	UnknownE0 = NULL;
-	Unknown_BE67C4->Remove(UnknownBC.Peek());
+	Unknown_BE67C4->Remove(InterfaceMesh.Peek());
 	Unknown_BE67BC->Unload("fa_att.ini");
 }
-
-// (lines 82-151 are Init 0x549AA0's place: its asserts sit on the client's lines 121 / 147 / 155; 0x54A3C0-0x54AC90 follow 0x54B400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -167,12 +89,90 @@ public:
 };
 #include "..\audio\soundlib.h"
 int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race and profession to the class index)  // NAME 1: neutral (D10), as chartemplate.cpp's
-// The skill panel (+0xFC), as far as 0x54A480 calls it
+// The skill panel (+0xFC; 0xDC bytes, constructor 0x5482B0), as far as this file calls it
 class Unknown548D60Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+	Unknown548D60Class(SClient *client);				// 0x5482B0 (Init makes it)  // NAME 1 [client]: as UIBioClass's
 	void Unknown_548D60(Unknown6A7A00Class *list, int skill, int index);	// 0x548D60 (the selected skill)  // NAME 1 [list, skill, index]: neutral
+	char Unknown84[0xDC - 0x84];						// +0x84
 };
+// The panel at +0xC0 (0xB0 bytes, constructor 0x546A80), as far as this file calls it
+class Unknown546A80Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh);	// 0x546A80 (Init passes the tab's mesh)  // NAME 1 [client, mesh]: what Init passes
+	char Unknown84[0xB0 - 0x84];						// +0x84
+};
+#include "assetmgr.h"
+#include "gd_robj.h"
+#include "unknown_675120.h"
+
+
+
+
+
+
+
+// 0x549AA0
+void UIAttrbSkillsClass::Unknown_54()
+{
+	InterfaceMesh = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI12B"));
+	FAIL_IF(!InterfaceMesh) return;
+
+	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686CC0(InterfaceMesh.Peek(), (SceneClass *)Unknown44);	// (InterfaceClass +0x58)
+	Unknown_BE67BC->Load("fa_att.ini");
+	Unknown_BE67C4->Add(InterfaceMesh.Peek());
+
+	UnknownC0 = Create_NEW(new Unknown546A80Class(Client->As_Space_Client(), InterfaceMesh));
+	UnknownC0->Unknown_5417D0(this);
+	UnknownC0->Unknown_54();
+
+	UnknownFC = Create_NEW(new Unknown548D60Class(Client->As_Space_Client()));
+	UnknownFC->Unknown_5417D0(this);
+	UnknownFC->Unknown_54();
+
+	UnknownD4 = new GadgetSlider(false);
+	UnknownD4->Unknown_66E460(Create_Peek(InterfaceMesh.Peek()), false, 1);
+	Unknown64.Unknown_6870E0(UnknownD4, 0x138A, View, 1, 0);
+
+	UnknownD8 = new GadgetSlider(false);
+	UnknownD8->Unknown_66E460(Create_Peek(InterfaceMesh.Peek()), false, 0);
+	Unknown64.Unknown_6870E0(UnknownD8, 0x138B, View, 1, 0);
+
+	RefCountPtr<RenderObjClass> robj;
+	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("MINUS"));
+
+
+	G_ASSERT(robj);
+	UnknownE0 = new ButtonGadgetClass(robj.Peek(), 5, 5);
+	Unknown64.Unknown_6870E0(UnknownE0, 0x1388, View, 1, 0);
+	GadgetClass::Set_Tooltip(UnknownE0, "UI_ATTRB_SKILLS", "MINIMIZE");
+
+
+
+	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("PLUS_00"));
+	G_ASSERT(robj);
+	UnknownDC = new ButtonGadgetClass(robj.Peek(), 5, 5);
+	Unknown64.Unknown_6870E0(UnknownDC, 0x1389, View, 1, 0);
+	GadgetClass::Set_Tooltip(UnknownDC, "UI_ATTRB_SKILLS", "MAXIMIZE");
+
+	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("new_frame"));
+	Unknown_62F4D0(frame, 0x138C);
+	Unknown62D1F0Class::Unknown_54();
+}
+
+
+
+
+
+
+
+
+
+
+
+
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
 // auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL; the dead size() read spends the inline budget so the find is called out of line, as the client's (ui_missn.cpp's 0x5C4C90 needs six)
@@ -194,7 +194,7 @@ void UIAttrbSkillsClass::Unknown_54A640(bool arg)
 	UnknownF4 = points->Value;
 	char text[32];
 	_snprintf(text, 32, "%d", UnknownF4);
-	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("SKILL_VAL_ATT", UnknownBC.Peek()));
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("SKILL_VAL_ATT", InterfaceMesh.Peek()));
 	if (font) {
 		font->Change_Text(text, 0);
 	}

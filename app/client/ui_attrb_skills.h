@@ -47,6 +47,7 @@ public:
 	virtual void Unknown_D0();							// +0xD0
 	virtual InterfaceClass *Unknown_D4();				// +0xD4
 	Unknown6A7A00Class *Unknown_62D710();				// 0x62D710
+	void Unknown_62F4D0(RefCountPtr<RenderObjClass> &frame, int id);	// 0x62F4D0 (the attributes tab's Init passes its 'new_frame' and 0x138C)  // NAME 1 [frame, id]: neutral
 
 	char Unknown84[0xBC - 0x84];						// +0x84 (0x62DE80: +0x84, a container at +0x88, +0x98..+0xB4, flags +0xB8)
 };
@@ -58,7 +59,7 @@ class UIAttrbSkillsClass : public Unknown62D1F0Class	// NAME 3: class-from-file 
 public:
 	UIAttrbSkillsClass(SClient *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as UIBioClass's
 	virtual ~UIAttrbSkillsClass();						// 0x549830 ('fa_att.ini' unloaded)
-	virtual void Unknown_54();							// 0x549AA0 (G_ASSERT '!InterfaceMesh' l.121)
+	virtual void Unknown_54();							// 0x549AA0 (FAIL_IF '!InterfaceMesh' l.121, G_ASSERT 'robj' l.147 / 155)
 	virtual void Unknown_58();							// 0x54A200
 	virtual void Unknown_5C();							// 0x54A3C0 (deactivated: the two panels' +0x5C, then the base's)
 	virtual void Unknown_60();							// 0x54A400
@@ -81,7 +82,7 @@ public:
 	void Unknown_54B400();								// 0x54B400 (no caller out of line: the avatar's class index and the selected skill to the panel +0xFC; inlined by 0x54A480 / 0x54A640 / 0x54A860)
 	void Unknown_54B370();								// 0x54B370 (FAIL_IF '!gadget' l.577: the gadgets from the last, +0xF0 of them, +0xF8 counting the set ones; inlined by 0x54A200 / 0x54B140)
 
-	RefCountPtr<RenderObjClass> UnknownBC;				// +0xBC (the mesh: its fonts and its interface list entry)
+	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xBC (the mesh, Init's 'TSI12B': its fonts and its interface list entry)  // NAME 3: Init's FAIL_IF '!InterfaceMesh' (l.121)
 	RefCountPtr<InterfaceClass> UnknownC0;				// +0xC0
 	std::vector<Unknown664500Class *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
 	GadgetSlider *UnknownD4;							// +0xD4
