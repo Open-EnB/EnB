@@ -2259,9 +2259,8 @@ bool CharacterViewAvatarClass::Unknown_7835D0()
 
 
 
-
 // 0x783620
-// NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built)
+// NOT EXACT: register (the first loop's flags / done registers and FPU keeps; the tail's blocks laid out in another order: 0.47)
 void CharacterViewAvatarClass::Unknown_783620(float time)
 {
 	for (int i = 0; i < 2; i++) {
@@ -2323,28 +2322,18 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 	}
 	if (Unknown0C0[1] == NULL) {
 		BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], 0);
-		// The client then sets +0x214 once the frame passes +0x24C while the NLP's queue (+0x2A4)
-		// has an entry: not built yet.
+		if (Unknown24C > 0 && Unknown_781B20() != NULL && Unknown0CC[0] > (float)Unknown24C) {
+			Unknown214 = true;
+		}
 		return;
 	}
 	Unknown21C -= time;
 	FAIL_IF(Unknown218 < 0.0001f) {
-		Unknown218 = 0.5f;
+		static const float blend_time = 0.5f;
+		Unknown218 = blend_time;
 	}
-	float t = Unknown21C / Unknown218;
-	if (t < 0.0f) {
-		t = 0.0f;
-	} else if (t > 1.0f) {
-		t = 1.0f;
-	}
-	t = 1.0f - t;
-	float blend;
-	if (t < 0.5f) {
-		blend = 1.0f - (float)cos(t * 3.1415927f);
-	} else {
-		blend = (float)sin((t - 0.5f) * 3.1415927f) + 1.0f;
-	}
-	BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], Unknown0C0[1].Peek(), Unknown0CC[1], blend * 0.5f);
+	float t = WWMath::Clamp(Unknown21C / Unknown218, 0.0f, 1.0f);
+	BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], Unknown0C0[1].Peek(), Unknown0CC[1], Unknown_77B7D0(1.0f - t));
 	if (Unknown21C >= 0.0f) {
 		return;
 	}
@@ -2364,6 +2353,17 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 	Unknown0D4[1] = 0.0f;
 	Unknown0DC[1] = -1;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
