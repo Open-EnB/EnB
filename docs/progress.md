@@ -2335,6 +2335,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-CS1-1** (2026-11-05, CS1; recommend (a)): an inline `CharacterViewAvatarClass::Get_Desc()` in avatar.h makes ui_avatr's 0x559350 and 0x559490 exact (+2; form in docs/attempts/559350/) but loses ui_avatar_cust's D188 short pair 0x551D20 outright, because `objmatch.short_known` drops an address two symbols claim (here a linker-folded RefCountPtr Peek / operator->). (a) credit a byte-identical folded COMDAT to every file that proves the address, then land the form (+2, 0 lost); (b) accept the -1 under D66 and land it now (+1 net).
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
@@ -2451,7 +2452,8 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
    * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
      gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
-     0x54CBC0 (slot +0x68); NOT EXACT 0x54DFE0 (inline budget: ~RefCountPtr 0x4740B0 out of line, as ui_avatr 0x556B20),
+     0x54CBC0 (slot +0x68, NOT EXACT 0.42: the client shares the cases' tails); 0x55A060's lever (call through the
+     real slot type, `const RefCountPtr<RenderObjClass> &`) may fit the RefCountPtr<RefCountClass> callers; NOT EXACT 0x54DFE0 (inline budget: ~RefCountPtr 0x4740B0 out of line, as ui_avatr 0x556B20),
      0x54F390 (1 byte: the client re-tests the gadget's +0x64), 0x54F6F0 / 0x54FFC0 (order), 0x5502F0 (two bools' slots);
      register residues 0x54E690 / 0x54E7F0 / 0x54E950 / 0x54EAD0 / 0x54EC30. The EventCallbackClass + Remove lever for
      dtors should fit the starbase windows' 0x6186A0 / 0x622B90.
@@ -2524,9 +2526,9 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
-     check `.work/coord/pocfull.sh`): the avatar screen's per-frame gens 0x55B2D0 (tattoo pull visibility), 0x55BAC0
-     (turning indicator models), 0x55C280 (flash callback); ui_avatar_cust.cpp:63 declares 0x495FD0 `void` (ro_funcs:
-     `bool`: a different mangled name, so it stays a gen); swatch (negative) and secret decals untested; the functional
+     check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
+     slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
+     0x558EA0 (register only), 0x5591E0 (0.77) / 0x559010 (0.65), 0x559350 (P-CS1-1); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
      ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
      98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138

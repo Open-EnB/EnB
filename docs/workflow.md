@@ -1005,6 +1005,7 @@ unless `--lever` cites a new row of this table.
   run it from `.work/wt/verifier`. Two verifies of one PR at once share `.work/wt/prN.vf`: the second drops the first's
   worktree mid-build and both fail. Low host memory (MSBuild's `.NET Host` workers: `dotnet build-server shutdown`)
   shows as compile errors.
+* **Exact at a caller can lose a folded short pair (2026-11-05 night run, CS1, 0x559350):** making a function exact can lose a D188 short pair at a linker-folded address it calls: `objmatch.short_known` drops an address two symbols claim (an inline avatar.h Get_Desc made 0x559350 / 0x559490 exact but lost ui_avatar_cust's 0x551D20, a folded RefCountPtr Peek / operator->). Check `lost outright` for short pairs before keeping such a change.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1310,6 +1311,7 @@ unless `--lever` cites a new row of this table.
 * **Worktree builds (2026-11-04 day run, REG):** `build.py link --program clientpoc` in a worktree deploys into the shared `ClientPOC\release` (its deploy check compares `--out` with the worktree's own build/), and `--out <wt>\.work\poc\bin` fails (it looks for the libraries there): builders don't link POC exes in worktrees; the coordinator runs POC checks from the run branch. clienttest in a worktree needs `ENB_VC6_HOST` set to a leased VM (else a stale host) and build/art copied in (else 0xC0000135). The importer lock is global across worktrees: verifies can wait ~10 min (set `ENB_LOCK_WAIT` high).
 * **Retail replays (D190, 2026-11-04 day run, TOOLS):** `clientpoc.py replay --retail` needs the d3d8shot proxy rebuilt with the input hooks (`python tools/harness/run_reference.py build --pool 1`, then copy build/d3d8shot into a worktree); the retail client.exe is `<install>\release\client.exe`. Retail character select presents only a few thousand frames in ~50 s: shots at 300 / 1000 / 3000, not POC-style tens of thousands. With `--retail` the run's kill ends antprox before it logs "Client exited", so D191's line says "still running when killed". Draw dumps: `D3D8SHOT_DUMP=N`, compared with `tools/harness/dumpcmp.py A B [--frame N]`.
 * **pocfull.sh is a run's own script (2026-11-05 night run, CS2):** `.work/coord/pocfull.sh` is fixed to its run's branch, the `hc` worktree and instance `coord`; builders copy and edit it (branch, worktree, `--instance`). A fresh worktree needs build/'s other libraries copied in before `build.py link --program clientpoc`.
+* **Host load and appfile objects (2026-11-05 night run, CS1):** check the host's free memory before trusting a stalled POC replay: with a 7 GB game running the frame rate collapsed and the ms-timed input could not finish the flow. `appfile.py` without ENB_AGENT writes its objects to the shared `.work/appfile/appfile/obj`: set ENB_AGENT to the builder id. `build.py link` deploys into ClientPOC\release only when the out dir is build/: builders use `--out` plus clientpoc's `--exe`.
 
 ### 3.8 Git, docs and scripting hygiene
 
