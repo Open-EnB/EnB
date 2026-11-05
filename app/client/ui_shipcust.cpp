@@ -166,7 +166,7 @@ Unknown620D20Class::~Unknown620D20Class()
 
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6211D0
 void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentmapmanager)
 {
@@ -175,22 +175,22 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
 	for (int i = 0; i < 4; i++) {
 		ColorizationRegionStruct region;
 		ShipCustSettingsClass &first = Desc.Parts[i].Settings[0];
-		region.Unknown00.Unknown00 = first.Metal;
-		if (first.Metal == METAL_NONE) {
-			region.Unknown00.Unknown04 = first.Color;
-			region.Unknown00.Unknown00 = -1 - (first.Is_Matte ? 1 : 0);
+		ColorizationHalfStruct half0;
+		if (first.Metal != METAL_NONE) {
+			half0.Unknown00 = first.Metal; half0.Unknown04.Set(1.0f, 1.0f, 1.0f);
 		} else {
-			region.Unknown00.Unknown04.Set(1.0f, 1.0f, 1.0f);
+			half0.Unknown00 = first.Is_Matte ? -2 : -1; half0.Unknown04 = first.Color;
 		}
 		ShipCustSettingsClass &second = Desc.Parts[i].Settings[1];
-		region.Unknown10.Unknown00 = second.Metal;
-		if (second.Metal == METAL_NONE) {
-			region.Unknown10.Unknown04 = second.Color;
-			region.Unknown10.Unknown00 = -1 - (second.Is_Matte ? 1 : 0);
+		ColorizationHalfStruct half1;
+		if (second.Metal != METAL_NONE) {
+			half1.Unknown00 = second.Metal; half1.Unknown04.Set(1.0f, 1.0f, 1.0f);
 		} else {
-			region.Unknown10.Unknown04.Set(1.0f, 1.0f, 1.0f);
+			half1.Unknown00 = second.Is_Matte ? -2 : -1; half1.Unknown04 = second.Color;
 		}
-		regions.insert(regions.end(), 1, region);
+		region.Unknown00 = half0;
+		region.Unknown10 = half1;
+		regions.push_back(region);
 	}
 	Unknown_80EFF0(Unknown160.Peek(), regions, environmentmapmanager);
 }
