@@ -134,7 +134,7 @@ static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 static unsigned char Unknown_B7DC98[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
 
 #pragma auto_inline(off)
-// NOT EXACT: shape (0.64: the backward step tests with test / jge where ours uses dec's flags)
+// the backward step through a local (prev): `index--` reuses dec's flags (jns), the client tests (test / jge)
 // @0x5746C0
 static int Unknown_5746C0(int index, bool forward)
 {
@@ -143,8 +143,8 @@ static int Unknown_5746C0(int index, bool forward)
 			index = (index + 1) % 9;
 			if (Unknown_B7DC98[index] == 0) return(index);
 		} else {
-			index--;
-			if (index < 0) index = 8;
+			int prev = index - 1;
+			index = (prev < 0) ? 8 : prev;
 			if (Unknown_B7DC98[index] == 0) return(index);
 		}
 	}
