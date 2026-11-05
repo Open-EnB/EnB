@@ -249,7 +249,7 @@ public:
 	virtual void Unknown_78();							// +0x78 (0x554D60)
 	virtual void Unknown_7C(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
 	virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x84 0x80CA30  // NAME 1 [avatar]: neutral
+	virtual void Unknown_84(const RefCountPtr<RenderObjClass> &model);	// +0x84 0x80CA30 (ship_pip.h's: the model replaced; the avatar goes through a converted temporary)  // NAME 1 [model]: ship_pip.h's
 	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
 	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
 	virtual void Unknown_8C();							// +0x8C
@@ -1736,7 +1736,7 @@ void AvatarCreationInterface::Unknown_556F80()
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A060 (the body's and the head's blend weights from the point)
+// The body's and the head's blend weights from the point (the pip's slot +0x84 through a converted temporary)
 // 0x55A060
 void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 {

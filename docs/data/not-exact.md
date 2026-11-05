@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-646 entries in 131 files.
+645 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -310,7 +310,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1604` | `AvatarCreationInterface::Unknown_557950` | marker | NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too)) 0x557950 |
 | `app/client/ui_avatr.cpp:1648` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
 | `app/client/ui_avatr.cpp:1696` | `AvatarCreationInterface::Unknown_556F80` | marker | NOT EXACT: functional (D64), from the client's 0x556F80 (the bottom buttons held (gadget.cpp's 0xBE5F24 / 0xBE5F28) into the pip's turn (+0xB8), pan (+0xC0 / +0xC4) and zoom (+0xC8) rates; on the head tab the head's scale) 0x556F80 |
-| `app/client/ui_avatr.cpp:1739` | `AvatarCreationInterface::Unknown_55A060` | marker | NOT EXACT: functional (D64), from the client's 0x55A060 (the body's and the head's blend weights from the point) 0x55A060 |
 | `app/client/ui_avatr.cpp:1754` | `AvatarCreationInterface::Unknown_55A1F0` | marker | NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone) 0x55A1F0 |
 | `app/client/ui_avatr.cpp:1799` | `AvatarCreationInterface::Unknown_55AE50` | marker | NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184) 0x55AE50 |
 | `app/client/ui_avatr.cpp:1814` | `AvatarCreationInterface::Unknown_55A550` | marker | NOT EXACT: functional (D64), from the client's 0x55A550 (a pull's point moved by (c, d), kept in 0 .. 1, or a random one (the client tests b's low byte; its callers pass 0); its marker placed; 0: the blend weights (0x55A060), 1: the tattoo's offset (+0x170 / +0x174, the scale +0x178, avatar.cpp's 0x785C00)) 0x55A550 |

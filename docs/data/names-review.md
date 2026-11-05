@@ -6642,7 +6642,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `on` | `app/client/ui_avatr.cpp:243` | neutral |
 | 1 | `race` | `app/client/ui_avatr.cpp:248` | neutral |
 | 1 | `avatar` | `app/client/ui_avatr.cpp:250` | neutral |
-| 1 | `avatar` | `app/client/ui_avatr.cpp:252` | neutral |
+| 1 | `model` | `app/client/ui_avatr.cpp:252` | ship_pip.h's |
 | 1 | `Unknown_80C180` | `app/client/ui_avatr.cpp:254` | untagged neutral name (D10) |
 | 1 | `Unknown054` | `app/client/ui_avatr.cpp:258` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
