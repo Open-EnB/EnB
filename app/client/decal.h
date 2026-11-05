@@ -35,11 +35,11 @@ public:
 	~SClientUnknown1334Class();							// 0x618A50
 	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00  // NAME 2: what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names
 	RefCountPtr<TextureClass> Unknown_61DF40(int index);	// 0x61DF40 (the insignia's texture)  // NAME 1 [index]: neutral
-	void Unknown_75CB10(int index, const Vector4 &color, Unknown619280Class *mat_desc);	// 0x75CB10 (decal index's material, tinted)  // NAME 3 [mat_desc]: the FAIL_IF's '!mat_desc'; NAME 1 [index, color]: neutral
+	void Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc);	// 0x75CB10 (decal index's material, tinted)  // NAME 3 [i, mat_desc]: the FAIL_IFs'; NAME 1 [color]: neutral
 
-	std::vector<RefCountPtr<TextureClass> > Unknown00;	// +0x00 the FAIL_IF's 'TextureArray'
-	std::vector<RefCountPtr<TextureClass> > Unknown10;	// +0x10 the FAIL_IF's 'SecretTextureArray'
-	std::vector<Unknown619280Class> Unknown20;			// +0x20 the FAIL_IF's 'SwatchArray'
+	std::vector<RefCountPtr<TextureClass> > TextureArray;	// +0x00 (the FAIL_IF's name)
+	std::vector<RefCountPtr<TextureClass> > SecretTextureArray;	// +0x10 (the FAIL_IF's name)
+	std::vector<Unknown619280Class> SwatchArray;		// +0x20 (the FAIL_IF's name)
 	Unknown619280Class Unknown30;						// +0x30 the base of an insignia's material (alpha, fogged, lit)
 	Unknown619280Class Unknown74;						// +0x74 an empty slot's material (opaque, no colour / depth write, untextured)
 };
