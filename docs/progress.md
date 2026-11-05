@@ -2693,7 +2693,11 @@ below name only the work items, the blocked work, the leads and the queues.
    option.cpp after the eval.
 
 5. **Land and the views (M2.4, D46):**
-   * land.cpp: the big functions 0x46F120 / 0x470F80 (a session each); Render 0x474B30 is a structural gap (the
+   * land.cpp: the big functions (LD7, 2026-11-05; best forms in docs/attempts/46F120/ld7_46F120_c3.cpp.txt and
+     docs/attempts/470F80/ld7_470F80_carry.cpp.txt): 0x46F120 688 masked rows (left: the client keeps y + 1 in a frame
+     slot per x step and y - 1 as that minus 2, and does all eight height fetches before the z differences; ~45 forms;
+     untested: a real reference use, a helper taking (xp, yp)), 0x470F80 2042 (left: frame 0x7C vs 0x6C, the loops'
+     pointer counters); Render 0x474B30 is a structural gap (the
      client's second dynamic VB / IB pass, inlined render-state debug names); Get_Downhill's case 2 / 3 tail merge;
      Get_Triangles 0x465D30 (its second push_back's end() load; Fable-eligible); the decoration appender 0x47C6A0
      (inline budget, 13 forms: Fable-eligible), 0x479D00 / 0x47C580 shape, 0x478B50 budget, Build 0x47A2F0 (parked;
