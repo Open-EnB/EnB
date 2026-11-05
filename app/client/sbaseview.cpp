@@ -1412,6 +1412,36 @@ void SBaseViewClass::Unknown_6A1B80()
 	}
 }
 
+// Matrix3D::Rotate_Vector without its alias test (0x6A1C90 reads +0x1D4 in place; the client sums rows 1 and 2
+// from the Z term down to the X term, row 0 from X)
+static inline void Unknown_Rotate_Vector(const Matrix3D &A, const Vector3 &in, Vector3 *out)	// NAME 1: neutral (D10)
+{
+	out->X = (A[0][0] * in.X + A[0][1] * in.Y + A[0][2] * in.Z);
+	out->Y = (A[1][0] * in.X + (A[1][1] * in.Y + A[1][2] * in.Z));
+	out->Z = (A[2][0] * in.X + (A[2][1] * in.Y + A[2][2] * in.Z));
+}
+
+// 0x6A1C90: RCamera turned along the +0x6C camera's view plus the offset +0x1D4 (the lights loader's RKey math)
+void SBaseViewClass::Unknown_6A1C90()
+{
+	Vector3 dir = -Unknown6C->Get_Transform().Get_Z_Vector();
+	Vector3 right;
+	Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &right);
+	if (right.Length2() < 0.0001f) {
+		Vector3::Cross_Product(Vector3(0.0f, 1.0f, 1.0f), dir, &right);
+	}
+	right.Normalize();
+	Vector3 up;
+	Vector3::Cross_Product(dir, right, &up);
+	up.Normalize();
+	Matrix3D tm(dir, right, up, dir);
+	Vector3 light;
+	Unknown_Rotate_Vector(tm, Unknown1D4, &light);
+	dir = light + dir;
+	dir.Normalize();
+	RCamera->Set_Spot_Direction(-dir);
+}
+
 // 0x6A20C0: the +0x70 scene's fog on
 void SBaseViewClass::Unknown_6A20C0(const Vector3 &color, float start, float end)
 {
@@ -1476,36 +1506,6 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 	*d = Unknown1EF;
 	*e = Unknown1F0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
