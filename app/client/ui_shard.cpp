@@ -343,15 +343,27 @@ void Unknown615A50InterfaceClass::Unknown_616A10()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x616DA0
 void Unknown615A50InterfaceClass::Unknown_616DA0()
 {
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	char name[32];
 	char text[32];
-	int row = 0;
-	for (int index = Unknown8C; index < (int)SortedGalaxies.size() && row < 6; index++, row++) {
+	int row;
+	if ((int)SortedGalaxies.size() <= Unknown8C) {
+		for (row = 0; row < 6; row++) {
+			sprintf(name, "Galaxy%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			sprintf(name, "Pop%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			Buttons[row]->Unknown_6607D0();
+			Buttons[row]->Unknown2C_0B = 0;
+		}
+		Unknown_617190();
+		return;
+	}
+	row = 0;
+	for (int index = Unknown8C; index < (int)SortedGalaxies.size() && row < 6; row++, index++) {
 		sprintf(name, "Galaxy%02d_fe02a", row);
 		Unknown_BE67C4->Unknown_6D2500(name, SortedGalaxies[index].Name, model, 0);
 		sprintf(name, "Pop%02d_fe02a", row);
@@ -359,11 +371,11 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 		if (capacity == 0.0f) {
 			capacity = 1.0f;
 		}
-		float full = ((float)SortedGalaxies[index].Unknown54 / capacity) * 100.0f;
-		if (full < 100.0f) {
-			_snprintf(text, sizeof(text), "%.0f%% full", (double)full);
-		} else {
+		float full = ((float)(unsigned int)SortedGalaxies[index].Unknown54 / capacity) * 100.0f;
+		if (full >= 100.0f) {
 			_snprintf(text, sizeof(text), "FULL");
+		} else {
+			_snprintf(text, sizeof(text), "%.0f%% full", (double)full);
 		}
 		Unknown_BE67C4->Unknown_6D2500(name, text, model, 0);
 		if (ShardSelection == row + Unknown8C) {
@@ -374,13 +386,17 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 			Buttons[row]->Unknown2C_0B = 0;
 		}
 	}
-	for (; row < 6; row++) {
-		sprintf(name, "Galaxy%02d_fe02a", row);
-		Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
-		sprintf(name, "Pop%02d_fe02a", row);
-		Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
-		Buttons[row]->Unknown_6607D0();
-		Buttons[row]->Unknown2C_0B = 0;
+	if (row < 6) {
+		int count = 6 - row;
+		do {
+			sprintf(name, "Galaxy%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			sprintf(name, "Pop%02d_fe02a", row);
+			Unknown_BE67C4->Unknown_6D2500(name, Unknown_BDA908, model, 0);
+			Buttons[row]->Unknown_6607D0();
+			Buttons[row]->Unknown2C_0B = 0;
+			row++;
+		} while (--count != 0);
 	}
 	Unknown_617190();
 }
@@ -530,22 +546,6 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

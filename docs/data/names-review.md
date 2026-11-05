@@ -9615,18 +9615,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown001D` | `app/client/ui_shard.cpp:302` | untagged neutral name (D10) |
 | 1 | `Unknown_67B2B0` | `app/client/ui_shard.cpp:327` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_shard.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:348` | untagged neutral name (D10) |
+| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:347` | untagged neutral name (D10) |
 | 1 | `Unknown_6D2500` | `app/client/ui_shard.cpp:356` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_shard.cpp:358` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/ui_shard.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_shard.cpp:393` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:394` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:436` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_shard.cpp:518` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:362` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_shard.cpp:370` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/ui_shard.cpp:374` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_shard.cpp:409` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:452` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_shard.cpp:534` | untagged neutral name (D10) |
 | 1 | `ui_shard.h` | `app/client/ui_shard.h:4` | provisional header name for ui_shard.cpp |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.h:21` | neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback) |
 | 1 | `view, layer` | `app/client/ui_shard.h:24` | as LoginInterface's |
