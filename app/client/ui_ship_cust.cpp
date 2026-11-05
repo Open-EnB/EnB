@@ -1166,6 +1166,179 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 	}
 }
 
+// NOT EXACT: functional (D64)
+// @0x61BD80
+void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
+{
+	InterfaceSortScopeClass sort(this);
+	Unknown_5C();
+	Unknown_61AF50();
+	if (Unknown2FC) {
+		Unknown_BE67C4->Remove(Mesh->Peek_Object());
+		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
+		Unknown2FC = false;
+	}
+	if (Page == 1) {
+		Unknown2D4 = NULL;
+		Unknown2D8 = NULL;
+		Unknown2DC = NULL;
+		Unknown64.Unknown_687150(Unknown300->Gadget);
+		if (Unknown300) {
+			delete Unknown300;
+		}
+		Unknown300 = NULL;
+	} else if (Page == 2) {
+		Unknown240 = NULL;
+	} else if (Page == 3) {
+		Unknown64.Unknown_687150(NameGadget);
+		NameGadget = NULL;
+		Unknown64.Unknown_687150(Unknown300->Gadget);
+		if (Unknown300) {
+			delete Unknown300;
+		}
+		Unknown300 = NULL;
+	}
+	Mesh->Unknown_5B8850(Unknown_B894A0[page][0], true);
+	RenderObjClass *model = Mesh->Peek_Object();
+	Unknown_BE67BC->Load(Unknown_B894A0[page][1]);
+	Unknown_BE67C4->Add(model);
+	Page = page;
+	Unknown2FC = true;
+	Unknown_61ADA0(1, "HULL_TAB", "hull_tab_buy_ship", 0, 0);
+	Unknown_61ADA0(2, "INSIGNIA_TAB", "insignia_tab_buy_ship", 0, 0);
+	Unknown_61ADA0(3, "NAME_TAB", "name_tab_buy_ship", 0, 0);
+	Unknown_61ADA0(4, "PAINT_TAB", "paint_tab_buy_ship", 0, 0);
+	switch (Page) {
+		case 0:
+			Unknown_61ADA0(5, "REVIEW", "review_buy_ship01", 0x0D, 0);
+			Unknown_61ADA0(6, "CANCEL", "cancel_buy_ship01", 0, 0);
+			Unknown_61ADA0(7, "HULL_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(8, "HULL_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(9, "WING_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x0A, "WING_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x0B, "TURN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x0C, "TURN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x0D, "TURN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x0E, "TURN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2A, "PAN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x2B, "PAN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2C, "PAN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x2D, "PAN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x2E, "ZOOM_IN", NULL, 0, 0);
+			Unknown_61ADA0(0x2F, "ZOOM_OUT", NULL, 0, 0);
+			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
+			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
+			Unknown_58();
+			Unknown_61BAC0(1);
+			Unknown_61D260();
+			break;
+
+		case 1:
+			Unknown_61ADA0(5, "REVIEW_CHANGE", "review_buy_ship02", 0x0D, 0);
+			Unknown_61ADA0(6, "CANCEL", "cancel_buy_ship02", 0, 0);
+			Unknown_61ADA0(0x10, "GLOSSY", "glossy_buy_ship02", 0, 4);
+			Unknown_61ADA0(0x0F, "FLAT", "flat_buy_ship02", 0, 4);
+			Unknown_61ADA0(0x11, "METAL00", NULL, 0, 0);
+			Unknown_61ADA0(0x12, "METAL01", NULL, 0, 0);
+			Unknown_61ADA0(0x13, "METAL02", NULL, 0, 0);
+			Unknown2D4 = ((RObjGadgetClass *)Gadgets[0x11].Gadget)->RObj;
+			Unknown2D8 = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->RObj;
+			Unknown2DC = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->RObj;
+			Unknown_61ADA0(0x14, "PRIMARY", "primary_buy_ship02", 0, 3);
+			Unknown_61ADA0(0x15, "SECONDARY", "secondary_buy_ship02", 0, 3);
+			Unknown_61ADA0(0x16, "HULL", "hull_buy_ship02", 0, 1);
+			Unknown_61ADA0(0x17, "WING", "wing_buy_ship02", 0, 1);
+			Unknown_61ADA0(0x18, "PROFESSION", "profession_buy_ship02", 0, 1);
+			Unknown_61ADA0(0x19, "ENGINE", "engine_buy_ship02", 0, 1);
+			Unknown_61ADA0(0x0B, "TURN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x0C, "TURN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x0D, "TURN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x0E, "TURN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2A, "PAN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x2B, "PAN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2C, "PAN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x2D, "PAN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x2E, "ZOOM_IN", NULL, 0, 0);
+			Unknown_61ADA0(0x2F, "ZOOM_OUT", NULL, 0, 0);
+			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
+			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
+			Unknown_61B760();
+			Unknown_58();
+			Unknown_61BAC0(4);
+			Unknown_61B580();
+			Unknown_61D260();
+			break;
+
+		case 2:
+			Unknown_61ADA0(5, "REVIEW_CHANGE", "review_buy_ship03", 0x0D, 0);
+			Unknown_61ADA0(6, "CANCEL", "cancel_buy_ship03", 0, 0);
+			Unknown_61ADA0(0x0B, "TURN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x0C, "TURN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x0D, "TURN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x0E, "TURN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x28, "LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x29, "RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2A, "PAN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x2B, "PAN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2C, "PAN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x2D, "PAN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x2E, "ZOOM_IN", NULL, 0, 0);
+			Unknown_61ADA0(0x2F, "ZOOM_OUT", NULL, 0, 0);
+			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
+			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
+			Unknown_61DAB0();
+			Unknown_58();
+			Unknown_61BAC0(2);
+			{
+				int last = Unknown330->TextureArray.size() - 8;
+				int first = Unknown318;
+				if (first < 0) {
+					first = 0;
+				} else if (first > last) {
+					first = last;
+				}
+				Unknown314 = first;
+			}
+			Unknown_61DBF0();
+			Unknown_61D260();
+			break;
+
+		case 3:
+			Unknown_61ADA0(5, "CONFIRM", "review_buy_ship04", 0x0D, 0);
+			Unknown_61ADA0(6, "CANCEL", "cancel_buy_ship04", 0, 0);
+			Unknown_61ADA0(0x1A, "ENTER_NAME", "NAME_buy_ship04", 0, 0);
+			Unknown_61ADA0(0x0B, "TURN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x0C, "TURN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x0D, "TURN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x0E, "TURN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2A, "PAN_LEFT", NULL, 0, 0);
+			Unknown_61ADA0(0x2B, "PAN_RIGHT", NULL, 0, 0);
+			Unknown_61ADA0(0x2C, "PAN_UP", NULL, 0, 0);
+			Unknown_61ADA0(0x2D, "PAN_DOWN", NULL, 0, 0);
+			Unknown_61ADA0(0x2E, "ZOOM_IN", NULL, 0, 0);
+			Unknown_61ADA0(0x2F, "ZOOM_OUT", NULL, 0, 0);
+			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
+			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
+			Unknown_61B760();
+			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", Mesh->Peek_Object(), Unknown_B08CB8 | Unknown_B08CC4, 0);
+			NameGadget->Unknown78 = 10.0f;
+			NameGadget->Unknown_28(Layer);
+			Unknown64.Unknown_6870E0(NameGadget, 0x35, View, 1, 0);
+			Unknown_58();
+			Unknown_61BAC0(3);
+			if (strlen(Desc.Ship_Name) != 0) {
+				FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", Mesh->Peek_Object());
+				if (style != NULL && style->Unknown300) {
+					style->Set_Hidden(1);
+				}
+				NameGadget->Set_Text(Desc.Ship_Name, 0);
+			}
+			break;
+	}
+	TheDX8MeshRenderer.Invalidate();
+	Unknown_61E8E0(true);
+}
+
 // @0x61D180
 float *StarbaseShipCustomizeInterface::Unknown_61D180()
 {
@@ -1314,179 +1487,6 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 }
 
 // NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

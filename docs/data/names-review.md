@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1210 |
 | 2 | describes what the code does | 3006 |
-| 1 | neutral placeholder | 13494 |
+| 1 | neutral placeholder | 13500 |
 
 ## For review (score 3 and below)
 
@@ -4894,6 +4894,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8DF0` | `app/client/sclient.h:737` | untagged neutral name (D10) |
 | 1 | `Unknown_5E26D0` | `app/client/sclient.h:738` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B20` | `app/client/sclient.h:738` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8850` | `app/client/sclient.h:738` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sclient.h:742` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieObjectStruct` | `app/client/sclient.h:745` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/sclient.h:746` | untagged neutral name (D10) |
@@ -9820,14 +9821,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6603A0` | `app/client/ui_ship_cust.cpp:1136` | untagged neutral name (D10) |
 | 1 | `Unknown_61BC50` | `app/client/ui_ship_cust.cpp:1141` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_ship_cust.cpp:1161` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:1173` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:1175` | untagged neutral name (D10) |
-| 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:1179` | untagged neutral name (D10) |
-| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:1188` | untagged neutral name (D10) |
-| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:1194` | untagged neutral name (D10) |
-| 1 | `Unknown_61DAB0` | `app/client/ui_ship_cust.cpp:1272` | untagged neutral name (D10) |
-| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:1284` | untagged neutral name (D10) |
-| 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:1306` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8850` | `app/client/ui_ship_cust.cpp:1201` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ship_cust.cpp:1231` | untagged neutral name (D10) |
+| 1 | `Unknown_61DAB0` | `app/client/ui_ship_cust.cpp:1289` | untagged neutral name (D10) |
+| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:1302` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_ship_cust.cpp:1325` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:1346` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:1348` | untagged neutral name (D10) |
+| 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:1352` | untagged neutral name (D10) |
+| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:1361` | untagged neutral name (D10) |
+| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:1367` | untagged neutral name (D10) |
+| 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:1479` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/ui_ship_cust.cpp:1976` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_ship_cust.cpp:2021` | untagged neutral name (D10) |
 | 1 | `Unknown_61E8B0` | `app/client/ui_ship_cust.cpp:2035` | untagged neutral name (D10) |
@@ -16755,7 +16761,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Group` | `app/client/sclient.h:660` | its file's (ui_group.cpp) |
 | 3 | `LoadingViewClass` | `app/client/sclient.h:669` | class-from-file (D24) for loadingview.cpp |
 | 3 | `UIMeshClass` | `app/client/sclient.h:729` | class-from-file (D24) for ui_mesh.cpp |
-| 3 | `Peek_Object` | `app/client/sclient.h:738` | the assert's |
+| 3 | `Peek_Object` | `app/client/sclient.h:738` | the assert's; 0x5B8850: the page model of that name onto the mesh (ui_ship_cust.cpp's 0x61BD80: the page's style name, 1)  // NAME 1 [Unknown_5B8850, name, arg]: neutral |
 | 3 | `Mesh` | `app/client/sclient.h:747` | the asserts' '(*itor).Mesh' |
 | 3 | `RenderObject` | `app/client/sclient.h:754` | the assert's 'CameraList[CurrentCameraIndex].RenderObject' |
 | 3 | `Get_Client` | `app/client/sclient.h:773` | the assert's |
