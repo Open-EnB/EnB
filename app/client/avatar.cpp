@@ -64,92 +64,72 @@ float Unknown_77B7D0(float t)	// NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 }
 
 // 0x77B870
-// NOT EXACT: functional for POC (D64)
-CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, EnvironmentMapManagerClass *env_maps)
+// (every member in the init list, in declaration order: the client stores them all before the vtable)
+CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps)
 	: CompositeRenderObjClass(),
+	  Unknown0E4(0),
 	  PlayerNLP(NULL),
+	  Desc(*desc),
 	  Unknown204(0),
 	  Unknown208(0),
 	  Unknown20C(2),
 	  Unknown210(0),
 	  Unknown214(false),
 	  Unknown215(false),
+	  Unknown218(0.0f),
+	  Unknown21C(0.0f),
 	  Unknown220(false),
 	  Unknown221(false),
+	  Unknown224(0),
+	  Unknown228(0.0f),
+	  Unknown22C(0.0f),
+	  Unknown230(true),
 	  Unknown231(false),
 	  Unknown232(false),
+	  Unknown233(true),
+	  Unknown234(0.0f),
+	  Unknown238(0),
+	  Unknown23C(0),
+	  Unknown240(0),
+	  Unknown244(0),
+	  Unknown248(0),
 	  Unknown24C(-1),
-	  HeadSource(NULL),
-	  BodySource(NULL),
-	  HeadObj(NULL),
-	  BodyObj(NULL),
-	  CollisionObj(NULL),
-	  Unknown2C4(NULL),
-	  HairSource(NULL),
-	  Unknown2CC(NULL),
-	  GoggleSource(NULL),
-	  BeardSource(NULL),
-	  WeaponHip(NULL),
-	  WeaponUnique(NULL),
-	  WeaponBack(NULL),
-	  MaskObj(NULL),
-	  SpeechSound(NULL),
+	  Unknown250(0.0f),
+	  Unknown254(0.0f),
+	  Unknown258(0.0f),
+	  Unknown25C(0.0f),
+	  Unknown260(0.0f),
+	  Unknown264(0.0f),
+	  Unknown268(0.0f),
+	  Unknown26C(0),
+	  Unknown270(0),
+	  Unknown29C(false),
+	  Unknown29D(false),
 	  Unknown2EC(NULL),
 	  Unknown2F0(0.0f),
+	  Unknown2F4(true),
+	  Unknown2F5(true),
 	  Unknown2F8(0),
+	  Unknown2FC(1.0f),
+	  Unknown300(1.0f),
+	  Unknown304(1.0f),
 	  Unknown308(0.0f),
+	  Unknown30C(0.0f),
+	  Unknown310(0.0f),
 	  Unknown314(0),
-	  Unknown36C(false)
+	  Unknown330(true),
+	  Unknown360(0.0f, 0.0f, 0.0f),
+	  Unknown36C(false),
+	  Unknown378(-100.0f),
+	  Unknown37C(0.0f),
+	  Unknown380(0)
 {
-
 	for (int i = 0; i < 2; i++) {
 		Unknown0C0[i] = NULL;
 		Unknown0C8[i] = false;
 		Unknown0CC[i] = 0.0f;
 		Unknown0D4[i] = 0.0f;
 		Unknown0DC[i] = -1;
-	}
-	Unknown0E4 = 0;
-	Unknown218 = 0.0f;
-	Unknown21C = 0.0f;
-	Unknown224 = 0;
-	Unknown228 = 0.0f;
-	Unknown22C = 0.0f;
-	Unknown230 = true;
-	Unknown233 = true;
-	Unknown234 = 0;
-	Unknown238 = 0;
-	Unknown23C = 0;
-	Unknown240 = 0;
-	Unknown244 = 0;
-	Unknown248 = 0;
-	Unknown250 = 0.0f;
-	Unknown254 = 0.0f;
-	Unknown258 = 0.0f;
-	Unknown25C = 0.0f;
-	Unknown260 = 0.0f;
-	Unknown264 = 0.0f;
-	Unknown268 = 0.0f;
-	Unknown26C = 0;
-	Unknown270 = 0;
-	Unknown29C = false;
-	Unknown29D = false;
-	Unknown2F4 = true;
-	Unknown2F5 = true;
-	Unknown2FC = 1.0f;
-	Unknown300 = 1.0f;
-	Unknown304 = 1.0f;
-	Unknown30C = 0.0f;
-	Unknown310 = 0.0f;
-	Unknown330.Make_Identity();
-	Unknown360.Set(0.0f, 0.0f, 0.0f);
-
-
-	Unknown378 = -100.0f;
-	Unknown37C = 0.0f;
-	Unknown380 = 0;
-	if (desc) {
-		Desc = *desc;
 	}
 	for (int w = 0; w < 5; w++) {
 		Unknown274[w] = Desc.Body_Weight[w];
@@ -165,7 +145,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	} else {
 		Unknown221 = false;
 	}
-	if (b == 0 || Desc.Avatar_Type != 0) {
+	if (!b || Desc.Avatar_Type != 0) {
 		Unknown_77D4A0();
 	}
 }
@@ -401,6 +381,26 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

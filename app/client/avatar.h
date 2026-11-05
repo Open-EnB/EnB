@@ -43,7 +43,7 @@ struct Unknown_AvatarQueueStruct	// NAME 1: neutral (D10)
 class CharacterViewAvatarClass : public CompositeRenderObjClass	// NAME 1: neutral (D10)
 {
 public:
-	CharacterViewAvatarClass(AvatarDescClass *desc, int a, int b, EnvironmentMapManagerClass *env_maps);	// 0x77B870 (0x384 bytes)
+	CharacterViewAvatarClass(AvatarDescClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps);	// 0x77B870 (0x384 bytes)
 	virtual ~CharacterViewAvatarClass();				// 0x77C080
 	virtual RenderObjClass *Clone() const;				// 0x77C870
 	virtual void Set_Transform(const Matrix3D &m);		// 0x77D1E0 (the body too; +0x330 keeps it unless +0x36C)
