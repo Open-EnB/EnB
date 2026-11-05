@@ -3190,6 +3190,76 @@ bool CharacterViewAvatarClass::Unknown_7863E0()
 	return(false);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x786410: *camera_m from the avatar's transform turned a quarter about X and Y, then moved to K_HEAD (its offset
+// from skel_reference, 0.1 above or below) and 2.5 (close up) or 3.0 along its Z (FAIL_IF on the client's line 3242)
+// NOT EXACT: register (the Set_Translation stores' y / z go through ecx / edx in the client, edx / eax here: 0.94)
+void CharacterViewAvatarClass::Unknown_786410(Matrix3D *camera_m, bool close_up)
+{
+	FAIL_IF(!camera_m) return;
+	*camera_m = Get_Transform();
+	camera_m->Rotate_X(DEG_TO_RADF(90.0f));
+	camera_m->Rotate_Y(DEG_TO_RADF(90.0f));
+	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
+	Matrix3D ref = BodyObj->Get_Bone_Transform("skel_reference");
+	float height = head.Get_Z_Translation() - ref.Get_Z_Translation();
+	Vector3 offset = head.Get_Translation() - ref.Get_Translation();
+	float x = Vector3::Dot_Product(camera_m->Get_X_Vector(), offset);
+	if (close_up) {
+		float y = height - -0.1f;
+		float z = Vector3::Dot_Product(camera_m->Get_Z_Vector(), offset);
+		camera_m->Set_Translation(camera_m->Get_Translation() + camera_m->Get_Y_Vector() * y + camera_m->Get_X_Vector() * x + camera_m->Get_Z_Vector() * z);
+		camera_m->Set_Translation(camera_m->Get_Translation() + camera_m->Get_Z_Vector() * 2.5f);
+	} else {
+		float y = height - 0.1f;
+		camera_m->Set_Translation(camera_m->Get_Translation() + camera_m->Get_Y_Vector() * y + camera_m->Get_X_Vector() * x);
+		camera_m->Set_Translation(camera_m->Get_Translation() + camera_m->Get_Z_Vector() * 3.0f);
+	}
+}
+
 // 0x786B60
 void CharacterViewAvatarClass::Unknown_786B60(bool keep)
 {
@@ -3321,6 +3391,31 @@ Matrix3D CharacterViewAvatarClass::Unknown_787130()
 	m.Rotate_Z(Unknown310);
 	m.Adjust_Translation(m.Get_X_Vector() * -11.0f);
 	m.Rotate_Y(Unknown30C + 0.3f);
+	return(m);
+}
+
+// 0x787450: the transform +0x330 set, then a camera 3.5 behind skel_reference (away from other), 3.5 aside, 8.5 up, looking at
+// the point 7 above the middle between it and other's (the UI's 0x63D2F0)
+// NOT EXACT: order-only (the second Normalize sums z*z + y*y where the client sums y*y first, or the reverse: 0.92)
+Matrix3D CharacterViewAvatarClass::Unknown_787450(RenderObjClass *other)
+{
+	Set_Transform(Unknown330);
+	Matrix3D a = BodyObj->Get_Bone_Transform("skel_reference");
+	Matrix3D b = other->Get_Bone_Transform("skel_reference");
+	Vector3 center = (a.Get_Translation() + b.Get_Translation()) * 0.5f;
+	Vector3 dir = center - a.Get_Translation();
+	dir.Normalize();
+	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+	center.Z += 7.0f;
+	Vector3 pos = a.Get_Translation() - side * 3.5f;
+	pos += -dir * 3.5f;
+	pos.Z += 8.5f;
+	Vector3 x = center - pos;
+	x.Normalize();
+	Vector3 y = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), x);
+	Vector3 z = Vector3::Cross_Product(x, y);
+	Matrix3D m(x, y, z, pos);
+	m.Re_Orthogonalize();
 	return(m);
 }
 
@@ -3659,101 +3754,6 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C = 0.0f;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
