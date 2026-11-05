@@ -2573,10 +2573,9 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
-   * gd_slider.cpp (CS14 / CS16, 2026-11-05; the class screen's skill slider, real and drawn): NOT EXACT 0x66EF00 0.81 (the
-     wheel box's `Extent.X + Center.X` loads Center first; 24 forms), 0x66F330 0.81 (the top `return(false)` gets its own
-     epilogue; case 2's tail cross-jumps into case 5's), 0x66FD80 0.58 (frame: the client keeps min_pos.X and .Z on the
-     FPU). ui_combobox.cpp's stand-in GadgetClass -> the real gadget.h (then gd_slider.h can be included; the rows and the
+   * gd_slider.cpp (CS14 / CS16 / GS1, 2026-11-05; the class screen's skill slider, 18 of 19 exact): NOT EXACT 0x66FD80 0.59
+     (frame 0x20 vs 0x18: the client keeps min.X and min.Z on the FPU, ours min.Z and max.Z; MaxBonePos before
+     MinBonePos cut rows 101 -> 90; 19 more forms). ui_combobox.cpp's stand-in GadgetClass -> the real gadget.h (then gd_slider.h can be included; the rows and the
      text field +0x5C bit 4 / +0x61 / +0x68 FontSys * belong to an unidentified derived gadget); ui_manu.cpp holds the
      same kind of stand-in.
    * ui_ship_cust.cpp (CS21 / SC1, 2026-11-05: the starbase's buy-ship window StarbaseShipCustomizeInterface, RTTI 0xB89BB0,
