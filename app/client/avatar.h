@@ -70,6 +70,7 @@ public:
 	bool Unknown_784EA0(const char *name);				// 0x784EA0 (TutorialManagerClass::Was_Just_Finished of the name; ui_shard.cpp's 'AllGood')  // NAME 1 [name]: Was_Just_Finished's
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
+	void Unknown_788F90(int mode);						// 0x788F90 (the teleport effect: 1..4, 0 none)  // NAME 1 [mode]: neutral
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
 	void Unknown_786B60(bool keep);						// 0x786B60 (flag 1)  // NAME 1 [keep]: neutral
 	void Unknown_786BF0(bool keep);						// 0x786BF0 (flag 2)  // NAME 1 [keep]: neutral
@@ -215,7 +216,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	Vector3 Unknown360;									// +0x360 (0x783B50: the step moved this frame)
 	bool Unknown36C;									// +0x36C (0x77B870 clears it; set: 0x77D1E0 leaves +0x330 alone)
 	RenderObjClass *Unknown370;							// +0x370 (0x788F90's av_teleNN; a RefCountPtr in the client)
-	RenderObjClass *Unknown374;							// +0x374 (0x788F90's av_teleNNa; a RefCountPtr in the client)
+	HAnimClass *Unknown374;								// +0x374 (0x788F90's av_teleNNa animation; a RefCountPtr in the client)
 	float Unknown378;									// +0x378 (0x7897D0: the time left at which the body shows / hides; -100 done)
 	float Unknown37C;									// +0x37C (0x7897D0: the time left)
 	int Unknown380;										// +0x380 (0x7897D0: the teleport effect, 0 none, 2 / 4 show the body)

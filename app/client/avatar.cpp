@@ -16,6 +16,7 @@
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\texture.h"
 #include "..\..\ww3d2\mapper.h"
+#include "..\..\ww3d2\scene.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\surfacetypes.h"
 #include "..\shared\unknown_message.h"
@@ -46,6 +47,21 @@ void Unknown_4BC000(const char *sender, const char *category, const char *file, 
 static inline PlayerNLPClass *NLP_Of(CharacterViewAvatarClass *avatar) { return(avatar->PlayerNLP); } // NAME 1: neutral (D10)
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
 	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
+
+// 0x77B7D0
+// 0..1 eased: a half cosine below 0.5, a half sine above (0x576AC0's planet turn, sbaseview 0x69ED80); interim placement (D137)
+float Unknown_77B7D0(float t)	// NAME 1 [Unknown_77B7D0, t]: neutral (D10)
+{
+	if (t >= 1.0f) {
+		t = 1.0f;
+	} else if (t <= 0.0f) {
+		t = 0.0f;
+	}
+	if (t < 0.5f) {
+		return((float)(1.0 - cos(t * WWMATH_PI)) * 0.5f);
+	}
+	return((float)(sin((t - 0.5f) * WWMATH_PI) + 1.0) * 0.5f);
+}
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -539,22 +555,6 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3412,12 +3412,121 @@ void CharacterViewAvatarClass::Unknown_788900()
 	}
 }
 
+// 0x788EF0
+// the teleport effect dropped at once (charview 0x67B390)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_788EF0()
 {
+	if (Unknown370) {
+		Unknown370->Set_Animation();
+		Unknown370->Remove();
+		REF_PTR_RELEASE(Unknown370);
+	}
+	if (Unknown374) {
+		REF_PTR_RELEASE(Unknown374);
+	}
+	Unknown380 = 0;
+	Unknown37C = 0.0f;
+	Unknown378 = -100.0f;
 }
 
+// 0x788F90
+// the teleport effect 'av_tele0N' and its animation into +0x370 / +0x374, put in the body's scene on the avatar,
+// hidden until 0x7896B0 plays it; +0x37C the time it runs, +0x378 the time left at which 0x7897D0 shows / hides the body
+// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
+void CharacterViewAvatarClass::Unknown_788F90(int mode)
+{
+	if (BodyObj == NULL || Unknown380 == mode) {
+		return;
+	}
+	if (Unknown370) {
+		Unknown370->Set_Animation();
+		Unknown370->Remove();
+		REF_PTR_RELEASE(Unknown370);
+	}
+	if (Unknown374) {
+		REF_PTR_RELEASE(Unknown374);
+	}
+	Unknown378 = -100.0f;
+	Unknown37C = 0.0f;
+	Unknown380 = mode;
+	if (mode == 0) {
+		return;
+	}
+	switch (mode) {
+		case 1:
+			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01");
+			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1");
+			Unknown378 = 0.7f;
+			Unknown37C = 3.2f;
+			break;
+		case 2:
+			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03");
+			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1");
+			if (BodyObj) {
+				BodyObj->Set_Hidden(1);
+			}
+			if (HeadObj) {
+				HeadObj->Set_Hidden(1);
+			}
+			Unknown378 = 0.5f;
+			Unknown37C = 1.0f;
+			break;
+		case 3:
+			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02");
+			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1");
+			Unknown378 = 0.5f;
+			Unknown37C = 1.0f;
+			break;
+		case 4:
+			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04");
+			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1");
+			Unknown_786370(true);
+			Unknown378 = 0.0f;
+			Unknown37C = 0.5f;
+			break;
+	}
+	if (Unknown370 == NULL) {	// POC guard: the client goes on without testing
+		return;
+	}
+	Unknown_496AE0(Unknown370, true);
+	BodyObj->Peek_Scene()->Add_Render_Object(Unknown370);
+	if (!Unknown36C) {
+		Unknown370->Set_Transform(Get_Transform());
+	} else {
+		Matrix3D m = Unknown330;
+		Unknown370->Set_Transform(m);
+	}
+	Unknown370->Set_Hidden(1);
+	Unknown370->Set_Animation_Hidden(1);
+}
+
+// 0x7896B0
+// the teleport effect 'mode' (0x788F90) shown and its animation played once (charview 0x67B390: 4, ui_avsel 0x55D9C0: 1)
+// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_7896B0(int a)
 {
+	Unknown_788F90(a);
+	if (Unknown370) {
+		if (Unknown374) {
+			Reset_All_Texture_Mappers(Unknown370, false);
+			Unknown370->Set_Animation(Unknown374, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
+			Unknown370->Set_Hidden(0);
+			Unknown370->Set_Animation_Hidden(0);
+			return;
+		}
+		if (Unknown370) {
+			Unknown370->Set_Animation();
+			Unknown370->Remove();
+			REF_PTR_RELEASE(Unknown370);
+		}
+	}
+	if (Unknown374) {
+		REF_PTR_RELEASE(Unknown374);
+	}
+	Unknown380 = 0;
+	Unknown37C = 0.0f;
+	Unknown378 = -100.0f;
 }
 
 // 0x7897D0
