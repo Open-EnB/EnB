@@ -1919,7 +1919,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BC260` | `app/client/decal.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_75CB10` | `app/client/decal.cpp:154` | untagged neutral name (D10) |
 | 1 | `epsilon` | `app/client/decal.cpp:169` | neutral; a float variable, not a literal: the client compares with fld / fcompp |
-| 1 | `Unknown_61DF40` | `app/client/decal.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown_61DF40` | `app/client/decal.cpp:198` | untagged neutral name (D10) |
 | 1 | `decal.h` | `app/client/decal.h:4` | provisional header name for decal.cpp |
 | 1 | `Unknown619280Class` | `app/client/decal.h:18` | neutral (D10): 0x44 bytes, constructor 0x619280 |
 | 1 | `Unknown00` | `app/client/decal.h:24` | untagged neutral name (D10) |

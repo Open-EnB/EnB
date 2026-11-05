@@ -149,7 +149,7 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 }
 
 
-// NOT EXACT: stack slot (operator new's temporary in [esp + 0x28] against the client's 0x30; nothing else differs)
+// The decal index's material, tinted (the tint's copy through VertexMaterialClass::Clone, as the client's slots show)
 // @0x75CB10
 void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc)
 {
@@ -170,9 +170,7 @@ void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknow
 		Vector4 diff = Vector4(1.0f, 1.0f, 1.0f, 1.0f) - color;
 		if (fabs(diff.X) > epsilon || fabs(diff.Y) > epsilon || fabs(diff.Z) > epsilon || fabs(diff.W) > epsilon) {
 			VertexMaterialClass *source = mat_desc->Unknown34[0].Peek();
-			VertexMaterialClass *material = new VertexMaterialClass;
-			*material = *source;
-			mat_desc->Unknown34[0] = Create_Get(material);
+			mat_desc->Unknown34[0] = Create_Get(source->Clone());
 			mat_desc->Unknown34[0]->Set_Ambient(color.X, color.Y, color.Z);
 			mat_desc->Unknown34[0]->Set_Diffuse(color.X, color.Y, color.Z);
 			mat_desc->Unknown34[0]->Set_Opacity(color.W);
@@ -245,4 +243,6 @@ TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
 **	material first (the swatch, a negative index, after: 'jl'); the secret texture before the plain one; the tint
 **	test on a Vector4 difference (evaluated W, Z, Y, X) against a float variable (fld / fcompp; a literal gives
 **	fcomp qword); the tint's Set_* calls through the RefCountPtr (mov ecx, [edi]), not the new material's pointer.
+**	The copy is vertmaterial.h's inline Clone() (new, then operator=) inside Create_Get's argument: written out as
+**	new plus operator= it put operator new's temporary in Create_Get's slot ([esp + 0x28], the client's 0x30).
 */
