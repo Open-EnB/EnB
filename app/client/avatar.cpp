@@ -3273,6 +3273,14 @@ void CharacterViewAvatarClass::Unknown_786E60()
 	}
 }
 
+// 0x787DE0
+Matrix3D CharacterViewAvatarClass::Unknown_787DE0()
+{
+	Matrix3D m = Unknown330;
+	m.Adjust_Translation(-Unknown360);
+	return m;
+}
+
 // 0x7885D0
 // (list clear(): the second clear() inlines the whole erase; the first one, budget spent, calls its iterator ++ 0x78A7F0 and erase 0x78A730)
 void CharacterViewAvatarClass::Unknown_7885D0(bool second)

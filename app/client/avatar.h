@@ -111,6 +111,7 @@ public:
 	void Unknown_786E00(float rate);					// 0x786E00 (flag 0x80)  // NAME 1 [rate]: neutral
 	void Unknown_786E40();								// 0x786E40 (flags 0x40 / 0x80 off)
 	void Unknown_786E60();								// 0x786E60 (all movement off)
+	Matrix3D Unknown_787DE0();							// 0x787DE0 (+0x330 with this frame's step +0x360 taken back off its translation; the UI's 0x63BC30 calls it)  // NAME 1: neutral
 	void Unknown_7885D0(bool second);					// 0x7885D0 (clears +0x318, or +0x324)  // NAME 1 [second]: neutral
 	void Unknown_788700(const Matrix3D &goal);			// 0x788700 (the path: goal alone)  // NAME 1 [goal]: neutral
 	void Unknown_788730(const Matrix3D &goal, bool trim);	// 0x788730 (goal onto the path; trim: 3 at most)  // NAME 1 [goal, trim]: neutral
