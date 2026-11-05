@@ -821,10 +821,17 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	}
 }
 
+
+
+
+
+
+
+
 // 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
 // for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
 // colour onto its hair and beard, then the head object is cloned again (0x77F750)
-// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), inline-budget (the client keeps the hair loop on name with 0x77FEC0 / 0x7802F0 out of line, inlines only the beard 0x7802F0; frame 0xec vs 0xa8)
 void CharacterViewAvatarClass::Unknown_77F000(int num)
 {
 	char name[64];
@@ -835,22 +842,51 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		return;
 	}
 	if (HeadSource) {
-		const char *parts[4] = { "HAIR", "EAR", "GOGGLE", "BEARD" };
-		RenderObjClass *slots[4] = { HairSource.Peek(), Unknown2CC.Peek(), GoggleSource.Peek(), BeardSource.Peek() };
-		for (int p = 0; p < 4; p++) {
-			if (slots[p] && HeadSource) {
-				for (i = 0; i < 5; i++) {
-					_snprintf(name, 0x40, "%s%d", parts[p], i);
-					RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-					if (robj) {
-						HeadSource->Remove_Sub_Object(robj);
-						robj->Release_Ref();
-					}
+		const char *part = "HAIR";
+		if (HairSource && HeadSource && part) {
+			for (i = 0; i < 5; i++) {
+				_snprintf(name, 0x40, "%s%d", part, i);
+				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+				if (robj) {
+					HeadSource->Remove_Sub_Object(robj);
+					robj->Release_Ref();
+				}
+			}
+		}
+		part = "EAR";
+		if (Unknown2CC && HeadSource && part) {
+			for (i = 0; i < 5; i++) {
+				_snprintf(name, 0x40, "%s%d", part, i);
+				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+				if (robj) {
+					HeadSource->Remove_Sub_Object(robj);
+					robj->Release_Ref();
+				}
+			}
+		}
+		part = "GOGGLE";
+		if (GoggleSource && HeadSource && part) {
+			for (i = 0; i < 5; i++) {
+				_snprintf(name, 0x40, "%s%d", part, i);
+				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+				if (robj) {
+					HeadSource->Remove_Sub_Object(robj);
+					robj->Release_Ref();
+				}
+			}
+		}
+		part = "BEARD";
+		if (BeardSource && HeadSource && part) {
+			for (i = 0; i < 5; i++) {
+				_snprintf(name, 0x40, "%s%d", part, i);
+				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+				if (robj) {
+					HeadSource->Remove_Sub_Object(robj);
+					robj->Release_Ref();
 				}
 			}
 		}
 		HeadSource = NULL;
-
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
@@ -865,65 +901,29 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
-	if (HeadSource == NULL) {
-		Unknown_4BC260("Avatar Creation", "", __FILE__, 924, "Error loading up the head asset: %s", head_name);
-		return;
-	}
-	Unknown_496AE0(HeadSource.Peek(), true);
-	if (HairSource) {
-		Unknown_789D80(&HairSource, "HAIR");
-		for (i = 0; i < 5; i++) {
-			_snprintf(name, 0x40, "HAIR%d", i);
-			RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
-			if (robj) {
-				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
-
+	if (HeadSource) {
+		Unknown_496AE0(HeadSource.Peek(), true);
+		if (HeadSource) {
+			if (HairSource) {
+				Unknown_789D80(&HairSource, "HAIR");
+				Unknown_77FFA0(Desc.Hair_Color, false);
+			}
+			if (Unknown2CC) {
+				Unknown_789D80(&Unknown2CC, "EAR");
+			}
+			if (GoggleSource) {
+				Unknown_789D80(&GoggleSource, "GOGGLE");
+			}
+			if (BeardSource) {
+				Unknown_789D80(&BeardSource, "BEARD");
+				Unknown_7802F0(Desc.Hair_Color, false);
 			}
 		}
-		Unknown_7802F0(Desc.Hair_Color, false);
+		Unknown_77F750();
+	} else {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the head asset %s", head_name);
 	}
-	if (Unknown2CC) {
-		Unknown_789D80(&Unknown2CC, "EAR");
-	}
-	if (GoggleSource) {
-		Unknown_789D80(&GoggleSource, "GOGGLE");
-	}
-	if (BeardSource) {
-		Unknown_789D80(&BeardSource, "BEARD");
-		Desc.Beard_Color = Desc.Hair_Color;
-		for (i = 0; i < 5; i++) {
-			_snprintf(name, 0x40, "BEARD%d", i);
-			RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
-			if (robj) {
-				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
-
-			}
-		}
-	}
-	Unknown_77F750();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
