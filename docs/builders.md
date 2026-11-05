@@ -64,7 +64,10 @@ LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inli
 base image. VMs are addressed by IP (clones share a computer name).
 
 **POC instances.** Run the POC client only through `clientpoc.py run|replay --instance NAME` (your builder id),
-never by copying builds into `C:\EnBDevelopment\ClientPOC` yourself. Before you report, delete yours:
+never by copying builds into `C:\EnBDevelopment\ClientPOC` yourself. Your own build: `build.py link --program clientpoc` in your worktree (its default build/ deploys into ClientPOC\release: fine, the
+release exe is shared and any build may sit there), then `clientpoc.py replay --instance <your id> --exe
+<worktree>\build\programs\clientpoc\clientpoc.exe --input FILE`: the instance runs that exe, whatever release holds.
+Before you report, delete yours:
 `python tools/harness/clientpoc.py clean --instance NAME` (your shots stay in .work/poc/shots).
 
 **Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`

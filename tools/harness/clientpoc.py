@@ -17,7 +17,8 @@ failed, and crashed in the error message box). The release folder is filled from
 they differ), with its own stubs.log, _except.txt and d3d8.dll proxy, and shots in
 .work/poc/shots/NAME-HHMMSS. The PID of the client is printed ("client pid N"); kill it by that PID only.
 programs/clientpoc/poc_multi.cpp makes that possible without app code changes (mutex per process, no cursor
-warp). --exe lets a worktree's `build.py link --program clientpoc --out DIR` output run without being deployed.
+warp). --exe runs a worktree's own link output (WT\\build\\programs\\clientpoc\\clientpoc.exe, its map beside it) whatever
+release\\ holds: builders' checks use it (docs/builders.md, POC instances); it must exist.
 
 replay: antprox /REPLAY (D181; the loopback server for one client; each instance gets its own address, so
 several replays run at once) starts the client (/CLIENT:<instance exe>), ENB_POC_INPUT=1, the --input steps
@@ -650,7 +651,8 @@ def main():
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
     ap.add_argument('--instance', help='run in ClientPOC\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
-    ap.add_argument('--exe', help='a client.exe to run instead of release\\client.exe (needs --instance)')
+    ap.add_argument('--exe', help='an exe to run instead of release\\client.exe, e.g. a worktree\'s '
+                    'build\\programs\\clientpoc\\clientpoc.exe (needs --instance)')
     ap.add_argument('--retail', action='store_true',
                     help='replay: run a copy of the retail client under the d3d8shot input hooks (D190; needs --instance, --shots)')
     ap.add_argument('--messages', action='store_true',
@@ -661,6 +663,8 @@ def main():
         if not (a.instance or a.all or a.older is not None):
             raise SystemExit('clean needs --instance NAME, --all or --older HOURS')
         return clean(a.instance, a.older)
+    if a.exe is not None and not os.path.isfile(a.exe):
+        raise SystemExit(f'--exe {a.exe!r}: no such file (an empty --exe would run release\\client.exe instead)')
     inst = Inst(a.instance, a.exe, a.retail)
     if a.command == 'run':
         run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)

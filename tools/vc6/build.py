@@ -27,7 +27,9 @@ into stubs.lib, D44) in the VM and links them against DIR/<lib>/<lib>.lib, DIR/m
 vfw32, comsupp, ddraw: D50), into DIR/programs/<name>/ (exe, map, cl.log, link.log, summary.json).
 `link --program clientpoc` is the proof-of-concept client (D179; PROGRAMS has the details): every
 library, a gen_stubs.py --link stand-in for each symbol still unresolved, client.exe and client.map
-copied into C:\\EnBDevelopment\\ClientPOC\\release (needs mkauthlogin.py's authlogin.lib; build every
+copied into C:\\EnBDevelopment\\ClientPOC\\release when DIR is the running tree's own build/ (a worktree's
+included; another --out does not deploy). The exe stays DIR/programs/clientpoc/clientpoc.exe: run a worktree's
+with `clientpoc.py replay --instance NAME --exe` that path (needs mkauthlogin.py's authlogin.lib; build every
 library first, wlib / wnet / binkmovie included).
 
 Checked build (M2 gate (d)): ENB_CHECKED=1 python tools/vc6/build.py --out build/chk, then link
