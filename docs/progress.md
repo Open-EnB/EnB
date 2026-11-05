@@ -2536,11 +2536,13 @@ below name only the work items, the blocked work, the leads and the queues.
      Create_NEW for 0x75CFA0 (same body as 0x75CB10's Create_Get 0x47D040; the name is a guess until another caller of
      0x75CFA0 is read: proj_decal_manager 0x7633E0, galaxy map 0x7B2B30); decal.cpp's interim Unknown619280Class ctor /
      dtor are probably header inlines emitted by ui_shipcust.obj (Load inlines the swatch dtor as `??_M`): move them when
-     ui_shipcust is quiet, with a full verify (0x618C10 / 0x619280 at risk); ui_shipcust's 9 (CS3 / CS7, 2026-11-05: 0x623080 0.49 (one case per key
-     in the client's order + 12 dead size(), stash docs/attempts/623080/: the key in ebx vs esi, cases 1-4 not tail-merged,
-     frame 0x2C vs 0x24); 0x624270 0.44 (map::insert inline in ours; the client's 1.0f from three .rdata constants);
-     0x6280E0 0.59; 0x624E50 0.50 / 0x627200 (the client saves registers at entry); ctor 0x622180 0.23 (frame 0x40 vs 0x24,
-     Unknown220 stored during member init); 0x625A60, 0x621530 (13 rows, form in attempts), 0x621390 untried or register),
+     ui_shipcust is quiet, with a full verify (0x618C10 / 0x619280 at risk); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 with
+     0x627730 / 0x6251F0 taking Vector3 / Vector2 by value (client evidence, docs/attempts/627200/byvalue.diff.txt; also
+     lifts 0x624E50 0.50 -> 0.68): land the signatures, then the one eax / ecx / edx rotation in case 1's metal block;
+     0x623080 (inline budget, over D130 only), ctor 0x622180 0.37 (the client calls ShipCustPartClass's operator= 0x619320
+     out of line), 0x625A60 0.65, 0x624270 0.46 (shape: each store right after its test, 1.0f by fld from .rdata), 0x621390
+     0.65 (register; push_back drops 0x8810F0-0x881250's duplicates, still held by pknamedecal: D66 (i)); LIMIT REACHED
+     0x621530, 0x624E50),
      ui_shard's 0x616220 (register: the inlined 0x617660's eax vs ecx), shiputils 0x80EAF0 0.38 (asserts on client lines
      41 / 45 / 59: lay the file out first), AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
      98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
