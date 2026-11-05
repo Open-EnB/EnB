@@ -673,7 +673,13 @@ void AvatarCreationInterface::Unknown_60()
 	Unknown094->Unknown054->Unknown_1C4();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails)
+// NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F
+// (585CC0 / 585C90, no `key ==` test) and shares its sound tails; it calls basic_string's assign out of line for the
+// six tutorial names (Unknown_67C920 takes a std::string by value: _Tidy(false) + assign(s, len), both out of line)
+// where VC6 here inlines assign. Dead desc.Peek()s after the switch show the budget: 12 nothing, 18-24 give 0.64
+// (assign out of line), 30+ 0.61; far over D130's six, so the client spent it in forms not found yet (the strings,
+// the tutorial manager or the conversions to RefCountPtr<RenderObjClass>). attempts.py show 0x554E80
+// (the cases' tails shared as the client's)
 // 0x554E80
 bool AvatarCreationInterface::Unknown_68(int key)
 {
@@ -754,41 +760,35 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown_5591E0(2);
 			break;
 		case 0x16:
+			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc); break;
 		case 0x17:
-			if (key == 0x16) Unknown2DC->Unknown_585CC0(); else Unknown2DC->Unknown_585C90();
-			desc->Unknown_77F000(Unknown2DC->Unknown18);
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown094->Unknown_84(desc); break;
 		case 0x18:
+			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown094->Unknown_84(desc); break;
 		case 0x19:
-			if (key == 0x18) Unknown2E8->Unknown_585CC0(); else Unknown2E8->Unknown_585C90();
-			desc->Unknown_7857D0(Unknown2E8->Unknown18);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown094->Unknown_84(desc); break;
 		case 0x1A:
+			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown094->Unknown_84(desc); break;
 		case 0x1B:
-			if (key == 0x1A) Unknown2EC->Unknown_585CC0(); else Unknown2EC->Unknown_585C90();
-			desc->Unknown_7859F0(Unknown2EC->Unknown18);
-			Unknown_55B2D0();
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown094->Unknown_84(desc); break;
 		case 0x1C:
+			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1D:
-			if (key == 0x1C) Unknown2F0->Unknown_585CC0(); else Unknown2F0->Unknown_585C90();
-			desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1);
-			TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1E:
+			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x1F:
-			if (key == 0x1E) Unknown2F4->Unknown_585CC0(); else Unknown2F4->Unknown_585C90();
-			desc->Unknown_77FC90(Unknown2F4->Unknown18, 1);
-			TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4);
-			Unknown094->Unknown_84(desc);
-			break;
+			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
 		case 0x20:
 		case 0x21:
 			Unknown_Set_Palette("fa_avatar_color.tga");

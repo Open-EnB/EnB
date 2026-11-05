@@ -6775,10 +6775,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C` | `app/client/ui_avatr.cpp:576` | untagged neutral name (D10) |
 | 1 | `Unknown_780810` | `app/client/ui_avatr.cpp:600` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_avatr.cpp:637` | untagged neutral name (D10) |
-| 1 | `Unknown_77F000` | `app/client/ui_avatr.cpp:759` | untagged neutral name (D10) |
-| 1 | `Unknown_7857D0` | `app/client/ui_avatr.cpp:766` | untagged neutral name (D10) |
-| 1 | `Unknown_7859F0` | `app/client/ui_avatr.cpp:772` | untagged neutral name (D10) |
-| 1 | `Unknown_77FCE0` | `app/client/ui_avatr.cpp:779` | untagged neutral name (D10) |
+| 1 | `Unknown_77F000` | `app/client/ui_avatr.cpp:763` | untagged neutral name (D10) |
+| 1 | `Unknown_7857D0` | `app/client/ui_avatr.cpp:769` | untagged neutral name (D10) |
+| 1 | `Unknown_7859F0` | `app/client/ui_avatr.cpp:775` | untagged neutral name (D10) |
+| 1 | `Unknown_77FCE0` | `app/client/ui_avatr.cpp:781` | untagged neutral name (D10) |
 | 1 | `Unknown_77FC90` | `app/client/ui_avatr.cpp:787` | untagged neutral name (D10) |
 | 1 | `Unknown_77E900` | `app/client/ui_avatr.cpp:1069` | untagged neutral name (D10) |
 | 1 | `Unknown_77E830` | `app/client/ui_avatr.cpp:1070` | untagged neutral name (D10) |
