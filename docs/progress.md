@@ -2471,8 +2471,10 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order,
      LIMIT REACHED); ui_avsel 0x55E070 (register), 0x55D060 (blocked: calls tsk_login.h's Get_Selected /
      Get_Avatar_Descs 0x55D860 / 0x55D880 out of line; case 7's FE01C tail merged into case 8's), 0x55F140 (parked; its
-     iterator copies 0x560090 / 0x5600B0 come out of line only with it; the rest up to ui_bio's 0x5603E0 is exact); tsk_login's Fetch_EA_Ticket 0x76A7B0 (the demo box's 0 pushed from eax), 0x7698E0
-     (tail-merged sends), 0x76A370 (inline budget); Cycle_Focus 0x443270 is probably
+     iterator copies 0x560090 / 0x5600B0 come out of line only with it; the rest up to ui_bio's 0x5603E0 is exact); tsk_login (CS10, 2026-11-05): Go_Next_Step 0x769500 / Go_Back_Step 0x769680 have one residue
+     each, the client's `push ebx; mov ebx,1` before the jump table (one lever may make both exact); Fetch_EA_Ticket
+     0x76A7B0 (shape: ours tail-duplicates `ok=false; pop ebp`, 2 rows), 0x7698E0 (register: Major in edx vs eax),
+     Unknown_50 0x7683F0 (register: the client recomputes the slot index); LIMIT REACHED 0x767F50 / 0x769E70; Cycle_Focus 0x443270 is probably
      `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
      edit (their partial GalaxyMapClientClass declarations).
    * From the 2026-11-01 night run (html, galaxy map; HV2, GM2): htmlview's parser 0x7710D0 (18 KB, assert line
@@ -2544,8 +2546,8 @@ below name only the work items, the blocked work, the leads and the queues.
      0.65 (register; push_back drops 0x8810F0-0x881250's duplicates, still held by pknamedecal: D66 (i)); LIMIT REACHED
      0x621530, 0x624E50),
      ui_shard's 0x616220 (register: the inlined 0x617660's eax vs ecx), shiputils 0x80EAF0 0.38 (asserts on client lines
-     41 / 45 / 59: lay the file out first), AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
-     98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
+     41 / 45 / 59: lay the file out first), AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only, Get_Frame_Time's: masked
+     98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28 but with ~40 dead reads, over D130; frame 0x34 matched: the +0x134 / +0x138
      store order and the first dialog string's inline `_Eos`; docs/attempts/574710/), 0x575D50 (parked: `add ecx,0x88`), ShipPip (PIP, 2026-11-04; CS5 2026-11-05) 0x80CE10
      0.84 (7 bytes: one `mov ecx, edi` in the inlined Translate(-center), docs/attempts/80CE10/; no other exact
      client copy of the inlined Translate(-v) exists to compare with), 0x80D5E0 0.65 (the inlined
