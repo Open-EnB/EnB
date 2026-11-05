@@ -2453,11 +2453,14 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
    * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
      gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
-     0x54CBC0 (slot +0x68, NOT EXACT 0.62: the inlined 0x54EAD0 copies call the converting ctor 0x551D40 out of line
-     with the dtor inline, ours the reverse); ui_avatr's key handler 0x554E80 (0.27; ~18 dead reads reach 0.64, over
-     D130: find the tutorial names' real string form); NOT EXACT 0x54F390 (shape 0.91: the client re-tests the gadget's
-     +0x64), 0x54F6F0 / 0x54FFC0 (order: push / FPU scheduling), 0x5502F0 (two bools' slots: zoom kept in memory);
-     register residues 0x54E690 / 0x54E7F0 / 0x54E950 / 0x54EAD0 / 0x54EC30. The EventCallbackClass + Remove lever for
+     0x54CBC0 (slot +0x68, NOT EXACT 0.67: the inlined 0x54EAD0 copies call the converting ctor 0x551D40 out of line
+     with the dtor inline, ours the reverse; try the getter chain inside the inlined copies); ui_avatr's key handler
+     0x554E80 (0.27; ~18 dead reads reach 0.64, over D130); NOT EXACT 0x54F390 / ui_avatr 0x55A1F0 0.83 (shape: the client
+     re-tests +0x64 after setting +0x08), 0x55BFB0 0.72 (register: `this` in edi, the index pre-scaled), 0x557290 0.67 (VC6
+     hoists the gender branches' shared opening), 0x54E950 0.75 / 0x54EAD0 0.82 / 0x54EC30 register; untried 0x553AF0,
+     0x5582A0, 0x55BAC0, 0x550A10, Init 0x54BD30. ui_avatr.cpp's file-static Set_Rate (interim) is probably ShipPipClass's
+     inline setter: move it into ship_pip.h with a full verify; the commented-out UIAvatrFlash block goes in a neutral
+     pass that absorbs the line shift (0x55C280's FAIL_IF lines sit below it). The EventCallbackClass + Remove lever for
      dtors should fit the starbase windows' 0x6186A0 / 0x622B90.
    * The network stack (NET, 2026-11-04; cordmgr Pump_Releases 0x859940 exact with E&B's INFMSG): cordcon pumpInternal
      0x853A30 0.76 (the resend copy's EH state 9 vs the client's 10: one more numbered object between the full-datagram
@@ -2537,9 +2540,7 @@ below name only the work items, the blocked work, the leads and the queues.
      text field +0x5C bit 4 / +0x61 / +0x68 FontSys * belong to an unidentified derived gadget); ui_manu.cpp holds the
      same kind of stand-in.
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
-     check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
-     slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
-     0x558EA0 (register only), 0x5591E0 (0.77) / 0x559010 (0.65), 0x559350 (D193); swatch (negative) and secret decals untested; the functional
+     check `.work/coord/pocfull.sh`): the avatar screen's 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.46: the client keeps &Unknown30 in a stack slot, frame 8 bytes
      larger) / 0x75CB10 (0.81: operator new's temporary at [esp+0x28] vs the client's 0x30); Load's two base materials use
      Create_NEW for 0x75CFA0 (same body as 0x75CB10's Create_Get 0x47D040; the name is a guess until another caller of
