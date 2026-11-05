@@ -640,23 +640,23 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
 }
 
+// 0x77E370
+void CharacterViewAvatarClass::Unknown_77E370(const char *name)
+{
+	Desc.Unknown_4C1460(name, true);
+}
+
+// 0x77E3A0
+void CharacterViewAvatarClass::Unknown_77E3A0(const char *name)
+{
+	Desc.Unknown_4C15F0(name, true);
+}
+
 // 0x77E3D0
 void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 {
 	Unknown204 = a;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1511,6 +1511,21 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 	Unknown_780F30();
 }
 
+// 0x781800
+void CharacterViewAvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
+{
+	Unknown0E8.Unknown_4C44A0();
+	void *data = stream->Unknown04;
+	Unknown0E8.Unknown_4C44E0(data, stream->Unknown_04());
+}
+
+// 0x781840
+void CharacterViewAvatarClass::Unknown_781840(const void *data, int size)
+{
+	Unknown0E8.Unknown_4C44A0();
+	Unknown0E8.Unknown_4C44E0(data, size);
+}
+
 // 0x781880
 // (push_back: VC6 vector's insert inlined)
 void CharacterViewAvatarClass::Unknown_781880(char anim, const char *text, int mood)
@@ -1593,10 +1608,7 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 		}
 		Unknown22C = 0.0f;
 		Unknown224 = Unknown_BDBB84(0, delay / 2);
-		Unknown250 = 0.0f;
-		Unknown258 = 0.0f;
-		Unknown264 = 0.0f;
-		Unknown268 = 0.0f;
+		Unknown_785480();
 	} else if (Unknown231) {
 		_snprintf(name, 0x20, "stand_still");
 	} else if (Unknown314 != 1) {
@@ -1893,18 +1905,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2653,8 +2653,8 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 			Unknown_4BC260("Avatar Animation", "", __FILE__, 2705, "Invalid NLP pointer");
 			return;
 		}
-		Unknown0E8.Unknown_4C44A0();
-		Unknown0E8.Unknown_4C44E0(data, size);
+		Unknown_781840(data, size);
+
 		Unknown_784700();
 		Unknown214 = flag;
 		if (flag) {
@@ -2827,6 +2827,22 @@ void CharacterViewAvatarClass::Unknown_785040()
 	}
 }
 
+// 0x785450
+void CharacterViewAvatarClass::Unknown_785450(float yaw, float pitch)
+{
+	Unknown250 = yaw;
+	Unknown258 = pitch;
+}
+
+// 0x785480
+void CharacterViewAvatarClass::Unknown_785480()
+{
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+}
+
 // 0x7854B0
 void CharacterViewAvatarClass::Unknown_7854B0(float time)
 {
@@ -2856,22 +2872,6 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 	BodyObj->Capture_Bone(bone);
 	BodyObj->Control_Bone(bone, m, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3122,12 +3122,27 @@ bool CharacterViewAvatarClass::Unknown_7860C0()
 // (SpeechSound a RefCountPtr: Create_Get, then its operator=)
 void CharacterViewAvatarClass::Unknown_7861B0(const char *speech)
 {
+	Unknown_7862D0();
+	SpeechSound = Create_Get(SoundLibraryClass::Play_2D_Sound(speech, 1));
+}
+
+// 0x7862D0
+void CharacterViewAvatarClass::Unknown_7862D0()
+{
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
 		SpeechSound = NULL;
-
 	}
-	SpeechSound = Create_Get(SoundLibraryClass::Play_2D_Sound(speech, 1));
+}
+
+// 0x786320
+void CharacterViewAvatarClass::Unknown_786320()
+{
+	if (Unknown2F4) {
+		Unknown_4428E0(Unknown23C, Unknown330);
+	} else {
+		Unknown_442930(Unknown23C, Unknown330);
+	}
 }
 
 // 0x786370
