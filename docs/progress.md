@@ -2637,12 +2637,16 @@ below name only the work items, the blocked work, the leads and the queues.
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
      delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
-   * sbaseview.cpp (SBV, 2026-11-04): 0x6A1C90 (vector math on +0x1D4..+0x1E8, RCamera from the +0x6C camera), 0x69E6E0
-     (frame 0x74), 0x69DFC0 / 0x69DC80 (need ui_starbase's avatar class, Matrix3D at +0x330), 0x69EF00, 0x6A1180, the lights
-     loader 0x6A0590, 0x69F8F0, 0x6A2120 (stubbed); functional 0x69D030 (literal 0.87: Rotate_Z's first row order) and Init
-     0x69B5E0 (shape 0.84). Evidence-backed retypes: ViewClass::Unknown_18 takes a bool (charview 0x67A210 / sbaseview
-     0x69C5A0 read a byte, `(char)arg` today); MainViewUnknown1E4Class is UIPTradeClass (both construct with 0x5E1BE0);
-     SBaseViewUnknown68Class is scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct (0x490900 / 0x4909A0): a shared header.
+   * sbaseview.cpp (SBV / SB2, 2026-11-05): 0x6A1C90 0.82 (shape: the client multiplies +0x1D4 in place with no alias
+     test; our inline Rotate_Vector adds the test or carries a local copy; form stashed), the lights loader 0x6A0590 0.47
+     (frame: its FAIL_IFs sit on lines 1261 / 1262, so 0x6A0E00..0x6A1B80 move below it; r, g, b, i contiguous in the
+     client's frame, +0x10 copied without Vector3::operator=), 0x6A1180 (the debug memory display; its FastAllocator loops
+     are not in our wwlib headers; frameint.cpp's 0x53EB00 is the same code), 0x69F8F0 (the interface switcher, 8 cases:
+     ten class constructors at their exact sizes; case 0xB passes &Unknown190 to SClient::Unknown_74C9D0, so that
+     parameter is RefCountPtr<SBaseViewUnknown190Class> (ui_talkt, 0x64B6E0, 0x180 bytes), not UITalkTreeSpaceClass:
+     retype it first); functional 0x69D030 (literal 0.87: Rotate_Z's first row order) and Init 0x69B5E0 (shape 0.84).
+     unknown_490900.h (SBaseViewUnknown68Class = ScriptedMovieViewerSettingsStruct, +0x00 the scene LightClass) is interim
+     (D137): revisit when 0x4909D0's file is found.
      ui_avatar_cust 0x550A10's frame-time prologue (register).
    * From the 2026-10-31 day run: aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
      KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 and
