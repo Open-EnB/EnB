@@ -1434,15 +1434,8 @@ static void Test_Starbase(SClient *client)
 // description, the costs and four ints to the starbase view's +0x1A0 (0x61F250; FAIL_IF '!ship_ui' without one),
 // RECUSTOMIZE_AVATAR_START 131 (0x73F570) the costs to +0x19C (0x551C40; '!avatar_ui'), RECUSTOMIZE_AVATAR_UPDATE 133
 // (0x73F5F0) its int and the avatar description to the +0x60 interface (0x6437A0). Stand-ins record the calls.
-class SBaseViewUnknown1A0Class { public: void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d); };
 class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };
 static std::string Recustomize_Log;
-void SBaseViewUnknown1A0Class::Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d)
-{
-	char t[96];
-	sprintf(t, "61F250(%s, %s, %d, %d, %d, %d) ", desc ? "desc" : "NULL", cost ? "cost" : "NULL", a, b, c, d);
-	Recustomize_Log += t;
-}
 void SBaseViewUnknown19CClass::Unknown_551C40(RecustomizationCostClass *cost) { Recustomize_Log += cost ? "551C40(cost) " : "551C40(NULL) "; }
 void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
 {
@@ -1461,7 +1454,7 @@ static void Test_Recustomize(SClient *client)
 	UIViewClass *saved = client->Unknown135C;
 	static double fake_view[0x200 / 8];
 	static double fake_starbase[0x100 / 8];
-	static char fake_ship_ui[4], fake_avatar_ui[4];
+	static char fake_avatar_ui[4];
 	char *view = (char *)fake_view;
 	*(int *)((char *)fake_starbase + 0x3C) = 5;
 	*(double **)(view + 0x60) = fake_starbase;
@@ -1604,13 +1597,6 @@ static void Test_CTA(SClient *client)
 // each line of the text split at CR / LF (the 8-byte string class 0x8B5D90, written here as a plain tokenizer).
 // MESSAGE_CHATSTREAM: no avatar for ShipID, nothing happens (0x74C840 finds none). FIND_MEMBER: the chat panel's
 // +0xF8 interface's slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set.
-class UIPTradeClass
-{
-public:
-	void Unknown_5E2F70(bool on);
-	void Unknown_5E3050(bool on);
-	void Unknown_5E3130();
-};
 static std::string Trade_Log;
 void UIPTradeClass::Unknown_5E2F70(bool on) { Trade_Log += on ? "5E2F70(1) " : "5E2F70(0) "; }
 void UIPTradeClass::Unknown_5E3050(bool on) { Trade_Log += on ? "5E3050(1) " : "5E3050(0) "; }

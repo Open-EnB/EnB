@@ -321,3 +321,10 @@ ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char
 // the SClient / UI chain reaches it. clienttest never opens the ship customization window: this only links.
 #include "..\..\..\app\shared\money.h"
 bool operator>=(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>=(MoneyClass)"); return(a.Unknown00 >= b.Unknown00); }
+
+// ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
+// writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
+// names link here. Never called: clienttest opens no such window.
+class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
+void GadgetClass::Unknown_08() {}
+void GadgetClass::Unknown_14() {}
