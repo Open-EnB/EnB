@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-539 entries in 135 files.
+538 entries in 135 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -143,7 +143,6 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
 | `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
-| `app/client/mainview.cpp:184` | `MainViewClass::Unknown_04` | marker | NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
 | `app/client/mainview.cpp:548` | `MainViewClass::Unknown_50D520` | marker | NOT EXACT: functional (MV2, from the disassembly) 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts |
 | `app/client/mainview.cpp:614` | `MainViewClass::Render_Gas_Giant_Mode` | marker | NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20 |

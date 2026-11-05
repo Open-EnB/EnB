@@ -181,7 +181,7 @@ MainViewClass::~MainViewClass()
 {
 }
 
-// NOT EXACT: similarity 0.84, registers only (the first light's and the stars' RefCountPtr assignments); attempts.csv 0x50BA60
+// 0x50BA60: Init (exact: Get_Client() for the orbitals and the stars; its inline layer gives the lights' and stars' assignment order)
 void MainViewClass::Unknown_04()
 {
 	UIViewClass::Unknown_04();
@@ -201,7 +201,7 @@ void MainViewClass::Unknown_04()
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
 	Unknown118->Set_Fog_Enable(false);
-	Orbitals = new OrbitalManager(Client, new MainViewOrbitalCallbackClass(this));
+	Orbitals = new OrbitalManager(Get_Client(), new MainViewOrbitalCallbackClass(this));
 	for (int i = 0; i < 4; i++) {
 		Unknown144[i] = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
 		Unknown144[i]->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
@@ -219,7 +219,7 @@ void MainViewClass::Unknown_04()
 	Unknown164->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
 	WWProfileManager::Reset();
 	ProfileIterator = WWProfileManager::Get_Iterator();
-	StarField = Create_NEW(new StarFieldClass(Client->StarBudget));
+	StarField = Create_NEW(new StarFieldClass(Get_Client()->StarBudget));
 	Unknown114->Add_Render_Object(StarField.Peek());
 	Unknown_514480();
 	GraphicsChanged = true;
