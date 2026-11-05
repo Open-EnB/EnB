@@ -1,0 +1,80 @@
+static inline CharacterViewClass *View_Of(ClassSelectInterface *c) { return c->CharacterView; }
+// NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left)
+// @0x576AC0
+void ClassSelectInterface::Unknown_576AC0()
+{
+	Descriptions.size();
+	Descriptions.size();
+	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
+	Matrix3D tm(true);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->ViewRObjs[1]);
+	int bone = model->Get_Bone_Index("planet");
+	Unknown_5760C0(true); float angle;
+	if (UnknownEC > 0.0f) {
+		Unknown_5760C0(false);
+
+		UnknownEC -= frame;
+		if (UnknownEC < 0.0f) {
+			UnknownE4 = UnknownE8;
+			UnknownEC = 0.0f;
+			if (UnknownE4 > 360.0f) {
+				UnknownE4 -= 360.0f;
+			} else if (UnknownE4 < 0.0f) {
+				UnknownE4 += 360.0f;
+			}
+			int idx = Unknown8C; angle = UnknownE4;
+			View_Of(this)->Unknown_67B390(Unknown_B7DB60[idx].Race, Unknown_B7DB60[idx].Profession);
+			CharacterView->Unknown_67C7B0();
+			switch (Unknown8C) {
+				case 0:
+					CharacterView->Unknown_67C920("1492_00_344se.mp3");
+					CharacterView->Unknown_67C920("1492_00_345se.mp3");
+					CharacterView->Unknown_67C920("1492_00_346se.mp3");
+					break;
+				case 2:
+					CharacterView->Unknown_67C920("1492_00_335se.mp3");
+					CharacterView->Unknown_67C920("1492_00_336se.mp3");
+					CharacterView->Unknown_67C920("1492_00_337se.mp3");
+					break;
+				case 3:
+					CharacterView->Unknown_67C920("1492_00_338se.mp3");
+					CharacterView->Unknown_67C920("1492_00_339se.mp3");
+					CharacterView->Unknown_67C920("1492_00_340se.mp3");
+					break;
+				case 5:
+					CharacterView->Unknown_67C920("1492_00_329se.mp3");
+					CharacterView->Unknown_67C920("1492_00_330se.mp3");
+					CharacterView->Unknown_67C920("1492_00_331se.mp3");
+					break;
+				case 6:
+					CharacterView->Unknown_67C920("1492_00_341se.mp3");
+					CharacterView->Unknown_67C920("1492_00_342se.mp3");
+					CharacterView->Unknown_67C920("1492_00_343se.mp3");
+					break;
+				case 8:
+					CharacterView->Unknown_67C920("1492_00_332se.mp3");
+					CharacterView->Unknown_67C920("1492_00_333se.mp3");
+					CharacterView->Unknown_67C920("1492_00_334se.mp3");
+					break;
+			}
+		} else {
+			float t = Unknown_77B7D0(UnknownEC);
+			angle = t * UnknownE4 + (1.0f - t) * UnknownE8;
+		}
+		angle /= 180.0f;
+		tm.Rotate_Z(angle * WWMATH_PI);
+	} else {
+		angle = UnknownE4 / 180.0f;
+		tm.Rotate_Z(angle * WWMATH_PI);
+	}
+	model->Capture_Bone(bone);
+	model->Control_Bone(bone, tm, false);
+	UnknownF0 += frame * 0.33f;
+	for (int i = 0; i < 9; i++) {
+		Matrix3D moon(true);
+		int moon_bone = model->Get_Bone_Index(Unknown_82F3C0(i));
+		moon.Rotate_Z(UnknownF0);
+		model->Capture_Bone(moon_bone);
+		model->Control_Bone(moon_bone, moon, false);
+	}
+}
