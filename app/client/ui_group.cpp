@@ -40,7 +40,7 @@ public:
 	virtual void Unknown_90();
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
 	virtual void Unknown_98(FontSys *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
-	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
 	void Unknown_6607D0();								// 0x6607D0
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5938A0 passes -1)  // NAME 1 [arg]: neutral
 

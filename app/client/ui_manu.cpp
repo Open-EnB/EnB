@@ -56,7 +56,7 @@ public:
 	virtual void Unknown_A4(float value, int unknown);	// +0xA4 (the slider's: its position)  // NAME 1 [value, unknown]: neutral
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5B6410 passes -1)  // NAME 1 [arg]: neutral
 	static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
-	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
 	void Unknown_6607D0();								// 0x6607D0
 
 	char Unknown04[0x2C - 0x04];						// +0x04

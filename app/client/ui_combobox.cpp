@@ -43,14 +43,14 @@ public:
 	FontSys *Unknown68;							// +0x68 (the text)
 };
 
-// gd_slider.cpp's slider (the list's scroll bar, the combo box's +0xD8), as far as this file calls it
-class UIComboBoxSliderClass : public GadgetClass	// NAME 1: neutral (D10)
+// gd_slider.cpp's slider (the list's scroll bar, the combo box's +0xD8), as far as this file calls it: gd_slider.h's GadgetSlider (gd_slider.h's gadget.h clashes with this file's GadgetClass)
+class GadgetSlider : public GadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@ (gd_slider.h)
 {
 public:
 	void Unknown_66E3A0();								// 0x66E3A0
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool a, int b);	// 0x66E460 (0x57A330: the mesh's model, 0, 0)  // NAME 1 [object, a, b]: neutral
-	void Unknown_66FA90(float range, float step, bool flag);	// 0x66FA90 (0x57A330: the items past the rows plus one, 1.0, true)  // NAME 1 [range, step, flag]: neutral
-	void Unknown_66FD80(int arg);						// 0x66FD80 (0x57A330 passes 0)  // NAME 1 [arg]: neutral
+	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx);	// 0x66E460 (0x57A330: the mesh's model, false, 0)  // NAME 1 [object, is_horizontal, bone_idx]: gd_slider.h's
+	void Unknown_66FA90(float total, float page, bool a);	// 0x66FA90 (0x57A330: the items past the rows plus one, 1.0, true)  // NAME 1 [total, page, a]: gd_slider.h's
+	bool Unknown_66FD80(bool force = false);			// 0x66FD80 (0x57A330 passes false)  // NAME 1 [force]: gd_slider.h's
 };
 
 template<class T> inline T Unknown_Clamp(T val, T lo, T hi) { if (val < lo) return(lo); if (val > hi) return(hi); return(val); }	// NAME 1: neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row)
@@ -156,7 +156,7 @@ void UIComboBoxClass::Unknown_57A330()
 			Unknown0A0->Set_Frame(1, Unknown0CC);
 			Unknown084->Peek_Object()->Update_Sub_Object_Transforms();
 			if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-				Unknown0D8->Unknown_66FD80(0);
+				Unknown0D8->Unknown_66FD80(false);
 			}
 			if (Unknown0C8 == 0) {
 				Unknown0BC->Unknown_68(Unknown0C4);
@@ -169,10 +169,10 @@ void UIComboBoxClass::Unknown_57A330()
 				Unknown_5C();
 				drop->Set_Hidden(0);
 				if ((int)Items.size() > Unknown0B8) {
-					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), 0, 0);
+					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), false, 0);
 					Unknown0D8->Unknown_66FA90((float)(Items.size() - Unknown0B8 + 1), 1.0f, true);
 					Unknown0D8->Unknown_40(true);
-					Unknown0D8->Unknown_66FD80(0);
+					Unknown0D8->Unknown_66FD80(false);
 					Unknown0D8->Unknown_A4((float)Unknown0DC, 0);
 				}
 				if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
@@ -196,7 +196,7 @@ void UIComboBoxClass::Unknown_57A330()
 				}
 				if ((int)Items.size() > Unknown0B8) {
 					Unknown0D8->Unknown_66E3A0();
-					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), 0, 0);
+					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), false, 0);
 					Unknown0D8->Unknown_66FA90((float)(Items.size() - Unknown0B8 + 1), 1.0f, true);
 					Unknown0D8->Unknown_40(true);
 					Unknown0D8->Unknown_A4((float)Unknown0DC, 0);
@@ -207,7 +207,7 @@ void UIComboBoxClass::Unknown_57A330()
 			Unknown0A0->Set_Frame(1, Unknown0CC);
 			Unknown084->Peek_Object()->Update_Sub_Object_Transforms();
 			if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-				Unknown0D8->Unknown_66FD80(0);
+				Unknown0D8->Unknown_66FD80(false);
 			}
 			break;
 	}

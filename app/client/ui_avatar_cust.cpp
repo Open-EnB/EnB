@@ -63,7 +63,7 @@ public:
 
 	bool Is_Unknown2C_02() { return(Unknown2C_02); }	// (gadget.h's inline)  // NAME 1: neutral (D10)
 	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
+	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
 	void Unknown_6607D0();								// 0x6607D0
 
 	char Unknown04[0x20 - 0x04];						// +0x04

@@ -10,7 +10,7 @@
 
 class GadgetClass;				// gadget.cpp's (ui_combobox.cpp declares it as far as it calls it)
 class HAnimComboClass;			// hanim.h
-class UIComboBoxSliderClass;	// gd_slider.cpp's slider, as ui_combobox.cpp calls it
+class GadgetSlider;			// gd_slider.h's slider (ui_combobox.cpp declares it as far as it calls it)
 class UIComboBoxUnknownBCClass;	// ui_combobox.cpp's
 
 // The combo box, as far as ui_combobox.cpp's functions so far and the chat panel's combos (Combo[]) use it
@@ -41,7 +41,7 @@ public:
 	float Unknown0CC;									// +0xCC (the rows shown)
 	char Unknown0D0[0xD4 - 0xD0];						// +0xD0
 	GadgetClass *Unknown0D4;							// +0xD4 (the text field)
-	UIComboBoxSliderClass *Unknown0D8;					// +0xD8
+	GadgetSlider *Unknown0D8;							// +0xD8
 	unsigned int Unknown0DC;							// +0xDC (the top item)
 	int Selected;										// +0xE0  // NAME 2: what 0x57AC70 / 0x57AD50 set
 	std::vector<std::string> Items;						// +0xE4  // NAME 2: what the rows show

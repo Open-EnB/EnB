@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13255 |
+| 1 | neutral placeholder | 13254 |
 
 ## For review (score 3 and below)
 
@@ -1725,7 +1725,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/cpacket.cpp:1825` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/cpacket.cpp:1827` | what the handler passes |
 | 1 | `Unknown_40` | `app/client/cpacket.cpp:1827` | untagged neutral name (D10) |
-| 1 | `arg, view` | `app/client/cpacket.cpp:1828` | what the handler passes |
+| 1 | `indicator, view` | `app/client/cpacket.cpp:1828` | gadget.h's |
 | 1 | `Unknown_6603A0` | `app/client/cpacket.cpp:1828` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/cpacket.cpp:1829` | untagged neutral name (D10) |
 | 1 | `Unknown_661940` | `app/client/cpacket.cpp:1834` | untagged neutral name (D10) |
@@ -6204,7 +6204,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8C` | `app/client/ui_avatar_cust.cpp:62` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_avatar_cust.cpp:64` | neutral (D10) |
 | 1 | `Unknown2C_02` | `app/client/ui_avatar_cust.cpp:64` | untagged neutral name (D10) |
-| 1 | `arg, view` | `app/client/ui_avatar_cust.cpp:66` | neutral |
+| 1 | `indicator, view` | `app/client/ui_avatar_cust.cpp:66` | gadget.h's |
 | 1 | `Unknown_6603A0` | `app/client/ui_avatar_cust.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_avatar_cust.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_avatar_cust.cpp:69` | untagged neutral name (D10) |
@@ -7872,13 +7872,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown61` | `app/client/ui_combobox.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown62` | `app/client/ui_combobox.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/ui_combobox.cpp:43` | untagged neutral name (D10) |
-| 1 | `UIComboBoxSliderClass` | `app/client/ui_combobox.cpp:47` | neutral (D10) |
 | 1 | `Unknown_66E3A0` | `app/client/ui_combobox.cpp:50` | untagged neutral name (D10) |
-| 1 | `object, a, b` | `app/client/ui_combobox.cpp:51` | neutral |
+| 1 | `object, is_horizontal, bone_idx` | `app/client/ui_combobox.cpp:51` | gd_slider.h's |
 | 1 | `Unknown_66E460` | `app/client/ui_combobox.cpp:51` | untagged neutral name (D10) |
-| 1 | `range, step, flag` | `app/client/ui_combobox.cpp:52` | neutral |
+| 1 | `total, page, a` | `app/client/ui_combobox.cpp:52` | gd_slider.h's |
 | 1 | `Unknown_66FA90` | `app/client/ui_combobox.cpp:52` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_combobox.cpp:53` | neutral |
+| 1 | `force` | `app/client/ui_combobox.cpp:53` | gd_slider.h's |
 | 1 | `Unknown_66FD80` | `app/client/ui_combobox.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_Clamp` | `app/client/ui_combobox.cpp:56` | neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row) |
 | 1 | `robj` | `app/client/ui_combobox.cpp:57` | neutral |
@@ -8294,7 +8293,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_94` | `app/client/ui_group.cpp:41` | untagged neutral name (D10) |
 | 1 | `style` | `app/client/ui_group.cpp:42` | neutral |
 | 1 | `Unknown_98` | `app/client/ui_group.cpp:42` | untagged neutral name (D10) |
-| 1 | `arg, view` | `app/client/ui_group.cpp:43` | neutral |
+| 1 | `indicator, view` | `app/client/ui_group.cpp:43` | gadget.h's |
 | 1 | `Unknown_6603A0` | `app/client/ui_group.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_group.cpp:44` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_group.cpp:45` | neutral |
@@ -8881,7 +8880,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A4` | `app/client/ui_manu.cpp:56` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_manu.cpp:57` | neutral |
 | 1 | `Unknown_65FFA0` | `app/client/ui_manu.cpp:57` | untagged neutral name (D10) |
-| 1 | `arg, view` | `app/client/ui_manu.cpp:59` | neutral |
+| 1 | `indicator, view` | `app/client/ui_manu.cpp:59` | gadget.h's |
 | 1 | `Unknown_6603A0` | `app/client/ui_manu.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_manu.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_manu.cpp:62` | untagged neutral name (D10) |
