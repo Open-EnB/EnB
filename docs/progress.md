@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-05 (06:30 PST, night): character select and creation toward exact; the class screen's effects and slider in the POC; D193 / D194; +203 pairs, 0 lost outright
+
+- **Run** run/2026-11-05 (PR #162, from master 538199c6), 20 Opus builders (CS1-CS20) on disjoint files in the shared tree,
+  one Opus research pass (RS1), two Sonnet harness passes (HC, HF); Claude subscription only (no API-key or agy builders).
+  Weekly usage 19% -> 27% (the user's target 28-29%); ~0.7% of the week per Opus builder-hour. Plan log:
+  `.work/run-2026-11-05/plan.md`. HEAD's imports.json: +203 pairs vs the baseline, 0 lost outright (moves and D66 (i)
+  shares named in the commits).
+- **Files:** ui_shipcust.cpp 43 -> 7 NOT EXACT (CS3 / CS7 / CS9 / CS13: Unknown620D20Class is ShipCustomizeInterface's
+  second base, by-value Vector3 / Vector2 signatures, while-loop map walks); ui_shard.cpp 3 -> 18 of 20 exact (CS5);
+  ui_class.cpp (CS2, CS10); ui_avsel.cpp's window rest exact up to ui_bio (CS2); ui_avatr.cpp / ui_avatar_cust.cpp (CS1,
+  CS6, CS17: +20 in the last round, twins' forms ported; 0x5502F0 was a functional misread, now fixed); avatar.cpp
+  (CS12 / CS15 / CS18: the file in the client's address order, padded to its `__LINE__`s; the client's RefCountPtr members
+  and slot parameters; +39); tsk_login.cpp (CS10); unknown_585920.cpp all exact (CS13); decal.cpp 0x75CB10 exact and its
+  interim inlines into decal.h (CS8 / CS19); gd_slider.cpp (CS14 / CS16); new ui_ship_cust.cpp, the starbase buy-ship
+  window (CS21, 17 exact).
+- **POC (the user's report, RS1):** the class screen lacked the avatar's teleport sparkle and the planet / ship turn.
+  Causes: the ease 0x77B7D0 linked as a generated stand-in returning 0 (the angle jumped), and the teleport chain 0x788F90 /
+  0x7896B0 / 0x788EF0 (av_tele04, W3DAnimSound.ini) empty or missing. CS12 rebuilt both; the user confirmed the sparkle, the
+  turn and the race fade work. CS14's sweep: the only stand-ins called after login were the class screen's skill slider
+  (gd_slider, never drawn): rebuilt, drawn (CS16's shot). The full creation flow calls no generated stand-in now.
+- **Decisions:** D193 (P-CS1-1: folded short COMDATs credited to every proving file), D194 (P-CS4-1: the same in the caller
+  tie-break). D195 (ClientPOC's release exe at handoff) was withdrawn the same night: not a new decision, `clientpoc.py
+  --instance` / `--exe` already isolate builders' runs; builders.md's POC rule now states the check once and clientpoc.py
+  refuses a missing `--exe` (a9acd2fe).
+- **Harness check (D182) at HEAD:** udpreplay builds, alex3 rc 0, handshake 54/54. clienttest first failed to link
+  (Unknown_B08C9C, defined only in the POC: 4f94141c), then faulted at GADGET 103: afa1bba5's correct
+  Unknown_6603A0(bool, UIViewClass *) callers reached the real gadget.cpp function on the harness's zeroed gadget; d3f654e6
+  fakes the gadget's slot +0x24 (the check now logs `6603A0(1)`): 103 checks, exit 0, trace equal.
+- **Last builders (CS20 / CS21):** CS20 made four near-exact functions exact (0x785C00, 0x781570, 0x54EAD0, 0x55BFB0); CS21 started app/client/ui_ship_cust.cpp, which turned out to be the starbase's buy-ship window (StarbaseShipCustomizeInterface), with 17 exact; its ctor / dtor take over decal.h's inline copies next.
+- Traps filed in workflow.md §3.1 / §3.4 / §3.7 / §3.8 (one bullet per builder report). Section 4 trimmed to what is left.
+- **Next session:** after #162 merges, one item: avatar.cpp's parked BodyObj / Unknown0C0 RefCountPtr retypes (0x781410 / 0x782FF0
+  block them; 0x7831C0 / 0x782200 wait on Unknown0C0), or ui_ship_cust.cpp's ctor 0x618CA0 / dtor 0x6186A0 (the new file, CS21),
+  which take over decal.h's inline copies (a D66 move).
+
 ### 2026-11-04 (night): kerneltest links again (81 of 81); build.py builds wwlib again
 
 - **Cause (`/VERBOSE` link):** c759a57b pointed kernel.cpp's Shutdown at `WW3DAssetManager::Get_Instance()`
