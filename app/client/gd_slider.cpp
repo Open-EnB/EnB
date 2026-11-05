@@ -262,7 +262,6 @@ void GadgetSlider::Unknown_8C(bool on)
 	Unknown108 = !on;
 }
 
-// NOT EXACT: shape (similarity 0.81): the wheel box's Extent.X + Center.X loads Center first (the client Extent; 20 forms)
 // @0x66EF00
 bool GadgetSlider::Unknown_30(float x, float y)
 {
@@ -341,7 +340,9 @@ bool GadgetSlider::Unknown_30(float x, float y)
 	if (WheelRegion == NULL && !Unknown109) {
 		return(false);
 	}
-	const AABoxClass &box = Unknown109 ? Unknown10C : WheelRegion->Get_Bounding_Box();
+	const AABoxClass *pbox;
+	if (Unknown109) pbox = &Unknown10C; else pbox = &WheelRegion->Get_Bounding_Box();
+	const AABoxClass &box = *pbox;
 	if (UnknownEC < box.Center.X - box.Extent.X) {
 		return(false);
 	}
@@ -411,9 +412,8 @@ bool GadgetSlider::Unknown_30(float x, float y)
 
 
 // @0x66F330
-// The body sits inside `if (Unknown_60())` with one return(false) after it: the failed test
-// then jumps into the assert path's epilogue, as in the client (an early return(false) keeps
-// its own epilogue, and case 2's call then cross-jumps into case 5's).
+// The body inside `if (Unknown_60())` with one return(false) after it: the failed test jumps into
+// the assert path's epilogue, as in the client (an early return(false) keeps its own epilogue).
 bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (Unknown_60()) {
@@ -918,7 +918,7 @@ void GadgetSlider::Unknown_670440()
 **	static (0x66EF00 reads its key: 0x101 / 0x102 are the wheel's).
 **	0x66EE20 (+0x8C): byte-exact with the base call in an if / else (the client cross-jumps the two calls).
 **	+0xA4 and +0xAC are Vector2s (0x66FD80 stores each through a Vector2 temporary: 0.51 -> 0.58; the constructor stays exact).
-**	NOT EXACT (D64): 0x66EF00 (0.81), 0x66FD80 (0.58).
+**	NOT EXACT (D64): 0x66FD80 (0.58).
 */
 
 const int Unknown_B8D430 = 500;

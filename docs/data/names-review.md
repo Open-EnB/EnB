@@ -3266,10 +3266,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6705A0` | `app/client/gd_slider.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/gd_slider.cpp:236` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/gd_slider.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/gd_slider.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/gd_slider.cpp:320` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/gd_slider.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown_670440` | `app/client/gd_slider.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_slider.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_slider.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/gd_slider.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown_670440` | `app/client/gd_slider.cpp:336` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/gd_slider.cpp:417` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/gd_slider.cpp:419` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/gd_slider.cpp:424` | untagged neutral name (D10) |
