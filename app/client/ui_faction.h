@@ -25,6 +25,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x58DB30 (keys 1..6 a faction, 8 the slider, 9 taken)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x58D3C0 (the panel's with false, then the base's)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_58DC20(bool arg);						// 0x58DC20 (FAIL_IFs '!Get_Client()' / '!sclient' / '!aux_data': the reputations)  // NAME 1 [arg]: neutral
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x58DC20's FAIL_IF '!Get_Client()', as UICinfoClass's)  // NAME 3: the FAIL_IF's
 	void Unknown_Select(int index);						// (inline, defined in ui_faction.cpp: 0x58DB30's two forms)  // NAME 1: neutral (D10)  // NAME 1 [index]: neutral
 
 	RefCountPtr<Unknown58EB50Class> UnknownAC;			// +0xAC (the panel, 0x58D400 makes it)

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1230 |
+| 3 | by convention from a client-named file or sibling | 1231 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13940 |
+| 1 | neutral placeholder | 13949 |
 
 ## For review (score 3 and below)
 
@@ -8535,9 +8535,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `mesh, index` | `app/client/ui_faction.cpp:47` | neutral |
 | 1 | `on` | `app/client/ui_faction.cpp:49` | GadgetClass's |
 | 1 | `Unknown_40` | `app/client/ui_faction.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_faction.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/ui_faction.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/ui_faction.cpp:53` | untagged neutral name (D10) |
+| 1 | `faction, reaction` | `app/client/ui_faction.cpp:50` | neutral |
+| 1 | `Unknown_58E740` | `app/client/ui_faction.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_faction.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/ui_faction.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/ui_faction.cpp:54` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/ui_faction.cpp:59` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/client/ui_faction.cpp:60` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_faction.cpp:61` | untagged neutral name (D10) |
@@ -8557,14 +8559,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60` | `app/client/ui_faction.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_faction.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_Select` | `app/client/ui_faction.cpp:197` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_faction.cpp:224` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_faction.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_faction.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed_Field` | `app/client/ui_faction.cpp:226` | neutral (D10) |
+| 1 | `Set_Unknown14` | `app/client/ui_faction.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_faction.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_faction.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown669570Class` | `app/client/ui_faction.cpp:319` | neutral (D10) |
 | 1 | `robj, name` | `app/client/ui_faction.cpp:322` | neutral |
-| 1 | `Unknown_A4` | `app/client/ui_faction.cpp:323` | untagged neutral name (D10) |
 | 1 | `value` | `app/client/ui_faction.cpp:324` | neutral |
 | 1 | `Unknown_A8` | `app/client/ui_faction.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/ui_faction.cpp:325` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_faction.cpp:355` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_faction.cpp:379` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_faction.cpp:389` | untagged neutral name (D10) |
 | 1 | `ui_faction.h` | `app/client/ui_faction.h:4` | provisional header name for ui_faction.cpp |
 | 1 | `Unknown58EB50Class` | `app/client/ui_faction.h:11` | untagged neutral name (D10) |
 | 1 | `Unknown58E210Class` | `app/client/ui_faction.h:12` | untagged neutral name (D10) |
@@ -8581,13 +8590,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/ui_faction.h:26` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_faction.h:27` | neutral |
 | 1 | `Unknown_58DC20` | `app/client/ui_faction.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_Select` | `app/client/ui_faction.h:28` | neutral (D10)  // NAME 1 [index]: neutral |
-| 1 | `UnknownAC` | `app/client/ui_faction.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/ui_faction.h:33` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/ui_faction.h:34` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_faction.h:35` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_faction.h:36` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_faction.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_Select` | `app/client/ui_faction.h:29` | neutral (D10)  // NAME 1 [index]: neutral |
+| 1 | `UnknownAC` | `app/client/ui_faction.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_faction.h:34` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_faction.h:35` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_faction.h:36` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_faction.h:37` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_faction.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_group.cpp:21` | neutral (D10) |
 | 1 | `UIGroupAvatarClass` | `app/client/ui_group.cpp:22` | neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC) |
 | 1 | `Unknown` | `app/client/ui_group.cpp:22` | untagged neutral name (D10) |
@@ -17333,8 +17342,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ui_faction.cpp` | `app/client/ui_faction.cpp:21` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_faction.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
-| 3 | `StandardBttnTexture` | `app/client/ui_faction.h:31` | the G_ASSERT's (l.139) |
-| 3 | `SelectedBttnTexture` | `app/client/ui_faction.h:32` | the G_ASSERT's (l.143) |
+| 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
+| 3 | `StandardBttnTexture` | `app/client/ui_faction.h:32` | the G_ASSERT's (l.139) |
+| 3 | `SelectedBttnTexture` | `app/client/ui_faction.h:33` | the G_ASSERT's (l.143) |
 | 3 | `FontManagerClass` | `app/client/ui_group.cpp:20` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_group.cpp:24` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Get_Interface` | `app/client/ui_group.h:23` | the asserts' |

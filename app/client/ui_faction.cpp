@@ -47,12 +47,12 @@ public:
 	Unknown58E210Class(UIMeshClass *mesh, int index);	// 0x58E210 (FAIL_IFs '!uimesh' / '!robj' / '!sobj': 'HIGHLIGHT%02d', 'LOVE_BAR%02d', 'HATE_BAR%02d', 'NAME%02d_TSI30A')  // NAME 1 [mesh, index]: neutral
 	virtual ~Unknown58E210Class();						// 0x58E620 (deleting 0x58E5F0)
 	virtual void Unknown_40(bool on);					// +0x40 0x58E6F0 (the gauges hidden when off, then the base's)  // NAME 1 [on]: GadgetClass's
+	void Unknown_58E740(const std::string &faction, float reaction);	// 0x58E740 (the faction's name, the reaction / 10000 on the two gauges)  // NAME 1 [faction, reaction]: neutral
 
 	std::string Unknown64;								// +0x64 (the faction: what 0x58EFC0 takes)
 	Unknown669570Class *Unknown74;						// +0x74 ('LOVE_BAR%02d')
 	Unknown669570Class *Unknown78;						// +0x78 ('HATE_BAR%02d')
 };
-
 // 0x58D080
 UIFactionClass::UIFactionClass(SClient *client) :
 	Unknown5BB320Class(new UIMeshClass("tsi30a", 2), client),
@@ -217,81 +217,81 @@ bool UIFactionClass::Unknown_68(int key)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
+
+// A field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): as co_player_relationship.cpp's wrapper; 0x58DC20's dead size() reads at its end keep rtti.h's cast out of line (0x58EAE0), as the client's
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{ C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{ C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
+
+// 0x58DC20
+// NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump)
+void UIFactionClass::Unknown_58DC20(bool arg)
+{
+	FAIL_IF(!Get_Client()) return;
+	SClient *sclient = Get_Client()->As_Space_Client();
+	FAIL_IF(!sclient) return;
+
+	DeltaPlayerClass *aux_data = sclient->AuxData;
+	FAIL_IF(!aux_data) return;
+
+	DeltaReputationClass *reputation;
+	if (arg) {
+		reputation = Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+	} else {
+		reputation = Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+	}
+	if (!reputation) return;
+
+	UnknownB8->Change_Text(reputation->Affiliation.Get(), 0);
+	int count = reputation->Faction.Children.size();
+	int shown = 0;
+	int listed = 0;
+	int order = 0;
+	for (int i = 0; i < count; i++) {
+		int index = -1;
+		while (index < 0) {
+			if (order >= 22) break;
+			for (int j = 0; j < count; j++) {
+				if (((DeltaFactionClass *)reputation->Faction.Children[j])->Order.Value == order) {
+					index = j;
+					break;
+				}
+			}
+			order++;
+		}
+		if (index < 0) break;
+		const char *name = ((DeltaFactionClass *)reputation->Faction.Children[index])->Name.Get();
+		if (name && *name) {
+			listed++;
+			if (i >= UnknownC0 && shown < 6) {
+				float reaction = ((DeltaFactionClass *)reputation->Faction.Children[index])->Reaction.Value;
+				UnknownC8[shown]->Unknown_58E740(name, reaction);
+				UnknownC8[shown]->Unknown_40(true);
+				char text[32];
+				_snprintf(text, 32, "Reaction : %1.1f", reaction);
+				UnknownC8[shown]->Set_Unknown14(text);
+				shown++;
+			}
+		}
+	}
+	for (; shown < 6; shown++) {
+		UnknownC8[shown]->Unknown_40(false);
+	}
+
+	if (UnknownC0 && UnknownC0 + 6 > listed) {
+		UnknownC0 = 0;
+		Unknown_58DC20(true);
+		return;
+	}
+	UnknownBC->Unknown_66FA90((float)listed, 6.0f, true);
+	if ((int)UnknownBC->Value != UnknownC0) {
+		UnknownBC->Unknown_A4((float)UnknownC0, false);
+	}
+	reputation->Faction.Children.size(); reputation->Faction.Children.size();	// dead reads (no code): they spend the inline budget, as the client's
+}
 
 
 
@@ -379,6 +379,32 @@ void Unknown58E210Class::Unknown_40(bool on)
 	Unknown74->Unknown_8C(!on);
 	Unknown78->Unknown_8C(!on);
 	ButtonGadgetClass::Unknown_40(on);
+}
+
+// 0x58E740
+void Unknown58E210Class::Unknown_58E740(const std::string &faction, float reaction)
+{
+	Unknown64 = faction;
+	const std::string &name = CFactionDatabaseClass::Get_Name(faction);
+	if (Unknown34 != NULL) {
+		Unknown34->Change_Text(name.c_str(), 0);
+	}
+
+	float value = WWMath::Clamp(reaction * 0.0001f, -1.0f, 1.0f);
+	if (value >= 0.0f && value < 0.1f) {
+		Unknown74->Unknown_A8(value + 0.05f);
+		Unknown78->Unknown_A8(0.05f - value);
+	} else if (value < 0.0f && -value < 0.1f) {
+		Unknown78->Unknown_A8(0.05f - value);
+		Unknown74->Unknown_A8(value + 0.05f);
+	} else if (value >= 0.0f) {
+		Unknown74->Unknown_A8(value);
+		Unknown78->Unknown_A8(0.0f);
+	} else {
+		Unknown74->Unknown_A8(0.0f);
+		Unknown78->Unknown_A8(-value);
+	}
+	faction.size();		// a dead read (no code): it spends the inline budget so the assign above is called out of line, as in the client
 }
 
 /*

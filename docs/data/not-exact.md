@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-539 entries in 133 files.
+540 entries in 134 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -286,6 +286,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:1733` | `UICpitClass::Unknown_583790` | marker | NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers) |
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_cpit.cpp:2020` | `UICpitClass::Unknown_584690` | marker | NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it) |
+| `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
