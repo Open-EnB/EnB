@@ -1252,15 +1252,16 @@ void ShipCustomizeInterface::Unknown_624270()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6249D0
 void ShipCustomizeInterface::Unknown_6249D0(bool on)
 {
-	for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
+	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	while (it != Gadgets.end()) {
 		it->second.Gadget->Unknown_40(on);
 		if (it->second.Style != NULL) {
-			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, CharacterView->ViewRObjs[0]); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
+			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, CharacterView->Peek_Model()); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 		}
+		it++;
 	}
 	if (Unknown24C != NULL) {
 		Unknown24C->Gadget->Unknown_40(on);
@@ -1269,7 +1270,6 @@ void ShipCustomizeInterface::Unknown_6249D0(bool on)
 		Unknown22C->Unknown_40(on);
 	}
 }
-
 
 
 // @0x624AE0
@@ -1624,9 +1624,7 @@ void ShipCustomizeInterface::Unknown_6257A0(int id)
 {
 
 	Unknown_6259C0(Gadgets[id].Group);
-
-
-
+	Gadgets.size();	// dead read (D130): spends the inline budget so that 0x6259C0 inlined here calls _Inc out of line, as the client
 
 
 
@@ -1636,32 +1634,34 @@ void ShipCustomizeInterface::Unknown_6257A0(int id)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x625930
 int ShipCustomizeInterface::Unknown_625930(short group)
 {
-	for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
+	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	while (it != Gadgets.end()) {
 		if (it->second.Group == group && it->second.Selected) {
 			return(it->second.Id);
 		}
+		it++;
 	}
 	return(0);
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6259C0
 void ShipCustomizeInterface::Unknown_6259C0(short group)
 {
-	for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
+	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	while (it != Gadgets.end()) {
 		if (it->second.Group == group) {
 			it->second.Gadget->Unknown2C_0B = 0;
 			it->second.Gadget->Unknown_6607D0();
 			it->second.Selected = false;
 		}
+		it++;
 	}
 }
-
 
 // NOT EXACT: functional (D64)
 // @0x625A60
