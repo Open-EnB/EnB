@@ -1889,3 +1889,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-05 00:00,0x5860B0,,app/client/unknown_585920.cpp,app,exact,,1,,CS13: exact (verify pair),,Opus 5.5
 2026-11-05 00:00,0x671300,,app/client/unknown_585920.cpp,app,exact,,1,,CS13: exact (verify pair),,Opus 5.5
 2026-11-05 00:00,0x585CF0,,app/client/unknown_585920.cpp,app,exact,,0,,CS13 (D99): too short for the matcher; appfile.py match: EXACT at its marker,,Opus 5.5
+2026-11-05 00:06,0x585D10,,app/client/unknown_585920.cpp,app,exact,,1,,"CS13: RefCountPtr Create_Get for the texture (0x47D010) and the model (0x474080), the overbright flag saved / set / restored around Create_Render_Obj, if / else snprintf, Unknown20 = i - 1 before the break",,Opus 5.5

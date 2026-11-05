@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "vector2.h"
+#include "ref_ptr.h"
+#include "ww3d.h"
 
 // ui_avatr.cpp's pull: a gadget with its pull model (0x10 bytes; the avatar window's +0x160 / +0x16C / +0x180)
 class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
@@ -236,41 +238,42 @@ void UIAvatrUnknown2ECStruct::Unknown_585CF0(int choice)
 	Unknown18 = choice;
 }
 
-// NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup)
+// Interim placement (D137): the textures through RefCountPtr Create_Get (0x47D010), the models with WW3D's overbright flag set (0x474080)
 // @0x585D10
 void UIAvatrUnknown2ECStruct::Unknown_585D10()
 {
 	char name[64];
 	int i = 1;
-	if (Unknown10 == NULL) {
-		while (true) {
-			_snprintf(name, sizeof(name), Unknown1C ? "%s%02d00" : "%s%02d", Unknown0C, i);
-			RenderObjClass *robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-			if (robj == NULL) {
-				break;
-			}
-			robj->Release_Ref();
-			i++;
-		}
-		Unknown20 = i - 1;
-	} else {
+	if (Unknown10 != NULL) {
 		while (true) {
 			_snprintf(name, sizeof(name), "%s%02d.tga", Unknown10, i);
-			TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, (MipCountType)0, (WW3DFormat)0, true);
-			if (texture == NULL) {
-				break;
+			RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(name, (MipCountType)0, (WW3DFormat)0, true));
+			if (texture != NULL && !texture->Is_Initialized()) {
+				TextureLoader::Request_Foreground_Loading(texture.Peek());
 			}
-			if (!texture->Is_Initialized()) {
-				TextureLoader::Request_Foreground_Loading(texture);
-			}
-			bool missing = texture->Is_Missing_Texture();
-			texture->Release_Ref();
-			if (missing) {
+			if (texture == NULL || texture->Is_Missing_Texture()) {
+				Unknown20 = i - 1;
 				break;
 			}
 			i++;
 		}
-		Unknown20 = i - 1;
+	} else {
+		while (true) {
+			if (Unknown1C) {
+				_snprintf(name, sizeof(name), "%s%02d00", Unknown0C, i);
+			} else {
+				_snprintf(name, sizeof(name), "%s%02d", Unknown0C, i);
+			}
+			bool overbright = WW3D::Is_Overbright_Modify_On_Load_Enabled();
+			WW3D::Enable_Overbright_Modify_On_Load(true);
+			RefCountPtr<RenderObjClass> robj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
+			WW3D::Enable_Overbright_Modify_On_Load(overbright);
+			if (robj == NULL) {
+				Unknown20 = i - 1;
+				break;
+			}
+			i++;
+		}
 	}
 }
 
