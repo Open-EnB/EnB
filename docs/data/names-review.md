@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1209 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13224 |
+| 1 | neutral placeholder | 13225 |
 
 ## For review (score 3 and below)
 
@@ -6196,6 +6196,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownC4` | `app/client/ui_avatar_cust.cpp:102` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_avatar_cust.cpp:102` | untagged neutral name (D10) |
 | 1 | `UnknownCC` | `app/client/ui_avatar_cust.cpp:103` | untagged neutral name (D10) |
+| 1 | `Set_UnknownDC` | `app/client/ui_avatar_cust.cpp:104` | neutral (D10) |
 | 1 | `UnknownDC` | `app/client/ui_avatar_cust.cpp:104` | untagged neutral name (D10) |
 | 1 | `UIAvatarCustGadget671300Class` | `app/client/ui_avatar_cust.cpp:108` | neutral (D10) |
 | 1 | `area, a, layer, b, c, d` | `app/client/ui_avatar_cust.cpp:111` | neutral |

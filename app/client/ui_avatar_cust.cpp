@@ -101,7 +101,7 @@ public:
 	char Unknown58[0xB8 - 0x58];						// +0x58
 	float UnknownB8, UnknownBC, UnknownC0, UnknownC4, UnknownC8;	// +0xB8 (its model's turn: 0x54E3C0 sets them while a turn button is down)
 	char UnknownCC[0xDC - 0xCC];						// +0xCC
-	bool UnknownDC;										// +0xDC (0x54DFE0: set in mode 1, the head)
+	bool UnknownDC;	void Set_UnknownDC(bool on) { UnknownDC = on; }	// +0xDC (0x54DFE0: set in mode 1, the head, through an inline setter: the client's eax for the store)  // NAME 1 [Set_UnknownDC]: neutral (D10)
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as ui_avatr.cpp's UIAvatrGadget671300Class
@@ -702,9 +702,9 @@ void StarbaseAvatarCreationInterface::Unknown_54DC20(int mode, bool on)
 	}
 }
 
-// NOT EXACT: inline budget (248 instructions against 235: the client calls the palette helper's two ~RefCountPtr out
-// of line, 0x4740B0, in both inlined copies of 0x5513E0, as ui_avatr.cpp's 0x556B20; dead reads before the helper or
-// in it (1-2) change nothing, 3 keep the helper out of line)
+// The tab switch: the palette helper 0x5513E0 inlined twice, its two ~RefCountPtr out of line (0x4740B0) in both
+// copies; the pip's +0xDC through an inline setter and the avatar through one pointer per tab (the client's single
+// load of +0xBC); two dead Peek()s spend the inline budget the client spent (D130; not the client's)
 // 0x54DFE0
 void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 {
@@ -723,11 +723,11 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x1A);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->UnknownDC = true;
+			Unknown0B8->Set_UnknownDC(true);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			Unknown0BC->Unknown231 = true;
-			Unknown0BC->Unknown214 = true;
+			{ UIAvatarCustAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = true;
+			avatar->Unknown214 = true; }
 			break;
 		case 2:
 			Unknown_54DC20(1, false);
@@ -735,11 +735,11 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x24);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->UnknownDC = false;
+			Unknown0B8->Set_UnknownDC(false);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
-			Unknown0BC->Unknown231 = false;
-			Unknown0BC->Unknown214 = true;
+			{ UIAvatarCustAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; } Unknown0BC.Peek(); Unknown0BC.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the helper's second copy calls its ~RefCountPtr out of line
 			break;
 	}
 }
