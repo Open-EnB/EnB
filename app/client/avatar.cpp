@@ -2554,7 +2554,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 }
 
 // 0x784700
-// (the queue emptied by 0x781C50, the blocks read through inline helpers: the budget they spend leaves 0x781C50's ??_G 0x781C10 and clear 0x78A510 out of line, as the client calls them)
+// (the queue emptied by 0x781C50, cases 4-7 by 0x784FF0 / 0x785040 / 0x784ED0 / 0x784F20 and the Value reads through an inline helper: the budget they spend leaves 0x781C50's ??_G 0x781C10 and clear 0x78A510 out of line, as the client calls them)
 void CharacterViewAvatarClass::Unknown_784700()
 {
 	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
@@ -2571,19 +2571,19 @@ void CharacterViewAvatarClass::Unknown_784700()
 	for (;;) {
 		switch (block->Type) {
 			case 0:
-				if (Unknown_Queue_Open()) {
+				if (Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
 					mood = (char)Unknown_Block_Value(block);
 				}
 				break;
 			case 1:
-				if (Unknown_Block_Value(block) && Unknown_Queue_Open()) {
+				if (Unknown_Block_Value(block) && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
 					Unknown_781880(Unknown_Block_Value(block), (const char *)(block + 1), mood);
 					Unknown208 = 1;
 					mood = -1;
 				}
 				break;
 			case 2:
-				if (Unknown_Block_Value(block) && Unknown_Queue_Open()) {
+				if (Unknown_Block_Value(block) && Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
 					Unknown_781880(Unknown_Block_Value(block), "", mood);
 					Unknown208 = 1;
 					mood = -1;
@@ -2593,38 +2593,19 @@ void CharacterViewAvatarClass::Unknown_784700()
 				Desc.Mood_Type = (char)Unknown_Block_Value(block);
 				break;
 			case 4:
-				if (Unknown210 == 0) {
-					Unknown210 = 1;
-					Unknown22C = 0.0f;
-					Unknown244 = 0;
-					Unknown208 = 3;
-					Unknown214 = true;
-					Unknown20C = 2;
-				}
+				Unknown_784FF0();
 				break;
 			case 5:
-				if (Unknown210 == 3) {
-					Unknown210 = 2;
-					Unknown208 = 3;
-					Unknown214 = true;
-				}
+				Unknown_785040();
 				break;
 			case 6:
-				if (Unknown20C == 2 && Unknown210 == 0) {
-					Unknown20C = 0;
-					Unknown214 = true;
-					Unknown208 = 2;
-				}
+				Unknown_784ED0();
 				break;
 			case 7:
-				if (Unknown20C != 2) {
-					Unknown208 = 0;
-					Unknown20C = 2;
-					Unknown214 = true;
-				}
+				Unknown_784F20();
 				break;
 			case 8:
-				if (!Unknown_Queue_Open()) {
+				if (Unknown210 == 1 || Unknown210 == 2 || Unknown20C != 2) {
 					return;
 				}
 				if (Unknown204 == 1 && mood < 0) {
@@ -2635,7 +2616,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 				Unknown208 = 1;
 				return;
 		}
-		block = Unknown_Block_Next(block);
+		block = (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct));
 	}
 }
 
@@ -2683,6 +2664,25 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 		Unknown208 = 1;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2772,6 +2772,61 @@ void CharacterViewAvatarClass::Unknown_784E00()
 
 bool CharacterViewAvatarClass::Unknown_784EA0(const char *name) { return(TutorialManagerClass::Instance->Was_Just_Finished(name)); }	// 0x784EA0 (on one line: avatar.cpp's later asserts keep their lines)
 
+// 0x784ED0
+void CharacterViewAvatarClass::Unknown_784ED0()
+{
+	if (Unknown20C == 2 && Unknown210 == 0) {
+		Unknown20C = 0;
+		Unknown214 = true;
+		Unknown208 = 2;
+	}
+}
+
+// 0x784F20
+void CharacterViewAvatarClass::Unknown_784F20()
+{
+	if (Unknown20C != 2) {
+		Unknown208 = 0;
+		Unknown20C = 2;
+		Unknown214 = true;
+	}
+}
+
+// 0x784F60
+void CharacterViewAvatarClass::Unknown_784F60(bool on)
+{
+	if (Unknown2F4 != on) {
+		Unknown2F4 = on;
+		if (Unknown2F8 & 1) {
+			Unknown_784F20();
+			Unknown_784ED0();
+		}
+	}
+}
+
+// 0x784FF0
+void CharacterViewAvatarClass::Unknown_784FF0()
+{
+	if (Unknown210 == 0) {
+		Unknown210 = 1;
+		Unknown22C = 0.0f;
+		Unknown244 = 0;
+		Unknown208 = 3;
+		Unknown214 = true;
+		Unknown20C = 2;
+	}
+}
+
+// 0x785040
+void CharacterViewAvatarClass::Unknown_785040()
+{
+	if (Unknown210 == 3) {
+		Unknown210 = 2;
+		Unknown208 = 3;
+		Unknown214 = true;
+	}
+}
+
 // 0x7854B0
 void CharacterViewAvatarClass::Unknown_7854B0(float time)
 {
@@ -2801,61 +2856,6 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 	BodyObj->Capture_Bone(bone);
 	BodyObj->Control_Bone(bone, m, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3322,11 +3322,7 @@ void CharacterViewAvatarClass::Unknown_788900()
 			break;
 		}
 		if (Unknown318.size() < 2) {
-			if (Unknown20C != 2) {
-				Unknown208 = 0;
-				Unknown20C = 2;
-				Unknown214 = true;
-			}
+			Unknown_784F20();
 			int flags = Unknown2F8;
 			Unknown2F8 = flags & 0xFFFC;
 			float facing = Unknown330[0][0] * (*goal)[0][1] + Unknown330[1][0] * (*goal)[1][1] + Unknown330[2][0] * (*goal)[2][1];
