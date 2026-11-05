@@ -482,8 +482,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 		MaskObj = NULL;
 	}
 	if (Unknown2C4) {
-		Unknown2C4->Release_Ref();
 		Unknown2C4 = NULL;
+
 	}
 	if (Unknown2CC) {
 		Unknown2CC->Release_Ref();
@@ -770,7 +770,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip);
 		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack);
 		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj.Peek());
-		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4);
+		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4.Peek());
 		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
 		BodyObj->Remove();
 		BodyObj->Release_Ref();
@@ -808,7 +808,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique, "WEAPON02");
 	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack, "WEAPON03");
 	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
-	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4, "skel_reference");
+	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4.Peek(), "skel_reference");
 	if (Desc.Gender == 0 && WeaponHip) {
 		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON01");
 	} else if (WeaponHip) {
