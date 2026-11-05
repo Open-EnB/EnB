@@ -9,6 +9,7 @@
 #include "..\shared\unknown_debug.h"
 #include "..\audio\soundlib.h"
 #include "ui_bio.h"
+#include "ui_attrb_skills.h"
 #include "ui_faction.h"
 #include "ui_missn.h"
 #include "ui_cinfo.h"
@@ -24,13 +25,12 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
-// The window's first three tabs, as far as this file makes them (their files are not known)
-class Unknown549640Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown549640Class(SClient *client);				// 0x549640 (0x124 bytes)  // NAME 1 [client]: as UIBioClass's
-	char UnknownAC[0x124 - 0xAC];						// +0xAC
-};
+
+
+
+
+
+
 
 
 
@@ -84,7 +84,7 @@ UICinfoClass::~UICinfoClass()
 void UICinfoClass::Unknown_54()
 {
 	InterfaceClass::Unknown_54();
-	UnknownB4 = Create_NEW(new Unknown549640Class(Client->As_Space_Client()));
+	UnknownB4 = Create_NEW(new UIAttrbSkillsClass(Client->As_Space_Client()));
 	UnknownB4->Unknown_5417D0(this);
 	UnknownB4->Unknown_54();
 	UnknownB8 = Create_NEW(new UIMissnClass(Client->As_Space_Client()));

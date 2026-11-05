@@ -6,7 +6,7 @@
 #include "sclient.h"
 #include "..\..\wwlib\ref_ptr.h"
 class ButtonGadgetClass;
-class Unknown549640Class;	// the first tab (0x124 bytes; 'ATTRIBUTES_MENU')
+class UIAttrbSkillsClass;	// ui_attrb_skills.h's attributes tab (0x124 bytes; 'ATTRIBUTES_MENU')
 class UIMissnClass;			// ui_missn.h's missions tab (0xEC bytes; 'MISSIONS_MENU')
 class UIFactionClass;		// ui_faction.h's faction tab (0xE4 bytes; 'FACTION_MENU')
 class UIBioClass;			// ui_bio.h's bio tab (0xB0 bytes)
@@ -32,7 +32,7 @@ public:
 
 	int UnknownAC;										// +0xAC (the shown tab, 1..3; 0 none)
 	int UnknownB0;										// +0xB0 (the tab to show on activation; the constructor: 1)
-	RefCountPtr<Unknown549640Class> UnknownB4;			// +0xB4 (the first tab)
+	RefCountPtr<UIAttrbSkillsClass> UnknownB4;			// +0xB4 (the first tab, ui_attrb_skills.cpp's)
 	RefCountPtr<UIMissnClass> UnknownB8;				// +0xB8 (the second tab, ui_missn.cpp's)
 	RefCountPtr<UIFactionClass> UnknownBC;				// +0xBC (the third tab, ui_faction.cpp's)
 	RefCountPtr<UIBioClass> UnknownC0;					// +0xC0 (the bio tab)

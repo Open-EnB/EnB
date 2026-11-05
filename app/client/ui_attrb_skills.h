@@ -1,0 +1,66 @@
+// Earth & Beyond client (reconstruction): app\client\ui_attrb_skills.h, the character info window's attributes tab (the
+// client's ui_attrb_skills.cpp, 'e:\build\beta\G\app\Client\ui_attrb_skills.cpp'; this header's name is provisional, NAME 1).
+// Laid out from the constructor 0x549640 and the destructor 0x549830.
+#ifndef UI_ATTRB_SKILLS_H  // NAME 1 [ui_attrb_skills.h]: provisional header name for ui_attrb_skills.cpp
+#define UI_ATTRB_SKILLS_H
+#include <vector>
+#include "sclient.h"
+#include "layer.h"
+#include "..\..\wwlib\ref_ptr.h"
+class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
+class RenderObjClass;
+
+// The skill windows' base (0xBC bytes; constructor 0x62D1F0 over 0x62DE80's, destructor 0x62D300; tables 0xAF7DBC /
+// 0xAF7DB0 / 0xAF7DA4), as far as ui_attrb_skills.cpp uses it (its file is not known: near ui_skills.cpp; D137)
+class Unknown62D1F0Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	Unknown62D1F0Class(SClient *client);				// 0x62D1F0  // NAME 1 [client]: as UIBioClass's
+	virtual ~Unknown62D1F0Class();						// 0x62D300 (deleting 0x62D240)
+	virtual void Unknown_54();							// 0x62D330
+	virtual void Unknown_58();							// 0x62E7C0 (0x62DE80's class's)
+	virtual void Unknown_5C();							// 0x62E800 (0x62DE80's class's)
+	virtual void Unknown_60();							// 0x62E870 (0x62DE80's class's)
+	virtual void Unknown_64();							// 0x62E890 (0x62DE80's class's)
+	virtual bool Unknown_68(int key);					// 0x62E850 (0x62DE80's class's)  // NAME 1 [key]: InterfaceClass's
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x62E660 (0x62DE80's class's)  // NAME 1 [view, arg]: InterfaceClass's
+
+	char Unknown84[0xBC - 0x84];						// +0x84 (0x62DE80: +0x84, a container at +0x88, +0x98..+0xB4, flags +0xB8)
+};
+
+// The attributes tab (0x124 bytes, tables 0xAEF4FC / 0xAEF4F0 / 0xAEF4E4; 0x5738B0 makes it, the first of the character
+// info window's tabs): the strings of 'fa_att.ini', two sliders, two panels and a layer
+class UIAttrbSkillsClass : public Unknown62D1F0Class	// NAME 3: class-from-file (D24) for app\Client\ui_attrb_skills.cpp
+{
+public:
+	UIAttrbSkillsClass(SClient *client);				// 0x549640 (0x124 bytes; deleting 0x549800)  // NAME 1 [client]: as UIBioClass's
+	virtual ~UIAttrbSkillsClass();						// 0x549830 ('fa_att.ini' unloaded)
+	virtual void Unknown_54();							// 0x549AA0 (G_ASSERT '!InterfaceMesh' l.121)
+	virtual void Unknown_58();							// 0x54A200
+	virtual void Unknown_5C();							// 0x54A3C0 (deactivated: the two panels' +0x5C, then the base's)
+	virtual void Unknown_60();							// 0x54A400
+	virtual bool Unknown_68(int key);					// 0x54A480  // NAME 1 [key]: InterfaceClass's
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x54A5B0 (the layer onto the view's scene and camera, the panels', the base's)  // NAME 1 [view, arg]: InterfaceClass's
+	void Unknown_54A640(bool arg);						// 0x54A640  // NAME 1 [arg]: neutral
+	void Unknown_54A900();								// 0x54A900 (G_ASSERT '!gadget' l.358)
+	void Unknown_54AB20();								// 0x54AB20 (G_ASSERT '!gadget' l.402)
+	void Unknown_54B050();								// 0x54B050 (G_ASSERT '!Is_Active()' l.486)
+	void Unknown_54B140();								// 0x54B140 (G_ASSERT '!gadget' l.577)
+
+	RefCountPtr<RenderObjClass> UnknownBC;				// +0xBC (the mesh: its fonts and its interface list entry)
+	RefCountPtr<InterfaceClass> UnknownC0;				// +0xC0
+	std::vector<int> UnknownC4;							// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)  // NAME 1: element type unknown (no destructor loop)
+	GadgetSlider *UnknownD4;							// +0xD4
+	GadgetSlider *UnknownD8;							// +0xD8
+	void *UnknownDC;									// +0xDC
+	void *UnknownE0;									// +0xE0
+	bool UnknownE4;										// +0xE4
+	int UnknownE8;										// +0xE8 (a slider's value, as an int: 0x54A400)
+	int UnknownEC;										// +0xEC (-1)
+	int UnknownF0;										// +0xF0
+	int UnknownF4;										// +0xF4
+	int UnknownF8;										// +0xF8
+	RefCountPtr<InterfaceClass> UnknownFC;				// +0xFC
+	LayerClass Layer;									// +0x100 (0x54A5B0 sets its scene and camera)  // NAME 2: what it is
+};
+#endif // UI_ATTRB_SKILLS_H
