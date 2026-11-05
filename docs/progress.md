@@ -2465,9 +2465,9 @@ below name only the work items, the blocked work, the leads and the queues.
      6e78f015 before a third round). P-NW6-1: the
      remaining call-site NULL forms (Unlisten, ~CordMgr, Connect) are redundant; leave them until a neutral pass.
    * From the 2026-11-01 night run (login / character select; LG1-LG3): ui_login's ctor 0x5ACB80 0.88 (order,
-     LIMIT REACHED); ui_avsel 0x55E070 (register), 0x55D060 (P-LG2-1), 0x55F140 (its iterator copies 0x560090 /
-     0x5600B0 / 0x5601B0 come with it), and the window's rest 0x560090-0x560BC0; 0x55D860 / 0x55D880 (LoginTaskClass
-     accessors) unattributed; tsk_login's Fetch_EA_Ticket 0x76A7B0 (the demo box's 0 pushed from eax), 0x7698E0
+     LIMIT REACHED); ui_avsel 0x55E070 (register), 0x55D060 (blocked: calls tsk_login.h's Get_Selected /
+     Get_Avatar_Descs 0x55D860 / 0x55D880 out of line; case 7's FE01C tail merged into case 8's), 0x55F140 (parked; its
+     iterator copies 0x560090 / 0x5600B0 come out of line only with it; the rest up to ui_bio's 0x5603E0 is exact); tsk_login's Fetch_EA_Ticket 0x76A7B0 (the demo box's 0 pushed from eax), 0x7698E0
      (tail-merged sends), 0x76A370 (inline budget); Cycle_Focus 0x443270 is probably
      `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
      edit (their partial GalaxyMapClientClass declarations).
@@ -2528,8 +2528,9 @@ below name only the work items, the blocked work, the leads and the queues.
      (turning indicator models), 0x55C280 (flash callback); ui_avatar_cust.cpp:63 declares 0x495FD0 `void` (ro_funcs:
      `bool`: a different mangled name, so it stays a gen); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
-     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (inline-budget 0.80: argument
-     / prologue order, dead `size()` reads) and its parked rows (0x575D50 order 0.91, 0x575660, 0x5746C0, 0x576270, ctor frame), ShipPip (PIP, 2026-11-04) 0x80CE10
+     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
+     98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
+     store order and the first dialog string's inline `_Eos`; docs/attempts/574710/), 0x575D50 (parked: `add ecx,0x88`), ShipPip (PIP, 2026-11-04) 0x80CE10
      0.83 (frame: the trackball's Matrix3D inverse / Quaternion slots), 0x80D5E0 0.65 (literal: FPU order of Translate(-center)),
      0x80CA30 0.62 (frame 0x48 vs 0x44: the clamp's min / max), 0x80C640 0.50 (frame 0xA0 vs 0x74: a Matrix3D temporary for +0x6C,
      the bone index in ebp), avatar 0x77D9F0 (shape); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
