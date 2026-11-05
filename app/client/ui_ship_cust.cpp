@@ -91,6 +91,9 @@ public:
 // The hull and wing styles' texts (0xB894C0, 0xB894CC)
 static const char *Unknown_B894C0[3] = { "HULL00_buy_ship01", "HULL01_buy_ship01", "HULL02_buy_ship01" };	// NAME 1: neutral (D10)
 static const char *Unknown_B894CC[3] = { "WING00_buy_ship01", "WING01_buy_ship01", "WING02_buy_ship01" };	// NAME 1: neutral (D10)
+// money.cpp's comparisons (cdecl, not rebuilt), as ui_avatar_cust.cpp declares them
+bool operator==(const MoneyClass &a, const MoneyClass &b);	// 0x4F0600  // NAME 1 [a, b]: neutral
+bool operator>=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0740  // NAME 1 [a, b]: neutral
 // The client at InterfaceClass +0x40, as ui_avatar_cust.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -207,8 +210,8 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	void (StarbaseShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &StarbaseShipCustomizeInterface::Unknown_61E730;
 	StarbaseShipCustNotifierClass *notifier = (StarbaseShipCustNotifierClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new StarbaseShipCustCallbackClass(this, function));
-	SClient *client = Client->As_Space_Client();
-	client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 11, 0)); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget, so ShipCustPartClass's constructor 0x6191F0 is called out of line as the client's
+
+	Unknown_61F1D0();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
 }
 
 // @0x6193A0
@@ -233,9 +236,6 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 	Unknown_61E8E0(0);
 	Unknown5BB320Class::Unknown_60();
 }
-
-
-
 
 
 
@@ -2089,6 +2089,20 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 	}
 }
 
+// @0x61EF60
+void StarbaseShipCustomizeInterface::Unknown_61EF60()
+{
+	if (Unknown328 == MoneyClass()) {
+		View->Get_Unknown34()->Unknown_588A70("NO_CHANGES", 0, NULL, 0x140, 0, 0);
+	} else if (Unknown320 >= Unknown328) {
+		char text[128];
+		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown328.Unknown_4F00C0(false).c_str());
+		View->Get_Unknown34()->Unknown_588A70("SHIP_CONFIRMATION", 0, text, 0x140, 0, 0);
+	} else {
+		View->Get_Unknown34()->Unknown_588A70("NEED_FUNDS", 0, NULL, 0x140, 0, 0);
+	}
+}
+
 // @0x61F0E0
 void StarbaseShipCustomizeInterface::Unknown_61F0E0()
 {
@@ -2116,6 +2130,14 @@ void StarbaseShipCustomizeInterface::Unknown_61F180()
 	if (Unknown334) {
 		Unknown328 = Unknown338.Unknown_849AC0(&Unknown36C, &Desc);
 	}
+}
+
+// @0x61F1D0
+void StarbaseShipCustomizeInterface::Unknown_61F1D0()
+{
+	SClient *client = Client->As_Space_Client();
+	int id = client->Unknown1138;
+	client->Send_Packet(&StarbaseRequestPacketClass(id, 11, 0));
 }
 
 // NOT EXACT: functional (D64)

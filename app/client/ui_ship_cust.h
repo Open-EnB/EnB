@@ -79,9 +79,11 @@ public:
 	void Unknown_61DF80();								// 0x61DF80 (the metal models: 'METAL00' ..)
 	void Unknown_61E8B0();
 	void Unknown_61E8E0(bool any);						// 0x61E8E0 (the credits and cost texts: as ui_avatar_cust.cpp's 0x551520)  // NAME 1 [any]: as ui_avatar_cust.cpp's
+	void Unknown_61EF60();								// 0x61EF60 (the confirmation box: as ui_avatar_cust.cpp's 0x551900)
 	void Unknown_61F0E0();								// 0x61F0E0								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
 	void Unknown_61F690();								// 0x61F690 (RECUSTOMIZE_SHIP_DONE with the description)
+	void Unknown_61F1D0();								// 0x61F1D0 (STARBASE_REQUEST, action 11: as ui_avatar_cust.cpp's 0x551C80)
 	void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d);	// 0x61F250 (RECUSTOMIZE_SHIP_START 129: cpacket.cpp)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
 	void Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x61E730 (FAIL_IFs '!event' l.2017, '!gadget' l.2020)  // NAME 3 [event, gadget]: the FAIL_IFs'
 

@@ -325,12 +325,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/ui_shard.cpp:167` | `Unknown615A50InterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64) @0x616220 |
-| `app/client/ui_ship_cust.cpp:181` | `StarbaseShipCustomizeInterface::Unknown_54` | marker | NOT EXACT: inline budget (0.54: VC6 here inlines the first vector's constructor and the callback's, which the client calls out of line: 0x61FAB0, 0x620BC0; the frame is 4 bytes larger; the part's constructor 0x6191F0 goes out of line) @0x618CA0 |
+| `app/client/ui_ship_cust.cpp:184` | `StarbaseShipCustomizeInterface::Unknown_54` | marker | NOT EXACT: inline budget (0.54: VC6 here inlines the first vector's constructor and the callback's, which the client calls out of line: 0x61FAB0, 0x620BC0; the frame is 4 bytes larger; the part's constructor 0x6191F0 goes out of line) @0x618CA0 |
 | `app/client/ui_ship_cust.cpp:629` | `StarbaseShipCustomizeInterface::Unknown_61A4D0` | marker | NOT EXACT: functional (D64) @0x61A4D0 |
 | `app/client/ui_ship_cust.cpp:1316` | `StarbaseShipCustomizeInterface::Unknown_61DBF0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) |
 | `app/client/ui_ship_cust.cpp:1954` | `StarbaseShipCustomizeInterface::Unknown_61DF80` | marker | NOT EXACT: inline budget (0.47, 1705 bytes against 0x611: as ui_avatar_cust.cpp's 0x550A10; the client copies only the first model's translation, builds the second's Matrix3D through ??_H, and calls the third Rotate_Y out of line) @0x61DF80 |
 | `app/client/ui_ship_cust.cpp:2041` | `StarbaseShipCustomizeInterface::Unknown_61E8E0` | marker | NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's, and keeps this in a frame slot; ui_avatar_cust.cpp's twin 0x551520 is exact in this form) @0x61E8E0 |
-| `app/client/ui_ship_cust.cpp:2121` | `StarbaseShipCustomizeInterface::Unknown_61F250` | marker | NOT EXACT: functional (D64) @0x61F250 |
+| `app/client/ui_ship_cust.cpp:2143` | `StarbaseShipCustomizeInterface::Unknown_61F250` | marker | NOT EXACT: functional (D64) @0x61F250 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
