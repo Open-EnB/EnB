@@ -128,6 +128,9 @@ public:
 	void Unknown_782CA0();								// 0x782CA0 (the face animation's brow and blink keys over the gesture animation)
 	void Unknown_782FF0(const char *text);				// 0x782FF0 (the face animation's lip-sync keys for text)  // NAME 1 [text]: neutral
 	void Unknown_783470();								// 0x783470 (the face animation onto the head)
+	PlayerNLPClass *Get_NLP() { return(PlayerNLP); }	// (inline: 0x7899F0's assert '!Get_NLP()')
+	void Unknown_7899F0(const char *anim, float frame, int flags);	// 0x7899F0 (the personality's body animation by tag as the gesture, then 0x789C10; the UI's 0x53CD60)  // NAME 1 [anim]: its assert's; [frame, flags]: 0x789C10's
+	void Unknown_789C10(float frame, int flags);		// 0x789C10 (the gesture's frame to stop at and flags; 0x7899F0 inlines it)  // NAME 1 [frame, flags]: neutral
 	void Unknown_7831C0(const char *name);				// 0x7831C0 (the gesture animation into +0xC0, or +0xC4 to blend; 'Cannot Find Gesture Animation')  // NAME 1 [name]: neutral
 	void Unknown_783620(float time);					// 0x783620 (the frames on, the body's Set_Animation)  // NAME 1 [time]: neutral
 void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT meshes scaled, the HTree altered)
