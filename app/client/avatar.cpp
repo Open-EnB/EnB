@@ -1511,6 +1511,16 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 	Unknown_780F30();
 }
 
+// 0x781760
+void CharacterViewAvatarClass::Unknown_781760(const char *text)
+{
+	if (PlayerNLP) {
+		Unknown0E8.Unknown_4C44A0();
+		PlayerNLP->Unknown_78F690(text, strlen(text), &Desc.Mood_Type, &Unknown0E8);
+		Unknown0E8.Unknown_4C4410();
+	}
+}
+
 // 0x781800
 void CharacterViewAvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
 {
@@ -1905,16 +1915,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2630,9 +2630,9 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, bool a, bool b)
 			Unknown_4BC260("Avatar Animation", "", __FILE__, 2676, "Invalid NLP pointer");
 			return;
 		}
-		Unknown0E8.Unknown_4C44A0();
-		PlayerNLP->Unknown_78F690(name, strlen(name), &Desc.Mood_Type, &Unknown0E8);
-		Unknown0E8.Unknown_4C4410();
+		Unknown_781760(name);
+
+
 		Unknown_784700();
 		Unknown214 = a;
 		if (a) {
@@ -3103,11 +3103,12 @@ bool CharacterViewAvatarClass::Unknown_7860C0()
 		TutorialLineStruct *line = TutorialManagerClass::Instance->Next_Line();
 		if (line) {
 			const char *text = line->Text;
-			if (PlayerNLP) {
-				Unknown0E8.Unknown_4C44A0();
-				PlayerNLP->Unknown_78F690(text, strlen(text), &Desc.Mood_Type, &Unknown0E8);
-				Unknown0E8.Unknown_4C4410();
-			}
+			Unknown_781760(text);
+
+
+
+
+
 			Unknown_7861B0(line->Speech);
 			Unknown215 = line->SkipBlend;
 			Unknown_784700();
