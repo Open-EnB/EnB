@@ -43,7 +43,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
 // (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
-
+static inline PlayerNLPClass *NLP_Of(CharacterViewAvatarClass *avatar) { return(avatar->PlayerNLP); } // NAME 1: neutral (D10)
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
 	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
 
@@ -476,10 +476,10 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 }
 
 // 0x77C870
-// NOT EXACT: functional for POC (D64)
+// through the implicit copy constructor (0x77C8F0, out of line)
 RenderObjClass *CharacterViewAvatarClass::Clone() const
 {
-	return new CharacterViewAvatarClass((AvatarDescClass *)&Desc, 1, 0, NULL);
+	return new CharacterViewAvatarClass(*this);
 }
 
 // 0x77D1E0
@@ -769,7 +769,7 @@ void CharacterViewAvatarClass::Unknown_7826A0()
 }
 
 // 0x782850
-// NOT EXACT: functional for POC (D64)
+// NLP_Of: the client loads ecx before the argument
 void CharacterViewAvatarClass::Unknown_782850()
 {
 	char tag[16];
@@ -782,7 +782,7 @@ void CharacterViewAvatarClass::Unknown_782850()
 		strcpy(tag, "stand_up");
 		Unknown210 = 0;
 	}
-	int anim = PlayerNLP->Unknown_78F640(tag);
+	int anim = NLP_Of(this)->Unknown_78F640(tag);
 	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, anim);
 	Unknown_7831C0(name);
 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
@@ -920,12 +920,11 @@ void CharacterViewAvatarClass::Unknown_784E00()
 {
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		SpeechSound->Release_Ref();
-		SpeechSound = NULL;
+		REF_PTR_RELEASE(SpeechSound);
 	}
-	if (TutorialManagerClass::Instance) {
-		TutorialManagerClass::Instance->Stop_Step();
-	}
+
+	TutorialManagerClass::Instance->Stop_Step();
+
 	Unknown208 = 0;
 	Unknown214 = true;
 	if (Unknown2EC) {
@@ -957,17 +956,18 @@ bool CharacterViewAvatarClass::Unknown_7863E0()
 }
 
 // 0x781D10
-// NOT EXACT: functional for POC (D64), shape
+// one _snprintf per branch (tail-merged at the format)
 std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 {
 	char name[256];
-	const char *skeleton;
-	if (Desc.Skeleton.size() == 0) {
-		skeleton = Unknown_B9CD28[Desc.Gender];
+	if (Desc.Skeleton.size() != 0) {
+		_snprintf(name, 0xFF, "%s.ABANIM%02d-%02d", Desc.Skeleton.c_str(), (int)Desc.Personality, anim);
 	} else {
-		skeleton = Desc.Skeleton.c_str();
+		_snprintf(name, 0xFF, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, anim);
 	}
-	_snprintf(name, 0xFF, "%s.ABANIM%02d-%02d", skeleton, (int)Desc.Personality, anim);
+
+
+
 	return(std::string(name));
 }
 
@@ -1132,7 +1132,7 @@ void CharacterViewAvatarClass::Unknown_782CA0()
 }
 
 // 0x782FF0
-// NOT EXACT: functional for POC (D64)
+// the frame count from the second animation if set, else the first
 void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 {
 	int delay = PlayerNLP->Personality->Get_Speech_Delay();
@@ -1154,13 +1154,13 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 	Unknown24C += delay;
 	Unknown0BC->Insert_Morph_Key(0, Unknown24C, base);
 	int frames;
-	if (Unknown0C0[1] == NULL) {
-		frames = Unknown0C0[0]->Get_Num_Frames();
-	} else {
+	if (Unknown0C0[1] != NULL) {
 		frames = Unknown0C0[1]->Get_Num_Frames();
+	} else {
+		frames = Unknown0C0[0]->Get_Num_Frames();
 	}
-	int over = Unknown24C - frames;
-	Unknown248 = (over < 0) ? 0 : over;
+	Unknown248 = (Unknown24C - frames < 0) ? 0 : Unknown24C - frames;
+
 	if (strcmp(text, "") == 0) {
 		Unknown24C = -1;
 	}

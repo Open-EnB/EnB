@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13225 |
+| 1 | neutral placeholder | 13226 |
 
 ## For review (score 3 and below)
 
@@ -86,6 +86,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496DB0` | `app/client/avatar.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_495FD0` | `app/client/avatar.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/avatar.cpp:43` | 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too) |
+| 1 | `NLP_Of` | `app/client/avatar.cpp:46` | neutral (D10) |
 | 1 | `Unknown_80FCE0` | `app/client/avatar.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown204` | `app/client/avatar.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown208` | `app/client/avatar.cpp:56` | untagged neutral name (D10) |
@@ -198,9 +199,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7861B0` | `app/client/avatar.cpp:853` | untagged neutral name (D10) |
 | 1 | `Unknown_7860C0` | `app/client/avatar.cpp:865` | untagged neutral name (D10) |
 | 1 | `Unknown_784C90` | `app/client/avatar.cpp:888` | untagged neutral name (D10) |
-| 1 | `Unknown_784EA0` | `app/client/avatar.cpp:936` | untagged neutral name (D10) |
-| 1 | `Unknown_786370` | `app/client/avatar.cpp:938` | untagged neutral name (D10) |
-| 1 | `Unknown_7863E0` | `app/client/avatar.cpp:949` | untagged neutral name (D10) |
+| 1 | `Unknown_784EA0` | `app/client/avatar.cpp:935` | untagged neutral name (D10) |
+| 1 | `Unknown_786370` | `app/client/avatar.cpp:937` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/avatar.cpp:948` | untagged neutral name (D10) |
 | 1 | `Unknown_783620` | `app/client/avatar.cpp:1192` | untagged neutral name (D10) |
 | 1 | `Unknown_442930` | `app/client/avatar.cpp:1236` | untagged neutral name (D10) |
 | 1 | `Unknown_4428E0` | `app/client/avatar.cpp:1238` | untagged neutral name (D10) |
