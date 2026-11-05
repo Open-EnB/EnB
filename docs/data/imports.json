@@ -25370,6 +25370,27 @@
      "0x618150"
     ]
    },
+   "ui_ship_cust": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x61B0F0",
+     "0x61B130",
+     "0x61D180",
+     "0x61D1C0",
+     "0x61D200",
+     "0x61D230"
+    ],
+    "merged": [],
+    "name": "client/ui_ship_cust.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "ui_shipcust": {
     "ambiguous": [
      "0x42A900",
@@ -27900,7 +27921,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9542,
+  "in_tree_total": 9632,
   "totals": {}
  },
  "binkmovie": {
