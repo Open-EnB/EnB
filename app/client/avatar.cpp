@@ -427,9 +427,9 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 		}
 		if (MaskObj) {
-			BodyObj->Remove_Sub_Object(MaskObj);
-			MaskObj->Release_Ref();
+			BodyObj->Remove_Sub_Object(MaskObj.Peek());
 			MaskObj = NULL;
+
 		}
 		int head_bone = BodyObj->Get_Bone_Index("K_HEAD");
 		BodyObj->Release_Bone(head_bone);
@@ -478,8 +478,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 		WeaponBack = NULL;
 	}
 	if (MaskObj) {
-		MaskObj->Release_Ref();
 		MaskObj = NULL;
+
 	}
 	if (Unknown2C4) {
 		Unknown2C4 = NULL;
