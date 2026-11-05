@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1209 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13228 |
+| 1 | neutral placeholder | 13229 |
 
 ## For review (score 3 and below)
 
@@ -9611,25 +9611,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_784E00` | `app/client/ui_shard.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown_67B270` | `app/client/ui_shard.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_617AA0` | `app/client/ui_shard.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_67AEA0` | `app/client/ui_shard.cpp:272` | untagged neutral name (D10) |
-| 1 | `Unknown_784C90` | `app/client/ui_shard.cpp:275` | untagged neutral name (D10) |
-| 1 | `Unknown_784EA0` | `app/client/ui_shard.cpp:277` | untagged neutral name (D10) |
-| 1 | `Unknown_67A670` | `app/client/ui_shard.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/ui_shard.cpp:302` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/ui_shard.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_shard.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:347` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2500` | `app/client/ui_shard.cpp:356` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:359` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:360` | untagged neutral name (D10) |
-| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_shard.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/ui_shard.cpp:374` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:382` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_shard.cpp:409` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:410` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:452` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_shard.cpp:534` | untagged neutral name (D10) |
+| 1 | `Clear_Result` | `app/client/ui_shard.cpp:268` | neutral (D10): the client loads the task once for both stores |
+| 1 | `Unknown_67AEA0` | `app/client/ui_shard.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown_784C90` | `app/client/ui_shard.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown_784EA0` | `app/client/ui_shard.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/ui_shard.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_shard.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_shard.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_shard.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2500` | `app/client/ui_shard.cpp:346` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:352` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_shard.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/ui_shard.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_shard.cpp:399` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:442` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_shard.cpp:524` | untagged neutral name (D10) |
 | 1 | `ui_shard.h` | `app/client/ui_shard.h:4` | provisional header name for ui_shard.cpp |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.h:21` | neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback) |
 | 1 | `view, layer` | `app/client/ui_shard.h:24` | as LoginInterface's |
