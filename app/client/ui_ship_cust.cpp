@@ -28,6 +28,7 @@
 #include "unknown_signalbase.h"
 #include "..\shared\money.h"
 #include "..\packets\pkstarbasetow.h"
+#include "gd_robj.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\auxdata\auxdata.h"
@@ -37,6 +38,8 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
 
+void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs.cpp, cdecl): the model's texture colour at (u, v)  // NAME 1 [all]: as ui_shipcust.cpp's
+void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (cdecl): the pointer's position, 0..1, as ui_shipcust.cpp's
 // The control keys (0x10 bytes) and InterfaceClass +0x4C's list, as ui_shipcust.cpp declares them
 struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 {
@@ -83,7 +86,7 @@ public:
 	~UIAvatrPullClass();								// 0x585950
 	void Unknown_5859A0();								// 0x5859A0 (the pull model onto the gadget's box centre)
 
-	GadgetClass *Gadget;								// +0x00 (ui_avatr.cpp's UIAvatrGadget671300Class)  // NAME 1: neutral (D10)
+	UIAvatrGadget671300Class *Gadget;					// +0x00  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('PULL_COLOR')  // NAME 2: what ui_avatr.cpp's 0x556290 puts there
 	bool Unknown08;										// +0x08 (dragging)
 	float Unknown0C;									// +0x0C (0.5)
@@ -236,9 +239,6 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 	Unknown_61E8E0(0);
 	Unknown5BB320Class::Unknown_60();
 }
-
-
-
 
 
 
@@ -829,6 +829,53 @@ void StarbaseShipCustomizeInterface::Unknown_61B130()
 	Unknown_61F180();
 }
 
+// NOT EXACT: register (0.89: Page's test is scheduled into the u / v arithmetic, the client tests it after; Control_Bone's this loaded before the matrix store)
+// @0x61B170
+void StarbaseShipCustomizeInterface::Unknown_61B170()
+{
+	if (Page != 1 && Page != 3) {
+		return;
+	}
+	if (Unknown300->Gadget->Unknown64) {
+		Unknown300->Unknown08 = true;
+	}
+	if ((Unknown300->Gadget->Unknown64 || Unknown300->Gadget->Unknown65) && Unknown300->Unknown08) {
+		AABoxClass box;
+		Unknown300->Gadget->Unknown_64(box);
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
+		RenderObjClass *model = Mesh->Peek_Object();
+		int bone = model->Get_Sub_Object_Bone_Index(Unknown300->Pull);
+		model->Capture_Bone(bone);
+		Matrix3D tm = Unknown300->Pull->Get_Transform();
+		tm[0][3] = x - box.Center.X;
+		tm[1][3] = y - box.Center.Y;
+		model->Control_Bone(bone, tm, false);
+		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown30C].Settings[Unknown310].Color : &Desc.Ship_Name_Color;
+		RObjGadgetClass *robj = (RObjGadgetClass *)Unknown300->Gadget->Unknown_08(); Unknown_496C00(robj->RObj, u, 1.0f - v, color);
+		Unknown_61B510(Vector2(u, v));
+		if (Page == 1) {
+			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
+			Unknown_61F180();
+		} else {
+			Unknown_621500();
+			Unknown_61F180();
+		}
+	} else {
+		Unknown300->Unknown08 = false;
+	}
+	Unknown300->Gadget->Unknown_671630();
+}
+
 // @0x61B510
 void StarbaseShipCustomizeInterface::Unknown_61B510(Vector2 uv)
 {
@@ -851,53 +898,6 @@ void StarbaseShipCustomizeInterface::Unknown_61B580()
 	tm[0][3] = width * Unknown_61D180()[0] + x - box.Center.X; tm[1][3] = height * Unknown_61D180()[1] + y - box.Center.Y;
 	model->Control_Bone(bone, tm, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
