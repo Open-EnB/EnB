@@ -894,6 +894,9 @@ public:
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (avatar.cpp; cpacket.cpp: CLIENT_CHAT_EVENT 165 passes Unknown74, Unknown78, 1)  // NAME 1 [data, size, flag]: what the handler passes
 	Unknown77E3F0E8Class *Unknown_7817E0();			// 0x7817E0 (avatar.cpp: returns this + 0xE8)
 	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass EnvironmentMapManager)  // NAME 1 [unknown]: neutral
+	char Unknown000[0x108];							// +0x000
+	int Unknown108;									// +0x108 (ui_attrb_skills.cpp's 0x54A480: the race, for chartemplate.cpp's 0x82F350)
+	int Unknown10C;									// +0x10C (the profession, ditto)
 };
 
 // The values of SClient +0x1394 (reference counted: Delete_This in slot 0, the count at +0x04)

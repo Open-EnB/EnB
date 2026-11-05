@@ -15,7 +15,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 class Unknown664500Class : public RObjGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_664500();								// 0x664500
+	void Unknown_664500();	Unknown664500Class();	void Unknown_663DF0(class UIAttrbSkillsClass *window, int skill, int index);	// 0x664500; 0x662DC0 (0x114 bytes); 0x663DF0 (0x54ACE0: the window, the skill, the class index)  // NAME 1 [window, skill, index]: neutral
 	void Unknown_664430();								// 0x664430
 	int Unknown_6645A0(int level, bool arg);	void Unknown_6647F0();	void Unknown_664890(bool on);	// 0x6645A0 / 0x6647F0 / 0x664890  // NAME 1 [level, arg, on]: neutral
 	virtual void Unknown_A4(bool arg);					// +0xA4 (0x54AB20 passes false)  // NAME 1 [arg]: neutral
@@ -32,7 +32,7 @@ public:
 class Unknown6A7A00Class  // NAME 1: neutral (D10)
 {
 public:
-	char Unknown00[0x50];	int Unknown_6A7990(); void Unknown_6A7860();	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860
+	char Unknown00[0x50];	int Unknown_6A7990(); void Unknown_6A7860(); int Unknown_6A7A00(unsigned int index);	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860 / 0x6A7A00 (+0x44's element, else -1)  // NAME 1 [index]: neutral
 	Unknown6A5440Class Unknown50;						// +0x50
 };
 
@@ -157,91 +157,91 @@ void UIAttrbSkillsClass::Unknown_D0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+};
+#include "..\audio\soundlib.h"
+int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race and profession to the class index)  // NAME 1: neutral (D10), as chartemplate.cpp's
+// The skill panel (+0xFC), as far as 0x54A480 calls it
+class Unknown548D60Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_548D60(Unknown6A7A00Class *list, int skill, int index);	// 0x548D60 (the selected skill)  // NAME 1 [list, skill, index]: neutral
+};
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
+// auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL; the dead size() read spends the inline budget so the find is called out of line, as the client's (ui_missn.cpp's 0x5C4C90 needs six)
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }	// NAME 1: neutral (D10)
+// 0x54A640
+// NOT EXACT: frame (similarity 0.68: the client's frame is 0x54, one NameClass slot shared by the two finds and the font in arg's slot; this keeps two NameClass slots and the font apart, 0x8C; the code is the client's)
+void UIAttrbSkillsClass::Unknown_54A640(bool arg)
+{
+	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaTemplateClass<int> *points;
+	if (arg) {
+		NameClass name("RPGInfo.SkillPoints"); points = Unknown_Find_Set_Field<DeltaTemplateClass<int> >(aux_data, name);
+	} else {
+		NameClass name("RPGInfo.SkillPoints"); points = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux_data, name);
+	}
+	if (!points) return;
+
+	UnknownF4 = points->Value;
+	char text[32];
+	_snprintf(text, 32, "%d", UnknownF4);
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("SKILL_VAL_ATT", UnknownBC.Peek()));
+	if (font) {
+		font->Change_Text(text, 0);
+	}
+	if (UnknownFC->Active && UnknownEC >= 0) {
+		Unknown_54B400();
+
+
+
+
+	}
+}
+
+// 0x54A860
+void UIAttrbSkillsClass::Unknown_54A860(int skill)
+{
+	UnknownEC = skill;
+	Unknown_54B400();
+	Unknown_54A900();
+}
+
+
+
+// 0x54ACE0
+void UIAttrbSkillsClass::Unknown_54ACE0()
+{
+	bool active = Active;
+	if (active) {
+		Unknown62D1F0Class::Unknown_5C();
+	}
+	Unknown_54B050();
+	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	if (avatar) {
+		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
+		Unknown6A7A00Class *list = Unknown_62D710();
+		int count = list->Unknown_6A7990();
+		for (int i = 0; i < count; i++) {
+			int skill = list->Unknown_6A7A00(i);
+			Unknown664500Class *gadget = new Unknown664500Class();
+			gadget->Unknown_663DF0(this, skill, index);
+			Unknown64.Unknown_6870E0(gadget, i + 5005, View, 1, 1);
+			UnknownC4.push_back(gadget);
+		}
+		if (active) {
+			Unknown62D1F0Class::Unknown_58();
+		}
+	}
+}
 
 
 
@@ -448,36 +448,36 @@ void UIAttrbSkillsClass::Unknown_58()
 
 
 
+// 0x54A480
+bool UIAttrbSkillsClass::Unknown_68(int key)
+{
+	switch (key) {
+		case 5000:
+			UnknownE4 = false;
+			Unknown_54A900();
+			break;
+		case 5001:
+			UnknownE4 = true;
+			Unknown_54A900();
+			break;
+		case 5002:
+		case 5003:
+			break;
+		default:
+			if (key >= 5005) {
+				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+				UnknownEC = key - 5005;
+				Unknown_54B400();
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				Unknown_54A900();
+				return(true);
+			}
+	}
+	return(Unknown62D1F0Class::Unknown_68(key));
+}
 
 #pragma auto_inline(off)		// (the destructor calls it out of line: VC6 would inline it)
 // 0x54B050
@@ -583,6 +583,15 @@ void UIAttrbSkillsClass::Unknown_54B370()
 		if (count <= 0) {
 			break;
 		}
+	}
+}
+// 0x54B400
+void UIAttrbSkillsClass::Unknown_54B400()
+{
+	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	if (avatar) {
+		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
+		((Unknown548D60Class *)UnknownFC.Peek())->Unknown_548D60(Unknown_62D710(), Unknown_62D710()->Unknown_6A7A00(UnknownEC), index);
 	}
 }
 /*

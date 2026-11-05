@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-543 entries in 135 files.
+544 entries in 135 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -239,6 +239,7 @@ edit the comments in the code, not this file.
 | `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
 | `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
 | `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC60` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
+| `app/client/ui_attrb_skills.cpp:182` | `UIAttrbSkillsClass::Unknown_54A640` | marker | NOT EXACT: frame (similarity 0.68: the client's frame is 0x54, one NameClass slot shared by the two finds and the font in arg's slot; this keeps two NameClass slots and the font apart, 0x8C; the code is the client's) |
 | `app/client/ui_attrb_skills.cpp:420` | `UIAttrbSkillsClass::Unknown_58` | marker | NOT EXACT: register (similarity 0.71: the inlined 0x54B370 keeps the count in ecx and the gadget in edx, the client the reverse; 0x54B140 inlines it as the client does) |
 | `app/client/ui_avatar_cust.cpp:480` | `StarbaseAvatarCreationInterface::Unknown_68` | marker | NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the client's ecx); left: its converted temporary in the 0x54E... |
 | `app/client/ui_avatar_cust.cpp:844` | `StarbaseAvatarCreationInterface::Unknown_54E950` | marker | NOT EXACT: register (0.73 with the value through Get_Unknown18(): dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950) 0x54E950 |

@@ -65,6 +65,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x54A480  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x54A5B0 (the layer onto the view's scene and camera, the panels', the base's)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_54A640(bool arg);						// 0x54A640  // NAME 1 [arg]: neutral
+	void Unknown_54A860(int skill);						// 0x54A860 (no caller: +0xEC set, 0x54B400, 0x54A900)  // NAME 1 [skill]: neutral
 	void Unknown_54A900();								// 0x54A900 (FAIL_IF '!gadget' l.358: the shown gadgets laid out, the slider's range)
 	void Unknown_54AB20();								// 0x54AB20 (FAIL_IF '!gadget' l.402: the shown gadgets' +0xA4(false))
 	void Unknown_54ABE0();								// 0x54ABE0 (no direct caller: the shown slider's value, as +0x60 inlines it)
@@ -77,6 +78,7 @@ public:
 	void Unknown_54ACE0();								// 0x54ACE0
 	void Unknown_54B050();								// 0x54B050 (G_ASSERT '!Is_Active()' l.486)
 	void Unknown_54B140();								// 0x54B140 (G_ASSERT '!gadget' l.577)
+	void Unknown_54B400();								// 0x54B400 (no caller out of line: the avatar's class index and the selected skill to the panel +0xFC; inlined by 0x54A480 / 0x54A640 / 0x54A860)
 	void Unknown_54B370();								// 0x54B370 (FAIL_IF '!gadget' l.577: the gadgets from the last, +0xF0 of them, +0xF8 counting the set ones; inlined by 0x54A200 / 0x54B140)
 
 	RefCountPtr<RenderObjClass> UnknownBC;				// +0xBC (the mesh: its fonts and its interface list entry)
