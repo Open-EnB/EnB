@@ -21,7 +21,7 @@
 #include "unknown_675120.h"
 #include "textgadg.h"
 #include "assetmgr.h"
-#include "vector2.h"
+#include "ww3d.h"
 #include "aabox.h"
 #include "matrix3d.h"
 #include "dx8renderer.h"
@@ -1189,11 +1189,83 @@ bool *StarbaseShipCustomizeInterface::Unknown_61D200()
 {
 	return(&Desc.Parts[Unknown30C].Settings[Unknown310].Is_Matte);
 }
-
+#pragma auto_inline(off)	// 0x61D260 calls 0x61D230 out of line where it does not read the metal itself
 // @0x61D230
 ShipCustomizationMetal *StarbaseShipCustomizeInterface::Unknown_61D230()
 {
 	return(&Desc.Parts[Unknown30C].Settings[Unknown310].Metal);
+}
+#pragma auto_inline(on)
+// @0x61D260
+void StarbaseShipCustomizeInterface::Unknown_61D260()
+{
+	int i;
+	switch (Page) {
+		case 2:
+		{
+			unsigned int count = Unknown330->TextureArray.size();
+			bool right = (unsigned int)Unknown314 < count - 8;
+			bool left = (unsigned int)Unknown314 > 0;
+			if (Gadgets[0x29].Gadget->Unknown_60() != right) {
+				Gadgets[0x29].Gadget->Unknown_40(right);
+			}
+			if (Gadgets[0x28].Gadget->Unknown_60() != left) {
+				Gadgets[0x28].Gadget->Unknown_40(left);
+			}
+			Unknown_61BAC0(2);
+			return;
+		}
+
+		case 0:
+			for (i = 0; i < 3; i++) {
+				Unknown_61AD30(Unknown_B894C0[i], i == Desc.Hull_Style);
+			}
+			for (i = 0; i < 3; i++) {
+				Unknown_61AD30(Unknown_B894CC[i], i == Desc.Wing_Style);
+			}
+			Unknown_61BAC0(1);
+			return;
+
+		case 1:
+			if (Unknown310 == 0) {
+				Unknown_61BAC0(0x14);
+			} else {
+				Unknown_61BAC0(0x15);
+			}
+			if (*Unknown_61D200()) {
+				Unknown_61BAC0(0x0F);
+			} else {
+				Unknown_61BAC0(0x10);
+			}
+			switch (Unknown30C) {
+				case 0:
+					Unknown_61BAC0(0x16);
+					break;
+				case 2:
+					Unknown_61BAC0(0x17);
+					break;
+				case 1:
+					Unknown_61BAC0(0x18);
+					break;
+				case 3:
+					Unknown_61BAC0(0x19);
+					break;
+			}
+			Unknown_61BA80(Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_NONE);
+			if (*Unknown_61D230() != METAL_NONE) {
+				Gadgets[0x10].Gadget->Unknown_40(false);
+				Gadgets[0x0F].Gadget->Unknown_40(false);
+			} else {
+				Gadgets[0x10].Gadget->Unknown_40(true);
+				Gadgets[0x0F].Gadget->Unknown_40(true);
+			}
+			Unknown_61BAC0(4);
+			return;
+
+		case 3:
+			Unknown_61BAC0(3);
+			return;
+	}
 }
 
 // @0x61DAB0
@@ -1879,137 +1951,65 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (0.47, 1705 bytes against 0x611: as ui_avatar_cust.cpp's 0x550A10; the client copies only
+// the first model's translation, builds the second's Matrix3D through ??_H, and calls the third Rotate_Y out of line)
+// @0x61DF80
+void StarbaseShipCustomizeInterface::Unknown_61DF80()
+{
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	float slow = time * 0.3f;
+	if (Unknown2D4 != NULL) {
+		Matrix3D tm = Unknown2D4->Get_Transform();
+		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_CHROME) {
+			Unknown244[0].Rotate_Y(time);
+		} else {
+			Unknown244[0].Rotate_Y(slow);
+		}
+		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL00");
+		Mesh->Peek_Object()->Capture_Bone(bone);
+		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
+		Matrix3D newtm(Unknown244[0]);
+		newtm[0][3] = tm[0][3];
+		newtm[1][3] = tm[1][3];
+		newtm[2][3] = tm[2][3];
+		Unknown2D4->Set_Transform(newtm);
+		Gadgets[0x11].Gadget->Unknown_6608F0();
+	}
+	if (Unknown2D8 != NULL) {
+		Matrix3D tm = Unknown2D8->Get_Transform();
+		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_BRONZE) {
+			Unknown244[1].Rotate_Y(time);
+		} else {
+			Unknown244[1].Rotate_Y(slow);
+		}
+		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL01");
+		Mesh->Peek_Object()->Capture_Bone(bone);
+		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[1]);
+		Matrix3D newtm(Unknown244[1]);
+		newtm[0][3] = tm[0][3];
+		newtm[1][3] = tm[1][3];
+		newtm[2][3] = tm[2][3];
+		Unknown2D8->Set_Transform(newtm);
+		Gadgets[0x12].Gadget->Unknown_6608F0();
+	}
+	if (Unknown2DC != NULL) {
+		Matrix3D tm = Unknown2DC->Get_Transform();
+		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_COPPER) {
+			Unknown244[2].Rotate_Y(time);
+		} else {
+			Unknown244[2].Rotate_Y(slow);
+		}
+		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL02");
+		Mesh->Peek_Object()->Capture_Bone(bone);
+		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
+		Matrix3D newtm(Unknown244[2]);
+		newtm[0][3] = tm[0][3];
+		newtm[1][3] = tm[1][3];
+		newtm[2][3] = tm[2][3];
+		Unknown2DC->Set_Transform(newtm);
+		Gadgets[0x13].Gadget->Unknown_6608F0();
+	}
+}
 
 // @0x61E730
 void StarbaseShipCustomizeInterface::Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *sender)
@@ -2149,8 +2149,7 @@ void StarbaseShipCustomizeInterface::Unknown_61F250(ShipCustDescClass *desc, Shi
 }
 
 // Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts
-// at lines 712, 1108, 2017 and 2020: 0x61B760 (l.1108) and 0x61E730 (l.2017, 2020) sit on theirs through blank lines;
-// 0x61A4D0 (l.712) is not in yet: it goes after 0x6193A0 and its 0x619470, taking lines from the blank run before 0x61B760).
+// at lines 712, 1108, 2017 and 2020: the functions holding them are not in yet, so nothing here sits on their lines).
 // Its window: the constructor 0x6181B0 ('BUY_SHIP01', called from sbaseview.cpp's 0x69F8F0; not in yet), the
 // settings' constructor 0x618500 (its ??_H target), the deleting destructor 0x618540, the map's destructor 0x618570,
 // the destructor 0x6186A0, then slot +0x54 0x618CA0 (InterfaceClass's after-construction call, not a constructor) and

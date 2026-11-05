@@ -67,6 +67,7 @@ public:
 	int Unknown_61BC50(short group);					// 0x61BC50 (the selected id of a group: as 0x625930)  // NAME 1 [group]: neutral
 	void Unknown_61BD80(int page);						// 0x61BD80 (a page's model, fonts and buttons: as ui_shipcust.cpp's 0x625A60)  // NAME 1 [page]: neutral
 	void Unknown_61BCE0(short group);					// 0x61BCE0 (a group's buttons unselected: as 0x6259C0)  // NAME 1 [group]: neutral
+	void Unknown_61D260();								// 0x61D260 (the page's buttons from the description: as ui_shipcust.cpp's 0x6277A0)
 	float *Unknown_61D180();							// 0x61D180 (the colour's palette position: as ui_shipcust.cpp's 0x627110)
 	Vector3 *Unknown_61D1C0();							// 0x61D1C0 (the colour: as 0x627160)
 	bool *Unknown_61D200();								// 0x61D200 (the setting's matte flag: as 0x6271A0)
@@ -91,9 +92,9 @@ public:
 	int Unknown23C;										// +0x23C
 	RefCountPtr<TextureClass> Unknown240;				// +0x240 (no insignia: 'BLACK.TGA', as ui_shipcust.cpp's +0x21C)
 	Matrix3D Unknown244[3];								// +0x244 (the metal models' frames: 0x61DF80; the constructor makes them identities)
-	int Unknown2D4;										// +0x2D4
-	int Unknown2D8;										// +0x2D8
-	int Unknown2DC;										// +0x2DC
+	RenderObjClass *Unknown2D4;							// +0x2D4
+	RenderObjClass *Unknown2D8;							// +0x2D8
+	RenderObjClass *Unknown2DC;							// +0x2DC
 	ShipPipClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
 	LayerClass *Layer;									// +0x2E4 (the buttons are made over it)  // NAME 1: as ui_shipcust.h's
 	int Page;											// +0x2E8 (1: the paint page, as ui_shipcust.cpp's +0x234)  // NAME 1: as ui_shipcust.h's
