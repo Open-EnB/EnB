@@ -2475,14 +2475,13 @@ below name only the work items, the blocked work, the leads and the queues.
      ATTRIBUTES), 0x5C4170 (0xEC, MISSIONS), 0x58D080 (0xE4, FACTION_MENU), placed by TB1 (2026-11-05) as
      ui_attrb_skills.cpp (0x549640-0x54B75F, UIAttrbSkillsClass over the interim skill base Unknown62D1F0Class, D137),
      ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass); round 2 by TB2 (+41). Left: attrb Init
-     0x549AA0 (its asserts sit on lines 121 / 147 / 155, so Init starts near line 115: first move TB1's 0x54A3C0 / 0x54A400 /
-     0x54A5B0 (lines 82-119) and 0x54ABE0-0x54AC90 (121-150) below it in address order), 0x54A200 0.71 (register: ecx / edx
+     0x549AA0 (~247 lines of pseudocode, .work/im1/init.c; lines 82-151 are kept free for it since IM1's move f57e413a;
+     it creates TSI12B, panels 0x546A80 (0xB0) into +0xC0 and 0x5482B0 (0xDC) into +0xFC, sliders 0x66DFC0 into +0xD4 / +0xD8;
+     its '!InterfaceMesh' FAIL_IF means the base Unknown62D1F0Class also has InterfaceMesh at +0x84: split it out of Unknown84), 0x54A200 0.71 (register: ecx / edx
      swapped in the inlined 0x54B370), 0x54A640 0.68 (frame 0x8C vs 0x54: one NameClass slot, the font in the argument's
      slot); missn 0x5C5DB0 0.58 (register, late edi push), 0x5C66D0 0.77 (register: load order); faction 0x58DC20 0.65
      (register: reputation in esi, its slot +0x28 vs ebx / +0x14); the
-     window's maker 0x693230 (pdaint.cpp, 484 lines). Quiet-tree rename (client evidence, coordinator's call): Unknown5BB320Class::Mesh
-     (+0x84) -> InterfaceMesh (FAIL_IF '!InterfaceMesh' in 0x58D400 l.118 / 0x549AA0 l.121; ~12 ui files; ui_faction / ui_missn
-     carry a local `#define InterfaceMesh Mesh` until then).
+     window's maker 0x693230 (pdaint.cpp, 484 lines).
      ui_buff.cpp (0x5608D0-0x561DC0, on gd_buffgadg.h since BF1): 0x561030 parked (inline budget, ~29 forms: auxdata.h's
      find stays inline where the client calls 0x561C40 out of line; inline_depth(0) also outlines 0x560FA0 / operator[]),
      0x5615C0 partial (not a verified start; frame 0x74 vs 0x64; an early `continue` for an empty source_object outlines

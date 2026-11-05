@@ -1477,6 +1477,7 @@ unless `--lever` cites a new row of this table.
 * **Stand-in renamed to the real class (2026-11-05 day run, HC1 / HC2, 607ac770 -> fd2ddbf8):** renaming a stand-in to the real class links the real member into clienttest (cpacket's RECUSTOMIZE called the real 0x61F250 on the test's 4-byte fake and crashed; ui_ship_cust.obj needed money.cpp's operator>=): run the D182 check after renames.
 * **Concurrent replays (2026-11-05 day run, AR2):** `importer.py replay` can fail with PermissionError while another builder's replay holds `.work/replay`: chain replay and commit with `&&`, never `;`, and rerun on the error.
 * **A verify compiles the tree when it gets the lock (2026-11-05 day run, TB2):** `importer.py verify` compiles the tree as it stands when it gets the importer lock, not when launched: check the .obj times under `.work/<agent>/tmp/enb_import/verify-app` before trusting what was verified.
+* **Removing a line from an assert file (2026-11-05 day run, IM1, 3e1075ab):** deleting a `#define` (or any line) in a file with `__LINE__` asserts shifts every later assert: replace the line with a one-line comment instead.
 * **clienttest and link aliases (2026-11-05 day run, HC3, c79cd2d8):** gen_stubs writes one signature per name (pointer-returning) and `clienttest.py` does not apply `link_aliases.txt`: a void overload of the same name (GadgetClass::Unknown_08 / _14) needs a hand stand-in in tests/clienttest/client_stubs.cpp. A stand-in class the tree now declares for real (UIPTradeClass) must leave clienttest.cpp (C2011).
 
 ### 3.9 Library-specific
