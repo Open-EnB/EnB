@@ -184,7 +184,6 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RefCountPtr<HMorphAnimClass> Unknown0BC;			// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr: 0x77B870 constructs, 0x77C080 destroys it as a member)
 	RefCountPtr<HAnimClass> Unknown0C0[2];				// +0xC0 (0x7831C0: the gesture animation, [1] the one blended to; RefCountPtrs: 0x77B870 constructs them through 0x78A440, 0x77C080 destroys them through 0x57B6E0)
 	bool Unknown0C8[2];									// +0xC8 (0x783620: the frame reached)
-	char Unknown_Pad0CA[0xCC - 0xCA];
 	float Unknown0CC[2];								// +0xCC (0x783620: the frame)
 	float Unknown0D4[2];								// +0xD4 (0x783620: the frame to stop at)
 	int Unknown0DC[2];									// +0xDC (0x783620: flags, -1 none)
@@ -199,13 +198,11 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	int Unknown210;										// +0x210
 	bool Unknown214;									// +0x214 (0x67A440 sets it)
 	bool Unknown215;									// +0x215
-	char Unknown_Pad216[0x218 - 0x216];
 	float Unknown218;									// +0x218 (0x7831C0: the blend time, 0.5)
 	float Unknown21C;									// +0x21C (0x783620: the blend time left)
 	bool Is_Unknown220() { return(Unknown220); }		// (ui_login.cpp)  // NAME 1: neutral (D10)
 	bool Unknown220;									// +0x220 (ui_login.cpp's 0x5ADA50: narrator welcome waits for it)
 	bool Unknown221;									// +0x221
-	char Unknown_Pad222[0x224 - 0x222];
 	int Unknown224;										// +0x224 (0x781EA0: random part of the fidget delay)
 	float Unknown228;									// +0x228
 	float Unknown22C;									// +0x22C (0x783B50: the time idle)
