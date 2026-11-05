@@ -826,7 +826,7 @@ void LoginTaskClass::Show_Message(const char *text, const char *button)
 	}
 }
 
-// NOT EXACT: shape (the client shares its 'return true' tails; attempts.py show 0x7698E0)
+// NOT EXACT: register-only (one 'return true' at the end shares the client's tails; left: the version's Major in edx (client eax) and the CANCEL box's ecx / edx; attempts.py show 0x7698E0)
 // 0x7698E0
 bool LoginTaskClass::Unknown_64()
 {
@@ -882,27 +882,27 @@ bool LoginTaskClass::Unknown_64()
 		delete GlobalConnection;
 		GlobalConnection = NULL;
 	}
-	if (GlobalConnection) {
-		return true;
+	if (GlobalConnection == NULL) {
+		GlobalConnection = Create_Connection("GlobalServer_Client", true);
+
+
+
+
+
+
+
+		G_ASSERT(GlobalConnection);
+		if (GlobalConnection && GlobalConnection->Is_Connected()) {
+			Unknown0030 = true;
+			Unknown_VersionStruct *version = Unknown_4456C0();
+			GlobalConnection->Send_Packet(&VersionRequestPacketClass(version->Major, version->Minor));
+		} else {
+			Show_Message("Couldn't connect to the server, try again later.");
+			return false;
+		}
 	}
-	GlobalConnection = Create_Connection("GlobalServer_Client", true);
-
-
-
-
-
-	G_ASSERT(GlobalConnection);
-	if (GlobalConnection && GlobalConnection->Is_Connected()) {
-		Unknown0030 = true;
-		Unknown_VersionStruct *version = Unknown_4456C0();
-		GlobalConnection->Send_Packet(&VersionRequestPacketClass(version->Major, version->Minor));
-		return true;
-	}
-	Show_Message("Couldn't connect to the server, try again later.");
-	return false;
+	return true;
 }
-
-
 
 
 
@@ -1008,7 +1008,7 @@ void LoginTaskClass::Start_Game()
 
 
 
-// NOT EXACT: inline budget (ours inlines std::string("Fast")'s assign, the client calls it; attempts.py show 0x76A370)
+// Exact with three dead size() reads (D130, marked): the inline budget the client spent invisibly (assign and the name's ~string out of line); attempts.py show 0x76A370
 // 0x76A370
 void LoginTaskClass::Unknown_76A370()
 {
@@ -1037,7 +1037,7 @@ void LoginTaskClass::Unknown_76A370()
 						}
 					}
 					info.Unknown_4C1460(name.c_str(), 1);
-					Unknown_48(&info, &look, -1, 1);
+					Unknown_48(&info, &look, -1, 1); name.size();	// dead size() (D130; not the client's): spends VC6's inline budget with the two after the switch
 				} else {
 					Unknown_5C();
 				}
@@ -1055,7 +1055,7 @@ void LoginTaskClass::Unknown_76A370()
 				Show_Message("Couldn't create character for fast start.");
 			}
 			break;
-	}
+	} Galaxies.size(); Galaxies.size();	// dead size()s (D130; not the client's): with case 2's they put std::string's assign and ~string's _Tidy out of line as the client (each of the three needed)
 }
 
 
