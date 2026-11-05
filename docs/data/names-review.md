@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1211 |
-| 2 | describes what the code does | 3009 |
-| 1 | neutral placeholder | 13511 |
+| 3 | by convention from a client-named file or sibling | 1210 |
+| 2 | describes what the code does | 3006 |
+| 1 | neutral placeholder | 13491 |
 
 ## For review (score 3 and below)
 
@@ -7232,32 +7232,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_bio.h:23` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_bio.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_buff.cpp:19` | untagged neutral name (D10) |
-| 1 | `UIBuffElementStruct` | `app/client/ui_buff.cpp:21` | neutral (D10) |
-| 1 | `source_entity, source_object, magnitude, expiration_time, is_active` | `app/client/ui_buff.cpp:25` | the aux fields 0x5615C0 passes |
-| 1 | `UIBuffInfoStruct` | `app/client/ui_buff.cpp:28` | neutral (D10) |
-| 1 | `name, permanent, time, element` | `app/client/ui_buff.cpp:30` | what 0x5615C0 passes |
-| 1 | `Unknown_6651C0` | `app/client/ui_buff.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_665340` | `app/client/ui_buff.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_665360` | `app/client/ui_buff.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_665390` | `app/client/ui_buff.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_665A10` | `app/client/ui_buff.cpp:30` | untagged neutral name (D10) |
-| 1 | `UIBuffGadgetClass` | `app/client/ui_buff.cpp:36` | neutral (D10) |
-| 1 | `client, info, robj, unknown, layer` | `app/client/ui_buff.cpp:39` | what 0x560D20 passes; NAME 3 [buffinfo]: the asserts' |
-| 1 | `info, now` | `app/client/ui_buff.cpp:40` | what 0x560BC0 passes |
-| 1 | `Unknown_6661F0` | `app/client/ui_buff.cpp:40` | untagged neutral name (D10) |
-| 1 | `good, on` | `app/client/ui_buff.cpp:41` | neutral |
-| 1 | `Unknown_666440` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_666470` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_6664E0` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/ui_buff.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_buff.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/ui_buff.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/ui_buff.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_buff.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown85` | `app/client/ui_buff.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_buff.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_buff.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_buff.cpp:48` | untagged neutral name (D10) |
@@ -7268,9 +7242,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60` | `app/client/ui_buff.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_561030` | `app/client/ui_buff.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_560BC0` | `app/client/ui_buff.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_6661F0` | `app/client/ui_buff.cpp:98` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_buff.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_666440` | `app/client/ui_buff.cpp:100` | untagged neutral name (D10) |
 | 1 | `Unknown_561B40` | `app/client/ui_buff.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_560D20` | `app/client/ui_buff.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_buff.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_buff.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_buff.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_buff.cpp:162` | untagged neutral name (D10) |
@@ -7279,9 +7256,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5615C0, info, buff` | `app/client/ui_buff.cpp:191` | neutral (D10) |
 | 1 | `Unknown_5615C0` | `app/client/ui_buff.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_buff.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_666470` | `app/client/ui_buff.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_buff.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
 | 1 | `Unknown_6AB8C0` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_6664E0` | `app/client/ui_buff.cpp:254` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/ui_buff.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_buff.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/ui_buff.cpp:260` | untagged neutral name (D10) |
 | 1 | `ui_buff.h` | `app/client/ui_buff.h:4` | provisional header name for ui_buff.cpp |
 | 1 | `UIBuffClass` | `app/client/ui_buff.h:14` | from the client's file ui_buff.cpp |
 | 1 | `Unknown5BB320Class` | `app/client/ui_buff.h:14` | untagged neutral name (D10) |
@@ -13325,8 +13307,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6E9490EffectClass` | `tests/clienttest/client_stubs.cpp:286` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9490` | `tests/clienttest/client_stubs.cpp:301` | untagged neutral name (D10) |
 | 1 | `Unknown_42A1A0` | `tests/clienttest/client_stubs.cpp:316` | untagged neutral name (D10) |
-| 1 | `Unknown_665390` | `tests/clienttest/client_stubs.cpp:328` | untagged neutral name (D10) |
-| 1 | `Unknown_6661F0` | `tests/clienttest/client_stubs.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `tests/clienttest/clienttest.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_BDA968` | `tests/clienttest/clienttest.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_BE71D4` | `tests/clienttest/clienttest.cpp:140` | untagged neutral name (D10) |
@@ -14647,9 +14627,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add` | `app/client/ui_avsel.cpp:230` | as sclient.cpp's |
 | 2 | `Remove` | `app/client/ui_avsel.cpp:231` | as sclient.cpp's |
 | 2 | `Layer` | `app/client/ui_avsel.h:68` | what it holds |
-| 2 | `std:` | `app/client/ui_buff.cpp:23` | the aux fields' |
-| 2 | `Magnitude` | `app/client/ui_buff.cpp:24` | the aux fields' |
-| 2 | `std:` | `app/client/ui_buff.cpp:31` | the aux fields' |
 | 2 | `Name` | `app/client/ui_chat_panel.cpp:84` | what it holds |
 | 2 | `Option` | `app/client/ui_chat_panel.cpp:85` | the option tested (OptionClass::Get_Bool) |
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
@@ -16865,7 +16842,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarCreationInterface` | `app/client/ui_avatr.cpp:361` | the client's RTTI (0xB7B848: SignalBaseClass::MemberCallback<GadgetClass,AvatarCreationInterface,...>) |
 | 3 | `AvatarSelectionInterface` | `app/client/ui_avsel.h:21` | the client's RTTI (0xB7C068: SignalBaseClass::MemberCallback<GadgetClass,AvatarSelectionInterface,...>) |
 | 3 | `BuddyReferralUI` | `app/client/ui_avsel.h:69` | the assert's |
-| 3 | `std:` | `app/client/ui_buff.cpp:32` | gd_buffgadg.cpp's assert 'index >= Elements.size()' |
 | 3 | `MAX_BUFF_ELEMENTS` | `app/client/ui_buff.cpp:187` | the assert's (the ship's BuffArray.N.Elements count) |
 | 3 | `slot` | `app/client/ui_buff.h:27` | the asserts' |
 | 3 | `BuffTable` | `app/client/ui_buff.h:32` | the asserts' 'BuffTable[slot]' |

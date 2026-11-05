@@ -6,8 +6,8 @@
 
 #include "sclient.h"
 
-class UIBuffGadgetClass;	// gd_buffgadg.cpp's gadget (ui_buff.cpp declares it as far as it calls it)
-struct UIBuffInfoStruct;	// gd_buffgadg.cpp's buff values (the same)
+class BuffGadgetClass;		// gd_buffgadg.h's gadget
+struct BuffInfoStruct;		// gd_buffgadg.h's buff values
 
 // The buff display (0xEC bytes, tables 0xAEFDD0 / 0xAEFDC4 / 0xAEFDB8; the main view's +0x1D4, 0x50C690 makes it, and
 // 0x69B5E0): a 'TSI02A' mesh, the strings of 'fc_buff.ini' and a gadget per slot of the ship's BuffArray
@@ -22,14 +22,14 @@ public:
 	virtual void Unknown_5C();							// 0x560B60 (the base's, once)
 	virtual void Unknown_60();							// 0x560B90 (0x561030, then the base's)
 
-	void Unknown_560BC0(const UIBuffInfoStruct &info, int slot);	// 0x560BC0 (the slot's gadget updated)  // NAME 1 [info]: neutral; NAME 3 [slot]: the asserts' 'BuffTable[slot]'
-	void Unknown_560D20(const char *type, const UIBuffInfoStruct &info, int slot);	// 0x560D20 (the slot's gadget made: 'buff%02d')  // NAME 1 [type, info]: neutral; NAME 3 [slot]: the asserts'
+	void Unknown_560BC0(const BuffInfoStruct &info, int slot);	// 0x560BC0 (the slot's gadget updated)  // NAME 1 [info]: neutral; NAME 3 [slot]: the asserts' 'BuffTable[slot]'
+	void Unknown_560D20(const char *type, const BuffInfoStruct &info, int slot);	// 0x560D20 (the slot's gadget made: 'buff%02d')  // NAME 1 [type, info]: neutral; NAME 3 [slot]: the asserts'
 	void Unknown_560FA0(int slot);						// 0x560FA0 (the slot's gadget taken off; inlined into the others)  // NAME 3 [slot]: the asserts'
 	void Unknown_561B40(bool good);					// 0x561B40 (click1c.wav for a good buff, else cost.wav; inlined into the others)  // NAME 1 [good]: what it tells (BuffDefStruct::IsGoodBuff)
 	void Unknown_561030();								// 0x561030 (the ship's BuffArray to the slots; 'frame' hidden without buffs)
 
 	int UnknownAC;										// +0xAC: 1 while slot +0x58 has run (slot +0x5C clears it)
-	UIBuffGadgetClass *BuffTable[MAX_BUFFS];			// +0xB0  // NAME 3: the asserts' 'BuffTable[slot]'
+	BuffGadgetClass *BuffTable[MAX_BUFFS];			// +0xB0  // NAME 3: the asserts' 'BuffTable[slot]'
 };
 
 #endif // UI_BUFF_H
