@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-530 entries in 131 files.
+531 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -325,7 +325,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/ui_shard.cpp:167` | `Unknown615A50InterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64) @0x616220 |
-| `app/client/ui_ship_cust.cpp:351` | `StarbaseShipCustomizeInterface::Unknown_61E8B0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) @0x61E8B0 |
+| `app/client/ui_ship_cust.cpp:198` | `StarbaseShipCustomizeInterface::Unknown_54` | marker | NOT EXACT: inline budget (0.48: VC6 here inlines ShipCustPartClass's constructor, the vectors' constructors and the callback's, which the client calls out of line: 0x6191F0, 0x61FAB0, 0x61FB60, 0x620BC0; the frame is 0x1C bytes larger) @0x618CA0 |
+| `app/client/ui_ship_cust.cpp:476` | `StarbaseShipCustomizeInterface::Unknown_61E8B0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) @0x61E8B0 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |

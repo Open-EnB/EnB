@@ -23,6 +23,11 @@
 #include "vector2.h"
 #include "aabox.h"
 #include "matrix3d.h"
+#include "dx8renderer.h"
+#include "unknown_signalbase.h"
+#include "..\shared\money.h"
+#include "..\packets\pkstarbasetow.h"
+#include "local_interface_sort.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
@@ -45,10 +50,38 @@ struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const
 class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
 {
 public:
+	~UIAvatrPullClass();								// 0x585950
+
 	GadgetClass *Gadget;								// +0x00 (ui_avatr.cpp's UIAvatrGadget671300Class)  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('PULL_COLOR')  // NAME 2: what ui_avatr.cpp's 0x556290 puts there
 	bool Unknown08;										// +0x08 (dragging)
 	float Unknown0C;									// +0x0C (0.5)
+};
+// The client at InterfaceClass +0x40, as ui_avatar_cust.cpp declares it
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+};
+extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
+
+// The pages' font styles and string files (0xB894A0)
+static const char *Unknown_B894A0[][2] = { { "BUY_SHIP01", "fa_buy_ship01.ini" }, { "BUY_SHIP02", "fa_buy_ship02.ini" }, { "BUY_SHIP03", "fa_buy_ship03.ini" }, { "BUY_SHIP04", "fa_buy_ship04.ini" } };	// NAME 1: neutral (D10)
+
+// What the window's gadget map holds for an id (0x18 bytes; 0x61ADA0 fills it): ui_shipcust.h's ShipCustGadgetStruct's
+// layout, but its own type: the client's map templates of this file (0x618570, 0x61F760-0x620B30) use their own _Nil
+// and _Nilrefs (0xBE5E28 / 0xBE5E24), apart from ui_shipcust.cpp's copies (0x622A60, 0x628A70-0x62A600)
+struct StarbaseShipCustGadgetStruct	// NAME 1: neutral (D10)
+{
+	GadgetClass *Gadget;								// +0x00  // NAME 1: as ui_shipcust.h's
+	int Id;												// +0x04 (the key again)  // NAME 1: as ui_shipcust.h's
+	const char *Name;									// +0x08 the model's sub-object  // NAME 1: as ui_shipcust.h's
+	const char *Style;									// +0x0C its text's font style  // NAME 1: as ui_shipcust.h's
+	short Key;											// +0x10 its key  // NAME 1: as ui_shipcust.h's
+	short Group;										// +0x12 a radio group (0: the tabs)  // NAME 1: as ui_shipcust.h's
+	bool Selected;										// +0x14  // NAME 1: as ui_shipcust.h's
 };
 
 // The starbase's ship customisation window (the buy-ship pages 'fa_buy_ship01_ini' ..), as far as this file's
@@ -58,7 +91,10 @@ public:
 class StarbaseShipCustomizeInterface : public Unknown5BB320Class, public Unknown620D20Class	// NAME 3: the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's)
 {
 public:
+	virtual ~StarbaseShipCustomizeInterface();			// 0x6186A0 (the deleting one 0x618540)
+	virtual void Unknown_54();							// +0x54 0x618CA0 (after construction: the description from the avatar, the preview, the decal library, page 0)
 	virtual void Unknown_60();							// 0x6193A0 (every frame, then Unknown5BB320Class's 0x5BB660)
+	virtual bool Unknown_68(int key);					// +0x68 0x619470 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
 	void Unknown_61A4D0();								// 0x61A4D0 (G_ASSERT l.712)
 	void Unknown_61AC20(bool on);						// 0x61AC20 (the gadgets on or off, their texts dimmed: as ui_shipcust.cpp's 0x6249D0)  // NAME 1 [on]: neutral
 	void Unknown_61AD30(const char *style, bool on);	// 0x61AD30 (a style shown or hidden: as 0x624AE0)  // NAME 1 [style, on]: neutral
@@ -72,6 +108,7 @@ public:
 	void Unknown_61B170();								// 0x61B170
 	void Unknown_61BAC0(int id);						// 0x61BAC0 (a button selected in its group: as ui_shipcust.cpp's 0x6257A0)  // NAME 1 [id]: neutral
 	int Unknown_61BC50(short group);					// 0x61BC50 (the selected id of a group: as 0x625930)  // NAME 1 [group]: neutral
+	void Unknown_61BD80(int page);						// 0x61BD80 (a page's model, fonts and buttons: as ui_shipcust.cpp's 0x625A60)  // NAME 1 [page]: neutral
 	void Unknown_61BCE0(short group);					// 0x61BCE0 (a group's buttons unselected: as 0x6259C0)  // NAME 1 [group]: neutral
 	float *Unknown_61D180();							// 0x61D180 (the colour's palette position: as ui_shipcust.cpp's 0x627110)
 	Vector3 *Unknown_61D1C0();							// 0x61D1C0 (the colour: as 0x627160)
@@ -84,26 +121,114 @@ public:
 	void Unknown_61E8E0(int arg);						// 0x61E8E0  // NAME 1 [arg]: neutral
 	void Unknown_61F0E0();								// 0x61F0E0								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
+	void Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x61E730 (FAIL_IFs '!event' l.2017, '!gadget' l.2020)  // NAME 3 [event, gadget]: the FAIL_IFs'
 
 	SBaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
-	char Unknown234[0x240 - 0x234];						// +0x234
+	bool Unknown234;									// +0x234 (the constructor 0x6181B0 clears +0x234 .. +0x239)
+	bool Unknown235;									// +0x235
+	bool Unknown236;									// +0x236
+	bool Unknown237;									// +0x237
+	bool Unknown238;									// +0x238
+	bool Unknown239;									// +0x239
+	int Unknown23C;										// +0x23C
 	RefCountPtr<TextureClass> Unknown240;				// +0x240 (no insignia: 'BLACK.TGA', as ui_shipcust.cpp's +0x21C)
-	char Unknown244[0x2E0 - 0x244];						// +0x244
+	Matrix3D Unknown244[3];								// +0x244 (the metal models' frames: 0x61DF80; the constructor makes them identities)
+	int Unknown2D4;										// +0x2D4
+	int Unknown2D8;										// +0x2D8
+	int Unknown2DC;										// +0x2DC
 	ShipPipClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
 	LayerClass *Layer;									// +0x2E4 (the buttons are made over it)  // NAME 1: as ui_shipcust.h's
 	int Page;											// +0x2E8 (1: the paint page, as ui_shipcust.cpp's +0x234)  // NAME 1: as ui_shipcust.h's
-	std::map<int, ShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's
-	char Unknown2FC[0x300 - 0x2FC];						// +0x2FC
+	std::map<int, StarbaseShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's
+	bool Unknown2FC;									// +0x2FC (the page's fonts loaded, as ui_shipcust.cpp's +0x248)
 	UIAvatrPullClass *Unknown300;						// +0x300 the colour palette and its pull (as ui_shipcust.cpp's +0x24C)
-	char Unknown304[0x308 - 0x304];						// +0x304
+	RefCountPtr<TextureClass> ColorSliderTexture;		// +0x304  // NAME 3: 0x61B760's G_ASSERT (l.1108)
 	TextGadgetClass *NameGadget;						// +0x308 (the ship's name: 'NAME_buy_ship04')  // NAME 1: as ui_shipcust.h's
 	int Unknown30C;										// +0x30C the part
 	int Unknown310;										// +0x310 the part's setting
 	int Unknown314;										// +0x314 the insignia list's first
 	int Unknown318;										// +0x318 the insignia
-	char Unknown31C[0x330 - 0x31C];						// +0x31C
+	char Unknown31C[0x320 - 0x31C];						// +0x31C
+	MoneyClass Unknown320;								// +0x320 (the destructor's EH states 5 / 6: 0x4A7780)
+	MoneyClass Unknown328;								// +0x328
 	SClientUnknown1334Class *Unknown330;				// +0x330 the decal library
+	bool Unknown334;									// +0x334
+	char Unknown338[0x36C - 0x338];						// +0x338 (constructor 0x8499C0: recustomization_cost.cpp's)
+	char Unknown36C[0x4CC - 0x36C];						// +0x36C (a ShipCustDescClass: the constructor builds one inline)
 };
+typedef SignalBaseClass::MemberCallback<GadgetClass, StarbaseShipCustomizeInterface, void (StarbaseShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> StarbaseShipCustCallbackClass;	// NAME 1 [StarbaseShipCustCallbackClass]: neutral (D10)
+class StarbaseShipCustNotifierClass : public SignalMap		// NAME 1: neutral (D10): as ui_shipcust.cpp's InterfaceSignalMapClass
+{
+public:
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')
+};
+
+// @0x6186A0
+StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
+{
+	Unknown_BB9654 = true;
+	SBaseView->Unknown_69DC60();
+	Unknown_5C();
+	Unknown2E0->Unknown_80();
+	Unknown2E0->Unknown_80C180();
+	Unknown64.Unknown_687150(Unknown2E0);
+	if (NameGadget) {
+		Unknown64.Unknown_687150(NameGadget);
+	}
+	NameGadget = NULL;
+	Unknown_61AF50();
+	if (Unknown2FC) {
+		Unknown_BE67C4->Remove(Mesh->Peek_Object());
+		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
+		Unknown2FC = false;
+	}
+	ColorSliderTexture = NULL;
+	if (Unknown300) {
+		delete Unknown300;
+	}
+	Unknown300 = NULL;
+	Unknown240 = NULL;
+	if (Unknown330) {
+		delete Unknown330;
+	}
+	Unknown330 = NULL;
+	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
+}
+
+// NOT EXACT: inline budget (0.48: VC6 here inlines ShipCustPartClass's constructor, the vectors' constructors and the
+// callback's, which the client calls out of line: 0x6191F0, 0x61FAB0, 0x61FB60, 0x620BC0; the frame is 0x1C bytes larger)
+// @0x618CA0
+void StarbaseShipCustomizeInterface::Unknown_54()
+{
+	SBaseView->Unknown_69DC40();
+	InterfaceSortScopeClass sort(this);
+	Desc = ShipCustDescClass();
+	Desc.Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[4]);
+	Desc.Reset_Parts();
+	Desc.Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[5]);
+	Unknown318 = (Desc.Selected_Decal == 0x7FFFFFF) ? 0 : Desc.Selected_Decal + 1;
+	Unknown2E0 = new ShipPipClass(0);
+	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
+	Unknown2E0->Unknown_74(0);
+	Unknown2E0->Set_Last_Sort_Group(1);
+	Vector3 position(0.0f, 0.0f, 0.0f);
+	Vector2 size(640.0f, 480.0f);
+	Unknown2E0->Unknown_80C540(size, position, 0x1C);
+	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
+	Unknown330 = new SClientUnknown1334Class;
+	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
+	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(0x1B), (void *)0x1B);
+	Unknown_10();
+	Unknown_7C((UIViewClass *)SBaseView, true);
+	Unknown_61BD80(Page);
+	Unknown_61E8E0(1);
+	TheDX8MeshRenderer.Invalidate();
+	void (StarbaseShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &StarbaseShipCustomizeInterface::Unknown_61E730;
+	StarbaseShipCustNotifierClass *notifier = (StarbaseShipCustNotifierClass *)&GadgetClass::Get_Signal_Map();
+	notifier->Add(0, new StarbaseShipCustCallbackClass(this, function));
+	SClient *client = Client->As_Space_Client();
+	client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 11, 0));
+}
 
 // @0x6193A0
 void StarbaseShipCustomizeInterface::Unknown_60()
@@ -131,7 +256,7 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 // @0x61AC20
 void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
 {
-	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin();
 	while (it != Gadgets.end()) {
 		it->second.Gadget->Unknown_40(on);
 		if (it->second.Style != NULL) {
@@ -162,7 +287,7 @@ void StarbaseShipCustomizeInterface::Unknown_61ADA0(int id, const char *name, co
 	RenderObjClass *sub = Mesh->Peek_Object()->Get_Sub_Object_By_Name(name);
 	Unknown_496AE0(sub, 0);
 	GadgetClass *button = new ButtonGadgetClass(sub, *Layer, 5, 3);
-	ShipCustGadgetStruct entry;
+	StarbaseShipCustGadgetStruct entry;
 	entry.Gadget = button;
 	entry.Name = name;
 	entry.Style = style;
@@ -170,7 +295,7 @@ void StarbaseShipCustomizeInterface::Unknown_61ADA0(int id, const char *name, co
 	entry.Key = key;
 	entry.Group = group;
 	entry.Selected = false;
-	Gadgets.insert(std::map<int, ShipCustGadgetStruct>::value_type(id, entry));
+	Gadgets.insert(std::map<int, StarbaseShipCustGadgetStruct>::value_type(id, entry));
 	Unknown64.Unknown_6870E0(button, id, View, 1, 0);
 	if (key != 0) {
 		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(key), (void *)id);
@@ -247,7 +372,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BAC0(int id)
 // @0x61BC50
 int StarbaseShipCustomizeInterface::Unknown_61BC50(short group)
 {
-	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin();
 	while (it != Gadgets.end()) {
 		if (it->second.Group == group && it->second.Selected) {
 			return(it->second.Id);
@@ -261,7 +386,7 @@ int StarbaseShipCustomizeInterface::Unknown_61BC50(short group)
 void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 {
 	bool found = false;	// set, never read (D130): as ui_shipcust.cpp's 0x6259C0, its weight keeps 0x61BAC0, which inlines this loop, calling _Inc out of line as the client does
-	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin();
 	while (it != Gadgets.end()) {
 		if (it->second.Group == group) {
 			it->second.Gadget->Unknown2C_0B = 0;
@@ -356,12 +481,17 @@ void StarbaseShipCustomizeInterface::Unknown_61E8B0()
 	client->Unknown_74C960(client->AvatarID);
 }
 
-// Notes (CS21, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts at lines 712,
-// 1108, 2017 and 2020: the functions holding them are not in yet, so nothing here sits on their lines). Its
-// window: the class's functions from about 0x6186A0 (the destructor, called by the deleting one 0x618540) and the
-// constructor 0x618CA0 to 0x61E8E0; 0x6181B0 ('BUY_SHIP01', called from sbaseview.cpp) may be its first.
-// The class's members past the bases are placed only as far as these functions read them. decal.h's inlines whose
-// client copies sit here: 0x61DF40 is emitted here now (0x61DBF0 calls it; ui_shipcust.cpp's 0x6280E0 emits it
-// too, so verify shares it); 0x618A50, 0x618C10 and 0x619280 still come only from ui_shipcust.cpp (interim, D137)
-// until their callers here are in (the destructor 0x6186A0, the constructor 0x618CA0). The map's template copies
-// 0x61F760-0x620B30 (ShipCustGadgetStruct's std::map) are this object's too.
+// Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts
+// at lines 712, 1108, 2017 and 2020: the functions holding them are not in yet, so nothing here sits on their lines).
+// Its window: the constructor 0x6181B0 ('BUY_SHIP01', called from sbaseview.cpp's 0x69F8F0; not in yet), the
+// settings' constructor 0x618500 (its ??_H target), the deleting destructor 0x618540, the map's destructor 0x618570,
+// the destructor 0x6186A0, then slot +0x54 0x618CA0 (InterfaceClass's after-construction call, not a constructor) and
+// the class's functions to 0x61E8E0, the map's template copies 0x61F760-0x620B30 and the static initialiser 0x620CA0.
+// The members follow the constructor 0x6181B0 (its stores) and the destructor's EH states (+0x240, the map, +0x304,
+// the two MoneyClass at +0x320 / +0x328: 0x4A7780 in the unwind funclets).
+// decal.h's inlines whose client copies sit here are emitted here: 0x618A50 / 0x618C10 (the destructor's delete of
+// the decal library), 0x619280 (slot +0x54's new) and 0x61DF40 (0x61DBF0); ui_shipcust.cpp emits the same COMDATs,
+// so verify shares them (D137's interim placement there is settled).
+// The gadget map's element is this file's own StarbaseShipCustGadgetStruct, not ui_shipcust.h's ShipCustGadgetStruct:
+// the client's two maps are separate instantiations (this file's _Nil / _Nilrefs 0xBE5E28 / 0xBE5E24 in 0x618570 and
+// 0x6209D0, ui_shipcust.cpp's 0xBE5E44 in 0x629B70).

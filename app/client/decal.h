@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\decal.h, the decal library of decal.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\decal.cpp'; this header's name is provisional, NAME 1). sclient.cpp and scriptedmovie.cpp
 // still declare the class locally (the same layout: their vectors are std::vector<int>; their calls of the inlines
-// below link to the out-of-line copies that ui_shipcust.cpp and decal.cpp emit).
+// below link to the out-of-line copies that ui_ship_cust.cpp, ui_shipcust.cpp and decal.cpp emit).
 #ifndef DECAL_H  // NAME 1 [decal.h]: provisional header name for decal.cpp
 #define DECAL_H
 
@@ -35,7 +35,7 @@ class SClientUnknown1334Class	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0
 public:
 	~SClientUnknown1334Class() {}						// 0x618A50 (inline, emitted out of line by its users)
 	void Load(const char *decal_texture_ini_filename, const char *decal_swatch_ini_filename, const char *secret_texture_ini_filename);	// 0x75BE00  // NAME 2: what it does
-	RefCountPtr<TextureClass> Unknown_61DF40(int index) { return TextureArray[index]; }	// 0x61DF40 (the insignia's texture; inline, emitted out of line by ui_shipcust.cpp)  // NAME 1 [index]: neutral
+	RefCountPtr<TextureClass> Unknown_61DF40(int index) { return TextureArray[index]; }	// 0x61DF40 (the insignia's texture; inline, emitted out of line by ui_ship_cust.cpp, the client's copy, and ui_shipcust.cpp)  // NAME 1 [index]: neutral
 	void Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc);	// 0x75CB10 (decal index's material, tinted)  // NAME 3 [i, mat_desc]: the FAIL_IFs'; NAME 1 [color]: neutral
 
 	std::vector<RefCountPtr<TextureClass> > TextureArray;	// +0x00 (the FAIL_IF's name)

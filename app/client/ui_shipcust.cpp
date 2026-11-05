@@ -61,8 +61,8 @@ public:
 };
 typedef SignalBaseClass::MemberCallback<GadgetClass, ShipCustomizeInterface, void (ShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> ShipCustCallbackClass;	// NAME 1 [ShipCustCallbackClass]: neutral (D10); vtable 0xAF7970
 
-// The decal library (decal.h): its header inlines that this file calls out of line are emitted here, as the client's
-// object of this neighbourhood emits them (0x618A50, 0x618C10, 0x619280, 0x61DF40)
+// The decal library (decal.h): its header inlines that this file calls out of line are emitted here too (COMDATs; the
+// client's copies 0x618A50, 0x618C10, 0x619280, 0x61DF40 sit in ui_ship_cust.cpp's object, which emits them as well)
 #include "decal.h"
 
 
