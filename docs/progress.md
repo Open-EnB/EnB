@@ -15,7 +15,9 @@ Newest first within each section. Dates are when the entry was written.
 - **build.py:** library builds stopped at wwlib since P-B2's FILE_FLAGS (rawfile.cpp `/GX`, 2026-11-02): one `cl` per
   flag set now. All eleven libraries built (0 failed). No library source changed, so no verify / pairs_cmp.
 - Traps filed (workflow.md 3.7). PR on branch `kerneltest-link`.
-- **Next session:** one more section 4 item.
+- **Next session:** after #161 merges, one section 4 item: POC character creation's leftovers, starting with the smallest
+  (ui_avatar_cust.cpp:63 declares 0x495FD0 `void`, ro_funcs's is `bool`: retype so it links to the real function, as
+  c759a57b did for ui_avsel's 0x496110; check with `.work/coord/pocfull.sh`). The Create_Get item is done (#159).
 
 ### 2026-11-04 (evening): P-CGP-1 applied (D192); +58 pairs, +2 tie-break, 1 accepted loss
 
