@@ -2539,6 +2539,14 @@ below name only the work items, the blocked work, the leads and the queues.
      FPU). ui_combobox.cpp's stand-in GadgetClass -> the real gadget.h (then gd_slider.h can be included; the rows and the
      text field +0x5C bit 4 / +0x61 / +0x68 FontSys * belong to an unidentified derived gadget); ui_manu.cpp holds the
      same kind of stand-in.
+   * ui_ship_cust.cpp (CS21, 2026-11-05, new: the starbase's buy-ship window StarbaseShipCustomizeInterface, RTTI 0xB89BB0,
+     not character creation's; bases Unknown5BB320Class + ui_shipcust.h's Unknown620D20Class at +0xAC; 17 exact): its ctor
+     0x618CA0 (0x550) and dtor 0x6186A0 next (then decal.h's 0x618A50 / 0x618C10 / 0x619280 move here from ui_shipcust.cpp,
+     a D66 move; 0x61DF40 is emitted by both already); 0x61DF80 (0x611: three stored Matrix3D at +0x244 / +0x274 / +0x2A4),
+     0x61B170, 0x61AFC0 (needs pkrecustomize.h's 0x849AC0), the assert functions 0x61A4D0 / 0x61B760 / 0x61E730, 0x61BD80;
+     0x61E8B0 NOT EXACT (register, parked); its methods continue past the claim (0x61E8E0, 0x61F0E0, 0x61F180,
+     RECUSTOMIZE_SHIP_START 0x61F250; the ShipCustGadgetStruct map's copies 0x61F760-0x620B30): claim to ~0x61F640.
+     sbaseview.h's SBaseViewUnknown1A0Class is this class: rename it and move the declaration into a ui_ship_cust.h.
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42); swatch (negative) and secret decals untested; the functional
      NOT EXACT functions toward exact: decal Load 0x75BE00 (0.46, shape: the client spills &Unknown30 ([esp+0x24], reloaded
@@ -2547,7 +2555,7 @@ below name only the work items, the blocked work, the leads and the queues.
      (same body as Create_Get 0x47D040; the name is a guess until another caller of 0x75CFA0 is read: proj_decal_manager
      0x7633E0, galaxy map 0x7B2B30); decal.h's inline Unknown619280Class ctor / dtor, ~SClientUnknown1334Class and
      Unknown_61DF40 are emitted out of line by ui_shipcust.cpp (interim, D137): the client's copies sit in ui_ship_cust.cpp
-     (0x6186A0-0x61E8xx, not in the tree), which takes them over when it gets a file (a D66 move); decal.cpp's 0x82EF70
+     (in the tree since 2026-11-05; it takes them over with its ctor / dtor, see its bullet); decal.cpp's 0x82EF70
      stays interim (it sits near udpconn / chartemplate); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 (LIMIT REACHED;
      by-value signatures landed 5e63a2c2: frame 0x30 vs 0x2C, ebp pushed per case, case 0's Unknown054 test branches the
      other way), 0x624E50 0.68;
