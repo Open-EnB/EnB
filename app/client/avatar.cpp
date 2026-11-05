@@ -640,6 +640,11 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
 }
 
+// 0x77E350: empty (unreferenced; ret 4)
+void CharacterViewAvatarClass::Unknown_77E350(int a)
+{
+}
+
 // 0x77E370
 void CharacterViewAvatarClass::Unknown_77E370(const char *name)
 {
@@ -657,11 +662,6 @@ void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 {
 	Unknown204 = a;
 }
-
-
-
-
-
 
 
 
@@ -2827,6 +2827,40 @@ void CharacterViewAvatarClass::Unknown_785040()
 	}
 }
 
+// 0x785080: +0xE8 emptied, then one block by kind (0 type 6, 1 type 7, 2 type 4, 3 type 5, 4..7 type 3 with
+// value 0..3) and the end block (unreferenced)
+void CharacterViewAvatarClass::Unknown_785080(int kind)
+{
+	Unknown0E8.Unknown_4C44A0();
+	switch (kind) {
+		case 0:
+			Unknown0E8.Unknown_4C45B0(6, 0, NULL, 0);
+			break;
+		case 1:
+			Unknown0E8.Unknown_4C45B0(7, 0, NULL, 0);
+			break;
+		case 2:
+			Unknown0E8.Unknown_4C45B0(4, 0, NULL, 0);
+			break;
+		case 3:
+			Unknown0E8.Unknown_4C45B0(5, 0, NULL, 0);
+			break;
+		case 4:
+			Unknown0E8.Unknown_4C45B0(3, 0, NULL, 0);
+			break;
+		case 5:
+			Unknown0E8.Unknown_4C45B0(3, 1, NULL, 0);
+			break;
+		case 6:
+			Unknown0E8.Unknown_4C45B0(3, 2, NULL, 0);
+			break;
+		case 7:
+			Unknown0E8.Unknown_4C45B0(3, 3, NULL, 0);
+			break;
+	}
+	Unknown0E8.Unknown_4C4410();
+}
+
 // 0x785450
 void CharacterViewAvatarClass::Unknown_785450(float yaw, float pitch)
 {
@@ -2872,40 +2906,6 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 	BodyObj->Capture_Bone(bone);
 	BodyObj->Control_Bone(bone, m, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3112,6 +3112,11 @@ void CharacterViewAvatarClass::Unknown_785F20(bool on)
 	}
 }
 
+// 0x7860A0: empty (unreferenced)
+void CharacterViewAvatarClass::Unknown_7860A0()
+{
+}
+
 // 0x7860C0
 // (bool: mov al, 1 / xor al, al)
 bool CharacterViewAvatarClass::Unknown_7860C0()
@@ -3288,6 +3293,21 @@ void CharacterViewAvatarClass::Unknown_786E60()
 		Unknown20C = 2;
 		Unknown214 = true;
 	}
+}
+
+// 0x787130: the transform +0x330 set, then skel_reference's raised by +0x234 + 2, turned by +0x310 about Z, moved
+// 11 back and pitched by +0x30C + 0.3 (unreferenced)
+// NOT EXACT: order-only (the client keeps the copied m[2][3] on the FPU stack, fadd st(1) then fstp st(0), where ours pops: 0.93)
+Matrix3D CharacterViewAvatarClass::Unknown_787130()
+{
+	Set_Transform(Unknown330);
+	Matrix3D m = BodyObj->Get_Bone_Transform("skel_reference");
+	m.Adjust_Z_Translation(Unknown234 + 1.0f);
+	m.Adjust_Z_Translation(1.0f);
+	m.Rotate_Z(Unknown310);
+	m.Adjust_Translation(m.Get_X_Vector() * -11.0f);
+	m.Rotate_Y(Unknown30C + 0.3f);
+	return(m);
 }
 
 // 0x787DE0
@@ -3615,26 +3635,6 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C = 0.0f;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

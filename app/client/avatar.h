@@ -71,6 +71,10 @@ public:
 	void Unknown_781840(const void *data, int size);	// 0x781840 (+0xE8 emptied, then the bytes copied in; 0x784B80 inlines it)  // NAME 1 [data, size]: neutral
 	void Unknown_77E370(const char *name);				// 0x77E370 (Desc's First_Name through 0x4C1460, converted; unreferenced)  // NAME 1 [name]: neutral
 	void Unknown_77E3A0(const char *name);				// 0x77E3A0 (Desc's Last_Name through 0x4C15F0, converted; unreferenced)  // NAME 1 [name]: neutral
+	void Unknown_785080(int kind);						// 0x785080 (+0xE8 emptied, one block by kind, the end block; unreferenced)  // NAME 1 [kind]: neutral
+	void Unknown_77E350(int a);							// 0x77E350 (empty; unreferenced)  // NAME 1 [a]: neutral
+	void Unknown_7860A0();								// 0x7860A0 (empty; unreferenced)  // NAME 1: neutral
+	Matrix3D Unknown_787130();							// 0x787130 (+0x330 set; skel_reference raised, turned by +0x310, 11 back, pitched by +0x30C + 0.3; unreferenced)  // NAME 1: neutral
 	void Unknown_785450(float yaw, float pitch);		// 0x785450 (+0x250 / +0x258, the head's look-at angles; unreferenced)  // NAME 1 [yaw, pitch]: 0x7854B0's use of them
 	void Unknown_785480();								// 0x785480 (+0x250 / +0x258 / +0x264 / +0x268 cleared; 0x781EA0 inlines it)  // NAME 1: neutral
 	void Unknown_7862D0();								// 0x7862D0 (SpeechSound stopped and released; 0x7861B0 inlines it; 0x784E00 writes it out: through it the dtor loses its out-of-line operator= 0x6A2610)  // NAME 1: neutral
