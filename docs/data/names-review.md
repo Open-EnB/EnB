@@ -5501,19 +5501,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D8B90Class` | `app/client/shiputils.cpp:299` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/shiputils.cpp:300` | untagged neutral name (D10) |
 | 1 | `Unknown_810750` | `app/client/shiputils.cpp:316` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/shiputils.cpp:373` | what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro) |
-| 1 | `Unknown_80EAF0` | `app/client/shiputils.cpp:373` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/shiputils.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown619280Class` | `app/client/shiputils.cpp:408` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/shiputils.cpp:409` | untagged neutral name (D10) |
-| 1 | `Unknown_75CB10` | `app/client/shiputils.cpp:411` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/shiputils.cpp:411` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/shiputils.cpp:427` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/shiputils.cpp:428` | untagged neutral name (D10) |
-| 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:433` | neutral (D10): inline in 0x80E8C0 |
-| 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:446` | untagged neutral name (D10) |
-| 1 | `Unknown_80F020` | `app/client/shiputils.cpp:473` | neutral (D10); NAME 1 [all]: as 0x80FD10's |
-| 1 | `Unknown_80EFF0` | `app/client/shiputils.cpp:511` | untagged neutral name (D10) |
+| 1 | `Unknown_80EAF0` | `app/client/shiputils.cpp:368` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/shiputils.cpp:368` | untagged neutral name (D10) |
+| 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:370` | neutral (D10): inline in 0x80E8C0 |
+| 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:423` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/shiputils.cpp:438` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/shiputils.cpp:452` | what 0x80E8C0 passes (the name in parentheses: clienttest.py stands the calls in by a macro) |
+| 1 | `Unknown619280Class` | `app/client/shiputils.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/shiputils.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/shiputils.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/shiputils.cpp:506` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/shiputils.cpp:507` | untagged neutral name (D10) |
+| 1 | `Unknown_80F020` | `app/client/shiputils.cpp:516` | neutral (D10); NAME 1 [all]: as 0x80FD10's |
+| 1 | `Unknown_80EFF0` | `app/client/shiputils.cpp:554` | untagged neutral name (D10) |
 | 1 | `shiputils.h` | `app/client/shiputils.h:4` | provisional header name for shiputils.cpp |
 | 1 | `SClientUnknown1334Class` | `app/client/shiputils.h:14` | untagged neutral name (D10) |
 | 1 | `model, decals, decal_ini` | `app/client/shiputils.h:17` | as cpacket.cpp's |

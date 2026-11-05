@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-601 entries in 131 files.
+600 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -238,10 +238,9 @@ edit the comments in the code, not this file.
 | `app/client/shiputils.cpp:111` | `Unknown_80FD10` | marker | NOT EXACT: functional for POC (D64), not compared |
 | `app/client/shiputils.cpp:290` | `Unknown_80FF20` | marker | NOT EXACT: functional (D64), from the pseudocode @0x80FF20 |
 | `app/client/shiputils.cpp:314` | `Unknown_810750` | marker | NOT EXACT: functional (D64), from the pseudocode @0x810750 |
-| `app/client/shiputils.cpp:368` | `void` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
-| `app/client/shiputils.cpp:444` | `Unknown_80E8C0` | marker | NOT EXACT: functional (D64), from the pseudocode: the decals sorted into their slots, the coordinates clamped @0x80E8C0 |
-| `app/client/shiputils.cpp:470` | `Unknown_80F020` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones @0x80F020 |
-| `app/client/shiputils.cpp:509` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
+| `app/client/shiputils.cpp:447` | `void` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
+| `app/client/shiputils.cpp:513` | `Unknown_80F020` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones @0x80F020 |
+| `app/client/shiputils.cpp:552` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
 | `app/client/signal_map.cpp:36` | `Unknown_4F7EF0` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:45` | `Unknown_4F7F60` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:54` | `SignalList::SignalList` | marker | NOT EXACT: functional (shape) |

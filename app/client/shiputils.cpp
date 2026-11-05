@@ -365,6 +365,85 @@ void Unknown_810750(RenderObjClass *robj, bool on)
 // The decals by slot (0x18 bytes each, 16 slots: DecalStruct's layout, the slot in +0x00, 0x7FFFFFF in +0x04 for none)
 #define MAX_NUM_DECAL_SLOTS 16	// NAME 3: the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS'
 
+static void (Unknown_80EAF0)(RenderObjClass *robj, DecalStruct *slots, SClientUnknown1334Class *decal_ini);	// 0x80EAF0, defined after 0x80E8C0 (the client's order)
+
+static float Unknown_Clamp01(float value)	// NAME 1: neutral (D10): inline in 0x80E8C0
+{
+	if (value < 0.0f) {
+		return 0.0f;
+	}
+	if (value > 1.0f) {
+		return 1.0f;
+	}
+	return value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x80E8C0
+void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini)
+{
+	DecalStruct slots[MAX_NUM_DECAL_SLOTS];
+	int i;
+	for (i = 0; i < MAX_NUM_DECAL_SLOTS; i++) {
+		slots[i].Unknown04 = 0x7FFFFFF;
+	}
+	int count = decals.size();
+	for (i = 0; i < count; i++) {
+		unsigned int slot = decals[i].Unknown00;
+		FAIL_IF(slot >= MAX_NUM_DECAL_SLOTS) {	/*@L433*/
+			slot = MAX_NUM_DECAL_SLOTS - 1;
+		}
+		slots[slot] = decals[i];
+		slots[slot].Unknown00 = slot;
+		slots[slot].Unknown08.X = Unknown_Clamp01(slots[slot].Unknown08.X);
+		slots[slot].Unknown08.Y = Unknown_Clamp01(slots[slot].Unknown08.Y);
+		slots[slot].Unknown08.Z = Unknown_Clamp01(slots[slot].Unknown08.Z);
+		slots[slot].Unknown08.W = Unknown_Clamp01(slots[slot].Unknown08.W);
+	}
+	Unknown_80EAF0(model, slots, decal_ini);
+}
+
+
 // NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an
 // empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two
 // texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its
@@ -428,42 +507,6 @@ static void (Unknown_80EAF0)(RenderObjClass *robj, DecalStruct *slots, SClientUn
 		model->Set_Single_Material(mat_desc.Unknown34[pass].Peek(), pass);
 		matinfo->Add_Vertex_Material(mat_desc.Unknown34[pass].Peek());
 	}
-}
-
-static float Unknown_Clamp01(float value)	// NAME 1: neutral (D10): inline in 0x80E8C0
-{
-	if (value < 0.0f) {
-		return 0.0f;
-	}
-	if (value > 1.0f) {
-		return 1.0f;
-	}
-	return value;
-}
-
-// NOT EXACT: functional (D64), from the pseudocode: the decals sorted into their slots, the coordinates clamped
-// @0x80E8C0
-void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini)
-{
-	DecalStruct slots[MAX_NUM_DECAL_SLOTS];
-	int i;
-	for (i = 0; i < MAX_NUM_DECAL_SLOTS; i++) {
-		slots[i].Unknown04 = 0x7FFFFFF;
-	}
-	int count = decals.size();
-	for (i = 0; i < count; i++) {
-		unsigned int slot = decals[i].Unknown00;
-		FAIL_IF(slot >= MAX_NUM_DECAL_SLOTS) {	/*@L433*/
-			slot = MAX_NUM_DECAL_SLOTS - 1;
-		}
-		slots[slot] = decals[i];
-		slots[slot].Unknown00 = slot;
-		slots[slot].Unknown08.X = Unknown_Clamp01(slots[slot].Unknown08.X);
-		slots[slot].Unknown08.Y = Unknown_Clamp01(slots[slot].Unknown08.Y);
-		slots[slot].Unknown08.Z = Unknown_Clamp01(slots[slot].Unknown08.Z);
-		slots[slot].Unknown08.W = Unknown_Clamp01(slots[slot].Unknown08.W);
-	}
-	Unknown_80EAF0(model, slots, decal_ini);
 }
 
 
