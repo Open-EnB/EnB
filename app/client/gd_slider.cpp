@@ -569,7 +569,7 @@ done:
 	return(object.Peek());
 }
 
-// NOT EXACT: register (similarity 0.77): WWMath::Max(+0xBC, 16) keeps a spilled temporary
+// (always.h's MAX reloads +0xBC where WWMath::Max's by-value copy spilled it)
 // @0x66FA90
 void GadgetSlider::Unknown_66FA90(float total, float page, bool a)
 {
@@ -578,7 +578,7 @@ void GadgetSlider::Unknown_66FA90(float total, float page, bool a)
 			UnknownC0 = 0.0f;
 			UnknownC8 = 0.0f;
 			float least = Unknown_B8D438;
-			UnknownCC = WWMath::Max(UnknownBC, least);
+			UnknownCC = MAX(UnknownBC, least);
 		} else if (page < 0.0001f) {
 			UnknownC8 = 0.0f;
 			UnknownC0 = total;
