@@ -453,7 +453,7 @@ void LoginTaskClass::Process_Packets()
 	}
 }
 
-// NOT EXACT: inline budget (the client inlines AvatarDescClass's implicit assignment and calls the 0x160 object's constructor 0x7688F0; ours the reverse; the two trade against one budget: a cheaper assignment (POD/grouped Vector3s) inlines it and puts the constructor out of line, exact at 0x7688F0, but changes the copy's bytes; attempts.py show 0x7683F0)
+// NOT EXACT: register-only (the client recomputes the slot index for Is_Registered_Character; the operator= / 0x7688F0 trade is settled (0x7688F0 exact); attempts.py show 0x7683F0)
 // 0x7683F0
 void LoginTaskClass::Unknown_50()
 {
@@ -641,7 +641,7 @@ void LoginTaskClass::Set_Step(int step, bool force)
 	}
 }
 
-// NOT EXACT: register-only (0.36; the client keeps 1 in ebx and the slot's address, and re-reads the ID in Is_Registered_Character; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500)
+// NOT EXACT: register-only (the client keeps 1 in ebx from before the jump table for every flag store and step 1, as Go_Back_Step; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500)
 // 0x769500
 void LoginTaskClass::Go_Next_Step()
 {

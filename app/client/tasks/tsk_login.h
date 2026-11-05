@@ -145,7 +145,7 @@ public:
 
 	int Get_Selected() { return(Selected); }			// 0x55D860 (out of line in ui_avsel.cpp's window, called by its 0x55D060)  // NAME 1: what it returns
 	AvatarDescClass *Get_Avatar_Descs() { return(Unknown0350); }	// 0x55D880 (likewise)  // NAME 1: what it returns
-	bool Is_Registered_Character() { return Characters[Selected].ID != 0 && Characters[Selected].Galaxy_ID >= 0; }	// (the assert '!Is_Registered_Character()')  // NAME 1 [Galaxy_ID]: 0x769400 looks it up in the galaxies
+	bool Is_Registered_Character() { LoginCharacterClass *c = &Characters[Selected]; return c->ID != 0 && c->Galaxy_ID >= 0; }	// (through the slot's address: 0x769500 / 0x7683F0 re-read the ID as the client) (the assert '!Is_Registered_Character()')  // NAME 1 [Galaxy_ID]: 0x769400 looks it up in the galaxies
 	void Unknown_7692A0();								// 0x7692A0 ('Avatar %d selected.  Ticket request sent.')
 	void Unknown_7693E0();								// 0x7693E0: Step 17
 	void Set_Username(const char *name);				// 0x7697A0 (ClientTaskClass hands it back)  // NAME 1: what it does
