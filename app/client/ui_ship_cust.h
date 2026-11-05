@@ -54,6 +54,7 @@ public:
 	void Unknown_61AC20(bool on);						// 0x61AC20 (the gadgets on or off, their texts dimmed: as ui_shipcust.cpp's 0x6249D0)  // NAME 1 [on]: neutral
 	void Unknown_61AD30(const char *style, bool on);	// 0x61AD30 (a style shown or hidden: as 0x624AE0)  // NAME 1 [style, on]: neutral
 	void Unknown_61ADA0(int id, const char *name, const char *style, short key, short group);	// 0x61ADA0 (a button of the model's sub-object into the map: as 0x624B50)  // NAME 1 [all]: as ui_shipcust.h's
+	void Unknown_61AFC0();								// 0x61AFC0 (the ship rebuilt and handed to the preview, then priced: as ui_shipcust.cpp's 0x624D70)
 	void Unknown_61AF50();								// 0x61AF50 (the map emptied: as 0x624D00)
 	void Unknown_61B0F0();								// 0x61B0F0 (the parts' colours onto the model, then 0x61F180)
 	void Unknown_61B130();								// 0x61B130 (the insignia onto the model, then 0x61F180)

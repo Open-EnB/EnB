@@ -60,6 +60,9 @@ public:
 	bool Unknown08;										// +0x08 (dragging)
 	float Unknown0C;									// +0x0C (0.5)
 };
+// The hull and wing styles' texts (0xB894C0, 0xB894CC)
+static const char *Unknown_B894C0[3] = { "HULL00_buy_ship01", "HULL01_buy_ship01", "HULL02_buy_ship01" };	// NAME 1: neutral (D10)
+static const char *Unknown_B894CC[3] = { "WING00_buy_ship01", "WING01_buy_ship01", "WING02_buy_ship01" };	// NAME 1: neutral (D10)
 // The client at InterfaceClass +0x40, as ui_avatar_cust.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -228,6 +231,22 @@ void StarbaseShipCustomizeInterface::Unknown_61AF50()
 	while (Gadgets.begin() != Gadgets.end()) {
 		Unknown64.Unknown_687150(Gadgets.begin()->second.Gadget);
 		Gadgets.erase(Gadgets.begin());
+	}
+}
+
+// @0x61AFC0
+void StarbaseShipCustomizeInterface::Unknown_61AFC0()
+{
+	if (Unknown334) {
+		SClient *client = SBaseView->Client;
+		Unknown_621790(client->Peek_Environment_Map_Manager(), Unknown318, Unknown330);
+		if (Unknown2E0->Unknown054.Peek() == NULL) {
+			InterfaceSortScopeClass sort(this);
+			Unknown2E0->Unknown_7C(Unknown160);
+		} else {
+			Unknown2E0->Unknown_84(Unknown160);
+		}
+		Unknown_61F180();
 	}
 }
 
@@ -477,6 +496,36 @@ void StarbaseShipCustomizeInterface::Unknown_61F180()
 {
 	if (Unknown334) {
 		Unknown328 = Unknown338.Unknown_849AC0(&Unknown36C, &Desc);
+	}
+}
+
+// NOT EXACT: functional (D64)
+// @0x61F250
+void StarbaseShipCustomizeInterface::Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d)
+{
+	Unknown174 = a;
+	Unknown334 = true;
+	Unknown178 = b;
+	Unknown17C = c;
+	Unknown180 = d;
+	Unknown36C = *desc;
+	Desc = *desc;
+	if (Desc.Selected_Decal != 0x7FFFFFF) {
+		Unknown318 = (Desc.Selected_Decal >= 0) ? Desc.Selected_Decal + 1 : Desc.Selected_Decal;
+	}
+	Unknown338 = *cost;
+	Unknown_61AFC0();
+	Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
+	Unknown_61F180();
+	Unknown_621390(Unknown318, Unknown330);
+	Unknown_61F180();
+	Unknown_621500();
+	int i;
+	for (i = 0; i < 3; i++) {
+		Unknown_61AD30(Unknown_B894C0[i], i == Desc.Hull_Style);
+	}
+	for (i = 0; i < 3; i++) {
+		Unknown_61AD30(Unknown_B894CC[i], i == Desc.Wing_Style);
 	}
 }
 
