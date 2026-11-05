@@ -1624,7 +1624,7 @@ void ShipCustomizeInterface::Unknown_6257A0(int id)
 {
 
 	Unknown_6259C0(Gadgets[id].Group);
-	Gadgets.size();	// dead read (D130): spends the inline budget so that 0x6259C0 inlined here calls _Inc out of line, as the client
+
 
 
 
@@ -1652,12 +1652,14 @@ int ShipCustomizeInterface::Unknown_625930(short group)
 // @0x6259C0
 void ShipCustomizeInterface::Unknown_6259C0(short group)
 {
+	bool found = false;	// set, never read (D130): its weight keeps 0x6257A0, which inlines this loop, calling _Inc out of line as the client does
 	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
 	while (it != Gadgets.end()) {
 		if (it->second.Group == group) {
 			it->second.Gadget->Unknown2C_0B = 0;
 			it->second.Gadget->Unknown_6607D0();
 			it->second.Selected = false;
+			found = true;
 		}
 		it++;
 	}
@@ -2002,12 +2004,27 @@ void ShipCustomizeInterface::Unknown_627730(float r, float g, float b)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6277A0
 void ShipCustomizeInterface::Unknown_6277A0()
 {
 	int i;
 	switch (Page) {
+		case 2:
+		{
+			unsigned int count = Unknown268->Unknown00.size();
+			bool right = (unsigned int)Unknown260 < count - 9;
+			bool left = (unsigned int)Unknown260 > 0;
+			if (Gadgets[0x2A].Gadget->Unknown_60() != right) {
+				Gadgets[0x2A].Gadget->Unknown_40(right);
+			}
+			if (Gadgets[0x29].Gadget->Unknown_60() != left) {
+				Gadgets[0x29].Gadget->Unknown_40(left);
+			}
+			Unknown_6257A0(2);
+			return;
+		}
+
 		case 0:
 			for (i = 0; i < 3; i++) {
 				Unknown_624AE0(Unknown_B89C80[i], i == Desc.Hull_Style);
@@ -2019,47 +2036,40 @@ void ShipCustomizeInterface::Unknown_6277A0()
 			return;
 
 		case 1:
-			Unknown_6257A0((Unknown25C == 0) ? 0x15 : 0x16);
-			Unknown_6257A0(*Unknown_6271A0() ? 0x10 : 0x11);
+			if (Unknown25C == 0) {
+				Unknown_6257A0(0x15);
+			} else {
+				Unknown_6257A0(0x16);
+			}
+			if (*Unknown_6271A0()) {
+				Unknown_6257A0(0x10);
+			} else {
+				Unknown_6257A0(0x11);
+			}
 			switch (Unknown258) {
 				case 0:
 					Unknown_6257A0(0x17);
 					break;
-				case 1:
-					Unknown_6257A0(0x19);
-					break;
 				case 2:
 					Unknown_6257A0(0x18);
+					break;
+				case 1:
+					Unknown_6257A0(0x19);
 					break;
 				case 3:
 					Unknown_6257A0(0x1A);
 					break;
 			}
-			Unknown24C->Pull->Set_Hidden(*Unknown_6271D0() != METAL_NONE);
-			if (*Unknown_6271D0() == METAL_NONE) {
-				Gadgets[0x11].Gadget->Unknown_40(true);
-				Gadgets[0x10].Gadget->Unknown_40(true);
-			} else {
+			Unknown_625760(*Unknown_6271D0() == METAL_NONE);
+			if (*Unknown_6271D0() != METAL_NONE) {
 				Gadgets[0x11].Gadget->Unknown_40(false);
 				Gadgets[0x10].Gadget->Unknown_40(false);
+			} else {
+				Gadgets[0x11].Gadget->Unknown_40(true);
+				Gadgets[0x10].Gadget->Unknown_40(true);
 			}
 			Unknown_6257A0(4);
 			return;
-
-		case 2:
-		{
-			unsigned int count = Unknown268->Unknown00.size();
-			bool right = (unsigned int)Unknown260 < count - 9;
-			bool left = Unknown260 != 0;
-			if (Gadgets[0x2A].Gadget->Unknown_60() != right) {
-				Gadgets[0x2A].Gadget->Unknown_40(right);
-			}
-			if (Gadgets[0x29].Gadget->Unknown_60() != left) {
-				Gadgets[0x29].Gadget->Unknown_40(left);
-			}
-			Unknown_6257A0(2);
-			return;
-		}
 
 		case 3:
 			Unknown_6257A0(3);
@@ -2147,16 +2157,6 @@ bool ShipCustomizeInterface::Unknown_78(void *arg)
 	}
 	return(true);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

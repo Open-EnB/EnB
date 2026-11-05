@@ -9830,16 +9830,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1631` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/ui_shipcust.cpp:1632` | untagged neutral name (D10) |
 | 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1639` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1659` | untagged neutral name (D10) |
-| 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1700` | untagged neutral name (D10) |
-| 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1800` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1839` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `app/client/ui_shipcust.cpp:1839` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1862` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1875` | untagged neutral name (D10) |
-| 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1881` | untagged neutral name (D10) |
-| 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1943` | untagged neutral name (D10) |
-| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:2129` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1660` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1702` | untagged neutral name (D10) |
+| 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1802` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1864` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1877` | untagged neutral name (D10) |
+| 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1883` | untagged neutral name (D10) |
+| 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1945` | untagged neutral name (D10) |
+| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:2139` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_shipcust.cpp:2535` | untagged neutral name (D10) |
 | 1 | `ui_shipcust.h` | `app/client/ui_shipcust.h:4` | provisional header name for ui_shipcust.cpp |
 | 1 | `SClientUnknown1334Class` | `app/client/ui_shipcust.h:20` | untagged neutral name (D10) |
