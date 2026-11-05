@@ -206,11 +206,11 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 
 		// 2. Build collision object
 		if (WW3DAssetManager::Get_Instance()) {
-			CollisionObj = WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision");
+			CollisionObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
 			if (CollisionObj) {
-				Unknown_496AE0(CollisionObj, true);
+				Unknown_496AE0(CollisionObj.Peek(), true);
 				if (BodyObj) {
-					BodyObj->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
+					BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
 				}
 			}
 		}
@@ -417,9 +417,9 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 			WeaponBack = NULL;
 		}
 		if (CollisionObj) {
-			BodyObj->Remove_Sub_Object(CollisionObj);
-			CollisionObj->Release_Ref();
+			BodyObj->Remove_Sub_Object(CollisionObj.Peek());
 			CollisionObj = NULL;
+
 		}
 		if (HeadObj) {
 			BodyObj->Remove_Sub_Object(HeadObj.Peek());
@@ -450,8 +450,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (CollisionObj) {
-		CollisionObj->Release_Ref();
 		CollisionObj = NULL;
+
 	}
 	if (HairSource) {
 		HairSource->Release_Ref();
@@ -769,7 +769,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique);
 		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip);
 		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack);
-		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj);
+		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj.Peek());
 		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4);
 		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
 		BodyObj->Remove();
@@ -807,7 +807,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	if (HeadObj) BodyObj->Add_Sub_Object_To_Bone(HeadObj.Peek(), "K_HEAD");
 	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique, "WEAPON02");
 	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack, "WEAPON03");
-	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
+	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
 	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4, "skel_reference");
 	if (Desc.Gender == 0 && WeaponHip) {
 		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON01");

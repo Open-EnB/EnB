@@ -187,7 +187,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RefCountPtr<RenderObjClass> BodySource;	// +0x2B4  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> HeadObj;				// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
 	RenderObjClass *BodyObj;							// +0x2BC  // NAME 2: '!HeadSource || !BodyObj' assert (0x786370 / 0x7863E0)
-	RenderObjClass *CollisionObj;						// +0x2C0  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> CollisionObj;	// +0x2C0  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2C4;							// +0x2C4
 	RenderObjClass *HairSource;							// +0x2C8  // NAME 1: neutral (D10)
 	RenderObjClass *Unknown2CC;							// +0x2CC
