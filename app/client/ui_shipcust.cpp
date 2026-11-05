@@ -61,26 +61,26 @@ public:
 };
 typedef SignalBaseClass::MemberCallback<GadgetClass, ShipCustomizeInterface, void (ShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> ShipCustCallbackClass;	// NAME 1 [ShipCustCallbackClass]: neutral (D10); vtable 0xAF7970
 
-// The decal library (0xB8 bytes; sclient.cpp's declaration, with the member this file calls)
-class Unknown619280Class		// NAME 1: neutral (D10): 0x44 bytes, constructor 0x619280
-{
-public:
-	Unknown619280Class();								// 0x619280
-	~Unknown619280Class();
-	char Unknown00[0x44];
-};
-class SClientUnknown1334Class
-{
-public:
-	~SClientUnknown1334Class();							// 0x618A50
-	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00 (decal.cpp)  // NAME 3 [textures, swatches, secret_textures]: the INI names
-	RefCountPtr<TextureClass> Unknown_61DF40(int index);	// 0x61DF40 (the insignia's texture)  // NAME 1 [index]: neutral
-	std::vector<int> Unknown00;							// +0x00 (its size: the insignia count)
-	std::vector<int> Unknown10;							// +0x10
-	std::vector<int> Unknown20;							// +0x20
-	Unknown619280Class Unknown30;						// +0x30
-	Unknown619280Class Unknown74;						// +0x74
-};
+// The decal library (decal.h): its header inlines that this file calls out of line are emitted here, as the client's
+// object of this neighbourhood emits them (0x618A50, 0x618C10, 0x619280, 0x61DF40)
+#include "decal.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The colour palette's pull gadget (0x80 bytes, constructor 0x671300) and the palette with its pull (0x10 bytes,
 // constructor 0x585920), as unknown_585920.cpp declares them (ui_avatr.cpp's names)
@@ -825,7 +825,7 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 			return(false);
 
 		case 0x2A:
-			if ((unsigned int)Unknown260 < Unknown268->Unknown00.size() - 9) {
+			if ((unsigned int)Unknown260 < Unknown268->TextureArray.size() - 9) {
 				Unknown260++;
 			}
 			Unknown_6280E0();
@@ -1801,7 +1801,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_6257A0(2);
 			Unknown_627FA0();
 			{
-				int count = Unknown268->Unknown00.size();
+				int count = Unknown268->TextureArray.size();
 				int first = Unknown264;
 				if (first < 0) {
 					first = 0;
@@ -1961,9 +1961,9 @@ void ShipCustomizeInterface::Unknown_627200()
 
 		case 2:
 		{
-			int count = Unknown268->Unknown00.size();
+			int count = Unknown268->TextureArray.size();
 			Unknown264 = Unknown_BDBB84(1, count);
-			count = Unknown268->Unknown00.size();
+			count = Unknown268->TextureArray.size();
 			if (Unknown264 < count - 10) {
 				Unknown260 = Unknown264;
 			} else {
@@ -2012,7 +2012,7 @@ void ShipCustomizeInterface::Unknown_6277A0()
 	switch (Page) {
 		case 2:
 		{
-			unsigned int count = Unknown268->Unknown00.size();
+			unsigned int count = Unknown268->TextureArray.size();
 			bool right = (unsigned int)Unknown260 < count - 9;
 			bool left = (unsigned int)Unknown260 > 0;
 			if (Gadgets[0x2A].Gadget->Unknown_60() != right) {

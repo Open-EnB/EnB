@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1208 |
+| 3 | by convention from a client-named file or sibling | 1207 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13257 |
+| 1 | neutral placeholder | 13252 |
 
 ## For review (score 3 and below)
 
@@ -1919,21 +1919,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BC260` | `app/client/decal.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_75CB10` | `app/client/decal.cpp:154` | untagged neutral name (D10) |
 | 1 | `epsilon` | `app/client/decal.cpp:169` | neutral; a float variable, not a literal: the client compares with fld / fcompp |
-| 1 | `Unknown_61DF40` | `app/client/decal.cpp:198` | untagged neutral name (D10) |
-| 1 | `decal.h` | `app/client/decal.h:4` | provisional header name for decal.cpp |
-| 1 | `Unknown619280Class` | `app/client/decal.h:18` | neutral (D10): 0x44 bytes, constructor 0x619280 |
-| 1 | `Unknown00` | `app/client/decal.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/decal.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/decal.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/decal.h:27` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/decal.h:32` | neutral (D10): 0xB8 bytes, destructor 0x618A50 |
-| 1 | `index` | `app/client/decal.h:37` | neutral |
-| 1 | `Unknown_61DF40` | `app/client/decal.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_75CB10` | `app/client/decal.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/decal.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/decal.h:44` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/decal.h:47` | neutral |
-| 1 | `Unknown_82EF70` | `app/client/decal.h:47` | untagged neutral name (D10) |
+| 1 | `decal.h` | `app/client/decal.h:5` | provisional header name for decal.cpp |
+| 1 | `Unknown619280Class` | `app/client/decal.h:19` | neutral (D10): 0x44 bytes, constructor 0x619280 |
+| 1 | `Unknown00` | `app/client/decal.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/decal.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/decal.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/decal.h:28` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/decal.h:33` | neutral (D10): 0xB8 bytes, destructor 0x618A50 |
+| 1 | `index` | `app/client/decal.h:38` | neutral |
+| 1 | `Unknown_61DF40` | `app/client/decal.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/decal.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/decal.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/decal.h:45` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/decal.h:48` | neutral |
+| 1 | `Unknown_82EF70` | `app/client/decal.h:48` | untagged neutral name (D10) |
 | 1 | `Converter` | `app/client/deffont.cpp:399` | 0xBE64A4, ConvertClass(Palette, Unknown_B8F870, ...) |
 | 1 | `RemapSizes` | `app/client/deffont.cpp:400` | 0xBE6438, each Remaps row's byte count |
 | 1 | `Remaps` | `app/client/deffont.cpp:401` | 0xBE63CC, fontpal.pcx's rows (byte 0 = 0) |
@@ -9715,15 +9714,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Key` | `app/client/ui_shipcust.cpp:47` | neutral (D10) |
 | 1 | `InterfaceSignalMapClass` | `app/client/ui_shipcust.cpp:56` | neutral (D10): intrface.cpp's |
 | 1 | `ShipCustCallbackClass` | `app/client/ui_shipcust.cpp:62` | neutral (D10); vtable 0xAF7970 |
-| 1 | `Unknown619280Class` | `app/client/ui_shipcust.cpp:65` | neutral (D10): 0x44 bytes, constructor 0x619280 |
-| 1 | `Unknown00` | `app/client/ui_shipcust.cpp:70` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/ui_shipcust.cpp:72` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_shipcust.cpp:77` | neutral |
-| 1 | `Unknown_61DF40` | `app/client/ui_shipcust.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_shipcust.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_shipcust.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/ui_shipcust.cpp:82` | untagged neutral name (D10) |
 | 1 | `UIAvatrUnknown4A1240Class` | `app/client/ui_shipcust.cpp:88` | untagged neutral name (D10) |
 | 1 | `UIAvatrGadget671300Class` | `app/client/ui_shipcust.cpp:89` | neutral (D10), as ui_avatr.cpp's |
 | 1 | `area, a, mesh, b, c, d` | `app/client/ui_shipcust.cpp:92` | as ui_avatr.cpp's |
@@ -9739,6 +9729,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown68` | `app/client/ui_shipcust.cpp:103` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/ui_shipcust.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_shipcust.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/ui_shipcust.cpp:106` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_shipcust.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/ui_shipcust.cpp:108` | untagged neutral name (D10) |
 | 1 | `UIAvatrPullClass` | `app/client/ui_shipcust.cpp:110` | neutral (D10), as ui_avatr.cpp's |
@@ -9755,9 +9746,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown180` | `app/client/ui_shipcust.cpp:140` | untagged neutral name (D10) |
 | 1 | `Unknown_621E20` | `app/client/ui_shipcust.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown_6211D0` | `app/client/ui_shipcust.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_80EFF0` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown160` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_621390` | `app/client/ui_shipcust.cpp:234` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/ui_shipcust.cpp:234` | untagged neutral name (D10) |
 | 1 | `Unknown_80E8C0` | `app/client/ui_shipcust.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown_621500` | `app/client/ui_shipcust.cpp:258` | untagged neutral name (D10) |
 | 1 | `Unknown_80FF20` | `app/client/ui_shipcust.cpp:260` | untagged neutral name (D10) |
@@ -9869,6 +9863,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1877` | untagged neutral name (D10) |
 | 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1883` | untagged neutral name (D10) |
 | 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1947` | untagged neutral name (D10) |
+| 1 | `Unknown_61DF40` | `app/client/ui_shipcust.cpp:2119` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:2139` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_shipcust.cpp:2535` | untagged neutral name (D10) |
 | 1 | `ui_shipcust.h` | `app/client/ui_shipcust.h:4` | provisional header name for ui_shipcust.cpp |
@@ -13559,7 +13554,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
-| 2 | `Load` | `app/client/decal.h:36` | what it does |
+| 2 | `Load` | `app/client/decal.h:37` | what it does |
 | 2 | `DefaultFontData` | `app/client/deffont.cpp:17` | the file's name (deffont) and FontData[0] |
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
@@ -16357,7 +16352,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
 | 3 | `decal.cpp` | `app/client/decal.cpp:15` | the FAIL_IF's 'i - SECRET_DECALS' |
-| 3 | `i, mat_desc` | `app/client/decal.h:38` | the FAIL_IFs'; NAME 1 [color]: neutral |
+| 3 | `i, mat_desc` | `app/client/decal.h:39` | the FAIL_IFs'; NAME 1 [color]: neutral |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
@@ -16693,7 +16688,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gadget, bar, group, bttn_idx` | `app/client/ui_scut.h:88` | the FAIL_IFs' |
 | 3 | `ShardSelection` | `app/client/ui_shard.h:45` | the FAIL_IF's |
 | 3 | `std:` | `app/client/ui_shard.h:59` | the FAIL_IF's |
-| 3 | `textures, swatches, secret_textures` | `app/client/ui_shipcust.cpp:76` | the INI names |
 | 3 | `environmentmapmanager` | `app/client/ui_shipcust.h:33` | the assert's |
 | 3 | `decalmaterialmanager` | `app/client/ui_shipcust.h:34` | the assert's; NAME 1 [decal]: neutral |
 | 3 | `event` | `app/client/ui_shipcust.h:108` | the FAIL_IF's; NAME 1 [sender]: the callback's type |

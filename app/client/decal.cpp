@@ -181,24 +181,6 @@ void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknow
 	}
 }
 
-// @0x619280
-Unknown619280Class::Unknown619280Class()
-	: Unknown00(0)
-{
-}
-// @0x618C10
-Unknown619280Class::~Unknown619280Class()
-{
-}
-// @0x618A50
-SClientUnknown1334Class::~SClientUnknown1334Class()
-{
-}
-// @0x61DF40
-RefCountPtr<TextureClass> SClientUnknown1334Class::Unknown_61DF40(int index)
-{
-	return TextureArray[index];
-}
 #pragma auto_inline(off)
 // @0x82EF70
 TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
@@ -224,9 +206,13 @@ TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
 **	132 / 139 / 144 with __LINE__ on the next line; 0x75CB10: 157 / 159 / 161): blank lines pad Load to them.
 **
 **	Placement: the class's destructor 0x618A50, its 0x61DF40 and the material's constructor / destructor 0x619280 /
-**	0x618C10 sit in the 0x61xxxx range (ui_shipcust.cpp's neighbours), 0x82EF70 far after; all are here for now
-**	(interim placement, D137) until their objects are known, after Load and 0x75CB10 so the asserts fit. Load calls
-**	0x82EF70 out of line (another file's function in the client): auto_inline(off) keeps VC6 from inlining it here.
+**	0x618C10 are decal.h's inlines: the client's Load inlines the material's destructor (two ??_M, no call to
+**	0x618C10) and shiputils' 0x80EAF0 inlines both (??_L / ??_M), and their out-of-line copies sit in the client's
+**	ui_ship_cust.cpp object (its window 0x619320-0x61E8xx: 0x61DF40 between its asserts' functions), which every
+**	caller's copy folds to. That file is not in the tree yet: ui_shipcust.cpp (which calls all four out of line,
+**	0x622180 / 0x622B90 / 0x6280E0) emits them for now (interim, D137). 0x82EF70 sits far after (near udpconn.cpp /
+**	chartemplate.cpp, another file's function in the client) and stays here for now (interim placement, D137); Load
+**	calls it out of line: auto_inline(off) keeps VC6 from inlining it here.
 **
 **	Load: the parameters are the FAIL_IFs' names; clear() (the first one's erase out of line, 0x75D0B0, the other two's
 **	copy, 0x75DAE0 / 0x75DB50, as in the client) and push_back (its insert(end(), 1, x) out of line, 0x75D280 /
