@@ -982,30 +982,29 @@ void SBaseViewClass::Unknown_69F540(const RefCountPtr<RenderObjClass> &model, co
 }
 
 // 0x69F710: every channel one frame on (a new one starts at its first or last frame)
-// NOT EXACT: two store-order residues (the backward start stores Frame before Mode; the backward step stores
-// Frame and its copy before the pushes); Mode = 0 in each branch with a named frame local scored lower
+// (exact: Channels[i] written out in each access, no reference local; through a reference VC6 scheduled the
+// Frame stores after the Mode store / push)
 void SBaseViewClass::Unknown_69F710()
 {
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	for (int i = 0; i < 6; i++) {
-		SBaseViewChannelStruct &channel = Channels[i];
-		if (channel.Mode && channel.Anim && channel.Model) {
-			float frames = channel.Anim->Get_Num_Frames();
-			if (channel.Backward) {
-				channel.Model->Set_Animation(channel.Anim.Peek(), frames - 1.0f, channel.Mode);
-				channel.Frame = frames;
+		if (Channels[i].Mode && Channels[i].Anim && Channels[i].Model) {
+			float frames = Channels[i].Anim->Get_Num_Frames();
+			if (Channels[i].Backward) {
+				Channels[i].Model->Set_Animation(Channels[i].Anim.Peek(), frames - 1.0f, Channels[i].Mode);
+				Channels[i].Frame = frames;
 			} else {
-				channel.Model->Set_Animation(channel.Anim.Peek(), 0.0f, channel.Mode);
-				channel.Frame = 0.0f;
+				Channels[i].Model->Set_Animation(Channels[i].Anim.Peek(), 0.0f, Channels[i].Mode);
+				Channels[i].Frame = 0.0f;
 			}
-			channel.Mode = 0;
-		} else if (channel.Anim) {
-			float step = channel.Anim->Get_Frame_Rate() * time;
-			if (channel.Backward) {
-				channel.Frame -= step;
-				channel.Model->Set_Animation(channel.Anim.Peek(), channel.Frame, channel.Mode);
+			Channels[i].Mode = 0;
+		} else if (Channels[i].Anim) {
+			float step = Channels[i].Anim->Get_Frame_Rate() * time;
+			if (Channels[i].Backward) {
+				Channels[i].Frame -= step;
+				Channels[i].Model->Set_Animation(Channels[i].Anim.Peek(), Channels[i].Frame, Channels[i].Mode);
 			} else {
-				channel.Frame += step;
+				Channels[i].Frame += step;
 			}
 		}
 	}
@@ -1181,6 +1180,7 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
+
 
 
 

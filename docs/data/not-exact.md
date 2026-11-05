@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-540 entries in 135 files.
+539 entries in 135 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -167,7 +167,6 @@ edit the comments in the code, not this file.
 | `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
 | `app/client/rect3d.cpp:9` | `Rect3DClass::Rect3DClass` | marker | NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV |
 | `app/client/sbaseview.cpp:405` | `SBaseViewClass::Unknown_69D030` | marker | NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client |
-| `app/client/sbaseview.cpp:985` | `SBaseViewClass::Unknown_69F710` | marker | NOT EXACT: two store-order residues (the backward start stores Frame before Mode; the backward step stores Frame and its copy before the pushes); Mode = 0 in each branch with a named frame local scored lower |
 | `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
 | `app/client/sclient.cpp:406` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:512` | `SClient::Shutdown` | marker | NOT EXACT: shape (similarity 0.32): the talk tree's reset is 0x74C9D0 inlined (its null RefCountPtr argument, EH state 0); the client also inlines the +0x1334 / +0x1338 / +0x133C destructors (0x618A50's arrays, the vectors' loops) and the effect list's removal; two forms (attempts.py show 0x741BB0) 0x741BB0 |
