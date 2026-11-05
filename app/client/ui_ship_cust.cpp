@@ -29,6 +29,8 @@
 #include "..\shared\money.h"
 #include "..\packets\pkstarbasetow.h"
 #include "local_interface_sort.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "..\shared\auxdata\delta_template.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
@@ -66,6 +68,8 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
+template<class C> inline C *UIShipCust_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
+template<class C> inline C *UIShipCust_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
 
 // The pages' font styles and string files (0xB894A0)
@@ -394,6 +398,86 @@ void StarbaseShipCustomizeInterface::Unknown_61E8B0()
 {
 	SClient *client = SBaseView->Client;
 	client->Unknown_74C960(client->AvatarID);
+}
+
+// NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's,
+// and keeps this in a frame slot; ui_avatar_cust.cpp's twin 0x551520 is exact in this form)
+// @0x61E8E0
+void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
+{
+	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaTemplateClass<MoneyClass> *money;
+	if (any) {
+		money = UIShipCust_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, "Money");
+	} else {
+		money = UIShipCust_Find_Changed<DeltaTemplateClass<MoneyClass> >(aux, "Money");
+	}
+	if (money) {
+		Unknown320 = money->Value;
+		FontSys *text = NULL;
+		switch (Page) {
+			case 0: text = Unknown_BE67C4->Get_Style("credits_buy_ship01", Mesh->Peek_Object()); break;
+			case 1: text = Unknown_BE67C4->Get_Style("credits_buy_ship02", Mesh->Peek_Object()); break;
+			case 2: text = Unknown_BE67C4->Get_Style("credits_buy_ship03", Mesh->Peek_Object()); break;
+			case 3: text = Unknown_BE67C4->Get_Style("credits_buy_ship04", Mesh->Peek_Object()); break;
+		}
+		if (text) {
+			std::string line("Credits: ");
+			line += Unknown320.Unknown_4F00C0(true);
+			text->Change_Text(line.c_str(), 0);
+		}
+	}
+	FontSys *text = NULL;
+	switch (Page) {
+		case 0: text = Unknown_BE67C4->Get_Style("cost_buy_ship01", Mesh->Peek_Object()); break;
+		case 1: text = Unknown_BE67C4->Get_Style("cost_buy_ship02", Mesh->Peek_Object()); break;
+		case 2: text = Unknown_BE67C4->Get_Style("cost_buy_ship03", Mesh->Peek_Object()); break;
+		case 3: text = Unknown_BE67C4->Get_Style("cost_buy_ship04", Mesh->Peek_Object()); break;
+	}
+	if (text) {
+		std::string line("Cost: ");
+		line += Unknown328.Unknown_4F00C0(true);
+		text->Change_Text(line.c_str(), 0);
+	}
+	FontSys *name = NULL;
+	switch (Page) {
+		case 0: name = Unknown_BE67C4->Get_Style("HULL_buy_ship01", Mesh->Peek_Object()); break;
+		case 1: name = Unknown_BE67C4->Get_Style("Paint_buy_ship02", Mesh->Peek_Object()); break;
+		case 2: name = Unknown_BE67C4->Get_Style("insignia_buy_ship03", Mesh->Peek_Object()); break;
+		case 3: name = Unknown_BE67C4->Get_Style("Ship_buy_ship04", Mesh->Peek_Object()); break;
+	}
+	if (name) {
+		name->Change_Text(Desc.Ship_Name, 0);
+	}
+}
+
+// @0x61F0E0
+void StarbaseShipCustomizeInterface::Unknown_61F0E0()
+{
+	if (View->Get_Unknown34()->Is_Active()) {
+		int button = View->Get_Unknown34()->Unknown_5890B0("SHIP_CONFIRMATION");
+		if (button) {
+			if (button == 1) {
+				Unknown23C = 5;
+				Unknown239 = true;
+			}
+			View->Get_Unknown34()->Unknown_5C();
+		}
+		if (View->Get_Unknown34()->Unknown_5890B0("NEED_FUNDS")) {
+			View->Get_Unknown34()->Unknown_5C();
+		}
+		if (View->Get_Unknown34()->Unknown_5890B0("NO_CHANGES")) {
+			View->Get_Unknown34()->Unknown_5C();
+		}
+	}
+}
+
+// @0x61F180
+void StarbaseShipCustomizeInterface::Unknown_61F180()
+{
+	if (Unknown334) {
+		Unknown328 = Unknown338.Unknown_849AC0(&Unknown36C, &Desc);
+	}
 }
 
 // Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts

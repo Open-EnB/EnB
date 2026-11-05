@@ -10,6 +10,7 @@
 #include "vector2.h"
 #include "..\shared\money.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include "..\packets\pkrecustomize.h"
 
 class SBaseViewClass;
 class ShipPipClass;
@@ -72,7 +73,7 @@ public:
 	void Unknown_61DBF0();								// 0x61DBF0 (the insignia list's textures: as 0x6280E0)
 	void Unknown_61DF80();								// 0x61DF80 (the metal models: 'METAL00' ..)
 	void Unknown_61E8B0();
-	void Unknown_61E8E0(int arg);						// 0x61E8E0  // NAME 1 [arg]: neutral
+	void Unknown_61E8E0(bool any);						// 0x61E8E0 (the credits and cost texts: as ui_avatar_cust.cpp's 0x551520)  // NAME 1 [any]: as ui_avatar_cust.cpp's
 	void Unknown_61F0E0();								// 0x61F0E0								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
 	void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d);	// 0x61F250 (RECUSTOMIZE_SHIP_START 129: cpacket.cpp)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
@@ -108,8 +109,8 @@ public:
 	MoneyClass Unknown328;								// +0x328
 	SClientUnknown1334Class *Unknown330;				// +0x330 the decal library
 	bool Unknown334;									// +0x334
-	char Unknown338[0x36C - 0x338];						// +0x338 (constructor 0x8499C0: recustomization_cost.cpp's)
-	char Unknown36C[0x4CC - 0x36C];						// +0x36C (a ShipCustDescClass: the constructor builds one inline)
+	ShipRecustomizationCostClass Unknown338;			// +0x338 (constructor 0x8499C0; 0x61F250 copies the packet's costs into it)
+	ShipCustDescClass Unknown36C;						// +0x36C the ship before the changes (0x61F250; 0x61F180 prices the description against it)
 };
 
 #endif // UI_SHIP_CUST_H

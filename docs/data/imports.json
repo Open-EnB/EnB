@@ -25382,17 +25382,22 @@
    },
    "ui_ship_cust": {
     "ambiguous": [
+     "0x42A6C0",
      "0x42B2F0",
      "0x455FB0",
      "0x46BE90",
-     "0x474000",
      "0x474080",
-     "0x4ACBB0",
      "0x4ACF00"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CF30",
+     "0x42D050",
      "0x42F250",
      "0x45CC10",
      "0x4A1930",
@@ -25420,6 +25425,7 @@
      "0x52B310",
      "0x52B330",
      "0x52B350",
+     "0x5481C0",
      "0x551D00",
      "0x551EE0",
      "0x551F00",
@@ -25451,9 +25457,13 @@
      "0x61DAB0",
      "0x61DBF0",
      "0x61DF40",
+     "0x61F0E0",
+     "0x61F180",
      "0x61F760",
      "0x61F8E0",
+     "0x61FAE0",
      "0x61FB90",
+     "0x61FBE0",
      "0x61FC00",
      "0x61FED0",
      "0x6203A0",
@@ -25477,6 +25487,12 @@
     "merged": [],
     "name": "client/ui_ship_cust.cpp",
     "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CF30",
+     "0x42D050",
      "0x42F250",
      "0x45CC10",
      "0x4A1930",
@@ -28089,7 +28105,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9675,
+  "in_tree_total": 9680,
   "totals": {}
  },
  "binkmovie": {
