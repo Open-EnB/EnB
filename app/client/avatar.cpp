@@ -143,7 +143,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	Unknown310 = 0.0f;
 	Unknown330.Make_Identity();
 	Unknown360.Set(0.0f, 0.0f, 0.0f);
-	Unknown370 = NULL;
+
 	Unknown374 = NULL;
 	Unknown378 = -100.0f;
 	Unknown37C = 0.0f;
@@ -382,8 +382,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	if (Unknown370) {
 		Unknown370->Set_Animation();
 		Unknown370->Remove();
-		Unknown370->Release_Ref();
 		Unknown370 = NULL;
+
 	}
 	if (Unknown374) {
 		Unknown374->Release_Ref();
@@ -3420,7 +3420,7 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 	if (Unknown370) {
 		Unknown370->Set_Animation();
 		Unknown370->Remove();
-		REF_PTR_RELEASE(Unknown370);
+		Unknown370 = NULL;
 	}
 	if (Unknown374) {
 		REF_PTR_RELEASE(Unknown374);
@@ -3442,7 +3442,7 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 	if (Unknown370) {
 		Unknown370->Set_Animation();
 		Unknown370->Remove();
-		REF_PTR_RELEASE(Unknown370);
+		Unknown370 = NULL;
 	}
 	if (Unknown374) {
 		REF_PTR_RELEASE(Unknown374);
@@ -3455,13 +3455,13 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 	}
 	switch (mode) {
 		case 1:
-			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01");
+			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
 			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1");
 			Unknown378 = 0.7f;
 			Unknown37C = 3.2f;
 			break;
 		case 2:
-			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03");
+			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
 			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1");
 			if (BodyObj) {
 				BodyObj->Set_Hidden(1);
@@ -3473,13 +3473,13 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 			Unknown37C = 1.0f;
 			break;
 		case 3:
-			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02");
+			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
 			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1");
 			Unknown378 = 0.5f;
 			Unknown37C = 1.0f;
 			break;
 		case 4:
-			Unknown370 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04");
+			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
 			Unknown374 = WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1");
 			Unknown_786370(true);
 			Unknown378 = 0.0f;
@@ -3489,8 +3489,8 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 	if (Unknown370 == NULL) {	// POC guard: the client goes on without testing
 		return;
 	}
-	Unknown_496AE0(Unknown370, true);
-	BodyObj->Peek_Scene()->Add_Render_Object(Unknown370);
+	Unknown_496AE0(Unknown370.Peek(), true);
+	BodyObj->Peek_Scene()->Add_Render_Object(Unknown370.Peek());
 	if (!Unknown36C) {
 		Unknown370->Set_Transform(Get_Transform());
 	} else {
@@ -3509,7 +3509,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 	Unknown_788F90(a);
 	if (Unknown370) {
 		if (Unknown374) {
-			Reset_All_Texture_Mappers(Unknown370, false);
+			Reset_All_Texture_Mappers(Unknown370.Peek(), false);
 			Unknown370->Set_Animation(Unknown374, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
 			Unknown370->Set_Hidden(0);
 			Unknown370->Set_Animation_Hidden(0);
@@ -3518,7 +3518,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 		if (Unknown370) {
 			Unknown370->Set_Animation();
 			Unknown370->Remove();
-			REF_PTR_RELEASE(Unknown370);
+			Unknown370 = NULL;
 		}
 	}
 	if (Unknown374) {
@@ -3555,8 +3555,8 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 	if (Unknown370) {
 		Unknown370->Set_Animation();
 		Unknown370->Remove();
-		Unknown370->Release_Ref();
 		Unknown370 = NULL;
+
 	}
 	if (Unknown374) {
 		Unknown374->Release_Ref();
