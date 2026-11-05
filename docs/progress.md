@@ -2368,14 +2368,10 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D192 | 2026-11-04 | P-CGP-1 approved: objmatch's D100 range round drops a survivor the object's own exact functions contradict (their relocated calls to the symbol reach other addresses only), so two same-bytes COMDATs of one object no longer both propose one address; with it ui_cpit 0x584110 / 0x5845A0 take the client's Create_Peek (0x546510). The one loss, avatar 0x780AC0 (ColorizationHalfStruct::operator=) moving to the shared 0x62A5D0 that the exact `vector<ColorizationRegionStruct>::insert` 0x62A0A0 calls, is accepted | user |
 | D193 | 2026-11-05 | P-CS1-1 approved, option (a): a byte-identical linker-folded COMDAT that two symbols claim (objmatch.short_known, D188 short pairs) is credited to every file that proves the address instead of being dropped; then avatar.h's inline `CharacterViewAvatarClass::Get_Desc()` lands, making ui_avatr 0x559350 / 0x559490 exact without losing ui_avatar_cust's 0x551D20. |
 | D194 | 2026-11-05 | P-CS4-1 approved, option (a): D193's folded-COMDAT test (objmatch `body_sig`) also applies in D166's caller tie-break (`caller_tiebreak`'s by_addr check), so a byte-identical linker-folded body that several symbols propose (lookup_table's four Create_NEW at 0x4EE9F0) is credited instead of dropped; a narrow tool change with a full verify. |
+| D195 | 2026-11-05 | P-AR2-1 approved: `tools/re/unref.py` lists, per app file, the client function starts in the file's range with no call / thunk reference in .text and no .rdata (vtable) reference that are not yet in the tree (promoted from `.work/ar2/unref.py` / `vt.py`): unreferenced members VC6 auto-inlines into callers, the lever that decides which nested helpers the client calls out of line (avatar.cpp, AR2: 18 found, 16 exact, +31). |
 
 ## 3. Open decisions
 
-* **P-AR2-1** (2026-11-05, AR2; recommend yes): promote `.work/ar2/unref.py` (with `vt.py`) to `tools/re/unref.py`: per app
-  file, the client function starts in the file's range with no call / thunk reference in .text and no .rdata (vtable)
-  reference that are not yet in the tree. Such unreferenced members are what VC6 auto-inlines into callers, and that
-  extra inline layer is what pushes nested helpers (??_G, clear, erase) out of line in the client: in avatar.cpp it found
-  18, 16 now exact, and it explained 0x77C080 / 0x782200 / 0x784700's out-of-line calls (+31). A tools change.
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
