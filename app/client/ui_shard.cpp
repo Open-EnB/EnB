@@ -41,7 +41,7 @@ struct UIShardKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 std::string Unknown_4BE9D0(const char *name);			// 0x4BE9D0 (avatar_desc.cpp's): a name turned into another
 
 static const char *Unknown_B8901C[] = { "button_shard00", "button_shard01", "button_shard02", "button_shard03", "button_shard04", "button_shard05", "skip", "name", "button_cancel", "exit" };	// NAME 1: neutral (D10)
