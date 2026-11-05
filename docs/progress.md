@@ -86,7 +86,7 @@ Coordinator Opus 5.5 (the user away; weekly 8 % -> 12 %, cap 14 %); branch run/2
   WW3D::OverbrightModifyOnLoad (MODULATE vs MODULATE2X); shiputils.cpp (new) colours the '~S1' / '~S2' / '~SK' materials
   (0x80FCE0 / 0x80FD10 / 0x812390); ro_funcs 0x496DB0 (highest LOD). Retail reference: a copy of the retail client on the
   same replay (P-LIGHT-1). Shots `.work/poc/shots/light-retail-004551` vs `light-011030`.
-- **Creation:** CRE1 (class / avatar screens, AvatarCreationInterface 0x553AF0 / 0x554E80, ship_pip.cpp, chartemplate.cpp,
+- **Creation:** CRE1 (class / avatar screens, AvatarCreationInterface 0x553AF0, ship_pip.cpp, chartemplate.cpp,
   unknown_585920.cpp interim; the reported slot-click crash was the class screen's Next into a gen ctor), CRE2 (ui_shard.cpp,
   the galaxy select and the create packet path), SHIP (ui_shipcust.cpp, ShipCustomizeInterface 0x620D20-0x628BF0, 14 of 43
   exact; shiputils), AVS (the avatar draws: CharacterViewAvatarClass lacked Get_Num_Sub_Objects / Get_Sub_Object, so its
@@ -2453,9 +2453,10 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
    * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
      gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
-     0x54CBC0 (slot +0x68, NOT EXACT 0.42: the client shares the cases' tails); 0x55A060's lever (call through the
-     real slot type, `const RefCountPtr<RenderObjClass> &`) may fit the RefCountPtr<RefCountClass> callers; NOT EXACT 0x54DFE0 (inline budget: ~RefCountPtr 0x4740B0 out of line, as ui_avatr 0x556B20),
-     0x54F390 (1 byte: the client re-tests the gadget's +0x64), 0x54F6F0 / 0x54FFC0 (order), 0x5502F0 (two bools' slots);
+     0x54CBC0 (slot +0x68, NOT EXACT 0.62: the inlined 0x54EAD0 copies call the converting ctor 0x551D40 out of line
+     with the dtor inline, ours the reverse); ui_avatr's key handler 0x554E80 (0.27; ~18 dead reads reach 0.64, over
+     D130: find the tutorial names' real string form); NOT EXACT 0x54F390 (shape 0.91: the client re-tests the gadget's
+     +0x64), 0x54F6F0 / 0x54FFC0 (order: push / FPU scheduling), 0x5502F0 (two bools' slots: zoom kept in memory);
      register residues 0x54E690 / 0x54E7F0 / 0x54E950 / 0x54EAD0 / 0x54EC30. The EventCallbackClass + Remove lever for
      dtors should fit the starbase windows' 0x6186A0 / 0x622B90.
    * The network stack (NET, 2026-11-04; cordmgr Pump_Releases 0x859940 exact with E&B's INFMSG): cordcon pumpInternal
