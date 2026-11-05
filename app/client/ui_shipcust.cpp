@@ -481,19 +481,19 @@ void Unknown620D20Class::Unknown_6216D0(RenderObjClass *model, const char *forma
 
 
 
-// NOT EXACT: functional (D64)
+
 // @0x621790
 void Unknown620D20Class::Unknown_621790(EnvironmentMapManagerClass *environmentmapmanager, int decal, SClientUnknown1334Class *decalmaterialmanager)
 {
 	Unknown_621E20();
-	Unknown160 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 0, Desc.Hull_Style, Unknown174)));
-	Unknown164 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 3, 0, Unknown180)));
+	int race = Desc.Race; char *name = Unknown_621530(race, 0, Desc.Hull_Style, Unknown174); Unknown160 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
+	name = Unknown_621530(race, 3, 0, Unknown180); Unknown164 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	Unknown_621610(Unknown160.Peek(), Unknown164.Peek(), "~03_%02d");
-	Unknown168 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 2, Desc.Wing_Style, Unknown178)));
+	name = Unknown_621530(race, 2, Desc.Wing_Style, Unknown178); Unknown168 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	Unknown_621610(Unknown168.Peek(), Unknown164.Peek(), "~03_%02d");
-	Unknown16C = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 1, Desc.Profession, Unknown17C)));
+	int profession = Desc.Profession; name = Unknown_621530(race, 1, profession, Unknown17C); Unknown16C = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	Unknown_621610(Unknown16C.Peek(), Unknown164.Peek(), "~03_%02d");
-	if (Desc.Race == 2 && Desc.Profession == 0) {
+	if (race == 2 && Desc.Profession == 0) {
 		Unknown170 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("PU43"));
 		Unknown_621610(Unknown16C.Peek(), Unknown170.Peek(), "~weap_%02d");
 	}
