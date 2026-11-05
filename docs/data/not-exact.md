@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-562 entries in 130 files.
+560 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -22,7 +22,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:611` | `CharacterViewAvatarClass::Unknown_77E0E0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
 | `app/client/avatar.cpp:761` | `CharacterViewAvatarClass::Unknown_77E9D0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
 | `app/client/avatar.cpp:827` | `CharacterViewAvatarClass::Unknown_77F000` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
-| `app/client/avatar.cpp:986` | `CharacterViewAvatarClass::Unknown_77F960` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr) |
 | `app/client/avatar.cpp:1026` | `CharacterViewAvatarClass::Unknown_77FC20` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
 | `app/client/avatar.cpp:1058` | `CharacterViewAvatarClass::Unknown_77FD30` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
 | `app/client/avatar.cpp:1070` | `CharacterViewAvatarClass::Unknown_77FEC0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
@@ -45,7 +44,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:3258` | `CharacterViewAvatarClass::Unknown_7885D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's) |
 | `app/client/avatar.cpp:3303` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
 | `app/client/avatar.cpp:3436` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
-| `app/client/avatar.cpp:3581` | `CharacterViewAvatarClass::Unknown_789D80` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |

@@ -340,16 +340,16 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 
 			}
 			if (HairSource) {
-				HairSource->Release_Ref();
 				HairSource = NULL;
+
 			}
 			if (GoggleSource) {
-				GoggleSource->Release_Ref();
 				GoggleSource = NULL;
+
 			}
 			if (BeardSource) {
-				BeardSource->Release_Ref();
 				BeardSource = NULL;
+
 			}
 		}
 		if (BodyObj) {
@@ -454,16 +454,16 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (HairSource) {
-		HairSource->Release_Ref();
 		HairSource = NULL;
+
 	}
 	if (GoggleSource) {
-		GoggleSource->Release_Ref();
 		GoggleSource = NULL;
+
 	}
 	if (BeardSource) {
-		BeardSource->Release_Ref();
 		BeardSource = NULL;
+
 	}
 	if (WeaponHip) {
 		WeaponHip->Release_Ref();
@@ -486,8 +486,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (Unknown2CC) {
-		Unknown2CC->Release_Ref();
 		Unknown2CC = NULL;
+
 	}
 }
 
@@ -836,7 +836,7 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 	}
 	if (HeadSource) {
 		const char *parts[4] = { "HAIR", "EAR", "GOGGLE", "BEARD" };
-		RenderObjClass *slots[4] = { HairSource, Unknown2CC, GoggleSource, BeardSource };
+		RenderObjClass *slots[4] = { HairSource.Peek(), Unknown2CC.Peek(), GoggleSource.Peek(), BeardSource.Peek() };
 		for (int p = 0; p < 4; p++) {
 			if (slots[p] && HeadSource) {
 				for (i = 0; i < 5; i++) {
@@ -983,8 +983,8 @@ void CharacterViewAvatarClass::Unknown_77F750()
 
 // 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
 // '<part>0'..'<part>4' of the head prototype are removed first, the new ones added by 0x789D80
-// NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr)
-void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderObjClass **slot)
+// (the slot a RefCountPtr: Create_Get, then its operator =; the prototype a RefCountPtr local)
+void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot)
 {
 	FAIL_IF(!HeadSource) {
 		return;
@@ -1001,8 +1001,8 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderO
 		}
 	}
 	if (*slot) {
-		(*slot)->Release_Ref();
 		*slot = NULL;
+
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
@@ -1010,15 +1010,15 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderO
 	}
 	char model[32];
 	_snprintf(model, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
-	RenderObjClass *proto = WW3DAssetManager::Get_Instance()->Create_Render_Obj(model);
+	RefCountPtr<RenderObjClass> proto = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (proto) {
-		*slot = proto->Clone();
-		Unknown_496AE0(*slot, true);
+		*slot = Create_Get(proto->Clone());
+		Unknown_496AE0(slot->Peek(), true);
 		Unknown_789D80(slot, part);
-		proto->Release_Ref();
+
 	}
 }
 
@@ -3578,8 +3578,8 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
 // each into the LOD that holds it in the accessory
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls)
-void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char *part)
+// (the sub-object and its clone RefCountPtr locals, Create_Get 0x474080)
+void CharacterViewAvatarClass::Unknown_789D80(RefCountPtr<RenderObjClass> *slot, const char *part)
 {
 	if (HeadSource == NULL || *slot == NULL || part == NULL) {
 		return;
@@ -3587,29 +3587,23 @@ void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char 
 	char name[64];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(name, 0x40, "%s%d", part, i);
-		RenderObjClass *sub = (*slot)->Get_Sub_Object_By_Name(name);
+		RefCountPtr<RenderObjClass> sub = Create_Get((*slot)->Get_Sub_Object_By_Name(name));
 		if (sub && sub->Class_ID() == RenderObjClass::CLASSID_MESH) {
 			HLodClass *head = (HLodClass *)HeadSource.Peek();
-			HLodClass *source = (HLodClass *)*slot;
-			RenderObjClass *copy = sub->Clone();
-			Unknown_496AE0(copy, true);
+			HLodClass *source = (HLodClass *)slot->Peek();
+			RefCountPtr<RenderObjClass> copy = Create_Get(sub->Clone());
+			Unknown_496AE0(copy.Peek(), true);
 			copy->Set_Container(NULL);
 			for (int lod = 0; lod < source->Get_Lod_Count(); lod++) {
 				for (int j = 0; j < source->Get_Lod_Model_Count(lod); j++) {
-					if (sub == source->Peek_Lod_Model(lod, j)) {
-						head->Add_Lod_Model(lod, copy, 0);
+					if (sub.Peek() == source->Peek_Lod_Model(lod, j)) {
+						head->Add_Lod_Model(lod, copy.Peek(), 0);
 						Unknown_496AE0(HeadSource.Peek(), true);
 						lod = 100;
 						break;
 					}
 				}
 			}
-			if (copy) {
-				copy->Release_Ref();
-			}
-		}
-		if (sub) {
-			sub->Release_Ref();
 		}
 	}
 }
