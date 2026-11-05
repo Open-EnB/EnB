@@ -807,6 +807,31 @@ void SBaseViewClass::Unknown_69E510(Matrix3D tm)
 	}
 }
 
+// 0x69E6E0: the camera move's target +0xB4 at ViewRObjs[1]'s bone, turned as 0x69E260 (keep: +0x84's turn at the
+// bone's position), lift added to its z; the move starts now over seconds
+void SBaseViewClass::Unknown_69E6E0(const char *bone, int seconds, bool keep, float lift)
+{
+	if (ViewRObjs[1]) {
+		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
+		tm.Rotate_Y(-WWMATH_PI / 2.0f);
+		tm.Rotate_Z(-WWMATH_PI / 2.0f);
+		if (keep) {
+			Matrix3D m = Unknown84;
+			m.Set_Translation(tm.Get_Translation());
+			UnknownB4 = m;
+		} else {
+			UnknownB4 = tm;
+		}
+		if (lift != 0.0f) {
+			UnknownB4[2][3] += lift;
+		}
+		UnknownE8 = 0;
+		Unknown1BC = 0;
+		Unknown1C4 = 3;
+		UnknownE4 = (float)seconds;
+	}
+}
+
 // 0x69EB20: the camera move's target +0xB4 (tm turned as 0x69E510) over seconds; restart starts it now
 void SBaseViewClass::Unknown_69EB20(Matrix3D tm, int seconds, bool restart)
 {
@@ -841,6 +866,38 @@ void SBaseViewClass::Unknown_69ED80()
 	}
 }
 #pragma auto_inline(on)
+// 0x69EF00: the +0x6C camera turned by the frame time (mode 0 / 1 about y, 2 / 3 its pitch +0x1BC up / down to
+// 0.25), kept as +0x84 (the time's product in the client's order: parenthesised)
+void SBaseViewClass::Unknown_69EF00(int mode, float speed)
+{
+	float angle = (((float)WW3D::Get_Frame_Time() * 0.001f) * speed) * 3.0f;
+	Matrix3D tm = Unknown6C->Get_Transform();
+	switch (mode) {
+		case 0:
+			tm.Rotate_X(-Unknown1BC);
+			tm.Rotate_Y(angle);
+			tm.Rotate_X(Unknown1BC);
+			break;
+		case 1:
+			tm.Rotate_X(-Unknown1BC);
+			tm.Rotate_Y(-angle);
+			tm.Rotate_X(Unknown1BC);
+			break;
+		case 2:
+			speed = WWMath::Min(angle + Unknown1BC, 0.25f);
+			tm.Rotate_X(speed - Unknown1BC);
+			Unknown1BC = speed;
+			break;
+		case 3:
+			speed = WWMath::Max(Unknown1BC - angle, -0.25f);
+			tm.Rotate_X(speed - Unknown1BC);
+			Unknown1BC = speed;
+			break;
+	}
+	Unknown6C->Set_Transform(tm);
+	Unknown84 = tm;
+}
+
 // 0x69F440
 void SBaseViewClass::Unknown_69F440()
 {
@@ -951,63 +1008,6 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1365,6 +1365,37 @@ void SBaseViewClass::Unknown_6A2100()
 	Unknown70->Set_Fog_Enable(false);
 }
 
+// 0x6A2120's tables: the key 0x698730 looks up per index, the model names by index and +0x1B4's column
+static int Unknown_B90F3C[4] = {0, 1, 3, 2};	// NAME 1: neutral (D10)
+static const char *Unknown_B90F4C[4][10] = {	// NAME 1: neutral (D10)
+	{"tsd01a", "jsd01a", "psd01a", "tsd07a", "tsd07a", "tsd07a", "tsd07a", "tsd07a", "tsd07a", "tsd07a"},
+	{"tbar01_h", "jbar01_h", "pbar01_h", "nbar01_h", "nbar01_h", "nbar01_h", "nbar01_h", "nbar01_h", "nbar01_h", "nbar01_h"},
+	{"tbar01_v", "jbar01_v", "pbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v"},
+	{"tbar01", "jbar01", "pbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01"},
+};
+
+// 0x6A2120: the starbase interface's model name: the index's name in +0x1B4's column, '3' or '2' added by the
+// entry 0x698730 finds; the plain name when no such model exists (the dead size() reads after each return: the
+// client's inline budget, _Tidy out of line and _Eos inline in the last string constructor)
+std::string SBaseViewClass::Unknown_6A2120(int index)
+{
+	std::string name;
+	SBaseViewUnknown1B4Class *info_list = Unknown1B4;
+	SBaseViewUnknown698730Struct *info = info_list->Unknown_698730(Unknown_B90F3C[index]);
+	int column = info_list->Unknown18;
+	name = Unknown_B90F4C[index][column];
+	if (info->Unknown0B) {
+		name += "3";
+	} else if (info->Unknown0A) {
+		name += "2";
+	}
+	RefCountPtr<RenderObjClass> obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name.c_str()));
+	if (obj) {
+		return(name); name.size(); name.size();
+	}
+	return(std::string(Unknown_B90F4C[index][column])); name.size(); name.size();
+}
+
 // 0x6A23E0
 void SBaseViewClass::Unknown_6A23E0(bool a, bool b, bool c, bool d, bool e)
 {
@@ -1630,37 +1661,6 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x6A2480
 void SBaseViewClass::Unknown_6A2480()
 {
@@ -1676,7 +1676,7 @@ void SBaseViewClass::Unknown_6A2480()
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
 **	loader 0x6A0590, not written) are left free. Not rebuilt
-**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90, 0x6A2120.
+**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90.
 **
 **	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,

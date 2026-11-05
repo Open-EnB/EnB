@@ -75,7 +75,8 @@ public:
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 class SBaseViewUnknown68Class { public: SBaseViewUnknown68Class(); ~SBaseViewUnknown68Class(); RenderObjClass *Unknown00; char Unknown04[0x1C - 0x04]; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x1C bytes, 0x69B5E0 makes it with 0x490900; 0x6A0540; 0x69C0D0 deletes it through 0x4909A0, the destructor of scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct)
 class SBaseViewUnknown190Class : public InterfaceClass { public: int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active; 0x69C8F0 calls 0x64CF90 / 0x64CFF0 / 0x64D3E0 / 0x64EEA0)
-class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370)
+struct SBaseViewUnknown698730Struct { char Unknown00[0x0A]; bool Unknown0A; bool Unknown0B; };	// NAME 1: neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B)
+class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); SBaseViewUnknown698730Struct *Unknown_698730(int key); char Unknown00[0x18]; int Unknown18; };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral
 class SBaseViewUnknown70Class;	// the +0x70 scene (sbaseview.cpp declares it)
 class LightClass;
 class HAnimClass;
@@ -118,7 +119,7 @@ public:
 	virtual SimpleSceneClass *Unknown_5C();	// +0x5C 0x69B070 (the view's own slot: the +0x70 scene)
 	virtual void Unknown_18(int arg);	// +0x18 0x69C5A0 (its byte: set, +0x54 = 0 and +0x58 = +0x50; else 0x69D030(-1))  // NAME 1 [arg]: neutral
 	void Unknown_69D030(int index);	// 0x69D030: starbase interface index (0..3: +0x174 / +0x178 / +0x180 / +0x17C) made once and activated as Starbase; -1 none  // NAME 1 [index]: neutral
-	std::string Unknown_6A2120(int index);	// 0x6A2120 (not rebuilt): the name 0x69D030 hands the starbase interface  // NAME 1 [index]: neutral
+	std::string Unknown_6A2120(int index);	// 0x6A2120: the name 0x69D030 hands the starbase interface (a tsd / bar model name, '3' or '2' added when that model exists)  // NAME 1 [index]: neutral
 	void Unknown_69ED80();	// 0x69ED80: the +0x6C camera moved from +0x84 towards +0xB4 (0x69C5E0 calls it when +0x1C4 is 0)
 	void Unknown_6A1180();	// 0x6A1180 (not rebuilt; 0x69C5E0 calls it before End_Render)
 	void Unknown_6A1B80();	// 0x6A1B80: the GROUP_INVITE box's answer sent (0x69C8F0 calls it every frame; as ui_group.cpp's 0x597650)
@@ -146,6 +147,8 @@ public:
 	void Unknown_69E260(const char *bone);	// 0x69E260: with ViewRObjs[1], +0x84 = its bone transform turned -90 degrees about y and z, the +0x6C camera's  // NAME 1 [bone]: neutral
 	void Unknown_69E510(Matrix3D tm);	// 0x69E510: with ViewRObjs[1], +0x84 = tm turned -90 degrees about y and z, the +0x6C camera's transform; +0xE8 / +0x1BC cleared  // NAME 1 [tm]: neutral
 	void Unknown_6A1880(RefCountPtr<FontSys> &text, int kind);	// 0x6A1880: text made (kind 0 NameText_SBASE, 1 / 2 NPCText_SBASE, 3 GuildText_SBASE) and added to the +0x1C scene  // NAME 1 [text, kind]: neutral
+	void Unknown_69E6E0(const char *bone, int seconds, bool keep, float lift);	// 0x69E6E0: with ViewRObjs[1], the move target +0xB4 = the bone transform turned as 0x69E260 (keep: +0x84 with only its position), lift added to its z, over seconds from now (ui_starbase 0x638500 / 0x63B630)  // NAME 1 [bone, seconds, keep, lift]: neutral
+	void Unknown_69EF00(int mode, float speed);	// 0x69EF00: the +0x6C camera turned by the frame time * speed * 3 (mode 0 / 1 about y either way, 2 / 3 its pitch +0x1BC up / down, clamped to 0.25), kept as +0x84  // NAME 1 [mode, speed]: neutral
 	void Unknown_69EB20(Matrix3D tm, int seconds, bool restart);	// 0x69EB20: with ViewRObjs[1], the move target +0xB4 = tm turned as 0x69E510, over seconds (+0xE4); restart: +0xE8 = 0, +0x1C4 = 3  // NAME 1 [tm, seconds, restart]: neutral
 	void Unknown_69F710();	// 0x69F710: every channel one frame on
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
@@ -189,7 +192,7 @@ public:
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
 	SBaseViewUnknown1B4Class *Unknown1B4;	// +0x1B4 (LOUNGE_NPC 82: sbase_info.cpp's 0x6987A0 of the packet; the destructor deletes it)
 	RefCountPtr<FontSys> Unknown1B8;	// +0x1B8: a text object (0x6A0E80 changes its text)
-	int Unknown1BC;	// +0x1BC
+	float Unknown1BC;	// +0x1BC: the +0x6C camera's pitch about x (0x69EF00: -0.25 .. 0.25)
 	RefCountPtr<AudibleSoundClass> Unknown1C0;	// +0x1C0: a 2-D sound (0x6A1000 plays it looped, 0x6A1130 stops it)
 	int Unknown1C4;	// +0x1C4 (0x69C5E0 counts it down)
 	int Unknown1C8;	// +0x1C8
