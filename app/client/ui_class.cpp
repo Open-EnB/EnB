@@ -299,7 +299,7 @@ void ClassSelectInterface::Unknown_60()
 }
 
 
-// NOT EXACT: register (0.73: ours sets ebx = 1 before the jump table, the client per case)
+// key 7 alone sets the class under `!= 1` and returns in place (the others break to the end): the client's per-case ebx = 1
 // @0x575660
 bool ClassSelectInterface::Unknown_68(int key)
 {
@@ -362,12 +362,12 @@ bool ClassSelectInterface::Unknown_68(int key)
 			return(true);
 		case 7:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			if (Unknown8C == 1) {
-				break;
+			if (Unknown8C != 1) {
+				Unknown8C = 1;
+				Unknown_5779D0();
 			}
-			Unknown8C = 1;
-			Unknown_5779D0();
 			return(true);
+
 		case 8:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			if (Unknown8C == 2) {
