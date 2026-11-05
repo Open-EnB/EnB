@@ -26,10 +26,10 @@ GadgetSlider::GadgetSlider(bool arg, LayerClass *layer) :
 	MinBonePos(0.0f, 0.0f, 0.0f),
 	MaxBonePos(0.0f, 0.0f, 0.0f),
 	UnknownA0(0.0f),
-	UnknownA4(0.0f),
-	UnknownA8(0.0f),
-	UnknownAC(0.0f),
-	UnknownB0(0.0f),
+	UnknownA4(0.0f,
+		0.0f),
+	UnknownAC(0.0f,
+		0.0f),
 	UnknownB4(0.0f),
 	UnknownB8(0.0f),
 	UnknownBC(0.0f),
@@ -204,6 +204,7 @@ void GadgetSlider::Unknown_66E460(const RefCountPtr<RenderObjClass> &object, boo
 #include "..\audio\soundlib.h"
 #include "unknown_signalbase.h"
 #include "scene.h"
+#include "vector2.h"
 
 class GadgetSliderEvent  // NAME 5: the client's RTTI .?AVGadgetSliderEvent@@
 {
@@ -238,18 +239,17 @@ void GadgetSlider::Unknown_40(bool on)
 	Unknown_8C(!on);
 }
 
-// NOT EXACT: shape (similarity 0.50): the hide flag computed without the client's early store of `on`
 // @0x66EE20
 void GadgetSlider::Unknown_8C(bool on)
 {
 	if (UnknownC0 == UnknownC8) {
 		on = true;
 	}
-	bool hide = on;
 	if (UnknownBC < (float)(Unknown_B8D438 - Unknown_B8D43C)) {
-		hide = true;
+		RObjGadgetClass::Unknown_8C(true);
+	} else {
+		RObjGadgetClass::Unknown_8C(on);
 	}
-	RObjGadgetClass::Unknown_8C(hide);
 	if (UnknownBC <= 0.0f) {
 		on = true;
 	}
@@ -279,16 +279,16 @@ bool GadgetSlider::Unknown_30(float x, float y)
 		if (!Unknown108) {
 			return(false);
 		}
-		if (UnknownEC < UnknownA4) {
+		if (UnknownEC < UnknownA4.X) {
 			return(false);
 		}
-		if (UnknownEC > UnknownAC) {
+		if (UnknownEC > UnknownAC.X) {
 			return(false);
 		}
-		if (UnknownF0 < UnknownA8) {
+		if (UnknownF0 < UnknownA4.Y) {
 			return(false);
 		}
-		if (UnknownF0 > UnknownB0) {
+		if (UnknownF0 > UnknownAC.Y) {
 			return(false);
 		}
 		Unknown100 = last;
@@ -726,7 +726,7 @@ void GadgetSlider::Unknown_A4(float val, bool arg2)
 
 
 
-// NOT EXACT: shape (similarity 0.51): +0xA4 / +0xAC are two Vector2s (a cast test gave 0.58); the bone positions spill
+// NOT EXACT: frame (similarity 0.58): the client keeps the low bone's X on the FPU stack, ours spills it (0x1C frame vs 0x18)
 // @0x66FD80
 bool GadgetSlider::Unknown_66FD80(bool force)
 {
@@ -743,37 +743,31 @@ bool GadgetSlider::Unknown_66FD80(bool force)
 	MaxBonePos = max_pos;
 	if (IsHorizontal) {
 		UnknownA0 = min_pos.Y;
-		UnknownA4 = WWMath::Min(min_pos.X, max_pos.X);
-		UnknownA8 = min_pos.Y - Unknown80 * 0.5f;
-		UnknownAC = WWMath::Max(min_pos.X, max_pos.X);
-		UnknownB0 = Unknown80 * 0.5f + UnknownA0;
-		float start = UnknownA4 + Unknown80;
-		UnknownB4 = start;
-		float end = UnknownAC - Unknown80;
-		UnknownB8 = end;
-		float length = end - start;
-		UnknownBC = length;
-		if (length < 1.0f) {
+		UnknownA4 = Vector2(WWMath::Min(min_pos.X, max_pos.X), min_pos.Y - Unknown80 * 0.5f);
+		UnknownAC = Vector2(WWMath::Max(min_pos.X, max_pos.X), Unknown80 * 0.5f + UnknownA0);
+		UnknownB4 = UnknownA4.X + Unknown80;
+		UnknownB8 = UnknownAC.X - Unknown80;
+		UnknownBC = UnknownB8 - UnknownB4;
+		if (UnknownBC < 1.0f) {
+			float mid = UnknownB4 - UnknownBC * 0.5f;
 			UnknownBC = 0.0f;
-			UnknownB4 = UnknownB8 = start - length * 0.5f;
+			UnknownB4 = mid;
+			UnknownB8 = mid;
 		}
 		MinArrow->Set_Position(Vector3(UnknownB4 - Unknown80, UnknownA0, 0.0f));
 		MaxArrow->Set_Position(Vector3(UnknownB8 + Unknown80, UnknownA0, 0.0f));
 	} else {
 		UnknownA0 = min_pos.X;
-		UnknownA4 = min_pos.X - Unknown80 * 0.5f;
-		UnknownA8 = WWMath::Min(min_pos.Y, max_pos.Y);
-		UnknownAC = Unknown80 * 0.5f + UnknownA0;
-		UnknownB0 = WWMath::Max(min_pos.Y, max_pos.Y);
-		float start = UnknownB0 - Unknown80;
-		UnknownB4 = start;
-		float end = UnknownA8 + Unknown80;
-		UnknownB8 = end;
-		float length = start - end;
-		UnknownBC = length;
-		if (length < 1.0f) {
+		UnknownA4 = Vector2(min_pos.X - Unknown80 * 0.5f, WWMath::Min(min_pos.Y, max_pos.Y));
+		UnknownAC = Vector2(Unknown80 * 0.5f + UnknownA0, WWMath::Max(min_pos.Y, max_pos.Y));
+		UnknownB4 = UnknownAC.Y - Unknown80;
+		UnknownB8 = UnknownA4.Y + Unknown80;
+		UnknownBC = UnknownB4 - UnknownB8;
+		if (UnknownBC < 1.0f) {
+			float mid = UnknownBC * 0.5f + UnknownB4;
 			UnknownBC = 0.0f;
-			UnknownB4 = UnknownB8 = length * 0.5f + start;
+			UnknownB4 = mid;
+			UnknownB8 = mid;
 		}
 		MinArrow->Set_Position(Vector3(UnknownA0, UnknownB4 + Unknown80, 0.0f));
 		MaxArrow->Set_Position(Vector3(UnknownA0, UnknownB8 - Unknown80, 0.0f));
@@ -848,6 +842,12 @@ bool GadgetSlider::Unknown_6702D0()
 
 
 
+
+
+
+
+
+
 // @0x670300
 void GadgetSlider::Unknown_670300()
 {
@@ -873,8 +873,8 @@ void GadgetSlider::Unknown_670300()
 void GadgetSlider::Unknown_670440()
 {
 	if (UnknownD0 > 0.0001f) {
-		if (UnknownE0 == 0 && (UnknownEC < UnknownA4 - Unknown_B8D448 || Unknown_B8D448 + UnknownAC < UnknownEC
-			|| UnknownF0 < UnknownA8 - Unknown_B8D448 || Unknown_B8D448 + UnknownB0 < UnknownF0)) {
+		if (UnknownE0 == 0 && (UnknownEC < UnknownA4.X - Unknown_B8D448 || Unknown_B8D448 + UnknownAC.X < UnknownEC
+			|| UnknownF0 < UnknownA4.Y - Unknown_B8D448 || Unknown_B8D448 + UnknownAC.Y < UnknownF0)) {
 			Unknown_A4(UnknownF4, false);
 			return;
 		}
@@ -916,8 +916,9 @@ void GadgetSlider::Unknown_670440()
 **	0x6705E0 (`*this = 0`, no callers) are not written. The constants 0xB8D430-0xB8D448 are ints in .data that the
 **	code reads (fild), not folded: defined here, after their uses. gadget.cpp's last input event 0xBE5EB0 is no longer
 **	static (0x66EF00 reads its key: 0x101 / 0x102 are the wheel's).
-**	NOT EXACT (D64): 0x66EE20 (0.50), 0x66EF00 (0.81), 0x66F330 (0.56), 0x66FA90 (0.77), 0x66FD80 (0.51; +0xA4 / +0xA8
-**	and +0xAC / +0xB0 are each stored as a Vector2 temporary).
+**	0x66EE20 (+0x8C): byte-exact with the base call in an if / else (the client cross-jumps the two calls).
+**	+0xA4 and +0xAC are Vector2s (0x66FD80 stores each through a Vector2 temporary: 0.51 -> 0.58; the constructor stays exact).
+**	NOT EXACT (D64): 0x66EF00 (0.81), 0x66F330 (0.56), 0x66FA90 (0.77), 0x66FD80 (0.58).
 */
 
 const int Unknown_B8D430 = 500;

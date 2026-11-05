@@ -13,6 +13,7 @@
 
 #include "always.h"
 #include "gd_robj.h"
+#include "vector2.h"
 #include "vector3.h"
 #include "aabox.h"
 
@@ -57,10 +58,8 @@ public:
 	Vector3 MinBonePos;									// +0x88
 	Vector3 MaxBonePos;									// +0x94
 	float UnknownA0;									// +0xA0
-	float UnknownA4;									// +0xA4
-	float UnknownA8;									// +0xA8
-	float UnknownAC;									// +0xAC
-	float UnknownB0;									// +0xB0
+	Vector2 UnknownA4;									// +0xA4 (the bar's low corner: 0x66FD80 stores it as one Vector2)
+	Vector2 UnknownAC;									// +0xAC (the high corner)
 	float UnknownB4;									// +0xB4
 	float UnknownB8;									// +0xB8
 	float UnknownBC;									// +0xBC
