@@ -4,6 +4,40 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-05 (14:51 PST, day): avatar.cpp's out-of-line helpers explained (D195's unref.py), ui_ship_cust's ctor / dtor, the character info window's five files; +436 pairs, 0 lost outright
+
+- **Run** run/2026-11-05-day (PR #163, from master 217fd903), 17 Opus builders (AR1-AR4, SC1 / SC2, BF1, LD7, SB2-SB4, TB1 /
+  TB2, IM1, GS1, AT1) and 5 Sonnet (HC1-HC4, UR1) in the shared tree; Claude subscription only. The first two items (avatar.cpp's
+  retypes, ui_ship_cust's ctor / dtor with decal.h) ran in series (shared headers), then three builders at a time. Weekly
+  usage 27% -> 35% (the user's goal 35% by 16:00, reached 14:47; the window reopened twice at 34% for short items);
+  ~0.5% of the week per Opus builder-hour. Plan log:
+  `.work/run-2026-11-05-day/plan.md`. HEAD's imports.json: +436 vs the baseline, 0 lost outright (accepted under D66:
+  0x6209D0 / 0x620CA0, false matches exposed by ui_ship_cust's own map instantiation, (iii); 0x618500 and avatar's copy
+  of 0x6A2610, (i)).
+- **avatar.cpp (AR1-AR4, ~+66 with nlp; copy ctor 0x77C8F0 via a pure-virtual base of the chat stream, avatar.h's pads dropped):** BodyObj / Unknown0C0[2] retyped as the client's RefCountPtrs; the out-of-line
+  ??_G / clear / erase in 0x77C080 / 0x782200 / 0x784700 come from unreferenced members VC6 auto-inlines into callers
+  (0x781C50, 0x781B20 / 0x781B50): with them in the tree AR1's interim inline_depth(0) went; ctor 0x77B870 / dtor 0x77C080
+  exact; PlayerNLPClass's ctor / dtor out of line in nlp.cpp; 7 near misses left. D195 (P-AR2-1, the user): `tools/re/unref.py`
+  lists a file's unreferenced members not in the tree (UR1, bd7bab67).
+- **ui_ship_cust.cpp (SC1 / SC2, +83; SignalMap's connect<> as an inline layer):** ctor 0x6181B0 / dtor 0x6186A0 exact, 27 exact; SBaseViewUnknown1A0Class ->
+  StarbaseShipCustomizeInterface in ui_ship_cust.h; decal.h's inline copies now emitted by ui_ship_cust.cpp (shared with
+  ui_shipcust.cpp's identical COMDATs, nothing lost); 0x618CA0 is slot +0x54, not the ctor.
+- **The character info window (BF1, TB1, TB2, IM1, AT1, +107; attrb Init 0x549AA0 exact):** ui_buff.cpp on gd_buffgadg.h; new ui_cinfo.cpp (UICinfoClass),
+  ui_attrb_skills.cpp, ui_missn.cpp, ui_faction.cpp, each placed by the client's own strings (triage's hint was wrong for
+  ui_cinfo); interim unknown_674260.h; Unknown5BB320Class::Mesh -> InterfaceMesh (the client's FAIL_IFs, conventions.md §5).
+- **sbaseview.cpp / mainview.cpp (SB2-SB4, +15 and 13 tie-break):** 0x6A2120 / 0x69E6E0 / 0x69EF00 / 0x69DC80 / 0x69DFC0 /
+  0x6A1C90, Init 0x69B5E0, the interface switcher 0x69F8F0, 0x69F710 and mainview's Init 0x50BA60 exact (two LIMIT REACHED
+  rows cleared by `Get_Client()` in constructor arguments); ViewClass +0x18 a bool; MainViewUnknown1E4Class = UIPTradeClass;
+  interim unknown_490900.h; UITalkTreeClass in sclient.h (interim until ui_talkt.h); UIManuClass's stray pack(4) dropped.
+- **land.cpp (LD7):** no pair; 0x46F120 1784 -> 688 and 0x470F80 2298 -> 2042 masked rows, forms in docs/attempts.
+- **gd_slider.cpp (GS1):** 0x66F330 / 0x66EF00 exact (18 of 19; +2), 0x66FD80 parked 0.59.
+- **Harnesses (D182):** HC1 found clienttest broken by the ui_ship_cust rename (the real 0x61F250 on the test's 4-byte fake;
+  money.cpp's operator>=): HC2 fixed it (fd2ddbf8; the test no longer checks 0x61F250's arguments); HC3 fixed SB2 / SB3's
+  fallout (c79cd2d8: UIPTradeClass redefinition, GadgetClass void stand-ins, expected.txt's UITalkTreeClass line). HC4 at the end (5f66efb5): clienttest 103 / 103, trace equal; udpreplay alex3 ok, handshake 54; a final quiet-tree verify added the D188 shorts 0x462E30 / 50 / 70 in six files (bb6a86cd, +18 shared, 0 lost, replay 0).
+- Interim placements (D137, the coordinator's): avatar.h's `Unknown_Block_Value`, 0x782FF0's raw tail, unknown_674260.h,
+  unknown_490900.h, UITalkTreeClass in sclient.h, Unknown62D1F0Class in ui_attrb_skills.h. Traps filed in workflow.md
+  §3.1 / §3.7 / §3.8 (one bullet per report). Section 4 trimmed to what is left.
+
 ### 2026-11-05 (06:30 PST, night): character select and creation toward exact; the class screen's effects and slider in the POC; D193 / D194; +203 pairs, 0 lost outright
 
 - **Run** run/2026-11-05 (PR #162, from master 538199c6), 20 Opus builders (CS1-CS20) on disjoint files in the shared tree,
