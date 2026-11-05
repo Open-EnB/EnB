@@ -385,14 +385,17 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617190
 void Unknown615A50InterfaceClass::Unknown_617190()
 {
-	bool up = Unknown8C != 0;
-	Arrows[0]->Unknown_40(up);
-	((RObjGadgetClass *)Arrows[0])->Unknown_8C(!up);
-	if ((int)SortedGalaxies.size() - 6 <= Unknown8C) {
+	if (Unknown8C == 0) {
+		Arrows[0]->Unknown_40(false);
+		((RObjGadgetClass *)Arrows[0])->Unknown_8C(true);
+	} else {
+		Arrows[0]->Unknown_40(true);
+		((RObjGadgetClass *)Arrows[0])->Unknown_8C(false);
+	}
+	if (Unknown8C >= (int)SortedGalaxies.size() - 6) {
 		Arrows[1]->Unknown_40(false);
 		((RObjGadgetClass *)Arrows[1])->Unknown_8C(true);
 	} else {
@@ -402,7 +405,6 @@ void Unknown615A50InterfaceClass::Unknown_617190()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617270
 void Unknown615A50InterfaceClass::Unknown_617270()
 {
@@ -413,7 +415,6 @@ void Unknown615A50InterfaceClass::Unknown_617270()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6172A0
 void Unknown615A50InterfaceClass::Unknown_6172A0()
 {
@@ -483,11 +484,15 @@ void Unknown615A50InterfaceClass::Unknown_617540()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x617660
 void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 {
-	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(named ? "co0102nw_gd.tga" : "co0102nw.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	TextureClass *texture;
+	if (named) {
+		texture = WW3DAssetManager::Get_Instance()->Get_Texture("co0102nw_gd.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	} else {
+		texture = WW3DAssetManager::Get_Instance()->Get_Texture("co0102nw.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	}
 	if (texture) {
 		Unknown_495FD0(((RObjGadgetClass *)Buttons[7])->RObj, texture, 0);
 		texture->Release_Ref();
@@ -515,7 +520,6 @@ void Unknown615A50InterfaceClass::Unknown_6176F0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6179D0
 void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 {
@@ -523,6 +527,178 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // @0x617A10
@@ -556,7 +732,7 @@ void Unknown615A50InterfaceClass::Unknown_617AA0()
 **	0x615A50-0x617AF0 (then the vector<LoginGalaxyClass> members it instantiates, 0x617B20-0x618050). __FILE__
 **	'e:\build\beta\G\app\Client\ui_shard.cpp' (0xB89390) from the FAIL_IF of 0x617A10 (line 707), inlined in the
 **	Accept of slot +0x68. Functional (D64) for the POC client: written from the saved pseudocode and the
-**	disassembly; the FAIL_IF's line is not yet the client's (the file's layout is not reconstructed).
+**	disassembly; the FAIL_IF sits on the client's line 707 through the blank lines above 0x617A10 (D25).
 **
 **	The Accept (event 9; its button is the model's 'button_cancel') names the character view's avatar (+0x88,
 **	AvatarDescClass::Unknown_4C1460 with the text gadget's 0x14 characters) and calls LoginTaskClass slot +0x48
