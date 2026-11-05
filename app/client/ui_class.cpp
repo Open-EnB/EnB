@@ -533,7 +533,7 @@ void ClassSelectInterface::Unknown_5761D0()
 }
 
 
-// NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp)
+// the bit clear written in both branches (tail-merged): VC6 then keeps its mask in ebp, as the client
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
 {
@@ -541,14 +541,14 @@ void ClassSelectInterface::Unknown_576270()
 		if (SliderValue + i < (int)Descriptions.size()) {
 			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text(Descriptions[SliderValue + i].c_str(), 0);
 			SkillGadgets[i]->Set_Unknown14(SkillDescriptions[SliderValue + i].c_str());
+			SkillGadgets[i]->Unknown2C_06 = 0;
 		} else {
 			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text("", 0);
 			SkillGadgets[i]->Set_Unknown14("");
+			SkillGadgets[i]->Unknown2C_06 = 0;
 		}
-		SkillGadgets[i]->Unknown2C_06 = 0;
 	}
 }
-
 
 
 
