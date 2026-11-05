@@ -2541,12 +2541,14 @@ below name only the work items, the blocked work, the leads and the queues.
      same kind of stand-in.
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42); swatch (negative) and secret decals untested; the functional
-     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.46: the client keeps &Unknown30 in a stack slot, frame 8 bytes
-     larger) / 0x75CB10 (0.81: operator new's temporary at [esp+0x28] vs the client's 0x30); Load's two base materials use
-     Create_NEW for 0x75CFA0 (same body as 0x75CB10's Create_Get 0x47D040; the name is a guess until another caller of
-     0x75CFA0 is read: proj_decal_manager 0x7633E0, galaxy map 0x7B2B30); decal.cpp's interim Unknown619280Class ctor /
-     dtor are probably header inlines emitted by ui_shipcust.obj (Load inlines the swatch dtor as `??_M`): move them when
-     ui_shipcust is quiet, with a full verify (0x618C10 / 0x619280 at risk); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 (LIMIT REACHED;
+     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.46, shape: the client spills &Unknown30 ([esp+0x24], reloaded
+     into edi each swatch iteration) and &SwatchArray where ours spills `this`; the swatch section looks like an inlined
+     helper taking both by reference, on the asserts' lines 132-144); Load's two base materials use Create_NEW for 0x75CFA0
+     (same body as Create_Get 0x47D040; the name is a guess until another caller of 0x75CFA0 is read: proj_decal_manager
+     0x7633E0, galaxy map 0x7B2B30); decal.h's inline Unknown619280Class ctor / dtor, ~SClientUnknown1334Class and
+     Unknown_61DF40 are emitted out of line by ui_shipcust.cpp (interim, D137): the client's copies sit in ui_ship_cust.cpp
+     (0x6186A0-0x61E8xx, not in the tree), which takes them over when it gets a file (a D66 move); decal.cpp's 0x82EF70
+     stays interim (it sits near udpconn / chartemplate); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 (LIMIT REACHED;
      by-value signatures landed 5e63a2c2: frame 0x30 vs 0x2C, ebp pushed per case, case 0's Unknown054 test branches the
      other way), 0x624E50 0.68;
      0x623080 (inline budget, over D130 only), ctor 0x622180 0.37 (the client calls ShipCustPartClass's operator= 0x619320
@@ -2572,8 +2574,7 @@ below name only the work items, the blocked work, the leads and the queues.
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
-     2026-11-05), decal.cpp's
-     0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
+     2026-11-05), decal.cpp's 0x82EF70, ui_shipcust.cpp's copies of decal.h's inlines (above), chartemplate.cpp's partial content: revisit when objmatch
      places them.
    * ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
      frame only (0xAC vs 0x9C), inline budget 0x567DF0 / 0x567760 / 0x563280 / 0x565390, register 0x5630B0 / 0x5AFCD0 /
