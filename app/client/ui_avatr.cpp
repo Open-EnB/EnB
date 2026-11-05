@@ -1901,8 +1901,8 @@ static int UIAvatrWeightRange[6] = { 50, 35, 50, 25, 60, 30 };		// NAME 1: neutr
 static int UIAvatrHeightBase[6] = { 64, 60, 68, 64, 72, 68 };		// NAME 1: neutral (D10)
 static int UIAvatrHeightRange[6] = { 18, 16, 16, 14, 18, 16 };		// NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), from the client's 0x55BFB0 (on the body tab, the weight '%d lbs' and the height
-// '%d ft, %d inch' from the body pull's point (+0x164), each text changed only when it differs: FontSys's +0xFC)
+// On the body tab, the weight '%d lbs' and the height '%d ft, %d inch' from the body pull's point (+0x164), each text
+// changed only when it differs (FontSys's +0xFC); the index written in each subscript (the client's lea / shl offset)
 // 0x55BFB0
 void AvatarCreationInterface::Unknown_55BFB0()
 {
@@ -1911,9 +1911,9 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	}
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	int i = desc->Desc.Race * 2 + desc->Desc.Gender;
-	int range = UIAvatrWeightRange[i]; int base = UIAvatrWeightBase[i]; int lbs = (int)((range * Unknown164.X) + (range * Unknown164.Y) + base);
-	int hbase = UIAvatrHeightBase[i]; int hrange = UIAvatrHeightRange[i]; int inches = (int)(hrange * Unknown164.Y + hbase);
+	int base = UIAvatrWeightBase[desc->Desc.Race * 2 + desc->Desc.Gender]; int range = UIAvatrWeightRange[desc->Desc.Race * 2 + desc->Desc.Gender];
+	int lbs = (int)((range * Unknown164.X) + (range * Unknown164.Y) + base);
+	int hbase = UIAvatrHeightBase[desc->Desc.Race * 2 + desc->Desc.Gender]; int hrange = UIAvatrHeightRange[desc->Desc.Race * 2 + desc->Desc.Gender]; int inches = (int)((hrange * Unknown164.Y) + hbase);
 	char text[64];
 	_snprintf(text, 0x40, "%d lbs", lbs);
 	FontSys *weight = Unknown_BE67C4->Get_Style("weight_var_fe_avatar00", model.Peek());
