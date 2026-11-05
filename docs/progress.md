@@ -2646,13 +2646,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
      delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
-   * sbaseview.cpp (SBV / SB2 / SB3, 2026-11-05): NOT EXACT, parked with attempts rows: the interface switcher 0x69F8F0
-     0.84 (register: case 11 loads Unknown1138 into edx where the client uses eax; case 8 an eax / edx flip and the `lea` /
-     `or ebp` order), the lights loader 0x6A0590 0.72 (frame: the matrix rows' and cross-product temporaries' slots; the
-     client computes the rotation Z, Y, X), 0x69D030 0.87 (literal: Rotate_Z's first row, 5 more forms), 0x69F710 0.80
-     (order: its Frame store scheduled after the Mode push), Init 0x69B5E0 0.84 (its trade / group Create_NEW sites carry
-     0x69F8F0 case 8's residue: one fix may lift both); 0x6A1180 not started (the debug memory display on FastAllocator
-     internals; frameint.cpp's 0x53EB00 is the same code). Interim (D137): UITalkTreeClass (0x64B6E0, 0x180) declared in
+   * sbaseview.cpp (SBV / SB2 / SB3 / SB4, 2026-11-05; Init 0x69B5E0, the switcher 0x69F8F0, 0x69F710 exact since SB4): NOT
+     EXACT, parked with attempts rows: the lights loader 0x6A0590 0.72 (frame; lead: a file-static rotate writing Z, Y, X
+     cut rows 119 -> 92; the client puts `up` at +0x34 and a scalar at +0x40, ours the other way round), 0x69D030 0.87
+     (literal: Rotate_Z's row 0 still does s*tmp2 first); 0x6A1180 not started (the 0x700-byte debug memory display on
+     FastAllocator internals; frameint.cpp's 0x53EB00 is the same code). Interim (D137): UITalkTreeClass (0x64B6E0, 0x180) declared in
      sclient.h until ui_talkt.cpp / .h is built; +0x184 / +0x188 / +0x198's neutral stand-ins.
      unknown_490900.h (SBaseViewUnknown68Class = ScriptedMovieViewerSettingsStruct, +0x00 the scene LightClass) is interim
      (D137): revisit when 0x4909D0's file is found (its lights may be Vector4s, as 0x6A0590's are).
@@ -2717,7 +2715,7 @@ below name only the work items, the blocked work, the leads and the queues.
      it can only gain itself, its helpers are `multiple`; its RefCountPtr form parked: the client calls insert(it, n,
      x) 0x47D690 out of line), Load_Assets 0x4691D0 frame, Update_Patches 0x46B3C0 shape; the stars' Init 0x4829E0
      register, Load 0x481DB0 order; landdmap 0x466780-0x469000's rest (Matrox only, never runs); the global byte 0xBFAE52 set during the prototype load is unknown.
-   * mainview.cpp: ctor 0x50B360 order, Init 0x50BA60 register (`docs/attempts/50BA60`), 0x50D060 register, Update
+   * mainview.cpp: ctor 0x50B360 order (try SB4's `Get_Client()` lever that made Init 0x50BA60 exact), 0x50D060 register, Update
      0x50F1B0 frame (DurationClass::operator+ out of line costs aux_roots' pad), targeting 0x512400 budget (the client
      calls its find copies 0x514B60 / 0x514BD0), picking 0x512BB0 shape, overlays 0x50D520 budget, sea 0x510D40
      shape, 0x5C25C0 shape (the client keeps * 0.01 and * scale apart), 0x514010 / 0x6B4480 shape,
