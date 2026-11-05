@@ -2469,21 +2469,17 @@ below name only the work items, the blocked work, the leads and the queues.
      out of line in 0x74C9D0's else branch (stash docs/attempts/741180/); 0x755600 the same pattern; ShipInv dtor 0x6F8880
      (vector::size out of line). Retyping PlayerVarAuxData loses 41 of cpacket.cpp's functions (aux_roots_send.h): dropped.
      delta_money.h (interim, D137, NAME 1).
-   * The character info window (BIO / AVS2, 2026-11-04): its builder 0x5738B0 makes four tabs, 0x549640 (0x124,
-     ui_attrb?), 0x5C4170 (0xEC, ui_missn?), 0x58D080 (0xE4, ui_faction?) and ui_bio.cpp's UIBioClass (interim, D137, NAME 1;
-     0x5603E0-0x5608BF exact): 0x5738B0 can include ui_bio.h. ui_buff.cpp (0x5608D0-0x561DC0; ui_chat_panel starts at
-     0x561DD0): 0x561030 / 0x5615C0 functional, inline budget (the client calls auxdata.h's find 0x561C40 / ~vector 0x561B80
-     out of line; string::assign out of line for the first two strings); gd_buffgadg.cpp (0x665180-0x666470) would give
-     ui_buff.cpp's local gadget stand-ins their real header: done by GADG (2026-11-04, gd_buffgadg.cpp / .h, 0x665150-0x666570),
-     so ui_buff.cpp switches to gd_buffgadg.h first (until then the app / POC link leaves UIBuffGadgetClass's ctor,
-     ::Unknown_6661F0 and UIBuffInfoStruct::Unknown_665390 unresolved, and clienttest stands them in: drop those in
-     tests/clienttest/client_stubs.cpp with the switch) (GADG's report in the 2026-11-04 plan log: BuffElementStruct / BuffInfoStruct /
-     BuffGadgetClass, the element layout ExpirationTime +0x20, Magnitude +0x28, IsActive +0x2C, the gadget's base
-     Unknown_671300Class, `(ClientClass *)Client`). gd_buffgadg NOT EXACT: 0x665940 / 0x667A60 / 0x667230 (one inline-budget
+   * The character info window (BIO / AVS2 / BF1, 2026-11-05): ui_cinfo.cpp's UICinfoClass (0x5734D0-0x5745AF, 12 exact;
+     0x573E80 / 0x5741A0 NOT EXACT, register) makes four tabs: ui_bio.cpp's UIBioClass and 0x549640 (0x124, string
+     ATTRIBUTES), 0x5C4170 (0xEC, MISSIONS), 0x58D080 (0xE4, FACTION_MENU), still to place; the window's maker 0x693230.
+     ui_buff.cpp (0x5608D0-0x561DC0, on gd_buffgadg.h since BF1): 0x561030 parked (inline budget, ~29 forms: auxdata.h's
+     find stays inline where the client calls 0x561C40 out of line; inline_depth(0) also outlines 0x560FA0 / operator[]),
+     0x5615C0 partial (not a verified start; frame 0x74 vs 0x64; an early `continue` for an empty source_object outlines
+     the scrub name's assign as the client does but scored worse). ui_cpit.cpp's UICpitGadget674260Class should switch to
+     the interim unknown_674260.h (needs unknown_675120.h there): with the next ui_cpit builder. gd_buffgadg NOT EXACT: 0x665940 / 0x667A60 / 0x667230 (one inline-budget
      cause: basic_string::assign out of line), 0x6656A0 / 0x6661F0 (register), 0x665F20 (frame). Leads: `operator>` for
      duration.h (0x667950 / 0x6661F0 compare `.Time >`; re-sweep auxpad.py after, P-MV2-3); Unknown_671300Class's own header
-     for ui_avatr / ui_avatar_cust / gd_buffgadg once its file is found (near gd_slot_data.cpp). The 0x674260 gadget is declared twice (ui_cpit's UICpitGadget674260Class, ui_bio's
-     UIBioGadget674260Class): one interim header (unknown_674260.h) when a third user appears or its file is found.
+     for ui_avatr / ui_avatar_cust / gd_buffgadg once its file is found (near gd_slot_data.cpp).
      ui_avsel 0x55F140 (register: the profession index, prof + race * 2 then + race).
    * ui_avatar_cust.cpp (UAC, 2026-11-04, on Unknown5BB320Class now): Init 0x54BD30 (slot +0x54, ui_avatr's ctor's twin:
      gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
