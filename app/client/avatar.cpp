@@ -1719,7 +1719,7 @@ void CharacterViewAvatarClass::Unknown_782850()
 }
 
 // 0x7829B0
-// NOT EXACT: functional for POC (D64)
+// (frames 0 when neither animation is set, the section loop a while)
 bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
 {
 	static char *moods[] = { "Mormal", "Angry", "Happy", "Puzzled", NULL };	// 0xB9CD4C
@@ -1735,16 +1735,17 @@ bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
 	} else if (Unknown0C0[0]) {
 		frames = Unknown0C0[0]->Get_Num_Frames();
 	} else {
-		return(false);
+		frames = 0;
 	}
-	if (frames <= 2) {
+	if (frames < 3) {
 		return(false);
 	}
 	Unknown0BC->Insert_Morph_Key(1, 0, Unknown240);
 	Unknown0BC->Insert_Morph_Key(2, 0, 0);
 	int mood = 0;
 	char section[64];
-	for (int index = 0; ; index++) {
+	int index = 0;
+	while (true) {
 		_snprintf(section, 0x40, "Index-%04d", index);
 		if (!ini.Section_Present(section)) {
 			break;
@@ -1756,15 +1757,16 @@ bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
 			}
 			int brow = ini.Get_List_Index(section, "Brow", -1, brows);
 			if (brow >= 0) {
-				brow += mood * 5;
-				Unknown240 = brow;
-				Unknown0BC->Insert_Morph_Key(1, frame, brow);
+				int key = brow + mood * 5;
+				Unknown240 = key;
+				Unknown0BC->Insert_Morph_Key(1, frame, key);
 			}
 			int eye = ini.Get_List_Index(section, "Eye", -1, eyes);
 			if (eye >= 0) {
 				Unknown0BC->Insert_Morph_Key(2, frame, eye);
 			}
 		}
+		index++;
 	}
 	Unknown240 = Desc.Mood_Type * 5;
 	Unknown0BC->Insert_Morph_Key(1, frames - 1, Unknown240);
@@ -1867,8 +1869,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
-
 
 
 
