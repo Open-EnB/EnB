@@ -84,8 +84,8 @@ public:
 	std::vector<Unknown664500Class *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
 	GadgetSlider *UnknownD4;							// +0xD4
 	GadgetSlider *UnknownD8;							// +0xD8
-	void *UnknownDC;									// +0xDC
-	void *UnknownE0;									// +0xE0
+	GadgetClass *UnknownDC;								// +0xDC
+	GadgetClass *UnknownE0;								// +0xE0
 	bool UnknownE4;										// +0xE4
 	int UnknownE8;										// +0xE8 (a slider's value, as an int: 0x54A400)
 	int UnknownEC;										// +0xEC (-1)

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1234 |
 | 2 | describes what the code does | 3009 |
-| 1 | neutral placeholder | 14002 |
+| 1 | neutral placeholder | 14007 |
 
 ## For review (score 3 and below)
 
@@ -6199,6 +6199,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A5440` | `app/client/ui_attrb_skills.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown6A7A00Class` | `app/client/ui_attrb_skills.cpp:32` | neutral (D10) |
 | 1 | `Unknown00` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7860` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/ui_attrb_skills.cpp:36` | untagged neutral name (D10) |
 | 1 | `InterfaceUnknown58Class` | `app/client/ui_attrb_skills.cpp:40` | neutral (D10) |
 | 1 | `Unknown_686DD0` | `app/client/ui_attrb_skills.cpp:43` | untagged neutral name (D10) |
@@ -6238,10 +6240,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62D710` | `app/client/ui_attrb_skills.cpp:350` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_attrb_skills.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/ui_attrb_skills.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_attrb_skills.cpp:421` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_attrb_skills.cpp:432` | untagged neutral name (D10) |
+| 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.cpp:437` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_attrb_skills.cpp:493` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_attrb_skills.cpp:493` | untagged neutral name (D10) |
 | 1 | `Unknown_BC` | `app/client/ui_attrb_skills.cpp:497` | untagged neutral name (D10) |
-| 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.cpp:571` | untagged neutral name (D10) |
+| 1 | `Slider_Value` | `app/client/ui_attrb_skills.cpp:502` | neutral (D10): the value through x87, as the client passes it |
 | 1 | `ui_attrb_skills.h` | `app/client/ui_attrb_skills.h:4` | provisional header name for ui_attrb_skills.cpp |
 | 1 | `Unknown6A7A00Class` | `app/client/ui_attrb_skills.h:12` | untagged neutral name (D10) |
 | 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.h:13` | untagged neutral name (D10) |

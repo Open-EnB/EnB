@@ -32,7 +32,7 @@ public:
 class Unknown6A7A00Class  // NAME 1: neutral (D10)
 {
 public:
-	char Unknown00[0x50];								// +0x00
+	char Unknown00[0x50];	int Unknown_6A7990(); void Unknown_6A7860();	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860
 	Unknown6A5440Class Unknown50;						// +0x50
 };
 
@@ -415,30 +415,30 @@ void UIAttrbSkillsClass::Unknown_54AB20()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "local_interface_sort.h"
+// 0x54A200
+// NOT EXACT: register (similarity 0.71: the inlined 0x54B370 keeps the count in ecx and the gadget in edx, the client the reverse; 0x54B140 inlines it as the client does)
+void UIAttrbSkillsClass::Unknown_58()
+{
+	if (!Active) {
+		InterfaceSortScopeClass sort(this);
+		Unknown62D1F0Class::Unknown_58();
+		if (!Unknown_62D710()->Unknown_6A7990()) {
+			Unknown_62D710()->Unknown_6A7860();
+		}
+		UnknownEC = -1;
+		UnknownF0 = 5;
+		UnknownE4 = false;
+		UnknownDC->Unknown_40(true);
+		UnknownE0->Unknown_40(false);
+		UnknownD4->Unknown_40(false);
+		UnknownD8->Unknown_40(true);
+		UnknownC0->Unknown_58();
+		Unknown_54B370();
+		Unknown_54A900();
+		Unknown_54A640(true);
+	}
+}
 
 
 
@@ -499,53 +499,53 @@ void UIAttrbSkillsClass::Unknown_54B050()
 #pragma auto_inline(on)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static inline float Slider_Value(GadgetSlider *slider) { return(slider->Value); }	// NAME 1: neutral (D10): the value through x87, as the client passes it
+// 0x54B140
+void UIAttrbSkillsClass::Unknown_54B140()
+{
+	bool slider = false;
+	bool common = false;
+	if (UnknownE4) {
+		if (UnknownF0 == 10) return;
+		UnknownF0++;
+		if (UnknownF0 == 6) {
+			slider = true;
+		} else if (UnknownF0 == 10) {
+			UnknownC0->Unknown_5C();
+			common = true;
+		}
+	} else {
+		if (UnknownF0 == 5) return;
+		UnknownF0--;
+		if (UnknownF0 == 5) {
+			common = true;
+		} else if (UnknownF0 == 9) {
+			UnknownC0->Unknown_58();
+			slider = true;
+		}
+	}
+	if (slider) {
+			if (UnknownE4) {
+				UnknownD4->Unknown_A4(Slider_Value(UnknownD8), false);
+			} else {
+				UnknownD8->Unknown_A4(Slider_Value(UnknownD4), false);
+			}
+			UnknownDC->Unknown_40(false);
+			UnknownE0->Unknown_40(false);
+			UnknownD4->Unknown_40(false);
+			UnknownD8->Unknown_40(false);
+		Unknown_54A900();
+		return;
+	}
+	if (common) {
+			Unknown_54B370();
+			UnknownDC->Unknown_40(!UnknownE4);
+			UnknownE0->Unknown_40(UnknownE4);
+			UnknownD4->Unknown_40(UnknownE4);
+			UnknownD8->Unknown_40(!UnknownE4);
+	}
+	Unknown_54A900();
+}
 
 
 
