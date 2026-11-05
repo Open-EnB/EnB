@@ -2474,11 +2474,12 @@ below name only the work items, the blocked work, the leads and the queues.
      0x573E80 / 0x5741A0 NOT EXACT, register) makes four tabs: ui_bio.cpp's UIBioClass and 0x549640 (0x124, string
      ATTRIBUTES), 0x5C4170 (0xEC, MISSIONS), 0x58D080 (0xE4, FACTION_MENU), placed by TB1 (2026-11-05) as
      ui_attrb_skills.cpp (0x549640-0x54B75F, UIAttrbSkillsClass over the interim skill base Unknown62D1F0Class, D137),
-     ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass). Left: attrb Init
-     0x549AA0, +58 0x54A200 (inlines 0x54B370), +68 0x54A480, 0x54A640 / 0x54A860 / 0x54B400 (need 0x62D710 / 0x6A7A00 /
-     0x548D60's types), 0x54ACE0, 0x54B140; missn +60 0x5C4C90 (Unknown_Find_Field<DeltaItemArrayClass<DeltaMissionClass>>
-     "Missions"), 0x5C4FC0, 0x5C5330 (0.81 order, draft .work/tb1/mis_5330.py), 0x5C5500, 0x5C5AC0, 0x5C5DB0, 0x5C66D0
-     (register), the STL COMDATs after them; faction 0x58DC20 (reputations, aligned frame), 0x58E740 (gauge floats); the
+     ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass); round 2 by TB2 (+41). Left: attrb Init
+     0x549AA0 (its asserts sit on lines 121 / 147 / 155, so Init starts near line 115: first move TB1's 0x54A3C0 / 0x54A400 /
+     0x54A5B0 (lines 82-119) and 0x54ABE0-0x54AC90 (121-150) below it in address order), 0x54A200 0.71 (register: ecx / edx
+     swapped in the inlined 0x54B370), 0x54A640 0.68 (frame 0x8C vs 0x54: one NameClass slot, the font in the argument's
+     slot); missn 0x5C5DB0 0.58 (register, late edi push), 0x5C66D0 0.77 (register: load order); faction 0x58DC20 0.65
+     (register: reputation in esi, its slot +0x28 vs ebx / +0x14); the
      window's maker 0x693230 (pdaint.cpp, 484 lines). Quiet-tree rename (client evidence, coordinator's call): Unknown5BB320Class::Mesh
      (+0x84) -> InterfaceMesh (FAIL_IF '!InterfaceMesh' in 0x58D400 l.118 / 0x549AA0 l.121; ~12 ui files; ui_faction / ui_missn
      carry a local `#define InterfaceMesh Mesh` until then).
