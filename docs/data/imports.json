@@ -23916,6 +23916,33 @@
      "0x56BA80"
     ]
    },
+   "ui_cinfo": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x541A10"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x5738B0",
+     "0x5743A0",
+     "0x574410",
+     "0x574480",
+     "0x5744F0"
+    ],
+    "merged": [],
+    "name": "client/ui_cinfo.cpp",
+    "shared": [
+     "0x42F250"
+    ],
+    "tiebreak": [
+     "0x5743A0",
+     "0x574410",
+     "0x574480",
+     "0x5744F0"
+    ]
+   },
    "ui_class": {
     "ambiguous": [
      "0x42A6C0",
@@ -27886,6 +27913,7 @@
    "client/ui_bio.h": "reconstructed",
    "client/ui_buff.h": "reconstructed",
    "client/ui_chat_panel.h": "reconstructed",
+   "client/ui_cinfo.h": "reconstructed",
    "client/ui_class.h": "reconstructed",
    "client/ui_combobox.h": "reconstructed",
    "client/ui_cpit.h": "reconstructed",

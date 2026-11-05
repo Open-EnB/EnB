@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1210 |
+| 3 | by convention from a client-named file or sibling | 1212 |
 | 2 | describes what the code does | 3006 |
-| 1 | neutral placeholder | 13503 |
+| 1 | neutral placeholder | 13544 |
 
 ## For review (score 3 and below)
 
@@ -7666,6 +7666,47 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown265` | `app/client/ui_chat_panel.h:187` | untagged neutral name (D10) |
 | 1 | `Unknown266` | `app/client/ui_chat_panel.h:188` | untagged neutral name (D10) |
 | 1 | `Unknown267` | `app/client/ui_chat_panel.h:189` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_cinfo.cpp:9` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_cinfo.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_cinfo.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_cinfo.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_cinfo.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_cinfo.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_cinfo.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown549640Class` | `app/client/ui_cinfo.cpp:18` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_cinfo.cpp:18` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_cinfo.cpp:21` | as UIBioClass's |
+| 1 | `UnknownAC` | `app/client/ui_cinfo.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown5C4170Class` | `app/client/ui_cinfo.cpp:24` | neutral (D10) |
+| 1 | `client` | `app/client/ui_cinfo.cpp:27` | as UIBioClass's |
+| 1 | `Unknown58D080Class` | `app/client/ui_cinfo.cpp:30` | neutral (D10) |
+| 1 | `client` | `app/client/ui_cinfo.cpp:33` | as UIBioClass's |
+| 1 | `Unknown_54` | `app/client/ui_cinfo.cpp:38` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_cinfo.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_5417D0` | `app/client/ui_cinfo.cpp:42` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_cinfo.cpp:44` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_cinfo.cpp:47` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_cinfo.cpp:50` | untagged neutral name (D10) |
+| 1 | `ui_cinfo.h` | `app/client/ui_cinfo.h:4` | provisional header name for ui_cinfo.cpp |
+| 1 | `Unknown549640Class` | `app/client/ui_cinfo.h:9` | untagged neutral name (D10) |
+| 1 | `Unknown5C4170Class` | `app/client/ui_cinfo.h:10` | untagged neutral name (D10) |
+| 1 | `Unknown58D080Class` | `app/client/ui_cinfo.h:11` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_cinfo.h:15` | untagged neutral name (D10) |
+| 1 | `MAX_BUTTONS` | `app/client/ui_cinfo.h:18` | the constructor's loop (buttons 1..4) |
+| 1 | `client` | `app/client/ui_cinfo.h:19` | what the base's 0x5BB320 takes |
+| 1 | `Unknown_54` | `app/client/ui_cinfo.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_cinfo.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_cinfo.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_cinfo.h:24` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_cinfo.h:25` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_cinfo.h:25` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_cinfo.h:27` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/ui_cinfo.h:28` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_cinfo.h:29` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_cinfo.h:30` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_cinfo.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_cinfo.h:32` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_cinfo.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_class.cpp:28` | 0xBE67C4 |
 | 1 | `Unknown_760770` | `app/client/ui_class.cpp:30` | untagged neutral name (D10) |
 | 1 | `UIClassKeyEventStruct` | `app/client/ui_class.cpp:33` | neutral (D10): kernel.h's input event |
@@ -16869,6 +16910,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `manager` | `app/client/ui_chat_panel.h:81` | the FAIL_IF's |
 | 3 | `chat_int` | `app/client/ui_chat_panel.h:130` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 3 | `ChatInt` | `app/client/ui_chat_panel.h:159` | the assert's 'ChatInt.Peek()' |
+| 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:14` | the FAIL_IF's in ui_manu.cpp |
+| 3 | `UICinfoClass` | `app/client/ui_cinfo.h:15` | class-from-file (D24) for app\Client\ui_cinfo.cpp |
 | 3 | `Change_Text` | `app/client/ui_combobox.cpp:16` | the client's label |
 | 3 | `GadgetClass` | `app/client/ui_combobox.cpp:20` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `ui_combobox.h` | `app/client/ui_combobox.h:4` | header name by convention (D24) from the client's ui_combobox.cpp |
