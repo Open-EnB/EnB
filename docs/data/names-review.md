@@ -6248,22 +6248,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownFC` | `app/client/ui_attrb_skills.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_attrb_skills.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_attrb_skills.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.cpp:83` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_attrb_skills.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_attrb_skills.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/ui_attrb_skills.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_attrb_skills.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_attrb_skills.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_CC` | `app/client/ui_attrb_skills.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown_D0` | `app/client/ui_attrb_skills.cpp:143` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_attrb_skills.cpp:145` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_attrb_skills.cpp:161` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_attrb_skills.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_attrb_skills.cpp:164` | untagged neutral name (D10) |
@@ -6279,8 +6263,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/ui_attrb_skills.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_attrb_skills.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Changed_Field` | `app/client/ui_attrb_skills.cpp:180` | neutral (D10) |
+| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown_54B400` | `app/client/ui_attrb_skills.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_54A860` | `app/client/ui_attrb_skills.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown77E3F0Class` | `app/client/ui_attrb_skills.cpp:228` | untagged neutral name (D10) |
 | 1 | `Unknown_74C840` | `app/client/ui_attrb_skills.cpp:228` | untagged neutral name (D10) |
 | 1 | `Unknown108` | `app/client/ui_attrb_skills.cpp:230` | untagged neutral name (D10) |
@@ -6288,15 +6276,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62D710` | `app/client/ui_attrb_skills.cpp:231` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_attrb_skills.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_attrb_skills.cpp:237` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_attrb_skills.cpp:238` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_attrb_skills.cpp:241` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_attrb_skills.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/ui_attrb_skills.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.cpp:395` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_attrb_skills.cpp:432` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_attrb_skills.cpp:436` | untagged neutral name (D10) |
 | 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.cpp:437` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_attrb_skills.cpp:452` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_attrb_skills.cpp:493` | untagged neutral name (D10) |
 | 1 | `Unknown_BC` | `app/client/ui_attrb_skills.cpp:497` | untagged neutral name (D10) |
 | 1 | `Slider_Value` | `app/client/ui_attrb_skills.cpp:502` | neutral (D10): the value through x87, as the client passes it |
+| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.cpp:504` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_attrb_skills.cpp:609` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.cpp:623` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_attrb_skills.cpp:626` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_attrb_skills.cpp:627` | untagged neutral name (D10) |
+| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.cpp:638` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_attrb_skills.cpp:648` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_attrb_skills.cpp:653` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_attrb_skills.cpp:659` | untagged neutral name (D10) |
 | 1 | `ui_attrb_skills.h` | `app/client/ui_attrb_skills.h:4` | provisional header name for ui_attrb_skills.cpp |
 | 1 | `Unknown6A7A00Class` | `app/client/ui_attrb_skills.h:12` | untagged neutral name (D10) |
 | 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.h:13` | untagged neutral name (D10) |

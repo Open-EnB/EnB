@@ -79,76 +79,76 @@ UIAttrbSkillsClass::~UIAttrbSkillsClass()
 	Unknown_BE67BC->Unload("fa_att.ini");
 }
 
-// 0x54A3C0
-void UIAttrbSkillsClass::Unknown_5C()
-{
-	if (Active) {
-		UnknownFC->Unknown_5C();
-		UnknownC0->Unknown_5C();
-		Unknown62D1F0Class::Unknown_5C();
-	}
-}
+// (lines 82-151 are Init 0x549AA0's place: its asserts sit on the client's lines 121 / 147 / 155; 0x54A3C0-0x54AC90 follow 0x54B400)
 
-// 0x54A400
-void UIAttrbSkillsClass::Unknown_60()
-{
-	Unknown62D1F0Class::Unknown_60();
-	Unknown_54B140();
-	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
-	if (UnknownE8 != value) {
-		UnknownE8 = value;
-		Unknown_54A900();
-	}
-	Unknown_54A640(false);
-	Unknown_54AB20();
-}
 
-// 0x54A5B0
-void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
-{
-	if (view) {
-		Layer.Set_Scene((SceneClass *)view->Unknown_50());
-		Layer.Set_Camera((CameraClass *)view->Unknown_54());
-	} else {
-		Layer.Set_Scene(NULL);
-		Layer.Set_Camera(NULL);
-	}
-	UnknownFC->Unknown_7C(view, false);
-	UnknownC0->Unknown_7C(view, false);
-	Unknown62D1F0Class::Unknown_7C(view, arg);
-}
 
-// 0x54ABE0
-void UIAttrbSkillsClass::Unknown_54ABE0()
-{
-	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
-	if (UnknownE8 != value) {
-		UnknownE8 = value;
-		Unknown_54A900();
-	}
-}
 
-// 0x54AC50
-void UIAttrbSkillsClass::Unknown_B0()
-{
-}
 
-// 0x54AC70
-void UIAttrbSkillsClass::Unknown_CC()
-{
-	Unknown_54ACE0();
-}
 
-// 0x54AC90
-void UIAttrbSkillsClass::Unknown_D0()
-{
-	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
-		Unknown664500Class *gadget = *it;
-		if (gadget->Unknown_60()) {
-			gadget->Unknown_664500();
-		}
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -592,6 +592,77 @@ void UIAttrbSkillsClass::Unknown_54B400()
 	if (avatar) {
 		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
 		((Unknown548D60Class *)UnknownFC.Peek())->Unknown_548D60(Unknown_62D710(), Unknown_62D710()->Unknown_6A7A00(UnknownEC), index);
+	}
+}
+
+// 0x54A3C0
+void UIAttrbSkillsClass::Unknown_5C()
+{
+	if (Active) {
+		UnknownFC->Unknown_5C();
+		UnknownC0->Unknown_5C();
+		Unknown62D1F0Class::Unknown_5C();
+	}
+}
+
+// 0x54A400
+void UIAttrbSkillsClass::Unknown_60()
+{
+	Unknown62D1F0Class::Unknown_60();
+	Unknown_54B140();
+	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
+	if (UnknownE8 != value) {
+		UnknownE8 = value;
+		Unknown_54A900();
+	}
+	Unknown_54A640(false);
+	Unknown_54AB20();
+}
+
+// 0x54A5B0
+void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
+{
+	if (view) {
+		Layer.Set_Scene((SceneClass *)view->Unknown_50());
+		Layer.Set_Camera((CameraClass *)view->Unknown_54());
+	} else {
+		Layer.Set_Scene(NULL);
+		Layer.Set_Camera(NULL);
+	}
+	UnknownFC->Unknown_7C(view, false);
+	UnknownC0->Unknown_7C(view, false);
+	Unknown62D1F0Class::Unknown_7C(view, arg);
+}
+
+// 0x54ABE0
+void UIAttrbSkillsClass::Unknown_54ABE0()
+{
+	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
+	if (UnknownE8 != value) {
+		UnknownE8 = value;
+		Unknown_54A900();
+	}
+}
+
+// 0x54AC50
+void UIAttrbSkillsClass::Unknown_B0()
+{
+}
+
+// 0x54AC70
+void UIAttrbSkillsClass::Unknown_CC()
+{
+	Unknown_54ACE0();
+}
+
+// 0x54AC90
+void UIAttrbSkillsClass::Unknown_D0()
+{
+	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		Unknown664500Class *gadget = *it;
+		if (gadget->Unknown_60()) {
+			gadget->Unknown_664500();
+		}
 	}
 }
 /*
