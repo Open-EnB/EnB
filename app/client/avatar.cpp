@@ -159,205 +159,14 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	}
 	Desc.Upgrade();
 	if (a) {
-		if (!PlayerNLP) {
-			PlayerNLP = new PlayerNLPClass();
-		}
-		PlayerNLP->Unknown_78EC00(Desc.Personality, Desc.NLP);
-		Unknown224 = Unknown_BDBB84(0, PlayerNLP->Personality->Get_Fidget_Delay() / 2);
-		Unknown221 = true;
-		Unknown220 = true;
-
-		// 1. Build body render object
-		char body_name[32];
-		if (Desc.Avatar_Type == 0) {
-			const char *gender = (Desc.Gender == 1) ? "AF" : "AM";
-			const char *race = (Desc.Race == 1) ? "J" : ((Desc.Race == 2) ? "P" : "T");
-			_snprintf(body_name, sizeof(body_name), "%s%sBODY%02d%02d",
-				gender, race, (int)Desc.Body_Type, (int)Desc.Pants_Type);
-		} else {
-			_snprintf(body_name, sizeof(body_name), "ANPCBODY%03d", (int)Desc.Body_Type);
-		}
-
-		bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();		// 0x77E9D0: the body loads overbright
-		if (!making) {
-			WW3D::Enable_Overbright_Modify_On_Load(true);
-		}
-		if (WW3DAssetManager::Get_Instance()) {
-			BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
-		}
-		if (!making) {
-			WW3D::Enable_Overbright_Modify_On_Load(false);
-		}
-		FAIL_IF(BodySource == NULL) {
-		}
-		if (BodySource != NULL) {
-			Unknown_496AE0(BodySource.Peek(), true);
-			BodyObj = Create_Get(BodySource->Clone());
-			if (BodyObj) {
-				BodyObj->Add_Ref();
-				Unknown_496AE0(BodyObj.Peek(), true);
-				Unknown_496DB0(BodyObj.Peek());		// 0x77E9D0: every LOD level to its highest, the sub-objects' too
-
-				BodyObj->Get_Obj_Space_Bounding_Sphere(ObjSphere);
-				BodyObj->Get_Obj_Space_Bounding_Box(ObjBox);
-				Update_Obj_Space_Bounding_Volumes();
-			}
-		}
-
-		// 2. Build collision object
-		if (WW3DAssetManager::Get_Instance()) {
-			CollisionObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
-			if (CollisionObj) {
-				Unknown_496AE0(CollisionObj.Peek(), true);
-				if (BodyObj) {
-					BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
-				}
-			}
-		}
-
-		// 3. Build head render object
-		if (BodyObj) {
-			char head_name[32];
-			if (Desc.Avatar_Type == 0) {
-				const char *gender = (Desc.Gender == 1) ? "AF" : "AM";
-				const char *race = (Desc.Race == 1) ? "J" : ((Desc.Race == 2) ? "P" : "T");
-				_snprintf(head_name, sizeof(head_name), "%s%sHEAD%02d",
-					gender, race, (int)Desc.Head_Type);
-			} else {
-				_snprintf(head_name, sizeof(head_name), "ANPCHEAD%03d", (int)Desc.Head_Type);
-			}
-
-			bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();	// 0x77F000: the head loads overbright
-			if (!making) {
-				WW3D::Enable_Overbright_Modify_On_Load(true);
-			}
-			if (WW3DAssetManager::Get_Instance()) {
-				HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
-			}
-			if (!making) {
-				WW3D::Enable_Overbright_Modify_On_Load(false);
-			}
-			FAIL_IF(HeadSource == NULL) {
-			}
-			if (HeadSource != NULL) {
-				Unknown_496AE0(HeadSource.Peek(), true);
-				HeadObj = Create_Get(HeadSource->Clone());
-				if (HeadObj) {
-					Unknown_496AE0(HeadObj.Peek(), true);
-					BodyObj->Add_Sub_Object_To_Bone(HeadObj.Peek(), "K_HEAD");
-				}
-			}
-
-			// 0x77DA20's face animation: three channels (mouth, brows, eyelids) morphing the head
-			// skeleton's poses
-			HAnimClass *anims[3];
-			char anim_name[32];
-			for (int i = 0; i < 3; i++) {
-				_snprintf(anim_name, 0x20, "%sHSKEL.%sHANIM%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD30[Desc.Gender], i);
-				anims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name);
-			}
-			if (anims[0] == NULL || anims[1] == NULL || anims[2] == NULL) {
-				Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
-			} else {
-				Unknown0BC = Create_NEW(new HMorphAnimClass());
-				Unknown0BC->Create_New_Morph(3, anims);
-			}
-
-			// 0x77DA20's accessories (player avatars only): each one's meshes join the head
-			// prototype's LOD models, then the head object is cloned again (0x77F750)
-			if (Desc.Avatar_Type == 0 && HeadSource) {
-				// the weapons on the body's bones (+0x2D8 the unique one, +0x2DC the hip's, +0x2E0 the back's)
-				Unknown_77FDA0(Desc.Weapon_Unique_Num);
-				Unknown_77FE20(Desc.Weapon_Hip_Num);
-				Unknown_77FE70(Desc.Weapon_Back_Num);
-
-
-
-
-
-
-
-
-
-
-				Unknown_77F960("HAIR", Desc.Hair_Num, &HairSource);
-				Unknown_77FFA0(Desc.Hair_Color, false);
-				Unknown_77F960("EAR", Desc.Ear_Num, &Unknown2CC);
-				Unknown_77F960("GOGGLE", Desc.Goggle_Num, &GoggleSource);
-				Unknown_77F960("BEARD", Desc.Beard_Num, &BeardSource);
-				char beard_name[64];
-				for (int beard = 0; beard < 5; beard++) {
-					_snprintf(beard_name, 0x40, "BEARD%d", beard);
-					RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(beard_name));
-					if (robj) {
-						Unknown_77FEC0(&robj, Desc.Beard_Color, 0);
-
-					}
-				}
-				Unknown_77F750();
-			}
-		}
-
-		// The client normalises the morph weights and shows them at once (player avatars only)
-		if (Desc.Avatar_Type == 0) {
-			float *weights = Desc.Body_Weight;
-			float sum = 0.0f;
-			Unknown29C = true;
-			int i;
-			for (i = 0; i < 5; i++) {
-				G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
-				sum += weights[i];
-			}
-			if (sum > 0.0f) {
-				for (i = 0; i < 5; i++) {
-					weights[i] = weights[i] / sum;
-				}
-			}
-			weights = Desc.Head_Weight;
-			sum = 0.0f;
-			Unknown29D = true;
-			for (i = 0; i < 5; i++) {
-				G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
-				sum += weights[i];
-			}
-			if (sum > 0.0f) {
-				for (i = 0; i < 5; i++) {
-					weights[i] = weights[i] / sum;
-				}
-			}
-			Unknown_781410(1, 0);
-			Unknown_781570(1, 0);
-		}
-
-		// 4. Release creation prototypes if non-player or not retaining
-		if (b == 0 || Desc.Avatar_Type != 0) {
-			if (HeadSource) {
-				HeadSource = NULL;
-
-			}
-			if (BodySource) {
-				BodySource = NULL;
-
-			}
-			if (HairSource) {
-				HairSource = NULL;
-
-			}
-			if (GoggleSource) {
-				GoggleSource = NULL;
-
-			}
-			if (BeardSource) {
-				BeardSource = NULL;
-
-			}
-		}
-		if (BodyObj) {
-			Unknown_781EA0();
-		}
+		Unknown_77D7F0();
 		Unknown_780810(env_maps);
+		Unknown221 = true;
 	} else {
 		Unknown221 = false;
+	}
+	if (b == 0 || Desc.Avatar_Type != 0) {
+		Unknown_77D4A0();
 	}
 }
 
@@ -537,6 +346,52 @@ RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
 	return(BodyObj.Peek());
 }
 
+// 0x77D4A0: the accessories' meshes taken out of the head prototype and every creation prototype released
+// (0x789FE0 inlined for each; the constructor, unless a player avatar is kept for the creation screens)
+void CharacterViewAvatarClass::Unknown_77D4A0()
+{
+	if (HairSource) {
+		Unknown_789FE0("HAIR");
+		HairSource = NULL;
+	}
+	if (Unknown2CC) {
+		Unknown_789FE0("EAR");
+		Unknown2CC = NULL;
+	}
+	if (GoggleSource) {
+		Unknown_789FE0("GOGGLE");
+		GoggleSource = NULL;
+	}
+	if (BeardSource) {
+		Unknown_789FE0("BEARD");
+		BeardSource = NULL;
+	}
+	if (HeadSource) {
+		HeadSource = NULL;
+	}
+	if (BodySource) {
+		BodySource = NULL;
+	}
+	Unknown233 = false;
+}
+
+// 0x77D7F0: the NLP made again from Desc, the models loaded again (0x77DA20) and, for a player avatar, the morph
+// weights normalised and shown at once (unreferenced; the constructor inlines it)
+// NOT EXACT: register (this in edi, the client's esi: 0.62)
+void CharacterViewAvatarClass::Unknown_77D7F0()
+{
+	Unknown_781680();
+	Unknown224 = Unknown_BDBB84(0, PlayerNLP->Personality->Get_Fidget_Delay() / 2);
+	Unknown_77DA20();
+	if (Desc.Avatar_Type == 0) {
+		Unknown_77E830(Desc.Body_Weight);
+		Unknown_77E900(Desc.Head_Weight);
+		Unknown_781410(1, 0);
+		Unknown_781570(1, 0);
+	}
+	Unknown_781EA0();
+}
+
 // 0x77D9F0
 // NOT EXACT: shape (the client loads +0x234 again in each branch)
 float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
@@ -592,6 +447,151 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x77DA20: the models from Desc: body, collision, head, the mask, the face animation and (player avatars) the
+// weapons and accessories, then the head object cloned again
+// (the mask's index a local: the client's idiv before the asset manager's load)
+void CharacterViewAvatarClass::Unknown_77DA20()
+{
+	Unknown_77E9D0(Desc.Body_Type, Desc.Pants_Type, false);
+	CollisionObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
+	if (CollisionObj) {
+		Unknown_496AE0(CollisionObj.Peek(), true);
+		BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
+	}
+	Unknown_77F000(Desc.Head_Type);
+	if (!Unknown233 && !Desc.Unknown0C) {
+		const char *masks[3] = { "hmask_01", "hmask_02", "hmask_03" };
+		int mask = Desc.Head_Type % 3;
+		MaskObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(masks[mask]));
+		if (MaskObj) {
+			Unknown_496AE0(MaskObj.Peek(), true);
+			BodyObj->Add_Sub_Object_To_Bone(MaskObj.Peek(), "K_HEAD");
+			MaskObj->Set_Hidden(true);
+		}
+	}
+	HAnimClass *anims[3];
+	char anim_name[32];
+	for (int i = 0; i < 3; i++) {
+		_snprintf(anim_name, 0x20, "%sHSKEL.%sHANIM%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD30[Desc.Gender], i);
+		anims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name);
+	}
+	if (anims[0] == NULL || anims[1] == NULL || anims[2] == NULL) {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
+	} else {
+		Unknown0BC = Create_NEW(new HMorphAnimClass());
+		Unknown0BC->Create_New_Morph(3, anims);
+	}
+	if (Desc.Avatar_Type == 0) {
+		Unknown_77FDA0(Desc.Weapon_Unique_Num);
+		Unknown_77FE20(Desc.Weapon_Hip_Num);
+		Unknown_77FE70(Desc.Weapon_Back_Num);
+		Unknown_77FC20(Desc.Hair_Num, false);
+		Unknown_77FC90(Desc.Ear_Num, false);
+		Unknown_77FCE0(Desc.Goggle_Num, false);
+		Unknown_77FD30(Desc.Beard_Num, false);
+		Unknown_77F750();
+	}
+}
 
 
 
@@ -1511,6 +1511,23 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 	Unknown_780F30();
 }
 
+
+
+
+
+
+
+
+// 0x781680: a new NLP from Desc's personality and lexicon (FAIL_IF on the client's line 1524 when one is there)
+void CharacterViewAvatarClass::Unknown_781680()
+{
+	FAIL_IF(PlayerNLP != 0) {
+		return;
+	}
+	PlayerNLP = new PlayerNLPClass();
+	PlayerNLP->Unknown_78EC00(Desc.Personality, Desc.NLP);
+}
+
 // 0x781760
 void CharacterViewAvatarClass::Unknown_781760(const char *text)
 {
@@ -1915,23 +1932,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -56,6 +56,10 @@ public:
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
 
+	void Unknown_77D4A0();								// 0x77D4A0 (the accessories' meshes out of the head prototype, the creation prototypes released, +0x233 cleared)  // NAME 1: neutral
+	void Unknown_77D7F0();								// 0x77D7F0 (0x781680, the fidget delay, 0x77DA20, the morph weights at once, 0x781EA0; unreferenced: the constructor inlines it)  // NAME 1: neutral
+	void Unknown_77DA20();								// 0x77DA20 (the models from Desc: body, collision, head, mask, face animation, weapons, accessories)  // NAME 1: neutral
+	void Unknown_781680();								// 0x781680 (a new PlayerNLP: FAIL_IF 'PlayerNLP != 0'; 0x77D7F0, 0x77E3F0, 0x77E610)  // NAME 1: neutral
 	float Unknown_77D9F0(bool a);						// 0x77D9F0 (0x80E260: false): +0x234, plus 1 when a  // NAME 1 [a]: neutral
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
