@@ -76,6 +76,7 @@ public:
 	void Unknown_784F60(bool on);						// 0x784F60 (+0x2F4 set; on a change while +0x2F8 & 1, 0x784F20 then 0x784ED0)  // NAME 1 [on]: neutral
 	void Unknown_784FF0();								// 0x784FF0 (chat block 4: +0x210 0 -> 1, +0x208 3, +0x20C 2; 0x784700 inlines it)  // NAME 1: neutral
 	void Unknown_785040();								// 0x785040 (chat block 5: +0x210 3 -> 2, +0x208 3; 0x784700 inlines it)  // NAME 1: neutral
+	void Unknown_785F20(bool on);						// 0x785F20 (the 'avatar_shadow' object +0x2C4 taken off the body, and with on made again onto its 'skel_reference' bone; the UI's 0x634140 calls it)  // NAME 1 [on]: neutral
 	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
 	Unknown_AvatarQueueStruct *Unknown_781B20();				// 0x781B20 (the queue's first entry or NULL; unreferenced: 0x782200 inlines it)  // NAME 1: neutral
 	void Unknown_781B50(Unknown_AvatarQueueStruct *entry);	// 0x781B50 (entry erased from the queue and deleted; unreferenced: 0x782200 inlines it)  // NAME 1 [entry]: neutral

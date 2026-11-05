@@ -3095,6 +3095,23 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 	Desc.Tattoo_Offset = offset;
 }
 
+// 0x785F20
+void CharacterViewAvatarClass::Unknown_785F20(bool on)
+{
+	if (Unknown2C4) {
+		BodyObj->Remove_Sub_Object(Unknown2C4.Peek());
+		Unknown2C4->Remove();
+		Unknown2C4 = NULL;
+	}
+	if (on) {
+		Unknown2C4 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avatar_shadow"));
+		if (Unknown2C4) {
+			Unknown_496AE0(Unknown2C4.Peek(), true);
+			BodyObj->Add_Sub_Object_To_Bone(Unknown2C4.Peek(), "skel_reference");
+		}
+	}
+}
+
 // 0x7860C0
 // (bool: mov al, 1 / xor al, al)
 bool CharacterViewAvatarClass::Unknown_7860C0()
