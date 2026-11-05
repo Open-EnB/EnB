@@ -2092,40 +2092,40 @@ void ShipCustomizeInterface::Unknown_627FA0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6280E0
 void ShipCustomizeInterface::Unknown_6280E0()
 {
 	Unknown_6259C0(2);
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	FontSys *none = Unknown_BE67C4->Get_Style("NONE_fa_ship03", model);
+
+	FontSys *none = Unknown_BE67C4->Get_Style("NONE_fa_ship03", CharacterView->Peek_Model());
 	if (none != NULL && none->Unknown300) {
 		none->Set_Hidden(1);
 	}
 	char name[0x14];
 	for (int i = 0; i < 10; i++) {
 		_snprintf(name, sizeof(name), "D%02d", i);
-		RenderObjClass *sub = model->Get_Sub_Object_By_Name(name);
+		RenderObjClass *sub = CharacterView->Peek_Model()->Get_Sub_Object_By_Name(name);
 		if (sub == NULL) {
 			continue;
 		}
-		int index = Unknown260 + i;
-		if (index == 0) {
-			none = Unknown_BE67C4->Get_Style("NONE_fa_ship03", model);
+		if (Unknown260 + i == 0) {
+
+			none = Unknown_BE67C4->Get_Style("NONE_fa_ship03", CharacterView->Peek_Model());
 			if (none != NULL && !none->Unknown300) {
 				none->Set_Hidden(0);
 			}
 			Unknown_495FD0(sub, Unknown21C.Peek(), 0);
 		} else {
-			RefCountPtr<TextureClass> texture = Unknown268->Unknown_61DF40(index - 1);
+			RefCountPtr<TextureClass> texture = Unknown268->Unknown_61DF40(Unknown260 + i - 1);
 			Unknown_495FD0(sub, texture.Peek(), 0);
 			if (Unknown260 + i == Unknown264) {
 				Unknown_6257A0(i + 0x1D);
 			}
 		}
 		sub->Release_Ref();
-	}
+	} Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget, so the inlined 0x6257A0 keeps its second Gadgets[] inline and calls the rest out of line as the client's (with one, not exact)
 }
+
 
 
 // @0x628420
