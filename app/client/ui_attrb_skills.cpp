@@ -11,6 +11,15 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
+// gd_attrb_skills.cpp's gadget (UnknownC4's elements), as far as this file calls it
+class Unknown664500Class : public GadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_664500();								// 0x664500
+	char Unknown30[0x110 - 0x30];						// +0x30
+	void *Unknown110;									// +0x110 (0x54B370 counts the gadgets where it is set)
+};
+
 // intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
 class InterfaceUnknown58Class  // NAME 1: neutral (D10)
 {
@@ -93,6 +102,489 @@ void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
 	Unknown62D1F0Class::Unknown_7C(view, arg);
 }
 
+// 0x54ABE0
+void UIAttrbSkillsClass::Unknown_54ABE0()
+{
+	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
+	if (UnknownE8 != value) {
+		UnknownE8 = value;
+		Unknown_54A900();
+	}
+}
+
+// 0x54AC50
+void UIAttrbSkillsClass::Unknown_54AC50()
+{
+}
+
+// 0x54AC70
+void UIAttrbSkillsClass::Unknown_54AC70()
+{
+	Unknown_54ACE0();
+}
+
+// 0x54AC90
+void UIAttrbSkillsClass::Unknown_54AC90()
+{
+	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		Unknown664500Class *gadget = *it;
+		if (gadget->Unknown_60()) {
+			gadget->Unknown_664500();
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x54B370
+void UIAttrbSkillsClass::Unknown_54B370()
+{
+	UnknownF8 = 0;
+	int count = UnknownF0;
+	for (std::vector<Unknown664500Class *>::reverse_iterator it = UnknownC4.rbegin(); it != UnknownC4.rend(); it++) {
+		Unknown664500Class *gadget = *it;
+		FAIL_IF(!gadget) return;
+		if (gadget->Unknown110) {
+			count--;
+			UnknownF8++;
+		}
+		count--;
+		if (count <= 0) {
+			break;
+		}
+	}
+}
 /*
 **	Notes (TB1, 2026-11-05)
 **

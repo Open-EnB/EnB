@@ -9,6 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
 class RenderObjClass;
+class Unknown664500Class;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // The skill windows' base (0xBC bytes; constructor 0x62D1F0 over 0x62DE80's, destructor 0x62D300; tables 0xAF7DBC /
 // 0xAF7DB0 / 0xAF7DA4), as far as ui_attrb_skills.cpp uses it (its file is not known: near ui_skills.cpp; D137)
@@ -44,12 +45,18 @@ public:
 	void Unknown_54A640(bool arg);						// 0x54A640  // NAME 1 [arg]: neutral
 	void Unknown_54A900();								// 0x54A900 (G_ASSERT '!gadget' l.358)
 	void Unknown_54AB20();								// 0x54AB20 (G_ASSERT '!gadget' l.402)
+	void Unknown_54ABE0();								// 0x54ABE0 (no direct caller: the shown slider's value, as +0x60 inlines it)
+	void Unknown_54AC50();								// 0x54AC50 (no direct caller: empty)
+	void Unknown_54AC70();								// 0x54AC70 (no direct caller: 0x54ACE0)
+	void Unknown_54AC90();								// 0x54AC90 (no direct caller: each gadget's 0x664500 while its +0x60)
+	void Unknown_54ACE0();								// 0x54ACE0
 	void Unknown_54B050();								// 0x54B050 (G_ASSERT '!Is_Active()' l.486)
 	void Unknown_54B140();								// 0x54B140 (G_ASSERT '!gadget' l.577)
+	void Unknown_54B370();								// 0x54B370 (FAIL_IF '!gadget' l.577: the gadgets from the last, +0xF0 of them, +0xF8 counting the set ones; inlined by 0x54A200 / 0x54B140)
 
 	RefCountPtr<RenderObjClass> UnknownBC;				// +0xBC (the mesh: its fonts and its interface list entry)
 	RefCountPtr<InterfaceClass> UnknownC0;				// +0xC0
-	std::vector<int> UnknownC4;							// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)  // NAME 1: element type unknown (no destructor loop)
+	std::vector<Unknown664500Class *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
 	GadgetSlider *UnknownD4;							// +0xD4
 	GadgetSlider *UnknownD8;							// +0xD8
 	void *UnknownDC;									// +0xDC
