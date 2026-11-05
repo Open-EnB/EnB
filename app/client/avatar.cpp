@@ -2861,6 +2861,23 @@ void CharacterViewAvatarClass::Unknown_785080(int kind)
 	Unknown0E8.Unknown_4C4410();
 }
 
+// 0x7851F0: the head's look-at angles +0x250 / +0x258 toward target: the direction from K_Head, less the body's X
+// axis, against its Y and Z axes, in degrees (unreferenced)
+void CharacterViewAvatarClass::Unknown_7851F0(Vector3 target)
+{
+	Matrix3D tm = BodyObj->Get_Transform();
+	int bone = BodyObj->Get_Bone_Index("K_Head");
+	Vector3 head_pos = BodyObj->Get_Bone_Transform(bone).Get_Translation();
+	Vector3 x = tm.Get_X_Vector();
+	Vector3 dir = target - head_pos;
+	dir.Normalize();
+	target = dir - x;
+	Vector3 z = tm.Get_Z_Vector();
+	Vector3 y = tm.Get_Y_Vector();
+	Unknown250 = RAD_TO_DEG(asin(Vector3::Dot_Product(y, target)));
+	Unknown258 = RAD_TO_DEG(asin(Vector3::Dot_Product(z, target)));
+}
+
 // 0x785450
 void CharacterViewAvatarClass::Unknown_785450(float yaw, float pitch)
 {
@@ -2906,23 +2923,6 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 	BodyObj->Capture_Bone(bone);
 	BodyObj->Control_Bone(bone, m, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3324,6 +3324,16 @@ Matrix3D CharacterViewAvatarClass::Unknown_787130()
 	return(m);
 }
 
+// 0x787A90: the camera matrix, behind the avatar (0x787130, inlined) while +0x2F5 is set, else at its head (0x786EB0);
+// the UI's 0x63BDB0 / 0x63C080 call it
+Matrix3D CharacterViewAvatarClass::Unknown_787A90()
+{
+	if (Unknown2F5) {
+		return(Unknown_787130());
+	}
+	return(Unknown_786EB0());
+}
+
 // 0x787DE0
 Matrix3D CharacterViewAvatarClass::Unknown_787DE0()
 {
@@ -3649,16 +3659,6 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C = 0.0f;
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

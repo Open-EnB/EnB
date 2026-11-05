@@ -75,7 +75,9 @@ public:
 	void Unknown_77E350(int a);							// 0x77E350 (empty; unreferenced)  // NAME 1 [a]: neutral
 	void Unknown_7860A0();								// 0x7860A0 (empty; unreferenced)  // NAME 1: neutral
 	Matrix3D Unknown_786EB0();							// 0x786EB0 (+0x330 set; skel_reference at K_HEAD's height + 0.2, half a unit along X, pitched by +0x30C; 0x787A90)  // NAME 1: neutral
+	Matrix3D Unknown_787A90();							// 0x787A90 (0x787130 while +0x2F5, else 0x786EB0; the UI's 0x63BDB0 / 0x63C080)  // NAME 1: neutral
 	Matrix3D Unknown_787130();							// 0x787130 (+0x330 set; skel_reference raised, turned by +0x310, 11 back, pitched by +0x30C + 0.3; unreferenced)  // NAME 1: neutral
+	void Unknown_7851F0(Vector3 target);				// 0x7851F0 (+0x250 / +0x258: the head's look-at angles toward target; unreferenced)  // NAME 1 [target]: neutral
 	void Unknown_785450(float yaw, float pitch);		// 0x785450 (+0x250 / +0x258, the head's look-at angles; unreferenced)  // NAME 1 [yaw, pitch]: 0x7854B0's use of them
 	void Unknown_785480();								// 0x785480 (+0x250 / +0x258 / +0x264 / +0x268 cleared; 0x781EA0 inlines it)  // NAME 1: neutral
 	void Unknown_7862D0();								// 0x7862D0 (SpeechSound stopped and released; 0x7861B0 inlines it; 0x784E00 writes it out: through it the dtor loses its out-of-line operator= 0x6A2610)  // NAME 1: neutral
