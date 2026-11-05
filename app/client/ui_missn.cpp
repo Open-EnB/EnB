@@ -510,123 +510,123 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5C5DB0
+// NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline)
+void UIMissnClass::Unknown_5C5DB0(int new_mission)
+{
+	if (UnknownC4 && UnknownC4->Active) {
+		UnknownC4->Unknown_5C();
+	}
+	if (UnknownD8[4]->Unknown_60()) {
+		FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+		UnknownD8[4]->Unknown_40(false);
+		if (font) {
+			font->Set_Hidden(true);
+		}
+	}
+	if (new_mission != NO_CURRENT_MISSION) {
+		FAIL_IF(new_mission >= MISSIONS_PER_PAGE) return;
+		FAIL_IF(new_mission < 0) return;
+	}
+	if (CurrentMission != NO_CURRENT_MISSION) {
+		UnknownD8[CurrentMission + 1]->Unknown_90(StandardBttnTexture);
+	}
+	CurrentMission = new_mission;
+
+
+
+	FAIL_IF(!Get_Client()) return;
+	SClient *sclient = Get_Client()->As_Space_Client();
+	if (CurrentMission == NO_CURRENT_MISSION) {
+		DescriptionPanel->Set_Hidden(true);
+		sclient->Unknown_744560(9);
+		return;
+	}
+	DeltaMissionClass *mission = CurrentMissions[CurrentMission];
+	if (!mission) {
+		Unknown_5C5DB0(NO_CURRENT_MISSION);
+		return;
+	}
+	if (!DescriptionPanel->Is_Hidden()) {
+		sclient->Unknown_744560(9);
+	}
+	sclient->Unknown_744560(8);
+	DescriptionPanel->Set_Hidden(false);
+	UnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);
+
+	std::string text;
+	const char *reward = mission->Reward.Get();
+	if (reward && *reward) {
+		text += "Reward: ";
+		text += reward;
+		text += "\n\n";
+	}
+	const char *failure = mission->FailureConsequence.Get();
+	if (failure && *failure) {
+		text += "Failure: ";
+		text += failure;
+		text += "\n\n";
+	}
+	const char *summary = mission->Summary.Get();
+	if (summary && *summary) {
+		text += summary;
+		text += "\n\n";
+	}
+	text += "Mission Steps:\n";
+	int count = mission->StageCount.Value;
+	for (int i = 0; i < count; i++) {
+		const char *step = (i < 20) ? ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";
+		if (!step || !*step) break;
+		char num[8];
+		sprintf(num, "%d. ", i + 1);
+		text += num;
+		text += step;
+		text += "\n";
+	}
+	ManagedFontClass *grp = Unknown_BE67C4->Find(DescriptionPanel);
+	if (grp) {
+		Unknown_Strip_Tags(text);
+		grp->Unknown_6D0A70("WRAP_DESC_DETAIL_TSI22A", text.c_str());
+		grp->Unknown_6D0A70("WRAP_Title_Detail_TSI22A", mission->Name.Get());
+	}
+
+	UnknownC0 = false;
+	const char *label = NULL;
+	if (mission->IsComplete.Value) {
+		label = "Clear";
+	} else if (mission->IsFailed.Value) {
+		label = "Clear";
+	} else if (mission->IsExpired.Value) {
+		label = "Clear";
+	} else if (mission->IsForfeitable.Value) {
+		UnknownC0 = true;
+		label = "Forfeit";
+	}
+	FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+	if (label) {
+		if (font) {
+			font->Change_Text(label, 0);
+		}
+		if (!sclient->Unknown1298 || !sclient->Unknown1298->Active) {
+			if (UnknownD8[4]->Unknown_60() != true) {
+				FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+				UnknownD8[4]->Unknown_40(true);
+				if (font) {
+					font->Set_Hidden(false);
+				}
+			}
+		}
+	} else {
+		if (UnknownD8[4]->Unknown_60()) {
+			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+			UnknownD8[4]->Unknown_40(false);
+			if (font) {
+				font->Set_Hidden(true);
+			}
+		}
+	}
+	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();	text.size();
+}
 
 
 

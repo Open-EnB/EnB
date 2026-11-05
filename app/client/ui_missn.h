@@ -36,7 +36,8 @@ public:
 	void Unknown_5C5500(unsigned int cur_mission_idx);	// 0x5C5500 (FAIL_IFs / G_ASSERT l.397-450: a row's number, title and description)  // NAME 3 [cur_mission_idx]: the FAIL_IF's
 	void Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg);	// 0x5C5AC0 (a row's time left, 'Time%02d_TSI22A'; FAIL_IF l.473 'cur_mission_idx >= MISSIONS_PER_PAGE')  // NAME 1 [arg]: neutral (cur_mission_idx: the FAIL_IF's)
 	void Unknown_5C5330(bool arg);						// 0x5C5330 (the page shown again; no asserts of its own: l.397-450 are 0x5C5500's)  // NAME 1 [arg]: neutral
-	void Unknown_5C5DB0(int index);						// 0x5C5DB0 (FAIL_IF '!sclient' l.663)  // NAME 1 [index]: neutral
+	void Unknown_5C5DB0(int new_mission);				// 0x5C5DB0 (FAIL_IFs l.528-538: the selected mission's details, the forfeit button)  // NAME 3 [new_mission]: the FAIL_IFs'
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x5C5DB0's FAIL_IF '!Get_Client()', as UICinfoClass's)  // NAME 3: the FAIL_IF's
 	void Unknown_5C6610();								// 0x5C6610 (G_ASSERTs l.688-690)
 	void Unknown_5C66D0();								// 0x5C66D0
 

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1232 |
+| 3 | by convention from a client-named file or sibling | 1234 |
 | 2 | describes what the code does | 3009 |
-| 1 | neutral placeholder | 13983 |
+| 1 | neutral placeholder | 13984 |
 
 ## For review (score 3 and below)
 
@@ -9605,6 +9605,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D0A70` | `app/client/ui_missn.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `app/client/ui_missn.cpp:429` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_missn.cpp:496` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_missn.cpp:532` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/ui_missn.cpp:542` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_missn.cpp:669` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/ui_missn.cpp:693` | untagged neutral name (D10) |
 | 1 | `ui_missn.h` | `app/client/ui_missn.h:4` | provisional header name for ui_missn.cpp |
@@ -9627,15 +9629,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C5AC0` | `app/client/ui_missn.h:37` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_missn.h:38` | neutral |
 | 1 | `Unknown_5C5330` | `app/client/ui_missn.h:38` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_missn.h:39` | neutral |
 | 1 | `Unknown_5C5DB0` | `app/client/ui_missn.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_5C6610` | `app/client/ui_missn.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_5C66D0` | `app/client/ui_missn.h:41` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/ui_missn.h:46` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/ui_missn.h:47` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_missn.h:48` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_missn.h:49` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_missn.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_5C6610` | `app/client/ui_missn.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_5C66D0` | `app/client/ui_missn.h:42` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_missn.h:47` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_missn.h:48` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_missn.h:49` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_missn.h:50` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_missn.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -17412,11 +17413,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MISSIONS_PER_PAGE` | `app/client/ui_missn.h:24` | the G_ASSERTs' (l.397, 473, 528); its value from 0x5C4C90's loop |
 | 3 | `NO_CURRENT_MISSION` | `app/client/ui_missn.h:25` | the G_ASSERT's (l.688); its value from the constructor's +0xC8 |
 | 3 | `cur_mission_idx` | `app/client/ui_missn.h:36` | the FAIL_IF's |
-| 3 | `DescriptionPanel` | `app/client/ui_missn.h:43` | the FAIL_IF's (l.123) |
-| 3 | `StandardBttnTexture` | `app/client/ui_missn.h:44` | the G_ASSERT's (l.147) |
-| 3 | `SelectedBttnTexture` | `app/client/ui_missn.h:45` | the G_ASSERT's (l.151) |
-| 3 | `CurrentMission` | `app/client/ui_missn.h:50` | the G_ASSERT's (l.688) |
-| 3 | `CurrentMissions` | `app/client/ui_missn.h:51` | the G_ASSERT's (l.689) |
+| 3 | `new_mission` | `app/client/ui_missn.h:39` | the FAIL_IFs' |
+| 3 | `Get_Client` | `app/client/ui_missn.h:40` | the FAIL_IF's |
+| 3 | `DescriptionPanel` | `app/client/ui_missn.h:44` | the FAIL_IF's (l.123) |
+| 3 | `StandardBttnTexture` | `app/client/ui_missn.h:45` | the G_ASSERT's (l.147) |
+| 3 | `SelectedBttnTexture` | `app/client/ui_missn.h:46` | the G_ASSERT's (l.151) |
+| 3 | `CurrentMission` | `app/client/ui_missn.h:51` | the G_ASSERT's (l.688) |
+| 3 | `CurrentMissions` | `app/client/ui_missn.h:52` | the G_ASSERT's (l.689) |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |
