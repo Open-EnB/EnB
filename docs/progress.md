@@ -2531,11 +2531,11 @@ below name only the work items, the blocked work, the leads and the queues.
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
      slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
      0x558EA0 (register only), 0x5591E0 (0.77) / 0x559010 (0.65), 0x559350 (D193); swatch (negative) and secret decals untested; the functional
-     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), ui_shipcust's 15 (CS3, 2026-11-05: map loops 0x6249D0 / 0x625930 / 0x6259C0 call the map's `_Min` out
-     of line where the client inlines it (exact 0x6257A0 / 0x6280E0 / 0x628900 inline it: find why); 0x622B90 inline budget
-     (`begin()` / `erase()` out of line); 0x624E50 / 0x627200 (the client saves all registers at entry); 0x621530 order
-     (13 rows, form in attempts), 0x621390 / 0x6280E0 register; untried 0x622180, 0x623080, 0x624270, 0x625A60, 0x6277A0,
-     0x628420),
+     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), ui_shipcust's 9 (CS3 / CS7, 2026-11-05: 0x623080 0.49 (one case per key
+     in the client's order + 12 dead size(), stash docs/attempts/623080/: the key in ebx vs esi, cases 1-4 not tail-merged,
+     frame 0x2C vs 0x24); 0x624270 0.44 (map::insert inline in ours; the client's 1.0f from three .rdata constants);
+     0x6280E0 0.59; 0x624E50 0.50 / 0x627200 (the client saves registers at entry); ctor 0x622180 0.23 (frame 0x40 vs 0x24,
+     Unknown220 stored during member init); 0x625A60, 0x621530 (13 rows, form in attempts), 0x621390 untried or register),
      ui_shard's 0x616220 (register: the inlined 0x617660's eax vs ecx), shiputils 0x80EAF0 0.38 (asserts on client lines
      41 / 45 / 59: lay the file out first), AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
      98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
