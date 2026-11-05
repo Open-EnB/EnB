@@ -3157,7 +3157,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5F28` | `app/client/gd_slider.cpp:451` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/gd_slider.cpp:454` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/gd_slider.cpp:456` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/gd_slider.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_slider.cpp:469` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/gd_slider.cpp:511` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/client/gd_slider.cpp:523` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/gd_slider.cpp:535` | untagged neutral name (D10) |

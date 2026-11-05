@@ -262,7 +262,7 @@ void GadgetSlider::Unknown_8C(bool on)
 	Unknown108 = !on;
 }
 
-// NOT EXACT: shape (similarity 0.81): -480 * y folds to a subtraction; the client's early returns keep their own epilogues
+// NOT EXACT: shape (similarity 0.81): the wheel box's Extent.X + Center.X loads Center first (the client Extent; 20 forms)
 // @0x66EF00
 bool GadgetSlider::Unknown_30(float x, float y)
 {
@@ -272,7 +272,7 @@ bool GadgetSlider::Unknown_30(float x, float y)
 	unsigned int last = Unknown100;
 	UnknownE0 = 0;
 	UnknownEC = x * 640.0f - 320.0f;
-	UnknownF0 = -480.0f * y + 240.0f;
+	UnknownF0 = (-480.0f * y) + 240.0f;
 	unsigned int now = Unknown_Get_Ticks();
 	Unknown100 = now;
 	if (Unknown_BE5EB0.Key != 0x101 && Unknown_BE5EB0.Key != 0x102) {
@@ -345,7 +345,7 @@ bool GadgetSlider::Unknown_30(float x, float y)
 	if (UnknownEC < box.Center.X - box.Extent.X) {
 		return(false);
 	}
-	if (box.Extent.X + box.Center.X < UnknownEC) {
+	if ((box.Extent.X + box.Center.X) < UnknownEC) {
 		return(false);
 	}
 	if (UnknownF0 < box.Center.Y - box.Extent.Y) {
@@ -410,7 +410,7 @@ bool GadgetSlider::Unknown_30(float x, float y)
 
 
 
-// NOT EXACT: shape (similarity 0.56): the client places the repeat tail before the held / wheel branches
+// NOT EXACT: shape (similarity 0.81): the early return keeps its own epilogue (the client's shares the assert's), case 2 cross-jumps into case 5
 // @0x66F330
 bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
@@ -448,7 +448,7 @@ bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 			Vector3 color = Unknown_9C();
 			Unknown_496110(PressedObject.Peek(), color.X, color.Y, color.Z);
 		}
-	} else if (Unknown_BE5F24 == this || Unknown_BE5F28 == this) {
+	} else if (Unknown_BE5F24 == this ? true : Unknown_BE5F28 == this) {
 		if (mask & 0x44) {
 			GadgetClass::Unknown_2C(event, x, y, mask);
 			Unknown_6C();
@@ -464,20 +464,20 @@ bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 			GadgetClass::Unknown_2C(event, x, y, mask);
 		}
 	} else if (mask & 0x1000) {
-		if (event->Key == 0x101) {
-			Unknown_A4(Value - 1.0f, false);
-		} else if (event->Key == 0x102) {
-			Unknown_A4(Value + 1.0f, false);
-		} else {
+		switch (event->Key) {
+			case 0x101:
+				Unknown_A4(Value - 1.0f, false);
+				break;
+			case 0x102:
+				Unknown_A4(Value + 1.0f, false);
+				break;
+			default:
 
 
 
 
-
-
-
-			G_ASSERT(false);
-			return(false);
+				G_ASSERT(false);
+				return(false);
 		}
 		GadgetClass::Unknown_2C(event, x, y, mask);
 		return(true);
