@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1209 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13217 |
+| 1 | neutral placeholder | 13221 |
 
 ## For review (score 3 and below)
 
@@ -9531,98 +9531,101 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_610E10` | `app/client/ui_scut.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown_610F30` | `app/client/ui_scut.h:89` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_scut.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_shard.cpp:29` | 0xBE67C4 |
-| 1 | `UIShardKeyEventStruct` | `app/client/ui_shard.cpp:32` | neutral (D10): kernel.h's input event |
-| 1 | `key` | `app/client/ui_shard.cpp:34` | neutral |
-| 1 | `Unknown02` | `app/client/ui_shard.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_shard.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_shard.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/ui_shard.cpp:34` | untagged neutral name (D10) |
-| 1 | `Key` | `app/client/ui_shard.cpp:35` | neutral (D10) |
-| 1 | `Unknown_496AE0` | `app/client/ui_shard.cpp:43` | untagged neutral name (D10) |
-| 1 | `robj, texture, unknown` | `app/client/ui_shard.cpp:44` | as ui_manu.cpp's |
-| 1 | `Unknown_495FD0` | `app/client/ui_shard.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_4BE9D0` | `app/client/ui_shard.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_B8901C` | `app/client/ui_shard.cpp:47` | neutral (D10) |
-| 1 | `Unknown_B89048` | `app/client/ui_shard.cpp:48` | neutral (D10) |
-| 1 | `Unknown_B89074` | `app/client/ui_shard.cpp:49` | neutral (D10) |
-| 1 | `Unknown_B89090` | `app/client/ui_shard.cpp:50` | neutral (D10) |
-| 1 | `Unknown_B8909C` | `app/client/ui_shard.cpp:51` | neutral (D10) |
-| 1 | `Unknown_BDA908` | `app/client/ui_shard.cpp:52` | neutral (D10) |
-| 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/client/ui_shard.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown94` | `app/client/ui_shard.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_shard.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown9D` | `app/client/ui_shard.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown9E` | `app/client/ui_shard.cpp:67` | untagged neutral name (D10) |
-| 1 | `UnknownD0` | `app/client/ui_shard.cpp:68` | untagged neutral name (D10) |
-| 1 | `UnknownD1` | `app/client/ui_shard.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownD2` | `app/client/ui_shard.cpp:70` | untagged neutral name (D10) |
-| 1 | `UnknownD3` | `app/client/ui_shard.cpp:71` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_shard.cpp:72` | untagged neutral name (D10) |
-| 1 | `UnknownD5` | `app/client/ui_shard.cpp:73` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_shard.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_shard.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_shard.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_shard.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_67A250` | `app/client/ui_shard.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_67AB20` | `app/client/ui_shard.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown068` | `app/client/ui_shard.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_67C440` | `app/client/ui_shard.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/ui_shard.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_67B4F0` | `app/client/ui_shard.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_67A6C0` | `app/client/ui_shard.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_7863E0` | `app/client/ui_shard.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_67A8D0` | `app/client/ui_shard.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_shard.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_shard.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_shard.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_shard.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown_6176F0` | `app/client/ui_shard.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_67AD30` | `app/client/ui_shard.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_67AE20` | `app/client/ui_shard.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_617540` | `app/client/ui_shard.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/ui_shard.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_shard.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_67A9B0` | `app/client/ui_shard.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_shard.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_617660` | `app/client/ui_shard.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown_617310` | `app/client/ui_shard.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown_616A10` | `app/client/ui_shard.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown_6AAD10` | `app/client/ui_shard.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_shard.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown_6179D0` | `app/client/ui_shard.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown_617AA0` | `app/client/ui_shard.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_shard.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown_6AA340` | `app/client/ui_shard.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown_4C1460` | `app/client/ui_shard.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/ui_shard.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown244` | `app/client/ui_shard.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown_617A10` | `app/client/ui_shard.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown_67AE60` | `app/client/ui_shard.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown_784E00` | `app/client/ui_shard.cpp:244` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/ui_shard.cpp:250` | untagged neutral name (D10) |
-| 1 | `Unknown_617270` | `app/client/ui_shard.cpp:255` | untagged neutral name (D10) |
-| 1 | `Unknown_6172A0` | `app/client/ui_shard.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown_67AEA0` | `app/client/ui_shard.cpp:270` | untagged neutral name (D10) |
-| 1 | `Unknown_784C90` | `app/client/ui_shard.cpp:273` | untagged neutral name (D10) |
-| 1 | `Unknown_784EA0` | `app/client/ui_shard.cpp:275` | untagged neutral name (D10) |
-| 1 | `Unknown_67A670` | `app/client/ui_shard.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/ui_shard.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown_67B2B0` | `app/client/ui_shard.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_shard.cpp:328` | untagged neutral name (D10) |
-| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:346` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2500` | `app/client/ui_shard.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_shard.cpp:356` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/ui_shard.cpp:360` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:368` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:369` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:383` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_shard.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:392` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:434` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_shard.cpp:510` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_shard.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `app/client/ui_shard.cpp:30` | neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4 |
+| 1 | `UIShardKeyEventStruct` | `app/client/ui_shard.cpp:33` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_shard.cpp:35` | neutral |
+| 1 | `Unknown02` | `app/client/ui_shard.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_shard.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_shard.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_shard.cpp:35` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_shard.cpp:36` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_shard.cpp:44` | untagged neutral name (D10) |
+| 1 | `robj, texture, unknown` | `app/client/ui_shard.cpp:45` | as ui_manu.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/ui_shard.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_4BE9D0` | `app/client/ui_shard.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_B8901C` | `app/client/ui_shard.cpp:48` | neutral (D10) |
+| 1 | `Unknown_B89048` | `app/client/ui_shard.cpp:49` | neutral (D10) |
+| 1 | `Unknown_B89074` | `app/client/ui_shard.cpp:50` | neutral (D10) |
+| 1 | `Unknown_B89090` | `app/client/ui_shard.cpp:51` | neutral (D10) |
+| 1 | `Unknown_B8909C` | `app/client/ui_shard.cpp:52` | neutral (D10) |
+| 1 | `Unknown_BDA908` | `app/client/ui_shard.cpp:53` | neutral (D10) |
+| 1 | `Camera_Of` | `app/client/ui_shard.cpp:58` | neutral (D10) |
+| 1 | `Unknown068` | `app/client/ui_shard.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/ui_shard.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/ui_shard.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_shard.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown9D` | `app/client/ui_shard.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown9E` | `app/client/ui_shard.cpp:71` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/ui_shard.cpp:72` | untagged neutral name (D10) |
+| 1 | `UnknownD1` | `app/client/ui_shard.cpp:73` | untagged neutral name (D10) |
+| 1 | `UnknownD2` | `app/client/ui_shard.cpp:74` | untagged neutral name (D10) |
+| 1 | `UnknownD3` | `app/client/ui_shard.cpp:75` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_shard.cpp:76` | untagged neutral name (D10) |
+| 1 | `UnknownD5` | `app/client/ui_shard.cpp:77` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_shard.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_shard.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_shard.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_shard.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_67A250` | `app/client/ui_shard.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/ui_shard.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_67C440` | `app/client/ui_shard.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_shard.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_67B4F0` | `app/client/ui_shard.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/ui_shard.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/ui_shard.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_67A8D0` | `app/client/ui_shard.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_shard.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_shard.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_shard.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `app/client/ui_shard.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_shard.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_6176F0` | `app/client/ui_shard.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_67AD30` | `app/client/ui_shard.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE20` | `app/client/ui_shard.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_617540` | `app/client/ui_shard.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/ui_shard.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_shard.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/ui_shard.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_shard.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_617660` | `app/client/ui_shard.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_617310` | `app/client/ui_shard.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_616A10` | `app/client/ui_shard.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_shard.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_shard.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_6179D0` | `app/client/ui_shard.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_617AA0` | `app/client/ui_shard.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_shard.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_6AA340` | `app/client/ui_shard.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_4C1460` | `app/client/ui_shard.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/ui_shard.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/ui_shard.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_617A10` | `app/client/ui_shard.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_67AE60` | `app/client/ui_shard.cpp:246` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/ui_shard.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_shard.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_617270` | `app/client/ui_shard.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown_6172A0` | `app/client/ui_shard.cpp:265` | untagged neutral name (D10) |
+| 1 | `Unknown_67AEA0` | `app/client/ui_shard.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown_784C90` | `app/client/ui_shard.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_784EA0` | `app/client/ui_shard.cpp:281` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/ui_shard.cpp:294` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/ui_shard.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown_67B2B0` | `app/client/ui_shard.cpp:331` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_shard.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_616DA0` | `app/client/ui_shard.cpp:352` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2500` | `app/client/ui_shard.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_shard.cpp:362` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/ui_shard.cpp:366` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_shard.cpp:374` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:375` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_617190` | `app/client/ui_shard.cpp:389` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_shard.cpp:397` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:440` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_shard.cpp:516` | untagged neutral name (D10) |
 | 1 | `ui_shard.h` | `app/client/ui_shard.h:4` | provisional header name for ui_shard.cpp |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.h:21` | neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback) |
 | 1 | `view, layer` | `app/client/ui_shard.h:24` | as LoginInterface's |
@@ -12872,12 +12875,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5BD0` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |

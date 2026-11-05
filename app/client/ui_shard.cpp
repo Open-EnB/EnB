@@ -26,7 +26,8 @@
 #include "local_interface_sort.h"
 #include "fontmanager.h"
 #include "fontdatabase.h"
-extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+extern FontManagerClass *Unknown_BE67C4;
+extern const int Unknown_B08C9C;					// 0xB08C9C (8: or'ed with textgadg.h's Unknown_B08CAC for the name's gadget)  // NAME 1: neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_class.cpp's)
 struct UIShardKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -52,7 +53,10 @@ static const char *Unknown_B8909C = "Click to set Name";	// NAME 1: neutral (D10
 static char Unknown_BDA908[1];						// 0xBDA908 (.bss: an empty row's text)  // NAME 1: neutral (D10)
 
 
-// NOT EXACT: functional (D64), written from the pseudocode for the POC
+// The camera read through an inline accessor: the client loads it into eax and copies it to ecx (a member read
+// straight into ecx does not).
+static inline CameraClass *Camera_Of(CharacterViewClass *view) { return(view->Unknown068); }	// NAME 1: neutral (D10)
+
 // @0x615A50
 Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -85,8 +89,9 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 	CharacterView->Unknown_67A250();
 	CharacterView->Unknown_67AB20(0, "FE02A");
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	CharacterView->Unknown068->Set_Clip_Planes(1.0f, 1000.0f);
-	if (LoginTask->Previous_Step == 2) {
+	Camera_Of(CharacterView)->Set_Clip_Planes(1.0f, 1000.0f);
+	int step = LoginTask->Previous_Step;
+	if (step == 2) {
 		CharacterView->Unknown_67AB20(3, "comp00a");
 		CharacterView->Unknown_67C440(CharacterView->Unknown088.Race, 1);
 		CharacterView->Unknown_67AB20(4, "FE_NAR_AGG");
@@ -112,7 +117,7 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 		Unknown64.Unknown_6870E0(Arrows[i], i + 13, View, 1, 1);
 		sub->Release_Ref();
 	}
-	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe02a", model, 0x88, 0);
+	NameGadget = new TextGadgetClass(this, 0x14, "Name_fe02a", model, Unknown_B08CAC | Unknown_B08C9C, 0);
 	NameGadget->Set_Text(Unknown_B8909C, 0);
 	NameGadget->Unknown_28(layer);
 	Unknown64.Unknown_6870E0(NameGadget, 15, View, 1, 1);
@@ -125,8 +130,9 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 	SoundLibraryClass::Play_2D_Sound("fontshoosh.wav", 2);
 	UnknownD2 = true;
 	Unknown_617540();
-	LoginTask->Unknown0020 = 0;
-	LoginTask->Error = 0;
+	LoginTaskClass *task = LoginTask;
+	task->Unknown0020 = 0;
+	task->Error = 0;
 	Unknown9E = TutorialManagerClass::Instance->Read_Completed_File(true);
 }
 
@@ -522,12 +528,6 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
-
-
-
-
-
-
 
 
 
