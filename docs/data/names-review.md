@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13202 |
+| 1 | neutral placeholder | 13201 |
 
 ## For review (score 3 and below)
 
@@ -13135,20 +13135,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `tests/kerneltest/kerneltest.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_42E8A0` | `tests/kerneltest/kerneltest.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown0000` | `tests/kerneltest/kerneltest.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown4074` | `tests/kerneltest/kerneltest.cpp:43` | untagged neutral name (D10) |
-| 1 | `UnknownBFAEE0Class` | `tests/kerneltest/kerneltest.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/kerneltest/kerneltest.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/kerneltest/kerneltest.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/kerneltest/kerneltest.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/kerneltest/kerneltest.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/kerneltest/kerneltest.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_BFAEE0` | `tests/kerneltest/kerneltest.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown_Assert_Failed` | `tests/kerneltest/kerneltest.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `tests/kerneltest/kerneltest.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_42E8A0` | `tests/kerneltest/kerneltest.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown0000` | `tests/kerneltest/kerneltest.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown4074` | `tests/kerneltest/kerneltest.cpp:45` | untagged neutral name (D10) |
+| 1 | `UnknownBFAEE0Class` | `tests/kerneltest/kerneltest.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/kerneltest/kerneltest.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/kerneltest/kerneltest.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/kerneltest/kerneltest.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/kerneltest/kerneltest.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/kerneltest/kerneltest.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_Assert_Failed` | `tests/kerneltest/kerneltest.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_Restore_Device` | `tests/kerneltest/taskstest.cpp:145` | untagged neutral name (D10) |
 | 1 | `Unknown_509C40` | `tests/kerneltest/taskstest.cpp:151` | untagged neutral name (D10) |
 | 1 | `Unknown_509D50` | `tests/kerneltest/taskstest.cpp:152` | untagged neutral name (D10) |
