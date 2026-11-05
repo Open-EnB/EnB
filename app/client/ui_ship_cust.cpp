@@ -167,7 +167,7 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	NameGadget = NULL;
 	Unknown_61AF50();
 	if (Unknown2FC) {
-		Unknown_BE67C4->Remove(Mesh->Peek_Object());
+		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
 		Unknown2FC = false;
 	}
@@ -360,7 +360,7 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 		case 0x1A:
 		{
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", Mesh->Peek_Object());
+			FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", InterfaceMesh->Peek_Object());
 			if (style != NULL && style->Unknown300) {
 				style->Set_Hidden(1);
 			}
@@ -747,7 +747,7 @@ void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
 	while (it != Gadgets.end()) {
 		it->second.Gadget->Unknown_40(on);
 		if (it->second.Style != NULL) {
-			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, Mesh->Peek_Object()); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
+			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, InterfaceMesh->Peek_Object()); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 		}
 		it++;
 	}
@@ -762,7 +762,7 @@ void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
 // @0x61AD30
 void StarbaseShipCustomizeInterface::Unknown_61AD30(const char *style, bool on)
 {
-	RenderObjClass *model = Mesh->Peek_Object(); FontSys *font = Unknown_BE67C4->Get_Style(style, model);
+	RenderObjClass *model = InterfaceMesh->Peek_Object(); FontSys *font = Unknown_BE67C4->Get_Style(style, model);
 	if (font != NULL) { int hidden = !on; bool now = !font->Unknown300; if (now != hidden) {
 		font->Set_Hidden(hidden); }
 	}
@@ -771,7 +771,7 @@ void StarbaseShipCustomizeInterface::Unknown_61AD30(const char *style, bool on)
 // @0x61ADA0
 void StarbaseShipCustomizeInterface::Unknown_61ADA0(int id, const char *name, const char *style, short key, short group)
 {
-	RenderObjClass *sub = Mesh->Peek_Object()->Get_Sub_Object_By_Name(name);
+	RenderObjClass *sub = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(name);
 	Unknown_496AE0(sub, 0);
 	GadgetClass *button = new ButtonGadgetClass(sub, *Layer, 5, 3);
 	StarbaseShipCustGadgetStruct entry;
@@ -851,7 +851,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B170()
 		x = WWMath::Max(x, box.Center.X - box.Extent.X);
 		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
 		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
-		RenderObjClass *model = Mesh->Peek_Object();
+		RenderObjClass *model = InterfaceMesh->Peek_Object();
 		int bone = model->Get_Sub_Object_Bone_Index(Unknown300->Pull);
 		model->Capture_Bone(bone);
 		Matrix3D tm = Unknown300->Pull->Get_Transform();
@@ -891,7 +891,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B580()
 	Unknown300->Gadget->Unknown_64(box);
 	float y = box.Center.Y - box.Extent.Y; float x = box.Center.X - box.Extent.X;
 	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
-	RenderObjClass *model = Mesh->Peek_Object();
+	RenderObjClass *model = InterfaceMesh->Peek_Object();
 	int bone = model->Get_Sub_Object_Bone_Index(Unknown300->Pull);
 	model->Capture_Bone(bone);
 	Matrix3D tm = Unknown300->Pull->Get_Transform();
@@ -1098,7 +1098,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B580()
 void StarbaseShipCustomizeInterface::Unknown_61B760()
 {
 	Unknown300 = new UIAvatrPullClass;
-	RenderObjClass *palette = Mesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
+	RenderObjClass *palette = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
 	if (Page == 1) {
 		ColorSliderTexture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("fa_ship_color.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
@@ -1111,7 +1111,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B760()
 	Unknown300->Gadget->Unknown2C_0A = 1;
 	Unknown300->Unknown_5859A0();
 	palette->Release_Ref();
-	Unknown300->Pull = Mesh->Peek_Object()->Get_Sub_Object_By_Name("PULL_COLOR");
+	Unknown300->Pull = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("PULL_COLOR");
 	Unknown_496AE0(Unknown300->Pull, 1);
 	Unknown64.Unknown_6870E0(Unknown300->Gadget, 0x32, View, 1, 1);
 	Unknown_61B580();
@@ -1174,7 +1174,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 	Unknown_5C();
 	Unknown_61AF50();
 	if (Unknown2FC) {
-		Unknown_BE67C4->Remove(Mesh->Peek_Object());
+		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
 		Unknown2FC = false;
 	}
@@ -1198,8 +1198,8 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 		}
 		Unknown300 = NULL;
 	}
-	Mesh->Unknown_5B8850(Unknown_B894A0[page][0], true);
-	RenderObjClass *model = Mesh->Peek_Object();
+	InterfaceMesh->Unknown_5B8850(Unknown_B894A0[page][0], true);
+	RenderObjClass *model = InterfaceMesh->Peek_Object();
 	Unknown_BE67BC->Load(Unknown_B894A0[page][1]);
 	Unknown_BE67C4->Add(model);
 	Page = page;
@@ -1320,14 +1320,14 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
-			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", Mesh->Peek_Object(), Unknown_B08CB8 | Unknown_B08CC4, 0);
+			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", InterfaceMesh->Peek_Object(), Unknown_B08CB8 | Unknown_B08CC4, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
 			Unknown64.Unknown_6870E0(NameGadget, 0x35, View, 1, 0);
 			Unknown_58();
 			Unknown_61BAC0(3);
 			if (strlen(Desc.Ship_Name) != 0) {
-				FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", Mesh->Peek_Object());
+				FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", InterfaceMesh->Peek_Object());
 				if (style != NULL && style->Unknown300) {
 					style->Set_Hidden(1);
 				}
@@ -1458,19 +1458,19 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 {
 	Unknown_61BCE0(2);
 
-	FontSys *none = Unknown_BE67C4->Get_Style("NONE_buy_ship03", Mesh->Peek_Object());
+	FontSys *none = Unknown_BE67C4->Get_Style("NONE_buy_ship03", InterfaceMesh->Peek_Object());
 	if (none != NULL && none->Unknown300) {
 		none->Set_Hidden(1);
 	}
 	char name[0x14];
 	for (int i = 0; i < 9; i++) {
 		_snprintf(name, sizeof(name), "D%02d", i);
-		RenderObjClass *sub = Mesh->Peek_Object()->Get_Sub_Object_By_Name(name);
+		RenderObjClass *sub = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(name);
 		if (sub == NULL) {
 			continue;
 		}
 		if (Unknown314 + i == 0) {
-			none = Unknown_BE67C4->Get_Style("NONE_buy_ship03", Mesh->Peek_Object());
+			none = Unknown_BE67C4->Get_Style("NONE_buy_ship03", InterfaceMesh->Peek_Object());
 			if (none != NULL && !none->Unknown300) {
 				none->Set_Hidden(0);
 			}
@@ -1965,9 +1965,9 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		} else {
 			Unknown244[0].Rotate_Y(slow);
 		}
-		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL00");
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index("METAL00");
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
 		Matrix3D newtm(Unknown244[0]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -1982,9 +1982,9 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		} else {
 			Unknown244[1].Rotate_Y(slow);
 		}
-		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL01");
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[1]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index("METAL01");
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[1]);
 		Matrix3D newtm(Unknown244[1]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -1999,9 +1999,9 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		} else {
 			Unknown244[2].Rotate_Y(slow);
 		}
-		int bone = Mesh->Peek_Object()->Get_Bone_Index("METAL02");
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index("METAL02");
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
 		Matrix3D newtm(Unknown244[2]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -2054,10 +2054,10 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 		Unknown320 = money->Value;
 		FontSys *text = NULL;
 		switch (Page) {
-			case 0: text = Unknown_BE67C4->Get_Style("credits_buy_ship01", Mesh->Peek_Object()); break;
-			case 1: text = Unknown_BE67C4->Get_Style("credits_buy_ship02", Mesh->Peek_Object()); break;
-			case 2: text = Unknown_BE67C4->Get_Style("credits_buy_ship03", Mesh->Peek_Object()); break;
-			case 3: text = Unknown_BE67C4->Get_Style("credits_buy_ship04", Mesh->Peek_Object()); break;
+			case 0: text = Unknown_BE67C4->Get_Style("credits_buy_ship01", InterfaceMesh->Peek_Object()); break;
+			case 1: text = Unknown_BE67C4->Get_Style("credits_buy_ship02", InterfaceMesh->Peek_Object()); break;
+			case 2: text = Unknown_BE67C4->Get_Style("credits_buy_ship03", InterfaceMesh->Peek_Object()); break;
+			case 3: text = Unknown_BE67C4->Get_Style("credits_buy_ship04", InterfaceMesh->Peek_Object()); break;
 		}
 		if (text) {
 			std::string line("Credits: ");
@@ -2067,10 +2067,10 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 	}
 	FontSys *text = NULL;
 	switch (Page) {
-		case 0: text = Unknown_BE67C4->Get_Style("cost_buy_ship01", Mesh->Peek_Object()); break;
-		case 1: text = Unknown_BE67C4->Get_Style("cost_buy_ship02", Mesh->Peek_Object()); break;
-		case 2: text = Unknown_BE67C4->Get_Style("cost_buy_ship03", Mesh->Peek_Object()); break;
-		case 3: text = Unknown_BE67C4->Get_Style("cost_buy_ship04", Mesh->Peek_Object()); break;
+		case 0: text = Unknown_BE67C4->Get_Style("cost_buy_ship01", InterfaceMesh->Peek_Object()); break;
+		case 1: text = Unknown_BE67C4->Get_Style("cost_buy_ship02", InterfaceMesh->Peek_Object()); break;
+		case 2: text = Unknown_BE67C4->Get_Style("cost_buy_ship03", InterfaceMesh->Peek_Object()); break;
+		case 3: text = Unknown_BE67C4->Get_Style("cost_buy_ship04", InterfaceMesh->Peek_Object()); break;
 	}
 	if (text) {
 		std::string line("Cost: ");
@@ -2079,10 +2079,10 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 	}
 	FontSys *name = NULL;
 	switch (Page) {
-		case 0: name = Unknown_BE67C4->Get_Style("HULL_buy_ship01", Mesh->Peek_Object()); break;
-		case 1: name = Unknown_BE67C4->Get_Style("Paint_buy_ship02", Mesh->Peek_Object()); break;
-		case 2: name = Unknown_BE67C4->Get_Style("insignia_buy_ship03", Mesh->Peek_Object()); break;
-		case 3: name = Unknown_BE67C4->Get_Style("Ship_buy_ship04", Mesh->Peek_Object()); break;
+		case 0: name = Unknown_BE67C4->Get_Style("HULL_buy_ship01", InterfaceMesh->Peek_Object()); break;
+		case 1: name = Unknown_BE67C4->Get_Style("Paint_buy_ship02", InterfaceMesh->Peek_Object()); break;
+		case 2: name = Unknown_BE67C4->Get_Style("insignia_buy_ship03", InterfaceMesh->Peek_Object()); break;
+		case 3: name = Unknown_BE67C4->Get_Style("Ship_buy_ship04", InterfaceMesh->Peek_Object()); break;
 	}
 	if (name) {
 		name->Change_Text(Desc.Ship_Name, 0);
@@ -2197,4 +2197,4 @@ void StarbaseShipCustomizeInterface::Unknown_61F690()
 // 0x6209D0, ui_shipcust.cpp's 0xBE5E44 in 0x629B70).
 // The events slot +0x68 0x619470 is functional (its switch on the gadget ids 1-0x32 written with merged cases; jump table
 // 0x61A0D8 / 0x61A144). Not exact or not in: the part's assignment 0x619320 (emitted, not exact: its loop pointer starts at +0x08
-// where the client's starts at +0x18) and 0x61E860 / 0x61E880 (Mesh's 0x5B8850 with (0, 0) and (arg, 1); no callers).
+// where the client's starts at +0x18) and 0x61E860 / 0x61E880 (InterfaceMesh's 0x5B8850 with (0, 0) and (arg, 1); no callers).

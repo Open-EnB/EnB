@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1235 |
-| 2 | describes what the code does | 3009 |
+| 3 | by convention from a client-named file or sibling | 1234 |
+| 2 | describes what the code does | 3008 |
 | 1 | neutral placeholder | 14060 |
 
 ## For review (score 3 and below)
@@ -15016,7 +15016,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `coords` | `app/client/sclient.h:267` | the FAIL_IF's; NAME 1 [norm]: its counterpart in 0x65B6C0 |
 | 2 | `norm` | `app/client/sclient.h:268` | the FAIL_IF's; NAME 1 [coords]: its counterpart in 0x65B650 |
 | 2 | `Client` | `app/client/sclient.h:300` | what it holds |
-| 2 | `Mesh` | `app/client/sclient.h:389` | what it holds |
 | 2 | `Layer` | `app/client/sclient.h:390` | what it is |
 | 2 | `OrbitalManager` | `app/client/sclient.h:412` | the client's (OrbitalManager::Update) |
 | 2 | `Client` | `app/client/sclient.h:461` | what it holds |
@@ -17309,6 +17308,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/sclient.h:299` | the assert's |
 | 3 | `RadarSystemClass` | `app/client/sclient.h:326` | class-from-file (D24) for radar_system.cpp |
 | 3 | `UIScanClass` | `app/client/sclient.h:361` | class-from-file (D24) for ui_scan.cpp |
+| 3 | `InterfaceMesh` | `app/client/sclient.h:389` | the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118, ui_attrb_skills.cpp's 0x549AA0 l.121) |
 | 3 | `CameraEffectsClass` | `app/client/sclient.h:447` | class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects) |
 | 3 | `UIPTradeClass` | `app/client/sclient.h:476` | class-from-file (D24) for app\client\ui_ptrade.cpp |
 | 3 | `MainViewClass` | `app/client/sclient.h:551` | class-from-file (D24) for mainview.cpp |
@@ -17452,7 +17452,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HulkUI` | `app/client/ui_cpit.h:152` | the assert's |
 | 3 | `Scan` | `app/client/ui_cpit.h:155` | its file's (ui_scan.cpp) |
 | 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:163` | the asserts' |
-| 3 | `ui_faction.cpp` | `app/client/ui_faction.cpp:21` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_faction.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
@@ -17483,7 +17482,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tech_level, source` | `app/client/ui_manu.h:145` | the asserts'; NAME 1 [on]: neutral |
 | 3 | `source` | `app/client/ui_manu.h:146` | the assert's; NAME 1 [on]: neutral |
 | 3 | `State` | `app/client/ui_manu.h:168` | the assert's |
-| 3 | `ui_missn.cpp` | `app/client/ui_missn.cpp:21` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_missn.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/ui_missn.cpp:41` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `UIMissnClass` | `app/client/ui_missn.h:21` | class-from-file (D24) for app\Client\ui_missn.cpp |

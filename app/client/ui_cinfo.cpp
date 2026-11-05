@@ -59,7 +59,7 @@ UICinfoClass::UICinfoClass(SClient *client) :
 	UnknownB0(1)
 {
 	for (int i = 1; i < MAX_BUTTONS; i++) {
-		ButtonGadgetClass *button = new ButtonGadgetClass(Mesh, ButtonNames[i], 0x55, 3);
+		ButtonGadgetClass *button = new ButtonGadgetClass(InterfaceMesh, ButtonNames[i], 0x55, 3);
 		UnknownC4[i] = button;
 		Unknown64.Unknown_6870E0(button, i, View, 1, 0);
 		Unknown_5BB4F0(button);
@@ -69,7 +69,7 @@ UICinfoClass::UICinfoClass(SClient *client) :
 			GadgetClass::Set_Tooltip(button, "UI_CINFO", MenuNames[i - 1]);
 		}
 	}
-	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(Mesh->Peek_Object()));
+	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(InterfaceMesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 6, View, 1, 0);
 	Unknown_BE67BC->Load("fa_cinfo.ini");
 }
@@ -113,7 +113,7 @@ void UICinfoClass::Unknown_58()
 {
 	if (!Active) {
 		Unknown5BB320Class::Unknown_58();
-		Unknown_BE67C4->Add(Mesh->Unknown1C);
+		Unknown_BE67C4->Add(InterfaceMesh->Unknown1C);
 		Unknown_573E80(UnknownB0);
 		UnknownC4[4]->Unknown_40(true);
 	}
@@ -125,7 +125,7 @@ void UICinfoClass::Unknown_5C()
 	if (Active) {
 		UnknownB0 = UnknownAC;
 		Unknown_573E80(0);
-		Unknown_BE67C4->Remove(Mesh->Unknown1C);
+		Unknown_BE67C4->Remove(InterfaceMesh->Unknown1C);
 		Unknown5BB320Class::Unknown_5C();
 	}
 }
@@ -231,14 +231,14 @@ void UICinfoClass::Unknown_573E80(int tab)
 	switch (UnknownAC) {
 	case 1:
 		UnknownB4->Unknown_5C();
-		font = Unknown_BE67C4->Get_Style("ATTRIBUTES_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("ATTRIBUTES_MENU", InterfaceMesh->Unknown1C);
 		break;
 	case 2:
-		font = Unknown_BE67C4->Get_Style("MISSIONS_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("MISSIONS_MENU", InterfaceMesh->Unknown1C);
 		UnknownB8->Unknown_5C();
 		break;
 	case 3:
-		font = Unknown_BE67C4->Get_Style("FACTION_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("FACTION_MENU", InterfaceMesh->Unknown1C);
 		UnknownBC->Unknown_5C();
 		break;
 	}
@@ -252,19 +252,19 @@ void UICinfoClass::Unknown_573E80(int tab)
 	switch (UnknownAC) {
 	case 1:
 		UnknownB4->Unknown_58();
-		font = Unknown_BE67C4->Get_Style("ATTRIBUTES_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("ATTRIBUTES_MENU", InterfaceMesh->Unknown1C);
 		Unknown_5741A0();
 		client->Unknown_744560(4);
 		break;
 	case 2:
 		UnknownB8->Unknown_58();
-		font = Unknown_BE67C4->Get_Style("MISSIONS_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("MISSIONS_MENU", InterfaceMesh->Unknown1C);
 		Unknown_5741A0();
 		client->Unknown_744560(5);
 		break;
 	case 3:
 		UnknownBC->Unknown_58();
-		font = Unknown_BE67C4->Get_Style("FACTION_MENU", Mesh->Unknown1C);
+		font = Unknown_BE67C4->Get_Style("FACTION_MENU", InterfaceMesh->Unknown1C);
 		Unknown_5741A0();
 		client->Unknown_744560(6);
 		break;
@@ -281,7 +281,7 @@ void UICinfoClass::Unknown_5741A0()
 	for (int i = 0; i < 4; i++) {
 		const char *name = MenuNames[i];
 		if (name) {
-			FontSys *font = Unknown_BE67C4->Get_Style(name, Mesh->Unknown1C);
+			FontSys *font = Unknown_BE67C4->Get_Style(name, InterfaceMesh->Unknown1C);
 			if (font) {
 				if (UnknownAC - 1 == i) {
 					font->Unknown_6CE7D0(0);

@@ -143,7 +143,7 @@ UIManuClass::~UIManuClass()
 	if (Unknown0B0) {
 		Unknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
-	((UIManuMeshClass *)Mesh)->Unknown_5B9930(-1);
+	((UIManuMeshClass *)InterfaceMesh)->Unknown_5B9930(-1);
 	Unknown0B4 = NULL;
 	Unknown0B8 = NULL;
 	Unknown0BC = NULL;
@@ -234,18 +234,18 @@ void UIManuClass::Unknown_58()
 		}
 		Unknown0B0->Unknown_66FA90(0, 10.0f, true);
 		Unknown_5B2950();
-		Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
-		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", Mesh->Peek_Mesh_Object()));
-		RefCountPtr<RenderObjClass> name_obj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
+		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
+		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", InterfaceMesh->Peek_Mesh_Object()));
+		RefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
 		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
 		char buffer[264];
 		for (int i = 0; i < 10; i++) {
 			sprintf(buffer, "desc%02d_tsm01a", i);
-			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, Mesh->Peek_Mesh_Object()));
+			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
 			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
 			Unknown16C[i]->Unknown_6CDBC0("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
-			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, Mesh->Peek_Mesh_Object()));
+			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
 			Unknown194[i]->Unknown_6CDBC0("", 0);
 		}
 		Unknown0AC->Unknown_69DC40();
@@ -282,7 +282,7 @@ void UIManuClass::Unknown_5C()
 		((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
-	Unknown_BE67C4->Remove(Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown5BB320Class::Unknown_5C();
 	((UIManuSClientClass *)sclient)->Unknown_744560(0x18);
 	for (int i = 0; i < 10; i++) {
@@ -396,7 +396,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 void UIManuClass::Unknown_54()
 {
 	for (int id = 1; id <= 6; id++) {
-		RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
+		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
 		if (robj) {
 			Unknown_496AE0(robj.Peek(), 0);
 			Unknown0CC[id] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
@@ -415,7 +415,7 @@ void UIManuClass::Unknown_54()
 	char name[64];
 	for (int row = 0; row < 10; row++) {
 		sprintf(name, "desc%02d", row);
-		Unknown0E8[row] = new ButtonGadgetClass(Mesh, name, Layer, 0x55, 3);
+		Unknown0E8[row] = new ButtonGadgetClass(InterfaceMesh, name, Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown0E8[row], row + 8, View, 1, 0);
 		Unknown_5BB4F0(Unknown0E8[row]);
 	}
@@ -434,19 +434,19 @@ void UIManuClass::Unknown_54()
 	}
 	((UIManuKeysClass *)Unknown4C)->Unknown_721E60(&UIManuKeyEventStruct(0x1B), true);
 	Unknown0B0 = new GadgetSlider(false, &Layer);
-	Unknown0B0->Unknown_66E460(Create_Peek(Mesh->Peek_Object()), 0, 1);
+	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
 	SClient *sclient = Client->As_Space_Client();
-	Unknown0B4 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
+	Unknown0B4 = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
-	Unknown0B8 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
+	Unknown0B8 = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
 	char buffer[64];
 	for (int k = 0; k < 3; k++) {
 		Unknown0C0[k] = new UIManuUnknownC0Class(k);
 		for (int i = 0; i < 5; i++) {
 			sprintf(buffer, "%s%02d", Unknown_B81840[k], i + 1);
-			RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
+			RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
 			if (robj) {
 				Unknown_496AE0(robj.Peek(), 0);
 				Unknown0C0[k]->Gadgets[i] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
@@ -455,20 +455,20 @@ void UIManuClass::Unknown_54()
 				Unknown_5BB4F0(Unknown0C0[k]->Gadgets[i]);
 			}
 			sprintf(buffer, "%s%02df", Unknown_B81840[k], i + 1);
-			Unknown0C0[k]->Unknown14[i] = Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer);
+			Unknown0C0[k]->Unknown14[i] = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(buffer);
 			Unknown_496AE0(Unknown0C0[k]->Unknown14[i], 0);
 		}
 		Unknown0C0[k]->Unknown_5B74F0(true);
 		sprintf(buffer, "%sf", Unknown_B81850[k + 1]);
-		Unknown110[k] = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
+		Unknown110[k] = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
 		Unknown110[k]->Set_Hidden(true);
 	}
 	Unknown0B8->Unknown_54();
 	Unknown0B8->Unknown_7C(View, 0);
-	Unknown0BC = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
+	Unknown0BC = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM01A.OVER", 14));
 	Unknown0BC->Unknown_54();
 	Unknown0BC->Unknown_7C(View, 0);
-	RefCountPtr<RenderObjClass> tutorial = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
+	RefCountPtr<RenderObjClass> tutorial = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
 	if (tutorial) {
 		tutorial->Set_Hidden(true);
 	}
@@ -498,7 +498,7 @@ void UIManuClass::Unknown_60()
 					Unknown_5B4680();
 				}
 				if (!Unknown0BAE) {
-					Mesh->Unknown_5B8DF0(0, "tsm01a.tsm01a-1", false, 0, 0, 0, -1);
+					InterfaceMesh->Unknown_5B8DF0(0, "tsm01a.tsm01a-1", false, 0, 0, 0, -1);
 					Unknown0BAE = true;
 				}
 				if (Unknown0BC) {
@@ -647,7 +647,7 @@ bool UIManuClass::Unknown_68(int key)
 // 0x5B1AF0
 void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 {
-	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object()));
+	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
 	font->Unknown_6CDBC0(text, 0);
 	font->Set_Hidden(!show);
@@ -796,7 +796,7 @@ void UIManuClass::Unknown_5B2480()
 			Unknown0CC[i + 2]->Unknown2C800 = 0;
 		}
 	}
-	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object()));
+	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
 	NameClass name("Validity");
 	UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
 	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
@@ -1061,7 +1061,7 @@ void UIManuClass::Unknown_5B3A70()
 			Unknown0BC->Unknown_62F5B0(false);
 		}
 		Unknown0CC[6]->Unknown_40(false);
-		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object());
+		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object());
 		style->Unknown2FC = 0.33f;
 		style->Unknown4C5 = false;
 	}
@@ -1286,7 +1286,7 @@ void UIManuClass::Unknown_5B4850()
 	int player = Client->As_Space_Client()->Unknown1138;
 	((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(player, 0));
 	Unknown0CC[6]->Unknown_40(false);
-	RefCountPtr<FontSys> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], Mesh->Peek_Mesh_Object()));
+	RefCountPtr<FontSys> go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
 	go->Unknown_Set_2FC(0.33f);
 	Unknown_5B1AF0(2, true, "");
 	Unknown_5B1AF0(3, true, "");
@@ -1721,7 +1721,7 @@ UIManuCheckButtonClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_nam
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
-	RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(bttn_name));
+	RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(bttn_name));
 	FAIL_IF(!robj) return(NULL);
 	Unknown_496AE0(robj.Peek(), 0);
 	UIManuCheckButtonClass *button;

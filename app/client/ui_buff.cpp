@@ -141,7 +141,7 @@ void UIBuffClass::Unknown_560D20(const char *type, const BuffInfoStruct &info, i
 		Unknown_496AE0(buff_obj, false);
 		char name[32];
 		sprintf(name, "buff%02d", slot);
-		Mesh->Peek_Object()->Add_Sub_Object_To_Bone(buff_obj, name);
+		InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(buff_obj, name);
 		BuffTable[slot] = new BuffGadgetClass((ClientClass *)Client, buffinfo, info, buff_obj, 0, Layer);
 		Unknown64.Unknown_6870E0(BuffTable[slot], slot, View, 1, 1);
 		Unknown_5BB4F0(BuffTable[slot]);
@@ -158,7 +158,7 @@ void UIBuffClass::Unknown_560FA0(int slot)
 	if (BuffTable[slot]) {
 		InterfaceClass::Unknown_5C();
 		RenderObjClass *robj = BuffTable[slot]->Peek_Render_Obj();
-		Mesh->Peek_Object()->Remove_Sub_Object(robj);
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj);
 		Unknown64.Unknown_687150(BuffTable[slot]);
 		GadgetClass::Destroy(BuffTable[slot]);
 		BuffTable[slot] = NULL;
@@ -262,7 +262,7 @@ void UIBuffClass::Unknown_561030()
 				shown = true;
 			}
 		}
-		RefCountPtr<RenderObjClass> frame = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("frame"));
+		RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("frame"));
 		if (frame) {
 			frame->Set_Hidden(!shown);
 		}

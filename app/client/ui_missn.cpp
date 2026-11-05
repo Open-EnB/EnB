@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "ui_missn.h"
 
-#define InterfaceMesh Mesh		// the FAIL_IFs' name for the base's +0x84 (ui_faction.cpp's 0x58D400 l.118): Unknown5BB320Class::Mesh  // NAME 3: the FAIL_IF's
+// (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
@@ -72,7 +72,7 @@ UIMissnClass::~UIMissnClass()
 {
 	REF_PTR_RELEASE(StandardBttnTexture);
 	REF_PTR_RELEASE(SelectedBttnTexture);
-	Unknown_BE67C4->Remove(Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown_BE67C4->Remove(DescriptionPanel);
 	Unknown_BE67BC->Unload("fa_TSI22A.ini");
 	REF_PTR_RELEASE(DescriptionPanel);

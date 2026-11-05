@@ -386,7 +386,7 @@ public:
 	virtual void Unknown_8C();							// +0x8C 0x543770
 	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
 
-	UIMeshClass *Mesh;									// +0x84 (the destructor deletes it)  // NAME 2: what it holds
+	UIMeshClass *InterfaceMesh;							// +0x84 (the destructor deletes it)  // NAME 3: the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118, ui_attrb_skills.cpp's 0x549AA0 l.121)
 	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
 };
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)

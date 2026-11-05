@@ -456,7 +456,7 @@ StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 	}
 	Unknown64.Unknown_687150((GadgetClass *)Unknown0B8);
 	Unknown_54F2B0();
-	Unknown_BE67C4->Remove(Mesh->Peek_Object());
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 	Unknown_BE67BC->Unload("fa_buy_avatar00.ini");
 	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &StarbaseAvatarCreationInterface::Unknown_551320, FlashingGadgetEvent());
 }
@@ -601,7 +601,7 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 void StarbaseAvatarCreationInterface::Unknown_54D720(int text)
 {
 	const char *names[] = { "text1", "text2", "Text3", "text4", "Text5", "Text6", "text7" };
-	RefCountPtr<RenderObjClass> palette = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+	RefCountPtr<RenderObjClass> palette = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	if (palette) {
 		RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(names[text], MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 		if (texture) {
@@ -614,13 +614,13 @@ void StarbaseAvatarCreationInterface::Unknown_54D720(int text)
 void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 {
 	Unknown31C = new UIAvatarCustGadgetHolderStruct;
-	RenderObjClass *palette = Mesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
+	RenderObjClass *palette = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
 	Unknown31C->Unknown00 = new UIAvatarCustGadget671300Class(palette, 0, *Unknown0AC, 0, 0, 0);
 	Unknown31C->Unknown00->Unknown2C400 = true;
 	Unknown31C->Unknown_5859A0();
 	palette->Release_Ref();
-	Unknown31C->Unknown04 = Mesh->Peek_Object()->Get_Sub_Object_By_Name("PULL_COLOR");
+	Unknown31C->Unknown04 = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("PULL_COLOR");
 	Unknown_496AE0(Unknown31C->Unknown04, 1);
 	Unknown64.Unknown_6870E0(Unknown31C->Unknown00, 0x2F, View, 1, 1);
 	Unknown_54FFC0();
@@ -630,12 +630,12 @@ void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 void StarbaseAvatarCreationInterface::Unknown_54DA50()
 {
 	Unknown308 = new UIAvatarCustGadgetHolderStruct;
-	RefCountPtr<RenderObjClass> area = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_AREA"));
+	RefCountPtr<RenderObjClass> area = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
 	Unknown308->Unknown00 = new UIAvatarCustGadget671300Class(area.Peek(), 0, *Unknown0AC, 0, 0, 0);
 	Unknown308->Unknown00->Unknown2C400 = true;
 	Unknown308->Unknown_5859A0();
-	Unknown308->Unknown04 = Mesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_PULL");
+	Unknown308->Unknown04 = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_PULL");
 	Unknown_496AE0(Unknown308->Unknown04, 1);
 	Unknown64.Unknown_6870E0(Unknown308->Unknown00, 0x2E, View, 1, 1);
 }
@@ -643,7 +643,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DA50()
 // 0x54DC20
 void StarbaseAvatarCreationInterface::Unknown_54DC20(int mode, bool on)
 {
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+	RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 	int i;
 	switch (mode) {
 		case 1:
@@ -712,7 +712,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 		return;
 	}
 	Unknown0B0 = mode;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+	RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 	RefCountPtr<RenderObjClass> frame = Create_Get(model->Get_Sub_Object_By_Name("FRAME_COLOR"));
 	switch (mode) {
 		case 1:
@@ -910,7 +910,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EEC0()
 {
 	char name[64];
 	Unknown_54F2B0();
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+	RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 	_snprintf(name, sizeof(name), "%s%shair", UIAvatarCustGenders[Unknown0BC->Get_Desc()->Gender], UIAvatarCustRaces[Unknown0BC->Get_Desc()->Race]);
 	Unknown368 = new UIAvatarCustUnknown368Class(model.Peek(), name, NULL, "HAIR", false);
 	Unknown368->Unknown_585CF0(Unknown0BC->Get_Desc()->Hair_Num);
@@ -980,7 +980,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 		x = WWMath::Max(x, box.Center.X - box.Extent.X);
 		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
 		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
-		RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+		RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 		int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 		model->Capture_Bone(bone);
 		Matrix3D tm = pull->Unknown04->Get_Transform();
@@ -1032,7 +1032,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	left = box.Center.X - box.Extent.X;
 	width = box.Extent.X * 2.0f;
 	height = box.Extent.Y * 2.0f;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Mesh->Peek_Object());
+	RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Unknown04->Get_Transform();
@@ -1063,7 +1063,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 		x = WWMath::Max(x, box.Center.X - box.Extent.X);
 		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
 		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
-		RenderObjClass *model = Mesh->Peek_Object();
+		RenderObjClass *model = InterfaceMesh->Peek_Object();
 		int bone = model->Get_Sub_Object_Bone_Index(Unknown31C->Unknown04);
 		model->Capture_Bone(bone);
 		Matrix3D tm = Unknown31C->Unknown04->Get_Transform();
@@ -1139,7 +1139,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FFC0()
 	float left = box.Center.X - box.Extent.X;
 	float width = box.Extent.X * 2.0f;
 	float height = box.Extent.Y * 2.0f;
-	RenderObjClass *model = Mesh->Peek_Object();
+	RenderObjClass *model = InterfaceMesh->Peek_Object();
 	int bone = model->Get_Sub_Object_Bone_Index(Unknown31C->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = Unknown31C->Unknown04->Get_Transform();
@@ -1342,9 +1342,9 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		} else {
 			Unknown26C[0].Rotate_Y(slow);
 		}
-		int bone = Mesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[37].Button);
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown26C[0]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[37].Button);
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[0]);
 		Matrix3D newtm(Unknown26C[0]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -1360,9 +1360,9 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		} else {
 			Unknown26C[1].Rotate_Y(slow);
 		}
-		int bone = Mesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[38].Button);
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown26C[1]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[38].Button);
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[1]);
 		Matrix3D newtm(Unknown26C[1]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -1378,9 +1378,9 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 			angle = fast;
 		}
 		Unknown26C[2].Rotate_Y(angle);
-		int bone = Mesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[39].Button);
-		Mesh->Peek_Object()->Capture_Bone(bone);
-		Mesh->Peek_Object()->Control_Bone(bone, Unknown26C[2]);
+		int bone = InterfaceMesh->Peek_Object()->Get_Bone_Index(UIAvatarCustParts[39].Button);
+		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
+		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown26C[2]);
 		Matrix3D newtm(Unknown26C[2]);
 		newtm[0][3] = tm[0][3];
 		newtm[1][3] = tm[1][3];
@@ -2223,7 +2223,7 @@ void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event,
 // 0x5513E0
 void StarbaseAvatarCreationInterface::Unknown_5513E0(const char *name)
 {
-	RefCountPtr<RenderObjClass> mesh = Unknown_497300(Mesh->Peek_Object());
+	RefCountPtr<RenderObjClass> mesh = Unknown_497300(InterfaceMesh->Peek_Object());
 	RefCountPtr<RenderObjClass> palette = Create_Get(mesh->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
 	if (texture) {
@@ -2244,14 +2244,14 @@ void StarbaseAvatarCreationInterface::Unknown_551520(bool any)
 	}
 	if (money) {
 		Unknown380 = money->Value;
-		FontSys *text = Unknown_BE67C4->Get_Style("credits_buy_avatar00", Mesh->Peek_Object());
+		FontSys *text = Unknown_BE67C4->Get_Style("credits_buy_avatar00", InterfaceMesh->Peek_Object());
 		if (text) {
 			std::string line("Credits: ");
 			line += Unknown380.Unknown_4F00C0(true);
 			text->Change_Text(line.c_str(), 0);
 		}
 	}
-	FontSys *text = Unknown_BE67C4->Get_Style("cost_buy_avatar00", Mesh->Peek_Object());
+	FontSys *text = Unknown_BE67C4->Get_Style("cost_buy_avatar00", InterfaceMesh->Peek_Object());
 	if (text) {
 		std::string line("Cost: ");
 		line += Unknown388.Unknown_4F00C0(true);

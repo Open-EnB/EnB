@@ -116,10 +116,10 @@ UIScutClass::UIScutClass(UIViewClass *view, LayerClass *layer) :
 		Bars[lp] = NULL;
 	}
 	Unknown_BE67BC->Load("fc_scut.ini");
-	Unknown_BE67C4->Add(Mesh->Peek_Object());
+	Unknown_BE67C4->Add(InterfaceMesh->Peek_Object());
 	int id = 2;
 	for (lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
-		Bars[lp] = new UIScutBarClass(this, Mesh, layer, lp, &id, lp);
+		Bars[lp] = new UIScutBarClass(this, InterfaceMesh, layer, lp, &id, lp);
 	}
 	for (lp = 0; lp < NUM_SHORTCUT_BARS; lp++) {
 		Bars[lp]->Unknown_6112B0();
