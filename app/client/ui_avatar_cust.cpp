@@ -858,7 +858,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.81: as 0x54E690's, the view's Client chain)
+// As 0x54E690's, the chooser's value through Get_Unknown18() (the client's eax)
 // 0x54EAD0
 void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 {
@@ -867,7 +867,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 	} else {
 		Unknown36C->Unknown_585C90();
 	}
-	Unknown0BC->Unknown_77FD30(Unknown36C->Unknown18, true);
+	Unknown0BC->Unknown_77FD30(Unknown36C->Get_Unknown18(), true);
 	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();

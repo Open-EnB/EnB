@@ -1483,7 +1483,7 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 
 
 // 0x781570
-// NOT EXACT: functional for POC (D64), literal (__LINE__)
+// (each product parenthesised: the client's x87 order)
 void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 {
 	if (HeadObj == NULL) {
@@ -1502,7 +1502,7 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 			Unknown288[i] = Desc.Head_Weight[i];
 		} else {
 			moving = true;
-			Unknown288[i] = keep * Unknown288[i] + rest * Desc.Head_Weight[i];
+			Unknown288[i] = (keep * Unknown288[i]) + (rest * Desc.Head_Weight[i]);
 		}
 	}
 	if (!moving) {
@@ -3056,7 +3056,7 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 
 // 0x785C00: Tattoo_Offset onto the head object's HEAD0..4 meshes: a linear offset mapper on stage 1
 // of vertex material 0 (X, Y the tattoo's place, Z its scale, clamped to 0.5 .. 16)
-// NOT EXACT: functional for POC (D64), x87 order (the client defers start.Y's divide after start.X's store)
+// (the differences as a Vector2, then each start component divided: the client's x87 order)
 void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 {
 	FAIL_IF(!HeadObj) {
@@ -3071,7 +3071,10 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 	float size = 1.0f / scale;
 	float half = size * 0.5f;
 	Vector2 scales(scale, scale);
-	Vector2 start(-((offset.X - half) / size), -((offset.Y - half) / size));
+	Vector2 o(offset.X - half, offset.Y - half);
+	Vector2 start;
+	start.X = -(o.X / size);
+	start.Y = -(o.Y / size);
 	char mesh[64];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(mesh, 0x40, "HEAD%d", i);
