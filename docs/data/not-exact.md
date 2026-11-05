@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-596 entries in 131 files.
+595 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -380,7 +380,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
-| `app/client/ui_shipcust.cpp:608` | `ShipCustomizeInterface::~ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622B90 |
 | `app/client/ui_shipcust.cpp:669` | `ShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x623080 |
 | `app/client/ui_shipcust.cpp:1140` | `ShipCustomizeInterface::Unknown_624270` | marker | NOT EXACT: functional (D64) @0x624270 |
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |

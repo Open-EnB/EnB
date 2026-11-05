@@ -67,7 +67,9 @@ struct ShipCustGadgetStruct	// NAME 1: neutral (D10)
 // callback's type name MemberCallback<GadgetClass,ShipCustomizeInterface,...>), 0x26C bytes, tables 0xAF79A4 /
 // 0xAF7998 / 0xAF798C; the character view's mode 6 (LoginTaskClass step 6). Its pages FA_SHIP01-04: hull, paint,
 // insignia, name.
-class ShipCustomizeInterface : public InterfaceClass	// NAME 5: the client's RTTI
+// Its second base, at +0x084, is the description being edited (CONFIRM copies it to the view's +0x244): the
+// destructor 0x622B90 null-checks this before running ~Unknown620D20Class inline, as for a base, not a member.
+class ShipCustomizeInterface : public InterfaceClass, public Unknown620D20Class	// NAME 5: the client's RTTI
 {
 public:
 	ShipCustomizeInterface(UIViewClass *view, LayerClass *layer, int unknown, int unknown2);	// 0x622180 (charview.cpp's 0x679160: the mode before was 5, 0)  // NAME 1 [view, layer, unknown, unknown2]: as charview.cpp's
@@ -105,7 +107,6 @@ public:
 	void Unknown_628420();							// 0x628420 (the metal models turned)
 	void Unknown_628900(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x628900 (FAIL_IFs '!event', '!gadget')  // NAME 3 [event]: the FAIL_IF's; NAME 1 [sender]: the callback's type
 
-	Unknown620D20Class Ship;						// +0x084 the description being edited (CONFIRM copies it to the view's +0x244)  // NAME 1: what it holds
 	CharacterViewClass *CharacterView;				// +0x208 (the view's slot +0x28)  // NAME 1: as ui_class.h's
 	LoginTaskClass *LoginTask;						// +0x20C  // NAME 1: as ui_class.h's
 	bool Unknown210;								// +0x210
