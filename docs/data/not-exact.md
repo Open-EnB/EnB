@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-539 entries in 130 files.
+537 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -247,8 +247,6 @@ edit the comments in the code, not this file.
 | `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
 | `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC60` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
 | `app/client/ui_avatar_cust.cpp:480` | `StarbaseAvatarCreationInterface::Unknown_68` | marker | NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the client's ecx); left: its converted temporary in the 0x54E... |
-| `app/client/ui_avatar_cust.cpp:806` | `StarbaseAvatarCreationInterface::Unknown_54E690` | marker | NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690) 0x54E690 |
-| `app/client/ui_avatar_cust.cpp:825` | `StarbaseAvatarCreationInterface::Unknown_54E7F0` | marker | NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type) 0x54E7F0 |
 | `app/client/ui_avatar_cust.cpp:844` | `StarbaseAvatarCreationInterface::Unknown_54E950` | marker | NOT EXACT: register (0.73 with the value through Get_Unknown18(): dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950) 0x54E950 |
 | `app/client/ui_avatar_cust.cpp:861` | `StarbaseAvatarCreationInterface::Unknown_54EAD0` | marker | NOT EXACT: register (0.81: as 0x54E690's, the view's Client chain) 0x54EAD0 |
 | `app/client/ui_avatar_cust.cpp:876` | `StarbaseAvatarCreationInterface::Unknown_54EC30` | marker | NOT EXACT: register (0.77, 273 bytes against 0x112: the client loads Client's AvatarID through eax / ecx where VC6 here takes edx, and the packet's look into esi; attempts.py show 0x54EC30) 0x54EC30 |

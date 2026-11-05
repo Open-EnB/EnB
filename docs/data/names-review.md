@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13256 |
+| 1 | neutral placeholder | 13257 |
 
 ## For review (score 3 and below)
 
@@ -5157,6 +5157,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1324` | `app/client/sclient.h:1068` | untagged neutral name (D10) |
 | 1 | `Unknown1328` | `app/client/sclient.h:1069` | untagged neutral name (D10) |
 | 1 | `Unknown1330` | `app/client/sclient.h:1071` | untagged neutral name (D10) |
+| 1 | `Peek_Environment_Map_Manager` | `app/client/sclient.h:1072` | neutral (D10) |
 | 1 | `Unknown1334` | `app/client/sclient.h:1072` | untagged neutral name (D10) |
 | 1 | `Unknown1340` | `app/client/sclient.h:1075` | untagged neutral name (D10) |
 | 1 | `Unknown1358` | `app/client/sclient.h:1078` | untagged neutral name (D10) |

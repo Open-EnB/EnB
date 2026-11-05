@@ -803,7 +803,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E610()
 	}
 }
 
-// NOT EXACT: register (0.85, 271 bytes against 0x10F: the view's Client into edx where the client keeps eax; Get_Client() instead of Client 0.74, and a local, Peek() or the slot's object in a named pointer don't change it; attempts.py show 0x54E690)
+// The view's client through Get_Client() and its envmaps through sclient.h's inline Peek_Environment_Map_Manager() (the client's eax)
 // 0x54E690
 void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
 {
@@ -817,12 +817,12 @@ void StarbaseAvatarCreationInterface::Unknown_54E690(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.85: as 0x54E690's, its twin for Pants_Type)
+// As 0x54E690's, its twin for Pants_Type
 // 0x54E7F0
 void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 {
@@ -836,7 +836,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 		}
 	}
 	Unknown0BC->Unknown_77E9D0(body, pants, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -853,7 +853,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 		}
 	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
 	Unknown0BC->Unknown_77FC20(Unknown368->Get_Unknown18(), true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -868,7 +868,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EAD0(int dir)
 		Unknown36C->Unknown_585C90();
 	}
 	Unknown0BC->Unknown_77FD30(Unknown36C->Unknown18, true);
-	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
 }
@@ -1120,7 +1120,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 				Unknown_550970(-1);
 				break;
 		}
-		Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+		Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 		Unknown_551BF0();
 	} else {
 		Unknown31C->Unknown08 = false;
