@@ -2554,7 +2554,13 @@ below name only the work items, the blocked work, the leads and the queues.
      client copy of the inlined Translate(-v) exists to compare with), 0x80D5E0 0.65 (the inlined
      Unknown_80E7D0 returns in eax, the client's in ecx; likely 0x80CE10's blocker: wwmath's Matrix3D::Translate inline body),
      0x80CA30 0.62 (frame 0x48 vs 0x44: the client spills the clamp's max, keeps min on the FPU), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
-     through stack temps; four Set / Matrix3D-temp forms compile identically), avatar 0x77D9F0 (shape 0.46: VC6 hoists the +0x234 load in 11 forms); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
+     through stack temps; four Set / Matrix3D-temp forms compile identically), avatar.cpp (CS12, 2026-11-05: the file follows the client's address order, padded to its
+     `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): retype AvatarDescClass::Get_Body_Morph /
+     Get_Head_Morph to return Vector3 by value (client: `ret 8`, eax the hidden return pointer; re-verify avatar_desc's two
+     exact functions; helps 0x780AF0 / 0x780F30) together with HeadObj / BodyObj / Unknown0BC / Unknown370 as RefCountPtrs
+     (~12 functions need them); the teleport chain 0x788F90 / 0x7896B0 / 0x788EF0 functional (NOT EXACT); 0x781570 0.69
+     register, 0x784700 0.55 (the queue's dtor 0x781C10 / clear 0x78A510 out of line), 0x782CA0 0.69 frame, 0x77D9F0 0.62
+     shape (20 forms), 0x7829B0 (returns in place with the dtor), 0x782200, ctor / dtor untried; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
      2026-11-05), decal.cpp's
