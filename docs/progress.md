@@ -2578,11 +2578,13 @@ below name only the work items, the blocked work, the leads and the queues.
      text field +0x5C bit 4 / +0x61 / +0x68 FontSys * belong to an unidentified derived gadget); ui_manu.cpp holds the
      same kind of stand-in.
    * ui_ship_cust.cpp (CS21 / SC1, 2026-11-05: the starbase's buy-ship window StarbaseShipCustomizeInterface, RTTI 0xB89BB0,
-     declared in ui_ship_cust.h; ctor 0x6181B0 / dtor 0x6186A0 exact; 27 exact): NOT EXACT (attempts rows): slot +0x54
-     0x618CA0 0.54 (inline budget: the first vector ctor and the callback ctor still inline; the client calls
-     0x61FAB0 / 0x61FB60 / 0x620BC0 out of line), 0x619470 0.34, 0x61A4D0 0.52, 0x61BD80 0.54, 0x61F250 0.34 (functional),
-     0x61B170 0.89 (register: Page's test scheduled into the u / v arithmetic), 0x61DF80 0.47 (inline budget), 0x61E8B0
-     0.62 (register, parked), 0x61E8E0 0.42 (one string append inlined, the other not); the part's operator= 0x619320
+     declared in ui_ship_cust.h; ctor 0x6181B0 / dtor 0x6186A0 exact; 28 exact): NOT EXACT (attempts rows): slot +0x54
+     0x618CA0 0.73 (SC2: every call matches; registers left: Selected_Decal via [ebp+0xF0] where the client reuses ebx,
+     eax / ecx / edx swaps), 0x619470 0.34, 0x61A4D0 0.52, 0x61BD80 0.54, 0x61F250 0.34 (functional),
+     0x61B170 0.89 (register: Page's load / `mov ebx, 1` scheduled into the u arithmetic, 7 more forms; the unreferenced
+     0x61B0F0 is exactly its Page == 1 body), 0x61DF80 0.47 (0.60 stashed: the client copies block 1's Matrix3D inline,
+     blocks 2 / 3 through ??_H), 0x61E8B0 0.62 (LIMIT REACHED), 0x61E8E0 0.42 (0.64 stashed; 0x50C vs 0x4AC: the client
+     inlines one string release); the part's operator= 0x619320
      emitted, not exact (its loop pointer starts at +0x08, the client's at +0x18).
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42); swatch (negative) and secret decals untested; the functional
