@@ -1473,27 +1473,27 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A960 (the colour pull: dragged, it moves its marker on the
+// The colour pull (as ui_avatar_cust.cpp's 0x54FAA0: the gadget re-cast at each use, WWMath clamps, the point as a Vector2): dragged, it moves its marker on the
 // window model's bone and takes the palette's colour under it into the chosen part, +0x1BC)
 // 0x55A960
 void AvatarCreationInterface::Unknown_55A960()
 {
-	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)Unknown180->Gadget;
-	if (gadget->Unknown64) {
+
+	if (((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64) {
 		Unknown180->Unknown08 = true;
 	}
-	if ((gadget->Unknown64 || gadget->Unknown65) && Unknown180->Unknown08) {
+	if ((((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown65) && Unknown180->Unknown08) {
 		AABoxClass box;
-		gadget->Unknown_64(box);
+		Unknown180->Gadget->Unknown_64(box);
 		float x;
 		float y;
 		Unknown_42ECF0(&x, &y);
 		x = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
-		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
-		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
-		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
 		RenderObjClass *model = Unknown08C->Unknown1B8;
 		int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
 		model->Capture_Bone(bone);
@@ -1501,14 +1501,14 @@ void AvatarCreationInterface::Unknown_55A960()
 		tm.Set_X_Translation(x - box.Center.X);
 		tm.Set_Y_Translation(y - box.Center.Y);
 		model->Control_Bone(bone, tm, false);
-		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
-		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
-		if (u < 0.01f) u = 0.01f; else if (u > 0.99f) u = 0.99f;
-		if (v < 0.01f) v = 0.01f; else if (v > 0.99f) v = 0.99f;
+		Vector2 point; point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
+		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		float u; if (point.X < 0.01f) { u = 0.01f; } else if (point.X > 0.99f) { u = 0.99f; } else { u = point.X; }
+		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
-		Unknown_496C00(gadget->Unknown_08()->Unknown30, u, 1.0f - v, &color);
-		Unknown184[Unknown1BC].X = u;
-		Unknown184[Unknown1BC].Y = v;
+		UIAvatrGadgetUnknown08Struct *area = Unknown180->Gadget->Unknown_08(); Unknown_496C00(area->Unknown30, u, 1.0f - v, &color);
+		Unknown184[Unknown1BC].Set(u, v);
+
 		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
 		switch (Unknown1BC) {
 			case 0: avatar->Unknown_77FFA0(color, true); break;
@@ -1523,7 +1523,7 @@ void AvatarCreationInterface::Unknown_55A960()
 	} else {
 		Unknown180->Unknown08 = false;
 	}
-	gadget->Unknown_671630();
+	((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown_671630();
 }
 
 // The body tab's metal (-1: none) into +0x1C0 and the chosen part; the envmaps through the inline Peek_Unknown3A4()
@@ -1757,32 +1757,32 @@ void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 void AvatarCreationInterface::Unknown_55A1F0(int arg)
 {
 	UIAvatrPullClass *pull = (arg == 0) ? Unknown160 : Unknown16C;
-	UIAvatrGadget671300Class *gadget = (UIAvatrGadget671300Class *)pull->Gadget;
-	if (gadget->Unknown64) {
+
+	if (((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64) {
 		pull->Unknown08 = true;
 	}
-	if ((gadget->Unknown64 || gadget->Unknown65) && pull->Unknown08) {
+	if ((((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)pull->Gadget)->Unknown65) && pull->Unknown08) {
 		AABoxClass box;
-		gadget->Unknown_64(box);
+		pull->Gadget->Unknown_64(box);
 		float x;
-		float y;
+		float y; float top, left, width, height;
 		Unknown_42ECF0(&x, &y);
 		x = x * 640.0f - 320.0f;
 		y = 240.0f - y * 480.0f;
-		if (x >= box.Center.X + box.Extent.X) x = box.Center.X + box.Extent.X;
-		if (x <= box.Center.X - box.Extent.X) x = box.Center.X - box.Extent.X;
-		if (y >= box.Center.Y + box.Extent.Y) y = box.Center.Y + box.Extent.Y;
-		if (y <= box.Center.Y - box.Extent.Y) y = box.Center.Y - box.Extent.Y;
+		x = WWMath::Min(x, box.Center.X + box.Extent.X);
+		x = WWMath::Max(x, box.Center.X - box.Extent.X);
+		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
+		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
 		RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 		int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
 		model->Capture_Bone(bone);
 		Matrix3D tm = pull->Pull->Get_Transform();
 		tm.Set_X_Translation(x - box.Center.X);
 		tm.Set_Y_Translation(y - box.Center.Y);
-		model->Control_Bone(bone, tm, false);
-		Vector2 uv;
-		uv.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
-		uv.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
+		tm[2][3] = 0.0f; model->Control_Bone(bone, tm, false);
+		Vector2 uv; top = box.Center.Y - box.Extent.Y; left = box.Center.X - box.Extent.X;
+		width = box.Extent.X * 2.0f; height = box.Extent.Y * 2.0f;
+		uv.Set((x - left) / width, (y - top) / height);
 		if (arg == 0) {
 			Unknown_55A060(uv);
 		} else {
@@ -1793,7 +1793,7 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 	} else {
 		pull->Unknown08 = false;
 	}
-	gadget->Unknown_671630();
+	((UIAvatrGadget671300Class *)pull->Gadget)->Unknown_671630();
 }
 
 // NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184)
