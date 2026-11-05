@@ -1601,39 +1601,39 @@ void AvatarCreationInterface::Unknown_5582A0()
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's
+// A colour from the palette at a point (the cases in the client's jump-table order, stored or the description's per case, two 0x496C00 calls): the description's
 // default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too))
 // 0x557950
 void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
-	if (avatar.Peek() == NULL) {
-		return;
-	}
-	Vector2 uv(0.0f, 0.0f);
-	if (!keep) {
+	if (avatar.Peek() != NULL) {
+
+
+	Vector2 uv;
+	if (keep) {
+		switch (which) {
+			case 1: if (stored) uv = Unknown184[1]; else uv = avatar->Desc.Get_Eye_Offset(); break;
+			case 0: if (stored) uv = Unknown184[0]; else uv = avatar->Desc.Get_Hair_Offset(); break;
+			case 2: if (stored) uv = Unknown184[2]; else uv = avatar->Desc.Get_Skin_Offset(); break;
+			case 3: if (stored) uv = Unknown184[3]; else uv = avatar->Desc.Get_Shirt_Primary_Offset(); break;
+			case 4: if (stored) uv = Unknown184[4]; else uv = avatar->Desc.Get_Shirt_Secondary_Offset(); break;
+			case 5: if (stored) uv = Unknown184[5]; else uv = avatar->Desc.Get_Pants_Primary_Offset(); break;
+			case 6: if (stored) uv = Unknown184[6]; else uv = avatar->Desc.Get_Pants_Secondary_Offset(); break;
+		}
+	} else {
 		uv.X = Unknown_BDBB84(0, 100) * 0.01f;
 		uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
-	} else if (stored) {
-		uv = Unknown184[which];
-	} else {
-		switch (which) {
-			case 0: uv = avatar->Desc.Get_Hair_Offset(); break;
-			case 1: uv = avatar->Desc.Get_Eye_Offset(); break;
-			case 2: uv = avatar->Desc.Get_Skin_Offset(); break;
-			case 3: uv = avatar->Desc.Get_Shirt_Primary_Offset(); break;
-			case 4: uv = avatar->Desc.Get_Shirt_Secondary_Offset(); break;
-			case 5: uv = avatar->Desc.Get_Pants_Primary_Offset(); break;
-			case 6: uv = avatar->Desc.Get_Pants_Secondary_Offset(); break;
-		}
 	}
+
+
 	RefCountPtr<RenderObjClass> palette = Create_Get(model->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 	Vector3 color;
-	Unknown_496C00(palette.Peek(), uv.X, stored ? 1.0f - uv.Y : uv.Y, &color);
+	if (stored) Unknown_496C00(palette.Peek(), uv.X, 1.0f - uv.Y, &color); else Unknown_496C00(palette.Peek(), uv.X, uv.Y, &color);
 	switch (which) {
-		case 0: avatar->Unknown_77FFA0(color, true); break;
 		case 1: avatar->Unknown_7804A0(color); break;
+		case 0: avatar->Unknown_77FFA0(color, true); break;
 		case 2: avatar->Unknown_780680(0, color); break;
 		case 3: avatar->Unknown_780680(1, color); if (!keep) avatar->Unknown_780790(1, Unknown_BDBB84(-1, 2)); break;
 		case 4: avatar->Unknown_780680(2, color); if (!keep) avatar->Unknown_780790(2, Unknown_BDBB84(-1, 2)); break;
@@ -1642,7 +1642,7 @@ void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 	}
 	Unknown184[which].X = uv.X;
 	Unknown184[which].Y = stored ? uv.Y : 1.0f - uv.Y;
-	Unknown_55AE50();
+	Unknown_55AE50(); }
 }
 
 // NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1,

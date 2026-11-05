@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-548 entries in 130 files.
+547 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -271,7 +271,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1379` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
 | `app/client/ui_avatr.cpp:1401` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT (the POC's last avatar-screen gens). |
 | `app/client/ui_avatr.cpp:1547` | `AvatarCreationInterface::Unknown_5582A0` | marker | NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one in the other gender with the palettes' default colours; the old description is then kept at +0x1CC) 0x5582A0 |
-| `app/client/ui_avatr.cpp:1604` | `AvatarCreationInterface::Unknown_557950` | marker | NOT EXACT: functional (D64), from the client's 0x557950 (a colour from the palette at a point: the description's default (a = 1, b = 0), the one kept for the part (b = 1) or a random one (a = 0, then a random metal too)) 0x557950 |
 | `app/client/ui_avatr.cpp:1648` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
 | `app/client/ui_avatr.cpp:1754` | `AvatarCreationInterface::Unknown_55A1F0` | marker | NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone) 0x55A1F0 |
 | `app/client/ui_avatr.cpp:1799` | `AvatarCreationInterface::Unknown_55AE50` | marker | NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184) 0x55AE50 |
