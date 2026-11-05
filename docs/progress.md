@@ -2474,10 +2474,9 @@ below name only the work items, the blocked work, the leads and the queues.
      0x573E80 / 0x5741A0 NOT EXACT, register) makes four tabs: ui_bio.cpp's UIBioClass and 0x549640 (0x124, string
      ATTRIBUTES), 0x5C4170 (0xEC, MISSIONS), 0x58D080 (0xE4, FACTION_MENU), placed by TB1 (2026-11-05) as
      ui_attrb_skills.cpp (0x549640-0x54B75F, UIAttrbSkillsClass over the interim skill base Unknown62D1F0Class, D137),
-     ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass); round 2 by TB2 (+41). Left: attrb Init
-     0x549AA0 (~247 lines of pseudocode, .work/im1/init.c; lines 82-151 are kept free for it since IM1's move f57e413a;
-     it creates TSI12B, panels 0x546A80 (0xB0) into +0xC0 and 0x5482B0 (0xDC) into +0xFC, sliders 0x66DFC0 into +0xD4 / +0xD8;
-     its '!InterfaceMesh' FAIL_IF means the base Unknown62D1F0Class also has InterfaceMesh at +0x84: split it out of Unknown84), 0x54A200 0.71 (register: ecx / edx
+     ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass); round 2 by TB2 (+41). Left: attrb's
+     Create_NEW copies 0x54B490 / 0x54B540 (Init 0x549AA0 calls them out of line; exact since AT1, but they are in none
+     of the file's imports.json lists: probably byte-identical to other Create_NEW copies), 0x54A200 0.71 (register: ecx / edx
      swapped in the inlined 0x54B370), 0x54A640 0.68 (frame 0x8C vs 0x54: one NameClass slot, the font in the argument's
      slot); missn 0x5C5DB0 0.58 (register, late edi push), 0x5C66D0 0.77 (register: load order); faction 0x58DC20 0.65
      (register: reputation in esi, its slot +0x28 vs ebx / +0x14); the
