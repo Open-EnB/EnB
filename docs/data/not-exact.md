@@ -27,7 +27,7 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:2145` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
 | `app/client/avatar.cpp:2264` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__ of the FAIL_IF; the +0x24C queue test not built) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
-| `app/client/avatar.cpp:2565` | `CharacterViewAvatarClass::Unknown_784700` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:2567` | `CharacterViewAvatarClass::Unknown_784700` | marker | NOT EXACT: inline-budget (the client inlines size() / operator[] but calls the queue struct's ??_G 0x781C10 and clear 0x78A510; inline_depth(0) gives those two exact copies) |
 | `app/client/avatar.cpp:3261` | `CharacterViewAvatarClass::Unknown_7885D0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's) |
 | `app/client/avatar.cpp:3306` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
 | `app/client/avatar.cpp:3439` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |

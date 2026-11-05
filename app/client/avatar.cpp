@@ -2561,8 +2561,10 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
 }
 
+#pragma inline_depth(0)
+
 // 0x784700
-// NOT EXACT: functional for POC (D64)
+// NOT EXACT: inline-budget (the client inlines size() / operator[] but calls the queue struct's ??_G 0x781C10 and clear 0x78A510; inline_depth(0) gives those two exact copies)
 void CharacterViewAvatarClass::Unknown_784700()
 {
 	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
@@ -2647,6 +2649,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 		block = (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct));
 	}
 }
+#pragma inline_depth()
 
 // 0x784A50
 // (the asserts' lines written as the client's numbers)
@@ -2692,9 +2695,6 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 		Unknown208 = 1;
 	}
 }
-
-
-
 
 
 
