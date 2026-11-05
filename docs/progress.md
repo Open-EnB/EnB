@@ -2336,6 +2336,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-CS4-1** (2026-11-05, CS4; recommend (a)): extend D193 to D166's caller tie-break. The linker folded the four identical Create_NEW<Floor / Ceiling / Closest / InterpolatedLookupTableClass> (app/shared/lookup_table.cpp) into 0x4EE9F0; all four callers are exact, but `caller_tiebreak` drops an address more than one symbol proposes (attempts 0x4EE9F0, blocked). (a) apply objmatch's `body_sig` test (D193) in caller_tiebreak's by_addr check, a narrow tool change with a full verify (up to +4 pairs); (b) leave it.
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
