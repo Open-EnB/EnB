@@ -178,8 +178,8 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: inline budget (0.51: VC6 here inlines the first vector's constructor and the callback's, which the client
-// calls out of line: 0x61FAB0, 0x620BC0; the frame is 0x14 bytes larger; the part's constructor 0x6191F0 goes out of line)
+// NOT EXACT: inline budget (0.54: VC6 here inlines the first vector's constructor and the callback's, which the client
+// calls out of line: 0x61FAB0, 0x620BC0; the frame is 4 bytes larger; the part's constructor 0x6191F0 goes out of line)
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
@@ -194,9 +194,7 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
 	Unknown2E0->Unknown_74(0);
 	Unknown2E0->Set_Last_Sort_Group(1);
-	Vector3 position(0.0f, 0.0f, 0.0f);
-	Vector2 size(640.0f, 480.0f);
-	Unknown2E0->Unknown_80C540(size, position, 0x1C);
+	Unknown2E0->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
 	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
 	Unknown330 = new SClientUnknown1334Class;
 	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
@@ -234,6 +232,512 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 	Unknown_61B170();
 	Unknown_61E8E0(0);
 	Unknown5BB320Class::Unknown_60();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: functional (D64)
+// @0x61A4D0
+void StarbaseShipCustomizeInterface::Unknown_61A4D0()
+{
+	GadgetClass *gadget;
+	gadget = Gadgets[0x0E].Gadget;
+	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+		Unknown2E0->Unknown0B8 = 1.0f;
+	} else {
+		gadget = Gadgets[0x0D].Gadget;
+		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+			Unknown2E0->Unknown0B8 = -1.0f;
+		} else {
+			gadget = Gadgets[0x0B].Gadget;
+			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+				Unknown2E0->Unknown0BC = 1.0f;
+			} else {
+				gadget = Gadgets[0x0C].Gadget;
+				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+					Unknown2E0->Unknown0BC = -1.0f;
+				} else {
+					Unknown2E0->Unknown0B8 = 0.0f;
+					Unknown2E0->Unknown0BC = 0.0f;
+				}
+			}
+		}
+	}
+	gadget = Gadgets[0x2B].Gadget;
+	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+		Unknown2E0->Unknown0C0 = -1.0f;
+	} else {
+		gadget = Gadgets[0x2A].Gadget;
+		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+			Unknown2E0->Unknown0C0 = 1.0f;
+		} else {
+			gadget = Gadgets[0x2C].Gadget;
+			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+				Unknown2E0->Unknown0C4 = -1.0f;
+			} else {
+				gadget = Gadgets[0x2D].Gadget;
+				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+					Unknown2E0->Unknown0C4 = 1.0f;
+				} else {
+					Unknown2E0->Unknown0C0 = 0.0f;
+					Unknown2E0->Unknown0C4 = 0.0f;
+				}
+			}
+		}
+	}
+	gadget = Gadgets[0x2E].Gadget;
+	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+		Unknown2E0->Unknown0C8 = -1.0f;
+	} else {
+		gadget = Gadgets[0x2F].Gadget;
+		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
+			Unknown2E0->Unknown0C8 = 1.0f;
+		} else {
+			Unknown2E0->Unknown0C8 = 0.0f;
+		}
+	}
+	if (Unknown237) {
+		Unknown237 = false;
+		int id = 0;
+		for (std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
+			if (it->second.Group == 0 && it->second.Selected) {
+				id = it->second.Id;
+				break;
+			}
+		}
+		switch (id) {
+			case 1:
+				Unknown_61BD80(0);
+				return;
+			case 2:
+				Unknown_61BD80(2);
+				return;
+			case 3:
+				Unknown_61BD80(3);
+				return;
+			case 4:
+				Unknown_61BD80(1);
+				return;
+			default:
+				G_ASSERT(0);
+				break;
+		}
+	}
+	if (Unknown239) {
+		if (Unknown23C == 5) {
+			if (Unknown318 >= 1) {
+				Desc.Selected_Decal = Unknown318 - 1;
+			} else if (Unknown318 < 0) {
+				Desc.Selected_Decal = Unknown318;
+			} else {
+				Desc.Selected_Decal = 0x7FFFFFF;
+			}
+			Unknown_61F690();
+		}
+		SBaseView->Unknown_69F440();
+	}
+	if (SBaseView->Get_Unknown34()->Is_Active()) {
+		if (!Unknown235) {
+			Unknown235 = true;
+			Unknown_61AC20(false);
+		}
+		return;
+	}
+	if (Unknown235) {
+		Unknown235 = false;
+		Unknown_61AC20(true);
+		Unknown_61D260();
+	}
 }
 
 // @0x61AC20
@@ -347,510 +851,6 @@ void StarbaseShipCustomizeInterface::Unknown_61B580()
 	tm[0][3] = width * Unknown_61D180()[0] + x - box.Center.X; tm[1][3] = height * Unknown_61D180()[1] + y - box.Center.Y;
 	model->Control_Bone(bone, tm, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2146,6 +2146,14 @@ void StarbaseShipCustomizeInterface::Unknown_61F250(ShipCustDescClass *desc, Shi
 	for (i = 0; i < 3; i++) {
 		Unknown_61AD30(Unknown_B894CC[i], i == Desc.Wing_Style);
 	}
+}
+
+// @0x61F690
+void StarbaseShipCustomizeInterface::Unknown_61F690()
+{
+	SClient *client = Client->As_Space_Client();
+	int id = client->Unknown1138;
+	client->Send_Packet(&RecustomizeShipDonePacketClass(id, Desc));
 }
 
 // Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts

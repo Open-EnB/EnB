@@ -52,7 +52,7 @@ public:
 	virtual void Unknown_54();							// +0x54 0x618CA0 (after construction: the description from the avatar, the preview, the decal library, page 0)
 	virtual void Unknown_60();							// 0x6193A0 (every frame, then Unknown5BB320Class's 0x5BB660)
 	virtual bool Unknown_68(int key);					// +0x68 0x619470 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
-	void Unknown_61A4D0();								// 0x61A4D0 (G_ASSERT l.712)
+	void Unknown_61A4D0();								// 0x61A4D0 (the frame: held buttons, a tab change, leaving; G_ASSERT l.712: as ui_shipcust.cpp's 0x624270)
 	void Unknown_61AC20(bool on);						// 0x61AC20 (the gadgets on or off, their texts dimmed: as ui_shipcust.cpp's 0x6249D0)  // NAME 1 [on]: neutral
 	void Unknown_61AD30(const char *style, bool on);	// 0x61AD30 (a style shown or hidden: as 0x624AE0)  // NAME 1 [style, on]: neutral
 	void Unknown_61ADA0(int id, const char *name, const char *style, short key, short group);	// 0x61ADA0 (a button of the model's sub-object into the map: as 0x624B50)  // NAME 1 [all]: as ui_shipcust.h's
@@ -81,6 +81,7 @@ public:
 	void Unknown_61E8E0(bool any);						// 0x61E8E0 (the credits and cost texts: as ui_avatar_cust.cpp's 0x551520)  // NAME 1 [any]: as ui_avatar_cust.cpp's
 	void Unknown_61F0E0();								// 0x61F0E0								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
+	void Unknown_61F690();								// 0x61F690 (RECUSTOMIZE_SHIP_DONE with the description)
 	void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d);	// 0x61F250 (RECUSTOMIZE_SHIP_START 129: cpacket.cpp)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
 	void Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x61E730 (FAIL_IFs '!event' l.2017, '!gadget' l.2020)  // NAME 3 [event, gadget]: the FAIL_IFs'
 
