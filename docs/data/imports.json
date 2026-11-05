@@ -25374,6 +25374,7 @@
     "ambiguous": [
      "0x42B2F0",
      "0x46BE90",
+     "0x474080",
      "0x4ACBB0",
      "0x4ACF00"
     ],
@@ -25398,6 +25399,7 @@
      "0x61D1C0",
      "0x61D200",
      "0x61D230",
+     "0x61DAB0",
      "0x61DBF0",
      "0x61DF40",
      "0x628A70",
@@ -27989,7 +27991,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9646,
+  "in_tree_total": 9647,
   "totals": {}
  },
  "binkmovie": {

@@ -19,6 +19,7 @@
 #include "ship_pip.h"
 #include "unknown_675120.h"
 #include "textgadg.h"
+#include "assetmgr.h"
 #include "vector2.h"
 #include "aabox.h"
 #include "matrix3d.h"
@@ -76,6 +77,7 @@ public:
 	Vector3 *Unknown_61D1C0();							// 0x61D1C0 (the colour: as 0x627160)
 	bool *Unknown_61D200();								// 0x61D200 (the setting's matte flag: as 0x6271A0)
 	ShipCustomizationMetal *Unknown_61D230();			// 0x61D230 (the setting's metal: as 0x6271D0)
+	void Unknown_61DAB0();								// 0x61DAB0 (the insignia buttons: as ui_shipcust.cpp's 0x627FA0)
 	void Unknown_61DBF0();								// 0x61DBF0 (the insignia list's textures: as 0x6280E0)
 	void Unknown_61DF80();								// 0x61DF80 (the metal models: 'METAL00' ..)
 	void Unknown_61E8B0();
@@ -299,6 +301,18 @@ bool *StarbaseShipCustomizeInterface::Unknown_61D200()
 ShipCustomizationMetal *StarbaseShipCustomizeInterface::Unknown_61D230()
 {
 	return(&Desc.Parts[Unknown30C].Settings[Unknown310].Metal);
+}
+
+// @0x61DAB0
+void StarbaseShipCustomizeInterface::Unknown_61DAB0()
+{
+	char name[0x14];
+	Unknown_61ADA0(0x1C, "D00", "NONE_buy_ship03", 0, 2);
+	for (int i = 1; i < 9; i++) {
+		_snprintf(name, sizeof(name), "D%02d", i);
+		Unknown_61ADA0(i + 0x1C, name, NULL, 0, 2);
+	}
+	Unknown240 = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("BLACK.TGA", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 }
 
 // @0x61DBF0
