@@ -194,7 +194,6 @@ void Unknown615A50InterfaceClass::Unknown_60()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x6164E0
 bool Unknown615A50InterfaceClass::Unknown_68(int key)
 {
@@ -203,6 +202,14 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 	}
 	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 	switch (key) {
+		case 8:
+			NameGadget->Unknown_74(true);
+			NameGadget->Set_Text(NULL, 0);
+			Unknown9C = false;
+			Unknown_617660(false);
+			Unknown_617310();
+			return true;
+
 		case 1:
 		case 2:
 		case 3:
@@ -212,33 +219,26 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 			Unknown_6179D0(key - 1);
 			return true;
 
-		case 7:
-			Unknown_617AA0();
+		case 13:
+			Unknown_617270();
 			return true;
 
-		case 8:
-			NameGadget->Unknown_74(true);
-			NameGadget->Set_Text(NULL, 0);
-			Unknown9C = false;
-			Unknown_617660(false);
-			Unknown_617310();
+		case 14:
+			Unknown_6172A0();
 			return true;
 
 		case 9:
-		{
-			if (!Unknown9C || ShardSelection < 0 || ShardSelection >= (int)SortedGalaxies.size() || UnknownE8) {
-				return true;
+			if (Unknown9C && ShardSelection >= 0 && ShardSelection < (int)SortedGalaxies.size() && !UnknownE8) {
+				Unknown94 = 9;
+				NameGadget->Unknown_74(false);
+				Unknown_617540();
+				char name[0x14];
+				NameGadget->Unknown_6AA340(name, sizeof(name), NULL, NULL, NULL, false);
+				CharacterView->Unknown088.Unknown_4C1460(name, true);
+				LoginTask->Unknown_48(&CharacterView->Unknown088, &CharacterView->Unknown244, Unknown_617A10(), Unknown9D);
+				UnknownE8 = true;
 			}
-			Unknown94 = 9;
-			NameGadget->Unknown_74(false);
-			Unknown_617540();
-			char name[0x14];
-			NameGadget->Unknown_6AA340(name, sizeof(name), NULL, NULL, NULL, false);
-			CharacterView->Unknown088.Unknown_4C1460(name, true);
-			LoginTask->Unknown_48(&CharacterView->Unknown088, &CharacterView->Unknown244, Unknown_617A10(), Unknown9D);
-			UnknownE8 = true;
 			return true;
-		}
 
 		case 10:
 			Unknown94 = 10;
@@ -257,12 +257,8 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 			UnknownD1 = true;
 			return true;
 
-		case 13:
-			Unknown_617270();
-			return true;
-
-		case 14:
-			Unknown_6172A0();
+		case 7:
+			Unknown_617AA0();
 			return true;
 	}
 	return false;
@@ -534,6 +530,10 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
+
+
+
+
 
 
 

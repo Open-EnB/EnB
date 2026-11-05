@@ -475,7 +475,7 @@ void LoginTaskClass::Unknown_50()
 
 
 // 0x7689E0
-void LoginTaskClass::Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, int c)
+void LoginTaskClass::Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, bool c)
 {
 	if (GlobalConnection) {
 		FAIL_IF(Galaxies.empty()) return;

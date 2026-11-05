@@ -131,7 +131,7 @@ public:
 	virtual void Pre_Run();								// +0x38 0x767DA0
 	virtual void Render();								// +0x3C 0x767EE0
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x767580
-	virtual void Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, int c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
+	virtual void Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, bool c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
 	virtual bool Unknown_4C();							// +0x4C 0x768B00: the ticket step
 	virtual void Unknown_50();							// +0x50 0x7683F0
 	virtual void Go_Next_Step();						// +0x54 0x769500 (S)
