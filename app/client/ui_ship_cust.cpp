@@ -16,9 +16,36 @@
 #include "gadget.h"
 #include "fontmanager.h"
 #include "fontdatabase.h"
+#include "ship_pip.h"
+#include "unknown_675120.h"
+#include "vector2.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
+
+// The control keys (0x10 bytes) and InterfaceClass +0x4C's list, as ui_shipcust.cpp declares them
+struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
+{
+	UIShipCustKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
+	short Key;											// +0x00  // NAME 1: neutral (D10)
+	short Unknown02;									// +0x02
+	float Unknown04;									// +0x04
+	float Unknown08;									// +0x08
+	int Unknown0C;										// +0x0C
+};
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
+
+// The colour palette and its pull (0x10 bytes, constructor 0x585920), as far as this file reads it (ui_shipcust.cpp's
+// UIAvatrPullClass, as unknown_585920.cpp declares it)
+class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
+{
+public:
+	GadgetClass *Gadget;								// +0x00 (ui_avatr.cpp's UIAvatrGadget671300Class)  // NAME 1: neutral (D10)
+	RenderObjClass *Pull;								// +0x04 ('PULL_COLOR')  // NAME 2: what ui_avatr.cpp's 0x556290 puts there
+	bool Unknown08;										// +0x08 (dragging)
+	float Unknown0C;									// +0x0C (0.5)
+};
 
 // The starbase's ship customisation window (the buy-ship pages 'fa_buy_ship01_ini' ..), as far as this file's
 // functions so far use it. Its first base is the starbase windows' interface base (0xAC bytes, as
@@ -27,8 +54,14 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 class StarbaseShipCustomizeInterface : public Unknown5BB320Class, public Unknown620D20Class	// NAME 3: the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's)
 {
 public:
+	void Unknown_61AC20(bool on);						// 0x61AC20 (the gadgets on or off, their texts dimmed: as ui_shipcust.cpp's 0x6249D0)  // NAME 1 [on]: neutral
+	void Unknown_61AD30(const char *style, bool on);	// 0x61AD30 (a style shown or hidden: as 0x624AE0)  // NAME 1 [style, on]: neutral
+	void Unknown_61ADA0(int id, const char *name, const char *style, short key, short group);	// 0x61ADA0 (a button of the model's sub-object into the map: as 0x624B50)  // NAME 1 [all]: as ui_shipcust.h's
+	void Unknown_61AF50();								// 0x61AF50 (the map emptied: as 0x624D00)
 	void Unknown_61B0F0();								// 0x61B0F0 (the parts' colours onto the model, then 0x61F180)
 	void Unknown_61B130();								// 0x61B130 (the insignia onto the model, then 0x61F180)
+	void Unknown_61B510(Vector2 uv);					// 0x61B510 (the colour's palette position: as 0x6251F0)  // NAME 1 [uv]: neutral
+	void Unknown_61BA80(bool on);						// 0x61BA80 (the pull shown: as 0x625760)  // NAME 1 [on]: neutral
 	void Unknown_61BAC0(int id);						// 0x61BAC0 (a button selected in its group: as ui_shipcust.cpp's 0x6257A0)  // NAME 1 [id]: neutral
 	int Unknown_61BC50(short group);					// 0x61BC50 (the selected id of a group: as 0x625930)  // NAME 1 [group]: neutral
 	void Unknown_61BCE0(short group);					// 0x61BCE0 (a group's buttons unselected: as 0x6259C0)  // NAME 1 [group]: neutral
@@ -40,13 +73,17 @@ public:
 	void Unknown_61E8B0();								// 0x61E8B0 (the client's 0x74C960 for its avatar)
 	void Unknown_61F180();								// 0x61F180 (after the model changes)
 
-	SBaseViewClass *View;								// +0x230 (its Client's EnvironmentMapManager)  // NAME 1: neutral (D10)
+	SBaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
 	char Unknown234[0x240 - 0x234];						// +0x234
 	RefCountPtr<TextureClass> Unknown240;				// +0x240 (no insignia: 'BLACK.TGA', as ui_shipcust.cpp's +0x21C)
-	char Unknown244[0x2E8 - 0x244];						// +0x244
+	char Unknown244[0x2E0 - 0x244];						// +0x244
+	ShipPipClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
+	LayerClass *Layer;									// +0x2E4 (the buttons are made over it)  // NAME 1: as ui_shipcust.h's
 	int Page;											// +0x2E8 (1: the paint page, as ui_shipcust.cpp's +0x234)  // NAME 1: as ui_shipcust.h's
 	std::map<int, ShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's
-	char Unknown2FC[0x30C - 0x2FC];						// +0x2FC
+	char Unknown2FC[0x300 - 0x2FC];						// +0x2FC
+	UIAvatrPullClass *Unknown300;						// +0x300 the colour palette and its pull (as ui_shipcust.cpp's +0x24C)
+	char Unknown304[0x30C - 0x304];						// +0x304
 	int Unknown30C;										// +0x30C the part
 	int Unknown310;										// +0x310 the part's setting
 	int Unknown314;										// +0x314 the insignia list's first
@@ -55,10 +92,69 @@ public:
 	SClientUnknown1334Class *Unknown330;				// +0x330 the decal library
 };
 
+// @0x61AC20
+void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
+{
+	std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
+	while (it != Gadgets.end()) {
+		it->second.Gadget->Unknown_40(on);
+		if (it->second.Style != NULL) {
+			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, Mesh->Peek_Object()); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
+		}
+		it++;
+	}
+	if (Unknown300 != NULL) {
+		Unknown300->Gadget->Unknown_40(on);
+	}
+	if (Unknown2E0 != NULL) {
+		Unknown2E0->Unknown_40(on);
+	}
+}
+
+// @0x61AD30
+void StarbaseShipCustomizeInterface::Unknown_61AD30(const char *style, bool on)
+{
+	RenderObjClass *model = Mesh->Peek_Object(); FontSys *font = Unknown_BE67C4->Get_Style(style, model);
+	if (font != NULL) { int hidden = !on; bool now = !font->Unknown300; if (now != hidden) {
+		font->Set_Hidden(hidden); }
+	}
+}
+
+// @0x61ADA0
+void StarbaseShipCustomizeInterface::Unknown_61ADA0(int id, const char *name, const char *style, short key, short group)
+{
+	RenderObjClass *sub = Mesh->Peek_Object()->Get_Sub_Object_By_Name(name);
+	Unknown_496AE0(sub, 0);
+	GadgetClass *button = new ButtonGadgetClass(sub, *Layer, 5, 3);
+	ShipCustGadgetStruct entry;
+	entry.Gadget = button;
+	entry.Name = name;
+	entry.Style = style;
+	entry.Id = id;
+	entry.Key = key;
+	entry.Group = group;
+	entry.Selected = false;
+	Gadgets.insert(std::map<int, ShipCustGadgetStruct>::value_type(id, entry));
+	Unknown64.Unknown_6870E0(button, id, View, 1, 0);
+	if (key != 0) {
+		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(key), (void *)id);
+	}
+	sub->Release_Ref();
+}
+
+// @0x61AF50
+void StarbaseShipCustomizeInterface::Unknown_61AF50()
+{
+	while (Gadgets.begin() != Gadgets.end()) {
+		Unknown64.Unknown_687150(Gadgets.begin()->second.Gadget);
+		Gadgets.erase(Gadgets.begin());
+	}
+}
+
 // @0x61B0F0
 void StarbaseShipCustomizeInterface::Unknown_61B0F0()
 {
-	Unknown_6211D0(View->Client->Peek_Environment_Map_Manager());
+	Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
 	Unknown_61F180();
 }
 
@@ -67,6 +163,20 @@ void StarbaseShipCustomizeInterface::Unknown_61B130()
 {
 	Unknown_621390(Unknown318, Unknown330);
 	Unknown_61F180();
+}
+
+// @0x61B510
+void StarbaseShipCustomizeInterface::Unknown_61B510(Vector2 uv)
+{
+	float *position = Unknown_61D180();
+	position[0] = uv.X;
+	position[1] = uv.Y;
+}
+
+// @0x61BA80
+void StarbaseShipCustomizeInterface::Unknown_61BA80(bool on)
+{
+	Unknown300->Pull->Set_Hidden(!on);
 }
 
 // @0x61BAC0
@@ -179,7 +289,7 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 // @0x61E8B0
 void StarbaseShipCustomizeInterface::Unknown_61E8B0()
 {
-	SClient *client = View->Client;
+	SClient *client = SBaseView->Client;
 	client->Unknown_74C960(client->AvatarID);
 }
 

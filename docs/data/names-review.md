@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
-| 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13295 |
+| 2 | describes what the code does | 3009 |
+| 1 | neutral placeholder | 13325 |
 
 ## For review (score 3 and below)
 
@@ -9697,49 +9697,79 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD4` | `app/client/ui_shard.h:57` | untagged neutral name (D10) |
 | 1 | `UnknownD5` | `app/client/ui_shard.h:58` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/ui_shard.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_ship_cust.cpp:20` | 0xBE67C4 |
-| 1 | `Unknown_495FD0` | `app/client/ui_ship_cust.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_ship_cust.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown620D20Class` | `app/client/ui_ship_cust.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_61B0F0` | `app/client/ui_ship_cust.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_61B130` | `app/client/ui_ship_cust.cpp:31` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/ui_ship_cust.cpp:32` | neutral |
-| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:32` | untagged neutral name (D10) |
-| 1 | `group` | `app/client/ui_ship_cust.cpp:33` | neutral |
-| 1 | `Unknown_61BC50` | `app/client/ui_ship_cust.cpp:33` | untagged neutral name (D10) |
-| 1 | `group` | `app/client/ui_ship_cust.cpp:34` | neutral |
-| 1 | `Unknown_61BCE0` | `app/client/ui_ship_cust.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_61D180` | `app/client/ui_ship_cust.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_61E8B0` | `app/client/ui_ship_cust.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_61F180` | `app/client/ui_ship_cust.cpp:41` | untagged neutral name (D10) |
-| 1 | `View` | `app/client/ui_ship_cust.cpp:43` | neutral (D10) |
-| 1 | `Unknown234` | `app/client/ui_ship_cust.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown240` | `app/client/ui_ship_cust.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown244` | `app/client/ui_ship_cust.cpp:46` | untagged neutral name (D10) |
-| 1 | `Page` | `app/client/ui_ship_cust.cpp:47` | as ui_shipcust.h's |
-| 1 | `std:` | `app/client/ui_ship_cust.cpp:48` | as ui_shipcust.h's |
-| 1 | `Unknown2FC` | `app/client/ui_ship_cust.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown30C` | `app/client/ui_ship_cust.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown310` | `app/client/ui_ship_cust.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown314` | `app/client/ui_ship_cust.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown318` | `app/client/ui_ship_cust.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown31C` | `app/client/ui_ship_cust.cpp:54` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/ui_ship_cust.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown330` | `app/client/ui_ship_cust.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_ship_cust.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/ui_ship_cust.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_ship_cust.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_ship_cust.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_74C960` | `app/client/ui_ship_cust.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_ship_cust.cpp:23` | 0xBE67C4 |
+| 1 | `Unknown_495FD0` | `app/client/ui_ship_cust.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_ship_cust.cpp:25` | untagged neutral name (D10) |
+| 1 | `UIShipCustKeyEventStruct` | `app/client/ui_ship_cust.cpp:28` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_ship_cust.cpp:30` | neutral |
+| 1 | `Unknown02` | `app/client/ui_ship_cust.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_ship_cust.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_ship_cust.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_ship_cust.cpp:30` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_ship_cust.cpp:31` | neutral (D10) |
+| 1 | `UIAvatrPullClass` | `app/client/ui_ship_cust.cpp:41` | neutral (D10), as ui_avatr.cpp's |
+| 1 | `Gadget` | `app/client/ui_ship_cust.cpp:44` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_ship_cust.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown620D20Class` | `app/client/ui_ship_cust.cpp:54` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_ship_cust.cpp:57` | neutral |
+| 1 | `Unknown_61AC20` | `app/client/ui_ship_cust.cpp:57` | untagged neutral name (D10) |
+| 1 | `style, on` | `app/client/ui_ship_cust.cpp:58` | neutral |
+| 1 | `Unknown_61AD30` | `app/client/ui_ship_cust.cpp:58` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/ui_ship_cust.cpp:59` | as ui_shipcust.h's |
+| 1 | `Unknown_61ADA0` | `app/client/ui_ship_cust.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_61AF50` | `app/client/ui_ship_cust.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_61B0F0` | `app/client/ui_ship_cust.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_61B130` | `app/client/ui_ship_cust.cpp:62` | untagged neutral name (D10) |
+| 1 | `uv` | `app/client/ui_ship_cust.cpp:63` | neutral |
+| 1 | `Unknown_61B510` | `app/client/ui_ship_cust.cpp:63` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_ship_cust.cpp:64` | neutral |
+| 1 | `Unknown_61BA80` | `app/client/ui_ship_cust.cpp:64` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_ship_cust.cpp:65` | neutral |
+| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:65` | untagged neutral name (D10) |
+| 1 | `group` | `app/client/ui_ship_cust.cpp:66` | neutral |
+| 1 | `Unknown_61BC50` | `app/client/ui_ship_cust.cpp:66` | untagged neutral name (D10) |
+| 1 | `group` | `app/client/ui_ship_cust.cpp:67` | neutral |
+| 1 | `Unknown_61BCE0` | `app/client/ui_ship_cust.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_61D180` | `app/client/ui_ship_cust.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_61E8B0` | `app/client/ui_ship_cust.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_61F180` | `app/client/ui_ship_cust.cpp:74` | untagged neutral name (D10) |
+| 1 | `SBaseView` | `app/client/ui_ship_cust.cpp:76` | neutral (D10) |
+| 1 | `Unknown234` | `app/client/ui_ship_cust.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown240` | `app/client/ui_ship_cust.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown244` | `app/client/ui_ship_cust.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown2E0` | `app/client/ui_ship_cust.cpp:80` | untagged neutral name (D10) |
+| 1 | `Layer` | `app/client/ui_ship_cust.cpp:81` | as ui_shipcust.h's |
+| 1 | `Page` | `app/client/ui_ship_cust.cpp:82` | as ui_shipcust.h's |
+| 1 | `std:` | `app/client/ui_ship_cust.cpp:83` | as ui_shipcust.h's |
+| 1 | `Unknown2FC` | `app/client/ui_ship_cust.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_ship_cust.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown304` | `app/client/ui_ship_cust.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown30C` | `app/client/ui_ship_cust.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown310` | `app/client/ui_ship_cust.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown314` | `app/client/ui_ship_cust.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown318` | `app/client/ui_ship_cust.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown31C` | `app/client/ui_ship_cust.cpp:91` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/ui_ship_cust.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown330` | `app/client/ui_ship_cust.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_ship_cust.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_ship_cust.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ship_cust.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ship_cust.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_ship_cust.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_ship_cust.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_ship_cust.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_ship_cust.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_ship_cust.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_74C960` | `app/client/ui_ship_cust.cpp:293` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_shipcust.cpp:35` | 0xBE67C4 |
 | 1 | `Unknown_BDBB84` | `app/client/ui_shipcust.cpp:36` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_Debug_Print` | `app/client/ui_shipcust.cpp:37` | 0x509E30 (dbgmgr.cpp), as tsk_login.cpp's |
@@ -14515,6 +14545,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bank` | `app/client/ui_scut.h:64` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.h:67` | what it holds |
 | 2 | `Bars` | `app/client/ui_scut.h:91` | what it holds |
+| 2 | `Pull` | `app/client/ui_ship_cust.cpp:45` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/unknown_585920.cpp:27` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
@@ -16731,7 +16762,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gadget, bar, group, bttn_idx` | `app/client/ui_scut.h:88` | the FAIL_IFs' |
 | 3 | `ShardSelection` | `app/client/ui_shard.h:45` | the FAIL_IF's |
 | 3 | `std:` | `app/client/ui_shard.h:59` | the FAIL_IF's |
-| 3 | `StarbaseShipCustomizeInterface` | `app/client/ui_ship_cust.cpp:27` | the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's) |
+| 3 | `StarbaseShipCustomizeInterface` | `app/client/ui_ship_cust.cpp:54` | the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's) |
 | 3 | `environmentmapmanager` | `app/client/ui_shipcust.h:33` | the assert's |
 | 3 | `decalmaterialmanager` | `app/client/ui_shipcust.h:34` | the assert's; NAME 1 [decal]: neutral |
 | 3 | `event` | `app/client/ui_shipcust.h:108` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
