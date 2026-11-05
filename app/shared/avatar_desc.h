@@ -48,8 +48,8 @@ public:
 	std::string &Get_Full_Name(std::string &name);		// 0x4C1200: the same into name  // NAME 2: what it does
 	void Unknown_4C1460(const char *name, bool convert);	// 0x4C1460: First_Name (the fast start's 'Fast' + the user name, 1; convert: through 0x4BE9D0)  // NAME 1 [convert]: what it selects
 	void Unknown_4C15F0(const char *name, bool convert);	// 0x4C15F0: Last_Name, the same way
-	void Get_Body_Morph(Vector3 &scale, int morph);		// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does
-	void Get_Head_Morph(Vector3 &scale, int morph);		// 0x4C1930: the same, short_narrow .. long_narrow (Y and Z)  // NAME 2: what it does
+	Vector3 Get_Body_Morph(int morph);					// 0x4C1780: avatardef.ini's '<gender><race>morph' section, 1-4 short_skinny .. tall_skinny  // NAME 2: what it does
+	Vector3 Get_Head_Morph(int morph);					// 0x4C1930: the same, short_narrow .. long_narrow (Y and Z)  // NAME 2: what it does
 	void Get_Facial_Feature(bool &movable, int &scale);	// 0x4C1AC0: 'FacialFeature%02d' of the tattoo texture  // NAME 2: what it does
 	Vector2 Get_Hair_Offset();				// 0x4C1B80: avatardef.ini's HairOffset (0.5, 0.5 by default)  // NAME 2: its key
 	Vector2 Get_Skin_Offset();				// 0x4C1CA0: avatardef.ini's SkinOffset (0.5, 0.5 by default)  // NAME 2: its key

@@ -1313,10 +1313,10 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 	FAIL_IF(!BodyObj || !BodySource) { return; }
 	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
 	for (i = 0; i < 5; i++) {
-		float w = Unknown274[i]; Vector3 morph;
-		Desc.Get_Body_Morph(morph, i);
-		scale.X += w * morph.X; scale.Y += w * morph.Y;
-		scale.Z += w * morph.Z;
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
 	}
 	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
 		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
@@ -1369,11 +1369,11 @@ void CharacterViewAvatarClass::Unknown_780F30()
 	int i;
 	for (i = 0; i < 5; i++) {
 		float w = Unknown288[i];
-		Vector3 morph;
-		Desc.Get_Head_Morph(morph, i);
-		scale.X += w * morph.X;
-		scale.Y += w * morph.Y;
-		scale.Z += w * morph.Z;
+		scale += Desc.Get_Head_Morph(i) * w;
+
+
+
+
 	}
 	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
 		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad head scale values");
