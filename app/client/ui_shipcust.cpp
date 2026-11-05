@@ -126,9 +126,9 @@ static const char *Unknown_B89C60[][2] = { { "FA_SHIP01", "fa_ship01.ini" }, { "
 static const char *Unknown_B89C80[] = { "HULL00_fa_ship01", "HULL01_fa_ship01", "HULL02_fa_ship01" };	// NAME 1: neutral (D10)
 static const char *Unknown_B89C8C[] = { "WING00_fa_ship01", "WING01_fa_ship01", "WING02_fa_ship01" };	// NAME 1: neutral (D10)
 
-char *Unknown_621530(int race, int part, int style, int variant);	// NAME 1 [all]: neutral
-bool Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *format);	// NAME 1 [all]: neutral
-void Unknown_6216D0(RenderObjClass *model, const char *format);	// NAME 1 [all]: neutral
+
+
+
 
 
 
@@ -263,31 +263,31 @@ void Unknown620D20Class::Unknown_621500()
 
 // NOT EXACT: functional (D64)
 // @0x621530
-char *Unknown_621530(int race, int part, int style, int variant)
+char *Unknown620D20Class::Unknown_621530(int race, int part, int style, int variant)
 {
 	int number = style + 1;
 	char race_char = 'T';
 	char part_char = 'H';
-	if (race == 0) {
-		race_char = 'T';
-	} else if (race == 1) {
-		race_char = 'J';
-	} else if (race == 2) {
-		race_char = 'P';
+	switch (race) {
+		case 0: race_char = 'T'; break;
+		case 1: race_char = 'J'; break;
+		case 2: race_char = 'P'; break;
 	}
+
+
 	switch (part) {
 		case 0:
 			part_char = 'H';
 			break;
 		case 1:
 			part_char = 'P';
-			if (style == 0) {
-				number = 2;
-			} else if (style == 1) {
-				number = 1;
-			} else if (style == 2) {
-				number = 3;
+			switch (style) {
+				case 0: number = 2; break;
+				case 1: number = 1; break;
+				case 2: number = 3; break;
 			}
+
+
 			break;
 		case 2:
 			part_char = 'W';
@@ -302,45 +302,45 @@ char *Unknown_621530(int race, int part, int style, int variant)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x621610
-bool Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *format)
+bool Unknown620D20Class::Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *format)
 {
 	char name[0x32];
-	bool any = false;
-	for (int i = 1; ; i++) {
+	bool any = false; bool more = true;
+	for (int i = 1; more; i++) {
 		_snprintf(name, sizeof(name), format, i);
-		if (model->Get_Bone_Index(name) == 0) {
-			break;
-		}
-		RenderObjClass *copy = part->Clone();
-		model->Add_Sub_Object_To_Bone(copy, name);
-		copy->Release_Ref();
-		any = true;
+		if (model->Get_Bone_Index(name) != 0) {
+			RenderObjClass *copy = part->Clone();
+			model->Add_Sub_Object_To_Bone(copy, name);
+			copy->Release_Ref();
+			any = true;
+		} else more = false;
 	}
+
 	return(any);
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6216D0
-void Unknown_6216D0(RenderObjClass *model, const char *format)
+void Unknown620D20Class::Unknown_6216D0(RenderObjClass *model, const char *format)
 {
 	if (model == NULL) {
 		return;
 	}
 	char name[0x32];
-	for (int i = 1; ; i++) {
+	bool more = true;
+	for (int i = 1; more; i++) {
 		_snprintf(name, sizeof(name), format, i);
 		int bone = model->Get_Bone_Index(name);
-		if (bone == 0) {
-			break;
-		}
-		RenderObjClass *sub = model->Get_Sub_Object_On_Bone(0, bone);
-		model->Remove_Sub_Objects_From_Bone(name);
-		if (sub) {
-			sub->Release_Ref();
-		}
+		if (bone != 0) {
+			RenderObjClass *sub = model->Get_Sub_Object_On_Bone(0, bone);
+			model->Remove_Sub_Objects_From_Bone(name);
+			if (sub) {
+				sub->Release_Ref();
+			}
+		} else more = false;
 	}
 }
 
@@ -510,7 +510,7 @@ void Unknown620D20Class::Unknown_621790(EnvironmentMapManagerClass *environmentm
 }
 
 #pragma auto_inline(off)	// the client calls 0x621E20 from the dtor 0x6210A0 and 0x621790
-// NOT EXACT: functional (D64)
+
 // @0x621E20
 void Unknown620D20Class::Unknown_621E20()
 {
@@ -1271,13 +1271,13 @@ void ShipCustomizeInterface::Unknown_6249D0(bool on)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624AE0
 void ShipCustomizeInterface::Unknown_624AE0(const char *style, bool on)
 {
-	FontSys *font = Unknown_BE67C4->Get_Style(style, CharacterView->ViewRObjs[0]);
-	if (font != NULL && (!font->Unknown300) != (!on)) {
-		font->Set_Hidden(!on);
+	RenderObjClass *model = CharacterView->ViewRObjs[0]; FontSys *font = Unknown_BE67C4->Get_Style(style, model);
+	if (font != NULL) { int hidden = !on; bool now = !font->Unknown300; if (now != hidden) {
+		font->Set_Hidden(hidden); }
 	}
 }
 
@@ -1410,19 +1410,19 @@ void ShipCustomizeInterface::Unknown_6251F0(float u, float v)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x625260
 void ShipCustomizeInterface::Unknown_625260()
 {
 	AABoxClass box;
 	Unknown24C->Gadget->Unknown_64(box);
+	float y = box.Center.Y - box.Extent.Y; float x = box.Center.X - box.Extent.X;
+	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	int bone = model->Get_Sub_Object_Bone_Index(Unknown24C->Pull);
 	model->Capture_Bone(bone);
 	Matrix3D tm = Unknown24C->Pull->Get_Transform();
-	float *position = Unknown_627110();
-	tm[0][3] = (box.Extent.X + box.Extent.X) * position[0] - box.Extent.X;
-	tm[1][3] = (box.Extent.Y + box.Extent.Y) * position[1] - box.Extent.Y;
+	tm[0][3] = width * Unknown_627110()[0] + x - box.Center.X; tm[1][3] = height * Unknown_627110()[1] + y - box.Center.Y;
 	model->Control_Bone(bone, tm, false);
 }
 

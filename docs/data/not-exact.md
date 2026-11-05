@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-613 entries in 131 files.
+608 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -386,19 +386,14 @@ edit the comments in the code, not this file.
 | `app/client/ui_shard.cpp:504` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
 | `app/client/ui_shipcust.cpp:169` | `Unknown620D20Class::Unknown_6211D0` | marker | NOT EXACT: functional (D64) @0x6211D0 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
-| `app/client/ui_shipcust.cpp:264` | `Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
-| `app/client/ui_shipcust.cpp:305` | `Unknown_621610` | marker | NOT EXACT: functional (D64) @0x621610 |
-| `app/client/ui_shipcust.cpp:325` | `Unknown_6216D0` | marker | NOT EXACT: functional (D64) @0x6216D0 |
+| `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:484` | `Unknown620D20Class::Unknown_621790` | marker | NOT EXACT: functional (D64) @0x621790 |
-| `app/client/ui_shipcust.cpp:513` | `Unknown620D20Class::Unknown_621E20` | marker | NOT EXACT: functional (D64) @0x621E20 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
 | `app/client/ui_shipcust.cpp:608` | `ShipCustomizeInterface::~ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622B90 |
 | `app/client/ui_shipcust.cpp:669` | `ShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x623080 |
 | `app/client/ui_shipcust.cpp:1140` | `ShipCustomizeInterface::Unknown_624270` | marker | NOT EXACT: functional (D64) @0x624270 |
 | `app/client/ui_shipcust.cpp:1255` | `ShipCustomizeInterface::Unknown_6249D0` | marker | NOT EXACT: functional (D64) @0x6249D0 |
-| `app/client/ui_shipcust.cpp:1274` | `ShipCustomizeInterface::Unknown_624AE0` | marker | NOT EXACT: functional (D64) @0x624AE0 |
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
-| `app/client/ui_shipcust.cpp:1413` | `ShipCustomizeInterface::Unknown_625260` | marker | NOT EXACT: functional (D64) @0x625260 |
 | `app/client/ui_shipcust.cpp:1639` | `ShipCustomizeInterface::Unknown_625930` | marker | NOT EXACT: functional (D64) @0x625930 |
 | `app/client/ui_shipcust.cpp:1652` | `ShipCustomizeInterface::Unknown_6259C0` | marker | NOT EXACT: functional (D64) @0x6259C0 |
 | `app/client/ui_shipcust.cpp:1666` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |

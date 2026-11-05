@@ -33,6 +33,9 @@ public:
 	void Unknown_6211D0(EnvironmentMapManagerClass *environmentmapmanager);	// 0x6211D0 (G_ASSERT 'environmentmapmanager != NULL' l.174): the parts' colours onto the model  // NAME 3 [environmentmapmanager]: the assert's
 	void Unknown_621390(int decal, SClientUnknown1334Class *decalmaterialmanager);	// 0x621390 (G_ASSERT 'decalmaterialmanager != NULL' l.237): the insignia onto the model  // NAME 3 [decalmaterialmanager]: the assert's; NAME 1 [decal]: neutral
 	void Unknown_621500();								// 0x621500 (the name onto the model)
+	char *Unknown_621530(int race, int part, int style, int variant);	// 0x621530 (a part's model name, 'S' race part style variant; this unused: 0x621790 sets ecx)  // NAME 1 [all]: neutral
+	bool Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *format);	// 0x621610 (copies of part on the model's numbered bones; this unused)  // NAME 1 [all]: neutral
+	void Unknown_6216D0(RenderObjClass *model, const char *format);	// 0x6216D0 (the numbered bones' sub-objects taken off; this unused)  // NAME 1 [all]: neutral
 	void Unknown_621790(EnvironmentMapManagerClass *environmentmapmanager, int decal, SClientUnknown1334Class *decalmaterialmanager);	// 0x621790 (G_ASSERTs 'result' l.501, 505): the models built from the description  // NAME 1 [all]: as 0x6211D0's / 0x621390's
 	void Unknown_621E20();								// 0x621E20 (the models taken apart and released)
 
