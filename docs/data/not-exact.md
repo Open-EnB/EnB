@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-595 entries in 131 files.
+594 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -387,7 +387,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1906` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_shipcust.cpp:2005` | `ShipCustomizeInterface::Unknown_6277A0` | marker | NOT EXACT: functional (D64) @0x6277A0 |
 | `app/client/ui_shipcust.cpp:2085` | `ShipCustomizeInterface::Unknown_6280E0` | marker | NOT EXACT: functional (D64) @0x6280E0 |
-| `app/client/ui_shipcust.cpp:2121` | `ShipCustomizeInterface::Unknown_628420` | marker | NOT EXACT: functional (D64) @0x628420 |
 | `app/client/unknown_585920.cpp:84` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
 | `app/client/unknown_585920.cpp:103` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
 | `app/client/unknown_585920.cpp:148` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |

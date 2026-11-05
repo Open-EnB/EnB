@@ -2118,25 +2118,25 @@ void ShipCustomizeInterface::Unknown_6280E0()
 }
 
 
-// NOT EXACT: functional (D64)
 // @0x628420
 void ShipCustomizeInterface::Unknown_628420()
 {
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	for (int i = 0; i < 3; i++) {
-		RenderObjClass *model = Unknown220[i];
-		if (model == NULL) {
-			continue;
-		}
-		Matrix3D tm = model->Get_Transform();
-		tm.Rotate_Y((*Unknown_6271D0() == (ShipCustomizationMetal)i) ? fast : slow);
-		model->Set_Transform(tm);
-		Gadgets[0x12 + i].Gadget->Unknown_6608F0();
+	if (Unknown220[0] != NULL) {
+		Matrix3D tm = Unknown220[0]->Get_Transform(); if (*Unknown_6271D0() == METAL_CHROME) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown220[0]->Set_Transform(tm); Gadgets[0x12].Gadget->Unknown_6608F0();
+	}
+	if (Unknown220[1] != NULL) {
+		Matrix3D tm = Unknown220[1]->Get_Transform(); if (*Unknown_6271D0() == METAL_BRONZE) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown220[1]->Set_Transform(tm); Gadgets[0x13].Gadget->Unknown_6608F0();
+	}
+	if (Unknown220[2] != NULL) {
+		Matrix3D tm = Unknown220[2]->Get_Transform(); if (*Unknown_6271D0() == METAL_COPPER) { tm.Rotate_Y(fast); } else { tm.Rotate_Y(slow); }
+		Unknown220[2]->Set_Transform(tm); Gadgets[0x14].Gadget->Unknown_6608F0();
 	}
 }
-
 
 
 // @0x6288C0

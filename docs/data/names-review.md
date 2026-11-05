@@ -9839,7 +9839,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1875` | untagged neutral name (D10) |
 | 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1881` | untagged neutral name (D10) |
 | 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1943` | untagged neutral name (D10) |
-| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:2136` | untagged neutral name (D10) |
+| 1 | `Unknown_6608F0` | `app/client/ui_shipcust.cpp:2129` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_shipcust.cpp:2535` | untagged neutral name (D10) |
 | 1 | `ui_shipcust.h` | `app/client/ui_shipcust.h:4` | provisional header name for ui_shipcust.cpp |
 | 1 | `SClientUnknown1334Class` | `app/client/ui_shipcust.h:20` | untagged neutral name (D10) |
