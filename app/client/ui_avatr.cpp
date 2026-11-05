@@ -1401,7 +1401,7 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	CS1 (2026-11-04): 0x55C280 (the flash callback, padded to its FAIL_IF lines) exact; 0x55B2D0 and 0x55BAC0 NOT EXACT (the POC's last avatar-screen gens).
 */
 
-// NOT EXACT: register (both types read up front, the step as --x < 0: only eax / edx swap around the pip's slot +0x84 call and the two releases; a pip local, a cast or a named temporary are worse)
+// Both types read up front, the step as --x < 0; the envmaps through the inline Peek_Unknown3A4() (the client's eax / edx)
 // 0x558D30
 void AvatarCreationInterface::Unknown_558D30(int dir)
 {
@@ -1416,11 +1416,11 @@ void AvatarCreationInterface::Unknown_558D30(int dir)
 		}
 	}
 	desc->Unknown_77E9D0(body, pants, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: register (as 0x558D30's)
+// As 0x558D30's
 // 0x558EA0
 void AvatarCreationInterface::Unknown_558EA0(int dir)
 {
@@ -1435,7 +1435,7 @@ void AvatarCreationInterface::Unknown_558EA0(int dir)
 		}
 	}
 	desc->Unknown_77E9D0(body, pants, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
@@ -1519,14 +1519,14 @@ void AvatarCreationInterface::Unknown_55A960()
 			case 5: avatar->Unknown_780680(3, color); Unknown_55B9A0(-1); break;
 			case 6: avatar->Unknown_780680(4, color); Unknown_55B9A0(-1); break;
 		}
-		avatar->Unknown_780810(Unknown08C->Unknown3A4);
+		avatar->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	} else {
 		Unknown180->Unknown08 = false;
 	}
 	gadget->Unknown_671630();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55B9A0 (the body tab's metal, -1: none, into +0x1C0 and the chosen part)
+// The body tab's metal (-1: none) into +0x1C0 and the chosen part; the envmaps through the inline Peek_Unknown3A4()
 // 0x55B9A0
 void AvatarCreationInterface::Unknown_55B9A0(int arg)
 {
@@ -1541,7 +1541,7 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 		case 5: desc->Unknown_780790(3, arg); break;
 		case 6: desc->Unknown_780790(4, arg); break;
 	}
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 }
 
 // NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old
@@ -1590,7 +1590,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 	Unknown2D8 = true;
 	Unknown_559350();
 	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
-	avatar->Unknown_780810(Unknown08C->Unknown3A4);
+	avatar->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	avatar->Unknown232 = true;
 	Unknown094->Unknown_84(avatar);
 	Unknown08C->Unknown_67C7B0();
@@ -1685,7 +1685,7 @@ void AvatarCreationInterface::Unknown_557290()
 		Unknown_55A550(0, 0.0f, 0.0f, 0.0f);
 	}
 	Unknown_559350();
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	if (Unknown1BC == 2) {
 		Unknown_Set_Palette("fa_skin_color.tga");
 	} else {
