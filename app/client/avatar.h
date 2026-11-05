@@ -77,6 +77,7 @@ public:
 	void Unknown_786410(Matrix3D *camera_m, bool close_up);	// 0x786410 (*camera_m at the avatar's head for close-ups; FAIL_IF '!camera_m')  // NAME 1 [close_up]: neutral
 	Matrix3D Unknown_786EB0();							// 0x786EB0 (+0x330 set; skel_reference at K_HEAD's height + 0.2, half a unit along X, pitched by +0x30C; 0x787A90)  // NAME 1: neutral
 	Matrix3D Unknown_787450(RenderObjClass *other);	// 0x787450 (+0x330 set; a camera behind and above skel_reference, looking 7 above the point between it and other's; the UI's 0x63D2F0)  // NAME 1 [other]: neutral
+	bool Unknown_787F40(RenderObjClass *obj);			// 0x787F40 (the step +0x360 swept against obj, slid along its wall; the UI's 0x63BC30)  // NAME 1 [obj]: neutral
 	Matrix3D Unknown_787A90();							// 0x787A90 (0x787130 while +0x2F5, else 0x786EB0; the UI's 0x63BDB0 / 0x63C080)  // NAME 1: neutral
 	Matrix3D Unknown_787130();							// 0x787130 (+0x330 set; skel_reference raised, turned by +0x310, 11 back, pitched by +0x30C + 0.3; unreferenced)  // NAME 1: neutral
 	void Unknown_7851F0(Vector3 target);				// 0x7851F0 (+0x250 / +0x258: the head's look-at angles toward target; unreferenced)  // NAME 1 [target]: neutral

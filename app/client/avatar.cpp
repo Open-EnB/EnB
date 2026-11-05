@@ -12,6 +12,8 @@
 #include "..\..\ww3d2\meshmdl.h"
 #include "..\..\ww3d2\htree.h"
 #include "..\..\ww3d2\hlod.h"
+#include "..\..\ww3d2\coltest.h"
+#include "..\..\wwmath\castres.h"
 #include "..\..\ww3d2\matinfo.h"
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\texture.h"
@@ -381,8 +383,6 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
-
-
 
 
 
@@ -3437,6 +3437,44 @@ Matrix3D CharacterViewAvatarClass::Unknown_787DE0()
 	return m;
 }
 
+// 0x787F40: the frame's step +0x360 taken back off +0x330, swept as the collision object's box (0.1 up) against obj;
+// on a hit the step slides along the wall's normal flattened to XY; the step is put back on +0x330 (the UI's 0x63BC30)
+bool CharacterViewAvatarClass::Unknown_787F40(RenderObjClass *obj)
+{
+	if (obj) {
+		if (Unknown360.Length() != 0.0f) {
+			CastResultStruct result;
+			bool hit = false;
+			Unknown330.Adjust_Translation(-Unknown360);
+			Matrix3D tm(true);
+			tm.Set_Translation(Get_Transform().Get_Translation());
+			AABoxClass box;
+			CollisionObj->Get_Obj_Space_Bounding_Box(box);
+			box.Center.Z += 0.1f;
+			OBBoxClass obox(box.Center, box.Extent);
+			OBBoxClass world;
+			OBBoxClass::Transform(tm, obox, &world);
+			OBBoxCollisionTestClass test(world, Unknown360, &result, COLLISION_TYPE_0);
+			Matrix3D objtm = obj->Get_Transform();
+			Matrix3D inv;
+			objtm.Get_Orthogonal_Inverse(inv);
+			OBBoxCollisionTestClass local_test(test, inv);
+			if (obj->Cast_OBBox(local_test)) {
+				hit = true;
+				Vector3 normal;
+				Matrix3D::Rotate_Vector(objtm, result.Normal, &normal);
+				normal.Z = 0.0f;
+				normal.Normalize();
+				float d = Vector3::Dot_Product((Unknown330.Get_Translation() + Unknown360 * result.Fraction) - (Unknown330.Get_Translation() + Unknown360), normal) + 0.001f;
+				Unknown360 += normal * d;
+			}
+			Unknown330.Adjust_Translation(Unknown360);
+			return(hit);
+		}
+	}
+	return(false);
+}
+
 // 0x7885D0
 // (list clear(): the second clear() inlines the whole erase; the first one, budget spent, calls its iterator ++ 0x78A7F0 and erase 0x78A730)
 void CharacterViewAvatarClass::Unknown_7885D0(bool second)
@@ -3754,44 +3792,6 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C = 0.0f;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

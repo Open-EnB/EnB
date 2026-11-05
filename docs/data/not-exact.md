@@ -16,9 +16,9 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/aux_roots_send.h:3` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
-| `app/client/avatar.cpp:154` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:360` | `CharacterViewAvatarClass::Unknown_77D7F0` | marker | NOT EXACT: register (this in edi, the client's esi: 0.62) |
-| `app/client/avatar.cpp:376` | `CharacterViewAvatarClass::Unknown_77D9F0` | marker | NOT EXACT: shape (the client loads +0x234 again in each branch) |
+| `app/client/avatar.cpp:156` | `CharacterViewAvatarClass::~CharacterViewAvatarClass` | marker | NOT EXACT: functional for POC (D64) |
+| `app/client/avatar.cpp:362` | `CharacterViewAvatarClass::Unknown_77D7F0` | marker | NOT EXACT: register (this in edi, the client's esi: 0.62) |
+| `app/client/avatar.cpp:378` | `CharacterViewAvatarClass::Unknown_77D9F0` | marker | NOT EXACT: shape (the client loads +0x234 again in each branch) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
@@ -27,8 +27,8 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
 | `app/client/avatar.cpp:3239` | `CharacterViewAvatarClass::Unknown_786410` | marker | NOT EXACT: register (the Set_Translation stores' y / z go through ecx / edx in the client, edx / eax here: 0.94) |
 | `app/client/avatar.cpp:3399` | `CharacterViewAvatarClass::Unknown_787450` | marker | NOT EXACT: order-only (the second Normalize sums z*z + y*y where the client sums y*y first, or the reverse: 0.92) |
-| `app/client/avatar.cpp:3486` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
-| `app/client/avatar.cpp:3615` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
+| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
+| `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
