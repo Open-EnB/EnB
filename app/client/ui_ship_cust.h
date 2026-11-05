@@ -60,6 +60,7 @@ public:
 	void Unknown_61B130();								// 0x61B130 (the insignia onto the model, then 0x61F180)
 	void Unknown_61B510(Vector2 uv);					// 0x61B510 (the colour's palette position: as 0x6251F0)  // NAME 1 [uv]: neutral
 	void Unknown_61B580();								// 0x61B580 (the pull to the colour's palette position: as ui_shipcust.cpp's 0x625260)
+	void Unknown_61B760();								// 0x61B760 (the colour palette and its pull: as ui_shipcust.cpp's 0x625440; G_ASSERT 'ColorSliderTexture' l.1108)
 	void Unknown_61BA80(bool on);						// 0x61BA80 (the pull shown: as 0x625760)  // NAME 1 [on]: neutral
 	void Unknown_61B170();								// 0x61B170
 	void Unknown_61BAC0(int id);						// 0x61BAC0 (a button selected in its group: as ui_shipcust.cpp's 0x6257A0)  // NAME 1 [id]: neutral
