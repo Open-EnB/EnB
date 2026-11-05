@@ -232,7 +232,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				WW3D::Enable_Overbright_Modify_On_Load(true);
 			}
 			if (WW3DAssetManager::Get_Instance()) {
-				HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+				HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
 			}
 			if (!making) {
 				WW3D::Enable_Overbright_Modify_On_Load(false);
@@ -240,7 +240,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			FAIL_IF(HeadSource == NULL) {
 			}
 			if (HeadSource != NULL) {
-				Unknown_496AE0(HeadSource, true);
+				Unknown_496AE0(HeadSource.Peek(), true);
 				HeadObj = Create_Get(HeadSource->Clone());
 				if (HeadObj) {
 					Unknown_496AE0(HeadObj.Peek(), true);
@@ -332,8 +332,8 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		// 4. Release creation prototypes if non-player or not retaining
 		if (b == 0 || Desc.Avatar_Type != 0) {
 			if (HeadSource) {
-				HeadSource->Release_Ref();
 				HeadSource = NULL;
+
 			}
 			if (BodySource) {
 				BodySource->Release_Ref();
@@ -442,8 +442,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (HeadSource) {
-		HeadSource->Release_Ref();
 		HeadSource = NULL;
+
 	}
 	if (BodySource) {
 		BodySource->Release_Ref();
@@ -849,8 +849,8 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 				}
 			}
 		}
-		HeadSource->Release_Ref();
 		HeadSource = NULL;
+
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
@@ -861,7 +861,7 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 	} else {
 		_snprintf(head_name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
 	}
-	HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+	HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
@@ -869,7 +869,7 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		Unknown_4BC260("Avatar Creation", "", __FILE__, 924, "Error loading up the head asset: %s", head_name);
 		return;
 	}
-	Unknown_496AE0(HeadSource, true);
+	Unknown_496AE0(HeadSource.Peek(), true);
 	if (HairSource) {
 		Unknown_789D80(&HairSource, "HAIR");
 		for (i = 0; i < 5; i++) {
@@ -3589,7 +3589,7 @@ void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char 
 		_snprintf(name, 0x40, "%s%d", part, i);
 		RenderObjClass *sub = (*slot)->Get_Sub_Object_By_Name(name);
 		if (sub && sub->Class_ID() == RenderObjClass::CLASSID_MESH) {
-			HLodClass *head = (HLodClass *)HeadSource;
+			HLodClass *head = (HLodClass *)HeadSource.Peek();
 			HLodClass *source = (HLodClass *)*slot;
 			RenderObjClass *copy = sub->Clone();
 			Unknown_496AE0(copy, true);
@@ -3598,7 +3598,7 @@ void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char 
 				for (int j = 0; j < source->Get_Lod_Model_Count(lod); j++) {
 					if (sub == source->Peek_Lod_Model(lod, j)) {
 						head->Add_Lod_Model(lod, copy, 0);
-						Unknown_496AE0(HeadSource, true);
+						Unknown_496AE0(HeadSource.Peek(), true);
 						lod = 100;
 						break;
 					}

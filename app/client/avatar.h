@@ -183,7 +183,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	bool Unknown29C;									// +0x29C (0x781410: the body morph still stepping)
 	bool Unknown29D;									// +0x29D (0x781570: the head morph still stepping)
 	std::vector<Unknown_AvatarQueueStruct *> Unknown2A0;	// +0x2A0 (the animation queue: 0x781880 pushes, 0x782200 plays, 0x784700 / 0x77C080 empty it)
-	RenderObjClass *HeadSource;							// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
+	RefCountPtr<RenderObjClass> HeadSource;	// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RenderObjClass *BodySource;							// +0x2B4  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> HeadObj;				// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
 	RenderObjClass *BodyObj;							// +0x2BC  // NAME 2: '!HeadSource || !BodyObj' assert (0x786370 / 0x7863E0)
