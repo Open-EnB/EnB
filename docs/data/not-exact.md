@@ -158,7 +158,7 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
 | `app/client/nlp.cpp:20` | `Unknown_78E190` | marker | NOT EXACT: functional for POC (D64), order-only (the same instructions in another order) |
 | `app/client/nlp.cpp:62` | `NLPLexiconClass::NLPLexiconClass` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x78E190 and 0x78E8F0; ours inlines them) |
-| `app/client/nlp.cpp:211` | `PlayerNLPClass::Unknown_78ED30` | marker | NOT EXACT: functional for POC (D64), shape (the loops' guards: ours merges the second guard into its loop) |
+| `app/client/nlp.cpp:226` | `PlayerNLPClass::Unknown_78ED30` | marker | NOT EXACT: functional for POC (D64), shape (the loops' guards: ours merges the second guard into its loop) |
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1231 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13957 |
+| 1 | neutral placeholder | 13958 |
 
 ## For review (score 3 and below)
 
@@ -3784,11 +3784,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_NLPPhraseStruct` | `app/client/nlp.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_78E8F0` | `app/client/nlp.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_78E980` | `app/client/nlp.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_78EC00` | `app/client/nlp.cpp:189` | untagged neutral name (D10) |
-| 1 | `Unknown_78ECC0` | `app/client/nlp.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown_BE856C` | `app/client/nlp.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown_790D40` | `app/client/nlp.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown_78ED30` | `app/client/nlp.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/nlp.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_78ECC0` | `app/client/nlp.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown_78EC00` | `app/client/nlp.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_BE856C` | `app/client/nlp.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_790D40` | `app/client/nlp.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_78ED30` | `app/client/nlp.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_78EE00` | `app/client/nlp.cpp:392` | untagged neutral name (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/nlp.cpp:412` | untagged neutral name (D10) |
 | 1 | `Unknown_78EEF0` | `app/client/nlp.cpp:428` | untagged neutral name (D10) |

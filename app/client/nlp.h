@@ -49,8 +49,8 @@ public:
 class PlayerNLPClass	// NAME 2: the client's assert 'PlayerNLP != 0'
 {
 public:
-	PlayerNLPClass() : Initialized(false), Unknown08(-1), Personality(NULL), Lexicon(NULL) {}	// 0x78EB50
-	~PlayerNLPClass() { Unknown_78ECC0(); }			// 0x78EB80
+	PlayerNLPClass();								// 0x78EB50 (out of line: avatar.cpp's 0x77B870 / 0x781680 call it)
+	~PlayerNLPClass();								// 0x78EB80 (out of line: avatar.cpp's 0x77C080 calls it)
 	virtual bool Unknown_78EC00(int personality, int nlp);	// +0x00 0x78EC00: the personality's data, nlp\lexicon%02d.ini  // NAME 1: neutral (D10)
 	virtual void Unknown_78F690(const char *text, int len, int *mood, Unknown_ChatStreamClass *stream);	// +0x04 0x78F690: parses text into the stream  // NAME 1: neutral (D10)
 	virtual void Unknown_78ECC0();					// +0x08 0x78ECC0: deletes the lexicon  // NAME 1: neutral (D10)
