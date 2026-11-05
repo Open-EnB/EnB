@@ -72,6 +72,14 @@
    "moved_to": null,
    "decision": "D189",
    "note": "D189(2) (the maintainer accepted it 2026-11-03, PR #147): objmatch credits a match only at a function start; this pair was a mid-function hit: our function matched only the tail of the client's, inside PKStraw::Get_From 0x9F3670, which has E&B's null-check early-out. Lost outright until the early-out is rebuilt."
+  },
+  {
+   "address": "0x780AC0",
+   "lib": "app",
+   "file": "avatar",
+   "moved_to": "0x62A5D0",
+   "decision": "D192",
+   "note": "ColorizationHalfStruct::operator=: P-CGP-1's objmatch rule (a D100 candidate the object's own exact callers contradict drops out) credits avatar's copy at the shared 0x62A5D0, which the exact vector<ColorizationRegionStruct>::insert 0x62A0A0 calls; 0x780AC0 is no longer avatar's pair (PR #159)."
   }
  ]
 }
