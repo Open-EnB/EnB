@@ -3503,7 +3503,7 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 
 // 0x7896B0
 // the teleport effect 'mode' (0x788F90) shown and its animation played once (charview 0x67B390: 4, ui_avsel 0x55D9C0: 1)
-// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
+// (its tail is 0x788EF0 inlined)
 void CharacterViewAvatarClass::Unknown_7896B0(int a)
 {
 	Unknown_788F90(a);
@@ -3515,22 +3515,22 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 			Unknown370->Set_Animation_Hidden(0);
 			return;
 		}
-		if (Unknown370) {
-			Unknown370->Set_Animation();
-			Unknown370->Remove();
-			Unknown370 = NULL;
-		}
 	}
-	if (Unknown374) {
-		Unknown374 = NULL;
-	}
-	Unknown380 = 0;
-	Unknown37C = 0.0f;
-	Unknown378 = -100.0f;
+	Unknown_788EF0();
+
+
+
+
+
+
+
+
+
+
 }
 
 // 0x7897D0
-// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr +0x370 / +0x374 as plain pointers)
+// (the teardown written in both branches)
 void CharacterViewAvatarClass::Unknown_7897D0()
 {
 	if (Unknown380 == 0) {
@@ -3540,31 +3540,40 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C -= (float)WW3D::Get_Frame_Time() * 0.001f;
 		if (Unknown37C <= Unknown378) {
 			Unknown378 = -100.0f;
-			bool hidden = !(Unknown380 == 2 || Unknown380 == 4);
-			if (BodyObj) {
-				BodyObj->Set_Hidden(hidden);
-			}
-			if (HeadObj) {
-				HeadObj->Set_Hidden(hidden);
+			if (Unknown380 == 2 || Unknown380 == 4) {
+				if (BodyObj) BodyObj->Set_Hidden(0);
+				if (HeadObj) HeadObj->Set_Hidden(0);
+			} else {
+				if (BodyObj) BodyObj->Set_Hidden(1);
+				if (HeadObj) HeadObj->Set_Hidden(1);
 			}
 		}
-		if (Unknown37C > 0.0f) {
-			return;
+		if (Unknown37C <= 0.0f) {
+			if (Unknown370) {
+				Unknown370->Set_Animation();
+				Unknown370->Remove();
+				Unknown370 = NULL;
+			}
+			if (Unknown374) {
+				Unknown374 = NULL;
+			}
+			Unknown380 = 0;
+			Unknown378 = -100.0f;
+			Unknown37C = 0.0f;
 		}
+	} else {
+		if (Unknown370) {
+			Unknown370->Set_Animation();
+			Unknown370->Remove();
+			Unknown370 = NULL;
+		}
+		if (Unknown374) {
+			Unknown374 = NULL;
+		}
+		Unknown380 = 0;
+		Unknown378 = -100.0f;
+		Unknown37C = 0.0f;
 	}
-	if (Unknown370) {
-		Unknown370->Set_Animation();
-		Unknown370->Remove();
-		Unknown370 = NULL;
-
-	}
-	if (Unknown374) {
-		Unknown374 = NULL;
-
-	}
-	Unknown380 = 0;
-	Unknown378 = -100.0f;
-	Unknown37C = 0.0f;
 }
 
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
