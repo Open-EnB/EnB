@@ -15,7 +15,11 @@ Newest first within each section. Dates are when the entry was written.
   ui_line_display, ringobj and others), tie-break +2 (avatar 0x62A5D0, client_lego_impl 0x730090); lost outright 0x780AC0
   (avatar), as the proposal measured and D192 accepts. The proposal's +91 was measured on an earlier base. The CGP
   worktree's patches were gone (worktree removed); both were rewritten from the proposal's text.
-- **Next session:** one section 4 item.
+- **Verified:** full `importer.py verify --pool 1` + pairs_cmp (above). Not run: clienttest, udpreplay, POC (the ui_cpit
+  change is a runtime refcount fix in the cockpit's warp / distress text, not reached by the POC's flow). PR #159
+  (branch `pcgp1`, ff0c5213 and this entry) waits for `vc6-verify` and the user's merge.
+- **Next session:** after #159 merges, one section 4 item: kerneltest's link failure (ww3d.obj pulled in; `/VERBOSE` link
+  to find the symbol), the smallest open item.
 
 ### 2026-11-04 (15:45 PST, day): nineteen builders on NOT EXACT code and strong-hint files; five new files; +570 pairs (+801 in PR #158), 0 lost outright
 
