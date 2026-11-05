@@ -15,6 +15,7 @@
 #include "ref_ptr.h"
 #include "vector3.h"
 #include "matrix3d.h"
+#include "unknown_490900.h"
 
 class JobListPacketClass;
 class JobDescriptionPacketClass;
@@ -65,7 +66,7 @@ public:
 	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
 };
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
-class SBaseViewUnknown68Class { public: SBaseViewUnknown68Class(); ~SBaseViewUnknown68Class(); RenderObjClass *Unknown00; char Unknown04[0x1C - 0x04]; };	// NAME 1: neutral (D10): what the starbase view's +0x68 points to (0x1C bytes, 0x69B5E0 makes it with 0x490900; 0x6A0540; 0x69C0D0 deletes it through 0x4909A0, the destructor of scriptedmovie.cpp's ScriptedMovieViewerSettingsStruct)
+// ScriptedMovieViewerSettingsStruct (the view's +0x68): unknown_490900.h
 class SBaseViewUnknown190Class : public InterfaceClass { public: int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); char Unknown84[0x160 - 0x84]; int Unknown160; };	// NAME 1: neutral (D10): the starbase view's +0x190 (0x69CCD0 tests its +0x160 with Active; 0x69C8F0 calls 0x64CF90 / 0x64CFF0 / 0x64D3E0 / 0x64EEA0)
 struct SBaseViewUnknown698730Struct { char Unknown00[0x0A]; bool Unknown0A; bool Unknown0B; };	// NAME 1: neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B)
 class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); SBaseViewUnknown698730Struct *Unknown_698730(int key); char Unknown00[0x18]; int Unknown18; };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral
@@ -161,7 +162,7 @@ public:
 	int Unknown5C;	// +0x5C
 	RefCountPtr<UIStarbaseClass> Starbase;	// +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
 	RefCountPtr<InterfaceClass> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released)
-	SBaseViewUnknown68Class *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object; the destructor leaves it)
+	ScriptedMovieViewerSettingsStruct *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object; the destructor leaves it)
 	RefCountPtr<CameraClass> Unknown6C;	// +0x6C (+0x70's camera: 0x69C5E0)
 	RefCountPtr<SBaseViewUnknown70Class> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
 	RefCountPtr<CameraClass> Unknown74;	// +0x74 (+0x78's camera: 0x69C5E0)

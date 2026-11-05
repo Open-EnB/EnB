@@ -115,7 +115,7 @@ void SBaseViewClass::Unknown_04()
 {
 	UIViewClass::Unknown_04();
 	InterfaceSortClass sort(this, true);
-	Unknown68 = new SBaseViewUnknown68Class;
+	Unknown68 = new ScriptedMovieViewerSettingsStruct;
 	Unknown70 = Create_NEW(new SBaseViewUnknown70Class);
 	Unknown70->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
 	Unknown6C = Create_NEW(new CameraClass);
