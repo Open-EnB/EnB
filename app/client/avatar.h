@@ -67,6 +67,8 @@ public:
 	Unknown_AvatarQueueStruct *Unknown_781B20();				// 0x781B20 (the queue's first entry or NULL; unreferenced: 0x782200 inlines it)  // NAME 1: neutral
 	void Unknown_781B50(Unknown_AvatarQueueStruct *entry);	// 0x781B50 (entry erased from the queue and deleted; unreferenced: 0x782200 inlines it)  // NAME 1 [entry]: neutral
 	void Unknown_781C50();								// 0x781C50 (the queue's entries deleted, the queue cleared; unreferenced: 0x77C080 / 0x784700 inline it)  // NAME 1: neutral
+	bool Unknown_7835D0();								// 0x7835D0 (no gesture blending, and +0x214 consumed or the gesture done: the next queue step may start; unreferenced: 0x783B50 inlines it)  // NAME 1: neutral
+	void Unknown_789CD0(int a);							// 0x789CD0 (gesture slot a emptied: +0xC0 / +0xC8 / +0xCC / +0xD4 / +0xDC; unreferenced: 0x77C080 inlines it)  // NAME 1 [a]: neutral
 	void Unknown_782200();								// 0x782200 (state 1: the queue's first entry played, its face keys made)
 	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
 	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)

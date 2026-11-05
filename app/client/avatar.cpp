@@ -389,11 +389,7 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	for (int a = 0; a < 2; a++) {
-		Unknown0C0[a] = NULL;
-		Unknown0C8[a] = false;
-		Unknown0CC[a] = 0.0f;
-		Unknown0D4[a] = 0.0f;
-		Unknown0DC[a] = -1;
+		Unknown_789CD0(a);
 	}
 	if (BodyObj) {
 		if (WeaponHip) {
@@ -550,6 +546,10 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
+
+
+
+
 
 
 
@@ -2194,22 +2194,22 @@ void CharacterViewAvatarClass::Unknown_783470()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x7835D0
+bool CharacterViewAvatarClass::Unknown_7835D0()
+{
+	if (Unknown0C0[1] != NULL) {
+		return false;
+	}
+	if (Unknown214) {
+		Unknown214 = false;
+		Unknown248 = 0;
+		return true;
+	}
+	if (Unknown0C0[0] == NULL) {
+		return true;
+	}
+	return Unknown0C8[0];
+}
 
 
 
@@ -2524,16 +2524,8 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	}
 	Unknown_783620(time);
 	Unknown_7854B0(time);
-	if (Unknown0C0[1] == NULL) {
-		bool next = false;
-		if (Unknown214) {
-			Unknown214 = false;
-			Unknown248 = 0;
-			next = true;
-		} else if (Unknown0C0[0] == NULL || Unknown0C8[0]) {
-			next = true;
-		}
-		if (next) {
+	{
+		if (Unknown_7835D0()) {
 			switch (Unknown208) {
 				case 0:
 					if (Unknown204 == 2) {
@@ -2691,6 +2683,14 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 		Unknown208 = 1;
 	}
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3577,6 +3577,16 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown378 = -100.0f;
 		Unknown37C = 0.0f;
 	}
+}
+
+// 0x789CD0
+void CharacterViewAvatarClass::Unknown_789CD0(int a)
+{
+	Unknown0C0[a] = NULL;
+	Unknown0C8[a] = false;
+	Unknown0CC[a] = 0.0f;
+	Unknown0D4[a] = 0.0f;
+	Unknown0DC[a] = -1;
 }
 
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
