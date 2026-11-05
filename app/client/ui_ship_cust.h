@@ -13,6 +13,7 @@
 #include "..\packets\pkrecustomize.h"
 
 class SBaseViewClass;
+class UIViewClass;
 class ShipPipClass;
 class LayerClass;
 class UIAvatrPullClass;
@@ -46,6 +47,7 @@ struct StarbaseShipCustGadgetStruct	// NAME 1: neutral (D10)
 class StarbaseShipCustomizeInterface : public Unknown5BB320Class, public Unknown620D20Class	// NAME 3: the client's RTTI (0xB89BB0, among this file's strings: SignalBaseClass::MemberCallback<GadgetClass,StarbaseShipCustomizeInterface,...>, the FlashingGadgetEvent handler's)
 {
 public:
+	StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass *layer);	// 0x6181B0 ('BUY_SHIP01'; sbaseview.cpp's 0x69F8F0)  // NAME 1 [view, layer]: as ui_avatar_cust.cpp's
 	virtual ~StarbaseShipCustomizeInterface();			// 0x6186A0 (the deleting one 0x618540)
 	virtual void Unknown_54();							// +0x54 0x618CA0 (after construction: the description from the avatar, the preview, the decal library, page 0)
 	virtual void Unknown_60();							// 0x6193A0 (every frame, then Unknown5BB320Class's 0x5BB660)

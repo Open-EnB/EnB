@@ -113,6 +113,39 @@ public:
 	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')
 };
 
+// @0x6181B0
+StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass *layer) :
+	Unknown5BB320Class(new UIMeshClass("BUY_SHIP01", 1), view, *layer),
+	SBaseView((SBaseViewClass *)view->Unknown_30()),
+	Unknown234(false),
+	Unknown235(false),
+	Unknown236(false),
+	Unknown237(false),
+	Unknown238(false),
+	Unknown239(false),
+	Unknown23C(0),
+	Unknown2D4(NULL),
+	Unknown2D8(NULL),
+	Unknown2DC(NULL),
+	Unknown2E0(NULL),
+	Layer(layer),
+	Page(0),
+	Unknown2FC(false),
+	Unknown300(NULL),
+	NameGadget(NULL),
+	Unknown30C(0),
+	Unknown310(0),
+	Unknown314(0),
+	Unknown318(0),
+	Unknown330(NULL),
+	Unknown334(false)
+{
+	for (int i = 0; i < 3; i++) {
+		Unknown244[i].Make_Identity();
+	}
+	Unknown_BB9654 = false;
+}
+
 // @0x6186A0
 StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 {
@@ -314,39 +347,6 @@ void StarbaseShipCustomizeInterface::Unknown_61B580()
 	tm[0][3] = width * Unknown_61D180()[0] + x - box.Center.X; tm[1][3] = height * Unknown_61D180()[1] + y - box.Center.Y;
 	model->Control_Bone(bone, tm, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
