@@ -113,8 +113,8 @@ SBaseViewClass::~SBaseViewClass()
 
 // 0x69B5E0: Init (the base's first): the scenes and cameras, the layers, the pointer's text object, the trade, group
 // and chat interfaces and the two lights
-// NOT EXACT: shape (explain.py; 0.84): the trade and group assignments store the member before the temporary's release (the
-// other Create_NEW assignments match), and the second light's temporary reuses the first slot
+// (exact: trade / group get Get_Client(), whose inline layer gives the client's push-before-lea order and store
+// before the temporary's release; one black Vector3 for both lights puts the second light's temporary in the first slot)
 void SBaseViewClass::Unknown_04()
 {
 	UIViewClass::Unknown_04();
@@ -136,24 +136,25 @@ void SBaseViewClass::Unknown_04()
 	Unknown80 = new LayerClass(Unknown70.Peek(), Unknown6C.Peek());
 	Unknown1B8 = Create_NEW(new FontSys("MouseText_SBASE", 0, ""));
 	Unknown1B8->Add(Unknown1C);
-	PTrade = Create_NEW(new UIPTradeClass(Client));
+	PTrade = Create_NEW(new UIPTradeClass(Get_Client()));
 	PTrade->Unknown_54();
 	PTrade->Unknown_7C(this, 0);
-	Unknown1A8 = Create_NEW(new UIGroupClass(Client));
+	Unknown1A8 = Create_NEW(new UIGroupClass(Get_Client()));
 	Unknown1A8->Unknown0F1 = true;
 	Unknown1A8->Unknown_54();
 	Unknown1A8->Unknown_7C(this, 0);
 	Unknown1AC = Create_NEW(new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek())));
 	Unknown1AC->Unknown_54();
 	Unknown_6B4940(Unknown1AC.Peek());
+	Vector3 black(0.0f, 0.0f, 0.0f);
 	RKey = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
-	RKey->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
-	RKey->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
-	RKey->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+	RKey->Set_Ambient(black);
+	RKey->Set_Diffuse(black);
+	RKey->Set_Specular(black);
 	RCamera = Create_NEW(new LightClass(LightClass::DIRECTIONAL));
-	RCamera->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
-	RCamera->Set_Diffuse(Vector3(0.0f, 0.0f, 0.0f));
-	RCamera->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+	RCamera->Set_Ambient(black);
+	RCamera->Set_Diffuse(black);
+	RCamera->Set_Specular(black);
 	if (Unknown1A8) {
 		Unknown1A8->Unknown_58();
 	}
@@ -728,7 +729,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
-
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -1033,7 +1033,7 @@ bool SBaseViewClass::Unknown_69F850(int index)
 // 0x69F8F0: interface type made once (5 +0x184, 6 +0x188, 7 the manufacturing window +0x18C, 11 the talk tree
 // +0x190, 8 Jobs, 9 +0x198, 14 AvatarUI, 13 ShipUI; the cases in the client's order) and shown as +0x64; 11 also
 // hands the talk tree to the client and sends STARBASE_REQUEST action 4 with arg
-// NOT EXACT: register (0.84): case 11 loads Unknown1138 into edx (the client eax), case 8 the task's table into eax (the client edx)
+// (exact: case 11 reads Unknown1138 into a local before the packet's construction, which also settles case 8's registers)
 void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 {
 	Unknown_69CDE0();
@@ -1083,7 +1083,8 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 			client->Unknown_74C9D0(Unknown190);
 			Unknown64 = Unknown190;
 			Unknown5C = type;
-			client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 4, arg));
+			int id = client->Unknown1138;
+			client->Send_Packet(&StarbaseRequestPacketClass(id, 4, arg));
 			break;
 		}
 		case 8:
@@ -1180,7 +1181,6 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
-
 
 
 
