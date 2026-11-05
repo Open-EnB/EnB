@@ -70,7 +70,10 @@ address the run knows independently of its bytes (D188): a slot of a vtable whos
 (symbols.json's vtables, or one D171 learned, `vtable`; one an exact function's vptr store gave,
 `vptr`), or the target of a call (REL32) in an exact function's relocations (`call`). Its pattern
 must fullmatch there, no relocation target may contradict it (D80's checks), the proofs must name one
-address, and no other symbol may hold it. Never by pattern alone. Such a result is `exact` with
+address, and no other symbol may hold it. Never by pattern alone. One exception (D193): COMDAT
+bodies with the same bytes and the same relocations (a linker-folded inline, such as RefCountPtr's
+Peek / operator-> at 0x551D20) that two symbols prove at one address are all credited there, not
+dropped. Such a result is `exact` with
 `short_known` set to the kind of proof; one in a COMDAT section (an inline, template or
 compiler-generated function) is also `shared` (D183's guard: it credits the address, not a file
 placement). The round runs when the static initialiser resolves nothing more; its credits feed D80's
@@ -606,6 +609,7 @@ def match_objects(img, paths, region=None, callers=False):
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
     shorts = [x for x in results if x[0]['status'] == 'short' and x[4] > 0]
+    folded_at = collections.defaultdict(lambda: collections.defaultdict(set))  # D193: {address: {COMDAT body: {symbols}}}
     # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
     # symbols.json names with the function's own symbol (from a vtable slot or a string, not an
     # exact match); its credits may let D80 resolve more, so the loop goes on
@@ -653,8 +657,10 @@ def match_objects(img, paths, region=None, callers=False):
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
-                got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed)
+                got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at)
                 for (r, obj, sec, s, length), a, kind in got:
+                    if not obj.own(sec):
+                        folded_at[a][body_sig(obj, sec, s, length)].add(r['symbol'])
                     r['status'] = 'exact'
                     r['addresses'] = [f'0x{a:06X}']
                     r['short_known'] = kind
@@ -788,12 +794,24 @@ def _thunk_targets(img):
     return _targets[id(img)]
 
 
-def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed):
+def body_sig(obj, sec, s, length):
+    """A function's bytes and relocations (offset, size, type, symbol name, addend): equal for copies
+    the linker may fold into one client function (D174, D193)."""
+    info = obj.sections[sec]
+    return (bytes(obj.data[info['raw'] + s:info['raw'] + s + length]),
+            tuple((k, n, typ, sym and sym['name'], bytes(add)) for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)))
+
+
+def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, folded_at=None):
     """D188: [(item, address, kind)] for the `short` functions at an address the run knows independently
     of their bytes: a call's target in an exact function (`call`), or a slot of a vtable whose address is
     known (`vptr` when an exact function's vptr store gave it, `vtable` otherwise: symbols.json, D171).
     The pattern must fullmatch there, D80's checks must leave it, the proofs must name one address, and
-    neither another symbol already exact there nor another short function may take it."""
+    neither another symbol already exact there nor another short function may take it.
+    D193: except a linker-folded COMDAT: when every claimant of the address (this round's proposals and
+    the symbols an earlier short round credited there, `folded_at` {address: {body_sig: {symbols}}}) is
+    a COMDAT body with the same bytes and relocations, all are credited."""
+    folded_at = folded_at if folded_at is not None else {}
     objs = list({id(x[1]): x[1] for x in shorts}.values())
     slot_of = collections.defaultdict(lambda: collections.defaultdict(set))   # symbol -> address -> kinds
     names = self_names()
@@ -831,8 +849,15 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed):
             continue
         a, kinds = next(iter(cands.items()))
         o = a - base
-        if not 0 <= o <= len(text) - length or claimed[a] - {r['symbol']}:
+        if not 0 <= o <= len(text) - length:
             continue
+        others = claimed[a] - {r['symbol']}
+        if others:
+            # D193: only symbols an earlier short round credited there as the same folded COMDAT body
+            earlier = folded_at.get(a, {})
+            if obj.own(sec) or len(earlier) != 1 or not others <= next(iter(earlier.values())) or \
+                    body_sig(obj, sec, s, length) not in earlier:
+                continue
         pat = obj.pattern(sec, s, s + length)[0]
         if not re.fullmatch(pat, text[o:o + length], re.S):
             continue
@@ -842,9 +867,15 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed):
         kind = 'call' if 'call' in kinds else 'vptr' if 'vptr' in kinds else 'vtable'
         props.append((item, a, kind))
     by_addr = collections.defaultdict(set)
-    for (r, *_), a, _ in props:
+    bodies = collections.defaultdict(set)       # D193: the COMDAT bodies proposed at each address
+    for (r, obj, sec, s, length), a, _ in props:
         by_addr[a].add(r['symbol'])
-    return [p for p in props if len(by_addr[p[1]]) == 1]
+        bodies[a].add(body_sig(obj, sec, s, length) if not obj.own(sec) else ('own', id(r)))
+    for a, v in folded_at.items():
+        if a in bodies:
+            bodies[a] |= set(v)
+    return [p for p in props if len(by_addr[p[1]]) == 1 or len(bodies[p[1]]) == 1 and
+            all(b[0] != 'own' for b in bodies[p[1]])]
 
 
 def range_distance(rng, a):
