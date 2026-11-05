@@ -276,7 +276,7 @@ public:
 	void Unknown_585CC0();								// 0x585CC0 (0x54EAD0: direction 1)
 
 	char Unknown00[0x18];								// +0x00
-	int Unknown18;										// +0x18 (the value: 0x54EAD0 hands it to the avatar's 0x77FD30)
+	int Unknown18;	int Get_Unknown18() { return(Unknown18); }	// +0x18 (the value: 0x54EAD0 hands it to the avatar's 0x77FD30; 0x54CBC0's 0x14-0x19 and 0x54E950 read it through the inline getter)  // NAME 1 [Get_Unknown18]: neutral (D10)
 	char Unknown1C[0x24 - 0x1C];						// +0x1C (0x24 bytes: 0x54EEC0)
 };
 
@@ -477,11 +477,16 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x54CBC0 (as ui_avatr.cpp's 0x554E80: the client's cases share their tails;
-// 0x54EAD0 and 0x551BF0 inlined in places)
+// NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined
+// for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the
+// view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the
+// client's ecx); left: its converted temporary in the 0x54EAD0 copies through the out-of-line 0x551D40 with the
+// destructor inline (ours the reverse), ebp / ebx roles in the palette copies, and eax where VC6 here takes edx
+// (attempts.py show 0x54CBC0)
 // 0x54CBC0
 bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 {
+	SClient *client = Unknown0B4->Client;
 	if (!Unknown3CC) {
 		return(true);
 	}
@@ -526,34 +531,29 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			Unknown_54EAD0(2);
 			break;
 		case 0x14:
+			Unknown370->Unknown_585CC0(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x15:
-			if (key == 0x14) Unknown370->Unknown_585CC0(); else Unknown370->Unknown_585C90();
-			Unknown0BC->Unknown_7859F0(Unknown370->Unknown18);
-			Unknown_5502F0();
+			Unknown370->Unknown_585C90(); Unknown0BC->Unknown_7859F0(Unknown370->Get_Unknown18()); Unknown_5502F0();
 			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown_551BF0();
-			return(true);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x16:
+			Unknown374->Unknown_585CC0(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x17:
-			if (key == 0x16) Unknown374->Unknown_585CC0(); else Unknown374->Unknown_585C90();
-			Unknown0BC->Unknown_77FCE0(Unknown374->Unknown18, true);
-			TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
-			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown_551BF0();
-			return(true);
+			Unknown374->Unknown_585C90(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x18:
+			Unknown378->Unknown_585CC0(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x19:
-			if (key == 0x18) Unknown378->Unknown_585CC0(); else Unknown378->Unknown_585C90();
-			Unknown0BC->Unknown_77FC90(Unknown378->Unknown18, true);
-			TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
-			Unknown0B8->Unknown_84(Unknown0BC);
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown_551BF0();
-			return(true);
+			Unknown378->Unknown_585C90(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x1A:
 		case 0x1B:
 			Unknown_5513E0("fa_avatar_color.tga");
@@ -841,7 +841,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.69: dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
+// NOT EXACT: register (0.73 with the value through Get_Unknown18(): dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
 // 0x54E950
 void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 {
@@ -852,7 +852,7 @@ void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
 			Unknown368->Unknown_585C90();
 		}
 	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
-	Unknown0BC->Unknown_77FC20(Unknown368->Unknown18, true);
+	Unknown0BC->Unknown_77FC20(Unknown368->Get_Unknown18(), true);
 	Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
 	Unknown0B8->Unknown_84(Unknown0BC);
 	Unknown_551BF0();
