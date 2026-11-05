@@ -9821,11 +9821,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_625440` | `app/client/ui_shipcust.cpp:1590` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0A` | `app/client/ui_shipcust.cpp:1603` | untagged neutral name (D10) |
 | 1 | `Unknown_625760` | `app/client/ui_shipcust.cpp:1615` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1628` | untagged neutral name (D10) |
-| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1629` | untagged neutral name (D10) |
+| 1 | `Unknown_6259C0` | `app/client/ui_shipcust.cpp:1626` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1633` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/ui_shipcust.cpp:1634` | untagged neutral name (D10) |
 | 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1641` | untagged neutral name (D10) |
-| 1 | `Unknown_6259C0` | `app/client/ui_shipcust.cpp:1654` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1659` | untagged neutral name (D10) |
 | 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1700` | untagged neutral name (D10) |
 | 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1800` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1839` | untagged neutral name (D10) |

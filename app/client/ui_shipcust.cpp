@@ -638,10 +638,10 @@ ShipCustomizeInterface::~ShipCustomizeInterface()
 	}
 	Unknown268 = NULL;
 	CharacterView->Unknown_67A9B0(0);
-	void (ShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ShipCustomizeInterface::Unknown_628900;
-	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
-	ShipCustCallbackClass callback(this, function);
-	notifier->Remove(0, callback);
+	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &ShipCustomizeInterface::Unknown_628900, FlashingGadgetEvent(NULL));
+
+
+
 }
 
 
@@ -1618,18 +1618,18 @@ void ShipCustomizeInterface::Unknown_625760(bool on)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6257A0
 void ShipCustomizeInterface::Unknown_6257A0(int id)
 {
-	short group = Gadgets[id].Group;
-	for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
-		if (it->second.Group == group) {
-			it->second.Gadget->Unknown2C_0B = 0;
-			it->second.Gadget->Unknown_6607D0();
-			it->second.Selected = false;
-		}
-	}
+
+	Unknown_6259C0(Gadgets[id].Group);
+
+
+
+
+
+
 	Gadgets[id].Gadget->Unknown2C_0B = 1;
 	Gadgets[id].Gadget->Unknown_6603A0(false, NULL);
 	Gadgets[id].Selected = true;
