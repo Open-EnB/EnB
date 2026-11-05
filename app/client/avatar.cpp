@@ -828,10 +828,42 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
 // for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
 // colour onto its hair and beard, then the head object is cloned again (0x77F750)
-// NOT EXACT: functional for POC (D64), inline-budget (the client keeps the hair loop on name with 0x77FEC0 / 0x7802F0 out of line, inlines only the beard 0x7802F0; frame 0xec vs 0xa8)
+// NOT EXACT: functional for POC (D64), inline-budget (the four removals through 0x789FE0 as the client inlines it: 0.47 -> 0.64; the client keeps the hair loop on name with 0x77FEC0 / 0x7802F0 out of line)
 void CharacterViewAvatarClass::Unknown_77F000(int num)
 {
 	char name[64];
@@ -842,49 +874,17 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		return;
 	}
 	if (HeadSource) {
-		const char *part = "HAIR";
-		if (HairSource && HeadSource && part) {
-			for (i = 0; i < 5; i++) {
-				_snprintf(name, 0x40, "%s%d", part, i);
-				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-				if (robj) {
-					HeadSource->Remove_Sub_Object(robj);
-					robj->Release_Ref();
-				}
-			}
+		if (HairSource) {
+			Unknown_789FE0("HAIR");
 		}
-		part = "EAR";
-		if (Unknown2CC && HeadSource && part) {
-			for (i = 0; i < 5; i++) {
-				_snprintf(name, 0x40, "%s%d", part, i);
-				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-				if (robj) {
-					HeadSource->Remove_Sub_Object(robj);
-					robj->Release_Ref();
-				}
-			}
+		if (Unknown2CC) {
+			Unknown_789FE0("EAR");
 		}
-		part = "GOGGLE";
-		if (GoggleSource && HeadSource && part) {
-			for (i = 0; i < 5; i++) {
-				_snprintf(name, 0x40, "%s%d", part, i);
-				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-				if (robj) {
-					HeadSource->Remove_Sub_Object(robj);
-					robj->Release_Ref();
-				}
-			}
+		if (GoggleSource) {
+			Unknown_789FE0("GOGGLE");
 		}
-		part = "BEARD";
-		if (BeardSource && HeadSource && part) {
-			for (i = 0; i < 5; i++) {
-				_snprintf(name, 0x40, "%s%d", part, i);
-				RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-				if (robj) {
-					HeadSource->Remove_Sub_Object(robj);
-					robj->Release_Ref();
-				}
-			}
+		if (BeardSource) {
+			Unknown_789FE0("BEARD");
 		}
 		HeadSource = NULL;
 	}
@@ -989,17 +989,7 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCoun
 	FAIL_IF(!HeadSource) {
 		return;
 	}
-	char name[64];
-	if (HeadSource && part) {
-		for (int i = 0; i < 5; i++) {
-			_snprintf(name, 0x40, "%s%d", part, i);
-			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
-			if (robj) {
-				HeadSource->Remove_Sub_Object(robj);
-				robj->Release_Ref();
-			}
-		}
-	}
+	Unknown_789FE0(part);
 	if (*slot) {
 		*slot = NULL;
 
@@ -1223,6 +1213,16 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 	}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3627,6 +3627,22 @@ void CharacterViewAvatarClass::Unknown_789D80(RefCountPtr<RenderObjClass> *slot,
 						break;
 					}
 				}
+			}
+		}
+	}
+}
+
+// 0x789FE0
+void CharacterViewAvatarClass::Unknown_789FE0(const char *part)
+{
+	if (HeadSource && part) {
+		char name[64];
+		for (int i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "%s%d", part, i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				HeadSource->Remove_Sub_Object(robj);
+				robj->Release_Ref();
 			}
 		}
 	}

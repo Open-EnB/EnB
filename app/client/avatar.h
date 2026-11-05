@@ -61,6 +61,7 @@ public:
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
 	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
+	void Unknown_789FE0(const char *part);				// 0x789FE0 (the head prototype's '<part>0'..'<part>4' removed and released; 0x77F000 / 0x77F960 inline it)  // NAME 1 [part]: neutral
 	void Unknown_781800(Unknown_ChatStreamClass *stream);	// 0x781800 (+0xE8 emptied, then stream's bytes copied in; unreferenced)  // NAME 1 [stream]: neutral
 	void Unknown_781840(const void *data, int size);	// 0x781840 (+0xE8 emptied, then the bytes copied in; 0x784B80 inlines it)  // NAME 1 [data, size]: neutral
 	void Unknown_77E370(const char *name);				// 0x77E370 (Desc's First_Name through 0x4C1460, converted; unreferenced)  // NAME 1 [name]: neutral
