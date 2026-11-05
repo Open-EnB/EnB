@@ -597,7 +597,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown_625A60(Page);
 	Ship.Unknown_6211D0(CharacterView->Unknown3A4);
 	Ship.Unknown_621390(Unknown264, Unknown268);
-	Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
+	Ship.Unknown_621500();
 	TheDX8MeshRenderer.Invalidate();
 	void (ShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ShipCustomizeInterface::Unknown_628900;
 	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
@@ -645,7 +645,7 @@ ShipCustomizeInterface::~ShipCustomizeInterface()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x622FC0
 void ShipCustomizeInterface::Unknown_60()
 {
@@ -654,7 +654,7 @@ void ShipCustomizeInterface::Unknown_60()
 		NameGadget->Changed = false;
 		if (changed) {
 			_snprintf(Ship.Desc.Ship_Name, 0x1A, "%s", NameGadget->Get_Text());
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
+			Ship.Unknown_621500();
 			NameGadget->Changed = true;
 		}
 		NameGadget->Unknown_6AAD10();
@@ -1259,7 +1259,7 @@ void ShipCustomizeInterface::Unknown_6249D0(bool on)
 	for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
 		it->second.Gadget->Unknown_40(on);
 		if (it->second.Style != NULL) {
-			Unknown_BE67C4->Get_Style(it->second.Style, CharacterView->ViewRObjs[0])->Unknown_Set_2FC(on ? 1.0f : 0.33f);
+			FontSys *font = Unknown_BE67C4->Get_Style(it->second.Style, CharacterView->ViewRObjs[0]); font->Unknown_Set_2FC(on ? 1.0f : 0.33f);
 		}
 	}
 	if (Unknown24C != NULL) {
@@ -1282,7 +1282,7 @@ void ShipCustomizeInterface::Unknown_624AE0(const char *style, bool on)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624B50
 void ShipCustomizeInterface::Unknown_624B50(int id, const char *name, const char *style, short key, short group)
 {
@@ -1291,9 +1291,9 @@ void ShipCustomizeInterface::Unknown_624B50(int id, const char *name, const char
 	GadgetClass *button = new ButtonGadgetClass(sub, *Layer, 5, 3);
 	ShipCustGadgetStruct entry;
 	entry.Gadget = button;
-	entry.Id = id;
 	entry.Name = name;
 	entry.Style = style;
+	entry.Id = id;
 	entry.Key = key;
 	entry.Group = group;
 	entry.Selected = false;
@@ -1393,7 +1393,7 @@ void ShipCustomizeInterface::Unknown_624E50()
 		if (Page == 1) {
 			Ship.Unknown_6211D0(CharacterView->Unknown3A4);
 		} else {
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
+			Ship.Unknown_621500();
 		}
 	}
 	Unknown24C->Gadget->Unknown_671630();
@@ -1982,7 +1982,7 @@ void ShipCustomizeInterface::Unknown_627200()
 			Unknown_627730(color.X, color.Y, color.Z);
 			Unknown_6251F0(Ship.Desc.Unknown3C.X, Ship.Desc.Unknown3C.Y);
 			Unknown_625260();
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
+			Ship.Unknown_621500();
 			Unknown_6277A0();
 			return;
 		}
