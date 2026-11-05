@@ -122,7 +122,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7859F0(int num);						// 0x7859F0 (Tattoo_Texture_Num's 'ATATTOO%02d.tga' onto HEAD0..4, stage 1)  // NAME 1 [num]: neutral
 	void Unknown_785C00(const Vector3 &offset);			// 0x785C00 (Tattoo_Offset: a linear offset mapper on HEAD0..4's stage 1)  // NAME 1 [offset]: neutral
 	void Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot);	// 0x77F960 ('%s%s%s%02d': gender, race, part, num; 'HAIR' +0x2C8, 'EAR' +0x2CC, 'GOGGLE' +0x2D0, 'BEARD' +0x2D4)  // NAME 1 [part, num, slot]: neutral
-	void Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
+	void Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index);	// 0x77FEC0 (the colour onto vertex material index)  // NAME 1 [robj, color, index]: neutral
 	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (Hair_Color onto HAIR0..4 and BEARD0..4)  // NAME 1 [color, rebuild]: neutral
 	void Unknown_7802F0(const Vector3 &color, bool rebuild);	// 0x7802F0 (Beard_Color onto BEARD0..4)  // NAME 1 [color, rebuild]: neutral
 	void Unknown_789D80(RefCountPtr<RenderObjClass> *slot, const char *part);	// 0x789D80 (the accessory's '<part>0..4' meshes into the head prototype's LODs)  // NAME 1 [slot, part]: neutral

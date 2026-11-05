@@ -288,10 +288,10 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				char beard_name[64];
 				for (int beard = 0; beard < 5; beard++) {
 					_snprintf(beard_name, 0x40, "BEARD%d", beard);
-					RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(beard_name);
+					RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(beard_name));
 					if (robj) {
 						Unknown_77FEC0(&robj, Desc.Beard_Color, 0);
-						robj->Release_Ref();
+
 					}
 				}
 				Unknown_77F750();
@@ -874,10 +874,10 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		Unknown_789D80(&HairSource, "HAIR");
 		for (i = 0; i < 5; i++) {
 			_snprintf(name, 0x40, "HAIR%d", i);
-			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
 			if (robj) {
 				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
-				robj->Release_Ref();
+
 			}
 		}
 		Unknown_7802F0(Desc.Hair_Color, false);
@@ -893,10 +893,10 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		Desc.Beard_Color = Desc.Hair_Color;
 		for (i = 0; i < 5; i++) {
 			_snprintf(name, 0x40, "BEARD%d", i);
-			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
 			if (robj) {
 				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
-				robj->Release_Ref();
+
 			}
 		}
 	}
@@ -1023,7 +1023,7 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCoun
 }
 
 // 0x77FC20: Hair_Num's hair ('HAIR'), Hair_Color onto it, then (rebuild) the head object cloned again
-// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+// (exact once 0x77FFA0 / 0x77FEC0 hold RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_77FC20(int num, bool rebuild)
 {
 	Desc.Hair_Num = (char)num;
@@ -1055,7 +1055,7 @@ void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
 }
 
 // 0x77FD30: Beard_Num's beard ('BEARD'), Beard_Color onto it, then (rebuild) the head object cloned again
-// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+// (exact once 0x7802F0 / 0x77FEC0 hold RefCountPtrs)
 void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
 {
 	Desc.Beard_Num = (char)num;
@@ -1067,11 +1067,11 @@ void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
 }
 
 // 0x77FEC0: the colour onto the mesh's vertex material (ambient and diffuse)
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls)
-void CharacterViewAvatarClass::Unknown_77FEC0(RenderObjClass **robj, const Vector3 &color, int index)
+// (robj a RefCountPtr slot; the material info a RefCountPtr local, Create_Get 0x47D370)
+void CharacterViewAvatarClass::Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index)
 {
 	if (*robj) {
-		MaterialInfoClass *info = (*robj)->Get_Material_Info();
+		RefCountPtr<MaterialInfoClass> info = Create_Get((*robj)->Get_Material_Info());
 		if (info) {
 			VertexMaterialClass *material = info->Peek_Vertex_Material(index);
 			if (material) {
@@ -1079,15 +1079,15 @@ void CharacterViewAvatarClass::Unknown_77FEC0(RenderObjClass **robj, const Vecto
 				material->Set_Diffuse(color);
 			}
 		}
-		Unknown_496AE0(*robj, true);
-		if (info) {
-			info->Release_Ref();
-		}
+		Unknown_496AE0(robj->Peek(), true);
+
+
+
 	}
 }
 
 // 0x77FFA0: the hair colour onto the head prototype's HAIR0..4 and BEARD0..4 meshes; rebuild: 0x77F750
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
+// (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 and 0x7802F0 inline)
 void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
@@ -1095,10 +1095,10 @@ void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild
 	Desc.Hair_Color = color;
 	for (i = 0; i < 5; i++) {
 		_snprintf(name, 0x40, "HAIR%d", i);
-		RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+		RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
 		if (robj) {
 			Unknown_77FEC0(&robj, color, 0);
-			robj->Release_Ref();
+
 		}
 	}
 	Unknown_7802F0(color, false);
@@ -1108,17 +1108,17 @@ void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild
 }
 
 // 0x7802F0: the beard colour onto the head prototype's BEARD0..4 meshes; rebuild: 0x77F750
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
+// (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 inline)
 void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
 	Desc.Beard_Color = color;
 	for (int i = 0; i < 5; i++) {
 		_snprintf(name, 0x40, "BEARD%d", i);
-		RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+		RefCountPtr<RenderObjClass> robj = Create_Get(HeadSource->Get_Sub_Object_By_Name(name));
 		if (robj) {
 			Unknown_77FEC0(&robj, color, 0);
-			robj->Release_Ref();
+
 		}
 	}
 	if (rebuild) {
@@ -1127,7 +1127,7 @@ void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild
 }
 
 // 0x7804A0: the eye colour onto the head object's LEYE010..4 and REYE010..4 meshes (vertex material 1)
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline)
+// (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 inline)
 void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 {
 	Desc.Eye_Color = color;
@@ -1136,10 +1136,10 @@ void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 			for (int i = 0; i < 5; i++) {
 				char name[32];
 				_snprintf(name, 0x20, "%sEYE01%d", Unknown_B9CD44[side], i);
-				RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(name);
+				RefCountPtr<RenderObjClass> robj = Create_Get(HeadObj->Get_Sub_Object_By_Name(name));
 				if (robj) {
 					Unknown_77FEC0(&robj, color, 1);
-					robj->Release_Ref();
+
 				}
 			}
 		}

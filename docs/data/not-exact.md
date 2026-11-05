@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-556 entries in 130 files.
+550 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -21,12 +21,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:550` | `CharacterViewAvatarClass::Unknown_77D9F0` | marker | NOT EXACT: shape (the client loads +0x234 again in each branch) |
 | `app/client/avatar.cpp:761` | `CharacterViewAvatarClass::Unknown_77E9D0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
 | `app/client/avatar.cpp:827` | `CharacterViewAvatarClass::Unknown_77F000` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries) |
-| `app/client/avatar.cpp:1026` | `CharacterViewAvatarClass::Unknown_77FC20` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
-| `app/client/avatar.cpp:1058` | `CharacterViewAvatarClass::Unknown_77FD30` | marker | NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string) |
-| `app/client/avatar.cpp:1070` | `CharacterViewAvatarClass::Unknown_77FEC0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls) |
-| `app/client/avatar.cpp:1090` | `CharacterViewAvatarClass::Unknown_77FFA0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
-| `app/client/avatar.cpp:1111` | `CharacterViewAvatarClass::Unknown_7802F0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
-| `app/client/avatar.cpp:1130` | `CharacterViewAvatarClass::Unknown_7804A0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr calls; 0x77FEC0 inline) |
 | `app/client/avatar.cpp:1175` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1486` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
