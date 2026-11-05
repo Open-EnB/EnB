@@ -425,7 +425,8 @@ yield, a task removing itself during its Run is shut down and deleted after it (
 another removed from inside a Run is deleted at once, Shutdown asks the focused task to yield,
 then shuts down and deletes every task, and the asserts fire on their lines (157: added twice; 74:
 a second kernel). 2026-10-24: 35 of 35 expected lines in order; 2026-11-02 (56d6c356, after it had stopped
-linking at 6a08fe5d): 81 of 81 expected lines in order (100 lines in all).
+linking at 6a08fe5d): 81 of 81 expected lines in order (100 lines in all). 2026-11-04: 81 of 81 again, after kerneltest.cpp's
+stand-in for the asset manager became `WW3DAssetManager::TheInstance` (kernel.cpp's since c759a57b).
 
 ## The client base, SClient and the packet handlers (D94(c), kernel-map step 9d)
 

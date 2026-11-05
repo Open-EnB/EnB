@@ -4,6 +4,21 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-04 (night): kerneltest links again (81 of 81); build.py builds wwlib again
+
+- **Cause (`/VERBOSE` link):** c759a57b pointed kernel.cpp's Shutdown at `WW3DAssetManager::Get_Instance()`
+  (`TheInstance`, 0xBFAEE0); kerneltest.cpp still defined the old `Unknown_BFAEE0`, so `TheInstance` pulled
+  ww3d2.lib(assetmgr.obj), whose loaders and textures reach `WW3D::SyncTime`, i.e. ww3d.obj, which clashes with
+  taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device (LNK2005).
+- **Fix (tests/ only):** kerneltest.cpp defines `WW3DAssetManager::TheInstance` as its traced slot-0x10 object (Release_Unused_Assets);
+  no ww3d2 object is linked now. `kerneltest.py run`: 81 of 81 expected lines in order.
+- **build.py:** library builds stopped at wwlib since P-B2's FILE_FLAGS (rawfile.cpp `/GX`, 2026-11-02): one `cl` per
+  flag set now. All eleven libraries built (0 failed). No library source changed, so no verify / pairs_cmp.
+- Traps filed (workflow.md 3.7). PR on branch `kerneltest-link`.
+- **Next session:** after #161 merges, one section 4 item: POC character creation's leftovers, starting with the smallest
+  (ui_avatar_cust.cpp:63 declares 0x495FD0 `void`, ro_funcs's is `bool`: retype so it links to the real function, as
+  c759a57b did for ui_avsel's 0x496110; check with `.work/coord/pocfull.sh`). The Create_Get item is done (#159).
+
 ### 2026-11-04 (evening): P-CGP-1 applied (D192); +58 pairs, +2 tie-break, 1 accepted loss
 
 - **objmatch (D192):** the D100 range round keeps only survivors the object's own exact functions' relocated calls to the
@@ -2526,9 +2541,6 @@ below name only the work items, the blocked work, the leads and the queues.
      frame only (0xAC vs 0x9C), inline budget 0x567DF0 / 0x567760 / 0x563280 / 0x565390, register 0x5630B0 / 0x5AFCD0 /
      0x5B4850, order 0x5AFA00; 0x563910 calls AvatarPipUnknown2CClass::Unknown_77E3D0, the client's symbol is
      CharacterViewAvatarClass's (a naming fix).
-   * kerneltest does not link (seen 2026-11-03 at c9403bfe): ww3d2.lib(ww3d.obj) is pulled in and clashes with
-     tests/kerneltest/taskstest.cpp's WW3D::Begin_Render / End_Render / Unknown_Restore_Device stand-ins; find the
-     symbol that now pulls ww3d.obj (`/VERBOSE` link) and stub it, or drop the stand-ins for the real ones.
    * Tools (from the 2026-10-31 t4 run, TK12, still open): claims.py resolve / check should count attempts.csv
      `exact` (D99) rows as done (mainview's #111 was handed out though LD4 finished it; on 2026-11-01 its per-file
      counts still include the night's D99 rows); LD4's D99 rows 0x514D30 / 0x514D50 / 0x514D70 carry stale names

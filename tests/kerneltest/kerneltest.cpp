@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "kernel.h"
+#include "assetmgr.h"
+#undef Yield	// winbase.h's (through assetmgr.h); TestTask has a member of that name
 
 static FILE *Out;
 unsigned int Clock = 1000;
@@ -44,6 +46,9 @@ public:
 };
 static ENBAssetManager BDADC0;
 ENBAssetManager *AssetManager = &BDADC0;
+// WW3DAssetManager::TheInstance (0xBFAEE0): Shutdown calls its slot +0x10, Release_Unused_Assets. This
+// object stands in for it, so ww3d2.lib(assetmgr.obj), and through it ww3d.obj (taskstest.cpp's
+// WW3D::Begin_Render / End_Render), stays out of the link
 class UnknownBFAEE0Class
 {
 public:
@@ -54,7 +59,7 @@ public:
 	virtual void Unknown_10() { fprintf(Out, "BFAEE0 slot 0x10\n"); }
 };
 static UnknownBFAEE0Class BFAEE0;
-UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
+WW3DAssetManager *WW3DAssetManager::TheInstance = (WW3DAssetManager *)&BFAEE0;
 void Unknown_Assert_Failed(const char *expr, const char *, int line)
 {
 	Asserts++;

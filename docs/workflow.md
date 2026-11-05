@@ -1150,6 +1150,16 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **A test's stand-in goes stale when app code is pointed at a library symbol (kerneltest, 2026-11-04):** c759a57b
+  replaced kernel.cpp's `Unknown_BFAEE0` with `WW3DAssetManager::Get_Instance()`; kerneltest.cpp still defined the old
+  global, so the link pulled ww3d2.lib(assetmgr.obj) and, a chain later, ww3d.obj, which clashes with taskstest.cpp's
+  WW3D stand-ins (LNK2005). A rename or retype that touches a file a test compiles (kerneltest.py SOURCES, clienttest's
+  list) moves the test's stand-in too. Which symbol pulled an object: link with `/VERBOSE` (`set LINK=/VERBOSE` in the
+  link batch; `Found X / Referenced in Y / Loaded lib(obj)` chains back to the program's own object).
+* **`build.py` compiles one `cl` per flag set (2026-11-04):** FILE_FLAGS (wwlib's rawfile.cpp `/GX`, P-B2) had made
+  `build.py` stop at wwlib's flag assert since 2026-11-02, so `build/wwlib` stayed old; libraries built before then
+  are stale.
+
 * **POC and the retail reference (2026-11-04 night run, LIGHT, CRE2, SHIP, DEC, CTFIX):** `build.py link --out DIR` reads
   the libraries from DIR (`<lib>\<lib>.lib`, `_sys`): copy the worktree's `build\*\*.lib` there first. `clienttest.py build`
   needs ENB_VC6_HOSTS (`pool.py lease --agent ID` prints it; `--agent` is required). clienttest links the worktree's whole

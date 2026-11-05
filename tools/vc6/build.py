@@ -127,25 +127,32 @@ def compile_lines(lib, paths):
         defines = app['defines']
     else:
         defines = vc6.DEFAULT_DEFINES
-    flags = I.flags_for(paths)
-    cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines] + checked_flags()[1]
-    return dirs, setup, cmd, srcs
+    # one cl per flag set: FILE_FLAGS gives a file other flags than its library's (wwlib's rawfile.cpp, P-B2)
+    assert len(srcs) == len(paths)
+    by_flags = collections.OrderedDict()
+    for p, f in zip(paths, srcs):
+        by_flags.setdefault(I.flags_of(p), []).append(f)
+    tail = [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines] + checked_flags()[1]
+    return dirs, setup, [([flags] + tail, group) for flags, group in by_flags.items()]
 
 
 def build_lib(lib, out):
     paths = sources(lib)
-    dirs, setup, cmd, srcs = compile_lines(lib, paths)
+    dirs, setup, groups = compile_lines(lib, paths)
     vc6.sync(dirs)
     work = f'{vc6.WORK}\\build_{lib}'
-    rsp = f'{work}\\cl.rsp'
-    # the command line goes into a response file (ww3d2's is long); cl expands it as typed
-    rsp_text = '\r\n'.join(cmd + [f'/Fo"{work}\\obj\\\\"'] + [f'"{f}"' for f, _ in srcs]) + '\r\n'
-    local_rsp = os.path.join(os.environ.get('TEMP', '.'), f'enb_build_{lib}_{vc6._tag()}.rsp')
-    open(local_rsp, 'w', newline='').write(rsp_text)
     vc6.run_bat([f'if exist "{work}" rmdir /s /q "{work}"', f'mkdir "{work}\\obj"'])
-    vc6.scp(local_rsp, vc6.remote(rsp))
-    p = vc6.run_bat(list(setup) + [
-        f'cl @"{rsp}" > "{work}\\cl.log" 2>&1',
+    cl_lines = []
+    for n, (cmd, srcs) in enumerate(groups):
+        rsp = f'{work}\\cl{n}.rsp'
+        # the command line goes into a response file (ww3d2's is long); cl expands it as typed
+        rsp_text = '\r\n'.join(cmd + [f'/Fo"{work}\\obj\\\\"'] + [f'"{f}"' for f, _ in srcs]) + '\r\n'
+        local_rsp = os.path.join(os.environ.get('TEMP', '.'), f'enb_build_{lib}_{n}_{vc6._tag()}.rsp')
+        open(local_rsp, 'w', newline='').write(rsp_text)
+        vc6.scp(local_rsp, vc6.remote(rsp))
+        os.remove(local_rsp)
+        cl_lines.append(f'cl @"{rsp}" >> "{work}\\cl.log" 2>&1')
+    p = vc6.run_bat(list(setup) + cl_lines + [
         f'cd /d "{work}\\obj"',
         f'dir /b *.obj > ..\\objs.rsp 2>nul',
         f'lib /nologo /out:..\\{lib}.lib @..\\objs.rsp > ..\\lib.log 2>&1',
