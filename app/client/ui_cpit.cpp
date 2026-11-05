@@ -1934,9 +1934,9 @@ bool UICpitClass::Unknown_584000(bool report)
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
 void UICpitClass::Unknown_584110()
 {
-	RefCountPtr<FontSys> warpfont = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
-	RefCountPtr<FontSys> distressfont = Create_Get(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", Mesh->Peek_Object()));
-	RefCountPtr<FontSys> spacefont = Create_Get(Unknown_BE67C4->Get_Style("SPACE_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> warpfont = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> distressfont = Create_Peek(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> spacefont = Create_Peek(Unknown_BE67C4->Get_Style("SPACE_CPIT", Mesh->Peek_Object()));
 
 
 
@@ -2004,7 +2004,7 @@ void UICpitClass::Unknown_584110()
 // 0x5845A0: the WARP_CPIT text dimmed while the warp button is off
 void UICpitClass::Unknown_5845A0()
 {
-	RefCountPtr<FontSys> style = Create_Get(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
 	if (style) {
 		FontSys *font;
 		if (Unknown0B4->Unknown_60()) {

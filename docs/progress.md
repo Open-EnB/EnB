@@ -4,6 +4,23 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-04 (evening): P-CGP-1 applied (D192); +58 pairs, +2 tie-break, 1 accepted loss
+
+- **objmatch (D192):** the D100 range round keeps only survivors the object's own exact functions' relocated calls to the
+  symbol reach, when they reach any (`obj_called`). ui_cpit's Create_Peek<FontSys> 0x546510 no longer competes with the
+  same-bytes Create_Peek<VertexMaterialClass> for 0x584DF0, which stays held.
+- **ui_cpit:** 0x584110 (WARP / DISTRESS / SPACE_CPIT) and 0x5845A0 (WARP_CPIT) peek Get_Style's FontSys as the client
+  does (Create_Peek 0x546510): Create_Get released a reference it never took.
+- **Pairs** (full verify vs d9b9a17b): +58 (app, ww3d2: attrib_dir, client_lego_impl, co_player_relationship, fontmanager,
+  ui_line_display, ringobj and others), tie-break +2 (avatar 0x62A5D0, client_lego_impl 0x730090); lost outright 0x780AC0
+  (avatar), as the proposal measured and D192 accepts. The proposal's +91 was measured on an earlier base. The CGP
+  worktree's patches were gone (worktree removed); both were rewritten from the proposal's text.
+- **Verified:** full `importer.py verify --pool 1` + pairs_cmp (above). Not run: clienttest, udpreplay, POC (the ui_cpit
+  change is a runtime refcount fix in the cockpit's warp / distress text, not reached by the POC's flow). PR #159
+  (branch `pcgp1`, ff0c5213 and this entry) waits for `vc6-verify` and the user's merge.
+- **Next session:** after #159 merges, one section 4 item: kerneltest's link failure (ww3d.obj pulled in; `/VERBOSE` link
+  to find the symbol), the smallest open item.
+
 ### 2026-11-04 (15:45 PST, day): nineteen builders on NOT EXACT code and strong-hint files; five new files; +570 pairs (+801 in PR #158), 0 lost outright
 
 Coordinator Opus 5.5 (the user away; weekly 12 % -> 19 %, goal 21 % by 16:00); branch run/2026-11-04 (PR #158, back in
@@ -2299,6 +2316,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D189 | 2026-11-03 | TW3 proposal (c) accepted: symbols.py drops an exact entry that lies inside another exact entry of the same symbol (stale mid-function matches such as WW3D::Render 0x917C5C, RegistryClass::Set_Bin 0x9D18D9, Delete_Value 0x9D1C29, left by versions without E&B's early-out guard); and objmatch credits a match only at a known function start or right after padding / another function's end, never inside a function. Proposal (b) (source-order tie-break for byte-identical overload twins) is left open. |
 | D190 | 2026-11-04 | P-LIGHT-1 approved: `clientpoc.py replay --retail` runs a copy of the retail client.exe (copied out of the install folder, D143) with a d3d8shot build that has poc_input-style user32 hooks (D3D8SHOT_INPUT=1) and a BM_CLICK on the terms box's "I Agree" (the dialog's own input, D69), so any builder can take a retail reference shot or draw dump on the same replay. From LIGHT's `.work/wt/light/.work/light/` (agree.py, build_d3d8in.py, cpoc_retail.py, cmp2.py / cmp3.py) | user |
 | D191 | 2026-11-04 | P-QUIT-2 approved: `clientpoc.py replay` prints whether the client exited and when (antprox.out's "Client exited" line against the last input's time), as `run` does | user |
+| D192 | 2026-11-04 | P-CGP-1 approved: objmatch's D100 range round drops a survivor the object's own exact functions contradict (their relocated calls to the symbol reach other addresses only), so two same-bytes COMDATs of one object no longer both propose one address; with it ui_cpit 0x584110 / 0x5845A0 take the client's Create_Peek (0x546510). The one loss, avatar 0x780AC0 (ColorizationHalfStruct::operator=) moving to the shared 0x62A5D0 that the exact `vector<ColorizationRegionStruct>::insert` 0x62A0A0 calls, is accepted | user |
 
 ## 3. Open decisions
 
@@ -2332,16 +2350,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
   pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
   minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
   names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
-* **P-CGP-1** (2026-11-04, CGP; recommend yes): objmatch's D100 range round drops a candidate address when the object's
-  exact callers' relocated calls to that symbol reach a different address. Cause: ui_cpit's Create_Get -> Create_Peek fix
-  (0x584110 lines 1937-1939, 0x5845A0 line 2007: the client calls Create_Peek 0x546510; today the cockpit warp / distress
-  text releases a FontSys once too often) leaves two same-bytes COMDATs (Create_Peek<VertexMaterialClass> /
-  <FontSys>) proposing 0x584DF0, so neither is credited (-1). Measured on a full verify with the fix: +91 pairs (app,
-  ww3d2), 0x584DF0 kept, 1 loss: avatar 0x780AC0 (ColorizationHalfStruct::operator=) moves to the shared 0x62A5D0, where
-  the exact `vector<ColorizationRegionStruct>::insert` 0x62A0A0 calls it (evidence-backed, but a loss: yours to accept).
-  Patches `.work/wt/cgp/.work/objmatch_pcgp1.patch`, `.work/wt/cgp/.work/cpit_peek.patch`; gains `.work/wt/cgp/.work/pcgp1_gains.txt`.
-  A tools change.
-
 ## 4. Next steps
 
 Outstanding work only (rewritten 2026-10-31: what is done went to the log entries, which hold each item's
@@ -2514,8 +2522,7 @@ below name only the work items, the blocked work, the leads and the queues.
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
      0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
      places them.
-   * Create_Get / Create_Peek: ui_cpit.cpp 1937-1939 (0x584110) / 2007 (0x5845A0) Get -> Peek waits for P-CGP-1 (it costs
-     0x584DF0 without it). ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
+   * ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
      frame only (0xAC vs 0x9C), inline budget 0x567DF0 / 0x567760 / 0x563280 / 0x565390, register 0x5630B0 / 0x5AFCD0 /
      0x5B4850, order 0x5AFA00; 0x563910 calls AvatarPipUnknown2CClass::Unknown_77E3D0, the client's symbol is
      CharacterViewAvatarClass's (a naming fix).

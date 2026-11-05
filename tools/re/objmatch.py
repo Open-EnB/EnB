@@ -34,7 +34,10 @@ strictly nearest to it (inside it counts as 0; a tie widens none). Measured 2026
 it to every holder lets a later object's range reach over the first object's code (inpkeys' range
 over inpdsp's basic_string copies at 0x42A820) and two objects' tied functions then propose one
 address (inpdsp's 0x42A900, 0x42AAE0 lost). It runs only when D80 and the self name resolve
-nothing more; its credits feed D80's next round.
+nothing more; its credits feed D80's next round. A survivor the object's own exact functions
+contradict is not inside (P-CGP-1): when their relocated calls to the symbol reach other addresses
+only, the symbol is there, not at the survivor (two same-bytes COMDATs of one object would otherwise
+both propose one address and neither be credited).
 
 Such a COMDAT is `shared` (D183's guard): set on each holder's exact result; importer.py lists it in
 the file's `shared` list. A shared result is not placement evidence: a D166 caller tie-break that
@@ -592,11 +595,13 @@ def match_objects(img, paths, region=None, callers=False):
             elif typ == 0x14:
                 v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
                 called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)   # D188: a call's target
+                obj_called[(id(obj), sym['name'])].add(thunk.get(v, v) & 0xFFFFFFFF)   # P-CGP-1
             else:
                 continue
             known.setdefault(sym['name'], set()).add(thunk.get(v, v))
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
     vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
+    obj_called = collections.defaultdict(set)   # P-CGP-1: {(object, symbol): {addresses}} its exact functions call
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
@@ -683,6 +688,12 @@ def match_objects(img, paths, region=None, callers=False):
                     # an address another function is already exact at is not this one's (one client function
                     # is one source function)
                     inside = [h for h in survivors if lo <= h <= hi and not claimed[h] - {r['symbol']}]
+                    # P-CGP-1: nor one the object's own exact callers contradict (their relocated calls to
+                    # this symbol reach another address: ui_cpit's Create_Peek<FontSys> 0x546510, not the
+                    # same-bytes Create_Peek<VertexMaterialClass> 0x584DF0)
+                    reach = obj_called.get((id(obj), r['symbol']))
+                    if reach:
+                        inside = [h for h in inside if h in reach]
                     if len(inside) == 1:
                         proposals.append((item, inside[0]))
             by_addr = collections.defaultdict(set)
