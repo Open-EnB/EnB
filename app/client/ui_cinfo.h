@@ -7,8 +7,8 @@
 #include "..\..\wwlib\ref_ptr.h"
 class ButtonGadgetClass;
 class Unknown549640Class;	// the first tab (0x124 bytes; 'ATTRIBUTES_MENU')
-class Unknown5C4170Class;	// the second tab (0xEC bytes; 'MISSIONS_MENU')
-class Unknown58D080Class;	// the third tab (0xE4 bytes; 'FACTION_MENU')
+class UIMissnClass;			// ui_missn.h's missions tab (0xEC bytes; 'MISSIONS_MENU')
+class UIFactionClass;		// ui_faction.h's faction tab (0xE4 bytes; 'FACTION_MENU')
 class UIBioClass;			// ui_bio.h's bio tab (0xB0 bytes)
 // The character info window (0xD8 bytes, tables 0xAF06E4 / 0xAF06D8 / 0xAF06CC; 0x693230 makes it): a 'TSI15A' mesh,
 // the strings of 'fa_cinfo.ini', three tab buttons and an exit button (tooltips from section 'UI_CINFO') and four tabs
@@ -33,8 +33,8 @@ public:
 	int UnknownAC;										// +0xAC (the shown tab, 1..3; 0 none)
 	int UnknownB0;										// +0xB0 (the tab to show on activation; the constructor: 1)
 	RefCountPtr<Unknown549640Class> UnknownB4;			// +0xB4 (the first tab)
-	RefCountPtr<Unknown5C4170Class> UnknownB8;			// +0xB8 (the second tab)
-	RefCountPtr<Unknown58D080Class> UnknownBC;			// +0xBC (the third tab)
+	RefCountPtr<UIMissnClass> UnknownB8;				// +0xB8 (the second tab, ui_missn.cpp's)
+	RefCountPtr<UIFactionClass> UnknownBC;				// +0xBC (the third tab, ui_faction.cpp's)
 	RefCountPtr<UIBioClass> UnknownC0;					// +0xC0 (the bio tab)
 	ButtonGadgetClass *UnknownC4[MAX_BUTTONS];			// +0xC4 (the constructor fills 1..4: 'TSI15A.BUTTON00'..'02', 'TSI15A.EXIT')
 };

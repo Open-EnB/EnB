@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1213 |
+| 3 | by convention from a client-named file or sibling | 1225 |
 | 2 | describes what the code does | 3006 |
-| 1 | neutral placeholder | 13642 |
+| 1 | neutral placeholder | 13733 |
 
 ## For review (score 3 and below)
 
@@ -7727,22 +7727,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown265` | `app/client/ui_chat_panel.h:187` | untagged neutral name (D10) |
 | 1 | `Unknown266` | `app/client/ui_chat_panel.h:188` | untagged neutral name (D10) |
 | 1 | `Unknown267` | `app/client/ui_chat_panel.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_cinfo.cpp:14` | 0xBE67C4 |
-| 1 | `LineDisplayClientClass` | `app/client/ui_cinfo.cpp:17` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_cinfo.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_cinfo.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_cinfo.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_cinfo.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_cinfo.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_cinfo.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown549640Class` | `app/client/ui_cinfo.cpp:26` | neutral (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_cinfo.cpp:26` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/ui_cinfo.cpp:29` | as UIBioClass's |
-| 1 | `UnknownAC` | `app/client/ui_cinfo.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown5C4170Class` | `app/client/ui_cinfo.cpp:32` | neutral (D10) |
-| 1 | `client` | `app/client/ui_cinfo.cpp:35` | as UIBioClass's |
-| 1 | `Unknown58D080Class` | `app/client/ui_cinfo.cpp:38` | neutral (D10) |
-| 1 | `client` | `app/client/ui_cinfo.cpp:41` | as UIBioClass's |
+| 1 | `Unknown_BE67C4` | `app/client/ui_cinfo.cpp:16` | 0xBE67C4 |
+| 1 | `LineDisplayClientClass` | `app/client/ui_cinfo.cpp:19` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_cinfo.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_cinfo.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_cinfo.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_cinfo.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_cinfo.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_cinfo.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown549640Class` | `app/client/ui_cinfo.cpp:28` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_cinfo.cpp:28` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_cinfo.cpp:31` | as UIBioClass's |
+| 1 | `UnknownAC` | `app/client/ui_cinfo.cpp:32` | untagged neutral name (D10) |
 | 1 | `ButtonNames` | `app/client/ui_cinfo.cpp:52` | neutral (D10) |
 | 1 | `MenuNames` | `app/client/ui_cinfo.cpp:53` | neutral (D10) |
 | 1 | `UnknownB0` | `app/client/ui_cinfo.cpp:59` | untagged neutral name (D10) |
@@ -7775,8 +7771,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5742B0` | `app/client/ui_cinfo.cpp:354` | untagged neutral name (D10) |
 | 1 | `ui_cinfo.h` | `app/client/ui_cinfo.h:4` | provisional header name for ui_cinfo.cpp |
 | 1 | `Unknown549640Class` | `app/client/ui_cinfo.h:9` | untagged neutral name (D10) |
-| 1 | `Unknown5C4170Class` | `app/client/ui_cinfo.h:10` | untagged neutral name (D10) |
-| 1 | `Unknown58D080Class` | `app/client/ui_cinfo.h:11` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_cinfo.h:15` | untagged neutral name (D10) |
 | 1 | `MAX_BUTTONS` | `app/client/ui_cinfo.h:18` | the constructor's loop (buttons 1..4) |
 | 1 | `client` | `app/client/ui_cinfo.h:19` | what the base's 0x5BB320 takes |
@@ -8365,6 +8359,59 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown16C` | `app/client/ui_cpit.h:180` | untagged neutral name (D10) |
 | 1 | `Unknown170` | `app/client/ui_cpit.h:181` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_faction.cpp:15` | 0xBE67C4 |
+| 1 | `LineDisplayClientClass` | `app/client/ui_faction.cpp:18` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_faction.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_faction.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_faction.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_faction.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_faction.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_faction.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown58EB50Class` | `app/client/ui_faction.cpp:27` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_faction.cpp:27` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_faction.cpp:30` | as UIBioClass's |
+| 1 | `faction` | `app/client/ui_faction.cpp:31` | neutral |
+| 1 | `Unknown_58EFC0` | `app/client/ui_faction.cpp:31` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_faction.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown58E210Class` | `app/client/ui_faction.cpp:36` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_faction.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_faction.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Select` | `app/client/ui_faction.cpp:43` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_faction.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_faction.cpp:46` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_faction.cpp:50` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_faction.cpp:57` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_faction.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_faction.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_faction.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_faction.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_faction.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_58DC20` | `app/client/ui_faction.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_faction.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_faction.cpp:192` | untagged neutral name (D10) |
+| 1 | `ui_faction.h` | `app/client/ui_faction.h:4` | provisional header name for ui_faction.cpp |
+| 1 | `Unknown58EB50Class` | `app/client/ui_faction.h:11` | untagged neutral name (D10) |
+| 1 | `Unknown58E210Class` | `app/client/ui_faction.h:12` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_faction.h:15` | untagged neutral name (D10) |
+| 1 | `MAX_BUTTONS` | `app/client/ui_faction.h:18` | the constructor clears 7, 0x58D400 makes 6 (keys 1..6) |
+| 1 | `client` | `app/client/ui_faction.h:19` | as UIBioClass's |
+| 1 | `Unknown_54` | `app/client/ui_faction.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_faction.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_faction.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_faction.h:24` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_faction.h:25` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_faction.h:25` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_faction.h:26` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_faction.h:26` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_faction.h:27` | neutral |
+| 1 | `Unknown_58DC20` | `app/client/ui_faction.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_Select` | `app/client/ui_faction.h:28` | neutral (D10)  // NAME 1 [index]: neutral |
+| 1 | `UnknownAC` | `app/client/ui_faction.h:30` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_faction.h:33` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_faction.h:34` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_faction.h:35` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_faction.h:36` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_faction.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_group.cpp:21` | neutral (D10) |
 | 1 | `UIGroupAvatarClass` | `app/client/ui_group.cpp:22` | neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC) |
 | 1 | `Unknown` | `app/client/ui_group.cpp:22` | untagged neutral name (D10) |
@@ -9301,6 +9348,50 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BB4` | `app/client/ui_manu.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown0BB8` | `app/client/ui_manu.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown0BC0` | `app/client/ui_manu.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_missn.cpp:16` | 0xBE67C4 |
+| 1 | `Unknown5BB320Class` | `app/client/ui_missn.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_missn.cpp:21` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_missn.cpp:24` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_missn.cpp:25` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_missn.cpp:26` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_missn.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_missn.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_missn.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_missn.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_missn.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_missn.cpp:59` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/ui_missn.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_missn.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_5C5330` | `app/client/ui_missn.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_missn.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_5C5DB0` | `app/client/ui_missn.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_missn.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_missn.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_5C66D0` | `app/client/ui_missn.cpp:214` | untagged neutral name (D10) |
+| 1 | `ui_missn.h` | `app/client/ui_missn.h:4` | provisional header name for ui_missn.cpp |
+| 1 | `ViewUnknown34Class` | `app/client/ui_missn.h:11` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_missn.h:15` | untagged neutral name (D10) |
+| 1 | `MAX_GADGETS` | `app/client/ui_missn.h:20` | the constructor clears 5 (+0xD8..+0xE8) |
+| 1 | `client` | `app/client/ui_missn.h:21` | as UIBioClass's |
+| 1 | `Unknown_54` | `app/client/ui_missn.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_missn.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_missn.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_missn.h:26` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_missn.h:27` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_missn.h:27` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_missn.h:28` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_missn.h:28` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_missn.h:29` | neutral |
+| 1 | `Unknown_5C5330` | `app/client/ui_missn.h:29` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_missn.h:30` | neutral |
+| 1 | `Unknown_5C5DB0` | `app/client/ui_missn.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_5C6610` | `app/client/ui_missn.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5C66D0` | `app/client/ui_missn.h:32` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_missn.h:34` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_missn.h:37` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_missn.h:38` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_missn.h:39` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_missn.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -17008,7 +17099,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `manager` | `app/client/ui_chat_panel.h:81` | the FAIL_IF's |
 | 3 | `chat_int` | `app/client/ui_chat_panel.h:130` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 3 | `ChatInt` | `app/client/ui_chat_panel.h:159` | the assert's 'ChatInt.Peek()' |
-| 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:22` | the FAIL_IF's in ui_manu.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:24` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UICinfoClass` | `app/client/ui_cinfo.h:15` | class-from-file (D24) for app\Client\ui_cinfo.cpp |
 | 3 | `Get_Client` | `app/client/ui_cinfo.h:31` | the FAIL_IF's |
 | 3 | `Change_Text` | `app/client/ui_combobox.cpp:16` | the client's label |
@@ -17029,6 +17120,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HulkUI` | `app/client/ui_cpit.h:152` | the assert's |
 | 3 | `Scan` | `app/client/ui_cpit.h:155` | its file's (ui_scan.cpp) |
 | 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:163` | the asserts' |
+| 3 | `As_Space_Client` | `app/client/ui_faction.cpp:23` | the FAIL_IF's in ui_manu.cpp |
+| 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
+| 3 | `StandardBttnTexture` | `app/client/ui_faction.h:31` | the G_ASSERT's (l.139) |
+| 3 | `SelectedBttnTexture` | `app/client/ui_faction.h:32` | the G_ASSERT's (l.143) |
 | 3 | `FontManagerClass` | `app/client/ui_group.cpp:20` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_group.cpp:24` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Get_Interface` | `app/client/ui_group.h:23` | the asserts' |
@@ -17054,6 +17149,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tech_level, source` | `app/client/ui_manu.h:145` | the asserts'; NAME 1 [on]: neutral |
 | 3 | `source` | `app/client/ui_manu.h:146` | the assert's; NAME 1 [on]: neutral |
 | 3 | `State` | `app/client/ui_manu.h:168` | the assert's |
+| 3 | `UIMissnClass` | `app/client/ui_missn.h:15` | class-from-file (D24) for app\Client\ui_missn.cpp |
+| 3 | `MISSIONS_PER_PAGE` | `app/client/ui_missn.h:18` | the G_ASSERTs' (l.397, 473, 528); its value from 0x5C4C90's loop |
+| 3 | `NO_CURRENT_MISSION` | `app/client/ui_missn.h:19` | the G_ASSERT's (l.688); its value from the constructor's +0xC8 |
+| 3 | `StandardBttnTexture` | `app/client/ui_missn.h:35` | the G_ASSERT's (l.147) |
+| 3 | `SelectedBttnTexture` | `app/client/ui_missn.h:36` | the G_ASSERT's (l.151) |
+| 3 | `DescriptionPanel` | `app/client/ui_missn.h:40` | the FAIL_IF's (l.123) |
+| 3 | `CurrentMission` | `app/client/ui_missn.h:41` | the G_ASSERT's (l.688) |
+| 3 | `CurrentMissions` | `app/client/ui_missn.h:42` | the G_ASSERT's (l.689) |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |

@@ -9,6 +9,8 @@
 #include "..\shared\unknown_debug.h"
 #include "..\audio\soundlib.h"
 #include "ui_bio.h"
+#include "ui_faction.h"
+#include "ui_missn.h"
 #include "ui_cinfo.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
@@ -29,18 +31,16 @@ public:
 	Unknown549640Class(SClient *client);				// 0x549640 (0x124 bytes)  // NAME 1 [client]: as UIBioClass's
 	char UnknownAC[0x124 - 0xAC];						// +0xAC
 };
-class Unknown5C4170Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5C4170Class(SClient *client);				// 0x5C4170 (0xEC bytes)  // NAME 1 [client]: as UIBioClass's
-	char UnknownAC[0xEC - 0xAC];						// +0xAC
-};
-class Unknown58D080Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown58D080Class(SClient *client);				// 0x58D080 (0xE4 bytes)  // NAME 1 [client]: as UIBioClass's
-	char UnknownAC[0xE4 - 0xAC];						// +0xAC
-};
+
+
+
+
+
+
+
+
+
+
 
 #include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
 
@@ -87,10 +87,10 @@ void UICinfoClass::Unknown_54()
 	UnknownB4 = Create_NEW(new Unknown549640Class(Client->As_Space_Client()));
 	UnknownB4->Unknown_5417D0(this);
 	UnknownB4->Unknown_54();
-	UnknownB8 = Create_NEW(new Unknown5C4170Class(Client->As_Space_Client()));
+	UnknownB8 = Create_NEW(new UIMissnClass(Client->As_Space_Client()));
 	UnknownB8->Unknown_5417D0(this);
 	UnknownB8->Unknown_54();
-	UnknownBC = Create_NEW(new Unknown58D080Class(Client->As_Space_Client()));
+	UnknownBC = Create_NEW(new UIFactionClass(Client->As_Space_Client()));
 	UnknownBC->Unknown_5417D0(this);
 	UnknownBC->Unknown_54();
 	UnknownC0 = Create_NEW(new UIBioClass(Client->As_Space_Client()));
