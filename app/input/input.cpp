@@ -162,6 +162,22 @@ bool Unknown_42EC60(int unknown1, int unknown2)	// NAME 1 [unknown1, unknown2]: 
 	return Unknown_BDAA70->Unknown_0C(unknown1, unknown2);
 }
 
+float Unknown_42EC90()
+{
+	float x;
+	float y;
+	Unknown_BDAA74->Get_Position(&x, &y);
+	return(x);
+}
+
+float Unknown_42ECC0()
+{
+	float x;
+	float y;
+	Unknown_BDAA74->Get_Position(&x, &y);
+	return(y);
+}
+
 void Unknown_42ECF0(float *x, float *y)
 {
 	Unknown_BDAA74->Get_Position(x, y);
@@ -186,22 +202,6 @@ void Unknown_42EDB0()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

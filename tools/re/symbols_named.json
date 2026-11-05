@@ -691,5 +691,150 @@
   "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
   "replaces": "??_7FontStyleClass@@6BRefCountClass@@@",
   "kind": "vtable"
+ },
+ {
+  "address": "0x7537F0",
+  "symbol": "??1?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??1?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x755DA0",
+  "symbol": "??_G?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB03694Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x757990",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x757B00",
+  "symbol": "?Read@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x757BA0",
+  "symbol": "?Write@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x759110",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@UAEABUSkillLevelAvailabilityStruct@@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@UAEABUUnknownB03694Type@@XZ"
+ },
+ {
+  "address": "0x759130",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@UAEXABUSkillLevelAvailabilityStruct@@@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@UAEXABUUnknownB03694Type@@@Z"
+ },
+ {
+  "address": "0x7591C0",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@UBEPAV?$KVAccessorClass@USkillLevelAvailabilityStruct@@@@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@UBEPAV?$KVAccessorClass@UUnknownB03694Type@@@@XZ"
+ },
+ {
+  "address": "0x759470",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x759580",
+  "symbol": "??1?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@UAE@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??1?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x7595A0",
+  "symbol": "??_G?$KVAccessorClass@USkillLevelAvailabilityStruct@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??_G?$KVAccessorClass@UUnknownB03694Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x759C10",
+  "symbol": "?Clone@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UBEPAVKVPairClass@@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Clone@?$KVPairTemplateClass@UUnknownB03694Type@@@@UBEPAVKVPairClass@@XZ"
+ },
+ {
+  "address": "0x759CE0",
+  "symbol": "?Get_Type_Name@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UBEPBDXZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Get_Type_Name@?$KVPairTemplateClass@UUnknownB03694Type@@@@UBEPBDXZ"
+ },
+ {
+  "address": "0x759D00",
+  "symbol": "?Get_Value_String@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UBEPADPADH@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Get_Value_String@?$KVPairTemplateClass@UUnknownB03694Type@@@@UBEPADPADH@Z"
+ },
+ {
+  "address": "0x759D30",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UBE_NXZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Is_Changed@?$KVPairTemplateClass@UUnknownB03694Type@@@@UBE_NXZ"
+ },
+ {
+  "address": "0x759D80",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UAEXXZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Update_Saved@?$KVPairTemplateClass@UUnknownB03694Type@@@@UAEXXZ"
+ },
+ {
+  "address": "0x759FE0",
+  "symbol": "??_G?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UAEPAXI@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??_G?$KVPairTemplateClass@UUnknownB03694Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x75A010",
+  "symbol": "??1?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UAE@XZ",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "??1?$KVPairTemplateClass@UUnknownB03694Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x75A190",
+  "symbol": "?Set_Value_String@?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NPBD@Z",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "replaces": "?Set_Value_String@?$KVPairTemplateClass@UUnknownB03694Type@@@@UAE_NPBD@Z"
+ },
+ {
+  "address": "0xB03694",
+  "symbol": "??_7?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@6B@",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateClass@UUnknownB03694Type@@@@6B@"
+ },
+ {
+  "address": "0xB03AB4",
+  "symbol": "??_7?$KVPairTemplateClass@USkillLevelAvailabilityStruct@@@@6B@",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVPairTemplateClass@UUnknownB03694Type@@@@6B@"
+ },
+ {
+  "address": "0xB03AD8",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@USkillLevelAvailabilityStruct@@@@6B@",
+  "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@UUnknownB03694Type@@@@6B@"
+ },
+ {
+  "address": "0x84A600",
+  "symbol": "?String_To_Value@@YA_NPBDPAUSkillLevelAvailabilityStruct@@@Z",
+  "evidence": "called by the KVPair slot +0x10 Set_Value_String 0x75A190 of SkillLevelAvailabilityStruct (leaf vtable 0xB03694); its file app\\Common\\skill_level_availability.cpp ('%d,%d,%d,%d'; tools/re/auxroots.py BLOB_EXTERN; AUXR 2026-11-04)"
+ },
+ {
+  "address": "0x84A560",
+  "symbol": "?Value_To_String@@YAPADPADHABUSkillLevelAvailabilityStruct@@@Z",
+  "evidence": "called by the KVPair slot +0x0C Get_Value_String 0x759D00 of SkillLevelAvailabilityStruct (leaf vtable 0xB03694); its file app\\Common\\skill_level_availability.cpp ('%d,%d,%d,%d'; tools/re/auxroots.py BLOB_EXTERN; AUXR 2026-11-04)"
  }
 ]

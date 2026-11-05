@@ -22,7 +22,7 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 {
 	ArrayList<char> Data;  // +0x000  // NAME 2: Add_Data appends to it and keeps it NUL-terminated
 	char Name[257];  // +0x00C  // NAME 2: 0x770860 compares it with its first argument
-	char Url[257];  // +0x10D  // NAME 1: 0x770860's second argument copied in (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
+	char MimeType[257];  // +0x10D  // NAME 2: 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
 };
 
 // What the view's +0x20 list holds: Find_Image compares slot +0xC's string with a name.
@@ -64,7 +64,7 @@ public:
 	bool Set_Surface(DSurface *surface);  // 0x770690  // NAME 2: Surf = surface, then Layout
 	bool Clear_Links(void);  // 0x7706B0
 	bool Clear_Blocks(void);  // 0x770720
-	bool Add_Data(char *name, char *url, char *data, int length, bool render);  // 0x770860  // NAME 2: appends to the link named name (made with url if missing); render: Layout and Render
+	bool Add_Data(char *name, char *mimetype, char *data, int length, bool render);  // 0x770860  // NAME 2: appends to the link named name (made with mimetype if missing; 0x76E9D0 passes Get_Mime_Type's result); render: Layout and Render
 	void Layout(void);  // 0x770C70  // NAME 2: one block the surface's size for Url's link, then Parse
 	int Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset);  // 0x7710D0  // NAME 2: lays link's data out from offset into block (a cell recursively); returns the characters it used (to its </td>)
 	bool Add_Text(HtmlBlockClass *block, char *cptr_in, int maxlength, int maxwidth, int unknown);  // 0x7759E0  // NAME 2: lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in')

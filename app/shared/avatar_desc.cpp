@@ -1107,15 +1107,12 @@ void AvatarDescClass::Convert_Names()
 	_snprintf(Last_Name, sizeof(Last_Name), "%s", Unknown_4BE9D0(Last_Name).c_str());
 }
 
-// strconv_lib.cpp's int and char conversions (not rebuilt; declared here, not in strconv_lib.h, which
-// aux_roots.cpp includes: a declaration there moves its symbol pad window, workflow.md 3.3, and
-// aux_roots.h has its own inline int ones)
-inline const char *Type_Name(int *) { return "int"; }	// (the pair's 0x4C3D10)
+// unknown_strconv.cpp's char conversions (declared here, not in strconv_lib.h, which aux_roots.cpp
+// includes: a declaration there moves its symbol pad window, workflow.md 3.3); the int ones and
+// Type_Name(int *) (the pair's 0x4C3D10) are strconv_lib.h's
 inline const char *Type_Name(char *) { return "char"; }	// (the pair's 0x4C3F00)
 char *Value_To_String(char *buf, int size, char value);		// 0x4A32E0 ("%d")
 bool String_To_Value(const char *text, char *value);			// 0x4A3310 (sscanf "%d", -128..127)
-char *Value_To_String(char *buf, int size, int value);		// 0x4A3410 ("%d")
-bool String_To_Value(const char *text, int *value);			// 0x4A3440 (sscanf "%d")
 
 // 0x4C2EB0 (the encoder's typed adds, compiled here; the pairs' and accessors' bodies follow as
 // this object's template instances: int 0x4C3C50-0x4C3E00 and 0x4C4030 / 0x4C40E0 / 0x4C4290)

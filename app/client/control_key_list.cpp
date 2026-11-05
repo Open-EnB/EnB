@@ -19,13 +19,6 @@ struct InterfaceKeyEntryStruct  // NAME 1: neutral (D10)
 
 #pragma auto_inline(off)
 
-// 0x721C70
-InterfaceKeyEntryStruct::InterfaceKeyEntryStruct(const KernelEventClass &event, int data) :
-	Event()
-{
-	Event = event;
-	Data = data;
-}
 
 // 0x721CC0
 void InterfaceKeyEntryStruct::Unknown_721CC0(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *iface)
@@ -58,12 +51,21 @@ ControlKeyListClass::~ControlKeyListClass()
 	}
 }
 
-// NOT EXACT: shape (calls Add_Head on new entry; client has exception unwind frame)
-// 0x721E60
+// 0x721E60 (the entry's constructor is defined after it: defined before, VC6 knows it can't throw and drops the new's EH state)
 void ControlKeyListClass::Add(const ControlKeyComboStruct &combo, void *handler)
 {
 	List.Add_Head(new InterfaceKeyEntryStruct(*(const KernelEventClass *)&combo, (int)handler));
 }
+
+#pragma auto_inline(off)
+// 0x721C70
+InterfaceKeyEntryStruct::InterfaceKeyEntryStruct(const KernelEventClass &event, int data) :
+	Event()
+{
+	Event = event;
+	Data = data;
+}
+#pragma auto_inline(on)
 
 // 0x721EF0
 void ControlKeyListClass::Remove(const ControlKeyComboStruct &combo)
@@ -100,7 +102,7 @@ void ControlKeyListClass::Unknown_721F80(LoginUnknown0CClass *dispatcher, Interf
 **
 **	client.exe: InterfaceKeyListClass (control_keys_manager.h's ControlKeyListClass: Add 0x721E60,
 **	Remove 0x721EF0), an SList of key entries (0x14 bytes).
-**	0x721CC0, 0x721D50, 0x721D80, 0x721EF0, 0x721F40, 0x721F80, 0x721FC0 exact.
-**	NOT EXACT (D64, functional for the POC): 0x721E60 (shape).
+**	0x721C70, 0x721CC0, 0x721D50, 0x721D80, 0x721E60, 0x721EF0, 0x721F40, 0x721F80, 0x721FC0 exact; the constructor
+**	0x721C70 is written after Add 0x721E60 so that Add keeps the client's EH state around the new.
 **	File PROVISIONAL (D137: no string; after control_keys_manager.cpp's container instances).
 */

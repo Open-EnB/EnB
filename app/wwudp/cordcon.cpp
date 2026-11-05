@@ -514,9 +514,6 @@ bool CordCon::close(bool now)
 
 
 
-
-
-
 // 0x850C70: the message in 200-byte records, one sequence number each.
 bool CordCon::write(int channel, unsigned int len, const void *data, int priority)
 {
@@ -821,12 +818,12 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 #define CORD_HARNESS_COUNT(con, counter)
 #endif
 
-static CordMessageClass Empty_Message()
-{
-	CordMessageClass m;
-	memset(&m, 0, sizeof(m));
-	return m;
-}
+
+
+
+
+
+
 
 
 
@@ -1160,6 +1157,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	}
 
 	// The blocks.
+	CordMessageClass m;
 	for (;;) {
 		if (pos == datalen) {
 			return true;
@@ -1279,12 +1277,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			continue;
 		}
 		if (!isfrag) {
-			CordMessageClass m = Empty_Message();
 			m.Data = new unsigned char[len];
-			memcpy(m.Data, data + pos, len);
-			m.Length = m.TotalLength = len;
+			m.Fragments = NULL;
 			m.Seq = seq;
+			m.Length = len;
+			m.TotalLength = len;
 			m.Time = current.getTime_t();
+			m.Priority = 0;
+			m.Flags = 0;
+			memcpy(m.Data, data + pos, len);
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -1304,13 +1305,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				pos += len;
 				continue;
 			}
-			CordMessageClass m = Empty_Message();
 			m.Data = new unsigned char[size];
-			unsigned int n = (size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
+			int n = ((int)size + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
 			m.Fragments = new unsigned char[n];
 			memset(m.Fragments, 0, n);
-			m.Length = m.TotalLength = size;
+			m.Length = size;
+			m.TotalLength = size;
 			m.Seq = first;
+			m.Priority = 0;
+			m.Time = 0;
 			m.Flags = 1;
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
@@ -1327,9 +1330,14 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 		} else {
 			// a place holder for the fragment's own sequence number (read() skips it)
-			CordMessageClass m = Empty_Message();
+			m.Data = NULL;
+			m.Length = 0;
+			m.TotalLength = 0;
+			m.Fragments = NULL;
 			m.Seq = seq;
 			m.Time = current.getTime_t();
+			m.Priority = 0;
+			m.Flags = 0;
 			c->Incoming.Add_Tail(m);
 			if (c->Incoming.Length() == 1) {
 				Ready_.push_back(c);
@@ -1405,19 +1413,8 @@ bool CordCon::pump(Xtime &now)
 	return true;
 }
 
-static void Finish_Datagram(CordCon *con, unsigned char *buf, int len, unsigned short counter)
-{
-	unsigned int crc = Cord_CRC(buf, len, 0xFFFFFFFF);		// 'CordCon::Set_Header_CRC'
-	buf[5] = (unsigned char)(crc >> 24);
-	buf[6] = (unsigned char)(crc >> 16);
-	buf[7] = (unsigned char)(crc >> 8);
-	buf[8] = (unsigned char)crc;
-	con->Encrypt_Data(buf + PACKET_ENCRYPTION_OFFSET, len - PACKET_ENCRYPTION_OFFSET, counter);
-	con->Udp_->Write(buf, len, con->Ip_, con->Port_);		// 'CordCon::pumpInternal Udp_->Write'
-	con->PacketsOut_++;
-}
 
-// 0x853A30, functional (NOT EXACT: Xtime, the vectors' inlined code and the log calls differ):
+// NOT EXACT: 0x853A30 (0.76, explain.py: literal, EH state 9 vs 10 for the resend copy; frame slots of index and the Xtimes): the client's four Xtime copies of now, its send block (profiled memcpys, Set_Header_CRC inlined, push_back).
 // pumpClose; every 8 calls the unreliable (mode 1 / 4) sent records older than 6 round trips are
 // dropped (the client logs 'Removing unreliable'); then the records by priority
 // (getHighestPriorityMessage) while the send window allows (CordStatsClass::Allow), packed into
@@ -1430,34 +1427,38 @@ bool CordCon::pumpInternal(Xtime &now)
 	WWPROFILE("CordCon::pumpInternal");
 	unsigned char head[0x100];
 	unsigned char buf[0x400];
-	int hlen = 0;
 	int pos = 0;
-	unsigned short counter = 0;
-	int channel = 0;
-	int index = 0;
-	CordMessageClass *m = 0;
-	int reliable = 0;
-	int resent = 0;
-	Xtime expiry(now);
+	int hlen = 0;
 	Xtime threshold(now);
 	Xtime timeout(now);
+	Xtime expiry(now);
+	Xtime current(now);	// NAME 2: the copy of now the expiry loop compares
+	int channel = 0;
+	int index = 0;
+	int reliable = 0;
+	int resent = 0;
+	unsigned short counter = 0;
+	CordMessageClass *m;
 	pumpClose();
 	expiry.setDay(0);
 	expiry.setMsec(Stats_->RoundTrip * 6);
 	Stats_->Update(now);
 	Stats_->Get_Resend_Timeout(timeout);
 	threshold -= timeout;
-	if (--ExpireCountdown_ < 1) {
+	if (--ExpireCountdown_ <= 0) {
 		WWPROFILE("CordCon::pumpInternal RemoveExpired");
 		ExpireCountdown_ = 8;
-		for (size_t i = 0; i < Active_.size(); i++) {
+		int count = Active_.size();
+		for (int i = 0; i < count; i++) {
 			CordChannelClass *c = Active_[i];
-			if (c->Mode != 1 && c->Mode != 4) {
-				continue;
-			}
-			std::vector<CordMessageClass>::iterator it = c->Sent.begin();
-			while (it != c->Sent.end()) {
-				if (it->SendCount != 0 && (now - it->SentTime) > expiry) {
+			if (c->Mode == 1 || c->Mode == 4) {
+				std::vector<CordMessageClass>::iterator it = c->Sent.begin();
+				while (it != c->Sent.end()) {
+					if (it->SendCount != 0 && (current - it->SentTime) > expiry) {
+						Stats_->InFlight -= it->Length;
+						Stats_->On_Loss(it->Length, true);
+						(*it).Free();
+						c->Sent.erase(it);
 
 
 
@@ -1745,85 +1746,115 @@ bool CordCon::pumpInternal(Xtime &now)
 
 
 
-
-
-
-
-					INFMSG("Removing unreliable");
-					Stats_->InFlight -= it->Length;
-					Stats_->On_Loss(it->Length, true);
-					(*it).Free();
-					it = c->Sent.erase(it);
-					continue;
+						INFMSG("Removing unreliable");
+					} else {
+						++it;
+					}
 				}
-				++it;
 			}
 		}
 	}
+
+
+
 	while (getHighestPriorityMessage(&channel, &index, threshold, &m, now)) {
 		if (!Stats_->Allow(channel, m->Length, m->SendCount, now)) {
 			break;
 		}
-		CordChannelClass *c = Channels_[channel];
 		MessagesSent_++;
 		BytesSent_ += m->Length;
 		Stats_->SecondBytes += m->Length;
 		if (m->SendCount == 0) {
-			if (m->Length != 0 && c->Mode == 3) {
+			if (m->Length != 0 && Channels_[channel]->Mode == 3) {
 				reliable++;
 			}
 			Stats_->Add_In_Flight(m->Length);
 		} else {
 			Resends_++;
-			if (m->Length != 0 && c->Mode == 3) {
+			if (m->Length != 0 && Channels_[channel]->Mode == 3) {
 				reliable++;
 				resent++;
 			}
 			BytesResent_ += m->Length;
-			Stats_->On_Loss(m->Length, m->SentTime.getDay() != 0);
+			if (m->SentTime.getDay() == 0) {
+				Stats_->On_Loss(m->Length, false);
+			} else {
+				Stats_->On_Loss(m->Length, true);
+			}
 		}
 		if (hlen == 0) {
 			buildHeader(head, &hlen, &counter);
-			memcpy(buf, head, hlen);
+			{
+				WWPROFILE("CordCon::pumpInternal memcpy");
+				memcpy(buf, head, hlen);
+			}
 			pos = hlen;
 		}
-		int mlen = 0;
 		if ((int)(m->Length + 10 + pos) < CORD_MAX_PACKET) {
-			buildMsgHeader(buf + pos, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
+			int mlen = 0;
+			buildMsgHeader(buf + pos, &mlen, m->TotalLength, channel, m->Seq, m->FragIndex, m->Flags);
 			pos += mlen;
+			{
+				WWPROFILE("CordCon::pumpInternal memcpy");
+				memcpy(buf + pos, m->Data, m->Length);
+			}
+			pos += m->Length;
 		} else {
-			Finish_Datagram(this, buf, pos, counter);
+			Set_Header_CRC(buf, pos);
+			Encrypt_Data(buf + PACKET_ENCRYPTION_OFFSET, pos - PACKET_ENCRYPTION_OFFSET, counter);
+			{
+				WWPROFILE("CordCon::pumpInternal Udp_->Write");
+				Udp_->Write(buf, pos, Ip_, Port_);
+			}
+			PacketsOut_++;
 			buildHeader(head, &hlen, &counter);
-			memcpy(buf, head, hlen);
-			buildMsgHeader(buf + hlen, &mlen, m->TotalLength, channel, m->Seq, (unsigned char)m->FragIndex, (char)m->Flags);
-			pos = hlen + mlen;
+			{
+				WWPROFILE("CordCon::pumpInternal memcpy");
+				memcpy(buf, head, hlen);
+			}
+			pos = hlen;
+			int mlen = 0;
+			buildMsgHeader(buf + pos, &mlen, m->TotalLength, channel, m->Seq, m->FragIndex, m->Flags);
+			pos += mlen;
+			{
+				WWPROFILE("CordCon::pumpInternal memcpy");
+				memcpy(buf + pos, m->Data, m->Length);
+			}
+			pos += m->Length;
 		}
-		memcpy(buf + pos, m->Data, m->Length);
-		pos += m->Length;
 		if (m->SendCount == 0) {
 			Queued_--;
 		}
 		if (m->Length == 0) {
-			c->Queue.erase(c->Queue.begin() + index);
+			Channels_[channel]->Queue.erase(Channels_[channel]->Queue.begin() + index);
 		} else {
 			m->SentTime = now;
 			m->SendCount++;
 			if (m->SendCount == 1) {
-				c->Sent.insert(c->Sent.end(), 1, *m);
-				c->Queue.erase(c->Queue.begin() + index);
-			} else if (m != &c->Sent.back()) {
+				Channels_[channel]->Sent.push_back(*m);
+				Channels_[channel]->Queue.erase(Channels_[channel]->Queue.begin() + index);
+			} else if (m != &Channels_[channel]->Sent.back()) {
 				CordMessageClass copy = *m;
-				c->Sent.erase(c->Sent.begin() + index);
-				c->Sent.insert(c->Sent.end(), 1, copy);
+				Channels_[channel]->Sent.erase(Channels_[channel]->Sent.begin() + index);
+				Channels_[channel]->Sent.push_back(copy);
 			}
 		}
 	}
 	if (pos != 0) {
-		Finish_Datagram(this, buf, pos, counter);
+		Set_Header_CRC(buf, pos);
+		Encrypt_Data(buf + PACKET_ENCRYPTION_OFFSET, pos - PACKET_ENCRYPTION_OFFSET, counter);
+		{
+			WWPROFILE("CordCon::pumpInternal Udp_->Write");
+			Udp_->Write(buf, pos, Ip_, Port_);
+		}
+		PacketsOut_++;
 		LastSend_ = now.getTime_t();
 	}
-	for (int i = reliable; i > 0; i--) {
-		Quality_ = (int)((unsigned int)(Quality_ * 19 + (100 - ((reliable - resent) * 100) / reliable)) / 20);
+	if (reliable != 0) {
+		int percent = 100 - ((reliable - resent) * 100) / reliable;	// NAME 2: the share of first sends
+		for (int i = reliable; i > 0; i--) {
+			Quality_ = (int)((unsigned int)(Quality_ * 19 + percent) / 20);
+		}
 	}
 	return true;
 }

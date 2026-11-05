@@ -62,7 +62,6 @@ public:
 	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
 
 	UIChatIntClass(SClient *client, int a, int b, int kind);	// 0x571F00 (0x120 bytes; 0x56C180: +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, a, b, kind]: what 0x56C180 passes
-	void Unknown_5417D0(InterfaceClass *owner);			// 0x5417D0 (intrface.cpp's; 0x56C180 passes the panel)  // NAME 1 [owner]: neutral
 	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
 
 };

@@ -45,7 +45,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
 void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
-void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
+// 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
 #include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
@@ -150,7 +150,7 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 // gadget.cpp's gadget, as far as the cockpit calls it (the warp, throttle and turn buttons)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
-public:
+public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24();
@@ -320,7 +320,7 @@ void UICpitClass::Unknown_54()
 	RenderObjClass *uv = Mesh->Unknown_5B8B40("WARP_BAR");
 	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, &Layer);
 	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
-	Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP");
+	GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
 	Unknown_5BB4F0(Unknown0B4);
 	uv->Release_Ref();
 	object->Release_Ref();
@@ -329,7 +329,7 @@ void UICpitClass::Unknown_54()
 	uv = Mesh->Unknown_5B8B40("LEFT_UV");
 	Unknown0C0 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C0, 6, View, 1, 0);
-	Unknown_65EFB0(Unknown0C0, "UI_CPIT", "LEFT");
+	GadgetClass::Set_Tooltip(Unknown0C0, "UI_CPIT", "LEFT");
 	Unknown_5BB4F0(Unknown0C0);
 	uv->Release_Ref();
 	object->Release_Ref();
@@ -338,7 +338,7 @@ void UICpitClass::Unknown_54()
 	uv = Mesh->Unknown_5B8B40("RIGHT_UV");
 	Unknown0C4 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C4, 7, View, 1, 0);
-	Unknown_65EFB0(Unknown0C4, "UI_CPIT", "RIGHT");
+	GadgetClass::Set_Tooltip(Unknown0C4, "UI_CPIT", "RIGHT");
 	Unknown_5BB4F0(Unknown0C4);
 	uv->Release_Ref();
 	object->Release_Ref();
@@ -347,7 +347,7 @@ void UICpitClass::Unknown_54()
 	uv = Mesh->Unknown_5B8B40("THROTTLE_UV");
 	Unknown0B8 = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0B8, 4, View, 1, 0);
-	Unknown_65EFB0(Unknown0B8, "UI_CPIT", "THROTTLE");
+	GadgetClass::Set_Tooltip(Unknown0B8, "UI_CPIT", "THROTTLE");
 	Unknown_5BB4F0(Unknown0B8);
 	uv->Release_Ref();
 	object->Release_Ref();
@@ -356,7 +356,7 @@ void UICpitClass::Unknown_54()
 	uv = Mesh->Unknown_5B8B40("REVERSE_UV");
 	Unknown0BC = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0BC, 4, View, 1, 0);
-	Unknown_65EFB0(Unknown0BC, "UI_CPIT", "REVERSE");
+	GadgetClass::Set_Tooltip(Unknown0BC, "UI_CPIT", "REVERSE");
 	Unknown_5BB4F0(Unknown0BC);
 	uv->Release_Ref();
 	object->Release_Ref();
@@ -1088,7 +1088,7 @@ void UICpitClass::Unknown_60()
 		}
 		if (!Unknown13F) {
 			Unknown0B4->Unknown_40(1);
-			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "RESCUE");
+			GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "RESCUE");
 			Unknown_5845A0();
 		}
 	} else if (Unknown13D) {
@@ -1295,24 +1295,24 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	if (camera && camera->Unknown_79B600()) {
 		if (Unknown0B4->Unknown_60()) {
 			Unknown0B4->Unknown_40(0);
-			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
+			GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
 			Unknown13E = true;
 			Unknown_5845A0();
 		}
 	} else if (Unknown13D) {
 		if (!Unknown13E) {
 			Unknown0B4->Unknown_40(1);
-			Unknown_65EFB0(Unknown0B4, "UI_CPIT", "RESCUE");
+			GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "RESCUE");
 			Unknown13E = true;
 		} else if (Unknown13F) {
 			Unknown0B4->Unknown_40(0);
 		}
 	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 1) {
-		Unknown_65EFB0(Unknown0B4, "UI_CPIT", "ON_PLANET");
+		GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "ON_PLANET");
 		Unknown0B4->Unknown_40(0);
 		Unknown_5845A0();
 	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 5) {
-		Unknown_65EFB0(Unknown0B4, "UI_CPIT", "GAS_GIANT");
+		GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "GAS_GIANT");
 		Unknown0B4->Unknown_40(0);
 		Unknown_5845A0();
 	} else {
@@ -1335,7 +1335,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					Unknown0B4->Unknown_40(0);
 					text = (warp->Value == 1) ? "NO_WARP" : "CANNOT_WARP";
 				}
-				Unknown_65EFB0(Unknown0B4, "UI_CPIT", text);
+				GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", text);
 				Unknown_5845A0();
 			}
 		}
@@ -1353,39 +1353,39 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						if (Unknown150) {
 							Unknown0B4->Unknown_40(1);
 							Unknown_5845A0();
-							Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP");
+							GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
 						} else {
 							Unknown0B4->Unknown_40(0);
 							Unknown_5845A0();
 							NameClass warp_name("WarpAvailable");
 							DeltaTemplateClass<int> *warp = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, warp_name);
 							if (warp && warp->Unknown70 && warp->Value == 1) {
-								Unknown_65EFB0(Unknown0B4, "UI_CPIT", "NO_WARP");
+								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "NO_WARP");
 							} else {
-								Unknown_65EFB0(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
+								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
 							}
 						}
 						break;
 					case 10:
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_LOW");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_LOW");
 						break;
 					case 4:
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_LOCKED");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_LOCKED");
 						break;
 					case 5:
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_ENGINE_NOT_INSTALLED");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_ENGINE_NOT_INSTALLED");
 						break;
 					case 3: case 6: case 7: case 8: case 9: case 11:
 					{
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_WAIT");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
 						NameClass time_name("WarpTriggerTime");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
 						if (time && time->Unknown70) Unknown0B4->Unknown_676190(4, time->Value.As_Int());
@@ -1397,7 +1397,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					}
 					case 1:
 					{
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_DONE");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
 						NameClass time_name("WarpTriggerTime");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
 						if (time && time->Unknown70) Unknown0B4->Unknown_676190(1, time->Value.As_Int());
@@ -1406,7 +1406,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					}
 					case 2:
 					{
-						Unknown_65EFB0(Unknown0B4, "UI_CPIT", "WARP_DONE");
+						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
 						Unknown174->Set_Hidden(false);
 						Unknown0B4->Unknown_676190(2, 0);
 						Unknown0B4->Unknown_A4(1.0f);

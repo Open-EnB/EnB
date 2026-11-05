@@ -153,9 +153,12 @@ void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const ch
 void UILineDisplayClass::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
 void UILineDisplayClass::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
 
-// shiputils.cpp 0x80E8C0 (DECAL 16)
-class SClientUnknown1334Class;
-void Unknown_80E8C0(RenderObjClass *, std::vector<DecalStruct> &decals, SClientUnknown1334Class *) { Trace("stub Unknown_80E8C0 %d decals", (int)decals.size()); }
+// shiputils.cpp is compiled into clienttest (clienttest.py's APP) with its real 0x80FF20 renamed: the real one builds a
+// Font32Class from ship_font.tga (SurfaceClass -> DX8Wrapper::_Create_DX8_Surface), which needs a device
+void Unknown_80FF20(RenderObjClass *, const char *, float *)
+{
+	Trace("gen Unknown_80FF20");	// the line gen_stubs.py's stand-in wrote
+}
 
 // verbmanager.cpp (VERB_UPDATE 92: the handler tests VerbManager first, which Init makes)
 void VerbManagerClass::Unknown_81F810(int game_id, void *, void *) { Trace("stub VerbManagerClass::Unknown_81F810 %d", game_id); }
@@ -192,6 +195,9 @@ Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
+// ui_buff.cpp (BUFF) names these two classes' per-class globals; app.lib has them in aux_roots.obj
+int DeltaElementsClass::UnknownGlobal;
+int DeltaBuffsClass::UnknownGlobal;
 // (co.cpp's constructor asks the factory 0x6F6000 for its aux root: clienttest.cpp's stand-in hands out the harness's)
 
 // ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)
@@ -201,12 +207,6 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
 
-// shiputils.cpp's colorization helper (COLORIZATION 17)
-class EnvironmentMapManagerClass;
-void Unknown_80EFF0(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *)
-{
-	Trace("stub Unknown_80EFF0 %d regions", (int)regions.size());
-}
 // and its colorization of a new model (co.cpp's 0x6FCB70: a vector by reference gen_stubs.py cannot write)
 void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions)
 {
@@ -314,3 +314,24 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 // gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
 #include "..\..\..\app\client\control_keys_manager.h"
 ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
+
+// ------------------------------------------------------------------------- ui_buff.cpp's gadget (BUFF)
+
+// ui_buff.cpp declares UIBuffGadgetClass / UIBuffInfoStruct (not gd_buffgadg.cpp's BuffGadgetClass / BuffInfoStruct, so its
+// calls name symbols no object defines) and gen_stubs cannot write members of an incomplete class: declared here as far as the mangled names go
+class LineDisplayClientClass;
+struct BuffDefStruct;
+class RenderObjClass;
+class LayerClass;
+class DurationClass;
+struct UIBuffElementStruct;
+struct UIBuffInfoStruct { void Unknown_665390(const UIBuffElementStruct &); };
+class UIBuffGadgetClass
+{
+public:
+	UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &);
+	bool Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &);
+};
+UIBuffGadgetClass::UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &) { Trace("stub UIBuffGadgetClass::UIBuffGadgetClass (0x665A40)"); }
+bool UIBuffGadgetClass::Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &) { Trace("stub UIBuffGadgetClass::Unknown_6661F0"); return false; }
+void UIBuffInfoStruct::Unknown_665390(const UIBuffElementStruct &) { Trace("stub UIBuffInfoStruct::Unknown_665390"); }

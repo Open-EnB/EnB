@@ -2113,6 +2113,365 @@
     }
    ]
   },
+  "Hull": {
+   "name": "Hull",
+   "type": "struct",
+   "fields": [
+    {
+     "name": "Name",
+     "type": "string"
+    },
+    {
+     "name": "Owner",
+     "type": "string"
+    },
+    {
+     "name": "Inventory",
+     "type": "struct",
+     "fields": [
+      {
+       "name": "CargoSpace",
+       "type": "int32"
+      },
+      {
+       "name": "EquipMountModel",
+       "type": "string"
+      },
+      {
+       "name": "Mounts",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "bytes12"
+       }
+      },
+      {
+       "name": "MountBoneNames",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "string"
+       }
+      },
+      {
+       "name": "FutureWeapons",
+       "type": "int32"
+      },
+      {
+       "name": "FutureDevices",
+       "type": "int32"
+      },
+      {
+       "name": "Cargo",
+       "type": "array",
+       "count": 40,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "Equipped",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         },
+         {
+          "name": "ReadyTime",
+          "type": "time"
+         },
+         {
+          "name": "TargetRange",
+          "type": "float"
+         },
+         {
+          "name": "ItemState",
+          "type": "enum"
+         },
+         {
+          "name": "Effects",
+          "type": "struct",
+          "fields": [
+           {
+            "name": "Range",
+            "type": "float"
+           },
+           {
+            "name": "Usage",
+            "type": "enum"
+           },
+           {
+            "name": "Targets",
+            "type": "enum"
+           },
+           {
+            "name": "Validity",
+            "type": "enum"
+           }
+          ]
+         }
+        ]
+       }
+      },
+      {
+       "name": "Ammo",
+       "type": "array",
+       "count": 20,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "Hull",
+       "type": "array",
+       "count": 1,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      },
+      {
+       "name": "PlayerTrade",
+       "type": "array",
+       "count": 6,
+       "element": {
+        "name": "item",
+        "type": "struct",
+        "fields": [
+         {
+          "name": "ItemTemplateID",
+          "type": "int32"
+         },
+         {
+          "name": "StackCount",
+          "type": "int32"
+         },
+         {
+          "name": "Price",
+          "type": "money"
+         },
+         {
+          "name": "AveCost",
+          "type": "float"
+         },
+         {
+          "name": "Structure",
+          "type": "float"
+         },
+         {
+          "name": "Quality",
+          "type": "float"
+         },
+         {
+          "name": "InstanceInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceActivatedEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "InstanceEquipEffectInfo",
+          "type": "string"
+         },
+         {
+          "name": "BuilderName",
+          "type": "string"
+         }
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "name": "HullIndex",
+     "type": "int32"
+    },
+    {
+     "name": "BaseAsset",
+     "type": "int32"
+    },
+    {
+     "name": "ExchangeCost",
+     "type": "int32"
+    },
+    {
+     "name": "Status",
+     "type": "enum"
+    }
+   ]
+  },
   "Planet": {
    "name": "Planet",
    "type": "struct",

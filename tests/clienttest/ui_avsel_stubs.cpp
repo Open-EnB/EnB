@@ -22,6 +22,8 @@ class UIAvselCharacterViewClass { public: void Unknown_5594B0(AvatarDescClass de
 void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UIAvselCharacterViewClass::Unknown_5594B0 (0x5594B0)"); }
 
 
+
+
 extern const int Unknown_B08CAC = 0x80;
 extern const int Unknown_B08CB0 = 0x100;
 extern const int Unknown_B08CB8 = 0x400;

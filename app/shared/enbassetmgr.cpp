@@ -106,7 +106,6 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name)
 }
 
 // @0x48B220
-// NOT EXACT: shape (explain.py: the same callees, 40 calls in ours and 35 in the client: a merged or split tail; the logic is the client's, D64)
 RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale, Vector3 &HSV_shift)
 {
 	bool scale = (WWMath::Fabs(Scale - ident_scale) > 0.01f);
@@ -136,23 +135,7 @@ RenderObjClass *ENBAssetManager::Create_Render_Obj(const char *name, float Scale
 		return NULL;
 	}
 
-	switch (rendobj->Class_ID()) {
-		case RenderObjClass::CLASSID_MESH:
-			Make_Mesh_Unique(rendobj, scale, hsv_shift);
-			break;
-		case RenderObjClass::CLASSID_HLOD:
-		{
-			int count = rendobj->Get_Num_Sub_Objects();
-			for (int i = 0; i < count; ++i) {
-				RenderObjClass *sub = rendobj->Get_Sub_Object(i);
-				Make_Unique(sub, scale, hsv_shift);
-				if (sub != NULL) {
-					sub->Release_Ref();
-				}
-			}
-			break;
-		}
-	}
+	Make_Unique(rendobj, scale, hsv_shift);
 
 	if (scale) {
 		rendobj->Scale(Scale);
@@ -317,7 +300,7 @@ TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
 
 // @0x48CB40
 // NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after
-// pushing the format, ours before); the logic is the client's (D64)
+// pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64)
 TextureClass *ENBAssetManager::Recolor_Texture(TextureClass *texture, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
 	WWPROFILE("Recolor_Texture()");
@@ -628,6 +611,23 @@ void Unknown_48E9D0(RenderObjClass *robj)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // @0x48EB90
 void ENBAssetManager::Post_Process(RenderObjClass *robj)
 {
@@ -641,8 +641,6 @@ void ENBAssetManager::Post_Process(RenderObjClass *robj)
 }
 
 // @0x48ECA0
-// NOT EXACT: shape (explain.py: 194 masked rows; 0.48), the client keeps one EH state (around the out-of-line Remove of the
-// plain name) where ours numbers all four StringClass temporaries; the logic is the client's (D64)
 void ENBAssetManager::Unknown_48ECA0(TextureClass **textures, unsigned count)
 {
 	for (unsigned i = 0; i < count; ++i) {
@@ -654,12 +652,12 @@ void ENBAssetManager::Unknown_48ECA0(TextureClass **textures, unsigned count)
 		char hsv_name[256];
 		const Vector3 &hsv = tex->Get_HSV_Shift();
 		sprintf(hsv_name, "#%s!H%gS%gV%g", lower, hsv.X, hsv.Y, hsv.Z);
-		if (TextureHash.Get(hsv_name) == NULL) {
-			if (TextureHash.Get(name) != NULL) {
+		if (TextureHash.Get(hsv_name)) {
+			TextureHash.Remove(hsv_name);
+		} else {
+			if (TextureHash.Get(name)) {
 				TextureHash.Remove(name);
 			}
-		} else {
-			TextureHash.Remove(hsv_name);
 		}
 		textures[i]->Release_Ref();
 	}
@@ -698,14 +696,16 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	duplicates the epilogue). 0x48F2C0 (slot +0x10) is Free_Assets' prototype loop without its profile, then the base's
 **	Release_Unused_Assets. 0x48F1A0 (slot +0x38) is the base's Release_Unused_Textures, except that it hands each batch of
 **	256 textures with one reference to 0x48ECA0 and starts over until a pass finds none; 0x48ECA0 removes each texture
-**	under its HSV name ('#name!H%gS%gV%g', lower case) or else under its plain name, then releases it. Post_Process' helpers:
+**	under its HSV name ('#name!H%gS%gV%g', lower case) or else under its plain name, then releases it (exact with the
+**	HSV-name branch first and bare `if (Get(...))` tests: `== NULL` / `!= NULL` tests or a named result miss). Post_Process' helpers:
 **	0x48E9D0 builds a culling tree for each mesh over 30 polygons (not skins) and gives the opaque meshes without physical or
 **	projectile collision COLLISION_TYPE_3, recursing into sub-objects; 0x48E620 returns true for a mesh with a 'plt_at' /
 **	'plt3505' / 'plt9601' / 'plt9703' texture and removes such meshes from their containers (only without hardware T&L). The
 **	single return(found) is what keeps found in memory for the container path.
 **	ENBPrototypeClass (0x48AED0 ctor, 0x48AF50/0x48AF80 dtors, 0x48B010 Get_Name, 0x48B030 Get_Class_ID, 0x48B050 Create)
 **	and +0x78 Create_Render_Obj(name, scale, hsv) 0x48B220 reconstructed (EAM4): the prototype class exact (table 0xAEA5A0);
-**	Create_Render_Obj calls Post_Process on cached or created objects, inlines the unique-making switch, scales, recolors
+**	Create_Render_Obj calls Post_Process on cached or created objects, calls Make_Unique (VC6 inlines it one level and
+**	keeps its recursive call out of line; a hand-copied switch there inlined it twice: 40 calls for 35), scales, recolors
 **	via Recolor_Mesh / Recolor_HLOD / Recolor_ParticleEmitter / Recolor_Sphere / Recolor_Ring, Post_Processes, creates the
 **	prototype, releases the object reference and returns proto->Create().
 **	Its helpers Make_Mesh_Unique 0x48BCF0 / Make_HLOD_Unique 0x48BDC0 / Make_Unique 0x48BE60 are: make a mesh's

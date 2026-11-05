@@ -44,10 +44,14 @@ public:
 	virtual void Set_Transform(const Matrix3D &m);		// 0x77D1E0 (the body too; +0x330 keeps it unless +0x36C)
 	virtual void Set_Position(const Vector3 &v);		// 0x77D2B0 (the body too)
 	virtual void Render(RenderInfoClass &rinfo);		// 0x77D420
+	virtual int Get_Num_Sub_Objects() const { return(1); }	// 0x77C030 (the body)
+	virtual RenderObjClass *Get_Sub_Object(int index) const;	// 0x77D460 (the body, index 0)
+	virtual void Prepare_LOD(CameraClass &camera);		// 0x77D3E0 (the body's)
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const { sphere = ObjSphere; }	// 0x77BFA0
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
 	virtual void Unknown_1C4();							// 0x783B50 (per-frame update)
 
+	float Unknown_77D9F0(bool a);						// 0x77D9F0 (0x80E260: false): +0x234, plus 1 when a  // NAME 1 [a]: neutral
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
@@ -62,6 +66,7 @@ public:
 	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
 	void Unknown_786370(bool on);						// 0x786370  // NAME 1 [on]: neutral
+	bool Unknown_784EA0(const char *name);				// 0x784EA0 (TutorialManagerClass::Was_Just_Finished of the name; ui_shard.cpp's 'AllGood')  // NAME 1 [name]: Was_Just_Finished's
 	bool Unknown_7863E0();								// 0x7863E0
 	void Unknown_788EF0();								// 0x788EF0
 	void Unknown_7896B0(int a);							// 0x7896B0 (0x67B390: 4)  // NAME 1 [a]: neutral
@@ -98,8 +103,19 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
 	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
-	void Unknown_77F750();								// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
+	void Unknown_77E830(const float *weights);			// 0x77E830 (the body morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
+	void Unknown_77E900(const float *weights);			// 0x77E900 (the head morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
+	void Unknown_77F000(int num);						// 0x77F000 (Head_Type's head loaded again; 0x77DA20, ui_avatr.cpp)  // NAME 1 [num]: neutral
+	void Unknown_77E9D0(int body, int pants, bool morph);	// 0x77E9D0 (Body_Type / Pants_Type's body loaded again; 0x77DA20, ui_avatr.cpp)  // NAME 1 [body, pants, morph]: neutral
+	void Unknown_77FC20(int num, bool rebuild);			// 0x77FC20 (Hair_Num's 'HAIR' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77FD30(int num, bool rebuild);			// 0x77FD30 (Beard_Num's 'BEARD' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_780680(int index, Vector3 color);		// 0x780680 (Skin_Color, then the shirt's and pants' colours by index 1 .. 4)  // NAME 1 [index, color]: neutral
+	void Unknown_780790(int index, int metal);			// 0x780790 (the shirt's and pants' metals by index 1 .. 4)  // NAME 1 [index, metal]: neutral
+	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (Ear_Num's 'EAR' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (Goggle_Num's 'GOGGLE' accessory)  // NAME 1 [num, rebuild]: neutral
+	void Unknown_77F750();							// 0x77F750 (the head object cloned again from the head prototype, onto K_HEAD)
 	void Unknown_7857D0(int num);						// 0x7857D0 (Head_Texture_Num's '<gender><race>FACETEX%02d.tga' onto head0..4)  // NAME 1 [num]: neutral
 	void Unknown_7859F0(int num);						// 0x7859F0 (Tattoo_Texture_Num's 'ATATTOO%02d.tga' onto HEAD0..4, stage 1)  // NAME 1 [num]: neutral
 	void Unknown_785C00(const Vector3 &offset);			// 0x785C00 (Tattoo_Offset: a linear offset mapper on HEAD0..4's stage 1)  // NAME 1 [offset]: neutral

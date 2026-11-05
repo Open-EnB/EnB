@@ -55,7 +55,7 @@ public:
 	RenderObjClass *Peek_Render_Obj() { return(RObj); }					// (inline: gd_resize.cpp's FAIL_IF '!Peek_Render_Obj()')  // NAME 3: the FAIL_IF's
 	void Unknown_66C220(float r, float g, float b);						// 0x66C220 (ro_funcs.cpp's 0x496110 on the model, unless bit 10)  // NAME 1 [r, g, b]: neutral
 	void Unknown_66C260(const Vector3 &color);							// 0x66C260 (the same from a vector)  // NAME 1 [color]: neutral
-	void Unknown_66C2A0(int arg);										// 0x66C2A0 (ro_funcs.cpp's 0x496240 on the model)  // NAME 1 [arg]: neutral
+	void Unknown_66C2A0(float opacity);									// 0x66C2A0 (ro_funcs.cpp's 0x496240 on the model; gd_buffgadg.cpp passes 0..1)  // NAME 1 [opacity]: as ro_funcs.cpp's
 	void Unknown_66C2D0();												// 0x66C2D0 (the highlight on: slot +0x9C, the style's 0x6CE910)
 	void Unknown_66C360();												// 0x66C360 (the highlight off: slot +0xA0)
 	void Unknown_66C4A0();												// 0x66C4A0 (ro_funcs.cpp's 0x4960C0 on the model, index 0)

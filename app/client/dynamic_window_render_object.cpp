@@ -59,7 +59,7 @@ void DynamicWindowRenderObjectClass::Set_Alignment(unsigned int flags)
 		Invalidate();
 	}
 }
-// NOT EXACT: Update_Bounds 0x51D0D0 is inlined here; the client calls it
+// 0x51CB20: calls Update_Bounds 0x51D0D0 out of line as the client does (auto_inline(off) at its definition)
 void DynamicWindowRenderObjectClass::Invalidate()
 {
 	Dirty = true;

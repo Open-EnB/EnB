@@ -6,6 +6,7 @@
 #include "sclient.h"
 #include "tasks\tsk_login.h"
 #include "rendobj.h"
+#include "assetmgr.h"
 #include "camera.h"
 #include "layer.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -21,7 +22,6 @@
 #include "local_interface_sort.h"
 #include "tooltip.h"
 #include "unknown_signalbase.h"
-
 
 #include "fontmanager.h"
 
@@ -39,10 +39,10 @@ struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class UIClassKeysClass { public: void Unknown_721E60(const UIClassKeyEventStruct *event, int id); void Unknown_721EF0(const UIClassKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_login.cpp declares it
 
 #include "gd_slider.h"
-//
+#include "ww3d.h"
 //
 //
 //
@@ -58,6 +58,7 @@ void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs; 0x577B80 calls
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (the pointer's position, 0..1)
 void Unknown_6CDBC0(const char *text, int a);	// 0x6CDBC0
 void Unknown_65F2D0(const char *text);	// 0x65F2D0
+float Unknown_77B7D0(float t);	// 0x77B7D0 (cdecl: 0..1 eased with sin / cos; 0x576AC0 passes the turn time left)  // NAME 1 [t]: neutral
 const char *Unknown_82F3C0(int index);	// 0x82F3C0
 
 struct ClassSelectInfoStruct {
@@ -230,8 +231,8 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	((GadgetSlider *)Slider)->Unknown_66E460(Unknown_497300(model), 0, 0);
 	Unknown64.Unknown_6870E0(Slider, 0x1A, View, 1, 0);
 
-	((UIClassKeysClass *)Unknown4C)->Unknown_721E60(&UIClassKeyEventStruct(0x1B), 0x10);
-	((UIClassKeysClass *)Unknown4C)->Unknown_721E60(&UIClassKeyEventStruct(0x0D), 1);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x1B), (void *)0x10);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x0D), (void *)1);
 
 	Unknown_5760C0(true);
 
@@ -246,7 +247,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	UnknownE8 = UnknownE4 = (float)Unknown_B7DB60[Unknown8C].Angle;
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, 1);
 	Unknown_5779D0();
-	CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	Unknown_576A80();
 	CharacterView->Unknown3A4->Unknown_760770(100000, 1);
 	CharacterView->Unknown_67C7B0();
 
@@ -272,7 +273,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 // @0x575220
 ClassSelectInterface::~ClassSelectInterface()
 {
-	CharacterView->Unknown_67B320();
+	Unknown_576A60();
 	Unknown_5C();
 	Descriptions.clear();
 	SkillDescriptions.clear();
@@ -291,43 +292,10 @@ ClassSelectInterface::~ClassSelectInterface()
 void ClassSelectInterface::Unknown_60()
 {
 	Unknown_576AC0();
-	int i;
-	for (i = 0; i < 9; i++) {
-		if (Buttons[i + 5]) {
-			if (Unknown8C == i) {
-				Buttons[i + 5]->Unknown2C_0B = 1;
-				Buttons[i + 5]->Unknown_6603A0(0, 0);
-			} else {
-				Buttons[i + 5]->Unknown2C_0B = 0;
-				Buttons[i + 5]->Unknown_6607D0();
-			}
-		}
-	}
-	int value = (int)((GadgetSlider *)Slider)->Value;
-	if (SliderValue != value) {
-		SliderValue = value;
-		Unknown_576270();
-	}
-	float x, y;
-	Unknown_42ECF0(&x, &y);
-	for (i = 0; i < 8; i++) {
-		if (SkillGadgets[i] && !SkillGadgets[i]->Unknown_30(x, y)) {
-			SkillGadgets[i]->Unknown2C_06 = 0;
-		}
-	}
-	if (CharacterView->Unknown_67B2B0()) {
-		Unknown13D = false;
-	}
-	bool active = CharacterView->Unknown34->Active;
-	if (CharacterView->Unknown34->Active && !Unknown13D) {
-		Unknown13D = true;
-		Unknown_5760C0(false);
-		return;
-	}
-	if (!CharacterView->Unknown34->Active && Unknown13D) {
-		Unknown13D = false;
-		Unknown_5760C0(true);
-	}
+	Unknown_577D30();
+	Unknown_577EE0();
+	Unknown_577F20();
+	Unknown_575CD0();
 }
 
 
@@ -498,6 +466,26 @@ bool ClassSelectInterface::Unknown_68(int key)
 }
 
 
+// Unknown_60 inlines it
+// @0x575CD0
+void ClassSelectInterface::Unknown_575CD0()
+{
+	if (CharacterView->Unknown_67B2B0()) {
+		Unknown13D = false;
+	}
+	bool active = CharacterView->Unknown34->Active;
+	if (CharacterView->Unknown34->Active && !Unknown13D) {
+		Unknown13D = true;
+		Unknown_5760C0(false);
+		return;
+	}
+	if (!CharacterView->Unknown34->Active && Unknown13D) {
+		Unknown13D = false;
+		Unknown_5760C0(true);
+	}
+}
+
+
 // NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C)
 // @0x575D50
 void ClassSelectInterface::Unknown_575D50()
@@ -530,6 +518,21 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 }
 
 
+// Unknown_5779D0 inlines it
+// @0x5761D0
+void ClassSelectInterface::Unknown_5761D0()
+{
+	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", CharacterView->Peek_Model());
+	if (title) {
+		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
+	}
+	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", CharacterView->Peek_Model());
+	if (subtitle) {
+		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
+	}
+}
+
+
 // NOT EXACT: register (0.55: the client keeps this in edi and the bit mask in ebp)
 // @0x576270
 void ClassSelectInterface::Unknown_576270()
@@ -547,8 +550,7 @@ void ClassSelectInterface::Unknown_576270()
 }
 
 
-// 0x576AC0 (Unknown_576AC0, the per-frame planet turn toward UnknownE8 with 'planet' / 0x5760C0) is not built here:
-// Unknown_60 calls it out of line (an empty body here was inlined away).
+
 
 
 
@@ -557,15 +559,8 @@ void ClassSelectInterface::Unknown_576270()
 // @0x5779D0
 void ClassSelectInterface::Unknown_5779D0()
 {
-	CharacterView->Unknown_67B320();
-	FontSys *title = Unknown_BE67C4->Get_Style("title_fe_class00", CharacterView->Peek_Model());
-	if (title) {
-		title->Change_Text(Unknown_BE5B6C[Unknown8C].Title, 0);
-	}
-	FontSys *subtitle = Unknown_BE67C4->Get_Style("subtitle_fe_class00", CharacterView->Peek_Model());
-	if (subtitle) {
-		subtitle->Change_Text(Unknown_BE5B6C[Unknown8C].Subtitle, 0);
-	}
+	Unknown_576A60();
+	Unknown_5761D0();
 	Unknown_576360();
 	Unknown_5767F0();
 	CharacterView->Unknown_67C440(Unknown_B7DB60[Unknown8C].Race, false);
@@ -577,7 +572,7 @@ void ClassSelectInterface::Unknown_5779D0()
 		} else if (delta < -180) {
 			delta += 360;
 		}
-		UnknownEC = 0x3F800000;
+		UnknownEC = 1.0f;
 		UnknownE8 = (float)delta + UnknownE4;
 		SoundLibraryClass::Play_2D_Sound("planet_spin.wav", 2);
 	}
@@ -950,17 +945,22 @@ void ClassSelectInterface::Unknown_577B80()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+// Unknown_60 inlines it
+// @0x577D30
+void ClassSelectInterface::Unknown_577D30()
+{
+	for (int i = 0; i < 9; i++) {
+		if (Buttons[i + 5]) {
+			if (Unknown8C == i) {
+				Buttons[i + 5]->Unknown2C_0B = 1;
+				Buttons[i + 5]->Unknown_6603A0(0, 0);
+			} else {
+				Buttons[i + 5]->Unknown2C_0B = 0;
+				Buttons[i + 5]->Unknown_6607D0();
+			}
+		}
+	}
+}
 
 
 // @0x577DA0
@@ -979,5 +979,215 @@ void ClassSelectInterface::Unknown_577DA0(FlashingGadgetEvent *event, GadgetClas
 		    gadget == Buttons[3] || gadget == Buttons[4] || gadget == (GadgetClass *)Unknown8C) {
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
 		}
+	}
+}
+
+
+// Unknown_576360 inlines it
+// @0x577E70
+void ClassSelectInterface::Unknown_577E70(int count)
+{
+	((GadgetSlider *)Slider)->Unknown_66FA90((float)count, 8.0f, true);
+	int value = (int)((GadgetSlider *)Slider)->Value;
+	if (SliderValue != value) {
+		SliderValue = value;
+		Unknown_576270();
+	}
+}
+
+
+// Unknown_60 inlines it; Unknown_577E70 has the same code
+// @0x577EE0
+void ClassSelectInterface::Unknown_577EE0()
+{
+	int value = (int)((GadgetSlider *)Slider)->Value;
+	if (SliderValue != value) {
+		SliderValue = value;
+		Unknown_576270();
+	}
+}
+
+
+// Unknown_60 inlines it
+// @0x577F20
+void ClassSelectInterface::Unknown_577F20()
+{
+	float x, y;
+	Unknown_42ECF0(&x, &y);
+	for (int i = 0; i < 8; i++) {
+		if (SkillGadgets[i] && !SkillGadgets[i]->Unknown_30(x, y)) {
+			SkillGadgets[i]->Unknown2C_06 = 0;
+		}
+	}
+}
+
+
+// 0xBDA908 (the description's "") is the pooled empty string literal
+// @0x576360
+void ClassSelectInterface::Unknown_576360()
+{
+	char section[64];
+	char entry[64];
+	_snprintf(section, sizeof(section), "CLASS-%d%d", Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	Descriptions.clear();
+	SkillDescriptions.clear();
+	int i = 0;
+	while (true) {
+		_snprintf(entry, sizeof(entry), "Info%d", i);
+		if (INI.Find_Entry(section, entry) == NULL) {
+			Unknown_577E70(Descriptions.size());
+			Unknown_576270();
+			return;
+		} else {
+			StringClass text;
+			StringClass tip;
+			INI.Get_String(text, section, entry, " ");
+			if (!text.Is_Empty()) {
+				std::string name = (const char *)text;
+				Descriptions.push_back(name);
+				std::string key = name + " " + Unknown_BE5B6C[Unknown8C].Title;
+				if (INI.Find_Entry("SKILL_TOOL_TIPS", key.c_str()) != NULL) {
+					INI.Get_String(tip, "SKILL_TOOL_TIPS", key.c_str(), " ");
+				} else {
+					INI.Get_String(tip, "SKILL_TOOL_TIPS", name.c_str(), " ");
+				}
+				std::string description = "";
+				if (!tip.Is_Empty()) {
+					description = (const char *)tip;
+				}
+				SkillDescriptions.push_back(description);
+			}
+		}
+		i++;
+	}
+}
+
+
+// @0x5767F0
+void ClassSelectInterface::Unknown_5767F0()
+{
+	char section[64];
+	char entry[64];
+	char name[64];
+	char bone[64];
+	RenderObjClass *model = CharacterView->ViewRObjs[0];
+	_snprintf(section, sizeof(section), "CLASS-%d%d", Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+	for (int i = 0; i < 7; i++) {
+		if (Models[i]) {
+			model->Remove_Sub_Object(Models[i].Peek());
+			Models[i] = NULL;
+		}
+		_snprintf(entry, sizeof(entry), "Stat%d", i);
+		if (INI.Find_Entry(section, entry) != NULL) {
+			_snprintf(name, sizeof(name), "fe_stats%02d", INI.Get_Int(section, entry, 0));
+			Models[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
+			if (Models[i]) {
+				_snprintf(bone, sizeof(bone), "stats%02d", i + 1);
+				model->Add_Sub_Object_To_Bone(Models[i].Peek(), bone);
+			}
+		}
+	}
+}
+
+
+// no code callers
+// @0x576A40
+void ClassSelectInterface::Unknown_576A40()
+{
+}
+
+
+// Unknown_5779D0 and the destructor inline it
+// @0x576A60
+void ClassSelectInterface::Unknown_576A60()
+{
+	CharacterView->Unknown_67B320();
+}
+
+
+// the constructor inlines it
+// @0x576A80
+void ClassSelectInterface::Unknown_576A80()
+{
+	CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+}
+
+
+// Unknown_60, every frame: the planet turned toward UnknownE8, the class's dialog when it arrives, the moons
+// NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left)
+// @0x576AC0
+void ClassSelectInterface::Unknown_576AC0()
+{
+	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
+	Matrix3D tm(true);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(CharacterView->ViewRObjs[1]);
+	int bone = model->Get_Bone_Index("planet");
+	Unknown_5760C0(true);
+	if (UnknownEC > 0.0f) {
+		Unknown_5760C0(false);
+		float angle;
+		UnknownEC -= frame;
+		if (UnknownEC < 0.0f) {
+			UnknownE4 = UnknownE8;
+			UnknownEC = 0.0f;
+			if (UnknownE4 > 360.0f) {
+				UnknownE4 -= 360.0f;
+			} else if (UnknownE4 < 0.0f) {
+				UnknownE4 += 360.0f;
+			}
+			angle = UnknownE4;
+			CharacterView->Unknown_67B390(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession);
+			CharacterView->Unknown_67C7B0();
+			switch (Unknown8C) {
+				case 0:
+					CharacterView->Unknown_67C920("1492_00_344se.mp3");
+					CharacterView->Unknown_67C920("1492_00_345se.mp3");
+					CharacterView->Unknown_67C920("1492_00_346se.mp3");
+					break;
+				case 2:
+					CharacterView->Unknown_67C920("1492_00_335se.mp3");
+					CharacterView->Unknown_67C920("1492_00_336se.mp3");
+					CharacterView->Unknown_67C920("1492_00_337se.mp3");
+					break;
+				case 3:
+					CharacterView->Unknown_67C920("1492_00_338se.mp3");
+					CharacterView->Unknown_67C920("1492_00_339se.mp3");
+					CharacterView->Unknown_67C920("1492_00_340se.mp3");
+					break;
+				case 5:
+					CharacterView->Unknown_67C920("1492_00_329se.mp3");
+					CharacterView->Unknown_67C920("1492_00_330se.mp3");
+					CharacterView->Unknown_67C920("1492_00_331se.mp3");
+					break;
+				case 6:
+					CharacterView->Unknown_67C920("1492_00_341se.mp3");
+					CharacterView->Unknown_67C920("1492_00_342se.mp3");
+					CharacterView->Unknown_67C920("1492_00_343se.mp3");
+					break;
+				case 8:
+					CharacterView->Unknown_67C920("1492_00_332se.mp3");
+					CharacterView->Unknown_67C920("1492_00_333se.mp3");
+					CharacterView->Unknown_67C920("1492_00_334se.mp3");
+					break;
+			}
+		} else {
+			float t = Unknown_77B7D0(UnknownEC);
+			angle = t * UnknownE4 + (1.0f - t) * UnknownE8;
+		}
+		angle /= 180.0f;
+		tm.Rotate_Z(angle * WWMATH_PI);
+	} else {
+		float angle = UnknownE4 / 180.0f;
+		tm.Rotate_Z(angle * WWMATH_PI);
+	}
+	model->Capture_Bone(bone);
+	model->Control_Bone(bone, tm, false);
+	UnknownF0 += frame * 0.33f;
+	for (int i = 0; i < 9; i++) {
+		Matrix3D moon(true);
+		int moon_bone = model->Get_Bone_Index(Unknown_82F3C0(i));
+		moon.Rotate_Z(UnknownF0);
+		model->Capture_Bone(moon_bone);
+		model->Control_Bone(moon_bone, moon, false);
 	}
 }

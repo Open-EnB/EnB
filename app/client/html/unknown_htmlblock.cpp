@@ -19,9 +19,9 @@ HtmlBlockClass::HtmlBlockClass(void *owner, int width, int height, HtmlAttribute
 	Height = height;
 	CursorX = 0;
 	CursorY = 0;
-	RightPadding = 0;
-	Unknown1C0 = 0;
-	Unknown1C4 = 0;
+	LineStartX = 0;
+	ContentWidth = 0;
+	ContentHeight = 0;
 
 	if (attributes != NULL)
 		Attributes.Add_All(*attributes);
@@ -32,7 +32,7 @@ HtmlBlockClass::HtmlBlockClass(void *owner, int width, int height, HtmlAttribute
 	if (value != NULL) {
 		CursorX = atol(value);
 		HPadding = atol(value);
-		RightPadding = atol(value);
+		LineStartX = atol(value);
 	}
 	value = Attributes.Get("Vertical_Padding");
 	if (value != NULL) {

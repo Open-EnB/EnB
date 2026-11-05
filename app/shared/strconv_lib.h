@@ -3,12 +3,14 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\shared\strconv_lib.h (name assumed from strconv_lib.cpp)
 **
-**	Value <-> text conversions for the key/value pairs (kv_pair.h). The client's are in
-**	strconv_lib.cpp's object, before its first assert (line 24, 0x4A3750): one pair per type,
-**	0x4A30A0-0x4A35F0 (bool "true"/"false", parsing true/on/yes/1 and false/off/no/0; float and
-**	double "%f" / atof; int, unsigned int, short, long, unsigned long through sprintf / sscanf).
-**	Only the ones the tree uses are declared; the names are guesses (D10). Their definitions are in
-**	stubs/app_stubs.cpp until strconv_lib.cpp is rebuilt.
+**	Value <-> text conversions for the key/value pairs (kv_pair.h). The client's are in two objects:
+**	one without an assert or __FILE__ (unknown_strconv.cpp, interim: 0x4A30A0-0x4A3640, one pair per
+**	type: bool "true"/"false", parsing true/on/yes/1 and false/off/no/0; float and double "%f" / atof;
+**	char, unsigned char, int, short, long, unsigned long, unsigned int through sprintf / sscanf;
+**	std::string) and strconv_lib.cpp's (0x4A3750-0x4A3AB0: Vector3, Matrix3D, __int64).
+**	Only the ones the key/value pairs share are declared here; the others where they are used (a new
+**	declaration here moves aux_roots.cpp's SYMBOL_PAD window, workflow.md 3.3). The names are
+**	guesses (D10).
 */
 
 
@@ -21,6 +23,9 @@
 #define __STRCONV_LIB_H
 
 char *Value_To_String(char *buf, int size, bool value);					// 0x4A30A0 ("true" / "false")  // NAME 2: describes what it does
+bool String_To_Value(const char *text, bool *value);						// 0x4A30F0 (true/on/yes/1, false/off/no/0)
+char *Value_To_String(char *buf, int size, int value);					// 0x4A3410 ("%d")
+bool String_To_Value(const char *text, int *value);						// 0x4A3440 (sscanf "%d")
 char *Value_To_String(char *buf, int size, float value);					// 0x4A3200 ("%f")  // NAME 2: describes what it does
 bool String_To_Value(const char *text, float *value);						// 0x4A3240 (atof)  // NAME 2: describes what it does
 char *Value_To_String(char *buf, int size, unsigned int value);			// 0x4A3590 ("%u")
@@ -34,6 +39,8 @@ char *Value_To_String(char *buf, int size, const MoneyClass &value);
 bool String_To_Value(const char *text, MoneyClass *value);
 
 // The pairs' type names (KVPairTemplateClass<T>::Get_Type_Name: float 0x448580, unsigned int 0x4A8830)
+inline const char *Type_Name(int *) { return "int"; }
+inline const char *Type_Name(bool *) { return "bool"; }
 inline const char *Type_Name(float *) { return "float"; }
 inline const char *Type_Name(unsigned int *) { return "unsigned int"; }
 

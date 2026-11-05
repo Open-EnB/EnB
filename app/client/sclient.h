@@ -446,13 +446,13 @@ public:
 	bool Unknown24;										// +0x24 (the same set it when they add; the constructor 0x6E2BD0 clears it)
 };
 
-// what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera)
-class MainViewUnknown1D4Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewUnknown1D4Class(MainViewClass *view, const LayerClass &layer);	// 0x5608D0 (0xEC bytes)  // NAME 1 [view, layer]: what 0x50C690 passes
-	char Unknown84[0xEC - 0x84];						// +0x84
-};
+// what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera):
+// ui_buff.cpp's buff display (ui_buff.h; 0xEC bytes, constructor 0x5608D0)
+class UIBuffClass;
+
+
+
+
 
 // what the main view's +0x1E4 points to (0x50C690 makes it for the client, then its slot +0x7C with the view)
 class MainViewUnknown1E4Class : public InterfaceClass	// NAME 1: neutral (D10)
@@ -656,7 +656,7 @@ public:
 	unsigned Unknown1C8;								// +0x1C8 (0x513700 keeps its sector here; 0x50C2D0 returns it)
 	bool Unknown1CC;									// +0x1CC
 	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
-	MainViewUnknown1D4Class *Unknown1D4;				// +0x1D4 (slots +0x58 / +0x5C with the cockpit's; 0x50C690 makes it)
+	UIBuffClass *Unknown1D4;							// +0x1D4 (slots +0x58 / +0x5C with the cockpit's; 0x50C690 makes it)
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
 	MainViewUnknown1DCClass *Unknown1DC;						// +0x1DC (0x513600 calls its +0x8C)
 	MainViewUnknown1E0Class *Unknown1E0;				// +0x1E0 (Shutdown 0x50C2F0 releases it first)
@@ -1061,7 +1061,7 @@ public:
 	RefCountClass *Unknown12B8;							// +0x12B8 (0x74C370: released, set, referenced)
 	SClientUnknown12BCClass *Unknown12BC;				// +0x12BC (Shutdown deletes it)
 	DeltaPlayerClass *AuxData;							// +0x12C0 (0x7518A0's G_ASSERT '!AuxData' before its new; AUX_DATA 27 decodes into it)  // NAME 3: the assert's name
-	VectorClass<SClientUnknown12C4Class *> Unknown12C4;	// +0x12C4 vtable 0xB032BC, one entry (NULL)
+	VectorClass<SClientUnknown12C4Class *> PlayerVarAuxData;	// +0x12C4 vtable 0xB032BC, one entry (NULL; 0x7518A0 sets it to a new DeltaHullClass)  // NAME 3: 0x7518A0's assert '!PlayerVarAuxData[lp]'
 	int Unknown12D4;									// +0x12D4
 	TicketClass Ticket;									// +0x12D8 NAME 1: ClientTaskClass::Init copies the ticket here
 	bool Unknown1320;									// +0x1320 (true)

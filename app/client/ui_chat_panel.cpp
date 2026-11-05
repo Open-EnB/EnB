@@ -158,7 +158,7 @@ class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
-public:
+public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
@@ -179,7 +179,7 @@ public:
 	RenderObjClass *Peek_Unknown30() { return(Unknown30); }	// NAME 1: neutral (D10)
 };
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
-void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
+// 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
 
 
@@ -706,7 +706,7 @@ void UIChatPanelClass::Unknown_563C50()
 // 0x563DC0
 void UIChatPanelClass::Unknown_563DC0(bool on)
 {
-	RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
 	FAIL_IF(!font) return;
 	if (on) {
 		if (strcmp(Unknown124.c_str(), font->Unknown_6D87D0()) != 0) font->Change_Text(Unknown124.c_str(), 0);
@@ -786,7 +786,7 @@ void UIChatPanelClass::Unknown_564150(bool on)
 	UnknownA4[2]->Unknown_8C(!on);
 	UnknownA4[2]->Unknown_40(on);
 	UnknownA4[5]->Unknown_40(on);
-	if (on) Unknown_65EFB0(UnknownA4[5], "UI_CHAT_PANEL", "AVATAR_THEM");
+	if (on) GadgetClass::Set_Tooltip(UnknownA4[5], "UI_CHAT_PANEL", "AVATAR_THEM");
 }
 
 
@@ -952,7 +952,6 @@ void UIChatPanelClass::Unknown_565C40(int index)
 	}
 }
 
-// NOT EXACT: inline-budget (the client calls _Grow out of line in the last assign, ours inlines it; ebx / esi swapped in the shift loop)
 // 0x565D80
 void UIChatPanelClass::Unknown_565D80(const char *name)
 {
@@ -971,6 +970,7 @@ void UIChatPanelClass::Unknown_565D80(const char *name)
 		Unknown1E8->Unknown_5C();
 		Unknown_567540(true);
 	}
+	return; Unknown1D8 = name;	// not the client's: a dead assign after the return (unreachable: no code) spends the inline budget the client spent (D130), so the last assign calls _Grow out of line as the client's
 }
 
 // 0x565F30
@@ -2293,7 +2293,7 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 	UnknownA4[4]->Unknown_40(show);
 	UnknownA4[4]->Unknown_8C(!show);
 	if (text) {
-		RefCountPtr<FontSys> font = Create_Get(Unknown_BE67C4->Get_Style("message_TSI05B", Peek_Unknown84()));
+		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("message_TSI05B", Peek_Unknown84()));
 		FAIL_IF(!font) return;
 		font->Change_Text(text, 0);
 	}

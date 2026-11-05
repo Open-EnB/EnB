@@ -44,6 +44,11 @@ ROOTS = {
     'Ship': 0x6f66e0, 'Component': 0x6fbda0, 'Light': 0x6f9870, 'Decoration': 0x6f9c30,
     'Harvestable': 0x6f9ed0, 'ManufacturingLab': 0x6fa6f0, 'Player': 0x752510, 'Hulk': 0x6f6076,
 }
+# Roots built inline in another function: name -> (first instruction after the allocation, the
+# instruction after the constructor, the register holding `this`). Hull: SClient 0x7518A0 news 0xADC
+# bytes and builds it in esi (its UnknownSendRootClass base, 'Hull', vtable 0xB03304, then Unknown_48
+# 0x4A40B0 at 0x751ADD); SClient 0x755600 builds the same class (0x7557E4).
+INLINE_SEND = {'Hull': (0x75197F, 0x751AE2, 'esi')}
 # Planet, Starbase and Stargate are built inline in the factory and hold only Name.
 NAME_ONLY = ('Planet', 'Starbase', 'Stargate')
 FACTORY_INDEX, FACTORY_TABLE, FACTORY_TYPES = 0x6f6518, 0x6f64ec, 0x2a
@@ -118,10 +123,11 @@ class Interp:
     def node(self, a):
         return self.nodes.setdefault(a, Node(a))
 
-    def run(self, fn, this, args=(), depth=0):
+    def run(self, fn, this, args=(), depth=0, regs0=None, stop=None):
         img = self.img
         if depth > 8 or fn in SKIP: return
         regs = {r: None for r in REGS}; regs['ecx'] = this
+        regs.update(regs0 or {})
         sp = 0; mem = {4 + 4 * j: a for j, a in enumerate(args)}
         snap = None; last_add = None; recent = []
 
@@ -145,6 +151,7 @@ class Interp:
             while steps < 20000:
                 restart = None
                 for ins in img.disasm(pc):
+                    if stop is not None and ins.address >= stop: return
                     steps += 1
                     yield ins
                     if ins.mnemonic == 'jmp' and ins.op_str.startswith('0x') and int(ins.op_str, 16) > ins.address:
@@ -283,6 +290,10 @@ def main(client, out):
         else:
             it.run(entry, ('T', 0)); root = 0
         roots[name] = to_json(img, it, root, name)
+    for name, (start, stop, reg) in INLINE_SEND.items():
+        it = Interp(img)
+        it.run(start, ('T', 0), regs0={reg: ('T', 0)}, stop=stop)
+        roots[name] = to_json(img, it, 0, name)
     for name in NAME_ONLY:
         roots[name] = {'name': name, 'type': 'struct', 'fields': [{'name': 'Name', 'type': 'string'}]}
 

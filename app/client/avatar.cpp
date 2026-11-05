@@ -22,6 +22,8 @@
 #include "random.h"
 #include "ini.h"
 #include "nlp.h"
+#include "env_map_manager.h"
+#include "..\packets\pkcolorization.h"
 
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
@@ -39,7 +41,11 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_496DB0(RenderObjClass *robj);
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
 void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
-extern bool Unknown_BFAE52;	// 0xBFAE52: set while a model is made  // NAME 1 [Unknown_BFAE52]: neutral (D10), scriptedmovie.cpp's
+// 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
+// (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
+
+void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
+	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
 
 // 0x77B870
 // NOT EXACT: functional for POC (D64)
@@ -156,8 +162,15 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			_snprintf(body_name, sizeof(body_name), "ANPCBODY%03d", (int)Desc.Body_Type);
 		}
 
+		bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();		// 0x77E9D0: the body loads overbright
+		if (!making) {
+			WW3D::Enable_Overbright_Modify_On_Load(true);
+		}
 		if (WW3DAssetManager::Get_Instance()) {
 			BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+		}
+		if (!making) {
+			WW3D::Enable_Overbright_Modify_On_Load(false);
 		}
 		FAIL_IF(BodySource == NULL) {
 		}
@@ -167,7 +180,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			if (BodyObj) {
 				BodyObj->Add_Ref();
 				Unknown_496AE0(BodyObj, true);
-				BodyObj->Set_LOD_Level(BodyObj->Get_LOD_Count() - 1);
+				Unknown_496DB0(BodyObj);		// 0x77E9D0: every LOD level to its highest, the sub-objects' too
 
 				BodyObj->Get_Obj_Space_Bounding_Sphere(ObjSphere);
 				BodyObj->Get_Obj_Space_Bounding_Box(ObjBox);
@@ -198,8 +211,15 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 				_snprintf(head_name, sizeof(head_name), "ANPCHEAD%03d", (int)Desc.Head_Type);
 			}
 
+			bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();	// 0x77F000: the head loads overbright
+			if (!making) {
+				WW3D::Enable_Overbright_Modify_On_Load(true);
+			}
 			if (WW3DAssetManager::Get_Instance()) {
 				HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+			}
+			if (!making) {
+				WW3D::Enable_Overbright_Modify_On_Load(false);
 			}
 			FAIL_IF(HeadSource == NULL) {
 			}
@@ -319,6 +339,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		if (BodyObj) {
 			Unknown_781EA0();
 		}
+		Unknown_780810(env_maps);
 	} else {
 		Unknown221 = false;
 	}
@@ -489,6 +510,16 @@ void CharacterViewAvatarClass::Render(RenderInfoClass &rinfo)
 		Set_Transform(Unknown330);
 		BodyObj->Render(rinfo);
 	}
+}
+
+// 0x77D9F0
+// NOT EXACT: shape (the client loads +0x234 again in each branch)
+float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
+{
+	if (a) {
+		return(Unknown234 + 1.0f);
+	}
+	return(Unknown234);
 }
 
 // 0x77E3D0
@@ -902,7 +933,7 @@ void CharacterViewAvatarClass::Unknown_784E00()
 		Unknown2EC = NULL;
 	}
 }
-
+bool CharacterViewAvatarClass::Unknown_784EA0(const char *name) { return(TutorialManagerClass::Instance->Was_Just_Finished(name)); }	// 0x784EA0 (on one line: avatar.cpp's later asserts keep their lines)
 // 0x786370
 void CharacterViewAvatarClass::Unknown_786370(bool on)
 {
@@ -1464,13 +1495,13 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	} else {
 		_snprintf(name, 0x20, "a%s%02d", part, num);
 	}
-	bool making = Unknown_BFAE52;
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
-		Unknown_BFAE52 = true;
+		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
 	*slot = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
 	if (!making) {
-		Unknown_BFAE52 = false;
+		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (*slot) {
 		Unknown_496AE0(*slot, true);
@@ -1629,15 +1660,15 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RenderO
 		(*slot)->Release_Ref();
 		*slot = NULL;
 	}
-	bool making = Unknown_BFAE52;
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
-		Unknown_BFAE52 = true;
+		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
 	char model[32];
 	_snprintf(model, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
 	RenderObjClass *proto = WW3DAssetManager::Get_Instance()->Create_Render_Obj(model);
 	if (!making) {
-		Unknown_BFAE52 = false;
+		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (proto) {
 		*slot = proto->Clone();
@@ -1724,6 +1755,30 @@ void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 				}
 			}
 		}
+	}
+}
+
+// 0x780810: two colorization regions from the description, shirt (primary, secondary) and pants (primary, secondary):
+// a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
+// the body and the head with the skin colour
+// NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies)
+void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
+{
+	if (env_maps) {
+		std::vector<ColorizationRegionStruct> regions;
+		ColorizationRegionStruct region;
+		region.Unknown00.Unknown00 = Desc.Shirt_Primary_Metal;
+		region.Unknown00.Unknown04 = (Desc.Shirt_Primary_Metal < 0) ? Desc.Shirt_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		region.Unknown10.Unknown00 = Desc.Shirt_Secondary_Metal;
+		region.Unknown10.Unknown04 = (Desc.Shirt_Secondary_Metal < 0) ? Desc.Shirt_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		regions.insert(regions.end(), 1, region);
+		region.Unknown00.Unknown00 = Desc.Pants_Primary_Metal;
+		region.Unknown00.Unknown04 = (Desc.Pants_Primary_Metal < 0) ? Desc.Pants_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		region.Unknown10.Unknown00 = Desc.Pants_Secondary_Metal;
+		region.Unknown10.Unknown04 = (Desc.Pants_Secondary_Metal < 0) ? Desc.Pants_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
+		regions.insert(regions.end(), 1, region);
+		Unknown_80FCE0(BodyObj, regions, env_maps, &Desc.Skin_Color);
+		Unknown_80FCE0(HeadObj, regions, env_maps, &Desc.Skin_Color);
 	}
 }
 
@@ -2254,5 +2309,274 @@ void CharacterViewAvatarClass::Unknown_789D80(RenderObjClass **slot, const char 
 		if (sub) {
 			sub->Release_Ref();
 		}
+	}
+}
+
+// 0x77D3E0 (the body's LODs, when the avatar is not hidden)
+void CharacterViewAvatarClass::Prepare_LOD(CameraClass &camera)
+{
+	if (Is_Not_Hidden_At_All() && BodyObj) {
+		BodyObj->Prepare_LOD(camera);
+	}
+}
+
+// 0x77D460 (the body is the one sub-object: CompositeRenderObjClass's bounds come from it)
+RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
+{
+	if (index != 0) {
+		return(NULL);
+	}
+	BodyObj->Add_Ref();
+	return(BodyObj);
+}
+
+// 0x77E830: the body morph weights, normalised, into Desc.Body_Weight (+0x29C: step them, 0x781410)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 725)
+void CharacterViewAvatarClass::Unknown_77E830(const float *weights)
+{
+	float sum = 0.0f;
+	Unknown29C = true;
+	int i;
+	for (i = 0; i < 5; i++) {
+		G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+		sum += weights[i];
+	}
+	if (sum > 0.0f) {
+		for (i = 0; i < 5; i++) {
+			Desc.Body_Weight[i] = weights[i] / sum;
+		}
+	}
+}
+
+// 0x77E900: the head morph weights, normalised, into Desc.Head_Weight (+0x29D: step them, 0x781570)
+// NOT EXACT: functional for POC (D64), literal (__LINE__ of the G_ASSERT, the client's 748)
+void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
+{
+	float sum = 0.0f;
+	Unknown29D = true;
+	int i;
+	for (i = 0; i < 5; i++) {
+		G_ASSERT(weights[i]>=0.0f && weights[i]<=1.0f);
+		sum += weights[i];
+	}
+	if (sum > 0.0f) {
+		for (i = 0; i < 5; i++) {
+			Desc.Head_Weight[i] = weights[i] / sum;
+		}
+	}
+}
+
+// 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
+// for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
+// colour onto its hair and beard, then the head object is cloned again (0x77F750)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_77F000(int num)
+{
+	char name[64];
+	char head_name[32];
+	int i;
+	Desc.Head_Type = (char)num;
+	if (BodyObj == NULL) {
+		return;
+	}
+	if (HeadSource) {
+		const char *parts[4] = { "HAIR", "EAR", "GOGGLE", "BEARD" };
+		RenderObjClass *slots[4] = { HairSource, Unknown2CC, GoggleSource, BeardSource };
+		for (int p = 0; p < 4; p++) {
+			if (slots[p] && HeadSource) {
+				for (i = 0; i < 5; i++) {
+					_snprintf(name, 0x40, "%s%d", parts[p], i);
+					RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+					if (robj) {
+						HeadSource->Remove_Sub_Object(robj);
+						robj->Release_Ref();
+					}
+				}
+			}
+		}
+		HeadSource->Release_Ref();
+		HeadSource = NULL;
+	}
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	if (Desc.Avatar_Type == 0) {
+		_snprintf(head_name, 0x20, "%s%sHEAD%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Head_Type);
+	} else {
+		_snprintf(head_name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
+	}
+	HeadSource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name);
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	if (HeadSource == NULL) {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, 924, "Error loading up the head asset: %s", head_name);
+		return;
+	}
+	Unknown_496AE0(HeadSource, true);
+	if (HairSource) {
+		Unknown_789D80(&HairSource, "HAIR");
+		for (i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "HAIR%d", i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
+				robj->Release_Ref();
+			}
+		}
+		Unknown_7802F0(Desc.Hair_Color, false);
+	}
+	if (Unknown2CC) {
+		Unknown_789D80(&Unknown2CC, "EAR");
+	}
+	if (GoggleSource) {
+		Unknown_789D80(&GoggleSource, "GOGGLE");
+	}
+	if (BeardSource) {
+		Unknown_789D80(&BeardSource, "BEARD");
+		Desc.Beard_Color = Desc.Hair_Color;
+		for (i = 0; i < 5; i++) {
+			_snprintf(name, 0x40, "BEARD%d", i);
+			RenderObjClass *robj = HeadSource->Get_Sub_Object_By_Name(name);
+			if (robj) {
+				Unknown_77FEC0(&robj, Desc.Hair_Color, 0);
+				robj->Release_Ref();
+			}
+		}
+	}
+	Unknown_77F750();
+}
+
+// 0x77FC90: Ear_Num's ear pieces ('EAR'), then (rebuild) the head object cloned again
+void CharacterViewAvatarClass::Unknown_77FC90(int num, bool rebuild)
+{
+	Desc.Ear_Num = (char)num;
+	Unknown_77F960("EAR", num, &Unknown2CC);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x77FCE0: Goggle_Num's glasses ('GOGGLE'), then (rebuild) the head object cloned again
+void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
+{
+	Desc.Goggle_Num = (char)num;
+	Unknown_77F960("GOGGLE", num, &GoggleSource);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x77E9D0: Body_Type / Pants_Type's body '<gender><race>BODY%02d%02d' ('ANPCBODY%03d' for an NPC) loaded
+// again: the head, weapons and collision objects come off the old one and onto the new one; +0x234 is
+// K_HEAD's height above skel_reference; morph: the body weights shown at once (0x781410)
+// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
+{
+	char body_name[32];
+	Desc.Pants_Type = (char)pants;
+	Desc.Body_Type = (char)body;
+	if (BodyObj) {
+		if (HeadObj) BodyObj->Remove_Sub_Object(HeadObj);
+		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique);
+		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip);
+		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack);
+		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj);
+		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4);
+		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
+		BodyObj->Remove();
+		BodyObj->Release_Ref();
+		BodyObj = NULL;
+	}
+	if (BodySource) {
+		BodySource->Release_Ref();
+		BodySource = NULL;
+	}
+	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	if (Desc.Avatar_Type == 0) {
+		_snprintf(body_name, 0x20, "%s%sBODY%02d%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Body_Type, (int)Desc.Pants_Type);
+	} else {
+		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
+	}
+	BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+	if (!making) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	if (BodySource == NULL) {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, 826, "Error loading up the body asset: %s", body_name);
+		return;
+	}
+	Unknown_496AE0(BodySource, true);
+	BodyObj = BodySource->Clone();
+	Unknown_496AE0(BodyObj, true);
+	Unknown_496DB0(BodyObj);
+	Set_Name(BodyObj->Get_Name());
+	Set_Base_Model_Name(BodyObj->Get_Base_Model_Name());
+	Update_Obj_Space_Bounding_Volumes();
+	if (HeadObj) BodyObj->Add_Sub_Object_To_Bone(HeadObj, "K_HEAD");
+	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique, "WEAPON02");
+	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack, "WEAPON03");
+	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj, "skel_reference");
+	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4, "skel_reference");
+	if (Desc.Gender == 0 && WeaponHip) {
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON01");
+	} else if (WeaponHip) {
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON04");
+	}
+	float head = BodyObj->Get_Bone_Transform("K_HEAD").Get_Z_Translation();
+	Unknown234 = head - BodyObj->Get_Bone_Transform("skel_reference").Get_Z_Translation();
+	if (morph) {
+		Unknown_781410(1, 0);
+	}
+}
+
+// 0x77FC20: Hair_Num's hair ('HAIR'), Hair_Color onto it, then (rebuild) the head object cloned again
+// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+void CharacterViewAvatarClass::Unknown_77FC20(int num, bool rebuild)
+{
+	Desc.Hair_Num = (char)num;
+	Unknown_77F960("HAIR", num, &HairSource);
+	Unknown_77FFA0(Desc.Hair_Color, false);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x77FD30: Beard_Num's beard ('BEARD'), Beard_Color onto it, then (rebuild) the head object cloned again
+// NOT EXACT: functional for POC (D64), not matched yet (the client's part name may be a shared string)
+void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
+{
+	Desc.Beard_Num = (char)num;
+	Unknown_77F960("BEARD", num, &BeardSource);
+	Unknown_7802F0(Desc.Beard_Color, false);
+	if (rebuild) {
+		Unknown_77F750();
+	}
+}
+
+// 0x780680: a colour by index: 0 Skin_Color, 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
+void CharacterViewAvatarClass::Unknown_780680(int index, Vector3 color)
+{
+	switch (index) {
+		case 0: Desc.Skin_Color = color; break;
+		case 1: Desc.Shirt_Primary_Color = color; break;
+		case 2: Desc.Shirt_Secondary_Color = color; break;
+		case 3: Desc.Pants_Primary_Color = color; break;
+		case 4: Desc.Pants_Secondary_Color = color; break;
+	}
+}
+
+// 0x780790: a metal by index: 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
+void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
+{
+	switch (index) {
+		case 1: Desc.Shirt_Primary_Metal = metal; break;
+		case 2: Desc.Shirt_Secondary_Metal = metal; break;
+		case 3: Desc.Pants_Primary_Metal = metal; break;
+		case 4: Desc.Pants_Secondary_Metal = metal; break;
 	}
 }

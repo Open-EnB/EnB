@@ -319,7 +319,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown12B8(0),
 	Unknown12BC(0),
 	AuxData(0),
-	Unknown12C4(1),
+	PlayerVarAuxData(1),
 	Unknown12D4(0),
 	Ticket(0),
 	Unknown1320(true),
@@ -358,7 +358,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown14F0(false),
 	Unknown14F4(0)
 {
-	Unknown12C4[0] = NULL;
+	PlayerVarAuxData[0] = NULL;
 	Unknown1334 = new SClientUnknown1334Class;
 	EnvironmentMapManager = new EnvironmentMapManagerClass;
 	ProjDecalManager = new ProjDecalManagerClass;
@@ -4439,7 +4439,7 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeSpaceClass> &tree)
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
-
+#include "aux_roots_send.h"			// DeltaHullClass (0x7518A0)
 // 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
 bool SClient::Unknown_74D570()
 {
@@ -5453,36 +5453,36 @@ void SClient::Unknown_751660()
 
 
 
+// 0x7518A0 (Init): the player's aux data (AUX_DATA 27) and its player-variable roots (PLAYER_VAR_AUX_DATA 28)
+void SClient::Unknown_7518A0()
+{
+	G_ASSERT(!AuxData);
+	AuxData = new DeltaPlayerClass;
+	for (int lp = 0; lp < 1; lp++) {
+		switch (lp) {
+			case 0:
+				// the element type is cpacket.cpp's stand-in for the root (SClientUnknown12C4Class, an
+				// UnknownSendRootClass); the client's is the Hull root (aux_roots.h)
+				G_ASSERT(!PlayerVarAuxData[lp]);
+				PlayerVarAuxData[lp] = (SClientUnknown12C4Class *)new DeltaHullClass(AvatarID);
+				break;
+			default:
+				G_ASSERT(false);
+				break;
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x7555B0 (Shutdown): deletes the roots 0x7518A0 made
+void SClient::Unknown_7555B0()
+{
+	delete AuxData;
+	AuxData = NULL;
+	if (PlayerVarAuxData[0]) {
+		delete (DeltaHullClass *)PlayerVarAuxData[0];
+		PlayerVarAuxData[0] = NULL;
+	}
+}
 
 
 

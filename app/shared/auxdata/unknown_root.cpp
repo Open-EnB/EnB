@@ -28,9 +28,9 @@ UnknownRootClass::UnknownRootClass(int unknown, const char *name) : DeltaCompoun
 {
 }
 
-UnknownRootClass::~UnknownRootClass()
-{
-}
+// (the destructor 0x4A3D30 is inline in unknown_root.h)
+
+
 
 LinearBufferClass *UnknownRootClass::Encode(PolicyClass *policy, ChangeTableClass *changes)
 {

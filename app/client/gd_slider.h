@@ -34,6 +34,7 @@ public:
 
 	void Unknown_66E3A0();								// 0x66E3A0
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx);	// 0x66E460
+	void Unknown_66FA90(float total, float page, bool a);	// 0x66FA90 (ui_class.cpp's 0x576360: the skills' count, 8, 1)  // NAME 1 [total, page, a]: neutral
 	bool Unknown_66FD80(bool force = false);			// 0x66FD80
 
 	RefCountPtr<RenderObjClass> SliderObject;			// +0x60  // NAME 2 [SliderObject]: FAIL_IF '!SliderObject'

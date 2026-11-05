@@ -46,15 +46,6 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// The value <-> text conversions the key/value pairs use. Not stubs: the client's behaviour
-// (0x4A3200 / 0x4A3240 / 0x4A3590 / 0x4A35C0), here until strconv_lib.cpp is rebuilt.
-// 0x4A30A0 (strconv_lib.cpp): the client's behaviour
-char *Value_To_String(char *buf, int size, bool value)
-{
-	strcpy(buf, value ? "true" : "false");
-	return buf;
-}
-
 // faction_and_reputation.cpp 0x835890: the reaction's name from the client's table 0xBA9614 (not
 // known yet: its number), 'BadReaction' out of range
 char *Value_To_String(char *buf, int size, MobReactionType reaction)
@@ -73,57 +64,6 @@ RelationshipClass::RelationshipClass()
 {
 	Reaction = (MobReactionType)1;
 	IsAttacking = false;
-}
-
-char *Value_To_String(char *buf, int size, float value)
-{
-	sprintf(buf, "%f", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, float *value)
-{
-	*value = (float)atof(text);
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, unsigned int value)
-{
-	sprintf(buf, "%u", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, unsigned int *value)
-{
-	return sscanf(text, "%u", value) == 1;
-}
-
-// 0x4A32E0 / 0x4A3310 / 0x4A3410 / 0x4A3440: the client's behaviour (char and int)
-char *Value_To_String(char *buf, int size, char value)
-{
-	sprintf(buf, "%d", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, char *value)
-{
-	int i = 0;
-	if (sscanf(text, "%d", &i) == 1 && i >= -128 && i <= 127) {
-		*value = (char)i;
-		return true;
-	}
-	return false;
-}
-
-char *Value_To_String(char *buf, int size, int value)
-{
-	sprintf(buf, "%d", value);
-	return buf;
-}
-
-bool String_To_Value(const char *text, int *value)
-{
-	return sscanf(text, "%d", value) == 1;
 }
 
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
@@ -181,6 +121,12 @@ char *Unknown_8B44E0(__int64 value, char *buffer)
 	return _i64toa(value, buffer, 10);
 }
 
+// 0x8B44C0: the int64 from decimal text (the client's behaviour; strconv_lib.cpp's 0x4A3AB0 calls it)
+__int64 Unknown_8B44C0(const char *text)
+{
+	return _atoi64(text);
+}
+
 // 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
 char *Unknown_4A1590(char *buffer, int size, const char *string)
 {
@@ -234,4 +180,63 @@ char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
 	STUB_CALLED("Manufacturing_Mode_Name (0x845910)");
 	static char *names[] = { "None", "Manufacture", "Analyze", "Dismantle" };
 	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
+}
+
+// ------------------------------------------------------------------------- ui_registration.cpp's reply source
+
+// 0x7D1AC0: what ui_registration.cpp's 0x5FB9F0 asks +0x1AC for, returned by value (gen_stubs skips those);
+// the struct as ui_registration.cpp declares it
+struct RegistrationErrorStruct
+{
+	std::string Unknown00;
+	short Unknown10;
+	std::string Unknown14;
+	std::string Unknown24;
+};
+
+// 0x7D3570: the 0x5C-byte entries ui_registration.cpp's 0x5FA5F0 sorts, returned in a vector by value
+struct RegistrationUnknown578Struct
+{
+	std::string Unknown00;
+	std::string Unknown10;
+	int Unknown20;
+	std::string Unknown24;
+	std::string Unknown34;
+	int Unknown44;
+	int Unknown48;
+	std::vector<int> Unknown4C;
+};
+
+class RegistrationUnknown1ACClass
+{
+public:
+	RegistrationErrorStruct Unknown_7D1AC0();
+	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();
+};
+
+std::vector<RegistrationUnknown578Struct> RegistrationUnknown1ACClass::Unknown_7D3570()
+{
+	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D3570 (0x7D3570)");
+	return std::vector<RegistrationUnknown578Struct>();
+}
+
+RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
+{
+	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D1AC0 (0x7D1AC0)");
+	RegistrationErrorStruct error;
+	error.Unknown10 = -1;
+	return error;
+}
+
+// sbaseview.cpp's starbase interface name (0x69D030 calls it; not rebuilt): empty, the client's tsd* model names unread
+class SBaseViewClass
+{
+public:
+	std::string Unknown_6A2120(int index);
+};
+
+std::string SBaseViewClass::Unknown_6A2120(int)
+{
+	STUB_CALLED("SBaseViewClass::Unknown_6A2120 (0x6A2120)");
+	return std::string();
 }

@@ -55,7 +55,7 @@ public:
 	virtual void Unknown_A0();
 	virtual void Unknown_A4(float value, int unknown);	// +0xA4 (the slider's: its position)  // NAME 1 [value, unknown]: neutral
 	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5B6410 passes -1)  // NAME 1 [arg]: neutral
-
+	static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
 	void Unknown_6603A0(int arg, UIViewClass *view);	// 0x6603A0  // NAME 1 [arg, view]: neutral
 	void Unknown_6607D0();								// 0x6607D0
 
@@ -68,10 +68,10 @@ public:
 };
 
 // gd_slider.cpp's slider, as far as this file calls it
-class UIManuSliderClass : public GadgetClass	// NAME 1: neutral (D10)
+class GadgetSlider : public GadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@ (gd_slider.h), as far as this file calls it
 {
 public:
-	UIManuSliderClass(int arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
+	GadgetSlider(bool arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, bool a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
 	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
@@ -164,11 +164,11 @@ class UIManuKeysClass { public: void Unknown_721E60(const UIManuKeyEventStruct *
 
 // gadget.cpp's button gadgets (100 bytes), as slot +0x54 makes them: over a render object (0x675240) or over a mesh's
 // named sub-object (0x675170)
-class UIManuButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
+class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it (as ui_avatr.cpp)
 {
 public:
-	UIManuButtonGadgetClass(RenderObjClass *robj, LayerClass *layer, int a, int b);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, a, b]: what slot +0x54 passes
-	UIManuButtonGadgetClass(UIMeshClass *mesh, const char *name, LayerClass *layer, int a, int b);	// 0x675170 (0x55, 3)  // NAME 1 [mesh, name, layer, a, b]: what slot +0x54 passes
+	ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, mask, flags]: unknown_675120.h's
+	ButtonGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675170 (0x55, 3)  // NAME 1 [mesh, name, layer, mask, flags]: unknown_675120.h's
 	char Unknown34[0x64 - 0x34];						// +0x34
 };
 
@@ -343,8 +343,8 @@ public:
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the callers pass
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: what 0x5B42F0 passes
-void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the gadget's text from a string section  // NAME 1 [gadget, section, name]: as ui_group.cpp's
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: what 0x5B42F0 passes
+// 0x65EFB0 is GadgetClass::Set_Tooltip (the static above, variadic as gadget.h declares it: the client pops each call's arguments on its own)
 
 // The formula lists under the target item's aux data ('KnownFormula', 'PreviousAttempts'; their class's global at +0x04 is
 // 0xC41628) and their entries, as far as this file reads them
@@ -392,14 +392,14 @@ bool Unknown_846210(int validity);						// 0x846210: the attempt succeeded (the 
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
-// NOT EXACT: frame (the client keeps the key event in the name buffer's slot: 0x10 bytes less; it pops 0x495FD0's arguments before the bit clear) (0x5AFFC0)
+// NOT EXACT: frame (sub esp 0xAC vs the client's 0x9C: the client keeps the 0x10-byte key event in another local's slot; the instructions otherwise the same, 741 = 741; a named event in its own block, the name block, the buffer's block: no) (0x5AFFC0)
 void UIManuClass::Unknown_54()
 {
 	for (int id = 1; id <= 6; id++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
 		if (robj) {
 			Unknown_496AE0(robj.Peek(), 0);
-			Unknown0CC[id] = new UIManuButtonGadgetClass(robj.Peek(), &Layer, 0x55, 3);
+			Unknown0CC[id] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
 			Unknown64.Unknown_6870E0(Unknown0CC[id], id, View, 1, 0);
 			Unknown_5BB4F0(Unknown0CC[id]);
 		}
@@ -408,14 +408,14 @@ void UIManuClass::Unknown_54()
 	if (recent) {
 		Unknown_495FD0(Unknown0CC[5]->Unknown30, recent.Peek(), 0);
 		Unknown0CC[5]->Unknown2C40 = 0;
-		Unknown_65EFB0(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
+		GadgetClass::Set_Tooltip(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
 	}
-	Unknown_65EFB0(Unknown0CC[6], "UI_MANUFACTURE", "ICON_GO");
+	GadgetClass::Set_Tooltip(Unknown0CC[6], "UI_MANUFACTURE", "ICON_GO");
 	{
 	char name[64];
 	for (int row = 0; row < 10; row++) {
 		sprintf(name, "desc%02d", row);
-		Unknown0E8[row] = new UIManuButtonGadgetClass(Mesh, name, &Layer, 0x55, 3);
+		Unknown0E8[row] = new ButtonGadgetClass(Mesh, name, Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown0E8[row], row + 8, View, 1, 0);
 		Unknown_5BB4F0(Unknown0E8[row]);
 	}
@@ -433,14 +433,14 @@ void UIManuClass::Unknown_54()
 	}
 	}
 	((UIManuKeysClass *)Unknown4C)->Unknown_721E60(&UIManuKeyEventStruct(0x1B), true);
-	Unknown0B0 = new UIManuSliderClass(0, &Layer);
+	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(Mesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
 	SClient *sclient = Client->As_Space_Client();
-	Unknown0B4 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
+	Unknown0B4 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 6, "TSM01A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
-	Unknown0B8 = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
+	Unknown0B8 = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.RESULT", 13));
 	char buffer[64];
 	for (int k = 0; k < 3; k++) {
 		Unknown0C0[k] = new UIManuUnknownC0Class(k);
@@ -449,7 +449,7 @@ void UIManuClass::Unknown_54()
 			RefCountPtr<RenderObjClass> robj = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(buffer));
 			if (robj) {
 				Unknown_496AE0(robj.Peek(), 0);
-				Unknown0C0[k]->Gadgets[i] = new UIManuButtonGadgetClass(robj.Peek(), &Layer, 0x55, 3);
+				Unknown0C0[k]->Gadgets[i] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
 				Unknown0C0[k]->Gadgets[i]->Unknown_65FFA0(-1);
 				Unknown64.Unknown_6870E0(Unknown0C0[k]->Gadgets[i], Unknown_B818A8[k] + i, View, 1, 1);
 				Unknown_5BB4F0(Unknown0C0[k]->Gadgets[i]);
@@ -465,7 +465,7 @@ void UIManuClass::Unknown_54()
 	}
 	Unknown0B8->Unknown_54();
 	Unknown0B8->Unknown_7C(View, 0);
-	Unknown0BC = Create_Peek(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
+	Unknown0BC = Create_Get(new UIManuInvClass(sclient, Mesh->Peek_Object(), 1, "TSM01A.OVER", 14));
 	Unknown0BC->Unknown_54();
 	Unknown0BC->Unknown_7C(View, 0);
 	RefCountPtr<RenderObjClass> tutorial = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
@@ -846,7 +846,7 @@ void UIManuClass::Unknown_5B2950()
 // 0x5B2990
 void UIManuClass::Unknown_5B2990()
 {
-	UIManuSliderClass *slider = Unknown0B0;
+	GadgetSlider *slider = Unknown0B0;
 	int top = (int)slider->Unknown0D4;
 	int bottom = top + 9;
 	int pick = Unknown0B80[3];
@@ -1195,7 +1195,7 @@ void UIManuClass::Unknown_5B3E00()
 	Unknown_5B2FE0();
 }
 
-// NOT EXACT: register (the gadget and the texture for 0x495FD0 in edx / ecx, ours eax / edx) (0x5B42F0)
+// 0x5B42F0
 void UIManuClass::Unknown_5B42F0(int level)
 {
 	char name[64];
@@ -1230,7 +1230,7 @@ void UIManuClass::Unknown_5B42F0(int level)
 			break;
 	}
 	Unknown0CC[level + 2]->Unknown2C40 = 0;
-	Unknown_65EFB0(Unknown0CC[level + 2], "UI_MANUFACTURE", name);
+	GadgetClass::Set_Tooltip(Unknown0CC[level + 2], "UI_MANUFACTURE", name);
 	RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(file, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	if (texture) {
 		if (!texture->Is_Initialized()) {
@@ -1238,7 +1238,7 @@ void UIManuClass::Unknown_5B42F0(int level)
 		}
 	}
 	if (texture && !texture->Is_Missing_Texture()) {
-		Unknown_495FD0(Unknown0CC[level + 2]->Unknown30, texture.Peek(), 0);
+		RenderObjClass *robj = Unknown0CC[level + 2]->Unknown30; Unknown_495FD0(robj, texture.Peek(), 0);
 		Unknown0CC[level + 2]->Unknown_40(true);
 		Unknown0CC[level + 2]->Unknown_8C(false);
 		Unknown110[level]->Set_Hidden(false);
@@ -1867,7 +1867,7 @@ void UIManuClass::Unknown_5B6D30()
 **	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
 **	are defined before it, and the client emits them after it.
 **	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B42F0, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
+**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */

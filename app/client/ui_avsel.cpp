@@ -1035,7 +1035,7 @@ void AvatarSelectionInterface::Unknown_55EF90()
 
 
 
-// NOT EXACT: inline budget (0.59; the client erases the galaxies' list out of line on the FAIL_IF's return, and keeps other registers)
+// NOT EXACT: register (0.78; the profession index: the client adds race * 2 to the profession, then race)
 // 0x55F140
 void AvatarSelectionInterface::Unknown_55F140()
 {
@@ -1081,9 +1081,9 @@ void AvatarSelectionInterface::Unknown_55F140()
 
 
 
-
-
 	std::list<LoginGalaxyClass> galaxies = Unknown088->Galaxies;
+	galaxies.size();	// dead reads: they spend the inline budget the client spends here, so the FAIL_IF's ~list
+	galaxies.size();	// inlines erase(first, last) and calls it++ 0x5601B0 / erase(it) 0x560160 out of line
 	textptr = Unknown_BE67C4->Get_Style("fe12_Server_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
 	textptr->Change_Text("", 0);
@@ -1292,7 +1292,7 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 **	descriptor, and the client calls ShipCustDescClass's implicit operator= out of line (0x55D8A0)
 **	where shipcust_desc.h's written-out one (P-P7-1) inlines; 0x55F140 (the selected character's
 **	texts: race, profession, level, location, galaxy; FAIL_IFs 1047 / 1053 / 1059 / 1088; the
-**	galaxies' list copied) NOT EXACT (inline budget, 0.59). The class is declared in ui_avsel.h (a
+**	galaxies' list copied) NOT EXACT (register, 0.78). The class is declared in ui_avsel.h (a
 **	provisional name: with it in this file the functions before line 769 do not fit above it), the
 **	other types only as far as these functions use them.
 */

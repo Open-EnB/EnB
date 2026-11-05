@@ -5,8 +5,8 @@
     python tools/re/auxroots.py check [--schema JSON]       the extracted trees vs that committed schema
     python tools/re/auxroots.py tree ROOT                   prints one extracted tree
 
-The trees come from tools/re/auxextract.py (symbolic execution of the 11 roots' constructors: the
-CREATE factory 0x6F6000's ten and the Player root 0x752510). Each compound the client builds has
+The trees come from tools/re/auxextract.py (symbolic execution of the 12 roots' constructors: the
+CREATE factory 0x6F6000's ten, the Player root 0x752510 and the Hull root SClient 0x7518A0 builds inline). Each compound the client builds has
 its own vtable, so each becomes one C++ class: the roots `Delta<Name>Class` (derived from
 UnknownRootClass, unknown_root.h; `<Name>` is the client's string; D56 score 3), the nested
 compounds `Delta<X>Class` where tools/re/auxnames.py matched Net-7's `Aux<X>` (or a C# class) by
@@ -60,7 +60,11 @@ PADS = os.path.join(HERE, 'auxroots_pads.json')
 # The factory's create types (0x6F6000's switch) and the roots it builds; Player is game id 0.
 ROOT_CTOR = {'Ship': 0x6F66E0, 'Component': 0x6FBDA0, 'Light': 0x6F9870, 'Decoration': 0x6F9C30,
              'Harvestable': 0x6F9ED0, 'ManufacturingLab': 0x6FA6F0, 'Player': 0x752510}
-SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
+SEND_ROOTS = {'Player', 'Hull'}     # derived from UnknownSendRootClass (unknown_root.h)
+# Send roots the client builds inline in another file's function (auxextract.py INLINE_SEND): their
+# constructor is inline in the header and takes the base's first argument (Hull: SClient 0x7518A0
+# passes its +0x112C).
+INLINE_SEND = {'Hull': 0x7518A0}
 # The factory's roots' constructors are inline functions in the header (the rest: SEND_ROOTS, in
 # aux_roots.cpp): the client's out-of-line copies follow the factory 0x6F6000, their first caller
 # (Ship 0x6F66E0 right after it), and the factory is exact only so (with 1.0f in ARRAY_VALUES).
@@ -69,6 +73,10 @@ SEND_ROOTS = {'Player'}     # derived from UnknownSendRootClass (unknown_root.h)
 # into which ours does not inline the Elements array's base (ARRAY_DERIVED; the client does), so
 # an inline Element is lost there (0x707430); plain, it stays exact.
 OOLINE_PLAIN = {0xB01F74}
+# Compounds whose destructor the client declares (an empty body: VC6 stores the class's vtable first,
+# which an implicit destructor leaves out): Harvestable 0x6FA5E0, the Buffs array (inlined: the address of its store).
+USER_DTOR = {0xB010C0: 0x6FA5E0,
+             0xB00B0C: 0x6F8EA9}   # Ship.BuffArray, inlined in Ship's destructor 0x6F8D30
 # Arrays whose class derives from the template instance: the client calls the instance's
 # constructor and then stores the array's own vtable and per-class global (Ship's BuffArray:
 # 0x707040 stores 0xB01A98, Ship 0x6F73DA then 0xB00B0C and [0xC41600]; the two vtables differ
@@ -128,7 +136,17 @@ CLIENT_TYPES = {
     0xB009A8: ('InterruptStateType', 0xB01B40, 0x7083B0, 'inline'),
     0xB0100C: ('WW3DLightAttenuationType', 0xB01B78, 0x708520, 'inline'),
     0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
+    0xB03694: ('SkillLevelAvailabilityStruct', 0xB03AB4, 0x759CE0, 'inline'),
+    0xB03A24: ('HullPreviewStatusEnum', 0xB03A7C, 0x759B50, 'inline'),
 }
+# An enum's inline conversions where the client's KVPair shows another form than the default
+# (_snprintf / sscanf into a local, == 1): leaf vtable -> (Value_To_String's value parameter, its body,
+# String_To_Value's body).
+# 0xB03A24: Get_Value_String 0x759B70 sprintf's '%d' and returns the buffer; Set_Value_String 0x75A140
+# sscanf's '%d' and tests the result for nonzero, passing the (uninitialised) value itself, not its address:
+# its slot is the text argument's, so the client pushes the text pointer ([esp+4]) and Sets from that slot.
+ENUM_FORMS = {0xB03A24: ('const NAME &value', '{ sprintf(buf, "%d", value); return buf; }',
+                         '{ return sscanf(text, "%d", *value) != 0; }')}
 INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133C: 0x708AE0}
 # The enums' conversions the client calls out of line (other files' functions, not rebuilt; stand-ins in
 # stubs/app_stubs.cpp): leaf vtable -> (Type_Name(value) or None when inline, String_To_Value,
@@ -151,9 +169,17 @@ ENUM_EXTERN = {
 # A blob's operator!= where the client's Set_Value shows it (the rest memcmp): the colour 0xB00A00's
 # accessor Set 0x7080C0 compares the three fields as dwords (cmp/jne, no FPU), the delta's first.
 BLOB_NE = {
+    # 0xB03694: its KVPair's Is_Changed 0x759D30 compares the four ints (cmp/jne), the saved value's first
+    0xB03694: 'inline bool operator!=(const NAME &a, const NAME &b) { return a.I00 != b.I00 || a.I04 != b.I04 || '
+              'a.I08 != b.I08 || a.I0C != b.I0C; }',
     0xB00A00: 'inline bool operator!=(const NAME &a, const NAME &b) { return *(const int *)&a.R != *(const int *)&b.R || '
               '*(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }',
 }
+# A blob's conversions the client calls out of line (another file's functions, not rebuilt; stand-ins in
+# stubs/aux_roots_stubs.cpp): leaf vtable -> (String_To_Value, Value_To_String), from the KVPair's
+# Set_Value_String / Get_Value_String. 0xB03694: 0x75A190 calls 0x84A600 (text, &value), 0x759D00 calls
+# 0x84A560 (buf, size, &value), both in app\Common\skill_level_availability.cpp ('%d,%d,%d,%d', 0xBB0C88).
+BLOB_EXTERN = {0xB03694: (0x84A600, 0x84A560)}
 BLOB_CONV = {
     0xB01A40: ('ProjectedDecalClass',
                'inline bool operator!=(const NAME &a, const NAME &b) '
@@ -362,7 +388,9 @@ class Gen:
                          'then stores the two', tag,
                          f'class {name} : public {inst}', '{', 'public:',
                          f'\t{name}(const char *name, unsigned int count) : {inst}(name, count)', '\t{',
-                         '\t\tUnknown04 = UnknownGlobal;', '\t}', '',
+                         '\t\tUnknown04 = UnknownGlobal;', '\t}'] + \
+                        ([f'\t~{name}() {{}}\t// user-declared: the client stores the vtable 0x{hexu(vt)} first (0x{USER_DTOR[vt]:X})']
+                         if vt in USER_DTOR else []) + ['',
                          '\tstatic int UnknownGlobal;\t// the per-class global at +0x04', '};']
                 self.decl[vt] = '\n'.join(lines)
                 self.order.append(vt)
@@ -456,7 +484,10 @@ class Gen:
             # Player's base is the second root class (vtable 0xAEAC40, ctor 0x4A3FF0: the name
             # argument is passed but not used); the factory's roots derive from UnknownRootClass
             basecls = 'UnknownSendRootClass' if root in SEND_ROOTS else 'UnknownRootClass'
-            if root in SEND_ROOTS:
+            if root in INLINE_SEND:
+                init = [f'{basecls}(unknown, "{n["_cname"]}")']
+                sig = f'{name}(int unknown)'
+            elif root in SEND_ROOTS:
                 # Player's constructor takes nothing (0x752510 ends `ret`) and passes 0
                 init = [f'{basecls}(0, "{n["_cname"]}")']
                 sig = f'{name}()'
@@ -468,12 +499,12 @@ class Gen:
             init = [f'{basecls}(name)']
             sig = f'{name}(const char *name)'
         init += [f'{m}({a})' for _, _, m, a in members]
-        lines = [f'// vtable 0x{hexu(vt)}' + (f', constructor 0x{ROOT_CTOR[root]:X}' if root in ROOT_CTOR else '')
+        lines = [f'// vtable 0x{hexu(vt)}' + (f', constructor 0x{ROOT_CTOR[root]:X}' if root in ROOT_CTOR else f', built inline in 0x{INLINE_SEND[root]:X}' if root in INLINE_SEND else '')
                  + ('' if root else f' (e.g. {path})'), tag,
                  f'class {name} : public {basecls}', '{', 'public:']
-        inline = root in INLINE_ROOT_VT or root == 'Hulk'
+        inline = root in INLINE_ROOT_VT or root == 'Hulk' or root in INLINE_SEND
         if inline:
-            body = body + ['\tDeltaCompoundClass::Unknown_48();']
+            body = body + ['\tUnknown_48();' if root in INLINE_SEND else '\tDeltaCompoundClass::Unknown_48();']
         if root and not inline:
             lines.append(f'\t{sig};')
             if ship:
@@ -495,6 +526,8 @@ class Gen:
             lines.append('\t{')
             lines += ['\t' + b for b in body]
             lines.append('\t}')
+        if vt in USER_DTOR:
+            lines.append(f'	~{name}() {{}}	// 0x{USER_DTOR[vt]:X}: user-declared (it stores the vtable first)')
         if members:
             lines.append('')
         for off, cls, m, _ in members:
@@ -510,9 +543,11 @@ class Gen:
         self.order.append(vt)
         return name
 
-    def type_decls(self):
+    def type_decls(self, only=None, skip=()):
         out = []
         for vt, (kind, size, name) in sorted(self.types.items()):
+            if (only is not None and vt not in only) or vt in skip:
+                continue
             if vt in CLIENT_TYPES:
                 cn, kv, gtn, src = CLIENT_TYPES[vt]
                 out.append(f'// NAME 5: the client\'s Get_Type_Name string \'{cn}\' (KVPair vtable 0x{hexu(kv)}, '
@@ -555,12 +590,20 @@ class Gen:
                 out.append(f'char *Value_To_String(char *buf, int size, {name} value);\t// 0x{v2s:X}')
                 continue
             out.append(f'inline const char *Type_Name({name} *) {{ return "{tname}"; }}')
+            bext = BLOB_EXTERN.get(vt) if kind != 'enum' else None
+            if bext:
+                out.append(f'bool String_To_Value(const char *text, {name} *value);\t// 0x{bext[0]:X}')
+                out.append(f'char *Value_To_String(char *buf, int size, const {name} &value);\t// 0x{bext[1]:X}')
+                continue
             if conv:
                 out.append(f'inline char *Value_To_String(char *buf, int, {ref}value) {conv[2]}')
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) {conv[3]}' if conv[3] else
                            f'inline bool String_To_Value(const char *, {name} *) {{ return false; }}')
                 continue
-            if kind == 'enum':
+            if kind == 'enum' and vt in ENUM_FORMS:
+                out.append(f'inline char *Value_To_String(char *buf, int, {ENUM_FORMS[vt][0].replace("NAME", name)}) {ENUM_FORMS[vt][1]}')
+                out.append(f'inline bool String_To_Value(const char *text, {name} *value) {ENUM_FORMS[vt][2]}')
+            elif kind == 'enum':
                 out.append(f'inline char *Value_To_String(char *buf, int size, {name} value) '
                            '{ _snprintf(buf, size, "%d", (int)value); return buf; }')
                 out.append(f'inline bool String_To_Value(const char *text, {name} *value) '
@@ -577,6 +620,14 @@ class Gen:
         out = [STUBS_HEAD]
         for vt, (kind, size, name) in sorted(self.types.items()):
             ext = ENUM_EXTERN.get(vt) if kind == 'enum' else None
+            bext = BLOB_EXTERN.get(vt) if kind != 'enum' else None
+            if bext:
+                out.append(f'bool String_To_Value(const char *, {name} *)\n{{\n'
+                           f'\tSTUB_CALLED("String_To_Value({name}) (0x{bext[0]:X})");\n\treturn false;\n}}\n')
+                out.append(f'char *Value_To_String(char *buf, int size, const {name} &value)\n{{\n'
+                           f'\tSTUB_CALLED("Value_To_String({name}) (0x{bext[1]:X})");\n'
+                           f'\t_snprintf(buf, size, "%d,%d,%d,%d", value.I00, value.I04, value.I08, value.I0C);\n\treturn buf;\n}}\n')
+                continue
             if not ext:
                 continue
             tn, s2v, v2s = ext
@@ -603,6 +654,30 @@ STUBS_HEAD = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/r
 #include "..\app\client\aux_roots.h"
 '''
 
+
+# The roots other files build inline (INLINE_SEND) and the value types only they use, in a header of their
+# own: aux_roots.cpp doesn't include it, so they don't move its SYMBOL_PAD windows (workflow.md 3.3; with
+# Hull in aux_roots.h no pad had all six constructors exact, 3/6 at best).
+SEND_HEADER = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/re/auxroots.py, do not edit.
+// The aux-data roots other files build inline (auxroots.py INLINE_SEND: Hull, SClient 0x7518A0) and the
+// value types only they use. NOT EXACT (D42) where aux_roots.h is.
+// NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3)
+
+#if defined(_MSC_VER)
+#pragma once
+#endif
+
+#ifndef __AUX_ROOTS_SEND_H
+#define __AUX_ROOTS_SEND_H
+
+#include "aux_roots.h"
+
+%(types)s
+
+%(classes)s
+
+#endif //__AUX_ROOTS_SEND_H
+'''
 
 HEADER = r'''// Earth & Beyond client (reconstruction)
 /*
@@ -637,21 +712,16 @@ HEADER = r'''// Earth & Beyond client (reconstruction)
 #include "..\shared\strconv_lib.h"
 #include "..\shared\unknown_debug.h"
 
-// The money field's Read and Write are delta_money.cpp's specialisations
-template<> bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &);
-template<> bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf);
-// and its constructor is delta_money.cpp's (0x4A7080, called out of line as the client's)
-extern template class DeltaTemplateClass<MoneyClass>;
+// The money field is delta_money.h's specialisation: every member out of line in delta_money.cpp
+// (the constructor 0x4A7080 and destructor 0x4A7100 are called, the destructor under an EH state
+// as one that can throw: Player's destructor 0x7551D0, the Item destructors 0x6FA4C0 / 0x702750)
+#include "..\shared\auxdata\delta_money.h"
+
 
 // ------------------------------------------------------------------------- value types
 
-// The client's conversions for int and bool are strconv_lib.cpp's (0x4A30A0-0x4A35F0, not rebuilt)
-inline const char *Type_Name(int *) { return "int"; }
-inline char *Value_To_String(char *buf, int size, int value) { _snprintf(buf, size, "%d", value); return buf; }
-inline bool String_To_Value(const char *text, int *value) { return sscanf(text, "%d", value) == 1; }
-inline const char *Type_Name(bool *) { return "bool"; }
-inline char *Value_To_String(char *buf, int size, bool value) { _snprintf(buf, size, "%s", value ? "true" : "false"); return buf; }
-inline bool String_To_Value(const char *text, bool *value) { *value = strcmp(text, "true") == 0; return true; }
+// The int and bool conversions and type names are strconv_lib.h's (the client's are out of line,
+// unknown_strconv.cpp 0x4A30A0-0x4A3640)
 inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, int n)
 {
 	int k = 0;
@@ -691,7 +761,7 @@ public:
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 10
+SYMBOL_PAD = 36
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
@@ -731,6 +801,7 @@ def generate(doc, out_dir):
     inline_roots = []      # the factory's roots: inline (header), as the client's (see the note at SEND_ROOTS)
     roots = doc['roots']
     g.prepare(roots)
+    send_vts, send_types = set(), set()     # INLINE_SEND's classes and value types: aux_roots_send.h
     for rname, r in roots.items():
         r = dict(r)
         if rname in INLINE_ROOT_VT:
@@ -741,7 +812,11 @@ def generate(doc, out_dir):
             raise SystemExit(f'{rname}: no vtable')
         r['_cname'] = rname
         g.root_ctor = None
+        before = (set(g.order), set(g.types))
         g.compound(r, rname, root=rname)
+        if rname in INLINE_SEND:
+            send_vts |= set(g.order) - before[0]
+            send_types |= set(g.types) - before[1]
         if g.root_ctor is None:
             continue
         text = (f'// {rname}' + (f' (0x{ROOT_CTOR[rname]:X})' if rname in ROOT_CTOR else ' (built in the factory 0x6F6000)')
@@ -760,8 +835,10 @@ def generate(doc, out_dir):
     for rn, ts in sorted(by_root.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99):
         cases += [f'\t\tcase {t}:' for t in sorted(ts)]
         cases.append(f'\t\t\treturn new Delta{rn}Class(unknown);')
-    classes = '\n\n'.join(g.decl[vt] for vt in g.order)
-    h = HEADER.replace('%(types)s', g.type_decls()).replace('%(classes)s', classes).replace(
+    classes = '\n\n'.join(g.decl[vt] for vt in g.order if vt not in send_vts)
+    send = SEND_HEADER.replace('%(types)s', g.type_decls(only=send_types)).replace(
+        '%(classes)s', '\n\n'.join(g.decl[vt] for vt in g.order if vt in send_vts))
+    h = HEADER.replace('%(types)s', g.type_decls(skip=send_types)).replace('%(classes)s', classes).replace(
         '%(inline_roots)s', ''.join(text + '\n\n' for _, text in sorted(inline_roots)))
     # the client's order (its objects compile in address order: VC6's inlining depends on what came before)
     ctors += g.nested + [(0x6F8C70, SHIP_ADD), (0x6F6000, FACTORY.replace('%(cases)s', '\n'.join(cases)))]
@@ -769,7 +846,7 @@ def generate(doc, out_dir):
     pad = PAD % ', '.join(f'AUX_ROOTS_PAD_{i:02d}' for i in range(SYMBOL_PAD)) if SYMBOL_PAD else ''
     c = c.replace('%(pad)s', pad)
     os.makedirs(out_dir, exist_ok=True)
-    for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c)):
+    for name, text in (('aux_roots.h', h), ('aux_roots.cpp', c), ('aux_roots_send.h', send)):
         with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
             f.write(text)
     if os.path.normcase(os.path.abspath(out_dir)) == os.path.normcase(OUT_DIR):

@@ -1,7 +1,8 @@
 """Runs the proof-of-concept client (D179; built by `tools/vc6/build.py link --program clientpoc`).
 
     python tools/harness/clientpoc.py run [--seconds N] [--fullscreen] [--shots N,M,...] [-- CLIENT ARGS...]
-    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
+    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH | --retail] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
+    python tools/harness/dumpcmp.py A B           compares two draw dumps (d3d8shot D3D8SHOT_DUMP folders), see below
     python tools/harness/clientpoc.py log         the last run's stubs.log, digested
     python tools/harness/clientpoc.py clean --instance NAME | --all | --older HOURS
                                                   delete instances (a builder its own before reporting; the
@@ -29,6 +30,21 @@ the game's install), ENB_POC_WINDOWED=1 unless --fullscreen, waits N seconds (de
 if it still runs; then prints the digest. Delete stubs.log and _except.txt first (the client's exception
 report, written beside the exe).
 
+replay prints, after the run, whether the client exited by itself and when (D191): antprox.out's "Client exited"
+line against the time the last input step was posted ("exited by itself at ..., +2.4 s after the last input (step
+15000 click ...)"), or "still running when this run killed it". `run` reports the exit code of the process itself.
+
+replay --retail (D190): runs a COPY of the retail client (INSTALL/release/client.exe, SHA 249f8524) copied into the
+instance folder (--instance is required; the install folder is only read, D69 / D143) on the same replay input as the
+POC. The d3d8shot proxy then runs with D3D8SHOT_INPUT=1: it patches the client's user32 imports (GetMessageA /
+PeekMessageA, GetCursorPos, GetMessagePos, SetCursorPos, GetForegroundWindow, GetActiveWindow, GetKeyState,
+GetAsyncKeyState, ClipCursor) to read the posted messages, as programs/clientpoc/poc_input.cpp does for the POC, so the
+real cursor and keyboard are never used. The terms box ("I Agree") is the dialog's own input: a BM_CLICK is posted to
+its button (a thread of replay); the input steps go to the main window (dialogs are skipped when looking for it). There
+is no stubs.log. --shots is required (the proxy carries the hooks; `run_reference.py build` first, the proxy must be
+rebuilt for them). A retail draw dump: D3D8SHOT_DUMP=N in the environment; compare dumps with
+tools/harness/dumpcmp.py.
+
 --shots N,M: saves the client's own back buffer at those Present calls (1 = the first frame presented;
 never a screen grab, D69) through the d3d8shot proxy (build/d3d8shot/d3d8.dll, built by
 `run_reference.py build`): the proxy is copied beside the exe for the run and deleted after it, so later
@@ -48,6 +64,8 @@ a line, '#' comments; T is milliseconds after the window first appears, X Y clie
     T move X Y          WM_MOUSEMOVE
     T click X Y         WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_LBUTTONUP (50 ms apart)
     T rclick X Y        the same with the right button
+    T down X Y          WM_MOUSEMOVE, WM_LBUTTONDOWN (a drag's start; 'move' steps, then 'up')
+    T up X Y            WM_MOUSEMOVE (button held), WM_LBUTTONUP
     T key VK            WM_KEYDOWN / WM_KEYUP (VK decimal or 0x hex, e.g. 0x0D Enter, 0x09 Tab)
     T text STRING       WM_KEYDOWN / WM_KEYUP per character (VkKeyScan; Shift around capitals)
 Each step is logged to stdout with the time it was sent.
@@ -60,6 +78,8 @@ library starts), so the start-up asserts reach only stubs.log (poc_standins.cpp'
 G_ASSERT / FAIL_IF line of stubs.log is appended to messages.log under a '# stubs.log' header.
 """
 import argparse
+import datetime
+import threading
 import os
 import re
 import shutil
@@ -104,6 +124,8 @@ def stop_listener(listener, inst=None, out=None):
             f.write(l + '\n')
 
 RELEASE = r'C:\EnBDevelopment\ClientPOC\release'
+RETAIL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
+                      'release', 'client.exe')
 EXE = os.path.join(RELEASE, 'client.exe')
 MAP = os.path.join(RELEASE, 'client.map')
 LOG = os.path.join(RELEASE, 'stubs.log')
@@ -116,19 +138,22 @@ SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
 
 class Inst:
     """Where a run happens: the release folder, or ClientPOC\\inst\\NAME\\release filled from it."""
-    def __init__(self, name=None, exe=None):
+    def __init__(self, name=None, exe=None, retail=False):
         self.name = name
         self.base = None if not name else os.path.join(os.path.dirname(RELEASE), 'inst', name)
         self.dir = RELEASE if not name else os.path.join(self.base, 'release')
-        self.src_exe = exe or EXE
+        self.retail = retail
+        self.src_exe = RETAIL if retail else (exe or EXE)
         self.exe = EXE if (not name and not exe) else os.path.join(self.dir, 'client.exe')
         self.map = os.path.join(self.dir, 'client.map')
         self.log = os.path.join(self.dir, 'stubs.log')
         self.exc = os.path.join(self.dir, '_except.txt')
         if name and not re.fullmatch(r'[A-Za-z0-9_.-]+', name):
             raise SystemExit('--instance: letters, digits, _ . - only')
-        if exe and not name:
-            raise SystemExit('--exe needs --instance (the release folder is not overwritten)')
+        if (exe or retail) and not name:
+            raise SystemExit('--exe / --retail need --instance (the release folder is not overwritten)')
+        if exe and retail:
+            raise SystemExit('--exe and --retail exclude each other')
 
     def prepare(self):
         if self.name:
@@ -141,7 +166,8 @@ class Inst:
                     self._copy(os.path.join(RELEASE, f), os.path.join(self.dir, f))
             self._copy(self.src_exe, self.exe)
             m = os.path.splitext(self.src_exe)[0] + '.map'
-            self._copy(m if os.path.exists(m) else MAP, self.map)
+            if not self.retail:
+                self._copy(m if os.path.exists(m) else MAP, self.map)
         for f in (self.log, self.exc):
             if os.path.exists(f):
                 os.remove(f)
@@ -266,7 +292,7 @@ def read_input(path):
     return sorted(steps, key=lambda s: s[0])
 
 
-def find_window(pid):
+def find_window(pid, skip_dialogs=False):
     user32 = ctypes.windll.user32
     found = []
     proc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
@@ -275,7 +301,10 @@ def find_window(pid):
         owner = wintypes.DWORD()
         user32.GetWindowThreadProcessId(hwnd, ctypes.byref(owner))
         if owner.value == pid and user32.IsWindowVisible(hwnd):
-            found.append(hwnd)
+            k = ctypes.create_unicode_buffer(64)
+            user32.GetClassNameW(hwnd, k, 64)
+            if not (skip_dialogs and k.value == '#32770'):      # the retail client's terms box
+                found.append(hwnd)
         return True
     user32.EnumWindows(proc(cb), 0)
     return found[0] if found else None
@@ -294,6 +323,12 @@ def post_step(hwnd, op, rest):
             post(WM[down], mk, lp)
             time.sleep(0.05)
             post(WM[up], 0, lp)
+    elif op in ('down', 'up'):
+        x, y = (int(v) for v in rest.split()[:2])
+        lp = (y << 16) | (x & 0xFFFF)
+        post(WM['move'], 0 if op == 'down' else 1, lp)
+        time.sleep(0.05)
+        post(WM['ldown'] if op == 'down' else WM['lup'], 1 if op == 'down' else 0, lp)
     elif op == 'key':
         vk = int(rest.split()[0], 0)
         scan = user32.MapVirtualKeyW(vk, 0)
@@ -312,6 +347,56 @@ def post_step(hwnd, op, rest):
             time.sleep(0.03)
     else:
         raise SystemExit(f'--input: unknown step {op!r}')
+
+
+def click_agree(pid, seconds):
+    """The retail client's terms box: BM_CLICK to its "I Agree" button (the dialog's own input, no screen access)."""
+    user32 = ctypes.windll.user32
+    proc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+    end = time.time() + seconds
+    while time.time() < end:
+        hits = []
+
+        def cb(h, _):
+            owner = wintypes.DWORD()
+            user32.GetWindowThreadProcessId(h, ctypes.byref(owner))
+            k = ctypes.create_unicode_buffer(64)
+            user32.GetClassNameW(h, k, 64)
+            if owner.value == pid and k.value == '#32770' and user32.IsWindowVisible(h):
+                hits.append(h)
+            return True
+        user32.EnumWindows(proc(cb), 0)
+        for h in hits:
+            b = user32.FindWindowExW(h, None, 'Button', 'I Agree')
+            if b:
+                time.sleep(0.5)
+                user32.PostMessageW(b, 0x00F5, 0, 0)       # BM_CLICK
+                print(f'clicked I Agree (dialog 0x{h:X})', flush=True)
+                return
+        time.sleep(0.3)
+    print('terms box not seen: no "I Agree" click', flush=True)
+
+
+def exit_report(antprox_out, last_input, killed):
+    """D191: did the client exit by itself, and when? antprox.out's "Client exited" line (local wall clock,
+    'dd/mm/yy HH:MM:SS.mmm') against the time of the last posted input step and of this run's own kill."""
+    text = open(antprox_out, errors='replace').read()
+    m = re.search(r'^(\d\d/\d\d/\d\d \d\d:\d\d:\d\d\.\d+) \[\s*\d+\] Client exited', text, re.M)
+    if not m:
+        print('client exit: no "Client exited" line in antprox.out: still running when this run killed it' if killed
+              else 'client exit: no "Client exited" line in antprox.out')
+        return
+    at = datetime.datetime.strptime(m.group(1), '%d/%m/%y %H:%M:%S.%f')
+    if killed and at >= killed - datetime.timedelta(seconds=0.5):
+        print(f'client exit: still running when this run killed it (antprox logged the exit at {m.group(1)[9:]})')
+        return
+    if last_input:
+        t, op, rest, when = last_input
+        d = (at - when).total_seconds()
+        print(f'client exit: exited by itself at {m.group(1)[9:]}, {d:+.1f} s after the last input '
+              f'(step {t} ms {op} {rest}, posted {when.strftime("%H:%M:%S.%f")[:-3]})')
+    else:
+        print(f'client exit: exited by itself at {m.group(1)[9:]} (no input posted)')
 
 
 def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=False):
@@ -396,6 +481,10 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
     env = dict(os.environ)
     env['ENB_POC_INPUT'] = '1'
     env['ENB_POC_WINDOWED'] = '1'
+    if inst.retail:
+        env['D3D8SHOT_INPUT'] = '1'      # d3d8shot.c Hook_Input: the retail client reads the posted messages
+        if not shots:
+            raise SystemExit('--retail needs --shots (the d3d8shot proxy carries the input hooks)')
     proxy = os.path.join(inst.dir, 'd3d8.dll')
     if os.path.exists(proxy) and inst.dir == RELEASE:
         raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
@@ -428,6 +517,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
     start = time.time()
     pid = None
     listener = None
+    last_input, killed = None, None
     try:
         while time.time() - start < 20 and a.poll() is None:
             if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
@@ -444,20 +534,32 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         print(f'antprox pid {a.pid}, client pid {pid}', flush=True)
         if messages and pid:
             listener = start_listener(pid, out, seconds + 5)
+        if inst.retail and pid:
+            threading.Thread(target=click_agree, args=(pid, 60), daemon=True).start()
         hwnd, t0, pending = None, None, list(steps)
         end = time.time() + seconds
+        seen = 0
         while time.time() < end:
+            if time.time() - seen > 1:
+                seen = time.time()
+                if a.poll() is not None or 'Client exited' in open(os.path.join(out, 'antprox.out'),
+                                                                   errors='replace').read():
+                    break
             if pending and hwnd is None and pid:
-                hwnd = find_window(pid)
+                hwnd = find_window(pid, inst.retail)
                 if hwnd:
                     t0 = time.time()
                     print(f'input: window 0x{hwnd:X} at {t0 - start:.1f} s')
             while pending and hwnd and (time.time() - t0) * 1000 >= pending[0][0]:
                 t, op, rest = pending.pop(0)
                 post_step(hwnd, op, rest)
+                last_input = (t, op, rest, datetime.datetime.now())
                 print(f'input: {t} ms {op} {rest}')
             time.sleep(0.05)
+        if pending:
+            print(f'input: {len(pending)} steps not sent')
     finally:
+        killed = datetime.datetime.now()
         if pid:
             subprocess.run(['taskkill', '/F', '/PID', str(pid)], capture_output=True)
         subprocess.run(['taskkill', '/F', '/T', '/PID', str(a.pid)], capture_output=True)
@@ -468,6 +570,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
     digest(inst)
     if shots:
         convert_shots(out)
+    exit_report(os.path.join(out, 'antprox.out'), last_input, killed)
     print('antprox output:', os.path.join(out, 'antprox.out'))
 
 
@@ -548,6 +651,8 @@ def main():
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
     ap.add_argument('--instance', help='run in ClientPOC\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
     ap.add_argument('--exe', help='a client.exe to run instead of release\\client.exe (needs --instance)')
+    ap.add_argument('--retail', action='store_true',
+                    help='replay: run a copy of the retail client under the d3d8shot input hooks (D190; needs --instance, --shots)')
     ap.add_argument('--messages', action='store_true',
                     help='-ENABLE_MESSAGES and msglisten.py beside the client: <shots dir>\\messages.log')
     ap.add_argument('args', nargs='*')
@@ -556,7 +661,7 @@ def main():
         if not (a.instance or a.all or a.older is not None):
             raise SystemExit('clean needs --instance NAME, --all or --older HOURS')
         return clean(a.instance, a.older)
-    inst = Inst(a.instance, a.exe)
+    inst = Inst(a.instance, a.exe, a.retail)
     if a.command == 'run':
         run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)
     elif a.command == 'replay':
