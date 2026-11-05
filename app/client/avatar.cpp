@@ -267,19 +267,19 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			// prototype's LOD models, then the head object is cloned again (0x77F750)
 			if (Desc.Avatar_Type == 0 && HeadSource) {
 				// the weapons on the body's bones (+0x2D8 the unique one, +0x2DC the hip's, +0x2E0 the back's)
-				if (Desc.Weapon_Unique_Num) {
-					if (Desc.Gender == 0) {
-						Unknown_77E0E0(0, "WEAPLEG", Desc.Weapon_Unique_Num, "WEAPON01", &WeaponHip);
-					} else {
-						Unknown_77E0E0(0, "WEAPARM", Desc.Weapon_Unique_Num, "WEAPON04", &WeaponHip);
-					}
-				}
-				if (Desc.Weapon_Hip_Num) {
-					Unknown_77E0E0(0, "WEAPHIP", Desc.Weapon_Hip_Num, "WEAPON02", &WeaponUnique);
-				}
-				if (Desc.Weapon_Back_Num) {
-					Unknown_77E0E0(2, "WEAPBAK", Desc.Weapon_Back_Num, "WEAPON03", &WeaponBack);
-				}
+				Unknown_77FDA0(Desc.Weapon_Unique_Num);
+				Unknown_77FE20(Desc.Weapon_Hip_Num);
+				Unknown_77FE70(Desc.Weapon_Back_Num);
+
+
+
+
+
+
+
+
+
+
 				Unknown_77F960("HAIR", Desc.Hair_Num, &HairSource);
 				Unknown_77FFA0(Desc.Hair_Color, false);
 				Unknown_77F960("EAR", Desc.Ear_Num, &Unknown2CC);
@@ -1066,6 +1066,37 @@ void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
 	}
 }
 
+// 0x77FDA0
+void CharacterViewAvatarClass::Unknown_77FDA0(int num)
+{
+	if (BodyObj && num) {
+		Desc.Weapon_Unique_Num = num;
+		if (Desc.Gender == 0) {
+			Unknown_77E0E0(0, "WEAPLEG", Desc.Weapon_Unique_Num, "WEAPON01", &WeaponHip);
+		} else {
+			Unknown_77E0E0(0, "WEAPARM", Desc.Weapon_Unique_Num, "WEAPON04", &WeaponHip);
+		}
+	}
+}
+
+// 0x77FE20
+void CharacterViewAvatarClass::Unknown_77FE20(int num)
+{
+	if (BodyObj && num) {
+		Desc.Weapon_Hip_Num = num;
+		Unknown_77E0E0(0, "WEAPHIP", Desc.Weapon_Hip_Num, "WEAPON02", &WeaponUnique);
+	}
+}
+
+// 0x77FE70
+void CharacterViewAvatarClass::Unknown_77FE70(int num)
+{
+	if (BodyObj && num) {
+		Desc.Weapon_Back_Num = num;
+		Unknown_77E0E0(2, "WEAPBAK", Desc.Weapon_Back_Num, "WEAPON03", &WeaponBack);
+	}
+}
+
 // 0x77FEC0: the colour onto the mesh's vertex material (ambient and diffuse)
 // (robj a RefCountPtr slot; the material info a RefCountPtr local, Create_Get 0x47D370)
 void CharacterViewAvatarClass::Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index)
@@ -1192,37 +1223,6 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
