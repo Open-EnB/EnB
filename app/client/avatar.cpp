@@ -2184,7 +2184,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 }
 
 // 0x783470
-// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x474080 as a plain pointer)
+// NOT EXACT: functional for POC (D64), register (the client's Unknown0BC is a RefCountPtr: one load into esi per branch)
 void CharacterViewAvatarClass::Unknown_783470()
 {
 	char name[32];
@@ -2193,14 +2193,14 @@ void CharacterViewAvatarClass::Unknown_783470()
 	} else {
 		_snprintf(name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
 	}
-	RenderObjClass *head = BodyObj->Get_Sub_Object_By_Name(name);
+	RefCountPtr<RenderObjClass> head = Create_Get(BodyObj->Get_Sub_Object_By_Name(name));
 	if (head) {
-		if (Unknown0BC->Get_Num_Frames() < 1) {
-			head->Set_Animation();
-		} else {
+		if (Unknown0BC->Get_Num_Frames() > 0) {
 			head->Set_Animation(Unknown0BC, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
+		} else {
+			head->Set_Animation();
 		}
-		head->Release_Ref();
+
 	}
 }
 
@@ -3093,8 +3093,8 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 }
 
 // 0x7860C0
-// NOT EXACT: functional for POC (D64)
-int CharacterViewAvatarClass::Unknown_7860C0()
+// (bool: mov al, 1 / xor al, al)
+bool CharacterViewAvatarClass::Unknown_7860C0()
 {
 	if (Desc.Avatar_Type != 0) {
 		TutorialLineStruct *line = TutorialManagerClass::Instance->Next_Line();
@@ -3109,10 +3109,10 @@ int CharacterViewAvatarClass::Unknown_7860C0()
 			Unknown215 = line->SkipBlend;
 			Unknown_784700();
 			Unknown24C = -1;
-			return(1);
+			return(true);
 		}
 	}
-	return(0);
+	return(false);
 }
 
 // 0x7861B0

@@ -62,7 +62,7 @@ public:
 	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
 	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)
 	bool Unknown_7829B0(const char *name);				// 0x7829B0 (the animation's face keys from its ini; false: none)  // NAME 1 [name]: neutral
-	int Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
+	bool Unknown_7860C0();								// 0x7860C0 (a narrator's next tutorial line spoken; inlined in 0x783B50)
 	void Unknown_7861B0(const char *speech);			// 0x7861B0 (the speech sound into +0x2E8)  // NAME 1 [speech]: neutral
 	void Unknown_784C90(const char *name, bool a);		// 0x784C90 ('Idle0', 1; ui_login.cpp's 'RejectedOnce', 1)  // NAME 1 [name, a]: neutral
 	void Unknown_784E00();								// 0x784E00
