@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1230 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13876 |
+| 1 | neutral placeholder | 13913 |
 
 ## For review (score 3 and below)
 
@@ -6121,87 +6121,124 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67C4` | `app/client/ui_attrb_skills.cpp:12` | 0xBE67C4 |
 | 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.cpp:15` | neutral (D10) |
 | 1 | `Unknown_664500` | `app/client/ui_attrb_skills.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_attrb_skills.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_attrb_skills.cpp:20` | untagged neutral name (D10) |
-| 1 | `InterfaceUnknown58Class` | `app/client/ui_attrb_skills.cpp:24` | neutral (D10) |
-| 1 | `Unknown_686DD0` | `app/client/ui_attrb_skills.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown62D1F0Class` | `app/client/ui_attrb_skills.cpp:32` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_attrb_skills.cpp:33` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_attrb_skills.cpp:34` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/ui_attrb_skills.cpp:36` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_attrb_skills.cpp:37` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_attrb_skills.cpp:38` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/ui_attrb_skills.cpp:39` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/ui_attrb_skills.cpp:40` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `app/client/ui_attrb_skills.cpp:41` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/ui_attrb_skills.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_attrb_skills.cpp:49` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/ui_attrb_skills.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_54B050` | `app/client/ui_attrb_skills.cpp:50` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/ui_attrb_skills.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_attrb_skills.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_attrb_skills.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.cpp:67` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_attrb_skills.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_attrb_skills.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/ui_attrb_skills.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_attrb_skills.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC50` | `app/client/ui_attrb_skills.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC70` | `app/client/ui_attrb_skills.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC90` | `app/client/ui_attrb_skills.cpp:127` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_attrb_skills.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_664430` | `app/client/ui_attrb_skills.cpp:19` | untagged neutral name (D10) |
+| 1 | `level, arg, on` | `app/client/ui_attrb_skills.cpp:20` | neutral |
+| 1 | `Unknown_6645A0` | `app/client/ui_attrb_skills.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_6647F0` | `app/client/ui_attrb_skills.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_664890` | `app/client/ui_attrb_skills.cpp:20` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_attrb_skills.cpp:21` | neutral |
+| 1 | `Unknown_A4` | `app/client/ui_attrb_skills.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_attrb_skills.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_attrb_skills.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown6A5440Class` | `app/client/ui_attrb_skills.cpp:27` | neutral (D10) |
+| 1 | `Unknown_6A5440` | `app/client/ui_attrb_skills.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Class` | `app/client/ui_attrb_skills.cpp:32` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/ui_attrb_skills.cpp:36` | untagged neutral name (D10) |
+| 1 | `InterfaceUnknown58Class` | `app/client/ui_attrb_skills.cpp:40` | neutral (D10) |
+| 1 | `Unknown_686DD0` | `app/client/ui_attrb_skills.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown62D1F0Class` | `app/client/ui_attrb_skills.cpp:48` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_attrb_skills.cpp:49` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_attrb_skills.cpp:50` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_attrb_skills.cpp:51` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/ui_attrb_skills.cpp:52` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_attrb_skills.cpp:53` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_attrb_skills.cpp:54` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_attrb_skills.cpp:55` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/ui_attrb_skills.cpp:56` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/ui_attrb_skills.cpp:57` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/ui_attrb_skills.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_attrb_skills.cpp:65` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_attrb_skills.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_54B050` | `app/client/ui_attrb_skills.cpp:66` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/ui_attrb_skills.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_attrb_skills.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_attrb_skills.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.cpp:83` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_attrb_skills.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_attrb_skills.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_attrb_skills.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_attrb_skills.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_attrb_skills.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_attrb_skills.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_attrb_skills.cpp:143` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_attrb_skills.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_62D710` | `app/client/ui_attrb_skills.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_attrb_skills.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_attrb_skills.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_attrb_skills.cpp:493` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_attrb_skills.cpp:493` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_attrb_skills.cpp:497` | untagged neutral name (D10) |
 | 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.cpp:571` | untagged neutral name (D10) |
 | 1 | `ui_attrb_skills.h` | `app/client/ui_attrb_skills.h:4` | provisional header name for ui_attrb_skills.cpp |
-| 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.h:12` | untagged neutral name (D10) |
-| 1 | `Unknown62D1F0Class` | `app/client/ui_attrb_skills.h:16` | neutral (D10) |
-| 1 | `client` | `app/client/ui_attrb_skills.h:19` | as UIBioClass's |
-| 1 | `Unknown_54` | `app/client/ui_attrb_skills.h:21` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_attrb_skills.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_attrb_skills.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_attrb_skills.h:25` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_attrb_skills.h:26` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_attrb_skills.h:26` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_attrb_skills.h:27` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_attrb_skills.h:29` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/ui_attrb_skills.h:37` | as UIBioClass's |
-| 1 | `key` | `app/client/ui_attrb_skills.h:43` | InterfaceClass's |
-| 1 | `view, arg` | `app/client/ui_attrb_skills.h:44` | InterfaceClass's |
-| 1 | `arg` | `app/client/ui_attrb_skills.h:45` | neutral |
-| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC50` | `app/client/ui_attrb_skills.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC70` | `app/client/ui_attrb_skills.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_54AC90` | `app/client/ui_attrb_skills.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_54B050` | `app/client/ui_attrb_skills.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.h:55` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/ui_attrb_skills.h:57` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_attrb_skills.h:58` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_attrb_skills.h:59` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_attrb_skills.h:60` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_attrb_skills.h:61` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_attrb_skills.h:62` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/ui_attrb_skills.h:63` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_attrb_skills.h:64` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_attrb_skills.h:65` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/ui_attrb_skills.h:66` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/ui_attrb_skills.h:67` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `app/client/ui_attrb_skills.h:68` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/ui_attrb_skills.h:69` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/ui_attrb_skills.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Class` | `app/client/ui_attrb_skills.h:12` | untagged neutral name (D10) |
+| 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.h:13` | untagged neutral name (D10) |
+| 1 | `Unknown62D1F0Class` | `app/client/ui_attrb_skills.h:17` | neutral (D10) |
+| 1 | `client` | `app/client/ui_attrb_skills.h:20` | as UIBioClass's |
+| 1 | `Unknown_54` | `app/client/ui_attrb_skills.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_attrb_skills.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_attrb_skills.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_attrb_skills.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_attrb_skills.h:26` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_attrb_skills.h:27` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_attrb_skills.h:27` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_attrb_skills.h:28` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_attrb_skills.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_attrb_skills.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_attrb_skills.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_attrb_skills.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_attrb_skills.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_attrb_skills.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_attrb_skills.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/ui_attrb_skills.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_attrb_skills.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_attrb_skills.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_attrb_skills.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_attrb_skills.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_B4` | `app/client/ui_attrb_skills.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_B8` | `app/client/ui_attrb_skills.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_attrb_skills.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_C0` | `app/client/ui_attrb_skills.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_C4` | `app/client/ui_attrb_skills.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_C8` | `app/client/ui_attrb_skills.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_attrb_skills.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_attrb_skills.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_D4` | `app/client/ui_attrb_skills.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_62D710` | `app/client/ui_attrb_skills.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_attrb_skills.h:51` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_attrb_skills.h:59` | as UIBioClass's |
+| 1 | `key` | `app/client/ui_attrb_skills.h:65` | InterfaceClass's |
+| 1 | `view, arg` | `app/client/ui_attrb_skills.h:66` | InterfaceClass's |
+| 1 | `arg` | `app/client/ui_attrb_skills.h:67` | neutral |
+| 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_54A900` | `app/client/ui_attrb_skills.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_54AB20` | `app/client/ui_attrb_skills.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_54ABE0` | `app/client/ui_attrb_skills.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_54ACE0` | `app/client/ui_attrb_skills.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_54B050` | `app/client/ui_attrb_skills.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_54B140` | `app/client/ui_attrb_skills.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_54B370` | `app/client/ui_attrb_skills.h:80` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_attrb_skills.h:82` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_attrb_skills.h:83` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_attrb_skills.h:84` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_attrb_skills.h:85` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_attrb_skills.h:86` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_attrb_skills.h:87` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/ui_attrb_skills.h:88` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_attrb_skills.h:89` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_attrb_skills.h:90` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_attrb_skills.h:91` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/ui_attrb_skills.h:92` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/ui_attrb_skills.h:93` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/ui_attrb_skills.h:94` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/ui_attrb_skills.h:95` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/ui_avatar_cust.cpp:21` | neutral (D10), as eff_o.cpp's |
 | 1 | `UIAvatarCustPip054Class` | `app/client/ui_avatar_cust.cpp:24` | neutral (D10) |
 | 1 | `Unknown_000` | `app/client/ui_avatar_cust.cpp:27` | untagged neutral name (D10) |
@@ -15001,7 +15038,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
-| 2 | `Layer` | `app/client/ui_attrb_skills.h:71` | what it is |
+| 2 | `Layer` | `app/client/ui_attrb_skills.h:96` | what it is |
 | 2 | `FontStringFilesClass` | `app/client/ui_avatar_cust.cpp:176` | fontdatabase.h's |
 | 2 | `event, gadget` | `app/client/ui_avatar_cust.cpp:297` | the FAIL_IFs' |
 | 2 | `del_me` | `app/client/ui_avatr.cpp:38` | gadget.h's |
@@ -17216,7 +17253,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tooltip.h` | `app/client/tooltip.h:17` | header name assumed from the client's tooltip.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
-| 3 | `UIAttrbSkillsClass` | `app/client/ui_attrb_skills.h:34` | class-from-file (D24) for app\Client\ui_attrb_skills.cpp |
+| 3 | `UIAttrbSkillsClass` | `app/client/ui_attrb_skills.h:56` | class-from-file (D24) for app\Client\ui_attrb_skills.cpp |
 | 3 | `GadgetClass` | `app/client/ui_avatar_cust.cpp:47` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Flash` | `app/client/ui_avatar_cust.cpp:70` | gadget.h's |
 | 3 | `As_Space_Client` | `app/client/ui_avatar_cust.cpp:136` | the FAIL_IF's in ui_manu.cpp |

@@ -12,12 +12,28 @@
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // gd_attrb_skills.cpp's gadget (UnknownC4's elements), as far as this file calls it
-class Unknown664500Class : public GadgetClass	// NAME 1: neutral (D10)
+class Unknown664500Class : public RObjGadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_664500();								// 0x664500
-	char Unknown30[0x110 - 0x30];						// +0x30
+	void Unknown_664430();								// 0x664430
+	int Unknown_6645A0(int level, bool arg);	void Unknown_6647F0();	void Unknown_664890(bool on);	// 0x6645A0 / 0x6647F0 / 0x664890  // NAME 1 [level, arg, on]: neutral
+	virtual void Unknown_A4(bool arg);					// +0xA4 (0x54AB20 passes false)  // NAME 1 [arg]: neutral
+	char Unknown60[0x110 - 0x60];						// +0x60
 	void *Unknown110;									// +0x110 (0x54B370 counts the gadgets where it is set)
+};
+
+// What the skill base's 0x62D710 returns, as far as this file calls it
+class Unknown6A5440Class  // NAME 1: neutral (D10)
+{
+public:
+	bool Unknown_6A5440();								// 0x6A5440
+};
+class Unknown6A7A00Class  // NAME 1: neutral (D10)
+{
+public:
+	char Unknown00[0x50];								// +0x00
+	Unknown6A5440Class Unknown50;						// +0x50
 };
 
 // intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
@@ -113,18 +129,18 @@ void UIAttrbSkillsClass::Unknown_54ABE0()
 }
 
 // 0x54AC50
-void UIAttrbSkillsClass::Unknown_54AC50()
+void UIAttrbSkillsClass::Unknown_B0()
 {
 }
 
 // 0x54AC70
-void UIAttrbSkillsClass::Unknown_54AC70()
+void UIAttrbSkillsClass::Unknown_CC()
 {
 	Unknown_54ACE0();
 }
 
 // 0x54AC90
-void UIAttrbSkillsClass::Unknown_54AC90()
+void UIAttrbSkillsClass::Unknown_D0()
 {
 	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
 		Unknown664500Class *gadget = *it;
@@ -325,6 +341,40 @@ void UIAttrbSkillsClass::Unknown_54AC90()
 
 
 
+// 0x54A900
+void UIAttrbSkillsClass::Unknown_54A900()
+{
+	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		(*it)->Unknown_6647F0();
+	}
+	Unknown_62D710();
+	int skip = 0;
+	int index = UnknownE8;
+	int level = 10 - UnknownF0;
+	int count = UnknownC4.size();
+	for (int i = 0; i < UnknownF0 && index < count; i++) {
+		if (skip == 0) {
+			Unknown664500Class *gadget = UnknownC4[index];
+			FAIL_IF(!gadget) continue;
+			gadget->Unknown_28(&Layer);
+			if (gadget->Unknown_6645A0(level, level < 9)) {
+				skip = 1;
+			}
+			if (UnknownEC == index) {
+				gadget->Unknown_664890(true);
+			}
+			index++;
+		} else {
+			skip--;
+		}
+		level++;
+	}
+	if (UnknownE4) {
+		UnknownD4->Unknown_66FA90((float)(UnknownF8 + UnknownC4.size()), (float)UnknownF0, true);
+	} else {
+		UnknownD8->Unknown_66FA90((float)(UnknownF8 + UnknownC4.size()), (float)UnknownF0, true);
+	}
+}
 
 
 
@@ -340,6 +390,21 @@ void UIAttrbSkillsClass::Unknown_54AC90()
 
 
 
+#pragma auto_inline(off)		// (+0x60 calls it out of line: VC6 would inline it)
+// 0x54AB20
+void UIAttrbSkillsClass::Unknown_54AB20()
+{
+	if (Unknown_62D710()->Unknown50.Unknown_6A5440()) {
+		int index = UnknownE8;
+		int count = UnknownC4.size();
+		for (int i = 0; i < UnknownF0 && index < count; i++, index++) {
+			Unknown664500Class *gadget = UnknownC4[index];
+			FAIL_IF(!gadget) continue;
+			gadget->Unknown_A4(false);
+		}
+	}
+}
+#pragma auto_inline(on)
 
 
 
@@ -414,89 +479,24 @@ void UIAttrbSkillsClass::Unknown_54AC90()
 
 
 
+#pragma auto_inline(off)		// (the destructor calls it out of line: VC6 would inline it)
+// 0x54B050
+void UIAttrbSkillsClass::Unknown_54B050()
+{
+	G_ASSERT(!Is_Active());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
+		Unknown664500Class *gadget = *it;
+		FAIL_IF(!gadget) continue;
+		gadget->Unknown_664430();
+		Unknown64.Unknown_687150(gadget);
+		GadgetClass::Destroy(gadget);
+	}
+	UnknownC4.clear();
+	Unknown_BC();
+}
+#pragma auto_inline(on)
 
 
 

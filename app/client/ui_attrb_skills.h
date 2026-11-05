@@ -9,6 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
 class RenderObjClass;
+class Unknown6A7A00Class;	// what the skill base's 0x62D710 returns (ui_attrb_skills.cpp declares it as far as it calls it)
 class Unknown664500Class;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // The skill windows' base (0xBC bytes; constructor 0x62D1F0 over 0x62DE80's, destructor 0x62D300; tables 0xAF7DBC /
@@ -25,6 +26,27 @@ public:
 	virtual void Unknown_64();							// 0x62E890 (0x62DE80's class's)
 	virtual bool Unknown_68(int key);					// 0x62E850 (0x62DE80's class's)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x62E660 (0x62DE80's class's)  // NAME 1 [view, arg]: InterfaceClass's
+	virtual void Unknown_88();							// +0x88 0x62D270
+	virtual InterfaceClass *Unknown_8C() { return(this); }	// +0x8C 0x549760 (inline: emitted with the attributes tab's table)
+	virtual InterfaceClass *Unknown_90() { return(NULL); }	// +0x90 0x549780 (inline)
+	virtual InterfaceClass *Unknown_94();				// +0x94 (0x62DE80's class's 0x417297)
+	virtual void Unknown_98();							// +0x98 0x62D360
+	virtual void Unknown_9C();							// +0x9C 0x62DC00
+	virtual void Unknown_A0();							// +0xA0 0x62D540
+	virtual void Unknown_A4();							// +0xA4 0x62D590
+	virtual const char *Unknown_A8();					// +0xA8 (a name: the attributes tab's 'Skills')
+	virtual void Unknown_AC();							// +0xAC 0x62D6A0
+	virtual void Unknown_B0();							// +0xB0 (0x62DE80's class's 0x4025BD)
+	virtual void Unknown_B4();							// +0xB4 0x62EB90
+	virtual void Unknown_B8();							// +0xB8 0x62EE10
+	virtual void Unknown_BC();							// +0xBC 0x62EEA0 (0x54B050 calls it after emptying the gadgets)
+	virtual void Unknown_C0();							// +0xC0 0x62F260
+	virtual void Unknown_C4();							// +0xC4 0x62F190
+	virtual void Unknown_C8();							// +0xC8 0x62F300
+	virtual void Unknown_CC();							// +0xCC (0x62DE80's class's 0x406C7B)
+	virtual void Unknown_D0();							// +0xD0
+	virtual InterfaceClass *Unknown_D4();				// +0xD4
+	Unknown6A7A00Class *Unknown_62D710();				// 0x62D710
 
 	char Unknown84[0xBC - 0x84];						// +0x84 (0x62DE80: +0x84, a container at +0x88, +0x98..+0xB4, flags +0xB8)
 };
@@ -43,12 +65,15 @@ public:
 	virtual bool Unknown_68(int key);					// 0x54A480  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x54A5B0 (the layer onto the view's scene and camera, the panels', the base's)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_54A640(bool arg);						// 0x54A640  // NAME 1 [arg]: neutral
-	void Unknown_54A900();								// 0x54A900 (G_ASSERT '!gadget' l.358)
-	void Unknown_54AB20();								// 0x54AB20 (G_ASSERT '!gadget' l.402)
+	void Unknown_54A900();								// 0x54A900 (FAIL_IF '!gadget' l.358: the shown gadgets laid out, the slider's range)
+	void Unknown_54AB20();								// 0x54AB20 (FAIL_IF '!gadget' l.402: the shown gadgets' +0xA4(false))
 	void Unknown_54ABE0();								// 0x54ABE0 (no direct caller: the shown slider's value, as +0x60 inlines it)
-	void Unknown_54AC50();								// 0x54AC50 (no direct caller: empty)
-	void Unknown_54AC70();								// 0x54AC70 (no direct caller: 0x54ACE0)
-	void Unknown_54AC90();								// 0x54AC90 (no direct caller: each gadget's 0x664500 while its +0x60)
+	virtual InterfaceClass *Unknown_94() { return(this); }	// +0x94 0x5497A0 (inline)
+	virtual const char *Unknown_A8() { return("Skills"); }	// +0xA8 0x5497C0 (inline)
+	virtual void Unknown_B0();							// +0xB0 0x54AC50 (empty)
+	virtual void Unknown_CC();							// +0xCC 0x54AC70 (0x54ACE0)
+	virtual void Unknown_D0();							// +0xD0 0x54AC90 (each gadget's 0x664500 while its +0x60)
+	virtual InterfaceClass *Unknown_D4() { return(this); }	// +0xD4 0x5497E0 (inline)
 	void Unknown_54ACE0();								// 0x54ACE0
 	void Unknown_54B050();								// 0x54B050 (G_ASSERT '!Is_Active()' l.486)
 	void Unknown_54B140();								// 0x54B140 (G_ASSERT '!gadget' l.577)
