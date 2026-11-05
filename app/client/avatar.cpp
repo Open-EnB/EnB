@@ -183,7 +183,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			WW3D::Enable_Overbright_Modify_On_Load(true);
 		}
 		if (WW3DAssetManager::Get_Instance()) {
-			BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+			BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 		}
 		if (!making) {
 			WW3D::Enable_Overbright_Modify_On_Load(false);
@@ -191,7 +191,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		FAIL_IF(BodySource == NULL) {
 		}
 		if (BodySource != NULL) {
-			Unknown_496AE0(BodySource, true);
+			Unknown_496AE0(BodySource.Peek(), true);
 			BodyObj = BodySource->Clone();
 			if (BodyObj) {
 				BodyObj->Add_Ref();
@@ -336,8 +336,8 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 
 			}
 			if (BodySource) {
-				BodySource->Release_Ref();
 				BodySource = NULL;
+
 			}
 			if (HairSource) {
 				HairSource->Release_Ref();
@@ -446,8 +446,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (BodySource) {
-		BodySource->Release_Ref();
 		BodySource = NULL;
+
 	}
 	if (CollisionObj) {
 		CollisionObj->Release_Ref();
@@ -777,8 +777,8 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		BodyObj = NULL;
 	}
 	if (BodySource) {
-		BodySource->Release_Ref();
 		BodySource = NULL;
+
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
 	if (!making) {
@@ -789,7 +789,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	} else {
 		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
 	}
-	BodySource = WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name);
+	BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
@@ -797,7 +797,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		Unknown_4BC260("Avatar Creation", "", __FILE__, 826, "Error loading up the body asset: %s", body_name);
 		return;
 	}
-	Unknown_496AE0(BodySource, true);
+	Unknown_496AE0(BodySource.Peek(), true);
 	BodyObj = BodySource->Clone();
 	Unknown_496AE0(BodyObj, true);
 	Unknown_496DB0(BodyObj);
