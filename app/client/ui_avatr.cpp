@@ -1401,40 +1401,40 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	CS1 (2026-11-04): 0x55C280 (the flash callback, padded to its FAIL_IF lines) exact; 0x55B2D0 and 0x55BAC0 NOT EXACT (the POC's last avatar-screen gens).
 */
 
-// NOT EXACT: functional (D64), from the client's 0x558D30 (inline-budget: the client's RefCountPtr temporaries)
+// NOT EXACT: register (both types read up front, the step as --x < 0: only eax / edx swap around the pip's slot +0x84 call and the two releases; a pip local, a cast or a named temporary are worse)
 // 0x558D30
 void AvatarCreationInterface::Unknown_558D30(int dir)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	int num = desc->Desc.Body_Type;
+	int body = desc->Desc.Body_Type;
+	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
-		num = (num + 1) % 3;
+		body = (body + 1) % 3;
 	} else if (dir == 1) {
-		num--;
-		if (num < 0) {
-			num = 2;
+		if (--body < 0) {
+			body = 2;
 		}
 	}
-	desc->Unknown_77E9D0(num, desc->Desc.Pants_Type, true);
+	desc->Unknown_77E9D0(body, pants, true);
 	desc->Unknown_780810(Unknown08C->Unknown3A4);
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x558EA0 (inline-budget: the client's RefCountPtr temporaries)
+// NOT EXACT: register (as 0x558D30's)
 // 0x558EA0
 void AvatarCreationInterface::Unknown_558EA0(int dir)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	int num = desc->Desc.Pants_Type;
+	int body = desc->Desc.Body_Type;
+	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
-		num = (num + 1) % 3;
+		pants = (pants + 1) % 3;
 	} else if (dir == 1) {
-		num--;
-		if (num < 0) {
-			num = 2;
+		if (--pants < 0) {
+			pants = 2;
 		}
 	}
-	desc->Unknown_77E9D0(desc->Desc.Body_Type, num, true);
+	desc->Unknown_77E9D0(body, pants, true);
 	desc->Unknown_780810(Unknown08C->Unknown3A4);
 	Unknown094->Unknown_84(desc);
 }
