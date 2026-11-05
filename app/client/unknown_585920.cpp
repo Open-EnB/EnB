@@ -55,6 +55,9 @@ class UIAvatrUnknown4A1240Class	// NAME 1: neutral (D10)
 public:
 	UIAvatrUnknown4A1240Class(int a, int b, int c);	// 0x4A1240 (0x671300: its second argument, 0, 0)  // NAME 1 [a, b, c]: neutral
 	virtual ~UIAvatrUnknown4A1240Class();
+
+	int Unknown04;
+	int Unknown08;
 };
 
 // ui_avatr.cpp's pull gadget: a ButtonGadgetClass (0x80 bytes, vtable 0xAFB278, the drag of a pull), as far as made here
@@ -81,26 +84,19 @@ public:
 };
 
 
-// NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins)
+// Interim placement (D137)
 // @0x671300
 UIAvatrGadget671300Class::UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d) :
-	ButtonGadgetClass(area, *(LayerClass *)mesh, 0x77, d)
+	ButtonGadgetClass(area, *(LayerClass *)mesh, 0x77, d),
+	Unknown64(false), Unknown65(false), Unknown66(false), Unknown68(NULL), Unknown6C(0), Unknown70(0), Unknown74(false),
+	Unknown78(b), Unknown7C(c)
 {
-	Unknown64 = false;
-	Unknown65 = false;
-	Unknown66 = false;
-	Unknown68 = NULL;
-	Unknown6C = 0;
-	Unknown70 = 0;
-	Unknown74 = false;
-	Unknown78 = b;
-	Unknown7C = c;
 	if (a) {
 		Unknown68 = new UIAvatrUnknown4A1240Class(a, 0, 0);
 	}
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x6714F0
 UIAvatrGadget671300Class::~UIAvatrGadget671300Class()
 {
@@ -145,7 +141,7 @@ void UIAvatrGadget671300Class::Unknown_671630()
 	Unknown66 = false;
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585920
 UIAvatrPullClass::UIAvatrPullClass()
 {
@@ -155,7 +151,7 @@ UIAvatrPullClass::UIAvatrPullClass()
 	Unknown0C = 0.5f;
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585950
 UIAvatrPullClass::~UIAvatrPullClass()
 {
@@ -170,7 +166,7 @@ UIAvatrPullClass::~UIAvatrPullClass()
 	}
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x5859A0
 void UIAvatrPullClass::Unknown_5859A0()
 {
@@ -178,13 +174,13 @@ void UIAvatrPullClass::Unknown_5859A0()
 		AABoxClass box;
 		Gadget->Unknown_64(box);
 		Matrix3D m = Pull->Get_Transform();
-		m[0][3] = box.Center.X;
-		m[1][3] = box.Center.Y;
+		m.Set_X_Translation(box.Center.X);
+		m.Set_Y_Translation(box.Center.Y);
 		Pull->Set_Transform(m);
 	}
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585C90
 void UIAvatrUnknown2ECStruct::Unknown_585C90()
 {
@@ -195,11 +191,11 @@ void UIAvatrUnknown2ECStruct::Unknown_585C90()
 	Unknown18++;
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585CC0
 void UIAvatrUnknown2ECStruct::Unknown_585CC0()
 {
-	if (Unknown18 < 1) {
+	if (Unknown18 <= 0) {
 		Unknown18 = Unknown20;
 		return;
 	}
@@ -207,7 +203,7 @@ void UIAvatrUnknown2ECStruct::Unknown_585CC0()
 }
 
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585B50
 UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits)
 {
@@ -217,8 +213,9 @@ UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct(RenderObjClass *model, const ch
 	Unknown18 = 0;
 	Unknown1C = two_digits;
 	Unknown20 = 0;
-	Unknown00[0] = NULL;
-	Unknown00[1] = NULL;
+	for (int i = 0; i < 2; i++) {
+		Unknown00[i] = NULL;
+	}
 	Unknown08 = model;
 	model->Add_Ref();
 	if (name) {
@@ -232,7 +229,7 @@ UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct(RenderObjClass *model, const ch
 	}
 }
 
-// NOT EXACT: interim placement (D137), functional
+// Interim placement (D137)
 // @0x585CF0
 void UIAvatrUnknown2ECStruct::Unknown_585CF0(int choice)
 {
@@ -283,7 +280,7 @@ void UIAvatrUnknown2ECStruct::Unknown_585D10()
 **	Interim placement (D137): 0x585920 .. 0x585CC0 sit far from ui_avatr.cpp (0x553AF0 .. 0x55C640); the classes keep
 **	ui_avatr.cpp's stand-in names (the same mangled names link ui_avatr.cpp's calls here). Defined in ui_avatr.cpp they
 **	were inlined into its exact 0x5560E0 / 0x556290 / 0x554B50, or shifted its Create_Peek 0x55C490 and $E 0x55C5D0.
-**	0x585BF0 (the choice's destructor: two gadgets destroyed, +0x08 released, +0x0C .. +0x14 deleted) is not built.
+**	0x671300 news a 0x0C-byte object (4A1240Class: two ints after its vtable); its members are in its initialiser list (the vtable store follows them, as the client).
 */
 
 // @0x585BF0
@@ -310,43 +307,20 @@ UIAvatrUnknown2ECStruct::~UIAvatrUnknown2ECStruct()
 	}
 }
 
-// ui_avatr.cpp's five blend weights (0x558060: the body's and the head's)
-struct UIAvatrWeightsStruct	// NAME 1: neutral (D10), as ui_avatr.cpp's
-{
-	UIAvatrWeightsStruct() {}
-	float Weight[5];									// NAME 1: neutral
-};
-
-// NOT EXACT: interim placement (D137), functional: five blend weights from a point (u, v) in 0 .. 1: the centre's,
-// then the four corners' less it, none below 0
+// Interim placement (D137). Five blend weights from a point (u, v) in 0 .. 1, written through weights: the centre's,
+// then the four corners' less it, none below 0 (WWLib's min / max templates; the first min on doubles)
 // @0x5860B0
-UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv)	// NAME 1 [Unknown_5860B0, uv]: neutral (D10)
+void Unknown_5860B0(float *weights, Vector2 uv)	// NAME 1 [Unknown_5860B0, weights, uv]: neutral (D10)
 {
-	UIAvatrWeightsStruct weights;
-	float centre = 0.5f - (float)fabs(uv.Y - 0.5f);
-	float x = 0.5f - (float)fabs(uv.X - 0.5f);
-	if (x < centre) {
-		centre = x;
-	}
-	weights.Weight[0] = centre;
-	float ix = 1.0f - uv.X;
-	float iy = 1.0f - uv.Y;
-	float w = (ix < iy) ? ix : iy;
-	w -= centre;
-	weights.Weight[1] = (w <= 0.0f) ? 0.0f : w;
-	w = (uv.X < iy) ? uv.X : iy;
-	w -= centre;
-	weights.Weight[2] = (w <= 0.0f) ? 0.0f : w;
-	w = (uv.X < uv.Y) ? uv.X : uv.Y;
-	w -= centre;
-	weights.Weight[3] = (w <= 0.0f) ? 0.0f : w;
-	w = (uv.Y <= ix) ? uv.Y : ix;
-	w -= centre;
-	weights.Weight[4] = (w <= 0.0f) ? 0.0f : w;
+	float centre = min(0.5 - fabs(uv.X - 0.5f), 0.5 - fabs(uv.Y - 0.5f));
+	weights[0] = centre;
+	weights[1] = max(min((1.0f - uv.X), (1.0f - uv.Y)) - centre, 0.0f);
+	weights[2] = max(min(uv.X, (1.0f - uv.Y)) - centre, 0.0f);
+	weights[3] = max(min(uv.X, uv.Y) - centre, 0.0f);
+	weights[4] = max(min((1.0f - uv.X), uv.Y) - centre, 0.0f);
 	for (int i = 0; i < 5; i++) {
-		if (weights.Weight[i] < 0.0f) {
-			weights.Weight[i] = 0.0f;
+		if (weights[i] < 0.0f) {
+			weights[i] = 0.0f;
 		}
 	}
-	return(weights);
 }

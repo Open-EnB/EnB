@@ -75,13 +75,13 @@ public:
 	float Unknown0C;									// +0x0C (0.5)
 };
 
-// What 0x5860B0 returns (avatar.cpp's neighbourhood: five blend weights from a point in 0 .. 1)
-struct UIAvatrWeightsStruct	// NAME 1: neutral (D10)
-{
-	UIAvatrWeightsStruct() {}
-	float Weight[5];									// NAME 1: neutral
-};
-UIAvatrWeightsStruct Unknown_5860B0(Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, uv]: neutral (D10)
+// 0x5860B0 (unknown_585920.cpp): five blend weights from a point in 0 .. 1, written through its first argument
+// (the client's 0x5860B0 reads the pointer from its first slot and returns nothing in eax)
+
+
+
+
+void Unknown_5860B0(float *weights, Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, weights, uv]: neutral (D10)
 extern RandomClass Unknown_BDBB84; extern GadgetClass *Unknown_BE5F24; extern GadgetClass *Unknown_BE5F28; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
 
 // The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
@@ -1064,10 +1064,10 @@ void AvatarCreationInterface::Unknown_558060()
 	Vector2 uv;
 	uv.X = Unknown_BDBB84(0, 100) * 0.01f;
 	uv.Y = Unknown_BDBB84(0, 100) * 0.01f;
-	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
-	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
-	Unknown08C->Peek_Unknown194()->Unknown_77E900(body.Weight);
-	Unknown08C->Peek_Unknown194()->Unknown_77E830(face.Weight);
+	float body[5]; Unknown_5860B0(body, uv);
+	float face[5]; Unknown_5860B0(face, uv);
+	Unknown08C->Peek_Unknown194()->Unknown_77E900(body);
+	Unknown08C->Peek_Unknown194()->Unknown_77E830(face);
 	Unknown164 = uv;
 }
 
@@ -1741,10 +1741,10 @@ void AvatarCreationInterface::Unknown_556F80()
 void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	UIAvatrWeightsStruct body = Unknown_5860B0(uv);
-	desc->Unknown_77E900(body.Weight);
-	UIAvatrWeightsStruct face = Unknown_5860B0(uv);
-	desc->Unknown_77E830(face.Weight);
+	float body[5]; Unknown_5860B0(body, uv);
+	desc->Unknown_77E900(body);
+	float face[5]; Unknown_5860B0(face, uv);
+	desc->Unknown_77E830(face);
 	Unknown164 = uv;
 	if (Unknown094) {
 		Unknown094->Unknown_84(desc);

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-584 entries in 131 files.
+574 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -377,17 +377,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
-| `app/client/unknown_585920.cpp:84` | `UIAvatrGadget671300Class::UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional (the client's slots +0x2C / +0xA4 .. +0xAC not built: gen stand-ins) @0x671300 |
-| `app/client/unknown_585920.cpp:103` | `UIAvatrGadget671300Class::~UIAvatrGadget671300Class` | marker | NOT EXACT: interim placement (D137), functional @0x6714F0 |
-| `app/client/unknown_585920.cpp:148` | `UIAvatrPullClass::UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585920 |
-| `app/client/unknown_585920.cpp:158` | `UIAvatrPullClass::~UIAvatrPullClass` | marker | NOT EXACT: interim placement (D137), functional @0x585950 |
-| `app/client/unknown_585920.cpp:173` | `UIAvatrPullClass::Unknown_5859A0` | marker | NOT EXACT: interim placement (D137), functional @0x5859A0 |
-| `app/client/unknown_585920.cpp:187` | `UIAvatrUnknown2ECStruct::Unknown_585C90` | marker | NOT EXACT: interim placement (D137), functional @0x585C90 |
-| `app/client/unknown_585920.cpp:198` | `UIAvatrUnknown2ECStruct::Unknown_585CC0` | marker | NOT EXACT: interim placement (D137), functional @0x585CC0 |
-| `app/client/unknown_585920.cpp:210` | `UIAvatrUnknown2ECStruct::UIAvatrUnknown2ECStruct` | marker | NOT EXACT: interim placement (D137), functional @0x585B50 |
-| `app/client/unknown_585920.cpp:235` | `UIAvatrUnknown2ECStruct::Unknown_585CF0` | marker | NOT EXACT: interim placement (D137), functional @0x585CF0 |
-| `app/client/unknown_585920.cpp:242` | `UIAvatrUnknown2ECStruct::Unknown_585D10` | marker | NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup) @0x585D10 |
-| `app/client/unknown_585920.cpp:320` | `Unknown_5860B0` | marker | NOT EXACT: interim placement (D137), functional: five blend weights from a point (u, v) in 0 .. 1: the centre's, then the four corners' less it, none below 0 @0x5860B0 |
+| `app/client/unknown_585920.cpp:239` | `UIAvatrUnknown2ECStruct::Unknown_585D10` | marker | NOT EXACT: interim placement (D137), functional (the client also sets WW3D's 0xBFAE52 around the model lookup) @0x585D10 |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontSys::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
