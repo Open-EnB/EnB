@@ -2371,6 +2371,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-AR2-1** (2026-11-05, AR2; recommend yes): promote `.work/ar2/unref.py` (with `vt.py`) to `tools/re/unref.py`: per app
+  file, the client function starts in the file's range with no call / thunk reference in .text and no .rdata (vtable)
+  reference that are not yet in the tree. Such unreferenced members are what VC6 auto-inlines into callers, and that
+  extra inline layer is what pushes nested helpers (??_G, clear, erase) out of line in the client: in avatar.cpp it found
+  18, 16 now exact, and it explained 0x77C080 / 0x782200 / 0x784700's out-of-line calls (+31). A tools change.
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
@@ -2609,13 +2614,13 @@ below name only the work items, the blocked work, the leads and the queues.
      0x80CA30 0.62 (frame 0x48 vs 0x44: the client spills the clamp's max, keeps min on the FPU), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
      through stack temps; four Set / Matrix3D-temp forms compile identically), avatar.cpp (CS12 / CS15, 2026-11-05: the file follows the client's address order,
      padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): every member the client holds
-     as a RefCountPtr is one now (BodyObj, Unknown0C0[2] since AR1, 2026-11-05); interim forms (D137): 0x782FF0's tail reads
-     Unknown0C0 through a raw `HAnimClass **` (the RefCountPtr inlines flip the loop's `lea`, 36 forms tried) and
-     0x784700's `#pragma inline_depth(0)` (emits ??_G 0x781C10 / clear 0x78A510 exact; drop it once the real trigger is found).
-     The shared lead: why VC6 calls ??_G out of line in 0x77C080 (ctor), 0x782200 (0.41, frame 0x428 vs 0x424, LIMIT
-     REACHED), 0x784700 (0.57) and probably 0x7885D0 (0.52, the same out-of-line iterator pattern); 0x77F000 0.48 (the client
-     calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC vs 0xA8), 0x780AF0 0.58 (register: this in esi vs edi), 0x77D9F0
-     (its float load hoisted above the test); the
+     as a RefCountPtr is one now (AR1); 97 of 108 exact since AR2 (2026-11-05). Interim (D137): 0x782FF0's tail reads
+     Unknown0C0 through a raw `HAnimClass **` (36 forms); avatar.h's free inline `Unknown_Block_Value` (NAME 1, no client
+     copy: inferred from 0x784700's inline-site count). Left: 0x789C10 0.76 parked (the client writes `flags | 1` back into
+     its stack parameter; needs __LINE__ 3920), 0x781680 (the client calls PlayerNLPClass's ctor 0x78EB50 out of line:
+     move it from nlp.h into nlp.cpp first), 0x782200 0.69 (Unknown210 in ebp), 0x780AF0 0.55 (register), 0x77D9F0;
+     not built: the unreferenced 0x77D7F0, 0x7851F0, 0x787130 and 0x786410, 0x786EB0, 0x787450, 0x787A90, 0x787F40,
+     0x7899F0, 0x77D4A0 (UI callers); the
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
