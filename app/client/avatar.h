@@ -8,6 +8,7 @@
 #include "nstrdup.h"
 #include <string.h>
 #include <vector>
+#include "..\..\wwlib\ref_ptr.h"
 
 class LightClass;
 class HAnimClass;
@@ -195,7 +196,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RenderObjClass *WeaponUnique;						// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
 	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
 	RenderObjClass *MaskObj;							// +0x2E4  // NAME 1: neutral (D10)
-	AudibleSoundClass *SpeechSound;						// +0x2E8 (0x784E00 / 0x784C90)  // NAME 2: plays speech sound
+	RefCountPtr<AudibleSoundClass> SpeechSound;			// +0x2E8 (0x784E00 / 0x784C90, 0x7861B0 a RefCountPtr)  // NAME 2: plays speech sound
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
 	float Unknown2F0;									// +0x2F0 (60.0f in 0x784C90)
 	bool Unknown2F4;									// +0x2F4 (0x77B870 sets it; 0x783620: running footsteps)

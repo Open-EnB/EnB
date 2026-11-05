@@ -1436,7 +1436,7 @@ void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass 
 
 
 // 0x781410
-// NOT EXACT: functional for POC (D64), literal (__LINE__)
+// (1 - keep computed once, before the loop)
 void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 {
 	if (BodyObj == NULL) {
@@ -1450,12 +1450,13 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 	for (; steps > 0; steps--) {
 		keep *= 0.75f;
 	}
+	float rest = 1.0f - keep;
 	for (int i = 0; i < 5; i++) {
 		if (now == 1 || fabs(Unknown274[i] - Desc.Body_Weight[i]) < 0.0001) {
 			Unknown274[i] = Desc.Body_Weight[i];
 		} else {
 			moving = true;
-			Unknown274[i] = keep * Unknown274[i] + (1.0f - keep) * Desc.Body_Weight[i];
+			Unknown274[i] = keep * Unknown274[i] + rest * Desc.Body_Weight[i];
 		}
 	}
 	if (!moving) {
@@ -1465,7 +1466,6 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
 	Unknown234 = head[2][3] - BodyObj->Get_Bone_Transform("skel_reference")[2][3];
 }
-
 
 
 
@@ -1496,12 +1496,13 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 	for (; steps > 0; steps--) {
 		keep *= 0.75f;
 	}
+	float rest = 1.0f - keep;
 	for (int i = 0; i < 5; i++) {
 		if (now == 1 || fabs(Unknown288[i] - Desc.Head_Weight[i]) < 0.0001) {
 			Unknown288[i] = Desc.Head_Weight[i];
 		} else {
 			moving = true;
-			Unknown288[i] = keep * Unknown288[i] + (1.0f - keep) * Desc.Head_Weight[i];
+			Unknown288[i] = keep * Unknown288[i] + rest * Desc.Head_Weight[i];
 		}
 	}
 	if (!moving) {
@@ -1541,8 +1542,8 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 	Unknown220 = true;
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		SpeechSound->Release_Ref();
 		SpeechSound = NULL;
+
 	}
 	char name[32];
 	if (Unknown210 != 0) {
@@ -1866,7 +1867,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
 
 
 
@@ -2721,7 +2721,7 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 
 
 // 0x784C90
-// NOT EXACT: functional for POC (D64), literal (__LINE__ of the asserts)
+// (the asserts on the client's lines 2728 / 2729)
 void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 {
 	if (PlayerNLP == NULL) {
@@ -2737,8 +2737,8 @@ void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 	}
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		SpeechSound->Release_Ref();
 		SpeechSound = NULL;
+
 	}
 	TutorialManagerClass::Instance->Stop_Step();
 	Unknown208 = 0;
@@ -2757,7 +2757,7 @@ void CharacterViewAvatarClass::Unknown_784E00()
 {
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		REF_PTR_RELEASE(SpeechSound);
+		SpeechSound = NULL;
 	}
 
 	TutorialManagerClass::Instance->Stop_Step();
@@ -3116,15 +3116,15 @@ int CharacterViewAvatarClass::Unknown_7860C0()
 }
 
 // 0x7861B0
-// NOT EXACT: functional for POC (D64), shape (the client holds the sound in a RefCountPtr)
+// (SpeechSound a RefCountPtr: Create_Get, then its operator=)
 void CharacterViewAvatarClass::Unknown_7861B0(const char *speech)
 {
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
-		SpeechSound->Release_Ref();
 		SpeechSound = NULL;
+
 	}
-	SpeechSound = SoundLibraryClass::Play_2D_Sound(speech, 1);
+	SpeechSound = Create_Get(SoundLibraryClass::Play_2D_Sound(speech, 1));
 }
 
 // 0x786370
