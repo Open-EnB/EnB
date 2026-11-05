@@ -3295,15 +3295,29 @@ void CharacterViewAvatarClass::Unknown_786E60()
 	}
 }
 
+// 0x786EB0: the transform +0x330 set, then skel_reference's raised to K_HEAD's height + 0.2, moved half a unit along
+// its X and pitched by +0x30C (0x787A90 calls it)
+Matrix3D CharacterViewAvatarClass::Unknown_786EB0()
+{
+	Set_Transform(Unknown330);
+	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
+	Matrix3D m = BodyObj->Get_Bone_Transform("skel_reference");
+	static const float rise = 0.2f;
+	m.Adjust_Z_Translation(head.Get_Z_Translation() - m.Get_Z_Translation() + rise);
+	m.Adjust_Translation(m.Get_X_Vector() * 0.5f);
+	m.Rotate_Y(Unknown30C);
+	return(m);
+}
+
 // 0x787130: the transform +0x330 set, then skel_reference's raised by +0x234 + 2, turned by +0x310 about Z, moved
 // 11 back and pitched by +0x30C + 0.3 (unreferenced)
-// NOT EXACT: order-only (the client keeps the copied m[2][3] on the FPU stack, fadd st(1) then fstp st(0), where ours pops: 0.93)
+// (height a local: VC6 moves a literal summand after m[2][3], as the client's second 1.0f)
 Matrix3D CharacterViewAvatarClass::Unknown_787130()
 {
 	Set_Transform(Unknown330);
 	Matrix3D m = BodyObj->Get_Bone_Transform("skel_reference");
-	m.Adjust_Z_Translation(Unknown234 + 1.0f);
-	m.Adjust_Z_Translation(1.0f);
+	float height = Unknown234 + 1.0f;
+	m.Adjust_Z_Translation(height + 1.0f);
 	m.Rotate_Z(Unknown310);
 	m.Adjust_Translation(m.Get_X_Vector() * -11.0f);
 	m.Rotate_Y(Unknown30C + 0.3f);
@@ -3635,20 +3649,6 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 		Unknown37C = 0.0f;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
