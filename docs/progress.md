@@ -2530,12 +2530,12 @@ below name only the work items, the blocked work, the leads and the queues.
      ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
-   * gd_slider.cpp (CS14, 2026-11-05; the class screen's skill slider, now real): NOT EXACT 0x66EF00 0.81 (`-480*y+240` as
-     fsubr vs the client's fmul -480 / fadd; Extent + Center operand order), 0x66F330 0.56 (the repeat tail before the held /
-     wheel branches), 0x66FA90 0.77 (a spilled temporary in the 16 / +0xBC max), 0x66FD80 0.58 (the low bone's X kept on
-     the FPU). ui_combobox.cpp's stand-in UIComboBoxSliderClass redeclares 0x66E3A0 / 0x66E460 / 0x66FA90 / 0x66FD80
-     (0x66FD80 is `bool (bool)`), so its calls link to gens: switch it to GadgetSlider (gd_slider.h); a caller declares
-     GadgetClass::Unknown_6603A0(int, ...) where gadget.cpp's takes bool (a gen too).
+   * gd_slider.cpp (CS14 / CS16, 2026-11-05; the class screen's skill slider, real and drawn): NOT EXACT 0x66EF00 0.81 (the
+     wheel box's `Extent.X + Center.X` loads Center first; 24 forms), 0x66F330 0.81 (the top `return(false)` gets its own
+     epilogue; case 2's tail cross-jumps into case 5's), 0x66FD80 0.58 (frame: the client keeps min_pos.X and .Z on the
+     FPU). ui_combobox.cpp's stand-in GadgetClass -> the real gadget.h (then gd_slider.h can be included; the rows and the
+     text field +0x5C bit 4 / +0x61 / +0x68 FontSys * belong to an unidentified derived gadget); ui_manu.cpp holds the
+     same kind of stand-in.
    * POC character creation (the 2026-11-04 night run; full-flow input `.work/run-2026-11-04/in_full.txt`, coordinator
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
      slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
