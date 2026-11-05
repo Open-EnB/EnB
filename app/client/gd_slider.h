@@ -14,6 +14,7 @@
 #include "always.h"
 #include "gd_robj.h"
 #include "vector3.h"
+#include "aabox.h"
 
 struct KernelEventClass;
 class HAnimClass;
@@ -35,7 +36,13 @@ public:
 	void Unknown_66E3A0();								// 0x66E3A0
 	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx);	// 0x66E460
 	void Unknown_66FA90(float total, float page, bool a);	// 0x66FA90 (ui_class.cpp's 0x576360: the skills' count, 8, 1)  // NAME 1 [total, page, a]: neutral
-	bool Unknown_66FD80(bool force = false);			// 0x66FD80
+	bool Unknown_66FD80(bool force = false);			// 0x66FD80 (the bars laid out from the two bones; FAIL_IF '!SliderObject')
+	void Unknown_670230(const AABoxClass &box, bool force);	// 0x670230 (the wheel box set, then 0x66FD80)  // NAME 1 [box, force]: neutral
+	bool Unknown_6702A0();								// 0x6702A0 (the flash on the up arrow)
+	bool Unknown_6702D0();								// 0x6702D0 (the flash on the down arrow)
+	void Unknown_670300();								// 0x670300 (the thumb animated and placed; FAIL_IF '!Thumb')
+	float Unknown_6705A0();								// 0x6705A0 (inline: the thumb animation's frame, never below 0)
+	void Unknown_670440();								// 0x670440 (the value from the dragged thumb)
 
 	RefCountPtr<RenderObjClass> SliderObject;			// +0x60  // NAME 2 [SliderObject]: FAIL_IF '!SliderObject'
 	RefCountPtr<RenderObjClass> MinArrow;				// +0x64  // NAME 2 [MinArrow]: FAIL_IF '!MinArrow'
@@ -63,26 +70,21 @@ public:
 	float UnknownCC;									// +0xCC
 	float UnknownD0;									// +0xD0
 	float Value;										// +0xD4
-	float UnknownD8;									// +0xD8
+	int UnknownD8;										// +0xD8 (floor of Value: 0x66FC70 compares it with ftol's int)
 	float UnknownDC;									// +0xDC
-	float UnknownE0;									// +0xE0
-	float UnknownE4;									// +0xE4
-	float UnknownE8;									// +0xE8
+	int UnknownE0;										// +0xE0 (the part under the pointer, 1..6: 0x66EF00)
+	int UnknownE4;										// +0xE4 (the part pressed: 0x66F330)
+	int UnknownE8;										// +0xE8 (the flashed part: 0x6702A0 / 0x6702D0)
 	float UnknownEC;									// +0xEC
 	float UnknownF0;									// +0xF0
 	float UnknownF4;									// +0xF4
 	float UnknownF8;									// +0xF8
-	float UnknownFC;									// +0xFC
-	float Unknown100;									// +0x100
-	RefCountPtr<RenderObjClass> Unknown104;				// +0x104
+	unsigned int UnknownFC;								// +0xFC (the next repeat's ticks: 0x66F330)
+	unsigned int Unknown100;							// +0x100 (the ticks at the last move: 0x66EF00)
+	RefCountPtr<RenderObjClass> PressedObject;			// +0x104  // NAME 2 [PressedObject]: FAIL_IF 'PressedObject'
 	bool Unknown108;									// +0x108
 	bool Unknown109;									// +0x109
-	int Unknown10C;										// +0x10C
-	int Unknown110;										// +0x110
-	int Unknown114;										// +0x114
-	int Unknown118;										// +0x118
-	int Unknown11C;										// +0x11C
-	int Unknown120;										// +0x120
+	AABoxClass Unknown10C;								// +0x10C (the wheel box while +0x109: 0x670230, 0x66EF00)
 	bool Unknown124;									// +0x124
 };
 

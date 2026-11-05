@@ -45,7 +45,7 @@ void Unknown_42E8A0(KernelEventClass *event);						// 0x42E8A0 (taken)  // NAME 
 void Unknown_42ECF0(float *x, float *y);							// 0x42ECF0 (the pointer's position, 0..1)  // NAME 1 [x, y]: as scriptedmovie.cpp's
 bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a button down)  // NAME 1 [button, arg]: neutral
 unsigned int Unknown_Get_Ticks();										// (unknown_root.h's)
-static KernelEventClass Unknown_BE5EB0;									// 0xBE5EB0 (0x65F780: the last event)  // NAME 1: neutral (D10)
+KernelEventClass Unknown_BE5EB0;										// 0xBE5EB0 (0x65F780: the last event; gd_slider.cpp reads it)  // NAME 1: neutral (D10)
 
 // ro_funcs.cpp's (cdecl)
 class TextureClass *Unknown_4960C0(RenderObjClass *robj, int arg);					// 0x4960C0  // NAME 1 [robj, arg]: neutral

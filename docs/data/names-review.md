@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
-| 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13228 |
+| 2 | describes what the code does | 3008 |
+| 1 | neutral placeholder | 13259 |
 
 ## For review (score 3 and below)
 
@@ -3121,15 +3121,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownF8` | `app/client/gd_slider.cpp:50` | untagged neutral name (D10) |
 | 1 | `UnknownFC` | `app/client/gd_slider.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown100` | `app/client/gd_slider.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `app/client/gd_slider.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown108` | `app/client/gd_slider.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown109` | `app/client/gd_slider.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown10C` | `app/client/gd_slider.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/gd_slider.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/gd_slider.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/gd_slider.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/gd_slider.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/gd_slider.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown124` | `app/client/gd_slider.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/gd_slider.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown_66E3A0` | `app/client/gd_slider.cpp:72` | untagged neutral name (D10) |
@@ -3139,54 +3133,91 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8D440` | `app/client/gd_slider.cpp:91` | neutral |
 | 1 | `Unknown_66E460` | `app/client/gd_slider.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown_66FD80` | `app/client/gd_slider.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/gd_slider.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/gd_slider.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/gd_slider.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/gd_slider.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/gd_slider.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/gd_slider.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/gd_slider.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/gd_slider.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_66E3A0` | `app/client/gd_slider.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/gd_slider.h:36` | untagged neutral name (D10) |
-| 1 | `total, page, a` | `app/client/gd_slider.h:37` | neutral |
-| 1 | `Unknown_66FA90` | `app/client/gd_slider.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_66FD80` | `app/client/gd_slider.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/gd_slider.h:48` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/gd_slider.h:52` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/gd_slider.h:53` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/gd_slider.h:54` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/gd_slider.h:55` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `app/client/gd_slider.h:56` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/gd_slider.h:57` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/gd_slider.h:58` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/gd_slider.h:59` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/gd_slider.h:60` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/gd_slider.h:61` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/gd_slider.h:62` | untagged neutral name (D10) |
-| 1 | `UnknownCC` | `app/client/gd_slider.h:63` | untagged neutral name (D10) |
-| 1 | `UnknownD0` | `app/client/gd_slider.h:64` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/gd_slider.h:66` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/gd_slider.h:67` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/gd_slider.h:68` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/gd_slider.h:69` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/gd_slider.h:70` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/gd_slider.h:71` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/gd_slider.h:72` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `app/client/gd_slider.h:73` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/gd_slider.h:74` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/gd_slider.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `app/client/gd_slider.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `app/client/gd_slider.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/gd_slider.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown109` | `app/client/gd_slider.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/gd_slider.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/gd_slider.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/gd_slider.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/gd_slider.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/gd_slider.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/gd_slider.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/gd_slider.h:86` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/gd_slider.cpp:211` | neutral |
+| 1 | `Value` | `app/client/gd_slider.cpp:213` | neutral (D10) |
+| 1 | `robj, a, b, c` | `app/client/gd_slider.cpp:216` | as ui_group.h |
+| 1 | `Unknown_496110` | `app/client/gd_slider.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/client/gd_slider.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5EB0` | `app/client/gd_slider.cpp:218` | neutral (D10) |
+| 1 | `Unknown_B8D430` | `app/client/gd_slider.cpp:220` | neutral |
+| 1 | `Unknown_B8D434` | `app/client/gd_slider.cpp:221` | neutral |
+| 1 | `Unknown_B8D438` | `app/client/gd_slider.cpp:222` | neutral |
+| 1 | `Unknown_B8D43C` | `app/client/gd_slider.cpp:223` | neutral |
+| 1 | `Unknown_B8D444` | `app/client/gd_slider.cpp:224` | neutral |
+| 1 | `Unknown_B8D448` | `app/client/gd_slider.cpp:225` | neutral |
+| 1 | `Unknown_6705A0` | `app/client/gd_slider.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_slider.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_slider.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_slider.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_slider.cpp:320` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/gd_slider.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown_670440` | `app/client/gd_slider.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_slider.cpp:415` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_slider.cpp:417` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_slider.cpp:424` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/gd_slider.cpp:448` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gd_slider.cpp:451` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_slider.cpp:454` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/gd_slider.cpp:456` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_slider.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_slider.cpp:511` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_slider.cpp:523` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_slider.cpp:535` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/gd_slider.cpp:574` | untagged neutral name (D10) |
+| 1 | `Unknown_670300` | `app/client/gd_slider.cpp:626` | untagged neutral name (D10) |
+| 1 | `Unknown_670230` | `app/client/gd_slider.cpp:787` | untagged neutral name (D10) |
+| 1 | `Unknown_6702A0` | `app/client/gd_slider.cpp:795` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/gd_slider.cpp:798` | untagged neutral name (D10) |
+| 1 | `Unknown_6702D0` | `app/client/gd_slider.cpp:803` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_slider.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_slider.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_slider.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_slider.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_slider.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_slider.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_slider.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_slider.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_66E3A0` | `app/client/gd_slider.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/gd_slider.h:37` | untagged neutral name (D10) |
+| 1 | `total, page, a` | `app/client/gd_slider.h:38` | neutral |
+| 1 | `Unknown_66FA90` | `app/client/gd_slider.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/gd_slider.h:39` | untagged neutral name (D10) |
+| 1 | `box, force` | `app/client/gd_slider.h:40` | neutral |
+| 1 | `Unknown_670230` | `app/client/gd_slider.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_6702A0` | `app/client/gd_slider.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_6702D0` | `app/client/gd_slider.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_670300` | `app/client/gd_slider.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_6705A0` | `app/client/gd_slider.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_670440` | `app/client/gd_slider.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_slider.h:55` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/gd_slider.h:59` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/gd_slider.h:60` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/gd_slider.h:61` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/gd_slider.h:62` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/gd_slider.h:63` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/gd_slider.h:64` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/gd_slider.h:65` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/gd_slider.h:66` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/gd_slider.h:67` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/gd_slider.h:68` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/gd_slider.h:69` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/gd_slider.h:70` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/gd_slider.h:71` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/gd_slider.h:73` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/gd_slider.h:74` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/gd_slider.h:75` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/gd_slider.h:76` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/gd_slider.h:77` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/gd_slider.h:78` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/gd_slider.h:79` | untagged neutral name (D10) |
+| 1 | `UnknownF4` | `app/client/gd_slider.h:80` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/gd_slider.h:81` | untagged neutral name (D10) |
+| 1 | `UnknownFC` | `app/client/gd_slider.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/gd_slider.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/gd_slider.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown109` | `app/client/gd_slider.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/gd_slider.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/gd_slider.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
@@ -13830,14 +13861,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IsPermanent` | `app/client/gd_buffgadg.h:64` | the aux field's |
 | 2 | `BuffRemovalTime` | `app/client/gd_buffgadg.h:65` | the aux field's |
 | 2 | `Set_Render_Obj` | `app/client/gd_robj.h:50` | as Peek_Render_Obj; NAME 1 [robj]: neutral |
-| 2 | `SliderObject` | `app/client/gd_slider.h:40` | FAIL_IF '!SliderObject' |
-| 2 | `MinArrow` | `app/client/gd_slider.h:41` | FAIL_IF '!MinArrow' |
-| 2 | `MaxArrow` | `app/client/gd_slider.h:42` | FAIL_IF '!MaxArrow' |
-| 2 | `Thumb` | `app/client/gd_slider.h:43` | FAIL_IF '!Thumb' |
-| 2 | `WheelRegion` | `app/client/gd_slider.h:44` | FAIL_IF '!WheelRegion' |
-| 2 | `ThumbAnim` | `app/client/gd_slider.h:45` | FAIL_IF '!ThumbAnim' |
-| 2 | `MinBoneIdx` | `app/client/gd_slider.h:46` | G_ASSERT 'MinBoneIdx' |
-| 2 | `MaxBoneIdx` | `app/client/gd_slider.h:47` | G_ASSERT 'MaxBoneIdx' |
+| 2 | `SliderObject` | `app/client/gd_slider.h:47` | FAIL_IF '!SliderObject' |
+| 2 | `MinArrow` | `app/client/gd_slider.h:48` | FAIL_IF '!MinArrow' |
+| 2 | `MaxArrow` | `app/client/gd_slider.h:49` | FAIL_IF '!MaxArrow' |
+| 2 | `Thumb` | `app/client/gd_slider.h:50` | FAIL_IF '!Thumb' |
+| 2 | `WheelRegion` | `app/client/gd_slider.h:51` | FAIL_IF '!WheelRegion' |
+| 2 | `ThumbAnim` | `app/client/gd_slider.h:52` | FAIL_IF '!ThumbAnim' |
+| 2 | `MinBoneIdx` | `app/client/gd_slider.h:53` | G_ASSERT 'MinBoneIdx' |
+| 2 | `MaxBoneIdx` | `app/client/gd_slider.h:54` | G_ASSERT 'MaxBoneIdx' |
+| 2 | `PressedObject` | `app/client/gd_slider.h:84` | FAIL_IF 'PressedObject' |
 | 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
 | 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
