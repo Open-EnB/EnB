@@ -863,7 +863,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 // 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
 // for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
 // colour onto its hair and beard, then the head object is cloned again (0x77F750)
-// NOT EXACT: functional for POC (D64), inline-budget (the four removals through 0x789FE0 as the client inlines it: 0.47 -> 0.64; the client keeps the hair loop on name with 0x77FEC0 / 0x7802F0 out of line)
+// (the four removals through 0x789FE0, inlined; the head loaded in each Avatar_Type branch with overbright switched on and off around it, as 0x77E9D0)
 void CharacterViewAvatarClass::Unknown_77F000(int num)
 {
 	char name[64];
@@ -889,18 +889,18 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		HeadSource = NULL;
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
-	if (!making) {
-		WW3D::Enable_Overbright_Modify_On_Load(true);
-	}
 	if (Desc.Avatar_Type == 0) {
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(head_name, 0x20, "%s%sHEAD%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Head_Type);
+		HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	} else {
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(head_name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
+		HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
-	HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
-	if (!making) {
-		WW3D::Enable_Overbright_Modify_On_Load(false);
-	}
+
 	if (HeadSource) {
 		Unknown_496AE0(HeadSource.Peek(), true);
 		if (HeadSource) {
