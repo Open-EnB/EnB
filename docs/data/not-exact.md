@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-624 entries in 131 files.
+619 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -385,15 +385,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_shard.cpp:192` | `Unknown615A50InterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64) @0x6164E0 |
 | `app/client/ui_shard.cpp:267` | `Unknown615A50InterfaceClass::Unknown_616A10` | marker | NOT EXACT: functional (D64) @0x616A10 |
 | `app/client/ui_shard.cpp:345` | `Unknown615A50InterfaceClass::Unknown_616DA0` | marker | NOT EXACT: functional (D64) @0x616DA0 |
-| `app/client/ui_shard.cpp:388` | `Unknown615A50InterfaceClass::Unknown_617190` | marker | NOT EXACT: functional (D64) @0x617190 |
-| `app/client/ui_shard.cpp:405` | `Unknown615A50InterfaceClass::Unknown_617270` | marker | NOT EXACT: functional (D64) @0x617270 |
-| `app/client/ui_shard.cpp:416` | `Unknown615A50InterfaceClass::Unknown_6172A0` | marker | NOT EXACT: functional (D64) @0x6172A0 |
-| `app/client/ui_shard.cpp:427` | `Unknown615A50InterfaceClass::Unknown_617310` | marker | NOT EXACT: functional (D64) @0x617310 |
-| `app/client/ui_shard.cpp:462` | `Unknown615A50InterfaceClass::Unknown_617540` | marker | NOT EXACT: functional (D64) @0x617540 |
-| `app/client/ui_shard.cpp:486` | `Unknown615A50InterfaceClass::Unknown_617660` | marker | NOT EXACT: functional (D64) @0x617660 |
-| `app/client/ui_shard.cpp:498` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
-| `app/client/ui_shard.cpp:518` | `Unknown615A50InterfaceClass::Unknown_6179D0` | marker | NOT EXACT: functional (D64) @0x6179D0 |
-| `app/client/ui_shard.cpp:536` | `Unknown615A50InterfaceClass::Unknown_617AA0` | marker | NOT EXACT: functional (D64) @0x617AA0 |
+| `app/client/ui_shard.cpp:428` | `Unknown615A50InterfaceClass::Unknown_617310` | marker | NOT EXACT: functional (D64) @0x617310 |
+| `app/client/ui_shard.cpp:463` | `Unknown615A50InterfaceClass::Unknown_617540` | marker | NOT EXACT: functional (D64) @0x617540 |
+| `app/client/ui_shard.cpp:503` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
+| `app/client/ui_shard.cpp:712` | `Unknown615A50InterfaceClass::Unknown_617AA0` | marker | NOT EXACT: functional (D64) @0x617AA0 |
 | `app/client/ui_shipcust.cpp:169` | `Unknown620D20Class::Unknown_6211D0` | marker | NOT EXACT: functional (D64) @0x6211D0 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
 | `app/client/ui_shipcust.cpp:264` | `Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |

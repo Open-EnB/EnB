@@ -9619,10 +9619,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C_0B` | `app/client/ui_shard.cpp:370` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_shard.cpp:372` | untagged neutral name (D10) |
 | 1 | `Unknown_617190` | `app/client/ui_shard.cpp:384` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_shard.cpp:393` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:394` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:436` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_shard.cpp:510` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_shard.cpp:392` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shard.cpp:393` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_shard.cpp:515` | untagged neutral name (D10) |
 | 1 | `ui_shard.h` | `app/client/ui_shard.h:4` | provisional header name for ui_shard.cpp |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.h:21` | neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback) |
 | 1 | `view, layer` | `app/client/ui_shard.h:24` | as LoginInterface's |
