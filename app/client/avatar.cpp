@@ -2997,7 +2997,7 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 
 // 0x7857D0: Head_Texture_Num's face texture '<gender><race>FACETEX<num>.tga' onto the head
 // object's head0..4 meshes (stage 0)
-// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// (the texture and each mesh RefCountPtr locals: Create_Get 0x47D010 / 0x474080)
 void CharacterViewAvatarClass::Unknown_7857D0(int num)
 {
 	FAIL_IF(!HeadObj) {
@@ -3006,25 +3006,25 @@ void CharacterViewAvatarClass::Unknown_7857D0(int num)
 	char name[32];
 	char mesh[64];
 	_snprintf(name, 0x20, "%s%sFACETEX%02d.tga", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], num);
-	TextureClass *tex = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	RefCountPtr<TextureClass> tex = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	if (tex) {
 		Desc.Head_Texture_Num = (char)num;
 		for (int i = 0; i < 5; i++) {
 			_snprintf(mesh, 0x40, "head%d", i);
-			RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
-			Unknown_495FD0(robj, tex, 0);
-			Unknown_496AE0(robj, true);
-			if (robj) { robj->Release_Ref(); }
+			RefCountPtr<RenderObjClass> robj = Create_Get(HeadObj->Get_Sub_Object_By_Name(mesh));
+			Unknown_495FD0(robj.Peek(), tex.Peek(), 0);
+			Unknown_496AE0(robj.Peek(), true);
+
 		}
 	}
 	Unknown_496AE0(HeadObj.Peek(), true);
-	if (tex) { tex->Release_Ref(); }
+
 }
 
 
 // 0x7859F0: Tattoo_Texture_Num's 'ATATTOO<num>.tga' (clamped) onto the head object's HEAD0..4
 // meshes (stage 1)
-// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// (the texture and each mesh RefCountPtr locals: Create_Get 0x47D010 / 0x474080)
 void CharacterViewAvatarClass::Unknown_7859F0(int num)
 {
 	FAIL_IF(!HeadObj) {
@@ -3033,21 +3033,21 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 	char name[32];
 	char mesh[64];
 	_snprintf(name, 0x20, "ATATTOO%02d.tga", num);
-	TextureClass *tex = WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
+	RefCountPtr<TextureClass> tex = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(name, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	if (tex) {
 		tex->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		for (int i = 0; i < 5; i++) {
 			_snprintf(mesh, 0x40, "HEAD%d", i);
-			RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
-			Unknown_495FD0(robj, tex, 1);
-			Unknown_496AE0(robj, true);
-			if (robj) { robj->Release_Ref(); }
+			RefCountPtr<RenderObjClass> robj = Create_Get(HeadObj->Get_Sub_Object_By_Name(mesh));
+			Unknown_495FD0(robj.Peek(), tex.Peek(), 1);
+			Unknown_496AE0(robj.Peek(), true);
+
 		}
 		Desc.Tattoo_Texture_Num = (char)num;
 	}
 	Unknown_496AE0(HeadObj.Peek(), true);
-	if (tex) { tex->Release_Ref(); }
+
 }
 
 
@@ -3056,7 +3056,7 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 
 // 0x785C00: Tattoo_Offset onto the head object's HEAD0..4 meshes: a linear offset mapper on stage 1
 // of vertex material 0 (X, Y the tattoo's place, Z its scale, clamped to 0.5 .. 16)
-// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), x87 order (the client defers start.Y's divide after start.X's store)
 void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 {
 	FAIL_IF(!HeadObj) {
@@ -3070,22 +3070,22 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 	}
 	float size = 1.0f / scale;
 	float half = size * 0.5f;
-	Vector2 start(-((offset.X - half) / size), -((offset.Y - half) / size));
 	Vector2 scales(scale, scale);
+	Vector2 start(-((offset.X - half) / size), -((offset.Y - half) / size));
 	char mesh[64];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(mesh, 0x40, "HEAD%d", i);
-		RenderObjClass *robj = HeadObj->Get_Sub_Object_By_Name(mesh);
+		RefCountPtr<RenderObjClass> robj = Create_Get(HeadObj->Get_Sub_Object_By_Name(mesh));
 		if (robj) {
-			MaterialInfoClass *info = robj->Get_Material_Info();
+			RefCountPtr<MaterialInfoClass> info = Create_Get(robj->Get_Material_Info());
 			if (info) {
 				VertexMaterialClass *material = info->Peek_Vertex_Material(0);
 				LinearOffsetTextureMapperClass *mapper = new LinearOffsetTextureMapperClass(Vector2(0.0f, 0.0f), start, true, scales, 1);
 				material->Set_Mapper(mapper, 1);
 				mapper->Release_Ref();
-				info->Release_Ref();
+
 			}
-			robj->Release_Ref();
+
 		}
 	}
 	Unknown_496AE0(HeadObj.Peek(), true);
