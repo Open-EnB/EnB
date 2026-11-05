@@ -1693,44 +1693,44 @@ void AvatarCreationInterface::Unknown_557290()
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x556F80 (the bottom buttons held (gadget.cpp's 0xBE5F24 /
-// 0xBE5F28) into the pip's turn (+0xB8), pan (+0xC0 / +0xC4) and zoom (+0xC8) rates; on the head tab the head's scale)
+static inline void Set_Rate(float &rate, float value) { rate = value; }	// the client stores each rate through the FPU, as an inline float setter does (probably ShipPipClass's own: interim here)  // NAME 1: neutral (D10)
+// The bottom buttons held (gadget.cpp's 0xBE5F24 / 0xBE5F28) into the pip's turn / pan / zoom rates; the rates are .rdata constants (0xAEF964-0xAEF96C)
 // 0x556F80
 void AvatarCreationInterface::Unknown_556F80()
-{
-	if (Unknown_BE5F24 == Unknown098[5] || Unknown_BE5F28 == Unknown098[5]) {
-		Unknown094->Unknown0B8 = -2.0f;
-	} else if (Unknown_BE5F24 == Unknown098[6] || Unknown_BE5F28 == Unknown098[6]) {
-		Unknown094->Unknown0B8 = 2.0f;
+{ static const float turn = 2.0f; static const float pan = 0.75f; static const float zoom = 1.0f;
+	if (Unknown_BE5F24 == Unknown098[5] ? true : Unknown_BE5F28 == Unknown098[5]) {
+		Set_Rate(Unknown094->Unknown0B8, -turn);
+	} else if (Unknown_BE5F24 == Unknown098[6] ? true : Unknown_BE5F28 == Unknown098[6]) {
+		Set_Rate(Unknown094->Unknown0B8, turn);
 	} else {
 		Unknown094->Unknown0B8 = 0.0f;
 		Unknown094->Unknown0BC = 0.0f;
 	}
-	if (Unknown_BE5F24 == Unknown098[13] || Unknown_BE5F28 == Unknown098[13]) {
-		Unknown094->Unknown0C0 = -0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[12] || Unknown_BE5F28 == Unknown098[12]) {
-		Unknown094->Unknown0C0 = 0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[10] || Unknown_BE5F28 == Unknown098[10]) {
-		Unknown094->Unknown0C4 = -0.75f;
-	} else if (Unknown_BE5F24 == Unknown098[11] || Unknown_BE5F28 == Unknown098[11]) {
-		Unknown094->Unknown0C4 = 0.75f;
+	if (Unknown_BE5F24 == Unknown098[13] ? true : Unknown_BE5F28 == Unknown098[13]) {
+		Set_Rate(Unknown094->Unknown0C0, -pan);
+	} else if (Unknown_BE5F24 == Unknown098[12] ? true : Unknown_BE5F28 == Unknown098[12]) {
+		Set_Rate(Unknown094->Unknown0C0, pan);
+	} else if (Unknown_BE5F24 == Unknown098[10] ? true : Unknown_BE5F28 == Unknown098[10]) {
+		Set_Rate(Unknown094->Unknown0C4, -pan);
+	} else if (Unknown_BE5F24 == Unknown098[11] ? true : Unknown_BE5F28 == Unknown098[11]) {
+		Set_Rate(Unknown094->Unknown0C4, pan);
 	} else {
 		Unknown094->Unknown0C0 = 0.0f;
 		Unknown094->Unknown0C4 = 0.0f;
 	}
-	if (Unknown_BE5F24 == Unknown098[7] || Unknown_BE5F28 == Unknown098[7]) {
-		Unknown094->Unknown0C8 = -1.0f;
-	} else if (Unknown_BE5F24 == Unknown098[8] || Unknown_BE5F28 == Unknown098[8]) {
-		Unknown094->Unknown0C8 = 1.0f;
+	if (Unknown_BE5F24 == Unknown098[7] ? true : Unknown_BE5F28 == Unknown098[7]) {
+		Set_Rate(Unknown094->Unknown0C8, -zoom);
+	} else if (Unknown_BE5F24 == Unknown098[8] ? true : Unknown_BE5F28 == Unknown098[8]) {
+		Set_Rate(Unknown094->Unknown0C8, zoom);
 	} else {
 		Unknown094->Unknown0C8 = 0.0f;
 	}
 	if (Unknown088 == 1) {
-		if (Unknown_BE5F24 == Unknown098[33] || Unknown_BE5F28 == Unknown098[33]) {
+		if (Unknown_BE5F24 == Unknown098[33] ? true : Unknown_BE5F28 == Unknown098[33]) {
 			Unknown_55B540(1);
 			return;
 		}
-		if (Unknown_BE5F24 == Unknown098[34] || Unknown_BE5F28 == Unknown098[34]) {
+		if (Unknown_BE5F24 == Unknown098[34] ? true : Unknown_BE5F28 == Unknown098[34]) {
 			Unknown_55B540(2);
 		}
 	}
@@ -1912,8 +1912,8 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	int i = desc->Desc.Race * 2 + desc->Desc.Gender;
-	int lbs = (int)(UIAvatrWeightRange[i] * Unknown164.X + UIAvatrWeightRange[i] * Unknown164.Y + UIAvatrWeightBase[i]);
-	int inches = (int)(UIAvatrHeightRange[i] * Unknown164.Y + UIAvatrHeightBase[i]);
+	int range = UIAvatrWeightRange[i]; int base = UIAvatrWeightBase[i]; int lbs = (int)((range * Unknown164.X) + (range * Unknown164.Y) + base);
+	int hbase = UIAvatrHeightBase[i]; int hrange = UIAvatrHeightRange[i]; int inches = (int)(hrange * Unknown164.Y + hbase);
 	char text[64];
 	_snprintf(text, 0x40, "%d lbs", lbs);
 	FontSys *weight = Unknown_BE67C4->Get_Style("weight_var_fe_avatar00", model.Peek());
