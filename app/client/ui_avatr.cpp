@@ -184,7 +184,7 @@ public:
 	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
 	bool Unknown1CD;									// +0x1CD (Unknown1CC[1])
 	char Unknown1CE[0x3A4 - 0x1CE];						// +0x1CE
-	EnvironmentMapManagerClass *Unknown3A4;				// +0x3A4 'envmaps.ini'
+	EnvironmentMapManagerClass *Unknown3A4;	EnvironmentMapManagerClass *Peek_Unknown3A4() { return(Unknown3A4); }	// +0x3A4 'envmaps.ini' (0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Peek_Unknown3A4]: neutral (D10)
 };
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -352,7 +352,7 @@ public:
 	void Unknown_585CF0(int choice);					// 0x585CF0  // NAME 1 [choice]: neutral
 	void Unknown_585D10();								// 0x585D10 (+0x20: how many choices exist)
 	char Unknown00[0x18];								// +0x00
-	int Unknown18;										// +0x18 (the choice)
+	int Unknown18;	int Get_Unknown18() { return(Unknown18); }	// +0x18 (the choice; 0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Get_Unknown18]: neutral (D10)
 	char Unknown1C[0x20 - 0x1C];						// +0x1C
 	int Unknown20;										// +0x20 (how many head types 0x558170 picks from)
 };
@@ -1439,7 +1439,7 @@ void AvatarCreationInterface::Unknown_558EA0(int dir)
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again)
+// A female avatar skips hair 0 (the client calls itself again); the choice and the envmaps through inline getters
 // 0x559010
 void AvatarCreationInterface::Unknown_559010(int dir)
 {
@@ -1453,12 +1453,12 @@ void AvatarCreationInterface::Unknown_559010(int dir)
 		Unknown_559010(dir);
 		return;
 	}
-	desc->Unknown_77FC20(Unknown2E0->Unknown18, true);
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	Unknown08C->Peek_Unknown194()->Unknown_77FC20(Unknown2E0->Get_Unknown18(), true);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries)
+// The choice and the envmaps through inline getters (the client's load order)
 // 0x5591E0
 void AvatarCreationInterface::Unknown_5591E0(int dir)
 {
@@ -1467,9 +1467,9 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 	} else {
 		Unknown2E4->Unknown_585C90();
 	}
-	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Unknown18, true);
+	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Get_Unknown18(), true);
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	desc->Unknown_780810(Unknown08C->Unknown3A4);
+	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
 

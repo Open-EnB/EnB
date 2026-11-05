@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13254 |
+| 1 | neutral placeholder | 13256 |
 
 ## For review (score 3 and below)
 
@@ -6539,6 +6539,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C0` | `app/client/ui_avatr.cpp:184` | untagged neutral name (D10) |
 | 1 | `Unknown1CD` | `app/client/ui_avatr.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown1CE` | `app/client/ui_avatr.cpp:186` | untagged neutral name (D10) |
+| 1 | `Peek_Unknown3A4` | `app/client/ui_avatr.cpp:187` | neutral (D10) |
 | 1 | `Unknown3A4` | `app/client/ui_avatr.cpp:187` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_avatr.cpp:190` | neutral |
 | 1 | `Unknown_497300` | `app/client/ui_avatr.cpp:190` | untagged neutral name (D10) |
@@ -6704,6 +6705,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `choice` | `app/client/ui_avatr.cpp:352` | neutral |
 | 1 | `Unknown_585CF0` | `app/client/ui_avatr.cpp:352` | untagged neutral name (D10) |
 | 1 | `Unknown_585D10` | `app/client/ui_avatr.cpp:353` | untagged neutral name (D10) |
+| 1 | `Get_Unknown18` | `app/client/ui_avatr.cpp:355` | neutral (D10) |
 | 1 | `Unknown1C` | `app/client/ui_avatr.cpp:356` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_avatr.cpp:357` | untagged neutral name (D10) |
 | 1 | `view, layer, keep` | `app/client/ui_avatr.cpp:364` | neutral |

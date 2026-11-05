@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-564 entries in 130 files.
+562 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -281,8 +281,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1401` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT (the POC's last avatar-screen gens). |
 | `app/client/ui_avatr.cpp:1404` | `AvatarCreationInterface::Unknown_558D30` | marker | NOT EXACT: register (both types read up front, the step as --x < 0: only eax / edx swap around the pip's slot +0x84 call and the two releases; a pip local, a cast or a named temporary are worse) 0x558D30 |
 | `app/client/ui_avatr.cpp:1423` | `AvatarCreationInterface::Unknown_558EA0` | marker | NOT EXACT: register (as 0x558D30's) 0x558EA0 |
-| `app/client/ui_avatr.cpp:1442` | `AvatarCreationInterface::Unknown_559010` | marker | NOT EXACT: functional (D64), from the client's 0x559010 (a female avatar skips hair 0: the client calls itself again) 0x559010 |
-| `app/client/ui_avatr.cpp:1461` | `AvatarCreationInterface::Unknown_5591E0` | marker | NOT EXACT: functional (D64), from the client's 0x5591E0 (inline-budget: the client's RefCountPtr temporaries) 0x5591E0 |
 | `app/client/ui_avatr.cpp:1476` | `AvatarCreationInterface::Unknown_55A960` | marker | NOT EXACT: functional (D64), from the client's 0x55A960 (the colour pull: dragged, it moves its marker on the window model's bone and takes the palette's colour under it into the chosen part, +0x1BC) 0x55A960 |
 | `app/client/ui_avatr.cpp:1529` | `AvatarCreationInterface::Unknown_55B9A0` | marker | NOT EXACT: functional (D64), from the client's 0x55B9A0 (the body tab's metal, -1: none, into +0x1C0 and the chosen part) 0x55B9A0 |
 | `app/client/ui_avatr.cpp:1547` | `AvatarCreationInterface::Unknown_5582A0` | marker | NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one in the other gender with the palettes' default colours; the old description is then kept at +0x1CC) 0x5582A0 |
