@@ -2178,12 +2178,15 @@ void StarbaseShipCustomizeInterface::Unknown_61F690()
 	client->Send_Packet(&RecustomizeShipDonePacketClass(id, Desc));
 }
 
-// Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8, asserts
-// at lines 712, 1108, 2017 and 2020: the functions holding them are not in yet, so nothing here sits on their lines).
-// Its window: the constructor 0x6181B0 ('BUY_SHIP01', called from sbaseview.cpp's 0x69F8F0; not in yet), the
-// settings' constructor 0x618500 (its ??_H target), the deleting destructor 0x618540, the map's destructor 0x618570,
-// the destructor 0x6186A0, then slot +0x54 0x618CA0 (InterfaceClass's after-construction call, not a constructor) and
-// the class's functions to 0x61E8E0, the map's template copies 0x61F760-0x620B30 and the static initialiser 0x620CA0.
+// Notes (CS21, 2026-11-05; SC1, 2026-11-05). The file is the client's ui_ship_cust.cpp (__FILE__ 0xB896B8; its
+// asserts' lines 712 (0x61A4D0), 1108 (0x61B760), 2017 and 2020 (0x61E730) are reached through runs of blank lines:
+// a function added before one of them takes its lines out of the run in front of it).
+// Its window: the constructor 0x6181B0 ('BUY_SHIP01', called from sbaseview.cpp's 0x69F8F0), the settings'
+// constructor 0x618500 (shipcust_desc.h's inline; this object's out-of-line copy is the constructor's ??_H target),
+// the deleting destructor 0x618540, the map's destructor 0x618570, the destructor 0x6186A0, decal.h's 0x618A50 /
+// 0x618C10, slot +0x54 0x618CA0 (InterfaceClass's after-construction call, not a constructor), the part's
+// constructor 0x6191F0, decal.h's 0x619280, the part's assignment 0x619320, then the class's functions from 0x6193A0
+// to 0x61F690, the map's template copies 0x61F760-0x620B30 and the static initialiser 0x620CA0.
 // The members follow the constructor 0x6181B0 (its stores) and the destructor's EH states (+0x240, the map, +0x304,
 // the two MoneyClass at +0x320 / +0x328: 0x4A7780 in the unwind funclets).
 // decal.h's inlines whose client copies sit here are emitted here: 0x618A50 / 0x618C10 (the destructor's delete of
@@ -2192,3 +2195,6 @@ void StarbaseShipCustomizeInterface::Unknown_61F690()
 // The gadget map's element is this file's own StarbaseShipCustGadgetStruct, not ui_shipcust.h's ShipCustGadgetStruct:
 // the client's two maps are separate instantiations (this file's _Nil / _Nilrefs 0xBE5E28 / 0xBE5E24 in 0x618570 and
 // 0x6209D0, ui_shipcust.cpp's 0xBE5E44 in 0x629B70).
+// Not in yet: the events slot +0x68 0x619470 (a switch on the gadget ids 1-0x32, jump table 0x61A0D8 / 0x61A144; as
+// ui_shipcust.cpp's 0x623080), the part's assignment 0x619320 (emitted, not exact: its loop pointer starts at +0x08
+// where the client's starts at +0x18) and 0x61E860 / 0x61E880 (Mesh's 0x5B8850 with (0, 0) and (arg, 1); no callers).
