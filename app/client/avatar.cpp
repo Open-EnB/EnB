@@ -402,19 +402,19 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	}
 	if (BodyObj) {
 		if (WeaponHip) {
-			BodyObj->Remove_Sub_Object(WeaponHip);
-			WeaponHip->Release_Ref();
+			BodyObj->Remove_Sub_Object(WeaponHip.Peek());
 			WeaponHip = NULL;
+
 		}
 		if (WeaponUnique) {
-			BodyObj->Remove_Sub_Object(WeaponUnique);
-			WeaponUnique->Release_Ref();
+			BodyObj->Remove_Sub_Object(WeaponUnique.Peek());
 			WeaponUnique = NULL;
+
 		}
 		if (WeaponBack) {
-			BodyObj->Remove_Sub_Object(WeaponBack);
-			WeaponBack->Release_Ref();
+			BodyObj->Remove_Sub_Object(WeaponBack.Peek());
 			WeaponBack = NULL;
+
 		}
 		if (CollisionObj) {
 			BodyObj->Remove_Sub_Object(CollisionObj.Peek());
@@ -466,16 +466,16 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	if (WeaponHip) {
-		WeaponHip->Release_Ref();
 		WeaponHip = NULL;
+
 	}
 	if (WeaponUnique) {
-		WeaponUnique->Release_Ref();
 		WeaponUnique = NULL;
+
 	}
 	if (WeaponBack) {
-		WeaponBack->Release_Ref();
 		WeaponBack = NULL;
+
 	}
 	if (MaskObj) {
 		MaskObj = NULL;
@@ -608,13 +608,13 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 
 // 0x77E0E0: the weapon model made into *slot and put on the body's bone; kind 0 '<gender><race><part><num>',
 // 1 'a<race><part><num>', 2 'a<part><num>'
-// NOT EXACT: functional for POC (D64), literal (__LINE__), relocation (the client's slot is a RefCountPtr)
-void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot)
+// (the slot a RefCountPtr: operator =(0), then Create_Get 0x47D2E0 through its operator =)
+void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot)
 {
 	if (*slot) {
-		BodyObj->Remove_Sub_Object(*slot);
-		(*slot)->Release_Ref();
+		BodyObj->Remove_Sub_Object(slot->Peek());
 		*slot = NULL;
+
 	}
 	char name[32];
 	if (kind == 0) {
@@ -628,13 +628,13 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
-	*slot = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+	*slot = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (*slot) {
-		Unknown_496AE0(*slot, true);
-		BodyObj->Add_Sub_Object_To_Bone(*slot, bone);
+		Unknown_496AE0(slot->Peek(), true);
+		BodyObj->Add_Sub_Object_To_Bone(slot->Peek(), bone);
 		return;
 	}
 	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
@@ -766,9 +766,9 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	Desc.Body_Type = (char)body;
 	if (BodyObj) {
 		if (HeadObj) BodyObj->Remove_Sub_Object(HeadObj.Peek());
-		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique);
-		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip);
-		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack);
+		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique.Peek());
+		if (WeaponHip) BodyObj->Remove_Sub_Object(WeaponHip.Peek());
+		if (WeaponBack) BodyObj->Remove_Sub_Object(WeaponBack.Peek());
 		if (CollisionObj) BodyObj->Remove_Sub_Object(CollisionObj.Peek());
 		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4.Peek());
 		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
@@ -805,14 +805,14 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	Set_Base_Model_Name(BodyObj->Get_Base_Model_Name());
 	Update_Obj_Space_Bounding_Volumes();
 	if (HeadObj) BodyObj->Add_Sub_Object_To_Bone(HeadObj.Peek(), "K_HEAD");
-	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique, "WEAPON02");
-	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack, "WEAPON03");
+	if (WeaponUnique) BodyObj->Add_Sub_Object_To_Bone(WeaponUnique.Peek(), "WEAPON02");
+	if (WeaponBack) BodyObj->Add_Sub_Object_To_Bone(WeaponBack.Peek(), "WEAPON03");
 	if (CollisionObj) BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
 	if (Unknown2C4) BodyObj->Add_Sub_Object_To_Bone(Unknown2C4.Peek(), "skel_reference");
 	if (Desc.Gender == 0 && WeaponHip) {
-		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON01");
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip.Peek(), "WEAPON01");
 	} else if (WeaponHip) {
-		BodyObj->Add_Sub_Object_To_Bone(WeaponHip, "WEAPON04");
+		BodyObj->Add_Sub_Object_To_Bone(WeaponHip.Peek(), "WEAPON04");
 	}
 	float head = BodyObj->Get_Bone_Transform("K_HEAD").Get_Z_Translation();
 	Unknown234 = head - BodyObj->Get_Bone_Transform("skel_reference").Get_Z_Translation();

@@ -104,7 +104,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	void Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh);	// 0x7812A0 (the source's vertices into the copy's; '!source_mesh || !dest_mesh')
 	void Unknown_781410(int now, int steps);			// 0x781410 (steps +0x274 toward Desc.Body_Weight, then 0x780AF0; 'Avatar Morphing')  // NAME 1 [now, steps]: neutral
 	void Unknown_781570(int now, int steps);			// 0x781570 (steps +0x288 toward Desc.Head_Weight, then 0x780F30)  // NAME 1 [now, steps]: neutral
-	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RenderObjClass **slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
+	void Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot);	// 0x77E0E0 (a weapon onto the body's bone; kind 0 '%s%s%s%02d', 1 'a%s%s%02d', 2 'a%s%02d')  // NAME 1 [kind, part, num, bone, slot]: neutral
 	void Unknown_780810(EnvironmentMapManagerClass *env_maps);	// 0x780810 (the constructor; ui_avatar_cust / SClient): the shirt and pants colorization regions and the skin colour onto the body and head (shiputils.cpp 0x80FCE0)  // NAME 1 [env_maps]: neutral
 	void Unknown_7804A0(const Vector3 &color);			// 0x7804A0 (Eye_Color onto LEYE010..4 / REYE010..4)  // NAME 1 [color]: neutral
 	void Unknown_77E830(const float *weights);			// 0x77E830 (the body morph weights, normalised; ui_avatr.cpp's 0x558060)  // NAME 1 [weights]: its assert's
@@ -193,9 +193,9 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RefCountPtr<RenderObjClass> Unknown2CC;	// +0x2CC
 	RefCountPtr<RenderObjClass> GoggleSource;	// +0x2D0  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> BeardSource;	// +0x2D4  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponHip;							// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponUnique;						// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
-	RenderObjClass *WeaponBack;							// +0x2E0  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponHip;	// +0x2D8 (0x77DA20: Weapon_Unique_Num's, WEAPON01 / WEAPON04)  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponUnique;	// +0x2DC (0x77DA20: Weapon_Hip_Num's, WEAPON02)  // NAME 1: neutral (D10)
+	RefCountPtr<RenderObjClass> WeaponBack;	// +0x2E0  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> MaskObj;	// +0x2E4  // NAME 1: neutral (D10)
 	RefCountPtr<AudibleSoundClass> SpeechSound;			// +0x2E8 (0x784E00 / 0x784C90, 0x7861B0 a RefCountPtr)  // NAME 2: plays speech sound
 	char *Unknown2EC;									// +0x2EC (nstrdup in 0x784C90, delete in 0x784E00)
