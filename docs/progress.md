@@ -2610,13 +2610,15 @@ below name only the work items, the blocked work, the leads and the queues.
      0x80CA30 0.62 (frame 0x48 vs 0x44: the client spills the clamp's max, keeps min on the FPU), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
      through stack temps; four Set / Matrix3D-temp forms compile identically), avatar.cpp (CS12 / CS15, 2026-11-05: the file follows the client's address order,
      padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): every member the client holds
-     as a RefCountPtr is one now (AR1); 97 of 108 exact since AR2 (2026-11-05). Interim (D137): 0x782FF0's tail reads
-     Unknown0C0 through a raw `HAnimClass **` (36 forms); avatar.h's free inline `Unknown_Block_Value` (NAME 1, no client
-     copy: inferred from 0x784700's inline-site count). Left: 0x789C10 0.76 parked (the client writes `flags | 1` back into
-     its stack parameter; needs __LINE__ 3920), 0x781680 (the client calls PlayerNLPClass's ctor 0x78EB50 out of line:
-     move it from nlp.h into nlp.cpp first), 0x782200 0.69 (Unknown210 in ebp), 0x780AF0 0.55 (register), 0x77D9F0;
-     not built: the unreferenced 0x77D7F0, 0x7851F0, 0x787130 and 0x786410, 0x786EB0, 0x787450, 0x787A90, 0x787F40,
-     0x7899F0, 0x77D4A0 (UI callers); the
+     as a RefCountPtr is one now (AR1); AR2 / AR3 (2026-11-05): all but 20 of the 138 functions from 0x77B870 exact
+     (ctor 0x77B870, dtor 0x77C080, the LOD overrides; PlayerNLPClass's ctor / dtor 0x78EB50 / 0x78EB80 out of line in
+     nlp.cpp). Interim (D137): 0x782FF0's tail reads Unknown0C0 through a raw `HAnimClass **`; avatar.h's free inline
+     `Unknown_Block_Value` (NAME 1, inferred from 0x784700's inline-site count). Left: the copy ctor 0x77C8F0 0.77 (0.90 in
+     .work/ar3/m17/avatar.h: drop avatar.h's three explicit pad arrays, layout-neutral; then maybe +0x250..+0x270 as one
+     struct), 0x783620 0.47 (its first loop), 0x786410 0.94 / 0x787450 0.92 / 0x77D7F0 0.62 / 0x77D9F0 0.59 (register /
+     order), 0x782200 0.69, 0x780AF0 / 0x782FF0 (LIMIT REACHED); functional for the POC: 0x780810, 0x781EA0, 0x783B50,
+     0x788900, 0x788F90; 0x7817E0 (a 7-byte getter of +0xE8) not built. `.work/cs12/reorder.py` uses only the client's
+     first N lines when the tree has fewer anchors (AR3's rule, folded in 2026-11-05); the
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
