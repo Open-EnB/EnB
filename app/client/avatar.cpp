@@ -1659,7 +1659,7 @@ void CharacterViewAvatarClass::Unknown_782200()
 }
 
 // 0x7826A0
-// NOT EXACT: functional for POC (D64)
+// (one _snprintf per branch; the back flag read as a bool of the unsigned shift)
 void CharacterViewAvatarClass::Unknown_7826A0()
 {
 	Unknown220 = false;
@@ -1674,15 +1674,15 @@ void CharacterViewAvatarClass::Unknown_7826A0()
 		}
 	}
 	char name[32];
-	int anim;
-	if ((Unknown2F8 >> 1) & 1) {
-		anim = PlayerNLP->Unknown_78F640("walk_backward");
-	} else if (!Unknown2F4) {
-		anim = PlayerNLP->Unknown_78F640("walk_forward");
+	if ((bool)(((unsigned int)Unknown2F8 >> 1) & 1)) {
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, NLP_Of(this)->Unknown_78F640("walk_backward"));
+	} else if (Unknown2F4) {
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, NLP_Of(this)->Unknown_78F640("run_forward"));
 	} else {
-		anim = PlayerNLP->Unknown_78F640("run_forward");
+		_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, NLP_Of(this)->Unknown_78F640("walk_forward"));
 	}
-	_snprintf(name, 0x20, "%s.ABANIM%02d-%02d", Unknown_B9CD28[Desc.Gender], (int)Desc.Personality, anim);
+
+
 	Unknown_7831C0(name);
 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
 		Unknown0BC->Release_Keys();

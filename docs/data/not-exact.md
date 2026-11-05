@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-572 entries in 130 files.
+571 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -36,7 +36,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:1486` | `CharacterViewAvatarClass::Unknown_781570` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1538` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
 | `app/client/avatar.cpp:1595` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:1662` | `CharacterViewAvatarClass::Unknown_7826A0` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:1722` | `CharacterViewAvatarClass::Unknown_7829B0` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:1776` | `CharacterViewAvatarClass::Unknown_782CA0` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2145` | `CharacterViewAvatarClass::Unknown_7831C0` | marker | NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer) |
