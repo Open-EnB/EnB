@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_avatr.cpp. Notes at the end of the file.
 #include "sclient.h"
 #include "rendobj.h"
+#include "ww3d.h"
 #include "texture.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
@@ -37,9 +38,12 @@ public:
 	static void Destroy(GadgetClass *del_me);			// 0x65EED0 (gadget.h's)  // NAME 2 [del_me]: gadget.h's
 
 	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(bool indicator, UIViewClass *view); void Unknown_6607D0(); void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
-	char Unknown04[0x2C - 0x04];						// +0x04
-	unsigned int Unknown2C;								// +0x2C (0x556290 sets 0x400)
+	void Unknown_6603A0(bool indicator, UIViewClass *view); void Unknown_6607D0(); void Unknown_6608F0(); bool Is_Unknown2C_02() { return(Unknown2C_02); } void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
+	char Unknown04[0x20 - 0x04];						// +0x04
+	void *Flash;										// +0x20 (gadget.h's GadgetFlashStruct *: 0x55C280 tests it)  // NAME 3: gadget.h's
+	char Unknown24[0x2C - 0x24];						// +0x24
+	union { unsigned int Unknown2C; struct { unsigned int Unknown2C_00 : 2; unsigned int Unknown2C_02 : 1; }; };	// +0x2C (0x556290 sets 0x400; bit 2 under the pointer: 0x55C280)  // NAME 1: neutral (D10)
+	RenderObjClass *Unknown30;							// +0x30 (the gadget's model: 0x55BAC0 turns it)
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as far as 0x556290 makes it
@@ -48,7 +52,7 @@ class UIAvatrGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
 public:
 	void Unknown_671630();	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
 
-	char Unknown30[0x64 - 0x30]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x30; +0x64 / +0x65 the left / right button held (0x671570)
+	char Unknown34[0x64 - 0x34]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x34; +0x64 / +0x65 the left / right button held (0x671570)
 };
 
 // A gadget with its pull model (0x10 bytes, constructor 0x585920; the window's +0x160 / +0x16C / +0x180)
@@ -267,7 +271,7 @@ class FontStringFilesClass { public: void Load(const char *name); void Unload(co
 // The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58) and what 0x65ECE0 returns
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass UIAvatrCallbackBaseClass;	// NAME 1 [UIAvatrCallbackBaseClass]: neutral (D10)
-class FlashingGadgetEvent;	// the client's RTTI (.?AVFlashingGadgetEvent@@)
+class FlashingGadgetEvent { public: GadgetClass *Gadget; };	// the client's RTTI (.?AVFlashingGadgetEvent@@); gadget.h's (+0x00 the gadget: 0x55C280)  // NAME 1 [Gadget]: gadget.h's
 
 
 
@@ -1244,6 +1248,40 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 	Unknown_55B650();
 }
 
+// NOT EXACT: shape (as ui_avatar_cust.cpp's 0x5502F0: the client keeps movable above zoom on the stack and writes zoom's 0 as an immediate)
+// 0x55B2D0
+void AvatarCreationInterface::Unknown_55B2D0()
+{
+	AvatarDescClass desc(Unknown08C->Peek_Unknown194()->Desc);
+	bool movable;
+	int scale;
+	desc.Get_Facial_Feature(movable, scale);
+	Unknown17C = (float)scale;
+	if (Unknown088 == 1) {
+		Unknown16C->Gadget->Unknown_40(movable);
+		Unknown16C->Gadget->Unknown_8C(!movable);
+		Unknown16C->Pull->Set_Hidden(!movable);
+		if (!movable) {
+			Unknown170 = 0.5f;
+			Unknown174 = 0.5f;
+		}
+		bool zoom = true;
+		if (!(Unknown17C > 1.0f)) {
+			zoom = false;
+		}
+		Unknown098[33]->Unknown_40(zoom);
+		Unknown098[33]->Unknown_8C(!zoom);
+		Unknown098[34]->Unknown_40(zoom);
+		Unknown098[34]->Unknown_8C(!zoom);
+		if (!movable) {
+			Unknown178 = 1.0f;
+		}
+	}
+	Unknown178 = WWMath::Min(Unknown178, Unknown17C);
+	Unknown178 = WWMath::Max(Unknown178, 0.5f);
+	Unknown_55B540(0);
+}
+
 // 0x55B540
 void AvatarCreationInterface::Unknown_55B540(int zoom)
 {
@@ -1262,6 +1300,51 @@ void AvatarCreationInterface::Unknown_55B540(int zoom)
 		Unknown098[33]->Unknown_40(true);
 	}
 	Unknown_55A550(1, 0, 0, 0);
+}
+
+// NOT EXACT: inline-budget (as ui_avatar_cust.cpp's 0x550A10: the client calls the third temporary's ~RefCountPtr 0x4740B0 out of line and holds 0 in ebx)
+// 0x55BAC0
+void AvatarCreationInterface::Unknown_55BAC0()
+{
+	if (Unknown088 != 2) {
+		return;
+	}
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	float slow = time * 0.3f;
+	float fast = time + time;
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown098[47]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		if (Unknown1C0 == 0) {
+			tm.Rotate_Y(fast);
+		} else {
+			tm.Rotate_Y(slow);
+		}
+		model->Set_Transform(tm);
+		Unknown098[47]->Unknown_6608F0();
+	}
+	model = Unknown_497300(Unknown098[48]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		float angle = slow;
+		if (Unknown1C0 == 1) {
+			angle = fast;
+		}
+		tm.Rotate_Y(angle);
+		model->Set_Transform(tm);
+		Unknown098[48]->Unknown_6608F0();
+	}
+	model = Unknown_497300(Unknown098[49]->Unknown30);
+	if (model) {
+		Matrix3D tm = model->Get_Transform();
+		float angle = slow;
+		if (Unknown1C0 == 2) {
+			angle = fast;
+		}
+		tm.Rotate_Y(angle);
+		model->Set_Transform(tm);
+		Unknown098[49]->Unknown_6608F0();
+	}
 }
 
 // 0x55C350 (after the FAIL_IFs of 0x55C280, lines 2207 / 2211, in the client; no caller: 0x556B20 inlines it)
@@ -1315,6 +1398,7 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 **	0x558170 (a random head type and scale; the type count read into a local first) exact.
 **	0x559F30 (the seven +0x2DC .. +0x2F4 objects deleted, destructor 0x585BF0) exact.
 **	0x55B110 (the button 0x20 .. 0x22 / 0x2A .. 0x2D into +0x1BC, +0x1C0 from the +0x194 object) exact.
+**	CS1 (2026-11-04): 0x55C280 (the flash callback, padded to its FAIL_IF lines) exact; 0x55B2D0 and 0x55BAC0 NOT EXACT (the POC's last avatar-screen gens).
 */
 
 // NOT EXACT: functional (D64), from the client's 0x558D30 (inline-budget: the client's RefCountPtr temporaries)
@@ -1840,5 +1924,295 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	FontSys *height = Unknown_BE67C4->Get_Style("height_var_fe_avatar00", model.Peek());
 	if (strcmp(text, *(const char **)((char *)height + 0xFC)) != 0) {
 		height->Change_Text(text, 0);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x55C280
+void AvatarCreationInterface::Unknown_55C280(FlashingGadgetEvent *event, GadgetClass *sender)
+{
+	FAIL_IF(!event)
+		return;
+
+	GadgetClass *gadget = event->Gadget;
+	FAIL_IF(!gadget)
+		return;
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
+		if (gadget == Unknown098[0] || gadget == Unknown098[1] || gadget == Unknown098[2] || gadget == Unknown098[3] || gadget == Unknown098[14] || gadget == Unknown098[15]) {
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Over_Buttons", 2);
+		}
 	}
 }
