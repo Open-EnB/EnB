@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-602 entries in 131 files.
+601 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -291,7 +291,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_cust.cpp:2373` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT 0.42). +0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass). |
 | `app/client/ui_avatr.cpp:472` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the AvatarDescClass at +0x1CC is constructed in place over this file's char block 0x553AF0 |
 | `app/client/ui_avatr.cpp:676` | `AvatarCreationInterface::Unknown_68` | marker | NOT EXACT: functional (D64), from the client's 0x554E80 (the client's switch shares its sound tails) 0x554E80 |
-| `app/client/ui_avatr.cpp:988` | `AvatarCreationInterface::Unknown_556B20` | marker | NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20) 0x556B20 |
 | `app/client/ui_avatr.cpp:1119` | `CharacterViewClass::Unknown_5594B0` | marker | NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment) 0x5594B0 |
 | `app/client/ui_avatr.cpp:1162` | `AvatarCreationInterface::Unknown_559900` | marker | NOT EXACT: functional (D64), from the client's 0x559900 0x559900 |
 | `app/client/ui_avatr.cpp:1251` | `AvatarCreationInterface::Unknown_55B2D0` | marker | NOT EXACT: shape (as ui_avatar_cust.cpp's 0x5502F0: the client keeps movable above zoom on the stack and writes zoom's 0 as an immediate) 0x55B2D0 |

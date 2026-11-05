@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1209 |
 | 2 | describes what the code does | 3007 |
-| 1 | neutral placeholder | 13225 |
+| 1 | neutral placeholder | 13227 |
 
 ## For review (score 3 and below)
 
@@ -6646,6 +6646,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `avatar` | `app/client/ui_avatr.cpp:250` | neutral |
 | 1 | `model` | `app/client/ui_avatr.cpp:252` | ship_pip.h's |
 | 1 | `Unknown_80C180` | `app/client/ui_avatr.cpp:254` | untagged neutral name (D10) |
+| 1 | `Get_Avatar` | `app/client/ui_avatr.cpp:258` | neutral (D10) |
 | 1 | `Unknown054` | `app/client/ui_avatr.cpp:258` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
@@ -6654,6 +6655,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C4` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown0C8` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown0CC` | `app/client/ui_avatr.cpp:259` | untagged neutral name (D10) |
+| 1 | `Set_Unknown0DC` | `app/client/ui_avatr.cpp:260` | neutral (D10) |
 | 1 | `Unknown0DC` | `app/client/ui_avatr.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown0DD` | `app/client/ui_avatr.cpp:261` | untagged neutral name (D10) |
 | 1 | `FontManagerClass` | `app/client/ui_avatr.cpp:266` | neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's |

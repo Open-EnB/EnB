@@ -255,9 +255,9 @@ public:
 	virtual void Unknown_8C();							// +0x8C
 
 	char Unknown04[0x54 - 0x04];						// +0x04
-	UIAvatrUnknown094Unknown054Struct *Unknown054;		// +0x54
+	UIAvatrUnknown094Unknown054Struct *Unknown054;	UIAvatrUnknown094Unknown054Struct *Get_Avatar() { return(Unknown054); }	// +0x54 (0x556B20 reads it through the inline getter)  // NAME 1 [Get_Avatar]: neutral (D10)
 	char Unknown58[0xB8 - 0x58]; float Unknown0B8; float Unknown0BC; float Unknown0C0; float Unknown0C4; float Unknown0C8; char Unknown0CC[0xDC - 0xCC];	// +0x58; +0xB8 .. +0xC8 the turn, pan and zoom rates (0x556F80; ship_pip.cpp's 0x80CE10 reads them)
-	bool Unknown0DC;									// +0xDC (set on the head tab)
+	bool Unknown0DC;	void Set_Unknown0DC(bool on) { Unknown0DC = on; }	// +0xDC (set on the head tab, through the inline setter: 0x556B20's eax for the store)  // NAME 1 [Set_Unknown0DC]: neutral (D10)
 	char Unknown0DD[0xF4 - 0xDD];						// +0xDD (ship_pip.h's: 0xF4 bytes; the constructor writes +0xEC / +0xF0)
 };
 
@@ -985,7 +985,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 	}
 }
 
-// NOT EXACT: inline budget (0.50, 972 bytes against 0x379: the client calls the palette helper's two ~RefCountPtr out of line, 0x4740B0, in both inlined copies, and keeps 1 in ebx; ours inlines them and keeps 0; attempts.py show 0x556B20)
+// The tab switch (as ui_avatar_cust.cpp's 0x54DFE0): the palette helper's two ~RefCountPtr out of line (0x4740B0) in both inlined copies
 // 0x556B20
 void AvatarCreationInterface::Unknown_556B20(int tab)
 {
@@ -1002,11 +1002,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown_556630(0, true);
 			if (frame) frame->Set_Hidden(true);
 			Unknown_55B110(0x20);
-			Unknown094->Unknown0DC = false;
+			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = false;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; }
 			break;
 		case 1:
 			Unknown_556630(0, false);
@@ -1017,11 +1017,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_55B110(0x20);
 			Unknown_Set_Palette("fa_avatar_color.tga");
-			Unknown094->Unknown0DC = true;
+			Unknown094->Set_Unknown0DC(true);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = true;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = true;
+			avatar->Unknown214 = true; }
 			break;
 		case 2:
 			Unknown_556630(0, false);
@@ -1031,11 +1031,11 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_55B110(0x2A);
 			Unknown_Set_Palette("fa_avatar_color.tga");
-			Unknown094->Unknown0DC = false;
+			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			Unknown094->Unknown054->Unknown231 = false;
-			Unknown094->Unknown054->Unknown214 = true;
+			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			avatar->Unknown214 = true; } frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the palette helper's copies call their ~RefCountPtr out of line (5 too few)
 			break;
 	}
 }
