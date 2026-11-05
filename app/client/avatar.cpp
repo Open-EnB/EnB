@@ -153,123 +153,57 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, bool a
 }
 
 // 0x77C080
-// NOT EXACT: functional for POC (D64)
 CharacterViewAvatarClass::~CharacterViewAvatarClass()
 {
 	Unknown_781C50();
-	Unknown_784E00();
 	if (PlayerNLP) {
 		delete PlayerNLP;
 		PlayerNLP = NULL;
 	}
 	Unknown_7885D0(false);
 	Unknown_7885D0(true);
-	if (Unknown370) {
-		Unknown370->Set_Animation();
-		Unknown370->Remove();
-		Unknown370 = NULL;
-
-	}
-	if (Unknown374) {
-		Unknown374 = NULL;
-
-	}
+	Unknown_788EF0();
+	Unknown_77D4A0();
 	if (Unknown0BC) {
 		Unknown0BC->Free_Morph();
 		Unknown0BC = NULL;
-
 	}
 	for (int a = 0; a < 2; a++) {
 		Unknown_789CD0(a);
 	}
-	if (BodyObj) {
-		if (WeaponHip) {
-			BodyObj->Remove_Sub_Object(WeaponHip.Peek());
-			WeaponHip = NULL;
-
-		}
-		if (WeaponUnique) {
-			BodyObj->Remove_Sub_Object(WeaponUnique.Peek());
-			WeaponUnique = NULL;
-
-		}
-		if (WeaponBack) {
-			BodyObj->Remove_Sub_Object(WeaponBack.Peek());
-			WeaponBack = NULL;
-
-		}
-		if (CollisionObj) {
-			BodyObj->Remove_Sub_Object(CollisionObj.Peek());
-			CollisionObj = NULL;
-
-		}
-		if (HeadObj) {
-			BodyObj->Remove_Sub_Object(HeadObj.Peek());
-			HeadObj = NULL;
-
-		}
-		if (MaskObj) {
-			BodyObj->Remove_Sub_Object(MaskObj.Peek());
-			MaskObj = NULL;
-
-		}
-		int head_bone = BodyObj->Get_Bone_Index("K_HEAD");
-		BodyObj->Release_Bone(head_bone);
-		BodyObj->Remove();
-		BodyObj = NULL;
-
-	}
-	if (HeadObj) {
-		HeadObj = NULL;
-
-	}
-	if (HeadSource) {
-		HeadSource = NULL;
-
-	}
-	if (BodySource) {
-		BodySource = NULL;
-
-	}
-	if (CollisionObj) {
-		CollisionObj = NULL;
-
-	}
-	if (HairSource) {
-		HairSource = NULL;
-
-	}
-	if (GoggleSource) {
-		GoggleSource = NULL;
-
-	}
-	if (BeardSource) {
-		BeardSource = NULL;
-
+	if (WeaponUnique) {
+		BodyObj->Remove_Sub_Object(WeaponUnique.Peek());
+		WeaponUnique = NULL;
 	}
 	if (WeaponHip) {
+		BodyObj->Remove_Sub_Object(WeaponHip.Peek());
 		WeaponHip = NULL;
-
-	}
-	if (WeaponUnique) {
-		WeaponUnique = NULL;
-
 	}
 	if (WeaponBack) {
+		BodyObj->Remove_Sub_Object(WeaponBack.Peek());
 		WeaponBack = NULL;
-
+	}
+	if (CollisionObj) {
+		BodyObj->Remove_Sub_Object(CollisionObj.Peek());
+		CollisionObj = NULL;
+	}
+	Unknown_785F20(false);
+	if (HeadObj) {
+		BodyObj->Remove_Sub_Object(HeadObj.Peek());
+		HeadObj = NULL;
 	}
 	if (MaskObj) {
+		BodyObj->Remove_Sub_Object(MaskObj.Peek());
 		MaskObj = NULL;
-
 	}
-	if (Unknown2C4) {
-		Unknown2C4 = NULL;
-
+	if (BodyObj) {
+		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
+		BodyObj->Remove();
+		BodyObj = NULL;
 	}
-	if (Unknown2CC) {
-		Unknown2CC = NULL;
-
+	if (Unknown2EC) {
+		delete Unknown2EC;
+		Unknown2EC = NULL;
 	}
 }
 
@@ -299,6 +233,37 @@ void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
 		BodyObj->Set_Position(v);
 		RenderObjClass::Set_Position(v);
 	}
+}
+
+// 0x77D2F0 (the body's and the head's LOD, each clamped to its count)
+void CharacterViewAvatarClass::Set_LOD_Level(int lod)
+{
+	if (lod >= 0) {
+		if (BodyObj) {
+			BodyObj->Set_LOD_Level(min(BodyObj->Get_LOD_Count() - 1, lod));
+		}
+		if (HeadObj) {
+			HeadObj->Set_LOD_Level(min(HeadObj->Get_LOD_Count() - 1, lod));
+		}
+	}
+}
+
+// 0x77D380 (the body's)
+int CharacterViewAvatarClass::Get_LOD_Level() const
+{
+	if (BodyObj) {
+		return(BodyObj->Get_LOD_Level());
+	}
+	return(0);
+}
+
+// 0x77D3B0 (the body's)
+int CharacterViewAvatarClass::Get_LOD_Count() const
+{
+	if (BodyObj) {
+		return(BodyObj->Get_LOD_Count());
+	}
+	return(1);
 }
 
 // 0x77D3E0 (the body's LODs, when the avatar is not hidden)
@@ -383,6 +348,41 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -663,29 +663,29 @@ void CharacterViewAvatarClass::Unknown_77E3D0(int a)
 	Unknown204 = a;
 }
 
+// 0x77E3F0: unless made (+0x221), the NLP and models made (0x77D7F0) and the creation prototypes released (0x77D4A0);
+// one more reference added (SClient's 0x74C7B0 and 0x749590 / 0x749A70)
+CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E3F0()
+{
+	if (!Unknown221) {
+		Unknown_77D7F0();
+		Unknown_77D4A0();
+		Unknown221 = true;
+	}
+	Add_Ref();
+	return(this);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x77E610: 0x77E3F0 without the reference (SClient's 0x74C840)
+CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E610()
+{
+	if (!Unknown221) {
+		Unknown_77D7F0();
+		Unknown_77D4A0();
+		Unknown221 = true;
+	}
+	return(this);
+}
 
 
 
@@ -3643,8 +3643,8 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 		Unknown374 = NULL;
 	}
 	Unknown380 = 0;
-	Unknown37C = 0.0f;
 	Unknown378 = -100.0f;
+	Unknown37C = 0.0f;
 }
 
 // 0x788F90

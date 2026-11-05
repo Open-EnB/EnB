@@ -51,6 +51,9 @@ public:
 	virtual void Render(RenderInfoClass &rinfo);		// 0x77D420
 	virtual int Get_Num_Sub_Objects() const { return(1); }	// 0x77C030 (the body)
 	virtual RenderObjClass *Get_Sub_Object(int index) const;	// 0x77D460 (the body, index 0)
+	virtual void Set_LOD_Level(int lod);				// 0x77D2F0 (the body's and head's, clamped)
+	virtual int Get_LOD_Level() const;					// 0x77D380 (the body's)
+	virtual int Get_LOD_Count() const;					// 0x77D3B0 (the body's, else 1)
 	virtual void Prepare_LOD(CameraClass &camera);		// 0x77D3E0 (the body's)
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const { sphere = ObjSphere; }	// 0x77BFA0
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const { box = ObjBox; }	// 0x77BFE0
@@ -61,6 +64,8 @@ public:
 	void Unknown_77DA20();								// 0x77DA20 (the models from Desc: body, collision, head, mask, face animation, weapons, accessories)  // NAME 1: neutral
 	void Unknown_781680();								// 0x781680 (a new PlayerNLP: FAIL_IF 'PlayerNLP != 0'; 0x77D7F0, 0x77E3F0, 0x77E610)  // NAME 1: neutral
 	float Unknown_77D9F0(bool a);						// 0x77D9F0 (0x80E260: false): +0x234, plus 1 when a  // NAME 1 [a]: neutral
+	CharacterViewAvatarClass *Unknown_77E3F0();		// 0x77E3F0 (the models made on first use, +0x221; one more reference; SClient's 0x74C7B0)  // NAME 1: neutral
+	CharacterViewAvatarClass *Unknown_77E610();		// 0x77E610 (0x77E3F0 without the reference; SClient's 0x74C840)  // NAME 1: neutral
 	void Unknown_77E3D0(int a);							// 0x77E3D0 (0x67A6C0: 1)  // NAME 1 [a]: neutral
 	void Unknown_784A50(const char *name, bool a, bool b);	// 0x784A50 ('/walk_on' 1, 1; '/walk_off' 1, 0: the text parsed by the NLP into +0xE8, then 0x784700)  // NAME 1 [name, a, b]: neutral
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
