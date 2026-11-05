@@ -2360,8 +2360,8 @@ check every CLIENT_SET_TIME 52 set the clock offset +0x10C0, cleared +0x10C8 / +
 recorded 0, through cpacket.cpp's handlers 1000
 == (4c) GADGET 103 and INCAPACITANCE_DETAILS 144
 msg 1001 ? (103) size 22: cpacket.cpp's handler
-gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1, view) 
-check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1, view); 0x6607D0 is the real gadget.cpp now and does nothing without a flash: ok
+gadget calls: +08 iface+8C(1) iface+8C(0) +40(1) +40(0) 6603A0(1) 
+check GADGET 103 Function 0x3F on 'gadget_test': the interface's +0x8C on and off, the gadget's +0x40 on and off, 0x6603A0(1) reaching the real gadget.cpp's slot +0x24; 0x6607D0 is the real gadget.cpp now and does nothing without a flash: ok
 msg 1002 ? (103) size 22: cpacket.cpp's handler
 check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 on: ok
 msg 1003 ? (103) size 22: cpacket.cpp's handler
