@@ -996,7 +996,8 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
     relocation target contradicts, P-TK2-1(a)); a call from an EH unwind funclet counts as a call by
     its parent function(s) (P-TK3-2, `funclet_parents`); and when several symbols of one object with
     the same bytes and relocations propose one address (the linker folded them: lookup_table's four
-    Create_NEW<...> at 0x4EE9F0), the first by name takes it (P-TK5-1, `folded` set)."""
+    Create_NEW<...> at 0x4EE9F0), the first by name takes it (P-TK5-1, `folded` set).
+    D194: when every proposer is a COMDAT and all share one `body_sig` (any objects), all are credited."""
     todo = []
     for it in pending:
         r, obj, sec, s, length, hits = it
@@ -1086,10 +1087,17 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
             by_addr[a].append(item)
         for a, items in by_addr.items():
             if len({it[0]['symbol'] for it in items}) > 1:
-                if not folded(items):
+                # D194: COMDAT bodies with one body_sig (byte-identical, linker-folded, as D193's
+                # short_known): every proposer is credited
+                if all(not it[1].own(it[2]) for it in items) and \
+                        len({body_sig(*it[1:5]) for it in items}) == 1:
+                    for it in items:
+                        it[0]['folded'] = True
+                elif not folded(items):
                     continue
-                items = [min(items, key=lambda it: it[0]['symbol'])]
-                items[0][0]['folded'] = True
+                else:
+                    items = [min(items, key=lambda it: it[0]['symbol'])]
+                    items[0][0]['folded'] = True
             for item in items:
                 r = item[0]
                 if not r.get('shared_callers'):

@@ -9702,8 +9702,7 @@
      "0x42AFF0",
      "0x42B250",
      "0x42B2F0",
-     "0x46BE90",
-     "0x474080"
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
