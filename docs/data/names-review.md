@@ -9625,7 +9625,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/ui_shard.cpp:397` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_shard.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_shard.cpp:440` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_shard.cpp:516` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_shard.cpp:522` | untagged neutral name (D10) |
 | 1 | `ui_shard.h` | `app/client/ui_shard.h:4` | provisional header name for ui_shard.cpp |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/ui_shard.h:21` | neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback) |
 | 1 | `view, layer` | `app/client/ui_shard.h:24` | as LoginInterface's |

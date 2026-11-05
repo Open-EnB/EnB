@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-608 entries in 131 files.
+607 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -383,7 +383,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shard.cpp:197` | `Unknown615A50InterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64) @0x6164E0 |
 | `app/client/ui_shard.cpp:272` | `Unknown615A50InterfaceClass::Unknown_616A10` | marker | NOT EXACT: functional (D64) @0x616A10 |
 | `app/client/ui_shard.cpp:350` | `Unknown615A50InterfaceClass::Unknown_616DA0` | marker | NOT EXACT: functional (D64) @0x616DA0 |
-| `app/client/ui_shard.cpp:504` | `Unknown615A50InterfaceClass::Unknown_6176F0` | marker | NOT EXACT: functional (D64) @0x6176F0 |
 | `app/client/ui_shipcust.cpp:169` | `Unknown620D20Class::Unknown_6211D0` | marker | NOT EXACT: functional (D64) @0x6211D0 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |

@@ -501,11 +501,16 @@ void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 }
 
 
-// NOT EXACT: functional (D64)
+// The four dead size() reads spend VC6's inline budget so that clear()'s erase and insert(at, 1, x) stay out of
+// line (0x617F70, 0x617B70) as in the client (workflow.md 3.1: 4 or 5 reads match, 2-3 or 6 do not).
 // @0x6176F0
 void Unknown615A50InterfaceClass::Unknown_6176F0()
 {
-	SortedGalaxies.erase(SortedGalaxies.begin(), SortedGalaxies.end());
+	SortedGalaxies.clear();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
+	SortedGalaxies.size();
 	std::list<LoginGalaxyClass> galaxies(LoginTask->Galaxies);
 	for (std::list<LoginGalaxyClass>::iterator it = galaxies.begin(); it != galaxies.end(); it++) {
 		LoginGalaxyClass galaxy = *it;
@@ -513,8 +518,9 @@ void Unknown615A50InterfaceClass::Unknown_6176F0()
 		while (at != SortedGalaxies.end() && (unsigned int)at->Unknown54 <= (unsigned int)galaxy.Unknown54) {
 			at++;
 		}
-		if (galaxy.Unknown5C != 0) {
-			SortedGalaxies.insert(at, 1, galaxy);
+		LoginGalaxyClass entry(galaxy);
+		if (entry.Unknown5C != 0) {
+			SortedGalaxies.insert(at, 1, entry);
 		}
 	}
 	Unknown_616DA0();
@@ -528,12 +534,6 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 	Unknown_616DA0();
 	Unknown_617310();
 }
-
-
-
-
-
-
 
 
 
