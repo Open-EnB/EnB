@@ -24,6 +24,7 @@ void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UI
 
 
 
+extern const int Unknown_B08C9C = 0x8;		// ui_shard's name gadget flag (4f8d4698), as programs/clientpoc/poc_data.cpp
 extern const int Unknown_B08CAC = 0x80;
 extern const int Unknown_B08CB0 = 0x100;
 extern const int Unknown_B08CB8 = 0x400;
