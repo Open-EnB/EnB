@@ -137,6 +137,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	int Unknown0E4;										// +0xE4 (0x783B50: the WW3D frame count of the last update)
 	Unknown_ChatStreamClass Unknown0E8;					// +0xE8 (0x77B870: 0x4C4430; the NLP's command stream, 0x784A50)
 	PlayerNLPClass *PlayerNLP;							// +0xF4 (0x77B870: 0x78EB50)  // NAME 2: PlayerNLP != 0 assert
+	AvatarDescClass *Get_Desc() { return(&Desc); }	// (inline: ui_avatr.cpp's 0x559350 calls an out-of-line copy, 0x559490)  // NAME 1: neutral (D10), as ui_avatar_cust.cpp's view
 	AvatarDescClass Desc;								// +0xF8 (0x10C bytes)
 	int Unknown204;										// +0x204 (0x77E3D0 sets it)
 	int Unknown208;										// +0x208

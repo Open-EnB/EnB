@@ -1105,12 +1105,12 @@ void AvatarCreationInterface::Unknown_5598D0()
 	if (Unknown094) Unknown094->Unknown_40(false);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x559350 (the avatar's Desc at +0xF8, avatar.h's)
+// The avatar's Desc through avatar.h's Get_Desc, out of line in the client (0x559490, emitted here)
 // 0x559350
 void AvatarCreationInterface::Unknown_559350()
 {
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	Unknown08C->Unknown_5594B0(*(AvatarDescClass *)((char *)desc.Peek() + 0xF8));
+	Unknown08C->Unknown_5594B0(*desc->Get_Desc());
 	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Desc.Gender);
 	Unknown08C->Unknown_67C310(&Unknown164, desc->Desc.Gender);
 	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Desc.Gender);

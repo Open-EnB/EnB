@@ -1005,7 +1005,7 @@ unless `--lever` cites a new row of this table.
   run it from `.work/wt/verifier`. Two verifies of one PR at once share `.work/wt/prN.vf`: the second drops the first's
   worktree mid-build and both fail. Low host memory (MSBuild's `.NET Host` workers: `dotnet build-server shutdown`)
   shows as compile errors.
-* **Exact at a caller can lose a folded short pair (2026-11-05 night run, CS1, 0x559350):** making a function exact can lose a D188 short pair at a linker-folded address it calls: `objmatch.short_known` drops an address two symbols claim (an inline avatar.h Get_Desc made 0x559350 / 0x559490 exact but lost ui_avatar_cust's 0x551D20, a folded RefCountPtr Peek / operator->). Check `lost outright` for short pairs before keeping such a change.
+* **Exact at a caller can lose a folded short pair (2026-11-05 night run, CS1, 0x559350):** making a function exact can lose a D188 short pair at a linker-folded address it calls: `objmatch.short_known` drops an address two symbols claim (an inline avatar.h Get_Desc made 0x559350 / 0x559490 exact but lost ui_avatar_cust's 0x551D20, a folded RefCountPtr Peek / operator->). Check `lost outright` for short pairs before keeping such a change. Since D193 (CS4, 5697f45d) the claimants are all credited when they are COMDAT bodies with the same bytes and relocations (Get_Desc then landed with 0x551D20 kept); different bodies still drop.
 
 ### 3.5 Build VMs and vc6.py
 
