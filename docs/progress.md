@@ -2606,12 +2606,14 @@ below name only the work items, the blocked work, the leads and the queues.
      Unknown_80E7D0 returns in eax, the client's in ecx; likely 0x80CE10's blocker: wwmath's Matrix3D::Translate inline body),
      0x80CA30 0.62 (frame 0x48 vs 0x44: the client spills the clamp's max, keeps min on the FPU), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
      through stack temps; four Set / Matrix3D-temp forms compile identically), avatar.cpp (CS12 / CS15, 2026-11-05: the file follows the client's address order,
-     padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): the client holds every member
-     +0x2B0..+0x2E4, +0xBC, +0xC0[2], +0x370 / +0x374 as RefCountPtrs (the ctor 0x77C080's EH states); still raw: BodyObj
-     (keep it raw: its retype loses 0x781410 and makes nothing exact, 3 raw-alias forms tried; 0x77E9D0 0.57 needs it),
-     Unknown0C0[2] (0x782FF0's `lea` order: parked; would lift 0x7831C0 0.36 -> 0.63 and maybe 0x782200); 0x77F000 0.48 (the client calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC
-     vs 0xA8), 0x782200 0.41 (frame 0x428 vs 0x424), 0x7885D0 0.52 (inline budget), 0x784700 0.55 (the
-     queue's dtor 0x781C10 / clear 0x78A510 out of line), 0x780AF0 0.55; 0x782CA0 0.69 frame; 0x77D9F0 0.62 shape (20 forms); the
+     padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): every member the client holds
+     as a RefCountPtr is one now (BodyObj, Unknown0C0[2] since AR1, 2026-11-05); interim forms (D137): 0x782FF0's tail reads
+     Unknown0C0 through a raw `HAnimClass **` (the RefCountPtr inlines flip the loop's `lea`, 36 forms tried) and
+     0x784700's `#pragma inline_depth(0)` (emits ??_G 0x781C10 / clear 0x78A510 exact; drop it once the real trigger is found).
+     The shared lead: why VC6 calls ??_G out of line in 0x77C080 (ctor), 0x782200 (0.41, frame 0x428 vs 0x424, LIMIT
+     REACHED), 0x784700 (0.57) and probably 0x7885D0 (0.52, the same out-of-line iterator pattern); 0x77F000 0.48 (the client
+     calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC vs 0xA8), 0x780AF0 0.58 (register: this in esi vs edi), 0x77D9F0
+     (its float load hoisted above the test); the
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
