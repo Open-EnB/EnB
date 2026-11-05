@@ -19,6 +19,8 @@
 #include "ship_pip.h"
 #include "unknown_675120.h"
 #include "vector2.h"
+#include "aabox.h"
+#include "matrix3d.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model
@@ -61,6 +63,7 @@ public:
 	void Unknown_61B0F0();								// 0x61B0F0 (the parts' colours onto the model, then 0x61F180)
 	void Unknown_61B130();								// 0x61B130 (the insignia onto the model, then 0x61F180)
 	void Unknown_61B510(Vector2 uv);					// 0x61B510 (the colour's palette position: as 0x6251F0)  // NAME 1 [uv]: neutral
+	void Unknown_61B580();								// 0x61B580 (the pull to the colour's palette position: as ui_shipcust.cpp's 0x625260)
 	void Unknown_61BA80(bool on);						// 0x61BA80 (the pull shown: as 0x625760)  // NAME 1 [on]: neutral
 	void Unknown_61BAC0(int id);						// 0x61BAC0 (a button selected in its group: as ui_shipcust.cpp's 0x6257A0)  // NAME 1 [id]: neutral
 	int Unknown_61BC50(short group);					// 0x61BC50 (the selected id of a group: as 0x625930)  // NAME 1 [group]: neutral
@@ -171,6 +174,21 @@ void StarbaseShipCustomizeInterface::Unknown_61B510(Vector2 uv)
 	float *position = Unknown_61D180();
 	position[0] = uv.X;
 	position[1] = uv.Y;
+}
+
+// @0x61B580
+void StarbaseShipCustomizeInterface::Unknown_61B580()
+{
+	AABoxClass box;
+	Unknown300->Gadget->Unknown_64(box);
+	float y = box.Center.Y - box.Extent.Y; float x = box.Center.X - box.Extent.X;
+	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
+	RenderObjClass *model = Mesh->Peek_Object();
+	int bone = model->Get_Sub_Object_Bone_Index(Unknown300->Pull);
+	model->Capture_Bone(bone);
+	Matrix3D tm = Unknown300->Pull->Get_Transform();
+	tm[0][3] = width * Unknown_61D180()[0] + x - box.Center.X; tm[1][3] = height * Unknown_61D180()[1] + y - box.Center.Y;
+	model->Control_Bone(bone, tm, false);
 }
 
 // @0x61BA80
