@@ -380,7 +380,7 @@ public:
 	void Unknown_556290();								// 0x556290 (the body and head pulls made)
 	void Unknown_556630(int tab, bool on);				// 0x556630 (a tab's gadgets and texts shown or hidden: 0 none, 1 head, 2 body)  // NAME 1 [tab, on]: neutral
 	void Unknown_556B20(int tab);						// 0x556B20 (the tab: 0 gender, 1 head, 2 body)  // NAME 1 [tab]: neutral
-	void Unknown_55A550(int a, float b, float c, float d);	// 0x55A550 (ids 0x2E .. 0x31: +-0.05 in c or d) (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
+	void Unknown_55A550(int a, bool random, float c, float d);	// 0x55A550 (ids 0x2E .. 0x31: +-0.05 in c or d) (0x556B20: 1, 0, 0, 0 on the head tab, 0, 0, 0, 0 on the body tab)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_55B110(int arg);						// 0x55B110 (0x556B20: 0x20, 0x2A on the body tab)  // NAME 1 [arg]: neutral
 	void Unknown_55B650();								// 0x55B650 (0x55B110, last)
 	void Unknown_55B2D0();								// 0x55B2D0 (0x556B20, the head tab)
@@ -1796,70 +1796,70 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 	((UIAvatrGadget671300Class *)pull->Gadget)->Unknown_671630();
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55AE50 (the colour pull's marker onto the chosen part's point, +0x184)
+// The colour pull's marker onto the chosen part's point (+0x184), in ui_avatar_cust.cpp's 0x54FFC0 form
 // 0x55AE50
 void AvatarCreationInterface::Unknown_55AE50()
 {
 	AABoxClass box;
 	Unknown180->Gadget->Unknown_64(box);
-	RenderObjClass *model = Unknown08C->Unknown1B8;
-	int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
-	model->Capture_Bone(bone);
-	Matrix3D tm = Unknown180->Pull->Get_Transform();
-	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * Unknown184[Unknown1BC].X + (box.Center.X - box.Extent.X) - box.Center.X);
-	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * Unknown184[Unknown1BC].Y + (box.Center.Y - box.Extent.Y) - box.Center.Y);
+	float top = box.Center.Y - box.Extent.Y; float left = box.Center.X - box.Extent.X;
+	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
+	RenderObjClass *model = Unknown08C->Unknown1B8; int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
+	model->Capture_Bone(bone); Matrix3D tm = Unknown180->Pull->Get_Transform();
+	tm.Set_X_Translation((width * Unknown184[Unknown1BC].X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * Unknown184[Unknown1BC].Y) + top - box.Center.Y);
 	model->Control_Bone(bone, tm, false);
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A550 (a pull's point moved by (c, d), kept in 0 .. 1, or a
-// random one (the client tests b's low byte; its callers pass 0); its marker placed; 0: the blend weights (0x55A060),
+// A pull's point moved by (c, d), kept in 0 .. 1, or a random one (a bool: the client tests the low byte), in
+// ui_avatar_cust.cpp's 0x54F6F0 form with the products parenthesised; its marker placed; 0: the blend weights (0x55A060),
 // 1: the tattoo's offset (+0x170 / +0x174, the scale +0x178, avatar.cpp's 0x785C00))
 // 0x55A550
-void AvatarCreationInterface::Unknown_55A550(int a, float b, float c, float d)
+void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float d)
 {
 	UIAvatrPullClass *pull;
-	float u;
-	float v;
+	Vector2 point;
 	if (a == 0) {
 		pull = Unknown160;
-		u = Unknown164.X;
-		v = Unknown164.Y;
+		point.X = Unknown164.X;
+		point.Y = Unknown164.Y;
 	} else {
 		pull = Unknown16C;
-		u = Unknown170;
-		v = Unknown174;
+		point.X = Unknown170;
+		point.Y = Unknown174;
 	}
-	u += c;
 	if (c > 0.0f) {
-		if (u >= 1.0f) u = 1.0f;
-	} else if (u <= 0.0f) {
-		u = 0.0f;
+		point.X = WWMath::Min(point.X + c, 1.0f);
+	} else {
+		point.X = WWMath::Max(point.X + c, 0.0f);
 	}
-	v += d;
 	if (d > 0.0f) {
-		if (v >= 1.0f) v = 1.0f;
-	} else if (v <= 0.0f) {
-		v = 0.0f;
+		point.Y = WWMath::Min(point.Y + d, 1.0f);
+	} else {
+		point.Y = WWMath::Max(point.Y + d, 0.0f);
 	}
 	AABoxClass box;
 	pull->Gadget->Unknown_64(box);
-	if (*(unsigned char *)&b) {
-		u = Unknown_BDBB84(0, 100) * 0.01f;
-		v = Unknown_BDBB84(0, 100) * 0.01f;
+	float top, left, width, height;
+	if (random) {
+		point.X = Unknown_BDBB84(0, 100) * 0.01f;
+		point.Y = Unknown_BDBB84(0, 100) * 0.01f;
 	}
+	top = box.Center.Y - box.Extent.Y; left = box.Center.X - box.Extent.X;
+	width = box.Extent.X * 2.0f; height = box.Extent.Y * 2.0f;
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Pull);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Pull->Get_Transform();
-	tm.Set_X_Translation((box.Extent.X + box.Extent.X) * u + (box.Center.X - box.Extent.X) - box.Center.X);
-	tm.Set_Y_Translation((box.Extent.Y + box.Extent.Y) * v + (box.Center.Y - box.Extent.Y) - box.Center.Y);
-	model->Control_Bone(bone, tm, false);
+	tm.Set_X_Translation((width * point.X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * point.Y) + top - box.Center.Y);
+	tm[2][3] = 0.0f; model->Control_Bone(bone, tm, false);
 	if (a == 0) {
-		Unknown_55A060(Vector2(u, v));
+		Unknown_55A060(point);
 	} else {
-		Unknown170 = u;
-		Unknown174 = v;
-		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(u, 1.0f - v, Unknown178));
+		Unknown170 = point.X;
+		Unknown174 = point.Y;
+		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(Unknown170, 1.0f - Unknown174, Unknown178));
 	}
 }
 

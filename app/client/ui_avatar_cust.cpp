@@ -1001,9 +1001,9 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 	((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown_671630();
 }
 
-// NOT EXACT: order-only (196 instructions: the two translations' adds and the stores of +0x30C / +0x310 scheduled
-// otherwise; found: a Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo
-// offset built from the members; an inline setter for the point is worse)
+// A Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo offset built from the
+// members, and each translation's product parenthesised ((width * point.X) + left: without the parentheses VC6
+// schedules the adds otherwise)
 // 0x54F6F0
 void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, float du, float dv)
 {
@@ -1036,8 +1036,8 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	int bone = model->Get_Sub_Object_Bone_Index(pull->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = pull->Unknown04->Get_Transform();
-	tm.Set_X_Translation(width * point.X + left - box.Center.X);
-	tm.Set_Y_Translation(height * point.Y + top - box.Center.Y);
+	tm.Set_X_Translation((width * point.X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * point.Y) + top - box.Center.Y);
 	tm[2][3] = 0.0f;
 	model->Control_Bone(bone, tm, false);
 	Unknown30C = point.X;
@@ -1128,8 +1128,8 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 	((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown_671630();
 }
 
-// NOT EXACT: order-only (292 bytes, the same 91 instructions: Control_Bone's `push 0` comes before the matrix copy, the
-// client's after the two translations; the default argument and Set_X/Y_Translation give the same)
+// The translations through Set_X / Set_Y_Translation with the products parenthesised (either alone leaves
+// Control_Bone's `push 0` hoisted above the matrix copy)
 // 0x54FFC0
 void StarbaseAvatarCreationInterface::Unknown_54FFC0()
 {
@@ -1143,8 +1143,8 @@ void StarbaseAvatarCreationInterface::Unknown_54FFC0()
 	int bone = model->Get_Sub_Object_Bone_Index(Unknown31C->Unknown04);
 	model->Capture_Bone(bone);
 	Matrix3D tm = Unknown31C->Unknown04->Get_Transform();
-	tm[0][3] = width * Unknown320[Unknown358].Unknown00 + left - box.Center.X;
-	tm[1][3] = height * Unknown320[Unknown358].Unknown04 + top - box.Center.Y;
+	tm.Set_X_Translation((width * Unknown320[Unknown358].Unknown00) + left - box.Center.X);
+	tm.Set_Y_Translation((height * Unknown320[Unknown358].Unknown04) + top - box.Center.Y);
 	model->Control_Bone(bone, tm, false);
 }
 
