@@ -180,7 +180,7 @@ void UIMissnClass::Unknown_54()
 
 // auxdata.h's find through a wrapper whose six dead size() reads (no code) spend the inline budget: 0x5C4C90 then calls the find out of line (0x5AA9D0), as the client does
 template<class C> inline C *Unknown_Find_Field_Outlined(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
-
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10): as ui_faction.cpp's (a field that is set, else NULL)
 
 
 
@@ -298,77 +298,77 @@ bool UIMissnClass::Unknown_68(int key)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5C4FC0's sort: the newest mission first (StartTime +0x56C)
+struct MissionStartTimeGreater	// NAME 2: describes what it does
+{
+	bool operator()(DeltaMissionClass *a, DeltaMissionClass *b) const { return(a->StartTime.Value > b->StartTime.Value); }
+};
+
+// 0x5C4FC0
+void UIMissnClass::Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions)
+{
+	missions.clear(); missions.size(); missions.size();	// (two dead reads: they spend the inline budget so copy / _Destroy stay out of line, as the client's)
+
+	SClient *sclient = Client->As_Space_Client();
+	FAIL_IF(!sclient) return;
+
+	DeltaPlayerClass *ad_player = sclient->AuxData;
+	FAIL_IF(!ad_player) return;
+
+	DeltaItemArrayClass<DeltaMissionClass> *ad_missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, "Missions");
+	FAIL_IF(!ad_missions) return;
+
+	missions.reserve(12);
+	for (int i = 0; i < 12; i++) {
+		DeltaMissionClass *delta_item = (DeltaMissionClass *)ad_missions->Children[i];
+
+		FAIL_IF(!delta_item) continue;
+		DeltaMissionClass *mission = delta_item; const char *name = mission->Name.Get();
+		if (name && *name) {
+			missions.push_back(mission);
+		}
+	}
+	std::sort(missions.begin(), missions.end(), MissionStartTimeGreater());
+}
+
+
+// 0x5C5330
+void UIMissnClass::Unknown_5C5330(bool arg)
+{
+	std::vector<DeltaMissionClass *> missions;
+	Unknown_5C4FC0(missions);
+	int count = missions.size();
+	while (UnknownBC && UnknownBC + MISSIONS_PER_PAGE > count) {
+		UnknownBC--;
+		arg = true;
+	}
+	int index = UnknownBC;
+	for (int i = 0; i < MISSIONS_PER_PAGE; i++) {
+		DeltaMissionClass *mission = (index < count) ? missions[index] : NULL;
+		index++;
+		bool update = false;
+		if (mission == CurrentMissions[i]) {
+			if (arg || (CurrentMissions[i] && CurrentMissions[i]->Unknown70 > 1)) update = true;
+		} else {
+			CurrentMissions[i] = mission;
+			update = true;
+		}
+		if (update) {
+			Unknown_5C5500(i);
+			if (i == CurrentMission) {
+				Unknown_5C5DB0(CurrentMission);
+			}
+		} else {
+			Unknown_5C5AC0(i, true);
+		}
+	}
+	UnknownB8->Unknown_66FA90((float)count, 3.0f, true);
+	GadgetSlider *slider = UnknownB8;
+	int page = UnknownBC;
+	if ((int)slider->Value != page) {
+		slider->Unknown_A4((float)page, false);
+	}
+}
 
 
 
