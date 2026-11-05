@@ -1248,7 +1248,7 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 	Unknown_55B650();
 }
 
-// NOT EXACT: shape (as ui_avatar_cust.cpp's 0x5502F0: the client keeps movable above zoom on the stack and writes zoom's 0 as an immediate)
+// As ui_avatar_cust.cpp's 0x5502F0: the last test reads zoom (the client's reload of zoom's slot), not movable
 // 0x55B2D0
 void AvatarCreationInterface::Unknown_55B2D0()
 {
@@ -1273,7 +1273,7 @@ void AvatarCreationInterface::Unknown_55B2D0()
 		Unknown098[33]->Unknown_8C(!zoom);
 		Unknown098[34]->Unknown_40(zoom);
 		Unknown098[34]->Unknown_8C(!zoom);
-		if (!movable) {
+		if (!zoom) {
 			Unknown178 = 1.0f;
 		}
 	}

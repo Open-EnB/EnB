@@ -1182,9 +1182,9 @@ void StarbaseAvatarCreationInterface::Unknown_550140(int id)
 	Unknown_550670();
 }
 
-// NOT EXACT: shape (131 instructions against 132: the client keeps the two bools the other way round on the stack,
-// movable at +0xC and zoom at +8, and writes zoom's 0 as an immediate; `zoom = true; if (!(...)) zoom = false;` gives 132
-// with the slots still swapped, and declaring zoom first or movable after scale changes nothing)
+// The step's last test reads zoom, not movable (the client's reload of zoom's slot before pop edi): with it the
+// two bools take the client's slots (zoom set then cleared in memory, zoom's 1 from the ebx kept for the
+// Unknown0B0 == 1 compare)
 // 0x5502F0
 void StarbaseAvatarCreationInterface::Unknown_5502F0()
 {
@@ -1206,7 +1206,7 @@ void StarbaseAvatarCreationInterface::Unknown_5502F0()
 		Unknown204[13]->Unknown_8C(!zoom);
 		Unknown204[14]->Unknown_40(zoom);
 		Unknown204[14]->Unknown_8C(!zoom);
-		if (!movable) {
+		if (!zoom) {
 			Unknown314.X = 1.0f;
 		}
 	}
