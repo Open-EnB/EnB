@@ -25,6 +25,7 @@ class ShipCustDescClass;
 class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 class LayerClass;
+class CharacterViewAvatarClass;
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
 class UIStarbaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
@@ -139,6 +140,8 @@ public:
 	void Unknown_69DBA0(int type, const RefCountPtr<RenderObjClass> &obj);	// 0x69DBA0: obj as ViewRObjs[type]  // NAME 1 [obj]: neutral
 	void Unknown_69DC40();	// 0x69DC40: 'FE_COMP1' as ViewRObjs[2]
 	void Unknown_69DC60();	// 0x69DC60: ViewRObjs[2] away
+	void Unknown_69DC80(RefCountPtr<CharacterViewAvatarClass> avatar, const char *bone, bool offset);	// 0x69DC80: the avatar (ui_starbase 0x63C080 passes it) at ViewRObjs[1]'s bone, kept in its +0x330; offset: its own turn at the bone's position plus +0x1E0  // NAME 1 [avatar, bone, offset]: neutral
+	void Unknown_69DFC0(RefCountPtr<CharacterViewAvatarClass> avatar, const Matrix3D &tm, bool offset);	// 0x69DFC0: as 0x69DC80 at tm (ui_starbase 0x63BDB0)  // NAME 1 [avatar, tm, offset]: neutral
 	void Unknown_69F440();	// 0x69F440: +0x1B0 set
 	void Unknown_69F460(int arg);	// 0x69F460  // NAME 1 [arg]: neutral
 	void Unknown_69F480(int index);	// 0x69F480: channel index stopped and released  // NAME 1 [index]: neutral

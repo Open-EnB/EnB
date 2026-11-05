@@ -25,6 +25,7 @@
 #include "..\..\ww3d2\layer.h"
 #include "ui_buff.h"
 #include "ui_ship_cust.h"	// ShipUI (+0x1A0)
+#include "avatar.h"	// CharacterViewAvatarClass (0x69DC80 / 0x69DFC0)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
@@ -728,7 +729,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 
-
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
 void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
@@ -781,6 +781,41 @@ void SBaseViewClass::Unknown_69DC60()
 {
 	Unknown_69D930(2);
 }
+// 0x69DC80: the avatar at ViewRObjs[1]'s bone (offset: only at its position plus +0x1E0), kept in its +0x330
+void SBaseViewClass::Unknown_69DC80(RefCountPtr<CharacterViewAvatarClass> avatar, const char *bone, bool offset)
+{
+	if (ViewRObjs[1] && avatar) {
+		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
+		if (offset) {
+			Vector3 pos = tm.Get_Translation() + Unknown1E0;
+			Matrix3D m = avatar->Get_Transform();
+			m.Set_Translation(pos);
+			avatar->Set_Transform(m);
+			avatar->Unknown330 = m;
+		} else {
+			avatar->Set_Transform(tm);
+			avatar->Unknown330 = tm;
+		}
+	}
+}
+
+// 0x69DFC0: the avatar at tm (offset: only at tm's position plus +0x1E0), kept in its +0x330
+void SBaseViewClass::Unknown_69DFC0(RefCountPtr<CharacterViewAvatarClass> avatar, const Matrix3D &tm, bool offset)
+{
+	if (avatar) {
+		if (offset) {
+			Vector3 pos = tm.Get_Translation() + Unknown1E0;
+			Matrix3D m = avatar->Get_Transform();
+			m.Set_Translation(pos);
+			avatar->Set_Transform(m);
+			avatar->Unknown330 = m;
+		} else {
+			avatar->Set_Transform(tm);
+			avatar->Unknown330 = tm;
+		}
+	}
+}
+
 // 0x69E260: the +0x6C camera at ViewRObjs[1]'s bone, turned -90 degrees about y and z (+0x84 keeps it)
 void SBaseViewClass::Unknown_69E260(const char *bone)
 {
@@ -1008,41 +1043,6 @@ void SBaseViewClass::Unknown_6A0540()
 		RCamera->Remove();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1676,7 +1676,7 @@ void SBaseViewClass::Unknown_6A2480()
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
 **	loader 0x6A0590, not written) are left free. Not rebuilt
-**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69DC80-0x69F3B0, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90.
+**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90.
 **
 **	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
