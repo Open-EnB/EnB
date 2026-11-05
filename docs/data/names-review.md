@@ -204,11 +204,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_783470` | `app/client/avatar.cpp:1590` | untagged neutral name (D10) |
 | 1 | `Unknown_782200` | `app/client/avatar.cpp:1596` | untagged neutral name (D10) |
 | 1 | `Unknown_78EE00` | `app/client/avatar.cpp:1605` | untagged neutral name (D10) |
-| 1 | `Unknown_BE856C` | `app/client/avatar.cpp:1625` | untagged neutral name (D10) |
-| 1 | `Unknown_791400` | `app/client/avatar.cpp:1625` | untagged neutral name (D10) |
-| 1 | `Unknown_7829B0` | `app/client/avatar.cpp:1642` | untagged neutral name (D10) |
-| 1 | `Unknown_7826A0` | `app/client/avatar.cpp:1663` | untagged neutral name (D10) |
-| 1 | `Unknown_782850` | `app/client/avatar.cpp:1697` | untagged neutral name (D10) |
+| 1 | `Unknown_BE856C` | `app/client/avatar.cpp:1623` | untagged neutral name (D10) |
+| 1 | `Unknown_791400` | `app/client/avatar.cpp:1623` | untagged neutral name (D10) |
+| 1 | `Unknown_7829B0` | `app/client/avatar.cpp:1640` | untagged neutral name (D10) |
+| 1 | `Unknown_7826A0` | `app/client/avatar.cpp:1662` | untagged neutral name (D10) |
+| 1 | `Unknown_782850` | `app/client/avatar.cpp:1696` | untagged neutral name (D10) |
 | 1 | `Unknown_783620` | `app/client/avatar.cpp:2265` | untagged neutral name (D10) |
 | 1 | `Unknown_442930` | `app/client/avatar.cpp:2309` | untagged neutral name (D10) |
 | 1 | `Unknown_4428E0` | `app/client/avatar.cpp:2311` | untagged neutral name (D10) |

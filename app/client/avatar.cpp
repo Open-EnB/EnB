@@ -1605,19 +1605,17 @@ void CharacterViewAvatarClass::Unknown_782200()
 		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
 		Unknown_7831C0(name.c_str());
 		int frames;
-		if (Unknown0C0[1] == NULL) {
-			frames = Unknown0C0[0]->Get_Num_Frames();
-		} else {
+		if (Unknown0C0[1]) {
 			frames = Unknown0C0[1]->Get_Num_Frames();
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
 		}
-		Unknown248 -= frames;
-		if (Unknown248 < 0) {
-			Unknown248 = 0;
-		}
-		return;
-	}
+		int left = Unknown248 - frames;
+		Unknown248 = (left < 0) ? 0 : left;
+
+	} else {
 	Unknown_AvatarQueueStruct *entry;
-	if (Unknown2A0.size() != 0 && (entry = Unknown2A0[0]) != NULL) {
+	if (Unknown2A0.size() > 0 && (entry = Unknown2A0[0]) != NULL) {
 		int anim;
 		if (Unknown210 != 0) {
 			int delay = PlayerNLP->Personality->Get_Speech_Delay();
@@ -1653,8 +1651,9 @@ void CharacterViewAvatarClass::Unknown_782200()
 			}
 		}
 	}
-	if ((Unknown2A0.size() == 0 || Unknown2A0[0] == NULL) && Unknown248 == 0) {
+	if ((Unknown2A0.size() <= 0 || Unknown2A0[0] == NULL) && Unknown248 == 0) {
 		Unknown208 = 0;
+	}
 	}
 }
 
@@ -1869,6 +1868,7 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
+
 
 
 
