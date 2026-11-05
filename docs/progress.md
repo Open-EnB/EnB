@@ -2564,11 +2564,11 @@ below name only the work items, the blocked work, the leads and the queues.
      through stack temps; four Set / Matrix3D-temp forms compile identically), avatar.cpp (CS12 / CS15, 2026-11-05: the file follows the client's address order,
      padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): the client holds every member
      +0x2B0..+0x2E4, +0xBC, +0xC0[2], +0x370 / +0x374 as RefCountPtrs (the ctor 0x77C080's EH states); still raw: BodyObj
-     (0x781410 drops to 0.73 with it: parked), Unknown0C0[2] (0x782FF0's `lea` order: parked; would lift 0x7831C0 0.36 ->
-     0.63), HairSource / Unknown2CC / GoggleSource / BeardSource / the three weapons (first check Unknown_77E0E0 / 77F960 /
-     789D80's `RenderObjClass **slot` parameter for RefCountPtr helper calls, then retype one at a time); 0x782200 0.41
-     (frame 0x424 vs 0x428, probably after Unknown0C0); 0x781570 0.69 (x87 order); 0x784700 0.55 (the queue's dtor
-     0x781C10 / clear 0x78A510 out of line); 0x780AF0 0.55; 0x782CA0 0.69 frame; 0x77D9F0 0.62 shape (20 forms); the
+     (keep it raw: its retype loses 0x781410 and makes nothing exact, 3 raw-alias forms tried; 0x77E9D0 0.57 needs it),
+     Unknown0C0[2] (0x782FF0's `lea` order: parked; would lift 0x7831C0 0.36 -> 0.63 and maybe 0x782200); 0x785C00 0.85
+     (the last x87 divide order: best lead), 0x77F000 0.48 (the client calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC
+     vs 0xA8), 0x782200 0.41 (frame 0x428 vs 0x424), 0x781570 0.74, 0x7885D0 0.52 (inline budget), 0x784700 0.55 (the
+     queue's dtor 0x781C10 / clear 0x78A510 out of line), 0x780AF0 0.55; 0x782CA0 0.69 frame; 0x77D9F0 0.62 shape (20 forms); the
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
