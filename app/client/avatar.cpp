@@ -192,11 +192,11 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 		}
 		if (BodySource != NULL) {
 			Unknown_496AE0(BodySource.Peek(), true);
-			BodyObj = BodySource->Clone();
+			BodyObj = Create_Get(BodySource->Clone());
 			if (BodyObj) {
 				BodyObj->Add_Ref();
-				Unknown_496AE0(BodyObj, true);
-				Unknown_496DB0(BodyObj);		// 0x77E9D0: every LOD level to its highest, the sub-objects' too
+				Unknown_496AE0(BodyObj.Peek(), true);
+				Unknown_496DB0(BodyObj.Peek());		// 0x77E9D0: every LOD level to its highest, the sub-objects' too
 
 				BodyObj->Get_Obj_Space_Bounding_Sphere(ObjSphere);
 				BodyObj->Get_Obj_Space_Bounding_Box(ObjBox);
@@ -434,8 +434,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 		int head_bone = BodyObj->Get_Bone_Index("K_HEAD");
 		BodyObj->Release_Bone(head_bone);
 		BodyObj->Remove();
-		BodyObj->Release_Ref();
 		BodyObj = NULL;
+
 	}
 	if (HeadObj) {
 		HeadObj = NULL;
@@ -543,7 +543,7 @@ RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
 		return(NULL);
 	}
 	BodyObj->Add_Ref();
-	return(BodyObj);
+	return(BodyObj.Peek());
 }
 
 // 0x77D9F0
@@ -760,15 +760,17 @@ void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
 
 
 
+
+
 // 0x77E9D0: Body_Type / Pants_Type's body '<gender><race>BODY%02d%02d' ('ANPCBODY%03d' for an NPC) loaded
 // again: the head, weapons and collision objects come off the old one and onto the new one; +0x234 is
 // K_HEAD's height above skel_reference; morph: the body weights shown at once (0x781410)
-// NOT EXACT: functional for POC (D64), layout (the client's BodyObj a RefCountPtr: its clone through Create_Get, frame 0x50 vs 0x20)
+// (the overbright switch on and off in each Avatar_Type branch; K_HEAD's transform copied: frame 0x50)
 void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 {
 	char body_name[32];
-	Desc.Pants_Type = (char)pants;
 	Desc.Body_Type = (char)body;
+	Desc.Pants_Type = (char)pants;
 	if (BodyObj) {
 		if (HeadObj) BodyObj->Remove_Sub_Object(HeadObj.Peek());
 		if (WeaponUnique) BodyObj->Remove_Sub_Object(WeaponUnique.Peek());
@@ -778,32 +780,30 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		if (Unknown2C4) BodyObj->Remove_Sub_Object(Unknown2C4.Peek());
 		BodyObj->Release_Bone(BodyObj->Get_Bone_Index("K_Head"));
 		BodyObj->Remove();
-		BodyObj->Release_Ref();
 		BodyObj = NULL;
+
 	}
 	if (BodySource) {
 		BodySource = NULL;
 
 	}
 	bool making = WW3D::Is_Overbright_Modify_On_Load_Enabled();
-	if (!making) {
-		WW3D::Enable_Overbright_Modify_On_Load(true);
-	}
 	if (Desc.Avatar_Type == 0) {
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(body_name, 0x20, "%s%sBODY%02d%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Body_Type, (int)Desc.Pants_Type);
 		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	} else {
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
 		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
-	}
-	if (!making) {
-		WW3D::Enable_Overbright_Modify_On_Load(false);
+		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (BodySource) {
 	Unknown_496AE0(BodySource.Peek(), true);
-	BodyObj = BodySource->Clone();
-	Unknown_496AE0(BodyObj, true);
-	Unknown_496DB0(BodyObj);
+	BodyObj = Create_Get(BodySource->Clone());
+	Unknown_496AE0(BodyObj.Peek(), true);
+	Unknown_496DB0(BodyObj.Peek());
 	Set_Name(BodyObj->Get_Name());
 	Set_Base_Model_Name(BodyObj->Get_Base_Model_Name());
 	Update_Obj_Space_Bounding_Volumes();
@@ -817,8 +817,8 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	} else if (WeaponHip) {
 		BodyObj->Add_Sub_Object_To_Bone(WeaponHip.Peek(), "WEAPON04");
 	}
-	float head = BodyObj->Get_Bone_Transform("K_HEAD").Get_Z_Translation();
-	Unknown234 = head - BodyObj->Get_Bone_Transform("skel_reference").Get_Z_Translation();
+	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
+	Unknown234 = head[2][3] - BodyObj->Get_Bone_Transform("skel_reference")[2][3];
 	if (morph) {
 		Unknown_781410(1, 0);
 	}
@@ -1188,7 +1188,7 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 		region.Unknown10.Unknown00 = Desc.Pants_Secondary_Metal;
 		region.Unknown10.Unknown04 = (Desc.Pants_Secondary_Metal < 0) ? Desc.Pants_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
 		regions.insert(regions.end(), 1, region);
-		Unknown_80FCE0(BodyObj, regions, env_maps, &Desc.Skin_Color);
+		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 	}
 }
@@ -1335,7 +1335,7 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 	}
 	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
 	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
-	((HLodClass *)BodyObj)->Set_HTree(tree);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
 	if (tree) {
 		delete tree;
 	}
@@ -1436,7 +1436,7 @@ void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass 
 
 
 // 0x781410
-// (1 - keep computed once, before the loop)
+// (1 - keep computed once, before the loop; each product parenthesised: the client's x87 order)
 void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 {
 	if (BodyObj == NULL) {
@@ -1456,7 +1456,7 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 			Unknown274[i] = Desc.Body_Weight[i];
 		} else {
 			moving = true;
-			Unknown274[i] = keep * Unknown274[i] + rest * Desc.Body_Weight[i];
+			Unknown274[i] = (keep * Unknown274[i]) + (rest * Desc.Body_Weight[i]);
 		}
 	}
 	if (!moving) {
@@ -2388,7 +2388,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	}
 	Unknown0E4 = WW3D::Get_Frame_Count();
 	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj, HeadObj.Peek(), PlayerNLP);
+		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
 		return;
 	}
 	Unknown_788900();
