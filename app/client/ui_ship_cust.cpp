@@ -178,8 +178,8 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: inline budget (0.48: VC6 here inlines ShipCustPartClass's constructor, the vectors' constructors and the
-// callback's, which the client calls out of line: 0x6191F0, 0x61FAB0, 0x61FB60, 0x620BC0; the frame is 0x1C bytes larger)
+// NOT EXACT: inline budget (0.51: VC6 here inlines the first vector's constructor and the callback's, which the client
+// calls out of line: 0x61FAB0, 0x620BC0; the frame is 0x14 bytes larger; the part's constructor 0x6191F0 goes out of line)
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
@@ -210,7 +210,7 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	StarbaseShipCustNotifierClass *notifier = (StarbaseShipCustNotifierClass *)&GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new StarbaseShipCustCallbackClass(this, function));
 	SClient *client = Client->As_Space_Client();
-	client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 11, 0));
+	client->Send_Packet(&StarbaseRequestPacketClass(client->Unknown1138, 11, 0)); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget, so ShipCustPartClass's constructor 0x6191F0 is called out of line as the client's
 }
 
 // @0x6193A0

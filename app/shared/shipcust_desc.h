@@ -39,12 +39,12 @@ template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name
 template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
 #endif
 
-// A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 out of line), two in
+// A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 inline), two in
 // each part. Its assignment is the implicit one (0x4F6230 copies the race's defaults with it).
 class ShipCustSettingsClass : public DeltaInterfaceClass	// NAME 2: the parts' key 'Settings%d'
 {
 public:
-	ShipCustSettingsClass();							// 0x618500
+	ShipCustSettingsClass() : Color(1.0F, 1.0F, 1.0F), Unknown10(0.5F), Unknown14(0.5F), Is_Matte(false), Metal(METAL_NONE) {}	// 0x618500 (inline: the out-of-line copy is ui_ship_cust.cpp's, its constructor's ??_H target; 0x6191F0 inlines it)
 	ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
 	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// 0x4F6900 (vtable 0xAEC91C)
 
