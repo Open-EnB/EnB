@@ -131,7 +131,7 @@ bool Unknown_621610(RenderObjClass *model, RenderObjClass *part, const char *for
 void Unknown_6216D0(RenderObjClass *model, const char *format);	// NAME 1 [all]: neutral
 
 
-// NOT EXACT: functional (D64)
+
 // @0x620D20
 Unknown620D20Class::Unknown620D20Class() :
 	Unknown174(0),
@@ -142,12 +142,28 @@ Unknown620D20Class::Unknown620D20Class() :
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6210A0
 Unknown620D20Class::~Unknown620D20Class()
 {
 	Unknown_621E20();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // NOT EXACT: functional (D64)
@@ -158,7 +174,7 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
 	G_ASSERT(environmentmapmanager != NULL);/*@L174*/
 	for (int i = 0; i < 4; i++) {
 		ColorizationRegionStruct region;
-		ShipCustSettingsClass &first = Parts[i].Settings[0];
+		ShipCustSettingsClass &first = Desc.Parts[i].Settings[0];
 		region.Unknown00.Unknown00 = first.Metal;
 		if (first.Metal == METAL_NONE) {
 			region.Unknown00.Unknown04 = first.Color;
@@ -166,7 +182,7 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
 		} else {
 			region.Unknown00.Unknown04.Set(1.0f, 1.0f, 1.0f);
 		}
-		ShipCustSettingsClass &second = Parts[i].Settings[1];
+		ShipCustSettingsClass &second = Desc.Parts[i].Settings[1];
 		region.Unknown10.Unknown00 = second.Metal;
 		if (second.Metal == METAL_NONE) {
 			region.Unknown10.Unknown04 = second.Color;
@@ -178,6 +194,39 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
 	}
 	Unknown_80EFF0(Unknown160.Peek(), regions, environmentmapmanager);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // NOT EXACT: functional (D64)
@@ -204,11 +253,11 @@ void Unknown620D20Class::Unknown_621390(int decal, SClientUnknown1334Class *deca
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x621500
 void Unknown620D20Class::Unknown_621500()
 {
-	Unknown_80FF20(Unknown160.Peek(), Ship_Name, (float *)&Ship_Name_Color);
+	Unknown_80FF20(Unknown160.Peek(), Desc.Ship_Name, (float *)&Desc.Ship_Name_Color);
 }
 
 
@@ -296,33 +345,171 @@ void Unknown_6216D0(RenderObjClass *model, const char *format)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NOT EXACT: functional (D64)
 // @0x621790
 void Unknown620D20Class::Unknown_621790(EnvironmentMapManagerClass *environmentmapmanager, int decal, SClientUnknown1334Class *decalmaterialmanager)
 {
 	Unknown_621E20();
-	Unknown160 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Race, 0, Hull_Style, Unknown174)));
-	Unknown164 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Race, 3, 0, Unknown180)));
+	Unknown160 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 0, Desc.Hull_Style, Unknown174)));
+	Unknown164 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 3, 0, Unknown180)));
 	Unknown_621610(Unknown160.Peek(), Unknown164.Peek(), "~03_%02d");
-	Unknown168 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Race, 2, Wing_Style, Unknown178)));
+	Unknown168 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 2, Desc.Wing_Style, Unknown178)));
 	Unknown_621610(Unknown168.Peek(), Unknown164.Peek(), "~03_%02d");
-	Unknown16C = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Race, 1, Profession, Unknown17C)));
+	Unknown16C = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_621530(Desc.Race, 1, Desc.Profession, Unknown17C)));
 	Unknown_621610(Unknown16C.Peek(), Unknown164.Peek(), "~03_%02d");
-	if (Race == 2 && Profession == 0) {
+	if (Desc.Race == 2 && Desc.Profession == 0) {
 		Unknown170 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("PU43"));
 		Unknown_621610(Unknown16C.Peek(), Unknown170.Peek(), "~weap_%02d");
 	}
 	int result = Unknown160->Add_Sub_Object_To_Bone(Unknown16C.Peek(), "~01");
 	G_ASSERT(result);/*@L501*/
+
+
 	result = Unknown160->Add_Sub_Object_To_Bone(Unknown168.Peek(), "~02");
 	G_ASSERT(result);/*@L505*/
 	Unknown_6211D0(environmentmapmanager);
 	Unknown_621390(decal, decalmaterialmanager);
-	Unknown_80FF20(Unknown160.Peek(), Ship_Name, (float *)&Ship_Name_Color);
+	Unknown_80FF20(Unknown160.Peek(), Desc.Ship_Name, (float *)&Desc.Ship_Name_Color);
 	Unknown_810750(Unknown160.Peek(), 0);
 }
 
-
+#pragma auto_inline(off)	// the client calls 0x621E20 from the dtor 0x6210A0 and 0x621790
 // NOT EXACT: functional (D64)
 // @0x621E20
 void Unknown620D20Class::Unknown_621E20()
@@ -339,7 +526,7 @@ void Unknown620D20Class::Unknown_621E20()
 	Unknown160 = NULL;
 	Unknown170 = NULL;
 }
-
+#pragma auto_inline(on)
 
 // NOT EXACT: functional (D64)
 // @0x622180
@@ -372,12 +559,12 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	CharacterView = (CharacterViewClass *)View->Unknown_28();
 	LoginTask = (LoginTaskClass *)CharacterView->Unknown14->Unknown_08();
 	InterfaceSortScopeClass sort(this);
-	(ShipCustDescClass &)Ship = CharacterView->Unknown244;
+	Ship.Desc = CharacterView->Unknown244;
 	if (unknown == 0) {
 		if (!unknown2) {
-			Ship.Set_Race(CharacterView->Unknown088.Race);
-			Ship.Reset_Parts();
-			Ship.Set_Profession(CharacterView->Unknown088.Profession);
+			Ship.Desc.Set_Race(CharacterView->Unknown088.Race);
+			Ship.Desc.Reset_Parts();
+			Ship.Desc.Set_Profession(CharacterView->Unknown088.Profession);
 		}
 		CharacterView->Unknown_67C7B0();
 		if (!TutorialManagerClass::Instance->Is_Completed("ShipCreationGeometry")) {
@@ -388,7 +575,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 		}
 	}
 	CharacterView->Unknown3A4->Unknown_760770(100005, true);
-	Unknown264 = (Ship.Selected_Decal == 0x7FFFFFF) ? 0 : Ship.Selected_Decal + 1;
+	Unknown264 = (Ship.Desc.Selected_Decal == 0x7FFFFFF) ? 0 : Ship.Desc.Selected_Decal + 1;
 	Unknown22C = new ShipPipClass(0);
 	Unknown22C->Unknown_80C220((ViewClass *)CharacterView);
 	Unknown22C->Unknown_74(0);
@@ -410,7 +597,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown_625A60(Page);
 	Ship.Unknown_6211D0(CharacterView->Unknown3A4);
 	Ship.Unknown_621390(Unknown264, Unknown268);
-	Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Ship_Name, (float *)&Ship.Ship_Name_Color);
+	Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
 	TheDX8MeshRenderer.Invalidate();
 	void (ShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ShipCustomizeInterface::Unknown_628900;
 	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
@@ -466,8 +653,8 @@ void ShipCustomizeInterface::Unknown_60()
 		bool changed = NameGadget->Changed;
 		NameGadget->Changed = false;
 		if (changed) {
-			_snprintf(Ship.Ship_Name, 0x1A, "%s", NameGadget->Get_Text());
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Ship_Name, (float *)&Ship.Ship_Name_Color);
+			_snprintf(Ship.Desc.Ship_Name, 0x1A, "%s", NameGadget->Get_Text());
+			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
 			NameGadget->Changed = true;
 		}
 		NameGadget->Unknown_6AAD10();
@@ -516,20 +703,20 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 		case 10:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			if (key == 7) {
-				if (--Ship.Hull_Style < 0) {
-					Ship.Hull_Style = 2;
+				if (--Ship.Desc.Hull_Style < 0) {
+					Ship.Desc.Hull_Style = 2;
 				}
 			} else if (key == 8) {
-				if (++Ship.Hull_Style > 2) {
-					Ship.Hull_Style = 0;
+				if (++Ship.Desc.Hull_Style > 2) {
+					Ship.Desc.Hull_Style = 0;
 				}
 			} else if (key == 9) {
-				if (--Ship.Wing_Style < 0) {
-					Ship.Wing_Style = 2;
+				if (--Ship.Desc.Wing_Style < 0) {
+					Ship.Desc.Wing_Style = 2;
 				}
 			} else {
-				if (++Ship.Wing_Style > 2) {
-					Ship.Wing_Style = 0;
+				if (++Ship.Desc.Wing_Style > 2) {
+					Ship.Desc.Wing_Style = 0;
 				}
 			}
 			Unknown_6277A0();
@@ -667,6 +854,289 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NOT EXACT: functional (D64)
 // @0x624270
 void ShipCustomizeInterface::Unknown_624270()
@@ -756,8 +1226,8 @@ void ShipCustomizeInterface::Unknown_624270()
 	}
 	if (Unknown215) {
 		if (Unknown218 == 5) {
-			Ship.Selected_Decal = (Unknown264 == 0) ? 0x7FFFFFF : Unknown264 - 1;
-			CharacterView->Unknown244 = Ship;
+			Ship.Desc.Selected_Decal = (Unknown264 == 0) ? 0x7FFFFFF : Unknown264 - 1;
+			CharacterView->Unknown244 = Ship.Desc;
 			LoginTask->Go_Next_Step();
 		} else {
 			LoginTask->Go_Back_Step();
@@ -836,7 +1306,7 @@ void ShipCustomizeInterface::Unknown_624B50(int id, const char *name, const char
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624D00
 void ShipCustomizeInterface::Unknown_624D00()
 {
@@ -847,7 +1317,7 @@ void ShipCustomizeInterface::Unknown_624D00()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624D70
 void ShipCustomizeInterface::Unknown_624D70()
 {
@@ -860,7 +1330,7 @@ void ShipCustomizeInterface::Unknown_624D70()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624DF0
 void ShipCustomizeInterface::Unknown_624DF0()
 {
@@ -868,7 +1338,7 @@ void ShipCustomizeInterface::Unknown_624DF0()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x624E20
 void ShipCustomizeInterface::Unknown_624E20()
 {
@@ -917,20 +1387,20 @@ void ShipCustomizeInterface::Unknown_624E50()
 		model->Control_Bone(bone, tm, false);
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
-		Vector3 *color = (Page == 1) ? &Ship.Parts[Unknown258].Settings[Unknown25C].Color : &Ship.Ship_Name_Color;
+		Vector3 *color = (Page == 1) ? &Ship.Desc.Parts[Unknown258].Settings[Unknown25C].Color : &Ship.Desc.Ship_Name_Color;
 		Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, u, 1.0f - v, color);
 		Unknown_6251F0(u, v);
 		if (Page == 1) {
 			Ship.Unknown_6211D0(CharacterView->Unknown3A4);
 		} else {
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Ship_Name, (float *)&Ship.Ship_Name_Color);
+			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
 		}
 	}
 	Unknown24C->Gadget->Unknown_671630();
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6251F0
 void ShipCustomizeInterface::Unknown_6251F0(float u, float v)
 {
@@ -957,7 +1427,165 @@ void ShipCustomizeInterface::Unknown_625260()
 }
 
 
-// NOT EXACT: functional (D64)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // @0x625440
 void ShipCustomizeInterface::Unknown_625440()
 {
@@ -982,7 +1610,7 @@ void ShipCustomizeInterface::Unknown_625440()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x625760
 void ShipCustomizeInterface::Unknown_625760(bool on)
 {
@@ -1211,12 +1839,12 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			NameGadget = new TextGadgetClass(this, 0x19, "NAME_fa_ship04", CharacterView->ViewRObjs[0], Unknown_B08CB8 | Unknown_B08CC4, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
-			if (strlen(Ship.Ship_Name) != 0) {
+			if (strlen(Ship.Desc.Ship_Name) != 0) {
 				FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->ViewRObjs[0]);
 				if (style != NULL && style->Unknown300) {
 					style->Set_Hidden(1);
 				}
-				NameGadget->Set_Text(Ship.Ship_Name, 0);
+				NameGadget->Set_Text(Ship.Desc.Ship_Name, 0);
 			}
 			Unknown64.Unknown_6870E0(NameGadget, 0x36, View, 1, 0);
 			Unknown_625440();
@@ -1237,41 +1865,41 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x627110
 float *ShipCustomizeInterface::Unknown_627110()
 {
 	if (Page == 1) {
-		return(&Ship.Parts[Unknown258].Settings[Unknown25C].Unknown10);
+		return(&Ship.Desc.Parts[Unknown258].Settings[Unknown25C].Unknown10);
 	}
-	return(&Ship.Unknown3C.X);
+	return(&Ship.Desc.Unknown3C.X);
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x627160
 Vector3 *ShipCustomizeInterface::Unknown_627160()
 {
 	if (Page == 1) {
-		return(&Ship.Parts[Unknown258].Settings[Unknown25C].Color);
+		return(&Ship.Desc.Parts[Unknown258].Settings[Unknown25C].Color);
 	}
-	return(&Ship.Ship_Name_Color);
+	return(&Ship.Desc.Ship_Name_Color);
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6271A0
 bool *ShipCustomizeInterface::Unknown_6271A0()
 {
-	return(&Ship.Parts[Unknown258].Settings[Unknown25C].Is_Matte);
+	return(&Ship.Desc.Parts[Unknown258].Settings[Unknown25C].Is_Matte);
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6271D0
 ShipCustomizationMetal *ShipCustomizeInterface::Unknown_6271D0()
 {
-	return(&Ship.Parts[Unknown258].Settings[Unknown25C].Metal);
+	return(&Ship.Desc.Parts[Unknown258].Settings[Unknown25C].Metal);
 }
 
 
@@ -1281,8 +1909,8 @@ void ShipCustomizeInterface::Unknown_627200()
 {
 	switch (Page) {
 		case 0:
-			Ship.Hull_Style = Unknown_BDBB84(0, 2);
-			Ship.Wing_Style = Unknown_BDBB84(0, 2);
+			Ship.Desc.Hull_Style = Unknown_BDBB84(0, 2);
+			Ship.Desc.Wing_Style = Unknown_BDBB84(0, 2);
 			Ship.Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
 			if (Unknown22C->Unknown054.Peek() != NULL) {
 				Unknown22C->Unknown_84(Ship.Unknown160);
@@ -1317,7 +1945,7 @@ void ShipCustomizeInterface::Unknown_627200()
 						*Unknown_6271D0() = METAL_NONE;
 						*Unknown_6271A0() = (matte != 0);
 					} else {
-						Ship.Parts[p].Settings[s].Metal = (ShipCustomizationMetal)metal;
+						Ship.Desc.Parts[p].Settings[s].Metal = (ShipCustomizationMetal)metal;
 					}
 				}
 			}
@@ -1347,14 +1975,14 @@ void ShipCustomizeInterface::Unknown_627200()
 
 		case 3:
 		{
-			Ship.Unknown3C.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
-			Ship.Unknown3C.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
+			Ship.Desc.Unknown3C.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
+			Ship.Desc.Unknown3C.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
 			Vector3 color(0.0f, 0.0f, 0.0f);
-			Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, Ship.Unknown3C.X, 1.0f - Ship.Unknown3C.Y, &color);
+			Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, Ship.Desc.Unknown3C.X, 1.0f - Ship.Desc.Unknown3C.Y, &color);
 			Unknown_627730(color.X, color.Y, color.Z);
-			Unknown_6251F0(Ship.Unknown3C.X, Ship.Unknown3C.Y);
+			Unknown_6251F0(Ship.Desc.Unknown3C.X, Ship.Desc.Unknown3C.Y);
 			Unknown_625260();
-			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Ship_Name, (float *)&Ship.Ship_Name_Color);
+			Unknown_80FF20(Ship.Unknown160.Peek(), Ship.Desc.Ship_Name, (float *)&Ship.Desc.Ship_Name_Color);
 			Unknown_6277A0();
 			return;
 		}
@@ -1363,7 +1991,7 @@ void ShipCustomizeInterface::Unknown_627200()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x627730
 void ShipCustomizeInterface::Unknown_627730(float r, float g, float b)
 {
@@ -1382,10 +2010,10 @@ void ShipCustomizeInterface::Unknown_6277A0()
 	switch (Page) {
 		case 0:
 			for (i = 0; i < 3; i++) {
-				Unknown_624AE0(Unknown_B89C80[i], i == Ship.Hull_Style);
+				Unknown_624AE0(Unknown_B89C80[i], i == Ship.Desc.Hull_Style);
 			}
 			for (i = 0; i < 3; i++) {
-				Unknown_624AE0(Unknown_B89C8C[i], i == Ship.Wing_Style);
+				Unknown_624AE0(Unknown_B89C8C[i], i == Ship.Desc.Wing_Style);
 			}
 			Unknown_6257A0(1);
 			return;
@@ -1440,7 +2068,7 @@ void ShipCustomizeInterface::Unknown_6277A0()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x627FA0
 void ShipCustomizeInterface::Unknown_627FA0()
 {
@@ -1510,7 +2138,7 @@ void ShipCustomizeInterface::Unknown_628420()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x6288C0
 bool ShipCustomizeInterface::Unknown_78(void *arg)
 {
@@ -1521,16 +2149,390 @@ bool ShipCustomizeInterface::Unknown_78(void *arg)
 }
 
 
-// NOT EXACT: functional (D64)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // @0x628900
 void ShipCustomizeInterface::Unknown_628900(FlashingGadgetEvent *event, GadgetClass *sender)
 {
 	FAIL_IF(!event) return;/*@L2531*/
 	GadgetClass *gadget = event->Gadget;
 
-
-	FAIL_IF(!gadget) return;
-	if (gadget->Flash && gadget->Unknown2C_02) {
+	FAIL_IF(!gadget) return;/*@L2534*/
+	if (gadget->Flash && gadget->Is_Unknown2C_02()) {
 		for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
 			if (it->second.Gadget == gadget) {
 				int id = it->second.Id;

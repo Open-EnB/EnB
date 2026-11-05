@@ -24,7 +24,7 @@ class UIAvatrPullClass;
 
 // The window's ship: its description with the models built from it (0x184 bytes; constructor 0x620D20, copy
 // constructor 0x620E40, destructor 0x6210A0, all out of line in this file)
-class Unknown620D20Class : public ShipCustDescClass	// NAME 1: neutral (D10)
+class Unknown620D20Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown620D20Class();								// 0x620D20
@@ -36,6 +36,7 @@ public:
 	void Unknown_621790(EnvironmentMapManagerClass *environmentmapmanager, int decal, SClientUnknown1334Class *decalmaterialmanager);	// 0x621790 (G_ASSERTs 'result' l.501, 505): the models built from the description  // NAME 1 [all]: as 0x6211D0's / 0x621390's
 	void Unknown_621E20();								// 0x621E20 (the models taken apart and released)
 
+	ShipCustDescClass Desc;								// +0x000 (a member: the ctor 0x620D20 and dtor 0x6210A0 store no table of their own)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown160;				// +0x160 the hull ('S' race 'H' style variant) and the ship  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown164;				// +0x164 the engine, on each part's '~03_nn' bones
 	RefCountPtr<RenderObjClass> Unknown168;				// +0x168 the wing (on the hull's '~02')
