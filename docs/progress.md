@@ -2455,9 +2455,9 @@ below name only the work items, the blocked work, the leads and the queues.
      gadget loops, an inline AvatarDescClass copy, the palette helper inlined twice, `new MemberCallback`), key handler
      0x54CBC0 (slot +0x68, NOT EXACT 0.67: the inlined 0x54EAD0 copies call the converting ctor 0x551D40 out of line
      with the dtor inline, ours the reverse; try the getter chain inside the inlined copies); ui_avatr's key handler
-     0x554E80 (0.27; ~18 dead reads reach 0.64, over D130); NOT EXACT 0x54F390 / ui_avatr 0x55A1F0 0.83 (shape: the client
-     re-tests +0x64 after setting +0x08), 0x55BFB0 0.72 (register: `this` in edi, the index pre-scaled), 0x557290 0.67 (VC6
-     hoists the gender branches' shared opening), 0x54E950 0.75 / 0x54EAD0 0.82 / 0x54EC30 register; untried 0x553AF0,
+     0x554E80 (0.27; ~18 dead reads reach 0.64, over D130); NOT EXACT 0x54F390 0.91 / ui_avatr 0x55A1F0 0.83 (shape: the client
+     re-tests +0x64 after setting +0x08; even `volatile` doesn't make VC6 re-read it: the source structure differs), 0x557290 0.67 (VC6
+     hoists the gender branches' shared opening), 0x54E950 0.75 (LIMIT REACHED) / 0x54EC30 register; untried 0x553AF0,
      0x5582A0, 0x55BAC0, 0x550A10, Init 0x54BD30. ui_avatr.cpp's file-static Set_Rate (interim) is probably ShipPipClass's
      inline setter: move it into ship_pip.h with a full verify; the commented-out UIAvatrFlash block goes in a neutral
      pass that absorbs the line shift (0x55C280's FAIL_IF lines sit below it). The EventCallbackClass + Remove lever for
@@ -2567,9 +2567,8 @@ below name only the work items, the blocked work, the leads and the queues.
      padded to its `__LINE__`s; re-pad after edits with `.work/cs12/reorder.py SRC OUT`): the client holds every member
      +0x2B0..+0x2E4, +0xBC, +0xC0[2], +0x370 / +0x374 as RefCountPtrs (the ctor 0x77C080's EH states); still raw: BodyObj
      (keep it raw: its retype loses 0x781410 and makes nothing exact, 3 raw-alias forms tried; 0x77E9D0 0.57 needs it),
-     Unknown0C0[2] (0x782FF0's `lea` order: parked; would lift 0x7831C0 0.36 -> 0.63 and maybe 0x782200); 0x785C00 0.85
-     (the last x87 divide order: best lead), 0x77F000 0.48 (the client calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC
-     vs 0xA8), 0x782200 0.41 (frame 0x428 vs 0x424), 0x781570 0.74, 0x7885D0 0.52 (inline budget), 0x784700 0.55 (the
+     Unknown0C0[2] (0x782FF0's `lea` order: parked; would lift 0x7831C0 0.36 -> 0.63 and maybe 0x782200); 0x77F000 0.48 (the client calls 0x77FEC0 / 0x7802F0 out of line; frame 0xEC
+     vs 0xA8), 0x782200 0.41 (frame 0x428 vs 0x424), 0x7885D0 0.52 (inline budget), 0x784700 0.55 (the
      queue's dtor 0x781C10 / clear 0x78A510 out of line), 0x780AF0 0.55; 0x782CA0 0.69 frame; 0x77D9F0 0.62 shape (20 forms); the
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
