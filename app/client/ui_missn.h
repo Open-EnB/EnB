@@ -4,13 +4,14 @@
 #ifndef UI_MISSN_H  // NAME 1 [ui_missn.h]: provisional header name for ui_missn.cpp
 #define UI_MISSN_H
 #include "sclient.h"
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// DeltaMissionClass (after auxdata.h, as ui_buff.cpp)
 class GadgetSlider;			// gd_slider.h's slider (+0xB8)
 class GadgetClass;
 class ButtonGadgetClass;
 class TextureClass;
 class RenderObjClass;
 class ViewUnknown34Class;
-class UnknownMissionClass;	// a current mission (ui_missn.cpp declares it as far as it reads it)
 // The missions tab (0xEC bytes, tables 0xAF3C9C / 0xAF3C90 / 0xAF3C84; 0x5738B0 makes it, the second of the character
 // info window's tabs): a 'TSI22A' mesh, the strings of 'fa_TSI22A.ini', a slider, a description panel, a dialog box and the current
 // missions (three a page)
@@ -28,7 +29,8 @@ public:
 	virtual void Unknown_60();							// 0x5C4C90 (FAIL_IFs '!sclient' / '!ad_player')
 	virtual bool Unknown_68(int key);					// 0x5C4EA0 (keys 1..3 a mission, 6 the slider)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5C4490 (the dialog box made again over the view)  // NAME 1 [view, arg]: InterfaceClass's
-	void Unknown_5C5330(bool arg);						// 0x5C5330 (G_ASSERTs l.397-450)  // NAME 1 [arg]: neutral
+	void Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg);	// 0x5C5AC0 (a row's time left, 'Time%02d_TSI22A'; FAIL_IF l.473 'cur_mission_idx >= MISSIONS_PER_PAGE')  // NAME 1 [arg]: neutral (cur_mission_idx: the FAIL_IF's)
+	void Unknown_5C5330(bool arg);						// 0x5C5330 (the page shown again; no asserts of its own: l.397-450 are 0x5C5500's)  // NAME 1 [arg]: neutral
 	void Unknown_5C5DB0(int index);						// 0x5C5DB0 (FAIL_IF '!sclient' l.663)  // NAME 1 [index]: neutral
 	void Unknown_5C6610();								// 0x5C6610 (G_ASSERTs l.688-690)
 	void Unknown_5C66D0();								// 0x5C66D0
@@ -41,7 +43,7 @@ public:
 	bool UnknownC0;										// +0xC0
 	ViewUnknown34Class *UnknownC4;						// +0xC4 (a dialog box over the view: made again by +0x7C, 'UI_MISSN')
 	int CurrentMission;									// +0xC8 (NO_CURRENT_MISSION, else 0..2)  // NAME 3: the G_ASSERT's (l.688)
-	UnknownMissionClass *CurrentMissions[MISSIONS_PER_PAGE];			// +0xCC  // NAME 3: the G_ASSERT's (l.689)
+	DeltaMissionClass *CurrentMissions[MISSIONS_PER_PAGE];			// +0xCC  // NAME 3: the G_ASSERT's (l.689)
 	ButtonGadgetClass *UnknownD8[MAX_GADGETS];				// +0xD8 (1..3: 'HIGHLIGHT%02d', gadgets 1..3; 4 (+0xE8): the forfeit button, 'FORFEIT')
 };
 #endif // UI_MISSN_H

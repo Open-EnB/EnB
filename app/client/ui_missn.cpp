@@ -42,13 +42,13 @@ class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D
 {
 };
 
-// A current mission (CurrentMissions[]), as far as this file reads it
-class UnknownMissionClass	// NAME 1: neutral (D10)
-{
-public:
-	char Unknown000[0x120];								// +0x000
-	int Unknown120;										// +0x120 (the mission's id for the forfeit / dismissal packets)
-};
+// (the current missions are aux_roots.h's DeltaMissionClass: ID +0x120, IsForfeitable +0x5F4, IsComplete +0x67C, IsFailed +0x704, IsExpired +0x78C)
+
+
+
+
+
+
 
 // 0x5C4170
 UIMissnClass::UIMissnClass(SClient *client) :
@@ -178,15 +178,8 @@ void UIMissnClass::Unknown_54()
 	Unknown_10();
 }
 
-
-
-
-
-
-
-
-
-
+// auxdata.h's find through a wrapper whose six dead size() reads (no code) spend the inline budget: 0x5C4C90 then calls the find out of line (0x5AA9D0), as the client does
+template<class C> inline C *Unknown_Find_Field_Outlined(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 
 
 
@@ -212,6 +205,55 @@ void UIMissnClass::Unknown_5C()
 		Unknown_5C5DB0(-1);
 		Unknown5BB320Class::Unknown_5C();
 	}
+}
+
+// 0x5C4C90
+void UIMissnClass::Unknown_60()
+{
+	SClient *sclient = Client->As_Space_Client();
+	FAIL_IF(!sclient) return;
+
+	DeltaPlayerClass *ad_player = sclient->AuxData;
+	FAIL_IF(!ad_player) return;
+
+	NameClass name("Missions");
+	DeltaItemArrayClass<DeltaMissionClass> *missions = Unknown_Find_Field_Outlined<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, name);
+	if (missions && missions->Unknown70 > 1) {
+		Unknown_5C5330(false);
+	} else {
+		for (int i = 0; i < MISSIONS_PER_PAGE; i++) {
+			Unknown_5C5AC0(i, false);
+		}
+	}
+
+	bool on = false;
+	if (!sclient->Unknown1298 || !sclient->Unknown1298->Active || !UnknownC0) {
+		if (CurrentMission != NO_CURRENT_MISSION) {
+			DeltaMissionClass *mission = CurrentMissions[CurrentMission];
+			if (mission && (mission->IsComplete.Value || mission->IsFailed.Value || mission->IsExpired.Value || mission->IsForfeitable.Value)) {
+				on = true;
+			}
+		}
+	}
+	if (!on) {
+		if (UnknownD8[4]->Unknown_60() != false) {
+			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+			UnknownD8[4]->Unknown_40(false);
+			if (font) {
+				font->Set_Hidden(true);
+			}
+		}
+	} else {
+		if (UnknownD8[4]->Unknown_60() != true) {
+			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
+			UnknownD8[4]->Unknown_40(true);
+			if (font) {
+				font->Set_Hidden(false);
+			}
+		}
+	}
+	Unknown_5C6610();
+	Unknown5BB320Class::Unknown_60();
 }
 
 // 0x5C4EA0
@@ -425,87 +467,45 @@ bool UIMissnClass::Unknown_68(int key)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5C5AC0
+void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
+{
+	FAIL_IF(cur_mission_idx >= MISSIONS_PER_PAGE) return;
+	DeltaMissionClass *mission = CurrentMissions[cur_mission_idx];
+	if (!mission && !arg) return;
+
+	char name[64];
+	sprintf(name, "Time%02d_TSI22A", cur_mission_idx);
+	FontSys *time_font = Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object());
+
+
+
+	FAIL_IF(!time_font) return;
+
+	int time = 0;
+	if (mission) {
+		int stage_idx = mission->Stage.Value - 1;
+
+		G_ASSERT(stage_idx >= 0);
+		if (stage_idx >= 0 && ((DeltaMissionStageClass *)mission->Stages.Children[stage_idx])->IsTimed.Value) {
+			time = mission->StageExpirationTime.Value.As_Int();
+		} else if (mission->IsTimed.Value) {
+			time = mission->ExpirationTime.Value.As_Int();
+		}
+	}
+	time -= ((ClientClass *)Client)->Unknown10BC;
+	if (time > 0) {
+		int secs = time / 1000;
+		int minutes = secs / 60;
+		if (minutes) {
+			time_font->Unknown_6CE420(0, "%d:%02d", minutes / 60, minutes % 60);
+		} else {
+			time_font->Unknown_6CE420(0, "%d secs", secs);
+		}
+	} else {
+		time_font->Unknown_6CE420(0, " ");
+	}
+}
 
 
 
@@ -689,7 +689,7 @@ void UIMissnClass::Unknown_5C66D0()
 	FAIL_IF(!CurrentMissions[CurrentMission]) return;
 	FAIL_IF(!Client) return;
 
-	int id = CurrentMissions[CurrentMission]->Unknown120;
+	int id = CurrentMissions[CurrentMission]->ID.Value;
 	int playerid = ((ClientClass *)Client)->Unknown1138;
 	if (UnknownC0) {
 		((ClientClass *)Client)->Send_Packet(&MissionForfeitPacketClass(playerid, id));
