@@ -2530,17 +2530,19 @@ below name only the work items, the blocked work, the leads and the queues.
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
      slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
      0x558EA0 (register only), 0x5591E0 (0.77) / 0x559010 (0.65), 0x559350 (D193); swatch (negative) and secret decals untested; the functional
-     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 15 (CS3, 2026-11-05: map loops 0x6249D0 / 0x625930 / 0x6259C0 call the map's `_Min` out
+     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), ui_shipcust's 15 (CS3, 2026-11-05: map loops 0x6249D0 / 0x625930 / 0x6259C0 call the map's `_Min` out
      of line where the client inlines it (exact 0x6257A0 / 0x6280E0 / 0x628900 inline it: find why); 0x622B90 inline budget
      (`begin()` / `erase()` out of line); 0x624E50 / 0x627200 (the client saves all registers at entry); 0x621530 order
      (13 rows, form in attempts), 0x621390 / 0x6280E0 register; untried 0x622180, 0x623080, 0x624270, 0x625A60, 0x6277A0,
      0x628420),
-     ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
+     ui_shard's 0x616220 (register: the inlined 0x617660's eax vs ecx), shiputils 0x80EAF0 0.38 (asserts on client lines
+     41 / 45 / 59: lay the file out first), AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
      98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
-     store order and the first dialog string's inline `_Eos`; docs/attempts/574710/), 0x575D50 (parked: `add ecx,0x88`), ShipPip (PIP, 2026-11-04) 0x80CE10
-     0.83 (frame: the trackball's Matrix3D inverse / Quaternion slots), 0x80D5E0 0.65 (literal: FPU order of Translate(-center)),
-     0x80CA30 0.62 (frame 0x48 vs 0x44: the clamp's min / max), 0x80C640 0.50 (frame 0xA0 vs 0x74: a Matrix3D temporary for +0x6C,
-     the bone index in ebp), avatar 0x77D9F0 (shape); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
+     store order and the first dialog string's inline `_Eos`; docs/attempts/574710/), 0x575D50 (parked: `add ecx,0x88`), ShipPip (PIP, 2026-11-04; CS5 2026-11-05) 0x80CE10
+     0.84 (7 bytes: one `mov ecx, edi` in the inlined Translate(-center), docs/attempts/80CE10/), 0x80D5E0 0.65 (the inlined
+     Unknown_80E7D0 returns in eax, the client's in ecx; likely 0x80CE10's blocker: wwmath's Matrix3D::Translate inline body),
+     0x80CA30 0.62 (frame 0x48 vs 0x44: the clamp's min / max), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
+     through stack temps; four Set / Matrix3D-temp forms compile identically), avatar 0x77D9F0 (shape); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
      0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
