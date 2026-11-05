@@ -2520,7 +2520,7 @@ fail_if !ship_ui (line 3425)
 fail_if !avatar_ui (line 3438)
 check 129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '!avatar_ui', nothing called: ok
 msg 1 RECUSTOMIZE_AVATAR_UPDATE (133) size 249: cpacket.cpp's handler
-recustomize calls: 61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc) 
+recustomize calls: 551C40(cost) 6437A0(7, desc) 
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
 msg 1 ? (235) size 36: cpacket.cpp's handler

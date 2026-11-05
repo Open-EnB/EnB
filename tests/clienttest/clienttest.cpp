@@ -1478,14 +1478,14 @@ static void Test_Recustomize(SClient *client)
 	ship_start.Process_Packet(client);
 	avatar_start.Process_Packet(client);
 	Check(Recustomize_Log == "", "129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '!avatar_ui', nothing called");
-	*(char **)(view + 0x1A0) = fake_ship_ui;
+	// +0x1A0 stays clear from here: it is a StarbaseShipCustomizeInterface now (ui_ship_cust.h) and 0x61F250 is the real one,
+	// linked from app.lib(ui_ship_cust.obj), which needs the whole window; a 4-byte fake crashed it (0xC0000005)
 	*(char **)(view + 0x19C) = fake_avatar_ui;
-	ship_start.Process_Packet(client);
 	avatar_start.Process_Packet(client);
 	Memory->Incoming.push_back(Built_Message(&RecustomizeAvatarUpdatePacketClass(7, AvatarDescClass())));
 	client->Process_Packets();
 	Trace("recustomize calls: %s", Recustomize_Log.c_str());
-	Check(Recustomize_Log == "61F250(desc, cost, 2, 3, 4, 5) 551C40(cost) 6437A0(7, desc) ",
+	Check(Recustomize_Log == "551C40(cost) 6437A0(7, desc) ",
 		"129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description");
 	client->Unknown135C = saved;
 	Memory->Received = 0;

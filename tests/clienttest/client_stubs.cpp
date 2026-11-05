@@ -314,3 +314,10 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 // gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
 #include "..\..\..\app\client\control_keys_manager.h"
 ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
+
+// ------------------------------------------------------------------------- money.cpp's comparison
+
+// money.cpp's 0x4F0740 (cdecl, not rebuilt), declared by ui_ship_cust.cpp / ui_avatar_cust.cpp: ui_ship_cust.obj links since
+// the SClient / UI chain reaches it. clienttest never opens the ship customization window: this only links.
+#include "..\..\..\app\shared\money.h"
+bool operator>=(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>=(MoneyClass)"); return(a.Unknown00 >= b.Unknown00); }
