@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 104 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1209 |
+| 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3007 |
 | 1 | neutral placeholder | 13225 |
 
@@ -1901,19 +1901,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/ctrngadg.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/client/ctrngadg.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ctrngadg.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown619280Class` | `app/client/decal.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/decal.cpp:26` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/decal.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_61DF40` | `app/client/decal.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_82EF70` | `app/client/decal.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/decal.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/decal.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/decal.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/decal.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/decal.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_4BC260` | `app/client/decal.cpp:119` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/decal.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/decal.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/decal.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/decal.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/decal.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/decal.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/decal.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_82EF70` | `app/client/decal.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown619280Class` | `app/client/decal.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC260` | `app/client/decal.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_75CB10` | `app/client/decal.cpp:154` | untagged neutral name (D10) |
 | 1 | `epsilon` | `app/client/decal.cpp:169` | neutral; a float variable, not a literal: the client compares with fld / fcompp |
+| 1 | `Unknown_61DF40` | `app/client/decal.cpp:200` | untagged neutral name (D10) |
 | 1 | `decal.h` | `app/client/decal.h:4` | provisional header name for decal.cpp |
 | 1 | `Unknown619280Class` | `app/client/decal.h:18` | neutral (D10): 0x44 bytes, constructor 0x619280 |
 | 1 | `Unknown00` | `app/client/decal.h:24` | untagged neutral name (D10) |
@@ -13527,7 +13527,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `EmoteDataClass` | `app/client/cpacket.cpp:108` | co_data.h's name for what Get_Emote_Data returns |
-| 2 | `Load` | `app/client/decal.h:36` | what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names |
+| 2 | `Load` | `app/client/decal.h:36` | what it does |
 | 2 | `DefaultFontData` | `app/client/deffont.cpp:17` | the file's name (deffont) and FontData[0] |
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
@@ -16323,8 +16323,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CameraManagerClass` | `app/client/ctrngadg.cpp:30` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
-| 3 | `decal.cpp` | `app/client/decal.cpp:22` | the FAIL_IF's 'i - SECRET_DECALS' |
-| 3 | `decal_texture_ini_filename` | `app/client/decal.cpp:74` | the FAIL_IF's |
+| 3 | `decal.cpp` | `app/client/decal.cpp:15` | the FAIL_IF's 'i - SECRET_DECALS' |
 | 3 | `i, mat_desc` | `app/client/decal.h:38` | the FAIL_IFs'; NAME 1 [color]: neutral |
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |

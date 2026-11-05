@@ -1,12 +1,6 @@
-// Earth & Beyond client (reconstruction): decal.cpp (the client's 'e:\build\beta\G\app\Client\decal.cpp', its FAIL_IF /
-// assert path), the decal library: the ship's insignias (decal_textures.ini), the secret ones
-// (secret_decal_textures.ini) and the swatches (decal_swatches.ini, each a mesh whose passes are copied), and the
-// material of one decal index for shiputils.cpp's 0x80EAF0. The character creator's ship screen (ui_shipcust.cpp),
-// the game (sclient.cpp) and the scripted movies load it with the same three INI names.
+// Earth & Beyond client (reconstruction): decal.cpp, the decal library (notes at the end)
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
-#include <vector>
 #include "decal.h"
 #include "..\shared\unknown_debug.h"
 #include "..\shared\unknown_message.h"
@@ -18,50 +12,17 @@
 #include "..\..\ww3d2\meshmdl.h"
 #include "..\..\ww3d2\texture.h"
 #include "..\..\ww3d2\vertmaterial.h"
-
 #define SECRET_DECALS 1000	// NAME 3: the FAIL_IF's 'i - SECRET_DECALS'
-
-// @0x619280
-Unknown619280Class::Unknown619280Class()
-	: Unknown00(0)
-{
-}
-// @0x618C10
-Unknown619280Class::~Unknown619280Class()
-{
-}
-// @0x618A50
-SClientUnknown1334Class::~SClientUnknown1334Class()
-{
-}
-// @0x61DF40
-RefCountPtr<TextureClass> SClientUnknown1334Class::Unknown_61DF40(int index)
-{
-	return TextureArray[index];
-}
-// @0x82EF70
-TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
-{
-	char name[50];
-	ini.Get_String(section, "File", "default.tga", name, sizeof(name));
-	bool wrap = ini.Get_Bool(section, "TextureWrap", true);
-	TextureClass *texture = AssetManager->Get_Texture(name);
-	if (!wrap) {
-		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-	}
-	return texture;
-}
-// NOT EXACT: functional (D64), from the pseudocode: the two base materials, then each INI's sections in order
+// NOT EXACT: functional (D64), from the pseudocode
 // @0x75BE00
-void SClientUnknown1334Class::Load(const char *textures, const char *swatches, const char *secret_textures)
+void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const char *decal_swatch_ini_filename, const char *secret_texture_ini_filename)
 {
 	Unknown30.Unknown00 = 1;
 	Unknown30.Unknown04[0][0] = NULL;
 	Unknown30.Unknown04[0][1] = NULL;
 	Unknown30.Unknown24[0] = ShaderClass::_PresetAlphaShader;
 	Unknown30.Unknown24[0].Set_Fog_Func(ShaderClass::FOG_ENABLE);
-	Unknown30.Unknown34[0] = Create_Get(new VertexMaterialClass);
+	Unknown30.Unknown34[0] = Create_NEW(new VertexMaterialClass);
 	Unknown30.Unknown34[0]->Set_Lighting(true);
 	Unknown74.Unknown00 = 1;
 	Unknown74.Unknown04[0][0] = NULL;
@@ -70,16 +31,18 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 	Unknown74.Unknown24[0].Set_Color_Mask(ShaderClass::COLOR_WRITE_DISABLE);
 	Unknown74.Unknown24[0].Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
 	Unknown74.Unknown24[0].Set_Texturing(ShaderClass::TEXTURING_DISABLE);
-	Unknown74.Unknown34[0] = Create_Get(new VertexMaterialClass);
-	FAIL_IF(!textures) return;	// NAME 3 [decal_texture_ini_filename]: the FAIL_IF's
-	FAIL_IF(!swatches) return;
-	FAIL_IF(!secret_textures) return;
-	INIClass texture_ini(textures);
-	INIClass swatch_ini(swatches);
-	INIClass secret_ini(secret_textures);
+	Unknown74.Unknown34[0] = Create_NEW(new VertexMaterialClass);
+
+	FAIL_IF(!decal_texture_ini_filename) return;
+	FAIL_IF(!decal_swatch_ini_filename) return;
+	FAIL_IF(!secret_texture_ini_filename) return;
+	INIClass texture_ini(decal_texture_ini_filename);
+	INIClass swatch_ini(decal_swatch_ini_filename);
+	INIClass secret_ini(secret_texture_ini_filename);
 	char section[252];
 	int i;
-	TextureArray.erase(TextureArray.begin(), TextureArray.end());
+
+	TextureArray.clear();
 	TextureArray.reserve(texture_ini.Section_Count());
 	for (i = 0; ; i++) {
 		sprintf(section, "Decal%04d", i);
@@ -89,9 +52,10 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 		RefCountPtr<TextureClass> texture = Create_Get(Unknown_82EF70(texture_ini, section));
 		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		TextureArray.insert(TextureArray.end(), 1, texture);
+		TextureArray.push_back(texture);
 	}
-	SecretTextureArray.erase(SecretTextureArray.begin(), SecretTextureArray.end());
+
+	SecretTextureArray.clear();
 	SecretTextureArray.reserve(secret_ini.Section_Count());
 	for (i = 0; ; i++) {
 		sprintf(section, "Decal%04d", i);
@@ -101,9 +65,10 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 		RefCountPtr<TextureClass> texture = Create_Get(Unknown_82EF70(secret_ini, section));
 		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		SecretTextureArray.insert(SecretTextureArray.end(), 1, texture);
+		SecretTextureArray.push_back(texture);
 	}
-	SwatchArray.erase(SwatchArray.begin(), SwatchArray.end());
+
+	SwatchArray.clear();
 	SwatchArray.reserve(swatch_ini.Section_Count());
 	for (i = 0; ; i++) {
 		sprintf(section, "Decal%02d", i);
@@ -114,20 +79,14 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 		char name[252];
 		char filename[256];
 		swatch_ini.Get_String(section, "Swatch", "", name, 0xFB);
-		if (name[0] == '\0') {
-			G_ASSERT(0);
-			Unknown_4BC260("Decals", "", __FILE__, __LINE__, "No Swatch specified in decal_swatches.ini for swatch decal %d", i);
-		} else {
+		if (name[0] != '\0') {
 			sprintf(filename, "%s.w3d", name);
 			RenderObjClass *robj = AssetManager->Create_Render_Obj(name);
 			if (robj == NULL) {
 				AssetManager->Load_3D_Assets(filename);
 				robj = AssetManager->Create_Render_Obj(name);
 			}
-			if (robj == NULL) {
-				G_ASSERT(0);
-				Unknown_4BC260("Decals", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for swatch decal %d", name, filename, i);
-			} else {
+			if (robj != NULL) {
 				if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 					MeshModelClass *model = ((MeshClass *)robj)->Peek_Model();
 					unsigned int passes = model->Get_Pass_Count();
@@ -139,16 +98,57 @@ void SClientUnknown1334Class::Load(const char *textures, const char *swatches, c
 						swatch.Unknown24[pass] = model->Get_Single_Shader(pass);
 						swatch.Unknown34[pass] = Create_Peek(model->Peek_Single_Material(pass));
 					}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				} else {
 					G_ASSERT(0);
 					Unknown_4BC260("Decals", "", __FILE__, __LINE__, "Swatch %s for swatch decal %d is not a mesh!", name, i);
 				}
 				robj->Release_Ref();
+
+
+			} else {
+				G_ASSERT(0);
+				Unknown_4BC260("Decals", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for swatch decal %d", name, filename, i);
 			}
+
+		} else {
+			G_ASSERT(0);
+			Unknown_4BC260("Decals", "", __FILE__, __LINE__, "No Swatch specified in decal_swatches.ini for swatch decal %d", i);
 		}
-		SwatchArray.insert(SwatchArray.end(), 1, swatch);
+		SwatchArray.push_back(swatch);
 	}
 }
+
+
 // NOT EXACT: stack slot (operator new's temporary in [esp + 0x28] against the client's 0x30; nothing else differs)
 // @0x75CB10
 void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc)
@@ -183,13 +183,60 @@ void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknow
 	}
 }
 
+// @0x619280
+Unknown619280Class::Unknown619280Class()
+	: Unknown00(0)
+{
+}
+// @0x618C10
+Unknown619280Class::~Unknown619280Class()
+{
+}
+// @0x618A50
+SClientUnknown1334Class::~SClientUnknown1334Class()
+{
+}
+// @0x61DF40
+RefCountPtr<TextureClass> SClientUnknown1334Class::Unknown_61DF40(int index)
+{
+	return TextureArray[index];
+}
+#pragma auto_inline(off)
+// @0x82EF70
+TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
+{
+	char name[50];
+	ini.Get_String(section, "File", "default.tga", name, sizeof(name));
+	bool wrap = ini.Get_Bool(section, "TextureWrap", true);
+	TextureClass *texture = AssetManager->Get_Texture(name);
+	if (!wrap) {
+		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+	}
+	return texture;
+}
+#pragma auto_inline(on)
+
 /*
-**	Reconstruction notes (decal.cpp). They sit here to keep 0x75CB10's FAIL_IFs on the client's lines 157 / 159 / 161
-**	(Load's own asserts, client lines 36-38 and 132-145, are not on theirs yet: Load is functional).
+**	Reconstruction notes (decal.cpp, 'e:\build\beta\G\app\Client\decal.cpp'): the decal library, the ship's insignias
+**	(decal_textures.ini), the secret ones (secret_decal_textures.ini, indices from 1000) and the swatches
+**	(decal_swatches.ini, each a mesh whose passes are copied), and the material of one decal index for shiputils.cpp's
+**	0x80EAF0. The character creator's ship screen (ui_shipcust.cpp), the game (sclient.cpp) and the scripted movies
+**	load it with the same three INI names. The asserts sit on the client's lines (Load: FAIL_IFs 36-38, G_ASSERTs
+**	132 / 139 / 144 with __LINE__ on the next line; 0x75CB10: 157 / 159 / 161): blank lines pad Load to them.
 **
 **	Placement: the class's destructor 0x618A50, its 0x61DF40 and the material's constructor / destructor 0x619280 /
 **	0x618C10 sit in the 0x61xxxx range (ui_shipcust.cpp's neighbours), 0x82EF70 far after; all are here for now
-**	(interim placement, D137) until their objects are known.
+**	(interim placement, D137) until their objects are known, after Load and 0x75CB10 so the asserts fit. Load calls
+**	0x82EF70 out of line (another file's function in the client): auto_inline(off) keeps VC6 from inlining it here.
+**
+**	Load: the parameters are the FAIL_IFs' names; clear() (the first one's erase out of line, 0x75D0B0, the other two's
+**	copy, 0x75DAE0 / 0x75DB50, as in the client) and push_back (its insert(end(), 1, x) out of line, 0x75D280 /
+**	0x75D5F0, as in the client, where insert(end(), 1, x) written out inlines the texture ones); the swatch's
+**	not-a-mesh / not-created / no-name branches nest in the asserts' line order. The two base materials take
+**	Create_NEW: the client calls 0x75CFA0 there, a GET-form wrapper other than 0x75CB10's Create_Get 0x47D040 (same
+**	body; the name is a guess among ref_ptr.h's two GET forms). Left (0.46): the client keeps &Unknown30 in a slot
+**	and has 8 more bytes of frame.
 **	0x619280: 0x8441B in each shader is ShaderClass's default. 0x618C10: the members' destructors. 0x618A50: the
 **	vectors' elements released. 0x82EF70: 'File' (default 'default.tga') through the asset manager, clamped unless
 **	'TextureWrap'. Load: an insignia's base is one pass, alpha blended and fogged, lit; an empty slot's draws nothing.

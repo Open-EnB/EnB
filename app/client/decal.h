@@ -33,7 +33,7 @@ class SClientUnknown1334Class	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0
 {
 public:
 	~SClientUnknown1334Class();							// 0x618A50
-	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00  // NAME 2: what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names
+	void Load(const char *decal_texture_ini_filename, const char *decal_swatch_ini_filename, const char *secret_texture_ini_filename);	// 0x75BE00  // NAME 2: what it does
 	RefCountPtr<TextureClass> Unknown_61DF40(int index);	// 0x61DF40 (the insignia's texture)  // NAME 1 [index]: neutral
 	void Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc);	// 0x75CB10 (decal index's material, tinted)  // NAME 3 [i, mat_desc]: the FAIL_IFs'; NAME 1 [color]: neutral
 
