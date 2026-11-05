@@ -87,7 +87,7 @@ public:
 	void Unknown_624DF0();							// 0x624DF0
 	void Unknown_624E20();							// 0x624E20
 	void Unknown_624E50();							// 0x624E50 (the colour pull dragged)
-	void Unknown_6251F0(float u, float v);			// 0x6251F0 (the colour's palette position)  // NAME 1 [u, v]: neutral
+	void Unknown_6251F0(Vector2 uv);				// 0x6251F0 (the colour's palette position; its callers copy a Vector2 onto the stack)  // NAME 1 [uv]: neutral
 	void Unknown_625260();							// 0x625260 (the pull to the colour's palette position)
 	void Unknown_625440();							// 0x625440 (the colour palette and its pull; G_ASSERT 'ColorSliderTexture' l.1600)
 	void Unknown_625760(bool on);					// 0x625760 (the pull shown)  // NAME 1 [on]: neutral
@@ -100,7 +100,7 @@ public:
 	bool *Unknown_6271A0();							// 0x6271A0 (the setting's matte flag)
 	ShipCustomizationMetal *Unknown_6271D0();		// 0x6271D0 (the setting's metal)
 	void Unknown_627200();							// 0x627200 (RANDOM)
-	void Unknown_627730(float r, float g, float b);	// 0x627730 (the colour)  // NAME 1 [r, g, b]: neutral
+	void Unknown_627730(Vector3 color);				// 0x627730 (the colour; its callers copy a Vector3 onto the stack)  // NAME 1 [color]: neutral
 	void Unknown_6277A0();							// 0x6277A0 (the page's buttons from the description)
 	void Unknown_627FA0();							// 0x627FA0 (the insignia buttons; inlined in 0x625A60)
 	void Unknown_6280E0();							// 0x6280E0 (the insignia list's textures)

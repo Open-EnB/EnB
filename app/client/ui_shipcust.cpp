@@ -1389,7 +1389,7 @@ void ShipCustomizeInterface::Unknown_624E50()
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown258].Settings[Unknown25C].Color : &Desc.Ship_Name_Color;
 		Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, u, 1.0f - v, color);
-		Unknown_6251F0(u, v);
+		Unknown_6251F0(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(CharacterView->Unknown3A4);
 		} else {
@@ -1400,15 +1400,15 @@ void ShipCustomizeInterface::Unknown_624E50()
 }
 
 
-
+#pragma auto_inline(off)	// every client caller calls 0x6251F0 out of line
 // @0x6251F0
-void ShipCustomizeInterface::Unknown_6251F0(float u, float v)
+void ShipCustomizeInterface::Unknown_6251F0(Vector2 uv)
 {
 	float *position = Unknown_627110();
-	position[0] = u;
-	position[1] = v;
+	position[0] = uv.X;
+	position[1] = uv.Y;
 }
-
+#pragma auto_inline(on)
 
 
 // @0x625260
@@ -1914,10 +1914,10 @@ void ShipCustomizeInterface::Unknown_627200()
 			Desc.Hull_Style = Unknown_BDBB84(0, 2);
 			Desc.Wing_Style = Unknown_BDBB84(0, 2);
 			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
-			if (Unknown22C->Unknown054.Peek() != NULL) {
-				Unknown22C->Unknown_84(Unknown160);
-			} else {
+			if (Unknown22C->Unknown054.Peek() == NULL) {
 				Unknown22C->Unknown_7C(Unknown160);
+			} else {
+				Unknown22C->Unknown_84(Unknown160);
 			}
 			Unknown_6277A0();
 			return;
@@ -1931,23 +1931,23 @@ void ShipCustomizeInterface::Unknown_627200()
 				int metal_or_paint = Unknown_BDBB84(0, 1);
 				int matte = Unknown_BDBB84(0, 1);
 				int metal = Unknown_BDBB84(0, 2);
-				float u = 0.0f;
-				float v = 0.0f;
-				Vector3 color(0.0f, 0.0f, 0.0f);
+				Vector2 uv;
+
+				Vector3 color;
 				if (metal_or_paint == 0) {
-					u = (float)Unknown_BDBB84(0, 100) * 0.01f;
-					v = (float)Unknown_BDBB84(0, 100) * 0.01f;
-					Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, u, 1.0f - v, &color);
+					uv.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
+					uv.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
+					RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj; Unknown_496C00(robj, uv.X, 1.0f - uv.Y, &color);
 				}
 				for (int p = 0; p < 4; p++) {
 					Unknown258 = p;
-					if (metal_or_paint == 0) {
-						Unknown_627730(color.X, color.Y, color.Z);
-						Unknown_6251F0(u, v);
+					if (metal_or_paint != 0) {
+						*Unknown_6271D0() = (ShipCustomizationMetal)metal;
+					} else {
+						Unknown_627730(color);
+						Unknown_6251F0(uv);
 						*Unknown_6271D0() = METAL_NONE;
 						*Unknown_6271A0() = (matte != 0);
-					} else {
-						Desc.Parts[p].Settings[s].Metal = (ShipCustomizationMetal)metal;
 					}
 				}
 			}
@@ -1977,12 +1977,12 @@ void ShipCustomizeInterface::Unknown_627200()
 
 		case 3:
 		{
-			Desc.Unknown3C.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
-			Desc.Unknown3C.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
-			Vector3 color(0.0f, 0.0f, 0.0f);
-			Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
-			Unknown_627730(color.X, color.Y, color.Z);
-			Unknown_6251F0(Desc.Unknown3C.X, Desc.Unknown3C.Y);
+			Vector2 *position = &Desc.Unknown3C;
+			position->X = (float)Unknown_BDBB84(0, 100) * 0.01f; position->Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
+			Vector3 color;
+			RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj; Unknown_496C00(robj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
+			Unknown_627730(color);
+			Unknown_6251F0(Desc.Unknown3C);
 			Unknown_625260();
 			Unknown_621500();
 			Unknown_6277A0();
@@ -1993,16 +1993,16 @@ void ShipCustomizeInterface::Unknown_627200()
 }
 
 
-
+#pragma auto_inline(off)	// every client caller calls 0x627730 out of line
 // @0x627730
-void ShipCustomizeInterface::Unknown_627730(float r, float g, float b)
+void ShipCustomizeInterface::Unknown_627730(Vector3 color)
 {
-	Vector3 *color = Unknown_627160();
-	color->X = r;
-	color->Y = g;
-	color->Z = b;
+	Vector3 *setting = Unknown_627160();
+	setting->X = color.X;
+	setting->Y = color.Y;
+	setting->Z = color.Z;
 }
-
+#pragma auto_inline(on)
 
 
 // @0x6277A0
