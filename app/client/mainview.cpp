@@ -319,7 +319,7 @@ void MainViewClass::Unknown_08()
 	Group = new UIGroupClass(Client);
 	Group->Unknown_54();
 	Group->Unknown_7C(this, 0);
-	Unknown1E4 = new MainViewUnknown1E4Class(Client);
+	Unknown1E4 = new UIPTradeClass(Client);
 	Unknown1E4->Unknown_54();
 	Unknown1E4->Unknown_7C(this, 0);
 	Unknown1DC = new MainViewUnknown1DCClass(this, Unknown110);

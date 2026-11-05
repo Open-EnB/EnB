@@ -455,11 +455,12 @@ class UIBuffClass;
 
 
 
-// what the main view's +0x1E4 points to (0x50C690 makes it for the client, then its slot +0x7C with the view)
-class MainViewUnknown1E4Class : public InterfaceClass	// NAME 1: neutral (D10)
+// ui_ptrade.cpp's player trade interface: the main view's +0x1E4 (0x50C690 makes it, then its slot +0x7C with the view) and the starbase view's +0x1A4 (TRADE 31; 0x69B5E0)
+class UIPTradeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
 {
 public:
-	MainViewUnknown1E4Class(SClient *client);			// 0x5E1BE0 (0xE8 bytes)  // NAME 1 [client]: what 0x50C690 passes
+	UIPTradeClass(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
+	void Unknown_5E2F70(bool on); void Unknown_5E3050(bool on); void Unknown_5E3130();	// 0x5E2F70 (TRADE 31 types 3 / 4), 0x5E3050 (types 5 / 6), 0x5E3130 (type 2)  // NAME 1 [on]: what the handler passes
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
 	virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
@@ -661,7 +662,7 @@ public:
 	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
 	MainViewUnknown1DCClass *Unknown1DC;						// +0x1DC (0x513600 calls its +0x8C)
 	MainViewUnknown1E0Class *Unknown1E0;				// +0x1E0 (Shutdown 0x50C2F0 releases it first)
-	MainViewUnknown1E4Class *Unknown1E4;				// +0x1E4 (0x514220 calls its +0x5C; 0x50C690 makes it)
+	UIPTradeClass *Unknown1E4;				// +0x1E4 (0x514220 calls its +0x5C; 0x50C690 makes it)
 	WWProfileIterator *ProfileIterator;					// +0x1E8 (0x50BA60: WWProfileManager::Get_Iterator)  // NAME 2: what it holds
 };
 

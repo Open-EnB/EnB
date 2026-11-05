@@ -2170,7 +2170,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
 		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
-		trade = (UIPTradeClass *)sclient->MainView->Unknown1E4;
+		trade = sclient->MainView->Unknown1E4;
 	}
 	if (!trade) return(true); {
 		switch ((unsigned char)Type) {
