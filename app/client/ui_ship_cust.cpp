@@ -240,199 +240,199 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (D64)
+// @0x619470
+bool StarbaseShipCustomizeInterface::Unknown_68(int key)
+{
+	if (Unknown235) {
+		return(false);
+	}
+	if (!Unknown334) {
+		return(true);
+	}
+	switch (key) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_61BAC0(key);
+			Unknown23C = 5;
+			Unknown237 = true;
+			return(false);
+
+		case 5:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			if (NameGadget) {
+				NameGadget->Unknown_74(false);
+			}
+			Unknown_61EF60();
+			return(true);
+
+		case 6:
+		case 0x1B:
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			Unknown23C = 0;
+			Unknown239 = true;
+			if (NameGadget) {
+				NameGadget->Unknown_74(false);
+			}
+			return(true);
+
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Hull_Style < 0) {
+				Desc.Hull_Style = 2;
+			}
+			Unknown_61D260();
+			Unknown_61AFC0();
+			return(false);
+
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Hull_Style > 2) {
+				Desc.Hull_Style = 0;
+			}
+			Unknown_61D260();
+			Unknown_61AFC0();
+			return(false);
+
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Wing_Style < 0) {
+				Desc.Wing_Style = 2;
+			}
+			Unknown_61D260();
+			Unknown_61AFC0();
+			return(false);
+
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Wing_Style > 2) {
+				Desc.Wing_Style = 0;
+			}
+			Unknown_61D260();
+			Unknown_61AFC0();
+			return(false);
+
+		case 0x0F:
+		case 0x10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_61D200() = (key == 0x0F);
+			Unknown_61BAC0(key);
+			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
+			Unknown_61F180();
+			Unknown_621390(Unknown318, Unknown330);
+			Unknown_61F180();
+			Unknown_61D260();
+			return(false);
+
+		case 0x11:
+		case 0x12:
+		case 0x13:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_61D230() = (ShipCustomizationMetal)(key - 0x11);
+			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
+			Unknown_61F180();
+			Unknown_61D260();
+			return(false);
+
+		case 0x14:
+		case 0x15:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown310 = key - 0x14;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
+			return(false);
+
+		case 0x16:
+		case 0x17:
+		case 0x18:
+		case 0x19:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown30C = (key == 0x16) ? 0 : (key == 0x17) ? 2 : (key == 0x18) ? 1 : 3;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
+			return(false);
+
+		case 0x1A:
+		{
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", Mesh->Peek_Object());
+			if (style != NULL && style->Unknown300) {
+				style->Set_Hidden(1);
+			}
+			char *text = NameGadget->Get_Text();
+			NameGadget->Set_Text((text != NULL && *text != 0) ? text : NULL, 0);
+			NameGadget->Unknown_74(true);
+			delete text;
+			return(false);
+		}
+
+		case 0x1C:
+		case 0x1D:
+		case 0x1E:
+		case 0x1F:
+		case 0x20:
+		case 0x21:
+		case 0x22:
+		case 0x23:
+		case 0x24:
+		case 0x25:
+		case 0x26:
+		case 0x27:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown318 = Unknown314 - 0x1C + key;
+			if (Unknown318 >= 1) {
+				Desc.Selected_Decal = Unknown318 - 1;
+			} else if (Unknown318 < 0) {
+				Desc.Selected_Decal = Unknown318;
+			} else {
+				Desc.Selected_Decal = 0x7FFFFFF;
+			}
+			Unknown_61DBF0();
+			Unknown_621390(Unknown318, Unknown330);
+			Unknown_61F180();
+			return(false);
+
+		case 0x28:
+			if (Unknown314 != 0) {
+				Unknown314--;
+			}
+			Unknown_61DBF0();
+			Unknown_61D260();
+			return(false);
+
+		case 0x29:
+			if ((unsigned int)Unknown314 < Unknown330->TextureArray.size() - 8) {
+				Unknown314++;
+			}
+			Unknown_61DBF0();
+			Unknown_61D260();
+			return(false);
+
+		case 0x30:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown2E0->Unknown_88();
+			return(false);
+
+		case 0x31:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown2E0->Unknown_8C();
+			return(false);
+
+		case 0x32:
+			if (Page == 1) {
+				*Unknown_61D230() = METAL_NONE;
+				Unknown_61D260();
+			}
+			Unknown_61F180();
+			return(false);
+	}
+	return(false);
+}
 
 
 
@@ -2195,6 +2195,6 @@ void StarbaseShipCustomizeInterface::Unknown_61F690()
 // The gadget map's element is this file's own StarbaseShipCustGadgetStruct, not ui_shipcust.h's ShipCustGadgetStruct:
 // the client's two maps are separate instantiations (this file's _Nil / _Nilrefs 0xBE5E28 / 0xBE5E24 in 0x618570 and
 // 0x6209D0, ui_shipcust.cpp's 0xBE5E44 in 0x629B70).
-// Not in yet: the events slot +0x68 0x619470 (a switch on the gadget ids 1-0x32, jump table 0x61A0D8 / 0x61A144; as
-// ui_shipcust.cpp's 0x623080), the part's assignment 0x619320 (emitted, not exact: its loop pointer starts at +0x08
+// The events slot +0x68 0x619470 is functional (its switch on the gadget ids 1-0x32 written with merged cases; jump table
+// 0x61A0D8 / 0x61A144). Not exact or not in: the part's assignment 0x619320 (emitted, not exact: its loop pointer starts at +0x08
 // where the client's starts at +0x18) and 0x61E860 / 0x61E880 (Mesh's 0x5B8850 with (0, 0) and (arg, 1); no callers).

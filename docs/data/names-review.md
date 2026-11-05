@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1210 |
 | 2 | describes what the code does | 3006 |
-| 1 | neutral placeholder | 13500 |
+| 1 | neutral placeholder | 13503 |
 
 ## For review (score 3 and below)
 
@@ -9783,6 +9783,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78` | `app/client/ui_ship_cust.cpp:236` | untagged neutral name (D10) |
 | 1 | `Unknown_61DF80` | `app/client/ui_ship_cust.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_61B170` | `app/client/ui_ship_cust.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ship_cust.cpp:245` | untagged neutral name (D10) |
+| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_61EF60` | `app/client/ui_ship_cust.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown_61D260` | `app/client/ui_ship_cust.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown_61AFC0` | `app/client/ui_ship_cust.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_61B580` | `app/client/ui_ship_cust.cpp:345` | untagged neutral name (D10) |
+| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_ship_cust.cpp:418` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_ship_cust.cpp:423` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F24` | `app/client/ui_ship_cust.cpp:635` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/ui_ship_cust.cpp:635` | untagged neutral name (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_ship_cust.cpp:636` | untagged neutral name (D10) |
@@ -9794,28 +9807,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_69F440` | `app/client/ui_ship_cust.cpp:727` | untagged neutral name (D10) |
 | 1 | `Get_Unknown34` | `app/client/ui_ship_cust.cpp:729` | untagged neutral name (D10) |
 | 1 | `Unknown_61AC20` | `app/client/ui_ship_cust.cpp:732` | untagged neutral name (D10) |
-| 1 | `Unknown_61D260` | `app/client/ui_ship_cust.cpp:739` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_ship_cust.cpp:748` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_ship_cust.cpp:750` | untagged neutral name (D10) |
 | 1 | `Unknown_61AD30` | `app/client/ui_ship_cust.cpp:763` | untagged neutral name (D10) |
 | 1 | `Unknown_61ADA0` | `app/client/ui_ship_cust.cpp:772` | untagged neutral name (D10) |
-| 1 | `Unknown_61AFC0` | `app/client/ui_ship_cust.cpp:803` | untagged neutral name (D10) |
 | 1 | `Unknown_621790` | `app/client/ui_ship_cust.cpp:807` | untagged neutral name (D10) |
 | 1 | `Unknown054` | `app/client/ui_ship_cust.cpp:808` | untagged neutral name (D10) |
 | 1 | `Unknown160` | `app/client/ui_ship_cust.cpp:810` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/ui_ship_cust.cpp:812` | untagged neutral name (D10) |
 | 1 | `Unknown_61B0F0` | `app/client/ui_ship_cust.cpp:819` | untagged neutral name (D10) |
-| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:821` | untagged neutral name (D10) |
 | 1 | `Unknown_61B130` | `app/client/ui_ship_cust.cpp:826` | untagged neutral name (D10) |
-| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:828` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_ship_cust.cpp:844` | untagged neutral name (D10) |
 | 1 | `Unknown_61B510` | `app/client/ui_ship_cust.cpp:865` | untagged neutral name (D10) |
 | 1 | `Unknown_61D180` | `app/client/ui_ship_cust.cpp:882` | untagged neutral name (D10) |
-| 1 | `Unknown_61B580` | `app/client/ui_ship_cust.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_61B760` | `app/client/ui_ship_cust.cpp:1098` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0A` | `app/client/ui_ship_cust.cpp:1111` | untagged neutral name (D10) |
 | 1 | `Unknown_61BA80` | `app/client/ui_ship_cust.cpp:1121` | untagged neutral name (D10) |
-| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:1127` | untagged neutral name (D10) |
 | 1 | `Unknown_61BCE0` | `app/client/ui_ship_cust.cpp:1130` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0B` | `app/client/ui_ship_cust.cpp:1135` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/ui_ship_cust.cpp:1136` | untagged neutral name (D10) |
@@ -9824,15 +9831,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8850` | `app/client/ui_ship_cust.cpp:1201` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ship_cust.cpp:1231` | untagged neutral name (D10) |
 | 1 | `Unknown_61DAB0` | `app/client/ui_ship_cust.cpp:1289` | untagged neutral name (D10) |
-| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:1302` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CB8` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_ship_cust.cpp:1325` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:1348` | untagged neutral name (D10) |
 | 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:1352` | untagged neutral name (D10) |
-| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:1361` | untagged neutral name (D10) |
-| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:1367` | untagged neutral name (D10) |
 | 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:1479` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/ui_ship_cust.cpp:1976` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_ship_cust.cpp:2021` | untagged neutral name (D10) |
@@ -9840,7 +9844,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown320` | `app/client/ui_ship_cust.cpp:2054` | untagged neutral name (D10) |
 | 1 | `Unknown_4F00C0` | `app/client/ui_ship_cust.cpp:2064` | untagged neutral name (D10) |
 | 1 | `Unknown328` | `app/client/ui_ship_cust.cpp:2077` | untagged neutral name (D10) |
-| 1 | `Unknown_61EF60` | `app/client/ui_ship_cust.cpp:2093` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_ship_cust.cpp:2096` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_ship_cust.cpp:2110` | untagged neutral name (D10) |
 | 1 | `Unknown338` | `app/client/ui_ship_cust.cpp:2131` | untagged neutral name (D10) |

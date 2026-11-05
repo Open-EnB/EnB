@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-537 entries in 131 files.
+538 entries in 131 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -326,6 +326,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_scut.cpp:1001` | `UIScutBankGadgetClass::Unknown_612820` | marker | NOT EXACT: the client pops sprintf's arguments before calling 0x65EFB0, ours merges the pops |
 | `app/client/ui_shard.cpp:167` | `Unknown615A50InterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64) @0x616220 |
 | `app/client/ui_ship_cust.cpp:187` | `StarbaseShipCustomizeInterface::Unknown_54` | marker | NOT EXACT: inline budget (0.54: VC6 here inlines the first vector's constructor and the callback's, which the client calls out of line: 0x61FAB0, 0x620BC0; the frame is 4 bytes larger; the part's constructor 0x6191F0 goes out of line) @0x618CA0 |
+| `app/client/ui_ship_cust.cpp:243` | `StarbaseShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x619470 |
 | `app/client/ui_ship_cust.cpp:629` | `StarbaseShipCustomizeInterface::Unknown_61A4D0` | marker | NOT EXACT: functional (D64) @0x61A4D0 |
 | `app/client/ui_ship_cust.cpp:832` | `StarbaseShipCustomizeInterface::Unknown_61B170` | marker | NOT EXACT: register (0.89: Page's test is scheduled into the u / v arithmetic, the client tests it after; Control_Bone's this loaded before the matrix store) @0x61B170 |
 | `app/client/ui_ship_cust.cpp:1169` | `StarbaseShipCustomizeInterface::Unknown_61BD80` | marker | NOT EXACT: functional (D64) @0x61BD80 |
