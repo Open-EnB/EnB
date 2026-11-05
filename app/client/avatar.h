@@ -58,6 +58,9 @@ public:
 	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (a chat stream's bytes into +0xE8, then 0x784700; CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)  // NAME 1 [data, size, flag]: what the handler passes
 	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
 	void Unknown_781880(char anim, const char *text, int mood);	// 0x781880 (a queue entry pushed)  // NAME 1 [anim, text, mood]: neutral
+	Unknown_AvatarQueueStruct *Unknown_781B20();				// 0x781B20 (the queue's first entry or NULL; unreferenced: 0x782200 inlines it)  // NAME 1: neutral
+	void Unknown_781B50(Unknown_AvatarQueueStruct *entry);	// 0x781B50 (entry erased from the queue and deleted; unreferenced: 0x782200 inlines it)  // NAME 1 [entry]: neutral
+	void Unknown_781C50();								// 0x781C50 (the queue's entries deleted, the queue cleared; unreferenced: 0x77C080 / 0x784700 inline it)  // NAME 1: neutral
 	void Unknown_782200();								// 0x782200 (state 1: the queue's first entry played, its face keys made)
 	void Unknown_7826A0();								// 0x7826A0 (state 2: the walk / run animation)
 	void Unknown_782850();								// 0x782850 (state 3: sit down / stand up)

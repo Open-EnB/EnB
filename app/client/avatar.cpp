@@ -365,13 +365,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 // NOT EXACT: functional for POC (D64)
 CharacterViewAvatarClass::~CharacterViewAvatarClass()
 {
-	unsigned int i;
-	for (i = 0; i < Unknown2A0.size(); i++) {
-		if (Unknown2A0[i]) {
-			delete Unknown2A0[i];
-		}
-	}
-	Unknown2A0.clear();
+	Unknown_781C50();
 	Unknown_784E00();
 	if (PlayerNLP) {
 		delete PlayerNLP;
@@ -556,6 +550,12 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
+
+
+
+
+
+
 
 
 
@@ -1518,6 +1518,41 @@ void CharacterViewAvatarClass::Unknown_781880(char anim, const char *text, int m
 	Unknown2A0.push_back(new Unknown_AvatarQueueStruct(anim, text, mood));
 }
 
+// 0x781B20
+Unknown_AvatarQueueStruct *CharacterViewAvatarClass::Unknown_781B20()
+{
+	if (Unknown2A0.size() > 0) {
+		return Unknown2A0[0];
+	}
+	return NULL;
+}
+
+// 0x781B50
+void CharacterViewAvatarClass::Unknown_781B50(Unknown_AvatarQueueStruct *entry)
+{
+	if (entry) {
+		unsigned int i;
+		for (i = 0; i < Unknown2A0.size(); i++) {
+			if (Unknown2A0[i] == entry) {
+				Unknown2A0.erase(Unknown2A0.begin() + i);
+				delete entry;
+				return;
+			}
+		}
+	}
+}
+
+// 0x781C50
+// (its callers inline it: the one more inline layer is what leaves their ??_G 0x781C10 and clear 0x78A510 out of line)
+void CharacterViewAvatarClass::Unknown_781C50()
+{
+	unsigned int i;
+	for (i = 0; i < Unknown2A0.size(); i++) {
+		delete Unknown2A0[i];
+	}
+	Unknown2A0.clear();
+}
+
 // 0x781D10
 // one _snprintf per branch (tail-merged at the format)
 std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
@@ -1614,8 +1649,8 @@ void CharacterViewAvatarClass::Unknown_782200()
 		Unknown248 = (left < 0) ? 0 : left;
 
 	} else {
-	Unknown_AvatarQueueStruct *entry;
-	if (Unknown2A0.size() > 0 && (entry = Unknown2A0[0]) != NULL) {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
 		int anim;
 		if (Unknown210 != 0) {
 			int delay = PlayerNLP->Personality->Get_Speech_Delay();
@@ -1642,16 +1677,9 @@ void CharacterViewAvatarClass::Unknown_782200()
 			}
 			Unknown_783470();
 		}
-		unsigned int i;
-		for (i = 0; i < Unknown2A0.size(); i++) {
-			if (Unknown2A0[i] == entry) {
-				Unknown2A0.erase(Unknown2A0.begin() + i);
-				delete entry;
-				break;
-			}
-		}
+		Unknown_781B50(entry);
 	}
-	if ((Unknown2A0.size() <= 0 || Unknown2A0[0] == NULL) && Unknown248 == 0) {
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
 		Unknown208 = 0;
 	}
 	}
@@ -1865,34 +1893,6 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2561,26 +2561,23 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
 }
 
-#pragma inline_depth(0)
-
 // 0x784700
-// NOT EXACT: inline-budget (the client inlines size() / operator[] but calls the queue struct's ??_G 0x781C10 and clear 0x78A510; inline_depth(0) gives those two exact copies)
+// NOT EXACT: inline-budget (the client's inlined 0x781C50 calls the queue struct's ??_G 0x781C10 and clear 0x78A510 out of line; ours inlines them here, as in the dtor 0x77C080 the client's do not)
 void CharacterViewAvatarClass::Unknown_784700()
 {
 	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
 	if (block == NULL) {
 		return;
 	}
-	unsigned int i;
-	for (i = 0; i < Unknown2A0.size(); i++) {
-		if (Unknown2A0[i]) {
-			delete Unknown2A0[i];
-		}
-	}
-	Unknown2A0.clear();
+	Unknown_781C50();
+
+
+
+
+
 	int mood = -1;
 	for (;;) {
-		switch ((unsigned char)block->Type) {
+		switch (block->Type) {
 			case 0:
 				if (Unknown210 != 1 && Unknown210 != 2 && Unknown20C == 2) {
 					mood = (char)block->Value;
@@ -2649,7 +2646,6 @@ void CharacterViewAvatarClass::Unknown_784700()
 		block = (const Unknown_ChatBlockStruct *)((const char *)block + block->Length + sizeof(Unknown_ChatBlockStruct));
 	}
 }
-#pragma inline_depth()
 
 // 0x784A50
 // (the asserts' lines written as the client's numbers)
@@ -2695,6 +2691,10 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 		Unknown208 = 1;
 	}
 }
+
+
+
+
 
 
 
@@ -3258,7 +3258,7 @@ void CharacterViewAvatarClass::Unknown_786E60()
 }
 
 // 0x7885D0
-// NOT EXACT: functional for POC (D64), inline-budget (the client inlines +0x318's erase and calls +0x324's)
+// (list clear(): the second clear() inlines the whole erase; the first one, budget spent, calls its iterator ++ 0x78A7F0 and erase 0x78A730)
 void CharacterViewAvatarClass::Unknown_7885D0(bool second)
 {
 	std::list<Matrix3D *>::iterator it;
@@ -3266,12 +3266,12 @@ void CharacterViewAvatarClass::Unknown_7885D0(bool second)
 		for (it = Unknown324.begin(); it != Unknown324.end(); it++) {
 			delete *it;
 		}
-		Unknown324.erase(Unknown324.begin(), Unknown324.end());
+		Unknown324.clear();
 	} else {
 		for (it = Unknown318.begin(); it != Unknown318.end(); it++) {
 			delete *it;
 		}
-		Unknown318.erase(Unknown318.begin(), Unknown318.end());
+		Unknown318.clear();
 	}
 }
 
