@@ -2530,7 +2530,11 @@ below name only the work items, the blocked work, the leads and the queues.
      check `.work/coord/pocfull.sh`): the avatar screen's 0x55B2D0 (NOT EXACT 0.80, shape: the two bools'
      slots, as 0x5502F0) and 0x55BAC0 (0.28, inline budget; a 2-6 dead-read sweep peaked at 0.42), ui_avatr 0x558D30 /
      0x558EA0 (register only), 0x5591E0 (0.77) / 0x559010 (0.65), 0x559350 (D193); swatch (negative) and secret decals untested; the functional
-     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 29,
+     NOT EXACT functions toward exact: decal Load 0x75BE00 (0.15) / 0x75CB10 (0.44), shiputils 0x80EAF0, ui_shipcust's 15 (CS3, 2026-11-05: map loops 0x6249D0 / 0x625930 / 0x6259C0 call the map's `_Min` out
+     of line where the client inlines it (exact 0x6257A0 / 0x6280E0 / 0x628900 inline it: find why); 0x622B90 inline budget
+     (`begin()` / `erase()` out of line); 0x624E50 / 0x627200 (the client saves all registers at entry); 0x621530 order
+     (13 rows, form in attempts), 0x621390 / 0x6280E0 register; untried 0x622180, 0x623080, 0x624270, 0x625A60, 0x6277A0,
+     0x628420),
      ui_shard's, AvatarCreationInterface 0x553AF0 / 0x554E80, ui_class's planet turn 0x576AC0 (prologue registers only: masked
      98 -> 28, form in docs/attempts/576AC0/) and ctor 0x574710 (masked 313 -> 28, frame 0x34 matched: the +0x134 / +0x138
      store order and the first dialog string's inline `_Eos`; docs/attempts/574710/), 0x575D50 (parked: `add ecx,0x88`), ShipPip (PIP, 2026-11-04) 0x80CE10
