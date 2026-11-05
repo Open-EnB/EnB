@@ -7215,15 +7215,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown11C` | `app/client/ui_avsel.h:73` | untagged neutral name (D10) |
 | 1 | `Unknown120` | `app/client/ui_avsel.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_bio.cpp:13` | 0xBE67C4 |
-| 1 | `UIBioGadget674260Class` | `app/client/ui_bio.cpp:16` | neutral (D10) |
-| 1 | `Unknown_675120Class` | `app/client/ui_bio.cpp:16` | untagged neutral name (D10) |
-| 1 | `model` | `app/client/ui_bio.cpp:19` | what the constructor passes |
 | 1 | `Unknown5BB320Class` | `app/client/ui_bio.cpp:24` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_bio.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_bio.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_bio.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_674260Class` | `app/client/ui_bio.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_bio.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_bio.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_bio.cpp:51` | untagged neutral name (D10) |
@@ -7691,9 +7689,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `client` | `app/client/ui_cinfo.cpp:35` | as UIBioClass's |
 | 1 | `Unknown58D080Class` | `app/client/ui_cinfo.cpp:38` | neutral (D10) |
 | 1 | `client` | `app/client/ui_cinfo.cpp:41` | as UIBioClass's |
-| 1 | `UICinfoGadget674260Class` | `app/client/ui_cinfo.cpp:46` | neutral (D10) |
-| 1 | `Unknown_675120Class` | `app/client/ui_cinfo.cpp:46` | untagged neutral name (D10) |
-| 1 | `model` | `app/client/ui_cinfo.cpp:49` | as ui_bio.cpp's |
 | 1 | `ButtonNames` | `app/client/ui_cinfo.cpp:52` | neutral (D10) |
 | 1 | `MenuNames` | `app/client/ui_cinfo.cpp:53` | neutral (D10) |
 | 1 | `UnknownB0` | `app/client/ui_cinfo.cpp:59` | untagged neutral name (D10) |
@@ -7701,6 +7696,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_cinfo.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_cinfo.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_cinfo.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_674260Class` | `app/client/ui_cinfo.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_cinfo.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_cinfo.cpp:84` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_cinfo.cpp:87` | untagged neutral name (D10) |
@@ -10427,6 +10423,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `on` | `app/client/unknown_66b770.h:27` | the base's |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.h:29` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/unknown_674260.h:6` | untagged neutral name (D10) |
+| 1 | `unknown_674260.h` | `app/client/unknown_674260.h:15` | neutral (D137) |
+| 1 | `Unknown_674260Class` | `app/client/unknown_674260.h:23` | neutral (D10) |
+| 1 | `model` | `app/client/unknown_674260.h:26` | what the windows pass |
 | 1 | `Unknown_675120Class` | `app/client/unknown_675120.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/unknown_675120.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_675120.cpp:33` | untagged neutral name (D10) |

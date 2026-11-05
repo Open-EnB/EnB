@@ -12,12 +12,12 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// The gadget 0x674260 makes (0x60 bytes, over Unknown_675120Class; its file is not known), as far as this file makes it
-class UIBioGadget674260Class : public Unknown_675120Class	// NAME 1: neutral (D10)
-{
-public:
-	UIBioGadget674260Class(const RefCountPtr<RenderObjClass> &model);	// 0x674260 (0x60 bytes)  // NAME 1 [model]: what the constructor passes
-};
+#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+
+
+
+
+
 
 // 0x5603E0
 UIBioClass::UIBioClass(SClient *client) :
@@ -28,7 +28,7 @@ UIBioClass::UIBioClass(SClient *client) :
 	UnknownAC = new GadgetSlider(false);
 	UnknownAC->Unknown_66E460(Create_Peek(Mesh->Peek_Object()), 0, 0);
 	Unknown64.Unknown_6870E0(UnknownAC, 1, View, 1, 0);
-	GadgetClass *gadget = new UIBioGadget674260Class(Create_Peek(Mesh->Peek_Object()));
+	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(Mesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 2, View, 1, 0);
 }
 

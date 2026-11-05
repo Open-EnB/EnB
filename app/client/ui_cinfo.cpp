@@ -42,12 +42,12 @@ public:
 	char UnknownAC[0xE4 - 0xAC];						// +0xAC
 };
 
-// The gadget 0x674260 makes (0x60 bytes, over Unknown_675120Class; its file is not known), as far as this file makes it
-class UICinfoGadget674260Class : public Unknown_675120Class	// NAME 1: neutral (D10)
-{
-public:
-	UICinfoGadget674260Class(const RefCountPtr<RenderObjClass> &model);	// 0x674260 (0x60 bytes)  // NAME 1 [model]: as ui_bio.cpp's
-};
+#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+
+
+
+
+
 
 static const char *ButtonNames[UICinfoClass::MAX_BUTTONS] = { "not used", "TSI15A.BUTTON00", "TSI15A.BUTTON01", "TSI15A.BUTTON02", "TSI15A.EXIT" };	// 0xB7DA4C  // NAME 1: neutral (D10)
 static const char *MenuNames[] = { "ATTRIBUTES_MENU", "MISSIONS_MENU", "FACTION_MENU", NULL };	// 0xB7DA60 (the tooltips of buttons 1..3 and the menu fonts)  // NAME 1: neutral (D10)
@@ -69,7 +69,7 @@ UICinfoClass::UICinfoClass(SClient *client) :
 			GadgetClass::Set_Tooltip(button, "UI_CINFO", MenuNames[i - 1]);
 		}
 	}
-	GadgetClass *gadget = new UICinfoGadget674260Class(Create_Peek(Mesh->Peek_Object()));
+	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(Mesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 6, View, 1, 0);
 	Unknown_BE67BC->Load("fa_cinfo.ini");
 }
