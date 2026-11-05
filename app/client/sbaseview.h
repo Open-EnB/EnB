@@ -155,6 +155,7 @@ public:
 	bool Unknown_69F850(int index);	// 0x69F850: channel index at its end  // NAME 1 [index]: neutral
 	void Unknown_69F8F0(int type, int arg);	// 0x69F8F0: interface type (5..14) made once and shown as +0x64 (11: the talk tree, SClient's too, and STARBASE_REQUEST action 4 with arg)  // NAME 1 [type, arg]: neutral
 	void Unknown_6A0540();	// 0x6A0540: +0x68's object, +0x1CC and +0x1D0 out of their scenes
+	void Unknown_6A0590(const char *name);	// 0x6A0590: the lights loader (FAIL_IF '!RKey.Peek()' / '!RCamera.Peek()', l.1261 / 1262): the ambient light and the RKEY / RCAMERA lights of the INI name  // NAME 1 [name]: what INIClass::Load gets
 	void Unknown_6A0E00();	// 0x6A0E00: the text object +0x1B8 away
 	void Unknown_6A0E50();	// 0x6A0E50: the text object hidden
 	void Unknown_6A0E80(const char *text);	// 0x6A0E80: the text object's text, shown  // NAME 1 [text]: what FontSys::Change_Text gets

@@ -29,6 +29,7 @@
 #include "ui_manu.h"	// UIManuClass (+0x18C, 0x69F8F0)
 #include "ui_chat_panel.h"	// SClient's ChatPanel (0x69F8F0)
 #include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x69F8F0)
+#include "ini.h"	// INIClass (the lights loader 0x6A0590)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 
@@ -490,7 +491,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
 
 
 
@@ -1237,16 +1237,77 @@ void SBaseViewClass::Unknown_6A0540()
 
 
 
-
-
-
-
-
-
-
-
-
-
+// 0x6A0590: the lights loader: +0x68's scene light and the two lights back into the +0x70 scene, the ambient light
+// and the RKEY / RCAMERA lights from the INI name ('LIGHTS'); RKey turned to the scene light's position plus its offset
+// NOT EXACT: frame (0.47): r, g, b, i sit contiguous in the client's frame and go through the x87 into the lights; +0x10 copied without Vector3::operator=
+void SBaseViewClass::Unknown_6A0590(const char *name)
+{
+	if (Unknown68) {
+		Unknown68->Unknown00->Remove();
+	}
+	if (RKey) {
+		RKey->Remove();
+	}
+	if (RCamera) {
+		RCamera->Remove();
+	}
+	Vector3 color(0.0f, 0.0f, 0.0f);
+	Unknown68->Unknown_4909D0(name, color);
+	color = Unknown68->Unknown10;
+	Unknown70->Set_Ambient_Light(color);
+	Unknown68->Unknown00->Set_Force_Visible(true);
+	Unknown68->Unknown00->Set_Far_Attenuation_Range(1000000, 1000000);
+	Unknown68->Unknown00->Add(Unknown70.Peek());
+	FAIL_IF(!RKey.Peek()) {return;}
+	FAIL_IF(!RCamera.Peek()) {return;}
+	RKey->Add(Unknown70.Peek());
+	RCamera->Add(Unknown70.Peek());
+	INIClass ini;
+	ini.Load(name);
+	if (ini.Is_Loaded()) {
+		float r = ini.Get_Float("LIGHTS", "RKEYR", 0);
+		float g = ini.Get_Float("LIGHTS", "RKEYG", 0);
+		float b = ini.Get_Float("LIGHTS", "RKEYB", 0);
+		float intensity = ini.Get_Float("LIGHTS", "RKEYI", 0);
+		Vector3 offset;
+		offset.X = ini.Get_Float("LIGHTS", "RKEYX", 0);
+		offset.Y = ini.Get_Float("LIGHTS", "RKEYY", 0);
+		offset.Z = ini.Get_Float("LIGHTS", "RKEYZ", 0);
+		if (RKey) {
+			RKey->Set_Diffuse(Vector3(r, g, b));
+			RKey->Set_Intensity(intensity);
+			Vector3 dir = Unknown68->Unknown00->Get_Position();
+			dir.Normalize();
+			dir = -dir;
+			Vector3 right;
+			Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &right);
+			if (right.Length2() < 0.0001f) {
+				Vector3::Cross_Product(Vector3(0.0f, 1.0f, 1.0f), dir, &right);
+			}
+			right.Normalize();
+			Vector3 up;
+			Vector3::Cross_Product(dir, right, &up);
+			up.Normalize();
+			Matrix3D tm(dir, right, up, dir);
+			Vector3 light;
+			Matrix3D::Rotate_Vector(tm, offset, &light);
+			dir = light + dir;
+			dir.Normalize();
+			RKey->Set_Spot_Direction(-dir);
+		}
+		r = ini.Get_Float("LIGHTS", "RCAMERAR", 0);
+		g = ini.Get_Float("LIGHTS", "RCAMERAG", 0);
+		b = ini.Get_Float("LIGHTS", "RCAMERAB", 0);
+		intensity = ini.Get_Float("LIGHTS", "RCAMERAI", 0);
+		Unknown1D4.X = ini.Get_Float("LIGHTS", "RCAMERAX", 0);
+		Unknown1D4.Y = ini.Get_Float("LIGHTS", "RCAMERAY", 0);
+		Unknown1D4.Z = ini.Get_Float("LIGHTS", "RCAMERAZ", 0);
+		if (RCamera) {
+			RCamera->Set_Diffuse(Vector3(r, g, b));
+			RCamera->Set_Intensity(intensity);
+		}
+	}
+}
 
 // 0x6A0E00: the text object away
 void SBaseViewClass::Unknown_6A0E00()
@@ -1415,67 +1476,6 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 	*d = Unknown1EF;
 	*e = Unknown1F0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
