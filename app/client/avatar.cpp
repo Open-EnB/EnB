@@ -3600,6 +3600,15 @@ void CharacterViewAvatarClass::Unknown_789CD0(int a)
 	Unknown0DC[a] = -1;
 }
 
+// 0x789D40
+bool CharacterViewAvatarClass::Unknown_789D40()
+{
+	if (Unknown0C0[1]) {
+		return Unknown0DC[1] != -1;
+	}
+	return Unknown0DC[0] != -1;
+}
+
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
 // each into the LOD that holds it in the accessory
 // (the sub-object and its clone RefCountPtr locals, Create_Get 0x474080)
