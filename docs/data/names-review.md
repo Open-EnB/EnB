@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3009 |
-| 1 | neutral placeholder | 13339 |
+| 1 | neutral placeholder | 13340 |
 
 ## For review (score 3 and below)
 
@@ -170,7 +170,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7885D0` | `app/client/avatar.cpp:380` | untagged neutral name (D10) |
 | 1 | `Unknown370` | `app/client/avatar.cpp:382` | untagged neutral name (D10) |
 | 1 | `Unknown374` | `app/client/avatar.cpp:388` | untagged neutral name (D10) |
-| 1 | `Unknown_77D9F0` | `app/client/avatar.cpp:551` | untagged neutral name (D10) |
+| 1 | `Unknown_77D9F0` | `app/client/avatar.cpp:552` | untagged neutral name (D10) |
 | 1 | `Unknown_77E3D0` | `app/client/avatar.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_77E830` | `app/client/avatar.cpp:719` | untagged neutral name (D10) |
 | 1 | `Unknown_77E900` | `app/client/avatar.cpp:742` | untagged neutral name (D10) |
@@ -209,6 +209,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7829B0` | `app/client/avatar.cpp:1640` | untagged neutral name (D10) |
 | 1 | `Unknown_7826A0` | `app/client/avatar.cpp:1662` | untagged neutral name (D10) |
 | 1 | `Unknown_782850` | `app/client/avatar.cpp:1696` | untagged neutral name (D10) |
+| 1 | `blend` | `app/client/avatar.cpp:2132` | neutral (D10) |
 | 1 | `Unknown_783620` | `app/client/avatar.cpp:2265` | untagged neutral name (D10) |
 | 1 | `Unknown_442930` | `app/client/avatar.cpp:2309` | untagged neutral name (D10) |
 | 1 | `Unknown_4428E0` | `app/client/avatar.cpp:2311` | untagged neutral name (D10) |

@@ -395,10 +395,11 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 	}
 	for (int a = 0; a < 2; a++) {
-		if (Unknown0C0[a]) {
-			Unknown0C0[a]->Release_Ref();
-			Unknown0C0[a] = NULL;
-		}
+		Unknown0C0[a] = NULL;
+		Unknown0C8[a] = false;
+		Unknown0CC[a] = 0.0f;
+		Unknown0D4[a] = 0.0f;
+		Unknown0DC[a] = -1;
 	}
 	if (BodyObj) {
 		if (WeaponHip) {
@@ -555,7 +556,6 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	}
 	return(Unknown234);
 }
-
 
 
 
@@ -1831,7 +1831,7 @@ void CharacterViewAvatarClass::Unknown_782CA0()
 }
 
 // 0x782FF0
-// the frame count from the second animation if set, else the first
+// the frame count from the second animation if set, else the first (read as raw pointers: through RefCountPtr's inlines the loop's lea operands swap)
 void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 {
 	int delay = PlayerNLP->Personality->Get_Speech_Delay();
@@ -1852,11 +1852,12 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 	}
 	Unknown24C += delay;
 	Unknown0BC->Insert_Morph_Key(0, Unknown24C, base);
+	HAnimClass **raw = (HAnimClass **)Unknown0C0;
 	int frames;
-	if (Unknown0C0[1] != NULL) {
-		frames = Unknown0C0[1]->Get_Num_Frames();
+	if (raw[1] != NULL) {
+		frames = raw[1]->Get_Num_Frames();
 	} else {
-		frames = Unknown0C0[0]->Get_Num_Frames();
+		frames = raw[0]->Get_Num_Frames();
 	}
 	Unknown248 = (Unknown24C - frames < 0) ? 0 : Unknown24C - frames;
 
@@ -2124,61 +2125,50 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x7831C0
-// NOT EXACT: functional for POC (D64), inline-budget (RefCountPtr 0x57B6B0 / 0x78A440 as a plain pointer)
+// (the 0.5 a constant in .rdata, 0xB04494, shared with 0x783620; the not-rested test as a bool)
 void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 {
+	static const float blend = 0.5f;	// NAME 1: neutral (D10)
 	int i = 1;
-	if (Unknown0C0[0] == NULL || Unknown215) {
+	bool fresh = !Unknown215;
+	if (Unknown0C0[0] == NULL || !fresh) {
 		i = 0;
-		if (Unknown0C0[1]) {
-			Unknown0C0[1]->Release_Ref();
-		}
+
+
 		Unknown0C0[1] = NULL;
+
 		Unknown0C8[1] = false;
 		Unknown0CC[1] = 0.0f;
 		Unknown0D4[1] = 0.0f;
 		Unknown0DC[1] = -1;
 	}
-	if (Unknown0C0[i]) {
-		Unknown0C0[i]->Release_Ref();
-	}
+
+
 	Unknown0C0[i] = NULL;
+
 	Unknown0C8[i] = false;
 	Unknown0CC[i] = 0.0f;
 	Unknown0D4[i] = 0.0f;
 	Unknown0DC[i] = -1;
-	Unknown0C0[i] = WW3DAssetManager::Get_Instance()->Get_HAnim(name);
-	if (Unknown0C0[i] == NULL) {
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Cannot Find Gesture Animation file %s for gender %d, persoanlity %d",
-			name, Desc.Gender, (int)Desc.Personality);
-	} else if (i == 1) {
-		Unknown218 = 0.5f;
-		float rate = Unknown0C0[1]->Get_Frame_Rate();
-		if (rate > 0.0001f && (float)Unknown0C0[1]->Get_Num_Frames() / rate < Unknown218) {
-			Unknown218 = (float)Unknown0C0[1]->Get_Num_Frames() / rate;
+	Unknown0C0[i] = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(name));
+	if (Unknown0C0[i] != NULL) {
+		if (i == 1) {
+			Unknown218 = blend;
+			float rate = Unknown0C0[1]->Get_Frame_Rate();
+			if (rate > 0.0001f) {
+				float t = (float)Unknown0C0[1]->Get_Num_Frames() / rate;
+				if (t < Unknown218) {
+					Unknown218 = t;
+				}
+			}
+		} else {
+			Unknown218 = 0.0f;
 		}
 		Unknown21C = Unknown218;
 	} else {
-		Unknown218 = 0.0f;
-		Unknown21C = 0.0f;
+		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Cannot Find Gesture Animation file %s for gender %d, persoanlity %d",
+			name, Desc.Gender, (int)Desc.Personality);
 	}
 	Unknown215 = false;
 }
@@ -2203,6 +2193,16 @@ void CharacterViewAvatarClass::Unknown_783470()
 
 	}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2322,7 +2322,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 		return;
 	}
 	if (Unknown0C0[1] == NULL) {
-		BodyObj->Set_Animation(Unknown0C0[0], Unknown0CC[0], 0);
+		BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], 0);
 		// The client then sets +0x214 once the frame passes +0x24C while the NLP's queue (+0x2A4)
 		// has an entry: not built yet.
 		return;
@@ -2344,15 +2344,15 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 	} else {
 		blend = (float)sin((t - 0.5f) * 3.1415927f) + 1.0f;
 	}
-	BodyObj->Set_Animation(Unknown0C0[0], Unknown0CC[0], Unknown0C0[1], Unknown0CC[1], blend * 0.5f);
+	BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], Unknown0C0[1].Peek(), Unknown0CC[1], blend * 0.5f);
 	if (Unknown21C >= 0.0f) {
 		return;
 	}
 	Unknown21C = 0.0f;
 	Unknown218 = 0.0f;
-	if (Unknown0C0[0]) {
-		Unknown0C0[0]->Release_Ref();
-	}
+
+
+
 	Unknown0C0[0] = Unknown0C0[1];
 	Unknown0CC[0] = Unknown0CC[1];
 	Unknown0D4[0] = Unknown0D4[1];
