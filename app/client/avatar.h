@@ -129,7 +129,7 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 		void Unknown_7854B0(float time);					// 0x7854B0 (the head's random look about, K_Head)  // NAME 1 [time]: neutral
 
 	// +0xBC: sizeof(CompositeRenderObjClass)
-	HMorphAnimClass *Unknown0BC;						// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr in the client)
+	RefCountPtr<HMorphAnimClass> Unknown0BC;			// +0xBC (0x77DA20: the face animation, channels 0 mouth, 1 brows, 2 eyelids; a RefCountPtr: 0x77B870 constructs, 0x77C080 destroys it as a member)
 	HAnimClass *Unknown0C0[2];							// +0xC0 (0x7831C0: the gesture animation, [1] the one blended to)
 	bool Unknown0C8[2];									// +0xC8 (0x783620: the frame reached)
 	char Unknown_Pad0CA[0xCC - 0xCA];

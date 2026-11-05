@@ -101,7 +101,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 	  Unknown314(0),
 	  Unknown36C(false)
 {
-	Unknown0BC = 0;
+
 	for (int i = 0; i < 2; i++) {
 		Unknown0C0[i] = NULL;
 		Unknown0C8[i] = false;
@@ -259,7 +259,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, int a,
 			if (anims[0] == NULL || anims[1] == NULL || anims[2] == NULL) {
 				Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
 			} else {
-				Unknown0BC = new HMorphAnimClass();
+				Unknown0BC = Create_NEW(new HMorphAnimClass());
 				Unknown0BC->Create_New_Morph(3, anims);
 			}
 
@@ -391,8 +391,8 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 	}
 	if (Unknown0BC) {
 		Unknown0BC->Free_Morph();
-		Unknown0BC->Release_Ref();
 		Unknown0BC = NULL;
+
 	}
 	for (int a = 0; a < 2; a++) {
 		if (Unknown0C0[a]) {
@@ -2196,7 +2196,7 @@ void CharacterViewAvatarClass::Unknown_783470()
 	RefCountPtr<RenderObjClass> head = Create_Get(BodyObj->Get_Sub_Object_By_Name(name));
 	if (head) {
 		if (Unknown0BC->Get_Num_Frames() > 0) {
-			head->Set_Animation(Unknown0BC, 0.0f, RenderObjClass::ANIM_MODE_ONCE);
+			head->Set_Animation(Unknown0BC.Peek(), 0.0f, RenderObjClass::ANIM_MODE_ONCE);
 		} else {
 			head->Set_Animation();
 		}
