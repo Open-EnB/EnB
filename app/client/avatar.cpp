@@ -1774,19 +1774,16 @@ bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
 }
 
 // 0x782CA0
-// NOT EXACT: functional for POC (D64)
+// (each pass's start written as i * step: the client's induction variables start after the count test)
 void CharacterViewAvatarClass::Unknown_782CA0()
 {
 	int delay = PlayerNLP->Personality->Get_Blink_Delay();
-	int step = 1;
-	if (delay > 0) {
-		step = delay;
-	}
+	int step = (delay < 1) ? 1 : delay;
 	int frames;
-	if (Unknown0C0[1] == NULL) {
-		frames = Unknown0C0[0]->Get_Num_Frames() + Unknown248;
-	} else {
+	if (Unknown0C0[1] != NULL) {
 		frames = Unknown0C0[1]->Get_Num_Frames() + Unknown248;
+	} else {
+		frames = Unknown0C0[0]->Get_Num_Frames() + Unknown248;
 	}
 	int count;
 	if (frames < step) {
@@ -1794,44 +1791,43 @@ void CharacterViewAvatarClass::Unknown_782CA0()
 		step = frames;
 	} else {
 		int n = Unknown_BDBB84(1, frames / step);
-		count = frames / 4;
-		if (n <= count) {
-			count = n;
-		}
+		count = (frames / 4 < n) ? frames / 4 : n;
 		step = frames / count;
 	}
 	int brow = Desc.Mood_Type * 5;
-	int r;
 	if (Unknown208 == 1) {
-		r = Unknown_BDBB84(0, 1);
+		if (Unknown_BDBB84(0, 1) == 1) {
+			brow += 2;
+		}
 	} else {
-		r = Unknown_BDBB84(0, 3);
-	}
-	if (r == 1) {
-		brow += 2;
+		if (Unknown_BDBB84(0, 3) == 1) {
+			brow += 2;
+		}
 	}
 	Unknown0BC->Insert_Morph_Key(1, 0, Unknown240);
 	int i;
-	int at;
-	for (i = 0, at = 2; i < count; i++, at += step) {
+	for (i = 0; i < count; i++) {
+		int at = i * step + 2;
 		int key = Unknown_BDBB84(at, at - 7 + step);
 		Unknown0BC->Insert_Morph_Key(1, key, brow);
 		Unknown0BC->Insert_Morph_Key(1, key + 2, brow + 1);
 		Unknown0BC->Insert_Morph_Key(1, key + 4, brow);
 	}
-	Unknown0BC->Insert_Morph_Key(1, frames - 1, brow);
+	int last = frames - 1;
+	Unknown0BC->Insert_Morph_Key(1, last, brow);
 	Unknown240 = brow;
 	Unknown0BC->Insert_Morph_Key(2, 0, 0);
-	for (i = 0, at = 0; i < count; i++, at += step) {
+	for (i = 0; i < count; i++) {
+		int at2 = i * step;
 		int shut = Unknown_BDBB84(0, 1) * 2 + 1;
 		int hold = Unknown_BDBB84(2, step / 4);
-		int key = Unknown_BDBB84(at + 1, at - hold - 4 + step);
+		int key = Unknown_BDBB84(at2 + 1, at2 - hold - 4 + step);
 		Unknown0BC->Insert_Morph_Key(2, key, 0);
 		Unknown0BC->Insert_Morph_Key(2, key + 2, shut);
 		Unknown0BC->Insert_Morph_Key(2, key + 2 + hold, shut);
 		Unknown0BC->Insert_Morph_Key(2, key + 4 + hold, 0);
 	}
-	Unknown0BC->Insert_Morph_Key(2, frames - 1, 0);
+	Unknown0BC->Insert_Morph_Key(2, last, 0);
 }
 
 // 0x782FF0
@@ -1868,6 +1864,10 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 		Unknown24C = -1;
 	}
 }
+
+
+
+
 
 
 
