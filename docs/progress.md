@@ -2647,16 +2647,16 @@ below name only the work items, the blocked work, the leads and the queues.
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
      delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
-   * sbaseview.cpp (SBV / SB2, 2026-11-05): 0x6A1C90 0.82 (shape: the client multiplies +0x1D4 in place with no alias
-     test; our inline Rotate_Vector adds the test or carries a local copy; form stashed), the lights loader 0x6A0590 0.47
-     (frame: its FAIL_IFs sit on lines 1261 / 1262, so 0x6A0E00..0x6A1B80 move below it; r, g, b, i contiguous in the
-     client's frame, +0x10 copied without Vector3::operator=), 0x6A1180 (the debug memory display; its FastAllocator loops
-     are not in our wwlib headers; frameint.cpp's 0x53EB00 is the same code), 0x69F8F0 (the interface switcher, 8 cases:
-     ten class constructors at their exact sizes; case 0xB passes &Unknown190 to SClient::Unknown_74C9D0, so that
-     parameter is RefCountPtr<SBaseViewUnknown190Class> (ui_talkt, 0x64B6E0, 0x180 bytes), not UITalkTreeSpaceClass:
-     retype it first); functional 0x69D030 (literal 0.87: Rotate_Z's first row order) and Init 0x69B5E0 (shape 0.84).
+   * sbaseview.cpp (SBV / SB2 / SB3, 2026-11-05): NOT EXACT, parked with attempts rows: the interface switcher 0x69F8F0
+     0.84 (register: case 11 loads Unknown1138 into edx where the client uses eax; case 8 an eax / edx flip and the `lea` /
+     `or ebp` order), the lights loader 0x6A0590 0.72 (frame: the matrix rows' and cross-product temporaries' slots; the
+     client computes the rotation Z, Y, X), 0x69D030 0.87 (literal: Rotate_Z's first row, 5 more forms), 0x69F710 0.80
+     (order: its Frame store scheduled after the Mode push), Init 0x69B5E0 0.84 (its trade / group Create_NEW sites carry
+     0x69F8F0 case 8's residue: one fix may lift both); 0x6A1180 not started (the debug memory display on FastAllocator
+     internals; frameint.cpp's 0x53EB00 is the same code). Interim (D137): UITalkTreeClass (0x64B6E0, 0x180) declared in
+     sclient.h until ui_talkt.cpp / .h is built; +0x184 / +0x188 / +0x198's neutral stand-ins.
      unknown_490900.h (SBaseViewUnknown68Class = ScriptedMovieViewerSettingsStruct, +0x00 the scene LightClass) is interim
-     (D137): revisit when 0x4909D0's file is found.
+     (D137): revisit when 0x4909D0's file is found (its lights may be Vector4s, as 0x6A0590's are).
      ui_avatar_cust 0x550A10's frame-time prologue (register).
    * From the 2026-10-31 day run: aux_roots' colour 0xB00A00 is probably wwmath's Vector3 (its
      KVPair's Get_Type_Name 0x4B24F0 returns 'Vector3'; keep BLOB_NE's dword operator!=); free leftovers 0x709630 and
