@@ -184,8 +184,8 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: inline budget (0.54: VC6 here inlines the first vector's constructor and the callback's, which the client
-// calls out of line: 0x61FAB0, 0x620BC0; the frame is 4 bytes larger; the part's constructor 0x6191F0 goes out of line)
+// NOT EXACT: register (0.73: every call matches; left: Desc's Selected_Decal read through ebx (the client's &Desc) where
+// VC6 here reads [ebp+0xF0], and eax / ecx / edx swaps around the 0x74C960 results and the virtual calls)
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
@@ -210,11 +210,11 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	Unknown_61BD80(Page);
 	Unknown_61E8E0(1);
 	TheDX8MeshRenderer.Invalidate();
-	void (StarbaseShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &StarbaseShipCustomizeInterface::Unknown_61E730;
-	StarbaseShipCustNotifierClass *notifier = (StarbaseShipCustNotifierClass *)&GadgetClass::Get_Signal_Map();
-	notifier->Add(0, new StarbaseShipCustCallbackClass(this, function));
+	GadgetClass::Get_Signal_Map().connect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730);
+	// (SignalMap's template connect: its inline layer leaves the callback's constructor 0x620BC0 out of line, as the
+	// client's; the eight dead size() reads after 0x61F1D0 push the first vector constructor 0x61FAB0 out of line)
 
-	Unknown_61F1D0();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
+	Unknown_61F1D0(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
 }
 
 // @0x6193A0
