@@ -174,7 +174,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_77E3D0` | `app/client/avatar.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_77E830` | `app/client/avatar.cpp:719` | untagged neutral name (D10) |
 | 1 | `Unknown_77E900` | `app/client/avatar.cpp:742` | untagged neutral name (D10) |
-| 1 | `Unknown_77E9D0` | `app/client/avatar.cpp:762` | untagged neutral name (D10) |
+| 1 | `Unknown_77E9D0` | `app/client/avatar.cpp:767` | untagged neutral name (D10) |
 | 1 | `Unknown_77F000` | `app/client/avatar.cpp:835` | untagged neutral name (D10) |
 | 1 | `Unknown_789D80` | `app/client/avatar.cpp:908` | untagged neutral name (D10) |
 | 1 | `Unknown_7802F0` | `app/client/avatar.cpp:919` | untagged neutral name (D10) |

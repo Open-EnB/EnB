@@ -755,10 +755,15 @@ void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
 	}
 }
 
+
+
+
+
+
 // 0x77E9D0: Body_Type / Pants_Type's body '<gender><race>BODY%02d%02d' ('ANPCBODY%03d' for an NPC) loaded
 // again: the head, weapons and collision objects come off the old one and onto the new one; +0x234 is
 // K_HEAD's height above skel_reference; morph: the body weights shown at once (0x781410)
-// NOT EXACT: functional for POC (D64), literal (__LINE__), inline-budget (the client's RefCountPtr temporaries)
+// NOT EXACT: functional for POC (D64), layout (the client's BodyObj a RefCountPtr: its clone through Create_Get, frame 0x50 vs 0x20)
 void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 {
 	char body_name[32];
@@ -786,17 +791,15 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	}
 	if (Desc.Avatar_Type == 0) {
 		_snprintf(body_name, 0x20, "%s%sBODY%02d%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Body_Type, (int)Desc.Pants_Type);
+		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 	} else {
 		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
+		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 	}
-	BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
-	if (BodySource == NULL) {
-		Unknown_4BC260("Avatar Creation", "", __FILE__, 826, "Error loading up the body asset: %s", body_name);
-		return;
-	}
+	if (BodySource) {
 	Unknown_496AE0(BodySource.Peek(), true);
 	BodyObj = BodySource->Clone();
 	Unknown_496AE0(BodyObj, true);
@@ -819,13 +822,10 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	if (morph) {
 		Unknown_781410(1, 0);
 	}
+	} else {
+		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the body asset %s", body_name);
+	}
 }
-
-
-
-
-
-
 
 
 // 0x77F000: Head_Type's head loaded again as the head prototype ('<gender><race>HEAD%02d', 'ANPCHEAD%03d'
