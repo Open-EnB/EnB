@@ -2472,7 +2472,8 @@ below name only the work items, the blocked work, the leads and the queues.
      LIMIT REACHED); ui_avsel 0x55E070 (register), 0x55D060 (blocked: calls tsk_login.h's Get_Selected /
      Get_Avatar_Descs 0x55D860 / 0x55D880 out of line; case 7's FE01C tail merged into case 8's), 0x55F140 (parked; its
      iterator copies 0x560090 / 0x5600B0 come out of line only with it; the rest up to ui_bio's 0x5603E0 is exact); tsk_login (CS10, 2026-11-05): Go_Next_Step 0x769500 / Go_Back_Step 0x769680 have one residue
-     each, the client's `push ebx; mov ebx,1` before the jump table (one lever may make both exact); Fetch_EA_Ticket
+     each, the client's `push ebx; mov ebx,1` before the jump table (parked: 8 local / flag forms fail; needs a lever proven
+     elsewhere first); Fetch_EA_Ticket
      0x76A7B0 (shape: ours tail-duplicates `ok=false; pop ebp`, 2 rows), 0x7698E0 (register: Major in edx vs eax),
      Unknown_50 0x7683F0 (register: the client recomputes the slot index); LIMIT REACHED 0x767F50 / 0x769E70; Cycle_Focus 0x443270 is probably
      `Set_WW3D_Load_On_Demand(true)` (+0x4074). cpacket.cpp / sclient.cpp include galaxy_map_client.h at their next
@@ -2538,9 +2539,9 @@ below name only the work items, the blocked work, the leads and the queues.
      Create_NEW for 0x75CFA0 (same body as 0x75CB10's Create_Get 0x47D040; the name is a guess until another caller of
      0x75CFA0 is read: proj_decal_manager 0x7633E0, galaxy map 0x7B2B30); decal.cpp's interim Unknown619280Class ctor /
      dtor are probably header inlines emitted by ui_shipcust.obj (Load inlines the swatch dtor as `??_M`): move them when
-     ui_shipcust is quiet, with a full verify (0x618C10 / 0x619280 at risk); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 with
-     0x627730 / 0x6251F0 taking Vector3 / Vector2 by value (client evidence, docs/attempts/627200/byvalue.diff.txt; also
-     lifts 0x624E50 0.50 -> 0.68): land the signatures, then the one eax / ecx / edx rotation in case 1's metal block;
+     ui_shipcust is quiet, with a full verify (0x618C10 / 0x619280 at risk); ui_shipcust's 7 (CS3 / CS7 / CS9, 2026-11-05; attempts rows for each): 0x627200 0.86 (LIMIT REACHED;
+     by-value signatures landed 5e63a2c2: frame 0x30 vs 0x2C, ebp pushed per case, case 0's Unknown054 test branches the
+     other way), 0x624E50 0.68;
      0x623080 (inline budget, over D130 only), ctor 0x622180 0.37 (the client calls ShipCustPartClass's operator= 0x619320
      out of line), 0x625A60 0.65, 0x624270 0.46 (shape: each store right after its test, 1.0f by fld from .rdata), 0x621390
      0.65 (register; push_back drops 0x8810F0-0x881250's duplicates, still held by pknamedecal: D66 (i)); LIMIT REACHED
@@ -2555,7 +2556,8 @@ below name only the work items, the blocked work, the leads and the queues.
      0x80CA30 0.62 (frame 0x48 vs 0x44: the client spills the clamp's max, keeps min on the FPU), 0x80C640 0.50 (frame 0xA0 vs 0x74: the client copies Set(Vector3)'s components
      through stack temps; four Set / Matrix3D-temp forms compile identically), avatar 0x77D9F0 (shape 0.46: VC6 hoists the +0x234 load in 11 forms); ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
-     unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630), decal.cpp's
+     unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
+     2026-11-05), decal.cpp's
      0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 / 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
      places them.
    * ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
