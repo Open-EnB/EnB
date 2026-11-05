@@ -226,9 +226,9 @@ void SBaseViewClass::Unknown_10()
 }
 
 // 0x69C5A0
-void SBaseViewClass::Unknown_18(int arg)
+void SBaseViewClass::Unknown_18(bool arg)
 {
-	if ((char)arg) {
+	if (arg) {
 		Unknown54 = 0;
 		Unknown58 = Unknown50;
 	} else {

@@ -2353,7 +2353,7 @@ use_sliders:
 	}
 }
 
-void MainViewClass::Unknown_18(int arg)
+void MainViewClass::Unknown_18(bool arg)
 {
 	if (Radar) Radar->Unknown_7BCA40(arg);
 }

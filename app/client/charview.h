@@ -87,7 +87,7 @@ public:
 	virtual void Unknown_08();							// +0x08 0x679160: the mode's screen
 	virtual int Unknown_0C(bool on);					// +0x0C 0x679930 (LoginTaskClass::Render passes true): the frame
 	virtual void Unknown_10();							// +0x10 0x679510 Shutdown (LoginTaskClass::Delete_Character_View)
-	virtual void Unknown_18(int on);					// +0x18 0x67A210 (the screen's +0x58 when on, +0x5C when not)  // NAME 1 [on]: what it selects
+	virtual void Unknown_18(bool on);					// +0x18 0x67A210 (the screen's +0x58 when on, +0x5C when not)  // NAME 1 [on]: what it selects
 	virtual int Unknown_28() { return((int)this); }		// +0x28 0x6787E0 (the screens' views give the character view)
 	virtual int Unknown_5C() { return(0); }				// +0x5C 0x678800
 
