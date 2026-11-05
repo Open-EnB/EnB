@@ -388,73 +388,73 @@ void UIMissnClass::Unknown_5C5330(bool arg)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static void Unknown_Strip_Tags(std::string &text);	// 0x5C69D0 (defined after 0x5C66D0): the text without its <...> tags  // NAME 1: neutral (D10)
+
+// 0x5C5500
+void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
+{
+
+	FAIL_IF(cur_mission_idx >= MISSIONS_PER_PAGE) return;
+	char num_name[64];
+	sprintf(num_name, "%d_TSI22A", cur_mission_idx + 1);
+	FontSys *mission_num_font = Unknown_BE67C4->Get_Style(num_name, InterfaceMesh->Peek_Mesh_Object());
+
+	FAIL_IF(!mission_num_font) return;
+	char title_name[64];
+	sprintf(title_name, "WRAP_Title%02d_TSI22A", cur_mission_idx);
+	ManagedFontClass *title_grp = Unknown_BE67C4->Find(InterfaceMesh->Peek_Mesh_Object());
+
+	FAIL_IF(!title_grp) return;
+	char desc_name[64];
+	sprintf(desc_name, "WRAP_DESC%02d_TSI22A", cur_mission_idx);
+	ManagedFontClass *textgrp = Unknown_BE67C4->Find(InterfaceMesh->Peek_Mesh_Object());
+
+	FAIL_IF(!textgrp) return;
+
+	DeltaMissionClass *mission = CurrentMissions[cur_mission_idx];
+	const char *name = mission ? mission->Name.Get() : NULL;
+	if (!name || !*name) {
+		CurrentMissions[cur_mission_idx] = NULL;
+		Unknown_5C5AC0(cur_mission_idx, true);
+		mission_num_font->Change_Text(" ", 0);
+		textgrp->Unknown_6D0A70(desc_name, " ");
+		title_grp->Unknown_6D0A70(title_name, " ");
+		return;
+	}
+
+	Unknown_5C5AC0(cur_mission_idx, true);
+	int stage = mission->Stage.Value;
+	int stage_idx = stage - 1;
+
+	mission_num_font->Unknown_6CE420(0, "%d", UnknownBC + 1 + cur_mission_idx);
+	title_grp->Unknown_6D0A70(title_name, name);
+
+	std::string text;
+
+	if (mission->IsComplete.Value) {
+		text = "Mission Complete!";
+	} else if (mission->IsFailed.Value) {
+		text = "Mission Failed!";
+	} else if (mission->IsExpired.Value) {
+		text = "Mission Expired!";
+	} else {
+		char buf[32];
+
+		if (mission->StageCount.Value) {
+			sprintf(buf, "(%d/%d) ", stage, mission->StageCount.Value);
+		} else {
+			sprintf(buf, "(%d) ", stage);
+		}
+		text = buf;
+
+		G_ASSERT(stage_idx >= 0);
+		if (stage_idx >= 0) {
+			text += ((DeltaMissionStageClass *)mission->Stages.Children[stage_idx])->Text.Get();
+		}
+	}
+	Unknown_Strip_Tags(text);
+	textgrp->Unknown_6D0A70(desc_name, text.c_str());
+}
 
 
 
@@ -699,6 +699,39 @@ void UIMissnClass::Unknown_5C66D0()
 	}
 	Unknown_5C5DB0(-1);
 }
+
+#pragma auto_inline(off)		// (0x5C5500 calls it out of line)
+// 0x5C69D0
+static void Unknown_Strip_Tags(std::string &text)
+{
+	int length = text.length();
+	char *buffer = new char[length + 1];
+	int count = 0;
+	bool stripped = false;
+	bool in_tag = false;
+	const char *s = text.c_str();
+	for (int i = 0; i < length; i++) {
+		char c = *s;
+		if (in_tag) {
+			if (c == '>') {
+				in_tag = false;
+				stripped = true;
+			}
+		} else if (c == '<') {
+			in_tag = true;
+		} else {
+			buffer[count++] = c;
+		}
+		s++;
+	}
+	if (stripped) {
+		buffer[count] = '\0';
+		text = buffer;
+	}
+	delete [] buffer;
+}
+#pragma auto_inline(on)
+
 
 /*
 **	Notes (TB1, 2026-11-05)

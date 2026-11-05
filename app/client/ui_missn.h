@@ -6,6 +6,7 @@
 #include "sclient.h"
 #include <vector>
 #include <algorithm>
+#include <string>
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// DeltaMissionClass (after auxdata.h, as ui_buff.cpp)
 class GadgetSlider;			// gd_slider.h's slider (+0xB8)
@@ -32,7 +33,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x5C4EA0 (keys 1..3 a mission, 6 the slider)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5C4490 (the dialog box made again over the view)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions);	// 0x5C4FC0 (FAIL_IFs '!sclient' / '!ad_player' / '!ad_missions' / '!delta_item': the player's named missions, the newest first)  // NAME 1 [missions]: neutral
-	void Unknown_5C5500(int index);						// 0x5C5500 (G_ASSERTs l.397-450: a row filled from its mission)  // NAME 1 [index]: neutral
+	void Unknown_5C5500(unsigned int cur_mission_idx);	// 0x5C5500 (FAIL_IFs / G_ASSERT l.397-450: a row's number, title and description)  // NAME 3 [cur_mission_idx]: the FAIL_IF's
 	void Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg);	// 0x5C5AC0 (a row's time left, 'Time%02d_TSI22A'; FAIL_IF l.473 'cur_mission_idx >= MISSIONS_PER_PAGE')  // NAME 1 [arg]: neutral (cur_mission_idx: the FAIL_IF's)
 	void Unknown_5C5330(bool arg);						// 0x5C5330 (the page shown again; no asserts of its own: l.397-450 are 0x5C5500's)  // NAME 1 [arg]: neutral
 	void Unknown_5C5DB0(int index);						// 0x5C5DB0 (FAIL_IF '!sclient' l.663)  // NAME 1 [index]: neutral
