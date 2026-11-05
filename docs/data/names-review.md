@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1208 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 13257 |
+| 1 | neutral placeholder | 13256 |
 
 ## For review (score 3 and below)
 
@@ -6823,7 +6823,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_780790` | `app/client/ui_avatr.cpp:1539` | untagged neutral name (D10) |
 | 1 | `Set_Rate` | `app/client/ui_avatr.cpp:1696` | neutral (D10) |
 | 1 | `Unknown_785C00` | `app/client/ui_avatr.cpp:1862` | untagged neutral name (D10) |
-| 1 | `UIAvatrFlash, gadget, on, stop_first` | `app/client/ui_avatr.cpp:1867` | neutral (D10) |
 | 1 | `UIAvatrWeightBase` | `app/client/ui_avatr.cpp:1899` | neutral (D10) |
 | 1 | `UIAvatrWeightRange` | `app/client/ui_avatr.cpp:1900` | neutral (D10) |
 | 1 | `UIAvatrHeightBase` | `app/client/ui_avatr.cpp:1901` | neutral (D10) |

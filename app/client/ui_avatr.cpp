@@ -1159,7 +1159,7 @@ void AvatarCreationInterface::Unknown_559F30()
 static const char *UIAvatrGenders[2] = { "AM", "AF" };	// 0xB7B114: the models' gender prefix  // NAME 1: neutral (D10)
 static const char *UIAvatrRaces[3] = { "T", "J", "P" };		// 0xB7B11C: the models' race prefix  // NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), from the client's 0x559900
+// The seven choosers from the model, their names from the gender and race read at each use (the client keeps no locals)
 // 0x559900
 void AvatarCreationInterface::Unknown_559900()
 {
@@ -1168,33 +1168,33 @@ void AvatarCreationInterface::Unknown_559900()
 	Unknown_559F30();
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	const char *gender = UIAvatrGenders[desc->Desc.Gender];
-	const char *race = UIAvatrRaces[desc->Desc.Race];
-	_snprintf(name, sizeof(name), "%s%shead", gender, race);
+
+
+	_snprintf(name, sizeof(name), "%s%shead", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2DC = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HEAD", false);
 	Unknown2DC->Unknown_585CF0(desc->Desc.Head_Type);
 	Unknown2DC->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%shair", gender, race);
+	_snprintf(name, sizeof(name), "%s%shair", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HAIR", false);
 	Unknown2E0->Unknown_585CF0(desc->Desc.Hair_Num);
 	Unknown2E0->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sbeard", gender, race);
+	_snprintf(name, sizeof(name), "%s%sbeard", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "BEARD", false);
 	Unknown2E4->Unknown_585CF0(desc->Desc.Beard_Num);
 	Unknown2E4->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%shead%02d", gender, race, desc->Desc.Head_Type);
-	_snprintf(texture, sizeof(texture), "%s%sFACETEX", gender, race);
+	_snprintf(name, sizeof(name), "%s%shead%02d", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race], desc->Desc.Head_Type);
+	_snprintf(texture, sizeof(texture), "%s%sFACETEX", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2E8 = new UIAvatrUnknown2ECStruct(model.Peek(), name, texture, "FACE", false);
 	Unknown2E8->Unknown_585CF0(desc->Desc.Head_Texture_Num);
 	Unknown2E8->Unknown_585D10();
 	Unknown2EC = new UIAvatrUnknown2ECStruct(model.Peek(), NULL, "atattoo", "TATTOO", false);
 	Unknown2EC->Unknown_585CF0(desc->Desc.Tattoo_Texture_Num);
 	Unknown2EC->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sGOGGLE", gender, race);
+	_snprintf(name, sizeof(name), "%s%sGOGGLE", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2F0 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EYE", false);
 	Unknown2F0->Unknown_585CF0(desc->Desc.Goggle_Num);
 	Unknown2F0->Unknown_585D10();
-	_snprintf(name, sizeof(name), "%s%sEAR", gender, race);
+	_snprintf(name, sizeof(name), "%s%sEAR", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
 	Unknown2F4 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EAR", false);
 	Unknown2F4->Unknown_585CF0(desc->Desc.Ear_Num);
 	Unknown2F4->Unknown_585D10();
@@ -1863,36 +1863,36 @@ void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float 
 	}
 }
 
-// The gadget's flash on (bit 11 of +0x2C set, gadget.h's 0x6603A0) or off (0x6607D0), as 0x55B650 inlines it
-static void UIAvatrFlash(GadgetClass *gadget, bool on, bool stop_first)	// NAME 1 [UIAvatrFlash, gadget, on, stop_first]: neutral (D10)
-{
-	if (on) {
-		if (stop_first) {
-			gadget->Unknown_6607D0();
-		}
-		gadget->Unknown2C |= 0x800;
-		gadget->Unknown_6603A0(false, NULL);
-	} else {
-		gadget->Unknown2C &= ~0x800;
-		gadget->Unknown_6607D0();
-	}
-}
+// The gadget's flash on (bit 11 of +0x2C set, gadget.h's 0x6603A0) or off (0x6607D0): 0x55B650 writes each one out:
+//  static void UIAvatrFlash(GadgetClass *gadget, bool on, bool stop_first)
+//  {
+//      if (on) {
+//          if (stop_first) {
+//              gadget->Unknown_6607D0();
+//          }
+//          gadget->Unknown2C |= 0x800;
+//          gadget->Unknown_6603A0(false, NULL);
+//      } else {
+//          gadget->Unknown2C &= ~0x800;
+//          gadget->Unknown_6607D0();
+//      }
+//  }
 
-// NOT EXACT: functional (D64), from the client's 0x55B650 (the tab buttons, and the chosen colour part's button,
+// The tab buttons, and the chosen colour part's button,
 // flash; the client writes each pair out inline)
 // 0x55B650
 void AvatarCreationInterface::Unknown_55B650()
 {
-	UIAvatrFlash(Unknown098[0], Unknown088 == 0, false);
-	UIAvatrFlash(Unknown098[1], Unknown088 == 1, false);
-	UIAvatrFlash(Unknown098[2], Unknown088 == 2, false);
-	UIAvatrFlash(Unknown098[30], Unknown1BC == 0, true);
-	UIAvatrFlash(Unknown098[31], Unknown1BC == 1, false);
-	UIAvatrFlash(Unknown098[32], Unknown1BC == 2, false);
-	UIAvatrFlash(Unknown098[39], Unknown1BC == 3, true);
-	UIAvatrFlash(Unknown098[40], Unknown1BC == 4, false);
-	UIAvatrFlash(Unknown098[41], Unknown1BC == 5, false);
-	UIAvatrFlash(Unknown098[42], Unknown1BC == 6, false);
+	if (Unknown088 == 0) { Unknown098[0]->Unknown2C |= 0x800; Unknown098[0]->Unknown_6603A0(false, NULL); } else { Unknown098[0]->Unknown2C &= ~0x800; Unknown098[0]->Unknown_6607D0(); }
+	if (Unknown088 == 1) { Unknown098[1]->Unknown2C |= 0x800; Unknown098[1]->Unknown_6603A0(false, NULL); } else { Unknown098[1]->Unknown2C &= ~0x800; Unknown098[1]->Unknown_6607D0(); }
+	if (Unknown088 == 2) { Unknown098[2]->Unknown2C |= 0x800; Unknown098[2]->Unknown_6603A0(false, NULL); } else { Unknown098[2]->Unknown2C &= ~0x800; Unknown098[2]->Unknown_6607D0(); }
+	if (Unknown1BC == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C |= 0x800; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C &= ~0x800; Unknown098[30]->Unknown_6607D0(); }
+	if (Unknown1BC == 1) { Unknown098[31]->Unknown2C |= 0x800; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C &= ~0x800; Unknown098[31]->Unknown_6607D0(); }
+	if (Unknown1BC == 2) { Unknown098[32]->Unknown2C |= 0x800; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C &= ~0x800; Unknown098[32]->Unknown_6607D0(); }
+	if (Unknown1BC == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C |= 0x800; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C &= ~0x800; Unknown098[39]->Unknown_6607D0(); }
+	if (Unknown1BC == 4) { Unknown098[40]->Unknown2C |= 0x800; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C &= ~0x800; Unknown098[40]->Unknown_6607D0(); }
+	if (Unknown1BC == 5) { Unknown098[41]->Unknown2C |= 0x800; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C &= ~0x800; Unknown098[41]->Unknown_6607D0(); }
+	if (Unknown1BC == 6) { Unknown098[42]->Unknown2C |= 0x800; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C &= ~0x800; Unknown098[42]->Unknown_6607D0(); }
 }
 
 // The body tab's weight and height ranges by race * 2 + gender (0xB7B134 / 0xB7B14C: lbs, 0xB7B164 / 0xB7B17C: inches)

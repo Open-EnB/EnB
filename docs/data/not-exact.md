@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-541 entries in 130 files.
+539 entries in 130 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -262,14 +262,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:472` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the AvatarDescClass at +0x1CC is constructed in place over this file's char block 0x553AF0 |
 | `app/client/ui_avatr.cpp:676` | `AvatarCreationInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F (585CC0 / 585C90, no `key ==` test) and shares its sound tails; it calls basic_string's assign out of line for the six tutorial names (Unknown_67C920 takes a std::string by value: _Tidy(false) + assign(s, len), both out of line) where VC6 here inlines assign. Dead desc.Peek()s after t... |
 | `app/client/ui_avatr.cpp:1119` | `CharacterViewClass::Unknown_5594B0` | marker | NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment) 0x5594B0 |
-| `app/client/ui_avatr.cpp:1162` | `AvatarCreationInterface::Unknown_559900` | marker | NOT EXACT: functional (D64), from the client's 0x559900 0x559900 |
 | `app/client/ui_avatr.cpp:1305` | `AvatarCreationInterface::Unknown_55BAC0` | marker | NOT EXACT: inline-budget (as ui_avatar_cust.cpp's 0x550A10: the client calls the third temporary's ~RefCountPtr 0x4740B0 out of line and holds 0 in ebx) 0x55BAC0 |
 | `app/client/ui_avatr.cpp:1379` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
 | `app/client/ui_avatr.cpp:1401` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT (the POC's last avatar-screen gens). |
 | `app/client/ui_avatr.cpp:1547` | `AvatarCreationInterface::Unknown_5582A0` | marker | NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one in the other gender with the palettes' default colours; the old description is then kept at +0x1CC) 0x5582A0 |
 | `app/client/ui_avatr.cpp:1648` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
 | `app/client/ui_avatr.cpp:1754` | `AvatarCreationInterface::Unknown_55A1F0` | marker | NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone) 0x55A1F0 |
-| `app/client/ui_avatr.cpp:1881` | `AvatarCreationInterface::Unknown_55B650` | marker | NOT EXACT: functional (D64), from the client's 0x55B650 (the tab buttons, and the chosen colour part's button, flash; the client writes each pair out inline) 0x55B650 |
 | `app/client/ui_avatr.cpp:1904` | `AvatarCreationInterface::Unknown_55BFB0` | marker | NOT EXACT: functional (D64), from the client's 0x55BFB0 (on the body tab, the weight '%d lbs' and the height '%d ft, %d inch' from the body pull's point (+0x164), each text changed only when it differs: FontSys's +0xFC) 0x55BFB0 |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
