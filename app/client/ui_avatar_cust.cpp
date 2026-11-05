@@ -10,6 +10,7 @@
 #include "rendobj.h"
 #include "matrix3d.h"
 #include "texture.h"
+#include "dx8renderer.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\shared\unknown_debug.h"
 #include "..\audio\soundlib.h"
@@ -240,6 +241,9 @@ class UIAvatarCustAvatarClass : public RefCountClass	// NAME 1: neutral (D10); a
 public:
 	void Unknown_77FC20(int value, bool unknown);		// 0x77FC20 (0x54E950: +0x368's value, 1)  // NAME 1 [value, unknown]: neutral
 	void Unknown_77FD30(int value, bool unknown);		// 0x77FD30 (0x54EAD0: +0x36C's value, 1)  // NAME 1 [value, unknown]: neutral
+	void Unknown_77FCE0(int num, bool rebuild);			// 0x77FCE0 (avatar.h's: Goggle_Num's 'GOGGLE' accessory; 0x54CBC0: +0x374's value, 1)  // NAME 1 [num, rebuild]: avatar.h's
+	void Unknown_77FC90(int num, bool rebuild);			// 0x77FC90 (avatar.h's: Ear_Num's 'EAR' accessory; 0x54CBC0: +0x378's value, 1)  // NAME 1 [num, rebuild]: avatar.h's
+	void Unknown_7859F0(int num);						// 0x7859F0 (avatar.h's: Tattoo_Texture_Num; 0x54CBC0: +0x370's value)  // NAME 1 [num]: avatar.h's
 	void Unknown_77E9D0(int body, int pants, bool unknown);	// 0x77E9D0 (0x54E690 / 0x54E7F0: Body_Type and Pants_Type, 1)  // NAME 1 [body, pants, unknown]: AvatarDescClass's fields
 	void Unknown_780790(int part, int value);			// 0x780790 (0x550970: 1-4 for the window's parts 3-6)  // NAME 1 [part, value]: neutral
 	void Unknown_77FFA0(const Vector3 &color, bool rebuild);	// 0x77FFA0 (avatar.h's: Hair_Color)  // NAME 1 [color, rebuild]: avatar.h's
@@ -471,6 +475,126 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown0B8->Unknown_78();
 	Unknown0B8->Unknown54->Unknown_1C4();
 	Unknown5BB320Class::Unknown_60();
+}
+
+// NOT EXACT: functional (D64), from the client's 0x54CBC0 (as ui_avatr.cpp's 0x554E80: the client's cases share their tails;
+// 0x54EAD0 and 0x551BF0 inlined in places)
+// 0x54CBC0
+bool StarbaseAvatarCreationInterface::Unknown_68(int key)
+{
+	if (!Unknown3CC) {
+		return(true);
+	}
+	if (Unknown360 || Unknown361 || Unknown362 || Unknown363 || Unknown364 || Unknown365) {
+		return(false);
+	}
+	switch (key) {
+		case 1:
+			Unknown_54DFE0(1);
+			Unknown_550670();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 2:
+			Unknown_54DFE0(2);
+			Unknown_550670();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 3:
+			Unknown0B8->Unknown_8C();
+			break;
+		case 8:
+			Unknown0B8->Unknown_88();
+			break;
+		case 0xD:
+			Unknown_551900();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 0xE:
+			Unknown0B4->Unknown_69F440();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 0x10:
+			Unknown_54E950(1);
+			break;
+		case 0x11:
+			Unknown_54E950(2);
+			break;
+		case 0x12:
+			Unknown_54EAD0(1);
+			break;
+		case 0x13:
+			Unknown_54EAD0(2);
+			break;
+		case 0x14:
+		case 0x15:
+			if (key == 0x14) Unknown370->Unknown_585CC0(); else Unknown370->Unknown_585C90();
+			Unknown0BC->Unknown_7859F0(Unknown370->Unknown18);
+			Unknown_5502F0();
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_551BF0();
+			return(true);
+		case 0x16:
+		case 0x17:
+			if (key == 0x16) Unknown374->Unknown_585CC0(); else Unknown374->Unknown_585C90();
+			Unknown0BC->Unknown_77FCE0(Unknown374->Unknown18, true);
+			TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_551BF0();
+			return(true);
+		case 0x18:
+		case 0x19:
+			if (key == 0x18) Unknown378->Unknown_585CC0(); else Unknown378->Unknown_585C90();
+			Unknown0BC->Unknown_77FC90(Unknown378->Unknown18, true);
+			TheDX8MeshRenderer.Invalidate();
+			Unknown0BC->Unknown_780810(Unknown0B4->Client->EnvironmentMapManager);
+			Unknown0B8->Unknown_84(Unknown0BC);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_551BF0();
+			return(true);
+		case 0x1A:
+		case 0x1B:
+			Unknown_5513E0("fa_avatar_color.tga");
+			Unknown_550140(key);
+			break;
+		case 0x1C:
+			Unknown_5513E0("fa_skin_color.tga");
+			Unknown_550140(key);
+			break;
+		case 0x20:
+			Unknown_54E690(1);
+			break;
+		case 0x21:
+			Unknown_54E690(2);
+			break;
+		case 0x22:
+			Unknown_54E7F0(1);
+			break;
+		case 0x23:
+			Unknown_54E7F0(2);
+			break;
+		case 0x24:
+		case 0x25:
+		case 0x26:
+		case 0x27:
+			Unknown_550140(key);
+			break;
+		case 0x28:
+			Unknown_550970(0);
+			break;
+		case 0x29:
+			Unknown_550970(1);
+			break;
+		case 0x2A:
+			Unknown_550970(2);
+			break;
+		default:
+			return(false);
+	}
+	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+	return(true);
 }
 
 // 0x54D720
@@ -2080,130 +2204,6 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x551320
 void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event, GadgetClass *sender)
 {
@@ -2370,7 +2370,7 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
 **	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
 **	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init
-**	0x54BD30 (slot +0x54) and the key handler 0x54CBC0 (slot +0x68).
+**	0x54BD30 (slot +0x54). The key handler 0x54CBC0 (slot +0x68) functional (CS1, 2026-11-04; NOT EXACT 0.42).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
 **	the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass).
 */
