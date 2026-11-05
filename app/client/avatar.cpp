@@ -2259,8 +2259,16 @@ bool CharacterViewAvatarClass::Unknown_7835D0()
 
 
 
+
+
+
+
+
+
+
+
 // 0x783620
-// NOT EXACT: register (the first loop's flags / done registers and FPU keeps; the tail's blocks laid out in another order: 0.47)
+// the blend weight is 0x77B7D0's ease written out in the call (the inlined call keeps it in a stack temp)
 void CharacterViewAvatarClass::Unknown_783620(float time)
 {
 	for (int i = 0; i < 2; i++) {
@@ -2269,34 +2277,35 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 			float last = (float)(Unknown0C0[i]->Get_Num_Frames() - 1);
 			bool done = true;
 			if (Unknown0DC[i] != -1) {
-				float target;
-				if ((Unknown0DC[i] & 1) == 0) {
-					target = last * Unknown0D4[i];
+				float frames = last;
+				if (Unknown0DC[i] & 1) {
+					last = Unknown0D4[i];
 				} else {
-					target = Unknown0D4[i];
+					last = last * Unknown0D4[i];
 				}
-				if (target <= last) {
-					last = target;
-					if (target < 0.0f) {
-						last = 0.0f;
-					}
+				if (last > frames) {
+					last = frames;
+				} else if (last < 0.0f) {
+					last = 0.0f;
 				}
-				done = (Unknown0DC[i] & 2) == 0;
+				if (Unknown0DC[i] & 2) {
+					done = false;
+				}
 				if (Unknown0DC[i] & 4) {
 					Unknown0CC[i] = last;
 				}
 			}
-			if (last < Unknown0CC[i]) {
-				Unknown0CC[i] -= rate * time;
-				if (Unknown0CC[i] <= last) {
+			if (last >= Unknown0CC[i]) {
+				if (last > Unknown0CC[i]) {
+					Unknown0CC[i] += rate * time;
+				}
+				if (last <= Unknown0CC[i]) {
 					Unknown0CC[i] = last;
 					Unknown0C8[i] = done;
 				}
 			} else {
-				if (Unknown0CC[i] < last) {
-					Unknown0CC[i] += rate * time;
-				}
-				if (last <= Unknown0CC[i]) {
+				Unknown0CC[i] -= rate * time;
+				if (Unknown0CC[i] <= last) {
 					Unknown0CC[i] = last;
 					Unknown0C8[i] = done;
 				}
@@ -2304,10 +2313,10 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 			if (Unknown0C0[1] == NULL && Unknown20C != 2) {
 				float part = Unknown0CC[i] / last;
 				if ((Unknown238 == 0 && part > 0.1f) || (Unknown238 == 1 && part > 0.6f)) {
-					if (!Unknown2F4) {
-						Unknown_442930(Unknown23C, Unknown330);
-					} else {
+					if (Unknown2F4) {
 						Unknown_4428E0(Unknown23C, Unknown330);
+					} else {
+						Unknown_442930(Unknown23C, Unknown330);
 					}
 					Unknown238++;
 					if (Unknown238 == 1 && part > 0.6f) {
@@ -2317,53 +2326,44 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 			}
 		}
 	}
-	if (Unknown0C0[0] == NULL) {
-		return;
-	}
-	if (Unknown0C0[1] == NULL) {
+	if (Unknown0C0[0] != NULL && Unknown0C0[1] != NULL) {
+		Unknown21C -= time;
+		FAIL_IF(Unknown218 < 0.0001f) {
+			static const float blend_time = 0.5f;
+			Unknown218 = blend_time;
+		}
+		float t = 1.0f - WWMath::Clamp(Unknown21C / Unknown218, 0.0f, 1.0f);
+		if (t >= 1.0f) {
+			t = 1.0f;
+		} else if (t <= 0.0f) {
+			t = 0.0f;
+		}
+		BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], Unknown0C0[1].Peek(), Unknown0CC[1], (t < 0.5f ? (float)(1.0 - cos(t * WWMATH_PI)) : (float)(sin((t - 0.5f) * WWMATH_PI) + 1.0)) * 0.5f);
+		if (Unknown21C >= 0.0f) {
+			return;
+		}
+		Unknown21C = 0.0f;
+		Unknown218 = 0.0f;
+
+
+
+		Unknown0C0[0] = Unknown0C0[1];
+		Unknown0CC[0] = Unknown0CC[1];
+		Unknown0D4[0] = Unknown0D4[1];
+		Unknown0DC[0] = Unknown0DC[1];
+		Unknown0C8[0] = false;
+		Unknown0C0[1] = NULL;
+		Unknown0C8[1] = false;
+		Unknown0CC[1] = 0.0f;
+		Unknown0D4[1] = 0.0f;
+		Unknown0DC[1] = -1;
+	} else if (Unknown0C0[0] != NULL) {
 		BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], 0);
 		if (Unknown24C > 0 && Unknown_781B20() != NULL && Unknown0CC[0] > (float)Unknown24C) {
 			Unknown214 = true;
 		}
-		return;
 	}
-	Unknown21C -= time;
-	FAIL_IF(Unknown218 < 0.0001f) {
-		static const float blend_time = 0.5f;
-		Unknown218 = blend_time;
-	}
-	float t = WWMath::Clamp(Unknown21C / Unknown218, 0.0f, 1.0f);
-	BodyObj->Set_Animation(Unknown0C0[0].Peek(), Unknown0CC[0], Unknown0C0[1].Peek(), Unknown0CC[1], Unknown_77B7D0(1.0f - t));
-	if (Unknown21C >= 0.0f) {
-		return;
-	}
-	Unknown21C = 0.0f;
-	Unknown218 = 0.0f;
-
-
-
-	Unknown0C0[0] = Unknown0C0[1];
-	Unknown0CC[0] = Unknown0CC[1];
-	Unknown0D4[0] = Unknown0D4[1];
-	Unknown0DC[0] = Unknown0DC[1];
-	Unknown0C8[0] = false;
-	Unknown0C0[1] = NULL;
-	Unknown0C8[1] = false;
-	Unknown0CC[1] = 0.0f;
-	Unknown0D4[1] = 0.0f;
-	Unknown0DC[1] = -1;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

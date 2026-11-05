@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-543 entries in 135 files.
+542 entries in 135 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -22,7 +22,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
 | `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
-| `app/client/avatar.cpp:2263` | `CharacterViewAvatarClass::Unknown_783620` | marker | NOT EXACT: register (the first loop's flags / done registers and FPU keeps; the tail's blocks laid out in another order: 0.47) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
 | `app/client/avatar.cpp:3239` | `CharacterViewAvatarClass::Unknown_786410` | marker | NOT EXACT: register (the Set_Translation stores' y / z go through ecx / edx in the client, edx / eax here: 0.94) |
 | `app/client/avatar.cpp:3399` | `CharacterViewAvatarClass::Unknown_787450` | marker | NOT EXACT: order-only (the second Normalize sums z*z + y*y where the client sums y*y first, or the reverse: 0.92) |

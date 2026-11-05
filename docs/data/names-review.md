@@ -241,9 +241,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_782850` | `app/client/avatar.cpp:1763` | untagged neutral name (D10) |
 | 1 | `blend` | `app/client/avatar.cpp:2132` | neutral (D10) |
 | 1 | `Unknown_7835D0` | `app/client/avatar.cpp:2198` | untagged neutral name (D10) |
-| 1 | `Unknown_783620` | `app/client/avatar.cpp:2264` | untagged neutral name (D10) |
-| 1 | `Unknown_442930` | `app/client/avatar.cpp:2308` | untagged neutral name (D10) |
-| 1 | `Unknown_4428E0` | `app/client/avatar.cpp:2310` | untagged neutral name (D10) |
+| 1 | `Unknown_783620` | `app/client/avatar.cpp:2272` | untagged neutral name (D10) |
+| 1 | `Unknown_4428E0` | `app/client/avatar.cpp:2317` | untagged neutral name (D10) |
+| 1 | `Unknown_442930` | `app/client/avatar.cpp:2319` | untagged neutral name (D10) |
 | 1 | `Unknown_1C4` | `app/client/avatar.cpp:2381` | untagged neutral name (D10) |
 | 1 | `Unknown_788900` | `app/client/avatar.cpp:2394` | untagged neutral name (D10) |
 | 1 | `Unknown_7897D0` | `app/client/avatar.cpp:2395` | untagged neutral name (D10) |
