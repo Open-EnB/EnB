@@ -7,10 +7,10 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 107 |
+| 5 | the client names it | 108 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1326 |
-| 2 | describes what the code does | 3026 |
+| 3 | by convention from a client-named file or sibling | 1328 |
+| 2 | describes what the code does | 3038 |
 | 1 | neutral placeholder | 15088 |
 
 ## For review (score 3 and below)
@@ -12222,7 +12222,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C` | `app/client/view.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/view.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4990` | `app/client/view.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8A08` | `app/common/chartemplate.cpp:9` | neutral (D10) |
+| 1 | `Unknown_BA8A08` | `app/common/chartemplate.cpp:15` | neutral (D10) |
 | 1 | `Unknown_82F350` | `app/common/chartemplate.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_82F3C0` | `app/common/chartemplate.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
@@ -16397,6 +16397,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Index` | `app/common/average.h:124` | what it holds |
 | 2 | `race, prof` | `app/common/chartemplate.cpp:83` | the FAIL_IFs'; NAME 1 [Unknown_82F350]: neutral (D10) |
 | 2 | `template_idx` | `app/common/chartemplate.cpp:90` | the FAIL_IF's; NAME 1 [Unknown_82F3C0]: as ui_class.cpp's |
+| 2 | `Init` | `app/common/chartemplate.h:37` | reads 'chartemplate.ini' on the first reference |
+| 2 | `Shutdown` | `app/common/chartemplate.h:38` | frees the templates with the last reference |
+| 2 | `Get_Template` | `app/common/chartemplate.h:39` | what it returns |
+| 2 | `Get_First` | `app/common/chartemplate.h:40` | Get_Template(0) |
+| 2 | `Get_Next` | `app/common/chartemplate.h:41` | the template after this one, or NULL |
+| 2 | `Get_Reputation` | `app/common/chartemplate.h:42` | copies Reputation |
+| 2 | `Name` | `app/common/chartemplate.h:44` | what it holds |
+| 2 | `Index` | `app/common/chartemplate.h:45` | what it holds |
+| 2 | `Race` | `app/common/chartemplate.h:46` | the key it reads |
+| 2 | `Profession` | `app/common/chartemplate.h:47` | the key it reads |
+| 2 | `std:` | `app/common/chartemplate.h:48` | the section it reads |
+| 2 | `std:` | `app/common/chartemplate.h:51` | what it holds |
 | 2 | `Read` | `app/common/circbuff.h:26` | what it does |
 | 2 | `Write` | `app/common/circbuff.h:27` | what it does |
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
@@ -18619,6 +18631,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `wnd_file.h` | `app/client/wnd_file.h:17` | EA's Wnd_File.h beside the client's wnd_file.cpp |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |
+| 3 | `chartemplate.h` | `app/common/chartemplate.h:15` | header name assumed from the client's chartemplate.cpp |
+| 3 | `CharTemplateClass` | `app/common/chartemplate.h:32` | built by convention from chartemplate.cpp (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |

@@ -4172,8 +4172,10 @@ RECONSTRUCTED = {
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
                                     "buffer): all 7 functions exact, the asserts on the client's lines 112 / 166 (D25)",
-    ('app', 'common/chartemplate.cpp'): "chartemplate.cpp (PARTIAL): the template index of a race and profession (0x82F350) and "
-                                        "a template's name (0x82F3C0, table 0xBA8A08), both exact, FAIL_IFs on the client's lines 85 / 86 / 92 (D25)",
+    ('app', 'common/chartemplate.cpp'): "chartemplate.cpp (the client's __FILE__), whole: the CharTemplateEnum converters and the nine templates of "
+                                        "'chartemplate.ini', client 0x82F210-0x8303B0, all exact; asserts on the client's lines 85 / 86 / 92 / 132 / "
+                                        "136 / 153 / 171 / 172 (D25). No caller in the client but 0x82F350 / 0x82F3C0's",
+    ('app', 'common/chartemplate.h'): "CharTemplateEnum (the client's Type_Name) and CharTemplateClass (D24), the layout from 0x82F7D0 (header name assumed)",
     ('app', 'client/ship_pip.cpp'): "ShipPipClass (D24 class-from-file), the ship picture-in-picture gadget (table 0xB07DF4, "
                                     "37 slots, 0xF4 bytes), client 0x80B2E0-0x80E815 (__FILE__ 0xBA74A4; asserts on lines 132 / 253 / 267, "
                                     "D25); NOT EXACT (D64): 0x80C640, 0x80CA30, 0x80CE10, 0x80D5E0, 0x80E260, 0x80E530 (CRE1)",

@@ -1999,15 +1999,97 @@
     ]
    },
    "chartemplate": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42B420",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
+     "0x42DB00",
+     "0x42DC10",
+     "0x42DFC0",
+     "0x4B58D0",
+     "0x816880",
+     "0x82F210",
+     "0x82F250",
+     "0x82F2C0",
+     "0x82F310",
      "0x82F350",
-     "0x82F3C0"
+     "0x82F3C0",
+     "0x82F400",
+     "0x82F740",
+     "0x82F7D0",
+     "0x82FC30",
+     "0x82FD40",
+     "0x82FF90",
+     "0x830000",
+     "0x830040",
+     "0x8300D0",
+     "0x8302A0",
+     "0x8302C0",
+     "0x830300",
+     "0x830340",
+     "0x830370",
+     "0x8303B0",
+     "0x8303E0"
     ],
     "merged": [],
-    "name": "common/chartemplate.cpp"
+    "name": "common/chartemplate.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42B420",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
+     "0x42DB00",
+     "0x42DC10",
+     "0x42DFC0",
+     "0x4B58D0",
+     "0x8302A0"
+    ],
+    "shared_callers": [
+     "0x42DFC0"
+    ],
+    "short_known": [
+     "0x42D120",
+     "0x42D140",
+     "0x8302A0"
+    ],
+    "tiebreak": [
+     "0x42DFC0",
+     "0x8302C0",
+     "0x830300",
+     "0x830340",
+     "0x830370",
+     "0x8303B0",
+     "0x8303E0"
+    ]
    },
    "charview": {
     "ambiguous": [
@@ -8811,6 +8893,7 @@
      "0x42CF30",
      "0x42D050",
      "0x42D120",
+     "0x42D140",
      "0x42D180",
      "0x42D300",
      "0x42D5D0",
@@ -8832,20 +8915,25 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42B420",
      "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
      "0x42CF30",
      "0x42D050",
      "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
      "0x42DB00",
-     "0x42DB80"
+     "0x42DB80",
+     "0x42DC10",
+     "0x42DFC0"
     ],
     "short_known": [
-     "0x42D120"
+     "0x42D120",
+     "0x42D140"
     ],
     "tiebreak": [
-     "0x42DC10",
      "0x42DDF0",
      "0x42E190"
     ]
@@ -30291,6 +30379,7 @@
    "client/unknown_signalbase.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
+   "common/chartemplate.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
@@ -30539,7 +30628,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10538,
+  "in_tree_total": 10560,
   "totals": {}
  },
  "binkmovie": {
