@@ -2568,6 +2568,13 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_ptrade.cpp (PT1, 2026-11-05 night; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): set-up
+     0x5E1FA0 (slot +0x54, asserts 145 / 146; name / style tables 0xB850B0 / 0xB850C4; needs the 0x5E3F40 gadget), 0x5E26D0;
+     NOT EXACT 0x5E37F0 / 0x5E2CE0 (register), 0x5E39F0 / 0x5E3340 / 0x5E26F0 (inline budget: find 0x5466A0 and
+     ~RefCountPtr<FontSys> 0x51C630 out of line, ui_manu's limit), 0x5E3C90 (shape). ui_group.h's UISymbolChatClass
+     0x64A220 / 0x64A240 read the 0x649890 'TRADE01A' object's +0xC0 (0xD0 bytes): PT1 declared them on UIPTradeCreditsClass;
+     check 0x64A480's base and size and merge. money.cpp's operator+ 0x4F0500 / operator> 0x4F0700 / operator>= 0x4F0740 are
+     unresolved in the clientpoc link: a stub or money.cpp.
    * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
      0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
      +0x68, an 11-case key switch; callees 0x7E8030 / 0x64A2B0 unknown), 0x591C30 (GroupInfo lookup via 0x5927E0), 0x5921C0
