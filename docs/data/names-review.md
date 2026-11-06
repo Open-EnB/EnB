@@ -10190,7 +10190,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64A270` | `app/client/ui_ptrade.cpp:142` | untagged neutral name (D10) |
 | 1 | `Unknown_5E26D0` | `app/client/ui_ptrade.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/ui_ptrade.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_5E2F70` | `app/client/ui_ptrade.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_5E2F70` | `app/client/ui_ptrade.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ptrade.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_ptrade.cpp:177` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_ptrade.cpp:178` | untagged neutral name (D10) |

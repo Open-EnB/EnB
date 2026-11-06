@@ -155,6 +155,7 @@ RenderObjClass *UIMeshClass::Unknown_5E26D0()
 	return(Unknown1C);
 }
 
+
 // 0x5E2F70
 void UIPTradeClass::Unknown_5E2F70(bool on)
 {
@@ -167,7 +168,6 @@ void UIPTradeClass::Unknown_5E2F70(bool on)
 }
 
 // 0x5E26F0
-// NOT EXACT: inline budget (0.69: the client calls ~RefCountPtr<FontSys> 0x51C630 out of line in the inlined 0x5E2F70, and its temporaries take the other stack slots)
 void UIPTradeClass::Unknown_58()
 {
 	if (State == UI_CLOSED) {
@@ -180,7 +180,7 @@ void UIPTradeClass::Unknown_58()
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5E3340();
 		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("PLAYER_NAME_TRADE00", InterfaceMesh->Peek_Object()));
-		RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(((ClientClass *)Client)->AvatarID));
+		int id = ((ClientClass *)Client)->AvatarID; RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(id));
 		if (avatar && font) {
 			std::string name;
 			avatar->Desc.Get_Full_Name(name);
@@ -192,8 +192,8 @@ void UIPTradeClass::Unknown_58()
 		if (font) font->Change_Text("", 0);
 		Unknown_5E3750(true);
 		Unknown_5E2F70(false);
-		Unknown0E0.Unknown00 = 0;
-		Unknown0D8 = 0;
+		Unknown0E0 = MoneyClass();
+		Unknown0D8 = 0; font.Peek();	// a dead read (D130): with it ~RefCountPtr<FontSys> stays out of line in the inlined 0x5E2F70, as the client has it
 	}
 }
 
