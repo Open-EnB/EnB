@@ -87,7 +87,7 @@ GadgetClass *GalaxyMapPipClass::Unknown_18()
 }
 
 // @0x53F770
-bool GalaxyMapPipClass::Unknown_04(InterfaceClass *iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
+bool GalaxyMapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
 {
 	if (!MapPipClass::Unknown_04(iface_ptr, vp, arg)) {
 		return(false);
@@ -132,7 +132,7 @@ void GalaxyMapPipClass::Unknown_1C(int arg)
 		Grid->Remove();
 		return;
 	}
-	InterfaceSortClass sort(Interface);
+	InterfaceSortClass sort(Interface.Peek());
 	Grid->Add(Scene.Peek());
 }
 
@@ -356,7 +356,7 @@ void GalaxyMapPipClass::Unknown_53FE30()
 
 	FAIL_IF(!GalaxyBackground) return;
 	Unknown_496AE0(GalaxyBackground.Peek(), true);
-	InterfaceSortClass sort(Interface);
+	InterfaceSortClass sort(Interface.Peek());
 	GalaxyBackground->Add(Scene.Peek());
 	if (Grid) {
 		Grid->Remove();

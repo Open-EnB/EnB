@@ -104,6 +104,7 @@ class InterfaceKeyHandlerClass;
 // (+0x44 / +0x48 gclass.cpp's two asserted functions), +0x64..+0x78 the one-line defaults 0x515690-0x515750
 // emitted next to smouse.cpp, +0x58 / +0x5C / +0x60 / +0x7C / +0x80 / +0x84 intrface.cpp's (activate /
 // deactivate). The views release them through the RefCountClass at +0x38 (dec [p+0x3C], then [[p+0x38]]'s slot 0)
+class SceneClass;
 class InterfaceClass : public GClass, public RefCountClass  // NAME 3: by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98)
 {
 public:
@@ -130,6 +131,8 @@ public:
 	void Unknown_5418C0(GadgetGroupToFrontEvent *event, void *sender);						// 0x5418C0 (the gadgets' GadgetGroupToFrontEvent callback, FAIL_IF '!ssl')  // NAME 1 [event, sender]: neutral
 	void Unknown_541930();																	// 0x541930 (FAIL_IF '!ssl': the static sort list's 0x6DB950)
 #endif
+	UIViewClass *Get_View() { return(View); }												// (map_pip.cpp's 0x692E00: the register after the load matches only so)  // NAME 2: what it returns
+	SceneClass *Peek_Scene() { return((SceneClass *)Unknown44); }							// (map_pip.cpp's 0x692E00; +0x44 is what the render objects are added to)  // NAME 2: what 0x692E00 does with it
 	bool Is_Active() { return(Active); }													// (ui_group.cpp's asserts 'Get_Interface()->Is_Active()')  // NAME 3: the asserts'
 	bool Is_Partially_Deactivated() { return(PartialDeactivatedGadget != NULL); }			// (ui_group.cpp's G_ASSERT line 403)  // NAME 3: the assert's
 

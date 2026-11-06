@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1359 |
-| 2 | describes what the code does | 3095 |
-| 1 | neutral placeholder | 15276 |
+| 3 | by convention from a client-named file or sibling | 1361 |
+| 2 | describes what the code does | 3101 |
+| 1 | neutral placeholder | 15318 |
 
 ## For review (score 3 and below)
 
@@ -3662,43 +3662,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_686EE0` | `app/client/intrface.h:93` | untagged neutral name (D10) |
 | 1 | `scene` | `app/client/intrface.h:94` | what intrface.cpp passes |
 | 1 | `Unknown_686F10` | `app/client/intrface.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/intrface.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/intrface.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/intrface.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/intrface.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/intrface.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/intrface.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/intrface.h:117` | untagged neutral name (D10) |
-| 1 | `ini` | `app/client/intrface.h:118` | what 0x745080 passes |
-| 1 | `Unknown_6C` | `app/client/intrface.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/intrface.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/intrface.h:120` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/intrface.h:121` | neutral |
-| 1 | `Unknown_78` | `app/client/intrface.h:121` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/intrface.h:122` | what the callers pass |
-| 1 | `Unknown_7C` | `app/client/intrface.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/intrface.h:123` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/intrface.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_541800` | `app/client/intrface.h:125` | untagged neutral name (D10) |
-| 1 | `parent` | `app/client/intrface.h:126` | neutral |
-| 1 | `Unknown_5417D0` | `app/client/intrface.h:126` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/intrface.h:128` | the member's |
-| 1 | `Unknown_541830` | `app/client/intrface.h:129` | untagged neutral name (D10) |
-| 1 | `event, sender` | `app/client/intrface.h:130` | neutral |
-| 1 | `Unknown_5418C0` | `app/client/intrface.h:130` | untagged neutral name (D10) |
-| 1 | `Unknown_541930` | `app/client/intrface.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/intrface.h:137` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/intrface.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/intrface.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/intrface.h:146` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/intrface.h:148` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/intrface.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/intrface.h:150` | untagged neutral name (D10) |
-| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:161` | neutral (D10) |
-| 1 | `owner` | `app/client/intrface.h:164` | neutral |
-| 1 | `key` | `app/client/intrface.h:165` | InterfaceClass's |
-| 1 | `Unknown_08` | `app/client/intrface.h:165` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/client/intrface.h:167` | neutral (D10) |
+| 1 | `Unknown_54` | `app/client/intrface.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/intrface.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/intrface.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/intrface.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/intrface.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/intrface.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/intrface.h:118` | untagged neutral name (D10) |
+| 1 | `ini` | `app/client/intrface.h:119` | what 0x745080 passes |
+| 1 | `Unknown_6C` | `app/client/intrface.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/intrface.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/intrface.h:121` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/intrface.h:122` | neutral |
+| 1 | `Unknown_78` | `app/client/intrface.h:122` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/intrface.h:123` | what the callers pass |
+| 1 | `Unknown_7C` | `app/client/intrface.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/intrface.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/intrface.h:125` | untagged neutral name (D10) |
+| 1 | `Unknown_541800` | `app/client/intrface.h:126` | untagged neutral name (D10) |
+| 1 | `parent` | `app/client/intrface.h:127` | neutral |
+| 1 | `Unknown_5417D0` | `app/client/intrface.h:127` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/intrface.h:129` | the member's |
+| 1 | `Unknown_541830` | `app/client/intrface.h:130` | untagged neutral name (D10) |
+| 1 | `event, sender` | `app/client/intrface.h:131` | neutral |
+| 1 | `Unknown_5418C0` | `app/client/intrface.h:131` | untagged neutral name (D10) |
+| 1 | `Unknown_541930` | `app/client/intrface.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/intrface.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/intrface.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/intrface.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/intrface.h:149` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/intrface.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/intrface.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/intrface.h:153` | untagged neutral name (D10) |
+| 1 | `InterfaceKeyHandlerClass` | `app/client/intrface.h:164` | neutral (D10) |
+| 1 | `owner` | `app/client/intrface.h:167` | neutral |
+| 1 | `key` | `app/client/intrface.h:168` | InterfaceClass's |
+| 1 | `Unknown_08` | `app/client/intrface.h:168` | untagged neutral name (D10) |
+| 1 | `Owner` | `app/client/intrface.h:170` | neutral (D10) |
 | 1 | `InterfaceUnknown64EntryStruct` | `app/client/intrlist.cpp:14` | neutral (D10) |
 | 1 | `Active` | `app/client/intrlist.cpp:19` | describes what it gates |
 | 1 | `Unknown0D` | `app/client/intrlist.cpp:20` | untagged neutral name (D10) |
@@ -3980,35 +3980,77 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad30` | `app/client/map_pip.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/map_pip.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad40` | `app/client/map_pip.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown49` | `app/client/map_pip.h:37` | untagged neutral name (D10) |
-| 1 | `client, arg` | `app/client/map_pip.h:43` | neutral |
-| 1 | `arg` | `app/client/map_pip.h:45` | neutral |
-| 1 | `Unknown_04` | `app/client/map_pip.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/map_pip.h:46` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/map_pip.h:47` | neutral |
-| 1 | `Unknown_0C` | `app/client/map_pip.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/map_pip.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/map_pip.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/map_pip.h:50` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/map_pip.h:51` | neutral |
-| 1 | `Unknown_1C` | `app/client/map_pip.h:51` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/map_pip.h:52` | neutral |
-| 1 | `Unknown_20` | `app/client/map_pip.h:52` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/map_pip.h:53` | neutral |
-| 1 | `Unknown_24` | `app/client/map_pip.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_693020` | `app/client/map_pip.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/map_pip.h:57` | untagged neutral name (D10) |
-| 1 | `Scene` | `app/client/map_pip.h:58` | neutral (D10): what it holds |
-| 1 | `Camera` | `app/client/map_pip.h:59` | neutral (D10): what it holds |
-| 1 | `Unknown_Pad10` | `app/client/map_pip.h:60` | untagged neutral name (D10) |
-| 1 | `Client` | `app/client/map_pip.h:61` | neutral (D10): what it holds |
-| 1 | `Unknown40` | `app/client/map_pip.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/map_pip.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/map_pip.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/map_pip.h:67` | untagged neutral name (D10) |
+| 1 | `arg1, arg2` | `app/client/map_pip.cpp:19` | neutral |
+| 1 | `Unknown_7C3C60` | `app/client/map_pip.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/map_pip.cpp:20` | untagged neutral name (D10) |
+| 1 | `robj, arg, model` | `app/client/map_pip.cpp:23` | neutral |
+| 1 | `Unknown_4967F0` | `app/client/map_pip.cpp:23` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/map_pip.cpp:24` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/map_pip.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/map_pip.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/map_pip.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/map_pip.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/map_pip.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/map_pip.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/map_pip.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/map_pip.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/map_pip.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/map_pip.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/map_pip.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/map_pip.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/map_pip.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/map_pip.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/map_pip.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/map_pip.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/map_pip.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/map_pip.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB080` | `app/client/map_pip.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB110` | `app/client/map_pip.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown_7BACD0` | `app/client/map_pip.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/map_pip.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/map_pip.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/map_pip.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/map_pip.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_693020` | `app/client/map_pip.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `app/client/map_pip.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad30` | `app/client/map_pip.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/map_pip.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad40` | `app/client/map_pip.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `app/client/map_pip.h:39` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/map_pip.h:47` | what it stores |
+| 1 | `Unknown_7BACD0` | `app/client/map_pip.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB080` | `app/client/map_pip.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB110` | `app/client/map_pip.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/map_pip.h:54` | untagged neutral name (D10) |
+| 1 | `Scene` | `app/client/map_pip.h:55` | neutral (D10): what it holds |
+| 1 | `Camera` | `app/client/map_pip.h:56` | neutral (D10): what it holds |
+| 1 | `Unknown10` | `app/client/map_pip.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/map_pip.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/map_pip.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/map_pip.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/map_pip.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/map_pip.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/map_pip.h:63` | untagged neutral name (D10) |
+| 1 | `client, arg` | `app/client/map_pip.h:69` | neutral |
+| 1 | `Unknown_04` | `app/client/map_pip.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/map_pip.h:72` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/map_pip.h:73` | neutral |
+| 1 | `Unknown_0C` | `app/client/map_pip.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/map_pip.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/map_pip.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/map_pip.h:76` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:77` | neutral |
+| 1 | `Unknown_1C` | `app/client/map_pip.h:77` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:78` | neutral |
+| 1 | `Unknown_20` | `app/client/map_pip.h:78` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:79` | neutral |
+| 1 | `Unknown_24` | `app/client/map_pip.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_693020` | `app/client/map_pip.h:81` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/map_pip.h:83` | neutral (D10): what it holds |
+| 1 | `Unknown40` | `app/client/map_pip.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/map_pip.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/map_pip.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/map_pip.h:89` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10) |
 | 1 | `Unknown_BE7CD4` | `app/client/mousetbl.cpp:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.cpp:90` | untagged neutral name (D10) |
@@ -16015,8 +16057,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LastInterface` | `app/client/interface_static_sort_list.h:138` | the asserts' |
 | 2 | `PIPScenes` | `app/client/interface_static_sort_list.h:139` | the asserts' |
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:140` | the asserts' |
-| 2 | `view` | `app/client/intrface.h:110` | the member's assert '!View'; NAME 1 [unknown]: neutral |
-| 2 | `key_manager` | `app/client/intrface.h:129` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `view` | `app/client/intrface.h:111` | the member's assert '!View'; NAME 1 [unknown]: neutral |
+| 2 | `key_manager` | `app/client/intrface.h:130` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `Get_View` | `app/client/intrface.h:134` | what it returns |
+| 2 | `Peek_Scene` | `app/client/intrface.h:135` | what 0x692E00 does with it |
 | 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h |
 | 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:62` | class from file (D24), client_item_property_option.h |
 | 2 | `ClientItemPropertySpecialClass` | `app/client/item/client_item_property_special.h:76` | class from file (D24), client_item_property_special.h |
@@ -16031,6 +16075,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
+| 2 | `vp` | `app/client/map_pip.h:50` | the FAIL_IF's  // NAME 1 [arg]: neutral |
+| 2 | `view` | `app/client/map_pip.h:51` | the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral |
+| 2 | `iface, vp` | `app/client/map_pip.h:71` | the FAIL_IFs' iface_ptr is its Peek  // NAME 1 [arg]: neutral |
+| 2 | `vp` | `app/client/map_pip.h:74` | what 0x692B30 passes |
 | 2 | `Phrase` | `app/client/nlp.h:28` | the INI key |
 | 2 | `Context` | `app/client/nlp.h:29` | the INI keys |
 | 2 | `NLPLexiconClass` | `app/client/nlp.h:33` | the client's text 'NLPLexicon not initialized!' |
@@ -18562,12 +18610,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `interface_static_sort_list.h` | `app/client/interface_static_sort_list.h:23` | header name assumed from the client's interface_static_sort_list.cpp |
 | 3 | `InterfaceStaticSortListClass` | `app/client/interface_static_sort_list.h:97` | class-from-file (D24) for app\client\interface_static_sort_list.cpp |
 | 3 | `intrface.h` | `app/client/intrface.h:22` | header name assumed from the client's intrface.cpp |
-| 3 | `InterfaceClass` | `app/client/intrface.h:107` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
-| 3 | `Is_Active` | `app/client/intrface.h:133` | the asserts' |
-| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:134` | the assert's |
-| 3 | `View` | `app/client/intrface.h:138` | the assert's |
-| 3 | `Active` | `app/client/intrface.h:154` | the FAIL_IF's |
-| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:155` | the assert's |
+| 3 | `InterfaceClass` | `app/client/intrface.h:108` | by convention (D24) from the client's intrface.cpp (constructors 0x540A90 / 0x540D30, table 0xAEEF98) |
+| 3 | `Is_Active` | `app/client/intrface.h:136` | the asserts' |
+| 3 | `Is_Partially_Deactivated` | `app/client/intrface.h:137` | the assert's |
+| 3 | `View` | `app/client/intrface.h:141` | the assert's |
+| 3 | `Active` | `app/client/intrface.h:157` | the FAIL_IF's |
+| 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:158` | the assert's |
 | 3 | `View` | `app/client/intrlist.cpp:18` | the FAIL_IF's |
 | 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
@@ -18579,11 +18627,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |
 | 3 | `CosSize` | `app/client/mainview.cpp:1777` | the G_ASSERT's 'cos_occluder_size' |
 | 3 | `InfoCount` | `app/client/mainview.cpp:1782` | the G_ASSERT's |
-| 3 | `map_pip.h` | `app/client/map_pip.h:16` | header name assumed from the client's map_pip.cpp |
-| 3 | `GadgetPipSceneClass` | `app/client/map_pip.h:31` | class-from-file (D24) for app\client\gd_pip_scene.cpp |
-| 3 | `MapPipClass` | `app/client/map_pip.h:40` | class-from-file (D24) for app\client\map_pip.cpp |
-| 3 | `ViewportGadget` | `app/client/map_pip.h:62` | the FAIL_IF's |
-| 3 | `Interface` | `app/client/map_pip.h:63` | the FAIL_IF's |
+| 3 | `StarmapPipSupportClass` | `app/client/map_pip.cpp:13` | class-from-file (D24) for app\client\starmap_pip_support.cpp |
+| 3 | `map_pip.h` | `app/client/map_pip.h:15` | header name assumed from the client's map_pip.cpp |
+| 3 | `GadgetPipSceneClass` | `app/client/map_pip.h:33` | class-from-file (D24) for app\client\gd_pip_scene.cpp |
+| 3 | `PipSceneClass` | `app/client/map_pip.h:44` | class-from-file (D24) for app\client\pip_scene.cpp |
+| 3 | `MapPipClass` | `app/client/map_pip.h:66` | class-from-file (D24) for app\Client\map_pip.cpp |
+| 3 | `ViewportGadget` | `app/client/map_pip.h:84` | the FAIL_IF's |
+| 3 | `Interface` | `app/client/map_pip.h:85` | the FAIL_IF's |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `nlp.h` | `app/client/nlp.h:13` | by convention from nlp.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |

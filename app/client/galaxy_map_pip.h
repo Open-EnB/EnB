@@ -71,7 +71,7 @@ class GalaxyMapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) f
 public:
 	GalaxyMapPipClass(SClient *client);					// 0x53F390  // NAME 1 [client]: neutral
 	virtual ~GalaxyMapPipClass();						// +0x00 0x53F540 (deleting 0x53F510)
-	virtual bool Unknown_04(InterfaceClass *iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x53F770
+	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x53F770
 	virtual bool Unknown_08();							// +0x08 0x53F7E0
 	virtual bool Unknown_0C(bool on);					// +0x0C 0x53F800
 	virtual GadgetClass *Unknown_18();					// +0x18 0x53F6F0 (news the 0x50-byte gadget 0x668E30)

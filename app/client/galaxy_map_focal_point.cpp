@@ -154,7 +154,7 @@ bool GalaxyMapFocalPointClass::operator == (const GalaxyMapFocalPointClass &that
 **	Reconstruction notes.
 **
 **	Placed by the client's __FILE__ 0xB9E8F4 (0x7A5890's FAIL_IF, line 85). The object runs 0x7A5730-0x7A5FF3:
-**	galaxy_map_render.cpp's constructor 0x7A6020 follows, and galaxy_map_client.cpp ends before 0x7A5730.
+**	galaxy_map_render.cpp's constructor 0x7A6020 follows, and the object before it ends before 0x7A5730.
 **	0x7A5820 has no caller in the client (a public member nobody used); nor has 0x7A5F90, the object's last function.
 **	0x7A5980's first clamp takes max.Y where max.X belongs: the client's, kept.
 */

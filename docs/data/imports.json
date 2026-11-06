@@ -10924,6 +10924,46 @@
      "0x514D90"
     ]
    },
+   "map_pip": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x541A10"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6927C0",
+     "0x6929D0",
+     "0x6929F0",
+     "0x692A10",
+     "0x692A30",
+     "0x692A60",
+     "0x692B30",
+     "0x692D40",
+     "0x692E00",
+     "0x692EF0",
+     "0x693000",
+     "0x693020",
+     "0x693060"
+    ],
+    "merged": [],
+    "name": "client/map_pip.cpp",
+    "shared": [
+     "0x42F250"
+    ],
+    "short_known": [
+     "0x6929D0",
+     "0x6929F0",
+     "0x692A10",
+     "0x693000",
+     "0x693020"
+    ],
+    "tiebreak": [
+     "0x693060"
+    ]
+   },
    "memconn": {
     "ambiguous": [
      "0x42B2F0"
@@ -30971,7 +31011,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10677,
+  "in_tree_total": 10690,
   "totals": {}
  },
  "binkmovie": {
