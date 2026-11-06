@@ -30,7 +30,7 @@ Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int NumActivatable; };	// NAME 3 [Abilities, NumActivatable]: asserts
 const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
 int Unknown_815260(const std::string &name);	void Unknown_815720(std::string *string, int ability, bool below, unsigned int level);	// NAME 1: neutral (D10)
-const char *Unknown_818200(int skill);	int Unknown_818520(const char *name);	const char *Unknown_818430(int skill);	// NAME 1: neutral (D10)
+const char *Unknown_818200(int skill);	int Unknown_818520(const char *name);	TextureClass *Unknown_818430(int skill);	// NAME 1: neutral (D10)
 void Unknown_6A93E0(const char *value, std::string &string);	const char *Unknown_6A9660(const char *state, std::string &string);	// NAME 1: neutral (D10)
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10)
 
@@ -115,7 +115,7 @@ bool SkillRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 	G_ASSERT(WrongTargetTypeIndicator);
 	G_ASSERT(RechargeIndicator);
 
-	RenderObjClass *render_object = SlotDataRenderClass::render_object.Peek();
+	RenderObjClass *render_object = Mesh;
 	FAIL_IF(!render_object) return(false);
 	Unknown48 = new Unknown6A3D60Class(render_object);
 	return(true);
@@ -151,7 +151,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 		int active = skills->Unknown_6A4B40();
 		if (active == Unknown34 && Unknown34 != -1) {
 			if (!Unknown2C->Get_Container()) {
-				RenderObjClass *robj = render_object.Peek();
+				RenderObjClass *robj = Mesh;
 				if (Container && robj) {
 					Container->Add_Sub_Object(Unknown2C.Peek());
 					Unknown_496730(Unknown2C.Peek(), robj->Get_Sort_Level() - 1, 0);
@@ -304,7 +304,7 @@ const char *SkillRenderClass::Unknown_10(const char *serial_string)
 }
 
 // 0x6A6EA0
-const char *SkillRenderClass::Unknown_34()
+TextureClass *SkillRenderClass::Unknown_34()
 {
 	return(Unknown_818430(Get_Slot()));
 }
@@ -413,7 +413,7 @@ const char *SkillRenderClass::Unknown_28(std::string *string)
 }
 
 // 0x6A72C0
-int SkillRenderClass::Unknown_4C() { return(0); }
+const char *SkillRenderClass::Unknown_4C() { return(0); }
 
 // 0x6A72E0
 void SkillRenderClass::Unknown_6A72E0(int ability, bool update)
@@ -426,7 +426,7 @@ void SkillRenderClass::Unknown_6A72E0(int ability, bool update)
 // 0x6A7310
 Unknown6A7A00Class *SkillRenderClass::Unknown_6A7310()
 {
-	FAIL_IF(!sd) return(0);
+	SlotDataClass *sd = SlotData; FAIL_IF(!sd) return(0);
 
 	Unknown6A7A00Class *skill = sd->Unknown_14();
 	G_ASSERT(skill);

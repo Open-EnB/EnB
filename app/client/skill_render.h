@@ -33,11 +33,11 @@ public:
 	virtual SkillRenderClass *Unknown_20() { return(this); }			// +0x20 0x6A6020
 	virtual const char *Unknown_28(std::string *string);				// +0x28 0x6A7150  // NAME 3 [string]: its FAIL_IF
 	virtual void Unknown_2C(bool force);								// +0x2C 0x6A6550  // NAME 1 [force]: neutral
-	virtual const char *Unknown_34();									// +0x34 0x6A6EA0
+	virtual TextureClass *Unknown_34();									// +0x34 0x6A6EA0
 	virtual bool Unknown_38(Vector3 &color);							// +0x38 0x6A6EC0  // NAME 1 [color]: neutral
 	virtual void Unknown_40(int slot);									// +0x40 0x6A7020  // NAME 1 [slot]: neutral
 	virtual void Unknown_44(SlotDataRenderClass *render);				// +0x44 0x6A6F90  // NAME 3 [render]: its FAIL_IF
-	virtual int Unknown_4C();											// +0x4C 0x6A72C0
+	virtual const char *Unknown_4C();											// +0x4C 0x6A72C0
 
 	void Unknown_6A72E0(int ability, bool update);						// 0x6A72E0 (gd_attrb_skills.cpp's)  // NAME 1 [ability, update]: neutral
 	Unknown6A7A00Class *Unknown_6A7310();								// 0x6A7310 (the slot data's skill; asserts 'sd', 'skill')
