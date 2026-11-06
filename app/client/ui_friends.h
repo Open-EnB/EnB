@@ -38,6 +38,7 @@ public:
 	virtual void Unknown_5C();							// +0x5C 0x58FDD0 (deactivated: the buttons off, both lists emptied)
 	virtual void Unknown_60();							// +0x60 0x58FF00 (every frame: the slider, the rows, the symbol chat; [3] with a target, [7] in a group)
 	void Unknown_591350();								// 0x591350 (slot +0x60 once +0xAE is set, slot +0x58: request 0x18 sent)
+	void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> locations);	// 0x5913E0 (cpacket.cpp: CLIENT_CHAT_LIST 164 type 0; FAIL_IF 'player_list_size != location_list_size', line 610)  // NAME 1 [names, locations]: the assert's
 	void Unknown_5910D0();								// 0x5910D0 (FAIL_IF 'Selection < 0 || Selection >= list_size', line 586: request 9 with the selected player's name)
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x590430 (the symbol chat moved too; +0xAE set)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_590480(int count);						// 0x590480 (the slider over count rows, 7 shown; 0x5908B0 expands it)  // NAME 1 [count]: neutral

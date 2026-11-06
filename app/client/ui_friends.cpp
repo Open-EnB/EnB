@@ -177,7 +177,7 @@ void UIFriendsClass::Unknown_590810()
 	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
 		Unknown_Delete_Player(*it);
 	}
-	Unknown0C4.erase(Unknown0C4.begin(), Unknown0C4.end());
+	Unknown0C4.clear();
 }
 
 // NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14)
@@ -597,4 +597,22 @@ void UIFriendsClass::Unknown_591350()
 	int id = ((ClientClass *)Client)->Unknown1138;
 	ClientChatRequestPacketClass packet(0x18, id);
 	((ClientClass *)Client)->Send_Packet(&packet);
+}
+
+
+
+// NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx)
+// 0x5913E0
+void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> locations)
+{
+	int player_list_size = names.size();
+	int location_list_size = locations.size();
+	FAIL_IF(player_list_size != location_list_size) return;
+	Unknown_590810();
+	for (int i = 0; i < player_list_size; i++) {
+		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(names[i], locations[i]));
+	}
+	Unknown_5908B0();
+	Unknown_590550();
+	Unknown_591030(true);
 }
