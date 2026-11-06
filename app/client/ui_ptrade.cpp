@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far 0x5E1BE0-0x5E1F2F (the constructor and the destructors), the slots +0x5C / +0x60 / +0x68 / +0x7C and 0x5E3210-0x5E3EEF (PT1); not yet: 0x5E1FA0, 0x5E26D0-0x5E2B2F, 0x5E2F70-0x5E320F.
+// So far 0x5E1BE0-0x5E3EEF but the set-up 0x5E1FA0 (slot +0x54), 0x5E26D0 and the TRADE 31 handlers 0x5E2F70 / 0x5E3050 / 0x5E3130 (held back: clienttest stands in for them, D182) (PT1).
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -12,6 +12,7 @@
 #include "co.h"
 #include "gadget.h"
 #include "fontmanager.h"
+#include "local_interface_sort.h"
 #include "..\packets\pkaction.h"
 #include "..\shared\avatar_desc.h"
 #include "..\shared\auxdata\auxdata.h"
@@ -44,6 +45,7 @@ class UIPTradeAvatarClass : public RefCountClass { public: char Unknown[0xF8 - s
 class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
 {
 public:
+	void Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, int arg);	// 0x7E36B0 (slot +0x58: the mesh's AVATAR_YOU / AVATAR_THEM, 0)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
 	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (slot +0x60: 0, the avatar's or the other's id, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
 	void Unknown_7E4350();								// 0x7E4350 (slot +0x5C)
 	~AvatarPipClass();									// 0x7E3410 (the destructor deletes both pips)
@@ -74,8 +76,6 @@ UIPTradeClass::UIPTradeClass(SClient *client) :
 
 
 
-
-
 // 0x5E1D80
 UIPTradeClass::~UIPTradeClass()
 {
@@ -89,6 +89,119 @@ UIPTradeClass::~UIPTradeClass()
 	OtherPIP = NULL;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown_BE67BC->Unload("fa_trade00a.ini");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5E26F0
+// NOT EXACT: inline budget (0.69: the client calls ~RefCountPtr<FontSys> 0x51C630 out of line in the inlined 0x5E2F70, and its temporaries take the other stack slots)
+void UIPTradeClass::Unknown_58()
+{
+	if (State == UI_CLOSED) {
+		InterfaceSortScopeClass sort(this);
+		State = UI_OPEN;
+		SClient *sclient = Client->As_Space_Client();
+		Unknown0DC = sclient->PDAInterface->Unknown_695780(false);
+		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Unknown_5B8B40("AVATAR_YOU")), 0);
+		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Unknown_5B8B40("AVATAR_THEM")), 0);
+		Unknown5BB320Class::Unknown_58();
+		Unknown_5E3340();
+		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("PLAYER_NAME_TRADE00", InterfaceMesh->Peek_Object()));
+		RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(((ClientClass *)Client)->AvatarID));
+		if (avatar && font) {
+			std::string name;
+			avatar->Desc.Get_Full_Name(name);
+			font->Change_Text(name.c_str(), 0);
+		} else {
+			G_ASSERT(0);
+		}
+		font = Create_Peek(Unknown_BE67C4->Get_Style("RECIPIENT_NAME_TRADE00", InterfaceMesh->Peek_Object()));
+		if (font) font->Change_Text("", 0);
+		Unknown_5E3750(true);
+		Unknown0DD = false;	// 0x5E2F70(false), expanded (clienttest stands in for 0x5E2F70: D182)
+		{
+			RefCountPtr<FontSys> confirm = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+			if (confirm) {
+				if (Unknown0DD) confirm->Change_Text("Awaiting Trade Confirmation", 0);
+				else confirm->Change_Text("", 0);
+			}
+		}
+		Unknown0E0.Unknown00 = 0;
+		Unknown0D8 = 0;
+	}
 }
 
 // 0x5E2B30
@@ -170,119 +283,6 @@ void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
 	if (Unknown0B0) Unknown0B0->Unknown_7C(view, arg);
 	Unknown5BB320Class::Unknown_7C(view, arg);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

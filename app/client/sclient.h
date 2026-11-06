@@ -351,6 +351,7 @@ public:
 	PDAInterfaceClass(SClient *client);					// 0x693140
 	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
+	bool Unknown_695780(bool arg);						// 0x695780 (ui_ptrade.cpp's slot +0x58 passes false: the trade window's +0xDC)  // NAME 1 [arg]: neutral
 	void Unknown_695A00(int unknown1, int unknown2);	// 0x695A00 (ui_cinfo.cpp's key 4 passes 2, 1)  // NAME 1 [unknown1, unknown2]: neutral
 
 	char Unknown84[0xA8 - 0x84];

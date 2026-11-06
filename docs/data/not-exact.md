@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-560 entries in 144 files.
+561 entries in 144 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -323,7 +323,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
-| `app/client/ui_ptrade.cpp:133` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
+| `app/client/ui_ptrade.cpp:170` | `UIPTradeClass::Unknown_58` | marker | NOT EXACT: inline budget (0.69: the client calls ~RefCountPtr<FontSys> 0x51C630 out of line in the inlined 0x5E2F70, and its temporaries take the other stack slots) |
+| `app/client/ui_ptrade.cpp:246` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_ptrade.cpp:398` | `UIPTradeClass::Unknown_5E3340` | marker | NOT EXACT: inline budget (0.21: the client calls auxdata.h's finds 0x5466A0 and RefCountPtr<FontSys>'s destructor 0x51C630 out of line here; ours inlines them; eight dead finds (D130) put the wrong ones out of line, 0.50, dropped) |
 | `app/client/ui_ptrade.cpp:438` | `UIPTradeClass::Unknown_5E37F0` | marker | NOT EXACT: register-only (0.72, same length: the client keeps the sclient in edi and the avatar in ebx, ours the other way) |
 | `app/client/ui_ptrade.cpp:454` | `UIPTradeClass::Unknown_5E39F0` | marker | NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it; up to twelve dead finds (D130) left it inline, 0.47 at best, dropped) |
