@@ -95,7 +95,7 @@ public:
 };
 
 // Collects, in prefix order, the tokens of the nodes whose token type is m_type; 0x18 bytes, vtable
-// 0xAEC120. Its visits (0x4D3410-) are not rebuilt yet.
+// 0xAEC120.
 class ExprMathTokenCollectorClass : public ExprMathTreeVisitorClass	// NAME 3 [ExprMathTokenCollectorClass]
 {
 public:

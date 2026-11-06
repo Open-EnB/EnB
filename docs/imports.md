@@ -1749,7 +1749,7 @@ Base copy: reconstructed. Headers: 349 from reconstructed.
 | client/env_map_manager.cpp | reconstructed | 19 | 4 | - | - | - |  |
 | shared/expr/expr_math_parser_factory.cpp | reconstructed | 8 | 2 | - | - | - |  |
 | shared/expr/expr_math_parser_impl.cpp | reconstructed | 28 | 3 | - | - | - |  |
-| shared/expr/expr_math_tree.cpp | reconstructed | 33 | 0 | - | - | - |  |
+| shared/expr/expr_math_tree.cpp | reconstructed | 41 | 1 | - | - | - |  |
 | client/extrap.cpp | reconstructed | 96 | 1 | - | - | - |  |
 | client/font32bit.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | client/fontdatabase.cpp | reconstructed | 145 | 4 | - | - | - |  |

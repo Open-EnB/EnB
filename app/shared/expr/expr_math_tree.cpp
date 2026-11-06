@@ -210,17 +210,49 @@ ExprMathTokenCollectorClass::ExprMathTokenCollectorClass(int type) :
 }
 
 
+// @0x4D3410
+void ExprMathTokenCollectorClass::Visit_Leaf(ExprMathTreeClass *node)
+{
+	const ExprMathTokenClass &token = node->Get_Token();
+	if (token.Type == m_type) {
+		m_tokens.push_back(token);
+	}
+}
+
+
+// @0x4D36C0
+void ExprMathTokenCollectorClass::Visit_Binary(ExprMathBinaryClass *node)
+{
+	ExprMathTokenCollectorClass::Visit_Leaf(node);
+	node->Get_Left()->Accept(this);
+	node->Get_Right()->Accept(this);
+}
+
+
+// @0x4D3960
+void ExprMathTokenCollectorClass::Visit_Unary(ExprMathUnaryClass *node)
+{
+	ExprMathTokenCollectorClass::Visit_Leaf(node);
+	node->Get_Child()->Accept(this);
+}
+
+
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4D2580-0x4D3410 by the asserts (G_ASSERT lines 52, 53, 59, 63, 86, 96, 120, 126, 142) and
+**	client.exe 0x4D2580-0x4D42C0 by the asserts (G_ASSERT lines 52, 53, 59, 63, 86, 96, 120, 126, 142) and
 **	the vtables: the node 0xAEC0FC (constructor 0x4D2580, destructor 0x4D2760 / deleting 0x4D2730,
 **	Get_Token 0x4D27D0, Set_Token 0x4D27F0, Accept 0x4D2980), the binary node 0xAEC108 (0x4D29A0-0x4D2DD0)
 **	and the unary node 0xAEC114 (0x4D2DF0-0x4D3140; <string>'s static initialiser sits in Accept's padding at
 **	0x4D3160). The node constructor and destructor store no base vtable, so the node class is the root.
 **	Then two visitors with no vtable in the client (never constructed): an infix printer (0x4D3190-0x4D3260)
 **	and a postfix printer (0x4D32D0-0x4D3380), both printf, and the token collector's constructor 0x4D33D0
-**	(vtable 0xAEC120; its visits 0x4D3410, 0x4D36C0, 0x4D3960 follow, not rebuilt yet).
+**	(vtable 0xAEC120) and its visits Visit_Leaf 0x4D3410, Visit_Binary 0x4D36C0, Visit_Unary 0x4D3960, then
+**	this object's vector<ExprMathTokenClass> instances (_Destroy 0x4D3BE0, size 0x4D3C20, _Ucopy 0x4D3C60,
+**	_Ufill 0x4D3CB0, fill 0x4D3CF0, copy_backward 0x4D3EC0, _Construct 0x4D40C0) up to attrib_dir's
+**	neighbour 0x4D42C0. Visit_Binary and Visit_Unary call Visit_Leaf (qualified, so inlined): the extra
+**	inline level is what leaves the insert's size() 0x4D3C20 out of line, as in the client; written
+**	out in each, it inlines (a dead m_tokens.size() before the push_back also matched).
 **
 **	The printers call Get_Token, Get_Left, Get_Right and Get_Child out of line, as the other files do;
 **	/Ob2 inlines them here unless their definitions sit in #pragma auto_inline(off) (in place of blank
