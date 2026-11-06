@@ -22,30 +22,10 @@
 #include "sphere.h"
 #include "matrix3d.h"
 #include "map_pip.h"
+#include "galaxy_map_focal_point.h"
 
 class GalaxyMapClientClass;
 class SceneClass;
-
-// galaxy_map_focal_point.cpp (not in the tree yet), as far as this file calls it. 0x3C bytes.
-// PLACEMENT: provisional (D137): the client's galaxy_map_focal_point.cpp gives it a file; no header string, no other user in the tree yet
-class GalaxyMapFocalPointClass  // NAME 3: class-from-file (D24) for app\Client\galaxy_map_focal_point.cpp
-{
-public:
-	GalaxyMapFocalPointClass();							// 0x7A5730 (identity, +0x34 2, +0x38 500)
-	~GalaxyMapFocalPointClass();						// 0x7A5780 (empty)
-
-	void Unknown_7A57A0(const Matrix3D &transform, float arg);	// 0x7A57A0 (the transform and +0x30)  // NAME 1 [transform, arg]: what it stores
-	void Unknown_7A5890(const RefCountPtr<CameraClass> &camera);	// 0x7A5890 (FAIL_IF '!camera')  // NAME 2 [camera]: the FAIL_IF's
-	void Unknown_7A5980(const Vector2 &arg, const Vector2 &min, const Vector2 &max);	// 0x7A5980 (0x53FD10 passes the renderer's +0x14 / +0x1C)  // NAME 1 [arg, min, max]: neutral
-	void Unknown_7A5AA0(const Vector2 &arg);			// 0x7A5AA0 (rotates by it)  // NAME 1 [arg]: neutral
-	void Unknown_7A5E10(float arg);						// 0x7A5E10 (scales +0x30; 0x53FCA0)  // NAME 1 [arg]: neutral
-	void Unknown_7A5ED0(const GalaxyMapFocalPointClass &a, const GalaxyMapFocalPointClass &b, float t);	// 0x7A5ED0 (Lerp of the transforms)  // NAME 2 [a, b, t]: what Lerp takes
-
-	Matrix3D Transform;									// +0x00  // NAME 2: 0x7A5ED0's Lerp
-	float Unknown30;									// +0x30
-	float Unknown34;									// +0x34
-	float Unknown38;									// +0x38 (0x53FCA0: the renderer's +0xB4 * 3)
-};
 
 // galaxy_map_render.cpp (not in the tree yet), as far as this file calls it. 0xC0 bytes.
 // PLACEMENT: provisional (D137): the client's galaxy_map_render.h gives it a header; no other user in the tree yet

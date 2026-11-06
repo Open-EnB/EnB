@@ -8005,6 +8005,36 @@
      "0x7A4FA0"
     ]
    },
+   "galaxy_map_focal_point": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x551270",
+     "0x577940",
+     "0x7A5730",
+     "0x7A5780",
+     "0x7A57A0",
+     "0x7A5820",
+     "0x7A5890",
+     "0x7A5980",
+     "0x7A5AA0",
+     "0x7A5E10",
+     "0x7A5ED0",
+     "0x7A5F90"
+    ],
+    "merged": [],
+    "name": "client/galaxy_map_focal_point.cpp",
+    "shared": [
+     "0x42F250",
+     "0x551270",
+     "0x577940"
+    ],
+    "short_known": [
+     "0x7A5780"
+    ]
+   },
    "galaxy_map_pip": {
     "ambiguous": [
      "0x42B2F0",
@@ -30593,6 +30623,7 @@
    "client/gadget.h": "reconstructed",
    "client/gadget_list_manager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
+   "client/galaxy_map_focal_point.h": "reconstructed",
    "client/galaxy_map_pip.h": "reconstructed",
    "client/gd_buffgadg.h": "reconstructed",
    "client/gd_dynamicwindow.h": "reconstructed",
@@ -30940,7 +30971,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10667,
+  "in_tree_total": 10677,
   "totals": {}
  },
  "binkmovie": {

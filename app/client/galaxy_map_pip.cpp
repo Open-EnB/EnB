@@ -174,7 +174,7 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 void GalaxyMapPipClass::Unknown_53FCA0(float arg)
 {
 	Ease = -1.0f;
-	FocalPoint.Unknown38 = Render->UnknownB4 * 3.0f;
+	FocalPoint.MaxDistance = Render->UnknownB4 * 3.0f;
 	FocalPoint.Unknown_7A5E10(arg);
 	FocalPoint.Unknown_7A5890(Camera);
 }

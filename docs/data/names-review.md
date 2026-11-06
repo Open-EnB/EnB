@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1358 |
-| 2 | describes what the code does | 3091 |
-| 1 | neutral placeholder | 15269 |
+| 3 | by convention from a client-named file or sibling | 1359 |
+| 2 | describes what the code does | 3095 |
+| 1 | neutral placeholder | 15276 |
 
 ## For review (score 3 and below)
 
@@ -3079,6 +3079,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_Clamp` | `app/client/galaxy_map_focal_point.cpp:8` | neutral (D10) |
+| 1 | `Unknown_7A57A0` | `app/client/galaxy_map_focal_point.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5820` | `app/client/galaxy_map_focal_point.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5890` | `app/client/galaxy_map_focal_point.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5980` | `app/client/galaxy_map_focal_point.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5AA0` | `app/client/galaxy_map_focal_point.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5E10` | `app/client/galaxy_map_focal_point.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5ED0` | `app/client/galaxy_map_focal_point.cpp:139` | untagged neutral name (D10) |
+| 1 | `transform` | `app/client/galaxy_map_focal_point.h:32` | what it stores  // NAME 1 [distance]: 0x7A5890 backs the camera off by it |
+| 1 | `Unknown_7A57A0` | `app/client/galaxy_map_focal_point.h:32` | untagged neutral name (D10) |
+| 1 | `transform` | `app/client/galaxy_map_focal_point.h:33` | what it stores |
+| 1 | `Unknown_7A5820` | `app/client/galaxy_map_focal_point.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5890` | `app/client/galaxy_map_focal_point.h:34` | untagged neutral name (D10) |
+| 1 | `arg, min, max` | `app/client/galaxy_map_focal_point.h:35` | neutral |
+| 1 | `Unknown_7A5980` | `app/client/galaxy_map_focal_point.h:35` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_focal_point.h:36` | neutral |
+| 1 | `Unknown_7A5AA0` | `app/client/galaxy_map_focal_point.h:36` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_focal_point.h:37` | neutral |
+| 1 | `Unknown_7A5E10` | `app/client/galaxy_map_focal_point.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5ED0` | `app/client/galaxy_map_focal_point.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/galaxy_map_pip.cpp:24` | untagged neutral name (D10) |
 | 1 | `xB79240` | `app/client/galaxy_map_pip.cpp:26` | neutral (D10) |
 | 1 | `Unknown_B7923C` | `app/client/galaxy_map_pip.cpp:27` | untagged neutral name (D10) |
@@ -3130,64 +3150,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/client/galaxy_map_pip.cpp:444` | untagged neutral name (D10) |
 | 1 | `Unknown_7A5540` | `app/client/galaxy_map_pip.cpp:475` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/galaxy_map_pip.cpp:476` | untagged neutral name (D10) |
-| 1 | `transform, arg` | `app/client/galaxy_map_pip.h:37` | what it stores |
-| 1 | `Unknown_7A57A0` | `app/client/galaxy_map_pip.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_7A5890` | `app/client/galaxy_map_pip.h:38` | untagged neutral name (D10) |
-| 1 | `arg, min, max` | `app/client/galaxy_map_pip.h:39` | neutral |
-| 1 | `Unknown_7A5980` | `app/client/galaxy_map_pip.h:39` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:40` | neutral |
-| 1 | `Unknown_7A5AA0` | `app/client/galaxy_map_pip.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6A70` | `app/client/galaxy_map_pip.h:38` | untagged neutral name (D10) |
+| 1 | `scene, camera` | `app/client/galaxy_map_pip.h:39` | what the caller passes |
+| 1 | `Unknown_7A6AB0` | `app/client/galaxy_map_pip.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6DD0` | `app/client/galaxy_map_pip.h:40` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/galaxy_map_pip.h:41` | neutral |
-| 1 | `Unknown_7A5E10` | `app/client/galaxy_map_pip.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_7A5ED0` | `app/client/galaxy_map_pip.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/galaxy_map_pip.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/galaxy_map_pip.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/galaxy_map_pip.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_7A6A70` | `app/client/galaxy_map_pip.h:58` | untagged neutral name (D10) |
-| 1 | `scene, camera` | `app/client/galaxy_map_pip.h:59` | what the caller passes |
-| 1 | `Unknown_7A6AB0` | `app/client/galaxy_map_pip.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_7A6DD0` | `app/client/galaxy_map_pip.h:60` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:61` | neutral |
-| 1 | `Unknown_7A7070` | `app/client/galaxy_map_pip.h:61` | untagged neutral name (D10) |
-| 1 | `x, y` | `app/client/galaxy_map_pip.h:62` | neutral |
-| 1 | `Unknown_7A72C0` | `app/client/galaxy_map_pip.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_7A7450` | `app/client/galaxy_map_pip.h:63` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:64` | neutral |
-| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_pip.h:64` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:65` | what the caller passes |
-| 1 | `Unknown_7A8770` | `app/client/galaxy_map_pip.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_pip.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad00` | `app/client/galaxy_map_pip.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/galaxy_map_pip.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/galaxy_map_pip.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad24` | `app/client/galaxy_map_pip.h:71` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/galaxy_map_pip.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown_PadB8` | `app/client/galaxy_map_pip.h:73` | untagged neutral name (D10) |
-| 1 | `pip` | `app/client/galaxy_map_pip.h:82` | what the caller passes |
-| 1 | `x, y` | `app/client/galaxy_map_pip.h:84` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/galaxy_map_pip.h:84` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/galaxy_map_pip.h:92` | neutral |
-| 1 | `Unknown_04` | `app/client/galaxy_map_pip.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/galaxy_map_pip.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/galaxy_map_pip.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/galaxy_map_pip.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/galaxy_map_pip.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/galaxy_map_pip.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/galaxy_map_pip.h:100` | untagged neutral name (D10) |
-| 1 | `Unknown_53F9E0` | `app/client/galaxy_map_pip.h:102` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:103` | neutral |
-| 1 | `Unknown_53FCA0` | `app/client/galaxy_map_pip.h:103` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:104` | neutral |
-| 1 | `Unknown_53FD10` | `app/client/galaxy_map_pip.h:104` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:105` | neutral |
-| 1 | `Unknown_53FD60` | `app/client/galaxy_map_pip.h:105` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:106` | neutral |
-| 1 | `Unknown_53FDA0` | `app/client/galaxy_map_pip.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_53FE10` | `app/client/galaxy_map_pip.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_53FE30` | `app/client/galaxy_map_pip.h:108` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_pip.h:109` | neutral |
-| 1 | `Unknown_5404E0` | `app/client/galaxy_map_pip.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown_5406A0` | `app/client/galaxy_map_pip.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown_7A7070` | `app/client/galaxy_map_pip.h:41` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/galaxy_map_pip.h:42` | neutral |
+| 1 | `Unknown_7A72C0` | `app/client/galaxy_map_pip.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_7A7450` | `app/client/galaxy_map_pip.h:43` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:44` | neutral |
+| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_pip.h:44` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:45` | what the caller passes |
+| 1 | `Unknown_7A8770` | `app/client/galaxy_map_pip.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_pip.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad00` | `app/client/galaxy_map_pip.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/galaxy_map_pip.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/galaxy_map_pip.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad24` | `app/client/galaxy_map_pip.h:51` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/galaxy_map_pip.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_PadB8` | `app/client/galaxy_map_pip.h:53` | untagged neutral name (D10) |
+| 1 | `pip` | `app/client/galaxy_map_pip.h:62` | what the caller passes |
+| 1 | `x, y` | `app/client/galaxy_map_pip.h:64` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/galaxy_map_pip.h:64` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/galaxy_map_pip.h:72` | neutral |
+| 1 | `Unknown_04` | `app/client/galaxy_map_pip.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/galaxy_map_pip.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/galaxy_map_pip.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/galaxy_map_pip.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/galaxy_map_pip.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/galaxy_map_pip.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/galaxy_map_pip.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_53F9E0` | `app/client/galaxy_map_pip.h:82` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:83` | neutral |
+| 1 | `Unknown_53FCA0` | `app/client/galaxy_map_pip.h:83` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:84` | neutral |
+| 1 | `Unknown_53FD10` | `app/client/galaxy_map_pip.h:84` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:85` | neutral |
+| 1 | `Unknown_53FD60` | `app/client/galaxy_map_pip.h:85` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:86` | neutral |
+| 1 | `Unknown_53FDA0` | `app/client/galaxy_map_pip.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE10` | `app/client/galaxy_map_pip.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE30` | `app/client/galaxy_map_pip.h:88` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:89` | neutral |
+| 1 | `Unknown_5404E0` | `app/client/galaxy_map_pip.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown_5406A0` | `app/client/galaxy_map_pip.h:90` | untagged neutral name (D10) |
 | 1 | `PulseTime` | `app/client/gd_buffgadg.cpp:19` | what 0x665F20 does with it |
 | 1 | `BuffElementSortClass` | `app/client/gd_buffgadg.cpp:109` | neutral (D10) |
 | 1 | `Unknown_671300Class` | `app/client/gd_buffgadg.cpp:156` | untagged neutral name (D10) |
@@ -15866,18 +15873,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
 | 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
-| 2 | `camera` | `app/client/galaxy_map_pip.h:38` | the FAIL_IF's |
-| 2 | `a, b, t` | `app/client/galaxy_map_pip.h:42` | what Lerp takes |
-| 2 | `Transform` | `app/client/galaxy_map_pip.h:44` | 0x7A5ED0's Lerp |
-| 2 | `map` | `app/client/galaxy_map_pip.h:55` | the assert's |
-| 2 | `sphere` | `app/client/galaxy_map_pip.h:110` | Center, then Radius / tan(fov / 2)  // NAME 1 [angle]: what it does with it |
-| 2 | `Debug` | `app/client/galaxy_map_pip.h:112` | the command line's |
-| 2 | `Render` | `app/client/galaxy_map_pip.h:113` | what it holds |
-| 2 | `FocalPoint` | `app/client/galaxy_map_pip.h:114` | what it holds |
-| 2 | `Target` | `app/client/galaxy_map_pip.h:115` | what it holds |
-| 2 | `Start` | `app/client/galaxy_map_pip.h:116` | what it holds |
-| 2 | `Ease` | `app/client/galaxy_map_pip.h:117` | what it holds |
-| 2 | `EaseRate` | `app/client/galaxy_map_pip.h:118` | what it holds |
+| 2 | `camera` | `app/client/galaxy_map_focal_point.h:34` | the FAIL_IF's |
+| 2 | `a, b, t` | `app/client/galaxy_map_focal_point.h:38` | what Lerp takes |
+| 2 | `operator ==, that` | `app/client/galaxy_map_focal_point.h:40` | what it compares |
+| 2 | `Transform` | `app/client/galaxy_map_focal_point.h:42` | 0x7A5ED0's Lerp |
+| 2 | `Distance` | `app/client/galaxy_map_focal_point.h:43` | 0x7A5890 backs the camera off by it |
+| 2 | `MinDistance` | `app/client/galaxy_map_focal_point.h:44` | 0x7A5E10's lower bound |
+| 2 | `MaxDistance` | `app/client/galaxy_map_focal_point.h:45` | 0x7A5E10's upper bound |
+| 2 | `map` | `app/client/galaxy_map_pip.h:35` | the assert's |
+| 2 | `sphere` | `app/client/galaxy_map_pip.h:90` | Center, then Radius / tan(fov / 2)  // NAME 1 [angle]: what it does with it |
+| 2 | `Debug` | `app/client/galaxy_map_pip.h:92` | the command line's |
+| 2 | `Render` | `app/client/galaxy_map_pip.h:93` | what it holds |
+| 2 | `FocalPoint` | `app/client/galaxy_map_pip.h:94` | what it holds |
+| 2 | `Target` | `app/client/galaxy_map_pip.h:95` | what it holds |
+| 2 | `Start` | `app/client/galaxy_map_pip.h:96` | what it holds |
+| 2 | `Ease` | `app/client/galaxy_map_pip.h:97` | what it holds |
+| 2 | `EaseRate` | `app/client/galaxy_map_pip.h:98` | what it holds |
 | 2 | `std:` | `app/client/gd_buffgadg.h:42` | the aux field's |
 | 2 | `std:` | `app/client/gd_buffgadg.h:43` | the aux field's |
 | 2 | `ExpirationTime` | `app/client/gd_buffgadg.h:44` | the aux field's |
@@ -18519,14 +18530,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
+| 3 | `galaxy_map_focal_point.h` | `app/client/galaxy_map_focal_point.h:16` | header name assumed from the client's galaxy_map_focal_point.cpp |
+| 3 | `GalaxyMapFocalPointClass` | `app/client/galaxy_map_focal_point.h:26` | class-from-file (D24) for app\Client\galaxy_map_focal_point.cpp |
 | 3 | `galaxy_map_pip.h` | `app/client/galaxy_map_pip.h:16` | header name assumed from the client's galaxy_map_pip.cpp |
-| 3 | `GalaxyMapFocalPointClass` | `app/client/galaxy_map_pip.h:31` | class-from-file (D24) for app\Client\galaxy_map_focal_point.cpp |
-| 3 | `GalaxyMapRenderClass` | `app/client/galaxy_map_pip.h:52` | class-from-file (D24) for app\Client\galaxy_map_render.cpp |
-| 3 | `GadgetGalaxyMapClass` | `app/client/galaxy_map_pip.h:79` | class-from-file (D24) for app\client\gd_galaxy_map.cpp |
-| 3 | `GalaxyMap` | `app/client/galaxy_map_pip.h:86` | the assert's |
-| 3 | `GalaxyMapPipClass` | `app/client/galaxy_map_pip.h:89` | class-from-file (D24) for app\client\galaxy_map_pip.cpp |
-| 3 | `GalaxyBackground` | `app/client/galaxy_map_pip.h:119` | the FAIL_IF's |
-| 3 | `Grid` | `app/client/galaxy_map_pip.h:120` | the FAIL_IF's |
+| 3 | `GalaxyMapRenderClass` | `app/client/galaxy_map_pip.h:32` | class-from-file (D24) for app\Client\galaxy_map_render.cpp |
+| 3 | `GadgetGalaxyMapClass` | `app/client/galaxy_map_pip.h:59` | class-from-file (D24) for app\client\gd_galaxy_map.cpp |
+| 3 | `GalaxyMap` | `app/client/galaxy_map_pip.h:66` | the assert's |
+| 3 | `GalaxyMapPipClass` | `app/client/galaxy_map_pip.h:69` | class-from-file (D24) for app\client\galaxy_map_pip.cpp |
+| 3 | `GalaxyBackground` | `app/client/galaxy_map_pip.h:99` | the FAIL_IF's |
+| 3 | `Grid` | `app/client/galaxy_map_pip.h:100` | the FAIL_IF's |
 | 3 | `UVControllerClass` | `app/client/gd_buffgadg.h:31` | class-from-file (D24) for app\shared\uvcontrl.cpp |
 | 3 | `std:` | `app/client/gd_buffgadg.h:66` | the FAIL_IF's 'index >= Elements.size()' |
 | 3 | `BuffGadgetClass` | `app/client/gd_buffgadg.h:94` | class-from-file (D24) for app\Client\gd_buffgadg.cpp |
