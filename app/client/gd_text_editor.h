@@ -43,7 +43,6 @@ public:
 	void Set_Text(const std::string &text);				// 0x6729B0 (the slider back to the top)  // NAME 2: what it does; NAME 1 [text]: neutral
 	void Insert_Text(const std::string &text);			// 0x6729F0  // NAME 2: what it does; NAME 1 [text]: neutral
 	void Unknown_672A60();								// 0x672A60 (FAIL_IF '!Slider': the top line from the slider)
-	inline void Unknown_Slider_Moved();					// (a codeless layer: 0x673150 inlines 0x672A60, 0x672120's copy of 0x673150 calls it)  // NAME 1: neutral
 	void Unknown_672AD0();								// 0x672AD0 (the slider's 0x66FD80)
 	void Update_Lines(bool split);						// 0x672B00 (split: the text cut into lines again, the slider set; the lines and the cursor drawn)  // NAME 2: what it does; NAME 1 [split]: neutral
 	bool Cursor_Up(bool update);						// 0x672DC0  // NAME 2: what it does; NAME 1 [update]: neutral

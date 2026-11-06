@@ -159,7 +159,7 @@ TextEditorGadgetClass::~TextEditorGadgetClass()
 	Slider = NULL;
 }
 
-// NOT EXACT: registers and stack slots (first loop, the height in the argument's slot)
+// NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped
 // @0x671CB0
 void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 {
@@ -169,9 +169,9 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 	}
 	Lines.clear();
 	RObjGadgetClass::Set_Render_Obj(robj);
+	float height;
 	RenderObjClass *object = RObj;
 	if (object) {
-		float height;
 		RenderObjClass *top = object->Get_Container();
 		if (top == NULL) {
 			top = object;
@@ -182,7 +182,8 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 		float width = 0;
 		height = 0;
 		first->Unknown_6D5B10(width, height);
-		height = floor(height + 1.0f);
+		height = height + 1.0f;
+		height = floor(height);
 		LineHeight = height;
 		Unknown_B0 = width;
 		const AABoxClass &box = object->Get_Bounding_Box();
@@ -202,7 +203,6 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 		Update_Lines(true);
 	}
 }
-
 // @0x6720A0
 bool TextEditorGadgetClass::Unknown_30(float x, float y)
 {
@@ -283,7 +283,6 @@ bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y
 	}
 	return false;
 }
-
 // @0x6725B0
 bool TextEditorGadgetClass::Unknown_68()
 {
@@ -355,6 +354,7 @@ void TextEditorGadgetClass::Insert_Text(const std::string &text)
 
 
 
+
 // @0x672A60
 void TextEditorGadgetClass::Unknown_672A60()
 {
@@ -364,8 +364,6 @@ void TextEditorGadgetClass::Unknown_672A60()
 	TopLine = Slider->Value;
 	Update_Lines(false);
 }
-
-inline void TextEditorGadgetClass::Unknown_Slider_Moved() { Unknown_672A60(); }
 
 // @0x672AD0
 void TextEditorGadgetClass::Unknown_672AD0()
@@ -527,7 +525,7 @@ void TextEditorGadgetClass::Take_Focus()
 			Unknown60 = false;
 		}
 		Update_Lines(true);
-		Unknown_Slider_Moved();
+		Unknown_672A60();
 	}
 }
 
@@ -559,7 +557,7 @@ bool TextEditorGadgetClass::Unknown_6732A0()
 	return false;
 }
 
-// NOT EXACT: registers and stack slots (the client's row shares the point's slot)
+// NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy
 // @0x6732F0
 void TextEditorGadgetClass::Unknown_6732F0(float x, float y)
 {
@@ -585,37 +583,43 @@ void TextEditorGadgetClass::Unknown_6732F0(float x, float y)
 	RefCountPtr<FontSys> measure = Create_Get(new FontSys(Font.c_str(), 0, NULL));
 	int column = 0;
 	char buffer[1025];
-	float width;
-	float height;
 	for (int i = 1; i < length; i++) {
-		column = i;
-		strncpy(buffer, line, column);
-		buffer[column] = '\0';
+		float width;
+		float height;
+		strncpy(buffer, line, i);
+		buffer[i] = '\0';
 		measure->Change_Text(buffer, 0);
 		measure->Unknown_6D5B10(width, height);
+		column = i;
 		if (px - Unknown_B0 <= width) {
 			break;
 		}
 	}
 	CursorLine = row;
 	CursorColumn = column;
+	length = column;
 	for (int j = 0; j < row; j++) {
 		const char *text = Split->Get(j);
 		if (text) {
-			column += strlen(text);
+			length += strlen(text);
 		}
 	}
-	Edit->Set_Cursor(column);
+	Edit->Set_Cursor(length);
 	Update_Lines(false);
 }
 
 #pragma auto_inline(off)
-// NOT EXACT: registers (the client hoists the load of Client above the branch)
+// NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx)
 // @0x6735A0
 bool TextEditorGadgetClass::Unknown_6735A0(float x, float y)
 {
 	if (Client) {
-		UIViewClass *view = Client->Unknown_744B60() ? Client->Get_Unknown135C() : Client->Get_MainView();
+		UIViewClass *view;
+		if (Client->Unknown_744B60()) {
+			view = Client->Unknown135C;
+		} else {
+			view = Client->MainView;
+		}
 		if (view && view->Get_Unknown34() && view->Get_Unknown34()->Unknown_5898F0(x, y)) {
 			return true;
 		}

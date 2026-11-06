@@ -1143,7 +1143,7 @@ public:
 	UIViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
 	UIViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
-	UIViewClass *Get_Unknown135C() { return(Unknown135C); } UIViewClass *Get_MainView() { return((UIViewClass *)MainView); } UIViewClass *Unknown135C;								// +0x135C
+	UIViewClass *Unknown135C;								// +0x135C
 	Movie3DViewClass *Movie3DView;						// +0x1360 view mode 3 (the client's G_ASSERT names, ll.4090 / 4104)
 	ScriptedMovieViewClass *ScriptedMovieView;			// +0x1364 view mode 6 (the client's G_ASSERT names, ll.4117 / 4127)
 	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's
