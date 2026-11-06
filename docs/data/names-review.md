@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1235 |
+| 3 | by convention from a client-named file or sibling | 1252 |
 | 2 | describes what the code does | 3008 |
-| 1 | neutral placeholder | 14139 |
+| 1 | neutral placeholder | 14141 |
 
 ## For review (score 3 and below)
 
@@ -12931,6 +12931,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:44` | neutral (D10) |
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/expr/expr_math_lexer.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/expr/expr_math_lexer.h:33` | untagged neutral name (D10) |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -18324,6 +18326,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_RING |
 | 3 | `AssetManager` | `app/shared/enbassetmgr.h:46` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
+| 3 | `expr_math_lexer.h` | `app/shared/expr/expr_math_lexer.h:13` | interim header, named after expr_math_lexer_factory.cpp |
+| 3 | `ExprMathTokenClass` | `app/shared/expr/expr_math_lexer.h:18` | 0x14 bytes, a type and its text |
+| 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:21` | type != -1 and the text differs from a global |
+| 3 | `Type` | `app/shared/expr/expr_math_lexer.h:23` | 0 skipped by the parser, 1 / 2 leaves, 4 operators |
+| 3 | `ExprMathLexerClass` | `app/shared/expr/expr_math_lexer.h:27` | the parser calls slots +4 and +0x10 |
+| 3 | `expr_math_parser.h` | `app/shared/expr/expr_math_parser.h:13` | header name assumed from expr_math_parser_impl.cpp |
+| 3 | `ExprMathParserClass` | `app/shared/expr/expr_math_parser.h:21` | base of ExprMathParserImplClass |
+| 3 | `Parse` | `app/shared/expr/expr_math_parser.h:25` | lex from the assert '!lex' |
+| 3 | `expr_math_parser_impl.h` | `app/shared/expr/expr_math_parser_impl.h:17` | header name assumed from the client's expr_math_parser_impl.cpp |
+| 3 | `ExprMathParserImplClass` | `app/shared/expr/expr_math_parser_impl.h:25` | from the file name |
+| 3 | `GroupStruct` | `app/shared/expr/expr_math_parser_impl.h:28` | 0x14 bytes, one precedence level |
+| 3 | `Type` | `app/shared/expr/expr_math_parser_impl.h:30` | 0 prefix (Parse_Unary), else binary (Parse_Binary) |
+| 3 | `Ops` | `app/shared/expr/expr_math_parser_impl.h:31` | from the argument 'ops' |
+| 3 | `Peek` | `app/shared/expr/expr_math_parser_impl.h:45` | skips type-0 tokens |
+| 3 | `expr_math_tree.h` | `app/shared/expr/expr_math_tree.h:12` | header name assumed from the client's expr_math_tree.cpp |
+| 3 | `ExprMathTreeClass` | `app/shared/expr/expr_math_tree.h:17` | the nodes' base (slot 0 the deleting destructor) |
+| 3 | `Evaluate` | `app/shared/expr/expr_math_tree.h:21` | slot 1 (leaf 0x4D2980) |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |

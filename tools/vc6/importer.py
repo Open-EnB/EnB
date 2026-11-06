@@ -4038,6 +4038,13 @@ RECONSTRUCTED = {
     ('app', 'shared/split_string.cpp'): "split_string.cpp, client 0x4F9BF0-0x4FA8DF (its __FILE__ in 0x4FA790's FAIL_IF l.279, D25): "
                                        "constructor, destructor, Count, Get, the two width virtuals and find_last_not_of 0x4FA830 exact; "
                                        "NOT EXACT: Split 0x4F9D90 (LS1)",
+    ('app', 'shared/expr/expr_math_parser_impl.cpp'): "expr_math_parser_impl.cpp (the client's __FILE__; FAIL_IF lines 15 38 39 74, G_ASSERT 84), "
+                                       "client 0x4D0AC0-0x4D22B0: Add_Group, Parse, Parse_Unary, Parse_Binary, Parse_Primary, Is_Operator, Peek and the "
+                                       "vector<GroupStruct> instances exact; NOT EXACT: Add_Similar 0x4D0DF0, Parse_Level 0x4D10E0 (EX1)",
+    ('app', 'shared/expr/expr_math_parser_impl.h'): "ExprMathParserImplClass (D24, class-from-file; 0x14 bytes: vptr, vector<GroupStruct> m_groups, the asserts' name) (EX1)",
+    ('app', 'shared/expr/expr_math_parser.h'): "ExprMathParserClass, the parser interface (vtable 0xAEC0F0: destructor, Parse returning NULL); provisional header name, NAME 3 (EX1)",
+    ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes, Is_Valid 0x4C79E0) and the lexer interface (slots +4 Get_Token, +0x10 Next) as far as the parser uses them; interim header (D137), NAME 3 (EX1)",
+    ('app', 'shared/expr/expr_math_tree.h'): "the expression tree's node classes as far as the parser builds them (leaf 0x4D2580, unary 0x4D2DF0, binary 0x4D29A0); interim header beside expr_math_tree.cpp (D137), NAME 3 (EX1)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
     ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "
