@@ -473,7 +473,21 @@ class UIBuffClass;
 
 
 // ui_ptrade.cpp's player trade interface: the main view's +0x1E4 (0x50C690 makes it, then its slot +0x7C with the view) and the starbase view's +0x1A4 (TRADE 31; 0x69B5E0)
-class UIPTradeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
+// (over the base 0x5BB320 with a 'TRADE00A' mesh, 'fa_trade00a.ini'; tables 0xAF64CC / 0xAF64C0 / 0xAF64B4; destructor 0x5E1D80;
+// laid out from the constructor and the set-up 0x5E1FA0, PT1 2026-11-05; interim placement in sclient.h, D137)
+class UIManuInvClass;		// ui_manu.h's: ui_inv.cpp's interface (+0xAC, +0xB0)
+class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
+
+// The credits entry the trade window holds at +0xB4 (0xD0 bytes, constructor 0x649890 over the base 0x5BB320, 'TRADE01A',
+// table 0xAF88BC; the set-up passes 'Enter Amount of Credits' to its 0x64A270), as far as ui_ptrade.cpp calls it
+class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10): what it asks for
+{
+public:
+	int Unknown_64A220();								// 0x64A220: its +0xC0 (0x5E39F0: 0 still open, 2 accepted)
+	const char *Unknown_64A240();						// 0x64A240 (0x5E39F0: the amount typed, to atoi)
+};
+
+class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
 {
 public:
 	UIPTradeClass(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
@@ -481,7 +495,25 @@ public:
 	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
 	virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager); virtual bool Unknown_78(void *arg);
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
-	char Unknown84[0xE8 - 0x84];						// +0x84
+	void Unknown_5E3340();								// 0x5E3340 (the credits texts: 'CREDITS_TRADE00', 'CRED1_TRADE00', 'CRED2_TRADE00')
+	void Unknown_5E3750(bool on);						// 0x5E3750: the four buttons' slot +0x40, the two inventories activated or deactivated  // NAME 1 [on]: neutral
+	void Unknown_5E37F0();								// 0x5E37F0 (request 0x17 when the avatar's 'Inventory.PlayerTrade' or 'TradeMoney' is above 1, else 0x5E3340 once the other's 'TradeMoney' is)
+	void Unknown_5E39F0();								// 0x5E39F0 (the credits entry closed: request 0x18 with the amount, or 'Insufficient credits.')
+	void Unknown_5E3C90();								// 0x5E3C90 ('RECIPIENT_NAME_TRADE00' empty: the other's full name)
+
+	UIManuInvClass *Unknown0AC;							// +0xAC 'TRADE00A.C%02d' 15, the player's items (referenced: the set-up's RefCountPtr releases)
+	UIManuInvClass *Unknown0B0;							// +0xB0 'TRADE00A.X%02d' 16, the other's items (referenced)
+	UIPTradeCreditsClass *Unknown0B4;					// +0xB4 the credits entry (referenced)
+	int Unknown0B8;										// +0xB8 (the constructor clears it with +0xBC..+0xC8)
+	GadgetClass *Unknown0BC[4];							// +0xBC the buttons ('UI_PTRADE' 'CANCEL', 'CANCEL', 'CONFIRM', 'CREDITS')
+	AvatarPipClass *PlayerPIP;							// +0xCC  // NAME 3: the asserts' (line 145)
+	AvatarPipClass *OtherPIP;							// +0xD0  // NAME 3: the asserts' (line 146)
+	int Unknown0D4;										// +0xD4
+	int Unknown0D8;										// +0xD8
+	bool Unknown0DC;									// +0xDC
+	bool Unknown0DD;									// +0xDD
+	bool Unknown0DE;									// +0xDE
+	__int64 Unknown0E0;									// +0xE0 the credits offered (a MoneyClass: 0x5E39F0 adds it to the avatar's Money)
 };
 
 // the object 0x50C690 makes, registers and releases at once (0x90 bytes, with the base's +0x24 scene)
