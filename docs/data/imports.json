@@ -24971,6 +24971,32 @@
      "0x598DE0"
     ]
    },
+   "ui_item_examination_options": {
+    "ambiguous": [
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x535A10",
+     "0x535BF0",
+     "0x5365E0",
+     "0x536610",
+     "0x536A80",
+     "0x536B20",
+     "0x536E20",
+     "0x536EA0",
+     "0x536ED0",
+     "0x537020",
+     "0x537080"
+    ],
+    "merged": [],
+    "name": "client/ui_item_examination_options.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "ui_line_display": {
     "ambiguous": [
      "0x42A6C0",
@@ -28586,6 +28612,7 @@
    "client/interface_scene.h": "reconstructed",
    "client/interface_static_sort_list.h": "reconstructed",
    "client/intrface.h": "reconstructed",
+   "client/item/client_item_property_option.h": "reconstructed",
    "client/local_interface_sort.h": "reconstructed",
    "client/mousetbl.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
@@ -28624,6 +28651,7 @@
    "client/ui_cpit.h": "reconstructed",
    "client/ui_faction.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
+   "client/ui_item_examination_options.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/ui_manu.h": "reconstructed",
    "client/ui_missn.h": "reconstructed",
