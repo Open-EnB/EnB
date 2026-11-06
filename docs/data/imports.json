@@ -9504,6 +9504,7 @@
      "0x433700",
      "0x4B53D0",
      "0x4B5560",
+     "0x4B55F0",
      "0x4B5740",
      "0x4B58D0"
     ],
@@ -27187,6 +27188,7 @@
      "0x42F250",
      "0x48E910",
      "0x4B5740",
+     "0x4CBA10",
      "0x4E2CC0",
      "0x510CC0",
      "0x553A60"
@@ -30307,7 +30309,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10491,
+  "in_tree_total": 10505,
   "totals": {}
  },
  "binkmovie": {

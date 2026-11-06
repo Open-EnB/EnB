@@ -8,7 +8,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 106 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1321 |
 | 2 | describes what the code does | 3024 |
 | 1 | neutral placeholder | 14880 |
