@@ -394,6 +394,10 @@ void UIPTradeClass::Unknown_5E3210(const char *name, bool visible, const char *t
 	font->Set_Hidden(!visible);
 }
 
+// The money field's lookups through two inline layers: with them the client's find 0x5466A0 stays out of line (as ui_avatar_cust.cpp's)
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+static inline DeltaTemplateClass<MoneyClass> *Unknown_Find_Money(DeltaCompoundClass *aux, const char *field) { return(Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, field)); }	// NAME 1: neutral (D10)
+
 // 0x5E3340
 // NOT EXACT: inline budget (0.21: the client calls auxdata.h's finds 0x5466A0 and RefCountPtr<FontSys>'s destructor 0x51C630 out of line here; ours inlines them; eight dead finds (D130) put the wrong ones out of line, 0.50, dropped)
 void UIPTradeClass::Unknown_5E3340()
@@ -451,7 +455,6 @@ void UIPTradeClass::Unknown_5E37F0()
 
 
 // 0x5E39F0
-// NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it; up to twelve dead finds (D130) left it inline, 0.47 at best, dropped)
 void UIPTradeClass::Unknown_5E39F0()
 {
 	if (Unknown0B4 && Unknown0B4->Active) {
@@ -461,13 +464,12 @@ void UIPTradeClass::Unknown_5E39F0()
 				int amount = atoi(Unknown0B4->Unknown_64A240());
 				MoneyClass money;
 				DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
-				NameClass name("Money");
-				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
-				if (t && t->Unknown70) money = t->Value;
+				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
+				if (t) money = t->Value;
 				if (money + Unknown0E0 >= MoneyClass(amount)) {
 					Unknown0E0.Unknown00 = amount;
 					SClient *sclient = Client->As_Space_Client();
-					sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x18, ((ClientClass *)Client)->Unknown1134, (int)Unknown0E0.Unknown00));
+					__int64 offered = Unknown0E0.Unknown00; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));
 					Unknown_5E3340();
 				} else {
 					std::string text("Insufficient credits.");
@@ -479,6 +481,7 @@ void UIPTradeClass::Unknown_5E39F0()
 		}
 	}
 }
+
 
 // 0x5E3C90
 void UIPTradeClass::Unknown_5E3C90()

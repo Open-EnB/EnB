@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1313 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14660 |
+| 1 | neutral placeholder | 14662 |
 
 ## For review (score 3 and below)
 
@@ -10211,17 +10211,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3130` | `app/client/ui_ptrade.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3210` | `app/client/ui_ptrade.cpp:389` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_ptrade.cpp:404` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_ptrade.cpp:405` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `app/client/ui_ptrade.cpp:406` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_ptrade.cpp:422` | untagged neutral name (D10) |
-| 1 | `Unknown_Changed` | `app/client/ui_ptrade.cpp:434` | neutral (D10) |
-| 1 | `Unknown_Test_70_Above_1` | `app/client/ui_ptrade.cpp:434` | untagged neutral name (D10) |
-| 1 | `Unknown_Changed_Money` | `app/client/ui_ptrade.cpp:435` | neutral (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_ptrade.cpp:458` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:461` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_ptrade.cpp:398` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_ptrade.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_ptrade.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Money` | `app/client/ui_ptrade.cpp:399` | neutral (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_ptrade.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_ptrade.cpp:426` | untagged neutral name (D10) |
+| 1 | `Unknown_Changed` | `app/client/ui_ptrade.cpp:438` | neutral (D10) |
+| 1 | `Unknown_Test_70_Above_1` | `app/client/ui_ptrade.cpp:438` | untagged neutral name (D10) |
+| 1 | `Unknown_Changed_Money` | `app/client/ui_ptrade.cpp:439` | neutral (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_ptrade.cpp:461` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:464` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:476` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:490` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:22` | 0xBE67C4 |
 | 1 | `ProductEB` | `app/client/ui_registration.cpp:24` | client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it) |
 | 1 | `ProductTrial` | `app/client/ui_registration.cpp:25` | client .data 0xB85EF4 (0x5FA0B0) |
