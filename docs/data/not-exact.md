@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-558 entries in 145 files.
+557 entries in 145 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -323,8 +323,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
-| `app/client/ui_ping.cpp:91` | `UIPingClass::Unknown_54` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx throughout and has one more stack slot, frame 0x38 vs 0x34) 0x5D7D60 |
-| `app/client/ui_ping.cpp:250` | `UIPingClass::Unknown_5D85B0` | marker | NOT EXACT: (see the attempt log) the stats' texts and the button's colour 0x5D85B0 |
+| `app/client/ui_ping.cpp:92` | `UIPingClass::Unknown_54` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx throughout and has one more stack slot, frame 0x38 vs 0x34) 0x5D7D60 |
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_registration.cpp:308` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |

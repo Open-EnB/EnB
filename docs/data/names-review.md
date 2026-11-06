@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1314 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14714 |
+| 1 | neutral placeholder | 14715 |
 
 ## For review (score 3 and below)
 
@@ -10104,29 +10104,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, a, b, c` | `app/client/ui_ping.cpp:24` | neutral |
 | 1 | `Unknown_496110` | `app/client/ui_ping.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_589CA0` | `app/client/ui_ping.cpp:25` | untagged neutral name (D10) |
-| 1 | `UIPingLabels` | `app/client/ui_ping.cpp:28` | neutral (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_ping.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown0B0` | `app/client/ui_ping.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_ping.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_ping.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown098` | `app/client/ui_ping.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_ping.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_ping.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_686DD0` | `app/client/ui_ping.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_ping.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_686CC0` | `app/client/ui_ping.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_ping.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_ping.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown51C800Class` | `app/client/ui_ping.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_ping.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_5D85B0` | `app/client/ui_ping.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_ping.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_ping.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_ping.cpp:175` | untagged neutral name (D10) |
+| 1 | `UIPing_Peek_Model` | `app/client/ui_ping.cpp:27` | neutral |
+| 1 | `UIPingLabels` | `app/client/ui_ping.cpp:29` | neutral (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_ping.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ping.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ping.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_ping.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown098` | `app/client/ui_ping.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ping.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_ping.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_686DD0` | `app/client/ui_ping.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_ping.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_686CC0` | `app/client/ui_ping.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ping.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ping.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_ping.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_674260Class` | `app/client/ui_ping.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/ui_ping.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ping.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_5D85B0` | `app/client/ui_ping.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ping.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ping.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_ping.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC460` | `app/client/ui_ping.cpp:265` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_ping.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_ping.cpp:291` | untagged neutral name (D10) |
 | 1 | `ui_ping.h` | `app/client/ui_ping.h:4` | provisional header name for ui_ping.cpp |
 | 1 | `Unknown51C800Class` | `app/client/ui_ping.h:13` | untagged neutral name (D10) |
 | 1 | `client` | `app/client/ui_ping.h:22` | InterfaceClass's |

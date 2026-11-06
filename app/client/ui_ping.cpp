@@ -24,6 +24,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: neutral
 RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj);	// 0x589CA0 (unknown_msgbox.cpp: the text of an element)
 
+inline RenderObjClass *UIPing_Peek_Model(ButtonGadgetClass *button) { return(button->RObj); }	// (an inline accessor: 0x5D85B0 loads the model in each branch)  // NAME 1: neutral
 // 0xB84410: the rows' labels
 static const char *UIPingLabels[3] = {	// NAME 1: neutral (D10)
 	"Latency : ",
@@ -247,7 +248,6 @@ bool UIPingClass::Unknown_68(int key)
 
 
 
-// NOT EXACT: (see the attempt log) the stats' texts and the button's colour
 // 0x5D85B0
 void UIPingClass::Unknown_5D85B0()
 {
@@ -273,11 +273,11 @@ void UIPingClass::Unknown_5D85B0()
 	RefCountPtr<FontSys> text;
 	if (Button) {
 		if (rtt > 500.0f) {
-			Unknown_496110(Button->RObj, 1.0f, 0.0f, 0.0f);
+			Unknown_496110(UIPing_Peek_Model(Button), 1.0f, 0.0f, 0.0f);
 		} else if (rtt < 200.0f) {
-			Unknown_496110(Button->RObj, 0.0f, 1.0f, 0.0f);
+			Unknown_496110(UIPing_Peek_Model(Button), 0.0f, 1.0f, 0.0f);
 		} else {
-			Unknown_496110(Button->RObj, 1.0f, 1.0f, 0.0f);
+			Unknown_496110(UIPing_Peek_Model(Button), 1.0f, 1.0f, 0.0f);
 		}
 	}
 
@@ -287,28 +287,44 @@ void UIPingClass::Unknown_5D85B0()
 		efficiency = (efficiency < 0) ? 0 : efficiency;
 		_snprintf(buffer, sizeof(buffer), "%d", efficiency);
 		Efficiency->Change_Text(buffer, 0);
-		Efficiency->Unknown_6CE910(efficiency < 75);
+		if (efficiency < 75) {
+			Efficiency->Unknown_6CE910(true);
+		} else {
+			Efficiency->Unknown_6CE910(false);
+		}
 	}
 
 	if (Shown) {
 		text = Unknown_589CA0(Rows[0]->Get_Render_Object());
 		_snprintf(buffer, sizeof(buffer), "%s%d", UIPingLabels[0], (int)rtt);
 		text->Change_Text(buffer, 0);
-		text->Unknown_6CE910(rtt > 500.0f);
+		if (rtt > 500.0f) {
+			text->Unknown_6CE910(true);
+		} else {
+			text->Unknown_6CE910(false);
+		}
 		Rows[0]->Invalidate();
 
 		int volume = (int)(send + recv);
 		text = Unknown_589CA0(Rows[1]->Get_Render_Object());
 		_snprintf(buffer, sizeof(buffer), "%s%d", UIPingLabels[1], volume);
 		text->Change_Text(buffer, 0);
-		text->Unknown_6CE910(volume > 1000);
+		if (volume > 1000) {
+			text->Unknown_6CE910(true);
+		} else {
+			text->Unknown_6CE910(false);
+		}
 		Rows[1]->Invalidate();
 
 		int efficiency = 100 - (int)pct_loss;
 		text = Unknown_589CA0(Rows[2]->Get_Render_Object());
 		_snprintf(buffer, sizeof(buffer), "%s%d", UIPingLabels[2], efficiency);
 		text->Change_Text(buffer, 0);
-		text->Unknown_6CE910(efficiency < 75);
+		if (efficiency < 75) {
+			text->Unknown_6CE910(true);
+		} else {
+			text->Unknown_6CE910(false);
+		}
 		Rows[2]->Invalidate();
 	}
 }
