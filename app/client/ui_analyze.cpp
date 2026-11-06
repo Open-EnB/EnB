@@ -49,6 +49,7 @@ class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the 
 public:
 	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
 };
+class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
 class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
@@ -66,8 +67,12 @@ enum
 class UIAnalyzeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_analyze.cpp
 {
 public:
+	UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5435D0 (0x11C bytes: sbaseview.cpp's 0x69F8F0 case 6)  // NAME 1 [view, layer]: as ui_manu.cpp's
+	virtual ~UIAnalyzeClass();							// 0x5437C0 (G_ASSERT 'State == UI_CLOSED', l.116; deleting 0x543790)
+	virtual void Unknown_54();							// 0x5439F0 (not rebuilt yet)
 	virtual void Unknown_58();							// 0x544090
 	virtual void Unknown_5C();							// 0x544270
+	virtual void Unknown_60();							// 0x5443F0 (not rebuilt yet)
 	virtual bool Unknown_68(int key);					// 0x544BB0  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x544020 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_544D80();								// 0x544D80: the cost and probability texts
@@ -97,6 +102,22 @@ public:
 // The names of the window's texts (0xB7967C)
 static const char *Unknown_B7967C[] = { "Credits_tsm02a", "Go_tsm02a", "inv_tsm02a", "Cost_tsm02a", "Chance_tsm02a", "Critical_tsm02a", "Attempt_tsm02a", "Result_tsm02a", "Succ_tsm02a", "Crit_tsm02a", "" };	// NAME 1: neutral (D10)
 static const float Unknown_AEF0EC = 2.0f;			// NAME 1: neutral (D10): what 0x546090 stores (read from .rdata)
+
+// @0x5435D0
+UIAnalyzeClass::UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer) :
+	Unknown5BB320Class(new UIMeshClass("TSM02A", true), (UIViewClass *)view, layer),
+	Unknown0AC(layer),
+	Unknown0D0(view),
+	State(UI_CLOSED),
+	Unknown10C(0),
+	Unknown110(false),
+	Unknown114(0),
+	Unknown118(false)
+{
+	memset(Unknown0E0, 0, sizeof(Unknown0E0));
+	memset(Unknown0FC, 0, sizeof(Unknown0FC));
+	Unknown_BE67BC->Load("FA_TSM02A.INI");
+}
 
 static inline int Analyze_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
@@ -455,27 +476,6 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x544C50
 void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 {
@@ -486,7 +486,8 @@ void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 }
 
 // Notes (AN1, 2026-11-06). Rebuilt: slots +0x58 / +0x5C / +0x68 / +0x7C (0x544090 / 0x544270 / 0x544BB0 / 0x544020,
-// as ui_manu.cpp's), 0x545D30-0x5461C0 and the text helper 0x544C50 on its line (483, after them for now). Not yet in this file: the constructor 0x5435D0, the destructor 0x5437C0
+// as ui_manu.cpp's), 0x545D30-0x5461C0, the constructor 0x5435D0 (with it the deleting destructor 0x543790)
+// and the text helper 0x544C50 on its line (483, after them for now). Not yet in this file: the destructor 0x5437C0
 // (G_ASSERT 'State == UI_CLOSED', l.116), slots +0x54 0x5439F0 and +0x60 0x5443F0 and the text and validity functions
 // 0x544D80-0x5458B0 (they inline 0x544C50's FAIL_IF): when they come, the class goes to a header and the functions
 // into the client's order (0x544C50 between 0x544BB0 and 0x544D80). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
