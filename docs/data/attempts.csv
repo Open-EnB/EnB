@@ -2137,3 +2137,6 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 12:38,0x5BDED0,UIMFDClass::Set_SP_Cur,app/client/ui_mfd.cpp,app,partial,,2,inline-budget,the client calls Find_Field<DeltaInterpolatorClass> 0x5BF2B0 and Cast<float> out of line,,opus
 2026-11-06 12:38,0x5BE120,UIMFDClass::Set_SP_Percent,app/client/ui_mfd.cpp,app,partial,,2,inline-budget,the client calls Cast 0x5BF350 out of line,,opus
 2026-11-06 14:11,0x7C8D90,UIStarmapClass::Unknown_7C8D90,ui_starmap,app,exact,,1,,"appfile.py marker, byte-identical, too short for the matcher (D99)",,opus
+2026-11-06 14:25,0x5C2470,,app/client/ui_mfdm.cpp,app,partial,,3,order,REF_PTR_RELEASE; if + NULL; RefCountPtr cast,,claude-opus-5-5
+2026-11-06 14:25,0x5C25C0,,app/client/ui_mfdm.cpp,app,partial,,5,order,"named sclient, view, orbitals locals: a pop scheduled late",,claude-opus-5-5
+2026-11-06 14:25,0x5C2000,,app/client/ui_mfdm.cpp,app,partial,,12,frame,view plane orders; extent as Vector3 / Vector2 / floats,,claude-opus-5-5

@@ -22,11 +22,12 @@
 
 void Unknown_496E90(SphereClass &sphere, RenderObjClass *robj);	// 0x496E90 (ro_funcs.cpp's neighbourhood: a render object's bounding sphere)  // NAME 1: neutral (D10)
 
+struct Unknown4973E0Point { Unknown4973E0Point(int x, int y) : X(x), Y(y) {} int X; int Y; };	// NAME 1: neutral (D10)
 // An off-screen render of an object, 0x5C3150's (0x2C bytes; 0x4973E0, 0x497700, 0x4976B0: not rebuilt yet)
 class Unknown4973E0Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown4973E0Class(const int *size, const int *a, const int *b);	// 0x4973E0  // NAME 1 [size, a, b]: neutral (D10)
+	Unknown4973E0Class(const Unknown4973E0Point &size, const Unknown4973E0Point &a, const Unknown4973E0Point &b);	// 0x4973E0  // NAME 1 [size, a, b]: neutral (D10)
 	~Unknown4973E0Class();								// 0x4976B0
 	TextureClass *Unknown_497700(RenderObjClass *robj, int arg);	// 0x497700  // NAME 1 [robj, arg]: neutral (D10)
 	char Unknown00[0x2C];
@@ -136,7 +137,6 @@ UIMFDPIPItemClass::~UIMFDPIPItemClass()
 
 
 
-
 	G_ASSERT(Light);
 	REF_PTR_RELEASE(Light);
 
@@ -158,7 +158,7 @@ void UIMFDPIPItemClass::Unknown_08()
 {
 	RenderObjClass *robj = Get_RObj();
 	if (robj == NULL) {
-		Camera->Set_Clip_Planes(0.0001f, 0.09999999f);
+		Camera->Set_Clip_Planes(0.0001f, 0.099999994f);
 		return;
 	}
 	if (robj->Peek_Scene() == NULL) {
@@ -190,8 +190,9 @@ void UIMFDPIPItemClass::Unknown_08()
 	float a = 0.5 / Height * Width;
 	Camera->Set_View_Plane(Vector2(-a, -0.5f), Vector2(a, 0.5f));
 	MainViewClass *view = ((SClient *)((ClientClass *)Owner->Client)->Unknown_18())->MainView;
-	if (view->Orbitals != NULL) {
-		Vector4 color = view->Orbitals->Unknown_4F50D0(0);
+	OrbitalManager *orbitals = view->Orbitals;
+	if (orbitals != NULL) {
+		Vector4 color = orbitals->Unknown_4F50D0(0);
 		Light->Set_Diffuse(Vector3(color.X, color.Y, color.Z));
 		Light->Set_Intensity(color.W);
 	}
@@ -208,16 +209,17 @@ void UIMFDPIPItemClass::Unknown_0C()
 	}
 	((UIViewClass *)Owner->View)->Unknown_65B7E0(Scene);
 }
-// NOT EXACT: 0x5C2920: the position copied through memory slots; the clip planes on the FPU (frame)
+
 // 0x5C2920
 void UIMFDPIPItemClass::Unknown_10()
 {
 	RenderObjClass *robj = Get_RObj();
 	if (robj == NULL) {
-		Camera->Set_Clip_Planes(0.0001f, 0.09999999f);
+		Camera->Set_Clip_Planes(0.0001f, 0.099999994f);
 		return;
 	}
-	Vector3 pos = robj->Get_Transform().Get_Translation();
+	Matrix3D tm = robj->Get_Transform();
+	Vector3 pos = tm.Get_Translation();
 	SphereClass sphere = robj->Get_Bounding_Sphere();
 	if (sphere.Radius <= 0.0f) {
 		Unknown_496E90(sphere, robj);
@@ -237,14 +239,10 @@ void UIMFDPIPItemClass::Unknown_10()
 	float zfar = diameter + dist;
 	if (fabs(Camera->Get_Depth() - zfar) > 0.0001) {
 		float znear = dist - diameter;
-		if (1.0f > znear) {
-			znear = 1.0f;
-			Camera->Set_Clip_Planes(znear, zfar);
-		} else {
-			Camera->Set_Clip_Planes(znear, zfar);
-		}
+		Camera->Set_Clip_Planes(WWMath::Max(1.0f, znear), zfar);
 	}
-	Light->Set_Transform(Matrix3D(camera));
+	Matrix3D light_tm = camera;
+	Light->Set_Transform(light_tm);
 }
 
 // 0x5C2CD0
@@ -273,6 +271,8 @@ void Unknown5C2CD0Class::Unknown_04(ClientObjectClass *object)
 {
 	if (object != NULL) {
 		RenderObjClass *targ_robj = object->RenderObject;
+
+
 
 
 
@@ -374,7 +374,7 @@ bool Unknown5C3030Class::Unknown_14()
 {
 	return(Owner->Unknown_5BD520() != NULL);
 }
-// NOT EXACT: 0x5C3150: the three size locals stored in another order (order)
+
 // 0x5C3150
 void Unknown5C3030Class::Unknown_08()
 {
@@ -389,18 +389,18 @@ void Unknown5C3030Class::Unknown_08()
 	robj->Set_Transform(tm);
 	bool hidden = object->UnknownB0;
 	object->Unknown_6FCB20(false);
-	int a[2] = { 0, 0 };
-	int b[2];
-	b[0] = 0;
-	int size[2];
-	size[0] = size[1] = 0x80;
-	b[1] = 0;
-	Unknown4973E0Class render(size, a, b);
+	Unknown4973E0Class render(Unknown4973E0Point(0x80, 0x80), Unknown4973E0Point(0, 0), Unknown4973E0Point(0, 0));
 	TextureClass *texture = render.Unknown_497700(robj, 0);
 	robj->Set_Transform(saved);
 	object->Unknown_6FCB20(!hidden);
 	MeshClass *mesh = (MeshClass *)Owner->RObj->Get_Sub_Object_By_Name("scanner_click");
 	MaterialInfoClass *minfo = mesh->Get_Material_Info();
+
+
+
+
+
+
 
 
 
@@ -685,7 +685,7 @@ void Unknown5C3920Class::Unknown_0C()
 		}
 	}
 }
-// NOT EXACT: 0x5C3C40: register and FPU forms still open (register)
+
 // 0x5C3C40
 void Unknown5C3920Class::Unknown_10()
 {
@@ -706,17 +706,16 @@ void Unknown5C3920Class::Unknown_10()
 	if (Position.Z != position.Z) {
 		Lines[5]->Unknown_6CE420(0, "%d", (int)position.Z);
 	}
-	Position.Y = position.Y;
-	Position.X = position.X;
-	Position.Z = position.Z;
+	Position = position;
 	Matrix3D tm = object->Unknown_28(true);
 	Vector3 x(tm[0][0], tm[1][0], tm[2][0]);
+	Vector3 y(tm[0][2], tm[1][2], tm[2][2]);
 	int heading = (int)(atan2(x.X, x.Y) * 57.29577791868204 + 360.0) % 360;
 	if (Heading != heading) {
 		Lines[6]->Unknown_6CE420(0, "Heading:%d", heading);
 		Heading = heading;
 	}
-	int pitch = (int)(acos(tm[2][2]) * 57.29577791868204) % 360;
+	int pitch = (int)(90.0 - y.Z * 90.0) % 360;
 	if (x.Z < 0.0f) {
 		pitch = -pitch;
 	}
@@ -724,33 +723,65 @@ void Unknown5C3920Class::Unknown_10()
 		Lines[7]->Unknown_6CE420(0, "Pitch:%d", pitch);
 		Pitch = pitch;
 	}
-	char c = (x.X <= 0.0f) ? ((x.X >= 0.0f) ? '=' : '-') : '+';
-	bool same_x = (DirectionX == c);
-	if (!same_x) {
+	bool changed = false;
+	char c;
+	if (x.X > 0.0f) {
+		c = '+';
+	} else if (x.X < 0.0f) {
+		c = '-';
+	} else {
+		c = '=';
+	}
+	if (DirectionX != c) {
 		DirectionX = c;
+		changed = true;
 	}
-	c = (x.Y <= 0.0f) ? ((x.Y >= 0.0f) ? '=' : '-') : '+';
-	bool same_y = (DirectionY == c);
-	if (!same_y) {
+	if (x.Y > 0.0f) {
+		c = '+';
+	} else if (x.Y < 0.0f) {
+		c = '-';
+	} else {
+		c = '=';
+	}
+	if (DirectionY != c) {
 		DirectionY = c;
+		changed = true;
 	}
-	c = (x.Z <= 0.0f) ? ((x.Z >= 0.0f) ? '=' : '-') : '+';
-	bool same_z = (DirectionZ == c);
-	if (!same_z) {
-		DirectionZ = c;
+	char z_direction;
+	if (x.Z > 0.0f) {
+		z_direction = '+';
+	} else if (x.Z < 0.0f) {
+		z_direction = '-';
+	} else {
+		z_direction = '=';
+	}
+	if (DirectionZ != z_direction) {
+		DirectionZ = z_direction;
+		changed = true;
 	}
 	char axis;
-	if (fabs(x.X) > fabs(x.Y)) {
-		axis = (fabs(x.Z) < fabs(x.X)) ? 'x' : 'z';
+	float ax = fabs(x.X);
+	float ay = fabs(x.Y);
+	float az = fabs(x.Z);
+	if (ax > ay) {
+		if (ax > az) {
+			axis = 'x';
+		} else {
+			axis = 'z';
+		}
 	} else {
-		axis = (fabs(x.Z) < fabs(x.Y)) ? 'y' : 'z';
+		axis = 'y';
+		if (ay <= az) {
+			axis = 'z';
+		}
 	}
 	if (Axis != axis) {
 		Axis = axis;
-	} else if (same_z && same_y && same_x) {
+	} else if (!changed) {
 		return;
 	}
-	Lines[0]->Unknown_6CE420(0, "%cX:%c", (axis == 'x') ? '>' : ' ', DirectionX);
-	Lines[2]->Unknown_6CE420(0, "%cY:%c", (axis == 'y') ? '>' : ' ', DirectionY);
-	Lines[4]->Unknown_6CE420(0, "%cZ:%c", (axis == 'z') ? '>' : ' ', DirectionZ);
+	Lines[0]->Unknown_6CE420(0, "%cX:%c", (char)((axis == 'x') ? '>' : ' '), DirectionX);
+	Lines[2]->Unknown_6CE420(0, "%cY:%c", (char)((axis == 'y') ? '>' : ' '), DirectionY);
+	Lines[4]->Unknown_6CE420(0, "%cZ:%c", (char)((axis == 'z') ? '>' : ' '), DirectionZ);
+	DirectionZ = z_direction;
 }
