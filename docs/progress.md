@@ -2407,6 +2407,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-ST1-1** (2026-11-05 night, ST1; recommend accept, then apply the patch as it stands): ui_starbase.cpp's
+  `.work/st1/helpers_640CC0.patch` (UIStarbaseClass layout +0xB0 / +0xB4 / +0x204 in sbaseview.h, helpers 0x640CC0-0x640F30
+  under `#pragma auto_inline(off)`) gains +10 and loses 0x648380 outright: 0x646120 and 0x648380 are the client's two
+  byte-identical copies of `std::ctype<unsigned short>::id`'s guarded initialiser in one object; ours compiles one, and once
+  the file's own range starts at 0x640CC0 D100 credits it to 0x646120. Any further rebuild of ui_starbase.cpp's ~120
+  remaining functions moves the range the same way. Accept 0x648380 as a D66 non-loss (the kind of (vi)), or keep the file's
+  range where it is? The rest of ui_starbase.cpp waits for this.
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
