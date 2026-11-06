@@ -232,7 +232,7 @@ protected:
 template <class T> T Expr_Math_Min(const T &a, const T &b) { return a < b ? a : b; }		// NAME 3 [Expr_Math_Min]
 template <class T> T Expr_Math_Max(const T &a, const T &b) { return a > b ? a : b; }		// NAME 3 [Expr_Math_Max]
 template <class T> T Expr_Math_Abs(const T &a) { return a < 0 ? -a : a; }				// NAME 3 [Expr_Math_Abs]
-template <class T> T Expr_Math_Sqrt(const T &a) { return a <= 0 ? 0 : (T)sqrt(a); }		// NAME 3 [Expr_Math_Sqrt]
+template <class T> T Expr_Math_Sqrt(const T &a) { return a <= 0 ? 0 : (T)sqrt((double)a); }		// NAME 3 [Expr_Math_Sqrt]
 
 template <class T>
 class ExprMathEvalNegateClass : public ExprMathEvalUnaryClass<T>	// NAME 3 [ExprMathEvalNegateClass]
@@ -298,37 +298,29 @@ class ExprMathArithmeticOpsClass	// NAME 3 [ExprMathArithmeticOpsClass]: flag 1
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float
-	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right) throw()
+	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "/") {
-			node = new ExprMathEvalDivideClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalDivideClass<T>(left, right));
 		} else if (name == "*") {
-			node = new ExprMathEvalMultiplyClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalMultiplyClass<T>(left, right));
 		} else if (name == "+") {
-			node = new ExprMathEvalAddClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalAddClass<T>(left, right));
 		} else if (name == "-") {
-			node = new ExprMathEvalSubtractClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalSubtractClass<T>(left, right));
 		} else if (name == "div") {
-			node = new ExprMathEvalIntDivideClass<T>(left, right);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalIntDivideClass<T>(left, right));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
-	// NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float)
-	static PtrType Create_Unary(const std::string &name, const PtrType &child) throw()
+	static PtrType Create_Unary(const std::string &name, const PtrType &child)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "-") {
-			node = new ExprMathEvalNegateClass<T>(child);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalNegateClass<T>(child));
 		} else if (name == "+") {
-			node = new ExprMathEvalPlusClass<T>(child);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalPlusClass<T>(child));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
 };
 
@@ -337,31 +329,23 @@ class ExprMathFunctionOpsClass	// NAME 3 [ExprMathFunctionOpsClass]: flag 0x10
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float
-	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right) throw()
+	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "min") {
-			node = new ExprMathEvalFunction2Class<T>(left, right, Expr_Math_Min);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalFunction2Class<T>(left, right, Expr_Math_Min));
 		} else if (name == "max") {
-			node = new ExprMathEvalFunction2Class<T>(left, right, Expr_Math_Max);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalFunction2Class<T>(left, right, Expr_Math_Max));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
-	// NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float)
-	static PtrType Create_Unary(const std::string &name, const PtrType &child) throw()
+	static PtrType Create_Unary(const std::string &name, const PtrType &child)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "abs") {
-			node = new ExprMathEvalFunction1Class<T>(child, Expr_Math_Abs);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalFunction1Class<T>(child, Expr_Math_Abs));
 		} else if (name == "sqrt") {
-			node = new ExprMathEvalFunction1Class<T>(child, Expr_Math_Sqrt);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalFunction1Class<T>(child, Expr_Math_Sqrt));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
 };
 
@@ -370,29 +354,24 @@ class ExprMathCompareOpsClass	// NAME 3 [ExprMathCompareOpsClass]: flag 2
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float
-	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right) throw()
+	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "<=") {
-			node = new ExprMathEvalLessEqualClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalLessEqualClass<T>(left, right));
 		} else if (name == "<") {
-			node = new ExprMathEvalLessClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalLessClass<T>(left, right));
 		} else if (name == ">=") {
-			node = new ExprMathEvalGreaterEqualClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalGreaterEqualClass<T>(left, right));
 		} else if (name == ">") {
-			node = new ExprMathEvalGreaterClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalGreaterClass<T>(left, right));
 		} else if (name == "==") {
-			node = new ExprMathEvalEqualClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalEqualClass<T>(left, right));
 		} else if (name == "!=") {
-			node = new ExprMathEvalNotEqualClass<T>(left, right);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalNotEqualClass<T>(left, right));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
-	// NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float)
-	static PtrType Create_Unary(const std::string &name, const PtrType &child) throw()
+	static PtrType Create_Unary(const std::string &name, const PtrType &child)
 	{
 		return NULL;
 	}
@@ -403,24 +382,65 @@ class ExprMathLogicOpsClass	// NAME 3 [ExprMathLogicOpsClass]: flag 8
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float
-	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right) throw()
+	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
-		ExprMathEvalClass<T> *node;
 		if (name == "&&") {
-			node = new ExprMathEvalAndClass<T>(left, right);
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalAndClass<T>(left, right));
 		} else if (name == "||") {
-			node = new ExprMathEvalOrClass<T>(left, right);
-		} else {
-			return NULL;
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalOrClass<T>(left, right));
 		}
-		return Create_NEW(node);
+		return NULL;
 	}
-	// NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float)
-	static PtrType Create_Unary(const std::string &name, const PtrType &child) throw()
+	static PtrType Create_Unary(const std::string &name, const PtrType &child)
 	{
 		if (name == "!") {
 			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalNotClass<T>(child));
+		}
+		return NULL;
+	}
+};
+
+// The bitwise operators (flag 4; int only).
+#define EXPR_MATH_BITWISE_CLASS(NAME, OP) template <class T> class NAME : public ExprMathEvalBinaryClass<T> { public: 	NAME(const RefCountPtr<ExprMathEvalClass<T> > &left, const RefCountPtr<ExprMathEvalClass<T> > &right) : ExprMathEvalBinaryClass<T>(left, right) {} 	virtual T Evaluate(ExprMathContextClass<T> *context) { return m_left->Evaluate(context) OP m_right->Evaluate(context); } };
+
+EXPR_MATH_BITWISE_CLASS(ExprMathEvalBitAndClass, &)			// NAME 3 [ExprMathEvalBitAndClass]
+EXPR_MATH_BITWISE_CLASS(ExprMathEvalBitOrClass, |)			// NAME 3 [ExprMathEvalBitOrClass]
+EXPR_MATH_BITWISE_CLASS(ExprMathEvalBitXorClass, ^)			// NAME 3 [ExprMathEvalBitXorClass]
+EXPR_MATH_BITWISE_CLASS(ExprMathEvalShiftLeftClass, <<)		// NAME 3 [ExprMathEvalShiftLeftClass]
+EXPR_MATH_BITWISE_CLASS(ExprMathEvalShiftRightClass, >>)	// NAME 3 [ExprMathEvalShiftRightClass]
+
+template <class T>
+class ExprMathEvalComplementClass : public ExprMathEvalUnaryClass<T>	// NAME 3 [ExprMathEvalComplementClass]
+{
+public:
+	ExprMathEvalComplementClass(const RefCountPtr<ExprMathEvalClass<T> > &child) : ExprMathEvalUnaryClass<T>(child) {}
+	virtual T Evaluate(ExprMathContextClass<T> *context) { return ~m_child->Evaluate(context); }
+};
+
+template <class T>
+class ExprMathBitwiseOpsClass	// NAME 3 [ExprMathBitwiseOpsClass]: flag 4
+{
+public:
+	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
+	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
+	{
+		if (name == "&") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalBitAndClass<T>(left, right));
+		} else if (name == "|") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalBitOrClass<T>(left, right));
+		} else if (name == "^") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalBitXorClass<T>(left, right));
+		} else if (name == "<<") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalShiftLeftClass<T>(left, right));
+		} else if (name == ">>") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalShiftRightClass<T>(left, right));
+		}
+		return NULL;
+	}
+	static PtrType Create_Unary(const std::string &name, const PtrType &child)
+	{
+		if (name == "~") {
+			return Create_NEW((ExprMathEvalClass<T> *)new ExprMathEvalComplementClass<T>(child));
 		}
 		return NULL;
 	}

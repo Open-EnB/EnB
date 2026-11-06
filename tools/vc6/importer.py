@@ -4071,6 +4071,8 @@ RECONSTRUCTED = {
     ('app', 'shared/expr/expr_math_float.h'): "ExprMathFloatFactoryClass (8 bytes, vtable 0xAEBBE0) and Expr_Math_Float; header name assumed, NAME 3 (EX4)",
     ('app', 'shared/expr/expr_math_eval_impl.h'): "the evaluation tree's templates (the client's __FILE__ of the FAIL_IFs 'right == 0', lines 175 190): the node interface (0xAEBC58 for float), constants, variables, the binary base (0xAEBC44), the operators and their groups; NAME 3 (EX4)",
     ('app', 'shared/expr/expr_math_builder.h'): "the builder templates (the client's __FILE__ of the G_ASSERT 'factory', line 51): the factory interface, the building visitor (0xAEBDD4 for float) and the builder; NAME 3 (EX4)",
+    ('app', 'shared/expr/expr_math_int.cpp'): "expr_math_int.cpp (the client's __FILE__; FAIL_IF line 22), client 0x4CBAF0-0x4D022F: Expr_Math_Int, the int factory (vtable 0xAEBDE4) with % of its own, and expr_math_eval_impl.h / expr_math_builder.h instantiated for int (EX4)",
+    ('app', 'shared/expr/expr_math_int.h'): "ExprMathIntFactoryClass (8 bytes, vtable 0xAEBDE4) and Expr_Math_Int; header name assumed, NAME 3 (EX4)",
     ('app', 'shared/expr/expr_math_lexer_factory.h'): "ExprMathLexerFactoryClass (D24, class-from-file: Create 0x4D0360, Add_Operators 0x4D0230); header name assumed, NAME 3 (EX3)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",

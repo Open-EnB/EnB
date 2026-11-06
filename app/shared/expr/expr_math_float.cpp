@@ -59,7 +59,7 @@ ExprMathFloatFactoryClass::ExprMathFloatFactoryClass(unsigned int flags) :
 }
 
 
-// NOT EXACT: 0x4C7D80 similarity 0.42: register choice (this / name swapped, ebx not kept as 0) and the result temporaries' release order
+// NOT EXACT: 0x4C7D80 similarity 0.56: this and name in swapped registers (esi / edi), ebx not kept as 0 past ^ and %
 // @0x4C7D80
 ExprMathFloatFactoryClass::PtrType ExprMathFloatFactoryClass::Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 {
@@ -71,61 +71,60 @@ ExprMathFloatFactoryClass::PtrType ExprMathFloatFactoryClass::Create_Binary(cons
 	}
 	PtrType result;
 	if (m_flags & 1) {
-		result = ExprMathArithmeticOpsClass<float>::Create_Binary(name, left, right);
-		if (result != NULL) {
+		if (result = ExprMathArithmeticOpsClass<float>::Create_Binary(name, left, right)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 0x10) {
-		result = ExprMathFunctionOpsClass<float>::Create_Binary(name, left, right);
-		if (result != NULL) {
+		if (result = ExprMathFunctionOpsClass<float>::Create_Binary(name, left, right)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 2) {
-		result = ExprMathCompareOpsClass<float>::Create_Binary(name, left, right);
-		if (result != NULL) {
+		if (result = ExprMathCompareOpsClass<float>::Create_Binary(name, left, right)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 8) {
-		result = ExprMathLogicOpsClass<float>::Create_Binary(name, left, right);
-		if (result != NULL) {
+		if (result = ExprMathLogicOpsClass<float>::Create_Binary(name, left, right)) {
 			return result;
 		}
+
 	}
 	return NULL;
 }
 
 
-// NOT EXACT: 0x4C8370 similarity 0.64: the groups' results assigned and released as in Create_Binary
 // @0x4C8370
 ExprMathFloatFactoryClass::PtrType ExprMathFloatFactoryClass::Create_Unary(const std::string &name, const PtrType &child)
 {
 	PtrType result;
 	if (m_flags & 1) {
-		result = ExprMathArithmeticOpsClass<float>::Create_Unary(name, child);
-		if (result != NULL) {
+		if (result = ExprMathArithmeticOpsClass<float>::Create_Unary(name, child)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 0x10) {
-		result = ExprMathFunctionOpsClass<float>::Create_Unary(name, child);
-		if (result != NULL) {
+		if (result = ExprMathFunctionOpsClass<float>::Create_Unary(name, child)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 2) {
-		result = ExprMathCompareOpsClass<float>::Create_Unary(name, child);
-		if (result != NULL) {
+		if (result = ExprMathCompareOpsClass<float>::Create_Unary(name, child)) {
 			return result;
 		}
+
 	}
 	if (m_flags & 8) {
-		result = ExprMathLogicOpsClass<float>::Create_Unary(name, child);
-		if (result != NULL) {
+		if (result = ExprMathLogicOpsClass<float>::Create_Unary(name, child)) {
 			return result;
 		}
+
 	}
 	return NULL;
 }
