@@ -32,8 +32,15 @@ static const float Unknown_AEEE48[19] = {
 	0.2f, 0.8f, 0.9f, 1.0f, 1.0f, 1.0f, 0.9f, 0.6f, 0.4f, 0.1f, 0.05f
 };
 
+// 0x5404E0 reads the field through this: the registers after the call match only so (the test folds away)
+static inline int Unknown_Sector_Value(DeltaTemplateClass<int> *sector)	// NAME 1: neutral (D10)
+{
+	if (!sector) return(0);
+	return(sector->Value);
+}
+
 static inline GalaxyMapClientClass *Unknown_Map(SClient *client) { return(client->GalaxyMap); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10): avatar_pip.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); if (!t->Unknown70) return(NULL); return(t); }	// NAME 1: neutral (D10): avatar_pip.cpp's
 
 // @0x53F390
 GalaxyMapPipClass::GalaxyMapPipClass(SClient *client) :
@@ -129,7 +136,6 @@ void GalaxyMapPipClass::Unknown_1C(int arg)
 	Grid->Add(Scene.Peek());
 }
 
-// NOT EXACT: 8 instructions around the by-value TPoint2D: the client adds 0x38 to a register and loads through it (see notes)
 // @0x53F9E0
 void GalaxyMapPipClass::Unknown_53F9E0()
 {
@@ -150,7 +156,8 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 	}
 	Render->Unknown_7A7070(false);
 	if (Unknown_693020()) {
-		Render->Unknown_7A72C0(ViewportGadget->Unknown38);
+		const TPoint2D<float> &p = ViewportGadget->Unknown38;
+		Render->Unknown_7A72C0(p.X, p.Y);
 	} else {
 		Render->Unknown_7A7450();
 	}
@@ -347,13 +354,6 @@ void GalaxyMapPipClass::Unknown_53FE30()
 
 
 
-
-
-
-
-
-
-
 	FAIL_IF(!GalaxyBackground) return;
 	Unknown_496AE0(GalaxyBackground.Peek(), true);
 	InterfaceSortClass sort(Interface);
@@ -404,16 +404,16 @@ void GalaxyMapPipClass::Unknown_53FE30()
 	GalaxyBackground->Set_Transform(tm);
 }
 
-// NOT EXACT: the client calls the Cast out of line here (the find still inlines), workflow 3.1
+// NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes)
 // @0x5404E0
 void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 {
 	Render->Unknown_7A7070(false);
 	DeltaPlayerClass *aux = ((SClient *)Client->Unknown_18())->AuxData;
 	if (aux) {
-		DeltaTemplateClass<int> *sector = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, "SectorNum");
-		if (sector && sector->Unknown70) {
-			Render->Unknown_7A8770(sector->Value);
+		DeltaTemplateClass<int> *sector = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "SectorNum");
+		if (sector) {
+			Render->Unknown_7A8770(Unknown_Sector_Value(sector));
 		}
 	}
 	SphereClass v = Render->Unknown_7A89A0();
@@ -425,14 +425,15 @@ void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 	}
 }
 
-// NOT EXACT: the camera FOV test (see notes)
 // @0x5406A0
 void GalaxyMapPipClass::Unknown_5406A0(const SphereClass &sphere, float angle)
 {
 	Matrix3D tm(sphere.Center);
 	tm.Rotate_X(angle);
-	float vfov = Camera->Get_Vertical_FOV();
-	float fov = (Camera->Get_Horizontal_FOV() > vfov) ? Camera->Get_Vertical_FOV() : Camera->Get_Horizontal_FOV();
+	CameraClass *camera = Camera.Peek();
+	float vfov = camera->Get_Vertical_FOV();
+	float hfov = camera->Get_Horizontal_FOV();
+	float fov = (hfov > vfov) ? Camera->Get_Vertical_FOV() : Camera->Get_Horizontal_FOV();
 	Target.Unknown_7A57A0(tm, sphere.Radius / (float)tan(fov * 0.5f));
 	Start = FocalPoint;
 	Ease = 0.0f;
@@ -443,7 +444,6 @@ void GalaxyMapPipClass::Unknown_5406A0(const SphereClass &sphere, float angle)
 void GalaxyMapPipClass::Unknown_24(int arg)
 {
 	GalaxyMapClientClass *map = Client->GalaxyMap;
-
 
 
 
@@ -488,10 +488,14 @@ void GalaxyMapPipClass::Unknown_24(int arg)
 **	order, each function's in reverse: the constructor's '-GALAXY_MAP_DEBUG' 0xB79248 and 'fc_radar.ini' 0xB79260,
 **	0x53F9E0's 'SectorNum' 0xB79270, 0x53FE30's 0xB7927C-0xB7930C, 0x5408B0's up to 0xB7939C. So 0x53F9E0, which
 **	has no assert of its own, lies inside the object; the functions 0x53FCA0-0x53FE10 share its members
-**	(+0x10C, +0x54, +0x58, +0x0C) and sit between it and 0x53FE30, and frameint.cpp's atexit initialiser 0x53F330
+**	(+0x10C, +0x54, +0x58, +0x0C) and sit between it and 0x53FE30, and the atexit initialiser 0x53F330
 **	ends the object before. Its .rdata: the curve 0xAEEE48, the table 0xAEEE94, the literals 9.0 0xAEEEC4 and
 **	-0.025 0xAEEEC8. The curve's last eight entries (19 floats up to the table) are zero; 0x53F9E0 reads [0]..[10].
 **
 **	The sphere 0x7A83D0 / 0x7A89A0 return: 16 bytes, 0x5406A0 reads it as a centre and a radius (radius / tan(fov / 2),
 **	Matrix3D(const Vector3 &) inlined).
+**
+**	0x5404E0's residue: the Cast. 0x53F9E0's find of the same field expands it, 0x5404E0's calls it (0x40C1C1); the rest
+**	of the function is the client's. Tried (attempts.csv): Find_Valid tail and non-tail, a NameClass local, helpers
+**	around the find with early returns (they let callers inline 0x5404E0 instead), helpers before it, dead finds.
 */

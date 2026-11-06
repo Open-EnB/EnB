@@ -59,7 +59,7 @@ public:
 	void Unknown_7A6AB0(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera);	// 0x7A6AB0  // NAME 1 [scene, camera]: what the caller passes
 	void Unknown_7A6DD0();								// 0x7A6DD0
 	void Unknown_7A7070(bool arg);						// 0x7A7070 (FAIL_IF '!GalaxyMap')  // NAME 1 [arg]: neutral
-	void Unknown_7A72C0(TPoint2D<float> arg);			// 0x7A72C0 (FAIL_IF '!Camera')  // NAME 1 [arg]: neutral
+	void Unknown_7A72C0(float x, float y);				// 0x7A72C0 (FAIL_IF '!Camera')  // NAME 1 [x, y]: neutral
 	void Unknown_7A7450();								// 0x7A7450
 	SphereClass Unknown_7A83D0(bool arg);					// 0x7A83D0  // NAME 1 [arg]: neutral
 	void Unknown_7A8770(int arg);						// 0x7A8770 (the aux data's SectorNum)  // NAME 1 [arg]: what the caller passes
@@ -83,7 +83,7 @@ public:
 
 	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot; table 0xAFA120)  // NAME 1 [x, y]: GadgetClass's
 
-	char Unknown_Pad4A[0x50 - 0x4A];
+	GalaxyMapPipClass *GalaxyMap;						// +0x4C  // NAME 3: the assert's
 };
 
 class GalaxyMapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) for app\client\galaxy_map_pip.cpp
