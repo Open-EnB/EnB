@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1308 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14546 |
+| 1 | neutral placeholder | 14550 |
 
 ## For review (score 3 and below)
 
@@ -8819,6 +8819,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5916B0` | `app/client/ui_friends.cpp:621` | untagged neutral name (D10) |
 | 1 | `Unknown_591880` | `app/client/ui_friends.cpp:629` | untagged neutral name (D10) |
 | 1 | `Unknown_591A30` | `app/client/ui_friends.cpp:645` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_friends.cpp:724` | untagged neutral name (D10) |
+| 1 | `Unknown_5658B0` | `app/client/ui_friends.cpp:727` | untagged neutral name (D10) |
+| 1 | `Unknown_744E70` | `app/client/ui_friends.cpp:728` | untagged neutral name (D10) |
+| 1 | `Unknown_541930` | `app/client/ui_friends.cpp:729` | untagged neutral name (D10) |
 | 1 | `ui_friends.h` | `app/client/ui_friends.h:4` | provisional header name for ui_friends.cpp |
 | 1 | `name, location` | `app/client/ui_friends.h:21` | the members they set |
 | 1 | `Unknown_5908B0` | `app/client/ui_friends.h:33` | untagged neutral name (D10) |

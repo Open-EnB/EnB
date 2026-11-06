@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_friends.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_friends.cpp', 0x58F090-0x5928AF by its asserts and its string order).
-// So far only 0x5908B0-0x59102F (FR1); the file's other functions, with their asserts (lines 586-722),
-// are not rebuilt yet.
+// So far 0x58F0F0, 0x58FBA0-0x591A2F but 0x590020, and 0x591EE0 (FR1); not yet: 0x58F210 / 0x58F450 / 0x58F6B0 / 0x590020 / 0x591C30.
+#define __INTRFACE_MEMBERS	// intrface.h's members (0x591EE0 calls InterfaceClass's 0x541930)
 #include <string.h>
 #include <wchar.h>
 #include <string>
@@ -654,4 +654,77 @@ void UIFriendsClass::Unknown_591A30()
 		packet.Unknown14 = std::string(name.c_str());
 		((ClientClass *)Client)->Send_Packet(&packet);
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x591EE0
+void UIFriendsClass::Unknown_591EE0()
+{
+	FAIL_IF(Selection < 0 || Selection >= (int)PlayersInfo.size()) return;
+
+	SClient *sclient = Client->As_Space_Client();
+	FAIL_IF(!sclient) return;
+
+	UIChatPanelClass *cpanel = sclient->ChatPanel.Peek();
+	FAIL_IF(!cpanel) return;
+
+
+	UIFriendsPlayerInfoClass *friend_info = PlayersInfo[Selection];
+	FAIL_IF(!friend_info) return;
+	if (strcmp(friend_info->Location.c_str(), "offline") == 0) {
+		sclient->Unknown_74D990(0x11, "Friend not online.", 0);
+		return;
+	}
+	cpanel->Unknown_5658B0(friend_info->Name.c_str());
+	sclient->Unknown_744E70(true);
+	cpanel->Unknown_541930();
 }
