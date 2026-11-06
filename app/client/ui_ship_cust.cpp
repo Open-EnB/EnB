@@ -619,31 +619,31 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 
 
 
-
-
-
-
-
+static const float Unknown_AF77B4 = 1.0f;	// NAME 1 [Unknown_AF77B4]: neutral (D10); three .rdata 1.0f 0xAF77B4 / 0xAF77B8 / 0xAF77BC read only by 0x61A4D0 (fld, fchs for the negatives): named statics, one per axis
+static const float Unknown_AF77B8 = 1.0f;	// NAME 1 [Unknown_AF77B8]: neutral (D10)
+static const float Unknown_AF77BC = 1.0f;	// NAME 1 [Unknown_AF77BC]: neutral (D10)
+static void Set_Float(float &dst, float value) { dst = value; }	// NAME 1 [Set_Float]: neutral (D10)
+static bool Is_Pressed(GadgetClass *gadget) { return Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget; }	// NAME 1 [Is_Pressed]: neutral (D10)
 // NOT EXACT: functional (D64)
 // @0x61A4D0
 void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 {
 	GadgetClass *gadget;
 	gadget = Gadgets[0x0E].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown2E0->Unknown0B8 = 1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown2E0->Unknown0B8, Unknown_AF77B4);
 	} else {
 		gadget = Gadgets[0x0D].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown2E0->Unknown0B8 = -1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown2E0->Unknown0B8, -Unknown_AF77B4);
 		} else {
 			gadget = Gadgets[0x0B].Gadget;
-			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-				Unknown2E0->Unknown0BC = 1.0f;
+			if (Is_Pressed(gadget)) {
+				Set_Float(Unknown2E0->Unknown0BC, Unknown_AF77B4);
 			} else {
 				gadget = Gadgets[0x0C].Gadget;
-				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-					Unknown2E0->Unknown0BC = -1.0f;
+				if (Is_Pressed(gadget)) {
+					Set_Float(Unknown2E0->Unknown0BC, -Unknown_AF77B4);
 				} else {
 					Unknown2E0->Unknown0B8 = 0.0f;
 					Unknown2E0->Unknown0BC = 0.0f;
@@ -652,20 +652,20 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 		}
 	}
 	gadget = Gadgets[0x2B].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown2E0->Unknown0C0 = -1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown2E0->Unknown0C0, -Unknown_AF77B8);
 	} else {
 		gadget = Gadgets[0x2A].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown2E0->Unknown0C0 = 1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown2E0->Unknown0C0, Unknown_AF77B8);
 		} else {
 			gadget = Gadgets[0x2C].Gadget;
-			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-				Unknown2E0->Unknown0C4 = -1.0f;
+			if (Is_Pressed(gadget)) {
+				Set_Float(Unknown2E0->Unknown0C4, -Unknown_AF77B8);
 			} else {
 				gadget = Gadgets[0x2D].Gadget;
-				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-					Unknown2E0->Unknown0C4 = 1.0f;
+				if (Is_Pressed(gadget)) {
+					Set_Float(Unknown2E0->Unknown0C4, Unknown_AF77B8);
 				} else {
 					Unknown2E0->Unknown0C0 = 0.0f;
 					Unknown2E0->Unknown0C4 = 0.0f;
@@ -674,12 +674,12 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 		}
 	}
 	gadget = Gadgets[0x2E].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown2E0->Unknown0C8 = -1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown2E0->Unknown0C8, -Unknown_AF77BC);
 	} else {
 		gadget = Gadgets[0x2F].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown2E0->Unknown0C8 = 1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown2E0->Unknown0C8, Unknown_AF77BC);
 		} else {
 			Unknown2E0->Unknown0C8 = 0.0f;
 		}
@@ -715,7 +715,7 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 	}
 	if (Unknown239) {
 		if (Unknown23C == 5) {
-			if (Unknown318 >= 1) {
+			if (Unknown318 > 0) {
 				Desc.Selected_Decal = Unknown318 - 1;
 			} else if (Unknown318 < 0) {
 				Desc.Selected_Decal = Unknown318;
@@ -738,7 +738,7 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 		Unknown_61AC20(true);
 		Unknown_61D260();
 	}
-	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop they spend VC6's inline budget so the step's _Min 0x6209D0 is called out of line, as the client's at 0x61A943 (3-5 reads; 0-2 inline it, 6+ put _Inc out of line)
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the two file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Min 0x6209D0 out of line at 0x61A943 (5-7 reads; fewer inline _Min, 8+ put _Inc out of line)
 
 // @0x61AC20
 void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
