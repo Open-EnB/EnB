@@ -25102,6 +25102,44 @@
      "0x58EB40"
     ]
    },
+   "ui_friends": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x436420",
+     "0x4A0B20"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x42F250",
+     "0x590C70"
+    ],
+    "merged": [],
+    "name": "client/ui_friends.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x42F250"
+    ],
+    "short_known": [
+     "0x42D120"
+    ]
+   },
    "ui_group": {
     "ambiguous": [
      "0x42A6C0",
@@ -29129,6 +29167,7 @@
    "client/ui_cpit.h": "reconstructed",
    "client/ui_dynamicwindow.h": "reconstructed",
    "client/ui_faction.h": "reconstructed",
+   "client/ui_friends.h": "reconstructed",
    "client/ui_group.h": "reconstructed",
    "client/ui_item_examination.h": "reconstructed",
    "client/ui_item_examination_attributes.h": "reconstructed",
